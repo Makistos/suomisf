@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ book.title }}</h1>
+Kirjoittaja(t): 
+<ul>
+{% for author in authors %}
+<li>{{ author.name }}</li>
+{% endfor %}
+</ul>
+{% if translators|length %}
+	Kääntäjä(t):
+	<ul>
+	{% for translator in translators %}
+	<li>{{ translator.name }} </li>
+	{%endfor %}
+	</ul>
+{% endif %}
+{% if editors|length %}
+	Toimittaja(t):
+	<ul>
+	{% for editor in editors %}
+	<li>{{ editor.name }} </li>
+	{%endfor %}
+	</ul>
+{% endif %}
+<p>Julkaisuvuosi: {{ book.pubyear }}</p>
+<p>Alkuperäinen nimi: {{ book.originalname }}</p>
+<p>Alkuperäinen julkaisuvuosi: {{ book.origpubyear }}</p>
+<p>Painos: {{ book.edition }}</p>
+<p>Julkaisija: {{ book.publisher.name }}</p>
+{% if book.pubseries.name|length %}
+	<p>Julkaisijan sarja: {{ book.pubseries.name }}
+	{% if book.pubseries.pubseriesnum|length %}
+		, numero {{ book.pubseriesnum }}</p>
+	{% endif %}
+{% endif %}
+{% if book.bookseries.name|length %}
+	<p>Kirjasarja: {{ book.bookseries.name }}
+	{% if book.bookseries.pubseriesnum|length %}
+	, numero {{ book.bookseriesnum }}</p>
+	{% endif %}
+{% endif %}
+<p>Genre: {{ book.genre }}</p>
+<p>Muuta: {{ book.misc }}</p>
+<p>Aineiston lähde: {{ book.fullstring }}</p>
+{% endblock %}

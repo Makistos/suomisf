@@ -1,0 +1,20 @@
+<html>
+	<head>
+		{% if title %}
+		<title> {{ title }} </title>
+		{% else %}
+		<title>Suomenkielinen science fiction, fantasia ja kauhu</title>
+		{% endif %}
+	</head>
+	<body>
+		<div><center>
+			<a href="/index">Etusivu</a>
+			<a href="/books">Kirjat</a>
+			<a href="/publishers">Julkaisijat</a>
+			<a href="/people">Ihmiset</a>
+			</center>
+		</div>
+		<hr>
+		{% block content %}{% endblock %}
+	</body>
+</html>

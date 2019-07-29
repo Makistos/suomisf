@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>{{ title }}</title>
+    </head>
+    <body>
+        {% for author, books in data.items() %}
+        <h3>{{author}}</h3>
+            <table width=80%>
+            {% for book in books %}
+            <tr>
+                <th align=left><b>{{book['title']}}</b></th>
+                <td>{{book['pubyear']}}</td>
+                {% if book['origname'] %}
+                <td>{{book['origname']}}, {{book['origyear']}}</td>
+                {% endif %}
+                <td>{{book['publisher']}}</td>
+                <td>{{book['type']}}</td>
+            </tr>
+            {% endfor %}
+            </table>
+        {% endfor %}
+    </body>
+</html>

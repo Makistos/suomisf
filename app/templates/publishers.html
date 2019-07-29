@@ -1,0 +1,6 @@
+<h1>Kustantajat</h1>
+{% block content %}
+	{% for publisher in publishers %}
+	<p><a href=" {{ url_for("publisher", pubid=publisher.id) }}">{{ publisher.name }}</a></p>
+	{% endfor %}
+{% endblock %}

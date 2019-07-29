@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Kirjat</h1>
+{% for person in authors %}
+<h3><a href="{{ url_for("person", personid = person.id) }}">{{person.name}}</a></h3>
+{% for book in person.books %}
+{% include "_book.html" %}
+{% endfor %}
+{% endfor %}
+
+{% endblock %}
