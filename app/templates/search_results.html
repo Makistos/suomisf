@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Hakutulokset</h1>
+
+<h2>Kirjat</h2>
+{% for book in books %}
+{% include "_book.html" %}
+{% endfor %}
+
+{% endblock %}

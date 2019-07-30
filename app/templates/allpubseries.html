@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Julkaisijoiden sarjat</h1>
+	{% for s in series %}
+		<p><a href=" {{ url_for("pubseries", seriesid=s.id)
+			    }}">{{series.name}}</a></p>
+	{% endfor %}
+{% endblock %}
+

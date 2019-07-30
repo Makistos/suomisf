@@ -14,7 +14,7 @@ for pub in publishers:
 for series in pubseries:
     pubseries_re[series[0]] = re.compile('(?P<name>' + series[0] + ')\s?(?P<num>[\#IVX\d]+)?')
 for series in bookseries:
-    bookseries_re[series[0]] = re.compile('(P<name>' + series[0] + ')\s?(?P<num>[\#IVX\d]+)?')
+    bookseries_re[series[0]] = re.compile('(?P<name>' + series[0] + ')\s?(?P<num>[\#IVX\d]+)?')
 translator_re = re.compile("([a-zA-ZåäöÅÄÖ]+\s)*([Ss]uom\.?\s)([A-ZÄÅÖ]+[\.\s]?[a-zA-ZäöåÅÄÖéü&\-]*[\.\s]?[a-zA-ZåäöÅÄÖéü&\-\s,]*)(\.)")
 translator_re2 = re.compile("([Ss]uom\.?\s)?([A-ZÄÅÖ](\.\s?[A-ZÅÄÖ][a-zåäö]*|[a-zåäöü\-]+)\s?([A-ZÄÅÖ](\.\s?[A-ZÅÄÖ][a-zåäö]*|[a-zåäöü]+))*\s*([A-ZÅÄÖ](\.\s?[A-ZÄÅÖ][a-zåäö]*|[a-zäöåü]+)*)*\s?([A-ZÅÄÖa-zåäöü]+)*(\.)*)")
 translator_re3 = re.compile("([A-ZÄÅÖ]+[\.\s]?[a-zA-ZäöåÅÄÖéü&\-]*[\.\s]?[a-zA-ZåäöÅÄÖéü&\-\s]*)")
@@ -96,10 +96,6 @@ def single_name(s, pat, part_of_multi):
             name = found
             to_remove = m.group(0)
 
-    #m = re.search(pat, s, re.X)
-
-    #print("single: {} / {}".format(to_remove, name))
-    #print("Name: {}".format(name))
     return (to_remove, name)
 
 
@@ -107,10 +103,7 @@ def multiple_persons(s, pat):
     handled_list = []
     retval = []
     to_remove = ''
-    #m = pat.search(s, re.X)
-    #if m:
     names = re.split('&', s)
-    #print("names: {}".format(names))
     if ' ja ' in names[-1]:
        last_pair = names[-1]
        del names[-1]
@@ -126,7 +119,6 @@ def multiple_persons(s, pat):
         m = re.search(str(name) + '(.+)' + str(retval[idx+1]), s)
         to_remove += str(name) + m.group(1)
     to_remove += str(retval[-1])
-    #print("multiple: {} / {}".format(to_remove, retval))
     return (to_remove, retval)
 
 def find_persons(s, type):
@@ -141,15 +133,6 @@ def find_persons(s, type):
     else:
         (to_remove, n) = single_name(s, pat, False)
         names.append(n)
-    #if m:
-
-    #    else:
-    #        if ',' in found or '&' in found:
-                # Multiple names
-    #            names = re.split(',&', found)
-    #        else:
-    #            names.append(m.group(3))
-    #        to_remove = m.group(0)
 
     return (to_remove, names)
 
@@ -158,7 +141,6 @@ def get_books(books):
     retval = []
     curr_book = {}
     misc_str = ''
-    #print(books)
     for b in books:
         full_string = b
         tmp = b.replace('\n', '')
@@ -228,13 +210,6 @@ def get_books(books):
                 else:
                     book['pubyear'] = '0'
                 # Find translator
-                #m2 = translator_re.search(tmp)
-
-                #if m2:
-                #    book['translator'] = m2.group(3)
-                #    tmp = tmp.replace(m2.group(0), '')
-                #else:
-                #    book['translator'] = ''
                 (to_remove, names) = find_persons(tmp, 'translator')
                 if len(names) > 0:
                     book['translator'] = ','.join(names)
@@ -282,13 +257,7 @@ def get_books(books):
             else:
                 book['origname'] = ''
                 book['origyear'] = ''
-            # Find translator
-            #m = translator_re.search(tmp)
-            #if m:
-            #    book['translator'] = m.group(3)
-            #    tmp = tmp.replace(m.group(0), '')
-            #else:
-            #    book['translator'] = ''
+            # Find editor
             m = re.search('[Tt]oim\.? ([A-Za-zÅÄÖåäö\-\&\s]+)\.', tmp)
             if m:
                 book['editor'] = m.group(1)
@@ -347,7 +316,6 @@ def get_books(books):
             book['fullstring'] = full_string
             curr_book = dict(book)
             retval.append(book)
-    #print(retval)
     return retval
 
 
@@ -461,7 +429,6 @@ def import_books(session, authors):
             authoritem = Person(name=author)
             s.add(authoritem)
             s.commit()
-        print("ID: {}".format(authoritem.id))
         for book in books:
             bookitem = s.query(Book).filter(Book.title == book['title']).first()
             if not bookitem:
@@ -548,7 +515,7 @@ def import_all(dirname):
 
     data = read_bibs(glob.glob(dirname + '/*.html'))
 
-    pprint.pprint(data)
+    #pprint.pprint(data)
     #pprint.pprint(pubseries_publisher)
 
     engine = create_engine('sqlite:///suomisf.db')
@@ -560,7 +527,6 @@ def import_all(dirname):
     import_books(session, data)
 
     #pprint.pprint(pubseries)
-    #pprint.pprint(data)
 
 if __name__ == '__main__':
     dirname = 'bibfiles'

@@ -1,5 +1,5 @@
 
-from flask import render_template
+from flask import render_template, request
 from app import app
 from app.orm_decl import Person, BookPerson, Publisher, Book, Pubseries, Bookseries
 from sqlalchemy import create_engine
@@ -41,6 +41,7 @@ def person(personid):
     edited = books_for_person(session, personid, 'E')
     return render_template('person.html', person=person, authored=authored,
             translated=translated, edited=edited)
+
 @app.route('/books')
 def books():
     engine = create_engine('sqlite:///suomisf.db')
@@ -51,6 +52,20 @@ def books():
                     'A').join(Book).order_by(Person.name).all()
     return render_template('books.html', authors=authors)
 
+@app.route('/booksX/<letter>')
+def booksX(letter):
+    engine = create_engine('sqlite:///suomisf.db')
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    app.logger.debug(session.query(Person).join(BookPerson).filter(Person.id ==
+                    BookPerson.person_id).filter(BookPerson.type ==
+                    'A').filter(Person.name.ilike('A%')).order_by(Person.name))
+    authors = \
+            session.query(Person).join(BookPerson).filter(Person.id ==
+                    BookPerson.person_id).filter(BookPerson.type ==
+                    'A').filter(Person.name.ilike(letter + '%')).order_by(Person.name).all()
+    return render_template('books.html', authors=authors, letter=letter)
+
 @app.route('/book/<bookid>')
 def book(bookid):
     engine = create_engine('sqlite:///suomisf.db')
@@ -60,9 +75,9 @@ def book(bookid):
     authors = people_for_book(session, bookid, 'A')
     translators = people_for_book(session, bookid, 'T')
     s = ''
-    for author in translators:
-        s += author.name + ', '
-    app.logger.debug("Authors: " + s)
+    #for author in translators:
+    #    s += author.name + ', '
+    #app.logger.debug("Authors: " + s)
     editors = people_for_book(session, bookid, 'E')
     return render_template('book.html', book=book, authors=authors,
             translators=translators, editors=editors)
@@ -86,6 +101,14 @@ def publisher(pubid):
     return render_template('publisher.html', publisher=publisher,
             series=series)
 
+@app.route('/allbookseries')
+def allbookseries():
+    engine = create_engine('sqlite:///suomisf.db')
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    series = session.query(Bookseries).order_by(Bookseries.name).all()
+    return render_template('allbookseries.html', series=series)
+
 @app.route('/bookseries/<seriesid>')
 def bookseries(seriesid):
     engine = create_engine('sqlite:///suomisf.db')
@@ -95,6 +118,15 @@ def bookseries(seriesid):
             seriesid).first()
     authors = session.query(Person).filter(Book.bookseries_id == seriesid).all()
     return render_template('bookseries.html', series=series, authors=authors)
+
+@app.route('/allpubseries')
+def allpubseries():
+    engine = create_engine('sqlite:///suomisf.db')
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    series = session.query(Pubseries).order_by(Pubseries.name).all()
+    app.logger.debug(session.query(Pubseries).order_by(Pubseries.name))
+    return render_template('allpubseries.html', series=series)
 
 @app.route('/pubseries/<seriesid>')
 def pubseries(seriesid):
@@ -111,3 +143,20 @@ def pubseries(seriesid):
         #session.query(Person, BookPerson, Book).filter(Person.id == BookPerson.person_id).filter(BookPerson.book_id == Book.id).filter(Book.pubseries_id == seriesid).all()
     app.logger.debug(session.query(Person, BookPerson, Book).filter(Person.id == BookPerson.person_id).filter(BookPerson.book_id == Book.id).filter(Book.pubseries_id == seriesid))
     return render_template('pubseries.html', series=series, authors=authors)
+
+@app.route('/search', methods = ['POST', 'GET'])
+def search():
+    engine = create_engine('sqlite:///suomisf.db')
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    q= ''
+    #for key,val in request.form.items():
+    #    app.logger.debug("key = " + key + " val = " + val)
+    #q = PostForm().post.data
+    app.logger.debug("q = " + q)
+    books = \
+        session.query(Book).filter(Book.title.ilike('%' + q + '%')).all()
+    people = \
+            session.query(Person).filter(Person.name.ilike('%' + q +
+                '%')).all()
+    return render_template('search_results.html', books=books, people=people)

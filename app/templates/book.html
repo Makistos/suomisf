@@ -28,18 +28,18 @@ Kirjoittaja(t):
 <p>Alkuperäinen julkaisuvuosi: {{ book.origpubyear }}</p>
 <p>Painos: {{ book.edition }}</p>
 <p>Julkaisija: {{ book.publisher.name }}</p>
-{% if book.pubseries.name|length %}
-	<p>Julkaisijan sarja: {{ book.pubseries.name }}
-	{% if book.pubseries.pubseriesnum|length %}
+{%- if book.pubseries.name|length -%}
+	<p>Julkaisijan sarja: {{ book.pubseries.name -}}
+	{%- if book.pubseriesnum -%}
 		, numero {{ book.pubseriesnum }}</p>
 	{% endif %}
-{% endif %}
+{%- endif %}
 {% if book.bookseries.name|length %}
 	<p>Kirjasarja: {{ book.bookseries.name }}
-	{% if book.bookseries.pubseriesnum|length %}
+	{% if book.bookseriesnum|length %}
 	, numero {{ book.bookseriesnum }}</p>
 	{% endif %}
-{% endif %}
+{%- endif %}
 <p>Genre: {{ book.genre }}</p>
 <p>Muuta: {{ book.misc }}</p>
 <p>Aineiston lähde: {{ book.fullstring }}</p>

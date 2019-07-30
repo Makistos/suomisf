@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+{% if letter %}
+<h1>{{ letter }}</h1>
+{% else %}
 <h1>Kirjat</h1>
+{% endif %}
 {% for person in authors %}
 <h3><a href="{{ url_for("person", personid = person.id) }}">{{person.name}}</a></h3>
 {% for book in person.books %}
