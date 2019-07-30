@@ -1,10 +1,41 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Hakutulokset</h1>
+{% if people %}
+<h2>Henkilöt</h2>
+{% for person in people %}
+<p><a href=" {{ url_for("person", personid=person.id)
+	    }}">{{person.name}}</a></p>
+{% endfor %}
+{% endif %}
 
+{% if books %}
 <h2>Kirjat</h2>
 {% for book in books %}
 {% include "_book.html" %}
 {% endfor %}
+{% endif %}
+
+{% if publishers %}
+<h2>Julkaisijat</h2>
+{% for pub in publishers %}
+<p><a href=" {{ url_for("publisher", pubid = pub.id) }}">{{pub.name}}</a></p>
+{% endfor %}
+{% endif %}
+
+{% if bookseries %}
+<h2>Kirjasarjat</h2>
+{% for series in bookseries %}
+<p><a href=" {{ url_for("bookseries", seriesid = series.id) }}">{{series.name}}</a></p>
+{% endfor %}
+{% endif %}
+
+{% if pubseries %}
+<h2>Julkaisijan sarjat</h2>
+{% for series in pubseries %}
+<p><a href=" {{ url_for("pubseries", seriesid = series.id)
+	    }}">{{series.name}}</a></p>
+{% endfor %}
+{% endif %}
 
 {% endblock %}

@@ -143,7 +143,6 @@ def pubseries(seriesid):
             session.query(Person).join(BookPerson).filter(BookPerson.type ==
                     'A').join(Book).filter(Book.pubseries_id ==
                             seriesid).order_by(Person.name).all()
-        #session.query(Person, BookPerson, Book).filter(Person.id == BookPerson.person_id).filter(BookPerson.book_id == Book.id).filter(Book.pubseries_id == seriesid).all()
     app.logger.debug(session.query(Person, BookPerson, Book).filter(Person.id == BookPerson.person_id).filter(BookPerson.book_id == Book.id).filter(Book.pubseries_id == seriesid))
     return render_template('pubseries.html', series=series, authors=authors)
 
@@ -153,13 +152,29 @@ def search():
     Session = sessionmaker(bind=engine)
     session = Session()
     q= ''
+    searchword = request.args.get('search', '')
+    for k, v in request.args.items():
+        app.logger.debug(k + " : " + v)
+    app.logger.debug("searchword: " + searchword)
+    if request.method == 'POST':
+        q = request.form
     #for key,val in request.form.items():
     #    app.logger.debug("key = " + key + " val = " + val)
     #q = PostForm().post.data
     app.logger.debug("q = " + q)
     books = \
-        session.query(Book).filter(Book.title.ilike('%' + q + '%')).all()
+        session.query(Book).filter(Book.title.ilike('%' + searchword + '%')).all()
     people = \
-            session.query(Person).filter(Person.name.ilike('%' + q +
+            session.query(Person).filter(Person.name.ilike('%' + searchword +
                 '%')).all()
-    return render_template('search_results.html', books=books, people=people)
+    publishers = \
+            session.query(Publisher).filter(Publisher.name.ilike('%' +
+                searchword + '%')).all()
+    bookseries = \
+            session.query(Bookseries).filter(Bookseries.name.ilike('%' +
+                searchword + '%')).all()
+    pubseries = \
+            session.query(Pubseries).filter(Pubseries.name.ilike('%' +
+                searchword + '%')).all()
+    return render_template('search_results.html', books=books, people=people,
+            publishers=publishers, bookseries=bookseries, pubseries=pubseries)
