@@ -116,7 +116,10 @@ def bookseries(seriesid):
     session = Session()
     series = session.query(Bookseries).filter(Bookseries.id ==
             seriesid).first()
-    authors = session.query(Person).filter(Book.bookseries_id == seriesid).all()
+    authors = \
+            session.query(Person).join(BookPerson).filter(BookPerson.type ==
+                    'A').join(Book).filter(Book.bookseries_id ==
+                            seriesid).order_by(Person.name).all()
     return render_template('bookseries.html', series=series, authors=authors)
 
 @app.route('/allpubseries')
