@@ -4,7 +4,11 @@ from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy import create_engine
-from app import db
+from app import db, login
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 
@@ -74,6 +78,28 @@ class Book(Base):
     def __repr__(self):
         pass
         #return('<b>{}</b>. {}. ({}, {}). {}. {} {}. {}.'.format(
+
+class User(UserMixin, Base):
+    __tablename__ = 'user'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(64), index=True, unique=True)
+    password_hash = Column(String(128))
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    def __repr__(self):
+        return '<User {}'.format(self.username)
+
+@login.user_loader
+def load_user(id):
+    engine = create_engine('sqlite:///suomisf.db')
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    return session.query(User).get(int(id))
 
 engine = create_engine('sqlite:///suomisf.db')
 

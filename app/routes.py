@@ -1,9 +1,11 @@
 
-from flask import render_template, request
+from flask import render_template, request, flash, redirect, url_for
+from flask_login import current_user, login_user, logout_user
 from app import app
-from app.orm_decl import Person, BookPerson, Publisher, Book, Pubseries, Bookseries
+from app.orm_decl import Person, BookPerson, Publisher, Book, Pubseries, Bookseries, User
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from app.forms import LoginForm, RegistrationForm
 import logging
 import pprint
 
@@ -11,6 +13,47 @@ import pprint
 @app.route('/index')
 def index():
     return render_template('index.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        engine = create_engine('sqlite:///suomisf.db')
+        Session = sessionmaker(bind=engine)
+        session = Session()
+        user = session.query(User).filter_by(name=form.username.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Väärä käyttäjätunnus tai salasana')
+            return redirect(url_for('login'))
+        login_user(user, remember=form.remember_me.data)
+        return redirect('/index')
+    return render_template('login.html', title='Kirjaudu', form=form)
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        engine = create_engine('sqlite:///suomisf.db')
+        Session = sessionmaker(bind=engine)
+        session = Session()
+        user = User(name=form.username.data)
+        user.set_password(form.password.data)
+        session.add(user)
+        session.commit()
+        flash('Rekisteröinti onnistui!')
+        return redirect(url_for('login'))
+    return render_template('register.html', title='Tunnuksen luonti',
+            form=form)
 
 @app.route('/people')
 def people():
