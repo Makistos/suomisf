@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+{% if searchword %}
+<h1>Hakutulokset termille '{{ searchword }}'</h1>
+{% else %}
 <h1>Hakutulokset</h1>
+{% endif %}
 {% if people %}
 <h2>Henkilöt</h2>
 {% for person in people %}

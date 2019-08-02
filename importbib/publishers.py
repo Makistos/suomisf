@@ -115,7 +115,7 @@ publishers = [
     ('Kuoriaiskirjat', 'Kuoriaiskirjat', 'Kuoriaiskirjat'),
     ('Kustannus Aarni', 'Kustannus Aarni', 'Kustannus Aarni'),
     ('Kustannus Hauenleuka', 'Kustannus Hauenleuka', 'Kustannus Hauenleuka'),
-    ('Kustannus Mäkelä Oy', 'Kustannus Mäkelä', 'Kustannus Mäkelä Oy'),
+    ('Kustannus[\s\-]Mäkelä Oy', 'Kustannus Mäkelä', 'Kustannus Mäkelä Oy'),
     ('Kustannuskiila Oy', 'Kustannuskiila', 'Kustannuskiila Oy'),
     ('Kustannustalo', 'Kustannustalo', 'Kustannustalo'),
     ('Kustantamo Maatar', 'Kustantamo Maatar', 'Kustantamo Maatar'),

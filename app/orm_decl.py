@@ -1,6 +1,6 @@
 import os
 import sys
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy import create_engine
@@ -34,18 +34,23 @@ class Pubseries(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
     publisher_id = Column(Integer, ForeignKey('publisher.id'), nullable=False)
+    important = Column(Boolean, default=False)
     publisher = relationship("Publisher", backref=backref('publisher',
         uselist=False))
+    books = relationship("Book", backref=backref('book'), uselist=True)
 
 class Bookseries(Base):
     __tablename__ = 'bookseries'
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
+    important = Column(Boolean, default=False)
 
 class Person(Base):
     __tablename__ = 'person'
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False, index=True)
+    first_name = Column(String(100))
+    last_name = Column(String(150))
     dob = Column(Integer)
     dod = Column(Integer)
     birthplace = Column(String(250))
@@ -74,6 +79,7 @@ class Book(Base):
         uselist=False))
     bookseries = relationship("Bookseries", backref=backref('bookseries',
         uselist=False))
+    owners = relationship("User", secondary='userbook')
 
     def __repr__(self):
         pass
@@ -84,6 +90,7 @@ class User(UserMixin, Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(64), index=True, unique=True)
     password_hash = Column(String(128))
+    books = relationship("Book", secondary="userbook")
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -92,7 +99,17 @@ class User(UserMixin, Base):
         return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
-        return '<User {}'.format(self.username)
+        return '<User {}'.format(self.name)
+
+class UserBook(Base):
+    __tablename__ = 'userbook'
+    book_id = Column(Integer, ForeignKey('book.id'), nullable=False,
+            primary_key=True)
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=False,
+            primary_key=True)
+    book = relationship("Book", backref=backref("book2_assoc"))
+    user = relationship("User", backref=backref("user2_assoc"))
+
 
 @login.user_loader
 def load_user(id):

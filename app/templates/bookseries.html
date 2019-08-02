@@ -1,6 +1,8 @@
 
 {% extends "base.html" %}
 {% block content %}
+<center><a href=" {{ url_for('print_books', type='bookseries', id=series.id) }}
+                    ">Tulosta</a></center>
 <h1>{{series.name}}</h1>
 {% for person in authors %}
 <h3><a href="{{ url_for("person", personid = person.id) }}">{{person.name}}</a></h3>

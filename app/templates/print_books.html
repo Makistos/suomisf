@@ -1,0 +1,11 @@
+<h1>{{ title }}</h1>
+{% for author in authors %}
+<h2>{{ author.name }}</h2>
+{% for book in author.books %}
+{% if (type == 'pubseries' and book.pubseries_id|string() ==
+series.id|string()) or (type == 'bookseries' and book.bookseries_id|string()
+== series.id|string()) %}
+{% include "_book.html" %}</p>
+{% endif %}
+{% endfor %}
+{% endfor %}

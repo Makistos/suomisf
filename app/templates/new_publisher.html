@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Uusi kustantaja</h1>
+<form action="" method=post>
+        {{ form.hidden_tag() }}
+        <p>
+        {{ form.name.label }}<br>
+        {{ form.name(size=50) }}<br>
+        </p>
+        <p>
+        {{ form.fullname.label }}<br>
+        {{ form.fullname(size=50) }}
+        </p>
+        <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}

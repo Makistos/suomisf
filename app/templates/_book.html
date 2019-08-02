@@ -1,14 +1,11 @@
+{% if print == 1 %}
+{% if owned %}X{% endif %}
+<b>{{ book.title }}</b>.
+{% else %}
 <p><a href="{{ url_for("book", bookid=book.id) }}">{{ book.title }}</a>. 
+{% endif %}
 {% if book.bookseries %}
 {{ book.bookseries.name}} {{book.bookseriesnum}}.
 {% endif %}
-{% if book.originalname|length > 0 %}
-({{ book.originalname }}
-{% endif %}
-{% if book.origpubyear|int > 0 %}
-, {{ book.origpubyear }}
-{% endif %}
-{% if book.originalname|length > 0 %}
-).
-{% endif %}
+{%- if book.originalname|length -%}({{ book.originalname }}{% endif %}{%- if book.origpubyear|int -%}, {{ book.origpubyear }}{% endif %}{% if book.originalname|length %}).{% endif %}
 {{book.publisher.name}} {{ book.pubyear }}. [{{ book.genre }}].

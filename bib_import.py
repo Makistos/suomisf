@@ -3,7 +3,7 @@ from app.orm_decl import Book, Person, BookPerson, Publisher, Pubseries, Bookser
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from importbib import publishers
-from importbib import bookseries, pubseries, misc_strings
+from importbib import bookseries, pubseries, important_pubseries, misc_strings
 import re
 
 publishers_re = {}
@@ -404,8 +404,12 @@ def import_pubseries(session, serieslist):
                 publisher = s.query(Publisher).filter(Publisher.name ==
                         pubseries_publisher[series[1]]).first()
                 if publisher:
+                    if series[1] in important_pubseries:
+                        important = True
+                    else:
+                        important = False
                     new_series = Pubseries(name=series[1], publisher_id =
-                            publisher.id)
+                            publisher.id, important=important)
                     s.add(new_series)
     s.commit()
 

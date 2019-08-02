@@ -1,4 +1,9 @@
 {% extends 'bootstrap/base.html' %}
+{% block head %}
+{{super()}}
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
+{% endblock %}
 {% block title %}
 {% if title %}{{title}}{% else %}Suomenkieliset SF-, Fantasia- ja
 Kauhukirjat{% endif %}
@@ -47,6 +52,9 @@ Kauhukirjat{% endif %}
 				     }}">Julkaisijoiden sarjat</a></li>
 		</ul>
         <li><a href="/people">Henkilöhakemisto</a></li>
+        {% if not current_user.is_anonymous %}
+            <li><a href="{{ url_for("collection") }}">Oma kokoelma</a>
+        {% endif %}
       </ul>
       <form class="navbar-form navbar-right" role="search" 
 					     method="get"

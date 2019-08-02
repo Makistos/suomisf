@@ -29,4 +29,12 @@ misc_strings = [r'''Kreivi Cagliostron muistelmat sekä hänen muistiinpanonsa \
                     Talvisia tarinoita.''',
                     '''(Tage ja Kathrine Aurellin lyhentämä laitos vuodelta
                     1962, uudelleen toimittanut Rebecca Alsberg 1989).''',
-                    '''De lycksaliges ö''']
+                    '''De lycksaliges ö''',
+                    '''Sisältää teokset: Roverandom; Maamies ja lohikäärme;
+                    Seppä ja ; Niukun lehti; Saduista.''',
+                    '''Perustuu Jeffrey Abramsin elokuvakäsikirjoitukseen.''',
+                    '''Kolminäytöksinen näytelmä.''',
+                    '''Lyhennetty suomennos.''',
+                    '''Näytelmä.''',
+                    '''Okkulttisia etsivätarinoita.''',
+                    '''Alkuteos julkaistiin salanimellä A. N. Roquelaure.''']
