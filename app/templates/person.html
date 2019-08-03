@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>{{ person.name }}</h1>	
+<h1>{{ person.name }} ({{person.id}})</h1>	
 	{% if authored|length %}
 		<h2>Kirjoittanut</h2>
 		{% for book in authored %}

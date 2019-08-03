@@ -3,6 +3,8 @@
 {{super()}}
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',
+	     filename='suomisf.css') }}">
 {% endblock %}
 {% block title %}
 {% if title %}{{title}}{% else %}Suomenkieliset SF-, Fantasia- ja

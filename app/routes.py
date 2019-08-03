@@ -2,10 +2,11 @@
 from flask import render_template, request, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user
 from app import app
-from app.orm_decl import Person, BookPerson, Publisher, Book, Pubseries, Bookseries, User
-from sqlalchemy import create_engine
+from app.orm_decl import Person, BookPerson, Publisher, Book, Pubseries, Bookseries, User, UserBook
+from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
 from app.forms import LoginForm, RegistrationForm, PublisherForm, PubseriesForm
+from app.forms import BookForm
 import logging
 import pprint
 
@@ -15,6 +16,13 @@ def new_session():
     session = Session()
     return session
 
+def publisher_list(session):
+    return {'publisher' : [str(x.name) for x in
+            session.query(Publisher).order_by(Publisher.name).all()]}
+
+def author_list(session):
+    return {'author' : [str(x.name) for x in
+            session.query(Person).order_by(Person.name).all()]}
 
 @app.route('/')
 @app.route('/index')
@@ -129,6 +137,83 @@ def book(bookid):
     return render_template('book.html', book=book, authors=authors,
             translators=translators, editors=editors)
 
+@app.route('/edit_book/<bookid>')
+def edit_book(bookid):
+    session = new_session()
+    book = session.query(Book).filter(Book.id == bookid).first()
+    publisher = session.query(Publisher).filter(Publisher.id ==
+            book.publisher_id).first()
+    authors = \
+        session.query(Person).join(BookPerson).filter(BookPerson.person_id ==
+                Person.id, BookPerson.book_id == book.id, BookPerson.type == 'A').all()
+    translators = \
+        session.query(Person).join(BookPerson).filter(BookPerson.person_id ==
+                Person.id, BookPerson.book_id == book.id, BookPerson.type == 'T').all()
+    editors = \
+        session.query(Person).join(BookPerson).filter(BookPerson.person_id ==
+                Person.id, BookPerson.book_id == book.id, BookPerson.type == 'E').all()
+    pubseries = \
+            session.query(Pubseries).filter(Pubseries.id == book.pubseries_id).first()
+    bookseries = \
+            session.query(Bookseries).filter(Bookseries.id ==
+                    book.bookseries_id).first()
+    search_list = publisher_list(session)
+    search_list = {**search_list, **author_list(session)}
+    form = BookForm()
+    form.title.data = book.title
+    form.authors.data = ', '.join([a.name for a in authors])
+    form.translators.data = ', '.join([t.name for t in translators])
+    form.editors.data = ', '.join([e.name for e in editors])
+    form.pubyear.data = book.pubyear
+    form.originalname.data = book.originalname
+    form.origpubyear.data = book.origpubyear
+    form.edition.data = book.edition
+    form.publisher.data = publisher.name
+    if pubseries:
+        form.pubseries.data = pubseries.name
+    if bookseries:
+        form.bookseries.data = bookseries.name
+    form.genre.data = book.genre
+    form.misc.data = book.misc
+    form.source.data = book.fullstring
+    if form.validate_on_submit():
+        author = session.query(Person).filter(Person.name ==
+                form.author).first()
+        publisher = session.query(Publisher).filter(Publisher.name ==
+                form.publisher).first()
+        book.title = form.title
+        book.author_id = author.id
+        book.publisher_id = publisher.id
+        session.add(book)
+        session.commit()
+        return redirect(url_for('book', bookid=book.id))
+    return render_template('edit_book.html', form=form, search_lists =
+            search_list, source = book.fullstring)
+
+def redirect_url(default='index'):
+    return request.args.get('next') or \
+           request.referrer or \
+           url_for(default)
+
+@app.route('/add_to_owned/<bookid>')
+def add_to_owned(bookid):
+    session = new_session()
+    #book = session.query(Book).filter(Book.id == bookid).first()
+    userbook = UserBook(user_id = current_user.get_id(), book_id = bookid)
+    session.add(userbook)
+    session.commit()
+    app.logger.debug(request.url)
+    return redirect(redirect_url())
+
+@app.route('/remove_from_owned/<bookid>')
+def remove_from_owned(bookid):
+    session = new_session()
+    userbook = session.query(UserBook).filter(UserBook.user_id == current_user.get_id(),
+            UserBook.book_id == bookid).first()
+    session.delete(userbook)
+    session.commit()
+    return redirect(redirect_url())
+
 @app.route('/publishers')
 def publishers():
     engine = create_engine('sqlite:///suomisf.db')
@@ -144,9 +229,14 @@ def publisher(pubid):
     session = Session()
     app.logger.debug(session.query(Publisher).filter(Publisher.id == pubid))
     publisher = session.query(Publisher).filter(Publisher.id == pubid).first()
+    book_count = session.query(Book).filter(Book.publisher_id == pubid).count()
+    oldest = session.query(Book).filter(Book.publisher_id ==
+            pubid).order_by(Book.pubyear).first()
+    newest = session.query(Book).filter(Book.publisher_id ==
+            pubid).order_by(desc(Book.pubyear)).first()
     series = session.query(Pubseries).filter(Pubseries.publisher_id == pubid).all()
     return render_template('publisher.html', publisher=publisher,
-            series=series)
+            series=series, book_count=book_count, oldest=oldest, newest=newest)
 
 @app.route('/new_publisher', methods=['GET', 'POST'])
 def new_publisher():

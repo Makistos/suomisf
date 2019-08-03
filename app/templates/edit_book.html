@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+{% if edit %}
+<h1>Muokkaa kirjaa</h1>
+{% else %}
+<h1>Uusi kirja</h1>
+{% endif %}
+<form action="" method=post>
+        {{ form.hidden_tag() }}
+        <p>
+        {{ form.title.label }}<br>
+        {{ form.title(size=50) }}<br>
+        </p>
+        <p>
+        {{ form.authors.label }}<br>
+        {{ form.authors(size=100) }}
+        </p>
+        <p>
+        {{ form.translators.label }}<br>
+        {{ form.translators(size=100) }}
+        </p>
+        <p>
+        {{ form.editors.label }}<br>
+        {{ form.editors(size=100) }}
+        </p>
+        <p>
+        {{ form.pubyear.label }}<br>
+        {{ form.pubyear(size=4) }}<br>
+        </p>
+        <p>
+        {{ form.originalname.label }}<br>
+        {{ form.originalname(size=50) }}
+        </p>
+        <p>
+        {{ form.origpubyear.label }}<br>
+        {{ form.origpubyear(size=4) }}
+        </p>
+        <p>
+        {{ form.edition.label }}<br>
+        {{ form.edition(size=2) }}
+        </p>
+        <p>
+        {{ form.publisher.label }}<br>
+        {{ form.publisher(size=50) }}
+        <p>
+        {{ form.pubseries.label }}<br>
+        {{ form.pubseries(size=50) }}
+        <p>
+        <p>
+        {{ form.bookseries.label }}<br>
+        {{ form.bookseries(size=50) }}
+        </p>
+        {{ form.genre.label }}<br>
+        {{ form.genre(size=10) }}
+        </p>
+        <p>
+        {{ form.misc.label}}<br>
+        {{ form.misc(size=100) }}
+        </p>
+        <p>{{ form.submit() }}</p>
+</form>
+<p>Aineiston lähde: {{ source }}</p>
+{% endblock %}
+
+{% block scripts %}
+{% include "_searchable_lists.html" %}
+{% endblock %}

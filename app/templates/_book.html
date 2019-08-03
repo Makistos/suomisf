@@ -1,11 +1,20 @@
-{% if print == 1 %}
-{% if owned %}X{% endif %}
-<b>{{ book.title }}</b>.
+{% if current_user.get_id()|int() in book.owners|map(attribute='id')|list() %}
+{% set owned = 1 %}
 {% else %}
-<p><a href="{{ url_for("book", bookid=book.id) }}">{{ book.title }}</a>. 
+{% set owned = 0 %}
 {% endif %}
+
+{% if owned == 1 %}
+	<span style="border-left: 6px solid grey; padding-left: 19px">
+{% else %}
+	<span style="padding: 25px">
+{% endif %}
+{% if owned == 1 %}<a href=" {{ url_for('remove_from_owned', bookid=book.id)}}"> - </a>
+{% else %}<a href=" {{ url_for('add_to_owned', bookid=book.id) }}"> + </a>{% endif %}
+{% if print == 1 %}<b>{{ book.title }}</b>.{% else %}<a href="{{ url_for("book", bookid=book.id) }}">{{ book.title }}</a>.{% endif %}
 {% if book.bookseries %}
 {{ book.bookseries.name}} {{book.bookseriesnum}}.
 {% endif %}
 {%- if book.originalname|length -%}({{ book.originalname }}{% endif %}{%- if book.origpubyear|int -%}, {{ book.origpubyear }}{% endif %}{% if book.originalname|length %}).{% endif %}
 {{book.publisher.name}} {{ book.pubyear }}. [{{ book.genre }}].
+	</span><br>

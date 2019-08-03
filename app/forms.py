@@ -29,17 +29,21 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('Valitse toinen käyttäjätunnus.')
 
 class BookForm(FlaskForm):
-    title = StringField('Nimi')
-    author = StringField('Kirjoittaja')
-    translator = StringField('Kääntäjä')
+    title = StringField('Nimeke', validators=[DataRequired()])
+    authors = StringField('Kirjoittaja(t)', validators=[DataRequired()])
+    translators = StringField('Kääntäjä(t)')
+    editors = StringField('Toimittaja(t)')
     pubyear = IntegerField('Julkaisuvuosi')
-    origname = StringField('Alkuperäinen nimi')
+    originalname = StringField('Alkuperäinen nimi')
     origpubyear = IntegerField('Alkuperäinen julkaisuvuosi')
     edition = IntegerField('Painos')
-    publisher = StringField('Kustantaja')
+    publisher = StringField('Kustantaja', validators=[DataRequired()])
+    pubseries = StringField('Kustantajan sarja')
+    bookseries = StringField('Kirjasarja')
     genre = StringField('Genre')
-    rest = StringField('Muuta')
-    submit = SubmitField('Lisää')
+    misc = StringField('Muuta')
+    source = StringField('Lähde')
+    submit = SubmitField('Tallenna')
 
 class PersonForm(FlaskForm):
     name = StringField('Koko nimi')
@@ -48,21 +52,21 @@ class PersonForm(FlaskForm):
     dob = IntegerField('Syntymävuosi')
     dod = IntegerField('Kuolinvuosi')
     birthplace = StringField('Kansallisuus')
-    submit = SubmitField('Lisää')
+    submit = SubmitField('Tallenna')
 
 class PublisherForm(FlaskForm):
     name = StringField('Nimi', validators=[DataRequired()])
     fullname = StringField('Koko nimi')
-    submit = SubmitField('Lisää')
+    submit = SubmitField('Tallenna')
 
 class PubseriesForm(FlaskForm):
     name = StringField('Nimi', validators=[DataRequired()])
     publisher = StringField('Julkaisija', validators=[DataRequired()])
     important = BooleanField('Merkittävä')
-    submit = SubmitField('Lisää')
+    submit = SubmitField('Tallenna')
 
 class BookseriesForm(FlaskForm):
     name = StringField('Nimi')
     important = BooleanField('Merkittävä')
-    submit = SubmitField('Lisää')
+    submit = SubmitField('Tallenna')
 

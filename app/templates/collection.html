@@ -5,6 +5,8 @@
         {% for book in author.books if book.pubseries_id|string() == series.id|string() %}
             {% if current_user.get_id()|int() in book.owners|map(attribute='id')|list() %}
                 {% set owned = 1 %}
+	    {% else %}
+	    	{% set owned = 0 %}
             {% endif %}
             {% include "_book.html" %}</p>
         {% endfor %}

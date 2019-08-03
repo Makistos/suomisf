@@ -54,6 +54,7 @@ class Person(Base):
     dob = Column(Integer)
     dod = Column(Integer)
     birthplace = Column(String(250))
+    source = Column(String(250))
     books = relationship("Book", secondary='bookperson')
 
 class Book(Base):
@@ -90,6 +91,7 @@ class User(UserMixin, Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(64), index=True, unique=True)
     password_hash = Column(String(128))
+    is_admin = Column(Boolean, default=False)
     books = relationship("Book", secondary="userbook")
 
     def set_password(self, password):
