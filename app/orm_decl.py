@@ -45,6 +45,7 @@ class Bookseries(Base):
     name = Column(String(250), nullable=False)
     important = Column(Boolean, default=False)
 
+
 class Person(Base):
     __tablename__ = 'person'
     id = Column(Integer, primary_key=True)

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+{% for author in authors %}
+{% set only_owned = 1 %}
+<h3>{{ author.name }}</h3>
+    {% for book in author.books %}
+        {% include "_book.html" %}</p>
+    {% endfor %}
+{% endfor %}
+{% endblock %}

@@ -24,6 +24,19 @@ def author_list(session):
     return {'author' : [str(x.name) for x in
             session.query(Person).order_by(Person.name).all()]}
 
+def pubseries_list(session, pubid):
+    if pubid != 0:
+        return {'pubseries' : [str(x.name) for x in
+                session.query(Pubseries).filter(Pubseries.publisher_id == pubid).order_by(Pubseries.name).all()]}
+    else:
+        return {'pubseries' : [str(x.name) for x in
+                session.query(Pubseries).order_by(Pubseries.name).all()]}
+
+
+def bookseries_list(session):
+    return {'bookseries' : [str(x.name) for x in
+            session.query(Bookseries).order_by(Bookseries.name).all()]}
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -137,28 +150,38 @@ def book(bookid):
     return render_template('book.html', book=book, authors=authors,
             translators=translators, editors=editors)
 
-@app.route('/edit_book/<bookid>')
+@app.route('/edit_book/<bookid>', methods=["POST", "GET"])
 def edit_book(bookid):
     session = new_session()
-    book = session.query(Book).filter(Book.id == bookid).first()
-    publisher = session.query(Publisher).filter(Publisher.id ==
-            book.publisher_id).first()
-    authors = \
-        session.query(Person).join(BookPerson).filter(BookPerson.person_id ==
-                Person.id, BookPerson.book_id == book.id, BookPerson.type == 'A').all()
-    translators = \
-        session.query(Person).join(BookPerson).filter(BookPerson.person_id ==
-                Person.id, BookPerson.book_id == book.id, BookPerson.type == 'T').all()
-    editors = \
-        session.query(Person).join(BookPerson).filter(BookPerson.person_id ==
-                Person.id, BookPerson.book_id == book.id, BookPerson.type == 'E').all()
-    pubseries = \
-            session.query(Pubseries).filter(Pubseries.id == book.pubseries_id).first()
-    bookseries = \
-            session.query(Bookseries).filter(Bookseries.id ==
-                    book.bookseries_id).first()
+    if bookid != 0:
+        book = session.query(Book).filter(Book.id == bookid).first()
+        publisher = session.query(Publisher).filter(Publisher.id ==
+                book.publisher_id).first()
+        authors = \
+            session.query(Person).join(BookPerson).filter(BookPerson.person_id ==
+                    Person.id, BookPerson.book_id == book.id, BookPerson.type == 'A').all()
+        translators = \
+            session.query(Person).join(BookPerson).filter(BookPerson.person_id ==
+                    Person.id, BookPerson.book_id == book.id, BookPerson.type == 'T').all()
+        editors = \
+            session.query(Person).join(BookPerson).filter(BookPerson.person_id ==
+                    Person.id, BookPerson.book_id == book.id, BookPerson.type == 'E').all()
+        pubseries = \
+                session.query(Pubseries).filter(Pubseries.id == book.pubseries_id).first()
+        bookseries = \
+                session.query(Bookseries).filter(Bookseries.id ==
+                        book.bookseries_id).first()
+    else:
+        book = Book()
+
     search_list = publisher_list(session)
     search_list = {**search_list, **author_list(session)}
+    if bookid != 0:
+        search_list = {**search_list, **pubseries_list(session,
+            book.publisher.id)}
+    else:
+        search_list = {**search_list, **pubseries_list(session, 0)}
+
     form = BookForm()
     form.title.data = book.title
     form.authors.data = ', '.join([a.name for a in authors])
@@ -178,16 +201,33 @@ def edit_book(bookid):
     form.source.data = book.fullstring
     if form.validate_on_submit():
         author = session.query(Person).filter(Person.name ==
-                form.author).first()
+                form.authors.data).first()
+        translator = session.query(Person).filter(Person.name ==
+                form.translators.data).first()
+        editor = session.query(Person).filter(Person.name ==
+                form.editors.data).first()
         publisher = session.query(Publisher).filter(Publisher.name ==
-                form.publisher).first()
-        book.title = form.title
-        book.author_id = author.id
+                form.publisher.data).first()
+        book.title = form.title.data
+        book.pubyear = form.pubyear.data
+        book.originalname = form.originalname.data
+        book.origpubyear = form.origpubyear.data
+        book.edition = form.edition.data
         book.publisher_id = publisher.id
+        if form.bookseries.data != '':
+            bookseries = session.query(Bookseries).filter(Bookseries.name ==
+                    form.bookseries.data).first()
+            book.bookseries_id = bookseries.id
+        if form.pubseries.data != '':
+            pubseries = session.query(Pubseries).filter(Pubseries.name ==
+                    form.pubseries.data).first()
+            book.pubseries_id = pubseries.id
+        book.genre = form.genre.data
+        book.misc = form.misc.data
         session.add(book)
         session.commit()
         return redirect(url_for('book', bookid=book.id))
-    return render_template('edit_book.html', form=form, search_lists =
+    return render_template('edit_book.html', id = book.id, form=form, search_lists =
             search_list, source = book.fullstring)
 
 def redirect_url(default='index'):
@@ -343,9 +383,20 @@ def print_books():
     return render_template('print_books.html', authors=authors, print = 1,
             title=title, series=series, type=type)
 
+@app.route('/mybooks')
+def mybooks():
+    session = new_session()
 
-@app.route('/collection')
-def collection():
+    authors = \
+            session.query(Person).join(BookPerson).filter(BookPerson.type ==
+            'A').join(Book).filter(Book.id ==
+                    BookPerson.book_id).join(UserBook).filter(UserBook.user_id
+                            == current_user.get_id()).all()
+
+    return render_template('mybooks.html', authors=authors, print=1)
+
+@app.route('/myseries')
+def myseries():
     engine = create_engine('sqlite:///suomisf.db')
     Session = sessionmaker(bind=engine)
     session = Session()
@@ -358,8 +409,8 @@ def collection():
     app.logger.debug("Count = " + str(len(authors)))
     app.logger.debug(session.query(Person).join(BookPerson).filter(BookPerson.type
         == 'A').join(Book).filter(Book.pubseries_id.in_(pubseriesids)).order_by(Person.name))
-    return render_template('collection.html', pubseries=pubseries,
-            authors=authors, print = 1)
+    return render_template('myseries.html', pubseries=pubseries,
+            authors=authors)
 
 
 @app.route('/search', methods = ['POST', 'GET'])

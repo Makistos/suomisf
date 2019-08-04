@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<ul>
+{% for series in pubseries %}
+<li><a href="#{{series.id}}">{{series.name}}</a></li>
+{% endfor %}
+</ul>
+{% for series in pubseries %}
+<h2><a name="{{series.id}}">{{ series.name }} ({{ series.publisher.name
+        }})</a></h2>
+
+    {% for author in authors %}
+        {% if author.books|map(attribute='pubseries_id')|select("equalto",
+            series.id)|list()|length %}
+            <h3><a href=" {{url_for('person', personid=author.id) }}">{{
+                    author.name }}</a></h3>
+
+            {% for book in author.books if book.pubseries_id|string() == series.id|string() %}
+                        {% include "_book.html" %}</p>
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+{% endblock %}

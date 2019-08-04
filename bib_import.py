@@ -207,7 +207,7 @@ def get_books(books):
                     book['title'] = m.group(1)
                     tmp = tmp.replace(m.group(0), '')
                 book['oldtitle'] = curr_book['title']
-                book['origyear'] = ''
+                book['origyear'] = curr_book['origyear']
                 book['pubseries'] = ''
                 book['edition'] = m2.group(1)
                 tmp = tmp.replace(m2.group(1) + '.' + m2.group(2) + ':', '')
@@ -580,6 +580,17 @@ def import_books(session, authors):
                     add_bookperson(s, editor, bookitem, 'E')
 
 
+def add_missing_series(session):
+    # This important publisher series is missing from the imported data.
+    s = session()
+    publisher = s.query(Publisher).filter(Publisher.name ==
+    'Kirjayhtymä').first()
+    pubseries = Pubseries(name='Kirjayhtymän science fiction -sarja',
+            important=True, publisher_id = publisher.id)
+    s.add(pubseries)
+    s.commit()
+
+
 def create_admin(session):
     s = session()
     user = User(name='admin', is_admin=True)
@@ -605,7 +616,9 @@ def import_all(dirname):
     import_pubseries(session, pubseries)
     import_books(session, data)
 
+    add_missing_series(session)
     create_admin(session)
+
 
     #pprint.pprint(pubseries)
 

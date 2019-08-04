@@ -1,6 +1,6 @@
-a.invis {
-	color: grey
-}
-a.invis:hover {
-	color: blue
-}
+  a.invisible {
+  opacity: 0;
+  }
+  a.invisible:hover {
+  opacity: 1;
+  }

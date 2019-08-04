@@ -138,7 +138,7 @@ pubseries = [
     ('Poikien seikkailukirjasto', 'Poikien seikkailukirjasto'),
     ('Poikien sininen sarja', 'Poikien sininen sarja'),
     ('Pokkaristo-sarja', 'Pokkaristo-sarja'),
-    ('Portti kirjat', 'Portti kirjat'),
+    ('Portti kirjat', 'Portti-kirjat'),
     ('Nuorten kirjoja, uusi sarja', 'Nuorten kirjoja, uusi sarja'),
     ('Portti(-)?kirjat', 'Portti-kirjat'),
     ('Raketti-sarja', 'Raketti-sarja'),
@@ -152,7 +152,7 @@ pubseries = [
     ('Savukeitaan kauhuklassikot', 'Savukeitaan kauhuklassikot'),
     ('Savukeitaan maailman nykyrunouden sarja', 'Savukeitaan maailman nykyrunouden sarja'),
     ('Sci-fi -sarja', 'Sci-fi -sarja'),
-    ('SciFi-sarja', 'SciFi-sarja'),
+    ('SciFi-sarja', 'Jalavan SciFi-sarja'),
     ('Science Fiction -sarja', 'Science Fiction -sarja'),
     ('Scifin parhaita -sarja', 'Scifin parhaita -sarja'),
     ('Seaflowerin Classics -sarja', 'Seaflowerin Classics -sarja'),
@@ -208,7 +208,25 @@ pubseries = [
     ('Weilin\+Göösin kirjasto', 'Weilin+Göösin Kirjasto'),
     ('m-novellit scifi -sarja', 'm-novellit scifi -sarja')]
 
-important_pubseries = ('Sci-fi -sarja')
+important_pubseries = (
+                       'FAN-sarja',
+                       'Fantasy-sarja',
+                       'FBH-sarja',
+                       'GALAXY Scifi',
+                       'Jalavan SciFi-sarja',
+                       'LIKE Scifi',
+                       'Loki-Kirjojen sf-sarja',
+                       'Musta virta -scifi',
+                       'Portti-kirjat',
+                       'Saturnus SciFi-sarja',
+                       'Science Fiction -sarja',
+                       'Sci-fi -sarja',
+                       'Scifin parhaita -sarja',
+                       'Tieteisromaani-sarja',
+                       'Tieteissarja',
+                       'Ursan sf-sarja',
+                       'Vaskikirjojen sf-kirjat'
+                       )
 
 bookseries = [
     ('5. aalto, osa', '5. aalto, osa'),
