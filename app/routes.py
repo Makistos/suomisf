@@ -83,6 +83,15 @@ def register():
     return render_template('register.html', title='Tunnuksen luonti',
             form=form)
 
+@app.route('/userpage/<userid>', methods=['GET', 'POST'])
+def userpage(userid):
+#    form = UserForm()
+#    if form.validate_on_submit():
+#        session = new_session()
+#        user = session.query(User).filter(User.id = userid)
+#        user.set_password(form.password.data)
+    return render_template('index.html')
+
 @app.route('/people')
 def people():
     engine = create_engine('sqlite:///suomisf.db')

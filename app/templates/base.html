@@ -79,8 +79,9 @@ Kauhukirjat{% endif %}
 		{% if current_user.is_anonymous %}
 		<li><a href=" {{ url_for("login") }}">Kirjaudu</a></li>
 		{% else %}
-		<li><a href=" {{ url_for("logout") }}">Kirjaudu ulos, {{
-				current_user.name }}</a></li>
+		<li><a href=" {{ url_for("logout") }}">Kirjaudu ulos</a></li>
+		<li><a href=" {{ url_for("userpage",
+			     userid=current_user.get_id()) }}">{{ current_user.name }}</a></li>
 		{% endif %}
       </ul>
     </div>
