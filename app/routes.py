@@ -5,7 +5,7 @@ from app import app
 from app.orm_decl import Person, BookPerson, Publisher, Book, Pubseries, Bookseries, User, UserBook
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
-from app.forms import LoginForm, RegistrationForm, PublisherForm, PubseriesForm, PersonForm
+from app.forms import LoginForm, RegistrationForm, PublisherForm, PubseriesForm, PersonForm, BookseriesForm
 from app.forms import BookForm
 import logging
 import pprint
@@ -319,9 +319,7 @@ def allbookseries():
 
 @app.route('/bookseries/<seriesid>')
 def bookseries(seriesid):
-    engine = create_engine('sqlite:///suomisf.db')
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    session = new_session()
     series = session.query(Bookseries).filter(Bookseries.id ==
             seriesid).first()
     authors = \
@@ -329,6 +327,18 @@ def bookseries(seriesid):
                     'A').join(Book).filter(Book.bookseries_id ==
                             seriesid).order_by(Person.name).all()
     return render_template('bookseries.html', series=series, authors=authors)
+
+@app.route('/new_bookseries', methods=['POST', 'GET'])
+def new_bookseries():
+    session = new_session()
+    form = BookseriesForm()
+    if form.validate_on_submit():
+        bookseries = Bookseries(name=form.name.data,
+                important=form.important.data)
+        session.add(bookseries)
+        session.commit()
+        return redirect(url_for('bookseries', seriesid=bookseries.id))
+    return render_template('new_bookseries.html', form=form)
 
 @app.route('/allpubseries')
 def allpubseries():
@@ -341,10 +351,7 @@ def allpubseries():
 
 @app.route('/pubseries/<seriesid>')
 def pubseries(seriesid):
-    app.logger.debug("seriesid = " + seriesid)
-    engine = create_engine('sqlite:///suomisf.db')
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    session = new_session()
     app.logger.debug(session.query(Pubseries).filter(Pubseries.id == seriesid))
     series = session.query(Pubseries).filter(Pubseries.id == seriesid).first()
     authors = \
@@ -382,9 +389,7 @@ def print_books():
     if type is None or id is None:
         return redirect(url_for('index'))
 
-    engine = create_engine('sqlite:///suomisf.db')
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    session = new_session()
 
     if type == 'pubseries':
         authors = \
@@ -417,9 +422,7 @@ def mybooks():
 
 @app.route('/myseries')
 def myseries():
-    engine = create_engine('sqlite:///suomisf.db')
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    session = new_session()
     pubseries = session.query(Pubseries).filter(Pubseries.important == True)
     pubseriesids = [x.id for x in pubseries]
     app.logger.debug("IDs = " + str(pubseriesids))
@@ -435,9 +438,7 @@ def myseries():
 
 @app.route('/search', methods = ['POST', 'GET'])
 def search():
-    engine = create_engine('sqlite:///suomisf.db')
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    session = new_session()
     q= ''
     searchword = request.args.get('search', '')
     for k, v in request.args.items():

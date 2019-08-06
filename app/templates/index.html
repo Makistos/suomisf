@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 <center>
+    <a href=" {{ url_for('new_person') }} ">Uusi henkilö</a></br>
+    <a href=" {{ url_for('new_bookseries') }} ">Uusi kirjasarja</a></br>
     <a href=" {{ url_for('new_publisher') }} ">Uusi kustantaja</a><br>
     <a href=" {{ url_for('new_pubseries') }} ">Uusi kustantajan sarja</a>
 </center>
