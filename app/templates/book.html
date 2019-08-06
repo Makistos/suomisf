@@ -38,8 +38,10 @@ Toimittaja(t): {% for editor in editors[:-1] %}
 <p>Kirjasarja: <a href=" {{ url_for('bookseries',
                            seriesid=book.bookseries.id) }} ">{{
                            book.bookseries.name }}</a>
-	{% if book.bookseriesnum|length %}
-	, numero {{ book.bookseriesnum }}</p>
+	{% if book.bookseriesnum %}
+		{% if book.bookseriesnum|length %}
+		, numero {{ book.bookseriesnum }}</p>
+		{% endif %}
 	{% endif %}
 {%- endif %}
 <p>Genre: {{ book.genre }}</p>
