@@ -5,7 +5,7 @@ from app import app
 from app.orm_decl import Person, BookPerson, Publisher, Book, Pubseries, Bookseries, User, UserBook
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
-from app.forms import LoginForm, RegistrationForm, PublisherForm, PubseriesForm
+from app.forms import LoginForm, RegistrationForm, PublisherForm, PubseriesForm, PersonForm
 from app.forms import BookForm
 import logging
 import pprint
@@ -110,17 +110,28 @@ def books_for_person(s, personid, type):
 
 @app.route('/person/<personid>')
 def person(personid):
-    engine = create_engine('sqlite:///suomisf.db')
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    app.logger.debug("personid = " + personid)
-    app.logger.debug(session.query(Person).filter(Person.id == personid))
+    session = new_session()
     person = session.query(Person).filter(Person.id == personid).first()
     authored = books_for_person(session, personid, 'A')
     translated = books_for_person(session, personid, 'T')
     edited = books_for_person(session, personid, 'E')
     return render_template('person.html', person=person, authored=authored,
             translated=translated, edited=edited)
+
+@app.route('/new_person', methods=['POST', 'GET'])
+def new_person():
+    session = new_session()
+    form = PersonForm()
+    session = new_session()
+    if form.validate_on_submit():
+        person = Person(name=form.name.data, first_name=form.firstname.data,
+                last_name=form.lastname.data, dob=form.dob.data,
+                dod=form.dod.data, birthplace=form.birthplace.data)
+        session.add(person)
+        session.commit()
+        return redirect(url_for('person', personid=person.id))
+    return render_template('new_person.html', form=form)
+
 
 @app.route('/books')
 def books():

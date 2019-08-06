@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Uusi henkilö</h1>
+<form action="" method=post>
+        {{ form.hidden_tag() }}
+        <p>
+        {{ form.name.label }}<br>
+        {{ form.name(size=100) }}<br>
+        </p>
+        <p>
+        {{ form.firstname.label }}<br>
+        {{ form.firstname(size=50) }}<br>
+        </p>
+        <p>
+        {{ form.lastname.label }}<br>
+        {{ form.lastname(size=50) }}<br>
+        </p>
+        <p>
+        {{ form.dob.label }}<br>
+        {{ form.dob(size=50) }}
+        </p>
+        <p>
+        {{ form.dod.label }}<br>
+        {{ form.dod(size=50) }}
+        </p>
+        <p>
+        {{ form.birthplace.label }}<br>
+        {{ form.birthplace(size=50) }}
+        </p>
+        <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}
+
