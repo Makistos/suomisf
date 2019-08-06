@@ -271,7 +271,7 @@ def get_books(books):
                     tmp = tmp.replace('toim ' + m2.group(1) + '. ', '')
                 else:
                     book['editor'] = ''
-                if len(re.sub('[\s\,]', '', tmp)) == 0:
+                if len(re.sub('[\s\.]', '', tmp)) == 0:
                     tmp = ''
                 book['rest'] = misc_str + ' ' + tmp.replace(r' .', '').strip()
                 misc_str = ''
@@ -365,7 +365,7 @@ def get_books(books):
             #book['translator'] = '&'.join(names)
             #tmp = tmp.replace(to_remove, '')
 
-            if len(re.sub('[\s\,]', '', tmp)) == 0:
+            if len(re.sub('[\s\.]', '', tmp)) == 0:
                 tmp = ''
             book['rest'] = misc_str + ' ' + tmp.replace(r' .', '').strip()
             misc_str = ''
