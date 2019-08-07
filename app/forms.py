@@ -13,6 +13,14 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Kirjaudu')
 
 
+def validate_username(self, username):
+    engine = create_engine('sqlite:///suomisf.db')
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    user = session.query(User).filter_by(name=username.data).first()
+    if user is not None:
+        raise ValidationError('Valitse toinen käyttäjätunnus.')
+
 class RegistrationForm(FlaskForm):
     username = StringField('Käyttäjätunnus', validators=[DataRequired()])
     password = PasswordField('Salasana', validators=[DataRequired()])
@@ -20,13 +28,15 @@ class RegistrationForm(FlaskForm):
             validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Rekisteröidy')
 
-    def validate_username(self, username):
-        engine = create_engine('sqlite:///suomisf.db')
-        Session = sessionmaker(bind=engine)
-        session = Session()
-        user = session.query(User).filter_by(name=username.data).first()
-        if user is not None:
-            raise ValidationError('Valitse toinen käyttäjätunnus.')
+
+class UserForm(FlaskForm):
+    name = StringField('Käyttäjätunnus', validators=[DataRequired()])
+    password = PasswordField('Salasana')
+    password2 = PasswordField('Salasana uudestaan',
+            validators=[EqualTo('password')])
+    is_admin = BooleanField('Ylläpitäjä')
+    submit = SubmitField('Päivitä')
+
 
 class BookForm(FlaskForm):
     title = StringField('Nimeke', validators=[DataRequired()])

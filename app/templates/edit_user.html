@@ -1,13 +1,12 @@
 {% extends "base.html" %}
-
 {% block content %}
-<h1>Rekisteröinti</h1>
-<form action="" method="post">
+
+<form action="" method=post>
 	{{ form.hidden_tag() }}
 	<p>
-	{{ form.username.label }}</br>
-	{{ form.username(size=64) }}<br>
-	{% for error in form.username.errors %}
+	{{ form.name.label }}</br>
+	{{ form.name(size=64) }}<br>
+	{% for error in form.name.errors %}
 	<span style="color: red;">[{{ error }}]</span>
 	{% endfor %}
 	</p>
@@ -25,6 +24,10 @@
 	<span style="color: red;">[{{ error }}]</span>
 	{% endfor %}
 	</p>
+        {% if current_user.is_admin %}
+        {{ form.is_admin.label }}
+        {{ form.is_admin() }}
+        {% endif %}
 	<p>{{ form.submit() }}</p>
 </form>
 {% endblock %}

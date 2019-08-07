@@ -5,7 +5,8 @@ from app import app
 from app.orm_decl import Person, BookPerson, Publisher, Book, Pubseries, Bookseries, User, UserBook
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
-from app.forms import LoginForm, RegistrationForm, PublisherForm, PubseriesForm, PersonForm, BookseriesForm
+from app.forms import LoginForm, RegistrationForm, PublisherForm,\
+PubseriesForm, PersonForm, BookseriesForm, UserForm
 from app.forms import BookForm
 import logging
 import pprint
@@ -71,32 +72,43 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        engine = create_engine('sqlite:///suomisf.db')
-        Session = sessionmaker(bind=engine)
-        session = Session()
+        session = new_session()
         user = User(name=form.username.data)
         user.set_password(form.password.data)
         session.add(user)
         session.commit()
         flash('Rekisteröinti onnistui!')
         return redirect(url_for('login'))
-    return render_template('register.html', title='Tunnuksen luonti',
-            form=form)
+    return render_template('register.html', form=form, title='Tunnuksen luonti')
 
-@app.route('/userpage/<userid>', methods=['GET', 'POST'])
-def userpage(userid):
-#    form = UserForm()
-#    if form.validate_on_submit():
-#        session = new_session()
-#        user = session.query(User).filter(User.id = userid)
-#        user.set_password(form.password.data)
-    return render_template('index.html')
+@app.route('/user/<userid>')
+def user(userid):
+    session = new_session()
+    user = session.query(User).filter(User.id == userid).first()
+    book_count = session.query(UserBook).filter(UserBook.user_id ==
+            userid).count()
+    return render_template('user.html', user=user, book_count=book_count)
+
+@app.route('/user/edit/<userid>', methods=['GET', 'POST'])
+def edit_user(userid):
+    session = new_session()
+    form = UserForm()
+    user = session.query(User).filter(User.id == userid).first()
+    form.name.data = user.name
+    form.is_admin.data = user.is_admin
+    if form.validate_on_submit():
+        if form.password.data != '':
+            user.set_password(form.password.data)
+        user.name = form.name.data
+        user.is_admin = form.is_admin.data
+        session.add(user)
+        session.commit()
+        return redirect(url_for('user', userid=user.id))
+    return render_template('edit_user.html', form=form)
 
 @app.route('/people')
 def people():
-    engine = create_engine('sqlite:///suomisf.db')
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    session = new_session()
     people = session.query(Person).order_by(Person.name).all()
     return render_template('people.html', people=people)
 
