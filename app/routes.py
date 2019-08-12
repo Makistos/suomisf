@@ -44,6 +44,13 @@ def bookseries_list(session):
 def index():
     return render_template('index.html')
 
+def redirect_url(default='index'):
+    return request.args.get('next') or \
+           request.referrer or \
+           url_for(default)
+
+### User related routes
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -107,6 +114,28 @@ def edit_user(userid):
         return redirect(url_for('user', userid=user.id))
     return render_template('edit_user.html', form=form)
 
+@app.route('/add_to_owned/<bookid>')
+def add_to_owned(bookid):
+    session = new_session()
+    #book = session.query(Book).filter(Book.id == bookid).first()
+    userbook = UserBook(user_id = current_user.get_id(), book_id = bookid)
+    session.add(userbook)
+    session.commit()
+    app.logger.debug(request.url)
+    return redirect(redirect_url())
+
+@app.route('/remove_from_owned/<bookid>')
+def remove_from_owned(bookid):
+    session = new_session()
+    userbook = session.query(UserBook).filter(UserBook.user_id == current_user.get_id(),
+            UserBook.book_id == bookid).first()
+    session.delete(userbook)
+    session.commit()
+    return redirect(redirect_url())
+
+
+### People related routes
+
 @app.route('/people')
 def people():
     session = new_session()
@@ -145,6 +174,8 @@ def new_person():
         return redirect(url_for('person', personid=person.id))
     return render_template('new_person.html', form=form)
 
+
+# Book related routes
 
 @app.route('/books')
 def books():
@@ -209,11 +240,6 @@ def edit_book(bookid):
 
     search_list = publisher_list(session)
     search_list = {**search_list, **author_list(session)}
-    #if bookid != 0:
-    #    search_list = {**search_list, **pubseries_list(session,
-    #        book.publisher.id)}
-    #else:
-    #    search_list = {**search_list, **pubseries_list(session, 0)}
     publisher_series = pubseries_list(session, book.publisher.id)
 
     form = BookForm(request.form)
@@ -232,7 +258,6 @@ def edit_book(bookid):
             form.pubseries.choices = [('0', 'Ei sarjaa')] + publisher_series['pubseries']
             form.pubseries.default = str(i)
             selected_pubseries = str(i)
-        #app.logger.debug("selected: {}".format(selected_pubseries))
         form.id.data = book.id
         form.title.data = book.title
         form.authors.data = ', '.join([a.name for a in authors])
@@ -244,7 +269,6 @@ def edit_book(bookid):
         form.edition.data = book.edition
         form.publisher.data = publisher.name
 
-        #app.logger.debug("series: {}".format(publisher_series['pubseries']))
         if bookseries:
             form.bookseries.data = bookseries.name
         form.genre.data = book.genre
@@ -284,34 +308,12 @@ def edit_book(bookid):
         return redirect(url_for('book', bookid=book.id))
     else:
         app.logger.debug("Errors: {}".format(form.errors))
-        #app.logger.debug("pubseries: {}".format(form.pubseries.data))
     return render_template('edit_book.html', id = book.id, form=form, search_lists =
             search_list, source = book.fullstring,
             selected_pubseries=selected_pubseries)
 
-def redirect_url(default='index'):
-    return request.args.get('next') or \
-           request.referrer or \
-           url_for(default)
 
-@app.route('/add_to_owned/<bookid>')
-def add_to_owned(bookid):
-    session = new_session()
-    #book = session.query(Book).filter(Book.id == bookid).first()
-    userbook = UserBook(user_id = current_user.get_id(), book_id = bookid)
-    session.add(userbook)
-    session.commit()
-    app.logger.debug(request.url)
-    return redirect(redirect_url())
-
-@app.route('/remove_from_owned/<bookid>')
-def remove_from_owned(bookid):
-    session = new_session()
-    userbook = session.query(UserBook).filter(UserBook.user_id == current_user.get_id(),
-            UserBook.book_id == bookid).first()
-    session.delete(userbook)
-    session.commit()
-    return redirect(redirect_url())
+### Publisher related routes
 
 @app.route('/publishers')
 def publishers():
@@ -348,6 +350,9 @@ def new_publisher():
         return redirect(url_for('publisher', pubid=publisher.id))
     return render_template('new_publisher.html', form=form)
 
+
+### Bookseries related routes
+
 @app.route('/allbookseries')
 def allbookseries():
     engine = create_engine('sqlite:///suomisf.db')
@@ -379,6 +384,9 @@ def new_bookseries():
         return redirect(url_for('bookseries', seriesid=bookseries.id))
     return render_template('new_bookseries.html', form=form)
 
+
+# Publisher series related routes
+
 @app.route('/allpubseries')
 def allpubseries():
     engine = create_engine('sqlite:///suomisf.db')
@@ -406,7 +414,6 @@ def new_pubseries():
     session = new_session()
     search_lists = {'publisher' : [str(x.name) for x in
             session.query(Publisher).order_by(Publisher.name).all()]}
-    #search_lists = {'publisher' : ['Karisto', 'WSOY']}
     if form.validate_on_submit():
         publisher = session.query(Publisher).filter(Publisher.name ==
                 form.publisher.data).first()
@@ -415,7 +422,6 @@ def new_pubseries():
         session.add(pubseries)
         session.commit()
         return redirect(url_for('index'))
-        #return redirect(url_for('pubseries', seriesid=pubseries.id))
     return render_template('new_pubseries.html', form=form,
             search_lists=search_lists)
 
@@ -430,6 +436,9 @@ def list_pubseries(pubname):
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
     return response
+
+
+# Miscellaneous routes
 
 @app.route('/print_books')
 def print_books():
