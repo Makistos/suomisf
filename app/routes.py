@@ -1,5 +1,5 @@
 
-from flask import render_template, request, flash, redirect, url_for
+from flask import render_template, request, flash, redirect, url_for, make_response
 from flask_login import current_user, login_user, logout_user
 from app import app
 from app.orm_decl import Person, BookPerson, Publisher, Book, Pubseries, Bookseries, User, UserBook
@@ -8,6 +8,7 @@ from sqlalchemy.orm import sessionmaker
 from app.forms import LoginForm, RegistrationForm, PublisherForm,\
 PubseriesForm, PersonForm, BookseriesForm, UserForm
 from app.forms import BookForm
+import json
 import logging
 import pprint
 
@@ -27,7 +28,7 @@ def author_list(session):
 
 def pubseries_list(session, pubid):
     if pubid != 0:
-        return {'pubseries' : [str(x.name) for x in
+        return {'pubseries' : [(str(x.id), str(x.name)) for x in
                 session.query(Pubseries).filter(Pubseries.publisher_id == pubid).order_by(Pubseries.name).all()]}
     else:
         return {'pubseries' : [str(x.name) for x in
@@ -208,29 +209,48 @@ def edit_book(bookid):
 
     search_list = publisher_list(session)
     search_list = {**search_list, **author_list(session)}
-    if bookid != 0:
-        search_list = {**search_list, **pubseries_list(session,
-            book.publisher.id)}
-    else:
-        search_list = {**search_list, **pubseries_list(session, 0)}
+    #if bookid != 0:
+    #    search_list = {**search_list, **pubseries_list(session,
+    #        book.publisher.id)}
+    #else:
+    #    search_list = {**search_list, **pubseries_list(session, 0)}
+    publisher_series = pubseries_list(session, book.publisher.id)
 
-    form = BookForm()
-    form.title.data = book.title
-    form.authors.data = ', '.join([a.name for a in authors])
-    form.translators.data = ', '.join([t.name for t in translators])
-    form.editors.data = ', '.join([e.name for e in editors])
-    form.pubyear.data = book.pubyear
-    form.originalname.data = book.originalname
-    form.origpubyear.data = book.origpubyear
-    form.edition.data = book.edition
-    form.publisher.data = publisher.name
-    if pubseries:
-        form.pubseries.data = pubseries.name
-    if bookseries:
-        form.bookseries.data = bookseries.name
-    form.genre.data = book.genre
-    form.misc.data = book.misc
-    form.source.data = book.fullstring
+    form = BookForm(request.form)
+    selected_pubseries = '0'
+    if publisher_series:
+        form.pubseries.choices = [('0', 'Ei sarjaa')] + publisher_series['pubseries']
+    else:
+        form.pubseries.choices = [('0', "Ei sarjaa")]
+    if request.method == 'GET':
+        if pubseries:
+            i = 0
+            for idx, s in enumerate(publisher_series['pubseries']):
+                if s[1] == pubseries.name:
+                    i = s[0]
+                    break
+            form.pubseries.choices = [('0', 'Ei sarjaa')] + publisher_series['pubseries']
+            form.pubseries.default = str(i)
+            selected_pubseries = str(i)
+        #app.logger.debug("selected: {}".format(selected_pubseries))
+        form.id.data = book.id
+        form.title.data = book.title
+        form.authors.data = ', '.join([a.name for a in authors])
+        form.translators.data = ', '.join([t.name for t in translators])
+        form.editors.data = ', '.join([e.name for e in editors])
+        form.pubyear.data = book.pubyear
+        form.originalname.data = book.originalname
+        form.origpubyear.data = book.origpubyear
+        form.edition.data = book.edition
+        form.publisher.data = publisher.name
+
+        #app.logger.debug("series: {}".format(publisher_series['pubseries']))
+        if bookseries:
+            form.bookseries.data = bookseries.name
+        form.genre.data = book.genre
+        form.misc.data = book.misc
+        form.source.data = book.fullstring
+
     if form.validate_on_submit():
         author = session.query(Person).filter(Person.name ==
                 form.authors.data).first()
@@ -240,27 +260,34 @@ def edit_book(bookid):
                 form.editors.data).first()
         publisher = session.query(Publisher).filter(Publisher.name ==
                 form.publisher.data).first()
+        book.id = form.id.data
         book.title = form.title.data
         book.pubyear = form.pubyear.data
         book.originalname = form.originalname.data
-        book.origpubyear = form.origpubyear.data
+        if book.origpubyear != '':
+            book.origpubyear = int(form.origpubyear.data)
         book.edition = form.edition.data
         book.publisher_id = publisher.id
         if form.bookseries.data != '':
             bookseries = session.query(Bookseries).filter(Bookseries.name ==
                     form.bookseries.data).first()
             book.bookseries_id = bookseries.id
-        if form.pubseries.data != '':
-            pubseries = session.query(Pubseries).filter(Pubseries.name ==
-                    form.pubseries.data).first()
-            book.pubseries_id = pubseries.id
+        if form.pubseries.data == '0':
+            book.pubseries_id = None
+        else:
+            book.pubseries_id = form.pubseries.data
         book.genre = form.genre.data
         book.misc = form.misc.data
-        session.add(book)
+        if book.id == 0:
+            session.add(book)
         session.commit()
         return redirect(url_for('book', bookid=book.id))
+    else:
+        app.logger.debug("Errors: {}".format(form.errors))
+        #app.logger.debug("pubseries: {}".format(form.pubseries.data))
     return render_template('edit_book.html', id = book.id, form=form, search_lists =
-            search_list, source = book.fullstring)
+            search_list, source = book.fullstring,
+            selected_pubseries=selected_pubseries)
 
 def redirect_url(default='index'):
     return request.args.get('next') or \
@@ -392,6 +419,17 @@ def new_pubseries():
     return render_template('new_pubseries.html', form=form,
             search_lists=search_lists)
 
+@app.route('/list_pubseries/<pubname>', methods=['GET', 'POST'])
+def list_pubseries(pubname):
+    session = new_session()
+    series = session.query(Pubseries).join(Publisher).filter(Publisher.name ==
+            pubname).all()
+    data = []
+    for s in series:
+        data.append((str(s.id), s.name))
+    response = make_response(json.dumps(data))
+    response.content_type = 'application/json'
+    return response
 
 @app.route('/print_books')
 def print_books():
@@ -458,9 +496,6 @@ def search():
     app.logger.debug("searchword: " + searchword)
     if request.method == 'POST':
         q = request.form
-    #for key,val in request.form.items():
-    #    app.logger.debug("key = " + key + " val = " + val)
-    #q = PostForm().post.data
     app.logger.debug("q = " + q)
     books = \
         session.query(Book).filter(Book.title.ilike('%' + searchword + '%')).all()

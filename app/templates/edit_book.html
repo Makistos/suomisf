@@ -5,7 +5,7 @@
 {% else %}
 <h1>Uusi kirja</h1>
 {% endif %}
-<form action="" method=post>
+<form action="" method="post">
         {{ form.hidden_tag() }}
         <p>
         {{ form.title.label }}<br>
@@ -41,10 +41,13 @@
         </p>
         <p>
         {{ form.publisher.label }}<br>
-        {{ form.publisher(size=50) }}
+        {{ form.publisher(size=50, id="publisher")}}
+	{% if form.publisher.errors %}
+	{% for error in form.publisher.errors %}<br>{{ error }}{% endfor %}
+	{% endif %}
         <p>
         {{ form.pubseries.label }}<br>
-        {{ form.pubseries(size=50) }}
+        {{ form.pubseries(id="pubseries") }}
         <p>
         <p>
         {{ form.bookseries.label }}<br>
@@ -56,12 +59,46 @@
         <p>
         {{ form.misc.label}}<br>
         {{ form.misc(size=100) }}
+	{% if form.misc.errors %}
+	{% for error in form.misc.errors %}<br>{{ error }}{% endfor %}
+	{% endif %}
         </p>
         <p>{{ form.submit() }}</p>
 </form>
 <p>Aineiston lähde: {{ source }}</p>
+
+<!--	<script src="/static/js/pubseries.js"></script> -->
 {% endblock %}
 
 {% block scripts %}
+
+<script>
+
+	$(document).ready(function(){
+		{% if selected_pubseries != 0 %}
+			$("#pubseries").val("{{ selected_pubseries|string() }}");
+		{% endif %}
+	});
+
+	$("#publisher").on("input", function() {
+		var name = $("#publisher").val();
+		var request = $.ajax({
+			type: 'POST',
+			url: '/list_pubseries/' + name,
+		});
+		request.done(function(data){
+			var option_list = [["0", "Ei sarjaa"]].concat(data);
+			
+			$("#pubseries").empty();
+			for (var i = 0; i < option_list.length; i++) {
+				$("#pubseries").append(
+					$("<option></option>").attr(
+						"value", option_list[i][0]).text(option_list[i][1])
+					);
+			}
+		});
+	});
 {% include "_searchable_lists.html" %}
+</script>
 {% endblock %}
+

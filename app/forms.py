@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField,\
+IntegerField, SelectField, HiddenField
 from wtforms.validators import DataRequired, ValidationError, EqualTo
 from app.orm_decl import User
 from sqlalchemy import create_engine
@@ -39,16 +40,18 @@ class UserForm(FlaskForm):
 
 
 class BookForm(FlaskForm):
+    id = HiddenField('id')
     title = StringField('Nimeke', validators=[DataRequired()])
     authors = StringField('Kirjoittaja(t)', validators=[DataRequired()])
     translators = StringField('Kääntäjä(t)')
     editors = StringField('Toimittaja(t)')
     pubyear = IntegerField('Julkaisuvuosi')
     originalname = StringField('Alkuperäinen nimi')
-    origpubyear = IntegerField('Alkuperäinen julkaisuvuosi')
+    origpubyear = StringField('Alkuperäinen julkaisuvuosi')
     edition = IntegerField('Painos')
-    publisher = StringField('Kustantaja', validators=[DataRequired()])
-    pubseries = StringField('Kustantajan sarja')
+    publisher = StringField('Kustantaja', validators=[DataRequired(
+        message ='Kustantaja on pakollinen tieto')])
+    pubseries = SelectField('Kustantajan sarja', choices=[])
     bookseries = StringField('Kirjasarja')
     genre = StringField('Genre')
     misc = StringField('Muuta')
