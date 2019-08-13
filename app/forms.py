@@ -60,8 +60,8 @@ class BookForm(FlaskForm):
 
 class PersonForm(FlaskForm):
     name = StringField('Koko nimi')
-    firstname = StringField('Etunimi')
-    lastname = StringField('Sukunimi')
+    first_name = StringField('Etunimi')
+    last_name = StringField('Sukunimi')
     dob = IntegerField('Syntymävuosi')
     dod = IntegerField('Kuolinvuosi')
     birthplace = StringField('Kansallisuus')

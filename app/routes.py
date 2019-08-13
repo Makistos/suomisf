@@ -160,19 +160,25 @@ def person(personid):
     return render_template('person.html', person=person, authored=authored,
             translated=translated, edited=edited)
 
-@app.route('/new_person', methods=['POST', 'GET'])
-def new_person():
+@app.route('/edit_person/<personid>', methods=['POST', 'GET'])
+def edit_person(personid):
+    person = Person()
     session = new_session()
-    form = PersonForm()
-    session = new_session()
+    if request.method == 'GET':
+        if personid != 0:
+            person = session.query(Person).filter(Person.id == personid).first()
+        form = PersonForm(obj=person)
+    else:
+        form = PersonForm(request.form)
     if form.validate_on_submit():
-        person = Person(name=form.name.data, first_name=form.firstname.data,
-                last_name=form.lastname.data, dob=form.dob.data,
-                dod=form.dod.data, birthplace=form.birthplace.data)
+        form.populate_obj(person)
+        #person = Person(name=form.name.data, first_name=form.first_name.data,
+        #        last_name=form.last_name.data, dob=form.dob.data,
+        #        dod=form.dod.data, birthplace=form.birthplace.data)
         session.add(person)
         session.commit()
         return redirect(url_for('person', personid=person.id))
-    return render_template('new_person.html', form=form)
+    return render_template('edit_person.html', form=form, personid=personid)
 
 
 # Book related routes

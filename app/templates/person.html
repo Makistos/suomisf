@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>{{ person.name }} ({{person.id}})</h1>	
+        <p><b>Etunimi</b>: {{ person.first_name }}</p>
+        <p><b>Sukunimi</b>: {{ person.last_name }}</p>
+        <p><b>Syntymävuosi</b>: {{ person.dob }}</p>
+        <p><b>Kuolinvuosi</b>: {{ person.dob }}</p>
+        <p><b>Syntymäpaikka</b>: {{ person.birthplace }}</p>
+        {% if person.source %}
+        <p><b>Lähde</b>: {{ person.source }}</p>
+        {% endif %}
+        {% if current_user.is_admin %} 
+        <p><a href=" {{ url_for('edit_person', personid=person.id)
+                    }}">Muokkaa</a></p>
+        {% endif %}
 	{% if authored|length %}
 		<h2>Kirjoittanut</h2>
 		{% for book in authored %}

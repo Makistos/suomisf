@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+{% if personid == 0 %}
 <h1>Uusi henkilö</h1>
+{% else %}
+<h1>Muokkaa henkilöä</h1>
+{% endif %}
 <form action="" method=post>
         {{ form.hidden_tag() }}
         <p>
@@ -8,12 +12,12 @@
         {{ form.name(size=100) }}<br>
         </p>
         <p>
-        {{ form.firstname.label }}<br>
-        {{ form.firstname(size=50) }}<br>
+        {{ form.first_name.label }}<br>
+        {{ form.first_name(size=50) }}<br>
         </p>
         <p>
-        {{ form.lastname.label }}<br>
-        {{ form.lastname(size=50) }}<br>
+        {{ form.last_name.label }}<br>
+        {{ form.last_name(size=50) }}<br>
         </p>
         <p>
         {{ form.dob.label }}<br>
