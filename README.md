@@ -14,7 +14,7 @@ missing from this package at the moment.
 
 ## To-Do
 * Adding and modifying of data for all tables in the database.
-* Separation of admin and regular user rights.
+* ~Separation of admin and regular user rights.~
 * Making "important publisher series" specific to each user.
 * Some Ajax-based stuff would be useful, e.g. when adding or modifying a book,
   ~~if publisher is changed list of publisher series to choose from should also
@@ -30,3 +30,63 @@ missing from this package at the moment.
 * Exporting and importing a collection.
 * ~~Option to change password and a user page~~. Plus stuff related to this like
   a user list.
+
+
+## API Design
+
+This is not implemented yet.
+
+Strings used as search parameters are always used with ilike operator. So to
+search using a part of a string, you can use the percentage sign, e.g. using
+"Asimov%" as the person's full name will find all the names starting with
+Asimov (case independent).
+
+### Authentication
+
+POST /api/1.0/auth
+
+Parameters: 
+* *username*
+* *password*
+
+### Getting list of books
+
+GET /api/1.0/books
+
+Parameters: 
+* bookid
+* title
+* authorid
+
+### Getting info for a book
+
+GET /api/1.0/book/{bookid}
+
+Parameters:
+* *bookid*
+
+### Getting a list of persons
+
+GET /api/1.0/persons
+
+Parameters:
+* fullname
+* last_name
+* first_name
+* dob
+* dod
+* birthplace
+* type (A = author, T = translator, E = editor)
+
+### Getting info on a person
+
+GET /api/1.0/person/{personid}
+
+Parameters:
+* *personid*
+
+### Getting your collection 
+
+Requires authentication.
+
+GET /api/1.0/collection

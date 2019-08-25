@@ -9,9 +9,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from dotenv import load_dotenv
 
 Base = declarative_base()
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+load_dotenv(os.path.join(basedir, '.env'))
 
 class Publisher(Base):
     __tablename__ = 'publisher'
@@ -55,13 +58,13 @@ class Person(Base):
     dob = Column(Integer)
     dod = Column(Integer)
     birthplace = Column(String(250))
-    source = Column(String(250))
+    source = Column(String(500))
     books = relationship("Book", secondary='bookperson')
 
 class Book(Base):
     __tablename__ = 'book'
     id = Column(Integer, primary_key=True)
-    title = Column(String(250), nullable=False, index=True)
+    title = Column(String(500), nullable=False, index=True)
     pubyear = Column(Integer)
     publisher_id = Column(Integer, ForeignKey('publisher.id'))
     edition = Column(Integer)
@@ -71,8 +74,8 @@ class Book(Base):
     pubseriesnum = Column(String(20))
     bookseries_id = Column(Integer, ForeignKey('bookseries.id'))
     bookseriesnum = Column(String(20))
-    genre = Column(String(30))
-    misc = Column(String(250))
+    genre = Column(String(100))
+    misc = Column(String(500))
     fullstring = Column(String(500))
     persons = relationship("Person", secondary='bookperson')
     publisher = relationship("Publisher", backref=backref('publishers',
@@ -116,11 +119,11 @@ class UserBook(Base):
 
 @login.user_loader
 def load_user(id):
-    engine = create_engine('sqlite:///suomisf.db')
+    engine = create_engine(os.environ.get('DATABASE_URL'))
     Session = sessionmaker(bind=engine)
     session = Session()
     return session.query(User).get(int(id))
 
-engine = create_engine('sqlite:///suomisf.db')
+engine = create_engine(os.environ.get('DATABASE_URL'))
 
 Base.metadata.create_all(engine)

@@ -5,6 +5,8 @@ from sqlalchemy.orm import sessionmaker
 from importbib import publishers
 from importbib import bookseries, pubseries, important_pubseries, misc_strings
 import re
+import os
+from dotenv import load_dotenv
 
 publishers_re = {}
 bookseries_re = {}
@@ -307,7 +309,7 @@ def get_books(books):
                 tmp = tmp.replace('(' + m.group(1)  + '). ', '')
             else:
                 book['origname'] = ''
-                book['origyear'] = ''
+                book['origyear'] = None
             # Find editor
             m = re.search('[Tt]oim\.? ([A-Za-zÅÄÖåäö\-\&\s]+)\.', tmp)
             if m:
@@ -603,12 +605,15 @@ def import_all(dirname):
     import glob
     import pprint
 
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    load_dotenv(os.path.join(basedir, '.env'))
+
     data = read_bibs(glob.glob(dirname + '/*.html'))
 
     #pprint.pprint(data)
     #pprint.pprint(pubseries_publisher)
 
-    engine = create_engine('sqlite:///suomisf.db')
+    engine = create_engine(os.environ.get('DATABASE_URL'))
     session = sessionmaker()
     session.configure(bind=engine)
     import_pubs(session, publishers)
