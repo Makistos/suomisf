@@ -14,11 +14,10 @@
 {% if owned == 1 and print is not defined %}
 <span style="border-left: 6px solid grey; padding-left: 19px">
 {% else %}
-<span style="padding-left: 25px">
+<span style="padding-left: 25px; ">
 {% endif %}
-{% if owned == 1 %}<a href=" {{ url_for('remove_from_owned', bookid=book.id)
-			    }}" class="ownerstate"> - </a>
-{% else %}<a href="{{ url_for('add_to_owned', bookid=book.id)}}" class="ownerstate"> + </a>{% endif %}
+{% if owned == 1 %}<a id="{{book.id}}" href="#remove" class="ownerstate"> - </a>
+{% else %}<a id="{{book.id}}" href="#add" class="ownerstate"> + </a>{% endif %}
 {% if print == 1 %}<b>{{ book.title }}</b>.{% else %}<a href="{{ url_for("book", bookid=book.id) }}">{{ book.title }}</a>.{% endif %}
 {% if book.bookseries %}
 {{ book.bookseries.name}} {{book.bookseriesnum}}.

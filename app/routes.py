@@ -114,24 +114,25 @@ def edit_user(userid):
         return redirect(url_for('user', userid=user.id))
     return render_template('edit_user.html', form=form)
 
-@app.route('/add_to_owned/<bookid>')
+@app.route('/add_to_owned/<bookid>', methods=['POST'])
 def add_to_owned(bookid):
+    app.logger.debug("bookid = " + bookid)
     session = new_session()
     #book = session.query(Book).filter(Book.id == bookid).first()
     userbook = UserBook(user_id = current_user.get_id(), book_id = bookid)
     session.add(userbook)
     session.commit()
     app.logger.debug(request.url)
-    return redirect(redirect_url())
+    return ""
 
-@app.route('/remove_from_owned/<bookid>')
+@app.route('/remove_from_owned/<bookid>', methods=['POST'])
 def remove_from_owned(bookid):
     session = new_session()
     userbook = session.query(UserBook).filter(UserBook.user_id == current_user.get_id(),
             UserBook.book_id == bookid).first()
     session.delete(userbook)
     session.commit()
-    return redirect(redirect_url())
+    return ""
 
 
 ### People related routes
@@ -481,7 +482,7 @@ def mybooks():
             session.query(Person).join(BookPerson).filter(BookPerson.type ==
             'A').join(Book).filter(Book.id ==
                     BookPerson.book_id).join(UserBook).filter(UserBook.user_id
-                            == current_user.get_id()).all()
+                            == current_user.get_id()).order_by(Person.name).all()
 
     return render_template('mybooks.html', authors=authors, print=1)
 

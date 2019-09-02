@@ -613,7 +613,10 @@ def import_all(dirname):
     #pprint.pprint(data)
     #pprint.pprint(pubseries_publisher)
 
-    engine = create_engine(os.environ.get('DATABASE_URL'))
+    db_url = os.environ.get('DATABASE_URL') or \
+            'sqlite:///suomisf.db'
+
+    engine = create_engine(db_url)
     session = sessionmaker()
     session.configure(bind=engine)
     import_pubs(session, publishers)

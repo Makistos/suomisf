@@ -16,6 +16,9 @@ Base = declarative_base()
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env'))
 
+db_url = os.environ.get('DATABASE_URL') or \
+        'sqlite:///suomisf.db'
+
 class Publisher(Base):
     __tablename__ = 'publisher'
     id = Column(Integer, primary_key=True)
@@ -119,11 +122,11 @@ class UserBook(Base):
 
 @login.user_loader
 def load_user(id):
-    engine = create_engine(os.environ.get('DATABASE_URL'))
+    engine = create_engine(db_url)
     Session = sessionmaker(bind=engine)
     session = Session()
     return session.query(User).get(int(id))
 
-engine = create_engine(os.environ.get('DATABASE_URL'))
+engine = create_engine(db_url)
 
 Base.metadata.create_all(engine)

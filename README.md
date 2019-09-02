@@ -30,6 +30,7 @@ missing from this package at the moment.
 * Exporting and importing a collection.
 * ~~Option to change password and a user page~~. Plus stuff related to this like
   a user list.
+* Adding a new edition of an existing book.
 
 
 ## API Design
