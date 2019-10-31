@@ -3,10 +3,7 @@
 <center><a href=" {{ url_for('print_books', type='pubseries', id=series.id) }}
                     ">Tulosta</a></center>
 <h1>{{series.name}} ({{ series.publisher.name }})</h1>
-{% for person in authors %}
-<h3><a href="{{ url_for("person", personid = person.id) }}">{{person.name}}</a></h3>
-{% for book in person.books if book.pubseries_id|string() == series.id|string() %}
-{% include "_book.html" %}
-{% endfor %}
+{% for edition in books %}
+{% include "_edition.html" %}
 {% endfor %}
 {% endblock %}

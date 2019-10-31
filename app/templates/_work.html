@@ -1,0 +1,32 @@
+{% set owned = 0 %}
+{% for edition in work.editions %}
+	{% if current_user.get_id()|int() in edition.owners|map(attribute='id')|list() %}
+		{% set owned = 1 %}
+	{% endif %}
+{% endfor %}
+
+{% if only_owned is defined and owned == 0 %}
+{% set show = 0 %}
+{% else %}
+{% set show = 1 %}
+{% endif %}
+{% if owned == 1 %}<a id="{{work.id}}" href="#remove" class="ownerstate"> - </a>
+{% else %}<a id="{{work.id}}" href="#add" class="ownerstate"> + </a>{% endif %}
+<span style="padding-left: 25px; ">
+	{% if print == 1 %}<b>{{ work.editions[0].title }}</b>.{% else %}<b><a
+			href="{{url_for("work", workid=work.id) }}">{{
+			work.editions[0].title }}</a></b>.{% endif %}
+{% if work.bookseries %}
+{{ work.bookseries.name}} {{work.bookseriesnum}}.
+{% endif %}
+{% if (work.title != work.editions[0].title) -%}
+({{work.title}}
+{%- if work.pubyear != 0 -%}, {{ work.pubyear }}{% endif -%}
+).
+{% endif %}
+{% if work.editions[0].pubseries %}
+{{ work.editions[0].pubseries.name }}.
+{% endif %}
+{{ work.editions[0].publisher.fullname }}
+{% if work.editions[0].pubyear|int -%}{{ work.editions[0].pubyear }}{% endif %}. [{{ work.genre }}].
+</span><br>

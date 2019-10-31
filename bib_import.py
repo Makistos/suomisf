@@ -1,12 +1,14 @@
-
-from app.orm_decl import Book, Person, BookPerson, Publisher, Pubseries, Bookseries, User
+from app.orm_decl import Work, Edition, Person, Author, Translator, Editor, Publisher, Pubseries, Bookseries, User
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from importbib import publishers
 from importbib import bookseries, pubseries, important_pubseries, misc_strings
 import re
 import os
+import sys
 from dotenv import load_dotenv
+import argparse
+import logging
 
 publishers_re = {}
 bookseries_re = {}
@@ -21,19 +23,6 @@ translator_re = re.compile("([a-zA-ZåäöÅÄÖ]+\s)*([Ss]uom\.?\s)([A-ZÄÅÖ]
 translator_re2 = re.compile("([Ss]uom\.?\s)?([A-ZÄÅÖ](\.\s?[A-ZÅÄÖ][a-zåäö]*|[a-zåäöü\-]+)\s?([A-ZÄÅÖ](\.\s?[A-ZÅÄÖ][a-zåäö]*|[a-zåäöü]+))*\s*([A-ZÅÄÖ](\.\s?[A-ZÄÅÖ][a-zåäö]*|[a-zäöåü]+)*)*\s?([A-ZÅÄÖa-zåäöü]+)*(\.)*)")
 translator_re3 = re.compile("([A-ZÄÅÖ]+[\.\s]?[a-zA-ZäöåÅÄÖéü&\-]*[\.\s]?[a-zA-ZåäöÅÄÖéü&\-\s]*)")
 
-    #([Ss]uom\.?\s)? # group 1
-    #   ([A-ZÄÅÖ] # group 2
-    #    (\.\s?[A-ZÅÄÖ][a-zåäö]*|[a-zåäöü\-]+) # group 3
-    #    \s
-    #    ([A-ZÄÅÖ] # group 4
-    #        (\.\s?[A-ZÅÄÖ][a-zåäö]*|[a-zåäöü]+))? # group 5
-    #    \s?
-    #    ([A-ZÅÄÖ]
-    #        (\.\s?[A-ZÄÅÖ][a-zåäö]*|[a-zäöåü]+))?
-    #    \s
-    #    ([A-ZÅÄÖa-zåäöü]+)
-    #   (\.))
-    #   """
 
 pubseries_publisher = {}
 
@@ -117,19 +106,14 @@ def multiple_persons(s, pat):
         # More than one &, e.g. "A & B & C"
         names = n1
 
-    #names = re.split('[&,]', s)
     if ' ja ' in names[-1]:
        last_pair = names[-1]
        del names[-1]
        names += last_pair.split(' ja ')
        has_and = True
-       #print(last_pair.split(' ja '))
     for name in names:
         n = re.sub(r'[Ss]uom\.?', '', name.strip())
         retval.append(n)
-        #match = single_name(name, pat, True)
-        #retval.append(match[1])
-        #handled_list.append(match[0])
 
     # Now we need to reconstruct the matched string back
     for idx, name in enumerate(retval[:-1]):
@@ -144,27 +128,6 @@ def multiple_persons(s, pat):
     to_remove += str(retval[-1])
     return (to_remove, retval)
 
-#def multiple_persons(s, pat):
-#    handled_list = []
-#    retval = []
-#    to_remove = ''
-#    names = re.split('&', s)
-#    if ' ja ' in names[-1]:
-#       last_pair = names[-1]
-#       del names[-1]
-#       names += re.split(' ja ', last_pair)
-    #print(names)
-#    for name in names:
-#        match = single_name(name, pat, True)
-#        retval.append(match[1])
-#        handled_list.append(match[0])
-
-    # Now we need to reconstruct the matched string back
-#    for idx, name in enumerate(retval[:-1]):
-#        m = re.search(str(name) + '(.+)' + str(retval[idx+1]), s)
-#        to_remove += str(name) + m.group(1)
-#    to_remove += str(retval[-1])
-#    return (to_remove, retval)
 
 def find_persons(s, type):
 
@@ -182,10 +145,29 @@ def find_persons(s, type):
     return (to_remove, names)
 
 def get_books(books):
-    """ This is so ugly it hurts my head. """
-    retval = []
+    """ This is so ugly it hurts my head.
+
+        General idea is to pick out parts of the book info more or less from
+        the easiest or most distinguisable one to the more difficult ones and
+        removing each identified part so the string left gets shorter and
+        shorter. There is a wide variety of different formats so this is the
+        only way I could get this to work.
+
+        This function returns a list of tuples where the first item is the
+        work and the second is a list of editions for that work. E.g.
+        (({work1}, [edition1, edition2...]),
+         ({work2}, [edition1, edition2...]), ...
+        )
+        Every work has at least one edition, with exactly the same info as the
+        work itself. This is considered first edition for that work.
+    """
+
+
+    works = []
+    editions = []
     curr_book = {}
     misc_str = ''
+    edition_re = re.compile('(\d+?)\.((?:laitos|painos)):(.+)')
     for b in books:
         full_string = b
         tmp = b.replace('\n', '')
@@ -198,7 +180,6 @@ def get_books(books):
                 tmp.replace(misc, '')
         # Find title
         # Another edition?
-        edition_re = re.compile('(\d+?)\.((?:laitos|painos)):(.+)')
         m2 = edition_re.search(tmp)
         m = re.search('<b>(.+)<\/b>', tmp, re.S)
         if m2 and curr_book:
@@ -261,10 +242,6 @@ def get_books(books):
                     tmp = tmp.replace(m2.group(0), '')
                 else:
                     book['translator'] = ''
-                #(to_remove, names) = find_persons(tmp, 'translator')
-                #if len(names) > 0:
-                #    book['translator'] = ','.join(names)
-                #tmp = tmp.replace(to_remove, '')
 
                 m2 = re.search('[Tt]oim\.? ([A-Za-zÅÄÖåäö\-\&\s]+)\.', tmp)
                 if m2:
@@ -278,7 +255,9 @@ def get_books(books):
                 book['rest'] = misc_str + ' ' + tmp.replace(r' .', '').strip()
                 misc_str = ''
                 book['fullstring'] = full_string
-                retval.append(book)
+                #print("Adding: {}".format(book['title']))
+                # Adding to editions for this work
+                works[-1][1].append(book)
         elif m:
             if 'ks. myös ' in tmp:
                 continue
@@ -308,8 +287,8 @@ def get_books(books):
                     book['origyear'] =  '0'
                 tmp = tmp.replace('(' + m.group(1)  + '). ', '')
             else:
-                book['origname'] = ''
-                book['origyear'] = None
+                book['origname'] = book['title']
+                book['origyear'] = '0'
             # Find editor
             m = re.search('[Tt]oim\.? ([A-Za-zÅÄÖåäö\-\&\s]+)\.', tmp)
             if m:
@@ -355,33 +334,34 @@ def get_books(books):
             if m:
                 book['pubyear'] = m.group(1)
                 tmp = tmp.replace(m.group(1), '')
+                if book['origyear'] == '0':
+                    book['origyear'] = book['pubyear']
             else:
                 book['pubyear'] = '0'
+
             m2 = re.search(translator_re, tmp)
             if m2:
                 book['translator'] = m2.group(3)
                 tmp = tmp.replace(m2.group(0), '')
             else:
                 book['translator'] = ''
-            #(to_remove, names) = find_persons(tmp, 'translator')
-            #book['translator'] = '&'.join(names)
-            #tmp = tmp.replace(to_remove, '')
 
             if len(re.sub('[\s\.]', '', tmp)) == 0:
                 tmp = ''
             book['rest'] = misc_str + ' ' + tmp.replace(r' .', '').strip()
             misc_str = ''
-            #if book['rest'] == '.':
-            #    book['rest'] = ''
             book['fullstring'] = full_string
             curr_book = dict(book)
-            retval.append(book)
-    return retval
+            # Add work and default first edition
+            works.append((book, [book]))
+    return works
 
 
 def read_bibs(filelist):
     """ Return a dict containing contents of the bibliography files
-        split """
+        with author name as key and list of books returned from
+        get_books() for that author.
+    """
     content = ''
     for filename in filelist:
         print("Handling {}".format(filename))
@@ -395,6 +375,7 @@ def read_bibs(filelist):
     auth_data = content.split('\n\n\n')
     auth_p = r'<h2>([a-zA-ZåäöÄÅÖ].*?)</h2>(.+)'
     authors = {}
+    # Create a dict with author's name as key and books as item
     for auth in auth_data:
         m = re.search(auth_p, auth, re.S|re.U)
         if m:
@@ -407,8 +388,11 @@ def read_bibs(filelist):
 
 
 def import_pubs(session, publishers):
+    """ Import publishers  to database. """
+    logging.info('Importing publishers')
     s = session()
     for pub in publishers:
+        logging.debug("Pub1: %s",pub[1])
         p = s.query(Publisher).filter(Publisher.name == pub[1]).first()
         if not p:
             publisher = Publisher(name=pub[1], fullname=pub[2])
@@ -416,34 +400,9 @@ def import_pubs(session, publishers):
     s.commit()
 
 
-def import_authors(session, authors):
-    s = session()
-    for name in authors.keys():
-        q = s.query(Person).filter(Person.name == name).first()
-        if not q:
-            author = Person(name=name)
-            s.add(author)
-    s.commit()
-
-
-def import_translators(session, translators, source):
-    s = session()
-    if not translators:
-        return
-    if translators != '':
-        for t in translators.split('&'):
-            q = s.query(Person).filter(Person.name ==
-                    t.strip()).first()
-            if not q:
-                translator = Person(name=t.strip(), source=source)
-                s.add(translator)
-                s.commit()
-
-
-def import_editors(session, editors):
-    pass
-
 def import_bookseries(session, serieslist):
+    """ Import bookseries to database. """
+    logging.info('Importing bookseries')
     s = session()
     for series in serieslist:
         q = s.query(Bookseries).filter(Bookseries.name == series[1]).first()
@@ -454,7 +413,8 @@ def import_bookseries(session, serieslist):
 
 
 def import_pubseries(session, serieslist):
-    import pprint
+    """ Import publisher series to database. """
+    logging.info('Importing publisher series')
     s = session()
     for series in serieslist:
         q = s.query(Pubseries).filter(Pubseries.name == series[1]).first()
@@ -474,116 +434,141 @@ def import_pubseries(session, serieslist):
 
 
 def add_bookperson(s, person, book, type):
-    bookperson = s.query(BookPerson).filter(BookPerson.person_id == person.id,
-            BookPerson.book_id == book.id).first()
-    if not bookperson:
-        bookperson = BookPerson(person_id=person.id, book_id=book.id,
-                type=type)
-        s.add(bookperson)
+    """ Add a "bookperson". A person is either author, translator or
+        editor. Authors link to work, the other two to editions.
+
+        This function will check if that connection already exists
+        to avoid adding double entries. This should really never happen.
+    """
+    if type == 'A':
+        bookperson = s.query(Author).filter(Author.person_id == person.id,
+                Author.work_id == book.id).first()
+        if not bookperson:
+            logging.debug('Adding author %s for %s.',person.name, book.title)
+            bookperson = Author(person_id = person.id, work_id = book.id)
+    elif type == 'T':
+        bookperson = s.query(Translator).filter(Translator.person_id ==
+                person.id, Translator.edition_id == book.id).first()
+        if not bookperson:
+            logging.debug('Adding translator %s for %s.', person.name, book.title)
+            bookperson = Translator(person_id = person.id, edition_id = book.id)
+    elif type == 'E':
+        bookperson = s.query(Editor).filter(Editor.person_id ==
+                person.id, Editor.edition_id == book.id).first()
+        if not bookperson:
+            logging.debug('Adding editor %s for %s.', person.name, book.title)
+            bookperson = Editor(person_id = person.id, edition_id = book.id)
+    else:
+        return
+
+    s.add(bookperson)
+    s.commit()
+
+
+def import_person(s, name, source=''):
+    """ Searches for given person by name from the Person table and if
+        that name is not found, adds it to the Person table.
+
+        The person object, whether already existing or just created, is
+        returned to caller.
+    """
+    person = s.query(Person).filter(Person.name == name).first()
+    if not person:
+        person = Person(name=name, source=source)
+        s.add(person)
         s.commit()
+    return person
 
 
 def import_books(session, authors):
+    logging.info('Importing books')
     s = session()
     for author, books in authors.items():
-        print("Author: {}".format(author))
-        authoritem = s.query(Person).filter(Person.name == author).first()
+        print("Author: {}".format(author)) # Progress meter
+        logging.debug('Author: %s', author)
+        authoritem = import_person(s, author)
         for book in books:
-            if not authoritem:
-                authoritem = Person(name=author, source = book['fullstring'])
-                s.add(authoritem)
-                s.commit()
-            bookitem = s.query(Book).filter(Book.title == book['title']).first()
-            if not bookitem:
-                # Find related rows from other tables (Publisher, Bookseries,
-                # Pubseries).
-                bookseries = None
-                if book['bookseries'] != '':
-                    bookseries = s.query(Bookseries).filter(Bookseries.name ==
-                        book['bookseries']).first()
-                if bookseries:
-                    bookseriesid = bookseries.id
-                else:
-                    bookseriesid = None
-                bookseriesnum = book['bookseriesnum']
+            # Each book has a dict for the work and one or more dicts for
+            # editions.
+            work = book[0]
+            # Find related rows from other tables (Publisher, Bookseries,
+            # Pubseries).
+            bookseries = None
+            if work['bookseries'] != '':
+                bookseries = s.query(Bookseries).filter(Bookseries.name ==
+                    work['bookseries']).first()
+            if bookseries:
+                bookseriesid = bookseries.id
+            else:
+                bookseriesid = None
+
+            workitem = Work(
+                    title = work['origname'],
+                    pubyear = work['origyear'],
+                    bookseries_id = bookseriesid,
+                    bookseriesnum = work['bookseriesnum'],
+                    genre = work['type'],
+                    misc = work['rest'],
+                    fullstring = work['fullstring'])
+
+            s.add(workitem)
+            s.commit()
+            add_bookperson(s, authoritem, workitem, 'A')
+
+            for edition in book[1]:
                 pubseries = None
-                if book['pubseries'] != '':
+                if edition['pubseries'] != '':
                     pubseries = s.query(Pubseries).filter(Pubseries.name ==
-                        book['pubseries']).first()
+                        edition['pubseries']).first()
                 if pubseries:
                     pubseriesid = pubseries.id
                 else:
                     pubseriesid = None
-                pubseriesnum = book['pubseriesnum']
+                pubseriesnum = edition['pubseriesnum']
                 publisher = None
-                if book['publisher'] != '':
+                if edition['publisher'] != '':
                     publisher = s.query(Publisher).filter(Publisher.name ==
-                            book['publisher']).first()
+                            edition['publisher']).first()
                 if publisher:
                     publisherid = publisher.id
                 else:
                     publisherid = None
-                translator = None
-                translator = s.query(Person).filter(Person.name ==
-                book['translator']).first()
-                if not translator:
-                    translator = Person(name=book['translator'], source =
-                            book['fullstring'])
-                    s.add(translator)
-                    s.commit()
-                #import_translators(session, book['translator'],
-                #book['fullstring'])
-                #if book['translator'] != '':
-                #    for name in book['translator'].split(','):
-                #        translator = s.query(Person).filter(Person.name ==
-                #                name).first()
-                #        if not translator:
-                #            try:
-                #                translator = Person(name=name, source = book['fullstring'])
-                #                s.add(translator)
-                #                s.commit()
-                #            except:
-                #                print("translator: {}, author {}".format(name,
-                #                        author))
-                editor = None
-                if book['editor'] != '':
-                    editor = s.query(Person).filter(Person.name ==
-                        book['editor']).first()
-                    if not editor:
-                        editor = Person(name=book['editor'], source = book['fullstring'])
-                        s.add(editor)
-                        s.commit()
+                translator = import_person(s, edition['translator'], edition['fullstring'])
+                editor = import_person(s, edition['editor'], edition['fullstring'])
 
-                # Create new book to database.
-                bookitem = Book(title = book['title'],
-                    pubyear = book['pubyear'], edition = book['edition'],
-                    publisher_id = publisherid,
-                    originalname = book['origname'],
-                    origpubyear = book['origyear'],
-                    pubseries_id = pubseriesid,
-                    pubseriesnum = book['pubseriesnum'],
-                    bookseries_id = bookseriesid,
-                    bookseriesnum = book['bookseriesnum'],
-                    genre = book['type'],
-                    misc = book['rest'],
-                    fullstring = book['fullstring'])
-                s.add(bookitem)
+                # Create new edition to database.
+                if edition['edition']:
+                    editionnum = str(edition['edition'])
+                else:
+                    editionnum = '1'
+                logging.debug("Adding edition {} for {} ({})."\
+                        .format(editionnum,
+                                workitem.title,
+                                edition['title']))
+                ed = Edition(
+                        title = edition['title'],
+                        work_id = workitem.id,
+                        pubyear = edition['pubyear'],
+                        editionnum = editionnum,
+                        publisher_id = publisherid,
+                        pubseries_id = pubseriesid,
+                        pubseriesnum = edition['pubseriesnum'],
+                        language = 'FI',
+                        misc = edition['rest'],
+                        fullstring = edition['fullstring'])
+                s.add(ed)
                 s.commit()
 
-                # Add links between people and book
-                add_bookperson(s, authoritem, bookitem, 'A')
-                if book['translator'] != '':
-                    #for name in book['translator'].split('&'):
-                    #    print("Name = {}".format(name))
-                    translator = s.query(Person).filter(Person.name == book['translator']).first()
-                    add_bookperson(s, translator, bookitem, 'T')
-                if book['editor'] != '':
-                    editor = s.query(Person).filter(Person.name == book['editor']).first()
-                    add_bookperson(s, editor, bookitem, 'E')
+                # Add links between people and edition
+                if edition['translator'] != '':
+                    add_bookperson(s, translator, ed, 'T')
+                if edition['editor'] != '':
+                    add_bookperson(s, editor, ed, 'E')
 
 
 def add_missing_series(session):
     # This important publisher series is missing from the imported data.
+    logging.info('Creating missing Kirjayhtymä series')
     s = session()
     publisher = s.query(Publisher).filter(Publisher.name ==
     'Kirjayhtymä').first()
@@ -594,6 +579,7 @@ def add_missing_series(session):
 
 
 def create_admin(session):
+    logging.info('Creating admin')
     s = session()
     user = User(name='admin', is_admin=True)
     user.set_password('admin')
@@ -601,15 +587,17 @@ def create_admin(session):
     s.commit()
 
 
-def import_all(dirname):
+def import_all(filelist):
     import glob
     import pprint
 
     basedir = os.path.abspath(os.path.dirname(__file__))
     load_dotenv(os.path.join(basedir, '.env'))
 
-    data = read_bibs(glob.glob(dirname + '/*.html'))
+    logging.info('Starting import')
+    data = read_bibs(filelist)
 
+    logging.debug(data)
     #pprint.pprint(data)
     #pprint.pprint(pubseries_publisher)
 
@@ -628,13 +616,26 @@ def import_all(dirname):
     create_admin(session)
 
 
-    #pprint.pprint(pubseries)
+def read_params(args):
+    p = argparse.ArgumentParser()
+    p.add_argument('--debug', '-d', action='store_true', default=False)
+    p.add_argument('--file', '-f', default='')
+    return vars(p.parse_args(args))
+
 
 if __name__ == '__main__':
-    dirname = 'bibfiles'
-    import_all(dirname)
-    #print(find_persons('Suom U. Ruhanen ja R. Sirokov. Edistys 1968.',
-    #    'translator'))
-    #print(find_persons('Suom P. Kopperi & J. Linturi & E. Palsbo & M. Rutanen & A. Tiusanen & V. Vankkoja. Omnibus-sarja. Tammi 1964.', 'translator'))
-    #print(find_persons('Suom Pentti P. Keränen.', 'translator'))
-    #print(find_persons('Suom Pentti Penttinen.', 'translator'))
+    import glob
+    params = read_params(sys.argv[1:])
+    loglevel = logging.INFO
+    if params['debug'] == True:
+        loglevel = logging.DEBUG
+    if params['file']:
+        filelist = [params['file']]
+        print(filelist)
+    else:
+        filelist = glob.glob('bibfiles/*.html')
+
+    logging.basicConfig(filename='import.log', filemode='w',
+        level=loglevel)
+
+    import_all(filelist)

@@ -6,10 +6,13 @@
 <h1>Kirjat</h1>
 {% endif %}
 {% for person in authors %}
-<h3><a href="{{ url_for("person", personid = person.id) }}">{{person.name}}</a></h3>
-{% for book in person.books %}
-{% include "_book.html" %}
-{% endfor %}
+    <h3><a href="{{ url_for("person", personid = person.id) }}">{{person.name}}</a></h3>
+    {% for work in person.works %}
+        {% include "_work.html" %}
+        {% for edition in work.editions %}
+            {% include "_otheredition.html" %}
+        {% endfor %}
+    {% endfor %}
 {% endfor %}
 
 {% endblock %}

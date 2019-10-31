@@ -1,0 +1,135 @@
+digraph g {
+	rankdir = LR;	
+	node [shape=plaintext];
+	Publisher [
+		label =<
+		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+		<TR><TD><B>Publisher</B></TD></TR>
+		<TR><TD PORT="id">id</TD></TR>
+		<TR><TD>Name</TD></TR>
+		<TR><TD>Fullname</TD></TR>
+		</TABLE>
+		>];
+	Author [
+		label =<
+		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+		<TR><TD><B>Author</B></TD></TR>
+		<TR><TD PORT="workid">work_id</TD></TR>
+		<TR><TD PORT="personid">person_id</TD></TR>
+		</TABLE>
+		>];
+	Translator [
+		label =<
+		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+		<TR><TD><B>Translator</B></TD></TR>
+		<TR><TD PORT="editionid">edition_id</TD></TR>
+		<TR><TD PORT="personid">person_id</TD></TR>
+		</TABLE>
+		>];
+	Editor [
+		label =<
+		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+		<TR><TD><B>Editor</B></TD></TR>
+		<TR><TD PORT="editionid">edition_id</TD></TR>
+		<TR><TD PORT="personid">person_id</TD></TR>
+		</TABLE>
+		>];
+	Pubseries [
+		label =<
+		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+		<TR><TD><B>Pubseries</B></TD></TR>
+		<TR><TD PORT="id">id</TD></TR>
+		<TR><TD>name</TD></TR>
+		<TR><TD port="publisherid">publisher_id</TD></TR>
+		<TR><TD>important</TD></TR>
+		</TABLE>
+		>];
+	Bookseries [
+		label =<
+		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+		<TR><TD><B>Bookseries</B></TD></TR>
+		<TR><TD PORT="id">id</TD></TR>
+		<TR><TD>name</TD></TR>
+		<TR><TD>important</TD></TR>
+		</TABLE>
+		>];
+	Person [
+		label =<
+		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+		<TR><TD><B>Person</B></TD></TR>
+		<TR><TD PORT="id">id</TD></TR>
+		<TR><TD>name</TD></TR>
+		<TR><TD>first_name</TD></TR>
+		<TR><TD>last_name</TD></TR>
+		<TR><TD>dob</TD></TR>
+		<TR><TD>dod</TD></TR>
+		<TR><TD>birthplace</TD></TR>
+		<TR><TD>source</TD></TR>
+		</TABLE>
+		>];
+	Work [
+		label =<
+		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+		<TR><TD><B>Work</B></TD></TR>
+		<TR><TD PORT="id">id</TD></TR>
+		<TR><TD>title</TD></TR>
+		<TR><TD>pubyear</TD></TR>
+		<TR><TD>language</TD></TR>
+		<TR><TD PORT="bookseriesid">bookseries_id</TD></TR>
+		<TR><TD>bookseriesnum</TD></TR>
+		<TR><TD>genre</TD></TR>
+		<TR><TD>misc</TD></TR>
+		<TR><TD>fullstring</TD></TR>
+		</TABLE>
+		>];
+	Edition [
+		label =<
+		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+		<TR><TD><B>Edition</B></TD></TR>
+		<TR><TD PORT="id">id</TD></TR>
+		<TR><TD PORT="workid">work_id</TD></TR>
+		<TR><TD>title</TD></TR>
+		<TR><TD>pubyear</TD></TR>
+		<TR><TD>language</TD></TR>
+		<TR><TD PORT="publisherid">publisher_id</TD></TR>
+		<TR><TD>editionnum</TD></TR>
+		<TR><TD PORT="pubseriesid">pubseries_id</TD></TR>
+		<TR><TD>pubseriesnum</TD></TR>
+		<TR><TD>misc</TD></TR>
+		<TR><TD>fullstring</TD></TR>
+		</TABLE>
+		>];
+	User [
+		label =<
+		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+		<TR><TD><B>User</B></TD></TR>
+		<TR><TD PORT="id">id</TD></TR>
+		<TR><TD>name</TD></TR>
+		<TR><TD>password_hash</TD></TR>
+		<TR><TD>is_admin</TD></TR>
+		</TABLE>
+		>];
+	UserBook [
+		label =<
+		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+		<TR><TD><B>UserBook</B></TD></TR>
+		<TR><TD PORT="editionid">edition_id</TD></TR>
+		<TR><TD PORT="userid">user_id</TD></TR>
+		</TABLE>
+		>];
+
+	Author:workid -> Work:id;
+	Author:personid -> Person:id;
+	Translator:personid -> Person:id;
+	Translator:editionid -> Edition:id;
+	Editor:personid -> Person:id;
+	Editor:editionid -> Edition:id;
+	Pubseries:publisherid -> Publisher:id;
+	Work:bookseriesid -> Bookseries:id;
+	Edition:workid -> Work:id;
+	Edition:publisherid -> Publisher:id;
+	Edition:pubseriesid -> Pubseries:id;
+	UserBook:userid -> User:id;
+	UserBook:editionid -> Edition:id;
+
+}

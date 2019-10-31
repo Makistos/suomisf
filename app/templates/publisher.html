@@ -2,11 +2,19 @@
 {% block content %}
 <h1>{{ publisher.name }} ({{ publisher.id }})</h1>
 <p>Kirjoja tietokannassa {{ book_count }}.</p>
-<p>Vanhin kirja: <a href=" {{ url_for('book', bookid=oldest.id) }}">{{ oldest.title }}</a></p>
-<p>Uusin kirja: <a href=" {{ url_for('book', bookid=newest.id) }}">{{ newest.title }}</a></p>
+<p>Vanhin kirja: <a href=" {{ url_for('edition', editionid=oldest.id) }}">{{
+    oldest.title }}</a> ({{ oldest.pubyear }})</p>
+<p>Uusin kirja: <a href=" {{ url_for('edition', editionid=newest.id) }}">{{
+    newest.title }}</a> ({{ newest.pubyear}})</p>
 
 <h2>Sarjat</h2>
 {% for s in series %}
 <p><a href="{{ url_for("pubseries", seriesid=s.id) }}">{{ s.name }}</a></p>
 {% endfor %}
+
+<h2>Julkaisut</h2>
+{% for edition in editions %}
+    {% include "_edition.html" %}
+{% endfor %}
+
 {% endblock %}

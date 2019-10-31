@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>{{ person.name }} ({{person.id}})</h1>	
-        <p><b>Etunimi</b>: {{ person.first_name }}</p>
-        <p><b>Sukunimi</b>: {{ person.last_name }}</p>
-        <p><b>Syntymävuosi</b>: {{ person.dob }}</p>
-        <p><b>Kuolinvuosi</b>: {{ person.dob }}</p>
-        <p><b>Syntymäpaikka</b>: {{ person.birthplace }}</p>
+        <p><b>Etunimi</b>: {{ person.first_name if person.first_name }}</p>
+        <p><b>Sukunimi</b>: {{ person.last_name if person.last_name  }}</p>
+        <p><b>Syntymävuosi</b>: {{ person.dob if person.dob }}</p>
+        <p><b>Kuolinvuosi</b>: {{ person.dod if person.dod }}</p>
+        <p><b>Syntymäpaikka</b>: {{ person.birthplace if person.birthplace }}</p>
         {% if person.source %}
         <p><b>Lähde</b>: {{ person.source }}</p>
         {% endif %}
@@ -13,22 +13,22 @@
         <p><a href=" {{ url_for('edit_person', personid=person.id)
                     }}">Muokkaa</a></p>
         {% endif %}
-	{% if authored|length %}
+	{% if person.works|length %}
 		<h2>Kirjoittanut</h2>
-		{% for book in authored %}
-			{% include "_book.html" %}
+		{% for work in person.works %}
+			{% include "_work.html" %}
 		{% endfor %}
 	{% endif %}
-	{% if translated|length %}
+	{% if person.translations|length %}
 		<h2>Kääntänyt</h2>
-		{% for book in translated %}
-			{% include "_book.html" %}
+		{% for edition in person.translations %}
+			{% include "_edition.html" %}
 		{% endfor %}
 	{% endif %}
-	{% if edited|length %}
+	{% if person.edits|length %}
 		<h2>Toimittanut</h2>
-		{% for book in edited %}
-			{% include "_book.html" %}
+		{% for edition in person.edits %}
+			{% include "_edition.html" %}
 		{% endfor %}
 	{% endif %}
 {% endblock %}

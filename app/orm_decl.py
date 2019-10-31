@@ -25,15 +25,32 @@ class Publisher(Base):
     name = Column(String(250), nullable=False, unique=True, index=True)
     fullname = Column(String(250), nullable=False, unique=True)
 
-class BookPerson(Base):
-    __tablename__ = 'bookperson'
-    book_id = Column(Integer, ForeignKey('book.id'), nullable=False,
+class Author(Base):
+    __tablename__ = 'author'
+    work_id = Column(Integer, ForeignKey('work.id'), nullable=False,
             primary_key=True)
     person_id = Column(Integer, ForeignKey('person.id'), nullable=False,
             primary_key=True)
-    type = Column(String(1), nullable=False)
-    book = relationship("Book", backref=backref("book_assoc"))
-    person = relationship("Person", backref=backref("person_assoc"))
+    work = relationship("Work", backref=backref("work_assoc"))
+    person = relationship("Person", backref=backref("person1_assoc"))
+
+class Translator(Base):
+    __tablename__ = 'translator'
+    edition_id = Column(Integer, ForeignKey('edition.id'), nullable=False,
+            primary_key=True)
+    person_id = Column(Integer, ForeignKey('person.id'), nullable=False,
+            primary_key=True)
+    edition = relationship("Edition", backref=backref("edition1_assoc"))
+    person = relationship("Person", backref=backref("person2_assoc"))
+
+class Editor(Base):
+    __tablename__ = 'editor'
+    edition_id = Column(Integer, ForeignKey('edition.id'), nullable=False,
+            primary_key=True)
+    person_id = Column(Integer, ForeignKey('person.id'), nullable=False,
+            primary_key=True)
+    edits = relationship("Edition", backref=backref("edition2_assoc"))
+    person = relationship("Person", backref=backref("person3_assoc"))
 
 class Pubseries(Base):
     __tablename__ = 'pubseries'
@@ -43,7 +60,7 @@ class Pubseries(Base):
     important = Column(Boolean, default=False)
     publisher = relationship("Publisher", backref=backref('publisher',
         uselist=False))
-    books = relationship("Book", backref=backref('book'), uselist=True)
+    editions = relationship("Edition", backref=backref('edition'), uselist=True)
 
 class Bookseries(Base):
     __tablename__ = 'bookseries'
@@ -62,36 +79,49 @@ class Person(Base):
     dod = Column(Integer)
     birthplace = Column(String(250))
     source = Column(String(500))
-    books = relationship("Book", secondary='bookperson')
+    works = relationship("Work", secondary='author')
+    edits = relationship("Edition", secondary='editor')
+    translations = relationship("Edition", secondary='translator')
 
-class Book(Base):
-    __tablename__ = 'book'
+
+class Work(Base):
+    __tablename__ = 'work'
     id = Column(Integer, primary_key=True)
     title = Column(String(500), nullable=False, index=True)
     pubyear = Column(Integer)
-    publisher_id = Column(Integer, ForeignKey('publisher.id'))
-    edition = Column(Integer)
-    originalname = Column(String(250))
-    origpubyear = Column(Integer)
-    pubseries_id = Column(Integer, ForeignKey('pubseries.id'))
-    pubseriesnum = Column(String(20))
+    language = Column(String(2))
     bookseries_id = Column(Integer, ForeignKey('bookseries.id'))
     bookseriesnum = Column(String(20))
     genre = Column(String(100))
     misc = Column(String(500))
     fullstring = Column(String(500))
-    persons = relationship("Person", secondary='bookperson')
-    publisher = relationship("Publisher", backref=backref('publishers',
+    authors = relationship("Person", secondary='author')
+    bookseries = relationship("Bookseries", backref=backref('bookseries',
+        uselist=False))
+    editions = relationship("Edition", backref=backref('Edition',
+            uselist=True))
+
+class Edition(Base):
+    __tablename__ = 'edition'
+    id = Column(Integer, primary_key=True)
+    work_id = Column(Integer, ForeignKey('work.id'))
+    title = Column(String(500), nullable=False, index=True)
+    pubyear = Column(Integer)
+    publisher_id = Column(Integer, ForeignKey('publisher.id'))
+    editionnum = Column(Integer)
+    language = Column(String(2))
+    pubseries_id = Column(Integer, ForeignKey('pubseries.id'))
+    pubseriesnum = Column(String(20))
+    misc = Column(String(500))
+    fullstring = Column(String(500))
+    translators = relationship('Person', secondary='translator')
+    editors = relationship('Person', secondary='editor')
+    work = relationship('Work', backref=backref('work', uselist=False))
+    publisher = relationship("Publisher", backref=backref('publisher_lookup',
         uselist=False))
     pubseries = relationship("Pubseries", backref=backref('pubseries',
         uselist=False))
-    bookseries = relationship("Bookseries", backref=backref('bookseries',
-        uselist=False))
     owners = relationship("User", secondary='userbook')
-
-    def __repr__(self):
-        pass
-        #return('<b>{}</b>. {}. ({}, {}). {}. {} {}. {}.'.format(
 
 class User(UserMixin, Base):
     __tablename__ = 'user'
@@ -99,7 +129,7 @@ class User(UserMixin, Base):
     name = Column(String(64), index=True, unique=True)
     password_hash = Column(String(128))
     is_admin = Column(Boolean, default=False)
-    books = relationship("Book", secondary="userbook")
+    books = relationship("Edition", secondary="userbook")
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -112,11 +142,11 @@ class User(UserMixin, Base):
 
 class UserBook(Base):
     __tablename__ = 'userbook'
-    book_id = Column(Integer, ForeignKey('book.id'), nullable=False,
+    edition_id = Column(Integer, ForeignKey('edition.id'), nullable=False,
             primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False,
             primary_key=True)
-    book = relationship("Book", backref=backref("book2_assoc"))
+    book = relationship("Edition", backref=backref("edition3_assoc"))
     user = relationship("User", backref=backref("user2_assoc"))
 
 
