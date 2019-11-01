@@ -34,6 +34,8 @@
 </p>
 {% endfor %}
 {% if current_user.is_admin %} 
+<hr>
 <p><a href=" {{ url_for('edit_work', workid=work.id) }} ">Muokkaa</a></p>
+<p><a href=" {{ url_for('edit_edition', editionid=0) }}">Lisää painos</a></p>
 {% endif %}
 {% endblock %}

@@ -229,7 +229,7 @@ important_pubseries = (
                        )
 
 bookseries = [
-    ('5. aalto, osa', '5. aalto, osa'),
+    ('5. aalto, osa', '5. aalto'),
     ('A. Conan Doylen kootut kertomukset', 'A. Conan Doylen kootut kertomukset'),
     ('A. Conan Doylen kootut teokset', 'A. Conan Doylen kootut teokset'),
     ('Aavehevoset', 'Aavehevoset'),
@@ -239,9 +239,9 @@ bookseries = [
     ('Abarat', 'Abarat'),
     ('Across the Universe', 'Across the Universe'),
     ('Aikavartio', 'Aikavartio'),
-    ('Ajan Pyörä(n)?( \d+\.)?( osa)?(Johdanto-osa)?', 'Ajan Pyörä'),
+    ('Ajan Pyörä(n)?\s?(?P<ext>johdanto-osa)?', 'Ajan Pyörä'),
     ('Alismaan tarinat', 'Alismaan tarinat'),
-    ('Alvinin (.+) kirja', 'Alvinin kirja'),
+    ('Alvinin (?P<num2>.+) kirja', 'Alvinin kirja'),
     ('Amberin kronikat', 'Amberin kronikat'),
     ('Ami-kirjat', 'Ami-kirjat'),
     ('Animorphs(: Megamorphs)?', 'Animorphs'),

@@ -35,7 +35,7 @@ Toimittaja(t): {% for editor in edition.editors[:-1] %}
 	{% endif %}
 {%- endif %}
 {% if edition.work.bookseries.name|length %}
-<p>Kirjasarja: <a href=" {{ url_for('editionseries',
+<p>Kirjasarja: <a href=" {{ url_for('bookseries',
                            seriesid=edition.work.bookseries.id) }} ">{{
                            edition.work.bookseries.name }}</a>
 	{% if edition.work.bookseriesnum %}

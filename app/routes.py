@@ -235,7 +235,7 @@ def edit_work(workid):
                           .filter(Edition.work_id == Work.id)\
                           .all()
         publisher = session.query(Publisher)\
-                           .filter(Publisher.id == book.publisher_id)\
+                           .filter(Publisher.id == work.publisherid)\
                            .first()
         authors = session.query(Person)\
                          .join(Author)\
@@ -431,9 +431,15 @@ def bookseries(seriesid):
                      .join(Author)\
                      .join(Work)\
                      .filter(Work.bookseries_id == seriesid)\
-                     .order_by(Person.name)\
+                     .order_by(Person.name, Work.bookseriesorder)\
                      .all()
-    return render_template('bookseries.html', series=series, authors=authors)
+    editions = session.query(Edition)\
+                      .join(Work)\
+                      .filter(Edition.work_id == Work.id)\
+                      .filter(Work.bookseries_id == seriesid)\
+                      .order_by(Work.bookseriesorder, Edition.pubyear)\
+                      .all()
+    return render_template('bookseries.html', series=series, editions=editions)
 
 @app.route('/new_bookseries', methods=['POST', 'GET'])
 def new_bookseries():

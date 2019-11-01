@@ -92,6 +92,7 @@ class Work(Base):
     language = Column(String(2))
     bookseries_id = Column(Integer, ForeignKey('bookseries.id'))
     bookseriesnum = Column(String(20))
+    bookseriesorder = Column(Integer)
     genre = Column(String(100))
     misc = Column(String(500))
     fullstring = Column(String(500))

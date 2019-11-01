@@ -18,7 +18,7 @@ for pub in publishers:
 for series in pubseries:
     pubseries_re[series[0]] = re.compile('(?P<name>' + series[0] + ')\s?(?P<num>[\#IVX\d]+)?')
 for series in bookseries:
-    bookseries_re[series[0]] = re.compile('(?P<name>' + series[0] + ')\s?(?P<num>[\#IVX\d]+)?')
+    bookseries_re[series[0]] = re.compile('(?P<name>' + series[0] + ')\s?(?P<num>[\#IVX\d]+)?\s?')
 translator_re = re.compile("([a-zA-ZåäöÅÄÖ]+\s)*([Ss]uom\.?\s)([A-ZÄÅÖ]+[\.\s]?[a-zA-ZäöåÅÄÖéü&\-]*[\.\s]?[a-zA-ZåäöÅÄÖéü&\-\s,]*)(\.)")
 translator_re2 = re.compile("([Ss]uom\.?\s)?([A-ZÄÅÖ](\.\s?[A-ZÅÄÖ][a-zåäö]*|[a-zåäöü\-]+)\s?([A-ZÄÅÖ](\.\s?[A-ZÅÄÖ][a-zåäö]*|[a-zåäöü]+))*\s*([A-ZÅÄÖ](\.\s?[A-ZÄÅÖ][a-zåäö]*|[a-zäöåü]+)*)*\s?([A-ZÅÄÖa-zåäöü]+)*(\.)*)")
 translator_re3 = re.compile("([A-ZÄÅÖ]+[\.\s]?[a-zA-ZäöåÅÄÖéü&\-]*[\.\s]?[a-zA-ZåäöÅÄÖéü&\-\s]*)")
@@ -41,15 +41,30 @@ def find_item_from_string(item_list, st, patterns):
     # expression pattern and second the cleaned up name of the
     # series.
     for item in item_list:
+        s = ''
+        num = ''
         m = patterns[item[0]].search(st)
         if m:
             # Add all matches to a list. Item contains the entire
             # match and cleaned up name of the item.
-            if 'num' in m.groupdict():
-                num = m.groupdict()['num']
+            if 'num2' in m.groupdict():
+                num = m.groupdict()['num2']
             else:
-                num = ''
-            match_list.append((m.group(0), item[1], num))
+                if 'num' in m.groupdict():
+                    if m.groupdict()['num'] != '.':
+                        num = m.groupdict()['num']
+                    else:
+                        num = ''
+                else:
+                    num = ''
+            if 'ext' in m.groupdict():
+                if m.groupdict()['ext'] != None:
+                    s = item[1] + ' ' + m.groupdict()['ext']
+                else:
+                    s = item[1]
+            else:
+                s = item[1]
+            match_list.append((m.group(0), s, num))
     if len(match_list) > 0:
         maxlen = 0
         # Search for the longest matching string
@@ -199,10 +214,15 @@ def get_books(books):
                 if bseries:
                     book['bookseries'] = bseries[1]
                     book['bookseriesnum'] = bseries[2]
+                    try:
+                        book['bookseriesorder'] = int(bseries[2])
+                    except:
+                        book['bookseriesorder'] = 0
                     tmp = tmp.replace(bseries[0], '')
                 if 'bookseries' not in book:
                     book['bookseries'] = ''
                     book['bookseriesnum'] = ''
+                    book['bookseriesorder'] = 0
 
                 # Find publisher series
                 pseries = find_item_from_string(pubseries, tmp, pubseries_re)
