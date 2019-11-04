@@ -1,0 +1,47 @@
+digraph g {
+	rankdir = TB;	
+	node [shape=plaintext];
+
+	node [shape=box]; 
+		Person; 
+		Edition; 
+		Work; 
+		Piece; 
+		Publisher; 
+		Bookseries;
+		Pubseries; 
+		User;
+	node [shape=diamond]; 
+		Authored; Edited; Translated; 
+		"Combined into"; 
+		"Part of";
+		"Published in";
+		Published;
+		"Owns";
+		"Collects";
+
+	Person -> Authored [label = "m"];
+	Authored -> Piece [label = "n"];
+	Person -> Translated [label = "m"];
+	Translated -> Piece [label = "n"];
+	Person -> Edited [label = "m"];
+	Edited -> Edition [label = "n"];
+
+	Publisher -> Published [label = "1"];
+	Published -> Edition [label = "n"];
+	Published -> Pubseries [label = "n"];
+
+	Work -> "Part of" [label = "m"];
+	"Part of" -> Bookseries [label = "1"];
+	Edition -> "Published in" [label = "m"];
+	"Published in" -> Pubseries [label = "1"];
+	Piece -> "Combined into" [label = "m"];
+	"Combined into" -> Edition [label = "n"];
+	"Combined into" -> Work [label = "n"];
+
+	User -> Owns [label = "m"];
+	Owns -> Edition [label = "n"];
+	User -> "Collects" [label = "m"];
+	"Collects" -> Bookseries [label = "n"];
+	"Collects" -> Pubseries [label = "n"];
+}	
