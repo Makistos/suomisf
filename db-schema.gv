@@ -14,7 +14,7 @@ digraph g {
 		label =<
 		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
 		<TR><TD><B>Author</B></TD></TR>
-		<TR><TD PORT="pieceid">work_id</TD></TR>
+		<TR><TD PORT="pieceid">piece_id</TD></TR>
 		<TR><TD PORT="personid">person_id</TD></TR>
 		</TABLE>
 		>];
@@ -22,7 +22,7 @@ digraph g {
 		label =<
 		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
 		<TR><TD><B>Translator</B></TD></TR>
-		<TR><TD PORT="pieceid">edition_id</TD></TR>
+		<TR><TD PORT="pieceid">piece_id</TD></TR>
 		<TR><TD PORT="personid">person_id</TD></TR>
 		</TABLE>
 		>];
@@ -74,10 +74,8 @@ digraph g {
 		<TR><TD PORT="id">id</TD></TR>
 		<TR><TD>title</TD></TR>
 		<TR><TD>pubyear</TD></TR>
-		<TR><TD>language</TD></TR>
 		<TR><TD PORT="bookseriesid">bookseries_id</TD></TR>
 		<TR><TD>bookseriesnum</TD></TR>
-                <TR><TD>bookseriesorder</TD></TR>
 		<TR><TD>genre</TD></TR>
 		<TR><TD>misc</TD></TR>
 		<TR><TD>fullstring</TD></TR>
@@ -143,11 +141,9 @@ digraph g {
 		<TR><TD PORT="id">id</TD></TR>
 		<TR><TD PORT="editionid">edition_id</TD></TR>
 		<TR><TD PORT="workid">work_id</TD></TR>
-		<TR><TD PORT="authorid">author_id</TD></TR>
-		<TR><TD PORT="translatorid">translator_id</TD></TR>
 		<TR><TD>title</TD></TR>
 		<TR><TD>original_title</TD></TR>
-		<TR><TD>original_pubdate</TD></TR>
+		<TR><TD>original_pubyear</TD></TR>
 		<TR><TD>original_lang</TD></TR>
 		<TR><TD>genre</TD></TR>
 		</TABLE>
@@ -171,7 +167,5 @@ digraph g {
         UserBookseries:bookseriesid -> Bookseries:id;
         UserBookseries:userid -> User:id;
 	Piece:editionid -> Edition:id;
-	Piece:workid -> Work:id;
-	Piece:authorid -> Person:id;
-	Piece:translatorid -> Person:id;
+	Piece:workid -> Work:id [style=dashed];
 }
