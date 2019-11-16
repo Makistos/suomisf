@@ -2,7 +2,7 @@
 
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
-from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work, Edition, Pubseries, Bookseries, User, UserBook
+from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work, Edition, Part, Pubseries, Bookseries, User, UserBook
 
 """
     This module contains the functions related to routes that are not directly
@@ -46,15 +46,17 @@ def people_for_book(s, workid, type):
     if type == 'A':
         return s.query(Person)\
                 .join(Author)\
-                .filter(Author.work_id == workid)\
+                .join(Part)\
+                .filter(Author.part_id == Part.id)\
+                .filter(Part.work_id == workid)\
                 .all()
     elif type == 'T':
         return s.query(Person)\
                 .join(Translator)\
-                .join(Edition)\
+                .join(Part)\
                 .filter(Person.id == Translator.person_id)\
-                .filter(Translator.edition_id == Edition.id)\
-                .filter(Edition.work_id == workid)\
+                .filter(Translator.part_id == Part.id)\
+                .filter(Part.work_id == workid)\
                 .all()
     elif type == 'E':
         return s.query(Person)\
@@ -62,24 +64,33 @@ def people_for_book(s, workid, type):
                 .join(Edition)\
                 .filter(Person.id == Editor.person_id)\
                 .filter(Editor.edition_id == Edition.id)\
-                .filter(Edition.work_id == workid)\
+                .join(Part)\
+                .filter(Edition.id == Part.edition_id)\
+                .filter(Part.work_id == workid)\
                 .all()
 
 def books_for_person(s, personid, type):
     if type == 'A':
         return s.query(Work)\
+                .join(Part)\
+                .filter(Part.work_id == Work.id)\
                 .join(Author)\
                 .filter(Author.person_id == personid)\
+                .filter(Author.part_id == Part.id)\
                 .all()
     elif type == 'T':
         return s.query(Edition)\
+                .join(Part)\
+                .filter(Edition.id == Part.edition_id)\
                 .join(Translator)\
                 .filter(Translator.person_id == personid)\
+                .filter(Translator.part_id == Part.id)\
                 .all()
     elif type == 'E':
         return s.query(Edition)\
                 .join(Editor)\
                 .filter(Editor.person_id == personid)\
+                .filter(Editor.edition_id == Edition.id)\
                 .all()
     else:
         return None
@@ -146,3 +157,11 @@ def editions_for_work(workid):
 
     return retval
 
+def get_first_edition(workid):
+    session = new_session()
+
+    return session.query(Edition)\
+                  .join(Part)\
+                  .filter(Edition.id == Part.edition_id,
+                          Part.work_id == workid)\
+                  .first()

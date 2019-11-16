@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Käyttäjät</h1>
+{% for user in users %}
+<p><a href=" {{ url_for('user', userid=user.id) }}">{{ user.name }}</a></p>
+{% endfor %}
+{% endblock %}
+

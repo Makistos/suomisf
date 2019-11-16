@@ -8,7 +8,7 @@ from sqlalchemy.orm import sessionmaker
 from app.forms import LoginForm, RegistrationForm, PublisherForm,\
 PubseriesForm, PersonForm, BookseriesForm, UserForm
 from .route_helpers import *
-from app.forms import BookForm
+#from app.forms import BookForm
 import json
 import logging
 import pprint
@@ -85,11 +85,19 @@ def edit_user(userid):
         if form.password.data != '':
             user.set_password(form.password.data)
         user.name = form.name.data
-        user.is_admin = form.is_admin.data
+        if current_user.is_admin:
+            user.is_admin = form.is_admin.data
         session.add(user)
         session.commit()
         return redirect(url_for('user', userid=user.id))
     return render_template('edit_user.html', form=form)
+
+
+@app.route('/users')
+def users():
+    session = new_session()
+    users = session.query(User).all()
+    return render_template('users.html', users=users)
 
 
 @app.route('/add_to_owned/<bookid>', methods=['POST'])
@@ -97,18 +105,29 @@ def add_to_owned(bookid):
     app.logger.debug("bookid = " + bookid)
     session = new_session()
     #book = session.query(Book).filter(Book.id == bookid).first()
-    userbook = UserBook(user_id = current_user.get_id(), book_id = bookid)
+    userbook = UserBook(user_id = current_user.get_id(), edition_id = bookid)
     session.add(userbook)
     session.commit()
     app.logger.debug(request.url)
     return ""
 
+@app.route('/add_work_to_owned/<workid>', methods=['POST'])
+def add_work_to_owned(workid):
+    first_edition = get_first_edition(workd)
+    session = new_session()
+    userbook = UserBook(user_id = current_user.get_id(),
+                        edition_id = first_edition.id)
+    session.add(userbook)
+    session.commit()
+    app.logger.debug(request.url)
+    return ""
 
 @app.route('/remove_from_owned/<bookid>', methods=['POST'])
 def remove_from_owned(bookid):
     session = new_session()
-    userbook = session.query(UserBook).filter(UserBook.user_id == current_user.get_id(),
-            UserBook.book_id == bookid).first()
+    userbook = session.query(UserBook)\
+                      .filter(UserBook.user_id == current_user.get_id(),
+                       UserBook.edition_id == bookid).first()
     session.delete(userbook)
     session.commit()
     return ""
@@ -152,218 +171,6 @@ def edit_person(personid):
         session.commit()
         return redirect(url_for('person', personid=person.id))
     return render_template('edit_person.html', form=form, personid=personid)
-
-# Book related routes
-
-@app.route('/books/lang')
-def books_by_lang(lang):
-    """ Returns a list of books such that each work is only represented by the
-        first edition for given work in this language. """
-    retval = []
-    engine = create_engine('sqlite://suomisf.db')
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    authors = session.query(Person)\
-                     .join(Author)\
-                     .filter(Person.id == Author.person_id)\
-                     .join(Work)\
-                     .filter(Work.id == Author.work_id)\
-                     .order_by(Person.name)\
-                     .all()
-
-    for author in authors:
-        for work in author.works:
-            first_ed = sorted([x for x in work.editions if x.lang == lang],
-                        key=lambda x: x['edition_num'])[0]
-            #retval += {
-
-
-
-@app.route('/books')
-def books():
-    engine = create_engine('sqlite:///suomisf.db')
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    authors = session.query(Person)\
-                     .join(Author)\
-                     .filter(Person.id == Author.person_id)\
-                     .join(Work)\
-                     .filter(Work.id == Author.work_id)\
-                     .order_by(Person.name)\
-                     .all()
-    return render_template('books.html', authors=authors)
-
-
-@app.route('/booksX/<letter>')
-def booksX(letter):
-    engine = create_engine('sqlite:///suomisf.db')
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    #app.logger.debug(session.query(Person).join(BookPerson).filter(Person.id ==
-    #                BookPerson.person_id).filter(BookPerson.type ==
-    #                'A').filter(Person.name.ilike('A%')).order_by(Person.name))
-    authors = session.query(Person)\
-                     .join(Author)\
-                     .filter(Person.id == Author.person_id)\
-                     .filter(Person.name.ilike(letter + '%')).order_by(Person.name).all()
-    return render_template('books.html', authors=authors, letter=letter)
-
-
-@app.route('/work/<workid>')
-def work(workid):
-    engine = create_engine('sqlite:///suomisf.db')
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    work = session.query(Work).filter(Work.id == workid).first()
-    editions = session.query(Edition).filter(Edition.work_id == workid).all()
-    authors = people_for_book(session, workid, 'A')
-    translators = people_for_book(session, workid, 'T')
-#    s = ''
-    editors = people_for_book(session, workid, 'E')
-    return render_template('work.html', work=work, authors=authors,
-            translators=translators, editors=editors)
-
-@app.route('/edit_work/<workid>', methods=["POST", "GET"])
-def edit_work(workid):
-    session = new_session()
-    if workid != 0:
-        work = session.query(Work)\
-                      .filter(Work.id == workid)\
-                      .first()
-        editions = session.query(Edition)\
-                          .join(Work)\
-                          .filter(Edition.work_id == Work.id)\
-                          .all()
-        publisher = session.query(Publisher)\
-                           .filter(Publisher.id == work.publisherid)\
-                           .first()
-        authors = session.query(Person)\
-                         .join(Author)\
-                         .filter(Author.person_id == Person.id,\
-                                 Author.book_id == work.id)\
-                         .all()
-        translators = session.query(Person)\
-                             .join(Translator)\
-                             .filter(Translator.person_id == Person.id)\
-                             .join(Edition)\
-                             .join(Translator.edition_id == edition.id)\
-                             .join(Work)\
-                             .filter(Edition.work_id == Work.id)\
-                             .all()
-        editors = session.query(Person)\
-                         .join(Editor)\
-                         .filter(Editor.person_id == Person.id)\
-                         .join(Edition)\
-                         .join(Editor.edition_id == edition.id)\
-                         .join(Work)\
-                         .filter(Edition.work_id == Work.id)\
-                         .all()
-#        pubseries = \
-#                session.query(Pubseries)
-#                       .join(Edition)
-#                       .filter(Pubseries.id == edition.pubseries_id,
-#                               Edition.work_id == workid)
-#                       .all()
-        bookseries = session.query(Bookseries)\
-                            .join(Work)\
-                            .filter(Bookseries.id == work.bookseries_id,\
-                                    Work.id == workid)\
-                            .first()
-    else:
-        work = Work()
-
-    search_list = publisher_list(session)
-    search_list = {**search_list, **author_list(session)}
-#    publisher_series = pubseries_list(session, .publisher.id)
-
-    form = WorkForm(request.form)
-#    selected_pubseries = '0'
-#    if publisher_series:
-#        form.pubseries.choices = [('0', 'Ei sarjaa')] + publisher_series['pubseries']
-#    else:
-#        form.pubseries.choices = [('0', "Ei sarjaa")]
-    if request.method == 'GET':
- #       if pubseries:
- #           i = 0
- #           for idx, s in enumerate(publisher_series['pubseries']):
- #               if s[1] == pubseries.name:
-#                    i = s[0]
-#                    break
-#            form.pubseries.choices = [('0', 'Ei sarjaa')] + publisher_series['pubseries']
-#            form.pubseries.default = str(i)
-#            selected_pubseries = str(i)
-        form.id.data = work.id
-        form.title.data = work.title
-        form.authors.data = ', '.join([a.name for a in authors])
-#        form.translators.data = ', '.join([t.name for t in translators])
-#        form.editors.data = ', '.join([e.name for e in editors])
-        form.pubyear.data = work.pubyear
-        form.title.data = work.title
-#        form.origpubyear.data = book.origpubyear
-#        form.edition.data = book.edition
-#        form.publisher.data = publisher.name
-
-        if bookseries:
-            form.bookseries.data = bookseries.name
-        form.bookseriesnum.data = work.bookseriesnum
-        form.genre.data = work.genre
-        form.misc.data = work.misc
-        form.source.data = work.fullstring
-
-    if form.validate_on_submit():
-        author = session.query(Person).filter(Person.name ==
-                form.authors.data).first()
-        translator = session.query(Person).filter(Person.name ==
-                form.translators.data).first()
-        editor = session.query(Person).filter(Person.name ==
-                form.editors.data).first()
-        publisher = session.query(Publisher).filter(Publisher.name ==
-                form.publisher.data).first()
-        work.id = form.id.data
-        work.title = form.title.data
-        work.pubyear = form.pubyear.data
-#        book.originalname = form.originalname.data
-#        if book.origpubyear != '':
-#            book.origpubyear = int(form.origpubyear.data)
-#        book.edition = form.edition.data
-#        book.publisher_id = publisher.id
-        if form.bookseries.data != '':
-            bookseries = session.query(Bookseries).filter(Bookseries.name ==
-                    form.bookseries.data).first()
-            work.bookseries_id = bookseries.id
-        work.bookseriesnum = form.bookseriesnum.data
-#        if form.pubseries.data == '0':
-#            book.pubseries_id = None
-#        else:
-#            book.pubseries_id = form.pubseries.data
-        work.genre = form.genre.data
-        work.misc = form.misc.data
-        if work.id == 0:
-            session.add(work)
-        session.commit()
-        return redirect(url_for('work', bookid=work.id))
-    else:
-        app.logger.debug("Errors: {}".format(form.errors))
-    return render_template('edit_work.html', id = work.id, form=form, search_lists =
-            search_list, source = book.fullstring)
-
-
-@app.route('/edit_edition/<editionid>', methods=["POST", "GET"])
-def edit_edition(editionid):
-    if editionid != 0:
-        pass
-    return render_template('edit_edition.html')
-
-
-@app.route('/edition/<editionid>')
-def edition(editionid):
-    session = new_session()
-    edition = session.query(Edition)\
-                     .filter(Edition.id == editionid)\
-                     .first()
-
-    return render_template('edition.html', edition = edition)
-
 
 ### Publisher related routes
 

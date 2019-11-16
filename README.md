@@ -12,6 +12,44 @@ in the database it could also be possible to add books by hand in the future.
 Application uses Flask framework and SQLAlchemy ORM. Bootstrap css files are
 missing from this package at the moment.
 
+## Examples on how to store books
+The database has been designed in such a way it can store different kinds of
+books but this might also make the structure less obvious. As the import data
+includes Finnish books only (original and translations) I will use those as
+examples on how to deal with some situations. This chapter talks mainly about
+the trinity of Work, Edition and Part.
+
+Work is the original work and does not really represent anything concrete.
+It's the work done by one or several authors and covers every version printed.
+
+Edition is a single edition of the book in one language. So for instance,
+every edition in English has their own row in this table.
+
+Part is whatever parts an edition and/or work contains. Short stories can be
+listed as parts allowing collections where some edition is not based strictly
+on some work but could be either a combination or just part of one. Sometimes
+works are also split into several volumes and in some cases multiple works
+are combined into one book. This table allows expressing these cases. Title is
+always the name in the edition.
+
+There must always be at least one row in each of these three tables for any
+book.
+
+1. The simple case: First edition of a book: There should be one row in each
+   of Work, Edition and Part and nothing else.
+2. Another edition of a book: There should be another row in Edition and Part
+   but only the original row in Work.
+3. A work split into multiple parts. For example Frank Herbert's Dune was
+   split into three parts in Finland. This would be represented as one row in
+   Work and three rows in Edition and Part.
+4. Two works combined into one edition, e.g. a compendum of Shakespeare's
+   plays. This should have one Work and Part row for each play and one row in
+   Edition for the compendum.
+5. A collection translated into another language. Edition and Work both have
+   one row while every short story has a row in Part and also the ShortStory
+   table. Title in the Part row has the translated name while Title in
+   ShortStory holds the original name of the story. 
+
 ## To-Do
 * Adding and modifying of data for all tables in the database.
 * ~Separation of admin and regular user rights.~

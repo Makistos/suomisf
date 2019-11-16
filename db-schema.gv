@@ -1,5 +1,5 @@
 digraph g {
-	rankdir = LR;	
+	rankdir = LR;
 	node [shape=plaintext];
 	Publisher [
 		label =<
@@ -14,7 +14,7 @@ digraph g {
 		label =<
 		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
 		<TR><TD><B>Author</B></TD></TR>
-		<TR><TD PORT="pieceid">piece_id</TD></TR>
+		<TR><TD PORT="partid">part_id</TD></TR>
 		<TR><TD PORT="personid">person_id</TD></TR>
 		</TABLE>
 		>];
@@ -22,7 +22,7 @@ digraph g {
 		label =<
 		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
 		<TR><TD><B>Translator</B></TD></TR>
-		<TR><TD PORT="pieceid">piece_id</TD></TR>
+		<TR><TD PORT="partid">part_id</TD></TR>
 		<TR><TD PORT="personid">person_id</TD></TR>
 		</TABLE>
 		>];
@@ -64,7 +64,7 @@ digraph g {
 		<TR><TD>dob</TD></TR>
 		<TR><TD>dod</TD></TR>
 		<TR><TD>birthplace</TD></TR>
-		<TR><TD>source</TD></TR>
+		<TR><TD>fullstring</TD></TR>
 		</TABLE>
 		>];
 	Work [
@@ -74,6 +74,7 @@ digraph g {
 		<TR><TD PORT="id">id</TD></TR>
 		<TR><TD>title</TD></TR>
 		<TR><TD>pubyear</TD></TR>
+                <TR><TD>language</TD></TR>
 		<TR><TD PORT="bookseriesid">bookseries_id</TD></TR>
 		<TR><TD>bookseriesnum</TD></TR>
 		<TR><TD>genre</TD></TR>
@@ -86,12 +87,12 @@ digraph g {
 		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
 		<TR><TD><B>Edition</B></TD></TR>
 		<TR><TD PORT="id">id</TD></TR>
-		<TR><TD PORT="workid">work_id</TD></TR>
 		<TR><TD>title</TD></TR>
 		<TR><TD>pubyear</TD></TR>
 		<TR><TD>language</TD></TR>
 		<TR><TD PORT="publisherid">publisher_id</TD></TR>
 		<TR><TD>editionnum</TD></TR>
+		<TR><TD>isbn</TD></TR>
 		<TR><TD PORT="pubseriesid">pubseries_id</TD></TR>
 		<TR><TD>pubseriesnum</TD></TR>
 		<TR><TD>misc</TD></TR>
@@ -134,30 +135,52 @@ digraph g {
                 <TR><TD PORT="userid">user_id</TD></TR>
                 </TABLE>
                 >];
-	Piece [
+	Part [
 		label =<
 		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
-		<TR><TD><B>Piece</B></TD></TR>
+		<TR><TD><B>Part</B></TD></TR>
 		<TR><TD PORT="id">id</TD></TR>
 		<TR><TD PORT="editionid">edition_id</TD></TR>
 		<TR><TD PORT="workid">work_id</TD></TR>
+		<TR><TD PORT="ssid">shortstory_id</TD></TR>
 		<TR><TD>title</TD></TR>
-		<TR><TD>original_title</TD></TR>
-		<TR><TD>original_pubyear</TD></TR>
-		<TR><TD>original_lang</TD></TR>
+		</TABLE>
+		>];
+	
+	ShortStory [
+		label =<
+		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+		<TR><TD><B>ShortStory</B></TD></TR>
+		<TR><TD PORT="id">id</TD></TR>
+		<TR><TD>title</TD></TR>
+                <TR><TD>language</TD></TR>
+		<TR><TD>pubyear</TD></TR>
 		<TR><TD>genre</TD></TR>
 		</TABLE>
 		>];
+		
+        Link [
+                label =<
+		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+		<TR><TD><B>Link</B></TD></TR>
+		<TR><TD PORT="id">id</TD></TR>
+                <TR><TD PORT="personid">person_id</TD></TR>
+                <TR><TD PORT="workid">work_id</TD></TR>
+                <TR><TD PORT="editionid">edition_id</TD></TR>
+                <TR><TD PORT="pubseriesid">pubseries_id</TD></TR>
+                <TR><TD PORT="bookseriesid">bookseries_id</TD></TR>
+                <TR><TD PORT="publisherid">publisher_id</TD></TR>
+		</TABLE>
+		>];
 
-	Author:pieceid -> Piece:id;
+	Author:partid -> Part:id;
 	Author:personid -> Person:id;
 	Translator:personid -> Person:id;
-	Translator:pieceid -> Piece:id;
+	Translator:partid -> Part:id;
 	Editor:personid -> Person:id;
 	Editor:editionid -> Edition:id;
 	Pubseries:publisherid -> Publisher:id;
 	Work:bookseriesid -> Bookseries:id [style=dashed];
-	Edition:workid -> Work:id;
 	Edition:publisherid -> Publisher:id;
 	Edition:pubseriesid -> Pubseries:id [style=dashed];
 	UserBook:userid -> User:id;
@@ -166,6 +189,13 @@ digraph g {
         UserPubseries:userid -> User:id;
         UserBookseries:bookseriesid -> Bookseries:id;
         UserBookseries:userid -> User:id;
-	Piece:editionid -> Edition:id;
-	Piece:workid -> Work:id [style=dashed];
+	Part:editionid -> Edition:id;
+	Part:workid -> Work:id [style=dashed];
+	Part:ssid -> ShortStory:id [style=dashed];
+        Link:personid -> Person:id [style=dashed];
+        Link:workid -> Work:id [style=dashed];
+        Link:editionid -> Edition:id [style=dashed];
+        Link:pubseriesid -> Pubseries:id [style=dashed];
+        Link:bookseriesid -> Bookseries:id [style=dashed];
+        Link:publisherid -> Publisher:id [style=dashed];
 }

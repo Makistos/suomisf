@@ -39,24 +39,37 @@ class UserForm(FlaskForm):
     submit = SubmitField('Päivitä')
 
 
-class BookForm(FlaskForm):
+class WorkForm(FlaskForm):
     id = HiddenField('id')
     title = StringField('Nimeke', validators=[DataRequired()])
     authors = StringField('Kirjoittaja(t)', validators=[DataRequired()])
-    translators = StringField('Kääntäjä(t)')
     editors = StringField('Toimittaja(t)')
     pubyear = IntegerField('Julkaisuvuosi')
-    originalname = StringField('Alkuperäinen nimi')
-    origpubyear = StringField('Alkuperäinen julkaisuvuosi')
-    edition = IntegerField('Painos')
-    publisher = StringField('Kustantaja', validators=[DataRequired(
-        message ='Kustantaja on pakollinen tieto')])
-    pubseries = SelectField('Kustantajan sarja', choices=[])
+    language = StringField('Kieli')
     bookseries = StringField('Kirjasarja')
     genre = StringField('Genre')
     misc = StringField('Muuta')
     source = StringField('Lähde')
     submit = SubmitField('Tallenna')
+
+class EditionForm(FlaskForm):
+    id = HiddenField('id')
+    title = StringField('Nimeke', validators=[DataRequired()])
+    editors = StringField('Toimittaja(t)')
+    pubyear = IntegerField('Julkaisuvuosi')
+    language = StringField('Kieli')
+    publisher = StringField('Kustantaja', validators=[DataRequired(
+        message ='Kustantaja on pakollinen tieto')])
+    translators = StringField('Kääntäjä(t)')
+    edition = IntegerField('Painos')
+    isbn = StringField('ISBN')
+    pubseries = SelectField('Kustantajan sarja', choices=[])
+    pubseriesnum = IntegerField('Sarjan numero')
+    misc = StringField('Muuta')
+    source = StringField('Lähde')
+    submit = SubmitField('Tallenna')
+
+
 
 class PersonForm(FlaskForm):
     name = StringField('Koko nimi')

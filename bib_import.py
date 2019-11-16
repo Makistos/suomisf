@@ -1,4 +1,4 @@
-from app.orm_decl import Work, Edition, Person, Author, Translator, Editor, Publisher, Pubseries, Bookseries, User
+from app.orm_decl import Work, Edition, Part, Person, Author, Translator, Editor, Publisher, Pubseries, Bookseries, User
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from importbib import publishers
@@ -462,16 +462,16 @@ def add_bookperson(s, person, book, type):
     """
     if type == 'A':
         bookperson = s.query(Author).filter(Author.person_id == person.id,
-                Author.work_id == book.id).first()
+                Author.part_id == book.id).first()
         if not bookperson:
             logging.debug('Adding author %s for %s.',person.name, book.title)
-            bookperson = Author(person_id = person.id, work_id = book.id)
+            bookperson = Author(person_id = person.id, part_id = book.id)
     elif type == 'T':
         bookperson = s.query(Translator).filter(Translator.person_id ==
-                person.id, Translator.edition_id == book.id).first()
+                person.id, Translator.part_id == book.id).first()
         if not bookperson:
             logging.debug('Adding translator %s for %s.', person.name, book.title)
-            bookperson = Translator(person_id = person.id, edition_id = book.id)
+            bookperson = Translator(person_id = person.id, part_id = book.id)
     elif type == 'E':
         bookperson = s.query(Editor).filter(Editor.person_id ==
                 person.id, Editor.edition_id == book.id).first()
@@ -494,7 +494,7 @@ def import_person(s, name, source=''):
     """
     person = s.query(Person).filter(Person.name == name).first()
     if not person:
-        person = Person(name=name, source=source)
+        person = Person(name=name, fullstring=source)
         s.add(person)
         s.commit()
     return person
@@ -525,6 +525,7 @@ def import_books(session, authors):
             workitem = Work(
                     title = work['origname'],
                     pubyear = work['origyear'],
+                    language = '',
                     bookseries_id = bookseriesid,
                     bookseriesnum = work['bookseriesnum'],
                     genre = work['type'],
@@ -533,7 +534,6 @@ def import_books(session, authors):
 
             s.add(workitem)
             s.commit()
-            add_bookperson(s, authoritem, workitem, 'A')
 
             for edition in book[1]:
                 pubseries = None
@@ -567,21 +567,31 @@ def import_books(session, authors):
                                 edition['title']))
                 ed = Edition(
                         title = edition['title'],
-                        work_id = workitem.id,
                         pubyear = edition['pubyear'],
-                        editionnum = editionnum,
+                        language = 'FI', # Every book in these files is in Finnish
                         publisher_id = publisherid,
+                        editionnum = editionnum,
+                        isbn = '', # No ISBNs in the data
                         pubseries_id = pubseriesid,
                         pubseriesnum = edition['pubseriesnum'],
-                        language = 'FI',
                         misc = edition['rest'],
                         fullstring = edition['fullstring'])
                 s.add(ed)
                 s.commit()
 
+                part = Part(
+                        edition_id = ed.id,
+                        work_id = workitem.id,
+                        shortstory_id = None,
+                        title = ed.title)
+
+                s.add(part)
+                s.commit()
+
                 # Add links between people and edition
+                add_bookperson(s, authoritem, part, 'A')
                 if edition['translator'] != '':
-                    add_bookperson(s, translator, ed, 'T')
+                    add_bookperson(s, translator, part, 'T')
                 if edition['editor'] != '':
                     add_bookperson(s, editor, ed, 'E')
 

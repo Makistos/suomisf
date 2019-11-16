@@ -6,11 +6,13 @@ digraph g {
 		Person; 
 		Edition; 
 		Work; 
-		Piece; 
+		Part; 
 		Publisher; 
 		Bookseries;
 		Pubseries; 
 		User;
+                ShortStory;
+                Link;
 	node [shape=diamond]; 
 		Authored; Edited; Translated; 
 		"Combined into"; 
@@ -19,29 +21,40 @@ digraph g {
 		Published;
 		"Owns";
 		"Collects";
+                Is;
+                Has;
 
 	Person -> Authored [label = "m"];
-	Authored -> Piece [label = "n"];
+	Authored -> Part [label = "n"];
 	Person -> Translated [label = "m"];
-	Translated -> Piece [label = "n"];
+	Translated -> Part [label = "n"];
 	Person -> Edited [label = "m"];
 	Edited -> Edition [label = "n"];
 
 	Publisher -> Published [label = "1"];
-	Published -> Edition [label = "n"];
+	Published -> Edition [label = "m"];
 	Published -> Pubseries [label = "n"];
 
 	Work -> "Part of" [label = "m"];
 	"Part of" -> Bookseries [label = "1"];
 	Edition -> "Published in" [label = "m"];
 	"Published in" -> Pubseries [label = "1"];
-	Piece -> "Combined into" [label = "m"];
+	Part -> "Combined into" [label = "n"];
 	"Combined into" -> Edition [label = "n"];
-	"Combined into" -> Work [label = "n"];
+	"Combined into" -> Work [label = "m"];
+        Part -> Is [label = "n"];
+        Is -> ShortStory [label = "0..1"];
 
 	User -> Owns [label = "m"];
 	Owns -> Edition [label = "n"];
 	User -> "Collects" [label = "m"];
 	"Collects" -> Bookseries [label = "n"];
 	"Collects" -> Pubseries [label = "n"];
+        Has -> Link [label="1"];
+        Person -> Has [label = "m"];
+        Work -> Has [label = "m"];
+        Edition -> Has [label = "m"];
+        Pubseries -> Has [label = "m"];
+        Bookseries -> Has [label = "m"];
+        Publisher -> Has [label = "m"];
 }	
