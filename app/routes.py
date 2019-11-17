@@ -154,22 +154,39 @@ def person(personid):
 
 @app.route('/edit_person/<personid>', methods=['POST', 'GET'])
 def edit_person(personid):
-    person = Person()
     session = new_session()
-    if request.method == 'GET':
-        if personid != 0:
-            person = session.query(Person).filter(Person.id == personid).first()
-        form = PersonForm(obj=person)
+    if personid != 0:
+        person = session.query(Person).filter(Person.id == personid).first()
     else:
-        form = PersonForm(request.form)
+        person = Person()
+    form = PersonForm(request.form)
+    if request.method == 'GET':
+        form.name.data = person.name
+        form.first_name.data = person.first_name
+        form.last_name.data = person.last_name
+        if person.dob:
+            form.dob.data = person.dob
+        else:
+            form.dob.data = 0
+        if person.dod:
+            form.dod.data = person.dod
+        else:
+            form.dod.data = 0
+        form.birthplace.data = person.birthplace
     if form.validate_on_submit():
-        form.populate_obj(person)
-        #person = Person(name=form.name.data, first_name=form.first_name.data,
-        #        last_name=form.last_name.data, dob=form.dob.data,
-        #        dod=form.dod.data, birthplace=form.birthplace.data)
+        person.name = form.name.data
+        person.first_name = form.first_name.data
+        person.last_name = form.last_name.data
+        if form.dob.data != 0:
+            person.dob = form.dob.data
+        if form.dod.data != 0:
+            person.dod = form.dod.data
+        person.birthplace = form.birthplace.data
         session.add(person)
         session.commit()
         return redirect(url_for('person', personid=person.id))
+    else:
+        app.logger.debug("Errors: {}".format(form.errors))
     return render_template('edit_person.html', form=form, personid=personid)
 
 ### Publisher related routes
@@ -370,10 +387,10 @@ def mybooks():
 
     authors = session.query(Person)\
                      .join(Author)\
-                     .join(Work)\
-                     .filter(Work.id == Author.work_id)\
+                     .join(Part)\
+                     .filter(Author.part_id == Part.id)\
                      .join(Edition)\
-                     .filter(Edition.work_id == Work.id)\
+                     .filter(Part.edition_id == Edition.id)\
                      .join(UserBook)\
                      .filter(UserBook.user_id == current_user.get_id())\
                      .filter(UserBook.edition_id == Edition.id)\

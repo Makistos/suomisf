@@ -31,6 +31,8 @@ class RegistrationForm(FlaskForm):
 
 
 class UserForm(FlaskForm):
+    id = HiddenField('id')
+    name = StringField('Koko nimi')
     name = StringField('Käyttäjätunnus', validators=[DataRequired()])
     password = PasswordField('Salasana')
     password2 = PasswordField('Salasana uudestaan',
@@ -47,6 +49,7 @@ class WorkForm(FlaskForm):
     pubyear = IntegerField('Julkaisuvuosi')
     language = StringField('Kieli')
     bookseries = StringField('Kirjasarja')
+    bookseriesnum = StringField('Sarjanumero')
     genre = StringField('Genre')
     misc = StringField('Muuta')
     source = StringField('Lähde')
@@ -72,6 +75,7 @@ class EditionForm(FlaskForm):
 
 
 class PersonForm(FlaskForm):
+    id = HiddenField('id')
     name = StringField('Koko nimi')
     first_name = StringField('Etunimi')
     last_name = StringField('Sukunimi')
@@ -81,17 +85,23 @@ class PersonForm(FlaskForm):
     submit = SubmitField('Tallenna')
 
 class PublisherForm(FlaskForm):
+    id = HiddenField('id')
+    name = StringField('Koko nimi')
     name = StringField('Nimi', validators=[DataRequired()])
     fullname = StringField('Koko nimi')
     submit = SubmitField('Tallenna')
 
 class PubseriesForm(FlaskForm):
+    id = HiddenField('id')
+    name = StringField('Koko nimi')
     name = StringField('Nimi', validators=[DataRequired()])
     publisher = StringField('Julkaisija', validators=[DataRequired()])
     important = BooleanField('Merkittävä')
     submit = SubmitField('Tallenna')
 
 class BookseriesForm(FlaskForm):
+    id = HiddenField('id')
+    name = StringField('Koko nimi')
     name = StringField('Nimi')
     important = BooleanField('Merkittävä')
     submit = SubmitField('Tallenna')

@@ -33,6 +33,7 @@ class Edition(Base):
     language = Column(String(2))
     publisher_id = Column(Integer, ForeignKey('publisher.id'))
     editionnum = Column(Integer)
+    image_src = Column(String(200))
     isbn = Column(String(13))
     pubseries_id = Column(Integer, ForeignKey('pubseries.id'))
     pubseriesnum = Column(String(20))
@@ -119,6 +120,7 @@ class Person(Base):
     name = Column(String(250), nullable=False, index=True)
     first_name = Column(String(100))
     last_name = Column(String(150))
+    image_src = Column(String(200))
     dob = Column(Integer)
     dod = Column(Integer)
     birthplace = Column(String(250))
@@ -192,6 +194,7 @@ class User(UserMixin, Base):
     name = Column(String(64), index=True, unique=True)
     password_hash = Column(String(128))
     is_admin = Column(Boolean, default=False)
+    language = Column(String(2), default='FI')
     books = relationship("Edition", secondary="userbook")
 
     def set_password(self, password):

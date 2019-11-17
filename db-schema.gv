@@ -107,6 +107,7 @@ digraph g {
 		<TR><TD>name</TD></TR>
 		<TR><TD>password_hash</TD></TR>
 		<TR><TD>is_admin</TD></TR>
+                <TR><TD>language</TD></TR>
 		</TABLE>
 		>];
 	UserBook [

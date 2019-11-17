@@ -14,6 +14,7 @@ def save_work(session, form, work):
     work.id = form.id.data
     work.title = form.title.data
     work.pubyear = form.pubyear.data
+    work.language = form.language.data
     if form.bookseries.data != '':
         bookseries = session.query(Bookseries).filter(Bookseries.name ==
                 form.bookseries.data).first()
@@ -22,13 +23,13 @@ def save_work(session, form, work):
     work.genre = form.genre.data
     work.misc = form.misc.data
     session.add(work)
+    session.commit()
     if work.id == 0:
         # New work so needs a row to Edition and Part tables.
         edition = Edition()
         edition.title = work.title
         edition.pubyear = work.pubyear
         edition.language = work.language
-        edition.publisher = form.publisher
         session.add(edition)
         session.commit()
         part = Part()
@@ -44,9 +45,7 @@ def books_by_lang(lang):
     """ Returns a list of books such that each work is only represented by the
         first edition for given work in this language. """
     retval = []
-    engine = create_engine('sqlite://suomisf.db')
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    session = new_session()
     authors = session.query(Person)\
                      .join(Author)\
                      .filter(Person.id == Author.person_id)\
@@ -65,9 +64,7 @@ def books_by_lang(lang):
 
 @app.route('/books')
 def books():
-    engine = create_engine('sqlite:///suomisf.db')
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    session = new_session()
     authors = session.query(Person)\
                      .join(Author)\
                      .filter(Person.id == Author.person_id)\
@@ -78,9 +75,7 @@ def books():
 
 @app.route('/booksX/<letter>')
 def booksX(letter):
-    engine = create_engine('sqlite:///suomisf.db')
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    session = new_session()
     #app.logger.debug(session.query(Person).join(BookPerson).filter(Person.id ==
     #                BookPerson.person_id).filter(BookPerson.type ==
     #                'A').filter(Person.name.ilike('A%')).order_by(Person.name))
@@ -93,9 +88,7 @@ def booksX(letter):
 
 @app.route('/work/<workid>')
 def work(workid):
-    engine = create_engine('sqlite:///suomisf.db')
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    session = new_session()
     work = session.query(Work).filter(Work.id == workid).first()
     #editions = session.query(Edition).filter(Edition.work_id == workid).all()
     authors = people_for_book(session, workid, 'A')
@@ -107,6 +100,7 @@ def work(workid):
 
 @app.route('/edit_work/<workid>', methods=["POST", "GET"])
 def edit_work(workid):
+    search_list = {}
     session = new_session()
     if workid != 0:
         work = session.query(Work)\
@@ -114,8 +108,10 @@ def edit_work(workid):
                       .first()
         authors = session.query(Person)\
                          .join(Author)\
+                         .join(Part)\
                          .filter(Author.person_id == Person.id,\
-                                 Author.book_id == work.id)\
+                                 Author.part_id == Part.id,
+                                 Part.work_id == workid)\
                          .all()
         bookseries = session.query(Bookseries)\
                             .join(Work)\
@@ -138,18 +134,17 @@ def edit_work(workid):
         if bookseries:
             form.bookseries.data = bookseries.name
         form.bookseriesnum.data = work.bookseriesnum
-        form.bookseriesorder.data = work.bookseriesorder
         form.genre.data = work.genre
         form.misc.data = work.misc
         form.source.data = work.fullstring
 
     if form.validate_on_submit():
         save_work(session, form, work) # Save work, edition and part
-        return redirect(url_for('work', bookid=work.id))
+        return redirect(url_for('work', workid=work.id))
     else:
         app.logger.debug("Errors: {}".format(form.errors))
     return render_template('edit_work.html', id = work.id, form=form, search_lists =
-            search_list, source = book.fullstring)
+            search_list, source = work.fullstring)
 
 
 @app.route('/edit_edition/<editionid>', methods=["POST", "GET"])
@@ -361,3 +356,26 @@ def work_delete(workid):
     session.delete(work)
 
     session.commit()
+
+@app.route('/add_authored/<authorid>', methods=["POST", "GET"])
+def add_authored(authorid):
+    session = new_session()
+    author = session.query(Person)\
+                    .filter(Person.id == authorid)\
+                    .first()
+    work = Work()
+
+    search_list = {}
+
+    form = WorkForm(request.form)
+    if request.method == 'GET':
+        form.authors.data = author.name
+
+    if form.validate_on_submit():
+        save_work(session, form, work) # Save work, edition and part
+        return redirect(url_for('work', bookid=work.id))
+    else:
+        app.logger.debug("Errors: {}".format(form.errors))
+    return render_template('edit_work.html', id = work.id, form=form, search_lists =
+            search_list, source = '')
+    pass

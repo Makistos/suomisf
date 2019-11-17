@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>{{ edition.title }} ({{ edition.id }})</h1>
-<p>Teos: <a href=" {{ url_for('work', workid=edition.work.id) }}">{{edition.work.title }}</a>
+<h1>{{ edition.title }} 
+{% if current_user.is_admin %} 
+    ({{ edition.id }})
+{% endif %} 
+</h1>
+<p>Alkuperäinen teos: <a href=" {{ url_for('work', workid=edition.work.id) }}">{{edition.work.title }}</a>
 </p>
 <p>Kirjoittaja(t): 
 {% for author in edition.work.authors[:-1] %} 
@@ -23,7 +27,7 @@ Toimittaja(t): {% for editor in edition.editors[:-1] %}
 <a href=" {{ url_for('person', personid=edition.editors[-1].id) }}">{{edition.editors[-1].name }}</a>
 {% endif %}
 <p>Julkaisuvuosi: {{ edition.pubyear }}</p>
-<p>Painos: {{ edition.editionnum }}</p>
+<p>Painos: {{ edition.editionnum }}.</p>
 <p>Kustantaja: <a href=" {{ url_for('publisher', pubid=edition.publisher.id)
                         }}">{{ edition.publisher.name }}</a></p>
 {%- if edition.pubseries.name|length -%}
@@ -46,7 +50,9 @@ Toimittaja(t): {% for editor in edition.editors[:-1] %}
 {%- endif %}
 <p>Genre: {{ edition.work.genre }}</p>
 <p>Muuta: {{ edition.misc }}</p>
+{% if current_user.is_admin %} 
 <p>Aineiston lähde: {{ edition.fullstring }}</p>
+{% endif %}
 {% if current_user.is_admin %} 
 <p><a href=" {{ url_for('edit_edition', editionid=edition.id) }} ">Muokkaa</a></p>
 {% endif %}

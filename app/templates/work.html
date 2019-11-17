@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>{{ work.title }} ({{ work.id }})</h1>
+<h1>{{ work.title }} 
+{% if current_user.is_admin %} 
+    ({{ work.id }})
+{% endif %}
+</h1>
 <p>Kirjoittaja(t): 
 {% if work.authors|length > 1 %}
 {% for author in work.authors %} 
@@ -22,7 +26,9 @@
 {%- endif %}
 <p>Genre: {{ work.genre }}</p>
 <p>Muuta: {{ work.misc }}</p>
+{% if current_user.is_admin %} 
 <p>Aineiston lähde: {{ work.fullstring }}</p>
+{% endif %}
 <p><b>Painokset:</b></p>
 {% for edition in work.editions %}
 <p><a href=" {{ url_for('edition', editionid=edition.id) }}">{{ edition.title

@@ -31,4 +31,11 @@
 			{% include "_edition.html" %}
 		{% endfor %}
 	{% endif %}
+        <hr width=50%>
+            {% if current_user.is_admin %} 
+                <p><a href="{{url_for('add_authored', authorid=person.id) }}">
+                    Lisää teos</a>
+                </p>
+            {% endif %}
+
 {% endblock %}
