@@ -82,6 +82,7 @@ class PersonForm(FlaskForm):
     dob = IntegerField('Syntymävuosi')
     dod = IntegerField('Kuolinvuosi')
     birthplace = StringField('Kansallisuus')
+    image_src = StringField('Kuva')
     submit = SubmitField('Tallenna')
 
 class PublisherForm(FlaskForm):

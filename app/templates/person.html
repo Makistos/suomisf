@@ -1,14 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>{{ person.name }} ({{person.id}})</h1>	
-        <p><b>Etunimi</b>: {{ person.first_name if person.first_name }}</p>
+<h1>{{ person.name }}
+
+    {% if current_user.is_admin %} 
+    ({{person.id}})
+    {% endif %}
+</h1>	
+        <div>
+        {% if person.image_src %}
+        <img style="float: left; margin: 0px 10px 0px 0px;" src="{{person.image_src}}">
+        {% endif %}
+        <!--<p><b>Etunimi</b>: {{ person.first_name if person.first_name }}</p>
         <p><b>Sukunimi</b>: {{ person.last_name if person.last_name  }}</p>
+        -->
         <p><b>Syntymävuosi</b>: {{ person.dob if person.dob }}</p>
         <p><b>Kuolinvuosi</b>: {{ person.dod if person.dod }}</p>
         <p><b>Syntymäpaikka</b>: {{ person.birthplace if person.birthplace }}</p>
         {% if person.source %}
         <p><b>Lähde</b>: {{ person.source }}</p>
         {% endif %}
+        </div>
+        <br style="clear: both">
         {% if current_user.is_admin %} 
         <p><a href=" {{ url_for('edit_person', personid=person.id)
                     }}">Muokkaa</a></p>

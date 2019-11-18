@@ -150,7 +150,13 @@ def edit_work(workid):
 @app.route('/edit_edition/<editionid>', methods=["POST", "GET"])
 def edit_edition(editionid):
     session = new_session()
-    if editionid != 0:
+    publisher_series = {}
+    publisher = {}
+    pubseries = []
+    translators = []
+    editors = []
+    app.logger.debug("Editionid: {}".format(editionid))
+    if str(editionid) != '0':
         edition = session.query(Edition)\
                           .filter(Edition.id == editionid)\
                           .first()
@@ -175,12 +181,12 @@ def edit_edition(editionid):
                        .join(Edition)\
                        .filter(Pubseries.id == edition.pubseries_id)\
                        .first()
+        publisher_series = pubseries_list(session, publisher.id)
     else:
         edition = Edition()
     form = EditionForm()
     selected_pubseries = '0'
     search_list = publisher_list(session)
-    publisher_series = pubseries_list(session, publisher.id)
     if publisher_series:
         form.pubseries.choices = [('0', 'Ei sarjaa')] + publisher_series['pubseries']
     else:
@@ -196,7 +202,7 @@ def edit_edition(editionid):
             form.pubseries.choices = [('0', 'Ei sarjaa')] + publisher_series['pubseries']
             form.pubseries.default = str(i)
             selected_pubseries = str(i)
-        #form.translators.data = ', '.join([t.name for t in translators])
+        form.translators.data = ', '.join([t.name for t in translators])
         form.editors.data = ', '.join([e.name for e in editors])
     if form.validate_on_submit():
         translator = session.query(Person).filter(Person.name ==
@@ -205,13 +211,14 @@ def edit_edition(editionid):
                 form.editors.data).first()
         publisher = session.query(Publisher).filter(Publisher.name ==
                 form.publisher.data).first()
-        book.edition = form.edition.data
+        edition.editionnum = form.editionnum.data
         if form.pubseries.data == '0':
-            book.pubseries_id = None
+            edition.pubseries_id = None
         else:
-            book.pubseries_id = form.pubseries.data
+            edition.pubseries_id = form.pubseries.data
     return render_template('edit_edition.html', form=form,
-            translators=translators, editors=editors, pubseries=pubseries)
+            search_list=search_list, translators=translators,
+            editors=editors, pubseries=pubseries)
 
 
 @app.route('/edition/<editionid>')

@@ -173,6 +173,7 @@ def edit_person(personid):
         else:
             form.dod.data = 0
         form.birthplace.data = person.birthplace
+        form.image_src.data = person.image_src
     if form.validate_on_submit():
         person.name = form.name.data
         person.first_name = form.first_name.data
@@ -182,6 +183,7 @@ def edit_person(personid):
         if form.dod.data != 0:
             person.dod = form.dod.data
         person.birthplace = form.birthplace.data
+        person.image_src = form.image_src.data
         session.add(person)
         session.commit()
         return redirect(url_for('person', personid=person.id))
@@ -253,15 +255,23 @@ def bookseries(seriesid):
                     .first()
     authors = session.query(Person)\
                      .join(Author)\
+                     .filter(Person.id == Author.person_id)\
+                     .join(Part)\
+                     .filter(Part.id == Author.part_id)\
+                     .join(Edition)\
+                     .filter(Edition.id == Part.edition_id)\
                      .join(Work)\
+                     .filter(Part.work_id == Work.id)\
                      .filter(Work.bookseries_id == seriesid)\
-                     .order_by(Person.name, Work.bookseriesorder)\
+                     .order_by(Person.name, Work.bookseriesnum)\
                      .all()
     editions = session.query(Edition)\
+                      .join(Part)\
+                      .filter(Edition.id == Part.edition_id)\
                       .join(Work)\
-                      .filter(Edition.work_id == Work.id)\
+                      .filter(Part.work_id == Work.id)\
                       .filter(Work.bookseries_id == seriesid)\
-                      .order_by(Work.bookseriesorder, Edition.pubyear)\
+                      .order_by(Work.bookseriesnum, Edition.pubyear)\
                       .all()
     return render_template('bookseries.html', series=series, editions=editions)
 

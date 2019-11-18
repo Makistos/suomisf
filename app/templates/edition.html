@@ -5,6 +5,9 @@
     ({{ edition.id }})
 {% endif %} 
 </h1>
+        {% if edition.image_src %}
+        <img style="float: left; margin: 0px 10px 0px 0px;" src="{{edition.image_src}}">
+        {% endif %}
 <p>Alkuperäinen teos: <a href=" {{ url_for('work', workid=edition.work.id) }}">{{edition.work.title }}</a>
 </p>
 <p>Kirjoittaja(t): 

@@ -1,47 +1,50 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h1>{{ work.title }} 
-{% if current_user.is_admin %} 
-    ({{ work.id }})
-{% endif %}
-</h1>
-<p>Kirjoittaja(t): 
-{% if work.authors|length > 1 %}
-{% for author in work.authors %} 
-<a href=" {{ url_for('person', personid=author.id) }}">{{ author.name }}</a> & 
-{% endfor %}
-{% endif %}
-<a href=" {{ url_for('person', personid=work.authors[-1].id) }}">{{ work.authors[-1].name }}</a>
-</p>
-<p>Julkaisuvuosi: {{ work.pubyear }}</p>
-{% if work.bookseries.name|length %}
-<p>Kirjasarja: <a href=" {{ url_for('bookseries',
-                           seriesid=work.bookseries.id) }} ">{{
-                           work.bookseries.name }}</a>
-	{% if work.bookseriesnum %}
-		{% if work.bookseriesnum|length %}
-		, numero {{ work.bookseriesnum }}</p>
-		{% endif %}
-	{% endif %}
-{%- endif %}
-<p>Genre: {{ work.genre }}</p>
-<p>Muuta: {{ work.misc }}</p>
-{% if current_user.is_admin %} 
-<p>Aineiston lähde: {{ work.fullstring }}</p>
-{% endif %}
-<p><b>Painokset:</b></p>
-{% for edition in work.editions %}
-<p><a href=" {{ url_for('edition', editionid=edition.id) }}">{{ edition.title
-	}}</a>. {{ edition.pubyear }}. {{ edition.publisher.name }}.
-{% if edition.pubseries.name|length %}
-{{ edition.pubseries.name }}
-{%- if edition.pubseriesnum %} {{ edition.pubseriesnum }}{% endif %}.
-{% endif %}
-</p>
-{% endfor %}
-{% if current_user.is_admin %} 
-<hr>
-<p><a href=" {{ url_for('edit_work', workid=work.id) }} ">Muokkaa</a></p>
-<p><a href=" {{ url_for('edit_edition', editionid=0) }}">Lisää painos</a></p>
-{% endif %}
+    <h1>{{ work.title }} 
+    {% if current_user.is_admin %} 
+        ({{ work.id }})
+    {% endif %}
+    </h1>
+    <p>Kirjoittaja(t): 
+    {% if work.authors|length > 1 %}
+        {% for author in work.authors %} 
+            <a href=" {{ url_for('person', personid=author.id) }}">{{ author.name }}</a> & 
+        {% endfor %}
+    {% endif %}
+    <a href=" {{ url_for('person', personid=work.authors[-1].id) }}">{{ work.authors[-1].name }}</a>
+    </p>
+    <p>Julkaisuvuosi: {{ work.pubyear }}</p>
+    {% if work.bookseries.name|length %}
+        <p>Kirjasarja: <a href=" {{ url_for('bookseries',
+                                   seriesid=work.bookseries.id) }} ">{{
+                                   work.bookseries.name }}</a>
+                {% if work.bookseriesnum %}
+                        {% if work.bookseriesnum|length %}
+                        , numero {{ work.bookseriesnum }}</p>
+                        {% endif %}
+                {% endif %}
+        {%- endif %}
+    <p>Genre: {{ work.genre }}</p>
+    <p>Muuta: {{ work.misc }}</p>
+    {% if current_user.is_admin %} 
+        <p>Aineiston lähde: {{ work.fullstring }}</p>
+    {% endif %}
+    <p><b>Painokset:</b></p>
+    <div>
+    {% for edition in work.editions %}
+        <p><a href=" {{ url_for('edition', editionid=edition.id) }}">{{ edition.title
+                }}</a>. {{ edition.pubyear }}. {{ edition.publisher.name }}.
+        {% if edition.pubseries.name|length %}
+            {{ edition.pubseries.name }}
+            {%- if edition.pubseriesnum %} {{ edition.pubseriesnum }}{% endif %}.
+        {% endif %}
+        </p>
+    {% endfor %}
+    </div>
+    {% if current_user.is_admin %} 
+        <hr>
+        <p><a href=" {{ url_for('edit_work', workid=work.id) }} ">Muokkaa</a></p>
+        <p><a href=" {{ url_for('edit_edition', editionid=0) }}">Lisää painos</a></p>
+    {% endif %}
 {% endblock %}
