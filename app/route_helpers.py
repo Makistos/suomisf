@@ -77,6 +77,7 @@ def books_for_person(s, personid, type):
                 .join(Author)\
                 .filter(Author.person_id == personid)\
                 .filter(Author.part_id == Part.id)\
+                .order_by(Work.title)\
                 .all()
     elif type == 'T':
         return s.query(Edition)\
