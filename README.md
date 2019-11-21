@@ -73,12 +73,15 @@ book.
 
 ## API Design
 
-This is not implemented yet.
+This is not implemented yet. Also very WIP anyways and lacks descriptions for
+return values.
 
 Strings used as search parameters are always used with ilike operator. So to
 search using a part of a string, you can use the percentage sign, e.g. using
 "Asimov%" as the person's full name will find all the names starting with
 Asimov (case independent).
+
+All replies are in JSON.
 
 ### Authentication
 
@@ -88,25 +91,41 @@ Parameters:
 * *username*
 * *password*
 
-### Getting list of books
+### Getting list of works
 
-GET /api/1.0/books
-
-Parameters: 
-* bookid
-* title
-* authorid
-
-### Getting info for a book
-
-GET /api/1.0/book/{bookid}
+GET /api/works
 
 Parameters:
-* *bookid*
+* workid
+* title
+* authorid
+* language
+
+Returns works that match the search criteria which can be any of the
+parameters.
+
+### Getting list of editions
+
+GET /api/editions
+
+Parameters_
+* workid
+* editionid
+* title
+* authorid
+* language
+
+### Getting info for a work
+
+GET /api/work/{workid}
+
+#### Getting info for an edition
+
+GET /api/edition/{editionid}
 
 ### Getting a list of persons
 
-GET /api/1.0/persons
+GET /api/persons
 
 Parameters:
 * fullname
@@ -119,13 +138,10 @@ Parameters:
 
 ### Getting info on a person
 
-GET /api/1.0/person/{personid}
-
-Parameters:
-* *personid*
+GET /api/person/{personid}
 
 ### Getting your collection 
 
 Requires authentication.
 
-GET /api/1.0/collection
+GET /api/collection
