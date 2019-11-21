@@ -170,12 +170,12 @@ def edit_edition(editionid):
                              .filter(Translator.part_id == Part.id,
                                      Part.edition_id == Edition.id,
                                      Edition.id == editionid)\
-                             .all()
+                             .first()
         editors = session.query(Person)\
                          .join(Editor)\
                          .filter(Editor.person_id == Person.id)\
                          .filter(Editor.edition_id == editionid)\
-                         .all()
+                         .first()
         pubseries = \
                 session.query(Pubseries)\
                        .join(Edition)\
@@ -187,12 +187,26 @@ def edit_edition(editionid):
     form = EditionForm()
     selected_pubseries = '0'
     search_list = publisher_list(session)
+    source = edition.fullstring
     if publisher_series:
         form.pubseries.choices = [('0', 'Ei sarjaa')] + publisher_series['pubseries']
     else:
         form.pubseries.choices = [('0', "Ei sarjaa")]
     if request.method == 'GET':
-        form.edition.id = edition.id
+        form.id.data = edition.id
+        form.title.data = edition.title
+        form.pubyear.data = edition.pubyear
+        form.language.data = edition.language
+        form.edition.data = edition.editionnum
+        form.publisher.data = publisher.name
+        if translators:
+            form.translators.data = translators.name
+        if editors:
+            form.editors.data = editors.name
+        form.pubseries.data = pubseries.name
+        form.pubseriesnum.data = edition.pubseriesnum
+        form.isbn.data = edition.isbn
+        form.misc.data = edition.misc
         if pubseries:
             i = 0
             for idx, s in enumerate(publisher_series['pubseries']):
@@ -202,23 +216,35 @@ def edit_edition(editionid):
             form.pubseries.choices = [('0', 'Ei sarjaa')] + publisher_series['pubseries']
             form.pubseries.default = str(i)
             selected_pubseries = str(i)
-        form.translators.data = ', '.join([t.name for t in translators])
-        form.editors.data = ', '.join([e.name for e in editors])
+        #form.translators.data = ', '.join([t.name for t in translators])
+        #form.editors.data = ', '.join([e.name for e in editors])
     if form.validate_on_submit():
+        edition.title = form.title.data
+        edition.pubyear = form.pubyear.data
+        edition.language = form.language.data
+        edition.editionnum = form.edition.data
         translator = session.query(Person).filter(Person.name ==
                 form.translators.data).first()
         editor = session.query(Person).filter(Person.name ==
                 form.editors.data).first()
         publisher = session.query(Publisher).filter(Publisher.name ==
                 form.publisher.data).first()
-        edition.editionnum = form.editionnum.data
         if form.pubseries.data == '0':
             edition.pubseries_id = None
         else:
             edition.pubseries_id = form.pubseries.data
+        edition.pubseriesnum = form.pubseriesnum.data
+        edition.isbn = form.isbn.data
+        edition.misc = form.misc.data
+        session.add(edition)
+        session.commit()
+        return redirect(url_for('edition', editionid=edition.id))
+    else:
+        app.logger.debug("Errors: {}".format(form.errors))
     return render_template('edit_edition.html', form=form,
             search_list=search_list, translators=translators,
-            editors=editors, pubseries=pubseries)
+            editors=editors, pubseries=pubseries, source=source,
+            selected_pubseries=selected_pubseries)
 
 
 @app.route('/edition/<editionid>')
