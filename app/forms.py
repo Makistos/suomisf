@@ -66,7 +66,7 @@ class EditionForm(FlaskForm):
     translators = StringField('Kääntäjä(t)')
     edition = IntegerField('Painos')
     isbn = StringField('ISBN')
-    pubseries = SelectField('Kustantajan sarja', choices=[])
+    pubseries = SelectField('Kustantajan sarja', coerce=str)
     pubseriesnum = IntegerField('Sarjan numero')
     misc = StringField('Muuta')
     source = StringField('Lähde')
