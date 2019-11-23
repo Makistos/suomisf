@@ -1,6 +1,11 @@
-  a.invisible {
-  opacity: 0;
-  }
-  a.invisible:hover {
-  opacity: 1;
-  }
+a.invisible {
+    opacity: 0;
+}
+    a.invisible:hover {
+    opacity: 1;
+}
+
+div.edition-list {
+    margin-bottom: 10px;
+    margin-left: 25px;
+}

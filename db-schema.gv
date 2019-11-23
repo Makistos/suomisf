@@ -65,6 +65,7 @@ digraph g {
 		<TR><TD>dod</TD></TR>
 		<TR><TD>birthplace</TD></TR>
 		<TR><TD>fullstring</TD></TR>
+                <TR><TD>image_src</TD></TR>
 		</TABLE>
 		>];
 	Work [
@@ -77,6 +78,7 @@ digraph g {
                 <TR><TD>language</TD></TR>
 		<TR><TD PORT="bookseriesid">bookseries_id</TD></TR>
 		<TR><TD>bookseriesnum</TD></TR>
+                <TR><TD>collection</TD></TR>
 		<TR><TD>genre</TD></TR>
 		<TR><TD>misc</TD></TR>
 		<TR><TD>fullstring</TD></TR>
@@ -92,11 +94,13 @@ digraph g {
 		<TR><TD>language</TD></TR>
 		<TR><TD PORT="publisherid">publisher_id</TD></TR>
 		<TR><TD>editionnum</TD></TR>
+                <TR><TD>collection</TD></TR>
 		<TR><TD>isbn</TD></TR>
 		<TR><TD PORT="pubseriesid">pubseries_id</TD></TR>
 		<TR><TD>pubseriesnum</TD></TR>
 		<TR><TD>misc</TD></TR>
 		<TR><TD>fullstring</TD></TR>
+                <TR><TD>image_src</TD></TR>
 		</TABLE>
 		>];
 	User [

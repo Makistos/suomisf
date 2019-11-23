@@ -36,7 +36,8 @@ class Edition(Base):
     image_src = Column(String(200))
     isbn = Column(String(13))
     pubseries_id = Column(Integer, ForeignKey('pubseries.id'))
-    pubseriesnum = Column(String(20))
+    pubseriesnum = Column(Integer)
+    collection = Column(Boolean)
     misc = Column(String(500))
     fullstring = Column(String(500))
     parts = relationship('Part', backref=backref('parts_lookup'),
@@ -64,6 +65,7 @@ class Work(Base):
     language = Column(String(2))
     bookseries_id = Column(Integer, ForeignKey('bookseries.id'))
     bookseriesnum = Column(String(20))
+    collection = Column(Boolean)
     genre = Column(String(100))
     misc = Column(String(500))
     fullstring = Column(String(500))

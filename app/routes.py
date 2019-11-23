@@ -317,9 +317,8 @@ def pubseries(seriesid):
     #                 .all()
     books = session.query(Edition)\
                    .filter(Edition.pubseries_id == seriesid)\
-                   .order_by(Edition.editionnum, Edition.pubyear)\
+                   .order_by(Edition.pubseriesnum, Edition.pubyear)\
                    .all()
-    #app.logger.debug(session.query(Person, BookPerson, Book).filter(Person.id == BookPerson.person_id).filter(BookPerson.book_id == Book.id).filter(Book.pubseries_id == seriesid))
     return render_template('pubseries.html', series=series, books=books)
 
 @app.route('/new_pubseries', methods=['GET', 'POST'])

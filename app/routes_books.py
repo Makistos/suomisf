@@ -311,6 +311,7 @@ def edition(editionid):
                             .join(Part)\
                             .filter(Part.work_id == edition.work.id)\
                             .filter(Edition.id != edition.id)\
+                            .order_by(Edition.language, Edition.pubyear)\
                             .all()
     return render_template('edition.html', edition = edition,
                             other_editions=other_editions)

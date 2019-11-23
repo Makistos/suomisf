@@ -11,9 +11,11 @@
     {% for work in person.works %}
         {% include "_work.html" %}
         {% if work.editions|length > 1 %}
+            <div class="edition-list">
             {% for edition in work.editions %}
                 {% include "_otheredition.html" %}
             {% endfor %}
+            </div>
         {% endif %}
     {% endfor %}
 	</div>

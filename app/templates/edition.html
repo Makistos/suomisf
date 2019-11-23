@@ -62,8 +62,12 @@ Toimittaja(t): {% for editor in edition.editors[:-1] %}
 <hr width=50%>
 {% if other_editions %}
     <h2>Muut painokset</h2>
-    {% for edition in other_editions %}
-        {% include "_edition.html" %}
+    {% for language in other_editions|groupby('language') %}
+        <div class="edition-list">
+        {% for edition in language.list %}
+            {% include "_otheredition.html" %}
+        {% endfor %}
+        </div>
     {% endfor %}
 {% endif %}
 {% endblock %}
