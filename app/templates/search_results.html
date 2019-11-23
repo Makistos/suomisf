@@ -13,10 +13,24 @@
 {% endfor %}
 {% endif %}
 
-{% if books %}
-<h2>Kirjat</h2>
-{% for book in books %}
-{% include "_book.html" %}
+{% if works %}
+<h2>Teokset</h2>
+{% for work in works %}
+{% include "_work.html" %}
+{% endfor %}
+{% endif %}
+
+{% if editions %}
+<h2>Painokset</h2>
+{% for edition in editions %}
+{% include "_edition.html" %}
+{% endfor %}
+{% endif %}
+
+{% if stories %}
+<h2>Novellit</h2>
+{% for story in stories %}
+{% include "_story.html" %}
 {% endfor %}
 {% endif %}
 
@@ -28,7 +42,7 @@
 {% endif %}
 
 {% if bookseries %}
-<h2>Kirjasarjat</h2>
+<h2>Kirjasarjat</h2>
 {% for series in bookseries %}
 <p><a href=" {{ url_for("bookseries", seriesid = series.id) }}">{{series.name}}</a></p>
 {% endfor %}

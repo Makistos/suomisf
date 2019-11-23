@@ -2,7 +2,8 @@
 from flask import render_template, request, flash, redirect, url_for, make_response
 from flask_login import current_user, login_user, logout_user
 from app import app
-from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work, Edition, Pubseries, Bookseries, User, UserBook
+from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
+Edition, Pubseries, Bookseries, User, UserBook, ShortStory
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
 from app.forms import LoginForm, RegistrationForm, PublisherForm,\
@@ -442,20 +443,42 @@ def search():
     if request.method == 'POST':
         q = request.form
     app.logger.debug("q = " + q)
-    books = \
-        session.query(Book).filter(Book.title.ilike('%' + searchword + '%')).all()
+    works = \
+        session.query(Work)\
+               .filter(Work.title.ilike('%' + searchword + '%'))\
+               .order_by(Work.title)\
+               .all()
+    editions = \
+            session.query(Edition)\
+                   .filter(Edition.title.ilike('%' + searchword + '%'))\
+                   .order_by(Edition.title)\
+                   .all()
+    stories = \
+            session.query(ShortStory)\
+                   .filter(ShortStory.title.ilike('%' + searchword + '%'))\
+                   .order_by(ShortStory.title)\
+                   .all()
     people = \
-            session.query(Person).filter(Person.name.ilike('%' + searchword +
-                '%')).all()
+            session.query(Person)\
+                   .filter(Person.name.ilike('%' + searchword + '%'))\
+                   .order_by(Person.name)\
+                   .all()
     publishers = \
-            session.query(Publisher).filter(Publisher.name.ilike('%' +
-                searchword + '%')).all()
+            session.query(Publisher)\
+                   .filter(Publisher.name.ilike('%' + searchword + '%'))\
+                   .order_by(Publisher.name)\
+                   .all()
     bookseries = \
-            session.query(Bookseries).filter(Bookseries.name.ilike('%' +
-                searchword + '%')).all()
+            session.query(Bookseries)\
+                   .filter(Bookseries.name.ilike('%' + searchword + '%'))\
+                   .order_by(Bookseries.name)\
+                   .all()
     pubseries = \
-            session.query(Pubseries).filter(Pubseries.name.ilike('%' +
-                searchword + '%')).all()
-    return render_template('search_results.html', books=books, people=people,
+            session.query(Pubseries)\
+                   .filter(Pubseries.name.ilike('%' + searchword + '%'))\
+                   .order_by(Pubseries.name)\
+                   .all()
+    return render_template('search_results.html', works=works,
+            editions=editions, people=people, stories=stories,
             publishers=publishers, bookseries=bookseries, pubseries=pubseries,
             searchword=searchword)
