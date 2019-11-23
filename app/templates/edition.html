@@ -59,4 +59,11 @@ Toimittaja(t): {% for editor in edition.editors[:-1] %}
 {% if current_user.is_admin %} 
 <p><a href=" {{ url_for('edit_edition', editionid=edition.id) }} ">Muokkaa</a></p>
 {% endif %}
+<hr width=50%>
+{% if other_editions %}
+    <h2>Muut painokset</h2>
+    {% for edition in other_editions %}
+        {% include "_edition.html" %}
+    {% endfor %}
+{% endif %}
 {% endblock %}

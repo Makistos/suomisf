@@ -307,8 +307,13 @@ def edition(editionid):
     edition = session.query(Edition)\
                      .filter(Edition.id == editionid)\
                      .first()
-
-    return render_template('edition.html', edition = edition)
+    other_editions = session.query(Edition)\
+                            .join(Part)\
+                            .filter(Part.work_id == edition.work.id)\
+                            .filter(Edition.id != edition.id)\
+                            .all()
+    return render_template('edition.html', edition = edition,
+                            other_editions=other_editions)
 
 @app.route('/part_delete/<partid>', methods=["POST", "GET"])
 def part_delete(partid, session = None):
