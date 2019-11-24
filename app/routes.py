@@ -419,11 +419,12 @@ def myseries():
     app.logger.debug("IDs = " + str(pubseriesids))
     authors = session.query(Person)\
                      .join(Author)\
-                     .join(Work)\
+                     .filter(Author.person_id == Person.id)\
+                     .join(Part)\
+                     .filter(Author.part_id == Part.id)\
                      .join(Edition)\
-                     .filter(Author.work_id == Work.id)\
-                     .filter(Edition.work_id == Work.id)\
                      .filter(Edition.pubseries_id.in_(pubseriesids))\
+                     .filter(Edition.id == Part.edition_id)\
                      .order_by(Person.name)\
                      .all()
     app.logger.debug("Count = " + str(len(authors)))

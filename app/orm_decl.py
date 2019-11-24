@@ -139,6 +139,12 @@ class Person(Base):
                 Translator.part_id == Part.id, Part.work_id == Work.id)',
                 uselist=True)
 
+class Alias(Base):
+    __tablename__ = 'alias'
+    alias = Column(Integer, ForeignKey('person.id'), nullable=False,
+        primary_key=True)
+    realname = Column(Integer, ForeignKey('person.id'), nullable=False,
+        primary_key=True)
 
 class Author(Base):
     __tablename__ = 'author'
@@ -239,6 +245,7 @@ class UserBookseries(Base):
 class Link(Base):
     __tablename__ = 'link'
     id = Column(Integer, primary_key = True)
+    src = Column(String, nullable=False)
     person_id = Column(Integer, ForeignKey('person.id'), nullable=True)
     work_id = Column(Integer, ForeignKey('work.id'), nullable=True)
     edition_id = Column(Integer, ForeignKey('edition.id'), nullable=True)

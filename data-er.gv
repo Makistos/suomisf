@@ -23,8 +23,11 @@ digraph g {
 		"Collects";
                 Is;
                 Has;
+                "Also known as";
 
 	Person -> Authored [label = "m"];
+        Person -> "Also known as" [label = "m"];
+        "Also known as" -> Person [label = "n"];
 	Authored -> Part [label = "n"];
 	Person -> Translated [label = "m"];
 	Translated -> Part [label = "n"];

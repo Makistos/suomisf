@@ -68,6 +68,15 @@ digraph g {
                 <TR><TD>image_src</TD></TR>
 		</TABLE>
 		>];
+        Alias [
+                label =<
+		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+		<TR><TD><B>Alias</B></TD></TR>
+                <TR><TD PORT="alias">alias</TD></TR>
+                <TR><TD PORT="realname">real_name</TD></TR>
+		</TABLE>
+		>];
+
 	Work [
 		label =<
 		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
@@ -203,4 +212,6 @@ digraph g {
         Link:pubseriesid -> Pubseries:id [style=dashed];
         Link:bookseriesid -> Bookseries:id [style=dashed];
         Link:publisherid -> Publisher:id [style=dashed];
+        Alias:alias -> Person:id [style=dashed];
+        Alias:realname -> Person:id [style=dashed];
 }
