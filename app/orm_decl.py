@@ -171,6 +171,7 @@ class Publisher(Base):
     __tablename__ = 'publisher'
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False, unique=True, index=True)
+    editions = relationship("Edition", backref=backref("edition4_assoc"))
     fullname = Column(String(250), nullable=False, unique=True)
 
 class Pubseries(Base):

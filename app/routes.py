@@ -221,7 +221,9 @@ def publisher(pubid):
                     .order_by(desc(Edition.pubyear))\
                     .first()
     series = session.query(Pubseries).filter(Pubseries.publisher_id == pubid).all()
-    editions = session.query(Edition).filter(Edition.publisher_id == pubid).all()
+    editions = session.query(Edition)\
+                      .order_by(Edition.pubyear)\
+                      .filter(Edition.publisher_id == pubid).all()
     return render_template('publisher.html', publisher=publisher,
             series=series, book_count=book_count, oldest=oldest,
             newest=newest, editions=editions)
