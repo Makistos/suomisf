@@ -1,7 +1,9 @@
 {% extends "base.html" %}
-<h1>Kustantajat</h1>
 {% block content %}
-	{% for publisher in publishers %}
-	<p><a href=" {{ url_for("publisher", pubid=publisher.id) }}">{{ publisher.name }}</a></p>
-	{% endfor %}
+<h1 align=center>Kustantajat</h1>
+	<div class="three-column">
+		{% for publisher in publishers %}
+		<p><a href=" {{ url_for("publisher", pubid=publisher.id) }}">{{ publisher.name }}</a></p>
+		{% endfor %}
+	</div>
 {% endblock %}

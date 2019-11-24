@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Julkaisijoiden sarjat</h1>
+<h1 align=center>Julkaisijoiden sarjat</h1>
+	<div class="three-column">
 	{% for s in series %}
 		<p><a href=" {{ url_for("pubseries", seriesid=s.id)
 			    }}">{{s.name}}</a></p>
 	{% endfor %}
+	</div>
 {% endblock %}
 

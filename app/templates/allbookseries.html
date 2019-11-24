@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Kirjasarjat</h1>
-{% for s in series %}
-<p><a href=" {{ url_for("bookseries", seriesid=s.id)
-	    }}">{{s.name}}</a></p>
-{% endfor %}
+<h1 align=center>Kirjasarjat</h1>
+	<div class="three-column">
+		{% for s in series %}
+		<p><a href=" {{ url_for("bookseries", seriesid=s.id) }}">{{s.name}}</a></p>
+		{% endfor %}
+	</div>
+
 {% endblock %}

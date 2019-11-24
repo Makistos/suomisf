@@ -102,7 +102,9 @@ def work(workid):
 def edit_work(workid):
     search_list = {}
     session = new_session()
-    if workid != 0:
+    authors = []
+    bookseries = []
+    if workid != '0':
         work = session.query(Work)\
                       .filter(Work.id == workid)\
                       .first()
@@ -127,11 +129,10 @@ def edit_work(workid):
     if request.method == 'GET':
         form.id.data = work.id
         form.title.data = work.title
-        form.authors.data = ', '.join([a.name for a in authors])
+        if authors:
+            form.authors.data = ', '.join([a.name for a in authors])
         form.pubyear.data = work.pubyear
         form.language.data = work.language
-        publisher = session.query(Publisher).filter(Publisher.name ==
-                form.publisher.data).first()
         if bookseries:
             form.bookseries.data = bookseries.name
         form.bookseriesnum.data = work.bookseriesnum
