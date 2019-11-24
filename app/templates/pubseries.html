@@ -4,6 +4,6 @@
                     ">Tulosta</a></center>
 <h1>{{series.name}} ({{ series.publisher.name }})</h1>
 {% for edition in books %}
-{% include "_edition.html" %}
+    {% include "_edition.html" %}
 {% endfor %}
 {% endblock %}
