@@ -314,8 +314,23 @@ def edition(editionid):
                             .filter(Edition.id != edition.id)\
                             .order_by(Edition.language, Edition.pubyear)\
                             .all()
+    translators = session.query(Person)\
+                         .join(Translator)\
+                         .filter(Person.id == Translator.person_id)\
+                         .join(Part)\
+                         .filter(Part.id == Translator.part_id,
+                                 Part.edition_id == editionid)\
+                         .all()
+    editors = session.query(Person)\
+                     .join(Editor)\
+                     .filter(Person.id == Editor.person_id)\
+                     .join(Edition)\
+                     .filter(Edition.id == Editor.edition_id)\
+                     .filter(Edition.id == editionid)\
+                     .all()
     return render_template('edition.html', edition = edition,
-                            other_editions=other_editions)
+                            other_editions=other_editions,
+                            translators=translators, editors=editors)
 
 @app.route('/part_delete/<partid>', methods=["POST", "GET"])
 def part_delete(partid, session = None):

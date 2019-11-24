@@ -21,8 +21,8 @@
         <p><b>Syntymävuosi</b>: {{ person.dob if person.dob }}</p>
         <p><b>Kuolinvuosi</b>: {{ person.dod if person.dod }}</p>
         <p><b>Syntymäpaikka</b>: {{ person.birthplace if person.birthplace }}</p>
-        {% if person.source %}
-        <p><b>Lähde</b>: {{ person.source }}</p>
+        {% if person.fullstring %}
+        <p><b>Lähde</b>: {{ person.fullstring }}</p>
         {% endif %}
         </div>
         <br style="clear: both">

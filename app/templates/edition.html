@@ -8,56 +8,60 @@
         {% if edition.image_src %}
         <img style="float: left; margin: 0px 10px 0px 0px;" src="{{edition.image_src}}">
         {% endif %}
-<p>Alkuperäinen teos: <a href=" {{ url_for('work', workid=edition.work.id) }}">{{edition.work.title }}</a>
-</p>
-<p>Kirjoittaja(t): 
-{% for author in edition.work.authors[:-1] %} 
-<a href=" {{ url_for('person', personid=author.id) }}">{{ author.name }}</a> & 
+        <div>Alkuperäinen teos: <a href=" {{ url_for('work', workid=edition.work.id) }}">{{edition.work.title }}</a>
+            </div>
+<div>Kirjoittaja(t): 
+{% for author in edition.work.authors %} 
+<a href=" {{ url_for('person', personid=author.id) }}">{{ author.name }}</a> 
 {% endfor %}
-<a href=" {{ url_for('person', personid=edition.work.authors[-1].id) }}">{{ edition.work.authors[-1].name }}</a>
+</div>
+{% if translators|length %}
+<p>Kääntäjä(t):
+    {% for translator in translators %}
+        <a href=" {{ url_for('person', personid=translator.id) }}">{{ translator.name
+    }}</a><br>
+    {% endfor %}
 </p>
-{% if edition.translators|length %}
-<p>Kääntäjät: {% for translator in edition.translators[:-1] %}
-<a href=" {{ url_for('person', personid=translator.id) }}">{{ translator.name }}</a> &
-</p>
-{% endfor %}
-<a href=" {{ url_for('person', personid=edition.translators[-1].id) }}">{{edition.translators[-1].name }}</a>
 {% endif %}
-{% if edition.editors|length %}
-Toimittaja(t): {% for editor in edition.editors[:-1] %}
-<a href=" {{ url_for('person', personid=editor.id) }}">{{ editor.name }}</a>
-{% endfor %}
-<a href=" {{ url_for('person', personid=edition.editors[-1].id) }}">{{edition.editors[-1].name }}</a>
+{% if editors|length %}
+    <div>
+    Toimittaja(t):
+    {% for editor in editors %}
+        <a href=" {{ url_for('person', personid=editor.id) }}">{{ editor.name
+            }}</a>
+    </div>
+    {% endfor %}
 {% endif %}
-<p>Julkaisuvuosi: {{ edition.pubyear }}</p>
-<p>Painos: {{ edition.editionnum }}.</p>
-<p>Kustantaja: <a href=" {{ url_for('publisher', pubid=edition.publisher.id)
-                        }}">{{ edition.publisher.name }}</a></p>
+<div>Julkaisuvuosi: {{ edition.pubyear }}</div>
+<div>Painos: {{ edition.editionnum }}.</div>
+<div>Kustantaja: <a href=" {{ url_for('publisher', pubid=edition.publisher.id)
+                        }}">{{ edition.publisher.name }}</a></div>
 {%- if edition.pubseries.name|length -%}
-<p>Julkaisijan sarja: <a href=" {{ url_for('pubseries',
+<div>Julkaisijan sarja: <a href=" {{ url_for('pubseries',
                                   seriesid=edition.pubseries.id) }}">{{
                                   edition.pubseries.name -}}</a>
 	{%- if edition.pubseriesnum -%}
-		, numero {{ edition.pubseriesnum }}</p>
+		, numero {{ edition.pubseriesnum }}</div>
 	{% endif %}
 {%- endif %}
 {% if edition.work.bookseries.name|length %}
-<p>Kirjasarja: <a href=" {{ url_for('bookseries',
+<div>Kirjasarja: <a href=" {{ url_for('bookseries',
                            seriesid=edition.work.bookseries.id) }} ">{{
                            edition.work.bookseries.name }}</a>
 	{% if edition.work.bookseriesnum %}
 		{% if edition.work.bookseriesnum|length %}
-		, numero {{ edition.work.bookseriesnum }}</p>
+		, numero {{ edition.work.bookseriesnum }}</div>
 		{% endif %}
 	{% endif %}
 {%- endif %}
-<p>Genre: {{ edition.work.genre }}</p>
-<p>Muuta: {{ edition.misc }}</p>
+<div>Genre: {{ edition.work.genre }}</div>
+<div>Muuta: {{ edition.misc }}</div>
 {% if current_user.is_admin %} 
-<p>Aineiston lähde: {{ edition.fullstring }}</p>
+<div>Aineiston lähde: {{ edition.fullstring }}</div>
 {% endif %}
 {% if current_user.is_admin %} 
-<p><a href=" {{ url_for('edit_edition', editionid=edition.id) }} ">Muokkaa</a></p>
+<div><a href=" {{ url_for('edit_edition', editionid=edition.id) }}
+        ">Muokkaa</a></div>
 {% endif %}
 <hr width=50%>
 {% if other_editions %}
