@@ -232,6 +232,7 @@ class UserPubseries(Base):
             primary_key=True)
     series = relationship("Pubseries", backref=backref("pubseries_assoc"))
     user = relationship("User", backref=backref("user3_asocc"))
+    publisher = relationship("Publisher", secondary="pubseries", viewonly=True)
 
 class UserBookseries(Base):
     __tablename__ = 'userbookseries'

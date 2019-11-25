@@ -3,7 +3,7 @@ from flask import render_template, request, flash, redirect, url_for, make_respo
 from flask_login import current_user, login_user, logout_user
 from app import app
 from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
-Edition, Pubseries, Bookseries, User, UserBook, ShortStory
+Edition, Pubseries, Bookseries, User, UserBook, ShortStory, UserPubseries
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
 from app.forms import LoginForm, RegistrationForm, PublisherForm,\
@@ -60,6 +60,14 @@ def register():
         user = User(name=form.username.data)
         user.set_password(form.password.data)
         session.add(user)
+        pubseries = session.query(Pubseries)\
+                           .filter(Pubseries.important == True)\
+                           .all()
+        session.commit()
+        for series in pubseries:
+            ups = UserPubseries(user_id=user.id,
+                    series_id=series.id)
+            session.add(ups)
         session.commit()
         flash('Rekisteröinti onnistui!')
         return redirect(url_for('login'))
@@ -321,7 +329,12 @@ def pubseries(seriesid):
                    .filter(Edition.pubseries_id == seriesid)\
                    .order_by(Edition.pubseriesnum, Edition.pubyear)\
                    .all()
-    return render_template('pubseries.html', series=series, books=books)
+    favorite = session.query(UserPubseries)\
+                        .filter(UserPubseries.series_id == seriesid,
+                                UserPubseries.user_id == current_user.get_id())\
+                        .count()
+    return render_template('pubseries.html', series=series, books=books,
+            favorite=favorite)
 
 @app.route('/new_pubseries', methods=['GET', 'POST'])
 def new_pubseries():
@@ -414,7 +427,11 @@ def mybooks():
 @app.route('/myseries')
 def myseries():
     session = new_session()
-    pubseries = session.query(Pubseries).filter(Pubseries.important == True)
+    pubseries = session.query(Pubseries)\
+                       .join(UserPubseries)\
+                       .filter(Pubseries.id == UserPubseries.series_id)\
+                       .filter(UserPubseries.user_id == current_user.get_id())\
+                       .all()
     pubseriesids = [x.id for x in pubseries]
     app.logger.debug("IDs = " + str(pubseriesids))
     authors = session.query(Person)\
@@ -484,3 +501,27 @@ def search():
             editions=editions, people=people, stories=stories,
             publishers=publishers, bookseries=bookseries, pubseries=pubseries,
             searchword=searchword)
+
+@app.route('/addfavpubcol/<pubseriesid>', methods=["POST", "GET"])
+def addfavpubcol(pubseriesid):
+    session = new_session()
+
+    upubseries = UserPubseries(series_id=pubseriesid,
+                               user_id=current_user.get_id())
+    session.add(upubseries)
+    session.commit()
+    return redirect(url_for('pubseries', seriesid=pubseriesid))
+
+@app.route('/removefavpubcol/<pubseriesid>', methods=["POST", "GET"])
+def removefavpubcol(pubseriesid):
+    session = new_session()
+
+    upubseries = session.query(UserPubseries)\
+                        .filter(UserPubseries.series_id == pubseriesid,
+                                UserPubseries.user_id ==
+                                current_user.get_id())\
+                        .first()
+    session.delete(upubseries)
+    session.commit()
+    return redirect(url_for('myseries'))
+
