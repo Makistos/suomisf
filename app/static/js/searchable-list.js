@@ -1,0 +1,10 @@
+        {% for target, content in search_lists.items() %}
+        $( function() {
+            var slist = {{ content|tojson }};
+            $( " #{{ target }} " ).autocomplete({
+                source: slist,
+                position: { at: "right" }
+            });
+        });
+        {% endfor %}
+

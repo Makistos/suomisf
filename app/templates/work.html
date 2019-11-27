@@ -6,14 +6,8 @@
         ({{ work.id }})
     {% endif %}
     </h1>
-    <p>Kirjoittaja(t): 
-    {% if work.authors|length > 1 %}
-        {% for author in work.authors %} 
-            <a href=" {{ url_for('person', personid=author.id) }}">{{
-                author.name }}</a><br> 
-        {% endfor %}
-    {% endif %}
-    <a href=" {{ url_for('person', personid=work.authors[-1].id) }}">{{ work.authors[-1].name }}</a>
+    <p>Kirjoittajat:
+            {{ work.authors|join(' & ', attribute='name') }}
     </p>
     <p>Julkaisuvuosi: {{ work.pubyear }}</p>
     {% if work.bookseries.name|length %}
@@ -47,5 +41,42 @@
         <hr>
         <p><a href=" {{ url_for('edit_work', workid=work.id) }} ">Muokkaa</a></p>
         <p><a href=" {{ url_for('add_edition', workid=work.id) }}">Lisää painos</a></p>
+	<!-- Trigger/Open The Modal -->
+	<button id="myBtn">Lisää/poista kirjailija</button>
+
+	<!-- The Modal -->
+	<div id="myModal" class="modal">
+
+		<!-- Modal content -->
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close">&times;</span>
+				<h2>Muokkaa kirjailijatietoja</h2>
+			</div>
+			<div class="modal-body">
+				{% for author in authors %}
+				{{ author.name }}
+				<a href="{{ url_for('remove_author_from_work',
+					 workid=work.id, authorid=author.id)}}">Poista</a><br>
+				{% endfor %}
+				<form action="" method=post>
+					{{ form.hidden_tag() }}
+					{{ form.author.label }}
+					{{ form.author(size=100) }}
+					{{ form.submit }}
+				</form>
+			</div>
+				<div class="modal-footer">
+					<h3></h3>
+			</div>
+		</div>
+
     {% endif %}
+{% block script %}
+<script src="/static/js/author.js">
+<script>
+{% include "_searchable_lists.html" %}
+</script>
 {% endblock %}
+{% endblock %}
+

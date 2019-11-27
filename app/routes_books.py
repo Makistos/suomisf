@@ -2,7 +2,7 @@ from app import app
 from flask import Flask
 from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work, Edition, Pubseries, Bookseries, User, UserBook
 from flask import render_template, request, flash, redirect, url_for, make_response
-from app.forms import WorkForm, EditionForm
+from app.forms import WorkForm, EditionForm, WorkAuthorForm
 from .route_helpers import *
 
 # Book related routes
@@ -86,17 +86,32 @@ def booksX(letter):
     return render_template('books.html', authors=authors, letter=letter)
 
 
-@app.route('/work/<workid>')
+@app.route('/work/<workid>', methods=["POST", "GET"])
 def work(workid):
+    """ Popup has a form to add authors. """
+    search_list = {}
     session = new_session()
-    work = session.query(Work).filter(Work.id == workid).first()
-    #editions = session.query(Edition).filter(Edition.work_id == workid).all()
+    work = session.query(Work)\
+                  .filter(Work.id == workid)\
+                  .first()
     authors = people_for_book(session, workid, 'A')
-    translators = people_for_book(session, workid, 'T')
-#    s = ''
-    editors = people_for_book(session, workid, 'E')
+    bookseries = session.query(Bookseries)\
+                        .join(Work)\
+                        .filter(Bookseries.id == work.bookseries_id,\
+                                Work.id == workid)\
+                        .first()
+    search_list = {**search_list, **author_list(session)}
+
+    form = WorkAuthorForm(request.form)
+
+    if form.validate_on_submit():
+        save_author_to_work(session, workid, form.author.data)
+        return redirect(url_for('work', workid=workid))
+    else:
+        app.logger.debug("Errors: {}".format(form.errors))
+
     return render_template('work.html', work=work, authors=authors,
-            translators=translators, editors=editors)
+            bookseries=bookseries, search_lists=search_list, form=form)
 
 @app.route('/edit_work/<workid>', methods=["POST", "GET"])
 def edit_work(workid):
@@ -130,7 +145,7 @@ def edit_work(workid):
         form.id.data = work.id
         form.title.data = work.title
         if authors:
-            form.authors.data = ', '.join([a.name for a in authors])
+            form.author.data = ', '.join([a.name for a in authors])
         form.pubyear.data = work.pubyear
         form.language.data = work.language
         if bookseries:
@@ -481,10 +496,35 @@ def add_authored(authorid):
         form.authors.data = author.name
 
     if form.validate_on_submit():
-        save_work(session, form, work) # Save work, edition and part
-        return redirect(url_for('work', bookid=work.id))
+        person = session.query(Person)\
+                        .filter(Person.name == authorid)\
+                        .first()
+        parts = session.query(Part)\
+                       .filter(work_id == workid)\
+                       .all()
+        for part in parts:
+            app.logger.debug("part = {}, author= {}".format(part.id,
+                authorid))
+            author = Author(part_id=part.id, person_id=authorid)
+            session.add(author)
+        session.commit()
+        return redirect(url_for('work', workid=work.id))
     else:
         app.logger.debug("Errors: {}".format(form.errors))
-    return render_template('edit_work.html', id = work.id, form=form, search_lists =
+    return render_template('work.html', id = work.id, form=form, search_lists =
             search_list, source = '')
-    pass
+
+@app.route('/remove_author_from_work/<workid>/<authorid>', methods=["GET", "POST"])
+def remove_author_from_work(workid, authorid):
+
+    session = new_session()
+
+    parts = session.query(Author)\
+                   .join(Part)\
+                   .filter(Part.work_id == workid)\
+                   .filter(Author.part_id == Part.id, Author.person_id == authorid)\
+                   .all()
+    for part in parts:
+        session.delete(part)
+    session.commit()
+    return redirect(url_for('work', workid=workid))

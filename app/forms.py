@@ -44,7 +44,7 @@ class UserForm(FlaskForm):
 class WorkForm(FlaskForm):
     id = HiddenField('id')
     title = StringField('Nimeke', validators=[DataRequired()])
-    authors = StringField('Kirjoittaja(t)', validators=[DataRequired()])
+    author = StringField('Kirjoittaja(t)', validators=[DataRequired()])
     editors = StringField('Toimittaja(t)')
     pubyear = IntegerField('Julkaisuvuosi')
     language = StringField('Kieli')
@@ -54,6 +54,10 @@ class WorkForm(FlaskForm):
     misc = StringField('Muuta')
     source = StringField('Lähde')
     submit = SubmitField('Tallenna')
+
+class WorkAuthorForm(FlaskForm):
+    author = StringField('Kirjoittaja', validators=[DataRequired()])
+    submit = SubmitField('Lisää')
 
 class EditionForm(FlaskForm):
     id = HiddenField('id')

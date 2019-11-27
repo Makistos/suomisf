@@ -166,3 +166,28 @@ def get_first_edition(workid):
                   .filter(Edition.id == Part.edition_id,
                           Part.work_id == workid)\
                   .first()
+
+def save_author_to_work(session, workid, authorname):
+
+    author = session.query(Person)\
+                    .filter(Person.name == authorname)\
+                    .first()
+    if not author:
+        return
+
+    authorid = author.id
+
+    already_exists = session.query(Author)\
+                            .join(Part)\
+                            .filter(Author.person_id == authorid)\
+                            .filter(Part.work_id == workid)\
+                            .count()
+    if already_exists == 0:
+        parts = session.query(Part)\
+                       .filter(Part.work_id == workid)\
+                       .all()
+        for part in parts:
+            author = Author(person_id = authorid, part_id = part.id)
+            session.add(author)
+
+        session.commit()
