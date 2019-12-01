@@ -596,6 +596,35 @@ def import_books(session, authors):
                     add_bookperson(s, editor, ed, 'E')
 
 
+def update_creators(session):
+    """ Update the owner string for every work. This is used
+        to group books together and is needed because combining
+        authors and editors for books with multiple creators would
+        be very complex otherwise. """
+
+    logging.info('Updating creator strings')
+    print('Updating creator strings...')
+    s = session()
+    works = s.query(Work).all()
+
+    for work in works:
+        authors = s.query(Person)\
+                   .join(Author)\
+                   .filter(Person.id == Author.person_id)\
+                   .join(Part)\
+                   .filter(Part.id == Author.part_id)\
+                   .filter(Part.work_id == work.id)\
+                   .all()
+        author_list = ' & '.join([x.name for x in authors])
+        work.creator_str = author_list
+        s.add(work)
+        s.commit()
+        print('.', end='', flush=True)
+
+    print()
+
+
+
 def add_missing_series(session):
     # This important publisher series is missing from the imported data.
     logging.info('Creating missing Kirjayhtymä series')
@@ -641,6 +670,7 @@ def import_all(filelist):
     import_bookseries(session, bookseries)
     import_pubseries(session, pubseries)
     import_books(session, data)
+    update_creators(session)
 
     add_missing_series(session)
     create_admin(session)
