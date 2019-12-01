@@ -191,3 +191,21 @@ def save_author_to_work(session, workid, authorname):
             session.add(author)
 
         session.commit()
+
+    update_creators(session, workid)
+
+
+def update_creators(session, workid):
+    # Update creator string (used to group works together)
+    authors = session.query(Person)\
+                     .join(Author)\
+                     .filter(Author.person_id == Person.id)\
+                     .join(Part)\
+                     .filter(Part.work_id == workid)\
+                     .all()
+    work = session.query(Work).filter(Work.id == workid).first()
+
+    author_str = ' & '.join([x.name for x in authors])
+    work.creator_str = author_str
+    session.add(work)
+    session.commit()

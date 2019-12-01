@@ -65,25 +65,21 @@ def books_by_lang(lang):
 @app.route('/books')
 def books():
     session = new_session()
-    authors = session.query(Person)\
-                     .join(Author)\
-                     .filter(Person.id == Author.person_id)\
-                     .order_by(Person.name)\
-                     .all()
-    return render_template('books.html', authors=authors)
+    works = session.query(Work)\
+                   .order_by(Work.creator_str)\
+                   .all()
+    return render_template('books.html', works=works)
 
 
 @app.route('/booksX/<letter>')
 def booksX(letter):
     session = new_session()
-    #app.logger.debug(session.query(Person).join(BookPerson).filter(Person.id ==
-    #                BookPerson.person_id).filter(BookPerson.type ==
-    #                'A').filter(Person.name.ilike('A%')).order_by(Person.name))
-    authors = session.query(Person)\
-                     .join(Author)\
-                     .filter(Person.id == Author.person_id)\
-                     .filter(Person.name.ilike(letter + '%')).order_by(Person.name).all()
-    return render_template('books.html', authors=authors, letter=letter)
+    works = session.query(Work)\
+                   .filter(Work.creator_str.ilike(letter + '%'))\
+                   .order_by(Work.creator_str)\
+                   .all()
+    return render_template('books.html', letter=letter,
+            works=works)
 
 
 @app.route('/work/<workid>', methods=["POST", "GET"])
@@ -527,4 +523,7 @@ def remove_author_from_work(workid, authorid):
     for part in parts:
         session.delete(part)
     session.commit()
+
+    update_creators(session, workid)
+
     return redirect(url_for('work', workid=workid))

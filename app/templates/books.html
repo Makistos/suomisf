@@ -5,20 +5,11 @@
 {% else %}
 <h1>Kirjat</h1>
 {% endif %}
-{% for person in authors %}
-	<div>
-    <person-name name="{{ person.name }}" id="{{ person.id }}"></person-name> 
-    {% for work in person.works %}
+{% for author in works|groupby(attribute='creator_str') %}
+    <h2>{{author.grouper}}</h2>
+    {% for work in author.list %}
         {% include "_work.html" %}
-        {% if work.editions|length > 1 %}
-            <div class="edition-list">
-            {% for edition in work.editions %}
-                {% include "_otheredition.html" %}
-            {% endfor %}
-            </div>
-        {% endif %}
     {% endfor %}
-	</div>
 {% endfor %}
 
 {% endblock %}

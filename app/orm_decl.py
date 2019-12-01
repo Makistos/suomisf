@@ -58,6 +58,8 @@ class Work(Base):
         with collections. Not all parts have necessarily been
         published in a book.
     '''
+    def join_names(context):
+        return '& '.join([x.name for x in authors])
     __tablename__ = 'work'
     id = Column(Integer, primary_key=True)
     title = Column(String(500), nullable=False, index=True)
@@ -74,6 +76,7 @@ class Work(Base):
                 primaryjoin='and_(Person.id == Author.person_id,\
                 Author.part_id == Part.id, Part.work_id == Work.id)',
                 uselist=True)
+    creator_str = Column(String(500), index=True)
     editions = relationship("Edition", secondary='Part', uselist=True)
     parts = relationship('Part', backref=backref('part', uselist=True))
     bookseries = relationship("Bookseries", backref=backref('bookseries',
