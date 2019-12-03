@@ -154,7 +154,10 @@ def people():
 @app.route('/person/<personid>')
 def person(personid):
     session = new_session()
-    person = session.query(Person).filter(Person.id == personid).first()
+    if personid.isdigit():
+        person = session.query(Person).filter(Person.id == personid).first()
+    else:
+        person = session.query(Person).filter(Person.name == personid).first()
     authored = books_for_person(session, personid, 'A')
     translated = books_for_person(session, personid, 'T')
     edited = books_for_person(session, personid, 'E')
