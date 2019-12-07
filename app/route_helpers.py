@@ -11,7 +11,7 @@ from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work, Ed
 
 
 def new_session():
-    engine = create_engine('sqlite:///suomisf.db')
+    engine = create_engine('sqlite:///suomisf.db', echo=True)
     Session = sessionmaker(bind=engine)
     session = Session()
     return session
@@ -209,3 +209,6 @@ def update_creators(session, workid):
     work.creator_str = author_str
     session.add(work)
     session.commit()
+
+def translate_genrelist(glist):
+    return glist

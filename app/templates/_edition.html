@@ -28,6 +28,6 @@
 {%- if edition.work.title|length -%}({{ edition.work.title }}{% endif %}{%- if
 edition.work.pubyear|int -%}, {{ edition.work.pubyear }}{% endif %}{% if
 edition.work.title|length %}).{% endif %}
-{{edition.publisher.name}} {{ edition.pubyear }}. [{{ edition.work.genre }}].
+{{edition.publisher.name}} {{ edition.pubyear }}. [{{ edition.work.genres|join(', ', attribute='genre_name') }}].
 </span><br>
 {% endif %}

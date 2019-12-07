@@ -36,7 +36,7 @@
 {{ work.editions[0].publisher.fullname }}
 {% if work.editions[0].pubyear|int -%}{{ work.editions[0].pubyear }}{% endif %}. 
 {% endif %}
-[{{ work.genre }}].
+[{{ work.genres|join(', ', attribute='genre_name') }}].
 {% for edition in work.editions %}
 {% for owner in edition.owners %}
     {{ owner.name }}

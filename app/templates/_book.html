@@ -23,6 +23,6 @@
 {{ book.bookseries.name}} {{book.bookseriesnum}}.
 {% endif %}
 {%- if book.originalname|length -%}({{ book.originalname }}{% endif %}{%- if book.origpubyear|int -%}, {{ book.origpubyear }}{% endif %}{% if book.originalname|length %}).{% endif %}
-{{book.publisher.name}} {{ book.pubyear }}. [{{ book.genre }}].
+{{book.publisher.name}} {{ book.pubyear }}. [{{ book.genres|join(', ', attribute='genre_name') }}].
 </span><br>
 {% endif %}

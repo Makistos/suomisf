@@ -3,13 +3,15 @@ from flask import render_template, request, flash, redirect, url_for, make_respo
 from flask_login import current_user, login_user, logout_user
 from app import app
 from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
-Edition, Pubseries, Bookseries, User, UserBook, ShortStory, UserPubseries
+Edition, Pubseries, Bookseries, User, UserBook, ShortStory, UserPubseries,\
+Alias
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
 from app.forms import LoginForm, RegistrationForm, PublisherForm,\
 PubseriesForm, PersonForm, BookseriesForm, UserForm
 from .route_helpers import *
 #from app.forms import BookForm
+from flask_sqlalchemy import get_debug_queries
 import json
 import logging
 import pprint
@@ -158,9 +160,18 @@ def person(personid):
         person = session.query(Person).filter(Person.id == personid).first()
     else:
         person = session.query(Person).filter(Person.name == personid).first()
+
     authored = books_for_person(session, personid, 'A')
     translated = books_for_person(session, personid, 'T')
     edited = books_for_person(session, personid, 'E')
+    #aliases = session.query(Person)\
+    #                 .join(Alias)\
+    #                 .filter(Alias.realname == person.id)\
+    #                 .all()
+    #real_names = session.query(Person)\
+    #                    .join(Alias)\
+    #                    .filter(Alias.alias == person.id)\
+    #                    .all()
     return render_template('person.html', person=person, authored=authored,
             translated=translated, edited=edited)
 

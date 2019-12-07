@@ -7,7 +7,6 @@ from sqlalchemy import create_engine
 from app import db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 
@@ -68,7 +67,6 @@ class Work(Base):
     bookseries_id = Column(Integer, ForeignKey('bookseries.id'))
     bookseriesnum = Column(String(20))
     collection = Column(Boolean)
-    genre = Column(String(100))
     misc = Column(String(500))
     fullstring = Column(String(500))
     authors = relationship("Person",
@@ -82,6 +80,7 @@ class Work(Base):
     bookseries = relationship("Bookseries", backref=backref('bookseries',
         uselist=False))
     editions = relationship("Edition", secondary='part', uselist=True)
+    genres = relationship("Genre", backref=backref('genre', uselist=True))
 
 class Part(Base):
     ''' Part is most often representing a short story. So a collection
@@ -119,10 +118,17 @@ class ShortStory(Base):
     pubyear = Column(Integer)
     genre = Column(String(100))
 
+class Alias(Base):
+    __tablename__ = 'alias'
+    alias = Column(Integer, ForeignKey('person.id'), nullable=False,
+        primary_key=True)
+    realname = Column(Integer, ForeignKey('person.id'), nullable=False,
+        primary_key=True)
+
 class Person(Base):
     __tablename__ = 'person'
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False, index=True)
+    name = Column(String(250), nullable=False, index=True, unique=True)
     first_name = Column(String(100))
     last_name = Column(String(150))
     image_src = Column(String(200))
@@ -130,6 +136,18 @@ class Person(Base):
     dod = Column(Integer)
     birthplace = Column(String(250))
     fullstring = Column(String(500))
+    #real_names = relationship("Person", secondary="Alias", primaryjoin="Person.id==Alias.alias")
+    real_names = relationship("Person",
+                    primaryjoin="and_(Person.id==Alias.alias)",
+                    secondary='alias',
+                    foreign_keys=[Alias.alias],
+                    uselist=True)
+    #aliases = relationship("Person", primaryjoin="Person.id==Alias.realname")
+    aliases = relationship("Person",
+                    primaryjoin='and_(Person.id==Alias.realname)',
+                    secondary='alias',
+                    foreign_keys = [Alias.realname],
+                    uselist=True)
     works = relationship("Work",
                 secondary='join(Part, Author, Part.id == Author.part_id)',
                 primaryjoin='and_(Person.id == Author.person_id,\
@@ -141,13 +159,6 @@ class Person(Base):
                 primaryjoin='and_(Person.id == Translator.person_id,\
                 Translator.part_id == Part.id, Part.work_id == Work.id)',
                 uselist=True)
-
-class Alias(Base):
-    __tablename__ = 'alias'
-    alias = Column(Integer, ForeignKey('person.id'), nullable=False,
-        primary_key=True)
-    realname = Column(Integer, ForeignKey('person.id'), nullable=False,
-        primary_key=True)
 
 class Author(Base):
     __tablename__ = 'author'
@@ -258,6 +269,12 @@ class Link(Base):
         nullable=True)
     publisher_id = Column(Integer, ForeignKey('publisher.id'), nullable=True)
 
+class Genre(Base):
+    __tablename__ = 'genre'
+    workid = Column(Integer, ForeignKey('work.id'), nullable=False,
+            primary_key=True)
+    genre_name = Column(String(20), nullable=False, primary_key=True)
+
 @login.user_loader
 def load_user(id):
     engine = create_engine(db_url)
@@ -265,6 +282,6 @@ def load_user(id):
     session = Session()
     return session.query(User).get(int(id))
 
-engine = create_engine(db_url)
+engine = create_engine(db_url, echo=True)
 
 Base.metadata.create_all(engine)

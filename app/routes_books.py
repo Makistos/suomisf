@@ -1,12 +1,19 @@
 from app import app
 from flask import Flask
-from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work, Edition, Pubseries, Bookseries, User, UserBook
+from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
+Edition, Pubseries, Bookseries, User, UserBook, Genre
 from flask import render_template, request, flash, redirect, url_for, make_response
 from app.forms import WorkForm, EditionForm, WorkAuthorForm
 from .route_helpers import *
 
 # Book related routes
 
+def save_genres(session, work, genrefield):
+
+    for g in genrefield.split(','):
+        genreobj = Genre(workid=work.id, genre_name=g.strip())
+        session.add(genreobj)
+    session.commit()
 
 def save_work(session, form, work):
     author = session.query(Person).filter(Person.name ==
@@ -20,7 +27,6 @@ def save_work(session, form, work):
                 form.bookseries.data).first()
         work.bookseries_id = bookseries.id
     work.bookseriesnum = form.bookseriesnum.data
-    work.genre = form.genre.data
     work.misc = form.misc.data
     session.add(work)
     session.commit()
@@ -38,7 +44,7 @@ def save_work(session, form, work):
         part.title = work.title
         session.add(part)
         session.commit()
-
+    save_genres(session, work, form.genre.data)
 
 @app.route('/books/lang')
 def books_by_lang(lang):
@@ -147,7 +153,7 @@ def edit_work(workid):
         if bookseries:
             form.bookseries.data = bookseries.name
         form.bookseriesnum.data = work.bookseriesnum
-        form.genre.data = work.genre
+        form.genre.data = ','.join([x.genre_name for x in work.genres])
         form.misc.data = work.misc
         form.source.data = work.fullstring
 
@@ -339,6 +345,7 @@ def edition(editionid):
                      .filter(Edition.id == Editor.edition_id)\
                      .filter(Edition.id == editionid)\
                      .all()
+
     return render_template('edition.html', edition = edition,
                             other_editions=other_editions,
                             translators=translators, editors=editors)

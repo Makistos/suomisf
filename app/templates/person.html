@@ -11,6 +11,16 @@
     ({{person.id}})
     {% endif %}
 </h1>	
+<!--
+        {% if person.real_names %}
+            <p>( {{ person.real_names|join(', ', attribute='name')}} 
+            {{ person.real_names|join(', ', attribute='id') }}
+            )</p>
+        {% endif %}
+        {% if person.aliases %}
+            <p>Pseudonyymit: {{ person.aliases|join(',', attribute='name')}}</p>
+        {% endif %}
+-->
         <div>
         {% if person.image_src %}
         <img style="float: left; margin: 0px 10px 0px 0px;" src="{{person.image_src}}">
@@ -38,7 +48,8 @@
 	{% endif %}
 	{% if person.translations|length %}
 		<h2>Kääntänyt</h2>
-		{% for edition in person.translations|sort(attribute='pubyear') %}
+		{% for edition in
+                person.translations|sort(attribute='pubyear') %}
 			{% include "_edition.html" %}
 		{% endfor %}
 	{% endif %}

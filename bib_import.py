@@ -1,4 +1,5 @@
-from app.orm_decl import Work, Edition, Part, Person, Author, Translator, Editor, Publisher, Pubseries, Bookseries, User
+from app.orm_decl import Work, Edition, Part, Person, Author, Translator,\
+Editor, Publisher, Pubseries, Bookseries, User, Genre, Alias
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from importbib import publishers
@@ -9,6 +10,7 @@ import sys
 from dotenv import load_dotenv
 import argparse
 import logging
+import re
 
 publishers_re = {}
 bookseries_re = {}
@@ -25,6 +27,26 @@ translator_re3 = re.compile("([A-ZÄÅÖ]+[\.\s]?[a-zA-ZäöåÅÄÖéü&\-]*[\.
 
 
 pubseries_publisher = {}
+
+genres_list = {'F' : 'F',
+          'K' : 'K',
+          'Paleof' : 'Paleof',
+          'paleof' : 'Paleof',
+          'PF' : 'PF',
+          'SF' : 'SF',
+          'VEH' : 'VEH',
+          'utopia' : 'utopia',
+          'nF' : 'nF',
+          'nSF' : 'nSF',
+          'nSf' : 'nSF',
+          'nK' : 'nH',
+          'lasten SF' : 'lSF',
+          'satu' : 'satu',
+          'ei-sf' : 'eiSF',
+          'eiSF' : 'eiSF',
+          'eisf' : 'eiSF',
+          'rajatap' : 'rajatapaus'
+          }
 
 def find_item_from_string(item_list, st, patterns):
     retval = ()
@@ -75,90 +97,6 @@ def find_item_from_string(item_list, st, patterns):
     return retval
 
 
-def single_name(s, pat, part_of_multi):
-    to_remove = ''
-    name = ''
-
-    m2 = re.search('[Ss]uom', s)
-    if not m2 and part_of_multi:
-        pat = translator_re3
-        idx = 0
-    else:
-        idx = 3
-    m = pat.search(s)
-    if m:
-        found = m.group(idx)
-        if found[-1].isupper():
-            # Last character is upper case -> name is probably something like
-            # Pentti J. Penttinen. We assume therefore there are more stops
-            # than just the separator.
-            m2 = translator_re2.search(s)
-            if m2:
-                name = m2.group(2)
-                to_remove = m2.group(0)
-            else:
-                print("Not found: {} {}".format(s, found[-1]))
-        else:
-            name = found
-            to_remove = m.group(0)
-
-    return (to_remove, name)
-
-def multiple_persons(s, pat):
-    handled_list = []
-    retval = []
-    to_remove = ''
-    has_and = False
-    n1 = s.split('&')
-    if len(n1) == 1:
-        # No &'s, e.g. "A, B, C"
-        names = s.split(',')
-    elif len(n1) == 2:
-        # One &, e.g. "A, B & C"
-        names = n1[0].split(',')
-        names.append(n1[1])
-    else:
-        # More than one &, e.g. "A & B & C"
-        names = n1
-
-    if ' ja ' in names[-1]:
-       last_pair = names[-1]
-       del names[-1]
-       names += last_pair.split(' ja ')
-       has_and = True
-    for name in names:
-        n = re.sub(r'[Ss]uom\.?', '', name.strip())
-        retval.append(n)
-
-    # Now we need to reconstruct the matched string back
-    for idx, name in enumerate(retval[:-1]):
-        print("name : {}".format(name))
-        m = re.search(str(name) + '(.+)' + str(retval[idx+1]), s)
-        if m:
-            to_remove += str(name) + m.group(1)
-        else:
-            to_remove += str(name)
-            if has_and:
-                to_remove += ' ja '
-    to_remove += str(retval[-1])
-    return (to_remove, retval)
-
-
-def find_persons(s, type):
-
-    names = []
-    to_remove = ''
-    if type == 'translator':
-        pat = translator_re
-
-    if ',' in s or '&' in s or " ja " in s:
-        (to_remove, names) = multiple_persons(s, pat)
-    else:
-        (to_remove, n) = single_name(s, pat, False)
-        names.append(n)
-
-    return (to_remove, names)
-
 def get_books(books):
     """ This is so ugly it hurts my head.
 
@@ -185,6 +123,7 @@ def get_books(books):
     edition_re = re.compile('(\d+?)\.((?:laitos|painos)):(.+)')
     for b in books:
         full_string = b
+        tmp_misc = ''
         tmp = b.replace('\n', '')
         tmp = re.sub('<a.+?>', '', tmp)
         tmp = re.sub('</a>', '', tmp)
@@ -232,7 +171,8 @@ def get_books(books):
                     tmp = tmp.replace(pseries[0], '')
                 if 'pubseries' not in book:
                     book['pubseries'] = ''
-                    book['pubseriesnum'] = ''
+                    if book['collection'] == False:
+                        book['pubseriesnum'] = ''
                 if book['pubseries'] == 'Kuoriaiskirjat':
                     # Publisher series has the same name.
                     book['publisher'] = 'Kuoriaiskirjat'
@@ -289,7 +229,18 @@ def get_books(books):
             tmp = tmp.replace(rstr, '')
             # Find type
             m = re.search('\[(.+)\]', tmp)
+            book['collection'] = False
             if m:
+                genre = m.group(1)
+                m2 = re.search('(\d\/\d+)', genre)
+                if m2:
+                    genre = genre.replace(m2.group(0), '')
+                if genre.find('kok'):
+                    book['collection'] = True
+                    if genre != 'esseekokoelma':
+                        genre.replace('kok', '')
+                if m2:
+                    misc_str += ' ' + m2.group(0) + ' '
                 book['type'] = m.group(1)
                 tmp = tmp.replace('[' + m.group(1) + ']', '')
             else:
@@ -485,19 +436,165 @@ def add_bookperson(s, person, book, type):
     s.commit()
 
 
-def import_person(s, name, source=''):
+def import_authors(s, names, source=''):
+    """ Imports an author line (found within <h2> tags).
+        There are several different variations, including more than
+        one author and some or all information missing except for name.
+        Information gathered for each author:
+        - Full name,
+        - First name(s),
+        - Last name,
+        - Possible alias with full name & first & last names,
+        - Nationality,
+        - Year of birth,
+        - Year of death.
+    """
+    persons = []
+    names = re.sub(r'\n', ' ', names.strip())
+    for tmp_name in names.split('&'):
+        name = None
+        first_name = None
+        last_name = None
+        real_name = None
+        real_first_name = None
+        real_last_name = None
+        dob = None
+        dod = None
+        country = None
+        if '(toim.)' in tmp_name:
+            tmp_name = re.sub(r'\(toim.\)', '', tmp_name)
+        if '(' in tmp_name:
+            m = re.search(r'(.+)\((.+[^\)])\)?', tmp_name)
+            if m:
+                if '(oik.' in m.group(1): # This is a pseudonym
+                    m3 = re.search(r'(?P<alias>.+)\s\(oik.\s(?P<realname>.+)\)', m.group(1))
+                    if m3:
+                        real_name = m3.group('realname')
+                        real_names = real_name.split(' ')
+                        real_first_name = ' '.join(real_names[0:-1]).strip()
+                        real_last_name = str(real_names[-1]).strip()
+                        real_name = real_last_name + ", " + real_first_name
+                        name = m3.group('alias')
+                        names = name.split(', ')
+                        last_name = names[0].strip()
+                        if len(names) > 1:
+                            first_name = names[1].strip()
+                            name = last_name + ", " + first_name
+                        else:
+                            name = last_name
+
+                else: # Real name
+                    m3 = re.search(r'(?P<alias>.+)', m.group(1))
+                    name = m3.group('alias')
+                    names = m3.group('alias').split(', ')
+                    last_name = names[0].strip()
+                    if len(names) > 1:
+                        first_name = names[1].strip()
+                        name = last_name + ", " + first_name
+                    else:
+                        name = last_name
+                    real_name = None
+                    real_first_name = None
+                    real_last_name = None
+                if m3:
+                    m2 = re.search(r'(?P<country>[\w\-]+)(,\s)?(?P<dob>\d+)?-?(?P<dod>\d+)?', m.group(2))
+                    if m2:
+                        country = m2.group('country')
+                        dob = m2.group('dob')
+                        dod = m2.group('dod')
+                else:
+                    country = None
+                    dob = None
+                    dod = None
+        else: # Just a name
+            names = tmp_name.split(', ')
+            name = tmp_name
+            last_name = names[0].strip()
+            if len(names) > 1: # More than one part in name
+                first_name = names[1].strip()
+                name = last_name + ", " + first_name
+            else:
+                first_name = None
+                name = last_name
+            country = None
+            dob = None
+            dod = None
+            real_name = None
+            real_first_name = None
+            real_last_name = None
+        if real_name is not None:
+            person = s.query(Person)\
+                      .filter(Person.name==real_name)\
+                      .first()
+            if not person:
+                person = Person(name=real_name.strip(),
+                                first_name=real_first_name,
+                                last_name=real_last_name,
+                                birthplace=country,
+                                dob=dob,
+                                dod=dod)
+                s.add(person)
+                s.commit()
+            person2 = s.query(Person)\
+                       .filter(Person.name==name)\
+                       .first()
+            if not person2:
+                person2=Person(name=name.strip(),
+                               first_name=first_name,
+                               last_name=last_name)
+                s.add(person2)
+                s.commit()
+                # Only add the pseudonym to the list as that's the
+                # author under which it is placed.
+            alias = s.query(Alias)\
+                     .filter(Alias.realname==person.id,
+                             Alias.alias==person2.id)\
+                     .first()
+            if not alias:
+                alias = Alias(realname=person.id, alias=person2.id)
+                s.add(alias)
+                s.commit()
+            persons.append(person2)
+        else:
+            person = s.query(Person)\
+                      .filter(Person.name==name)\
+                      .first()
+            if not person:
+                person = Person(name=name,
+                                first_name=first_name,
+                                last_name=last_name,
+                                birthplace=country,
+                                dob=dob,
+                                dod=dod)
+                s.add(person)
+                s.commit()
+            persons.append(person)
+    return persons
+
+
+def import_persons(s, name, source=''):
     """ Searches for given person by name from the Person table and if
         that name is not found, adds it to the Person table.
 
         The person object, whether already existing or just created, is
         returned to caller.
     """
-    person = s.query(Person).filter(Person.name == name).first()
-    if not person:
-        person = Person(name=name, fullstring=source)
-        s.add(person)
-        s.commit()
-    return person
+    persons = []
+    for p in name.split('&'):
+        p = re.sub(r'\n', '', p.strip())
+        p = re.sub(r'\([^()]*\)', '', p)
+        names = p.split(' ')
+        first_name = ' '.join(names[0:-1]).strip()
+        last_name = str(names[-1]).strip()
+        name_inv = last_name + ", " + first_name
+        person = s.query(Person).filter(Person.name==name_inv).first()
+        if not person:
+            person = Person(name=name_inv, fullstring=source, first_name=first_name,
+                    last_name=last_name)
+            s.add(person)
+            s.commit()
+        persons.append(person)
+    return persons
 
 
 def import_books(session, authors):
@@ -506,7 +603,7 @@ def import_books(session, authors):
     for author, books in authors.items():
         print("Author: {}".format(author)) # Progress meter
         logging.debug('Author: %s', author)
-        authoritem = import_person(s, author)
+        authorlist = import_authors(s, author, author)
         for book in books:
             # Each book has a dict for the work and one or more dicts for
             # editions.
@@ -528,12 +625,14 @@ def import_books(session, authors):
                     language = '',
                     bookseries_id = bookseriesid,
                     bookseriesnum = work['bookseriesnum'],
-                    genre = work['type'],
                     misc = work['rest'],
+                    collection=work['collection'],
                     fullstring = work['fullstring'])
 
             s.add(workitem)
             s.commit()
+
+            save_genres(session, workitem.id, work['type'])
 
             for edition in book[1]:
                 pubseries = None
@@ -553,8 +652,8 @@ def import_books(session, authors):
                     publisherid = publisher.id
                 else:
                     publisherid = None
-                translator = import_person(s, edition['translator'], edition['fullstring'])
-                editor = import_person(s, edition['editor'], edition['fullstring'])
+                translator = import_persons(s, edition['translator'], edition['fullstring'])
+                editor = import_persons(s, edition['editor'], edition['fullstring'])
 
                 # Create new edition to database.
                 if edition['edition']:
@@ -589,12 +688,24 @@ def import_books(session, authors):
                 s.commit()
 
                 # Add links between people and edition
-                add_bookperson(s, authoritem, part, 'A')
-                if edition['translator'] != '':
-                    add_bookperson(s, translator, part, 'T')
-                if edition['editor'] != '':
-                    add_bookperson(s, editor, ed, 'E')
+                for authoritem in authorlist:
+                    add_bookperson(s, authoritem, part, 'A')
+                if edition['translator'] != '' and len(translator)>0:
+                    add_bookperson(s, translator[0], part, 'T')
+                if edition['editor'] != '' and len(editor)>0:
+                    add_bookperson(s, editor[0], ed, 'E')
 
+
+def save_genres(session, workid, genrelist):
+
+    s = session()
+
+    genrelist.replace('/', ',')
+    for genre in genrelist.split(','):
+        if genre in genres_list:
+            genreobj = Genre(workid=workid, genre_name=genres_list[genre])
+            s.add(genreobj)
+    s.commit()
 
 def update_creators(session):
     """ Update the owner string for every work. This is used
@@ -607,6 +718,7 @@ def update_creators(session):
     s = session()
     works = s.query(Work).all()
 
+    i = 0
     for work in works:
         authors = s.query(Person)\
                    .join(Author)\
@@ -619,8 +731,9 @@ def update_creators(session):
         work.creator_str = author_list
         s.add(work)
         s.commit()
-        print('.', end='', flush=True)
-
+        if i % 100 == 0:
+            print('.', end='', flush=True)
+        i += 1
     print()
 
 

@@ -20,7 +20,7 @@
                         {% endif %}
                 {% endif %}
         {%- endif %}
-    <p>Genre: {{ work.genre }}</p>
+    <p>Genre: {{ work.genres|join(', ', attribute='genre_name') }}</p>
     <p>Muuta: {{ work.misc }}</p>
     {% if current_user.is_admin %} 
         <p>Aineiston lähde: {{ work.fullstring }}</p>

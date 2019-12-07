@@ -3,3 +3,5 @@ __pycache__
 .env
 logs/*
 import.log
+log.txt
+authors.txt
