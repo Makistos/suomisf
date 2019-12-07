@@ -11,5 +11,5 @@ class Config(object):
             'sqlite://' + os.path.join(basedir, 'suomisf.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
-    SQLALCHEMY_ECHO = True
-    SQLALCHEMY_RECORD_QUERIES = True
+    #SQLALCHEMY_ECHO = True
+    #SQLALCHEMY_RECORD_QUERIES = True

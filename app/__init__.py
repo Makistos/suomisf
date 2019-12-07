@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
-from flask_debugtoolbar import DebugToolbarExtension
+#from flask_debugtoolbar import DebugToolbarExtension
 
 import os
 
@@ -17,9 +17,9 @@ db = SQLAlchemy(app)
 #migrate = Migrate()
 login = LoginManager(app)
 bootstrap = Bootstrap(app)
-app.debug = True
+#app.debug = True
 
-toolbar = DebugToolbarExtension(app)
+#toolbar = DebugToolbarExtension(app)
 
 from app import routes, routes_books, orm_decl
 

@@ -282,6 +282,6 @@ def load_user(id):
     session = Session()
     return session.query(User).get(int(id))
 
-engine = create_engine(db_url, echo=True)
+engine = create_engine(db_url) #, echo=True)
 
 Base.metadata.create_all(engine)

@@ -11,7 +11,7 @@ from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work, Ed
 
 
 def new_session():
-    engine = create_engine('sqlite:///suomisf.db', echo=True)
+    engine = create_engine('sqlite:///suomisf.db') #, echo=True)
     Session = sessionmaker(bind=engine)
     session = Session()
     return session
