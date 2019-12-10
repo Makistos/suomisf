@@ -4,13 +4,22 @@ function personlink(name) {
 
 
 $(document).ready(function() {
+   var editor;
    let persons = document.getElementsByClassName('person-list');
    for (i in persons) {
-      const spl = persons[i].innerText.split(' & ');
+      if (persons[i].innerText.includes(' (toim.)')) {
+          editor = true;
+      } else {
+          editor = false;
+      }
+      const spl = persons[i].innerText.replace(' (toim.)', '').split(' & ');
       const output = [];
       for (j in spl) {
          output.push(personlink(spl[j]));
       }
       persons[i].innerHTML = output.join(' & ');
+      if (editor == true) { 
+          persons[i].innerHTML += ' (toim.)';
+      }
    }
 });

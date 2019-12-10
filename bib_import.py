@@ -194,7 +194,7 @@ def get_books(books):
                     book['pubyear'] = m2.group(1)
                     tmp = tmp.replace(m2.group(1), '')
                 else:
-                    book['pubyear'] = '0'
+                    book['pubyear'] = None
                 # Find translator
                 m2 = re.search(translator_re, tmp)
                 if m2:
@@ -308,7 +308,7 @@ def get_books(books):
                 if book['origyear'] == '0':
                     book['origyear'] = book['pubyear']
             else:
-                book['pubyear'] = '0'
+                book['pubyear'] = None
 
             m2 = re.search(translator_re, tmp)
             if m2:
@@ -689,7 +689,10 @@ def import_books(session, authors):
 
                 # Add links between people and edition
                 for authoritem in authorlist:
-                    add_bookperson(s, authoritem, part, 'A')
+                    if '(toim.)' in author:
+                        add_bookperson(s, authoritem, ed, 'E')
+                    else:
+                        add_bookperson(s, authoritem, part, 'A')
                 if edition['translator'] != '' and len(translator)>0:
                     add_bookperson(s, translator[0], part, 'T')
                 if edition['editor'] != '' and len(editor)>0:
@@ -727,8 +730,23 @@ def update_creators(session):
                    .filter(Part.id == Author.part_id)\
                    .filter(Part.work_id == work.id)\
                    .all()
-        author_list = ' & '.join([x.name for x in authors])
-        work.creator_str = author_list
+        if authors:
+            author_list = ' & '.join([x.name for x in authors])
+            work.creator_str = author_list
+        else:
+            editors = s.query(Person)\
+                       .join(Editor)\
+                       .filter(Person.id == Editor.person_id)\
+                       .join(Edition)\
+                       .filter(Edition.id == Editor.edition_id)\
+                       .join(Part)\
+                       .filter(Part.edition_id == Edition.id,
+                               Part.work_id == work.id)\
+                       .all()
+            if editors:
+                editor_list = ' & '.join([x.name for x in editors])
+                work.creator_str = editor_list + ' (toim.)'
+
         s.add(work)
         s.commit()
         if i % 100 == 0:
@@ -789,10 +807,23 @@ def import_all(filelist):
     create_admin(session)
 
 
+def import_stories(filename):
+    logging.info('Importing short stories')
+
+    with open(filename, 'r', encoding='iso8859-1') as fle:
+        content += str(fle.read()).replace('&amp;', '&')
+
+    id_re = '[A-Z]{1}[a-z]{2}:\w{2}'
+
+    # Build dict
+
+
 def read_params(args):
     p = argparse.ArgumentParser()
     p.add_argument('--debug', '-d', action='store_true', default=False)
     p.add_argument('--file', '-f', default='')
+    p.add_argument('--stories', '-s', default=False)
+
     return vars(p.parse_args(args))
 
 
@@ -802,13 +833,15 @@ if __name__ == '__main__':
     loglevel = logging.INFO
     if params['debug'] == True:
         loglevel = logging.DEBUG
+    logging.basicConfig(filename='import.log', filemode='w',
+        level=loglevel)
     if params['file']:
         filelist = [params['file']]
         print(filelist)
+    elif params['stories']:
+        filename = 'bibfiles/fs_nov_u.txt'
+        import_stories(filename)
     else:
         filelist = glob.glob('bibfiles/*.html')
+        import_all(filelist)
 
-    logging.basicConfig(filename='import.log', filemode='w',
-        level=loglevel)
-
-    import_all(filelist)

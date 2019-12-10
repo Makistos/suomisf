@@ -75,7 +75,7 @@ pubseries = [
     ('Koululaiset kirjoittavat koululaisille', 'Koululaiset kirjoittavat koululaisille'),
     ('Koululaiskirjasto', 'Koululaiskirjasto'),
     ('Krimi-sarja', 'Krimi-sarja'),
-    ('Kuoriaiskirjat', 'Kuoriaiskirjat'),
+    #('Kuoriaiskirjat', 'Kuoriaiskirjat'),
     ('Kuukauden Action -sarja', 'Kuukauden Action -sarja'),
     ('Kyläkirjaston kuvalehti B-sarjan kirjoina', 'Kyläkirjaston kuvalehti B-sarjan kirjoina'),
     ('Kymmenen markan romaaneja', 'Kymmenen markan romaaneja'),
