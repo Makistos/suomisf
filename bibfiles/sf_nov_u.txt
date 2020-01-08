@@ -4,7 +4,7 @@
           science fiction, fantasia- ja kauhunovelleja.
 
                    Koonnut Jussi Vainikainen
-                           29.9.2019
+                           29.12.2019
 
 ***************************************************************************
 
@@ -60,6 +60,8 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Hai:Wt] = Peter Haining (toim.) : Weird Tales (Weird Tales, 1976) Book Studio Oy 1992
 [Hal:Uk] = Jukka Halme (toim.) : Uuskummaa?, Kustannusosakeyhtiö Kirjava 2006
 [Haw:Pk] = Nathaniel Hawthorne : Paholainen käsikirjoituksessa, LIKE 1990
+[Hea:Ik] = Lafcadio Hearn : Intohimon karma - Japanin kummitustarinoita, Orienta 2003
+[Hea:Kw] = Lafcadio Hearn : Kwaidan. (Kwaidan, 1904), Love-kirjat 1991
 [Hei:Mj] = Robert A. Heinlein : Mies joka myi kuun (The Man Who Sold the Moon, 1950) Nide Oy 1956
 [Hel:Mt] = Anne Helttunen & Tuula Uusi-Hallila (toim.) : Majatalo ja muita kauhutarinoita, WSOY 2000
 [Hen:Sp] = Saara Henriksson & Markku Soikkeli (toim.) : Surupukki. Ruotsalaisia tieteistarinoita, Osuuskumma-kustannus 2015
@@ -91,8 +93,9 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Kip:Pm] = Rudyard Kipling : Pedon merkki ja muita kauhuja, WSOY 1994
 [Kop:Ap] = Jari Koponen & Vesa Sisättö (toim.) : Aivopeili, Avain 2011
 [Leg:Km] = Ursula K. Le Guin : Kertomuksia Maamereltä (Tales from Earthsea, 2001) WSOY 2002
-[Leg:Na] = Ursula K. Le Guin : Neljä anteeksiantoa (Four Ways to Forgiveness, 2001) WSOY 2002
-[Leg:Pl] = Ursula K. Le Guin : Pimeälipas (The Wind's Twelve Quarters, 1975) Kustannusosakeyhtiö Kirjava 2006.
+[Leg:Ms] = Ursula K. Le Guin : Maailman syntymäpäivä ja muita tarinoita (The Birthday of the World and Other Stories, 2002) Vaskikirjat 2019
+[Leg:Na] = Ursula K. Le Guin : Neljä anteeksiantoa (Four Ways to Forgiveness, 2001) Vaskikirjat 2014
+[Leg:Pl] = Ursula K. Le Guin : Pimeälipas (The Wind's Twelve Quarters, 1975) Kustannusosakeyhtiö Kirjava 2006
 [Leg:Sk] = Ursula K. Le Guin : Sisämeren kalastaja (A Fisherman of the Inland Sea, 1994) Tampereen Science Fiction Seura 2000
 [Lem:Ks] = Stanislaw Lem : Konekansan satuja ja tarinoita (Bajki robotóv, 1964) Tammi 2004
 [Lem:Ky] = Stanislaw Lem : Kyberias (Cyberiada, 1965) Kirjayhtymä 1986
@@ -106,7 +109,9 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Lov:Vm] = H.P. Lovecraft : Varjo menneisyydestä, Jalava 1993
 [Lov:Vu] = H.P. Lovecraft : Vaeltaja unien portilla, Tampereen Science Fiction Seura 1997
 [Luo:Kr] = Taru Luojola & Tarja Sipiläinen (toim.) : Kumman rakas, Osuuskumma-kustannus 2012
+[Mac:Kp] = Carmen Maria Machado : Kahdeksan puraisua (Her Body and Other Parties, 2017) S&S 2019
 [Man:Kk] = Eeva-Liisa Manner (toim.) : Kauhujen kirja, Weilin & Göös 1964
+[Mar:Sk] = George R.R. Martin : Seitsemän kuningaskunnan ritari (A Knight of the Seven Kingdoms, 2015). Kustannusosakeyhtiö Kirjava 2019
 [Mcc:K5] = Robert McCammon (toim.) : Kauhujen kirja 5 (Night Visions 8, 1991) Book Studio Oy 1994
 [Neu:My] = Neuvostokirjailijain tieteiskertomuksia : Maxwellin yhtälöt (Uravnenija Maksvella) Kustannusliike Edistys 1964
 [Neu:Va] = Vieras avaruudesta, Vieraskielisen kirjallisuuden kustannusliike 1962
@@ -1561,6 +1566,48 @@ Paul Hazel
 Nainen lounaspöydässä (Having a Woman at Lunch, 1988) [Win:K2]
 
 
+Lafcadio Hearn
+--------------
+Akinosuken uni (The Dream of Akinosuké, 1904) [Hea:Ik] [Hea:Kw]
+Aoyagi (The Story of Aoyagi, 1904) [Hea:Kw]
+Chugoron synkkä tarina (The Story of Chugoro, 1902) [Hea:Ik]
+Diplomatiaa (Diplomacy, 1904) [Hea:Ik] [Hea:Kw]
+Furisode (Furisodé, 1899) [Hea:Ik]
+Hi-mawari (Hi-Mawari, 1904) [Hea:Kw]
+Horai (Horai, 1904) [Hea:Kw]
+Intohimon karma (A Passional Karma, 1899) [Hea:Ik]
+Jikininki (Jikininki, 1904) [Hea:Kw]
+Jikininki: yön kauhu (Jikininki, 1904) [Hea:Ik]
+Juroku-zakura (Jiu-Roku-Zakura , 1904) [Hea:Kw]
+Kalman ratsastus (The Corpse-Rider, 1900) [Hea:Ik]
+Korvaton Hõichi (Höïchi-the-Earless / The Story of Mimi-Nashi-Hoiche, 1903) [Hea:Kw]
+Kultainen karppi (The Story of Kogi the Priest, 1901) [Hea:Ik]
+Kuoleva morsian (The Story of O-Tei, 1904) [Hea:Ik]
+Kuolevan kouraisu (Ingwa-banashi, 1899) [Hea:Ik]
+Kuolleen salaisuus (A Dead Secret, 1904) [Hea:Ik]
+Mimi-nashi hoichi, biwansoittaja (The Story of Mimi-Nashi-Hoiche, 1903) [Hea:Ik]
+Mujina (Mujina, 1904) [Hea:Kw]
+Mujina, yöllistä pelkoa (Mujina, 1904) [Hea:Ik]
+Oshidori (Oshidori, 1904) [Hea:Kw]
+Oshidori, rakkautta (Oshidori, 1904) [Hea:Ik]
+O-Tein tarina (The Story of O-Tei, 1904) [Hea:Kw]
+Peili ja kello (Of a Mirror and a Bell, 1904) [Hea:Kw]
+Riisiruukun fasaani (Story of a Pheasant, 1902) [Hea:Ik]
+Riki-Baka (Riki-Baka, 1904) [Hea:Ik] [Hea:Kw]
+Rokuro-kubi (Rokuro-Kubi, 1904) [Hea:Kw]
+Salaisuus (A Dead Secret, 1904) [Hea:Kw]
+Salaperäinen Kwashin Koji (The Story of Kwashin Koji , 1901) [Hea:Ik]
+Samurain lemmitty (The Story of Aoyagi, 1904) [Hea:Ik]
+Sovinto (The Reconciliation, 1900) [Hea:Ik]
+Terve järki (Common Sense, 1902) [Hea:Ik]
+Ubazakura (Ubazakura, 1904) [Hea:Kw]
+Ubazakura ja uskollisuus (Ubazakura, 1904) [Hea:Ik]
+Umetsu Chubein voima (The Story of Umétsu Chubei, 1901) [Hea:Ik]
+Varjostinneito (The Screen-Maiden, 1900) [Hea:Ik]
+Yuki-onna (Yuki-Onna, 1904) [Hea:Kw]
+Yuki-Onna, jääkaunotar (Yuki-Onna, 1904) [Hea:Ik]
+
+
 Robert A. Heinlein
 ------------------
 Elämänlanka (Life-Line, 1939) [Hei:Mj]
@@ -2073,6 +2120,7 @@ Vihreää teetä (Green Tea, 1872) [Man:Kk]
 
 Ursula K. Le Guin
 -----------------
+Aineistoa Seggrin oloista (The Matter of Seggri, 1994) [Leg:Ms]
 Aliset tähdet (The Stars Below, 1973) [Leg:Pl]
 Anteeksiannon päivä (Forgiveness Day, 1994) [Leg:Na]
 Ensimmäinen tapaaminen gorgonidien kanssa (The First Contact with Gorgonids, 1991) [Leg:Sk]
@@ -2080,9 +2128,11 @@ Erään naisen vapautuminen (A Woman's Liberation, 1995) [Leg:Na]
 Huomioita Werelistä ja Yeowesta (Notes on Werel and Yeowe, 1995) [Leg:Na]
 Jotka Omelasista poistuvat (The Ones Who Walk Away from Omelas, 1973) [Leg:Pl]
 Jäljittäjä (The Finder) [Leg:Km]
-Kansan mies (A man of the People, 1995) [Leg:Na]
+Kadotetut paratiisit (Paradises Lost, 2002) [Leg:Ms]
+Kansan mies (A Man of the People, 1995) [Leg:Na]
 Kerastiini (The Kerastion, 1990) [Leg:Sk]
 Kivi joka muutti asiat (The Rock That Changed Things, 1992) [Leg:Sk]
+Maailman syntymäpäivä (The Birthday of the World, 2000) [Leg:Ms]
 Maan ytimet (The Bones of the Earth) [Leg:Km]
 Newtonin uni (Newton’s Sleep, 1991) [Leg:Sk]
 Nimien laki (The Rule of Names, 1964) [Leg:Pl]
@@ -2091,6 +2141,7 @@ Petoksia (Betrayals, 1994) [Leg:Na]
 Pimeälipas (Darkness Box, 1963) [Leg:Pl] 
 Päivää ennen vallankumousta (The Day Before the Revolution, 1974) [Ros:Mm]
 Päästösana (The Word of Unbinding, 1964) [Leg:Pl]
+Rakkaus jota ei valittu (Unchosen Love, 1994) [Leg:Ms]
 Shobilaisten tarina (The Shobies’ Story, 1990) [Leg:Sk]
 Sokkeloita (Mazes, 1975) [Pac:T2]
 Sudenkorento (Dragonfly, 1998) [Leg:Km]
@@ -2099,8 +2150,12 @@ Tanssien Ganamiin (Dancing to Ganam, 1993) [Leg:Sk]
 Tien suunta (Direction of the Road, 1974) [Leg:Pl]
 Toinen tarina eli Sisämeren kalastaja (Another Story or A Fisherman of the Inland Sea, 1994) [Leg:Sk]
 Tummaruusu ja Timantti (Darkrose and Diamond, 1999) [Leg:Km]
+Täysikäistyminen Karhidessa (Coming of Age in Karhide, 1995) [Leg:Ms]
+Vanha Musiikki ja orjanaiset (Old Music and the Slave Women, 1999) [Leg:Ms]
 Verkkaan, valtakuntia laajemmaksi (Vaster Than Empires and More Slow, 1970) [Leg:Pl]
+Vuoriston tapoja (Mountain Ways, 1996) [Leg:Ms]
 Yhdeksän henkeä (Nine Lives, 1969) [Leg:Pl]
+Yksinäisyys (Solitude, 1994) [Leg:Ms]
 Yläsuolla (On the High Marsh) [Leg:Km]
 
 
@@ -2299,6 +2354,18 @@ Elizabeth A. Lynn
 Valkoisen kuninkaan uni (The White King's Dream, 1979) [Sad:Tl]
 
 
+Carmen Maria Machado
+--------------------
+Aviomiehen tikki (The Husband Stitch, 2014) [Mac:Kp]
+Erityisen törkeää (Especially Heinous, 2013) [Mac:Kp]
+Hankala juhlissa (Difficult at Parties, 2012) [Mac:Kp]
+Inventaario (Inventory, 2013) [Mac:Kp]
+Kahdeksan puraisua (Eight Bites, 2017) [Mac:Kp]
+Oikeat naiset ovat lihaa ja verta (Real Women Have Bodies, 2017) [Mac:Kp]
+Residenssivieras (The Resident, 2017) [Mac:Kp]
+Äidit (Mothers, 2014) [Mac:Kp]
+
+
 Arthur Machen
 -------------
 Kertomus mustasta sinetistä (The Novel of the Black Seal, 1895) [Sad:ll]
@@ -2333,7 +2400,10 @@ George R.R. Martin
 ------------------
 Apinakuuri (The Monkey Treatment, 1983) [Sad:K1]
 Lihatiskien mies (Meathouse Man, 1976) [Sad:Jr]
+Mysteeriritari (The Mystery Knight, 2010) [Mar:Sk]
 Nahan vaihtajat (The Skin Trade, 1988) [Win:K1]
+Puskaritari (The Hedge Knight, 1998) [Mar:Sk]
+Valan vannonut miekkamies (The Sworn Sword, 2003) [Mar:Sk]
 
 
 Valerie Martin

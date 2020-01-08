@@ -1,0 +1,9 @@
+mkdir bibtmp
+wget http://www.anarres.fi/sf/bib/bib_a-d.htm -O bibtmp/sfbib.html
+wget http://www.anarres.fi/sf/bib/bib_e-h.htm -O bibtmp/sfbib2.html
+wget http://www.anarres.fi/sf/bib/bib_i-l.htm -O bibtmp/sfbib3.html
+wget http://www.anarres.fi/sf/bib/bib_m-p.htm -O bibtmp/sfbib4.html
+wget http://www.anarres.fi/sf/bib/bib_q-t.htm -O bibtmp/sfbib5.html
+wget http://www.anarres.fi/sf/bib/bib_u-o.htm -O bibtmp/sfbib6.html
+wget http://www.anarres.fi/sf/bib/sf_nov_u.txt -O bibtmp/sf_nov_u.txt
+wget http://www.anarres.fi/sf/bib/sf_nov_s.txt -O bibtmp/sf_nov_s.txt

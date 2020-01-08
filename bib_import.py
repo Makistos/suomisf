@@ -810,10 +810,21 @@ def import_all(filelist):
 def import_stories(filename):
     logging.info('Importing short stories')
 
+    content = ''
+
     with open(filename, 'r', encoding='iso8859-1') as fle:
         content += str(fle.read()).replace('&amp;', '&')
 
-    id_re = '[A-Z]{1}[a-z]{2}:\w{2}'
+    id_str = '\[[A-Z]{1}[a-z]{2}:\w{2}\]'
+    id_re = re.compile(id_str)
+    book_re = re.compile(id_str + '\s=\s(?P<author>.+)\s:\s(?P<title>'))
+    data = content.split('\n')
+
+    for line in data:
+        if id_re.match(line):
+            print(line)
+
+
 
     # Build dict
 
@@ -822,7 +833,7 @@ def read_params(args):
     p = argparse.ArgumentParser()
     p.add_argument('--debug', '-d', action='store_true', default=False)
     p.add_argument('--file', '-f', default='')
-    p.add_argument('--stories', '-s', default=False)
+    p.add_argument('--stories', '-s', action='store_true', default=False)
 
     return vars(p.parse_args(args))
 
@@ -839,7 +850,7 @@ if __name__ == '__main__':
         filelist = [params['file']]
         print(filelist)
     elif params['stories']:
-        filename = 'bibfiles/fs_nov_u.txt'
+        filename = 'bibfiles/sf_nov_u.txt'
         import_stories(filename)
     else:
         filelist = glob.glob('bibfiles/*.html')
