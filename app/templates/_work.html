@@ -15,8 +15,10 @@
         {% else %}
             <span style="padding-left: 25px; ">
         {% endif %}
-        {% if work_owned == 1 %}<a id="{{work.editions[0].id}}" href="#remove" class="ownerstate"> - </a>
-        {% else %}<a id="{{work.editions[0].id}}" href="#add" class="ownerstate"> + </a>
+        {% if print != 1 %}
+            {% if work_owned == 1 %}<a id="{{work.editions[0].id}}" href="#remove" class="ownerstate"> - </a>
+            {% else %}<a id="{{work.editions[0].id}}" href="#add" class="ownerstate"> + </a>
+            {% endif %}
         {% endif %}
 	{% if print == 1 %}<b>{{ work.editions[0].title }}</b>.{% else %}<b><a
 			href="{{url_for("work", workid=work.id) }}">

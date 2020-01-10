@@ -398,26 +398,22 @@ def print_books():
     session = new_session()
 
     if type == 'pubseries':
-        authors = session.query(Person)\
-                         .join(Author)\
-                         .join(Work)\
-                         .join(Edition)\
-                         .filter(Edition.work_id == Work.id)\
-                         .filter(Edition.pubseries_id == id)\
-                         .order_by(Person.name)\
-                         .all()
+        works = None
+        editions = session.query(Edition)\
+                          .filter(Edition.pubseries_id == id)\
+                          .order_by(Edition.pubyear)\
+                          .all()
         series = session.query(Pubseries).filter(Pubseries.id == id).first()
         title = series.name
     elif type == 'bookseries':
-        authors = session.query(Person)\
-                         .join(Author)\
-                         .join(Work)\
-                         .filter(Work.bookseries_id == id)\
-                         .order_by(Person.name)\
-                         .all()
+        editions = None
+        works = session.query(Work)\
+                       .filter(Work.bookseries_id == id)\
+                       .order_by(Work.creator_str)\
+                       .all()
         series = session.query(Bookseries).filter(Bookseries.id == id).first()
         title = series.name
-    return render_template('print_books.html', authors=authors, print = 1,
+    return render_template('print_books.html', editions=editions, works=works, print = 1,
             title=title, series=series, type=type)
 
 @app.route('/mybooks')

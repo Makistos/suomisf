@@ -16,10 +16,12 @@
 	{% else %}
 		<span style="padding-left: 25px; ">
 	{% endif %}
+{% if print != 1 %}
 {% if owned == 1 %}
 	<a id="{{edition.id}}" href="#remove" class="ownerstate"> - </a>
 {% else %}
 	<a id="{{edition.id}}" href="#add" class="ownerstate"> + </a>
+{% endif %}
 {% endif %}
 
 <b>{{ edition.work.creator_str }}</b>: 

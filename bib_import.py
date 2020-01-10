@@ -817,7 +817,7 @@ def import_stories(filename):
 
     id_str = '\[[A-Z]{1}[a-z]{2}:\w{2}\]'
     id_re = re.compile(id_str)
-    book_re = re.compile(id_str + '\s=\s(?P<author>.+)\s:\s(?P<title>'))
+    book_re = re.compile(id_str + '\s=\s(?P<author>.+)\s:\s(?P<title>')
     data = content.split('\n')
 
     for line in data:
