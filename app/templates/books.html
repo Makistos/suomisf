@@ -23,7 +23,7 @@
 		var obj = $('#SelectElementId');
                 var addr = $(this).attr('href');
             if (addr == '#remove') {
-		$(this).parent().attr('style', 'padding-left: 45px;');
+		$(this).parent().attr('style', 'padding-left: 25px;');
                 $(this).attr('href', '#add');
                 $(this).text(' + ');
                 var request = $.ajax({
@@ -31,7 +31,7 @@
                     url: '/remove_from_owned/' + $(this).attr('id'),
                 });
             } else if (addr == '#add') {
-		$(this).parent().attr('style', 'border-left: 6px solid grey; padding-left: 39px');
+		$(this).parent().attr('style', 'border-left: 6px solid grey; padding-left: 23px');
 		$(this).attr('href', '#remove');
 		$(this).text(' - ');
                 var request = $.ajax({

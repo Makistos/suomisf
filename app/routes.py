@@ -417,22 +417,26 @@ def print_books():
             title=title, series=series, type=type)
 
 @app.route('/mybooks')
-def mybooks():
+@app.route('/mybooks/<userid>')
+def mybooks(userid=0):
     session = new_session()
 
-    authors = session.query(Person)\
-                     .join(Author)\
+    if userid == 0:
+        userid = current_user.get_id()
+
+    works = session.query(Work)\
                      .join(Part)\
+                     .filter(Part.work_id == Work.id)\
+                     .join(Author)\
                      .filter(Author.part_id == Part.id)\
                      .join(Edition)\
                      .filter(Part.edition_id == Edition.id)\
                      .join(UserBook)\
-                     .filter(UserBook.user_id == current_user.get_id())\
+                     .filter(UserBook.user_id == userid) \
                      .filter(UserBook.edition_id == Edition.id)\
-                     .order_by(Person.name)\
                      .all()
 
-    return render_template('mybooks.html', authors=authors, print=1)
+    return render_template('mybooks.html', works=works, print=1)
 
 @app.route('/myseries')
 def myseries():

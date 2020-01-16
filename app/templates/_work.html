@@ -1,47 +1,58 @@
-{% set work_owned = 0 %}
+{% set ns = namespace(work_owned=false) %}
 {% for edition in work.editions %}
 	{% if current_user.get_id()|int() in edition.owners|map(attribute='id')|list() %}
-		{% set work_owned = 1 %}
+		{% set ns.work_owned = true %}
 	{% endif %}
 {% endfor %}
 
-{% if only_owned is defined and work_owned == 0 %}
-{% set show = 0 %}
+{% if ns.work_owned == true and print != 1 %}
+    {# Add marker for ownership #}
+    <span style="border-left: 6px solid grey; padding-left: 23px">
 {% else %}
-{% set show = 1 %}
+    <span style="padding-left: 25px; ">
 {% endif %}
-        {% if work_owned == 1 and print is not defined %}
-            <span style="border-left: 6px solid grey; padding-left: 19px">
-        {% else %}
-            <span style="padding-left: 25px; ">
-        {% endif %}
-        {% if print != 1 %}
-            {% if work_owned == 1 %}<a id="{{work.editions[0].id}}" href="#remove" class="ownerstate"> - </a>
-            {% else %}<a id="{{work.editions[0].id}}" href="#add" class="ownerstate"> + </a>
-            {% endif %}
-        {% endif %}
-	{% if print == 1 %}<b>{{ work.editions[0].title }}</b>.{% else %}<b><a
-			href="{{url_for("work", workid=work.id) }}">
-                        {{ work.editions[0].title }}</a></b>.{% endif %}
+
+{% if print != 1 and current_user.is_authenticated %}
+    {# Add buttons for adding/removing book from collection #}
+    {% if ns.work_owned == true %}<a id="{{work.editions[0].id}}" href="#remove" class="ownerstate"> - </a>
+    {% else %}<a id="{{work.editions[0].id}}" href="#add" class="ownerstate"> + </a>
+    {% endif %}
+{% endif %}
+
+{# Add title, with or without link. #}
+{% if print == 1 %}
+    <b>{{ work.editions[0].title }}</b>.
+{% else %}<b><a href="{{url_for("work", workid=work.id) }}">
+		{{ work.editions[0].title }}</a></b>.
+{% endif %}
+
+{# Rest of the stuff besides the title: #}
+
 {% if work.bookseries %}
-{{ work.bookseries.name}} {{work.bookseriesnum}}.
+    {{ work.bookseries.name}} {{work.bookseriesnum}}.
 {% endif %}
 {% if (work.title != work.editions[0].title) -%}
-({{work.title}}
-{%- if work.pubyear != 0 -%}, {{ work.pubyear }}{% endif -%}
-).
+    ({{work.title}}
+	{%- if work.pubyear != 0 -%}
+		, {{ work.pubyear }}
+	{%- endif -%}).
 {% endif %}
 {% if work.editions|length == 1 %}
-{% if work.editions[0].pubseries %}
-{{ work.editions[0].pubseries.name }}.
-{% endif %}
-{{ work.editions[0].publisher.fullname }}
-{% if work.editions[0].pubyear|int -%}{{ work.editions[0].pubyear }}{% endif %}. 
+    {% if work.editions[0].pubseries %}
+        {{ work.editions[0].pubseries.name }}.
+    {% endif %}
+    {{ work.editions[0].publisher.fullname }}
+    {% if work.editions[0].pubyear|int -%}
+        {{ work.editions[0].pubyear }}
+    {%- endif -%}
+    . 
 {% endif %}
 [{{ work.genres|join(', ', attribute='genre_name') }}].
+{#
 {% for edition in work.editions %}
-{% for owner in edition.owners %}
-    {{ owner.name }}
+    {% for owner in edition.owners %}
+        {{ owner.name }}
+    {% endfor %}
 {% endfor %}
-{% endfor %}
+#}
 </span><br>
