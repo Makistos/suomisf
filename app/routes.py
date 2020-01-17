@@ -341,7 +341,11 @@ def pubseries(seriesid):
     #                 .all()
     books = session.query(Edition)\
                    .filter(Edition.pubseries_id == seriesid)\
-                   .order_by(Edition.pubseriesnum, Edition.pubyear)\
+                   .join(Part)\
+                   .filter(Part.edition_id == Edition.id)\
+                   .join(Work)\
+                   .filter(Part.work_id == Work.id)\
+                   .order_by(Work.creator_str, Edition.title)\
                    .all()
     favorite = session.query(UserPubseries)\
                         .filter(UserPubseries.series_id == seriesid,

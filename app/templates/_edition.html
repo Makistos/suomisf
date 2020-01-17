@@ -39,12 +39,12 @@
 {% if edition.work.title != edition.title %}
 	{%- if edition.work.title|length -%}
 		({{ edition.work.title }}
-	{% endif %}
+	{%- endif -%}
 	{%- if	edition.work.pubyear|int -%}
 		, {{ edition.work.pubyear }}
 	{% endif %}
-	{% if edition.work.title|length %})
-		.
+	{%- if edition.work.title|length -%}
+            ).
 	{% endif %}
 {% endif %}
 {{edition.publisher.name}} {{ edition.pubyear }}. [{{ edition.work.genres|join(', ', attribute='genre_name') }}].
