@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField,\
 IntegerField, SelectField, HiddenField
-from wtforms.validators import DataRequired, ValidationError, EqualTo
+from wtforms.validators import DataRequired, ValidationError, EqualTo, Optional
 from app.orm_decl import User
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -46,7 +46,7 @@ class WorkForm(FlaskForm):
     title = StringField('Nimeke', validators=[DataRequired()])
     author = StringField('Kirjoittaja(t)', validators=[DataRequired()])
     editors = StringField('Toimittaja(t)')
-    pubyear = IntegerField('Julkaisuvuosi')
+    pubyear = IntegerField('Julkaisuvuosi', validators=[Optional()])
     language = StringField('Kieli')
     bookseries = StringField('Kirjasarja')
     bookseriesnum = StringField('Sarjanumero')
@@ -63,7 +63,7 @@ class EditionForm(FlaskForm):
     id = HiddenField('id')
     title = StringField('Nimeke', validators=[DataRequired()])
     editors = StringField('Toimittaja(t)')
-    pubyear = IntegerField('Julkaisuvuosi')
+    pubyear = IntegerField('Julkaisuvuosi', validators=[Optional()])
     language = StringField('Kieli')
     publisher = StringField('Kustantaja', validators=[DataRequired(
         message ='Kustantaja on pakollinen tieto')])
@@ -71,11 +71,10 @@ class EditionForm(FlaskForm):
     edition = IntegerField('Painos')
     isbn = StringField('ISBN')
     pubseries = SelectField('Kustantajan sarja', coerce=str)
-    pubseriesnum = IntegerField('Sarjan numero')
+    pubseriesnum = IntegerField('Sarjan numero', validators=[Optional()])
     misc = StringField('Muuta')
     source = StringField('Lähde')
     submit = SubmitField('Tallenna')
-
 
 
 class PersonForm(FlaskForm):
@@ -83,8 +82,8 @@ class PersonForm(FlaskForm):
     name = StringField('Koko nimi')
     first_name = StringField('Etunimi')
     last_name = StringField('Sukunimi')
-    dob = IntegerField('Syntymävuosi')
-    dod = IntegerField('Kuolinvuosi')
+    dob = IntegerField('Syntymävuosi', validators=[Optional()])
+    dod = IntegerField('Kuolinvuosi', validators=[Optional()])
     birthplace = StringField('Kansallisuus')
     image_src = StringField('Kuva')
     submit = SubmitField('Tallenna')

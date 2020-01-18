@@ -305,6 +305,17 @@ def edit_edition(editionid):
             edition.pubseries_id = form.pubseries.data
         edition.publisher_id = publisher.id
         edition.pubseriesnum = form.pubseriesnum.data
+        #if form.pubseriesnum.data is not None:
+        #    try:
+        #        edition.pubseriesnum = int(form.pubseriesnum.data)
+        #    except ValueError:
+        #        edition.pubseriesnum = None
+        #else:
+        #    edition.pubseriesnum = None
+        #if form.pubseriesnum.data == "":
+        #    edition.pubseriesnum = 0
+        #else:
+        #    edition.pubseriesnum = int(form.pubseriesnum.data)
         edition.isbn = form.isbn.data
         edition.misc = form.misc.data
         session.add(edition)
@@ -312,7 +323,7 @@ def edit_edition(editionid):
         return redirect(url_for('edition', editionid=edition.id))
     else:
         app.logger.debug("Errors: {}".format(form.errors))
-        app.logger.debug("pubid={}".format(form.pubseries.data))
+        #app.logger.debug("pubid={}".format(form.pubseries.data))
     return render_template('edit_edition.html', form=form,
             search_list=search_list, translators=translators,
             editors=editors, pubseries=pubseries, source=source,
