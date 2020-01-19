@@ -5,15 +5,25 @@
 <h1>{{series.name}} ({{ series.publisher.name }})
 {% if favorite == 1 %}*{% endif %}
 </h1>
-{% if favorite == 1 %}
-    <div class="small-link>">[<a href="{{url_for('removefavpubcol',
-                 pubseriesid=series.id)}}">Poista suosikeista</a>]</div>
-{% else %}
-    <div class="small-link>">[<a href="{{url_for('addfavpubcol',
-    	     pubseriesid=series.id)}}">Lisää suosikiksi</a>]
-    </div>
+{% if current_user.is_authorized %}
+	{% if favorite == 1 %}
+	    <div class="small-link>">[<a href="{{url_for('removefavpubcol',
+			 pubseriesid=series.id)}}">Poista suosikeista</a>]</div>
+	{% else %}
+	    <div class="small-link>">[<a href="{{url_for('addfavpubcol',
+		     pubseriesid=series.id)}}">Lisää suosikiksi</a>]
+	    </div>
+	{% endif %}
+	<br>
 {% endif %}
+
+<h2>{{ books|map(attribute='pubyear')|min }} -
+	{{ books|map(attribute='pubyear')|max }}
+</h2>
+Kirjoja yhteensä {{ books|length }}<br>
+
 <br>
+
 {% for edition in books %}
     {% include "_edition.html" %}
 {% endfor %}
