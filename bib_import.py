@@ -580,6 +580,8 @@ def import_persons(s, name, source=''):
         returned to caller.
     """
     persons = []
+    name.replace(',', '&')
+    name.replace(' ja ', '&')
     for p in name.split('&'):
         p = re.sub(r'\n', '', p.strip())
         p = re.sub(r'\([^()]*\)', '', p)
@@ -605,6 +607,7 @@ def import_books(session, authors):
         logging.debug('Author: %s', author)
         authorlist = import_authors(s, author, author)
         for book in books:
+            is_new = False
             # Each book has a dict for the work and one or more dicts for
             # editions.
             work = book[0]
@@ -619,15 +622,30 @@ def import_books(session, authors):
             else:
                 bookseriesid = None
 
-            workitem = Work(
-                    title = work['origname'],
-                    pubyear = work['origyear'],
-                    language = '',
-                    bookseries_id = bookseriesid,
-                    bookseriesnum = work['bookseriesnum'],
-                    misc = work['rest'],
-                    collection=work['collection'],
-                    fullstring = work['fullstring'])
+            # Works are matched with title and pubyear.
+            # So yeah, pubyear is the one thing that can't be
+            # fixed with this.
+            workitem = s.query(Work)\
+                        .filter(Work.title == work['origname'],
+                                Work.pubyear == work['origyear'])\
+                        .first()
+            if workitem:
+                workitem.bookseries_id = bookseriesid
+                workitem.bookseriesnum = work['bookseriesnum']
+                workitem.misc = work['rest']
+                workitem.collection = work['collection']
+                workitem.fullstring = work['fullstring']
+            else:
+                workitem = Work(
+                        title = work['origname'],
+                        pubyear = work['origyear'],
+                        language = '',
+                        bookseries_id = bookseriesid,
+                        bookseriesnum = work['bookseriesnum'],
+                        misc = work['rest'],
+                        collection=work['collection'],
+                        fullstring = work['fullstring'])
+                is_new = True
 
             s.add(workitem)
             s.commit()
@@ -637,8 +655,9 @@ def import_books(session, authors):
             for edition in book[1]:
                 pubseries = None
                 if edition['pubseries'] != '':
-                    pubseries = s.query(Pubseries).filter(Pubseries.name ==
-                        edition['pubseries']).first()
+                    pubseries = s.query(Pubseries)\
+                                 .filter(Pubseries.name == edition['pubseries'])\
+                                 .first()
                 if pubseries:
                     pubseriesid = pubseries.id
                 else:
@@ -664,28 +683,45 @@ def import_books(session, authors):
                         .format(editionnum,
                                 workitem.title,
                                 edition['title']))
-                ed = Edition(
-                        title = edition['title'],
-                        pubyear = edition['pubyear'],
-                        language = 'FI', # Every book in these files is in Finnish
-                        publisher_id = publisherid,
-                        editionnum = editionnum,
-                        isbn = '', # No ISBNs in the data
-                        pubseries_id = pubseriesid,
-                        pubseriesnum = edition['pubseriesnum'],
-                        misc = edition['rest'],
-                        fullstring = edition['fullstring'])
+
+                # Editions are matched by title, pubyear and publisher.
+                # So these three cannot be changed properly.
+                ed = s.query(Edition)\
+                      .filter(Edition.title == edition['title'],
+                              Edition.pubyear == edition['pubyear'],
+                              Edition.publisher_id == publisherid)\
+                      .first()
+                if ed:
+                    ed.editionnum = editionnum
+                    ed.pubseries_id = pubseriesid
+                    ed.pubseriesnum = edition['pubseriesnum']
+                    ed.misc = edition['rest']
+                    ed.fullstring = edition['fullstring']
+                else:
+                    ed = Edition(
+                            title = edition['title'],
+                            pubyear = edition['pubyear'],
+                            language = 'FI', # Every book in these files is in Finnish
+                            publisher_id = publisherid,
+                            editionnum = editionnum,
+                            isbn = '', # No ISBNs in the data
+                            pubseries_id = pubseriesid,
+                            pubseriesnum = edition['pubseriesnum'],
+                            misc = edition['rest'],
+                            fullstring = edition['fullstring'])
+                    is_new = True
                 s.add(ed)
                 s.commit()
 
-                part = Part(
-                        edition_id = ed.id,
-                        work_id = workitem.id,
-                        shortstory_id = None,
-                        title = ed.title)
+                if is_new:
+                    part = Part(
+                            edition_id = ed.id,
+                            work_id = workitem.id,
+                            shortstory_id = None,
+                            title = ed.title)
 
-                s.add(part)
-                s.commit()
+                    s.add(part)
+                    s.commit()
 
                 # Add links between people and edition
                 for authoritem in authorlist:
@@ -700,14 +736,33 @@ def import_books(session, authors):
 
 
 def save_genres(session, workid, genrelist):
+    """ Save genres for a work.
 
+        This function first deletes existing ones.
+        This is the easiest way to make sure any
+        changes are written to db.
+    """
     s = session()
 
+    # First remove old genre definitions
+    genres = s.query(Genre)\
+              .filter(Genre.workid == workid)\
+              .all()
+    for genre in genres:
+        s.delete(genre)
+    s.commit()
+
+    # Then add again
     genrelist.replace('/', ',')
     for genre in genrelist.split(','):
         if genre in genres_list:
-            genreobj = Genre(workid=workid, genre_name=genres_list[genre])
-            s.add(genreobj)
+            genreobj = s.query(Genre)\
+                        .filter(Genre.workid == workid,
+                                Genre.genre_name=genres_list[genre])\
+                        .first()
+            if not genreobj:
+                genreobj = Genre(workid=workid, genre_name=genres_list[genre])
+                s.add(genreobj)
     s.commit()
 
 def update_creators(session):
