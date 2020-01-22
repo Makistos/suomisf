@@ -713,7 +713,12 @@ def import_books(session, authors):
                 s.add(ed)
                 s.commit()
 
-                if is_new:
+                if not is_new:
+                    part = s.query(Part)\
+                            .filter(Part.edition_id == ed.id,
+                                    Part.work_id == workitem.id)\
+                            .first()
+                if is_new or not part:
                     part = Part(
                             edition_id = ed.id,
                             work_id = workitem.id,
@@ -758,7 +763,7 @@ def save_genres(session, workid, genrelist):
         if genre in genres_list:
             genreobj = s.query(Genre)\
                         .filter(Genre.workid == workid,
-                                Genre.genre_name=genres_list[genre])\
+                                Genre.genre_name==genres_list[genre])\
                         .first()
             if not genreobj:
                 genreobj = Genre(workid=workid, genre_name=genres_list[genre])
@@ -813,23 +818,33 @@ def update_creators(session):
 
 def add_missing_series(session):
     # This important publisher series is missing from the imported data.
-    logging.info('Creating missing Kirjayhtymä series')
     s = session()
-    publisher = s.query(Publisher).filter(Publisher.name ==
-    'Kirjayhtymä').first()
-    pubseries = Pubseries(name='Kirjayhtymän science fiction -sarja',
-            important=True, publisher_id = publisher.id)
-    s.add(pubseries)
-    s.commit()
+    publisher = s.query(Publisher).filter(Publisher.name == 'Kirjayhtymä')\
+                 .first()
+    pubseries = s.query(Pubseries)\
+                 .filter(Pubseries.publisher_id == publisher.id,
+                         Pubseries.name == \
+                        'Kirjayhtymän science fiction -sarja')\
+                 .first()
+    if not pubseries:
+        logging.info('Creating missing Kirjayhtymä series')
+        pubseries = Pubseries(name='Kirjayhtymän science fiction -sarja',
+                important=True, publisher_id = publisher.id)
+        s.add(pubseries)
+        s.commit()
 
 
 def create_admin(session):
-    logging.info('Creating admin')
     s = session()
-    user = User(name='admin', is_admin=True)
-    user.set_password('admin')
-    s.add(user)
-    s.commit()
+    user = s.query(User)\
+            .filter(User.name == 'admin')\
+            .first()
+    if not user:
+        logging.info('Creating admin')
+        user = User(name='admin', is_admin=True)
+        user.set_password('admin')
+        s.add(user)
+        s.commit()
 
 
 def import_all(filelist):
