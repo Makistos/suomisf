@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 <center>
+<h1>Suomenkieliset SF-, Fantasia- ja Kauhukirjat</h1>
+<h2>Kirjoja: {{ book_count[0] }}<h2>
+<h2>Julkaisijoita: {{ pub_count[0] }}</h2>
+<h2>Henkilöitä: {{ person_count[0] }}</h2>
 	{% if current_user.is_admin %} 
 	    <a href=" {{ url_for('edit_person', personid=0) }} ">Uusi henkilö</a></br>
 	    <a href="{{ url_for('edit_work', workid=0) }}">Uusi teos</a></br>
@@ -9,4 +13,5 @@
 	    <a href=" {{ url_for('new_pubseries') }} ">Uusi kustantajan sarja</a>
 	{% endif %}
 </center>
+
 {% endblock %}

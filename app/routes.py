@@ -19,7 +19,13 @@ import pprint
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    session = new_session()
+    book_count = session.query(func.count(Work.id)).first()
+    pub_count = session.query(func.count(Publisher.id)).first()
+    person_count = session.query(func.count(Person.id)).first()
+
+    return render_template('index.html', book_count=book_count,
+                           pub_count=pub_count, person_count=person_count)
 
 def redirect_url(default='index'):
     return request.args.get('next') or \

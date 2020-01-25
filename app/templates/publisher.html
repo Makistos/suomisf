@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>{{ publisher.name }} ({{ publisher.id }})</h1>
+<h1>{{ publisher.name }} 
+{% if current_user.is_authorized %}
+    ({{ publisher.id }})
+{% endif %}
+</h1>
 <p>Kirjoja tietokannassa {{ book_count }}.</p>
 <p>Vanhin kirja: <a href=" {{ url_for('edition', editionid=oldest.id) }}">{{
     oldest.title }}</a> ({{ oldest.pubyear }})</p>
