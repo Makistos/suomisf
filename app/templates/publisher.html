@@ -6,7 +6,10 @@
     oldest.title }}</a> ({{ oldest.pubyear }})</p>
 <p>Uusin kirja: <a href=" {{ url_for('edition', editionid=newest.id) }}">{{
     newest.title }}</a> ({{ newest.pubyear}})</p>
-
+<b>Genret</b><br>
+{% for genre in genres %}
+{{ genre[0].genre_name }}: {{ genre[1] }}<br>
+{% endfor %}
 <h2>Sarjat</h2>
 {% for s in series %}
 <p><a href="{{ url_for("pubseries", seriesid=s.id) }}">{{ s.name }}</a></p>

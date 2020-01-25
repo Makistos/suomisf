@@ -4,8 +4,8 @@ from flask_login import current_user, login_user, logout_user
 from app import app
 from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
 Edition, Pubseries, Bookseries, User, UserBook, ShortStory, UserPubseries,\
-Alias
-from sqlalchemy import create_engine, desc
+Alias, Genre
+from sqlalchemy import create_engine, desc, func
 from sqlalchemy.orm import sessionmaker
 from app.forms import LoginForm, RegistrationForm, PublisherForm,\
 PubseriesForm, PersonForm, BookseriesForm, UserForm
@@ -229,7 +229,7 @@ def publisher(pubid):
     engine = create_engine('sqlite:///suomisf.db')
     Session = sessionmaker(bind=engine)
     session = Session()
-    app.logger.debug(session.query(Publisher).filter(Publisher.id == pubid))
+    #app.logger.debug(session.query(Publisher).filter(Publisher.id == pubid))
     publisher = session.query(Publisher).filter(Publisher.id == pubid).first()
     book_count = session.query(Edition)\
                         .filter(Edition.publisher_id == pubid)\
@@ -243,12 +243,28 @@ def publisher(pubid):
                     .order_by(desc(Edition.pubyear))\
                     .first()
     series = session.query(Pubseries).filter(Pubseries.publisher_id == pubid).all()
+    g = session.query(Genre).all()
+    genres = session.query(Genre, func.count(Genre.genre_name))\
+                    .join(Work)\
+                    .filter(Work.id == Genre.workid)\
+                    .join(Part)\
+                    .filter(Part.work_id == Work.id)\
+                    .join(Edition)\
+                    .filter(Edition.id == Part.edition_id)\
+                    .filter(Edition.publisher_id == pubid)\
+                    .group_by(Genre.genre_name)\
+                    .order_by(func.count(Genre.genre_name).desc())\
+                    .all()
+
+    for g in genres:
+        app.logger.debug(str(g[0]) + ", {g[1]}")
+    #app.logger.debug(list(genres))
     editions = session.query(Edition)\
                       .order_by(Edition.pubyear)\
                       .filter(Edition.publisher_id == pubid).all()
     return render_template('publisher.html', publisher=publisher,
             series=series, book_count=book_count, oldest=oldest,
-            newest=newest, editions=editions)
+            newest=newest, editions=editions, genres=genres)
 
 @app.route('/new_publisher', methods=['GET', 'POST'])
 def new_publisher():
