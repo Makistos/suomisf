@@ -1,14 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
 {% if letter %}
-<h1>{{ letter }}</h1>
+	<h1>{{ letter }}</h1>
+	<h2>
+	{% if prev_letter %}
+		<a href="{{ url_for("booksX", letter=prev_letter) }}">{{ prev_letter
+				}}</a>
+	{% endif %}
+	{% if prev_letter and next_letter %} | {% endif %}
+	{% if next_letter %}
+		<a href="{{ url_for("booksX", letter=next_letter) }}">{{
+				next_letter
+				}}</a>
+	{% endif %}
+	</h2>
+
 {% else %}
 <h1>Kirjat</h1>
 {% endif %}
 {% for author in works|groupby(attribute='creator_str') %}
 <h2><span class="person-list">{{author.grouper}}</span></h2>
     {% for work in author.list %}
-        {% include "_work.html" %}
+	{% include "_work.html" %}
+	{# {% for edition in work.editions %}
+		{% include "_edition.html" %}
+	   {% endfor %} #}
     {% endfor %}
 {% endfor %}
 

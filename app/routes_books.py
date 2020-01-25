@@ -81,11 +81,38 @@ def books():
 def booksX(letter):
     session = new_session()
     works = session.query(Work)\
-                   .filter(Work.creator_str.ilike(letter + '%'))\
                    .order_by(Work.creator_str)\
                    .all()
+    creators = [x.creator_str[0] for x in works]
+    letters = list(set([x[0] for x in creators if not x[0].islower()]))
+    letters.sort()
+    #app.logger.debug(''.join(letters))
+
+    works = session.query(Work)\
+                   .filter(Work.creator_str.like(letter + '%'))\
+                   .order_by(Work.creator_str)\
+                   .all()
+
+    prev_letter = None
+    next_letter = None
+
+    for idx, l in enumerate(letters):
+        if l == letter:
+            if idx > 0 and idx < len(letters) - 1:
+                prev_letter = letters[idx-1]
+                next_letter = letters[idx+1]
+                break
+            elif idx == 0:
+                prev_letter = letters[-1]
+                next_letter = letters[1]
+                break
+            elif idx == len(letters) - 1:
+                prev_letter = letters[-2]
+                next_letter = letters[0]
+                break
+
     return render_template('books.html', letter=letter,
-            works=works)
+            works=works, prev_letter=prev_letter, next_letter=next_letter)
 
 
 @app.route('/work/<workid>', methods=["POST", "GET"])
@@ -307,7 +334,7 @@ def edit_edition(editionid):
         edition.pubseriesnum = form.pubseriesnum.data
         #if form.pubseriesnum.data is not None:
         #    try:
-        #        edition.pubseriesnum = int(form.pubseriesnum.data)
+        #    edition.pubseriesnum = None
         #    except ValueError:
         #        edition.pubseriesnum = None
         #else:
