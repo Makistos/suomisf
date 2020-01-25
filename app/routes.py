@@ -20,12 +20,20 @@ import pprint
 @app.route('/index')
 def index():
     session = new_session()
-    book_count = session.query(func.count(Work.id)).first()
+    work_count = session.query(func.count(Work.id)).first()
+    edition_count = session.query(func.count(Edition.id)).first()
+    author_count = session.query(Author.person_id.distinct()).all()
     pub_count = session.query(func.count(Publisher.id)).first()
     person_count = session.query(func.count(Person.id)).first()
+    pubseries_count = session.query(func.count(Pubseries.id)).first()
+    bookseries_count = session.query(func.count(Bookseries.id)).first()
 
-    return render_template('index.html', book_count=book_count,
-                           pub_count=pub_count, person_count=person_count)
+    return render_template('index.html', work_count=work_count,
+                           edition_count=edition_count,
+                           author_count=author_count,
+                           pub_count=pub_count, person_count=person_count,
+                           pubseries_count=pubseries_count,
+                           bookseries_count=bookseries_count)
 
 def redirect_url(default='index'):
     return request.args.get('next') or \
