@@ -1,0 +1,79 @@
+body{
+	margin:0px;
+	background-image: url('/pics/common/back_stripe.gif');	
+	font-size:11px;
+}
+select, input{
+	font-family:verdana;
+	font-size:11px;
+}
+a:link, a:visited, a:active{
+	font-family:verdana;
+	color:#000000;
+}
+a:hover{
+	color:#663300;
+	text-decoration:none;
+}
+.searchText{
+	width:110px;
+}
+.textField{
+	width:200px;
+}
+.shtextField{
+	width:70px;
+}
+.select{
+	width:200px;
+}
+.btn{
+	color:#000000;
+	background-color:#DBDBDB;
+	padding:3px;
+}
+p, td, body, li{
+	font-family:verdana;
+	font-size:11px;
+	color:#000000;
+}
+.footer, .footer a:link, .footer a:active, .footer a:visited {
+	font-family:verdana;
+	font-size:10px;
+	color:#FFFFFF;
+}
+a:hover{
+	font-family:verdana;
+	/*font-size:11px;*/
+	color:#663300;
+}
+h1{
+	font-family:arial;
+	font-size:16px;
+	color:#D1771E;
+}
+h2{
+	font-family:arial;
+	font-size:12px;
+	font-weight: bold;
+	color:#D1771E;
+}
+.greyText{
+	color:#999999;
+	font-size:10px;
+}
+.smallText{
+	font-size:10px;
+}
+.smallText a:link, .smallText a:visited, .smallText a:hover; .smallText a:active{
+	font-size:10px;
+}
+.smallText_grey{
+	font-size:10px;
+	color:#808080;
+}
+/* MAIN MENU LINK style :::::::::::::::::::::::::::::::::::: */
+.menuLink {
+	color : #663300;
+	text-decoration: none;
+}
