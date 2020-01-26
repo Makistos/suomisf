@@ -36,6 +36,10 @@
 	{%- if work.pubyear != 0 -%}
 		, {{ work.pubyear }}
 	{%- endif -%}).
+{% else %}
+    {% if work.pubyear != work.editions[0].pubyear %}
+        ({{work.pubyear}}).
+    {% endif %}
 {% endif %}
 {% if work.editions|length == 1 %}
     {% if work.editions[0].pubseries %}
@@ -47,7 +51,9 @@
     {%- endif -%}
     . 
 {% endif %}
-[{{ work.genres|join(', ', attribute='genre_name') }}].
+{% if work.genres|length %}
+    [{{ work.genres|join(', ', attribute='genre_name') }}].
+{% endif %}
 {#
 {% for edition in work.editions %}
     {% for owner in edition.owners %}

@@ -10,34 +10,12 @@
         {% endif %}
         <div>Alkuperäinen teos: <a href=" {{ url_for('work', workid=edition.work.id) }}">{{edition.work.title }}</a>
             </div>
-<div>Kirjoittaja(t): 
-{% for author in edition.work.authors %} 
-<a href=" {{ url_for('person', personid=author.id) }}">{{ author.name }}</a> 
-{% endfor %}
-</div>
-{% if translators|length %}
-<div>
-    Kääntäjä(t): 
-        {% if translators|length == 1 %}
-            <a href=" {{ url_for('person', personid=translators[0].id) }}">{{
-                translators[0].alt_name }}</a>
-        {% endif %}
-        {% if translators|length == 2 %}
-            <a href=" {{ url_for('person', personid=translators[0].id) }}">{{
-                translators[0].alt_name }}</a> ja 
-            <a href=" {{ url_for('person', personid=translators[1].id) }}">{{
-                translators[1].alt_name }}</a>
-            
-        {% endif %}
-        {% if translators|length > 2 %}
-            {% for translator in translators[:-1] %}
-                <a href=" {{ url_for('person', personid=translator.id) }}">{{
-                translator.alt_name }}</a>, 
-            {% endfor %}
-            <a href=" {{ url_for('person', personid=translators[-1].id) }}">{{
-            translators[-1].alt_name }}</a> 
-        {% endif %}
-</div>
+{% if edition.work.authors|length %}
+<div><h2>
+    {% for author in edition.work.authors %} 
+    <a href=" {{ url_for('person', personid=author.id) }}">{{ author.name }}</a> 
+    {% endfor %}
+    </h2></div>
 {% endif %}
 {% if editors|length %}
 <div>
@@ -61,6 +39,30 @@
         <a href=" {{ url_for('person', personid=editors[-1].id) }}">{{
         editors[-1].alt_name }}</a> 
     {% endif %}
+</div>
+{% endif %}
+{% if translators|length %}
+<div>
+    Kääntäjä(t): 
+        {% if translators|length == 1 %}
+            <a href=" {{ url_for('person', personid=translators[0].id) }}">{{
+                translators[0].alt_name }}</a>
+        {% endif %}
+        {% if translators|length == 2 %}
+            <a href=" {{ url_for('person', personid=translators[0].id) }}">{{
+                translators[0].alt_name }}</a> ja 
+            <a href=" {{ url_for('person', personid=translators[1].id) }}">{{
+                translators[1].alt_name }}</a>
+            
+        {% endif %}
+        {% if translators|length > 2 %}
+            {% for translator in translators[:-1] %}
+                <a href=" {{ url_for('person', personid=translator.id) }}">{{
+                translator.alt_name }}</a>, 
+            {% endfor %}
+            <a href=" {{ url_for('person', personid=translators[-1].id) }}">{{
+            translators[-1].alt_name }}</a> 
+        {% endif %}
 </div>
 {% endif %}
 <div>Julkaisuvuosi: {{ edition.pubyear }}</div>

@@ -24,22 +24,28 @@
 		{%- endif -%}
 		.
 	{% endif %}
-	{%- if edition.work.title != edition.title or edition.work.pubyear|int -%}
-		(
-	{%- endif -%}
 	{% if edition.work.title != edition.title %}
-		{%- if edition.work.title|length -%}
-			{{ edition.work.title }}
+		{%- if edition.work.title != edition.title or edition.work.pubyear|int -%}
+			(
 		{%- endif -%}
-	{% endif %}
-	{%- if edition.work.title != edition.title and edition.work.pubyear|int -%}
-		,
-	{% endif %}
-	{%- if edition.work.pubyear|int -%}
-		{{ edition.work.pubyear }}
-	{%- endif %}
-	{%- if edition.work.title != edition.title or edition.work.pubyear|int -%}
-	    ).
+		{% if edition.work.title != edition.title %}
+			{%- if edition.work.title|length -%}
+				{{ edition.work.title }}
+			{%- endif -%}
+		{% endif %}
+		{%- if edition.work.title != edition.title and edition.work.pubyear|int -%}
+			,
+		{% endif %}
+		{%- if edition.work.pubyear|int -%}
+			{{ edition.work.pubyear }}
+		{%- endif %}
+		{%- if edition.work.title != edition.title or edition.work.pubyear|int -%}
+		    ).
+		{% endif %}
+	{% else %}
+		{% if edition.work.pubyear != edition.pubyear %}
+			({{ work.pubyear }}).
+		{% endif %}
 	{% endif %}
 	{% if edition.editors %}
 		{% set editors = edition.editors %}
