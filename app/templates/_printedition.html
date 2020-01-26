@@ -1,0 +1,61 @@
+{% if edition_owned == 1 %}
+	<span style="border-left: 6px solid grey; padding-left: 39px">
+{% else %}
+	<span style="padding-left: 45px; ">
+{% endif %}
+{% if edition.editionnum != 1 %}
+	{{ edition.editionnum }}. painos. 
+	<b>{{ edition.title }}</b>.
+	{% if edition.pubseries %}
+		{{ edition.pubseries.name }}.
+	{% endif %}
+	{% if edition.translators %}
+		Suom. {{ edition.translators|join(', ', attribute='alt_name')
+		}}.
+	{% endif %}
+	{{edition.publisher.name}} {{ edition.pubyear }}.
+
+{% else %}
+	<b>{{ edition.title }}</b>.
+	{% if edition.work.bookseries %}
+		{{ edition.work.bookseries.name }} 
+		{%- if edition.work.bookseriesnum %}
+			{{edition.work.bookseriesnum}}
+		{%- endif -%}
+		.
+	{% endif %}
+	{%- if edition.work.title != edition.title or edition.work.pubyear|int -%}
+		(
+	{%- endif -%}
+	{% if edition.work.title != edition.title %}
+		{%- if edition.work.title|length -%}
+			{{ edition.work.title }}
+		{%- endif -%}
+	{% endif %}
+	{%- if edition.work.title != edition.title and edition.work.pubyear|int -%}
+		,
+	{% endif %}
+	{%- if edition.work.pubyear|int -%}
+		{{ edition.work.pubyear }}
+	{%- endif %}
+	{%- if edition.work.title != edition.title or edition.work.pubyear|int -%}
+	    ).
+	{% endif %}
+	{% if edition.editors %}
+		{% set editors = edition.editors %}
+		{% include "_editors.html" %}
+	{% endif %}
+	{% if edition.translators %}
+		{% include "_translators.html" %}
+	{% endif %}
+	{% if edition.pubseries %}
+		{{ edition.pubseries.name }}
+		{% if edition.pubseriesnum %}
+			{{ edition.pubseriesnum }}
+		{%- endif -%}
+		.
+	{% endif %}
+	
+	{{edition.publisher.name}} {{ edition.pubyear }}. [{{ edition.work.genres|join(', ', attribute='genre_name') }}].
+{% endif %}
+</span><br>

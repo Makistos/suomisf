@@ -425,8 +425,9 @@ def list_pubseries(pubname):
 def print_books():
     type = request.args.get('type', None)
     id = request.args.get('id', None)
+    letter = request.args.get('letter', None)
 
-    if type is None or id is None:
+    if type is None:
         return redirect(url_for('index'))
 
     session = new_session()
@@ -447,8 +448,22 @@ def print_books():
                        .all()
         series = session.query(Bookseries).filter(Bookseries.id == id).first()
         title = series.name
+    elif type == 'books':
+        editions = None
+        series = None
+        if letter:
+            works = session.query(Work)\
+                           .filter(Work.creator_str.like(letter + '%'))\
+                           .order_by(Work.creator_str)\
+                           .all()
+            title = letter
+        else:
+            works = session.query(Work)\
+                           .order_by(Work.creator_str)\
+                           .all()
+            title = 'Kaikki kirjat'
     return render_template('print_books.html', editions=editions, works=works, print = 1,
-            title=title, series=series, type=type)
+            title=title, series=series, type=type, letter=letter)
 
 @app.route('/mybooks')
 @app.route('/mybooks/<userid>')

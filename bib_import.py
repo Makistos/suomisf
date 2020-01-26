@@ -21,10 +21,7 @@ for series in pubseries:
     pubseries_re[series[0]] = re.compile('(?P<name>' + series[0] + ')\s?(?P<num>[\#IVX\d]+)?')
 for series in bookseries:
     bookseries_re[series[0]] = re.compile('(?P<name>' + series[0] + ')\s?(?P<num>[\#IVX\d]+)?\s?')
-translator_re = re.compile("([a-zA-ZåäöÅÄÖ]+\s)*([Ss]uom\.?\s)([A-ZÄÅÖ]+[\.\s]?[a-zA-ZäöåÅÄÖéü&\-]*[\.\s]?[a-zA-ZåäöÅÄÖéü&\-\s,]*)(\.)")
-translator_re2 = re.compile("([Ss]uom\.?\s)?([A-ZÄÅÖ](\.\s?[A-ZÅÄÖ][a-zåäö]*|[a-zåäöü\-]+)\s?([A-ZÄÅÖ](\.\s?[A-ZÅÄÖ][a-zåäö]*|[a-zåäöü]+))*\s*([A-ZÅÄÖ](\.\s?[A-ZÄÅÖ][a-zåäö]*|[a-zäöåü]+)*)*\s?([A-ZÅÄÖa-zåäöü]+)*(\.)*)")
-translator_re3 = re.compile("([A-ZÄÅÖ]+[\.\s]?[a-zA-ZäöåÅÄÖéü&\-]*[\.\s]?[a-zA-ZåäöÅÄÖéü&\-\s]*)")
-
+translator_re = re.compile("([a-zA-ZåäöÅÄÖ]+\s)*([Ss]uom\.?\s+)([A-ZÄÅÖ]+[\.\s]?[a-zA-ZäöåÅÄÖéü&\-]*[\.\s]?[a-zA-ZåäöÅÄÖéü&\-\s,]*)(\.)")
 
 pubseries_publisher = {}
 
@@ -124,7 +121,7 @@ def get_books(books):
     for b in books:
         full_string = b
         tmp_misc = ''
-        tmp = b.replace('\n', '')
+        tmp = b.replace('\n', ' ')
         tmp = re.sub('<a.+?>', '', tmp)
         tmp = re.sub('</a>', '', tmp)
         tmp = re.sub('&amp;', '&', tmp)
@@ -453,6 +450,7 @@ def import_authors(s, names, source=''):
     names = re.sub(r'\n', ' ', names.strip())
     for tmp_name in names.split('&'):
         name = None
+        alt_name = None
         first_name = None
         last_name = None
         real_name = None
@@ -480,8 +478,10 @@ def import_authors(s, names, source=''):
                         if len(names) > 1:
                             first_name = names[1].strip()
                             name = last_name + ", " + first_name
+                            alt_name = first_name + ' ' + last_name
                         else:
                             name = last_name
+                            alt_name = last_name
 
                 else: # Real name
                     m3 = re.search(r'(?P<alias>.+)', m.group(1))
@@ -491,8 +491,10 @@ def import_authors(s, names, source=''):
                     if len(names) > 1:
                         first_name = names[1].strip()
                         name = last_name + ", " + first_name
+                        alt_name = first_name + ' ' + last_name
                     else:
                         name = last_name
+                        alt_name = last_name
                     real_name = None
                     real_first_name = None
                     real_last_name = None
@@ -513,9 +515,11 @@ def import_authors(s, names, source=''):
             if len(names) > 1: # More than one part in name
                 first_name = names[1].strip()
                 name = last_name + ", " + first_name
+                alt_name = first_name + ' ' + last_name
             else:
                 first_name = None
                 name = last_name
+                alt_name = name
             country = None
             dob = None
             dod = None
@@ -528,6 +532,7 @@ def import_authors(s, names, source=''):
                       .first()
             if not person:
                 person = Person(name=real_name.strip(),
+                                alt_name=alt_name,
                                 first_name=real_first_name,
                                 last_name=real_last_name,
                                 birthplace=country,
@@ -540,6 +545,7 @@ def import_authors(s, names, source=''):
                        .first()
             if not person2:
                 person2=Person(name=name.strip(),
+                               alt_name=alt_name,
                                first_name=first_name,
                                last_name=last_name)
                 s.add(person2)
@@ -561,6 +567,7 @@ def import_authors(s, names, source=''):
                       .first()
             if not person:
                 person = Person(name=name,
+                                alt_name=alt_name,
                                 first_name=first_name,
                                 last_name=last_name,
                                 birthplace=country,
@@ -580,8 +587,8 @@ def import_persons(s, name, source=''):
         returned to caller.
     """
     persons = []
-    name.replace(',', '&')
-    name.replace(' ja ', '&')
+    name = name.replace(',', '&')
+    name = name.replace(' ja ', '&')
     for p in name.split('&'):
         p = re.sub(r'\n', '', p.strip())
         p = re.sub(r'\([^()]*\)', '', p)
@@ -589,10 +596,11 @@ def import_persons(s, name, source=''):
         first_name = ' '.join(names[0:-1]).strip()
         last_name = str(names[-1]).strip()
         name_inv = last_name + ", " + first_name
+        alt_name = first_name + ' ' + last_name
         person = s.query(Person).filter(Person.name==name_inv).first()
         if not person:
             person = Person(name=name_inv, fullstring=source, first_name=first_name,
-                    last_name=last_name)
+                    last_name=last_name, alt_name=alt_name.strip())
             s.add(person)
             s.commit()
         persons.append(person)
@@ -671,8 +679,8 @@ def import_books(session, authors):
                     publisherid = publisher.id
                 else:
                     publisherid = None
-                translator = import_persons(s, edition['translator'], edition['fullstring'])
-                editor = import_persons(s, edition['editor'], edition['fullstring'])
+                translators = import_persons(s, edition['translator'], edition['fullstring'])
+                editors = import_persons(s, edition['editor'], edition['fullstring'])
 
                 # Create new edition to database.
                 if edition['edition']:
@@ -734,10 +742,12 @@ def import_books(session, authors):
                         add_bookperson(s, authoritem, ed, 'E')
                     else:
                         add_bookperson(s, authoritem, part, 'A')
-                if edition['translator'] != '' and len(translator)>0:
-                    add_bookperson(s, translator[0], part, 'T')
-                if edition['editor'] != '' and len(editor)>0:
-                    add_bookperson(s, editor[0], ed, 'E')
+                if edition['translator'] != '':
+                    for translator in translators:
+                        add_bookperson(s, translator, part, 'T')
+                if edition['editor'] != '':
+                    for editor in editors:
+                        add_bookperson(s, editor, ed, 'E')
 
 
 def save_genres(session, workid, genrelist):

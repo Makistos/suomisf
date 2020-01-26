@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <center>
-	<a href="{{ url_for('books', letter=letter, print=True)}}">Tulosta</a>
+	<a href="{{ url_for('print_books', letter=letter, type='books')}}">Tulosta</a>
 </center>
 {% if letter %}
 	<h1>{{ letter }}</h1>

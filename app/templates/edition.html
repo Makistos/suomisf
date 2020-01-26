@@ -16,21 +16,52 @@
 {% endfor %}
 </div>
 {% if translators|length %}
-<p>Kääntäjä(t):
-    {% for translator in translators %}
-        <a href=" {{ url_for('person', personid=translator.id) }}">{{ translator.name
-    }}</a><br>
-    {% endfor %}
-</p>
+<div>
+    Kääntäjä(t): 
+        {% if translators|length == 1 %}
+            <a href=" {{ url_for('person', personid=translators[0].id) }}">{{
+                translators[0].alt_name }}</a>
+        {% endif %}
+        {% if translators|length == 2 %}
+            <a href=" {{ url_for('person', personid=translators[0].id) }}">{{
+                translators[0].alt_name }}</a> ja 
+            <a href=" {{ url_for('person', personid=translators[1].id) }}">{{
+                translators[1].alt_name }}</a>
+            
+        {% endif %}
+        {% if translators|length > 2 %}
+            {% for translator in translators[:-1] %}
+                <a href=" {{ url_for('person', personid=translator.id) }}">{{
+                translator.alt_name }}</a>, 
+            {% endfor %}
+            <a href=" {{ url_for('person', personid=translators[-1].id) }}">{{
+            translators[-1].alt_name }}</a> 
+        {% endif %}
+</div>
 {% endif %}
 {% if editors|length %}
-    <div>
+<div>
     Toimittaja(t):
-    {% for editor in editors %}
-        <a href=" {{ url_for('person', personid=editor.id) }}">{{ editor.name
-            }}</a>
-    </div>
-    {% endfor %}
+    {% if editors|length == 1 %}
+        <a href=" {{ url_for('person', personid=editors[0].id) }}">{{
+            editors[0].alt_name }}</a>
+    {% endif %}
+    {% if editors|length == 2 %}
+        <a href=" {{ url_for('person', personid=editors[0].id) }}">{{
+            editors[0].alt_name }}</a> ja 
+        <a href=" {{ url_for('person', personid=editors[1].id) }}">{{
+            editors[1].alt_name }}</a>
+        
+    {% endif %}
+    {% if editors|length > 2 %}
+        {% for editor in editors[:-1] %}
+            <a href=" {{ url_for('person', personid=editor.id) }}">{{
+            editor.alt_name }}</a>, 
+        {% endfor %}
+        <a href=" {{ url_for('person', personid=editors[-1].id) }}">{{
+        editors[-1].alt_name }}</a> 
+    {% endif %}
+</div>
 {% endif %}
 <div>Julkaisuvuosi: {{ edition.pubyear }}</div>
 <div>Painos: {{ edition.editionnum }}.</div>

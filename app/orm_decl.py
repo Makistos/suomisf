@@ -42,6 +42,11 @@ class Edition(Base):
     parts = relationship('Part', backref=backref('parts_lookup'),
             uselist=True)
     editors = relationship('Person', secondary='editor')
+    translators = relationship("Person",
+                secondary='join(Part, Translator, Part.id == Translator.part_id)',
+                primaryjoin='and_(Person.id == Translator.person_id,\
+                Translator.part_id == Part.id, Part.edition_id == Edition.id)',
+                uselist=True)
     work = relationship('Work', secondary='part', uselist=False)
     publisher = relationship("Publisher", backref=backref('publisher_lookup',
         uselist=False))
@@ -73,6 +78,11 @@ class Work(Base):
                 secondary='join(Part, Author, Part.id == Author.part_id)',
                 primaryjoin='and_(Person.id == Author.person_id,\
                 Author.part_id == Part.id, Part.work_id == Work.id)',
+                uselist=True)
+    translators = relationship("Person",
+                secondary='join(Part, Translator, Part.id == Translator.part_id)',
+                primaryjoin='and_(Person.id == Translator.person_id,\
+                Translator.part_id == Part.id, Part.work_id == Work.id)',
                 uselist=True)
     creator_str = Column(String(500), index=True)
     editions = relationship("Edition", secondary='Part', uselist=True)
@@ -129,6 +139,7 @@ class Person(Base):
     __tablename__ = 'person'
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False, index=True, unique=True)
+    alt_name = Column(String(250))
     first_name = Column(String(100))
     last_name = Column(String(150))
     image_src = Column(String(200))
