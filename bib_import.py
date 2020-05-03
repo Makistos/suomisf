@@ -3,7 +3,7 @@ Editor, Publisher, Pubseries, Bookseries, User, Genre, Alias
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from importbib import publishers
-from importbib import bookseries, pubseries, important_pubseries, misc_strings
+from importbib import bookseries, pubseries, important_pubseries, misc_strings, translators, editors
 import re
 import os
 import sys
@@ -11,6 +11,8 @@ from dotenv import load_dotenv
 import argparse
 import logging
 import re
+from typing import Tuple, Dict, List
+import cProfile
 
 publishers_re = {}
 bookseries_re = {}
@@ -18,17 +20,17 @@ pubseries_re = {}
 for pub in publishers:
     publishers_re[pub[0]] = re.compile('(' + pub[0] + ')[\.\s]')
 for series in pubseries:
-    pubseries_re[series[0]] = re.compile('(?P<name>' + series[0] + ')\s?(?P<num>[\#IVX\d]+)?')
+    pubseries_re[series[0]] = re.compile('(?P<name>' + series[0] + ')\s?(?P<num>[\#IVX:\d]+)?')
 for series in bookseries:
     bookseries_re[series[0]] = re.compile('(?P<name>' + series[0] + ')\s?(?P<num>[\#IVX\d]+)?\s?')
-translator_re = re.compile("([a-zA-ZåäöÅÄÖ]+\s)*([Ss]uom\.?\s+)([A-ZÄÅÖ]+[\.\s]?[a-zA-ZäöåÅÄÖéü&\-]*[\.\s]?[a-zA-ZåäöÅÄÖéü&\-\s,]*)(\.)")
+translator_re = re.compile("([a-zA-ZåäöÅÄÖ]+\s)*([Ss]uom\.?\s+)([A-ZÄÅÖ]+[\.\s]?[a-zA-ZäöåÅÄÖéüõ&\-]*[\.\s]?[a-zA-ZåäöÅÄÖéüõ&\-\s,]*)(\.)")
 
 pubseries_publisher = {}
 
 genres_list = {'F' : 'F',
           'K' : 'K',
-          'Paleof' : 'Paleof',
-          'paleof' : 'Paleof',
+          'Paleof' : 'paleof',
+          'paleof' : 'paleof',
           'PF' : 'PF',
           'SF' : 'SF',
           'VEH' : 'VEH',
@@ -42,7 +44,11 @@ genres_list = {'F' : 'F',
           'ei-sf' : 'eiSF',
           'eiSF' : 'eiSF',
           'eisf' : 'eiSF',
-          'rajatap' : 'rajatapaus'
+          'rajatap' : 'rajatap',
+          'lasten kuvakirja' : 'lasten kuvakirja',
+          'kok' : 'kok',
+          'kok ' : 'kok',
+          'Kok' : 'kok'
           }
 
 def find_item_from_string(item_list, st, patterns):
@@ -94,6 +100,97 @@ def find_item_from_string(item_list, st, patterns):
     return retval
 
 
+def find_translators(s: str) -> Tuple[str, str]:
+    result: str = ''
+    res_tmp: str = ''
+    for person in translators:
+        # Find the names that are hard to match
+        if re.search(person[0], s):
+            res_tmp += person[1] + ' ' + person[2] + ', '
+            s = s.replace(person[0], '')
+    m2 = re.search(translator_re, s)
+    if m2:
+        result = m2.group(3)
+        s = s.replace(m2.group(0), '')
+    else:
+        result = ''
+    result = res_tmp + result
+
+    return (result, s)
+
+
+def find_editors(s: str) -> Tuple[str, str]:
+    result: str = ''
+    res_tmp: str = ''
+    for person in editors:
+        if re.search(person[0], s):
+            res_tmp += person[1] + ' ' + person[2] + ', '
+            s = s.replace(person[0], '')
+    m2 = re.search('[Tt]oim\.? ([A-Za-zÅÄÖåäö\-\&\s]+)\.', s)
+    if m2:
+        result = m2.group(1)
+        s = s.replace('Toim ' + m2.group(1) + '. ', '')
+        s = s.replace('toim ' + m2.group(1) + '. ', '')
+    else:
+        result = ''
+    result = res_tmp + result
+
+    return (result, s)
+
+
+def find_series(s: str, is_coll: bool, series_list: List, series_re: str) -> Tuple[str, str, str]:
+    retval_name: str = ''
+    retval_num: str = ''
+
+    pseries = find_item_from_string(series_list, s, series_re)
+    if pseries:
+        retval_name = pseries[1]
+        retval_num = pseries[2]
+        s = s.replace(pseries[0], '')
+    if retval_name == '' and is_coll:
+        retval_num = ''
+
+    return (retval_name, retval_num, s)
+
+
+def find_publisher(s: str) -> Tuple[str, str]:
+    pub_name = ''
+
+    publisher = find_item_from_string(publishers, s,
+        publishers_re)
+    if publisher:
+        pub_name = publisher[1]
+        s = s.replace(publisher[0], '')
+
+    return (pub_name, s)
+
+
+def find_commons(s: str, book: Dict) -> str:
+    # Find publisher series
+    (book['pubseries'], book['pubseriesnum'], s) = \
+            find_series(s, book['collection'], pubseries, pubseries_re)
+
+    (book['publisher'], s) = find_publisher(s)
+
+    if book['pubseries'] != '':
+        if book['pubseries'] not in pubseries_publisher and book['publisher'] != '':
+            pubseries_publisher[book['pubseries']] = book['publisher']
+
+    (book['bookseries'], book['bookseriesnum'], s) = \
+            find_series(s, book['collection'], bookseries, bookseries_re)
+
+    if book['bookseries'] == '':
+        book['bookseriesorder'] = 0
+
+    # Find translator
+    (book['translator'], s) = find_translators(s)
+
+    # Find editors
+    (book['editor'], s) = find_editors(s)
+
+    return s
+
+
 def get_books(books):
     """ This is so ugly it hurts my head.
 
@@ -118,10 +215,17 @@ def get_books(books):
     curr_book = {}
     misc_str = ''
     edition_re = re.compile('(\d+?)\.((?:laitos|painos)):(.+)')
+
     for b in books:
         full_string = b
         tmp_misc = ''
+        tmp_e = ''
+        tmp_t = ''
+        # Many of the lines are split in the middle of a data item.
+        # Fix this by replacing the newline character with a space
+        # and the truncating any extra spaces.
         tmp = b.replace('\n', ' ')
+        tmp = ' '.join(tmp.split())
         tmp = re.sub('<a.+?>', '', tmp)
         tmp = re.sub('</a>', '', tmp)
         tmp = re.sub('&amp;', '&', tmp)
@@ -133,8 +237,11 @@ def get_books(books):
         # Another edition?
         m2 = edition_re.search(tmp)
         m = re.search('<b>(.+)<\/b>', tmp, re.S)
+
         if m2 and curr_book:
             if m2:
+                if '-- ks.' in tmp:
+                    continue
                 # Found another edition
                 book = dict(curr_book)
                 if m:
@@ -142,81 +249,28 @@ def get_books(books):
                     tmp = tmp.replace(m.group(0), '')
                 book['oldtitle'] = curr_book['title']
                 book['origyear'] = curr_book['origyear']
-                book['pubseries'] = ''
+                book['translation'] = curr_book['translation']
                 book['edition'] = m2.group(1)
                 tmp = tmp.replace(m2.group(1) + '.' + m2.group(2) + ':', '')
-                bseries = find_item_from_string(bookseries, tmp,
-                        bookseries_re)
-                if bseries:
-                    book['bookseries'] = bseries[1]
-                    book['bookseriesnum'] = bseries[2]
-                    try:
-                        book['bookseriesorder'] = int(bseries[2])
-                    except:
-                        book['bookseriesorder'] = 0
-                    tmp = tmp.replace(bseries[0], '')
-                if 'bookseries' not in book:
-                    book['bookseries'] = ''
-                    book['bookseriesnum'] = ''
-                    book['bookseriesorder'] = 0
 
-                # Find publisher series
-                pseries = find_item_from_string(pubseries, tmp, pubseries_re)
-                if pseries:
-                    book['pubseries'] = pseries[1]
-                    book['pubseriesnum'] = pseries[2]
-                    tmp = tmp.replace(pseries[0], '')
-                if 'pubseries' not in book:
-                    book['pubseries'] = ''
-                    if book['collection'] == False:
-                        book['pubseriesnum'] = ''
-                if book['pubseries'] == 'Kuoriaiskirjat':
-                    # Publisher series has the same name.
-                    book['publisher'] = 'Kuoriaiskirjat'
+                tmp = find_commons(tmp, book)
 
-                publisher = find_item_from_string(publishers, tmp,
-                        publishers_re)
-                if publisher:
-                    book['publisher'] = publisher[1]
-                    tmp = tmp.replace(publisher[0], '')
-                if 'publisher' not in book:
-                    book['publisher'] = ''
-
-                if pseries:
-                    if pseries[1] not in pubseries_publisher and book['publisher'] != '':
-                        pubseries_publisher[pseries[1]] = book['publisher']
-
-                m2 = re.search('(\d{4})', tmp)
+                m2 = re.search('\d{4}', tmp)
                 if m2:
-                    book['pubyear'] = m2.group(1)
-                    tmp = tmp.replace(m2.group(1), '')
-                else:
-                    book['pubyear'] = None
-                # Find translator
-                m2 = re.search(translator_re, tmp)
-                if m2:
-                    book['translator'] = m2.group(3)
+                    book['pubyear'] = m2.group(0)
                     tmp = tmp.replace(m2.group(0), '')
                 else:
-                    book['translator'] = ''
+                    book['pubyear'] = None
 
-                m2 = re.search('[Tt]oim\.? ([A-Za-zÅÄÖåäö\-\&\s]+)\.', tmp)
-                if m2:
-                    book['editor'] = m2.group(1)
-                    tmp = tmp.replace('Toim ' + m2.group(1) + '. ', '')
-                    tmp = tmp.replace('toim ' + m2.group(1) + '. ', '')
-                else:
-                    book['editor'] = ''
                 if len(re.sub('[\s\.]', '', tmp)) == 0:
                     tmp = ''
                 book['rest'] = misc_str + ' ' + tmp.replace(r' .', '').strip()
                 misc_str = ''
                 book['fullstring'] = full_string
-                #print("Adding: {}".format(book['title']))
                 # Adding to editions for this work
                 works[-1][1].append(book)
         elif m:
-            if 'ks. myös ' in tmp:
+            if 'ks. myös ' in tmp or '-- ks.' in tmp:
                 continue
             book = {}
             book['title'] = m.group(1)
@@ -227,17 +281,14 @@ def get_books(books):
             # Find type
             m = re.search('\[(.+)\]', tmp)
             book['collection'] = False
+            book['coll_info'] = ''
             if m:
                 genre = m.group(1)
-                m2 = re.search('(\d\/\d+)', genre)
-                if m2:
-                    genre = genre.replace(m2.group(0), '')
-                if genre.find('kok'):
+                if genre.find('kok') or genre.find('Kok'):
                     book['collection'] = True
-                    if genre != 'esseekokoelma':
-                        genre.replace('kok', '')
+                m2 = re.search('(.+)\s(\d+\/\d+)', genre)
                 if m2:
-                    misc_str += ' ' + m2.group(0) + ' '
+                    book['coll_info'] = m2.group(2)
                 book['type'] = m.group(1)
                 tmp = tmp.replace('[' + m.group(1) + ']', '')
             else:
@@ -246,57 +297,22 @@ def get_books(books):
             m = re.search('\((.+?)\)', tmp)
             if m:
                 # Find if there's also an original publisher year
-                m2 = re.search('(.+), (\d{4})', m.group(1))
+                m2 = re.search('(.+),\s*(\d{4})', m.group(1))
                 if m2:
                     book['origname'] = m2.group(1)
                     book['origyear'] = m2.group(2)
+                    book['translation'] = True
                 else:
                     book['origname'] = m.group(1)
                     book['origyear'] =  '0'
+                    book['translation'] = True
                 tmp = tmp.replace('(' + m.group(1)  + '). ', '')
             else:
                 book['origname'] = book['title']
                 book['origyear'] = '0'
-            # Find editor
-            m = re.search('[Tt]oim\.? ([A-Za-zÅÄÖåäö\-\&\s]+)\.', tmp)
-            if m:
-                book['editor'] = m.group(1)
-                tmp = tmp.replace('Toim ' + m.group(1) + '. ', '')
-                tmp = tmp.replace('toim ' + m.group(1) + '. ', '')
-            else:
-                book['editor'] = ''
+                book['translation'] = False
 
-            # Find book series
-            bseries = find_item_from_string(bookseries, tmp, bookseries_re)
-            if bseries:
-                book['bookseries'] = bseries[1]
-                book['bookseriesnum'] = bseries[2]
-                tmp = tmp.replace(bseries[0], '')
-            if 'bookseries' not in book:
-                book['bookseries'] = ''
-                book['bookseriesnum'] = ''
-            pseries = find_item_from_string(pubseries, tmp, pubseries_re)
-            if pseries:
-                book['pubseries'] = pseries[1]
-                book['pubseriesnum'] = pseries[2]
-                tmp = tmp.replace(pseries[0], '')
-            if 'pubseries' not in book:
-                book['pubseries'] = ''
-                book['pubseriesnum'] = ''
-            if book['pubseries'] == 'Kuoriaiskirjat':
-                book['publisher'] = 'Kuoriaiskirjat'
-
-            # Find publisher
-            publisher = find_item_from_string(publishers, tmp,
-                publishers_re)
-            if publisher:
-                book['publisher'] = publisher[1]
-                tmp = tmp.replace(publisher[0], '')
-            if 'publisher' not in book:
-                book['publisher'] = ''
-            if pseries:
-                if pseries[1] not in pubseries_publisher and book['publisher'] != '':
-                    pubseries_publisher[pseries[1]] = book['publisher']
+            tmp = find_commons(tmp, book)
 
             m = re.search('(\d{4})', tmp)
             if m:
@@ -306,13 +322,6 @@ def get_books(books):
                     book['origyear'] = book['pubyear']
             else:
                 book['pubyear'] = None
-
-            m2 = re.search(translator_re, tmp)
-            if m2:
-                book['translator'] = m2.group(3)
-                tmp = tmp.replace(m2.group(0), '')
-            else:
-                book['translator'] = ''
 
             if len(re.sub('[\s\.]', '', tmp)) == 0:
                 tmp = ''
@@ -700,21 +709,25 @@ def import_books(session, authors):
                               Edition.publisher_id == publisherid)\
                       .first()
                 if ed:
+                    ed.translation = edition['translation']
                     ed.editionnum = editionnum
                     ed.pubseries_id = pubseriesid
                     ed.pubseriesnum = edition['pubseriesnum']
+                    ed.coll_info = edition['coll_info']
                     ed.misc = edition['rest']
                     ed.fullstring = edition['fullstring']
                 else:
                     ed = Edition(
                             title = edition['title'],
                             pubyear = edition['pubyear'],
+                            translation = edition['translation'],
                             language = 'FI', # Every book in these files is in Finnish
                             publisher_id = publisherid,
                             editionnum = editionnum,
                             isbn = '', # No ISBNs in the data
                             pubseries_id = pubseriesid,
                             pubseriesnum = edition['pubseriesnum'],
+                            coll_info = edition['coll_info'],
                             misc = edition['rest'],
                             fullstring = edition['fullstring'])
                     is_new = True
@@ -757,6 +770,7 @@ def save_genres(session, workid, genrelist):
         This is the easiest way to make sure any
         changes are written to db.
     """
+    retval = ''
     s = session()
 
     # First remove old genre definitions
@@ -770,6 +784,10 @@ def save_genres(session, workid, genrelist):
     # Then add again
     genrelist.replace('/', ',')
     for genre in genrelist.split(','):
+
+        m = re.search('(.+)\s(\d+\/\d+)', genre)
+        if m:
+            genre = m.group(1)
         if genre in genres_list:
             genreobj = s.query(Genre)\
                         .filter(Genre.workid == workid,
@@ -779,6 +797,8 @@ def save_genres(session, workid, genrelist):
                 genreobj = Genre(workid=workid, genre_name=genres_list[genre])
                 s.add(genreobj)
     s.commit()
+    return retval
+
 
 def update_creators(session):
     """ Update the owner string for every work. This is used
@@ -818,10 +838,10 @@ def update_creators(session):
                 work.creator_str = editor_list + ' (toim.)'
 
         s.add(work)
-        s.commit()
         if i % 100 == 0:
             print('.', end='', flush=True)
         i += 1
+    s.commit()
     print()
 
 
