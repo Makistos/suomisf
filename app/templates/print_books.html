@@ -13,12 +13,13 @@
 {% endif %}
 {% if (type == 'books') %}
     {% for author in works|groupby(attribute='creator_str') %}
-    <h2><span>{{author.grouper}}
-    </span></h2>
-        {{ author.list[0].authors.name }}
+
+
+<h2>{{author.grouper}}</h2>
         {% for work in author.list %}
             {% for edition in work.editions %}
                 {% include "_printedition.html" %}
+
             {% endfor %}
         {% endfor %}
     {% endfor %}

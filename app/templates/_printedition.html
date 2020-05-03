@@ -1,62 +1,21 @@
-{% if edition.editionnum != 1 %}
-	{{ edition.editionnum }}. painos. 
-	<b>{{ edition.title }}</b>.
-	{% if edition.pubseries %}
-		{{ edition.pubseries.name }}.
-	{% endif %}
-	{% if edition.translators %}
-		Suom. {{ edition.translators|join(', ', attribute='alt_name')
-		}}.
-	{% endif %}
-	{{edition.publisher.name}} {{ edition.pubyear }}.
+{% if edition.editionnum != 1 -%}
+	{{ edition.editionnum }}.painos:
+        {%- if edition.title != edition.work.editions[0].title %} <b>{{ edition.title }}</b>.{% endif -%}
+	{% if edition.work.bookseries %} {{ edition.work.bookseries.name }} 
+	    {%- if edition.work.bookseriesnum %} {{ edition.work.bookseriesnum -}}{%- endif -%}.{%- endif %}
+        {%- if edition.pubseries %} {{ edition.pubseries.name }}{% if edition.pubseriesnum %} {{ edition.pubseriesnum }}{% endif %}.{% endif -%}
+        {%- if edition.translators %} {% include "_translators.html" -%}{%- endif %} {{edition.publisher.name}}{% if edition.pubyear %} {{ edition.pubyear }}{% endif %}.
+{%- else -%}
+	<b>{{ edition.title }}</b>.{% if edition.work.bookseries %} {{ edition.work.bookseries.name }} 
+		{%- if edition.work.bookseriesnum %} {{ edition.work.bookseriesnum -}}{%- endif -%}.{%- endif %}
+	{% if edition.translation == True %} (
+                {%- if edition.work.title|length -%}{{ edition.work.title }}{%- endif -%} 
+                {%- if edition.work.pubyear|int %}, {{ edition.work.pubyear }}{%- endif -%}
+                ).
+	{%- endif -%}
+	{%- if edition.editors %}{% set editors = edition.editors %} {% include "_editors.html" %}{%- endif -%}
+	{%- if edition.translators %} {% include "_translators.html" -%}{%- endif -%}
+        {%- if edition.pubseries %} {{ edition.pubseries.name }}{% if edition.pubseriesnum %} {{ edition.pubseriesnum }}{% endif %}.{% endif %} {{ edition.publisher.name}} {{ edition.pubyear }}.{% if edition.work.genres|length %} [{{ edition.work.genres|join(',', attribute='genre_name') }}{% if edition.coll_info %} {{edition.coll_info}}{% endif %}].{% endif %}
+{%- endif %}
+<br>
 
-{% else %}
-	<b>{{ edition.title }}</b>.
-	{% if edition.work.bookseries %}
-		{{ edition.work.bookseries.name }} 
-		{%- if edition.work.bookseriesnum %}
-			{{edition.work.bookseriesnum}}
-		{%- endif -%}
-		.
-	{% endif %}
-	{% if edition.work.title != edition.title %}
-		{%- if edition.work.title != edition.title or edition.work.pubyear|int -%}
-			(
-		{%- endif -%}
-		{% if edition.work.title != edition.title %}
-			{%- if edition.work.title|length -%}
-				{{ edition.work.title }}
-			{%- endif -%}
-		{% endif %}
-		{%- if edition.work.title != edition.title and edition.work.pubyear|int -%}
-			,
-		{% endif %}
-		{%- if edition.work.pubyear|int -%}
-			{{ edition.work.pubyear }}
-		{%- endif %}
-		{%- if edition.work.title != edition.title or edition.work.pubyear|int -%}
-		    ).
-		{% endif %}
-	{% else %}
-		{% if edition.work.pubyear != edition.pubyear %}
-			({{ work.pubyear }}).
-		{% endif %}
-	{% endif %}
-	{% if edition.editors %}
-		{% set editors = edition.editors %}
-		{% include "_editors.html" %}
-	{% endif %}
-	{% if edition.translators %}
-		{% include "_translators.html" %}
-	{% endif %}
-	{% if edition.pubseries %}
-		{{ edition.pubseries.name }}
-		{% if edition.pubseriesnum %}
-			{{ edition.pubseriesnum }}
-		{%- endif -%}
-		.
-	{% endif %}
-	
-	{{edition.publisher.name}} {{ edition.pubyear }}. [{{ edition.work.genres|join(', ', attribute='genre_name') }}].
-{% endif %}
-</span><br>

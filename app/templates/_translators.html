@@ -1,15 +1,5 @@
 Suom
-{% if edition.translators|length == 1 %}
-        {{ edition.translators[0].alt_name }}.
-{% endif %}
-{% if edition.translators|length == 2 %}
-        {{ edition.translators[0].alt_name }} ja
-        {{ edition.translators[1].alt_name }}.
-{% endif %}
-{% if edition.translators|length > 2 %}
-        {% for translator in edition.translators[:-2] %}
-                {{ translator.alt_name }}, 
-        {% endfor %}
-        {{ edition.translators[-2].alt_name }} ja
-        {{ edition.translators[-1].alt_name }}.
-{% endif %}
+{%- if edition.translators|length == 1 %} {{ edition.translators[0].alt_name }}.{% endif -%}
+{%- if edition.translators|length == 2 %} {{ edition.translators[0].alt_name }} ja {{ edition.translators[1].alt_name }}.{%- endif -%}
+{%- if edition.translators|length > 2 %} {%- for translator in edition.translators[:-2] %} {{ translator.alt_name }}, {% endfor %}{{ edition.translators[-2].alt_name }} ja {{ edition.translators[-1].alt_name }}.
+{%- endif %}

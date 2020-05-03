@@ -11,16 +11,23 @@
     ({{person.id}})
     {% endif %}
 </h1>	
-<!--
+<div>
         {% if person.real_names %}
-            <p>( {{ person.real_names|join(', ', attribute='name')}} 
-            {{ person.real_names|join(', ', attribute='id') }}
-            )</p>
+        <br><b>Oik.</b>:
+            {% for rn in person.real_names %}
+            <a href="{{url_for('person', personid=rn.id)}}">{{ rn.first_name }}
+                       {{rn.last_name}}</a><br>
+            {% endfor %}
         {% endif %}
         {% if person.aliases %}
-            <p>Pseudonyymit: {{ person.aliases|join(',', attribute='name')}}</p>
+        <br><b>Pseudonyymit</b>:
+            {% for rn in person.aliases %}
+            <a href="{{url_for('person', personid=rn.id)}}">{{ rn.first_name }}
+                {{ rn.last_name }}</a><br>
+            {% endfor %}
         {% endif %}
--->
+        </div>
+        <p>
         <div>
         {% if person.image_src %}
         <img style="float: left; margin: 0px 10px 0px 0px;" src="{{person.image_src}}">

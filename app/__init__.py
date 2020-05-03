@@ -7,7 +7,6 @@ from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 #from flask_debugtoolbar import DebugToolbarExtension
-
 import os
 
 app = Flask(__name__)
@@ -18,6 +17,8 @@ db = SQLAlchemy(app)
 login = LoginManager(app)
 bootstrap = Bootstrap(app)
 #app.debug = True
+app.jinja_env.lstrip_blocks = True
+app.jinja_env.trim_blocks = True
 
 #toolbar = DebugToolbarExtension(app)
 

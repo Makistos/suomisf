@@ -29,6 +29,7 @@ class Edition(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(500), nullable=False, index=True)
     pubyear = Column(Integer)
+    translation = Column(Boolean)
     language = Column(String(2))
     publisher_id = Column(Integer, ForeignKey('publisher.id'))
     editionnum = Column(Integer)
@@ -37,6 +38,7 @@ class Edition(Base):
     pubseries_id = Column(Integer, ForeignKey('pubseries.id'))
     pubseriesnum = Column(Integer)
     collection = Column(Boolean)
+    coll_info = Column(String(200))
     misc = Column(String(500))
     fullstring = Column(String(500))
     parts = relationship('Part', backref=backref('parts_lookup'),
@@ -148,16 +150,16 @@ class Person(Base):
     birthplace = Column(String(250))
     fullstring = Column(String(500))
     #real_names = relationship("Person", secondary="Alias", primaryjoin="Person.id==Alias.alias")
-    real_names = relationship("Person",
-                    primaryjoin="and_(Person.id==Alias.alias)",
+    real_names = relationship('Person',
+                    primaryjoin=id==Alias.alias,
                     secondary='alias',
-                    foreign_keys=[Alias.alias],
+                    secondaryjoin=id==Alias.realname,
                     uselist=True)
     #aliases = relationship("Person", primaryjoin="Person.id==Alias.realname")
     aliases = relationship("Person",
-                    primaryjoin='and_(Person.id==Alias.realname)',
+                    primaryjoin=id==Alias.realname,
                     secondary='alias',
-                    foreign_keys = [Alias.realname],
+                    secondaryjoin=id==Alias.alias,
                     uselist=True)
     works = relationship("Work",
                 secondary='join(Part, Author, Part.id == Author.part_id)',
