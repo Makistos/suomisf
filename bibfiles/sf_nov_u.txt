@@ -4,13 +4,14 @@
           science fiction, fantasia- ja kauhunovelleja.
 
                    Koonnut Jussi Vainikainen
-                           29.12.2019
+                           5.4.2020
 
 ***************************************************************************
 
 
 Listassa olevat novellikokoelmat ja niiden lyhenteet:
 
+[Ada:Rt] = Richard Adams : Ruohometsän tarinoita (Tales from Watership Down, 1996) WSOY 1997
 [Ald:Ms] = Brian Aldiss : Mannerheim-sinfonia (Cracken at Critical, 1987) Kirjayhtymä 1990
 [Asi:Ro] = Isaac Asimov : Robots (The Complete Robot, 1982) Kirjayhtymä 1985
 [Asp:Vm] = Robert Asprin (toim.) : Varkaiden maailma (Thieves' World, 1979) TK-Kustannus 1992
@@ -26,17 +27,25 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Blo:K7] = Robert Bloch : Kauhu-7 (Horror-7, 1963) E.O. Savolainen 1964
 [Blo:Ku] = Robert Bloch : Kauniita unia - parempia painajaisia. (Pleasant Dreams - Nightmares, 1960) Nykylehdet Oy 1980
 [Blo:Ps] = Robert Bloch : Pehmustettu selli ja muita kauhun paikkoja, WSOY 1994
+[Bor:Hk] = Jorge Louis Borges : Hiekkakirja (El informe de Brodie, 1970 & El libro de arena, 1975) WSOY 2003
 [Bra:Hn] = Ray Bradbury : Huhtikuun noita, Tampereen Science Fiction Seura 1998
 [Bra:Km] = Ray Bradbury : Kuvitettu mies (The Illustrated Man, 1951) Kirjayhtymä 1971
 [Bra:Lm] = Ray Bradbury : Lokakuun maa (The October Country, 1955) Kirjayhtymä 1985
 [Bra:Ma] = Ray Bradbury : Marsin aikakirjat (The Martian Chronicles, 1950) Otava 1953
 [Bra:Tt] = Ray Bradbury : Toiset taivaat, WSOY 1993
 [Bra:Vv] = Ray Bradbury : Varhaiset varjot, WSOY 1992
+[Bul:Km] = Mihail Bulgakov : Kohtalokkaat munat - Satiireja ja muistelmia. WSOY 1975.
 [Car:Vk] = Angela Carter : Verinen kammio (The Bloody Chamber, 1979) TK-Kustannus 1994
 [Cha:Kk] = Robert W. Chambers : Keltainen kuningas (The King in Yellow, 1895) Basam Books Oy 2014
+[Che:Hk] = Ronald Chetwynd-Hayes : Hirviöklubi - Kertomuksia nykyajan hirviöistä (The Monster Club, 1975) Kymppilehdet Oy 1983
+[Che:Kk] = Ronald Chetwynd-Hayes : Kartanon kirous (Tales from the Other Side, 1983) Kymppilehdet Oy 1985
 [Cla:Ta] = Arthur C. Clarke : Tähtiaika (Of Time And Stars, 1972) Kirjayhtymä 1975
 [Cla:Tu] = Arthur C. Clarke : Tuuli auringosta, WSOY 1996
 [Cra:Aa] = Francis Marion Crawford : Ajattomat aaveet. Vaskikirjat 2016
+[Dah:Ah] = Roald Dahl : Alahuuli (Switch Bitch, 1974) Otava 1975
+[Dah:Hs] = Roald Dahl : Henry Sugarin ihmeellinen tarina ja kuusi muuta (The Wonderful Story of Henry Sugar and Six More, 1977) Art House 2003
+[Dah:Jk] = Roald Dahl : Joku kaltaisesi. Sis puolet novelleista kokoelmista (Kiss, Kiss, 1960) ja (Someone Like You, 1953) Otava 1970
+[Dah:Rk] = Roald Dahl : Rakkaani, kyyhkyläiseni. Sis puolet novelleista kokoelmista (Kiss, Kiss, 1960) ja (Someone Like You, 1953) Otava 1961
 [Dal:Kk] = Richard Dalby (toim.) : Kuollut koskettaa keveästi () Conranic 2011
 [Dal:Sk] = Richard Dalby (toim.) : Suuri kummituskirja (The Mammoth Book of the Ghost Stories, 1990) Book Studio Oy 1993
 [Dal:Sn] = Richard Dalby (toim.) : Suuri noitakirja (Tales of Witchcraft, 1991) Book Studio Oy 1994
@@ -51,12 +60,19 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Doy:Hk] = Arthur Conan Doyle : Hopeakirves ja muita kummallisia kertomuksia, Nysalor-kustannus 2018
 [Doy:Ht] = Arthur Conan Doyle : Hämärätarinoita (Tales of Twilight and the Unseen, 1922) Kirja 1926
 [Doy:Km] = Arthur Conan Doyle : Kun Maa kirkui ja muita epätavallisia tarinoita, WSOY 1992
+[Doy:Pk] = Arthur Conan Doyle : Pelko- ja kauhutarinoita (Tales of Terror and Mystery, 1922) Kirja 1925
+[Doy:Pl] = Arthur Conan Doyle : Polestar-laivan kapteeni. Siniplaneetta 2011
+[Doy:Vs] = Arthur Conan Doyle : Vedenalaisten saartama maa ynnä muita kertomuksia, Gummerus 1917
+[Fra:Ea] = Anatole France : Aadamin ensimmäisen vaimon tytär. Kertomuksia yliluonnollisista aiheista. Kansanvalta 1926.
 [Gab:Nm} = Diana Gabaldon : Neljä Matkantekijä-kertomusta (A Trail of Fire. Four Outlander Tales, 2012) Gummerus 2013
 [Gai:Am} = Neil Gaiman : Aarteita ja muistoesineitä (Valikoima alkuteoksesta Fragile Things, 2006) Kustannusosakeyhtiö Kirjava 2007
+[Gar:Su] = Gabriel Garcia Márquez : Surullinen ja uskomaton tarina (La increible y triste historia de la cándida Eréndira y de su abuela desalmada, 1972) WSOY 1975
+[Gau:Vk] = Théophile Gautier : Vereviä kertomuksia (Contes humoristiques, 1880) Faros-kustannus Oy 2014
 [Gel:Ro] = Jeff Gelb (toim.) : Rock on rajaton kauhu (Shock Rock, 1992) WSOY 1993
 [Gra:K4] = Charles L. Grant (toim.) : Kauhujen kirja 4 (Night Visions 4, 1987) Book Studio Oy 1993
 [Gra:K6] = Charles L. Grant (toim.) : Kauhujen kirja 6 (Night Visions 2, 1985) Book Studio Oy 1994
 [Gre:K8] = Martin H. Greenberg (toim.) : Kauhujen kirja 8 (New Stories from the Twilight Zone, 1991) Book Studio Oy 1996
+[Gre:Np] = Graham Greene : Nollapiste (A Sense of Reality, 1963) Tammi 1963
 [Hai:Wt] = Peter Haining (toim.) : Weird Tales (Weird Tales, 1976) Book Studio Oy 1992
 [Hal:Uk] = Jukka Halme (toim.) : Uuskummaa?, Kustannusosakeyhtiö Kirjava 2006
 [Haw:Pk] = Nathaniel Hawthorne : Paholainen käsikirjoituksessa, LIKE 1990
@@ -65,30 +81,48 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Hei:Mj] = Robert A. Heinlein : Mies joka myi kuun (The Man Who Sold the Moon, 1950) Nide Oy 1956
 [Hel:Mt] = Anne Helttunen & Tuula Uusi-Hallila (toim.) : Majatalo ja muita kauhutarinoita, WSOY 2000
 [Hen:Sp] = Saara Henriksson & Markku Soikkeli (toim.) : Surupukki. Ruotsalaisia tieteistarinoita, Osuuskumma-kustannus 2015
+[Hes:Iv] = Hermann Hesse : Ihmeellinen viesti toiselta tähdeltä ja muita tarinoita (Märchen, 1919)  Weilin+Göös 1978
+[Hii:Kp] = Tapio Hiisivaara (toim.) : Kauhutarinoiden parhaita. Valpas-Mainos 1966
+[Hil:Bc] = Joe Hill : Bobby Conroy palaa kuolleista (20th Century Ghosts, 2005) Tammi 2009
 [Hin:Vv] = Juhani Hinkkanen (toim.) : Velhojen valtakunta, Jalava 1989
+[Hit:Kg] = Alfred Hitchcock (toim.) : Alfred Hitchcockin Kummitusgalleria (Alfred Hitchcock's Ghostly Gallery, 1966) Kirjateos Oy 1980
+[Hof:Yk] = E.T.A. Hoffmann : Yökappaleita (Nachtstücke, 1816, 1817) Teos 2011
 [Hol:Mm] = Robert Holdstock : Merlinin metsä (Merlin's Wood, 1994) Karisto 1996
 [How:Cc] = Robert E. Howard : Conan Cimmerialainen, Jalava 1991
 [How:Cd] = Robert E. Howard : Conan ja demonit, Jalava 1990
 [How:Cm] = Robert E. Howard : Conan ja merirosvot, Oppian 2019
 [How:Ct] = Robert E. Howard : Conan taistelija, Jalava 1990
 [How:Kk] = Robert E. Howard : Kadotuksen kuilu, WSOY 1993
+[How:Ku] = Robert E. Howard : Kultaisen kallon kirous, Oppian 2020
 [How:Yk] = Robert E. Howard : Yön kuninkaat, WSOY 1992
 [How:Zk] = Robert E. Howard : Zambebwein kuu, Tampereen Science Fiction Seura 2010
+[Hug:Tm] = Ted Hughes : Tarinoita maailman lapsuudesta (Tales of the Early World, 1988) WSOY 1993
 [Ias:V1] = Isaac Asimov Science Fiction valikoima 1, Viihdeviikarit 1987
 [Ias:V2] = Isaac Asimov Science Fiction valikoima 2, Viihdeviikarit 1988
 [Ias:V3] = Isaac Asimov Science Fiction valikoima 3, Viihdeviikarit 1989
 [Ijä:Ey] = Jyrki Ijäs (toim.) : Ensimmäinen yhteys, Pirkanmaan Kirjapaino ja Lehtikustannus Oy 1988
 [Jef:Ks] = Ivan Jefremov : Käärmeen sydän (Serdce zmei, 1959) Vieraskielisen kirjallisuuden kustannusliike
 [Jer:Ha] = Toni Jerrman (toim.) : Himon anatomia, Jalava 1997
+[Jer:Ht] = Jerome K. Jerome : Haltiattaren tarina ynnä muita kertomuksia (Malvina of Brittany, 1916) Gummerus 1917
 [Jär:Kk] = Matti Järvinen (toim.) : Kummituksen käsi ja muita vanhoja kauhukertomuksia. Nysalor-kustannus 2016
 [Jär:Pp] = Matti Järvinen (toim.) : Pirunpullo ja muita vanhoja kauhukertomuksia. Nysalor-kustannus 2018
 [Jär:Uk] = Matti Järvinen (toim.) : Unikäärme ja muita vanhoja kauhukertomuksia. Nysalor-kustannus 2017
+[Kaf:Ek] = Franz Kafka : Erään koiran tutkimuksia. Otava 1967
+[Kaf:Nt] = Franz Kafka : Nälkätaiteilija. Gummerus 1959
 [Kal:Sf] = Reijo Kalvas (toim.) : Science fiction antologia 85, Viihdeviikarit 1985
+[Kin:Aj] = Stephen King : Auringonlaskun jälkeen (Just After Sunset, 2008) Tammi 2010
+[Kin:Ao] = Stephen King : Anteeksi, oikea numero - Painajaisia ja unikuvia 2 (Nightmares and Dreamscapes (loppupuoli), 1993) Tammi 2000
 [Kin:Ea] = Stephen King : Ennen aamunkoittoa (Skeleton Crew, 1985) Book Studio Oy 1991
 [Kin:Jk] = Stephen King : Jälkeen keskiyön (Skeleton Crew, 1985) Book Studio Oy 1991
 [Kin:Kv] = Stephen King : Kauhun vuodenajat (Different Seasons, 1982), Book Studio Oy 1992
 [Kin:K2] = Stephen King : Kauhun vuodenajat 2 (Different Seasons, 1982), Book Studio Oy 1992
+[Kin:Mm] = Stephen King : Maantievirus matkalla pohjoiseen (Everything's Eventual. 14 Dark Stories, 2002) Tammi 2003
 [Kin:Mt] = Stephen King : Musta torni (The Dark Tower: The Gunslinger, 1982) Book Studio Oy 1992
+[Kin:Pe] = William King : Peikonsurma (Trollslayer, 1999) Acalla Oy 2001
+[Kin:Ps] = Stephen King : Pedon sydän (Hearts in Atlantis, 1999) Tammi 2000
+[Kin:Py] = Stephen King : Pimeä yö, tähdetön taivas (Full Dark, No Stars, 2010) Tammi 2012
+[Kin:Sy] = Stephen King : Sydänyö (Four Past Midnight, 1990) Tammi 1991
+[Kin:Ys] = Stephen King : Yksinäinen sormi - Painajaisia ja unikuvia 1 (Nightmares and Dreamscapes (alkupuoli), 1993) Tammi 1999
 [Kin:Yä] = Stephen King : Yön äänet (Night Shift, 1978) Viihdeviikarit 1989
 [Kip:Pm] = Rudyard Kipling : Pedon merkki ja muita kauhuja, WSOY 1994
 [Kop:Ap] = Jari Koponen & Vesa Sisättö (toim.) : Aivopeili, Avain 2011
@@ -100,6 +134,10 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Lem:Ks] = Stanislaw Lem : Konekansan satuja ja tarinoita (Bajki robotóv, 1964) Tammi 2004
 [Lem:Ky] = Stanislaw Lem : Kyberias (Cyberiada, 1965) Kirjayhtymä 1986
 [Lon:Pp] = Frank Belknap Long : Pimeänpelko (Night Fear, 1979) Nykylehdet 1981
+[Lon:Du] = Jack London : Debsin uni, Love-kirjat 1982
+[Lon:Kn] = Jack London : Kuunaama, Sampo 1926
+[Lon:Pj] = Jack London : Punainen jumala, Minerva 1921
+[Lon:Yl] = Jack London : Yön lapsi, Minerva 1924
 [Lov:Al] = H.P. Lovecraft : Alkemisti ja muita kertomuksia, Jalava 1994
 [Lov:Hs] = H.P. Lovecraft : Hautakummun salaisuus sekä muita kertomuksia ja kirjoituksia, Jalava 2014
 [Lov:Nk] = H.P. Lovecraft : Nimetön kaupunki, Jalava 1991
@@ -116,11 +154,15 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Neu:My] = Neuvostokirjailijain tieteiskertomuksia : Maxwellin yhtälöt (Uravnenija Maksvella) Kustannusliike Edistys 1964
 [Neu:Va] = Vieras avaruudesta, Vieraskielisen kirjallisuuden kustannusliike 1962
 [Nie:Nk] = Mikael Niemi : Nahkakolo (Svålhålet, 2004) Like 2004
+[Num:Va] = Juri Nummelin (toim.) : Vampyyri ja muita vanhoja kauhu- ja jännitysnovelleja, Helmivyö 2018
 [Pac:T1] = Josh Pachter (toim.) : Top Science Fiction 1 (Top Science Fiction, 1984) Jalava 1990
 [Pac:T2] = Josh Pachter (toim.) : Top Science Fiction 2 (Top Science Fiction, 1984) Jalava 1993
 [Poe:Kk] = Edgar Allan Poe : Korppi ja kultakuoriainen, WSOY 1959
+[Poe:Ko] = Edgar Allan Poe : Kootut kertomukset, Kustannusosakeyhtiö Teos 2006
+[Poe:No] = Edgar Allan Poe : Novelleja. Kirjallisuutta kouluille. WSOY 1970
 [Poe:Pk] = Edgar Allan Poe : Pelon ja kuoleman kertomuksia, Book Studio Oy 1993
 [Poh:Sv] = Frederik Pohl : Sapattivuosi, Viihdeviikarit 1987
+[Pri:Yk] = Alison Prince : Ystäväni kummitus (The Haunted Children, 1982 & The Ghost Within, 1984) Tammi 1988
 [Rai:K3] = Gary Raisor (toim.) : Kauhujen kirja 3 (Obsessions, 1991) Book Studio Oy 1992
 [Ras:Mp] = Mika Rassi (toim.) : Minä pelkään - venäläistä kauhua ja mystiikkaa. Savukeidas 2014
 [Ree:Fk] = Sulamit & Erkki Reenpää (toim.) : Fantastisia kertomuksia, Otava 1969
@@ -151,6 +193,7 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Sak:Ai] = Saki : Avoin ikkuna ja muita tarinoita, Vaskikirjat 2015
 [Sal:Dl] = R.A. Salvatore : Drizztin legenda - Kootut novellit. (The Collected Stories - The Legend of Drizzt Anthology, 2011) Kustannus Jalava 2012
 [Sal:Mm] = Tuomas Saloranta & Jyrki Pitkä (toim.) : Murhamystiikkaa - okkulttisia etsivätarinoita, Tajunta Media 2014
+[Sau:Sp] = George Saunders : Sotapuiston perikato (CivilWarLand in Bad Decline, 1996) Siltala 2016
 [Shc:Mu] = Robert Sheckley : Matkalippu utopiaan (Citizen in Space, 1955) WSOY 1976
 [She:Lv] = Lucius Shepard : Lohikäärmeen varjossa, WSOY 1993
 [Sil:Pb] = Robert Silverberg : Purjehdus Bysanttiin, Book Studio Oy 1990
@@ -163,17 +206,22 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Ste:Mk] = John Richard Stephens & Kim Smith : Mystisiä kissatarinoita (Mysterious Cat Stories, 1993) Book Studio Oy 1995
 [Ste:Pl] = Bruce Sterling (toim.) : Peililasit (Mirrorshades, 1986) Jalava 1990
 [Str:Ph] = Arkadi & Boris Strugatski : Poika helvetistä, WSOY 1986
+[Tho:Vh] = Tig Thomas (toim.) : Vampyyrit ja hahmonvaihtajat (Classic Tales of Vampires and Shapeshifters, 2011) Kirjalito 2012
 [Tut:Sh] = Lisa Tuttle (toim.) : Sielusi hipiä (Skin of the Soul, 1990) Kääntöpiiri 1993
+[Twa:Sv] = Mark Twain : Salaperäinen vieras ja muita tarinoita, Savukeidas 2011
 [Van:Im] = Jack Vance : Iltaruskon maa (The Dying Earth, 1950) Kirjayhtymä 1988
 [Van:Ip] = Jack Vance : Ihmisen paluu (toim. Markku Sadelehto) Tampereen Science Fiction Seura  1999
 [Vdm:Pm] = Jeff VanderMeer : Pyhimysten ja mielipuolten kaupunki (The Hoegbotton Guide to the Early History of Ambergris) Loki-Kirjat 2006.
 [Var:Hr] = John Varley : Hyvästi, Robinson Crusoe, WSOY 1989
 [Wal:Mm] = Howard Waldrop : Musiikkia miesäänille ja lentäville lautasille () Kustannusosakeyhtiö Kirjava 2007
+[Wel:He] = H.G. Wells : Eräitä kertoelmia, Emil Vainio 1907
+[Wel:He] = H.G. Wells : Hämähäkkilaakso & Eräitä kertoelmia, Tiberius kirjat 2019
 [Wel:Ph] = H.G. Wells : Punainen huone, WSOY  1994
 [Wel:Vh] = H.G. Wells : Voimakoneitten herra, Varastettu basilli ja muita tapauksia, Tiberius kirjat 2019
 [Wia:K7] = Stanley Wiater (toim.) : Kauhujen kirja 7 (Night Visions 7, 1989) Book Studio Oy 1995
 [Win:K1] = Douglas Winter (toim.) : Kauhujen Kirja (Night Visions 5, 1988) Book Studio Oy 1991
 [Win:K2] = Douglas Winter (toim.) : Kauhujen kirja 2 (Prime Evil, 1988) Book Studio Oy 1992
+[Wol:Pk] = Sebastian Wolfe (toim.) : Pieni kauhukirja - 55 lyhyenlyhyttä kauhupalaa (Tiny Tales of Terror, 1992) Book Studio Oy 1992
 
 
 ***************************************************************************
@@ -182,6 +230,29 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 Lynn Abbey
 ----------
 Kaaoksen kasvot (The Face of Chaos, 1979) [Asp:Vm]
+
+
+Richard Adams
+-------------
+Arho (Sandwort, 1996) [Ada:Rt]
+El-ahrairah ja lendri (El-ahrairah and the Lendri, 1996) [Ada:Rt]
+Flyairth (Flyairth, 1996) [Ada:Rt]
+Flyairthin lähtö (Flyairth's Departure, 1996) [Ada:Rt]
+Hajuaisti (The Sense of Smell, 1996) [Ada:Rt]
+Hyzenthlay tarttuu toimeen (Hyzenthlay in Action, 1996) [Ada:Rt]
+Kettu vedessä (The Fox in the Water, 1996) [Ada:Rt]
+Kohokki (Campion, 1996) [Ada:Rt]
+Kummitusjuttu (The Rabbit's Ghost Story, 1996) [Ada:Rt]
+Maksaruoho (Stonecrop, 1996) [Ada:Rt]
+Reikä taivaassa (The Hole in the Sky, 1996) [Ada:Rt]
+Salainen virta (The Secret River, 1996) [Ada:Rt]
+Tarina kauheasta heinänkorjuusta (The Story of the Terrible Hay-Making, 1996) [Ada:Rt]
+Tarina kolmesta lehmästä (The Story of the Three Cows, 1996) [Ada:Rt]
+Tarina kummasta pensastarhasta (The Story of the Comical Field, 1996) [Ada:Rt]
+Tarina kuningas Körmystä (The Story of King Fur-Rocious, 1996) [Ada:Rt]
+Tarina suuresta suosta (The Story of the Great Marsh, 1996) [Ada:Rt]
+Tädykkeen tarina (Speedwell's Story, 1996) [Ada:Rt]
+Uusi kylä (The New Warren, 1996) [Ada:Rt]
 
 
 Aleksandr Afanasjev
@@ -215,9 +286,19 @@ Mahdoton hymy (The Impossible Smile, 1965) [Ald:Ms]
 Mannerheim-sinfonia (The Mannerheim Symphony, 1987) [Ald:Ms]
 
 
+Alphonse Allais
+---------------
+Mihin hyvänsä he pystyvät... (Anything They Can Do..., 1992) [Wol:Pk]
+
+
 Andrew Allen
 ------------
 Laiva, jossa kummitteli (The Strange Story of the "Emily Brand", 1897) [Jär:Uk]
+
+
+Kingsley Amis
+-------------
+Masonin elämä (Mason's Life, 1972) [Wol:Pk]
 
 
 Hans Christian Andersen
@@ -242,12 +323,24 @@ Metsästäjänkuu (Hunter's Moon, 1991) [Rai:K3]
 
 Leonid Andrejev
 ---------------
-Lasarus [Dat:Ev]
+Lasarus (Yeleazar, 1906)) [Dat:Ev]
+
+
+anonyymi
+--------
+Mabéshiman vampyyrikissa (The Vampire Cat of Mabéshima) [Tho:Vh]
 
 
 Aleksei Apuhtin
 ---------------
 Elämän ja kuoleman välissä (1892) [Ras:Mp]
+
+
+Robert Arthur
+-------------
+Ihmeiden päivä (The Wonderful Day, 1940) [Hit:Kg]
+Itsepäinen Otis-setä (Obstinate Uncle Otis, 1941) [Hit:Kg]
+Kummitteleva asuntovaunu (The Haunted Trailer, 1942) [Hit:Kg]
 
 
 Isaac Asimov
@@ -269,9 +362,19 @@ Voittajalle (To the Victor, 1982) [Kal:Sf]
 Välikohtaus kolmesataavuotisjuhlissa (The Tercentenary Incident, 1976) [Asi:Ro]
 
 
+Alice ja Claude Askew
+---------------------
+Aylmer Vance ja vampyyri (Aylmer Vance and the Vampire, 1914) [Tho:Vh]
+
+
 Robert Asprin
 -------------
 Kaupankäynninhinta (The Price of Doing Business, 1979) [Asp:Vm]
+
+
+Gerald Atkins
+-------------
+Keskiöinen rakastaja (The Midnight Lover, 1970) [Wol:Pk]
 
 
 A.A. Attanasio
@@ -378,8 +481,9 @@ E.F. Benson
 Gavonin ilta (Gavon's Eve, 1906) [Dal:Sn]
 Hornansarvi (The Horror-Horn, 1923) [Sad:We]
 Negotium perambulans (Negotium Perambulans, 1923) [Sad:Pv]
+Rouva Amworth (Mrs. Amworth, 1922) [Tho:Vh]
 Suljettu huone (The Shuttered Room, 1929) [Dal:Sk]
-Tornihuone (The Room in the Tower, 1912) [Sad:Ha]
+Tornihuone (The Room in the Tower, 1912) [Sad:Ha] [Tho:Vh]
 Toukat (Caterpillars, 1912) [Sad:Ea]
 
 
@@ -392,11 +496,13 @@ Miehet jotka murhasivat Muhammedin (The Men Who Murdered Mohammed, 1958) [Pac:T1
 Ambrose Bierce
 --------------
 Armonisku (The Coup de Grace, 1891) [Bie:Pk]
+Eräs kesäilta (One Summer Night, 1906) [Wol:Pk]
 Eräs kesäyö (One Summer Night, 1906) [Bie:Vm]
 Halpin Frayserin kuolema (The Death of Halpin Frayser, 1893) [Bie:Vm] & [Ree:Fk]
+John Mortonsonin hautajaiset (John Mortonson's Funeral, 1906) [Wol:Pk]
 Jumalten kapina (A Revolt of the Gods, 1886) [Bie:Vm]
 Kirottu otus (The Damned Thing, 1893) [Bie:Vm]
-Koiraöljyä (Oil of Dog, 1890) [Bie:Vm]
+Koiraöljyä (Oil of Dog, 1890) [Bie:Vm] [Wol:Pk]
 Mies ja käärme (The Man and the Snake, 1891) [Bie:Pk]
 Muuan Kalmalan asukas (An Inhabitant of Carcosa, 1886) [Dal:Sk]
 Muutamia kummitustaloja (Some Haunted Houses, 1893) [Sad:Aa]
@@ -425,6 +531,7 @@ Algernon Blackwood
 Kuuntelija (The Listener, 1907) [Sad:Pv]
 Nukke (The Doll, 1946) [Ree:Fk]
 Pajut (The Willows, 1907) [Sad:Ea]
+Petojen laakso (The Valley of the Beasts, 1921) [Hit:Kg]
 Roomalaiset rauniot (Roman Remains, 1948) [Hai:Wt]
 Tyhjä hiha (The Empty Sleeve, 1911) [Ste:Mk][Dal:Kk]
 Wendigo (The Wendigo, 1910) [Sad:We]
@@ -466,6 +573,7 @@ Luonnonoikkuja (Freak Show, 1979) [Blo:Ps]
 Lämpimät jäähyväiset (The Warm Farewell, 1970) [Blo:Ps]
 Maailmanloppu (Daybroke, 1958) [Blo:Ps]
 Majakka (The Light-House, 1953) [Blo:Ku]
+Mallivaimo (The Model Wife, 1961) [Wol:Pk]
 Mandariinin kanarialinnut (The Mandarin's Canaries, 1938) [Blo:K7]
 Musta lootus (Black Lotus, 1935) [Blo:Ps]
 Pehmustettu selli (The Rubber Room, 1980) [Blo:Ps]
@@ -491,7 +599,32 @@ Omassa kotona (Keeping House, 1990) [Slu:Vk]
 
 Jorge Luis Borges
 -----------------
+Antoisa yö (La noche de los dones, 1975) [Bor:Hk]
+Arvoton (El indigno, 1970) [Bor:Hk]
+Avelino Arredondo (Avelino Arredondo, 1975) [Bor:Hk]
+Brodien selonteko (El informe de Brodie, 1970) [Bor:Hk]
+Epilogi (Epílogo, 1975) [Bor:Hk]
 Etelä (El Sur, 1953) [Ree:Fk]
+Evankeliumi Markuksen mukaan (El evangelio según Marcos, 1970) [Bor:Hk]
+Guayaquil (Guayaquil, 1970) [Bor:Hk]
+Hiekkakirja (El libro de arena, 1975) [Bor:Hk]
+Juan Muraña (Juan Muraña, 1970) [Bor:Hk]
+Kaksintaistelu (El duelo, 1970) [Bor:Hk]
+Kohtaaminen (El encuentro, 1969) [Bor:Hk]
+Kolmenkymmenen lahko (La Secta de los Treinta, 1975) [Bor:Hk]
+Kongressi (El congreso, 1971) [Bor:Hk]
+Laatta (El disco, 1975) [Bor:Hk]
+Lahjus (El soborno, 1975) [Bor:Hk]
+Peili ja naamio (El espejo y la máscara, 1975) [Bor:Hk]
+Rosendo Juárezin tarina (Historia de Rosendo Juárez, 1969) [Bor:Hk]
+There are more things (There are more things, 1975) [Bor:Hk]
+Toinen (El otro, 1972) [Bor:Hk]
+Toinen kaksintaistelu (El otro duelo, 1970) [Bor:Hk]
+Tunkeilijatar (La intrusa, 1966) [Bor:Hk]
+Ulrika (Ulrica, 1975) [Bor:Hk]
+Undr (Undr, 1975) [Bor:Hk]
+Vanha rouva (La señora Mayor, 1970) [Bor:Hk]
+Väsyneen miehen utopia (Utopía de un hombre que está cansado, 1974) [Bor:Hk]
 
 
 Ben Bova
@@ -633,6 +766,11 @@ Ray Bradbury & Leigh Brackett
 Punaisen usvan Lorelei (Lorelei of the Red Mist, 1946) [Bra:Tt]
 
 
+Mary E. Braddon
+---------------
+Hyytävä syleily (The Cold Embrace, 1860) [Tho:Vh]
+
+
 Marion Zimmer Bradley
 ---------------------
 Sinisen tähden salaisuus (The Secret of the Blue Star, 1979) [Asp:Vm]
@@ -685,6 +823,11 @@ D.K. Broster
 Vaanija oven edessä (Couching at the Door, 1933) [Sad:Pv]
 
 
+Frederic Brown
+--------------
+Punainen painajainen (Nightmare in Red, 1961) [Wol:Pk]
+
+
 John Brunner
 ------------
 Kuoleman kasvot (Sentences of Death, 1979) [Asp:Vm]
@@ -703,6 +846,7 @@ Hyönteiset (Buggage, 1987) [Gra:K4]
 Kilttejä lapsia (Good Kids, 1989) [Dat:Ev]
 Kotipuolessa (Down Home, 1991) [Rai:K3]
 Pedot (Predators, 1987) [Gra:K4]
+Pätevä todistus kuolemattomuudesta (A Functional Proof of Immortality, 1988) [Wol:Pk]
 Tanssivat kanat (Dancing Chickens, 1984) [Dat:Ek]
 Viimeinen rakkaus (A Sad Last Love at the Diner of the Damned, 1989) [Sad:K1]
 
@@ -710,6 +854,18 @@ Viimeinen rakkaus (A Sad Last Love at the Diner of the Damned, 1989) [Sad:K1]
 John Buchan
 -----------
 Vihreä villieläin (The Green Wlldebeest, 1927) [Sad:We]
+
+
+Mihail Bulgakov
+---------------
+Diaboliadi (Djavoliada, 1923) [Bul:Km]
+Kohtalokkaat munat (Rokovyje jaitsa, 1925) [Bul:Km]
+Koiran sydän (Sobac serdce, 1925) [Bul:Km]
+
+
+Edward Bulwer-Lytton
+--------------------
+Kummitukset ja ahdistetut (The Haunted and the Haunters; or, The House and the Brain, 1859) [Hii:Kp]
 
 
 A.M. Burrage
@@ -807,6 +963,11 @@ Cervantes
 Don Quijote ja kissapaholaiset (Don Quixote and the Cat Demons, 1605) [Ste:Mk]
 
 
+Liao Chai
+---------
+Ruumiin ylösnousemus (The Corpse Rises ) [Wol:Pk]
+
+
 Robert W. Chambers
 ------------------
 Demoiselle d'Ys (The Demoiselle d'Ys, 1895) [Cha:Kk]
@@ -846,7 +1007,22 @@ Tissit (Boobs, 1989) [Tut:Sh]
 
 Ronald Chetwynd-Hayes
 ---------------------
+Epilogi (Hirviöklubi: Kertomuksia nykyajan hirviöistä) (Epilogue (The Monster Club), 1975) [Che:Hk]
+Humkalmi (The Humgoo, 1976)
+Ihmissusi ja vampyyri (The Werewolf and the Vampire, 1975) [Che:Hk]
+Prologi (Hirviöklubi: Kertomuksia nykyajan hirviöistä) (Prologue (The Monster Club), 1976) [Che:Hk]
+Seka (The Mock, 1976) [Che:Hk]
+Sekasaddi (The Shadmock, 1976)
 Sorretun päivä (The Day of the Underdog, 1977) [Dal:Sn]
+Tiilet ja laasti - 1969 (Bricks and Mortar — 1969, 1972) [Che:Kk]
+Työtä säästäviä koneita (Labour-Saving Devices — 2000, 1972) [Che:Kk]
+Ullakkokamarissa (Loft Conversion, 1972) [Che:Kk]
+Varjoja puuseinissä - 1850 ( Woodwork — 1850, 1972) [Che:Kk]
+Välinäytös Hirviöklubissa: 1 (Monster Club Interlude:1, 1975) [Che:Hk]
+Välinäytös Hirviöklubissa: 2 (Monster Club Interlude:2, 1975) [Che:Hk]
+Välinäytös Hirviöklubissa: 3 (Monster Club Interlude:3, 1975) [Che:Hk]
+Välinäytös Hirviöklubissa: 4 (Monster Club Interlude:4, 1975) [Che:Hk]
+Yökyöpeli (The Fly-by-Night, 1976) [Che:Hk]
 
 
 Arthur C. Clarke
@@ -896,6 +1072,11 @@ Askeleita pimeässä (Shuffle-Thump, in the Dark, 1929) [Sad:Aa]
 Irvin S. Cobb
 -------------
 Kalanpää (Fishhead, 1913) [Sad:Aa]
+
+
+Jean Cocteau
+------------
+Kuoleman katse (Le jardinier et la Mort, 1923) [Wol:Pk]
 
 
 Sherry Coldsmith
@@ -976,14 +1157,15 @@ Rue M. le Prince 252 (No. 252 Rue M. le Prince, 1895) [Sad:Aa]
 
 
 F(rancis) Marion Crawford
-------------------
+-------------------------
+Hytti sataviisi (The Upper Berth, 1885) [Hit:Kg]
 Kalmon hymy (The Dead Smile, 1886) [Cra:Aa]
 Kirkuva kallo (The Screaming Skull, 1908) [Cra:Aa]
 Kummitteleva nukke (The Doll's Ghost, 1911) [Cra:Aa]
 Kuninkaan sanansaattaja (The King's Messenger, 1907) [Cra:Aa]
 Kuollut hymy (The Dead Smile, 1899) [Sad:Aa]
 Mies yli laidan! (Man Overboard!, 1903) [Cra:Aa]
-Paratiisin lähteillä (By the Waters of Paradise, 1887) [Cra:Aa]
+Paratiisin lähteillä (By the Waters of Paradise, 1886) [Cra:Aa]
 Sillä veressä on elämänvoima (For the Blood Is the Life, 1905) [Cra:Aa]
 Ylävuode (The Upper Berth, 1886) [Cra:Aa]
 
@@ -996,6 +1178,26 @@ Franklin ja läiskis-pylly-tölkki (Franklin and the Can of Whup-Ass, 1991) [Rai:K
 Scott A. Cupp
 -------------
 Joku jota rakastaa (Somebody to Love, 1991) [Rai:K3]
+
+
+Roald Dahl
+----------
+Edward voittaja (Edward the Conqueror, 1953) [Dah:Rk]
+Georgy Porgy (Georgy Porgy, 1959) [Dah:Jk]
+Henry Sugarin ihmeellinen tarina (The Wonderful Story of Henry Sugar, 1977) [Dah:Hs]
+Joutsen (The Swan, 1977) [Dah:Hs]
+Kuningatarhyytelö (Royal Jelly, 1959) [Dah:Rk]
+Mies etelästä (Man from the South, 1948) [Dah:Jk]
+Narttu (Bitch, 1974) [Dah:Ah]
+Poika joka puhui eläinten kanssa (The Boy Who Talked with Animals, 1977) [Dah:Hs]
+Raunioissa (In the Ruins, 1965) [Wol:Pk]
+Sika (Pig, 1959) [Dah:Jk]
+Suuri automaattinen kielikone (The Great Automatic Grammatizator, 1953) [Dah:Rk]
+Toivomus (The Wish, 1948) [Dah:Jk]
+Vieras (The Visitor, 1965) [Dah:Ah]
+Vuokraemäntä (The Landlady, 1959) [Dah:Rk]
+William ja Mary (William and Mary, 1960) [Dah:Rk]
+Äänikone (The Sound Machine, 1949) [Dah:Jk]
 
 
 Don D'Ammassa
@@ -1044,7 +1246,7 @@ Yön sydämestä (Out of the Deep, 1923) [Sad:Pv]
 
 Guy de Maupassant
 -----------------
-Horla (Le Horla, 1887) [Sad:ll]
+Horla (Le Horla, 1887) [Sad:ll] [Tho:Vh]
 Käsi (La Main, 1883) [Jär:Kk]
 Majatalo (L'Auberge, 1886) [Hel:Mt]
 Yö (La nuit, 1887) [Ree:Fk]
@@ -1111,7 +1313,9 @@ Yksitoikkoinen maailma (Upon the Dull Earth, 1954) [Sad:K2]
 
 Charles Dickens
 ---------------
+Kapteeni Murderer (Captain Murderer, 1860) [Wol:Pk]
 Kauppamatkustajan setä (The Bagman's Uncle, 1837) [Dal:Sk][Dal:Kk]
+Ratavahti (The Signalman, 1866) [Num:Va]
 
 
 Thomas M. Disch
@@ -1145,42 +1349,64 @@ Stavroginin tunnustus (Ispoved' Stavrogina, 1922) [Man:Kk]
 
 Arthur Conan Doyle
 ------------------
+Amerikkalaisen tarina (The American's Tale, 1880) [Doy:Pl]
 Arpa n:o 249 (Lot No. 249, 1892) [Doy:Ht]
-B. 24 (B. 24, 1899) [Doy:Ht]
-Blue John Gabin hirviö (The Terror of Blue John Gap, 1910) [Doy:Km]
+Aution laivan arvoitus (J. Habakuk Jephson's Statement, 1884) [Doy:Pl]
+Blue John Gabin hirviö (The Terror of Blue John Gap, 1910) [Doy:Km] [Doy:Pk]
+Brasilialainen kissa (The Brazilian Cat, 1898) [Doy:Pk] [Num:Va]
 Brocas Courtin pukari (The Bully of Brocas Court, 1921) [Dal:Sk]
 Brown-Pericord-moottori (The Great Brown-Pericord Motor, 1892) [Doy:Hk]
 "De Profundis" (De Profundis, 1892) [Doy:Ht]
-Hissi (The Lift, 1922) [Doy:Ht]
-Hopeakirves (The Silver Hatchet, 1883) [Doy:Hk]
+Hissi (The Lift, 1922) [Doy:Ht] [Num:Va]
+Hopeakirves (The Silver Hatchet, 1883) [Doy:Hk] [Doy:Pl]
 Hopeapeili (The Silver Mirror, 1908) [Doy:Km] [Doy:Hk]
-Jackman's Gulchin pastori (The Parson of Jackman's Gulch, 1885) [Doy:Hk]
-John Barrington Cowles (John Barrington Cowles, 1886) [Doy:Km]
+John Barrington Cowles (John Barrington Cowles, 1886) [Doy:Km] [Doy:Pl]
 Juovikas arkku (The Striped Chest, 1897) [Doy:Hk]
-Kaviaariruukku (The Pot of Caviare, 1908) [Doy:Hk]
+Kauhujen keskelle neljänkymmenentuhannen jalan korkeuteen (The Horror of the Heights, 1913) [Doy:Vs]
 Ken tulella leikkii (Playing with Fire, 1900) [Doy:Km]
 Kohde 249 (Lot No. 249, 1892) [Doy:Km]
 Korkeuksien kauhu (The Horror of the Heights, 1913) [Doy:Km]
 Kuinka kaikki tapahtui (How It Happened, 1913) [Doy:Ht]
 Kuinka se tapahtui (How It Happened, 1913) [Doy:Hk]
+Kummituksen valinta (Selecting a Ghost, 1883) [Doy:Pl]
 Kun Maa kirkui (When the World Screamed, 1928) [Doy:Km]
-Lady Sannoxin tapaus (The Case of Lady Sannox, 1894) [Doy:Km]
-Lea House -koulun aliopettaja (The Usher of Lea House School, 1899) [Doy:Ht]
+Kuollut kertoo kuolemastaan (How It Happened, 1913) [Doy:Vs]
+Lady Sannoxin tapaus (The Case of Lady Sannox, 1894) [Doy:Km] [Doy:Pk]
 Loinen (The Parasite, 1894) [Slu:V2]
 Los Amigosin kommellus (The Los Amigos Fiasco, 1892) [Doy:Ht]
 Menneisyyden muistoja (Through the Veil, 1911) [Doy:Hk]
-Nahkasuppilo (The Leather Funnel, 1900) [Doy:Km]
+Merkittävä koe Keinplatzissa (The Great Keinplatz Experiment, 1885) [Doy:Pl]
+Nahkasuppilo (The Leather Funnel, 1900) [Doy:Km] [Doy:Pk]
 Polestarin kapteeni (The Captain of the "Pole-Star", 1883) [Doy:Km]
+Polestar-laivan kapteeni ((The Captain of the Polestar, 1894) [Doy:Pl]
 Ruskea käsi (The Brown Hand, 1899) [Doy:Km][Doy:Ht][Jär:Kk]
-Sinetöity huone (The Story of the Sealed Room, 1898) [Doy:Hk]
 Suuri Keinplatzin koe (The Great Keinplatz Experiment, 1885) [Doy:Ht]
 Tapaus Arizonassa (The American's Tale, 1880) [Doy:Hk]
-Thotin sormus (The Ring of Thot, 1890) [Doy:Km]
-Thot-jumalan sormus (The Ring of Thot, 1890) [Doy:Ht]
+Thotin sormus (The Ring of Thoth, 1890) [Doy:Km]
+Thot-jumalan sormus (The Ring of Thoth, 1890) [Doy:Ht]
 Tulella leikkiminen (Playing with Fire, 1900) [Doy:Ht]
 Tynnyritehtaan peto (The Fiend of the Cooperage, 1897) [Doy:Km]
 Tärkeä leikkaus (The Case of Lady Sannox, 1893) [Doy:Hk]
-Uusi katakombi (The New Catacomb, 1898) [Doy:Km] [Doy:Hk]
+Uusi katakombi (The New Catacomb, 1898) [Doy:Km] [Doy:Hk] [Doy:Pk]
+Vedenalaisten saartama maa (Danger!: Being the Log of Captain John Sirius, 1914) [Doy:Vs]
+Yläilmojen hirviöt (The Horror of the Heights, 1913) [Doy:Pk]
+
+Arthur Conan Doylen ei-sf tarinat
+---------------------------------
+B. 24 (B. 24, 1899) [Doy:Ht]
+Hyönteisten kerääjä (The Beetle-Hunter, 1898) [Doy:Pk]
+Jackman's Gulchin pastori (Elias B. Hopkins: The Parson of Jackman's Gulch, 1885) [Doy:Hk]
+Juutalainen rintalevy (The Jew's Breastplate, 1899) [Doy:Pk]
+Jännittävä hetki (One Crowded Hour, 1911) [Doy:Vs]
+Kadonnut juna (The Lost Special, 1898) [Doy:Pk]
+Kaviaariruukku (The Pot of Caviare, 1908) [Doy:Hk]
+Kiilloitettu laatikko (The Japanned Box, 1899) [Doy:Pk]
+Kuusi taskukelloa (The Man with the Watches, 1898) [Doy:Pk]
+Lea House -koulun aliopettaja (The Usher of Lea House School, 1899) [Doy:Ht]
+Lordi Barrymoren tappio (The Fall of Lord Barrymore, 1912) [Doy:Vs]
+Musta tohtori (The Black Doctor, 1898) [Doy:Pk]
+Painajaishuone (Nightmare Room, 1921) [Doy:Pk]
+Sinetöity huone (The Story of the Sealed Room, 1898) [Doy:Hk]
 
 
 Gardner Dozois
@@ -1222,6 +1448,7 @@ Karkki tai kepponen (Trick or Treat, 1990) [Tut:Sh]
 
 Lordi Dunsany
 -------------
+Hämärässä huoneessa (In a Dim Room, 1945) [Hit:Kg]
 Welleranin miekka (The Sword of Welleran, 1908) [Hin:Vv]
 
 
@@ -1323,6 +1550,11 @@ Brad Ferguson
 Naapurimaailma  (The World Next Door, 1987) [Ias:V2]
 
 
+Eugene Field
+------------
+Ihmissusi (The Werewolf, 1896) [Tho:Vh]
+
+
 Jeffrey Ford
 ------------
 Jäätelön valtakunta (Empire of the Ice Cream, 2003) [Hal:Uk]
@@ -1341,6 +1573,13 @@ Mestarismies (The Master Builder, 1989) [Slu:Vk]
 Karen Joy Fowler
 ----------------
 Yösusi (The Night Wolf, 1990) [Tut:Sh]
+
+
+Anatole France
+--------------
+Aadamin ensimmäisen vaimon tytär (La fille de Lilith, 1887) [Fra:Ea]
+Rakkaus kuoleman takaa (Leslie Wood, 1892) [Fra:Ea]
+Miten minä keskustelin aaveen kanssa aakkosten synnystä (De l'entretien que j'eus cette nuit avec un fantôme sur les origines de l'alphabet, 1895) [Fra:Ea]
 
 
 Shamus Frazer
@@ -1388,6 +1627,7 @@ Vihreiden kirjainten arvoitus (A Study in Emerald, 2003) [Gai:Am}
 
 Stephen Gallagher
 -----------------
+Hiirenloukku (Mousetrap, 1988) [Wol:Pk]
 Hänen kätensä selkämys (The Back of His Hand, 1991) [Mcc:K5]
 Torvi (The Horn, 1989) [Sad:K3]
 Turvakahva (Dead Man's andle, 1991) [Mcc:K5]
@@ -1399,9 +1639,25 @@ Raymond Z. Gallun
 Hämärän siemenet (Seeds of the Dusk, 1938) [Sil:Hm]
 
 
+Gabriel Garcia Márquez
+----------------------
+Aavelaivan viimeinen matka (El último viaje del Buque Fantasma, 1972) [Gar:Su]
+Blacamán, verraton ihmemies (Blacamán el Bueno, vendedor de milagros, 1971) [Gar:Su]
+Ikivanha mies jolla oli valtavat siivet ( Un señor muy viejo con unas alas enormes, 1955) [Gar:Su]
+Kadonneen ajan meri (El mar del tiempo perdido, 1961) [Gar:Su]
+Kuolema joka kestää rakkauden tuolle puolen (Muerte constante más allá del amor, 1970) [Gar:Su]
+Maailman kaunein hukkunut (El ahogado más hermoso del mundo, 1968) [Gar:Su]
+Viattoman Erendiran ja hänen sydämettömän isoäitinsä surullinen ja uskomaton tarina (La increíble y triste historia de la cándida Eréndira y de su abuela desalmada, 1972) [Gar:Su]
+
+
 Craig Shaw Gardner
 ------------------
 Velhon vaiva (A Malady of Magicks, 1978) [Sad:Sk]
+
+
+Martin Gardner
+--------------
+Thang (Thang, 1948) [Wol:Pk]
 
 
 Michael Garrett
@@ -1427,6 +1683,19 @@ Irvokas ennustus (A Weird Prophecy, 1940) [Hai:Wt]
 R. Patrick Gates
 ----------------
 Heavy Metal (Heavy Metal, 1992) [Gel:Ro]
+
+
+Théophile Gautier
+-----------------
+Clarimonde (La Morte amoureuse, 1836) [Tho:Vh]
+Kahvipannu (La Cafetière, 1831) [Gau:Vk]
+Kaksi esittäjää, yksi rooli (Deux acteurs pour un rôle, 1841) [Gau:Vk]
+Kodin sielu (L'Âme de la maison, 1839) [Gau:Vk]
+Kumpi heistä (Laquelle des deux, 1833) [Gau:Vk]
+Liikalihavuudesta kirjallisuudessa (De l'obésité en littérature, 1848) [Gau:Vk]
+Sivuja maalarin oppipojan lehtiöstä (Feuillets de l'album d'un jeune rapin, 1845) [Gau:Vk]
+Vastahakoinen kansalliskaartilainen (Le Garde national réfractaire, 1839) [Gau:Vk]
+Öinen vierailu (Une visite nocturne, 1843) [Gau:Vk]
 
 
 William Gibson
@@ -1477,6 +1746,12 @@ Henkien manaaja (The Necromancer, 1919) [Sad:Ea]
 Ikuinen kerho (The Everlasting Club, 1919) [Gre:K8]
 
 
+Graham Greene
+-------------
+Löytö metsässä (A Discovery in the Woods, 1963) [Gre:Np]
+Puutarhan alla (Under the Garden, 1963) [Gre:Np]
+
+
 Carl H. Grunert
 ---------------
 Vakooja (Der Marsspion, 1908) [Kop:Ap]
@@ -1485,6 +1760,11 @@ Vakooja (Der Marsspion, 1908) [Kop:Ap]
 Georgi Gurevits
 ---------------
 Lohikäärmeen infra (Infra Drakona, 1958) [Neu:Va]
+
+
+Gina Haldane
+------------
+Ostoslista (Grocery List) [Wol:Pk]
 
 
 Joe Haldeman
@@ -1551,6 +1831,7 @@ Työ ja tuska (Getting the Job Done, 1989) [Sad:O5]
 Nathaniel Hawthorne
 -------------------
 Ethan Brand (Ethan Brand, 1852) [Sad:Aa]
+Herra Higginbothamin onnettomuus (Mr. Higginbotham's Catastrophe, 1834) [Hii:Kp]
 Kolmen kukkulan rotko (The Hollow of the Three Hills, 1830) [Dal:Sn]
 Lumityttö: lapsuuden ihme (The Snow Image: A Childish Miracle, 1851) [Haw:Pk]
 Noidutut maalaukset (The Prophetic Pictures, 1837) [Haw:Pk]
@@ -1586,7 +1867,7 @@ Kuoleva morsian (The Story of O-Tei, 1904) [Hea:Ik]
 Kuolevan kouraisu (Ingwa-banashi, 1899) [Hea:Ik]
 Kuolleen salaisuus (A Dead Secret, 1904) [Hea:Ik]
 Mimi-nashi hoichi, biwansoittaja (The Story of Mimi-Nashi-Hoiche, 1903) [Hea:Ik]
-Mujina (Mujina, 1904) [Hea:Kw]
+Mujina (Mujina, 1904) [Hea:Kw] [Wol:Pk]
 Mujina, yöllistä pelkoa (Mujina, 1904) [Hea:Ik]
 Oshidori (Oshidori, 1904) [Hea:Kw]
 Oshidori, rakkautta (Oshidori, 1904) [Hea:Ik]
@@ -1629,6 +1910,39 @@ Frank Herbert
 Tilaa pianolle (Passage for Piano, 1973) [Ros:Mm]
 
 
+Hermann Hesse
+-------------
+Augustus (Augustus, 1913) [Hes:Iv]
+Faldum (Faldum, 1916) [Hes:Iv]
+Huilu-uni (Flötentraum , 1914) [Hes:Iv]
+Ihmeellinen viesti toiselta tähdeltä (Merkwürdige Nachricht von einem andern Stern, 1915) [Hes:Iv]
+Iiris (Iris, 1918) [Hes:Iv]
+Piktorin muodonmuutokset (Piktor's Verwandlungen, 1922) [Hes:Iv]
+Runoilija (Der Dichter, 1913) [Hes:Iv]
+Unisarja (Eine Traumfolge, 1916) [Hes:Iv]
+Vaikea tie (Der schwere Weg, 1917) [Hes:Iv]
+
+
+Joe Hill
+--------
+20. vuosisadan aave (20th Century Ghost, 2002) [Hil:Bc]
+Abrahamin pojat (Abraham's Boys, 2004) [Hil:Bc]
+Ajolähtö (In The Rundown, 2005) [Hil:Bc]
+Bobby Conroy palaa kuolleista (Bobby Conroy Comes Back From The Dead, 2005) [Hil:Bc]
+Isäni naamio (My Father's Mask, 2005) [Hil:Bc]
+Kuollut metsä (Dead-Wood, 2005) [Hil:Bc]
+Kuulet heinäsirkan laulavan (You Will Hear The Locust Sing, 2004) [Hil:Bc]
+Lesken aamiainen (The Widow's Breakfast, 2002) [Hil:Bc]
+Musta puhelin (The Black Phone, 2004) [Hil:Bc]
+Parasta uutta kauhua (Best New Horror, 2005) [Hil:Bc]
+Parempi kuin kotona (Better Than Home, 1999) [Hil:Bc]
+Pop Art (Pop Art, 2001) [Hil:Bc]
+Sheherazaden kirjoituskone (Scheherazade's Typewriter, 2005) [Hil:Bc]
+Vapaaehtoinen vankeus (Voluntary Committal, 2005) [Hil:Bc]
+Viimeinen henkäys (Last Breath, 2005) [Hil:Bc]
+Viitta (The Cape, 2005) [Hil:Bc]
+
+
 Robert Hitchens
 ---------------
 Miten rakkaus tuli professori Guildean luokse (How Love Came to Professor Guildea, 1897) [Slu:Vk]
@@ -1659,7 +1973,15 @@ Kultasydän (Heart of Gold, 1991) [Rai:K3]
 
 E.T.A. Hoffmann
 ---------------
+Autio talo (Das öde Haus, 1817) [Hof:Yk]
+Ignaz Denner (Ignaz Denner, 1817) [Hof:Yk]
+Jesuiittakirkko (Die Jesuiterkirche in G., 1817) [Hof:Yk]
+Kivinen sydän (Das steinerne Herz, 1817) [Hof:Yk]
+Majoraatti (Das Majorat, 1817) [Hof:Yk]
 Neiti von Scuderi (Das Fräulein von Scuderi, 1819) [Man:Kk]
+Nukuttaja (Der Sandmann, 1816) [Hof:Yk]
+Pyhä lupaus (Das Gelübde, 1817) [Hof:Yk]
+Sanctus (Das Sanctus, 1817) [Hof:Yk]
 
 
 Nancy Holder
@@ -1688,6 +2010,7 @@ Väärä mies (Mr. Wrong, 1975) [Slu:V2]
 
 Robert E. Howard
 ----------------
+Alttari ja skorpioni (The Altar and the Scorpion, 1967) [How:Ku]
 Arabun talo (The House of Arabu, 1952/1968) [How:Zk]
 Askeleita hautaholvissa (The Footfalls Within, 1931) [How:Kk]
 Bal-Sagothin jumalat (The Gods of Bal-Sagoth, 1931) [Sad:Pl]
@@ -1696,6 +2019,7 @@ Elefantin torni (The Tower of the Elephant, 1933) [How:Cd]
 Feeniks-lintu miekassa (The Phoenix on the Sword, 1932) [How:Ct]
 Gwahlurin jalokivet (Jewels of Gwahlur, 1935) [How:Cc]
 Harmaan jumalan tuho (The Grey God Passes, 1962) [How:Kk]
+Haudan hirmu (The Horror from the Mound, 1932) [Tho:Vh]
 Hiljaisuuden kallo (The Skull of Silence, 1967) [How:Kk]
 Hämärän Xuthal (Xuthal of the Dusk, 1933) [How:Cm]
 Ihmissusi (Wolfshead, 1926) [How:Zk]
@@ -1703,12 +2027,16 @@ Intiaanihauta (The Horror from the Mound, 1932) [Sad:O5]
 Jumala maljassa (The God in the Bowl, 1952) [How:Cm]
 Jääjättiläisen tytär (The Frost-Giant's Daughter, 1933) [How:Cc]
 Kadotettujen laakso (The Valley of the Lost, 1966) [How:Kk]
+Kissa ja pääkallo (The Cat and the Skull / Delcardes' Cat, 1967) [How:Ku]
 Kirveellä minä hallitsen! (By This Axe I Rule!, 1967) [How:Yk]
 Korppikotkan varjo (The Shadow of the Vulture, 1934) [How:Kk]
+Kultaisen kallon kirous (The Curse of the Golden Skull, 1967) [How:Ku]
+Kumistimen lyönti (The Striking of the Gong, 1976) [How:Ku]
 Kummittelevat pylväät (Haunting Columns, 1938) [Hai:Wt]
 Kuoleman musta hurtta (Black Hound of Death, 1936) [Hai:Wt]
 Kyyhkyt helvetistä (Pigeons from Hell, 1938) [Sad:O1]
 Käärme paratiisissa (The Vale of Lost Women, 1967) [How:Kk]
+Maailman ääressä (Riders Beyond the Sunrise, 1978) [How:Ku]
 Maan madot (Worms of the Earth, 1932) [How:Yk]
 Meren kirot (Sea Curse, 1928) [How:Zk]
 Musta Canaan (Black Canaan, 1936) [Sad:O4]
@@ -1752,6 +2080,20 @@ Zamboulan varjot (Shadows in Zamboula, 1935) [Hin:Vv]
 Fred Hoyle
 ----------
 Toimenpide (The Operation, 1967) [Ros:Mm]
+
+
+Ted Hughes
+----------
+Hyökkääjät (The Invaders, 1988) [Hug:Tm]
+Kärsä (The Trunk, 1988) [Hug:Tm]
+Leikkitoveri (The Playmate, 1988) [Hug:Tm]
+Maailman kauneuden huivi (The Shawl of the Beauty of the World, 1988) [Hug:Tm]
+Niin Varpunen pelasti linnut (How Sparrow Saved the Birds, 1988) [Hug:Tm]
+Papukaijan tekeminen (The Making of Parrot, 1988) [Hug:Tm]
+Salakari (The Snag, 1988) [Hug:Tm]
+Suojelija (The Guardian, 1987) [Hug:Tm]
+Tanssijat (The Dancers, 1988) [Hug:Tm]
+Tähteet (Leftovers, 1988) [Hug:Tm]
 
 
 Emeric Hulme-Beaman
@@ -1812,7 +2154,7 @@ M(ontague) R(hodes) James
 Aavepilli ('Oh, Whistle, And I'll Come To You, My Lad', 1904) [Sad:Ea]
 Apotti Thomasin aarre (The Treasure of Abbot Thomas, 1904) [Sad:We]
 Fenstantonin noita (The Fenstanton Witch, 1990) [Dal:Sn]
-Kreivi Magnus (Count Magnus, 1904) [Ree:Fk]
+Kreivi Magnus (Count Magnus, 1904) [Ree:Fk] [Tho:Vh]
 Kummitteleva nukkekoti (The Haunted Dolls' House, 1923) [Dal:Sk]
 Riimujen mahti (Casting the Runes, 1911) [Sad:Pv]
 Tapaus erään katedraalin historiassa (An Episode of Cathedral History, 1914) [Dal:Va]
@@ -1824,6 +2166,11 @@ Korppien jurtta (1959) [Jef:Ks]
 Käärmeen sydän (1959) [Jef:Ks]
 Tähtialukset (1947) [Jef:Ks]
 Valkoinen sarvi (1947) [Jef:Ks]
+
+
+Jerome K. Jerome
+----------------
+Haltiattaren tarina (Malvina of Brittany, 1916) [Jer:Ht]
 
 
 K.W.Jeter
@@ -1859,7 +2206,25 @@ Lukuisten asumus (Multiple Dwelling, 1992) [Jer:Ha]
 
 Franz Kafka
 -----------
-Rangaistussiirtolassa (In der Strafkolonie, 1919) [Man:Kk]
+Aviopari (Das Ehepaar, 1931) [Kaf:Ek]
+Blumfeld, vanheneva poikamies (Blumfeld, ein älterer Junggeselle, 1936) [Kaf:Ek]
+Ensimmäinen tuska (Erstes Leid, 1922) [Kaf:Ek]
+Erään koiran tutkimuksia (Forschungen eines Hundes, 1931) [Kaf:Ek]
+Erään taistelun kuvaus (Beschreibung eines Kampfes, 1936) [Kaf:Ek]
+Hiilisangolla ratsastaja (Der Kübelreiter, 1921) [Kaf:Nt]
+Josefine, laulajatar, eli hiirien kanssa (Josephine, die Sängerin oder Das Volk der Mäuse, 1924) [Kaf:Ek]
+Jättiläismaamyyrä (Der Riesenmaulwurf, 1931) [Kaf:Ek]
+Kun Kiinan muuria rakennettiin (Beim Bau der Chinesischen Mauer, 1931) [Kaf:Nt]
+Lain edessä (Vor dem Gesetz, 1915) [Wol:Pk]
+Maalaislääkäri (Ein Landarzt, 1918) [Kaf:Nt]
+Metsästäjä Gracchus (Der Jäger Gracchus, 1931) [Kaf:Nt]
+Muodonmuutos (Die Verwandlung, 1915) [Kaf:Nt]
+Nälkätaiteilija (Ein Hungerkünstler, 1924) [Kaf:Nt]
+Pesä (Der Bau, 1931) [Kaf:Ek]
+Pieni nainen (Eine kleine Frau, 1924) [Kaf:Ek]
+Rangaistussiirtolassa (In der Strafkolonie, 1919) [Man:Kk] [Kaf:Nt]
+Selonteko akatemialle (Ein Bericht für eine Akademie, 1917) [Kaf:Nt]
+Tuomio (Das Urteil, 1913) [Kaf:Nt]
 
 
 Aleksander Kazantsev
@@ -1905,39 +2270,89 @@ Hopeapanta (The Silver Collar, 1989) [Dat:Ev]
 
 Stephen King
 ------------
+1408 (1408, 1999) [Kin:Mm]
+1922 (1922, 2010) [Kin:Py]
 Aamujakeluita (Maitomies n:o 1) (Morning Deliveries (Milkman 1), 1985) [Kin:Ea]
+Anteeksi, oikea numero (Sorry, Right Number, 1993) [Kin:Ao]
 Apina (The Monkey, 1980) [Kin:Jk]
+Aurinkokoira (The Sun Dog, 1990) [Kin:Sy]
+Ayana (Ayana, 2007) [Kin:Aj]
 Balladi joustavasta luodista (The Ballad of the Flexible Bullet, 1984) [Kin:Ea]
 'Becka Paulsonin ilmestykset (The Revelations of 'Becka Paulston, 1984) [Slu:Vk]
+Brooklynin elokuu (Brooklyn August, 1993) [Kin:Ao]
+Dolanin Cadillac (Dolan's Cadillac, 1989) [Kin:Ys]
 Eloonjäävää tyyppiä (Survivor Type, 1982) [Kin:Ea]
+Elurian pikku sisaret (The Little Sisters of Eluria, 1998) [Kin:Mm]
+Esikaupunkielämää (Crouch End, 1980) [Kin:Ao]
 Etevä oppilas (Apt Pupil, 1982) [Kin:Kv]
 Harmaa lima (Gray Matter, 1973) [Kin:Yä]
+Harveyn uni (Harvey's Dream, 2003) [Kin:Aj]
+Heidän jättämänsä tavarat (The Things They Left Behind, 2005) [Kin:Aj]
 Helvetin hyvä bändi (You Know They Got a Hell of a Band, 1992) [Gel:Ro]
 Hengitystekniikka (The Breathing Method, 1982) [Kin:K2]
 Hitaat mutantit (The Slow Mutants, 1981) [Kin:Mt]
+Huomautukset (Notes, 1993) [Kin:Ao]
+Hyvin tiukka paikka (A Very Tight Place, 2008) [Kin:Aj]
 Hääkeikka (The Wedding Gig, 1980) [Kin:Jk]
+Iso kuski (Big Driver, 2010) [Kin:Py]
 Isoäiti (Gramma, 1984) [Kin:Ea]
+Jack Hamiltonin kuolema (The Death of Jack Hamilton, 2001) [Kin:Mm]
 Jauntti (The Jaunt, 1981) [Kin:Jk]
 Jerusalemin osa (Jerusalem's Lot, 1978) [Kin:Yä]
 Joskus he palaavat (Sometimes They Come Back, 1974) [Kin:Yä]
 Jumalten tekstinkäsittelylaite (Word Processor of the Gods, 1983) [Kin:Ea]
+Jättihampaat (Chattery Teeth, 1992) [Kin:Ys]
+Kahden kauppa (Fair Extension, 2010) [Kin:Py]
+Kaikesta rakkaasta joutuu luopumaan (All That You Love Will Be Carried Away, 2001) [Kin:Mm]
+Kaikki on rentoo (Everything's Eventual, 1997) [Kin:Mm]
 Kain karkasi kimppuun (Cain Rose Up, 1968, 1985) [Kin:Jk]
+Kalmanhuoneessa (In the Deathroom, 1999) [Kin:Mm]
 Katsastus (Maitomies n:o 2) (Big Wheels: A Tale of the Laundry Game (Milkman 2) 1980) [Kin:Ea]
+Katse pallossa (Head Down, 1990) [Kin:Ao]
+Kello kymmenen ihmiset (The Ten O'Clock People, 1993) [Kin:Ao]
+Keltatakkiset alhaiset miehet (Low Men in Yellow Coats, 1999) [Kin:Ps]
+Kerjäläinen ja timantti (The Beggar and the Diamond, 1993) [Kin:Ao]
+Kirjastopoliisi (The Library Policeman, 1990) [Kin:Sy]
+Koko sotkun loppu (The End of the Whole Mess, 1986) [Kin:Ys]
+Kotikonstein (Home Delivery, 1989) [Kin:Ys]
+Kumitossut (Sneakers, 1988) [Kin:Ys]
+Kun hämärtää (Heavenly Shades of Night are Falling, 1999) [Kin:Ps]
+Kuntopyörä (Stationary Bike, 2003) [Kin:Aj]
+Kärsikää, pikku piltit (Suffer the Little Children, 1972) [Kin:Ys]
+Lakkiaispäivä (Graduation Afternoon, 2007) [Kin:Aj]
+Langolieerit (The Langoliers, 1990) [Kin:Sy]
 Lautta (The Raft, 1982) [Kin:Jk]
+Levähdyspaikka (Rest Stop, 2003) [Kin:Aj]
 Lopettajat Oy (Quitters, Inc., 1978) [Kin:Yä]
+Lounaalla ravintola Gothamissa (Lunch at the Gotham Café, 1995) [Kin:Mm]
+L.T:n lemmikkieläinteoria (L.T.'s Theory of Pets, 1997) [Kin:Mm]
+Luodin kyydissä (Riding the Bullet, 2000) [Kin:Mm]
+Maantievirus matkalla pohjoiseen (The Road Virus Heads North, 1999) [Kin:Mm]
 Maininki (Night Surf, 1974) [Kin:Yä]
 Maissilapset (Children of the Corn, 1977) [Kin:Yä]
 Mankeli (The Mangler, 72) [Kin:Yä]
 Mansikkakevät (Strawberry Spring, 1975) [Kin:Yä]
 Mies, joka ei kätellyt (The Man Who Would Not Shake Hands, 1981) [Kin:Ea]
+Miksi me olemme Vietnamissa (Why We're in Vietnam, 1999) [Kin:Ps]
 Mummi (Gramma, 1984) [Dal:Sn][Dal:Kk]
+Mustapukuinen mies (The Man in the Black Suit, 1994) [Kin:Mm]
+Mykkä (Mute, 2007) [Kin:Aj]
 Mörkö (The Boogeyman, 1973) [Kin:Yä]
+N (N, 2008) [Kin:Aj]
+New York Times erikoishintaan (The New York Times at Special Bargain Rates, 2008) [Kin:Aj]
 Nona (Nona, 1978) [Kin:Ea]
+Omistus (Dedication, 1988) [Kin:Ys]
 Omistuskirjoitus (Dedication, 1988) [Win:K1]
+Onnenmyntti (Lucky Quarter, 1995) [Kin:Mm]
+Onnistunut avioliitto (A Good Marriage, 2010) [Kin:Py]
 Oraakkeli ja vuoret (The Oracle and the Mountains, 1981) [Kin:Mt]
 Otto-sedän kuorma-auto (Uncle Otto's Truck, 1983) [Kin:Ea]
 Owenille (For Owen, 1985) [Kin:Ea]
+Pappa (Popsy, 1987) [Kin:Ys]
+Pedon silmä (Hearts in Atlantis, 1999) [Kin:Ps]
 Peluri (The Ledge, 1976) [Kin:Yä]
+Piparkakkutyttö (The Gingerbread Girl, 2007) [Kin:Aj]
+Piru kissaksi (The Cat from Hell, 1977) [Kin:Aj]
 Portti (I Am the Doorway, 1971) [Kin:Yä]
 Rantaelämää (Beachworld, 1985) [Kin:Ea]
 Rekat (Trucks, 1973) [Kin:Yä]
@@ -1945,26 +2360,52 @@ Revolverimies (The Gunslinger, 1978) [Kin:Mt]
 Revolverimies ja mustiin puettu mies (The Gunslinger and the Dark Man, 1981) [Kin:Mt]
 Rita Hayworth ja Shawshankin vankila (Rita Hayworth and Shawshank Redemption, 1982) [Kin:Kv]
 Rouva Toddin oikotie (Mrs. Todd's Shortcut, 1984) [Kin:Jk]
+Ruumiinavaussali numero 4 (Autopsy Room Four, 1997) [Kin:Mm]
 Ruumis (The Body, 1982) [Kin:K2]
+Sadekausi (Rainy Season, 1989) [Kin:Ao]
+Salainen ikkuna, salainen puutarha (Secret Window, Secret Garden, 1990) [Kin:Sy]
+Se tunne jolle on nimi vain ranskaksi (That Feeling, You Can Only Say What It Is in French, 1998) [Kin:Mm]
 Setelit (The Reploids, 1988) [Win:K1]
+Siellä on muuten helvetin hyvä bändi (You Know They Got a Hell of a Band, 1992) [Kin:Ys]
+Siihen kasvaa kiinni (It Grows on You, 1982) [Kin:Ys]
+Sokea-Willie (Blind Willie, 1994, uudistettu) [Kin:Ps]
 Taistelukenttä (Battleground, 1972 [Kin:Yä]
+Talo Vaahterakadulla (The House on Maple Street, 1993) [Kin:Ao]
 Tennarit (Sneakers, 1988) [Win:K1]
 Tiedän mitä haluat (I Know What You Need, 1976) [Kin:Yä]
+Tohtorin tapaus (The Doctor's Case, 1987) [Kin:Ao]
 Täällä tiikereitä on (Here There Be Tigers, 1968, 1985) [Kin:Jk]
 Ulappa (The Reach, 1985) [Kin:Ea]
+Uljas ratsuni (My Pretty Pony, 1988) [Kin:Ao]
+Umneyn viimeinen juttu (Umney's Last Case, 1993) [Kin:Ao]
 Usva (The Mist, 1980) [Kin:Jk]
 Vainoharhainen: Loitsu (Paranoid: A Chant, 1985) [Kin:Jk]
+Viides neljännes (The Fifth Quarter, 1972) [Kin:Ao]
 Viikatemiehen kuva (The Reaper's Image, 1969) [Kin:Ea]
 Viimeinen puola (The Last Rung on the Ladder, 1978) [Kin:Yä]
 Väliasema (The Way Station, 1980) [Kin:Mt]
-Yölentäjä (The Night Flyer, 1988) [Win:K2]
+Willa (Willa, 2006) [Kin:Aj]
+Yksinäinen sormi (The Moving Finger, 1990) [Kin:Ys]
+Yölentäjä (The Night Flyer, 1988) [Win:K2] [Kin:Ys]
 Yövuoro (Graveyard Shift, 1970) [Kin:Yä]
+
+
+William King
+------------
+Geheimnisnacht – Salaisuuksien yö (Geheimnisnacht, 1989) [Kin:Pe]
+Mutanttien herra (The Mutant Master, 1997) [Kin:Pe]
+Pimeys alla maailman (The Dark Beneath the World, 1990) [Kin:Pe]
+Slaaneshin merkki (The Mark of Slaanesh, 1999) [Kin:Pe]
+Susiratsastajat (Wolf Riders, 1989) [Kin:Pe]
+Ulricin lapset ((Ulric's Children, 1999 [Kin:Pe]
+Veri ja yö (Blood and Darkness, 1999) [Kin:Pe]
 
 
 Rudyard Kipling
 ---------------
 Aaveriksa (The Phantom Rickshaw, 1885) [Kip:Pm] & [Ree:Fk]
 Armo ja oikeus (Uncovenanted Mercies, 1932) [Kip:Pm]
+Dungaran tuomio (The Judgement of Dungara, 1888) [Num:Va]
 "He" (They, 1904) [Dal:Sk]
 Juoksuhautojen madonna (A Madonna of the Trenches, 1924) [Kip:Pm]
 Kauhistuttavan yön kaupunki (The City of Dreadful Night, 1885) [Kip:Pm]
@@ -1973,7 +2414,7 @@ Langaton (Wireless, 1902) [Kip:Pm]
 Lasten tähden (They, 1904) [Kip:Pm]
 Maailman hienoin tarina (The Finest Story in the World, 1891) [Kip:Pm]
 Morrowbie Jukesin outo ratsastus (The Strange Ride of Morrowbie Jukes, 1885) [Kip:Pm]
-Pedon merkki (The Mark of the Beast, 1890) [Kip:Pm] [Hel:Mt]
+Pedon merkki (The Mark of the Beast, 1890) [Kip:Pm] [Hel:Mt] [Tho:Vh]
 Portilla (On the Gate, 1926) [Kip:Pm]
 Vaeltava juutalainen (The Wandering Jew, 1889) [Kip:Pm]
 
@@ -2020,12 +2461,18 @@ David Kuehls
 Ekakerta (The First Time, 1993) [Slu:V2]
 
 
+Robert T. Kurosaka
+------------------
+Paljon opittavaa (A Lot to Learn, 1978) [Wol:Pk]
+
+
 Henry Kuttner
 -------------
 Feeniksin tuolle puolen (Beyond the Phoenix, 1938) [Hai:Wt]
 Hautausmaan rotat (The Graveyard Rats, 1936) [Sad:O1]
 Hydra (Hydra, 1939) [Sad:O5]
 Kralitzin salaisuus (The Secret of Kralitz, 1936) [Sad:Mk]
+Majoitusongelmia (Housing Problem, 1944) [Hit:Kg]
 Pimeyden linnake (The Citadel of Darkness, 1939) [Sad:Pl]
 Salemin kauhu (The Salem Horror, 1937) [Sad:ll]
 Ukkosta aamunkoitossa (Thunder in the Dawn, 1938) [Sad:Mj]
@@ -2057,6 +2504,11 @@ Margo Lanagan
 Kun siskoni laulettiin pikeen (Singing My Sister Down, 2004) [Hal:Uk]
 
 
+Tomasso Landolfi
+----------------
+nimetön (untitled ("Dear, oh dear. These breasts of mine...")) [Wol:Pk]
+
+
 Roberta Lannes
 --------------
 Miten maailma pelastettiin Uuden Kuun motellissa (Saving the World at the New Moon Motel, 1990) [Dat:Ek]
@@ -2069,10 +2521,12 @@ Bubba Ho-Tep (Bubba Ho-Tep, 1994) [Jer:Ha]
 Cadillac-autiomaan tuolla puolen kuolleiden kera (On the Far Side of the Cadillac Desert with Dead Folks, 1989) [Sad:K2]
 Hauskanpitoa kesällä 68 (Steppin' Out, Summer, '68, 1991) [Mcc:K5]
 Ilta ilman kauhuleffaa (The Night They Missed the Horror Show, 1988) [Sad:K1]
+Koira, Kissa ja Vauva (Dog, Cat, and Baby, 1987) [Wol:Pk]
 Kylmänä, synkkänä aikana (In the Cold, Dark Time, 1990) [Rai:K3]
 Paksukainen (The Fat Man, 1987) [Sad:O5]
 Partaveitsen jumala (The God of the Razor, 1987) [Sad:Kp]
 Pojat ovat poikia (Boys Will Be Boys, 1985) [Sad:Jr]
+Purukalut (Chompers, 1982) [Wol:Pk]
 Riettain käsin (Bizarre Hands, 1988) [Sad:K3]
 Romutarha (The Junkyard, 1989) [Sad:O6]
 Soittajanainen (The Phone Woman, 1991) [Mcc:K5]
@@ -2112,7 +2566,7 @@ Toivomusluu (Wishbone, 1989) [Wia:K7]
 
 Joseph Sheridan Le Fanu
 -----------------------
-Carmilla (Carmilla, 1872) [Sad:Ha]
+Carmilla (Carmilla, 1872) [Sad:Ha] [Tho:Vh]
 Maalari Schalken (Schalken the Painter, 1839/1851) [Sad:Pv]
 Uni (The Dream, 1894) [Dal:Sk]
 Vihreää teetä (Green Tea, 1872) [Man:Kk]
@@ -2224,6 +2678,13 @@ Trurlin kone [Lem:Ks]
 Kelpo löylytys [Lem:Ks]
 
 
+John Lennon
+-----------
+Kiltti koira Arne (runo) (Good Dog Nigel) [Wol:Pk]
+Pikku Bobbyn yllätys (A Surprise for Little Bobby) [Wol:Pk]
+Randolfin hipat (Randolf's Party, 1964) [Wol:Pk]
+
+
 L.A. Lewis
 ----------
 Kirjailijan kertomus (The Author's Tale, 1934) [Dal:Va]
@@ -2250,20 +2711,32 @@ Taikuutta vasta-alkajille (Magic for Beginners, 2005) [Hal:Uk]
 
 Jack London
 -----------
+Debsin unelma (The Dream of Debs, 1909) [Lon:Yl]
+Debsin uni (The Dream of Debs, 1909) [Lon:Du]
 Goliat (Goliah, 1908) [Kop:Ap]
+Hyökkäys, jollaista maailma ei ollut kokenut (The Unparalleled Invasion, 1910) [Lon:Du]
+Koko maailman vihollinen (The Enemy of All the World, 1908) [Lon:Yl]
+Kun maailma oli nuori (When the World Was Young, 1910) [Lon:Yl]
+Merkillinen katkelma (A Curious Fragment, 1908) [Lon:Du]
+Midaan pojat (The Minions of Midas, 1901) [Lon:Kn]
+Midaksen käskyläiset (The Minions of Midas, 1901) [Lon:Du]
+Punainen jumala (The Red One, 1918) [Lon:Pj]
 Tuhat kuolemaa (A Thousand Deaths, 1899) [Sad:Aa]
+Varjo ja valo (The Shadow and the Flash, 1903) [Lon:Kn] [Num:Va]
+Vertaistaan vailla oleva rankaisuretkikunta (The Unparalleled Invasion, 1910) [Lon:Yl]
+Väkevämmän oikeus (The Strength of the Strong, 1911) [Lon:Yl]
 
 
 Frank Belknap Long
 ------------------
 Avaruuden ahmijat (The Space-Eaters, 1928) [Sad:ll]
-Kaksinaamaiset [Lon:Pp]
-Keskeneräinen [Lon:Pp]
-Mies tyhjästä [Lon:Pp]
-Mississippin lautanen [Lon:Pp]
-Pimeänpelko [Lon:Pp]
-Tyyris Tyllerö muurilta putosi [Lon:Pp]
-Vaakatasoja [Lon:Pp]
+Kaksinaamaiset (Two Face, 1950) [Lon:Pp]
+Keskeneräinen (The Unfinished, 1951) [Lon:Pp]
+Mies tyhjästä (The Man from Nowhere, 1940) [Lon:Pp]
+Mississippin lautanen (The Mississippi Saucer, 1951) [Lon:Pp]
+Pimeänpelko (Night-Fear, 1953) [Lon:Pp]
+Tyyris Tyllerö muurilta putosi (Humpty Dumpty Had a Great Fall, 1948) [Lon:Pp]
+Vaakatasoja (The Horizontals, 1940)  [Lon:Pp]
 Willie (Willie, 1943) [Lon:Pp]
 
 
@@ -2290,6 +2763,7 @@ Hautakummun salaisuus (The Mound, 1940) [Lov:Hs]
 Herbert West - elvyttäjä (Herbert West - Reanimator, 1922) [Lov:Tj]
 Hopea-avain (The Silver Key, 1926) [Lov:Vu] [Lov:Kp]
 Hulluuden vuorilla (At the Mountains of Madness, 1931) [Lov:Nk]
+Hurtta (The Hound, 1924) [Tho:Vh]
 Hypnos (Hypnos, 1923) [Lov:Al]
 Hän (He, 1926) [Lov:Al]
 Hän, joka tuli käymään (The Thing on the Doorstep, 1937) [Lov:Tj]
@@ -2354,6 +2828,16 @@ Elizabeth A. Lynn
 Valkoisen kuninkaan uni (The White King's Dream, 1979) [Sad:Tl]
 
 
+M.A. Lyon
+---------
+Amerikkalaista gotiikkaa (American Gothic, 1975) [Wol:Pk]
+
+
+George MacDonald
+----------------
+Harmaa susi (The Gray Wolf, 1864) [Tho:Vh]
+
+
 Carmen Maria Machado
 --------------------
 Aviomiehen tikki (The Husband Stitch, 2014) [Mac:Kp]
@@ -2386,9 +2870,25 @@ Galaksi kuin Rooma (A Galaxy Called Rome, 1975) [Pac:T2]
 Kolmen kauppa (Folly for Three, 1991) [Dat:Av]
 
 
+K.C. Mann
+---------
+Tarina, jota englantilaiset ennen kertoilivat (A Tale the English Used to Tell, 1988) [Wol:Pk]
+
+
 Thomas Mann
 -----------
 Mario ja taikuri (Mario und der Zauberer, 1930) [Man:Kk]
+
+
+Priscilla Marron
+----------------
+Rakkaani, kuinka kuolleelta sinä näytätkään ja silti sinä suloisesti laulat (My Dear How Dead You Look and Yet You Sweetly Sing) [Wol:Pk]
+
+
+Frederick Marryat
+-----------------
+Harz-vuoren valkoinen susi (The White Wolf of Hartz Mountains, 1839) [Tho:Vh]
+Ihmissusi (The Were-Wolf, 1837) [Hii:Kp]
 
 
 Richard Marsh
@@ -2434,7 +2934,10 @@ Richard Christian Matheson
 --------------------------
 Bändärit (Groupies, 1992) [Gel:Ro]
 Herääminen (Arousal, 1990) [Dat:Ek]
+Kuolinvuode (Deathbed, 1987) [Wol:Pk]
 Lihan vyöhyke (Region of the Flesh, 1991) [Rai:K3]
+Lähes poismennyt (The Near Departed, 1987) [Wol:Pk]
+Punaista (Red, 1986) [Wol:Pk]
 
 
 Bruce McAllister
@@ -2514,6 +3017,11 @@ Haydn Middleton
 Sielunjohdin (Psychopomp, 1991) [Slu:Vk]
 
 
+Richard Middleton
+-----------------
+Rakkautta ensisilmäyksellä (Love at First Sight, 1934) [Wol:Pk]
+
+
 China Miéville
 --------------
 Lemmikki (Familiar, 2002) [Hal:Uk]
@@ -2533,7 +3041,7 @@ Crucifixus Etiam (Crucifixus Etiam, 1953) [Sil:Hm]
 
 Jorun Modén
 -----------
-osiootit (Socioterna, 2013) [Hen:Sp]
+Sosiootit (Socioterna, 2013) [Hen:Sp]
 
 
 Thomas F. Monteleone
@@ -2599,7 +3107,7 @@ Vuoriston uhka [Ias:V1]
 
 Jan Neruda
 ----------
-Vampyyri (Vampýr, 1871) [Jär:Uk]
+Vampyyri (Vampýr, 1871) [Jär:Uk] [Num:Va] [Tho:Vh]
 
 
 Edith Nesbit
@@ -2651,6 +3159,11 @@ Rutvik (Rutvik) [Nie:Nk]
 Stop! (Stopp!) [Nie:Nk]
 Tauko (Paus) [Nie:Nk]
 Yövuoro (Nattskift) [Nie:Nk]
+
+
+Hume Nisbet
+-----------
+Vampyyrineito (The Vampire Maid, 1890) [Tho:Vh]
 
 
 Larry Niven
@@ -2759,35 +3272,100 @@ Doris Piserchia
 Tyypillinen päivä (A Typical Day, 1974) [Pac:T2]
 
 
+Dannie Plachta
+--------------
+Tapaaminen henkiinherätessä (Revival Meeting, 1969) [Wol:Pk]
+ 
+[Poe:Ko]
 Edgar Allan Poe
 ---------------
 Amontillado-tynnyri (The Cask of Amontillado, 1846) [Poe:Kk]
+Anastettu kirje (The Purloined Letter, 1844-1845) [Poe:Ko]
+Baragrafin äksääminen (X-ing a Paragrab, 1849) [Poe:Ko]
 Berenice (Berenice, 1835) [Poe:Pk]
+Berenike (Berenice, 1835) [Poe:Ko]
+Bon-Bon (Bon-Bon, 1832) [Poe:Ko]
+Duc de l'Omelette (The Duck de l'Omelette, 1832) [Poe:Ko]
+Eiraan ja Kharmionin keskustelu (The Conversation of Eiros and Charmion, 1839) [Poe:Ko]
+Eleonora (Eleonora, 1841) [Poe:Ko]
+Ennenaikainen hautaaminen (The Premature Burial, 1844) [Poe:Ko]
+Erään Hans Pfaallin verraton seikkailu (The Unparalled Adventure of One Hans Pfaall, 1835) [Poe:Ko]
+Hengen puute (Loss of Breath, 1832) [Poe:Ko]
+Herra Kuka Lien kirjallinen elämä (The Literary Life of Thingum Bob, Esq, 1844) [Poe:Ko]
 Herra Valdemarin tapauksen tosiasiat (The Facts in the Case of M. Valdemar, 1845) [Poe:Kk]
-Hyppysammakko (Hop-Frog, 1849) [Ree:Fk]
+Hiljaisuus - faabeli (Silence, 1838) [Poe:Ko]
+Huijaus (Diddling, 1843) [Poe:Ko]
+Hyppysammakko (Hop-Frog, 1849) [Ree:Fk] [Poe:Ko]
 Joukkosielu (The Man of the Crowd, 1840) [Poe:Pk]
 Kampura (Hop-Frog, 1849) [Poe:Pk]
+Keijun saari (The Island of the Fay, 1841) [Poe:Ko]
 Kertomus hiljaisuudesta (Silence - A Fable, 1837) [Poe:Pk]
-Kielivä sydän (The Tell-Tale Heart, 1850) [Hel:Mt]
-Korppi (The Raven, 1845) [Poe:Kk]
-Kuilu ja heiluri (The Pit and the Pendulum, 1843) [Poe:Kk]
-Kultakuoriainen (The Gold Bug, 1843) [Poe:Kk]
+Kertomus Rosovuorilta (A Tale of the Ragged Mountains, 1844) [Poe:Ko]
+Kielivä sydän (The Tell-Tale Heart, 1850) [Hel:Mt] [Poe:Ko]
+Kiitäjä (The Sphinx, 1846) [Poe:Ko]
+Kolme sunnuntaita viikossa (Three Sundays in the Week, 1841) [Poe:Ko]
+Korppi (The Raven, 1845) [Poe:Kk] [Poe:No]
+Kuilu ja heiluri (The Pit and the Pendulum, 1843) [Poe:Kk] [Poe:No] [Poe:Ko]
+Kuningas Rutto (King Pest, 1835) [Poe:Ko]
 Kurimus (A Descent into the Maelstrom, 1841) [Poe:Kk]
 Käsikirjoitus, joka löydettiin pullosta (Ms. Found in a Bottle, 1833) [Poe:Kk]
-Ligeia (Ligeia, 1838) [Poe:Kk]
+Laskeutuminen kurimukseen (A Descent into the Maelström, 1841) [Poe:Ko]
+Laumasielu (The Man of the Crowd, 1840) [Poe:Ko]
+Leijonan elämää (Lionizing, 1835) [Poe:Ko]
+Ligeia (Ligeia, 1838) [Poe:Kk] [Poe:Ko]
+Liikemies (The Business Man 1840) [Poe:Ko]
+Loppuun kulunut mies (The Man That Was Used Up, 1839) [Poe:Ko]
+Marie Roget'n mysteeri (The Mystery of Marie Roget, 1842) [Poe:Ko]
+Mellonta tauta (Mellonta Tauta, 1849) [Poe:Ko]
 Merkillinen laatikko (The Oblong Box, 1844) [Poe:Pk]
-Metzengerstein (Metzengerstein, 1832) [Poe:Pk]
-Morella (Morella, 1835) [Poe:Pk] & [Ree:Fk]
-Musta kissa (The Black Cat, 1843) [Poe:Kk]
+Mesmeristinen ilmestys (Mesmeric Revelation, 1844) [Poe:Ko]
+Metzengerstein (Metzengerstein, 1832) [Poe:Pk] [Poe:Ko]
+Miksi pieni ranskalainen pitää kättään kantoliinassa (Why the Little Frenchman Wears His Hand in a Sling, 1840) [Poe:Ko]
+Monoksen ja Unan vuoropuhelu (The Colloquy of Monos and Una, 1841) [Poe:Ko]
+Morella (Morella, 1835) [Poe:Pk] [Ree:Fk] [Poe:Ko]
+Musta kissa (The Black Cat, 1843) [Poe:Kk] [Poe:Ko]
+Muutama sana muumion kanssa (Some Words with a Mummy, 1845) [Poe:Ko]
+Mystifikaatio (Mystification, 1837) [Poe:Ko]
+Neljä eläintä samassa; homokameleopardi (Four Beasts in One, 1836) [Poe:Ko]
+Paholainen kellotornissa (The Devil in the Belfry, 1839) [Poe:Ko]
+Pitkänomainen laatikko (The Oblong Box, 1844) [Poe:Ko]
+Pullosta löytynyt käsikirjoitus (MS. Found in a Bottle, 1833) [Poe:Ko]
 Punaisen kuoleman naamio (The Masque of the Red Death, 1842) [Poe:Kk]
+Punaisen surman naamionäytelmä (The Masque of the Red Death, 1842) [Poe:Ko]
+Rue Morguen murhat (The Murders in the Rue Morgue, 1841) [Poe:Ko]
 Sanojen mahti (The Power of Words, 1845) [Poe:Pk]
+Sanojen voima (The Power of Words, 1845) [Poe:Ko]
+Sattumusten enkeli (The Angel of the Odd, 1844) [Poe:Ko]
 Sfinksi (The Sphinx, 1846) [Poe:Kk]
+Sheherazaden tuhannestoinen tarina (The Thousand-and-Second Tale of Scheherazade, 1845) [Poe:Ko]
+Silmälasit (The Spectacles, 1844) [Poe:Ko]
+"Sinä olet se mies" ("Thou Art the Man", 1844) [Poe:Ko]
+Soikea muotokuva (The Oval Portrait, 1842) [Poe:Ko]
 Soikeakehyksinen muotokuva (The Oval Portrait, 1842) [Poe:Pk]
+Sovittu tapaaminen (The Assignation, 1834) [Poe:Ko]
 Tapaaminen (The Assignation, 1834) [Poe:Pk]
-Tohtori Tarrin ja professori Fetherin menetelmä (The System of Dr. Tarr and Prof. Fether, 1845) [Poe:Kk]
+Tarina Jerusalemista (A Tale of Jerusalem, 1832) [Poe:Ko]
+Tohtori Tarrin ja professori Fetherin menetelmä (The System of Dr. Tarr and Prof. Fether, 1845) [Poe:Kk] [Poe:No] [Poe:Ko]
+Totuus M. Valdemarin tapauksesta (The Facts in the Case of M. Valdemar, 1845) [Poe:Ko]
+Tynnyrillinen Amontilladoa (The Cask of Amontillado, 1846)
+Uhittelun pahus (The Imp of the Perverse, 1845) [Poe:Ko] [Poe:Ko]
 Usherin talon häviö (The Fall of the House of Usher, 1839) [Poe:Kk]
+Usherin talon tuho (The Fall of the House of Usher, 1839) [Poe:Ko]
 Varjo - vertaus (Shadow - A Parable, 1835) [Poe:Kk]
-William Wilson (William Wilson, 1839) [Poe:Kk][Dal:Sk][Dal:Kk]
+Varjo - vertauskuvallinen kertomus (Shadow - A Parable, 1835) [Poe:Ko]
+Von Kemplen ja hänen keksintönsä (Von Kemplen and His Discovery, 1849) [Poe:Ko]
+William Wilson (William Wilson, 1839) [Poe:Kk] [Dal:Sk] [Dal:Kk] [Poe:No] [Poe:Ko]
+Älä lyö pirun kanssa päästäsi vetoa (Never Bet the Devil Your Head, 1841) [Poe:Ko]
+
+
+Edgar Allan Poen ei-sf-tarinat
+------------------------------
+Aikakauslehtivankilan salaisuuksia (Some Secrets of the Magazine Prison-House, 1845) [Poe:Ko]
+Arnheimin tila (The Domain of Arnheim, 1847) [Poe:Ko]
+Ilmapalloankka (The Balloon Hoax, 1844) [Poe:Ko]
+Kultakuoriainen (The Gold-Bug, 1843) [Poe:Kk] [Poe:No] [Poe:Ko]
+Landorin mökki (Landor's Cottage, 1849) [Poe:Ko]
+Miten kirjoittaa Blackwoodin artikkeli (How to Write a Blackwood Article, 1838) [Poe:Ko]
 
 
 Antoni Pogorelski
@@ -2820,6 +3398,17 @@ Sähkövampyyri (The Electric Vampire, 1910) [Jär:Pp]
 J.B. Priestley
 --------------
 Harmaat herrat (The Grey Ones, 1953) [Sad:Pv]
+
+
+Alison Prince
+-------------
+Asemapäällikkö (The Station-Master, 1982) [Pri:Yk]
+Kirsty (Kirsty, 1982) [Pri:Yk]
+Lehmän aave (The Haunted Cow, 1982) [Pri:Yk]
+Lasileikki (The Glass Game, 1984) [Pri:Yk]
+Timmy (Timmy, 1982) [Pri:Yk]
+Tohelo (Bodger, 1982)  [Pri:Yk]
+Valokuvat (Photographs, 1984) [Pri:Yk]
 
 
 Mearle Prout
@@ -2930,13 +3519,19 @@ Geoff Ryman
 Omniseksuaalisuus (Omnisexual, 1990) [Dat:Ek]
 
 
+James Malcolm Rymer
+-------------------
+Vampyyri nimeltä Varmey (Varney the Vampire, 1845) [Tho:Vh]
+Varney-vampyyri (Varney the Vampyre (excerpts), 1847) [Wol:Pk]
+
+
 Saki (Hector Hugh Munro)
 ------------------------
 Armon ministerit (Ministers of Grace, 1911) [Sak:Ai]
-Avoin ikkuna (The Open Window, 1914) [Sak:Ai]
+Avoin ikkuna (The Open Window, 1911) [Sak:Ai]
 Avoin ovi (The Open Window, 1914) [Ree:Fk]
 Cernogratzien sudet (The Wolves of Cernogratz, 1919) [Sak:Ai]
-Gabriel-Ernest (Gabriel-Ernest, 1910) [Sak:Ai]
+Gabriel-Ernest (Gabriel-Ernest, 1910) [Sak:Ai] [Tho:Vh]
 Helvetillinen parlamentti (The Infernal Parliament, 1924) [Sak:Ai]
 Sredni Vashtar (Sredni Vashtar, 1911) [Sak:Ai]
 Laploshkan sielu (The Soul of Laploshka, 1910) [Sak:Ai]
@@ -2957,6 +3552,7 @@ Nopea siirtyminen (Rapid Transit, 1985) [Jer:Ha]
 
 Jessica Amanda Salomonson
 -------------------------
+Kuolema ja uni (Angel's Exchange, 1984) [Wol:Pk]
 Rupikonnanoita (The Toad Witch, 1991) [Dal:Sn] [Hel:Mt]
 
 
@@ -2976,6 +3572,11 @@ Tuliaiset (The Dowery, 2004) [Sal:Dl]
 Valotta yössä (Wickless in the Nether, 2004) [Sal:Dl]
 
 
+Arthur L. Samuels
+-----------------
+Messu ilman ääniä (Mass Without Voices, 1979) [Wol:Pk]
+
+
 San Francisco Examiner (-lehdessä julkaistu)
 ----------------------
 Kartanossa kummittelee (The Ghostly Visitations to a Georgia Farmhouse, 1891) [Ste:Mk]
@@ -2989,6 +3590,17 @@ Tantalus tuomiolla (Sud nad Tantalusom, 1959) [Neu:My]
 Al Sarantonio
 -------------
 Richardin pää (Richard's Head, 1991) [Rai:K3]
+
+
+George Saunders
+---------------
+200-kiloinen toimitusjohtaja (The 400-Pound CEO, 1993) [Sau:Sp]
+Aallontekijä alamäessä (The Wavemaker Falters, 1993) [Sau:Sp]
+Isabelle (Isabelle, 1994) [Sau:Sp]
+Muistoja rouva Schwartzille (Offloading for Mrs. Schwartz, 1992) [Sau:Sp]
+Runsaudenmaa (Bounty, 1995) [Sau:Sp]
+Sorretun Maryn kovan onnen terrorikampanja (Downtrodden Mary's Failed Campaign of Terror, 1992) [Sau:Sp]
+Sotapuiston perikato (CivilWarLand in Bad Decline, 1992) [Sau:Sp]
 
 
 Vladimir Savtsenko
@@ -3014,6 +3626,11 @@ Yliannostus (Odeed, 1992) [Gel:Ro]
 Darrell Schweitzer
 ------------------
 Lyhyt ja inhottava (Short and Nasty, 1991) [Rai:K3]
+
+
+Jeffry Scott (oik. Shaun Usher)
+-------------------------------
+Pois maasta (Out of the Country, 1966) [Wol:Pk]
 
 
 Shanghai North-China Herald (-lehdessä julkaistu)
@@ -3242,6 +3859,11 @@ Wilbur Daniel Steele
 Keltainen kissa (The Yellow Cat, 1915) [Ste:Mk]
 
 
+Eric Stenbock
+-------------
+Toinen puoli: bretagnelainen legenda (The Other Side: A Breton Legend, 1893) [Tho:Vh]
+
+
 Bruce Sterling
 --------------
 Pieni taikakauppa (The Little Magic Shop, 1987) [Ias:V3]
@@ -3262,12 +3884,14 @@ Robert Louis Stevenson
 Markheim (Markheim, 1887) [Sad:Pv]
 Pirunpullo (The Bottle Imp, 1891) [Jär:Pp]
 Ruumiinryöstäjä (The Body Snatcher, 1884) [Sad:Ha]
+Äänten saari (The Isle of Voices, 1893) [Hit:Kg]
 
 
 Bram Stoker
 -----------
-Draculan vieras (Dracula's Guest, 1914) [Dal:Va]
+Draculan vieras (Dracula's Guest, 1914) [Dal:Va] [Tho:Vh]
 Rottien hautajaiset (The Burial of the Rats, 1914) [Sad:Ha]
+Tuomarin kummitustalo (The Judge's House, 1891) [Hii:Kp]
 
 
 Peter Straub
@@ -3370,6 +3994,8 @@ Pesä (The Nest, 1983) [Sad:K1]
 Mark Twain
 ----------
 Kummitustarina (A Ghost Story, 1875) [Dal:Sk]
+Salaperäinen vieras (The Mysterious Stranger, 1916) [Twa:Sv]
+Viisi elämän kirjaa (The Five Boons of Life, 1902) [Wol:Pk]
 
 
 A.E. van Vogt
@@ -3481,6 +4107,11 @@ Donald Wandrei
 Punaiset aivot (The Red Brain, 1927) [Sad:ll]
 
 
+Stanley Waterloo
+----------------
+Murhenäytelmä metsässä (A Tragedy of the Forest) [Tho:Vh]
+
+
 Ian Watson
 ----------
 Ikkunat [Ias:V1]
@@ -3522,21 +4153,27 @@ Aarre metsässä (The Treasure in the Forest, 1894) [Wel:Vh]
 Aepyornis-saari (Æpyornis Island, 1894) [Wel:Vh]
 Avun tähtitornissa (In the Avu Observatory, 1894) [Wel:Vh]
 Eläintentäyttäjän ennätyksiä (Triumphs of a Taxidermist, 1894) [Wel:Vh]
+Gottfried Plattnerin tarina (The Plattner Story, 1896) [Wel:He] [Wel:He]
+Herra Brisherin aarre (Mr. Brisher's Treasure, 1899) [Wel:He]
 Herra Elveshamin tapaus (The Story of the Late Mr. Elvesham, 1896) [Wel:Ph]
-Hämähäkkilaakso (The Valley of the Spiders, 1903) [Wel:Ph]
+Herra Ledbetterin virkaloma (Mr. Ledbetter's Vacation, 1898) [Wel:He]
+Hämähäkkilaakso (The Valley of the Spiders, 1903) [Wel:Ph] [Wel:He]
 Kamelikurkikauppaa (A Deal in Ostriches, 1894) 
 Kätketty aarre (The Treasure in the Forest, 1894) [Wel:Ph]
 Meren saalistajat (The Sea-Raiders, 1896) [Wel:Ph] [Hel:Mt]
+Mustan miehen kosto (Pollock and the Porroh Man, 1895)  [Wel:He][Wel:He]
 Muurahaisten valtakunta (The Empire of the Ants, 1905) [Wel:Ph]
 Orkidean salaisuus (The Flowering of the Strange Orchid, 1894) [Wel:Ph] [Hel:Mt]
-Perhonen - "Genus Novo" (The Moth, 1895) [Wel:Vh]
+Perhonen - "Genus Novo" (The Moth, 1895) [Wel:Vh] [Num:Va]
 Plattnerin tarina (The Plattner Story, 1896) [Wel:Ph]
 Pollock ja poppamies (Pollock and the Porroh Man, 1895) [Wel:Ph]
 Pollock ja Porro (Pollock and the Porroh Man, 1895) [Jär:Uk]
 Punainen huone (The Red Room, 1896) [Wel:Ph]
 Punalakki (The Purple Pileus, 1896) [Wel:Ph]
+Syvyydessä (In the Abyss, 1896) [Wel:He] [Wel:He]
 Syvänteessä (In the Abyss, 1896) [Wel:Ph]
 Timantintekijä (The Diamond Maker, 1894) [Wel:Vh]
+Totuus Pyecraftista (The Truth About Pyecraft, 1903) [Hit:Kg]
 Tulinen kuilu (The Cone, 1895) [Wel:Ph]
 Tuntemattoman kämmekän kukkiminen (The Flowering of the Strange Orchid, 1894) [Wel:Vh]
 Tähtitornin peto (In the Avu Observatory, 1894) [Wel:Ph]
@@ -3664,6 +4301,11 @@ Elämänveri (Lifeblood, 1991) [Dat:Av]
 Clement Wood
 ------------
 Häämatkalla (Honeymoon, 1931) [Slu:V2]
+
+
+Alexander Woollcott
+-------------------
+Kuutamosonaatti (Moonlight Sonata, 1931) [Wol:Pk]
 
 
 William E. Wu
