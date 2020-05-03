@@ -32,12 +32,14 @@
         {% if person.image_src %}
         <img style="float: left; margin: 0px 10px 0px 0px;" src="{{person.image_src}}">
         {% endif %}
-        <p><b>Etunimi</b>: {{ person.first_name if person.first_name }}</p>
-        <p><b>Sukunimi</b>: {{ person.last_name if person.last_name  }}</p>
         
-        <p><b>Syntymävuosi</b>: {{ person.dob if person.dob }}</p>
-        <p><b>Kuolinvuosi</b>: {{ person.dod if person.dod }}</p>
-        <p><b>Syntymäpaikka</b>: {{ person.birthplace if person.birthplace }}</p>
+        {% if person.birthplace %}
+            {{ person.birthplace }}
+        {%- endif -%}
+        {%- if person.birthplace and person.dob -%},{% endif %}
+        {% if person.dob %}
+            {{ person.dob }}-{{ person.dod if person.dod }}
+        {% endif %}
         {% if person.fullstring %}
         <p><b>Lähde</b>: {{ person.fullstring }}</p>
         {% endif %}
