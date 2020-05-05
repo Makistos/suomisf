@@ -178,7 +178,7 @@ publishers = [
     ('Pohjalaisen Kirjapaino', 'Pohjalaisen Kirjapaino', 'Pohjalaisen Kirjapaino'),
     ('Pohjoinen', 'Pohjoinen', 'Pohjoinen'),
     ('Pohjolan kustannus [Oo]y', 'Pohjolan kustannus', 'Pohjolan kustannus Oy'),
-    ('Porvoon Julmapaino', 'Porvoon Julmapaino', 'Porvoon Julmapaino'),
+    ('Porvoon [Jj]ulmapaino', 'Porvoon Julmapaino', 'Porvoon Julmapaino'),
     ('Pro Games', 'Pro Games', 'Pro Games'),
     ('(Kustannusliike )?Progress', 'Progress', 'Kustannusliike Progress'),
     ('Päivä( Osakeyhtiö ja Fontana Media)?', 'Päivä Osakeyhtiö ja Fontana Media', 'Päivä Osakeyhtiö ja Fontana Media'),

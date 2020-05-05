@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 import argparse
 import logging
 import re
-from typing import Tuple, Dict, List
+from typing import Tuple, Dict, List, Pattern
 import cProfile
 
 publishers_re = {}
@@ -106,16 +106,28 @@ def find_translators(s: str) -> Tuple[str, str]:
     for person in translators:
         # Find the names that are hard to match
         if re.search(person[0], s):
-            res_tmp += person[1] + ' ' + person[2] + ', '
-            s = s.replace(person[0], '')
+            res_tmp += person[1] + ' ' + person[2] + ','
+            repl = ',?\s?' + person[0] + ',?\s?'
+            s = re.sub(repl, '', s)
     m2 = re.search(translator_re, s)
     if m2:
         result = m2.group(3)
         s = s.replace(m2.group(0), '')
     else:
         result = ''
-    result = res_tmp + result
+        res_tmp = res_tmp[0:-1]  # Remove last comma
 
+    result = res_tmp + result
+    # Fix some odds and ends. These will otherwise generate
+    # ghosts.
+    if len(result) > 0:
+        result = result.strip()
+        if result[-1] == '&':
+            result = result[0:-1]
+        result = result.strip()
+        if result[-1] == ',':
+            result = result[0:-1]
+    s = re.sub(' +', ' ', s)
     return (result, s)
 
 
@@ -138,7 +150,7 @@ def find_editors(s: str) -> Tuple[str, str]:
     return (result, s)
 
 
-def find_series(s: str, is_coll: bool, series_list: List, series_re: str) -> Tuple[str, str, str]:
+def find_series(s: str, is_coll: bool, series_list: List, series_re: Dict[str, Pattern[str]]) -> Tuple[str, str, str]:
     retval_name: str = ''
     retval_num: str = ''
 
@@ -276,7 +288,7 @@ def get_books(books):
             book['title'] = m.group(1)
             curr_book = book
             book['edition'] = '1'
-            rstr = '<b>'+ m.group(1) + '</b>. '
+            rstr = '<b>'+ m.group(1) + '</b>'
             tmp = tmp.replace(rstr, '')
             # Find type
             m = re.search('\[(.+)\]', tmp)
@@ -598,7 +610,7 @@ def import_authors(s, names, source=''):
     return persons
 
 
-def import_persons(s, name, source=''):
+def import_persons(s, name: str, source: str='') -> List:
     """ Searches for given person by name from the Person table and if
         that name is not found, adds it to the Person table.
 
@@ -606,12 +618,21 @@ def import_persons(s, name, source=''):
         returned to caller.
     """
     persons = []
+    name = name.strip()
     name = name.replace(',', '&')
     name = name.replace(' ja ', '&')
+
+    if name == '' or name == '&':
+        return []
     for p in name.split('&'):
         p = re.sub(r'\n', '', p.strip())
         p = re.sub(r'\([^()]*\)', '', p)
         names = p.split(' ')
+        # If p only included a single comma names will have
+        # two empty strings.
+        if len(names) > 1:
+            if len(names[0]) == 0 and len(names[1]) == 0:
+                continue
         first_name = ' '.join(names[0:-1]).strip()
         last_name = str(names[-1]).strip()
         name_inv = last_name + ", " + first_name
@@ -698,6 +719,8 @@ def import_books(session, authors):
                     publisherid = publisher.id
                 else:
                     publisherid = None
+                if edition['title'] == 'Maan hylkäämät':
+                    print('found')
                 translators = import_persons(s, edition['translator'], edition['fullstring'])
                 editors = import_persons(s, edition['editor'], edition['fullstring'])
 
@@ -959,6 +982,7 @@ if __name__ == '__main__':
     if params['file']:
         filelist = [params['file']]
         print(filelist)
+        import_all(filelist)
     elif params['stories']:
         filename = 'bibfiles/sf_nov_u.txt'
         import_stories(filename)

@@ -479,6 +479,7 @@ bookseries = [
     ('Taynikma', 'Taynikma'),
     ('The Nightmare Room( -trilogia)?', 'The Nightmare Room -trilogia'),
     ('The Walking Dead', 'The Walking Dead'),
+    ('Throne of Glass', 'Throne of Glass'),
     ('Tiger Team', 'Tiger Team'),
     ('Tulen ja jään laulu osa', 'Tulen ja jään laulu'),
     ('Tymoran kivi, osa', 'Tymoran kivi'),
