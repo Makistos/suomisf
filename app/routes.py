@@ -164,8 +164,38 @@ def remove_from_owned(bookid):
 def people():
     session = new_session()
     people = session.query(Person).order_by(Person.name).all()
-    return render_template('people.html', people=people)
+    return render_template('people.html', people=people,
+                            header='Kannassa olevat henkilöt')
 
+@app.route('/authors')
+def authors():
+    session = new_session()
+    people = session.query(Person)\
+                    .join(Author)\
+                    .filter(Author.person_id == Person.id)\
+                    .order_by(Person.name).all()
+    return render_template('people.html', people=people,
+                            header='Kannassa olevat kirjailijat')
+
+@app.route('/translators')
+def translators():
+    session = new_session()
+    people = session.query(Person)\
+                    .join(Translator)\
+                    .filter(Translator.person_id == Person.id)\
+                    .order_by(Person.name).all()
+    return render_template('people.html', people=people,
+                            header='Kannassa olevat kääntäjät')
+
+@app.route('/editors')
+def editors():
+    session = new_session()
+    people = session.query(Person)\
+                    .join(Editor)\
+                    .filter(Editor.person_id == Person.id)\
+                    .order_by(Person.name).all()
+    return render_template('people.html', people=people,
+                            header='Kannassa olevat toimittajat')
 
 @app.route('/person/<personid>')
 def person(personid):
