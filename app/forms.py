@@ -53,6 +53,7 @@ class WorkForm(FlaskForm):
     genre = StringField('Genre')
     misc = StringField('Muuta')
     source = StringField('Lähde')
+    image_src = StringField('Kuva')
     submit = SubmitField('Tallenna')
 
 class WorkAuthorForm(FlaskForm):
@@ -74,6 +75,7 @@ class EditionForm(FlaskForm):
     pubseriesnum = IntegerField('Sarjan numero', validators=[Optional()])
     misc = StringField('Muuta')
     source = StringField('Lähde')
+    image_src = StringField('Kuva')
     submit = SubmitField('Tallenna')
 
 

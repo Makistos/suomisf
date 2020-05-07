@@ -74,6 +74,7 @@ class Work(Base):
     bookseries_id = Column(Integer, ForeignKey('bookseries.id'))
     bookseriesnum = Column(String(20))
     collection = Column(Boolean)
+    image_src = Column(String(200))
     misc = Column(String(500))
     fullstring = Column(String(500))
     authors = relationship("Person",

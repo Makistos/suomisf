@@ -53,6 +53,12 @@
         <p>
         {{ form.misc.label}}<br>
         {{ form.misc(size=100) }}
+	</p>
+        <p>
+        {{ form.image_src.label }}<br>
+        {{ form.image_src(size=200) }}
+        </p>
+
 	{% if form.misc.errors %}
 	{% for error in form.misc.errors %}<br>{{ error }}{% endfor %}
 	{% endif %}
