@@ -204,6 +204,8 @@ def person(personid):
         person = session.query(Person).filter(Person.id == personid).first()
     else:
         person = session.query(Person).filter(Person.name == personid).first()
+        if not person:
+            person = session.query(Person).filter(Person.alt_name == personid).first()
 
     authored = books_for_person(session, personid, 'A')
     translated = books_for_person(session, personid, 'T')

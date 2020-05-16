@@ -1,7 +1,7 @@
 # SuomiSF
 
 This is Flask-based collection manager for Finnish Science Fiction, Fantasy and Horror books.
-Contents and database schema is based on "The Bibliography of of Finnish Sf-, Fantasy- and Horror Literature". 
+Contents and database schema is based on "The Bibliography of of Finnish Sf-, Fantasy- and Horror Literature".
 This is why interface is also only in Finnish. There are errors in the data as
 it was impossible to import everything correctly.
 
@@ -48,7 +48,7 @@ book.
 5. A collection translated into another language. Edition and Work both have
    one row while every short story has a row in Part and also the ShortStory
    table. Title in the Part row has the translated name while Title in
-   ShortStory holds the original name of the story. 
+   ShortStory holds the original name of the story.
 
 ## To-Do
 * Adding and modifying of data for all tables in the database.
@@ -59,9 +59,9 @@ book.
   update~~.
 * Looks could be improved a lot. Especially long lists are not very readable
   at the moment.
-* Authors, translators and editors only have a 1:m mapping to books at the
+* ~~Authors, translators and editors only have a 1:m mapping to books at the
   moment. Meaning any collaborators are listed as a single author, translator or
-  editor. This is because original data was too complex to handle properly.
+  editor. This is because original data was too complex to handle properly.~~
 * Some popups would be nice, e.g. for books.
 * People do have dob, dod and birthplace but these are not used anywhere. Not
   sure if I want to either.
@@ -69,6 +69,7 @@ book.
 * ~~Option to change password and a user page~~. Plus stuff related to this like
   a user list.
 * Adding a new edition of an existing book.
+* ~~Importing short stories to collections.~~
 
 
 ## API Design
@@ -87,7 +88,7 @@ All replies are in JSON.
 
 POST /api/1.0/auth
 
-Parameters: 
+Parameters:
 * *username*
 * *password*
 
@@ -140,7 +141,7 @@ Parameters:
 
 GET /api/person/{personid}
 
-### Getting your collection 
+### Getting your collection
 
 Requires authentication.
 

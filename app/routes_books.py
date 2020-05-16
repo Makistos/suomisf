@@ -1,10 +1,11 @@
 from app import app
 from flask import Flask
 from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
-Edition, Pubseries, Bookseries, User, UserBook, Genre
+Edition, Pubseries, Bookseries, User, UserBook, Genre, ShortStory
 from flask import render_template, request, flash, redirect, url_for, make_response
 from app.forms import WorkForm, EditionForm, WorkAuthorForm
 from .route_helpers import *
+from typing import List, Dict
 
 # Book related routes
 
@@ -118,7 +119,8 @@ def booksX(letter):
 @app.route('/work/<workid>', methods=["POST", "GET"])
 def work(workid):
     """ Popup has a form to add authors. """
-    search_list = {}
+    search_list: Dict = {}
+    stories: List = []
     session = new_session()
     work = session.query(Work)\
                   .filter(Work.id == workid)\
@@ -131,6 +133,18 @@ def work(workid):
                         .first()
     search_list = {**search_list, **author_list(session)}
 
+    if work.collection == True:
+        stories = session.query(Part.title.label('title'),
+                                ShortStory.title.label('orig_title'),
+                                ShortStory.pubyear,
+                                ShortStory.language,
+                                ShortStory.genre,
+                                ShortStory.id)\
+                         .join(Part)\
+                         .filter(Part.shortstory_id == ShortStory.id)\
+                         .filter(Part.work_id == workid)\
+                         .group_by(Part.shortstory_id)\
+                         .all()
     form = WorkAuthorForm(request.form)
 
     if form.validate_on_submit():
@@ -140,7 +154,8 @@ def work(workid):
         app.logger.debug("Errors: {}".format(form.errors))
 
     return render_template('work.html', work=work, authors=authors,
-            bookseries=bookseries, search_lists=search_list, form=form)
+            bookseries=bookseries, search_lists=search_list, form=form,
+            stories=stories)
 
 @app.route('/edit_work/<workid>', methods=["POST", "GET"])
 def edit_work(workid):
@@ -302,6 +317,7 @@ def edit_edition(editionid):
         if pubseries:
             form.pubseries.data = pubseries.name
         form.pubseriesnum.data = edition.pubseriesnum
+        form.pages.data = edition.pages
         form.isbn.data = edition.isbn
         form.misc.data = edition.misc
         if pubseries:
@@ -332,6 +348,7 @@ def edit_edition(editionid):
             edition.pubseries_id = form.pubseries.data
         edition.publisher_id = publisher.id
         edition.pubseriesnum = form.pubseriesnum.data
+        edition.pages = form.pages.data
         #if form.pubseriesnum.data is not None:
         #    try:
         #    edition.pubseriesnum = None
@@ -359,6 +376,7 @@ def edit_edition(editionid):
 
 @app.route('/edition/<editionid>')
 def edition(editionid):
+    stories = []
     session = new_session()
     edition = session.query(Edition)\
                      .filter(Edition.id == editionid)\
@@ -383,10 +401,23 @@ def edition(editionid):
                      .filter(Edition.id == Editor.edition_id)\
                      .filter(Edition.id == editionid)\
                      .all()
+    if edition.collection == True:
+        stories = session.query(Part.title.label('title'),
+                                ShortStory.title.label('orig_title'),
+                                ShortStory.pubyear,
+                                ShortStory.language,
+                                ShortStory.genre,
+                                ShortStory.id)\
+                         .join(Part)\
+                         .filter(Part.shortstory_id == ShortStory.id)\
+                         .filter(Part.edition_id == editionid)\
+                         .group_by(Part.shortstory_id)\
+                         .all()
 
     return render_template('edition.html', edition = edition,
                             other_editions=other_editions,
-                            translators=translators, editors=editors)
+                            translators=translators, editors=editors,
+                            stories=stories)
 
 @app.route('/part_delete/<partid>', methods=["POST", "GET"])
 def part_delete(partid, session = None):
@@ -572,3 +603,45 @@ def remove_author_from_work(workid, authorid):
     update_creators(session, workid)
 
     return redirect(url_for('work', workid=workid))
+
+
+@app.route('/story/<id>', methods=['GET', 'POST'])
+def story(id):
+    search_list = {}
+
+    session = new_session()
+    story = session.query(Part.title.label('title'),
+                          ShortStory.title.label('orig_title'),
+                          ShortStory.pubyear,
+                          ShortStory.language,
+                          ShortStory.genre,
+                          ShortStory.id)\
+                   .join(Part)\
+                   .filter(Part.shortstory_id == id)\
+                   .first()
+
+    editions = session.query(Edition)\
+                      .join(Part)\
+                      .filter(Part.shortstory_id == id)\
+                      .filter(Part.edition_id == Edition.id)\
+                      .all()
+
+    works = session.query(Work)\
+                   .join(Part)\
+                   .filter(Part.shortstory_id == id)\
+                   .filter(Part.work_id == Work.id)\
+                   .all()
+
+    authors = session.query(Person)\
+                     .join(Author)\
+                     .filter(Person.id == Author.person_id)\
+                     .join(Part)\
+                     .filter(Author.part_id == Part.id,
+                             Part.shortstory_id == id)\
+                     .all()
+
+    search_list = {**search_list, **author_list(session)}
+
+    return render_template('story.html', id=id, story=story,
+                           editions=editions, works=works,
+                           authors=authors, search_lists=search_list)

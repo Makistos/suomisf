@@ -1,19 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>{{ edition.title }} 
-{% if current_user.is_admin %} 
+<h1>{{ edition.title }}
+{% if current_user.is_admin %}
     ({{ edition.id }})
-{% endif %} 
+{% endif %}
 </h1>
         {% if edition.image_src %}
         <img style="float: left; margin: 0px 10px 0px 0px;" src="{{edition.image_src}}">
         {% endif %}
+        {% if edition.title != edition.work.title %}
         <div>Alkuperäinen teos: <a href=" {{ url_for('work', workid=edition.work.id) }}">{{edition.work.title }}</a>
+        {% if edition.work.pubyear %}, {{ edition.work.pubyear }}{% endif %}
             </div>
+        {% endif %}
 {% if edition.work.authors|length %}
 <div><h2>
-    {% for author in edition.work.authors %} 
-    <a href=" {{ url_for('person', personid=author.id) }}">{{ author.name }}</a> 
+    {% for author in edition.work.authors %}
+    <a href=" {{ url_for('person', personid=author.id) }}">{{ author.alt_name }} </a>
     {% endfor %}
     </h2></div>
 {% endif %}
@@ -26,42 +29,42 @@
     {% endif %}
     {% if editors|length == 2 %}
         <a href=" {{ url_for('person', personid=editors[0].id) }}">{{
-            editors[0].alt_name }}</a> ja 
+            editors[0].alt_name }}</a> ja
         <a href=" {{ url_for('person', personid=editors[1].id) }}">{{
             editors[1].alt_name }}</a>
-        
+
     {% endif %}
     {% if editors|length > 2 %}
         {% for editor in editors[:-1] %}
             <a href=" {{ url_for('person', personid=editor.id) }}">{{
-            editor.alt_name }}</a>, 
+            editor.alt_name }}</a>,
         {% endfor %}
         <a href=" {{ url_for('person', personid=editors[-1].id) }}">{{
-        editors[-1].alt_name }}</a> 
+        editors[-1].alt_name }}</a>
     {% endif %}
 </div>
 {% endif %}
 {% if translators|length %}
 <div>
-    Kääntäjä(t): 
+    Kääntäjä(t):
         {% if translators|length == 1 %}
             <a href=" {{ url_for('person', personid=translators[0].id) }}">{{
                 translators[0].alt_name }}</a>
         {% endif %}
         {% if translators|length == 2 %}
             <a href=" {{ url_for('person', personid=translators[0].id) }}">{{
-                translators[0].alt_name }}</a> ja 
+                translators[0].alt_name }}</a> ja
             <a href=" {{ url_for('person', personid=translators[1].id) }}">{{
                 translators[1].alt_name }}</a>
-            
+
         {% endif %}
         {% if translators|length > 2 %}
             {% for translator in translators[:-1] %}
                 <a href=" {{ url_for('person', personid=translator.id) }}">{{
-                translator.alt_name }}</a>, 
+                translator.alt_name }}</a>,
             {% endfor %}
             <a href=" {{ url_for('person', personid=translators[-1].id) }}">{{
-            translators[-1].alt_name }}</a> 
+            translators[-1].alt_name }}</a>
         {% endif %}
 </div>
 {% endif %}
@@ -89,10 +92,20 @@
 {%- endif %}
 <div>Genre: {{ edition.work.genres|join(', ', attribute='genre_name') }}</div>
 <div>Muuta: {{ edition.misc }}</div>
-{% if current_user.is_admin %} 
+    {% if stories|length %}
+    <div>
+        <p>Novellit</p>
+        <ul>
+        {% for story in stories %}
+            <li><a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a> ({{ story.orig_title}}, {{story.pubyear}})</li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+{% if current_user.is_admin %}
 <div>Aineiston lähde: {{ edition.fullstring }}</div>
 {% endif %}
-{% if current_user.is_admin %} 
+{% if current_user.is_admin %}
 <div><a href=" {{ url_for('edit_edition', editionid=edition.id) }}
         ">Muokkaa</a></div>
 {% endif %}

@@ -12,73 +12,73 @@
 Listassa olevat novellikokoelmat ja niiden lyhenteet:
 
 [Ada:Rt] = Richard Adams : Ruohometsän tarinoita (Tales from Watership Down, 1996) WSOY 1997
-[Ald:Ms] = Brian Aldiss : Mannerheim-sinfonia (Cracken at Critical, 1987) Kirjayhtymä 1990
-[Asi:Ro] = Isaac Asimov : Robots (The Complete Robot, 1982) Kirjayhtymä 1985
-[Asp:Vm] = Robert Asprin (toim.) : Varkaiden maailma (Thieves' World, 1979) TK-Kustannus 1992
+[Ald:Ms] = Brian W(ilson) Aldiss : Mannerheim-sinfonia (Cracken at Critical, 1987) Kirjayhtymä 1990
+[Asi:Ro] = Isaac Asimov : Robotit (The Complete Robot, 1982) Kirjayhtymä 1985
+[Asp:Vm] = Robert (Lynn) Asprin (toim.) : Varkaiden maailma (Thieves' World, 1979) TK-Kustannus 1992
 [Bar:V1] = Clive Barker : Veren kirjat 1 (Books of Blood 1, 1984) Jalava 1989
 [Bar:V2] = Clive Barker : Veren kirjat 2 (Books of Blood 2, 1984) Jalava 1990
 [Bar:V3] = Clive Barker : Veren kirjat 3 (Books of Blood 3, 1984) Jalava 1991
 [Bar:V4] = Clive Barker : Veren kirjat 4 (Books of Blood 4, 1985) Jalava 1992
 [Bar:V5] = Clive Barker : Veren kirjat 5 (Books of Blood 5, 1985) Jalava 1993
 [Bar:V6] = Clive Barker : Veren kirjat 6 (Books of Blood 6, 1985) Jalava 1994
-[Bie:Pk] = Ambrose Bierce : Pyhä kauhu, Karisto 1934, 1996
-[Bie:Vm] = Ambrose Bierce : Vanhempain murhaajien klubi, Odessa 1986
-[Bli:Tl] = James Blish : Tähtien lapset (The Seedling Stars, 1957) Ursa 1989
-[Blo:K7] = Robert Bloch : Kauhu-7 (Horror-7, 1963) E.O. Savolainen 1964
-[Blo:Ku] = Robert Bloch : Kauniita unia - parempia painajaisia. (Pleasant Dreams - Nightmares, 1960) Nykylehdet Oy 1980
-[Blo:Ps] = Robert Bloch : Pehmustettu selli ja muita kauhun paikkoja, WSOY 1994
+[Bie:Pk] = Ambrose (Gwinett) Bierce : Pyhä kauhu, Karisto 1934, 1996
+[Bie:Vm] = Ambrose (Gwinett) Bierce : Vanhempainmurhaajien klubi, Odessa 1986
+[Bli:Tl] = James (Benjamin) Blish : Tähtien lapset (The Seedling Stars, 1957) Ursa 1989
+[Blo:K7] = Robert (Albert) Bloch : Kauhu-7 (Horror-7, 1963) E.O. Savolainen 1964
+[Blo:Ku] = Robert (Albert) Bloch : Kauniita unia - parempia painajaisia. (Pleasant Dreams - Nightmares, 1960) Nykylehdet Oy 1980
+[Blo:Ps] = Robert (Albert) Bloch : Pehmustettu selli ja muita kauhun paikkoja, WSOY 1994
 [Bor:Hk] = Jorge Louis Borges : Hiekkakirja (El informe de Brodie, 1970 & El libro de arena, 1975) WSOY 2003
-[Bra:Hn] = Ray Bradbury : Huhtikuun noita, Tampereen Science Fiction Seura 1998
-[Bra:Km] = Ray Bradbury : Kuvitettu mies (The Illustrated Man, 1951) Kirjayhtymä 1971
-[Bra:Lm] = Ray Bradbury : Lokakuun maa (The October Country, 1955) Kirjayhtymä 1985
-[Bra:Ma] = Ray Bradbury : Marsin aikakirjat (The Martian Chronicles, 1950) Otava 1953
-[Bra:Tt] = Ray Bradbury : Toiset taivaat, WSOY 1993
-[Bra:Vv] = Ray Bradbury : Varhaiset varjot, WSOY 1992
-[Bul:Km] = Mihail Bulgakov : Kohtalokkaat munat - Satiireja ja muistelmia. WSOY 1975.
-[Car:Vk] = Angela Carter : Verinen kammio (The Bloody Chamber, 1979) TK-Kustannus 1994
-[Cha:Kk] = Robert W. Chambers : Keltainen kuningas (The King in Yellow, 1895) Basam Books Oy 2014
+[Bra:Hn] = Ray(mond Douglas) Bradbury : Huhtikuun noita, Tampereen Science Fiction Seura 1998
+[Bra:Km] = Ray(mond Douglas) Bradbury : Kuvitettu mies (The Illustrated Man, 1951) Kirjayhtymä 1971
+[Bra:Lm] = Ray(mond Douglas) Bradbury : Lokakuun maa (The October Country, 1955) Kirjayhtymä 1985
+[Bra:Ma] = Ray(mond Douglas) Bradbury : Marsin aikakirjat (The Martian Chronicles, 1950) Otava 1953
+[Bra:Tt] = Ray(mond Douglas) Bradbury : Toiset taivaat, WSOY 1993
+[Bra:Vv] = Ray(mond Douglas) Bradbury : Varhaiset varjot, WSOY 1992
+[Bul:Km] = Mihail Bulgakov : Kohtalokkaat munat. WSOY 1975.
+[Car:Vk] = Angela (Olive) Carter : Verinen kammio sekä muita kertomuksia (The Bloody Chamber, 1979) TK-Kustannus 1994
+[Cha:Kk] = Robert W(illiam) Chambers : Keltainen kuningas (The King in Yellow, 1895) Basam Books Oy 2014
 [Che:Hk] = Ronald Chetwynd-Hayes : Hirviöklubi - Kertomuksia nykyajan hirviöistä (The Monster Club, 1975) Kymppilehdet Oy 1983
 [Che:Kk] = Ronald Chetwynd-Hayes : Kartanon kirous (Tales from the Other Side, 1983) Kymppilehdet Oy 1985
-[Cla:Ta] = Arthur C. Clarke : Tähtiaika (Of Time And Stars, 1972) Kirjayhtymä 1975
-[Cla:Tu] = Arthur C. Clarke : Tuuli auringosta, WSOY 1996
+[Cla:Ta] = Arthur C(harles) Clarke : Tähtiaika (Of Time And Stars, 1972) Kirjayhtymä 1975
+[Cla:Tu] = Arthur C(harles) Clarke : Tuuli auringosta, WSOY 1996
 [Cra:Aa] = Francis Marion Crawford : Ajattomat aaveet. Vaskikirjat 2016
 [Dah:Ah] = Roald Dahl : Alahuuli (Switch Bitch, 1974) Otava 1975
 [Dah:Hs] = Roald Dahl : Henry Sugarin ihmeellinen tarina ja kuusi muuta (The Wonderful Story of Henry Sugar and Six More, 1977) Art House 2003
 [Dah:Jk] = Roald Dahl : Joku kaltaisesi. Sis puolet novelleista kokoelmista (Kiss, Kiss, 1960) ja (Someone Like You, 1953) Otava 1970
 [Dah:Rk] = Roald Dahl : Rakkaani, kyyhkyläiseni. Sis puolet novelleista kokoelmista (Kiss, Kiss, 1960) ja (Someone Like You, 1953) Otava 1961
-[Dal:Kk] = Richard Dalby (toim.) : Kuollut koskettaa keveästi () Conranic 2011
+[Dal:Kk] = Richard Dalby (toim.) : Kuollut koskettaa keveästi, Conranic 2011
 [Dal:Sk] = Richard Dalby (toim.) : Suuri kummituskirja (The Mammoth Book of the Ghost Stories, 1990) Book Studio Oy 1993
 [Dal:Sn] = Richard Dalby (toim.) : Suuri noitakirja (Tales of Witchcraft, 1991) Book Studio Oy 1994
 [Dal:Va] = Richard Dalby (toim.) : Vampyyrit (Vampire Stories) Book Studio Oy 1993
-[Dat:Ek] = Ellen Datlow (toim.) : Ensimmäinen kerta (Alien Sex, 1990) Jalava 1991
-[Dat:Ev] = Ellen Datlow (toim.) : Ei vain verestä (Blood Is Not Enough, 1989) Jalava 1990
-[Dat:Av] = Ellen Datlow (toim.) : Aavistus verta (A Whisper of Blood, 1991) WSOY 1991
+[Dat:Ek] = Ellen (Sue) Datlow (toim.) : Ensimmäinen kerta (Alien Sex, 1990) Jalava 1991
+[Dat:Ev] = Ellen (Sue) Datlow (toim.) : Ei vain verestä (Blood Is Not Enough, 1989) Jalava 1990
+[Dat:Av] = Ellen (Sue) Datlow (toim.) : Aavistus verta (A Whisper of Blood, 1991) WSOY 1991
 [Deb:Pj] = Aliette de Bodard : Perhonen ja jaguaari () Osuuskumma 2013
 [Der:Cj] = August Derleth : Cthulhun jäljet. (The Trail of Cthulhu, 1962). Vaskikirjat 2019
-[Dic:Mp] = Philip K. Dick : Mahdoton Planeetta, WSOY 1990
+[Dic:Mp] = Philip K(indred) Dick : Mahdoton planeetta, WSOY 1990
 [Dne:Pm] = Anatoli Dneprov : Purppuramuumio (Purpurnaja mumija) Edistys 1968
-[Doy:Hk] = Arthur Conan Doyle : Hopeakirves ja muita kummallisia kertomuksia, Nysalor-kustannus 2018
-[Doy:Ht] = Arthur Conan Doyle : Hämärätarinoita (Tales of Twilight and the Unseen, 1922) Kirja 1926
-[Doy:Km] = Arthur Conan Doyle : Kun Maa kirkui ja muita epätavallisia tarinoita, WSOY 1992
-[Doy:Pk] = Arthur Conan Doyle : Pelko- ja kauhutarinoita (Tales of Terror and Mystery, 1922) Kirja 1925
-[Doy:Pl] = Arthur Conan Doyle : Polestar-laivan kapteeni. Siniplaneetta 2011
-[Doy:Vs] = Arthur Conan Doyle : Vedenalaisten saartama maa ynnä muita kertomuksia, Gummerus 1917
+[Doy:Hk] = Sir Arthur Conan Doyle : Hopeakirves ja muita kummallisia kertomuksia, Nysalor-kustannus 2018
+[Doy:Ht] = Sir Arthur Conan Doyle : Hämärätarinoita (Tales of Twilight and the Unseen, 1922) Kirja 1926
+[Doy:Km] = Sir Arthur Conan Doyle : Kun Maa kirkui ja muita epätavallisia tarinoita, WSOY 1992
+[Doy:Pk] = Sir Arthur Conan Doyle : Pelko- ja kauhutarinoita (Tales of Terror and Mystery, 1922) Kirja 1925
+[Doy:Pl] = Sir Arthur Conan Doyle : Polestar-laivan kapteeni. Siniplaneetta 2011
+[Doy:Vs] = Sir Arthur Conan Doyle : Vedenalaisten saartama maa ynnä muita kertomuksia, Gummerus 1917
 [Fra:Ea] = Anatole France : Aadamin ensimmäisen vaimon tytär. Kertomuksia yliluonnollisista aiheista. Kansanvalta 1926.
-[Gab:Nm} = Diana Gabaldon : Neljä Matkantekijä-kertomusta (A Trail of Fire. Four Outlander Tales, 2012) Gummerus 2013
-[Gai:Am} = Neil Gaiman : Aarteita ja muistoesineitä (Valikoima alkuteoksesta Fragile Things, 2006) Kustannusosakeyhtiö Kirjava 2007
+[Gab:Nm] = Diana Gabaldon : Tulivana. Neljä Matkantekijä-kertomusta (A Trail of Fire. Four Outlander Tales, 2012) Gummerus 2013
+[Gai:Am] = Neil (Richard) Gaiman : Aarteita ja muistoesineitä (Valikoima alkuteoksesta Fragile Things, 2006) Kustannusosakeyhtiö Kirjava 2007
 [Gar:Su] = Gabriel Garcia Márquez : Surullinen ja uskomaton tarina (La increible y triste historia de la cándida Eréndira y de su abuela desalmada, 1972) WSOY 1975
 [Gau:Vk] = Théophile Gautier : Vereviä kertomuksia (Contes humoristiques, 1880) Faros-kustannus Oy 2014
 [Gel:Ro] = Jeff Gelb (toim.) : Rock on rajaton kauhu (Shock Rock, 1992) WSOY 1993
-[Gra:K4] = Charles L. Grant (toim.) : Kauhujen kirja 4 (Night Visions 4, 1987) Book Studio Oy 1993
-[Gra:K6] = Charles L. Grant (toim.) : Kauhujen kirja 6 (Night Visions 2, 1985) Book Studio Oy 1994
-[Gre:K8] = Martin H. Greenberg (toim.) : Kauhujen kirja 8 (New Stories from the Twilight Zone, 1991) Book Studio Oy 1996
+[Gra:K4] = Charles L(ewis) Grant (toim.) : Kauhujen kirja 4 (Night Visions 4, 1987) Book Studio Oy 1993
+[Gra:K6] = Charles L(ewis) Grant (toim.) : Kauhujen kirja 6 (Night Visions 2, 1985) Book Studio Oy 1994
+[Gre:K8] = Martin H(arry) Greenberg (toim.) : Kauhujen kirja 8 (New Stories from the Twilight Zone, 1991) Book Studio Oy 1996
 [Gre:Np] = Graham Greene : Nollapiste (A Sense of Reality, 1963) Tammi 1963
 [Hai:Wt] = Peter Haining (toim.) : Weird Tales (Weird Tales, 1976) Book Studio Oy 1992
 [Hal:Uk] = Jukka Halme (toim.) : Uuskummaa?, Kustannusosakeyhtiö Kirjava 2006
 [Haw:Pk] = Nathaniel Hawthorne : Paholainen käsikirjoituksessa, LIKE 1990
-[Hea:Ik] = Lafcadio Hearn : Intohimon karma - Japanin kummitustarinoita, Orienta 2003
-[Hea:Kw] = Lafcadio Hearn : Kwaidan. (Kwaidan, 1904), Love-kirjat 1991
-[Hei:Mj] = Robert A. Heinlein : Mies joka myi kuun (The Man Who Sold the Moon, 1950) Nide Oy 1956
+[Hea:Ik] = (Patrick) Lafcadio (Tessima Carlos) Hearn : Intohimon karma. Japanin kummitustarinoita, Orienta 2003
+[Hea:Kw] = (Patrick) Lafcadio (Tessima Carlos) Hearn : Kwaidan. (Kwaidan, 1904), Love-kirjat 1991
+[Hei:Mj] = Robert A(nson) Heinlein : Mies joka myi kuun (The Man Who Sold the Moon, 1950) Nide Oy 1956
 [Hel:Mt] = Anne Helttunen & Tuula Uusi-Hallila (toim.) : Majatalo ja muita kauhutarinoita, WSOY 2000
 [Hen:Sp] = Saara Henriksson & Markku Soikkeli (toim.) : Surupukki. Ruotsalaisia tieteistarinoita, Osuuskumma-kustannus 2015
 [Hes:Iv] = Hermann Hesse : Ihmeellinen viesti toiselta tähdeltä ja muita tarinoita (Märchen, 1919)  Weilin+Göös 1978
@@ -86,78 +86,78 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Hil:Bc] = Joe Hill : Bobby Conroy palaa kuolleista (20th Century Ghosts, 2005) Tammi 2009
 [Hin:Vv] = Juhani Hinkkanen (toim.) : Velhojen valtakunta, Jalava 1989
 [Hit:Kg] = Alfred Hitchcock (toim.) : Alfred Hitchcockin Kummitusgalleria (Alfred Hitchcock's Ghostly Gallery, 1966) Kirjateos Oy 1980
-[Hof:Yk] = E.T.A. Hoffmann : Yökappaleita (Nachtstücke, 1816, 1817) Teos 2011
-[Hol:Mm] = Robert Holdstock : Merlinin metsä (Merlin's Wood, 1994) Karisto 1996
-[How:Cc] = Robert E. Howard : Conan Cimmerialainen, Jalava 1991
-[How:Cd] = Robert E. Howard : Conan ja demonit, Jalava 1990
-[How:Cm] = Robert E. Howard : Conan ja merirosvot, Oppian 2019
-[How:Ct] = Robert E. Howard : Conan taistelija, Jalava 1990
-[How:Kk] = Robert E. Howard : Kadotuksen kuilu, WSOY 1993
-[How:Ku] = Robert E. Howard : Kultaisen kallon kirous, Oppian 2020
-[How:Yk] = Robert E. Howard : Yön kuninkaat, WSOY 1992
-[How:Zk] = Robert E. Howard : Zambebwein kuu, Tampereen Science Fiction Seura 2010
+[Hof:Yk] = E(rnst) T(heodor) A(madeus) Hoffmann : Yökappaleita (Nachtstücke, 1816, 1817) Teos 2011
+[Hol:Mm] = Robert (Paul) Holdstock : Merlinin metsä (Merlin's Wood, 1994) Karisto 1996
+[How:Cc] = Robert E(rvin) Howard : Conan Cimmerialainen, Jalava 1991
+[How:Cd] = Robert E(rvin) Howard : Conan ja demonit, Jalava 1990
+[How:Cm] = Robert E(rvin) Howard : Conan ja merirosvot, Oppian 2019
+[How:Ct] = Robert E(rvin) Howard : Conan taistelija, Jalava 1990
+[How:Kk] = Robert E(rvin) Howard : Kadotuksen kuilu, WSOY 1993
+[How:Ku] = Robert E(rvin) Howard : Kultaisen kallon kirous, Oppian 2020
+[How:Yk] = Robert E(rvin) Howard : Yön kuninkaat, WSOY 1992
+[How:Zk] = Robert E(rvin) Howard : Zambebwein kuu, Tampereen Science Fiction Seura 2010
 [Hug:Tm] = Ted Hughes : Tarinoita maailman lapsuudesta (Tales of the Early World, 1988) WSOY 1993
-[Ias:V1] = Isaac Asimov Science Fiction valikoima 1, Viihdeviikarit 1987
-[Ias:V2] = Isaac Asimov Science Fiction valikoima 2, Viihdeviikarit 1988
-[Ias:V3] = Isaac Asimov Science Fiction valikoima 3, Viihdeviikarit 1989
+[Ias:V1] = Reijo Kalvas (toim.) : Isaac Asimov Science Fiction valikoima 1, Viihdeviikarit 1987
+[Ias:V2] = Reijo Kalvas (toim.) : Isaac Asimov Science Fiction valikoima 2, Viihdeviikarit 1988
+[Ias:V3] = Reijo Kalvas (toim.) : Isaac Asimov Science Fiction valikoima 3, Viihdeviikarit 1989
 [Ijä:Ey] = Jyrki Ijäs (toim.) : Ensimmäinen yhteys, Pirkanmaan Kirjapaino ja Lehtikustannus Oy 1988
 [Jef:Ks] = Ivan Jefremov : Käärmeen sydän (Serdce zmei, 1959) Vieraskielisen kirjallisuuden kustannusliike
 [Jer:Ha] = Toni Jerrman (toim.) : Himon anatomia, Jalava 1997
-[Jer:Ht] = Jerome K. Jerome : Haltiattaren tarina ynnä muita kertomuksia (Malvina of Brittany, 1916) Gummerus 1917
+[Jer:Ht] = Jerome K(lapka) Jerome : Haltiattaren tarina ynnä muita kertomuksia (Malvina of Brittany, 1916) Gummerus 1917
 [Jär:Kk] = Matti Järvinen (toim.) : Kummituksen käsi ja muita vanhoja kauhukertomuksia. Nysalor-kustannus 2016
 [Jär:Pp] = Matti Järvinen (toim.) : Pirunpullo ja muita vanhoja kauhukertomuksia. Nysalor-kustannus 2018
 [Jär:Uk] = Matti Järvinen (toim.) : Unikäärme ja muita vanhoja kauhukertomuksia. Nysalor-kustannus 2017
 [Kaf:Ek] = Franz Kafka : Erään koiran tutkimuksia. Otava 1967
 [Kaf:Nt] = Franz Kafka : Nälkätaiteilija. Gummerus 1959
-[Kal:Sf] = Reijo Kalvas (toim.) : Science fiction antologia 85, Viihdeviikarit 1985
-[Kin:Aj] = Stephen King : Auringonlaskun jälkeen (Just After Sunset, 2008) Tammi 2010
-[Kin:Ao] = Stephen King : Anteeksi, oikea numero - Painajaisia ja unikuvia 2 (Nightmares and Dreamscapes (loppupuoli), 1993) Tammi 2000
-[Kin:Ea] = Stephen King : Ennen aamunkoittoa (Skeleton Crew, 1985) Book Studio Oy 1991
-[Kin:Jk] = Stephen King : Jälkeen keskiyön (Skeleton Crew, 1985) Book Studio Oy 1991
-[Kin:Kv] = Stephen King : Kauhun vuodenajat (Different Seasons, 1982), Book Studio Oy 1992
-[Kin:K2] = Stephen King : Kauhun vuodenajat 2 (Different Seasons, 1982), Book Studio Oy 1992
-[Kin:Mm] = Stephen King : Maantievirus matkalla pohjoiseen (Everything's Eventual. 14 Dark Stories, 2002) Tammi 2003
-[Kin:Mt] = Stephen King : Musta torni (The Dark Tower: The Gunslinger, 1982) Book Studio Oy 1992
+[Kal:Sf] = Reijo Kalvas (toim.) : Science Fiction - Antologia 85, Viihdeviikarit 1985
+[Kin:Aj] = Stephen (Edwin) King : Auringonlaskun jälkeen (Just After Sunset, 2008) Tammi 2010
+[Kin:Ao] = Stephen (Edwin) King : Anteeksi, oikea numero. Painajaisia ja unikuvia 2 (Nightmares and Dreamscapes (loppupuoli), 1993) Tammi 2000
+[Kin:Ea] = Stephen (Edwin) King : Ennen aamunkoittoa (Skeleton Crew, 1985) Book Studio Oy 1991
+[Kin:Jk] = Stephen (Edwin) King : Jälkeen keskiyön (Skeleton Crew, 1985) Book Studio Oy 1991
+[Kin:Kv] = Stephen (Edwin) King : Kauhun vuodenajat (Different Seasons, 1982), Book Studio Oy 1992
+[Kin:K2] = Stephen (Edwin) King : Kauhun vuodenajat II (Different Seasons, 1982), Book Studio Oy 1992
+[Kin:Mm] = Stephen (Edwin) King : Maantievirus matkalla pohjoiseen (Everything's Eventual. 14 Dark Stories, 2002) Tammi 2003
+[Kin:Mt] = Stephen (Edwin) King : Musta torni (The Dark Tower: The Gunslinger, 1982) Book Studio Oy 1992
 [Kin:Pe] = William King : Peikonsurma (Trollslayer, 1999) Acalla Oy 2001
-[Kin:Ps] = Stephen King : Pedon sydän (Hearts in Atlantis, 1999) Tammi 2000
-[Kin:Py] = Stephen King : Pimeä yö, tähdetön taivas (Full Dark, No Stars, 2010) Tammi 2012
-[Kin:Sy] = Stephen King : Sydänyö (Four Past Midnight, 1990) Tammi 1991
-[Kin:Ys] = Stephen King : Yksinäinen sormi - Painajaisia ja unikuvia 1 (Nightmares and Dreamscapes (alkupuoli), 1993) Tammi 1999
-[Kin:Yä] = Stephen King : Yön äänet (Night Shift, 1978) Viihdeviikarit 1989
+[Kin:Ps] = Stephen (Edwin) King : Pedon sydän (Hearts in Atlantis, 1999) Tammi 2000
+[Kin:Py] = Stephen (Edwin) King : Pimeä yö, tähdetön taivas (Full Dark, No Stars, 2010) Tammi 2012
+[Kin:Sy] = Stephen (Edwin) King : Sydänyö (Four Past Midnight, 1990) Tammi 1991
+[Kin:Ys] = Stephen (Edwin) King : Yksinäinen sormi. Painajaisia ja unikuvia 1 (Nightmares and Dreamscapes (alkupuoli), 1993) Tammi 1999
+[Kin:Yä] = Stephen (Edwin) King : Yön äänet (Night Shift, 1978) Viihdeviikarit 1989
 [Kip:Pm] = Rudyard Kipling : Pedon merkki ja muita kauhuja, WSOY 1994
 [Kop:Ap] = Jari Koponen & Vesa Sisättö (toim.) : Aivopeili, Avain 2011
-[Leg:Km] = Ursula K. Le Guin : Kertomuksia Maamereltä (Tales from Earthsea, 2001) WSOY 2002
-[Leg:Ms] = Ursula K. Le Guin : Maailman syntymäpäivä ja muita tarinoita (The Birthday of the World and Other Stories, 2002) Vaskikirjat 2019
-[Leg:Na] = Ursula K. Le Guin : Neljä anteeksiantoa (Four Ways to Forgiveness, 2001) Vaskikirjat 2014
-[Leg:Pl] = Ursula K. Le Guin : Pimeälipas (The Wind's Twelve Quarters, 1975) Kustannusosakeyhtiö Kirjava 2006
-[Leg:Sk] = Ursula K. Le Guin : Sisämeren kalastaja (A Fisherman of the Inland Sea, 1994) Tampereen Science Fiction Seura 2000
+[Leg:Km] = Ursula K(roeber) Le Guin : Kertomuksia Maamereltä (Tales from Earthsea, 2001) WSOY 2002
+[Leg:Ms] = Ursula K(roeber) Le Guin : Maailman syntymäpäivä ja muita tarinoita (The Birthday of the World and Other Stories, 2002) Vaskikirjat 2019
+[Leg:Na] = Ursula K(roeber) Le Guin : Neljä anteeksiantoa (Four Ways to Forgiveness, 2001) Vaskikirjat 2014
+[Leg:Pl] = Ursula K(roeber) Le Guin : Pimeälipas (The Wind's Twelve Quarters, 1975) Kustannusosakeyhtiö Kirjava 2006
+[Leg:Sk] = Ursula K(roeber) Le Guin : Sisämeren kalastaja (A Fisherman of the Inland Sea, 1994) Tampereen Science Fiction Seura 2000
 [Lem:Ks] = Stanislaw Lem : Konekansan satuja ja tarinoita (Bajki robotóv, 1964) Tammi 2004
 [Lem:Ky] = Stanislaw Lem : Kyberias (Cyberiada, 1965) Kirjayhtymä 1986
-[Lon:Pp] = Frank Belknap Long : Pimeänpelko (Night Fear, 1979) Nykylehdet 1981
+[Lon:Pp] = Frank Belknap Long : Pimeän pelko (Night Fear, 1979) Nykylehdet 1981
 [Lon:Du] = Jack London : Debsin uni, Love-kirjat 1982
 [Lon:Kn] = Jack London : Kuunaama, Sampo 1926
 [Lon:Pj] = Jack London : Punainen jumala, Minerva 1921
 [Lon:Yl] = Jack London : Yön lapsi, Minerva 1924
-[Lov:Al] = H.P. Lovecraft : Alkemisti ja muita kertomuksia, Jalava 1994
-[Lov:Hs] = H.P. Lovecraft : Hautakummun salaisuus sekä muita kertomuksia ja kirjoituksia, Jalava 2014
-[Lov:Nk] = H.P. Lovecraft : Nimetön kaupunki, Jalava 1991
-[Lov:Kp] = H.P. Lovecraft : Kuiskaus pimeässä, Jalava 1989
-[Lov:Sk] = H.P. Lovecraft : Siivekäs kuolema ja muita kertomuksia, Jalava 2013
-[Lov:Tj] = H.P. Lovecraft : Temppeli ja muita kertomuksia, Jalava 1988
-[Lov:Vm] = H.P. Lovecraft : Varjo menneisyydestä, Jalava 1993
-[Lov:Vu] = H.P. Lovecraft : Vaeltaja unien portilla, Tampereen Science Fiction Seura 1997
+[Lov:Al] = H(oward) P(hillips) Lovecraft : Alkemisti ja muita kertomuksia, Jalava 1994
+[Lov:Hs] = H(oward) P(hillips) Lovecraft : Hautakummun salaisuus ja muita kertomuksia ja kirjoituksia, Jalava 2014
+[Lov:Nk] = H(oward) P(hillips) Lovecraft : Nimetön kaupunki, Jalava 1991
+[Lov:Kp] = H(oward) P(hillips) Lovecraft : Kuiskaus pimeässä, Jalava 1989
+[Lov:Sk] = H(oward) P(hillips) Lovecraft : Siivekäs kuolema ja muita kertomuksia, Jalava 2013
+[Lov:Tj] = H(oward) P(hillips) Lovecraft : Temppeli ja muita kertomuksia, Jalava 1988
+[Lov:Vm] = H(oward) P(hillips) Lovecraft : Varjo menneisyydestä, Jalava 1993
+[Lov:Vu] = H(oward) P(hillips) Lovecraft : Vaeltaja unien portilla, Tampereen Science Fiction Seura 1997
 [Luo:Kr] = Taru Luojola & Tarja Sipiläinen (toim.) : Kumman rakas, Osuuskumma-kustannus 2012
 [Mac:Kp] = Carmen Maria Machado : Kahdeksan puraisua (Her Body and Other Parties, 2017) S&S 2019
 [Man:Kk] = Eeva-Liisa Manner (toim.) : Kauhujen kirja, Weilin & Göös 1964
-[Mar:Sk] = George R.R. Martin : Seitsemän kuningaskunnan ritari (A Knight of the Seven Kingdoms, 2015). Kustannusosakeyhtiö Kirjava 2019
-[Mcc:K5] = Robert McCammon (toim.) : Kauhujen kirja 5 (Night Visions 8, 1991) Book Studio Oy 1994
+[Mar:Sk] = George R(aymond) R(ichard) Martin : Seitsemän kuningaskunnan ritari (A Knight of the Seven Kingdoms, 2015). Kustannusosakeyhtiö Kirjava 2019
+[Mcc:K5] = Robert R. McCammon (toim.) : Kauhujen kirja 5 (Night Visions 8, 1991) Book Studio Oy 1994
 [Neu:My] = Neuvostokirjailijain tieteiskertomuksia : Maxwellin yhtälöt (Uravnenija Maksvella) Kustannusliike Edistys 1964
 [Neu:Va] = Vieras avaruudesta, Vieraskielisen kirjallisuuden kustannusliike 1962
 [Nie:Nk] = Mikael Niemi : Nahkakolo (Svålhålet, 2004) Like 2004
 [Num:Va] = Juri Nummelin (toim.) : Vampyyri ja muita vanhoja kauhu- ja jännitysnovelleja, Helmivyö 2018
 [Pac:T1] = Josh Pachter (toim.) : Top Science Fiction 1 (Top Science Fiction, 1984) Jalava 1990
 [Pac:T2] = Josh Pachter (toim.) : Top Science Fiction 2 (Top Science Fiction, 1984) Jalava 1993
-[Poe:Kk] = Edgar Allan Poe : Korppi ja kultakuoriainen, WSOY 1959
+[Poe:Kk] = Edgar Allan Poe : Korppi ja kultakuoriainen sekä muita kertomuksia, WSOY 1959
 [Poe:Ko] = Edgar Allan Poe : Kootut kertomukset, Kustannusosakeyhtiö Teos 2006
 [Poe:No] = Edgar Allan Poe : Novelleja. Kirjallisuutta kouluille. WSOY 1970
 [Poe:Pk] = Edgar Allan Poe : Pelon ja kuoleman kertomuksia, Book Studio Oy 1993
@@ -165,7 +165,7 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Pri:Yk] = Alison Prince : Ystäväni kummitus (The Haunted Children, 1982 & The Ghost Within, 1984) Tammi 1988
 [Rai:K3] = Gary Raisor (toim.) : Kauhujen kirja 3 (Obsessions, 1991) Book Studio Oy 1992
 [Ras:Mp] = Mika Rassi (toim.) : Minä pelkään - venäläistä kauhua ja mystiikkaa. Savukeidas 2014
-[Ree:Fk] = Sulamit & Erkki Reenpää (toim.) : Fantastisia kertomuksia, Otava 1969
+[Ree:Fk] = Sulamit Reenpää & Erkki Reenpää (toim.) : Fantastisia kertomuksia, Otava 1969
 [Ros:Mm] = Matti Rosvall (toim.) : Maailma mielen mukaan, WSOY 1986
 [Sad:Aa] = Markku Sadelehto (toim.) : Amerikkalaiset aaveet, WSOY 1995
 [Sad:Ea] = Markku Sadelehto (toim.) : Englantilaiset aaveet, WSOY 1994
@@ -191,36 +191,36 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Sad:Tl] = Markku Sadelehto (toim.) : Tulilintu, Jalava 1993
 [Sad:We] = Markku Sadelehto (toim.) : Wendigo ja muita yliluonnollisia kauhukertomuksia, Jalava 2015
 [Sak:Ai] = Saki : Avoin ikkuna ja muita tarinoita, Vaskikirjat 2015
-[Sal:Dl] = R.A. Salvatore : Drizztin legenda - Kootut novellit. (The Collected Stories - The Legend of Drizzt Anthology, 2011) Kustannus Jalava 2012
+[Sal:Dl] = R(obert) A(nthony) Salvatore : Drizztin legenda - Kootut novellit. (The Collected Stories - The Legend of Drizzt Anthology, 2011) Kustannus Jalava 2012
 [Sal:Mm] = Tuomas Saloranta & Jyrki Pitkä (toim.) : Murhamystiikkaa - okkulttisia etsivätarinoita, Tajunta Media 2014
 [Sau:Sp] = George Saunders : Sotapuiston perikato (CivilWarLand in Bad Decline, 1996) Siltala 2016
 [Shc:Mu] = Robert Sheckley : Matkalippu utopiaan (Citizen in Space, 1955) WSOY 1976
 [She:Lv] = Lucius Shepard : Lohikäärmeen varjossa, WSOY 1993
 [Sil:Pb] = Robert Silverberg : Purjehdus Bysanttiin, Book Studio Oy 1990
 [Sil:Hm] = Robert Silverberg (toim.) : Huomispäivän maailmat (Tomorrow's Worlds, 1969) Gummerus 1971
-[Sim:Ci] = Clifford D. Simak : City (City, 1952) Ursa 1992
-[Slu:Vk] = Michele Slung (toim.) : Värisyttävä kosketus (I Shudder at Your Touch, 1991) Book Studio Oy 1992
-[Slu:V2] = Michele Slung (toim.) : Värisyttävä kosketus 2 (Shudder Again) Book Studio Oy 1995
+[Sim:Ci] = Clifford D(onald) Simak : City (City, 1952) Ursa 1992
+[Slu:Vk] = Michele (Beth) Slung (toim.) : Värisyttävä kosketus (I Shudder at Your Touch, 1991) Book Studio Oy 1992
+[Slu:V2] = Michele (Beth) Slung (toim.) : Värisyttävä kosketus 2 (Shudder Again) Book Studio Oy 1995
 [Smi:Pn] = Cordwainer Smith : Planeetta nimeltä Shajol (The Best of Cordwainer Smith, 1975) WSOY 1985
 [Smi:Vh] = Clark Ashton Smith : Viimeinen hieroglyfi, WSOY 1994
 [Ste:Mk] = John Richard Stephens & Kim Smith : Mystisiä kissatarinoita (Mysterious Cat Stories, 1993) Book Studio Oy 1995
 [Ste:Pl] = Bruce Sterling (toim.) : Peililasit (Mirrorshades, 1986) Jalava 1990
-[Str:Ph] = Arkadi & Boris Strugatski : Poika helvetistä, WSOY 1986
+[Str:Ph] = Arkadi Strugatski & Boris Strugatski : Poika helvetistä, WSOY 1986
 [Tho:Vh] = Tig Thomas (toim.) : Vampyyrit ja hahmonvaihtajat (Classic Tales of Vampires and Shapeshifters, 2011) Kirjalito 2012
 [Tut:Sh] = Lisa Tuttle (toim.) : Sielusi hipiä (Skin of the Soul, 1990) Kääntöpiiri 1993
 [Twa:Sv] = Mark Twain : Salaperäinen vieras ja muita tarinoita, Savukeidas 2011
-[Van:Im] = Jack Vance : Iltaruskon maa (The Dying Earth, 1950) Kirjayhtymä 1988
-[Van:Ip] = Jack Vance : Ihmisen paluu (toim. Markku Sadelehto) Tampereen Science Fiction Seura  1999
+[Van:Im] = Jack (/John Holbrook) Vance : Iltaruskon maa (The Dying Earth, 1950) Kirjayhtymä 1988
+[Van:Ip] = Jack (/John Holbrook) Vance : Ihmisen paluu (toim. Markku Sadelehto) Tampereen Science Fiction Seura  1999
 [Vdm:Pm] = Jeff VanderMeer : Pyhimysten ja mielipuolten kaupunki (The Hoegbotton Guide to the Early History of Ambergris) Loki-Kirjat 2006.
-[Var:Hr] = John Varley : Hyvästi, Robinson Crusoe, WSOY 1989
+[Var:Hr] = John (Herbert) Varley : Hyvästi, Robinson Crusoe, WSOY 1989
 [Wal:Mm] = Howard Waldrop : Musiikkia miesäänille ja lentäville lautasille () Kustannusosakeyhtiö Kirjava 2007
-[Wel:He] = H.G. Wells : Eräitä kertoelmia, Emil Vainio 1907
-[Wel:He] = H.G. Wells : Hämähäkkilaakso & Eräitä kertoelmia, Tiberius kirjat 2019
-[Wel:Ph] = H.G. Wells : Punainen huone, WSOY  1994
-[Wel:Vh] = H.G. Wells : Voimakoneitten herra, Varastettu basilli ja muita tapauksia, Tiberius kirjat 2019
-[Wia:K7] = Stanley Wiater (toim.) : Kauhujen kirja 7 (Night Visions 7, 1989) Book Studio Oy 1995
-[Win:K1] = Douglas Winter (toim.) : Kauhujen Kirja (Night Visions 5, 1988) Book Studio Oy 1991
-[Win:K2] = Douglas Winter (toim.) : Kauhujen kirja 2 (Prime Evil, 1988) Book Studio Oy 1992
+[Wel:He] = H(erbert) G(eorge) Wells : Eräitä kertoelmia, Emil Vainio 1907
+[Wel:He] = H(erbert) G(eorge) Wells : Hämähäkkilaakso & Eräitä kertoelmia, Tiberius kirjat 2019
+[Wel:Ph] = H(erbert) G(eorge) Wells : Punainen huone, WSOY  1994
+[Wel:Vh] = H(erbert) G(eorge) Wells : Voimakoneitten herra, Varastettu basilli ja muita tapauksia, Tiberius kirjat 2019
+[Wia:K7] = Stanley (Steven) Wiater (toim.) : Kauhujen kirja 7 (Night Visions 7, 1989) Book Studio Oy 1995
+[Win:K1] = Douglas E. Winter (toim.) : Kauhujen Kirja (Night Visions 5, 1988) Book Studio Oy 1991
+[Win:K2] = Douglas E. Winter (toim.) : Kauhujen kirja 2 (Prime Evil, 1988) Book Studio Oy 1992
 [Wol:Pk] = Sebastian Wolfe (toim.) : Pieni kauhukirja - 55 lyhyenlyhyttä kauhupalaa (Tiny Tales of Terror, 1992) Book Studio Oy 1992
 
 
@@ -257,7 +257,7 @@ Uusi kylä (The New Warren, 1996) [Ada:Rt]
 
 Aleksandr Afanasjev
 -------------------
-Upyyri (1855–1863) [Ras:Mp]
+Upyyri (18551863) [Ras:Mp]
 
 
 Carl Ahlström
@@ -278,7 +278,7 @@ Joan Aiken
 Seuralainen (The Companion, 1978) [Tut:Sh]
 
 
-Brian W. Aldiss
+Brian W(ilson) Aldiss
 ---------------
 Ekvaattori (Equator, 1958) [Ald:Ms]
 Maailman viimeiset kyyneleet (All the World's Tears, 1956) [Pac:T1]
@@ -362,7 +362,7 @@ Voittajalle (To the Victor, 1982) [Kal:Sf]
 Välikohtaus kolmesataavuotisjuhlissa (The Tercentenary Incident, 1976) [Asi:Ro]
 
 
-Alice ja Claude Askew
+Alice Askew & Claude Askew
 ---------------------
 Aylmer Vance ja vampyyri (Aylmer Vance and the Vampire, 1914) [Tho:Vh]
 
@@ -400,7 +400,7 @@ William Baldwin & J.R. Stephens (uudelleen kirj.)
 Varokaa kissaa (Beware the Cat, 1553) [Ste:Mk]
 
 
-J.G. Ballard
+J(ames) G(raham) Ballard
 ------------
 Hurjia Haluja (A Host of Furious Fancies, 1982) [Slu:V2]
 
@@ -453,7 +453,7 @@ Veriset valloittajat (How Spoilers Bleed, 1985) [Bar:V6]
 Viimeinen illuusio (The Last Illusion, 1985) [Bar:V6]
 
 
-Greg Bear
+Greg(ory Dale) Bear
 ---------
 Petra (Petra, 1982) [Ste:Pl]
 Sieluja kyytimässä (Dead Run, 1985) [Gre:K8]
@@ -475,7 +475,7 @@ A.C. Benson
 Viimeinen ropo (The Uttermost Farthing, 1926) [Sad:Ea]
 
 
-E.F. Benson
+Edward Frederic Benson
 -----------
 "Eikä yksikään lintu laula" ("And No Bird Sings", 1926) [Dal:Va]
 Gavonin ilta (Gavon's Eve, 1906) [Dal:Sn]
@@ -545,7 +545,7 @@ Siemennysohjelma (Seeding Programme, 1956) [Bli:Tl]
 Vedenjakaja (Watershed, 1955) [Bli:Tl]
 
 
-Robert Bloch
+Robert (Albert) Bloch
 ------------
 Aarteen vartija (Terror in Cut-Throat Cove, 1958) [Blo:Ps]
 Apinajuttu (The Animal Fair, 1971) [Blo:Ps]
@@ -643,7 +643,7 @@ Marjorie Bowen
 Yksi jäi jäljelle (One Remained, 1936) [Dal:Sn]
 
 
-Ray Bradbury
+Ray(mond Douglas) Bradbury
 ------------
 Aave (Banshee, 1984) [Bra:Hn]
 Arkku (The Coffin, 1947) [Bra:Vv]
@@ -761,7 +761,7 @@ Yöllinen kohtaus (Night Meeting, 1950) [Bra:Ma]
 Yövalvojat (The Watchers, 1950) [Bra:Ma]
 
 
-Ray Bradbury & Leigh Brackett
+Ray(mond Douglas) Bradbury & Leigh Brackett
 -----------------------------
 Punaisen usvan Lorelei (Lorelei of the Red Mist, 1946) [Bra:Tt]
 
@@ -806,7 +806,7 @@ Ann Bridge
 Onnettomuus (The Accident, 1936) [Ree:Fk]
 
 
-David Brin
+(Glen) David Brin
 ----------
 Ajan virta (The River of Time, 1981) [Kal:Sf]
 
@@ -823,7 +823,7 @@ D.K. Broster
 Vaanija oven edessä (Couching at the Door, 1933) [Sad:Pv]
 
 
-Frederic Brown
+Fredric (William) Brown
 --------------
 Punainen painajainen (Nightmare in Red, 1961) [Wol:Pk]
 
@@ -878,7 +878,7 @@ John L. Byrne
 Suden vaatteissa (Hide in Plain Sight, 1992) [Gel:Ro]
 
 
-Pat Cadigan
+Pat(ricia Oren Kearney) Cadigan
 -----------
 Hädässä muukalainen tutaan (Roadside Rescue, 1985) [Dat:Ek]
 Jatka rokkaamista (Rock On, 1984) [Ste:Pl]
@@ -1093,7 +1093,7 @@ Paholaisrakastaja (Demonlover, 1991) [Sad:K2]
 Vargr Rules! (Vargr Rule, 1992) [Gel:Ro]
 
 
-Wilkie Collins
+(William) Wilkie Collins
 --------------
 Rouva Zant ja kummitus (Mrs Zant and the Ghost, 1885) [Dal:Sk]
 
@@ -1156,7 +1156,7 @@ Kropfsbergin linnan tornissa (In Kropfsberg Keep, 1895) [Dal:Sk]
 Rue M. le Prince 252 (No. 252 Rue M. le Prince, 1895) [Sad:Aa]
 
 
-F(rancis) Marion Crawford
+Francis Marion Crawford
 -------------------------
 Hytti sataviisi (The Upper Berth, 1885) [Hit:Kg]
 Kalmon hymy (The Dead Smile, 1886) [Cra:Aa]
@@ -1347,7 +1347,7 @@ F.M. Dostojevski
 Stavroginin tunnustus (Ispoved' Stavrogina, 1922) [Man:Kk]
 
 
-Arthur Conan Doyle
+Sir Arthur Conan Doyle
 ------------------
 Amerikkalaisen tarina (The American's Tale, 1880) [Doy:Pl]
 Arpa n:o 249 (Lot No. 249, 1892) [Doy:Ht]
@@ -1604,25 +1604,28 @@ Epäonnen pikkuleipä (The Misfortune Cookie, 1970) [Gre:K8]
 
 Diana Gabaldon
 --------------
-Armeijan käytäntö (The Custom of the Army, 2010) [Gab:Nm}
-Lehtenä pyhäinpäivän tuulessa (A Leaf on the Wind of All Hallows, 2010) [Gab:Nm}
-Lordi John ja zombien vitsaus (Lord John and the Plague of Zombies, 2011) [Gab:Nm}
-Välitila (The Space Between, 2012) [Gab:Nm}
+Armeijan käytäntö (The Custom of the Army, 2010) [Gab:Nm]
+Lehtenä pyhäinpäivän tuulessa (A Leaf on the Wind of All Hallows, 2010) [Gab:Nm]
+Lordi John ja zombien vitsaus (Lord John and the Plague of Zombies, 2011) [Gab:Nm]
+Välitila (The Space Between, 2012) [Gab:Nm]
 
 
 Neil Gaiman
 -----------
-Aarteita ja muistoesineitä (Keepsakes and Treasures: A Love Story, 1999) [Gai:Am}
-Harlekiini Valentiini (Harlequin Valentine, 1999) [Gai:Am}
-Kaamean himon yön salatun talon kasvottomien orjien kielletyt morsiamet (Forbidden Brides of the Faceless Slaves in the Secret House of the Night of Dread Desire, 2004) [Gai:Am}
-Kitkerää paahtoa (Bitter Grounds, 2003) [Gai:Am}
-Laakson kuningas (The Monarch of the Glen, 2003) [Gai:Am}
-Ne muut (Other People, 2001) [Gai:Am}
-Sivuja päiväkirjasta joka löytyi pitkänmatkan bussiin jätetystä kenkälaatikosta jostain Oklahoman Tulsan ja Kentuckyn Louisvillen väliltä (Pages from a Journal Found in a Shoebox Left in a Greyhound Bus Somewhere Between Tulsa, Oklahoma, and Louisville, Kentucky, 2002) [Gai:Am}
-Soraa muistojen tieltä (The Flints of Memory Lane, 1997) [Gai:Am}
-Sulkemisaika (Closing Time, 2003) [Gai:Am}
-Susanin ongelma (The Problem of Susan, 2004) [Gai:Am}
-Vihreiden kirjainten arvoitus (A Study in Emerald, 2003) [Gai:Am}
+Aarteita ja muistoesineitä (Keepsakes and Treasures: A Love Story, 1999) [Gai:Am]
+Harlekiini Valentiini (Harlequin Valentine, 1999) [Gai:Am]
+Kaamean himon yön salatun talon kasvottomien orjien kielletyt morsiamet
+(Forbidden Brides of the Faceless Slaves in the Secret House of the Night of Dread Desire, 2004) [Gai:Am]
+Kitkerää paahtoa (Bitter Grounds, 2003) [Gai:Am]
+Laakson kuningas (The Monarch of the Glen, 2003) [Gai:Am]
+Ne muut (Other People, 2001) [Gai:Am]
+Sivuja päiväkirjasta joka löytyi pitkänmatkan bussiin jätetystä
+kenkälaatikosta jostain Oklahoman Tulsan ja Kentuckyn Louisvillen väliltä
+(Pages from a Journal Found in a Shoebox Left in a Greyhound Bus Somewhere Between Tulsa, Oklahoma, and Louisville, Kentucky, 2002) [Gai:Am]
+Soraa muistojen tieltä (The Flints of Memory Lane, 1997) [Gai:Am]
+Sulkemisaika (Closing Time, 2003) [Gai:Am]
+Susanin ongelma (The Problem of Susan, 2004) [Gai:Am]
+Vihreiden kirjainten arvoitus (A Study in Emerald, 2003) [Gai:Am]
 
 
 Stephen Gallagher
@@ -1803,7 +1806,7 @@ Hengenpelastus (Rescue Operation, 1967) [Pac:T1]
 Paine (Pressure, 1969) [Sil:Hm]
 
 
-M. John Harrison
+M(ichael) John Harrison
 ----------------
 Suuri jumala Pan (The Great God Pan, 1988) [Win:K2]
 Uudet säteet (The New Rays, 1982) [Sad:K2]
@@ -1847,7 +1850,7 @@ Paul Hazel
 Nainen lounaspöydässä (Having a Woman at Lunch, 1988) [Win:K2]
 
 
-Lafcadio Hearn
+(Patrick) Lafcadio (Tessima Carlos) Hearn
 --------------
 Akinosuken uni (The Dream of Akinosuké, 1904) [Hea:Ik] [Hea:Kw]
 Aoyagi (The Story of Aoyagi, 1904) [Hea:Kw]
@@ -1971,7 +1974,7 @@ Nina Kiriki Hoffman
 Kultasydän (Heart of Gold, 1991) [Rai:K3]
 
 
-E.T.A. Hoffmann
+E(rnst) T(heodor) A(madeus) Hoffmann
 ---------------
 Autio talo (Das öde Haus, 1817) [Hof:Yk]
 Ignaz Denner (Ignaz Denner, 1817) [Hof:Yk]
@@ -2419,7 +2422,7 @@ Portilla (On the Gate, 1926) [Kip:Pm]
 Vaeltava juutalainen (The Wandering Jew, 1889) [Kip:Pm]
 
 
-Gerard Klein
+Gérard Klein
 ------------
 Kaikulaakso (La vallée des échos, 1966) [Ros:Mm]
 
@@ -2745,7 +2748,7 @@ Barry Longyear
 Vihollinen [Ias:V2]
 
 
-H.P. Lovecraft
+H(oward) P(hillips) Lovecraft
 --------------
 Aikakausien haudasta (Out of the Aeons, 1935) [Lov:Kp]
 Ajokoira (The Hound, 1924) [Lov:Tj]
@@ -2813,7 +2816,7 @@ Väri avaruudesta (The Colour out of Space, 1927) [Lov:Nk]
 Yigin lapset (The Curse of Yig, 1929) [Lov:Kp]
 
 
-H.P. Lovecraft & Robert H. Barlow
+H(oward) P(hillips) Lovecraft & Robert H. Barlow
 ---------------------------------
 Öinen meri (The Night Ocean, 1936) [Sad:Aa]
 
@@ -2885,7 +2888,7 @@ Priscilla Marron
 Rakkaani, kuinka kuolleelta sinä näytätkään ja silti sinä suloisesti laulat (My Dear How Dead You Look and Yet You Sweetly Sing) [Wol:Pk]
 
 
-Frederick Marryat
+Frederik Marryat
 -----------------
 Harz-vuoren valkoinen susi (The White Wolf of Hartz Mountains, 1839) [Tho:Vh]
 Ihmissusi (The Were-Wolf, 1837) [Hii:Kp]
@@ -3061,7 +3064,7 @@ Jirel taikamaassa (Jirel Meets Magic, 1935) [Sad:Pl]
 Mustan jumalan suudelma (Black God's Kiss, 1934) [Sad:Mj]
 
 
-C. L. Moore, A. Merritt, H. P. Lovecraft, Robert E. Howard & Frank Belknap Long
+C. L. Moore & A. Merritt & H(oward) P(hillips) Lovecraft & Robert E(rvin) Howard & Frank Belknap Long
 -------------------------------------------------------------------------------
 Arvoitus tuolta puolen (The Challenge from Beyond, 1935) [Sad:ll]
 
@@ -3380,7 +3383,7 @@ Miljoonapäivä (Day Million, 1970) [Pac:T1]
 (nimetön) (Cool War, 1979) [Poh:Sv]
 
 
-Frederik Pohl & C.M. Kornbluth
+Frederik Pohl & C(yril) M(aine) Kornbluth
 ------------------------------
 Välityspalkkio (The Gift of Garigolli, 1974) [Ros:Mm]
 
@@ -3452,7 +3455,7 @@ Anne Rice
 Rampling Gaten isäntä (The Master of Rampling Gate, 1984) [Dal:Va]
 
 
-Rouva J.H. Riddell
+J.H. Riddell
 ------------------
 Tilanomistaja Ennismoren lähtö (The Last of Squire Ennismore, 1888) [Dal:Sk]
 
@@ -3556,7 +3559,7 @@ Kuolema ja uni (Angel's Exchange, 1984) [Wol:Pk]
 Rupikonnanoita (The Toad Witch, 1991) [Dal:Sn] [Hel:Mt]
 
 
-R.A. Salvatore
+R(obert) A(nthony) Salvatore
 --------------
 Ensimmäinen lovi (The First Notch, 1989) [Sal:Dl]
 Guenhwyvar (Guenhwyvar, 1995) [Sal:Dl]
@@ -4147,7 +4150,7 @@ Mutta laakso oli hiljainen (The Valley Was Still, 1939) [Hai:Wt]
 Noidan kissa (The Witch's Cat, 1939) [Dal:Sn]
 
 
-H.G. Wells
+H(erbert) G(eorge) Wells
 ----------
 Aarre metsässä (The Treasure in the Forest, 1894) [Wel:Vh]
 Aepyornis-saari (Æpyornis Island, 1894) [Wel:Vh]
@@ -4195,7 +4198,7 @@ Lukundoo (Lukundoo, 1907) [Ree:Fk]
 Painajaisten talo (The House of the Nightmare, 1906) [Dal:Sk]
 
 
-T.H. White
+T(erence) H(anbury) White
 ----------
 Rakkauden sukua (Kin to Love, 1935) [Slu:V2]
 
@@ -4340,7 +4343,7 @@ Harriet Zinnes
 Siivet (Wings, 1988) [Slu:Vk]
 
 
-Émile Zola
+Émile (Edouard Charles Antoine) Zola
 ----------
 Verta (Le sang, 1864) [Jär:Kk]
 

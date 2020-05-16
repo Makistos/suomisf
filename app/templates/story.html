@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ story.title }}
+{% if current_user.is_admin %}
+    ({{ story.id }})
+{% endif %}
+</h1>
+    {% for author in story.authors %}
+        {{ author.alt_name }}
+    {% endfor %}
+{% if story.title != story.orig_title %}
+<h2>
+{{ story.orig_title }}
+{%- if story.pubyear -%}, {{  story.pubyear }}{% endif %}
+</h2>
+{% endif %}
+    <span class="person-list">{{ authors|map(attribute='name')|join(', ') }}</span>
+
+{% if story.genre %}
+<p>
+    Genre: {{ story.genre }}
+</p>
+{% endif %}
+<p>Ilmestynyt teoksissa:</p>
+<ul>
+    {% for work in works %}
+        <li><a href=" {{ url_for('work', workid=work.id)}}">{{work.title}}</a> ({{work.pubyear}})
+        {% if work.genres|length %}
+       [{{ work.genres|join(', ', attribute='genre_name') }}]
+       {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+<p>Ilmestynyt painoksissa:</p>
+<ul>
+    {% for edition in editions %}
+        <li><a href=" {{ url_for('edition', editionid=edition.id)}}">{{edition.title}}</a> ({{ edition.editionnum}}. painos) ({{edition.pubyear}})</li>
+    {% endfor %}
+</ul>
+{% block script %}
+<script src="/static/js/personlink.js" type="text/javascript"></script>
+<script src="/static/js/author.js">
+<script>
+{% include "_searchable_lists.html" %}
+</script>
+{% endblock %}
+{% endblock %}

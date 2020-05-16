@@ -760,6 +760,7 @@ def import_books(session, authors):
                             isbn = '', # No ISBNs in the data
                             pubseries_id = pubseriesid,
                             pubseriesnum = edition['pubseriesnum'],
+                            collection = workitem.collection,
                             coll_info = edition['coll_info'],
                             misc = edition['rest'],
                             fullstring = edition['fullstring'])

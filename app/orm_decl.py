@@ -38,6 +38,7 @@ class Edition(Base):
     pubseries_id = Column(Integer, ForeignKey('pubseries.id'))
     pubseriesnum = Column(Integer)
     collection = Column(Boolean)
+    pages = Column(Integer)
     coll_info = Column(String(200))
     misc = Column(String(500))
     fullstring = Column(String(500))
@@ -80,8 +81,10 @@ class Work(Base):
     authors = relationship("Person",
                 secondary='join(Part, Author, Part.id == Author.part_id)',
                 primaryjoin='and_(Person.id == Author.person_id,\
-                Author.part_id == Part.id, Part.work_id == Work.id)',
-                uselist=True)
+                Author.part_id == Part.id, Part.work_id == Work.id,\
+                Part.shortstory_id == None)',
+                uselist=True,
+                order_by='Person.alt_name')
     translators = relationship("Person",
                 secondary='join(Part, Translator, Part.id == Translator.part_id)',
                 primaryjoin='and_(Person.id == Translator.person_id,\
@@ -130,6 +133,7 @@ class ShortStory(Base):
     language = Column(String(2))
     pubyear = Column(Integer)
     genre = Column(String(100))
+    parts = relationship('Part', backref=backref('part_assoc'), uselist=True)
 
 class Alias(Base):
     __tablename__ = 'alias'
@@ -165,7 +169,14 @@ class Person(Base):
     works = relationship("Work",
                 secondary='join(Part, Author, Part.id == Author.part_id)',
                 primaryjoin='and_(Person.id == Author.person_id,\
-                Author.part_id == Part.id, Part.work_id == Work.id)',
+                Author.part_id == Part.id, Part.work_id == Work.id,\
+                Part.shortstory_id == None)',
+                uselist=True)
+    stories = relationship("ShortStory",
+                secondary='join(Part, Author, Part.id == Author.part_id)',
+                primaryjoin='and_(Person.id == Author.person_id,\
+                Author.part_id == Part.id, Part.work_id == Work.id,\
+                Part.shortstory_id == ShortStory.id)',
                 uselist=True)
     edits = relationship("Edition", secondary='editor')
     translations = relationship("Edition",

@@ -73,11 +73,11 @@ class EditionForm(FlaskForm):
     isbn = StringField('ISBN')
     pubseries = SelectField('Kustantajan sarja', coerce=str)
     pubseriesnum = IntegerField('Sarjan numero', validators=[Optional()])
+    pages = IntegerField('Sivuja')
     misc = StringField('Muuta')
     source = StringField('Lähde')
     image_src = StringField('Kuva')
     submit = SubmitField('Tallenna')
-
 
 class PersonForm(FlaskForm):
     id = HiddenField('id')
