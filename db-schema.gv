@@ -104,6 +104,7 @@ digraph g {
 		<TR><TD PORT="publisherid">publisher_id</TD></TR>
 		<TR><TD>editionnum</TD></TR>
                 <TR><TD>collection</TD></TR>
+		<TR><TD>pages</TD></TR>
 		<TR><TD>isbn</TD></TR>
 		<TR><TD PORT="pubseriesid">pubseries_id</TD></TR>
 		<TR><TD>pubseriesnum</TD></TR>
@@ -160,7 +161,7 @@ digraph g {
 		<TR><TD>title</TD></TR>
 		</TABLE>
 		>];
-	
+
 	ShortStory [
 		label =<
 		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
@@ -172,7 +173,7 @@ digraph g {
 		<TR><TD>genre</TD></TR>
 		</TABLE>
 		>];
-		
+
         Link [
                 label =<
 		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
@@ -184,6 +185,15 @@ digraph g {
                 <TR><TD PORT="pubseriesid">pubseries_id</TD></TR>
                 <TR><TD PORT="bookseriesid">bookseries_id</TD></TR>
                 <TR><TD PORT="publisherid">publisher_id</TD></TR>
+		</TABLE>
+		>];
+	
+	Genre [
+		label =<
+		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+		<TR><TD><B>Genre</B></TD></TR>
+		<TR><TD port="workid">workid</TD></TR>
+		<TR><TD port="name">genre_name</TD></TR>
 		</TABLE>
 		>];
 
@@ -214,4 +224,5 @@ digraph g {
         Link:publisherid -> Publisher:id [style=dashed];
         Alias:alias -> Person:id [style=dashed];
         Alias:realname -> Person:id [style=dashed];
+	Genre:workid -> Work:id;
 }
