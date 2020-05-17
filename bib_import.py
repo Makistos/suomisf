@@ -262,6 +262,7 @@ def get_books(books):
                 book['oldtitle'] = curr_book['title']
                 book['origyear'] = curr_book['origyear']
                 book['translation'] = curr_book['translation']
+                book['collection'] = curr_book['collection']
                 book['edition'] = m2.group(1)
                 tmp = tmp.replace(m2.group(1) + '.' + m2.group(2) + ':', '')
 
@@ -296,7 +297,7 @@ def get_books(books):
             book['coll_info'] = ''
             if m:
                 genre = m.group(1)
-                if genre.find('kok') or genre.find('Kok'):
+                if genre.find('kok') != -1 or genre.find('Kok') != -1:
                     book['collection'] = True
                 m2 = re.search('(.+)\s(\d+\/\d+)', genre)
                 if m2:
