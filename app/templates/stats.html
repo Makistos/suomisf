@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+<div class="row">
+    <div class="col-md-4">
+        <h2>Kirjoja genreittäin</h2>
+        <ul>
+        {% for c in counts %}
+            <li>{{ c.genre_name }}: {{ c.1 }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <h2>Eniten käännöksiä</h2>
+        <ul>
+            {% for person in translators %}
+            <li><a href=" {{ url_for('person', personid=person.name)}}">{{person.name}}</a>: {{person.1}}</li>
+
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <h2>Eniten toimitettuja kirjoja</h2>
+        <ul>
+            {% for person in editors %}
+            <li><a href=" {{ url_for('person', personid=person.name)}}">{{person.name}}</a>: {{person.1}}</li>
+
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<h2 align="center">Eniten kirjoja genreittäin</h2>
+<div class="row">
+    <div class="col-md-4">
+        <h3 align="center">SF</h3>
+        <ul>
+        {% for person in topsf %}
+            <li><a href=" {{ url_for('person', personid=person.name)}}">{{person.name}}</a>: {{person.1}}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <h3 align="center">Kauhu</h3>
+        <ul>
+        {% for person in topk %}
+            <li><a href=" {{ url_for('person', personid=person.name)}}">{{person.name}}</a>: {{person.1}}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <h3 align="center">Fantasia</h3>
+        <ul>
+        {% for person in topf %}
+            <li><a href=" {{ url_for('person', personid=person.name)}}">{{person.name}}</a>: {{person.1}}</li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h3 align="center">Nuorten SF</h3>
+        <ul>
+        {% for person in topnsf %}
+            <li><a href=" {{ url_for('person', personid=person.name)}}">{{person.name}}</a>: {{person.1}}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <h3 align="center">Nuorten kauhu</h3>
+        <ul>
+        {% for person in topnk %}
+            <li><a href=" {{ url_for('person', personid=person.name)}}">{{person.name}}</a>: {{person.1}}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <h3 align="center">Nuorten fantasia</h3>
+        <ul>
+        {% for person in topnf %}
+            <li><a href=" {{ url_for('person', personid=person.name)}}">{{person.name}}</a>: {{person.1}}</li>
+        {% endfor %}
+        </ul>
+    </div>
+ </div>
+</div>
+<h3 align="center">Kokoelmat</h3>
+<ul>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+{% for person in topcoll %}
+    <li><a href=" {{ url_for('person', personid=person.name)}}">{{person.name}}</a>: {{person.1}}</li>
+{% endfor %}
+</ul>
+</div>
+{% endblock %}

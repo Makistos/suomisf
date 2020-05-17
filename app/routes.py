@@ -92,6 +92,65 @@ def register():
     return render_template('register.html', form=form, title='Tunnuksen luonti')
 
 
+@app.route('/stats')
+def stats():
+    session = new_session()
+
+    counts = session.query(Genre.genre_name, func.count(Work.id))\
+                    .join(Genre)\
+                    .filter(Genre.workid == Work.id)\
+                    .group_by(Genre.genre_name)\
+                    .order_by(func.count(Work.id).desc())\
+                    .all()
+
+    genres = ['SF', 'F', 'K', 'nSF', 'nF', 'nK', 'kok']
+    tops = {}
+    for genre in genres:
+
+        tops[genre] = session.query(Person.name, func.count(Person.id), Genre.genre_name)\
+                             .join(Author)\
+                             .join(Part)\
+                             .join(Work)\
+                             .join(Genre)\
+                             .filter(Genre.workid == Work.id)\
+                             .filter(Part.work_id == Work.id)\
+                             .filter(Author.person_id == Person.id, Author.part_id == Part.id)\
+                             .filter(Genre.genre_name == genre)\
+                             .filter(Part.shortstory_id == None)\
+                             .group_by(Person.id)\
+                             .order_by(func.count(Work.id).desc())\
+                             .limit(10)\
+                             .all()
+
+    translators = session.query(Person.name, func.count(Translator.person_id))\
+                         .join(Translator)\
+                         .filter(Translator.person_id == Person.id)\
+                         .join(Part)\
+                         .filter(Translator.part_id == Part.id)\
+                         .filter(Part.shortstory_id == None)\
+                         .group_by(Person.id)\
+                         .order_by(func.count(Translator.person_id).desc())\
+                         .limit(20)\
+                         .all()
+
+    editors = session.query(Person.name, func.count(Editor.person_id))\
+                     .join(Editor)\
+                     .join(Edition)\
+                     .filter(Person.id == Editor.person_id, Editor.edition_id == Edition.id)\
+                     .group_by(Person.id)\
+                     .order_by(func.count(Editor.person_id).desc())\
+                     .limit(20)\
+                     .all()
+
+    return render_template('stats.html',
+                           counts=counts,
+                           topsf=tops['SF'], topf=tops['F'], topk=tops['K'],
+                           topnsf=tops['nSF'], topnf=tops['nF'], topnk=tops['nK'],
+                           topcoll=tops['kok'],
+                           translators=translators,
+                           editors=editors)
+
+
 @app.route('/user/<userid>')
 def user(userid):
     session = new_session()
