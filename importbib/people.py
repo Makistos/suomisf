@@ -33,6 +33,7 @@ translators =\
         ('M. Rutanen', 'M.', 'Rutanen'),
         ('Matti K. Kallio', 'Matti K.', 'Kallio'),
         ('M.L. Reunanen', 'M.L.', 'Reunanen'),
+        ('M-L. Vuorjoki', 'M-L.', 'Vuorjoki'),
         ('O.E. Juurikorpi', 'O.E.', 'Juurikorpi'),
         ('O.E. Tudeer', 'O.E.', 'Tudeer'),
         ('P. Kopperi', 'P.', 'Kopperi'),

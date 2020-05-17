@@ -154,6 +154,7 @@ class Person(Base):
     dod = Column(Integer)
     birthplace = Column(String(250))
     fullstring = Column(String(500))
+    other_names = Column(String(250))
     #real_names = relationship("Person", secondary="Alias", primaryjoin="Person.id==Alias.alias")
     real_names = relationship('Person',
                     primaryjoin=id==Alias.alias,

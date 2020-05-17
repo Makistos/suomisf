@@ -37,6 +37,7 @@ publishers = [
     ('Egmont Kustannus Oy / Kirjalito', 'Egmont Kustannus / Kirjalito', 'Egmont Kustannus Oy / Kirjalito'),
     ('Emil Vainio', 'Emil Vainio', 'Emil Vainio'),
     ('Espoon science fiction- ja fantasiaseura( ESC ry)?', 'Espoon science fiction- ja fantasiaseura', 'Espoon science fiction- ja fantasiaseura ESC ry'),
+    ('Etelä-Suomen kustannus Oy', 'Etelä-Suomen kustannus Oy', 'Etelä-Suomen kustannus Oy'),
     ('Ex Libris', 'Ex Libris', 'Ex Libris'),
     ('Fanzine Oy', 'Fanzine', 'Fanzine Oy'),
     ('Faros-kustannus( Oy)?', 'Faros-kustannus', 'Faros-kustannus Oy'),

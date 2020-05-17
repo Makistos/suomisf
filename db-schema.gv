@@ -64,6 +64,7 @@ digraph g {
 		<TR><TD>dob</TD></TR>
 		<TR><TD>dod</TD></TR>
 		<TR><TD>birthplace</TD></TR>
+		<TR><TD>other_names</TD></TR>
 		<TR><TD>fullstring</TD></TR>
                 <TR><TD>image_src</TD></TR>
 		</TABLE>
@@ -187,7 +188,7 @@ digraph g {
                 <TR><TD PORT="publisherid">publisher_id</TD></TR>
 		</TABLE>
 		>];
-	
+
 	Genre [
 		label =<
 		<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
