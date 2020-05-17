@@ -7,7 +7,7 @@
         <h2>Kirjoja genreittäin</h2>
         <ul>
         {% for c in counts %}
-            <li>{{ c.genre_name }}: {{ c.1 }}</li>
+            <li><a href=" {{ url_for('books_by_genre', genre=c.genre_name)}}">{{ c.genre_name }}</a>: {{ c.1 }}</li>
         {% endfor %}
         </ul>
     </div>

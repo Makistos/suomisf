@@ -67,7 +67,17 @@ def books_by_lang(lang):
                         key=lambda x: x['edition_num'])[0]
             #retval += {
 
+@app.route('/books_by_genre/<genre>')
+def books_by_genre(genre):
 
+    session = new_session()
+
+    works = session.query(Work)\
+                   .join(Genre)\
+                   .filter(Genre.workid == Work.id)\
+                   .filter(Genre.genre_name == genre)\
+                   .all()
+    return render_template('books.html', works=works)
 
 @app.route('/books')
 def books():
