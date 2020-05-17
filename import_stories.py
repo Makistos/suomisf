@@ -4,11 +4,18 @@ from sqlalchemy.orm import sessionmaker
 import re
 import os
 from typing import Dict, List, Tuple
+from importbib import missing_from_db
 
 people: Dict = {}
 
 db_url = os.environ.get('DATABASE_URL') or \
         'sqlite:///suomisf.db'
+
+
+def add_missing_people():
+    for person in missing_from_db:
+        add_to_db(person)
+
 
 def add_to_db(person: str):
     """ Add person missing from the main bib files to the database."""
@@ -40,7 +47,7 @@ def add_to_db(person: str):
         last_name = person
         name = person
         first_name = ''
-    p = s.query(Person).filter(Person.alt_name == person)
+    p = s.query(Person).filter(Person.alt_name == person).first()
     if not p:
         #print(f'Adding person to database: {name} | {alt_name} | {first_name} | {last_name}')
         p = Person(name=name, alt_name=alt_name,
@@ -139,7 +146,7 @@ def get_authors(line: str) -> Tuple[List, bool]:
                 a = people[key]
                 break
         if not a:
-            print(f'X: {author}')
+            #print(f'X: {author}')
             all_found = False
             if reversed:
                 last_name = parts[0]
@@ -149,7 +156,13 @@ def get_authors(line: str) -> Tuple[List, bool]:
                    .filter(Person.last_name.like(last_name))\
                    .all()
             if alt:
-                print(f'?: {[a.alt_name for a in alt]}')
+                # Print a list of author names that can be copied to
+                # the missing list.
+                print(f'\'{author}\',')
+                # Following line should be uncommented when doing a new
+                # run as there might be differences in spelling for same
+                # people. This will allow you to check for those.
+                #print(f'\'{[a.alt_name for a in alt]}\',')
             else:
                 # No meaningful alternative found so let's add this to db
                 add_to_db(author)
@@ -375,6 +388,7 @@ def import_stories(filename: str, books: Dict = {}):
                         s.commit()
 
 if __name__ == '__main__':
+    add_missing_people()
     get_people()
     books: Dict = {'[Ias:V1]': ['Reijo Kalvas', 'Isaac Asimov Science Fiction valikoima 1', True],
                    '[Ias:V2]': ['Reijo Kalvas', 'Isaac Asimov Science Fiction valikoima 2', True],
