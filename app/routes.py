@@ -27,13 +27,15 @@ def index():
     person_count = session.query(func.count(Person.id)).first()
     pubseries_count = session.query(func.count(Pubseries.id)).first()
     bookseries_count = session.query(func.count(Bookseries.id)).first()
+    story_count = session.query(func.count(ShortStory.id)).first()
 
     return render_template('index.html', work_count=work_count,
                            edition_count=edition_count,
                            author_count=author_count,
                            pub_count=pub_count, person_count=person_count,
                            pubseries_count=pubseries_count,
-                           bookseries_count=bookseries_count)
+                           bookseries_count=bookseries_count,
+                           story_count=story_count)
 
 def redirect_url(default='index'):
     return request.args.get('next') or \
