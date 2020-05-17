@@ -115,6 +115,13 @@ def booksX(letter):
     return render_template('books.html', letter=letter,
             works=works, prev_letter=prev_letter, next_letter=next_letter)
 
+@app.route('/anthologies')
+def anthologies():
+    session = new_session()
+
+    anthologies = session.query(Work).filter(Work.collection == 1).all()
+
+    return render_template('books.html', works=anthologies)
 
 @app.route('/work/<workid>', methods=["POST", "GET"])
 def work(workid):
