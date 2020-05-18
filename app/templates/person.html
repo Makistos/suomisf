@@ -62,7 +62,8 @@
         <h3>Novellit</h3>
             {% for story in stories %}
                     <span style="padding-left: 25px; ">
-                    <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a> ({{ story.orig_title }}, {{ story.pubyear}})<br>
+                    <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
+                    ({% if story.title != story.orig_title %}{{ story.orig_title }}, {%endif%}{{ story.pubyear}})<br>
                     </span>
             {% endfor %}
     {% endif %}
