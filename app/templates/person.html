@@ -49,7 +49,9 @@
         <p><a href=" {{ url_for('edit_person', personid=person.id)
                     }}">Muokkaa</a></p>
         {% endif %}
+    {% if person.works|length or person.stories|length %}
     <h2>Kirjoittanut</h2>
+    {% endif %}
 	{% if person.works|length %}
         <h3>Romaanit</h3>
 		{% for work in person.works|sort(attribute='title') %}
@@ -58,12 +60,10 @@
     {% endif %}
     {% if person.stories|length %}
         <h3>Novellit</h3>
-            {% for story in person.stories|sort(attribute='title') %}
-                {% for part in story.part|sort(attribute='title')|groupby('title') %}
+            {% for story in stories %}
                     <span style="padding-left: 25px; ">
-                    <a href=" {{ url_for('story', storyid=story.id) }}">{{ part.grouper }}</a> ({{ story.title }}, {{ story.pubyear}})<br>
+                    <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a> ({{ story.orig_title }}, {{ story.pubyear}})<br>
                     </span>
-                {% endfor %}
             {% endfor %}
     {% endif %}
     {% if person.translations|length %}

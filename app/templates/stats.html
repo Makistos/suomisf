@@ -83,15 +83,23 @@
         </ul>
     </div>
  </div>
-</div>
-<h3 align="center">Kokoelmat</h3>
-<ul>
+<div class="row">
     <div class="col-md-4">
+        <h3 align="center">Kokoelmat</h3>
+        <ul>
+        {% for person in topcoll %}
+            <li><a href=" {{ url_for('person', personid=person.name)}}">{{person.name}}</a>: {{person.1}}</li>
+        {% endfor %}
+        </ul>
     </div>
     <div class="col-md-4">
-{% for person in topcoll %}
-    <li><a href=" {{ url_for('person', personid=person.name)}}">{{person.name}}</a>: {{person.1}}</li>
-{% endfor %}
-</ul>
+        <h3 align="center">Novellit</h3>
+        <ul>
+        {% for person in stories %}
+            <li><a href=" {{ url_for('person', personid=person.name)}}">{{person.name}}</a>: {{person.1}}</li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
 </div>
 {% endblock %}

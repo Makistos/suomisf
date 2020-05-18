@@ -142,13 +142,28 @@ def stats():
                      .limit(20)\
                      .all()
 
+    stories = session.query(Person.name, func.count(Person.id), Genre.genre_name)\
+                            .join(Author)\
+                            .join(Part)\
+                            .join(Work)\
+                            .join(Genre)\
+                            .filter(Genre.workid == Work.id)\
+                            .filter(Part.work_id == Work.id)\
+                            .filter(Author.person_id == Person.id, Author.part_id == Part.id)\
+                            .filter(Genre.genre_name == genre)\
+                            .filter(Part.shortstory_id != None)\
+                            .group_by(Person.id)\
+                            .order_by(func.count(Work.id).desc())\
+                            .limit(10)\
+                            .all()
     return render_template('stats.html',
                            counts=counts,
                            topsf=tops['SF'], topf=tops['F'], topk=tops['K'],
                            topnsf=tops['nSF'], topnf=tops['nF'], topnk=tops['nK'],
                            topcoll=tops['kok'],
                            translators=translators,
-                           editors=editors)
+                           editors=editors,
+                           stories=stories)
 
 
 @app.route('/user/<userid>')
@@ -271,6 +286,22 @@ def person(personid):
     authored = books_for_person(session, personid, 'A')
     translated = books_for_person(session, personid, 'T')
     edited = books_for_person(session, personid, 'E')
+    stories = session.query(ShortStory.title.label('orig_title'),
+                            Part.title.label('title'),
+                            ShortStory.pubyear,
+                            ShortStory.id)\
+                     .join(Part)\
+                     .join(Author)\
+                     .join(Person)\
+                     .filter(Part.id == Author.part_id)\
+                     .filter(Author.person_id == Person.id)\
+                     .filter(Person.id == person.id)\
+                     .filter(Part.shortstory_id == ShortStory.id)\
+                     .filter(Author.part_id == Part.id)\
+                     .group_by(ShortStory.id)\
+                     .order_by(Part.title)\
+                     .all()
+
     #aliases = session.query(Person)\
     #                 .join(Alias)\
     #                 .filter(Alias.realname == person.id)\
@@ -280,7 +311,7 @@ def person(personid):
     #                    .filter(Alias.alias == person.id)\
     #                    .all()
     return render_template('person.html', person=person, authored=authored,
-            translated=translated, edited=edited)
+            translated=translated, edited=edited, stories=stories)
 
 @app.route('/edit_person/<personid>', methods=['POST', 'GET'])
 def edit_person(personid):
