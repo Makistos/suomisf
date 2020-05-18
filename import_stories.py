@@ -368,7 +368,12 @@ def import_stories(filename: str, books: Dict = {}):
                                      ShortStory.pubyear == st['year'])\
                              .first()
                     if not story:
-                        story = ShortStory(title = st['orig_title'], pubyear=st['year'])
+                        authors = s.query(Person)\
+                                   .filter(Person.id.in_(st['authors']))\
+                                   .all()
+                        author_list = ' & '.join([x.name for x in authors])
+                        story = ShortStory(title=st['orig_title'], pubyear=st['year'],
+                                            creator_str=author_list)
                         s.add(story)
                         s.commit()
                     for edition in editions:

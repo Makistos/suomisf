@@ -156,7 +156,8 @@ def work(workid):
                                 ShortStory.pubyear,
                                 ShortStory.language,
                                 ShortStory.genre,
-                                ShortStory.id)\
+                                ShortStory.id,\
+                                ShortStory.creator_str)\
                          .join(Part)\
                          .filter(Part.shortstory_id == ShortStory.id)\
                          .filter(Part.work_id == workid)\
@@ -424,7 +425,8 @@ def edition(editionid):
                                 ShortStory.pubyear,
                                 ShortStory.language,
                                 ShortStory.genre,
-                                ShortStory.id)\
+                                ShortStory.id,
+                                ShortStory.creator_str)\
                          .join(Part)\
                          .filter(Part.shortstory_id == ShortStory.id)\
                          .filter(Part.edition_id == editionid)\

@@ -133,6 +133,7 @@ class ShortStory(Base):
     language = Column(String(2))
     pubyear = Column(Integer)
     genre = Column(String(100))
+    creator_str = Column(String(500), index=True)
     parts = relationship('Part', backref=backref('part_assoc'), uselist=True)
 
 class Alias(Base):

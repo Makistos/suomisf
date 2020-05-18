@@ -10,7 +10,7 @@
         {% endif %}
         {% if edition.title != edition.work.title %}
         <div>Alkuperäinen teos: <a href=" {{ url_for('work', workid=edition.work.id) }}">{{edition.work.title }}</a>
-        {% if edition.work.pubyear %}, {{ edition.work.pubyear }}{% endif %}
+        {%- if edition.work.pubyear %}, {{ edition.work.pubyear }}{% endif %}
             </div>
         {% endif %}
 {% if edition.work.authors|length %}
@@ -94,10 +94,15 @@
 <div>Muuta: {{ edition.misc }}</div>
     {% if stories|length %}
     <div>
-        <p>Novellit</p>
+        <h2>Novellit</h2>
         <ul>
         {% for story in stories %}
-            <li><a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
+            <li>
+                {% if story.creator_str != work.creator_str %}
+                <b><span class="person-list">{{ story.creator_str }}</span></b>:
+                {% endif %}
+                <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
+
                {% if story.orig_title != story.title %}({{ story.orig_title}}
                {%- if story.pubyear %}, {{story.pubyear}}{% endif %})
                {% elif story.pubyear %}
@@ -126,4 +131,7 @@
         </div>
     {% endfor %}
 {% endif %}
+{% block script %}
+<script src="/static/js/personlink.js" type="text/javascript"></script>
+{% endblock %}
 {% endblock %}

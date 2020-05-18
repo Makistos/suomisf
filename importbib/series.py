@@ -23,7 +23,7 @@ pubseries = [
     ('Englantilaisia romaaneja', 'Englantilaisia romaaneja'),
     ('Eurooppa-sarja', 'Eurooppa-sarja'),
     ('FAN-sarja', 'FAN-sarja'),
-    ('FBH-sarja', 'FBH-sarja'),
+    ('FBH-kirjat', 'FBH-kirjat'),
     ('Fantasiasarja', 'Fantasiasarja'),
     ('Fantasy-sarja', 'Fantasy-sarja'),
     ('Galax-sarja', 'Galax-sarja'),
@@ -219,7 +219,7 @@ pubseries = [
 important_pubseries = (
                        'FAN-sarja',
                        'Fantasy-sarja',
-                       'FBH-sarja',
+                       'FBH-kirjat',
                        'GALAXY Scifi',
                        'Jalavan SciFi-sarja',
                        'LIKE Scifi',
