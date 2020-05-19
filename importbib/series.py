@@ -485,6 +485,7 @@ bookseries = [
     ('Tiger Team', 'Tiger Team'),
     ('Tulen ja jään laulu osa', 'Tulen ja jään laulu'),
     ('Tymoran kivi, osa', 'Tymoran kivi'),
+    ('Tähdentekijä', 'Tähdentekijä'),
     ('Tähtisilmät', 'Tähtisilmät'),
     ('Unennäkijöiden(\s?(\d\.)\s?kirja)', 'Unennäkijät'),
     ('Unien ([a-zåäö]+) kirja', 'Unien kirja'),

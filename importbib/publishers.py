@@ -143,6 +143,7 @@ publishers = [
     ('Luukkonen ja kumpp', 'Luukkonen ja kumpp', 'Luukkonen ja kumpp'),
     ('M. Vuolukka', 'M. Vuolukka', 'M. Vuolukka'),
     ('Mantere', 'Mantere', 'Mantere'),
+    ('Marketiimi', 'Marketiimi', 'Marketiimi'),
     ('Mediapinta( Oy)?', 'Mediapinta', 'Mediapinta Oy'),
     ('Megadodo Publications Ltd', 'Megadodo Publications', 'Megadodo Publications Ltd'),
     ('Mestarikustannus', 'Mestarikustannus', 'Mestarikustannus'),
