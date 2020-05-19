@@ -98,7 +98,7 @@
         <ul>
         {% for story in stories %}
             <li>
-                {% if story.creator_str != work.creator_str %}
+                {% if story.creator_str != edition.work.creator_str %}
                 <b><span class="person-list">{{ story.creator_str }}</span></b>:
                 {% endif %}
                 <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
