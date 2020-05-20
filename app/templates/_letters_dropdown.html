@@ -1,3 +1,3 @@
 {% for char in "ABCDEFGHIJKLMNOPQRSTUVWYZ"|list %}
-<li><a href=" {{ url_for("booksX", letter=char) }}">{{ char }}</a></li>
+<a class="dropdown-item" href=" {{ url_for("booksX", letter=char) }}">{{ char }}</a>
 {% endfor %}

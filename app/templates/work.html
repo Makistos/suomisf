@@ -2,18 +2,17 @@
 
 {% block content %}
 <div class="container">
-<div class="accordion" id="workCard">
 <div class="card border-primary mb-3" style="width: 720px;">
         <div class="card-header">
-            {{ work.title }}
-            {% if current_user.is_admin %}
-                ({{ work.id }})
-            {% endif %}
+            <span class="person-list">{{ work.creator_str }}</span>
         </div>
         <div class="card-body">
-            <h5 class="card-title"><span class="person-list">{{ work.creator_str }}</span></h5>
-        </div>
-        <div class="card-body">
+            <h5 class="card-title">
+                {{ work.title }}
+                {% if current_user.is_admin %}
+                    ({{ work.id }})
+                {% endif %}
+            </h5>
             <ul class="list-group list-group-flush">
             <li class="list-group-item"><b>Julkaisuvuosi:</b> {{ work.pubyear }}</li>
             {% if work.bookseries.name|length %}
@@ -32,6 +31,7 @@
             {% endif %}
         </ul>
         </div>
+    <div class="accordion" id="workCard">
         <div class="card">
             <div class="card-header" id="headStories">
                 <h2 class="mb-0">
@@ -89,6 +89,7 @@
                 </div>
             </div>
         </div>
+    </div>
 </div>
     {% if current_user.is_admin %}
         <p>Aineiston lähde: {{ work.fullstring }}</p>
@@ -128,7 +129,6 @@
 		</div>
 
     {% endif %}
-</div>
 </div>
 </div>
 {% block script %}

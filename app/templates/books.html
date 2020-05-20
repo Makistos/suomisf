@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
 <center>
 	<a href="{{ url_for('print_books', letter=letter, type='books')}}">Tulosta</a>
 </center>
@@ -64,5 +65,5 @@
 	});
 
 	</script>
-
+</div>
 {% endblock %}

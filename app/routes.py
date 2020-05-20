@@ -645,7 +645,7 @@ def search():
     searchword = request.args.get('search', '')
     for k, v in request.args.items():
         app.logger.debug(k + " : " + v)
-    app.logger.debug("searchword: " + searchword)
+    app.logger.info("searchword: " + searchword)
     if request.method == 'POST':
         q = request.form
     app.logger.debug("q = " + q)

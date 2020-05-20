@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
 <h1 align=center>Julkaisijoiden sarjat</h1>
 	<div class="three-column">
 	{% for s in series %}
@@ -7,5 +8,6 @@
 			    }}">{{s.name}}</a></p>
 	{% endfor %}
 	</div>
+</div>
 {% endblock %}
 

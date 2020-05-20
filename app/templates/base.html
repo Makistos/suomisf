@@ -1,98 +1,86 @@
-”{% extends 'bootstrap/base.html' %}
+<head lang="fi">
 {% block head %}
-  {{super()}}<html>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
     <script src="/static/js/ownership.js"></script>
     <script src="/static/js/custom-elements.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/suomisf.css">
+    {% block styles %}
+    {{ bootstrap.load_css() }}
     <style type="text/css">
         a.ownerstate:not(:hover) { color: transparent;}
         a.ownerstate:hover { text-decoration: none; }
     </style>
+    {% endblock %}
+    <title>
+      {% if title %}{{title}}{% else %}Suomenkieliset SF-, Fantasia- ja Kauhukirjat{% endif %}
+    </title>
+</head>
 {% endblock %}
-{% block title %}
-  {% if title %}{{title}}{% else %}Suomenkieliset SF-, Fantasia- ja
-  Kauhukirjat{% endif %}
-{% endblock %}
+<body>
 {% block navbar %}
-  <nav class="navbar navbar-inverse">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/index">SuomiSF</a>
-      </div> <!-- navbar-header -->
-
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-        <ul class="nav navbar-nav">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-             role="button" aria-expanded="false">Kirjat <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href=" {{ url_for("books") }} ">Kaikki</a></li>
-              <li><a href=" {{url_for("anthologies") }}">Kokoelmat</a></li>
-              {% include "_letters_dropdown.html" %}
-            </ul>
-          </li>
-          <li><a href="/publishers">Kustantajat</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-             role="button" aria-expanded="false">Sarjat<span
-             class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="/allbookseries">Kirjasarjat</a></li>
-              <li><a href="/allpubseries">Julkaisijoiden sarjat</a></li>
-            </ul>
-          <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-               role="button" aria-expanded="false">Henkilöhakemisto
-               <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                  <li><a href="/people">Kaikki</a></li>
-                  <li><a href="/authors">Kirjailijat</a></li>
-                  <li><a href="/translators">Kääntäjät</a></li>
-                  <li><a href="/editors">Toimittajat</a></li>
-              </ul>
-          <li><a href="/stats">Tilastoja</a></li>
-          <li><a href="/users">Käyttäjät</a>/<li>
-          {% if not current_user.is_anonymous %}
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-             role="button" aria-expanded="false">Kokoelma
-             <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="{{ url_for("mybooks") }}">Kaikki kirjat</a>
-              <li><a href="{{ url_for("myseries") }}">Sarjat</a>
-            </ul>
-          {% endif %}
-        </ul> <!-- nav navbar-nav -->
-
-        <form class="navbar-form navbar-right" role="search"
-                method="get"
-                action="/search">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Hae" name="search">
-          </div>
-          <button type="submit" class="btn btn-default">Hae</button>
-        </form>
-        <ul class="nav navbar-nav navbar-right">
-          {% if current_user.is_anonymous %}
-          <li><a href="/login">Kirjaudu</a></li>
-          {% else %}
-          <li><a href=" {{ url_for("logout") }}">Kirjaudu ulos</a></li>
-          <li><a href=" {{ url_for("user",
-               userid=current_user.get_id()|int()) }}">{{ current_user.name }}</a></li>
-          {% endif %}
-        </ul>
-      </div> <!-- collapse navbar-collapse -->
-    </div> <!-- container-fluid -->
-  </nav> <!-- navbar navbar-inverse -->
-{% endblock %}
-<div class="container"></div>
-  {% block content %}{% endblock %}
+<div class="container">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="{{ url_for("index") }}">SuomiSF</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Kirjat
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="{{ url_for("books") }}">Kaikki</a>
+          <a class="dropdown-item" href="{{ url_for("anthologies") }}">Kokoelmat</a>
+          {% include "_letters_dropdown.html" %}
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for("publishers") }}">Kustantajat <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sarjat
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="{{ url_for("allbookseries") }}">Kirjasarjat</a>
+          <a class="dropdown-item" href="{{ url_for("allpubseries") }}">Julkaisijoiden sarjat</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Henkilöhakemisto
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="{{ url_for("people") }}">Kaikki</a>
+          <a class="dropdown-item" href="{{ url_for("authors") }}">Kirjailijat</a>
+          <a class="dropdown-item" href="{{ url_for("translators") }}">Kääntäjät</a>
+          <a class="dropdown-item" href="{{ url_for("editors") }}">Toimittajat</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for("stats") }}">Tilastoja</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for("users") }}">Käyttäjät</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for("login") }}">Kirjaudu</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" method="get" action="{{url_for("search")}}">
+      <input class="form-control mr-sm-2" type="search" name="search" placeholder="Hae" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Hae</button>
+  </div>
+</nav>
 </div>
+{% endblock %}
+  {% block content %}
+  {% endblock %}
+  {% block scripts %}
+  {{ bootstrap.load_js()}}
+  {% endblock %}
+</body>

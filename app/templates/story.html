@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
 <h1>{{ story.title }}
 {% if current_user.is_admin %}
     ({{ story.id }})
@@ -45,4 +46,5 @@
 {% include "_searchable_lists.html" %}
 </script>
 {% endblock %}
+</div>
 {% endblock %}
