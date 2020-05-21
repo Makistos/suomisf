@@ -387,6 +387,7 @@ def publisher(pubid):
                     .filter(Work.id == Genre.workid)\
                     .join(Part)\
                     .filter(Part.work_id == Work.id)\
+                    .filter(Part.shortstory_id == None)\
                     .join(Edition)\
                     .filter(Edition.id == Part.edition_id)\
                     .filter(Edition.publisher_id == pubid)\
