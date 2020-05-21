@@ -1,9 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-<center>
+<div class="container" style="text-align: center;">
 	<a href="{{ url_for('print_books', letter=letter, type='books')}}">Tulosta</a>
-</center>
+</div>
 {% if letter %}
 	<h1>{{ letter }}</h1>
 	<h2>
