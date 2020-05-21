@@ -74,7 +74,7 @@
         </li>
       {% else %}
         <li class="nav-link">
-          <a class="nav-link" href="{{ url_for("user") }}">{{ current.user_name }}</a>"
+          <a class="nav-link" href="{{ url_for("user", userid=current_user.id) }}">{{ current_user.name }}</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for("logout") }}">Kirjaudu ulos</a>
@@ -83,6 +83,7 @@
     <form class="form-inline my-2 my-lg-0" method="get" action="{{url_for("search")}}">
       <input class="form-control mr-sm-2" type="search" name="search" placeholder="Hakusana" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Hae</button>
+      </form>
   </div>
 </nav>
 </div>
