@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
 
 <form action="" method=post>
 	{{ form.hidden_tag() }}
@@ -30,4 +31,5 @@
         {% endif %}
 	<p>{{ form.submit() }}</p>
 </form>
+</div>
 {% endblock %}

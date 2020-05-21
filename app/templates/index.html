@@ -11,7 +11,7 @@
 <h2>Julkaisijan sarjoja: {{ pubseries_count[0] }}</h2>
 <h2>Kirjasarjoja: {{ bookseries_count[0] }}</h2>
 	{% if current_user.is_admin %}
-	    <a href=" {{ url_for('edit_person', personid=0) }} ">Uusi henkilö</a></br>
+	    <a href=" {{ url_for('new_person', personid=0) }} ">Uusi henkilö</a></br>
 	    <a href="{{ url_for('edit_work', workid=0) }}">Uusi teos</a></br>
 	    <a href=" {{ url_for('new_bookseries') }} ">Uusi kirjasarja</a></br>
 	    <a href=" {{ url_for('new_publisher') }} ">Uusi kustantaja</a><br>

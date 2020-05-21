@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
 {% if form.id.data == 0 %}
 <h1>Uusi painos</h1>
 {% else %}
@@ -72,6 +73,7 @@
 <p>Aineiston lähde: {{ source }}</p>
 
 <!--	<script src="/static/js/pubseries.js"></script> -->
+</div>
 {% endblock %}
 
 {% block scripts %}

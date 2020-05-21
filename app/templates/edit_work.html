@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
 {% if id %}
 <h1>Muokkaa kirjaa</h1>
 {% else %}
@@ -44,9 +45,11 @@
         </p>
         <p>{{ form.submit() }}</p>
 </form>
+{% if source %}
 <p>Aineiston lähde: {{ source }}</p>
-
+{% endif %}
 <!--	<script src="/static/js/pubseries.js"></script> -->
+</div>
 {% endblock %}
 
 {% block scripts %}
@@ -67,7 +70,7 @@
 		});
 		request.done(function(data){
 			var option_list = [["0", "Ei sarjaa"]].concat(data);
-			
+
 			$("#pubseries").empty();
 			for (var i = 0; i < option_list.length; i++) {
 				$("#pubseries").append(
