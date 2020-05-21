@@ -12,45 +12,30 @@
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
-                <b>Kirjoja tietokannassa: </b> {{book_count}}
-            </li>
-            <li class="list-group-item">
-                <b>Vanhin kirja:</b> <a href=" {{ url_for('edition', editionid=oldest.id) }}">{{
-    oldest.title }}</a> ({{ oldest.pubyear }})
-            </li>
-            <li class="list-group-item">
-                <b>Uusin kirja:</b> <a href=" {{ url_for('edition', editionid=newest.id) }}">{{
-    newest.title }}</a> ({{ newest.pubyear}})
-            </li>
-            <li class="list-group-item">
-                <b>Genret:</b><br>
-                    {% for genre, count in genres.items() %}
-                    {{ genre }}: {{ count }}<br>
-                    {% endfor %}
-            </li>
-
-            <li class="list-group-item">
                 <div class="d-flex flex-row bd-highlight align-items-center" style="flex-direction: column;">
                     {% if genres['SF'] %}
-                    <div class="p-2 flex-fill">SF</div>
+                    <div class="p-2 flex-fill"><img src="/static/icons/SF_32.png"></div>
                     {% endif %}
                     {% if genres['F'] %}
-                    <div class="p-2 flex-fill">F</div>
+                    <div class="p-2 flex-fill"><img src="/static/icons/F_32.png"></div>
                     {% endif %}
                     {% if genres['K'] %}
-                    <div class="p-2 flex-fill">K</div>
+                    <div class="p-2 flex-fill"><img src="/static/icons/K_32.png"></div>
                     {% endif %}
                     {% if genres['nSF'] %}
-                    <div class="p-2 flex-fill">nSF</div>
+                    <div class="p-2 flex-fill"><img src="/static/icons/nSF_32.png"></div>
                     {% endif %}
                     {% if genres['nF'] %}
-                    <div class="p-2 flex-fill">nF</div>
+                    <div class="p-2 flex-fill"><img src="/static/icons/nF_32.png"></div>
                     {% endif %}
                     {% if genres['nK'] %}
-                    <div class="p-2 flex-fill">nK</div>
+                    <div class="p-2 flex-fill"><img src="/static/icons/nK_32.png"></div>
+                    {% endif %}
+                    {% if genres['rajatap'] %}
+                    <div class="p-2 flex-fill"><img src="/static/icons/rajatap_32.png"></div>
                     {% endif %}
                     {% if genres['kok'] %}
-                    <div class="p-2 flex-fill">kok</div>
+                    <div class="p-2 flex-fill"><img src="/static/icons/kok_32.png"></div>
                     {% endif %}
                 </div>
                 <div class="d-flex flex-row align-items-center" style="flex-direction: column;">
@@ -73,10 +58,24 @@
                     {% if genres['nK'] %}
                     <div class="p-2 flex-fill">{{genres['nK']}}</div>
                     {% endif %}
+                    {% if genres['rajatap'] %}
+                    <div class="p-2 flex-fill">{{genres['rajatap']}}</div>
+                    {% endif %}
                     {% if genres['kok'] %}
                     <div class="p-2 flex-fill">{{genres['kok']}}</div>
                     {% endif %}
                 </div>
+            </li>
+            <li class="list-group-item">
+                <b>Kirjoja tietokannassa: </b> {{book_count}}
+            </li>
+            <li class="list-group-item">
+                <b>Vanhin kirja:</b> <a href=" {{ url_for('edition', editionid=oldest.id) }}">{{
+    oldest.title }}</a> ({{ oldest.pubyear }})
+            </li>
+            <li class="list-group-item">
+                <b>Uusin kirja:</b> <a href=" {{ url_for('edition', editionid=newest.id) }}">{{
+    newest.title }}</a> ({{ newest.pubyear}})
             </li>
         </ul>
         <div class="accordion" id="pubCard">
