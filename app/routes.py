@@ -214,7 +214,7 @@ def add_to_owned(bookid):
 
 @app.route('/add_work_to_owned/<workid>', methods=['POST'])
 def add_work_to_owned(workid):
-    first_edition = get_first_edition(workd)
+    first_edition = get_first_edition(workid)
     session = new_session()
     userbook = UserBook(user_id = current_user.get_id(),
                         edition_id = first_edition.id)
@@ -351,6 +351,31 @@ def edit_person(personid):
     else:
         app.logger.debug("Errors: {}".format(form.errors))
     return render_template('edit_person.html', form=form, personid=personid)
+
+@app.route('/new_person', methods=['POST', 'GET'])
+def new_person():
+    session = new_session()
+    person = Person()
+
+    form = PersonForm(request.form)
+
+    if form.validate_on_submit():
+        person.name = form.name.data
+        person.first_name = form.first_name.data
+        person.last_name = form.last_name.data
+        if form.dob.data != 0:
+            person.dob = form.dob.data
+        if form.dod.data != 0:
+            person.dod = form.dod.data
+        person.birthplace = form.birthplace.data
+        person.image_src = form.image_src.data
+        session.add(person)
+        session.commit()
+        return redirect(url_for('person', personid=person.id))
+    else:
+        app.logger.debug("Errors: {}".format(form.errors))
+    return render_template('edit_person.html', form=form, personid=person.id)
+
 
 ### Publisher related routes
 
