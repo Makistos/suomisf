@@ -1,20 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container" style="text-align: center;">
-<h1>Suomenkieliset SF-, Fantasia- ja Kauhukirjat</h1>
-<h2>Teoksia: {{ work_count[0] }}</h2>
-<h2>Painoksia: {{ edition_count[0] }}</h2>
-<h2>Novelleja: {{ story_count[0] }}</h2>
-<h2>Julkaisijoita: {{ pub_count[0] }}</h2>
-<h2>Henkilöitä: {{ person_count[0] }}</h2>
-<h2>Josta kirjailijoita: {{ author_count|length() }}</h2>
-<h2>Julkaisijan sarjoja: {{ pubseries_count[0] }}</h2>
-<h2>Kirjasarjoja: {{ bookseries_count[0] }}</h2>
+	<h1>Suomenkieliset SF-, Fantasia- ja Kauhukirjat</h1>
+	<h2>Teoksia: {{ work_count[0] }}</h2>
+	<h2>Painoksia: {{ edition_count[0] }}</h2>
+	<h2>Novelleja: {{ story_count[0] }}</h2>
+	<h2>Julkaisijoita: {{ pub_count[0] }}</h2>
+	<h2>Henkilöitä: {{ person_count[0] }}</h2>
+	<h2>Josta kirjailijoita: {{ author_count|length() }}</h2>
+	<h2>Julkaisijan sarjoja: {{ pubseries_count[0] }}</h2>
+	<h2>Kirjasarjoja: {{ bookseries_count[0] }}</h2>
 	{% if current_user.is_admin %}
-	    <a href=" {{ url_for('new_person', personid=0) }} ">Uusi henkilö</a></br>
-	    <a href="{{ url_for('edit_work', workid=0) }}">Uusi teos</a></br>
-	    <a href=" {{ url_for('new_bookseries') }} ">Uusi kirjasarja</a></br>
-	    <a href=" {{ url_for('new_publisher') }} ">Uusi kustantaja</a><br>
-	    <a href=" {{ url_for('new_pubseries') }} ">Uusi kustantajan sarja</a>
+	<a href=" {{ url_for('new_person', personid=0) }} ">Uusi henkilö</a></br>
+	<a href="{{ url_for('edit_work', workid=0) }}">Uusi teos</a></br>
+	<a href=" {{ url_for('new_bookseries') }} ">Uusi kirjasarja</a></br>
+	<a href=" {{ url_for('new_publisher') }} ">Uusi kustantaja</a><br>
+	<a href=" {{ url_for('new_pubseries') }} ">Uusi kustantajan sarja</a>
 	{% endif %}
+</div>
 {% endblock %}
