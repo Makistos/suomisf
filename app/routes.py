@@ -407,7 +407,7 @@ def publisher(pubid):
                     .first()
     series = session.query(Pubseries).filter(Pubseries.publisher_id == pubid).all()
     g = session.query(Genre).all()
-    genres = session.query(Genre, func.count(Genre.genre_name))\
+    genres = session.query(Genre.genre_name, func.count(Genre.genre_name).label('count'))\
                     .join(Work)\
                     .filter(Work.id == Genre.workid)\
                     .join(Part)\
@@ -420,15 +420,21 @@ def publisher(pubid):
                     .order_by(func.count(Genre.genre_name).desc())\
                     .all()
 
+    genre_list = {'SF': '', 'F': '', 'K': '', 'nSF': '', 'nF': '', 'nK': '', 'kok': ''}
+    app.logger.error(genre_list)
+    app.logger.error('Len: ' + str(len(genres)))
     for g in genres:
-        app.logger.debug(str(g[0]) + ", {g[1]}")
+        app.logger.info(g.genre_name)
+        genre_list[g.genre_name] = g.count
+
+
     #app.logger.debug(list(genres))
     editions = session.query(Edition)\
                       .order_by(Edition.pubyear)\
                       .filter(Edition.publisher_id == pubid).all()
     return render_template('publisher.html', publisher=publisher,
             series=series, book_count=book_count, oldest=oldest,
-            newest=newest, editions=editions, genres=genres)
+            newest=newest, editions=editions, genres=genre_list)
 
 @app.route('/new_publisher', methods=['GET', 'POST'])
 def new_publisher():

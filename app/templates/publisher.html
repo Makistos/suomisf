@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-    <div class="card border-primary mb-3" style="width: 720px; margin: 1rem auto">
+    <div class="card border-primary mb-3" style="width: 900px; margin: 1rem auto">
         <div class="card-body">
             <h1 class="card-title">
                 {{ publisher.name }}
@@ -24,9 +24,59 @@
             </li>
             <li class="list-group-item">
                 <b>Genret:</b><br>
-                    {% for genre in genres %}
-                    {{ genre[0].genre_name }}: {{ genre[1] }}<br>
+                    {% for genre, count in genres.items() %}
+                    {{ genre }}: {{ count }}<br>
                     {% endfor %}
+            </li>
+
+            <li class="list-group-item">
+                <div class="d-flex flex-row bd-highlight align-items-center" style="flex-direction: column;">
+                    {% if genres['SF'] %}
+                    <div class="p-2 flex-fill">SF</div>
+                    {% endif %}
+                    {% if genres['F'] %}
+                    <div class="p-2 flex-fill">F</div>
+                    {% endif %}
+                    {% if genres['K'] %}
+                    <div class="p-2 flex-fill">K</div>
+                    {% endif %}
+                    {% if genres['nSF'] %}
+                    <div class="p-2 flex-fill">nSF</div>
+                    {% endif %}
+                    {% if genres['nF'] %}
+                    <div class="p-2 flex-fill">nF</div>
+                    {% endif %}
+                    {% if genres['nK'] %}
+                    <div class="p-2 flex-fill">nK</div>
+                    {% endif %}
+                    {% if genres['kok'] %}
+                    <div class="p-2 flex-fill">kok</div>
+                    {% endif %}
+                </div>
+                <div class="d-flex flex-row align-items-center" style="flex-direction: column;">
+
+                    {% if genres['SF'] %}
+                    <div class="p-2 flex-fill">{{genres['SF']}}</div>
+                    {% endif %}
+                    {% if genres['F'] %}
+                    <div class="p-2 flex-fill">{{genres['F']}}</div>
+                    {% endif %}
+                    {% if genres['K'] %}
+                    <div class="p-2 flex-fill">{{genres['K']}}</div>
+                    {% endif %}
+                    {% if genres['nSF'] %}
+                    <div class="p-2 flex-fill">{{genres['nSF']}}</div>
+                    {% endif %}
+                    {% if genres['nF'] %}
+                    <div class="p-2 flex-fill">{{genres['nF']}}</div>
+                    {% endif %}
+                    {% if genres['nK'] %}
+                    <div class="p-2 flex-fill">{{genres['nK']}}</div>
+                    {% endif %}
+                    {% if genres['kok'] %}
+                    <div class="p-2 flex-fill">{{genres['kok']}}</div>
+                    {% endif %}
+                </div>
             </li>
         </ul>
         <div class="accordion" id="pubCard">
