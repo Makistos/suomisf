@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-<center>
+<div class="container" style="text-align: center;">
 <h1>Suomenkieliset SF-, Fantasia- ja Kauhukirjat</h1>
-<h2>Teoksia: {{ work_count[0] }}<h2>
+<h2>Teoksia: {{ work_count[0] }}</h2>
 <h2>Painoksia: {{ edition_count[0] }}</h2>
 <h2>Novelleja: {{ story_count[0] }}</h2>
 <h2>Julkaisijoita: {{ pub_count[0] }}</h2>
@@ -17,5 +17,4 @@
 	    <a href=" {{ url_for('new_publisher') }} ">Uusi kustantaja</a><br>
 	    <a href=" {{ url_for('new_pubseries') }} ">Uusi kustantajan sarja</a>
 	{% endif %}
-</center>
 {% endblock %}
