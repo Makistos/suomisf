@@ -74,25 +74,5 @@
             </div>
         </div>
     </div>
-    <h1>
-    </h1>
-    <p>Kirjoja tietokannassa {{ book_count }}.</p>
-    <p>Vanhin kirja: <a href=" {{ url_for('edition', editionid=oldest.id) }}">{{
-    oldest.title }}</a> ({{ oldest.pubyear }})</p>
-    <p>Uusin kirja: <a href=" {{ url_for('edition', editionid=newest.id) }}">{{
-    newest.title }}</a> ({{ newest.pubyear}})</p>
-    <b>Genret</b><br>
-    {% for genre in genres %}
-    {{ genre[0].genre_name }}: {{ genre[1] }}<br>
-    {% endfor %}
-    <h2>Sarjat</h2>
-    {% for s in series %}
-    <p><a href="{{ url_for("pubseries", seriesid=s.id) }}">{{ s.name }}</a></p>
-    {% endfor %}
-
-    <h2>Julkaisut</h2>
-    {% for edition in editions %}
-    {% include "_edition.html" %}
-    {% endfor %}
 </div>
 {% endblock %}
