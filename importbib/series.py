@@ -500,6 +500,7 @@ bookseries = [
     ('Varjojen kaupungit', 'Varjojen kaupungit'),
     ('Varjojen leikki', 'Varjojen leikki'),
     ('Varjojen marssi', 'Varjojen marssi'),
+    ('Varjometsästäjät', 'Varjometsästäjät'),
     ('Velhonuoret', 'Velhonuoret'),
     ('Vihreä varis( -sarja)?', 'Vihreä varis -sarja'),
     ('Viisi vartijaa, ([a-zA-ZäöåÄÖÅ]+\skirja)', 'Viisi vartijaa'),

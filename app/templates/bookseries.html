@@ -1,14 +1,15 @@
-
 {% extends "base.html" %}
 {% block content %}
-<center><a href=" {{ url_for('print_books', type='bookseries', id=series.id) }}
+<div class="container">
+    <center><a href=" {{ url_for('print_books', type='bookseries', id=series.id) }}
                     ">Tulosta</a></center>
-<h1>{{series.name}}
-    {% if current_user.is_admin %}
-    ({{ series.id }})
-    {% endif %}
-</h1> 
-{% for edition in editions %}
+    <h1>{{series.name}}
+        {% if current_user.is_admin %}
+        ({{ series.id }})
+        {% endif %}
+    </h1>
+    {% for edition in editions %}
     {% include "_edition.html" %}
-{% endfor %}
+    {% endfor %}
+</div>
 {% endblock %}

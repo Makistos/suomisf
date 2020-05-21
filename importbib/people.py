@@ -14,6 +14,7 @@ translators =\
         ('E. Leikoski', 'E.', 'Leikoski'),
         ('H. Järvenpää', 'H.', 'Järvenpää'),
         ('E. Palsbo', 'E.', 'Palsbo'),
+        ('H. Nuorpuu', 'H.', 'Nuorpuu'),
         ('H. Nurminen', 'H.', 'Nurminen'),
         ('Hugo L. Mäkinen', 'Hugo L.', 'Mäkinen'),
         ('J.K. Ihalainen', 'J.K.', 'Ihalainen'),

@@ -1,50 +1,76 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-<h1>{{ story.title }}
-{% if current_user.is_admin %}
-    ({{ story.id }})
-{% endif %}
-</h1>
-    {% for author in story.authors %}
-        {{ author.alt_name }}
-    {% endfor %}
-{% if story.title != story.orig_title %}
-<h2>
-{{ story.orig_title }}
-{%- if story.pubyear -%}, {{  story.pubyear }}{% endif %}
-</h2>
-{% endif %}
-    <span class="person-list">{{ authors|map(attribute='name')|join(', ') }}</span>
+    <div class="card border-primary mb-3" style="width: 720px; margin: 1rem auto">
+        <div class="card-header">
+            <span class="person-list">{{ authors|map(attribute='name')|join(', ') }}</span>
+        </div>
 
-{% if story.genre %}
-<p>
-    Genre: {{ story.genre }}
-</p>
-{% endif %}
-<p>Ilmestynyt teoksissa:</p>
-<ul>
-    {% for work in works %}
-        <li><a href=" {{ url_for('work', workid=work.id)}}">{{work.title}}</a> ({{work.pubyear}})
-        {% if work.genres|length %}
-       [{{ work.genres|join(', ', attribute='genre_name') }}]
-       {% endif %}
-        </li>
-    {% endfor %}
-</ul>
+        <div class="card-body">
+            <h3 class="card-title">
+                {{ story.title }}
+                {% if current_user.is_admin %}
+                ({{ story.id }})
+                {% endif %}
+            </h3>
+            {% if story.title != story.orig_title %}
+            {{ story.orig_title }}
+            {%- if story.pubyear -%}, {{  story.pubyear }}{% endif %}
+            {% endif %}
+        </div>
 
-<p>Ilmestynyt painoksissa:</p>
-<ul>
-    {% for edition in editions %}
-        <li><a href=" {{ url_for('edition', editionid=edition.id)}}">{{edition.title}}</a> ({{ edition.editionnum}}. painos) ({{edition.pubyear}})</li>
-    {% endfor %}
-</ul>
-{% block script %}
-<script src="/static/js/personlink.js" type="text/javascript"></script>
-<script src="/static/js/author.js">
-<script>
-{% include "_searchable_lists.html" %}
-</script>
-{% endblock %}
-</div>
+        <div class="accordion" id="storyCard">
+            <div class="card">
+                <div class="card-header" id="headWorks">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                            data-target="#works" aria-expanded="true" aria-controls="works">
+                            Teokset
+                        </button>
+                    </h2>
+                </div>
+                <div id="works" class="collapse" aria-labelledby="headWorks" data-parent="#storyCard">
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            {% for work in works %}
+                            <li class="list-group-item"><a href=" {{ url_for('work', workid=work.id)}}">{{work.title}}</a> ({{work.pubyear}})
+                                {% if work.genres|length %}
+                                [{{ work.genres|join(', ', attribute='genre_name') }}]
+                                {% endif %}
+                            </li>
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headEditions">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                            data-target="#editions" aria-expanded="true" aria-controls="editions">
+                            Painokset
+                        </button>
+                    </h2>
+                </div>
+                <div id="editions" class="collapse" aria-labelledby="headEditions" data-parent="#storyCard">
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            {% for edition in editions %}
+                            <li class="list-group-item">
+                                <a
+                                    href=" {{ url_for('edition', editionid=edition.id) }}">{{ edition.title }}</a>.{%- if edition.translators %} {% include "_translators.html"
+                                    -%}{%- endif %} {{ edition.publisher.name }} {{ edition.pubyear
+                                    }}. {% if edition.pubseries.name|length %} {{
+                                    edition.pubseries.name }} {%- if edition.pubseriesnum %} {{
+                                    edition.pubseriesnum }}{% endif %}. {% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 {% endblock %}
