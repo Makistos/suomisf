@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
 {% for author in works|groupby(attribute='creator_str') %}
 <h2><span class="person-list">{{author.grouper}}</span></h2>
     {% for work in author.list %}
         {% include "_work.html" %}
     {% endfor %}
 {% endfor %}
+</div>
 {% endblock %}
