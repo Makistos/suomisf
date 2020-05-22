@@ -4,6 +4,8 @@
         <div class="card-header">
             <span class="person-list">{{ work.creator_str }}</span>
         </div>
+            <div class="row">
+            <div class="col">
         <div class="card-body">
             <h5 class="card-title">
                 {{ work.title }} {% if current_user.is_admin %} ({{ work.id }}) {% endif
@@ -22,13 +24,19 @@
                     numero {{ work.bookseriesnum }}
                 </li>
                 {% endif %} {% endif %} {%- endif %}
-                <li class="list-group-item">
-                    <b>Genre:</b> {{ work.genres|join(', ', attribute='genre_name') }}
-                </li>
-                {% if work.misc %}
+                {% if work.misc|length %}
                 <li class="list-group-item"><b>Muuta:</b> {{ work.misc }}</li>
                 {% endif %}
             </ul>
+            </div>
+            </div>
+            <div class="col col-lg-2 justify-content-end">
+                {% for genre in work.genres %}
+                <div class="row" mb-1>
+                <img src="/static/icons/{{genre.genre_name}}_64.png" title="{{genre.genre_name}}">
+                </div>
+                {% endfor %}
+            </div>
         </div>
         <div class="accordion" id="workCard">
             {% if work.collection == True %}
