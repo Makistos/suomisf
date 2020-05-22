@@ -302,6 +302,27 @@ def person(personid):
                      .order_by(Part.title)\
                      .all()
 
+    genres = session.query(Genre.genre_name, func.count(Genre.genre_name).label('count'))\
+                    .join(Work)\
+                    .filter(Work.id == Genre.workid)\
+                    .join(Part)\
+                    .filter(Part.work_id == Work.id)\
+                    .filter(Part.shortstory_id == None)\
+                    .join(Author)\
+                    .filter(Author.part_id == Part.id)\
+                    .join(Person)\
+                    .filter(Person.id == Author.person_id)\
+                    .filter(Person.id == person.id)\
+                    .group_by(Genre.genre_name)\
+                    .all()
+
+    genre_list = {'SF': '', 'F': '', 'K': '', 'nSF': '', 'nF': '', 'nK': '',
+                  'PF': '', 'paleof': '', 'kok': '', 'eiSF': '', 'rajatap': ''}
+    for g in genres:
+        app.logger.info(g.genre_name)
+        if g.genre_name in genre_list:
+            genre_list[g.genre_name] = g.count
+
     #aliases = session.query(Person)\
     #                 .join(Alias)\
     #                 .filter(Alias.realname == person.id)\
@@ -311,7 +332,7 @@ def person(personid):
     #                    .filter(Alias.alias == person.id)\
     #                    .all()
     return render_template('person.html', person=person, authored=authored,
-            translated=translated, edited=edited, stories=stories)
+            translated=translated, edited=edited, stories=stories, genres=genre_list)
 
 @app.route('/edit_person/<personid>', methods=['POST', 'GET'])
 def edit_person(personid):
@@ -407,6 +428,7 @@ def publisher(pubid):
                     .first()
     series = session.query(Pubseries).filter(Pubseries.publisher_id == pubid).all()
     g = session.query(Genre).all()
+
     genres = session.query(Genre.genre_name, func.count(Genre.genre_name).label('count'))\
                     .join(Work)\
                     .filter(Work.id == Genre.workid)\
@@ -420,13 +442,12 @@ def publisher(pubid):
                     .order_by(func.count(Genre.genre_name).desc())\
                     .all()
 
-    genre_list = {'SF': '', 'F': '', 'K': '', 'nSF': '', 'nF': '', 'nK': '', 'kok': ''}
-    app.logger.error(genre_list)
-    app.logger.error('Len: ' + str(len(genres)))
+    genre_list = {'SF': '', 'F': '', 'K': '', 'nSF': '', 'nF': '', 'nK': '',
+                  'PF': '', 'paleof': '', 'kok': '', 'eiSF': '', 'rajatap': ''}
     for g in genres:
         app.logger.info(g.genre_name)
-        genre_list[g.genre_name] = g.count
-
+        if g.genre_name in genre_list:
+            genre_list[g.genre_name] = g.count
 
     #app.logger.debug(list(genres))
     editions = session.query(Edition)\

@@ -25,17 +25,18 @@
                 {% if person.real_names %}
                 <li class="list-group-item"><b>Oik.</b>
                     {% for rn in person.real_names %}
-                    <a href="{{url_for('person', personid=rn.id)}}">{{ rn.name }}<br>
+                    <a href="{{url_for('person', personid=rn.id)}}">{{ rn.name }}</a><br>
                         {% endfor %}
                 </li>
                 {% endif %}
                 {% if person.aliases %}
                 <li class="list-group-item"><b>Pseudonyymit</b>
                     {% for rn in person.aliases %}
-                    <a href="{{url_for('person', personid=rn.id)}}">{{ rn.name }}
+                    <a href="{{url_for('person', personid=rn.id)}}">{{ rn.name }}</a>
                         {% endfor %}
                 </li>
                 {% endif %}
+                {% include "_genre_count.html" %}
             </ul>
         </div>
         <div class="accordion" id="authorCard">
