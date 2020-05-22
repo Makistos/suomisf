@@ -3,48 +3,49 @@
 <div class="container">
     <div class="card border-primary mb-3" style="width: 720px; margin: 5px auto;">
         <div class="row">
-            <div class="col style="width: 255px"">
-                <img src="/static/icons/person_256.png">
-            </div>
-            <div class="col">
-        <div class="card-body">
-            <h2 class="card-title">
-                {% if person.first_name %}
-                {{ person.first_name }} {{ person.last_name }}
+            <div class="col col-lg-4 container">
+                {% if person.image_src %}
+                <img src="{{person.image_src}}" width=255px>
                 {% else %}
-                {{ person.name }}
+                <img src="/static/icons/person_256.png">
                 {% endif %}
+            </div>
+            <div class="col col-lg-8">
+                <div class="card-body">
+                    <h2 class="card-title">
+                        {% if person.first_name %}
+                        {{ person.first_name }} {{ person.last_name }}
+                        {% else %}
+                        {{ person.name }}
+                        {% endif %}
 
-                {% if current_user.is_admin %}
-                ({{person.id}})
-                {% endif %}
-            </h2>
-            {% if person.birthplace %}
-            {{ person.birthplace }}
-            {%- endif -%}
-            {%- if person.birthplace and person.dob -%},{% endif %}
-            {% if person.dob %}
-            {{ person.dob }}-{{ person.dod if person.dod }}
-            {% endif %}
-            <ul class="list-group list-group-flush">
-                {% if person.real_names %}
-                <li class="list-group-item"><b>Oik.</b>
-                    {% for rn in person.real_names %}
-                    <a href="{{url_for('person', personid=rn.id)}}">{{ rn.name }}</a><br>
-                        {% endfor %}
-                </li>
-                {% endif %}
-                {% if person.aliases %}
-                <li class="list-group-item"><b>Pseudonyymit</b>
-                    {% for rn in person.aliases %}
-                    <a href="{{url_for('person', personid=rn.id)}}">{{ rn.name }}</a>
-                        {% endfor %}
-                </li>
-                {% endif %}
-                {% include "_genre_count.html" %}
-            </ul>
-        </div>
-        </div>
+                    </h2>
+                    {% if person.birthplace %}
+                    {{ person.birthplace }}
+                    {%- endif -%}
+                    {%- if person.birthplace and person.dob -%},{% endif %}
+                    {% if person.dob %}
+                    {{ person.dob }}-{{ person.dod if person.dod }}
+                    {% endif %}
+                    <ul class="list-group list-group-flush">
+                        {% if person.real_names %}
+                        <li class="list-group-item"><b>Oik.</b>
+                            {% for rn in person.real_names %}
+                            <a href="{{url_for('person', personid=rn.id)}}">{{ rn.name }}</a><br>
+                            {% endfor %}
+                        </li>
+                        {% endif %}
+                        {% if person.aliases %}
+                        <li class="list-group-item"><b>Pseudonyymit</b>
+                            {% for rn in person.aliases %}
+                            <a href="{{url_for('person', personid=rn.id)}}">{{ rn.name }}</a>
+                            {% endfor %}
+                        </li>
+                        {% endif %}
+                        {% include "_genre_count.html" %}
+                    </ul>
+                </div>
+            </div>
         </div>
         <div class="accordion" id="authorCard">
             {% if person.works|length %}
@@ -145,6 +146,7 @@
     {% if person.fullstring %}
     <p><b>Lähde</b>: {{ person.fullstring }}</p>
     {% endif %}
+    ID: {{person.id}}
     <p><a href=" {{ url_for('edit_person', personid=person.id)
                 }}">Muokkaa</a></p>
     {% endif %}
@@ -183,4 +185,4 @@
     <script src="/static/js/ownership.js" type="text/javascript"></script>
     <script src="/static/js/author.js" type="text/javascript"></script>
 </div>
-    {% endblock %}
+{% endblock %}

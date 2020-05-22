@@ -4,12 +4,11 @@
         <div class="card-header">
             <span class="person-list">{{ work.creator_str }}</span>
         </div>
-        <div class="row flex-fill">
+        <div class="row justify-content-md-center no-gutters">
             <div class="col">
                 <div class="card-body">
                     <h5 class="card-title">
-                        {{ work.title }} {% if current_user.is_admin %} ({{ work.id }}) {% endif
-        %}
+                        {{ work.title }}
                     </h5>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
@@ -30,12 +29,12 @@
                     </ul>
                 </div>
             </div>
-            <div class="col col-lg-2 justify-content-end justify-content-center align-middle border flex-fill" style="align-item: center">
+            <div class="col container col-lg-2 justify-content-end justify-content-center align-middle">
+                <ul class="list-inline">
                 {% for genre in work.genres %}
-                <div class="row align-self-middle border flex-fill" mb-3 align-middle>
-                    <img src="/static/icons/{{genre.genre_name}}_64.png" title="{{genre.genre_name}}">
-                </div>
+                <li class="list-inline-item"><h1 style="font-family: 'Raleway', sans-serif;"><b>{{genre.genre_name}}</b></h1></li>
                 {% endfor %}
+                </ul>
             </div>
         </div>
         <div class="accordion" id="workCard">
@@ -99,6 +98,7 @@
     </div>
     {% if current_user.is_admin %}
     <p>Aineiston lähde: {{ work.fullstring }}</p>
+    {% if current_user.is_admin %}ID: {{ work.id }} {% endif %}
     {% endif %} {% if current_user.is_admin %}
     <hr />
     <p><a href=" {{ url_for('edit_work', workid=work.id) }} ">Muokkaa</a></p>

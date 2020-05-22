@@ -153,6 +153,7 @@ class Person(Base):
     image_src = Column(String(200))
     dob = Column(Integer)
     dod = Column(Integer)
+    bio = Column(String(1000))
     birthplace = Column(String(250))
     fullstring = Column(String(500))
     other_names = Column(String(250))
