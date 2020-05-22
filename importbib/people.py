@@ -17,6 +17,7 @@ translators =\
         ('H. Nuorpuu', 'H.', 'Nuorpuu'),
         ('H. Nurminen', 'H.', 'Nurminen'),
         ('Hugo L. Mäkinen', 'Hugo L.', 'Mäkinen'),
+        ('I.K. Inha', 'I.K.', 'Inha'),
         ('J.K. Ihalainen', 'J.K.', 'Ihalainen'),
         ('J. Konkka', 'J.', 'Konkka'),
         ('J. Linturi', 'J.', 'Linturi'),
@@ -42,12 +43,15 @@ translators =\
         ('Pentti J. Huhtala', 'Pentti J.', 'Huhtala'),
         ('Pentti P. Heino', 'Pentti P.', 'Heino'),
         ('Pertti A. Palo', 'Pertti A.', 'Palo'),
+        ('R. Hakamies', 'R.', 'Hakamies'),
         ('R. Sirokov', 'R.', 'Sirokov'),
         ('R.N.', 'R.', 'N.'),
         ('Raimo E. Tikkanen', 'Raimo E.', 'Tikkanen'),
         ('U. Ruhanen', 'U.', 'Ruhanen'),
         ('Unto E. Markkanen', 'Unto E.', 'Markkanen'),
-        ('V. Vankkoja', 'V.', 'Vankkoja'),
+        ('V. Tarkiainen', 'V.', 'Tarkiainen'),
+        ('V. Vankkoja', 'Vankka', 'Vankkoja'),
+        ('Vankka Vankkoja', 'Vankka', 'Vankkoja'),
         ('Väinö J. Tervaskari', 'Väinö J.', 'Tervaskari')
         ]
 

@@ -152,7 +152,7 @@ pubseries = [
     ('Ruusu-Risti-Kirjasto', 'Ruusu-Risti-Kirjasto'),
     ('Salaiset kansiot - [Tt]he X-Files -sarja', 'Salaiset kansiot - The X-Files -sarja'),
     ('SAPO-sarja', 'SAPO-sarja'),
-    ('Sapo', 'Sapo'),
+    ('Sapo', 'SAPO-sarja'),
     ('Satujen ja tarujen maailma -sarja', 'Satujen ja tarujen maailma -sarja'),
     ('Satupirtti', 'Satupirtti'),
     ('Saturnus SciFi -sarja', 'Saturnus SciFi -sarja'),
