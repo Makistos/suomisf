@@ -2,6 +2,11 @@
 {% block content %}
 <div class="container">
     <div class="card border-primary mb-3" style="width: 720px; margin: 5px auto;">
+        <div class="row">
+            <div class="col style="width: 255px"">
+                <img src="/static/icons/person_256.png">
+            </div>
+            <div class="col">
         <div class="card-body">
             <h2 class="card-title">
                 {% if person.first_name %}
@@ -38,6 +43,8 @@
                 {% endif %}
                 {% include "_genre_count.html" %}
             </ul>
+        </div>
+        </div>
         </div>
         <div class="accordion" id="authorCard">
             {% if person.works|length %}

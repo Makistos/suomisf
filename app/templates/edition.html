@@ -75,7 +75,7 @@
                 {% endif %}
             </li>
             {% endif %}
-            {% if edition.pubseries.name|length %}
+            {% if edition.work.bookseries.name|length %}
             <li class="list-group-item">
                 <b>Kirjasarja:</b> <a href=" {{ url_for('bookseries', seriesid=edition.work.bookseries.id) }} ">
                         {{ edition.work.bookseries.name }}</a>
@@ -86,16 +86,11 @@
                 {% endif %}
             </li>
             {% endif %}
-            {% if edition.work.bookseries.name|length %}
+            {% if edition.pubseries.name|length %}
             <li class="list-group-item">
-                <b>Kirjasarja:</b> <a href=" {{ url_for('bookseries',
-                    seriesid=edition.work.bookseries.id) }} ">{{
-                    edition.work.bookseries.name }}</a>
-                {% if edition.work.bookseriesnum %}
-                {% if edition.work.bookseriesnum|length %}
-                , numero {{ edition.work.bookseriesnum }}
-                {% endif %}
-                {% endif %}
+                <b>Julkaisijan sarja:</b> <a href=" {{ url_for('pubseries',
+                    seriesid=edition.pubseries.id) }} ">{{
+                    edition.pubseries.name }}</a>
             </li>
             {%- endif %}
             <li class="list-group-item">

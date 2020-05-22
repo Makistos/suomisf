@@ -4,36 +4,36 @@
         <div class="card-header">
             <span class="person-list">{{ work.creator_str }}</span>
         </div>
-            <div class="row">
+        <div class="row flex-fill">
             <div class="col">
-        <div class="card-body">
-            <h5 class="card-title">
-                {{ work.title }} {% if current_user.is_admin %} ({{ work.id }}) {% endif
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {{ work.title }} {% if current_user.is_admin %} ({{ work.id }}) {% endif
         %}
-            </h5>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <b>Julkaisuvuosi:</b> {{ work.pubyear }}
-                </li>
-                {% if work.bookseries.name|length %}
-                <li class="list-group-item">
-                    <b>Kirjasarja:</b>
-                    <a href=" {{ url_for('bookseries',
+                    </h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <b>Julkaisuvuosi:</b> {{ work.pubyear }}
+                        </li>
+                        {% if work.bookseries.name|length %}
+                        <li class="list-group-item">
+                            <b>Kirjasarja:</b>
+                            <a href=" {{ url_for('bookseries',
                                     seriesid=work.bookseries.id) }} ">{{ work.bookseries.name }}</a>
-                    {%- if work.bookseriesnum %}{% if work.bookseriesnum|length -%},
-                    numero {{ work.bookseriesnum }}
-                </li>
-                {% endif %} {% endif %} {%- endif %}
-                {% if work.misc|length %}
-                <li class="list-group-item"><b>Muuta:</b> {{ work.misc }}</li>
-                {% endif %}
-            </ul>
+                            {%- if work.bookseriesnum %}{% if work.bookseriesnum|length -%},
+                            numero {{ work.bookseriesnum }}
+                        </li>
+                        {% endif %} {% endif %} {%- endif %}
+                        {% if work.misc|length %}
+                        <li class="list-group-item"><b>Muuta:</b> {{ work.misc }}</li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
-            </div>
-            <div class="col col-lg-2 justify-content-end">
+            <div class="col col-lg-2 justify-content-end justify-content-center align-middle border flex-fill" style="align-item: center">
                 {% for genre in work.genres %}
-                <div class="row" mb-1>
-                <img src="/static/icons/{{genre.genre_name}}_64.png" title="{{genre.genre_name}}">
+                <div class="row align-self-middle border flex-fill" mb-3 align-middle>
+                    <img src="/static/icons/{{genre.genre_name}}_64.png" title="{{genre.genre_name}}">
                 </div>
                 {% endfor %}
             </div>
