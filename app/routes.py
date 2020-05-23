@@ -320,8 +320,7 @@ def person(personid):
                   'PF': '', 'paleof': '', 'kok': '', 'eiSF': '', 'rajatap': ''}
     for g in genres:
         app.logger.info(g.genre_name)
-        if g.genre_name in genre_list:
-            genre_list[g.genre_name] = g.count
+        genre_list[g.genre_name] = g.count
 
     #aliases = session.query(Person)\
     #                 .join(Alias)\
@@ -446,8 +445,7 @@ def publisher(pubid):
                   'PF': '', 'paleof': '', 'kok': '', 'eiSF': '', 'rajatap': ''}
     for g in genres:
         app.logger.info(g.genre_name)
-        if g.genre_name in genre_list:
-            genre_list[g.genre_name] = g.count
+        genre_list[g.genre_name] = g.count
 
     #app.logger.debug(list(genres))
     editions = session.query(Edition)\

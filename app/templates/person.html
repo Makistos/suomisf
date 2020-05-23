@@ -5,12 +5,12 @@
         <div class="row">
             <div class="col col-lg-4 container">
                 {% if person.image_src %}
-                <img src="{{person.image_src}}" width=255px>
+                <img src="{{person.image}}" width=255px>
                 {% else %}
                 <img src="/static/icons/person_256.png">
                 {% endif %}
             </div>
-            <div class="col col-lg-8">
+            <div class="col col-lg-8 text-center">
                 <div class="card-body">
                     <h2 class="card-title">
                         {% if person.first_name %}
@@ -47,6 +47,13 @@
                 </div>
             </div>
         </div>
+        {% if person.bio %}
+        <blockquote class="blockquote" style="padding: 1rem;">
+            <p class="mb-0">{{person.bio}}</p>
+            <footer class="blockquote-footer text-right"><cite title="{{person.bio_src}}"><a
+                        href="{{person.bio_url_src}}">{{person.bio_src}}</a></cite></footer>
+        </blockquote>
+        {% endif %}
         <div class="accordion" id="authorCard">
             {% if person.works|length %}
             <div class="card">
@@ -139,22 +146,31 @@
                 </div>
             </div>
             {% endif %}
-
+            {% if current_user.is_admin %}
+            <div class="card">
+                <div class="card-header" id="headAdmin">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                            data-target="#admin" aria-expanded="false" aria-controls="admin">
+                            Ylläpito ({{person.id}})
+                        </button>
+                    </h2>
+                </div>
+                <div id="admin" class="collapse" aria-labelledby="headAdmin" data-parent="#authorCard">
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b>Lähde: </b>{{person.fullstring}}</li>
+                            <li class="list-group-item"><a
+                                    href=" {{ url_for('edit_person', personid=person.id)}}">Muokkaa</a></li>
+                            <li class="list-group-item"><a href="{{url_for('add_authored', authorid=person.id) }}">Lisää
+                                    teos</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
-    {% if current_user.is_admin %}
-    {% if person.fullstring %}
-    <p><b>Lähde</b>: {{ person.fullstring }}</p>
-    {% endif %}
-    ID: {{person.id}}
-    <p><a href=" {{ url_for('edit_person', personid=person.id)
-                }}">Muokkaa</a></p>
-    {% endif %}
-    {% if current_user.is_admin %}
-    <p><a href="{{url_for('add_authored', authorid=person.id) }}">
-            Lisää teos</a>
-    </p>
-    {% endif %}
 
     <script>
         $(".ownerstate").click(function () {

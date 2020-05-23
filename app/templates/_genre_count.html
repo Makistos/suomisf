@@ -1,4 +1,12 @@
-            <li class="list-group-item">
+                <ul class="list-inline">
+                    {% for genre, count in genres.items() %}
+                    {% if count %}
+                    <li class="list-inline-item" style="padding: 1rem;"><img src="/static/icons/{{genre}}_32.png" title={{genre}}> <b>{{count}}</b></li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            {#
+                <li class="list-group-item">
                 <div class="d-flex flex-row bd-highlight align-items-center" style="flex-direction: column;">
                     {% if genres['SF'] %}
                     <div class="p-2 flex-fill"><img src="/static/icons/SF_32.png" title="Science fiction"></div>
@@ -71,3 +79,4 @@
                     {% endif %}
                 </div>
             </li>
+            #}
