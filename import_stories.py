@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from app.orm_decl import Work, Edition, Part, Person, Author, Editor, ShortStory, Alias
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker

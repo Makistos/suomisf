@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from app.orm_decl import Work, Edition, Part, Person, Author, Translator,\
 Editor, Publisher, Pubseries, Bookseries, User, Genre, Alias
 from sqlalchemy import create_engine
@@ -357,13 +358,10 @@ def read_bibs(filelist):
     content = ''
     for filename in filelist:
         print("Handling {}".format(filename))
-        if filename == 'sfbib.htm':
-            encoding = 'iso8859-1'
-        else:
-            encoding = 'windows-1252'
-        with open(filename, 'r', encoding='iso8859-1') as fle:
-            content += str(fle.read()).replace('&amp;', '&')
+        with open(filename, 'r', encoding='ISO-8859-1') as fle:
+            content += fle.read().replace('&amp;', '&')
 
+    #content = content.decode('iso-8859-1').encode('utf-8').replace('&amp;', '&')
     auth_data = content.split('\n\n\n')
     auth_p = r'<h2>([a-zA-ZåäöÄÅÖ].*?)</h2>(.+)'
     authors = {}
@@ -930,6 +928,8 @@ def create_admin(session):
         s.add(user)
         s.commit()
 
+db_url = os.environ.get('DATABASE_URL') or \
+        'sqlite:///suomisf.db'
 
 def import_all(filelist):
     import glob
@@ -944,9 +944,6 @@ def import_all(filelist):
     logging.debug(data)
     #pprint.pprint(data)
     #pprint.pprint(pubseries_publisher)
-
-    db_url = os.environ.get('DATABASE_URL') or \
-            'sqlite:///suomisf.db'
 
     engine = create_engine(db_url)
     session = sessionmaker()
@@ -967,7 +964,7 @@ def import_stories(filename):
     content = ''
 
     with open(filename, 'r', encoding='iso8859-1') as fle:
-        content += str(fle.read()).replace('&amp;', '&')
+        content += str(fle.read()).encode('utf8').replace('&amp;', '&')
 
     id_str = '\[[A-Z]{1}[a-z]{2}:\w{2}\]'
     id_re = re.compile(id_str)
@@ -980,14 +977,30 @@ def import_stories(filename):
 
 
 
-    # Build dict
+def insert_showroom():
+    engine = create_engine(db_url)
+    session = sessionmaker()
+    session.configure(bind=engine)
 
+    s = session()
+    person = s.query(Person).filter(Person.alt_name == 'Isaac Asimov').first()
+
+    person.bio = 'Asimovia pidetään yhtenä merkittävimmistä tieteiskirjailijoista. Hänen nimeään juhlistaa vieläkin Isaac Asimov\'s -niminen tieteiskirjallinen vihkolehti. Hänet on nimetty yhdeksi tieteiskirjallisuuden Grand Mastereista.'
+    person.bio_src = 'Wikipedia'
+    person.bio_src_url = 'http://www.wikipedia.fi'
+    person.image = 'http://www.isfdb.org/wiki/images/4/47/Isaac_Asimov_on_Throne.png'
+    person.image_src_url = 'http://www.isfdb.org'
+    person.image_src = 'ISFDB'
+
+    s.add(person)
+    s.commit()
 
 def read_params(args):
     p = argparse.ArgumentParser()
     p.add_argument('--debug', '-d', action='store_true', default=False)
     p.add_argument('--file', '-f', default='')
     p.add_argument('--stories', '-s', action='store_true', default=False)
+    p.add_argument('--showroom', '-i',  help='Insert showroom', action='store_true', default=False)
 
     return vars(p.parse_args(args))
 
@@ -1000,6 +1013,9 @@ if __name__ == '__main__':
         loglevel = logging.DEBUG
     logging.basicConfig(filename='import.log', filemode='w',
         level=loglevel)
+    if params['showroom'] == True:
+        insert_showroom()
+        exit(0)
     if params['file']:
         filelist = [params['file']]
         print(filelist)
@@ -1010,4 +1026,3 @@ if __name__ == '__main__':
     else:
         filelist = glob.glob('bibfiles/*.html')
         import_all(filelist)
-
