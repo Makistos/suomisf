@@ -84,31 +84,41 @@
                             {% for edition in work.editions %}
                             <li class="list-group-item">
                                 <a
-                                    href=" {{ url_for('edition', editionid=edition.id) }}">{{ edition.title }}</a>.{%- if edition.translators %} {% include "_translators.html"
-                -%}{%- endif %} {{ edition.publisher.name }} {{ edition.pubyear
-                }}. {% if edition.pubseries.name|length %} {{
-                edition.pubseries.name }} {%- if edition.pubseriesnum %} {{
-                edition.pubseriesnum }}{% endif %}. {% endif %}
+                                    href=" {{ url_for('edition', editionid=edition.id) }}">{{ edition.title }}</a>.
+                                    {%- if edition.translators %} {% include "_translators.html"-%}{%- endif %} {{ edition.publisher.name }} {{ edition.pubyear}}.
+                                    {% if edition.pubseries.name|length %} {{ edition.pubseries.name }}
+                                    {%- if edition.pubseriesnum %} {{edition.pubseriesnum }}{% endif %}. {% endif %}
                             </li>
                             {% endfor %}
                         </ul>
                     </div>
                 </div>
             </div>
+            {% if current_user.is_admin %}
+            <div class="card">
+                <div class="card-header" id="headAdmin">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                            data-target="#admin" aria-expanded="false" aria-controls="admin">
+                            Ylläpito ({{work.id}})
+                        </button>
+                    </h2>
+                </div>
+                <div id="admin" class="collapse" aria-labelledby="headAdmin" data-parent="#workCard">
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b>Lähde: </b>{{work.fullstring}}</li>
+                            <li class="list-group-item"><a href=" {{ url_for('edit_work', workid=work.id) }}">Muokkaa</a></li>
+                            <li class="list-group-item"><a href=" {{ url_for('add_edition', workid=work.id) }}">Lisää painos</a></li>
+                            <li class="list-group-item"><button id="myBtn">Lisää/poista kirjailija</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
     {% if current_user.is_admin %}
-    <p>Aineiston lähde: {{ work.fullstring }}</p>
-    {% if current_user.is_admin %}ID: {{ work.id }} {% endif %}
-    {% endif %} {% if current_user.is_admin %}
-    <hr />
-    <p><a href=" {{ url_for('edit_work', workid=work.id) }} ">Muokkaa</a></p>
-    <p>
-        <a href=" {{ url_for('add_edition', workid=work.id) }}">Lisää painos</a>
-    </p>
-    <!-- Trigger/Open The Modal -->
-    <button id="myBtn">Lisää/poista kirjailija</button>
-
     <!-- The Modal -->
     <div id="myModal" class="modal">
         <!-- Modal content -->
