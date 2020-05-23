@@ -150,10 +150,14 @@ class Person(Base):
     alt_name = Column(String(250))
     first_name = Column(String(100))
     last_name = Column(String(150))
-    image_src = Column(String(200))
+    image = Column(String(100))  # Actual URL
+    image_src_url = Column(String(200))  # URL to source website
+    image_src = Column(String(100))  # Source website name
     dob = Column(Integer)
     dod = Column(Integer)
-    bio = Column(String(1000))
+    bio = Column(String(1000))  # Biographgy
+    bio_src_url = Column(String(200))  # URL to source website
+    bio_src = Column(String(100))  # Source website name
     birthplace = Column(String(250))
     fullstring = Column(String(500))
     other_names = Column(String(250))
