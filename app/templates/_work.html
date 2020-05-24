@@ -41,18 +41,11 @@
         ({{work.pubyear}}).
     {% endif %}
 {% endif %}
-{% if work.editions|length == 1 %}
-    {% if work.editions[0].pubseries %}
-        {{ work.editions[0].pubseries.name }}.
-    {% endif %}
-    {{ work.editions[0].publisher.fullname }}
-    {% if work.editions[0].pubyear|int -%}
-        {{ work.editions[0].pubyear }}
-    {%- endif -%}
-    . 
-{% endif %}
 {% if work.genres|length %}
-    [{{ work.genres|join(', ', attribute='genre_name') }}].
+    {% for genre in work.genres %}
+    <img src="/static/icons/{{genre.genre_name}}_16.png" title="{{genre.genre_name}}">
+    {% endfor %}
+    {# [{{ work.genres|join(', ', attribute='genre_name') }}]. #}
 {% endif %}
 {#
 {% for edition in work.editions %}

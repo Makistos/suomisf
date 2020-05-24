@@ -68,9 +68,12 @@
                 <div id="authoredBooks" class="collapse" aria-labelledby="headAuthoredBooks" data-parent="#authorCard">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
-                            {% for work in person.works|sort(attribute='title') %}
+                            {% for work in person.works|sort(attribute='pubyear') %}
                             <li class="list-group-item">
                                 {% include "_work.html" %}
+                                {% for edition in work.editions %}
+                                {% include "_work_edition.html" %}
+                                {% endfor %}
                             </li>
                             {% endfor %}
                         </ul>
