@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-<center><a href=" {{ url_for('print_books', type='pubseries', id=series.id) }}
-                    ">Tulosta</a></center>
+<div class="container" style="text-align: center;"><a href=" {{ url_for('print_books', type='pubseries', id=series.id) }}
+                    ">Tulosta</a></div>
 <h1>{{series.name}} ({{ series.publisher.name }})
 {% if favorite == 1 %}*{% endif %}
 </h1>
@@ -25,9 +25,11 @@ Kirjoja yhteensä {{ books|length }}<br>
 
 <br>
 
+<ul class="list-group list-group-flush">
 {% for edition in books %}
-    {% include "_edition.html" %}
+    <li style="list-style-position: inside; list-style-type: none; ">{% include "_edition.html" %}</li>
 {% endfor %}
+</ul>
 {% endblock %}
 
 {% block scripts %}
