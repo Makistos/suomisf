@@ -241,6 +241,7 @@ class Bookseries(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
     important = Column(Boolean, default=False)
+    works = relationship("Work", backref=backref('work'), uselist=True)
 
 
 class User(UserMixin, Base):

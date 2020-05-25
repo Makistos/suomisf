@@ -284,6 +284,17 @@ def person(personid):
             person = session.query(Person).filter(Person.alt_name == personid).first()
 
     authored = books_for_person(session, personid, 'A')
+    series = session.query(Bookseries)\
+                    .join(Work)\
+                    .filter(Bookseries.id == Work.bookseries_id)\
+                    .join(Part)\
+                    .filter(Part.work_id == Work.id)\
+                    .join(Author)\
+                    .filter(Part.id == Author.part_id)\
+                    .filter(Author.person_id == personid)\
+                    .group_by(Bookseries.id)\
+                    .all()
+
     translated = books_for_person(session, personid, 'T')
     edited = books_for_person(session, personid, 'E')
     stories = session.query(ShortStory.title.label('orig_title'),
@@ -331,7 +342,8 @@ def person(personid):
     #                    .filter(Alias.alias == person.id)\
     #                    .all()
     return render_template('person.html', person=person, authored=authored,
-            translated=translated, edited=edited, stories=stories, genres=genre_list)
+            translated=translated, edited=edited, stories=stories, genres=genre_list,
+            series=series)
 
 @app.route('/edit_person/<personid>', methods=['POST', 'GET'])
 def edit_person(personid):

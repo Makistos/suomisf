@@ -68,7 +68,7 @@
                 <div id="authoredBooks" class="collapse" aria-labelledby="headAuthoredBooks" data-parent="#authorCard">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
-                            {% for work in person.works|sort(attribute='pubyear') %}
+                            {% for work in person.works %}
                             <li class="list-group-item">
                                 {% include "_work.html" %}
                                 {% for edition in work.editions %}
@@ -106,6 +106,29 @@
                 </div>
             </div>
             {% endif %}
+            <div class="card">
+                <div class="card-header" id="headSeries">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                            data-target="#series" aria-expanded="false" aria-controls="series">
+                            Sarjat
+                        </button>
+                    </h2>
+                </div>
+                <div id="series" class="collapse" aria-labelledby="headSeries"
+                    data-parent="#authorCard">
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                        {% for s in series %}
+                        <h4><a href="{{ url_for('bookseries', seriesid=s.id)}}"> {{s.name }}</a></h4><br>
+                        {% for work in s.works|sort(attribute='pubyear') %}
+                        {% include "_work.html" %}
+                        {% endfor %}
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
             {% if person.translations|length %}
             <div class="card">
                 <div class="card-header" id="headTranslated">
