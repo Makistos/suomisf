@@ -25,7 +25,7 @@
                     <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
                             data-target="#works" aria-expanded="true" aria-controls="works">
-                            Teokset
+                            Ilmestynyt teoksissa
                         </button>
                     </h2>
                 </div>
@@ -33,44 +33,19 @@
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
                             {% for work in works %}
-                            <li class="list-group-item"><a href=" {{ url_for('work', workid=work.id)}}">{{work.title}}</a> ({{work.pubyear}})
-                                {% if work.genres|length %}
-                                [{{ work.genres|join(', ', attribute='genre_name') }}]
-                                {% endif %}
-                            </li>
-                            {% endfor %}
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header" id="headEditions">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                            data-target="#editions" aria-expanded="true" aria-controls="editions">
-                            Painokset
-                        </button>
-                    </h2>
-                </div>
-                <div id="editions" class="collapse" aria-labelledby="headEditions" data-parent="#storyCard">
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            {% for edition in editions %}
                             <li class="list-group-item">
-                                <a
-                                    href=" {{ url_for('edition', editionid=edition.id) }}">{{ edition.title }}</a>.{%- if edition.translators %} {% include "_translators.html"
-                                    -%}{%- endif %} {{ edition.publisher.name }} {{ edition.pubyear
-                                    }}. {% if edition.pubseries.name|length %} {{
-                                    edition.pubseries.name }} {%- if edition.pubseriesnum %} {{
-                                    edition.pubseriesnum }}{% endif %}. {% endif %}
+                                {% include "_work.html" %}
+                                {% for edition in work.editions %}
+                                {% include "_work_edition.html" %}
+                                {% endfor %}
                             </li>
                             {% endfor %}
+
+
                         </ul>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 {% endblock %}
