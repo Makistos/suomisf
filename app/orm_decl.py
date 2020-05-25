@@ -93,8 +93,8 @@ class Work(Base):
     creator_str = Column(String(500), index=True)
     editions = relationship("Edition", secondary='Part', uselist=True)
     parts = relationship('Part', backref=backref('part', uselist=True))
-    bookseries = relationship("Bookseries", backref=backref('bookseries',
-        uselist=False))
+    bookseries = relationship("Bookseries", backref=backref('bookseries'),
+        uselist=False)
     editions = relationship("Edition", secondary='part', uselist=True)
     genres = relationship("Genre", backref=backref('genre', uselist=True))
 
@@ -241,7 +241,7 @@ class Bookseries(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
     important = Column(Boolean, default=False)
-    works = relationship("Work", backref=backref('work'), uselist=True)
+    works = relationship("Work", backref=backref('work'), uselist=True, order_by='Work.bookseriesnum')
 
 
 class User(UserMixin, Base):
@@ -307,6 +307,20 @@ class Genre(Base):
     workid = Column(Integer, ForeignKey('work.id'), nullable=False,
             primary_key=True)
     genre_name = Column(String(20), nullable=False, primary_key=True)
+
+class Award(Base):
+    __tablename__ = 'award'
+    id = Column(Integer, primary_key = True)
+    name = Column(String(100), nullable=False)
+    type = Column(Integer)  # For persons or works/stories
+
+class Awarded(Base):
+    __tablename__ = 'awarded'
+    id = Column(Integer, primary_key = True)
+    award_id = Column(Integer, ForeignKey('award.id'))
+    person_id = Column(Integer, ForeignKey('person.id'))
+    work_id = Column(Integer, ForeignKey('work.id'))
+    story_id = Column(Integer, ForeignKey('shortstory.id'))
 
 @login.user_loader
 def load_user(id):

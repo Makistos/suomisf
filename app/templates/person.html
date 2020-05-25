@@ -121,7 +121,7 @@
                         <ul class="list-group list-group-flush">
                         {% for s in series %}
                         <h4><a href="{{ url_for('bookseries', seriesid=s.id)}}"> {{s.name }}</a></h4><br>
-                        {% for work in s.works|sort(attribute='pubyear') %}
+                        {% for work in s.works %}
                         {% include "_work.html" %}
                         {% endfor %}
                         {% endfor %}
