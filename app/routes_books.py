@@ -79,6 +79,32 @@ def books_by_genre(genre):
                    .all()
     return render_template('books.html', works=works)
 
+@app.route('/books_by_origin/<country>')
+def books_by_origin(country):
+    session = new_session()
+
+    if country[0] == '!':
+        works = session.query(Work)\
+                       .join(Part)\
+                       .filter(Work.id == Part.work_id)\
+                       .join(Author)\
+                       .filter(Part.id == Author.part_id)\
+                       .join(Person)\
+                       .filter(Person.id == Author.person_id)\
+                       .filter(Person.birthplace != country[1:])\
+                       .all()
+    else:
+        works = session.query(Work)\
+                       .join(Part)\
+                       .filter(Work.id == Part.work_id)\
+                       .join(Author)\
+                       .filter(Part.id == Author.part_id)\
+                       .join(Person)\
+                       .filter(Person.id == Author.person_id,
+                               Person.birthplace == country)\
+                       .all()
+    return render_template('books.html', works=works)
+
 @app.route('/books')
 def books():
     session = new_session()

@@ -46,6 +46,8 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarBooksMenuLink">
               <a class="dropdown-item" href="{{ url_for("books") }}">Kaikki</a>
+              <a class="dropdown-item" href="{{ url_for("books_by_origin", country='Suomi') }}">Suomalaiset</a>
+              <a class="dropdown-item" href="{{ url_for("books_by_origin", country='!Suomi') }}">Ulkomaiset</a>
               <a class="dropdown-item" href="{{ url_for("anthologies") }}">Kokoelmat</a>
               {% include "_letters_dropdown.html" %}
             </div>
