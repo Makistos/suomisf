@@ -4,9 +4,10 @@ function personlink(name) {
 
 
 $(document).ready(function() {
-   var editor;
+   var editor = false;
    let persons = document.getElementsByClassName('person-list');
    for (i in persons) {
+      if (persons[i].innerText !== undefined) {
       if (persons[i].innerText.includes(' (toim.)')) {
           editor = true;
       } else {
@@ -21,5 +22,6 @@ $(document).ready(function() {
       if (editor == true) { 
           persons[i].innerHTML += ' (toim.)';
       }
+    }
    }
 });
