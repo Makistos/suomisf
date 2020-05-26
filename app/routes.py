@@ -291,7 +291,7 @@ def person(personid):
                     .filter(Part.work_id == Work.id)\
                     .join(Author)\
                     .filter(Part.id == Author.part_id)\
-                    .filter(Author.person_id == personid)\
+                    .filter(Author.person_id == person.id)\
                     .group_by(Bookseries.id)\
                     .all()
 
@@ -562,7 +562,6 @@ def pubseries(seriesid):
                    .filter(Part.edition_id == Edition.id)\
                    .join(Work)\
                    .filter(Part.work_id == Work.id)\
-                   .order_by(Work.creator_str, Edition.title)\
                    .all()
     favorite = session.query(UserPubseries)\
                         .filter(UserPubseries.series_id == seriesid,
