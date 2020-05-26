@@ -234,7 +234,7 @@ class Pubseries(Base):
     important = Column(Boolean, default=False)
     publisher = relationship("Publisher", backref=backref('publisher',
         uselist=False))
-    editions = relationship("Edition", backref=backref('edition'), uselist=True)
+    editions = relationship("Edition", backref=backref('edition'), uselist=True, order_by='Edition.pubseriesnum')
 
 class Bookseries(Base):
     __tablename__ = 'bookseries'
