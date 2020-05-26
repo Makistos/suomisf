@@ -1,0 +1,180 @@
+Table Publisher {
+        id int [pk, increment]
+        name varchar
+        fullname varchar
+}
+
+Table Author {
+        part_id int [ref: > Part.id]
+        person_id int [ref: > Person.id]
+}	
+        
+Table Translator [
+        part_id int [ref: > Part.id]
+        person_id int [ref: > Person.id]
+}	
+        
+Table Editor {
+        edition_id int [ref: > Edition.id]
+        person_id int [ref: > Person.id]
+}	
+        
+Table Pubseries {
+        id int [pk, increment]
+        name varchar
+        publisher_id int [ref: > Publisher.id]
+        important boolean
+}	
+        
+Table Bookseries {
+        id int [pk, increment]
+        name varchar
+        important boolean
+}	
+        
+Table Person {
+        id int [pk, increment]
+        name varchar
+        first_name varchar
+        last_name varchar
+        dob varchar
+        dod varchar
+        birthplace varchar
+        bio varchar
+        other_names varchar
+        fullstring varchar
+        image varchar
+}	
+        
+Table Alias {
+        alias int [ref: > Person.id]
+        real_name [ref: > Person.id]
+}	
+        
+Table Work {
+        id int [pk, increment]
+        title varchar
+        subtitle varchar
+        pubyear int
+        language varchar
+        bookseries_id int [ref: > Bookseries.id]
+        bookseriesnum varchar
+        bookseriesorder int
+        collection boolean
+        description varchar
+        image varchar
+        misc varchar
+        fullstring varchar
+}	
+        
+Table Edition {
+        id int [pk, increment]
+        title varchar
+        subtitle varchar
+        pubyear int
+        language varchar
+        publisher_id int [ref: > Publisher.id]
+        editionnum int
+        collection boolean
+        pages int
+        cover varchar
+        binding varchar
+        isbn varchar
+        pubseries_id int [ref: > Pubseries.id]
+        pubseriesnum int 
+        description varchar
+        misc varchar
+        fullstring varchar
+        image varchar
+}	
+        
+Table User {
+        id int [pk, increment]
+        name varchar
+        password_hash varchar
+        is_admin boolean
+        language varchar
+}	
+        
+Table UserBook {
+        edition_id int [ref: > Edition.id]
+        user_id int [ref: > User.id]
+}	
+
+Table UserPubseries {
+        pubseries_id int [ref: > Pubseries.id]
+        user_id int [ref: > User.id]
+} 
+        
+Table UserBookseries {
+        bookseries_id int [ref: > Bookseries.id]
+        user_id int [ref: > User.id]
+} 
+        
+Table Part {
+        id int [pk, increment]
+        edition_id int [ref: > Edition.id]
+        work_id int [ref: > Work.id]
+        shortstory_id int [ref: > ShortStory.id]
+        title varchar
+}	
+
+Table ShortStory {
+        id int [pk, increment]
+        title varchar
+        language varchar
+        pubyear int
+}	
+        
+Table Link {
+        id int [pk, increment]
+        person_id int [ref: > Person.id]
+        work_id int [ref: > Work.id]
+        edition_id int [ref: > Edition.id]
+        pubseries_id int [ref: > Pubseries.id]
+        bookseries_id int [ref: > Bookseries.id]
+        publisher_id int [ref: > Publisher.id]
+}	
+        
+Table Genre {
+        work_id int [ref: > Work.id]
+        genre_name varchar
+}	
+
+Table Award {
+        id int [pk, increment]
+        name varchar
+        type varchar
+        description varchar
+} 
+       
+Table Awarded {
+        id int [pk, increment]
+        award_id int [ref: > Award.id]
+        person_id int [ref: > Person.id]
+        work_id int [ref: > Work.id]
+        story_id int [ref: > ShortStory.id]
+} 
+       
+Table Tag {
+        id int [pk, increment]
+        tag varchar
+        user_id int [ref: > User.id]
+        target varchar
+        target_id int
+} 
+        
+Table Magazine {
+        id int [pk, increment]
+        name varchar
+        publisher_id int [ref: > Publisher.id]
+        issn varchar
+} 
+        
+Table Issue {
+        id int [pk, increment]
+        magazine_id int [Ref: > Magazine.id]
+        number int
+        year int
+} 
+
