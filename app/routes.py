@@ -513,7 +513,7 @@ def bookseries(seriesid):
                       .join(Work)\
                       .filter(Part.work_id == Work.id)\
                       .filter(Work.bookseries_id == seriesid)\
-                      .order_by(Work.bookseriesnum, Edition.pubyear)\
+                      .order_by(Work.bookseriesorder, Work.creator_str)\
                       .all()
     return render_template('bookseries.html', series=series, editions=editions)
 
@@ -562,6 +562,7 @@ def pubseries(seriesid):
                    .filter(Part.edition_id == Edition.id)\
                    .join(Work)\
                    .filter(Part.work_id == Work.id)\
+                   .order_by(Edition.pubseriesnum, Edition.pubyear)\
                    .all()
     favorite = session.query(UserPubseries)\
                         .filter(UserPubseries.series_id == seriesid,

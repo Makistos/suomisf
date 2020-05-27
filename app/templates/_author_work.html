@@ -1,0 +1,68 @@
+{% set ns = namespace(work_owned=false) %}
+{% for edition in work.editions %}
+	{% if current_user.get_id()|int() in edition.owners|map(attribute='id')|list() %}
+		{% set ns.work_owned = true %}
+	{% endif %}
+{% endfor %}
+
+{% if ns.work_owned == true and print != 1 %}
+    {# Add marker for ownership #}
+    <span style="border-left: 6px solid grey; padding-left: 23px">
+{% else %}
+    <span style="padding-left: 25px; ">
+{% endif %}
+
+{% if print != 1 and current_user.is_authenticated %}
+    {# Add buttons for adding/removing book from collection #}
+    {% if ns.work_owned == true %}<a id="{{work.editions[0].id}}" href="#remove" class="ownerstate"> - </a>
+    {% else %}<a id="{{work.editions[0].id}}" href="#add" class="ownerstate"> + </a>
+    {% endif %}
+{% endif %}
+
+{# Add title, with or without link. #}
+{% if print == 1 %}
+    <b>{{ work.editions[0].title }}</b>.
+{% else %}<b><a href="{{url_for("work", workid=work.id) }}">
+		{{ work.editions[0].title }}</a></b>.
+{% endif %}
+
+{# Rest of the stuff besides the title: #}
+
+{% if work.bookseries %}
+    {{ work.bookseries.name}} {{work.bookseriesnum}}.
+{% endif %}
+{% if (work.title != work.editions[0].title) -%}
+    ({{work.title}}
+	{%- if work.pubyear != 0 -%}
+		, {{ work.pubyear }}
+	{%- endif -%}).
+{% else %}
+    {% if work.pubyear != work.editions[0].pubyear %}
+        ({{work.pubyear}}).
+    {% endif %}
+{% endif %}
+{% if work.editions|length == 1 %}
+    {% if work.editions[0].pubseries %}
+        {{ work.editions[0].pubseries.name }}.
+    {% endif %}
+    {{ work.editions[0].publisher.fullname }}
+    {% if work.editions[0].pubyear|int -%}
+        {{ work.editions[0].pubyear }}
+    {%- endif -%}
+    .
+{% endif %}
+{% if work.genres|length %}
+    {% for genre in work.genres %}
+    <img src="/static/icons/{{genre.genre_name}}_16.png" title="{{genre.genre_name}}">
+    {% endfor %}
+    {# [{{ work.genres|join(', ', attribute='genre_name') }}]. #}
+{% endif %}
+{#
+{% for edition in work.editions %}
+    {% for owner in edition.owners %}
+        {{ owner.name }}
+    {% endfor %}
+{% endfor %}
+#}
+</span><br>
+

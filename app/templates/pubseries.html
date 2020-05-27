@@ -25,11 +25,12 @@ Kirjoja yhteensä {{ books|length }}<br>
 
 <br>
 
-<ul class="list-group list-group-flush">
+<ol class="list-group list-group-flush">
 {% for edition in books %}
-    <li style="list-style-position: inside; list-style-type: none; ">{% include "_edition.html" %}</li>
+<li style="list-style-position: inside; 
+            "> {% include "_edition.html" %}</li>
 {% endfor %}
-</ul>
+</ol>
 {% endblock %}
 
 {% block scripts %}

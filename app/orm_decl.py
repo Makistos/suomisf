@@ -74,10 +74,12 @@ class Work(Base):
     language = Column(String(2))
     bookseries_id = Column(Integer, ForeignKey('bookseries.id'))
     bookseriesnum = Column(String(20))
+    bookseriesorder = Column(Integer)
     collection = Column(Boolean)
     image_src = Column(String(200))
     misc = Column(String(500))
     fullstring = Column(String(500))
+    creator_str = Column(String(500), index=True)
     authors = relationship("Person",
                 secondary='join(Part, Author, Part.id == Author.part_id)',
                 primaryjoin='and_(Person.id == Author.person_id,\
@@ -90,7 +92,6 @@ class Work(Base):
                 primaryjoin='and_(Person.id == Translator.person_id,\
                 Translator.part_id == Part.id, Part.work_id == Work.id)',
                 uselist=True)
-    creator_str = Column(String(500), index=True)
     editions = relationship("Edition", secondary='Part', uselist=True)
     parts = relationship('Part', backref=backref('part', uselist=True))
     bookseries = relationship("Bookseries", backref=backref('bookseries'),
@@ -234,14 +235,18 @@ class Pubseries(Base):
     important = Column(Boolean, default=False)
     publisher = relationship("Publisher", backref=backref('publisher',
         uselist=False))
-    editions = relationship("Edition", backref=backref('edition'), uselist=True, order_by='Edition.pubseriesnum')
+    #editions = relationship("Edition", backref=backref('edition'), uselist=True,
+    #                        order_by='Edition.pubseriesnum')
+    editions = relationship("Edition", primaryjoin="Pubseries.id == Edition.pubseries_id", uselist=True,
+                            order_by='Edition.pubseriesnum')
 
 class Bookseries(Base):
     __tablename__ = 'bookseries'
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
     important = Column(Boolean, default=False)
-    works = relationship("Work", backref=backref('work'), uselist=True, order_by='Work.bookseriesnum')
+    works = relationship("Work", backref=backref('work'), uselist=True,
+                         order_by='Work.bookseriesorder, Work.creator_str')
 
 
 class User(UserMixin, Base):

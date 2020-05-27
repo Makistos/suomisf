@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 import argparse
 import logging
 import re
-from typing import Tuple, Dict, List, Pattern
+from typing import Tuple, Dict, List, Pattern, Optional
 import cProfile
 
 publishers_re = {}
@@ -179,12 +179,60 @@ def find_publisher(s: str) -> Tuple[str, str]:
 
     return (pub_name, s)
 
+roman_numbers: Dict = {'I': 1, 'II': 2, 'III': 3, 'IV': 4, 'V': 5,
+                       'VI': 6, 'VII': 7, 'VIII': 8, 'IX': 9, 'X': 10,
+                       'XI': 11, 'XII': 12, 'XIII': 13, 'XIV': 14, 'XV': 15,
+                       'XVI': 16, 'XVII': 17, 'XVIII': 18, 'XIX': 19, 'XX': 20,
+                       'XXI': 21, 'XXII': 22, 'XXIII': 23, 'XXIV': 24, 'XXV': 25}
+
+ordered_numbers: Dict = {'ensimmäinen': 1,
+                         'toinen': 2,
+                         'kolmas': 3,
+                         'neljäs': 4,
+                         'viides': 5,
+                         'kuudes': 6,
+                         'seitsemäs': 7,
+                         'kahdeksas': 8,
+                         'yhdeksäs': 9,
+                         'kymmenes': 10}
+
+def seriesnum_to_int(str_num: str):
+    if str_num is None:
+        return None
+
+    if str_num == '':
+        return None
+
+    try:
+        return int(str_num)
+    except Exception as e:
+        pass
+
+    if str_num in roman_numbers:
+        return roman_numbers[str_num]
+
+    if str_num.lower() in ordered_numbers:
+        return ordered_numbers[str_num.lower()]
+
+    if str_num.startswith('#'):
+        try:
+            return int(str_num[1:])
+        except Exception as e:
+            print(f'Failed to convert book number: {str_num}')
+
+    if ':' in str_num:
+        return str_num.split(':')[0]
+
+    print(f'Book number not found: {str_num}')
+    return None
+
 
 def find_commons(s: str, book: Dict) -> str:
     # Find publisher series
-    (book['pubseries'], book['pubseriesnum'], s) = \
+    (book['pubseries'], pubseriesnum, s) = \
             find_series(s, book['collection'], pubseries, pubseries_re)
 
+    book['pubseriesnum'] = seriesnum_to_int(pubseriesnum)
     (book['publisher'], s) = find_publisher(s)
 
     if book['pubseries'] != '':
@@ -193,6 +241,8 @@ def find_commons(s: str, book: Dict) -> str:
 
     (book['bookseries'], book['bookseriesnum'], s) = \
             find_series(s, book['collection'], bookseries, bookseries_re)
+
+    book['bookseriesorder'] = seriesnum_to_int(book['bookseriesnum'])
 
     if book['bookseries'] == '':
         book['bookseriesorder'] = 0
@@ -700,6 +750,7 @@ def import_books(session, authors):
             if workitem:
                 workitem.bookseries_id = bookseriesid
                 workitem.bookseriesnum = work['bookseriesnum']
+                workitem.bookseriesorder = work['bookseriesorder']
                 workitem.misc = work['rest']
                 workitem.collection = work['collection']
                 workitem.fullstring = work['fullstring']
@@ -710,6 +761,7 @@ def import_books(session, authors):
                         language = '',
                         bookseries_id = bookseriesid,
                         bookseriesnum = work['bookseriesnum'],
+                        bookseriesorder = work['bookseriesorder'],
                         misc = work['rest'],
                         collection=work['collection'],
                         fullstring = work['fullstring'])
@@ -730,7 +782,13 @@ def import_books(session, authors):
                     pubseriesid = pubseries.id
                 else:
                     pubseriesid = None
-                pubseriesnum = edition['pubseriesnum']
+                if edition['pubseriesnum']:
+                    try:
+                        pubseriesnum = int(edition['pubseriesnum'])
+                    except Exception as e:
+                        print(f'Failed to convert pubseriesnum: {edition["pubseriesnum"]}')
+                else:
+                    pubseriesnum = None
                 publisher = None
                 if edition['publisher'] != '':
                     publisher = s.query(Publisher).filter(Publisher.name ==
@@ -763,7 +821,7 @@ def import_books(session, authors):
                     ed.translation = edition['translation']
                     ed.editionnum = editionnum
                     ed.pubseries_id = pubseriesid
-                    ed.pubseriesnum = edition['pubseriesnum']
+                    ed.pubseriesnum = pubseriesnum
                     ed.coll_info = edition['coll_info']
                     ed.misc = edition['rest']
                     ed.fullstring = edition['fullstring']
@@ -777,7 +835,7 @@ def import_books(session, authors):
                             editionnum = editionnum,
                             isbn = '', # No ISBNs in the data
                             pubseries_id = pubseriesid,
-                            pubseriesnum = edition['pubseriesnum'],
+                            pubseriesnum = pubseriesnum,
                             collection = workitem.collection,
                             coll_info = edition['coll_info'],
                             misc = edition['rest'],

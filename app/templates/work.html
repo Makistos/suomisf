@@ -22,6 +22,12 @@
                             {%- if work.bookseriesnum %}{% if work.bookseriesnum|length -%},
                             numero {{ work.bookseriesnum }}
                         </li>
+                        {% if current_user.is_admin %}
+                        <li class="list-group-item">
+                            <b>Sarjan järjestysnumero:</b>
+                            {{ work.bookseriesorder }}
+                        </li>
+                        {% endif %}
                         {% endif %} {% endif %} {%- endif %}
                         {% if work.misc|length %}
                         <li class="list-group-item"><b>Muuta:</b> {{ work.misc }}</li>
