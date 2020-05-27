@@ -122,6 +122,9 @@
                         {% for s in series %}
                         <h4><a href="{{ url_for('bookseries', seriesid=s.id)}}"> {{s.name }}</a></h4><br>
                         {% for work in s.works %}
+                        {% if work.creator_str != person.name %}
+                        {{ work.creator_str }}:
+                        {% endif %}
                         {% include "_work.html" %}
                         {% endfor %}
                         {% endfor %}
