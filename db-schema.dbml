@@ -9,7 +9,7 @@ Table Author {
         person_id int [ref: > Person.id]
 }	
         
-Table Translator [
+Table Translator {
         part_id int [ref: > Part.id]
         person_id int [ref: > Person.id]
 }	
@@ -35,20 +35,23 @@ Table Bookseries {
 Table Person {
         id int [pk, increment]
         name varchar
+        alt_name varchar
         first_name varchar
         last_name varchar
+        image_src_url varchar
+        image_src varchar
         dob varchar
         dod varchar
-        birthplace varchar
         bio varchar
+        bio_src varchar
+        birthplace varchar
         other_names varchar
-        fullstring varchar
-        image varchar
+        imported_string varchar
 }	
         
 Table Alias {
         alias int [ref: > Person.id]
-        real_name [ref: > Person.id]
+        real_name int [ref: > Person.id]
 }	
         
 Table Work {
@@ -61,10 +64,12 @@ Table Work {
         bookseriesnum varchar
         bookseriesorder int
         collection boolean
+        image_src varchar
+        image_src_url varchar
         description varchar
-        image varchar
         misc varchar
-        fullstring varchar
+        imported_string varchar
+        creator_str varchar
 }	
         
 Table Edition {
@@ -72,20 +77,23 @@ Table Edition {
         title varchar
         subtitle varchar
         pubyear int
+        translation boolean
         language varchar
         publisher_id int [ref: > Publisher.id]
         editionnum int
-        collection boolean
-        pages int
-        cover varchar
-        binding varchar
+        image_src varchar
+        image_src_url varchar
         isbn varchar
         pubseries_id int [ref: > Pubseries.id]
         pubseriesnum int 
+        collection boolean
+        coll_info varchar
+        pages int
+        cover varchar
+        binding varchar
         description varchar
         misc varchar
-        fullstring varchar
-        image varchar
+        imported_string varchar
 }	
         
 Table User {
@@ -124,21 +132,17 @@ Table ShortStory {
         title varchar
         language varchar
         pubyear int
+        creator_str varchar
 }	
-        
-Table Link {
-        id int [pk, increment]
-        person_id int [ref: > Person.id]
-        work_id int [ref: > Work.id]
-        edition_id int [ref: > Edition.id]
-        pubseries_id int [ref: > Pubseries.id]
-        bookseries_id int [ref: > Bookseries.id]
-        publisher_id int [ref: > Publisher.id]
-}	
+
+Table StoryGenre {
+        shortstory_id int [ref: > ShortStory.id]
+        name varchar
+}
         
 Table Genre {
         work_id int [ref: > Work.id]
-        genre_name varchar
+        name varchar
 }	
 
 Table Award {
@@ -173,8 +177,49 @@ Table Magazine {
         
 Table Issue {
         id int [pk, increment]
-        magazine_id int [Ref: > Magazine.id]
+        magazine_id int [ref: > Magazine.id]
         number int
         year int
 } 
 
+Table PersonLink {
+  id int [pk, increment]
+  person_id int [ref: > Person.id]
+  link varchar
+  description varchar
+}
+
+Table WorkLink {
+  id int [pk, increment]
+  work_id int [ref: > Work.id]
+  link varchar
+  description varchar
+}
+
+Table EditionLink {
+  id int [pk, increment]
+  edition_id int [ref: > Edition.id]
+  link varchar
+  description varchar
+}
+
+Table BookseriesLink {
+  id int [pk, increment]
+  bookseries_id int [ref: > Bookseries.id]
+  link varchar
+  description varchar
+}
+
+Table PubseriesLink {
+  id int [pk, increment]
+  pubseries_id int [ref: > Pubseries.id]
+  link varchar
+  description varchar
+}
+
+Table PublisherLink {
+  id int [pk, increment]
+  publisher_id int [ref: > Publisher.id]
+  link varchar
+  description varchar
+}
