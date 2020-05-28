@@ -775,3 +775,10 @@ def removefavpubcol(pubseriesid):
     session.commit()
     return redirect(url_for('myseries'))
 
+@app.route('/missing_birthplace')
+def missing_birthplace():
+    session = new_session()
+
+    missing = session.query(Person).filter(Person.birthplace == None).all()
+
+    return render_template('people.html', people=missing)
