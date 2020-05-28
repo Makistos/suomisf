@@ -645,8 +645,16 @@ def import_authors(s, names, source=''):
                                 birthplace=country,
                                 dob=dob,
                                 dod=dod)
-                s.add(person)
-                s.commit()
+            else:
+                if not person.birthplace:
+                    person.birthplace = country
+                if not person.dob:
+                    person.dob = dob
+                if not person.dod:
+                    person.dod = dod
+            s.add(person)
+            s.commit()
+            persons.append(person)
             person2 = s.query(Person)\
                        .filter(Person.name==name)\
                        .first()
@@ -680,8 +688,16 @@ def import_authors(s, names, source=''):
                                 birthplace=country,
                                 dob=dob,
                                 dod=dod)
-                s.add(person)
-                s.commit()
+            else:
+                if not person.birthplace:
+                    person.birthplace = country
+                if not person.dob:
+                    person.dob = dob
+                if not person.dod:
+                    person.dod = dod
+            s.add(person)
+            s.commit()
+
             persons.append(person)
     return persons
 
