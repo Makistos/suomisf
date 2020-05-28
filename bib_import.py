@@ -586,7 +586,7 @@ def import_authors(s, names, source=''):
 
                     else: # Real name
                         m3 = re.search(r'(?P<alias>.+)', m.group(1))
-                        name = m3.group('alias')
+                        name = m3.group('alias').strip()
                         names = m3.group('alias').split(', ')
                         last_name = names[0].strip()
                         if len(names) > 1:
@@ -599,7 +599,13 @@ def import_authors(s, names, source=''):
                         real_name = None
                         real_first_name = None
                         real_last_name = None
-                    if m3 and 'oik.' not in m.group(2):
+                    if m3 and not is_pseudo:
+                        m2 = re.search(r'(?P<country>[\w\-]+)(,\s)?(?P<dob>\d+)?-?(?P<dod>\d+)?', m.group(2))
+                        if m2:
+                            country = m2.group('country')
+                            dob = m2.group('dob')
+                            dod = m2.group('dod')
+                    elif m3 and is_pseudo:
                         m2 = re.search(r'(?P<country>[\w\-]+)(,\s)?(?P<dob>\d+)?-?(?P<dod>\d+)?', m.group(2))
                         if m2:
                             country = m2.group('country')
