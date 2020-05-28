@@ -18,8 +18,8 @@
 	<br>
 {% endif %}
 
-<h2>{{ books|map(attribute='pubyear')|min }} -
-	{{ books|map(attribute='pubyear')|max }}
+<h2>{{ books|map(attribute='pubyear')|reject("none")|list|min }}
+	- {{ books|map(attribute='pubyear')|reject("none")|list|max }}
 </h2>
 Kirjoja yhteensä {{ books|length }}<br>
 
