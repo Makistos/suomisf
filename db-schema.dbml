@@ -1,86 +1,85 @@
-Table Publisher {
-        id int [pk, increment]
-        name varchar
-        fullname varchar
-}
-
-Table Author {
-        part_id int [ref: > Part.id]
-        person_id int [ref: > Person.id]
-}	
-        
-Table Translator {
-        part_id int [ref: > Part.id]
-        person_id int [ref: > Person.id]
-}	
-        
-Table Editor {
-        edition_id int [ref: > Edition.id]
-        person_id int [ref: > Person.id]
-}	
-        
-Table Pubseries {
-        id int [pk, increment]
-        name varchar
-        publisher_id int [ref: > Publisher.id]
-        important boolean
-}	
-        
-Table Bookseries {
-        id int [pk, increment]
-        name varchar
-        important boolean
-}	
-        
-Table Person {
-        id int [pk, increment]
-        name varchar
-        alt_name varchar
-        first_name varchar
-        last_name varchar
-        image_src_url varchar
-        image_src varchar
-        dob varchar
-        dod varchar
-        bio varchar
-        bio_src varchar
-        birthplace varchar
-        other_names varchar
-        imported_string varchar
-}	
-        
 Table Alias {
         alias int [ref: > Person.id]
         real_name int [ref: > Person.id]
+	
+	indexes {
+		(alias, real_name) [pk]
+	}
 }	
         
-Table Work {
+Table Article {
+	id int [pk, increment]
+	title varchar [not null]
+	link varchar
+
+	indexes {
+		title
+	}
+}
+
+Table ArticleAuthor {
+	article_id int [ref: > Article.id]
+	person_id int [ref: > Person.id]
+
+	indexes {
+		(article_id, person_id) [pk]
+	}
+}
+
+Table Author {
+        part_id int [not null, ref: > Part.id]
+        person_id int [not null, ref: > Person.id]
+
+	indexes {
+		(part_id, person_id) [pk]
+	}
+}	
+
+Table Award {
         id int [pk, increment]
-        title varchar
-        subtitle varchar
-        pubyear int
-        language varchar
-        bookseries_id int [ref: > Bookseries.id]
-        bookseriesnum varchar
-        bookseriesorder int
-        collection boolean
-        image_src varchar
-        image_src_url varchar
+        name varchar [not null]
+        type varchar [not null]
         description varchar
-        misc varchar
-        imported_string varchar
-        creator_str varchar
+
+	indexes {
+		name
+	}
+} 
+       
+Table Awarded {
+        id int [pk, increment]
+        award_id int [ref: > Award.id]
+        person_id int [ref: > Person.id]
+        work_id int [ref: > Work.id]
+        story_id int [ref: > ShortStory.id]
+} 
+       
+Table Bookseries {
+        id int [pk, increment]
+        name varchar [not null]
+        important boolean
+
+	indexes {
+		name
+	}
 }	
         
+Table BookseriesLink {
+	id int [pk, increment]
+	bookseries_id int [ref: > Bookseries.id]
+	link varchar [not null]
+	description varchar
+}
+
 Table Edition {
         id int [pk, increment]
-        title varchar
+        title varchar [not null]
         subtitle varchar
         pubyear int
         translation boolean
         language varchar
         publisher_id int [ref: > Publisher.id]
-        editionnum int
+        editionnum int [not null]
         image_src varchar
         image_src_url varchar
         isbn varchar
@@ -94,29 +93,65 @@ Table Edition {
         description varchar
         misc varchar
         imported_string varchar
-}	
-        
-Table User {
-        id int [pk, increment]
-        name varchar
-        password_hash varchar
-        is_admin boolean
-        language varchar
-}	
-        
-Table UserBook {
-        edition_id int [ref: > Edition.id]
-        user_id int [ref: > User.id]
-}	
 
-Table UserPubseries {
-        pubseries_id int [ref: > Pubseries.id]
-        user_id int [ref: > User.id]
-} 
+	indexes {
+		title
+		subtitle
+		pubyear
+	}
+}	
         
-Table UserBookseries {
-        bookseries_id int [ref: > Bookseries.id]
-        user_id int [ref: > User.id]
+Table EditionLink {
+	id int [pk, increment]
+	edition_id int [ref: > Edition.id]
+	link varchar [not null]
+	description varchar
+}
+
+Table Editor {
+        edition_id int [ref: > Edition.id]
+        person_id int [ref: > Person.id]
+
+	indexes {
+		(edition_id, person_id) [pk]
+	}
+}	
+        
+Table Issue {
+        id int [pk, increment]
+        magazine_id int [ref: > Magazine.id]
+        number int [not null]
+        year int
+	editor int [ref: > Person.id]
+	image_src varchar
+	pages int
+	size varchar
+	link varchar
+	notes varchar
+
+	indexes {
+		number
+		year
+	}
+} 
+
+Table IssueContent {
+	id int [pk, increment]
+	issue_id int [ref: > Issue.id]
+	article_id int [ref: > Article.id]
+	shortstory_id int [ref: > ShortStory.id]
+	title varchar
+	
+	indexes {
+	  title
+	}
+}
+
+Table Magazine {
+        id int [pk, increment]
+        name varchar [not null]
+        publisher_id int [ref: > Publisher.id]
+        issn varchar
 } 
         
 Table Part {
@@ -127,99 +162,192 @@ Table Part {
         title varchar
 }	
 
+        
+Table Person {
+        id int [pk, increment]
+        name varchar [not null]
+        alt_name varchar [not null]
+        first_name varchar [not null]
+        last_name varchar
+        image_src_url varchar
+        image_src varchar
+        dob varchar
+        dod varchar
+        bio varchar
+        bio_src varchar
+        birthplace varchar
+        other_names varchar
+        imported_string varchar
+
+	indexes {
+		name
+		alt_name
+		first_name
+		last_name
+	}
+}	
+
+Table PersonLink {
+	id int [pk, increment]
+	person_id int [ref: > Person.id]
+	link varchar [not null]
+	description varchar
+}
+
+Table Publisher {
+        id int [pk, increment]
+        name varchar [not null]
+        fullname varchar
+
+	indexes {
+		name
+	}
+}
+
+Table PublisherLink {
+	id int [pk, increment]
+	publisher_id int [ref: > Publisher.id]
+	link varchar [not null]
+	description varchar
+}
+
+Table Pubseries {
+        id int [pk, increment]
+        name varchar [not null]
+        publisher_id int [ref: > Publisher.id]
+        important boolean
+
+	indexes {
+		name
+	}
+}	
+        
+Table PubseriesLink {
+	id int [pk, increment]
+	pubseries_id int [ref: > Pubseries.id]
+	link varchar [not null]
+	description varchar
+}
+
 Table ShortStory {
         id int [pk, increment]
-        title varchar
+        title varchar [not null]
         language varchar
         pubyear int
         creator_str varchar
+
+	indexes {
+		title
+		pubyear
+	}
 }	
 
 Table StoryGenre {
         shortstory_id int [ref: > ShortStory.id]
-        name varchar
+        name varchar [not null]
+
+	indexes {
+		name
+	}
 }
         
-Table Genre {
-        work_id int [ref: > Work.id]
-        name varchar
-}	
-
-Table Award {
-        id int [pk, increment]
-        name varchar
-        type varchar
-        description varchar
-} 
-       
-Table Awarded {
-        id int [pk, increment]
-        award_id int [ref: > Award.id]
-        person_id int [ref: > Person.id]
-        work_id int [ref: > Work.id]
-        story_id int [ref: > ShortStory.id]
-} 
-       
 Table Tag {
         id int [pk, increment]
-        tag varchar
+        tag varchar [not null]
+        target varchar [not null]
+        target_id int [not null]
         user_id int [ref: > User.id]
-        target varchar
-        target_id int
-} 
-        
-Table Magazine {
-        id int [pk, increment]
-        name varchar
-        publisher_id int [ref: > Publisher.id]
-        issn varchar
-} 
-        
-Table Issue {
-        id int [pk, increment]
-        magazine_id int [ref: > Magazine.id]
-        number int
-        year int
-} 
 
-Table PersonLink {
-  id int [pk, increment]
-  person_id int [ref: > Person.id]
-  link varchar
-  description varchar
-}
+	indexes {
+		tag
+		target
+		target_id
+		user_id
+	}
+} 
+        
+Table Translator {
+        part_id int [ref: > Part.id]
+        person_id int [ref: > Person.id]
+
+	indexes {
+		(part_id, person_id) [pk]
+	}
+}	
+        
+Table User {
+        id int [pk, increment]
+        name varchar [not null]
+        password_hash varchar
+        is_admin boolean
+        language varchar
+}	
+        
+Table UserBook {
+        edition_id int [ref: > Edition.id]
+        user_id int [ref: > User.id]
+
+	indexes {
+		(edition_id, user_id) [pk]
+	}
+}	
+
+Table UserBookseries {
+        bookseries_id int [ref: > Bookseries.id]
+        user_id int [ref: > User.id]
+
+	indexes {
+		(bookseries_id, user_id) [pk]
+	}
+} 
+        
+Table UserPubseries {
+        pubseries_id int [ref: > Pubseries.id]
+        user_id int [ref: > User.id]
+
+	indexes {
+		(pubseries_id, user_id) [pk]
+	}
+} 
+        
+Table Work {
+        id int [pk, increment]
+        title varchar [not null]
+        subtitle varchar
+        pubyear int
+        language varchar
+        bookseries_id int [ref: > Bookseries.id]
+        bookseriesnum varchar
+        bookseriesorder int
+        collection boolean
+        image_src varchar
+        image_src_url varchar
+        description varchar
+        misc varchar
+        imported_string varchar
+        creator_str varchar
+
+	indexes {
+		title
+		subtitle
+		pubyear
+	}
+}	
+        
+Table WorkGenre {
+        work_id int [ref: > Work.id]
+        name varchar [not null]
+
+	indexes {
+		name
+	}
+}	
 
 Table WorkLink {
-  id int [pk, increment]
-  work_id int [ref: > Work.id]
-  link varchar
-  description varchar
+	id int [pk, increment]
+	work_id int [ref: > Work.id]
+	link varchar [not null]
+	description varchar
 }
 
-Table EditionLink {
-  id int [pk, increment]
-  edition_id int [ref: > Edition.id]
-  link varchar
-  description varchar
-}
 
-Table BookseriesLink {
-  id int [pk, increment]
-  bookseries_id int [ref: > Bookseries.id]
-  link varchar
-  description varchar
-}
-
-Table PubseriesLink {
-  id int [pk, increment]
-  pubseries_id int [ref: > Pubseries.id]
-  link varchar
-  description varchar
-}
-
-Table PublisherLink {
-  id int [pk, increment]
-  publisher_id int [ref: > Publisher.id]
-  link varchar
-  description varchar
-}
