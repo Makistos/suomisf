@@ -6,55 +6,73 @@
 {% else %}
 <h1>Hakutulokset</h1>
 {% endif %}
+<ul class="list-group list-group-flush">
 {% if people %}
+<li class="list-group-item">
 <h2>Henkilöt</h2>
 {% for person in people %}
 <p><a href=" {{ url_for("person", personid=person.id)
 	    }}">{{person.name}}</a></p>
 {% endfor %}
+</li>
 {% endif %}
 
 {% if works %}
+<li class="list-group-item">
 <h2>Teokset</h2>
 {% for work in works %}
 {% include "_work.html" %}
 {% endfor %}
+</li>
 {% endif %}
 
 {% if editions %}
+<li class="list-group-item">
 <h2>Painokset</h2>
 {% for edition in editions %}
 {% include "_edition.html" %}
 {% endfor %}
+</li>
 {% endif %}
 
 {% if stories %}
+<li class="list-group-item">
 <h2>Novellit</h2>
 {% for story in stories %}
-{% include "_story.html" %}
+{{ story.creator_str }}: <a href="{{url_for('story', id=story.id)}}">{{ story.title }}</a>. 
+{% if story.pubyear %}{{ story.pubyear }}.{% endif %}
+{% if story.genre %}{{ story.genre }}{% endif %}<br>
 {% endfor %}
+</li>
 {% endif %}
 
 {% if publishers %}
+<li class="list-group-item">
 <h2>Julkaisijat</h2>
 {% for pub in publishers %}
 <p><a href=" {{ url_for("publisher", pubid = pub.id) }}">{{pub.name}}</a></p>
 {% endfor %}
+</li>
 {% endif %}
 
 {% if bookseries %}
+<li class="list-group-item">
 <h2>Kirjasarjat</h2>
 {% for series in bookseries %}
 <p><a href=" {{ url_for("bookseries", seriesid = series.id) }}">{{series.name}}</a></p>
 {% endfor %}
+</li>
 {% endif %}
 
 {% if pubseries %}
+<li class="list-group-item">
 <h2>Julkaisijan sarjat</h2>
 {% for series in pubseries %}
 <p><a href=" {{ url_for("pubseries", seriesid = series.id)
 	    }}">{{series.name}}</a></p>
 {% endfor %}
+</li>
 {% endif %}
+</ul>
 </div>
 {% endblock %}
