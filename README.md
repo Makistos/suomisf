@@ -50,28 +50,6 @@ book.
    table. Title in the Part row has the translated name while Title in
    ShortStory holds the original name of the story.
 
-## To-Do
-* Adding and modifying of data for all tables in the database.
-* ~Separation of admin and regular user rights.~
-* Making "important publisher series" specific to each user.
-* Some Ajax-based stuff would be useful, e.g. when adding or modifying a book,
-  ~~if publisher is changed list of publisher series to choose from should also
-  update~~.
-* Looks could be improved a lot. Especially long lists are not very readable
-  at the moment.
-* ~~Authors, translators and editors only have a 1:m mapping to books at the
-  moment. Meaning any collaborators are listed as a single author, translator or
-  editor. This is because original data was too complex to handle properly.~~
-* Some popups would be nice, e.g. for books.
-* People do have dob, dod and birthplace but these are not used anywhere. Not
-  sure if I want to either.
-* Exporting and importing a collection.
-* ~~Option to change password and a user page~~. Plus stuff related to this like
-  a user list.
-* Adding a new edition of an existing book.
-* ~~Importing short stories to collections.~~
-
-
 ## API Design
 
 This is not implemented yet. Also very WIP anyways and lacks descriptions for

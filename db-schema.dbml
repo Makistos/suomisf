@@ -11,6 +11,7 @@ Table Article {
 	id int [pk, increment]
 	title varchar [not null]
 	link varchar
+  author varchar
 
 	indexes {
 		title
@@ -26,10 +27,16 @@ Table ArticleAuthor {
 	}
 }
 
+Table ArticlePerson {
+  person_id int [ref: > Person.id]
+  article_id int [ref: > Article.id]
+  indexes {
+    (article_id, person_id) [pk]
+  }
+}
 Table Author {
         part_id int [not null, ref: > Part.id]
         person_id int [not null, ref: > Person.id]
-
 	indexes {
 		(part_id, person_id) [pk]
 	}
@@ -53,6 +60,11 @@ Table Awarded {
         work_id int [ref: > Work.id]
         story_id int [ref: > ShortStory.id]
 } 
+
+Table Binding {
+  id int [pk, increment]
+  name varchar
+}
        
 Table Bookseries {
         id int [pk, increment]
@@ -69,6 +81,11 @@ Table BookseriesLink {
 	bookseries_id int [ref: > Bookseries.id]
 	link varchar [not null]
 	description varchar
+}
+
+Table Cover {
+  id int  [pk, increment]
+  name varchar
 }
 
 Table Edition {
@@ -88,8 +105,8 @@ Table Edition {
         collection boolean
         coll_info varchar
         pages int
-        cover varchar
-        binding varchar
+        cover int [ref: > Cover.id]
+        binding int [ref: > Binding.id]
         description varchar
         misc varchar
         imported_string varchar
@@ -109,8 +126,8 @@ Table EditionLink {
 }
 
 Table Editor {
-        edition_id int [ref: > Edition.id]
         person_id int [ref: > Person.id]
+        edition_id int [ref: > Edition.id]
 
 	indexes {
 		(edition_id, person_id) [pk]
@@ -125,7 +142,7 @@ Table Issue {
 	editor int [ref: > Person.id]
 	image_src varchar
 	pages int
-	size varchar
+	size int [ref: > PublicationSize.id]
 	link varchar
 	notes varchar
 
@@ -175,7 +192,7 @@ Table Person {
         dod varchar
         bio varchar
         bio_src varchar
-        birthplace varchar
+        nationality varchar
         other_names varchar
         imported_string varchar
 
@@ -192,6 +209,13 @@ Table PersonLink {
 	person_id int [ref: > Person.id]
 	link varchar [not null]
 	description varchar
+}
+
+Table PublicationSize {
+  id int [pk, increment]
+  name varchar
+  mm_width int
+  mm_height int
 }
 
 Table Publisher {
@@ -241,6 +265,7 @@ Table ShortStory {
 		pubyear
 	}
 }	
+
 
 Table StoryGenre {
         shortstory_id int [ref: > ShortStory.id]
