@@ -1,0 +1,15 @@
+# This file includes the editions for any more complex work - edition relations that 1:1, e.g. any work that was split into two parts when published in Finnish. IDs are only references from works.csv, not used in the database. Comma is used to separate entities in works and translators.;;;;;;;;
+#Works;Title;Ed#;Publisher;Pubyear;Pubseries;Ps#;Translators;Misc
+1;Rakkaani, kyyhkyläiseni;1;Otava;1961;;;Pentti Saarikoski;
+1;Rakkaani, kyyhkyläiseni;1;Otava;1979;Kolmen tähden sarja;;Pentti Saarikoski
+2;Joku kaltaisesi;1;Otava;1970;;;Pentti Saarikoski
+1,2;Joku kaltaisesi & Rakkaani, kyyhkyläiseni;2;Suuri Suomalainen Kirjakerho;1971;;;Pentti Saarikoski;
+1,2;Nahka ja muita novelleja;1;Otava;2007;Keskiyön kirjasto;4;;;Pentti Saarikoski;Novellit ilmestyneet aikaisemmin kokoelmissa "Rakkaani, kyyhkyläiseni" ja "Joku kaltaisesi").
+3;Dyyni 1;1;WSOY;1982;Sci-fi -sarja;;Anja Toivonen;
+3;Dyyni 2;1;WSOY;1983;Sci-fi -sarja;;Anja Toivonen;
+3;Dyyni 3;1;WSOY;1983;Sci-fi -sarja;;Anja Toivonen;
+4;Anubiksen portit I;1;Kirjayhtymä;1992;Kirjayhtymän science fiction -sarja;;Jukka Jääskeläinen;
+4;Anubiksen portit II;1;Kirjayhtymä;1993;Kirjayhtymän science fiction -sarja;;Jukka Jääskeläinen;
+5,6,7;Tripodien aika 1-3;1;WSOY;1987;;;Antti Mäyrälä;
+8,9,10;Pimeä nousee I-III;1;WSOY;2009;;;Kristiina Rikman;
+11,12;Pimeä nousee IV-V;1;WSOY;2009;;;Kristiina Rikman;

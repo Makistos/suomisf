@@ -425,9 +425,13 @@ def edition(editionid):
     edition = session.query(Edition)\
                      .filter(Edition.id == editionid)\
                      .first()
+    works = session.query(Work)\
+                   .join(Part)\
+                   .filter(Part.edition_id == editionid).all()
+    work_ids = [x.id for x in works]
     other_editions = session.query(Edition)\
                             .join(Part)\
-                            .filter(Part.work_id == edition.work.id)\
+                            .filter(Part.work_id in work_ids)\
                             .filter(Edition.id != edition.id)\
                             .order_by(Edition.language, Edition.pubyear)\
                             .all()
@@ -460,7 +464,7 @@ def edition(editionid):
                          .all()
 
     return render_template('edition.html', edition = edition,
-                            other_editions=other_editions,
+                            other_editions=other_editions, works=works,
                             translators=translators, editors=editors,
                             stories=stories)
 

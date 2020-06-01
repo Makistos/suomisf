@@ -1075,13 +1075,137 @@ def insert_showroom():
     s.add(person)
     s.commit()
 
+
+def add_multiparts():
+    import csv
+
+    authors = 0
+    wtitle = 1
+    bookseries = 2
+    bookseriesnum = 3
+    wpubyear = 4
+    genre = 5
+    w_misc = 6
+    w_id = 7
+    author_ids = 8
+
+    engine = create_engine(db_url)
+    session = sessionmaker()
+    session.configure(bind=engine)
+
+    s = session()
+
+    works: Dict[str, Any] = {}
+    with open('bibfiles/works.csv') as csvfile:
+        workcsv = csv.reader(csvfile, delimiter=';', quotechar='"')
+        for work in workcsv:
+            if work[0].startswith('#'):
+                continue
+            works[work[0]] = work[1:]
+
+    # Add work rows to db
+    for id, work in works.items():
+        work = work + [''] * 3
+        bs = None
+        if work[bookseries] != '':
+            bs = s.query(Bookseries).filter(Bookseries.name == work[bookseries]).first()
+        w = s.query(Work).filter(Work.title == work[wtitle]).first()
+        work[author_ids] = [x.id for x in import_authors(s, work[authors])]
+        if not w:
+            w = Work()
+            if bs:
+                w.bookseries_id = bs.id
+                if work[bookseriesnum] != '':
+                    w.bookseriesnum = work[bookseriesnum]
+                    w.bookseriesorder = seriesnum_to_int(work[bookseriesnum])
+            w.title = work[wtitle]
+            w.pubyear = work[wpubyear]
+            w.misc = work[w_misc]
+            w.creator_str = work[authors]
+            s.add(w)
+            s.commit()
+        work[w_id] = w.id
+        works[id] = work
+
+
+    e_wid = 0
+    e_title = 1
+    e_ed = 2
+    e_pub = 3
+    e_pubyear = 4
+    e_pubseries = 5
+    e_pubseriesnum = 6
+    e_translators = 7
+    e_misc = 8
+    e_translator_ids = 9
+    e_id = 10
+
+    with open('bibfiles/editions.csv', encoding='utf-8') as csvfile:
+        editions = csv.reader(csvfile, delimiter=';', quotechar='"')
+        for edition in editions:
+            if edition[0].startswith('#'):
+                continue
+            edition = edition + [''] * 2
+            pubseriesid = None
+            edition[e_translator_ids] = [x.id for x in import_persons(s, edition[e_translators])]
+            publisher = s.query(Publisher).filter(Publisher.name == edition[e_pub]).first()
+            if not publisher:
+                print(f'Publisher not found: {edition[e_pub]}.')
+                continue
+            pubid = publisher.id
+            if edition[e_pubseries] != '':
+                ps = s.query(Pubseries).filter(Pubseries.name == edition[e_pubseries]).first()
+                if not ps:
+                    ps = Pubseries()
+                    ps.name = edition[e_pubseries]
+                    ps.publisher_id = pubid
+                    s.add(ps)
+                    s.commit()
+                pubseriesid = ps.id
+            e = s.query(Edition).filter(Edition.title == edition[e_title]).first()
+            if not e:
+                e = Edition()
+                e.title = edition[e_title]
+                e.publisher_id = pubid
+                e.pubyear = edition[e_pubyear]
+                e.editionnum = edition[e_ed]
+                if pubseriesid:
+                    e.pubseries_id = pubseriesid
+                    if edition[e_pubseriesnum] != '':
+                        e.pubseriesnum = edition[e_pubseriesnum]
+                e.misc = edition[e_misc]
+                s.add(e)
+                s.commit()
+            for workid in edition[e_wid].split(','):
+                work = works[workid]
+                part = Part()
+                part.work_id = work[w_id]
+                part.edition_id = e.id
+                s.add(part)
+                s.commit()
+                for person in work[author_ids]:
+                    author = Author()
+                    author.person_id = person
+                    author.part_id = part.id
+                    s.add(author)
+                    s.commit()
+                for id in edition[e_translator_ids]:
+                    translator = Translator()
+                    translator.person_id = id
+                    translator.part_id = part.id
+                    s.add(translator)
+                    s.commit()
+
+
+
+
 def read_params(args):
     p = argparse.ArgumentParser()
     p.add_argument('--debug', '-d', action='store_true', default=False)
     p.add_argument('--file', '-f', default='')
     p.add_argument('--stories', '-s', action='store_true', default=False)
     p.add_argument('--showroom', '-i',  help='Insert showroom', action='store_true', default=False)
-
+    p.add_argument('--multipart', action='store_true', default=False)
     return vars(p.parse_args(args))
 
 
@@ -1103,6 +1227,8 @@ if __name__ == '__main__':
     elif params['stories']:
         filename = 'bibfiles/sf_nov_u.txt'
         import_stories(filename)
+    elif params['multipart']:
+        add_multiparts()
     else:
         filelist = glob.glob('bibfiles/*.html')
         import_all(filelist)

@@ -14,8 +14,10 @@
                 {{ edition.title}}
                 {% if current_user.is_admin %} ({{ edition.id }}){% endif %}
             </h3>
-            <a href=" {{ url_for('work', workid=edition.work.id) }}">{{ edition.work.title }}</a>
-            {%- if edition.work.pubyear -%}, {{ edition.work.pubyear }} {% endif %}
+	    {% for work in works %}
+            <a href=" {{ url_for('work', workid=work.id) }}">{{ work.title }}</a>
+	    {%- if work.pubyear -%}, {{ work.pubyear }} {% endif %}<br>
+	    {% endfor %}
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
@@ -75,13 +77,15 @@
                 {% endif %}
             </li>
             {% endif %}
-            {% if edition.work.bookseries.name|length %}
+	    {% set work = works[0] %}
+            {% if work.bookseries %}
             <li class="list-group-item">
-                <b>Kirjasarja:</b> <a href=" {{ url_for('bookseries', seriesid=edition.work.bookseries.id) }} ">
-                        {{ edition.work.bookseries.name }}</a>
-                {% if edition.work.bookseriesnum %}
-                {% if edition.work.bookseriesnum|length %}
-                , numero {{ edition.work.bookseriesnum }}
+                <b>Kirjasarja:</b> <a href=" {{ url_for('bookseries',
+			seriesid=work.bookseries.id) }} ">
+                        {{ work.bookseries.name }}</a>
+                {%- if work.bookseriesnum -%}
+                {%- if work.bookseriesnum|length -%}
+                , numero {{ work.bookseriesnum }}
                 {% endif %}
                 {% endif %}
             </li>
