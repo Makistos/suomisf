@@ -50,7 +50,7 @@ class Edition(Base):
                 primaryjoin='and_(Person.id == Translator.person_id,\
                 Translator.part_id == Part.id, Part.edition_id == Edition.id)',
                 uselist=True)
-    work = relationship('Work', secondary='part', uselist=False)
+    work = relationship('Work', secondary='part', uselist=True)
     publisher = relationship("Publisher", backref=backref('publisher_lookup',
         uselist=False))
     pubseries = relationship("Pubseries", backref=backref('pubseries',
