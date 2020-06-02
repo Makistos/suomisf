@@ -35,18 +35,19 @@
 {% if edition.work.bookseries %}
 	{{ edition.work.bookseries.name}} {{edition.work.bookseriesnum}}.
 {% endif %}
-
+{#
 {% if edition.work.title != edition.title %}
 	{%- if edition.work.title|length -%}
 		({{ edition.work.title }}
 	{%- endif -%}
-	{%- if	edition.work.pubyear|int -%}
+	{%- if edition.work.pubyear|int -%}
 		, {{ edition.work.pubyear }}
 	{% endif %}
 	{%- if edition.work.title|length -%}
             ).
 	{% endif %}
 {% endif %}
+#}
 {{edition.publisher.name}} {{ edition.pubyear }}. [{{ edition.work.genres|join(', ', attribute='genre_name') }}].
 </span><br>
 {% endif %}

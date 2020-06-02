@@ -10,10 +10,27 @@
                     <h5 class="card-title">
                         {{ work.title }}
                     </h5>
+                    <i>
+                    {% if work.title != work.orig_title %}
+                    {{ work.orig_title }}
+                        {%- if work.pubyear -%}
+                        , {% endif %}
+                    {% endif %}
+                        {%- if work.pubyear -%}
+                        {{ work.pubyear }}
+                        {% endif %}
+                    </i>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <b>Julkaisuvuosi:</b> {{ work.pubyear }}
+                        <lic class="list-group-item">
+                        <b>Tyyppi:</b>
+                        {% if work.collection == true %}
+                        Kokoelma
+                        {% else %}
+                        Romaani
+                        {% endif %}
                         </li>
+                    </ul>
+                    <ul class="list-group list-group-flush">
                         {% if work.bookseries.name|length %}
                         <li class="list-group-item">
                             <b>Kirjasarja:</b>
@@ -30,7 +47,7 @@
                         {% endif %}
                         {% endif %} {% endif %} {%- endif %}
                         {% if work.misc %}
-                        <li class="list-group-item"><b>Muuta:</b> {{ work.misc }}</li>
+                        <li class="list-group-item">{{ work.misc }}</li>
                         {% endif %}
                     </ul>
                 </div>

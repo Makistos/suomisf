@@ -21,18 +21,22 @@
 
 {# Add title, with or without link. #}
 {% if print == 1 %}
-    <b>{{ work.editions[0].title }}</b>.
+    <b>{{ work.title }}</b>.
 {% else %}<b><a href="{{url_for("work", workid=work.id) }}">
-		{{ work.editions[0].title }}</a></b>.
+		{{ work.title }}</a></b>.
 {% endif %}
 
 {# Rest of the stuff besides the title: #}
 
 {% if work.bookseries %}
-    {{ work.bookseries.name}} {{work.bookseriesnum}}.
+    {{ work.bookseries.name}}
+    {%- if work.bookseriesnum -%}
+        {{work.bookseriesnum}}
+    {%- endif -%}
+    .
 {% endif %}
-{% if (work.title != work.editions[0].title) -%}
-    ({{work.title}}
+{% if (work.orig_title != work.title) -%}
+    ({{work.orig_title}}
 	{%- if work.pubyear != 0 -%}
 		, {{ work.pubyear }}
 	{%- endif -%}).

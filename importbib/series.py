@@ -424,6 +424,7 @@ bookseries = [
     ('Pimeyden ihmeet', 'Pimeyden ihmeet'),
     ('Pimeyden oppilas osa', 'Pimeyden oppilas'),
     ('Pimeyden polut -sarja', 'Pimeyden polut -sarja'),
+    ('Pimeä nousee', 'Pimeä nousee'),
     ('Pitkä Maa', 'Pitkä Maa'),
     ('Pohjankontu', 'Pohjankontu'),
     ('Pohjoiset ennustukset', 'Pohjoiset ennustukset'),

@@ -1,13 +1,15 @@
-#ID;Authors;Original title;Bookseries;BS#;Pubyear;Genre;Misc
-1;Dahl, Roald;Rakkaani, kyyhkyläiseni;;;1961;F, Kok 3/15;Sis puolet novelleista kokoelmista (Kiss, Kiss, 1960) ja (Someone Like You, 1953).
-2;Dahl, Roald;Joku kaltaisesi;;;1970;F, Kok 3/11;Sis puolet novelleista kokoelmista (Kiss, Kiss, 1960) ja (Someone Like You, 1953).
-3;Herbert, Frank (Patrick) (Yhdysvallat, 1920-1986);Dune;;;1965;SF
-4;Powers, Tim(othy) (Yhdysvallat, 1952-);The Anubis Gates;;;1983;SF
-5;Christopher, John (oik. Christopher Samuel Youd) (Iso-Britannia, 1922-2012);The City of Gold and Lead;Tripodien aika;2;1967;nSF
-6;Christopher, John (oik. Christopher Samuel Youd) (Iso-Britannia, 1922-2012);The Pool of Fire;Tripodien aika;3;1968;nSF
-7;Christopher, John (oik. Christopher Samuel Youd) (Iso-Britannia, 1922-2012);The White Mountains;Tripodien aika;1;1967;nSF
-8;Cooper, Susan (Mary) (Iso-Britannia, 1935-);Over Sea, Under Stone;Pimeä nousee;1;1968;nF
-9;Cooper, Susan (Mary) (Iso-Britannia, 1935-);The Dark Is Rising;Pimeä nousee;2;1973;nF
-10;Cooper, Susan (Mary) (Iso-Britannia, 1935-);Greenwitch;Pimeä nousee;3;1974;nF
-11;Cooper, Susan (Mary) (Iso-Britannia, 1935-);The Grey King;Pimeä nousee;4;1975;nF
-12;Cooper, Susan (Mary) (Iso-Britannia, 1935-);Silver on the Tree;Pimeä nousee;5;1977;nF
+#ID;Authors;Original title;Translated title;Bookseries;BS#;Pubyear;Genre;Misc
+1;Dahl, Roald;Rakkaani, kyyhkyläiseni;Rakkaani, kyyhkyläiseni;;;1961;F, Kok 3/15;Sis puolet novelleista kokoelmista (Kiss, Kiss, 1960) ja (Someone Like You, 1953).
+2;Dahl, Roald;Joku kaltaisesi;Joku kaltaisesi;;;1970;F, Kok 3/11;Sis puolet novelleista kokoelmista (Kiss, Kiss, 1960) ja (Someone Like You, 1953).
+3;Herbert, Frank (Patrick) (Yhdysvallat, 1920-1986);Dune;Dyyni;;;1965;SF;
+4;Powers, Tim(othy) (Yhdysvallat, 1952-);The Anubis Gates;Anubiksen portit;;;1983;SF;
+5;Christopher, John (oik. Christopher Samuel Youd) (Iso-Britannia, 1922-2012);The City of Gold and Lead;Lyijykaupunki;Tripodien aika;2;1967;nSF;
+6;Christopher, John (oik. Christopher Samuel Youd) (Iso-Britannia, 1922-2012);The Pool of Fire;Tulinen pyörre;Tripodien aika;3;1968;nSF;
+7;Christopher, John (oik. Christopher Samuel Youd) (Iso-Britannia, 1922-2012);The White Mountains;Viimeinen tukikohta;Tripodien aika;1;1967;nSF;
+8;Cooper, Susan (Mary) (Iso-Britannia, 1935-);Over Sea, Under Stone;Yllä meren, alla kiven;Pimeä nousee;1;1968;nF;
+9;Cooper, Susan (Mary) (Iso-Britannia, 1935-);The Dark Is Rising;Pimeä nousee;Pimeä nousee;2;1973;nF;
+10;Cooper, Susan (Mary) (Iso-Britannia, 1935-);Greenwitch;Viheriä noita;Pimeä nousee;3;1974;nF;
+11;Cooper, Susan (Mary) (Iso-Britannia, 1935-);The Grey King;Kuningas harmaa;Pimeä nousee;4;1975;nF;
+12;Cooper, Susan (Mary) (Iso-Britannia, 1935-);Silver on the Tree;Hopeapuu;Pimeä nousee;5;1977;nF;
+13;Dahl, Roald;Nahka ja muita novelleja;Nahka ja muita novelleja;;;2007;K, kok;Sis puolet novelleista kokoelmista (Kiss, Kiss, 1960) ja (Someone Like You, 1953). 
+14;Caine, (Sir Thomas Henry) Hall (Iso-Britannia, 1853-1931);The Eternal City;Ikuinen kaupunki;;;1901;F;

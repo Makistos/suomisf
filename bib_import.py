@@ -778,7 +778,8 @@ def import_books(session, authors):
                 workitem.fullstring = work['fullstring']
             else:
                 workitem = Work(
-                        title = work['origname'],
+                        title = work['title'],
+                        orig_title = work['origname'],
                         pubyear = work['origyear'],
                         language = '',
                         bookseries_id = bookseriesid,
@@ -1081,13 +1082,14 @@ def add_multiparts():
 
     authors = 0
     wtitle = 1
-    bookseries = 2
-    bookseriesnum = 3
-    wpubyear = 4
-    genre = 5
-    w_misc = 6
-    w_id = 7
-    author_ids = 8
+    wtitle_fin = 2
+    bookseries = 3
+    bookseriesnum = 4
+    wpubyear = 5
+    genre = 6
+    w_misc = 7
+    w_id = 8
+    author_ids = 9
 
     engine = create_engine(db_url)
     session = sessionmaker()
@@ -1109,7 +1111,7 @@ def add_multiparts():
         bs = None
         if work[bookseries] != '':
             bs = s.query(Bookseries).filter(Bookseries.name == work[bookseries]).first()
-        w = s.query(Work).filter(Work.title == work[wtitle]).first()
+        w = s.query(Work).filter(Work.title == work[wtitle_fin]).first()
         work[author_ids] = [x.id for x in import_authors(s, work[authors])]
         if not w:
             w = Work()
@@ -1118,7 +1120,8 @@ def add_multiparts():
                 if work[bookseriesnum] != '':
                     w.bookseriesnum = work[bookseriesnum]
                     w.bookseriesorder = seriesnum_to_int(work[bookseriesnum])
-            w.title = work[wtitle]
+            w.title = work[wtitle_fin]
+            w.orig_title = work[wtitle]
             w.pubyear = work[wpubyear]
             w.misc = work[w_misc]
             w.creator_str = work[authors]
@@ -1162,20 +1165,18 @@ def add_multiparts():
                     s.add(ps)
                     s.commit()
                 pubseriesid = ps.id
-            e = s.query(Edition).filter(Edition.title == edition[e_title]).first()
-            if not e:
-                e = Edition()
-                e.title = edition[e_title]
-                e.publisher_id = pubid
-                e.pubyear = edition[e_pubyear]
-                e.editionnum = edition[e_ed]
-                if pubseriesid:
-                    e.pubseries_id = pubseriesid
-                    if edition[e_pubseriesnum] != '':
-                        e.pubseriesnum = edition[e_pubseriesnum]
-                e.misc = edition[e_misc]
-                s.add(e)
-                s.commit()
+            e = Edition()
+            e.title = edition[e_title]
+            e.publisher_id = pubid
+            e.pubyear = edition[e_pubyear]
+            e.editionnum = edition[e_ed]
+            if pubseriesid:
+                e.pubseries_id = pubseriesid
+                if edition[e_pubseriesnum] != '':
+                    e.pubseriesnum = edition[e_pubseriesnum]
+            e.misc = edition[e_misc]
+            s.add(e)
+            s.commit()
             for workid in edition[e_wid].split(','):
                 work = works[workid]
                 part = Part()

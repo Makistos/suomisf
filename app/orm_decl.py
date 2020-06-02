@@ -70,6 +70,7 @@ class Work(Base):
     __tablename__ = 'work'
     id = Column(Integer, primary_key=True)
     title = Column(String(500), nullable=False, index=True)
+    orig_title = Column(String(500), nullable=False, index=True)
     pubyear = Column(Integer)
     language = Column(String(2))
     bookseries_id = Column(Integer, ForeignKey('bookseries.id'))
@@ -179,6 +180,7 @@ class Person(Base):
                 primaryjoin='and_(Person.id == Author.person_id,\
                 Author.part_id == Part.id, Part.work_id == Work.id,\
                 Part.shortstory_id == None)',
+                order_by='Work.title',
                 uselist=True)
     stories = relationship("ShortStory",
                 secondary='join(Part, Author, Part.id == Author.part_id)',

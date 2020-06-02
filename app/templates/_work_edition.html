@@ -24,12 +24,14 @@
 {% endif %}
 {% endif %}
 
-<b>{{ edition.editionnum }}. painos.</b>:
+<b>{{ edition.editionnum }}. painos</b>:
 
+{% if work.title != edition.title %}
 {% if print == 1 %}
 	<b>{{ edition.title }}</b>.
 {% else %}
 	<a href="{{url_for("edition", editionid=edition.id) }}">{{ edition.title }}</a>.
+{% endif %}
 {% endif %}
 
 {% if edition.work.bookseries %}
