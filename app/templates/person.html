@@ -71,7 +71,8 @@
                             {% for work in person.works %}
                             <li class="list-group-item">
                                 {% include "_work.html" %}
-                                {% for edition in work.editions %}
+                                {% for edition in
+                                work.editions|sort(attribute='editionnum') %}
                                 {% include "_work_edition.html" %}
                                 {% endfor %}
                             </li>
