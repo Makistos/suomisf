@@ -18,6 +18,36 @@ load_dotenv(os.path.join(basedir, '.env'))
 db_url = os.environ.get('DATABASE_URL') or \
         'sqlite:///suomisf.db'
 
+class Alias(Base):
+    __tablename__ = 'alias'
+    alias = Column(Integer, ForeignKey('person.id'), nullable=False,
+        primary_key=True)
+    realname = Column(Integer, ForeignKey('person.id'), nullable=False,
+        primary_key=True)
+
+class Author(Base):
+    __tablename__ = 'author'
+    part_id = Column(Integer, ForeignKey('part.id'), nullable=False,
+            primary_key=True)
+    person_id = Column(Integer, ForeignKey('person.id'), nullable=False,
+            primary_key=True)
+    parts = relationship("Part", backref=backref("part_assoc1"))
+    person = relationship("Person", backref=backref("person1_assoc"))
+
+class Award(Base):
+    __tablename__ = 'award'
+    id = Column(Integer, primary_key = True)
+    name = Column(String(100), nullable=False)
+    type = Column(Integer)  # For persons or works/stories
+
+class Awarded(Base):
+    __tablename__ = 'awarded'
+    id = Column(Integer, primary_key = True)
+    award_id = Column(Integer, ForeignKey('award.id'))
+    person_id = Column(Integer, ForeignKey('person.id'))
+    work_id = Column(Integer, ForeignKey('work.id'))
+    story_id = Column(Integer, ForeignKey('shortstory.id'))
+
 class Edition(Base):
     ''' This is the base table for this database schema.
         Every book must have at least one Edition. Edition
@@ -57,48 +87,32 @@ class Edition(Base):
         uselist=False))
     owners = relationship("User", secondary='userbook')
 
-class Work(Base):
-    ''' Work is a more abstract idea than edition. Work is
-        basically the representation of the original work of which
-        editions are printed. Every work must have at least one
-        edition but sometimes there is no work, this is the case
-        with collections. Not all parts have necessarily been
-        published in a book.
-    '''
-    def join_names(context):
-        return '& '.join([x.name for x in authors])
-    __tablename__ = 'work'
-    id = Column(Integer, primary_key=True)
-    title = Column(String(500), nullable=False, index=True)
-    orig_title = Column(String(500), nullable=False, index=True)
-    pubyear = Column(Integer)
-    language = Column(String(2))
-    bookseries_id = Column(Integer, ForeignKey('bookseries.id'))
-    bookseriesnum = Column(String(20))
-    bookseriesorder = Column(Integer)
-    collection = Column(Boolean)
-    image_src = Column(String(200))
-    misc = Column(String(500))
-    fullstring = Column(String(500))
-    creator_str = Column(String(500), index=True)
-    authors = relationship("Person",
-                secondary='join(Part, Author, Part.id == Author.part_id)',
-                primaryjoin='and_(Person.id == Author.person_id,\
-                Author.part_id == Part.id, Part.work_id == Work.id,\
-                Part.shortstory_id == None)',
-                uselist=True,
-                order_by='Person.alt_name')
-    translators = relationship("Person",
-                secondary='join(Part, Translator, Part.id == Translator.part_id)',
-                primaryjoin='and_(Person.id == Translator.person_id,\
-                Translator.part_id == Part.id, Part.work_id == Work.id)',
-                uselist=True)
-    editions = relationship("Edition", secondary='Part', uselist=True)
-    parts = relationship('Part', backref=backref('part', uselist=True))
-    bookseries = relationship("Bookseries", backref=backref('bookseries'),
-        uselist=False)
-    editions = relationship("Edition", secondary='part', uselist=True)
-    genres = relationship("Genre", backref=backref('genre', uselist=True))
+class Editor(Base):
+    __tablename__ = 'editor'
+    edition_id = Column(Integer, ForeignKey('edition.id'), nullable=False,
+            primary_key=True)
+    person_id = Column(Integer, ForeignKey('person.id'), nullable=False,
+            primary_key=True)
+    edits = relationship("Edition", backref=backref("edition2_assoc"))
+    person = relationship("Person", backref=backref("person3_assoc"))
+
+class Genre(Base):
+    __tablename__ = 'genre'
+    workid = Column(Integer, ForeignKey('work.id'), nullable=False,
+            primary_key=True)
+    genre_name = Column(String(20), nullable=False, primary_key=True)
+
+class Link(Base):
+    __tablename__ = 'link'
+    id = Column(Integer, primary_key = True)
+    src = Column(String, nullable=False)
+    person_id = Column(Integer, ForeignKey('person.id'), nullable=True)
+    work_id = Column(Integer, ForeignKey('work.id'), nullable=True)
+    edition_id = Column(Integer, ForeignKey('edition.id'), nullable=True)
+    pubseries_id = Column(Integer, ForeignKey('pubseries.id'), nullable=True)
+    bookseries_id = Column(Integer, ForeignKey('bookseries.id'),
+        nullable=True)
+    publisher_id = Column(Integer, ForeignKey('publisher.id'), nullable=True)
 
 class Part(Base):
     ''' Part is most often representing a short story. So a collection
@@ -127,23 +141,6 @@ class Part(Base):
     work = relationship('Work', backref=backref('work_assoc'))
     shortstory = relationship('ShortStory',
                               backref=backref('shortstory_assoc'))
-
-class ShortStory(Base):
-    __tablename__ = 'shortstory'
-    id = Column(Integer, primary_key=True)
-    title = Column(String(250), nullable=False, index=True)
-    language = Column(String(2))
-    pubyear = Column(Integer)
-    genre = Column(String(100))
-    creator_str = Column(String(500), index=True)
-    parts = relationship('Part', backref=backref('part_assoc'), uselist=True)
-
-class Alias(Base):
-    __tablename__ = 'alias'
-    alias = Column(Integer, ForeignKey('person.id'), nullable=False,
-        primary_key=True)
-    realname = Column(Integer, ForeignKey('person.id'), nullable=False,
-        primary_key=True)
 
 class Person(Base):
     __tablename__ = 'person'
@@ -195,33 +192,6 @@ class Person(Base):
                 Translator.part_id == Part.id, Part.work_id == Work.id)',
                 uselist=True)
 
-class Author(Base):
-    __tablename__ = 'author'
-    part_id = Column(Integer, ForeignKey('part.id'), nullable=False,
-            primary_key=True)
-    person_id = Column(Integer, ForeignKey('person.id'), nullable=False,
-            primary_key=True)
-    parts = relationship("Part", backref=backref("part_assoc1"))
-    person = relationship("Person", backref=backref("person1_assoc"))
-
-class Translator(Base):
-    __tablename__ = 'translator'
-    part_id = Column(Integer, ForeignKey('part.id'), nullable=False,
-            primary_key=True)
-    person_id = Column(Integer, ForeignKey('person.id'), nullable=False,
-            primary_key=True)
-    parts = relationship("Part", backref=backref("part2_assoc"))
-    person = relationship("Person", backref=backref("person2_assoc"))
-
-class Editor(Base):
-    __tablename__ = 'editor'
-    edition_id = Column(Integer, ForeignKey('edition.id'), nullable=False,
-            primary_key=True)
-    person_id = Column(Integer, ForeignKey('person.id'), nullable=False,
-            primary_key=True)
-    edits = relationship("Edition", backref=backref("edition2_assoc"))
-    person = relationship("Person", backref=backref("person3_assoc"))
-
 class Publisher(Base):
     __tablename__ = 'publisher'
     id = Column(Integer, primary_key=True)
@@ -242,32 +212,24 @@ class Pubseries(Base):
     editions = relationship("Edition", primaryjoin="Pubseries.id == Edition.pubseries_id", uselist=True,
                             order_by='Edition.pubseriesnum')
 
-class Bookseries(Base):
-    __tablename__ = 'bookseries'
+class ShortStory(Base):
+    __tablename__ = 'shortstory'
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
-    important = Column(Boolean, default=False)
-    works = relationship("Work", backref=backref('work'), uselist=True,
-                         order_by='Work.bookseriesorder, Work.creator_str')
+    title = Column(String(250), nullable=False, index=True)
+    language = Column(String(2))
+    pubyear = Column(Integer)
+    genre = Column(String(100))
+    creator_str = Column(String(500), index=True)
+    parts = relationship('Part', backref=backref('part_assoc'), uselist=True)
 
-
-class User(UserMixin, Base):
-    __tablename__ = 'user'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(64), index=True, unique=True)
-    password_hash = Column(String(128))
-    is_admin = Column(Boolean, default=False)
-    language = Column(String(2), default='FI')
-    books = relationship("Edition", secondary="userbook")
-
-    def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
-
-    def __repr__(self):
-        return '<User {}'.format(self.name)
+class Translator(Base):
+    __tablename__ = 'translator'
+    part_id = Column(Integer, ForeignKey('part.id'), nullable=False,
+            primary_key=True)
+    person_id = Column(Integer, ForeignKey('person.id'), nullable=False,
+            primary_key=True)
+    parts = relationship("Part", backref=backref("part2_assoc"))
+    person = relationship("Person", backref=backref("person2_assoc"))
 
 class UserBook(Base):
     __tablename__ = 'userbook'
@@ -297,37 +259,75 @@ class UserBookseries(Base):
     series = relationship("Bookseries", backref=backref("bookseries_assoc"))
     user = relationship("User", backref=backref("user4_asocc"))
 
-class Link(Base):
-    __tablename__ = 'link'
-    id = Column(Integer, primary_key = True)
-    src = Column(String, nullable=False)
-    person_id = Column(Integer, ForeignKey('person.id'), nullable=True)
-    work_id = Column(Integer, ForeignKey('work.id'), nullable=True)
-    edition_id = Column(Integer, ForeignKey('edition.id'), nullable=True)
-    pubseries_id = Column(Integer, ForeignKey('pubseries.id'), nullable=True)
-    bookseries_id = Column(Integer, ForeignKey('bookseries.id'),
-        nullable=True)
-    publisher_id = Column(Integer, ForeignKey('publisher.id'), nullable=True)
+class Work(Base):
+    ''' Work is a more abstract idea than edition. Work is
+        basically the representation of the original work of which
+        editions are printed. Every work must have at least one
+        edition but sometimes there is no work, this is the case
+        with collections. Not all parts have necessarily been
+        published in a book.
+    '''
+    def join_names(context):
+        return '& '.join([x.name for x in authors])
+    __tablename__ = 'work'
+    id = Column(Integer, primary_key=True)
+    title = Column(String(500), nullable=False, index=True)
+    orig_title = Column(String(500), nullable=False, index=True)
+    pubyear = Column(Integer)
+    language = Column(String(2))
+    bookseries_id = Column(Integer, ForeignKey('bookseries.id'))
+    bookseriesnum = Column(String(20))
+    bookseriesorder = Column(Integer)
+    collection = Column(Boolean)
+    image_src = Column(String(200))
+    misc = Column(String(500))
+    fullstring = Column(String(500))
+    creator_str = Column(String(500), index=True)
+    authors = relationship("Person",
+                secondary='join(Part, Author, Part.id == Author.part_id)',
+                primaryjoin='and_(Person.id == Author.person_id,\
+                Author.part_id == Part.id, Part.work_id == Work.id,\
+                Part.shortstory_id == None)',
+                uselist=True,
+                order_by='Person.alt_name')
+    translators = relationship("Person",
+                secondary='join(Part, Translator, Part.id == Translator.part_id)',
+                primaryjoin='and_(Person.id == Translator.person_id,\
+                Translator.part_id == Part.id, Part.work_id == Work.id)',
+                uselist=True)
+    editions = relationship("Edition", secondary='Part', uselist=True)
+    parts = relationship('Part', backref=backref('part', uselist=True))
+    bookseries = relationship("Bookseries", backref=backref('bookseries'),
+        uselist=False)
+    editions = relationship("Edition", secondary='part', uselist=True)
+    genres = relationship("Genre", backref=backref('genre', uselist=True))
 
-class Genre(Base):
-    __tablename__ = 'genre'
-    workid = Column(Integer, ForeignKey('work.id'), nullable=False,
-            primary_key=True)
-    genre_name = Column(String(20), nullable=False, primary_key=True)
+class Bookseries(Base):
+    __tablename__ = 'bookseries'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250), nullable=False)
+    important = Column(Boolean, default=False)
+    works = relationship("Work", backref=backref('work'), uselist=True,
+                         order_by='Work.bookseriesorder, Work.creator_str')
 
-class Award(Base):
-    __tablename__ = 'award'
-    id = Column(Integer, primary_key = True)
-    name = Column(String(100), nullable=False)
-    type = Column(Integer)  # For persons or works/stories
 
-class Awarded(Base):
-    __tablename__ = 'awarded'
-    id = Column(Integer, primary_key = True)
-    award_id = Column(Integer, ForeignKey('award.id'))
-    person_id = Column(Integer, ForeignKey('person.id'))
-    work_id = Column(Integer, ForeignKey('work.id'))
-    story_id = Column(Integer, ForeignKey('shortstory.id'))
+class User(UserMixin, Base):
+    __tablename__ = 'user'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(64), index=True, unique=True)
+    password_hash = Column(String(128))
+    is_admin = Column(Boolean, default=False)
+    language = Column(String(2), default='FI')
+    books = relationship("Edition", secondary="userbook")
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    def __repr__(self):
+        return '<User {}'.format(self.name)
 
 @login.user_loader
 def load_user(id):
