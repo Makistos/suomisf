@@ -24,7 +24,10 @@
 {% endif %}
 {% endif %}
 
-<b>{{ edition.work.creator_str }}</b>: 
+{% if edition.pubseriesnum %}
+{{ edition.pubseriesnum }}.
+{% endif %}
+<b>{{ edition.work[0].creator_str }}</b>: 
 
 {% if print == 1 %}
 	<b>{{ edition.title }}</b>.
@@ -48,6 +51,11 @@
 	{% endif %}
 {% endif %}
 #}
-{{edition.publisher.name}} {{ edition.pubyear }}. [{{ edition.work.genres|join(', ', attribute='genre_name') }}].
+{{ edition.editionnum }}. painos.
+{{edition.publisher.name}} {{ edition.pubyear }}. 
+    {% for genre in edition.work[0].genres %}
+    <img src="/static/icons/{{genre.genre_name}}_16.png" title="{{genre.genre_name}}">
+    {% endfor %}
+
 </span><br>
 {% endif %}

@@ -2,7 +2,7 @@
 <b><span class="person-list">{{ work.creator_str }}</span></b>:
 <a href="{{ url_for('work', workid=work.id)}}">{{ work.editions[0].title }}</a>.
 {{ work.bookseries.name }}{% if work.bookseriesnum %} {{ work.bookseriesnum}}{%endif%}.
-({{ work.title}}, {{work.pubyear}}).
+({% if work.title != work.orig_title %}{{ work.orig_title}}, {%endif%}{{work.pubyear}}).
 {% endmacro %}
 {% extends "base.html" %}
 {% block content %}
@@ -19,9 +19,11 @@
     <ul class="list-group list-group-flush">
     {% for work in series.works %}
         <li class="list-group-item">{{ print_work(work)}}<br>
+            {#
         {% for edition in work.editions %}
             <div style="text-indent: 1rem;">{{ edition.editionnum }}. painos: {{edition.title}}. {{edition.publisher.name}} {{edition.pubyear}}.</span>
         {% endfor %}
+        #}
         </li>
         {% endfor %}
     </ul>
