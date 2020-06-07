@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from app.orm_decl import Work, Edition, Part, Person, Author, Translator,\
-Editor, Publisher, Pubseries, Bookseries, User, Genre, Alias
+Editor, Publisher, Pubseries, Bookseries, User, Genre, Alias, WorkGenre
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from importbib import publishers
-from importbib import bookseries, pubseries, important_pubseries, misc_strings, translators, editors
+from importbib import bookseries, pubseries, important_pubseries, misc_strings, translators, editors, genres, genres_list
 import re
 import os
 import sys
@@ -28,29 +28,6 @@ translator_re = re.compile("([a-zA-ZåäöÅÄÖ]+\s)*([Ss]uom\.?\s+)([A-ZÄÅÖ
 
 pubseries_publisher = {}
 
-genres_list = {'F' : 'F',
-          'K' : 'K',
-          'Paleof' : 'paleof',
-          'paleof' : 'paleof',
-          'PF' : 'PF',
-          'SF' : 'SF',
-          'VEH' : 'VEH',
-          'utopia' : 'utopia',
-          'nF' : 'nF',
-          'nSF' : 'nSF',
-          'nSf' : 'nSF',
-          'nK' : 'nK',
-          'lasten SF' : 'lSF',
-          'satu' : 'satu',
-          'ei-sf' : 'eiSF',
-          'eiSF' : 'eiSF',
-          'eisf' : 'eiSF',
-          'rajatap' : 'rajatap',
-          'lasten kuvakirja' : 'lasten kuvakirja',
-          'kok' : 'kok',
-          'kok ' : 'kok',
-          'Kok' : 'kok'
-          }
 
 def find_item_from_string(item_list, st, patterns):
     retval = ()
@@ -470,6 +447,18 @@ def import_pubseries(session, serieslist):
                     new_series = Pubseries(name=series[1], publisher_id =
                             publisher.id, important=important)
                     s.add(new_series)
+    s.commit()
+
+
+def import_genres(session, genrelist):
+    """ Importe genres to database. """
+    logging.info('Importing genres')
+    s = session()
+    for abbr, genre in genres.items():
+        g = s.query(Genre).filter(Genre.abbr == genre[0]).first()
+        if not g:
+            g = Genre(abbr=genre[0], name=genre[1])
+            s.add(g)
     s.commit()
 
 
@@ -908,10 +897,18 @@ def save_genres(session, workid, genrelist):
 
     # First remove old genre definitions
     genres = s.query(Genre)\
-              .filter(Genre.workid == workid)\
+              .join(WorkGenre)\
+              .filter(Genre.id == WorkGenre.genre_id)\
+              .filter(WorkGenre.work_id == workid)\
               .all()
     for genre in genres:
         s.delete(genre)
+
+    workgenres = s.query(WorkGenre)\
+                  .filter(WorkGenre.work_id == workid)\
+                  .all()
+    for wg in workgenres:
+        s.delete(wg)
     s.commit()
 
     # Then add again
@@ -922,14 +919,16 @@ def save_genres(session, workid, genrelist):
         if m:
             genre = m.group(1)
         if genre in genres_list:
-            genreobj = s.query(Genre)\
-                        .filter(Genre.workid == workid,
-                                Genre.genre_name==genres_list[genre])\
-                        .first()
-            if not genreobj:
-                genreobj = Genre(workid=workid, genre_name=genres_list[genre])
-                s.add(genreobj)
-    s.commit()
+            key = genres_list[genre]
+            try:
+                g = s.query(Genre)\
+                    .filter(Genre.abbr == key)\
+                    .first()
+                workgenre = WorkGenre(work_id=workid, genre_id=g.id)
+            except Exception as e:
+                print(f'Genre {genre} not found')
+            s.add(workgenre)
+            s.commit()
     return retval
 
 
@@ -1029,6 +1028,7 @@ def import_all(filelist):
     engine = create_engine(db_url)
     session = sessionmaker()
     session.configure(bind=engine)
+    import_genres(session, genres)
     import_pubs(session, publishers)
     import_bookseries(session, bookseries)
     import_pubseries(session, pubseries)

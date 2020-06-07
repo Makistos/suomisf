@@ -47,7 +47,7 @@
 {% endif %}
 {% if work.genres|length %}
     {% for genre in work.genres %}
-    <img src="/static/icons/{{genre.genre_name}}_16.png" title="{{genre.genre_name}}">
+    <img src="/static/icons/{{genre.abbr}}_16.png" title="{{genre.name}}">
     {% endfor %}
     {# [{{ work.genres|join(', ', attribute='genre_name') }}]. #}
 {% endif %}

@@ -10,8 +10,8 @@ Table Alias {
 Table Article {
 	id int [pk, increment]
 	title varchar [not null]
-	link varchar
-  author varchar
+        author varchar
+        person varchar
 
 	indexes {
 		title
@@ -25,6 +25,13 @@ Table ArticleAuthor {
 	indexes {
 		(article_id, person_id) [pk]
 	}
+}
+
+Table ArticleLink {
+  id int [pk, increment]
+  article_id int [ref: > Article.id]
+  link varchar [not null]
+  description varchar
 }
 
 Table ArticlePerson {
@@ -61,7 +68,7 @@ Table Awarded {
         story_id int [ref: > ShortStory.id]
 } 
 
-Table Binding {
+Table BindingType {
   id int [pk, increment]
   name varchar
 }
@@ -83,7 +90,7 @@ Table BookseriesLink {
 	description varchar
 }
 
-Table Cover {
+Table CoverType {
   id int  [pk, increment]
   name varchar
 }
@@ -126,14 +133,24 @@ Table EditionLink {
 }
 
 Table Editor {
-        person_id int [ref: > Person.id]
         edition_id int [ref: > Edition.id]
+        person_id int [ref: > Person.id]
 
 	indexes {
 		(edition_id, person_id) [pk]
 	}
 }	
         
+Table Genre {
+    id int [pk, increment]
+    name varchar
+    abbr varchar
+
+    indexes {
+        abbr
+    }
+}
+
 Table Issue {
         id int [pk, increment]
         magazine_id int [ref: > Magazine.id]
@@ -266,14 +283,9 @@ Table ShortStory {
 	}
 }	
 
-
 Table StoryGenre {
         shortstory_id int [ref: > ShortStory.id]
-        name varchar [not null]
-
-	indexes {
-		name
-	}
+        genre_id int [ref: > Genre.id]
 }
         
 Table Tag {
@@ -359,6 +371,15 @@ Table Work {
 	}
 }	
         
+Table WorkConsists {
+  work_id int [ref: > Work.id]
+ parent_id int [ref: > Work.id]
+ 
+ indexes {
+   (work_id, parent_id) [pk]
+ }
+}
+
 Table WorkGenre {
         work_id int [ref: > Work.id]
         name varchar [not null]

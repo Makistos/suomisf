@@ -15,5 +15,28 @@ genres_list = {'F' : 'F',
           'ei-sf' : 'eiSF',
           'eiSF' : 'eiSF',
           'eisf' : 'eiSF',
-          'rajatap' : 'rajatapaus'
+          'rajatap' : 'rajatapaus',
+          'lasten kuvakirja': 'lasten kuvakirja',
+          'kok': 'kok',
+          'kok ': 'kok',
+          'Kok': 'kok'
+          }
+
+
+genres = {'F' : ['F', 'Fantasia'],
+          'K' : ['K', 'Kauhu'],
+          'Paleof' : ['Paleof', 'Paleofantasia'],
+          'PF' : ['PF', 'Poliittinen fiktio'],
+          'SF' : ['SF', 'Science Fiction'],
+          'VEH' : ['VEH', 'Vaihtoehtoishistoria'],
+          'utopia' : ['Utopia', 'Utopia'],
+          'nF' : ['nF', 'Nuorten fantasia'],
+          'nSF' : ['nSF', 'Nuorten Science Fiction'],
+          'nK' : ['nK', 'Nuorten kauhu'],
+          'lasten SF' : ['lSF', 'Lasten Science Fiction'],
+          'satu' : ['satu', 'Satu'],
+          'eiSF' : ['eiSF', 'Ei science fictionia'],
+          'rajatap' : ['rajatap', 'rajatapaus'],
+          'lasten kuvakirja': ['lasten kuvakirja', 'Lasten kuvakirja'],
+          'kok': ['kok', 'Kokoelma']
           }

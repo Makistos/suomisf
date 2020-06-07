@@ -45,6 +45,6 @@
 {%- endif -%}
 .
 {% endif %}
-{{edition.publisher.name}} {{ edition.pubyear }}. {# [{{ edition.work.genres|join(', ', attribute='genre_name') }}]. #}
+{{edition.publisher.name}} {{ edition.pubyear }}. {# [{{ edition.work.genres|join(', ', attribute='name') }}]. #}
 </span><br>
 {% endif %}

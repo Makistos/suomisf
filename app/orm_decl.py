@@ -23,7 +23,42 @@ class Alias(Base):
     alias = Column(Integer, ForeignKey('person.id'), nullable=False,
         primary_key=True)
     realname = Column(Integer, ForeignKey('person.id'), nullable=False,
-        primary_key=True)
+        primary_key=True) ###
+
+class Article(Base):
+    __tablename__ = 'article'
+    id = Column(Integer, primary_key=True)
+    title = Column(String(200), nullable=False)
+    # If author exists in db, use ArticleAuthor instead.
+    # This is for cases where we don't want to add a row
+    # to Person table.
+    author = Column(String(200))
+    # If person exists in db, use ArticlePerson instead.
+    # This is for cases where we don't want to add a row
+    # to Person table.
+    person = Column(String(200))
+
+class ArticleAuthor(Base):
+    __tablename__ = 'articleauthor'
+    article_id = Column(Integer, ForeignKey('article.id'), nullable=False,
+            primary_key=True)
+    person_id = Column(Integer, ForeignKey('person.id'), nullable=False,
+            primary_key=True)
+
+class ArticleLink(Base):
+    __tablename__ = 'articlelink'
+    id = Column(Integer, primary_key=True)
+    article_id = Column(Integer, ForeignKey('article.id'))
+    link = Column(String(250), nullable=False)
+    description = Column(String(100))
+
+class ArticlePerson(Base):
+    """ Links articles to persons they are about. """
+    __tablename__ = 'articleperson'
+    article_id = Column(Integer, ForeignKey('article.id'), nullable=False,
+            primary_key=True)
+    person_id = Column(Integer, ForeignKey('person.id'), nullable=False,
+            primary_key=True)
 
 class Author(Base):
     __tablename__ = 'author'
@@ -36,17 +71,44 @@ class Author(Base):
 
 class Award(Base):
     __tablename__ = 'award'
-    id = Column(Integer, primary_key = True)
+    id = Column(Integer, primary_key=True)
     name = Column(String(100), nullable=False)
     type = Column(Integer)  # For persons or works/stories
+    description = Column(String(500))
 
 class Awarded(Base):
     __tablename__ = 'awarded'
-    id = Column(Integer, primary_key = True)
+    id = Column(Integer, primary_key=True)
     award_id = Column(Integer, ForeignKey('award.id'))
     person_id = Column(Integer, ForeignKey('person.id'))
     work_id = Column(Integer, ForeignKey('work.id'))
     story_id = Column(Integer, ForeignKey('shortstory.id'))
+
+class BindingType(Base):
+    __tablename__ = 'bindingtype'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50))
+
+class Bookseries(Base):
+    __tablename__ = 'bookseries'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250), nullable=False)
+    important = Column(Boolean, default=False)
+    works = relationship("Work", backref=backref('work'), uselist=True,
+                         order_by='Work.bookseriesorder, Work.creator_str')
+
+class BookseriesLink(Base):
+    __tablename__ = 'bookserieslink'
+    id = Column(Integer, primary_key=True)
+    bookseries_id = Column(Integer, ForeignKey('bookseries.id'),
+            nullable=False)
+    link = Column(String(200), nullable=False)
+    description = Column(String(100))
+
+class CoverType(Base):
+    __tablename__ = 'covertype'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50))
 
 class Edition(Base):
     ''' This is the base table for this database schema.
@@ -87,6 +149,13 @@ class Edition(Base):
         uselist=False))
     owners = relationship("User", secondary='userbook')
 
+class EditionLink(Base):
+    __tablename__ = 'editionlink'
+    id = Column(Integer, primary_key=True)
+    edition_id = Column(Integer, ForeignKey('edition.id'), nullable=False)
+    link = Column(String(200), nullable=False)
+    description = Column(String(100))
+
 class Editor(Base):
     __tablename__ = 'editor'
     edition_id = Column(Integer, ForeignKey('edition.id'), nullable=False,
@@ -98,13 +167,35 @@ class Editor(Base):
 
 class Genre(Base):
     __tablename__ = 'genre'
-    workid = Column(Integer, ForeignKey('work.id'), nullable=False,
-            primary_key=True)
-    genre_name = Column(String(20), nullable=False, primary_key=True)
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50))
+    abbr = Column(String(20), nullable=False)
+    works = relationship('Work', secondary='workgenre', backref=backref('workgenre_asooc'))
 
-class Link(Base):
+class Issue(Base):
+    __tablename__ = 'issue'
+    id = Column(Integer, primary_key=True)
+    magazine_id = Column(Integer, ForeignKey('magazine.id'), nullable=False)
+    number = Column(Integer, nullable=False)
+    year = Column(Integer)
+    editor = Column(Integer, ForeignKey('person.id'))
+    image_src = Column(String(200))
+    pages = Column(Integer)
+    size = Column(Integer, ForeignKey('publicationsize.id'))
+    link = Column(String(200))
+    notes = Column(String(200))
+
+class IssueContent(Base):
+    __tablename__ = 'issuecontent'
+    id = Column(Integer, primary_key=True)
+    issue_id = Column(Integer, ForeignKey('issue.id'), nullable=False)
+    article_id = Column(Integer, ForeignKey('article.id'))
+    shortstory_id = Column(Integer, ForeignKey('shortstory.id'))
+    title = Column(String(200), nullable=False)
+
+class Link(Base): ###
     __tablename__ = 'link'
-    id = Column(Integer, primary_key = True)
+    id = Column(Integer, primary_key=True)
     src = Column(String, nullable=False)
     person_id = Column(Integer, ForeignKey('person.id'), nullable=True)
     work_id = Column(Integer, ForeignKey('work.id'), nullable=True)
@@ -113,6 +204,13 @@ class Link(Base):
     bookseries_id = Column(Integer, ForeignKey('bookseries.id'),
         nullable=True)
     publisher_id = Column(Integer, ForeignKey('publisher.id'), nullable=True)
+
+class Magazine(Base):
+    __tablename__ = 'magazine'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(200), nullable=False)
+    publisher_id = Column(Integer, ForeignKey('publisher.id'))
+    issn = Column(String(30))
 
 class Part(Base):
     ''' Part is most often representing a short story. So a collection
@@ -192,12 +290,33 @@ class Person(Base):
                 Translator.part_id == Part.id, Part.work_id == Work.id)',
                 uselist=True)
 
+class PersonLink(Base):
+    __tablename__ = 'personlink'
+    id = Column(Integer, primary_key=True)
+    person_id = Column(Integer, ForeignKey('person.id'), nullable=False)
+    link = Column(String(200), nullable=False)
+    description = Column(String(100))
+
+class PublicationSize(Base):
+    __tablename__ = 'publicationsize'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), nullable=False)
+    mm_width = Column(Integer)
+    mm_height = Column(Integer)
+
 class Publisher(Base):
     __tablename__ = 'publisher'
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False, unique=True, index=True)
     editions = relationship("Edition", backref=backref("edition4_assoc"))
     fullname = Column(String(250), nullable=False, unique=True)
+
+class PublisherLink(Base):
+    __tablename__ = 'publisherlink'
+    id = Column(Integer, primary_key=True)
+    publisher_id = Column(Integer, ForeignKey('publisher.id'), nullable=False)
+    link = Column(String(200), nullable=False)
+    description = Column(String(100))
 
 class Pubseries(Base):
     __tablename__ = 'pubseries'
@@ -212,6 +331,13 @@ class Pubseries(Base):
     editions = relationship("Edition", primaryjoin="Pubseries.id == Edition.pubseries_id", uselist=True,
                             order_by='Edition.pubseriesnum')
 
+class PubseriesLink(Base):
+    __tablename__ = 'pubserieslink'
+    id = Column(Integer, primary_key=True)
+    pubseries_id = Column(Integer, ForeignKey('pubseries.id'), nullable=False)
+    link = Column(String(200), nullable=False)
+    description = Column(String(100))
+
 class ShortStory(Base):
     __tablename__ = 'shortstory'
     id = Column(Integer, primary_key=True)
@@ -222,6 +348,13 @@ class ShortStory(Base):
     creator_str = Column(String(500), index=True)
     parts = relationship('Part', backref=backref('part_assoc'), uselist=True)
 
+class StoryGenre(Base):
+    __tablename__ = 'storygenre'
+    shortstory_id = Column(Integer, ForeignKey('shortstory.id'),
+            nullable=False, primary_key=True)
+    genre_id = Column(Integer, ForeignKey('genre.id'),
+            nullable=False, primary_key=True)
+
 class Translator(Base):
     __tablename__ = 'translator'
     part_id = Column(Integer, ForeignKey('part.id'), nullable=False,
@@ -230,6 +363,25 @@ class Translator(Base):
             primary_key=True)
     parts = relationship("Part", backref=backref("part2_assoc"))
     person = relationship("Person", backref=backref("person2_assoc"))
+
+class User(UserMixin, Base):
+    __tablename__ = 'user'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(64), index=True, unique=True)
+    password_hash = Column(String(128))
+    is_admin = Column(Boolean, default=False)
+    language = Column(String(2), default='FI')
+    books = relationship("Edition", secondary="userbook")
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    def __repr__(self):
+        return '<User {}'.format(self.name)
+
 
 class UserBook(Base):
     __tablename__ = 'userbook'
@@ -240,6 +392,15 @@ class UserBook(Base):
     book = relationship("Edition", backref=backref("edition3_assoc"))
     user = relationship("User", backref=backref("user2_assoc"))
 
+class UserBookseries(Base):
+    __tablename__ = 'userbookseries'
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=False,
+            primary_key=True)
+    series_id = Column(Integer, ForeignKey('bookseries.id'), nullable=False,
+            primary_key=True)
+    series = relationship("Bookseries", backref=backref("bookseries_assoc"))
+    user = relationship("User", backref=backref("user4_asocc"))
+
 class UserPubseries(Base):
     __tablename__ = 'userpubseries'
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False,
@@ -249,15 +410,6 @@ class UserPubseries(Base):
     series = relationship("Pubseries", backref=backref("pubseries_assoc"))
     user = relationship("User", backref=backref("user3_asocc"))
     publisher = relationship("Publisher", secondary="pubseries", viewonly=True)
-
-class UserBookseries(Base):
-    __tablename__ = 'userbookseries'
-    user_id = Column(Integer, ForeignKey('user.id'), nullable=False,
-            primary_key=True)
-    series_id = Column(Integer, ForeignKey('bookseries.id'), nullable=False,
-            primary_key=True)
-    series = relationship("Bookseries", backref=backref("bookseries_assoc"))
-    user = relationship("User", backref=backref("user4_asocc"))
 
 class Work(Base):
     ''' Work is a more abstract idea than edition. Work is
@@ -300,34 +452,31 @@ class Work(Base):
     bookseries = relationship("Bookseries", backref=backref('bookseries'),
         uselist=False)
     editions = relationship("Edition", secondary='part', uselist=True)
-    genres = relationship("Genre", backref=backref('genre', uselist=True))
+    genres = relationship("Genre", secondary='workgenre', uselist=True)
 
-class Bookseries(Base):
-    __tablename__ = 'bookseries'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
-    important = Column(Boolean, default=False)
-    works = relationship("Work", backref=backref('work'), uselist=True,
-                         order_by='Work.bookseriesorder, Work.creator_str')
+class WorkConsists(Base):
+    __tablename__ = 'workconsists'
+    work_id = Column(Integer, ForeignKey('work.id'), nullable=False,
+            primary_key=True)
+    parent_id = Column(Integer, ForeignKey('work.id'), nullable=False,
+            primary_key=True)
 
+class WorkGenre(Base):
+    __tablename__ = 'workgenre'
+    work_id = Column(Integer, ForeignKey('work.id'), nullable=False,
+            primary_key=True)
+    genre_id = Column(Integer, ForeignKey('genre.id'), nullable=False,
+            primary_key=True)
+    work = relationship('Work', backref=backref('work2_assoc'))
+    genre = relationship('Genre', backref=backref('genre2_assoc'))
 
-class User(UserMixin, Base):
-    __tablename__ = 'user'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(64), index=True, unique=True)
-    password_hash = Column(String(128))
-    is_admin = Column(Boolean, default=False)
-    language = Column(String(2), default='FI')
-    books = relationship("Edition", secondary="userbook")
+class WorkLink(Base):
+    __tablename__ = 'worklink'
+    work_id = Column(Integer, ForeignKey('work.id'), nullable=False,
+            primary_key=True)
+    link = Column(String(200), nullable=False)
+    description = Column(String(100))
 
-    def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
-
-    def __repr__(self):
-        return '<User {}'.format(self.name)
 
 @login.user_loader
 def load_user(id):
