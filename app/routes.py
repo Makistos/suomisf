@@ -473,22 +473,15 @@ def bookseries(seriesid):
                     .filter(Bookseries.id == seriesid)\
                     .first()
     authors = session.query(Person)\
-                     .join(Author)\
-                     .filter(Person.id == Author.person_id)\
-                     .join(Part)\
-                     .filter(Part.id == Author.part_id)\
-                     .join(Edition)\
-                     .filter(Edition.id == Part.edition_id)\
-                     .join(Work)\
-                     .filter(Part.work_id == Work.id)\
+                     .join(Work.authors)\
+                     .join(Author.parts)\
+                     .join(Part.edition)\
                      .filter(Work.bookseries_id == seriesid)\
                      .order_by(Person.name, Work.bookseriesnum)\
                      .all()
     editions = session.query(Edition)\
-                      .join(Part)\
-                      .filter(Edition.id == Part.edition_id)\
-                      .join(Work)\
-                      .filter(Part.work_id == Work.id)\
+                      .join(Part.work)\
+                      .join(Part.edition)\
                       .filter(Work.bookseries_id == seriesid)\
                       .order_by(Work.bookseriesorder, Work.creator_str)\
                       .all()
@@ -525,20 +518,10 @@ def pubseries(seriesid):
     series = session.query(Pubseries)\
                     .filter(Pubseries.id == seriesid)\
                     .first()
-    #authors = session.query(Person)\
-    #                 .join(Author)\
-    #                 .join(Work)\
-    #                 .join(Edition)\
-    #                 .filter(Work.id == Edition.work_id)\
-    #                 .filter(Edition.pubseries_id == seriesid)\
-    #                 .order_by(Person.name)\
-    #                 .all()
     books = session.query(Edition)\
+                   .join(Part.work)\
+                   .join(Part.edition)\
                    .filter(Edition.pubseries_id == seriesid)\
-                   .join(Part)\
-                   .filter(Part.edition_id == Edition.id)\
-                   .join(Work)\
-                   .filter(Part.work_id == Work.id)\
                    .order_by(Edition.pubseriesnum, Edition.pubyear)\
                    .all()
     favorite = session.query(UserPubseries)\
