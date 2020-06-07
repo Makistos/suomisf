@@ -96,54 +96,30 @@ def register():
 def stats():
     session = new_session()
 
-    sql = 'SELECT Genre.abbr, Genre.name as genre_name, count(Work.id) as work_count '\
-          'FROM Genre, WorkGenre, Work '\
-          'WHERE Genre.id = WorkGenre.genre_id AND '\
-                'Work.id = WorkGenre.work_id '\
-          'GROUP BY Genre.abbr '\
-          'ORDER BY count(work.id) DESC'
-    counts = session.execute(sql)
-#    counts = session.query(Genre.abbr, Genre.name, func.count(Work.id))\
-#                    .join(WorkGenre)\
-#                    .filter(WorkGenre.work_id == Work.id)\
-#                    .join(Genre)\
-#                    .filter(WorkGenre.genre_id == Genre.id)\
-#                    .group_by(Genre.abbr)\
-#                    .order_by(func.count(Work.id).desc())\
-#                    .all()
+    counts = session.query(Genre.abbr, Genre.name.label('genre_name'),\
+                           func.count(Work.id).label('work_count'))\
+                    .join(Genre.works)\
+                    .group_by(Genre.abbr)\
+                    .order_by(func.count(Work.id).desc())\
+                    .all()
 
     genres = ['SF', 'F', 'K', 'nSF', 'nF', 'nK', 'kok']
     tops = {}
     for genre in genres:
-        sql = 'SELECT Person.name, count(Person.id) as person_count, '\
-                     'Genre.abbr, Genre.name as genre_name '\
-              'FROM Person, Author, Part, Work, Genre, WorkGenre '\
-              'WHERE WorkGenre.work_id = Work.id AND '\
-                    'WorkGenre.genre_id = Genre.id AND '\
-                    'Work.id = Part.work_id AND '\
-                    'Author.part_id = Part.id AND '\
-                    'Author.person_id = Person.id AND '\
-                    'Genre.abbr = "' + genre + '" AND '\
-                    'Part.shortstory_id IS NULL '\
-              'GROUP BY Person.id '\
-              'ORDER BY count(Work.id) DESC LIMIT 10'
-        tops[genre] = session.execute(sql)
-#        tops[genre] = session.query(Person.name, func.count(Person.id), Genre.name)\
-#                             .join(Author)\
-#                             .join(Part)\
-#                             .join(Work)\
-#                             .join(Genre)\
-#                             .join(WorkGenre)\
-#                             .filter(WorkGenre.work_id == Work.id)\
-#                             .filter(Genre.id == WorkGenre.genre_id)\
-#                             .filter(Part.work_id == Work.id)\
-#                             .filter(Author.person_id == Person.id, Author.part_id == Part.id)\
-#                             .filter(Genre.abbr == genre)\
-#                             .filter(Part.shortstory_id == None)\
-#                             .group_by(Person.id)\
-#                             .order_by(func.count(Work.id).desc())\
-#                             .limit(10)\
-#                             .all()
+        tops[genre] = session.query(Person.name, \
+                func.count(Person.id).label('person_count'), \
+                Genre.abbr, Genre.name.label('genre_name'))\
+                             .join(Work.genres)\
+                             .join(Part)\
+                             .join(Author)\
+                             .filter(Author.person_id == Person.id)\
+                             .filter(Part.work_id == Work.id)\
+                             .filter(Genre.abbr == genre)\
+                             .filter(Part.shortstory_id == None)\
+                             .group_by(Person.id)\
+                             .order_by(func.count(Work.id).desc())\
+                             .limit(10)\
+                             .all()
 
     translators = session.query(Person.name, func.count(Translator.person_id))\
                          .join(Translator)\
@@ -466,31 +442,17 @@ def publisher(pubid):
     series = session.query(Pubseries).filter(Pubseries.publisher_id == pubid).all()
     #g = session.query(Genre).all()
 
-    sql = 'SELECT Genre.abbr, Genre.name, count(Genre.id) as count '\
-          'FROM Genre, Work, WorkGenre, Part, Edition '\
-          'WHERE Work.id = WorkGenre.work_id AND '\
-                'Genre.id = WorkGenre.genre_id AND '\
-                'Part.work_id = Work.id AND '\
-                'Part.shortstory_id IS NULL AND '\
-                'Edition.id = Part.edition_id AND '\
-                'Edition.publisher_id = "' + pubid + '" '\
-          'GROUP BY Genre.abbr '\
-          'ORDER BY count(Genre.id) DESC'
-    genres = session.execute(sql)
-#    genres = session.query(Genre.name, func.count(Genre.name).label('count'))\
-#                    .join(Work)\
-#                    .join(WorkGenre)\
-#                    .join(Part)\
-#                    .join(Edition)\
-#                    .filter(Work.id == WorkGenre.work_id)\
-#                    .filter(Genre.id == WorkGenre.genre_id)\
-#                    .filter(Part.work_id == Work.id)\
-#                    .filter(Part.shortstory_id == None)\
-#                    .filter(Edition.id == Part.edition_id)\
-#                    .filter(Edition.publisher_id == pubid)\
-#                    .group_by(Genre.name)\
-#                    .order_by(func.count(Genre.name).desc())\
-#                    .all()
+    genres = session.query(Genre.name, Genre.abbr, func.count(Genre.name).label('count'))\
+                    .join(Work.genres)\
+                    .join(Part)\
+                    .join(Edition)\
+                    .filter(Part.work_id == Work.id)\
+                    .filter(Part.shortstory_id == None)\
+                    .filter(Edition.id == Part.edition_id)\
+                    .filter(Edition.publisher_id == pubid)\
+                    .group_by(Genre.name)\
+                    .order_by(func.count(Genre.name).desc())\
+                    .all()
 
     genre_list = {'SF': '', 'F': '', 'K': '', 'nSF': '', 'nF': '', 'nK': '',
                   'PF': '', 'paleof': '', 'kok': '', 'eiSF': '', 'rajatap': ''}
