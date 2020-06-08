@@ -91,7 +91,7 @@ def books_by_origin(country):
                        .filter(Part.id == Author.part_id)\
                        .join(Person)\
                        .filter(Person.id == Author.person_id)\
-                       .filter(Person.birthplace != country[1:])\
+                       .filter(Person.nationality != country[1:])\
                        .all()
     else:
         works = session.query(Work)\
@@ -101,7 +101,7 @@ def books_by_origin(country):
                        .filter(Part.id == Author.part_id)\
                        .join(Person)\
                        .filter(Person.id == Author.person_id,
-                               Person.birthplace == country)\
+                               Person.nationality == country)\
                        .all()
     return render_template('books.html', works=works)
 

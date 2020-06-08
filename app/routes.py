@@ -344,7 +344,7 @@ def edit_person(personid):
             form.dod.data = person.dod
         else:
             form.dod.data = 0
-        form.birthplace.data = person.birthplace
+        form.nationality.data = person.nationality
         form.image_src.data = person.image_src
     if form.validate_on_submit():
         person.name = form.name.data
@@ -354,7 +354,7 @@ def edit_person(personid):
             person.dob = form.dob.data
         if form.dod.data != 0:
             person.dod = form.dod.data
-        person.birthplace = form.birthplace.data
+        person.nationality = form.nationality.data
         person.image_src = form.image_src.data
         session.add(person)
         session.commit()
@@ -378,7 +378,7 @@ def new_person():
             person.dob = form.dob.data
         if form.dod.data != 0:
             person.dod = form.dod.data
-        person.birthplace = form.birthplace.data
+        person.nationality = form.nationality.data
         person.image_src = form.image_src.data
         session.add(person)
         session.commit()
@@ -735,10 +735,10 @@ def removefavpubcol(pubseriesid):
     session.commit()
     return redirect(url_for('myseries'))
 
-@app.route('/missing_birthplace')
-def missing_birthplace():
+@app.route('/missing_nationality')
+def missing_nationality():
     session = new_session()
 
-    missing = session.query(Person).filter(Person.birthplace == None).all()
+    missing = session.query(Person).filter(Person.nationality == None).all()
 
     return render_template('people.html', people=missing)

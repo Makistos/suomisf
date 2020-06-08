@@ -1,6 +1,6 @@
 import os
 import sys
-from sqlalchemy import Column, ForeignKey, Integer, String, Boolean
+from sqlalchemy import Column, ForeignKey, Integer, String, Boolean, Date
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy import create_engine
@@ -28,7 +28,7 @@ class Alias(Base):
 class Article(Base):
     __tablename__ = 'article'
     id = Column(Integer, primary_key=True)
-    title = Column(String(200), nullable=False)
+    title = Column(String(200), nullable=False, index=True)
     # If author exists in db, use ArticleAuthor instead.
     # This is for cases where we don't want to add a row
     # to Person table.
@@ -92,7 +92,7 @@ class BindingType(Base):
 class Bookseries(Base):
     __tablename__ = 'bookseries'
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
+    name = Column(String(250), nullable=False, index=True)
     important = Column(Boolean, default=False)
     works = relationship("Work", backref=backref('work'), uselist=True,
                          order_by='Work.bookseriesorder, Work.creator_str')
@@ -121,7 +121,7 @@ class Edition(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(500), nullable=False, index=True)
     subtitle = Column(String(500))
-    pubyear = Column(Integer)
+    pubyear = Column(Integer, index=True)
     translation = Column(Boolean)
     language = Column(String(2))
     publisher_id = Column(Integer, ForeignKey('publisher.id'))
@@ -131,12 +131,12 @@ class Edition(Base):
     pubseries_id = Column(Integer, ForeignKey('pubseries.id'))
     pubseriesnum = Column(Integer)
     collection = Column(Boolean)
-    pages = Column(Integer)
     coll_info = Column(String(200))
     pages = Column(Integer)
     cover = Column(Integer, ForeignKey('covertype.id'))
     binding = Column(Integer, ForeignKey('bindingtype.id'))
     description = Column(String(500))
+    artist_id = Column(Integer, ForeignKey('person.id'))
     misc = Column(String(500))
     imported_string = Column(String(500))
     parts = relationship('Part', backref=backref('parts_lookup'),
@@ -174,15 +174,16 @@ class Genre(Base):
     __tablename__ = 'genre'
     id = Column(Integer, primary_key=True)
     name = Column(String(50))
-    abbr = Column(String(20), nullable=False)
+    abbr = Column(String(20), nullable=False, index=True)
     works = relationship('Work', secondary='workgenre', backref=backref('workgenre_asooc'))
 
 class Issue(Base):
     __tablename__ = 'issue'
     id = Column(Integer, primary_key=True)
     magazine_id = Column(Integer, ForeignKey('magazine.id'), nullable=False)
-    number = Column(Integer, nullable=False)
-    year = Column(Integer)
+    number = Column(Integer, nullable=False, index=True)
+    count = Column(Integer)
+    year = Column(Integer, index=True)
     editor = Column(Integer, ForeignKey('person.id'))
     image_src = Column(String(200))
     pages = Column(Integer)
@@ -196,24 +197,12 @@ class IssueContent(Base):
     issue_id = Column(Integer, ForeignKey('issue.id'), nullable=False)
     article_id = Column(Integer, ForeignKey('article.id'))
     shortstory_id = Column(Integer, ForeignKey('shortstory.id'))
-    title = Column(String(200), nullable=False)
-
-class Link(Base): ###
-    __tablename__ = 'link'
-    id = Column(Integer, primary_key=True)
-    src = Column(String, nullable=False)
-    person_id = Column(Integer, ForeignKey('person.id'), nullable=True)
-    work_id = Column(Integer, ForeignKey('work.id'), nullable=True)
-    edition_id = Column(Integer, ForeignKey('edition.id'), nullable=True)
-    pubseries_id = Column(Integer, ForeignKey('pubseries.id'), nullable=True)
-    bookseries_id = Column(Integer, ForeignKey('bookseries.id'),
-        nullable=True)
-    publisher_id = Column(Integer, ForeignKey('publisher.id'), nullable=True)
+    title = Column(String(200), nullable=False, index=True)
 
 class Magazine(Base):
     __tablename__ = 'magazine'
     id = Column(Integer, primary_key=True)
-    name = Column(String(200), nullable=False)
+    name = Column(String(200), nullable=False, index=True)
     publisher_id = Column(Integer, ForeignKey('publisher.id'))
     issn = Column(String(30))
 
@@ -232,8 +221,8 @@ class Part(Base):
     '''
     __tablename__ = 'part'
     id = Column(Integer, primary_key=True)
-    edition_id = Column(Integer, ForeignKey('edition.id'), nullable=False)
-    work_id = Column(Integer, ForeignKey('work.id'), nullable=False)
+    edition_id = Column(Integer, ForeignKey('edition.id'), nullable=True)
+    work_id = Column(Integer, ForeignKey('work.id'), nullable=True)
     shortstory_id = Column(Integer, ForeignKey('shortstory.id'), nullable=True)
     # Title is repeated from edition in the simple case but required for
     # e.g. collections.
@@ -249,18 +238,16 @@ class Person(Base):
     __tablename__ = 'person'
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False, index=True, unique=True)
-    alt_name = Column(String(250))
+    alt_name = Column(String(250), index=True)
     first_name = Column(String(100))
     last_name = Column(String(150))
-    image = Column(String(100))  # Actual URL
-    image_src_url = Column(String(200))  # URL to source website
     image_src = Column(String(100))  # Source website name
     dob = Column(Integer)
     dod = Column(Integer)
     bio = Column(String(1000))  # Biographgy
-    bio_src_url = Column(String(200))  # URL to source website
     bio_src = Column(String(100))  # Source website name
-    birthplace = Column(String(250))
+    nationality = Column(String(250))
+    other_names = Column(String(200))
     imported_string = Column(String(500))
     other_names = Column(String(250))
     #real_names = relationship("Person", secondary="Alias", primaryjoin="Person.id==Alias.alias")
@@ -313,8 +300,8 @@ class Publisher(Base):
     __tablename__ = 'publisher'
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False, unique=True, index=True)
-    editions = relationship("Edition", backref=backref("edition4_assoc"))
     fullname = Column(String(250), nullable=False, unique=True)
+    editions = relationship("Edition", backref=backref("edition4_assoc"))
 
 class PublisherLink(Base):
     __tablename__ = 'publisherlink'
@@ -348,10 +335,10 @@ class ShortStory(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(250), nullable=False, index=True)
     language = Column(String(2))
-    pubyear = Column(Integer)
-    genre = Column(String(100))
+    pubyear = Column(Integer, index=True)
     creator_str = Column(String(500), index=True)
     parts = relationship('Part', backref=backref('part_assoc'), uselist=True)
+    genres = relationship('Genre', secondary='storygenre', uselist=True)
 
 class StoryGenre(Base):
     __tablename__ = 'storygenre'
@@ -361,6 +348,12 @@ class StoryGenre(Base):
             nullable=False, primary_key=True)
     stories = relationship('ShortStory', backref=backref('story_assoc'))
     genres = relationship('Genre', backref=backref('genre_assoc'))
+
+
+class Tag(Base):
+    __tablename__ = 'tag'
+    id = Column(Integer, primary_key=True)
+
 
 class Translator(Base):
     __tablename__ = 'translator'
@@ -431,14 +424,16 @@ class Work(Base):
     __tablename__ = 'work'
     id = Column(Integer, primary_key=True)
     title = Column(String(500), nullable=False, index=True)
-    orig_title = Column(String(500), nullable=False, index=True)
-    pubyear = Column(Integer)
+    subtitle = Column(String(500))
+    orig_title = Column(String(250))
+    pubyear = Column(Integer, index=True)
     language = Column(String(2))
     bookseries_id = Column(Integer, ForeignKey('bookseries.id'))
     bookseriesnum = Column(String(20))
     bookseriesorder = Column(Integer)
     collection = Column(Boolean)
     image_src = Column(String(200))
+    description = Column(String(500))
     misc = Column(String(500))
     imported_string = Column(String(500))
     creator_str = Column(String(500), index=True)

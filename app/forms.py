@@ -86,7 +86,7 @@ class PersonForm(FlaskForm):
     last_name = StringField('Sukunimi')
     dob = IntegerField('Syntymävuosi', validators=[Optional()])
     dod = IntegerField('Kuolinvuosi', validators=[Optional()])
-    birthplace = StringField('Kansallisuus')
+    nationality = StringField('Kansallisuus')
     image_src = StringField('Kuva')
     submit = SubmitField('Tallenna')
 

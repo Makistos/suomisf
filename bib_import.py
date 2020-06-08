@@ -631,12 +631,12 @@ def import_authors(s, names, source=''):
                                 alt_name=alt_name,
                                 first_name=real_first_name,
                                 last_name=real_last_name,
-                                birthplace=country,
+                                nationality=country,
                                 dob=dob,
                                 dod=dod)
             else:
-                if not person.birthplace:
-                    person.birthplace = country
+                if not person.nationality:
+                    person.nationality = country
                 if not person.dob:
                     person.dob = dob
                 if not person.dod:
@@ -674,12 +674,12 @@ def import_authors(s, names, source=''):
                                 alt_name=alt_name,
                                 first_name=first_name,
                                 last_name=last_name,
-                                birthplace=country,
+                                nationality=country,
                                 dob=dob,
                                 dod=dod)
             else:
-                if not person.birthplace:
-                    person.birthplace = country
+                if not person.nationality:
+                    person.nationality = country
                 if not person.dob:
                     person.dob = dob
                 if not person.dod:

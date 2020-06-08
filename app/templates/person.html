@@ -20,10 +20,10 @@
                         {% endif %}
 
                     </h2>
-                    {% if person.birthplace %}
-                    {{ person.birthplace }}
+                    {% if person.nationality %}
+                    {{ person.nationality }}
                     {%- endif -%}
-                    {%- if person.birthplace and person.dob -%},{% endif %}
+                    {%- if person.nationality and person.dob -%},{% endif %}
                     {% if person.dob %}
                     {{ person.dob }}-{{ person.dod if person.dod }}
                     {% endif %}

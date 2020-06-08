@@ -1,6 +1,6 @@
 Table Alias {
         alias int [ref: > Person.id]
-        real_name int [ref: > Person.id]
+        realname int [ref: > Person.id]
 	
 	indexes {
 		(alias, real_name) [pk]
@@ -54,10 +54,6 @@ Table Award {
         name varchar [not null]
         type varchar [not null]
         description varchar
-
-	indexes {
-		name
-	}
 } 
        
 Table Awarded {
@@ -111,15 +107,15 @@ Table Edition {
         collection boolean
         coll_info varchar
         pages int
-        cover int [ref: > Cover.id]
-        binding int [ref: > Binding.id]
+        cover int [ref: > CoverType.id]
+        binding int [ref: > BindingType.id]
         description varchar
+        artist_id int [ref: > Person.id]
         misc varchar
         imported_string varchar
 
 	indexes {
 		title
-		subtitle
 		pubyear
 	}
 }	
@@ -154,6 +150,7 @@ Table Issue {
         id int [pk, increment]
         magazine_id int [ref: > Magazine.id]
         number int [not null]
+        count int
         year int
 	editor int [ref: > Person.id]
 	image_src varchar
@@ -185,6 +182,10 @@ Table Magazine {
         name varchar [not null]
         publisher_id int [ref: > Publisher.id]
         issn varchar
+    
+        indexex {
+            name
+        }
 } 
         
 Table Part {
@@ -202,10 +203,9 @@ Table Person {
         alt_name varchar [not null]
         first_name varchar [not null]
         last_name varchar
-        image_src_url varchar
         image_src varchar
-        dob varchar
-        dod varchar
+        dob date
+        dod date
         bio varchar
         bio_src varchar
         nationality varchar
@@ -357,7 +357,6 @@ Table Work {
         bookseriesorder int
         collection boolean
         image_src varchar
-        image_src_url varchar
         description varchar
         misc varchar
         imported_string varchar
@@ -365,7 +364,6 @@ Table Work {
 
 	indexes {
 		title
-		subtitle
 		pubyear
 	}
 }	
@@ -381,11 +379,7 @@ Table WorkConsists {
 
 Table WorkGenre {
         work_id int [ref: > Work.id]
-        name varchar [not null]
-
-	indexes {
-		name
-	}
+        genre_id int [ref: > Genre.id]
 }	
 
 Table WorkLink {
