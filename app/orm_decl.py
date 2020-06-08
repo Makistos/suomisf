@@ -359,6 +359,8 @@ class StoryGenre(Base):
             nullable=False, primary_key=True)
     genre_id = Column(Integer, ForeignKey('genre.id'),
             nullable=False, primary_key=True)
+    stories = relationship('ShortStory', backref=backref('story_assoc'))
+    genres = relationship('Genre', backref=backref('genre_assoc'))
 
 class Translator(Base):
     __tablename__ = 'translator'
