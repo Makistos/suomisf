@@ -477,7 +477,7 @@ class WorkGenre(Base):
 class WorkLink(Base):
     __tablename__ = 'worklink'
     work_id = Column(Integer, ForeignKey('work.id'), nullable=False,
-            primary_key=True)Translator,
+            primary_key=True)
     link = Column(String(200), nullable=False)
     description = Column(String(100))
 
