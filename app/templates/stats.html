@@ -103,6 +103,17 @@
         {% endfor %}
         </ul>
     </div>
+    <div class="col-md-4">
+        <h3 align="center">Kansallisuudet</h3>
+        <ul>
+            {% for country in countries %}
+            <li><a href=" {{ url_for('people_by_nationality',
+                                   nationality=country.nationality)}}">{{country.nationality}}</a>:
+                               <a href=" {{url_for('books_by_origin',
+                                           country=country.nationality)}}">{{
+                                           country.count }}</a></li>
+            {% endfor %}
+        </ul>
 </div>
 </div>
 {% endblock %}

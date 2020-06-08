@@ -146,6 +146,13 @@ def stats():
                             .limit(10)\
                             .all()
 
+    countries = session.query(Person.nationality,
+                              func.count(Person.nationality).label('count'))\
+                       .group_by(Person.nationality)\
+                       .order_by(func.count(Person.nationality).desc())\
+                       .limit(10)\
+                       .all()
+
     return render_template('stats.html',
                            counts=counts,
                            topsf=tops['SF'], topf=tops['F'], topk=tops['K'],
@@ -153,8 +160,18 @@ def stats():
                            topcoll=tops['kok'],
                            translators=translators,
                            editors=editors,
-                           stories=stories)
+                           stories=stories,
+                           countries=countries)
 
+@app.route('/people_by_nationality/<nationality>')
+def people_by_nationality(nationality: str):
+    session = new_session()
+    people = session.query(Person)\
+                    .filter(Person.nationality == nationality)\
+                    .all()
+
+    return render_template('people.html', people=people,
+                           header=nationality)
 
 @app.route('/user/<userid>')
 def user(userid):
@@ -739,6 +756,9 @@ def removefavpubcol(pubseriesid):
 def missing_nationality():
     session = new_session()
 
-    missing = session.query(Person).filter(Person.nationality == None).all()
+    missing = session.query(Person)\
+                     .filter(Person.nationality == None)\
+                     .order_by(Person.name)\
+                     .all()
 
     return render_template('people.html', people=missing)
