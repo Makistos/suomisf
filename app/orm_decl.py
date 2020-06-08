@@ -468,14 +468,14 @@ class WorkConsists(Base):
     parent_id = Column(Integer, ForeignKey('work.id'), nullable=False,
             primary_key=True)
 
-#class WorkGenre(Base):
-#    __tablename__ = 'workgenre'
-#    work_id = Column(Integer, ForeignKey('work.id'), nullable=False,
-#            primary_key=True)
-#    genre_id = Column(Integer, ForeignKey('genre.id'), nullable=False,
-#            primary_key=True)
-#    work = relationship('Work', backref=backref('work2_assoc'))
-#    genre = relationship('Genre', backref=backref('genre2_assoc'))
+class WorkGenre(Base):
+    __tablename__ = 'workgenre'
+    work_id = Column(Integer, ForeignKey('work.id'), nullable=False,
+            primary_key=True)
+    genre_id = Column(Integer, ForeignKey('genre.id'), nullable=False,
+            primary_key=True)
+    work = relationship('Work', backref=backref('work2_assoc'))
+    genre = relationship('Genre', backref=backref('genre2_assoc'))
 
 class WorkLink(Base):
     __tablename__ = 'worklink'
