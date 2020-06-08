@@ -191,7 +191,8 @@
                 <div id="admin" class="collapse" aria-labelledby="headAdmin" data-parent="#authorCard">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><b>Lähde: </b>{{person.fullstring}}</li>
+                            <li class="list-group-item"><b>Lähde:
+                                </b>{{person.imported_string}}</li>
                             <li class="list-group-item"><a
                                     href=" {{ url_for('edit_person', personid=person.id)}}">Muokkaa</a></li>
                             <li class="list-group-item"><a href="{{url_for('add_authored', authorid=person.id) }}">Lisää

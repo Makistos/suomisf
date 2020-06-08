@@ -105,7 +105,6 @@ Table Edition {
         publisher_id int [ref: > Publisher.id]
         editionnum int [not null]
         image_src varchar
-        image_src_url varchar
         isbn varchar
         pubseries_id int [ref: > Pubseries.id]
         pubseriesnum int 

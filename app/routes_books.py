@@ -241,7 +241,7 @@ def edit_work(workid):
         form.bookseriesnum.data = work.bookseriesnum
         form.genre.data = ','.join([x.genre_name for x in work.genres])
         form.misc.data = work.misc
-        form.source.data = work.fullstring
+        form.source.data = work.imported_string
 
     if form.validate_on_submit():
         save_work(session, form, work) # Save work, edition and part
@@ -249,7 +249,7 @@ def edit_work(workid):
     else:
         app.logger.debug("Errors: {}".format(form.errors))
     return render_template('edit_work.html', id = work.id, form=form, search_lists =
-            search_list, source = work.fullstring)
+            search_list, source = work.imported_string)
 
 @app.route('/add_edition/<workid>', methods=["POST", "GET"])
 def add_edition(workid):
@@ -341,7 +341,7 @@ def edit_edition(editionid):
     form = EditionForm()
     selected_pubseries = '0'
     search_list = publisher_list(session)
-    source = edition.fullstring
+    source = edition.imported_string
     if publisher_series:
         form.pubseries.choices = [('0', 'Ei sarjaa')] + publisher_series['pubseries']
     else:

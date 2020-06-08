@@ -120,6 +120,7 @@ class Edition(Base):
     __tablename__ = 'edition'
     id = Column(Integer, primary_key=True)
     title = Column(String(500), nullable=False, index=True)
+    subtitle = Column(String(500))
     pubyear = Column(Integer)
     translation = Column(Boolean)
     language = Column(String(2))
@@ -132,8 +133,12 @@ class Edition(Base):
     collection = Column(Boolean)
     pages = Column(Integer)
     coll_info = Column(String(200))
+    pages = Column(Integer)
+    cover = Column(Integer, ForeignKey('covertype.id'))
+    binding = Column(Integer, ForeignKey('bindingtype.id'))
+    description = Column(String(500))
     misc = Column(String(500))
-    fullstring = Column(String(500))
+    imported_string = Column(String(500))
     parts = relationship('Part', backref=backref('parts_lookup'),
             uselist=True)
     editors = relationship('Person', secondary='editor')
@@ -256,7 +261,7 @@ class Person(Base):
     bio_src_url = Column(String(200))  # URL to source website
     bio_src = Column(String(100))  # Source website name
     birthplace = Column(String(250))
-    fullstring = Column(String(500))
+    imported_string = Column(String(500))
     other_names = Column(String(250))
     #real_names = relationship("Person", secondary="Alias", primaryjoin="Person.id==Alias.alias")
     real_names = relationship('Person',
@@ -433,7 +438,7 @@ class Work(Base):
     collection = Column(Boolean)
     image_src = Column(String(200))
     misc = Column(String(500))
-    fullstring = Column(String(500))
+    imported_string = Column(String(500))
     creator_str = Column(String(500), index=True)
     authors = relationship("Person",
                 secondary='join(Part, Author, Part.id == Author.part_id)',

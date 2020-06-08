@@ -309,7 +309,7 @@ def get_books(books):
                     tmp = ''
                 book['rest'] = misc_str + ' ' + tmp.replace(r' .', '').strip()
                 misc_str = ''
-                book['fullstring'] = full_string
+                book['imported_string'] = full_string
                 # Adding to editions for this work
                 works[-1][1].append(book)
         elif m:
@@ -370,7 +370,7 @@ def get_books(books):
                 tmp = ''
             book['rest'] = misc_str + ' ' + tmp.replace(r' .', '').strip()
             misc_str = ''
-            book['fullstring'] = full_string
+            book['imported_string'] = full_string
             curr_book = dict(book)
             # Add work and default first edition
             works.append((book, [book]))
@@ -720,7 +720,7 @@ def import_persons(s, name: str, source: str='') -> List:
         alt_name = first_name + ' ' + last_name
         person = s.query(Person).filter(Person.name==name_inv).first()
         if not person:
-            person = Person(name=name_inv, fullstring=source, first_name=first_name,
+            person = Person(name=name_inv, imported_string=source, first_name=first_name,
                     last_name=last_name, alt_name=alt_name.strip())
             s.add(person)
             s.commit()
@@ -764,7 +764,7 @@ def import_books(session, authors):
                 workitem.bookseriesorder = work['bookseriesorder']
                 workitem.misc = work['rest']
                 workitem.collection = work['collection']
-                workitem.fullstring = work['fullstring']
+                workitem.imported_string = work['imported_string']
             else:
                 workitem = Work(
                         title = work['title'],
@@ -776,7 +776,7 @@ def import_books(session, authors):
                         bookseriesorder = work['bookseriesorder'],
                         misc = work['rest'],
                         collection=work['collection'],
-                        fullstring = work['fullstring'])
+                        imported_string = work['imported_string'])
                 is_new = True
 
             s.add(workitem)
@@ -809,8 +809,8 @@ def import_books(session, authors):
                     publisherid = publisher.id
                 else:
                     publisherid = None
-                translators = import_persons(s, edition['translator'], edition['fullstring'])
-                editors = import_persons(s, edition['editor'], edition['fullstring'])
+                translators = import_persons(s, edition['translator'], edition['imported_string'])
+                editors = import_persons(s, edition['editor'], edition['imported_string'])
 
                 # Create new edition to database.
                 if edition['edition']:
@@ -836,7 +836,7 @@ def import_books(session, authors):
                     ed.pubseriesnum = pubseriesnum
                     ed.coll_info = edition['coll_info']
                     ed.misc = edition['rest']
-                    ed.fullstring = edition['fullstring']
+                    ed.imported_string = edition['imported_string']
                 else:
                     ed = Edition(
                             title = edition['title'],
@@ -851,7 +851,7 @@ def import_books(session, authors):
                             collection = workitem.collection,
                             coll_info = edition['coll_info'],
                             misc = edition['rest'],
-                            fullstring = edition['fullstring'])
+                            imported_string = edition['imported_string'])
                     is_new = True
                 s.add(ed)
                 s.commit()
