@@ -353,14 +353,14 @@ class ShortStory(Base):
     creator_str = Column(String(500), index=True)
     parts = relationship('Part', backref=backref('part_assoc'), uselist=True)
 
-#class StoryGenre(Base):
-#    __tablename__ = 'storygenre'
-#    shortstory_id = Column(Integer, ForeignKey('shortstory.id'),
-#            nullable=False, primary_key=True)
-#    genre_id = Column(Integer, ForeignKey('genre.id'),
-#            nullable=False, primary_key=True)
-#    stories = relationship('ShortStory', backref=backref('story_assoc'))
-#    genres = relationship('Genre', backref=backref('genre_assoc'))
+class StoryGenre(Base):
+    __tablename__ = 'storygenre'
+    shortstory_id = Column(Integer, ForeignKey('shortstory.id'),
+            nullable=False, primary_key=True)
+    genre_id = Column(Integer, ForeignKey('genre.id'),
+            nullable=False, primary_key=True)
+    stories = relationship('ShortStory', backref=backref('story_assoc'))
+    genres = relationship('Genre', backref=backref('genre_assoc'))
 
 class Translator(Base):
     __tablename__ = 'translator'
@@ -470,17 +470,14 @@ class WorkConsists(Base):
 
 class WorkGenre(Base):
     __tablename__ = 'workgenre'
-    work_id = Column(Integer, ForeignKey('work.id'), nullable=False,
-            primary_key=True)
-    genre_id = Column(Integer, ForeignKey('genre.id'), nullable=False,
-            primary_key=True)
-    work = relationship('Work', backref=backref('work2_assoc'))
-    genre = relationship('Genre', backref=backref('genre2_assoc'))
+    id = Column(Integer, primary_key=True)
+    work_id = Column(Integer, ForeignKey('work.id'), nullable=False)
+    genre_id = Column(Integer, ForeignKey('genre.id'), nullable=False)
 
 class WorkLink(Base):
     __tablename__ = 'worklink'
     work_id = Column(Integer, ForeignKey('work.id'), nullable=False,
-            primary_key=True)
+            primary_key=True)Translator,
     link = Column(String(200), nullable=False)
     description = Column(String(100))
 
