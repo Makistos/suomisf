@@ -181,7 +181,6 @@ def work(workid):
                                 ShortStory.title.label('orig_title'),
                                 ShortStory.pubyear,
                                 ShortStory.language,
-                                ShortStory.genre,
                                 ShortStory.id,\
                                 ShortStory.creator_str)\
                          .join(Part)\
