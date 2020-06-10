@@ -110,10 +110,17 @@ def stats():
                 func.count(Person.id).label('person_count'), \
                 Genre.abbr, Genre.name.label('genre_name'))\
                              .join(Work.genres)\
-                             .join(Part.authors)\
-                             .filter(Part.work_id == Work.id)\
+                             .join(Part)\
+                             .filter(Work.id == Part.work_id)\
+                             .join(Edition)\
+                             .filter(Part.edition_id == Edition.id)\
+                             .join(Author)\
+                             .filter(Author.part_id == Part.id)\
+                             .join(Person)\
+                             .filter(Author.person_id == Person.id)\
                              .filter(Genre.abbr == genre)\
                              .filter(Part.shortstory_id == None)\
+                             .filter(Edition.editionnum == 1)\
                              .group_by(Person.id)\
                              .order_by(func.count(Work.id).desc())\
                              .limit(10)\
