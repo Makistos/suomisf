@@ -896,14 +896,6 @@ def save_genres(session, workid, genrelist):
     s = session()
 
     # First remove old genre definitions
-    genres = s.query(Genre)\
-              .join(WorkGenre)\
-              .filter(Genre.id == WorkGenre.genre_id)\
-              .filter(WorkGenre.work_id == workid)\
-              .all()
-    for genre in genres:
-        s.delete(genre)
-
     workgenres = s.query(WorkGenre)\
                   .filter(WorkGenre.work_id == workid)\
                   .all()
