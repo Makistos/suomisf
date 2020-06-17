@@ -530,7 +530,7 @@ def import_authors(s, names, source=''):
         if '(toim.)' in tmp_name:
             tmp_name = re.sub(r'\(toim.\)', '', tmp_name)
         if '(' in tmp_name:
-            m = re.search(r'(.+)\((.+[^\)])\)?', tmp_name)
+            m = re.search(r'(.+)\((.+[^\)])\)?(\(.+\))?', tmp_name)
             if m:
                 if 'Bachman, Richard' in tmp_name:
                     # Getting to complex to make this name work
@@ -545,11 +545,10 @@ def import_authors(s, names, source=''):
                     is_pseudo = True
                 else:
                     if 'oik.' in m.group(1): # This is a pseudonym
-                        m3 = re.search(r'(?P<alias>.+)\s\(oik.\s(?P<realname>.+)\)', m.group(1))
+                        m3 = re.search(r'(?P<alias>.+)\s\(oik.\s(?P<realname>.*?)\)', m.group(1))
                         is_pseudo = True
                     elif 'oik.' in m.group(2):
-                        m3 = re.search(r'(?P<alias>.+)\s\(oik.\s(?P<realname>.+)\)',
-                                m.group(0))
+                        m3 = re.search(r'(?P<alias>.+)\s\(oik.\s(?P<realname>.*?)\)', m.group(0))
                         is_pseudo = True
                     if is_pseudo and pseudo_name == None:
                         try:
@@ -706,8 +705,11 @@ def import_persons(s, name: str, source: str='') -> List:
     if name == '' or name == '&':
         return []
     for p in name.split('&'):
+        if p.startswith('J. S'):
+            print('foo')
+        p = p.strip()
         p = re.sub(r'\n', '', p.strip())
-        p = re.sub(r'\([^()]*\)', '', p)
+        p = re.sub(r'\s\([^()]*\)', '', p.strip())
         names = p.split(' ')
         # If p only included a single comma names will have
         # two empty strings.
@@ -718,6 +720,10 @@ def import_persons(s, name: str, source: str='') -> List:
         last_name = str(names[-1]).strip()
         name_inv = last_name + ", " + first_name
         alt_name = first_name + ' ' + last_name
+        if name_inv.strip() == ',' or name_inv.strip() == '':
+            continue
+        if name_inv.strip().startswith(','):
+            print('foo')
         person = s.query(Person).filter(Person.name==name_inv).first()
         if not person:
             person = Person(name=name_inv, imported_string=source, first_name=first_name,
