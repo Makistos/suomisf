@@ -18,7 +18,7 @@ def save_genres(session, work, genrefield):
 
 def save_work(session, form, work):
     author = session.query(Person).filter(Person.name ==
-            form.authors.data).first()
+            form.author.data).first()
     work.id = form.id.data
     work.title = form.title.data
     work.pubyear = form.pubyear.data
@@ -231,6 +231,8 @@ def edit_work(workid):
     if request.method == 'GET':
         form.id.data = work.id
         form.title.data = work.title
+        form.subtitle.data = work.subtitle
+        form.orig_title.data = work.orig_title
         if authors:
             form.author.data = ', '.join([a.name for a in authors])
         form.pubyear.data = work.pubyear
@@ -238,8 +240,12 @@ def edit_work(workid):
         if bookseries:
             form.bookseries.data = bookseries.name
         form.bookseriesnum.data = work.bookseriesnum
+        form.bookseriesorder.data = work.bookseriesorder
         form.genre.data = ','.join([x.genre_name for x in work.genres])
+        form.collection.data = work.collection
         form.misc.data = work.misc
+        form.image_src.data = work.image_src
+        form.description.data = work.description
         form.source.data = work.imported_string
 
     if form.validate_on_submit():
@@ -453,7 +459,6 @@ def edition(editionid):
                                 ShortStory.title.label('orig_title'),
                                 ShortStory.pubyear,
                                 ShortStory.language,
-                                ShortStory.genre,
                                 ShortStory.id,
                                 ShortStory.creator_str)\
                          .join(Part)\
