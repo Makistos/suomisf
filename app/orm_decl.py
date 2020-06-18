@@ -37,6 +37,16 @@ class Article(Base):
     # This is for cases where we don't want to add a row
     # to Person table.
     person = Column(String(200))
+    tags = relationship('Tag', secondary='articletag', uselist=True)
+
+
+class ArticleTag(Base):
+    __tablename__ = 'articletag'
+    person_id = Column(Integer, ForeignKey('article.id'),
+            nullable=False, primary_key=True)
+    tag_id = Column(Integer, ForeignKey('tag.id'), nullable=False,
+            primary_key=True)
+
 
 class ArticleAuthor(Base):
     __tablename__ = 'articleauthor'
@@ -135,6 +145,7 @@ class Edition(Base):
     pages = Column(Integer)
     cover = Column(Integer, ForeignKey('covertype.id'))
     binding = Column(Integer, ForeignKey('bindingtype.id'))
+    format = Column(Integer, ForeignKey('format.id'))
     description = Column(String(500))
     artist_id = Column(Integer, ForeignKey('person.id'))
     misc = Column(String(500))
@@ -170,6 +181,11 @@ class Editor(Base):
     edits = relationship("Edition", backref=backref("edition2_assoc"))
     person = relationship("Person", backref=backref("person3_assoc"))
 
+class Format(Base):
+    __tablename__ = 'format'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100))
+
 class Genre(Base):
     __tablename__ = 'genre'
     id = Column(Integer, primary_key=True)
@@ -190,6 +206,7 @@ class Issue(Base):
     size = Column(Integer, ForeignKey('publicationsize.id'))
     link = Column(String(200))
     notes = Column(String(200))
+    tags = relationship('Tag', secondary='issuetag', uselist=True)
 
 class IssueContent(Base):
     __tablename__ = 'issuecontent'
@@ -199,12 +216,28 @@ class IssueContent(Base):
     shortstory_id = Column(Integer, ForeignKey('shortstory.id'))
     title = Column(String(200), nullable=False, index=True)
 
+class IssueTag(Base):
+    __tablename__ = 'issuetag'
+    issue_id = Column(Integer, ForeignKey('issue.id'),
+            nullable=False, primary_key=True)
+    tag_id = Column(Integer, ForeignKey('tag.id'), nullable=False,
+            primary_key=True)
+
 class Magazine(Base):
     __tablename__ = 'magazine'
     id = Column(Integer, primary_key=True)
     name = Column(String(200), nullable=False, index=True)
     publisher_id = Column(Integer, ForeignKey('publisher.id'))
     issn = Column(String(30))
+    tags = relationship('Tag', secondary='magazinetag', uselist=True)
+
+class MagazineTag(Base):
+    __tablename__ = 'magazinetag'
+    magazine_tag = Column(Integer, ForeignKey('magazine.id'),
+            nullable=False, primary_key=True)
+    tag_id = Column(Integer, ForeignKey('tag.id'), nullable=False,
+            primary_key=True)
+
 
 class Part(Base):
     ''' Part is most often representing a short story. So a collection
@@ -281,6 +314,7 @@ class Person(Base):
                 primaryjoin='and_(Person.id == Translator.person_id,\
                 Translator.part_id == Part.id, Part.work_id == Work.id)',
                 uselist=True)
+    tags = relationship('Tag', secondary='persontag', uselist=True)
 
 class PersonLink(Base):
     __tablename__ = 'personlink'
@@ -288,6 +322,21 @@ class PersonLink(Base):
     person_id = Column(Integer, ForeignKey('person.id'), nullable=False)
     link = Column(String(200), nullable=False)
     description = Column(String(100))
+
+class PersonTag(Base):
+    __tablename__ = 'persontag'
+    person_id = Column(Integer, ForeignKey('person.id'),
+            nullable=False, primary_key=True)
+    tag_id = Column(Integer, ForeignKey('tag.id'), nullable=False,
+            primary_key=True)
+
+class Problem(Base):
+    __tablename__ = 'problems'
+    id = Column(Integer, primary_key=True)
+    status = Column(String(20))
+    comment = Column(String(500))
+    tabletype = Column(String(50))
+    table_id = Column(Integer)
 
 class PublicationSize(Base):
     __tablename__ = 'publicationsize'
@@ -339,6 +388,7 @@ class ShortStory(Base):
     creator_str = Column(String(500), index=True)
     parts = relationship('Part', backref=backref('part_assoc'), uselist=True)
     genres = relationship('Genre', secondary='storygenre', uselist=True)
+    tags = relationship('Tag', secondary='storytag', uselist=True)
 
 class StoryGenre(Base):
     __tablename__ = 'storygenre'
@@ -349,10 +399,17 @@ class StoryGenre(Base):
     stories = relationship('ShortStory', backref=backref('story_assoc'))
     genres = relationship('Genre', backref=backref('genre_assoc'))
 
+class StoryTag(Base):
+    __tablename__ = 'storytag'
+    shortstory_id = Column(Integer, ForeignKey('shortstory.id'),
+            nullable=False, primary_key=True)
+    tag_id = Column(Integer, ForeignKey('tag.id'), nullable=False,
+            primary_key=True)
 
 class Tag(Base):
     __tablename__ = 'tag'
     id = Column(Integer, primary_key=True)
+    name = Column(String(50), nullable=False, index=True)
 
 
 class Translator(Base):
@@ -432,6 +489,7 @@ class Work(Base):
     bookseriesnum = Column(String(20))
     bookseriesorder = Column(Integer)
     collection = Column(Boolean)
+    type = Column(Integer, ForeignKey('worktype.id'))
     image_src = Column(String(200))
     description = Column(String(500))
     misc = Column(String(500))
@@ -455,6 +513,7 @@ class Work(Base):
         uselist=False)
     editions = relationship("Edition", secondary='part', uselist=True)
     genres = relationship("Genre", secondary='workgenre', uselist=True)
+    tags = relationship('Tag', secondary='worktag', uselist=True)
 
 class WorkConsists(Base):
     __tablename__ = 'workconsists'
@@ -465,9 +524,10 @@ class WorkConsists(Base):
 
 class WorkGenre(Base):
     __tablename__ = 'workgenre'
-    id = Column(Integer, primary_key=True)
-    work_id = Column(Integer, ForeignKey('work.id'), nullable=False)
-    genre_id = Column(Integer, ForeignKey('genre.id'), nullable=False)
+    work_id = Column(Integer, ForeignKey('work.id'), nullable=False,
+            primary_key=True)
+    genre_id = Column(Integer, ForeignKey('genre.id'), nullable=False,
+            primary_key=True)
 
 class WorkLink(Base):
     __tablename__ = 'worklink'
@@ -476,6 +536,17 @@ class WorkLink(Base):
     link = Column(String(200), nullable=False)
     description = Column(String(100))
 
+class WorkTag(Base):
+    __tablename__ = 'worktag'
+    work_id = Column(Integer, ForeignKey('work.id'), nullable=False,
+            primary_key=True)
+    tag_id = Column(Integer, ForeignKey('tag.id'), nullable=False,
+            primary_key=True)
+
+class WorkType(Base):
+    __tablename__ = 'worktype'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), nullable=False, index=True)
 
 @login.user_loader
 def load_user(id):
