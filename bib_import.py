@@ -705,8 +705,6 @@ def import_persons(s, name: str, source: str='') -> List:
     if name == '' or name == '&':
         return []
     for p in name.split('&'):
-        if p.startswith('J. S'):
-            print('foo')
         p = p.strip()
         p = re.sub(r'\n', '', p.strip())
         p = re.sub(r'\s\([^()]*\)', '', p.strip())
@@ -722,8 +720,6 @@ def import_persons(s, name: str, source: str='') -> List:
         alt_name = first_name + ' ' + last_name
         if name_inv.strip() == ',' or name_inv.strip() == '':
             continue
-        if name_inv.strip().startswith(','):
-            print('foo')
         person = s.query(Person).filter(Person.name==name_inv).first()
         if not person:
             person = Person(name=name_inv, imported_string=source, first_name=first_name,

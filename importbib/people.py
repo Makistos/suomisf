@@ -46,7 +46,7 @@ translators =\
         ('Pertti A. Palo', 'Pertti A.', 'Palo'),
         ('R. Hakamies', 'R.', 'Hakamies'),
         ('R. Sirokov', 'R.', 'Sirokov'),
-        ('R.N.', 'R.', 'N.'),
+        ('R.N', 'R.', 'N.'),
         ('Raimo E. Tikkanen', 'Raimo E.', 'Tikkanen'),
         ('U. Ruhanen', 'U.', 'Ruhanen'),
         ('Unto E. Markkanen', 'Unto E.', 'Markkanen'),
