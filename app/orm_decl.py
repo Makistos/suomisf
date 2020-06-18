@@ -40,14 +40,6 @@ class Article(Base):
     tags = relationship('Tag', secondary='articletag', uselist=True)
 
 
-class ArticleTag(Base):
-    __tablename__ = 'articletag'
-    person_id = Column(Integer, ForeignKey('article.id'),
-            nullable=False, primary_key=True)
-    tag_id = Column(Integer, ForeignKey('tag.id'), nullable=False,
-            primary_key=True)
-
-
 class ArticleAuthor(Base):
     __tablename__ = 'articleauthor'
     article_id = Column(Integer, ForeignKey('article.id'), nullable=False,
@@ -69,6 +61,14 @@ class ArticlePerson(Base):
             primary_key=True)
     person_id = Column(Integer, ForeignKey('person.id'), nullable=False,
             primary_key=True)
+
+class ArticleTag(Base):
+    __tablename__ = 'articletag'
+    article_id = Column(Integer, ForeignKey('article.id'),
+            nullable=False, primary_key=True)
+    tag_id = Column(Integer, ForeignKey('tag.id'), nullable=False,
+            primary_key=True)
+
 
 class Author(Base):
     __tablename__ = 'author'
@@ -233,7 +233,7 @@ class Magazine(Base):
 
 class MagazineTag(Base):
     __tablename__ = 'magazinetag'
-    magazine_tag = Column(Integer, ForeignKey('magazine.id'),
+    magazine_id = Column(Integer, ForeignKey('magazine.id'),
             nullable=False, primary_key=True)
     tag_id = Column(Integer, ForeignKey('tag.id'), nullable=False,
             primary_key=True)

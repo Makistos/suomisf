@@ -41,6 +41,12 @@ Table ArticlePerson {
     (article_id, person_id) [pk]
   }
 }
+
+Table ArticleTag {
+    article_id int [ref: > Article.id]
+    tag_id int [ref: > Tag.id]
+}
+
 Table Author {
         part_id int [not null, ref: > Part.id]
         person_id int [not null, ref: > Person.id]
@@ -109,6 +115,7 @@ Table Edition {
         pages int
         cover int [ref: > CoverType.id]
         binding int [ref: > BindingType.id]
+        format int [ref: > Format.id]
         description varchar
         artist_id int [ref: > Person.id]
         misc varchar
@@ -136,6 +143,11 @@ Table Editor {
 	}
 }	
         
+Table Format {
+    id int [pk, increment]
+    name varchar [not null]
+}
+
 Table Genre {
     id int [pk, increment]
     name varchar
@@ -177,6 +189,11 @@ Table IssueContent {
 	}
 }
 
+Table IssueTag {
+    issue_id int [ref: > Issue.id]
+    tag_id int [ref: > Tag.id]
+}
+
 Table Magazine {
         id int [pk, increment]
         name varchar [not null]
@@ -188,6 +205,11 @@ Table Magazine {
         }
 } 
         
+Table MagazineTag {
+    magazine_id int [ref: > Magazine.id]
+    tag_id int [ref: > Tag.id]
+}
+
 Table Part {
         id int [pk, increment]
         edition_id int [ref: > Edition.id]
@@ -225,6 +247,19 @@ Table PersonLink {
 	person_id int [ref: > Person.id]
 	link varchar [not null]
 	description varchar
+}
+
+Table PersonTag {
+    person_id int [ref: > Person.id]
+    tag_id int [ref: > Tag.id]
+}
+
+Table Problem {
+    id int [pk, increment]
+    status varchar
+    comment varchar
+    tabletype varchar
+    table_id int
 }
 
 Table PublicationSize {
@@ -287,6 +322,11 @@ Table StoryGenre {
         genre_id int [ref: > Genre.id]
 }
         
+Table StoryTag {
+    shortstory_id int [ref: > Shortstory.id]
+    tag_id int [ref: > Tag.id]
+}
+
 Table Tag {
         id int [pk, increment]
         tag varchar [not null]
@@ -356,6 +396,7 @@ Table Work {
         bookseriesnum varchar
         bookseriesorder int
         collection boolean
+        type int [ref: > WorkType.id]
         image_src varchar
         description varchar
         misc varchar
@@ -389,4 +430,12 @@ Table WorkLink {
 	description varchar
 }
 
+Table WorkTag {
+    work_id int [ref: > Work.id]
+    tag_id int [ref: > Tag.id]
+}
 
+Table WorkType {
+    id int [pk, increment]
+    name varchar [not null]
+}
