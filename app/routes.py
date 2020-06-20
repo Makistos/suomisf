@@ -372,7 +372,7 @@ def edit_person(personid):
             form.dod.data = 0
         form.nationality.data = person.nationality
         form.other_names.data = person.other_names
-        person.tags.data = ','.join(person.tags)
+        form.tags.data = ','.join([x.name for x in person.tags])
     if form.validate_on_submit():
         person.name = form.name.data
         person.alt_name = form.alt_name.data
