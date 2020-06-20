@@ -4,7 +4,7 @@ from flask_login import current_user, login_user, logout_user
 from app import app
 from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
 Edition, Pubseries, Bookseries, User, UserBook, ShortStory, UserPubseries,\
-Alias, Genre, WorkGenre
+Alias, Genre, WorkGenre, Tag, PersonTag
 from sqlalchemy import create_engine, desc, func
 from sqlalchemy.orm import sessionmaker
 from app.forms import LoginForm, RegistrationForm, PublisherForm,\
@@ -358,8 +358,10 @@ def edit_person(personid):
     form = PersonForm(request.form)
     if request.method == 'GET':
         form.name.data = person.name
+        form.alt_name.data = person.alt_name
         form.first_name.data = person.first_name
         form.last_name.data = person.last_name
+        form.image_src.data = person.image_src
         if person.dob:
             form.dob.data = person.dob
         else:
@@ -369,18 +371,57 @@ def edit_person(personid):
         else:
             form.dod.data = 0
         form.nationality.data = person.nationality
-        form.image_src.data = person.image_src
+        form.other_names.data = person.other_names
+        person.tags.data = ','.join(person.tags)
     if form.validate_on_submit():
         person.name = form.name.data
+        person.alt_name = form.alt_name.data
         person.first_name = form.first_name.data
         person.last_name = form.last_name.data
+        person.image_src = form.image_src.data
         if form.dob.data != 0:
             person.dob = form.dob.data
         if form.dod.data != 0:
             person.dod = form.dod.data
         person.nationality = form.nationality.data
-        person.image_src = form.image_src.data
+        person.other_names = form.other_names.data
         session.add(person)
+        session.commit()
+        # Get all existing tags for person from db
+        tags = session.query(Tag.name, Tag.id)\
+                      .join(PersonTag)\
+                      .filter(PersonTag.tag_id == Tag.id)\
+                      .filter(PersonTag.person_id == person.id)\
+                      .all()
+        old_tags = {}
+        for tag in tags:
+            old_tags[tag.name] = tag.id
+        new_tags = form.tags.data.split(',')
+        new_tags = [x.strip() for x in new_tags]
+        for tag in old_tags:
+            # Remove any tags removed from list
+            if tag not in new_tags:
+                item = session.query(PersonTag)\
+                              .filter(PersonTag.person_id == person.id)\
+                              .join(Tag)\
+                              .filter(PersonTag.tag_id == Tag.id)\
+                              .filter(Tag.name == tag)\
+                              .first()
+                session.delete(item)
+        session.commit()
+        for tag in new_tags:
+            # Add new tags
+            if tag not in old_tags:
+                tag_item = session.query(Tag).filter(Tag.name == tag).first()
+                if not tag_item:
+                    # Complete new tag in db, add it to Tag table
+                    tag_item = Tag(name=tag)
+                    session.add(tag_item)
+                    session.commit()
+
+                person_tag = PersonTag(person_id = person.id, tag_id =
+                        tag_item.id)
+                session.add(person_tag)
         session.commit()
         return redirect(url_for('person', personid=person.id))
     else:
@@ -735,6 +776,24 @@ def search():
             editions=editions, people=people, stories=stories,
             publishers=publishers, bookseries=bookseries, pubseries=pubseries,
             searchword=searchword)
+
+@app.route('/search_form', methods=["POST", "GET"])
+def search_form():
+    session = new_session()
+
+    form = SearchForm(request.form)
+
+    if request.method == 'GET':
+        form.name = ''
+
+    if form.validate_on_submit():
+        if request.form.post['action'] == '':
+            pass
+        results = {}
+        return redirect(url_for('search_results', results=results))
+
+    return render_template('search_adv.html', form=form)
+
 
 @app.route('/addfavpubcol/<pubseriesid>', methods=["POST", "GET"])
 def addfavpubcol(pubseriesid):
