@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1>{{ award.name }}</h1>
+    <div>Lista sisältää vain sellaiset kirjailijat, joiden teoksia on
+        suomennettu tai teosten ja novellien tapauksessa vain sellaiset,
+        jotka on suomennettu.
+    </div>
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">Vuosi</th>
+                    <th scope="col">Voittaja</th>
+                    <th scope="col">Kategoria</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for awrd in awards %}
+                    <tr><th scope="row">{{ awrd.year }}</th>
+                    {% if awrd.person %}
+                        <td><a href="{{ url_for('person',
+                                personid=awrd.person.id)}}">{{awrd.person.alt_name }}</a>
+                        </td>
+                    {% elif awrd.work %}
+                    <td>{{ awrd.work.creator_str}}: 
+                        <a href="{{url_for('work',
+                                          workid=awrd.work.id)}}">{{awrd.work.title}}</a>
+                        </td>
+                    {% elif awrd.story %}
+                    <td><a href="{{ url_for('story', id=awrd.story.id)}}">{{
+                            awrd.story.title }}</a>
+                    </td>
+                    {% endif %}
+                    <td>{{awrd.category.name}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</div>
+{% endblock %}

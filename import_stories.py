@@ -347,7 +347,6 @@ def import_stories(filename: str, books: Dict = {}):
             if not editions:
                 #print(f'Edition not found: {book[0]} - {book[1]}')
                 continue
-
             # This script assumes that for these books there is a
             # 1:m relationship, i.e. one work for m editions,
             # there are no editions consisting of multiple works.

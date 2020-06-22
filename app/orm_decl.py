@@ -83,16 +83,27 @@ class Award(Base):
     __tablename__ = 'award'
     id = Column(Integer, primary_key=True)
     name = Column(String(100), nullable=False)
-    type = Column(Integer)  # For persons or works/stories
     description = Column(String(500))
+
+class AwardCategory(Base):
+    __tablename__ = 'awardcategory'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50), nullable=False)
 
 class Awarded(Base):
     __tablename__ = 'awarded'
     id = Column(Integer, primary_key=True)
+    year = Column(Integer)
     award_id = Column(Integer, ForeignKey('award.id'))
+    category_id = Column(Integer, ForeignKey('awardcategory.id'))
     person_id = Column(Integer, ForeignKey('person.id'))
     work_id = Column(Integer, ForeignKey('work.id'))
     story_id = Column(Integer, ForeignKey('shortstory.id'))
+    award = relationship('Award', backref=backref('award'))
+    person = relationship('Person', backref=backref('person_award'))
+    work = relationship('Work', backref=backref('work_award'))
+    category = relationship('AwardCategory', backref=backref('awardcategory'))
+    story = relationship('ShortStory', backref=backref('shortstory_award'))
 
 class BindingType(Base):
     __tablename__ = 'bindingtype'
@@ -178,6 +189,7 @@ class Editor(Base):
             primary_key=True)
     person_id = Column(Integer, ForeignKey('person.id'), nullable=False,
             primary_key=True)
+    role = Column(String(100))
     edits = relationship("Edition", backref=backref("edition2_assoc"))
     person = relationship("Person", backref=backref("person3_assoc"))
 
@@ -418,6 +430,7 @@ class Translator(Base):
             primary_key=True)
     person_id = Column(Integer, ForeignKey('person.id'), nullable=False,
             primary_key=True)
+    role = Column(String(100))
     parts = relationship("Part", backref=backref("part2_assoc"))
     person = relationship("Person", backref=backref("person2_assoc"))
 

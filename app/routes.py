@@ -4,7 +4,7 @@ from flask_login import current_user, login_user, logout_user
 from app import app
 from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
 Edition, Pubseries, Bookseries, User, UserBook, ShortStory, UserPubseries,\
-Alias, Genre, WorkGenre, Tag, PersonTag
+Alias, Genre, WorkGenre, Tag, PersonTag, Award, AwardCategory, Awarded
 from sqlalchemy import create_engine, desc, func
 from sqlalchemy.orm import sessionmaker
 from app.forms import LoginForm, RegistrationForm, PublisherForm,\
@@ -91,6 +91,24 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', form=form, title='Tunnuksen luonti')
 
+@app.route('/award/<awardid>')
+def award(awardid):
+    session = new_session()
+
+    award = session.query(Award).filter(Award.id == awardid).first()
+    awards = session.query(Awarded)\
+                    .filter(Awarded.award_id == awardid)\
+                    .all()
+
+    return render_template('award.html', award=award, awards=awards)
+
+@app.route('/awards')
+def awards():
+    session = new_session()
+
+    awards = session.query(Award).all()
+
+    return render_template('awards.html', awards=awards)
 
 @app.route('/stats')
 def stats():

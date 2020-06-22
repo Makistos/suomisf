@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from app.orm_decl import Work, Edition, Part, Person, Author, Translator,\
-Editor, Publisher, Pubseries, Bookseries, User, Genre, Alias, WorkGenre
+Editor, Publisher, Pubseries, Bookseries, User, Genre, Alias, WorkGenre, Award, BindingType, CoverType, Format,\
+Magazine, WorkType, AwardCategory
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from importbib import publishers
@@ -989,6 +990,132 @@ def add_missing_series(session):
         s.add(pubseries)
         s.commit()
 
+def add_default_rows(session):
+
+    s = session()
+    cat = AwardCategory(name='Paras romaani')
+    s.add(cat)
+    s.commit()
+    novel_id = cat.id
+    cat = AwardCategory(name='Paras sf-romaani')
+    s.add(cat)
+    s.commit()
+    sf_id = cat.id
+    cat = AwardCategory(name='Paras fantasiaromaani')
+    s.add(cat)
+    s.commit()
+    fantasy_id = cat.id
+    cat = AwardCategory(name='Paras kauhuromaani')
+    s.add(cat)
+    s.commit()
+    horror_id = cat.id
+    cat = AwardCategory(name='Paras kokoelma')
+    s.add(cat)
+    s.commit()
+    collection_id = cat.id
+    cat = AwardCategory(name='Paras ensiromaani')
+    s.add(cat)
+    s.commit()
+    rookie_id = cat.id
+    cat = AwardCategory(name='Paras nuortenkirja')
+    s.add(cat)
+    s.commit()
+    youth_id = cat.id
+    cat = AwardCategory(name='Paras novelli')
+    s.add(cat)
+    s.commit()
+    story_id = cat.id
+    cat = AwardCategory(name='Paras pienoisromaani')
+    s.add(cat)
+    s.commit()
+    novella_id = cat.id
+    cat = AwardCategory(name='Paras pitkä novelli')
+    s.add(cat)
+    s.commit()
+    novellette_id = cat.id
+    cat = AwardCategory(name='Elämäntyöpalkinto')
+    s.add(cat)
+    s.commit()
+    lifetime_id = cat.id
+
+    award = Award(name='Damon Knight Memorial Grand Master Award',
+                  description='Damon Knight Memorial Grand Master Award on Science Fiction and Fantasy Writers of America -järjestön (SFWA) jakama palkinto. Se jaetaan elämäntyöstä elossa olevalle tieteis- tai fantasiakirjailijalle. Ehdotuksen palkinnon saajasta tekee järjestön puheenjohtaja. Palkinto ei ole varsinaisesti Nebula-palkinto, mutta se luovutetaan samassa palkintogaalassa.')
+    s.add(award)
+
+    award = Award(name='Robert A. Heinlein -palkinto',
+                  description='Robert A. Heinlein -palkinto on Heinlein-yhdistyksen myöntämä tunnustus tieteiskirjallisuudelle.')
+    s.add(award)
+
+    award = Award(name='Hugo',
+                  description='Hugo-palkinto on vuosittain jaettava tieteis- ja fantasiakirjallisuuden palkinto. Palkinto on nimetty Hugo Gernsbackin mukaan. Palkinnot jaetaan useissa eri luokissa. Palkinnon voittajat valitaan vuosittain World Science Fiction Convention -tapahtuman yhteydessä. Palkintojenjakoseremonia on WorldConin päätapahtuma ja sen jäsenet valitsevat sekä voittajan että ehdokkaat Hugo-palkinnon saajaksi. Hugo-palkintoja on jaettu vuodesta 1953 lähtien. ')
+    s.add(award)
+
+    award = Award(name='Nebula',
+                  description='Nebula-palkinto on Science Fiction and Fantasy Writers of American (SFWA) vuosittain jakama palkinto parhaasta Yhdysvalloissa kahden edellisen vuoden aikana julkaistusta tieteis- tai fantasiakirjasta. Palkinto on läpinäkyvä palkki, jossa on kuvattuna kimaltava spiraalitähtisumu eli nebula. Palkintoon ei sisälly rahaa. Nebula-palkintoa pidetään Hugo-palkinnon ohella merkittävimpänä yhdysvaltalaisen tieteiskirjallisuuden palkintona.')
+    s.add(award)
+
+    award = Award(name='Locus',
+                  description='Locus-palkinto on Locus-lehden myöntämä palkinto. Palkinnot jaetaan lehden lukijoiden kyselyn perusteella.')
+    s.add(award)
+
+    award = Award(name='Arthur C. Clarke -palkinto',
+                  description='Arthur C. Clarke -palkinto on vuosittain jaettava brittiläinen tieteiskirjallisuuden palkinto.')
+    s.add(award)
+
+    award = Award(name='British Science Fiction Award',
+                  description='British Science Fiction Award eli BSFA-palkinto on vuosittain myönnettävä kirjallisuuspalkinto tieteiskirjallisuudelle. Palkinto on myönnetty vuodesta 1970 lähtien.')
+    s.add(award)
+
+    award = Award(name='John W. Campbellin muistopalkinto',
+                  description='John W. Campbellin muistopalkinto (engl. John W. Campbell Memorial Award for Best Science Fiction Novel) on vuosittainen tieteiskirjallisuuden palkinto, joka on nimetty Astounding Science Fiction -lehden edesmenneen päätoimittajan John W. Campbellin mukaan. Palkinto annetaan vuoden parhaalle Yhdysvalloissa julkaistulle tieteiskirjalle, ja sitä on jaettu vuodesta 1973 alkaen. Valinnan suorittaa palkintolautakunta.')
+    s.add(award)
+
+    award = Award(name='Theodore Sturgeon -palkinto',
+                  description='Theodore Sturgeonin muistopalkinto on vuosittain myönnettävä palkinto edellisen vuoden parhaalle englanninkieliselle tieteisfiktionovellille.')
+    s.add(award)
+
+    award = Award(name='Sidewise',
+                  description='Sidewise-palkinto vaihtoehtoiselle historialle on 1995 perustettu palkinto tunnustuksena vuoden parhaille vaihtoehtoisen historian teoksille.')
+    s.add(award)
+
+    award = Award(name='Tähtivaeltaja',
+                  description='Tähtivaeltaja-palkinto on Tähtivaeltaja-lehteä julkaisevan Helsingin Science Fiction Seuran jakama palkinto vuoden parhaasta suomeksi ilmestyneestä tieteiskirjasta.')
+    s.add(award)
+
+    award = Award(name='Atorox',
+                  description='Atorox-palkinto on Turun Science Fiction Seura ry:n vuodesta 1983 lähtien vuosittain jakama tieteiskirjallisuuspalkinto, joka myönnetään edellisen vuoden parhaalle kotimaiselle tieteis- tai fantasianovellille.')
+    s.add(award)
+    s.commit()
+
+    bindings = ['', 'Nidottu', 'Sidottu']
+    for binding in bindings:
+        item = BindingType(name=binding)
+        s.add(item)
+    s.commit()
+
+    covers = ['', 'Kovakantinen', 'Pehmytkantinen']
+    for cover in covers:
+        item = CoverType(name=cover)
+        s.add(item)
+    s.commit()
+
+    formats = ['Paperi', 'e-kirja', 'Äänikirja']
+    for format in formats:
+        item = Format(name=format)
+        s.add(item)
+    s.commit()
+
+    magazines = ['Kosmoskynä', 'Portti', 'Spin', 'Tähtivaeltaja']
+    for magazine in magazines:
+        item = Magazine(name=magazine)
+        s.add(item)
+    s.commit()
+
+    worktypes = ['Romaani', 'Kokoelma', 'Sarjakuva']
+    for worktype in worktypes:
+        item = WorkType(name=worktype)
+        s.add(item)
+    s.commit()
 
 def create_admin(session):
     s = session()
@@ -1030,6 +1157,7 @@ def import_all(filelist):
     update_creators(session)
 
     add_missing_series(session)
+    add_default_rows(session)
     create_admin(session)
 
 
