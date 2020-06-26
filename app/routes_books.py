@@ -667,7 +667,6 @@ def story(id):
                           ShortStory.title.label('orig_title'),
                           ShortStory.pubyear,
                           ShortStory.language,
-                          ShortStory.genre,
                           ShortStory.id)\
                    .join(Part)\
                    .filter(Part.shortstory_id == id)\

@@ -1,5 +1,6 @@
 function personlink(name) {
-	return '<a href="/person/' + name + '">' + name + '</a>';
+        var uri = encodeURIComponent(name)
+	return '<a href="/person/' + uri + '">' + name + '</a>';
 }
 
 

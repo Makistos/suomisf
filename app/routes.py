@@ -15,6 +15,7 @@ from flask_sqlalchemy import get_debug_queries
 import json
 import logging
 import pprint
+import urllib
 
 @app.route('/')
 @app.route('/index')
@@ -307,10 +308,12 @@ def editors():
 
 @app.route('/person/<personid>')
 def person(personid):
+    app.logger.info(personid)
     session = new_session()
     if personid.isdigit():
         person = session.query(Person).filter(Person.id == personid).first()
     else:
+        personid = urllib.parse.unquote(personid)
         person = session.query(Person).filter(Person.name == personid).first()
         if not person:
             person = session.query(Person).filter(Person.alt_name == personid).first()
@@ -348,7 +351,7 @@ def person(personid):
                     .group_by(Genre.name)\
                     .all()
 
-    person_awards = session.query(Awarded).filter(Awarded.person_id == personid).all()
+    person_awards = session.query(Awarded).filter(Awarded.person_id == person.id).all()
     novel_awards = session.query(Awarded)\
                           .join(Work)\
                           .filter(Work.id == Awarded.work_id)\
@@ -356,7 +359,7 @@ def person(personid):
                           .filter(Part.work_id == Work.id)\
                           .join(Author)\
                           .filter(Author.part_id == Part.id)\
-                          .filter(Author.person_id == personid)\
+                          .filter(Author.person_id == person.id)\
                           .order_by(Awarded.year)\
                           .all()
 
