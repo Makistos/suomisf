@@ -1042,10 +1042,6 @@ def add_default_rows(session):
                   description='Damon Knight Memorial Grand Master Award on Science Fiction and Fantasy Writers of America -järjestön (SFWA) jakama palkinto. Se jaetaan elämäntyöstä elossa olevalle tieteis- tai fantasiakirjailijalle. Ehdotuksen palkinnon saajasta tekee järjestön puheenjohtaja. Palkinto ei ole varsinaisesti Nebula-palkinto, mutta se luovutetaan samassa palkintogaalassa.')
     s.add(award)
 
-    award = Award(name='Robert A. Heinlein -palkinto',
-                  description='Robert A. Heinlein -palkinto on Heinlein-yhdistyksen myöntämä tunnustus tieteiskirjallisuudelle.')
-    s.add(award)
-
     award = Award(name='Hugo',
                   description='Hugo-palkinto on vuosittain jaettava tieteis- ja fantasiakirjallisuuden palkinto. Palkinto on nimetty Hugo Gernsbackin mukaan. Palkinnot jaetaan useissa eri luokissa. Palkinnon voittajat valitaan vuosittain World Science Fiction Convention -tapahtuman yhteydessä. Palkintojenjakoseremonia on WorldConin päätapahtuma ja sen jäsenet valitsevat sekä voittajan että ehdokkaat Hugo-palkinnon saajaksi. Hugo-palkintoja on jaettu vuodesta 1953 lähtien. ')
     s.add(award)
@@ -1066,14 +1062,6 @@ def add_default_rows(session):
                   description='British Science Fiction Award eli BSFA-palkinto on vuosittain myönnettävä kirjallisuuspalkinto tieteiskirjallisuudelle. Palkinto on myönnetty vuodesta 1970 lähtien.')
     s.add(award)
 
-    award = Award(name='John W. Campbellin muistopalkinto',
-                  description='John W. Campbellin muistopalkinto (engl. John W. Campbell Memorial Award for Best Science Fiction Novel) on vuosittainen tieteiskirjallisuuden palkinto, joka on nimetty Astounding Science Fiction -lehden edesmenneen päätoimittajan John W. Campbellin mukaan. Palkinto annetaan vuoden parhaalle Yhdysvalloissa julkaistulle tieteiskirjalle, ja sitä on jaettu vuodesta 1973 alkaen. Valinnan suorittaa palkintolautakunta.')
-    s.add(award)
-
-    award = Award(name='Theodore Sturgeon -palkinto',
-                  description='Theodore Sturgeonin muistopalkinto on vuosittain myönnettävä palkinto edellisen vuoden parhaalle englanninkieliselle tieteisfiktionovellille.')
-    s.add(award)
-
     award = Award(name='Sidewise',
                   description='Sidewise-palkinto vaihtoehtoiselle historialle on 1995 perustettu palkinto tunnustuksena vuoden parhaille vaihtoehtoisen historian teoksille.')
     s.add(award)
@@ -1082,9 +1070,6 @@ def add_default_rows(session):
                   description='Tähtivaeltaja-palkinto on Tähtivaeltaja-lehteä julkaisevan Helsingin Science Fiction Seuran jakama palkinto vuoden parhaasta suomeksi ilmestyneestä tieteiskirjasta.')
     s.add(award)
 
-    award = Award(name='Atorox',
-                  description='Atorox-palkinto on Turun Science Fiction Seura ry:n vuodesta 1983 lähtien vuosittain jakama tieteiskirjallisuuspalkinto, joka myönnetään edellisen vuoden parhaalle kotimaiselle tieteis- tai fantasianovellille.')
-    s.add(award)
     s.commit()
 
     bindings = ['', 'Nidottu', 'Sidottu']
@@ -1191,9 +1176,7 @@ def insert_showroom():
     person.bio = 'Asimovia pidetään yhtenä merkittävimmistä tieteiskirjailijoista. Hänen nimeään juhlistaa vieläkin Isaac Asimov\'s -niminen tieteiskirjallinen vihkolehti. Hänet on nimetty yhdeksi tieteiskirjallisuuden Grand Mastereista.'
     person.bio_src = 'Wikipedia'
     person.bio_src_url = 'http://www.wikipedia.fi'
-    person.image = 'http://www.isfdb.org/wiki/images/4/47/Isaac_Asimov_on_Throne.png'
-    person.image_src_url = 'http://www.isfdb.org'
-    person.image_src = 'ISFDB'
+    person.image_src = 'http://www.isfdb.org/wiki/images/4/47/Isaac_Asimov_on_Throne.png'
 
     s.add(person)
     s.commit()
