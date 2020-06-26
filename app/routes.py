@@ -348,6 +348,18 @@ def person(personid):
                     .group_by(Genre.name)\
                     .all()
 
+    person_awards = session.query(Awarded).filter(Awarded.person_id == personid).all()
+    novel_awards = session.query(Awarded)\
+                          .join(Work)\
+                          .filter(Work.id == Awarded.work_id)\
+                          .join(Part)\
+                          .filter(Part.work_id == Work.id)\
+                          .join(Author)\
+                          .filter(Author.part_id == Part.id)\
+                          .filter(Author.person_id == personid)\
+                          .order_by(Awarded.year)\
+                          .all()
+
     genre_list = {'SF': '', 'F': '', 'K': '', 'nSF': '', 'nF': '', 'nK': '',
                   'PF': '', 'paleof': '', 'kok': '', 'eiSF': '', 'rajatap': ''}
     for g in genres:
@@ -364,7 +376,8 @@ def person(personid):
     #                    .all()
     return render_template('person.html', person=person, authored=authored,
             translated=translated, edited=edited, stories=stories, genres=genre_list,
-            series=series)
+            series=series, person_awards=person_awards,
+            novel_awards=novel_awards)
 
 @app.route('/edit_person/<personid>', methods=['POST', 'GET'])
 def edit_person(personid):

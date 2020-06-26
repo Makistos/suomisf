@@ -42,10 +42,19 @@
                             {% endfor %}
                         </li>
                         {% endif %}
+                        {% if person.tags %}
                         {% include "_genre_count.html" %}
                         <li class="list-group-item">
                             {{ person.tags|join(', ', attribute='name') }}
                         </li>
+                        {% endif %}
+                        {% if person_awards %}
+                        <li class="list-group-item">
+                            {% for award in person_awards %}
+                            {{ award.award.name}}<br>
+                            {% endfor %}
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -58,6 +67,33 @@
         </blockquote>
         {% endif %}
         <div class="accordion" id="authorCard">
+            {% if novel_awards|length %}
+            <div class="card">
+                <div class="card-header" id="headAwards">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                            data-target="#awards" aria-expanded="false"
+                            aria-controls="awards">
+                            Palkitut teokset
+                        </button>
+                    </h2>
+                    <div id="awards" class="collapse"
+                             aria-labelledby="headAwards"
+                             data-parent="#authorCard">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                {% for award in novel_awards %}
+                                <li class="list-group-item">
+                                    {{ award.year }}: {{ award.work.title }}
+                                    ({{ award.award.name }})
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
             {% if person.works|length %}
             <div class="card">
                 <div class="card-header" id="headAuthoredBooks">
