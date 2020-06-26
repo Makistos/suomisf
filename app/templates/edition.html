@@ -15,7 +15,7 @@
                 {% if current_user.is_admin %} ({{ edition.id }}){% endif %}
             </h3>
 	    {% for work in works %}
-            <a href=" {{ url_for('work', workid=work.id) }}">{{ work.title }}</a>
+            <a href=" {{ url_for('work', workid=work.id) }}">{{ work.orig_title }}</a>
 	    {%- if work.pubyear -%}, {{ work.pubyear }} {% endif %}<br>
 	    {% endfor %}
         </div>
