@@ -623,6 +623,7 @@ def import_authors(s, names, source=''):
             real_first_name = None
             real_last_name = None
         if real_name is not None:
+            # This is a pseudonym so save both the pseudonym and real name.
             person = s.query(Person)\
                       .filter(Person.name==real_name)\
                       .first()
@@ -643,7 +644,7 @@ def import_authors(s, names, source=''):
                     person.dod = dod
             s.add(person)
             s.commit()
-            persons.append(person)
+            #persons.append(person)
             person2 = s.query(Person)\
                        .filter(Person.name==name)\
                        .first()
