@@ -1,9 +1,8 @@
-# This file includes the editions for any more complex work - edition relations that 1:1, e.g. any work that was split into two parts when published in Finnish. IDs are only references from works.csv, not used in the database. Comma is used to separate entities in works and translators.;;;;;;;;
 #Works;Title;Ed#;Publisher;Pubyear;Pubseries;Ps#;Translators;Misc
 1;Rakkaani, kyyhkyläiseni;1;Otava;1961;;;Pentti Saarikoski;
 1;Rakkaani, kyyhkyläiseni;3;Otava;1979;Kolmen tähden sarja;;Pentti Saarikoski;
 2;Joku kaltaisesi;1;Otava;1970;;;Pentti Saarikoski;
-1,2;Joku kaltaisesi & Rakkaani, kyyhkyläiseni;2;Suuri Suomalainen Kirjakerho;1971;;;Pentti Saarikoski;
+1.2;Joku kaltaisesi & Rakkaani, kyyhkyläiseni;2;Suuri Suomalainen Kirjakerho;1971;;;Pentti Saarikoski;
 13;Nahka ja muita novelleja;1;Otava;2007;Keskiyön kirjasto;4;Pentti Saarikoski;"Novellit ilmestyneet aikaisemmin kokoelmissa ""Rakkaani, kyyhkyläiseni"" ja ""Joku kaltaisesi"")."
 3;Dyyni, ensimmäinen osa;1;WSOY;1982;Sci-fi -sarja;;Anja Toivonen;
 3;Dyyni, toinen osa;1;WSOY;1983;Sci-fi -sarja;;Anja Toivonen;
@@ -12,14 +11,67 @@
 4;Anubiksen portit II;1;Kirjayhtymä;1993;Kirjayhtymän science fiction -sarja;;Jukka Jääskeläinen;
 5,6,7;Tripodien aika 1-3;1;WSOY;1987;;;Antti Mäyrälä;
 8,9,10;Pimeä nousee I-III;3;WSOY;2009;;;Kristiina Rikman;
-11,12;Pimeä nousee IV-V;3;WSOY;2009;;;Kristiina Rikman;
+11.12;Pimeä nousee IV-V;3;WSOY;2009;;;Kristiina Rikman;
 14;Ikuinen kaupunki I;1;Otava;1901;Otavan romaanisarja;11;Aune Malmberg;
 14;Ikuinen kaupunki II;1;Otava;1902;Otavan romaanisarja;11;Aune Malmberg;
 14;Ikuinen kaupunki III;1;Otava;1902;Otavan romaanisarja;11;Aune Malmberg;
 14;Ikuinen kaupunki IV;1;Otava;1902;Otavan romaanisarja;11;Aune Malmberg;
 14;Ikuinen kaupunki;2;Otava;1909;;;Aune Malmberg;3 osaa yhtenä niteenä
 14;Ikuinen kaupunki;3;Otava;1926;Otavan romaanisarja;11;Aune Malmberg;Tarkistettu suomennos
-15,16;1Q84, osat 1-2;1;Tammi;2013;Keltainen kirjasto;444;Aleksi Milonoff;Suomennettu englannista
+15.16;1Q84, osat 1-2;1;Tammi;2013;Keltainen kirjasto;444;Aleksi Milonoff;Suomennettu englannista
 17;1Q84, osa 3;1;Tammi;2013;Keltainen kirjasto;448;Aleksi Milonoff;Suomennettu englannista
 18;Narrenturm, osa 1;1;WSOY;2018;;;Tapani Kärkkäinen;
 18;Narrenturm, osa 2;1;WSOY;2019;;;Tapani Kärkkäinen;
+19;Thelma I;1;Karisto;1915;Kariston 50 p:n romaaneja;51;Jalmari Sauli;
+19;Thelma II;1;Karisto;1915;Kariston 50 p:n romaaneja;52;Jalmari Sauli;
+19;Thelma III;1;Karisto;1915;Kariston 50 p:n romaaneja;53;Jalmari Sauli;
+19;Thelma IV;1;Karisto;1915;Kariston 50 p:n romaaneja;54;Jalmari Sauli;
+19;Thelma;2;Karisto;1922;Marie Corellin romaanit;2;Jalmari Sauli;
+19;Thelma. Edellinen osa;3;Karisto;1938;Kariston 10 mkan romaaneja;18;Jalmari Sauli;
+19;Thelma. Jälkimmäinen osa;3;Karisto;1938;Kariston 10 mkan romaaneja;19;Jalmari Sauli;
+20;Verikosto eli unohdetun kertomus;1;V. Andelin;1899;;;Väinö Andelin;
+20;Verikosto eli unohdetun kertomus I;2;Karisto;1917;Kariston 50 p:n romaaneja;91;V Hämeen-Anttila;
+20;Verikosto eli unohdetun kertomus II;2;Karisto;1917;Kariston 50 p:n romaaneja;92;V Hämeen-Anttila;
+20;Verikosto eli unohdetun kertomus III;2;Karisto;1917;Kariston 50 p:n romaaneja;93;V Hämeen-Anttila;
+20;Verikosto eli unohdetun kertomus IV;2;Karisto;1917;Kariston 50 p:n romaaneja;94;V Hämeen-Anttila;
+21,22;Kaksi kertomusta – Jouluilta & Uuudenvuoden kellot;1;Karisto;1972;;;Kari Jalonen & Werner Anttila;
+23,24,25;Nälkäpeli 1-3;1;WSOY;2012;;;Helene Bützow;
+26,27;Aivot & Kuume;1;Gummerus;1991;;;Anja Haglund & Marja Heinonen;
+28,29;Virus & Tahdon valtiaat;1;Gummerus;1992;;;Jukka Jääskeläinen;
+30,31;Jumalat janoavat & Enkelten kapina;1;Karisto;1979;Kotien suurromaanit;;Tuula Helasti;
+32,33;Luolamiehen pojat;1;Valistus;1970;;;;
+34,35,36,37;Myytikin taru;1;Porvoon julmapaino;2004;;;;
+38,39,40,41,42,43,44;Narnia – kaikki tarinat;1;Otava;2005;;;Kaarina Helakisa & Kyllikki Hämäläinen;
+46,47,48,49;Kummitusperhe Kammoset - Kummittelua koko vuosi;1;Otava;2017;;;;
+49,50;Pikku Vampyyri matkalla;1;Otava;2010;;;Leena Viljakainen;
+51,52;Ystäväni Pikku Vampyyri;1;Otava;2010;;;Leena Viljakainen;
+53,54,55,56,57;" Titanin seireenit; Äiti yö; Kissan kehto; Jumala teitä siunatkoon, herra Rosewater eli Helmiä sioille; Teurastamo 5 eli Lasten ristiretki";1;Tammi;1988;Isot keltaiset-sarja;;Marjatta Kapari & Matti Santalahti & Juhani Jaskari;
+58,59;Aikakone – Maailmojen sota;1;Kirjayhtymä;1979;Kirjayhtymän science fiction -sarja;;Matti Kannosto;
+60,61,62,63,64;Linnunrata – viisiosainen trilogia;1;WSOY;1997;;;Pekka Markkula & Jukka Saarikivi;
+65;Tigana. Osa 1 – Sieluun isketty tikari;1;Karisto;2003;;;Leena Peltonen;Luvut 1-12
+65;Tigana. Osa 2 – Verenperinnön hinta;1;Karisto;2003;;;Leena Peltonen;Luvut 13-epilogi
+66;Vaarojen taival;1;Karisto;1996;;;Marja Sinkkonen;Luvut 1-23
+66;Maailmansilmä;1;Karisto;1997;;;Marja Sinkkonen;Luvut 24-53
+67;Valeren torvi;1;Karisto;1997;;;Marja Sinkkonen;Luvut 1-24
+67;Lohikäärmeviiri;1;Karisto;1998;;;Marja Sinkkonen;Luvut 25-50
+68;Tornin salaisuus;1;Karisto;1998;;;Marja Sinkkonen;Luvut 1-29
+68;Callandor;1;Karisto;1999;;;Marja Sinkkonen;Luvut 30-56
+69;Pimeän varjo;1;Karisto;1999;;;Marja Sinkkonen;Luvut 1-21
+69;Lohikäärme herää;1;Karisto;2000;;;Susanna Paarma;Luvut 22-39
+69;Kultasilmä;1;Karisto;2000;;;Susanna Paarma;Luvut 40-58
+70;Taivaan tulet;1;Karisto;2000;;;Susanna Paarma;Luvut 1-19
+70;Hopeinen nuoli;1;Karisto;2001;;;Susanna Paarma;Luvut 20-40
+70;Sotaherra;1;Karisto;2001;;;Susanna Paarma;Luvut 41-56
+71;Kaaoksen valtias;1;Karisto;2002;;;Susanna Paarma;Luvut 1-11
+71;Lähettiläät;1;Karisto;2002;;;Susanna Paarma;Luvut 12-35
+71;Mustan tornin miehet;1;Karisto;2002;;;Susanna Paarma;Luvut 36-55
+72;Keulakuva;1;Karisto;2003;;;Susanna Paarma;Luvut 1-17
+72;Miekkojen kruunu;1;Karisto;2003;;;Susanna Paarma;Luvut 18-41
+73;Tuulten kulho;1;Karisto;2004;;;Susanna Paarma;Luvut prologi-14
+73;Tikaripolku;1;Karisto;2005;;;Susanna Paarma;Luvut 15-31
+74;Sydäntalvi;1;Karisto;2005;;;Susanna Paarma;Luvut prologi-13
+74;Yhdeksän kuun tytär;1;Karisto;2005;;;Susanna Paarma;Luvut 14-35
+75;Hämärän tienhaara;1;Karisto;2006;;;Susanna Paarma;Luvut prologi-15
+75;Vainajien kaupunki;1;Karisto;2006;;;Susanna Paarma;Luvut 16-epilogi
+76;Unten veitsi;1;Karisto;2007;;;Susanna Paarma;Luvut prologi-17
+76;Käsipuoli;1;Karisto;2007;;;Susanna Paarma;Luvut 18-epilogi
