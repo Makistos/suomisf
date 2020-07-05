@@ -1,7 +1,7 @@
 from app import app
 from flask import Flask
 from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
-Edition, Pubseries, Bookseries, User, UserBook, Genre, ShortStory
+Edition, Pubseries, Bookseries, User, UserBook, Genre, ShortStory, WorkGenre
 from flask import render_template, request, flash, redirect, url_for, make_response
 from app.forms import WorkForm, EditionForm, WorkAuthorForm
 from .route_helpers import *
@@ -73,9 +73,11 @@ def books_by_genre(genre):
     session = new_session()
 
     works = session.query(Work)\
+                   .join(WorkGenre)\
+                   .filter(WorkGenre.work_id == Work.id)\
                    .join(Genre)\
-                   .filter(Genre.workid == Work.id)\
-                   .filter(Genre.genre_name == genre)\
+                   .filter(Genre.id == WorkGenre.genre_id)\
+                   .filter(Genre.name == genre)\
                    .all()
     return render_template('books.html', works=works)
 
