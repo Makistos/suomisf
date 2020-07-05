@@ -366,7 +366,7 @@ Autero, Jaska
 Kostaja (1944) [Num:Ke]
 
 
-Bagge, Tapani
+Bagge, (Juha) Tapani
 -------------
 Kaulapanta (2013) [Num:Kp]
 Pieni mattosarja (2010) [Laa:Kp]
@@ -3002,7 +3002,7 @@ Salaisuus vahassa (2017) [Ala:Vl]
 Viides tiedekunta (2016) [Kar:St] 
 
 
-Sinisalo, Johanna
+Sinisalo, Aila Johanna
 -----------------
 Baby Doll (2002) [Sin:Kk]
 Etiäinen (2001) [Sin:Kk]
