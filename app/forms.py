@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField,\
-IntegerField, SelectField, HiddenField
+IntegerField, SelectField, HiddenField, RadioField, TextAreaField,\
+SelectMultipleField
 from wtforms.validators import DataRequired, ValidationError, EqualTo, Optional
 from app.orm_decl import User
 from sqlalchemy import create_engine
@@ -43,17 +44,22 @@ class UserForm(FlaskForm):
 
 class WorkForm(FlaskForm):
     id = HiddenField('id')
-    title = StringField('Nimeke', validators=[DataRequired()])
     author = StringField('Kirjoittaja(t)', validators=[DataRequired()])
+    title = StringField('Nimeke', validators=[DataRequired()])
+    subtitle = StringField('Alaotsikko')
+    orig_title = StringField('Alkuperäinen nimi')
     editors = StringField('Toimittaja(t)')
     pubyear = IntegerField('Julkaisuvuosi', validators=[Optional()])
     language = StringField('Kieli')
     bookseries = StringField('Kirjasarja')
     bookseriesnum = StringField('Sarjanumero')
+    bookseriesorder = IntegerField('Järjestys sarjassa')
     genre = StringField('Genre')
+    collection = RadioField('Kokoelma')
     misc = StringField('Muuta')
-    source = StringField('Lähde')
     image_src = StringField('Kuva')
+    description = TextAreaField('Kuvaus')
+    source = StringField('Lähde')
     submit = SubmitField('Tallenna')
 
 class WorkAuthorForm(FlaskForm):
@@ -81,13 +87,16 @@ class EditionForm(FlaskForm):
 
 class PersonForm(FlaskForm):
     id = HiddenField('id')
-    name = StringField('Koko nimi')
+    name = StringField('Kirjailjanimi')
+    alt_name = StringField('Koko nimi')
     first_name = StringField('Etunimi')
     last_name = StringField('Sukunimi')
+    image_src = StringField('Kuva')
     dob = IntegerField('Syntymävuosi', validators=[Optional()])
     dod = IntegerField('Kuolinvuosi', validators=[Optional()])
     nationality = StringField('Kansallisuus')
-    image_src = StringField('Kuva')
+    other_names = StringField('Vaihtoehtoiset nimen kirjoitusasut')
+    tags = StringField('Aihetunnisteet')
     submit = SubmitField('Tallenna')
 
 class PublisherForm(FlaskForm):
@@ -112,3 +121,23 @@ class BookseriesForm(FlaskForm):
     important = BooleanField('Merkittävä')
     submit = SubmitField('Tallenna')
 
+class SearchForm(FlaskForm):
+    work_name = StringField('Nimi')
+    work_origname = StringField('Alkup. nimi')
+    work_pubyear_after = IntegerField('Julk. vuosi aikaisintaan')
+    work_pubyear_before = IntegerField('Julk. vuosi viimeistään')
+    work_genre = SelectMultipleField('Genre')
+    work_tag = StringField('Aihetunnistin')
+
+    edition_name = StringField('Nimi')
+    edition_pubyear_after = IntegerField('Julk. vuosi aikaisintaan')
+    edition_pubyear_before = IntegerField('Julk. vuosi viimeistään')
+    edition_editionnum = IntegerField('Painos')
+
+    author_name = StringField('Nimi')
+    author_dob_after = IntegerField('Syntymävuosi aikaisintaan')
+    author_dob_before = IntegerField('Syntymävuosi viimeistään')
+    author_nationality = SelectMultipleField('Kansallisuus')
+    author_alive = SelectField('Elossa')
+
+    submit = SubmitField('Hae')
