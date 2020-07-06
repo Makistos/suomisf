@@ -126,7 +126,7 @@ class SearchForm(FlaskForm):
     work_origname = StringField('Alkup. nimi')
     work_pubyear_after = IntegerField('Julk. vuosi aikaisintaan')
     work_pubyear_before = IntegerField('Julk. vuosi viimeistään')
-    work_genre = SelectMultipleField('Genre')
+    work_genre = SelectMultipleField('Genre', default=0)
     work_tag = StringField('Aihetunnistin')
 
     edition_name = StringField('Nimi')
@@ -137,7 +137,7 @@ class SearchForm(FlaskForm):
     author_name = StringField('Nimi')
     author_dob_after = IntegerField('Syntymävuosi aikaisintaan')
     author_dob_before = IntegerField('Syntymävuosi viimeistään')
-    author_nationality = SelectMultipleField('Kansallisuus')
+    author_nationality = SelectMultipleField('Kansallisuus', default=0)
     author_alive = SelectField('Elossa')
 
     submit = SubmitField('Hae')

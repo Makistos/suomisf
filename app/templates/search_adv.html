@@ -44,12 +44,9 @@ kaikki nimet, joissa esiintyy sana "käsikirja" jossain kohtaa.
         {{ render_field(form.author_name, size=30) }}
         {{ render_field(form.author_dob_after, size=4) }}
         {{ render_field(form.author_dob_before, size=4) }}
-        <p>
-        {#
-        {{ form.author_alive.label }}
-        {{ form.author_alive }}
-        #}
-        </p>
+        {{ render_field(form.author_nationality, size=10,
+        choices=nationalities) }}
+        {# {{ render_field(form.author_alive, size=3) }} #}
 
         <p>{{ form.submit() }}</p>
 </form>

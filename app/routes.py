@@ -817,10 +817,6 @@ def search_form():
 
     form = SearchForm(request.form)
 
-    alive_choices = [('na', 'Ei väliä'),
-                     ('true', 'Kyllä'),
-                     ('false', 'Ei')]
-
     if request.method == 'GET':
         form.name = ''
 
@@ -841,8 +837,11 @@ def search_form():
             query = query.filter(Work.pubyear >= form.work_pubyear_after.data)
         if form.work_pubyear_before.data is not None:
             query = query.filter(Work.pubyear <= form.work_pubyear_before.data)
-        if form.work_genre.data is not None:
-            query = query.filter(Genre.abbr == form.work_genre.data[0])
+        if (form.work_genre.data is not None and len(form.work_genre.data) > 0):
+            app.logger.debug(form.work_genre.data)
+            if form.work_genre.data[0] != '':
+                query = query.filter(Genre.abbr.in_([x for x in
+                                                     form.work_genre.data]))
 
         if form.edition_name.data != '':
             query = query.filter(Edition.title.ilike(form.edition_name.data))
@@ -859,8 +858,18 @@ def search_form():
             query = query.filter(Person.dob >= form.author_dob_after.data)
         if form.author_dob_before.data is not None:
             query = query.filter(Person.dob <= form.author_dob_before.data)
-        if form.author_alive.data is not None:
-            pass
+        if (form.author_nationality.data is not None and
+            len(form.author_nationality.data) > 0):
+            if form.author_nationality.data[0] != '':
+                query = query.filter(Person.nationality.in_([x for x in
+                                                            form.author_nationality.data]))
+        if (form.author_alive.data is not None and
+            len(form.author_alive.data) > 0):
+            if form.author_alive.data[0] != '':
+                if form.author_alive.data[0] == 'true':
+                    query = query.filter(Person.dod == None)
+                if form.author_alive.data[0] == 'false':
+                    query = query.filter(Perdon.dod != None)
 
         query = query.order_by(Work.creator_str)
         works = query.all()
@@ -868,7 +877,8 @@ def search_form():
         return render_template('books.html',
                                works=works)
 
-    form.work_genre.choices = [('F', 'Fantasia'),
+    form.work_genre.choices = [('none', ''),
+                               ('F', 'Fantasia'),
                                ('K', 'Kauhu'),
                                ('nF', 'Nuorten fantasia'),
                                ('nK', 'Nuorten kauhu'),
@@ -881,8 +891,26 @@ def search_form():
                                ('rajatap', 'Rajatapaus'),
                                ('eiSF', 'Ei science fictionia')]
 
+    nationalities = session.query(Person.nationality)\
+                           .distinct(Person.nationality)\
+                           .order_by(Person.nationality)\
+                           .all()
+
+    nat_choices = [('none', '')] +[(x.nationality, x.nationality) for x in
+                                      nationalities if x.nationality is not None]
+    form.author_nationality.choices = nat_choices
+
+    alive_choices = [('na', 'Ei väliä'),
+                     ('true', 'Kyllä'),
+                     ('false', 'Ei')]
+
+    form.author_alive.choices = alive_choices
+    #form.author_nationality.choices = [(x.nationality, x.nationality) for x in
+    #                                   nationalities if x.nationality is not
+    #                                   None]
+
     return render_template('search_adv.html',
-                           form=form)
+                           form=form, nationalities=nat_choices)
 
 
 @app.route('/addfavpubcol/<pubseriesid>', methods=["POST", "GET"])
