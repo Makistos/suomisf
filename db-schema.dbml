@@ -3,7 +3,7 @@ Table Alias {
         realname int [ref: > Person.id]
 	
 	indexes {
-		(alias, real_name) [pk]
+		(alias, realname) [pk]
 	}
 }	
         
@@ -200,7 +200,7 @@ Table Magazine {
         publisher_id int [ref: > Publisher.id]
         issn varchar
     
-        indexex {
+        indexes {
             name
         }
 } 
@@ -323,7 +323,7 @@ Table StoryGenre {
 }
         
 Table StoryTag {
-    shortstory_id int [ref: > Shortstory.id]
+    shortstory_id int [ref: > ShortStory.id]
     tag_id int [ref: > Tag.id]
 }
 
@@ -439,3 +439,5 @@ Table WorkType {
     id int [pk, increment]
     name varchar [not null]
 }
+
+
