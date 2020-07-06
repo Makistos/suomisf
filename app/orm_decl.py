@@ -524,7 +524,8 @@ class Work(Base):
     parts = relationship('Part', backref=backref('part', uselist=True))
     bookseries = relationship("Bookseries", backref=backref('bookseries'),
         uselist=False)
-    editions = relationship("Edition", secondary='part', uselist=True)
+    editions = relationship('Edition', secondary='part', uselist=True,
+                            lazy='dynamic')
     genres = relationship("Genre", secondary='workgenre', uselist=True)
     tags = relationship('Tag', secondary='worktag', uselist=True)
 
