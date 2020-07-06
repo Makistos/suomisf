@@ -22,15 +22,16 @@
 {% else %}
 <h1>Kirjat</h1>
 {% endif %}
+<div>Yhteensä <b>{{ works|length }}</b> kirjaa</div>
 {% for author in works|groupby(attribute='creator_str') %}
 <h2><span class="person-list">{{author.grouper}}</span></h2>
     {% for work in author.list %}
 	{% include "_work.html" %}
-        {#{% for edition in work.editions %}
+        {% for edition in work.editions %}
         {% if edition.editionnum > 1 %}
 		{% include "_otheredition.html" %}
             {% endif %}
-            {% endfor %}#}
+            {% endfor %}
     {% endfor %}
 {% endfor %}
 

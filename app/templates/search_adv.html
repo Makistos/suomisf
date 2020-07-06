@@ -15,6 +15,12 @@
     </dd>
 
 {% endmacro %}
+
+<p>
+Voit käyttää prosenttimerkkiä (%) tekstikentissä jokerimerkkinä. Esimerkiksi
+dyyni% hakee kaikki nimet, jotka alkavat sanalla "dyyni" ja %käsikirja% etsii
+kaikki nimet, joissa esiintyy sana "käsikirja" jossain kohtaa.
+</p>
 <form action="" method=post>
         {{ form.hidden_tag() }}
         <h2>Teos</h2>
@@ -23,9 +29,9 @@
         {{ render_field(form.work_pubyear_after, size=4) }}
         {{ render_field(form.work_pubyear_before, size=4) }}
 
-        {#       {{ form.work_genre.label }}
-        {{ form.work_genre }}
-        #}
+        
+        {{ render_field(form.work_genre, size=10, choices=genre_choices)}}
+        
 
         <h2>Painos</h2>
         <p>

@@ -830,18 +830,22 @@ def search_form():
                      .join(Edition, Part.edition_id == Edition.id)\
                      .filter(Part.shortstory_id == None)\
                      .join(Author, Author.part_id == Part.id)\
-                     .join(Person, Person.id == Author.person_id)
-        if form.work_name.data is not None:
-            query = query.filter(Work.title.ilike('%' + form.work_name.data + '%'))
-        if form.work_origname.data is not None:
-            query = query.filter(Work.orig_title.ilike('%' + form.work_origname.data + '%'))
+                     .join(Person, Person.id == Author.person_id)\
+                     .join(WorkGenre, WorkGenre.work_id == Work.id)\
+                     .join(Genre, Genre.id == WorkGenre.genre_id)
+        if form.work_name.data != '':
+            query = query.filter(Work.title.ilike(form.work_name.data))
+        if form.work_origname.data != '':
+            query = query.filter(Work.orig_title.ilike(form.work_origname.data))
         if form.work_pubyear_after.data is not None:
             query = query.filter(Work.pubyear >= form.work_pubyear_after.data)
         if form.work_pubyear_before.data is not None:
             query = query.filter(Work.pubyear <= form.work_pubyear_before.data)
+        if form.work_genre.data is not None:
+            query = query.filter(Genre.abbr == form.work_genre.data[0])
 
-        if form.edition_name.data is not None:
-            query = query.filter(Edition.title.ilike('%' + form.edition_name.data + '%'))
+        if form.edition_name.data != '':
+            query = query.filter(Edition.title.ilike(form.edition_name.data))
         if form.edition_pubyear_after.data is not None:
             query = query.filter(Edition.pubyear >= form.edition_pubyear_after.data)
         if form.edition_pubyear_before.data is not None:
@@ -849,8 +853,8 @@ def search_form():
         if form.edition_editionnum.data is not None:
             query = query.filter(Edition.editionnum == form.edition_editionnum.data)
 
-        if form.author_name.data is not None:
-            query = query.filter(Person.name.ilike('%' + form.author_name.data + '%'))
+        if form.author_name.data != '':
+            query = query.filter(Person.name.ilike(form.author_name.data))
         if form.author_dob_after.data is not None:
             query = query.filter(Person.dob >= form.author_dob_after.data)
         if form.author_dob_before.data is not None:
@@ -861,9 +865,24 @@ def search_form():
         query = query.order_by(Work.creator_str)
         works = query.all()
 
-        return render_template('books.html', works=works)
+        return render_template('books.html',
+                               works=works)
 
-    return render_template('search_adv.html', form=form)
+    form.work_genre.choices = [('F', 'Fantasia'),
+                               ('K', 'Kauhu'),
+                               ('nF', 'Nuorten fantasia'),
+                               ('nK', 'Nuorten kauhu'),
+                               ('nSF', 'Nuorten science fiction'),
+                               ('Paleof', 'Paleofantasia'),
+                               ('PF', 'Poliittinen fiktio'),
+                               ('SF', 'Science Fiction'),
+                               ('VEH', 'Vaihtoehtoishistoria'),
+                               ('kok', 'Kokoelmat'),
+                               ('rajatap', 'Rajatapaus'),
+                               ('eiSF', 'Ei science fictionia')]
+
+    return render_template('search_adv.html',
+                           form=form)
 
 
 @app.route('/addfavpubcol/<pubseriesid>', methods=["POST", "GET"])
