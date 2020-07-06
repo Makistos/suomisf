@@ -839,7 +839,8 @@ def search_form():
             query = query.filter(Work.pubyear <= form.work_pubyear_before.data)
         if (form.work_genre.data is not None and len(form.work_genre.data) > 0):
             app.logger.debug(form.work_genre.data)
-            if form.work_genre.data[0] != '':
+            if (form.work_genre.data[0] != '' and
+                form.work_genre.data[0] != 'none'):
                 query = query.filter(Genre.abbr.in_([x for x in
                                                      form.work_genre.data]))
 
@@ -860,7 +861,8 @@ def search_form():
             query = query.filter(Person.dob <= form.author_dob_before.data)
         if (form.author_nationality.data is not None and
             len(form.author_nationality.data) > 0):
-            if form.author_nationality.data[0] != '':
+            if (form.author_nationality.data[0] != '' and
+                form.author_nationality.data[0] != 'none'):
                 query = query.filter(Person.nationality.in_([x for x in
                                                             form.author_nationality.data]))
         if (form.author_alive.data is not None and
