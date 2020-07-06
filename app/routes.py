@@ -8,7 +8,7 @@ Alias, Genre, WorkGenre, Tag, PersonTag, Award, AwardCategory, Awarded
 from sqlalchemy import create_engine, desc, func
 from sqlalchemy.orm import sessionmaker
 from app.forms import LoginForm, RegistrationForm, PublisherForm,\
-PubseriesForm, PersonForm, BookseriesForm, UserForm
+PubseriesForm, PersonForm, BookseriesForm, UserForm, SearchForm
 from .route_helpers import *
 #from app.forms import BookForm
 from flask_sqlalchemy import get_debug_queries
@@ -817,14 +817,51 @@ def search_form():
 
     form = SearchForm(request.form)
 
+    alive_choices = [('na', 'Ei väliä'),
+                     ('true', 'Kyllä'),
+                     ('false', 'Ei')]
+
     if request.method == 'GET':
         form.name = ''
 
-    if form.validate_on_submit():
-        if request.form.post['action'] == '':
+    if request.method == 'POST':
+        query = session.query(Work)
+        query = query.join(Part, Part.work_id == Work.id)\
+                     .join(Edition, Part.edition_id == Edition.id)\
+                     .filter(Part.shortstory_id == None)\
+                     .join(Author, Author.part_id == Part.id)\
+                     .join(Person, Person.id == Author.person_id)
+        if form.work_name.data is not None:
+            query = query.filter(Work.title.ilike('%' + form.work_name.data + '%'))
+        if form.work_origname.data is not None:
+            query = query.filter(Work.orig_title.ilike('%' + form.work_origname.data + '%'))
+        if form.work_pubyear_after.data is not None:
+            query = query.filter(Work.pubyear >= form.work_pubyear_after.data)
+        if form.work_pubyear_before.data is not None:
+            query = query.filter(Work.pubyear <= form.work_pubyear_before.data)
+
+        if form.edition_name.data is not None:
+            query = query.filter(Edition.title.ilike('%' + form.edition_name.data + '%'))
+        if form.edition_pubyear_after.data is not None:
+            query = query.filter(Edition.pubyear >= form.edition_pubyear_after.data)
+        if form.edition_pubyear_before.data is not None:
+            query = query.filter(Edition.pubyear <= form.edition_pubyear_before.data)
+        if form.edition_editionnum.data is not None:
+            query = query.filter(Edition.editionnum == form.edition_editionnum.data)
+
+        if form.author_name.data is not None:
+            query = query.filter(Person.name.ilike('%' + form.author_name.data + '%'))
+        if form.author_dob_after.data is not None:
+            query = query.filter(Person.dob >= form.author_dob_after.data)
+        if form.author_dob_before.data is not None:
+            query = query.filter(Person.dob <= form.author_dob_before.data)
+        if form.author_alive.data is not None:
             pass
-        results = {}
-        return redirect(url_for('search_results', results=results))
+
+        query = query.order_by(Work.creator_str)
+        works = query.all()
+
+        return render_template('books.html', works=works)
 
     return render_template('search_adv.html', form=form)
 
