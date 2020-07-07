@@ -124,20 +124,18 @@ class BookseriesForm(FlaskForm):
 class SearchForm(FlaskForm):
     work_name = StringField('Nimi')
     work_origname = StringField('Alkup. nimi')
-    work_pubyear_after = IntegerField('Julk. vuosi aikaisintaan')
-    work_pubyear_before = IntegerField('Julk. vuosi viimeistään')
+    work_pubyear_after = IntegerField('Alkuperäinen julkaisuvuosi aikaisintaan')
+    work_pubyear_before = IntegerField('Alkuperäinen julkaisuvuosi viimeistään')
     work_genre = SelectMultipleField('Genre', default=0)
     work_tag = StringField('Aihetunnistin')
 
-    edition_name = StringField('Nimi')
-    edition_pubyear_after = IntegerField('Julk. vuosi aikaisintaan')
-    edition_pubyear_before = IntegerField('Julk. vuosi viimeistään')
+    edition_pubyear_after = IntegerField('Suomalaisen julkaisun vuosi aikaisintaan')
+    edition_pubyear_before = IntegerField('Suomalaisen julkaisun vuosi viimeistään')
     edition_editionnum = IntegerField('Painos')
 
     author_name = StringField('Nimi')
     author_dob_after = IntegerField('Syntymävuosi aikaisintaan')
     author_dob_before = IntegerField('Syntymävuosi viimeistään')
     author_nationality = SelectMultipleField('Kansallisuus', default=0)
-    author_alive = SelectField('Elossa')
 
     submit = SubmitField('Hae')

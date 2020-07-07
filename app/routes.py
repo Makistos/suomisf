@@ -844,8 +844,6 @@ def search_form():
                 query = query.filter(Genre.abbr.in_([x for x in
                                                      form.work_genre.data]))
 
-        if form.edition_name.data != '':
-            query = query.filter(Edition.title.ilike(form.edition_name.data))
         if form.edition_pubyear_after.data is not None:
             query = query.filter(Edition.pubyear >= form.edition_pubyear_after.data)
         if form.edition_pubyear_before.data is not None:
@@ -865,14 +863,6 @@ def search_form():
                 form.author_nationality.data[0] != 'none'):
                 query = query.filter(Person.nationality.in_([x for x in
                                                             form.author_nationality.data]))
-        if (form.author_alive.data is not None and
-            len(form.author_alive.data) > 0):
-            if form.author_alive.data[0] != '':
-                if form.author_alive.data[0] == 'true':
-                    query = query.filter(Person.dod == None)
-                if form.author_alive.data[0] == 'false':
-                    query = query.filter(Perdon.dod != None)
-
         query = query.order_by(Work.creator_str)
         works = query.all()
 
@@ -902,11 +892,6 @@ def search_form():
                                       nationalities if x.nationality is not None]
     form.author_nationality.choices = nat_choices
 
-    alive_choices = [('na', 'Ei väliä'),
-                     ('true', 'Kyllä'),
-                     ('false', 'Ei')]
-
-    form.author_alive.choices = alive_choices
     #form.author_nationality.choices = [(x.nationality, x.nationality) for x in
     #                                   nationalities if x.nationality is not
     #                                   None]
