@@ -26,7 +26,8 @@
 {% for author in works|groupby(attribute='creator_str') %}
 <h2><span class="person-list">{{author.grouper}}</span></h2>
     {% for work in author.list %}
-	{% include "_work.html" %}
+        {% set edition = work.editions[0] %}
+	{% include "_work_first_edition.html" %}
         {% for edition in work.editions %}
         {% if edition.editionnum > 1 %}
 		{% include "_otheredition.html" %}

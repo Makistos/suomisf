@@ -23,24 +23,15 @@ kaikki nimet, joissa esiintyy sana "käsikirja" jossain kohtaa.
 </p>
 <form action="" method=post>
         {{ form.hidden_tag() }}
-        <h2>Teos</h2>
+        <h2>Kirjahaku</h2>
         {{ render_field(form.work_name, size=50) }}
         {{ render_field(form.work_origname, size=50) }}
         {{ render_field(form.work_pubyear_after, size=4) }}
         {{ render_field(form.work_pubyear_before, size=4) }}
-
-        
-        {{ render_field(form.work_genre, size=10, choices=genre_choices)}}
-        
-
-        <h2>Painos</h2>
-        <p>
-        {{ render_field(form.edition_name, size=50) }}
         {{ render_field(form.edition_pubyear_after, size=4) }}
         {{ render_field(form.edition_pubyear_before, size=4) }}
+        {{ render_field(form.work_genre, size=10, choices=genre_choices)}}
         {{ render_field(form.edition_editionnum, size=2) }}
-
-        <h2>Kirjoittaja</h2>
         {{ render_field(form.author_name, size=30) }}
         {{ render_field(form.author_dob_after, size=4) }}
         {{ render_field(form.author_dob_before, size=4) }}
