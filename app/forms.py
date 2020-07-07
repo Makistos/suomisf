@@ -133,9 +133,9 @@ class SearchForm(FlaskForm):
     edition_pubyear_before = IntegerField('Suomalaisen julkaisun vuosi viimeistään')
     edition_editionnum = IntegerField('Painos')
 
-    author_name = StringField('Nimi')
-    author_dob_after = IntegerField('Syntymävuosi aikaisintaan')
-    author_dob_before = IntegerField('Syntymävuosi viimeistään')
-    author_nationality = SelectMultipleField('Kansallisuus', default=0)
+    author_name = StringField('Kirjailijan nimi')
+    author_dob_after = IntegerField('Kirjailijan syntymävuosi aikaisintaan')
+    author_dob_before = IntegerField('Kirjailijan syntymävuosi viimeistään')
+    author_nationality = SelectMultipleField('Kirjailijan kansallisuus', default=0)
 
     submit = SubmitField('Hae')

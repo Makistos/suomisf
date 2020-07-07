@@ -816,6 +816,7 @@ def search_form():
     session = new_session()
 
     form = SearchForm(request.form)
+    editionnum = ''
 
     if request.method == 'GET':
         form.name = ''
@@ -850,6 +851,7 @@ def search_form():
             query = query.filter(Edition.pubyear <= form.edition_pubyear_before.data)
         if form.edition_editionnum.data is not None:
             query = query.filter(Edition.editionnum == form.edition_editionnum.data)
+            editionnum = form.edition_editionnum.data
 
         if form.author_name.data != '':
             query = query.filter(Person.name.ilike(form.author_name.data))
@@ -861,8 +863,11 @@ def search_form():
             len(form.author_nationality.data) > 0):
             if (form.author_nationality.data[0] != '' and
                 form.author_nationality.data[0] != 'none'):
-                query = query.filter(Person.nationality.in_([x for x in
-                                                            form.author_nationality.data]))
+                if form.author_nationality.data[0] == 'foreign':
+                    query = query.filter(Person.nationality != 'Suomi')
+                else:
+                    query = query.filter(Person.nationality.in_([x for x in
+                                                                form.author_nationality.data]))
         query = query.order_by(Work.creator_str)
         works = query.all()
 
@@ -888,8 +893,9 @@ def search_form():
                            .order_by(Person.nationality)\
                            .all()
 
-    nat_choices = [('none', '')] +[(x.nationality, x.nationality) for x in
-                                      nationalities if x.nationality is not None]
+    nat_choices = [('none', ''), ('foreign', 'Ulkomaiset')] + \
+                  [(x.nationality, x.nationality) for x in
+                    nationalities if x.nationality is not None]
     form.author_nationality.choices = nat_choices
 
     #form.author_nationality.choices = [(x.nationality, x.nationality) for x in
@@ -897,7 +903,9 @@ def search_form():
     #                                   None]
 
     return render_template('search_adv.html',
-                           form=form, nationalities=nat_choices)
+                           form=form,
+                           nationalities=nat_choices,
+                           editionnum=editionnum)
 
 
 @app.route('/addfavpubcol/<pubseriesid>', methods=["POST", "GET"])
