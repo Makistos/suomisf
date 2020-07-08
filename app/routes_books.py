@@ -6,6 +6,7 @@ from flask import render_template, request, flash, redirect, url_for, make_respo
 from app.forms import WorkForm, EditionForm, WorkAuthorForm
 from .route_helpers import *
 from typing import List, Dict
+from sqlalchemy import func
 
 # Book related routes
 
@@ -106,6 +107,31 @@ def books_by_origin(country):
                                Person.nationality == country)\
                        .all()
     return render_template('books.html', works=works)
+
+@app.route('/book_count_by_year/')
+def book_count_by_year():
+    session = new_session()
+
+    counts = session.query(Edition.pubyear, func.count(Edition.pubyear).label('count'))\
+                    .group_by(Edition.pubyear)\
+                    .all()
+
+    return render_template('book_count_by_year.html', counts=counts)
+
+@app.route('/editions_by_year/<year>')
+def editions_by_year(year):
+    session = new_session()
+
+    editions = session.query(Edition)\
+                      .filter(Edition.pubyear == year)\
+                      .join(Part)\
+                      .filter(Part.edition_id == Edition.id)\
+                      .join(Work)\
+                      .filter(Work.id == Part.work_id)\
+                      .order_by(Work.creator_str)\
+                      .all()
+
+    return render_template('editions.html', editions=editions)
 
 @app.route('/books')
 def books():

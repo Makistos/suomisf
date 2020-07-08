@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="three-column">
+
+    {% for year in counts %}
+    {% if year.pubyear != None %}
+    <a href="{{ url_for('editions_by_year', year=year.pubyear)}}">{{ year.pubyear
+        }}</a>: {{ year.count }}<br>
+    {% endif %}
+    {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

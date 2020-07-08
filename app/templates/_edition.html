@@ -24,8 +24,10 @@
 {% endif %}
 {% endif %}
 
+{% if not skip_pubseriesnum %}
 {% if edition.pubseriesnum %}
 {{ edition.pubseriesnum }}.
+{% endif %}
 {% endif %}
 <b>{{ edition.work[0].creator_str }}</b>: 
 
