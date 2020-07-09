@@ -112,6 +112,7 @@ def books_by_origin(country):
 def book_count_by_year():
     session = new_session()
 
+    # All based on edition pubyear
     counts = session.query(Edition.pubyear, func.count(Edition.pubyear).label('count'))\
                     .group_by(Edition.pubyear)\
                     .all()
@@ -122,16 +123,21 @@ def book_count_by_year():
 def editions_by_year(year):
     session = new_session()
 
-    editions = session.query(Edition)\
+    editions = session.query(Edition, Genre.name.label('genre_name'))\
                       .filter(Edition.pubyear == year)\
                       .join(Part)\
                       .filter(Part.edition_id == Edition.id)\
                       .join(Work)\
                       .filter(Work.id == Part.work_id)\
+                      .join(WorkGenre)\
+                      .filter(WorkGenre.work_id == Work.id)\
+                      .join(Genre)\
+                      .filter(Genre.id == WorkGenre.genre_id)\
                       .order_by(Work.creator_str)\
                       .all()
 
-    return render_template('editions.html', editions=editions)
+    return render_template('editions.html', editions=editions,
+    title='Julkaisut ' + str(year))
 
 @app.route('/books')
 def books():

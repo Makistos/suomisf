@@ -1,12 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-<h1>Kirjat</h1>
+    <h1>{{title}}</h1>
 <div>Yhteensä <b>{{ editions|length }}</b> kirjaa</div>
-{% for edition in editions %}
-    {% set skip_pubseriesnum = 1 %}
-    {% include "_edition.html" %}
+{% for genre in editions|groupby(attribute='genre_name') %}
+    <h2>{{genre.grouper}}</h2>
+    {{ genre.list|attr('title') }}
+    {% for ed in genre.list %}
+    {% set edition = ed[0] %}
+        {% set skip_pubseriesnum = 1 %}
+        {% include "_edition.html" %}
+    {% endfor %}
 {% endfor %}
+
 {% endblock %}
 
 {% block scripts %}
