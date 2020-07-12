@@ -1,0 +1,40 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+
+        {
+            "name": "Python: bib_import",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/bib_import.py",
+            "console": "integratedTerminal",
+            "args": ["-f", "bibfiles/sfbib.html"]
+        },
+        {
+            "name": "Python: import_stories",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/import_stories.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Python: import_awards",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/import_awards.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Python: add_multipart",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/bib_import.py",
+            "args": ["--multipart"],
+            "console": "integratedTerminal"
+        }
+    ]
+}

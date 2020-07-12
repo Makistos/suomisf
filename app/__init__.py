@@ -16,7 +16,7 @@ db = SQLAlchemy(app)
 #migrate = Migrate()
 login = LoginManager(app)
 bootstrap = Bootstrap(app)
-#app.debug = True
+app.debug = True
 app.jinja_env.lstrip_blocks = True
 app.jinja_env.trim_blocks = True
 
