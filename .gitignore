@@ -2,6 +2,7 @@
 __pycache__
 .mypy_cache/*
 .env
+.~lock*
 logs/*
 import.log
 log.txt
