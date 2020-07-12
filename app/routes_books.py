@@ -135,9 +135,10 @@ def editions_by_year(year):
                       .filter(Genre.id == WorkGenre.genre_id)\
                       .order_by(Work.creator_str)\
                       .all()
-
+    count = len(set([x[0].id for x in editions]))
     return render_template('editions.html', editions=editions,
-    title='Julkaisut ' + str(year))
+                           title='Julkaisut ' + str(year),
+                           count=count)
 
 @app.route('/books')
 def books():
