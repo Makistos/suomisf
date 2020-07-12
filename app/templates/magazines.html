@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+<h1 align=center>Kustantajat</h1>
+
+<h2>Merkittävät</h2>
+<p>Vähintään 20 kirjaa tietokannassa</p>
+	<div class="three-column">
+            {% for publisher in publishers if publisher.editions|length >= 20 %}
+		<p><a href=" {{ url_for("publisher", pubid=publisher.id) }}">{{ publisher.name }}</a></p>
+            {% endfor %}
+	</div>
+<h2>Muut kustantajat</h2>
+	<div class="three-column">
+            {% for publisher in publishers if publisher.editions|length < 10 %}
+		<p><a href=" {{ url_for("publisher", pubid=publisher.id) }}">{{ publisher.name }}</a></p>
+            {% endfor %}
+	</div>
+{% endblock %}
+
+{% block script %}
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</div>
+{% endblock %}

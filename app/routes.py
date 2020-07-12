@@ -664,6 +664,24 @@ def list_pubseries(pubname):
     response.content_type = 'application/json'
     return response
 
+@app.route('/magazines')
+def magazines():
+    session = new_session()
+
+    magazines = session.query(Magazine)\
+                       .order_by(name)\
+                       .all()
+
+    return render_template('magazines.html', magazines=magazines)
+
+@app.route('/magazine/<id>')
+def magazine(id):
+    session = new_session()
+    magazine = session.query(Magazine)\
+                      .filter(Magazine.id == id)\
+                      .first()
+
+    return render_template('magazine.html', magazine=magazine)
 
 # Miscellaneous routes
 

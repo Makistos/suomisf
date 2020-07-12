@@ -17,6 +17,14 @@
         {{ form.title(size=50) }}<br>
         </p>
         <p>
+        {{ form.subtitle.label }}<br>
+        {{ form.subtitle(size=50) }}<br>
+        </p>
+        <p>
+        {{ form.orig_title.label }}<br>
+        {{ form.orig_title(size=50) }}<br>
+        </p>
+        <p>
         {{ form.pubyear.label }}<br>
         {{ form.pubyear(size=4) }}<br>
         </p>
@@ -28,8 +36,21 @@
         {{ form.bookseries.label }}<br>
         {{ form.bookseries(size=50) }}
         </p>
+        <p>
+        {{ form.bookseriesnum.label }}<br>
+        {{ form.bookseriesnum(size=50) }}
+        </p>
+        <p>
+        {{ form.bookseriesorder.label }}<br>
+        {{ form.bookseriesorder(size=50) }}
+        </p>
+        <p>
         {{ form.genre.label }}<br>
         {{ form.genre(size=10) }}
+        </p>
+        <p>
+        {{ form.collection.label }}<br>
+        {{ form.collection(size=10) }}
         </p>
         <p>
         {{ form.misc.label}}<br>
@@ -38,6 +59,10 @@
         <p>
         {{ form.image_src.label }}<br>
         {{ form.image_src(size=200) }}
+        </p>
+        <p>
+        {{ form.description.label }}<br>
+        {{ form.description(size=200) }}
         </p>
 	{% if form.misc.errors %}
 	{% for error in form.misc.errors %}<br>{{ error }}{% endfor %}
