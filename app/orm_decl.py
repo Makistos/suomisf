@@ -38,6 +38,7 @@ class Article(Base):
     # to Person table.
     person = Column(String(200))
     tags = relationship('Tag', secondary='articletag', uselist=True)
+    links = relationship('ArticleLink', uselist=True)
 
 
 class ArticleAuthor(Base):
@@ -157,6 +158,7 @@ class Edition(Base):
     cover = Column(Integer, ForeignKey('covertype.id'))
     binding = Column(Integer, ForeignKey('bindingtype.id'))
     format = Column(Integer, ForeignKey('format.id'))
+    size = Column(Integer, ForeignKey('publicationsize.id'))
     description = Column(String(500))
     artist_id = Column(Integer, ForeignKey('person.id'))
     misc = Column(String(500))
@@ -210,6 +212,7 @@ class Issue(Base):
     id = Column(Integer, primary_key=True)
     magazine_id = Column(Integer, ForeignKey('magazine.id'), nullable=False)
     number = Column(Integer, nullable=False, index=True)
+    number_extra = Column(String(20))
     count = Column(Integer)
     year = Column(Integer, index=True)
     editor = Column(Integer, ForeignKey('person.id'))
@@ -219,6 +222,7 @@ class Issue(Base):
     link = Column(String(200))
     notes = Column(String(200))
     tags = relationship('Tag', secondary='issuetag', uselist=True)
+    content = relationship('Article', secondary='issuecontent', uselist=True)
 
 class IssueContent(Base):
     __tablename__ = 'issuecontent'
@@ -240,8 +244,11 @@ class Magazine(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(200), nullable=False, index=True)
     publisher_id = Column(Integer, ForeignKey('publisher.id'))
+    description = Column(String(500))
+    link = Column(String(200))
     issn = Column(String(30))
     tags = relationship('Tag', secondary='magazinetag', uselist=True)
+    issues = relationship('Issue', backref=backref('magazine_issue'), uselist=True)
 
 class MagazineTag(Base):
     __tablename__ = 'magazinetag'

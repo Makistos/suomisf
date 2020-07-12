@@ -116,6 +116,7 @@ Table Edition {
         cover int [ref: > CoverType.id]
         binding int [ref: > BindingType.id]
         format int [ref: > Format.id]
+        size int [ref: > PublicationSize.id]
         description varchar
         artist_id int [ref: > Person.id]
         misc varchar
@@ -162,6 +163,7 @@ Table Issue {
         id int [pk, increment]
         magazine_id int [ref: > Magazine.id]
         number int [not null]
+        number_extra varchar
         count int
         year int
 	editor int [ref: > Person.id]
@@ -197,6 +199,8 @@ Table IssueTag {
 Table Magazine {
         id int [pk, increment]
         name varchar [not null]
+        description varchar
+        link varchar
         publisher_id int [ref: > Publisher.id]
         issn varchar
     
