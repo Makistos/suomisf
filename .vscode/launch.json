@@ -4,8 +4,6 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
-
         {
             "name": "Python: bib_import",
             "type": "python",
@@ -34,6 +32,13 @@
             "request": "launch",
             "program": "${workspaceFolder}/bib_import.py",
             "args": ["--multipart"],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Python: import_magazines",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/import_magazines.py",
             "console": "integratedTerminal"
         }
     ]
