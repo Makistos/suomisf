@@ -12,5 +12,9 @@ python import_stories.py
 echo Importing awards
 python import_awards.py
 
+echo Importing magazines
+python import_magazines.py
+
 echo Importing showroom
 python bib_import.py --showroom
+

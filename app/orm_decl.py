@@ -215,14 +215,16 @@ class Issue(Base):
     number_extra = Column(String(20))
     count = Column(Integer)
     year = Column(Integer, index=True)
-    editor = Column(Integer, ForeignKey('person.id'))
+    editor_id = Column(Integer, ForeignKey('person.id'))
     image_src = Column(String(200))
     pages = Column(Integer)
     size = Column(Integer, ForeignKey('publicationsize.id'))
     link = Column(String(200))
     notes = Column(String(200))
+    title = Column(String(200))
     tags = relationship('Tag', secondary='issuetag', uselist=True)
     content = relationship('Article', secondary='issuecontent', uselist=True)
+    editor = relationship('Person', uselist=False)
 
 class IssueContent(Base):
     __tablename__ = 'issuecontent'
@@ -248,7 +250,8 @@ class Magazine(Base):
     link = Column(String(200))
     issn = Column(String(30))
     tags = relationship('Tag', secondary='magazinetag', uselist=True)
-    issues = relationship('Issue', backref=backref('magazine_issue'), uselist=True)
+    issues = relationship('Issue', backref=backref('magazine_issue'),
+            uselist=True, order_by='Issue.count')
 
 class MagazineTag(Base):
     __tablename__ = 'magazinetag'

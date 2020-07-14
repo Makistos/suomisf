@@ -4,64 +4,47 @@
     <div class="card border-primary mb-3" style="width: 900px; margin: 1rem auto">
         <div class="card-body">
             <h1 class="card-title">
-                {{ publisher.name }}
+                {{ magazine.name }}
                 {% if current_user.is_authorized %}
-                ({{ publisher.id }})
+                ({{ magazine.id }})
                 {% endif %}
             </h1>
         </div>
         <ul class="list-group list-group-flush">
-            {% include "_genre_count.html" %}
-            <li class="list-group-item">
-                <b>Kirjoja tietokannassa: </b> {{book_count}}
-            </li>
-            <li class="list-group-item">
-                <b>Vanhin kirja:</b> <a href=" {{ url_for('edition', editionid=oldest.id) }}">{{
-    oldest.title }}</a> ({{ oldest.pubyear }})
-            </li>
-            <li class="list-group-item">
-                <b>Uusin kirja:</b> <a href=" {{ url_for('edition', editionid=newest.id) }}">{{
-    newest.title }}</a> ({{ newest.pubyear}})
-            </li>
+            {% if magazine.description %}
+                <li class="list-group-item">
+                    {{ magazine.description }}
+                </li>
+            {% endif %}
         </ul>
-        <div class="accordion" id="pubCard">
+        <div class="accordion" id="magCard">
             <div class="card">
-                <div class="card-header" id="headSeries">
+                <div class="card-header" id="headNumbers">
                     <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
                             data-target="#series" aria-expanded="false" aria-controls="series">
-                            Sarjat
+                            Numerot
                         </button>
                     </h2>
                 </div>
-                <div id="series" class="collapse" aria-labelledby="headSeries" data-parent="#pubCard">
+                <div id="series" class="collapse" aria-labelledby="headSeries"
+                    data-parent="#magCard">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
-                            {% for s in series %}
+                            {% for issue in magazine.issues %}
                             <li class="list-group-item">
-                                <a href="{{ url_for("pubseries", seriesid=s.id) }}">{{ s.name }}</a>
+                                <a href="{{ url_for("issue",
+                                         id=issue.id)}}">{{ issue.number }} / 
+                                         {{issue.year}}</a>
+                                
                             </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header" id="headEditions">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                            data-target="#editions" aria-expanded="false" aria-controls="editions">
-                            Julkaisut
-                        </button>
-                    </h2>
-                </div>
-                <div id="editions" class="collapse" aria-labelledby="headEditions" data-parent="#pubCard">
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            {% for edition in editions %}
                             <li class="list-group-item">
-                                {% include "_edition.html" %}
+                                Päätoimittaja: {{ issue.editor.name }}
                             </li>
+                            <li class="list-group-item">
+                                Sivuja: {{ issue.pages }}
+                            </li>
+
                             {% endfor %}
                         </ul>
                     </div>

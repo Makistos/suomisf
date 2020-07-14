@@ -4,7 +4,8 @@ from flask_login import current_user, login_user, logout_user
 from app import app
 from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
 Edition, Pubseries, Bookseries, User, UserBook, ShortStory, UserPubseries,\
-Alias, Genre, WorkGenre, Tag, PersonTag, Award, AwardCategory, Awarded
+Alias, Genre, WorkGenre, Tag, PersonTag, Award, AwardCategory, Awarded,\
+Magazine, Issue
 from sqlalchemy import create_engine, desc, func
 from sqlalchemy.orm import sessionmaker
 from app.forms import LoginForm, RegistrationForm, PublisherForm,\
@@ -669,7 +670,7 @@ def magazines():
     session = new_session()
 
     magazines = session.query(Magazine)\
-                       .order_by(name)\
+                       .order_by(Magazine.name)\
                        .all()
 
     return render_template('magazines.html', magazines=magazines)
@@ -681,8 +682,15 @@ def magazine(id):
                       .filter(Magazine.id == id)\
                       .first()
 
-    return render_template('magazine.html', magazine=magazine)
+    issues = session.query(Issue)\
+                    .filter(Issue.magazine_id == id)\
+                    .all()
 
+    return render_template('magazine.html', magazine=magazine, issues=issues)
+
+@app.route('/issue/<id>')
+def issue(id):
+    pass
 # Miscellaneous routes
 
 @app.route('/print_books')
