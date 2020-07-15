@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from app.orm_decl import Work, Edition, Part, Person, Author, Translator,\
 Editor, Publisher, Pubseries, Bookseries, User, Genre, Alias, WorkGenre, Award, BindingType, CoverType, Format,\
-Magazine, WorkType, AwardCategory
+Magazine, WorkType, AwardCategory, PublicationSize
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from importbib import publishers
@@ -1091,17 +1091,62 @@ def add_default_rows(session):
         s.add(item)
     s.commit()
 
-    magazines = ['Kosmoskynä', 'Portti', 'Spin', 'Tähtivaeltaja']
-    for magazine in magazines:
-        item = Magazine(name=magazine)
-        s.add(item)
-    s.commit()
-
     worktypes = ['Romaani', 'Kokoelma', 'Sarjakuva']
     for worktype in worktypes:
         item = WorkType(name=worktype)
         s.add(item)
     s.commit()
+
+    sizes = [
+             # ISO
+             ['A0', 841, 1189]
+             ['A1', 594, 841],
+             ['A2', 420, 594],
+             ['A3', 297, 420],
+             ['A4', 210, 297],
+             ['A5', 148, 210],
+             ['A6', 105, 148],
+             ['A7', 74, 105],
+             ['A8', 52, 74],
+             ['B0', 1000, 1414],
+             ['B1', 707, 1000],
+             ['B2', 500, 707],
+             ['B3', 353, 500],
+             ['B4', 250, 353],
+             ['B5', 176, 250],
+             ['B6', 125, 176],
+             ['B7', 88, 125],
+             ['B8', 62, 88],
+             ['C0', 917, 1297],
+             ['C1', 648, 917],
+             ['C2', 458, 648],
+             ['C3', 324, 458],
+             ['C4', 229, 324],
+             ['C5', 162, 229],
+             ['C6', 114, 162],
+             ['C7', 81, 114],
+             ['C8', 57, 81],
+             # US
+             ['Half Letter', 140, 216],
+             ['Letter', 216, 279],
+             ['Legal', 216, 356],
+             ['Junior Legal', 127, 203],
+             ['Tabloid', 279, 432],
+             # ANSI
+             ['A', 216, 279],
+             ['B', 279, 432],
+             ['C', 432, 559],
+             ['D', 559, 864],
+             ['E', 864, 1118],
+             ['B+', 329, 483]
+            ]
+    for size in sizes:
+        item = PublicationSize(name=size[0],
+                               mm_width=size[1],
+                               mm_height=size[2])
+        s.add(item)
+    s.commit()
+
 
 def create_admin(session):
     s = session()

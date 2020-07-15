@@ -43,7 +43,7 @@ issues: Dict= {}
 articles: Dict = {}
 
 
-def get_publisher(s, name: str) -> Optional[int]:
+def get_publisher(s, name: str) -> int:
     if name == '':
         return None
     publisher = s.query(Publisher).filter(name == name).first()
@@ -123,6 +123,9 @@ def import_issues(s, dir: str, name: str, id: int) -> None:
                 editor_id = get_person(s, editor, True)
                 size_id = get_size(s, size)
 
+                if image_src == ''_
+                    image_src = None
+
                 iss = Issue(magazine_id=id,
                             number=int(number),
                             count=int(count),
@@ -156,20 +159,26 @@ def import_articles(s, dir: str, name: str, issue_num: int, id: int) -> None:
                 author_field = article['Tekijä']
                 title = article['Artikkeli']
                 tags = article['Aihe']
+                people = article['Viitteet']
 
                 author_names: List[str] = []
                 author_ids = []
                 authors = author_field.split('&')
                 for auth in author_field.split('&'):
                     author = auth.strip()
-                    author_id = get_person(s, author)
+                    author_id = get_person(s, author, True)
                     if not author_id:
                         author_names.append(author)
                     else:
                         author_ids.append(author_id)
-                #person_names = None
-                #person_ids = []
-                #for person in persons
+
+                person_names = None
+                person_ids = []
+                for p in people.split(','):
+                    person = p.strip()
+                    person_id = get_person(s, person, True)
+                    person_ids.append(person_id)
+
                 tag_list = tags.split(',')
                 tag_ids = get_tags(s, tag_list)
 
@@ -194,11 +203,12 @@ def import_articles(s, dir: str, name: str, issue_num: int, id: int) -> None:
                     s.add(a_tag)
                 s.commit()
 
-                #for person_id in person_ids:
-                #    p_id = ArticlePerson(article_id=art.id,
-                #                         person_id=person_id)
-                #    s.add(p_id)
+                for person_id in person_ids:
+                    p_id = ArticlePerson(article_id=art.id,
+                                         person_id=person_id)
+                    s.add(p_id)
                 s.commit()
+
     except Exception as e:
         print(f'Exception in import_articles: {e}.')
 
@@ -232,7 +242,7 @@ def import_magazines(dir: str) -> None:
             else:
                 continue
 
-    filenames = glob.glob(dir + 'Magazines_*_artikkelit_1.csv')
+    filenames = glob.glob(dir + 'Magazines_*_artikkelit.csv')
     print(f'Found article files: {filenames}.')
     for filename in filenames:
         with open(filename, 'r', encoding='utf-8-sig') as csvfile:
@@ -251,17 +261,20 @@ def import_magazines(dir: str) -> None:
             else:
                 continue
 
-    with open(dir + 'Magazines.csv') as csvfile:
+    with open(dir + 'Magazines.csv', 'r', encoding='utf-8-sig') as csvfile:
         print(f'Reading Magazines.csv')
-        magazines = csv.reader(csvfile, delimiter=';', quotechar='"')
+        magazines = csv.DictReader(csvfile,
+                                   dialect='excel',
+                                   delimiter=';',
+                                   quotechar='"')
         next(magazines) # Skip first row
         next(magazines) # And second
         try:
             for magazine in magazines:
-                name = magazine[magazine_header['name']]
-                issn = magazine[magazine_header['issn']]
-                link = magazine[magazine_header['link']]
-                publisher = magazine[magazine_header['publisher']]
+                name = magazine['Magazine']
+                issn = magazine['Issn']
+                link = magazine['Link']
+                publisher = magazine['Pubname']
 
                 pub_id = get_publisher(s, publisher)
 
