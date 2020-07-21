@@ -5,7 +5,7 @@ from app import app
 from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
 Edition, Pubseries, Bookseries, User, UserBook, ShortStory, UserPubseries,\
 Alias, Genre, WorkGenre, Tag, PersonTag, Award, AwardCategory, Awarded,\
-Magazine, Issue
+Magazine, Issue, Article, ArticleAuthor, ArticlePerson
 from sqlalchemy import create_engine, desc, func
 from sqlalchemy.orm import sessionmaker
 from app.forms import LoginForm, RegistrationForm, PublisherForm,\
@@ -690,7 +690,38 @@ def magazine(id):
 
 @app.route('/issue/<id>')
 def issue(id):
-    pass
+
+    session = new_session()
+
+    issue = session.query(Issue)\
+                   .filter(Issue.id == id)\
+                   .first()
+
+    return render_template('issue.html', issue=issue)
+
+@app.route('/article/<id>')
+def article(id):
+    session = new_session()
+
+    article = session.query(Article)\
+                     .filter(Article.id == id)\
+                     .first()
+
+    authors = session.query(Person)\
+                     .join(ArticleAuthor)\
+                     .filter(ArticleAuthor.article_id == id)\
+                     .all()
+
+    people = session.query(Person)\
+                    .join(ArticlePerson)\
+                    .filter(ArticlePerson.article_id == id)\
+                    .all()
+
+    return render_template('article.html',
+                           article=article,
+                           authors=authors,
+                           people=people)
+
 # Miscellaneous routes
 
 @app.route('/print_books')

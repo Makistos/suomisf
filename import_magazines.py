@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from app.orm_decl import Article, ArticleAuthor, ArticlePerson, ArticleTag,\
-Issue, Magazine, Person, Publisher, PublicationSize, Tag
+Issue, Magazine, Person, Publisher, PublicationSize, Tag, IssueContent,\
+IssueEditor, ShortStory, Author, Translator, Part, StoryTag
 from sqlalchemy import create_engine, or_
 from sqlalchemy.orm import sessionmaker
 import re
@@ -41,20 +42,22 @@ article_header = {'magazine': 0,
 
 issues: Dict= {}
 articles: Dict = {}
+stories: Dict = {}
 
+db_tags = {'runo': 0, 'filk': 0, 'raapale': 0}
 
 def get_publisher(s, name: str) -> int:
     if name == '':
         return None
-    publisher = s.query(Publisher).filter(name == name).first()
 
-    if publisher:
-        return publisher.id
-    else:
+    publisher = s.query(Publisher).filter(Publisher.fullname == name).first()
+
+    if not publisher:
         publisher = Publisher(name=name, fullname=name)
         s.add(publisher)
         s.commit()
-        return publisher.id
+
+    return publisher.id
 
 
 def get_person(s, name: str, create_missing: bool = False) -> Optional[int]:
@@ -84,7 +87,9 @@ def get_person(s, name: str, create_missing: bool = False) -> Optional[int]:
 
 
 def get_size(s, name: str) -> Optional[int]:
-    size = s.query(PublicationSize).filter(name == name).first()
+    size = s.query(PublicationSize)\
+            .filter(PublicationSize.name == name)\
+            .first()
     if size:
         return size.id
     else:
@@ -92,16 +97,43 @@ def get_size(s, name: str) -> Optional[int]:
 
 
 def get_tags(s, tags: List[str]) -> List[int]:
-    retval = []
-    for tag in tags:
-        tag_item = s.query(Tag).filter(Tag.name == tag).first()
-        if not tag_item:
-            tag_item = Tag(name=tag)
-            s.add(tag_item)
-            s.commit()
-        retval.append(tag_item.id)
+    #retval = []
+    #for tag in tags:
+    #    tag_item = s.query(Tag).filter(Tag.name == tag.strip()).first()
+    #    if not tag_item:
+    #        tag_item = Tag(name=tag)
+    #        s.add(tag_item)
+    #        s.commit()
+    #    retval.append(tag_item.id)
+    if len(tags) == 0:
+        return []
+    tag_items = s.query(Tag).filter(Tag.name.in_(tags))
+    return [x.id for x in tag_items]
+    #return retval
 
-    return retval
+
+def add_tag(s, tag_name: str, story_id: int):
+
+    if tag_name not in db_tags:
+        tag = Tag(name=tag_name)
+        s.add(tag)
+        s.commit()
+        db_tags[tag_name] = tag.id
+
+    tag_id = db_tags[tag_name]
+
+    st = StoryTag(shortstory_id = story_id,
+                  tag_id = tag_id)
+
+    s.add(st)
+    s.commit()
+
+
+def make_creators(s, ids) -> str:
+    if len(ids) == 0:
+        return ''
+    people = s.query(Person).filter(Person.id.in_(ids)).all()
+    return ' & '.join([x.name for x in people])
 
 
 def import_issues(s, dir: str, name: str, id: int) -> None:
@@ -112,7 +144,7 @@ def import_issues(s, dir: str, name: str, id: int) -> None:
                 number = issue['Number']
                 count = issue['Count']
                 year = issue['Year']
-                editor = issue['Editor']
+                editors = issue['Editor'].split('&')
                 image_src = issue['Image_src']
                 pages = issue['Pages']
                 size = issue['Size']
@@ -120,33 +152,43 @@ def import_issues(s, dir: str, name: str, id: int) -> None:
                 notes = issue['Notes']
                 title = issue['Title']
 
-                editor_id = get_person(s, editor, True)
+                editor_ids = []
+                for editor in editors:
+                    editor_id = get_person(s, editor.strip(), True)
+                    editor_ids.append(editor_id)
+
                 size_id = get_size(s, size)
 
-                if image_src == ''_
+                if image_src == '':
                     image_src = None
 
                 iss = Issue(magazine_id=id,
                             number=int(number),
                             count=int(count),
                             year=int(year),
-                            editor_id=editor_id,
                             image_src=image_src,
                             pages=int(pages),
-                            size=size_id,
+                            size_id=size_id,
                             link=link,
-                            notes=notes,
+                            notes=notes.strip(),
                             title=title)
 
                 s.add(iss)
                 s.commit()
 
-                import_articles(s, dir, name, int(count), iss.id)
+                for eid in editor_ids:
+                    ie = IssueEditor(issue_id=iss.id, person_id=eid)
+                    s.add(ie)
+                s.commit()
+
+                import_articles(s, name, int(count), iss.id)
+                import_stories(s, name, int(count), iss.id)
+
         except Exception as e:
             print(f'import_issues exception: {e}.')
 
 
-def import_articles(s, dir: str, name: str, issue_num: int, id: int) -> None:
+def import_articles(s, name: str, issue_num: int, id: int) -> None:
     if not name in articles:
         return
 
@@ -163,10 +205,9 @@ def import_articles(s, dir: str, name: str, issue_num: int, id: int) -> None:
 
                 author_names: List[str] = []
                 author_ids = []
-                authors = author_field.split('&')
-                for auth in author_field.split('&'):
+                for auth in author_field.split(','):
                     author = auth.strip()
-                    author_id = get_person(s, author, True)
+                    author_id = get_person(s, author.strip(), True)
                     if not author_id:
                         author_names.append(author)
                     else:
@@ -176,7 +217,7 @@ def import_articles(s, dir: str, name: str, issue_num: int, id: int) -> None:
                 person_ids = []
                 for p in people.split(','):
                     person = p.strip()
-                    person_id = get_person(s, person, True)
+                    person_id = get_person(s, person.strip(), True)
                     person_ids.append(person_id)
 
                 tag_list = tags.split(',')
@@ -186,8 +227,15 @@ def import_articles(s, dir: str, name: str, issue_num: int, id: int) -> None:
                     author_str = ' & '.join(author_names)
                 else:
                     author_str = None
-                art = Article(title=title,
-                            author=author_str)
+
+                if len(author_ids) > 1:
+                    creator_str = make_creators(s, author_ids)
+                else:
+                    creator_str = author_field.strip()
+
+                art = Article(title=title.strip(),
+                            author=author_str,
+                            creator_str=creator_str)
 
                 s.add(art)
                 s.commit()
@@ -209,8 +257,104 @@ def import_articles(s, dir: str, name: str, issue_num: int, id: int) -> None:
                     s.add(p_id)
                 s.commit()
 
+                ic = IssueContent(issue_id = id, article_id=art.id)
+                s.add(ic)
+                s.commit()
+
     except Exception as e:
         print(f'Exception in import_articles: {e}.')
+
+
+def import_stories(s, name:str, issue_num: int, id: int ):
+    if not name in stories:
+        return
+
+    for story in stories[name]:
+            number: int = int(story['Nro'])
+            if issue_num == number:
+                magazine = story['Lehti'] # Not really needed
+                year = story['Julkaisuvuosi']
+                authors = story['Tekijä']
+                title = story['Novelli']
+                orig_title = story['Alkup-novelli']
+                orig_year = story['Alkup-vuosi']
+                translators = story['Suomentaja']
+                runo = story['runo']
+                raapale = story['raapale']
+                filk = story['filk']
+
+                if orig_title == '':
+                    orig_title = title
+
+                if orig_year == '':
+                    orig_year = year
+
+                author_ids = []
+                for author in authors.split(','):
+                    person_id = get_person(s, author.strip(), True)
+                    author_ids.append(person_id)
+
+                translator_ids = []
+                for person in translators.split(','):
+                    person_id = get_person(s, person.strip(), True)
+                    translator_ids.append(person_id)
+
+
+                story_item = s.query(ShortStory)\
+                              .filter(ShortStory.title == orig_title)\
+                              .first()
+                if not story_item:
+                    if len(author_ids) > 1:
+                        creator_str = make_creators(s, author_ids)
+                    else:
+                        creator_str = authors.strip()
+
+                    story_item = ShortStory(title=orig_title,
+                                            pubyear=orig_year,
+                                            creator_str=creator_str)
+                    s.add(story_item)
+                    s.commit()
+
+                part_item = Part(shortstory_id = story_item.id,
+                                 title=title)
+                s.add(part_item)
+                s.commit()
+
+                for auth_id in author_ids:
+                    auth = Author(part_id=part_item.id,
+                                  person_id=auth_id)
+                    s.add(auth)
+
+                for trans_id in translator_ids:
+                    translator = Translator(part_id=part_item.id,
+                                            person_id=trans_id)
+                    s.add(translator)
+
+                if runo != '':
+                    add_tag(s, story_item.id, 'runo')
+                if raapale != '':
+                    add_tag(s, story_item.id, 'raapale')
+                if filk != '':
+                    add_tag(s, story_item.id, 'filk')
+
+                ic = IssueContent(issue_id=id, shortstory_id=story_item.id)
+                s.add(ic)
+                s.commit()
+
+
+def read_file(filename: str, d: Dict):
+    with open(filename, 'r', encoding='utf-8-sig') as csvfile:
+        print(f'Reading from {filename}.')
+        csv_contents = csv.DictReader(csvfile,
+                                      dialect='excel',
+                                      delimiter=';',
+                                      quotechar='"')
+        m = re.search('.+\/Magazines_(.+)_.+.csv', filename)
+        if m:
+            l = []
+            for row in csv_contents:
+                l.append(row)
+            d[m.group(1).replace('_', ' ')] = l
 
 
 def import_magazines(dir: str) -> None:
@@ -226,40 +370,23 @@ def import_magazines(dir: str) -> None:
     filenames = glob.glob(dir + 'Magazines_*_lehdet.csv')
     print(f'Found issues: {filenames}')
     for filename in filenames:
-        with open(filename, 'r', encoding='utf-8-sig') as csvfile:
-            print(f'Reading issues from {filename}.')
-            issue_file = csv.DictReader(csvfile,
-                                        dialect='excel',
-                                        delimiter=';',
-                                        quotechar='"')
-            m = re.search('.+\/Magazines_(.+)_lehdet.csv', filename)
-            if m:
-                l = []
-                #next(issue_file)
-                for issue in issue_file:
-                    l.append(issue)
-                issues[m.group(1).replace('_', ' ')] = l
-            else:
-                continue
+        read_file(filename, issues)
 
     filenames = glob.glob(dir + 'Magazines_*_artikkelit.csv')
     print(f'Found article files: {filenames}.')
     for filename in filenames:
-        with open(filename, 'r', encoding='utf-8-sig') as csvfile:
-            print(f'Reading articles from {filename}.')
-            article_file = csv.DictReader(csvfile,
-                                          dialect='excel',
-                                          delimiter=';',
-                                          quotechar='"')
-            m = re.search('.+\/Magazines_(.+)_artikkelit_1.csv', filename)
-            if m:
-                l = []
-                #next(article_file)
-                for article in article_file:
-                    l.append(article)
-                articles[m.group(1).replace('_', ' ')] = l
-            else:
-                continue
+        read_file(filename, articles)
+
+    filenames = glob.glob(dir + 'Magazines_*_novellit.csv')
+    print('Found short story files: {filenames}.')
+    for filename in filenames:
+        read_file(filename, stories)
+
+    for key, tag in db_tags.items():
+        tag_item = Tag(name=key)
+        s.add(tag_item)
+        s.commit()
+        db_tags[key] = tag_item.id
 
     with open(dir + 'Magazines.csv', 'r', encoding='utf-8-sig') as csvfile:
         print(f'Reading Magazines.csv')
@@ -274,7 +401,7 @@ def import_magazines(dir: str) -> None:
                 name = magazine['Magazine']
                 issn = magazine['Issn']
                 link = magazine['Link']
-                publisher = magazine['Pubname']
+                publisher = magazine['Pubfullname']
 
                 pub_id = get_publisher(s, publisher)
 

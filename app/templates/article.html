@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="card border-primary mb-3" style="width: 720px; margin: 1rem auto">
+        <div class="card-header">
+            <span class="person-list">{{ authors|map(attribute='name')|join(', ') }}</span>
+        </div>
+
+        <div class="card-body">
+            <h3 class="card-title">
+                {{ article.title }}
+                {% if current_user.is_admin %}
+                ({{ article.id }})
+                {% endif %}
+            </h3>
+	    <ul class="list-group list-group-flush">
+		    {% if people|length %}
+		    <li class="list-group-item"> 
+			<b>Henkilöt:</b>
+			{{ people|map(attribute='name')|join(', ')}}
+		    </li>
+		    {% endif %}
+		    {% if article.tags %}
+		    <li class="list-group-item">
+			<b>Avainsanat:</b>
+			{% for tag in article.tags %}
+			<a href="">{{tag.name}}<nbsp>
+			{% endfor %}
+		    </li>
+		    {% endif %}
+	    </ul>
+        </div>
+
+    </div>
+{% endblock %}

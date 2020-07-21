@@ -37,9 +37,12 @@ class Article(Base):
     # This is for cases where we don't want to add a row
     # to Person table.
     person = Column(String(200))
+    creator_str = Column(String(500), index=True)
     tags = relationship('Tag', secondary='articletag', uselist=True)
     links = relationship('ArticleLink', uselist=True)
-
+    person_rel = relationship('Person', secondary='articleperson', uselist=True)
+    author_rel = relationship('Person', secondary='articleauthor', uselist=True)
+    issue = relationship('Issue', secondary='issuecontent', uselist=False)
 
 class ArticleAuthor(Base):
     __tablename__ = 'articleauthor'
@@ -215,16 +218,18 @@ class Issue(Base):
     number_extra = Column(String(20))
     count = Column(Integer)
     year = Column(Integer, index=True)
-    editor_id = Column(Integer, ForeignKey('person.id'))
     image_src = Column(String(200))
     pages = Column(Integer)
-    size = Column(Integer, ForeignKey('publicationsize.id'))
+    size_id = Column(Integer, ForeignKey('publicationsize.id'))
     link = Column(String(200))
     notes = Column(String(200))
     title = Column(String(200))
     tags = relationship('Tag', secondary='issuetag', uselist=True)
-    content = relationship('Article', secondary='issuecontent', uselist=True)
-    editor = relationship('Person', uselist=False)
+    articles = relationship('Article', secondary='issuecontent', uselist=True)
+    stories = relationship('ShortStory', secondary='issuecontent', uselist=True)
+    editors = relationship('Person', secondary='issueeditor', uselist=True)
+    size = relationship('PublicationSize', uselist=False)
+    magazine = relationship('Magazine', uselist=False)
 
 class IssueContent(Base):
     __tablename__ = 'issuecontent'
@@ -232,7 +237,13 @@ class IssueContent(Base):
     issue_id = Column(Integer, ForeignKey('issue.id'), nullable=False)
     article_id = Column(Integer, ForeignKey('article.id'))
     shortstory_id = Column(Integer, ForeignKey('shortstory.id'))
-    title = Column(String(200), nullable=False, index=True)
+
+class IssueEditor(Base):
+    __tablename__ = 'issueeditor'
+    issue_id = Column(Integer, ForeignKey('issue.id'),
+            nullable=False, primary_key=True)
+    person_id = Column(Integer, ForeignKey('person.id'),
+            nullable=False, primary_key=True)
 
 class IssueTag(Base):
     __tablename__ = 'issuetag'
@@ -252,6 +263,7 @@ class Magazine(Base):
     tags = relationship('Tag', secondary='magazinetag', uselist=True)
     issues = relationship('Issue', backref=backref('magazine_issue'),
             uselist=True, order_by='Issue.count')
+    publisher = relationship('Publisher', uselist=False)
 
 class MagazineTag(Base):
     __tablename__ = 'magazinetag'
@@ -336,7 +348,18 @@ class Person(Base):
                 primaryjoin='and_(Person.id == Translator.person_id,\
                 Translator.part_id == Part.id, Part.work_id == Work.id)',
                 uselist=True)
+    chief_editor = relationship('Issue', secondary='issueeditor', uselist=True)
+    articles = relationship('Article', secondary='articleauthor',
+            uselist=True)
+    magazine_stories = relationship('ShortStory',
+            secondary='join(Part, Author, Part.id == Author.part_id)',
+            primaryjoin='and_(Person.id == Author.person_id,\
+                         IssueContent.shortstory_id == Part.shortstory_id)',
+            uselist=True)
+    appears_in = relationship('Article', secondary='articleperson',
+            uselist=True)
     tags = relationship('Tag', secondary='persontag', uselist=True)
+
 
 class PersonLink(Base):
     __tablename__ = 'personlink'
@@ -410,6 +433,7 @@ class ShortStory(Base):
     creator_str = Column(String(500), index=True)
     parts = relationship('Part', backref=backref('part_assoc'), uselist=True)
     genres = relationship('Genre', secondary='storygenre', uselist=True)
+    issues = relationship('Issue', secondary='issuecontent', uselist=True)
     tags = relationship('Tag', secondary='storytag', uselist=True)
 
 class StoryGenre(Base):

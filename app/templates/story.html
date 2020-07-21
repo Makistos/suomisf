@@ -19,33 +19,28 @@
             {% endif %}
         </div>
 
-        <div class="accordion" id="storyCard">
-            <div class="card">
-                <div class="card-header" id="headWorks">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                            data-target="#works" aria-expanded="true" aria-controls="works">
-                            Ilmestynyt teoksissa
-                        </button>
-                    </h2>
-                </div>
-                <div id="works" class="collapse" aria-labelledby="headWorks" data-parent="#storyCard">
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            {% for work in works %}
-                            <li class="list-group-item">
+        {% if works %}
+        <dl class="list-group list-group-flush">
+            <dt>Ilmestynyt teoksissa</dt>
+                {% for work in works %}
+                    <dd class="list-group-item">
                                 {% include "_work.html" %}
                                 {% for edition in work.editions %}
                                 {% include "_work_edition.html" %}
                                 {% endfor %}
-                            </li>
-                            {% endfor %}
-
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </dd>
+                {% endfor %}
+        </dl>
+        {% endif %}
+        {% if story.issues %}
+        <dl class="list-group list-group-flush">
+            <dt>Ilmestynyt lehdissä</dt>
+            {% for issue in story.issues %}
+            <dd class="list-group-item">
+            {{ issue.magazine.name }}
+            </dd>
+            {% endfor %}
+        </dl>
+        {% endif %}
     </div>
 {% endblock %}

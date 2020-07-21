@@ -121,7 +121,7 @@
                 </div>
             </div>
             {% endif %}
-            {% if person.stories|length %}
+            {% if person.stories|length or person.magazine_stories|length %}
             <div class="card">
                 <div class="card-header" id="headAuthoredStories">
                     <h2 class="mb-0">
@@ -211,6 +211,98 @@
                             {% for edition in person.edits|sort(attribute='title') %}
 
                             <li class="list-group-item">{% include "_edition.html" %}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if person.articles|length %}
+            <div class="card">
+                <div class="card-header" id="headArticles">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                            data-target="#edited" aria-expanded="false" aria-controls="edited">
+                            Artikkelit
+                        </button>
+                    </h2>
+                </div>
+                <div id="edited" class="collapse"
+			aria-labelledby="headArticles" data-parent="#authorCard">
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            {% for article in person.articles %} 
+			    <li class="list-group list-group-flush">
+			    	{{ article.issue.magazine.name }} 
+				{% if article.issue.number %}
+					{{ article.issue.number }} /
+					{{ article.issue.year }} 
+				{% else %}
+					{{ article.issue.count }}
+				{% endif %}:
+				{{ article.title }}.
+		            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if person.chief_editor|length %}
+            <div class="card">
+                <div class="card-header" id="headChiefEditor">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                            data-target="#edited" aria-expanded="false" aria-controls="edited">
+                            Päätoimittajana
+                        </button>
+                    </h2>
+                </div>
+                <div id="edited" class="collapse"
+			aria-labelledby="headChiefEditor" data-parent="#authorCard">
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            {% for issue in person.chief_editor|sort(attribute='count') %} 
+			    <li class="list-group list-group-flush">
+			    	{{ issue.magazine.name }} 
+				{% if issue.number %}
+					{{ issue.number }} / {{ issue.year }} 
+				{% else %}
+					{{ issue.count }}
+				{% endif %}
+		            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if person.appears_in|length %}
+            <div class="card">
+                <div class="card-header" id="headAppearsIn">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                            data-target="#edited" aria-expanded="false" aria-controls="edited">
+                            Esiintynyt artikkeleissa
+                        </button>
+                    </h2>
+                </div>
+                <div id="edited" class="collapse"
+			aria-labelledby="headChiefEditor" data-parent="#authorCard">
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            {% for article in
+			    person.appears_in %} 
+			    <li class="list-group list-group-flush">
+			    	{{ article.issue.magazine.name }} 
+				{% if article.issue.number -%}
+					{{ article.issue.number }} /
+					{{ article.issue.year }} 
+				{%- else -%}
+					{{ article.issue.count }}
+				{%- endif -%}:
+				{{ article.title }}.
+		            </li>
                             {% endfor %}
                         </ul>
                     </div>

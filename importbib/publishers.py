@@ -255,7 +255,7 @@ publishers = [
     ('Tajo', 'Tajo', 'Tajo'),
     ('Tajunta Media', 'Tajunta Media', 'Tajunta Media'),
     ('Tammi', 'Tammi', 'Tammi'),
-    ('Tampereen Science [Ff]iction Seura( ry)?', 'Tampereen Science Fiction Seura ry', 'Tampereen Science Ffiction Seura ry'),
+    ('Tampereen Science [Ff]iction Seura( ry)?', 'Tampereen Science Fiction Seura ry', 'Tampereen Science Fiction Seura ry'),
     ('Tampereen [Ss]entraalikirjapaino( Oy)?', 'Tampereen Sentraalikirjapaino', 'Tampereen Ssentraalikirjapaino Oy'),
     ('Taru', 'Taru', 'Taru'),
     ('Tekijä', 'Tekijä', 'Tekijä'),
