@@ -146,11 +146,18 @@ def import_issues(s, dir: str, name: str, id: int) -> None:
                 year = issue['Year']
                 editors = issue['Editor'].split('&')
                 image_src = issue['Image_src']
-                pages = issue['Pages']
+                pgs = issue['Pages']
+                if pgs == '':
+                    pages = None
+                else:
+                    pages = int(pgs)
                 size = issue['Size']
                 link = issue['Link']
                 notes = issue['Notes']
-                title = issue['Title']
+                if 'Title' in issue:
+                    title = issue['Title']
+                else:
+                    title = None
 
                 editor_ids = []
                 for editor in editors:
@@ -167,7 +174,7 @@ def import_issues(s, dir: str, name: str, id: int) -> None:
                             count=int(count),
                             year=int(year),
                             image_src=image_src,
-                            pages=int(pages),
+                            pages=pages,
                             size_id=size_id,
                             link=link,
                             notes=notes.strip(),
@@ -194,7 +201,14 @@ def import_articles(s, name: str, issue_num: int, id: int) -> None:
 
     try:
         for article in articles[name]:
-            number: int = int(article['nro'])
+            number: int = 0
+            if 'nro' in article:
+                nro = article['nro']
+            elif 'Nro' in article:
+                nro = article['Nro']
+            if nro == '':
+                continue
+            number = int(nro)
             if issue_num == number:
                 magazine = article['Lehti'] # Not really needed
 
@@ -270,7 +284,14 @@ def import_stories(s, name:str, issue_num: int, id: int ):
         return
 
     for story in stories[name]:
-            number: int = int(story['Nro'])
+            number: int = 0
+            if 'Nro' in story:
+                nro = story['Nro']
+            elif 'nro' in story:
+                nro = story['nro']
+            if nro == '':
+                continue
+            number = int(nro)
             if issue_num == number:
                 magazine = story['Lehti'] # Not really needed
                 year = story['Julkaisuvuosi']
@@ -378,7 +399,7 @@ def import_magazines(dir: str) -> None:
         read_file(filename, articles)
 
     filenames = glob.glob(dir + 'Magazines_*_novellit.csv')
-    print('Found short story files: {filenames}.')
+    print(f'Found short story files: {filenames}.')
     for filename in filenames:
         read_file(filename, stories)
 
