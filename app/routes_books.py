@@ -243,7 +243,7 @@ def work(workid):
                 if idx == 0:
                     # First in series
                     next_book = books_in_series[1]
-                elif idx == len(books_in_series):
+                elif idx == len(books_in_series) - 1 :
                     # Last in series
                     prev_book = books_in_series[-2]
                 else:
