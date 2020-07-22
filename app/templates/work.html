@@ -21,7 +21,7 @@
                         {% endif %}
                     </i>
                     <ul class="list-group list-group-flush">
-                        <lic class="list-group-item">
+                        <li class="list-group-item">
                         <b>Tyyppi:</b>
                         {% if work.collection == true %}
                         Kokoelma
@@ -38,6 +38,18 @@
                                     seriesid=work.bookseries.id) }} ">{{ work.bookseries.name }}</a>
                             {%- if work.bookseriesnum %}{% if work.bookseriesnum|length -%},
                             numero {{ work.bookseriesnum }}
+			    {% if prev_book %}
+			    <a href="{{url_for('work',
+				     workid=prev_book.id)}}"><img
+								     src="/static/icons/Arrows-Left-icon.png"
+								     alt="Edellinen"></a>
+			    {% endif %}
+			    {% if next_book %}
+			    <a href="{{url_for('work',
+				     workid=next_book.id)}}"><img
+				     src="/static/icons/Arrows-Right-icon.png"
+				     alt="Seuraava"></a>
+			    {% endif %}
                         </li>
                         {% if current_user.is_admin %}
                         <li class="list-group-item">

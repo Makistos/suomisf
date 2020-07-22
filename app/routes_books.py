@@ -231,9 +231,28 @@ def work(workid):
     else:
         app.logger.debug("Errors: {}".format(form.errors))
 
+    prev_book = None
+    next_book = None
+    if bookseries:
+        books_in_series = session.query(Work)\
+                                 .filter(Work.bookseries_id == bookseries.id)\
+                                 .order_by(Work.bookseriesorder, Work.pubyear)\
+                                 .all()
+        for idx, book in enumerate(books_in_series):
+            if book.id == int(workid):
+                if idx == 0:
+                    # First in series
+                    next_book = books_in_series[1]
+                elif idx == len(books_in_series):
+                    # Last in series
+                    prev_book = books_in_series[-2]
+                else:
+                    prev_book = books_in_series[idx-1]
+                    next_book = books_in_series[idx+1]
+                break
     return render_template('work.html', work=work, authors=authors,
             bookseries=bookseries, search_lists=search_list, form=form,
-            stories=stories)
+            stories=stories, prev_book=prev_book, next_book=next_book)
 
 @app.route('/edit_work/<workid>', methods=["POST", "GET"])
 def edit_work(workid):
