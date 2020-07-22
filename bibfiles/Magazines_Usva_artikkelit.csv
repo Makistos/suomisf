@@ -1,26 +1,26 @@
-﻿Lehti;Nro;Nro_extra;Vuosi;Tekijä;Artikkeli;Aihe;Viitteet
-Usva;3;;2007;Jani Torvinen;Deathwriters;Deathwriters, Kirjoittaminen;
-Usva;1;;2007;Carita Forsgren;Taiteilijan jälkisanat;Taide, Kuvittaminen;Carita Forsgren
-Usva;4;;2008;Anne Leinonen;Peuraheimon tarina;;Pekka Halonen
-Usva;3;;2006;Tuuli Hypén;Taiteilijan omat sanat;Taide, Kuvittaminen, Tuuli Hypén;
-Usva;1;;2006;Jarmo Karonen, Anne Leinonen;Tyhjiö todellisuuden rajoilla;;Jarmo Karonen
-Usva;2;;2008;Mike Pohjola;Kyynelten takana;Kirjoittaminen;
-Usva;1;;2008;Boris Hurtta;MXYZPTLK ja muita nimiä;Kirjoittaminen;
-Usva;2;;2010;Noora Niemelä;Sanoja piipunsuusta;Kirjoittaminen;
-Usva;3;;2007;Kalle Lintunen;Spekulatiivisen ja valtavirran suhteesta;Kirjoittaminen;
-Usva;4;;2006;Iida Ojanperä;Taiteilijan omat sanat;Taide, Valokuvaus, Iida Ojanperä;
-Usva;2;;2007;Petri Laine;Arjen outouttamisesta - Petri Laineen kommentit;Palkinnot, Kilpailut;
-Usva;2;;2007;Boris Hurtta;Arkea ja juhlaa - Boris Hurtan perustelut;Palkinnot, Kilpailut;
-Usva;2;;2007;Tiina Raevaara;Atorox = paljon tekstiä + tylsää kerrontaa + borgilintuja;Palkinnot, Kilpailut, Atorox;
-Usva;2;;2006;Petri Laine;Atorox 2006: Robottipään kolme pääsääntöä;Palkinnot, Kilpailut, Atorox;
-Usva;2;;2007;Irma Hirsjärvi;Kiinnostavat, mahdolliset, raakatut - Irma Hirsjärvi tuomaroi;Palkinnot, Kilpailut;
-Usva;2;;2007;Liisa Rantalaiho;Metsää puilta - Liisa Rantalaihon huomioita kilpailusta;Palkinnot, Kilpailut;
-Usva;2;;2007;Petri Salin;Proosan jäillä ei armoa tunneta - Petri Salin tuomaroi;Palkinnot, Kilpailut;
-Usva;2;;2009;Anne Leinonen;Tuli, maa, ilma, vesi -kirjoituskilpailun tulokset;Palkinnot, Kilpailut;
-Usva;2;;2009;Irma Hirsjärvi;Tuli, maa, ilma, vesi - Irma Hirsjärven lausunto;Palkinnot, Kilpailut;
-Usva;2;;2009;J.P. Koskinen;Tuli, maa, ilma, vesi - J.P. Koskisen lausunto;Palkinnot, Kilpailut;
-Usva;2;;2009;Liisa Rantalaiho;Tuli, maa, ilma, vesi - Liisa Rantalaihon lausunto;Palkinnot, Kilpailut;
-Usva;2;;2009;Marko Hautala;Tuli, maa, ilma, vesi - Marko Hautalan lausunto;Palkinnot, Kilpailut;
-Usva;2;;2009;Sari Peltoniemi;Tuli, maa, ilma, vesi - Sari Peltoniemen lausunto;Palkinnot, Kilpailut;
-Usva;1;;2008;Anne Leinonen;Usvan tuomarointikysely;Palkinnot, Kilpailut;
-Usva;1;;2006;Helena Numminen;Pelon hallinnasta;Sekalaista;
+﻿Lehti;Number;Number_extra;Count;Year;Tekijä;Artikkeli;Aihe;Viitteet
+Usva;3;;;2007;Jani Torvinen;Deathwriters;Deathwriters, Kirjoittaminen;
+Usva;1;;;2007;Carita Forsgren;Taiteilijan jälkisanat;Taide, Kuvittaminen;Carita Forsgren
+Usva;4;;;2008;Anne Leinonen;Peuraheimon tarina;;Pekka Halonen
+Usva;3;;;2006;Tuuli Hypén;Taiteilijan omat sanat;Taide, Kuvittaminen, Tuuli Hypén;
+Usva;1;;;2006;Jarmo Karonen, Anne Leinonen;Tyhjiö todellisuuden rajoilla;;Jarmo Karonen
+Usva;2;;;2008;Mike Pohjola;Kyynelten takana;Kirjoittaminen;
+Usva;1;;;2008;Boris Hurtta;MXYZPTLK ja muita nimiä;Kirjoittaminen;
+Usva;2;;;2010;Noora Niemelä;Sanoja piipunsuusta;Kirjoittaminen;
+Usva;3;;;2007;Kalle Lintunen;Spekulatiivisen ja valtavirran suhteesta;Kirjoittaminen;
+Usva;4;;;2006;Iida Ojanperä;Taiteilijan omat sanat;Taide, Valokuvaus, Iida Ojanperä;
+Usva;2;;;2007;Petri Laine;Arjen outouttamisesta - Petri Laineen kommentit;Palkinnot, Kilpailut;
+Usva;2;;;2007;Boris Hurtta;Arkea ja juhlaa - Boris Hurtan perustelut;Palkinnot, Kilpailut;
+Usva;2;;;2007;Tiina Raevaara;Atorox = paljon tekstiä + tylsää kerrontaa + borgilintuja;Palkinnot, Kilpailut, Atorox;
+Usva;2;;;2006;Petri Laine;Atorox 2006: Robottipään kolme pääsääntöä;Palkinnot, Kilpailut, Atorox;
+Usva;2;;;2007;Irma Hirsjärvi;Kiinnostavat, mahdolliset, raakatut - Irma Hirsjärvi tuomaroi;Palkinnot, Kilpailut;
+Usva;2;;;2007;Liisa Rantalaiho;Metsää puilta - Liisa Rantalaihon huomioita kilpailusta;Palkinnot, Kilpailut;
+Usva;2;;;2007;Petri Salin;Proosan jäillä ei armoa tunneta - Petri Salin tuomaroi;Palkinnot, Kilpailut;
+Usva;2;;;2009;Anne Leinonen;Tuli, maa, ilma, vesi -kirjoituskilpailun tulokset;Palkinnot, Kilpailut;
+Usva;2;;;2009;Irma Hirsjärvi;Tuli, maa, ilma, vesi - Irma Hirsjärven lausunto;Palkinnot, Kilpailut;
+Usva;2;;;2009;J.P. Koskinen;Tuli, maa, ilma, vesi - J.P. Koskisen lausunto;Palkinnot, Kilpailut;
+Usva;2;;;2009;Liisa Rantalaiho;Tuli, maa, ilma, vesi - Liisa Rantalaihon lausunto;Palkinnot, Kilpailut;
+Usva;2;;;2009;Marko Hautala;Tuli, maa, ilma, vesi - Marko Hautalan lausunto;Palkinnot, Kilpailut;
+Usva;2;;;2009;Sari Peltoniemi;Tuli, maa, ilma, vesi - Sari Peltoniemen lausunto;Palkinnot, Kilpailut;
+Usva;1;;;2008;Anne Leinonen;Usvan tuomarointikysely;Palkinnot, Kilpailut;
+Usva;1;;;2006;Helena Numminen;Pelon hallinnasta;Sekalaista;
