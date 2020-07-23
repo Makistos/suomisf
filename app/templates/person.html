@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col col-lg-4 container">
                 {% if person.image_src %}
-                <img src="{{person.image}}" width=255px>
+                <img src="{{person.image_src}}" width=255px class="person">
                 {% else %}
                 <img src="/static/icons/person_256.png">
                 {% endif %}
@@ -35,10 +35,16 @@
                             {% endfor %}
                         </li>
                         {% endif %}
+			{% if person.other_names %}
+			<li class="list-group-item"><b>Myös:</b>
+				{{ person.other_names }}
+			</li>
+			{% endif %}
                         {% if person.aliases %}
-                        <li class="list-group-item"><b>Pseudonyymit</b>
+                        <li class="list-group-item"><b>Pseudonyymit:</b>
                             {% for rn in person.aliases %}
-                            <a href="{{url_for('person', personid=rn.id)}}">{{ rn.name }}</a>
+                            <a href="{{url_for('person', personid=rn.id)}}">{{
+				    rn.name }}</a>
                             {% endfor %}
                         </li>
                         {% endif %}

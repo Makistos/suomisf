@@ -309,6 +309,7 @@ class Person(Base):
     first_name = Column(String(100))
     last_name = Column(String(150))
     image_src = Column(String(100))  # Source website name
+    image_attr = Column(String(100))
     dob = Column(Integer)
     dod = Column(Integer)
     bio = Column(String(1000))  # Biographgy

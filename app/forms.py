@@ -92,11 +92,14 @@ class PersonForm(FlaskForm):
     first_name = StringField('Etunimi')
     last_name = StringField('Sukunimi')
     image_src = StringField('Kuva')
+    image_attr = StringField('Kuvan lähde')
     dob = IntegerField('Syntymävuosi', validators=[Optional()])
     dod = IntegerField('Kuolinvuosi', validators=[Optional()])
     nationality = StringField('Kansallisuus')
     other_names = StringField('Vaihtoehtoiset nimen kirjoitusasut')
     tags = StringField('Aihetunnisteet')
+    bio = TextAreaField('Kuvaus', validators=[Optional()])
+    bio_src = StringField('Kuvauksen lähde')
     submit = SubmitField('Tallenna')
 
 class PublisherForm(FlaskForm):

@@ -397,6 +397,7 @@ def edit_person(personid):
         form.first_name.data = person.first_name
         form.last_name.data = person.last_name
         form.image_src.data = person.image_src
+        form.image_attr.data = person.image_attr
         if person.dob:
             form.dob.data = person.dob
         else:
@@ -408,6 +409,8 @@ def edit_person(personid):
         form.nationality.data = person.nationality
         form.other_names.data = person.other_names
         form.tags.data = ','.join([x.name for x in person.tags])
+        form.bio.data = person.bio
+        form.bio_src.data = person.bio_src
     if form.validate_on_submit():
         person.name = form.name.data
         person.alt_name = form.alt_name.data
@@ -422,42 +425,9 @@ def edit_person(personid):
         person.other_names = form.other_names.data
         session.add(person)
         session.commit()
-        # Get all existing tags for person from db
-        tags = session.query(Tag.name, Tag.id)\
-                      .join(PersonTag)\
-                      .filter(PersonTag.tag_id == Tag.id)\
-                      .filter(PersonTag.person_id == person.id)\
-                      .all()
-        old_tags = {}
-        for tag in tags:
-            old_tags[tag.name] = tag.id
-        new_tags = form.tags.data.split(',')
-        new_tags = [x.strip() for x in new_tags]
-        for tag in old_tags:
-            # Remove any tags removed from list
-            if tag not in new_tags:
-                item = session.query(PersonTag)\
-                              .filter(PersonTag.person_id == person.id)\
-                              .join(Tag)\
-                              .filter(PersonTag.tag_id == Tag.id)\
-                              .filter(Tag.name == tag)\
-                              .first()
-                session.delete(item)
-        session.commit()
-        for tag in new_tags:
-            # Add new tags
-            if tag not in old_tags:
-                tag_item = session.query(Tag).filter(Tag.name == tag).first()
-                if not tag_item:
-                    # Complete new tag in db, add it to Tag table
-                    tag_item = Tag(name=tag)
-                    session.add(tag_item)
-                    session.commit()
 
-                person_tag = PersonTag(person_id = person.id, tag_id =
-                        tag_item.id)
-                session.add(person_tag)
-        session.commit()
+        save_tags(session, form.tags.data, 'Person', person.id)
+
         return redirect(url_for('person', personid=person.id))
     else:
         app.logger.debug("Errors: {}".format(form.errors))
@@ -472,6 +442,7 @@ def new_person():
 
     if form.validate_on_submit():
         person.name = form.name.data
+        person.alt_name = form.alt_name.data
         person.first_name = form.first_name.data
         person.last_name = form.last_name.data
         if form.dob.data != 0:
@@ -479,7 +450,11 @@ def new_person():
         if form.dod.data != 0:
             person.dod = form.dod.data
         person.nationality = form.nationality.data
+        person.other_names = form.other_names.data
         person.image_src = form.image_src.data
+        person.image_attr = form.image_attr.data
+        person.bio = form.bio.data
+        person.bio_src = form.bio_src.data
         session.add(person)
         session.commit()
         return redirect(url_for('person', personid=person.id))

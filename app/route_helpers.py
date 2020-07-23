@@ -3,6 +3,7 @@
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
 from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work, Edition, Part, Pubseries, Bookseries, User, UserBook
+from typing import List, Dict
 
 """
     This module contains the functions related to routes that are not directly
@@ -212,3 +213,67 @@ def update_creators(session, workid):
 
 def translate_genrelist(glist):
     return glist
+
+
+def _add_tags(session, tags: List[str]) -> List[int]:
+    """ Adds any new tags to the Tag table and returns a list
+        containing ids for all tags in the tags list.
+    """
+    for tag in new_tags:
+        # Add new tags
+        if tag not in old_tags:
+            tag_item = session.query(Tag).filter(Tag.name == tag).first()
+            if not tag_item:
+                # Complete new tag in db, add it to Tag table
+                tag_item = Tag(name=tag)
+                session.add(tag_item)
+                session.commit()
+            new_ids.append(tag_item.id)
+    return new_ids
+
+
+def save_tags(session, tag_list: str, tag_type: str, id: int) -> None:
+    ''' Save tags for item to database creating new ones if needed.
+
+        Parameters
+        ----------
+        session  : Database session
+        tag_list : Comma-separated list of tags
+        tag_type : Type of tag. Supported types: "Person".
+        id       : Id of item whom tags are saved for
+    '''
+    retval = List[int]
+
+    new_ids: List[int]
+    new_tags = form.tags.data.split(',')
+    new_tags = [x.strip() for x in new_tags if x.strip() != '']
+
+    if tag_type == 'Person':
+        # Get all existing tags for person from db
+        tags = session.query(Tag.name, Tag.id)\
+                      .join(PersonTag)\
+                      .filter(PersonTag.tag_id == Tag.id)\
+                      .filter(PersonTag.person_id == person.id)\
+                      .all()
+        old_tags: Dict = {}
+        for tag in tags:
+            old_tags[tag.name] = tag.id
+        for tag in old_tags:
+            # Remove any tags removed from list
+            if tag not in new_tags:
+                item = session.query(PersonTag)\
+                              .filter(PersonTag.person_id == person.id)\
+                              .join(Tag)\
+                              .filter(PersonTag.tag_id == Tag.id)\
+                              .filter(Tag.name == tag)\
+                              .first()
+                session.delete(item)
+        new_ids = _add_tags(session, new_tags)
+
+        for tag in new_ids:
+            # Add new tags
+                person_tag = PersonTag(person_id=person.id,
+                                       tag_id=tag)
+                session.add(person_tag)
+        session.commit()
+

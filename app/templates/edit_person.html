@@ -45,8 +45,20 @@
         {{ form.image_src(size=200) }}
         </p>
         <p>
+        {{ form.image_attr.label }}<br>
+        {{ form.image_attr(size=200) }}
+        </p>
+        <p>
         {{ form.tags.label }}<br>
         {{ form.tags(size=200) }}<br>
+        </p>
+        <p>
+        {{ form.bio.label }}<br>
+        {{ form.bio(size=500) }}<br>
+        </p>
+        <p>
+        {{ form.bio_src.label }}<br>
+        {{ form.bio_src(size=500) }}<br>
         </p>
         <p>{{ form.submit() }}</p>
 </form>
