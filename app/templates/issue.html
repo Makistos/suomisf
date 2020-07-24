@@ -33,7 +33,7 @@
                     <ul class="list-group list-group-flush">
                         {% if issue.link %}
 			<li class="list-group-item"><b>Kotisivu:</b>
-				{{ issue.link }}
+				<a href="{{ issue.link }}">{{issue.link}}</a>
 			</li>
 			{% endif %}
                         {% if issue.editors %}

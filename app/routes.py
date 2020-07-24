@@ -423,6 +423,8 @@ def edit_person(personid):
             person.dod = form.dod.data
         person.nationality = form.nationality.data
         person.other_names = form.other_names.data
+        person.bio = form.data.bio
+        persion.bio_src = form.bio_src.data
         session.add(person)
         session.commit()
 

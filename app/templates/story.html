@@ -13,10 +13,23 @@
                 ({{ story.id }})
                 {% endif %}
             </h3>
+	    <div class="col"> 
             {% if story.title != story.orig_title %}
             {{ story.orig_title }}
             {%- if story.pubyear -%}, {{  story.pubyear }}{% endif %}
             {% endif %}
+	    </div>
+	    <div class="col container col-lg-4 justify-content-end
+			justify-content-center align-middle">
+		    {% for genre in story.genres %}
+			<li class="list-inline-item" style="padding-bottom:
+				   1rem;"><img
+						  src="/static/icons/{{genre.abbr}}_32.png"></li>
+		    {% endfor %}
+		    {% for tag in story.tags %}
+		    	{{ tag.name }}
+		    {% endfor %}
+	    </div>
         </div>
 
         {% if works %}

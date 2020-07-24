@@ -17,7 +17,9 @@
 		    {% if people|length %}
 		    <li class="list-group-item"> 
 			<b>Henkilöt:</b>
+			<span class="person-list">
 			{{ people|map(attribute='name')|join(', ')}}
+			</span>
 		    </li>
 		    {% endif %}
 		    {% if article.tags %}
@@ -32,4 +34,7 @@
         </div>
 
     </div>
+{% block script %}
+<script src="/static/js/personlink.js" type="text/javascript"></script>
+{% endblock %}
 {% endblock %}

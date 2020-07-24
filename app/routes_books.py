@@ -6,7 +6,7 @@ from flask import render_template, request, flash, redirect, url_for, make_respo
 from app.forms import WorkForm, EditionForm, WorkAuthorForm
 from .route_helpers import *
 from typing import List, Dict
-from sqlalchemy import func
+from sqlalchemy import func, distinct
 
 # Book related routes
 
@@ -739,6 +739,7 @@ def story(id):
                    .all()
 
     authors = session.query(Person)\
+                     .distinct(Person.id)\
                      .join(Author)\
                      .filter(Person.id == Author.person_id)\
                      .join(Part)\
@@ -746,8 +747,6 @@ def story(id):
                              Part.shortstory_id == id)\
                      .all()
 
-    search_list = {**search_list, **author_list(session)}
-
     return render_template('story.html', id=id, story=story,
                            editions=editions, works=works,
-                           authors=authors, search_lists=search_list)
+                           authors=authors)
