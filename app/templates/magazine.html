@@ -59,7 +59,7 @@
                                 
                             </li>
                             <li class="list-group-item">
-				    Sivuja: {{ issue.pages }}
+				    <b>Sivuja</b>: {{ issue.pages }}
 				    {% if issue.size_id %}
 					    ({{issue.size.name}})
 				    {% endif %}
@@ -71,12 +71,12 @@
                             </li>
                             {% endif %}
                             <li class="list-group-item">
-                                Artikkelit: {{
+				    <b>Artikkelit</b>: {{
                                 issue.articles|map(attribute='title')|join(' /
                                 ')}}
                             </li>
                             <li class="list-group-item">
-                                Novellit: {{ issue.stories|map(attribute='title')|join('
+				    <b>Novellit</b>: {{ issue.stories|map(attribute='title')|join('
                                 / ')}}
                             </li>
                             {% endfor %}
