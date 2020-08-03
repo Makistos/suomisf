@@ -677,11 +677,71 @@ def issue(id):
 
     return render_template('issue.html', issue=issue)
 
+@app.route('/add_issue/<magazine_id>', methods=['GET', 'POST'])
+def add_issue(magazine_id):
+    session = new_session()
+
+    issue = Issue()
+
+    form = IssueForm(request.form)
+    sizes = size_list(session)
+    form.size.choices = sizes
+    form.size.default = "0"
+
+    magazine = session.query(Magazine)\
+                      .filter(Magazine.id == magazine_id)\
+                      .first()
+
+    if form.validate_on_submit():
+        issue.magazine_id = magazine_id
+        issue.number = form.number.data
+        issue.number_extra = form.number_extra.data
+        issue.count = form.count.data
+        issue.year = form.year.data
+        issue.image_src = form.image_src.data
+        issue.pages = form.pages.data
+        issue.link = form.link.data
+        issue.notes = form.notes.data
+        if form.size.data != '':
+            issue.size_id = int(form.size.data)
+        else:
+            issue.size = None
+
+        session.add(issue)
+        session.commit()
+
+        if form.editor.data != '':
+            person = session.query(Person)\
+                            .filter(Person.name == form.editor.data)\
+                            .first()
+            ie = session.query(IssueEditor)\
+                        .filter(IssueEditor.issue_id == issue.id)\
+                        .first()
+            if not ie:
+                ie = IssueEditor(person_id=person.id,
+                                 issue_id=issue.id)
+            else:
+                ie.person_id = person.id
+            session.add(ie)
+            session.commit()
+
+        return redirect(url_for('issue', id=issue.id))
+    else:
+        app.logger.debug('Errors: {}'.format(form.errors))
+
+    return render_template('edit_issue.html',
+                           form=form,
+                           magazine_name=magazine.name,
+                           issueid=0,
+                           selected_size='0')
+
+
+
 @app.route('/edit_issue/<id>', methods=['GET', 'POST'])
 def edit_issue(id):
     session = new_session()
 
-    if id != 0:
+    if id != '0':
         issue = session.query(Issue).filter(Issue.id == id).first()
     else:
         issue = Issue()
@@ -691,13 +751,13 @@ def edit_issue(id):
     form.size.choices = sizes
     form.size.default = "0"
 
-    magazine = session.query(Magazine.name)\
+    magazine = session.query(Magazine)\
                       .join(Issue)\
                       .filter(Magazine.id == Issue.magazine_id,
                               Issue.id == id)\
                       .first()
     if magazine:
-        magazine_name = magazine
+        magazine_name = magazine.name
     else:
         magazine_name = ''
 
@@ -765,9 +825,9 @@ def edit_issue(id):
 
     return render_template('edit_issue.html',
                            form=form,
-                           magazine_name=str(magazine_name[0]),
+                           magazine_name=magazine_name,
                            issueid=issue.id,
-                           selected_size=str(issue.size_id))
+                           selected_size=size)
 
 @app.route('/article/<id>')
 def article(id):
