@@ -2,7 +2,9 @@
 
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
-from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work, Edition, Part, Pubseries, Bookseries, User, UserBook
+from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
+Edition, Part, Pubseries, Bookseries, User, UserBook, PublicationSize, Tag,\
+PersonTag
 from typing import List, Dict
 
 """
@@ -38,6 +40,10 @@ def pubseries_list(session, pubid):
         return {'pubseries' : [str(x.name) for x in
                 session.query(Pubseries).order_by(Pubseries.name).all()]}
 
+def size_list(session):
+    retval = [('0', 'Ei tiedossa/muu')]
+    return retval + [(str(x.id), str(x.name)) for x in
+            session.query(PublicationSize).order_by(PublicationSize.name).all()]
 
 def bookseries_list(session):
     return {'bookseries' : [str(x.name) for x in
@@ -237,23 +243,24 @@ def save_tags(session, tag_list: str, tag_type: str, id: int) -> None:
 
         Parameters
         ----------
-        session  : Database session
-        tag_list : Comma-separated list of tags
+        session  : Database session.
+        tag_list : Comma-separated list of tags.
         tag_type : Type of tag. Supported types: "Person".
-        id       : Id of item whom tags are saved for
+        id       : Id of item whom tags are saved for.
     '''
-    retval = List[int]
-
     new_ids: List[int]
-    new_tags = form.tags.data.split(',')
+    new_tags = tag_list.split(',')
     new_tags = [x.strip() for x in new_tags if x.strip() != '']
+
+    if not new_tags:
+        return
 
     if tag_type == 'Person':
         # Get all existing tags for person from db
         tags = session.query(Tag.name, Tag.id)\
                       .join(PersonTag)\
                       .filter(PersonTag.tag_id == Tag.id)\
-                      .filter(PersonTag.person_id == person.id)\
+                      .filter(PersonTag.person_id == id)\
                       .all()
         old_tags: Dict = {}
         for tag in tags:
@@ -262,7 +269,7 @@ def save_tags(session, tag_list: str, tag_type: str, id: int) -> None:
             # Remove any tags removed from list
             if tag not in new_tags:
                 item = session.query(PersonTag)\
-                              .filter(PersonTag.person_id == person.id)\
+                              .filter(PersonTag.person_id == id)\
                               .join(Tag)\
                               .filter(PersonTag.tag_id == Tag.id)\
                               .filter(Tag.name == tag)\
@@ -272,7 +279,7 @@ def save_tags(session, tag_list: str, tag_type: str, id: int) -> None:
 
         for tag in new_ids:
             # Add new tags
-                person_tag = PersonTag(person_id=person.id,
+                person_tag = PersonTag(person_id=id,
                                        tag_id=tag)
                 session.add(person_tag)
         session.commit()

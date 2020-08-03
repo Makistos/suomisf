@@ -104,17 +104,19 @@
                             </dl>
             {% endif %}
             {% if current_user.is_admin %}
-            {#
+        <div class="accordion" id="issueCard">
             <div class="card">
-                <div class="card-header" id="headAdmin">
+                <div class="card-header" id="headIssue">
                     <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                            data-target="#admin" aria-expanded="false" aria-controls="admin">
+                            data-target="#issue" aria-expanded="false"
+			    aria-controls="issue">
                             Ylläpito ({{issue.id}})
                         </button>
                     </h2>
                 </div>
-                <div id="admin" class="collapse" aria-labelledby="headAdmin" data-parent="#authorCard">
+                <div id="issue" class="collapse" aria-labelledby="headAdmin"
+			data-parent="#issueCard">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><a
@@ -124,7 +126,7 @@
                     </div>
                 </div>
             </div>
-            #}
+	</div>
             {% endif %}
         </div>
     </div>

@@ -4,14 +4,18 @@
   {% block head %}
   <meta charset=utf-8/>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
   <script src="/static/js/ownership.js"></script>
   <script src="/static/js/custom-elements.js"></script>
   {% block styles %}
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap" rel="stylesheet">
   {{ bootstrap.load_css() }}
-  <link rel="stylesheet" type="text/css" href="/static/suomisf.css">
+  {# <link rel="stylesheet" type="text/css" href="/static/suomisf.css"> #}
+
   <style type="text/css">
     a.ownerstate:not(:hover) {
       color: transparent;
@@ -45,15 +49,15 @@
               Kirjat
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarBooksMenuLink">
-              <a class="dropdown-item" href="{{ url_for("books") }}">Kaikki</a>
-              <a class="dropdown-item" href="{{ url_for("books_by_origin", country='Suomi') }}">Suomalaiset</a>
-              <a class="dropdown-item" href="{{ url_for("books_by_origin", country='!Suomi') }}">Ulkomaiset</a>
-              <a class="dropdown-item" href="{{ url_for("anthologies") }}">Kokoelmat</a>
+              <a class="dropdown-item" href="{{ url_for('books') }}">Kaikki</a>
+              <a class="dropdown-item" href="{{ url_for('books_by_origin', country='Suomi') }}">Suomalaiset</a>
+              <a class="dropdown-item" href="{{ url_for('books_by_origin', country='!Suomi') }}">Ulkomaiset</a>
+              <a class="dropdown-item" href="{{ url_for('anthologies') }}">Kokoelmat</a>
               {% include "_letters_dropdown.html" %}
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for("publishers") }}">Kustantajat <span
+            <a class="nav-link" href="{{ url_for('publishers') }}">Kustantajat <span
                 class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item dropdown">
@@ -62,8 +66,8 @@
               Sarjat
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarSeriesMenuLink">
-              <a class="dropdown-item" href="{{ url_for("allbookseries") }}">Kirjasarjat</a>
-              <a class="dropdown-item" href="{{ url_for("allpubseries") }}">Julkaisijoiden sarjat</a>
+              <a class="dropdown-item" href="{{ url_for('allbookseries') }}">Kirjasarjat</a>
+              <a class="dropdown-item" href="{{ url_for('allpubseries') }}">Julkaisijoiden sarjat</a>
             </div>
           </li>
           <li class="nav-item dropdown">
@@ -72,21 +76,21 @@
               Henkilöt
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="{{ url_for("people") }}">Kaikki</a>
-              <a class="dropdown-item" href="{{ url_for("authors") }}">Kirjailijat</a>
-              <a class="dropdown-item" href="{{ url_for("translators") }}">Kääntäjät</a>
-              <a class="dropdown-item" href="{{ url_for("editors") }}">Toimittajat</a>
+              <a class="dropdown-item" href="{{ url_for('people') }}">Kaikki</a>
+              <a class="dropdown-item" href="{{ url_for('authors') }}">Kirjailijat</a>
+              <a class="dropdown-item" href="{{ url_for('translators') }}">Kääntäjät</a>
+              <a class="dropdown-item" href="{{ url_for('editors') }}">Toimittajat</a>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for("stats") }}">Tilastoja</a>
+            <a class="nav-link" href="{{ url_for('stats') }}">Tilastoja</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for("users") }}">Käyttäjät</a>
+            <a class="nav-link" href="{{ url_for('users') }}">Käyttäjät</a>
           </li>
           {% if current_user.is_anonymous %}
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for("login") }}">Kirjaudu</a>
+            <a class="nav-link" href="{{ url_for('login') }}">Kirjaudu</a>
           </li>
           {% else %}
           <li class="nav-item dropdown">
@@ -95,17 +99,17 @@
               {{ current_user.name}}
             </a>
             <div class="dropdown-menu" aria-labelledby="userDropdownMenuLink">
-              <a class="dropdown-item" href="{{ url_for("user", userid=current_user.id) }}">Tiedot</a>
-              <a class="dropdown-item" href="{{ url_for("mybooks", userid=current_user.id) }}">Kirjat</a>
-              <a class="dropdown-item" href="{{ url_for("myseries", userid=current_user.id) }}">Sarjat</a>
-              <a class="dropdown-item" href="{{ url_for("logout") }}">Kirjaudu ulos</a>
+              <a class="dropdown-item" href="{{ url_for('user', userid=current_user.id) }}">Tiedot</a>
+              <a class="dropdown-item" href="{{ url_for('mybooks', userid=current_user.id) }}">Kirjat</a>
+              <a class="dropdown-item" href="{{ url_for('myseries', userid=current_user.id) }}">Sarjat</a>
+              <a class="dropdown-item" href="{{ url_for('logout') }}">Kirjaudu ulos</a>
             </div>
           </li>
           {% endif %}
         </ul>
       </div>
       <div class="d-flex justify-content-end">
-        <form class="form-inline my-2 my-lg-0" method="get" action="{{url_for("search")}}">
+        <form class="form-inline my-2 my-lg-0" method="get" action="{{url_for('search')}}">
           <input class="form-control mr-sm-2" type="search" name="search" placeholder="Hakusana" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Hae</button>
         </form>
@@ -116,7 +120,7 @@
   {% block content %}
   {% endblock %}
   {% block scripts %}
-  {{ bootstrap.load_js()}}
+  {#{{ bootstrap.load_js()}} #}
   {% endblock %}
 </body>
 </html>

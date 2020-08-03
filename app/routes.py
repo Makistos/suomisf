@@ -1,15 +1,16 @@
-
-from flask import render_template, request, flash, redirect, url_for, make_response
+from flask import render_template, request, flash, redirect, url_for,\
+make_response, jsonify, Response
 from flask_login import current_user, login_user, logout_user
 from app import app
 from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
 Edition, Pubseries, Bookseries, User, UserBook, ShortStory, UserPubseries,\
 Alias, Genre, WorkGenre, Tag, PersonTag, Award, AwardCategory, Awarded,\
-Magazine, Issue, Article, ArticleAuthor, ArticlePerson
+Magazine, Issue, Article, ArticleAuthor, ArticlePerson, PublicationSize,\
+IssueEditor
 from sqlalchemy import create_engine, desc, func
 from sqlalchemy.orm import sessionmaker
 from app.forms import LoginForm, RegistrationForm, PublisherForm,\
-PubseriesForm, PersonForm, BookseriesForm, UserForm, SearchForm
+PubseriesForm, PersonForm, BookseriesForm, UserForm, SearchForm, IssueForm
 from .route_helpers import *
 #from app.forms import BookForm
 from flask_sqlalchemy import get_debug_queries
@@ -423,8 +424,8 @@ def edit_person(personid):
             person.dod = form.dod.data
         person.nationality = form.nationality.data
         person.other_names = form.other_names.data
-        person.bio = form.data.bio
-        persion.bio_src = form.bio_src.data
+        person.bio = form.bio.data
+        person.bio_src = form.bio_src.data
         session.add(person)
         session.commit()
 
@@ -675,6 +676,78 @@ def issue(id):
                    .first()
 
     return render_template('issue.html', issue=issue)
+
+@app.route('/edit_issue/<id>', methods=['GET', 'POST'])
+def edit_issue(id):
+    session = new_session()
+
+    if id != 0:
+        issue = session.query(Issue).filter(Issue.id == id).first()
+    else:
+        issue = Issue()
+
+    form = IssueForm(request.form)
+    sizes = size_list(session)
+    form.size.choices = sizes
+    form.size.default = "0"
+
+    if request.method == 'GET':
+        if issue.size_id:
+            size = str(issue.size_id)
+        else:
+            size = ''
+        editors = session.query(Person)\
+                         .join(IssueEditor)\
+                         .filter(IssueEditor.issue_id == id)\
+                         .all()
+        magazine_name = session.query(Magazine.name)\
+                               .join(Issue)\
+                               .filter(Magazine.id == Issue.magazine_id,
+                                       Issue.id == id)\
+                               .first()
+        editor_str = ', '.join([x.name for x in editors])
+        form.editor.data = editor_str
+        form.number.data = issue.number
+        form.number_extra.data = issue.number_extra
+        form.count.data = issue.count
+        form.year.data = issue.year
+        form.image_src.data = issue.image_src
+        form.pages.data = issue.pages
+        form.link.data = issue.link
+        form.notes.data = issue.notes
+
+    if form.validate_on_submit():
+        #if len(form.size.data) > 0:
+        #    size = session.query(PublicationSize.id)\
+        #                  .filter(PublicationSize.name == form.size.data)\
+        #                  .first()
+        #else:
+        #    size = None
+        issue.number = form.number.data
+        issue.number_extra = form.number_extra.data
+        issue.count = form.count.data
+        issue.year = form.year.data
+        issue.image_src = form.image_src.data
+        issue.pages = form.pages.data
+        issue.link = form.link.data
+        issue.notes = form.notes.data
+        if form.size.data != '':
+            issue.size_id = int(form.size.data)
+        else:
+            issue.size = None
+
+        session.add(issue)
+        session.commit()
+
+        return redirect(url_for('issue', id=issue.id))
+    else:
+        app.logger.debug('Errors: {}'.format(form.errors))
+
+    return render_template('edit_issue.html',
+                           form=form,
+                           magazine_name=str(magazine_name[0]),
+                           issueid=issue.id,
+                           selected_size=str(issue.size_id))
 
 @app.route('/article/<id>')
 def article(id):
@@ -975,3 +1048,19 @@ def missing_nationality():
                      .all()
 
     return render_template('people.html', people=missing)
+
+
+@app.route('/autocomp_person', methods=['POST'])
+def autocomp_person():
+    search = request.form['q']
+    session = new_session()
+
+    if search:
+        app.logger.debug(f'Search param: {search}.')
+        people = session.query(Person)\
+                        .filter(Person.name.ilike(search + '%'))\
+                        .order_by(Person.name)\
+                        .all()
+        return Response(json.dumps([x.name for x in people]))
+    else:
+        return jsonify([''])
