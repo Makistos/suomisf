@@ -691,6 +691,16 @@ def edit_issue(id):
     form.size.choices = sizes
     form.size.default = "0"
 
+    magazine = session.query(Magazine.name)\
+                      .join(Issue)\
+                      .filter(Magazine.id == Issue.magazine_id,
+                              Issue.id == id)\
+                      .first()
+    if magazine:
+        magazine_name = magazine
+    else:
+        magazine_name = ''
+
     if request.method == 'GET':
         if issue.size_id:
             size = str(issue.size_id)
@@ -700,11 +710,6 @@ def edit_issue(id):
                          .join(IssueEditor)\
                          .filter(IssueEditor.issue_id == id)\
                          .all()
-        magazine_name = session.query(Magazine.name)\
-                               .join(Issue)\
-                               .filter(Magazine.id == Issue.magazine_id,
-                                       Issue.id == id)\
-                               .first()
         editor_str = ', '.join([x.name for x in editors])
         form.editor.data = editor_str
         form.number.data = issue.number
@@ -738,6 +743,21 @@ def edit_issue(id):
 
         session.add(issue)
         session.commit()
+
+        if form.editor.data != '':
+            person = session.query(Person)\
+                            .filter(Person.name == form.editor.data)\
+                            .first()
+            ie = session.query(IssueEditor)\
+                        .filter(IssueEditor.issue_id == issue.id)\
+                        .first()
+            if not ie:
+                ie = IssueEditor(person_id=person.id,
+                                 issue_id=issue.id)
+            else:
+                ie.person_id = person.id
+            session.add(ie)
+            session.commit()
 
         return redirect(url_for('issue', id=issue.id))
     else:
@@ -1056,11 +1076,12 @@ def autocomp_person():
     session = new_session()
 
     if search:
-        app.logger.debug(f'Search param: {search}.')
         people = session.query(Person)\
                         .filter(Person.name.ilike(search + '%'))\
                         .order_by(Person.name)\
                         .all()
-        return Response(json.dumps([x.name for x in people]))
+        #l = [{"label": x.name, "value": x.id} for x in people]
+        l = [x.name for x in people]
+        return Response(json.dumps(l))
     else:
         return jsonify([''])
