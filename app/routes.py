@@ -1137,7 +1137,7 @@ def autocomp_person():
 
     if search:
         people = session.query(Person)\
-                        .filter(Person.name.ilike(search + '%'))\
+                        .filter(Person.name.ilike('%' + search + '%'))\
                         .order_by(Person.name)\
                         .all()
         #l = [{"label": x.name, "value": x.id} for x in people]
