@@ -240,16 +240,17 @@ def work(workid):
                                  .all()
         for idx, book in enumerate(books_in_series):
             if book.id == int(workid):
-                if idx == 0:
-                    # First in series
-                    next_book = books_in_series[1]
-                elif idx == len(books_in_series) - 1 :
-                    # Last in series
-                    prev_book = books_in_series[-2]
-                else:
-                    prev_book = books_in_series[idx-1]
-                    next_book = books_in_series[idx+1]
-                break
+                if len(books_in_series) > 1:
+                    if idx == 0:
+                        # First in series
+                        next_book = books_in_series[1]
+                    elif idx == len(books_in_series) - 1 :
+                        # Last in series
+                        prev_book = books_in_series[-2]
+                    else:
+                        prev_book = books_in_series[idx-1]
+                        next_book = books_in_series[idx+1]
+                    break
     return render_template('work.html', work=work, authors=authors,
             bookseries=bookseries, search_lists=search_list, form=form,
             stories=stories, prev_book=prev_book, next_book=next_book)
@@ -402,15 +403,23 @@ def edit_edition(editionid):
     search_list = publisher_list(session)
     source = edition.imported_string
     if publisher_series:
-        form.pubseries.choices = [('0', 'Ei sarjaa')] + publisher_series['pubseries']
+        form.pubseries.choices = [('0', 'Ei sarjaa')] + publisher_series
     else:
         form.pubseries.choices = [('0', "Ei sarjaa")]
+
+    form.cover.choices = cover_list(session)
+    form.binding.choices = binding_list(session)
+    form.format.choices = format_list(session)
+    form.size.choices = size_list(session)
+
     if request.method == 'GET':
         form.id.data = edition.id
         form.title.data = edition.title
+        form.subtitle.data = edition.subtitle
         form.pubyear.data = edition.pubyear
         form.language.data = edition.language
         form.edition.data = edition.editionnum
+        form.version.data = edition.version
         if publisher:
             form.publisher.data = publisher.name
         if translators:
@@ -421,24 +430,32 @@ def edit_edition(editionid):
             form.pubseries.data = pubseries.name
         form.pubseriesnum.data = edition.pubseriesnum
         form.pages.data = edition.pages
+        form.cover.data = edition.cover_id
+        form.binding.data = edition.binding_id
+        form.format.data = edition.format_id
+        form.size.data = edition.size_id
+        form.description.data = edition.description
+        # form.artist.data  = artisst.name
         form.isbn.data = edition.isbn
         form.misc.data = edition.misc
         if pubseries:
             i = 0
-            for idx, s in enumerate(publisher_series['pubseries']):
+            for idx, s in enumerate(publisher_series):
                 if s[1] == pubseries.name:
                     i = s[0]
                     break
-            form.pubseries.choices = [('0', 'Ei sarjaa')] + publisher_series['pubseries']
+            form.pubseries.choices = [('0', 'Ei sarjaa')] + publisher_series
             form.pubseries.default = str(i)
             selected_pubseries = str(i)
         #form.translators.data = ', '.join([t.name for t in translators])
         #form.editors.data = ', '.join([e.name for e in editors])
     if form.validate_on_submit():
         edition.title = form.title.data
+        edition.subtitle = form.subtitle.data
         edition.pubyear = form.pubyear.data
         edition.language = form.language.data
         edition.editionnum = form.edition.data
+        edition.version = form.version.data
         translator = session.query(Person).filter(Person.name ==
                 form.translators.data).first()
         editor = session.query(Person).filter(Person.name ==
@@ -452,6 +469,12 @@ def edit_edition(editionid):
         edition.publisher_id = publisher.id
         edition.pubseriesnum = form.pubseriesnum.data
         edition.pages = form.pages.data
+        edition.cover_id = form.cover.data
+        edition.binding_id = form.binding.data
+        edition.format_id = form.format.data
+        edition.size_id = form.size.data
+        edition.description = form.description.data
+        #edition.artist_id = artist.id
         #if form.pubseriesnum.data is not None:
         #    try:
         #    edition.pubseriesnum = None
