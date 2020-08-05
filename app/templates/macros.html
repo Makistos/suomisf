@@ -1,12 +1,6 @@
 
 {% macro render_field(field) %}
 
-<div class="input-group input-group-sm mb-3">
-    {#<div class="input-group-prepend">
-        <span class="input-group-text" >{{field.label}}</span>
-    </div>
-    {{ field(class="form-control", **kwargs)|safe}} #}
-</div>
 <div class="form-row">
     <div class="col-md-3 mb-3">
     <b>{{ field.label }}</b>

@@ -12,8 +12,12 @@ from sqlalchemy import func, distinct
 
 def save_genres(session, work, genrefield):
 
-    for g in genrefield.split(','):
-        genreobj = Genre(workid=work.id, genre_name=g.strip())
+    genres = session.query(WorkGenre)\
+                    .filter(WorkGenre.work_id == work.id)
+    genres.delete()
+    for g in genrefield:
+        #genre = session.query(Genre).filter(Genre.id == g).first()
+        genreobj = WorkGenre(work_id=work.id, genre_id=g)
         session.add(genreobj)
     session.commit()
 
@@ -283,6 +287,7 @@ def edit_work(workid):
     search_list = {**search_list, **author_list(session)}
 
     form = WorkForm(request.form)
+    form.genre.choices = genre_select(session)
     if request.method == 'GET':
         form.id.data = work.id
         form.title.data = work.title
@@ -296,12 +301,11 @@ def edit_work(workid):
             form.bookseries.data = bookseries.name
         form.bookseriesnum.data = work.bookseriesnum
         form.bookseriesorder.data = work.bookseriesorder
-        form.genre.data = ','.join([x.genre_name for x in work.genres])
-        form.collection.data = work.collection
         form.misc.data = work.misc
         form.image_src.data = work.image_src
         form.description.data = work.description
         form.source.data = work.imported_string
+        form.genre.process_data([str(x.id) for x in work.genres])
 
     if form.validate_on_submit():
         save_work(session, form, work) # Save work, edition and part

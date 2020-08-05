@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
+
+{% from 'macros.html' import render_field %}
+
 <div class="container">
 {% if id %}
 <h1>Muokkaa kirjaa</h1>
@@ -8,62 +11,20 @@
 {% endif %}
 <form action="" method="post">
         {{ form.hidden_tag() }}
-        <p>
-        {{ form.author.label }}<br>
-        {{ form.author(size=100) }}
-        </p>
-        <p>
-        {{ form.title.label }}<br>
-        {{ form.title(size=50) }}<br>
-        </p>
-        <p>
-        {{ form.subtitle.label }}<br>
-        {{ form.subtitle(size=50) }}<br>
-        </p>
-        <p>
-        {{ form.orig_title.label }}<br>
-        {{ form.orig_title(size=50) }}<br>
-        </p>
-        <p>
-        {{ form.pubyear.label }}<br>
-        {{ form.pubyear(size=4) }}<br>
-        </p>
-        <p>
-        {{ form.language.label }}<br>
-        {{ form.language(size=2) }}<br>
-        </p>
-        <p>
-        {{ form.bookseries.label }}<br>
-        {{ form.bookseries(size=50) }}
-        </p>
-        <p>
-        {{ form.bookseriesnum.label }}<br>
-        {{ form.bookseriesnum(size=50) }}
-        </p>
-        <p>
-        {{ form.bookseriesorder.label }}<br>
-        {{ form.bookseriesorder(size=50) }}
-        </p>
-        <p>
-        {{ form.genre.label }}<br>
-        {{ form.genre(size=10) }}
-        </p>
-        <p>
-        {{ form.collection.label }}<br>
-        {{ form.collection(size=10) }}
-        </p>
-        <p>
-        {{ form.misc.label}}<br>
-        {{ form.misc(size=100) }}
-	</p>
-        <p>
-        {{ form.image_src.label }}<br>
-        {{ form.image_src(size=200) }}
-        </p>
-        <p>
-        {{ form.description.label }}<br>
-        {{ form.description(size=200) }}
-        </p>
+        {{ render_field(form.author, id="author")}}
+        {{ render_field(form.editors, id="editors")}}
+        {{ render_field(form.title)}}
+        {{ render_field(form.subtitle)}}
+        {{ render_field(form.orig_title)}}
+        {{ render_field(form.pubyear)}}
+        {{ render_field(form.language)}}
+        {{ render_field(form.bookseries, id="bookseries")}}
+        {{ render_field(form.bookseriesnum)}}
+		{{ render_field(form.bookseriesorder)}}
+		{{ render_field(form.genre, size=16)}}
+        {{ render_field(form.misc)}}
+        {{ render_field(form.image_src)}}
+        {{ render_field(form.description)}}
 	{% if form.misc.errors %}
 	{% for error in form.misc.errors %}<br>{{ error }}{% endfor %}
 	{% endif %}

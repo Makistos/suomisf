@@ -4,8 +4,8 @@ from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
 from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
 Edition, Part, Pubseries, Bookseries, User, UserBook, PublicationSize, Tag,\
-PersonTag
-from typing import List, Dict
+PersonTag, CoverType, BindingType, Format, Genre
+from typing import List, Dict, Any
 
 """
     This module contains the functions related to routes that are not directly
@@ -33,17 +33,30 @@ def author_list(session):
                    .all()]}
 
 def pubseries_list(session, pubid):
+    retval = [('0', 'Ei sarjaa')]
+
     if pubid != 0:
-        return {'pubseries' : [(str(x.id), str(x.name)) for x in
-                session.query(Pubseries).filter(Pubseries.publisher_id == pubid).order_by(Pubseries.name).all()]}
+        return retval + [(str(x.id), str(x.name)) for x in
+                session.query(Pubseries).filter(Pubseries.publisher_id == pubid).order_by(Pubseries.name).all()]
     else:
-        return {'pubseries' : [str(x.name) for x in
-                session.query(Pubseries).order_by(Pubseries.name).all()]}
+        return retval + [str(x.name) for x in
+                session.query(Pubseries).order_by(Pubseries.name).all()]
 
 def size_list(session):
-    retval = [('0', 'Ei tiedossa/muu')]
-    return retval + [(str(x.id), str(x.name)) for x in
+    return [(str(x.id), str(x.name)) for x in
             session.query(PublicationSize).order_by(PublicationSize.name).all()]
+
+def cover_list(session):
+    return [(str(x.id), str(x.name)) for x in
+            session.query(CoverType).all()]
+
+def binding_list(session):
+    return [(str(x.id), str(x.name)) for x in
+            session.query(BindingType).all()]
+
+def format_list(session):
+    return [(str(x.id), str(x.name)) for x in
+            session.query(Format).all()]
 
 def bookseries_list(session):
     return {'bookseries' : [str(x.name) for x in
@@ -284,3 +297,6 @@ def save_tags(session, tag_list: str, tag_type: str, id: int) -> None:
                 session.add(person_tag)
         session.commit()
 
+def genre_select(session) -> List[Any]:
+    genres = session.query(Genre).all()
+    return [(str(x.id), x.name) for x in genres]

@@ -1,12 +1,18 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField,\
 IntegerField, SelectField, HiddenField, RadioField, TextAreaField,\
-SelectMultipleField
+SelectMultipleField, widgets
 from wtforms.validators import DataRequired, ValidationError, EqualTo, Optional
 from app.orm_decl import User
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app import db
+
+
+class MultiCheckboxField(SelectMultipleField):
+    widget = widgets.ListWidget(prefix_label=False)
+    option_widget = widgets.CheckboxInput()
+
 
 class LoginForm(FlaskForm):
     username = StringField('Käyttäjätunnus', validators=[DataRequired()])
@@ -181,8 +187,8 @@ class WorkForm(FlaskForm):
     bookseries = StringField('Kirjasarja')
     bookseriesnum = StringField('Sarjanumero')
     bookseriesorder = IntegerField('Järjestys sarjassa')
-    genre = StringField('Genre')
-    collection = RadioField('Kokoelma')
+    genre = SelectMultipleField('Genret')
+    #genre = MultiCheckboxField('Genret')
     misc = StringField('Muuta')
     image_src = StringField('Kuva')
     description = TextAreaField('Kuvaus')
