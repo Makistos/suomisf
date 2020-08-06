@@ -854,6 +854,11 @@ def import_books(session, authors):
                             pubseriesnum = pubseriesnum,
                             collection = workitem.collection,
                             coll_info = edition['coll_info'],
+                            pages = None,
+                            cover_id = 0,
+                            format_id = 0,
+                            binding_id = 0,
+                            size_id = 0,
                             misc = edition['rest'],
                             imported_string = edition['imported_string'])
                     is_new = True
@@ -1073,19 +1078,19 @@ def add_default_rows(session):
 
     s.commit()
 
-    bindings = ['', 'Nidottu', 'Sidottu']
+    bindings = ['Ei tietoa/muu', 'Nidottu', 'Sidottu']
     for binding in bindings:
         item = BindingType(name=binding)
         s.add(item)
     s.commit()
 
-    covers = ['', 'Kovakantinen', 'Pehmytkantinen']
+    covers = ['Ei tietoa/muu', 'Kovakantinen', 'Pehmytkantinen']
     for cover in covers:
         item = CoverType(name=cover)
         s.add(item)
     s.commit()
 
-    formats = ['Paperi', 'e-kirja', 'Äänikirja']
+    formats = ['Paperi', 'E-kirja', 'Äänikirja']
     for format in formats:
         item = Format(name=format)
         s.add(item)
@@ -1099,6 +1104,7 @@ def add_default_rows(session):
 
     sizes = [
              # ISO
+             ['Ei tiedossa/muu', 0, 0],
              ['A0', 841, 1189],
              ['A1', 594, 841],
              ['A2', 420, 594],

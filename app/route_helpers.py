@@ -214,6 +214,25 @@ def save_author_to_work(session, workid, authorname):
 
     update_creators(session, workid)
 
+def save_story_to_work(session, workid, title):
+    session = new_session()
+    story = session.query(ShortStory)\
+                   .filter(ShortStory.title == title)\
+                   .first()
+
+    if not story:
+        return
+
+    storyid = story.id
+
+    parts = session.query(Part)\
+                   .filter(Part.work_id == workid)\
+                   .all()
+
+    for part in parts:
+        part.shortstory_id = storyid
+        session.add(part)
+    session.comit()
 
 def update_creators(session, workid):
     # Update creator string (used to group works together)

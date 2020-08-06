@@ -1144,4 +1144,18 @@ def autocomp_person():
         l = [x.name for x in people]
         return Response(json.dumps(l))
     else:
-        return jsonify([''])
+        return json.dumps([''])
+
+@app.route('/autocomp_story', methods=['POST'])
+def autocomp_story():
+    search = request.form['q']
+    session = new_session()
+
+    if search:
+        stories = session.query(ShortStory)\
+                         .filter(ShortStory.title.ilike('%' + search + '%'))\
+                         .order_by(ShortStory.title)\
+                         .all()
+        return Response(json.dumps([x.title for x in stories]))
+    else:
+        return json.dumps([''])

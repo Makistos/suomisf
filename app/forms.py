@@ -199,3 +199,6 @@ class WorkAuthorForm(FlaskForm):
     author = StringField('Kirjoittaja', validators=[DataRequired()])
     submit = SubmitField('Lisää')
 
+class WorkStoryForm(FlaskForm):
+    title = StringField('Nimi', validators=[DataRequired()])
+    submit_story = SubmitField('Lisää')

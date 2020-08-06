@@ -356,15 +356,13 @@ def import_stories(filename: str, books: Dict = {}):
                     .filter(Part.edition_id == editions[0].id)\
                     .first()
             # Create row in ShortStory and Part.
-            # ShortStory has the original title while part has
-            # the translated name if this is a translation.
             if key not in stories:
                 pass
                 #print(f'Key {key} not found in stories.')
             else:
                 for st in stories[key]:
                     story = s.query(ShortStory)\
-                             .filter(ShortStory.title == st['orig_title'],\
+                             .filter(ShortStory.title == st['title'],\
                                      ShortStory.pubyear == st['year'])\
                              .first()
                     if not story:
@@ -372,13 +370,14 @@ def import_stories(filename: str, books: Dict = {}):
                                    .filter(Person.id.in_(st['authors']))\
                                    .all()
                         author_list = ' & '.join([x.name for x in authors])
-                        story = ShortStory(title=st['orig_title'], pubyear=st['year'],
-                                            creator_str=author_list)
+                        story = ShortStory(title=st['title'],
+                                           orig_title=st['orig_title'],
+                                           pubyear=st['year'],
+                                           creator_str=author_list)
                         s.add(story)
                         s.commit()
                     for edition in editions:
                         part = Part(edition_id = edition.id,
-                                    title = st['title'],
                                     work_id = work.id,
                                     shortstory_id = story.id)
                         s.add(part)

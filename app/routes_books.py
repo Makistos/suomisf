@@ -3,7 +3,7 @@ from flask import Flask
 from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
 Edition, Pubseries, Bookseries, User, UserBook, Genre, ShortStory, WorkGenre
 from flask import render_template, request, flash, redirect, url_for, make_response
-from app.forms import WorkForm, EditionForm, WorkAuthorForm
+from app.forms import WorkForm, EditionForm, WorkAuthorForm, WorkStoryForm
 from .route_helpers import *
 from typing import List, Dict
 from sqlalchemy import func, distinct
@@ -216,24 +216,22 @@ def work(workid):
     search_list = {**search_list, **author_list(session)}
 
     if work.collection == True:
-        stories = session.query(Part.title.label('title'),
-                                ShortStory.title.label('orig_title'),
-                                ShortStory.pubyear,
-                                ShortStory.language,
-                                ShortStory.id,\
-                                ShortStory.creator_str)\
+        stories = session.query(ShortStory)\
                          .join(Part)\
                          .filter(Part.shortstory_id == ShortStory.id)\
                          .filter(Part.work_id == workid)\
                          .group_by(Part.shortstory_id)\
                          .all()
     form = WorkAuthorForm(request.form)
+    form_story = WorkStoryForm(request.form)
 
-    if form.validate_on_submit():
+    if form.submit.data and form.validate():
         save_author_to_work(session, workid, form.author.data)
         return redirect(url_for('work', workid=workid))
-    else:
-        app.logger.debug("Errors: {}".format(form.errors))
+    if form_story.submit_story.data and form_story.validata():
+        save_story_to_work(session, workid, form_story.title.data)
+        return redirect(url_for('work', workid=workid))
+
 
     prev_book = None
     next_book = None
@@ -257,6 +255,7 @@ def work(workid):
                     break
     return render_template('work.html', work=work, authors=authors,
             bookseries=bookseries, search_lists=search_list, form=form,
+            form_story=form_story,
             stories=stories, prev_book=prev_book, next_book=next_book)
 
 @app.route('/edit_work/<workid>', methods=["POST", "GET"])
@@ -738,6 +737,20 @@ def remove_author_from_work(workid, authorid):
 
     return redirect(url_for('work', workid=workid))
 
+@app.route('/remove_story_from_work/<workid>/<storyid>', methods=["GET", "POST"])
+def remove_story_from_work(workid, storyid):
+    session = new_session()
+
+    parts = session.query(Part)\
+                   .filter(Part.work_id == workid,
+                           Part.shortstory_id == storyid)\
+                   .all()
+
+    for part in parts:
+        part.shortstory_id = None
+        session.add(part)
+
+    session.commit()
 
 @app.route('/story/<id>', methods=['GET', 'POST'])
 def story(id):

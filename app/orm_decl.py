@@ -151,6 +151,7 @@ class Edition(Base):
     language = Column(String(2))
     publisher_id = Column(Integer, ForeignKey('publisher.id'))
     editionnum = Column(Integer)
+    version = Column(Integer) # Laitos
     image_src = Column(String(200))
     isbn = Column(String(13))
     pubseries_id = Column(Integer, ForeignKey('pubseries.id'))
@@ -158,10 +159,10 @@ class Edition(Base):
     collection = Column(Boolean)
     coll_info = Column(String(200))
     pages = Column(Integer)
-    cover = Column(Integer, ForeignKey('covertype.id'))
-    binding = Column(Integer, ForeignKey('bindingtype.id'))
-    format = Column(Integer, ForeignKey('format.id'))
-    size = Column(Integer, ForeignKey('publicationsize.id'))
+    cover_id = Column(Integer, ForeignKey('covertype.id'))
+    binding_id = Column(Integer, ForeignKey('bindingtype.id'))
+    format_id = Column(Integer, ForeignKey('format.id'))
+    size_id = Column(Integer, ForeignKey('publicationsize.id'))
     description = Column(String(500))
     artist_id = Column(Integer, ForeignKey('person.id'))
     misc = Column(String(500))
@@ -180,6 +181,10 @@ class Edition(Base):
     pubseries = relationship("Pubseries", backref=backref('pubseries',
         uselist=False))
     owners = relationship("User", secondary='userbook')
+    cover = relationship('CoverType', backref=backref('edition_cover_assoc'), uselist=False)
+    binding = relationship('BindingType', backref=backref('edition_binding_assoc'), uselist=False)
+    format = relationship('Format', backref=backref('edition_format_assoc'), uselist=False)
+    size = relationship('PublicationSize', backref=backref('edition_size_assoc'), uselist=False)
 
 class EditionLink(Base):
     __tablename__ = 'editionlink'
@@ -429,6 +434,7 @@ class ShortStory(Base):
     __tablename__ = 'shortstory'
     id = Column(Integer, primary_key=True)
     title = Column(String(250), nullable=False, index=True)
+    orig_title = Column(String(250))
     language = Column(String(2))
     pubyear = Column(Integer, index=True)
     creator_str = Column(String(500), index=True)

@@ -13,23 +13,23 @@
                         {{ work.title }}
                     </h5>
                     <i>
-                    {% if work.title != work.orig_title %}
-                    {{ work.orig_title }}
+                        {% if work.title != work.orig_title %}
+                        {{ work.orig_title }}
                         {%- if work.pubyear -%}
                         , {% endif %}
-                    {% endif %}
+                        {% endif %}
                         {%- if work.pubyear -%}
                         {{ work.pubyear }}
                         {% endif %}
                     </i>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
-                        <b>Tyyppi:</b>
-                        {% if work.collection == true %}
-                        Kokoelma
-                        {% else %}
-                        Romaani
-                        {% endif %}
+                            <b>Tyyppi:</b>
+                            {% if work.collection == true %}
+                            Kokoelma
+                            {% else %}
+                            Romaani
+                            {% endif %}
                         </li>
                     </ul>
                     <ul class="list-group list-group-flush">
@@ -40,18 +40,14 @@
                                     seriesid=work.bookseries.id) }} ">{{ work.bookseries.name }}</a>
                             {%- if work.bookseriesnum %}{% if work.bookseriesnum|length -%},
                             numero {{ work.bookseriesnum }}
-			    {% if prev_book %}
-			    <a href="{{url_for('work',
-				     workid=prev_book.id)}}"><img
-								     src="/static/icons/Arrows-Left-icon.png"
-								     alt="Edellinen"></a>
-			    {% endif %}
-			    {% if next_book %}
-			    <a href="{{url_for('work',
-				     workid=next_book.id)}}"><img
-				     src="/static/icons/Arrows-Right-icon.png"
-				     alt="Seuraava"></a>
-			    {% endif %}
+                            {% if prev_book %}
+                            <a href="{{url_for('work',
+				     workid=prev_book.id)}}"><img src="/static/icons/Arrows-Left-icon.png" alt="Edellinen"></a>
+                            {% endif %}
+                            {% if next_book %}
+                            <a href="{{url_for('work',
+				     workid=next_book.id)}}"><img src="/static/icons/Arrows-Right-icon.png" alt="Seuraava"></a>
+                            {% endif %}
                         </li>
                         {% if current_user.is_admin %}
                         <li class="list-group-item">
@@ -68,11 +64,11 @@
             </div>
             <div class="col container col-lg-2 justify-content-end justify-content-center align-middle">
                 <ul class="list-inline" style="padding: 1rem;">
-                {% for genre in work.genres %}
-                {# <li class="list-inline-item" style="margin-bottom: 3px; line-heigth: 1rem; padding-bottom: 1rem; "><h1 style="font-family: 'Raleway', sans-serif;"><b>{{genre.genre_name}}</b></h1></li> #}
-                <li class="list-inline-item" style="padding-bottom:
+                    {% for genre in work.genres %}
+                    {# <li class="list-inline-item" style="margin-bottom: 3px; line-heigth: 1rem; padding-bottom: 1rem; "><h1 style="font-family: 'Raleway', sans-serif;"><b>{{genre.genre_name}}</b></h1></li> #}
+                    <li class="list-inline-item" style="padding-bottom:
                     1rem;"><img src="/static/icons/{{genre.abbr}}_32.png"></li>
-                {% endfor %}
+                    {% endfor %}
                 </ul>
             </div>
         </div>
@@ -121,11 +117,11 @@
                         <ul class="list-group list-group-flush">
                             {% for edition in work.editions %}
                             <li class="list-group-item">
-                                <a
-                                    href=" {{ url_for('edition', editionid=edition.id) }}">{{ edition.title }}</a>.
-                                    {%- if edition.translators %} {% include "_translators.html"-%}{%- endif %} {{ edition.publisher.name }} {{ edition.pubyear}}.
-                                    {% if edition.pubseries.name|length %} {{ edition.pubseries.name }}
-                                    {%- if edition.pubseriesnum %} {{edition.pubseriesnum }}{% endif %}. {% endif %}
+                                <a href=" {{ url_for('edition', editionid=edition.id) }}">{{ edition.title }}</a>.
+                                {%- if edition.translators %} {% include "_translators.html"-%}{%- endif %}
+                                {{ edition.publisher.name }} {{ edition.pubyear}}.
+                                {% if edition.pubseries.name|length %} {{ edition.pubseries.name }}
+                                {%- if edition.pubseriesnum %} {{edition.pubseriesnum }}{% endif %}. {% endif %}
                             </li>
                             {% endfor %}
                         </ul>
@@ -147,11 +143,18 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><b>Lähde:
                                 </b>{{work.imported_string}}</li>
-                            <li class="list-group-item"><a href=" {{ url_for('edit_work', workid=work.id) }}">Muokkaa</a></li>
-                            <li class="list-group-item"><a href=" {{ url_for('add_edition', workid=work.id) }}">Lisää painos</a></li>
+                            <li class="list-group-item"><a
+                                    href=" {{ url_for('edit_work', workid=work.id) }}">Muokkaa</a></li>
+                            <li class="list-group-item"><a href=" {{ url_for('add_edition', workid=work.id) }}">Lisää
+                                    painos</a></li>
                             {# <li class="list-group-item"><button id="myBtn">Lisää/poista kirjailija</button></li> #}
-                            <li class="list-group-item"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editAuthors">
-                                Lisää/poista kirjailijoita</li>
+                            <li class="list-group-item"><button type="button" class="btn btn-primary"
+                                    data-toggle="modal" data-target="#editAuthors">
+                                    Lisää/poista kirjailijoita</li>
+                            </button>
+                            <li class="list-group-item"><button type="button" class="btn btn-primary"
+                                    data-toggle="modal" data-target="#editStories">
+                                    Lisää/poista novelleja</li>
                             </button>
                         </ul>
                     </div>
@@ -161,8 +164,8 @@
         </div>
     </div>
     {% if current_user.is_admin %}
-    <div class="modal fade" id="editAuthors" tabindex="-1" role="dialog"
-        aria-labelledby="editAuthorsLabel" aria-hidden="true">
+    <div class="modal fade" id="editAuthors" tabindex="-1" role="dialog" aria-labelledby="editAuthorsLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -181,8 +184,8 @@
                                     workid=work.id, authorid=author.id)}}">Poista</a><br />
                             </div>
                         </div>
-                        <hr>
                         {% endfor %}
+                        <hr>
                         <form action="" method="post">
                             <div class="form-row">
                                 <div class="col-md-8">
@@ -197,48 +200,125 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Sulje</button>
                         </div>
-                        </div>
-
                     </div>
-                </div>
+
                 </div>
             </div>
         </div>
     </div>
-    {% endif %}
+</div>
+</div>
+<div class="modal fade" id="editStories" tabindex="-1" role="dialog" aria-labelledby="editStoriesLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editStoriesLabel">Muokkka novelleja</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Sulje">
+                    <span aria-hidden="true">&times</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    {% for story in stories %}
+                    <div class="row">
+                        <div class="col-md-8">{{ story.title }}
+                            (
+                            {% if story.orig_title != story.title %}
+                            {{ story.orig_title}},
+                            {% endif %}
+                            {% if story.pubyear %}
+                            {{ story.pubyear}}
+                            {% endif %}
+                            )
+
+                        </div>
+                        <div class="col-md-4">
+                            <a href="{{ url_for('remove_story_from_work',
+                                    workid=work.id, storyid=story.id)}}">Poista</a><br />
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <hr>
+                    <form action="" method="post">
+                        <div class="form-row">
+                            <div class="col-md-8">
+                                {{ form_story.hidden_tag() }}
+                                {{ form_story.title(id="story") }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_story.submit_story }}
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sulje</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
 </div>
 {% block script %}
 <script src="/static/js/personlink.js" type="text/javascript"></script>
 
 <script>
-    $(document).ready(function(){
-		$("author").autocomplete("enable");
+    $(document).ready(function () {
+        $("author").autocomplete("enable");
+        $("story").autocomplete("enable");
 
-		$(function() {
-			$("#author").autocomplete({
-				source : function(request, response) {
-					$.ajax({
-						type: "POST",
-						url: "/autocomp_person",
-						dataType: "json",
-						cache: false,
-						data: {
-							q : request.term
-						},
-						success: function(data) {
-							response(data);
-						},
-						error: function(jqHR, textStatus, errorThrown) {
-							console.log(textStatus + " " + errorThrown);
-						}
-					});
-				},
-				minLength: 3,
-				autoFocus: true
-			});
-		});
-	});
+        $(function () {
+            $("#author").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/autocomp_person",
+                        dataType: "json",
+                        cache: false,
+                        data: {
+                            q: request.term
+                        },
+                        success: function (data) {
+                            response(data);
+                        },
+                        error: function (jqHR, textStatus, errorThrown) {
+                            console.log(textStatus + " " + errorThrown);
+                        }
+                    });
+                },
+                minLength: 3,
+                autoFocus: true
+            });
+        });
+
+        $(function () {
+            $("#story").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/autocomp_story",
+                        dataType: "json",
+                        cache: false,
+                        data: {
+                            q: request.term
+                        },
+                        success: function (data) {
+                            response(data);
+                        },
+                        error: function (jqHR, textStatus, errorThrown) {
+                            console.log(textStatus + " " + errorThrown);
+                        }
+                    });
+                },
+                minLength: 3,
+                autoFocus: true
+            });
+        });
+
+    });
 
 </script>
+
 {% endblock %}
 {% endblock %}
