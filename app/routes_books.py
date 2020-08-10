@@ -228,7 +228,7 @@ def work(workid):
     if form.submit.data and form.validate():
         save_author_to_work(session, workid, form.author.data)
         return redirect(url_for('work', workid=workid))
-    if form_story.submit_story.data and form_story.validata():
+    if form_story.submit_story.data and form_story.validate():
         save_story_to_work(session, workid, form_story.title.data)
         return redirect(url_for('work', workid=workid))
 
@@ -747,10 +747,23 @@ def remove_story_from_work(workid, storyid):
                    .all()
 
     for part in parts:
-        part.shortstory_id = None
-        session.add(part)
+        session.delete(part)
 
     session.commit()
+
+    return redirect(url_for('work', workid=workid))
+
+@app.route('/remove_story_from_edition/<editionid>/<storyid>', methods=['GET', 'POST'])
+def remove_story_from_edition(workid, storyid):
+    session = new_session()
+
+    part = session.query(Part)\
+                  .filter(Part.edition_id == edition_id,
+                          Part.shortstory_id == storyid)\
+                  .first()
+    session.delete(part)
+    session.commit()
+
 
 @app.route('/story/<id>', methods=['GET', 'POST'])
 def story(id):

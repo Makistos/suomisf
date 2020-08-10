@@ -4,7 +4,7 @@ from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
 from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
 Edition, Part, Pubseries, Bookseries, User, UserBook, PublicationSize, Tag,\
-PersonTag, CoverType, BindingType, Format, Genre
+PersonTag, CoverType, BindingType, Format, Genre, ShortStory
 from typing import List, Dict, Any
 
 """
@@ -223,16 +223,39 @@ def save_story_to_work(session, workid, title):
     if not story:
         return
 
-    storyid = story.id
+    editions = session.query(Edition)\
+                      .join(Part)\
+                      .filter(Edition.id == Part.edition_id)\
+                      .filter(Part.work_id == workid)\
+                      .all()
 
-    parts = session.query(Part)\
-                   .filter(Part.work_id == workid)\
+    for edition in editions:
+        part = Part(work_id=workid, edition_id=edition.id,
+                    shortstory_id=story.id)
+        session.add(part)
+    session.commit()
+
+def save_story_to_edition(session, editionid, title):
+    session = new_session()
+    story = session.query(ShortStory)\
+                   .filter(ShortStory.title == title)\
+                   .first()
+
+    if not story:
+        return
+
+    works = session.query(Work)\
+                   .filter(Part.edition_id == editionid)\
+                   .filter(Part.shortstory_id is None)\
                    .all()
 
-    for part in parts:
-        part.shortstory_id = storyid
+    for work in works:
+        part = Part(work_id=work.id,
+                    edition_id=editionid,
+                    shorstory_id=story.id)
         session.add(part)
-    session.comit()
+
+    session.commit()
 
 def update_creators(session, workid):
     # Update creator string (used to group works together)
