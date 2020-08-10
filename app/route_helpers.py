@@ -233,6 +233,11 @@ def save_story_to_work(session, workid, title):
         part = Part(work_id=workid, edition_id=edition.id,
                     shortstory_id=story.id)
         session.add(part)
+
+    work = session.query(Work).filter(Work.id == workid).first()
+    work.collection = True
+    session.add(work)
+
     session.commit()
 
 def save_story_to_edition(session, editionid, title):
@@ -254,6 +259,8 @@ def save_story_to_edition(session, editionid, title):
                     edition_id=editionid,
                     shorstory_id=story.id)
         session.add(part)
+        work.collection = True
+        session.add(work)
 
     session.commit()
 

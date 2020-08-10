@@ -187,6 +187,7 @@ class WorkForm(FlaskForm):
     bookseries = StringField('Kirjasarja')
     bookseriesnum = StringField('Sarjanumero')
     bookseriesorder = IntegerField('Järjestys sarjassa')
+    collection = BooleanField('Novellikokoelma')
     genre = SelectMultipleField('Genret')
     #genre = MultiCheckboxField('Genret')
     misc = StringField('Muuta')

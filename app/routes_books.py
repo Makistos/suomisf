@@ -34,6 +34,7 @@ def save_work(session, form, work):
         work.bookseries_id = bookseries.id
     work.bookseriesnum = form.bookseriesnum.data
     work.misc = form.misc.data
+    work.collection = form.collection.data
     session.add(work)
     session.commit()
     if work.id == 0:
@@ -215,13 +216,12 @@ def work(workid):
                         .first()
     search_list = {**search_list, **author_list(session)}
 
-    if work.collection == True:
-        stories = session.query(ShortStory)\
-                         .join(Part)\
-                         .filter(Part.shortstory_id == ShortStory.id)\
-                         .filter(Part.work_id == workid)\
-                         .group_by(Part.shortstory_id)\
-                         .all()
+    stories = session.query(ShortStory)\
+                        .join(Part)\
+                        .filter(Part.shortstory_id == ShortStory.id)\
+                        .filter(Part.work_id == workid)\
+                        .group_by(Part.shortstory_id)\
+                        .all()
     form = WorkAuthorForm(request.form)
     form_story = WorkStoryForm(request.form)
 
@@ -304,6 +304,7 @@ def edit_work(workid):
         form.image_src.data = work.image_src
         form.description.data = work.description
         form.source.data = work.imported_string
+        form.collection.data = work.collection
         form.genre.process_data([str(x.id) for x in work.genres])
 
     if form.validate_on_submit():
@@ -749,6 +750,16 @@ def remove_story_from_work(workid, storyid):
     for part in parts:
         session.delete(part)
 
+    stories = session.query(Part)\
+                     .filter(Part.work_id == workid)\
+                     .filter(Part.shortstory_id is not None)\
+                     .first()
+
+    if len(stories) == 0:
+        work = session.query(Work).filter(Work.id == workid).first()
+        work.collection = False
+        session.add(work)
+
     session.commit()
 
     return redirect(url_for('work', workid=workid))
@@ -762,6 +773,21 @@ def remove_story_from_edition(workid, storyid):
                           Part.shortstory_id == storyid)\
                   .first()
     session.delete(part)
+
+    stories = session.query(Part)\
+                     .filter(Part.edition_id == editionid)\
+                     .filter(Part.shortstory_id is not None)\
+                     .first()
+
+    if len(stories) == 0:
+        works = session.query(Work)\
+                       .join(Part)\
+                       .filter(Part.work_id == Work.id)\
+                       .filter(Part.edition_id == editionid)\
+                       .all()
+        for work in works:
+            work.collection = False
+            session.add(work)
     session.commit()
 
 
