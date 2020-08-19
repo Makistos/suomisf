@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-    <div class="card border-primary mb-3" style="width: 720px; margin: 5px auto;">
+    <div class="card border-primary mb-3" style="margin: 5px auto;">
         <div class="row">
             <div class="col col-lg-4 container">
                 {% if person.image_src %}
@@ -238,12 +238,12 @@
 			aria-labelledby="headArticles" data-parent="#authorCard">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
-                            {% for article in person.articles %} 
+                            {% for article in person.articles %}
 			    <li class="list-group list-group-flush">
-			    	{{ article.issue.magazine.name }} 
+			    	{{ article.issue.magazine.name }}
 				{% if article.issue.number %}
 					{{ article.issue.number }} /
-					{{ article.issue.year }} 
+					{{ article.issue.year }}
 				{% else %}
 					{{ article.issue.count }}
 				{% endif %}:
@@ -270,11 +270,11 @@
 			aria-labelledby="headChiefEditor" data-parent="#authorCard">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
-                            {% for issue in person.chief_editor|sort(attribute='count') %} 
+                            {% for issue in person.chief_editor|sort(attribute='count') %}
 			    <li class="list-group list-group-flush">
-			    	{{ issue.magazine.name }} 
+			    	{{ issue.magazine.name }}
 				{% if issue.number %}
-					{{ issue.number }} / {{ issue.year }} 
+					{{ issue.number }} / {{ issue.year }}
 				{% else %}
 					{{ issue.count }}
 				{% endif %}
@@ -301,12 +301,12 @@
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
                             {% for article in
-			    person.appears_in %} 
+			    person.appears_in %}
 			    <li class="list-group list-group-flush">
-			    	{{ article.issue.magazine.name }} 
+			    	{{ article.issue.magazine.name }}
 				{% if article.issue.number -%}
 					{{ article.issue.number }} /
-					{{ article.issue.year }} 
+					{{ article.issue.year }}
 				{%- else -%}
 					{{ article.issue.count }}
 				{%- endif -%}:
