@@ -2,6 +2,7 @@
 {% block content %}
 
 {% from 'macros.html' import render_field %}
+{% from 'macros.html' import auto_complete %}
 
 <div class="container">
 {% if id %}
@@ -22,6 +23,7 @@
         {{ render_field(form.bookseriesnum)}}
 		{{ render_field(form.bookseriesorder)}}
 		{{ render_field(form.genre, size=16)}}
+		{{ render_field(form.collection)}}
         {{ render_field(form.misc)}}
         {{ render_field(form.image_src)}}
         {{ render_field(form.description)}}
@@ -34,19 +36,15 @@
 {% if source %}
 <p>Aineiston lähde: {{ source }}</p>
 {% endif %}
-<!--	<script src="/static/js/pubseries.js"></script> -->
 </div>
+{{ auto_complete("author", "/autocomp_person")}}
+{{ auto_complete("editors", "/autocomp_person")}}
+{{ auto_complete("bookseries", "/autocomp_bookseries")}}
 {% endblock %}
 
 {% block scripts %}
 
 <script>
-
-	$(document).ready(function(){
-		{% if selected_pubseries != 0 %}
-			$("#pubseries").val("{{ selected_pubseries|string() }}");
-		{% endif %}
-	});
 
 	$("#publisher").on("input", function() {
 		var name = $("#publisher").val();

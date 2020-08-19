@@ -1,14 +1,16 @@
 from app import app
 from flask import Flask
 from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
-Edition, Pubseries, Bookseries, User, UserBook, Genre, ShortStory, WorkGenre
+    Edition, Pubseries, Bookseries, User, UserBook, Genre, ShortStory, WorkGenre
 from flask import render_template, request, flash, redirect, url_for, make_response
-from app.forms import WorkForm, EditionForm, WorkAuthorForm, WorkStoryForm
+from app.forms import WorkForm, EditionForm, WorkAuthorForm, WorkStoryForm, StoryForm,\
+    EditionEditorForm, EditionTranslatorForm
 from .route_helpers import *
 from typing import List, Dict
 from sqlalchemy import func, distinct
 
 # Book related routes
+
 
 def save_genres(session, work, genrefield):
 
@@ -21,16 +23,17 @@ def save_genres(session, work, genrefield):
         session.add(genreobj)
     session.commit()
 
+
 def save_work(session, form, work):
     author = session.query(Person).filter(Person.name ==
-            form.author.data).first()
+                                          form.author.data).first()
     work.id = form.id.data
     work.title = form.title.data
     work.pubyear = form.pubyear.data
     work.language = form.language.data
     if form.bookseries.data != '':
         bookseries = session.query(Bookseries).filter(Bookseries.name ==
-                form.bookseries.data).first()
+                                                      form.bookseries.data).first()
         work.bookseries_id = bookseries.id
     work.bookseriesnum = form.bookseriesnum.data
     work.misc = form.misc.data
@@ -53,6 +56,7 @@ def save_work(session, form, work):
         session.commit()
     save_genres(session, work, form.genre.data)
 
+
 @app.route('/books/lang')
 def books_by_lang(lang):
     """ Returns a list of books such that each work is only represented by the
@@ -70,8 +74,9 @@ def books_by_lang(lang):
     for author in authors:
         for work in author.works:
             first_ed = sorted([x for x in work.editions if x.lang == lang],
-                        key=lambda x: x['edition_num'])[0]
-            #retval += {
+                              key=lambda x: x['edition_num'])[0]
+            # retval += {
+
 
 @app.route('/books_by_genre/<genre>')
 def books_by_genre(genre):
@@ -86,6 +91,7 @@ def books_by_genre(genre):
                    .filter(Genre.name == genre)\
                    .all()
     return render_template('books.html', works=works)
+
 
 @app.route('/books_by_origin/<country>')
 def books_by_origin(country):
@@ -113,6 +119,7 @@ def books_by_origin(country):
                        .all()
     return render_template('books.html', works=works)
 
+
 @app.route('/book_count_by_year/')
 def book_count_by_year():
     session = new_session()
@@ -123,6 +130,7 @@ def book_count_by_year():
                     .all()
 
     return render_template('book_count_by_year.html', counts=counts)
+
 
 @app.route('/editions_by_year/<year>')
 def editions_by_year(year):
@@ -145,6 +153,7 @@ def editions_by_year(year):
                            title='Julkaisut ' + str(year),
                            count=count)
 
+
 @app.route('/books')
 def books():
     session = new_session()
@@ -163,7 +172,7 @@ def booksX(letter):
     creators = [x.creator_str[0] for x in works]
     letters = list(set([x[0] for x in creators if not x[0].islower()]))
     letters.sort()
-    #app.logger.debug(''.join(letters))
+    # app.logger.debug(''.join(letters))
 
     works = session.query(Work)\
                    .filter(Work.creator_str.like(letter + '%'))\
@@ -189,7 +198,8 @@ def booksX(letter):
                 break
 
     return render_template('books.html', letter=letter,
-            works=works, prev_letter=prev_letter, next_letter=next_letter)
+                           works=works, prev_letter=prev_letter, next_letter=next_letter)
+
 
 @app.route('/anthologies')
 def anthologies():
@@ -198,6 +208,7 @@ def anthologies():
     anthologies = session.query(Work).filter(Work.collection == 1).all()
 
     return render_template('books.html', works=anthologies)
+
 
 @app.route('/work/<workid>', methods=["POST", "GET"])
 def work(workid):
@@ -211,17 +222,17 @@ def work(workid):
     authors = people_for_book(session, workid, 'A')
     bookseries = session.query(Bookseries)\
                         .join(Work)\
-                        .filter(Bookseries.id == work.bookseries_id,\
+                        .filter(Bookseries.id == work.bookseries_id,
                                 Work.id == workid)\
                         .first()
     search_list = {**search_list, **author_list(session)}
 
     stories = session.query(ShortStory)\
-                        .join(Part)\
-                        .filter(Part.shortstory_id == ShortStory.id)\
-                        .filter(Part.work_id == workid)\
-                        .group_by(Part.shortstory_id)\
-                        .all()
+        .join(Part)\
+        .filter(Part.shortstory_id == ShortStory.id)\
+        .filter(Part.work_id == workid)\
+        .group_by(Part.shortstory_id)\
+        .all()
     form = WorkAuthorForm(request.form)
     form_story = WorkStoryForm(request.form)
 
@@ -231,7 +242,6 @@ def work(workid):
     if form_story.submit_story.data and form_story.validate():
         save_story_to_work(session, workid, form_story.title.data)
         return redirect(url_for('work', workid=workid))
-
 
     prev_book = None
     next_book = None
@@ -246,7 +256,7 @@ def work(workid):
                     if idx == 0:
                         # First in series
                         next_book = books_in_series[1]
-                    elif idx == len(books_in_series) - 1 :
+                    elif idx == len(books_in_series) - 1:
                         # Last in series
                         prev_book = books_in_series[-2]
                     else:
@@ -254,9 +264,10 @@ def work(workid):
                         next_book = books_in_series[idx+1]
                     break
     return render_template('work.html', work=work, authors=authors,
-            bookseries=bookseries, search_lists=search_list, form=form,
-            form_story=form_story,
-            stories=stories, prev_book=prev_book, next_book=next_book)
+                           bookseries=bookseries, search_lists=search_list, form=form,
+                           form_story=form_story,
+                           stories=stories, prev_book=prev_book, next_book=next_book)
+
 
 @app.route('/edit_work/<workid>', methods=["POST", "GET"])
 def edit_work(workid):
@@ -271,13 +282,13 @@ def edit_work(workid):
         authors = session.query(Person)\
                          .join(Author)\
                          .join(Part)\
-                         .filter(Author.person_id == Person.id,\
+                         .filter(Author.person_id == Person.id,
                                  Author.part_id == Part.id,
                                  Part.work_id == workid)\
                          .all()
         bookseries = session.query(Bookseries)\
                             .join(Work)\
-                            .filter(Bookseries.id == work.bookseries_id,\
+                            .filter(Bookseries.id == work.bookseries_id,
                                     Work.id == workid)\
                             .first()
     else:
@@ -308,12 +319,15 @@ def edit_work(workid):
         form.genre.process_data([str(x.id) for x in work.genres])
 
     if form.validate_on_submit():
-        save_work(session, form, work) # Save work, edition and part
+        save_work(session, form, work)  # Save work, edition and part
         return redirect(url_for('work', workid=work.id))
     else:
         app.logger.debug("Errors: {}".format(form.errors))
-    return render_template('edit_work.html', id = work.id, form=form, search_lists =
-            search_list, source = work.imported_string)
+    return render_template('edit_work.html', id=work.id, form=form,
+                           search_lists=search_list,
+                           source=work.imported_string,
+                           selected_bookseries=bookseries.id)
+
 
 @app.route('/add_edition/<workid>', methods=["POST", "GET"])
 def add_edition(workid):
@@ -337,11 +351,11 @@ def add_edition(workid):
         edition.language = form.language.data
         edition.editionnum = form.edition.data
         translator = session.query(Person).filter(Person.name ==
-                form.translators.data).first()
+                                                  form.translators.data).first()
         editor = session.query(Person).filter(Person.name ==
-                form.editors.data).first()
+                                              form.editors.data).first()
         publisher = session.query(Publisher).filter(Publisher.name ==
-                form.publisher.data).first()
+                                                    form.publisher.data).first()
         if form.pubseries.data:
             edition.pubseries_id = form.pubseries.data
         edition.pubseriesnum = form.pubseriesnum.data
@@ -361,9 +375,10 @@ def add_edition(workid):
         app.logger.debug("pubid={}".format(form.pubseries.data))
         app.logger.debug("Errors: {}".format(form.errors))
     return render_template('edit_edition.html', form=form,
-            search_list=search_list,
-            selected_pubseries=selected_pubseries, translators=None,
-            editors=None, pubseries=None, source=None)
+                           search_list=search_list,
+                           selected_pubseries=selected_pubseries, translators=None,
+                           editors=None, pubseries=None, source=None)
+
 
 @app.route('/edit_edition/<editionid>', methods=["POST", "GET"])
 def edit_edition(editionid):
@@ -375,8 +390,8 @@ def edit_edition(editionid):
     editors = []
     if str(editionid) != '0':
         edition = session.query(Edition)\
-                          .filter(Edition.id == editionid)\
-                          .first()
+            .filter(Edition.id == editionid)\
+            .first()
         publisher = session.query(Publisher)\
                            .filter(Publisher.id == edition.publisher_id)\
                            .first()
@@ -394,10 +409,10 @@ def edit_edition(editionid):
                          .filter(Editor.edition_id == editionid)\
                          .first()
         pubseries = \
-                session.query(Pubseries)\
-                       .join(Edition)\
-                       .filter(Pubseries.id == edition.pubseries_id)\
-                       .first()
+            session.query(Pubseries)\
+            .join(Edition)\
+            .filter(Pubseries.id == edition.pubseries_id)\
+            .first()
         if publisher:
             publisher_series = pubseries_list(session, publisher.id)
         else:
@@ -406,11 +421,8 @@ def edit_edition(editionid):
     selected_pubseries = '0'
     search_list = publisher_list(session)
     source = edition.imported_string
-    if publisher_series:
-        form.pubseries.choices = [('0', 'Ei sarjaa')] + publisher_series
-    else:
-        form.pubseries.choices = [('0', "Ei sarjaa")]
-
+    form.pubseries.choices = publisher_series
+    form.pubseries.data = publisher_series[1][0]
     form.cover.choices = cover_list(session)
     form.binding.choices = binding_list(session)
     form.format.choices = format_list(session)
@@ -461,11 +473,11 @@ def edit_edition(editionid):
         edition.editionnum = form.edition.data
         edition.version = form.version.data
         translator = session.query(Person).filter(Person.name ==
-                form.translators.data).first()
+                                                  form.translators.data).first()
         editor = session.query(Person).filter(Person.name ==
-                form.editors.data).first()
+                                              form.editors.data).first()
         publisher = session.query(Publisher).filter(Publisher.name ==
-                form.publisher.data).first()
+                                                    form.publisher.data).first()
         if form.pubseries.data == 0:
             edition.pubseries_id = None
         else:
@@ -479,16 +491,16 @@ def edit_edition(editionid):
         edition.size_id = form.size.data
         edition.description = form.description.data
         #edition.artist_id = artist.id
-        #if form.pubseriesnum.data is not None:
+        # if form.pubseriesnum.data is not None:
         #    try:
         #    edition.pubseriesnum = None
         #    except ValueError:
         #        edition.pubseriesnum = None
-        #else:
+        # else:
         #    edition.pubseriesnum = None
-        #if form.pubseriesnum.data == "":
+        # if form.pubseriesnum.data == "":
         #    edition.pubseriesnum = 0
-        #else:
+        # else:
         #    edition.pubseriesnum = int(form.pubseriesnum.data)
         edition.isbn = form.isbn.data
         edition.misc = form.misc.data
@@ -497,14 +509,13 @@ def edit_edition(editionid):
         return redirect(url_for('edition', editionid=edition.id))
     else:
         app.logger.debug("Errors: {}".format(form.errors))
-        #app.logger.debug("pubid={}".format(form.pubseries.data))
+        # app.logger.debug("pubid={}".format(form.pubseries.data))
     return render_template('edit_edition.html', form=form,
-            search_list=search_list, translators=translators,
-            editors=editors, pubseries=pubseries, source=source,
-            selected_pubseries=selected_pubseries)
+                           search_list=search_list, translators=translators,
+                           editors=editors, pubseries=pubseries, source=source)
 
 
-@app.route('/edition/<editionid>')
+@app.route('/edition/<editionid>', methods=['GET', 'POST'])
 def edition(editionid):
     stories = []
     session = new_session()
@@ -535,26 +546,38 @@ def edition(editionid):
                      .filter(Edition.id == Editor.edition_id)\
                      .filter(Edition.id == editionid)\
                      .all()
-    if edition.collection == True:
-        stories = session.query(Part.title.label('title'),
-                                ShortStory.title.label('orig_title'),
-                                ShortStory.pubyear,
-                                ShortStory.language,
-                                ShortStory.id,
-                                ShortStory.creator_str)\
-                         .join(Part)\
-                         .filter(Part.shortstory_id == ShortStory.id)\
-                         .filter(Part.edition_id == editionid)\
-                         .group_by(Part.shortstory_id)\
-                         .all()
 
-    return render_template('edition.html', edition = edition,
-                            other_editions=other_editions, works=works,
-                            translators=translators, editors=editors,
-                            stories=stories)
+    stories = session.query(Part.title.label('title'),
+                            ShortStory.title.label('orig_title'),
+                            ShortStory.pubyear,
+                            ShortStory.language,
+                            ShortStory.id,
+                            ShortStory.creator_str)\
+        .join(Part)\
+        .filter(Part.shortstory_id == ShortStory.id)\
+        .filter(Part.edition_id == editionid)\
+        .group_by(Part.shortstory_id)\
+        .all()
+
+    form_tr = EditionTranslatorForm(request.form)
+    form_ed = EditionEditorForm(request.form)
+
+    if form_tr.submit_tr.data and form_tr.validate():
+        save_translator_to_edition(session, editionid, form_tr.translator.data)
+        return redirect(url_for('edition', editionid=editionid))
+    if form_ed.submit_ed.data and form_ed.validate():
+        save_editor_to_work(session, editorid, form_ed.editor.data)
+        return redirect(url_for('edition', editionid=editionid))
+
+    return render_template('edition.html', edition=edition,
+                           other_editions=other_editions, works=works,
+                           translators=translators, editors=editors,
+                           stories=stories, form_translator=form_tr,
+                           form_editor=form_ed)
+
 
 @app.route('/part_delete/<partid>', methods=["POST", "GET"])
-def part_delete(partid, session = None):
+def part_delete(partid, session=None):
 
     commit = False
     if session == None:
@@ -614,7 +637,7 @@ def is_owned_work(workid):
 
 
 @app.route('/edition_delete/<editionid>', methods=["POST", "GET"])
-def edition_delete(editionid, session = None):
+def edition_delete(editionid, session=None):
     """ Delete an edition along with rows from tables referencing
         the edition.
     """
@@ -632,11 +655,10 @@ def edition_delete(editionid, session = None):
     # Delete association rows for people
 
     editors = session.query(Editor)\
-                    .filter(Edition.edition_id == editionid)\
-                    .all()
+        .filter(Edition.edition_id == editionid)\
+        .all()
     for editor in editors:
         session.delete(editor)
-
 
     parts = session.query(Part)\
                    .filter(Part.edition_id == editionid)\
@@ -645,8 +667,8 @@ def edition_delete(editionid, session = None):
         part_delete(part.id, session)
 
     userbooks = session.query(UserBook)\
-                   .filter(UserBook.edition_id == editionid)\
-                   .all()
+        .filter(UserBook.edition_id == editionid)\
+        .all()
     for book in owned:
         session.delete(book)
 
@@ -660,6 +682,7 @@ def edition_delete(editionid, session = None):
         session.commit()
 
     return ""
+
 
 @app.route('/work_delete/<workid>', methods=["POST", "GET"])
 def work_delete(workid):
@@ -687,6 +710,7 @@ def work_delete(workid):
 
     session.commit()
 
+
 @app.route('/add_authored/<authorid>', methods=["POST", "GET"])
 def add_authored(authorid):
     session = new_session()
@@ -710,15 +734,15 @@ def add_authored(authorid):
                        .all()
         for part in parts:
             app.logger.debug("part = {}, author= {}".format(part.id,
-                authorid))
+                                                            authorid))
             author = Author(part_id=part.id, person_id=authorid)
             session.add(author)
         session.commit()
         return redirect(url_for('work', workid=work.id))
     else:
         app.logger.debug("Errors: {}".format(form.errors))
-    return render_template('work.html', id = work.id, form=form, search_lists =
-            search_list, source = '')
+    return render_template('work.html', id=work.id, form=form, search_lists=search_list, source='')
+
 
 @app.route('/remove_author_from_work/<workid>/<authorid>', methods=["GET", "POST"])
 def remove_author_from_work(workid, authorid):
@@ -738,6 +762,7 @@ def remove_author_from_work(workid, authorid):
 
     return redirect(url_for('work', workid=workid))
 
+
 @app.route('/remove_story_from_work/<workid>/<storyid>', methods=["GET", "POST"])
 def remove_story_from_work(workid, storyid):
     session = new_session()
@@ -753,9 +778,9 @@ def remove_story_from_work(workid, storyid):
     stories = session.query(Part)\
                      .filter(Part.work_id == workid)\
                      .filter(Part.shortstory_id is not None)\
-                     .first()
+                     .scalar()
 
-    if len(stories) == 0:
+    if not stories is None:
         work = session.query(Work).filter(Work.id == workid).first()
         work.collection = False
         session.add(work)
@@ -763,6 +788,7 @@ def remove_story_from_work(workid, storyid):
     session.commit()
 
     return redirect(url_for('work', workid=workid))
+
 
 @app.route('/remove_story_from_edition/<editionid>/<storyid>', methods=['GET', 'POST'])
 def remove_story_from_edition(workid, storyid):
@@ -791,6 +817,33 @@ def remove_story_from_edition(workid, storyid):
     session.commit()
 
 
+@app.route('/remove_translator_from_work/<editionid>/<translatorid>', methods=['GET', 'POST'])
+def remove_translator_from_work(editionid, translatorid):
+    session = new_session()
+
+    translator = session.query(Translator)\
+                        .join(Part)\
+                        .filter(Part.id == Translator.part_id)\
+                        .filter(Part.edition_id == editionid)\
+                        .filter(Translator.person_id == translatorid)\
+                        .first()
+
+    session.delete(translator)
+    session.commit()
+
+
+@app.route('/remove_editor_from_work/<editionid>/<editorid>', methods=['GET', 'POST'])
+def remove_editor_from_work(editionid, editorid):
+    session = new_session()
+
+    editor = session.query(Editor)\
+        .filter(Editor.edition_id == edition_id)\
+        .filter(Editor.person_id == editorid)\
+        .first()
+    session.delete(editor)
+    session.commit()
+
+
 @app.route('/story/<id>', methods=['GET', 'POST'])
 def story(id):
     search_list = {}
@@ -801,9 +854,9 @@ def story(id):
                           ShortStory.pubyear,
                           ShortStory.language,
                           ShortStory.id)\
-                   .join(Part)\
-                   .filter(Part.shortstory_id == id)\
-                   .first()
+        .join(Part)\
+        .filter(Part.shortstory_id == id)\
+        .first()
 
     editions = session.query(Edition)\
                       .join(Part)\
@@ -829,3 +882,43 @@ def story(id):
     return render_template('story.html', id=id, story=story,
                            editions=editions, works=works,
                            authors=authors)
+
+
+@app.route('/edit_story/<id>/<workid>', methods=['GET', 'POST'])
+def edit_story(id):
+    session = new_session()
+
+    if id != 0:
+        story = session.query(ShortStory).filter(ShortStory.id == id).first()
+    else:
+        story = ShortStory()
+
+    form = StoryForm(request.form)
+
+    if request.method == 'GET':
+        form.work_id.data = workid
+        form.author.data = author.name
+        form.title.data = story.title
+        form.orig_title.data = story.orig_title
+        form.language.data = story.language
+        form.pubyear.data = story.pubyear
+        form.work_id.data = workid
+
+    if form.validata_on_submit():
+        story.title = form.title.data
+        story.orig_title = form.orig_title.database
+        story.language = form.language.data
+        story.pubyear = form.pubyear.data
+        session.add(story)
+        session.commit()
+
+        if work_id == '0':
+            return redirect(url_for('story', id=story.id))
+        else:
+            save_story_to_work(session, form.work_id.data, story.title)
+            return redirect(url_for('work', workid=form.work_id))
+
+    else:
+        app.logger.debug('Errors: {}'.format(form.errors))
+
+    return render_template('edit_story.html', form=form)

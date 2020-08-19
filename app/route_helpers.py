@@ -3,8 +3,8 @@
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
 from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
-Edition, Part, Pubseries, Bookseries, User, UserBook, PublicationSize, Tag,\
-PersonTag, CoverType, BindingType, Format, Genre, ShortStory
+    Edition, Part, Pubseries, Bookseries, User, UserBook, PublicationSize, Tag,\
+    PersonTag, CoverType, BindingType, Format, Genre, ShortStory
 from typing import List, Dict, Any
 
 """
@@ -19,48 +19,57 @@ def new_session():
     session = Session()
     return session
 
+
 def publisher_list(session):
-    return {'publisher' : [str(x.name) for x in
-            session.query(Publisher).order_by(Publisher.name).all()]}
+    return {'publisher': [str(x.name) for x in
+                          session.query(Publisher).order_by(Publisher.name).all()]}
+
 
 def author_list(session):
-    return {'author' : [str(x.name) for x in
-            session.query(Person)\
-                   .join(Author)\
-                   .filter(Author.person_id == Person.id)\
-                   .distinct()\
-                   .order_by(Person.name)\
-                   .all()]}
+    return {'author': [str(x.name) for x in
+                       session.query(Person)
+                       .join(Author)
+                       .filter(Author.person_id == Person.id)
+                       .distinct()
+                       .order_by(Person.name)
+                       .all()]}
+
 
 def pubseries_list(session, pubid):
     retval = [('0', 'Ei sarjaa')]
 
     if pubid != 0:
         return retval + [(str(x.id), str(x.name)) for x in
-                session.query(Pubseries).filter(Pubseries.publisher_id == pubid).order_by(Pubseries.name).all()]
+                         session.query(Pubseries).filter(Pubseries.publisher_id == pubid).order_by(Pubseries.name).all()]
     else:
         return retval + [str(x.name) for x in
-                session.query(Pubseries).order_by(Pubseries.name).all()]
+                         session.query(Pubseries).order_by(Pubseries.name).all()]
+
 
 def size_list(session):
     return [(str(x.id), str(x.name)) for x in
-            session.query(PublicationSize).order_by(PublicationSize.name).all()]
+            session.query(PublicationSize).all()]
+
 
 def cover_list(session):
     return [(str(x.id), str(x.name)) for x in
             session.query(CoverType).all()]
 
+
 def binding_list(session):
     return [(str(x.id), str(x.name)) for x in
             session.query(BindingType).all()]
+
 
 def format_list(session):
     return [(str(x.id), str(x.name)) for x in
             session.query(Format).all()]
 
+
 def bookseries_list(session):
-    return {'bookseries' : [str(x.name) for x in
-            session.query(Bookseries).order_by(Bookseries.name).all()]}
+    return {'bookseries': [str(x.name) for x in
+                           session.query(Bookseries).order_by(Bookseries.name).all()]}
+
 
 def people_for_book(s, workid, type):
     if type == 'A':
@@ -89,6 +98,7 @@ def people_for_book(s, workid, type):
                 .filter(Part.work_id == workid)\
                 .all()
 
+
 def books_for_person(s, personid, type):
     if type == 'A':
         return s.query(Work)\
@@ -115,6 +125,7 @@ def books_for_person(s, personid, type):
                 .all()
     else:
         return None
+
 
 def editions_for_lang(workid, lang):
     """ Returns editions just for one language.
@@ -169,14 +180,15 @@ def editions_for_work(workid):
                            .filter(Publisher.id == edition.publisher)\
                            .first()
 
-        ed = { 'edittion' : edition,
-               'translators': translators,
-               'editors' : editors,
-               'pubseries': pubseries,
-               'publisher': publisher }
+        ed = {'edittion': edition,
+              'translators': translators,
+              'editors': editors,
+              'pubseries': pubseries,
+              'publisher': publisher}
         retval += ed
 
     return retval
+
 
 def get_first_edition(workid):
     session = new_session()
@@ -186,6 +198,7 @@ def get_first_edition(workid):
                   .filter(Edition.id == Part.edition_id,
                           Part.work_id == workid)\
                   .first()
+
 
 def save_author_to_work(session, workid, authorname):
 
@@ -207,15 +220,15 @@ def save_author_to_work(session, workid, authorname):
                        .filter(Part.work_id == workid)\
                        .all()
         for part in parts:
-            author = Author(person_id = authorid, part_id = part.id)
+            author = Author(person_id=authorid, part_id=part.id)
             session.add(author)
 
         session.commit()
 
     update_creators(session, workid)
 
+
 def save_story_to_work(session, workid, title):
-    session = new_session()
     story = session.query(ShortStory)\
                    .filter(ShortStory.title == title)\
                    .first()
@@ -240,8 +253,8 @@ def save_story_to_work(session, workid, title):
 
     session.commit()
 
+
 def save_story_to_edition(session, editionid, title):
-    session = new_session()
     story = session.query(ShortStory)\
                    .filter(ShortStory.title == title)\
                    .first()
@@ -264,6 +277,40 @@ def save_story_to_edition(session, editionid, title):
 
     session.commit()
 
+
+def save_translator_to_edition(session, editionid, name):
+    translator = session.query(Person)\
+                        .filter(Person.name == name)\
+                        .first()
+
+    if not person:
+        return
+
+    parts = session.query(Part)\
+                   .filter(Part.edition_id == editionid)\
+                   .all()
+
+    for part in parts:
+        translator = Translator(part_id=part.id,
+                                person_id=translator.id)
+        session.add(translator)
+    session.commit()
+
+
+def save_editor_to_edition(session, editionid, name):
+    editor = session.query(Person)\
+                    .filter(Person.name == name)\
+                    .first()
+
+    if not person:
+        return
+
+    editor = Editor(edition_id=editionid,
+                    person_id=editor.id)
+    session.add(editor)
+    session.commit()
+
+
 def update_creators(session, workid):
     # Update creator string (used to group works together)
     authors = session.query(Person)\
@@ -278,6 +325,7 @@ def update_creators(session, workid):
     work.creator_str = author_str
     session.add(work)
     session.commit()
+
 
 def translate_genrelist(glist):
     return glist
@@ -341,10 +389,11 @@ def save_tags(session, tag_list: str, tag_type: str, id: int) -> None:
 
         for tag in new_ids:
             # Add new tags
-                person_tag = PersonTag(person_id=id,
-                                       tag_id=tag)
-                session.add(person_tag)
+            person_tag = PersonTag(person_id=id,
+                                   tag_id=tag)
+            session.add(person_tag)
         session.commit()
+
 
 def genre_select(session) -> List[Any]:
     genres = session.query(Genre).all()

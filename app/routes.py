@@ -1,16 +1,16 @@
 from flask import render_template, request, flash, redirect, url_for,\
-make_response, jsonify, Response
+    make_response, jsonify, Response
 from flask_login import current_user, login_user, logout_user
 from app import app
 from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
-Edition, Pubseries, Bookseries, User, UserBook, ShortStory, UserPubseries,\
-Alias, Genre, WorkGenre, Tag, PersonTag, Award, AwardCategory, Awarded,\
-Magazine, Issue, Article, ArticleAuthor, ArticlePerson, PublicationSize,\
-IssueEditor
+    Edition, Pubseries, Bookseries, User, UserBook, ShortStory, UserPubseries,\
+    Alias, Genre, WorkGenre, Tag, PersonTag, Award, AwardCategory, Awarded,\
+    Magazine, Issue, Article, ArticleAuthor, ArticlePerson, PublicationSize,\
+    IssueEditor
 from sqlalchemy import create_engine, desc, func
 from sqlalchemy.orm import sessionmaker
 from app.forms import LoginForm, RegistrationForm, PublisherForm,\
-PubseriesForm, PersonForm, BookseriesForm, UserForm, SearchForm, IssueForm
+    PubseriesForm, PersonForm, BookseriesForm, UserForm, SearchForm, IssueForm
 from .route_helpers import *
 #from app.forms import BookForm
 from flask_sqlalchemy import get_debug_queries
@@ -18,6 +18,7 @@ import json
 import logging
 import pprint
 import urllib
+
 
 @app.route('/')
 @app.route('/index')
@@ -40,12 +41,14 @@ def index():
                            bookseries_count=bookseries_count,
                            story_count=story_count)
 
+
 def redirect_url(default='index'):
     return request.args.get('next') or \
-           request.referrer or \
-           url_for(default)
+        request.referrer or \
+        url_for(default)
 
-### User related routes
+# User related routes
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -87,12 +90,13 @@ def register():
         session.commit()
         for series in pubseries:
             ups = UserPubseries(user_id=user.id,
-                    series_id=series.id)
+                                series_id=series.id)
             session.add(ups)
         session.commit()
         flash('Rekisteröinti onnistui!')
         return redirect(url_for('login'))
     return render_template('register.html', form=form, title='Tunnuksen luonti')
+
 
 @app.route('/award/<awardid>')
 def award(awardid):
@@ -105,6 +109,7 @@ def award(awardid):
 
     return render_template('award.html', award=award, awards=awards)
 
+
 @app.route('/awards')
 def awards():
     session = new_session()
@@ -113,39 +118,41 @@ def awards():
 
     return render_template('awards.html', awards=awards)
 
+
 @app.route('/stats')
 def stats():
     session = new_session()
 
-    counts = session.query(Genre.abbr, Genre.name.label('genre_name'),\
+    counts = session.query(Genre.abbr, Genre.name.label('genre_name'),
                            func.count(Work.id).label('work_count'))\
-                    .join(Genre.works)\
-                    .group_by(Genre.abbr)\
-                    .order_by(func.count(Work.id).desc())\
-                    .all()
+        .join(Genre.works)\
+        .group_by(Genre.abbr)\
+        .order_by(func.count(Work.id).desc())\
+        .all()
 
     genres = ['SF', 'F', 'K', 'nSF', 'nF', 'nK', 'kok']
     tops = {}
     for genre in genres:
-        tops[genre] = session.query(Person.name, \
-                func.count(Person.id).label('person_count'), \
-                Genre.abbr, Genre.name.label('genre_name'))\
-                             .join(Work.genres)\
-                             .join(Part)\
-                             .filter(Work.id == Part.work_id)\
-                             .join(Edition)\
-                             .filter(Part.edition_id == Edition.id)\
-                             .join(Author)\
-                             .filter(Author.part_id == Part.id)\
-                             .join(Person)\
-                             .filter(Author.person_id == Person.id)\
-                             .filter(Genre.abbr == genre)\
-                             .filter(Part.shortstory_id == None)\
-                             .filter(Edition.editionnum == 1)\
-                             .group_by(Person.id)\
-                             .order_by(func.count(Work.id).desc())\
-                             .limit(10)\
-                             .all()
+        tops[genre] = session.query(Person.name,
+                                    func.count(Person.id).label(
+                                        'person_count'),
+                                    Genre.abbr, Genre.name.label('genre_name'))\
+            .join(Work.genres)\
+            .join(Part)\
+            .filter(Work.id == Part.work_id)\
+            .join(Edition)\
+            .filter(Part.edition_id == Edition.id)\
+            .join(Author)\
+            .filter(Author.part_id == Part.id)\
+            .join(Person)\
+            .filter(Author.person_id == Person.id)\
+            .filter(Genre.abbr == genre)\
+            .filter(Part.shortstory_id == None)\
+            .filter(Edition.editionnum == 1)\
+            .group_by(Person.id)\
+            .order_by(func.count(Work.id).desc())\
+            .limit(10)\
+            .all()
 
     translators = session.query(Person.name, func.count(Translator.person_id))\
                          .join(Translator.parts)\
@@ -165,21 +172,21 @@ def stats():
                      .all()
 
     stories = session.query(Person.name, func.count(Person.id))\
-                            .join(Part.authors)\
-                            .join(Work)\
-                            .filter(Part.work_id == Work.id)\
-                            .filter(Part.shortstory_id != None)\
-                            .group_by(Person.id)\
-                            .order_by(func.count(Work.id).desc())\
-                            .limit(10)\
-                            .all()
+        .join(Part.authors)\
+        .join(Work)\
+        .filter(Part.work_id == Work.id)\
+        .filter(Part.shortstory_id != None)\
+        .group_by(Person.id)\
+        .order_by(func.count(Work.id).desc())\
+        .limit(10)\
+        .all()
 
     countries = session.query(Person.nationality,
                               func.count(Person.nationality).label('count'))\
-                       .group_by(Person.nationality)\
-                       .order_by(func.count(Person.nationality).desc())\
-                       .limit(10)\
-                       .all()
+        .group_by(Person.nationality)\
+        .order_by(func.count(Person.nationality).desc())\
+        .limit(10)\
+        .all()
 
     return render_template('stats.html',
                            counts=counts,
@@ -191,6 +198,7 @@ def stats():
                            stories=stories,
                            countries=countries)
 
+
 @app.route('/people_by_nationality/<nationality>')
 def people_by_nationality(nationality: str):
     session = new_session()
@@ -201,12 +209,13 @@ def people_by_nationality(nationality: str):
     return render_template('people.html', people=people,
                            header=nationality)
 
+
 @app.route('/user/<userid>')
 def user(userid):
     session = new_session()
     user = session.query(User).filter(User.id == userid).first()
     book_count = session.query(UserBook).filter(UserBook.user_id ==
-            userid).count()
+                                                userid).count()
     return render_template('user.html', user=user, book_count=book_count)
 
 
@@ -241,42 +250,45 @@ def add_to_owned(bookid):
     app.logger.debug("bookid = " + bookid)
     session = new_session()
     #book = session.query(Book).filter(Book.id == bookid).first()
-    userbook = UserBook(user_id = current_user.get_id(), edition_id = bookid)
+    userbook = UserBook(user_id=current_user.get_id(), edition_id=bookid)
     session.add(userbook)
     session.commit()
     app.logger.debug(request.url)
     return ""
 
+
 @app.route('/add_work_to_owned/<workid>', methods=['POST'])
 def add_work_to_owned(workid):
     first_edition = get_first_edition(workid)
     session = new_session()
-    userbook = UserBook(user_id = current_user.get_id(),
-                        edition_id = first_edition.id)
+    userbook = UserBook(user_id=current_user.get_id(),
+                        edition_id=first_edition.id)
     session.add(userbook)
     session.commit()
     app.logger.debug(request.url)
     return ""
+
 
 @app.route('/remove_from_owned/<bookid>', methods=['POST'])
 def remove_from_owned(bookid):
     session = new_session()
     userbook = session.query(UserBook)\
                       .filter(UserBook.user_id == current_user.get_id(),
-                       UserBook.edition_id == bookid).first()
+                              UserBook.edition_id == bookid).first()
     session.delete(userbook)
     session.commit()
     return ""
 
 
-### People related routes
+# People related routes
 
 @app.route('/people')
 def people():
     session = new_session()
     people = session.query(Person).order_by(Person.name).all()
     return render_template('people.html', people=people,
-                            header='Kannassa olevat henkilöt')
+                           header='Kannassa olevat henkilöt')
+
 
 @app.route('/authors')
 def authors():
@@ -286,7 +298,8 @@ def authors():
                     .filter(Author.person_id == Person.id)\
                     .order_by(Person.name).all()
     return render_template('people.html', people=people,
-                            header='Kannassa olevat kirjailijat')
+                           header='Kannassa olevat kirjailijat')
+
 
 @app.route('/translators')
 def translators():
@@ -296,7 +309,8 @@ def translators():
                     .filter(Translator.person_id == Person.id)\
                     .order_by(Person.name).all()
     return render_template('people.html', people=people,
-                            header='Kannassa olevat kääntäjät')
+                           header='Kannassa olevat kääntäjät')
+
 
 @app.route('/editors')
 def editors():
@@ -306,7 +320,8 @@ def editors():
                     .filter(Editor.person_id == Person.id)\
                     .order_by(Person.name).all()
     return render_template('people.html', people=people,
-                            header='Kannassa olevat toimittajat')
+                           header='Kannassa olevat toimittajat')
+
 
 @app.route('/person/<personid>')
 def person(personid):
@@ -318,7 +333,8 @@ def person(personid):
         personid = urllib.parse.unquote(personid)
         person = session.query(Person).filter(Person.name == personid).first()
         if not person:
-            person = session.query(Person).filter(Person.alt_name == personid).first()
+            person = session.query(Person).filter(
+                Person.alt_name == personid).first()
 
     authored = books_for_person(session, personid, 'A')
     series = session.query(Bookseries)\
@@ -336,12 +352,12 @@ def person(personid):
                             Part.title.label('title'),
                             ShortStory.pubyear,
                             ShortStory.id)\
-                     .join(Part.authors)\
-                     .join(Part.shortstory)\
-                     .filter(Person.id == person.id)\
-                     .group_by(ShortStory.id)\
-                     .order_by(Part.title)\
-                     .all()
+        .join(Part.authors)\
+        .join(Part.shortstory)\
+        .filter(Person.id == person.id)\
+        .group_by(ShortStory.id)\
+        .order_by(Part.title)\
+        .all()
 
     genres = session.query(Genre.name, Genre.abbr, func.count(Genre.id).label('count'))\
                     .join(Work.genres)\
@@ -353,7 +369,8 @@ def person(personid):
                     .group_by(Genre.name)\
                     .all()
 
-    person_awards = session.query(Awarded).filter(Awarded.person_id == person.id).all()
+    person_awards = session.query(Awarded).filter(
+        Awarded.person_id == person.id).all()
     novel_awards = session.query(Awarded)\
                           .join(Work)\
                           .filter(Work.id == Awarded.work_id)\
@@ -371,18 +388,19 @@ def person(personid):
         app.logger.info(g.name)
         genre_list[g.abbr] = g.count
 
-    #aliases = session.query(Person)\
+    # aliases = session.query(Person)\
     #                 .join(Alias)\
     #                 .filter(Alias.realname == person.id)\
     #                 .all()
-    #real_names = session.query(Person)\
+    # real_names = session.query(Person)\
     #                    .join(Alias)\
     #                    .filter(Alias.alias == person.id)\
     #                    .all()
     return render_template('person.html', person=person, authored=authored,
-            translated=translated, edited=edited, stories=stories, genres=genre_list,
-            series=series, person_awards=person_awards,
-            novel_awards=novel_awards)
+                           translated=translated, edited=edited, stories=stories, genres=genre_list,
+                           series=series, person_awards=person_awards,
+                           novel_awards=novel_awards)
+
 
 @app.route('/edit_person/<personid>', methods=['POST', 'GET'])
 def edit_person(personid):
@@ -436,6 +454,7 @@ def edit_person(personid):
         app.logger.debug("Errors: {}".format(form.errors))
     return render_template('edit_person.html', form=form, personid=personid)
 
+
 @app.route('/new_person', methods=['POST', 'GET'])
 def new_person():
     session = new_session()
@@ -466,7 +485,7 @@ def new_person():
     return render_template('edit_person.html', form=form, personid=person.id)
 
 
-### Publisher related routes
+# Publisher related routes
 
 @app.route('/publishers')
 def publishers():
@@ -475,6 +494,7 @@ def publishers():
                         .order_by(Publisher.name)\
                         .all()
     return render_template('publishers.html', publishers=publishers)
+
 
 @app.route('/publisher/<pubid>')
 def publisher(pubid):
@@ -494,7 +514,8 @@ def publisher(pubid):
                     .filter(Edition.publisher_id == pubid)\
                     .order_by(desc(Edition.pubyear))\
                     .first()
-    series = session.query(Pubseries).filter(Pubseries.publisher_id == pubid).all()
+    series = session.query(Pubseries).filter(
+        Pubseries.publisher_id == pubid).all()
     #g = session.query(Genre).all()
 
     genres = session.query(Genre.name, Genre.abbr, func.count(Genre.name).label('count'))\
@@ -519,8 +540,9 @@ def publisher(pubid):
                       .order_by(Edition.pubyear)\
                       .filter(Edition.publisher_id == pubid).all()
     return render_template('publisher.html', publisher=publisher,
-            series=series, book_count=book_count, oldest=oldest,
-            newest=newest, editions=editions, genres=genre_list)
+                           series=series, book_count=book_count, oldest=oldest,
+                           newest=newest, editions=editions, genres=genre_list)
+
 
 @app.route('/new_publisher', methods=['GET', 'POST'])
 def new_publisher():
@@ -534,7 +556,7 @@ def new_publisher():
     return render_template('new_publisher.html', form=form)
 
 
-### Bookseries related routes
+# Bookseries related routes
 
 @app.route('/allbookseries')
 def allbookseries():
@@ -543,6 +565,7 @@ def allbookseries():
     session = Session()
     series = session.query(Bookseries).order_by(Bookseries.name).all()
     return render_template('allbookseries.html', series=series)
+
 
 @app.route('/bookseries/<seriesid>')
 def bookseries(seriesid):
@@ -565,13 +588,14 @@ def bookseries(seriesid):
                       .all()
     return render_template('bookseries.html', series=series, editions=editions)
 
+
 @app.route('/new_bookseries', methods=['POST', 'GET'])
 def new_bookseries():
     session = new_session()
     form = BookseriesForm()
     if form.validate_on_submit():
         bookseries = Bookseries(name=form.name.data,
-                important=form.important.data)
+                                important=form.important.data)
         session.add(bookseries)
         session.commit()
         return redirect(url_for('bookseries', seriesid=bookseries.id))
@@ -589,6 +613,7 @@ def allpubseries():
     app.logger.debug(session.query(Pubseries).order_by(Pubseries.name))
     return render_template('allpubseries.html', series=series)
 
+
 @app.route('/pubseries/<seriesid>')
 def pubseries(seriesid):
     session = new_session()
@@ -603,31 +628,33 @@ def pubseries(seriesid):
                    .order_by(Edition.pubseriesnum, Edition.pubyear)\
                    .all()
     favorite = session.query(UserPubseries)\
-                        .filter(UserPubseries.series_id == seriesid,
-                                UserPubseries.user_id == current_user.get_id())\
-                        .count()
+        .filter(UserPubseries.series_id == seriesid,
+                UserPubseries.user_id == current_user.get_id())\
+        .count()
     return render_template('pubseries.html', series=series, books=books,
-            favorite=favorite)
+                           favorite=favorite)
+
 
 @app.route('/new_pubseries', methods=['GET', 'POST'])
 def new_pubseries():
     form = PubseriesForm()
     session = new_session()
-    search_lists = {'publisher' : [str(x.name) for x in
-                    session.query(Publisher)\
-                           .order_by(Publisher.name)\
-                           .all()]}
+    search_lists = {'publisher': [str(x.name) for x in
+                                  session.query(Publisher)
+                                  .order_by(Publisher.name)
+                                  .all()]}
     if form.validate_on_submit():
         publisher = session.query(Publisher)\
                            .filter(Publisher.name == form.publisher.data)\
                            .first()
-        pubseries = Pubseries(name=form.name.data,publisher_id=publisher.id,
-                important=form.important.data)
+        pubseries = Pubseries(name=form.name.data, publisher_id=publisher.id,
+                              important=form.important.data)
         session.add(pubseries)
         session.commit()
         return redirect(url_for('index'))
     return render_template('new_pubseries.html', form=form,
-            search_lists=search_lists)
+                           search_lists=search_lists)
+
 
 @app.route('/list_pubseries/<pubname>', methods=['GET', 'POST'])
 def list_pubseries(pubname):
@@ -643,6 +670,7 @@ def list_pubseries(pubname):
     response.content_type = 'application/json'
     return response
 
+
 @app.route('/magazines')
 def magazines():
     session = new_session()
@@ -652,6 +680,7 @@ def magazines():
                        .all()
 
     return render_template('magazines.html', magazines=magazines)
+
 
 @app.route('/magazine/<id>')
 def magazine(id):
@@ -666,6 +695,7 @@ def magazine(id):
 
     return render_template('magazine.html', magazine=magazine, issues=issues)
 
+
 @app.route('/issue/<id>')
 def issue(id):
 
@@ -676,6 +706,7 @@ def issue(id):
                    .first()
 
     return render_template('issue.html', issue=issue)
+
 
 @app.route('/add_issue/<magazine_id>', methods=['GET', 'POST'])
 def add_issue(magazine_id):
@@ -736,7 +767,6 @@ def add_issue(magazine_id):
                            selected_size='0')
 
 
-
 @app.route('/edit_issue/<id>', methods=['GET', 'POST'])
 def edit_issue(id):
     session = new_session()
@@ -782,11 +812,11 @@ def edit_issue(id):
         form.notes.data = issue.notes
 
     if form.validate_on_submit():
-        #if len(form.size.data) > 0:
+        # if len(form.size.data) > 0:
         #    size = session.query(PublicationSize.id)\
         #                  .filter(PublicationSize.name == form.size.data)\
         #                  .first()
-        #else:
+        # else:
         #    size = None
         issue.number = form.number.data
         issue.number_extra = form.number_extra.data
@@ -829,6 +859,7 @@ def edit_issue(id):
                            issueid=issue.id,
                            selected_size=size)
 
+
 @app.route('/article/<id>')
 def article(id):
     session = new_session()
@@ -853,6 +884,7 @@ def article(id):
                            people=people)
 
 # Miscellaneous routes
+
 
 @app.route('/print_books')
 def print_books():
@@ -895,8 +927,9 @@ def print_books():
                            .order_by(Work.creator_str)\
                            .all()
             title = 'Kaikki kirjat'
-    return render_template('print_books.html', editions=editions, works=works, print = 1,
-            title=title, series=series, type=type, letter=letter)
+    return render_template('print_books.html', editions=editions, works=works, print=1,
+                           title=title, series=series, type=type, letter=letter)
+
 
 @app.route('/mybooks')
 @app.route('/mybooks/<userid>')
@@ -907,18 +940,19 @@ def mybooks(userid=0):
         userid = current_user.get_id()
 
     works = session.query(Work)\
-                     .join(Part)\
-                     .filter(Part.work_id == Work.id)\
-                     .join(Author)\
-                     .filter(Author.part_id == Part.id)\
-                     .join(Edition)\
-                     .filter(Part.edition_id == Edition.id)\
-                     .join(UserBook)\
-                     .filter(UserBook.user_id == userid) \
-                     .filter(UserBook.edition_id == Edition.id)\
-                     .all()
+        .join(Part)\
+        .filter(Part.work_id == Work.id)\
+        .join(Author)\
+        .filter(Author.part_id == Part.id)\
+        .join(Edition)\
+        .filter(Part.edition_id == Edition.id)\
+        .join(UserBook)\
+        .filter(UserBook.user_id == userid) \
+        .filter(UserBook.edition_id == Edition.id)\
+        .all()
 
     return render_template('mybooks.html', works=works, print=1)
+
 
 @app.route('/myseries')
 def myseries():
@@ -941,16 +975,16 @@ def myseries():
                      .order_by(Person.name)\
                      .all()
     app.logger.debug("Count = " + str(len(authors)))
-    #app.logger.debug(session.query(Person).join(BookPerson).filter(BookPerson.type
+    # app.logger.debug(session.query(Person).join(BookPerson).filter(BookPerson.type
     #    == 'A').join(Book).filter(Book.pubseries_id.in_(pubseriesids)).order_by(Person.name))
     return render_template('myseries.html', pubseries=pubseries,
-            authors=authors)
+                           authors=authors)
 
 
-@app.route('/search', methods = ['POST', 'GET'])
+@app.route('/search', methods=['POST', 'GET'])
 def search():
     session = new_session()
-    q= ''
+    q = ''
     searchword = request.args.get('search', '')
     for k, v in request.args.items():
         app.logger.debug(k + " : " + v)
@@ -964,39 +998,40 @@ def search():
                .order_by(Work.title)\
                .all()
     editions = \
-            session.query(Edition)\
-                   .filter(Edition.title.ilike('%' + searchword + '%'))\
-                   .order_by(Edition.title)\
-                   .all()
+        session.query(Edition)\
+        .filter(Edition.title.ilike('%' + searchword + '%'))\
+        .order_by(Edition.title)\
+        .all()
     stories = \
-            session.query(ShortStory)\
-                   .filter(ShortStory.title.ilike('%' + searchword + '%'))\
-                   .order_by(ShortStory.title)\
-                   .all()
+        session.query(ShortStory)\
+        .filter(ShortStory.title.ilike('%' + searchword + '%'))\
+        .order_by(ShortStory.title)\
+        .all()
     people = \
-            session.query(Person)\
-                   .filter(Person.name.ilike('%' + searchword + '%'))\
-                   .order_by(Person.name)\
-                   .all()
+        session.query(Person)\
+        .filter(Person.name.ilike('%' + searchword + '%'))\
+        .order_by(Person.name)\
+        .all()
     publishers = \
-            session.query(Publisher)\
-                   .filter(Publisher.name.ilike('%' + searchword + '%'))\
-                   .order_by(Publisher.name)\
-                   .all()
+        session.query(Publisher)\
+        .filter(Publisher.name.ilike('%' + searchword + '%'))\
+        .order_by(Publisher.name)\
+        .all()
     bookseries = \
-            session.query(Bookseries)\
-                   .filter(Bookseries.name.ilike('%' + searchword + '%'))\
-                   .order_by(Bookseries.name)\
-                   .all()
+        session.query(Bookseries)\
+        .filter(Bookseries.name.ilike('%' + searchword + '%'))\
+        .order_by(Bookseries.name)\
+        .all()
     pubseries = \
-            session.query(Pubseries)\
-                   .filter(Pubseries.name.ilike('%' + searchword + '%'))\
-                   .order_by(Pubseries.name)\
-                   .all()
+        session.query(Pubseries)\
+        .filter(Pubseries.name.ilike('%' + searchword + '%'))\
+        .order_by(Pubseries.name)\
+        .all()
     return render_template('search_results.html', works=works,
-            editions=editions, people=people, stories=stories,
-            publishers=publishers, bookseries=bookseries, pubseries=pubseries,
-            searchword=searchword)
+                           editions=editions, people=people, stories=stories,
+                           publishers=publishers, bookseries=bookseries, pubseries=pubseries,
+                           searchword=searchword)
+
 
 @app.route('/search_form', methods=["POST", "GET"])
 def search_form():
@@ -1020,7 +1055,8 @@ def search_form():
         if form.work_name.data != '':
             query = query.filter(Work.title.ilike(form.work_name.data))
         if form.work_origname.data != '':
-            query = query.filter(Work.orig_title.ilike(form.work_origname.data))
+            query = query.filter(
+                Work.orig_title.ilike(form.work_origname.data))
         if form.work_pubyear_after.data is not None:
             query = query.filter(Work.pubyear >= form.work_pubyear_after.data)
         if form.work_pubyear_before.data is not None:
@@ -1028,16 +1064,19 @@ def search_form():
         if (form.work_genre.data is not None and len(form.work_genre.data) > 0):
             app.logger.debug(form.work_genre.data)
             if (form.work_genre.data[0] != '' and
-                form.work_genre.data[0] != 'none'):
+                    form.work_genre.data[0] != 'none'):
                 query = query.filter(Genre.abbr.in_([x for x in
                                                      form.work_genre.data]))
 
         if form.edition_pubyear_after.data is not None:
-            query = query.filter(Edition.pubyear >= form.edition_pubyear_after.data)
+            query = query.filter(
+                Edition.pubyear >= form.edition_pubyear_after.data)
         if form.edition_pubyear_before.data is not None:
-            query = query.filter(Edition.pubyear <= form.edition_pubyear_before.data)
+            query = query.filter(
+                Edition.pubyear <= form.edition_pubyear_before.data)
         if form.edition_editionnum.data is not None:
-            query = query.filter(Edition.editionnum == form.edition_editionnum.data)
+            query = query.filter(Edition.editionnum ==
+                                 form.edition_editionnum.data)
             editionnum = form.edition_editionnum.data
 
         if form.author_name.data != '':
@@ -1047,14 +1086,14 @@ def search_form():
         if form.author_dob_before.data is not None:
             query = query.filter(Person.dob <= form.author_dob_before.data)
         if (form.author_nationality.data is not None and
-            len(form.author_nationality.data) > 0):
+                len(form.author_nationality.data) > 0):
             if (form.author_nationality.data[0] != '' and
-                form.author_nationality.data[0] != 'none'):
+                    form.author_nationality.data[0] != 'none'):
                 if form.author_nationality.data[0] == 'foreign':
                     query = query.filter(Person.nationality != 'Suomi')
                 else:
                     query = query.filter(Person.nationality.in_([x for x in
-                                                                form.author_nationality.data]))
+                                                                 form.author_nationality.data]))
         query = query.order_by(Work.creator_str)
         works = query.all()
 
@@ -1082,10 +1121,10 @@ def search_form():
 
     nat_choices = [('none', ''), ('foreign', 'Ulkomaiset')] + \
                   [(x.nationality, x.nationality) for x in
-                    nationalities if x.nationality is not None]
+                   nationalities if x.nationality is not None]
     form.author_nationality.choices = nat_choices
 
-    #form.author_nationality.choices = [(x.nationality, x.nationality) for x in
+    # form.author_nationality.choices = [(x.nationality, x.nationality) for x in
     #                                   nationalities if x.nationality is not
     #                                   None]
 
@@ -1105,6 +1144,7 @@ def addfavpubcol(pubseriesid):
     session.commit()
     return redirect(url_for('pubseries', seriesid=pubseriesid))
 
+
 @app.route('/removefavpubcol/<pubseriesid>', methods=["POST", "GET"])
 def removefavpubcol(pubseriesid):
     session = new_session()
@@ -1117,6 +1157,7 @@ def removefavpubcol(pubseriesid):
     session.delete(upubseries)
     session.commit()
     return redirect(url_for('myseries'))
+
 
 @app.route('/missing_nationality')
 def missing_nationality():
@@ -1146,6 +1187,7 @@ def autocomp_person():
     else:
         return json.dumps([''])
 
+
 @app.route('/autocomp_story', methods=['POST'])
 def autocomp_story():
     search = request.form['q']
@@ -1157,5 +1199,35 @@ def autocomp_story():
                          .order_by(ShortStory.title)\
                          .all()
         return Response(json.dumps([x.title for x in stories]))
+    else:
+        return json.dumps([''])
+
+
+@app.route('/autocomp_bookseries', methods=['POST'])
+def autocomp_bookseries():
+    search = request.form['q']
+
+    if search:
+        session = new_session()
+        series = session.query(Bookseries)\
+                        .filter(Bookseries.name.ilike('%' + search + '%'))\
+                        .order_by(Bookseries.name)\
+                        .all()
+        return Response(json.dumps([x.name for x in series]))
+    else:
+        return json.dumps([''])
+
+
+@app.route('/autocomp_pubseries', methods=['POST'])
+def autocomp_pubseries():
+    search = request.form['q']
+
+    if search:
+        session = new_session()
+        series = session.query(Pubseries)\
+                        .filter(Pubseries.name.ilike('%' + search + '%'))\
+                        .order_by(Pubseries.name)\
+                        .all()
+        return Response(json.dumps([x.name for x in series]))
     else:
         return json.dumps([''])

@@ -17,3 +17,35 @@
     </div>
 </div>
 {% endmacro %}
+
+{% macro auto_complete(field, endpoint) %}
+<script>
+    $(document).ready(function () {
+        $("{{field}}").autocomplete("enable");
+
+        $(function () {
+            $("#{{field}}").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{endpoint}}",
+                        dataType: "json",
+                        cache: false,
+                        data: {
+                            q: request.term
+                        },
+                        success: function (data) {
+                            response(data);
+                        },
+                        error: function (jqHR, textStatus, errorThrown) {
+                            console.log(textStatus + " " + errorThrown);
+                        }
+                    });
+                },
+                minLength: 2,
+                autoFocus: true
+            });
+        });
+    });
+</script>
+{% endmacro %}

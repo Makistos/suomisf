@@ -99,9 +99,9 @@ class EditionForm(FlaskForm):
     pubseries = SelectField('Kustantajan sarja', coerce=str)
     pubseriesnum = IntegerField('Sarjan numero', validators=[Optional()])
     pages = IntegerField('Sivuja')
-    cover = RadioField('Kansi')
-    binding = RadioField('Sidonta')
-    format = RadioField('Tyyppi')
+    cover = SelectField('Kansi')
+    binding = SelectField('Sidonta')
+    format = SelectField('Tyyppi')
     size = SelectField('Koko', coerce=str)
     description = TextAreaField('Kuvaus')
     #artist = StringField('Taiteilija')
@@ -109,6 +109,16 @@ class EditionForm(FlaskForm):
     source = StringField('Lähde')
     image_src = StringField('Kuva')
     submit = SubmitField('Tallenna')
+
+class EditionTranslatorForm(FlaskForm):
+    id = HiddenField('id')
+    translator = StringField('Nimi')
+    submit_tr = SubmitField('Tallenna')
+
+class EditionEditorForm(FlaskForm):
+    id = HiddenField('id')
+    editor = StringField('Nimi')
+    submit_ed = SubmitField('Tallenna')
 
 class IssueForm(FlaskForm):
     id = HiddenField('id')
@@ -170,6 +180,8 @@ class PubseriesForm(FlaskForm):
 
 class StoryForm(FlaskForm):
     id = HiddenField('id')
+    author = StringField('Kirjoittaja', validators=[DataRequired])
+    copy_author = BooleanField('Sama kuin teoksella')
     title = StringField('Nimi')
     orig_title = StringField('Alkuperäinen nimi')
     language = StringField('Kieli')
@@ -177,7 +189,8 @@ class StoryForm(FlaskForm):
 
 class WorkForm(FlaskForm):
     id = HiddenField('id')
-    author = StringField('Kirjoittaja(t)', validators=[DataRequired()])
+    work_id = HiddenField('work_id')
+    author = StringField('Kirjoittaja', validators=[DataRequired()])
     title = StringField('Nimeke', validators=[DataRequired()])
     subtitle = StringField('Alaotsikko')
     orig_title = StringField('Alkuperäinen nimi')
