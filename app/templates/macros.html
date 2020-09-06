@@ -1,19 +1,18 @@
-
 {% macro render_field(field) %}
 
 <div class="form-row">
     <div class="col-md-3 mb-3">
-    <b>{{ field.label }}</b>
+        <b>{{ field.label }}</b>
     </div>
     <div class="col-md-8 mb-3">
-    {{ field(class="form-control", **kwargs)|safe }}
-    {% if field.errors %}
+        {{ field(class="form-control", **kwargs)|safe }}
+        {% if field.errors %}
         <ul class=errors>
-        {% for error in field.errors %}
+            {% for error in field.errors %}
             <li>{{ error }}</li>
-        {% endfor %}
+            {% endfor %}
         </ul>
-    {% endif %}
+        {% endif %}
     </div>
 </div>
 {% endmacro %}
@@ -48,4 +47,10 @@
         });
     });
 </script>
+{% endmacro %}
+
+{% macro modal_button(target, text) %}
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{target}}">
+    {{text}}
+</button>
 {% endmacro %}

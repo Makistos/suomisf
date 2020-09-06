@@ -1172,7 +1172,7 @@ def missing_nationality():
 
 
 @app.route('/autocomp_person', methods=['POST'])
-def autocomp_person():
+def autocomp_person() -> Response:
     search = request.form['q']
     session = new_session()
 
@@ -1185,11 +1185,13 @@ def autocomp_person():
         l = [x.name for x in people]
         return Response(json.dumps(l))
     else:
-        return json.dumps([''])
+        return Response(json.dumps(['']))
 
+
+# Routes for auto complete functionality in forms
 
 @app.route('/autocomp_story', methods=['POST'])
-def autocomp_story():
+def autocomp_story() -> Response:
     search = request.form['q']
     session = new_session()
 
@@ -1200,11 +1202,11 @@ def autocomp_story():
                          .all()
         return Response(json.dumps([x.title for x in stories]))
     else:
-        return json.dumps([''])
+        return Response(json.dumps(['']))
 
 
 @app.route('/autocomp_bookseries', methods=['POST'])
-def autocomp_bookseries():
+def autocomp_bookseries() -> Response:
     search = request.form['q']
 
     if search:
@@ -1215,11 +1217,11 @@ def autocomp_bookseries():
                         .all()
         return Response(json.dumps([x.name for x in series]))
     else:
-        return json.dumps([''])
+        return Response(json.dumps(['']))
 
 
 @app.route('/autocomp_pubseries', methods=['POST'])
-def autocomp_pubseries():
+def autocomp_pubseries() -> Response:
     search = request.form['q']
 
     if search:
@@ -1230,4 +1232,49 @@ def autocomp_pubseries():
                         .all()
         return Response(json.dumps([x.name for x in series]))
     else:
-        return json.dumps([''])
+        return Response(json.dumps(['']))
+
+
+@app.route('/autocomp_publisher', methods=['POST'])
+def autocomp_publisher() -> Response:
+    search = request.form['q']
+
+    if search:
+        session = new_session()
+        publishers = session.query(Publisher)\
+                            .filter(Publisher.name.ilike('%' + search + '%'))\
+                            .order_by(Pubseries.name)\
+                            .all()
+        return Response(json.dumps([x.name for x in publishers]))
+    else:
+        return Response(json.dumps(['']))
+
+
+@app.route('/autocomp_work', methods=['POST'])
+def autocomp_work() -> Response:
+    search = request.form['q']
+
+    if search:
+        session = new_session()
+        works = session.query(Work)\
+                       .filter(Work.title.ilike('%' + search + '%'))\
+                       .order_by(Work.title)\
+                       .all()
+        return Response(json.dumps([x.title for x in works]))
+    else:
+        return Response(json.dumps(['']))
+
+
+@app.route('/autocomp_edition', methods=['POST'])
+def autocomp_edition() -> Response:
+    search = request.form['q']
+
+    if search:
+        session = new_session()
+        editions = session.query(Edition)\
+            .filter(Edition.title.ilike('%' + search + '%'))\
+            .order_by(Edition.title)\
+            .all()
+        return Response(json.dumps([x.title for x in editions]))
+    else:
+        return Response(json.dumps(['']))

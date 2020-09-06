@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField,\
-IntegerField, SelectField, HiddenField, RadioField, TextAreaField,\
-SelectMultipleField, widgets
+    IntegerField, SelectField, HiddenField, RadioField, TextAreaField,\
+    SelectMultipleField, widgets
 from wtforms.validators import DataRequired, ValidationError, EqualTo, Optional
 from app.orm_decl import User
 from sqlalchemy import create_engine
@@ -29,11 +29,12 @@ def validate_username(self, username):
     if user is not None:
         raise ValidationError('Valitse toinen käyttäjätunnus.')
 
+
 class RegistrationForm(FlaskForm):
     username = StringField('Käyttäjätunnus', validators=[DataRequired()])
     password = PasswordField('Salasana', validators=[DataRequired()])
     password2 = PasswordField('Salasana uudestaan',
-            validators=[DataRequired(), EqualTo('password')])
+                              validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Rekisteröidy')
 
 
@@ -43,7 +44,7 @@ class UserForm(FlaskForm):
     name = StringField('Käyttäjätunnus', validators=[DataRequired()])
     password = PasswordField('Salasana')
     password2 = PasswordField('Salasana uudestaan',
-            validators=[EqualTo('password')])
+                              validators=[EqualTo('password')])
     is_admin = BooleanField('Ylläpitäjä')
     submit = SubmitField('Päivitä')
 
@@ -51,30 +52,37 @@ class UserForm(FlaskForm):
 class SearchForm(FlaskForm):
     work_name = StringField('Nimi')
     work_origname = StringField('Alkup. nimi')
-    work_pubyear_after = IntegerField('Alkuperäinen julkaisuvuosi aikaisintaan')
-    work_pubyear_before = IntegerField('Alkuperäinen julkaisuvuosi viimeistään')
+    work_pubyear_after = IntegerField(
+        'Alkuperäinen julkaisuvuosi aikaisintaan')
+    work_pubyear_before = IntegerField(
+        'Alkuperäinen julkaisuvuosi viimeistään')
     work_genre = SelectMultipleField('Genre', default=0)
     work_tag = StringField('Aihetunnistin')
 
-    edition_pubyear_after = IntegerField('Suomalaisen julkaisun vuosi aikaisintaan')
-    edition_pubyear_before = IntegerField('Suomalaisen julkaisun vuosi viimeistään')
+    edition_pubyear_after = IntegerField(
+        'Suomalaisen julkaisun vuosi aikaisintaan')
+    edition_pubyear_before = IntegerField(
+        'Suomalaisen julkaisun vuosi viimeistään')
     edition_editionnum = IntegerField('Painos')
 
     author_name = StringField('Kirjailijan nimi')
     author_dob_after = IntegerField('Kirjailijan syntymävuosi aikaisintaan')
     author_dob_before = IntegerField('Kirjailijan syntymävuosi viimeistään')
-    author_nationality = SelectMultipleField('Kirjailijan kansallisuus', default=0)
+    author_nationality = SelectMultipleField(
+        'Kirjailijan kansallisuus', default=0)
 
     submit = SubmitField('Hae')
 
 ###
-### Data entry forms
+# Data entry forms
 ###
+
 
 class ArticleForm(FlaskForm):
     id = HiddenField('id')
     title = StringField('Otsikko')
     tags = StringField('Aihetunnisteet')
+
 
 class BookseriesForm(FlaskForm):
     id = HiddenField('id')
@@ -83,22 +91,24 @@ class BookseriesForm(FlaskForm):
     important = BooleanField('Merkittävä')
     submit = SubmitField('Tallenna')
 
+
 class EditionForm(FlaskForm):
     id = HiddenField('id')
+    workid = HiddenField('workid')
     title = StringField('Nimeke', validators=[DataRequired()])
     subtitle = StringField('Alaotsikko')
-    editors = StringField('Toimittaja(t)')
+    editors = StringField('Toimittaja')
     pubyear = IntegerField('Julkaisuvuosi', validators=[Optional()])
     language = StringField('Kieli')
     publisher = StringField('Kustantaja', validators=[DataRequired(
-        message ='Kustantaja on pakollinen tieto')])
-    translators = StringField('Kääntäjä(t)')
+        message='Kustantaja on pakollinen tieto')])
+    translators = StringField('Kääntäjä')
     edition = IntegerField('Painos')
-    version = IntegerField('Laitos')
+    version = IntegerField('Laitos', validators=[Optional()])
     isbn = StringField('ISBN')
-    pubseries = SelectField('Kustantajan sarja', coerce=str)
+    pubseries = StringField('Kustantajan sarja')
     pubseriesnum = IntegerField('Sarjan numero', validators=[Optional()])
-    pages = IntegerField('Sivuja')
+    pages = IntegerField('Sivuja', validators=[Optional()])
     cover = SelectField('Kansi')
     binding = SelectField('Sidonta')
     format = SelectField('Tyyppi')
@@ -110,15 +120,18 @@ class EditionForm(FlaskForm):
     image_src = StringField('Kuva')
     submit = SubmitField('Tallenna')
 
+
 class EditionTranslatorForm(FlaskForm):
     id = HiddenField('id')
     translator = StringField('Nimi')
     submit_tr = SubmitField('Tallenna')
 
+
 class EditionEditorForm(FlaskForm):
     id = HiddenField('id')
     editor = StringField('Nimi')
     submit_ed = SubmitField('Tallenna')
+
 
 class IssueForm(FlaskForm):
     id = HiddenField('id')
@@ -135,16 +148,18 @@ class IssueForm(FlaskForm):
     notes = TextAreaField('Kommentit')
     submit = SubmitField('Tallenna')
 
+
 class MagazineForm(FlaskForm):
     id = HiddenField('id')
     name = StringField('Nimi')
     issn = StringField('Issn')
-    publisher = StringField('Kustantaja', validators=[DataRequired(message =
-    'Kustantaja on pakollinen tieto')])
+    publisher = StringField('Kustantaja', validators=[
+                            DataRequired(message='Kustantaja on pakollinen tieto')])
     description = TextAreaField('Kuvaus')
     image_src = StringField('Logo')
     banner_src = StringField('Otsakekuva')
     submit = SubmitField('Tallenna')
+
 
 class PersonForm(FlaskForm):
     id = HiddenField('id')
@@ -163,12 +178,14 @@ class PersonForm(FlaskForm):
     bio_src = StringField('Kuvauksen lähde')
     submit = SubmitField('Tallenna')
 
+
 class PublisherForm(FlaskForm):
     id = HiddenField('id')
     name = StringField('Koko nimi')
     name = StringField('Nimi', validators=[DataRequired()])
     fullname = StringField('Koko nimi')
     submit = SubmitField('Tallenna')
+
 
 class PubseriesForm(FlaskForm):
     id = HiddenField('id')
@@ -178,6 +195,7 @@ class PubseriesForm(FlaskForm):
     important = BooleanField('Merkittävä')
     submit = SubmitField('Tallenna')
 
+
 class StoryForm(FlaskForm):
     id = HiddenField('id')
     author = StringField('Kirjoittaja', validators=[DataRequired])
@@ -186,6 +204,7 @@ class StoryForm(FlaskForm):
     orig_title = StringField('Alkuperäinen nimi')
     language = StringField('Kieli')
     pubyear = IntegerField('Julkaisuvuosi')
+
 
 class WorkForm(FlaskForm):
     id = HiddenField('id')
@@ -209,9 +228,11 @@ class WorkForm(FlaskForm):
     source = StringField('Lähde')
     submit = SubmitField('Tallenna')
 
+
 class WorkAuthorForm(FlaskForm):
     author = StringField('Kirjoittaja', validators=[DataRequired()])
     submit = SubmitField('Lisää')
+
 
 class WorkStoryForm(FlaskForm):
     title = StringField('Nimi', validators=[DataRequired()])

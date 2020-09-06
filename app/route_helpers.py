@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker
 from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
     Edition, Part, Pubseries, Bookseries, User, UserBook, PublicationSize, Tag,\
     PersonTag, CoverType, BindingType, Format, Genre, ShortStory
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Tuple
 
 """
     This module contains the functions related to routes that are not directly
@@ -20,12 +20,12 @@ def new_session():
     return session
 
 
-def publisher_list(session):
+def publisher_list(session) -> Dict[str, List[str]]:
     return {'publisher': [str(x.name) for x in
                           session.query(Publisher).order_by(Publisher.name).all()]}
 
 
-def author_list(session):
+def author_list(session) -> Dict[str, List[str]]:
     return {'author': [str(x.name) for x in
                        session.query(Person)
                        .join(Author)
@@ -35,38 +35,38 @@ def author_list(session):
                        .all()]}
 
 
-def pubseries_list(session, pubid):
+def pubseries_list(session, pubid) -> List[Tuple[str, str]]:
     retval = [('0', 'Ei sarjaa')]
 
     if pubid != 0:
         return retval + [(str(x.id), str(x.name)) for x in
                          session.query(Pubseries).filter(Pubseries.publisher_id == pubid).order_by(Pubseries.name).all()]
     else:
-        return retval + [str(x.name) for x in
+        return retval + [(str(x.id), str(x.name)) for x in
                          session.query(Pubseries).order_by(Pubseries.name).all()]
 
 
-def size_list(session):
+def size_list(session) -> List[Tuple[str, str]]:
     return [(str(x.id), str(x.name)) for x in
             session.query(PublicationSize).all()]
 
 
-def cover_list(session):
+def cover_list(session) -> List[Tuple[str, str]]:
     return [(str(x.id), str(x.name)) for x in
             session.query(CoverType).all()]
 
 
-def binding_list(session):
+def binding_list(session) -> List[Tuple[str, str]]:
     return [(str(x.id), str(x.name)) for x in
             session.query(BindingType).all()]
 
 
-def format_list(session):
+def format_list(session) -> List[Tuple[str, str]]:
     return [(str(x.id), str(x.name)) for x in
             session.query(Format).all()]
 
 
-def bookseries_list(session):
+def bookseries_list(session) -> Dict[str, List[str]]:
     return {'bookseries': [str(x.name) for x in
                            session.query(Bookseries).order_by(Bookseries.name).all()]}
 
@@ -127,7 +127,7 @@ def books_for_person(s, personid, type):
         return None
 
 
-def editions_for_lang(workid, lang):
+def editions_for_lang(workid, lang) -> List:
     """ Returns editions just for one language.
         See editions_for_work for return value structure.
     """
@@ -135,7 +135,7 @@ def editions_for_lang(workid, lang):
             == lang]
 
 
-def editions_for_work(workid):
+def editions_for_work(workid) -> List[Dict[str, Any]]:
     """ Returns a list of dictionaries that include edition information as well as
         translators, editors, publisher series and publisher.
         E.g.
@@ -151,7 +151,7 @@ def editions_for_work(workid):
         This list is ordered primarily by language and secondary by edition
         number.
     """
-    retval = []
+    retval: List[Dict[str, Any]] = []
     engine = create_engine('sqlite:///suomisf.db')
     Session = sessionmaker(bind=engine)
     session = Session()
@@ -200,7 +200,7 @@ def get_first_edition(workid):
                   .first()
 
 
-def save_author_to_work(session, workid, authorname):
+def save_author_to_work(session, workid, authorname: str) -> None:
 
     author = session.query(Person)\
                     .filter(Person.name == authorname)\
@@ -228,7 +228,7 @@ def save_author_to_work(session, workid, authorname):
     update_creators(session, workid)
 
 
-def save_story_to_work(session, workid, title):
+def save_story_to_work(session, workid, title: str) -> None:
     story = session.query(ShortStory)\
                    .filter(ShortStory.title == title)\
                    .first()
@@ -254,7 +254,7 @@ def save_story_to_work(session, workid, title):
     session.commit()
 
 
-def save_story_to_edition(session, editionid, title):
+def save_story_to_edition(session, editionid, title: str) -> None:
     story = session.query(ShortStory)\
                    .filter(ShortStory.title == title)\
                    .first()
@@ -278,7 +278,7 @@ def save_story_to_edition(session, editionid, title):
     session.commit()
 
 
-def save_translator_to_edition(session, editionid, name):
+def save_translator_to_edition(session, editionid, name: str) -> None:
     translator = session.query(Person)\
                         .filter(Person.name == name)\
                         .first()
@@ -335,6 +335,7 @@ def _add_tags(session, tags: List[str]) -> List[int]:
     """ Adds any new tags to the Tag table and returns a list
         containing ids for all tags in the tags list.
     """
+    new_ids: List[int] = []
     for tag in new_tags:
         # Add new tags
         if tag not in old_tags:
@@ -395,6 +396,6 @@ def save_tags(session, tag_list: str, tag_type: str, id: int) -> None:
         session.commit()
 
 
-def genre_select(session) -> List[Any]:
+def genre_select(session) -> List[Tuple[str, str]]:
     genres = session.query(Genre).all()
     return [(str(x.id), x.name) for x in genres]

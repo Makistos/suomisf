@@ -109,6 +109,9 @@ def find_translators(s: str) -> Tuple[str, str]:
         if result[-1] == ',':
             result = result[0:-1]
     #s = re.sub(' +', ' ', s)
+    s = re.sub('\s?Suom[\.]?\s', '', s)
+    s.replace('. ja', '')
+    s.replace('. &', '')
     return (result, s)
 
 
@@ -126,6 +129,8 @@ def find_editors(s: str) -> Tuple[str, str]:
         s = s.replace('toim ' + m2.group(1) + '. ', '')
     else:
         result = ''
+    if 'Toim' in result:
+        result = result.replace('Toim', '')
     result = res_tmp + result
 
     return (result, s)
@@ -309,6 +314,8 @@ def get_books(books):
                 if len(re.sub('[\s\.]', '', tmp)) == 0:
                     tmp = ''
                 book['rest'] = misc_str + ' ' + tmp.replace(r' .', '').strip()
+                if book['rest'] == 'ja':
+                    book['rest'] = ''
                 misc_str = ''
                 book['imported_string'] = full_string
                 # Adding to editions for this work
@@ -370,6 +377,8 @@ def get_books(books):
             if len(re.sub('[\s\.]', '', tmp)) == 0:
                 tmp = ''
             book['rest'] = misc_str + ' ' + tmp.replace(r' .', '').strip()
+            if book['rest'] == 'ja':
+                book['rest'] = ''
             misc_str = ''
             book['imported_string'] = full_string
             curr_book = dict(book)
@@ -762,11 +771,15 @@ def import_books(session, authors):
                         .filter(Work.title == work['origname'],
                                 Work.pubyear == work['origyear'])\
                         .first()
+            if work['rest'].strip == '':
+                misc = None
+            else:
+                misc = work['rest'].strip()
             if workitem:
                 workitem.bookseries_id = bookseriesid
                 workitem.bookseriesnum = work['bookseriesnum']
                 workitem.bookseriesorder = work['bookseriesorder']
-                workitem.misc = work['rest']
+                workitem.misc = misc
                 workitem.collection = work['collection']
                 workitem.imported_string = work['imported_string']
             else:
@@ -778,7 +791,7 @@ def import_books(session, authors):
                         bookseries_id = bookseriesid,
                         bookseriesnum = work['bookseriesnum'],
                         bookseriesorder = work['bookseriesorder'],
-                        misc = work['rest'],
+                        misc = misc,
                         collection=work['collection'],
                         imported_string = work['imported_string'])
                 is_new = True
@@ -833,13 +846,17 @@ def import_books(session, authors):
                               Edition.pubyear == edition['pubyear'],
                               Edition.publisher_id == publisherid)\
                       .first()
+                if edition['rest'].strip == '':
+                    misc = None
+                else:
+                    misc = edition['rest'].strip()
                 if ed:
                     ed.translation = edition['translation']
                     ed.editionnum = editionnum
                     ed.pubseries_id = pubseriesid
                     ed.pubseriesnum = pubseriesnum
                     ed.coll_info = edition['coll_info']
-                    ed.misc = edition['rest']
+                    ed.misc = misc
                     ed.imported_string = edition['imported_string']
                 else:
                     ed = Edition(
@@ -859,7 +876,7 @@ def import_books(session, authors):
                             format_id = 0,
                             binding_id = 0,
                             size_id = 0,
-                            misc = edition['rest'],
+                            misc = misc,
                             imported_string = edition['imported_string'])
                     is_new = True
                 s.add(ed)
