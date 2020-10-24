@@ -3,5 +3,14 @@
     "python.linting.mypyEnabled": true,
     "python.linting.pycodestyleEnabled": false,
     "python.linting.enabled": true,
-    "python.pythonPath": "venv/bin/python"
+    "python.pythonPath": "venv/bin/python",
+    "sqltools.connections": [
+        {
+            "database": "${workspaceFolder:suomisf}/suomisf.db",
+            "driver": "SQLite",
+            "name": "SuomiSF",
+            "previewLimit": 50
+        }
+    ],
+    "sqltools.useNodeRuntime": true
 }

@@ -35,11 +35,11 @@
                             {% endfor %}
                         </li>
                         {% endif %}
-			{% if person.other_names %}
-			<li class="list-group-item"><b>Myös:</b>
-				{{ person.other_names }}
-			</li>
-			{% endif %}
+                        {% if person.other_names %}
+                        <li class="list-group-item"><b>Myös:</b>
+                            {{ person.other_names }}
+                        </li>
+                        {% endif %}
                         {% if person.aliases %}
                         <li class="list-group-item"><b>Pseudonyymit:</b>
                             {% for rn in person.aliases %}
@@ -78,14 +78,11 @@
                 <div class="card-header" id="headAwards">
                     <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                            data-target="#awards" aria-expanded="false"
-                            aria-controls="awards">
+                            data-target="#awards" aria-expanded="false" aria-controls="awards">
                             Palkitut teokset
                         </button>
                     </h2>
-                    <div id="awards" class="collapse"
-                             aria-labelledby="headAwards"
-                             data-parent="#authorCard">
+                    <div id="awards" class="collapse" aria-labelledby="headAwards" data-parent="#authorCard">
                         <div class="card-body">
                             <ul class="list-group list-group-flush">
                                 {% for award in novel_awards %}
@@ -162,19 +159,18 @@
                         </button>
                     </h2>
                 </div>
-                <div id="series" class="collapse" aria-labelledby="headSeries"
-                    data-parent="#authorCard">
+                <div id="series" class="collapse" aria-labelledby="headSeries" data-parent="#authorCard">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
-                        {% for s in series %}
-                        <h4><a href="{{ url_for('bookseries', seriesid=s.id)}}"> {{s.name }}</a></h4><br>
-                        {% for work in s.works %}
-                        {% if work.creator_str != person.name %}
-                        {{ work.creator_str }}:
-                        {% endif %}
-                        {% include "_work.html" %}
-                        {% endfor %}
-                        {% endfor %}
+                            {% for s in series %}
+                            <h4><a href="{{ url_for('bookseries', seriesid=s.id)}}"> {{s.name }}</a></h4><br>
+                            {% for work in s.works %}
+                            {% if work.creator_str != person.name %}
+                            {{ work.creator_str }}:
+                            {% endif %}
+                            {% include "_work.html" %}
+                            {% endfor %}
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
@@ -228,27 +224,25 @@
                 <div class="card-header" id="headArticles">
                     <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                            data-target="#articles" aria-expanded="false"
-			    aria-controls="appearsin">
+                            data-target="#articles" aria-expanded="false" aria-controls="appearsin">
                             Artikkelit
                         </button>
                     </h2>
                 </div>
-                <div id="articles" class="collapse"
-			aria-labelledby="headArticles" data-parent="#authorCard">
+                <div id="articles" class="collapse" aria-labelledby="headArticles" data-parent="#authorCard">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
                             {% for article in person.articles %}
-			    <li class="list-group list-group-flush">
-			    	{{ article.issue.magazine.name }}
-				{% if article.issue.number %}
-					{{ article.issue.number }} /
-					{{ article.issue.year }}
-				{% else %}
-					{{ article.issue.count }}
-				{% endif %}:
-				{{ article.title }}.
-		            </li>
+                            <li class="list-group list-group-flush">
+                                {{ article.issue.magazine.name }}
+                                {% if article.issue.number %}
+                                {{ article.issue.number }} /
+                                {{ article.issue.year }}
+                                {% else %}
+                                {{ article.issue.count }}
+                                {% endif %}:
+                                {{ article.title }}.
+                            </li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -260,25 +254,23 @@
                 <div class="card-header" id="headChiefEditor">
                     <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                            data-target="#chiefeditor" aria-expanded="false"
-			    aria-controls="appearsin">
+                            data-target="#chiefeditor" aria-expanded="false" aria-controls="appearsin">
                             Päätoimittajana
                         </button>
                     </h2>
                 </div>
-                <div id="chiefeditor" class="collapse"
-			aria-labelledby="headChiefEditor" data-parent="#authorCard">
+                <div id="chiefeditor" class="collapse" aria-labelledby="headChiefEditor" data-parent="#authorCard">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
-                            {% for issue in person.chief_editor|sort(attribute='count') %}
-			    <li class="list-group list-group-flush">
-			    	{{ issue.magazine.name }}
-				{% if issue.number %}
-					{{ issue.number }} / {{ issue.year }}
-				{% else %}
-					{{ issue.count }}
-				{% endif %}
-		            </li>
+                            {% for issue in person.chief_editor %}
+                            <li class="list-group list-group-flush">
+                                {{ issue.magazine.name }}
+                                {% if issue.number %}
+                                {{ issue.number }} / {{ issue.year }}
+                                {% else %}
+                                {{ issue.count }}
+                                {% endif %}
+                            </li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -290,28 +282,26 @@
                 <div class="card-header" id="headAppearsIn">
                     <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                            data-target="#appearsin" aria-expanded="false"
-			    aria-controls="appearsin">
+                            data-target="#appearsin" aria-expanded="false" aria-controls="appearsin">
                             Esiintynyt artikkeleissa
                         </button>
                     </h2>
                 </div>
-                <div id="appearsin" class="collapse"
-			aria-labelledby="headAppearsIn" data-parent="#authorCard">
+                <div id="appearsin" class="collapse" aria-labelledby="headAppearsIn" data-parent="#authorCard">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
                             {% for article in
 			    person.appears_in %}
-			    <li class="list-group list-group-flush">
-			    	{{ article.issue.magazine.name }}
-				{% if article.issue.number -%}
-					{{ article.issue.number }} /
-					{{ article.issue.year }}
-				{%- else -%}
-					{{ article.issue.count }}
-				{%- endif -%}:
-				{{ article.title }}.
-		            </li>
+                            <li class="list-group list-group-flush">
+                                {{ article.issue.magazine.name }}
+                                {% if article.issue.number -%}
+                                {{ article.issue.number }} /
+                                {{ article.issue.year }}
+                                {%- else -%}
+                                {{ article.issue.count }}
+                                {%- endif -%}:
+                                {{ article.title }}.
+                            </li>
                             {% endfor %}
                         </ul>
                     </div>

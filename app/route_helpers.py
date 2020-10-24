@@ -185,7 +185,7 @@ def editions_for_work(workid) -> List[Dict[str, Any]]:
               'editors': editors,
               'pubseries': pubseries,
               'publisher': publisher}
-        retval += ed
+        retval.append(ed)
 
     return retval
 
@@ -283,7 +283,7 @@ def save_translator_to_edition(session, editionid, name: str) -> None:
                         .filter(Person.name == name)\
                         .first()
 
-    if not person:
+    if not translator:
         return
 
     parts = session.query(Part)\
@@ -302,7 +302,7 @@ def save_editor_to_edition(session, editionid, name):
                     .filter(Person.name == name)\
                     .first()
 
-    if not person:
+    if not editor:
         return
 
     editor = Editor(edition_id=editionid,
@@ -331,7 +331,7 @@ def translate_genrelist(glist):
     return glist
 
 
-def _add_tags(session, tags: List[str]) -> List[int]:
+def _add_tags(session, new_tags: List[str], old_tags: Dict[str, int]) -> List[int]:
     """ Adds any new tags to the Tag table and returns a list
         containing ids for all tags in the tags list.
     """
@@ -373,7 +373,7 @@ def save_tags(session, tag_list: str, tag_type: str, id: int) -> None:
                       .filter(PersonTag.tag_id == Tag.id)\
                       .filter(PersonTag.person_id == id)\
                       .all()
-        old_tags: Dict = {}
+        old_tags: Dict[str, int] = {}
         for tag in tags:
             old_tags[tag.name] = tag.id
         for tag in old_tags:
@@ -386,7 +386,7 @@ def save_tags(session, tag_list: str, tag_type: str, id: int) -> None:
                               .filter(Tag.name == tag)\
                               .first()
                 session.delete(item)
-        new_ids = _add_tags(session, new_tags)
+        new_ids = _add_tags(session, new_tags, old_tags)
 
         for tag in new_ids:
             # Add new tags
