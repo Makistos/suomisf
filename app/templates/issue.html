@@ -2,11 +2,11 @@
 {% block content %}
 <div class="container">
     <div class="card border-primary mb-3" style="width: 720px; margin: 5px auto;">
-	    {% if issue.title %}
-	    <div class="card-header">
-		    {{ issue.title }}
-	    </div>
-	    {% endif %}
+        {% if issue.title %}
+        <div class="card-header">
+            {{ issue.title }}
+        </div>
+        {% endif %}
         <div class="row">
             <div class="col col-lg-4 container">
                 {% if issue.image_src %}
@@ -25,19 +25,19 @@
                         {{ issue.count }}
                         {% endif %}
                     </h2>
-		    {% if issue.tags %}
-		    	{% for tag in  issue.tags %}
-				{{ tag.name }}
-			{% endfor %}
-		    {% endif %}
+                    {% if issue.tags %}
+                    {% for tag in  issue.tags %}
+                    {{ tag.name }}
+                    {% endfor %}
+                    {% endif %}
                     <ul class="list-group list-group-flush">
                         {% if issue.link %}
-			<li class="list-group-item"><b>Kotisivu:</b>
-				<a href="{{ issue.link }}">{{issue.link}}</a>
-			</li>
-			{% endif %}
+                        <li class="list-group-item"><b>Kotisivu:</b>
+                            <a href="{{ issue.link }}">{{issue.link}}</a>
+                        </li>
+                        {% endif %}
                         {% if issue.editors %}
-                        
+
                         <li class="list-group-item"><b>Päätoimittaja(t):</b>
                             {% for editor in issue.editors %}
                             <a href="{{url_for('person',
@@ -45,91 +45,88 @@
                                       editor.alt_name}}</a>
                             {% endfor %}
                         </li>
-			<li class="list-group-item"><b>Sivuja:</b>
-				{{ issue.pages }}
-				{% if issue.size %}
-				({{issue.size.name}})
-				{% endif %}
-			</li>
+                        <li class="list-group-item"><b>Sivuja:</b>
+                            {{ issue.pages }}
+                            {% if issue.size %}
+                            ({{issue.size.name}})
+                            {% endif %}
+                        </li>
                         {% endif %}
-			{% if issue.notes %}
-			<li class="list-group-item">
-				<p class="mb-0">{{issue.notes}}</p>
-			</li>
-			{% endif %}
+                        {% if issue.notes %}
+                        <li class="list-group-item">
+                            <p class="mb-0">{{issue.notes}}</p>
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
         </div>
-            {% if issue.articles|length %}
+        {% if issue.articles|length %}
 
-                            <dl class="list-group list-group-flush mb-3">
-                                <dt>Artikkelit</dt>
-                                {% for article in issue.articles %}
-                                <dd class="list-group-item">
-					{% if article.creator_str -%}
-                                        <span class="person-list">
-                                            {{ article.creator_str }}</span>:
-					{% endif %}
-					<a href="{{url_for('article',
+        <dl class="list-group list-group-flush mb-3">
+            <dt>Artikkelit</dt>
+            {% for article in issue.articles %}
+            <dd class="list-group-item">
+                {% if article.creator_str -%}
+                <span class="person-list">
+                    {{ article.creator_str }}</span>:
+                {% endif %}
+                <a href="{{url_for('article',
 						 id=article.id)}}">{{
 						 article.title }}</a>
-                                </dd>
-                                {% endfor %}
-                            </dl>
-            {% endif %}
-            {% if issue.stories|length %}
-                            <dl class="list-group list-group-flush">
-                                <dt>Novellit</dt>
-                                {% for story in issue.stories %}
-                                <dd class="list-group-item">
-					{% if story.creator_str %}
-                                        <span class="person-list">
-                                            {{ story.creator_str }}</span>:
-                                            {% if story.title !=
-                                            story.parts[0].title %}
-                                            <a href="{{url_for('story',
+            </dd>
+            {% endfor %}
+        </dl>
+        {% endif %}
+        {% if issue.stories|length %}
+        <dl class="list-group list-group-flush">
+            <dt>Novellit</dt>
+            {% for story in issue.stories %}
+            <dd class="list-group-item">
+                {% if story.creator_str %}
+                <span class="person-list">
+                    {{ story.creator_str }}</span>:
+                {% if story.title !=
+                                            story.orig_title %}
+                <a href="{{url_for('story',
                                                         id=story.id)}}">
-                                                {{ story.parts[0].title }}</a>
-                                            ({{story.title}},
-                                            {{story.pubyear}}).
-                                            {% else %}
-                                                <a href="{{url_for('story',
+                    {{ story.title }}</a>
+                ({{story.title}},
+                {{story.pubyear}}).
+                {% else %}
+                <a href="{{url_for('story',
                                                             id=story.id)}}">
-                                                    {{ story.title }}</a>.
-                                            {% endif %}
-                                        {% endif %}
-                                </dd>
-                                {% endfor %}
-                            </dl>
-            {% endif %}
-            {% if current_user.is_admin %}
+                    {{ story.title }}</a> ({{ story.pubyear}}).
+                {% endif %}
+                {% endif %}
+            </dd>
+            {% endfor %}
+        </dl>
+        {% endif %}
+        {% if current_user.is_admin %}
         <div class="accordion" id="issueCard">
             <div class="card">
                 <div class="card-header" id="headIssue">
                     <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                            data-target="#issue" aria-expanded="false"
-			    aria-controls="issue">
+                            data-target="#issue" aria-expanded="false" aria-controls="issue">
                             Ylläpito ({{issue.id}})
                         </button>
                     </h2>
                 </div>
-                <div id="issue" class="collapse" aria-labelledby="headAdmin"
-			data-parent="#issueCard">
+                <div id="issue" class="collapse" aria-labelledby="headAdmin" data-parent="#issueCard">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><a
-                                    href=" {{ url_for('edit_issue',
+                            <li class="list-group-item"><a href=" {{ url_for('edit_issue',
                                     id=issue.id)}}">Muokkaa</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
-	</div>
-            {% endif %}
         </div>
+        {% endif %}
     </div>
+</div>
 
 </div>
 {% block script %}

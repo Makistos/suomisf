@@ -348,10 +348,11 @@ def person(personid):
 
     translated = books_for_person(session, personid, 'T')
     edited = books_for_person(session, personid, 'E')
-    stories = session.query(ShortStory.title.label('orig_title'),
-                            Part.title.label('title'),
-                            ShortStory.pubyear,
-                            ShortStory.id)\
+    # stories = session.query(ShortStory.title.label('orig_title'),
+    #                         Part.title.label('title'),
+    #                         ShortStory.pubyear,
+    #                         ShortStory.id)\
+    stories = session.query(ShortStory)\
         .join(Part.authors)\
         .join(Part.shortstory)\
         .filter(Person.id == person.id)\

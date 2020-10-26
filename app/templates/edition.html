@@ -15,10 +15,10 @@
                 {{ edition.title}}
                 {% if current_user.is_admin %} ({{ edition.id }}){% endif %}
             </h3>
-	    {% for work in works %}
+            {% for work in works %}
             <a href=" {{ url_for('work', workid=work.id) }}">{{ work.orig_title }}</a>
-	    {%- if work.pubyear -%}, {{ work.pubyear }} {% endif %}<br>
-	    {% endfor %}
+            {%- if work.pubyear -%}, {{ work.pubyear }} {% endif %}<br>
+            {% endfor %}
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
@@ -38,27 +38,27 @@
             </li>
             {% if editors|length %}
             <li class="list-group-item">
-            <b>Toimittaja(t):</b>
-            {% if editors|length == 1 %}
-            <a href=" {{ url_for('person', personid=editors[0].id) }}">{{
+                <b>Toimittaja(t):</b>
+                {% if editors|length == 1 %}
+                <a href=" {{ url_for('person', personid=editors[0].id) }}">{{
                     editors[0].alt_name }}</a>
-            {% endif %}
-            {% if editors|length == 2 %}
-            <a href=" {{ url_for('person', personid=editors[0].id) }}">{{
+                {% endif %}
+                {% if editors|length == 2 %}
+                <a href=" {{ url_for('person', personid=editors[0].id) }}">{{
                     editors[0].alt_name }}</a> ja
-            <a href=" {{ url_for('person', personid=editors[1].id) }}">{{
+                <a href=" {{ url_for('person', personid=editors[1].id) }}">{{
                     editors[1].alt_name }}</a>
 
-            {% endif %}
-            {% if editors|length > 2 %}
-            {% for editor in editors[:-1] %}
-            <a href=" {{ url_for('person', personid=editor.id) }}">{{
+                {% endif %}
+                {% if editors|length > 2 %}
+                {% for editor in editors[:-1] %}
+                <a href=" {{ url_for('person', personid=editor.id) }}">{{
                     editor.alt_name }}</a>,
-            {% endfor %}
-            <a href=" {{ url_for('person', personid=editors[-1].id) }}">{{
+                {% endfor %}
+                <a href=" {{ url_for('person', personid=editors[-1].id) }}">{{
                 editors[-1].alt_name }}</a>
-            {% endif %}
-            {% endif %}
+                {% endif %}
+                {% endif %}
             </li>
             {% if translators|length %}
             <li class="list-group-item">
@@ -83,12 +83,12 @@
                 {% endif %}
             </li>
             {% endif %}
-	    {% set work = works[0] %}
+            {% set work = works[0] %}
             {% if work.bookseries %}
             <li class="list-group-item">
                 <b>Kirjasarja:</b> <a href=" {{ url_for('bookseries',
 			seriesid=work.bookseries.id) }} ">
-                        {{ work.bookseries.name }}</a>
+                    {{ work.bookseries.name }}</a>
                 {%- if work.bookseriesnum -%}
                 {%- if work.bookseriesnum|length -%}
                 , numero {{ work.bookseriesnum }}
@@ -140,26 +140,24 @@
                 </div>
             </div>
             {% endif %}
-	    {% if current_user.is_admin %}
-	    <div class="card">
-		<div class="card-header" id="headAdmin">
-		    <h2 class="mb-0">
+            {% if current_user.is_admin %}
+            <div class="card">
+                <div class="card-header" id="headAdmin">
+                    <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                            data-target="#admin" aria-expanded="false"
-			    aria-controls="admin">
-				Ylläpito ({{edition.id}})
+                            data-target="#admin" aria-expanded="false" aria-controls="admin">
+                            Ylläpito ({{edition.id}})
                         </button>
                     </h2>
                 </div>
                 <div id="admin" class="collapse" aria-labelledby="headAdmin" data-parent="#editionCard">
                     <div class="card-body">
-			        <ul class="list-group list-group-flush">
-                        {% if edition.imported_string|length %}
+                        <ul class="list-group list-group-flush">
+                            {% if edition.imported_string|length %}
                             <li class="list-group-item"><b>Lähde:</b>
-                            {{edition.imported_string}}</li>
-                        {% endif %}
-				    <li class="list-group-item"><a
-					href="{{url_for('edit_edition',
+                                {{edition.imported_string}}</li>
+                            {% endif %}
+                            <li class="list-group-item"><a href="{{url_for('edit_edition',
 						editionid=edition.id)}}">Muokkaa</a></li>
                             <li class="list-group-item"><button type="button" class="btn btn-primary"
                                     data-toggle="modal" data-target="#editTranslators">
@@ -169,12 +167,12 @@
                                     data-toggle="modal" data-target="#editEditors">
                                     Lisää/poista toimittajia</li>
                             </button>
-                    </ul>
+                        </ul>
 
-		    </div>
-		</div>
-	    </div>
-	    {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
 
         </div>
     </div>
@@ -242,7 +240,7 @@
                             <div class="col-md-8">{{ editor.name }}</div>
                             <div class="col-md-4">
                                 <a href="{{ url_for('remove_editor_from_work',
-                                    editionid=edition.id, translatorid=translator.id)}}">Poista</a><br />
+                                    editionid=edition.id, editorid=editor.id)}}">Poista</a><br />
                             </div>
                         </div>
                         {% endfor %}

@@ -141,7 +141,8 @@
                             {% for story in stories %}
                             <li class="list-group-item"><a
                                     href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
-                                ({% if story.title != story.orig_title %}{{ story.orig_title }},
+                                ({%- if story.title != story.orig_title -%}
+                                {%- if story.orig_title -%} {{ story.orig_title }}, {%endif%}
                                 {%endif%}{{ story.pubyear}})</li>
                             {% endfor %}
                         </ul>
@@ -188,6 +189,7 @@
                 </div>
                 <div id="translated" class="collapse" aria-labelledby="headTranslated" data-parent="#authorCard">
                     <div class="card-body">
+                        {% set skip_pubseriesnum = 1 %}
                         <ul class="list-group list-group-flush">
                             {% for edition in person.translations|sort(attribute='title') %}
                             <li class="list-group-item">{% include "_edition.html" %}</li>
@@ -264,12 +266,13 @@
                         <ul class="list-group list-group-flush">
                             {% for issue in person.chief_editor %}
                             <li class="list-group list-group-flush">
-                                {{ issue.magazine.name }}
-                                {% if issue.number %}
-                                {{ issue.number }} / {{ issue.year }}
-                                {% else %}
-                                {{ issue.count }}
-                                {% endif %}
+                                <a href="{{ url_for('issue', id=issue.id)}}">
+                                    {{ issue.magazine.name }}
+                                    {% if issue.number %}
+                                    {{ issue.number }} / {{ issue.year }}
+                                    {% else %}
+                                    {{ issue.count }}
+                                    {% endif %}</a>
                             </li>
                             {% endfor %}
                         </ul>
@@ -278,7 +281,7 @@
             </div>
             {% endif %}
             {% if person.appears_in|length %}
-            <div class="card">
+            <div class=" card">
                 <div class="card-header" id="headAppearsIn">
                     <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"

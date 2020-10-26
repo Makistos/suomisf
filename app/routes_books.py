@@ -1,10 +1,11 @@
 from app import app
 from flask import Flask
-from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
-    Edition, Pubseries, Bookseries, User, UserBook, Genre, ShortStory, WorkGenre
+from app.orm_decl import (Person, Author, Editor, Translator, Publisher, Work,
+                          Edition, Pubseries, Bookseries, User, UserBook, Genre,
+                          ShortStory, WorkGenre, Issue, IssueContent)
 from flask import render_template, request, flash, redirect, url_for, make_response
-from app.forms import WorkForm, EditionForm, WorkAuthorForm, WorkStoryForm, StoryForm,\
-    EditionEditorForm, EditionTranslatorForm
+from app.forms import (WorkForm, EditionForm, WorkAuthorForm, WorkStoryForm, StoryForm,
+                       EditionEditorForm, EditionTranslatorForm)
 from .route_helpers import *
 from typing import List, Dict
 from sqlalchemy import func, distinct
@@ -876,13 +877,16 @@ def story(id):
     search_list = {}
 
     session = new_session()
-    story = session.query(Part.title.label('title'),
-                          ShortStory.title.label('orig_title'),
-                          ShortStory.pubyear,
-                          ShortStory.language,
-                          ShortStory.id)\
-        .join(Part)\
-        .filter(Part.shortstory_id == id)\
+    # story = session.query(Part.title.label('title'),
+    #                       ShortStory.title.label('orig_title'),
+    #                       ShortStory.pubyear,
+    #                       ShortStory.language,
+    #                       ShortStory.id)\
+    # .join(Part)\
+    # .filter(Part.shortstory_id == id)\
+    # .first()
+    story = session.query(ShortStory)\
+        .filter(ShortStory.id == id)\
         .first()
 
     editions = session.query(Edition)\
@@ -905,6 +909,11 @@ def story(id):
                      .filter(Author.part_id == Part.id,
                              Part.shortstory_id == id)\
                      .all()
+    # issues = session.query(distinct(Issue.id), Issue.title, Issue.number, Issue.year, Issue.count)\
+    #     .join(IssueContent)\
+    #     .filter(IssueContent.shortstory_id == id)\
+    #     .filter(Issue.id == IssueContent.issue_id)\
+    #     .all()
 
     return render_template('story.html', id=id, story=story,
                            editions=editions, works=works,

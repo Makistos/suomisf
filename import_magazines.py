@@ -71,7 +71,10 @@ def get_person(s, name: str, create_missing: bool = False) -> Optional[int]:
             if create_missing:
                 if name == '':
                     print("no name")
-                name = name
+                #name = name
+                if name == 'anonyymi':
+                    # Hack hack
+                    name = 'Anonyymi'
                 names = name.split(' ')
                 alt_name = names[-1] + ', ' + ' '.join(names[0:-1])
                 person = Person(name=name,

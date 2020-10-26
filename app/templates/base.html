@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="fi">
+
 <head>
   {% block head %}
-  <meta charset=utf-8/>
+  <meta charset=utf-8 />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   {{ bootstrap.load_css()}}
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
@@ -89,6 +90,7 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('users') }}">Käyttäjät</a>
           </li>
+          {#
           {% if current_user.is_anonymous %}
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('login') }}">Kirjaudu</a>
@@ -107,6 +109,10 @@
             </div>
           </li>
           {% endif %}
+          #}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('magazines') }}">Lehdet</a>
+          </li>
         </ul>
       </div>
       <div class="d-flex justify-content-end">
@@ -123,4 +129,5 @@
   {% block scripts %}
   {% endblock %}
 </body>
+
 </html>

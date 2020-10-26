@@ -13,47 +13,52 @@
                 ({{ story.id }})
                 {% endif %}
             </h3>
-	    <div class="col"> 
-            {% if story.title != story.orig_title %}
-            {{ story.orig_title }}
-            {%- if story.pubyear -%}, {{  story.pubyear }}{% endif %}
-            {% endif %}
-	    </div>
-	    <div class="col container col-lg-4 justify-content-end
+            <div class="col">
+                {% if story.title != story.orig_title %}
+                {{ story.orig_title }}
+                {%- if story.pubyear -%}, {{  story.pubyear }}{% endif %}
+                {% endif %}
+            </div>
+            <div class="col container col-lg-4 justify-content-end
 			justify-content-center align-middle">
-		    {% for genre in story.genres %}
-			<li class="list-inline-item" style="padding-bottom:
-				   1rem;"><img
-						  src="/static/icons/{{genre.abbr}}_32.png"></li>
-		    {% endfor %}
-		    {% for tag in story.tags %}
-		    	{{ tag.name }}
-		    {% endfor %}
-	    </div>
+                {% for genre in story.genres %}
+                <li class="list-inline-item" style="padding-bottom:
+				   1rem;"><img src="/static/icons/{{genre.abbr}}_32.png"></li>
+                {% endfor %}
+                {% for tag in story.tags %}
+                {{ tag.name }}
+                {% endfor %}
+            </div>
         </div>
 
         {% if works %}
         <dl class="list-group list-group-flush">
-            <dt>Ilmestynyt teoksissa</dt>
-                {% for work in works %}
-                    <dd class="list-group-item">
-                                {% include "_work.html" %}
-                                {% for edition in work.editions %}
-                                {% include "_work_edition.html" %}
-                                {% endfor %}
-                    </dd>
+            <dt style="margin: 1rem ">Ilmestynyt teoksissa</dt>
+            {% for work in works %}
+            <dd class="list-group-item">
+                {% include "_work.html" %}
+                {% for edition in work.editions %}
+                {% include "_work_edition.html" %}
                 {% endfor %}
+            </dd>
+            {% endfor %}
         </dl>
         {% endif %}
         {% if story.issues %}
         <dl class="list-group list-group-flush">
-            <dt>Ilmestynyt lehdissä</dt>
+            <dt style="margin: 1rem ">Ilmestynyt lehdissä</dt>
             {% for issue in story.issues %}
             <dd class="list-group-item">
-            {{ issue.magazine.name }}
+                <a href="{{ url_for('issue', id=issue.id)}}">
+                    {{ issue.magazine.name }}
+                    {% if issue.number %}
+                    {{ issue.number }} / {{ issue.year }}
+                    {% else %}
+                    {{ issue.count }}
+                    {% endif %}</a>
             </dd>
             {% endfor %}
         </dl>
         {% endif %}
     </div>
-{% endblock %}
+    {% endblock %}
