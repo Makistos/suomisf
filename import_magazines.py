@@ -374,7 +374,8 @@ def import_stories(s,
                     else:
                         creator_str = authors.strip()
 
-                    story_item = ShortStory(title=orig_title,
+                    story_item = ShortStory(title=title,
+                                            orig_title=orig_title,
                                             pubyear=orig_year,
                                             creator_str=creator_str)
                     s.add(story_item)

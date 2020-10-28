@@ -1316,7 +1316,8 @@ def add_multiparts():
             bs = s.query(Bookseries).filter(
                 Bookseries.name == work[bookseries]).first()
         w = s.query(Work).filter(Work.title == work[wtitle_fin]).first()
-        work[author_ids] = [x.id for x in import_authors(s, work[authors])]
+        authors = import_authors(s, work[authors])
+        work[author_ids] = [x.id for x in authors]
         if not w:
             w = Work()
             if bs:
@@ -1328,7 +1329,8 @@ def add_multiparts():
             w.orig_title = work[wtitle]
             w.pubyear = work[wpubyear]
             w.misc = work[w_misc]
-            w.creator_str = work[authors]
+            creator_str = ' & '.join([x.name for x in authors])
+            w.creator_str = creator_str
             s.add(w)
             s.commit()
         work[w_id] = w.id

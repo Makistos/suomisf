@@ -404,6 +404,10 @@ class Person(Base):
                                     primaryjoin='and_(Person.id == Author.person_id,\
                          IssueContent.shortstory_id == Part.shortstory_id)',
                                     uselist=True)
+    translated_stories = relationship('ShortStory',
+                                      secondary='join(Part, Translator, Part.id == Translator.part_id)',
+                                      primaryjoin="and_(Person.id == Translator.person_id, Part.shortstory_id is not None)",
+                                      uselist=True)
     appears_in = relationship('Article', secondary='articleperson',
                               uselist=True)
     tags = relationship('Tag', secondary='persontag', uselist=True)
@@ -490,6 +494,7 @@ class ShortStory(Base):
     creator_str = Column(String(500), index=True)
     parts = relationship('Part', backref=backref('part_assoc'), uselist=True)
     genres = relationship('Genre', secondary='storygenre', uselist=True)
+    editions = relationship('Edition', secondary='part', uselist=True)
     issues = relationship('Issue', secondary='issuecontent', uselist=True)
     tags = relationship('Tag', secondary='storytag', uselist=True)
 

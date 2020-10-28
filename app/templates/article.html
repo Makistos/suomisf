@@ -1,40 +1,48 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-    <div class="card border-primary mb-3" style="width: 720px; margin: 1rem auto">
-        <div class="card-header">
-            <span class="person-list">{{ authors|map(attribute='name')|join(', ') }}</span>
-        </div>
+	<div class="card border-primary mb-3" style="width: 720px; margin: 1rem auto">
+		<div class="card-header">
+			<span class="person-list">{{ authors|map(attribute='name')|join(', ') }}</span>
+		</div>
 
-        <div class="card-body">
-            <h3 class="card-title">
-                {{ article.title }}
-                {% if current_user.is_admin %}
-                ({{ article.id }})
-                {% endif %}
-            </h3>
-	    <ul class="list-group list-group-flush">
-		    {% if people|length %}
-		    <li class="list-group-item"> 
-			<b>Henkilöt:</b>
-			<span class="person-list">
-			{{ people|map(attribute='name')|join(', ')}}
-			</span>
-		    </li>
-		    {% endif %}
-		    {% if article.tags %}
-		    <li class="list-group-item">
-			<b>Avainsanat:</b>
-			{% for tag in article.tags %}
-			<a href="">{{tag.name}}<nbsp>
-			{% endfor %}
-		    </li>
-		    {% endif %}
-	    </ul>
-        </div>
+		<div class="card-body">
+			<h3 class="card-title">
+				{{ article.title }}
+				{% if current_user.is_admin %}
+				({{ article.id }})
+				{% endif %}
+			</h3>
+			<a href="{{ url_for('issue', id=article.issue.id)}}">{{ article.issue.magazine.name }}
+				{% if article.issue.number -%}
+				{{ article.issue.number }} /
+				{{ article.issue.year }}
+				{%- else -%}
+				{{ article.issue.count }}
+				{%- endif -%}</a><br>
 
-    </div>
-{% block script %}
-<script src="/static/js/personlink.js" type="text/javascript"></script>
-{% endblock %}
-{% endblock %}
+			<ul class="list-group list-group-flush">
+				{% if people|length %}
+				<li class="list-group-item">
+					<b>Henkilöt:</b>
+					<span class="person-list">
+						{{ people|map(attribute='name')|join(', ')}}
+					</span>
+				</li>
+				{% endif %}
+				{% if article.tags %}
+				<li class="list-group-item">
+					<b>Avainsanat:</b>
+					{% for tag in article.tags %}
+					<a href="">{{tag.name}}<nbsp>
+							{% endfor %}
+				</li>
+				{% endif %}
+			</ul>
+		</div>
+
+	</div>
+	{% block script %}
+	<script src="/static/js/personlink.js" type="text/javascript"></script>
+	{% endblock %}
+	{% endblock %}

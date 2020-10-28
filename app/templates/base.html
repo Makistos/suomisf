@@ -87,28 +87,24 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('stats') }}">Tilastoja</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('users') }}">Käyttäjät</a>
-          </li>
-          {#
-          {% if current_user.is_anonymous %}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('login') }}">Kirjaudu</a>
-          </li>
-          {% else %}
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdownMenuLink" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              {{ current_user.name}}
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Käyttäjät
             </a>
-            <div class="dropdown-menu" aria-labelledby="userDropdownMenuLink">
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="{{ url_for('users') }}">Lista</a>
+              {% if current_user.is_anonymous %}
+              <a class="dropdown-item" href="{{ url_for('login') }}">Kirjaudu</a>
+              {% else %}
               <a class="dropdown-item" href="{{ url_for('user', userid=current_user.id) }}">Tiedot</a>
               <a class="dropdown-item" href="{{ url_for('mybooks', userid=current_user.id) }}">Kirjat</a>
               <a class="dropdown-item" href="{{ url_for('myseries', userid=current_user.id) }}">Sarjat</a>
               <a class="dropdown-item" href="{{ url_for('logout') }}">Kirjaudu ulos</a>
+              {% endif %}
             </div>
           </li>
-          {% endif %}
+          {#
           #}
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('magazines') }}">Lehdet</a>

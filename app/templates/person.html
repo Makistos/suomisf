@@ -177,7 +177,7 @@
                 </div>
             </div>
             {% endif %}
-            {% if person.translations|length %}
+            {% if person.translations|length or person.translated_stories|length%}
             <div class="card">
                 <div class="card-header" id="headTranslated">
                     <h2 class="mb-0">
@@ -191,9 +191,22 @@
                     <div class="card-body">
                         {% set skip_pubseriesnum = 1 %}
                         <ul class="list-group list-group-flush">
+                            {% if person.translations %}
+                            <h4>Romaanit</h4>
                             {% for edition in person.translations|sort(attribute='title') %}
                             <li class="list-group-item">{% include "_edition.html" %}</li>
                             {% endfor %}
+                            {% endif %}
+                            {% if person.translated_stories %}
+                            <h4 style="margin-top: 1rem">Novellit</h4>
+                            {% for story in person.translated_stories|sort(attribute='title') %}
+                            <li class="list-group-item">
+                                <a href="{{ url_for('story', id=story.id)}}">{{ story.title }}</a>
+                                ({{story.orig_title}}, {{story.pubyear}})
+
+                            </li>
+                            {% endfor %}
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
@@ -296,14 +309,15 @@
                             {% for article in
 			    person.appears_in %}
                             <li class="list-group list-group-flush">
-                                {{ article.issue.magazine.name }}
-                                {% if article.issue.number -%}
-                                {{ article.issue.number }} /
-                                {{ article.issue.year }}
-                                {%- else -%}
-                                {{ article.issue.count }}
-                                {%- endif -%}:
-                                {{ article.title }}.
+                                <a href="{{url_for('issue', id=article.issue.id)}}">{{ article.issue.magazine.name }}
+                                    {% if article.issue.number -%}
+                                    {{ article.issue.number }} /
+                                    {{ article.issue.year }}
+                                    {%- else -%}
+                                    {{ article.issue.count }}
+                                    {%- endif -%}</a><br>
+                                {% if article.creator_str != ''%}
+                                {{ article.creator_str }}:{% endif %} {{ article.title }}.
                             </li>
                             {% endfor %}
                         </ul>

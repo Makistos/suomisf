@@ -383,6 +383,12 @@ def person(personid):
                           .order_by(Awarded.year)\
                           .all()
 
+    translated_stories = session.query(ShortStory)\
+                                .join(Part)\
+                                .filter(Part.shortstory_id == ShortStory.id)\
+                                .join(Translator)\
+                                .filter(Translator.part_id == Part.id)\
+                                .filter(Translator.person_id == personid)
     genre_list = {'SF': '', 'F': '', 'K': '', 'nSF': '', 'nF': '', 'nK': '',
                   'PF': '', 'paleof': '', 'kok': '', 'eiSF': '', 'rajatap': ''}
     for g in genres:
@@ -399,7 +405,7 @@ def person(personid):
     #                    .all()
     return render_template('person.html', person=person, authored=authored,
                            translated=translated, edited=edited, stories=stories, genres=genre_list,
-                           series=series, person_awards=person_awards,
+                           series=series, translated_stories=translated_stories, person_awards=person_awards,
                            novel_awards=novel_awards)
 
 
