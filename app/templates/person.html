@@ -309,13 +309,13 @@
                             {% for article in
 			    person.appears_in %}
                             <li class="list-group list-group-flush">
-                                <a href="{{url_for('issue', id=article.issue.id)}}">{{ article.issue.magazine.name }}
-                                    {% if article.issue.number -%}
-                                    {{ article.issue.number }} /
-                                    {{ article.issue.year }}
-                                    {%- else -%}
-                                    {{ article.issue.count }}
-                                    {%- endif -%}</a><br>
+                                <b><a href="{{url_for('issue', id=article.issue.id)}}">{{ article.issue.magazine.name }}
+                                        {% if article.issue.number -%}
+                                        {{ article.issue.number }} /
+                                        {{ article.issue.year }}
+                                        {%- else -%}
+                                        {{ article.issue.count }}
+                                        {%- endif -%}</a></b>
                                 {% if article.creator_str != ''%}
                                 {{ article.creator_str }}:{% endif %} {{ article.title }}.
                             </li>
