@@ -109,11 +109,15 @@
         </div>
     </div>
     <div id="pics">
-        {% for issue in magazine.issues %}
-        <a href="{{url_for('issue', id=issue.id)}}">
-            <img src="{{ issue.image_src }}" height="200" style="margin: 0 1rem 1rem 0;">
-        </a>
-        {% endfor %}
+        <div class="row">
+            {% for issue in magazine.issues %}
+            <div class="column">
+                <a href="{{url_for('issue', id=issue.id)}}">
+                    <img src="{{ issue.image_src }}" height="300" style="margin: 0 1rem 1rem 0;">
+                </a>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 <script>
