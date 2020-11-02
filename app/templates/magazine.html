@@ -3,10 +3,14 @@
 
 {% from 'macros.html' import info_contents_header, info_contents_footer, info_list_start, info_list_end %}
 
+
 <div class="container">
-    <div class="card border-primary mb-3" style="margin: 1rem auto">
+    <div style="margin: 1rem">
+        <button onclick="switchStyle()" id="switcher" class="btn btn-light">Kannet</button>
+    </div>
+    <div class="card border-primary mb-3" style="margin: 1rem auto" id="textual">
         <div class="card-header">
-		{{ magazine.publisher.name }}
+            {{ magazine.publisher.name }}
         </div>
         <div class="card-body">
             <h1 class="card-title">
@@ -18,23 +22,23 @@
         </div>
         <ul class="list-group list-group-flush">
             {% if magazine.link %}
-                <li class="list-group-item">
-			<a href="{{ magazine.link }}">Kotisivut</a>
-                </li>
+            <li class="list-group-item">
+                <a href="{{ magazine.link }}">Kotisivut</a>
+            </li>
             {% endif %}
         </ul>
         <ul class="list-group list-group-flush">
             {% if magazine.issn %}
-                <li class="list-group-item">
-                    ISSN: {{ magazine.issn }}
-                </li>
+            <li class="list-group-item">
+                ISSN: {{ magazine.issn }}
+            </li>
             {% endif %}
         </ul>
         <ul class="list-group list-group-flush">
             {% if magazine.description %}
-                <li class="list-group-item">
-                    {{ magazine.description }}
-                </li>
+            <li class="list-group-item">
+                {{ magazine.description }}
+            </li>
             {% endif %}
         </ul>
         <div class="accordion" id="magCard">
@@ -47,25 +51,24 @@
                         </button>
                     </h2>
                 </div>
-                <div id="series" class="collapse" aria-labelledby="headSeries"
-                    data-parent="#magCard">
+                <div id="series" class="collapse" aria-labelledby="headSeries" data-parent="#magCard">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
                             {% for issue in magazine.issues %}
                             <li class="list-group-item">
-				    <b><a href="{{ url_for("issue",
+                                <b><a href="{{ url_for("issue",
                                          id=issue.id)}}">{{ issue.number }} /
-					 {{issue.year}}</a></b>
-                                    {%- if issue.title -%}
-                                    : {{ issue.title }}
-                                    {% endif %}
+                                        {{issue.year}}</a></b>
+                                {%- if issue.title -%}
+                                : {{ issue.title }}
+                                {% endif %}
 
                             </li>
                             <li class="list-group-item">
-				    <b>Sivuja</b>: {{ issue.pages }}
-				    {% if issue.size_id %}
-					    ({{issue.size.name}})
-				    {% endif %}
+                                <b>Sivuja</b>: {{ issue.pages }}
+                                {% if issue.size_id %}
+                                ({{issue.size.name}})
+                                {% endif %}
                             </li>
                             {% if issue.tags %}
                             <li class="list-group-item">
@@ -74,12 +77,12 @@
                             </li>
                             {% endif %}
                             <li class="list-group-item">
-				    <b>Artikkelit</b>: {{
+                                <b>Artikkelit</b>: {{
                                 issue.articles|map(attribute='title')|join(' /
                                 ')}}
                             </li>
                             <li class="list-group-item">
-				    <b>Novellit</b>: {{ issue.stories|map(attribute='title')|join('
+                                <b>Novellit</b>: {{ issue.stories|map(attribute='title')|join('
                                 / ')}}
                             </li>
                             {% endfor %}
@@ -94,11 +97,10 @@
                         </button>
                     </h2>
                 </div>
-                <div id="admin" class="collapse" aria-labelledby="headAdmin"
-                    data-parent="#magCard">
+                <div id="admin" class="collapse" aria-labelledby="headAdmin" data-parent="#magCard">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
-                        <a href="{{url_for('add_issue', magazine_id=magazine.id)}}">Lisää numero</a>
+                            <a href="{{url_for('add_issue', magazine_id=magazine.id)}}">Lisää numero</a>
                         </ul>
                     </div>
                 </div>
@@ -106,5 +108,35 @@
             </div>
         </div>
     </div>
+    <div id="pics">
+        {% for issue in magazine.issues %}
+        <a href="{{url_for('issue', id=issue.id)}}">
+            <img src="{{ issue.image_src }}" height="200" style="margin: 0 1rem 1rem 0;">
+        </a>
+        {% endfor %}
+    </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById('pics').style.display = 'none';
+    })
+</script>
+
+<script>
+    function switchStyle() {
+        var pics = document.getElementById('pics');
+        var txt = document.getElementById('textual');
+        if (pics.style.display == 'none') {
+            pics.style.display = 'block';
+            txt.style.display = 'none';
+            document.getElementById('switcher').textContent = 'Lista';
+
+        } else {
+            pics.style.display = 'none';
+            txt.style.display = 'block';
+            document.getElementById('switcher').textContent = 'Kannet';
+        }
+    }
+</script>
+
 {% endblock %}
