@@ -111,9 +111,18 @@
     <div id="pics">
         <div class="row">
             {% for issue in magazine.issues %}
+
             <div class="column">
                 <a href="{{url_for('issue', id=issue.id)}}">
-                    <img src="{{ issue.image_src }}" height="300" style="margin: 0 1rem 1rem 0;">
+                    {% if issue.image_src %}
+                    <img src="{{ issue.image_src }}" width="250" style="margin: 0 1rem 1rem 0;">
+                    {% else %}
+                    <div style="text-align: center">
+                        <img src="/static/icons/Printing-Magazine-icon.png"><br>
+                        {{ issue.number }} /
+                        {{issue.year}}</b>
+                    </div>
+                    {%endif%}
                 </a>
             </div>
             {% endfor %}
