@@ -1316,7 +1316,10 @@ def add_multiparts():
             bs = s.query(Bookseries).filter(
                 Bookseries.name == work[bookseries]).first()
         w = s.query(Work).filter(Work.title == work[wtitle_fin]).first()
-        authors = import_authors(s, work[authors])
+        try:
+            authors = import_authors(s, work[authors])
+        except TypeError as exp:
+            print(f'{exp}: {authors}')
         work[author_ids] = [x.id for x in authors]
         if not w:
             w = Work()

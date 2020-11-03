@@ -106,9 +106,10 @@ def get_tags(s, tags: List[str]) -> List[int]:
         return []
     #retval = []
     for tag in tags:
-        tag_item = s.query(Tag).filter(Tag.name == tag.strip()).first()
+        tag_name = tag.strip().lower()
+        tag_item = s.query(Tag).filter(Tag.name == tag_name).first()
         if not tag_item:
-            tag_item = Tag(name=tag)
+            tag_item = Tag(name=tag_name)
             s.add(tag_item)
             s.commit()
         # retval.append(tag_item.id)

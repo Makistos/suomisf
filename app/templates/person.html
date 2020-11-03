@@ -48,10 +48,12 @@
                             {% endfor %}
                         </li>
                         {% endif %}
-                        {% if person.tags %}
                         {% include "_genre_count.html" %}
+                        {% if person.tags %}
                         <li class="list-group-item">
-                            {{ person.tags|join(', ', attribute='name') }}
+                            {% for tag in person.tags %}
+                            <a href="{{url_for('tag', tagid=tag.id)}}">{{tag.name}}</a>
+                            {% endfor %}
                         </li>
                         {% endif %}
                         {% if person_awards %}

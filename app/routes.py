@@ -893,6 +893,15 @@ def article(id):
 # Miscellaneous routes
 
 
+@app.route('/tags')
+def tags():
+    session = new_session()
+
+    tags = session.query(Tag).all()
+
+    return render_template('tags.html', tags=tags)
+
+
 @app.route('/tag/<tagid>')
 def tag(tagid):
     session = new_session()
