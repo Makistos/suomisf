@@ -104,7 +104,7 @@ def get_size(s, name: str) -> Optional[int]:
 def get_tags(s, tags: List[str]) -> List[int]:
     if len(tags) == 0:
         return []
-    #retval = []
+    tag_list: List[str] = []
     for tag in tags:
         tag_name = tag.strip().lower()
         tag_item = s.query(Tag).filter(Tag.name == tag_name).first()
@@ -112,8 +112,8 @@ def get_tags(s, tags: List[str]) -> List[int]:
             tag_item = Tag(name=tag_name)
             s.add(tag_item)
             s.commit()
-        # retval.append(tag_item.id)
-    tag_items = s.query(Tag).filter(Tag.name.in_(tags))
+        tag_list.append(tag_name)
+    tag_items = s.query(Tag).filter(Tag.name.in_(tag_list))
     return [x.id for x in tag_items]
     # return retval
 
