@@ -893,6 +893,22 @@ def article(id):
 # Miscellaneous routes
 
 
+@app.route('/tag/<tagid>')
+def tag(tagid):
+    session = new_session()
+
+    if tagid.isdigit():
+        tag = session.query(Tag)\
+                     .filter(Tag.id == tagid)\
+                     .first()
+    else:
+        tag = session.query(Tag)\
+                     .filter(Tag.name == tagid)\
+                     .first()
+
+    return render_template('tag.html', tag=tag)
+
+
 @app.route('/print_books')
 def print_books():
     type = request.args.get('type', None)

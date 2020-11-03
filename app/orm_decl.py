@@ -521,6 +521,11 @@ class Tag(Base):
     __tablename__ = 'tag'
     id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=False, index=True)
+    works = relationship('Work', secondary='worktag', uselist=True)
+    articles = relationship('Article', secondary='articletag', uselist=True)
+    stories = relationship('ShortStory', secondary='storytag', uselist=True)
+    magazines = relationship('Magazine', secondary='magazinetag', uselist=True)
+    people = relationship('Person', secondary='persontag', uselist=True)
 
 
 class Translator(Base):

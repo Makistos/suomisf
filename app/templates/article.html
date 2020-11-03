@@ -34,7 +34,7 @@
 				<li class="list-group-item">
 					<b>Avainsanat:</b>
 					{% for tag in article.tags %}
-					<a href="">{{tag.name}}<nbsp>
+					<a href="{{url_for('tag', tagid=tag.id)}}">{{tag.name}}<nbsp>
 							{% endfor %}
 				</li>
 				{% endif %}

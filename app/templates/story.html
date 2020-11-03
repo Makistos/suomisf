@@ -26,7 +26,7 @@
 				   1rem;"><img src="/static/icons/{{genre.abbr}}_32.png"></li>
                 {% endfor %}
                 {% for tag in story.tags %}
-                {{ tag.name }}
+                <a href="{{ url_for('tag', tagid=tag.id)}}">{{ tag.name }}</a>
                 {% endfor %}
             </div>
         </div>
