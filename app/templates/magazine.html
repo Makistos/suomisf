@@ -102,15 +102,16 @@
 
                             <div class="column">
                                 <a href="{{url_for('issue', id=issue.id)}}">
-                                    {% if issue.image_src %}
-                                    <img src="{{ issue.image_src }}" width="250" style="margin: 0 1rem 1rem 0;">
-                                    {% else %}
-                                    <div style="text-align: center">
-                                        <img src="/static/icons/Printing-Magazine-icon.png"><br>
-                                        {{ issue.number }} /
-                                        {{issue.year}}</b>
-                                    </div>
-                                    {%endif%}
+                                    <figure class="figure">
+                                        {% if issue.image_src %}
+                                        <img src="{{ issue.image_src }}" width="250" style="margin: 0 1rem 1rem 0;">
+                                        {% else %}
+                                        <img src="/static/icons/Printing-Magazine-icon.png" class="img-thumbnail"><br>
+                                        {%endif%}
+                                        <figcaption class="figure-caption text-center align-text-top">{{ issue.number }}
+                                            / {{issue.year}}</b>
+                                        </figcaption>
+                                    </figure>
                                 </a>
                             </div>
                             {% endfor %}
