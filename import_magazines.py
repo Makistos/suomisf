@@ -238,7 +238,8 @@ def import_articles(s,
         for article in articles[name]:
             in_issue: bool = False
             if article['Count'] != '':
-                if article['Count'] == str(issue_count):
+                if (article['Count'] == str(issue_count) and
+                        article['Number_extra'] == issue_extra):
                     in_issue = True
             else:
                 if (article['Number'] == str(issue_number) and
@@ -330,7 +331,8 @@ def import_stories(s,
         for story in stories[name]:
             in_issue: bool = False
             if story['Count'] != '':
-                if story['Count'] == str(issue_count):
+                if (story['Count'] == str(issue_count) and
+                        story['Number_extra'] == issue_extra):
                     in_issue = True
             else:
                 if (story['Number'] == str(issue_num) and

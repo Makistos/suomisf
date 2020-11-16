@@ -52,7 +52,7 @@
 
     {% if tag.articles|length %}
     <h2>Artikkelit</h2>
-    {% for article in tag.articles %}
+    {% for article in tag.articles|sort(attribute='creator_str') %}
     {% if article.creator_str -%}
     <span class="person-list">
         {{ article.creator_str }}</span>:
@@ -60,6 +60,13 @@
     <a href="{{url_for('article',
 						 id=article.id)}}">{{
                          article.title }}</a>
+    ({{article.issue.magazine.name}}
+    {% if article.issue.number -%}
+    {{ article.issue.number }} /
+    {{ article.issue.year }}
+    {%- else -%}
+    {{ article.issue.count }}
+    {%- endif -%})
     <br>
     {% endfor %}
     {%endif %}

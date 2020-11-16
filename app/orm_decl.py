@@ -254,7 +254,7 @@ class Issue(Base):
     __tablename__ = 'issue'
     id = Column(Integer, primary_key=True)
     magazine_id = Column(Integer, ForeignKey('magazine.id'), nullable=False)
-    number = Column(Integer, nullable=False, index=True)
+    number = Column(Integer, index=True)
     number_extra = Column(String(20))
     count = Column(Integer)
     year = Column(Integer, index=True)
