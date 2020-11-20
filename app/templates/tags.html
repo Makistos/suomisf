@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-    <h1>Aihetunnisteet</h1>
-
-    {% for tag in tags|sort(attribute='name') %}
-    <a href="{{url_for('tag', tagid=tag.id)}}">{{tag.name}}</a>
-    <br>
-    {% endfor %}
-
+    <h1 style="text-align: center;">Aihetunnisteet</h1>
+    <div class="three-column">
+        {% for tag in tags|sort(attribute='name') %}
+        <a href="{{url_for('tag', tagid=tag.id)}}">{{tag.name}}</a>
+        <br>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
