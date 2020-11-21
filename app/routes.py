@@ -286,8 +286,10 @@ def remove_from_owned(bookid):
 def people():
     session = new_session()
     people = session.query(Person).order_by(Person.name).all()
+    letters = sorted(set([x.name[0].upper() for x in people if x.name != '']))
     return render_template('people.html', people=people,
-                           header='Kannassa olevat henkilöt')
+                           header='Kannassa olevat henkilöt',
+                           letters=letters)
 
 
 @app.route('/authors')
@@ -297,8 +299,10 @@ def authors():
                     .join(Author)\
                     .filter(Author.person_id == Person.id)\
                     .order_by(Person.name).all()
+    letters = sorted(set([x.name[0].upper() for x in people if x.name != '']))
     return render_template('people.html', people=people,
-                           header='Kannassa olevat kirjailijat')
+                           header='Kannassa olevat kirjailijat',
+                           letters=letters)
 
 
 @app.route('/translators')
@@ -308,8 +312,10 @@ def translators():
                     .join(Translator)\
                     .filter(Translator.person_id == Person.id)\
                     .order_by(Person.name).all()
+    letters = sorted(set([x.name[0].upper() for x in people if x.name != '']))
     return render_template('people.html', people=people,
-                           header='Kannassa olevat kääntäjät')
+                           header='Kannassa olevat kääntäjät',
+                           letters=letters)
 
 
 @app.route('/editors')
@@ -319,8 +325,11 @@ def editors():
                     .join(Editor)\
                     .filter(Editor.person_id == Person.id)\
                     .order_by(Person.name).all()
+    letters = sorted(set([x.name[0].upper() for x in people if x.name != '']))
+
     return render_template('people.html', people=people,
-                           header='Kannassa olevat toimittajat')
+                           header='Kannassa olevat toimittajat',
+                           letters=letters)
 
 
 @app.route('/person/<personid>')
