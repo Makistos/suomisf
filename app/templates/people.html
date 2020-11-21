@@ -2,11 +2,17 @@
 {% block content %}
 <div class="container">
     <h1 style="text-align: center;">{{header}}</h1>
+    <div style="text-align"></div>
+    <ul class="list-inline">
+        {% for char in letters %}
+        <li class="list-inline-item"><a href="#{{char}}">{{char}}</a></li>
+        {% endfor %}
+    </ul>
     <div class="three-column">
         {# {% for char in "ABCDEFGHIJKLMNOPQRSTUVXYZÅÄÖ" %} #}
         {% for char in letters %}
-        <h3 style="background: #82CAFF;">{{char}}</h3>
-        {% for person in people %}
+        <h3 id="{{char}}" style="background: #82CAFF;">{{char}}</h3>
+        {% for person in people|sort(attribute='name') %}
         {% if char == person.name|upper|truncate(1, True, end='') %}
         <a href="{{ url_for('person', personid=person.id) }}">{{ person.name }}</a><br>
         {%endif %}
