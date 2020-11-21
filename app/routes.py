@@ -288,7 +288,7 @@ def people():
     people = session.query(Person).order_by(Person.name).all()
     letters = sorted(set([x.name[0].upper() for x in people if x.name != '']))
     return render_template('people.html', people=people,
-                           header='Kannassa olevat henkilöt',
+                           header='Henkilöluettelo',
                            letters=letters)
 
 
@@ -301,7 +301,7 @@ def authors():
                     .order_by(Person.name).all()
     letters = sorted(set([x.name[0].upper() for x in people if x.name != '']))
     return render_template('people.html', people=people,
-                           header='Kannassa olevat kirjailijat',
+                           header='Kirjailijat',
                            letters=letters)
 
 
@@ -314,7 +314,7 @@ def translators():
                     .order_by(Person.name).all()
     letters = sorted(set([x.name[0].upper() for x in people if x.name != '']))
     return render_template('people.html', people=people,
-                           header='Kannassa olevat kääntäjät',
+                           header='Kääntäjät',
                            letters=letters)
 
 
@@ -328,7 +328,7 @@ def editors():
     letters = sorted(set([x.name[0].upper() for x in people if x.name != '']))
 
     return render_template('people.html', people=people,
-                           header='Kannassa olevat toimittajat',
+                           header='Toimittajat',
                            letters=letters)
 
 

@@ -1,9 +1,10 @@
 translators =\
-        [
+    [
         ('Anita Puumalainen', 'Anita', 'Puumalainen'),
         ('Aulis Rantasen työryhmä', 'Aulis Rantasen työryhmä', ''),
         ('Biokustannuksen käännösryhmä', 'Biokustannuksen käännösryhmä', ''),
-        ('Turun yliopiston suomentajaseminaari', 'Turun yliopiston suomentajaseminaari', ''),
+        ('Turun yliopiston suomentajaseminaari',
+         'Turun yliopiston suomentajaseminaari', ''),
         ('A. Peromies', 'A.', 'Peromies'),
         ('A. Tiusanen', 'A.', 'Tiusanen'),
         ('Aarne A. Astala', 'Aarne A.', 'Astala'),
@@ -76,15 +77,15 @@ translators =\
         ('Vankka Vankkoja', 'Vankka', 'Vankkoja'),
         ('Veikko Rekunen', 'Veikko', 'Rekunen'),
         ('Väinö J. Tervaskari', 'Väinö J.', 'Tervaskari')
-        ]
+    ]
 
 editors =\
-        [
+    [
         ('E. Leikoski', 'E.', 'Leikoski')
-        ]
+    ]
 
 missing_from_db =\
-        [
+    [
         'Andrew Allen',
         'Kingsley Amis',
         'Paul Dale Anderson',
@@ -134,7 +135,7 @@ missing_from_db =\
         'Ralf Parland',
         'Seabury Quinn',
         'J.H. Riddell',
-        'Jeffry Scott ',
+        'Jeffry Scott',
         'Michael Shea',
         'Dyan Sheldon',
         'May Sinclair',
@@ -267,4 +268,4 @@ missing_from_db =\
         'Sana Mustonen',
         'Joonas Riekkola',
         'Eeva-Liisa Tenhunen'
-]
+    ]
