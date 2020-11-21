@@ -8,16 +8,15 @@
         <li class="list-inline-item"><a href="#{{char}}">{{char}}</a></li>
         {% endfor %}
     </ul>
+    {% for char in letters %}
+    <h3 id="{{char}}" style="background: #82CAFF;">{{char}}</h3>
     <div class="three-column">
-        {# {% for char in "ABCDEFGHIJKLMNOPQRSTUVXYZÅÄÖ" %} #}
-        {% for char in letters %}
-        <h3 id="{{char}}" style="background: #82CAFF;">{{char}}</h3>
         {% for person in people|sort(attribute='name') %}
-        {% if char == person.name|upper|truncate(1, True, end='') %}
+        {% if char == person.name|upper|truncate(1, True, end='', leeway=0) %}
         <a href="{{ url_for('person', personid=person.id) }}">{{ person.name }}</a><br>
         {%endif %}
         {% endfor %}
-        {% endfor %}
     </div>
+    {% endfor %}
 </div>
 {% endblock %}
