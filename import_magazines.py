@@ -62,9 +62,12 @@ def get_publisher(s, name: str) -> int:
 
 def get_person(s, name: str, create_missing: bool = False) -> Optional[int]:
     try:
+        if name[-1] == '.':
+            # Replace last dot so this matches better
+            name = name[0:-1]
         person = s.query(Person)\
-            .filter(or_(Person.name == name,
-                        Person.alt_name == name))\
+            .filter(or_(Person.name.like(name + '%'),
+                        Person.alt_name.like(name + '%')))\
             .first()
 
         if not person:

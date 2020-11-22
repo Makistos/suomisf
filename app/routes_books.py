@@ -301,12 +301,16 @@ def work(workid):
         .all()
     form = WorkAuthorForm(request.form)
     form_story = WorkStoryForm(request.form)
+    form_newstory = StoryForm(request.form)
 
     if form.submit.data and form.validate():
         save_author_to_work(session, workid, form.author.data)
         return redirect(url_for('work', workid=workid))
     if form_story.submit_story.data and form_story.validate():
         save_story_to_work(session, workid, form_story.title.data)
+        return redirect(url_for('work', workid=workid))
+    if form_newstory.submit_newstory.data:  # and form_newstory.validate():
+        save_newstory_to_work(session, workid, form_newstory)
         return redirect(url_for('work', workid=workid))
 
     prev_book = None
@@ -331,7 +335,7 @@ def work(workid):
                     break
     return render_template('work.html', work=work, authors=authors,
                            bookseries=bookseries, search_lists=search_list, form=form,
-                           form_story=form_story,
+                           form_story=form_story, form_newstory=form_newstory,
                            stories=stories, prev_book=prev_book, next_book=next_book)
 
 
@@ -921,7 +925,7 @@ def story(id):
 
 
 @app.route('/edit_story/<id>/<workid>', methods=['GET', 'POST'])
-def edit_story(id):
+def edit_story(id, workid):
     session = new_session()
 
     if id != 0:
@@ -948,7 +952,7 @@ def edit_story(id):
         session.add(story)
         session.commit()
 
-        if work_id == '0':
+        if workid == '0':
             return redirect(url_for('story', id=story.id))
         else:
             save_story_to_work(session, form.work_id.data, story.title)

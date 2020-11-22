@@ -10,7 +10,7 @@ from importbib import missing_from_db
 people: Dict = {}
 
 db_url = os.environ.get('DATABASE_URL') or \
-        'sqlite:///suomisf.db'
+    'sqlite:///suomisf.db'
 
 
 def add_missing_people():
@@ -52,10 +52,11 @@ def add_to_db(person: str):
     if not p:
         #print(f'Adding person to database: {name} | {alt_name} | {first_name} | {last_name}')
         p = Person(name=name, alt_name=alt_name,
-                    first_name=first_name,
-                    last_name=last_name)
+                   first_name=first_name,
+                   last_name=last_name)
         s.add(p)
         s.commit()
+
 
 def get_people():
     """ Get the people in the database into a nice dict. """
@@ -71,7 +72,7 @@ def get_people():
         if person.alt_name not in people:
             people[person.alt_name] = person.id
             if person.first_name and person.last_name:
-                #if person.last_name == 'Haldeman':
+                # if person.last_name == 'Haldeman':
                 first_name = person.first_name.split(' ')[0]
                 people[person.last_name + ', ' + person.first_name] = person.id
                 people[person.first_name + ' ' + person.last_name] = person.id
@@ -88,7 +89,8 @@ def get_people():
                 last_name = person.last_name
             else:
                 last_name = '___'
-            fle.write(person.name + ' : ' + first_name + ' : ' + last_name + ' : ' + person.alt_name + '\n')
+            fle.write(person.name + ' : ' + first_name + ' : ' +
+                      last_name + ' : ' + person.alt_name + '\n')
     with open('/tmp/people2.txt', 'w') as fle:
         for key, person in people.items():
             fle.write(key + '\n')
@@ -154,7 +156,7 @@ def get_authors(line: str) -> Tuple[List, bool]:
             else:
                 last_name = parts[-1]
             alt = s.query(Person)\
-                   .filter(Person.last_name.like(last_name))\
+                   .filter(Person.last_name.like(last_name + '%'))\
                    .all()
             if alt:
                 # Print a list of author names that can be copied to
@@ -190,13 +192,14 @@ def import_stories(filename: str, books: Dict = {}):
         while not line.startswith('*******'):
             line = fle.readline()
 
-        book_re = id_re + '\s=\s(?P<author>.+)\s:\s(?P<title>[A-Za-z0-9äöåÄÖÅ&\-\s\?:!]+)[,\.\(]'
+        book_re = id_re + \
+            '\s=\s(?P<author>.+)\s:\s(?P<title>[A-Za-z0-9äöåÄÖÅ&\-\s\?:!]+)[,\.\(]'
         line = fle.readline()
 
         # Go through the list of books at the top of the file
         while not line.startswith('*******'):
             line = fle.readline()
-            m = re.search(book_re, line, re.S|re.U)
+            m = re.search(book_re, line, re.S | re.U)
             if m:
                 if m.groupdict()['id'] in books:
                     continue
@@ -208,11 +211,12 @@ def import_stories(filename: str, books: Dict = {}):
                 if '&' in author:
                     # One author is enough to identify the book
                     author = author.split(' & ')[0]
-                books[m.groupdict()['id']] = [author, m.groupdict()['title'].strip(), is_ed]
+                books[m.groupdict()['id']] = [author, m.groupdict()
+                                              ['title'].strip(), is_ed]
                 person = s.query(Person)\
                           .filter(Person.alt_name == author)\
                           .all()
-                #if not person:
+                # if not person:
                 #    print(f'Person not found: {author}')
             else:
                 if line != '\n' and not line.startswith('*******'):
@@ -250,8 +254,8 @@ def import_stories(filename: str, books: Dict = {}):
                 line = fle.readline()
                 continue
             ids: List = []
-            m = re.search(id_re, line, re.S|re.U)
-            #if not m:
+            m = re.search(id_re, line, re.S | re.U)
+            # if not m:
             #    if (line != '\n' and not line.startswith('*****') and
             #        not authors):
             #        print(f'*** {line}')
@@ -261,7 +265,7 @@ def import_stories(filename: str, books: Dict = {}):
             # Maybe there's more than just the title, like the
             # original title in some other language and the original
             # year of publication?
-            m = re.search(ss_re, line, re.S|re.U|re.VERBOSE)
+            m = re.search(ss_re, line, re.S | re.U | re.VERBOSE)
             if m:
                 # Yep, we found something like that.
                 title = m.groupdict()['title']
@@ -272,7 +276,8 @@ def import_stories(filename: str, books: Dict = {}):
                     year = items[-1]
                 else:
                     # Either there's a year or an original title
-                    m2 = re.match('(?P<year>\d\d\d\d)', m.groupdict()['origtitle'])
+                    m2 = re.match('(?P<year>\d\d\d\d)',
+                                  m.groupdict()['origtitle'])
                     if m2:
                         # It's just a year
                         orig_title = title
@@ -288,14 +293,14 @@ def import_stories(filename: str, books: Dict = {}):
 
                 #id = m.groupdict()['id']
                 #print(f'{title}: {orig_title}, {year}, {id}')
-                #for id in ids:
+                # for id in ids:
                 #    if id not in books:
                 #        print(f'{title} not found from list!')
             else:
                 # Nothing but the title and id, perhaps?
                 ss2_re = '(?P<title>.+)\s' + id_re
 
-                m = re.search(ss2_re, line, re.S|re.U|re.VERBOSE)
+                m = re.search(ss2_re, line, re.S | re.U | re.VERBOSE)
                 if m:
                     # Yep, just a title and id
                     title = m.groupdict()['title']
@@ -312,9 +317,11 @@ def import_stories(filename: str, books: Dict = {}):
 
             for id in ids:
                 if id not in stories:
-                    stories[id] = [{'title': title, 'orig_title': orig_title, 'year': year, 'authors': authors}]
+                    stories[id] = [
+                        {'title': title, 'orig_title': orig_title, 'year': year, 'authors': authors}]
                 else:
-                    stories[id].append({'title': title, 'orig_title': orig_title, 'year': year, 'authors': authors})
+                    stories[id].append(
+                        {'title': title, 'orig_title': orig_title, 'year': year, 'authors': authors})
             prev_line = line
             line = fle.readline()
 
@@ -362,7 +369,7 @@ def import_stories(filename: str, books: Dict = {}):
             else:
                 for st in stories[key]:
                     story = s.query(ShortStory)\
-                             .filter(ShortStory.title == st['title'],\
+                             .filter(ShortStory.title == st['title'],
                                      ShortStory.pubyear == st['year'])\
                              .first()
                     if not story:
@@ -377,19 +384,20 @@ def import_stories(filename: str, books: Dict = {}):
                         s.add(story)
                         s.commit()
                     for edition in editions:
-                        part = Part(edition_id = edition.id,
-                                    work_id = work.id,
-                                    shortstory_id = story.id)
+                        part = Part(edition_id=edition.id,
+                                    work_id=work.id,
+                                    shortstory_id=story.id)
                         s.add(part)
                         s.commit()
                         for auth in st['authors']:
                             try:
-                                author = Author(part_id = part.id,
-                                                person_id = auth)
+                                author = Author(part_id=part.id,
+                                                person_id=auth)
                             except Exception as e:
                                 print(f'Excpetion {e}')
                             s.add(author)
                         s.commit()
+
 
 if __name__ == '__main__':
     add_missing_people()

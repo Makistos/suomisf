@@ -254,6 +254,34 @@ def save_story_to_work(session, workid, title: str) -> None:
     session.commit()
 
 
+def save_newstory_to_work(session, workid, form):
+
+    person = session.query(Person)\
+                    .filter(Person.name == form.author.data)\
+                    .first()
+    if not person:
+        return
+
+    story = ShortStory(title=form.title.data,
+                       orig_title=form.orig_title.data,
+                       pubyear=form.pubyear.data,
+                       creator_str=person.name)
+
+    session.add(story)
+    session.commit()
+
+    part = Part(work_id=workid, shortstory_id=story.id, title=form.title.data)
+    work = session.query(Work).filter(Work.id == workid).first()
+    work.collection = True
+    session.add(part)
+    session.add(work)
+    session.commit()
+
+    author = Author(person_id=person.id, part_id=part.id)
+    session.add(author)
+    session.commit()
+
+
 def save_story_to_edition(session, editionid, title: str) -> None:
     story = session.query(ShortStory)\
                    .filter(ShortStory.title == title)\
