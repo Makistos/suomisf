@@ -225,7 +225,25 @@ def save_author_to_work(session, workid, authorname: str) -> None:
 
         session.commit()
 
-    update_creators(session, workid)
+    update_work_creators(session, workid)
+
+
+def save_author_to_story(session, storyid, authorname: str) -> None:
+
+    parts = session.query(Part)\
+                   .filter(Part.shortstory_id == storyid)\
+                   .all()
+
+    author = session.query(Person)\
+                    .filter(Person.name == authorname)\
+                    .first()
+
+    for part in parts:
+        auth = Author(part_id=part.id, person_id=author.id)
+        session.add(auth)
+    session.commit()
+
+    update_story_creators(session, storyid)
 
 
 def save_story_to_work(session, workid, title: str) -> None:
@@ -242,10 +260,20 @@ def save_story_to_work(session, workid, title: str) -> None:
                       .filter(Part.work_id == workid)\
                       .all()
 
+    authors = session.query(Author)\
+                     .join(Part)\
+                     .filter(Part.id == Author.part_id)\
+                     .filter(Part.work_id == workid)\
+                     .all()
+
     for edition in editions:
         part = Part(work_id=workid, edition_id=edition.id,
                     shortstory_id=story.id)
         session.add(part)
+        session.commit()
+        for author in authors:
+            auth = Author(person_id=author.id, part_id=part.id)
+            session.add(auth)
 
     work = session.query(Work).filter(Work.id == workid).first()
     work.collection = True
@@ -262,6 +290,13 @@ def save_newstory_to_work(session, workid, form):
     if not person:
         return
 
+    s = session.query(ShortStory)\
+               .filter(ShortStory.title == form.title.data)\
+               .first()
+
+    if s:
+        return
+
     story = ShortStory(title=form.title.data,
                        orig_title=form.orig_title.data,
                        pubyear=form.pubyear.data,
@@ -270,16 +305,7 @@ def save_newstory_to_work(session, workid, form):
     session.add(story)
     session.commit()
 
-    part = Part(work_id=workid, shortstory_id=story.id, title=form.title.data)
-    work = session.query(Work).filter(Work.id == workid).first()
-    work.collection = True
-    session.add(part)
-    session.add(work)
-    session.commit()
-
-    author = Author(person_id=person.id, part_id=part.id)
-    session.add(author)
-    session.commit()
+    save_story_to_work(session, workid, story.title)
 
 
 def save_story_to_edition(session, editionid, title: str) -> None:
@@ -291,9 +317,16 @@ def save_story_to_edition(session, editionid, title: str) -> None:
         return
 
     works = session.query(Work)\
+                   .join(Part)\
+                   .filter(Part.work_id == Work.id)\
                    .filter(Part.edition_id == editionid)\
-                   .filter(Part.shortstory_id is None)\
                    .all()
+
+    authors = session.query(Author)\
+                     .join(Part)\
+                     .filter(Author.part_id == Part.id)\
+                     .filter(Part.edition_id == editionid)\
+                     .all()
 
     for work in works:
         part = Part(work_id=work.id,
@@ -302,8 +335,37 @@ def save_story_to_edition(session, editionid, title: str) -> None:
         session.add(part)
         work.collection = True
         session.add(work)
+        session.commit()
+        for author in authors:
+            auth = Author(part_id=part.id, person_id=author.id)
+            session.add(auth)
+            session.commit()
 
+
+def save_newstory_to_edition(session, editionid, form) -> None:
+
+    person = session.query(Person)\
+                    .filter(Person.name == form.author.data)\
+                    .first()
+    if not person:
+        return
+
+    s = session.query(ShortStory)\
+               .filter(ShortStory.title == form.title.data)\
+               .first()
+
+    if s:
+        return
+
+    story = ShortStory(title=form.title.data,
+                       orig_title=form.orig_title.data,
+                       pubyear=form.pubyear.data,
+                       creator_str=form.author.data)
+
+    session.add(story)
     session.commit()
+
+    save_story_to_edition(session, editionid, story.title)
 
 
 def save_translator_to_edition(session, editionid, name: str) -> None:
@@ -339,19 +401,52 @@ def save_editor_to_edition(session, editionid, name):
     session.commit()
 
 
-def update_creators(session, workid):
+def save_story_to_issue(session, issueid, name):
+    pass
+
+
+def save_newstory_to_issue(session, issueid, form):
+    pass
+
+
+def save_newarticle_to_issue(session, issueid, form):
+    pass
+
+
+def save_author_to_article(session, articleid, authorname):
+    pass
+
+
+def update_work_creators(session, workid):
     # Update creator string (used to group works together)
     authors = session.query(Person)\
-                     .join(Author)\
-                     .filter(Author.person_id == Person.id)\
-                     .join(Part)\
-                     .filter(Part.work_id == workid)\
-                     .all()
+        .join(Author)\
+        .filter(Author.person_id == Person.id)\
+        .join(Part)\
+        .filter(Part.work_id == workid)\
+        .all()
     work = session.query(Work).filter(Work.id == workid).first()
 
     author_str = ' & '.join([x.name for x in authors])
     work.creator_str = author_str
     session.add(work)
+    session.commit()
+
+
+def update_story_creators(session, storyid):
+    # Update story creator string
+    authors = session.query(Person)\
+        .join(Author)\
+        .filter(Author.person_id == Person.id)\
+        .join(Part)\
+        .filter(Part.shortstory_id == storyid)\
+        .all()
+
+    story = session.query(ShortStory).filter(ShortStory.id == storyid).first()
+
+    author_str = ' & '.join([x.name for x in authors])
+    story.creator_str = author_str
+    session.add(story)
     session.commit()
 
 
@@ -397,10 +492,10 @@ def save_tags(session, tag_list: str, tag_type: str, id: int) -> None:
     if tag_type == 'Person':
         # Get all existing tags for person from db
         tags = session.query(Tag.name, Tag.id)\
-                      .join(PersonTag)\
-                      .filter(PersonTag.tag_id == Tag.id)\
-                      .filter(PersonTag.person_id == id)\
-                      .all()
+            .join(PersonTag)\
+            .filter(PersonTag.tag_id == Tag.id)\
+            .filter(PersonTag.person_id == id)\
+            .all()
         old_tags: Dict[str, int] = {}
         for tag in tags:
             old_tags[tag.name] = tag.id
@@ -408,11 +503,11 @@ def save_tags(session, tag_list: str, tag_type: str, id: int) -> None:
             # Remove any tags removed from list
             if tag not in new_tags:
                 item = session.query(PersonTag)\
-                              .filter(PersonTag.person_id == id)\
-                              .join(Tag)\
-                              .filter(PersonTag.tag_id == Tag.id)\
-                              .filter(Tag.name == tag)\
-                              .first()
+                    .filter(PersonTag.person_id == id)\
+                    .join(Tag)\
+                    .filter(PersonTag.tag_id == Tag.id)\
+                    .filter(Tag.name == tag)\
+                    .first()
                 session.delete(item)
         new_ids = _add_tags(session, new_tags, old_tags)
 

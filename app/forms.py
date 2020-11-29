@@ -204,7 +204,7 @@ class StoryForm(FlaskForm):
     orig_title = StringField('Alkuperäinen nimi')
     language = StringField('Kieli')
     pubyear = IntegerField('Julkaisuvuosi')
-    submit_newstory = SubmitField('Tallenna')
+    submit_story = SubmitField('Tallenna')
 
 
 class WorkForm(FlaskForm):

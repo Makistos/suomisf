@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
+{% from 'macros.html' import auto_complete %}
+{% from 'macros.html' import modal_button %}
 <div class="container">
     <div class="card border-primary mb-3" style="width: 720px; margin: 1rem auto">
         <div class="card-header">
@@ -60,5 +62,57 @@
             {% endfor %}
         </dl>
         {% endif %}
+        {% if current_user.is_admin %}
+
+        <div id="admin" aria-labelledby="headAdmin" data-parent="#workCard">
+            <a href="{{url_for('edit_story', id=story.id)}}">Muokkaa</a><br>
+            {{ modal_button("editAuthors", "Muokkaa kirjoittajia")}}
+
+        </div>
+
+        <div class="modal fade" id="editAuthors" tabindex="-1" role="dialog" aria-labelledby="editAuthorsLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editAuthorsLabel">Muokkka kirjailijatietoja</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Sulje">
+                            <span aria-hidden="true">&times</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            {% for author in authors %}
+                            <div class="row">
+                                <div class="col-md-8">{{ author.name }}</div>
+                                <div class="col-md-4">
+                                    <a href="{{ url_for('remove_author_from_story',
+                                    storyid=story.id, authorid=author.id)}}">Poista</a><br />
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <hr>
+                            <form action="" method="post">
+                                <div class="form-row">
+                                    <div class="col-md-8">
+                                        {{ form_author.hidden_tag() }}
+                                        {{ form_author.author(id="author") }}
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{ form_author.submit }}
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Sulje</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
+    {{ auto_complete("author", "/autocomp_person")}}
     {% endblock %}

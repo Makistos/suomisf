@@ -129,7 +129,7 @@
                                 {% if story.creator_str != edition.work.creator_str %}
                                 <b><span class="person-list">{{ story.creator_str }}</span></b>: {% endif %}
                                 <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
-                                {% if story.orig_title != story.title %}({{ story.orig_title}}
+                                {% if story.orig_title != story.title %}({{ story.title}}
                                 {%- if story.pubyear %}, {{story.pubyear}}{% endif %}) {% elif
                 story.pubyear %} ({{ story.pubyear}}) {% endif %}
                             </li>

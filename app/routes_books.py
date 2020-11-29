@@ -309,7 +309,7 @@ def work(workid):
     if form_story.submit_story.data and form_story.validate():
         save_story_to_work(session, workid, form_story.title.data)
         return redirect(url_for('work', workid=workid))
-    if form_newstory.submit_newstory.data:  # and form_newstory.validate():
+    if form_newstory.submit_story.data and form_story.validate():
         save_newstory_to_work(session, workid, form_newstory)
         return redirect(url_for('work', workid=workid))
 
@@ -823,11 +823,11 @@ def remove_story_from_work(workid, storyid):
 
 
 @app.route('/remove_story_from_edition/<editionid>/<storyid>', methods=['GET', 'POST'])
-def remove_story_from_edition(workid, storyid):
+def remove_story_from_edition(editionid, storyid):
     session = new_session()
 
     part = session.query(Part)\
-                  .filter(Part.edition_id == edition_id,
+                  .filter(Part.edition_id == editionid,
                           Part.shortstory_id == storyid)\
                   .first()
     session.delete(part)
@@ -876,6 +876,30 @@ def remove_editor_from_work(editionid, editorid):
     session.commit()
 
 
+@app.route('/remove_author_from_story<storyid>/<authorid>', methods=['GET', 'POST'])
+def remove_author_from_story(storyid, authorid):
+    session = new_session()
+
+    parts = session.query(Part)\
+                   .filter(Part.shortstory_id == storyid)\
+                   .all()
+
+    part_ids = [x.id for x in parts]
+
+    authors = session.query(Author)\
+                     .filter(Author.person_id == authorid)\
+                     .filter(Author.part_id.in_(part_ids))\
+                     .all()
+
+    for author in authors:
+        session.delete(author)
+    session.commit()
+
+    update_story_creators(session, storyid)
+
+    return redirect(url_for('story', id=storyid))
+
+
 @app.route('/story/<id>', methods=['GET', 'POST'])
 def story(id):
     search_list = {}
@@ -892,6 +916,8 @@ def story(id):
     story = session.query(ShortStory)\
         .filter(ShortStory.id == id)\
         .first()
+
+    form_author = WorkAuthorForm(request.form)
 
     editions = session.query(Edition)\
                       .join(Part)\
@@ -913,6 +939,11 @@ def story(id):
                      .filter(Author.part_id == Part.id,
                              Part.shortstory_id == id)\
                      .all()
+    if form_author.submit.data and form_author.validate():
+        authorname = form_author.author.data
+        save_author_to_story(session, id, authorname)
+        return redirect(url_for('story', id=id))
+
     # issues = session.query(distinct(Issue.id), Issue.title, Issue.number, Issue.year, Issue.count)\
     #     .join(IssueContent)\
     #     .filter(IssueContent.shortstory_id == id)\
@@ -921,11 +952,40 @@ def story(id):
 
     return render_template('story.html', id=id, story=story,
                            editions=editions, works=works,
-                           authors=authors)
+                           authors=authors, form_author=form_author)
 
 
-@app.route('/edit_story/<id>/<workid>', methods=['GET', 'POST'])
-def edit_story(id, workid):
+@app.route('/edit_story/<id>', methods=['GET', 'POST'])
+def edit_story(id):
+    session = new_session()
+    form = StoryForm(request.form)
+
+    story = session.query(ShortStory)\
+                   .filter(ShortStory.id == id)\
+                   .first()
+
+    if request.method == 'GET':
+        form.title.data = story.title
+        form.orig_title.data = story.orig_title
+        form.language.data = story.language
+        form.pubyear.data = story.pubyear
+
+    if form.validate_on_submit():
+        story.title = form.title.data
+        story.orig_title = form.orig_title.database
+        story.language = form.language.data
+        story.pubyear = form.pubyear.data
+        session.add(story)
+        session.commit()
+        return redirect(url_for('story', id=story.id))
+    else:
+        app.logger.debug('Errors: {}'.format(form.errors))
+
+    return render_template('edit_story.html', form=form)
+
+
+@app.route('/edit_work_story/<id>/<workid>', methods=['GET', 'POST'])
+def edit_work_story(id, workid):
     session = new_session()
 
     if id != 0:

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+{% from 'macros.html' import render_field %}
+
+<div class="container">
+	<h1>{{magazine_name}}</h1>
+	<form action="" method=post>
+		{{ form.hidden_tag() }}
+		{{ render_field(form.title, size=10) }}
+		{{ render_field(form.orig_title, size=10) }}
+		{{ render_field(form.pubyear, size=4) }}
+		<p>{{ form.submit_story() }}</p>
+	</form>
+</div>
+
+{% endblock %}

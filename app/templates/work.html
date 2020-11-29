@@ -273,7 +273,7 @@
                     <span aria-hidden="true">&times</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="margin-top: 1rem;">
                 <div class="container-fluid">
                     <form action="" method="post">
                         {{ form_story.hidden_tag() }}
@@ -288,7 +288,9 @@
                         {{ render_field(form_newstory.title)}}
                         {{ render_field(form_newstory.orig_title)}}
                         {{ render_field(form_newstory.pubyear)}}
-                        {{ form_newstory.submit_newstory }}
+                        <div class="row justify-content-center" style="margin-bottom: 1rem;">
+                            {{ form_newstory.submit_newstory }}
+                        </div>
                     </form>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Sulje</button>
