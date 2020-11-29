@@ -156,8 +156,7 @@ class MagazineForm(FlaskForm):
     publisher = StringField('Kustantaja', validators=[
                             DataRequired(message='Kustantaja on pakollinen tieto')])
     description = TextAreaField('Kuvaus')
-    image_src = StringField('Logo')
-    banner_src = StringField('Otsakekuva')
+    link = StringField('Linkki')
     submit = SubmitField('Tallenna')
 
 

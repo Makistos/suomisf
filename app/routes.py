@@ -9,10 +9,10 @@ from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
     IssueEditor
 from sqlalchemy import create_engine, desc, func
 from sqlalchemy.orm import sessionmaker
-from app.forms import LoginForm, RegistrationForm, PublisherForm,\
-    PubseriesForm, PersonForm, BookseriesForm, UserForm, SearchForm, IssueForm
+from app.forms import (LoginForm, RegistrationForm, PublisherForm,
+                       PubseriesForm, PersonForm, BookseriesForm, UserForm, SearchForm, IssueForm, MagazineForm)
 from .route_helpers import *
-#from app.forms import BookForm
+# from app.forms import BookForm
 from flask_sqlalchemy import get_debug_queries
 import json
 import logging
@@ -249,7 +249,7 @@ def users():
 def add_to_owned(bookid):
     app.logger.debug("bookid = " + bookid)
     session = new_session()
-    #book = session.query(Book).filter(Book.id == bookid).first()
+    # book = session.query(Book).filter(Book.id == bookid).first()
     userbook = UserBook(user_id=current_user.get_id(), edition_id=bookid)
     session.add(userbook)
     session.commit()
@@ -514,9 +514,9 @@ def publishers():
 
 @app.route('/publisher/<pubid>')
 def publisher(pubid):
-    #engine = create_engine('sqlite:///suomisf.db')
-    #Session = sessionmaker(bind=engine)
-    #session = Session()
+    # engine = create_engine('sqlite:///suomisf.db')
+    # Session = sessionmaker(bind=engine)
+    # session = Session()
     session = new_session()
     publisher = session.query(Publisher).filter(Publisher.id == pubid).first()
     book_count = session.query(Edition)\
@@ -532,7 +532,7 @@ def publisher(pubid):
                     .first()
     series = session.query(Pubseries).filter(
         Pubseries.publisher_id == pubid).all()
-    #g = session.query(Genre).all()
+    # g = session.query(Genre).all()
 
     genres = session.query(Genre.name, Genre.abbr, func.count(Genre.name).label('count'))\
                     .join(Work.genres)\
@@ -710,6 +710,49 @@ def magazine(id):
                     .all()
 
     return render_template('magazine.html', magazine=magazine, issues=issues)
+
+
+@app.route('/edit_magazine/<id>', methods=['GET', 'POST'])
+def edit_magazine(id):
+    session = new_session()
+
+    form = MagazineForm(request.form)
+
+    magazine = session.query(Magazine)\
+                      .filter(Magazine.id == id)\
+                      .first()
+
+    publisher = session.query(Publisher)\
+                       .filter(Publisher.id == magazine.publisher_id)\
+                       .first()
+
+    if request.method == 'GET':
+        form.id.data = magazine.id
+        form.name.data = magazine.name
+        form.issn.data = magazine.issn
+        form.description.data = magazine.description
+        form.publisher.data = publisher.name
+        form.link.data = magazine.link
+
+    if form.validate_on_submit():
+        publisher = session.query(Publisher)\
+                           .filter(Publisher.name == form.publisher.data)\
+                           .first()
+        magazine.id = id
+        magazine.name = form.name.data
+        magazine.publisher_id = publisher.id
+        magazine.issn = form.issn.data
+        magazine.description = form.description.data
+        magazine.link = form.link.data
+
+        session.add(magazine)
+        session.commit()
+
+        return redirect(url_for('magazine', id=magazine.id))
+    else:
+        app.logger.debug('Errors: {}'.format(form.errors))
+
+    return render_template('edit_magazine.html', id=id, form=form)
 
 
 @app.route('/issue/<id>')
@@ -1222,7 +1265,7 @@ def autocomp_person() -> Response:
                         .filter(Person.name.ilike('%' + search + '%'))\
                         .order_by(Person.name)\
                         .all()
-        #l = [{"label": x.name, "value": x.id} for x in people]
+        # l = [{"label": x.name, "value": x.id} for x in people]
         l = [x.name for x in people]
         return Response(json.dumps(l))
     else:
@@ -1284,7 +1327,7 @@ def autocomp_publisher() -> Response:
         session = new_session()
         publishers = session.query(Publisher)\
                             .filter(Publisher.name.ilike('%' + search + '%'))\
-                            .order_by(Pubseries.name)\
+                            .order_by(Publisher.name)\
                             .all()
         return Response(json.dumps([x.name for x in publishers]))
     else:

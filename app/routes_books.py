@@ -755,7 +755,7 @@ def add_authored(authorid):
 
     form = WorkForm(request.form)
     if request.method == 'GET':
-        form.authors.data = author.name
+        form.author.data = author.name
 
     if form.validate_on_submit():
         person = session.query(Person)\
@@ -773,7 +773,7 @@ def add_authored(authorid):
         return redirect(url_for('work', workid=work.id))
     else:
         app.logger.debug("Errors: {}".format(form.errors))
-    return render_template('work.html', id=work.id, form=form, search_lists=search_list, source='')
+    return render_template('person.html', id=authorid, form=form, search_lists=search_list, source='')
 
 
 @app.route('/remove_author_from_work/<workid>/<authorid>', methods=["GET", "POST"])
