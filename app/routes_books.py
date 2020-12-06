@@ -88,6 +88,7 @@ def save_edition(session, form, edition):
     #edition.artist_id = artist.id
     edition.isbn = form.isbn.data
     edition.misc = form.misc.data
+    edition.image_src = form.image_src.data
     session.add(edition)
     session.commit()
 
@@ -526,6 +527,7 @@ def edit_edition(editionid):
         # form.artist.data  = artist.name
         form.isbn.data = edition.isbn
         form.misc.data = edition.misc
+        form.image_src.data = edition.image_src
         # if pubseries:
         #     i = 0
         #     for idx, s in enumerate(publisher_series):

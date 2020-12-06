@@ -25,7 +25,6 @@
 		{{ render_field(form.genre, size=16)}}
 		{{ render_field(form.collection)}}
         {{ render_field(form.misc)}}
-        {{ render_field(form.image_src)}}
         {{ render_field(form.description)}}
 	{% if form.misc.errors %}
 	{% for error in form.misc.errors %}<br>{{ error }}{% endfor %}
