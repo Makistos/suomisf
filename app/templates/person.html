@@ -117,7 +117,7 @@
                         </div>
                     </h2>
                 </div>
-                <div id="authoredBooks" class="collapse" aria-labelledby="headAuthoredBooks" data-parent="#authorCard">
+                <div id="authoredBooks"  aria-labelledby="headAuthoredBooks" data-parent="#authorCard">
                     <div class="card-body">
                         <div id="textual" class="mb-0">
                         <ul class="list-group list-group-flush">
@@ -137,7 +137,9 @@
                                 {% for edition in work.editions %}
                                     {% if edition.image_src %}
                                         <figure class="figure">
-                                            <img src="{{edition.image_src}}">
+                                            <a href="{{url_for('edition', editionid=edition.id)}}">
+                                            <img src="{{edition.image_src}}" width="250" style="margin: 0 1rem 1rem 0;">
+                                            </a>
                                         </figure>
                                     {% endif %}
                                 {% endfor %}
