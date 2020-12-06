@@ -579,17 +579,12 @@ def edition(editionid):
                      .filter(Edition.id == editionid)\
                      .all()
 
-    stories = session.query(Part.title.label('title'),
-                            ShortStory.title.label('orig_title'),
-                            ShortStory.pubyear,
-                            ShortStory.language,
-                            ShortStory.id,
-                            ShortStory.creator_str)\
-        .join(Part)\
-        .filter(Part.shortstory_id == ShortStory.id)\
-        .filter(Part.edition_id == editionid)\
-        .group_by(Part.shortstory_id)\
-        .all()
+    stories = session.query(ShortStory)\
+                     .join(Part)\
+                     .filter(Part.shortstory_id == ShortStory.id)\
+                     .filter(Part.edition_id == editionid)\
+                     .group_by(Part.shortstory_id)\
+                     .all()
 
     form_tr = EditionTranslatorForm(request.form)
     form_ed = EditionEditorForm(request.form)

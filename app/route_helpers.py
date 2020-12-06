@@ -2,9 +2,9 @@
 
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
-from app.orm_decl import Person, Author, Editor, Translator, Publisher, Work,\
-    Edition, Part, Pubseries, Bookseries, User, UserBook, PublicationSize, Tag,\
-    PersonTag, CoverType, BindingType, Format, Genre, ShortStory
+from app.orm_decl import (Person, Author, Editor, Translator, Publisher, Work,
+                          Edition, Part, Pubseries, Bookseries, User, UserBook, PublicationSize, Tag,
+                          PersonTag, CoverType, BindingType, Format, Genre, ShortStory, ArticleTag)
 from typing import List, Dict, Any, Tuple
 
 """
@@ -409,14 +409,6 @@ def save_newstory_to_issue(session, issueid, form):
     pass
 
 
-def save_newarticle_to_issue(session, issueid, form):
-    pass
-
-
-def save_author_to_article(session, articleid, authorname):
-    pass
-
-
 def update_work_creators(session, workid):
     # Update creator string (used to group works together)
     authors = session.query(Person)\
@@ -489,14 +481,16 @@ def save_tags(session, tag_list: str, tag_type: str, id: int) -> None:
     if not new_tags:
         return
 
+    old_tags: Dict[str, int] = {}
     if tag_type == 'Person':
+        link_table = PersonTag
+
         # Get all existing tags for person from db
         tags = session.query(Tag.name, Tag.id)\
             .join(PersonTag)\
             .filter(PersonTag.tag_id == Tag.id)\
             .filter(PersonTag.person_id == id)\
             .all()
-        old_tags: Dict[str, int] = {}
         for tag in tags:
             old_tags[tag.name] = tag.id
         for tag in old_tags:
@@ -516,7 +510,31 @@ def save_tags(session, tag_list: str, tag_type: str, id: int) -> None:
             person_tag = PersonTag(person_id=id,
                                    tag_id=tag)
             session.add(person_tag)
-        session.commit()
+    elif tag_type == 'Article':
+        tags = session.query(Tag.name, Tag.id)\
+                      .join(ArticleTag)\
+                      .filter(ArticleTag.tag_id == Tag.id)\
+                      .filter(ArticleTag.article_id == id)\
+                      .all()
+        for tag in tags:
+            old_tags[tag.name] = tag.id
+        for tag in old_tags:
+            # Remove any tags removed from list
+            if tag not in new_tags:
+                item = session.query(ArticleTag)\
+                              .filter(ArticleTag.article_id == id)\
+                              .join(Tag)\
+                              .filter(ArticleTag.tag_id == Tag.id)\
+                              .filter(Tag.name == tag)\
+                              .first()
+                session.delete(item)
+            new_ids = _add_tags(session, new_tags, old_tags)
+
+            for tag in new_ids:
+                article_tag = ArticleTag(article_id=id, tag_id=tag)
+                session.add(article_tag)
+
+    session.commit()
 
 
 def genre_select(session) -> List[Tuple[str, str]]:
