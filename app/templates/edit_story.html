@@ -2,8 +2,7 @@
 {% block content %}
 {% from 'macros.html' import render_field %}
 
-<div class="container">
-	<h1>{{magazine_name}}</h1>
+<div class="container" style="margin-top: 1rem;">
 	<form action="" method=post>
 		{{ form.hidden_tag() }}
 		{{ render_field(form.title, size=10) }}

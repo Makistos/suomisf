@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-<div class="container" style="text-align: center;"><a href=" {{ url_for('print_books', type='pubseries', id=series.id) }}
+<div class="container"><a href=" {{ url_for('print_books', type='pubseries', id=series.id) }}
                     ">Tulosta</a></div>
-<h1>{{series.name}} ({{ series.publisher.name }})
+<h1 style="text-align: center;">{{series.name}} ({{ series.publisher.name }})
 {% if favorite == 1 %}*{% endif %}
 </h1>
 {% if current_user.is_authorized %}
@@ -24,7 +24,10 @@
 Kirjoja yhteensä {{ books|length }}<br>
 
 <br>
-
+<div class="mb-3">
+<button onclick="switchStyle()" id="switcher" class="btn btn-light">Kannet</button>
+</div>
+<div id="textual">
 <ul class="list-group list-group-flush">
 {% for edition in books %}
 {% set pubnumber = 1 %}
@@ -32,9 +35,31 @@ Kirjoja yhteensä {{ books|length }}<br>
             "> {% include "_edition.html" %}</li>
 {% endfor %}
 </ul>
+</div>
+<div id="pics">
+    <div class="row">
+        {% for edition in books %}
+        <div class="column">
+            {% if edition.image_src %}
+            <figure class="figure">
+                <a href="{{url_for('edition', editionid=edition.id)}}">
+                        <img src="{{edition.image_src}}" width="250" style="margin: 0 1rem 1rem 0">
+                </a>
+            </figure>  
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById('pics').style.display = 'none';
+    })
+</script>
+<script src="/static/js/contentSwitcher.js"></script>
 
     <script>
         $(".ownerstate").click(function() {

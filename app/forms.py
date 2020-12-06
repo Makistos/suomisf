@@ -81,7 +81,9 @@ class SearchForm(FlaskForm):
 class ArticleForm(FlaskForm):
     id = HiddenField('id')
     title = StringField('Otsikko')
+    author = StringField('Kirjoittaja')
     tags = StringField('Aihetunnisteet')
+    submit = SubmitField('Tallenna')
 
 
 class BookseriesForm(FlaskForm):

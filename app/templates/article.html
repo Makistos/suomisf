@@ -39,6 +39,21 @@
 				</li>
 				{% endif %}
 			</ul>
+            {% if current_user.is_admin %}
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item"><a href="{{url_for('edit_article', id=article.id)}}">Muokkaa</a></li><br>
+				<li class="list-group-item">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editAuthors">Muokkaa kirjoittajia</button>
+				</li>
+				<li class="list-group-item">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editPeople">Muokkaa henkilöitä</button>
+				</li>
+				<li class="list-group-item">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editLinks">Muokkaa linkkejä</button>
+				</li>
+
+			</ul>
+			{% endif %}
 		</div>
 
 	</div>

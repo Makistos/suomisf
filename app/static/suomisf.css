@@ -67,6 +67,15 @@ body {font-family: Arial, Helvetica, sans-serif;}
   color: white;
 }
 
+.align-center {
+  text-align: center;
+}
+
+.carousel-caption {
+  background-color: white;
+  color: black;
+  
+}
 /* Add Animation */
 /*
 @-webkit-keyframes slideIn {

@@ -8,10 +8,10 @@
 {% block content %}
 <div class="container">
 
-    <div class="container" style="text-align: center;">
+    <div class="container">
         <a href=" {{ url_for('print_books', type='bookseries', id=series.id) }}">Tulosta</a>
     </div>
-    <h1>{{series.name}}
+    <h1 style="text-align: center">{{series.name}}
         {% if current_user.is_admin %}
         ({{ series.id }})
         {% endif %}

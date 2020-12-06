@@ -1,15 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 {% from 'macros.html' import auto_complete %}
-<div class="container">
-    <div class="card border-primary mb-3" style="margin: 1rem auto;">
-        {% if edition.work.authors|length %}
+<div class="container mb-3">
+    <div class="card border-primary mb-3">
         <div class="card-header">
-            {% for author in edition.work.authors %}
-            <a href=" {{ url_for('person', personid=author.id) }}"> {{ author.alt_name }}</a>
+            {% for w in edition.work %}
+            {{ w.creator_str }}
             {% endfor %}
         </div>
-        {% endif %}
         <div class="card-body">
             <h3 class="card-title">
                 {{ edition.title}}
@@ -20,95 +18,105 @@
             {%- if work.pubyear -%}, {{ work.pubyear }} {% endif %}<br>
             {% endfor %}
         </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-                <b>Julkaisuvuosi:</b> {{ edition.pubyear }}
-            </li>
-            <li class="list-group-item">
-                <b>Painos:</b> {{ edition.editionnum }}
-            </li>
-            {% if edition.version %}
-            <li class="list-group-item">
-                <b>Laitos:</b> {{ edition.version }}
-            </li>
-            {% endif %}
-            <li class="list-group-item">
-                <b>Julkaisija:</b> <a
-                    href=" {{ url_for('publisher', pubid=edition.publisher.id) }}">{{ edition.publisher.name }}</a>
-            </li>
-            {% if editors|length %}
-            <li class="list-group-item">
-                <b>Toimittaja(t):</b>
-                {% if editors|length == 1 %}
-                <a href=" {{ url_for('person', personid=editors[0].id) }}">{{
-                    editors[0].alt_name }}</a>
+        <div class="row">
+            <div class="col col-md-4" style="margin: 1rem;">
+                {% if edition.image_src %}
+                    <img src="{{edition.image_src}}">
                 {% endif %}
-                {% if editors|length == 2 %}
-                <a href=" {{ url_for('person', personid=editors[0].id) }}">{{
-                    editors[0].alt_name }}</a> ja
-                <a href=" {{ url_for('person', personid=editors[1].id) }}">{{
-                    editors[1].alt_name }}</a>
+            </div>
 
-                {% endif %}
-                {% if editors|length > 2 %}
-                {% for editor in editors[:-1] %}
-                <a href=" {{ url_for('person', personid=editor.id) }}">{{
-                    editor.alt_name }}</a>,
-                {% endfor %}
-                <a href=" {{ url_for('person', personid=editors[-1].id) }}">{{
-                editors[-1].alt_name }}</a>
-                {% endif %}
-                {% endif %}
-            </li>
-            {% if translators|length %}
-            <li class="list-group-item">
-                <b>Kääntäjä(t):</b>
-                {% if translators|length == 1 %}
-                <a href=" {{ url_for('person', personid=translators[0].id) }}">{{
-                            translators[0].alt_name }}</a>
-                {% endif %}
-                {% if translators|length == 2 %}
-                <a href=" {{ url_for('person', personid=translators[0].id) }}">{{
-                            translators[0].alt_name }}</a> ja
-                <a href=" {{ url_for('person', personid=translators[1].id) }}">{{
-                            translators[1].alt_name }}</a>
-                {% endif %}
-                {% if translators|length > 2 %}
-                {% for translator in translators[:-1] %}
-                <a href=" {{ url_for('person', personid=translator.id) }}">{{
-                            translator.alt_name }}</a>,
-                {% endfor %}
-                <a href=" {{ url_for('person', personid=translators[-1].id) }}">{{
-                        translators[-1].alt_name }}</a>
-                {% endif %}
-            </li>
-            {% endif %}
-            {% set work = works[0] %}
-            {% if work.bookseries %}
-            <li class="list-group-item">
-                <b>Kirjasarja:</b> <a href=" {{ url_for('bookseries',
-			seriesid=work.bookseries.id) }} ">
-                    {{ work.bookseries.name }}</a>
-                {%- if work.bookseriesnum -%}
-                {%- if work.bookseriesnum|length -%}
-                , numero {{ work.bookseriesnum }}
-                {% endif %}
-                {% endif %}
-            </li>
-            {% endif %}
-            {% if edition.pubseries.name|length %}
-            <li class="list-group-item">
-                <b>Julkaisijan sarja:</b> <a href=" {{ url_for('pubseries',
-                    seriesid=edition.pubseries.id) }} ">{{
-                    edition.pubseries.name }}</a>
-            </li>
-            {%- endif %}
-            {% if edition.misc|length %}
-            <li class="list-group-item">
-                <b>Muuta:</b> {{ edition.misc }}
-            </li>
-            {% endif %}
-        </ul>
+            <div class="col flex-grow-1">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <b>Julkaisuvuosi:</b> {{ edition.pubyear }}
+                    </li>
+                    <li class="list-group-item">
+                        <b>Painos:</b> {{ edition.editionnum }}
+                    </li>
+                    {% if edition.version %}
+                    <li class="list-group-item">
+                        <b>Laitos:</b> {{ edition.version }}
+                    </li>
+                    {% endif %}
+                    <li class="list-group-item">
+                        <b>Julkaisija:</b> <a
+                            href=" {{ url_for('publisher', pubid=edition.publisher.id) }}">{{ edition.publisher.name }}</a>
+                    </li>
+                    {% if editors|length %}
+                    <li class="list-group-item">
+                        <b>Toimittaja(t):</b>
+                        {% if editors|length == 1 %}
+                        <a href=" {{ url_for('person', personid=editors[0].id) }}">{{
+                            editors[0].alt_name }}</a>
+                        {% endif %}
+                        {% if editors|length == 2 %}
+                        <a href=" {{ url_for('person', personid=editors[0].id) }}">{{
+                            editors[0].alt_name }}</a> ja
+                        <a href=" {{ url_for('person', personid=editors[1].id) }}">{{
+                            editors[1].alt_name }}</a>
+
+                        {% endif %}
+                        {% if editors|length > 2 %}
+                        {% for editor in editors[:-1] %}
+                        <a href=" {{ url_for('person', personid=editor.id) }}">{{
+                            editor.alt_name }}</a>,
+                        {% endfor %}
+                        <a href=" {{ url_for('person', personid=editors[-1].id) }}">{{
+                        editors[-1].alt_name }}</a>
+                        {% endif %}
+                    </li>
+                    {% endif %}
+                    {% if translators|length %}
+                    <li class="list-group-item">
+                        <b>Kääntäjä(t):</b>
+                        {% if translators|length == 1 %}
+                        <a href=" {{ url_for('person', personid=translators[0].id) }}">{{
+                                    translators[0].alt_name }}</a>
+                        {% endif %}
+                        {% if translators|length == 2 %}
+                        <a href=" {{ url_for('person', personid=translators[0].id) }}">{{
+                                    translators[0].alt_name }}</a> ja
+                        <a href=" {{ url_for('person', personid=translators[1].id) }}">{{
+                                    translators[1].alt_name }}</a>
+                        {% endif %}
+                        {% if translators|length > 2 %}
+                        {% for translator in translators[:-1] %}
+                        <a href=" {{ url_for('person', personid=translator.id) }}">{{
+                                    translator.alt_name }}</a>,
+                        {% endfor %}
+                        <a href=" {{ url_for('person', personid=translators[-1].id) }}">{{
+                                translators[-1].alt_name }}</a>
+                        {% endif %}
+                    </li>
+                    {% endif %}
+                    {% set work = works[0] %}
+                    {% if work.bookseries %}
+                    <li class="list-group-item">
+                        <b>Kirjasarja:</b> <a href=" {{ url_for('bookseries',
+                    seriesid=work.bookseries.id) }} ">
+                            {{ work.bookseries.name }}</a>
+                        {%- if work.bookseriesnum -%}
+                        {%- if work.bookseriesnum|length -%}
+                        , numero {{ work.bookseriesnum }}
+                        {% endif %}
+                        {% endif %}
+                    </li>
+                    {% endif %}
+                    {% if edition.pubseries.name|length %}
+                    <li class="list-group-item">
+                        <b>Julkaisijan sarja:</b> <a href=" {{ url_for('pubseries',
+                            seriesid=edition.pubseries.id) }} ">{{
+                            edition.pubseries.name }}</a>
+                    </li>
+                    {%- endif %}
+                    {% if edition.misc|length %}
+                    <li class="list-group-item">
+                        <b>Muuta:</b> {{ edition.misc }}
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
         <div class="accordion" id="editionCard">
             {% if stories|length %}
             <div class="card">
@@ -126,11 +134,12 @@
                         <ul class="list-group list-group-flush">
                             {% for story in stories %}
                             <li class="list-group-item">
-                                {% if story.creator_str != edition.work.creator_str %}
+                                {% if story.creator_str != edition.work[0].creator_str %}
                                 <b><span class="person-list">{{ story.creator_str }}</span></b>: {% endif %}
                                 <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
-                                {% if story.orig_title != story.title %}({{ story.title}}
-                                {%- if story.pubyear %}, {{story.pubyear}}{% endif %}) {% elif
+                                {% if story.orig_title != story.title %}
+                                ({{ story.orig_title}}
+                                    {%- if story.pubyear %}, {{story.pubyear}}{% endif %}) {% elif
                 story.pubyear %} ({{ story.pubyear}}) {% endif %}
                             </li>
                             {% endfor %}
