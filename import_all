@@ -18,3 +18,5 @@ python import_magazines.py
 echo Importing showroom
 python bib_import.py --showroom
 
+echo Importing images
+python import_images.py

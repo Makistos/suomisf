@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
+{% if current_user.is_admin %}
+	{% set input_style='class="form-control" onBlur="saveForm()"' %}
+{% else %}
+	{% set input_style='readonly class=form-control-plaintext' %}
+{% endif %}
+<form method="post">
 <div class="container">
 	<div class="card border-primary mb-3" style="width: 720px; margin: 1rem auto">
 		<div class="card-header">
@@ -8,7 +14,7 @@
 
 		<div class="card-body">
 			<h3 class="card-title">
-				{{ article.title }}
+				<input type="text" {{input_style}} id="title" value="{{article.title}}" style="border:0;">
 				{% if current_user.is_admin %}
 				({{ article.id }})
 				{% endif %}
@@ -25,9 +31,14 @@
 				{% if people|length %}
 				<li class="list-group-item">
 					<b>Henkilöt:</b>
+					{% if current_user.is_admin %}
+					<select class="people-selector form-control" multiple="multiple">
+					</select>
+					{% else %}
 					<span class="person-list">
 						{{ people|map(attribute='name')|join(', ')}}
 					</span>
+					{% endif %}
 				</li>
 				{% endif %}
 				{% if article.tags %}
@@ -57,7 +68,46 @@
 		</div>
 
 	</div>
+</form>
 	{% block script %}
 	<script src="/static/js/personlink.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var articleid = '{{article.id}}'
+	</script>
+	<script type="text/javascript" class="js-code-placeholder">
+		$(".people-selector").select2({
+				ajax: {
+					url: "/select_person",
+					dataType: 'json',
+					delay: 250,
+					data: function (params) {
+						return {
+							q: params.term, // search term
+						};
+					},
+				},
+				placeholder: 'Artikkeliin liittyvät henkilöt',
+				minimumInputLength: 3,
+		});
+
+		var peopleSelect = $("#people-selector");
+		$.ajax({
+			type: 'GET',
+			url: '/people_for_article/' + articleid
+		}).then(function(data) {
+			var people = JSON.parse(data);
+			console.log(people);
+			var i;
+			for(i = 0; i < people.length; i++) {
+				var person = people[i];
+				var id = person['id']
+				var name = person['text'];
+				console.log(id);
+				console.log(name);
+				var option = new Option(name, id, true, true);
+			}
+			peopleSelect.append(option).trigger('change');
+		});
+	</script>
 	{% endblock %}
 	{% endblock %}

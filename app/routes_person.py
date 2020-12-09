@@ -1,14 +1,15 @@
 import logging
 
-from flask import redirect, render_template, request, url_for
+from flask import redirect, render_template, request, url_for, jsonify, Response
 
 from app import app
 from app.forms import PersonForm
-from app.orm_decl import (Person, PersonTag, Author, Translator, Editor, Part, Work, Edition, Genre, Awarded)
+from app.orm_decl import (Person, PersonTag, Author, Translator, Editor, Part, Work, Edition, Genre, Awarded, ArticlePerson)
 from sqlalchemy import func
 
 from .route_helpers import *
 import urllib
+import json
 
 
 @app.route('/people')
@@ -238,3 +239,58 @@ def people_by_nationality(nationality: str):
 
     return render_template('people.html', people=people,
                            header=nationality)
+
+@app.route('/autocomp_person', methods=['POST', 'GET'])
+def autocomp_person() -> Response:
+    search = request.form['q']
+    session = new_session()
+
+    print('search')
+    if search:
+        people = session.query(Person)\
+                        .filter(Person.name.ilike('%' + search + '%'))\
+                        .order_by(Person.name)\
+                        .all()
+        l = [x.name for x in people]
+        return Response(json.dumps(l))
+    else:
+        return Response(json.dumps(['']))
+
+
+@app.route('/select_person', methods=['GET'])
+def select_person() -> Response:
+    search = request.args['q']
+    session = new_session()
+
+    if search:
+        retval: Dict[str, List[Dict[str, Any]]] = {}
+        people = session.query(Person)\
+                        .filter(Person.name.ilike('%' + search + '%'))\
+                        .order_by(Person.name)\
+                        .all()
+        
+        retval['results'] = []
+        for person in people:
+            retval['results'].append({'id': str(person.id), 'text': person.name})
+        return Response(json.dumps(retval))
+    else:
+        return Response(json.dumps(['']))
+
+@app.route('/people_for_article/<articleid>')
+def people_for_article(articleid):
+    session = new_session()
+    people = session.query(Person)\
+                    .join(ArticlePerson)\
+                    .filter(Person.id == ArticlePerson.person_id)\
+                    .filter(ArticlePerson.article_id == articleid)\
+                    .all()
+
+    retval: List[Dict[str, str]]  = []
+    if people:
+        for person in people:
+            obj: Dict[str, str] = {}
+            obj['id'] = str(person.id)
+            obj['text'] = person.name
+            retval.append(obj)
+
+    return Response(json.dumps(retval))

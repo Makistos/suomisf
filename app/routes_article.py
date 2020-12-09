@@ -27,7 +27,6 @@ def article(id):
                     .join(ArticlePerson)\
                     .filter(ArticlePerson.article_id == id)\
                     .all()
-
     return render_template('article.html',
                            article=article,
                            authors=authors,

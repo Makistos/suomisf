@@ -4,7 +4,8 @@ from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker
 from app.orm_decl import (Person, Author, Editor, Translator, Publisher, Work,
                           Edition, Part, Pubseries, Bookseries, User, UserBook, PublicationSize, Tag,
-                          PersonTag, CoverType, BindingType, Format, Genre, ShortStory, ArticleTag)
+                          PersonTag, CoverType, BindingType, Format, Genre, ShortStory, ArticleTag,
+                          WorkGenre)
 from typing import List, Dict, Any, Tuple
 
 """
@@ -444,6 +445,18 @@ def update_story_creators(session, storyid):
 
 def translate_genrelist(glist):
     return glist
+
+def save_genres(session, work, genrefield):
+
+    genres = session.query(WorkGenre)\
+                    .filter(WorkGenre.work_id == work.id)
+    genres.delete()
+    for g in genrefield:
+        #genre = session.query(Genre).filter(Genre.id == g).first()
+        genreobj = WorkGenre(work_id=work.id, genre_id=g)
+        session.add(genreobj)
+    session.commit()
+
 
 
 def _add_tags(session, new_tags: List[str], old_tags: Dict[str, int]) -> List[int]:

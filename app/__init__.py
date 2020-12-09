@@ -21,8 +21,8 @@ app.jinja_env.lstrip_blocks = True
 app.jinja_env.trim_blocks = True
 
 #toolbar = DebugToolbarExtension(app)
-from app import (routes, routes_books, routes_issue,
-                 routes_person, routes_publisher, routes_article, orm_decl)
+from app import (routes, routes_books, routes_works, routes_editions, routes_stories, routes_issue,
+                 routes_person, routes_publisher, routes_article, orm_decl, routes_series, routes_magazine)
 
 
 if not app.debug and not app.testing:

@@ -26,18 +26,8 @@ def add_image(s, image: List[str]) -> None:
                 .filter(Person.id == Author.person_id)\
                 .filter(Person.name.like(author_str + '%'))\
                 .all()
-    works = s.query(Work)\
-             .filter(Work.title == title_str)\
-             .join(Part)\
-             .filter(Part.work_id == Work.id)\
-             .join(Author)\
-             .filter(Author.part_id == Part.id)\
-             .join(Person)\
-             .filter(Person.id == Author.person_id)\
-             .filter(Person.name.like(author_str + '%'))\
-             .all()
 
-    if not editions or not works:
+    if not editions:
         print(f'Not found: {author_str}: {title_str}.')
         return
     else:
@@ -46,9 +36,6 @@ def add_image(s, image: List[str]) -> None:
         for edition in editions:
             edition.image_src = image_src
             s.add(edition)
-        for work in works:
-            work.image_src = image_src
-            s.add(work)
         s.commit()
 
 def import_images(params) -> None:

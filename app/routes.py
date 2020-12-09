@@ -270,118 +270,6 @@ def remove_from_owned(bookid):
     return ""
 
 
-@app.route('/allbookseries')
-def allbookseries():
-    engine = create_engine('sqlite:///suomisf.db')
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    series = session.query(Bookseries).order_by(Bookseries.name).all()
-    return render_template('allbookseries.html', series=series)
-
-
-@app.route('/bookseries/<seriesid>')
-def bookseries(seriesid):
-    session = new_session()
-    series = session.query(Bookseries)\
-                    .filter(Bookseries.id == seriesid)\
-                    .first()
-    authors = session.query(Person)\
-                     .join(Work.authors)\
-                     .join(Author.parts)\
-                     .join(Part.edition)\
-                     .filter(Work.bookseries_id == seriesid)\
-                     .order_by(Person.name, Work.bookseriesnum)\
-                     .all()
-    editions = session.query(Edition)\
-                      .join(Part.work)\
-                      .join(Part.edition)\
-                      .filter(Work.bookseries_id == seriesid)\
-                      .order_by(Work.bookseriesorder, Work.creator_str)\
-                      .all()
-    return render_template('bookseries.html', series=series, editions=editions)
-
-
-@app.route('/new_bookseries', methods=['POST', 'GET'])
-def new_bookseries():
-    session = new_session()
-    form = BookseriesForm()
-    if form.validate_on_submit():
-        bookseries = Bookseries(name=form.name.data,
-                                important=form.important.data)
-        session.add(bookseries)
-        session.commit()
-        return redirect(url_for('bookseries', seriesid=bookseries.id))
-    return render_template('new_bookseries.html', form=form)
-
-
-# Publisher series related routes
-
-@app.route('/allpubseries')
-def allpubseries():
-    engine = create_engine('sqlite:///suomisf.db')
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    series = session.query(Pubseries).order_by(Pubseries.name).all()
-    app.logger.debug(session.query(Pubseries).order_by(Pubseries.name))
-    return render_template('allpubseries.html', series=series)
-
-
-@app.route('/pubseries/<seriesid>')
-def pubseries(seriesid):
-    session = new_session()
-    app.logger.debug(session.query(Pubseries).filter(Pubseries.id == seriesid))
-    series = session.query(Pubseries)\
-                    .filter(Pubseries.id == seriesid)\
-                    .first()
-    books = session.query(Edition)\
-                   .join(Part.work)\
-                   .join(Part.edition)\
-                   .filter(Edition.pubseries_id == seriesid)\
-                   .order_by(Edition.pubseriesnum, Edition.pubyear)\
-                   .all()
-    favorite = session.query(UserPubseries)\
-        .filter(UserPubseries.series_id == seriesid,
-                UserPubseries.user_id == current_user.get_id())\
-        .count()
-    return render_template('pubseries.html', series=series, books=books,
-                           favorite=favorite)
-
-
-@app.route('/new_pubseries', methods=['GET', 'POST'])
-def new_pubseries():
-    form = PubseriesForm()
-    session = new_session()
-    search_lists = {'publisher': [str(x.name) for x in
-                                  session.query(Publisher)
-                                  .order_by(Publisher.name)
-                                  .all()]}
-    if form.validate_on_submit():
-        publisher = session.query(Publisher)\
-                           .filter(Publisher.name == form.publisher.data)\
-                           .first()
-        pubseries = Pubseries(name=form.name.data, publisher_id=publisher.id,
-                              important=form.important.data)
-        session.add(pubseries)
-        session.commit()
-        return redirect(url_for('index'))
-    return render_template('new_pubseries.html', form=form,
-                           search_lists=search_lists)
-
-
-@app.route('/list_pubseries/<pubname>', methods=['GET', 'POST'])
-def list_pubseries(pubname):
-    session = new_session()
-    series = session.query(Pubseries)\
-                    .join(Publisher)\
-                    .filter(Publisher.name == pubname)\
-                    .all()
-    data = []
-    for s in series:
-        data.append((str(s.id), s.name))
-    response = make_response(json.dumps(data))
-    response.content_type = 'application/json'
-    return response
-
 
 @app.route('/magazines')
 def magazines():
@@ -393,62 +281,6 @@ def magazines():
 
     return render_template('magazines.html', magazines=magazines)
 
-
-@app.route('/magazine/<id>')
-def magazine(id):
-    session = new_session()
-    magazine = session.query(Magazine)\
-                      .filter(Magazine.id == id)\
-                      .first()
-
-    issues = session.query(Issue)\
-                    .filter(Issue.magazine_id == id)\
-                    .all()
-
-    return render_template('magazine.html', magazine=magazine, issues=issues)
-
-
-@app.route('/edit_magazine/<id>', methods=['GET', 'POST'])
-def edit_magazine(id):
-    session = new_session()
-
-    form = MagazineForm(request.form)
-
-    magazine = session.query(Magazine)\
-                      .filter(Magazine.id == id)\
-                      .first()
-
-    publisher = session.query(Publisher)\
-                       .filter(Publisher.id == magazine.publisher_id)\
-                       .first()
-
-    if request.method == 'GET':
-        form.id.data = magazine.id
-        form.name.data = magazine.name
-        form.issn.data = magazine.issn
-        form.description.data = magazine.description
-        form.publisher.data = publisher.name
-        form.link.data = magazine.link
-
-    if form.validate_on_submit():
-        publisher = session.query(Publisher)\
-                           .filter(Publisher.name == form.publisher.data)\
-                           .first()
-        magazine.id = id
-        magazine.name = form.name.data
-        magazine.publisher_id = publisher.id
-        magazine.issn = form.issn.data
-        magazine.description = form.description.data
-        magazine.link = form.link.data
-
-        session.add(magazine)
-        session.commit()
-
-        return redirect(url_for('magazine', id=magazine.id))
-    else:
-        app.logger.debug('Errors: {}'.format(form.errors))
-
-    return render_template('edit_magazine.html', id=id, form=form)
 
 
 # Miscellaneous routes
@@ -764,21 +596,6 @@ def missing_nationality():
     return render_template('people.html', people=missing)
 
 
-@app.route('/autocomp_person', methods=['POST'])
-def autocomp_person() -> Response:
-    search = request.form['q']
-    session = new_session()
-
-    if search:
-        people = session.query(Person)\
-                        .filter(Person.name.ilike('%' + search + '%'))\
-                        .order_by(Person.name)\
-                        .all()
-        # l = [{"label": x.name, "value": x.id} for x in people]
-        l = [x.name for x in people]
-        return Response(json.dumps(l))
-    else:
-        return Response(json.dumps(['']))
 
 
 # Routes for auto complete functionality in forms
