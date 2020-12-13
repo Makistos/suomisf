@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 {% if current_user.is_admin %}
-	{% set input_style='class="form-control" onBlur="saveForm()"' %}
+	{% set input_style='class="form-control" onblur=\"saveForm()\"' %}
 {% else %}
 	{% set input_style='readonly class=form-control-plaintext' %}
 {% endif %}
@@ -14,7 +14,7 @@
 
 		<div class="card-body">
 			<h3 class="card-title">
-				<input type="text" {{input_style}} id="title" value="{{article.title}}" style="border:0;">
+				<input type="text" class="form-control" onblur="saveForm()" id="title" value="{{article.title}}" style="border:0;">
 				{% if current_user.is_admin %}
 				({{ article.id }})
 				{% endif %}
@@ -32,7 +32,7 @@
 				<li class="list-group-item">
 					<b>Henkilöt:</b>
 					{% if current_user.is_admin %}
-					<select class="people-selector form-control" multiple="multiple">
+					<select class="people-selector form-control" multiple="multiple" onchange="saveArticlePeople()">
 					</select>
 					{% else %}
 					<span class="person-list">
@@ -75,6 +75,8 @@
 		var articleid = '{{article.id}}'
 	</script>
 	<script type="text/javascript" class="js-code-placeholder">
+	var peopleSelect = $(".people-selector");
+	$(document).ready(function() {
 		$(".people-selector").select2({
 				ajax: {
 					url: "/select_person",
@@ -89,8 +91,6 @@
 				placeholder: 'Artikkeliin liittyvät henkilöt',
 				minimumInputLength: 3,
 		});
-
-		var peopleSelect = $("#people-selector");
 		$.ajax({
 			type: 'GET',
 			url: '/people_for_article/' + articleid
@@ -100,14 +100,35 @@
 			var i;
 			for(i = 0; i < people.length; i++) {
 				var person = people[i];
-				var id = person['id']
+				var id = Number(person['id']);
 				var name = person['text'];
-				console.log(id);
-				console.log(name);
 				var option = new Option(name, id, true, true);
+				peopleSelect.append(option).trigger('change');
 			}
-			peopleSelect.append(option).trigger('change');
+			/*var option = new Option('Niven, Larry (/Laurence Van Cott)', 2256, true, true);
+			$('.people-selector').append(option).trigger('change');
+			*/
+			$('.people-selector').trigger({
+				type: 'select2:select',
+				params: {
+					data: data
+				}
+			});
 		});
+	});
+	</script>
+	<script type="text/javascript">
+		document.getElementsByClassName("people-selector").onchange = 
+		function() {
+			alert("bong");
+		}
+		function saveArticlePeople() {
+			alert("bong")
+		}
+/*		function saveForm() {
+			alert("onblur()");
+		}
+		*/
 	</script>
 	{% endblock %}
 	{% endblock %}
