@@ -96,7 +96,6 @@
 			url: '/people_for_article/' + articleid
 		}).then(function(data) {
 			var people = JSON.parse(data);
-			console.log(people);
 			var i;
 			for(i = 0; i < people.length; i++) {
 				var person = people[i];
@@ -105,9 +104,6 @@
 				var option = new Option(name, id, true, true);
 				peopleSelect.append(option).trigger('change');
 			}
-			/*var option = new Option('Niven, Larry (/Laurence Van Cott)', 2256, true, true);
-			$('.people-selector').append(option).trigger('change');
-			*/
 			$('.people-selector').trigger({
 				type: 'select2:select',
 				params: {
@@ -118,17 +114,19 @@
 	});
 	</script>
 	<script type="text/javascript">
-		document.getElementsByClassName("people-selector").onchange = 
-		function() {
-			alert("bong");
-		}
 		function saveArticlePeople() {
-			alert("bong")
+			var people_list = $('.people-selector').select2('data');
+			const people = people_list.map((people) => people.id);
+			$.ajax({
+				url: '/save_article_people/',
+				type: "POST",
+				dataType: "text json",
+				//data: JSON.stringify({people: people, article: articleid}) 
+				data: { people: JSON.stringify(people), 
+					    article: JSON.stringify(articleid)} 
+			})
+
 		}
-/*		function saveForm() {
-			alert("onblur()");
-		}
-		*/
 	</script>
 	{% endblock %}
 	{% endblock %}

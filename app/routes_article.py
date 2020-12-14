@@ -1,6 +1,6 @@
 import logging
 
-from flask import redirect, render_template, request, url_for
+from flask import redirect, render_template, request, url_for, Response
 
 from app import app
 from app.forms import ArticleForm
@@ -8,7 +8,7 @@ from app.orm_decl import (Article, ArticleAuthor, ArticleLink, ArticlePerson,
                           ArticleTag, Person, Tag)
 
 from .route_helpers import *
-
+import json
 
 @app.route('/article/<id>')
 def article(id):
@@ -158,3 +158,22 @@ def remove_link_from_article(session, linkid):
 
 def update_article_creators(session, articleid):
     pass
+
+@app.route ('/save_article_people/', methods=["POST"])
+def save_article_people() -> Response:
+    # if not 'people' in request.form or 'article_id' not in request.form:
+    #     return Response(json.dumps(['']))
+    #people = json.loads(data)
+    for key, value in request.form.items():
+        data = json.loads(value)
+    # data = request.form['people[]']
+    # article_id = json.loads(request.form['articleid'])
+    # app.logger.debug(people)
+    # app.logger.debug(article_id)
+
+    session = new_session()
+
+    session.commit()
+    return Response(json.dumps(['OK']))
+    # people = json.loads(data)
+    # app.logger(people)
