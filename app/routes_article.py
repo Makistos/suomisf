@@ -159,21 +159,71 @@ def remove_link_from_article(session, linkid):
 def update_article_creators(session, articleid):
     pass
 
+@app.route('/save_article_authors/', methods=["POST"])
+def save_article_authors() -> Response:
+    if 'items' not in request.form or 'article' not in request.form:
+        return Response(json.dumps(['']))
+
+    author_ids = json.loads(request.form['items'])
+    author_ids = [int(x) for x in author_ids]
+    articleid = json.loads(request.form['article'])
+    
+    session = new_session()
+    
+    existing_people = session.query(ArticleAuthor)\
+                             .filter(ArticleAuthor.article_id == articleid)\
+                             .all()
+    if existing_people:
+        for existing in existing_people:
+            if existing.person_id in author_ids:
+                # Exists in db, exists in selection
+                author_ids.remove(existing.person_id)
+            else:
+                # Exists in db, not in selection so remove from db.
+                session.delete(existing)
+    for new_person in author_ids:
+        person = session.query(Person)\
+                        .filter(Person.id == new_person)\
+                        .first()
+        author_article = ArticleAuthor(article_id=articleid, author_id=person.id)
+        session.add(author_article)
+
+
+    session.commit()
+
+    return Response(json.dumps(['OK']))
+
+
 @app.route ('/save_article_people/', methods=["POST"])
 def save_article_people() -> Response:
-    # if not 'people' in request.form or 'article_id' not in request.form:
-    #     return Response(json.dumps(['']))
-    #people = json.loads(data)
-    for key, value in request.form.items():
-        data = json.loads(value)
-    # data = request.form['people[]']
-    # article_id = json.loads(request.form['articleid'])
-    # app.logger.debug(people)
-    # app.logger.debug(article_id)
+    if not 'items' in request.form or 'article' not in request.form:
+        return Response(json.dumps(['']))
+    people_ids = json.loads(request.form['items'])
+    people_ids = [int(x) for x in people_ids]
+    articleid = json.loads(request.form['article'])
+    app.logger.debug(people_ids)
+    app.logger.debug(articleid)
 
     session = new_session()
 
+    existing_people = session.query(ArticlePerson)\
+                             .filter(ArticlePerson.article_id == articleid)\
+                             .all()
+    if existing_people:
+        for existing in existing_people:
+            if existing.person_id in people_ids:
+                # Exists in db, exists in selection
+                people_ids.remove(existing.person_id)
+            else:
+                # Exists in db, not in selection so remove from db.
+                session.delete(existing)
+    for new_person in people_ids:
+        person = session.query(Person)\
+                        .filter(Person.id == new_person)\
+                        .first()
+        person_article = ArticlePerson(article_id=articleid, person_id=person.id)
+        session.add(person_article)
+
     session.commit()
+
     return Response(json.dumps(['OK']))
-    # people = json.loads(data)
-    # app.logger(people)

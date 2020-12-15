@@ -9,7 +9,12 @@
 <div class="container">
 	<div class="card border-primary mb-3" style="width: 720px; margin: 1rem auto">
 		<div class="card-header">
+			{% if current_user.is_admin %}
+			<select class="author-selector form-control" multiple="multiple" onchange="saveSelector('author')">
+			</select>
+			{% else %}
 			<span class="person-list">{{ authors|map(attribute='name')|join(', ') }}</span>
+			{% endif %}
 		</div>
 
 		<div class="card-body">
@@ -32,7 +37,7 @@
 				<li class="list-group-item">
 					<b>Henkilöt:</b>
 					{% if current_user.is_admin %}
-					<select class="people-selector form-control" multiple="multiple" onchange="saveArticlePeople()">
+					<select class="people-selector form-control" multiple="multiple" onchange="saveSelector('people')">
 					</select>
 					{% else %}
 					<span class="person-list">
@@ -74,10 +79,25 @@
 	<script type="text/javascript">
 		var articleid = '{{article.id}}'
 	</script>
-	<script type="text/javascript" class="js-code-placeholder">
+	<script type="text/javascript">
+	var authorSelect = $(".author-selector");
 	var peopleSelect = $(".people-selector");
 	$(document).ready(function() {
-		$(".people-selector").select2({
+		authorSelect.select2({
+			ajax: {
+				url: "/select_person",
+				dataType: "json",
+				delay: 250,
+				data: function(params) {
+					return {
+						q: params.term,
+					};
+				},
+			},
+            minimumInputLength: 3
+		});
+
+		peopleSelect.select2({
 				ajax: {
 					url: "/select_person",
 					dataType: 'json',
@@ -91,40 +111,65 @@
 				placeholder: 'Artikkeliin liittyvät henkilöt',
 				minimumInputLength: 3,
 		});
-		$.ajax({
-			type: 'GET',
-			url: '/people_for_article/' + articleid
-		}).then(function(data) {
+
+		function fill_options(selector, data) {
 			var people = JSON.parse(data);
-			var i;
-			for(i = 0; i < people.length; i++) {
+			for (var i = 0; i < people.length; i++) {
 				var person = people[i];
 				var id = Number(person['id']);
 				var name = person['text'];
 				var option = new Option(name, id, true, true);
-				peopleSelect.append(option).trigger('change');
+				selector.append(option).trigger('change');
 			}
-			$('.people-selector').trigger({
+			selector.trigger({
 				type: 'select2:select',
 				params: {
 					data: data
 				}
 			});
+		}
+
+		/* Fill selectors with data from db. */
+		$.ajax({
+			type: "GET",
+			url: "/authors_for_article/" + articleid
+		}).then(data => {
+			fill_options(authorSelect, data);
 		});
+		$.ajax({
+			type: 'GET',
+			url: '/people_for_article/' + articleid
+		}).then(data => {
+			fill_options(peopleSelect, data);
+		}); 
 	});
 	</script>
 	<script type="text/javascript">
-		function saveArticlePeople() {
-			var people_list = $('.people-selector').select2('data');
-			const people = people_list.map((people) => people.id);
+		function saveSelector(target) {
+			let item_list = [];
+			let endpoint = '';
+			if (target === 'people') {
+				item_list = peopleSelect.select2('data');
+				endpoint = '/save_article_people/'	
+			} else if (target == 'authors') {
+				item_list = authorSelect.select2('data');
+				endpoint = '/save_article_authors/'	
+			} else {
+				return;
+			}
+			const items = item_list.map((item) => item.id);
 			$.ajax({
-				url: '/save_article_people/',
+				url: endpoint,
 				type: "POST",
-				dataType: "text json",
-				//data: JSON.stringify({people: people, article: articleid}) 
-				data: { people: JSON.stringify(people), 
+				dataType: "json",
+				data: { items: JSON.stringify(items), 
 					    article: JSON.stringify(articleid)} 
-			})
+			});
+
+		}
+	</script>
+	<script type="text/javascript">
+		function saveArticleForm() {
 
 		}
 	</script>

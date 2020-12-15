@@ -1,10 +1,13 @@
 import logging
 
 from flask import redirect, render_template, request, url_for, jsonify, Response
+from flask_login import current_user, login_user, logout_user
 
 from app import app
 from app.forms import PersonForm
-from app.orm_decl import (Person, PersonTag, Author, Translator, Editor, Part, Work, Edition, Genre, Awarded, ArticlePerson)
+from app.orm_decl import (Person, PersonTag, Author, Translator, Editor, 
+                          Part, Work, Edition, Genre, Awarded, ArticlePerson, 
+                          ArticleAuthor)
 from sqlalchemy import func
 
 from .route_helpers import *
@@ -275,6 +278,25 @@ def select_person() -> Response:
         return Response(json.dumps(retval))
     else:
         return Response(json.dumps(['']))
+
+@app.route('/authors_for_article/<articleid>')
+def authors_for_article(articleid):
+    session = new_session()
+    people = session.query(Person)\
+                    .join(ArticleAuthor)\
+                    .filter(Person.id == ArticleAuthor.person_id)\
+                    .filter(ArticleAuthor.article_id == articleid)\
+                    .all()
+
+    retval: List[Dict[str, str]]  = []
+    if people:
+        for person in people:
+            obj: Dict[str, str] = {}
+            obj['id'] = str(person.id)
+            obj['text'] = person.name
+            retval.append(obj)
+
+    return Response(json.dumps(retval))
 
 @app.route('/people_for_article/<articleid>')
 def people_for_article(articleid):
