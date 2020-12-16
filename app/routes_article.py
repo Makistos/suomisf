@@ -165,7 +165,7 @@ def save_article_authors() -> Response:
         return Response(json.dumps(['']))
 
     author_ids = json.loads(request.form['items'])
-    author_ids = [int(x) for x in author_ids]
+    author_ids = [int(x['id']) for x in author_ids]
     articleid = json.loads(request.form['article'])
     
     session = new_session()
@@ -183,7 +183,7 @@ def save_article_authors() -> Response:
                 session.delete(existing)
     for new_person in author_ids:
         person = session.query(Person)\
-                        .filter(Person.id == new_person)\
+                        .filter(Person.id == new_person['id'])\
                         .first()
         author_article = ArticleAuthor(article_id=articleid, author_id=person.id)
         session.add(author_article)
@@ -199,10 +199,8 @@ def save_article_people() -> Response:
     if not 'items' in request.form or 'article' not in request.form:
         return Response(json.dumps(['']))
     people_ids = json.loads(request.form['items'])
-    people_ids = [int(x) for x in people_ids]
+    people_ids = [int(x['id']) for x in people_ids]
     articleid = json.loads(request.form['article'])
-    app.logger.debug(people_ids)
-    app.logger.debug(articleid)
 
     session = new_session()
 
@@ -219,10 +217,60 @@ def save_article_people() -> Response:
                 session.delete(existing)
     for new_person in people_ids:
         person = session.query(Person)\
-                        .filter(Person.id == new_person)\
+                        .filter(Person.id == new_person['id'])\
                         .first()
         person_article = ArticlePerson(article_id=articleid, person_id=person.id)
         session.add(person_article)
+
+    session.commit()
+
+    return Response(json.dumps(['OK']))
+
+def create_new_tags(tags: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    session = new_session()
+    retval: List[Dict[str, Any]] = []
+
+    for tag in tags:
+        id = int(tag['id'])
+        name = tag['text']
+        if id == 0:
+            new_tag = Tag(name=name)
+            session.add(new_tag)
+            session.commit()
+            id = new_tag.id
+            name = new_tag.name
+        retval.append({'id': id, 'text': name})
+    
+    return retval
+
+@app.route('/save_article_tags/', methods=["POST"])
+def save_article_tags() -> Response:
+    if not 'items' in request.form or 'article' not in request.form:
+        return Response(json.dumps(['']))
+    tag_ids = json.loads(request.form['items'])
+    articleid = json.loads(request.form['article'])
+
+    session = new_session()
+
+    tag_ids = create_new_tags(tag_ids)
+
+    existing_tags = session.query(ArticleTag)\
+                             .filter(ArticleTag.article_id == articleid)\
+                             .all()
+    if existing_tags:
+        for existing in existing_tags:
+            if existing.tag_id in tag_ids:
+                # Exists in db, exists in selection
+                tag_ids.remove(existing.tag_id)
+            else:
+                # Exists in db, not in selection so remove from db.
+                session.delete(existing)
+    for new_tag in tag_ids:
+        tag = session.query(Tag)\
+                        .filter(Tag.id == new_tag['id'])\
+                        .first()
+        article_tag = ArticleTag(article_id=articleid, tag_id=tag.id)
+        session.add(article_tag)
 
     session.commit()
 

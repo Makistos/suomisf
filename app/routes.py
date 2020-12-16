@@ -310,6 +310,55 @@ def tag(tagid):
 
     return render_template('tag.html', tag=tag)
 
+@app.route('/tags_for_article/<articleid>')
+def tags_for_article(articleid) -> Response:
+    session = new_session()
+    tags = session.query(Tag)\
+                    .join(ArticleTag)\
+                    .filter(Tag.id == ArticleTag.tag_id)\
+                    .filter(ArticleTag.article_id == articleid)\
+                    .all()
+
+    retval: List[Dict[str, str]]  = []
+    if tags:
+        for tag in tags:
+            obj: Dict[str, str] = {}
+            obj['id'] = str(tag.id)
+            obj['text'] = tag.name
+            retval.append(obj)
+    return Response(json.dumps(retval))
+
+@app.route('/create_tag/<tagname>', methods=["GET"])
+def create_tag(tagname) -> Response:
+
+    session = new_session()
+
+    tag = Tag(name=tagname)
+    session.add(tag)
+    session.commit()
+    
+    return Response(json.dumps([tag.id]))
+
+
+@app.route('/select_tags', methods=["GET"])
+def select_tags() -> Response:
+    search = request.args['q']
+    session = new_session()
+
+    if search:
+        retval: Dict[str, List[Dict[str, Any]]] = {}
+        tags = session.query(Tag)\
+                        .filter(Tag.name.ilike('%' + search + '%'))\
+                        .order_by(Tag.name)\
+                        .all()
+        
+        retval['results'] = []
+        for tag in tags:
+            retval['results'].append({'id': str(tag.id), 'text': tag.name})
+        return Response(json.dumps(retval))
+    else:
+        return Response(json.dumps(['']))
+
 
 @app.route('/print_books')
 def print_books():

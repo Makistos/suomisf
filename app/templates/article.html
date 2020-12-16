@@ -33,27 +33,26 @@
 				{%- endif -%}</a><br>
 
 			<ul class="list-group list-group-flush">
-				{% if people|length %}
 				<li class="list-group-item">
 					<b>Henkilöt:</b>
 					{% if current_user.is_admin %}
-					<select class="people-selector form-control" multiple="multiple" onchange="saveSelector('people')">
-					</select>
+					<select class="people-selector form-control" multiple="multiple" data-placeholder="Artikkeliin liittyvät henkilöt" data-search="/select_person" onchange="saveSelector('people')"></select>
 					{% else %}
 					<span class="person-list">
 						{{ people|map(attribute='name')|join(', ')}}
 					</span>
 					{% endif %}
 				</li>
-				{% endif %}
-				{% if article.tags %}
 				<li class="list-group-item">
 					<b>Avainsanat:</b>
-					{% for tag in article.tags %}
-					<a href="{{url_for('tag', tagid=tag.id)}}">{{tag.name}}<nbsp>
-							{% endfor %}
+					{% if current_user.is_admin %}
+					<select class="tag-selector form-control" multiple="multiple" data-placeholed="Asiasanat" data-search="/select_tags" data-tags="true" onchange="saveSelector('tags')"></select>
+					{% else %}
+						{% for tag in article.tags %}
+						<a href="{{url_for('tag', tagid=tag.id)}}">{{tag.name}}<nbsp>
+						{% endfor %}
+				    {% endif %}
 				</li>
-				{% endif %}
 			</ul>
             {% if current_user.is_admin %}
 			<ul class="list-group list-group-flush">
@@ -82,35 +81,54 @@
 	<script type="text/javascript">
 	var authorSelect = $(".author-selector");
 	var peopleSelect = $(".people-selector");
-	$(document).ready(function() {
-		authorSelect.select2({
-			ajax: {
-				url: "/select_person",
-				dataType: "json",
-				delay: 250,
-				data: function(params) {
-					return {
-						q: params.term,
-					};
-				},
-			},
-            minimumInputLength: 3
-		});
+	var tagSelect = $(".tag-selector");
 
-		peopleSelect.select2({
-				ajax: {
-					url: "/select_person",
+	$(document).ready(function() {
+		$('select').each(function() {
+			$(this).select2({
+				ajax: { 
+					url: $(this).data('search'),
 					dataType: 'json',
 					delay: 250,
-					data: function (params) {
+					data: function(params) {
 						return {
-							q: params.term, // search term
+							q: params.term,
 						};
 					},
 				},
-				placeholder: 'Artikkeliin liittyvät henkilöt',
 				minimumInputLength: 3,
-		});
+				placeholder: $(this).data('placeholder'),
+				tags: Boolean($(this).data('tags')),
+				tokenSeparators: [',', ', '],
+				createTag: function(params) {
+					var term = $.trim(params.term);
+					var id = 0;
+					if (term === '') {
+						return null;
+					}
+					return {
+						id: id,
+						text: term,
+						newTag: true
+					}
+				/*	$.ajax({
+						type: 'GET',
+						url: '/create_tag/' + term,
+						dataType: 'json',
+						success: (data => {
+							d = JSON.parse(data);
+							id = d['id'];
+							text = d['text']
+						})
+					})
+					return {
+						id: id,
+						text: text,
+						newTag: true
+					}*/
+				},
+			})
+		})
 
 		function fill_options(selector, data) {
 			var people = JSON.parse(data);
@@ -142,6 +160,12 @@
 		}).then(data => {
 			fill_options(peopleSelect, data);
 		}); 
+		$.ajax({
+			type: "GET",
+			url: '/tags_for_article/' + articleid
+		}).then(data => {
+			fill_options(tagSelect, data);
+		});
 	});
 	</script>
 	<script type="text/javascript">
@@ -150,14 +174,17 @@
 			let endpoint = '';
 			if (target === 'people') {
 				item_list = peopleSelect.select2('data');
-				endpoint = '/save_article_people/'	
+				endpoint = '/save_article_people/';
 			} else if (target == 'authors') {
 				item_list = authorSelect.select2('data');
-				endpoint = '/save_article_authors/'	
+				endpoint = '/save_article_authors/';
+			} else if (target == 'tags') {
+				item_list = tagSelect.select2('data');
+				endpoint = '/save_article_tags/';
 			} else {
 				return;
 			}
-			const items = item_list.map((item) => item.id);
+			const items = item_list.map(item => ({"id": item.id, "text": item.text}));
 			$.ajax({
 				url: endpoint,
 				type: "POST",
