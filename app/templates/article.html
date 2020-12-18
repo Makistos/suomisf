@@ -5,12 +5,12 @@
 {% else %}
 	{% set input_style='readonly class=form-control-plaintext' %}
 {% endif %}
-<form method="post">
+<form method="post" id="articleForm">
 <div class="container">
 	<div class="card border-primary mb-3" style="width: 720px; margin: 1rem auto">
 		<div class="card-header">
 			{% if current_user.is_admin %}
-			<select class="author-selector form-control" multiple="multiple" onchange="saveSelector('author')">
+			<select class="author-selector form-control" multiple="multiple" data-placeholder="Kirjoittajat" data-search="/select_person" onchange="saveSelector('author')">
 			</select>
 			{% else %}
 			<span class="person-list">{{ authors|map(attribute='name')|join(', ') }}</span>
@@ -19,9 +19,11 @@
 
 		<div class="card-body">
 			<h3 class="card-title">
-				<input type="text" class="form-control" onblur="saveForm()" id="title" value="{{article.title}}" style="border:0;">
 				{% if current_user.is_admin %}
+				<input type="text" class="form-control" onblur="saveForm()" id="title" value="{{article.title}}" style="border:0;">
 				({{ article.id }})
+				{% else %}
+				{{article.title}}
 				{% endif %}
 			</h3>
 			<a href="{{ url_for('issue', id=article.issue.id)}}">{{ article.issue.magazine.name }}
@@ -57,12 +59,6 @@
             {% if current_user.is_admin %}
 			<ul class="list-group list-group-flush">
 				<li class="list-group-item"><a href="{{url_for('edit_article', id=article.id)}}">Muokkaa</a></li><br>
-				<li class="list-group-item">
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editAuthors">Muokkaa kirjoittajia</button>
-				</li>
-				<li class="list-group-item">
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editPeople">Muokkaa henkilöitä</button>
-				</li>
 				<li class="list-group-item">
 					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editLinks">Muokkaa linkkejä</button>
 				</li>
@@ -111,21 +107,6 @@
 						text: term,
 						newTag: true
 					}
-				/*	$.ajax({
-						type: 'GET',
-						url: '/create_tag/' + term,
-						dataType: 'json',
-						success: (data => {
-							d = JSON.parse(data);
-							id = d['id'];
-							text = d['text']
-						})
-					})
-					return {
-						id: id,
-						text: text,
-						newTag: true
-					}*/
 				},
 			})
 		})
@@ -170,12 +151,13 @@
 	</script>
 	<script type="text/javascript">
 		function saveSelector(target) {
+			console.log('saveSelector: ' + target);
 			let item_list = [];
 			let endpoint = '';
 			if (target === 'people') {
 				item_list = peopleSelect.select2('data');
 				endpoint = '/save_article_people/';
-			} else if (target == 'authors') {
+			} else if (target == 'author') {
 				item_list = authorSelect.select2('data');
 				endpoint = '/save_article_authors/';
 			} else if (target == 'tags') {
@@ -184,6 +166,7 @@
 			} else {
 				return;
 			}
+			console.log('endpoint: ' + endpoint);
 			const items = item_list.map(item => ({"id": item.id, "text": item.text}));
 			$.ajax({
 				url: endpoint,
@@ -197,7 +180,7 @@
 	</script>
 	<script type="text/javascript">
 		function saveArticleForm() {
-
+			document.getElementById("articleForm").submit();
 		}
 	</script>
 	{% endblock %}

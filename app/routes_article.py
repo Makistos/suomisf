@@ -1,7 +1,7 @@
 import logging
 
-from flask import redirect, render_template, request, url_for, Response
-
+from flask import (redirect, render_template, request, url_for, Response, session, abort)
+from flask_login import login_required, current_user
 from app import app
 from app.forms import ArticleForm
 from app.orm_decl import (Article, ArticleAuthor, ArticleLink, ArticlePerson,
@@ -34,7 +34,11 @@ def article(id):
 
 
 @app.route('/edit_article/<id>', methods=['GET', 'POST'])
+@login_required
 def edit_article(id):
+    if not current_user.is_admin:
+        abort(401)
+
     session = new_session()
 
     article = session.query(Article)\
@@ -51,12 +55,10 @@ def edit_article(id):
                       .all()
 
         form.title.data = article.title
-        form.tags.data = ','.join([x.name for x in tags])
     if form.validate_on_submit():
         article.title = form.title.data
         session.add(article)
         session.commit()
-        save_tags(session, form.tags.data, "Article", article.id)
         return redirect(url_for('article', id=article.id))
     else:
         app.logger.debug('Errors: {}'.format(form.errors))
@@ -65,7 +67,11 @@ def edit_article(id):
 
 
 @app.route('/add_article/<article_id>/<issue_id>')
+@login_required
 def add_article(article_id, issue_id):
+    if not current_user.is_admin:
+        abort(401)
+
     session = new_session()
 
     article = Article()
@@ -96,6 +102,9 @@ def add_article(article_id, issue_id):
 
 
 def save_author_to_article(session, articleid, authorname):
+    if not current_user.is_admin:
+        return redirect(url_for('article', id=articleid))
+
     author = session.query(Person)\
                     .filter(Person.name == authorname)\
                     .first()
@@ -106,6 +115,9 @@ def save_author_to_article(session, articleid, authorname):
 
 
 def remove_author_from_article(session, articleid, authorname):
+    if not current_user.is_admin:
+        return redirect(url_for('article', id=articleid))
+
     author = session.query(ArticleAuthor)\
                     .join(Person)\
                     .filter(Person.name == authorname)\
@@ -118,6 +130,9 @@ def remove_author_from_article(session, articleid, authorname):
     
 
 def save_person_to_article(session, articleid, personname):
+    if not current_user.is_admin:
+        return redirect(url_for('article', id=articleid))
+
     person = session.query(Person)\
                     .filter(Person.name == personname)\
                     .first()
@@ -129,6 +144,9 @@ def save_person_to_article(session, articleid, personname):
     
 
 def remove_person_from_article(session, articleid, personname):
+    if not current_user.is_admin:
+        return redirect(url_for('article', id=articleid))
+
     person = session.query(ArticlePerson)\
                     .join(Person)\
                     .filter(Person.name == personname)\
@@ -160,13 +178,22 @@ def update_article_creators(session, articleid):
     pass
 
 @app.route('/save_article_authors/', methods=["POST"])
+@login_required
 def save_article_authors() -> Response:
-    if 'items' not in request.form or 'article' not in request.form:
-        return Response(json.dumps(['']))
 
-    author_ids = json.loads(request.form['items'])
-    author_ids = [int(x['id']) for x in author_ids]
+    if ('items' not in request.form or 'article' not in request.form):
+        abort(400)
+
     articleid = json.loads(request.form['article'])
+    
+    if not current_user.is_admin:
+        abort(401)
+    
+    author_ids = json.loads(request.form['items'])
+    if len(author_ids) == 0:
+        # Required field
+        return Response(json.dumps(['']))
+    author_ids = [int(x['id']) for x in author_ids]
     
     session = new_session()
     
@@ -183,9 +210,9 @@ def save_article_authors() -> Response:
                 session.delete(existing)
     for new_person in author_ids:
         person = session.query(Person)\
-                        .filter(Person.id == new_person['id'])\
+                        .filter(Person.id == new_person)\
                         .first()
-        author_article = ArticleAuthor(article_id=articleid, author_id=person.id)
+        author_article = ArticleAuthor(article_id=articleid, person_id=person.id)
         session.add(author_article)
 
 
@@ -195,12 +222,19 @@ def save_article_authors() -> Response:
 
 
 @app.route ('/save_article_people/', methods=["POST"])
+@login_required
 def save_article_people() -> Response:
+
     if not 'items' in request.form or 'article' not in request.form:
-        return Response(json.dumps(['']))
+        return abort(400)
+
+    articleid = json.loads(request.form['article'])
+
+    if not current_user.is_admin:
+        abort(401)
+
     people_ids = json.loads(request.form['items'])
     people_ids = [int(x['id']) for x in people_ids]
-    articleid = json.loads(request.form['article'])
 
     session = new_session()
 
@@ -217,7 +251,7 @@ def save_article_people() -> Response:
                 session.delete(existing)
     for new_person in people_ids:
         person = session.query(Person)\
-                        .filter(Person.id == new_person['id'])\
+                        .filter(Person.id == new_person)\
                         .first()
         person_article = ArticlePerson(article_id=articleid, person_id=person.id)
         session.add(person_article)
@@ -226,8 +260,7 @@ def save_article_people() -> Response:
 
     return Response(json.dumps(['OK']))
 
-def create_new_tags(tags: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    session = new_session()
+def create_new_tags(session, tags: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     retval: List[Dict[str, Any]] = []
 
     for tag in tags:
@@ -244,15 +277,19 @@ def create_new_tags(tags: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return retval
 
 @app.route('/save_article_tags/', methods=["POST"])
+@login_required
 def save_article_tags() -> Response:
+
     if not 'items' in request.form or 'article' not in request.form:
-        return Response(json.dumps(['']))
-    tag_ids = json.loads(request.form['items'])
+        return abort(400)
     articleid = json.loads(request.form['article'])
+    if not current_user.is_admin:
+        abort(401)
 
+    tag_ids = json.loads(request.form['items'])
     session = new_session()
+    tag_ids = create_new_tags(session, tag_ids)
 
-    tag_ids = create_new_tags(tag_ids)
 
     existing_tags = session.query(ArticleTag)\
                              .filter(ArticleTag.article_id == articleid)\
