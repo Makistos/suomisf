@@ -15,16 +15,57 @@ div.three-column {
 }
 
 .form-control {
-  border: 0;
+  border: none !important;
   box-shadow: none;
+  border-radius: 0px;
+  background: transparent !important;
 }
+
+.form-control:focus {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+h3 .form-control {
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-top: 0;
+}
+
 
 /*div.small-link {
 	a.font-size: 50%;
 	a.bgcolor: grey;
 }*/
 
+.select2 {
+  background-color: transparent !important;
+}
+.select2-container {
+  background-color: transparent !important;
+  border: none !important;
+}
 
+.select2-container--default .select2-selection--multiple {
+  border: none !important;
+  background-color: transparent !important;
+}
+
+.select2-selection__choice {
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0px;
+
+}
+.select2-selection__choice__display {
+  background-color: transparent !important;
+  padding: 0px;
+}
+
+.select2-selection__choice__remove {
+  border-right: none !important;
+}
 /* body {font-family: Arial, Helvetica, sans-serif;} */
 
 /* The Modal (background) */
