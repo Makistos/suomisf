@@ -5,23 +5,28 @@
 {% else %}
 	{% set input_style='readonly class=form-control-plaintext' %}
 {% endif %}
-<form method="post" id="articleForm">
+<form method="post" id="articleForm" action="/article" enctype="text/plain">
+	<input type="hidden" name="csrf_token" value="{{csrf_token}}"/>
 <div class="container">
-	<div class="card border-primary mb-3" style="width: 720px; margin: 1rem auto">
+	<div class="card border-primary mb-3">
 		<div class="card-header">
 			{% if current_user.is_admin %}
-			<select class="author-selector form-control" multiple="multiple" data-placeholder="Kirjoittajat" data-search="/select_person" onchange="saveSelector('author')">
+			<div class="edit-field">
+			<select class="author-selector form-control" multiple="multiple" data-placeholder="Kirjoittajat" 
+			data-search="/select_person" data-save="/save_authors_to_article" data-init="/authors_for_article" data-name="authors">
 			</select>
-			{% else %}
-			<span class="person-list">{{ authors|map(attribute='name')|join(', ') }}</span>
+			</div>
 			{% endif %}
+			<div class="view-field">
+			<span class="person-list">{{ authors|map(attribute='name')|join(', ') }}</span>
+			</div>
 		</div>
 
 		<div class="card-body">
 			<h3 class="card-title">
 				{% if current_user.is_admin %}
-				<input type="text" class="form-control" onblur="saveForm()" id="title" value="{{article.title}}" style="border:0;">
-				({{ article.id }})
+				{#{{form.title(class="form-control")}}#}
+				<input type="text" class="form-control h3" onblur="saveArticleForm()" id="title" value="{{article.title}}" style="border:0;">
 				{% else %}
 				{{article.title}}
 				{% endif %}
@@ -38,30 +43,61 @@
 				<li class="list-group-item">
 					<b>Henkilöt:</b>
 					{% if current_user.is_admin %}
-					<select class="people-selector form-control" multiple="multiple" data-placeholder="Artikkeliin liittyvät henkilöt" data-search="/select_person" onchange="saveSelector('people')"></select>
-					{% else %}
+					<div class="edit-field">
+					<select class="people-selector form-control" multiple="multiple" data-placeholder="Artikkeliin liittyvät henkilöt" 
+					data-search="/select_person" data-save="/save_people_to_article" data-init="/people_for_article" data-name="people">
+					</select>
+					</div>
+					{% endif %}
+					<div class="view-field">
 					<span class="person-list">
 						{{ people|map(attribute='name')|join(', ')}}
 					</span>
-					{% endif %}
+					</div>
 				</li>
 				<li class="list-group-item">
 					<b>Avainsanat:</b>
 					{% if current_user.is_admin %}
-					<select class="tag-selector form-control" multiple="multiple" data-placeholed="Asiasanat" data-search="/select_tags" data-tags="true" onchange="saveSelector('tags')"></select>
-					{% else %}
-						{% for tag in article.tags %}
-						<a href="{{url_for('tag', tagid=tag.id)}}">{{tag.name}}<nbsp>
+					<div class="edit-field">
+					<select class="tag-selector form-control" multiple="multiple" data-placeholder="Asiasanat" 
+					data-search="/select_tags" data-save="/save_tags_to_article" data-init="/tags_for_article" data-tags="true" data-name="tags"></select>
+					</div>
+					{% endif %}
+					<div class="view-field">
+					{% for tag in article.tags %}
+					<a href="{{url_for('tag', tagid=tag.id)}}">{{tag.name}}</a><nbsp>
+					{% endfor %}
+					</div>	
+				</li>
+				<li class="list-group-item">
+					<b>Linkit:</b>
+					{% if current_user.is_admin %}
+						{% for link in links %}
 						{% endfor %}
-				    {% endif %}
+					{% else %}
+						{% for link in links %}
+							<a href="{{link.link}}">
+							{% if link.description %}
+							{{link.description}}
+							{% else %}
+							{{link.link}}
+							{% endif %}
+							</a>
+						{% endfor %}
+					{% endif %}
 				</li>
 			</ul>
             {% if current_user.is_admin %}
 			<ul class="list-group list-group-flush">
-				<li class="list-group-item"><a href="{{url_for('edit_article', id=article.id)}}">Muokkaa</a></li><br>
+				<li class="list-group-item">
+					<input type="checkbox" id="edit_form" name="edit_form">
+					<label for="edit_form">Muokkaa</label>
+				{#<button type="button" class="btn btn-primary">Muokkaa</button> #}
+				</li>
+				{#
 				<li class="list-group-item">
 					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editLinks">Muokkaa linkkejä</button>
-				</li>
+				</li>#}
 
 			</ul>
 			{% endif %}
@@ -72,15 +108,18 @@
 	{% block script %}
 	<script src="/static/js/personlink.js" type="text/javascript"></script>
 	<script type="text/javascript">
-		var articleid = '{{article.id}}'
+		var itemId = '{{article.id}}'
 	</script>
 	<script type="text/javascript">
 	var authorSelect = $(".author-selector");
 	var peopleSelect = $(".people-selector");
 	var tagSelect = $(".tag-selector");
+	var loading = {};
+	var csrf_token = "{{csrf_token}}";
 
 	$(document).ready(function() {
 		$('select').each(function() {
+			loading[$(this).data('name')] = true;
 			$(this).select2({
 				ajax: { 
 					url: $(this).data('search'),
@@ -108,9 +147,41 @@
 						newTag: true
 					}
 				},
+			}),
+			/* Fill selectors with data from db. */
+			$.ajax({
+				type: "GET",
+				url: $(this).data('init') + '/' + itemId
+			}).then(data => {
+				fill_options($(this), data);
+				loading[$(this).data('name')] = false;
+			});
+			$(this).on("select2:select", function(evt) {
+				if (!loading[$(this).data('name')]) {
+					saveSelector($(this), $(this).data('save'), $(this).select2('data'));
+					var args = JSON.stringify(evt.params, function (key, value) {
+						if (value && value.nodeName) return "[DOM node]";
+						if (value instanceof $.Event) return "[$.Event]";
+						return value;
+					});
+						console.log("select: " + args);
+						console.log("select: " + evt.params['data']['id']);
+				}
+			}),
+			$(this).on("select2:unselect", function(evt) {
+				if (!loading[$(this).data('name')]) {
+					saveSelector($(this), $(this).data('save'), $(this).select2('data'));
+					var args = JSON.stringify(evt.params, function (key, value) {
+						if (value && value.nodeName) return "[DOM node]";
+						if (value instanceof $.Event) return "[$.Event]";
+						return value;
+					});
+						console.log("unselect: " + args);
+						console.log("unselect: " + evt.params['data']['id']);
+				}
 			})
 		})
-
+		
 		function fill_options(selector, data) {
 			var people = JSON.parse(data);
 			for (var i = 0; i < people.length; i++) {
@@ -128,59 +199,135 @@
 			});
 		}
 
-		/* Fill selectors with data from db. */
-		$.ajax({
-			type: "GET",
-			url: "/authors_for_article/" + articleid
-		}).then(data => {
-			fill_options(authorSelect, data);
+		$('#edit_form').removeAttr('checked');
+
+		$('#edit_form').on('change', function() {
+			var view_elements = document.getElementsByClassName('view-field');
+			var edit_elements = document.getElementsByClassName('edit-field');
+			var input_field = document.getElementById('edit_form');
+			for (var i = 0; i < view_elements.length; i++) {
+				if (input_field.checked) {
+					view_elements[i].style.display = "none";
+					edit_elements[i].style.display = "block";
+				} else {
+					view_elements[i].style.display = "block";
+					edit_elements[i].style.display = "none";
+				}
+			}
 		});
-		$.ajax({
-			type: 'GET',
-			url: '/people_for_article/' + articleid
-		}).then(data => {
-			fill_options(peopleSelect, data);
-		}); 
-		$.ajax({
-			type: "GET",
-			url: '/tags_for_article/' + articleid
-		}).then(data => {
-			fill_options(tagSelect, data);
-		});
+		var elements_to_hide = document.getElementsByClassName('edit-field');
+
+		for (var i = 0; i < elements_to_hide.length; i++) {
+			console.log("hiding");
+			elements_to_hide[i].style.display = "none";
+		}
 	});
 	</script>
 	<script type="text/javascript">
-		function saveSelector(target) {
-			console.log('saveSelector: ' + target);
-			let item_list = [];
-			let endpoint = '';
-			if (target === 'people') {
-				item_list = peopleSelect.select2('data');
-				endpoint = '/save_article_people/';
-			} else if (target == 'author') {
-				item_list = authorSelect.select2('data');
-				endpoint = '/save_article_authors/';
-			} else if (target == 'tags') {
-				item_list = tagSelect.select2('data');
-				endpoint = '/save_article_tags/';
-			} else {
-				return;
+		function saveSelector(target, endpoint, item_list) {
+			if (loading === true) {
+				return false;
 			}
-			console.log('endpoint: ' + endpoint);
 			const items = item_list.map(item => ({"id": item.id, "text": item.text}));
 			$.ajax({
 				url: endpoint,
 				type: "POST",
 				dataType: "json",
 				data: { items: JSON.stringify(items), 
-					    article: JSON.stringify(articleid)} 
+					    article: JSON.stringify(itemId)} 
 			});
 
 		}
 	</script>
+
+	<script>
+		function send_form(form, form_id, url, type, inner_ajax, formData) {
+			if (form[0].checkValidity() && isFormDataEmpty(formData) == false) {
+				event.preventDefault();
+				inner_ajax(url, type, formData);
+			} else {
+				var labels = document.getElementsByTagName('LABEL');
+				for (var i=0; i < labels.length; i++) {
+					if (labels[i].htmlFor != '') {
+						var elem = document.getElementById(labels[i].htmlFor);
+						if (elem) {
+							elem.label = labels[i];
+						}
+					}
+				}
+				/*var Form = document.getElementById(form_id);
+				var invalidList = Form.querySelectorAll(':invalid:');
+
+				if (typeof invalidList !== 'undefined' && invalidList.length > 0) {
+					for (var item of invalidList) {
+						M.toast({html: "Ole hyvä ja täytä kenttä " + item.label.innerHTML+"", classes: 'bg-danger text-white'});
+					} 
+				} else {
+					M.toast({html: 'Virhe. Yritä uudelleen.', classes: 'bg-danger text-white'});
+				}*/
+			}
+		}
+		function isFormDataEmpty(formData) {
+			for (var [key, value] of formData.entries()) {
+				if (key != 'csrf_token') {
+					if (value != '' && value != []) {
+						return false;
+					}
+				}
+			}
+			return true;
+		}
+	</script>
+
+	<script>
+		function modular_ajax(url, type, formData) {
+			$.ajax({
+				url: url,
+				type: type,
+				data: formData,
+				processData: false,
+				contentType: false,
+				success: function(data){
+					if (!$.trim(data.feedback)) {
+						toast_error_msg = "Tyhjä paluuarvo.";
+						toast_category = "danger";
+					} else {
+						toast_error_msg = data.feedback;
+						toast_category = data.category;
+					}
+				},
+				error: function(xhr) {
+					console.log("Virhe. Tarkista tiedot alta.");
+					console.log(xhr.status + ": " + xhr.responseText);
+					toast_error_msg = "Virhe";
+					toast_category = "danger";
+				}
+			}).done(function() {
+				M.toast({html: toast_error_msg, classes: 'bg-' + toast_category + ' text-white'});
+			})
+		}
+
+		// $.ajaxSetup({
+		// 	beforeSend: function(xhr, settings) {
+		// 		if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+		// 			xhr.setRequestHeader("X-CSRFTOKEN", csrf-token);
+		// 		}
+		// 	}
+		// })
+	</script>
 	<script type="text/javascript">
 		function saveArticleForm() {
-			document.getElementById("articleForm").submit();
+			var form = $('#articleForm');
+			var form_id = 'articleForm';
+			var url = form.prop('action');
+			var type = form.prop('method');
+			var formData = getArticleFormData(form_id);
+
+			send_form(form, form_id, url, type, modular_ajax, formData);
+		}
+		function getArticleFormData(form) {
+			var formData = new FormData(document.getElementById(form));
+			return formData;
 		}
 	</script>
 	{% endblock %}

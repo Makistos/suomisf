@@ -1,6 +1,6 @@
 import logging
 
-from flask import (redirect, render_template, request, url_for, Response, session, abort)
+from flask import (redirect, render_template, request, url_for, Response, session, abort, make_response, jsonify)
 from flask_login import login_required, current_user
 from app import app
 from app.forms import ArticleForm
@@ -10,7 +10,36 @@ from app.orm_decl import (Article, ArticleAuthor, ArticleLink, ArticlePerson,
 from .route_helpers import *
 import json
 
-@app.route('/article/<id>')
+# @app.route('/article/<id>', methods=['GET'])
+# def article(id):
+#     session = new_session()
+
+#     article = session.query(Article)\
+#                      .filter(Article.id == id)\
+#                      .first()
+
+#     authors = session.query(Person)\
+#                      .join(ArticleAuthor)\
+#                      .filter(ArticleAuthor.article_id == id)\
+#                      .all()
+
+#     people = session.query(Person)\
+#                     .join(ArticlePerson)\
+#                     .filter(ArticlePerson.article_id == id)\
+#                     .all()
+
+#     form = ArticleForm(request.form)
+
+#     if request.method == 'GET':
+#         form.title.data = article.title
+    
+#     return render_template('article.html',
+#                            article=article,
+#                            authors=authors,
+#                            people=people,
+#                            form=form)
+
+@app.route('/article/<id>', methods=['POST', 'GET'])
 def article(id):
     session = new_session()
 
@@ -27,10 +56,33 @@ def article(id):
                     .join(ArticlePerson)\
                     .filter(ArticlePerson.article_id == id)\
                     .all()
-    return render_template('article.html',
-                           article=article,
-                           authors=authors,
-                           people=people)
+    links = session.query(ArticleLink)\
+                   .filter(ArticleLink.article_id == id)\
+                   .all()
+
+    form = ArticleForm(request.form)
+
+    if request.method == 'POST' and request.form:
+        article.title = request.form['title']
+        session.add(article)
+        session.commit()
+        msg = 'Tallennus onnistui'
+        category = 'success'
+        resp = {'feedback': msg, 'category': category}
+        return make_response(jsonify(resp), 200)
+
+    elif request.method == 'GET':
+        form.title.data = article.title
+    
+        return render_template('article.html',
+                            article=article,
+                            authors=authors,
+                            people=people,
+                            links=links,
+                            form=form)
+    else:
+        return make_response(jsonify(resp), 200)
+
 
 
 @app.route('/edit_article/<id>', methods=['GET', 'POST'])
@@ -44,6 +96,19 @@ def edit_article(id):
     article = session.query(Article)\
                      .filter(Article.id == id)\
                      .first()
+
+    authors = session.query(Person)\
+                     .join(ArticleAuthor)\
+                     .filter(ArticleAuthor.article_id == id)\
+                     .all()
+
+    people = session.query(Person)\
+                    .join(ArticlePerson)\
+                    .filter(ArticlePerson.article_id == id)\
+                    .all()
+    links = session.query(ArticleLink)\
+                   .filter(ArticleLink.article_id == id)\
+                   .all()
 
     form = ArticleForm(request.form)
 
@@ -63,7 +128,12 @@ def edit_article(id):
     else:
         app.logger.debug('Errors: {}'.format(form.errors))
 
-    return render_template('edit_article.html', form=form)
+    return render_template('article.html', 
+                           form=form,
+                           article=article,
+                           authors=authors,
+                           people=people,
+                           links=links)
 
 
 @app.route('/add_article/<article_id>/<issue_id>')
@@ -101,17 +171,17 @@ def add_article(article_id, issue_id):
     return render_template('edit_article.html', form=form)
 
 
-def save_author_to_article(session, articleid, authorname):
-    if not current_user.is_admin:
-        return redirect(url_for('article', id=articleid))
+# def save_author_to_article(session, articleid, authorname):
+#     if not current_user.is_admin:
+#         return redirect(url_for('article', id=articleid))
 
-    author = session.query(Person)\
-                    .filter(Person.name == authorname)\
-                    .first()
-    if author:
-        auth = ArticleAuthor(article_id=articleid, author_id=author.id)
-        session.add(auth)
-        session.commit()
+#     author = session.query(Person)\
+#                     .filter(Person.name == authorname)\
+#                     .first()
+#     if author:
+#         auth = ArticleAuthor(article_id=articleid, author_id=author.id)
+#         session.add(auth)
+#         session.commit()
 
 
 def remove_author_from_article(session, articleid, authorname):
@@ -129,9 +199,9 @@ def remove_author_from_article(session, articleid, authorname):
         session.commit()
     
 
+@login_required
+@admin_required
 def save_person_to_article(session, articleid, personname):
-    if not current_user.is_admin:
-        return redirect(url_for('article', id=articleid))
 
     person = session.query(Person)\
                     .filter(Person.name == personname)\
@@ -177,88 +247,70 @@ def remove_link_from_article(session, linkid):
 def update_article_creators(session, articleid):
     pass
 
-@app.route('/save_article_authors/', methods=["POST"])
+@app.route('/save_authors_to_article/', methods=["POST", "GET"])
 @login_required
-def save_article_authors() -> Response:
+@admin_required
+def save_authors_to_article() -> Response:
 
-    if ('items' not in request.form or 'article' not in request.form):
-        abort(400)
+    (articleid, author_ids) = get_select_ids(request.form, 'article')
 
-    articleid = json.loads(request.form['article'])
-    
-    if not current_user.is_admin:
-        abort(401)
-    
-    author_ids = json.loads(request.form['items'])
-    if len(author_ids) == 0:
-        # Required field
-        return Response(json.dumps(['']))
-    author_ids = [int(x['id']) for x in author_ids]
-    
     session = new_session()
     
     existing_people = session.query(ArticleAuthor)\
                              .filter(ArticleAuthor.article_id == articleid)\
                              .all()
-    if existing_people:
-        for existing in existing_people:
-            if existing.person_id in author_ids:
-                # Exists in db, exists in selection
-                author_ids.remove(existing.person_id)
-            else:
-                # Exists in db, not in selection so remove from db.
-                session.delete(existing)
-    for new_person in author_ids:
-        person = session.query(Person)\
-                        .filter(Person.id == new_person)\
-                        .first()
-        author_article = ArticleAuthor(article_id=articleid, person_id=person.id)
-        session.add(author_article)
 
+    (to_add, to_remove) = get_join_changes([x.person_id for x in existing_people], [int(x['id']) for x in author_ids])
+
+    for id in to_remove:
+        aa = session.query(ArticleAuthor)\
+                    .filter(ArticleAuthor.article_id == articleid, ArticleAuthor.person_id == id)\
+                    .first()
+        session.delete(aa)
+    for id in to_add:
+        aa = ArticleAuthor(article_id=articleid, person_id=id)
+        session.add(aa)
 
     session.commit()
 
-    return Response(json.dumps(['OK']))
+    msg = 'Tallennus onnistui'
+    category = 'success'
+    resp = {'feedback': msg, 'category': category}
+    return make_response(jsonify(resp), 200)
 
 
-@app.route ('/save_article_people/', methods=["POST"])
+
+@app.route ('/save_people_to_article/', methods=["POST"])
 @login_required
-def save_article_people() -> Response:
+@admin_required
+def save_people_to_article() -> Response:
 
-    if not 'items' in request.form or 'article' not in request.form:
-        return abort(400)
-
-    articleid = json.loads(request.form['article'])
-
-    if not current_user.is_admin:
-        abort(401)
-
-    people_ids = json.loads(request.form['items'])
-    people_ids = [int(x['id']) for x in people_ids]
+    (articleid, people_ids) = get_select_ids(request.form, 'article')
 
     session = new_session()
 
     existing_people = session.query(ArticlePerson)\
                              .filter(ArticlePerson.article_id == articleid)\
                              .all()
-    if existing_people:
-        for existing in existing_people:
-            if existing.person_id in people_ids:
-                # Exists in db, exists in selection
-                people_ids.remove(existing.person_id)
-            else:
-                # Exists in db, not in selection so remove from db.
-                session.delete(existing)
-    for new_person in people_ids:
-        person = session.query(Person)\
-                        .filter(Person.id == new_person)\
-                        .first()
-        person_article = ArticlePerson(article_id=articleid, person_id=person.id)
-        session.add(person_article)
+    
+    (to_add, to_remove) = get_join_changes([x.person_id for x in existing_people], [int(x['id']) for x in people_ids])
+
+    for id in to_remove:
+        aa = session.query(ArticlePerson)\
+                    .filter(ArticlePerson.article_id == articleid, ArticlePerson.person_id == id)\
+                    .first()
+        session.delete(aa)
+    for id in to_add:
+        aa = ArticlePerson(article_id=articleid, person_id=id)
+        session.add(aa)
 
     session.commit()
 
-    return Response(json.dumps(['OK']))
+    msg = 'Tallennus onnistui'
+    category = 'success'
+    resp = {'feedback': msg, 'category': category}
+    return make_response(jsonify(resp), 200)
+
 
 def create_new_tags(session, tags: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     retval: List[Dict[str, Any]] = []
@@ -276,39 +328,34 @@ def create_new_tags(session, tags: List[Dict[str, Any]]) -> List[Dict[str, Any]]
     
     return retval
 
-@app.route('/save_article_tags/', methods=["POST"])
+@app.route('/save_tags_to_article/', methods=["POST"])
 @login_required
-def save_article_tags() -> Response:
+@admin_required
+def save_tags_to_article() -> Response:
 
-    if not 'items' in request.form or 'article' not in request.form:
-        return abort(400)
-    articleid = json.loads(request.form['article'])
-    if not current_user.is_admin:
-        abort(401)
+    (articleid, tag_ids) = get_select_ids(request.form, 'article')
 
-    tag_ids = json.loads(request.form['items'])
     session = new_session()
     tag_ids = create_new_tags(session, tag_ids)
-
 
     existing_tags = session.query(ArticleTag)\
                              .filter(ArticleTag.article_id == articleid)\
                              .all()
-    if existing_tags:
-        for existing in existing_tags:
-            if existing.tag_id in tag_ids:
-                # Exists in db, exists in selection
-                tag_ids.remove(existing.tag_id)
-            else:
-                # Exists in db, not in selection so remove from db.
-                session.delete(existing)
-    for new_tag in tag_ids:
-        tag = session.query(Tag)\
-                        .filter(Tag.id == new_tag['id'])\
-                        .first()
-        article_tag = ArticleTag(article_id=articleid, tag_id=tag.id)
-        session.add(article_tag)
+    
+    (to_add, to_remove) = get_join_changes([x.tag_id for x in existing_tags], [int(x['id']) for x in tag_ids])
+
+    for id in to_remove:
+        at = session.query(ArticleTag)\
+                    .filter(ArticleTag.article_id == articleid, ArticleTag.tag_id == id)\
+                    .first()
+        session.delete(at)
+    for id in to_add:
+        at = ArticleTag(article_id=articleid, tag_id=id)
+        session.add(at)
 
     session.commit()
 
-    return Response(json.dumps(['OK']))
+    msg = 'Tallennus onnistui'
+    category = 'success'
+    resp = {'feedback': msg, 'category': category}
+    return make_response(jsonify(resp), 200)

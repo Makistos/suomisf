@@ -1,12 +1,16 @@
 #!/usr/bin/python3
 
-from sqlalchemy import create_engine, desc
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine, desc, text
+from sqlalchemy.orm import sessionmaker, joinedload
 from app.orm_decl import (Person, Author, Editor, Translator, Publisher, Work,
                           Edition, Part, Pubseries, Bookseries, User, UserBook, PublicationSize, Tag,
                           PersonTag, CoverType, BindingType, Format, Genre, ShortStory, ArticleTag,
                           WorkGenre)
 from typing import List, Dict, Any, Tuple
+from flask_login import current_user
+from flask import abort
+from functools import wraps
+import json
 
 """
     This module contains the functions related to routes that are not directly
@@ -19,6 +23,15 @@ def new_session():
     Session = sessionmaker(bind=engine)
     session = Session()
     return session
+
+def admin_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if current_user.is_admin:
+            return f(*args, **kwargs)
+        else:
+            abort(401)
+    return wrap
 
 
 def publisher_list(session) -> Dict[str, List[str]]:
@@ -71,6 +84,61 @@ def bookseries_list(session) -> Dict[str, List[str]]:
     return {'bookseries': [str(x.name) for x in
                            session.query(Bookseries).order_by(Bookseries.name).all()]}
 
+def get_select_ids(form, item_field: str = 'itemId') -> Tuple[int, List[Dict[str, str]]]:
+    ''' Read parameters from  a front end request for a select component. 
+
+        Each request has the parent id (work id etc) and a list of item ids 
+        corresponding to the items selected in a select component. This 
+        function parses these fields and returns parent id and a list containing
+        the ids as ints.
+
+        Parameters
+        ----------
+        form        : request.form
+            Form that contains the values.
+        item_field  : str
+            Name for the parent id field. Default: "itemId".
+        
+        Returns
+        -------
+        Tuple[int, List[int]]
+            A tuple of parent id and list of item ids.
+    '''
+    if ('items' not in form or item_field not in form):
+        abort(400)
+
+    parentid = int(json.loads(form[item_field]))
+    items = json.loads(form['items'])
+    #items = {int(x['id']): x['text']} for x in items]
+
+    return(parentid, items)
+
+
+def get_join_changes(existing: List[int], new: List[int]) -> Tuple[List[int], List[int]]:
+    to_add: List[int] = new
+    to_delete: List[int] = []
+
+    if existing:
+        for id in existing:
+            if id in new:
+                to_add.remove(id)
+            else:
+                to_delete.append(id)
+
+    return (to_add, to_delete)
+
+# ArticleTag.article
+def save_join(session, cls: object, *paths) -> None:
+
+    options = [joinedload(path) for path in paths]
+    existing = session.query(cls).options(*options).all()
+    #existing = session.query(cls)\
+    #                  .filter(join1 == itemid)\
+    #                  .all()
+    #(to_add, to_remove) = get_join_changes(x.)
+
+
+    session.commit()
 
 def people_for_book(s, workid, type):
     if type == 'A':

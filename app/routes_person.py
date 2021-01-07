@@ -273,8 +273,15 @@ def select_person() -> Response:
                         .all()
         
         retval['results'] = []
-        for person in people:
-            retval['results'].append({'id': str(person.id), 'text': person.name})
+        #retval: List[Dict[str, str]] = []
+        if people:
+            for person in people:
+                obj: Dict[str, str] = {}
+                obj['id'] = str(person.id)
+                obj['text'] = person.name
+                #retval.append(obj)
+                retval['results'].append({'id': str(person.id), 'text': person.name})
+        app.logger.debug('retval: ' + str(retval))
         return Response(json.dumps(retval))
     else:
         return Response(json.dumps(['']))

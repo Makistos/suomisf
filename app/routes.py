@@ -1,6 +1,6 @@
 from flask import render_template, request, flash, redirect, url_for,\
     make_response, jsonify, Response
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 from app import app
 from app.orm_decl import (Person, Author, Editor, Translator, Work,
                           Edition, Pubseries, Bookseries, User, UserBook, ShortStory, UserPubseries,
@@ -358,6 +358,44 @@ def select_tags() -> Response:
         return Response(json.dumps(retval))
     else:
         return Response(json.dumps(['']))
+
+
+# @app.route('/save_tags_to_article/', methods=["POST", "GET"])
+# @login_required
+# @admin_required
+# def save_tags_to_article():
+#     articleid, tag_ids = get_select_ids(request.form, 'article')
+#     # if ('items' not in request.form or 'article' not in request.form):
+#     #     abort(400)
+
+#     # articleid = json.loads(request.form['article'])
+#     # tag_ids = json.loads(request.form['items'])
+
+#     # tag_ids = [int(x['id']) for x in tag_ids]
+
+#     session = new_session()
+
+#     existing_tags  = session.query(ArticleTag)\
+#                             .filter(ArticleTag.article_id == articleid)\
+#                             .all()
+#     (to_add, to_delete) = get_join_changes([str(x.id) for x in existing_tags], tag_ids)
+
+#     for tag in to_delete:
+#         old_tag = session.query(ArticleTag)\
+#                          .filter(articleid=articleid, tag_id=tag)\
+#                          .first()
+#         session.delete(old_tag)
+        
+#     for tag in to_add:
+#         new_tag = ArticleTag(articleid=articleid, tag_id=tag)
+#         session.add(new_tag)
+
+#     session.commit()
+
+#     msg = 'Tallennus onnistui'
+#     category = 'success'
+#     resp = {'feedback': msg, 'category': category}
+#     return make_response(jsonify(resp), 200)
 
 
 @app.route('/print_books')

@@ -7,20 +7,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   {{ bootstrap.load_css()}}
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap" rel="stylesheet">
+  <link href="/static/css/suomisf.css" rel="stylesheet" />
+  <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jqueryui-editable/css/jqueryui-editable.css"
+    rel="stylesheet" />
   {{ bootstrap.load_js()}}
   <script src="//code.jquery.com/jquery-1.12.4.js"></script>
   <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jqueryui-editable/js/jqueryui-editable.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   {# <link rel="stylesheet" href="/static/css/select2-bootstrap4.css"> #}
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/i18n/fi.js"></script>
-
   <script src="/static/js/ownership.js"></script>
   <script src="/static/js/custom-elements.js"></script>
   {% block styles %}
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap" rel="stylesheet">
-  {{ bootstrap.load_css() }}
-  <link rel="stylesheet" href="/static/css/suomisf.css">
 
   <style type="text/css">
     a.ownerstate:not(:hover) {

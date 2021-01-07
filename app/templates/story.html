@@ -3,22 +3,32 @@
 {% from 'macros.html' import auto_complete %}
 {% from 'macros.html' import modal_button %}
 <div class="container">
-    <div class="card border-primary mb-3" style="width: 720px; margin: 1rem auto">
+    <div class="card border-primary mb-3" >
         <div class="card-header">
+			{% if current_user.is_admin %}
+			<a href="#" id="authors" data-type="select2" data-pk="{{story.id}}" data-value="{{authors|map(attribute='id')|join(', ')}}">{{authors|map(attribute='name')|join(', ')}}</a>
+			{% else %}
             <span class="person-list">{{ authors|map(attribute='name')|join(', ') }}</span>
+            {% endif %}
         </div>
 
         <div class="card-body">
             <h3 class="card-title">
-                {{ story.title }}
                 {% if current_user.is_admin %}
-                ({{ story.id }})
+                <a href="#" id="title" data-type="text" data-pk="{{story.id}}" data-url="/save_story_title" data-title="Nimi">{{story.title}}</a>
+                {% else %}
+                {{ story.title }}
                 {% endif %}
             </h3>
             <div class="col">
+                {% if current_user.is_admin %}
+                <a href="#" id="orig_title" data-type="text" data-pk="{{story.id}}" data-url="/save_story_orig_title" data-title="Alkup. nimi">{{story.orig_title}}</a>,
+                <a href="#" id="pubyear" data-type="text" data-pk="{{story.pubyear}}" data-url="/save_story_pubyear" data-title="Julk.vuosi">{{story.pubyear}}</a>
+                {% else %}
                 {% if story.title != story.orig_title %}
                 {{ story.orig_title }}
                 {%- if story.pubyear -%}, {{  story.pubyear }}{% endif %}
+                {% endif %}
                 {% endif %}
             </div>
             <div class="col container col-lg-4 justify-content-end
@@ -114,5 +124,80 @@
         </div>
         {% endif %}
     </div>
-    {{ auto_complete("author", "/autocomp_person")}}
+    </div>
+    <script type="text/javascript">
+		var storyid = '{{story.id}}'
+        $.fn.editable.defaults.mode = 'inline';
+
+        $(document).ready(function() {
+            $('#authors').editable( {
+                type: 'select2',
+                url: '/save_story_authors',
+                pk: storyid,
+                onblur: 'submit',
+                emptytext: 'None',
+                viewseparator: ', ',
+                id: function(e) {
+                    return e[0]['id'];
+                },
+                select2: {
+                    width: '250px',
+                    minimumInputLength: 1,
+                    ajax: {
+                        url: '/select_person',
+                        datatype: 'json',
+                        delay: 250,
+                        //multiple: true,
+                        // data: function(params) {
+                        //     return {
+                        //         query: params.term
+                        //     }
+                        // },
+                        // results: function(data, page) {
+                        //     return { results: data}
+                        // },
+                        tags: false,
+                    },
+                    initSelection: function (element, callback) {
+                        return $.get('/people_for_story', { query: element[0]['text'] }, function(data) {
+                            callback(data);
+                        }, 'json')
+                    },
+                    formatResult: function(people) {
+                        return people[0]['text'];
+                    },
+                    formatSelection: function(people) {
+                        return people[0]['text'];
+                    }
+                }
+            });
+            $('#title').editable();
+            $('#orig_title').editable();
+            $('#pubyear').editable();
+        });
+
+    // $.mockjax({
+    //     url: '/select_person',
+    //     responseTime: 400,
+    //     response: function (settings) {
+    //         var res = [];
+    //         for (var i = 1; i < 5; i++) {
+    //             res.push({
+    //                 id: i,
+    //                 text: 'cla' + i
+    //             });
+    //         }
+    //         this.responseText = res;
+    //     }
+    // }); 
+    // $.mockjax({
+    //     url: '/people_for_story',
+    //     responseTime: 100,
+    //     responseText: {
+    //         EmployeeId: 1,
+    //         EmployeeName: 'found by ID'
+    //     }
+    // }); 
+    </script>
+    {# {{ auto_complete("author", "/autocomp_person")}} #}
     {% endblock %}
