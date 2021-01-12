@@ -247,12 +247,12 @@ def remove_link_from_article(session, linkid):
 def update_article_creators(session, articleid):
     pass
 
-@app.route('/save_authors_to_article/', methods=["POST", "GET"])
+@app.route('/save_authors_to_article', methods=["POST", "GET"])
 @login_required
 @admin_required
 def save_authors_to_article() -> Response:
 
-    (articleid, author_ids) = get_select_ids(request.form, 'article')
+    (articleid, author_ids) = get_select_ids(request.form)
 
     session = new_session()
     
@@ -280,12 +280,12 @@ def save_authors_to_article() -> Response:
 
 
 
-@app.route ('/save_people_to_article/', methods=["POST"])
+@app.route ('/save_people_to_article', methods=["POST"])
 @login_required
 @admin_required
 def save_people_to_article() -> Response:
 
-    (articleid, people_ids) = get_select_ids(request.form, 'article')
+    (articleid, people_ids) = get_select_ids(request.form)
 
     session = new_session()
 
@@ -328,7 +328,7 @@ def create_new_tags(session, tags: List[Dict[str, Any]]) -> List[Dict[str, Any]]
     
     return retval
 
-@app.route('/save_tags_to_article/', methods=["POST"])
+@app.route('/save_tags_to_article', methods=["POST"])
 @login_required
 @admin_required
 def save_tags_to_article() -> Response:
@@ -359,3 +359,42 @@ def save_tags_to_article() -> Response:
     category = 'success'
     resp = {'feedback': msg, 'category': category}
     return make_response(jsonify(resp), 200)
+
+
+@app.route('/authors_for_article/<articleid>')
+def authors_for_article(articleid):
+    session = new_session()
+    people = session.query(Person)\
+                    .join(ArticleAuthor)\
+                    .filter(Person.id == ArticleAuthor.person_id)\
+                    .filter(ArticleAuthor.article_id == articleid)\
+                    .all()
+
+    retval: List[Dict[str, str]]  = []
+    if people:
+        for person in people:
+            obj: Dict[str, str] = {}
+            obj['id'] = str(person.id)
+            obj['text'] = person.name
+            retval.append(obj)
+
+    return Response(json.dumps(retval))
+
+@app.route('/people_for_article/<articleid>')
+def people_for_article(articleid):
+    session = new_session()
+    people = session.query(Person)\
+                    .join(ArticlePerson)\
+                    .filter(Person.id == ArticlePerson.person_id)\
+                    .filter(ArticlePerson.article_id == articleid)\
+                    .all()
+
+    retval: List[Dict[str, str]]  = []
+    if people:
+        for person in people:
+            obj: Dict[str, str] = {}
+            obj['id'] = str(person.id)
+            obj['text'] = person.name
+            retval.append(obj)
+
+    return Response(json.dumps(retval))

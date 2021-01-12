@@ -35,6 +35,10 @@ h3 .form-control {
   margin-top: 0;
 }
 
+.small-form-field {
+  border: none !important;
+}
+
 .edit-field {
   margin-left: auto;
   margin-right: auto;

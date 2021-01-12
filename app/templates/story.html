@@ -1,45 +1,77 @@
 {% extends "base.html" %}
 {% block content %}
-{% from 'macros.html' import auto_complete %}
-{% from 'macros.html' import modal_button %}
+<form method="post" id="articleForm" action="/story" enctype="text/plain">
+	<input type="hidden" name="csrf_token" value="{{csrf_token}}"/>
+
 <div class="container">
     <div class="card border-primary mb-3" >
         <div class="card-header">
-			{% if current_user.is_admin %}
-			<a href="#" id="authors" data-type="select2" data-pk="{{story.id}}" data-value="{{authors|map(attribute='id')|join(', ')}}">{{authors|map(attribute='name')|join(', ')}}</a>
-			{% else %}
-            <span class="person-list">{{ authors|map(attribute='name')|join(', ') }}</span>
+            {% if current_user.is_admin %}
+            <div class="edit-field">
+                <select class="author-selector form-control" multiple="multiple" data-placeholder="Kirjoittajat"
+                data-search="/select_person" data-save="/save_authors_to_story" data-init="/authors_for_story" data-name="authors"></select>
+            </div>
             {% endif %}
+            <div class="view-field">
+            <span class="person-list">{{ authors|map(attribute='name')|join(', ') }}</span>
+            </div>
         </div>
 
         <div class="card-body">
             <h3 class="card-title">
                 {% if current_user.is_admin %}
-                <a href="#" id="title" data-type="text" data-pk="{{story.id}}" data-url="/save_story_title" data-title="Nimi">{{story.title}}</a>
+                <input type="text" class="form-control" onblur="saveArticleForm()" id="title" value="{{story.title}}">
                 {% else %}
                 {{ story.title }}
                 {% endif %}
             </h3>
             <div class="col">
                 {% if current_user.is_admin %}
-                <a href="#" id="orig_title" data-type="text" data-pk="{{story.id}}" data-url="/save_story_orig_title" data-title="Alkup. nimi">{{story.orig_title}}</a>,
-                <a href="#" id="pubyear" data-type="text" data-pk="{{story.pubyear}}" data-url="/save_story_pubyear" data-title="Julk.vuosi">{{story.pubyear}}</a>
+                <div class="edit-field">
+                    <label for="orig_title">
+                        Alkup. nimi
+                        <input type="text" width="70%" class="form-control" onblur="saveArticleForm()" id="orig_title" value="{{story.orig_title}}">
+                    </label>
+                    <label for="pubyear">
+                        Julkaisuvuosi
+                        <input type="text" width="20%" class="form-control" onblur="saveArticleForm()"  id="pubyear" value="{{story.pubyear}}">
+                    </label>
+                </div>
                 {% else %}
+                <div class="view-field">
                 {% if story.title != story.orig_title %}
                 {{ story.orig_title }}
                 {%- if story.pubyear -%}, {{  story.pubyear }}{% endif %}
                 {% endif %}
+                </div>
                 {% endif %}
             </div>
             <div class="col container col-lg-4 justify-content-end
-			justify-content-center align-middle">
-                {% for genre in story.genres %}
-                <li class="list-inline-item" style="padding-bottom:
-				   1rem;"><img src="/static/icons/{{genre.abbr}}_32.png"></li>
-                {% endfor %}
-                {% for tag in story.tags %}
-                <a href="{{ url_for('tag', tagid=tag.id)}}">{{ tag.name }}</a>
-                {% endfor %}
+            justify-content-center align-middle">
+            <div class="row">
+            {% if current_user.is_admin %}
+                <div class="edit-field">
+                    <label for="genres">
+                        Genret
+                    <select class="genre-selector" multiple="multiple" data-placeholder="Genret"
+                    data_search="/select_genre" data-save="/save_genres_to_story" data-init="/genres_for_story" data-name="genres" id="genres"></select>
+                    </label>
+                    <label for="tags">
+                        Asiasanat
+                    <select class="tag-selector" multiple="multiple" data-placeholder="Asiasanat"
+                    data_search="/select_tag" data-save="/save_tags_to_story" data-init="/tags_for_story" data-name="tags" id="tags"></select>
+                    </label>
+                </div>
+            {% endif %}
+                <div class="view-field">
+                    {% for genre in story.genres %}
+                    <li class="list-inline-item" style="padding-bottom:
+                    1rem;"><img src="/static/icons/{{genre.abbr}}_32.png"></li>
+                    {% endfor %}
+                    {% for tag in story.tags %}
+                    <a href="{{ url_for('tag', tagid=tag.id)}}">{{ tag.name }}</a>
+                    {% endfor %}
+                </div>
             </div>
         </div>
 
@@ -75,8 +107,9 @@
         {% if current_user.is_admin %}
 
         <div id="admin" aria-labelledby="headAdmin" data-parent="#workCard">
-            <a href="{{url_for('edit_story', id=story.id)}}">Muokkaa</a><br>
-            {{ modal_button("editAuthors", "Muokkaa kirjoittajia")}}
+				<li class="list-group-item">
+					<input type="checkbox" id="edit_form" name="edit_form">
+					<label for="edit_form">Muokkaa</label>
 
         </div>
 
@@ -125,79 +158,11 @@
         {% endif %}
     </div>
     </div>
+</form>
+{% block script %}
     <script type="text/javascript">
-		var storyid = '{{story.id}}'
-        $.fn.editable.defaults.mode = 'inline';
-
-        $(document).ready(function() {
-            $('#authors').editable( {
-                type: 'select2',
-                url: '/save_story_authors',
-                pk: storyid,
-                onblur: 'submit',
-                emptytext: 'None',
-                viewseparator: ', ',
-                id: function(e) {
-                    return e[0]['id'];
-                },
-                select2: {
-                    width: '250px',
-                    minimumInputLength: 1,
-                    ajax: {
-                        url: '/select_person',
-                        datatype: 'json',
-                        delay: 250,
-                        //multiple: true,
-                        // data: function(params) {
-                        //     return {
-                        //         query: params.term
-                        //     }
-                        // },
-                        // results: function(data, page) {
-                        //     return { results: data}
-                        // },
-                        tags: false,
-                    },
-                    initSelection: function (element, callback) {
-                        return $.get('/people_for_story', { query: element[0]['text'] }, function(data) {
-                            callback(data);
-                        }, 'json')
-                    },
-                    formatResult: function(people) {
-                        return people[0]['text'];
-                    },
-                    formatSelection: function(people) {
-                        return people[0]['text'];
-                    }
-                }
-            });
-            $('#title').editable();
-            $('#orig_title').editable();
-            $('#pubyear').editable();
-        });
-
-    // $.mockjax({
-    //     url: '/select_person',
-    //     responseTime: 400,
-    //     response: function (settings) {
-    //         var res = [];
-    //         for (var i = 1; i < 5; i++) {
-    //             res.push({
-    //                 id: i,
-    //                 text: 'cla' + i
-    //             });
-    //         }
-    //         this.responseText = res;
-    //     }
-    // }); 
-    // $.mockjax({
-    //     url: '/people_for_story',
-    //     responseTime: 100,
-    //     responseText: {
-    //         EmployeeId: 1,
-    //         EmployeeName: 'found by ID'
-    //     }
-    // }); 
+        var itemId = '{{story.id}}'
     </script>
-    {# {{ auto_complete("author", "/autocomp_person")}} #}
+	<script src="/static/js/forms.js" type="text/javascript"></script>
+    {% endblock %}
     {% endblock %}
