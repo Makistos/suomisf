@@ -101,14 +101,14 @@
 			var input_field = document.getElementById('edit_form');
 			for (var i = 0; i < view_elements.length; i++) {
 				if (input_field.checked) {
-					edit_elements.setAttribute('disabled', false);
-					//view_elements[i].style.display = "none";
-					//edit_elements[i].style.display = "block";
+					//edit_elements.setAttribute('disabled', false);
+					view_elements[i].style.display = "none";
+					edit_elements[i].style.display = "block";
 				} else {
 					location.reload();
-					edit_elements.setAttribute('disabled', false);
-					//view_elements[i].style.display = "block";
-					//edit_elements[i].style.display = "none";
+					//edit_elements.setAttribute('disabled', false);
+					view_elements[i].style.display = "block";
+					edit_elements[i].style.display = "none";
 				}
 			}
 		});
