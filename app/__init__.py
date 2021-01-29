@@ -1,13 +1,16 @@
 import logging
-from logging.handlers import RotatingFileHandler
-from flask import Flask
-from config import Config
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-from flask_bootstrap import Bootstrap
-from flask_login import LoginManager
 #from flask_debugtoolbar import DebugToolbarExtension
 import os
+from logging.handlers import RotatingFileHandler
+
+from config import Config
+from flask import Flask
+from flask_bootstrap import Bootstrap
+from flask_login import LoginManager
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
+
+#from flask_wtf.csrf import CSRFProtect
 
 app = Flask(__name__)
 app.static_folder = 'static'
@@ -19,11 +22,15 @@ bootstrap = Bootstrap(app)
 app.debug = True
 app.jinja_env.lstrip_blocks = True
 app.jinja_env.trim_blocks = True
+#csrf = CSRFProtect(app)
+WTF_CSRF_CHECK_DEFAULT = False
+
+# This has to be here, not at the top of application won't start!
+from app import (orm_decl, routes, routes_article, routes_books,
+                 routes_editions, routes_issue, routes_magazine, routes_person,
+                 routes_publisher, routes_series, routes_stories, routes_works)
 
 #toolbar = DebugToolbarExtension(app)
-from app import (routes, routes_books, routes_works, routes_editions, routes_stories, routes_issue,
-                 routes_person, routes_publisher, routes_article, orm_decl, routes_series, routes_magazine)
-
 
 if not app.debug and not app.testing:
     if app.config['LOG_TO_STDOUT']:

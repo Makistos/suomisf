@@ -1,17 +1,20 @@
 import logging
 
-from flask import redirect, render_template, request, url_for
+from flask import redirect, render_template, request, url_for, Response
 
 from app import app
 from app.forms import PublisherForm
-from app.orm_decl import (Publisher, PublisherLink)
+from app.orm_decl import (Publisher, PublisherLink, Edition, Pubseries, Genre,
+                          Part, Work)
 from sqlalchemy import func
+from typing import Any, Dict, List
+import json
 
 from .route_helpers import *
 
 
 @app.route('/publishers')
-def publishers():
+def publishers() -> Any:
     session = new_session()
     publishers = session.query(Publisher)\
                         .order_by(Publisher.name)\
@@ -20,7 +23,7 @@ def publishers():
 
 
 @app.route('/publisher/<pubid>')
-def publisher(pubid):
+def publisher(pubid: Any) -> Any:
     session = new_session()
     publisher = session.query(Publisher).filter(Publisher.id == pubid).first()
     book_count = session.query(Edition)\
@@ -64,7 +67,7 @@ def publisher(pubid):
 
 
 @app.route('/new_publisher', methods=['GET', 'POST'])
-def new_publisher():
+def new_publisher() -> Any:
     form = PublisherForm()
     session = new_session()
     if form.validate_on_submit():
@@ -73,3 +76,24 @@ def new_publisher():
         session.commit()
         return redirect(url_for('publisher', pubid=publisher.id))
     return render_template('new_publisher.html', form=form)
+
+
+@app.route('/select_publisher', methods=['GET'])
+def select_publisher() -> Response:
+    search = request.args['q']
+    session = new_session()
+
+    if search:
+        retval: Dict[str, List[Dict[str, Any]]] = {}
+        publishers = session.query(Publisher)\
+                            .filter(Publisher.name.ilike('%' + search + '%'))\
+                            .order_by(Publisher.name)\
+                            .all()
+
+        retval['results'] = []
+        if publishers:
+            for pub in publishers:
+                retval['results'].append({'id': pub.id, 'text': pub.name})
+        return Response(json.dumps(retval))
+    else:
+        return Response(json.dumps(['']))

@@ -1,7 +1,9 @@
 import logging
 
-from flask import (redirect, render_template, request, url_for, Response, session, abort, make_response, jsonify)
+from flask import (redirect, render_template, request, url_for,
+                   Response, session, abort, make_response, jsonify)
 from flask_login import login_required, current_user
+from flask_wtf import csrf
 from app import app
 from app.forms import ArticleForm
 from app.orm_decl import (Article, ArticleAuthor, ArticleLink, ArticlePerson,
@@ -9,6 +11,7 @@ from app.orm_decl import (Article, ArticleAuthor, ArticleLink, ArticlePerson,
 
 from .route_helpers import *
 import json
+from typing import List, Dict, Any
 
 # @app.route('/article/<id>', methods=['GET'])
 # def article(id):
@@ -32,15 +35,16 @@ import json
 
 #     if request.method == 'GET':
 #         form.title.data = article.title
-    
+
 #     return render_template('article.html',
 #                            article=article,
 #                            authors=authors,
 #                            people=people,
 #                            form=form)
 
+
 @app.route('/article/<id>', methods=['POST', 'GET'])
-def article(id):
+def article(id: Any) -> Any:
     session = new_session()
 
     article = session.query(Article)\
@@ -62,32 +66,29 @@ def article(id):
 
     form = ArticleForm(request.form)
 
-    if request.method == 'POST' and request.form:
-        article.title = request.form['title']
+    if request.method == 'GET':
+        form.id.data = article.id
+        form.title.data = article.title
+
+    elif form.validate_on_submit():
+        article.title = form.title.data
         session.add(article)
         session.commit()
-        msg = 'Tallennus onnistui'
-        category = 'success'
-        resp = {'feedback': msg, 'category': category}
-        return make_response(jsonify(resp), 200)
-
-    elif request.method == 'GET':
-        form.title.data = article.title
-    
-        return render_template('article.html',
-                            article=article,
-                            authors=authors,
-                            people=people,
-                            links=links,
-                            form=form)
     else:
-        return make_response(jsonify(resp), 200)
+        app.logger.debug("Errors: {}".format(form.errors))
+        print("Errors: {}".format(form.errors))
 
+    return render_template('article.html',
+                           article=article,
+                           authors=authors,
+                           people=people,
+                           links=links,
+                           form=form)
 
 
 @app.route('/edit_article/<id>', methods=['GET', 'POST'])
-@login_required
-def edit_article(id):
+@login_required  # type: ignore
+def edit_article(id: Any) -> Any:
     if not current_user.is_admin:
         abort(401)
 
@@ -128,7 +129,7 @@ def edit_article(id):
     else:
         app.logger.debug('Errors: {}'.format(form.errors))
 
-    return render_template('article.html', 
+    return render_template('article.html',
                            form=form,
                            article=article,
                            authors=authors,
@@ -137,7 +138,7 @@ def edit_article(id):
 
 
 @app.route('/add_article/<article_id>/<issue_id>')
-@login_required
+@login_required  # type: ignore
 def add_article(article_id, issue_id):
     if not current_user.is_admin:
         abort(401)
@@ -197,9 +198,9 @@ def remove_author_from_article(session, articleid, authorname):
     if author:
         session.delete(author)
         session.commit()
-    
 
-@login_required
+
+@login_required  # type: ignore
 @admin_required
 def save_person_to_article(session, articleid, personname):
 
@@ -211,7 +212,7 @@ def save_person_to_article(session, articleid, personname):
         pers = ArticlePerson(article_id=articleid, person_id=person.id)
         session.add(pers)
         session.commit()
-    
+
 
 def remove_person_from_article(session, articleid, personname):
     if not current_user.is_admin:
@@ -230,7 +231,8 @@ def remove_person_from_article(session, articleid, personname):
 
 
 def add_link_to_article(session, articleid, form):
-    link = ArticleLink(article_id=articleid, link=form.link.data, description=form.description.data)
+    link = ArticleLink(article_id=articleid, link=form.link.data,
+                       description=form.description.data)
 
     session.add(link)
     session.commit()
@@ -247,20 +249,22 @@ def remove_link_from_article(session, linkid):
 def update_article_creators(session, articleid):
     pass
 
+
 @app.route('/save_authors_to_article', methods=["POST", "GET"])
-@login_required
+@login_required  # type: ignore
 @admin_required
-def save_authors_to_article() -> Response:
+def save_authors_to_article() -> Any:
 
     (articleid, author_ids) = get_select_ids(request.form)
 
     session = new_session()
-    
+
     existing_people = session.query(ArticleAuthor)\
                              .filter(ArticleAuthor.article_id == articleid)\
                              .all()
 
-    (to_add, to_remove) = get_join_changes([x.person_id for x in existing_people], [int(x['id']) for x in author_ids])
+    (to_add, to_remove) = get_join_changes(
+        [x.person_id for x in existing_people], [int(x['id']) for x in author_ids])
 
     for id in to_remove:
         aa = session.query(ArticleAuthor)\
@@ -279,11 +283,10 @@ def save_authors_to_article() -> Response:
     return make_response(jsonify(resp), 200)
 
 
-
-@app.route ('/save_people_to_article', methods=["POST"])
-@login_required
+@app.route('/save_people_to_article', methods=["POST"])
+@login_required  # type: ignore
 @admin_required
-def save_people_to_article() -> Response:
+def save_people_to_article() -> Any:
 
     (articleid, people_ids) = get_select_ids(request.form)
 
@@ -292,8 +295,9 @@ def save_people_to_article() -> Response:
     existing_people = session.query(ArticlePerson)\
                              .filter(ArticlePerson.article_id == articleid)\
                              .all()
-    
-    (to_add, to_remove) = get_join_changes([x.person_id for x in existing_people], [int(x['id']) for x in people_ids])
+
+    (to_add, to_remove) = get_join_changes(
+        [x.person_id for x in existing_people], [int(x['id']) for x in people_ids])
 
     for id in to_remove:
         aa = session.query(ArticlePerson)\
@@ -312,7 +316,7 @@ def save_people_to_article() -> Response:
     return make_response(jsonify(resp), 200)
 
 
-def create_new_tags(session, tags: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+def create_new_tags(session: Any, tags: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     retval: List[Dict[str, Any]] = []
 
     for tag in tags:
@@ -325,24 +329,26 @@ def create_new_tags(session, tags: List[Dict[str, Any]]) -> List[Dict[str, Any]]
             id = new_tag.id
             name = new_tag.name
         retval.append({'id': id, 'text': name})
-    
+
     return retval
 
-@app.route('/save_tags_to_article', methods=["POST"])
-@login_required
-@admin_required
-def save_tags_to_article() -> Response:
 
-    (articleid, tag_ids) = get_select_ids(request.form, 'article')
+@app.route('/save_tags_to_article', methods=["POST"])
+@login_required  # type: ignore
+@admin_required
+def save_tags_to_article() -> Any:
+
+    (articleid, tag_ids) = get_select_ids(request.form)
 
     session = new_session()
     tag_ids = create_new_tags(session, tag_ids)
 
     existing_tags = session.query(ArticleTag)\
-                             .filter(ArticleTag.article_id == articleid)\
-                             .all()
-    
-    (to_add, to_remove) = get_join_changes([x.tag_id for x in existing_tags], [int(x['id']) for x in tag_ids])
+        .filter(ArticleTag.article_id == articleid)\
+        .all()
+
+    (to_add, to_remove) = get_join_changes(
+        [x.tag_id for x in existing_tags], [int(x['id']) for x in tag_ids])
 
     for id in to_remove:
         at = session.query(ArticleTag)\
@@ -362,7 +368,7 @@ def save_tags_to_article() -> Response:
 
 
 @app.route('/authors_for_article/<articleid>')
-def authors_for_article(articleid):
+def authors_for_article(articleid: Any) -> Any:
     session = new_session()
     people = session.query(Person)\
                     .join(ArticleAuthor)\
@@ -370,7 +376,7 @@ def authors_for_article(articleid):
                     .filter(ArticleAuthor.article_id == articleid)\
                     .all()
 
-    retval: List[Dict[str, str]]  = []
+    retval: List[Dict[str, str]] = []
     if people:
         for person in people:
             obj: Dict[str, str] = {}
@@ -380,8 +386,9 @@ def authors_for_article(articleid):
 
     return Response(json.dumps(retval))
 
+
 @app.route('/people_for_article/<articleid>')
-def people_for_article(articleid):
+def people_for_article(articleid: Any) -> Any:
     session = new_session()
     people = session.query(Person)\
                     .join(ArticlePerson)\
@@ -389,7 +396,7 @@ def people_for_article(articleid):
                     .filter(ArticlePerson.article_id == articleid)\
                     .all()
 
-    retval: List[Dict[str, str]]  = []
+    retval: List[Dict[str, str]] = []
     if people:
         for person in people:
             obj: Dict[str, str] = {}

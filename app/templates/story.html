@@ -20,7 +20,8 @@
         <div class="card-body">
             <h3 class="card-title">
                 {% if current_user.is_admin %}
-                <input type="text" class="form-control" onblur="saveArticleForm()" id="title" value="{{story.title}}">
+                   <input type="text" class="form-control" onblur="saveArticleForm()"
+                 id="title" value="{{story.title}}">
                 {% else %}
                 {{ story.title }}
                 {% endif %}
@@ -30,11 +31,15 @@
                 <div class="edit-field">
                     <label for="orig_title">
                         Alkup. nimi
-                        <input type="text" width="70%" class="form-control" onblur="saveArticleForm()" id="orig_title" value="{{story.orig_title}}">
+                        <input type="text" width="70%" class="form-control"
+                         onblur="saveArticleForm()" id="orig_title"
+                         value="{{story.orig_title}}">
                     </label>
                     <label for="pubyear">
                         Julkaisuvuosi
-                        <input type="text" width="20%" class="form-control" onblur="saveArticleForm()"  id="pubyear" value="{{story.pubyear}}">
+                        <input type="text" width="20%" class="form-control"
+                         onblur="saveArticleForm()"  id="pubyear"
+                         value="{{story.pubyear}}">
                     </label>
                 </div>
                 {% else %}

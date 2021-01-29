@@ -5,7 +5,7 @@ from app import app
 from app.orm_decl import (Person, Author, Editor, Translator, Work,
                           Edition, Pubseries, Bookseries, User, UserBook, ShortStory, UserPubseries,
                           Alias, Genre, WorkGenre, Tag, Award, AwardCategory, Awarded,
-                          Magazine, Issue, PublicationSize)
+                          Magazine, Issue, PublicationSize, Publisher, Part, ArticleTag)
 from sqlalchemy import create_engine, desc, func
 from sqlalchemy.orm import sessionmaker
 from app.forms import (LoginForm, RegistrationForm,
@@ -18,6 +18,7 @@ import json
 import logging
 import pprint
 import urllib
+from typing import Dict, List, Any
 
 
 @app.route('/')
@@ -199,7 +200,6 @@ def stats():
                            countries=countries)
 
 
-
 @app.route('/user/<userid>')
 def user(userid):
     session = new_session()
@@ -270,7 +270,6 @@ def remove_from_owned(bookid):
     return ""
 
 
-
 @app.route('/magazines')
 def magazines():
     session = new_session()
@@ -280,7 +279,6 @@ def magazines():
                        .all()
 
     return render_template('magazines.html', magazines=magazines)
-
 
 
 # Miscellaneous routes
@@ -310,16 +308,17 @@ def tag(tagid):
 
     return render_template('tag.html', tag=tag)
 
+
 @app.route('/tags_for_article/<articleid>')
 def tags_for_article(articleid) -> Response:
     session = new_session()
     tags = session.query(Tag)\
-                    .join(ArticleTag)\
-                    .filter(Tag.id == ArticleTag.tag_id)\
-                    .filter(ArticleTag.article_id == articleid)\
-                    .all()
+        .join(ArticleTag)\
+        .filter(Tag.id == ArticleTag.tag_id)\
+        .filter(ArticleTag.article_id == articleid)\
+        .all()
 
-    retval: List[Dict[str, str]]  = []
+    retval: List[Dict[str, str]] = []
     if tags:
         for tag in tags:
             obj: Dict[str, str] = {}
@@ -327,6 +326,7 @@ def tags_for_article(articleid) -> Response:
             obj['text'] = tag.name
             retval.append(obj)
     return Response(json.dumps(retval))
+
 
 @app.route('/create_tag/<tagname>', methods=["GET"])
 def create_tag(tagname) -> Response:
@@ -336,7 +336,7 @@ def create_tag(tagname) -> Response:
     tag = Tag(name=tagname)
     session.add(tag)
     session.commit()
-    
+
     return Response(json.dumps([tag.id]))
 
 
@@ -348,10 +348,10 @@ def select_tags() -> Response:
     if search:
         retval: Dict[str, List[Dict[str, Any]]] = {}
         tags = session.query(Tag)\
-                        .filter(Tag.name.ilike('%' + search + '%'))\
-                        .order_by(Tag.name)\
-                        .all()
-        
+            .filter(Tag.name.ilike('%' + search + '%'))\
+            .order_by(Tag.name)\
+            .all()
+
         retval['results'] = []
         for tag in tags:
             retval['results'].append({'id': str(tag.id), 'text': tag.name})
@@ -385,7 +385,7 @@ def select_tags() -> Response:
 #                          .filter(articleid=articleid, tag_id=tag)\
 #                          .first()
 #         session.delete(old_tag)
-        
+
 #     for tag in to_add:
 #         new_tag = ArticleTag(articleid=articleid, tag_id=tag)
 #         session.add(new_tag)
@@ -546,7 +546,7 @@ def search():
 
 
 @app.route('/search_form', methods=["POST", "GET"])
-def search_form():
+def search_form() -> Any:
     session = new_session()
 
     form = SearchForm(request.form)
@@ -683,8 +683,6 @@ def missing_nationality():
     return render_template('people.html', people=missing)
 
 
-
-
 # Routes for auto complete functionality in forms
 
 @app.route('/autocomp_story', methods=['POST'])
@@ -773,5 +771,35 @@ def autocomp_edition() -> Response:
             .order_by(Edition.title)\
             .all()
         return Response(json.dumps([x.title for x in editions]))
+    else:
+        return Response(json.dumps(['']))
+
+
+# @app.route('/select_size', methods=['GET'])
+# def select_size() -> Response:
+#     search = request.args['q']
+#     session = new_session()
+
+#     if search:
+#         retval: Dict[str, List[Dict[str, Any]]] = {}
+#         sizes = session.query(PublicationSize)\
+
+@app.route('/select_pubseries', methods=['GET'])
+def select_pubseries() -> Response:
+    search = request.args['q']
+    session = new_session()
+
+    if search:
+        retval: Dict[str, List[Dict[str, Any]]] = {}
+        pubseries = session.query(Pubseries)\
+                           .filter(Pubseries.name.ilike('%' + search + '%'))\
+                           .order_by(Pubseries.name)\
+                           .first()
+
+        retval['results'] = []
+        if pubseries:
+            retval['results'].append(
+                {'id': pubseries.id, 'text': pubseries.name})
+        return Response(json.dumps(retval))
     else:
         return Response(json.dumps(['']))

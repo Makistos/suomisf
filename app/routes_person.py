@@ -5,18 +5,18 @@ from flask_login import current_user, login_user, logout_user
 
 from app import app
 from app.forms import PersonForm
-from app.orm_decl import (Person, PersonTag, Author, Translator, Editor, 
-                          Part, Work, Edition, Genre, Awarded, ArticlePerson, 
+from app.orm_decl import (Person, PersonTag, Author, Translator, Editor,
+                          Part, Work, Edition, Genre, Awarded, ArticlePerson,
                           ArticleAuthor)
 from sqlalchemy import func
-
+from typing import Dict
 from .route_helpers import *
 import urllib
 import json
 
 
 @app.route('/people')
-def people():
+def people() -> Any:
     session = new_session()
     people = session.query(Person).order_by(Person.name).all()
     letters = sorted(set([x.name[0].upper() for x in people if x.name != '']))
@@ -26,7 +26,7 @@ def people():
 
 
 @app.route('/authors')
-def authors():
+def authors() -> Any:
     session = new_session()
     people = session.query(Person)\
                     .join(Author)\
@@ -233,6 +233,7 @@ def new_person():
         app.logger.debug("Errors: {}".format(form.errors))
     return render_template('edit_person.html', form=form, personid=person.id)
 
+
 @app.route('/people_by_nationality/<nationality>')
 def people_by_nationality(nationality: str):
     session = new_session()
@@ -242,6 +243,7 @@ def people_by_nationality(nationality: str):
 
     return render_template('people.html', people=people,
                            header=nationality)
+
 
 @app.route('/autocomp_person', methods=['POST', 'GET'])
 def autocomp_person() -> Response:
@@ -271,16 +273,12 @@ def select_person() -> Response:
                         .filter(Person.name.ilike('%' + search + '%'))\
                         .order_by(Person.name)\
                         .all()
-        
+
         retval['results'] = []
-        #retval: List[Dict[str, str]] = []
         if people:
             for person in people:
-                obj: Dict[str, str] = {}
-                obj['id'] = str(person.id)
-                obj['text'] = person.name
-                #retval.append(obj)
-                retval['results'].append({'id': str(person.id), 'text': person.name})
+                retval['results'].append(
+                    {'id': str(person.id), 'text': person.name})
         app.logger.debug('retval: ' + str(retval))
         return Response(json.dumps(retval))
     else:

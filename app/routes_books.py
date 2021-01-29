@@ -2,7 +2,7 @@ from app import app
 from flask import Flask
 from app.orm_decl import (Person, Author, Editor, Translator, Publisher, Work,
                           Edition, Pubseries, Bookseries, User, UserBook, Genre,
-                          ShortStory, WorkGenre, Issue, IssueContent)
+                          ShortStory, WorkGenre, Issue, IssueContent, Part)
 from flask import render_template, request, flash, redirect, url_for, make_response
 from app.forms import (WorkForm, EditionForm, WorkAuthorForm, WorkStoryForm, StoryForm,
                        EditionEditorForm, EditionTranslatorForm)
@@ -11,8 +11,6 @@ from typing import List, Dict
 from sqlalchemy import func, distinct
 
 # Book related routes
-
-
 
 
 @app.route('/books/lang')
@@ -166,12 +164,6 @@ def anthologies():
     anthologies = session.query(Work).filter(Work.collection == 1).all()
 
     return render_template('books.html', works=anthologies)
-
-
-
-
-
-
 
 
 @app.route('/part_delete/<partid>', methods=["POST", "GET"])

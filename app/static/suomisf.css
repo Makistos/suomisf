@@ -1,34 +1,39 @@
 a.invisible {
-	opacity: 0;
+  opacity: 0;
 }
 a.invisible:hover {
-	opacity: 1;
+  opacity: 1;
 }
 
 div.edition-list {
-	margin-bottom: 10px;
-	margin-left: 25px;
+  margin-bottom: 10px;
+  margin-left: 25px;
 }
 
 div.three-column {
-	column-count: 3;
+  column-count: 3;
 }
 
 .form-control {
   border: 0;
   box-shadow: none;
+  width: auto;
 }
 
+.form-control-inline {
+  border: 0;
+  box-shadow: none;
+}
 /*div.small-link {
 	a.font-size: 50%;
 	a.bgcolor: grey;
 }*/
 
-
-body {font-family: Arial, Helvetica, sans-serif;}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
 
 /* The Modal (background) */
-
 
 /* Modal Content */
 
@@ -40,7 +45,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
   -webkit-animation-name: slideIn;
   -webkit-animation-duration: 0.4s;
   animation-name: slideIn;
-  animation-duration: 0.4s
+  animation-duration: 0.4s;
 }
 
 /* The Close Button */
@@ -64,7 +69,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
   color: white;
 }
 
-.modal-body {padding: 2px 16px;}
+.modal-body {
+  padding: 2px 16px;
+}
 
 .modal-footer {
   padding: 2px 16px;
@@ -79,7 +86,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
 .carousel-caption {
   background-color: white;
   color: black;
-  
 }
 
 /* Add Animation */
@@ -105,5 +111,5 @@ body {font-family: Arial, Helvetica, sans-serif;}
 }
 */
 img.person {
-	margin: 1rem;
+  margin: 1rem;
 }

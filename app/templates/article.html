@@ -1,115 +1,128 @@
 {% extends "base.html" %}
 {% block content %}
-{% if current_user.is_admin %}
-	{% set input_style='class="form-control" onblur=\"saveForm()\"' %}
-{% else %}
-	{% set input_style='readonly class=form-control-plaintext' %}
-{% endif %}
-<form method="post" id="articleForm" action="/article" enctype="text/plain">
-	<input type="hidden" name="csrf_token" value="{{csrf_token}}"/>
-<div class="container">
-	<div class="card border-primary mb-3">
-		<div class="card-header">
-			{% if current_user.is_admin %}
-			<div class="edit-field">
-			<select class="author-selector form-control" multiple="multiple" data-placeholder="Kirjoittajat" 
-			data-search="/select_person" data-save="/save_authors_to_article" data-init="/authors_for_article" data-name="authors">
-			</select>
-			</div>
-			{% endif %}
-			<div class="view-field">
-			<span class="person-list">{{ authors|map(attribute='name')|join(', ') }}</span>
-			</div>
-		</div>
 
-		<div class="card-body">
-			<h3 class="card-title">
+<form method="post" id="itemForm"
+ class="align-items-center px-1 gx-1 gy-1">
+	{#<input type="hidden" name="csrf_token" value="{{csrf_token()}}" />#}
+	{{ form.hidden_tag() }}
+	<div class="container">
+		<div class="card border-primary mb-3">
+			<div class="card-header">
 				{% if current_user.is_admin %}
-				{#{{form.title(class="form-control")}}#}
-				<input type="text" class="form-control h3" onblur="saveArticleForm()" id="title" value="{{article.title}}" style="border:0;">
-				{% else %}
-				{{article.title}}
-				{% endif %}
-			</h3>
-			<a href="{{ url_for('issue', id=article.issue.id)}}">{{ article.issue.magazine.name }}
-				{% if article.issue.number -%}
-				{{ article.issue.number }} /
-				{{ article.issue.year }}
-				{%- else -%}
-				{{ article.issue.count }}
-				{%- endif -%}</a><br>
-
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item">
-					<b>Henkilöt:</b>
-					{% if current_user.is_admin %}
-					<div class="edit-field">
-					<select class="people-selector form-control" multiple="multiple" data-placeholder="Artikkeliin liittyvät henkilöt" 
-					data-search="/select_person" data-save="/save_people_to_article" data-init="/people_for_article" data-name="people">
+				<div class="edit-field">
+					<select class="author-selector form-control" multiple="multiple"
+						data-placeholder="Kirjoittajat"
+						data-search="/select_person"
+						data-save="/save_authors_to_article"
+						data-init="/authors_for_article"
+						data-name="authors">
 					</select>
-					</div>
-					{% endif %}
-					<div class="view-field">
-					<span class="person-list">
-						{{ people|map(attribute='name')|join(', ')}}
-					</span>
-					</div>
-				</li>
-				<li class="list-group-item">
-					<b>Avainsanat:</b>
+				</div>
+				{% endif %}
+				<div class="view-field">
+					<span class="person-list">{{ authors|map(attribute='name')|join(', ') }}</span>
+				</div>
+			</div>
+
+			<div class="card-body">
+				<h3 class="card-title">
 					{% if current_user.is_admin %}
-					<div class="edit-field">
-					<select class="tag-selector form-control" multiple="multiple" data-placeholder="Asiasanat" 
-					data-search="/select_tags" data-save="/save_tags_to_article" data-init="/tags_for_article" data-tags="true" data-name="tags"></select>
-					</div>
+					<input type="text" class="form-control h3 form-item" id="title"
+						value="{{article.title}}" name="title" style="border:0;"
+						form="itemForm">
+					{% else %}
+					{{article.title}}
 					{% endif %}
-					<div class="view-field">
-					{% for tag in article.tags %}
-					<a href="{{url_for('tag', tagid=tag.id)}}">{{tag.name}}</a><nbsp>
-					{% endfor %}
-					</div>	
-				</li>
-				<li class="list-group-item">
-					<b>Linkit:</b>
-					{% if current_user.is_admin %}
+				</h3>
+				<a href="{{ url_for('issue', id=article.issue.id)}}">{{ article.issue.magazine.name }}
+					{% if article.issue.number -%}
+					{{ article.issue.number }} /
+					{{ article.issue.year }}
+					{%- else -%}
+					{{ article.issue.count }}
+					{%- endif -%}</a><br>
+
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">
+						<b>Henkilöt:</b>
+						{% if current_user.is_admin %}
+						<div class="edit-field">
+							<select class="people-selector form-control" multiple="multiple"
+								data-placeholder="Artikkeliin liittyvät henkilöt"
+								data-search="/select_person"
+								data-save="/save_people_to_article"
+								data-init="/people_for_article"
+								data-name="people">
+							</select>
+						</div>
+						{% endif %}
+						<div class="view-field">
+							<span class="person-list">
+								{{ people|map(attribute='name')|join(', ')}}
+							</span>
+						</div>
+					</li>
+					<li class="list-group-item">
+						<b>Avainsanat:</b>
+						{% if current_user.is_admin %}
+						<div class="edit-field">
+							<select class="tag-selector form-control" multiple="multiple"
+								data-placeholder="Asiasanat"
+								data-tags="true"
+								data-search="/select_tags"
+								data-save="/save_tags_to_article"
+								data-init="/tags_for_article"
+								data-name="tags"></select>
+						</div>
+						{% endif %}
+						<div class="view-field">
+							{% for tag in article.tags %}
+							<a href="{{url_for('tag', tagid=tag.id)}}">{{tag.name}}</a>
+							<nbsp>
+								{% endfor %}
+						</div>
+					</li>
+					<li class="list-group-item">
+						<b>Linkit:</b>
+						{% if current_user.is_admin %}
 						{% for link in links %}
 						{% endfor %}
-					{% else %}
+						{% else %}
 						{% for link in links %}
-							<a href="{{link.link}}">
+						<a href="{{link.link}}">
 							{% if link.description %}
 							{{link.description}}
 							{% else %}
 							{{link.link}}
 							{% endif %}
-							</a>
+						</a>
 						{% endfor %}
-					{% endif %}
-				</li>
-			</ul>
-            {% if current_user.is_admin %}
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item">
-					<input type="checkbox" id="edit_form" name="edit_form">
-					<label for="edit_form">Muokkaa</label>
-				{#<button type="button" class="btn btn-primary">Muokkaa</button> #}
-				</li>
-				{#
-				<li class="list-group-item">
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editLinks">Muokkaa linkkejä</button>
-				</li>#}
+						{% endif %}
+					</li>
+				</ul>
+				{% if current_user.is_admin %}
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">
+						<input type="checkbox" id="edit_form" name="edit_form">
+						<label for="edit_form">Muokkaa</label>
+					</li>
+					{#
+					<li class="list-group-item">
+						<button type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#editLinks">Muokkaa linkkejä</button>
+					</li>#}
 
-			</ul>
-			{% endif %}
+				</ul>
+				{% endif %}
+			</div>
+
 		</div>
-
-	</div>
 </form>
-	{% block script %}
-	<script src="/static/js/personlink.js" type="text/javascript"></script>
-	<script type="text/javascript">
-		var itemId = '{{article.id}}'
-	</script>
-	<script src="/static/js/forms.js" type="text/javascript"></script>
-	{% endblock %}
+{% block script %}
+<script src="/static/js/personlink.js" type="text/javascript"></script>
+<script type="text/javascript">
+	var itemId = '{{article.id}}'
+</script>
+<script src="/static/js/forms.js" type="text/javascript"></script>
+{% endblock %}
 {% endblock %}

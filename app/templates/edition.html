@@ -1,121 +1,352 @@
 {% extends "base.html" %}
 {% block content %}
-{% from 'macros.html' import auto_complete %}
+{% if current_user.is_admin %}
+<form method="post" id="itemForm"
+ class="align-items-center px-1 gx-1 gy-1">
+ {{ form.hidden_tag() }}
+ {% endif %}
 <div class="container mb-3">
-    <div class="card border-primary mb-3">
-        <div class="card-header">
-            {% for w in edition.work %}
-            {{ w.creator_str }}
-            {% endfor %}
+    <div class="card-body mb-3">
+        <div class="row">
+            <div class="col">
+                    <h1 class="card-title">
+                    {% if current_user.is_admin %}
+                        <input type="text" class="form-control form-item"
+                            id="title" name="title" value="{{edition.title}}"
+                            form="itemForm">
+                    {% else %}
+                        {{ edition.title }}
+                    {% endif %}
+                    </h1>
+            </div>
         </div>
-        <div class="card-body">
-            <h3 class="card-title">
-                {{ edition.title}}
-                {% if current_user.is_admin %} ({{ edition.id }}){% endif %}
-            </h3>
-            {% for work in works %}
-            <a href=" {{ url_for('work', workid=work.id) }}">{{ work.orig_title }}</a>
-            {%- if work.pubyear -%}, {{ work.pubyear }} {% endif %}<br>
-            {% endfor %}
+        <div class="row mb-3">
+            <div class="col">
+                <h3>
+                    {% for work in works %}
+                    <a href="{{url_for('work', workid=work.id)}}">{{work.orig_title}}</a><br>
+                    {% endfor %}
+                </h3>
+            </div>
         </div>
         <div class="row">
-            <div class="col col-md-4" style="margin: 1rem;">
-                {% if edition.image_src %}
-                    <img src="{{edition.image_src}}">
+            <!-- Image part-->
+            <div class="col-lg-4 col-sm-12">
+                    <!--<img src="/static/images/books/Aldiss_Kasvihuone.jpg"> -->
+                    {% if edition.image_src %}
+                    <img src="{{edition.image_src}}" class="img-fluid">
+                    {% else %}
+                    <img src="/static/icons/book-icon-158.png" class="img-fluid">
+                    {% endif %}
+            </div>
+
+            <!-- Info part -->
+            <div class="col-lg-8">
+                <!-- Authors -->
+                <h4>
+                    <!-- No editing authors in edition -->
+                    <span class="person-list">{{ authors|map(attribute='name')|join(', ') }}</span>
+                </h4>
+                <!-- Editors -->
+                <div class="row align-items-center">
+                    <div class="col">
+                        {% if current_user.is_admin %}
+                        <div class="edit-field">
+                            <select class="form-control" multiple="multiple"
+                                data-placeholder="Toimittaja"
+                                data-search="/select_person"
+                                data-save="/save_editors_to_edition"
+                                data-init="/editors_for_edition"
+                                data-name="editors">
+                            </select>
+                        </div>
+                        {% endif %}
+                        <div class="view-field">
+                        {% if editors|length %}
+                            <span class="person-list">{{editors|map(attribute='alt_name')|join(', ')}}</span> (toim)
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <!-- Translators -->
+                <div class="row align-items-center">
+                    <div class="col">
+                        {% if current_user.is_admin %}
+                        <div class="edit-field">
+                            <select class="form-control" multiple="multiple"
+                                data-placeholder="Suomentaja"
+                                data-search="/select_person"
+                                data-save="/save_translators_to_edition"
+                                data-init="/translators_for_edition"
+                                data-name="translators">
+                            </select>
+                        </div>
+                        {% endif %}
+                        <div class="view-field">
+                        {% if translators|length %}
+                            <span class="person-list">{{translators|map(attribute='alt_name')|join(', ')}}</span> (suom)
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <!-- Publisher -->
+                <div class="row align-items-start">
+                    <div class="col-5">
+                        {% if current_user.is_admin %}
+                        <div class="edit-field">
+                            <select class="form-control"
+                             data-placeholder="Julkaisija"
+                             data-search="/select_publisher"
+                             data-save="/save_publisher_to_edition"
+                             data-init="/publisher_for_edition"
+                             data-name="publisher"
+                             id="publisher">
+                            </select>
+                        </div>
+                        {% endif %}
+                        <div class="view-field">
+                            <a href="{{url_for('publisher', pubid=edition.publisher.id)}}">
+                                {{ edition.publisher.name }}</a> {{ edition.pubyear }}.
+                        {% if edition.version %}
+                                {{edition.version}}. laitos
+                        {% else %}
+                            {{edition.editionnum}}.p
+                        {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="edit-field">
+                            <label for="pubyear">
+                                Vuosi
+                                <input type="text" class="form-control form-item"
+                                value="{{edition.pubyear}}"
+                                name="pubyear" id="pubyear">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="edit-field">
+                            <label for="editionnum">
+                                Painos
+                                <input type="text" class="form-control form-item"
+                                value="{{edition.editionnum}}"
+                                name="editionnum" id="editionnum"
+                                style="width:50%;">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="edit-field">
+                            {% if edition.version %}
+                            {% set value=edition.version %}
+                            {% else %}
+                            {% set value='' %}
+                            {% endif %}
+                            <label for="version">
+                                Laitos
+                                <input type="text" class="form-control form-item"
+                                value="{{value}}"
+                                name="version" id="version"
+                                style="width:50%;">
+                             </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Series -->
+                <div class="row align-items-start">
+                    <div class="col-5">
+                        {% if current_user.is_admin %}
+                        <div class="edit-field">
+                            <select class="pubseries-selector form-control"
+                             data-placeholder="Sarja"
+                             data-search="/select_pubseries"
+                             data-save="/save_pubseries_to_edition"
+                             data-init="/pubseries_for_edition"
+                             data-name="pubseries">
+                            </select>
+                        </div>
+                        {% endif %}
+                        <div class="view-field">
+                        {% if edition.pubseries %}
+                            <a href="{{url_for('pubseries', seriesid=edition.pubseries.id)}}">
+                                {{ edition.pubseries.name }}</a>
+                            {% if edition.pubseriesnum %}
+                                {{ edition.pubseriesnum }}
+                            {%- endif -%}
+                            .
+                        {% endif %}
+                        </div>
+                    </div>
+                    <div class="col">
+                        {% if current_user.is_admin %}
+                        {% if edition.pubseriesnum %}
+                        {% set value=edition.pubseriesnum %}
+                        {% else %}
+                        {% set value='' %}
+                        {% endif %}
+                        <div class="edit-field">
+                            <label for="pubseriesnum">
+                                Nro
+                                <input type="text" class="form-control form-item"
+                                value="{{value}}" id="pubseriesnum"
+                                name="pubseriesnum"
+                                style="width:50%;">
+                            </label>
+                         {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <!-- Format etc -->
+                <div class="row align-items-start">
+                    <div class="col-4">
+                        {% if current_user.is_admin %}
+                        {% if edition.pages %}
+                        {% set value=edition.pages %}
+                        {% else %}
+                        {% set value='' %}
+                        {% endif %}
+                        <div class="edit-field">
+                            <label for="pages">
+                                Sivuja
+                                <input type="text" class="form-control form-item"
+                                id="pages" name="pages"
+                                value="{{value}}">
+                            </label>
+                        </div>
+                         {% endif %}
+                         <div class="view-field">
+                            {% if edition.pages %}
+                                {{ edition.pages}} sivua.
+                            {% endif %}
+                            {% if edition.size %}
+                                {{edition.size.name}}.
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        {% if current_user.is_admin %}
+                        <div class="edit-field">
+                                <select class="size-selector form-control"
+                                data-placeholder="Koko"
+                                data-search="/select_size"
+                                data-save="/save_size_to_edition"
+                                data-init="/size_for_edition"
+                                data-mininput="1"
+                                data-name="size"></select>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- Other stuff -->
+                <div class="row">
+                    <div class="col-8">
+                    {% if current_user.is_admin %}
+                        <div class="edit-field">
+                            <label for="misc">
+                                Muuta
+                                <input type="text" class="form-control form-item
+                                id="misc" name="misc"
+                                value="{{edition.misc}}">
+                            </label>
+                        </div>
+                    {% endif %}
+                        <div class="view-field">
+                            {{edition.misc}}
+                        </div>
+                    </div>
+                </div>
+                <!-- ISBN -->
+                <div class="row align-items-start">
+                    {% if current_user.is_admin %}
+                    <div class="col-5">
+                        <div class="edit-field">
+                            <label fo="isbn">
+                                    ISBN
+                                <div class="input-group">
+                                    <input type="text" class="form-control form-item"
+                                    id="isbn" id="isbn"
+                                    style="width:30;"
+                                    value="{{edition.isbn}}">
+                                </div>
+                            </label>
+                        </div>
+                        {% endif %}
+                        <div class="view-field">
+                            {% if edition.isbn %}
+                            ISBN {{ edition.isbn}}
+                            {% endif %}
+                            {% if edition.binding %}
+                                {{ edition.binding.name }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-3">
+                    {% if current_user.is_admin %}
+                        <div class="edit-field">
+                            <div class="edit-field custom-control custom-radio">
+                                <input type="radio" name="binding"
+                                class="custom-control-input form-item"
+                                id="none" value="1" {{bindings[0]}}>
+                                <label class="custom-control-label" for="none">
+                                    Ei tietoa
+                                </label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" name="binding"
+                                class="custom-control-input form-item"
+                                id="nidottu" value="2" {{bindings[1]}}>
+                                <label class="custom-control-label" for="nidottu">
+                                    Nidottu
+                                </label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" name="binding"
+                                class="custom-control-input form-item"
+                                id="sidottu" value="3" {{bindings[2]}}>
+                                <label class="custom-control-label" for="sidottu">
+                                    Sidottu
+                                </label>
+                            </div>
+                            {#
+                            <select class="binding-selector form-control"
+                            data-placeholder="Sidonta"
+                            data-mininput="1"
+                            data-name="bindingType"></select>
+                            #}
+                        </div>
+                    </div>
                 {% endif %}
-            </div>
+                </div>
+                <hr style="width:20%">
+                <!-- Cover artist -->
+                <div class="row align-items-center">
+                    <div class="col">
 
-            <div class="col flex-grow-1">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <b>Julkaisuvuosi:</b> {{ edition.pubyear }}
-                    </li>
-                    <li class="list-group-item">
-                        <b>Painos:</b> {{ edition.editionnum }}
-                    </li>
-                    {% if edition.version %}
-                    <li class="list-group-item">
-                        <b>Laitos:</b> {{ edition.version }}
-                    </li>
-                    {% endif %}
-                    <li class="list-group-item">
-                        <b>Julkaisija:</b> <a
-                            href=" {{ url_for('publisher', pubid=edition.publisher.id) }}">{{ edition.publisher.name }}</a>
-                    </li>
-                    {% if editors|length %}
-                    <li class="list-group-item">
-                        <b>Toimittaja(t):</b>
-                        {% if editors|length == 1 %}
-                        <a href=" {{ url_for('person', personid=editors[0].id) }}">{{
-                            editors[0].alt_name }}</a>
-                        {% endif %}
-                        {% if editors|length == 2 %}
-                        <a href=" {{ url_for('person', personid=editors[0].id) }}">{{
-                            editors[0].alt_name }}</a> ja
-                        <a href=" {{ url_for('person', personid=editors[1].id) }}">{{
-                            editors[1].alt_name }}</a>
+                    </div>
+                </div>
+                <!-- Artists -->
+                <div class="row align-items-center">
+                    <div class="col">
 
-                        {% endif %}
-                        {% if editors|length > 2 %}
-                        {% for editor in editors[:-1] %}
-                        <a href=" {{ url_for('person', personid=editor.id) }}">{{
-                            editor.alt_name }}</a>,
-                        {% endfor %}
-                        <a href=" {{ url_for('person', personid=editors[-1].id) }}">{{
-                        editors[-1].alt_name }}</a>
-                        {% endif %}
-                    </li>
-                    {% endif %}
-                    {% if translators|length %}
-                    <li class="list-group-item">
-                        <b>Kääntäjä(t):</b>
-                        {% if translators|length == 1 %}
-                        <a href=" {{ url_for('person', personid=translators[0].id) }}">{{
-                                    translators[0].alt_name }}</a>
-                        {% endif %}
-                        {% if translators|length == 2 %}
-                        <a href=" {{ url_for('person', personid=translators[0].id) }}">{{
-                                    translators[0].alt_name }}</a> ja
-                        <a href=" {{ url_for('person', personid=translators[1].id) }}">{{
-                                    translators[1].alt_name }}</a>
-                        {% endif %}
-                        {% if translators|length > 2 %}
-                        {% for translator in translators[:-1] %}
-                        <a href=" {{ url_for('person', personid=translator.id) }}">{{
-                                    translator.alt_name }}</a>,
-                        {% endfor %}
-                        <a href=" {{ url_for('person', personid=translators[-1].id) }}">{{
-                                translators[-1].alt_name }}</a>
-                        {% endif %}
-                    </li>
-                    {% endif %}
-                    {% set work = works[0] %}
-                    {% if work.bookseries %}
-                    <li class="list-group-item">
-                        <b>Kirjasarja:</b> <a href=" {{ url_for('bookseries',
-                    seriesid=work.bookseries.id) }} ">
-                            {{ work.bookseries.name }}</a>
-                        {%- if work.bookseriesnum -%}
-                        {%- if work.bookseriesnum|length -%}
-                        , numero {{ work.bookseriesnum }}
-                        {% endif %}
-                        {% endif %}
-                    </li>
-                    {% endif %}
-                    {% if edition.pubseries.name|length %}
-                    <li class="list-group-item">
-                        <b>Julkaisijan sarja:</b> <a href=" {{ url_for('pubseries',
-                            seriesid=edition.pubseries.id) }} ">{{
-                            edition.pubseries.name }}</a>
-                    </li>
-                    {%- endif %}
-                    {% if edition.misc|length %}
-                    <li class="list-group-item">
-                        <b>Muuta:</b> {{ edition.misc }}
-                    </li>
-                    {% endif %}
-                </ul>
+                    </div>
+                </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {% if current_user.is_admin %}
+                <div class="edit-field">
+                        <textarea class="form-item form-control" id="description" name="description"
+                         rows="5" cols="80"></textarea>
+                </div>
+                {% endif %}
+                <div class="view-field">
+                    {% if edition.description %}
+                        {{edition.description}}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
         </div>
         <div class="accordion" id="editionCard">
             {% if stories|length %}
@@ -150,135 +381,26 @@
             </div>
             {% endif %}
             {% if current_user.is_admin %}
-            <div class="card">
-                <div class="card-header" id="headAdmin">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                            data-target="#admin" aria-expanded="false" aria-controls="admin">
-                            Ylläpito ({{edition.id}})
-                        </button>
-                    </h2>
-                </div>
-                <div id="admin" class="collapse" aria-labelledby="headAdmin" data-parent="#editionCard">
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
                             {% if edition.imported_string|length %}
-                            <li class="list-group-item"><b>Lähde:</b>
-                                {{edition.imported_string}}</li>
+                                {{edition.imported_string}}
                             {% endif %}
-                            <li class="list-group-item"><a href="{{url_for('edit_edition',
-						editionid=edition.id)}}">Muokkaa</a></li>
-                            <li class="list-group-item"><button type="button" class="btn btn-primary"
-                                    data-toggle="modal" data-target="#editTranslators">
-                                    Lisää/poista kääntäjiä</li>
-                            </button>
-                            <li class="list-group-item"><button type="button" class="btn btn-primary"
-                                    data-toggle="modal" data-target="#editEditors">
-                                    Lisää/poista toimittajia</li>
-                            </button>
-                        </ul>
-
-                    </div>
-                </div>
-            </div>
+                            <br>
+						<input type="checkbox" id="edit_form" name="edit_form">
+						<label for="edit_form">Muokkaa</label>
             {% endif %}
 
         </div>
+
     </div>
-
-    <!--- Model windows-->
-
-    {% if current_user.is_admin %}
-    <div class="modal fade" id="editTranslators" tabindex="-1" role="dialog" aria-labelledby="editTranslatorsLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editTranslatorsLabel">Muokkka kääntäjätietoja</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Sulje">
-                        <span aria-hidden="true">&times</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        {% for translator in edition.translators %}
-                        <div class="row">
-                            <div class="col-md-8">{{ translator.name }}</div>
-                            <div class="col-md-4">
-                                <a href="{{ url_for('remove_translator_from_work',
-                                    editionid=edition.id, translatorid=translator.id)}}">Poista</a><br />
-                            </div>
-                        </div>
-                        {% endfor %}
-                        <hr>
-                        <form action="" method="post">
-                            <div class="form-row">
-                                <div class="col-md-8">
-                                    {{ form_translator.hidden_tag() }}
-                                    {{ form_translator.translator(id="translator") }}
-                                </div>
-                                <div class="col-md-4">
-                                    {{ form_translator.submit }}
-                                </div>
-                            </div>
-                        </form>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Sulje</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="editEditors" tabindex="-1" role="dialog" aria-labelledby="editEditorsLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editEditorsLabel">Muokkka toimittajatietoja</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Sulje">
-                        <span aria-hidden="true">&times</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        {% for editor in edition.editors %}
-                        <div class="row">
-                            <div class="col-md-8">{{ editor.name }}</div>
-                            <div class="col-md-4">
-                                <a href="{{ url_for('remove_editor_from_work',
-                                    editionid=edition.id, editorid=editor.id)}}">Poista</a><br />
-                            </div>
-                        </div>
-                        {% endfor %}
-                        <hr>
-                        <form action="" method="post">
-                            <div class="form-row">
-                                <div class="col-md-8">
-                                    {{ form_editor.hidden_tag() }}
-                                    {{ form_editor.editor(id="editor") }}
-                                </div>
-                                <div class="col-md-4">
-                                    {{ form_editor.submit }}
-                                </div>
-                            </div>
-                        </form>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Sulje</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
 </div>
-{{ auto_complete("translator", "/autocomp_person")}}
-{{ auto_complete("editor", "/autocomp_person")}}
+{% if current_user.is_admin %}
+</form>
+{% endif %}
 {% block script %}
 <script src="/static/js/personlink.js" type="text/javascript"></script>
+<script type="text/javascript">
+	var itemId = '{{edition.id}}'
+</script>
+<script src="/static/js/forms.js" type="text/javascript"></script>
 {% endblock %}
 {% endblock %}

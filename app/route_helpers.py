@@ -8,7 +8,7 @@ from app.orm_decl import (Person, Author, Editor, Translator, Publisher, Work,
                           WorkGenre)
 from typing import List, Dict, Any, Tuple
 from flask_login import current_user
-from flask import abort
+from flask import abort, Response
 from functools import wraps
 import json
 
@@ -18,15 +18,16 @@ import json
 """
 
 
-def new_session():
+def new_session() -> Any:
     engine = create_engine('sqlite:///suomisf.db', echo=True)
     Session = sessionmaker(bind=engine)
     session = Session()
     return session
 
-def admin_required(f):
+
+def admin_required(f: Any) -> Any:
     @wraps(f)
-    def wrap(*args, **kwargs):
+    def wrap(*args: Any, **kwargs: Any) -> Any:
         if current_user.is_admin:
             return f(*args, **kwargs)
         else:
@@ -34,12 +35,12 @@ def admin_required(f):
     return wrap
 
 
-def publisher_list(session) -> Dict[str, List[str]]:
+def publisher_list(session: Any) -> Dict[str, List[str]]:
     return {'publisher': [str(x.name) for x in
                           session.query(Publisher).order_by(Publisher.name).all()]}
 
 
-def author_list(session) -> Dict[str, List[str]]:
+def author_list(session: Any) -> Dict[str, List[str]]:
     return {'author': [str(x.name) for x in
                        session.query(Person)
                        .join(Author)
@@ -49,7 +50,7 @@ def author_list(session) -> Dict[str, List[str]]:
                        .all()]}
 
 
-def pubseries_list(session, pubid) -> List[Tuple[str, str]]:
+def pubseries_list(session: Any, pubid: Any) -> List[Tuple[str, str]]:
     retval = [('0', 'Ei sarjaa')]
 
     if pubid != 0:
@@ -60,35 +61,36 @@ def pubseries_list(session, pubid) -> List[Tuple[str, str]]:
                          session.query(Pubseries).order_by(Pubseries.name).all()]
 
 
-def size_list(session) -> List[Tuple[str, str]]:
+def size_list(session: Any) -> List[Tuple[str, str]]:
     return [(str(x.id), str(x.name)) for x in
             session.query(PublicationSize).all()]
 
 
-def cover_list(session) -> List[Tuple[str, str]]:
+def cover_list(session: Any) -> List[Tuple[str, str]]:
     return [(str(x.id), str(x.name)) for x in
             session.query(CoverType).all()]
 
 
-def binding_list(session) -> List[Tuple[str, str]]:
+def binding_list(session: Any) -> List[Tuple[str, str]]:
     return [(str(x.id), str(x.name)) for x in
             session.query(BindingType).all()]
 
 
-def format_list(session) -> List[Tuple[str, str]]:
+def format_list(session: Any) -> List[Tuple[str, str]]:
     return [(str(x.id), str(x.name)) for x in
             session.query(Format).all()]
 
 
-def bookseries_list(session) -> Dict[str, List[str]]:
+def bookseries_list(session: Any) -> Dict[str, List[str]]:
     return {'bookseries': [str(x.name) for x in
                            session.query(Bookseries).order_by(Bookseries.name).all()]}
 
-def get_select_ids(form, item_field: str = 'itemId') -> Tuple[int, List[Dict[str, str]]]:
-    ''' Read parameters from  a front end request for a select component. 
 
-        Each request has the parent id (work id etc) and a list of item ids 
-        corresponding to the items selected in a select component. This 
+def get_select_ids(form: Any, item_field: str = 'itemId') -> Tuple[int, List[Dict[str, str]]]:
+    ''' Read parameters from  a front end request for a select component.
+
+        Each request has the parent id (work id etc) and a list of item ids
+        corresponding to the items selected in a select component. This
         function parses these fields and returns parent id and a list containing
         the ids as ints.
 
@@ -98,7 +100,7 @@ def get_select_ids(form, item_field: str = 'itemId') -> Tuple[int, List[Dict[str
             Form that contains the values.
         item_field  : str
             Name for the parent id field. Default: "itemId".
-        
+
         Returns
         -------
         Tuple[int, List[int]]
@@ -109,7 +111,7 @@ def get_select_ids(form, item_field: str = 'itemId') -> Tuple[int, List[Dict[str
 
     parentid = int(json.loads(form[item_field]))
     items = json.loads(form['items'])
-    #items = {int(x['id']): x['text']} for x in items]
+    # items = {int(x['id']): x['text']} for x in items]
 
     return(parentid, items)
 
@@ -128,19 +130,21 @@ def get_join_changes(existing: List[int], new: List[int]) -> Tuple[List[int], Li
     return (to_add, to_delete)
 
 # ArticleTag.article
-def save_join(session, cls: object, *paths) -> None:
+
+
+def save_join(session: Any, cls: object, *paths: Any) -> None:
 
     options = [joinedload(path) for path in paths]
     existing = session.query(cls).options(*options).all()
-    #existing = session.query(cls)\
+    # existing = session.query(cls)\
     #                  .filter(join1 == itemid)\
     #                  .all()
-    #(to_add, to_remove) = get_join_changes(x.)
-
+    # (to_add, to_remove) = get_join_changes(x.)
 
     session.commit()
 
-def people_for_book(s, workid, type):
+
+def people_for_book(s: Any, workid: Any, type: str) -> Any:
     if type == 'A':
         return s.query(Person)\
                 .join(Author)\
@@ -196,7 +200,7 @@ def books_for_person(s, personid, type):
         return None
 
 
-def editions_for_lang(workid, lang) -> List:
+def editions_for_lang(workid: Any, lang: Any) -> List[Any]:
     """ Returns editions just for one language.
         See editions_for_work for return value structure.
     """
@@ -437,37 +441,37 @@ def save_newstory_to_edition(session, editionid, form) -> None:
     save_story_to_edition(session, editionid, story.title)
 
 
-def save_translator_to_edition(session, editionid, name: str) -> None:
-    translator = session.query(Person)\
-                        .filter(Person.name == name)\
-                        .first()
+# def save_translator_to_edition(session, editionid, name: str) -> None:
+#     translator = session.query(Person)\
+#                         .filter(Person.name == name)\
+#                         .first()
 
-    if not translator:
-        return
+#     if not translator:
+#         return
 
-    parts = session.query(Part)\
-                   .filter(Part.edition_id == editionid)\
-                   .all()
+#     parts = session.query(Part)\
+#                    .filter(Part.edition_id == editionid)\
+#                    .all()
 
-    for part in parts:
-        translator = Translator(part_id=part.id,
-                                person_id=translator.id)
-        session.add(translator)
-    session.commit()
+#     for part in parts:
+#         translator = Translator(part_id=part.id,
+#                                 person_id=translator.id)
+#         session.add(translator)
+#     session.commit()
 
 
-def save_editor_to_edition(session, editionid, name):
-    editor = session.query(Person)\
-                    .filter(Person.name == name)\
-                    .first()
+# def save_editor_to_edition(session, editionid, name):
+#     editor = session.query(Person)\
+#                     .filter(Person.name == name)\
+#                     .first()
 
-    if not editor:
-        return
+#     if not editor:
+#         return
 
-    editor = Editor(edition_id=editionid,
-                    person_id=editor.id)
-    session.add(editor)
-    session.commit()
+#     editor = Editor(edition_id=editionid,
+#                     person_id=editor.id)
+#     session.add(editor)
+#     session.commit()
 
 
 def save_story_to_issue(session, issueid, name):
@@ -514,6 +518,7 @@ def update_story_creators(session, storyid):
 def translate_genrelist(glist):
     return glist
 
+
 def save_genres(session, work, genrefield):
 
     genres = session.query(WorkGenre)\
@@ -524,7 +529,6 @@ def save_genres(session, work, genrefield):
         genreobj = WorkGenre(work_id=work.id, genre_id=g)
         session.add(genreobj)
     session.commit()
-
 
 
 def _add_tags(session, new_tags: List[str], old_tags: Dict[str, int]) -> List[int]:
@@ -618,6 +622,18 @@ def save_tags(session, tag_list: str, tag_type: str, id: int) -> None:
     session.commit()
 
 
-def genre_select(session) -> List[Tuple[str, str]]:
+def genre_select(session: Any) -> List[Tuple[str, str]]:
     genres = session.query(Genre).all()
     return [(str(x.id), x.name) for x in genres]
+
+
+def make_people_response(people: Any) -> Any:
+    retval: List[Dict[str, str]] = []
+    if people:
+        for person in people:
+            obj: Dict[str, str] = {}
+            obj['id'] = str(person.id)
+            obj['text'] = person.name
+            retval.append(obj)
+
+    return Response(json.dumps(retval))

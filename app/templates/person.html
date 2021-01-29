@@ -1,437 +1,534 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <div class="container">
-    <div class="card border-primary mb-3" style="margin: 5px auto;">
-        <div class="row">
-            <div class="col col-lg-4 container">
-                {% if person.image_src %}
-                <img src="{{person.image_src}}" width=255px class="person">
-                {% else %}
-                <img src="/static/icons/person_256.png">
-                {% endif %}
-            </div>
-            <div class="col col-lg-8 text-center">
-                <div class="card-body">
-                    <h2 class="card-title">
-                        {% if person.first_name %}
-                        {{ person.first_name }} {{ person.last_name }}
-                        {% else %}
-                        {{ person.name }}
-                        {% endif %}
-
-                    </h2>
-                    {% if person.nationality %}
-                    {{ person.nationality }}
-                    {%- endif -%}
-                    {%- if person.nationality and person.dob -%},{% endif %}
-                    {% if person.dob %}
-                    {{ person.dob }}-{{ person.dod if person.dod }}
-                    {% endif %}
-                    <ul class="list-group list-group-flush">
-                        {% if person.real_names %}
-                        <li class="list-group-item"><b>Oik.</b>
-                            {% for rn in person.real_names %}
-                            <a href="{{url_for('person', personid=rn.id)}}">{{ rn.name }}</a><br>
-                            {% endfor %}
-                        </li>
-                        {% endif %}
-                        {% if person.other_names %}
-                        <li class="list-group-item"><b>Myös:</b>
-                            {{ person.other_names }}
-                        </li>
-                        {% endif %}
-                        {% if person.aliases %}
-                        <li class="list-group-item"><b>Pseudonyymit:</b>
-                            {% for rn in person.aliases %}
-                            <a href="{{url_for('person', personid=rn.id)}}">{{
-				    rn.name }}</a>
-                            {% endfor %}
-                        </li>
-                        {% endif %}
-                        {% include "_genre_count.html" %}
-                        {% if person.tags %}
-                        <li class="list-group-item">
-                            {% for tag in person.tags %}
-                            <a href="{{url_for('tag', tagid=tag.id)}}">{{tag.name}}</a>
-                            {% endfor %}
-                        </li>
-                        {% endif %}
-                        {% if person_awards %}
-                        <li class="list-group-item">
-                            {% for award in person_awards %}
-                            {{ award.award.name}}<br>
-                            {% endfor %}
-                        </li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-        </div>
-        {% if person.bio %}
-        <blockquote class="blockquote" style="padding: 1rem;">
-            <p class="mb-0">{{person.bio}}</p>
-            <footer class="blockquote-footer text-right"><cite title="{{person.bio_src}}"><a
-                        href="{{person.bio_src_url}}">{{person.bio_src}}</a></cite></footer>
-        </blockquote>
+  <div class="card border-primary mb-3" style="margin: 5px auto">
+    <div class="row">
+      <div class="col col-lg-4 container">
+        {% if person.image_src %}
+        <img src="{{person.image_src}}" width="255px" class="person" />
+        {% else %}
+        <img src="/static/icons/person_256.png" />
         {% endif %}
-        <div class="accordion" id="authorCard">
-            {% if novel_awards|length %}
-            <div class="card">
-                <div class="card-header" id="headAwards">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                            data-target="#awards" aria-expanded="false" aria-controls="awards">
-                            Palkitut teokset
-                        </button>
-                    </h2>
-                    <div id="awards" class="collapse" aria-labelledby="headAwards" data-parent="#authorCard">
-                        <div class="card-body">
-                            <ul class="list-group list-group-flush">
-                                {% for award in novel_awards %}
-                                <li class="list-group-item">
-                                    {{ award.year }}: {{ award.work.title }}
-                                    ({{ award.award.name }})
-                                </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="col col-lg-8 text-center">
+        <div class="card-body">
+          <h2 class="card-title">
+            {% if person.first_name %} {{ person.first_name }} {{
+            person.last_name }} {% else %} {{ person.name }} {% endif %}
+          </h2>
+          {% if person.nationality %} {{ person.nationality }} {%- endif -%} {%-
+          if person.nationality and person.dob -%},{% endif %} {% if person.dob
+          %} {{ person.dob }}-{{ person.dod if person.dod }} {% endif %}
+          <ul class="list-group list-group-flush">
+            {% if person.real_names %}
+            <li class="list-group-item">
+              <b>Oik.</b>
+              {% for rn in person.real_names %}
+              <a href="{{url_for('person', personid=rn.id)}}">{{ rn.name }}</a
+              ><br />
+              {% endfor %}
+            </li>
+            {% endif %} {% if person.other_names %}
+            <li class="list-group-item">
+              <b>Myös:</b>
+              {{ person.other_names }}
+            </li>
+            {% endif %} {% if person.aliases %}
+            <li class="list-group-item">
+              <b>Pseudonyymit:</b>
+              {% for rn in person.aliases %}
+              <a href="{{url_for('person', personid=rn.id)}}">{{ rn.name }}</a>
+              {% endfor %}
+            </li>
+            {% endif %} {% include "_genre_count.html" %} {% if person.tags %}
+            <li class="list-group-item">
+              {% for tag in person.tags %}
+              <a href="{{url_for('tag', tagid=tag.id)}}">{{tag.name}}</a>
+              {% endfor %}
+            </li>
+            {% endif %} {% if person_awards %}
+            <li class="list-group-item">
+              {% for award in person_awards %} {{ award.award.name}}<br />
+              {% endfor %}
+            </li>
             {% endif %}
-            {% if person.works|length %}
-            <div class="card">
-                <div class="card-header" id="headAuthoredBooks">
-                    <h2 class="mb-0">
-                        <div class="row">
-                            <div class="col col-md-10">
-                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                                data-target="#authoredBooks" aria-expanded="false" aria-controls="authoredBooks">
-                                Teokset
-                            </button>
-                            </div>
-                            <div class="col">
-                                <button onclick="switchStyle()" id="switcher"
-                                    class="btn btn-light text-right">Kannet</button>
-                            </div>
-                        </div>
-                    </h2>
-                </div>
-                <div id="authoredBooks"  aria-labelledby="headAuthoredBooks" data-parent="#authorCard">
-                    <div class="card-body">
-                        <div id="textual" class="mb-0">
-                        <ul class="list-group list-group-flush">
-                            {% for work in person.works %}
-                            <li class="list-group-item">
-                                {% include "_work.html" %}
-                                {% for edition in
-                                work.editions|sort(attribute='editionnum') %}
-                                {% include "_work_edition.html" %}
-                                {% endfor %}
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        </div>
-                        <div id="pics">
-                            {% for work in person.works %}
-                                {% for edition in work.editions %}
-                                    {% if edition.image_src %}
-                                        <figure class="figure">
-                                            <a href="{{url_for('edition', editionid=edition.id)}}">
-                                            <img src="{{edition.image_src}}" width="250" style="margin: 0 1rem 1rem 0;">
-                                            </a>
-                                        </figure>
-                                    {% endif %}
-                                {% endfor %}
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-            {% if person.stories|length or person.magazine_stories|length %}
-            <div class="card">
-                <div class="card-header" id="headAuthoredStories">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                            data-target="#authoredStories" aria-expanded="false" aria-controls="authoredStories">
-                            Novellit
-                        </button>
-                    </h2>
-                </div>
-                <div id="authoredStories" class="collapse" aria-labelledby="headAuthoredStories"
-                    data-parent="#authorCard">
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            {% for story in stories %}
-                            <li class="list-group-item"><a
-                                    href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
-                                ({%- if story.title != story.orig_title -%}
-                                {%- if story.orig_title -%} {{ story.orig_title }}, {%endif%}
-                                {%endif%}{{ story.pubyear}})</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-            {% if series %}
-            <div class="card">
-                <div class="card-header" id="headSeries">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                            data-target="#series" aria-expanded="false" aria-controls="series">
-                            Sarjat
-                        </button>
-                    </h2>
-                </div>
-                <div id="series" class="collapse" aria-labelledby="headSeries" data-parent="#authorCard">
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            {% for s in series %}
-                            <h4><a href="{{ url_for('bookseries', seriesid=s.id)}}"> {{s.name }}</a></h4><br>
-                            {% for work in s.works %}
-                            {% if work.creator_str != person.name %}
-                            {{ work.creator_str }}:
-                            {% endif %}
-                            {% include "_work.html" %}
-                            {% endfor %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-            {% if person.translations|length or person.translated_stories|length%}
-            <div class="card">
-                <div class="card-header" id="headTranslated">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                            data-target="#translated" aria-expanded="false" aria-controls="translated">
-                            Kääntänyt
-                        </button>
-                    </h2>
-                </div>
-                <div id="translated" class="collapse" aria-labelledby="headTranslated" data-parent="#authorCard">
-                    <div class="card-body">
-                        {% set skip_pubseriesnum = 1 %}
-                        <ul class="list-group list-group-flush">
-                            {% if person.translations %}
-                            <h4>Romaanit</h4>
-                            {% for edition in person.translations|sort(attribute='title') %}
-                            <li class="list-group-item">{% include "_edition.html" %}</li>
-                            {% endfor %}
-                            {% endif %}
-                            {% if person.translated_stories %}
-                            <h4 style="margin-top: 1rem">Novellit</h4>
-                            {% for story in person.translated_stories|sort(attribute='title') %}
-                            <li class="list-group-item">
-                                <a href="{{ url_for('story', id=story.id)}}">{{ story.title }}</a>
-                                ({{story.orig_title}}, {{story.pubyear}})
-
-                            </li>
-                            {% endfor %}
-                            {% endif %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-            {% if person.edits|length %}
-            <div class="card">
-                <div class="card-header" id="headEdited">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                            data-target="#edited" aria-expanded="false" aria-controls="edited">
-                            Toimittanut
-                        </button>
-                    </h2>
-                </div>
-                <div id="edited" class="collapse" aria-labelledby="headEdited" data-parent="#authorCard">
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            {% for edition in person.edits|sort(attribute='title') %}
-
-                            <li class="list-group-item">{% include "_edition.html" %}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-            {% if person.articles|length %}
-            <div class="card">
-                <div class="card-header" id="headArticles">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                            data-target="#articles" aria-expanded="false" aria-controls="appearsin">
-                            Artikkelit
-                        </button>
-                    </h2>
-                </div>
-                <div id="articles" class="collapse" aria-labelledby="headArticles" data-parent="#authorCard">
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            {% for article in person.articles %}
-                            <li class="list-group list-group-flush">
-                                {{ article.issue.magazine.name }}
-                                {% if article.issue.number %}
-                                {{ article.issue.number }} /
-                                {{ article.issue.year }}
-                                {% else %}
-                                {{ article.issue.count }}
-                                {% endif %}:
-                                {{ article.title }}.
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-            {% if person.chief_editor|length %}
-            <div class="card">
-                <div class="card-header" id="headChiefEditor">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                            data-target="#chiefeditor" aria-expanded="false" aria-controls="appearsin">
-                            Päätoimittajana
-                        </button>
-                    </h2>
-                </div>
-                <div id="chiefeditor" class="collapse" aria-labelledby="headChiefEditor" data-parent="#authorCard">
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            {% for issue in person.chief_editor %}
-                            <li class="list-group list-group-flush">
-                                <a href="{{ url_for('issue', id=issue.id)}}">
-                                    {{ issue.magazine.name }}
-                                    {% if issue.number %}
-                                    {{ issue.number }} / {{ issue.year }}
-                                    {% else %}
-                                    {{ issue.count }}
-                                    {% endif %}</a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-            {% if person.appears_in|length %}
-            <div class=" card">
-                <div class="card-header" id="headAppearsIn">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                            data-target="#appearsin" aria-expanded="false" aria-controls="appearsin">
-                            Esiintynyt artikkeleissa
-                        </button>
-                    </h2>
-                </div>
-                <div id="appearsin" class="collapse" aria-labelledby="headAppearsIn" data-parent="#authorCard">
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            {% for article in
-			    person.appears_in %}
-                            <li class="list-group list-group-flush">
-                                <b><a href="{{url_for('issue', id=article.issue.id)}}">{{ article.issue.magazine.name }}
-                                        {% if article.issue.number -%}
-                                        {{ article.issue.number }} /
-                                        {{ article.issue.year }}
-                                        {%- else -%}
-                                        {{ article.issue.count }}
-                                        {%- endif -%}</a></b>
-                                {% if article.creator_str != ''%}
-                                {{ article.creator_str }}:{% endif %} {{ article.title }}.
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-            {% if current_user.is_admin %}
-            <div class="card">
-                <div class="card-header" id="headAdmin">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                            data-target="#admin" aria-expanded="false" aria-controls="admin">
-                            Ylläpito ({{person.id}})
-                        </button>
-                    </h2>
-                </div>
-                <div id="admin" class="collapse" aria-labelledby="headAdmin" data-parent="#authorCard">
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><b>Lähde:</b>
-                                {% if person.imported_string %}
-                                {{person.imported_string}}
-                                {% endif %}</li>
-                            <li class="list-group-item"><a
-                                    href=" {{ url_for('edit_person', personid=person.id)}}">Muokkaa</a></li>
-                            {#<li class="list-group-item"><a href="{{url_for('add_authored', authorid=person.id) }}">Lisää
-                                    teos</a></li> #}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
+          </ul>
         </div>
+      </div>
     </div>
+    {% if person.bio %}
+    <blockquote class="blockquote" style="padding: 1rem">
+      <p class="mb-0">{{person.bio}}</p>
+      <footer class="blockquote-footer text-right">
+        <cite title="{{person.bio_src}}"
+          ><a href="{{person.bio_src_url}}">{{person.bio_src}}</a></cite
+        >
+      </footer>
+    </blockquote>
+    {% endif %}
+    <div class="accordion" id="authorCard">
+      {% if novel_awards|length %}
+      <div class="card">
+        <div class="card-header" id="headAwards">
+          <h2 class="mb-0">
+            <button
+              class="btn btn-link btn-block text-left collapsed"
+              type="button"
+              data-toggle="collapse"
+              data-target="#awards"
+              aria-expanded="false"
+              aria-controls="awards"
+            >
+              Palkitut teokset
+            </button>
+          </h2>
+          <div
+            id="awards"
+            class="collapse"
+            aria-labelledby="headAwards"
+            data-parent="#authorCard"
+          >
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                {% for award in novel_awards %}
+                <li class="list-group-item">
+                  {{ award.year }}: {{ award.work.title }} ({{
+                  award.award.name }})
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %} {% if person.works|length %}
+      <div class="card">
+        <div class="card-header" id="headAuthoredBooks">
+          <h2 class="mb-0">
+            <div class="row">
+              <div class="col col-md-10">
+                <button
+                  class="btn btn-link btn-block text-left collapsed"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#authoredBooks"
+                  aria-expanded="false"
+                  aria-controls="authoredBooks"
+                >
+                  Teokset
+                </button>
+              </div>
+              <div class="col">
+                <button
+                  onclick="switchStyle()"
+                  id="switcher"
+                  class="btn btn-light text-right"
+                >
+                  Kannet
+                </button>
+              </div>
+            </div>
+          </h2>
+        </div>
+        <div
+          id="authoredBooks"
+          aria-labelledby="headAuthoredBooks"
+          data-parent="#authorCard"
+        >
+          <div class="card-body">
+            <div id="textual" class="mb-0">
+              <ul class="list-group list-group-flush">
+                {% for work in person.works %}
+                <li class="list-group-item">
+                  {% include "_work.html" %} {% for edition in
+                  work.editions|sort(attribute='editionnum') %} {% include
+                  "_work_edition.html" %} {% endfor %}
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div id="pics">
+              {% for work in person.works %} {% for edition in work.editions %}
+              {% if edition.image_src %}
+              <figure class="figure">
+                <a href="{{url_for('edition', editionid=edition.id)}}">
+                  <img
+                    src="{{edition.image_src}}"
+                    width="250"
+                    style="margin: 0 1rem 1rem 0"
+                  />
+                </a>
+              </figure>
+              {% endif %} {% endfor %} {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %} {% if person.stories|length or person.magazine_stories|length
+      %}
+      <div class="card">
+        <div class="card-header" id="headAuthoredStories">
+          <h2 class="mb-0">
+            <button
+              class="btn btn-link btn-block text-left collapsed"
+              type="button"
+              data-toggle="collapse"
+              data-target="#authoredStories"
+              aria-expanded="false"
+              aria-controls="authoredStories"
+            >
+              Novellit
+            </button>
+          </h2>
+        </div>
+        <div
+          id="authoredStories"
+          class="collapse"
+          aria-labelledby="headAuthoredStories"
+          data-parent="#authorCard"
+        >
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              {% for story in stories %}
+              <li class="list-group-item">
+                <a href=" {{ url_for('story', id=story.id) }}"
+                  >{{ story.title }}</a
+                >
+                ({%- if story.title != story.orig_title -%} {%- if
+                story.orig_title -%} {{ story.orig_title }}, {%endif%}
+                {%endif%}{{ story.pubyear}})
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      {% endif %} {% if series %}
+      <div class="card">
+        <div class="card-header" id="headSeries">
+          <h2 class="mb-0">
+            <button
+              class="btn btn-link btn-block text-left collapsed"
+              type="button"
+              data-toggle="collapse"
+              data-target="#series"
+              aria-expanded="false"
+              aria-controls="series"
+            >
+              Sarjat
+            </button>
+          </h2>
+        </div>
+        <div
+          id="series"
+          class="collapse"
+          aria-labelledby="headSeries"
+          data-parent="#authorCard"
+        >
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              {% for s in series %}
+              <h4>
+                <a href="{{ url_for('bookseries', seriesid=s.id)}}">
+                  {{s.name }}</a
+                >
+              </h4>
+              <br />
+              {% for work in s.works %} {% if work.creator_str != person.name %}
+              {{ work.creator_str }}: {% endif %} {% include "_work.html" %} {%
+              endfor %} {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      {% endif %} {% if person.translations|length or
+      person.translated_stories|length%}
+      <div class="card">
+        <div class="card-header" id="headTranslated">
+          <h2 class="mb-0">
+            <button
+              class="btn btn-link btn-block text-left collapsed"
+              type="button"
+              data-toggle="collapse"
+              data-target="#translated"
+              aria-expanded="false"
+              aria-controls="translated"
+            >
+              Kääntänyt
+            </button>
+          </h2>
+        </div>
+        <div
+          id="translated"
+          class="collapse"
+          aria-labelledby="headTranslated"
+          data-parent="#authorCard"
+        >
+          <div class="card-body">
+            {% set skip_pubseriesnum = 1 %}
+            <ul class="list-group list-group-flush">
+              {% if person.translations %}
+              <h4>Romaanit</h4>
+              {% for edition in person.translations|sort(attribute='title') %}
+              <li class="list-group-item">{% include "_edition.html" %}</li>
+              {% endfor %} {% endif %} {% if person.translated_stories %}
+              <h4 style="margin-top: 1rem">Novellit</h4>
+              {% for story in person.translated_stories|sort(attribute='title')
+              %}
+              <li class="list-group-item">
+                <a href="{{ url_for('story', id=story.id)}}"
+                  >{{ story.title }}</a
+                >
+                ({{story.orig_title}}, {{story.pubyear}})
+              </li>
+              {% endfor %} {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      {% endif %} {% if person.edits|length %}
+      <div class="card">
+        <div class="card-header" id="headEdited">
+          <h2 class="mb-0">
+            <button
+              class="btn btn-link btn-block text-left collapsed"
+              type="button"
+              data-toggle="collapse"
+              data-target="#edited"
+              aria-expanded="false"
+              aria-controls="edited"
+            >
+              Toimittanut
+            </button>
+          </h2>
+        </div>
+        <div
+          id="edited"
+          class="collapse"
+          aria-labelledby="headEdited"
+          data-parent="#authorCard"
+        >
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              {% for edition in person.edits|sort(attribute='title') %}
 
-    <script>
-        $(".ownerstate").click(function () {
-            var obj = $('#SelectElementId');
-            var addr = $(this).attr('href');
-            if (addr == '#remove') {
-                $(this).parent().attr('style', 'padding-left: 25px;');
-                $(this).attr('href', '#add');
-                $(this).text(' + ');
-                var request = $.ajax({
-                    type: 'POST',
-                    url: '/remove_from_owned/' + $(this).attr('id'),
-                });
-            } else if (addr == '#add') {
-                $(this).parent().attr('style', 'border-left: 6px solid grey; padding-left: 23px');
-                $(this).attr('href', '#remove');
-                $(this).text(' - ');
-                var request = $.ajax({
-                    type: 'POST',
-                    url: '/add_to_owned/' + $(this).attr('id'),
-                });
-            }
+              <li class="list-group-item">{% include "_edition.html" %}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      {% endif %} {% if person.articles|length %}
+      <div class="card">
+        <div class="card-header" id="headArticles">
+          <h2 class="mb-0">
+            <button
+              class="btn btn-link btn-block text-left collapsed"
+              type="button"
+              data-toggle="collapse"
+              data-target="#articles"
+              aria-expanded="false"
+              aria-controls="appearsin"
+            >
+              Artikkelit
+            </button>
+          </h2>
+        </div>
+        <div
+          id="articles"
+          class="collapse"
+          aria-labelledby="headArticles"
+          data-parent="#authorCard"
+        >
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              {% for article in person.articles %}
+              <li class="list-group list-group-flush">
+                {{ article.issue.magazine.name }} {% if article.issue.number %}
+                {{ article.issue.number }} / {{ article.issue.year }} {% else %}
+                {{ article.issue.count }} {% endif %}: {{ article.title }}.
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      {% endif %} {% if person.chief_editor|length %}
+      <div class="card">
+        <div class="card-header" id="headChiefEditor">
+          <h2 class="mb-0">
+            <button
+              class="btn btn-link btn-block text-left collapsed"
+              type="button"
+              data-toggle="collapse"
+              data-target="#chiefeditor"
+              aria-expanded="false"
+              aria-controls="appearsin"
+            >
+              Päätoimittajana
+            </button>
+          </h2>
+        </div>
+        <div
+          id="chiefeditor"
+          class="collapse"
+          aria-labelledby="headChiefEditor"
+          data-parent="#authorCard"
+        >
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              {% for issue in person.chief_editor %}
+              <li class="list-group list-group-flush">
+                <a href="{{ url_for('issue', id=issue.id)}}">
+                  {{ issue.magazine.name }} {% if issue.number %} {{
+                  issue.number }} / {{ issue.year }} {% else %} {{ issue.count
+                  }} {% endif %}</a
+                >
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      {% endif %} {% if person.appears_in|length %}
+      <div class="card">
+        <div class="card-header" id="headAppearsIn">
+          <h2 class="mb-0">
+            <button
+              class="btn btn-link btn-block text-left collapsed"
+              type="button"
+              data-toggle="collapse"
+              data-target="#appearsin"
+              aria-expanded="false"
+              aria-controls="appearsin"
+            >
+              Esiintynyt artikkeleissa
+            </button>
+          </h2>
+        </div>
+        <div
+          id="appearsin"
+          class="collapse"
+          aria-labelledby="headAppearsIn"
+          data-parent="#authorCard"
+        >
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              {% for article in person.appears_in %}
+              <li class="list-group list-group-flush">
+                <b
+                  ><a href="{{url_for('issue', id=article.issue.id)}}"
+                    >{{ article.issue.magazine.name }} {% if
+                    article.issue.number -%} {{ article.issue.number }} /
+                    {{ article.issue.year }} {%- else -%} {{ article.issue.count
+                    }} {%- endif -%}</a
+                  ></b
+                >
+                {% if article.creator_str != ''%} {{ article.creator_str }}:{%
+                endif %} {{ article.title }}.
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      {% endif %} {% if current_user.is_admin %}
+      <div class="card">
+        <div class="card-header" id="headAdmin">
+          <h2 class="mb-0">
+            <button
+              class="btn btn-link btn-block text-left collapsed"
+              type="button"
+              data-toggle="collapse"
+              data-target="#admin"
+              aria-expanded="false"
+              aria-controls="admin"
+            >
+              Ylläpito ({{person.id}})
+            </button>
+          </h2>
+        </div>
+        <div
+          id="admin"
+          class="collapse"
+          aria-labelledby="headAdmin"
+          data-parent="#authorCard"
+        >
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <b>Lähde:</b> {% if person.imported_string %}
+                {{person.imported_string}} {% endif %}
+              </li>
+              <li class="list-group-item">
+                <a href=" {{ url_for('edit_person', personid=person.id)}}"
+                  >Muokkaa</a
+                >
+              </li>
+              {#
+              <li class="list-group-item">
+                <a href="{{url_for('add_authored', authorid=person.id) }}"
+                  >Lisää teos</a
+                >
+              </li>
+              #}
+            </ul>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
 
-            return false;
+  <script>
+    $(".ownerstate").click(function () {
+      var obj = $("#SelectElementId");
+      var addr = $(this).attr("href");
+      if (addr == "#remove") {
+        $(this).parent().attr("style", "padding-left: 25px;");
+        $(this).attr("href", "#add");
+        $(this).text(" + ");
+        var request = $.ajax({
+          type: "POST",
+          url: "/remove_from_owned/" + $(this).attr("id"),
         });
+      } else if (addr == "#add") {
+        $(this)
+          .parent()
+          .attr("style", "border-left: 6px solid grey; padding-left: 23px");
+        $(this).attr("href", "#remove");
+        $(this).text(" - ");
+        var request = $.ajax({
+          type: "POST",
+          url: "/add_to_owned/" + $(this).attr("id"),
+        });
+      }
 
-    </script>
-    <script src="/static/js/ownership.js" type="text/javascript"></script>
-    <script src="/static/js/author.js" type="text/javascript"></script>
+      return false;
+    });
+  </script>
+  <script src="/static/js/ownership.js" type="text/javascript"></script>
 </div>
 
-
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById('pics').style.display = 'none';
-    })
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("pics").style.display = "none";
+  });
 </script>
 
 <script>
-    function switchStyle() {
-        var pics = document.getElementById('pics');
-        var txt = document.getElementById('textual');
-        if (pics.style.display == 'none') {
-            pics.style.display = 'block';
-            txt.style.display = 'none';
-            document.getElementById('switcher').textContent = 'Lista';
-
-        } else {
-            pics.style.display = 'none';
-            txt.style.display = 'block';
-            document.getElementById('switcher').textContent = 'Kannet';
-        }
+  function switchStyle() {
+    var pics = document.getElementById("pics");
+    var txt = document.getElementById("textual");
+    if (pics.style.display == "none") {
+      pics.style.display = "block";
+      txt.style.display = "none";
+      document.getElementById("switcher").textContent = "Lista";
+    } else {
+      pics.style.display = "none";
+      txt.style.display = "block";
+      document.getElementById("switcher").textContent = "Kannet";
     }
+  }
 </script>
-
 
 {% endblock %}

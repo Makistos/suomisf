@@ -1,17 +1,17 @@
 a.invisible {
-	opacity: 0;
+  opacity: 0;
 }
 a.invisible:hover {
-	opacity: 1;
+  opacity: 1;
 }
 
 div.edition-list {
-	margin-bottom: 10px;
-	margin-left: 25px;
+  margin-bottom: 10px;
+  margin-left: 25px;
 }
 
 div.three-column {
-	column-count: 3;
+  column-count: 3;
 }
 
 .form-control {
@@ -28,6 +28,12 @@ div.three-column {
   background-color: rgba(115, 123, 243, 0.5) !important;
 }
 
+h1 .form-control {
+  font-size: 2.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 0;
+}
 h3 .form-control {
   font-size: 1.75rem;
   font-weight: 500;
@@ -58,6 +64,10 @@ h3 .form-control {
   border: none !important;
 }
 
+.select2-container--default .select2-selection--single {
+  border: none !important;
+  background-color: transparent !important;
+}
 .select2-container--default .select2-selection--multiple {
   border: none !important;
   background-color: transparent !important;
@@ -76,10 +86,13 @@ h3 .form-control {
 .select2-selection__choice__remove {
   border-right: none !important;
 }
+
+label {
+  font-weight: bold;
+}
 /* body {font-family: Arial, Helvetica, sans-serif;} */
 
 /* The Modal (background) */
-
 
 /* Modal Content */
 
@@ -91,7 +104,7 @@ h3 .form-control {
   -webkit-animation-name: slideIn;
   -webkit-animation-duration: 0.4s;
   animation-name: slideIn;
-  animation-duration: 0.4s
+  animation-duration: 0.4s;
 }
 
 /* The Close Button */
@@ -115,7 +128,9 @@ h3 .form-control {
   color: white;
 }
 
-.modal-body {padding: 2px 16px;}
+.modal-body {
+  padding: 2px 16px;
+}
 
 .modal-footer {
   padding: 2px 16px;
@@ -130,7 +145,6 @@ h3 .form-control {
 .carousel-caption {
   background-color: white;
   color: black;
-  
 }
 
 /* Add Animation */
@@ -156,5 +170,5 @@ h3 .form-control {
 }
 */
 img.person {
-	margin: 1rem;
+  margin: 1rem;
 }
