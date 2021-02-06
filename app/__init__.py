@@ -1,3 +1,6 @@
+from app import (orm_decl, routes, routes_article, routes_books,
+                 routes_editions, routes_issue, routes_magazine, routes_person,
+                 routes_publisher, routes_series, routes_stories, routes_works)
 import logging
 #from flask_debugtoolbar import DebugToolbarExtension
 import os
@@ -15,6 +18,8 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 if app.config['ENV'] == "production":
     app.config.from_object("config.ProdConfig")
+elif app.config['ENV'] == 'staging':
+    app.config.from_object("config.StagingConfig")
 else:
     app.config.from_object("config.DevConfig")
 print(f'ENV is set to {app.config["ENV"]}.')
@@ -31,9 +36,6 @@ WTF_CSRF_CHECK_DEFAULT = False
 
 
 # This has to be here, not at the top of application or it won't start!
-from app import (orm_decl, routes, routes_article, routes_books,
-                 routes_editions, routes_issue, routes_magazine, routes_person,
-                 routes_publisher, routes_series, routes_stories, routes_works)
 
 #toolbar = DebugToolbarExtension(app)
 
