@@ -106,7 +106,6 @@ $(document).ready(function () {
       if (input_field.checked) {
         view_elements[i].style.display = "none";
       } else {
-        location.reload();
         view_elements[i].style.display = "block";
       }
     }
@@ -114,9 +113,29 @@ $(document).ready(function () {
       if (input_field.checked) {
         edit_elements[i].style.display = "block";
       } else {
-        location.reload();
         edit_elements[i].style.display = "none";
       }
+      if (!input_field.checked) {
+        var itemForm = document.getElementById("itemForm");
+        itemForm.submit();
+      }
+    }
+  });
+
+  $("#image_upload").on("change", function () {
+    formdata = new FormData();
+    var file = this.files[0];
+    if (formdata) {
+      formdata.append("image", file);
+      formdata.append("id", itemId);
+      $.ajax({
+        url: $(this).data("save"),
+        type: "POST",
+        data: formdata,
+        processData: false,
+        contentType: false,
+        success: function () {},
+      });
     }
   });
   // Hide edit elements by default
@@ -132,8 +151,8 @@ $(document).ready(function () {
     this.addEventListener("blur", function () {
       //saveForm(this);
       // var form = document.getElementById("itemForm");
-      console.log("submitting");
-      this.form.submit();
+      //console.log("submitting");
+      //this.form.submit();
     });
   });
 });

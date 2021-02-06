@@ -1,3 +1,5 @@
+from sqlalchemy.sql.expression import false
+from werkzeug.datastructures import FileStorage
 from app import app
 from sqlalchemy import func
 from flask import (render_template, request, flash, redirect, url_for,
@@ -5,11 +7,14 @@ from flask import (render_template, request, flash, redirect, url_for,
 from flask_login import login_required, current_user
 from app.orm_decl import (Person, Publisher, Edition,
                           Part, Translator, Editor, Pubseries,
-                          Work, ShortStory, Translator, Author, BindingType)
+                          Work, ShortStory, Translator, Author, BindingType,
+                          PublicationSize)
 from app.forms import (EditionForm, EditionEditorForm, EditionTranslatorForm)
+from werkzeug.utils import secure_filename
 from .route_helpers import *
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 import json
+import os
 
 
 def save_edition(session: Any, form: Any, edition: Any) -> None:
@@ -226,7 +231,8 @@ def edition(editionid: Any) -> Any:
 
     binding_count = session.query(func.count(BindingType.id)).first()
     bindings: List[str] = [''] * (binding_count[0] + 1)
-    bindings[edition.binding_id] = 'checked'
+    if edition.binding_id:
+        bindings[edition.binding_id] = 'checked'
 
     form = EditionForm(request.form)
 
@@ -435,15 +441,102 @@ def save_cover_to_edition() -> Any:
     pass
 
 
-@ app.route('/save_binding_to_edition', methods=['POST'])
-@ login_required  # type: ignore
-@ admin_required
-def save_binding_to_edition() -> Any:
-    pass
-
-
 @ app.route('/save_format_to_edition', methods=['POST'])
 @ login_required  # type: ignore
 @ admin_required
 def save_format_to_edition() -> Any:
     pass
+
+# Size
+
+
+@app.route('/size_for_edition/<editionid>', methods=['GET'])
+def size_for_edition(editionid: Any) -> Any:
+    session = new_session()
+    size = session.query(PublicationSize)\
+                  .join(Edition)\
+                  .filter(PublicationSize.id == Edition.size_id)\
+                  .filter(Edition.id == editionid)\
+                  .first()
+
+    retval: List[Dict[str, str]] = []
+    if size:
+        obj: Dict[str, str] = {'id': size.id, 'text': size.name}
+        retval.append(obj)
+    return Response(json.dumps(retval))
+
+
+@app.route('/save_size_to_edition', methods=['POST'])
+@login_required  # type: ignore
+@admin_required
+def save_size_to_edition() -> Any:
+    (editionid, size_id) = get_select_ids(request.form)
+
+    session = new_session()
+
+    edition = session.query(Edition)\
+                     .filter(Edition.id == editionid)\
+                     .first()
+    edition.publisher_id = size_id[0]['id']
+    session.add(edition)
+    session.commit()
+
+    msg = 'Tallennus onnistui'
+    category = 'success'
+    resp = {'feedback': msg, 'category': category}
+    return make_response(jsonify(resp), 200)
+
+# Cover upload
+
+
+def allowed_image(filename: Optional[str]) -> bool:
+    if not filename:
+        return False
+    if not "." in filename:
+        return False
+
+    ext = filename.rsplit('.', 10)[1]
+    if ext.upper() in ['jpg', 'JPG']:
+        return True
+    else:
+        return False
+
+
+@app.route('/save_image_to_edition', methods=['POST'])
+@login_required  # type: ignore
+@admin_required
+def save_image_to_edition() -> Any:
+    if request.method == 'POST':
+        image: FileStorage = None
+        id: str = ''
+        if request.files:
+            id = request.form['id']
+            image = request.files['image']
+            if image.filename == '':
+                return redirect(request.url)
+        if allowed_image(image.filename):
+            filename = secure_filename(image.filename)  # type: ignore
+            image.save(os.path.join(
+                app.config['BOOKCOVER_SAVELOC'], filename))
+            session = new_session()
+            edition = session.query(Edition).filter(Edition.id == id).first()
+            edition.image_src = app.config['BOOKCOVER_DIR'] + filename
+            session.add(edition)
+            session.commit()
+            return redirect(request.url)
+        else:
+            return redirect(request.url)
+    return redirect(request.url)
+
+
+@app.route('/remove_image_from_edition/<editionid>')
+@login_required  # type: ignore
+@admin_required
+def remove_image_from_edition(editionid: Any) -> Any:
+    session = new_session()
+    edition = session.query(Edition).filter(Edition.id == editionid).first()
+    edition.image_src = ''
+    session.add(edition)
+    session.commit()
+
+    return redirect(url_for('edition', editionid=editionid))

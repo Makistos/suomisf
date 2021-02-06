@@ -803,3 +803,24 @@ def select_pubseries() -> Response:
         return Response(json.dumps(retval))
     else:
         return Response(json.dumps(['']))
+
+
+@app.route('/select_bookseries', methods=['GET'])
+def select_bookseries() -> Response:
+    search = request.args['q']
+    session = new_session()
+
+    if search:
+        retval: Dict[str, List[Dict[str, Any]]] = {}
+        bookseries = session.query(Bookseries)\
+            .filter(Bookseries.name.ilike('%' + search + '%'))\
+            .order_by(Bookseries.name)\
+            .first()
+
+        retval['results'] = []
+        if bookseries:
+            retval['results'].append(
+                {'id': bookseries.id, 'text': bookseries.name})
+        return Response(json.dumps(retval))
+    else:
+        return Response(json.dumps(['']))

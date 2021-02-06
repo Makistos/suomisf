@@ -9,6 +9,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
+from typing import Any
 
 Base = declarative_base()
 
@@ -677,7 +678,7 @@ class WorkType(Base):
 
 
 @login.user_loader
-def load_user(id):
+def load_user(id: Any) -> Any:
     engine = create_engine(db_url)
     Session = sessionmaker(bind=engine)
     session = Session()

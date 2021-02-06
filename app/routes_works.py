@@ -1,9 +1,13 @@
 from app import app
-from flask import render_template, request, flash, redirect, url_for, make_response
-from app.orm_decl import (Person, Work, Bookseries, Edition, Part)
-from app.forms import (WorkAuthorForm, WorkForm, WorkStoryForm, StoryForm, EditionForm)
-
+from flask import (render_template, request, flash, redirect, url_for,
+                   make_response, jsonify, Response)
+from flask_login import login_required, current_user
+from app.orm_decl import (Person, Work, Bookseries, Edition, Part, Author)
+from app.forms import (WorkAuthorForm, WorkForm,
+                       WorkStoryForm, StoryForm, EditionForm)
+import json
 from .route_helpers import *
+from typing import Any, List, Dict
 
 
 def save_work(session, form, work):
@@ -39,6 +43,7 @@ def save_work(session, form, work):
         session.add(part)
         session.commit()
     save_genres(session, work, form.genre.data)
+
 
 @app.route('/edit_work/<workid>', methods=["POST", "GET"])
 def edit_work(workid):
@@ -102,6 +107,7 @@ def edit_work(workid):
                            source=work.imported_string,
                            selected_bookseries=bookseriesid)
 
+
 @app.route('/work/<workid>', methods=["POST", "GET"])
 def work(workid):
     """ Popup has a form to add authors. """
@@ -164,6 +170,7 @@ def work(workid):
                            form_story=form_story, form_newstory=form_newstory,
                            stories=stories, prev_book=prev_book, next_book=next_book)
 
+
 @app.route('/add_edition/<workid>', methods=["POST", "GET"])
 def add_edition(workid):
     session = new_session()
@@ -213,3 +220,103 @@ def add_edition(workid):
                            search_list=search_list,
                            selected_pubseries=selected_pubseries, translators=None,
                            editors=None, pubseries=None, source=None)
+
+
+@app.route('/save_authors_to_work', methods=['POST'])
+@login_required  # type: ignore
+@admin_required
+def save_authors_to_work() -> Any:
+    session = new_session()
+
+    (workid, people_ids) = get_select_ids(request.form)
+
+    existing_people = session.query(Author)\
+        .join(Part)\
+        .filter(Part.id == Author.part_id)\
+        .filter(Part.work_id == workid)\
+        .all()
+
+    parts = session.query(Part)\
+                   .filter(Part.work_id == workid)\
+                   .all()
+
+    (to_add, to_remove) = get_join_changes(
+        [x.person_id for x in existing_people],
+        [int(x['id']) for x in people_ids])
+
+    for id in to_remove:
+        auth = session.query(Author)\
+            .filter(Author.person_id == id)\
+            .join(Part)\
+            .filter(Part.id == Author.part_id)\
+            .filter(Part.work_id == workid)\
+            .first()
+        session.delete(auth)
+    for id in to_add:
+        for part in parts:
+            auth = Author(part_id=part.id, person_id=id)
+            session.add(auth)
+
+    session.commit()
+
+    update_work_creators(workid)
+
+    msg = 'Tallennus onnistui'
+    category = 'success'
+    resp = {'feedback': msg, 'category': category}
+    return make_response(jsonify(resp), 200)
+
+
+@app.route('/authors_for_work/<workid>')
+def authors_for_work(workid: Any) -> Any:
+    session = new_session()
+
+    people = session.query(Person)\
+                    .join(Author)\
+                    .filter(Person.id == Author.person_id)\
+                    .join(Part)\
+                    .filter(Part.id == Author.part_id)\
+                    .filter(Part.work_id == workid)\
+                    .all()
+
+    return(make_people_response(people))
+
+
+@app.route('/save_bookseries_to_work')
+@login_required  # type: ignore
+@admin_required
+def save_bookseries_to_work() -> Any:
+    session = new_session()
+
+    (workid, series_ids) = get_select_ids(request.form)
+    work = session.query(Work)\
+                  .filter(Work.id == workid)\
+                  .first()
+
+    work.bookseries_id = series_ids[0]
+    session.add(work)
+    session.commit()
+
+    msg = 'Tallennus onnistui'
+    category = 'success'
+    resp = {'feedback': msg, 'category': category}
+    return make_response(jsonify(resp), 200)
+
+
+@app.route('/bookseries_for_work/<workid>')
+def bookseries_for_work(workid: Any) -> Any:
+    session = new_session()
+
+    bookseries = session.query(Bookseries)\
+                        .join(Work)\
+                        .filter(Bookseries.id == Work.bookseries_id)\
+                        .filter(Work.id == workid)\
+                        .all()
+    retval: List[Dict[str, str]] = []
+    if bookseries:
+        obj: Dict[str, str] = {}
+        obj['id'] = str(bookseries.id)
+        obj['text'] = bookseries.name
+        retval.append(obj)
+
+    return Response(json.dumps(retval))

@@ -13,8 +13,12 @@ from flask_sqlalchemy import SQLAlchemy
 #from flask_wtf.csrf import CSRFProtect
 
 app = Flask(__name__)
+if app.config['ENV'] == "production":
+    app.config.from_object("config.ProdConfig")
+else:
+    app.config.from_object("config.DevConfig")
+print(f'ENV is set to {app.config["ENV"]}.')
 app.static_folder = 'static'
-app.config.from_object(Config)
 db = SQLAlchemy(app)
 #migrate = Migrate()
 login = LoginManager(app)
@@ -25,7 +29,8 @@ app.jinja_env.trim_blocks = True
 #csrf = CSRFProtect(app)
 WTF_CSRF_CHECK_DEFAULT = False
 
-# This has to be here, not at the top of application won't start!
+
+# This has to be here, not at the top of application or it won't start!
 from app import (orm_decl, routes, routes_article, routes_books,
                  routes_editions, routes_issue, routes_magazine, routes_person,
                  routes_publisher, routes_series, routes_stories, routes_works)

@@ -482,20 +482,20 @@ def save_newstory_to_issue(session, issueid, form):
     pass
 
 
-def update_work_creators(session, workid):
-    # Update creator string (used to group works together)
-    authors = session.query(Person)\
-        .join(Author)\
-        .filter(Author.person_id == Person.id)\
-        .join(Part)\
-        .filter(Part.work_id == workid)\
-        .all()
-    work = session.query(Work).filter(Work.id == workid).first()
+# def update_work_creators(session, workid):
+#     # Update creator string (used to group works together)
+#     authors = session.query(Person)\
+#         .join(Author)\
+#         .filter(Author.person_id == Person.id)\
+#         .join(Part)\
+#         .filter(Part.work_id == workid)\
+#         .all()
+#     work = session.query(Work).filter(Work.id == workid).first()
 
-    author_str = ' & '.join([x.name for x in authors])
-    work.creator_str = author_str
-    session.add(work)
-    session.commit()
+#     author_str = ' & '.join([x.name for x in authors])
+#     work.creator_str = author_str
+#     session.add(work)
+#     session.commit()
 
 
 def update_story_creators(session, storyid):
@@ -637,3 +637,37 @@ def make_people_response(people: Any) -> Any:
             retval.append(obj)
 
     return Response(json.dumps(retval))
+
+
+def update_work_creators(workid: Any) -> Any:
+    session = new_session()
+    work = session.query(Work)\
+                  .filter(Work.id == workid)\
+                  .first()
+
+    authors = session.query(Person)\
+        .join(Author)\
+        .filter(Person.id == Author.person_id)\
+        .join(Part)\
+        .filter(Part.id == Author.part_id)\
+        .filter(Part.work_id == work.id)\
+        .all()
+    if authors:
+        author_list = ' & '.join([x.name for x in authors])
+        work.creator_str = author_list
+    else:
+        editors = session.query(Person)\
+            .join(Editor)\
+            .filter(Person.id == Editor.person_id)\
+            .join(Edition)\
+            .filter(Edition.id == Editor.edition_id)\
+            .join(Part)\
+            .filter(Part.edition_id == Edition.id,
+                    Part.work_id == work.id)\
+            .all()
+        if editors:
+            editor_list = ' & '.join([x.name for x in editors])
+            work.creator_str = editor_list + ' (toim.)'
+
+        session.add(work)
+    session.commit()

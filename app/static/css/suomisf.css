@@ -14,11 +14,18 @@ div.three-column {
   column-count: 3;
 }
 
+div.row {
+  border: 1;
+}
+div.col {
+  border: 1;
+}
 .form-control {
   border: none !important;
   box-shadow: none;
   border-radius: 0px;
-  background: transparent !important;
+  /*background: transparent !important;*/
+  background-color: ivory;
   padding: 0.1rem;
 }
 
