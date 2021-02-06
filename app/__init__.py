@@ -1,6 +1,3 @@
-from app import (orm_decl, routes, routes_article, routes_books,
-                 routes_editions, routes_issue, routes_magazine, routes_person,
-                 routes_publisher, routes_series, routes_stories, routes_works)
 import logging
 #from flask_debugtoolbar import DebugToolbarExtension
 import os
@@ -34,6 +31,9 @@ app.jinja_env.trim_blocks = True
 #csrf = CSRFProtect(app)
 WTF_CSRF_CHECK_DEFAULT = False
 
+from app import (orm_decl, routes, routes_article, routes_books,
+                 routes_editions, routes_issue, routes_magazine, routes_person,
+                 routes_publisher, routes_series, routes_stories, routes_works)
 
 # This has to be here, not at the top of application or it won't start!
 
