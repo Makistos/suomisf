@@ -824,3 +824,23 @@ def select_bookseries() -> Response:
         return Response(json.dumps(retval))
     else:
         return Response(json.dumps(['']))
+
+
+@app.route('/select_genre', methods=['GET'])
+def select_genre() -> Response:
+    search = request.args['q']
+    session = new_session()
+
+    if search:
+        retval: Dict[str, List[Dict[str, Any]]] = {}
+        genres = session.query(Genre)\
+                        .filter(Genre.name.ilike('%' + search + '%'))\
+                        .order_by(Genre.name)\
+                        .all()
+        retval['results'] = []
+        if genres:
+            for genre in genres:
+                retval['results'].append({'id': genre.id, 'text': genre.name})
+        return Response(json.dumps(retval))
+    else:
+        return Response(json.dumps(['']))

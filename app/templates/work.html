@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 {% if current_user.is_admin %}
-<form method="post" id="itemForm" class="align-items-center px-1 gx-1 gy-1">
+<form method="post" id="itemForm">
     {{ form.hidden_tag() }}
     {% endif %}
 
-    <div class="container">
-        <div class="card border-primary mb-3">
+    <div class="container p-0">
+        <div class="card">
             <div class="card-header">
                 {% if current_user.is_admin %}
                 <div class="edit-field">
@@ -28,7 +28,8 @@
                                 <h1 class="card-title">
                                     {% if current_user.is_admin %}
                                     <div class="edit-field">
-                                        <input field="text" class="form-control form-item" value="{{work.title}}">
+                                        <input type="text" class="form-control form-item" value="{{work.title}}"
+                                            form="itemForm" id="title" name="title">
                                     </div>
                                     {% endif %}
                                     <div class="view-field">
@@ -47,10 +48,9 @@
                                 {% set subtitle = '' %}
                                 {% endif %}
                                 <div class="edit-field">
-                                    <label for="subtitle">
-                                        Alaotsikko
-                                        <input type="text" class="form-control form-item" value="{{subtitle}}">
-                                    </label>
+                                    <label for="subtitle">Alaotsikko</label>
+                                    <input type="text" class="form-control form-item" value="{{subtitle}}"
+                                        form="itemForm" id="subtitle" name="subtitle">
                                 </div>
                                 {% endif %}
                                 <div class="view-field">
@@ -63,29 +63,23 @@
                         <!-- Original name, year, language-->
                         <div class="row">
                             {% if current_user.is_admin %}
-                            <div class="col-lg-4 edit-field">
+                            <div class="col-lg-7 edit-field">
                                 <!-- Original title-->
-                                <label for="orig-title">
-                                    Alkup. nimi
-                                    <input type="text" class="form-control form-item" id="orig_title" name="orig_title"
-                                        value="{{work.orig_title}}">
-                                </label>
+                                <label for="orig-title">Alkup. nimi</label>
+                                <input type="text" class="form-control form-item" id="orig_title" name="orig_title"
+                                    value="{{work.orig_title}}">
                             </div>
                             <!-- Pubyear -->
-                            <div class="col-lg-1 edit-field">
-                                <label for="pubyear">
-                                    Vuosi
-                                    <input type="text" class="form-control form-item" id="pubyear" name="pubyear"
-                                        value="{{work.pubyear}}">
-                                </label>
+                            <div class="col-lg-2 edit-field">
+                                <label for="pubyear">Vuosi</label>
+                                <input type="text" class="form-control form-item" id="pubyear" name="pubyear"
+                                    value="{{work.pubyear}}">
                             </div>
                             <!-- Language -->
                             <div class="col-lg-3 edit-field">
-                                <label for="language">
-                                    Kieli
-                                    <input type="text" class="form-control form-item" id="language" name="langueage"
-                                        value="{{work.language}}">
-                                </label>
+                                <label for="language">Kieli</label>
+                                <input type="text" class="form-control form-item" id="language" name="langueage"
+                                    value="{{work.language}}">
                             </div>
                             {% endif %}
                             <div class="col view-field">
@@ -103,9 +97,9 @@
                             </div>
                         </div>
                         <!-- Type -->
-                        <div class="row">
+                        <div class="row mb-2 mt-2">
                             {% if current_user.is_admin %}
-                            <div class="col-lg-8">
+                            <div class="col-lg-12">
                                 <div class="edit-field">
                                     <div class="field form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="type" id="type" value="1">
@@ -131,24 +125,21 @@
                         <!-- Series, number, order -->
                         <div class="row">
                             {% if current_user.is_admin %}
-                            <div class="col-lg-4 edit-field">
+                            <div class="col-lg-8 edit-field">
+                                <label for="bookseries">Kirjasarja</label>
                                 <select class="bookseries-selector form-control" data-placeholder="Kirjasarja"
                                     data-search="/select_bookseries" data-save="/save_bookseries_to_work"
-                                    data-init="/bookseries_for_work" data-name="bookseries"></select>
+                                    data-init="/bookseries_for_work" data-name="bookseries" name="bookseries"></select>
                             </div>
                             <div class="col-lg-2 edit-field">
-                                <label for="bookseriesnum">
-                                    Numero
-                                    <input type="text" class="form-control form-item" id="bookseriesnum"
-                                        name="bookseriesnum" value="{{work.bookseriesnum}}">
-                                </label>
+                                <label for="bookseriesnum">Numero</label>
+                                <input type="text" class="form-control form-item" id="bookseriesnum"
+                                    name="bookseriesnum" value="{{work.bookseriesnum}}">
                             </div>
                             <div class="col-lg-2 edit-field">
-                                <label for="bookseriesorder">
-                                    Järjestysnro
-                                    <input type="text" class="form-control form-item" id="bookseriesorder"
-                                        name="bookseriesorder" value="{{work.bookseriesnum}}">
-                                </label>
+                                <label for="bookseriesorder">Järjestysnro</label>
+                                <input type="text" class="form-control form-item" id="bookseriesorder"
+                                    name="bookseriesorder" value="{{work.bookseriesnum}}">
                             </div>
                             {% endif %}
                             <div class="col view-field">
@@ -175,14 +166,15 @@
                         <!-- Tags -->
                         <div class="row">
                             {% if current_user.is_admin %}
-                            <div class="col-lg-8 edit-field">
+                            <div class="col-lg-12 edit-field">
+                                <label for="tags">Asiasanat</label>
                                 <select class="tag-selector form-control" multiple="multiple"
                                     data-placeholder="Asiasanat" data-search="/select_tag"
                                     data-save="/save_tags_to_work" data-init="/tags_for_work" data-name="tags" id="tags"
-                                    data-tags="true"></select>
+                                    data-tags="true" name="tags"></select>
                             </div>
                             {% endif %}
-                            <div class="col-lg-8 view-field">
+                            <div class="col view-field">
                                 {% for tag in work.tags %}
                                 <a href="{{url_for('tag', tagid=tag.id)}}">{{tag.name}}</a>
                                 {% endfor %}
@@ -190,14 +182,25 @@
                         </div>
                         <!-- Misc -->
                         <div class="row">
-                            <div class="col">
+                            {% if current_user.is_admin %}
+                            <div class="col-lg-12 align-self-start edit-field">
+                                <label for="misc">
+                                    Muuta
+                                </label>
+                                <input type="text" class="form-control form-item" id="misc" name="misc"
+                                    value="{{work.misc}}">
+                            </div>
+                            {% endif %}
+                            <div class="col-lg-12 align-self-start view-field">
                                 {% if work.misc %}
                                 {{work.misc}}
                                 {% endif %}
                             </div>
                         </div>
+                        <!-- Description -->
                         <div class="row">
                             <div class="col edit-field">
+                                <label for="description">Kuvaus</label>
                                 <textarea class="form-control form-item" id="description" name="description" rows="5"
                                     cols="40" value="{{work.description}}"></textarea>
                             </div>
@@ -221,9 +224,9 @@
                             <div class="col edit-field mx-auto">
                                 {% if current_user.is_admin %}
                                 <select class="genre-selector form-control" multiple="multiple"
-                                    data-placeholder="Genret" data_search="/select_genre"
+                                    data-placeholder="Genret" data-search="/select_genre"
                                     data-save="/save_genres_to_work" data-init="/genres_for_work" data-name="genres"
-                                    id="genres"></select>
+                                    id="genres" data-mininput="1"></select>
                                 {% endif %}
                             </div>
                             <div class="col view-field mx-auto">

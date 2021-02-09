@@ -7,9 +7,9 @@ from app import app
 from app.forms import PersonForm
 from app.orm_decl import (Person, PersonTag, Author, Translator, Editor,
                           Part, Work, Edition, Genre, Awarded, ArticlePerson,
-                          ArticleAuthor)
+                          ArticleAuthor, Bookseries, ShortStory)
 from sqlalchemy import func
-from typing import Dict
+from typing import Dict, Any, List
 from .route_helpers import *
 import urllib
 import json
@@ -39,7 +39,7 @@ def authors() -> Any:
 
 
 @app.route('/translators')
-def translators():
+def translators() -> Any:
     session = new_session()
     people = session.query(Person)\
                     .join(Translator)\
@@ -52,7 +52,7 @@ def translators():
 
 
 @app.route('/editors')
-def editors():
+def editors() -> Any:
     session = new_session()
     people = session.query(Person)\
                     .join(Editor)\
@@ -66,7 +66,7 @@ def editors():
 
 
 @app.route('/person/<personid>')
-def person(personid):
+def person(personid: Any) -> Any:
     app.logger.info(personid)
     session = new_session()
     if personid.isdigit():
@@ -84,7 +84,7 @@ def person(personid):
                     .join(Part.authors)\
                     .filter(Bookseries.id == Work.bookseries_id)\
                     .filter(Part.work_id == Work.id)\
-                    .filter(Person.id == person.id)\
+                    .filter(Person.id == personid)\
                     .group_by(Bookseries.id)\
                     .all()
 
@@ -152,7 +152,7 @@ def person(personid):
 
 
 @app.route('/edit_person/<personid>', methods=['POST', 'GET'])
-def edit_person(personid):
+def edit_person(personid: int) -> Any:
     session = new_session()
     if personid != 0:
         person = session.query(Person).filter(Person.id == personid).first()
@@ -205,7 +205,7 @@ def edit_person(personid):
 
 
 @app.route('/new_person', methods=['POST', 'GET'])
-def new_person():
+def new_person() -> Any:
     session = new_session()
     person = Person()
 
@@ -235,7 +235,7 @@ def new_person():
 
 
 @app.route('/people_by_nationality/<nationality>')
-def people_by_nationality(nationality: str):
+def people_by_nationality(nationality: str) -> Any:
     session = new_session()
     people = session.query(Person)\
                     .filter(Person.nationality == nationality)\

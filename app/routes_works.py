@@ -2,7 +2,8 @@ from app import app
 from flask import (render_template, request, flash, redirect, url_for,
                    make_response, jsonify, Response)
 from flask_login import login_required, current_user
-from app.orm_decl import (Person, Work, Bookseries, Edition, Part, Author)
+from app.orm_decl import (Person, Work, Bookseries,
+                          Edition, Part, Author, Genre, WorkGenre, ShortStory)
 from app.forms import (WorkAuthorForm, WorkForm,
                        WorkStoryForm, StoryForm, EditionForm)
 import json
@@ -46,11 +47,11 @@ def save_work(session, form, work):
 
 
 @app.route('/edit_work/<workid>', methods=["POST", "GET"])
-def edit_work(workid):
-    search_list = {}
+def edit_work(workid: Any) -> Any:
+    search_list: Dict[str, Any] = {}
     session = new_session()
     authors = []
-    bookseries = []
+    bookseries: Any
     if workid != '0':
         work = session.query(Work)\
                       .filter(Work.id == workid)\
@@ -109,10 +110,12 @@ def edit_work(workid):
 
 
 @app.route('/work/<workid>', methods=["POST", "GET"])
-def work(workid):
+@login_required  # type: ignore
+@admin_required
+def work(workid: Any) -> Any:
     """ Popup has a form to add authors. """
-    search_list: Dict = {}
-    stories: List = []
+    search_list: Dict[str, Any] = {}
+    stories: List[Any] = []
     session = new_session()
     work = session.query(Work)\
                   .filter(Work.id == workid)\
@@ -131,20 +134,7 @@ def work(workid):
         .filter(Part.work_id == workid)\
         .group_by(Part.shortstory_id)\
         .all()
-    form = WorkAuthorForm(request.form)
-    form_story = WorkStoryForm(request.form)
-    form_newstory = StoryForm(request.form)
-
-    if form.submit.data and form.validate():
-        save_author_to_work(session, workid, form.author.data)
-        return redirect(url_for('work', workid=workid))
-    if form_story.submit_story.data and form_story.validate():
-        save_story_to_work(session, workid, form_story.title.data)
-        return redirect(url_for('work', workid=workid))
-    if form_newstory.submit_story.data and form_story.validate():
-        save_newstory_to_work(session, workid, form_newstory)
-        return redirect(url_for('work', workid=workid))
-
+    form = WorkForm(request.form)
     prev_book = None
     next_book = None
     if bookseries:
@@ -165,14 +155,37 @@ def work(workid):
                         prev_book = books_in_series[idx-1]
                         next_book = books_in_series[idx+1]
                     break
+
+    if request.method == 'GET':
+        form.id.data = work.id
+        form.title.data = work.title
+        form.subtitle.data = work.subtitle
+        form.orig_title = work.orig_title
+        form.pubyear = work.pubyear
+        form.bookseriesnum.data = work.bookseriesnum
+        form.bookseriesorder.data = work.bookseriesorder
+        form.description.data = work.description
+    elif form.validate_on_submit():
+        work.title = form.title.data
+        work.subtitle = form.subtitle.data
+        work.orig_title = form.orig_title.data
+        work.pubyear = form.pubyear.data
+        work.bookseriesnum = form.bookseriesnum.data
+        work.bookseriesorder = form.bookseriesorder.data
+        work.description = form.description.data
+        session.add(work)
+        session.commit()
+    else:
+        app.logger.error('Errors: {}'.format(form.errors))
+        print(f'Errors: {form.errors}')
+
     return render_template('work.html', work=work, authors=authors,
-                           bookseries=bookseries, search_lists=search_list, form=form,
-                           form_story=form_story, form_newstory=form_newstory,
-                           stories=stories, prev_book=prev_book, next_book=next_book)
+                           form=form, stories=stories,
+                           prev_book=prev_book, next_book=next_book)
 
 
 @app.route('/add_edition/<workid>', methods=["POST", "GET"])
-def add_edition(workid):
+def add_edition(workid: Any) -> Any:
     session = new_session()
 
     pubseries = []
@@ -320,3 +333,60 @@ def bookseries_for_work(workid: Any) -> Any:
         retval.append(obj)
 
     return Response(json.dumps(retval))
+
+
+@app.route('/genres_for_work/<workid>')
+def genres_for_work(workid: Any) -> Any:
+    session = new_session()
+
+    genres = session.query(Genre)\
+                    .join(WorkGenre)\
+                    .filter(WorkGenre.genre_id == Genre.id)\
+                    .filter(WorkGenre.work_id == workid)\
+                    .all()
+
+    retval: List[Dict[str, str]] = []
+    if genres:
+        for genre in genres:
+            obj: Dict[str, str] = {}
+            obj['id'] = str(genre.id)
+            obj['text'] = genre.name
+            retval.append(obj)
+
+    return Response(json.dumps(retval))
+
+
+@app.route('/save_genres_to_work')
+@login_required  # type: ignore
+@admin_required
+def save_genres_to_work() -> Any:
+    session = new_session()
+
+    (workid, genre_ids) = get_select_ids(request.form)
+
+    existing_genres = session.query(Genre)\
+        .join(WorkGenre)\
+        .filter(Genre.id == WorkGenre.genre_id)\
+        .filter(WorkGenre.work_id == workid)\
+        .all()
+
+    (to_add, to_remove) = get_join_changes(
+        [x.genre_id for x in existing_genres],
+        [int(x['id']) for x in genre_ids])
+
+    for id in to_remove:
+        auth = session.query(WorkGenre)\
+            .filter(WorkGenre.genre_id == id)\
+            .filter(WorkGenre.work_id == workid)\
+            .first()
+        session.delete(auth)
+    for id in to_add:
+        wg = WorkGenre(genre_id=id, work_id=workid)
+        session.add(wg)
+
+    session.commit()
+
+    msg = 'Tallennus onnistui'
+    category = 'success'
+    resp = {'feedback': msg, 'category': category}
+    return make_response(jsonify(resp), 200)

@@ -549,13 +549,13 @@ class User(UserMixin, Base):
     language = Column(String(2), default='FI')
     books = relationship("Edition", secondary="userbook")
 
-    def set_password(self, password):
+    def set_password(self, password: str) -> None:
         self.password_hash = generate_password_hash(password)
 
-    def check_password(self, password):
+    def check_password(self, password: str) -> bool:
         return check_password_hash(self.password_hash, password)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return '<User {}'.format(self.name)
 
 
@@ -598,8 +598,6 @@ class Work(Base):
         with collections. Not all parts have necessarily been
         published in a book.
     '''
-    def join_names(context):
-        return '& '.join([x.name for x in authors])
     __tablename__ = 'work'
     id = Column(Integer, primary_key=True)
     title = Column(String(500), nullable=False, index=True)
