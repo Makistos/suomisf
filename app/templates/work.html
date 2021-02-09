@@ -316,10 +316,12 @@
                         <div class="card-body">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    <b>Lähde: </b>{{work.imported_string}}
-                                </li>
-                                <li class="list-group-item">
-                                    <a href=" {{ url_for('edit_work', workid=work.id) }}">Muokkaa</a>
+                                    <div class="row">
+                                        <div class="col edit-field">
+                                            <label for="imported_string">Lähde</label>
+                                            <input field="text" class="form-control form-item" id="imported_string"
+                                                name="imported_string" value="{{work.imported_string}}" form="itemForm">
+                                        </div>
                                 </li>
                                 <li class="list-group-item">
                                     <a href=" {{ url_for('add_edition', workid=work.id) }}">Lisää painos</a>

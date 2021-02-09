@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+{% from 'macros.html' import value_or_empty %}
 {% if current_user.is_admin %}
 <form method="post" id="itemForm" class="align-items-center px-1 gx-1 gy-1">
     {{ form.hidden_tag() }}
@@ -8,14 +9,33 @@
         <div class="card-body mb-3">
             <div class="row">
                 <div class="col">
-                    <h1 class="card-title">
-                        {% if current_user.is_admin %}
+                    {% if current_user.is_admin %}
+                    <h1 class="card-title edit-field">
                         <input type="text" class="form-control form-item" id="title" name="title"
                             value="{{edition.title}}" form="itemForm">
-                        {% else %}
-                        {{ edition.title }}
-                        {% endif %}
                     </h1>
+                    {% endif %}
+                    <h1 class="card-title view-field">
+                        {{ edition.title }}
+                    </h1>
+                </div>
+            </div>
+            <div class="row">
+                {{ value_or_empty(edition.subtitle)}}
+                {# {% if edition.subtitle == None %}
+                {% set subtitle = '' %}
+                {% else %}
+                {% set subtitle = edition.subtitle %}
+                {% endif %} #}
+                {% if current_user.is_admin %}
+                <div class="col edit-field">
+                    <label for="subtitle">Alaotsikko</label>
+                    <input type="text" class="form-control form-item" id="subtitle" name="subtitle" value="{{value}}"
+                        form="itemForm">
+                </div>
+                {% endif %}
+                <div class="col view-field">
+                    {{subtitle}}
                 </div>
             </div>
             <div class="row mb-3">
@@ -67,7 +87,7 @@
                         {% endif %}
                     </h4>
                     <!-- Editors -->
-                    <div class="row align-items-center">
+                    <div class="row">
                         <div class="col edit-field">
                             {% if current_user.is_admin %}
                             <select class="form-control" multiple="multiple" data-placeholder="Toimittaja"
@@ -83,7 +103,7 @@
                         </div>
                     </div>
                     <!-- Translators -->
-                    <div class="row align-items-center">
+                    <div class="row">
                         {% if current_user.is_admin %}
                         <div class="col edit-field">
                             <select class="form-control" multiple="multiple" data-placeholder="Suomentaja"
@@ -110,21 +130,19 @@
                             </select>
                         </div>
                         <div class="col-2 edit-field">
+                            {{ value_or_empty(edition.subtitle)}}
                             <label for="pubyear">Vuosi</label>
-                            <input type="text" class="form-control form-item" value="{{edition.pubyear}}" name="pubyear"
+                            <input type="text" class="form-control form-item" value="{{value}}" name="pubyear"
                                 id="pubyear">
                         </div>
                         <div class="col-2 edit-field">
+                            {{ value_or_empty(edition.subtitle)}}
                             <label for="editionnum">Painos</label>
-                            <input type="text" class="form-control form-item" value="{{edition.editionnum}}"
-                                name="editionnum" id="editionnum" style="width:50%;">
+                            <input type="text" class="form-control form-item" value="{{value}}" name="editionnum"
+                                id="editionnum" style="width:50%;">
                         </div>
                         <div class="col-2 edit-field">
-                            {% if edition.version %}
-                            {% set value=edition.version %}
-                            {% else %}
-                            {% set value='' %}
-                            {% endif %}
+                            {{ value_or_empty(edition.subtitle)}}
                             <label for="version">Laitos</label>
                             <input type="text" class="form-control form-item" value="{{value}}" name="version"
                                 id="version" style="width:50%;">
@@ -176,11 +194,7 @@
                     <div class="row justify-content-start">
                         <div class="col-6 edit-field">
                             {% if current_user.is_admin %}
-                            {% if edition.pages %}
-                            {% set value=edition.pages %}
-                            {% else %}
-                            {% set value='' %}
-                            {% endif %}
+                            {{ value_or_empty(edition.subtitle)}}
                             <label for="pages">
                                 Sivuja
                                 <input type="text" class="form-control form-item" id="pages" name="pages"
@@ -210,9 +224,10 @@
                         <div class="col">
                             {% if current_user.is_admin %}
                             <div class="edit-field">
+                                {{ value_or_empty(edition.subtitle)}}
                                 <label for="misc">Muuta</label>
                                 <input type="text" class="form-control form-item" id="misc" name="misc"
-                                    value="{{edition.misc}}">
+                                    value="{{value}}">
                             </div>
                             {% endif %}
                             <div class="view-field">
@@ -221,13 +236,14 @@
                         </div>
                     </div>
                     <!-- ISBN -->
-                    <div class="row align-items-start">
+                    <div class="row">
                         {% if current_user.is_admin %}
                         <div class="col-8 edit-field">
+                            {{ value_or_empty(edition.subtitle)}}
                             <label fo="isbn">ISBN</label>
                             <div class="input-group">
                                 <input type="text" class="form-control form-item" id="isbn" id="isbn" style="width:30;"
-                                    value="{{edition.isbn}}">
+                                    value="{{value}}">
                             </div>
                             {% endif %}
                             <div class="view-field">
@@ -270,79 +286,66 @@
                     </div>
                     {% endif %}
                 </div>
-                <hr style="width:20%">
                 <!-- Cover artist -->
-                <div class="row align-items-center">
+                <div class="row">
                     <div class="col">
 
                     </div>
                 </div>
                 <!-- Artists -->
-                <div class="row align-items-center">
+                <div class="row">
                     <div class="col">
 
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                {% if current_user.is_admin %}
-                <div class="edit-field">
-                    <textarea class="form-item form-control" id="description" name="description" rows="5"
-                        cols="80"></textarea>
+        <div class="accordion" id="editionCard">
+            {% if stories|length %}
+            <div class="card">
+                <div class="card-header" id="headStories">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                            data-target="#stories" aria-expanded="false" aria-controls="stories">
+                            Novellit
+                        </button>
+                    </h2>
                 </div>
-                {% endif %}
-                <div class="view-field">
-                    {% if edition.description %}
-                    {{edition.description}}
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="accordion" id="editionCard">
-        {% if stories|length %}
-        <div class="card">
-            <div class="card-header" id="headStories">
-                <h2 class="mb-0">
-                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                        data-target="#stories" aria-expanded="false" aria-controls="stories">
-                        Novellit
-                    </button>
-                </h2>
-            </div>
-            <div id="stories" class="collapse" aria-labelledby="headStories" data-parent="#editionCard">
-                <div class="card-body">
-                    {% if stories|length %}
-                    <ul class="list-group list-group-flush">
-                        {% for story in stories %}
-                        <li class="list-group-item">
-                            {% if story.creator_str != edition.work[0].creator_str %}
-                            <b><span class="person-list">{{ story.creator_str }}</span></b>: {% endif %}
-                            <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
-                            {% if story.orig_title != story.title %}
-                            ({{ story.orig_title}}
-                            {%- if story.pubyear %}, {{story.pubyear}}{% endif %}) {% elif
-                            story.pubyear %} ({{ story.pubyear}}) {% endif %}
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
+                <div id="stories" class="collapse" aria-labelledby="headStories" data-parent="#editionCard">
+                    <div class="card-body">
+                        {% if stories|length %}
+                        <ul class="list-group list-group-flush">
+                            {% for story in stories %}
+                            <li class="list-group-item">
+                                {% if story.creator_str != edition.work[0].creator_str %}
+                                <b><span class="person-list">{{ story.creator_str }}</span></b>: {% endif %}
+                                <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
+                                {% if story.orig_title != story.title %}
+                                ({{ story.orig_title}}
+                                {%- if story.pubyear %}, {{story.pubyear}}{% endif %}) {% elif
+                                story.pubyear %} ({{ story.pubyear}}) {% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
-        </div>
-        {% endif %}
-        {% if current_user.is_admin %}
-        {% if edition.imported_string|length %}
-        {{edition.imported_string}}
-        {% endif %}
-        <br>
-        <input type="checkbox" id="edit_form" name="edit_form">
-        <label for="edit_form">Muokkaa</label>
-        {% endif %}
+            {% endif %}
+            {% if current_user.is_admin %}
+            <div class="row">
+                <div class="col edit-field">
+                    <label for="imported_string">Lähde</label>
+                    <input field="text" class="form-control form-item" id="imported_string" name="imported_string"
+                        value="{{edition.imported_string}}" form="itemForm">
+                </div>
+            </div>
+            <br>
+            <input type="checkbox" id="edit_form" name="edit_form">
+            <label for="edit_form">Muokkaa</label>
+            {% endif %}
 
-    </div>
+        </div>
 
     </div>
     </div>

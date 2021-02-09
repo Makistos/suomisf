@@ -3,15 +3,17 @@ from flask import (render_template, request, flash, redirect, url_for,
                    make_response, jsonify, Response)
 from flask_login import login_required, current_user
 from app.orm_decl import (Person, Work, Bookseries,
-                          Edition, Part, Author, Genre, WorkGenre, ShortStory)
+                          Edition, Part, Author, Genre, WorkGenre, ShortStory,
+                          BindingType, Editor, Translator)
 from app.forms import (WorkAuthorForm, WorkForm,
                        WorkStoryForm, StoryForm, EditionForm)
+from sqlalchemy import func
 import json
 from .route_helpers import *
 from typing import Any, List, Dict
 
 
-def save_work(session, form, work):
+def save_work(session, form: Any, work: Any) -> Any:
     author = session.query(Person).filter(Person.name ==
                                           form.author.data).first()
     work.id = form.id.data
@@ -165,6 +167,7 @@ def work(workid: Any) -> Any:
         form.bookseriesnum.data = work.bookseriesnum
         form.bookseriesorder.data = work.bookseriesorder
         form.description.data = work.description
+        form.source.data = work.imported_string
     elif form.validate_on_submit():
         work.title = form.title.data
         work.subtitle = form.subtitle.data
@@ -173,6 +176,7 @@ def work(workid: Any) -> Any:
         work.bookseriesnum = form.bookseriesnum.data
         work.bookseriesorder = form.bookseriesorder.data
         work.description = form.description.data
+        work.imported_string = form.source.data
         session.add(work)
         session.commit()
     else:
@@ -188,51 +192,45 @@ def work(workid: Any) -> Any:
 def add_edition(workid: Any) -> Any:
     session = new_session()
 
-    pubseries = []
-    edition = Edition()
+    works = session.query(Work).filter(Work.id == workid).all()
+    edition = Edition(title=works[0].title)
+    edition.imported_string = current_user.name
+    session.add(edition)
+    session.commit()
+    editionid = edition.id
+    edition = session.query(Edition).filter(Edition.id == editionid).first()
+    form = EditionForm(request.form)
 
-    selected_pubseries = 0
-    search_list = publisher_list(session)
+    editors = session.query(Person)\
+                     .join(Editor)\
+                     .filter(Person.id == Editor.person_id)\
+                     .join(Edition)\
+                     .filter(Edition.id == Editor.edition_id)\
+                     .filter(Edition.id == edition.id)\
+                     .all()
+    translators = session.query(Person)\
+                         .join(Translator)\
+                         .filter(Person.id == Translator.person_id)\
+                         .join(Part)\
+                         .filter(Part.id == Translator.part_id,
+                                 Part.edition_id == edition.id)\
+                         .all()
+    stories = session.query(ShortStory)\
+                     .join(Part)\
+                     .filter(Part.shortstory_id == ShortStory.id)\
+                     .filter(Part.edition_id == edition.id)\
+                     .group_by(Part.shortstory_id)\
+                     .all()
+    binding_count = session.query(func.count(BindingType.id)).first()
+    bindings: List[str] = [''] * (binding_count[0] + 1)
+    if edition.binding_id:
+        bindings[edition.binding_id] = 'checked'
 
-    form = EditionForm()
-
-    form.pubseries.choices = [(0, "Ei sarjaa")]
-    if request.method == 'GET':
-        form.id.data = 0
-
-    if form.validate_on_submit():
-        edition.title = form.title.data
-        edition.pubyear = form.pubyear.data
-        edition.language = form.language.data
-        edition.editionnum = form.edition.data
-        translator = session.query(Person).filter(Person.name ==
-                                                  form.translators.data).first()
-        editor = session.query(Person).filter(Person.name ==
-                                              form.editors.data).first()
-        publisher = session.query(Publisher).filter(Publisher.name ==
-                                                    form.publisher.data).first()
-        if form.pubseries.data:
-            edition.pubseries_id = form.pubseries.data
-        edition.pubseriesnum = form.pubseriesnum.data
-        edition.isbn = form.isbn.data
-        edition.misc = form.misc.data
-        session.add(edition)
-        session.commit()
-
-        # New edition so requires a row in Part table as well
-        part = Part()
-        part.work_id = workid
-        part.edition_id = edition.id
-        session.add(part)
-        session.commit()
-        return redirect(url_for('edition', editionid=edition.id))
-    else:
-        app.logger.debug("pubid={}".format(form.pubseries.data))
-        app.logger.debug("Errors: {}".format(form.errors))
-    return render_template('edit_edition.html', form=form,
-                           search_list=search_list,
-                           selected_pubseries=selected_pubseries, translators=None,
-                           editors=None, pubseries=None, source=None)
+    return render_template('edition.html', form=form,
+                           edition=edition, authors=None,
+                           other_editions=None, works=works,
+                           translators=translators, editors=editors,
+                           stories=stories, bindings=bindings)
 
 
 @app.route('/save_authors_to_work', methods=['POST'])

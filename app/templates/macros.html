@@ -49,6 +49,14 @@
 </script>
 {% endmacro %}
 
+{% macro value_or_empty(field) %}
+{% if field == None %}
+{% set value = '' %}
+{% else %}
+{% set value = field %}
+{%endif %}
+{% endmacro %}
+
 {% macro modal_button(target, text) %}
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{target}}">
     {{text}}

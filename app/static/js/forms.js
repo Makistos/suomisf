@@ -173,6 +173,7 @@ function saveSelector(target, endpoint, item_list) {
     },
   });
 }
+
 /*
 function send_form(form, form_id, url, type, inner_ajax, formData) {
   if (form[0].checkValidity() && isFormDataEmpty(formData) == false) {
