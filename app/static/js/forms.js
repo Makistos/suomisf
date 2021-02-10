@@ -31,7 +31,7 @@ $(document).ready(function () {
       placeholder: $(this).data("placeholder"),
       tags: Boolean($(this).data("tags")),
       tokenSeparators: [",", ", "],
-      width: this_width,
+      width: this_width /*,
       createTag: function (params) {
         var term = $.trim(params.term);
         var id = 0;
@@ -43,7 +43,7 @@ $(document).ready(function () {
           text: term,
           newTag: true,
         };
-      },
+      },*/,
     }),
       /* Fill selectors with data from db. */
       $.ajax({

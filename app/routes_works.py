@@ -1,10 +1,11 @@
+from flask.globals import session
 from app import app
 from flask import (render_template, request, flash, redirect, url_for,
                    make_response, jsonify, Response)
 from flask_login import login_required, current_user
 from app.orm_decl import (Person, Work, Bookseries,
                           Edition, Part, Author, Genre, WorkGenre, ShortStory,
-                          BindingType, Editor, Translator)
+                          BindingType, Editor, Translator, Part, WorkTag, Tag)
 from app.forms import (WorkAuthorForm, WorkForm,
                        WorkStoryForm, StoryForm, EditionForm)
 from sqlalchemy import func
@@ -199,6 +200,23 @@ def add_edition(workid: Any) -> Any:
     session.commit()
     editionid = edition.id
     edition = session.query(Edition).filter(Edition.id == editionid).first()
+
+    # Copy authors to edition from work
+    authors = session.query(Author)\
+                     .join(Part)\
+                     .filter(Author.part_id == Part.id)\
+                     .filter(Part.work_id == workid)\
+                     .distinct(Author.part_id, Author.part_id)\
+                     .all()
+    for author in authors:
+        part = Part(work_id=workid, edition_id=edition.id)
+        session.add(part)
+        session.commit()
+        auth = Author(part_id=part.id, person_id=author.person_id)
+        session.add(auth)
+        session.commit()
+    session.commit()
+
     form = EditionForm(request.form)
 
     editors = session.query(Person)\
@@ -382,6 +400,60 @@ def save_genres_to_work() -> Any:
         wg = WorkGenre(genre_id=id, work_id=workid)
         session.add(wg)
 
+    session.commit()
+
+    msg = 'Tallennus onnistui'
+    category = 'success'
+    resp = {'feedback': msg, 'category': category}
+    return make_response(jsonify(resp), 200)
+
+
+@app.route('/tags_for_work/<workid>')
+def tags_for_work(workid: Any) -> Any:
+    session = new_session()
+
+    genres = session.query(Tag)\
+                    .join(WorkTag)\
+                    .filter(WorkTag.tag_id == Tag.id)\
+                    .filter(WorkTag.work_id == workid)\
+                    .all()
+
+    retval: List[Dict[str, str]] = []
+    if genres:
+        for genre in genres:
+            obj: Dict[str, str] = {}
+            obj['id'] = str(genre.id)
+            obj['text'] = genre.name
+            retval.append(obj)
+
+    return Response(json.dumps(retval))
+
+
+@app.route('/save_tags_to_work', methods=['POST'])
+@login_required  # type: ignore
+@admin_required
+def save_tags_to_work() -> Any:
+
+    (workid, tag_ids) = get_select_ids(request.form)
+
+    session = new_session()
+    tag_ids = create_new_tags(session, tag_ids)
+
+    existing_tags = session.query(WorkTag)\
+                           .filter(WorkTag.work_id == workid)\
+                           .all()
+
+    (to_add, to_remove) = get_join_changes(
+        [x.tag_id for x in existing_tags], [int(x['id']) for x in tag_ids])
+
+    for id in to_remove:
+        wt = session.query(WorkTag)\
+                    .filter(WorkTag.work_id == workid, WorkTag.tag_id == id)\
+                    .first()
+        session.delete(wt)
+    for id in to_add:
+        wt = WorkTag(work_id=workid, tag_id=id)
+        session.add(wt)
     session.commit()
 
     msg = 'Tallennus onnistui'

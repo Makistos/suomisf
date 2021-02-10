@@ -316,23 +316,6 @@ def save_people_to_article() -> Any:
     return make_response(jsonify(resp), 200)
 
 
-def create_new_tags(session: Any, tags: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    retval: List[Dict[str, Any]] = []
-
-    for tag in tags:
-        id = int(tag['id'])
-        name = tag['text']
-        if id == 0:
-            new_tag = Tag(name=name)
-            session.add(new_tag)
-            session.commit()
-            id = new_tag.id
-            name = new_tag.name
-        retval.append({'id': id, 'text': name})
-
-    return retval
-
-
 @app.route('/save_tags_to_article', methods=["POST"])
 @login_required  # type: ignore
 @admin_required
