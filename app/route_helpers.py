@@ -4,7 +4,7 @@ from sqlalchemy import create_engine, desc, text
 from sqlalchemy.orm import sessionmaker, joinedload
 from app.orm_decl import (Person, Author, Editor, Translator, Publisher, Work,
                           Edition, Part, Pubseries, Bookseries, User, UserBook, PublicationSize, Tag,
-                          PersonTag, CoverType, BindingType, Format, Genre, ShortStory, ArticleTag,
+                          PersonTag, BindingType, Format, Genre, ShortStory, ArticleTag,
                           WorkGenre)
 from typing import List, Dict, Any, Tuple
 from flask_login import current_user
@@ -64,11 +64,6 @@ def pubseries_list(session: Any, pubid: Any) -> List[Tuple[str, str]]:
 def size_list(session: Any) -> List[Tuple[str, str]]:
     return [(str(x.id), str(x.name)) for x in
             session.query(PublicationSize).all()]
-
-
-def cover_list(session: Any) -> List[Tuple[str, str]]:
-    return [(str(x.id), str(x.name)) for x in
-            session.query(CoverType).all()]
 
 
 def binding_list(session: Any) -> List[Tuple[str, str]]:

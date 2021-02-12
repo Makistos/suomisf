@@ -1,9 +1,11 @@
 import os
 import sys
-from sqlalchemy import Column, ForeignKey, Integer, String, Boolean, Date
+import datetime
+from sqlalchemy import Column, ForeignKey, Integer, String, Boolean, Date, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy import create_engine
+from sqlalchemy.sql.expression import null
 from app import db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -137,6 +139,14 @@ class BindingType(Base):
     name = Column(String(50))
 
 
+class BookCondition(Base):
+    __tablename__ = 'bookcondition'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(20), nullable=False)
+    # Used to sort conditions from best to worst
+    value = Column(Integer, nullable=False)
+
+
 class Bookseries(Base):
     __tablename__ = 'bookseries'
     id = Column(Integer, primary_key=True)
@@ -155,10 +165,18 @@ class BookseriesLink(Base):
     description = Column(String(100))
 
 
-class CoverType(Base):
-    __tablename__ = 'covertype'
+class Country(Base):
+    __tablename__ = 'country'
     id = Column(Integer, primary_key=True)
-    name = Column(String(50))
+    name = Column(String(50), nullable=False, index=True)
+
+
+class CoverArtist(Base):
+    __tablename__ = 'coverartist'
+    person_id = Column(Integer, ForeignKey('person.id'),
+                       nullable=False, primary_key=True)
+    edition_id = Column(Integer, ForeignKey('edition.id'),
+                        nullable=False, primary_key=True)
 
 
 class Edition(Base):
@@ -173,23 +191,21 @@ class Edition(Base):
     title = Column(String(500), nullable=False, index=True)
     subtitle = Column(String(500))
     pubyear = Column(Integer, index=True)
-    translation = Column(Boolean)
-    language = Column(String(2))
     publisher_id = Column(Integer, ForeignKey('publisher.id'))
     editionnum = Column(Integer)
     version = Column(Integer)  # Laitos
-    image_src = Column(String(200))
+    #image_src = Column(String(200))
     isbn = Column(String(13))
+    printedin = Column(String(50))
     pubseries_id = Column(Integer, ForeignKey('pubseries.id'))
     pubseriesnum = Column(Integer)
-    collection = Column(Boolean)
     coll_info = Column(String(200))
     pages = Column(Integer)
-    cover_id = Column(Integer, ForeignKey('covertype.id'))
     binding_id = Column(Integer, ForeignKey('bindingtype.id'))
     format_id = Column(Integer, ForeignKey('format.id'))
     size_id = Column(Integer, ForeignKey('publicationsize.id'))
-    description = Column(String(500))
+    dustcover = Column(Integer, default=0)  # 0 = not known, 1 = no, 2 = yes
+    coverimage = Column(Integer, default=0)  # 0 = not known, 1 = no, 2 = yes
     misc = Column(String(500))
     imported_string = Column(String(500))
     parts = relationship('Part', backref=backref('parts_lookup'),
@@ -201,20 +217,29 @@ class Edition(Base):
                 Translator.part_id == Part.id, Part.edition_id == Edition.id)',
                                uselist=True)
     artists = relationship('Person', secondary='artist')
+    cover_artists = relationship('Person', secondary='coverartist')
     work = relationship('Work', secondary='part', uselist=True)
     publisher = relationship("Publisher", backref=backref('publisher_lookup',
                                                           uselist=False))
     pubseries = relationship("Pubseries", backref=backref('pubseries',
                                                           uselist=False))
     owners = relationship("User", secondary='userbook')
-    cover = relationship('CoverType', backref=backref(
-        'edition_cover_assoc'), uselist=False)
     binding = relationship('BindingType', backref=backref(
         'edition_binding_assoc'), uselist=False)
     format = relationship('Format', backref=backref(
         'edition_format_assoc'), uselist=False)
     size = relationship('PublicationSize', backref=backref(
         'edition_size_assoc'), uselist=False)
+    images = relationship(
+        'EditionImage', backref=backref('edition_image_assoc'), uselist=True)
+
+
+class EditionImage(Base):
+    __tablename__ = 'editionimage'
+    id = Column(Integer, primary_key=True)
+    edition_id = Column(Integer, ForeignKey(
+        'edition.id'), nullable=False)
+    image_src = Column(String(200))
 
 
 class EditionLink(Base):
@@ -223,6 +248,14 @@ class EditionLink(Base):
     edition_id = Column(Integer, ForeignKey('edition.id'), nullable=False)
     link = Column(String(200), nullable=False)
     description = Column(String(100))
+
+
+class EditionPrice(Base):
+    __tablename__ = 'editionprice'
+    id = Column(Integer, primary_key=True)
+    edition_id = Column(Integer, ForeignKey('edition.id'), nullable=False)
+    date = Column(Date)
+    condition_id = Column(Integer, ForeignKey('bookcondition.id'))
 
 
 class Editor(Base):
@@ -298,6 +331,23 @@ class IssueTag(Base):
                     primary_key=True)
 
 
+class Language(Base):
+    __tablename__ = 'language'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50), nullable=False, index=True)
+
+
+class Log(Base):
+    __tablename__ = 'Log'
+    id = Column(Integer, primary_key=True)
+    table_name = Column(String(30), index=True)
+    field_name = Column(String(30))
+    table_id = Column(Integer)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    old_value = Column(String(500))
+    date = Column(Date, default=datetime.datetime.utcnow)
+
+
 class Magazine(Base):
     __tablename__ = 'magazine'
     id = Column(Integer, primary_key=True)
@@ -362,7 +412,9 @@ class Person(Base):
     dod = Column(Integer)
     bio = Column(String(1000))  # Biographgy
     bio_src = Column(String(100))  # Source website name
-    nationality = Column(String(250))
+    nationality = Column(Integer, ForeignKey('country.id'))
+    birthtown = Column(String(50))
+    birthcountry = Column(Integer, ForeignKey('country.id'))
     other_names = Column(String(200))
     imported_string = Column(String(500))
     other_names = Column(String(250))
@@ -435,7 +487,7 @@ class Problem(Base):
     id = Column(Integer, primary_key=True)
     status = Column(String(20))
     comment = Column(String(500))
-    tabletype = Column(String(50))
+    table_name = Column(String(50))
     table_id = Column(Integer)
 
 
@@ -490,7 +542,7 @@ class ShortStory(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(250), nullable=False, index=True)
     orig_title = Column(String(250))
-    language = Column(String(2))
+    language = Column(Integer, ForeignKey('language.id'))
     pubyear = Column(Integer, index=True)
     creator_str = Column(String(500), index=True)
     parts = relationship('Part', backref=backref('part_assoc'), uselist=True)
@@ -546,7 +598,7 @@ class User(UserMixin, Base):
     name = Column(String(64), index=True, unique=True)
     password_hash = Column(String(128))
     is_admin = Column(Boolean, default=False)
-    language = Column(String(2), default='FI')
+    language = Column(Integer, ForeignKey('language.id'))
     books = relationship("Edition", secondary="userbook")
 
     def set_password(self, password: str) -> None:
@@ -565,6 +617,9 @@ class UserBook(Base):
                         primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False,
                      primary_key=True)
+    condition = Column(Integer, ForeignKey('bookcondition.id'))
+    description = Column(String(100))
+    price = Column(Integer)
     book = relationship("Edition", backref=backref("edition3_assoc"))
     user = relationship("User", backref=backref("user2_assoc"))
 
@@ -604,15 +659,13 @@ class Work(Base):
     subtitle = Column(String(500))
     orig_title = Column(String(250))
     pubyear = Column(Integer, index=True)
-    language = Column(String(2))
+    language = Column(Integer, ForeignKey('language.id'))
     bookseries_id = Column(Integer, ForeignKey('bookseries.id'))
     bookseriesnum = Column(String(20))
     bookseriesorder = Column(Integer)
-    collection = Column(Boolean)
     type = Column(Integer, ForeignKey('worktype.id'))
-    image_src = Column(String(200))
+    misc = Column(String(100))
     description = Column(String(500))
-    misc = Column(String(500))
     imported_string = Column(String(500))
     creator_str = Column(String(500), index=True)
     authors = relationship("Person",
@@ -635,14 +688,6 @@ class Work(Base):
                             lazy='dynamic')
     genres = relationship("Genre", secondary='workgenre', uselist=True)
     tags = relationship('Tag', secondary='worktag', uselist=True)
-
-
-class WorkConsists(Base):
-    __tablename__ = 'workconsists'
-    work_id = Column(Integer, ForeignKey('work.id'), nullable=False,
-                     primary_key=True)
-    parent_id = Column(Integer, ForeignKey('work.id'), nullable=False,
-                       primary_key=True)
 
 
 class WorkGenre(Base):

@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-{% from 'macros.html' import value_or_empty %}
 {% if current_user.is_admin %}
-<form method="post" id="itemForm" class="align-items-center px-1 gx-1 gy-1">
+<form method="post" id="itemForm">
     {{ form.hidden_tag() }}
     {% endif %}
-    <div class="container mb-3">
-        <div class="card-body mb-3">
+    <div class="container">
+        <div class="card-body">
             <div class="row">
                 <div class="col">
                     {% if current_user.is_admin %}
@@ -21,17 +20,11 @@
                 </div>
             </div>
             <div class="row">
-                {{ value_or_empty(edition.subtitle)}}
-                {# {% if edition.subtitle == None %}
-                {% set subtitle = '' %}
-                {% else %}
-                {% set subtitle = edition.subtitle %}
-                {% endif %} #}
                 {% if current_user.is_admin %}
                 <div class="col edit-field">
                     <label for="subtitle">Alaotsikko</label>
-                    <input type="text" class="form-control form-item" id="subtitle" name="subtitle" value="{{value}}"
-                        form="itemForm">
+                    <input type="text" class="form-control form-item" id="subtitle" name="subtitle"
+                        value="{{edition.subtitle if edition.subtitle is not none}}" form="itemForm">
                 </div>
                 {% endif %}
                 <div class="col view-field">
@@ -55,8 +48,8 @@
                     <div class="row">
                         <div class="col">
                             <!--<img src="/static/images/books/Aldiss_Kasvihuone.jpg"> -->
-                            {% if edition.image_src %}
-                            <img src="{{edition.image_src}}" class="img-fluid">
+                            {% if edition.images|length %}
+                            <img src="{{edition.images[0].image_src}}" class="img-fluid">
                             {% else %}
                             <img src="/static/icons/book-icon-158.png" class="img-fluid">
                             {% endif %}
@@ -69,6 +62,8 @@
                                 data-save="/save_image_to_edition">
                         </div>
                     </div>
+                    {%endif %}
+                    {% if edition.image_src %}
                     <div class="row edit-field">
                         <div class="col">
                             <a href="{{url_for('remove_image_from_edition', editionid=edition.id)}}">Poista kuva</a>
@@ -130,22 +125,21 @@
                             </select>
                         </div>
                         <div class="col-2 edit-field">
-                            {{ value_or_empty(edition.subtitle)}}
                             <label for="pubyear">Vuosi</label>
-                            <input type="text" class="form-control form-item" value="{{value}}" name="pubyear"
-                                id="pubyear">
+                            <input type="text" class="form-control form-item"
+                                value="{{edition.pubyear if edition.pubyear is not none}}" name="pubyear" id="pubyear">
                         </div>
                         <div class="col-2 edit-field">
-                            {{ value_or_empty(edition.subtitle)}}
                             <label for="editionnum">Painos</label>
-                            <input type="text" class="form-control form-item" value="{{value}}" name="editionnum"
+                            <input type="text" class="form-control form-item"
+                                value="{{edition.editionnum if edition.editionnum is not none}}" name="editionnum"
                                 id="editionnum" style="width:50%;">
                         </div>
                         <div class="col-2 edit-field">
-                            {{ value_or_empty(edition.subtitle)}}
                             <label for="version">Laitos</label>
-                            <input type="text" class="form-control form-item" value="{{value}}" name="version"
-                                id="version" style="width:50%;">
+                            <input type="text" class="form-control form-item"
+                                value="{{edition.version if edition.version is not none}}" name="version" id="version"
+                                style="width:50%;">
                         </div>
                         {% endif %}
                         <div class="col view-field">
@@ -159,7 +153,7 @@
                         </div>
                     </div>
                     <!-- Series -->
-                    <div class="row justify-content-start">
+                    <div class="row">
                         {% if current_user.is_admin %}
                         <div class="col-10 edit-field">
                             <label for="pubseries">Julkaisijan sarja</label>
@@ -169,13 +163,14 @@
                             </select>
                         </div>
                         <div class="col-2 edit-field">
-                            {% if edition.pubseriesnum %}
+                            {#{% if edition.pubseriesnum %}
                             {% set value=edition.pubseriesnum %}
                             {% else %}
                             {% set value='' %}
-                            {% endif %}
+                            {% endif %} #}
                             <label for="pubseriesnum">Nro</label>
-                            <input type="text" class="form-control form-item" value="{{value}}" id="pubseriesnum"
+                            <input type="text" class="form-control form-item"
+                                value="{{edition.pubseriesnum if edition.pubseriesnum is not none}}" id="pubseriesnum"
                                 name="pubseriesnum" style="width:50%;">
                         </div>
                         {% endif %}
@@ -191,14 +186,13 @@
                         </div>
                     </div>
                     <!-- Format etc -->
-                    <div class="row justify-content-start">
+                    <div class="row">
                         <div class="col-6 edit-field">
                             {% if current_user.is_admin %}
-                            {{ value_or_empty(edition.subtitle)}}
                             <label for="pages">
                                 Sivuja
                                 <input type="text" class="form-control form-item" id="pages" name="pages"
-                                    value="{{value}}">
+                                    value="{{edition.pages if edition.pages is not none}}">
                             </label>
                         </div>
                         {% endif %}
@@ -224,10 +218,9 @@
                         <div class="col">
                             {% if current_user.is_admin %}
                             <div class="edit-field">
-                                {{ value_or_empty(edition.subtitle)}}
                                 <label for="misc">Muuta</label>
                                 <input type="text" class="form-control form-item" id="misc" name="misc"
-                                    value="{{value}}">
+                                    value="{{edition.misc if edition.misc if not none}}">
                             </div>
                             {% endif %}
                             <div class="view-field">
@@ -239,11 +232,10 @@
                     <div class="row">
                         {% if current_user.is_admin %}
                         <div class="col-8 edit-field">
-                            {{ value_or_empty(edition.subtitle)}}
                             <label fo="isbn">ISBN</label>
                             <div class="input-group">
                                 <input type="text" class="form-control form-item" id="isbn" id="isbn" style="width:30;"
-                                    value="{{value}}">
+                                    value="{{edition.isbn if edition.isbn is not none}}">
                             </div>
                             {% endif %}
                             <div class="view-field">

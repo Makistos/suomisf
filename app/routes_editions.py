@@ -8,7 +8,7 @@ from flask_login import login_required, current_user
 from app.orm_decl import (Person, Publisher, Edition,
                           Part, Translator, Editor, Pubseries,
                           Work, ShortStory, Translator, Author, BindingType,
-                          PublicationSize)
+                          PublicationSize, EditionImage)
 from app.forms import (EditionForm, EditionEditorForm, EditionTranslatorForm)
 from werkzeug.utils import secure_filename
 from .route_helpers import *
@@ -21,7 +21,6 @@ def save_edition(session: Any, form: Any, edition: Any) -> None:
     edition.title = form.title.data
     edition.subtitle = form.subtitle.data
     edition.pubyear = form.pubyear.data
-    edition.language = form.language.data
     edition.editionnum = form.edition.data
     edition.version = form.version.data
     translator = session.query(Person).filter(Person.name ==
@@ -41,7 +40,6 @@ def save_edition(session: Any, form: Any, edition: Any) -> None:
     edition.binding_id = form.binding.data
     edition.format_id = form.format.data
     edition.size_id = form.size.data
-    edition.description = form.description.data
     # edition.artist_id = artist.id
     edition.isbn = form.isbn.data
     edition.misc = form.misc.data
@@ -127,7 +125,6 @@ def edit_edition(editionid: Any) -> Any:
     form = EditionForm()
     selected_pubseries = '0'
     source = edition.imported_string
-    form.cover.choices = cover_list(session)
     form.binding.choices = binding_list(session)
     form.format.choices = format_list(session)
     form.size.choices = size_list(session)
@@ -138,7 +135,6 @@ def edit_edition(editionid: Any) -> Any:
         form.title.data = edition.title
         form.subtitle.data = edition.subtitle
         form.pubyear.data = edition.pubyear
-        form.language.data = edition.language
         form.edition.data = edition.editionnum
         if edition.version:
             form.version.data = edition.version
@@ -152,11 +148,9 @@ def edit_edition(editionid: Any) -> Any:
             form.pubseries.data = pubseries.name
         form.pubseriesnum.data = edition.pubseriesnum
         form.pages.data = edition.pages
-        form.cover.data = edition.cover_id
         form.binding.data = edition.binding_id
         form.format.data = edition.format_id
         form.size.data = edition.size_id
-        form.description.data = edition.description
         # form.artist.data  = artist.name
         form.isbn.data = edition.isbn
         form.misc.data = edition.misc
@@ -205,7 +199,7 @@ def edition(editionid: Any) -> Any:
                             .join(Part)\
                             .filter(Part.work_id in work_ids)\
                             .filter(Edition.id != edition.id)\
-                            .order_by(Edition.language, Edition.pubyear)\
+                            .order_by(Edition.pubyear)\
                             .all()
     translators = session.query(Person)\
                          .join(Translator)\
@@ -246,7 +240,6 @@ def edition(editionid: Any) -> Any:
         form.isbn.data = edition.isbn
         form.pubseriesnum = edition.pubseriesnum
         form.pages.data = edition.pages
-        form.description.data = edition.description
         form.misc.data = edition.misc
         form.binding.data = edition.binding_id
 
@@ -259,7 +252,6 @@ def edition(editionid: Any) -> Any:
         edition.isbn = form.isbn.data
         edition.pubseriesnum = form.pubseriesnum.data
         edition.pages = form.pages.data
-        edition.description = form.description.data
         edition.misc = form.misc.data
         edition.binding_id = form.binding.data
 
@@ -507,23 +499,23 @@ def allowed_image(filename: Optional[str]) -> bool:
 @admin_required
 def save_image_to_edition() -> Any:
     if request.method == 'POST':
-        image: FileStorage = None
+        image: FileStorage
         id: str = ''
         if request.files:
             id = request.form['id']
             image = request.files['image']
             if image.filename == '':
                 return redirect(request.url)
-        if allowed_image(image.filename):
-            filename = secure_filename(image.filename)  # type: ignore
-            image.save(os.path.join(
-                app.config['BOOKCOVER_SAVELOC'], filename))
-            session = new_session()
-            edition = session.query(Edition).filter(Edition.id == id).first()
-            edition.image_src = app.config['BOOKCOVER_DIR'] + filename
-            session.add(edition)
-            session.commit()
-            return redirect(request.url)
+            if allowed_image(image.filename):
+                filename = secure_filename(image.filename)  # type: ignore
+                image.save(os.path.join(
+                    app.config['BOOKCOVER_SAVELOC'], filename))
+                session = new_session()
+                ei = EditionImage(edition_id=int(id),
+                                  image_src=app.config['BOOKCOVER_DIR'] + filename)
+                session.add(ei)
+                session.commit()
+                return redirect(request.url)
         else:
             return redirect(request.url)
     return redirect(request.url)
@@ -533,10 +525,11 @@ def save_image_to_edition() -> Any:
 @login_required  # type: ignore
 @admin_required
 def remove_image_from_edition(editionid: Any) -> Any:
-    session = new_session()
-    edition = session.query(Edition).filter(Edition.id == editionid).first()
-    edition.image_src = ''
-    session.add(edition)
-    session.commit()
+    # session = new_session()
+    # edition = session.query(Edition).filter(Edition.id == editionid).first()
+
+    # edition.image_src = ''
+    # session.add(edition)
+    # session.commit()
 
     return redirect(url_for('edition', editionid=editionid))

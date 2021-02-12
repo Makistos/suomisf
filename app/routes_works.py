@@ -14,7 +14,7 @@ from .route_helpers import *
 from typing import Any, List, Dict
 
 
-def save_work(session, form: Any, work: Any) -> Any:
+def save_work(session: Any, form: Any, work: Any) -> Any:
     author = session.query(Person).filter(Person.name ==
                                           form.author.data).first()
     work.id = form.id.data

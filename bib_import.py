@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
-from app.orm_decl import Work, Edition, Part, Person, Author, Translator,\
-    Editor, Publisher, Pubseries, Bookseries, User, Genre, Alias, WorkGenre, Award, BindingType, CoverType, Format,\
-    Magazine, WorkType, AwardCategory, PublicationSize
+from app.orm_decl import (Work, Edition, Part, Person, Author, Translator,
+                          Editor, Publisher, Pubseries, Bookseries, User, Genre,
+                          Alias, WorkGenre, Award, BindingType, Format,
+                          Magazine, WorkType, AwardCategory, PublicationSize)
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from importbib import publishers
-from importbib import bookseries, pubseries, important_pubseries, misc_strings, translators, editors, genres, genres_list
+from importbib import (bookseries, pubseries, important_pubseries,
+                       misc_strings, translators, editors, genres, genres_list)
 import re
 import os
 import sys
@@ -296,7 +298,7 @@ def get_books(books):
         tmp = re.sub('<a.+?>', '', tmp)
         tmp = re.sub('</a>', '', tmp)
         tmp = re.sub('&amp;', '&', tmp)
-        for misc in misc_strings.misc_strings:
+        for misc in misc_strings:
             if tmp.find(misc) != -1:
                 misc_str = misc
                 tmp.replace(misc, '')
@@ -800,24 +802,27 @@ def import_books(session, authors):
                 misc = None
             else:
                 misc = work['rest'].strip()
+            if work['collection'] == True:
+                worktype = 1
+            else:
+                worktype = 0
             if workitem:
                 workitem.bookseries_id = bookseriesid
                 workitem.bookseriesnum = work['bookseriesnum']
                 workitem.bookseriesorder = work['bookseriesorder']
+                workitem.type = worktype
                 workitem.misc = misc
-                workitem.collection = work['collection']
                 workitem.imported_string = work['imported_string']
             else:
                 workitem = Work(
                     title=work['title'],
                     orig_title=work['origname'],
                     pubyear=work['origyear'],
-                    language='',
                     bookseries_id=bookseriesid,
                     bookseriesnum=work['bookseriesnum'],
                     bookseriesorder=work['bookseriesorder'],
                     misc=misc,
-                    collection=work['collection'],
+                    type=worktype,
                     imported_string=work['imported_string'])
                 is_new = True
 
@@ -879,7 +884,6 @@ def import_books(session, authors):
                 else:
                     misc = edition['rest'].strip()
                 if ed:
-                    ed.translation = edition['translation']
                     ed.editionnum = editionnum
                     ed.pubseries_id = pubseriesid
                     ed.pubseriesnum = pubseriesnum
@@ -890,20 +894,18 @@ def import_books(session, authors):
                     ed = Edition(
                         title=edition['title'],
                         pubyear=edition['pubyear'],
-                        translation=edition['translation'],
-                        language='FI',  # Every book in these files is in Finnish
                         publisher_id=publisherid,
-                        editionnum=editionnum,
+                        editionnum=int(editionnum),
                         isbn='',  # No ISBNs in the data
                         pubseries_id=pubseriesid,
                         pubseriesnum=pubseriesnum,
-                        collection=workitem.collection,
                         coll_info=edition['coll_info'],
                         pages=None,
-                        cover_id=0,
                         format_id=0,
                         binding_id=0,
                         size_id=0,
+                        dustcover=0,
+                        coverimage=0,
                         misc=misc,
                         imported_string=edition['imported_string'])
                     is_new = True
@@ -1129,13 +1131,13 @@ def add_default_rows(session):
         s.add(item)
     s.commit()
 
-    covers = ['Ei tietoa/muu', 'Kovakantinen', 'Pehmytkantinen']
-    for cover in covers:
-        item = CoverType(name=cover)
-        s.add(item)
-    s.commit()
+    # covers = ['Ei tietoa/muu', 'Kovakantinen', 'Pehmytkantinen']
+    # for cover in covers:
+    #     item = CoverType(name=cover)
+    #     s.add(item)
+    # s.commit()
 
-    formats = ['Paperi', 'E-kirja', 'Äänikirja']
+    formats = ['Paperi', 'E-kirja', 'Äänikirja', 'Kuunnelma']
     for format in formats:
         item = Format(name=format)
         s.add(item)
