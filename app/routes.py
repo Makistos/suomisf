@@ -775,14 +775,26 @@ def autocomp_edition() -> Response:
         return Response(json.dumps(['']))
 
 
-# @app.route('/select_size', methods=['GET'])
-# def select_size() -> Response:
-#     search = request.args['q']
-#     session = new_session()
+@app.route('/select_size', methods=['GET'])
+def select_size() -> Response:
+    search = request.args['q']
+    session = new_session()
 
-#     if search:
-#         retval: Dict[str, List[Dict[str, Any]]] = {}
-#         sizes = session.query(PublicationSize)\
+    if search:
+        retval: Dict[str, List[Dict[str, Any]]] = {}
+        sizes = session.query(PublicationSize)\
+            .filter(PublicationSize.name.ilike('%' + search + '%'))\
+            .order_by(PublicationSize.name)\
+            .all()
+
+        retval['results'] = []
+        if sizes:
+            for size in sizes:
+                retval['results'].append({'id': size.id, 'text': size.name})
+        return Response(json.dumps(retval))
+    else:
+        return Response(json.dumps(['']))
+
 
 @app.route('/select_pubseries', methods=['GET'])
 def select_pubseries() -> Response:

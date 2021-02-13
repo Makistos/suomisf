@@ -227,13 +227,17 @@ def edition(editionid: Any) -> Any:
     bindings: List[str] = [''] * (binding_count[0] + 1)
     if edition.binding_id:
         bindings[edition.binding_id] = 'checked'
+    dustcovers: List[str] = [''] * 3
+    dustcovers[edition.dustcover] = 'checked'
+    coverimages: List[str] = [''] * 3
+    coverimages[edition.coverimage] = 'checked'
 
     form = EditionForm(request.form)
 
     if request.method == 'GET':
         form.id.data = edition.id
         form.title.data = edition.title
-        #form.subtitle.data = edition.subtitle
+        form.subtitle.data = edition.subtitle
         form.pubyear.data = edition.pubyear
         form.editionnum.data = edition.editionnum
         form.version.data = edition.version
@@ -245,7 +249,7 @@ def edition(editionid: Any) -> Any:
 
     elif form.validate_on_submit():
         edition.title = form.title.data
-        #edition.subtitle = form.subtitle.data
+        edition.subtitle = form.subtitle.data
         edition.pubyear = form.pubyear.data
         edition.editionnum = form.editionnum.data
         edition.version = form.version.data
@@ -254,6 +258,8 @@ def edition(editionid: Any) -> Any:
         edition.pages = form.pages.data
         edition.misc = form.misc.data
         edition.binding_id = form.binding.data
+        edition.dustcover = form.dustcover.data
+        edition.coverimage = form.coverimage.data
 
         session.add(edition)
         session.commit()
@@ -265,7 +271,8 @@ def edition(editionid: Any) -> Any:
                            edition=edition, authors=authors,
                            other_editions=other_editions, works=works,
                            translators=translators, editors=editors,
-                           stories=stories, bindings=bindings)
+                           stories=stories, bindings=bindings,
+                           dustcovers=dustcovers, coverimages=coverimages)
 
 # Translator
 
@@ -469,7 +476,7 @@ def save_size_to_edition() -> Any:
     edition = session.query(Edition)\
                      .filter(Edition.id == editionid)\
                      .first()
-    edition.publisher_id = size_id[0]['id']
+    edition.size_id = size_id[0]['id']
     session.add(edition)
     session.commit()
 

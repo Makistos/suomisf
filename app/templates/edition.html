@@ -83,14 +83,15 @@
                     </h4>
                     <!-- Editors -->
                     <div class="row">
+                        {% if current_user.is_admin %}
                         <div class="col edit-field">
-                            {% if current_user.is_admin %}
+                            <label for="editors">Toimittajat</label>
                             <select class="form-control" multiple="multiple" data-placeholder="Toimittaja"
                                 data-search="/select_person" data-save="/save_editors_to_edition"
-                                data-init="/editors_for_edition" data-name="editors">
+                                data-init="/editors_for_edition" data-name="editors" name="editors">
                             </select>
-                            {% endif %}
                         </div>
+                        {% endif %}
                         <div class="col view-field">
                             {% if editors|length %}
                             <span class="person-list">{{editors|map(attribute='alt_name')|join(', ')}}</span> (toim)
@@ -101,9 +102,10 @@
                     <div class="row">
                         {% if current_user.is_admin %}
                         <div class="col edit-field">
+                            <label for="translastors">Kääntäjät</label>
                             <select class="form-control" multiple="multiple" data-placeholder="Suomentaja"
                                 data-search="/select_person" data-save="/save_translators_to_edition"
-                                data-init="/translators_for_edition" data-name="translators">
+                                data-init="/translators_for_edition" data-name="translators" name="translators">
                             </select>
                         </div>
                         {% endif %}
@@ -163,11 +165,6 @@
                             </select>
                         </div>
                         <div class="col-2 edit-field">
-                            {#{% if edition.pubseriesnum %}
-                            {% set value=edition.pubseriesnum %}
-                            {% else %}
-                            {% set value='' %}
-                            {% endif %} #}
                             <label for="pubseriesnum">Nro</label>
                             <input type="text" class="form-control form-item"
                                 value="{{edition.pubseriesnum if edition.pubseriesnum is not none}}" id="pubseriesnum"
@@ -187,8 +184,8 @@
                     </div>
                     <!-- Format etc -->
                     <div class="row">
+                        {% if current_user.is_admin %}
                         <div class="col-6 edit-field">
-                            {% if current_user.is_admin %}
                             <label for="pages">
                                 Sivuja
                                 <input type="text" class="form-control form-item" id="pages" name="pages"
@@ -200,18 +197,18 @@
                             {% if edition.pages %}
                             {{ edition.pages}} sivua.
                             {% endif %}
-                            {% if edition.size %}
-                            {{edition.size.name}}.
+                            {% if edition.size and edition.size_id != 1 %}
+                            {{edition.size.name}} ({{edition.size.mm_height}}mm x {{edition.size.mm_width}}mm).
                             {% endif %}
                         </div>
+                        {% if current_user.is_admin %}
                         <div class="col-6 edit-field">
-                            {% if current_user.is_admin %}
                             <label for="size">Koko</label>
                             <select class="size-selector form-control" data-placeholder="Koko"
                                 data-search="/select_size" data-save="/save_size_to_edition"
                                 data-init="/size_for_edition" data-mininput="1" data-name="size" name="size"></select>
-                            {% endif %}
                         </div>
+                        {% endif %}
                     </div>
                     <!-- Misc -->
                     <div class="row">
@@ -231,41 +228,45 @@
                     <!-- ISBN -->
                     <div class="row">
                         {% if current_user.is_admin %}
-                        <div class="col-8 edit-field">
+                        <div class="col-3 edit-field">
                             <label fo="isbn">ISBN</label>
                             <div class="input-group">
-                                <input type="text" class="form-control form-item" id="isbn" id="isbn" style="width:30;"
-                                    value="{{edition.isbn if edition.isbn is not none}}">
-                            </div>
-                            {% endif %}
-                            <div class="view-field">
-                                {% if edition.isbn %}
-                                ISBN {{ edition.isbn}}
-                                {% endif %}
-                                {% if edition.binding %}
-                                {{ edition.binding.name }}
-                                {% endif %}
+                                <input type="text" class="form-control form-item" id="isbn" name="isbn"
+                                    style="width:30;" value="{{edition.isbn if edition.isbn is not none}}">
                             </div>
                         </div>
-                        <div class="col-4 edit-field">
-                            {% if current_user.is_admin %}
+                        {% endif %}
+                        <div class="col view-field">
+                            {% if edition.isbn %}
+                            ISBN {{ edition.isbn}}
+                            {%- endif -%}
+                            {% if edition.binding %}
+                            {{ edition.binding.name }}
+                            {%- endif -%}
+                            {%- if edition.isbn or edition.binding -%}
+                            .
+                            {% endif %}
+                        </div>
+                        {% if current_user.is_admin %}
+                        <div class="col-3 edit-field">
+                            <label>Sidonta</label>
                             <div class="custom-control custom-radio">
-                                <input type="radio" name="binding" class="custom-control-input form-item" id="none"
-                                    value="1" {{bindings[0]}}>
-                                <label class="custom-control-label" for="none">
+                                <input type="radio" name="binding" class="custom-control-input form-item"
+                                    id="binding_none" value="1" {{bindings[1]}}>
+                                <label class="custom-control-label" for="binding_none">
                                     Ei tietoa
                                 </label>
                             </div>
                             <div class="custom-control custom-radio">
                                 <input type="radio" name="binding" class="custom-control-input form-item" id="nidottu"
-                                    value="2" {{bindings[1]}}>
+                                    value="2" {{bindings[2]}}>
                                 <label class="custom-control-label" for="nidottu">
                                     Nidottu
                                 </label>
                             </div>
                             <div class="custom-control custom-radio">
                                 <input type="radio" name="binding" class="custom-control-input form-item" id="sidottu"
-                                    value="3" {{bindings[2]}}>
+                                    value="3" {{bindings[3]}}>
                                 <label class="custom-control-label" for="sidottu">
                                     Sidottu
                                 </label>
@@ -275,69 +276,128 @@
                                 data-name="bindingType"></select>
                             #}
                         </div>
+                        <div class="col-3 edit-field">
+                            <label>Ylivetokannet</label>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" name="dustcover" class="custon-control-input form-item"
+                                    id="dustcover_none" value="0" {{dustcovers[0]}}>
+                                <label class="custom-contrl-label" for="dustcover_none">
+                                    Ei tietoa
+                                </label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" name="dustcover" class="custon-control-input form-item"
+                                    id="dustcover_no" value="1" {{dustcovers[1]}}>
+                                <label class="custom-contrl-label" for="dustcover_no">
+                                    Ei
+                                </label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" name="dustcover" class="custon-control-input form-item"
+                                    id="dustcover_yes" value="2" {{dustcovers[2]}}>
+                                <label class="custom-contrl-label" for="dustcover_yes">
+                                    Kyllä
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-3 edit-field">
+                            <label>Kuvakansi</label>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" name="coverimage" class="custon-control-input form-item"
+                                    id="coverimage_none" value="0" {{coverimages[0]}}>
+                                <label class="custom-contrl-label" for="coverimage_none">
+                                    Ei tietoa
+                                </label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" name="coverimage" class="custon-control-input form-item"
+                                    id="coverimage_no" value="1" {{coverimages[1]}}>
+                                <label class="custom-contrl-label" for="coverimage_no">
+                                    Ei
+                                </label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" name="coverimage" class="custon-control-input form-item"
+                                    id="coverimage_yes" value="2" {{coverimages[2]}}>
+                                <label class="custom-contrl-label" for="coverimage_yes">
+                                    Kyllä
+                                </label>
+                            </div>
+                        </div>
                     </div>
                     {% endif %}
-                </div>
-                <!-- Cover artist -->
-                <div class="row">
-                    <div class="col">
-
-                    </div>
-                </div>
-                <!-- Artists -->
-                <div class="row">
-                    <div class="col">
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="accordion" id="editionCard">
-            {% if stories|length %}
-            <div class="card">
-                <div class="card-header" id="headStories">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                            data-target="#stories" aria-expanded="false" aria-controls="stories">
-                            Novellit
-                        </button>
-                    </h2>
-                </div>
-                <div id="stories" class="collapse" aria-labelledby="headStories" data-parent="#editionCard">
-                    <div class="card-body">
-                        {% if stories|length %}
-                        <ul class="list-group list-group-flush">
-                            {% for story in stories %}
-                            <li class="list-group-item">
-                                {% if story.creator_str != edition.work[0].creator_str %}
-                                <b><span class="person-list">{{ story.creator_str }}</span></b>: {% endif %}
-                                <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
-                                {% if story.orig_title != story.title %}
-                                ({{ story.orig_title}}
-                                {%- if story.pubyear %}, {{story.pubyear}}{% endif %}) {% elif
-                                story.pubyear %} ({{ story.pubyear}}) {% endif %}
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
+                    <div class="row view-field">
+                        <div class="col view-field">
+                            {% if edition.dustcover %}
+                            Ylivetokannet.
+                            {% endif %}
+                            {% if edition.coverimage %}
+                            Kuvakannet.
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
-            {% endif %}
-            {% if current_user.is_admin %}
+            <!-- Cover artist -->
             <div class="row">
-                <div class="col edit-field">
-                    <label for="imported_string">Lähde</label>
-                    <input field="text" class="form-control form-item" id="imported_string" name="imported_string"
-                        value="{{edition.imported_string}}" form="itemForm">
+                <div class="col">
+
                 </div>
             </div>
-            <br>
-            <input type="checkbox" id="edit_form" name="edit_form">
-            <label for="edit_form">Muokkaa</label>
-            {% endif %}
+            <!-- Artists -->
+            <div class="row">
+                <div class="col">
 
+                </div>
+            </div>
         </div>
+    </div>
+    <div class="accordion" id="editionCard">
+        {% if stories|length %}
+        <div class="card">
+            <div class="card-header" id="headStories">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                        data-target="#stories" aria-expanded="false" aria-controls="stories">
+                        Novellit
+                    </button>
+                </h2>
+            </div>
+            <div id="stories" class="collapse" aria-labelledby="headStories" data-parent="#editionCard">
+                <div class="card-body">
+                    {% if stories|length %}
+                    <ul class="list-group list-group-flush">
+                        {% for story in stories %}
+                        <li class="list-group-item">
+                            {% if story.creator_str != edition.work[0].creator_str %}
+                            <b><span class="person-list">{{ story.creator_str }}</span></b>: {% endif %}
+                            <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
+                            {% if story.orig_title != story.title %}
+                            ({{ story.orig_title}}
+                            {%- if story.pubyear %}, {{story.pubyear}}{% endif %}) {% elif
+                            story.pubyear %} ({{ story.pubyear}}) {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if current_user.is_admin %}
+        <div class="row">
+            <div class="col edit-field">
+                <label for="imported_string">Lähde</label>
+                <input field="text" class="form-control form-item" id="imported_string" name="imported_string"
+                    value="{{edition.imported_string}}" form="itemForm">
+            </div>
+        </div>
+        <br>
+        <input type="checkbox" id="edit_form" name="edit_form">
+        <label for="edit_form">Muokkaa</label>
+        {% endif %}
+
+    </div>
 
     </div>
     </div>
