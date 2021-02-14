@@ -42,15 +42,11 @@
                         <div class="row">
                             <div class="col">
                                 {% if current_user.is_admin %}
-                                {% if work.subtitle %}
-                                {% set subtitle = work.subtitle %}
-                                {% else %}
-                                {% set subtitle = '' %}
-                                {% endif %}
                                 <div class="edit-field">
                                     <label for="subtitle">Alaotsikko</label>
-                                    <input type="text" class="form-control form-item" value="{{subtitle}}"
-                                        form="itemForm" id="subtitle" name="subtitle">
+                                    <input type="text" class="form-control form-item"
+                                        value="{{work.subtitle if work.subtitle is not none}}" form="itemForm"
+                                        id="subtitle" name="subtitle">
                                 </div>
                                 {% endif %}
                                 <div class="view-field">
@@ -67,19 +63,19 @@
                                 <!-- Original title-->
                                 <label for="orig-title">Alkup. nimi</label>
                                 <input type="text" class="form-control form-item" id="orig_title" name="orig_title"
-                                    value="{{work.orig_title}}">
+                                    value="{{work.orig_title if work.orig_title is not none}}">
                             </div>
                             <!-- Pubyear -->
                             <div class="col-lg-2 edit-field">
                                 <label for="pubyear">Vuosi</label>
                                 <input type="text" class="form-control form-item" id="pubyear" name="pubyear"
-                                    value="{{work.pubyear}}">
+                                    value="{{work.pubyear if work.pubyear is not none}}">
                             </div>
                             <!-- Language -->
                             <div class="col-lg-3 edit-field">
                                 <label for="language">Kieli</label>
                                 <input type="text" class="form-control form-item" id="language" name="langueage"
-                                    value="{{work.language}}">
+                                    value="{{work.language if work.language is not none}}">
                             </div>
                             {% endif %}
                             <div class="col view-field">
@@ -134,12 +130,14 @@
                             <div class="col-lg-2 edit-field">
                                 <label for="bookseriesnum">Numero</label>
                                 <input type="text" class="form-control form-item" id="bookseriesnum"
-                                    name="bookseriesnum" value="{{work.bookseriesnum}}">
+                                    name="bookseriesnum"
+                                    value="{{work.bookseriesnum if work.bookseriesnum is not none}}">
                             </div>
                             <div class="col-lg-2 edit-field">
                                 <label for="bookseriesorder">Järjestysnro</label>
                                 <input type="text" class="form-control form-item" id="bookseriesorder"
-                                    name="bookseriesorder" value="{{work.bookseriesnum}}">
+                                    name="bookseriesorder"
+                                    value="{{work.bookseriesorder if work.bookseriesorder is not none and work.bookseriesorder != 0}}">
                             </div>
                             {% endif %}
                             <div class="col view-field">
@@ -188,7 +186,7 @@
                                     Muuta
                                 </label>
                                 <input type="text" class="form-control form-item" id="misc" name="misc"
-                                    value="{{work.misc}}">
+                                    value="{{work.misc if work.misc is not none}}">
                             </div>
                             {% endif %}
                             <div class="col-lg-12 align-self-start view-field">
@@ -202,7 +200,7 @@
                             <div class="col edit-field">
                                 <label for="description">Kuvaus</label>
                                 <textarea class="form-control form-item" id="description" name="description" rows="5"
-                                    cols="40" value="{{work.description}}"></textarea>
+                                    cols="40" value="{{work.description if work.description is not none}}"></textarea>
                             </div>
                             <div class="col view-field">
                                 {% if work.description %}
