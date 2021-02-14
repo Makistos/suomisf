@@ -1,17 +1,19 @@
 import csv
-from app.orm_decl import (Work, Edition, Part, Author, Person)
+from app.orm_decl import (EditionImage, Work, Edition, Part, Author, Person)
 import sys
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from typing import List
+from typing import List, Any
 db_url = os.environ.get('DATABASE_URL') or \
-        'sqlite:///suomisf.db'
+    'sqlite:///suomisf.db'
 
 just_check: bool = False
 
 img_dir = '/static/images/books/'
-def add_image(s, image: List[str]) -> None:
+
+
+def add_image(s: Any, image: List[str]) -> None:
     image_src = img_dir + image[0]
     author_str = image[1]
     title_str = image[2]
@@ -34,9 +36,10 @@ def add_image(s, image: List[str]) -> None:
         print(f'Found: {author_str}: {title_str}')
     if just_check == False:
         for edition in editions:
-            edition.image_src = image_src
-            s.add(edition)
+            ei = EditionImage(edition_id=edition.id, image_src=image_src)
+            s.add(ei)
         s.commit()
+
 
 def import_images(params) -> None:
     engine = create_engine(db_url)
@@ -51,6 +54,7 @@ def import_images(params) -> None:
         imagescsv = csv.reader(csvfile, delimiter=';', quotechar='"')
         for image in imagescsv:
             add_image(s, image)
+
 
 if __name__ == '__main__':
     import_images(sys.argv[1:])

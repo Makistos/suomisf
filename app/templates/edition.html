@@ -328,10 +328,10 @@
                     {% endif %}
                     <div class="row view-field">
                         <div class="col view-field">
-                            {% if edition.dustcover %}
+                            {% if edition.dustcover == 2 %}
                             Ylivetokannet.
                             {% endif %}
-                            {% if edition.coverimage %}
+                            {% if edition.coverimage == 2 %}
                             Kuvakannet.
                             {% endif %}
                         </div>
@@ -351,53 +351,52 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="accordion" id="editionCard">
-        {% if stories|length %}
-        <div class="card">
-            <div class="card-header" id="headStories">
-                <h2 class="mb-0">
-                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                        data-target="#stories" aria-expanded="false" aria-controls="stories">
-                        Novellit
-                    </button>
-                </h2>
-            </div>
-            <div id="stories" class="collapse" aria-labelledby="headStories" data-parent="#editionCard">
-                <div class="card-body">
-                    {% if stories|length %}
-                    <ul class="list-group list-group-flush">
-                        {% for story in stories %}
-                        <li class="list-group-item">
-                            {% if story.creator_str != edition.work[0].creator_str %}
-                            <b><span class="person-list">{{ story.creator_str }}</span></b>: {% endif %}
-                            <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
-                            {% if story.orig_title != story.title %}
-                            ({{ story.orig_title}}
-                            {%- if story.pubyear %}, {{story.pubyear}}{% endif %}) {% elif
-                            story.pubyear %} ({{ story.pubyear}}) {% endif %}
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
+        <div class="accordion" id="editionCard">
+            {% if stories|length %}
+            <div class="card">
+                <div class="card-header" id="headStories">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                            data-target="#stories" aria-expanded="false" aria-controls="stories">
+                            Novellit
+                        </button>
+                    </h2>
+                </div>
+                <div id="stories" class="collapse" aria-labelledby="headStories" data-parent="#editionCard">
+                    <div class="card-body">
+                        {% if stories|length %}
+                        <ul class="list-group list-group-flush">
+                            {% for story in stories %}
+                            <li class="list-group-item">
+                                {% if story.creator_str != edition.work[0].creator_str %}
+                                <b><span class="person-list">{{ story.creator_str }}</span></b>: {% endif %}
+                                <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
+                                {% if story.orig_title != story.title %}
+                                ({{ story.orig_title}}
+                                {%- if story.pubyear %}, {{story.pubyear}}{% endif %}) {% elif
+                                story.pubyear %} ({{ story.pubyear}}) {% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
-        </div>
-        {% endif %}
-        {% if current_user.is_admin %}
-        <div class="row">
-            <div class="col edit-field">
-                <label for="imported_string">Lähde</label>
-                <input field="text" class="form-control form-item" id="imported_string" name="imported_string"
-                    value="{{edition.imported_string}}" form="itemForm">
+            {% endif %}
+            {% if current_user.is_admin %}
+            <div class="row">
+                <div class="col edit-field">
+                    <label for="imported_string">Lähde</label>
+                    <input field="text" class="form-control form-item" id="imported_string" name="imported_string"
+                        value="{{edition.imported_string}}" form="itemForm">
+                </div>
             </div>
-        </div>
-        <br>
-        <input type="checkbox" id="edit_form" name="edit_form">
-        <label for="edit_form">Muokkaa</label>
-        {% endif %}
+            <br>
+            <input type="checkbox" id="edit_form" name="edit_form">
+            <label for="edit_form">Muokkaa</label>
+            {% endif %}
 
-    </div>
+        </div>
 
     </div>
     </div>
