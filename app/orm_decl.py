@@ -688,6 +688,8 @@ class Work(Base):
                             lazy='dynamic')
     genres = relationship("Genre", secondary='workgenre', uselist=True)
     tags = relationship('Tag', secondary='worktag', uselist=True)
+    language_name = relationship(
+        'Language', backref=backref('language'), uselist=False)
 
 
 class WorkGenre(Base):

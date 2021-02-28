@@ -74,8 +74,10 @@
                             <!-- Language -->
                             <div class="col-lg-3 edit-field">
                                 <label for="language">Kieli</label>
-                                <input type="text" class="form-control form-item" id="language" name="langueage"
-                                    value="{{work.language if work.language is not none}}">
+                                <select class="language-selector form-control" data-placeholder="Alkup. kieli"
+                                    data-search="/select_language" data-save="/save_language_to_work"
+                                    data-init="/language_for_work" data-name="language" id="language" data-tags="true"
+                                    name="language"></select>
                             </div>
                             {% endif %}
                             <div class="col view-field">
@@ -87,7 +89,7 @@
                                     {{ work.pubyear }}
                                     {% endif %}
                                     {% if work.language %}
-                                    ({{work.language}}))
+                                    ({{work.language_name.name}})
                                     {% endif %}
                                 </i>
                             </div>
@@ -211,13 +213,6 @@
                     </div>
                     <!-- Image -->
                     <div class="col-lg-4 col-sm-12 mx-auto">
-                        <div class="row">
-                            <div class="col">
-                                {% if work.image_src %}
-                                <img src="{{work.image_src}}" class="img-fluid">
-                                {% endif %}
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col edit-field mx-auto">
                                 {% if current_user.is_admin %}

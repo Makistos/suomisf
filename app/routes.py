@@ -1,11 +1,13 @@
 from flask import render_template, request, flash, redirect, url_for,\
     make_response, jsonify, Response
 from flask_login import current_user, login_user, logout_user, login_required
+from sqlalchemy.util.langhelpers import ellipses_string
 from app import app
 from app.orm_decl import (Person, Author, Editor, Translator, Work,
                           Edition, Pubseries, Bookseries, User, UserBook, ShortStory, UserPubseries,
                           Alias, Genre, WorkGenre, Tag, Award, AwardCategory, Awarded,
-                          Magazine, Issue, PublicationSize, Publisher, Part, ArticleTag)
+                          Magazine, Issue, PublicationSize, Publisher, Part, ArticleTag,
+                          Language)
 from sqlalchemy import create_engine, desc, func
 from sqlalchemy.orm import sessionmaker
 from app.forms import (LoginForm, RegistrationForm,
@@ -853,6 +855,27 @@ def select_genre() -> Response:
         if genres:
             for genre in genres:
                 retval['results'].append({'id': genre.id, 'text': genre.name})
+        return Response(json.dumps(retval))
+    else:
+        return Response(json.dumps(['']))
+
+
+@app.route('/select_language', methods=['GET'])
+def select_language() -> Response:
+    search = request.args['q']
+    session = new_session()
+
+    if search:
+        retval: Dict[str, List[Dict[str, Any]]] = {}
+        languages = session.query(Language)\
+                           .filter(Language.name.ilike('%' + search + '%'))\
+                           .order_by(Language.name)\
+                           .all()
+        retval['results'] = []
+        if languages:
+            for language in languages:
+                retval['results'].append(
+                    {'id': language.id, 'text': language.name})
         return Response(json.dumps(retval))
     else:
         return Response(json.dumps(['']))

@@ -803,9 +803,9 @@ def import_books(session, authors):
             else:
                 misc = work['rest'].strip()
             if work['collection'] == True:
-                worktype = 1
+                worktype = 2
             else:
-                worktype = 0
+                worktype = 1
             if workitem:
                 workitem.bookseries_id = bookseriesid
                 workitem.bookseriesnum = work['bookseriesnum']

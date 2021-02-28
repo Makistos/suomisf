@@ -5,7 +5,8 @@ from flask import (render_template, request, flash, redirect, url_for,
 from flask_login import login_required, current_user
 from app.orm_decl import (Person, Work, Bookseries,
                           Edition, Part, Author, Genre, WorkGenre, ShortStory,
-                          BindingType, Editor, Translator, Part, WorkTag, Tag)
+                          BindingType, Editor, Translator, Part, WorkTag, Tag,
+                          Language)
 from app.forms import (WorkAuthorForm, WorkForm,
                        WorkStoryForm, StoryForm, EditionForm)
 from sqlalchemy import func
@@ -113,8 +114,6 @@ def edit_work(workid: Any) -> Any:
 
 
 @app.route('/work/<workid>', methods=["POST", "GET"])
-@login_required  # type: ignore
-@admin_required
 def work(workid: Any) -> Any:
     """ Popup has a form to add authors. """
     search_list: Dict[str, Any] = {}
@@ -454,6 +453,56 @@ def save_tags_to_work() -> Any:
     for id in to_add:
         wt = WorkTag(work_id=workid, tag_id=id)
         session.add(wt)
+    session.commit()
+
+    msg = 'Tallennus onnistui'
+    category = 'success'
+    resp = {'feedback': msg, 'category': category}
+    return make_response(jsonify(resp), 200)
+
+
+@app.route('/language_for_work/<workid>')
+def language_for_work(workid: Any) -> Any:
+    session = new_session()
+    work = session.query(Work).filter(Work.id == workid).first()
+
+    retval: List[Dict[str, str]] = []
+
+    if work.language is not None:
+        language = session.query(Language)\
+            .join(Work)\
+            .filter(Language.id == Work.language, Work.id == workid)\
+            .first()
+        obj: Dict[str, str] = {}
+        obj['id'] = str(language.id)
+        obj['text'] = language.name
+        retval.append(obj)
+
+    return Response(json.dumps(retval))
+
+
+@app.route('/save_language_to_work', methods=['POST'])
+@login_required  # type: ignore
+@admin_required
+def save_language_to_work() -> Any:
+
+    (workid, lang_ids) = get_select_ids(request.form)
+
+    session = new_session()
+
+    lang = session.query(Language)\
+        .filter(Language.id == lang_ids[0]['text'])\
+        .first()
+
+    if lang is None:
+        (lang_id, lang_name) = create_new_language(
+            session, lang_ids[0]['text'])
+
+    work = session.query(Work)\
+                  .filter(Work.id == workid)\
+                  .first()
+    work.language = lang_id
+    session.add(work)
     session.commit()
 
     msg = 'Tallennus onnistui'

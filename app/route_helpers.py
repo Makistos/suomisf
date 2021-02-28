@@ -2,7 +2,7 @@
 
 from sqlalchemy import create_engine, desc, text
 from sqlalchemy.orm import sessionmaker, joinedload
-from app.orm_decl import (Person, Author, Editor, Translator, Publisher, Work,
+from app.orm_decl import (Language, Person, Author, Editor, Translator, Publisher, Work,
                           Edition, Part, Pubseries, Bookseries, User, UserBook, PublicationSize, Tag,
                           PersonTag, BindingType, Format, Genre, ShortStory, ArticleTag,
                           WorkGenre)
@@ -684,3 +684,11 @@ def create_new_tags(session: Any, tags: List[Dict[str, Any]]) -> List[Dict[str, 
         retval.append({'id': id, 'text': name})
 
     return retval
+
+
+def create_new_language(session: Any, lang_name: str) -> Tuple[int, str]:
+    lang = Language(name=lang_name)
+    session.add(lang)
+    session.commit()
+
+    return (lang.id, lang.name)
