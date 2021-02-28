@@ -216,6 +216,7 @@ class WorkForm(FlaskForm):
     title = StringField('Nimeke', validators=[DataRequired()])
     subtitle = StringField('Alaotsikko')
     orig_title = StringField('Alkuperäinen nimi')
+    type = IntegerField('Tyyppi', validators=[Optional()])
     pubyear = IntegerField('Julkaisuvuosi', validators=[Optional()])
     language = StringField('Kieli')
     bookseriesnum = StringField('Sarjanumero')

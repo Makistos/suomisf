@@ -116,7 +116,6 @@ def edit_work(workid: Any) -> Any:
 @app.route('/work/<workid>', methods=["POST", "GET"])
 def work(workid: Any) -> Any:
     """ Popup has a form to add authors. """
-    search_list: Dict[str, Any] = {}
     stories: List[Any] = []
     session = new_session()
     work = session.query(Work)\
@@ -128,8 +127,8 @@ def work(workid: Any) -> Any:
                         .filter(Bookseries.id == work.bookseries_id,
                                 Work.id == workid)\
                         .first()
-    search_list = {**search_list, **author_list(session)}
-
+    types: List[str] = [''] * 3
+    types[work.type] = 'checked'
     stories = session.query(ShortStory)\
         .join(Part)\
         .filter(Part.shortstory_id == ShortStory.id)\
@@ -177,6 +176,7 @@ def work(workid: Any) -> Any:
         work.bookseriesorder = form.bookseriesorder.data
         work.description = form.description.data
         work.imported_string = form.source.data
+        work.type = form.type.data
         session.add(work)
         session.commit()
     else:
@@ -185,7 +185,8 @@ def work(workid: Any) -> Any:
 
     return render_template('work.html', work=work, authors=authors,
                            form=form, stories=stories,
-                           prev_book=prev_book, next_book=next_book)
+                           prev_book=prev_book, next_book=next_book,
+                           types=types)
 
 
 @app.route('/add_edition/<workid>', methods=["POST", "GET"])
