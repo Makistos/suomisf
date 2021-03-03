@@ -202,10 +202,10 @@
                         <div class="row">
                             <div class="col edit-field mx-auto">
                                 {% if current_user.is_admin %}
-                                <select class="genre-selector" multiple="multiple" data-placeholder="Genret"
-                                    data-search="/select_genre" data-save="/save_genres_to_work"
-                                    data-init="/genres_for_work" data-name="genres" id="genres"
-                                    data-mininput="1"></select>
+                                <select class="genre-selector form-control" multiple="multiple"
+                                    data-placeholder="Genret" data-search="/select_genre"
+                                    data-save="/save_genres_to_work" data-init="/genres_for_work" data-name="genres"
+                                    id="genres" data-mininput="1"></select>
                                 {% endif %}
                             </div>
                             <div class="col view-field mx-auto">
@@ -220,7 +220,6 @@
                         <div class="row">
                             {% if current_user.is_admin %}
                             <div class="col-lg-12 edit-field">
-                                <label for="tags">Asiasanat</label>
                                 <select class="tag-selector form-control" multiple="multiple"
                                     data-placeholder="Asiasanat" data-search="/select_tags"
                                     data-save="/save_tags_to_work" data-init="/tags_for_work" data-name="tags" id="tags"
@@ -281,7 +280,10 @@
                     </div>
                     <div id="editions" aria-labelledby="headEditions" data-parent="#workCard">
                         <div class="card-body">
-                            <ul class="list-group list-group-flush">
+                            <div class="mb-3">
+                                <button onclick="switchStyle()" id="switcher" class="btn btn-light">Kannet</button>
+                            </div>
+                            <ul class="list-group list-group-flush" id="textual">
                                 {% for edition in work.editions %}
                                 <li class="list-group-item">
                                     <a href=" {{ url_for('edition', editionid=edition.id) }}">{{
@@ -295,6 +297,21 @@
                                 </li>
                                 {% endfor %}
                             </ul>
+                            <div id="pics">
+                                {% for edition in work.editions %}
+                                <div class="column">
+                                    {% if edition.images|length %}
+                                    <figure class="figure">
+                                        <a href="{{url_for('edition', editionid=edition.id)}}">
+                                            <img src="{{edition.images[0].image_src}}" width="250"
+                                                style="margin: 0 1rem 1rem 0">
+                                        </a>
+                                    </figure>
+                                    {% endif %}
+                                </div>
+
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -342,5 +359,12 @@
     var itemId = '{{work.id}}'
 </script>
 <script src="/static/js/forms.js" type="text/javascript"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById('pics').style.display = 'none';
+    })
+</script>
+<script src="/static/js/contentSwitcher.js"></script>
+
 {% endblock %}
 {% endblock %}
