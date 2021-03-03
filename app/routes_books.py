@@ -458,61 +458,6 @@ def remove_author_from_story(storyid, authorid):
     return redirect(url_for('story', id=storyid))
 
 
-@app.route('/story/<id>', methods=['GET', 'POST'])
-def story(id):
-    search_list = {}
-
-    session = new_session()
-    # story = session.query(Part.title.label('title'),
-    #                       ShortStory.title.label('orig_title'),
-    #                       ShortStory.pubyear,
-    #                       ShortStory.language,
-    #                       ShortStory.id)\
-    # .join(Part)\
-    # .filter(Part.shortstory_id == id)\
-    # .first()
-    story = session.query(ShortStory)\
-        .filter(ShortStory.id == id)\
-        .first()
-
-    form_author = WorkAuthorForm(request.form)
-
-    editions = session.query(Edition)\
-                      .join(Part)\
-                      .filter(Part.shortstory_id == id)\
-                      .filter(Part.edition_id == Edition.id)\
-                      .all()
-
-    works = session.query(Work)\
-                   .join(Part)\
-                   .filter(Part.shortstory_id == id)\
-                   .filter(Part.work_id == Work.id)\
-                   .all()
-
-    authors = session.query(Person)\
-                     .distinct(Person.id)\
-                     .join(Author)\
-                     .filter(Person.id == Author.person_id)\
-                     .join(Part)\
-                     .filter(Author.part_id == Part.id,
-                             Part.shortstory_id == id)\
-                     .all()
-    if form_author.submit.data and form_author.validate():
-        authorname = form_author.author.data
-        save_author_to_story(session, id, authorname)
-        return redirect(url_for('story', id=id))
-
-    # issues = session.query(distinct(Issue.id), Issue.title, Issue.number, Issue.year, Issue.count)\
-    #     .join(IssueContent)\
-    #     .filter(IssueContent.shortstory_id == id)\
-    #     .filter(Issue.id == IssueContent.issue_id)\
-    #     .all()
-
-    return render_template('story.html', id=id, story=story,
-                           editions=editions, works=works,
-                           authors=authors, form_author=form_author)
-
-
 @app.route('/edit_story/<id>', methods=['GET', 'POST'])
 def edit_story(id):
     session = new_session()

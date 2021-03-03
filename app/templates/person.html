@@ -23,8 +23,7 @@
             <li class="list-group-item">
               <b>Oik.</b>
               {% for rn in person.real_names %}
-              <a href="{{url_for('person', personid=rn.id)}}">{{ rn.name }}</a
-              ><br />
+              <a href="{{url_for('person', personid=rn.id)}}">{{ rn.name }}</a><br />
               {% endfor %}
             </li>
             {% endif %} {% if person.other_names %}
@@ -39,7 +38,9 @@
               <a href="{{url_for('person', personid=rn.id)}}">{{ rn.name }}</a>
               {% endfor %}
             </li>
-            {% endif %} {% include "_genre_count.html" %} {% if person.tags %}
+            {% endif %}
+            {% include "_genre_count.html" %}
+            {% if person.tags %}
             <li class="list-group-item">
               {% for tag in person.tags %}
               <a href="{{url_for('tag', tagid=tag.id)}}">{{tag.name}}</a>
@@ -59,9 +60,7 @@
     <blockquote class="blockquote" style="padding: 1rem">
       <p class="mb-0">{{person.bio}}</p>
       <footer class="blockquote-footer text-right">
-        <cite title="{{person.bio_src}}"
-          ><a href="{{person.bio_src_url}}">{{person.bio_src}}</a></cite
-        >
+        <cite title="{{person.bio_src}}"><a href="{{person.bio_src_url}}">{{person.bio_src}}</a></cite>
       </footer>
     </blockquote>
     {% endif %}
@@ -70,23 +69,12 @@
       <div class="card">
         <div class="card-header" id="headAwards">
           <h2 class="mb-0">
-            <button
-              class="btn btn-link btn-block text-left collapsed"
-              type="button"
-              data-toggle="collapse"
-              data-target="#awards"
-              aria-expanded="false"
-              aria-controls="awards"
-            >
+            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+              data-target="#awards" aria-expanded="false" aria-controls="awards">
               Palkitut teokset
             </button>
           </h2>
-          <div
-            id="awards"
-            class="collapse"
-            aria-labelledby="headAwards"
-            data-parent="#authorCard"
-          >
+          <div id="awards" class="collapse" aria-labelledby="headAwards" data-parent="#authorCard">
             <div class="card-body">
               <ul class="list-group list-group-flush">
                 {% for award in novel_awards %}
@@ -106,34 +94,20 @@
           <h2 class="mb-0">
             <div class="row">
               <div class="col col-md-10">
-                <button
-                  class="btn btn-link btn-block text-left collapsed"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#authoredBooks"
-                  aria-expanded="false"
-                  aria-controls="authoredBooks"
-                >
+                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                  data-target="#authoredBooks" aria-expanded="false" aria-controls="authoredBooks">
                   Teokset
                 </button>
               </div>
               <div class="col">
-                <button
-                  onclick="switchStyle()"
-                  id="switcher"
-                  class="btn btn-light text-right"
-                >
+                <button onclick="switchStyle()" id="switcher" class="btn btn-light text-right">
                   Kannet
                 </button>
               </div>
             </div>
           </h2>
         </div>
-        <div
-          id="authoredBooks"
-          aria-labelledby="headAuthoredBooks"
-          data-parent="#authorCard"
-        >
+        <div id="authoredBooks" aria-labelledby="headAuthoredBooks" data-parent="#authorCard">
           <div class="card-body">
             <div id="textual" class="mb-0">
               <ul class="list-group list-group-flush">
@@ -147,15 +121,12 @@
               </ul>
             </div>
             <div id="pics">
-              {% for work in person.works %} {% for edition in work.editions %}
-              {% if edition.image_src %}
+              {% for work in person.works %}
+              {% for edition in work.editions %}
+              {% if edition.images[0] %}
               <figure class="figure">
                 <a href="{{url_for('edition', editionid=edition.id)}}">
-                  <img
-                    src="{{edition.image_src}}"
-                    width="250"
-                    style="margin: 0 1rem 1rem 0"
-                  />
+                  <img src="{{edition.images[0].image_src}}" width="250" style="margin: 0 1rem 1rem 0" />
                 </a>
               </figure>
               {% endif %} {% endfor %} {% endfor %}
@@ -168,31 +139,18 @@
       <div class="card">
         <div class="card-header" id="headAuthoredStories">
           <h2 class="mb-0">
-            <button
-              class="btn btn-link btn-block text-left collapsed"
-              type="button"
-              data-toggle="collapse"
-              data-target="#authoredStories"
-              aria-expanded="false"
-              aria-controls="authoredStories"
-            >
+            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+              data-target="#authoredStories" aria-expanded="false" aria-controls="authoredStories">
               Novellit
             </button>
           </h2>
         </div>
-        <div
-          id="authoredStories"
-          class="collapse"
-          aria-labelledby="headAuthoredStories"
-          data-parent="#authorCard"
-        >
+        <div id="authoredStories" class="collapse" aria-labelledby="headAuthoredStories" data-parent="#authorCard">
           <div class="card-body">
             <ul class="list-group list-group-flush">
               {% for story in stories %}
               <li class="list-group-item">
-                <a href=" {{ url_for('story', id=story.id) }}"
-                  >{{ story.title }}</a
-                >
+                <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
                 ({%- if story.title != story.orig_title -%} {%- if
                 story.orig_title -%} {{ story.orig_title }}, {%endif%}
                 {%endif%}{{ story.pubyear}})
@@ -206,31 +164,19 @@
       <div class="card">
         <div class="card-header" id="headSeries">
           <h2 class="mb-0">
-            <button
-              class="btn btn-link btn-block text-left collapsed"
-              type="button"
-              data-toggle="collapse"
-              data-target="#series"
-              aria-expanded="false"
-              aria-controls="series"
-            >
+            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+              data-target="#series" aria-expanded="false" aria-controls="series">
               Sarjat
             </button>
           </h2>
         </div>
-        <div
-          id="series"
-          class="collapse"
-          aria-labelledby="headSeries"
-          data-parent="#authorCard"
-        >
+        <div id="series" class="collapse" aria-labelledby="headSeries" data-parent="#authorCard">
           <div class="card-body">
             <ul class="list-group list-group-flush">
               {% for s in series %}
               <h4>
                 <a href="{{ url_for('bookseries', seriesid=s.id)}}">
-                  {{s.name }}</a
-                >
+                  {{s.name }}</a>
               </h4>
               <br />
               {% for work in s.works %} {% if work.creator_str != person.name %}
@@ -245,24 +191,13 @@
       <div class="card">
         <div class="card-header" id="headTranslated">
           <h2 class="mb-0">
-            <button
-              class="btn btn-link btn-block text-left collapsed"
-              type="button"
-              data-toggle="collapse"
-              data-target="#translated"
-              aria-expanded="false"
-              aria-controls="translated"
-            >
+            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+              data-target="#translated" aria-expanded="false" aria-controls="translated">
               Kääntänyt
             </button>
           </h2>
         </div>
-        <div
-          id="translated"
-          class="collapse"
-          aria-labelledby="headTranslated"
-          data-parent="#authorCard"
-        >
+        <div id="translated" class="collapse" aria-labelledby="headTranslated" data-parent="#authorCard">
           <div class="card-body">
             {% set skip_pubseriesnum = 1 %}
             <ul class="list-group list-group-flush">
@@ -275,9 +210,7 @@
               {% for story in person.translated_stories|sort(attribute='title')
               %}
               <li class="list-group-item">
-                <a href="{{ url_for('story', id=story.id)}}"
-                  >{{ story.title }}</a
-                >
+                <a href="{{ url_for('story', id=story.id)}}">{{ story.title }}</a>
                 ({{story.orig_title}}, {{story.pubyear}})
               </li>
               {% endfor %} {% endif %}
@@ -289,24 +222,13 @@
       <div class="card">
         <div class="card-header" id="headEdited">
           <h2 class="mb-0">
-            <button
-              class="btn btn-link btn-block text-left collapsed"
-              type="button"
-              data-toggle="collapse"
-              data-target="#edited"
-              aria-expanded="false"
-              aria-controls="edited"
-            >
+            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+              data-target="#edited" aria-expanded="false" aria-controls="edited">
               Toimittanut
             </button>
           </h2>
         </div>
-        <div
-          id="edited"
-          class="collapse"
-          aria-labelledby="headEdited"
-          data-parent="#authorCard"
-        >
+        <div id="edited" class="collapse" aria-labelledby="headEdited" data-parent="#authorCard">
           <div class="card-body">
             <ul class="list-group list-group-flush">
               {% for edition in person.edits|sort(attribute='title') %}
@@ -321,24 +243,13 @@
       <div class="card">
         <div class="card-header" id="headArticles">
           <h2 class="mb-0">
-            <button
-              class="btn btn-link btn-block text-left collapsed"
-              type="button"
-              data-toggle="collapse"
-              data-target="#articles"
-              aria-expanded="false"
-              aria-controls="appearsin"
-            >
+            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+              data-target="#articles" aria-expanded="false" aria-controls="appearsin">
               Artikkelit
             </button>
           </h2>
         </div>
-        <div
-          id="articles"
-          class="collapse"
-          aria-labelledby="headArticles"
-          data-parent="#authorCard"
-        >
+        <div id="articles" class="collapse" aria-labelledby="headArticles" data-parent="#authorCard">
           <div class="card-body">
             <ul class="list-group list-group-flush">
               {% for article in person.articles %}
@@ -356,24 +267,13 @@
       <div class="card">
         <div class="card-header" id="headChiefEditor">
           <h2 class="mb-0">
-            <button
-              class="btn btn-link btn-block text-left collapsed"
-              type="button"
-              data-toggle="collapse"
-              data-target="#chiefeditor"
-              aria-expanded="false"
-              aria-controls="appearsin"
-            >
+            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+              data-target="#chiefeditor" aria-expanded="false" aria-controls="appearsin">
               Päätoimittajana
             </button>
           </h2>
         </div>
-        <div
-          id="chiefeditor"
-          class="collapse"
-          aria-labelledby="headChiefEditor"
-          data-parent="#authorCard"
-        >
+        <div id="chiefeditor" class="collapse" aria-labelledby="headChiefEditor" data-parent="#authorCard">
           <div class="card-body">
             <ul class="list-group list-group-flush">
               {% for issue in person.chief_editor %}
@@ -381,8 +281,7 @@
                 <a href="{{ url_for('issue', id=issue.id)}}">
                   {{ issue.magazine.name }} {% if issue.number %} {{
                   issue.number }} / {{ issue.year }} {% else %} {{ issue.count
-                  }} {% endif %}</a
-                >
+                  }} {% endif %}</a>
               </li>
               {% endfor %}
             </ul>
@@ -393,36 +292,21 @@
       <div class="card">
         <div class="card-header" id="headAppearsIn">
           <h2 class="mb-0">
-            <button
-              class="btn btn-link btn-block text-left collapsed"
-              type="button"
-              data-toggle="collapse"
-              data-target="#appearsin"
-              aria-expanded="false"
-              aria-controls="appearsin"
-            >
+            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+              data-target="#appearsin" aria-expanded="false" aria-controls="appearsin">
               Esiintynyt artikkeleissa
             </button>
           </h2>
         </div>
-        <div
-          id="appearsin"
-          class="collapse"
-          aria-labelledby="headAppearsIn"
-          data-parent="#authorCard"
-        >
+        <div id="appearsin" class="collapse" aria-labelledby="headAppearsIn" data-parent="#authorCard">
           <div class="card-body">
             <ul class="list-group list-group-flush">
               {% for article in person.appears_in %}
               <li class="list-group list-group-flush">
-                <b
-                  ><a href="{{url_for('issue', id=article.issue.id)}}"
-                    >{{ article.issue.magazine.name }} {% if
+                <b><a href="{{url_for('issue', id=article.issue.id)}}">{{ article.issue.magazine.name }} {% if
                     article.issue.number -%} {{ article.issue.number }} /
                     {{ article.issue.year }} {%- else -%} {{ article.issue.count
-                    }} {%- endif -%}</a
-                  ></b
-                >
+                    }} {%- endif -%}</a></b>
                 {% if article.creator_str != ''%} {{ article.creator_str }}:{%
                 endif %} {{ article.title }}.
               </li>
@@ -435,24 +319,13 @@
       <div class="card">
         <div class="card-header" id="headAdmin">
           <h2 class="mb-0">
-            <button
-              class="btn btn-link btn-block text-left collapsed"
-              type="button"
-              data-toggle="collapse"
-              data-target="#admin"
-              aria-expanded="false"
-              aria-controls="admin"
-            >
+            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+              data-target="#admin" aria-expanded="false" aria-controls="admin">
               Ylläpito ({{person.id}})
             </button>
           </h2>
         </div>
-        <div
-          id="admin"
-          class="collapse"
-          aria-labelledby="headAdmin"
-          data-parent="#authorCard"
-        >
+        <div id="admin" class="collapse" aria-labelledby="headAdmin" data-parent="#authorCard">
           <div class="card-body">
             <ul class="list-group list-group-flush">
               <li class="list-group-item">
@@ -460,15 +333,11 @@
                 {{person.imported_string}} {% endif %}
               </li>
               <li class="list-group-item">
-                <a href=" {{ url_for('edit_person', personid=person.id)}}"
-                  >Muokkaa</a
-                >
+                <a href=" {{ url_for('edit_person', personid=person.id)}}">Muokkaa</a>
               </li>
               {#
               <li class="list-group-item">
-                <a href="{{url_for('add_authored', authorid=person.id) }}"
-                  >Lisää teos</a
-                >
+                <a href="{{url_for('add_authored', authorid=person.id) }}">Lisää teos</a>
               </li>
               #}
             </ul>

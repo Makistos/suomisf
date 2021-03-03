@@ -77,7 +77,7 @@
                     <h4>
                         <!-- No editing authors in edition -->
                         {% if editors|length == 0 %}
-                        <span class="person-list">{{ authors|map(attribute='name')|join(', ') }}</span>
+                        <span class="person-list">{{ authors|map(attribute='name')|join(' & ') }}</span>
                         {% endif %}
                     </h4>
                     <!-- Editors -->
@@ -93,7 +93,7 @@
                         {% endif %}
                         <div class="col view-field">
                             {% if editors|length %}
-                            <span class="person-list">{{editors|map(attribute='alt_name')|join(', ')}}</span> (toim)
+                            <span class="person-list">{{editors|map(attribute='alt_name')|join(' & ')}}</span> (toim)
                             {% endif %}
                         </div>
                     </div>
@@ -110,7 +110,7 @@
                         {% endif %}
                         <div class="col view-field">
                             {% if translators|length %}
-                            <span class="person-list">{{translators|map(attribute='alt_name')|join(', ')}}</span>
+                            <span class="person-list">{{translators|map(attribute='alt_name')|join(' & ')}}</span>
                             (suom)
                             {% endif %}
                         </div>
@@ -174,10 +174,8 @@
                             {% if edition.pubseries %}
                             <a href="{{url_for('pubseries', seriesid=edition.pubseries.id)}}">
                                 {{ edition.pubseries.name }}</a>
-                            {% if edition.pubseriesnum %}
-                            {{ edition.pubseriesnum }}
-                            {%- endif -%}
-                            .
+                            {%- if edition.pubseriesnum %}
+                            {{ edition.pubseriesnum }}{%- endif -%}.
                             {% endif %}
                         </div>
                     </div>

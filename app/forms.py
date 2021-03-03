@@ -201,12 +201,9 @@ class PubseriesForm(FlaskForm):
 
 class StoryForm(FlaskForm):
     id = HiddenField('id')
-    author = StringField('Kirjoittaja', validators=[DataRequired])
-    copy_author = BooleanField('Sama kuin teoksella')
-    title = StringField('Nimi')
-    orig_title = StringField('Alkuperäinen nimi')
-    language = StringField('Kieli')
-    pubyear = IntegerField('Julkaisuvuosi')
+    title = StringField('Nimi', validators=[DataRequired()])
+    orig_title = StringField('Alkuperäinen nimi', validators=[Optional()])
+    pubyear = IntegerField('Julkaisuvuosi', validators=[Optional()])
     submit_story = SubmitField('Tallenna')
 
 

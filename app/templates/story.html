@@ -1,174 +1,148 @@
 {% extends "base.html" %}
 {% block content %}
-<form method="post" id="articleForm" action="/story" enctype="text/plain">
-	<input type="hidden" name="csrf_token" value="{{csrf_token}}"/>
+{% if current_user.is_admin %}
+<form method="post" id="itemForm">
+    {{form.hidden_tag()}}
+    {% endif %}
 
-<div class="container">
-    <div class="card border-primary mb-3" >
-        <div class="card-header">
-            {% if current_user.is_admin %}
-            <div class="edit-field">
-                <select class="author-selector form-control" multiple="multiple" data-placeholder="Kirjoittajat"
-                data-search="/select_person" data-save="/save_authors_to_story" data-init="/authors_for_story" data-name="authors"></select>
-            </div>
-            {% endif %}
-            <div class="view-field">
-            <span class="person-list">{{ authors|map(attribute='name')|join(', ') }}</span>
-            </div>
-        </div>
-
-        <div class="card-body">
-            <h3 class="card-title">
-                {% if current_user.is_admin %}
-                   <input type="text" class="form-control" onblur="saveArticleForm()"
-                 id="title" value="{{story.title}}">
-                {% else %}
-                {{ story.title }}
-                {% endif %}
-            </h3>
-            <div class="col">
+    <div class="container">
+        <div class="card border-primary mb-3">
+            <div class="card-header">
                 {% if current_user.is_admin %}
                 <div class="edit-field">
-                    <label for="orig_title">
-                        Alkup. nimi
-                        <input type="text" width="70%" class="form-control"
-                         onblur="saveArticleForm()" id="orig_title"
-                         value="{{story.orig_title}}">
-                    </label>
-                    <label for="pubyear">
-                        Julkaisuvuosi
-                        <input type="text" width="20%" class="form-control"
-                         onblur="saveArticleForm()"  id="pubyear"
-                         value="{{story.pubyear}}">
-                    </label>
-                </div>
-                {% else %}
-                <div class="view-field">
-                {% if story.title != story.orig_title %}
-                {{ story.orig_title }}
-                {%- if story.pubyear -%}, {{  story.pubyear }}{% endif %}
-                {% endif %}
+                    <select class="author-selector form-control" multiple="multiple" data-placeholder="Kirjoittajat"
+                        data-search="/select_person" data-save="/save_authors_to_story" data-init="/authors_for_story"
+                        data-name="authors"></select>
                 </div>
                 {% endif %}
-            </div>
-            <div class="col container col-lg-4 justify-content-end
-            justify-content-center align-middle">
-            <div class="row">
-            {% if current_user.is_admin %}
-                <div class="edit-field">
-                    <label for="genres">
-                        Genret
-                    <select class="genre-selector" multiple="multiple" data-placeholder="Genret"
-                    data_search="/select_genre" data-save="/save_genres_to_story" data-init="/genres_for_story" data-name="genres" id="genres"></select>
-                    </label>
-                    <label for="tags">
-                        Asiasanat
-                    <select class="tag-selector" multiple="multiple" data-placeholder="Asiasanat"
-                    data_search="/select_tag" data-save="/save_tags_to_story" data-init="/tags_for_story" data-name="tags" id="tags"></select>
-                    </label>
-                </div>
-            {% endif %}
                 <div class="view-field">
-                    {% for genre in story.genres %}
-                    <li class="list-inline-item" style="padding-bottom:
-                    1rem;"><img src="/static/icons/{{genre.abbr}}_32.png"></li>
-                    {% endfor %}
-                    {% for tag in story.tags %}
-                    <a href="{{ url_for('tag', tagid=tag.id)}}">{{ tag.name }}</a>
-                    {% endfor %}
+                    <span class="person-list">{{ authors|map(attribute='name')|join(', ') }}</span>
                 </div>
             </div>
-        </div>
 
-        {% if works %}
-        <dl class="list-group list-group-flush">
-            <dt style="margin: 1rem ">Ilmestynyt teoksissa</dt>
-            {% for work in works %}
-            <dd class="list-group-item">
-                {% include "_work.html" %}
-                {% for edition in work.editions %}
-                {% include "_work_edition.html" %}
-                {% endfor %}
-            </dd>
-            {% endfor %}
-        </dl>
-        {% endif %}
-        {% if story.issues %}
-        <dl class="list-group list-group-flush">
-            <dt style="margin: 1rem ">Ilmestynyt lehdissä</dt>
-            {% for issue in story.issues %}
-            <dd class="list-group-item">
-                <a href="{{ url_for('issue', id=issue.id)}}">
-                    {{ issue.magazine.name }}
-                    {% if issue.number %}
-                    {{ issue.number }} / {{ issue.year }}
-                    {% else %}
-                    {{ issue.count }}
-                    {% endif %}</a>
-            </dd>
-            {% endfor %}
-        </dl>
-        {% endif %}
-        {% if current_user.is_admin %}
-
-        <div id="admin" aria-labelledby="headAdmin" data-parent="#workCard">
-				<li class="list-group-item">
-					<input type="checkbox" id="edit_form" name="edit_form">
-					<label for="edit_form">Muokkaa</label>
-
-        </div>
-
-        <div class="modal fade" id="editAuthors" tabindex="-1" role="dialog" aria-labelledby="editAuthorsLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editAuthorsLabel">Muokkka kirjailijatietoja</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Sulje">
-                            <span aria-hidden="true">&times</span>
-                        </button>
+            <div class="card-body mb-3">
+                <div class="row align-items-start">
+                    {% if current_user.is_admin %}
+                    <div class="col edit-field">
+                        <h3 class="card-title">
+                            <input type="text" class="form-control form-item" id="title" value="{{story.title}}"
+                                name="title" form="itemForm">
+                        </h3>
                     </div>
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            {% for author in authors %}
-                            <div class="row">
-                                <div class="col-md-8">{{ author.name }}</div>
-                                <div class="col-md-4">
-                                    <a href="{{ url_for('remove_author_from_story',
-                                    storyid=story.id, authorid=author.id)}}">Poista</a><br />
-                                </div>
+                    {% endif %}
+                    <div class="col view-field">
+                        <h3 class="card-title view-field">
+                            {{ story.title }}
+                        </h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 col-sm-12">
+                        <div class="row">
+                            {% if current_user.is_admin %}
+                            <div class="col edit-field">
+                                <label for="orig_title">
+                                    Alkup. nimi
+                                    <input type="text" width="70%" class="form-control form-item" id="orig_title"
+                                        name="orig_title" form="itemForm" value="{{story.orig_title}}">
+                                </label>
+                                <label for="pubyear">
+                                    Julkaisuvuosi
+                                    <input type="text" width="20%" class="form-control form-item" id="pubyear"
+                                        name="pubyear" form="itemForm" value="{{story.pubyear}}">
+                                </label>
                             </div>
-                            {% endfor %}
-                            <hr>
-                            <form action="" method="post">
-                                <div class="form-row">
-                                    <div class="col-md-8">
-                                        {{ form_author.hidden_tag() }}
-                                        {{ form_author.author(id="author") }}
-                                    </div>
-                                    <div class="col-md-4">
-                                        {{ form_author.submit }}
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Sulje</button>
+                            {% endif %}
+                            <div class="col view-field">
+                                {% if story.title != story.orig_title %}
+                                {{ story.orig_title }}
+                                {%- if story.pubyear -%}, {{ story.pubyear }}{% endif %}
+                                {% endif %}
                             </div>
                         </div>
-
+                    </div>
+                    <div class="col-lg-4 col-sm-12 mx-auto">
+                        <div class="row">
+                            {% if current_user.is_admin %}
+                            <div class="col edit-field mx-auto">
+                                <select class="genre-selector form-control" multiple="multiple"
+                                    data-placeholder="Genret" data-search="/select_genre"
+                                    data-save="/save_genres_to_story" data-init="/genres_for_story" data-name="genres"
+                                    id="genres" data-mininput="1"></select>
+                            </div>
+                            {% endif %}
+                            <div class="col view-field mx-auto">
+                                {% for genre in story.genres %}
+                                <li class="list-inline-item" style="padding-bottom:
+                    1rem;"><img src="/static/icons/{{genre.abbr}}_32.png"></li>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            {% if current_user.is_admin %}
+                            <div class="col edit-field">
+                                <select class="tag-selector form-control" multiple="multiple"
+                                    data-placeholder="Asiasanat" data-search="/select_tag"
+                                    data-save="/save_tags_to_story" data-init="/tags_for_story" data-name="tags"
+                                    id="tags" data-tags="true"></select>
+                            </div>
+                            {% endif %}
+                            <div class="col view-field">
+                                {% for tag in story.tags %}
+                                <a href="{{ url_for('tag', tagid=tag.id)}}">{{ tag.name }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            {% if works %}
+            <dl class="list-group list-group-flush">
+                <dt style="margin: 1rem ">Ilmestynyt teoksissa</dt>
+                {% for work in works %}
+                <dd class="list-group-item">
+                    {% include "_work.html" %}
+                    {% for edition in work.editions %}
+                    {% include "_work_edition.html" %}
+                    {% endfor %}
+                </dd>
+                {% endfor %}
+            </dl>
+            {% endif %}
+            {% if story.issues %}
+            <dl class="list-group list-group-flush">
+                <dt style="margin: 1rem ">Ilmestynyt lehdissä</dt>
+                {% for issue in story.issues %}
+                <dd class="list-group-item">
+                    <a href="{{ url_for('issue', id=issue.id)}}">
+                        {{ issue.magazine.name }}
+                        {% if issue.number %}
+                        {{ issue.number }} / {{ issue.year }}
+                        {% else %}
+                        {{ issue.count }}
+                        {% endif %}</a>
+                </dd>
+                {% endfor %}
+            </dl>
+            {% endif %}
         </div>
+        {% if current_user.is_admin %}
+
+        <input type="checkbox" id="edit_form" name="edit_form">
+        <label for="edit_form">Muokkaa</label>
+
         {% endif %}
     </div>
     </div>
+    {% if current_user.is_admin %}
 </form>
+{% endif %}
 {% block script %}
-	<script src="/static/js/personlink.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        var itemId = '{{story.id}}'
-    </script>
-	<script src="/static/js/forms.js" type="text/javascript"></script>
-    {% endblock %}
-    {% endblock %}
+<script src="/static/js/personlink.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var itemId = '{{story.id}}'
+</script>
+<script src="/static/js/forms.js" type="text/javascript"></script>
+{% endblock %}
+{% endblock %}

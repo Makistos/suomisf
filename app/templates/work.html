@@ -166,23 +166,6 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <!-- Tags -->
-                        <div class="row">
-                            {% if current_user.is_admin %}
-                            <div class="col-lg-12 edit-field">
-                                <label for="tags">Asiasanat</label>
-                                <select class="tag-selector form-control" multiple="multiple"
-                                    data-placeholder="Asiasanat" data-search="/select_tags"
-                                    data-save="/save_tags_to_work" data-init="/tags_for_work" data-name="tags" id="tags"
-                                    data-tags="true" name="tags"></select>
-                            </div>
-                            {% endif %}
-                            <div class="col view-field">
-                                {% for tag in work.tags %}
-                                <a href="{{url_for('tag', tagid=tag.id)}}">{{tag.name}}</a>
-                                {% endfor %}
-                            </div>
-                        </div>
                         <!-- Misc -->
                         <div class="row">
                             {% if current_user.is_admin %}
@@ -219,17 +202,34 @@
                         <div class="row">
                             <div class="col edit-field mx-auto">
                                 {% if current_user.is_admin %}
-                                <select class="genre-selector form-control" multiple="multiple"
-                                    data-placeholder="Genret" data-search="/select_genre"
-                                    data-save="/save_genres_to_work" data-init="/genres_for_work" data-name="genres"
-                                    id="genres" data-mininput="1"></select>
+                                <select class="genre-selector" multiple="multiple" data-placeholder="Genret"
+                                    data-search="/select_genre" data-save="/save_genres_to_work"
+                                    data-init="/genres_for_work" data-name="genres" id="genres"
+                                    data-mininput="1"></select>
                                 {% endif %}
                             </div>
                             <div class="col view-field mx-auto">
                                 {% for genre in work.genres %}
                                 <li class="list-inline-item" style="padding-bottom: 1rem">
-                                    <img src="/static/icons/{{genre.abbr}}_32.png" />
+                                    <img src="/static/icons/{{genre.abbr}}_32.png" alt="{{genre.name}}" />
                                 </li>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <!-- Tags -->
+                        <div class="row">
+                            {% if current_user.is_admin %}
+                            <div class="col-lg-12 edit-field">
+                                <label for="tags">Asiasanat</label>
+                                <select class="tag-selector form-control" multiple="multiple"
+                                    data-placeholder="Asiasanat" data-search="/select_tags"
+                                    data-save="/save_tags_to_work" data-init="/tags_for_work" data-name="tags" id="tags"
+                                    data-tags="true" name="tags"></select>
+                            </div>
+                            {% endif %}
+                            <div class="col view-field">
+                                {% for tag in work.tags %}
+                                <a href="{{url_for('tag', tagid=tag.id)}}">{{tag.name}}</a>
                                 {% endfor %}
                             </div>
                         </div>
