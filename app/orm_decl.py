@@ -6,6 +6,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy import create_engine
 from sqlalchemy.sql.expression import null
+from wtforms.fields.core import IntegerField
 from app import db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -115,6 +116,16 @@ class AwardCategory(Base):
     __tablename__ = 'awardcategory'
     id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=False)
+    # 0 = personal, 1 = novel, 2 = short story
+    type = Column(Integer, nullable=False)
+
+
+class AwardCategories(Base):
+    __tablename__ = 'awardcategories'
+    award_id = Column(Integer, ForeignKey('award.id'),
+                      primary_key=True, nullable=False)
+    category_id = Column(Integer, ForeignKey('awardcategory.id'),
+                         primary_key=True, nullable=False)
 
 
 class Awarded(Base):
@@ -194,7 +205,7 @@ class Edition(Base):
     publisher_id = Column(Integer, ForeignKey('publisher.id'))
     editionnum = Column(Integer)
     version = Column(Integer)  # Laitos
-    #image_src = Column(String(200))
+    # image_src = Column(String(200))
     isbn = Column(String(13))
     printedin = Column(String(50))
     pubseries_id = Column(Integer, ForeignKey('pubseries.id'))
@@ -415,16 +426,16 @@ class Person(Base):
     nationality = Column(Integer, ForeignKey('country.id'))
     birthtown = Column(String(50))
     birthcountry = Column(Integer, ForeignKey('country.id'))
-    other_names = Column(String(200))
+    deathtown = Column(String(50))
+    deathcountry = Column(Integer, ForeignKey('country.id'))
+    # other_names = Column(String(200))
     imported_string = Column(String(500))
-    other_names = Column(String(250))
-    #real_names = relationship("Person", secondary="Alias", primaryjoin="Person.id==Alias.alias")
+    # other_names = Column(String(250))
     real_names = relationship('Person',
                               primaryjoin=id == Alias.alias,
                               secondary='alias',
                               secondaryjoin=id == Alias.realname,
                               uselist=True)
-    #aliases = relationship("Person", primaryjoin="Person.id==Alias.realname")
     aliases = relationship("Person",
                            primaryjoin=id == Alias.realname,
                            secondary='alias',
@@ -464,6 +475,17 @@ class Person(Base):
     appears_in = relationship('Article', secondary='articleperson',
                               uselist=True)
     tags = relationship('Tag', secondary='persontag', uselist=True)
+    languages = relationship(
+        'Language', secondary='personlanguage', uselist=True)
+    personal_awards = relationship('Award', secondary='awarded', uselist=True)
+
+
+class PersonLanguage(Base):
+    __tablename__ = 'personlanguage'
+    person_id = Column(Integer, ForeignKey('person.id'),
+                       nullable=False, primary_key=True)
+    language_id = Column(Integer, ForeignKey('language.id'),
+                         nullable=False, primary_key=True)
 
 
 class PersonLink(Base):
@@ -504,6 +526,7 @@ class Publisher(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False, unique=True, index=True)
     fullname = Column(String(250), nullable=False, unique=True)
+    description = Column(String(500))
     editions = relationship("Edition", backref=backref("edition4_assoc"))
 
 

@@ -7,7 +7,7 @@ from app import app
 from app.forms import PersonForm
 from app.orm_decl import (Person, PersonTag, Author, Translator, Editor,
                           Part, Work, Edition, Genre, Awarded, ArticlePerson,
-                          ArticleAuthor, Bookseries, ShortStory)
+                          ArticleAuthor, Bookseries, ShortStory, Award, AwardCategory)
 from sqlalchemy import func
 from typing import Dict, Any, List
 from .route_helpers import *
@@ -65,7 +65,7 @@ def editors() -> Any:
                            letters=letters)
 
 
-@app.route('/person/<personid>')
+@app.route('/person/<personid>', methods=['POST', 'GET'])
 def person(personid: Any) -> Any:
     app.logger.info(personid)
     session = new_session()
@@ -87,13 +87,11 @@ def person(personid: Any) -> Any:
                     .filter(Person.id == personid)\
                     .group_by(Bookseries.id)\
                     .all()
+    form = PersonForm(request.form)
 
     translated = books_for_person(session, personid, 'T')
     edited = books_for_person(session, personid, 'E')
-    # stories = session.query(ShortStory.title.label('orig_title'),
-    #                         Part.title.label('title'),
-    #                         ShortStory.pubyear,
-    #                         ShortStory.id)\
+
     stories = session.query(ShortStory)\
         .join(Part.authors)\
         .join(Part.shortstory)\
@@ -137,18 +135,37 @@ def person(personid: Any) -> Any:
         app.logger.info(g.name)
         genre_list[g.abbr] = g.count
 
-    # aliases = session.query(Person)\
-    #                 .join(Alias)\
-    #                 .filter(Alias.realname == person.id)\
-    #                 .all()
-    # real_names = session.query(Person)\
-    #                    .join(Alias)\
-    #                    .filter(Alias.alias == person.id)\
-    #                    .all()
+    p_awards = session.query(Award)\
+                      .join()
+    if request.method == 'GET':
+        form.name.data = person.name
+        form.alt_name.data = person.alt_name
+        form.image_attr.data = person.image_attr
+        form.dob.data = person.dob
+        form.dod.data = person.dod
+        form.birthtown.data = person.birthtown
+        form.deathtown.data = person.deathtown
+        form.bio.data = person.bio
+        form.bio_src.data = person.bio_src
+    elif form.validate_on_submit():
+        person.name = form.name.data
+        person.alt_name = form.alt_name.data
+        person.image_attr = form.image_attr.data
+        person.dob = form.dob.data
+        person.dod = form.dod.data
+        person.birthtown = form.birthtown.data
+        person.deathtown = form.deathtown.data
+        person.bio = form.bio.data
+        person.bio_src = form.bio_src.data
+        session.add(person)
+        session.commit()
+    else:
+        app.logger.error('Errors: {}'.format(form.errors))
+        print(f'Errors: {form.errors}')
     return render_template('person.html', person=person, authored=authored,
                            translated=translated, edited=edited, stories=stories, genres=genre_list,
                            series=series, translated_stories=translated_stories, person_awards=person_awards,
-                           novel_awards=novel_awards)
+                           novel_awards=novel_awards, form=form)
 
 
 @app.route('/edit_person/<personid>', methods=['POST', 'GET'])

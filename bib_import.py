@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from app.orm_decl import (Work, Edition, Part, Person, Author, Translator,
+from app.orm_decl import (AwardCategories, Work, Edition, Part, Person, Author, Translator,
                           Editor, Publisher, Pubseries, Bookseries, User, Genre,
                           Alias, WorkGenre, Award, BindingType, Format,
                           Magazine, WorkType, AwardCategory, PublicationSize)
@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 import argparse
 import logging
 import re
-from typing import Tuple, Dict, List, Pattern, Optional
+from typing import Tuple, Dict, List, Pattern, Optional, Union, Any
 import cProfile
 
 publishers_re = {}
@@ -114,7 +114,7 @@ def find_translators(s: str) -> Tuple[str, str]:
         result = result.strip()
         if result[-1] == ',':
             result = result[0:-1]
-    #s = re.sub(' +', ' ', s)
+    # s = re.sub(' +', ' ', s)
     s = re.sub('\s?Suom[\.]?\s', '', s)
     s.replace('. ja', '')
     s.replace('. &', '')
@@ -255,7 +255,7 @@ def find_commons(s: str, book: Dict) -> str:
     (book['editor'], s) = find_editors(s)
 
     # Find artists
-    #(book['artist'], s) = find_artist(s)
+    # (book['artist'], s) = find_artist(s)
     # if book['artist']:
     #    print(f'Artist:{book["artist"]}')
     return s
@@ -419,7 +419,7 @@ def read_bibs(filelist):
         with open(filename, 'r', encoding='ISO-8859-1') as fle:
             content += fle.read().replace('&amp;', '&')
 
-    #content = content.decode('iso-8859-1').encode('utf-8').replace('&amp;', '&')
+    # content = content.decode('iso-8859-1').encode('utf-8').replace('&amp;', '&')
     auth_data = content.split('\n\n\n')
     auth_p = r'<h2>([a-zA-ZåäöÄÅÖ].*?)</h2>(.+)'
     authors = {}
@@ -1043,99 +1043,126 @@ def add_missing_series(session):
         s.commit()
 
 
-def add_default_rows(session):
+def add_default_rows(session: Any) -> Any:
+    engine = create_engine(db_url)
+    ses = sessionmaker()
+    ses.configure(bind=engine)
 
-    s = session()
-    cat = AwardCategory(name='Paras romaani')
+    s = ses()
+    cat = AwardCategory(name='Paras romaani', type=1)
     s.add(cat)
     s.commit()
     novel_id = cat.id
-    cat = AwardCategory(name='Paras sf-romaani')
+    cat = AwardCategory(name='Paras sf-romaani', type=1)
     s.add(cat)
     s.commit()
     sf_id = cat.id
-    cat = AwardCategory(name='Paras fantasiaromaani')
+    cat = AwardCategory(name='Paras fantasiaromaani', type=1)
     s.add(cat)
     s.commit()
     fantasy_id = cat.id
-    cat = AwardCategory(name='Paras kauhuromaani')
+    cat = AwardCategory(name='Paras kauhuromaani', type=1)
     s.add(cat)
     s.commit()
     horror_id = cat.id
-    cat = AwardCategory(name='Paras kokoelma')
+    cat = AwardCategory(name='Paras kokoelma', type=1)
     s.add(cat)
     s.commit()
     collection_id = cat.id
-    cat = AwardCategory(name='Paras ensiromaani')
+    cat = AwardCategory(name='Paras antologia', type=1)
+    s.add(cat)
+    s.commit()
+    anthology_id = cat.id
+    cat = AwardCategory(name='Paras ensiromaani', type=1)
     s.add(cat)
     s.commit()
     rookie_id = cat.id
-    cat = AwardCategory(name='Paras nuortenkirja')
+    cat = AwardCategory(name='Paras nuortenkirja', type=1)
     s.add(cat)
     s.commit()
     youth_id = cat.id
-    cat = AwardCategory(name='Paras novelli')
+    cat = AwardCategory(name='Paras novelli', type=2)
     s.add(cat)
     s.commit()
     story_id = cat.id
-    cat = AwardCategory(name='Paras pienoisromaani')
+    cat = AwardCategory(name='Paras pienoisromaani', type=1)
     s.add(cat)
     s.commit()
     novella_id = cat.id
-    cat = AwardCategory(name='Paras pitkä novelli')
+    cat = AwardCategory(name='Paras pitkä novelli', type=2)
     s.add(cat)
     s.commit()
     novellette_id = cat.id
-    cat = AwardCategory(name='Elämäntyöpalkinto')
+    cat = AwardCategory(name='Elämäntyöpalkinto', type=0)
     s.add(cat)
     s.commit()
     lifetime_id = cat.id
 
-    award = Award(name='Damon Knight Memorial Grand Master Award',
-                  description='Damon Knight Memorial Grand Master Award on Science Fiction and Fantasy Writers of America -järjestön (SFWA) jakama palkinto. Se jaetaan elämäntyöstä elossa olevalle tieteis- tai fantasiakirjailijalle. Ehdotuksen palkinnon saajasta tekee järjestön puheenjohtaja. Palkinto ei ole varsinaisesti Nebula-palkinto, mutta se luovutetaan samassa palkintogaalassa.')
-    s.add(award)
+    awards = {
+        'Damon Knight Memorial Grand Master Award':
+        [[lifetime_id],
+         'Damon Knight Memorial Grand Master Award on Science Fiction and Fantasy Writers of America -järjestön (SFWA) jakama palkinto. Se jaetaan elämäntyöstä elossa olevalle tieteis- tai fantasiakirjailijalle. Ehdotuksen palkinnon saajasta tekee järjestön puheenjohtaja. Palkinto ei ole varsinaisesti Nebula-palkinto, mutta se luovutetaan samassa palkintogaalassa.'],
+        'Hugo':
+        [[novel_id, story_id, novella_id, novellette_id],
+         'Hugo-palkinto on vuosittain jaettava tieteis- ja fantasiakirjallisuuden palkinto. Palkinto on nimetty Hugo Gernsbackin mukaan. Palkinnot jaetaan useissa eri luokissa. Palkinnon voittajat valitaan vuosittain World Science Fiction Convention -tapahtuman yhteydessä. Palkintojenjakoseremonia on WorldConin päätapahtuma ja sen jäsenet valitsevat sekä voittajan että ehdokkaat Hugo-palkinnon saajaksi. Hugo-palkintoja on jaettu vuodesta 1953 lähtien. '],
+        'Nebula':
+        [[novel_id, story_id, novella_id, novellette_id],
+         'Nebula-palkinto on Science Fiction and Fantasy Writers of American (SFWA) vuosittain jakama palkinto parhaasta Yhdysvalloissa kahden edellisen vuoden aikana julkaistusta tieteis- tai fantasiakirjasta. Palkinto on läpinäkyvä palkki, jossa on kuvattuna kimaltava spiraalitähtisumu eli nebula. Palkintoon ei sisälly rahaa. Nebula-palkintoa pidetään Hugo-palkinnon ohella merkittävimpänä yhdysvaltalaisen tieteiskirjallisuuden palkintona.'],
+        'Locus':
+        [[novel_id, sf_id, fantasy_id, horror_id, rookie_id, youth_id, collection_id, anthology_id,
+          story_id, novella_id, novellette_id],
+         'Locus-palkinto on Locus-lehden myöntämä palkinto. Palkinnot jaetaan lehden lukijoiden kyselyn perusteella.'],
+        'Arthur C. Clarke -palkinto':
+        [[novel_id],
+         'Arthur C. Clarke -palkinto on vuosittain jaettava brittiläinen tieteiskirjallisuuden palkinto.'],
+        'British Science Fiction Award':
+        [[novel_id, story_id],
+         'British Science Fiction Award eli BSFA-palkinto on vuosittain myönnettävä kirjallisuuspalkinto tieteiskirjallisuudelle. Palkinto on myönnetty vuodesta 1970 lähtien.'],
+        'Sidewise':
+        [[novel_id, story_id, lifetime_id],
+         'Sidewise-palkinto vaihtoehtoiselle historialle on 1995 perustettu palkinto tunnustuksena vuoden parhaille vaihtoehtoisen historian teoksille.'],
+        'Tähtivaeltaja':
+        [[novel_id],
+         'Tähtivaeltaja-palkinto on Tähtivaeltaja-lehteä julkaisevan Helsingin Science Fiction Seuran jakama palkinto vuoden parhaasta suomeksi ilmestyneestä tieteiskirjasta.'],
+        'Skylark':
+        [[lifetime_id],
+         'Edward E. Smith Memorial Award for Imaginative Fiction tai Skylark-palkinto myönnetään elämäntyöstä science fictionin parissa. Palkinnon myöntää NESFA.'],
+        'Campbell Memorial Award':
+        [[novel_id],
+         'John W. Campbell Memorial Award for Best Science Fiction Novel myönnetään vuoden parhaasta science fiction-romaanista. Palkinnon myöntää Kansasin yliopiston Center for the Study of Science Fiction.'],
+        'Philip K. Dick Award':
+        [[novel_id],
+         'Philip K. Dick-palkinto myönnetään parhaalle alunperin pehmeäkantisena Yhdysvalloissa ilmestyneelle kirjalle. Palkinnon myöntää Philadelpia Science Fiction Society.'],
+        'Theodore Sturgeon Award':
+        [[story_id],
+         'Theodore Sturgeon-palkinto myönnetään vuoden parhaalle novellille. Palkinnon myöntää Kansasin yliopiston Center for the Study of Science Fiction.']
+    }
 
-    award = Award(name='Hugo',
-                  description='Hugo-palkinto on vuosittain jaettava tieteis- ja fantasiakirjallisuuden palkinto. Palkinto on nimetty Hugo Gernsbackin mukaan. Palkinnot jaetaan useissa eri luokissa. Palkinnon voittajat valitaan vuosittain World Science Fiction Convention -tapahtuman yhteydessä. Palkintojenjakoseremonia on WorldConin päätapahtuma ja sen jäsenet valitsevat sekä voittajan että ehdokkaat Hugo-palkinnon saajaksi. Hugo-palkintoja on jaettu vuodesta 1953 lähtien. ')
-    s.add(award)
-
-    award = Award(name='Nebula',
-                  description='Nebula-palkinto on Science Fiction and Fantasy Writers of American (SFWA) vuosittain jakama palkinto parhaasta Yhdysvalloissa kahden edellisen vuoden aikana julkaistusta tieteis- tai fantasiakirjasta. Palkinto on läpinäkyvä palkki, jossa on kuvattuna kimaltava spiraalitähtisumu eli nebula. Palkintoon ei sisälly rahaa. Nebula-palkintoa pidetään Hugo-palkinnon ohella merkittävimpänä yhdysvaltalaisen tieteiskirjallisuuden palkintona.')
-    s.add(award)
-
-    award = Award(name='Locus',
-                  description='Locus-palkinto on Locus-lehden myöntämä palkinto. Palkinnot jaetaan lehden lukijoiden kyselyn perusteella.')
-    s.add(award)
-
-    award = Award(name='Arthur C. Clarke -palkinto',
-                  description='Arthur C. Clarke -palkinto on vuosittain jaettava brittiläinen tieteiskirjallisuuden palkinto.')
-    s.add(award)
-
-    award = Award(name='British Science Fiction Award',
-                  description='British Science Fiction Award eli BSFA-palkinto on vuosittain myönnettävä kirjallisuuspalkinto tieteiskirjallisuudelle. Palkinto on myönnetty vuodesta 1970 lähtien.')
-    s.add(award)
-
-    award = Award(name='Sidewise',
-                  description='Sidewise-palkinto vaihtoehtoiselle historialle on 1995 perustettu palkinto tunnustuksena vuoden parhaille vaihtoehtoisen historian teoksille.')
-    s.add(award)
-
-    award = Award(name='Tähtivaeltaja',
-                  description='Tähtivaeltaja-palkinto on Tähtivaeltaja-lehteä julkaisevan Helsingin Science Fiction Seuran jakama palkinto vuoden parhaasta suomeksi ilmestyneestä tieteiskirjasta.')
-    s.add(award)
+    for name, award in awards.items():
+        aw = Award(name=name, description=str(award[1]))
+        s.add(aw)
 
     s.commit()
 
+    # Award Categories
+    cats = s.query(AwardCategory).all()
+
+    for name, award in awards.items():
+        aw = s.query(Award).filter(Award.name.like(name)).first()
+        for cat in cats:
+            if cat.id in award[0]:
+                acat = AwardCategories(award_id=aw.id, category_id=cat.id)
+                s.add(acat)
+
+    s.commit()
+
+    # Bindings
+    item: Union[BindingType, Format, WorkType, PublicationSize]
     bindings = ['Ei tietoa/muu', 'Nidottu', 'Sidottu']
     for binding in bindings:
         item = BindingType(name=binding)
         s.add(item)
     s.commit()
-
-    # covers = ['Ei tietoa/muu', 'Kovakantinen', 'Pehmytkantinen']
-    # for cover in covers:
-    #     item = CoverType(name=cover)
-    #     s.add(item)
-    # s.commit()
 
     formats = ['Paperi', 'E-kirja', 'Äänikirja', 'Kuunnelma']
     for format in formats:
@@ -1194,18 +1221,18 @@ def add_default_rows(session):
         ['B+', 329, 483]
     ]
     for size in sizes:
-        item = PublicationSize(name=size[0],
+        item = PublicationSize(name=str(size[0]),
                                mm_width=size[1],
                                mm_height=size[2])
         s.add(item)
     s.commit()
 
 
-def create_admin(session):
+def create_admin(session: Any) -> None:
     s = session()
     user = s.query(User)\
-            .filter(User.name == 'admin')\
-            .first()
+        .filter(User.name == 'admin')\
+        .first()
     if not user:
         logging.info('Creating admin')
         user = User(name='admin', is_admin=True)
@@ -1225,6 +1252,10 @@ def import_all(filelist):
     basedir = os.path.abspath(os.path.dirname(__file__))
     load_dotenv(os.path.join(basedir, '.env'))
 
+    engine = create_engine(db_url)
+    session = sessionmaker(bind=engine)
+    session.configure(bind=engine)
+    add_default_rows(session)
     logging.info('Starting import')
     data = read_bibs(filelist)
 
@@ -1232,9 +1263,6 @@ def import_all(filelist):
     # pprint.pprint(data)
     # pprint.pprint(pubseries_publisher)
 
-    engine = create_engine(db_url)
-    session = sessionmaker()
-    session.configure(bind=engine)
     import_genres(session, genres)
     import_pubs(session, publishers)
     import_bookseries(session, bookseries)
@@ -1243,7 +1271,6 @@ def import_all(filelist):
     update_creators(session)
 
     add_missing_series(session)
-    add_default_rows(session)
     create_admin(session)
 
 
