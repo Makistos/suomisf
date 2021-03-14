@@ -361,8 +361,10 @@
                 {% endif %}
             </div>
         </div>
+        {% if current_user.is_admin %}
         <input type="checkbox" id="edit_form" name="edit_form">
         <label for="edit_form">Muokkaa</label>
+        {% endif %}
     </div>
     </div>
     {% if current_user.is_admin %}
