@@ -130,10 +130,10 @@
           <div class="col edit-field">
 
           </div>
+          {% endif %}
           <div class="col view-field text-center">
             {{person.personal_awards|map(attribute='name')|join('<br>')}}
           </div>
-          {% endif %}
         </div>
         <!-- Aliases -->
         <div class="row">
@@ -207,8 +207,8 @@
                 data-name="deathcountry"></select>
             </div>
           </div>
+          {% endif %}
         </div>
-        {% endif %}
         <div class="view-field">
           <div class="row">
             <div class="col">
@@ -274,11 +274,13 @@
       </div>
     </div>
     <div class="row">
+      {% if current_user.is_admin %}
       <div class="col edit-field m-2">
         <label for="bio">Biografia</label>
         <textarea class="form-control form-item mb-3" id="bio" name="bio" rows="5" cols="40"
           value="{{person.bio if person.bio is not none}}"></textarea>
       </div>
+      {% endif %}
       {% if person.bio %}
       <div class="col view-field">
         <figure>
