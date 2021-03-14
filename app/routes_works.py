@@ -127,7 +127,7 @@ def work(workid: Any) -> Any:
                         .filter(Bookseries.id == work.bookseries_id,
                                 Work.id == workid)\
                         .first()
-    types: List[str] = [''] * 3
+    types: List[str] = [''] * 4
     types[work.type] = 'checked'
     stories = session.query(ShortStory)\
         .join(Part)\
@@ -136,6 +136,7 @@ def work(workid: Any) -> Any:
         .group_by(Part.shortstory_id)\
         .all()
     form = WorkForm(request.form)
+    form_story = StoryForm(request.form)
     prev_book = None
     next_book = None
     if bookseries:
@@ -184,7 +185,7 @@ def work(workid: Any) -> Any:
         print(f'Errors: {form.errors}')
 
     return render_template('work.html', work=work, authors=authors,
-                           form=form, stories=stories,
+                           form=form, form_story=form_story, stories=stories,
                            prev_book=prev_book, next_book=next_book,
                            types=types)
 
@@ -504,6 +505,94 @@ def save_language_to_work() -> Any:
                   .first()
     work.language = lang_id
     session.add(work)
+    session.commit()
+
+    msg = 'Tallennus onnistui'
+    category = 'success'
+    resp = {'feedback': msg, 'category': category}
+    return make_response(jsonify(resp), 200)
+
+
+@app.route('/stories_for_work/<workid>')
+def stories_for_work(workid: Any) -> Any:
+    session = new_session()
+
+    stories = session.query(ShortStory)\
+                     .join(Part)\
+                     .filter(Part.work_id == workid)\
+                     .filter(Part.shortstory_id == ShortStory.id)\
+                     .all()
+
+    retval: List[Dict[str, str]] = []
+
+    if stories:
+        for story in stories:
+            obj: Dict[str, str] = {}
+            obj['id'] = str(story.id)
+            if story.creator_str:
+                obj['text'] = story.creator_str + ': ' + story.title
+            else:
+                obj['text'] = story.title
+            retval.append(obj)
+
+    return Response(json.dumps(retval))
+
+
+@app.route('/save_stories_to_work', methods=["POST"])
+@login_required  # type: ignore
+@admin_required
+def add_story_to_work() -> Any:
+    session = new_session()
+
+    (workid, story_ids) = get_select_ids(request.form)
+
+    existing_stories = session.query(ShortStory)\
+        .join(Part)\
+        .filter(Part.work_id == workid)\
+        .filter(Part.shortstory_id == ShortStory.id)\
+        .all()
+
+    existing_story_ids = [x.id for x in existing_stories]
+
+    story_ids = create_new_shortstory_to_work(session, story_ids, workid)
+
+    (to_add, to_remove) = get_join_changes(
+        existing_story_ids, [int(x['id']) for x in story_ids])
+
+    editions = session.query(Edition)\
+        .join(Part)\
+        .filter(Part.edition_id == Edition.id)\
+        .filter(Part.work_id == workid)\
+        .all()
+
+    authors = session.query(Person)\
+                     .join(Author)\
+                     .filter(Person.id == Author.person_id)\
+                     .join(Part)\
+                     .filter(Part.id == Author.part_id)\
+                     .filter(Part.work_id == workid)\
+                     .all()
+
+    for id in to_remove:
+        part = session.query(Part)\
+            .join(ShortStory)\
+            .filter(Part.work_id == workid)\
+            .filter(Part.shortstory_id == id)\
+            .first()
+        session.delete(part)
+    for id in to_add:
+        for edition in editions:
+            part = Part(work_id=workid, edition_id=edition.id,
+                        shortstory_id=id)
+            session.add(part)
+            session.commit()
+            if authors:
+                for person in authors:
+                    author = Author(person_id=person.id, part_id=part.id)
+                    session.add(author)
+                session.commit()
+                update_creators_to_story(session, id, authors)
+
     session.commit()
 
     msg = 'Tallennus onnistui'

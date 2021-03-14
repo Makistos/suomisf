@@ -161,7 +161,7 @@ def booksX(letter):
 def anthologies():
     session = new_session()
 
-    anthologies = session.query(Work).filter(Work.collection == 1).all()
+    anthologies = session.query(Work).filter(Work.type == 2).all()
 
     return render_template('books.html', works=anthologies)
 
@@ -349,33 +349,6 @@ def remove_author_from_work(workid, authorid):
     session.commit()
 
     update_creators(session, workid)
-
-    return redirect(url_for('work', workid=workid))
-
-
-@app.route('/remove_story_from_work/<workid>/<storyid>', methods=["GET", "POST"])
-def remove_story_from_work(workid, storyid):
-    session = new_session()
-
-    parts = session.query(Part)\
-                   .filter(Part.work_id == workid,
-                           Part.shortstory_id == storyid)\
-                   .all()
-
-    for part in parts:
-        session.delete(part)
-
-    stories = session.query(Part)\
-                     .filter(Part.work_id == workid)\
-                     .filter(Part.shortstory_id is not None)\
-                     .scalar()
-
-    if not stories is None:
-        work = session.query(Work).filter(Work.id == workid).first()
-        work.collection = False
-        session.add(work)
-
-    session.commit()
 
     return redirect(url_for('work', workid=workid))
 

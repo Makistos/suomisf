@@ -311,3 +311,24 @@ def save_tags_to_story() -> Any:
     category = 'success'
     resp = {'feedback': msg, 'category': category}
     return make_response(jsonify(resp), 200)
+
+
+@app.route('/select_story', methods=['GET'])
+def select_story() -> Response:
+    search = request.args['q']
+    session = new_session()
+
+    if search:
+        retval: Dict[str, List[Dict[str, Any]]] = {}
+        stories = session.query(ShortStory)\
+                         .filter(ShortStory.title.ilike('%' + search + '%'))\
+                         .order_by(ShortStory.creator_str, ShortStory.title)\
+                         .all()
+        retval['results'] = []
+        if stories:
+            for story in stories:
+                retval['results'].append(
+                    {'id': str(story.id), 'text': story.creator_str + ': ' + story.title})
+        return Response(json.dumps(retval))
+    else:
+        return Response(json.dumps[''])

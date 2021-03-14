@@ -16,6 +16,11 @@ $(document).ready(function () {
     } else {
       minInputLen = 3;
     }
+    if ($(this).data("separators")) {
+      separators = [$(this).data("separators")];
+    } else {
+      separators = [",", ", "];
+    }
     $(this).select2({
       ajax: {
         url: $(this).data("search"),
@@ -30,7 +35,7 @@ $(document).ready(function () {
       minimumInputLength: minInputLen,
       placeholder: $(this).data("placeholder"),
       tags: Boolean($(this).data("tags")),
-      tokenSeparators: [",", ", "],
+      tokenSeparators: separators,
       width: this_width /*,
       createTag: function (params) {
         var term = $.trim(params.term);

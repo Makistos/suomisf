@@ -686,9 +686,35 @@ def create_new_tags(session: Any, tags: List[Dict[str, Any]]) -> List[Dict[str, 
     return retval
 
 
+def create_new_shortstory_to_work(session: Any, stories: List[Dict[str, Any]], workid: int) -> List[Dict[str, Any]]:
+    retval: List[Dict[str, Any]] = []
+
+    for story in stories:
+        title = story['text']
+        if story['id'] == title:
+            new_story = ShortStory(title=title)
+            session.add(new_story)
+            session.commit()
+            id = new_story.id
+            title = new_story.title
+        else:
+            id = int(story['id'])
+        retval.append({'id': id, 'text': title})
+
+    return retval
+
+
 def create_new_language(session: Any, lang_name: str) -> Tuple[int, str]:
     lang = Language(name=lang_name)
     session.add(lang)
     session.commit()
 
     return (lang.id, lang.name)
+
+
+def update_creators_to_story(session: Any, storyid: int, authors: Any) -> None:
+    author_str = ' & '.join([x.name for x in authors])
+    story = session.query(ShortStory).filter(ShortStory.id == storyid).first()
+    story.creator_str = author_str
+    session.add(story)
+    session.commit()
