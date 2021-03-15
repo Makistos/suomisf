@@ -144,8 +144,14 @@
                         </div>
                         {% endif %}
                         <div class="col view-field">
+                            {% if edition.publisher %}
                             <a href="{{url_for('publisher', pubid=edition.publisher.id)}}">
-                                {{ edition.publisher.name }}</a> {{ edition.pubyear }}.
+                                {{ edition.publisher.name }}</a>
+                            {% endif %}
+                            {% if edition.pubyear %}
+                            {{ edition.pubyear }}
+                            {%endif %}
+                            {% if edition.publisher or edition.pubyear %}.{% endif %}
                             {% if edition.version %}
                             {{edition.version}}. laitos
                             {% else %}

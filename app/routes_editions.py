@@ -269,7 +269,7 @@ def edition(editionid: Any) -> Any:
 
     return render_template('edition.html', form=form,
                            edition=edition, authors=authors,
-                           other_editions=other_editions, works=works,
+                           works=works,
                            translators=translators, editors=editors,
                            stories=stories, bindings=bindings,
                            dustcovers=dustcovers, coverimages=coverimages)

@@ -1,3 +1,4 @@
+from abc import abstractproperty
 from flask.globals import session
 from app import app
 from flask import (render_template, request, flash, redirect, url_for,
@@ -599,3 +600,46 @@ def add_story_to_work() -> Any:
     category = 'success'
     resp = {'feedback': msg, 'category': category}
     return make_response(jsonify(resp), 200)
+
+
+@app.route('/add_edition_to_route/<workid>')
+@login_required  # type: ignore
+@admin_required
+def add_edition_to_route(workid: Any) -> Any:
+    session = new_session()
+
+    work = session.query(Work).filter(Work.id == workid).all()
+
+    edition = Edition(title=work[0].title)
+    session.add(edition)
+    session.commit()
+
+    part = Part(work_id=workid, edition_id=edition.id)
+    session.add(part)
+    session.commit()
+
+    authors = session.query(Person)\
+                     .join(Author)\
+                     .filter(Person.id == Author.person_id)\
+                     .join(Part)\
+                     .filter(Part.id == Author.part_id)\
+                     .filter(Part.work_id == workid)\
+                     .distinct()\
+                     .all()
+
+    for author in authors:
+        auth = Author(part_id=part.id, person_id=author.id)
+        session.add(auth)
+    session.commit()
+
+    stories = session.query(Part)\
+                     .filter(Part.work_id == workid, Part.shortstory_id != None)\
+                     .all()
+
+    for story in stories:
+        part = Part(work_id=workid, edition_id=edition.id,
+                    shortstory_id=story.id)
+        session.add(part)
+    session.commit()
+
+    return redirect(url_for('edition', editionid=edition.id))
