@@ -237,18 +237,12 @@ def new_person() -> Any:
             person.dob = form.dob.data
         if form.dod.data != 0:
             person.dod = form.dod.data
-        person.nationality = form.nationality.data
-        person.other_names = form.other_names.data
-        person.image_src = form.image_src.data
-        person.image_attr = form.image_attr.data
-        person.bio = form.bio.data
-        person.bio_src = form.bio_src.data
         session.add(person)
         session.commit()
         return redirect(url_for('person', personid=person.id))
     else:
         app.logger.debug("Errors: {}".format(form.errors))
-    return render_template('edit_person.html', form=form, personid=person.id)
+    return render_template('new_person.html', form=form, personid=person.id)
 
 
 @app.route('/people_by_nationality/<nationality>')

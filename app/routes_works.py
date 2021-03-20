@@ -38,8 +38,8 @@ def save_work(session: Any, form: Any, work: Any) -> Any:
         # New work so needs a row to Edition and Part tables.
         edition = Edition()
         edition.title = work.title
+        edition.subtitle = work.subtitle
         edition.pubyear = work.pubyear
-        edition.language = work.language
         session.add(edition)
         session.commit()
         part = Part()
@@ -48,7 +48,6 @@ def save_work(session: Any, form: Any, work: Any) -> Any:
         part.title = work.title
         session.add(part)
         session.commit()
-    save_genres(session, work, form.genre.data)
 
 
 @app.route('/edit_work/<workid>', methods=["POST", "GET"])
@@ -189,6 +188,32 @@ def work(workid: Any) -> Any:
                            form=form, form_story=form_story, stories=stories,
                            prev_book=prev_book, next_book=next_book,
                            types=types)
+
+
+@app.route('/new_work', methods=['POST', 'GET'])
+# @login_required  # type: ignore
+# @admin_required
+def new_work() -> Any:
+    session = new_session()
+
+    form = WorkForm()
+
+    if request.method == 'GET':
+        pass
+    elif form.validate_on_submit():
+        work = Work()
+        work.title = form.title.data
+        work.subtitle = form.subtitle.data
+        work.orig_title = form.orig_title.data
+        work.pubyear = int(form.pubyear.data)
+        work.type = 1
+        session.add(work)
+        session.commit()
+        return redirect(url_for('work', workid=work.id))
+    else:
+        app.logger.debug("Errors: {}".format(form.errors))
+
+    return render_template('new_work.html', form=form)
 
 
 @app.route('/add_edition/<workid>', methods=["POST", "GET"])

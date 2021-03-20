@@ -1,12 +1,14 @@
+from app.route_helpers import new_session
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField,\
     IntegerField, SelectField, HiddenField, RadioField, TextAreaField,\
     SelectMultipleField, widgets
-from wtforms.validators import DataRequired, ValidationError, EqualTo, Optional
-from app.orm_decl import User
+from wtforms.validators import DataRequired, InputRequired, ValidationError, EqualTo, Optional
+from app.orm_decl import User, Person
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app import db
+from typing import Any
 
 
 class MultiCheckboxField(SelectMultipleField):
@@ -164,20 +166,43 @@ class MagazineForm(FlaskForm):
     submit = SubmitField('Tallenna')
 
 
+class NewWorkForm(FlaskForm):
+    id = HiddenField('id')
+    title = StringField('Nimi', validators=[DataRequired(
+        message='Teoksen nimi on pakollinen tieto')])
+    subtitle = StringField('Alaotsikko')
+    orig_title = StringField('Alkuperäinen nimi')
+    pubyear = IntegerField('Julkaisuvuosi', validators=[Optional()])
+    language = StringField('Kieli')
+    bookseriesnum = StringField('Sarjanumero')
+    bookseriesorder = IntegerField(
+        'Järjestys sarjassa', validators=[Optional()])
+    misc = StringField('Muuta')
+    submit = SubmitField('Tallenna')
+
+
 class PersonForm(FlaskForm):
     id = HiddenField('id')
-    name = StringField('Kirjailjanimi')
+    name = StringField('Kirjailjanimi', validators=[InputRequired()])
     alt_name = StringField('Koko nimi')
     first_name = StringField('Etunimi')
     last_name = StringField('Sukunimi')
-    image_attr = StringField('Kuvan lähde')
     dob = IntegerField('Syntymävuosi', validators=[Optional()])
     dod = IntegerField('Kuolinvuosi', validators=[Optional()])
+    birthtown = StringField('Synnyinpaikka', validators=[Optional()])
+    deathtown = StringField('Kuolinpaikka', validators=[Optional()])
+    image_attr = StringField('Kuvan lähde', validators=[Optional()])
     bio = TextAreaField('Kuvaus', validators=[Optional()])
-    bio_src = StringField('Kuvauksen lähde')
-    birthtown = StringField('Syntymäpaikka')
-    deathtown = StringField('Kuolinpaikka')
+    bio_src = StringField('Kuvauksen lähde', validators=[Optional()])
     submit = SubmitField('Tallenna')
+
+    def validate_name(form: Any, field: Any) -> Any:
+        session = new_session()
+        other_person = session.query(Person)\
+                              .filter(Person.name == field.data)\
+                              .first()
+        if other_person:
+            raise ValidationError('Järjestelmässä jo henkilö tällä nimellä')
 
 
 class PublisherForm(FlaskForm):

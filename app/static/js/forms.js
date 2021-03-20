@@ -36,19 +36,7 @@ $(document).ready(function () {
       placeholder: $(this).data("placeholder"),
       tags: Boolean($(this).data("tags")),
       tokenSeparators: separators,
-      width: this_width /*,
-      createTag: function (params) {
-        var term = $.trim(params.term);
-        var id = 0;
-        if (term === "") {
-          return null;
-        }
-        return {
-          id: id,
-          text: term,
-          newTag: true,
-        };
-      },*/,
+      width: this_width,
     }),
       /* Fill selectors with data from db. */
       $.ajax({
