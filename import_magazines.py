@@ -61,6 +61,8 @@ def get_publisher(s, name: str) -> int:
 
 
 def get_person(s, name: str, create_missing: bool = False) -> Optional[int]:
+    if name == '':
+        return None
     try:
         if name[-1] == '.':
             # Replace last dot so this matches better
@@ -189,7 +191,8 @@ def import_issues(s, dir: str, name: str, id: int) -> None:
             editor_ids = []
             for editor in editors:
                 editor_id = get_person(s, editor.strip(), True)
-                editor_ids.append(editor_id)
+                if editor_id:
+                    editor_ids.append(editor_id)
 
             size_id = get_size(s, size)
 
@@ -273,7 +276,8 @@ def import_articles(s,
                     for p in people.split('&'):
                         person = p.strip()
                         person_id = get_person(s, person.strip(), True)
-                        person_ids.append(person_id)
+                        if person_id:
+                            person_ids.append(person_id)
 
                 tag_list = tags.split(',')
                 tag_ids = get_tags(s, tag_list)
@@ -363,13 +367,15 @@ def import_stories(s,
                 author_ids = []
                 for author in authors.split('&'):
                     person_id = get_person(s, author.strip(), True)
-                    author_ids.append(person_id)
+                    if person_id:
+                        author_ids.append(person_id)
 
                 translator_ids = []
                 if len(translators) > 0:
                     for person in translators.split('&'):
                         person_id = get_person(s, person.strip(), True)
-                        translator_ids.append(person_id)
+                        if person_id:
+                            translator_ids.append(person_id)
 
                 story_item = s.query(ShortStory)\
                     .filter(ShortStory.title == orig_title)\

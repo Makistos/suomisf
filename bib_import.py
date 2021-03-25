@@ -1312,7 +1312,7 @@ def insert_showroom():
 def add_multiparts():
     import csv
 
-    authors = 0
+    author_name = 0
     wtitle = 1
     wtitle_fin = 2
     bookseries = 3
@@ -1346,7 +1346,7 @@ def add_multiparts():
                 Bookseries.name == work[bookseries]).first()
         w = s.query(Work).filter(Work.title == work[wtitle_fin]).first()
         try:
-            authors = import_authors(s, work[authors])
+            authors = import_authors(s, work[author_name])
         except TypeError as exp:
             print(f'{exp}: {authors}')
         work[author_ids] = [x.id for x in authors]
