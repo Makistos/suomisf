@@ -10,12 +10,12 @@
   <div class="card mb-3">
     <div class="row">
       <div class="col-lg-4 col-sm-12">
-        <div class="row">
+        <div class="row mb-3 ml-1 mr-1 mt-1">
           <div clas="col">
             {% if person.image_src %}
             <figure>
               <img src="{{person.image_src}}" class="img-fluid">
-              <figcaption>{{person.image_attr}}</figcaption>
+              <figcaption>{{person.image_attr if person.image_attr is not none}}</figcaption>
             </figure>
             {% else %}
             <img src="/static/icons/person_256.png">
@@ -112,14 +112,6 @@
         </div>
         <!-- Genre -->
         <div class="row">
-          {% if current_user.is_admin %}
-          <div class="col edit-field">
-            <label for="genres">Genret</label>
-            <select class="genre-selector form-control" multiple="multiple" data-placeholder="Genret"
-              data-search="/select_genre" data-save="/save_genres_to_work" data-init="/genres_for_work"
-              data-name="genres" id="genres" data-mininput="1"></select>
-          </div>
-          {% endif %}
           <div class="col text-center view-field">
             {% include "_genre_count.html" %}
           </div>

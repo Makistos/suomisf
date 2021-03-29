@@ -1,135 +1,248 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-    <div class="card border-primary mb-3" style="width: 720px; margin: 5px auto;">
-        {% if issue.title %}
-        <div class="card-header">
-            {{ issue.title }}
-        </div>
-        {% endif %}
-        <div class="row">
-            <div class="col col-lg-4 container">
-                {% if issue.image_src %}
-                <img src="{{issue.image_src}}" width=255px>
-                {#                {% else %}
-                <img src="/static/icons/person_256.png"> #}
+{% if current_user.is_admin %}
+<form method="post" id="itemForm">
+    {{ form.hidden_tag() }}
+    {% endif %}
+    <div class="container">
+        <div class="card border-primary">
+            <div class="card-header">
+                {% if current_user.is_admin %}
+                <div class="edit-field">
+                    <label for="title">Otsikko</label>
+                    <input type="text" class="form-control form-item" id="title" name="title"
+                        value="{{issue.title if issue.title is not none}}" form="itermForm">
+                </div>
                 {% endif %}
-            </div>
-            <div class="col col-lg-8 text-center">
-                <div class="card-body">
-                    <h2 class="card-title">
-                        {{ issue.magazine.name  }}
-                        {% if issue.number %}
-                        {{ issue.number }} / {{ issue.year }}
-                        {% else %}
-                        {{ issue.count }}
-                        {% endif %}
-                    </h2>
-                    {% if issue.tags %}
-                    {% for tag in  issue.tags %}
-                    {{ tag.name }}
-                    {% endfor %}
+                <div class="view-field">
+                    {% if issue.title %}
+                    {{ issue.title }}
                     {% endif %}
-                    <ul class="list-group list-group-flush">
-                        {% if issue.link %}
-                        <li class="list-group-item"><b>Kotisivu:</b>
-                            <a href="{{ issue.link }}">{{issue.link}}</a>
-                        </li>
+                </div>
+            </div>
+            <div class="row mb-3 ml-1 mr-1 mt-1">
+                <div class="col col-lg-4 col-sm-12 mt-2">
+                    {% if issue.image_src %}
+                    <img src="{{issue.image_src}}" width=255px>
+                    {% endif %}
+                    {% if current_user.is_admin %}
+                    <div class="row edit-field">
+                        <div class="col">
+                            <input type="file" class="form-control" name="image_upload" id="image_upload"
+                                data-save="/save_image_to_issue">
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-lg-8 col-sm-12">
+                    <!-- Magazine, number, count -->
+                    <div class="row">
+                        {% if current_user.is_admin %}
+                        <div class="col-3 edit-field">
+                            <label for="magazine">Lehti</label>
+                            <select class="form-control" data-placeholder="Lehti" data-search="/select_magazine"
+                                data-save="/save_magazine_to_issue" data-init="/magazine_for_issue" data-name="magazine"
+                                id="magazine" name="magazine"></select>
+                        </div>
+                        <div class="col-1 edit-field">
+                            <label for="number">Nro</label>
+                            <input type="text" class="form-control form-item" name="number" id="number"
+                                value="{{issue.number if issue.number is not none}}" form="itemForm">
+                        </div>
+                        <div class="col-1 edit-field">
+                            <label for="number_extra">Ekstra</label>
+                            <input type="text" class="form-control form-item" name="number_extra" id="number_extra"
+                                value="{{issue.number_extra if issue.number_extra is not none}}" form="itemForm">
+                        </div>
+                        <div class="col-2 edit-field">
+                            <label for="year">Vuosi</label>
+                            <input type="text" class="form-control form-item" name="year" id="year"
+                                value="{{issue.year if issue.year is not none}}" form="itemForm">
+                        </div>
+                        <div class="col-1 edit-field">
+                            <label for="count">Jnum</label>
+                            <input type="text" class="form-control form-item" name="count" id="count"
+                                value="{{issue.count if issue.count is not none}}" form="itemForm">
+                        </div>
                         {% endif %}
-                        {% if issue.editors %}
-
-                        <li class="list-group-item"><b>Päätoimittaja(t):</b>
+                        <div class="col view-field">
+                            <h2 class="card-title">
+                                {{ issue.magazine.name  }}
+                                {% if issue.number %}
+                                {{ issue.number }} / {{ issue.year }}
+                                {% else %}
+                                {{ issue.count }}
+                                {% endif %}
+                            </h2>
+                        </div>
+                    </div>
+                    <!-- Tags -->
+                    <div class="row">
+                        {% if current_user.is_admin %}
+                        <div class="col edit-field">
+                            <label for="tags">Asiasanat</label>
+                            <select class="tag-selector form-control" multiple="multiple" data-placeholder="Asiasanat"
+                                data-search="/select_tags" data-save="/save_tags_to_issue" data-init="/tags_for_issue"
+                                data-name="tags" id="tags" data-tags="true" name="tags"></select>
+                        </div>
+                        {% endif %}
+                        <div class="col view-field">
+                            {% if issue.tags %}
+                            {% for tag in issue.tags %}
+                            {{ tag.name }}
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        {% if current_user.is_admin %}
+                        <div class="col edit-field">
+                            <label for="link">Kotisivu</label>
+                            <input type="text" class="form-control form-item" name="link" id="link"
+                                value="{{issue.link if issue.link is not none}}" form="itemForm">
+                        </div>
+                        {% endif %}
+                        {% if issue.link %}
+                        <div class="col view-field">
+                            <a href="{{ issue.link }}">{{issue.link}}</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        {% if current_user.is_admin %}
+                        <div class="col edit-field">
+                            <label for="editors">Päätoimittajat</label>
+                            <select class="person-selector form-control" multiple="multiple"
+                                data-placeholder="Päätoimittajat" data-search="/select_person"
+                                data-save="/save_editors_to_issue" data-init="/editors_for_issue" data-name="editors"
+                                id="editors" name="editors"></select>
+                        </div>
+                        {% endif %}
+                        <div class="col view-field">
                             {% for editor in issue.editors %}
                             <a href="{{url_for('person',
                                       personid=editor.id)}}">{{
-                                      editor.alt_name}}</a>
+                                editor.alt_name}}</a>
                             {% endfor %}
-                        </li>
-                        <li class="list-group-item"><b>Sivuja:</b>
-                            {{ issue.pages }}
-                            {% if issue.size %}
-                            ({{issue.size.name}})
+                            {% if issue.editors|length > 1 %}
+                            (päätoimittajat)
+                            {% else %}
+                            (päätoimittaja)
                             {% endif %}
-                        </li>
-                        {% endif %}
-                        {% if issue.notes %}
-                        <li class="list-group-item">
-                            <p class="mb-0">{{issue.notes}}</p>
-                        </li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-        </div>
-        {% if issue.articles|length %}
-
-        <dl class="list-group list-group-flush mb-3">
-            <dt>Artikkelit</dt>
-            {% for article in issue.articles %}
-            <dd class="list-group-item">
-                {% if article.creator_str -%}
-                <span class="person-list">
-                    {{ article.creator_str }}</span>:
-                {% endif %}
-                <a href="{{url_for('article',
-						 id=article.id)}}">{{
-						 article.title }}</a>
-            </dd>
-            {% endfor %}
-        </dl>
-        {% endif %}
-        {% if issue.stories|length %}
-        <dl class="list-group list-group-flush">
-            <dt>Novellit</dt>
-            {% for story in issue.stories %}
-            <dd class="list-group-item">
-                {% if story.creator_str %}
-                <span class="person-list">
-                    {{ story.creator_str }}</span>:
-                {% if story.title !=
-                                            story.orig_title %}
-                <a href="{{url_for('story',
-                                                        id=story.id)}}">
-                    {{ story.title }}</a>
-                ({{story.title}},
-                {{story.pubyear}}).
-                {% else %}
-                <a href="{{url_for('story',
-                                                            id=story.id)}}">
-                    {{ story.title }}</a> ({{ story.pubyear}}).
-                {% endif %}
-                {% endif %}
-            </dd>
-            {% endfor %}
-        </dl>
-        {% endif %}
-        {% if current_user.is_admin %}
-        <div class="accordion" id="issueCard">
-            <div class="card">
-                <div class="card-header" id="headIssue">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                            data-target="#issue" aria-expanded="false" aria-controls="issue">
-                            Ylläpito ({{issue.id}})
-                        </button>
-                    </h2>
-                </div>
-                <div id="issue" class="collapse" aria-labelledby="headAdmin" data-parent="#issueCard">
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><a href=" {{ url_for('edit_issue',
-                                    id=issue.id)}}">Muokkaa</a></li>
-                        </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col edit-field">
+                            <label for="pages">Sivuja</label>
+                            <input type="text" class="form-control form-item" name="pages" id="pages"
+                                value="{{issue.pages if issue.pages is not none}}" form="itemForm">
+                        </div>
+                        <div class="col edit-field">
+                            <label for="size">Koko</label>
+                            <select class="size-selector form-control" data-placeholder="Koko"
+                                data-search="/select_size" data-save="/save_size_to_issue" data-init="/size_for_issue"
+                                data-mininput="1" data-name="size" name="size"></select>
+                        </div>
+                        <div class="col view-field">
+                            {% if issue.pages %}
+                            {{issue.pages}} sivua.
+                            {% endif %}
+                            {% if issue.size %}
+                            {{issue.size.name}}.
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col edit-field">
+                            <label for="notes">Kommentit</label>
+                            <textarea class="form-control form-item" id="notes" name="notes" rows="5" cols="40"
+                                value="{{issue.notes if issue.notes is not none}}" form="itemForm"></textarea>
+                        </div>
+                        <div class="col view-field">
+                            {{issue.notes}}
+                        </div>
                     </div>
                 </div>
             </div>
+            {% if current_user.is_admin %}
+            <div class="row edit-field mb-3 ml-1 mr-1 mt-1">
+                <div class="col">
+                    <label for="articles">Artikkelit</label>
+                    <select class="form-control" multiple="multiple" data-placeholder="Artikkelit"
+                        data-search="/select_article" data-save="/save_articles_to_issue" tags="true"
+                        data-init="/articles_for_issue" data-name="articles" name="articles"></select>
+                </div>
+            </div>
+            <div class="row edit-field mb-3 ml-1 mr-1 mt-1">
+                <div class="col">
+                    <label for="Stories">Novellit</label>
+                    <select class="form-control" multiple="multiple" data-placeholder="Novellit"
+                        data-search="/select_story" data-save="/save_story_to_issue" data-init="/stories_for_issue"
+                        tags="true" data-name="stories" name="stories"></select>
+                </div>
+            </div>
+            {% endif %}
+            {% if issue.articles|length %}
+            <div class="row view-field ml-1 mr-1 mt-2">
+                <div class="col">
+                    <h4>
+                        Artikkelit
+                    </h4>
+                </div>
+            </div>
+            {% for article in issue.articles %}
+            <div class="row view-field ml-1 mr-1 mt-1">
+                <div class="col">
+                    {% if article.creator_str -%}
+                    <span class="person-list">
+                        {{ article.creator_str }}</span>:
+                    {% endif %}
+                    <a href="{{url_for('article',
+						 id=article.id)}}">{{
+                        article.title }}</a>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% if issue.stories|length %}
+            <div class="row view-field ml-1 mr-1 mt-2">
+                <div class="col">
+                    <h4>
+                        Novellit
+                    </h4>
+                </div>
+            </div>
+            {% for story in issue.stories %}
+            <div class="row view-field ml-1 mr-1">
+                <div class="col">
+                    {% if story.creator_str -%}
+                    <span class="person-list">
+                        {{ story.creator_str }}</span>:
+                    {% endif %}
+                    <a href="{{url_for('story',
+						 id=story.id)}}">{{
+                        story.title }}</a>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
         </div>
+        {% if current_user.is_admin %}
+        <input type="checkbox" id="edit_form" name="edit_form">
+        <label for="edit_form">Muokkaa</label>
         {% endif %}
-    </div>
-</div>
 
-</div>
+    </div>
+
+    </div>
+    {% if current_user.is_admin %}
+</form>
+{% endif %}
 {% block script %}
 <script src="/static/js/personlink.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var itemId = '{{issue.id}}'
+</script>
+<script src="/static/js/forms.js" type="text/javascript"></script>
 {% endblock %}
 {% endblock %}

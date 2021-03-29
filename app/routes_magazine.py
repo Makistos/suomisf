@@ -1,12 +1,16 @@
 import logging
 
-from flask import redirect, render_template, request, url_for
+from flask import redirect, render_template, request, url_for, Response
+from flask_login.utils import login_required
+from sqlalchemy.util.langhelpers import ellipses_string
 
 from app import app
 from app.forms import MagazineForm
 from app.orm_decl import (Magazine, Publisher, Issue)
 
 from .route_helpers import *
+from typing import Any, Dict, List
+import json
 
 
 @app.route('/magazine/<id>')
@@ -65,3 +69,23 @@ def edit_magazine(id):
 
     return render_template('edit_magazine.html', id=id, form=form)
 
+
+@app.route('/select_magazine', methods=['GET'])
+def select_magazine() -> Response:
+    search = request.args['q']
+    session = new_session()
+
+    if search:
+        retval: Dict[str, List[Dict[str, Any]]] = {}
+        magazines = session.query(Magazine)\
+                           .filter(Magazine.name.ilike('%' + search + '%'))\
+                           .order_by(Magazine.name)\
+                           .all()
+        retval['results'] = []
+        if magazines:
+            for mag in magazines:
+                retval['results'].append(
+                    {'id': str(mag.id), 'text': mag.name})
+        return Response(json.dumps(retval))
+    else:
+        return Response(json.dumps(['']))

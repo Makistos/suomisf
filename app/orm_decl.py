@@ -265,8 +265,9 @@ class EditionPrice(Base):
     __tablename__ = 'editionprice'
     id = Column(Integer, primary_key=True)
     edition_id = Column(Integer, ForeignKey('edition.id'), nullable=False)
-    date = Column(Date)
+    date = Column(Date, nullable=False)
     condition_id = Column(Integer, ForeignKey('bookcondition.id'))
+    price = Column(Integer, nullable=False)
 
 
 class Editor(Base):

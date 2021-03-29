@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col">
+            <form method="post" id="searchForm">
+                <h2>Haku</h2>
+            </form>
+        </div>
+    </div>
+    <div class="card-columns">
+        <div class="card">
+            <h5 class="card-header">Genret</h5>
+            <div class="card-body">
+                {% for genre in genres %}
+                <img src="/static/icons/{{ genre.abbr }}_16.png" title="{{genre.genre_name}}">: <a href=" {{
+                    url_for('books_by_genre', genre=genre.genre_name)}}">{{
+                    genre.work_count }}</a><br>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="card">
+            <h5 class="card-header">Kirjoittajat</h5>
+            <div class="card-body">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -6,7 +6,7 @@
 <div class="container">
     <form action="" method="post">
         {{ form.hidden_tag() }}
-        <!-- <div class="row">
+        <div class="row">
             <div class="col-md-8 mb-3">
                 <select class="form-control" name="test" multiple="multiple">
                     <option value="A">A</option>
@@ -22,7 +22,7 @@
                 <select class="author-selector form-control" multiple="multiple" data-placeholder="Kirjoittajat"
                     data-name="authors" data-search="/select_person"></select>
             </div>
-        </div> -->
+        </div>
         {{ render_field(form.title) }}
         {{ render_field(form.subtitle) }}
         {{ render_field(form.orig_title) }}

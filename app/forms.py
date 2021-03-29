@@ -141,17 +141,15 @@ class EditionEditorForm(FlaskForm):
 
 class IssueForm(FlaskForm):
     id = HiddenField('id')
-    magazine = StringField('Lehti')
-    editor = StringField('Päätoimittaja')
     number = IntegerField('Numero')
     number_extra = StringField('Numeron tarkenne')
     count = IntegerField('Juokseva numero')
     year = IntegerField('Vuosi')
     image_src = StringField('Kansikuva')
     pages = IntegerField('Sivuja')
-    size = SelectField('Koko', coerce=str)
     link = StringField('Linkki')
     notes = TextAreaField('Kommentit')
+    title = StringField('Otsikko')
     submit = SubmitField('Tallenna')
 
 

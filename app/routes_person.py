@@ -2,6 +2,7 @@ import logging
 
 from flask import redirect, render_template, request, url_for, jsonify, Response
 from flask_login import current_user, login_user, logout_user
+from flask_login.utils import login_required
 
 from app import app
 from app.forms import PersonForm
@@ -290,7 +291,13 @@ def select_person() -> Response:
             for person in people:
                 retval['results'].append(
                     {'id': str(person.id), 'text': person.name})
-        app.logger.debug('retval: ' + str(retval))
         return Response(json.dumps(retval))
     else:
         return Response(json.dumps(['']))
+
+
+@app.route('/remove_image_from_person/<personid>')
+@login_required  # type: ignore
+@admin_required
+def remove_image_from_person(personid: Any) -> Any:
+    return redirect(url_for('person', personid=personid))

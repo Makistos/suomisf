@@ -50,6 +50,18 @@ def redirect_url(default='index'):
         request.referrer or \
         url_for(default)
 
+
+@app.route('/bookindex')
+def bookindex():
+    session = new_session()
+    genres = session.query(Genre.abbr, Genre.name.label('genre_name'),
+                           func.count(Work.id).label('work_count'))\
+        .join(Genre.works)\
+        .group_by(Genre.abbr)\
+        .order_by(func.count(Work.id).desc())\
+        .all()
+    return render_template('books-index.html', genres=genres)
+
 # User related routes
 
 
@@ -273,7 +285,7 @@ def remove_from_owned(bookid):
 
 
 @app.route('/magazines')
-def magazines():
+def magazines() -> Any:
     session = new_session()
 
     magazines = session.query(Magazine)\
