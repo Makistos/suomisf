@@ -60,7 +60,7 @@ def bookindex():
         .group_by(Genre.abbr)\
         .order_by(func.count(Work.id).desc())\
         .all()
-    return render_template('books-index.html', genres=genres)
+    return render_template('books-index.html', genres=genres, letters=letters)
 
 # User related routes
 

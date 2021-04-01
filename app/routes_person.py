@@ -68,7 +68,6 @@ def editors() -> Any:
 
 @app.route('/person/<personid>', methods=['POST', 'GET'])
 def person(personid: Any) -> Any:
-    app.logger.info(personid)
     session = new_session()
     if personid.isdigit():
         person = session.query(Person).filter(Person.id == personid).first()
@@ -79,7 +78,6 @@ def person(personid: Any) -> Any:
             person = session.query(Person).filter(
                 Person.alt_name == personid).first()
 
-    authored = books_for_person(session, personid, 'A')
     series = session.query(Bookseries)\
                     .join(Work)\
                     .join(Part.authors)\
@@ -89,17 +87,6 @@ def person(personid: Any) -> Any:
                     .group_by(Bookseries.id)\
                     .all()
     form = PersonForm(request.form)
-
-    translated = books_for_person(session, personid, 'T')
-    edited = books_for_person(session, personid, 'E')
-
-    stories = session.query(ShortStory)\
-        .join(Part.authors)\
-        .join(Part.shortstory)\
-        .filter(Person.id == person.id)\
-        .group_by(ShortStory.id)\
-        .order_by(Part.title)\
-        .all()
 
     genres = session.query(Genre.name, Genre.abbr, func.count(Genre.id).label('count'))\
                     .join(Work.genres)\
@@ -111,25 +98,6 @@ def person(personid: Any) -> Any:
                     .group_by(Genre.name)\
                     .all()
 
-    person_awards = session.query(Awarded).filter(
-        Awarded.person_id == person.id).all()
-    novel_awards = session.query(Awarded)\
-                          .join(Work)\
-                          .filter(Work.id == Awarded.work_id)\
-                          .join(Part)\
-                          .filter(Part.work_id == Work.id)\
-                          .join(Author)\
-                          .filter(Author.part_id == Part.id)\
-                          .filter(Author.person_id == person.id)\
-                          .order_by(Awarded.year)\
-                          .all()
-
-    translated_stories = session.query(ShortStory)\
-                                .join(Part)\
-                                .filter(Part.shortstory_id == ShortStory.id)\
-                                .join(Translator)\
-                                .filter(Translator.part_id == Part.id)\
-                                .filter(Translator.person_id == personid)
     genre_list = {'SF': '', 'F': '', 'K': '', 'nSF': '', 'nF': '', 'nK': '',
                   'PF': '', 'paleof': '', 'kok': '', 'eiSF': '', 'rajatap': ''}
     for g in genres:
@@ -163,10 +131,10 @@ def person(personid: Any) -> Any:
     else:
         app.logger.error('Errors: {}'.format(form.errors))
         print(f'Errors: {form.errors}')
-    return render_template('person.html', person=person, authored=authored,
-                           translated=translated, edited=edited, stories=stories, genres=genre_list,
-                           series=series, translated_stories=translated_stories, person_awards=person_awards,
-                           novel_awards=novel_awards, form=form)
+    return render_template('person.html', person=person,
+                           genres=genre_list,
+                           series=series,
+                           form=form)
 
 
 @app.route('/edit_person/<personid>', methods=['POST', 'GET'])

@@ -24,6 +24,8 @@ def add_to_db(person: str):
     session = sessionmaker()
     session.configure(bind=engine)
 
+    if person.startswith('Hepo-oja'):
+        print('stop')
     s = session()
 
     alt_name = ''

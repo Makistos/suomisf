@@ -499,7 +499,8 @@ def import_magazines(dir: str) -> None:
                 mag = Magazine(name=name,
                                publisher_id=pub_id,
                                issn=issn,
-                               link=link)
+                               link=link,
+                               type=0)
                 s.add(mag)
                 s.commit()
 

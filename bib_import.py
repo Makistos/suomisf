@@ -2,7 +2,7 @@
 from app.orm_decl import (AwardCategories, Work, Edition, Part, Person, Author, Translator,
                           Editor, Publisher, Pubseries, Bookseries, User, Genre,
                           Alias, WorkGenre, Award, BindingType, Format,
-                          Magazine, WorkType, AwardCategory, PublicationSize)
+                          Magazine, WorkType, AwardCategory, PublicationSize, Country)
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from importbib import publishers
@@ -527,6 +527,17 @@ def add_bookperson(s, person, book, type):
     s.commit()
 
 
+def get_country(s: Any, name: Optional[str]) -> Optional[int]:
+    if name is None:
+        return None
+    c = s.query(Country).filter(Country.name == name).first()
+    if not c:
+        c = Country(name=name)
+        s.add(c)
+        s.commit()
+    return int(c.id)
+
+
 def import_authors(s, names, source=''):
     """ Imports an author line (found within <h2> tags).
         There are several different variations, including more than
@@ -658,19 +669,28 @@ def import_authors(s, names, source=''):
             real_name = None
             real_first_name = None
             real_last_name = None
+        if dob is not None:
+            dob_val: int = int(dob)
+        else:
+            dob_val = None
+        if dod is not None:
+            dod_val: int = int(dod)
+        else:
+            dod_val = None
         if real_name is not None:
             # This is a pseudonym so save both the pseudonym and real name.
             person = s.query(Person)\
                       .filter(Person.name == real_name)\
                       .first()
             if not person:
+                country_id = get_country(s, country)
                 person = Person(name=real_name.strip(),
                                 alt_name=alt_name,
                                 first_name=real_first_name,
                                 last_name=real_last_name,
-                                nationality=country,
-                                dob=dob,
-                                dod=dod)
+                                nationality=country_id,
+                                dob=dob_val,
+                                dod=dod_val)
             else:
                 if not person.nationality:
                     person.nationality = country
@@ -728,7 +748,7 @@ def import_authors(s, names, source=''):
     return persons
 
 
-def import_persons(s, name: str, source: str = '') -> List:
+def import_persons(s: Any, name: str, source: str = '') -> List[Any]:
     """ Searches for given person by name from the Person table and if
         that name is not found, adds it to the Person table.
 

@@ -79,12 +79,12 @@
               <div class="col-2">
                 <label for="dob">Synt. vuosi</label>
                 <input type="text" class="form-control form-item" id="dob" name="dob"
-                  value="{{person.dob if person.dob is not none}}">
+                  value="{{person.dob if person.dob is not none}}" form="itemForm">
               </div>
               <div class="col-2">
                 <label for="dod">Kuolinvuosi</label>
                 <input type="text" class="form-control form-item" id="dod" name="dod"
-                  value="{{person.dod if person.dod is not none}}">
+                  value="{{person.dod if person.dod is not none}}" form="itemForm">
               </div>
             </div>
           </div>
@@ -154,7 +154,8 @@
             <div class="col">
               <label for="birthtown">Synnyinkaupunki</label>
               <input type="text" class="form-control form-item"
-                value="{{person.birthtown if person.birthtown is not none}}" id="birthtown" name="birthtown">
+                value="{{person.birthtown if person.birthtown is not none}}" id="birthtown" name="birthtown"
+                form="itemForm">
             </div>
             <div class="col">
               <label for="birthcountry">Synnyinmaa</label>
@@ -190,7 +191,8 @@
             <div class="col">
               <label for="deathtown">Kuolinpaikka</label>
               <input type="text" class="form-control form-item"
-                value="{{person.deathtown if person.deathtown is not none}}" id="deathtown" name="deathtown">
+                value="{{person.deathtown if person.deathtown is not none}}" id="deathtown" name="deathtown"
+                form="itemForm">
             </div>
             <div class="col">
               <label for="deathcountry">Kuolinmaa</label>

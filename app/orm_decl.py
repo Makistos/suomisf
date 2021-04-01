@@ -46,6 +46,7 @@ class Article(Base):
     creator_str = Column(String(500), index=True)
     tags = relationship('Tag', secondary='articletag', uselist=True)
     links = relationship('ArticleLink', uselist=True)
+    excerpt = Column(String(2000))
     person_rel = relationship(
         'Person', secondary='articleperson', uselist=True)
     author_rel = relationship(
@@ -372,6 +373,8 @@ class Magazine(Base):
     issues = relationship('Issue', backref=backref('magazine_issue'),
                           uselist=True, order_by='Issue.count')
     publisher = relationship('Publisher', uselist=False)
+    # Type of magazine. 0 = fanzine, 1 = other.
+    type = Column(Integer, nullable=False)
 
 
 class MagazineTag(Base):
@@ -730,6 +733,15 @@ class WorkLink(Base):
                      primary_key=True)
     link = Column(String(200), nullable=False)
     description = Column(String(100))
+
+
+class WorkReview(Base):
+    # Links Works with articles that contain a review.
+    __tablename__ = 'workreview'
+    work_id = Column(Integer, ForeignKey('work.id'), nullable=False,
+                     primary_key=True)
+    article_id = Column(Integer, ForeignKey('article.id'), nullable=False,
+                        primary_key=True)
 
 
 class WorkTag(Base):

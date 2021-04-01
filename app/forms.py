@@ -194,13 +194,13 @@ class PersonForm(FlaskForm):
     bio_src = StringField('Kuvauksen lähde', validators=[Optional()])
     submit = SubmitField('Tallenna')
 
-    def validate_name(form: Any, field: Any) -> Any:
-        session = new_session()
-        other_person = session.query(Person)\
-                              .filter(Person.name == field.data)\
-                              .first()
-        if other_person:
-            raise ValidationError('Järjestelmässä jo henkilö tällä nimellä')
+    # def validate_name(form: Any, field: Any) -> Any:
+    #     session = new_session()
+    #     other_person = session.query(Person)\
+    #                           .filter(Person.name == field.data)\
+    #                           .first()
+    #     if other_person:
+    #         raise ValidationError('Järjestelmässä jo henkilö tällä nimellä')
 
 
 class PublisherForm(FlaskForm):
