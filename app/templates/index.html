@@ -1,16 +1,59 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container" style="text-align: center;">
-	<h1>Suomenkieliset SF-, Fantasia- ja Kauhukirjat</h1>
-	<h2>Teoksia: {{ work_count[0] }}</h2>
-	<h2>Painoksia: {{ edition_count[0] }}</h2>
-	<h2>Novelleja: {{ story_count[0] }}</h2>
-	<h2>Julkaisijoita: {{ pub_count[0] }}</h2>
-	<h2>Henkilöitä: {{ person_count[0] }}</h2>
-	<h2>Josta kirjailijoita: {{ author_count|length() }}</h2>
-	<h2>Julkaisijan sarjoja: {{ pubseries_count[0] }}</h2>
-	<h2>Kirjasarjoja: {{ bookseries_count[0] }}</h2>
+
+	<h1 style="text-align: center;">SF-Bibliografia</h1>
+	<div class="row">
+		<div class="col">
+			<p>Tervetuloa suomenkielisen science fiction-, fantasia- ja kauhukirjallisuuden bibliografiaan. Sivuston
+				tarkoitus on olla mahdollisimman täydellinen tietokanta suomeksi julkaistuista spekulatiivisen fiktion
+				teoksista, lehdistä ja novelleista. </p>
+
+			<p>Tietokanta perustuu Jussi Vainikaisen, Pekka Möllärin ja Jyrki Ijäksen Suomenkielisen sf-, fantasia- ja
+				kauhukirjallisuuden bibliografiaan. Tiedot on siirretty Jussi Vainikaisen luvalla tähän tietokantaan.
+				Joitakin siirrossa tulleita virheitä tiedoista varmasti löytyy. Tietokantaa tullaan aktiivisesti
+				täydentämään ja ylläpitämään mm. lisäämällä kansikuvia ja muuta tietoa.</p>
+
+			<p>Kirja-osion tarkoituksena on sisältää kaikki suomeksi julkaistut sf-kirjat painoksineen sekä muine
+				tietoineen. Katso esimerkiksi Robert Silverbergin Purjehdus Bysanttiin-kirjan <a
+					href="{{url_for('index')}}">Teos</a>- ja <a href="{{url_for('index')}}">Painos</a>-sivut.
+				Osiosta löytyy myös lista suomeksi julkaistuista, palkituista teoksista. Myös kirjojen hakemiseen
+				liittyvät toiminnot löytyvät osion alta.</p>
+
+			<p>Lehdet-osion tavoitteena on sisältää kaikki suomenkieliset vähänkin merkittävät sf-aiheiset fanzinet sekä
+				lehdet, joissa on julkaistu sf-aiheisia artikkeleita ja novelleja. Jokaisesta fanzinesta on lueteltu
+				kaikki numerot sekä näiden sisällöt.</p>
+
+			<p>Novellit-osio sisältää kaikki järjestelmässä olevat novellit, oli ne sitten julkaistu kokoelmassa tai
+				lehdessä. Osiosta löytyy myös lista suomennetuista palkituista novelleista.</p>
+
+			<p>Henkilöhakemistosta löytyy jokainen järjestelmästä löytyvä henkilö.</p>
+
+			<p>Pikahaulla sivujen oikeassa yläreunassa voit etsiä mm. henkilöitä ja teoksia.</p>
+
+			<p>Virheistä ja puutteista voi ilmoittaa sähköpostilla osoitteeseen ___.</p>
+			<p>
+				<a href="{{url_for('index')}}">Uusimmat teokset</a>
+				&times;
+				<a href="{{url_for('index')}}">Viimeisimmät päivitykset</a>
+			</p>
+		</div>
+	</div>
+	<div class="row>">
+		<div class="col">
+			<h3>Tietokannassa on tällä hetkellä</h3>
+			Teoksia: {{ work_count[0] }}<br>
+			Painoksia: {{ edition_count[0] }}<br>
+			Novelleja: {{ story_count[0] }}<br>
+			Julkaisijoita: {{ pub_count[0] }}<br>
+			Henkilöitä: {{ person_count[0] }}<br>
+			Josta kirjailijoita: {{ author_count|length() }}<br>
+			Julkaisijan sarjoja: {{ pubseries_count[0] }}<br>
+			Kirjasarjoja: {{ bookseries_count[0] }}<br>
+		</div>
+	</div>
 	{% if current_user.is_admin %}
+	<hr>
 	<a href=" {{ url_for('new_person', personid=0) }} ">Uusi henkilö</a></br>
 	<a href="{{ url_for('new_work') }}">Uusi teos</a></br>
 	<a href=" {{ url_for('new_bookseries') }} ">Uusi kirjasarja</a></br>
