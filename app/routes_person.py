@@ -8,7 +8,7 @@ from app import app
 from app.forms import PersonForm
 from app.orm_decl import (Person, PersonTag, Author, Translator, Editor,
                           Part, Work, Edition, Genre, Awarded, ArticlePerson,
-                          ArticleAuthor, Bookseries, ShortStory, Award, AwardCategory)
+                          ArticleAuthor, Bookseries, ShortStory, Award, AwardCategory, Country)
 from sqlalchemy import func
 from typing import Dict, Any, List
 from .route_helpers import *
@@ -137,59 +137,6 @@ def person(personid: Any) -> Any:
                            form=form)
 
 
-@app.route('/edit_person/<personid>', methods=['POST', 'GET'])
-def edit_person(personid: int) -> Any:
-    session = new_session()
-    if personid != 0:
-        person = session.query(Person).filter(Person.id == personid).first()
-    else:
-        person = Person()
-    form = PersonForm(request.form)
-    if request.method == 'GET':
-        form.name.data = person.name
-        form.alt_name.data = person.alt_name
-        form.first_name.data = person.first_name
-        form.last_name.data = person.last_name
-        form.image_src.data = person.image_src
-        form.image_attr.data = person.image_attr
-        if person.dob:
-            form.dob.data = person.dob
-        else:
-            form.dob.data = 0
-        if person.dod:
-            form.dod.data = person.dod
-        else:
-            form.dod.data = 0
-        form.nationality.data = person.nationality
-        form.other_names.data = person.other_names
-        form.tags.data = ','.join([x.name for x in person.tags])
-        form.bio.data = person.bio
-        form.bio_src.data = person.bio_src
-    if form.validate_on_submit():
-        person.name = form.name.data
-        person.alt_name = form.alt_name.data
-        person.first_name = form.first_name.data
-        person.last_name = form.last_name.data
-        person.image_src = form.image_src.data
-        if form.dob.data != 0:
-            person.dob = form.dob.data
-        if form.dod.data != 0:
-            person.dod = form.dod.data
-        person.nationality = form.nationality.data
-        person.other_names = form.other_names.data
-        person.bio = form.bio.data
-        person.bio_src = form.bio_src.data
-        session.add(person)
-        session.commit()
-
-        save_tags(session, form.tags.data, 'Person', person.id)
-
-        return redirect(url_for('person', personid=person.id))
-    else:
-        app.logger.debug("Errors: {}".format(form.errors))
-    return render_template('edit_person.html', form=form, personid=personid)
-
-
 @app.route('/new_person', methods=['POST', 'GET'])
 def new_person() -> Any:
     session = new_session()
@@ -217,8 +164,10 @@ def new_person() -> Any:
 @app.route('/people_by_nationality/<nationality>')
 def people_by_nationality(nationality: str) -> Any:
     session = new_session()
+    country = session.query(Country).filter(
+        Country.name == nationality).first()
     people = session.query(Person)\
-                    .filter(Person.nationality == nationality)\
+                    .filter(Person.nationality_id == country)\
                     .all()
 
     return render_template('people.html', people=people,

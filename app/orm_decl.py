@@ -164,6 +164,7 @@ class Bookseries(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False, index=True)
     important = Column(Boolean, default=False)
+    image_src = Column(String(100))
     works = relationship("Work", backref=backref('work'), uselist=True,
                          order_by='Work.bookseriesorder, Work.creator_str')
 
@@ -203,7 +204,7 @@ class Edition(Base):
     title = Column(String(500), nullable=False, index=True)
     subtitle = Column(String(500))
     pubyear = Column(Integer, index=True)
-    publisher_id = Column(Integer, ForeignKey('publisher.id'))
+    publisher_id = Column(Integer, ForeignKey('publisher.id'), index=True)
     editionnum = Column(Integer)
     version = Column(Integer)  # Laitos
     # image_src = Column(String(200))
@@ -400,9 +401,11 @@ class Part(Base):
     '''
     __tablename__ = 'part'
     id = Column(Integer, primary_key=True)
-    edition_id = Column(Integer, ForeignKey('edition.id'), nullable=True)
-    work_id = Column(Integer, ForeignKey('work.id'), nullable=True)
-    shortstory_id = Column(Integer, ForeignKey('shortstory.id'), nullable=True)
+    edition_id = Column(Integer, ForeignKey(
+        'edition.id'), nullable=True, index=True)
+    work_id = Column(Integer, ForeignKey('work.id'), nullable=True, index=True)
+    shortstory_id = Column(Integer, ForeignKey(
+        'shortstory.id'), nullable=True, index=True)
     # Title is repeated from edition in the simple case but required for
     # e.g. collections.
     title = Column(String(250))
@@ -419,15 +422,17 @@ class Person(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False, index=True, unique=True)
     alt_name = Column(String(250), index=True)
+    fullname = Column(String(250))
+    other_names = Column(String(250))
     first_name = Column(String(100))
     last_name = Column(String(150))
-    image_src = Column(String(100))  # Source website name
-    image_attr = Column(String(100))
+    image_src = Column(String(100))
+    image_attr = Column(String(100))  # Source website name
     dob = Column(Integer)
     dod = Column(Integer)
     bio = Column(String(1000))  # Biographgy
     bio_src = Column(String(100))  # Source website name
-    nationality = Column(Integer, ForeignKey('country.id'))
+    nationality_id = Column(Integer, ForeignKey('country.id'), index=True)
     birthtown = Column(String(50))
     birthcountry = Column(Integer, ForeignKey('country.id'))
     deathtown = Column(String(50))
@@ -531,6 +536,7 @@ class Publisher(Base):
     name = Column(String(250), nullable=False, unique=True, index=True)
     fullname = Column(String(250), nullable=False, unique=True)
     description = Column(String(500))
+    image_src = Column(String(100))
     editions = relationship("Edition", backref=backref("edition4_assoc"))
 
 
@@ -548,8 +554,10 @@ class Pubseries(Base):
     name = Column(String(250), nullable=False)
     publisher_id = Column(Integer, ForeignKey('publisher.id'), nullable=False)
     important = Column(Boolean, default=False)
+    image_src = Column(String(100))
     publisher = relationship("Publisher", backref=backref('publisher',
                                                           uselist=False))
+
     # editions = relationship("Edition", backref=backref('edition'), uselist=True,
     #                        order_by='Edition.pubseriesnum')
     editions = relationship("Edition", primaryjoin="Pubseries.id == Edition.pubseries_id", uselist=True,
@@ -684,13 +692,13 @@ class Work(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(500), nullable=False, index=True)
     subtitle = Column(String(500))
-    orig_title = Column(String(250))
+    orig_title = Column(String(250), index=True)
     pubyear = Column(Integer, index=True)
-    language = Column(Integer, ForeignKey('language.id'))
+    language = Column(Integer, ForeignKey('language.id'), index=True)
     bookseries_id = Column(Integer, ForeignKey('bookseries.id'))
     bookseriesnum = Column(String(20))
     bookseriesorder = Column(Integer)
-    type = Column(Integer, ForeignKey('worktype.id'))
+    type = Column(Integer, ForeignKey('worktype.id'), index=True)
     misc = Column(String(100))
     description = Column(String(500))
     imported_string = Column(String(500))

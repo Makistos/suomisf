@@ -2,12 +2,12 @@ from app import app
 from flask import Flask
 from app.orm_decl import (Person, Author, Editor, Translator, Publisher, Work,
                           Edition, Pubseries, Bookseries, User, UserBook, Genre,
-                          ShortStory, WorkGenre, Issue, IssueContent, Part)
+                          ShortStory, WorkGenre, Issue, IssueContent, Part, Country)
 from flask import render_template, request, flash, redirect, url_for, make_response
 from app.forms import (WorkForm, EditionForm, WorkAuthorForm, WorkStoryForm, StoryForm,
                        EditionEditorForm, EditionTranslatorForm)
 from .route_helpers import *
-from typing import List, Dict
+from typing import List, Dict, Optional, Any
 from sqlalchemy import func, distinct
 
 # Book related routes
@@ -53,6 +53,8 @@ def books_by_genre(genre):
 def books_by_origin(country):
     session = new_session()
 
+    country_id = session.query(Country.id).filter(
+        Country.name == country).first()
     if country[0] == '!':
         works = session.query(Work)\
                        .join(Part)\
@@ -61,7 +63,7 @@ def books_by_origin(country):
                        .filter(Part.id == Author.part_id)\
                        .join(Person)\
                        .filter(Person.id == Author.person_id)\
-                       .filter(Person.nationality != country[1:])\
+                       .filter(Person.nationality_id != country_id)\
                        .all()
     else:
         works = session.query(Work)\
@@ -71,7 +73,7 @@ def books_by_origin(country):
                        .filter(Part.id == Author.part_id)\
                        .join(Person)\
                        .filter(Person.id == Author.person_id,
-                               Person.nationality == country)\
+                               Person.nationality_id == country_id)\
                        .all()
     return render_template('books.html', works=works)
 
@@ -111,11 +113,11 @@ def editions_by_year(year):
 
 
 @app.route('/books')
-def books():
+def books() -> Any:
     session = new_session()
     works = session.query(Work)\
-                   .order_by(Work.creator_str)\
-                   .all()
+        .order_by(Work.creator_str)\
+        .all()
     return render_template('books.html', works=works)
 
 

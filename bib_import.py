@@ -677,23 +677,23 @@ def import_authors(s, names, source=''):
             dod_val: int = int(dod)
         else:
             dod_val = None
+        country_id = get_country(s, country)
         if real_name is not None:
             # This is a pseudonym so save both the pseudonym and real name.
             person = s.query(Person)\
                       .filter(Person.name == real_name)\
                       .first()
             if not person:
-                country_id = get_country(s, country)
                 person = Person(name=real_name.strip(),
                                 alt_name=alt_name,
                                 first_name=real_first_name,
                                 last_name=real_last_name,
-                                nationality=country_id,
+                                nationality_id=country_id,
                                 dob=dob_val,
                                 dod=dod_val)
             else:
-                if not person.nationality:
-                    person.nationality = country
+                if not person.nationality_id:
+                    person.nationality_id = country_id
                 if not person.dob:
                     person.dob = dob
                 if not person.dod:
@@ -731,12 +731,12 @@ def import_authors(s, names, source=''):
                                 alt_name=alt_name,
                                 first_name=first_name,
                                 last_name=last_name,
-                                nationality=country,
+                                nationality_id=country_id,
                                 dob=dob,
                                 dod=dod)
             else:
-                if not person.nationality:
-                    person.nationality = country
+                if not person.nationality_id:
+                    person.nationality_id = country_id
                 if not person.dob:
                     person.dob = dob
                 if not person.dod:

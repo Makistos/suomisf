@@ -75,6 +75,23 @@ class SearchForm(FlaskForm):
 
     submit = SubmitField('Hae')
 
+
+class SearchBooksForm(FlaskForm):
+    authorname = StringField('Kirjoittaja', validators=[Optional()])
+    title = StringField('Kirjan nimi', validators=[Optional()])
+    orig_title = StringField('Alkukielinen nimi', validators=[Optional()])
+    pubyear_start = IntegerField('Painovuosi', validators=[
+        Optional()])
+    pubyear_end = IntegerField('Painovuosi', validators=[
+        Optional()])
+    origyear_start = IntegerField('Julkaisuvuosi', validators=[
+                                  Optional()])
+    origyear_end = IntegerField('Julkaisuvuosi', validators=[
+                                Optional()])
+    genre = SelectField('Genre', coerce=int)
+    nationality = SelectField('Kansallisuus', coerce=int)
+    type = SelectField('Tyyppi', coerce=int)
+    submit = SubmitField('Hae')
 ###
 # Data entry forms
 ###
@@ -98,32 +115,32 @@ class BookseriesForm(FlaskForm):
 
 class EditionForm(FlaskForm):
     id = HiddenField('id')
-    #workid = HiddenField('workid')
+    # workid = HiddenField('workid')
     title = StringField('Nimeke', validators=[DataRequired()])
     subtitle = StringField('Alaotsikko', validators=[Optional()])
-    #editors = StringField('Toimittaja')
+    # editors = StringField('Toimittaja')
     pubyear = IntegerField('Julkaisuvuosi', validators=[Optional()])
-    #language = StringField('Kieli', validators=[Optional()])
+    # language = StringField('Kieli', validators=[Optional()])
     # publisher = StringField('Kustantaja', validators=[DataRequired(
     #    message='Kustantaja on pakollinen tieto')])
-    #translators = StringField('Kääntäjä')
+    # translators = StringField('Kääntäjä')
     editionnum = IntegerField('Painos')
     version = IntegerField('Laitos', validators=[Optional()])
     isbn = StringField('ISBN', validators=[Optional()])
-    #pubseries = StringField('Kustantajan sarja')
+    # pubseries = StringField('Kustantajan sarja')
     pubseriesnum = IntegerField('Sarjan numero', validators=[Optional()])
     pages = IntegerField('Sivuja', validators=[Optional()])
-    #cover = SelectField('Kansi')
+    # cover = SelectField('Kansi')
     binding = IntegerField('Sidonta', validators=[Optional()])
     dustcover = IntegerField('Ylivetokansi', validators=[Optional()])
     coverimage = IntegerField('Kuvakansi', validators=[Optional()])
-    #format = SelectField('Tyyppi')
-    #size = SelectField('Koko', coerce=str)
+    # format = SelectField('Tyyppi')
+    # size = SelectField('Koko', coerce=str)
     description = TextAreaField('Kuvaus', validators=[Optional()])
-    #artist = StringField('Taiteilija')
+    # artist = StringField('Taiteilija')
     misc = StringField('Muuta', validators=[Optional()])
-    #source = StringField('Lähde')
-    #image_src = StringField('Kuva')
+    # source = StringField('Lähde')
+    # image_src = StringField('Kuva')
     submit = SubmitField('Tallenna')
 
 
@@ -240,7 +257,7 @@ class WorkForm(FlaskForm):
     bookseriesnum = StringField('Sarjanumero')
     bookseriesorder = IntegerField(
         'Järjestys sarjassa', validators=[Optional()])
-    #genre = MultiCheckboxField('Genret')
+    # genre = MultiCheckboxField('Genret')
     misc = StringField('Muuta')
     image_src = StringField('Kuva')
     description = TextAreaField('Kuvaus')

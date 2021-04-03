@@ -7,12 +7,12 @@ from app.orm_decl import (Person, Author, Editor, Translator, Work,
                           Edition, Pubseries, Bookseries, User, UserBook, ShortStory, UserPubseries,
                           Alias, Genre, WorkGenre, Tag, Award, AwardCategory, Awarded,
                           Magazine, Issue, PublicationSize, Publisher, Part, ArticleTag,
-                          Language)
-from sqlalchemy import create_engine, desc, func
+                          Language, Country)
+from sqlalchemy import create_engine, desc, func, text
 from sqlalchemy.orm import sessionmaker
 from app.forms import (LoginForm, RegistrationForm,
                        PubseriesForm, BookseriesForm, UserForm,
-                       SearchForm, IssueForm, MagazineForm)
+                       SearchForm, IssueForm, MagazineForm, SearchBooksForm)
 from .route_helpers import *
 # from app.forms import BookForm
 from flask_sqlalchemy import get_debug_queries
@@ -51,16 +51,63 @@ def redirect_url(default='index'):
         url_for(default)
 
 
-@app.route('/bookindex')
-def bookindex():
+@app.route('/bookindex', methods=['POST', 'GET'])
+def bookindex() -> Any:
     session = new_session()
-    genres = session.query(Genre.abbr, Genre.name.label('genre_name'),
-                           func.count(Work.id).label('work_count'))\
-        .join(Genre.works)\
-        .group_by(Genre.abbr)\
-        .order_by(func.count(Work.id).desc())\
-        .all()
-    return render_template('books-index.html', genres=genres, letters=letters)
+
+    form = SearchBooksForm(request.form)
+
+    genres = session.query(Genre).all()
+    form.genre.choices = [(0, '')]
+    form.genre.choices += [(x.id, x.name) for x in genres]
+
+    nationalities = session.query(Country).order_by(Country.name).all()
+    form.nationality.choices = [(0, '')]
+    form.nationality.choices += [(x.id, x.name) for x in nationalities]
+
+    types = [(0, ''), (1, 'Romaani'), (2, 'Kokoelma')]
+    form.type.choices = types
+
+    if form.validate_on_submit():
+        stmt = "SELECT DISTINCT Work.* FROM Work, Part, Edition, WorkGenre, Author, Person WHERE "\
+            "Work.id == Part.work_id and Part.edition_id == Edition.id "
+        if form.authorname.data:
+            stmt += " and creator_str like '%" + form.authorname.data + "%'"
+        if form.title.data:
+            stmt += " and work.title like '%" + form.title.data + "%' "
+            #"or edition.title like '%" + form.bookname.data + "%'"
+        if form.orig_title.data:
+            stmt += " and work.orig_title like '%" + form.orig_title.data + "%' "
+        if form.pubyear_start.data is not None:
+            stmt += " and edition.pubyear >= " + str(form.pubyear_start.data)
+        if form.pubyear_end.data is not None:
+            stmt += " and edition.pubyear <= " + str(form.pubyear_end.data)
+        if form.origyear_start.data is not None:
+            stmt += " and work.pubyear >= " + str(form.origyear_start.data)
+        if form.origyear_end.data is not None:
+            stmt += " and work.pubyear <= " + str(form.origyear_end.data)
+        if form.genre.data > 0:
+            stmt += " and workgenre.work_id = work.id"
+            stmt += " and workgenre.genre_id = " + str(form.genre.data)
+        if form.nationality.data > 0:
+            stmt += " and part.id = author.part_id and author.person_id = person.id and person.nationality_id = " + \
+                str(form.nationality.data)
+        if form.type.data > 0:
+            stmt += " and work.type = " + str(form.type.data)
+        works = session.query(Work)\
+                       .from_statement(text(stmt))\
+                       .all()
+        # works = session.query(Work)\
+        #     .filter(Work.creator_str.ilike('%' + form.authorname.data + '%'))\
+        #     .all()
+        return render_template('books.html', works=works)
+
+    return render_template('bookindex.html', form=form)
+
+
+@app.route('/shortstoryindex', methods=['POST', 'GET'])
+def shortstoryindex() -> Any:
+    session = new_session()
 
 # User related routes
 
@@ -196,10 +243,10 @@ def stats():
         .limit(10)\
         .all()
 
-    countries = session.query(Person.nationality,
-                              func.count(Person.nationality).label('count'))\
-        .group_by(Person.nationality)\
-        .order_by(func.count(Person.nationality).desc())\
+    countries = session.query(Person.nationality_id,
+                              func.count(Person.nationality_id).label('count'))\
+        .group_by(Person.nationality_id)\
+        .order_by(func.count(Person.nationality_id).desc())\
         .limit(10)\
         .all()
 
@@ -616,10 +663,10 @@ def search_form() -> Any:
             if (form.author_nationality.data[0] != '' and
                     form.author_nationality.data[0] != 'none'):
                 if form.author_nationality.data[0] == 'foreign':
-                    query = query.filter(Person.nationality != 'Suomi')
+                    query = query.filter(Person.nationality_id != 'Suomi')
                 else:
-                    query = query.filter(Person.nationality.in_([x for x in
-                                                                 form.author_nationality.data]))
+                    query = query.filter(Person.nationality_id.in_([x for x in
+                                                                    form.author_nationality.data]))
         query = query.order_by(Work.creator_str)
         works = query.all()
 
@@ -640,9 +687,9 @@ def search_form() -> Any:
                                ('rajatap', 'Rajatapaus'),
                                ('eiSF', 'Ei science fictionia')]
 
-    nationalities = session.query(Person.nationality)\
-                           .distinct(Person.nationality)\
-                           .order_by(Person.nationality)\
+    nationalities = session.query(Person.nationality_id)\
+                           .distinct(Person.nationality_id)\
+                           .order_by(Person.nationality_id)\
                            .all()
 
     nat_choices = [('none', ''), ('foreign', 'Ulkomaiset')] + \
@@ -690,7 +737,7 @@ def missing_nationality():
     session = new_session()
 
     missing = session.query(Person)\
-                     .filter(Person.nationality == None)\
+                     .filter(Person.nationality_id == None)\
                      .order_by(Person.name)\
                      .all()
 
