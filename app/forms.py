@@ -92,6 +92,18 @@ class SearchBooksForm(FlaskForm):
     nationality = SelectField('Kansallisuus', coerce=int)
     type = SelectField('Tyyppi', coerce=int)
     submit = SubmitField('Hae')
+
+
+class SearchStoryForm(FlaskForm):
+    authorname = StringField('Kirjoittaja', validators=[Optional()])
+    title = StringField('Novellin nimi', validators=[Optional()])
+    orig_title = StringField('Alkukielinen nimi', validators=[Optional()])
+    origyear_start = IntegerField('Julkaisuvuosi', validators=[
+                                  Optional()])
+    origyear_end = IntegerField('Julkaisuvuosi', validators=[
+                                Optional()])
+    submit = SubmitField('Hae')
+
 ###
 # Data entry forms
 ###

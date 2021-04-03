@@ -585,6 +585,11 @@ class ShortStory(Base):
     editions = relationship('Edition', secondary='part', uselist=True)
     issues = relationship('Issue', secondary='issuecontent', uselist=True)
     tags = relationship('Tag', secondary='storytag', uselist=True)
+    authors = relationship("Person",
+                           secondary='join(Part, Author, Part.id == Author.part_id)',
+                           primaryjoin='and_(Person.id == Author.person_id,\
+                Author.part_id == Part.id, Part.work_id == ShortStory.id)',
+                           uselist=True, order_by='Person.alt_name')
 
 
 class StoryGenre(Base):
@@ -682,10 +687,8 @@ class UserPubseries(Base):
 
 class Work(Base):
     ''' Work is a more abstract idea than edition. Work is
-        basically the representation of the original work of which
-        editions are printed. Every work must have at least one
-        edition but sometimes there is no work, this is the case
-        with collections. Not all parts have necessarily been
+        basically the representation of the original work of which         editions are printed. Every work must have at least one        edition but sometimes there is no work, this is the case
+       with collections. Not all parts have necessarily been
         published in a book.
     '''
     __tablename__ = 'work'

@@ -12,7 +12,7 @@ from sqlalchemy import create_engine, desc, func, text
 from sqlalchemy.orm import sessionmaker
 from app.forms import (LoginForm, RegistrationForm,
                        PubseriesForm, BookseriesForm, UserForm,
-                       SearchForm, IssueForm, MagazineForm, SearchBooksForm)
+                       SearchForm, IssueForm, MagazineForm, SearchBooksForm, SearchStoryForm)
 from .route_helpers import *
 # from app.forms import BookForm
 from flask_sqlalchemy import get_debug_queries
@@ -108,6 +108,31 @@ def bookindex() -> Any:
 @app.route('/shortstoryindex', methods=['POST', 'GET'])
 def shortstoryindex() -> Any:
     session = new_session()
+
+    form = SearchStoryForm(request.form)
+
+    if form.validate_on_submit():
+        stmt = "SELECT DISTINCT ShortStory.* FROM ShortStory WHERE 1=1 "
+        if form.authorname.data:
+            stmt += " AND shortstory.creator_str like '%" + form.authorname.data + "%'"
+        if form.title.data:
+            stmt += " AND shortstory.title like '%" + form.title.data + "%'"
+        if form.orig_title.data:
+            stmt += " AND shortstory.orig_title like '%" + form.orig_title.data + "&'"
+        if form.origyear_start.data:
+            stmt += " AND shortstory.pubyear >= " + \
+                str(form.origyear_start.data)
+        if form.origyear_end.data:
+            stmt += " AND shortstory.pubyear <= " + str(form.origyear_end.data)
+        stmt += " ORDER BY shortstory.creator_str, shortstory.title"
+        stories = session.query(ShortStory)\
+                         .from_statement(text(stmt))\
+                         .all()
+
+        return render_template('shortstories.html', stories=stories)
+
+    return render_template('shortstoryindex.html', form=form)
+
 
 # User related routes
 
