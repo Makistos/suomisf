@@ -69,37 +69,41 @@ def bookindex() -> Any:
     form.type.choices = types
 
     if form.validate_on_submit():
-        stmt = "SELECT DISTINCT Work.* FROM Work, Part, Edition, WorkGenre, Author, Person WHERE "\
-            "Work.id == Part.work_id and Part.edition_id == Edition.id "
+        stmt = 'SELECT DISTINCT Work.* FROM '
+        tables = 'Work, Part '
+        where = 'WHERE work.id = part.work_id '
         if form.authorname.data:
-            stmt += " and creator_str like '%" + form.authorname.data + "%'"
+            where += " and creator_str like '%" + form.authorname.data + "%'"
         if form.title.data:
-            stmt += " and work.title like '%" + form.title.data + "%' "
-            #"or edition.title like '%" + form.bookname.data + "%'"
+            where += " and work.title like '%" + form.title.data + "%' "
         if form.orig_title.data:
-            stmt += " and work.orig_title like '%" + form.orig_title.data + "%' "
+            where += " and work.orig_title like '%" + form.orig_title.data + "%' "
+        if form.pubyear_start is not None or form.pubyear_end is not None:
+            tables += ', Edition '
+            where += ' and part.edition_id = edition.id '
         if form.pubyear_start.data is not None:
-            stmt += " and edition.pubyear >= " + str(form.pubyear_start.data)
+            where += " and edition.pubyear >= " + str(form.pubyear_start.data)
         if form.pubyear_end.data is not None:
-            stmt += " and edition.pubyear <= " + str(form.pubyear_end.data)
+            where += " and edition.pubyear <= " + str(form.pubyear_end.data)
         if form.origyear_start.data is not None:
-            stmt += " and work.pubyear >= " + str(form.origyear_start.data)
+            where += " and work.pubyear >= " + str(form.origyear_start.data)
         if form.origyear_end.data is not None:
-            stmt += " and work.pubyear <= " + str(form.origyear_end.data)
+            where += " and work.pubyear <= " + str(form.origyear_end.data)
         if form.genre.data > 0:
-            stmt += " and workgenre.work_id = work.id"
-            stmt += " and workgenre.genre_id = " + str(form.genre.data)
+            tables += ', WorkGenre '
+            where += ' and workgenre.work_id = work.id '
+            where += " and workgenre.genre_id = " + str(form.genre.data)
         if form.nationality.data > 0:
-            stmt += " and part.id = author.part_id and author.person_id = person.id and person.nationality_id = " + \
+            tables += ', Author, Person '
+            where += ' and part.id = author.part_id and author.person_id = person.id '
+            where += ' and person.nationality_id = ' + \
                 str(form.nationality.data)
         if form.type.data > 0:
-            stmt += " and work.type = " + str(form.type.data)
+            where += " and work.type = " + str(form.type.data)
+        stmt += tables + where
         works = session.query(Work)\
                        .from_statement(text(stmt))\
                        .all()
-        # works = session.query(Work)\
-        #     .filter(Work.creator_str.ilike('%' + form.authorname.data + '%'))\
-        #     .all()
         return render_template('books.html', works=works)
 
     return render_template('bookindex.html', form=form)
