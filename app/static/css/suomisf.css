@@ -33,7 +33,7 @@ div.three-column {
 .form-control:focus {
   border: none !important;
   box-shadow: none !important;
-  background-color: rgba(115, 123, 243, 0.5) !important;
+  background-color: rgba(146, 146, 152, 0.864) !important;
 }
 
 h1 .form-control {
