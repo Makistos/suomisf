@@ -8,12 +8,12 @@
 	<h1>{{ letter }}</h1>
 	<h2>
 		{% if prev_letter %}
-		<a href="{{ url_for(" booksX", letter=prev_letter) }}">{{ prev_letter
+		<a href="{{ url_for('booksX', letter=prev_letter) }}">{{ prev_letter
 			}}</a>
 		{% endif %}
 		{% if prev_letter and next_letter %} | {% endif %}
 		{% if next_letter %}
-		<a href="{{ url_for(" booksX", letter=next_letter) }}">{{
+		<a href="{{ url_for('booksX', letter=next_letter) }}">{{
 			next_letter
 			}}</a>
 		{% endif %}

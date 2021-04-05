@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="row m-3">
-            <div class="col" style="text-align: center;">
+            <div class="col fs-1" style="text-align: center; font-size: x-large;">
                 {% for char in "ABCDEFGHIJKLMNOPQRSTUVWYZÅÄÖ"|list %}
                 <a href=" {{ url_for('booksX', letter=char) }}">{{ char }}</a>
                 {% endfor %}

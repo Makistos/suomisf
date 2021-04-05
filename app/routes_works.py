@@ -167,7 +167,7 @@ def work(workid: Any) -> Any:
         form.bookseriesnum.data = work.bookseriesnum
         form.bookseriesorder.data = work.bookseriesorder
         form.misc.data = work.misc
-        form.description.data = work.description.strip()
+        form.description.data = work.description
         form.source.data = work.imported_string
     elif form.validate_on_submit():
         work.title = form.title.data
@@ -177,7 +177,7 @@ def work(workid: Any) -> Any:
         work.bookseriesnum = form.bookseriesnum.data
         work.bookseriesorder = form.bookseriesorder.data
         work.misc = form.misc.data
-        work.description = form.description.data.strip()
+        work.description = form.description.data
         work.imported_string = form.source.data
         work.type = form.type.data
         session.add(work)
