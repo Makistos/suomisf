@@ -1,78 +1,78 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container" style="text-align: center;">
-	<a href="{{ url_for('print_books', letter=letter, type='books')}}">Tulosta</a>
-</div>
+<!-- <div class="container" style="text-align: center;">
+	<a href="{{ url_for('print_books', letter=letter, type='books', works=works)}}">Tulosta</a>
+</div> -->
 <div class="container">
-{% if letter %}
+	{% if letter %}
 	<h1>{{ letter }}</h1>
 	<h2>
-	{% if prev_letter %}
-		<a href="{{ url_for("booksX", letter=prev_letter) }}">{{ prev_letter
-				}}</a>
-	{% endif %}
-	{% if prev_letter and next_letter %} | {% endif %}
-	{% if next_letter %}
-		<a href="{{ url_for("booksX", letter=next_letter) }}">{{
-				next_letter
-				}}</a>
-	{% endif %}
+		{% if prev_letter %}
+		<a href="{{ url_for(" booksX", letter=prev_letter) }}">{{ prev_letter
+			}}</a>
+		{% endif %}
+		{% if prev_letter and next_letter %} | {% endif %}
+		{% if next_letter %}
+		<a href="{{ url_for(" booksX", letter=next_letter) }}">{{
+			next_letter
+			}}</a>
+		{% endif %}
 	</h2>
 
-{% else %}
-<h1>Kirjat</h1>
-{% endif %}
-<div>Yhteensä <b>{{ works|length }}</b> kirjaa</div>
-{% for author in works|groupby(attribute='creator_str') %}
-<h2><span class="person-list">{{author.grouper}}</span></h2>
-    {% for work in author.list %}
-        {% if editionnum|length %}
-            
-            {% set edition = work.editions[editionnum] %}
-            {% include "_work_first_edition.html" %}
-        {% else %}
-            {% set edition = work.editions[0] %}
-            {% include "_work_first_edition.html" %}
-            {% for edition in work.editions %}
-                {% if edition.editionnum > 1 %}
-                    {% include "_otheredition.html" %}
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    {% endfor %}
-{% endfor %}
+	{% else %}
+	<h1>Kirjat</h1>
+	{% endif %}
+	<div>Yhteensä <b>{{ works|length }}</b> kirjaa</div>
+	{% for author in works|groupby(attribute='creator_str') %}
+	<h2><span class="person-list">{{author.grouper}}</span></h2>
+	{% for work in author.list %}
+	{% if editionnum|length %}
 
-{% endblock %}
+	{% set edition = work.editions[editionnum] %}
+	{% include "_work_first_edition.html" %}
+	{% else %}
+	{% set edition = work.editions[0] %}
+	{% include "_work_first_edition.html" %}
+	{% for edition in work.editions %}
+	{% if edition.editionnum > 1 %}
+	{% include "_otheredition.html" %}
+	{% endif %}
+	{% endfor %}
+	{% endif %}
+	{% endfor %}
+	{% endfor %}
 
-{% block scripts %}
+	{% endblock %}
+
+	{% block scripts %}
 
 	<script src="/static/js/personlink.js" type="text/javascript"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script>
-	$(".ownerstate").click(function() {
-		var obj = $('#SelectElementId');
-		var addr = $(this).attr('href');
-	    if (addr == '#remove') {
-		$(this).parent().attr('style', 'padding-left: 25px;');
-		$(this).attr('href', '#add');
-		$(this).text(' + ');
-		var request = $.ajax({
-		    type: 'POST',
-		    url: '/remove_from_owned/' + $(this).attr('id'),
-		});
-	    } else if (addr == '#add') {
-		$(this).parent().attr('style', 'border-left: 6px solid grey; padding-left: 23px');
-		$(this).attr('href', '#remove');
-		$(this).text(' - ');
-		var request = $.ajax({
-		    type: 'POST',
-		    url: '/add_to_owned/' + $(this).attr('id'),
-		});
-	    }
+		$(".ownerstate").click(function () {
+			var obj = $('#SelectElementId');
+			var addr = $(this).attr('href');
+			if (addr == '#remove') {
+				$(this).parent().attr('style', 'padding-left: 25px;');
+				$(this).attr('href', '#add');
+				$(this).text(' + ');
+				var request = $.ajax({
+					type: 'POST',
+					url: '/remove_from_owned/' + $(this).attr('id'),
+				});
+			} else if (addr == '#add') {
+				$(this).parent().attr('style', 'border-left: 6px solid grey; padding-left: 23px');
+				$(this).attr('href', '#remove');
+				$(this).text(' - ');
+				var request = $.ajax({
+					type: 'POST',
+					url: '/add_to_owned/' + $(this).attr('id'),
+				});
+			}
 
-	   return false;
-	});
+			return false;
+		});
 
 	</script>
 </div>

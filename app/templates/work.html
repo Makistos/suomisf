@@ -130,7 +130,8 @@
                                 <label for="bookseries">Kirjasarja</label>
                                 <select class="bookseries-selector form-control" data-placeholder="Kirjasarja"
                                     data-search="/select_bookseries" data-save="/save_bookseries_to_work"
-                                    data-init="/bookseries_for_work" data-name="bookseries" name="bookseries"></select>
+                                    data-init="/bookseries_for_work" data-name="bookseries" id="bookseries"
+                                    name="bookseries"></select>
                             </div>
                             <div class="col-lg-2 edit-field">
                                 <label for="bookseriesnum">Numero</label>
@@ -188,12 +189,10 @@
                             <div class="col edit-field">
                                 <label for="description">Kuvaus</label>
                                 <textarea class="form-control form-item" id="description" name="description" rows="5"
-                                    cols="40" value="{{work.description if work.description is not none}}"></textarea>
+                                    cols="40">{{work.description if work.description is not none}}</textarea>
                             </div>
                             <div class="col view-field">
-                                {% if work.description %}
-                                {{work.description}}
-                                {% endif %}
+                                {{work.description if work.description is not none}}
                             </div>
                         </div>
                     </div>

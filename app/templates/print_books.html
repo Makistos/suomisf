@@ -2,25 +2,27 @@
 
 <h1>{{ title }}</h1>
 {% if (type == 'pubseries') %}
-	{% for edition in editions %}
-		{% include "_edition.html" %}
-	{% endfor %}
+{% for work in works %}
+{% for edition in work.editions %}
+{% include "_edition.html" %}
+{% endfor %}
+{% endfor %}
 {% endif %}
 {% if (type == 'bookseries') %}
-	{% for work in works %}
-		{% include "_work.html" %}
-	{% endfor %}
+{% for work in works %}
+{% include "_work.html" %}
+{% endfor %}
 {% endif %}
 {% if (type == 'books') %}
-    {% for author in works|groupby(attribute='creator_str') %}
+{% for author in works|groupby(attribute='creator_str') %}
 
 
 <h2>{{author.grouper}}</h2>
-        {% for work in author.list %}
-            {% for edition in work.editions %}
-                {% include "_printedition.html" %}
+{% for work in author.list %}
+{% for edition in work.editions %}
+{% include "_printedition.html" %}
 
-            {% endfor %}
-        {% endfor %}
-    {% endfor %}
+{% endfor %}
+{% endfor %}
+{% endfor %}
 {% endif %}
