@@ -1,0 +1,10 @@
+#!/bin/bash
+host="127.0.0.1:5000"
+urls=("bookindex" "work/100" "people" "person/100" "edition/100" "shortstoryindex" "story/100" "publishers" "publisher/100" "allbookseries" "bookseries/100" "allpubseries" "pubseries/100" "magazine/1" "issue/100" "user/1" "stats" "article/100")
+for url in "${urls[@]}"; do
+    httpUrl="$host/$url"
+    rep=$(curl -f -s "$httpUrl")
+    status="$?"
+    echo "$httpUrl: $status"
+done
+#echo "$rep"
