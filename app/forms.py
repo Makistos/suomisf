@@ -211,7 +211,8 @@ class NewWorkForm(FlaskForm):
 class PersonForm(FlaskForm):
     id = HiddenField('id')
     name = StringField('Kirjailjanimi', validators=[InputRequired()])
-    alt_name = StringField('Koko nimi')
+    alt_name = StringField('Vaihtoehtoinen nimen muoto')
+    fullname = StringField('Koko nimi')
     first_name = StringField('Etunimi')
     last_name = StringField('Sukunimi')
     dob = IntegerField('Syntymävuosi', validators=[Optional()])
@@ -260,6 +261,7 @@ class StoryForm(FlaskForm):
 class WorkForm(FlaskForm):
     id = HiddenField('id')
     work_id = HiddenField('work_id')
+    hidden_author_id = HiddenField('author_id')
     title = StringField('Nimeke', validators=[DataRequired()])
     subtitle = StringField('Alaotsikko')
     orig_title = StringField('Alkuperäinen nimi')

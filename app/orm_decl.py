@@ -93,7 +93,14 @@ class Artist(Base):
                        nullable=False, primary_key=True)
     edition_id = Column(Integer, ForeignKey('edition.id'),
                         nullable=False, primary_key=True)
-    role = Column(String(100))
+    role_id = Column(Integer, ForeignKey('artistrole.id'), index=True)
+    description = Column(String(50))
+
+
+class ArtistRole(Base):
+    __tablename__ = 'artistrole'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(30))
 
 
 class Author(Base):
@@ -718,7 +725,6 @@ class Work(Base):
                                primaryjoin='and_(Person.id == Translator.person_id,\
                 Translator.part_id == Part.id, Part.work_id == Work.id)',
                                uselist=True)
-    editions = relationship("Edition", secondary='Part', uselist=True)
     parts = relationship('Part', backref=backref('part', uselist=True))
     bookseries = relationship("Bookseries", backref=backref('bookseries'),
                               uselist=False)
@@ -728,6 +734,7 @@ class Work(Base):
     tags = relationship('Tag', secondary='worktag', uselist=True)
     language_name = relationship(
         'Language', backref=backref('language'), uselist=False)
+    stories = relationship('ShortStory', secondary='part', uselist=True)
 
 
 class WorkGenre(Base):

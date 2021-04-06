@@ -186,8 +186,8 @@ def work(workid: Any) -> Any:
         app.logger.error('Errors: {}'.format(form.errors))
         print(f'Errors: {form.errors}')
 
-    return render_template('work.html', work=work, authors=authors,
-                           form=form, form_story=form_story, stories=stories,
+    return render_template('work.html', work=work,
+                           form=form,
                            prev_book=prev_book, next_book=next_book,
                            types=types)
 
@@ -670,3 +670,53 @@ def add_edition_to_route(workid: Any) -> Any:
     session.commit()
 
     return redirect(url_for('edition', editionid=edition.id))
+
+
+def create_first_edition(session: Any, work: Work) -> int:
+    edition = Edition()
+    edition.title = work.title
+    edition.subtitle = work.subtitle
+    edition.pubyear = work.pubyear
+    edition.editionnum = 1
+
+    session.add(edition)
+    session.commit()
+    return edition.id
+
+
+@app.route('/new_work_for_person/<personid>', methods=['POST', 'GET'])
+@login_required  # type: ignore
+@admin_required
+def new_work_for_person(personid: Any) -> Any:
+    session = new_session()
+
+    form = WorkForm(request.form)
+
+    if request.method == 'GET':
+        form.hidden_author_id.data = personid
+    elif form.validate_on_submit():
+        work = Work()
+        work.title = form.title.data
+        work.subtitle = form.subtitle.data
+        work.orig_title = form.orig_title.data
+        work.pubyear = form.pubyear.data
+
+        person = session.query(Person).filter(Person.id == personid).first()
+        work.creator_str = person.name
+
+        session.add(work)
+        session.commit()
+
+        edition_id = create_first_edition(session, work)
+        part = Part(work_id=work.id, edition_id=edition_id)
+        session.add(part)
+        session.commit()
+        author = Author(person_id=form.hidden_author_id.data, part_id=part.id)
+        session.add(author)
+        session.commit()
+        types: List[str] = [''] * 4
+        types[1] = 'checked'
+        return render_template('work.html', work=work, form=form, types=types,
+                               next_book=None, prev_book=None)
+
+    return render_template('new_work.html', form=form)
