@@ -50,15 +50,10 @@
 			Josta kirjailijoita: {{ author_count|length() }}<br>
 			Julkaisijan sarjoja: {{ pubseries_count[0] }}<br>
 			Kirjasarjoja: {{ bookseries_count[0] }}<br>
+			Lehtiä: {{ magazine_count[0] }}<br>
+			Lehden numeroita: {{ issue_count[0] }}<br>
+			Artikkeleita: {{ article_count[0] }}
 		</div>
 	</div>
-	{% if current_user.is_admin %}
-	<hr>
-	<a href=" {{ url_for('new_person', personid=0) }} ">Uusi henkilö</a></br>
-	<a href="{{ url_for('new_work') }}">Uusi teos</a></br>
-	<a href=" {{ url_for('new_bookseries') }} ">Uusi kirjasarja</a></br>
-	<a href=" {{ url_for('new_publisher') }} ">Uusi kustantaja</a><br>
-	<a href=" {{ url_for('new_pubseries') }} ">Uusi kustantajan sarja</a>
-	{% endif %}
 </div>
 {% endblock %}

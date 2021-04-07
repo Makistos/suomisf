@@ -7,7 +7,7 @@ from app.orm_decl import (Person, Author, Editor, Translator, Work,
                           Edition, Pubseries, Bookseries, User, UserBook, ShortStory, UserPubseries,
                           Alias, Genre, WorkGenre, Tag, Award, AwardCategory, Awarded,
                           Magazine, Issue, PublicationSize, Publisher, Part, ArticleTag,
-                          Language, Country)
+                          Language, Country, Article)
 from sqlalchemy import create_engine, desc, func, text
 from sqlalchemy.orm import sessionmaker
 from app.forms import (LoginForm, RegistrationForm,
@@ -35,14 +35,19 @@ def index():
     pubseries_count = session.query(func.count(Pubseries.id)).first()
     bookseries_count = session.query(func.count(Bookseries.id)).first()
     story_count = session.query(func.count(ShortStory.id)).first()
-
+    magazine_count = session.query(func.count(Magazine.id)).first()
+    issue_count = session.query(func.count(Issue.id)).first()
+    article_count = session.query(func.count(Article.id)).first()
     return render_template('index.html', work_count=work_count,
                            edition_count=edition_count,
                            author_count=author_count,
                            pub_count=pub_count, person_count=person_count,
                            pubseries_count=pubseries_count,
                            bookseries_count=bookseries_count,
-                           story_count=story_count)
+                           story_count=story_count,
+                           magazine_count=magazine_count,
+                           issue_count=issue_count,
+                           article_count=article_count)
 
 
 def redirect_url(default='index'):
