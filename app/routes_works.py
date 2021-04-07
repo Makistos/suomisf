@@ -441,18 +441,18 @@ def save_genres_to_work() -> Any:
 def tags_for_work(workid: Any) -> Any:
     session = new_session()
 
-    genres = session.query(Tag)\
-                    .join(WorkTag)\
-                    .filter(WorkTag.tag_id == Tag.id)\
-                    .filter(WorkTag.work_id == workid)\
-                    .all()
+    tags = session.query(Tag)\
+        .join(WorkTag)\
+        .filter(WorkTag.tag_id == Tag.id)\
+        .filter(WorkTag.work_id == workid)\
+        .all()
 
     retval: List[Dict[str, str]] = []
-    if genres:
-        for genre in genres:
+    if tags:
+        for tag in tags:
             obj: Dict[str, str] = {}
-            obj['id'] = str(genre.id)
-            obj['text'] = genre.name
+            obj['id'] = str(tag.id)
+            obj['text'] = tag.name
             retval.append(obj)
 
     return Response(json.dumps(retval))

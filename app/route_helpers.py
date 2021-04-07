@@ -668,6 +668,24 @@ def update_work_creators(workid: Any) -> Any:
     session.commit()
 
 
+def create_new_people(session: Any, names: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    retval: List[Dict[str, Any]] = []
+
+    for person in names:
+        name = person['text']
+        if person['id'] == name:
+            new_person = Person(name=name)
+            session.add(new_person)
+            session.commit()
+            id = new_person.id
+            name = new_person.name
+        else:
+            id = int(person['id'])
+        retval.append({'id': id, 'text': name})
+
+    return retval
+
+
 def create_new_tags(session: Any, tags: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     retval: List[Dict[str, Any]] = []
 
@@ -681,6 +699,24 @@ def create_new_tags(session: Any, tags: List[Dict[str, Any]]) -> List[Dict[str, 
             name = new_tag.name
         else:
             id = int(tag['id'])
+        retval.append({'id': id, 'text': name})
+
+    return retval
+
+
+def create_new_languages(session: Any, languages: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    retval: List[Dict[str, Any]] = []
+
+    for lang in languages:
+        name = lang['text']
+        if lang['id'] == name:
+            new_lang = Language(name=name)
+            session.add(new_lang)
+            session.commit()
+            id = new_lang.id
+            name = new_lang.name
+        else:
+            id = int(lang['id'])
         retval.append({'id': id, 'text': name})
 
     return retval

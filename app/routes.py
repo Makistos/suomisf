@@ -967,3 +967,25 @@ def select_language() -> Response:
         return Response(json.dumps(retval))
     else:
         return Response(json.dumps(['']))
+
+
+@app.route('/select_country', methods=['GET'])
+def select_country() -> Response:
+    search = request.args['q']
+    session = new_session()
+
+    if search:
+        retval: Dict[str, List[Dict[str, Any]]] = {}
+        countries = session.query(Country)\
+            .filter(Country.name.ilike('%' + search + '%'))\
+            .order_by(Country.name)\
+            .all()
+
+        retval['results'] = []
+        if countries:
+            for country in countries:
+                retval['results'].append(
+                    {'id': str(country.id), 'text': country.name})
+        return Response(json.dumps(retval))
+    else:
+        return Response(json.dumps(['']))

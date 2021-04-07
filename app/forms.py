@@ -217,8 +217,6 @@ class PersonForm(FlaskForm):
     last_name = StringField('Sukunimi')
     dob = IntegerField('Syntymävuosi', validators=[Optional()])
     dod = IntegerField('Kuolinvuosi', validators=[Optional()])
-    birthtown = StringField('Synnyinpaikka', validators=[Optional()])
-    deathtown = StringField('Kuolinpaikka', validators=[Optional()])
     image_attr = StringField('Kuvan lähde', validators=[Optional()])
     bio = TextAreaField('Kuvaus', validators=[Optional()])
     bio_src = StringField('Kuvauksen lähde', validators=[Optional()])

@@ -59,12 +59,19 @@
                 value="{{person.alt_name}}" form="itemForm">
             </div>
           </div>
+          <div class="row">
+            <div class="col">
+              <label for="fullname">Koko nimi</label>
+              <input type="text" class="form-control form-item" id="fullname" name="fullname"
+                value="{{person.fullname if person.fullname is not none}}" form="itemForm">
+            </div>
+          </div>
           <div class="edit-field">
             <div class="row">
               <div class="col">
                 <label for="real_names">Oikeat henkilöt, jos alias</label>
                 <select class="person-selector form-control" multiple="multiple" data-placeholder="Oikeasti"
-                  data-search="/select_person" data-save="/save_real_names" data-init="/real_names_for_person"
+                  data-search="/select_person" data-save="/save_real_names_to_person" data-init="/real_names_for_person"
                   data-name="real_names" data-tags="true"></select>
               </div>
             </div>
@@ -104,7 +111,7 @@
               <span class="person-list">{{ person.real_names|map(attribute="name")|join(' ja ')}}</span>
               {% endif %}
               <!-- Nationality, dob, dod -->
-              {% if person.nationality %} {{ person.nationality }} {%- endif -%} {%-
+              {% if person.nationality %} {{ person.nationality.name }} {%- endif -%} {%-
               if person.nationality and person.dob -%},{% endif %} {% if person.dob
               %} {{ person.dob }}-{{ person.dod if person.dod }} {% endif %}
             </div>
@@ -142,83 +149,9 @@
             <br>Myös: {{ person.other_names }}
             {% endif %}
             {% if person.aliases %}
-            <br>Pseudonyymit: <span class="person-list">{{ person.aliases|map(attribute="name")|join(' ja
+            <br>Pseudonyymit: <span class="person-list">{{ person.aliases|map(attribute="alt_name")|join(' &
               ')}}</span>
             {% endif %}
-          </div>
-        </div>
-        <!-- Birthtown, country-->
-        {% if current_user.is_admin %}
-        <div class="edit-field">
-          <div class="row">
-            <div class="col">
-              <label for="birthtown">Synnyinkaupunki</label>
-              <input type="text" class="form-control form-item"
-                value="{{person.birthtown if person.birthtown is not none}}" id="birthtown" name="birthtown"
-                form="itemForm">
-            </div>
-            <div class="col">
-              <label for="birthcountry">Synnyinmaa</label>
-              <select class="country-selector form-control" data-placeholder="Synnyinmaa" data-search="/select_country"
-                data-save="/save_birthcountry_to_person" data-init="/birthcountry_for_person" data-mininput="1"
-                data-name="birthcountry"></select>
-            </div>
-          </div>
-        </div>
-        {% endif %}
-        <div class="view-field">
-          <div class="row">
-            <div class="col">
-              {% if person.birthtown or person.birthcountry %}
-              <b>Syntynyt: </b>
-              {% if person.birthtown %}
-              {{person.birthtown}}
-              {% if person.birthcountry %}
-              ,
-              {% endif %}
-              {%endif %}
-              {% if person.birthcountry %}
-              {{person.birthcountry}}
-              {% endif %}
-              {% endif %}
-            </div>
-          </div>
-        </div>
-        <!-- Place of death, country-->
-        <div class="edit-field">
-          {% if current_user.is_admin %}
-          <div class="row">
-            <div class="col">
-              <label for="deathtown">Kuolinpaikka</label>
-              <input type="text" class="form-control form-item"
-                value="{{person.deathtown if person.deathtown is not none}}" id="deathtown" name="deathtown"
-                form="itemForm">
-            </div>
-            <div class="col">
-              <label for="deathcountry">Kuolinmaa</label>
-              <select class="country-selector form-control" data-placeholder="Kuolinmaa" data-search="/select_country"
-                data-save="/save_deathcountry_to_person" data-init="/deathcountry_for_person" data-mininput="1"
-                data-name="deathcountry"></select>
-            </div>
-          </div>
-          {% endif %}
-        </div>
-        <div class="view-field">
-          <div class="row">
-            <div class="col">
-              {% if person.deathtown or person.deathcountry %}
-              <b>Syntynyt: </b>
-              {% if person.deathtown %}
-              {{person.deathtown}}
-              {% if person.deathcountry %}
-              ,
-              {% endif %}
-              {%endif %}
-              {% if person.deathcountry %}
-              {{person.deathcountry}}
-              {% endif %}
-              {% endif %}
-            </div>
           </div>
         </div>
 
@@ -238,7 +171,7 @@
         <div class="view-field">
           <div class="row">
             <div class="col">
-              {{ person.languages|map('name')|join(', ') }}
+              {{ person.languages|map(attribute='name')|join(', ') }}
             </div>
           </div>
         </div>

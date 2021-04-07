@@ -440,13 +440,11 @@ class Person(Base):
     bio = Column(String(1000))  # Biographgy
     bio_src = Column(String(100))  # Source website name
     nationality_id = Column(Integer, ForeignKey('country.id'), index=True)
-    birthtown = Column(String(50))
-    birthcountry = Column(Integer, ForeignKey('country.id'))
-    deathtown = Column(String(50))
-    deathcountry = Column(Integer, ForeignKey('country.id'))
-    # other_names = Column(String(200))
+    # birthtown = Column(String(50))
+    # birthcountry_id = Column(Integer, ForeignKey('country.id'))
+    # deathtown = Column(String(50))
+    # deathcountry_id = Column(Integer, ForeignKey('country.id'))
     imported_string = Column(String(500))
-    # other_names = Column(String(250))
     real_names = relationship('Person',
                               primaryjoin=id == Alias.alias,
                               secondary='alias',
@@ -494,6 +492,12 @@ class Person(Base):
     languages = relationship(
         'Language', secondary='personlanguage', uselist=True)
     personal_awards = relationship('Award', secondary='awarded', uselist=True)
+    nationality = relationship(
+        'Country', foreign_keys=[nationality_id], uselist=False)
+    # birtcountry = relationship(
+    #     'Country', foreign_keys=[birthcountry_id], uselist=False)
+    # deatchcountry = relationship(
+    #     'Country', foreign_keys=[deathcountry_id], uselist=False)
 
 
 class PersonLanguage(Base):
