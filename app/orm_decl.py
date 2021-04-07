@@ -172,6 +172,7 @@ class Bookseries(Base):
     name = Column(String(250), nullable=False, index=True)
     important = Column(Boolean, default=False)
     image_src = Column(String(100))
+    image_attr = Column(String(100))  # Source website name
     works = relationship("Work", backref=backref('work'), uselist=True,
                          order_by='Work.bookseriesorder, Work.creator_str')
 
@@ -260,6 +261,7 @@ class EditionImage(Base):
     edition_id = Column(Integer, ForeignKey(
         'edition.id'), nullable=False)
     image_src = Column(String(200))
+    image_attr = Column(String(100))  # Source website name
 
 
 class EditionLink(Base):
@@ -314,6 +316,7 @@ class Issue(Base):
     count = Column(Integer)
     year = Column(Integer, index=True)
     image_src = Column(String(200))
+    image_attr = Column(String(100))  # Source website name
     pages = Column(Integer)
     size_id = Column(Integer, ForeignKey('publicationsize.id'))
     link = Column(String(200))
@@ -548,6 +551,7 @@ class Publisher(Base):
     fullname = Column(String(250), nullable=False, unique=True)
     description = Column(String(500))
     image_src = Column(String(100))
+    image_attr = Column(String(100))  # Source website name
     editions = relationship("Edition", backref=backref("edition4_assoc"))
 
 
@@ -566,6 +570,7 @@ class Pubseries(Base):
     publisher_id = Column(Integer, ForeignKey('publisher.id'), nullable=False)
     important = Column(Boolean, default=False)
     image_src = Column(String(100))
+    image_attr = Column(String(100))  # Source website name
     publisher = relationship("Publisher", backref=backref('publisher',
                                                           uselist=False))
 
