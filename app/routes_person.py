@@ -155,8 +155,8 @@ def new_person() -> Any:
         session.add(person)
         session.commit()
         return redirect(url_for('person', personid=person.id))
-    else:
-        app.logger.debug("Errors: {}".format(form.errors))
+    # else:
+    #     app.logger.debug("Errors: {}".format(form.errors))
     return render_template('new_person.html', form=form, personid=person.id)
 
 
