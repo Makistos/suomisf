@@ -44,14 +44,16 @@ class Article(Base):
     # to Person table.
     person = Column(String(200))
     creator_str = Column(String(500), index=True)
-    tags = relationship('Tag', secondary='articletag', uselist=True)
-    links = relationship('ArticleLink', uselist=True)
+    tags = relationship('Tag', secondary='articletag',
+                        uselist=True, viewonly=True)
+    links = relationship('ArticleLink', uselist=True, viewonly=True)
     excerpt = Column(String(2000))
     person_rel = relationship(
-        'Person', secondary='articleperson', uselist=True)
+        'Person', secondary='articleperson', uselist=True, viewonly=True)
     author_rel = relationship(
-        'Person', secondary='articleauthor', uselist=True)
-    issue = relationship('Issue', secondary='issuecontent', uselist=False)
+        'Person', secondary='articleauthor', uselist=True, viewonly=True)
+    issue = relationship('Issue', secondary='issuecontent',
+                         uselist=False, viewonly=True)
 
 
 class ArticleAuthor(Base):
@@ -109,8 +111,9 @@ class Author(Base):
                      primary_key=True)
     person_id = Column(Integer, ForeignKey('person.id'), nullable=False,
                        primary_key=True)
-    parts = relationship("Part", backref=backref("part_assoc1"))
-    person = relationship("Person", backref=backref("person1_assoc"))
+    parts = relationship("Part", backref=backref("part_assoc1"), viewonly=True)
+    person = relationship("Person", backref=backref(
+        "person1_assoc"), viewonly=True)
 
 
 class Award(Base):
@@ -145,11 +148,14 @@ class Awarded(Base):
     person_id = Column(Integer, ForeignKey('person.id'))
     work_id = Column(Integer, ForeignKey('work.id'))
     story_id = Column(Integer, ForeignKey('shortstory.id'))
-    award = relationship('Award', backref=backref('award'))
-    person = relationship('Person', backref=backref('person_award'))
-    work = relationship('Work', backref=backref('work_award'))
-    category = relationship('AwardCategory', backref=backref('awardcategory'))
-    story = relationship('ShortStory', backref=backref('shortstory_award'))
+    award = relationship('Award', backref=backref('award'), viewonly=True)
+    person = relationship('Person', backref=backref(
+        'person_award'), viewonly=True)
+    work = relationship('Work', backref=backref('work_award'), viewonly=True)
+    category = relationship('AwardCategory', backref=backref(
+        'awardcategory'), viewonly=True)
+    story = relationship('ShortStory', backref=backref(
+        'shortstory_award'), viewonly=True)
 
 
 class BindingType(Base):
@@ -174,7 +180,7 @@ class Bookseries(Base):
     image_src = Column(String(100))
     image_attr = Column(String(100))  # Source website name
     works = relationship("Work", backref=backref('work'), uselist=True,
-                         order_by='Work.bookseriesorder, Work.creator_str')
+                         order_by='Work.bookseriesorder, Work.creator_str', viewonly=True)
 
 
 class BookseriesLink(Base):
@@ -230,29 +236,30 @@ class Edition(Base):
     misc = Column(String(500))
     imported_string = Column(String(500))
     parts = relationship('Part', backref=backref('parts_lookup'),
-                         uselist=True)
-    editors = relationship('Person', secondary='editor')
+                         uselist=True, viewonly=True)
+    editors = relationship('Person', secondary='editor', viewonly=True)
     translators = relationship("Person",
                                secondary='join(Part, Translator, Part.id == Translator.part_id)',
                                primaryjoin='and_(Person.id == Translator.person_id,\
                 Translator.part_id == Part.id, Part.edition_id == Edition.id)',
-                               uselist=True)
-    artists = relationship('Person', secondary='artist')
-    cover_artists = relationship('Person', secondary='coverartist')
-    work = relationship('Work', secondary='part', uselist=True)
+                               uselist=True, viewonly=True)
+    artists = relationship('Person', secondary='artist', viewonly=True)
+    cover_artists = relationship(
+        'Person', secondary='coverartist', viewonly=True)
+    work = relationship('Work', secondary='part', uselist=True, viewonly=True)
     publisher = relationship("Publisher", backref=backref('publisher_lookup',
-                                                          uselist=False))
+                                                          uselist=False), viewonly=True)
     pubseries = relationship("Pubseries", backref=backref('pubseries',
-                                                          uselist=False))
+                                                          uselist=False), viewonly=True)
     owners = relationship("User", secondary='userbook')
     binding = relationship('BindingType', backref=backref(
-        'edition_binding_assoc'), uselist=False)
+        'edition_binding_assoc'), uselist=False, viewonly=True)
     format = relationship('Format', backref=backref(
-        'edition_format_assoc'), uselist=False)
+        'edition_format_assoc'), uselist=False, viewonly=True)
     size = relationship('PublicationSize', backref=backref(
-        'edition_size_assoc'), uselist=False)
+        'edition_size_assoc'), uselist=False, viewonly=True)
     images = relationship(
-        'EditionImage', backref=backref('edition_image_assoc'), uselist=True)
+        'EditionImage', backref=backref('edition_image_assoc'), uselist=True, viewonly=True)
 
 
 class EditionImage(Base):
@@ -288,8 +295,10 @@ class Editor(Base):
     person_id = Column(Integer, ForeignKey('person.id'), nullable=False,
                        primary_key=True)
     role = Column(String(100))
-    edits = relationship("Edition", backref=backref("edition2_assoc"))
-    person = relationship("Person", backref=backref("person3_assoc"))
+    edits = relationship("Edition", backref=backref(
+        "edition2_assoc"), viewonly=True)
+    person = relationship("Person", backref=backref(
+        "person3_assoc"), viewonly=True)
 
 
 class Format(Base):
@@ -304,7 +313,7 @@ class Genre(Base):
     name = Column(String(50))
     abbr = Column(String(20), nullable=False, index=True)
     works = relationship('Work', secondary='workgenre',
-                         backref=backref('workgenre_asooc'))
+                         backref=backref('workgenre_asooc'), viewonly=True)
 
 
 class Issue(Base):
@@ -322,13 +331,16 @@ class Issue(Base):
     link = Column(String(200))
     notes = Column(String(200))
     title = Column(String(200))
-    tags = relationship('Tag', secondary='issuetag', uselist=True)
-    articles = relationship('Article', secondary='issuecontent', uselist=True)
+    tags = relationship('Tag', secondary='issuetag',
+                        uselist=True, viewonly=True)
+    articles = relationship(
+        'Article', secondary='issuecontent', uselist=True, viewonly=True)
     stories = relationship(
-        'ShortStory', secondary='issuecontent', uselist=True)
-    editors = relationship('Person', secondary='issueeditor', uselist=True)
-    size = relationship('PublicationSize', uselist=False)
-    magazine = relationship('Magazine', uselist=False)
+        'ShortStory', secondary='issuecontent', uselist=True, viewonly=True)
+    editors = relationship(
+        'Person', secondary='issueeditor', uselist=True, viewonly=True)
+    size = relationship('PublicationSize', uselist=False, viewonly=True)
+    magazine = relationship('Magazine', uselist=False, viewonly=True)
 
 
 class IssueContent(Base):
@@ -419,12 +431,15 @@ class Part(Base):
     # Title is repeated from edition in the simple case but required for
     # e.g. collections.
     title = Column(String(250))
-    authors = relationship('Person', secondary='author', uselist=True)
-    translators = relationship('Person', secondary='translator', uselist=True)
-    edition = relationship('Edition', backref=backref('edition_assoc'))
-    work = relationship('Work', backref=backref('work_assoc'))
+    authors = relationship('Person', secondary='author',
+                           uselist=True, viewonly=True)
+    translators = relationship(
+        'Person', secondary='translator', uselist=True, viewonly=True)
+    edition = relationship('Edition', backref=backref(
+        'edition_assoc'), viewonly=True)
+    work = relationship('Work', backref=backref('work_assoc'), viewonly=True)
     shortstory = relationship('ShortStory',
-                              backref=backref('shortstory_assoc'))
+                              backref=backref('shortstory_assoc'), viewonly=True)
 
 
 class Person(Base):
@@ -452,51 +467,54 @@ class Person(Base):
                               primaryjoin=id == Alias.alias,
                               secondary='alias',
                               secondaryjoin=id == Alias.realname,
-                              uselist=True)
+                              uselist=True, viewonly=True)
     aliases = relationship("Person",
                            primaryjoin=id == Alias.realname,
                            secondary='alias',
                            secondaryjoin=id == Alias.alias,
-                           uselist=True)
+                           uselist=True, viewonly=True)
     works = relationship("Work",
                          secondary='join(Part, Author, Part.id == Author.part_id)',
                          primaryjoin='and_(Person.id == Author.person_id,\
                 Author.part_id == Part.id, Part.work_id == Work.id,\
                 Part.shortstory_id == None)',
                          order_by='Work.title',
-                         uselist=True)
+                         uselist=True, viewonly=True)
     stories = relationship("ShortStory",
                            secondary='join(Part, Author, Part.id == Author.part_id)',
                            primaryjoin='and_(Person.id == Author.person_id,\
                 Author.part_id == Part.id, Part.work_id == Work.id,\
                 Part.shortstory_id == ShortStory.id)',
-                           uselist=True)
-    edits = relationship("Edition", secondary='editor')
+                           uselist=True, viewonly=True)
+    edits = relationship("Edition", secondary='editor', viewonly=True)
     translations = relationship("Edition",
                                 secondary='join(Part, Translator, Part.id == Translator.part_id)',
                                 primaryjoin='and_(Person.id == Translator.person_id,\
                 Translator.part_id == Part.id, Part.work_id == Work.id)',
-                                uselist=True)
-    chief_editor = relationship('Issue', secondary='issueeditor', uselist=True)
+                                uselist=True, viewonly=True)
+    chief_editor = relationship(
+        'Issue', secondary='issueeditor', uselist=True, viewonly=True)
     articles = relationship('Article', secondary='articleauthor',
-                            uselist=True)
+                            uselist=True, viewonly=True)
     magazine_stories = relationship('ShortStory',
                                     secondary='join(Part, Author, Part.id == Author.part_id)',
                                     primaryjoin='and_(Person.id == Author.person_id,\
                          IssueContent.shortstory_id == Part.shortstory_id)',
-                                    uselist=True)
+                                    uselist=True, viewonly=True)
     translated_stories = relationship('ShortStory',
                                       secondary='join(Part, Translator, Part.id == Translator.part_id)',
                                       primaryjoin="and_(Person.id == Translator.person_id, Part.shortstory_id is not None)",
-                                      uselist=True)
+                                      uselist=True, viewonly=True)
     appears_in = relationship('Article', secondary='articleperson',
-                              uselist=True)
-    tags = relationship('Tag', secondary='persontag', uselist=True)
+                              uselist=True, viewonly=True)
+    tags = relationship('Tag', secondary='persontag',
+                        uselist=True, viewonly=True)
     languages = relationship(
-        'Language', secondary='personlanguage', uselist=True)
-    personal_awards = relationship('Award', secondary='awarded', uselist=True)
+        'Language', secondary='personlanguage', uselist=True, viewonly=True)
+    personal_awards = relationship(
+        'Award', secondary='awarded', uselist=True, viewonly=True)
     nationality = relationship(
-        'Country', foreign_keys=[nationality_id], uselist=False)
+        'Country', foreign_keys=[nationality_id], uselist=False, viewonly=True)
     # birtcountry = relationship(
     #     'Country', foreign_keys=[birthcountry_id], uselist=False)
     # deatchcountry = relationship(
@@ -552,7 +570,8 @@ class Publisher(Base):
     description = Column(String(500))
     image_src = Column(String(100))
     image_attr = Column(String(100))  # Source website name
-    editions = relationship("Edition", backref=backref("edition4_assoc"))
+    editions = relationship("Edition", backref=backref(
+        "edition4_assoc"), viewonly=True)
 
 
 class PublisherLink(Base):
@@ -572,12 +591,12 @@ class Pubseries(Base):
     image_src = Column(String(100))
     image_attr = Column(String(100))  # Source website name
     publisher = relationship("Publisher", backref=backref('publisher',
-                                                          uselist=False))
+                                                          uselist=False), viewonly=True)
 
     # editions = relationship("Edition", backref=backref('edition'), uselist=True,
     #                        order_by='Edition.pubseriesnum')
     editions = relationship("Edition", primaryjoin="Pubseries.id == Edition.pubseries_id", uselist=True,
-                            order_by='Edition.pubseriesnum')
+                            order_by='Edition.pubseriesnum', viewonly=True)
 
 
 class PubseriesLink(Base):
@@ -596,16 +615,21 @@ class ShortStory(Base):
     language = Column(Integer, ForeignKey('language.id'))
     pubyear = Column(Integer, index=True)
     creator_str = Column(String(500), index=True)
-    parts = relationship('Part', backref=backref('part_assoc'), uselist=True)
-    genres = relationship('Genre', secondary='storygenre', uselist=True)
-    editions = relationship('Edition', secondary='part', uselist=True)
-    issues = relationship('Issue', secondary='issuecontent', uselist=True)
-    tags = relationship('Tag', secondary='storytag', uselist=True)
+    parts = relationship('Part', backref=backref(
+        'part_assoc'), uselist=True, viewonly=True)
+    genres = relationship('Genre', secondary='storygenre',
+                          uselist=True, viewonly=True)
+    editions = relationship('Edition', secondary='part',
+                            uselist=True, viewonly=True)
+    issues = relationship('Issue', secondary='issuecontent',
+                          uselist=True, viewonly=True)
+    tags = relationship('Tag', secondary='storytag',
+                        uselist=True, viewonly=True)
     authors = relationship("Person",
                            secondary='join(Part, Author, Part.id == Author.part_id)',
                            primaryjoin='and_(Person.id == Author.person_id,\
                 Author.part_id == Part.id, Part.work_id == ShortStory.id)',
-                           uselist=True, order_by='Person.alt_name')
+                           uselist=True, order_by='Person.alt_name', viewonly=True)
 
 
 class StoryGenre(Base):
@@ -614,8 +638,10 @@ class StoryGenre(Base):
                            nullable=False, primary_key=True)
     genre_id = Column(Integer, ForeignKey('genre.id'),
                       nullable=False, primary_key=True)
-    stories = relationship('ShortStory', backref=backref('story_assoc'))
-    genres = relationship('Genre', backref=backref('genre_assoc'))
+    stories = relationship('ShortStory', backref=backref(
+        'story_assoc'), viewonly=True)
+    genres = relationship('Genre', backref=backref(
+        'genre_assoc'), viewonly=True)
 
 
 class StoryTag(Base):
@@ -630,11 +656,16 @@ class Tag(Base):
     __tablename__ = 'tag'
     id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=False, index=True)
-    works = relationship('Work', secondary='worktag', uselist=True)
-    articles = relationship('Article', secondary='articletag', uselist=True)
-    stories = relationship('ShortStory', secondary='storytag', uselist=True)
-    magazines = relationship('Magazine', secondary='magazinetag', uselist=True)
-    people = relationship('Person', secondary='persontag', uselist=True)
+    works = relationship('Work', secondary='worktag',
+                         uselist=True, viewonly=True)
+    articles = relationship(
+        'Article', secondary='articletag', uselist=True, viewonly=True)
+    stories = relationship(
+        'ShortStory', secondary='storytag', uselist=True, viewonly=True)
+    magazines = relationship(
+        'Magazine', secondary='magazinetag', uselist=True, viewonly=True)
+    people = relationship('Person', secondary='persontag',
+                          uselist=True, viewonly=True)
 
 
 class Translator(Base):
@@ -644,8 +675,9 @@ class Translator(Base):
     person_id = Column(Integer, ForeignKey('person.id'), nullable=False,
                        primary_key=True)
     role = Column(String(100))
-    parts = relationship("Part", backref=backref("part2_assoc"))
-    person = relationship("Person", backref=backref("person2_assoc"))
+    parts = relationship("Part", backref=backref("part2_assoc"), viewonly=True)
+    person = relationship("Person", backref=backref(
+        "person2_assoc"), viewonly=True)
 
 
 class User(UserMixin, Base):
@@ -655,7 +687,7 @@ class User(UserMixin, Base):
     password_hash = Column(String(128))
     is_admin = Column(Boolean, default=False)
     language = Column(Integer, ForeignKey('language.id'))
-    books = relationship("Edition", secondary="userbook")
+    books = relationship("Edition", secondary="userbook", viewonly=True)
 
     def set_password(self, password: str) -> None:
         self.password_hash = generate_password_hash(password)
@@ -676,8 +708,9 @@ class UserBook(Base):
     condition = Column(Integer, ForeignKey('bookcondition.id'))
     description = Column(String(100))
     price = Column(Integer)
-    book = relationship("Edition", backref=backref("edition3_assoc"))
-    user = relationship("User", backref=backref("user2_assoc"))
+    book = relationship("Edition", backref=backref(
+        "edition3_assoc"), viewonly=True)
+    user = relationship("User", backref=backref("user2_assoc"), viewonly=True)
 
 
 class UserBookseries(Base):
@@ -686,8 +719,9 @@ class UserBookseries(Base):
                      primary_key=True)
     series_id = Column(Integer, ForeignKey('bookseries.id'), nullable=False,
                        primary_key=True)
-    series = relationship("Bookseries", backref=backref("bookseries_assoc"))
-    user = relationship("User", backref=backref("user4_asocc"))
+    series = relationship("Bookseries", backref=backref(
+        "bookseries_assoc"), viewonly=True)
+    user = relationship("User", backref=backref("user4_asocc"), viewonly=True)
 
 
 class UserPubseries(Base):
@@ -696,8 +730,9 @@ class UserPubseries(Base):
                      primary_key=True)
     series_id = Column(Integer, ForeignKey('pubseries.id'), nullable=False,
                        primary_key=True)
-    series = relationship("Pubseries", backref=backref("pubseries_assoc"))
-    user = relationship("User", backref=backref("user3_asocc"))
+    series = relationship("Pubseries", backref=backref(
+        "pubseries_assoc"), viewonly=True)
+    user = relationship("User", backref=backref("user3_asocc"), viewonly=True)
     publisher = relationship("Publisher", secondary="pubseries", viewonly=True)
 
 
@@ -728,19 +763,22 @@ class Work(Base):
                 Author.part_id == Part.id, Part.work_id == Work.id,\
                 Part.shortstory_id == None)',
                            uselist=True,
-                           order_by='Person.alt_name')
+                           order_by='Person.alt_name', viewonly=True)
     translators = relationship("Person",
                                secondary='join(Part, Translator, Part.id == Translator.part_id)',
                                primaryjoin='and_(Person.id == Translator.person_id,\
                 Translator.part_id == Part.id, Part.work_id == Work.id)',
-                               uselist=True)
-    parts = relationship('Part', backref=backref('part', uselist=True))
+                               uselist=True, viewonly=True)
+    parts = relationship('Part', backref=backref(
+        'part', uselist=True), viewonly=True)
     bookseries = relationship("Bookseries", backref=backref('bookseries'),
-                              uselist=False)
+                              uselist=False, viewonly=True)
     editions = relationship('Edition', secondary='part', uselist=True,
-                            lazy='dynamic')
-    genres = relationship("Genre", secondary='workgenre', uselist=True)
-    tags = relationship('Tag', secondary='worktag', uselist=True)
+                            lazy='dynamic', viewonly=True)
+    genres = relationship("Genre", secondary='workgenre',
+                          uselist=True, viewonly=True)
+    tags = relationship('Tag', secondary='worktag',
+                        uselist=True, viewonly=True)
     language_name = relationship(
         'Language', backref=backref('language'), uselist=False)
     stories = relationship('ShortStory', secondary='part', uselist=True,
