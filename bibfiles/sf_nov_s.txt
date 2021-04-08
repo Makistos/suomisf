@@ -80,7 +80,7 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Lai:Su] = Petri Laine : Surunkorento, Turbator 2009
 [Lai:Tk] = Petri Laine : Taivaan kaikki värit, Turbator 2008
 [Lai:Kl] = Petri Laine & Anne Leinonen : Kuulen laulun kaukaisen, Kuoriaiskirjat 2014
-[Lau:Ko] = Mixu (/Mika-Petri) Lauronen : Kontiainen. Osuuskumma-kustannus 2018
+[Lau:Ko] = Mika-Petri Lauronen : Kontiainen. Osuuskumma-kustannus 2018
 [Lei:Ml] = Anne Leinonen & Tuomas Saloranta (toim.) : Mustaa lihaa - Kyberpunk-antologia, Suomen tieteis- ja fantasiakirjoittajat ry 2013
 [Lei:Hk] = Anne Leinonen & Tuomas Saloranta & Shimo Suntila (toim.) : Hurtan koodeksi, Suomen tieteis- ja fantasiakirjoittajat ry 2013
 [Lei:Pr] = Anne Leinonen : Pienen rasian jumala, Atena 2015
@@ -97,12 +97,12 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Lön:Lp] = O.E. Lönnberg : Langanpäitä, Osuuskumma-kustannus 2017
 [Man:Ar] = Rasa Manner & Sami Sipilä (toim.) : Astraaliripaska, Seonsana ry 2001
 [Mar:Ip] = Asko Martinheimo : Isojalkainen poika, WSOY 1996
-[Mer:Lm] = J. S. Meresmaa : Lintuhäkin muotoinen soittorasia, Osuuskumma 2019
-[Mer:Hh] = J. S. Meresmaa & Markus Harju (toim.) : Steampunk! - Höyryä ja helvetinkoneita, Osuuskumma 2013
-[Mer:Mm] = J. S. Meresmaa & Christine Thorel (toim.) : Murtumia maisemassa - Urbaanin löytöretkeilyn antologia, Osuuskumma 2017
-[Mer:Sp] = J. S. Meresmaa & Markus Harju (toim.) : Steampunk! - Koneita ja korsetteja, Osuuskumma 2012
-[Mer:Ss] = J. S. Meresmaa & Teresa Myllymäki & M. A. Tyrskyluoto (toim.) : Sirkus Synkkä, Osuuskumma-kustannus 2018
-[Mie:Ht] = J. K. Miettinen : Häiriötekijä, Turbator 2010
+[Mer:Lm] = J.S. Meresmaa : Lintuhäkin muotoinen soittorasia, Osuuskumma 2019
+[Mer:Hh] = J.S. Meresmaa & Markus Harju (toim.) : Steampunk! - Höyryä ja helvetinkoneita, Osuuskumma 2013
+[Mer:Mm] = J.S. Meresmaa & Christine Thorel (toim.) : Murtumia maisemassa - Urbaanin löytöretkeilyn antologia, Osuuskumma 2017
+[Mer:Sp] = J.S. Meresmaa & Markus Harju (toim.) : Steampunk! - Koneita ja korsetteja, Osuuskumma 2012
+[Mer:Ss] = J.S. Meresmaa & Teresa Myllymäki & M. A. Tyrskyluoto (toim.) : Sirkus Synkkä, Osuuskumma-kustannus 2018
+[Mie:Ht] = J.K. Miettinen : Häiriötekijä, Turbator 2010
 [Myl:Mk] = Mia Myllymäki & Anu Korpinen (toim.) : Metsän kronikka - Tarinoita puista, Osuuskumma-kustannus 2019
 [Myl:Sn] = Mia Myllymäki & Katri Alatalo & Leila Paananen & Shimo Suntila (toim.) : Supernova, Suomen tieteis- ja fantasiakirjoittajat ry 2015
 [Män:Jm] = Juha Mäntylä & Arttu Tuominen (toim.) : Juhannusmorsian - Valon ja varjon tarinoita, Varjo kustannus 2019
@@ -1292,7 +1292,7 @@ Vainajan palmikko (2013) [Ant:Kv]
 Viimeinen sivu (2016) [Sun:Tk]
 
 
-Korppi, Kristian (oik. Mika Waltari)
+Korppi, Kristian (oik. Mika Toimi Waltari)
 ------------------------------------
 Auringonlaskun saari (1926) [Kor:Ks]
 Kirotut silmät (1926) [Kor:Ks]
@@ -1564,7 +1564,7 @@ Larmola, Kivi
 Unelmoija (1984) [Haa:Tp]
 
 
-Lauronen, Mixu
+Lauronen, Mika-Petri
 --------------
 Aallot (2013) [Ant:Kv] [Lau:Ko]
 Empiiristä (2015) [Lep:Kl]
@@ -1590,7 +1590,7 @@ Varis (2018) [Lau:Ko]
 Veli Adolphuksen tunnustus (2013) [Sal:Sk]
 
 
-Lauronen, Mixu & Lapintie, Anastasia
+Lauronen, Mika-Petri & Lapintie, Anastasia
 ------------------------------------
 Vilja(r) (2013) [Hen:Ht]
 
@@ -1846,7 +1846,7 @@ Lydecken, Arvid
 Tähtien tarhoissa (1912) [Kop:Jv]
 
 
-Lönnberg, O.E.
+Lönnberg, Olli E.
 --------------
 Ajojahti (2017) [Lön:Lp]
 Alle raskaan veen (2017) [Lön:Lp]
@@ -1995,7 +1995,7 @@ Hissi (2019) [Män:Jm]
 Laituri (2018) [Män:Tm]
 
 
-Meresmaa, J. S. 
+Meresmaa, J.S. 
 --------------
 AB Dröm Oy (2019) [Mer:Lm]
 Alexandre (2013) [Mer:Hh]
@@ -3683,7 +3683,7 @@ Vääräniemi, Jarkko
 Sepon suuri seikkailu (1996) [Liu:Vl]
 
 
-Waltari, Mika
+Waltari, Mika Toimi
 -------------
 Mies, joka keksi ajatuksen siirron lait (1929) [Kop:Jv]
 Muumio (1926) [Num:Vh]

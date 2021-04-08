@@ -293,5 +293,12 @@ missing_from_db =\
         'Asta Leppä',
         'Stig-Peter Lund',
         'Karla Malm',
-        'Jussi Tanska'
+        'Jussi Tanska',
+        'Gerald Atkins',
+        'Montague Rhodes James',
+        'Abraham Merritt',
+        'Abraham Merritt',
+        'Edward Lucas White',
+        'J. K. Miettinen',
+        'Eeva-Liisa Tenhunen'
     ]

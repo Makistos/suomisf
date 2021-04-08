@@ -27,7 +27,7 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Blo:K7] = Robert (Albert) Bloch : Kauhu-7 (Horror-7, 1963) E.O. Savolainen 1964
 [Blo:Ku] = Robert (Albert) Bloch : Kauniita unia - parempia painajaisia. (Pleasant Dreams - Nightmares, 1960) Nykylehdet Oy 1980
 [Blo:Ps] = Robert (Albert) Bloch : Pehmustettu selli ja muita kauhun paikkoja, WSOY 1994
-[Bor:Hk] = Jorge Louis Borges : Hiekkakirja (El informe de Brodie, 1970 & El libro de arena, 1975) WSOY 2003
+[Bor:Hk] = Jorge Luis Borges : Hiekkakirja (El informe de Brodie, 1970 & El libro de arena, 1975) WSOY 2003
 [Bra:Hn] = Ray(mond Douglas) Bradbury : Huhtikuun noita, Tampereen Science Fiction Seura 1998
 [Bra:Km] = Ray(mond Douglas) Bradbury : Kuvitettu mies (The Illustrated Man, 1951) Kirjayhtymä 1971
 [Bra:Lm] = Ray(mond Douglas) Bradbury : Lokakuun maa (The October Country, 1955) Kirjayhtymä 1985
@@ -1342,7 +1342,7 @@ Stephen R. Donaldson
 Tuhatjalkainen (The Conqueror Worm, 1983) [Slu:Vk]
 
 
-F.M. Dostojevski
+Fjodor Dostojevski
 ----------------
 Stavroginin tunnustus (Ispoved' Stavrogina, 1922) [Man:Kk]
 
@@ -1736,7 +1736,7 @@ Ed Gorman
 Katea tappamassa (Killing Kate, 1991) [Rai:K3]
 
 
-Charles L. Grant
+Charles L(ewis) Grant
 ----------------
 Synkkiä ruusuja (A Garden of Blackred Roses, 1980) [Sad:O6]
 Tarinoita kuolleiden kanssa (Spinning Tales with the Dead, 1988) [Win:K2]
@@ -2152,7 +2152,7 @@ Ruuvikierre (The Turn of the Screw, 1898) [Sad:Aa]
 Todella oikea teko (The Real Right Thing, 1899) [Dal:Sk]
 
 
-M(ontague) R(hodes) James
+Montague Rhodes James
 -------------------------
 Aavepilli ('Oh, Whistle, And I'll Come To You, My Lad', 1904) [Sad:Ea]
 Apotti Thomasin aarre (The Treasure of Abbot Thomas, 1904) [Sad:We]
@@ -2176,7 +2176,7 @@ Jerome K. Jerome
 Haltiattaren tarina (Malvina of Brittany, 1916) [Jer:Ht]
 
 
-K.W.Jeter
+K(evin) W(ayne) Jeter
 ---------
 Ensimmäinen kerta (The First Time, 1990) [Dat:Ek]
 Tosi rakkautta (True Love, 1991) [Dat:Av]
@@ -2999,7 +2999,7 @@ Catulle Mendés
 Haitallinen luuranko (L'Hôte, 1885) [Jär:Uk]
 
 
-A. Merritt
+Abraham Merritt
 ----------
 Kivijumalan allas (The Pool of the Stone God, 1923) [Jär:Uk]
 Kuutamon allas (The Moon Pool, 1918) [Sad:ll]
@@ -3064,7 +3064,7 @@ Jirel taikamaassa (Jirel Meets Magic, 1935) [Sad:Pl]
 Mustan jumalan suudelma (Black God's Kiss, 1934) [Sad:Mj]
 
 
-C.L. Moore & A. Merritt & H(oward) P(hillips) Lovecraft & Robert E(rvin) Howard & Frank Belknap Long
+C.L. Moore & Abraham Merritt & H(oward) P(hillips) Lovecraft & Robert E(rvin) Howard & Frank Belknap Long
 -------------------------------------------------------------------------------
 Arvoitus tuolta puolen (The Challenge from Beyond, 1935) [Sad:ll]
 
@@ -4192,7 +4192,7 @@ Edith Wharton
 Jälkeenpäin (Afterward, 1910) [Sad:Aa]
 
 
-Erward Lucas White
+Edward Lucas White
 ------------------
 Lukundoo (Lukundoo, 1907) [Ree:Fk]
 Painajaisten talo (The House of the Nightmare, 1906) [Dal:Sk]
