@@ -743,7 +743,8 @@ class Work(Base):
     tags = relationship('Tag', secondary='worktag', uselist=True)
     language_name = relationship(
         'Language', backref=backref('language'), uselist=False)
-    stories = relationship('ShortStory', secondary='part', uselist=True)
+    stories = relationship('ShortStory', secondary='part', uselist=True,
+                           viewonly=True)
 
 
 class WorkGenre(Base):
