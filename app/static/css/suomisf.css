@@ -1,3 +1,18 @@
+body {
+  justify-content: center;
+  box-sizing: border-box;
+}
+.custom-container {
+  display: flex;
+  max-width: 600px;
+  width: 100%;
+  padding: 2rem;
+  justify-content: center;
+}
+.visibility-hidden {
+  visibility: hidden;
+}
+
 a.invisible {
   opacity: 0;
 }
@@ -20,13 +35,13 @@ div.three-column {
 .col {
   border: 1;
 }
-.form-control {
+/*.form-control {
   border: none !important;
   box-shadow: none;
   border-radius: 0px;
   /*background: transparent !important;*/
-  background-color: lightgray;
-  padding: 0.1rem;
+background-color: lightgray;
+/*padding: 0.1rem;
   margin: 0rem;
 }
 
@@ -34,6 +49,10 @@ div.three-column {
   border: none !important;
   box-shadow: none !important;
   background-color: rgba(146, 146, 152, 0.864) !important;
+}*/
+
+h1 {
+  padding: 4rem;
 }
 
 h1 .form-control {
@@ -97,9 +116,10 @@ h3 .form-control {
   border-right: none !important;
 }
 
+/*
 label {
   font-weight: bold;
-}
+}*/
 /* body {font-family: Arial, Helvetica, sans-serif;} */
 
 /* The Modal (background) */

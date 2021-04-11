@@ -79,7 +79,8 @@ class SearchForm(FlaskForm):
 class SearchBooksForm(FlaskForm):
     authorname = StringField('Kirjoittaja', validators=[Optional()])
     title = StringField('Kirjan nimi', validators=[Optional()])
-    orig_title = StringField('Alkukielinen nimi', validators=[Optional()])
+    orig_title = StringField('Alkukielinen&nbsp;nimi',
+                             validators=[Optional()])
     pubyear_start = IntegerField('Painovuosi', validators=[
         Optional()])
     pubyear_end = IntegerField('Painovuosi', validators=[
