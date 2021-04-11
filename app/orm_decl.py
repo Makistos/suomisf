@@ -176,6 +176,7 @@ class Bookseries(Base):
     __tablename__ = 'bookseries'
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False, index=True)
+    orig_name = Column(String(250))
     important = Column(Boolean, default=False)
     image_src = Column(String(100))
     image_attr = Column(String(100))  # Source website name
