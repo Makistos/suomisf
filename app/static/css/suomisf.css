@@ -4,7 +4,6 @@ body {
 }
 .custom-container {
   display: flex;
-  max-width: 600px;
   width: 100%;
   padding: 2rem;
   justify-content: center;
