@@ -21,15 +21,18 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Ant:Ra] = Samuli Antila : Rajat ja muita kauheita tarinoita, Kuoriaiskirjat 2014
 [Ars:Oa] = Emmanuel Arse : Olin avaruustaistolaisten seksiorja! ja muita eroottisia spekulaatioita. Basam Books 2019
 [Art:Kf] = V. Arti : Kuunfilmaaja ja muita kertomuksia, Oy Paletti Ab 1948
+[Ell:Or] = Kirsti Ellilä : Outoa rakkautta, Turbator 2008
 [Erk:Aa] = Harri Erkki (toim.) : Aukkoja ajassa, Turbator 2013
 [Erk:Lo] = Harri Erkki : Loput, Turbator 2011
-[Erk:Pj] = Harri Erkki : Pitkä jauntti - Kertomuksia 19672007, Turbator 2007
+[Erk:Pj] = Harri Erkki : Pitkä jauntti - Kertomuksia 1967–2007, Turbator 2007
 [Esk:Vk] = Markku Eskelinen & Silja Hiidenheimo (toim.) : Viiltokuvia - kotimaista kauhua, Tammi 1992
 [Haa:Ma] = Maija Haavisto & Juha Jyrkäs (toim.) : Marraskesi, Osuuskumma-kustannus 2016
 [Haa:Tp] = Harri Haarikko & Hinkkanen & Ijäs & Jerrman & Peltonen & Roimola (toim.) : Tähtipuu - 33 kotimaista tieteisnovellia, Ursa 1990
 [Haa:Tu] = Päivi Haanpää & Riikonen, Marika (toim.) : Tusina - Novelleja, Arthouse 2018
 [Hai:Hk] = Magdalena Hai : Haiseva käsi ja muita kauheita tarinoita Uhriniituntakaisesta, Karisto 2016
+[Hai:Kk] = Magdalena Hai : Kuolleiden kirja - Paluu Uhriniituntakaiseen, Karisto 2020
 [Hai:Rn] = Magdalena Hai & Hanna Matilainen (toim.) : Rocknomicon, Osuuskumma 2015
+[Han:Va] = Ville Hankipohja, Seppo Kallio & Venla Lintunen (toim.) : Viimeinen aalto - Tarinoita pandemioista, Books on Demand 2020
 [Har:Pk] = Markus Harju & Erkka Leppänen (toim.) : Praedor - Kirotun maan kulkijat, Osuuskumma 2014
 [Hei:Hh] = Karoliina Heinola : Hitonhauta ja muita puolielävien kohtaloita, Kustannus Aarni 2019
 [Hen:Au] = Saara Henriksson : Avaruusajan unelmia, Osuuskumma 2018
@@ -38,6 +41,7 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Hie:Vv] = Heikki Hietala : Viisto valo - novellilajitelma. (Filtered Light - Other Stories, 2012). Sitruuna kustannus 2017
 [Hir:Pt] = Irma (Maria) Hirsjärvi : Pisaroita tulevaisuuksista, Omakustanne 2019
 [Hur:Kn] = Boris Hurtta (toim.) : Kultainen naamio, Book Studio 1993
+[Hur:Kp] = Boris Hurtta : Kirjamaailma Peilimaailma, Kuoriaiskirjat 2019
 [Hur:Ok] = Boris Hurtta (toim.) : Onnellinen kuolema, Book Studio 1996
 [Hur:Vk] = Boris Hurtta : Valdemarin kirja, Tampereen Science Fiction Seura 2010
 [Hur:Yv] = Boris Hurtta : Yötuulen vartijat, Turbator 2014
@@ -46,10 +50,13 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Iso:Kr] = Risto Isomäki : Kristalliruusu, Kirjayhtymä 1991
 [Jan:Nl] = Tove (Marika) Jansson : Näkymätön lapsi ja muita kertomuksia (Den osynliga barnet och andra berättelser, 1962), WSOY 1962
 [Jyr:Jh] = Juha Jyrkäs & Tuomas Saloranta (toim.) : Ja hän huutaa - splatterpunk-antologia, Tajunta Media 2014
+[Jär:Ti] = Matti Järvinen (toim.) : Tulevaisuuden ihminen ja muita vanhoja tulevaisuuskertomuksia. Nysalor-kustannus 2017
 [Jää:Mj] = Pasi Ilmari Jääskeläinen : Missä junat kääntyvät, Tampereen Science Fiction Seura 2000
 [Jää:Tp] = Pasi Ilmari Jääskeläinen : Taivaalta pudonnut eläintarha, Atena 2008
 [Kai:Hm] = Uuno Kailas : Hauta meren alla - Kauhunovelleja ja -runoja, Toim Juri Nummelin, Kustantamo Helmivyö 2019
 [Kan:Me] = Camilla Kantola & O.E. Lönnberg & Shimo Suntila & Arren Zherbin & Mia Myllymäki (toim.) : Meliwas ja muita kaupunkeja, Suomen tieteis- ja fantasiakirjoittajat ry 2017
+[Kar:Go] = Juhani Karila : Gorilla, Otava 2013
+[Kar:Ok] = Juhani Karila : Omenakrokotiilin kuolema, Siltala 2016
 [Kar:Gb] = Pasi Karppanen (toim.) : Genreblender. Turun yliopiston tieteiskulttuurikabinetti ry. ja Turun Science Fiction Seura ry. 2018
 [Kar:Hh] = Pasi Karppanen (toim.) : Hekuman huipulla, Suomen Tieteiskirjoittajat ry 2008
 [Kar:No14] = Pasi Karppanen & Leila Paananen (toim.) : Nova 2014 -antologia. Turun Science Fiction Seura ry ja Turun yliopiston tieteiskulttuurikabinetti ry 2016
@@ -62,7 +69,7 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Kat:Ks] = Jussi Katajala : Korpin silmät kaiken näkevät, Osuuskumma 2015
 [Kat:Nm] = Jussi Katajala : Nollameridiaani, Osuuskumma 2017
 [Kat:Mk] = Jussi Katajala & Markus Harju & Alpo Leppänen (toim.) : Maailmanlopun kirjasto, URS 2013
-[Kel:Tj] = Artemis Kelosaari & Shimo Suntila (toim.) : Tämä jalka ei ole minun: Kauhuja omasta kehosta. Tajunta Media 2017
+[Kel:Tj] = Artemis Kelosaari & Shimo Suntila (toim.) : Tämä jalka ei ole minun - Kauhuja omasta kehosta. Tajunta Media 2017
 [Kiv:Mk] = S(eppo Kalevi) Albert Kivinen : Merkilliset kirjoitukset, Pirkanmaan Kirjapaino ja Lehtikustannus 1990
 [Koi:Äj] = Joona Koiranen (toim.) : Äänellä jonka kuulet: Spekulatiivisia novelleja sukupuolen moninaisuudesta, Ääres 2019
 [Kop:Ap] = Jari Koponen & Vesa Sisättö (toim.) : Aivopeili, Avain 2011
@@ -90,6 +97,7 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Lep:Kl] = Erkka Leppänen & Hanna Matilainen (toim.) : Käärmeenliekit, Osuuskumma 2015
 [Lep:Km] = Erkka Leppänen : Kirotun maan ritari. Vaskikirjat 2016
 [Lep:Ks] = Erkka Leppänen (toim.) : Praedor - Kahden maailman seikkailijat, Vaskikirjat 2018
+[Lep:Tj] = Erkka Leppänen (toim.) : Praedor - Tarinoita Jaconiasta, Vaskikirjat 2020
 [Lin:Ko] = Lucilla Lin : Kuolema on ikuista unta, Kuoriaiskirjat 2013
 [Lin:Ml] = Lucilla Lin : Musta linna ja muita outoja tarinoita, Nysalor-kustannus 2020
 [Liu:Vl] = Petri Liukkonen & Tanja Keskisimonen (toim.) : Vanhoja luita, Päätalo-instituutti 1996
@@ -113,19 +121,19 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Nev:Ar] = Heikki Nevala : Arvet, Turbator 2010
 [Nev:Ru] = Heikki Nevala & Anni Nupponen & Shimo Suntila (toim.) : Ruumiittomat, Osuuskumma 2014
 [Nie:Nt] = Tero Niemi & Anne Salminen : Nimbus ja tähdet, Atena 2004
-[Nik:Km] = Raimo Nikkonen (toim.) : Keskiyön mato Ikaalisissa, Ursa 1991
-[Num:Ke] = Juri Nummelin (toim.) : Kehrääjä, Helmivyö 2019
+[Nik:Km] = Raimo Nikkonen (toim.) : Keskiyön Mato Ikaalisissa, Ursa 1991
+[Num:Ke] = Juri Nummelin (toim.) : Kehrääjä - Vanhoja suomalaisia kauhunovelleja, Helmivyö 2019
 [Num:Kh] = Juri Nummelin (toim.) : Kuutamohulluus ja muita vanhoja suomalaisia pulp-novelleja, ntamo 2015
-[Num:Kk] = Juri Nummelin (toim.) : Kirotun kirjan vartija, Jalava 2016
-[Num:Kp] = Juri Nummelin (toim.) : Kuun pimeä puoli, Jalava 2013
-[Num:Lm] = Juri Nummelin (toim.) : Luurankomies ja muita kauhutarinoita Villistä Lännestä, Kuoriaiskirjat 2014
+[Num:Kk] = Juri Nummelin (toim.) : Kirotun kirjan vartija - Suomalaisia Cthulhu-tarinoita, Jalava 2016
+[Num:Kp] = Juri Nummelin (toim.) : Kuun pimeä puoli - Suomalaisia ihmissusinovelleja, Jalava 2013
+[Num:Lm] = Juri Nummelin (toim.) : Luurankomies, Kuoriaiskirjat 2014
 [Num:Ms] = Juri Nummelin (toim.) : Mannerheimin seikkailuja, Turbator 2012
 [Num:Os] = Juri Nummelin (toim.) : On Suurten Muinaisten aika, Turbator 2012
-[Num:St] = Juri Nummelin (toim.) : Sininen tiikeri, Helmivyö 2018
-[Num:Sv] = Juri Nummelin (toim.) : Sadan vuoden unet, Kustannus Jalava 2017
+[Num:St] = Juri Nummelin (toim.) : Sininen tiikeri - Kryptozoologisia novelleja, Helmivyö 2018
+[Num:Sv] = Juri Nummelin (toim.) : Sadan vuoden unet - satuja aikuisille, Kustannus Jalava 2017
 [Num:Th] = Juri Nummelin (toim.) : Tuska ja hurmio - Eroottisia novelleja, Turbator 2011
 [Num:Tz] = Juri Nummelin (toim.) : Tuhansien zombien maa, Turbator 2009
-[Num:Vh] = Juri Nummelin (toim.) : Verenhimo, Teos 2011
+[Num:Vh] = Juri Nummelin (toim.) : Verenhimo - Suomalaisia vampyyritarinoita, Teos 2011
 [Nup:Jj] = Anni Nupponen : Joen jumala, Osuuskumma 2014
 [Nup:Ki] = Anni Kuu Nupponen & Artemis Kelosaari (toim.) : Kiima - Eroottisia tarinoita, Osuuskumma-kustannus 2020
 [Oja:Jl] = Heikki Oja : Jäinen lohikäärme, Tampereen Science Fiction Seura 2001
@@ -136,30 +144,35 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Pel:At] = Sari Peltoniemi : Ainakin tuhat laivaa, Tammi 2005
 [Pel:Ms] = Sari Peltoniemi : Miehestä syntynyt ja muita satuja aikuisille, Atena 2014
 [Rae:Et] = Tiina Raevaara : En tunne sinua vierelläni, Kustannusosakeyhtiö Teos 2010
-[Raj_Np] = Hannu Rajaniemi : Näkymättömät planeetat, Gummerus 2016
+[Raj:Np] = Hannu Rajaniemi : Näkymättömät planeetat, Gummerus 2016
+[Rie:Ea] = Solina Riekkola & Minna Roininen & Matleena Sopanen (toim.) : Ei aivan ihmisiä: Novelleja tulevaisuuden älyistä, Osuuskumma-kustannus 2021
 [Ros:Yö] = Matti Rosvall & Sola & Viita (toim.) : Yövuoro ja toisia kertomuksia, Laatusana 1994
 [Sad:Kp] = Markku Sadelehto (toim.) : Kauhupokkari 1, Jalava 1991
-[Sal:Hn] = Tuomas Saloranta (toim.) : Huomenna ne tulevat ja muita eriskummallisia kohtaamisia, Espoon science fiction- ja fantasiaseura Esc ry 2012
-[Sal:Hv] = Tuomas Saloranta & Shimo Suntila (toim.) : Hopeoitu vainaja ja muita sivuja Stepanin koodeksista, Kuoriaiskirjat 2014
+[Sal:Hn] = Tuomas Saloranta (toim.) : Huomenna ne tulevat, Espoon science fiction- ja fantasiaseura Esc ry 2012
+[Sal:Hv] = Tuomas Saloranta & Shimo Suntila (toim.) : Hopeoitu vainaja, Kuoriaiskirjat 2014
 [Sal:Jk] = Petri Salin : Jäätynyt Kokytos, Turbator 2009
 [Sal:Kk] = Petri Salin : Kolmaskymmenes kolmas simpanssi, Turbator 2010
-[Sal:Ma] = Tuomas Saloranta : Mahtavat ammoiset ja muita karmaisevia kertomuksia, Kuoriaiskirjat 2014
-[Sal:Me] = Tuomas Saloranta & Markus Koskimies (toim.) : Me emme valehtele ja muita Puolueen hyväksymiä novelleja, Jyväskylän Science Fiction Seura 42 2012
-[Sal:Mm] = Tuomas Saloranta & Jyrki Pitkä (toim.) : Murhamystiikkaa, Tajunta Media 2014
-[Sal:Mt] = Tuomas Saloranta : Musta tähti ja muita tarinoita tulevaisuudesta, Kuoriaiskirjat 2016
-[Sal:Pr] = Tuomas Saloranta (toim.) : Pimeyden reunalla ja muita uusrahvaanomaisia kertomuksia, Turun yliopiston tieteiskulttuurikabinetti ry 2011
+[Sal:Ma] = Tuomas Saloranta : Mahtavat ammoiset, Kuoriaiskirjat 2014
+[Sal:Me] = Tuomas Saloranta & Markus Koskimies (toim.) : Me emme valehtele, Jyväskylän Science Fiction Seura 42 2012
+[Sal:Mm] = Tuomas Saloranta & Jyrki Pitkä (toim.) : Murhamystiikkaa - okkulttisia etsivätarinoita, Tajunta Media 2014
+[Sal:Mt] = Tuomas Saloranta : Musta tähti, Kuoriaiskirjat 2016
+[Sal:Pr] = Tuomas Saloranta (toim.) : Pimeyden reunalla, Turun yliopiston tieteiskulttuurikabinetti ry 2011
 [Sal:Sk] = Tuomas Saloranta (toim.) : Stepanin koodeksi, Kuoriaiskirjat 2013
-[Sal:Tv] = Tuomas Saloranta (toim.) : Tiamatin värit ja muita tähtienvälisiä tarinoita, Suomen tieteis- ja fantasiakirjoittajat ry 2012
+[Sal:Tv] = Tuomas Saloranta (toim.) : Tiamatin värit, Suomen tieteis- ja fantasiakirjoittajat ry 2012
 [Sal:Ua] = Tuomas Saloranta (toim.) : URS antologia, Kustannus Hauenleuka 2011
 [Sal:Uh] = Tuomas Saloranta (toim.) : URS - Harmaa antologia, Kustannus Hauenleuka 2012
 [Sal:Um] = Tuomas Saloranta (toim.) : URS - Musta antologia, Kustannus Hauenleuka 2012
 [San:As] = Kimmo Saneri : Avaruussirkus, Karisto 1988
 [San:Vt] = Kimmo Saneri : Valon takana, Karisto 1992
+[San:Vt] = Eino Santanen : rakas kapitalismi pilkku, Teos 2020
 [Sax:Hv] = Jani Saxell : Huomispäivän vartijat, Avain 2007
 [Sin:Kk] = (Aila) Johanna Sinisalo : Kädettömät kuninkaat ja muita häiritseviä tarinoita, Teos 2005
-[Soi:Mi] = M(arkku) G. Soikkeli : Marsin ikävä, Turbator 2007
+[Sin:Vs] = Johanna Sinisalo (toim.) : Verkon silmässä - Tarinoita internetin maailmasta, Tammi 2005
+[Sis:Mv] = Vesa Sisättö (toim.) : Muistojemme Viistokatu - kertomuksia kadusta, joka ei suostunut kuolemaan. Kustantamo Helmivyö 2021
+[Soi:Mi] = M(arkku) G. Soikkeli : Marsin ikävä ja muita kertomuksia, Turbator 2007
 [Sun:Hr] = Shimo Suntila & Juha Jyrkäs (toim.) : Hei, rillumapunk!, Kuoriaiskirjat 2015
 [Sun:Kt] = Shimo Suntila : Kirja tulee kirjan luo, Kuoriaiskirjat 2018
+[Sun:Sp] = Shimo Suntila : Sadanpäämies, Nysalor-kustannus 2020
 [Sun:Sk] = Shimo Suntila : Sata kummaa kertomusta, Kuoriaiskirjat 2013
 [Sun:Sr] = Shimo Suntila (toim.) : Sillanrakentaja, Kuoriaiskirjat 2013
 [Sun:Tk] = Shimo Suntila (toim.) : Teräskoura ja muita sivuja Stepanin koodeksista, Kuoriaiskirjat 2016
@@ -173,9 +186,17 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Toi:Vm] = Ritva Toivola : Vampyyrimuoti, Tammi 1996
 [Top:Mo] = Sakari (/Zacharias) Topelius : Morsian ja muita kauhunovelleja, Faros-kustannus Oy 2013
 [Ver:Vl] = Maarit Verronen : Viimeinen lapsitähti, Kirjayhtymä 1994
+[Top:Mo] = Zacharias Topelius : Morsian ja muita kauhunovelleja, Faros-kustannus Oy 2013
+[Vai:Ll] = Jyrki Vainonen : Lasin läpi, Loki-Kirjat 2007
+[Vai:Lt] = Jyrki Vainonen : Luutarha, Loki-Kirjat 2001
+[Vai:Tm] = Jyrki Vainonen : Tutkimusmatkailija ja muita tarinoita, Loki-Kirjat 1999
+[Vai:Yp] = Jyrki Vainonen : Yön ja päivän tarinoita, Aula & Co 2019
+[Vai:Vt] = Helena Väisänen (toim.) : Välitiloja, Kustantamo Helmivyö 2020
+[Ver:Vl] = Maarit Verronen : Viimeinen lapsitähti ja muita ylimääräisiä ihmisiä, Kirjayhtymä 1994
 [Ver:Äm] = Maarit Verronen : Älä maksa lautturille, Kirjayhtymä 1992
 [Ver:Ku] = Maarit Verronen : Kulkureita ja unohtajia, Kirjayhtymä 1996
 [Ver:Ml] = Maarit Verronen : Muutama lämmin päivä, Aviador 2019
+[Vie:Kt] = Hertta Vierula : Kuollut tyttö ja muita tarinoita Maatuvanlaaksosta, Karisto 2020
 [Vir:Pk] = Pietari Virtanen : Planeettojen kapellimestari, Wanhain herrain huone 2014
 
 ***************************************************************************
@@ -192,6 +213,11 @@ Juhannussauna (2017) [Män:Kl]
 Kaikkein kauneimmat saapuvat myöhässä (2017) [Kan:Me]
 Midnight mover (2018) [Män:Tm]
 Vain rauhaa rakastavat huomioidaan (2017) [Män:Pe]
+
+
+Aho, Juhani
+-----------
+Suuri totuus (1895) [Jär:Ti]
 
 
 Aho, Kai
@@ -238,8 +264,14 @@ Airaksinen, Heidi
 Chia (2019) [Koi:Äj]
 
 
+Airik, Enna
+-----------
+Tuolla puolen – kertomus eräästä poismenosta (2020) [Vai:Vt]
+
+
 Alamikkula, Jaakko
 ------------------
+Miekkamestari (2020) [Lep:Tj]
 Pelkuri (2018) [Lep:Ks]
 Sankarit (2014) [Har:Pk]
 
@@ -278,6 +310,11 @@ Unien puutarhat (2016) [Ala:Är]
 
 anonyymi
 --------
+Nuoren miehen päiväkirjasta vuonna 2000 (1899) [Jär:Ti]
+Tulevaisuuden ihminen (1903) [Jär:Ti]
+Tulevaisuuden liikemies vuonna 2000 (1907) [Jär:Ti]
+Tulevaisuuden mies (1905) [Jär:Ti]
+Vappu: unelma (1911) [Jär:Ti]
 Vieras avaruudesta (1949) [Num:Kh]
 
 
@@ -299,6 +336,7 @@ Samaa verta (2018) [Ant:Pe]
 Silmäpuoli kuningas (2012) [Sal:Um]
 Sivustakatsoja (2018) [Kar:Va]
 Stepanin koodeksi (2013) [Lei:Hk][Sal:Sk]
+Suokuoppa (2021) [Sis:Mv]
 Synnytetty (2014) [Ant:Ra][Nev:Ru]
 Tapulinrakentaja (2014) [Ant:Ra]
 Varamies (2013) [Kar:Ap]
@@ -315,6 +353,11 @@ Arkko, Edith
 ------------
 Karannut sielu (2017) [Ala:Vl]
 Keltainen nenäliina (2018) [Kar:Gb]
+
+
+Arna, Timo
+----------
+Immuunit (2020) [Han:Va]
 
 
 Aro, Tuuve
@@ -361,6 +404,11 @@ Sovitus (2019) [Kar:No17]
 Suolalinnake (2018) [Kar:No16]
 
 
+Aslak
+-----
+Vuonna 2000 Raahessa (1896) [Jär:Ti]
+
+
 Autero, Jaska
 -------------
 Kostaja (1944) [Num:Ke]
@@ -389,6 +437,8 @@ Käärmeenlumooja (2008) [Kar:Hh]
 Ellilä, Kirsti
 --------------
 Herra Helanderin tehtävä (2013) [Num:Kp]
+Kaunokainen (2003) [Ell:Or]
+Kujanjuoksu (2002) [Ell:Or]
 
 
 Elo, Eija
@@ -466,6 +516,11 @@ Fogelholm, Axel
 Kuinka ensi vuosisadalla voi polttaa nenänsä (Huru man kan bli näsbränd nästa sekel, 1883/1890) [Kop:Ap]
 
 
+Forsgren, Carita
+----------------
+Muistojen kauppiaat (2020) [Vai:Vt]
+
+
 Gartz, Juho
 -----------
 Syksy (1988) [Sup:Ap]
@@ -494,23 +549,37 @@ Eelis ja järvihirviö (2016) [Hai:Hk]
 Elisan huone (2018) [Haa:Tu]
 FPS (2016) [Hai:Hk]
 Haiseva käsi (2016) [Hai:Hk]
+Helvetin keppihevonen (2020) [Hai:Kk]
+Hemmetin nimeen, Ruu! (2020) [Hai:Kk]
 Herra Pörrö ja hänen ritarikuntansa (2016) [Hai:Hk]
 Häivähdys vihreää (2019) [Hen:Ss]
 Hänen kuvansa (2015) [Lep:Kl]
 Hänen huulensa ovat metsä (2017) [Lei:Hh]
+Kawaii (2020) [Hai:Kk]
+Kepponen (2020) [Hai:Kk]
+Kivi, paperi, sakset (2020) [Hai:Kk]
 Klovneria (2018) [Mer:Ss]
+Korppikesä (2020) [Hai:Kk]
 Koteja kodittomille lapsille (2018) [Kar:Va]
+Kuningaspeli (2020) [Hai:Kk]
+Kuolleiden kirja (2020) [Hai:Kk]
 Lokakuu (2016) [Hai:Hk]
 Matkantekijä (2018) [Num:St]
 Meitä on moneksi (2016) [Hai:Hk]
 Metsätie ja aarnikotka - murhenäytelmä seitsemässä osassa (2016) [Hai:Hk]
+Musta tonttu (2020) [Hai:Kk]
+Naarmu (2020) [Hai:Kk]
 Namusetä (2016) [Hai:Hk]
 Nirvana (2020) [Nup:Ki]
+Nuku rauhassa (2020) [Hai:Kk]
 Näkymätön (2016) [Hai:Hk]
 Pelastavat kirkonkellot (2016) [Hai:Hk]
 Peto ja Perhonen (2016) [Hai:Hk]
 Pikajuna 214 Uhriniituntakaiseen (2016) [Hai:Hk]
+Pitkät jalat (2020) [Hai:Kk]
 Poika portilla (2016) [Hai:Hk]
+Päätön hirvimies (2020) [Hai:Kk]
+Ragemutsi (2020) [Hai:Kk]
 Rattaiden tanssi (2016) [Lei:Ss]
 Siivekäs mies Isaac (2013) [Mer:Hh]
 Summertime (2016) [Hai:Hk]
@@ -519,6 +588,8 @@ Talven lapset (2016) [Hai:Hk]
 Täydellinen Alina (2016) [Hai:Hk]
 Vainaansuo (2015) [Hai:Rn]
 Vaskimorsian (2012) [Mer:Sp]
+Viimeinen bussi (2020) [Hai:Kk]
+Äitini vihasi voikukkia (2020) [Hai:Kk]
 
 
 Hakkarainen, Milka
@@ -539,6 +610,11 @@ Kauhuakauhua (1992) [Esk:Vk]
 Hammarén, Aki
 -------------
 Kiveen kirjoitettu (2016) [Sun:Tk]
+
+
+Hankipohja, Ville
+-----------------
+Tulevaisuudessa kukaan ei osaa ennustaa (2020) [Han:Va]
 
 
 Hannila, Petteri
@@ -676,7 +752,7 @@ Mies junassa (2014) [Jyr:Jh]
 Hietala, Heikki
 ---------------
 Ajattele myönteisesti (Think Positive, 2012) [Hie:Vv]
-Hiilipohjainen (Carbon-based, 2012)  [Hie:Vv]
+Hiilipohjainen (Carbon-based, 2012) [Hie:Vv]
 Huvila (The Summerhouse, 2012) [Hie:Vv]
 Hän sokaisi minut tieteellä (She Blinded Me with Science, 2012) [Hie:Vv]
 Jäähyväiskiertue (The Farewell Tour, 2012) [Hie:Vv]
@@ -781,19 +857,27 @@ Aikaportti (1989) [Nik:Km]
 Ainahan on maksettava, eikös juu? (2015) [Sun:Hr]
 Allahin kyyhkynen (1998) [Hur:Yv]
 Anne rouvan kievarissa (2013) [Sun:Sr]
+Bibliomaanin valitus [Hur:Kp]
 Elefantinluinen kuvastin [Hur:Yv]
 Elävän tulen styliitat (1996) [Hur:Yv]
 Fretti [Hur:Yv]
+Hänen veljensä Ismael (2004) [Hur:Kp]
 Ihmeitä tapahtuu myös Traktorovskissa (1991) [Hur:Yv]
 Italia (1991) [Hur:Yv]
 Jesus ja Amalia (1992) [Esk:Vk]
+Kaksi lystikästä kirjahullua [Hur:Kp]
 Kiemurtelevateräinen tikari [Hur:Vk]
 Kiviperkele (1989) [Nik:Km]
 Kolmen jumalan kumartaja (1990) [Num:Kk]
+Merenpohjan kaiku [Hur:Kp]
 Mastomiehet [Hur:Yv]
+Mattoranta [Hur:Kp]
 Myöhempinä aikoina (1993) [Hur:Kn]
 Nejäs kerros (1990) [Hur:Yv]
 Pahat henget Porkkalassa (1988) [Hur:Vk]
+Paratiisilinnut [Hur:Kp]
+Patruuna Steelen kosto [Hur:Kp]
+Pensakolaa ja kahvikolaa [Hur:Kp]
 Perisynnin kosketus (1989) [Hur:Vk]
 Perkeleita Broadwaylla (1989) [Hur:Vk]
 Pirunkirjojen kintereillä (1988) [Nik:Km], [Hur:Vk]
@@ -802,7 +886,9 @@ Pää (1990) [Erk:Aa]
 Rantakäärme pakkasella (1989) [Haa:Tp]
 Rosy Luxemburgové 3 (2013) [Sal:Sk]
 Salakuljettajan tytär (2006) [Hur:Vk]
+SEO [Hur:Kp]
 Sillikuningas (1991) [Sad:Kp]
+Suurkeräilijän ABC eli Ismon kirja-aarre [Hur:Kp]
 Torni pimeällä maalla [Hur:Yv]
 Totuus ei pala tulessakaan (2014) [Sal:Hv]
 Tulvavuoksen jumalat (1993) [Hur:Kn]
@@ -812,12 +898,18 @@ Valdemarin kirja (2000) [Hur:Vk]
 Viattomien veri - syyttömien kärsimykset (1996) [Hur:Ok]
 Ylioppilas M.G. Fennoniuksen jälkeen jääneet paperit (1989) [Haa:Tp]
 Yötuulen vartijat (1990) [Hur:Yv]
+Ääni ja liha [Hur:Kp]
 
 
 Hynynen, Susanna
 ----------------
 Synninsyöjä (2016) [Kar:No14]
 Tulevan suven morsian (2017) [Ala:Vl]
+
+
+Hytönen, Sulo M.
+----------------
+Uni (1906) [Jär:Ti]
 
 
 Ihalainen, Maiju
@@ -854,6 +946,11 @@ Itajara, Irinja
 Kuoriainen viemäriaukossa (2014) [Jyr:Jh]
 
 
+Jahnsson, Evald Ferdinand
+-------------------------
+Muistelmia matkaltani Ruskealan pappilaan uuden vuoden aikoina vuonna 1983 (1883) [Kop:Ap]
+
+
 Jansson, Tove
 -------------
 Hattivattien salaisuus (Hattifnattarnas hemlighet, 1962) [Jan:Nl]
@@ -866,6 +963,11 @@ Lokomotiivi (Lokomotiv, 1978) [Esk:Vk]
 Maailman viimeinen lohikäärme (Historien om den sista draken i världen, 1962) [Jan:Nl]
 Sedrik (Cedric, 1962) [Jan:Nl]
 Vilijonkka joka uskoi... (Filifjonkan som trodde på katastrofer, 1962) [Jan:Nl]
+
+
+Jaska [oik. Kaarlo Jaakko Grönqvist]
+------------------------------------
+Tulevaisuuden unelma (1880) [Jär:Ti]
 
 
 Jokinen, Seppo
@@ -891,6 +993,11 @@ Aaviit kirkossa (1819) [Num:Ke]
 Juvonen, Jarkko
 ---------------
 Niin, mitäs sinä sanoitkaan äsken? (1994) [Ros:Yö]
+
+
+Jylhämäki, Ville-Veikko
+-----------------------
+Luojantappaja (2020) [Lep:Tj]
 
 
 Jyrkäs, Juha
@@ -919,6 +1026,7 @@ Uralin sininen (2010) [Lep:Kl]
 Järnefelt, Arvid
 ----------------
 Kehrääjä (1913) [Num:Ke]
+Viimeinen sotaretki (1900) [Jär:Ti]
 
 
 Järvinen, Marko
@@ -928,6 +1036,11 @@ Sinisen oven takana (2018) [Kar:No16]
 Talo nummien keskellä (2017) [Ala:Vl]
 Tuuleton taivas, seisovat vedet (2015) [Myl:Sn]
 Yksikätinen rosvo (2016) [Kar:St]
+
+
+Jääskeläinen, Kaapro (oik. August Bernhard Mäkelä)
+--------------------------------------------------
+Heräämiseni eli Jääskeläisen ylösnousemus (1895) [Kop:Ap]
 
 
 Jääskeläinen, Pasi Ilmari
@@ -971,6 +1084,7 @@ Kallio, Seppo
 -------------
 Crematorium (2012) [Sal:Tv]
 Lottovoittajien laakso (2012) [Sal:Uh]
+Paranormaalit pyjamapäivät (2020) [Han:Va]
 Ursus Rand (2013) [Lei:Ml]
 Valkoisten hiirten talo (2012) [Sal:Me]
 
@@ -979,6 +1093,11 @@ Kalliokoski, Sirpa
 ------------------
 Puhtaat valkeat hiihtolegendat (2013) [Kar:Ap]
 Toven menestysreseptit (2013) [Kar:Ap]
+
+
+Kammo
+-----
+Pastori ja hänen miehensä (1896) [Jär:Ti]
 
 
 Kanerva, Erkki
@@ -1020,6 +1139,32 @@ Kara, Jalmari
 Kostaja (1913) [Num:Ke]
 
 
+Karila, Juhani
+--------------
+Fysiikanopettaja (2016) [Kar:Ok]
+Gorilla (2013) [Kar:Go]
+Hän halusi vain lyödä palloa (2016) [Kar:Ok]
+Hänelle valmiiksi (2013) [Kar:Go]
+Joku pelastaa sinut (2013) [Kar:Go]
+Kaisa on ruma (2013) [Kar:Go]
+Kilpailujen talo (2016) [Kar:Ok]
+Kolme uistelijaa (2013) [Kar:Go]
+Kun kana tappaa (2013) [Kar:Go]
+Kuningasasema (2013) [Kar:Go]
+Kuolematon deluxe (2016) [Kar:Ok]
+Mandariinimaa (2016) [Kar:Ok]
+Mihin puu kaatuu (2016) [Kar:Ok]
+Omanakrokotiilin kuolema (2016) [Kar:Ok]
+Pallenkallo (2013) [Kar:Go]
+Persnetto, voittamaton (2016) [Kar:Ok]
+Rakkautta ennen Seinäjokea (2013) [Kar:Go]
+Tarkka-ampujat (2013) [Kar:Go]
+Tyhjä torni (2013) [Kar:Go]
+Tämä sattu Marttiinin kaverin pojalle (2016) [Kar:Ok]
+Ukko Palikka (2013) [Kar:Go]
+Varastetaan pandoja (2016) [Kar:Ok]
+
+
 Karjula, Emilia
 ---------------
 Aamunkoitto ja Illankajo (2017) [Kan:Me]
@@ -1034,6 +1179,11 @@ Kylmäojan piru (1930) [Num:Ke]
 Karonen, Jarmo
 --------------
 Leimu ja Saarni (2011) [Num:Vh]
+
+
+Karpio, Markku
+--------------
+Ympyrä (2020) [Vai:Vt]
 
 
 Karppanen, Pasi
@@ -1052,6 +1202,12 @@ Karvanen, Juha
 Tahko (2013) [Kar:Ap]
 
 
+Kasvi, Jyrki J.
+---------------
+Ihan eri ihminen (2005) [Sin:Vs]
+Kaikki tulevaisuuteni (2021) [Rie:Ea]
+
+
 Kataisto, Vesa
 --------------
 Presidentti Väyrysen puhe Ikaalisten pato- ja matologisen tiedeinstituutin avajaisissa marraskuussa 2019 (2012) [Num:Os]
@@ -1066,6 +1222,7 @@ Clothanin silmä (2012) [Sal:Tv] [Kat:Nm]
 Crescendo (2016) [Num:Kk]
 Egyptin yö (2015) [Kat:Ks]
 Eivätkä he kokoontuneet vuorelle (2013) [Kat:Mk][Kat:Ks]
+Encore une fois (2021) [Sis:Mv]
 Fineuksen valinta (2012) [Sal:Um]
 Ikuisten unien loppu (2015) [Kat:Ks]
 Jos lähtee sutta karkuun (2013) [Num:Kp][Kat:Ks]
@@ -1082,6 +1239,7 @@ Lento OA1701 (2015) [Lep:Kl]
 Leonardon rasia (2011) [Sal:Ua]
 Luurankomies (2014) [Num:Lm]
 Mare Nostrum (2013) [Hen:Ht] [Kat:Nm]
+Marraskoirat (2020) [Vai:Vt]
 Marsin aave (2012) [Sal:Me] [Kat:Nm]
 Meidän varjomme [Kat:Nm]
 Morgan Giffordin maalaukset (2015) [Kat:Ks]
@@ -1127,6 +1285,11 @@ Kauppinen, Jenni
 Kuolleita lehtiä (2014) [Sal:Hv]
 
 
+Kauppis-Heikki (oik. Heikki Kauppinen)
+--------------------------------------
+2000 (1894) [Jär:Ti]
+
+
 Kelosaari, Artemis
 ------------------
 Fidžin keikka (2018) [Num:St]
@@ -1141,6 +1304,7 @@ Teräskoura (2016) [Sun:Tk]
 Valiojoukko (2017) [Mer:Mm]
 Valosta ja varjoista (2019) [Hen:Ss]
 Viattomat (2018) [Mer:Ss]
+Vyöhyke 33720 (2021) [Sis:Mv]
 Älköön mikään koskaan muuttuko (2017) [Kel:Tj]
 
 
@@ -1255,8 +1419,14 @@ Korhonen, Petri
 Sika (1991) [Häm:It]
 
 
+Korkatti, Reija
+---------------
+Sielunvihollinen (2020) [Vai:Vt]
+
+
 Korpijärvi, Teemu
 -----------------
+Hopeaa käden täydeltä (2020) [Lep:Tj]
 Kuivakalliossa kadonnut (2017) [Kar:No15]
 Rohdonsekoittaja (2018) [Lep:Ks]
 Suelo Siniestro (2017) [Kan:Me]
@@ -1402,6 +1572,7 @@ Kryptozoologisti ja hänen eläimensä (2000) [Kro:Mp]
 Kuin astuisitte aurinkoon (2013) [Kro:Hs]
 Kukkakauppias (2013) [Kro:Hs]
 Kuolemani valtias (1992) [Kro:Mo]
+LD50 (2005) [Sin:Vs]
 Lucilia illustris (1992) [Kro:Mo]
 Maapallonlippu (2013) [Kro:Hs]
 Mare Serenitatis (1992) [Kro:Sa]
@@ -1438,10 +1609,12 @@ Täysikuu (2013) [Num:Kp]
 
 Kumara-Moisio, Taru
 -------------------
+Kivisydän (2021) [Sis:Mv]
 Menninkäistwist (2016) [Haa:Ma]
 Rauhaan (2018) [Kum:Na]
 Sisimmiltäni olen (2017) [Sun:Hr]
 Tuikkimisen alkeet (2016) [Lei:Ss]
+Umpu (2021) [Rie:Ea]
 
 
 Kumpulainen, Harri
@@ -1453,6 +1626,11 @@ Kurikka, Matti
 --------------
 Vironsusi (1889) [Num:Kp] [Num:Ke]
 
+
+Kurjenmiekka, Vehka
+-------------------
+Maailman parhainta mehiläishilloa (2021) [Sis:Mv]
+ 
 
 Kuusipalo, Manna
 ----------------
@@ -1607,7 +1785,9 @@ Soihtu (2013) [Kar:Ap]
 
 Lehtinen, Vesa
 --------------
+Linnake (2020) [Lep:Tj]
 Petetty puolikas ja raunioruhtinas (2018) [Lep:Ks]
+Vääntymäkatu (2021) [Sis:Mv]
 
 
 Lehtiö, Jaana
@@ -1702,7 +1882,9 @@ Niin metsä vastaa (2012) [Sal:Hn]
 
 Leppänen, Erkka
 ---------------
+Ainoan jumalan koulut (2020) [Lep:Tj]
 Borvarian lautturit (2016) [Lep:Km]
+Jumalallinen väliintulo (2020) [Lep:Tj]
 Jäätyneen tulen kartano (2016) [Lep:Km]
 Kerettiläisten kirja (2016) [Lep:Km]
 Kirsikkametsän luostari (2016) [Lep:Km]
@@ -1789,6 +1971,7 @@ Lintunen, Venla
 ---------------
 Humalassa jumala (2013) [Kat:Mk]
 Järviveli (2011) [Sal:Pr]
+Myrkyllinen Sevemino (2020) [Han:Va]
 Normipäivä eli Ellu Enkelisammakko kohtaa Boris Hurtan (2013) [Lei:Hk]
 
 
@@ -1821,6 +2004,11 @@ Lund, Stig-Peter
 ----------------
 Hyvä nekrofiilis (2014) [Jyr:Jh]
 Viimeinen kaukopartiomies (2012) [Sal:Uh]
+
+
+Lundström, Peter
+----------------
+Viimeinen toivo (2020) [Lep:Tj]
 
 
 Luojola, Taru
@@ -1989,13 +2177,18 @@ Perjantai (1996) [Mar:Ip]
 Päivän sankari (1996) [Mar:Ip]
 
 
+Matilainen, Jussi
+-----------------
+Toistumia (2020) [Vai:Vt]
+
+
 Melentjeff, Jaakko
 ------------------
 Hissi (2019) [Män:Jm]
 Laituri (2018) [Män:Tm]
 
 
-Meresmaa, J.S. 
+Meresmaa, J.S.
 --------------
 AB Dröm Oy (2019) [Mer:Lm]
 Alexandre (2013) [Mer:Hh]
@@ -2027,6 +2220,7 @@ Peilit (2019) [Mer:Lm]
 Pimeän pelko (2019) [Mer:Lm]
 Pirunkeuhko (2015) [Sun:Hr]
 Puhelin joka ei koskaan soinut (2019) [Mer:Lm]
+Robotti, runoilija, unennäkijä (2021) [Rie:Ea]
 Rosa (2019) [Mer:Lm]
 Sellaiset yöt (2019) [Mer:Lm]
 Sydämeni avoin hauta (2017) [Lei:Hh]
@@ -2049,7 +2243,7 @@ Mielonen, Nalle
 Ulvova talo (2019) [Koi:Äj]
 
 
-Miettinen, J. K.
+Miettinen, J.K.
 ---------------
 Aallot itkevät hiljaa (2010) [Mie:Ht]
 Cowgirl blues (2004) [Mie:Ht]
@@ -2086,6 +2280,11 @@ Rafael (2013) [Mer:Hh]
 Rakelin päätös (2015) [Lep:Kl]
 Sanojen taa teljetty (2017) [Mer:Mm]
 Tivoli Tuska (2018) [Mer:Ss]
+
+
+Mustajärvi, Mikko
+-----------------
+Salamurhaaja (2020) [Lep:Tj]
 
 
 Mustonen, Sana
@@ -2143,6 +2342,7 @@ Varas (2018) [Kar:Va]
 Mäki, Harri Istvan
 ------------------
 Enkeli tupakkasalongissa (2011) [Num:Vh]
+Hyönteisten sinnikkyydestä (2020) [Vai:Vt]
 Kuin susiveljet (2013) [Num:Kp]
 Vielä parempi (2012) [Num:Ms]
 
@@ -2164,6 +2364,11 @@ Karhukorpi (2017) [Män:Pe]
 Koivulehto (2017) [Män:Kl]
 Möttö (2018) [Män:Tm]
 Pahvilaatikkopoika (2019) [Män:Jm]
+
+
+Mörður
+------
+Stryk - kyborgikomentaja (2020) [Han:Va]
 
 
 Nahkuri, Pii
@@ -2222,6 +2427,7 @@ Suruntuoja (2013) [Sal:Sk]
 Syyllisyyden varjot (2014) [Nev:Ru]
 Syämmen syrjä (2013) [Ant:Kv]
 Taiteen maku (2010) [Nev:Ar]
+Tempo robota (2020) [Han:Va]
 Tähtilapset (2005) [Nev:Ar]
 Tunteentekijä (2010) [Nev:Ar]
 Uskon jälkeen (2013) [Lei:Ml]
@@ -2328,12 +2534,14 @@ Marm, ja hänen ihonsa palaa (2016) [Haa:Ma]
 Mustan käden varjo (2016) [Lei:Ss]
 Neiti Novakin tapaus (2014) [Nup:Jj]
 Pahempi unia (2014) [Nup:Jj]
+Pimeys joka olet (2021) [Rie:Ea]
 Punainen nainen, vihreä nainen (2009) [Nup:Jj]
 Puulaulu (2019) [Myl:Mk]
 Siipisulka (2019) [Hen:Ss]
 Sinun kanssasi, ikuisesti (2018) [Mer:Ss]
 Solmut (2020) [Nup:Ki]
 Talot kuin puut (2017) [Mer:Mm]
+Tampere Gothic (2021) [Sis:Mv]
 Tulikyynel (2014) [Har:Pk]
 Tulin pitkin Turuntietä (2016) [Kar:St]
 Valkoisen kissan kuolema (2017) [Sun:Hr]
@@ -2353,6 +2561,7 @@ Srebrenican hopeakellot (2016) [Sun:Tk]
 Nyberg, Kristel
 ---------------
 Hiramonin hammas (2018) [Lep:Ks]
+Lapsenpäästäjä (2020) [Lep:Tj]
 Saalistaja (2012) [Luo:Kr]
 
 
@@ -2437,10 +2646,20 @@ Palo, Asa
 V-sana (2019) [Koi:Äj]
 
 
+Palviainen, Jukka-Pekka
+-----------------------
+Naistenmiehen kuolema (2020) [Vai:Vt]
+
+
 Pasanen, Sirpa
 --------------
 Joulusauna (1986) [Kop:Jv]
 Roskakuskit (1988) [Sup:Ap]
+
+
+Pasanen, Tarja
+--------------
+Kantaja (2020) [Han:Va]
 
 
 Paz, Ramon
@@ -2536,6 +2755,7 @@ Rotat (2018) [Kar:Gb]
 
 Peuranen, Sakari
 ----------------
+Miekkaa mahtavampi (2020) [Lep:Tj]
 Tuhkaksi sillat paloivat (2018) [Lep:Ks]
 Vanha ystävä (2014) [Har:Pk]
 
@@ -2697,6 +2917,7 @@ Viimeinen päivä (2017) [Mer:Mm]
 Rauhala, Mikko
 --------------
 Höyryväki (2015) [Myl:Sn]
+Klemmarisota (2021) [Rie:Ea]
 Menninkäisten aamunkoitto (2016) [Lei:Ss]
 Vaiston varassa (2017) [Sun:Hr]
 Vakioreitti (2018) [Lep:Ks]
@@ -2706,6 +2927,7 @@ Väliajalla (2018) [Mer:Ss]
 Rauhamäki, Juha
 ---------------
 Kaksi nuotiota (2018) [Lep:Ks]
+Suojelija (2020) [Lep:Tj]
 
 
 Rauta-Kalske, Kalervo
@@ -2732,6 +2954,16 @@ Riekkola, Solina
 Ei loimea (2017) [Kan:Me]
 Enkelten osuus (2019) [Hen:Ss]
 Koskikiima (2020) [Nup:Ki]
+
+
+Riekkola, Solina & Sisättö, Vesa
+--------------------------------
+Muistojemme Viistokatu (2021) [Sis:Mv]
+
+
+Rihko, Pekka
+------------
+Kiven sisässä (2020) [Lep:Tj]
 
 
 Riikonen, Marika
@@ -2778,6 +3010,11 @@ Tarina punaisesta naisesta (2015) [Lep:Kl]
 Vielä yhdet jäähyväiset (2014) [Nev:Ru]
 
 
+Romppainen, Katariina
+---------------------
+Rimakauhua (2020) [Vai:Vt]
+
+
 Royale, Nicholas
 ----------------
 Rakastavaiset (1992) [Esk:Vk]
@@ -2792,6 +3029,11 @@ Nurinkurinen maailma (Den opp- och nedvända verlden, 1857) [Kop:Ap]
 Ruohomaa, Sini
 --------------
 Maustemarkkinoilla (2018) [Lep:Ks]
+
+
+Räsänen, Miska
+--------------
+Kaikki palaa (2020) [Han:Va]
 
 
 Räsänen, Niina
@@ -2894,6 +3136,7 @@ Vedenneito (2018) [Kar:No16]
 Salonen, Niko-Samuli
 --------------------
 Kultahiuksinen tyttö (2018) [Kar:No16]
+Käenpoika (2020) [Lep:Tj]
 Lumivuorten peto (2018) [Lep:Ks]
 
 
@@ -2967,6 +3210,17 @@ Valon takana leveä matto (1992) [San:Vt]
 Yllätys syvyyksissä (1992) [San:Vt]
 
 
+Santanen, Eino
+--------------
+Erään pienen kulttuurialan säätiön palveluksessa (2020) [San:Vt]
+Markkinoiden ääniä (2020) [San:Vt]
+Me nostamme katseemme (2020) [San:Vt]
+rakas kapitalismi pilkku (2020) [San:Vt]
+Taistelukenttä (2020) [San:Vt]
+Taivaansininen (2020) [San:Vt]
+Trickle down chicken (2020) [San:Vt]
+
+
 Santikko, Sauli
 ---------------
 Jotta he muistaisivat minut (1996) [Hur:Ok]
@@ -2987,6 +3241,11 @@ Kärpästen silmät (2007) [Sax:Hv]
 Maailmanpalon vartija (2007) [Sax:Hv]
 Menneisyydenhallintavirasto (2007) [Sax:Hv]
 Vapauden kaiho 2012 (2007) [Sax:Hv]
+
+
+Seppälä, Jaakko Markus
+----------------------
+Pinnanalaiset (2020) [Vai:Vt]
 
 
 Seppänen, Kai
@@ -3013,6 +3272,7 @@ Illan tähti yksinäinen (1991) [Häm:It]
 Kuun pimeä puoli (2013) [Num:Kp]
 Kädettömät kuninkaat (1994) [Sin:Kk]
 Lukko (1985) [Sin:Kk]
+Luolassa (2005) [Sin:Vs]
 Me vakuutamme sinut (1993) [Hur:Kn][Sin:Kk][Num:Kk]
 Metsän tuttu (1991) [Sin:Kk]
 Palvelukseen halutaan kokenut neitsyt (1985) [Sin:Kk]
@@ -3024,6 +3284,7 @@ Tarina kuolleesta metsästä (1986) [Kop:Jv]
 Transit (1988) [Ijä:Ey][Sin:Kk]
 Valkoinen hiiri (1988) [Sin:Kk]
 Varhain aamulla Siirtola 11:n portilla (1987) [Sin:Kk]
+Viistokatu, mon amour (2021) [Sis:Mv]
 Yhdeksän ruukkua (2004) [Sin:Kk]
 Yövesi (1988) [Sup:Ap]
 
@@ -3085,6 +3346,7 @@ Kolmas ystävä (1991) [Häm:It]
 Kolme miestä kiinalaisessa [Soi:Mi]
 Marsin ikävä [Soi:Mi]
 Se mikä luonnostaan lankeaa (2012) [Luo:Kr]
+Sukupolvensa parhaat aivot (2021) [Rie:Ea]
 Tuo meille hautavettä jos palaat (2011) [Num:Vh]
 Urho ja kettu (2013) [Hen:Ht]
 Vanhan maan vakoojat [Soi:Mi]
@@ -3093,6 +3355,7 @@ Verivelvolliset (2017) [Ala:Vl]
 
 Sokura, Nadja
 -------------
+Etäisyyksistä ja muutoksista (2021) [Rie:Ea]
 Kohti kirkkaampaa (2016) [Kar:St]
 Luiskahduksia (2017) [Kan:Me]
 Sarastuksen jälkeen (2013) [Lei:Ml]
@@ -3104,144 +3367,242 @@ Suntila, Shimo
 Aamu (2013) [Sun:Sk]
 Aarrejahti (2013) [Sun:Sk]
 Aikaero (2013) [Sun:Sk]
+Aikakoneen ajokortti (2020) [Sun:Sp]
 Aivomato (2013) [Sun:Sk]
 Aja hiljaa (2013) [Sun:Sk]
+Antikvariaatti Musta planeetta (2020) [Sun:Sp]
 Artefakti (2013) [Sun:Sk]
 Avara luonto (2013) [Sun:Sk]
 Avaruustrippi (2013) [Sun:Tv]
 Bibliomaani (2018) [Sun:Kt]
+Bibliomaanien lopullinen kohtalo (2020) [Sun:Sp]
 Calypson perillinen (2016) [Sun:Tv]
+CAPTCHA! (2020) [Sun:Sp]
 Chili (2013) [Sun:Sk]
 Chudakovin aaveet (2014) [Nev:Ru] [Sun:Tv]
 Duunimatka (2013) [Sun:Sk]
+Ellenin avaruuspuku (2020) [Sun:Sp]
 Encore (2015) [Hai:Rn]
 Ensisynnyttäjä (2013) [Sun:Sk]
 Ero (2013) [Sun:Sk]
+Etiäiset naapurit (2020) [Sun:Sp]
 Evakko (2013) [Kat:Mk]
+Evakot (2020) [Sun:Sp]
 Gulag (2013) [Sun:Sk]
+Haastattelu keskiyöllä (2020) [Sun:Sp]
 Hautakiven takana (2013) [Sun:Sk]
 Hautarovio (2018) [Sun:Kt]
 Herrasmieskeräilijä (2018) [Sun:Kt]
 Hiukkasetsivä (2013) [Sun:Sk]
+Hoikka mies (2020) [Sun:Sp]
 Hukassa (2013) [Sun:Sk]
 Hylkyjen hautausmaa (2013) [Sun:Sk]
+Iloinen tulitus (2020) [Sun:Sp]
 Iskuhiljaisuus (2013) [Sun:Sk]
 Iskujoukko (2013) [Sun:Sk]
 Iskulause (2013) [Sun:Sk]
 Iskurepliikki (2013) [Sun:Sk]
+Istuntoluettavaa (2020) [Sun:Sp]
+Ja aurinkokin on liian kuuma (2020) [Sun:Sp]
 Jaakko ja kaksitaso (2013) [Sun:Sk]
 Jake Cannon vastaan veriviholliset (2014) [Jyr:Jh]
 Janus (2013) [Sun:Tv]
 Jekku (2013) [Sun:Sk]
+Joulutähti (2020) [Sun:Sp]
 Joutsenlaulu (2013) [Sun:Sk]
+Juhlapuhe (2020) [Sun:Sp]
+Jäätä särkemään (2020) [Sun:Sp]
+Kahvikatko (2020) [Sun:Sp]
+Kaiku ei vastaa (2020) [Sun:Sp]
 Kalpean noidan naamio (2014) [Sal:Mm]
+Kansanjuhlantuntua, nääs (2020) [Sun:Sp]
+Kanuunamaahiset (2020) [Sun:Sp]
+Kauas äidit karkaavat (2020) [Sun:Sp]
 Kaunis päivä (2013) [Lei:Hk]
 Kaveripoisto (2013) [Sun:Sk]
+Kaveripyyntö (2020) [Sun:Sp]
 Kehitysvamma (2013) [Sun:Sk]
+Keinoraajakiristys (2020) [Sun:Sp]
 Keräilijän sielu (2013) [Sun:Sk]
 Kesäaika (2013) [Sun:Sk]
 Kesäloman 70 päivää (2013) [Sun:Sk]
 Kierrätyskatos (2013) [Sun:Sk]
 Kiertoratajänis (2013) [Sun:Sk]
 Kiertoratakirje (2013) [Sun:Sk]
+Kirjafutuuri (2020) [Sun:Sp]
 Kirjaleski (2018) [Sun:Kt]
+Kirjallinen pelastusoperaatio (2020) [Sun:Sp]
 Kirjapilkki (2018) [Sun:Kt]
+Kirjastokeiju (2020) [Sun:Sp]
+Kirjat perivät maan (2020) [Sun:Sp]
 Kirjoittajan opas (2013) [Sun:Sk]
 Kirjoittajapiiri (2013) [Sun:Sk]
 Kirkkotankki (2013) [Sun:Sk]
 Kirotun kirjan vartija (2016) [Num:Kk]
+Kissankarvan varassa (2020) [Sun:Sp]
+Kokoelman siemen (2020) [Sun:Sp]
 Kokoontuminen (2013) [Sun:Sk] [Erk:Aa]
+Konekidat (2020) [Sun:Sp]
 Korvamato (2013) [Sun:Sk]
 Kotiintuloaika (2013) [Sun:Sk]
 Kruunun vihollinen (2012) [Mer:Sp]
 Kultainen tulevaisuus (2014) [Sal:Hv]
+Kunnes kuolema teidät erottaa (2020) [Sun:Sp]
 Kuoppa (2013) [Sun:Sk]
 Käännöskirja (2013) [Sun:Sk]
+Latukeli (2020) [Sun:Sp]
 Laululintu (2013) [Sun:Sk]
+Legenda ensimmäisestä Nimeäjämestarista (2020) [Sun:Sp]
 Leikkiase (2013) [Sun:Sk]
 Leikkitoverit (2013) [Sun:Sk]
+Leviosa (2020) [Sun:Sp]
+Levätukka, ruokokynsi (2020) [Sun:Sp]
+Liftarit (2020) [Sun:Sp]
 Liha (2012) [Sal:Hn] [Sun:Sk]
 Lintumies (2013) [Sun:Sk]
 Lipunmyyntiautomaatti (2013) [Sun:Sk]
+Lohikäärmeen pää (2020) [Sun:Sp]
 Lumityö (2013) [Sun:Sk]
+Lunta tulvillaan (2020) [Sun:Sp]
+Luontainen selviytyjä (2020) [Sun:Sp]
 Lähiohitus (2013) [Sun:Sk]
 Maanalinen (2013) [Sun:Sk]
+Maata katsomassa (2020) [Sun:Sp]
+Makuelämys (2020) [Sun:Sp]
 Marmorikynttilä (2013) [Sun:Sk]
 Matoparkki (2016) [Kar:St]
 Meren kansa (2013) [Sun:Sk]
 Meripihkahuone (2013) [Sun:Sk]
+Meripihkavieras (2020) [Sun:Sp]
+Metsämaja (2020) [Sun:Sp]
 Mikki Hiiri avaruushädässä (2013) [Sun:Sk]
 Milla ja Meri matkalla usvaleirille (2013) [Sun:Sr]
+Musta kuin yö (2020) [Sun:Sp]
+Muurin vartijat (2020) [Sun:Sp]
+Muusan voittokulku (2020) [Sun:Sp]
 Muuttoapu (2013) [Sun:Sk]
 Myöhäinen vieras (2013) [Sun:Sk]
 Naimakauppa (2013) [Sun:Sk]
+Ne! (2020) [Sun:Sp]
 Nollapiste-energiaa (2013) [Sun:Sk]
+Nollaus (2020) [Sun:Sp]
+Nordealla tökkii (2020) [Sun:Sp]
 Norvajärven meteoriitti (2015) [Sun:Hr]
 Nouseva varjo (2013) [Sun:Sk]
+Nuijanukutus (2020) [Sun:Sp]
 Nukkumasa (2013) [Sun:Sk]
+Nuku hyvin (2020) [Sun:Sp]
 Näytevastaus (2013) [Sun:Sk]
 Oman elämänsä antisankari (2013) [Sun:Sk]
+Orientaatiokurssi (2020) [Sun:Sp]
 Pahanukke (2018) [Sun:Kt]
+Palkkamurhafaabeli (2020) [Sun:Sp]
 Palveleva puhelin (2013) [Sun:Sk]
 Passintarkastus (2013) [Sun:Sk]
 Pelastautuneet (2013) [Sun:Sk]
 Peniskuiskaajan tuomio (2013) [Sun:Sk]
+Pentukamera (2020) [Sun:Sp]
 Perintöesine (2013) [Sun:Sk]
 Pienet kissat (2013) [Sun:Sk]
 Pieni rasia (2018) [Sun:Kt]
+Pienriistaa (2020) [Sun:Sp]
 Piha ilman sadettajaa (2013) [Sun:Sk]
+Pikkuoravat (2020) [Sun:Sp]
 Pikkuveli (2013) [Sun:Sk]
 Pizzakuski (2013) [Sun:Sk]
+Polttouhri (2020) [Sun:Sp]
+Popkornisavotta (2020) [Sun:Sp]
 Portinvartija (2013) [Sun:Sk]
+Poseidonin pylväs (2020) [Sun:Sp]
+Prinsessan lähtö (2020) [Sun:Sp]
 Purret (2001) [Sun:Tv]
 Päiväkirurginen operaatio (2013) [Sun:Sk]
-Radiotyttö (2012) [Sal:Me]
+Päivän päätös (2020) [Sun:Sp]
+Radiotyttö (2012) [Sal:Me] [Sun:Sp]
 Raivaaja (2013) [Sun:Sk]
 Rajamuodollisuus (2013) [Sun:Sk]
 Rakkaudesta kirjaan (2013) [Sal:Sk]
 Rekiretki (2013) [Sun:Sk]
 Retkipäivä (2013) [Sun:Sk]
+Riffidien napina (2020) [Sun:Sp]
 Rikos kirjallisuutta kohtaan (2013) [Sun:Sk] [Erk:Aa]
 Robottisodan viimeinen päivä (2012) [Sal:Hn]
 Romaanileiri (2013) [Sun:Sk]
 Roskakustantaja (2018) [Sun:Kt]
+Runousoppia (2020) [Sun:Sp]
+Ruoka-aika nyt (2020) [Sun:Sp]
+Sadanpäämies (2020) [Sun:Sp]
 Salamahyökkäys (2013) [Sun:Sk]
-Sauna (2013) [Ant:Kv]
+Salamahöykytys (2020) [Sun:Sp]
+Sauna (2013) [Ant:Kv] [Sun:Sp]
+Scifiä vasta-alkajille (2020) [Sun:Sp]
+Seisahdus (2020) [Sun:Sp]
+Senssipalstan saalis (2020) [Sun:Sp]
+SETI (2020) [Sun:Sp]
 Sharan henkäys (2016) [Sun:Tv]
 Siemenpussit (2017) [Kel:Tj]
 Siivousurakka (2013) [Sun:Sk]
+Simulaattori (2020) [Sun:Sp]
 Sininen kukka (2013) [Sun:Sk]
+Siskokset (2020) [Sun:Sp]
 Sisämaailma (2013) [Sun:Sk]
+Sivusto estetty (2020) [Sun:Sp]
+Sopimusrike (2020) [Sun:Sp]
+Soturin vala (2020) [Sun:Sp]
 Steelen ruukki (2012) [Sal:Me] [Sun:Tv]
 Sukupolvikuilu (2013) [Sun:Sk] [Erk:Aa]
+Surf City (2020) [Sun:Sp]
 Suurkollektööri (2018) [Sun:Kt]
+Sydänasiaa (2020) [Sun:Sp]
 Syntymäpäiväjuhlat (2013) [Sun:Sk]
+Syvä uni (2020) [Sun:Sp]
 Takahuone (2013) [Lei:Ml]
+Talvisotaa (2020) [Sun:Sp]
 Tasapainon palautus (2013) [Sun:Sk]
+Tavallinen epäilty (2020) [Sun:Sp]
+Tie tähtiin (2020) [Sun:Sp]
 Tiilentekijän talo (2013) [Sun:Sk]
+Tohtori Been taikapadat (2020) [Sun:Sp]
 Tomua (2013) [Sun:Sk]
 Tosi-tv (2013) [Sun:Sk]
 Tuhat kuolemaa (2014) [Har:Pk]
+Tuhon lähettiläs (2020) [Sun:Sp]
 Tulen synty (2013) [Sun:Sk]
 Tulennuolemat (2015) [Lep:Kl]
 Tulta syöksevä lohikäärme (2013) [Sun:Sk]
+Tuplatuho (2020) [Sun:Sp]
 Turvavyö (2013) [Sun:Sk]
+Tuttu juttu (2020) [Sun:Sp]
 Tyttö nimeltä Kari (2017) [Num:Sv]
+Työura (2020) [Sun:Sp]
+Tähtimies astuu alukseen (2020) [Sun:Sp]
 Tähtivaeltajat (2013) [Sun:Tv]
 Universumin prinssi (2013) [Sun:Sk]
+Unohdettu kuherruskuukausi (2020) [Sun:Sp]
 Utta-khar Amanin hauta (2013) [Sun:Sk]
 Uusi naapuri (2013) [Sun:Sk]
+Vaihtoehtomusiikkia (2020) [Sun:Sp]
+Vainooja huoneessa (2020) [Sun:Sp]
 Vakooja (2013) [Sun:Sk]
+Valikot (2020) [Sun:Sp]
 Valkeat luut (2017) [Lei:Hh]
 Valkean naisen palvelija (2013) [Mer:Hh]
 Valvontaisku (2013) [Sun:Sk]
+Vanhan maailman muisto (2020) [Sun:Sp]
 Vapaapudotus (2013) [Sun:Sk]
 Varjokirjamessut (2018) [Sun:Kt]
+Veden muisti (2020) [Sun:Sp]
 Velhon oppipoika (2013) [Sun:Sk]
+Verenimijät (2020) [Sun:Sp]
 Verinaamio (2014) [Num:Lm]
+Veritimantti (2020) [Sun:Sp]
+Vihdoin aikaa lukea (2020) [Sun:Sp]
 Viimeinen koulupäivä (2013) [Sun:Sk]
 Viimeinen päivä (2018) [Kar:Va]
+Villiintynyt kirjasto (2020) [Sun:Sp]
+Virheetön (2020) [Sun:Sp]
 Ylösnousemus (2013) [Sun:Sk]
+Zetapommitus (2020) [Sun:Sp]
 Ääni (2013) [Sun:Sk]
 
 
@@ -3270,6 +3631,11 @@ Uhrit (1988) [Nik:Km]
 Susimetsä, Ulla
 ---------------
 Maisteri ja Routavallin mysteeri (2019) [Kar:No17]
+
+
+Sysi, Vilhelm
+-------------
+Loukussa (2020) [Han:Va]
 
 
 Syväkari, T.
@@ -3320,9 +3686,19 @@ Tammisto, Pihla
 Puroitta valuu veri vuorilta (2019) [Kar:No17]
 
 
+Taneli
+------
+Läheisessä tulevaisuuessa (1927) [Jär:Ti]
+
+
 Tanska, Jussi
 -------------
 Vierailija (1986) [Kop:Jv]
+
+
+Tanskanen, Joni
+---------------
+Velka (2020) [Lep:Tj]
 
 
 Teerialho, Taina
@@ -3357,6 +3733,11 @@ Perhosen lento (1988) [Sup:Ap]
 Tinasotilas, joka käveli pois (1988) [Haa:Tp]
 
 
+Teräs, Kyösti (oik. Gustav Andersson)
+-------------------------------------
+Uudenvuodenpäivänä 1995 (1895) [Kop:Ap] [Jär:Ti]
+
+
 Terästö, Jukka
 --------------
 Valoja vedessä (1987) [Nik:Km]
@@ -3384,6 +3765,35 @@ Tirkkonen, Olav
 Happoa (1987) [Nik:Km]
 Lintujen siimastaja (1991) [Häm:It]
 Siegfriedin laulu (1990) [Nik:Km]
+
+
+Toiviainen, Mikko
+-----------------
+Apple iCar (2020) [Toi:Pp]
+Déjá-vu (2020) [Toi:Pp]
+Delfoi tietää kaiken (2020) [Toi:Pp]
+EMPTY (2020) [Toi:Pp]
+Etsitään tietoa vanhasta Atari-pelistä (2020) [Toi:Pp]
+FW: Bloody Maryn kirous (2020) [Toi:Pp]
+Puhelinleikki (2020) [Toi:Pp]
+Kasvoton työläinen (2020) [Toi:Pp]
+Nukkekoti (2020) [Toi:Pp]
+Facetime (2020) [Toi:Pp]
+Identiteettivarkaus (2020) [Toi:Pp]
+Ilmoitus (2020) [Toi:Pp]
+Iltarutiini (2020) [Toi:Pp]
+Kuka siellä? (2020) [Toi:Pp]
+Lintukoto (2020) [Toi:Pp]
+Minä näen sinut (2020) [Toi:Pp]
+Minä tapoin hänet (2020) [Toi:Pp]
+Mozilla 1.0 (2020) [Toi:Pp]
+Netflix Snaff (2020) [Toi:Pp]
+Oculus Incubus (2020) [Toi:Pp]
+PETTYMYS.exe (2020) [Toi:Pp]
+Pimeä peili (2020) [Toi:Pp]
+Pokémon Black (2020) [Toi:Pp]
+Terveisiä Meeriltä (2020) [Toi:Pp]
+Wilma-merkinnät (2020) [Toi:Pp]
 
 
 Toivola, Ritva
@@ -3473,6 +3883,7 @@ Tunne; tuska (1994) [Ros:Yö]
 Tyrskyluoto, M.A.
 -----------------
 Apokalyptos (2018) [Mer:Ss]
+Huomenna hän on vapaa (2021) [Rie:Ea]
 Hän joka ei laula (2019) [Myl:Mk]
 Muiston muoto (2016) [Haa:Ma]
 Rakastaja (2017) [Kel:Tj]
@@ -3491,9 +3902,60 @@ Ulmanen, Leena
 Seita (1994) [Ros:Yö]
 
 
+
+Vaarnamo, Ulla
+--------------
+Paikan vanki (2020) [Vai:Vt]
+
+
 Vaasjoki, Susi
 --------------
 Valtakunnassa kaikki hyvin (2012) [Sal:Me]
+
+
+Vainonen, Jyrki
+---------------
+Akvaario (2007) [Vai:Ll]
+Hame (2007) [Vai:Ll]
+Hampaat (2019) [Vai:Yp]
+Helmi (1999) [Vai:Tm]
+Housut (2007) [Vai:Ll]
+Kaappi (2001) [Vai:Lt]
+Kaksin (2019) [Vai:Yp]
+Kello (2007) [Vai:Ll]
+Kirjasto (2007) [Vai:Ll]
+Kissa (1999) [Vai:Tm]
+Kostaja (2001) [Vai:Lt]
+Kukkakauppias (2001) [Vai:Lt]
+Kärpäset (1999) [Vai:Tm]
+Kätkö (2019) [Vai:Yp]
+Lapset (2001) [Vai:Lt]
+Linnustaja (1999) [Vai:Tm]
+Löydökki (2019) [Vai:Yp]
+Majuri (1999) [Vai:Tm]
+Morsian (2001) [Vai:Lt]
+Mustikoita (2001) [Vai:Lt]
+Muutto (2019) [Vai:Yp]
+Noutajat (2019) [Vai:Yp]
+Näkymä (2019) [Vai:Yp]
+Parantola (1999) [Vai:Tm]
+Paratiisi (2001) [Vai:Lt]
+Pelurit (1999) [Vai:Tm]
+Perhonen (1999) [Vai:Tm]
+Pesä (2007) [Vai:Ll]
+Piha (2019) [Vai:Yp]
+Pullo (2007) [Vai:Ll]
+Puutarha (2007) [Vai:Ll]
+Pyhän Leon ihme (2005) [Sin:Vs]
+Päät (2019) [Vai:Yp]
+Risteily (2019) [Vai:Yp]
+Romutarha (2007) [Vai:Ll]
+Silmukka (2019) [Vai:Yp]
+Tarha (2019) [Vai:Yp]
+Tehtävä (2001) [Vai:Lt]
+Tutkimusmatkailija (1999) [Vai:Tm]
+Uhri (1999) [Vai:Tm]
+Vene (2007) [Vai:Ll]
 
 
 Valkama, Johanna
@@ -3504,6 +3966,11 @@ Humisevan harjun asukas (2017) [Män:Pe]
 Vanne, Ilkka
 ------------
 Näyttelijä (1991) [Häm:It]
+
+
+Vasara
+------
+Viidenkymmenen vuoden kuluttua (1890) [Jär:Ti]
 
 
 Vehniäinen, Anette
@@ -3600,9 +4067,23 @@ Zlatorogin jäljet (1994) [Ver:Vl]
 Älä maksa lautturille (1992) [Ver:Äm]
 
 
+Vespa
+-----
+Vuonna 2000 (1918) [Jär:Ti]
+
+
 Vierula, Hertta
 ---------------
+Kuollut tyttö ja syvyyksien olento (2020) [Vie:Kt]
 Lopussa (2017) [Kar:No15]
+Miekka +3 (2020) [Vie:Kt]
+Muna (2020) [Vie:Kt]
+Parantola (2020) [Vie:Kt]
+Peikonhenkäys (2020) [Vie:Kt]
+Punkki (2020) [Vie:Kt]
+Pyjama (2020) [Vie:Kt]
+Rihmasto (2020) [Vie:Kt]
+Supersankari (2020) [Vie:Kt]
 
 
 Viitamäki, Antti
@@ -3654,10 +4135,20 @@ Virtasalo, Arvo
 Kalaharin paholainen (1927) [Num:Ke]
 
 
+Vitikainen, Vesa
+----------------
+Viistokatu muistoissamme (2021) [Sis:Mv]
+
+
 Vuokko-Syrjänen, Reetta
 -----------------------
 Tämä puoli ylöspäin (2018) [Kar:No16]
 Yhden suhde kolmeen (2017) [Kar:No15]
+
+
+Väisänen, Helena
+----------------
+Aloittelijan epäonnea (2020) [Vai:Vt]
 
 
 Väisänen, Janne
@@ -3670,6 +4161,7 @@ Välimäki, Kari
 Karhu ja savottalaiset (2015) [Sun:Hr]
 Kellopeliseppä (2016) [Lei:Ss]
 Kuolematon (2019) [Myl:Mk]
+Mandisa (2021) [Rie:Ea]
 Uudet perunat (2014) [Nev:Ru]
 
 
@@ -3693,6 +4185,11 @@ Waris, Helena
 -------------
 Kosinta (2013) [Lei:Hk]
 Tsarmi (2017) [Lei:Hh]
+
+
+Wilkuna, Kyösti
+---------------
+Malakias Mönkkäsen tulevaisuudenseikkailuja Helsingissä vuonna 2000 (1906, 1908) [Jär:Ti]
 
 
 Ykspetäjä, Tero

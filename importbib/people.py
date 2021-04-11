@@ -301,4 +301,23 @@ missing_from_db =\
         'Edward Lucas White',
         'J. K. Miettinen',
         'Eeva-Liisa Tenhunen'
+        'James Rice',
+        'Parke Godwin',
+        'Sonia H. Greene',
+        'Winifred V. Jackson',
+        'Brian Lumley',
+        'Sir Walter Scott',
+        'Henry S. Whitehead',
+        'Kaapro  Jääskeläinen',
+        'Kauppis-Heikki ',
+        'Aarne Lindén',
+        'Tuomas Luttinen',
+        'Tarja Pasanen',
+        'Miska Räsänen',
+        'Kai Seppänen',
+        'Joni Tanskanen',
+        'Kyösti  Teräs',
+        'Johanna Valkama',
+        'Vasara',
+        'Janne Väisänen'
     ]
