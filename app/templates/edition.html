@@ -14,7 +14,7 @@
                             value="{{edition.title}}" form="itemForm">
                     </h1>
                     {% endif %}
-                    <h1 class="card-title view-field">
+                    <h1 class="underline card-title view-field">
                         {{ edition.title }}
                     </h1>
                 </div>
@@ -36,7 +36,11 @@
                     <h3>
                         {% if works|length > 1 or works[0].orig_title != edition.title %}
                         {% for work in works %}
-                        <a href="{{url_for('work', workid=work.id)}}">{{work.orig_title}}</a><br>
+                        <a href="{{url_for('work', workid=work.id)}}">{{work.orig_title}}</a>
+                        {% if work.pubyear %}
+                        ({{work.pubyear}})
+                        {% endif %}
+                        <br>
                         {% endfor %}
                         {% endif %}
                     </h3>
@@ -150,8 +154,8 @@
                             {% endif %}
                             {% if edition.pubyear %}
                             {{ edition.pubyear }}
-                            {%endif %}
-                            {% if edition.publisher or edition.pubyear %}.{% endif %}
+                            {%- endif -%}
+                            {% if edition.publisher or edition.pubyear -%}.{% endif %}
                             {% if edition.version %}
                             {{edition.version}}. laitos
                             {% else %}
