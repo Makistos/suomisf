@@ -20,7 +20,8 @@ h1.underline {
 
 h1.title {
   margin-top: 4rem;
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
+  text-align: center;
 }
 
 a.invisible {
