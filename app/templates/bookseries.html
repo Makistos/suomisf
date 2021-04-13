@@ -11,19 +11,20 @@
     <div class="container">
         <a href=" {{ url_for('print_books', type='bookseries', id=series.id) }}">Tulosta</a>
     </div>
-    <h1 style="text-align: center">{{series.name}}
+    <h1 class="title">{{series.name}}
         {% if current_user.is_admin %}
         ({{ series.id }})
         {% endif %}
     </h1>
     <ul class="list-group list-group-flush">
-    {% for work in series.works %}
+        {% for work in series.works %}
         <li class="list-group-item">{{ print_work(work)}}<br>
             {#
-        {% for edition in work.editions %}
-            <div style="text-indent: 1rem;">{{ edition.editionnum }}. painos: {{edition.title}}. {{edition.publisher.name}} {{edition.pubyear}}.</span>
-        {% endfor %}
-        #}
+            {% for edition in work.editions %}
+            <div style="text-indent: 1rem;">{{ edition.editionnum }}. painos: {{edition.title}}.
+                {{edition.publisher.name}} {{edition.pubyear}}.</span>
+                {% endfor %}
+                #}
         </li>
         {% endfor %}
     </ul>

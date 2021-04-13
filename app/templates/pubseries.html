@@ -3,7 +3,7 @@
 <div class="container">
     <div class="container"><a href=" {{ url_for('print_books', type='pubseries', id=series.id) }}
                     ">Tulosta</a></div>
-    <h1 style="text-align: center;">{{series.name}} ({{ series.publisher.name }})
+    <h1 class="title">{{series.name}} ({{ series.publisher.name }})
         {% if favorite == 1 %}*{% endif %}
     </h1>
     {% if current_user.is_authorized %}

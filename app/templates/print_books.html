@@ -2,10 +2,8 @@
 
 <h1>{{ title }}</h1>
 {% if (type == 'pubseries') %}
-{% for work in works %}
-{% for edition in work.editions %}
+{% for edition in editions|sort(attribute='pubseriesnum,pubyear') %}
 {% include "_edition.html" %}
-{% endfor %}
 {% endfor %}
 {% endif %}
 {% if (type == 'bookseries') %}
