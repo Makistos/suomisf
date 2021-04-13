@@ -3,7 +3,7 @@
 <div class="custom-container">
     <form action="" method="post">
         {{ form.hidden_tag() }}
-        <h1 style="text-align: center;">Kirjat</h1>
+        <h1 class="title">Kirjat</h1>
         <p style="font-size: x-large;">
             {% for char in "ABCDEFGHIJKLMNOPQRSTUVWYZÅÄÖ"|list %}
             <a href=" {{ url_for('booksX', letter=char) }}">{{ char }}</a>

@@ -10,7 +10,7 @@
   <div class="card mb-3">
     <div class="row">
       <div class="col-lg-4 col-sm-12">
-        <div class="row mb-3 ml-1 mr-1 mt-3">
+        <div class="row mb-3 ml-1 mr-1 mt-2">
           <div clas="col">
             {% if person.image_src %}
             <figure>
@@ -319,7 +319,7 @@
         <div id="authoredStories" class="collapse" aria-labelledby="headAuthoredStories" data-parent="#authorCard">
           <div class="card-body">
             <ul class="list-group list-group-flush">
-              {% for story in stories %}
+              {% for story in person.stories %}
               <li class="list-group-item">
                 <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
                 ({%- if story.title != story.orig_title -%} {%- if
@@ -536,12 +536,18 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+      if (!!document.getElementById("pics") === false) {
+        return;
+      }
       document.getElementById("pics").style.display = "none";
     });
   </script>
 
   <script>
     function switchStyle() {
+      if (!!document.getElementById("pics") === false) {
+        return;
+      }
       var pics = document.getElementById("pics");
       var txt = document.getElementById("textual");
       if (pics.style.display == "none") {
