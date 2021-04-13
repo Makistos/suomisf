@@ -64,6 +64,7 @@ def get_person(s, name: str, create_missing: bool = False) -> Optional[int]:
     if name == '':
         return None
     try:
+        name = name.strip()
         if name[-1] == '.':
             # Replace last dot so this matches better
             name = name[0:-1]
@@ -75,17 +76,32 @@ def get_person(s, name: str, create_missing: bool = False) -> Optional[int]:
         if not person:
             if create_missing:
                 if name == '':
-                    print("no name")
+                    print('Ei tiedossa')
                 #name = name
                 if name == 'anonyymi':
                     # Hack hack
                     name = 'Anonyymi'
-                names = name.split(' ')
-                alt_name = names[-1] + ', ' + ' '.join(names[0:-1])
-                person = Person(name=name,
+                if name.find(',') == -1:
+                    # Firstname lastname
+                    names = name.split(' ')
+                    #alt_name = names[-1] + ', ' + ' '.join(names[0:-1])
+                    alt_name = name
+                    first_name = ' '.join(names[0:-1])
+                    last_name = names[-1]
+                    this_name = last_name + ', ' + ' '.join(first_name)
+                else:
+                    # Lastname, firstname
+                    names = name.split(',')
+                    last_name = names[0].strip()
+                    first_name = str(' '.join(names[1:])).strip()
+                    this_name = name
+                    alt_name = ' '.join(first_name) + ' ' + last_name
+
+                person = Person(name=this_name,
                                 alt_name=alt_name,
-                                first_name=' '.join(names[0:-1]),
-                                last_name=names[-1])
+                                fullname=this_name,
+                                first_name=first_name,
+                                last_name=last_name)
                 s.add(person)
                 s.commit()
             else:
