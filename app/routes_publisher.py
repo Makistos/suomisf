@@ -37,8 +37,6 @@ def publisher(pubid: Any) -> Any:
                     .filter(Edition.publisher_id == pubid)\
                     .order_by(desc(Edition.pubyear))\
                     .first()
-    series = session.query(Pubseries).filter(
-        Pubseries.publisher_id == pubid).all()
 
     genres = session.query(Genre.name, Genre.abbr, func.count(Genre.name).label('count'))\
                     .join(Work.genres)\
@@ -62,7 +60,7 @@ def publisher(pubid: Any) -> Any:
                       .order_by(Edition.pubyear)\
                       .filter(Edition.publisher_id == pubid).all()
     return render_template('publisher.html', publisher=publisher,
-                           series=series, book_count=book_count, oldest=oldest,
+                           book_count=book_count, oldest=oldest,
                            newest=newest, editions=editions, genres=genre_list)
 
 

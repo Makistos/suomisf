@@ -24,6 +24,7 @@
                     newest.title }}</a> ({{ newest.pubyear}})
             </li>
         </ul>
+        {% if publisher.series|length %}
         <div class="accordion" id="pubCard">
             <div class="card">
                 <div class="card-header" id="headSeries">
@@ -37,15 +38,16 @@
                 <div id="series" class="collapse" aria-labelledby="headSeries" data-parent="#pubCard">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
-                            {% for s in series %}
+                            {% for s in publisher.series %}
                             <li class="list-group-item">
-                                <a href="{{ url_for(" pubseries", seriesid=s.id) }}">{{ s.name }}</a>
+                                <a href="{{ url_for('pubseries', seriesid=s.id) }}">{{ s.name }}</a>
                             </li>
                             {% endfor %}
                         </ul>
                     </div>
                 </div>
             </div>
+            {% endif %}
             <div class="card">
                 <div class="card-header" id="headEditions">
                     <h2 class="mb-0">

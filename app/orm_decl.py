@@ -576,6 +576,7 @@ class Publisher(Base):
     image_attr = Column(String(100))  # Source website name
     editions = relationship("Edition", backref=backref(
         "edition4_assoc"), viewonly=True)
+    series = relationship('Pubseries', viewonly=True)
 
 
 class PublisherLink(Base):
