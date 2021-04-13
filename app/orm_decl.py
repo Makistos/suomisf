@@ -121,6 +121,8 @@ class Award(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(100), nullable=False)
     description = Column(String(500))
+    categories = relationship(
+        'AwardCategory', secondary='awardcategories', viewonly=True)
 
 
 class AwardCategory(Base):

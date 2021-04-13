@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-<h1 align=center>Palkinnot</h1>
-    <div class="three-column">
-	    {% for award in awards %}
-	    <p><a href="{{ url_for('award', awardid=award.id) }}">{{ award.name }}</a></p>
+    <h1 class="title">Palkinnot</h1>
+    {% for award in awards %}
+    <div class="mb-2">
+        <span style="font-size: x-large;"><a href="{{ url_for('award', awardid=award.id) }}">{{ award.name
+                }}</a></span><br>
+        {{ award.categories|map(attribute='name')|join(', ') }}
+    </div>
     {% endfor %}
-</div>
 </div>
 {% endblock %}
