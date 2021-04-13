@@ -319,5 +319,6 @@ missing_from_db =\
         'Kyösti  Teräs',
         'Johanna Valkama',
         'Vasara',
-        'Janne Väisänen'
+        'Janne Väisänen',
+        'William Lumley'
     ]

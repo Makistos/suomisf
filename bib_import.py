@@ -283,8 +283,7 @@ def get_books(books):
     editions = []
     curr_book = {}
     misc_str = ''
-    edition_re = re.compile('(\d+?)\.((?:laitos|painos)):(.+)')
-
+    edition_re = re.compile('(\d+?)\.((laitos|painos)):(.+)')
     for b in books:
         full_string = b
         tmp_misc = ''
@@ -311,7 +310,7 @@ def get_books(books):
             if m2:
                 if '-- ks.' in tmp:
                     continue
-                # Found another edition
+                # Found another edition or version
                 book = dict(curr_book)
                 if m:
                     book['title'] = m.group(1)
@@ -320,7 +319,12 @@ def get_books(books):
                 book['origyear'] = curr_book['origyear']
                 book['translation'] = curr_book['translation']
                 book['collection'] = curr_book['collection']
-                book['edition'] = m2.group(1)
+                if m2:
+                    if m2.group(2) == 'painos':
+                        book['edition'] = m2.group(1)
+                    else:
+                        book['edition'] = 1
+                        book['version'] = m2.group(1)
                 tmp = tmp.replace(m2.group(1) + '.' + m2.group(2) + ':', '')
 
                 tmp = find_commons(tmp, book)
@@ -887,6 +891,10 @@ def import_books(session, authors):
                     editionnum = str(edition['edition'])
                 else:
                     editionnum = '1'
+                if 'version' in edition:
+                    version = int(edition['version'])
+                else:
+                    version = None
                 logging.debug("Adding edition {} for {} ({})."
                               .format(editionnum,
                                       workitem.title,
@@ -905,6 +913,7 @@ def import_books(session, authors):
                     misc = edition['rest'].strip()
                 if ed:
                     ed.editionnum = editionnum
+                    ed.version = version
                     ed.pubseries_id = pubseriesid
                     ed.pubseriesnum = pubseriesnum
                     ed.coll_info = edition['coll_info']
@@ -916,6 +925,7 @@ def import_books(session, authors):
                         pubyear=edition['pubyear'],
                         publisher_id=publisherid,
                         editionnum=int(editionnum),
+                        version=version,
                         isbn='',  # No ISBNs in the data
                         pubseries_id=pubseriesid,
                         pubseriesnum=pubseriesnum,
