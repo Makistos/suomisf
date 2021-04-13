@@ -384,7 +384,7 @@ class Log(Base):
     table_id = Column(Integer)
     user_id = Column(Integer, ForeignKey('user.id'))
     old_value = Column(String(500))
-    date = Column(Date, default=datetime.datetime.utcnow)
+    date = Column(DateTime, default=datetime.datetime.now())
 
 
 class Magazine(Base):

@@ -5,11 +5,12 @@ from sqlalchemy.orm import sessionmaker, joinedload
 from app.orm_decl import (Language, Person, Author, Editor, Translator, Publisher, Work,
                           Edition, Part, Pubseries, Bookseries, User, UserBook, PublicationSize, Tag,
                           PersonTag, BindingType, Format, Genre, ShortStory, ArticleTag,
-                          WorkGenre)
+                          WorkGenre, Log)
 from typing import List, Dict, Any, Tuple
 from flask_login import current_user
 from flask import abort, Response
 from functools import wraps
+from datetime import datetime
 import json
 
 """
@@ -33,6 +34,13 @@ def admin_required(f: Any) -> Any:
         else:
             abort(401)
     return wrap
+
+
+def log_change(session: Any, table: str, id: int, field: str = '') -> None:
+    log = Log(table_name=table, table_id=id, field_name=field,
+              user_id=current_user.get_id())
+    session.add(log)
+    session.commit()
 
 
 def publisher_list(session: Any) -> Dict[str, List[str]]:

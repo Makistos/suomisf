@@ -112,6 +112,7 @@ def person(personid: Any) -> Any:
     if request.method == 'GET':
         form.name.data = person.name
         form.alt_name.data = person.alt_name
+        form.fullname.data = person.fullname
         form.image_attr.data = person.image_attr
         form.dob.data = person.dob
         form.dod.data = person.dod
@@ -120,6 +121,7 @@ def person(personid: Any) -> Any:
     elif form.validate_on_submit():
         person.name = form.name.data
         person.alt_name = form.alt_name.data
+        person.fullname = form.fullname.data
         person.image_attr = form.image_attr.data
         person.dob = form.dob.data
         person.dod = form.dod.data
@@ -127,6 +129,7 @@ def person(personid: Any) -> Any:
         person.bio_src = form.bio_src.data
         session.add(person)
         session.commit()
+        log_change(session, 'Henkilö', person.id)
     else:
         app.logger.error('Errors: {}'.format(form.errors))
         print(f'Errors: {form.errors}')
