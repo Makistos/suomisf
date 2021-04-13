@@ -6,7 +6,8 @@
     <div class="mb-2">
         <span style="font-size: x-large;"><a href="{{ url_for('award', awardid=award.id) }}">{{ award.name
                 }}</a></span><br>
-        {{ award.categories|map(attribute='name')|join(', ') }}
+        {{ award.categories|map(attribute='name')|join(', ') }}<br>
+        {{ award.description }}
     </div>
     {% endfor %}
 </div>
