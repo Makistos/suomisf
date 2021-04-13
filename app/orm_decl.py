@@ -484,9 +484,10 @@ class Person(Base):
     stories = relationship("ShortStory",
                            secondary='join(Part, Author, Part.id == Author.part_id)',
                            primaryjoin='and_(Person.id == Author.person_id,\
-                Author.part_id == Part.id, Part.work_id == Work.id,\
+                Author.part_id == Part.id,\
                 Part.shortstory_id == ShortStory.id)',
                            uselist=True, viewonly=True)
+    # Author.part_id == Part.id, Part.work_id == Work.id,\
     edits = relationship("Edition", secondary='editor', viewonly=True)
     translations = relationship("Edition",
                                 secondary='join(Part, Translator, Part.id == Translator.part_id)',
