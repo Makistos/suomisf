@@ -283,7 +283,7 @@ def get_books(books):
     editions = []
     curr_book = {}
     misc_str = ''
-    edition_re = re.compile('(\d+?)\.((laitos|painos)):(.+)')
+    edition_re = re.compile('([\d\?])\.((laitos|painos)):(.+)')
     for b in books:
         full_string = b
         tmp_misc = ''
@@ -320,11 +320,19 @@ def get_books(books):
                 book['translation'] = curr_book['translation']
                 book['collection'] = curr_book['collection']
                 if m2:
+                    if m2.group(1) == '?':
+                        val = ''
+                    else:
+                        try:
+                            val = int(m2.group(1))
+                        except TypeError as exp:
+                            print(f'{exp}')
                     if m2.group(2) == 'painos':
-                        book['edition'] = m2.group(1)
+                        book['edition'] = val
+                        book['version'] = ''
                     else:
                         book['edition'] = 1
-                        book['version'] = m2.group(1)
+                        book['version'] = val
                 tmp = tmp.replace(m2.group(1) + '.' + m2.group(2) + ':', '')
 
                 tmp = find_commons(tmp, book)
@@ -685,8 +693,8 @@ def import_authors(s, names, source=''):
         if real_name is not None:
             # This is a pseudonym so save both the pseudonym and real name.
             person = s.query(Person)\
-                      .filter(Person.name == real_name)\
-                      .first()
+                .filter(Person.name == real_name)\
+                .first()
             if not person:
                 person = Person(name=real_name.strip(),
                                 alt_name=alt_name,
@@ -706,8 +714,8 @@ def import_authors(s, names, source=''):
             s.commit()
             # persons.append(person)
             person2 = s.query(Person)\
-                       .filter(Person.name == name)\
-                       .first()
+                .filter(Person.name == name)\
+                .first()
             if not person2:
                 person2 = Person(name=name.strip(),
                                  alt_name=pseudo_name,
@@ -718,9 +726,9 @@ def import_authors(s, names, source=''):
                 # Only add the pseudonym to the list as that's the
                 # author under which it is placed.
             alias = s.query(Alias)\
-                     .filter(Alias.realname == person.id,
-                             Alias.alias == person2.id)\
-                     .first()
+                .filter(Alias.realname == person.id,
+                        Alias.alias == person2.id)\
+                .first()
             if not alias:
                 alias = Alias(realname=person.id, alias=person2.id)
                 s.add(alias)
@@ -728,8 +736,8 @@ def import_authors(s, names, source=''):
             persons.append(person2)
         else:
             person = s.query(Person)\
-                      .filter(Person.name == name)\
-                      .first()
+                .filter(Person.name == name)\
+                .first()
             if not person:
                 person = Person(name=name,
                                 alt_name=alt_name,
@@ -819,9 +827,9 @@ def import_books(session, authors):
             # So yeah, pubyear is the one thing that can't be
             # fixed with this.
             workitem = s.query(Work)\
-                        .filter(Work.title == work['origname'],
-                                Work.pubyear == work['origyear'])\
-                        .first()
+                .filter(Work.title == work['origname'],
+                        Work.pubyear == work['origyear'])\
+                .first()
             if work['rest'].strip == '':
                 misc = None
             else:
@@ -859,8 +867,8 @@ def import_books(session, authors):
                 pubseries = None
                 if edition['pubseries'] != '':
                     pubseries = s.query(Pubseries)\
-                                 .filter(Pubseries.name == edition['pubseries'])\
-                                 .first()
+                        .filter(Pubseries.name == edition['pubseries'])\
+                        .first()
                 if pubseries:
                     pubseriesid = pubseries.id
                 else:
@@ -892,9 +900,9 @@ def import_books(session, authors):
                 else:
                     editionnum = '1'
                 if 'version' in edition:
-                    version = int(edition['version'])
+                    version = str(edition['version'])
                 else:
-                    version = None
+                    version = ''
                 logging.debug("Adding edition {} for {} ({})."
                               .format(editionnum,
                                       workitem.title,
@@ -903,10 +911,10 @@ def import_books(session, authors):
                 # Editions are matched by title, pubyear and publisher.
                 # So these three cannot be changed properly.
                 ed = s.query(Edition)\
-                      .filter(Edition.title == edition['title'],
-                              Edition.pubyear == edition['pubyear'],
-                              Edition.publisher_id == publisherid)\
-                      .first()
+                    .filter(Edition.title == edition['title'],
+                            Edition.pubyear == edition['pubyear'],
+                            Edition.publisher_id == publisherid)\
+                    .first()
                 if edition['rest'].strip == '':
                     misc = None
                 else:
@@ -944,9 +952,9 @@ def import_books(session, authors):
 
                 if not is_new:
                     part = s.query(Part)\
-                            .filter(Part.edition_id == ed.id,
-                                    Part.work_id == workitem.id)\
-                            .first()
+                        .filter(Part.edition_id == ed.id,
+                                Part.work_id == workitem.id)\
+                        .first()
                 if is_new or not part:
                     part = Part(
                         edition_id=ed.id,
@@ -983,8 +991,8 @@ def save_genres(session, workid, genrelist):
 
     # First remove old genre definitions
     workgenres = s.query(WorkGenre)\
-                  .filter(WorkGenre.work_id == workid)\
-                  .all()
+        .filter(WorkGenre.work_id == workid)\
+        .all()
     for wg in workgenres:
         s.delete(wg)
     s.commit()
@@ -1024,25 +1032,25 @@ def update_creators(session):
     i = 0
     for work in works:
         authors = s.query(Person)\
-                   .join(Author)\
-                   .filter(Person.id == Author.person_id)\
-                   .join(Part)\
-                   .filter(Part.id == Author.part_id)\
-                   .filter(Part.work_id == work.id)\
-                   .all()
+            .join(Author)\
+            .filter(Person.id == Author.person_id)\
+            .join(Part)\
+            .filter(Part.id == Author.part_id)\
+            .filter(Part.work_id == work.id)\
+            .all()
         if authors:
             author_list = ' & '.join([x.name for x in authors])
             work.creator_str = author_list
         else:
             editors = s.query(Person)\
-                       .join(Editor)\
-                       .filter(Person.id == Editor.person_id)\
-                       .join(Edition)\
-                       .filter(Edition.id == Editor.edition_id)\
-                       .join(Part)\
-                       .filter(Part.edition_id == Edition.id,
-                               Part.work_id == work.id)\
-                       .all()
+                .join(Editor)\
+                .filter(Person.id == Editor.person_id)\
+                .join(Edition)\
+                .filter(Edition.id == Editor.edition_id)\
+                .join(Part)\
+                .filter(Part.edition_id == Edition.id,
+                        Part.work_id == work.id)\
+                .all()
             if editors:
                 editor_list = ' & '.join([x.name for x in editors])
                 work.creator_str = editor_list + ' (toim.)'
@@ -1059,12 +1067,12 @@ def add_missing_series(session):
     # This important publisher series is missing from the imported data.
     s = session()
     publisher = s.query(Publisher).filter(Publisher.name == 'Kirjayhtymä')\
-                 .first()
+        .first()
     pubseries = s.query(Pubseries)\
-                 .filter(Pubseries.publisher_id == publisher.id,
-                         Pubseries.name ==
-                         'Kirjayhtymän science fiction -sarja')\
-                 .first()
+        .filter(Pubseries.publisher_id == publisher.id,
+                Pubseries.name ==
+                'Kirjayhtymän science fiction -sarja')\
+        .first()
     if not pubseries:
         logging.info('Creating missing Kirjayhtymä series')
         pubseries = Pubseries(name='Kirjayhtymän science fiction -sarja',
