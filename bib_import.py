@@ -283,7 +283,8 @@ def get_books(books):
     editions = []
     curr_book = {}
     misc_str = ''
-    edition_re = re.compile('([\d\?])\.((laitos|painos)):(.+)')
+    edition_re = re.compile(
+        '([\d\?])\.((laitos|painos))\s?((\d).(painos))?:(.+)')
     for b in books:
         full_string = b
         tmp_misc = ''
@@ -308,6 +309,8 @@ def get_books(books):
 
         if m2 and curr_book:
             if m2:
+                editionnum = 1
+                versionnum = 1
                 if '-- ks.' in tmp:
                     continue
                 # Found another edition or version
@@ -323,15 +326,15 @@ def get_books(books):
                     if m2.group(1) == '?':
                         val = ''
                     else:
-                        try:
-                            val = int(m2.group(1))
-                        except TypeError as exp:
-                            print(f'{exp}')
+                        val = m2.group(1)
                     if m2.group(2) == 'painos':
                         book['edition'] = val
-                        book['version'] = ''
-                    else:
-                        book['edition'] = 1
+                        book['version'] = versionnum
+                    else:  # Version X
+                        if m2.group(5):
+                            # Has also editionnum
+                            editionnum = str(m2.group(5))
+                        book['edition'] = editionnum
                         book['version'] = val
                 tmp = tmp.replace(m2.group(1) + '.' + m2.group(2) + ':', '')
 
