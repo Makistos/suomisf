@@ -284,7 +284,7 @@ def get_books(books):
     curr_book = {}
     misc_str = ''
     edition_re = re.compile(
-        '([\d\?])\.((laitos|painos))\s?((\d).(painos))?:(.+)')
+        '([\d\?]{1,2})\.((laitos|painos))\s?((\d).(painos))?:(.+)')
     for b in books:
         full_string = b
         tmp_misc = ''
@@ -324,7 +324,7 @@ def get_books(books):
                 book['collection'] = curr_book['collection']
                 if m2:
                     if m2.group(1) == '?':
-                        val = ''
+                        val = None
                     else:
                         val = m2.group(1)
                     if m2.group(2) == 'painos':
@@ -333,7 +333,7 @@ def get_books(books):
                     else:  # Version X
                         if m2.group(5):
                             # Has also editionnum
-                            editionnum = str(m2.group(5))
+                            editionnum = m2.group(5)
                         book['edition'] = editionnum
                         book['version'] = val
                 tmp = tmp.replace(m2.group(1) + '.' + m2.group(2) + ':', '')
@@ -899,13 +899,13 @@ def import_books(session, authors):
 
                 # Create new edition to database.
                 if edition['edition']:
-                    editionnum = str(edition['edition'])
+                    editionnum = edition['edition']
                 else:
-                    editionnum = '1'
+                    editionnum = None
                 if 'version' in edition:
-                    version = str(edition['version'])
+                    version = edition['version']
                 else:
-                    version = ''
+                    version = None
                 logging.debug("Adding edition {} for {} ({})."
                               .format(editionnum,
                                       workitem.title,
@@ -935,7 +935,7 @@ def import_books(session, authors):
                         title=edition['title'],
                         pubyear=edition['pubyear'],
                         publisher_id=publisherid,
-                        editionnum=int(editionnum),
+                        editionnum=editionnum,
                         version=version,
                         isbn='',  # No ISBNs in the data
                         pubseries_id=pubseriesid,

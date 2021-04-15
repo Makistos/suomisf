@@ -779,7 +779,9 @@ class Work(Base):
     bookseries = relationship("Bookseries", backref=backref('bookseries'),
                               uselist=False, viewonly=True)
     editions = relationship('Edition', secondary='part', uselist=True,
-                            lazy='dynamic', viewonly=True)
+                            lazy='dynamic',
+                            order_by='Edition.version, Edition.editionnum',
+                            viewonly=True)
     genres = relationship("Genre", secondary='workgenre',
                           uselist=True, viewonly=True)
     tags = relationship('Tag', secondary='worktag',

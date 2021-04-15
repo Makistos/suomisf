@@ -25,15 +25,20 @@
 		{% endif %}
 
 		{% if edition.version|int > 1 %}
-		<b>{{ edition.version }}. laitos</b>
-		{% if edition.editionnum > 1 %}
-		<b>{{ edition.editionnum }}. painos</b>:
+		{{ edition.version }}.laitos
+		{% if edition.editionnum == None %}
+		?.painos:
+		{% elif edition.editionnum > 1 %}
+		{{ edition.editionnum }}.painos:
 		{% else %}
 		:
 		{% endif %}
 		{% else %}
-		{% if edition.editionnum and edition.editionnum > 1%}
-		<b>{{ edition.editionnum }}. painos</b>:
+		{% if edition.editionnum == None %}
+		?.painos:
+		{% elif edition.editionnum and edition.editionnum > 1%}
+		{{ edition.editionnum }}.painos:
+		{% endif %}
 		{% endif %}
 
 		{% if work.title != edition.title %}
