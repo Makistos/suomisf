@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from app.orm_decl import Work, Edition, Part, Person, Author, Award,\
-AwardCategory, Awarded
+from app.orm_decl import (Work, Edition, Part, Person, Author, Award,
+                          AwardCategory, Awarded)
+from app import app
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import re
@@ -10,8 +11,7 @@ from typing import Dict, List, Tuple
 from importbib import missing_from_db
 
 
-db_url = os.environ.get('DATABASE_URL') or \
-        'sqlite:///suomisf.db'
+db_url = app.config['SQLALCHEMY_DATABASE_URI']
 
 categories = {}
 awards = {}
@@ -60,6 +60,7 @@ def save_personal_award(s, line):
         s.commit()
     except Exception as e:
         print(f'Could not add personal award: {e}.')
+
 
 def save_novel_award(s, line):
     award = line[1]

@@ -7,7 +7,7 @@ from sqlalchemy.orm import relationship, backref
 from sqlalchemy import create_engine
 from sqlalchemy.sql.expression import null
 from wtforms.fields.core import IntegerField
-from app import db, login
+from app import app, db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from sqlalchemy.orm import sessionmaker
@@ -19,8 +19,7 @@ Base = declarative_base()
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env'))
 
-db_url = os.environ.get('DATABASE_URL') or \
-    'sqlite:///suomisf.db'
+db_url = app.config['SQLALCHEMY_DATABASE_URI']
 
 
 class Alias(Base):
@@ -433,7 +432,7 @@ class Part(Base):
         'shortstory.id'), nullable=True, index=True)
     # Title is repeated from edition in the simple case but required for
     # e.g. collections.
-    title = Column(String(250))
+    title = Column(String(500))
     authors = relationship('Person', secondary='author',
                            uselist=True, viewonly=True)
     translators = relationship(
@@ -569,8 +568,8 @@ class PublicationSize(Base):
 class Publisher(Base):
     __tablename__ = 'publisher'
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False, unique=True, index=True)
-    fullname = Column(String(250), nullable=False, unique=True)
+    name = Column(String(500), nullable=False, unique=True, index=True)
+    fullname = Column(String(500), nullable=False, unique=True)
     description = Column(String(500))
     image_src = Column(String(100))
     image_attr = Column(String(100))  # Source website name
@@ -615,8 +614,8 @@ class PubseriesLink(Base):
 class ShortStory(Base):
     __tablename__ = 'shortstory'
     id = Column(Integer, primary_key=True)
-    title = Column(String(250), nullable=False, index=True)
-    orig_title = Column(String(250))
+    title = Column(String(700), nullable=False, index=True)
+    orig_title = Column(String(700))
     language = Column(Integer, ForeignKey('language.id'))
     pubyear = Column(Integer, index=True)
     creator_str = Column(String(500), index=True)
@@ -660,7 +659,7 @@ class StoryTag(Base):
 class Tag(Base):
     __tablename__ = 'tag'
     id = Column(Integer, primary_key=True)
-    name = Column(String(50), nullable=False, index=True)
+    name = Column(String(100), nullable=False, index=True)
     works = relationship('Work', secondary='worktag',
                          uselist=True, viewonly=True)
     articles = relationship(
@@ -751,14 +750,14 @@ class Work(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(500), nullable=False, index=True)
     subtitle = Column(String(500))
-    orig_title = Column(String(250), index=True)
+    orig_title = Column(String(500), index=True)
     pubyear = Column(Integer, index=True)
     language = Column(Integer, ForeignKey('language.id'), index=True)
     bookseries_id = Column(Integer, ForeignKey('bookseries.id'))
     bookseriesnum = Column(String(20))
     bookseriesorder = Column(Integer)
     type = Column(Integer, ForeignKey('worktype.id'), index=True)
-    misc = Column(String(100))
+    misc = Column(String(500))
     description = Column(String(500))
     imported_string = Column(String(500))
     creator_str = Column(String(500), index=True)

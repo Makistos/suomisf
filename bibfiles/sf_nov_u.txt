@@ -353,7 +353,7 @@ Lasarus (Yeleazar, 1906)) [Dat:Ev]
 anonyymi
 --------
 Mabéshiman vampyyrikissa (The Vampire Cat of Mabéshima) [Tho:Vh]
-Viljamin haamu (vanha balladi) (Sweet William's Ghost (a popular ballad)) [Mor:Kp]
+Viljamin haamu, vanha balladi (Sweet William's Ghost (a popular ballad)) [Mor:Kp]
 
 
 Johann August Apel
@@ -1088,7 +1088,7 @@ Maan siirtymä (Transit of Earth, 1971) [Pac:T1]
 Maan ylikulku (Transit of Earth, 1971) [Cla:Tu]
 Menneisyyden maanpakolainen (Exile of the Eons, 1950) [Cla:Tu]
 Myytti nimeltä 2001 (The Myth of 2001, 1969) [Cla:Tu]
-Nojatuoliastronautin muistelmat (Memoirs of an Armchair Astronaut (Retired), 1960-l. alku) [Cla:Tu]
+Nojatuoliastronautin muistelmat (Memoirs of an Armchair Astronaut Retired, 1963) [Cla:Tu]
 Pelastusretkikunta (Rescue Party, 1946) [Cla:Tu]
 Piilosilla (Hide and Seek, 1949) [Cla:Ta]
 Pimeyden muuri (The Wall of Darkness, 1949) [Cla:Tu]
@@ -2139,7 +2139,7 @@ Väärä mies (Mr. Wrong, 1975) [Slu:V2]
 Robert E. Howard
 ----------------
 Alttari ja skorpioni (The Altar and the Scorpion, 1967) [How:Ku]
-Arabun talo (The House of Arabu, 1952/1968) [How:Zk]
+Arabun talo (The House of Arabu, 1952) [How:Zk]
 Askeleita hautaholvissa (The Footfalls Within, 1931) [How:Kk]
 Asshurbanipalin liekki (The Fire of Asshurbanipal, 1936) [How:Pv]
 Bal-Sagothin jumalat (The Gods of Bal-Sagoth, 1931) [Sad:Pl]
@@ -2524,7 +2524,7 @@ Se tunne jolle on nimi vain ranskaksi (That Feeling, You Can Only Say What It Is
 Setelit (The Reploids, 1988) [Win:K1]
 Siellä on muuten helvetin hyvä bändi (You Know They Got a Hell of a Band, 1992) [Kin:Ys]
 Siihen kasvaa kiinni (It Grows on You, 1982) [Kin:Ys]
-Sokea-Willie (Blind Willie, 1994, uudistettu) [Kin:Ps]
+Sokea-Willie (Blind Willie, 1994) [Kin:Ps]
 Taistelukenttä (Battleground, 1972 [Kin:Yä]
 Talo Vaahterakadulla (The House on Maple Street, 1993) [Kin:Ao]
 Tennarit (Sneakers, 1988) [Win:K1]
@@ -2970,7 +2970,7 @@ Randolph Carterin paluu (Through the Gates of the Silver Key, 1932) [Lov:Sk] [Lo
 Red Hookin kauhu (The Horror at Red Hook, 1927) [Lov:Vm] [Lov:Kt2]
 Riivattu kirkonmies (The Evil Clergyman, 1939) [Lov:Hs] [Lov:Kt6]
 Rotat seinissä (The Rats in the Walls, 1924) [Sad:O1] [Lov:Kt1]
-Sarnathin tuho (The Doom That Came to Sarnath, 1920/1938) [Lov:Al] [Lov:Kt3]
+Sarnathin tuho (The Doom That Came to Sarnath, 1920) [Lov:Al] [Lov:Kt3]
 Sukuhauta (The Tomb, 1922) [Lov:Hs] [Lov:Kt6]
 Talo usvan keskellä (The Strange High House in the Mist, 1931) [Lov:Al] [Lov:Kt3]
 Temppeli (The Temple, 1925) [Lov:Tj] [Lov:Kt2]
@@ -2990,7 +2990,7 @@ Varjo Innsmouthin yllä (The Shadow Over Innsmouth, 1931) [Lov:Kp] [Lov:Va] [Lov:
 Varjo menneisyydestä (The Shadow out of Time, 1936) [Lov:Vm] [Lov:Kt2]
 Viileää ilmaa (Cool Air, 1928) [Lov:Tj] [Hel:Mt]
 Väri avaruudesta (The Colour out of Space, 1927) [Lov:Nk] [Lov:Va] [Lov:Kt2] [Lov:Hp]
-Yuggothin kylvö (Fungi from Yuggoth, 1929-30) [Lov:Kt4]
+Yuggothin kylvö (Fungi from Yuggoth, 1929) [Lov:Kt4]
 
 
 H.P. Lovecraftin muita kirjoituksia
@@ -3539,7 +3539,7 @@ Tapaaminen henkiinherätessä (Revival Meeting, 1969) [Wol:Pk]
 Edgar Allan Poe
 ---------------
 Amontillado-tynnyri (The Cask of Amontillado, 1846) [Poe:Kk]
-Anastettu kirje (The Purloined Letter, 1844-1845) [Poe:Ko]
+Anastettu kirje (The Purloined Letter, 1844) [Poe:Ko]
 Baragrafin äksääminen (X-ing a Paragrab, 1849) [Poe:Ko]
 Berenice (Berenice, 1835) [Poe:Pk]
 Berenike (Berenice, 1835) [Poe:Ko]
@@ -3572,7 +3572,7 @@ Laskeutuminen kurimukseen (A Descent into the Maelström, 1841) [Poe:Ko]
 Laumasielu (The Man of the Crowd, 1840) [Poe:Ko]
 Leijonan elämää (Lionizing, 1835) [Poe:Ko]
 Ligeia (Ligeia, 1838) [Poe:Kk] [Poe:Ko] [Mor:Kp]
-Liikemies (The Business Man 1840) [Poe:Ko]
+Liikemies (The Business Man, 1840) [Poe:Ko]
 Loppuun kulunut mies (The Man That Was Used Up, 1839) [Poe:Ko]
 Marie Roget'n mysteeri (The Mystery of Marie Roget, 1842) [Poe:Rm] [Poe:Ko]
 Mellonta tauta (Mellonta Tauta, 1849) [Poe:Ko]
@@ -4268,7 +4268,7 @@ Lisa Tuttle
 Aviomiehiä (Husbands, 1990) [Dat:Ek]
 Herra Elphinstonen kädet (Mr Elphinstone's Hands, 1990) [Tut:Sh]
 Läpisyöty (Bug House, 1983) [Sad:Tl]
-Muuan syntymäpäivä (A Birthday, 1987/1993) [Slu:V2]
+Muuan syntymäpäivä (A Birthday, 1987) [Slu:V2]
 Pesä (The Nest, 1983) [Sad:K1]
 
 

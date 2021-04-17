@@ -9,6 +9,7 @@ from importbib import publishers
 from importbib import (bookseries, pubseries, important_pubseries,
                        misc_strings, translators, editors, genres, genres_list)
 import re
+from app import app
 import os
 import sys
 from dotenv import load_dotenv
@@ -942,11 +943,11 @@ def import_books(session, authors):
                         pubseriesnum=pubseriesnum,
                         coll_info=edition['coll_info'],
                         pages=None,
-                        format_id=0,
-                        binding_id=0,
-                        size_id=0,
-                        dustcover=0,
-                        coverimage=0,
+                        format_id=1,
+                        binding_id=1,
+                        size_id=1,
+                        dustcover=1,
+                        coverimage=1,
                         misc=misc,
                         imported_string=edition['imported_string'])
                     is_new = True
@@ -1282,8 +1283,7 @@ def create_admin(session: Any) -> None:
         s.commit()
 
 
-db_url = os.environ.get('DATABASE_URL') or \
-    'sqlite:///suomisf.db'
+db_url = app.config['SQLALCHEMY_DATABASE_URI']
 
 
 def import_all(filelist):

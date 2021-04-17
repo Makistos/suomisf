@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from app.orm_decl import Work, Edition, Part, Person, Author, Editor, ShortStory, Alias
+from app import app
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import re
@@ -9,8 +10,7 @@ from importbib import missing_from_db
 
 people: Dict = {}
 
-db_url = os.environ.get('DATABASE_URL') or \
-    'sqlite:///suomisf.db'
+db_url = app.config['SQLALCHEMY_DATABASE_URI']
 
 
 def add_missing_people():
@@ -287,7 +287,7 @@ def import_stories(filename: str, books: Dict = {}):
                     else:
                         # It's an original title with no year
                         orig_title = m.groupdict()['title']
-                        year = ''
+                        year = None
                 ids_tmp = m.groupdict()['id'].strip().split(']')
                 for id in ids_tmp:
                     if id != '' and id != '\n':
@@ -307,7 +307,7 @@ def import_stories(filename: str, books: Dict = {}):
                     # Yep, just a title and id
                     title = m.groupdict()['title']
                     orig_title = title
-                    year = ''
+                    year = None
                     ids_tmp = m.groupdict()['id'].split(']')
                     for id in ids_tmp:
                         ids.append(id + ']')

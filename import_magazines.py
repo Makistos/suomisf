@@ -2,6 +2,7 @@
 from app.orm_decl import Article, ArticleAuthor, ArticlePerson, ArticleTag,\
     Issue, Magazine, Person, Publisher, PublicationSize, Tag, IssueContent,\
     IssueEditor, ShortStory, Author, Translator, Part, StoryTag
+from app import app
 from sqlalchemy import create_engine, or_
 from sqlalchemy.orm import sessionmaker
 import re
@@ -11,8 +12,7 @@ import glob
 import re
 from typing import Dict, List, Tuple, Optional
 
-db_url = os.environ.get('DATABASE_URL') or \
-    'sqlite:///suomisf.db'
+db_url = app.config['SQLALCHEMY_DATABASE_URI']
 
 magazine_header = {'Magazine': 0,
                    'Issn': 1,
@@ -376,6 +376,9 @@ def import_stories(s,
 
                 if orig_title == '':
                     orig_title = title
+
+                if year == '':
+                    year = None
 
                 if orig_year == '':
                     orig_year = year

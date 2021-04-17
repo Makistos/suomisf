@@ -298,7 +298,7 @@ missing_from_db =\
         'Abraham Merritt',
         'Edward Lucas White',
         'J. K. Miettinen',
-        'Eeva-Liisa Tenhunen'
+        'Eeva-Liisa Tenhunen',
         'James Rice',
         'Parke Godwin',
         'Sonia H. Greene',
@@ -319,4 +319,5 @@ missing_from_db =\
         'Vasara',
         'Janne Väisänen',
         'William Lumley'
-    ]
+        'Kristina Hård',
+        'Iisakki Evä']

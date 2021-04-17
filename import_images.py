@@ -1,12 +1,13 @@
 import csv
 from app.orm_decl import (EditionImage, Work, Edition, Part, Author, Person)
+from app import app
 import sys
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from typing import List, Any
-db_url = os.environ.get('DATABASE_URL') or \
-    'sqlite:///suomisf.db'
+
+db_url = app.config['SQLALCHEMY_DATABASE_URI']
 
 just_check: bool = False
 
