@@ -24,21 +24,13 @@
 	<h2><span class="person-list">{{author.grouper}}</span></h2>
 	{% for work in author.list %}
 
-	{% if editionnum|length %}
-	{% set edition = work.editions[editionnum] %}
-	{% include "_work_first_edition.html" %}
-	{% else %}
 	{% set edition = work.editions[0] %}
 	{% include "_work_first_edition.html" %}
-	{% for edition in work.editions %}
-	{% if edition.editionnum > 1 or edition.version|int > 1 %}
+	{% for edition in work.editions[1:] %}
 	{% include "_otheredition.html" %}
-	{% endif %}
-	{% endfor %}
-	{% endif %}
 	{% endfor %}
 	{% endfor %}
-
+	{% endfor %}
 	{% endblock %}
 
 	{% block scripts %}
