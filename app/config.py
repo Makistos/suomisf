@@ -1,8 +1,8 @@
 import os
-#from dotenv import load_dotenv
+from dotenv import load_dotenv
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-#load_dotenv(os.path.join(basedir, '.env'))
+load_dotenv(os.path.join(basedir, '.env'))
 
 
 class Config(object):
@@ -14,14 +14,16 @@ class Config(object):
     BOOKCOVER_DIR = '/static/images/books/'
     PERSONIMG_DIR = '/static/images/people/'
     MAGAZINECOVER_IMG = '/static/images/magazinse/'
+    ENV = os.environ.get('FLASK_ENV') or 'debug'
 
 
 class DevConfig(Config):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     DEBUG = True
     SQLALCHEMY_ECHO = True
+    #SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://root:batk9ch@localhost/suomisf"
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite://' + os.path.join(basedir, 'suomisf.db')
+        'sqlite:///' + os.path.join(basedir, 'suomisf.db')
     BOOKCOVER_SAVELOC = '/home/mep/src/suomisf/app/static/images/books/'
     PERSONIMG_SAVELOC = '/home/mep/src/suomisf/app/static/images/people/'
     MAGAZINECOVER_SAVELOC = '/home/mep/src/suomisf/app/static/images/magazines/'
