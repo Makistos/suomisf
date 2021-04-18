@@ -24,7 +24,7 @@ class LoginForm(FlaskForm):
 
 
 def validate_username(self, username):
-    engine = create_engine('sqlite:///suomisf.db')
+    engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
     Session = sessionmaker(bind=engine)
     session = Session()
     user = session.query(User).filter_by(name=username.data).first()

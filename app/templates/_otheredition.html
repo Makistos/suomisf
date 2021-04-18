@@ -22,7 +22,7 @@
 
         {% if edition.version|int > 1 %}
         {{ edition.version }}.laitos
-        {% if edition.editionnum|len == 0 %}
+        {% if edition.editionnum == None %}
         ?.painos:
         {% elif edition.editionnum > 1 %}
         {{ edition.editionnum }}.painos:
@@ -30,7 +30,7 @@
         :
         {% endif %}
         {% else %}
-        {% if edition.editionnum|len == 0 %}
+        {% if edition.editionnum == None %}
         ?.painos:
         {% elif edition.editionnum and edition.editionnum > 1%}
         {{ edition.editionnum }}.painos:

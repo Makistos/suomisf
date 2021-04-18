@@ -6,14 +6,16 @@ from flask import redirect, render_template, request, url_for, make_response
 from flask_login import current_user
 from app import app
 from app.forms import BookseriesForm, PubseriesForm
-from app.orm_decl import (Bookseries, BookseriesLink, Pubseries, PubseriesLink, Person, Part, Work, Edition, UserBookseries, UserPubseries)
+from app.orm_decl import (Bookseries, BookseriesLink, Pubseries, PubseriesLink,
+                          Person, Part, Work, Edition, UserBookseries, UserPubseries)
 from sqlalchemy import func
 
 from .route_helpers import *
 
+
 @app.route('/allbookseries')
 def allbookseries():
-    engine = create_engine('sqlite:///suomisf.db')
+    engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
     Session = sessionmaker(bind=engine)
     session = Session()
     series = session.query(Bookseries).order_by(Bookseries.name).all()

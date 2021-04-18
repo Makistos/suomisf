@@ -2,7 +2,7 @@
 from app.orm_decl import (AwardCategories, Work, Edition, Part, Person, Author, Translator,
                           Editor, Publisher, Pubseries, Bookseries, User, Genre,
                           Alias, WorkGenre, Award, BindingType, Format,
-                          Magazine, WorkType, AwardCategory, PublicationSize, Country)
+                          Magazine, WorkType, AwardCategory, PublicationSize, Country, StoryType)
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from importbib import publishers
@@ -1267,6 +1267,25 @@ def add_default_rows(session: Any) -> Any:
                                mm_width=size[1],
                                mm_height=size[2])
         s.add(item)
+    s.commit()
+
+    st = StoryType(name='Novelli')
+    s.add(st)
+    s.commit()
+    st = StoryType(name='Pitkä novelli')
+    s.add(st)
+    s.commit()
+    st = StoryType(name='Pienoisromaani')
+    s.add(st)
+    s.commit()
+    st = StoryType(name='Runo')
+    s.add(st)
+    s.commit()
+    st = StoryType(name='Raapale')
+    s.add(st)
+    s.commit()
+    st = StoryType(name='Artikkeli')
+    s.add(st)
     s.commit()
 
 

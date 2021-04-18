@@ -6,6 +6,7 @@ from app.orm_decl import (Language, Person, Author, Editor, Translator, Publishe
                           Edition, Part, Pubseries, Bookseries, User, UserBook, PublicationSize, Tag,
                           PersonTag, BindingType, Format, Genre, ShortStory, ArticleTag,
                           WorkGenre, Log)
+from app import app
 from typing import List, Dict, Any, Tuple
 from flask_login import current_user
 from flask import abort, Response
@@ -20,7 +21,7 @@ import json
 
 
 def new_session() -> Any:
-    engine = create_engine('sqlite:///suomisf.db', echo=True)
+    engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
     Session = sessionmaker(bind=engine)
     session = Session()
     return session
@@ -228,9 +229,7 @@ def editions_for_work(workid) -> List[Dict[str, Any]]:
         number.
     """
     retval: List[Dict[str, Any]] = []
-    engine = create_engine('sqlite:///suomisf.db')
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    session = new_session()
     editions = session.query(Edition)\
                       .filter(Edition.work_id == workid)\
                       .orderby(Edition.language, Edition.editionnum)\

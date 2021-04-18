@@ -253,40 +253,38 @@
                 </div>
             </div>
             <div class="accordion" id="workCard">
-                <div class="view-field">
-                    {% if work.stories|length %}
-                    <div class="card">
-                        <div class="card-header" id="headStories">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left collapsed" type="button"
-                                    data-toggle="collapse" data-target="#stories" aria-expanded="false"
-                                    aria-controls="stories">
-                                    Novellit
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="stories" class="collapse" aria-labelledby="headStories" data-parent="#workCard">
-                            <div class="card-body">
-                                {% if stories|length %}
-                                <ul class="list-group list-group-flush">
-                                    {% for story in stories %}
-                                    <li class="list-group-item">
-                                        {% if story.creator_str != work.creator_str %}
-                                        <b><span class="person-list">{{ story.creator_str }}</span></b>: {%
-                                        endif %}
-                                        <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
-                                        {% if story.orig_title != story.title %}({{ story.orig_title}}
-                                        {%- if story.pubyear %}, {{story.pubyear}}{% endif %}) {% elif
-                                        story.pubyear %} ({{ story.pubyear}}) {% endif %}
-                                    </li>
-                                    {% endfor %}
-                                </ul>
-                                {% endif %}
-                            </div>
+                {% if work.stories|length %}
+                <div class="card">
+                    <div class="card-header" id="headStories">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left collapsed" type="button"
+                                data-toggle="collapse" data-target="#stories" aria-expanded="false"
+                                aria-controls="stories">
+                                Novellit
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="stories" class="collapse" aria-labelledby="headStories" data-parent="#workCard">
+                        <div class="card-body">
+                            {% if stories|length %}
+                            <ul class="list-group list-group-flush">
+                                {% for story in stories %}
+                                <li class="list-group-item">
+                                    {% if story.creator_str != work.creator_str %}
+                                    <b><span class="person-list">{{ story.creator_str }}</span></b>: {%
+                                    endif %}
+                                    <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
+                                    {% if story.orig_title != story.title %}({{ story.orig_title}}
+                                    {%- if story.pubyear %}, {{story.pubyear}}{% endif %}) {% elif
+                                    story.pubyear %} ({{ story.pubyear}}) {% endif %}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
                         </div>
                     </div>
-                    {% endif %}
                 </div>
+                {% endif %}
                 <div class="card">
                     <div class="card-header" id="headEditions">
                         <h2 class="mb-0">

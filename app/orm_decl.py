@@ -618,6 +618,7 @@ class ShortStory(Base):
     orig_title = Column(String(700))
     language = Column(Integer, ForeignKey('language.id'))
     pubyear = Column(Integer, index=True)
+    story_type = Column(Integer, ForeignKey('storytype.id'))
     creator_str = Column(String(500), index=True)
     parts = relationship('Part', backref=backref(
         'part_assoc'), uselist=True, viewonly=True)
@@ -654,6 +655,12 @@ class StoryTag(Base):
                            nullable=False, primary_key=True)
     tag_id = Column(Integer, ForeignKey('tag.id'), nullable=False,
                     primary_key=True)
+
+
+class StoryType(Base):
+    __tablename__ = 'storytype'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(30))
 
 
 class Tag(Base):
