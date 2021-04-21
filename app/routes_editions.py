@@ -272,13 +272,20 @@ def edition(editionid: Any) -> Any:
         app.logger.debug('Errors: {}'.format(form.errors))
         print('Errors: {}'.format(form.errors))
 
+    if edition.version and edition.version > 1:
+        ed = f'{edition.version}.laitos'
+    else:
+        ed = f'{edition.editionnum}.painos'
+    title = f'SuomiSF - {edition.title}: {ed}'
+
     return render_template('edition.html', form=form,
                            edition=edition, authors=authors,
                            works=works,
                            translators=translators, editors=editors,
                            stories=stories, bindings=bindings,
                            dustcovers=dustcovers, coverimages=coverimages,
-                           other_editions=other_editions)
+                           other_editions=other_editions,
+                           title=title)
 
 # Translator
 
