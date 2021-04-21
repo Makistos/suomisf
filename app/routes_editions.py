@@ -227,9 +227,9 @@ def edition(editionid: Any) -> Any:
     bindings: List[str] = [''] * (binding_count[0] + 1)
     if edition.binding_id:
         bindings[edition.binding_id] = 'checked'
-    dustcovers: List[str] = [''] * 3
+    dustcovers: List[str] = [''] * 4
     dustcovers[edition.dustcover] = 'checked'
-    coverimages: List[str] = [''] * 3
+    coverimages: List[str] = [''] * 4
     coverimages[edition.coverimage] = 'checked'
 
     form = EditionForm(request.form)

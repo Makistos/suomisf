@@ -5,50 +5,79 @@
     {{ form.hidden_tag() }}
     {% endif %}
     <div class="container">
-        <div class="card-body">
-            <div class="row">
-                <div class="col">
-                    {% if current_user.is_admin %}
-                    <h1 class="card-title edit-field">
-                        <input type="text" class="form-control form-item" id="title" name="title"
-                            value="{{edition.title}}" form="itemForm">
-                    </h1>
+        {% if current_user.is_admin %}
+        <h1 class="edition edit-field">
+            <input type="text" class="form-control form-item" id="title" name="title" value="{{edition.title}}"
+                form="itemForm">
+        </h1>
+        {% endif %}
+        <h1 class="edition view-field">
+            {{edition.title}}
+        </h1>
+        <div class="d-flex justify-content-center">
+            {% if current_user.is_admin %}
+            <div class="edit-field">
+                <label for="subtitle">Alaotsikko</label>
+                <input type="text" class="form-control form-item" id="subtitle" name="subtitle"
+                    value="{{edition.subtitle if edition.subtitle is not none}}" form="itemForm">
+            </div>
+            {% endif %}
+            {% if edition.subtitle %}
+            <div class="view-field">
+                {{subtitle}}
+            </div>
+            {% endif %}
+        </div>
+        <!-- Publisher -->
+        <div class="row">
+            {% if current_user.is_admin %}
+            <div class="col-6 edit-field">
+                <label for="publisher">Julkaisija</label>
+                <select class="form-control" data-placeholder="Julkaisija" data-search="/select_publisher"
+                    data-save="/save_publisher_to_edition" data-init="/publisher_for_edition" data-name="publisher"
+                    id="publisher" name="publisher">
+                </select>
+            </div>
+            <div class="col-2 edit-field">
+                <label for="pubyear">Vuosi</label>
+                <input type="text" class="form-control form-item"
+                    value="{{edition.pubyear if edition.pubyear is not none}}" name="pubyear" id="pubyear">
+            </div>
+            <div class="col-2 edit-field">
+                <label for="editionnum">Painos</label>
+                <input type="text" class="form-control form-item"
+                    value="{{edition.editionnum if edition.editionnum is not none}}" name="editionnum" id="editionnum"
+                    style="width:50%;">
+            </div>
+            <div class="col-2 edit-field">
+                <label for="version">Laitos</label>
+                <input type="text" class="form-control form-item"
+                    value="{{edition.version if edition.version is not none}}" name="version" id="version"
+                    style="width:50%;">
+            </div>
+            {% endif %}
+            <div class="col view-field mb-4 justify-content-center">
+                <h5 style="text-align: center;">
+                    {% if edition.publisher %}
+                    <a href="{{url_for('publisher', pubid=edition.publisher.id)}}">
+                        {{ edition.publisher.name }}</a>
                     {% endif %}
-                    <h1 class="underline card-title view-field">
-                        {{ edition.title }}
-                    </h1>
-                </div>
+                    {% if edition.pubyear %}
+                    {{ edition.pubyear }}
+                    {%- endif -%}
+                    {% if edition.publisher or edition.pubyear -%}.{% endif %}
+                    {% if edition.version %}
+                    {{edition.version}}. laitos
+                    {% else %}
+                    {{edition.editionnum}}.p
+                    {% endif %}
+                </h5>
             </div>
-            <div class="row">
-                {% if current_user.is_admin %}
-                <div class="col edit-field">
-                    <label for="subtitle">Alaotsikko</label>
-                    <input type="text" class="form-control form-item" id="subtitle" name="subtitle"
-                        value="{{edition.subtitle if edition.subtitle is not none}}" form="itemForm">
-                </div>
-                {% endif %}
-                <div class="col view-field">
-                    {{subtitle}}
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col">
-                    <h3>
-                        {% if works|length > 1 or works[0].orig_title != edition.title %}
-                        {% for work in works %}
-                        <a href="{{url_for('work', workid=work.id)}}">{{work.orig_title}}</a>
-                        {% if work.pubyear %}
-                        ({{work.pubyear}})
-                        {% endif %}
-                        <br>
-                        {% endfor %}
-                        {% endif %}
-                    </h3>
-                </div>
-            </div>
+        </div>
+        <div class="card-body mt-3">
             <div class="row">
                 <!-- Image part-->
-                <div class="col-lg-4 col-sm-12">
+                <div class="col-lg-6 col-sm-12">
                     <div class="row">
                         <div class="col">
                             {% if edition.images|length %}
@@ -76,14 +105,28 @@
                 </div>
 
                 <!-- Info part -->
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                     <!-- Authors -->
-                    <h4>
+                    <h3>
                         <!-- No editing authors in edition -->
                         {% if editors|length == 0 %}
                         <span class="person-list">{{ authors|map(attribute='name')|join(' & ') }}</span>
                         {% endif %}
-                    </h4>
+                    </h3>
+                    <div class="row">
+                        <div class="col">
+                            <h6 class="">
+                                {% for work in works %}
+                                {% if works|length > 1 or works[0].orig_title != edition.title %}
+                                <a href="{{url_for('work', workid=work.id)}}">{{work.orig_title}}</a>
+                                {% endif %}
+                                {% if work.pubyear %}
+                                ({{work.pubyear}})
+                                {% endif %}
+                                {% endfor %}
+                            </h6>
+                        </div>
+                    </div>
                     <!-- Editors -->
                     <div class="row">
                         {% if current_user.is_admin %}
@@ -116,50 +159,6 @@
                             {% if translators|length %}
                             <span class="person-list">{{translators|map(attribute='alt_name')|join(' & ')}}</span>
                             (suom)
-                            {% endif %}
-                        </div>
-                    </div>
-                    <!-- Publisher -->
-                    <div class="row">
-                        {% if current_user.is_admin %}
-                        <div class="col-6 edit-field">
-                            <label for="publisher">Julkaisija</label>
-                            <select class="form-control" data-placeholder="Julkaisija" data-search="/select_publisher"
-                                data-save="/save_publisher_to_edition" data-init="/publisher_for_edition"
-                                data-name="publisher" id="publisher" name="publisher">
-                            </select>
-                        </div>
-                        <div class="col-2 edit-field">
-                            <label for="pubyear">Vuosi</label>
-                            <input type="text" class="form-control form-item"
-                                value="{{edition.pubyear if edition.pubyear is not none}}" name="pubyear" id="pubyear">
-                        </div>
-                        <div class="col-2 edit-field">
-                            <label for="editionnum">Painos</label>
-                            <input type="text" class="form-control form-item"
-                                value="{{edition.editionnum if edition.editionnum is not none}}" name="editionnum"
-                                id="editionnum" style="width:50%;">
-                        </div>
-                        <div class="col-2 edit-field">
-                            <label for="version">Laitos</label>
-                            <input type="text" class="form-control form-item"
-                                value="{{edition.version if edition.version is not none}}" name="version" id="version"
-                                style="width:50%;">
-                        </div>
-                        {% endif %}
-                        <div class="col view-field">
-                            {% if edition.publisher %}
-                            <a href="{{url_for('publisher', pubid=edition.publisher.id)}}">
-                                {{ edition.publisher.name }}</a>
-                            {% endif %}
-                            {% if edition.pubyear %}
-                            {{ edition.pubyear }}
-                            {%- endif -%}
-                            {% if edition.publisher or edition.pubyear -%}.{% endif %}
-                            {% if edition.version %}
-                            {{edition.version}}. laitos
-                            {% else %}
-                            {{edition.editionnum}}.p
                             {% endif %}
                         </div>
                     </div>
@@ -204,7 +203,7 @@
                             {% if edition.pages %}
                             {{ edition.pages}} sivua.
                             {% endif %}
-                            {% if edition.size and edition.size_id != 1 %}
+                            {% if edition.size_id and edition.size_id != 1 %}
                             {{edition.size.name}} ({{edition.size.mm_height}}mm x {{edition.size.mm_width}}mm).
                             {% endif %}
                         </div>
@@ -247,7 +246,7 @@
                             {% if edition.isbn %}
                             ISBN {{ edition.isbn}}
                             {%- endif -%}
-                            {% if edition.binding %}
+                            {% if edition.binding_id > 1 %}
                             {{ edition.binding.name }}
                             {%- endif -%}
                             {%- if edition.isbn or edition.binding -%}
@@ -287,21 +286,21 @@
                             <label>Ylivetokannet</label>
                             <div class="custom-control custom-radio">
                                 <input type="radio" name="dustcover" class="custon-control-input form-item"
-                                    id="dustcover_none" value="0" {{dustcovers[0]}}>
+                                    id="dustcover_none" value="1" {{dustcovers[1]}}>
                                 <label class="custom-contrl-label" for="dustcover_none">
                                     Ei tietoa
                                 </label>
                             </div>
                             <div class="custom-control custom-radio">
                                 <input type="radio" name="dustcover" class="custon-control-input form-item"
-                                    id="dustcover_no" value="1" {{dustcovers[1]}}>
+                                    id="dustcover_no" value="2" {{dustcovers[2]}}>
                                 <label class="custom-contrl-label" for="dustcover_no">
                                     Ei
                                 </label>
                             </div>
                             <div class="custom-control custom-radio">
                                 <input type="radio" name="dustcover" class="custon-control-input form-item"
-                                    id="dustcover_yes" value="2" {{dustcovers[2]}}>
+                                    id="dustcover_yes" value="3" {{dustcovers[3]}}>
                                 <label class="custom-contrl-label" for="dustcover_yes">
                                     Kyllä
                                 </label>
@@ -311,21 +310,21 @@
                             <label>Kuvakansi</label>
                             <div class="custom-control custom-radio">
                                 <input type="radio" name="coverimage" class="custon-control-input form-item"
-                                    id="coverimage_none" value="0" {{coverimages[0]}}>
+                                    id="coverimage_none" value="1" {{coverimages[1]}}>
                                 <label class="custom-contrl-label" for="coverimage_none">
                                     Ei tietoa
                                 </label>
                             </div>
                             <div class="custom-control custom-radio">
                                 <input type="radio" name="coverimage" class="custon-control-input form-item"
-                                    id="coverimage_no" value="1" {{coverimages[1]}}>
+                                    id="coverimage_no" value="2" {{coverimages[2]}}>
                                 <label class="custom-contrl-label" for="coverimage_no">
                                     Ei
                                 </label>
                             </div>
                             <div class="custom-control custom-radio">
                                 <input type="radio" name="coverimage" class="custon-control-input form-item"
-                                    id="coverimage_yes" value="2" {{coverimages[2]}}>
+                                    id="coverimage_yes" value="3" {{coverimages[3]}}>
                                 <label class="custom-contrl-label" for="coverimage_yes">
                                     Kyllä
                                 </label>
@@ -335,10 +334,10 @@
                     {% endif %}
                     <div class="row view-field">
                         <div class="col view-field">
-                            {% if edition.dustcover == 2 %}
+                            {% if edition.dustcover == 3 %}
                             Ylivetokannet.
                             {% endif %}
-                            {% if edition.coverimage == 2 %}
+                            {% if edition.coverimage == 3 %}
                             Kuvakannet.
                             {% endif %}
                         </div>

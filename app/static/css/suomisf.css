@@ -10,6 +10,7 @@ h4,
 h5,
 h6 {
   font-family: "Roboto Slab", serif !important;
+  font-weight: bold;
 }
 
 p {
@@ -38,6 +39,11 @@ h1.title {
   text-align: center;
 }
 
+h1.edition {
+  margin-top: 4rem;
+  text-align: center;
+  font-weight: bold;
+}
 a.invisible {
   opacity: 0;
 }
