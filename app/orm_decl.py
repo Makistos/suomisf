@@ -784,7 +784,8 @@ class Work(Base):
         'part', uselist=True), viewonly=True)
     bookseries = relationship("Bookseries", backref=backref('bookseries'),
                               uselist=False, viewonly=True)
-    editions = relationship('Edition', secondary='part', uselist=True,
+    editions = relationship('Edition', primaryjoin='and_(Part.work_id == Work.id, Part.edition_id == Edition.id, Part.shortstory_id == None)',
+                            secondary='part', uselist=True,
                             lazy='dynamic',
                             order_by='Edition.version, Edition.editionnum',
                             viewonly=True)
