@@ -66,7 +66,7 @@
                     {{ edition.pubyear }}
                     {%- endif -%}
                     {% if edition.publisher or edition.pubyear -%}.{% endif %}
-                    {% if edition.version %}
+                    {% if edition.version and edition.version > 1 %}
                     {{edition.version}}. laitos
                     {% else %}
                     {{edition.editionnum}}.p
@@ -123,6 +123,7 @@
                                 {% if work.pubyear %}
                                 ({{work.pubyear}})
                                 {% endif %}
+                                <br>
                                 {% endfor %}
                             </h6>
                         </div>
@@ -246,11 +247,15 @@
                             {% if edition.isbn %}
                             ISBN {{ edition.isbn}}
                             {%- endif -%}
+                            {% if edition.binding_id %}
                             {% if edition.binding_id > 1 %}
                             {{ edition.binding.name }}
+                            {% endif %}
                             {%- endif -%}
-                            {%- if edition.isbn or edition.binding -%}
+                            {%- if edition.isbn %}
+                            {% if edition.binding_id and edition.binding_id > 1 -%}
                             .
+                            {% endif %}
                             {% endif %}
                         </div>
                         {% if current_user.is_admin %}
@@ -357,6 +362,15 @@
                 </div>
             </div>
         </div>
+        <div>
+            {% if other_editions %}
+            <h2>Muut painokset</h2>
+            {% for edition in other_editions %}
+            {% include "_otheredition.html" %}
+            {% endfor %}
+            {% endif %}
+        </div>
+
         <div class="accordion" id="editionCard">
             {% if stories|length %}
             <div class="card">

@@ -197,9 +197,8 @@ def edition(editionid: Any) -> Any:
 
     other_editions = session.query(Edition)\
                             .join(Part)\
-                            .filter(Part.work_id in work_ids)\
+                            .filter(Part.work_id.in_(work_ids))\
                             .filter(Edition.id != edition.id)\
-                            .order_by(Edition.pubyear)\
                             .all()
     translators = session.query(Person)\
                          .join(Translator)\
@@ -228,9 +227,15 @@ def edition(editionid: Any) -> Any:
     if edition.binding_id:
         bindings[edition.binding_id] = 'checked'
     dustcovers: List[str] = [''] * 4
-    dustcovers[edition.dustcover] = 'checked'
+    if edition.dustcover:
+        dustcovers[edition.dustcover] = 'checked'
+    else:
+        dustcovers[1] = 'checked'
     coverimages: List[str] = [''] * 4
-    coverimages[edition.coverimage] = 'checked'
+    if edition.coverimage:
+        coverimages[edition.coverimage] = 'checked'
+    else:
+        coverimages[1] = 'checked'
 
     form = EditionForm(request.form)
 
@@ -272,7 +277,8 @@ def edition(editionid: Any) -> Any:
                            works=works,
                            translators=translators, editors=editors,
                            stories=stories, bindings=bindings,
-                           dustcovers=dustcovers, coverimages=coverimages)
+                           dustcovers=dustcovers, coverimages=coverimages,
+                           other_editions=other_editions)
 
 # Translator
 
