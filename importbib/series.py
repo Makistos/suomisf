@@ -363,6 +363,7 @@ bookseries = [
     ('Helppohintainen kirjasto', 'Helppohintainen kirjasto'),
     ('Herkules', 'Herkules'),
     ('Hermux Tantamoqin seikkailuja', 'Hermux Tantamoqin seikkailuja'),
+    ('Hirunda', 'Hirunda'),
     ('Hopea-sarja', 'Hopea-sarja'),
     ('Hukkuneiden laakso', 'Hukkuneiden laakso'),
     ('Hurjien tarinoiden talo', 'Hurjien tarinoiden talo'),
