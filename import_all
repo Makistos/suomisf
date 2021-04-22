@@ -3,8 +3,8 @@
 echo Importing bibliography
 python bib_import.py
 
-echo Importing multi-part books
-python bib_import.py --multipart
+#echo Importing multi-part books
+#python bib_import.py --multipart
 
 echo Importing short stories
 python import_stories.py
