@@ -1368,6 +1368,16 @@ def insert_showroom():
     s.add(person)
     s.commit()
 
+    work = s.query(Work).filter(Work.title == 'Purjehdus Bysanttiin').first()
+
+    work.description = '''<p>Robert Silverberg on yksi viime vuosikymmenien
+    tuotteliampia tieteisnovellisteja ja tähän kirjaan valitut kolme tarinaa
+    edustavat hänen viimeaikaisen tuotantonsa kärkeä.</p>
+
+    <p>Ensimmäinen novelli, Salainen seuralainen, on suora kunnianosoitus
+    Joseph Conradille. Tämä mystinen tarina avaruuslaivan kapteenin ja
+    salamatkustajan oudosta suhteesta voitti vuoden 1988 Locus-palkinnon vuoden
+    parhaana pienoisromaanina.</p>'''
 
 def add_multiparts():
     import csv
