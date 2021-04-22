@@ -229,7 +229,7 @@
                                     cols="40">{{work.description if work.description is not none}}</textarea>
                             </div>
                             <div class="col view-field">
-                                {{work.description if work.description is not none}}
+                                {{work.description|safe if work.description is not none}}
                             </div>
                         </div>
                     </div>
