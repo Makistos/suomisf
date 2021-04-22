@@ -186,10 +186,13 @@ def work(workid: Any) -> Any:
         app.logger.error('Errors: {}'.format(form.errors))
         print(f'Errors: {form.errors}')
 
+    title = f'SuomiSF - {work.creator_str}: {work.title}'
+
     return render_template('work.html', work=work,
                            form=form,
                            prev_book=prev_book, next_book=next_book,
-                           types=types)
+                           types=types,
+                           title=title)
 
 
 @app.route('/new_work', methods=['POST', 'GET'])
