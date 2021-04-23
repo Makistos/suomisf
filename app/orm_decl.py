@@ -1,7 +1,8 @@
 import os
 import sys
 import datetime
-from sqlalchemy import Column, ForeignKey, Integer, String, Boolean, Date, DateTime
+from sqlalchemy import (Column, ForeignKey, Integer,
+                        String, Boolean, Date, DateTime, Text)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy import create_engine
@@ -34,19 +35,12 @@ class Article(Base):
     __tablename__ = 'article'
     id = Column(Integer, primary_key=True)
     title = Column(String(200), nullable=False, index=True)
-    # If author exists in db, use ArticleAuthor instead.
-    # This is for cases where we don't want to add a row
-    # to Person table.
-    author = Column(String(200))
-    # If person exists in db, use ArticlePerson instead.
-    # This is for cases where we don't want to add a row
-    # to Person table.
     person = Column(String(200))
     creator_str = Column(String(500), index=True)
     tags = relationship('Tag', secondary='articletag',
                         uselist=True, viewonly=True)
     links = relationship('ArticleLink', uselist=True, viewonly=True)
-    excerpt = Column(String(2000))
+    excerpt = Column(Text())
     person_rel = relationship(
         'Person', secondary='articleperson', uselist=True, viewonly=True)
     author_rel = relationship(
@@ -119,7 +113,7 @@ class Award(Base):
     __tablename__ = 'award'
     id = Column(Integer, primary_key=True)
     name = Column(String(100), nullable=False)
-    description = Column(String(500))
+    description = Column(Text())
     categories = relationship(
         'AwardCategory', secondary='awardcategories', viewonly=True)
 
@@ -331,7 +325,7 @@ class Issue(Base):
     pages = Column(Integer)
     size_id = Column(Integer, ForeignKey('publicationsize.id'))
     link = Column(String(200))
-    notes = Column(String(200))
+    notes = Column(Text())
     title = Column(String(200))
     tags = relationship('Tag', secondary='issuetag',
                         uselist=True, viewonly=True)
@@ -391,7 +385,7 @@ class Magazine(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(200), nullable=False, index=True)
     publisher_id = Column(Integer, ForeignKey('publisher.id'))
-    description = Column(String(500))
+    description = Column(Text())
     link = Column(String(200))
     issn = Column(String(30))
     tags = relationship('Tag', secondary='magazinetag', uselist=True)
@@ -450,20 +444,16 @@ class Person(Base):
     name = Column(String(250), nullable=False, index=True, unique=True)
     alt_name = Column(String(250), index=True)
     fullname = Column(String(250))
-    other_names = Column(String(250))
+    other_names = Column(Text())
     first_name = Column(String(100))
     last_name = Column(String(150))
     image_src = Column(String(100))
     image_attr = Column(String(100))  # Source website name
     dob = Column(Integer)
     dod = Column(Integer)
-    bio = Column(String(1000))  # Biographgy
+    bio = Column(Text())  # Biographgy
     bio_src = Column(String(100))  # Source website name
     nationality_id = Column(Integer, ForeignKey('country.id'), index=True)
-    # birthtown = Column(String(50))
-    # birthcountry_id = Column(Integer, ForeignKey('country.id'))
-    # deathtown = Column(String(50))
-    # deathcountry_id = Column(Integer, ForeignKey('country.id'))
     imported_string = Column(String(500))
     real_names = relationship('Person',
                               primaryjoin=id == Alias.alias,
@@ -552,7 +542,7 @@ class Problem(Base):
     __tablename__ = 'problems'
     id = Column(Integer, primary_key=True)
     status = Column(String(20))
-    comment = Column(String(500))
+    comment = Column(Text())
     table_name = Column(String(50))
     table_id = Column(Integer)
 
@@ -570,7 +560,7 @@ class Publisher(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(500), nullable=False, unique=True, index=True)
     fullname = Column(String(500), nullable=False, unique=True)
-    description = Column(String(500))
+    description = Column(Text())
     image_src = Column(String(100))
     image_attr = Column(String(100))  # Source website name
     editions = relationship("Edition", backref=backref(
@@ -765,7 +755,7 @@ class Work(Base):
     bookseriesorder = Column(Integer)
     type = Column(Integer, ForeignKey('worktype.id'), index=True)
     misc = Column(String(500))
-    description = Column(String(500))
+    description = Column(Text())
     imported_string = Column(String(500))
     creator_str = Column(String(500), index=True)
     authors = relationship("Person",
