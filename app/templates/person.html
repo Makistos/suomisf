@@ -7,9 +7,52 @@
 
 </form>
 <div class="container">
-  <div class="card mb-3">
+  <div class="edit-field mt-3">
+    <label for="name">Kirjailijanimi</label>
+    <input type="text" class="form-control form-item" id="name" name="name" value="{{person.name}}" form="itemForm">
+    <label for="real_names">Oikeat henkilöt, jos alias</label>
+    <select class="person-selector form-control" multiple="multiple" data-placeholder="Oikeasti"
+      data-search="/select_person" data-save="/save_real_names_to_person" data-init="/real_names_for_person"
+      data-name="real_names" data-tags="true"></select>
+    <div>
+      <div class="row">
+        <div class="col-8">
+          <label for="nationality">Kansallisuus</label>
+          <select class="country-selector form-control" data-placeholder="Kansallisuus" data-search="/select_country"
+            data-save="/save_nationality_to_person" data-init="/nationality_for_person" data-name="nationality"
+            data-mininput="1" data-tags="true" name="nationality" id="nationality"></select>
+        </div>
+        <div class="col-2">
+          <label for="dob">Synt. vuosi</label>
+          <input type="text" class="form-control form-item" id="dob" name="dob"
+            value="{{person.dob if person.dob is not none}}" form="itemForm">
+        </div>
+        <div class="col-2">
+          <label for="dod">Kuolinvuosi</label>
+          <input type="text" class="form-control form-item" id="dod" name="dod"
+            value="{{person.dod if person.dod is not none}}" form="itemForm">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="view-field mb-3">
+    <h1 class="mt-4 mb-1" style="text-align: center;">{{person.name}}</h1>
+    {% if person.real_names %}
+    <h4 style="text-align: center;">(Oik.
+      <span class="person-list">{{ person.real_names|map(attribute="name")|join(' ja
+        ')}}</span>)
+    </h4>
+    {% endif %}
+    <!-- Nationality, dob, dod -->
+    <h4 style="text-align: center;">
+      {% if person.nationality %} {{ person.nationality.name }} {%- endif -%} {%-
+      if person.nationality and person.dob -%},{% endif %} {% if person.dob
+      %} {{ person.dob }}-{{ person.dod if person.dod }} {% endif %}
+    </h4>
+  </div>
+  <div class="mb-3 mt-4">
     <div class="row">
-      <div class="col-lg-4 col-sm-12">
+      <div class="col-lg-6 col-md-12">
         <div class="row mb-3 ml-1 mr-1 mt-2">
           <div clas="col">
             {% if person.image_src %}
@@ -45,18 +88,18 @@
         </div>
         {% endif %}
       </div>
-      <div class="col-lg-8 col-sm-12">
+      <div class="col-lg-6 col-sm-12">
         {% if current_user.is_admin %}
         <div class="edit-field">
           <div class="row">
             <div class="col">
-              <h1 class="card-title">
+              <!-- <h1 class="card-title">
                 <input type="text" class="form-control form-item" id="name" name="name" value="{{person.name}}"
                   form="itemForm">
-              </h1>
+              </h1> -->
               <label for="alt_name">Vaihtoehtoinen kirjoitusasu nimelle</label>
               <input type="text" class="form-control form-item" id="alt_name" name="alt_name"
-                value="{{person.alt_name}}" form="itemForm">
+                value="{{person.alt_name if person.alt_name is not none}}" form="itemForm">
             </div>
           </div>
           <div class="row">
@@ -66,16 +109,23 @@
                 value="{{person.fullname if person.fullname is not none}}" form="itemForm">
             </div>
           </div>
+          <div class="row">
+            <div class="col">
+              <label for="other_names">Nimen muut kirjoitusasut</label>
+              <input type="text" class="form-control form-item" id="other_names" name="other_names"
+                value="{{person.other_names if person.other_names is not none}}" form="itemForm">
+            </div>
+          </div>
           <div class="edit-field">
-            <div class="row">
+            <!-- <div class="row">
               <div class="col">
                 <label for="real_names">Oikeat henkilöt, jos alias</label>
                 <select class="person-selector form-control" multiple="multiple" data-placeholder="Oikeasti"
                   data-search="/select_person" data-save="/save_real_names_to_person" data-init="/real_names_for_person"
                   data-name="real_names" data-tags="true"></select>
               </div>
-            </div>
-            <div class="row">
+            </div> -->
+            <!-- <div class="row">
               <div class="col-8">
                 <label for="nationality">Kansallisuus</label>
                 <select class="country-selector form-control" data-placeholder="Kansallisuus"
@@ -93,27 +143,26 @@
                 <input type="text" class="form-control form-item" id="dod" name="dod"
                   value="{{person.dod if person.dod is not none}}" form="itemForm">
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
         {% endif %}
         <div class="view-field">
           <div class="row">
             <div class="col text-center">
-              <h1 class="card-title underline">
-                <!-- Name -->
+              <!-- <h1 class="card-title underline">
                 {% if person.first_name %} {{ person.first_name }} {{
                 person.last_name }} {% else %} {{ person.name }} {% endif %}
-              </h1>
+              </h1> -->
               <!-- If alias, real name -->
-              {% if person.real_names %}
+              <!-- {% if person.real_names %}
               Oik.
               <span class="person-list">{{ person.real_names|map(attribute="name")|join(' ja ')}}</span>
-              {% endif %}
+              {% endif %} -->
               <!-- Nationality, dob, dod -->
-              {% if person.nationality %} {{ person.nationality.name }} {%- endif -%} {%-
+              <!-- {% if person.nationality %} {{ person.nationality.name }} {%- endif -%} {%-
               if person.nationality and person.dob -%},{% endif %} {% if person.dob
-              %} {{ person.dob }}-{{ person.dod if person.dod }} {% endif %}
+              %} {{ person.dob }}-{{ person.dod if person.dod }} {% endif %} -->
             </div>
           </div>
         </div>
@@ -332,7 +381,8 @@
           </div>
         </div>
       </div>
-      {% endif %} {% if series %}
+      {% endif %}
+      {% if series %}
       <div class="card">
         <div class="card-header" id="headSeries">
           <h2 class="mb-0">
