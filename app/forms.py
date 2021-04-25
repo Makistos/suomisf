@@ -120,8 +120,8 @@ class ArticleForm(FlaskForm):
 
 class BookseriesForm(FlaskForm):
     id = HiddenField('id')
-    name = StringField('Koko nimi')
     name = StringField('Nimi')
+    orig_name = StringField('Alkukielinen nimi')
     important = BooleanField('Merkittävä')
     submit = SubmitField('Tallenna')
 

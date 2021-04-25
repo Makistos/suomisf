@@ -7,10 +7,11 @@ from flask_login import current_user
 from app import app
 from app.forms import BookseriesForm, PubseriesForm
 from app.orm_decl import (Bookseries, BookseriesLink, Pubseries, PubseriesLink,
-                          Person, Part, Work, Edition, UserBookseries, UserPubseries)
+                          Person, Part, Work, Edition, UserBookseries, UserPubseries, Author)
 from sqlalchemy import func
 
 from .route_helpers import *
+from typing import Any
 
 
 @app.route('/allbookseries')
@@ -45,11 +46,13 @@ def bookseries(seriesid):
 
 
 @app.route('/new_bookseries', methods=['POST', 'GET'])
-def new_bookseries():
+def new_bookseries() -> Any:
     session = new_session()
-    form = BookseriesForm()
+    form = BookseriesForm(request.form)
+
     if form.validate_on_submit():
         bookseries = Bookseries(name=form.name.data,
+                                orig_name=form.orig_name.data,
                                 important=form.important.data)
         session.add(bookseries)
         session.commit()
@@ -61,9 +64,7 @@ def new_bookseries():
 
 @app.route('/allpubseries')
 def allpubseries():
-    engine = create_engine('sqlite:///suomisf.db')
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    session = new_session()
     series = session.query(Pubseries).order_by(Pubseries.name).all()
     app.logger.debug(session.query(Pubseries).order_by(Pubseries.name))
     return render_template('allpubseries.html', series=series)
