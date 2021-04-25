@@ -125,11 +125,13 @@ def person(personid: Any) -> Any:
         person.image_attr = form.image_attr.data
         person.dob = form.dob.data
         person.dod = form.dod.data
-        person.bio = form.bio.data
+        person.bio = form.bio.data.strip()
         person.bio_src = form.bio_src.data
         session.add(person)
         session.commit()
         log_change(session, 'Henkilö', person.id)
+        # Reload data so changes are updated to view
+        person = session.query(Person).filter(Person.id == person.id).first()
     else:
         app.logger.error('Errors: {}'.format(form.errors))
         print(f'Errors: {form.errors}')

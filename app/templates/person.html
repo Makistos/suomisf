@@ -93,10 +93,6 @@
         <div class="edit-field">
           <div class="row">
             <div class="col">
-              <!-- <h1 class="card-title">
-                <input type="text" class="form-control form-item" id="name" name="name" value="{{person.name}}"
-                  form="itemForm">
-              </h1> -->
               <label for="alt_name">Vaihtoehtoinen kirjoitusasu nimelle</label>
               <input type="text" class="form-control form-item" id="alt_name" name="alt_name"
                 value="{{person.alt_name if person.alt_name is not none}}" form="itemForm">
@@ -116,56 +112,8 @@
                 value="{{person.other_names if person.other_names is not none}}" form="itemForm">
             </div>
           </div>
-          <div class="edit-field">
-            <!-- <div class="row">
-              <div class="col">
-                <label for="real_names">Oikeat henkilöt, jos alias</label>
-                <select class="person-selector form-control" multiple="multiple" data-placeholder="Oikeasti"
-                  data-search="/select_person" data-save="/save_real_names_to_person" data-init="/real_names_for_person"
-                  data-name="real_names" data-tags="true"></select>
-              </div>
-            </div> -->
-            <!-- <div class="row">
-              <div class="col-8">
-                <label for="nationality">Kansallisuus</label>
-                <select class="country-selector form-control" data-placeholder="Kansallisuus"
-                  data-search="/select_country" data-save="/save_nationality_to_person"
-                  data-init="/nationality_for_person" data-name="nationality" data-mininput="1" data-tags="true"
-                  name="nationality" id="nationality"></select>
-              </div>
-              <div class="col-2">
-                <label for="dob">Synt. vuosi</label>
-                <input type="text" class="form-control form-item" id="dob" name="dob"
-                  value="{{person.dob if person.dob is not none}}" form="itemForm">
-              </div>
-              <div class="col-2">
-                <label for="dod">Kuolinvuosi</label>
-                <input type="text" class="form-control form-item" id="dod" name="dod"
-                  value="{{person.dod if person.dod is not none}}" form="itemForm">
-              </div>
-            </div> -->
-          </div>
         </div>
         {% endif %}
-        <div class="view-field">
-          <div class="row">
-            <div class="col text-center">
-              <!-- <h1 class="card-title underline">
-                {% if person.first_name %} {{ person.first_name }} {{
-                person.last_name }} {% else %} {{ person.name }} {% endif %}
-              </h1> -->
-              <!-- If alias, real name -->
-              <!-- {% if person.real_names %}
-              Oik.
-              <span class="person-list">{{ person.real_names|map(attribute="name")|join(' ja ')}}</span>
-              {% endif %} -->
-              <!-- Nationality, dob, dod -->
-              <!-- {% if person.nationality %} {{ person.nationality.name }} {%- endif -%} {%-
-              if person.nationality and person.dob -%},{% endif %} {% if person.dob
-              %} {{ person.dob }}-{{ person.dod if person.dod }} {% endif %} -->
-            </div>
-          </div>
-        </div>
         <!-- Genre -->
         <div class="row">
           <div class="col text-center view-field">
@@ -247,26 +195,27 @@
             </div>
           </div>
         </div>
+        <div class="row">
+          {% if current_user.is_admin %}
+          <div class="col edit-field m-2">
+            <label for="bio">Biografia</label>
+            <textarea class="form-control form-item mb-3" id="bio" name="bio" rows="5" cols="40"
+              form="itemForm">{{person.bio if person.bio is not none}}</textarea>
+          </div>
+          {% endif %}
+          {% if person.bio %}
+          <div class="col view-field">
+            <figure>
+              <blockquote class="blockquote" style="padding: 1rem">
+                {{person.bio}}
+              </blockquote>
+              <figcaption>{{person.bio_src}}</figcaption>
+            </figure>
+          </div>
+          {% endif %}
+        </div>
+
       </div>
-    </div>
-    <div class="row">
-      {% if current_user.is_admin %}
-      <div class="col edit-field m-2">
-        <label for="bio">Biografia</label>
-        <textarea class="form-control form-item mb-3" id="bio" name="bio" rows="5" cols="40"
-          value="{{person.bio if person.bio is not none}}"></textarea>
-      </div>
-      {% endif %}
-      {% if person.bio %}
-      <div class="col view-field">
-        <figure>
-          <blockquote class="blockquote" style="padding: 1rem">
-            {{person.bio}}
-          </blockquote>
-          <figcaption>{{person.bio_src}}</figcaption>
-        </figure>
-      </div>
-      {% endif %}
     </div>
     {% if current_user.is_admin %}
     <div class="row edit-field mb-1">
