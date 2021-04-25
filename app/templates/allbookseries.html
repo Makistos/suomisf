@@ -2,6 +2,11 @@
 {% block content %}
 <div class="container">
 	<h1 class="title">Kirjasarjat</h1>
+	{% if current_user.is_admin %}
+	<p style="text-align: center;"><a href="{{url_for('new_bookseries')}}">Uusi kirjasarja</a>
+	</p>
+	{% endif %}
+	<p></p>
 	<div class="three-column">
 		{% for s in series %}
 		<p><a href=" {{ url_for('bookseries', seriesid=s.id) }}">{{s.name}}</a></p>
