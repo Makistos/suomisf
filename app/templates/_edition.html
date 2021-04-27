@@ -1,63 +1,75 @@
 {% if current_user.get_id()|int() in edition.owners|map(attribute='id')|list() %}
-	{% set owned = 1 %}
+{% set owned = 1 %}
 {% else %}
-	{% set owned = 0 %}
+{% set owned = 0 %}
 {% endif %}
 
 {% if only_owned is defined and owned == 0 %}
-	{% set show = 0 %}
+{% set show = 0 %}
 {% else %}
-	{% set show = 1 %}
+{% set show = 1 %}
 {% endif %}
 
 {% if show == 1 %}
-	{% if owned == 1 and print is not defined %}
-		<span style="border-left: 6px solid grey; padding-left: 19px">
+{% if owned == 1 and print is not defined %}
+<span style="border-left: 6px solid grey; padding-left: 19px">
 	{% else %}
-		<span style="padding-left: 25px; ">
-	{% endif %}
-{% if print != 1 %}
-{% if owned == 1 %}
-	<a id="{{edition.id}}" href="#remove" class="ownerstate"> - </a>
-{% else %}
-	<a id="{{edition.id}}" href="#add" class="ownerstate"> + </a>
-{% endif %}
-{% endif %}
+	<span style="padding-left: 25px; ">
+		{% endif %}
+		{% if print != 1 %}
+		{% if owned == 1 %}
+		<a id="{{edition.id}}" href="#remove" class="ownerstate"> - </a>
+		{% else %}
+		<a id="{{edition.id}}" href="#add" class="ownerstate"> + </a>
+		{% endif %}
+		{% endif %}
 
-{% if not skip_pubseriesnum %}
-{% if edition.pubseriesnum %}
-{{ edition.pubseriesnum }}.
-{% endif %}
-{% endif %}
-<b>{{ edition.work[0].creator_str }}</b>: 
+		{% if not skip_pubseriesnum %}
+		{% if edition.pubseriesnum %}
+		{{ edition.pubseriesnum }}.
+		{% endif %}
+		{% endif %}
+		<b>{{ edition.work[0].creator_str }}</b>:
 
-{% if print == 1 %}
-	<b>{{ edition.title }}</b>.
-{% else %}
-	<a href="{{url_for("edition", editionid=edition.id) }}">{{ edition.title }}</a>.
-{% endif %}
+		{% if print == 1 %}
+		<b>{{ edition.title }}</b>.
+		{% else %}
+		<a href="{{url_for('edition', editionid=edition.id) }}">{{ edition.title }}</a>.
+		{% endif %}
 
-{% if edition.work.bookseries %}
-	{{ edition.work.bookseries.name}} {{edition.work.bookseriesnum}}.
-{% endif %}
-{#
-{% if edition.work.title != edition.title %}
-	{%- if edition.work.title|length -%}
+		{% if edition.work.bookseries %}
+		{{ edition.work.bookseries.name}} {{edition.work.bookseriesnum}}.
+		{% endif %}
+		{#
+		{% if edition.work.title != edition.title %}
+		{%- if edition.work.title|length -%}
 		({{ edition.work.title }}
-	{%- endif -%}
-	{%- if edition.work.pubyear|int -%}
+		{%- endif -%}
+		{%- if edition.work.pubyear|int -%}
 		, {{ edition.work.pubyear }}
-	{% endif %}
-	{%- if edition.work.title|length -%}
-            ).
-	{% endif %}
-{% endif %}
-#}
-{{ edition.editionnum }}. painos.
-{{edition.publisher.name}} {{ edition.pubyear }}. 
-    {% for genre in edition.work[0].genres %}
-    <img src="/static/icons/{{genre.abbr}}_16.png" title="{{genre.name}}">
-    {% endfor %}
+		{% endif %}
+		{%- if edition.work.title|length -%}
+		).
+		{% endif %}
+		{% endif %}
+		#}
+		{% if edition.version is not none %}
+		{% if edition.version > 1 %}
+		{{ edition.version }}. laitos.
+		{% endif %}
+		{% endif %}
+		{% if edition.editionnum is not none %}
+		{% if edition.editionnum > 1 %}
+		{{ edition.editionnum }}. painos.
+		{% endif %}
+		{% endif %}
+		{% if not skip_publisher %}
+		{{edition.publisher.name}}
+		{% endif %}
+		{{ edition.pubyear }}.
+		{% for genre in edition.work[0].genres %}
+		<img src="/static/icons/{{genre.abbr}}_16.png" title="{{genre.name}}">
+		{% endfor %}
 
-</span><br>
-{% endif %}
+	</span><br>
+	{% endif %}

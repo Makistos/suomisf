@@ -243,7 +243,9 @@ class Edition(Base):
     cover_artists = relationship(
         'Person', secondary='coverartist', viewonly=True)
     work = relationship('Work', secondary='part', uselist=True, viewonly=True)
-    publisher = relationship("Publisher", backref=backref('publisher_lookup',
+
+    # publisher = relationship("Publisher", backref=backref('publisher_lookup',
+    publisher = relationship("Publisher", backref=backref('edition_assoc4',
                                                           uselist=False), viewonly=True)
     pubseries = relationship("Pubseries", backref=backref('pubseries',
                                                           uselist=False), viewonly=True)

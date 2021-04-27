@@ -234,13 +234,6 @@ def find_commons(s: str, book: Dict) -> str:
     (book['pubseries'], pubseriesnum, s) = \
         find_series(s, book['collection'], pubseries, pubseries_re)
 
-    book['pubseriesnum'] = seriesnum_to_int(pubseriesnum)
-    (book['publisher'], s) = find_publisher(s)
-
-    if book['pubseries'] != '':
-        if book['pubseries'] not in pubseries_publisher and book['publisher'] != '':
-            pubseries_publisher[book['pubseries']] = book['publisher']
-
     (book['bookseries'], book['bookseriesnum'], s) = \
         find_series(s, book['collection'], bookseries, bookseries_re)
 
@@ -254,6 +247,13 @@ def find_commons(s: str, book: Dict) -> str:
 
     # Find editors
     (book['editor'], s) = find_editors(s)
+
+    book['pubseriesnum'] = seriesnum_to_int(pubseriesnum)
+    (book['publisher'], s) = find_publisher(s)
+
+    if book['pubseries'] != '':
+        if book['pubseries'] not in pubseries_publisher and book['publisher'] != '':
+            pubseries_publisher[book['pubseries']] = book['publisher']
 
     # Find artists
     # (book['artist'], s) = find_artist(s)

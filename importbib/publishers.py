@@ -465,5 +465,6 @@ publishers = [
     ('Kustannusosakeyhtiö Kirja', 'Kirja', 'Valtion kustannusliike Oy Kirja'),
     ('Valtion kustannusliike( [K]kirja)?',
      'Kirja', 'Valtion kustannusliike Oy Kirja'),
+    ('Kirja', 'Kirja', 'Valtion kustannusliike Oy Kirja'),
     ('[Nn]tamo', 'ntamo', 'ntamo')
 ]
