@@ -19,239 +19,209 @@
                     <span class="person-list">{{ work.creator_str }}</span>
                 </h4>
             </div>
-            <div class="mb-3">
-                <div class="row align-items-start">
-                    <div class="col">
-                        <!-- Title -->
-                        <div class="row">
-                            <div class="col">
-                                <h1 class="mb-0" style="text-align: center;">
-                                    {% if current_user.is_admin %}
-                                    <div class="edit-field">
-                                        <input type="text" class="form-control form-item" value="{{work.title}}"
-                                            form="itemForm" id="title" name="title">
-                                    </div>
-                                    {% endif %}
-                                    <div class="view-field">
-                                        <h1>{{work.title}}</h1>
-                                    </div>
-                                </h1>
-                            </div>
-                        </div>
-                        <!-- Subtitle -->
-                        <div class="row">
-                            <div class="col">
-                                {% if current_user.is_admin %}
-                                <div class="edit-field">
-                                    <label for="subtitle">Alaotsikko</label>
-                                    <input type="text" class="form-control form-item"
-                                        value="{{work.subtitle if work.subtitle is not none}}" form="itemForm"
-                                        id="subtitle" name="subtitle">
-                                </div>
-                                {% endif %}
-                                <div class="view-field">
-                                    {% if work.subtitle %}
-                                    {{work.subtitle}}
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Original name, year, language-->
-                        <div class="row">
-                            {% if current_user.is_admin %}
-                            <div class="col-lg-7 edit-field">
-                                <!-- Original title-->
-                                <label for="orig-title">Alkup. nimi</label>
-                                <input type="text" class="form-control form-item" id="orig_title" name="orig_title"
-                                    value="{{work.orig_title if work.orig_title is not none}}">
-                            </div>
-                            <!-- Pubyear -->
-                            <div class="col-lg-2 edit-field">
-                                <label for="pubyear">Vuosi</label>
-                                <input type="text" class="form-control form-item" id="pubyear" name="pubyear"
-                                    value="{{work.pubyear if work.pubyear is not none}}">
-                            </div>
-                            <!-- Language -->
-                            <div class="col-lg-3 edit-field">
-                                <label for="language">Kieli</label>
-                                <select class="language-selector form-control" data-placeholder="Alkup. kieli"
-                                    data-search="/select_language" data-save="/save_language_to_work"
-                                    data-init="/language_for_work" data-name="language" id="language" data-tags="true"
-                                    name="language"></select>
-                            </div>
-                            {% endif %}
-                            <div class="col view-field">
-                                <p style="text-align: center;">
-                                    <i>
-                                        {% if work.title != work.orig_title %} {{ work.orig_title }}
-                                        {%- if work.pubyear -%} , {% endif %}
-                                        {% endif %}
-                                        {%- if work.pubyear -%}
-                                        {{ work.pubyear }}
-                                        {% endif %}
-                                        {% if work.language %}
-                                        ({{work.language_name.name}})
-                                        {% endif %}
-                                    </i>
-                                </p>
-                            </div>
-                        </div>
-                        <!-- Genre -->
-                        <div class="col justify-content-center">
-                            <div class="row">
-                                <div class="col edit-field mx-auto">
-                                    {% if current_user.is_admin %}
-                                    <select class="genre-selector form-control" multiple="multiple"
-                                        data-placeholder="Genret" data-search="/select_genre"
-                                        data-save="/save_genres_to_work" data-init="/genres_for_work" data-name="genres"
-                                        id="genres" data-mininput="1"></select>
-                                    {% endif %}
-                                </div>
-                                <div class="col view-field mx-auto justify-content-center">
-                                    {% for genre in work.genres %}
-                                    <li class="list-inline-item" style="padding-bottom: 1rem">
-                                        <img src="/static/icons/{{genre.abbr}}_32.png" alt="{{genre.name}}" />
-                                    </li>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                            <!-- Tags -->
-                            <div class="row m-3">
-                                {% if current_user.is_admin %}
-                                <div class="col-lg-12 edit-field">
-                                    <select class="tag-selector form-control" multiple="multiple"
-                                        data-placeholder="Asiasanat" data-search="/select_tags"
-                                        data-save="/save_tags_to_work" data-init="/tags_for_work" data-name="tags"
-                                        id="tags" data-tags="true" name="tags"></select>
-                                </div>
-                                {% endif %}
-                                <div class="col view-field">
-                                    {% for tag in work.tags %}
-                                    <a href="{{url_for('tag', tagid=tag.id)}}">{{tag.name}}</a>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-2 mt-2">
-                            {% if current_user.is_admin %}
-                            <div class="col-lg-12">
-                                <div class="edit-field">
-                                    <div class="field form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="type" id="type" value="1"
-                                            {{types[1]}}>
-                                        <label class="form-check-label" for="type">Romaani</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="type" id="type" value="2"
-                                            {{types[2]}}>
-                                        <label class="form-check-label" for="type">Kokoelma</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="type" id="type" value="3"
-                                            {{types[3]}}>
-                                        <label class="form-check-label" for="type">Sarjakuva</label>
-                                    </div>
-                                </div>
-                                {% endif %}
-                                <div class="view-field">
-                                    {% if work.type %}
-                                    {{work.type.name}}
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Series, number, order -->
-                        <div class="row">
-                            {% if current_user.is_admin %}
-                            <div class="col-lg-8 edit-field">
-                                <label for="bookseries">Kirjasarja</label>
-                                <select class="bookseries-selector form-control" data-placeholder="Kirjasarja"
-                                    data-search="/select_bookseries" data-save="/save_bookseries_to_work"
-                                    data-init="/bookseries_for_work" data-name="bookseries" id="bookseries"
-                                    name="bookseries"></select>
-                            </div>
-                            <div class="col-lg-2 edit-field">
-                                <label for="bookseriesnum">Numero</label>
-                                <input type="text" class="form-control form-item" id="bookseriesnum"
-                                    name="bookseriesnum"
-                                    value="{{work.bookseriesnum if work.bookseriesnum is not none}}">
-                            </div>
-                            <div class="col-lg-2 edit-field">
-                                <label for="bookseriesorder">Järjestysnro</label>
-                                <input type="text" class="form-control form-item" id="bookseriesorder"
-                                    name="bookseriesorder"
-                                    value="{{work.bookseriesorder if work.bookseriesorder is not none and work.bookseriesorder != 0}}">
-                            </div>
-                            {% endif %}
-                            <div class="col view-field">
-                                <a href=" {{ url_for('bookseries',
-                                          seriesid=work.bookseries.id) }} ">
-                                    {{ work.bookseries.name }}</a>
-                                {%- if work.bookseriesnum %}
-                                {% if work.bookseriesnum|length -%}, numero {{ work.bookseriesnum }}
-                                {% if prev_book %}
-                                <a href="{{url_for('work',
-                                        workid=prev_book.id)}}">
-                                    <img src="/static/icons/Arrows-Left-icon.png" alt="Edellinen" /></a>
-
-                                {% endif %}
-                                {% if next_book %}
-                                <a href="{{url_for('work',
-                                                           workid=next_book.id)}}">
-                                    <img src="/static/icons/Arrows-Right-icon.png" alt="Seuraava" /></a>
-                                {% endif %}
-                                {% endif %}
-                                {% endif %}
-                            </div>
-                        </div>
-                        <!-- Misc -->
-                        <div class="row">
-                            {% if current_user.is_admin %}
-                            <div class="col-lg-12 align-self-start edit-field">
-                                <label for="misc">
-                                    Muuta
-                                </label>
-                                <input type="text" class="form-control form-item" id="misc" name="misc"
-                                    value="{{work.misc if work.misc is not none}}">
-                            </div>
-                            {% endif %}
-                            <div class="col-lg-12 align-self-start view-field">
-                                {% if work.misc %}
-                                {{work.misc}}
-                                {% endif %}
-                            </div>
-                        </div>
-                        <!-- Description -->
-                        <div class="row">
-                            <div class="col edit-field">
-                                <label for="description">Kuvaus</label>
-                                <textarea class="form-control form-item" id="description" name="description" rows="5"
-                                    cols="40">{{work.description if work.description is not none}}</textarea>
-                            </div>
-                            <div class="col view-field">
-                                {{work.description|safe if work.description is not none}}
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Genre and tags -->
-                </div>
-
-                <!-- Short stories -->
+            <!-- Title -->
+            <h1 class="mb-0" style="text-align: center;">
                 {% if current_user.is_admin %}
-                <div class="row">
-                    <div class="col-lg-12 edit-field">
-                        <label for="stories">Novellit</label>
-                        <select class="story-selector form-control" multiple="multiple" data-placeholder="Novellit"
-                            data-search="/select_story" data-save="/save_stories_to_work" data-init="/stories_for_work"
-                            data-name="stories" id="stories" data-tags="true" name="stories"
-                            data-separators="|"></select>
-                    </div>
+                <div class="edit-field">
+                    <input type="text" class="form-control form-item" value="{{work.title}}" form="itemForm" id="title"
+                        name="title">
                 </div>
                 {% endif %}
-                <div class="row">
-                    <div class="col edit-field">
-                        <a href="{{url_for('add_edition_to_route', workid=work.id)}}">Lisää painos</a>
+                <div class="view-field">
+                    <h1>{{work.title}}</h1>
+                </div>
+            </h1>
+            <!-- Subtitle -->
+            {% if current_user.is_admin %}
+            <div class="edit-field">
+                <label for="subtitle">Alaotsikko</label>
+                <input type="text" class="form-control form-item" value="{{work.subtitle if work.subtitle is not none}}"
+                    form="itemForm" id="subtitle" name="subtitle">
+            </div>
+            {% endif %}
+            <div class="view-field">
+                {% if work.subtitle %}
+                {{work.subtitle}}
+                {% endif %}
+            </div>
+            <!-- Original name, year, language-->
+            <div class="container">
+                {% if current_user.is_admin %}
+                <div class="col-lg-7 edit-field">
+                    <!-- Original title-->
+                    <label for="orig-title">Alkup. nimi</label>
+                    <input type="text" class="form-control form-item" id="orig_title" name="orig_title"
+                        value="{{work.orig_title if work.orig_title is not none}}">
+                </div>
+                <!-- Pubyear -->
+                <div class="col-lg-2 edit-field">
+                    <label for="pubyear">Vuosi</label>
+                    <input type="text" class="form-control form-item" id="pubyear" name="pubyear"
+                        value="{{work.pubyear if work.pubyear is not none}}">
+                </div>
+                <!-- Language -->
+                <div class="col-lg-3 edit-field">
+                    <label for="language">Kieli</label>
+                    <select class="language-selector form-control" data-placeholder="Alkup. kieli"
+                        data-search="/select_language" data-save="/save_language_to_work" data-init="/language_for_work"
+                        data-name="language" id="language" data-tags="true" name="language"></select>
+                </div>
+                {% endif %}
+                <div class="view-field">
+                    <p style="text-align: center;">
+                        <i>
+                            {% if work.title != work.orig_title %} {{ work.orig_title }}
+                            {%- if work.pubyear -%} , {% endif %}
+                            {% endif %}
+                            {%- if work.pubyear -%}
+                            {{ work.pubyear }}
+                            {% endif %}
+                            {% if work.language %}
+                            ({{work.language_name.name}})
+                            {% endif %}
+                        </i>
+                    </p>
+                </div>
+            </div>
+            <!-- Genre -->
+            <div class="col edit-field mx-auto">
+                {% if current_user.is_admin %}
+                <select class="genre-selector form-control" multiple="multiple" data-placeholder="Genret"
+                    data-search="/select_genre" data-save="/save_genres_to_work" data-init="/genres_for_work"
+                    data-name="genres" id="genres" data-mininput="1"></select>
+                {% endif %}
+            </div>
+            <div class="col view-field mx-auto justify-content-center">
+                {% for genre in work.genres %}
+                <li class="list-inline-item" style="padding-bottom: 1rem">
+                    <img src="/static/icons/{{genre.abbr}}_32.png" alt="{{genre.name}}" />
+                </li>
+                {% endfor %}
+            </div>
+            <!-- Tags -->
+            <div class="row m-3">
+                {% if current_user.is_admin %}
+                <div class="col-lg-12 edit-field">
+                    <select class="tag-selector form-control" multiple="multiple" data-placeholder="Asiasanat"
+                        data-search="/select_tags" data-save="/save_tags_to_work" data-init="/tags_for_work"
+                        data-name="tags" id="tags" data-tags="true" name="tags"></select>
+                </div>
+                {% endif %}
+                <div class="col view-field">
+                    {% for tag in work.tags %}
+                    <a href="{{url_for('tag', tagid=tag.id)}}">{{tag.name}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row mb-2 mt-2">
+                {% if current_user.is_admin %}
+                <div class="col-lg-12">
+                    <div class="edit-field">
+                        <div class="field form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="type" id="type" value="1" {{types[1]}}>
+                            <label class="form-check-label" for="type">Romaani</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="type" id="type" value="2" {{types[2]}}>
+                            <label class="form-check-label" for="type">Kokoelma</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="type" id="type" value="3" {{types[3]}}>
+                            <label class="form-check-label" for="type">Sarjakuva</label>
+                        </div>
                     </div>
+                    {% endif %}
+                    <div class="view-field">
+                        {% if work.type %}
+                        {{work.type.name}}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <!-- Series, number, order -->
+            <div class="row">
+                {% if current_user.is_admin %}
+                <div class="col-lg-8 edit-field">
+                    <label for="bookseries">Kirjasarja</label>
+                    <select class="bookseries-selector form-control" data-placeholder="Kirjasarja"
+                        data-search="/select_bookseries" data-save="/save_bookseries_to_work"
+                        data-init="/bookseries_for_work" data-name="bookseries" id="bookseries"
+                        name="bookseries"></select>
+                </div>
+                <div class="col-lg-2 edit-field">
+                    <label for="bookseriesnum">Numero</label>
+                    <input type="text" class="form-control form-item" id="bookseriesnum" name="bookseriesnum"
+                        value="{{work.bookseriesnum if work.bookseriesnum is not none}}">
+                </div>
+                <div class="col-lg-2 edit-field">
+                    <label for="bookseriesorder">Järjestysnro</label>
+                    <input type="text" class="form-control form-item" id="bookseriesorder" name="bookseriesorder"
+                        value="{{work.bookseriesorder if work.bookseriesorder is not none and work.bookseriesorder != 0}}">
+                </div>
+                {% endif %}
+                <div class="col view-field">
+                    <a href=" {{ url_for('bookseries',
+                                          seriesid=work.bookseries.id) }} ">
+                        {{ work.bookseries.name }}</a>
+                    {%- if work.bookseriesnum %}
+                    {% if work.bookseriesnum|length -%}, numero {{ work.bookseriesnum }}
+                    {% if prev_book %}
+                    <a href="{{url_for('work',
+                                        workid=prev_book.id)}}">
+                        <img src="/static/icons/Arrows-Left-icon.png" alt="Edellinen" /></a>
+
+                    {% endif %}
+                    {% if next_book %}
+                    <a href="{{url_for('work',
+                                                           workid=next_book.id)}}">
+                        <img src="/static/icons/Arrows-Right-icon.png" alt="Seuraava" /></a>
+                    {% endif %}
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+            <!-- Misc -->
+            <div class="row">
+                {% if current_user.is_admin %}
+                <div class="col-lg-12 align-self-start edit-field">
+                    <label for="misc">
+                        Muuta
+                    </label>
+                    <input type="text" class="form-control form-item" id="misc" name="misc"
+                        value="{{work.misc if work.misc is not none}}">
+                </div>
+                {% endif %}
+                <div class="col-lg-12 align-self-start view-field">
+                    {% if work.misc %}
+                    {{work.misc}}
+                    {% endif %}
+                </div>
+            </div>
+            <!-- Description -->
+            <div class="row">
+                <div class="col edit-field">
+                    <label for="description">Kuvaus</label>
+                    <textarea class="form-control form-item" id="description" name="description" rows="5"
+                        cols="40">{{work.description if work.description is not none}}</textarea>
+                </div>
+                <div class="col view-field">
+                    {{work.description|safe if work.description is not none}}
+                </div>
+            </div>
+            <!-- Short stories -->
+            {% if current_user.is_admin %}
+            <div class="row">
+                <div class="col-lg-12 edit-field">
+                    <label for="stories">Novellit</label>
+                    <select class="story-selector form-control" multiple="multiple" data-placeholder="Novellit"
+                        data-search="/select_story" data-save="/save_stories_to_work" data-init="/stories_for_work"
+                        data-name="stories" id="stories" data-tags="true" name="stories" data-separators="|"></select>
+                </div>
+            </div>
+            {% endif %}
+            <div class="row">
+                <div class="col edit-field">
+                    <a href="{{url_for('add_edition_to_route', workid=work.id)}}">Lisää painos</a>
                 </div>
             </div>
             <div class="mb-3">
@@ -313,7 +283,6 @@
             <label for="edit_form">Muokkaa</label>
         </div>
         {% endif %}
-    </div>
     </div>
     {% if current_user.is_admin %}
 </form>
