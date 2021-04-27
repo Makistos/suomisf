@@ -62,7 +62,7 @@
                         <ul class="list-group list-group-flush">
                             {% set skip_pubseriesnum = 1 %}
                             {% set skip_publisher = 1 %}
-                            {% for edition in publisher.editions|sort(attribute='creator_str') %}
+                            {% for edition in publisher.editions|sort(attribute='pubyear') %}
                             <li class="list-group-item">
                                 {% include "_edition.html" %}
                             </li>
