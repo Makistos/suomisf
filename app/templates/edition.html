@@ -375,6 +375,7 @@
         </div>
         <div>
             {% if other_editions %}
+            {% set work = edition.work[0] %}
             <h2>Muut painokset</h2>
             {% for edition in other_editions %}
             {% include "_otheredition.html" %}

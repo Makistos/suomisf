@@ -48,6 +48,11 @@
         {% if edition.pubseries %}
         {{ edition.pubseries.name }}.
         {% endif %}
+        {% if edition.translators|length %}
+        {% if edition.translators != work.editions[0].translators %}
+        Suom {{ edition.translators|join(', ', attribute='alt_name') }}.
+        {% endif %}
+        {% endif %}
         {{edition.publisher.name}} {{ edition.pubyear }}.
     </span><br>
     {% endif %}

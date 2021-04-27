@@ -867,7 +867,10 @@ def import_books(session, authors):
 
             save_genres(session, workitem.id, work['type'])
 
+            curr_translators: List[str] = []
+
             for edition in book[1]:
+                this_translators = []
                 pubseries = None
                 if edition['pubseries'] != '':
                     pubseries = s.query(Pubseries)\
@@ -893,10 +896,16 @@ def import_books(session, authors):
                     publisherid = publisher.id
                 else:
                     publisherid = None
-                translators = import_persons(
+                    if edition['publisher'] != '':
+                        print(f'Publisher not found: {edition["publisher"]}')
+                this_translators = import_persons(
                     s, edition['translator'], edition['imported_string'])
                 editors = import_persons(
                     s, edition['editor'], edition['imported_string'])
+                if len(this_translators) == 0:
+                    this_translators = curr_translators
+                else:
+                    curr_translators = this_translators
 
                 # Create new edition to database.
                 if edition['edition']:
@@ -975,9 +984,8 @@ def import_books(session, authors):
                         add_bookperson(s, authoritem, ed, 'E')
                     else:
                         add_bookperson(s, authoritem, part, 'A')
-                if edition['translator'] != '':
-                    for translator in translators:
-                        add_bookperson(s, translator, part, 'T')
+                for tr in this_translators:
+                    add_bookperson(s, tr, part, 'T')
                 if edition['editor'] != '':
                     for editor in editors:
                         add_bookperson(s, editor, ed, 'E')
@@ -1378,6 +1386,7 @@ def insert_showroom():
     Joseph Conradille. Tämä mystinen tarina avaruuslaivan kapteenin ja
     salamatkustajan oudosta suhteesta voitti vuoden 1988 Locus-palkinnon vuoden
     parhaana pienoisromaanina.</p>'''
+
 
 def add_multiparts():
     import csv

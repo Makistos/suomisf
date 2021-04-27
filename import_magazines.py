@@ -298,10 +298,10 @@ def import_articles(s,
                 tag_list = tags.split(',')
                 tag_ids = get_tags(s, tag_list)
 
-                if len(author_names) > 0:
-                    author_str = ' & '.join(author_names)
-                else:
-                    author_str = None
+                author_str = None
+                if author_names is not None:
+                    if len(author_names) > 0:
+                        author_str = ' & '.join(author_names)
 
                 if len(author_ids) > 1:
                     creator_str = make_creators(s, author_ids)
@@ -309,7 +309,6 @@ def import_articles(s,
                     creator_str = author_field.strip()
 
                 art = Article(title=title.strip(),
-                              author=author_str,
                               creator_str=creator_str)
 
                 s.add(art)
@@ -321,9 +320,9 @@ def import_articles(s,
                 s.commit()
 
                 for author_id in author_ids:
-                    a_tag = ArticleAuthor(article_id=art.id,
-                                          person_id=author_id)
-                    s.add(a_tag)
+                    a_person = ArticleAuthor(article_id=art.id,
+                                             person_id=author_id)
+                    s.add(a_person)
                 s.commit()
 
                 for person_id in person_ids:
