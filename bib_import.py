@@ -2,7 +2,7 @@
 from app.orm_decl import (AwardCategories, Work, Edition, Part, Person, Author, Translator,
                           Editor, Publisher, Pubseries, Bookseries, User, Genre,
                           Alias, WorkGenre, Award, BindingType, Format,
-                          Magazine, WorkType, AwardCategory, PublicationSize, Country, StoryType)
+                          Magazine, WorkType, AwardCategory, PublicationSize, Country, StoryType, Tag, WorkTag)
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from importbib import publishers
@@ -1385,7 +1385,41 @@ def insert_showroom():
     <p>Ensimmäinen novelli, Salainen seuralainen, on suora kunnianosoitus
     Joseph Conradille. Tämä mystinen tarina avaruuslaivan kapteenin ja
     salamatkustajan oudosta suhteesta voitti vuoden 1988 Locus-palkinnon vuoden
-    parhaana pienoisromaanina.</p>'''
+    parhaana pienoisromaanina.</p>
+
+    <p>Toinen novelli, Tulkoon soturi, edustaa aivan uusinta uutta. Se on vakava tarina
+    tietokonesimulaatioiden äärimmäisistä mahdollisuuksista ja palkittiin Hugolla vuonna 1990.</p>
+
+    <p>Kirjan päättävä pienoisromaani Purjehdus Bysanttiin on Silverbergiä parhaimmillaan.
+    Siinä tiivistyvät monet hänen tuotantonsa pääteemoista, kuten kuolemattomuus, huoli
+    vanhenemisesta ja aistein havaittavan todellisuuden suhteellisuudesta. Purjehdus
+    Bysanttiin on kunnianhimoinen ja kaunis tarina, ja se palkittiin ansaitusti
+    Nebulalla vuonna 1986.'''
+
+    s.add(work)
+    s.commit()
+
+    tag = Tag(name='bysantti')
+    s.add(tag)
+    s.commit()
+    wt = WorkTag(work_id=work.id, tag_id=tag.id)
+    s.add(wt)
+    s.commit()
+
+    edition = s.query(Edition)\
+               .join(Part)\
+               .filter(Edition.id == Part.edition_id)\
+               .filter(Part.work_id == work.id)\
+               .first()
+
+    edition.isbn = '951-611-365-6'
+    edition.pages = 189
+    edition.binding_id = 2
+    edition.dustcover = 3
+    edition.coverimage = 3
+
+    s.add(edition)
+    s.commit()
 
 
 def add_multiparts():
