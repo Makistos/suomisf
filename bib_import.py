@@ -1415,7 +1415,7 @@ def insert_showroom():
     edition.isbn = '951-611-365-6'
     edition.pages = 189
     edition.binding_id = 2
-    edition.dustcover = 3
+    edition.dustcover = 2
     edition.coverimage = 3
 
     s.add(edition)
