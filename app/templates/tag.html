@@ -14,6 +14,7 @@
     {% if tag.works|length %}
     <h2>Teokset</h2>
     {% for work in tag.works %}
+    {% set edition = work.editions[0] %}
     {% include "_work_first_edition.html" %}
     {% endfor %}
     {%endif %}
@@ -29,8 +30,7 @@
     {% if tag.issues|length %}
     <h2>Lehden numerot</h2>
     {% for issue in tag.issues %}
-    <a href="{{ url_for("issue",
-                                         id=issue.id)}}">{{ issue.number }} /
+    <a href="{{ url_for(" issue", id=issue.id)}}">{{ issue.number }} /
         {{issue.year}}</a></b>
     {%- if issue.title -%}
     : {{ issue.title }}
@@ -45,7 +45,7 @@
     <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
     {% if story.orig_title != story.title %}({{ story.orig_title}}
     {%- if story.pubyear %}, {{story.pubyear}}{% endif %}) {% elif
-                story.pubyear %} ({{ story.pubyear}}) {% endif %}
+    story.pubyear %} ({{ story.pubyear}}) {% endif %}
     <br>
     {% endfor %}
     {%endif %}
@@ -59,7 +59,7 @@
     {% endif %}
     <a href="{{url_for('article',
 						 id=article.id)}}">{{
-                         article.title }}</a>
+        article.title }}</a>
     ({{article.issue.magazine.name}}
     {% if article.issue.number -%}
     {{ article.issue.number }} /
