@@ -8,7 +8,7 @@ from flask_login import login_required, current_user
 from app.orm_decl import (Person, Publisher, Edition,
                           Part, Translator, Editor, Pubseries,
                           Work, ShortStory, Translator, Author, BindingType,
-                          PublicationSize, EditionImage)
+                          PublicationSize, EditionImage, Bookseries)
 from app.forms import (EditionForm, EditionEditorForm, EditionTranslatorForm)
 from werkzeug.utils import secure_filename
 from .route_helpers import *
@@ -183,10 +183,11 @@ def edition(editionid: Any) -> Any:
     edition = session.query(Edition)\
                      .filter(Edition.id == editionid)\
                      .first()
-    works = session.query(Work)\
-                   .join(Part)\
-                   .filter(Part.edition_id == editionid).all()
-    work_ids = [x.id for x in works]
+
+    work = session.query(Work)\
+        .join(Part)\
+        .filter(Part.edition_id == editionid).first()
+
     authors = session.query(Person)\
                      .join(Author)\
                      .filter(Person.id == Author.person_id)\
@@ -197,30 +198,58 @@ def edition(editionid: Any) -> Any:
 
     other_editions = session.query(Edition)\
                             .join(Part)\
-                            .filter(Part.work_id.in_(work_ids))\
+                            .filter(Part.work_id == work.id)\
                             .filter(Edition.id != edition.id)\
                             .all()
+
     translators = session.query(Person)\
-                         .join(Translator)\
-                         .filter(Person.id == Translator.person_id)\
-                         .join(Part)\
-                         .filter(Part.id == Translator.part_id,
-                                 Part.edition_id == editionid)\
-                         .all()
+        .join(Translator)\
+        .filter(Person.id == Translator.person_id)\
+        .join(Part)\
+        .filter(Part.id == Translator.part_id,
+                Part.edition_id == editionid)\
+        .all()
     editors = session.query(Person)\
-                     .join(Editor)\
-                     .filter(Person.id == Editor.person_id)\
-                     .join(Edition)\
-                     .filter(Edition.id == Editor.edition_id)\
-                     .filter(Edition.id == editionid)\
-                     .all()
+        .join(Editor)\
+        .filter(Person.id == Editor.person_id)\
+        .join(Edition)\
+        .filter(Edition.id == Editor.edition_id)\
+        .filter(Edition.id == editionid)\
+        .all()
 
     stories = session.query(ShortStory)\
-                     .join(Part)\
-                     .filter(Part.shortstory_id == ShortStory.id)\
-                     .filter(Part.edition_id == editionid)\
-                     .group_by(Part.shortstory_id)\
-                     .all()
+        .join(Part)\
+        .filter(Part.shortstory_id == ShortStory.id)\
+        .filter(Part.edition_id == editionid)\
+        .group_by(Part.shortstory_id)\
+        .all()
+
+    bookseries = session.query(Bookseries)\
+        .join(Work)\
+        .filter(Bookseries.id == work.bookseries_id,
+                Work.id == work.id)\
+        .first()
+
+    prev_book = None
+    next_book = None
+    if bookseries:
+        books_in_series = session.query(Work)\
+                                 .filter(Work.bookseries_id == bookseries.id)\
+                                 .order_by(Work.bookseriesorder, Work.pubyear)\
+                                 .all()
+        for idx, book in enumerate(books_in_series):
+            if book.id == int(work.id):
+                if len(books_in_series) > 1:
+                    if idx == 0:
+                        # First in series
+                        next_book = books_in_series[1]
+                    elif idx == len(books_in_series) - 1:
+                        # Last in series
+                        prev_book = books_in_series[-2]
+                    else:
+                        prev_book = books_in_series[idx-1]
+                        next_book = books_in_series[idx+1]
+                    break
 
     binding_count = session.query(func.count(BindingType.id)).first()
     bindings: List[str] = [''] * (binding_count[0] + 1)
@@ -280,12 +309,13 @@ def edition(editionid: Any) -> Any:
 
     return render_template('edition.html', form=form,
                            edition=edition, authors=authors,
-                           works=works,
                            translators=translators, editors=editors,
                            stories=stories, bindings=bindings,
                            dustcovers=dustcovers, coverimages=coverimages,
                            other_editions=other_editions,
-                           title=title)
+                           title=title,
+                           prev_book=prev_book,
+                           next_book=next_book)
 
 # Translator
 

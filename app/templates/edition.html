@@ -79,6 +79,31 @@
                 <!-- Info part -->
 
                 <div class="col-lg-8 col-sm-12">
+                    <!-- Book series -->
+                    <div class="row">
+                        <div class="col">
+                            {% set work = edition.work[0] %}
+                            <a href=" {{ url_for('bookseries',
+                                          seriesid=work.bookseries.id) }} ">
+                                {{ work.bookseries.name }}</a>
+                            {%- if work.bookseriesnum %}
+                            {% if work.bookseriesnum|length -%}, numero {{ work.bookseriesnum }}
+                            {% if prev_book %}
+                            <a href="{{url_for('work',
+                                        workid=prev_book.id)}}">
+                                <img src="/static/icons/Arrows-Left-icon.png" alt="Edellinen" /></a>
+
+                            {% endif %}
+                            {% if next_book %}
+                            <a href="{{url_for('work',
+                                                           workid=next_book.id)}}">
+                                <img src="/static/icons/Arrows-Right-icon.png" alt="Seuraava" /></a>
+                            {% endif %}
+                            {% endif %}
+                            {% endif %}
+                        </div>
+
+                    </div>
                     <!-- Publisher -->
                     <div class="row">
                         {% if current_user.is_admin %}
