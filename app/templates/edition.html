@@ -12,6 +12,7 @@
             <span class="person-list">{{ authors|map(attribute='name')|join(' & ') }}</span>
             {% endif %}
         </h4>
+        <!-- Title -->
         {% if current_user.is_admin %}
         <h1 class="mt-0 edition edit-field">
             <input type="text" class="form-control form-item" id="title" name="title" value="{{edition.title}}"
@@ -21,6 +22,7 @@
         <h1 class="mt-0 edition view-field">
             {{edition.title}}
         </h1>
+        <!-- Subtitle -->
         {% if current_user.is_admin %}
         <div class="edit-field">
             <label for="subtitle">Alaotsikko</label>
@@ -33,17 +35,16 @@
             <i>{{subtitle}}</i>
         </div>
         {% endif %}
+        <!-- Work -->
         <div class="mb-5">
             <h6 style="text-align: center;">
-                {% for work in works %}
-                {% if works|length > 1 or works[0].orig_title != edition.title %}
+                {% set work = edition.work[0] %}
+                {% if work.orig_title != edition.title %}
                 <a href="{{url_for('work', workid=work.id)}}">{{work.orig_title}}</a>
                 {% endif %}
                 {% if work.pubyear %}
                 ({{work.pubyear}})
                 {% endif %}
-                <br>
-                {% endfor %}
             </h6>
         </div>
         <div class="mt-4">
