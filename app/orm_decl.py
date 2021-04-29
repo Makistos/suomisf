@@ -42,7 +42,8 @@ class Article(Base):
     links = relationship('ArticleLink', uselist=True, viewonly=True)
     excerpt = Column(Text())
     person_rel = relationship(
-        'Person', secondary='articleperson', uselist=True, viewonly=True)
+        'Person',
+        secondary='articleperson', uselist=True, viewonly=True)
     author_rel = relationship(
         'Person', secondary='articleauthor', uselist=True, viewonly=True)
     issue = relationship('Issue', secondary='issuecontent',
@@ -758,6 +759,7 @@ class Work(Base):
     type = Column(Integer, ForeignKey('worktype.id'), index=True)
     misc = Column(String(500))
     description = Column(Text())
+    descr_attr = Column(String(200))
     imported_string = Column(String(500))
     creator_str = Column(String(500), index=True)
     authors = relationship("Person",
