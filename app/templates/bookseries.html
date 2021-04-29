@@ -1,6 +1,6 @@
 {% macro print_work(work) %}
 <b><span class="person-list">{{ work.creator_str }}</span></b>:
-<a href="{{ url_for('work', workid=work.id)}}">{{ work.editions[0].title }}</a>.
+<a href="{{ url_for('edition', editionid=work.editions[0].id)}}">{{ work.editions[0].title }}</a>.
 {{ work.bookseries.name }}{% if work.bookseriesnum %} {{ work.bookseriesnum}}{%endif%}.
 ({% if work.title != work.orig_title %}{{ work.orig_title}}, {%endif%}{{work.pubyear}}).
 {% endmacro %}

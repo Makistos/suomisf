@@ -24,7 +24,7 @@
 		{% endif %}
 		{% endif %}
 
-		<b><a href="{{url_for('work', workid=work.id) }}">
+		<b><a href="{{url_for('edition', editionid=work.editions[0].id) }}">
 				{{ work.title }}</a></b>.
 
 		{% if work.title != edition.title %}

@@ -40,7 +40,7 @@
             <h6 style="text-align: center;">
                 {% set work = edition.work[0] %}
                 {% if work.orig_title != edition.title %}
-                <a href="{{url_for('work', workid=work.id)}}">{{work.orig_title}}</a>
+                {{work.orig_title}}
                 {% endif %}
                 {% if work.pubyear %}
                 ({{work.pubyear}})
@@ -80,6 +80,11 @@
                 <!-- Info part -->
 
                 <div class="col-lg-8 col-sm-12">
+                    <div class="row">
+                        <div class="col">
+                            Teos: <a href="{{url_for('work', workid=work.id)}}">{{work.title}}</a>
+                        </div>
+                    </div>
                     <!-- Book series -->
                     <div class="row">
                         <div class="col">
