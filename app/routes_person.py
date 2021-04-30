@@ -129,7 +129,7 @@ def person(personid: Any) -> Any:
         person.bio_src = form.bio_src.data
         session.add(person)
         session.commit()
-        log_change(session, 'Henkilö', person.id)
+        log_change(session, 'Person', person.id)
         # Reload data so changes are updated to view
         person = session.query(Person).filter(Person.id == person.id).first()
     else:
@@ -159,6 +159,7 @@ def new_person() -> Any:
             person.dod = form.dod.data
         session.add(person)
         session.commit()
+        log_change(session, 'Person', person.id, action='NEW')
         return redirect(url_for('person', personid=person.id))
     # else:
     #     app.logger.debug("Errors: {}".format(form.errors))

@@ -378,6 +378,7 @@ class Log(Base):
     table_name = Column(String(30), index=True)
     field_name = Column(String(30))
     table_id = Column(Integer)
+    action = Column(String(30))
     user_id = Column(Integer, ForeignKey('user.id'))
     old_value = Column(String(500))
     date = Column(DateTime, default=datetime.datetime.now())

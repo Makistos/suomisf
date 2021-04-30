@@ -297,6 +297,7 @@ def edition(editionid: Any) -> Any:
 
         session.add(edition)
         session.commit()
+        log_change(session, 'Edition', edition.id)
     else:
         app.logger.debug('Errors: {}'.format(form.errors))
         print('Errors: {}'.format(form.errors))

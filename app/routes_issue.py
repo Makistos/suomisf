@@ -47,6 +47,7 @@ def issue(id: Any) -> Any:
         issue.title = form.title.data
         session.add(issue)
         session.commit()
+        log_change(session, 'Issue', issue.id)
     else:
         app.logger.error('Errors: {}'.format(form.errors))
         print(f'Errors: {form.errors}')

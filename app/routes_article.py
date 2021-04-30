@@ -74,6 +74,7 @@ def article(id: Any) -> Any:
         article.title = form.title.data
         session.add(article)
         session.commit()
+        log_change(session, 'Article', article.id)
     else:
         app.logger.debug("Errors: {}".format(form.errors))
         print("Errors: {}".format(form.errors))

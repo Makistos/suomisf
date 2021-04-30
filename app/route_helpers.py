@@ -37,8 +37,8 @@ def admin_required(f: Any) -> Any:
     return wrap
 
 
-def log_change(session: Any, table: str, id: int, field: str = '') -> None:
-    log = Log(table_name=table, table_id=id, field_name=field,
+def log_change(session: Any, table: str, id: int, action: str = 'UPDATE', field: str = '') -> None:
+    log = Log(table_name=table, table_id=id, action=action, field_name=field,
               user_id=current_user.get_id())
     session.add(log)
     session.commit()

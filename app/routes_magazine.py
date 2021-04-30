@@ -62,6 +62,7 @@ def edit_magazine(id):
 
         session.add(magazine)
         session.commit()
+        log_change(session, 'Magazine', magazine.id)
 
         return redirect(url_for('magazine', id=magazine.id))
     else:

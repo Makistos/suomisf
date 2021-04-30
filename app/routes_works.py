@@ -182,6 +182,7 @@ def work(workid: Any) -> Any:
         work.type = form.type.data
         session.add(work)
         session.commit()
+        log_change(session, 'Work', work.id)
     else:
         app.logger.error('Errors: {}'.format(form.errors))
         print(f'Errors: {form.errors}')
@@ -214,6 +215,7 @@ def new_work() -> Any:
         work.type = 1
         session.add(work)
         session.commit()
+        log_change(session, 'Work', work.id, action='NEW')
         return redirect(url_for('work', workid=work.id))
     else:
         app.logger.debug("Errors: {}".format(form.errors))
@@ -632,7 +634,7 @@ def add_story_to_work() -> Any:
     return make_response(jsonify(resp), 200)
 
 
-@app.route('/add_edition_to_route/<workid>')
+@app.route('/add_edition_to_work/<workid>')
 @login_required  # type: ignore
 @admin_required
 def add_edition_to_route(workid: Any) -> Any:
@@ -671,6 +673,8 @@ def add_edition_to_route(workid: Any) -> Any:
                     shortstory_id=story.id)
         session.add(part)
     session.commit()
+
+    log_change(session, 'Edition', edition.id, action='NEW')
 
     return redirect(url_for('edition', editionid=edition.id))
 
