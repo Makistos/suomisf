@@ -4,7 +4,7 @@
 
 	<h1 class="title">SF-Bibliografia</h1>
 	<div class="row">
-		<div class="col">
+		<div class="col-lg-8 col-sm-12">
 			<p>Tervetuloa suomenkielisen science fiction-, fantasia- ja kauhukirjallisuuden bibliografiaan. Sivuston
 				tarkoitus on olla mahdollisimman täydellinen tietokanta suomeksi julkaistuista spekulatiivisen fiktion
 				teoksista, lehdistä ja novelleista. </p>
@@ -31,17 +31,10 @@
 
 			<p>Pikahaulla sivujen oikeassa yläreunassa voit etsiä mm. henkilöitä ja teoksia.</p>
 
-			<p>Virheistä ja puutteista voi ilmoittaa sähköpostilla osoitteeseen ___.</p>
-			<p>
-				<a href="{{url_for('index')}}">Uusimmat teokset</a>
-				&times;
-				<a href="{{url_for('index')}}">Viimeisimmät päivitykset</a>
-			</p>
+			<p>Virheistä ja puutteista voi ilmoittaa ___.</p>
 		</div>
-	</div>
-	<div class="row>">
-		<div class="col">
-			<h3>Tietokannassa on tällä hetkellä</h3>
+		<div class="col-lg-4 col-sm-12 border">
+			<h3>Tietokannassa</h3>
 			Teoksia: {{ work_count[0] }}<br>
 			Painoksia: {{ edition_count[0] }}<br>
 			Novelleja: {{ story_count[0] }}<br>
@@ -53,7 +46,19 @@
 			Lehtiä: {{ magazine_count[0] }}<br>
 			Lehden numeroita: {{ issue_count[0] }}<br>
 			Artikkeleita: {{ article_count[0] }}
+
+			<div class="row">
+				<div class="col">
+					<button type="button" class="btn btn-light btn-block mt-5">Uusimmat teokset ></button>
+					<button type="button" class="btn btn-light btn-block">Viimeisimmät muutokset ></button>
+				</div>
+			</div>
 		</div>
 	</div>
+</div>
+<div class="row>">
+	<div class="col">
+	</div>
+</div>
 </div>
 {% endblock %}
