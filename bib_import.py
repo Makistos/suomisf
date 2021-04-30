@@ -941,9 +941,13 @@ def import_books(session, authors):
                     ed.misc = misc
                     ed.imported_string = edition['imported_string']
                 else:
+                    if edition['pubyear'] is None or edition['pubyear'] == '':
+                        pubyear = 0
+                    else:
+                        pubyear = edition['pubyear']
                     ed = Edition(
                         title=edition['title'],
-                        pubyear=edition['pubyear'],
+                        pubyear=pubyear,
                         publisher_id=publisherid,
                         editionnum=editionnum,
                         version=version,

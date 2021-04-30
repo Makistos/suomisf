@@ -214,7 +214,7 @@ class Edition(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(500), nullable=False, index=True)
     subtitle = Column(String(500))
-    pubyear = Column(Integer, index=True)
+    pubyear = Column(Integer, index=True, nullable=False)
     publisher_id = Column(Integer, ForeignKey('publisher.id'), index=True)
     editionnum = Column(Integer)
     version = Column(Integer)  # Laitos
