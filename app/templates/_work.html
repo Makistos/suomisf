@@ -45,6 +45,9 @@
         ({{work.pubyear}}).
         {% endif %}
         {% endif %}
+        {% if work.publisher %}
+        {{ publisher.name }}.
+        {% endif %}
         {% if work.genres|length %}
         {% for genre in work.genres %}
         <img src="/static/icons/{{genre.abbr}}_16.png" title="{{genre.name}}">

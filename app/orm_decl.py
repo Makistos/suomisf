@@ -618,6 +618,8 @@ class ShortStory(Base):
         'part_assoc'), uselist=True, viewonly=True)
     genres = relationship('Genre', secondary='storygenre',
                           uselist=True, viewonly=True)
+    works = relationship('Work', secondary='part',
+                         uselist=True, viewonly=True)
     editions = relationship('Edition', secondary='part',
                             uselist=True, viewonly=True)
     issues = relationship('Issue', secondary='issuecontent',

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 {% if current_user.is_admin %}
-<div class="container pt-4">
+<div class="container mt-5">
     <form method="post" id="itemForm">
         {{form.hidden_tag()}}
         {% endif %}
@@ -21,7 +21,7 @@
                     <span class="person-list">{{ story.creator_str }}</span>
                 </h4>
             </div>
-            <div class="row align-items-start">
+            <div class="row">
                 <div class="col">
                     <h1 class="mb-0" style="text-align: center;">
                         {% if current_user.is_admin %}
@@ -38,17 +38,20 @@
             </div>
             <div class="row">
                 {% if current_user.is_admin %}
-                <div class="col edit-field">
+                <div class="col-lg-8 edit-field">
                     <label for="orig_title">
                         Alkup. nimi
-                        <input type="text" width="70%" class="form-control form-item" id="orig_title" name="orig_title"
+                        <input type="text" class="form-control form-item" id="orig_title" name="orig_title"
                             form="itemForm" value="{{story.orig_title}}">
                     </label>
+                </div>
+                <div class="col-lg-4 edit-field">
                     <label for="pubyear">
                         Julkaisuvuosi
                         <input type="text" width="20%" class="form-control form-item" id="pubyear" name="pubyear"
                             form="itemForm" value="{{story.pubyear}}">
                     </label>
+
                 </div>
                 {% endif %}
                 <div class="col view-field">
@@ -93,34 +96,31 @@
             </div>
         </div>
 
-        {% if works %}
-        <dl class="list-group list-group-flush">
-            <dt style="margin: 1rem ">Ilmestynyt teoksissa</dt>
-            {% for work in works %}
-            <dd class="list-group-item">
-                {% include "_work.html" %}
-                {% for edition in work.editions %}
-                {% include "_work_edition.html" %}
-                {% endfor %}
-            </dd>
+        {% if story.works %}
+        <h5>Ilmestynyt teoksissa</h5>
+        {% for work in story.works %}
+        <p>
+            {% include "_work.html" %}
+            {% for edition in work.editions %}
+            {% include "_work_edition.html" %}
             {% endfor %}
-        </dl>
+        </p>
+        {% endfor %}
         {% endif %}
         {% if story.issues %}
-        <dl class="list-group list-group-flush">
-            <dt style="margin: 1rem ">Ilmestynyt lehdissä</dt>
-            {% for issue in story.issues %}
-            <dd class="list-group-item">
-                <a href="{{ url_for('issue', id=issue.id)}}">
-                    {{ issue.magazine.name }}
-                    {% if issue.number %}
-                    {{ issue.number }} / {{ issue.year }}
-                    {% else %}
-                    {{ issue.count }}
-                    {% endif %}</a>
-            </dd>
-            {% endfor %}
-        </dl>
+        <h5>Ilmestynyt lehdissä</h5>
+        {% for issue in story.issues %}
+        <p style="padding-left: 25px;">
+            <a href="{{ url_for('issue', id=issue.id)}}">
+                {{ issue.magazine.name }}
+                {% if issue.number %}
+                {{ issue.number }} / {{ issue.year }}
+                {% else %}
+                {{ issue.count }}
+                {% endif %}</a>
+
+        </p>
+        {% endfor %}
         {% endif %}
         {% if current_user.is_admin %}
 

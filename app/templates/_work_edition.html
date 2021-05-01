@@ -53,12 +53,11 @@
 		{{ edition.work.bookseries.name}} {{edition.work.bookseriesnum}}.
 		{% endif %}
 
-		{% if edition.pubseries %}
+		{% if edition.pubseries -%}
 		{{ edition.pubseries.name }}
-		{% if edition.pubseriesnum %}
+		{%- if edition.pubseriesnum -%}
 		{{ edition.pubseriesnum }}
-		{%- endif -%}
-		.
+		{%- endif -%}.
 		{% endif %}
 		{{edition.publisher.name}} {{ edition.pubyear }}. {# [{{ edition.work.genres|join(', ', attribute='name') }}].
 		#}
