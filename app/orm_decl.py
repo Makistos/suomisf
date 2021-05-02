@@ -784,7 +784,7 @@ class Work(Base):
     editions = relationship('Edition', primaryjoin='and_(Part.work_id == Work.id, Part.edition_id == Edition.id, Part.shortstory_id == None)',
                             secondary='part', uselist=True,
                             lazy='dynamic',
-                            order_by='Edition.version, Edition.editionnum',
+                            order_by='Edition.pubyear',
                             viewonly=True)
     genres = relationship("Genre", secondary='workgenre',
                           uselist=True, viewonly=True)

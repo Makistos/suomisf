@@ -229,6 +229,16 @@
             <div class="ml-4">
                 <div id="textual">
                     {% for edition in work.editions %}
+                    {% if edition.version %}
+                    {% if edition.version > 1 %}
+                    {{edition.version}}.laitos
+                    {% endif %}
+                    {% endif %}
+                    {% if edition.editionnum %}
+                    {{ edition.editionnum }}.painos.
+                    {% else %}
+                    ?.painos.
+                    {% endif %}
                     <a href=" {{ url_for('edition', editionid=edition.id) }}">{{
                         edition.title
                         }}</a>.
