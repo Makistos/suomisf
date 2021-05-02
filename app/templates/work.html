@@ -252,15 +252,25 @@
                 </div>
                 <div id="pics">
                     {% for edition in work.editions %}
-                    <div class="column">
-                        {% if edition.images|length %}
-                        <figure class="figure">
-                            <a href="{{url_for('edition', editionid=edition.id)}}">
-                                <img src="{{edition.images[0].image_src}}" width="250" style="margin: 0 1rem 1rem 0">
-                            </a>
-                        </figure>
-                        {% endif %}
-                    </div>
+                    {% if edition.images|length %}
+                    <figure class="figure">
+                        <a href="{{url_for('edition', editionid=edition.id)}}">
+                            <img src="{{edition.images[0].image_src}}" width="250" style="margin: 0 1rem 1rem 0">
+                            <figcaption>
+                                {% if edition.version %}
+                                {% if edition.version > 1 %}
+                                {{ edition.version }}. laitos
+                                {% endif %}
+                                {% endif %}
+                                {% if edition.editionnum %}
+                                {{ edition.editionnum}}.painos
+                                {% else %}
+                                ?.painos
+                                {% endif %}
+                            </figcaption>
+                        </a>
+                    </figure>
+                    {% endif %}
 
                     {% endfor %}
                 </div>

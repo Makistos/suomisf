@@ -18,9 +18,11 @@ def add_image(s: Any, image: List[str]) -> None:
     image_src = img_dir + image[0]
     author_str = image[1]
     title_str = image[2]
+    pubyear_str = image[3]
 
     editions = s.query(Edition)\
                 .filter(Edition.title == title_str)\
+                .filter(Edition.pubyear == pubyear_str)\
                 .join(Part)\
                 .filter(Part.edition_id == Edition.id)\
                 .join(Author)\

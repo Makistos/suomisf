@@ -2,7 +2,8 @@
 from app.orm_decl import (AwardCategories, Work, Edition, Part, Person, Author, Translator,
                           Editor, Publisher, Pubseries, Bookseries, User, Genre,
                           Alias, WorkGenre, Award, BindingType, Format,
-                          Magazine, WorkType, AwardCategory, PublicationSize, Country, StoryType, Tag, WorkTag)
+                          Magazine, WorkType, AwardCategory, PublicationSize,
+                          Country, StoryType, Tag, WorkTag, EditionImage)
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from importbib import publishers
