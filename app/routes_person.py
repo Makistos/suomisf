@@ -101,14 +101,10 @@ def person(personid: Any) -> Any:
                     .group_by(Genre.name)\
                     .all()
 
-    genre_list = {'SF': '', 'F': '', 'K': '', 'nSF': '', 'nF': '', 'nK': '',
-                  'PF': '', 'paleof': '', 'kok': '', 'eiSF': '', 'rajatap': ''}
-    for g in genres:
-        app.logger.info(g.name)
-        genre_list[g.abbr] = g.count
+    genre_list: Dict[str, List[str]] = {}
+    for genre in genres:
+        genre_list[genre.abbr] = [genre.count, genre.name]
 
-    # p_awards = session.query(Award)\
-    #                   .join()
     if request.method == 'GET':
         form.name.data = person.name
         form.alt_name.data = person.alt_name

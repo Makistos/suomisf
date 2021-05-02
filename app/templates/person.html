@@ -52,7 +52,7 @@
   </div>
   <div class="mb-3 mt-4">
     <div class="row">
-      <div class="col-lg-6 col-md-12">
+      <div class="col-lg-4 col-md-12">
         <div class="row mb-3 ml-1 mr-1 mt-2">
           <div clas="col">
             {% if person.image_src %}
@@ -88,7 +88,7 @@
         </div>
         {% endif %}
       </div>
-      <div class="col-lg-6 col-sm-12">
+      <div class="col-lg-8 col-sm-12">
         {% if current_user.is_admin %}
         <div class="edit-field">
           <div class="row">
@@ -116,7 +116,7 @@
         {% endif %}
         <!-- Genre -->
         <div class="row">
-          <div class="col text-center view-field">
+          <div class="col justify-content-left view-field">
             {% include "_genre_count.html" %}
           </div>
         </div>
