@@ -241,7 +241,7 @@ pubseries = [
     ('Välipalaksi', 'Välipalaksi'),
     ('W.S.O.Y:N näytelmäsarja n:o', 'W.S.O.Y:N näytelmäsarja n:o'),
     ('W.S.O.Y:n koululaiskirjasto', 'W.S.O.Y:n koululaiskirjasto'),
-    ('WSOY Pokkari', 'WSOY Pokkari'),
+    ('WSOY [Pp]okkari( -sarja)?', 'WSOY Pokkari'),
     ('Weilin\+Göösin [Kk]irjasto', 'Weilin+Göösin Kirjasto'),
     ('Weilin\+Göösin kirjasto', 'Weilin+Göösin Kirjasto'),
     ('m-novellit scifi -sarja', 'm-novellit scifi -sarja'),
