@@ -315,16 +315,16 @@
         </div>
         <div id="authoredStories" class="collapse" aria-labelledby="headAuthoredStories" data-parent="#authorCard">
           <div class="card-body">
-            <ul class="list-group list-group-flush">
-              {% for story in person.stories %}
-              <li class="list-group-item">
-                <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
-                ({%- if story.title != story.orig_title -%} {%- if
-                story.orig_title -%} {{ story.orig_title }}, {%endif%}
-                {%endif%}{{ story.pubyear}})
-              </li>
-              {% endfor %}
-            </ul>
+            {% for story in person.stories %}
+            <div class="mb-2" style="padding-left: 25px;">
+              <a href=" {{ url_for('story', id=story.id) }}"><b>{{ story.title }}</b></a>
+              ({%- if story.title != story.orig_title -%}
+              {%- if story.orig_title -%} {{ story.orig_title }},
+              {%endif%}
+              {%endif%}
+              {{ story.pubyear}}).
+            </div>
+            {% endfor %}
           </div>
         </div>
       </div>
