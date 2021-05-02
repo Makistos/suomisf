@@ -279,16 +279,14 @@
         <div id="authoredBooks" aria-labelledby="headAuthoredBooks" data-parent="#authorCard">
           <div class="card-body">
             <div id="textual" class="mb-0">
-              <ul class="list-group list-group-flush">
-                {% for work in person.works %}
-                <li class="list-group-item">
-                  {% include "_work.html" %}
-                  {% for edition in work.editions[1:] %}
-                  {% include "_work_edition.html" %}
-                  {% endfor %}
-                </li>
+              {% for work in person.works %}
+              <div class="mb-2">
+                {% include "_work.html" %}
+                {% for edition in work.editions[1:] %}
+                {% include "_work_edition.html" %}
                 {% endfor %}
-              </ul>
+              </div>
+              {% endfor %}
             </div>
             <div id="pics">
               {% for work in person.works %}

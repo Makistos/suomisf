@@ -19,6 +19,7 @@
         {% endif %}
         {% endif %}
 
+        {% set edition = work.editions[0] %}
         {# Add title, with or without link. #}
         {% if print == 1 %}
         <b>{{ work.title }}</b>.
@@ -41,12 +42,24 @@
         , {{ work.pubyear }}
         {%- endif -%}).
         {% else %}
-        {% if work.pubyear != work.editions[0].pubyear %}
         ({{work.pubyear}}).
         {% endif %}
+        {% if edition.translators %}
+        Suom. <span class="person-list">{{edition.translators|map(attribute='alt_name')|join(' & ')}}</span>.
         {% endif %}
-        {% if work.publisher %}
-        {{ publisher.name }}.
+        {% if edition.publisher %}
+        {{ edition.publisher.name }}
+        {% if edition.pubyear -%}
+        {{ edition.pubyear }}
+        {%- endif -%}
+        .
+        {% endif -%}
+        {% if edition.pubseries %}
+        {{ edition.pubseries.name }}
+        {% if edition.pubseriesnum %}
+        {{ edition.pubseriesnum }}
+        {%- endif -%}
+        .
         {% endif %}
         {% if work.genres|length %}
         {% for genre in work.genres %}
