@@ -101,7 +101,7 @@
         {% for work in story.works %}
         <p>
             {% include "_work.html" %}
-            {% for edition in work.editions %}
+            {% for edition in work.editions[1:] %}
             {% include "_work_edition.html" %}
             {% endfor %}
         </p>
