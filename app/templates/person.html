@@ -369,21 +369,21 @@
         <div id="translated" class="collapse" aria-labelledby="headTranslated" data-parent="#authorCard">
           <div class="card-body">
             {% set skip_pubseriesnum = 1 %}
-            <ul class="list-group list-group-flush">
-              {% if person.translations %}
-              <h4>Romaanit</h4>
-              {% for edition in person.translations|sort(attribute='title') %}
-              <li class="list-group-item">{% include "_edition.html" %}</li>
-              {% endfor %} {% endif %} {% if person.translated_stories %}
-              <h4 style="margin-top: 1rem">Novellit</h4>
-              {% for story in person.translated_stories|sort(attribute='title')
-              %}
-              <li class="list-group-item">
-                <a href="{{ url_for('story', id=story.id)}}">{{ story.title }}</a>
-                ({{story.orig_title}}, {{story.pubyear}})
-              </li>
-              {% endfor %} {% endif %}
-            </ul>
+            {% if person.translations %}
+            <h4>Romaanit</h4>
+            {% for edition in person.translations|sort(attribute='title') %}
+            <div class="mb-2">{% include "_edition.html" %}</div>
+            {% endfor %}
+            {% endif %}
+            {% if person.translated_stories %}
+            <h4 style="margin-top: 1rem">Novellit</h4>
+            {% for story in person.translated_stories|sort(attribute='title') %}
+            <div class="mb-2">
+              <a href="{{ url_for('story', id=story.id)}}">{{ story.title }}</a>
+              ({{story.orig_title}}, {{story.pubyear}})
+            </div>
+            {% endfor %}
+            {% endif %}
           </div>
         </div>
       </div>
