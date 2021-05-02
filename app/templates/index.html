@@ -33,24 +33,29 @@
 
 			<p>Virheistä ja puutteista voi ilmoittaa ___.</p>
 		</div>
-		<div class="col-lg-4 col-sm-12 border">
-			<h3>Tietokannassa</h3>
-			Teoksia: {{ work_count[0] }}<br>
-			Painoksia: {{ edition_count[0] }}<br>
-			Novelleja: {{ story_count[0] }}<br>
-			Julkaisijoita: {{ pub_count[0] }}<br>
-			Henkilöitä: {{ person_count[0] }}<br>
-			Josta kirjailijoita: {{ author_count|length() }}<br>
-			Julkaisijan sarjoja: {{ pubseries_count[0] }}<br>
-			Kirjasarjoja: {{ bookseries_count[0] }}<br>
-			Lehtiä: {{ magazine_count[0] }}<br>
-			Lehden numeroita: {{ issue_count[0] }}<br>
-			Artikkeleita: {{ article_count[0] }}
-
+		<div class="col-lg-3 col-sm-12 border d-flex flex-column justify-content-between">
 			<div class="row">
 				<div class="col">
-					<button type="button" class="btn btn-light btn-block mt-5">Uusimmat teokset ></button>
-					<button type="button" class="btn btn-light btn-block">Viimeisimmät muutokset ></button>
+					<h3>Tietokannassa</h3>
+					Teoksia: {{ work_count[0] }}<br>
+					Painoksia: {{ edition_count[0] }}<br>
+					Novelleja: {{ story_count[0] }}<br>
+					Julkaisijoita: {{ pub_count[0] }}<br>
+					Henkilöitä: {{ person_count[0] }}<br>
+					Josta kirjailijoita: {{ author_count|length() }}<br>
+					Julkaisijan sarjoja: {{ pubseries_count[0] }}<br>
+					Kirjasarjoja: {{ bookseries_count[0] }}<br>
+					Lehtiä: {{ magazine_count[0] }}<br>
+					Lehden numeroita: {{ issue_count[0] }}<br>
+					Artikkeleita: {{ article_count[0] }}
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col">
+					<button type="button" class="btn btn-light btn-block">Uusimmat teokset <span
+							class="float-right">&gt;</span></button>
+					<button type="button" class="btn btn-light btn-block">Viimeisimmät muutokset <span
+							class="float-right">&gt;</span></button>
 				</div>
 			</div>
 		</div>
