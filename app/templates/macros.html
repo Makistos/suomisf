@@ -1,3 +1,23 @@
+{% macro editionnum(version, editionnum, showfirst) %}
+{% if version|int > 1 %}
+{{ version }}.laitos
+{% if editionnum == None %}
+?.painos
+{% elif editionnum > 1 or version > 1 or showfirst %}
+{{ editionnum }}.painos:
+{% else %}
+:
+{% endif %}
+{% else %}
+{% if editionnum == None %}
+?.painos:
+{% elif editionnum and editionnum > 1 or showfirst %}
+{{ editionnum }}.painos:
+{% endif %}
+{% endif %}
+
+{% endmacro %}
+
 {% macro render_field(field) %}
 
 <div class="form-row">

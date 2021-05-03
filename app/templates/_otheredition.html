@@ -1,3 +1,4 @@
+{% from 'macros.html' import editionnum %}
 {% if current_user.get_id()|int() in edition.owners|map(attribute='id')|list() %}
 {% set edition_owned = 1 %}
 {% else %}
@@ -25,31 +26,13 @@
         {% else %}
         {% set image_src="/static/icons/blue-book-icon-small.png" %}
         {% endif %}
-
-        {% if edition.version|int > 1 %}
-        {{ edition.version }}.laitos
-        {% if edition.editionnum == None %}
-        ?.painos:
-        {% elif edition.editionnum > 1 %}
-        {{ edition.editionnum }}.painos:
-        {% else %}
-        :
-        {% endif %}
-        {% else %}
-        {% if edition.editionnum == None %}
-        ?.painos:
-        {% elif edition.editionnum and edition.editionnum > 1%}
-        {{ edition.editionnum }}.painos:
-        {% endif %}
-        {% endif %}
-
-        {% if edition.title != edition.work.title %}
-        {% if print == 1 %}<b>{{ edition.title }}</b>.
-        {% else %}<a href="{{url_for('edition', editionid=edition.id) }}" data-bs-toggle='tooltip'
-            data-placement='right'
+        <a href="{{url_for('edition', editionid=edition.id) }}" data-bs-toggle='tooltip' data-placement='right'
             title='<div style="text-align: center;"><h2>{{edition.title}}</h2><img src="{{image_src}}"></div>'
-            data-html='true'>{{ edition.title }}</a>.
-        {% endif %}
+            data-html='true'>{{ editionnum(edition.version, edition.editionnum, none)}}
+        </a>
+
+        {% if edition.title != edition.work[0].title %}
+        <b>{{ edition.title }}</b>.
         {% endif %}
         {% if edition.work.bookseries %}
         {{ edition.work.bookseries.name}} {{edition.work.bookseriesnum}}.

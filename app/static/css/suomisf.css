@@ -78,6 +78,10 @@ div.three-column {
   -moz-border-radius: 9px;
   border-radius: 9px;
 }
+
+figure {
+  border: thin silver solid;
+}
 .row {
   border: 1;
 }

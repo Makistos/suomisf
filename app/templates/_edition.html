@@ -1,3 +1,4 @@
+{% from 'macros.html' import editionnum %}
 {% if current_user.get_id()|int() in edition.owners|map(attribute='id')|list() %}
 {% set owned = 1 %}
 {% else %}
@@ -42,29 +43,9 @@
 		{% if edition.work.bookseries %}
 		{{ edition.work.bookseries.name}} {{edition.work.bookseriesnum}}.
 		{% endif %}
-		{#
-		{% if edition.work.title != edition.title %}
-		{%- if edition.work.title|length -%}
-		({{ edition.work.title }}
-		{%- endif -%}
-		{%- if edition.work.pubyear|int -%}
-		, {{ edition.work.pubyear }}
-		{% endif %}
-		{%- if edition.work.title|length -%}
-		).
-		{% endif %}
-		{% endif %}
-		#}
-		{% if edition.version is not none %}
-		{% if edition.version > 1 %}
-		{{ edition.version }}. laitos.
-		{% endif %}
-		{% endif %}
-		{% if edition.editionnum is not none %}
-		{% if edition.editionnum > 1 %}
-		{{ edition.editionnum }}. painos.
-		{% endif %}
-		{% endif %}
+
+		{{ editionnum(edition.version, edition.editionum, none) }}:
+
 		{% if not skip_publisher %}
 		{{edition.publisher.name}}
 		{% endif %}
