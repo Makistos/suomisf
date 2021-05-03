@@ -245,6 +245,7 @@ pubseries = [
     ('Weilin\+Göösin [Kk]irjasto', 'Weilin+Göösin Kirjasto'),
     ('Weilin\+Göösin kirjasto', 'Weilin+Göösin Kirjasto'),
     ('m-novellit scifi -sarja', 'm-novellit scifi -sarja'),
+    ('Loisto', 'Loisto'),
     ('Seven', 'Seven')]
 
 important_pubseries = (
