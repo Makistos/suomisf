@@ -658,6 +658,7 @@ bookseries = [
     ('Unennäkijöiden(\s?(\d\.)\s?kirja)', 'Unennäkijät'),
     ('Unien ([a-zåäö]+) kirja', 'Unien kirja'),
     ('Universumien Tomu', 'Universumien Tomu'),
+    ('Unohdettujen kirjojen hautausmaa', 'Unohdettujen kirjojen hautausmaa'),
     ('Ursiini-trilogia', 'Ursiini-trilogia'),
     ('Usvasyntyinen', 'Usvasyntyinen'),
     ('Uuden auringon kirja', 'Uuden auringon kirja'),

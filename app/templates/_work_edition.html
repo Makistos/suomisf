@@ -31,30 +31,27 @@
 		{% endif %}
 		<a href="{{url_for('edition', editionid=edition.id) }}" data-bs-toggle='tooltip' data-placement='right'
 			title='<div style="text-align: center;"><h2>{{edition.title}}</h2><img src="{{image_src}}"></div>'
-			data-html='true'>{{edition.title}}</a>
-		{% if edition.version|int > 1 %}
-		{{ edition.version }}.laitos
-		{% if edition.editionnum == None %}
-		?.painos:
-		{% elif edition.editionnum > 1 %}
-		{{ edition.editionnum }}.painos:
-		{% else %}
-		:
-		{% endif %}
-		{% else %}
-		{% if edition.editionnum == None %}
-		?.painos:
-		{% elif edition.editionnum and edition.editionnum > 1%}
-		{{ edition.editionnum }}.painos:
-		{% endif %}
-		{% endif %}
+			data-html='true'>
+			{% if edition.version|int > 1 %}
+			{{ edition.version }}.laitos
+			{% if edition.editionnum == None %}
+			?.painos:
+			{% elif edition.editionnum > 1 or edition.version > 1 or show_first_edition %}
+			{{ edition.editionnum }}.painos:
+			{% else %}
+			:
+			{% endif %}
+			{% else %}
+			{% if edition.editionnum == None %}
+			?.painos:
+			{% elif edition.editionnum and edition.editionnum > 1 or show_first_edition %}
+			{{ edition.editionnum }}.painos:
+			{% endif %}
+			{% endif %}
+		</a>
 
 		{% if work.title != edition.title %}
-		{% if print == 1 %}
-		<b>{{ edition.title }}</b>.
-		{% else %}
-		<a href=" {{url_for('edition', editionid=edition.id) }}">{{ edition.title }}</a>.
-		{% endif %}
+		{{ edition.title }}.
 		{% endif %}
 
 		{% if edition.work.bookseries %}

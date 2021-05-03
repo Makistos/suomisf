@@ -430,8 +430,9 @@
             {% if other_editions %}
             {% set work = edition.work[0] %}
             <h2>Muut painokset</h2>
+            {% set show_first_edition = 1 %}
             {% for edition in other_editions %}
-            {% include "_otheredition.html" %}
+            {% include "_work_edition.html" %}
             {% endfor %}
             {% endif %}
         </div>

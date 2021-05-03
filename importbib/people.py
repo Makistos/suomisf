@@ -64,6 +64,7 @@ translators =\
         ('Pentti P. Heino', 'Pentti P.', 'Heino'),
         ('Pertti A. Palo', 'Pertti A.', 'Palo'),
         ('Pirkko Biström', 'Pirkko', 'Biström'),
+        ('Päivö Taubert', 'Päivö', 'Taubert'),
         ('R. Hakamies', 'R.', 'Hakamies'),
         ('R. Sirokov', 'R.', 'Sirokov'),
         ('R.N', 'R.', 'N.'),
