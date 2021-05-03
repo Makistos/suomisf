@@ -60,6 +60,24 @@ div.three-column {
   column-count: 3;
 }
 
+.tooltip-inner {
+  max-width: 500px !important;
+  word-wrap: break-word;
+  color: black;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left 25,
+    from(#f4f4f4),
+    color-stop(4%, #b4c8d6),
+    to(#f4f4f4)
+  );
+  background: -moz-linear-gradient(top, #f4f4f4, #b4c8d6 1px, #f4f4f4 25px);
+  border: 1px solid #55aaaa;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
+}
 .row {
   border: 1;
 }

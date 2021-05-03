@@ -20,10 +20,19 @@
         {% endif %}
 
         {% set edition = work.editions[0] %}
+        {% if edition.images|length %}
+        {% set image_src = edition.images[0].image_src %}
+        {% else %}
+        {% set image_src="/static/icons/blue-book-icon-small.png" %}
+        {% endif %}
+
         {# Add title, with or without link. #}
         {% if print == 1 %}
         <b>{{ work.title }}</b>.
-        {% else %}<b><a href="{{url_for('edition', editionid=work.editions[0].id) }}">
+        {% else %}<b><a href="{{url_for('edition', editionid=edition.id) }}" data-bs-toggle='tooltip'
+                data-placement='right'
+                title='<div style="text-align: center;"><h2>{{edition.title}}</h2><img src="{{image_src}}"></div>'
+                data-html='true'>
                 {{ work.title }}</a></b>.
         {% endif %}
 

@@ -34,7 +34,9 @@
 		{% if print == 1 %}
 		<b>{{ edition.title }}</b>.
 		{% else %}
-		<a href="{{url_for('edition', editionid=edition.id) }}">{{ edition.title }}</a>.
+		<a href="{{url_for('edition', editionid=edition.id) }}" data-bs-toggle="tooltip" data-bs-placement="right"
+			title="{{edition.title}}" html="test">
+			{{edition.title }}</a>.
 		{% endif %}
 
 		{% if edition.work.bookseries %}

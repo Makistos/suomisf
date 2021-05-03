@@ -20,6 +20,12 @@
         {% else %}<a id="{{edition.id}}" href="#add" class="ownerstate"> + </a>
         {% endif %}
 
+        {% if edition.images|length %}
+        {% set image_src = edition.images[0].image_src %}
+        {% else %}
+        {% set image_src="/static/icons/blue-book-icon-small.png" %}
+        {% endif %}
+
         {% if edition.version|int > 1 %}
         {{ edition.version }}.laitos
         {% if edition.editionnum == None %}
@@ -39,7 +45,10 @@
 
         {% if edition.title != edition.work.title %}
         {% if print == 1 %}<b>{{ edition.title }}</b>.
-        {% else %}<a href="{{url_for('edition', editionid=edition.id) }}">{{ edition.title }}</a>.
+        {% else %}<a href="{{url_for('edition', editionid=edition.id) }}" data-bs-toggle='tooltip'
+            data-placement='right'
+            title='<div style="text-align: center;"><h2>{{edition.title}}</h2><img src="{{image_src}}"></div>'
+            data-html='true'>{{ edition.title }}</a>.
         {% endif %}
         {% endif %}
         {% if edition.work.bookseries %}
