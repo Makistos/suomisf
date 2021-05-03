@@ -81,6 +81,16 @@ div.three-column {
 
 figure {
   border: thin silver solid;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+figcaption {
+  text-align: center;
+  font-size: smaller;
+  margin-top: -1rem;
+  margin-left: 5rem;
+  background: white;
+  width: 30%;
 }
 .row {
   border: 1;

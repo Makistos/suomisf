@@ -294,7 +294,7 @@
               {% for work in person.works %}
               {% for edition in work.editions %}
               {% if edition.images[0] %}
-              <figure class="figure" style="padding: 0.5rem;">
+              <figure class="figure">
                 <figcaption>{{editionnum(edition.version, edition.editionnum, true)}}</figcaption>
                 <a href=" {{url_for('edition', editionid=edition.id)}}">
                   <img class="img-fluid" src="{{edition.images[0].image_src}}" alt="{{editionnum(edition.version,
