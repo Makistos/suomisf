@@ -25,10 +25,12 @@
 	{% for work in author.list %}
 
 	{% set edition = work.editions[0] %}
-	{% include "_work.html" %}
-	{% for edition in work.editions[1:] %}
-	{% include "_otheredition.html" %}
-	{% endfor %}
+	<div class="book">
+		{% include "_work.html" %}
+		{% for edition in work.editions[1:] %}
+		{% include "_otheredition.html" %}
+		{% endfor %}
+	</div>
 	{% endfor %}
 	{% endfor %}
 	{% endblock %}

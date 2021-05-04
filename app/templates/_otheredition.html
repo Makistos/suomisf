@@ -12,39 +12,41 @@
 {% endif %}
 
 {% if show == 1 %}
+{#
 {% if edition_owned == 1 and print is not defined %}
-<span style="border-left: 6px solid grey; padding-left: 39px">
+<!-- <span style="border-left: 6px solid grey; padding-left: 39px"> -->
+{% else %}
+<span style="padding-left: 45px; ">
+    {% endif %}
+    {% if edition_owned == 1 %}<a id="{{edition.id}}" href="#remove" class="ownerstate"> - </a>
+    {% else %}<a id="{{edition.id}}" href="#add" class="ownerstate"> + </a>
+    {% endif %}
+    #}
+    {% if edition.images|length %}
+    {% set image_src = edition.images[0].image_src %}
     {% else %}
-    <span style="padding-left: 45px; ">
-        {% endif %}
-        {% if edition_owned == 1 %}<a id="{{edition.id}}" href="#remove" class="ownerstate"> - </a>
-        {% else %}<a id="{{edition.id}}" href="#add" class="ownerstate"> + </a>
-        {% endif %}
+    {% set image_src="/static/icons/blue-book-icon-small.png" %}
+    {% endif %}
+    <a href="{{url_for('edition', editionid=edition.id) }}" data-bs-toggle='tooltip' data-placement='right'
+        title='<div style="text-align: center;"><h2>{{edition.title}}</h2><img src="{{image_src}}"></div>'
+        data-html='true'>{{ editionnum(edition.version, edition.editionnum, none)}}
+    </a>
 
-        {% if edition.images|length %}
-        {% set image_src = edition.images[0].image_src %}
-        {% else %}
-        {% set image_src="/static/icons/blue-book-icon-small.png" %}
-        {% endif %}
-        <a href="{{url_for('edition', editionid=edition.id) }}" data-bs-toggle='tooltip' data-placement='right'
-            title='<div style="text-align: center;"><h2>{{edition.title}}</h2><img src="{{image_src}}"></div>'
-            data-html='true'>{{ editionnum(edition.version, edition.editionnum, none)}}
-        </a>
-
-        {% if edition.title != edition.work[0].title %}
-        <b>{{ edition.title }}</b>.
-        {% endif %}
-        {% if edition.work.bookseries %}
-        {{ edition.work.bookseries.name}} {{edition.work.bookseriesnum}}.
-        {% endif %}
-        {% if edition.pubseries %}
-        {{ edition.pubseries.name }}.
-        {% endif %}
-        {% if edition.translators|length %}
-        {% if edition.translators != work.editions[0].translators %}
-        Suom {{ edition.translators|join(', ', attribute='alt_name') }}.
-        {% endif %}
-        {% endif %}
-        {{edition.publisher.name}} {{ edition.pubyear }}.
-    </span><br>
+    {% if edition.title != edition.work[0].title %}
+    <b>{{ edition.title }}</b>.
+    {% endif %}
+    {% if edition.work.bookseries %}
+    {{ edition.work.bookseries.name}} {{edition.work.bookseriesnum}}.
+    {% endif %}
+    {% if edition.pubseries %}
+    {{ edition.pubseries.name }}.
+    {% endif %}
+    {% if edition.translators|length %}
+    {% if edition.translators != work.editions[0].translators %}
+    Suom {{ edition.translators|join(', ', attribute='alt_name') }}.
+    {% endif %}
+    {% endif %}
+    {{edition.publisher.name}} {{ edition.pubyear }}.
+    <!-- </span><br> -->
+    <br>
     {% endif %}

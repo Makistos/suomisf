@@ -12,6 +12,7 @@
 {% endif %}
 
 {% if show == 1 %}
+{#
 {% if owned == 1 and print is not defined %}
 <span style="border-left: 6px solid grey; padding-left: 19px">
 	{% else %}
@@ -24,6 +25,7 @@
 		<a id="{{edition.id}}" href="#add" class="ownerstate"> + </a>
 		{% endif %}
 		{% endif %}
+		#}
 
 		{% if edition.images|length %}
 		{% set image_src = edition.images[0].image_src %}
@@ -53,5 +55,6 @@
 		{% endif %}
 		{{edition.publisher.name}} {{ edition.pubyear }}. {# [{{ edition.work.genres|join(', ', attribute='name') }}].
 		#}
-	</span><br>
-	{% endif %}
+		<!-- </span><br> -->
+		<br>
+		{% endif %}
