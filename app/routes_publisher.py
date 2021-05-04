@@ -50,11 +50,12 @@ def publisher(pubid: Any) -> Any:
                     .order_by(func.count(Genre.name).desc())\
                     .all()
 
-    genre_list = {'SF': '', 'F': '', 'K': '', 'nSF': '', 'nF': '', 'nK': '',
-                  'PF': '', 'paleof': '', 'kok': '', 'eiSF': '', 'rajatap': ''}
+    # genre_list = {'SF': [], 'F': '', 'K': '', 'nSF': '', 'nF': '', 'nK': '',
+    #               'PF': '', 'paleof': '', 'kok': '', 'eiSF': '', 'rajatap': ''}
+    genre_list: Dict[str, List[str]] = {}
     for g in genres:
         app.logger.info(g.name)
-        genre_list[g.abbr] = g.count
+        genre_list[g.abbr] = [str(g.count), g.name]
 
     editions = session.query(Edition)\
                       .order_by(Edition.pubyear)\
