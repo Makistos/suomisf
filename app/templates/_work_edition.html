@@ -33,8 +33,9 @@
 		<a href="{{url_for('edition', editionid=edition.id) }}" data-bs-toggle='tooltip' data-placement='right'
 			title='<div style="text-align: center;"><h2>{{edition.title}}</h2><img src="{{image_src}}"></div>'
 			data-html='true'>
-			{{ editionnum(edition.version, edition.editionnum, show_first_edition) }}:
+			{{ editionnum(edition.version, edition.editionnum, show_first_edition) }}
 		</a>
+
 
 		{% if work.title != edition.title %}
 		<b>{{ edition.title }}</b>.

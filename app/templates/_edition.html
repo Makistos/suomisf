@@ -1,3 +1,7 @@
+<!-- This prints a stand-alone edition, i.e. this can be used even if work is
+	 not printed above. -->
+
+{% set work = edition.work[0] %}
 {% from 'macros.html' import editionnum %}
 {% if current_user.get_id()|int() in edition.owners|map(attribute='id')|list() %}
 {% set owned = 1 %}
@@ -30,7 +34,7 @@
 		{{ edition.pubseriesnum }}.
 		{% endif %}
 		{% endif %}
-		<b>{{ edition.work[0].creator_str }}</b>:
+		<b>{{ work.creator_str }}</b>:
 
 		{% if print == 1 %}
 		<b>{{ edition.title }}</b>.
@@ -39,12 +43,16 @@
 			title="{{edition.title}}" html="test">
 			{{edition.title }}</a>.
 		{% endif %}
-
+		(
+		{%- if work.title != work.orig_title -%}
+		{{ work.orig_title }},
+		{% endif -%}
+		{{ work.pubyear }}).
 		{% if edition.work.bookseries %}
 		{{ edition.work.bookseries.name}} {{edition.work.bookseriesnum}}.
 		{% endif %}
 
-		{{ editionnum(edition.version, edition.editionnum, none) }}:
+		{{ editionnum(edition.version, edition.editionnum, none) }}
 
 		{% if not skip_publisher %}
 		{{edition.publisher.name}}

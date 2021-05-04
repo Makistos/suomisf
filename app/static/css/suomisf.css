@@ -79,6 +79,10 @@ div.three-column {
   border-radius: 9px;
 }
 
+.book {
+  margin-bottom: 0.5rem;
+}
+
 figure {
   border: thin silver solid;
   margin-top: 1rem;

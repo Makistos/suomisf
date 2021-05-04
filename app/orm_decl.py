@@ -568,7 +568,7 @@ class Publisher(Base):
     image_src = Column(String(100))
     image_attr = Column(String(100))  # Source website name
     editions = relationship("Edition", backref=backref(
-        "edition4_assoc"), viewonly=True)
+        "edition4_assoc"), order_by="Edition.pubyear", viewonly=True)
     series = relationship('Pubseries', viewonly=True)
 
 

@@ -13,18 +13,9 @@
     </div>
     <h1 class="title">{{series.name}}
     </h1>
-    <ul class="list-group list-group-flush">
-        {% for work in series.works %}
-        <li class="list-group-item">{{ print_work(work)}}<br>
-            {#
-            {% for edition in work.editions %}
-            <div style="text-indent: 1rem;">{{ edition.editionnum }}. painos: {{edition.title}}.
-                {{edition.publisher.name}} {{edition.pubyear}}.</span>
-                {% endfor %}
-                #}
-        </li>
-        {% endfor %}
-    </ul>
+    {% for work in series.works %}
+    <div class="book">{{ print_work(work)}}</div>
+    {% endfor %}
 </div>
 
 <script src="/static/js/personlink.js" type="text/javascript"></script>
