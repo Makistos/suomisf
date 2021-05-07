@@ -1,8 +1,8 @@
 import os
-from dotenv import dotenv_values
+from dotenv import load_dotenv
 
-#basedir = os.path.abspath(os.path.dirname(__file__))
-settings = dotenv_values('.env')
+basedir = os.path.abspath(os.path.dirname(__file__))
+load_dotenv(os.path.join(basedir, '.env'))
 
 
 class Config(object):
@@ -14,14 +14,15 @@ class Config(object):
     BOOKCOVER_DIR = '/static/images/books/'
     PERSONIMG_DIR = '/static/images/people/'
     MAGAZINECOVER_IMG = '/static/images/magazinse/'
+    ENV = os.environ.get('FLASK_ENV') or 'debug'
 
 
 class DevConfig(Config):
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     DEBUG = True
     SQLALCHEMY_ECHO = True
-    # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-    #    'sqlite:///' + os.path.join(basedir, 'suomisf.db')
-    SQLALCHEMY_DATABASE_URI = settings['DATABASE_URI']
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+        'sqlite:///' + os.path.join(basedir, 'suomisf.db')
     BOOKCOVER_SAVELOC = '/home/mep/src/suomisf/app/static/images/books/'
     PERSONIMG_SAVELOC = '/home/mep/src/suomisf/app/static/images/people/'
     MAGAZINECOVER_SAVELOC = '/home/mep/src/suomisf/app/static/images/magazines/'
@@ -30,23 +31,21 @@ class DevConfig(Config):
 class ProdConfig(Config):
     DEBUG = False
     SQLALCHEMY_ECHO = False
-    USER = os.environ.get('USER') or 'nobody'
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = f"mysql+mysqlconnector:// {settings['USER']}: {settings['PASSWORD']}@settings['DATABASE_URI']"
-    #SQLALCHEMY_DATABASE_URI = f"mysql+mysqlconnector://{USER}:{SECRET_KEY}@localhost/suomisf"
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+        'sqlite://' + os.path.join(basedir, 'suomisf.db')
     BOOKCOVER_SAVELOC = '/home/Makistos/mysite/app/static/images/books/'
     PERSONIMG_SAVELOC = '/home/Makistos/mysite/suomisf/app/static/images/people/'
     MAGAZINECOVER_SAVELOC = '/home/Makistos/mysite/suomisf/app/static/images/magazines/'
 
 
 class StagingConfig(Config):
-    USER = os.environ.get('USER') or 'nobody'
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     DEBUG = True
     SQLALCHEMY_ECHO = True
-    SQLALCHEMY_DATABASE_URI = f"mysql+mysqlconnector:// {settings['USER']}: {settings['PASSWORD']}@settings['DATABASE_URI']"
-    # SQLALCHEMY_DATABASE_URI = f"mysql+mysqlconnector://{USER}:{SECRET_KEY}@localhost/suomisf"
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+        'sqlite://' + os.path.join(basedir, 'suomisf.db')
     BOOKCOVER_SAVELOC = '/home/mep/src/suomisf/app/static/images/books/'
     PERSONIMG_SAVELOC = '/home/mep/src/suomisf/app/static/images/people/'
     MAGAZINECOVER_SAVELOC = '/home/mep/src/suomisf/app/static/images/magazines/'

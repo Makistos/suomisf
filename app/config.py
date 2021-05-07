@@ -21,7 +21,6 @@ class DevConfig(Config):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     DEBUG = True
     SQLALCHEMY_ECHO = True
-    #SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://root:batk9ch@localhost/suomisf"
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'suomisf.db')
     BOOKCOVER_SAVELOC = '/home/mep/src/suomisf/app/static/images/books/'

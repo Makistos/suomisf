@@ -30,9 +30,9 @@ for series in pubseries:
         '(?P<name>' + series[0] + ')\s?(?P<num>[\#IVX:\d]+)?')
 for series in bookseries:
     bookseries_re[series[0]] = re.compile(
-        '(?P<name>' + series[0] + ')\s?(?P<num>[\#IVX\d]+)?\s?')
+        '(?P<name>' + series[0] + ')\s?(?P<num>[\#IVX\d]+)?\s?(\. (osa|kirja)\.)?')
 translator_re = re.compile(
-    "([a-zA-ZåäöÅÄÖ]+\s)*([Ss]uom\.?\s+)([A-ZÄÅÖ]+[\.\s]?[a-zA-ZäöåÅÄÖéüõ&\-]*[\.\s]?[a-zA-ZåäöÅÄÖéüõ&\-\s,]*)(\.)")
+    "([a-zA-ZåäöÅÄÖ]+\s)*([Ss]uom\.?\s+)([A-ZÄÅÖ]+[\.\s]?[a-zA-ZäöåÅÄÖéüõó&\-]*[\.\s]?[a-zA-ZåäöÅÄÖéüõó&\-\s,]*)(\.)")
 
 pubseries_publisher = {}
 
@@ -263,6 +263,45 @@ def find_commons(s: str, book: Dict) -> str:
     return s
 
 
+# There is all sorts of crap left in the misc string after everything useful
+# has been extracted from the book string. This code attempts to clean it up
+# so that the misc field in the database looks sane.
+craps: List[str] = ['ja', '&', '. &', ', &',
+                    '& &', '().', '. (.', '. :.', '. ja',
+                    '.', '..', '...', '....']
+
+
+def replace_crap(s: str, misc_str: str) -> str:
+    retval: str = ''
+    s2: str = ''
+
+    #s = s.replace(misc_str, ' ')
+    s = s.strip()
+
+    while True:
+        s2 = s
+        if s.startswith('.'):
+            s = s[2:]
+        if s.endswith(' .'):
+            s = s[:-2]
+        s = s.strip()
+        if s2 == s:
+            break
+
+    # If misc only contains these characters: comma, space, ., &, (, ),
+    # return empty string.
+
+    rex = '(^[\.\&,\s\(\):]+|ja)$'
+    m = re.search(rex, s, re.S)
+    if m:
+        return misc_str
+
+    if s == 'ja':
+        s = ''
+
+    return misc_str + ' ' + s
+
+
 def get_books(books):
     """ This is so ugly it hurts my head.
 
@@ -349,11 +388,13 @@ def get_books(books):
                 else:
                     book['pubyear'] = None
 
-                if len(re.sub('[\s\.]', '', tmp)) == 0:
-                    tmp = ''
-                book['rest'] = misc_str + ' ' + tmp.replace(r' .', '').strip()
-                if book['rest'] == 'ja':
-                    book['rest'] = ''
+                if 'Nidottu.' in tmp:
+                    book['binding'] = 2
+                    tmp = tmp.replace('Nidottu.', '')
+                else:
+                    book['binding'] = 1
+
+                book['rest'] = replace_crap(tmp, misc_str)
                 misc_str = ''
                 book['imported_string'] = full_string
                 # Adding to editions for this work
@@ -412,11 +453,13 @@ def get_books(books):
             else:
                 book['pubyear'] = None
 
-            if len(re.sub('[\s\.]', '', tmp)) == 0:
-                tmp = ''
-            book['rest'] = misc_str + ' ' + tmp.replace(r' .', '').strip()
-            if book['rest'] == 'ja':
-                book['rest'] = ''
+            if 'Nidottu.' in tmp:
+                book['binding'] = 2
+                tmp = tmp.replace('Nidottu.', '')
+            else:
+                book['binding'] = 1
+
+            book['rest'] = replace_crap(tmp, misc_str)
             misc_str = ''
             book['imported_string'] = full_string
             curr_book = dict(book)
@@ -938,6 +981,7 @@ def import_books(session, authors):
                     ed.version = version
                     ed.pubseries_id = pubseriesid
                     ed.pubseriesnum = pubseriesnum
+                    ed.binding_id = edition['binding']
                     ed.coll_info = edition['coll_info']
                     ed.misc = misc
                     ed.imported_string = edition['imported_string']
@@ -955,10 +999,10 @@ def import_books(session, authors):
                         isbn='',  # No ISBNs in the data
                         pubseries_id=pubseriesid,
                         pubseriesnum=pubseriesnum,
+                        binding_id=edition['binding'],
                         coll_info=edition['coll_info'],
                         pages=None,
                         format_id=1,
-                        binding_id=1,
                         size_id=1,
                         dustcover=1,
                         coverimage=1,
