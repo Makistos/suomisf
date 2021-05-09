@@ -22,6 +22,7 @@
     {% else %}<a id="{{edition.id}}" href="#add" class="ownerstate"> + </a>
     {% endif %}
     #}
+    {% set work = edition.work[0] %}
     {% if edition.images|length %}
     {% set image_src = edition.images[0].image_src %}
     {% else %}
@@ -29,18 +30,19 @@
     {% endif %}
     <a href="{{url_for('edition', editionid=edition.id) }}" data-bs-toggle='tooltip' data-placement='right'
         title='<div style="text-align: center;"><h2>{{edition.title}}</h2><img src="{{image_src}}"></div>'
-        data-html='true'>{{ editionnum(edition.version, edition.editionnum, none)}}
+        data-html='true'>
+        {{ editionnum(edition.version, edition.editionnum, none)}}
     </a>
 
-    {% if edition.title != edition.work[0].title %}
+    {% if edition.title != work.title %}
     <b>{{ edition.title }}</b>.
     {% endif %}
-    {% if edition.work.bookseries %}
-    {{ edition.work.bookseries.name}} {{edition.work.bookseriesnum}}.
+    {#
+    {% if work.bookseries %}{{ work.bookseries.name}}{% if work.bookseriesnum %} {{work.bookseriesnum}}{% endif
+    %}.
     {% endif %}
-    {% if edition.pubseries %}
-    {{ edition.pubseries.name }}.
-    {% endif %}
+    #}
+    {% if edition.pubseries %}{{ edition.pubseries.name }}.{% endif %}
     {% if edition.translators|length %}
     {% if edition.translators != work.editions[0].translators %}
     Suom {{ edition.translators|join(', ', attribute='alt_name') }}.

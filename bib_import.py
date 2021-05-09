@@ -8,7 +8,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from importbib import publishers
 from importbib import (bookseries, pubseries, important_pubseries,
-                       misc_strings, translators, editors, genres, genres_list)
+                       misc_strings, translators, editors, genres, genres_list,
+                       subtitles)
 import re
 from app import app
 import os
@@ -84,6 +85,14 @@ def find_item_from_string(item_list, st, patterns):
                 maxlen = len(item[0])
                 retval = item
     return retval
+
+
+def find_subtitle(s: str, subtitles: List[str]) -> Tuple[str, str]:
+    for sub in subtitles:
+        if sub in s:
+            s = s.replace(sub, '')
+            return (sub, s)
+    return ('', s)
 
 
 def find_translators(s: str) -> Tuple[str, str]:
@@ -199,7 +208,7 @@ ordered_numbers: Dict = {'ensimmäinen': 1,
                          'kymmenes': 10}
 
 
-def seriesnum_to_int(str_num: str):
+def seriesnum_to_int(str_num: str) -> Any:
     if str_num is None:
         return None
 
@@ -230,7 +239,11 @@ def seriesnum_to_int(str_num: str):
     return None
 
 
-def find_commons(s: str, book: Dict) -> str:
+def find_commons(s: str, book: Dict[str, Any]) -> str:
+
+    # Find subtitle
+    (book['subtitle'], s) = find_subtitle(s, subtitles)
+
     # Find publisher series
     (book['pubseries'], pubseriesnum, s) = \
         find_series(s, book['collection'], pubseries, pubseries_re)
@@ -263,19 +276,16 @@ def find_commons(s: str, book: Dict) -> str:
     return s
 
 
-# There is all sorts of crap left in the misc string after everything useful
-# has been extracted from the book string. This code attempts to clean it up
-# so that the misc field in the database looks sane.
-craps: List[str] = ['ja', '&', '. &', ', &',
-                    '& &', '().', '. (.', '. :.', '. ja',
-                    '.', '..', '...', '....']
-
-
 def replace_crap(s: str, misc_str: str) -> str:
+    """ There is all sorts of crap left in the misc string after everything useful
+        has been extracted from the book string. This code attempts to clean it up
+        so that the misc field in the database looks sane.
+    """
     retval: str = ''
     s2: str = ''
 
-    #s = s.replace(misc_str, ' ')
+    if misc_str in s:
+        s = s.replace(misc_str, '')
     s = s.strip()
 
     while True:
@@ -324,8 +334,17 @@ def get_books(books):
     editions = []
     curr_book = {}
     misc_str = ''
+    # There are basically three types of version/edition strings:
+    # First is a simple "2. painos" type while second has a version number:
+    # "2. laitos". Third one is a combination of these, e.g.
+    # "2. laitos 3.painos".
+    # 0 = whole edition/version string
+    # 1 = edition/version number
+    # 2 = "painos" or "laitos"
+    # 3 = edition numberg if this is a string that has both parts
+    # 4 = "painos" if this is a two-parter
     edition_re = re.compile(
-        '([\d\?]{1,2})\.((laitos|painos))\s?((\d).(painos))?:(.+)')
+        '([\d\?]{1,2})\.((laitos|painos))\s?((\d)\.(painos))?:')
     for b in books:
         full_string = b
         tmp_misc = ''
@@ -349,6 +368,7 @@ def get_books(books):
         m = re.search('<b>(.+)<\/b>', tmp, re.S)
 
         if m2 and curr_book:
+            # This part deals with other editions
             if m2:
                 editionnum = 1
                 versionnum = 1
@@ -377,7 +397,7 @@ def get_books(books):
                             editionnum = m2.group(5)
                         book['edition'] = editionnum
                         book['version'] = val
-                tmp = tmp.replace(m2.group(1) + '.' + m2.group(2) + ':', '')
+                tmp = tmp.replace(m2.group(0), '')
 
                 tmp = find_commons(tmp, book)
 
@@ -400,6 +420,7 @@ def get_books(books):
                 # Adding to editions for this work
                 works[-1][1].append(book)
         elif m:
+            # This part deals with the work info
             if 'ks. myös ' in tmp or '-- ks.' in tmp:
                 continue
             book = {}
@@ -887,6 +908,7 @@ def import_books(session, authors):
             else:
                 worktype = 1
             if workitem:
+                workitem.subtitle = work['subtitle']
                 workitem.bookseries_id = bookseriesid
                 workitem.bookseriesnum = work['bookseriesnum']
                 workitem.bookseriesorder = work['bookseriesorder']
@@ -896,6 +918,7 @@ def import_books(session, authors):
             else:
                 workitem = Work(
                     title=work['title'],
+                    subtitle=work['subtitle'],
                     orig_title=work['origname'],
                     pubyear=work['origyear'],
                     bookseries_id=bookseriesid,
@@ -977,6 +1000,7 @@ def import_books(session, authors):
                 else:
                     misc = edition['rest'].strip()
                 if ed:
+                    ed.subtitle = edition['subtitle']
                     ed.editionnum = editionnum
                     ed.version = version
                     ed.pubseries_id = pubseriesid
@@ -992,6 +1016,7 @@ def import_books(session, authors):
                         pubyear = edition['pubyear']
                     ed = Edition(
                         title=edition['title'],
+                        subtitle=edition['subtitle'],
                         pubyear=pubyear,
                         publisher_id=publisherid,
                         editionnum=editionnum,
@@ -1199,46 +1224,81 @@ def add_default_rows(session: Any) -> Any:
 
     awards = {
         'Damon Knight Memorial Grand Master Award':
-        [[lifetime_id],
+        [[lifetime_id], False,
          'Damon Knight Memorial Grand Master Award on Science Fiction and Fantasy Writers of America -järjestön (SFWA) jakama palkinto. Se jaetaan elämäntyöstä elossa olevalle tieteis- tai fantasiakirjailijalle. Ehdotuksen palkinnon saajasta tekee järjestön puheenjohtaja. Palkinto ei ole varsinaisesti Nebula-palkinto, mutta se luovutetaan samassa palkintogaalassa.'],
+
         'Hugo':
-        [[novel_id, story_id, novella_id, novellette_id],
+        [[novel_id, story_id, novella_id, novellette_id], False,
          'Hugo-palkinto on vuosittain jaettava tieteis- ja fantasiakirjallisuuden palkinto. Palkinto on nimetty Hugo Gernsbackin mukaan. Palkinnot jaetaan useissa eri luokissa. Palkinnon voittajat valitaan vuosittain World Science Fiction Convention -tapahtuman yhteydessä. Palkintojenjakoseremonia on WorldConin päätapahtuma ja sen jäsenet valitsevat sekä voittajan että ehdokkaat Hugo-palkinnon saajaksi. Hugo-palkintoja on jaettu vuodesta 1953 lähtien. '],
+
         'Nebula':
-        [[novel_id, story_id, novella_id, novellette_id],
+        [[novel_id, story_id, novella_id, novellette_id], False,
          'Nebula-palkinto on Science Fiction and Fantasy Writers of American (SFWA) vuosittain jakama palkinto parhaasta Yhdysvalloissa kahden edellisen vuoden aikana julkaistusta tieteis- tai fantasiakirjasta. Palkinto on läpinäkyvä palkki, jossa on kuvattuna kimaltava spiraalitähtisumu eli nebula. Palkintoon ei sisälly rahaa. Nebula-palkintoa pidetään Hugo-palkinnon ohella merkittävimpänä yhdysvaltalaisen tieteiskirjallisuuden palkintona.'],
+
         'Locus':
         [[novel_id, sf_id, fantasy_id, horror_id, rookie_id, youth_id, collection_id, anthology_id,
-          story_id, novella_id, novellette_id],
+          story_id, novella_id, novellette_id], False,
          'Locus-palkinto on Locus-lehden myöntämä palkinto. Palkinnot jaetaan lehden lukijoiden kyselyn perusteella.'],
+
         'Arthur C. Clarke -palkinto':
-        [[novel_id],
+        [[novel_id], False,
          'Arthur C. Clarke -palkinto on vuosittain jaettava brittiläinen tieteiskirjallisuuden palkinto.'],
+
         'British Science Fiction Award':
-        [[novel_id, story_id],
+        [[novel_id, story_id], False,
          'British Science Fiction Award eli BSFA-palkinto on vuosittain myönnettävä kirjallisuuspalkinto tieteiskirjallisuudelle. Palkinto on myönnetty vuodesta 1970 lähtien.'],
+
         'Sidewise':
-        [[novel_id, story_id, lifetime_id],
+        [[novel_id, story_id, lifetime_id], False,
          'Sidewise-palkinto vaihtoehtoiselle historialle on 1995 perustettu palkinto tunnustuksena vuoden parhaille vaihtoehtoisen historian teoksille.'],
+
         'Tähtivaeltaja':
-        [[novel_id],
+        [[novel_id], True,
          'Tähtivaeltaja-palkinto on Tähtivaeltaja-lehteä julkaisevan Helsingin Science Fiction Seuran jakama palkinto vuoden parhaasta suomeksi ilmestyneestä tieteiskirjasta.'],
+
         'Skylark':
-        [[lifetime_id],
+        [[lifetime_id], False,
          'Edward E. Smith Memorial Award for Imaginative Fiction tai Skylark-palkinto myönnetään elämäntyöstä science fictionin parissa. Palkinnon myöntää NESFA.'],
+
         'Campbell Memorial Award':
-        [[novel_id],
+        [[novel_id], False,
          'John W. Campbell Memorial Award for Best Science Fiction Novel myönnetään vuoden parhaasta science fiction-romaanista. Palkinnon myöntää Kansasin yliopiston Center for the Study of Science Fiction.'],
+
         'Philip K. Dick Award':
-        [[novel_id],
+        [[novel_id], False,
          'Philip K. Dick-palkinto myönnetään parhaalle alunperin pehmeäkantisena Yhdysvalloissa ilmestyneelle kirjalle. Palkinnon myöntää Philadelpia Science Fiction Society.'],
+
         'Theodore Sturgeon Award':
-        [[story_id],
-         'Theodore Sturgeon-palkinto myönnetään vuoden parhaalle novellille. Palkinnon myöntää Kansasin yliopiston Center for the Study of Science Fiction.']
+        [[story_id], False,
+         'Theodore Sturgeon-palkinto myönnetään vuoden parhaalle novellille. Palkinnon myöntää Kansasin yliopiston Center for the Study of Science Fiction.'],
+
+        'Atorox':
+        [[story_id], True,
+         'Turun Science Fiction Seura ry:n jakama Atorox on maamme vanhin tieteiskirjallisuuspalkinto. Se myönnetään vuosittain edellisen vuoden parhaalle ensimmäistä kertaa julkaistulle kotimaiselle suomen- tai ruotsinkieliselle tieteis- tai fantasianovellille.'],
+
+        'Tähtifantasia':
+        [[novel_id], True,
+         'Helsingin Science Fiction Seura ry:n jakama palkinto annetaan edellisvuoden parhaalle Suomessa ilmestyneelle fantasiakirjalle.'],
+
+        'Kuvastaja':
+        [[novel_id], True,
+         'Suomen Tolkien-seura Kontu ry jakaa vuosittain Kuvastaja-palkinnon edellisen vuoden parhaalle suomalaiselle fantasiakirjalle. Ensimmäisen kerran se jaettiin vuonna 2001.'],
+
+        'Portin novellikilpailu':
+        [[story_id], True,
+         'Tampereen Science Fiction Seura ry:n jakama palkinto annetaan vuoden parhaalle kotimaiselle tieteis- tai fantasianovellille.'],
+
+        'Nova-novellikilpailu':
+        [[story_id], True,
+         'Nova on aloitteleville kirjoittajille suunnattu palautteellinen science fiction- ja fantasianovellien kirjoituskilpailu. Kilpailun tarkoituksena on auttaa osallistujia kehittymään kirjoittajina ja nostaa sf/f-kirjoittajakenttään uusia nimiä. Kisa on tarkoitettu kirjoittajille, jotka eivät ole vielä julkaisseet omaa kaunokirjallista teostaan (julkaisut antologiassa tai omakustanteet eivät ole este osallistumiselle).'],
+
+        'Kosmoskynä':
+        [[lifetime_id], True,
+         'Suomen Tieteiskirjoittajat ry myöntää Kosmoskynä-palkinnon henkilölle, jonka on katsottu ansiokkaasti edistäneen suomalaista tieteiskirjallisuutta. ']
     }
 
     for name, award in awards.items():
-        aw = Award(name=name, description=str(award[1]))
+        aw = Award(name=name, description=str(award[2]), domestic=award[1])
         s.add(aw)
 
     s.commit()

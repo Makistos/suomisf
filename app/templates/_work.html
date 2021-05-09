@@ -37,14 +37,9 @@
 
 {# Rest of the stuff besides the title: #}
 
-{% if work.bookseries %}
-{{ work.bookseries.name}}
-{%- if work.bookseriesnum %}
-{{work.bookseriesnum}}
-{%- endif -%}
-.
+{% if work.bookseries %}{{ work.bookseries.name}}{% if work.bookseriesnum %} {{work.bookseriesnum}}{%- endif %}.
 {% endif %}
-{% if (work.orig_title != work.title) -%}
+{% if (work.orig_title != work.title) %}
 ({{work.orig_title}}
 {%- if work.pubyear != 0 -%}
 , {{ work.pubyear }}
@@ -53,7 +48,7 @@
 ({{work.pubyear}}).
 {% endif %}
 {% if edition.translators %}
-Suom. <span class="person-list">{{edition.translators|map(attribute='alt_name')|join(' & ')}}</span>.
+Suom <span class="person-list">{{edition.translators|map(attribute='alt_name')|join(' & ')}}</span>.
 {% endif %}
 {% if edition.publisher %}
 {{ edition.publisher.name }}
@@ -62,12 +57,8 @@ Suom. <span class="person-list">{{edition.translators|map(attribute='alt_name')|
 {%- endif -%}
 .
 {% endif -%}
-{% if edition.pubseries %}
-{{ edition.pubseries.name }}
-{% if edition.pubseriesnum %}
-{{ edition.pubseriesnum }}
-{%- endif -%}
-.
+{% if edition.pubseries %}{{ edition.pubseries.name }}{% if edition.pubseriesnum %} {{ edition.pubseriesnum }}{% endif
+%}.
 {% endif %}
 {% if work.genres|length %}
 {% for genre in work.genres %}

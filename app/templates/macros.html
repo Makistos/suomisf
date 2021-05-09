@@ -1,12 +1,12 @@
 {% macro editionnum(version, editionnum, showfirst) %}
 {% if version|int > 1 %}
 {{ version }}.laitos
-{% if editionnum == None %}
+{%- if editionnum == None %}
 ?.painos
-{% elif editionnum > 1 or version > 1 or showfirst %}
-{{ editionnum }}.painos:
-{% else %}
-{% endif %}
+{% elif editionnum > 1 or showfirst %}
+{{ editionnum }}.painos
+{%- endif -%}
+:
 {% else %}
 {% if editionnum == None %}
 ?.painos:

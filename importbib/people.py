@@ -1,5 +1,6 @@
 translators =\
     [
+        ('Aleksi Milonoff', 'Aleksi', 'Milonoff'),
         ('Anita Puumalainen', 'Anita', 'Puumalainen'),
         ('Aulis Rantasen työryhmä', 'Aulis Rantasen työryhmä', ''),
         ('Biokustannuksen käännösryhmä', 'Biokustannuksen käännösryhmä', ''),
@@ -321,4 +322,9 @@ missing_from_db =\
         'Janne Väisänen',
         'William Lumley'
         'Kristina Hård',
-        'Iisakki Evä']
+        'Iisakki Evä'
+]
+
+artists = [
+
+]

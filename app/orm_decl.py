@@ -115,6 +115,8 @@ class Award(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(100), nullable=False)
     description = Column(Text())
+    # If this is a domestic award (these are separated in the UI):
+    domestic = Column(Boolean, default=False)
     categories = relationship(
         'AwardCategory', secondary='awardcategories', viewonly=True)
 
