@@ -122,7 +122,7 @@ def books() -> Any:
 
 
 @app.route('/booksX/<letter>')
-def booksX(letter):
+def booksX(letter: str) -> Any:
     session = new_session()
     works = session.query(Work)\
                    .order_by(Work.creator_str)\
@@ -133,7 +133,7 @@ def booksX(letter):
     # app.logger.debug(''.join(letters))
 
     works = session.query(Work)\
-                   .filter(Work.creator_str.like(letter + '%'))\
+                   .filter(Work.creator_str.startswith(letter))\
                    .order_by(Work.creator_str)\
                    .all()
 

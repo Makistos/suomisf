@@ -7,13 +7,15 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy import create_engine
 from sqlalchemy.sql.expression import null
+from sqlalchemy.util.langhelpers import classproperty
 from wtforms.fields.core import IntegerField
 from app import app, db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
-from typing import Any
+from typing import Any, List
+from sqlalchemy.ext.hybrid import Comparator, hybrid_property
 
 Base = declarative_base()
 
@@ -21,6 +23,26 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env'))
 
 db_url = app.config['SQLALCHEMY_DATABASE_URI']
+
+
+# class AuthorComparator(Comparator):
+#     def __eq__(self, other):
+#         pass
+
+#     def __ne__(self, other):
+#         pass
+
+#     def like(self, other, escape=None):
+#         return super().like(other, escape)
+
+#     def ilike(self, other, escape=None):
+#         return super().ilike(other, escape)
+
+#     def startswith(self, other: str, **kwargs):
+#         return super().startswith(other, **kwargs)
+
+#     def endswith(self, other: str, **kwargs):
+#         return super().endswith(other, **kwargs)
 
 
 class Alias(Base):
@@ -48,6 +70,20 @@ class Article(Base):
         'Person', secondary='articleauthor', uselist=True, viewonly=True)
     issue = relationship('Issue', secondary='issuecontent',
                          uselist=False, viewonly=True)
+
+    _author_str: str = ''
+
+    @hybrid_property
+    def author_str(self) -> str:
+        if self._author_str != '':
+            return self._author_str
+        if len(self.author_rel) > 0:
+            self._author_str = ' & '.join([x.name for x in self.author_rel])
+        return self._author_str
+
+    @author_str.comparator
+    def author_str(cls) -> Comparator:
+        return Comparator(cls.author_str)
 
 
 class ArticleAuthor(Base):
@@ -105,8 +141,9 @@ class Author(Base):
                      primary_key=True)
     person_id = Column(Integer, ForeignKey('person.id'), nullable=False,
                        primary_key=True)
+    real_person_id = Column(Integer, ForeignKey('person.id'))
     parts = relationship("Part", backref=backref("part_assoc1"), viewonly=True)
-    person = relationship("Person", backref=backref(
+    person = relationship("Person", foreign_keys=[person_id], backref=backref(
         "person1_assoc"), viewonly=True)
 
 
@@ -236,7 +273,8 @@ class Edition(Base):
     imported_string = Column(String(500))
     parts = relationship('Part', backref=backref('parts_lookup'),
                          uselist=True, viewonly=True)
-    editors = relationship('Person', secondary='editor', viewonly=True)
+    editors = relationship('Person', secondary='editor',
+                           uselist=True, viewonly=True)
     translators = relationship("Person",
                                secondary='join(Part, Translator, Part.id == Translator.part_id)',
                                primaryjoin='and_(Person.id == Translator.person_id,\
@@ -433,7 +471,7 @@ class Part(Base):
     # Title is repeated from edition in the simple case but required for
     # e.g. collections.
     title = Column(String(500))
-    authors = relationship('Person', secondary='author',
+    authors = relationship('Person', secondary='author', foreign_keys=[Author.part_id, Author.person_id],
                            uselist=True, viewonly=True)
     translators = relationship(
         'Person', secondary='translator', uselist=True, viewonly=True)
@@ -632,7 +670,22 @@ class ShortStory(Base):
                            secondary='join(Part, Author, Part.id == Author.part_id)',
                            primaryjoin='and_(Person.id == Author.person_id,\
                 Author.part_id == Part.id, Part.work_id == ShortStory.id)',
-                           uselist=True, order_by='Person.alt_name', viewonly=True)
+                           uselist=True, order_by='Person.alt_name', viewonly=True,
+                           foreign_keys=[Author.part_id, Author.person_id])
+
+    _author_str: str = ''
+
+    @hybrid_property
+    def author_str(self) -> str:
+        if self._author_str != '':
+            return self._author_str
+        if len(self.authors) > 0:
+            self._author_str = ' & '.join([x.name for x in self.authors])
+        return self._author_str
+
+    @author_str.comparator
+    def author_str(cls) -> Comparator:
+        return Comparator(cls.author_str)
 
 
 class StoryGenre(Base):
@@ -773,7 +826,8 @@ class Work(Base):
                 Author.part_id == Part.id, Part.work_id == Work.id,\
                 Part.shortstory_id == None)',
                            uselist=True,
-                           order_by='Person.alt_name', viewonly=True)
+                           order_by='Person.alt_name', viewonly=True,
+                           foreign_keys=[Author.part_id, Author.person_id])
     translators = relationship("Person",
                                secondary='join(Part, Translator, Part.id == Translator.part_id)',
                                primaryjoin='and_(Person.id == Translator.person_id,\
@@ -796,6 +850,24 @@ class Work(Base):
         'Language', backref=backref('language'), uselist=False)
     stories = relationship('ShortStory', secondary='part', uselist=True,
                            viewonly=True)
+
+    # _author_str: str = ''
+
+    # @hybrid_property
+    # def author_str(self) -> str:
+    #     if self._author_str != '':
+    #         return self._author_str
+    #     if len(self.authors) > 0:
+    #         self._author_str = ' & '.join([x.name for x in self.authors])
+    #     else:
+    #         # Collection of several authors, use editors instead
+    #         self._author_str = ' & '.join(
+    #             [x.name for x in self.editions[0].editors]) + ' (toim.)'
+    #     return self._author_str
+
+    # @author_str.comparator
+    # def author_str(cls) -> Comparator:
+    #     return Comparator(cls._author_str)
 
 
 class WorkGenre(Base):
