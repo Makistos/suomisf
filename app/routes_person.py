@@ -95,7 +95,7 @@ def person(personid: Any) -> Any:
                     .join(Work.genres)\
                     .join(Work.parts)\
                     .filter(Part.shortstory_id == None)\
-                    .join(Author.person)\
+                    .join(Author, Author.person_id == Person.id)\
                     .filter(Author.part_id == Part.id)\
                     .filter(Person.id == person.id)\
                     .group_by(Genre.name)\

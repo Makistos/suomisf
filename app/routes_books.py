@@ -1,3 +1,7 @@
+import time
+from collections import OrderedDict
+from itertools import groupby
+import itertools
 from app import app
 from flask import Flask
 from app.orm_decl import (Person, Author, Editor, Translator, Publisher, Work,
@@ -123,19 +127,20 @@ def books() -> Any:
 
 @app.route('/booksX/<letter>')
 def booksX(letter: str) -> Any:
-    session = new_session()
-    works = session.query(Work)\
-                   .order_by(Work.creator_str)\
-                   .all()
-    creators = [x.creator_str[0] for x in works]
-    letters = list(set([x[0] for x in creators if not x[0].islower()]))
-    letters.sort()
-    # app.logger.debug(''.join(letters))
+    times: List[float] = []
+    times.append(time.time())
 
-    works = session.query(Work)\
-                   .filter(Work.creator_str.startswith(letter))\
-                   .order_by(Work.creator_str)\
-                   .all()
+    session = new_session()
+    times.append(time.time())
+    works_db = session.query(Work)\
+        .all()
+    creators = [x.author_str[0] for x in works_db]
+    times.append(time.time())
+    times.append(time.time())
+    letters = list(set([x[0] for x in creators if not x[0].islower()]))
+    times.append(time.time())
+    letters.sort()
+    times.append(time.time())
 
     prev_letter = None
     next_letter = None
@@ -155,6 +160,21 @@ def booksX(letter: str) -> Any:
                 next_letter = letters[0]
                 break
 
+    times.append(time.time())
+    #works = [x for x in works_db if x.author_str.startswith(letter)]
+    times.append(time.time())
+    # work_dict = groupby(works, lambda x: x.author_str)
+    works = [x for x in works_db if x.author_str.startswith(letter)]
+    works.sort(key=lambda x: x.author_str)
+    # times.append(time.time())
+    # works_dict: Dict[str, List[Any]] = {}
+    # for work in works:
+    #     if work.author_str not in works_dict:
+    #         works_dict[work.author_str] = [work]
+    #     else:
+    #         works_dict[work.author_str].append(work)
+    for i in range(len(times)):
+        app.logger.debug(f'Time {i}: {times[i] - times[0]}.')
     return render_template('books.html', letter=letter,
                            works=works, prev_letter=prev_letter, next_letter=next_letter)
 

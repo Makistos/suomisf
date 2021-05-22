@@ -32,7 +32,7 @@ def story(id: Any) -> Any:
 
     authors = session.query(Person)\
                      .distinct(Person.id)\
-                     .join(Author)\
+                     .join(Author, Author.person_id == Person.id)\
                      .filter(Person.id == Author.person_id)\
                      .join(Part)\
                      .filter(Author.part_id == Part.id,

@@ -25,24 +25,24 @@ load_dotenv(os.path.join(basedir, '.env'))
 db_url = app.config['SQLALCHEMY_DATABASE_URI']
 
 
-# class AuthorComparator(Comparator):
-#     def __eq__(self, other):
-#         pass
+class AuthorComparator(Comparator):
+    def __eq__(self, other):
+        pass
 
-#     def __ne__(self, other):
-#         pass
+    def __ne__(self, other):
+        pass
 
-#     def like(self, other, escape=None):
-#         return super().like(other, escape)
+    def like(self, other, escape=None):
+        return super().like(other, escape)
 
-#     def ilike(self, other, escape=None):
-#         return super().ilike(other, escape)
+    def ilike(self, other, escape=None):
+        return super().ilike(other, escape)
 
-#     def startswith(self, other: str, **kwargs):
-#         return super().startswith(other, **kwargs)
+    def startswith(self, other: str, **kwargs):
+        return super().startswith(other, **kwargs)
 
-#     def endswith(self, other: str, **kwargs):
-#         return super().endswith(other, **kwargs)
+    def endswith(self, other: str, **kwargs):
+        return super().endswith(other, **kwargs)
 
 
 class Alias(Base):
@@ -80,10 +80,6 @@ class Article(Base):
         if len(self.author_rel) > 0:
             self._author_str = ' & '.join([x.name for x in self.author_rel])
         return self._author_str
-
-    @author_str.comparator
-    def author_str(cls) -> Comparator:
-        return Comparator(cls.author_str)
 
 
 class ArticleAuthor(Base):
@@ -143,8 +139,8 @@ class Author(Base):
                        primary_key=True)
     real_person_id = Column(Integer, ForeignKey('person.id'))
     parts = relationship("Part", backref=backref("part_assoc1"), viewonly=True)
-    person = relationship("Person", foreign_keys=[person_id], backref=backref(
-        "person1_assoc"), viewonly=True)
+    # person = relationship("Person", foreign_keys=[Person.id], backref=backref(
+    #     "person1_assoc"), viewonly=True)
 
 
 class Award(Base):
@@ -683,10 +679,6 @@ class ShortStory(Base):
             self._author_str = ' & '.join([x.name for x in self.authors])
         return self._author_str
 
-    @author_str.comparator
-    def author_str(cls) -> Comparator:
-        return Comparator(cls.author_str)
-
 
 class StoryGenre(Base):
     __tablename__ = 'storygenre'
@@ -851,23 +843,19 @@ class Work(Base):
     stories = relationship('ShortStory', secondary='part', uselist=True,
                            viewonly=True)
 
-    # _author_str: str = ''
+    _author_str: str = ''
 
-    # @hybrid_property
-    # def author_str(self) -> str:
-    #     if self._author_str != '':
-    #         return self._author_str
-    #     if len(self.authors) > 0:
-    #         self._author_str = ' & '.join([x.name for x in self.authors])
-    #     else:
-    #         # Collection of several authors, use editors instead
-    #         self._author_str = ' & '.join(
-    #             [x.name for x in self.editions[0].editors]) + ' (toim.)'
-    #     return self._author_str
-
-    # @author_str.comparator
-    # def author_str(cls) -> Comparator:
-    #     return Comparator(cls._author_str)
+    @hybrid_property
+    def author_str(self) -> Any:
+        if self._author_str != '':
+            return self._author_str
+        if len(self.authors) > 0:
+            self._author_str = ' & '.join([x.name for x in self.authors])
+        else:
+            # Collection of several authors, use editors instead
+            self._author_str = ' & '.join(
+                [x.name for x in self.editions[0].editors]) + ' (toim.)'
+        return self._author_str
 
 
 class WorkGenre(Base):

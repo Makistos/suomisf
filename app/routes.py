@@ -240,7 +240,7 @@ def stats():
             .filter(Part.edition_id == Edition.id)\
             .join(Author)\
             .filter(Author.part_id == Part.id)\
-            .join(Person)\
+            .join(Person, Person.id == Author.person_id)\
             .filter(Author.person_id == Person.id)\
             .filter(Genre.abbr == genre)\
             .filter(Part.shortstory_id == None)\

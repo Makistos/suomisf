@@ -151,7 +151,7 @@ def save_join(session: Any, cls: object, *paths: Any) -> None:
 def people_for_book(s: Any, workid: Any, type: str) -> Any:
     if type == 'A':
         return s.query(Person)\
-                .join(Author)\
+                .join(Author, Author.person_id == Person.id)\
                 .join(Part)\
                 .filter(Author.part_id == Part.id)\
                 .filter(Part.work_id == workid)\

@@ -21,7 +21,7 @@
 	{% endif %}
 	<div>Yhteensä <b>{{ works|length }}</b> kirjaa</div>
 	{# {% for author in works|groupby(attribute='creator_str') %} #}
-	{% for author in works|groupby(attribute='creator_str') %}
+	{% for author in works|groupby(attribute='author_str') %}
 	<h2><span class="person-list">{{author.grouper}}</span></h2>
 	{% for work in author.list %}
 

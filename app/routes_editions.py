@@ -189,7 +189,7 @@ def edition(editionid: Any) -> Any:
         .filter(Part.edition_id == editionid).first()
 
     authors = session.query(Person)\
-                     .join(Author)\
+                     .join(Author, Person.id == Author.person_id)\
                      .filter(Person.id == Author.person_id)\
                      .join(Part)\
                      .filter(Part.id == Author.part_id)\
