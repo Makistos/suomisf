@@ -30,7 +30,7 @@
     {% if tag.issues|length %}
     <h2>Lehden numerot</h2>
     {% for issue in tag.issues %}
-    <a href="{{ url_for(" issue", id=issue.id)}}">{{ issue.number }} /
+    <a href="{{ url_for('issue', id=issue.id)}}">{{ issue.number }} /
         {{issue.year}}</a></b>
     {%- if issue.title -%}
     : {{ issue.title }}
@@ -41,7 +41,7 @@
     {% if tag.stories|length %}
     <h2>Novellit</h2>
     {% for story in tag.stories %}
-    <b><span class="person-list">{{ story.creator_str }}</span></b>:
+    <b><span class="person-list">{{ story.author_str }}</span></b>:
     <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
     {% if story.orig_title != story.title %}({{ story.orig_title}}
     {%- if story.pubyear %}, {{story.pubyear}}{% endif %}) {% elif
@@ -52,10 +52,10 @@
 
     {% if tag.articles|length %}
     <h2>Artikkelit</h2>
-    {% for article in tag.articles|sort(attribute='creator_str') %}
-    {% if article.creator_str -%}
+    {% for article in tag.articles|sort(attribute='author_str') %}
+    {% if article.author_str -%}
     <span class="person-list">
-        {{ article.creator_str }}</span>:
+        {{ article.author_str }}</span>:
     {% endif %}
     <a href="{{url_for('article',
 						 id=article.id)}}">{{

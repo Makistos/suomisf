@@ -6,6 +6,7 @@ from sqlalchemy import (Column, ForeignKey, Integer,
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy import create_engine
+from sqlalchemy.sql.elements import UnaryExpression
 from sqlalchemy.sql.expression import null
 from sqlalchemy.util.langhelpers import classproperty
 from wtforms.fields.core import IntegerField
@@ -128,7 +129,7 @@ class Artist(Base):
 class ArtistRole(Base):
     __tablename__ = 'artistrole'
     id = Column(Integer, primary_key=True)
-    name = Column(String(30))
+    name = Column(String(50))
 
 
 class Author(Base):
@@ -224,6 +225,24 @@ class BookseriesLink(Base):
     description = Column(String(100))
 
 
+class Contributor(Base):
+    __tablename__ = 'contributor'
+    part_id = Column(Integer, ForeignKey('part.id'), nullable=False,
+                     primary_key=True)
+    person_id = Column(Integer, ForeignKey('person.id'), nullable=False,
+                       primary_key=True)
+    role_id = Column(Integer, ForeignKey('contributorrole.id'),
+                     nullable=False, primary_key=True)
+    real_person_id = Column(Integer, ForeignKey('person.id'))
+    description = Column(String(50))
+
+
+class ContributorRole(Base):
+    __tablename__ = 'contributorrole'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50))
+
+
 class Country(Base):
     __tablename__ = 'country'
     id = Column(Integer, primary_key=True)
@@ -272,10 +291,11 @@ class Edition(Base):
     editors = relationship('Person', secondary='editor',
                            uselist=True, viewonly=True)
     translators = relationship("Person",
-                               secondary='join(Part, Translator, Part.id == Translator.part_id)',
-                               primaryjoin='and_(Person.id == Translator.person_id,\
-                Translator.part_id == Part.id, Part.edition_id == Edition.id)',
-                               uselist=True, viewonly=True)
+                               secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
+                               primaryjoin='and_(Person.id == Contributor.person_id,\
+                Contributor.part_id == Part.id, Contributor.role_id == 1, Part.edition_id == Edition.id)',
+                               uselist=True, viewonly=True,
+                               foreign_keys=[Contributor.person_id, Contributor.part_id, Contributor.role_id])
     artists = relationship('Person', secondary='artist', viewonly=True)
     cover_artists = relationship(
         'Person', secondary='coverartist', viewonly=True)
@@ -467,7 +487,7 @@ class Part(Base):
     # Title is repeated from edition in the simple case but required for
     # e.g. collections.
     title = Column(String(500))
-    authors = relationship('Person', secondary='author', foreign_keys=[Author.part_id, Author.person_id],
+    authors = relationship('Person', secondary='contributor', foreign_keys=[Contributor.part_id, Contributor.person_id, Contributor.role_id],
                            uselist=True, viewonly=True)
     translators = relationship(
         'Person', secondary='translator', uselist=True, viewonly=True)
@@ -506,37 +526,55 @@ class Person(Base):
                            secondaryjoin=id == Alias.alias,
                            uselist=True, viewonly=True)
     works = relationship("Work",
-                         secondary='join(Part, Author, Part.id == Author.part_id)',
-                         primaryjoin='and_(Person.id == Author.person_id,\
-                Author.part_id == Part.id, Part.work_id == Work.id,\
-                Part.shortstory_id == None)',
+                         secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
+                         primaryjoin='and_(Person.id == Contributor.person_id,\
+                            Contributor.part_id == Part.id,\
+                            Contributor.role_id == 0,\
+                            Part.work_id == Work.id,\
+                            Part.shortstory_id == None)',
                          order_by='Work.title',
                          uselist=True, viewonly=True)
     stories = relationship("ShortStory",
-                           secondary='join(Part, Author, Part.id == Author.part_id)',
-                           primaryjoin='and_(Person.id == Author.person_id,\
-                Author.part_id == Part.id,\
+                           secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
+                           primaryjoin='and_(Person.id == Contributor.person_id,\
+                Contributor.part_id == Part.id, Contributor.role_id == 0,\
                 Part.shortstory_id == ShortStory.id)',
                            uselist=True, viewonly=True)
     # Author.part_id == Part.id, Part.work_id == Work.id,\
-    edits = relationship("Edition", secondary='editor', viewonly=True)
+    #edits = relationship("Edition", secondary='editor', viewonly=True)
+    edits = relationship("Edition",
+                         secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
+                         primaryjoin='and_(Person.id == Contributor.person_id,\
+                              Contributor.part_id == Part.id,\
+                              Contributor.role_id == 2,\
+                              Part.edition_id == Edition.id,\
+                              Part.shortstory_id == None)',
+                         order_by='Edition.title',
+                         uselist=True, viewonly=True)
+    # foreign_keys=[Contributor.person_id, Contributor.part_id, Contributor.role_id])
     translations = relationship("Edition",
-                                secondary='join(Part, Translator, Part.id == Translator.part_id)',
-                                primaryjoin='and_(Person.id == Translator.person_id,\
-                Translator.part_id == Part.id, Part.work_id == Work.id)',
+                                secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
+                                primaryjoin='and_(Person.id == Contributor.person_id,\
+                                    Contributor.part_id == Part.id,\
+                                    Contributor.role_id == 1,\
+                                    Part.edition_id == Edition.id,\
+                                    Part.shortstory_id == None)',
+                                order_by='Edition.title',
                                 uselist=True, viewonly=True)
+    # foreign_keys=[Contributor.person_id, Contributor.part_id, Contributor.role_id])
     chief_editor = relationship(
         'Issue', secondary='issueeditor', uselist=True, viewonly=True)
     articles = relationship('Article', secondary='articleauthor',
                             uselist=True, viewonly=True)
     magazine_stories = relationship('ShortStory',
-                                    secondary='join(Part, Author, Part.id == Author.part_id)',
-                                    primaryjoin='and_(Person.id == Author.person_id,\
+                                    secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
+                                    primaryjoin='and_(Person.id == Contributor.person_id, Contributor.role_id == 0, \
                          IssueContent.shortstory_id == Part.shortstory_id)',
                                     uselist=True, viewonly=True)
     translated_stories = relationship('ShortStory',
-                                      secondary='join(Part, Translator, Part.id == Translator.part_id)',
-                                      primaryjoin="and_(Person.id == Translator.person_id, Part.shortstory_id is not None)",
+                                      secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
+                                      primaryjoin="and_(Person.id == Contributor.person_id, \
+                                      Contributor.role_id == 1, Part.shortstory_id is not None)",
                                       uselist=True, viewonly=True)
     appears_in = relationship('Article', secondary='articleperson',
                               uselist=True, viewonly=True)
@@ -663,11 +701,11 @@ class ShortStory(Base):
     tags = relationship('Tag', secondary='storytag',
                         uselist=True, viewonly=True)
     authors = relationship("Person",
-                           secondary='join(Part, Author, Part.id == Author.part_id)',
-                           primaryjoin='and_(Person.id == Author.person_id,\
-                Author.part_id == Part.id, Part.work_id == ShortStory.id)',
+                           secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
+                           primaryjoin='and_(Person.id == Contributor.person_id,\
+                Contributor.part_id == Part.id, Contributor.role_id == 0, Part.work_id == ShortStory.id)',
                            uselist=True, order_by='Person.alt_name', viewonly=True,
-                           foreign_keys=[Author.part_id, Author.person_id])
+                           foreign_keys=[Contributor.part_id, Contributor.person_id, Contributor.role_id])
 
     _author_str: str = ''
 
@@ -813,18 +851,20 @@ class Work(Base):
     imported_string = Column(String(500))
     creator_str = Column(String(500), index=True)
     authors = relationship("Person",
-                           secondary='join(Part, Author, Part.id == Author.part_id)',
-                           primaryjoin='and_(Person.id == Author.person_id,\
-                Author.part_id == Part.id, Part.work_id == Work.id,\
+                           secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
+                           primaryjoin='and_(Person.id == Contributor.person_id,\
+                Contributor.part_id == Part.id, Contributor.role_id == 0, Part.work_id == Work.id,\
                 Part.shortstory_id == None)',
                            uselist=True,
                            order_by='Person.alt_name', viewonly=True,
-                           foreign_keys=[Author.part_id, Author.person_id])
+                           foreign_keys=[Contributor.part_id, Contributor.person_id, Contributor.role_id])
     translators = relationship("Person",
-                               secondary='join(Part, Translator, Part.id == Translator.part_id)',
-                               primaryjoin='and_(Person.id == Translator.person_id,\
-                Translator.part_id == Part.id, Part.work_id == Work.id)',
-                               uselist=True, viewonly=True)
+                               secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
+                               primaryjoin='and_(Person.id == Contributor.person_id,\
+                                   Contributor.role_id == 1,\
+                                Contributor.part_id == Part.id, Part.work_id == Work.id)',
+                               uselist=True, viewonly=True,
+                               foreign_keys=[Contributor.person_id, Contributor.part_id, Contributor.role_id])
     parts = relationship('Part', backref=backref(
         'part', uselist=True), viewonly=True)
     bookseries = relationship("Bookseries", backref=backref('bookseries'),

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from app.orm_decl import Work, Edition, Part, Person, Author, Editor, ShortStory, Alias
+from app.orm_decl import (Work, Edition, Part, Person, ShortStory, Alias,
+                          Contributor)
 from app import app
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -341,17 +342,21 @@ def import_stories(filename: str, books: Dict = {}):
                             .filter(Edition.title == book[1])\
                             .join(Part)\
                             .filter(Part.edition_id == Edition.id)\
-                            .join(Author)\
-                            .filter(Author.part_id == Part.id)\
-                            .filter(Author.person_id == author_id)\
+                            .join(Contributor)\
+                            .filter(Contributor.part_id == Part.id,
+                                    Contributor.role_id == 0,
+                                    Contributor.person_id == author_id)\
                             .all()
             else:
                 # Person is the editor
                 editions = s.query(Edition)\
                             .filter(Edition.title == book[1])\
-                            .join(Editor)\
-                            .filter(Editor.edition_id == Edition.id)\
-                            .filter(Editor.person_id == author_id)\
+                            .join(Part)\
+                            .filter(Part.edition_id == Edition.id)\
+                            .join(Contributor)\
+                            .filter(Contributor.part_id == Part.id,
+                                    Contributor.person_id == author_id,
+                                    Contributor.role_id == 2)\
                             .all()
             if not editions:
                 #print(f'Edition not found: {book[0]} - {book[1]}')
@@ -381,8 +386,7 @@ def import_stories(filename: str, books: Dict = {}):
                         author_list = ' & '.join([x.name for x in authors])
                         story = ShortStory(title=st['title'],
                                            orig_title=st['orig_title'],
-                                           pubyear=st['year'],
-                                           creator_str=author_list)
+                                           pubyear=st['year'])
                         s.add(story)
                         s.commit()
                     for edition in editions:
@@ -393,8 +397,9 @@ def import_stories(filename: str, books: Dict = {}):
                         s.commit()
                         for auth in st['authors']:
                             try:
-                                author = Author(part_id=part.id,
-                                                person_id=auth)
+                                author = Contributor(part_id=part.id,
+                                                person_id=auth,
+                                                role_id=0)
                             except Exception as e:
                                 print(f'Excpetion {e}')
                             s.add(author)
@@ -404,15 +409,5 @@ def import_stories(filename: str, books: Dict = {}):
 if __name__ == '__main__':
     add_missing_people()
     get_people()
-    books: Dict = {'[Ias:V1]': ['Reijo Kalvas', 'Isaac Asimov Science Fiction valikoima 1', True],
-                   '[Ias:V2]': ['Reijo Kalvas', 'Isaac Asimov Science Fiction valikoima 2', True],
-                   '[Ias:V3]': ['Reijo Kalvas', 'Isaac Asimov Science Fiction valikoima 3', True],
-                   '[Neu:My]': ['Neuvostokirjailijain tieteiskertomuksia', 'Maxwellin yhtälöt (Uravnenija Maksvella)', True],
-                   '[Dah:Rk]': ['Roald Dahl', 'Rakkaani, kyyhkyläiseni', False],
-                   '[Kin:Ao]': ['Stephen (Edwin) King', 'Anteeksi, oikea numero', False],
-                   '[Kin:Py]': ['Stephen (Edwin) King', 'Pimeä yö, tähdetön taivas', False]}
     import_stories('bibfiles/sf_nov_u.txt', books)
-
-    books = {'[Sun:Kt]': ['Shimo Suntila', 'Hei, rillumapunk!', True]}
-
     import_stories('bibfiles/sf_nov_s.txt', books)

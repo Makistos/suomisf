@@ -15,7 +15,7 @@
         {% endif %}
         <div class="view-field mb-0">
             <h4 class="mt-4" style="text-align: center; font-variant: small-caps;">
-                <span class="person-list">{{ work.creator_str }}</span>
+                <span class="person-list">{{ work.author_str }}</span>
             </h4>
         </div>
         <!-- Title -->
@@ -281,8 +281,8 @@
         <h5>Novellit</h5>
         <div class="ml-4">
             {% for story in work.stories %}
-            {% if story.creator_str != work.creator_str %}
-            <b><span class="person-list">{{ story.creator_str }}</span></b>: {%
+            {% if story.author_str != work.author_str %}
+            <b><span class="person-list">{{ story.author_str }}</span></b>: {%
             endif %}
             <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
             {% if story.orig_title != story.title %}({{ story.orig_title}}

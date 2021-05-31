@@ -1,5 +1,6 @@
 import csv
-from app.orm_decl import (EditionImage, Work, Edition, Part, Author, Person)
+from app.orm_decl import (EditionImage, Work, Edition, Part, Person,
+        Contributor)
 from app import app
 import sys
 import os
@@ -25,10 +26,10 @@ def add_image(s: Any, image: List[str]) -> None:
                 .filter(Edition.pubyear == pubyear_str)\
                 .join(Part)\
                 .filter(Part.edition_id == Edition.id)\
-                .join(Author)\
-                .filter(Author.part_id == Part.id)\
-                .join(Person)\
-                .filter(Person.id == Author.person_id)\
+                .join(Contributor)\
+                .filter(Contributor.part_id == Part.id, Contributor.role_id == 0)\
+                .join(Person, Person.id == Contributor.person_id)\
+                .filter(Person.id == Contributor.person_id)\
                 .filter(Person.name.like(author_str + '%'))\
                 .all()
 

@@ -26,7 +26,7 @@
                                 personid=awrd.person.id)}}">{{awrd.person.alt_name }}</a>
                 </td>
                 {% elif awrd.work %}
-                <td>{{ awrd.work.creator_str}}:
+                <td>{{ awrd.work.author_str}}:
                     <a href="{{url_for('edition',
                                           editionid=awrd.work.editions[0].id)}}">{{awrd.work.title}}</a>
                 </td>

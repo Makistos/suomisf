@@ -193,9 +193,9 @@
             {% for article in issue.articles %}
             <div class="row view-field ml-1 mr-1 mt-1">
                 <div class="col">
-                    {% if article.creator_str -%}
+                    {% if article.author_str -%}
                     <span class="person-list">
-                        {{ article.creator_str }}</span>:
+                        {{ article.author_str }}</span>:
                     {% endif %}
                     <a href="{{url_for('article',
 						 id=article.id)}}">{{
@@ -215,9 +215,9 @@
             {% for story in issue.stories %}
             <div class="row view-field ml-1 mr-1">
                 <div class="col">
-                    {% if story.creator_str -%}
+                    {% if story.author_str -%}
                     <span class="person-list">
-                        {{ story.creator_str }}</span>:
+                        {{ story.author_str }}</span>:
                     {% endif %}
                     <a href="{{url_for('story',
 						 id=story.id)}}">{{

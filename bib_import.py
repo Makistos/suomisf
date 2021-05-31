@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from app.orm_decl import (AwardCategories, Work, Edition, Part, Person, Author, Translator,
-                          Editor, Publisher, Pubseries, Bookseries, User, Genre,
+from app.orm_decl import (AwardCategories, Contributor, Work, Edition, Part, Person,
+                          Publisher, Pubseries, Bookseries, User, Genre,
                           Alias, WorkGenre, Award, BindingType, Format,
-                          Magazine, WorkType, AwardCategory, PublicationSize,
-                          Country, StoryType, Tag, WorkTag, EditionImage)
+                          WorkType, AwardCategory, PublicationSize,
+                          Country, StoryType, Tag, WorkTag, Contributor, ContributorRole)
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from importbib import publishers
@@ -583,24 +583,30 @@ def add_bookperson(s, person, book, type):
         to avoid adding double entries. This should really never happen.
     """
     if type == 'A':
-        bookperson = s.query(Author).filter(Author.person_id == person.id,
-                                            Author.part_id == book.id).first()
+        bookperson = s.query(Contributor).filter(Contributor.person_id == person.id,
+                                                 Contributor.part_id == book.id,
+                                                 Contributor.role_id == 0).first()
         if not bookperson:
             logging.debug('Adding author %s for %s.', person.name, book.title)
-            bookperson = Author(person_id=person.id, part_id=book.id)
+            bookperson = Contributor(
+                person_id=person.id, part_id=book.id, role_id=0)
     elif type == 'T':
-        bookperson = s.query(Translator).filter(Translator.person_id ==
-                                                person.id, Translator.part_id == book.id).first()
+        bookperson = s.query(Contributor).filter(Contributor.person_id ==
+                                                 person.id, Contributor.part_id == book.id,
+                                                 Contributor.role_id == 1).first()
         if not bookperson:
             logging.debug('Adding translator %s for %s.',
                           person.name, book.title)
-            bookperson = Translator(person_id=person.id, part_id=book.id)
+            bookperson = Contributor(
+                person_id=person.id, part_id=book.id, role_id=1)
     elif type == 'E':
-        bookperson = s.query(Editor).filter(Editor.person_id ==
-                                            person.id, Editor.edition_id == book.id).first()
+        bookperson = s.query(Contributor).filter(Contributor.person_id == person.id,
+                                                 Contributor.part_id == book.id,
+                                                 Contributor.role_id == 2).first()
         if not bookperson:
             logging.debug('Adding editor %s for %s.', person.name, book.title)
-            bookperson = Editor(person_id=person.id, edition_id=book.id)
+            bookperson = Contributor(
+                person_id=person.id, part_id=book.id, role_id=2)
     else:
         return
 
@@ -1055,14 +1061,14 @@ def import_books(session, authors):
                 # Add links between people and edition
                 for authoritem in authorlist:
                     if '(toim.)' in author:
-                        add_bookperson(s, authoritem, ed, 'E')
+                        add_bookperson(s, authoritem, part, 'E')
                     else:
                         add_bookperson(s, authoritem, part, 'A')
                 for tr in this_translators:
                     add_bookperson(s, tr, part, 'T')
                 if edition['editor'] != '':
                     for editor in editors:
-                        add_bookperson(s, editor, ed, 'E')
+                        add_bookperson(s, editor, part, 'E')
 
 
 def save_genres(session, workid, genrelist):
@@ -1104,49 +1110,49 @@ def save_genres(session, workid, genrelist):
     return retval
 
 
-def update_creators(session):
-    """ Update the owner string for every work. This is used
-        to group books together and is needed because combining
-        authors and editors for books with multiple creators would
-        be very complex otherwise. """
+# def update_creators(session):
+#     """ Update the owner string for every work. This is used
+#         to group books together and is needed because combining
+#         authors and editors for books with multiple creators would
+#         be very complex otherwise. """
 
-    logging.info('Updating creator strings')
-    print('Updating creator strings...')
-    s = session()
-    works = s.query(Work).all()
+#     logging.info('Updating creator strings')
+#     print('Updating creator strings...')
+#     s = session()
+#     works = s.query(Work).all()
 
-    i = 0
-    for work in works:
-        authors = s.query(Person)\
-            .join(Author)\
-            .filter(Person.id == Author.person_id)\
-            .join(Part)\
-            .filter(Part.id == Author.part_id)\
-            .filter(Part.work_id == work.id)\
-            .all()
-        if authors:
-            author_list = ' & '.join([x.name for x in authors])
-            work.creator_str = author_list
-        else:
-            editors = s.query(Person)\
-                .join(Editor)\
-                .filter(Person.id == Editor.person_id)\
-                .join(Edition)\
-                .filter(Edition.id == Editor.edition_id)\
-                .join(Part)\
-                .filter(Part.edition_id == Edition.id,
-                        Part.work_id == work.id)\
-                .all()
-            if editors:
-                editor_list = ' & '.join([x.name for x in editors])
-                work.creator_str = editor_list + ' (toim.)'
+#     i = 0
+#     for work in works:
+#         authors = s.query(Person)\
+#             .join(Author)\
+#             .filter(Person.id == Author.person_id)\
+#             .join(Part)\
+#             .filter(Part.id == Author.part_id)\
+#             .filter(Part.work_id == work.id)\
+#             .all()
+#         if authors:
+#             author_list = ' & '.join([x.name for x in authors])
+#             work.creator_str = author_list
+#         else:
+#             editors = s.query(Person)\
+#                 .join(Editor)\
+#                 .filter(Person.id == Editor.person_id)\
+#                 .join(Edition)\
+#                 .filter(Edition.id == Editor.edition_id)\
+#                 .join(Part)\
+#                 .filter(Part.edition_id == Edition.id,
+#                         Part.work_id == work.id)\
+#                 .all()
+#             if editors:
+#                 editor_list = ' & '.join([x.name for x in editors])
+#                 work.creator_str = editor_list + ' (toim.)'
 
-        s.add(work)
-        if i % 100 == 0:
-            print('.', end='', flush=True)
-        i += 1
-    s.commit()
-    print()
+#         s.add(work)
+#         if i % 100 == 0:
+#             print('.', end='', flush=True)
+#         i += 1
+#     s.commit()
+#     print()
 
 
 def add_missing_series(session):
@@ -1386,23 +1392,23 @@ def add_default_rows(session: Any) -> Any:
         s.add(item)
     s.commit()
 
-    st = StoryType(name='Novelli')
-    s.add(st)
+    storytypes = ['Novelli', 'Pitkä novelli', 'Pienoisromaani', 'Runo',
+                  'Raapale', 'Artikkeli']
+    for storytype in storytypes:
+        st = StoryType(name=storytype)
+        s.add(st)
     s.commit()
-    st = StoryType(name='Pitkä novelli')
-    s.add(st)
-    s.commit()
-    st = StoryType(name='Pienoisromaani')
-    s.add(st)
-    s.commit()
-    st = StoryType(name='Runo')
-    s.add(st)
-    s.commit()
-    st = StoryType(name='Raapale')
-    s.add(st)
-    s.commit()
-    st = StoryType(name='Artikkeli')
-    s.add(st)
+
+    roles = ['Kirjoittaja',  # id 0
+             'Kääntäjä',  # id 1
+             'Toimittaja',  # id 2
+             'Kansikuva',  # id 3
+             'Kuvittaja'  # id 4
+             ]
+
+    for role in roles:
+        cr = ContributorRole(name=role)
+        s.add(cr)
     s.commit()
 
 
@@ -1445,7 +1451,7 @@ def import_all(filelist):
     import_bookseries(session, bookseries)
     import_pubseries(session, pubseries)
     import_books(session, data)
-    update_creators(session)
+    # update_creators(session)
 
     add_missing_series(session)
     create_admin(session)
@@ -1583,8 +1589,8 @@ def add_multiparts():
             w.orig_title = work[wtitle]
             w.pubyear = work[wpubyear]
             w.misc = work[w_misc]
-            creator_str = ' & '.join([x.name for x in authors])
-            w.creator_str = creator_str
+            # creator_str = ' & '.join([x.name for x in authors])
+            # w.creator_str = creator_str
             s.add(w)
             s.commit()
         work[w_id] = w.id
@@ -1647,15 +1653,17 @@ def add_multiparts():
                 s.add(part)
                 s.commit()
                 for person in work[author_ids]:
-                    author = Author()
+                    author = Contributor()
                     author.person_id = person
                     author.part_id = part.id
+                    author.role_id = 0
                     s.add(author)
                     s.commit()
                 for id in edition[e_translator_ids]:
-                    translator = Translator()
+                    translator = Contributor()
                     translator.person_id = id
                     translator.part_id = part.id
+                    translator.role_id = 1
                     s.add(translator)
                     s.commit()
 

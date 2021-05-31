@@ -12,7 +12,7 @@
 {% endfor %}
 {% endif %}
 {% if (type == 'books') %}
-{% for author in works|groupby(attribute='creator_str') %}
+{% for author in works|groupby(attribute='author_str') %}
 
 
 <h2>{{author.grouper}}</h2>

@@ -330,8 +330,8 @@
             </h4>
             <br />
             {% for work in s.works %}
-            {% if work.creator_str != person.name %}
-            {{ work.creator_str }}:
+            {% if work.author_str != person.name %}
+            {{ work.author_str }}:
             {% endif %}
             {% include "_work.html" %}
             {% endfor %}
@@ -469,7 +469,7 @@
                     article.issue.number -%} {{ article.issue.number }} /
                     {{ article.issue.year }} {%- else -%} {{ article.issue.count
                     }} {%- endif -%}</a></b>
-                {% if article.creator_str != ''%} {{ article.creator_str }}:{%
+                {% if article.author_str != ''%} {{ article.author_str }}:{%
                 endif %} {{ article.title }}.
               </li>
               {% endfor %}

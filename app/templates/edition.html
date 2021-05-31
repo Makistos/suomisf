@@ -9,7 +9,8 @@
         <h4 class="mb-0 mt-4" style="text-align: center; font-variant: small-caps;">
             <!-- No editing authors in edition -->
             {% if editors|length == 0 %}
-            <span class="person-list">{{ authors|map(attribute='name')|join(' & ') }}</span>
+            {#<span class="person-list">{{ authors|map(attribute='name')|join(' & ') }}</span> #}
+            <span class="person-list">{{ edition.work[0].author_str }}</span>
             {% endif %}
         </h4>
         <!-- Title -->
@@ -400,8 +401,8 @@
                     <h5 class="mt-4">Novellit</h5>
                     <div class="ml-4">
                         {% for story in stories %}
-                        {% if story.creator_str != edition.work[0].creator_str %}
-                        <b><span class="person-list">{{ story.creator_str }}</span></b>: {% endif %}
+                        {% if story.author_str != edition.work[0].author_str %}
+                        <b><span class="person-list">{{ story.author_str }}</span></b>: {% endif %}
                         <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
                         {% if story.orig_title != story.title %}
                         ({{ story.orig_title}}
