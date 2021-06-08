@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import re
 import os
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Any
 from importbib import missing_from_db
 
 people: Dict = {}
@@ -14,7 +14,7 @@ people: Dict = {}
 db_url = app.config['SQLALCHEMY_DATABASE_URI']
 
 
-def add_missing_people():
+def add_missing_people() -> None:
     for person in missing_from_db:
         add_to_db(person)
 
@@ -61,7 +61,7 @@ def add_to_db(person: str):
         s.commit()
 
 
-def get_people():
+def get_people() -> None:
     """ Get the people in the database into a nice dict. """
     engine = create_engine(db_url)
     session = sessionmaker()
@@ -178,9 +178,9 @@ def get_authors(line: str) -> Tuple[List, bool]:
     return (list(set(retval)), all_found)
 
 
-def import_stories(filename: str, books: Dict = {}):
+def import_stories(filename: str, books: Dict[str, Any] = {}) -> None:
     """ Import all the short stories from one the files. """
-    stories: Dict = {}
+    stories: Dict[str, Any] = {}
     engine = create_engine(db_url, echo=False, encoding='iso8859-1')
     session = sessionmaker()
     session.configure(bind=engine)
@@ -397,17 +397,26 @@ def import_stories(filename: str, books: Dict = {}):
                         s.commit()
                         for auth in st['authors']:
                             try:
-                                author = Contributor(part_id=part.id,
-                                                person_id=auth,
-                                                role_id=0)
+                                contributor = Contributor(part_id=part.id,
+                                                          person_id=auth,
+                                                          role_id=0)
                             except Exception as e:
                                 print(f'Excpetion {e}')
-                            s.add(author)
+                            s.add(contributor)
                         s.commit()
 
 
 if __name__ == '__main__':
     add_missing_people()
     get_people()
+    books: Dict[str, List[Any]] = {'[Ias:V1]': ['Reijo Kalvas', 'Isaac Asimov Science Fiction valikoima 1', True],
+                                   '[Ias:V2]': ['Reijo Kalvas', 'Isaac Asimov Science Fiction valikoima 2', True],
+                                   '[Ias:V3]': ['Reijo Kalvas', 'Isaac Asimov Science Fiction valikoima 3', True],
+                                   '[Neu:My]': ['Neuvostokirjailijain tieteiskertomuksia', 'Maxwellin yhtälöt (Uravnenija Maksvella)', True],
+                                   '[Dah:Rk]': ['Roald Dahl', 'Rakkaani, kyyhkyläiseni', False],
+                                   '[Kin:Ao]': ['Stephen (Edwin) King', 'Anteeksi, oikea numero', False],
+                                   '[Kin:Py]': ['Stephen (Edwin) King', 'Pimeä yö, tähdetön taivas', False]}
     import_stories('bibfiles/sf_nov_u.txt', books)
+
+    books = {'[Sun:Kt]': ['Shimo Suntila', 'Hei, rillumapunk!', True]}
     import_stories('bibfiles/sf_nov_s.txt', books)

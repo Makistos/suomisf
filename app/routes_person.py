@@ -2,16 +2,15 @@ import logging
 
 from flask import (redirect, render_template, request,
                    url_for, jsonify, Response, make_response)
-from flask_login import current_user, login_user, logout_user
 from flask_login.utils import login_required
 
 from app import app
 from app.forms import PersonForm
-from app.orm_decl import (Person, PersonTag, Author, Translator, Editor,
-                          Part, Work, Edition, Genre, Awarded, ArticlePerson,
-                          ArticleAuthor, Bookseries, ShortStory, Award,
-                          AwardCategory, Country, Language, PersonLanguage,
-                          Tag, PersonTag, Alias)
+from app.orm_decl import (Person, PersonTag,
+                          Part, Work, Genre,
+                          Bookseries,
+                          Country, Language, PersonLanguage,
+                          Tag, PersonTag, Alias, Contributor)
 from sqlalchemy import func
 from typing import Dict, Any, List
 from .route_helpers import *
@@ -33,8 +32,8 @@ def people() -> Any:
 def authors() -> Any:
     session = new_session()
     people = session.query(Person)\
-                    .join(Author)\
-                    .filter(Author.person_id == Person.id)\
+                    .join(Contributor.person)\
+                    .filter(Contributor.role_id == 0)\
                     .order_by(Person.name).all()
     letters = sorted(set([x.name[0].upper() for x in people if x.name != '']))
     return render_template('people.html', people=people,
@@ -46,8 +45,8 @@ def authors() -> Any:
 def translators() -> Any:
     session = new_session()
     people = session.query(Person)\
-                    .join(Translator)\
-                    .filter(Translator.person_id == Person.id)\
+                    .join(Contributor.person)\
+                    .filter(Contributor.role_id == 1)\
                     .order_by(Person.name).all()
     letters = sorted(set([x.name[0].upper() for x in people if x.name != '']))
     return render_template('people.html', people=people,
@@ -59,8 +58,9 @@ def translators() -> Any:
 def editors() -> Any:
     session = new_session()
     people = session.query(Person)\
-                    .join(Editor)\
-                    .filter(Editor.person_id == Person.id)\
+                    .join(Contributor.person)\
+                    .filter(Contributor.role_id == 2)\
+                    .join(Part, Part.id == Contributor.part_id)\
                     .order_by(Person.name).all()
     letters = sorted(set([x.name[0].upper() for x in people if x.name != '']))
 
@@ -95,8 +95,9 @@ def person(personid: Any) -> Any:
                     .join(Work.genres)\
                     .join(Work.parts)\
                     .filter(Part.shortstory_id == None)\
-                    .join(Author, Author.person_id == Person.id)\
-                    .filter(Author.part_id == Part.id)\
+                    .join(Contributor.person)\
+                    .filter(Contributor.role_id == 0)\
+                    .filter(Contributor.part_id == Part.id)\
                     .filter(Person.id == person.id)\
                     .group_by(Genre.name)\
                     .all()

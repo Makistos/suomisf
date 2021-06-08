@@ -6,7 +6,7 @@ from app import app
 from app.forms import PublisherForm
 from app.orm_decl import (Publisher, PublisherLink, Edition, Pubseries, Genre,
                           Part, Work)
-from sqlalchemy import func
+from sqlalchemy import func, desc
 from typing import Any, Dict, List
 import json
 

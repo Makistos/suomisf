@@ -1,10 +1,10 @@
 from app import app
-from app.orm_decl import (ShortStory, Part, Author,
-                          Person, StoryGenre, StoryTag, Edition, Work, Tag, Genre)
+from app.orm_decl import (ShortStory, Part,
+                          Person, StoryGenre, StoryTag, Edition, Work, Tag, Genre, Contributor)
 from .route_helpers import *
-from flask import (render_template, request, flash, redirect,
-                   url_for, make_response, jsonify, Response)
-from flask_login import login_required, current_user
+from flask import (render_template, request,
+                   make_response, jsonify, Response)
+from flask_login import login_required
 from app.forms import StoryForm
 import json
 from typing import List, Any, Dict
@@ -32,12 +32,13 @@ def story(id: Any) -> Any:
 
     authors = session.query(Person)\
                      .distinct(Person.id)\
-                     .join(Author, Author.person_id == Person.id)\
-                     .filter(Person.id == Author.person_id)\
-                     .join(Part)\
-                     .filter(Author.part_id == Part.id,
-                             Part.shortstory_id == id)\
-                     .all()
+                     .join(Contributor, Contributor.role_id == 0)\
+        .filter(Contributor.person_id == Person.id)\
+        .filter(Person.id == Contributor.person_id)\
+        .join(Part)\
+        .filter(Contributor.part_id == Part.id,
+                Part.shortstory_id == id)\
+        .all()
 
     form = StoryForm(request.form)
 
@@ -149,9 +150,9 @@ def save_authors_to_story() -> Response:
     session = new_session()
 
     (storyid, people_ids) = get_select_ids(request.form)
-    existing_people = session.query(Author)\
+    existing_people = session.query(Contributor, Contributor.role_id == 0)\
                              .join(Part)\
-                             .filter(Part.id == Author.part_id)\
+                             .filter(Part.id == Contributor.part_id)\
                              .filter(Part.shortstory_id == storyid)\
                              .all()
 
@@ -159,10 +160,10 @@ def save_authors_to_story() -> Response:
         [x.person_id for x in existing_people], [int(x['id']) for x in people_ids])
 
     for id in to_remove:
-        auth = session.query(Author)\
-                      .filter(Author.person_id == id)\
+        auth = session.query(Contributor, Contributor.role_id == 0)\
+                      .filter(Contributor.person_id == id)\
                       .join(Part)\
-                      .filter(Part.id == Author.part_id)\
+                      .filter(Part.id == Contributor.part_id)\
                       .filter(Part.shortstory_id == storyid)\
                       .first()
         session.delete(auth)
@@ -171,7 +172,7 @@ def save_authors_to_story() -> Response:
                        .filter(Part.shortstory_id == storyid)\
                        .all()
         for part in parts:
-            auth = Author(person_id=id, part_id=part.id)
+            auth = Contributor(person_id=id, part_id=part.id, role_id=0)
             session.add(auth)
 
     session.commit()
@@ -185,11 +186,11 @@ def save_authors_to_story() -> Response:
 def authors_for_story(storyid):
     session = new_session()
     people = session.query(Person)\
-                    .join(Author)\
-                    .filter(Author.person_id == Person.id)\
+                    .join(Contributor, Contributor.role_id == 0)\
+                    .filter(Contributor.person_id == Person.id)\
                     .join(Part)\
                     .filter(Part.shortstory_id == storyid)\
-                    .filter(Author.part_id == Part.id)\
+                    .filter(Contributor.part_id == Part.id)\
                     .all()
 
     retval: List[Dict[str, str]] = []
@@ -322,13 +323,13 @@ def select_story() -> Response:
         retval: Dict[str, List[Dict[str, Any]]] = {}
         stories = session.query(ShortStory)\
                          .filter(ShortStory.title.ilike('%' + search + '%'))\
-                         .order_by(ShortStory.creator_str, ShortStory.title)\
+                         .order_by(ShortStory.author_str, ShortStory.title)\
                          .all()
         retval['results'] = []
         if stories:
             for story in stories:
                 retval['results'].append(
-                    {'id': str(story.id), 'text': story.creator_str + ': ' + story.title})
+                    {'id': str(story.id), 'text': story.author_str + ': ' + story.title})
         return Response(json.dumps(retval))
     else:
         return Response(json.dumps[''])

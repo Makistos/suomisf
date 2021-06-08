@@ -1,18 +1,17 @@
 from flask import render_template, request, flash, redirect, url_for,\
     make_response, jsonify, Response
-from flask_login import current_user, login_user, logout_user, login_required
-from sqlalchemy.util.langhelpers import ellipses_string
+from flask_login import current_user, login_user, logout_user
 from app import app
-from app.orm_decl import (Person, Author, Editor, Translator, Work,
+from app.orm_decl import (Person, Work,
                           Edition, Pubseries, Bookseries, User, UserBook, ShortStory, UserPubseries,
-                          Alias, Genre, WorkGenre, Tag, Award, AwardCategory, Awarded,
+                          Genre, WorkGenre, Tag, Award, Awarded,
                           Magazine, Issue, PublicationSize, Publisher, Part, ArticleTag,
-                          Language, Country, Article)
-from sqlalchemy import create_engine, desc, func, text
+                          Language, Country, Article, Contributor)
+from sqlalchemy import create_engine, func, text
 from sqlalchemy.orm import sessionmaker
 from app.forms import (LoginForm, RegistrationForm,
-                       PubseriesForm, BookseriesForm, UserForm,
-                       SearchForm, IssueForm, MagazineForm, SearchBooksForm, SearchStoryForm)
+                       UserForm,
+                       SearchForm, SearchBooksForm, SearchStoryForm)
 from .route_helpers import *
 # from app.forms import BookForm
 from flask_sqlalchemy import get_debug_queries
@@ -29,7 +28,8 @@ def index():
     session = new_session()
     work_count = session.query(func.count(Work.id)).first()
     edition_count = session.query(func.count(Edition.id)).first()
-    author_count = session.query(Author.person_id.distinct()).all()
+    author_count = session.query(Contributor.person_id.distinct()).filter(
+        Contributor.role_id == 0).all()
     pub_count = session.query(func.count(Publisher.id)).first()
     person_count = session.query(func.count(Person.id)).first()
     pubseries_count = session.query(func.count(Pubseries.id)).first()
@@ -77,8 +77,8 @@ def bookindex() -> Any:
         stmt = 'SELECT DISTINCT Work.* FROM '
         tables = 'Work, Part '
         where = 'WHERE work.id = part.work_id '
-        if form.authorname.data:
-            where += " and creator_str like '%" + form.authorname.data + "%'"
+        # if form.authorname.data:
+        #     where += " and creator_str like '%" + form.authorname.data + "%'"
         if form.title.data:
             where += " and work.title like '%" + form.title.data + "%' "
         if form.orig_title.data:
@@ -99,8 +99,8 @@ def bookindex() -> Any:
             where += ' and workgenre.work_id = work.id '
             where += " and workgenre.genre_id = " + str(form.genre.data)
         if form.nationality.data > 0:
-            tables += ', Author, Person '
-            where += ' and part.id = author.part_id and author.person_id = person.id '
+            tables += ', Contributor, Person '
+            where += ' and part.id = contributor.part_id and contributor.person_id = person.id '
             where += ' and person.nationality_id = ' + \
                 str(form.nationality.data)
         if form.type.data > 0:
@@ -122,8 +122,8 @@ def shortstoryindex() -> Any:
 
     if form.validate_on_submit():
         stmt = "SELECT DISTINCT ShortStory.* FROM ShortStory WHERE 1=1 "
-        if form.authorname.data:
-            stmt += " AND shortstory.creator_str like '%" + form.authorname.data + "%'"
+        # if form.authorname.data:
+        #     stmt += " AND shortstory.creator_str like '%" + form.authorname.data + "%'"
         if form.title.data:
             stmt += " AND shortstory.title like '%" + form.title.data + "%'"
         if form.orig_title.data:
@@ -133,7 +133,7 @@ def shortstoryindex() -> Any:
                 str(form.origyear_start.data)
         if form.origyear_end.data:
             stmt += " AND shortstory.pubyear <= " + str(form.origyear_end.data)
-        stmt += " ORDER BY shortstory.creator_str, shortstory.title"
+        stmt += " ORDER BY shortstory.title"
         stories = session.query(ShortStory)\
                          .from_statement(text(stmt))\
                          .all()
@@ -195,7 +195,7 @@ def register():
 
 
 @app.route('/award/<awardid>')
-def award(awardid):
+def award(awardid: Any) -> Any:
     session = new_session()
 
     award = session.query(Award).filter(Award.id == awardid).first()
@@ -207,7 +207,7 @@ def award(awardid):
 
 
 @app.route('/awards')
-def awards():
+def awards() -> Any:
     session = new_session()
 
     awards = session.query(Award).all()
@@ -216,7 +216,7 @@ def awards():
 
 
 @app.route('/stats')
-def stats():
+def stats() -> Any:
     session = new_session()
 
     counts = session.query(Genre.abbr, Genre.name.label('genre_name'),
@@ -238,10 +238,10 @@ def stats():
             .filter(Work.id == Part.work_id)\
             .join(Edition)\
             .filter(Part.edition_id == Edition.id)\
-            .join(Author)\
-            .filter(Author.part_id == Part.id)\
-            .join(Person, Person.id == Author.person_id)\
-            .filter(Author.person_id == Person.id)\
+            .join(Contributor)\
+            .filter(Contributor.part_id == Part.id, Contributor.role_id == 0)\
+            .join(Person, Person.id == Contributor.person_id)\
+            .filter(Contributor.person_id == Person.id)\
             .filter(Genre.abbr == genre)\
             .filter(Part.shortstory_id == None)\
             .filter(Edition.editionnum == 1)\
@@ -250,20 +250,23 @@ def stats():
             .limit(10)\
             .all()
 
-    translators = session.query(Person.name, func.count(Translator.person_id))\
-                         .join(Translator.parts)\
-                         .join(Translator.person)\
+    translators = session.query(Person.name, func.count(Contributor.person_id).label('count'))\
+                         .filter(Contributor.role_id == 1)\
+                         .join(Contributor.parts)\
+                         .join(Contributor.person)\
                          .filter(Part.shortstory_id == None)\
                          .group_by(Person.id)\
-                         .order_by(func.count(Translator.person_id).desc())\
+                         .order_by(func.count(Contributor.person_id).desc())\
                          .limit(20)\
                          .all()
 
-    editors = session.query(Person.name, func.count(Editor.person_id))\
-                     .join(Editor.person)\
-                     .join(Editor.edits)\
+    editors = session.query(Person.name, func.count(Contributor.person_id))\
+                     .filter(Contributor.role_id == 2)\
+                     .join(Contributor.parts)\
+                     .join(Contributor.person)\
+                     .filter(Part.edition_id is not None)\
                      .group_by(Person.id)\
-                     .order_by(func.count(Editor.person_id).desc())\
+                     .order_by(func.count(Contributor.person_id).desc())\
                      .limit(20)\
                      .all()
 
@@ -516,7 +519,7 @@ def print_books():
         editions = None
         works = session.query(Work)\
                        .filter(Work.bookseries_id == id)\
-                       .order_by(Work.creator_str)\
+                       .order_by(Work.author_str)\
                        .all()
         series = session.query(Bookseries).filter(Bookseries.id == id).first()
         title = series.name
@@ -525,13 +528,13 @@ def print_books():
         series = None
         if letter:
             works = session.query(Work)\
-                           .filter(Work.creator_str.like(letter + '%'))\
-                           .order_by(Work.creator_str)\
+                           .filter(Work.author_str.like(letter + '%'))\
+                           .order_by(Work.author_str)\
                            .all()
             title = letter
         else:
             works = session.query(Work)\
-                           .order_by(Work.creator_str)\
+                           .order_by(Work.author_str)\
                            .all()
             title = 'Kaikki kirjat'
     return render_template('print_books.html', editions=editions, works=works, print=1,
@@ -549,8 +552,8 @@ def mybooks(userid=0):
     works = session.query(Work)\
         .join(Part)\
         .filter(Part.work_id == Work.id)\
-        .join(Author)\
-        .filter(Author.part_id == Part.id)\
+        .join(Contributor, Contributor.role_id == 0)\
+        .filter(Contributor.part_id == Part.id)\
         .join(Edition)\
         .filter(Part.edition_id == Edition.id)\
         .join(UserBook)\
@@ -572,10 +575,10 @@ def myseries():
     pubseriesids = [x.id for x in pubseries]
     app.logger.debug("IDs = " + str(pubseriesids))
     authors = session.query(Person)\
-                     .join(Author)\
-                     .filter(Author.person_id == Person.id)\
+                     .join(Contributor, Contributor.role_id == 0)\
+                     .filter(Contributor.person_id == Person.id)\
                      .join(Part)\
-                     .filter(Author.part_id == Part.id)\
+                     .filter(Contributor.part_id == Part.id)\
                      .join(Edition)\
                      .filter(Edition.pubseries_id.in_(pubseriesids))\
                      .filter(Edition.id == Part.edition_id)\
@@ -655,8 +658,8 @@ def search_form() -> Any:
         query = query.join(Part, Part.work_id == Work.id)\
                      .join(Edition, Part.edition_id == Edition.id)\
                      .filter(Part.shortstory_id == None)\
-                     .join(Author, Author.part_id == Part.id)\
-                     .join(Person, Person.id == Author.person_id)\
+                     .join(Contributor, Contributor.part_id == Part.id, Contributor.role_id == 0)\
+                     .join(Person, Person.id == Contributor.person_id)\
                      .join(WorkGenre, WorkGenre.work_id == Work.id)\
                      .join(Genre, Genre.id == WorkGenre.genre_id)
         if form.work_name.data != '':
@@ -701,7 +704,7 @@ def search_form() -> Any:
                 else:
                     query = query.filter(Person.nationality_id.in_([x for x in
                                                                     form.author_nationality.data]))
-        query = query.order_by(Work.creator_str)
+        query = query.order_by(Work.author_str)
         works = query.all()
 
         return render_template('books.html',

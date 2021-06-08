@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 
-from sqlalchemy import create_engine, desc, text
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, joinedload
-from app.orm_decl import (Language, Person, Author, Editor, Translator, Publisher, Work,
-                          Edition, Part, Pubseries, Bookseries, User, UserBook, PublicationSize, Tag,
+from app.orm_decl import (Contributor, Language, Person, Publisher, Work,
+                          Edition, Part, Pubseries, Bookseries, PublicationSize, Tag,
                           PersonTag, BindingType, Format, Genre, ShortStory, ArticleTag,
                           WorkGenre, Log)
 from app import app
@@ -11,7 +11,6 @@ from typing import List, Dict, Any, Tuple
 from flask_login import current_user
 from flask import abort, Response
 from functools import wraps
-from datetime import datetime
 import json
 
 """
@@ -52,8 +51,8 @@ def publisher_list(session: Any) -> Dict[str, List[str]]:
 def author_list(session: Any) -> Dict[str, List[str]]:
     return {'author': [str(x.name) for x in
                        session.query(Person)
-                       .join(Author)
-                       .filter(Author.person_id == Person.id)
+                       .join(Contributor, Contributor.role_id == 0)
+                       .filter(Contributor.person_id == Person.id)
                        .distinct()
                        .order_by(Person.name)
                        .all()]}
@@ -151,26 +150,27 @@ def save_join(session: Any, cls: object, *paths: Any) -> None:
 def people_for_book(s: Any, workid: Any, type: str) -> Any:
     if type == 'A':
         return s.query(Person)\
-                .join(Author, Author.person_id == Person.id)\
+                .join(Contributor.person)\
+                .filter(Contributor.role_id == 0)\
                 .join(Part)\
-                .filter(Author.part_id == Part.id)\
+                .filter(Contributor.part_id == Part.id)\
                 .filter(Part.work_id == workid)\
                 .all()
     elif type == 'T':
         return s.query(Person)\
-                .join(Translator)\
+                .join(Contributor.person)\
+                .filter(Contributor.role_id == 1)\
                 .join(Part)\
-                .filter(Person.id == Translator.person_id)\
-                .filter(Translator.part_id == Part.id)\
+                .filter(Contributor.part_id == Part.id)\
                 .filter(Part.work_id == workid)\
                 .all()
     elif type == 'E':
         return s.query(Person)\
-                .join(Editor)\
-                .join(Edition)\
-                .filter(Person.id == Editor.person_id)\
-                .filter(Editor.edition_id == Edition.id)\
+                .join(Contributor.person)\
+                .filter(Contributor.role_id == 2)\
                 .join(Part)\
+                .filter(Part.edition_id == Edition.id)\
+                .join(Edition)\
                 .filter(Edition.id == Part.edition_id)\
                 .filter(Part.work_id == workid)\
                 .all()
@@ -181,24 +181,26 @@ def books_for_person(s, personid, type):
         return s.query(Work)\
                 .join(Part)\
                 .filter(Part.work_id == Work.id)\
-                .join(Author)\
-                .filter(Author.person_id == personid)\
-                .filter(Author.part_id == Part.id)\
+                .join(Contributor.person)\
+                .filter(Contributor.role_id == 0)\
+                .filter(Contributor.part_id == Part.id)\
                 .order_by(Work.title)\
                 .all()
     elif type == 'T':
         return s.query(Edition)\
                 .join(Part)\
                 .filter(Edition.id == Part.edition_id)\
-                .join(Translator)\
-                .filter(Translator.person_id == personid)\
-                .filter(Translator.part_id == Part.id)\
+                .join(Contributor.person)\
+                .filter(Contributor.role_id == 1)\
+                .filter(Contributor.part_id == Part.id)\
                 .all()
     elif type == 'E':
         return s.query(Edition)\
-                .join(Editor)\
-                .filter(Editor.person_id == personid)\
-                .filter(Editor.edition_id == Edition.id)\
+                .join(Contributor.person)\
+                .filter(Contributor.role_id == 2)\
+                .join(Part)\
+                .filter(Part.id == Contributor.part_id)\
+                .filter(Part.edition_id == Edition.id)\
                 .all()
     else:
         return None
@@ -239,15 +241,18 @@ def editions_for_work(workid) -> List[Dict[str, Any]]:
         # Editions can have multiple translators and editors but only
         # one publisher series and publisher.
         translators = session.query(Person)\
-                             .join(Translator)\
-                             .filter(Person.id == Translator.person_id,
-                                     Translator.edition_id == edition.id)\
+                             .join(Contributor.person)\
+                             .filter(Contributor.role_id == 1)\
+                             .join(Part, Part.id == Contributor.part_id)\
+                             .filter(Part.edition_id == edition.id)\
                              .all()
         editors = session.query(Person)\
-                         .join(Editor)\
-                         .filter(Person.id == Editor.person_id,
-                                 Editor.edition_id == edition.id)\
-                         .all()
+                         .join(Contributor.person)\
+                         .filter(Contributor.role_id == 2)\
+                         .join(Part, Part.id == Contributor.part_id)\
+                         .filter(
+            Part.edition_id == edition.id)\
+            .all()
         pubseries = session.query(Pubseries)\
                            .filter(Pubseries.id == edition.pubseries_id)\
                            .first()
@@ -285,9 +290,9 @@ def save_author_to_work(session, workid, authorname: str) -> None:
 
     authorid = author.id
 
-    already_exists = session.query(Author)\
+    already_exists = session.query(Contributor, Contributor.role_id == 0)\
                             .join(Part)\
-                            .filter(Author.person_id == authorid)\
+                            .filter(Contributor.person_id == authorid)\
                             .filter(Part.work_id == workid)\
                             .count()
     if already_exists == 0:
@@ -295,12 +300,13 @@ def save_author_to_work(session, workid, authorname: str) -> None:
                        .filter(Part.work_id == workid)\
                        .all()
         for part in parts:
-            author = Author(person_id=authorid, part_id=part.id)
+            author = Contributor(person_id=authorid,
+                                 part_id=part.id, role_id=0)
             session.add(author)
 
         session.commit()
 
-    update_work_creators(session, workid)
+    #update_work_creators(session, workid)
 
 
 def save_author_to_story(session, storyid, authorname: str) -> None:
@@ -314,11 +320,11 @@ def save_author_to_story(session, storyid, authorname: str) -> None:
                     .first()
 
     for part in parts:
-        auth = Author(part_id=part.id, person_id=author.id)
+        auth = Contributor(part_id=part.id, person_id=author.id, role_id=0)
         session.add(auth)
     session.commit()
 
-    update_story_creators(session, storyid)
+    #update_story_creators(session, storyid)
 
 
 def save_story_to_work(session, workid, title: str) -> None:
@@ -335,9 +341,9 @@ def save_story_to_work(session, workid, title: str) -> None:
                       .filter(Part.work_id == workid)\
                       .all()
 
-    authors = session.query(Author)\
+    authors = session.query(Contributor, Contributor.role_id == 0)\
                      .join(Part)\
-                     .filter(Part.id == Author.part_id)\
+                     .filter(Part.id == Contributor.part_id)\
                      .filter(Part.work_id == workid)\
                      .all()
 
@@ -347,7 +353,7 @@ def save_story_to_work(session, workid, title: str) -> None:
         session.add(part)
         session.commit()
         for author in authors:
-            auth = Author(person_id=author.id, part_id=part.id)
+            auth = Contributor(person_id=author.id, part_id=part.id, role_id=0)
             session.add(auth)
 
     work = session.query(Work).filter(Work.id == workid).first()
@@ -374,8 +380,7 @@ def save_newstory_to_work(session, workid, form):
 
     story = ShortStory(title=form.title.data,
                        orig_title=form.orig_title.data,
-                       pubyear=form.pubyear.data,
-                       creator_str=person.name)
+                       pubyear=form.pubyear.data)
 
     session.add(story)
     session.commit()
@@ -397,22 +402,22 @@ def save_story_to_edition(session, editionid, title: str) -> None:
                    .filter(Part.edition_id == editionid)\
                    .all()
 
-    authors = session.query(Author)\
+    authors = session.query(Contributor, Contributor.role_id == 0)\
                      .join(Part)\
-                     .filter(Author.part_id == Part.id)\
+                     .filter(Contributor.part_id == Part.id)\
                      .filter(Part.edition_id == editionid)\
                      .all()
 
     for work in works:
         part = Part(work_id=work.id,
                     edition_id=editionid,
-                    shorstory_id=story.id)
+                    shortstory_id=story.id)
         session.add(part)
         work.collection = True
         session.add(work)
         session.commit()
         for author in authors:
-            auth = Author(part_id=part.id, person_id=author.id)
+            auth = Contributor(part_id=part.id, person_id=author.id, role_id=0)
             session.add(auth)
             session.commit()
 
@@ -434,46 +439,12 @@ def save_newstory_to_edition(session, editionid, form) -> None:
 
     story = ShortStory(title=form.title.data,
                        orig_title=form.orig_title.data,
-                       pubyear=form.pubyear.data,
-                       creator_str=form.author.data)
+                       pubyear=form.pubyear.data)
 
     session.add(story)
     session.commit()
 
     save_story_to_edition(session, editionid, story.title)
-
-
-# def save_translator_to_edition(session, editionid, name: str) -> None:
-#     translator = session.query(Person)\
-#                         .filter(Person.name == name)\
-#                         .first()
-
-#     if not translator:
-#         return
-
-#     parts = session.query(Part)\
-#                    .filter(Part.edition_id == editionid)\
-#                    .all()
-
-#     for part in parts:
-#         translator = Translator(part_id=part.id,
-#                                 person_id=translator.id)
-#         session.add(translator)
-#     session.commit()
-
-
-# def save_editor_to_edition(session, editionid, name):
-#     editor = session.query(Person)\
-#                     .filter(Person.name == name)\
-#                     .first()
-
-#     if not editor:
-#         return
-
-#     editor = Editor(edition_id=editionid,
-#                     person_id=editor.id)
-#     session.add(editor)
-#     session.commit()
 
 
 def save_story_to_issue(session, issueid, name):
@@ -482,39 +453,6 @@ def save_story_to_issue(session, issueid, name):
 
 def save_newstory_to_issue(session, issueid, form):
     pass
-
-
-# def update_work_creators(session, workid):
-#     # Update creator string (used to group works together)
-#     authors = session.query(Person)\
-#         .join(Author)\
-#         .filter(Author.person_id == Person.id)\
-#         .join(Part)\
-#         .filter(Part.work_id == workid)\
-#         .all()
-#     work = session.query(Work).filter(Work.id == workid).first()
-
-#     author_str = ' & '.join([x.name for x in authors])
-#     work.creator_str = author_str
-#     session.add(work)
-#     session.commit()
-
-
-def update_story_creators(session, storyid):
-    # Update story creator string
-    authors = session.query(Person)\
-        .join(Author)\
-        .filter(Author.person_id == Person.id)\
-        .join(Part)\
-        .filter(Part.shortstory_id == storyid)\
-        .all()
-
-    story = session.query(ShortStory).filter(ShortStory.id == storyid).first()
-
-    author_str = ' & '.join([x.name for x in authors])
-    story.creator_str = author_str
-    session.add(story)
-    session.commit()
 
 
 def translate_genrelist(glist):
@@ -641,40 +579,6 @@ def make_people_response(people: Any) -> Any:
     return Response(json.dumps(retval))
 
 
-def update_work_creators(workid: Any) -> Any:
-    session = new_session()
-    work = session.query(Work)\
-                  .filter(Work.id == workid)\
-                  .first()
-
-    authors = session.query(Person)\
-        .join(Author)\
-        .filter(Person.id == Author.person_id)\
-        .join(Part)\
-        .filter(Part.id == Author.part_id)\
-        .filter(Part.work_id == work.id)\
-        .all()
-    if authors:
-        author_list = ' & '.join([x.name for x in authors])
-        work.creator_str = author_list
-    else:
-        editors = session.query(Person)\
-            .join(Editor)\
-            .filter(Person.id == Editor.person_id)\
-            .join(Edition)\
-            .filter(Edition.id == Editor.edition_id)\
-            .join(Part)\
-            .filter(Part.edition_id == Edition.id,
-                    Part.work_id == work.id)\
-            .all()
-        if editors:
-            editor_list = ' & '.join([x.name for x in editors])
-            work.creator_str = editor_list + ' (toim.)'
-
-        session.add(work)
-    session.commit()
-
-
 def create_new_people(session: Any, names: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     retval: List[Dict[str, Any]] = []
 
@@ -755,9 +659,9 @@ def create_new_language(session: Any, lang_name: str) -> Tuple[int, str]:
     return (lang.id, lang.name)
 
 
-def update_creators_to_story(session: Any, storyid: int, authors: Any) -> None:
-    author_str = ' & '.join([x.name for x in authors])
-    story = session.query(ShortStory).filter(ShortStory.id == storyid).first()
-    story.creator_str = author_str
-    session.add(story)
-    session.commit()
+# def update_creators_to_story(session: Any, storyid: int, authors: Any) -> None:
+#     author_str = ' & '.join([x.name for x in authors])
+#     story = session.query(ShortStory).filter(ShortStory.id == storyid).first()
+#     story.creator_str = author_str
+#     session.add(story)
+#     session.commit()

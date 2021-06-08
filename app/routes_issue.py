@@ -2,14 +2,12 @@ import logging
 
 from flask import (redirect, render_template, request,
                    url_for, make_response, jsonify, Response)
-from flask.globals import session
-from flask_login import login_required, current_user
-from sqlalchemy.util.langhelpers import ellipses_string
+from flask_login import login_required
 
 from app import app
 from app.forms import IssueForm
 from app.orm_decl import (
-    Issue, IssueContent, IssueEditor, IssueTag, Magazine, Person, Tag, Editor,
+    Issue, IssueContent, IssueEditor, IssueTag, Magazine, Person, Tag,
     Article, ShortStory)
 
 from .route_helpers import *
@@ -425,7 +423,7 @@ def stories_for_issue(issueid: Any) -> Response:
     retval: List[Dict[str, str]] = []
     if stories:
         for story in stories:
-            txt = story.creator_str + ':' + story.title
+            txt = story.author_str + ':' + story.title
             obj: Dict[str, str] = {'id': story.id, 'text': txt}
             retval.append(obj)
     return Response(json.dumps(retval))

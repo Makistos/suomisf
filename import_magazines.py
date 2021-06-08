@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from app.orm_decl import Article, ArticleAuthor, ArticlePerson, ArticleTag,\
-    Issue, Magazine, Person, Publisher, PublicationSize, Tag, IssueContent,\
-    IssueEditor, ShortStory, Part, StoryTag
+from app.orm_decl import (Article, ArticleAuthor, ArticlePerson, ArticleTag,
+                          Issue, Magazine, Person, Publisher, PublicationSize, Tag, IssueContent,
+                          IssueEditor, ShortStory, Part, StoryTag, Contributor)
 from app import app
 from sqlalchemy import create_engine, or_
 from sqlalchemy.orm import sessionmaker
@@ -303,13 +303,13 @@ def import_articles(s,
                     if len(author_names) > 0:
                         author_str = ' & '.join(author_names)
 
-                #if len(author_ids) > 1:
+                # if len(author_ids) > 1:
                 #    creator_str = make_creators(s, author_ids)
-                #else:
+                # else:
                 #    creator_str = author_field.strip()
 
                 art = Article(title=title.strip())
-                              #creator_str=creator_str)
+                # creator_str=creator_str)
 
                 s.add(art)
                 s.commit()
@@ -399,15 +399,15 @@ def import_stories(s,
                     .filter(ShortStory.title == orig_title)\
                     .first()
                 if not story_item:
-                    #if len(author_ids) > 1:
+                    # if len(author_ids) > 1:
                     #    creator_str = make_creators(s, author_ids)
-                    #else:
+                    # else:
                     #    creator_str = authors.strip()
 
                     story_item = ShortStory(title=title,
                                             orig_title=orig_title,
                                             pubyear=orig_year)
-                                            #creator_str=creator_str)
+                    # creator_str=creator_str)
                     s.add(story_item)
                     s.commit()
 
@@ -418,14 +418,14 @@ def import_stories(s,
 
                 for auth_id in author_ids:
                     auth = Contributor(part_id=part_item.id,
-                                  person_id=auth_id,
-                                  role_id=0)
+                                       person_id=auth_id,
+                                       role_id=0)
                     s.add(auth)
 
                 for trans_id in translator_ids:
                     translator = Contributor(part_id=part_item.id,
-                                            person_id=trans_id,
-                                            role_id=1)
+                                             person_id=trans_id,
+                                             role_id=1)
                     s.add(translator)
 
                 if runo != '':

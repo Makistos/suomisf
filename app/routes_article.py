@@ -152,7 +152,6 @@ def add_article(article_id, issue_id):
 
     if form.validate_on_submit():
         article.title = form.title.data
-        article.creator_str = form.author.data
         session.add(article)
         session.commit()
 

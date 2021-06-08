@@ -1,14 +1,12 @@
 
-import logging
 import json
 
 from flask import redirect, render_template, request, url_for, make_response
 from flask_login import current_user
 from app import app
 from app.forms import BookseriesForm, PubseriesForm
-from app.orm_decl import (Bookseries, BookseriesLink, Pubseries, PubseriesLink,
-                          Person, Part, Work, Edition, UserBookseries, UserPubseries, Author)
-from sqlalchemy import func
+from app.orm_decl import (Bookseries, Pubseries, Publisher,
+                          Person, Part, Work, Edition, UserPubseries, Contributor)
 
 from .route_helpers import *
 from typing import Any
@@ -31,7 +29,8 @@ def bookseries(seriesid):
                     .first()
     authors = session.query(Person)\
                      .join(Work.authors)\
-                     .join(Author.parts)\
+                     .join(Contributor, Contributor.role_id == 0)\
+                     .join(Part, Part.id == Contributor.part_id)\
                      .join(Part.edition)\
                      .filter(Work.bookseries_id == seriesid)\
                      .order_by(Person.name, Work.bookseriesnum)\
@@ -40,7 +39,7 @@ def bookseries(seriesid):
                       .join(Part.work)\
                       .join(Part.edition)\
                       .filter(Work.bookseries_id == seriesid)\
-                      .order_by(Work.bookseriesorder, Work.creator_str)\
+                      .order_by(Work.bookseriesorder)\
                       .all()
     return render_template('bookseries.html', series=series, editions=editions)
 

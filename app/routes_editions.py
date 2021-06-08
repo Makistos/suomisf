@@ -1,15 +1,14 @@
-from sqlalchemy.sql.expression import false
 from werkzeug.datastructures import FileStorage
 from app import app
 from sqlalchemy import func
-from flask import (render_template, request, flash, redirect, url_for,
+from flask import (render_template, request, redirect, url_for,
                    make_response, jsonify, Response)
-from flask_login import login_required, current_user
+from flask_login import login_required
 from app.orm_decl import (Person, Publisher, Edition,
-                          Part, Translator, Editor, Pubseries,
-                          Work, ShortStory, Translator, Author, BindingType,
-                          PublicationSize, EditionImage, Bookseries)
-from app.forms import (EditionForm, EditionEditorForm, EditionTranslatorForm)
+                          Part, Pubseries,
+                          Work, ShortStory, BindingType,
+                          PublicationSize, EditionImage, Bookseries, Contributor)
+from app.forms import (EditionForm)
 from werkzeug.utils import secure_filename
 from .route_helpers import *
 from typing import Dict, Any, List, Optional
@@ -63,18 +62,21 @@ def save_edition(session: Any, form: Any, edition: Any) -> None:
     # Save translator and editor
     for part in parts:
         if translator:
-            transl = session.query(Translator)\
-                .filter(Translator.part_id == part.id, Translator.person_id == translator.id)\
+            transl = session.query(Contributor, Contributor.role_id == 1)\
+                .filter(Contributor.part_id == part.id, Contributor.person_id == translator.id)\
                 .first()
             if not transl:
-                transl = Translator(part_id=part.id, person_id=translator.id)
+                transl = Contributor(
+                    part_id=part.id, person_id=translator.id, role_id=1)
                 session.add(transl)
         if editor:
-            ed = session.query(Editor)\
-                        .filter(Editor.edition_id == edition.id, Editor.person_id == editor.id)\
+            ed = session.query(Contributor, Contributor.role_id == 2)\
+                        .join(Part, Part.id == Contributor.part_id)\
+                        .filter(Part.edition_id == edition.id, Contributor.person_id == editor.id)\
                         .first()
             if not ed:
-                ed = Editor(edition_id=edition.id, person_id=editor.id)
+                ed = Contributor(part_id=part.id,
+                                 person_id=editor.id, role_id=2)
                 session.add(ed)
     session.commit()
 
@@ -95,17 +97,18 @@ def edit_edition(editionid: Any) -> Any:
                            .filter(Publisher.id == edition.publisher_id)\
                            .first()
         translators = session.query(Person)\
-                             .join(Translator)\
+                             .join(Contributor.person)\
+                             .filer(Contributor.role_id == 1)\
                              .join(Part)\
-                             .filter(Translator.person_id == Person.id)\
-                             .filter(Translator.part_id == Part.id,
+                             .filter(Contributor.part_id == Part.id,
                                      Part.edition_id == Edition.id,
                                      Edition.id == editionid)\
                              .first()
         editors = session.query(Person)\
-                         .join(Editor)\
-                         .filter(Editor.person_id == Person.id)\
-                         .filter(Editor.edition_id == editionid)\
+                         .join(Contributor.person)\
+                         .filter(Contributor.role_id == 2)\
+                         .join(Part, Part.id == Contributor.part_id)\
+                         .filter(Part.edition_id == editionid)\
                          .first()
         pubseries = \
             session.query(Pubseries)\
@@ -118,8 +121,8 @@ def edit_edition(editionid: Any) -> Any:
     else:
         edition = Edition()
         publisher = Publisher()
-        translators = Translator()
-        editors = Editor()
+        translators = Contributor(role_id=1)
+        editors = Contributor(role_id=2)
         pubseries = Pubseries()
 
     form = EditionForm()
@@ -189,10 +192,9 @@ def edition(editionid: Any) -> Any:
         .filter(Part.edition_id == editionid).first()
 
     authors = session.query(Person)\
-                     .join(Author, Person.id == Author.person_id)\
-                     .filter(Person.id == Author.person_id)\
-                     .join(Part)\
-                     .filter(Part.id == Author.part_id)\
+                     .join(Contributor.person)\
+                     .filter(Contributor.role_id == 0)\
+                     .join(Part, Part.id == Contributor.part_id)\
                      .filter(Part.edition_id == editionid)\
                      .all()
 
@@ -203,18 +205,17 @@ def edition(editionid: Any) -> Any:
                             .all()
 
     translators = session.query(Person)\
-        .join(Translator)\
-        .filter(Person.id == Translator.person_id)\
+        .join(Contributor.person)\
+        .filter(Contributor.role_id == 1)\
         .join(Part)\
-        .filter(Part.id == Translator.part_id,
+        .filter(Part.id == Contributor.part_id,
                 Part.edition_id == editionid)\
         .all()
     editors = session.query(Person)\
-        .join(Editor)\
-        .filter(Person.id == Editor.person_id)\
-        .join(Edition)\
-        .filter(Edition.id == Editor.edition_id)\
-        .filter(Edition.id == editionid)\
+        .join(Contributor.person)\
+        .filter(Contributor.role_id == 2)\
+        .join(Part, Part.id == Contributor.part_id)\
+        .filter(Part.edition_id == editionid)\
         .all()
 
     stories = session.query(ShortStory)\
@@ -326,10 +327,10 @@ def translators_for_edition(editionid: Any) -> Any:
     session = new_session()
 
     people = session.query(Person)\
-                    .join(Translator)\
-                    .filter(Person.id == Translator.person_id)\
+                    .join(Contributor.person)\
+                    .filer(Contributor.role_id == 1)\
                     .join(Part)\
-                    .filter(Part.id == Translator.part_id)\
+                    .filter(Part.id == Contributor.part_id)\
                     .filter(Part.edition_id == editionid)\
                     .all()
 
@@ -344,9 +345,9 @@ def save_translator_to_edition() -> Any:
 
     (editionid, people_ids) = get_select_ids(request.form)
 
-    existing_people = session.query(Translator)\
+    existing_people = session.query(Contributor, Contributor.role_id == 1)\
         .join(Part)\
-        .filter(Part.id == Translator.part_id)\
+        .filter(Part.id == Contributor.part_id)\
         .filter(Part.edition_id == editionid)\
         .all()
 
@@ -359,16 +360,16 @@ def save_translator_to_edition() -> Any:
         [int(x['id']) for x in people_ids])
 
     for id in to_remove:
-        tr = session.query(Translator)\
-                    .filter(Translator.person_id == id)\
+        tr = session.query(Contributor, Contributor.role_id == 1)\
+                    .filter(Contributor.person_id == id)\
                     .join(Part)\
-                    .filter(Part.id == Translator.part_id)\
+                    .filter(Part.id == Contributor.part_id)\
                     .filter(Part.edition_id == editionid)\
                     .first()
         session.delete(tr)
     for id in to_add:
         for part in parts:
-            tr = Translator(part_id=part.id, person_id=id)
+            tr = Contributor(part_id=part.id, person_id=id, role_id=1)
             session.add(tr)
 
     session.commit()
@@ -385,9 +386,10 @@ def save_translator_to_edition() -> Any:
 def editors_for_edition(editionid: Any) -> Any:
     session = new_session()
     people = session.query(Person)\
-                    .join(Editor)\
-                    .filter(Person.id == Editor.person_id)\
-                    .filter(Editor.edition_id == editionid)\
+                    .join(Contributor.person)\
+                    .filer(Contributor.role_id == 2)\
+                    .join(Part, Part.id == Contributor.part_id)\
+                    .filter(Part.edition_id == editionid)\
                     .all()
 
     return(make_people_response(people))

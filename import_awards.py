@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from app.orm_decl import (Work, Edition, Part, Person, Author, Award,
+from app.orm_decl import (Work, Edition, Part, Person, Award,
                           AwardCategory, Awarded)
 from app import app
 from sqlalchemy import create_engine
