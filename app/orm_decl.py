@@ -222,14 +222,6 @@ class Country(Base):
     name = Column(String(50), nullable=False, index=True)
 
 
-class CoverArtist(Base):
-    __tablename__ = 'coverartist'
-    person_id = Column(Integer, ForeignKey('person.id'),
-                       nullable=False, primary_key=True)
-    edition_id = Column(Integer, ForeignKey('edition.id'),
-                        nullable=False, primary_key=True)
-
-
 class Edition(Base):
     ''' This is the base table for this database schema.
         Every book must have at least one Edition. Edition
@@ -298,7 +290,7 @@ class EditionImage(Base):
     id = Column(Integer, primary_key=True)
     edition_id = Column(Integer, ForeignKey(
         'edition.id'), nullable=False)
-    image_src = Column(String(200))
+    image_src = Column(String(200), nullable=False)
     image_attr = Column(String(100))  # Source website name
 
 
