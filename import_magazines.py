@@ -419,13 +419,13 @@ def import_stories(s,
                 for auth_id in author_ids:
                     auth = Contributor(part_id=part_item.id,
                                        person_id=auth_id,
-                                       role_id=0)
+                                       role_id=1)
                     s.add(auth)
 
                 for trans_id in translator_ids:
                     translator = Contributor(part_id=part_item.id,
                                              person_id=trans_id,
-                                             role_id=1)
+                                             role_id=3)
                     s.add(translator)
 
                 if runo != '':

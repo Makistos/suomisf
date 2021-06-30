@@ -585,28 +585,28 @@ def add_bookperson(s, person, book, type):
     if type == 'A':
         bookperson = s.query(Contributor).filter(Contributor.person_id == person.id,
                                                  Contributor.part_id == book.id,
-                                                 Contributor.role_id == 0).first()
+                                                 Contributor.role_id == 1).first()
         if not bookperson:
             logging.debug('Adding author %s for %s.', person.name, book.title)
             bookperson = Contributor(
-                person_id=person.id, part_id=book.id, role_id=0)
+                person_id=person.id, part_id=book.id, role_id=1)
     elif type == 'T':
         bookperson = s.query(Contributor).filter(Contributor.person_id ==
                                                  person.id, Contributor.part_id == book.id,
-                                                 Contributor.role_id == 1).first()
+                                                 Contributor.role_id == 2).first()
         if not bookperson:
             logging.debug('Adding translator %s for %s.',
                           person.name, book.title)
             bookperson = Contributor(
-                person_id=person.id, part_id=book.id, role_id=1)
+                person_id=person.id, part_id=book.id, role_id=2)
     elif type == 'E':
         bookperson = s.query(Contributor).filter(Contributor.person_id == person.id,
                                                  Contributor.part_id == book.id,
-                                                 Contributor.role_id == 2).first()
+                                                 Contributor.role_id == 3).first()
         if not bookperson:
             logging.debug('Adding editor %s for %s.', person.name, book.title)
             bookperson = Contributor(
-                person_id=person.id, part_id=book.id, role_id=2)
+                person_id=person.id, part_id=book.id, role_id=3)
     else:
         return
 
@@ -1656,14 +1656,14 @@ def add_multiparts():
                     author = Contributor()
                     author.person_id = person
                     author.part_id = part.id
-                    author.role_id = 0
+                    author.role_id = 1
                     s.add(author)
                     s.commit()
                 for id in edition[e_translator_ids]:
                     translator = Contributor()
                     translator.person_id = id
                     translator.part_id = part.id
-                    translator.role_id = 1
+                    translator.role_id = 2
                     s.add(translator)
                     s.commit()
 

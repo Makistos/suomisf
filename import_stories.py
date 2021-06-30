@@ -344,7 +344,7 @@ def import_stories(filename: str, books: Dict[str, Any] = {}) -> None:
                             .filter(Part.edition_id == Edition.id)\
                             .join(Contributor)\
                             .filter(Contributor.part_id == Part.id,
-                                    Contributor.role_id == 0,
+                                    Contributor.role_id == 1,
                                     Contributor.person_id == author_id)\
                             .all()
             else:
@@ -356,7 +356,7 @@ def import_stories(filename: str, books: Dict[str, Any] = {}) -> None:
                             .join(Contributor)\
                             .filter(Contributor.part_id == Part.id,
                                     Contributor.person_id == author_id,
-                                    Contributor.role_id == 2)\
+                                    Contributor.role_id == 3)\
                             .all()
             if not editions:
                 #print(f'Edition not found: {book[0]} - {book[1]}')
@@ -399,7 +399,7 @@ def import_stories(filename: str, books: Dict[str, Any] = {}) -> None:
                             try:
                                 contributor = Contributor(part_id=part.id,
                                                           person_id=auth,
-                                                          role_id=0)
+                                                          role_id=1)
                             except Exception as e:
                                 print(f'Excpetion {e}')
                             s.add(contributor)
