@@ -10,7 +10,6 @@ from app.orm_decl import (Bookseries, Pubseries, Publisher,
 
 from .route_helpers import *
 from typing import Any
-from route_helpers import new_session
 
 
 @app.route('/allbookseries')
