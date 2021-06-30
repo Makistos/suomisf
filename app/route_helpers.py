@@ -2,6 +2,7 @@
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, joinedload
+from sqlalchemy.pool import NullPool
 from app.orm_decl import (Contributor, Language, Person, Publisher, Work,
                           Edition, Part, Pubseries, Bookseries, PublicationSize, Tag,
                           PersonTag, BindingType, Format, Genre, ShortStory, ArticleTag,
@@ -20,7 +21,8 @@ import json
 
 
 def new_session() -> Any:
-    engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
+    engine = create_engine(
+        app.config['SQLALCHEMY_DATABASE_URI'], poolclass=NullPool)
     Session = sessionmaker(bind=engine)
     session = Session()
     return session

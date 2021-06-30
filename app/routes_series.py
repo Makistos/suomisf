@@ -10,19 +10,18 @@ from app.orm_decl import (Bookseries, Pubseries, Publisher,
 
 from .route_helpers import *
 from typing import Any
+from route_helpers import new_session
 
 
 @app.route('/allbookseries')
-def allbookseries():
-    engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
-    Session = sessionmaker(bind=engine)
-    session = Session()
+def allbookseries() -> Any:
+    session = new_session()
     series = session.query(Bookseries).order_by(Bookseries.name).all()
     return render_template('allbookseries.html', series=series)
 
 
 @app.route('/bookseries/<seriesid>')
-def bookseries(seriesid):
+def bookseries(seriesid: Any) -> Any:
     session = new_session()
     series = session.query(Bookseries)\
                     .filter(Bookseries.id == seriesid)\

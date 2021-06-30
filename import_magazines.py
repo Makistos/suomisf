@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+from sqlalchemy.pool import NullPool
 from app.orm_decl import (Article, ArticleAuthor, ArticlePerson, ArticleTag,
                           Issue, Magazine, Person, Publisher, PublicationSize, Tag, IssueContent,
                           IssueEditor, ShortStory, Part, StoryTag, Contributor)
 from app import app
 from sqlalchemy import create_engine, or_
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import NullPool
 import re
 import os
 import csv
@@ -461,7 +463,7 @@ def import_magazines(dir: str) -> None:
     global issues
     global articles
 
-    engine = create_engine(db_url)
+    engine = create_engine(db_url, poolclass=NullPool)
     session = sessionmaker()
     session.configure(bind=engine)
 

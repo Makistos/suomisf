@@ -5,6 +5,7 @@ from sqlalchemy import (Column, ForeignKey, Integer,
                         String, Boolean, Date, DateTime, Text)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, backref
+from sqlalchemy.pool import NullPool
 from sqlalchemy import create_engine
 from sqlalchemy.sql.elements import UnaryExpression
 from sqlalchemy.sql.expression import null
@@ -880,12 +881,12 @@ class WorkType(Base):
 
 @login.user_loader
 def load_user(id: Any) -> Any:
-    engine = create_engine(db_url)
+    engine = create_engine(db_url, poolclass=NullPool)
     Session = sessionmaker(bind=engine)
     session = Session()
     return session.query(User).get(int(id))
 
 
-engine = create_engine(db_url)  # , echo=True)
+engine = create_engine(db_url, poolclass=NullPool)  # , echo=True)
 
 Base.metadata.create_all(engine)

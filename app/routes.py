@@ -7,7 +7,7 @@ from app.orm_decl import (Person, Work,
                           Genre, WorkGenre, Tag, Award, Awarded,
                           Magazine, Issue, PublicationSize, Publisher, Part, ArticleTag,
                           Language, Country, Article, Contributor)
-from sqlalchemy import create_engine, func, text
+from sqlalchemy import func, text
 from sqlalchemy.orm import sessionmaker
 from app.forms import (LoginForm, RegistrationForm,
                        UserForm,
@@ -152,9 +152,7 @@ def login():
         return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
-        engine = create_engine('sqlite:///suomisf.db')
-        Session = sessionmaker(bind=engine)
-        session = Session()
+        session = new_session()
         user = session.query(User).filter_by(name=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Väärä käyttäjätunnus tai salasana')

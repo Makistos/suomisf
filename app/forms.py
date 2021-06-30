@@ -5,8 +5,6 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField,\
     SelectMultipleField, widgets
 from wtforms.validators import DataRequired, InputRequired, ValidationError, EqualTo, Optional
 from app.orm_decl import User, Person
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 from app import db
 from typing import Any
 
@@ -24,9 +22,7 @@ class LoginForm(FlaskForm):
 
 
 def validate_username(self, username):
-    engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    session = new_session()
     user = session.query(User).filter_by(name=username.data).first()
     if user is not None:
         raise ValidationError('Valitse toinen käyttäjätunnus.')

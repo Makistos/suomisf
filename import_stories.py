@@ -4,6 +4,7 @@ from app.orm_decl import (Work, Edition, Part, Person, ShortStory, Alias,
 from app import app
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import NullPool
 import re
 import os
 from typing import Dict, List, Tuple, Any
@@ -21,7 +22,7 @@ def add_missing_people() -> None:
 
 def add_to_db(person: str):
     """ Add person missing from the main bib files to the database."""
-    engine = create_engine(db_url)
+    engine = create_engine(db_url, poolclass=NullPool)
     session = sessionmaker()
     session.configure(bind=engine)
 
@@ -63,7 +64,7 @@ def add_to_db(person: str):
 
 def get_people() -> None:
     """ Get the people in the database into a nice dict. """
-    engine = create_engine(db_url)
+    engine = create_engine(db_url, poolclass=NullPool)
     session = sessionmaker()
     session.configure(bind=engine)
 
@@ -122,7 +123,7 @@ def get_authors(line: str) -> Tuple[List, bool]:
     """ Gets author info from line. """
     retval: List = []
     all_found: bool = True
-    engine = create_engine(db_url)
+    engine = create_engine(db_url, poolclass=NullPool)
     session = sessionmaker()
     session.configure(bind=engine)
     s = session()
@@ -181,7 +182,8 @@ def get_authors(line: str) -> Tuple[List, bool]:
 def import_stories(filename: str, books: Dict[str, Any] = {}) -> None:
     """ Import all the short stories from one the files. """
     stories: Dict[str, Any] = {}
-    engine = create_engine(db_url, echo=False, encoding='iso8859-1')
+    engine = create_engine(db_url, poolclass=NullPool,
+                           echo=False, encoding='iso8859-1')
     session = sessionmaker()
     session.configure(bind=engine)
 

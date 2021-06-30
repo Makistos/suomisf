@@ -1,11 +1,14 @@
 import csv
+
+from sqlalchemy import pool
 from app.orm_decl import (EditionImage, Work, Edition, Part, Person,
-        Contributor)
+                          Contributor)
 from app import app
 import sys
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import NullPool
 from typing import List, Any
 
 db_url = app.config['SQLALCHEMY_DATABASE_URI']
@@ -46,7 +49,7 @@ def add_image(s: Any, image: List[str]) -> None:
 
 
 def import_images(params) -> None:
-    engine = create_engine(db_url)
+    engine = create_engine(db_url, poolclass=NullPool)
     session = sessionmaker()
     session.configure(bind=engine)
     s = session()

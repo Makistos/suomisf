@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
+from app.route_helpers import new_session
 from app.orm_decl import (Work, Edition, Part, Person, Award,
                           AwardCategory, Awarded)
 from app import app
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import NullPool
 import re
 import os
 import csv
@@ -104,8 +106,8 @@ def save_story_award(s, line):
 
 
 def import_awards():
-
-    engine = create_engine(db_url)
+    s = new_session()
+    engine = create_engine(db_url, poolclass=NullPool)
     session = sessionmaker()
     session.configure(bind=engine)
     s = session()

@@ -6,6 +6,7 @@ from app.orm_decl import (AwardCategories, Contributor, Work, Edition, Part, Per
                           Country, StoryType, Tag, WorkTag, Contributor, ContributorRole)
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import NullPool
 from importbib import publishers
 from importbib import (bookseries, pubseries, important_pubseries,
                        misc_strings, translators, editors, genres, genres_list,
@@ -1174,7 +1175,7 @@ def add_missing_series(session):
 
 
 def add_default_rows(session: Any) -> Any:
-    engine = create_engine(db_url)
+    engine = create_engine(db_url, poolclass=NullPool)
     ses = sessionmaker()
     ses.configure(bind=engine)
 
@@ -1435,7 +1436,7 @@ def import_all(filelist):
     basedir = os.path.abspath(os.path.dirname(__file__))
     load_dotenv(os.path.join(basedir, '.env'))
 
-    engine = create_engine(db_url)
+    engine = create_engine(db_url, poolclass=NullPool)
     session = sessionmaker(bind=engine)
     session.configure(bind=engine)
     add_default_rows(session)
@@ -1476,7 +1477,7 @@ def import_stories(filename):
 
 
 def insert_showroom():
-    engine = create_engine(db_url)
+    engine = create_engine(db_url, poolclass=NullPool)
     session = sessionmaker()
     session.configure(bind=engine)
 
@@ -1551,7 +1552,7 @@ def add_multiparts():
     w_id = 8
     author_ids = 9
 
-    engine = create_engine(db_url)
+    engine = create_engine(db_url, poolclass=NullPool)
     session = sessionmaker()
     session.configure(bind=engine)
 
