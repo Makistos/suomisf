@@ -29,7 +29,7 @@ def index():
     work_count = session.query(func.count(Work.id)).first()
     edition_count = session.query(func.count(Edition.id)).first()
     author_count = session.query(Contributor.person_id.distinct()).filter(
-        Contributor.role_id == 0).all()
+        Contributor.role_id == 1).all()
     pub_count = session.query(func.count(Publisher.id)).first()
     person_count = session.query(func.count(Person.id)).first()
     pubseries_count = session.query(func.count(Pubseries.id)).first()
@@ -239,7 +239,7 @@ def stats() -> Any:
             .join(Edition)\
             .filter(Part.edition_id == Edition.id)\
             .join(Contributor)\
-            .filter(Contributor.part_id == Part.id, Contributor.role_id == 0)\
+            .filter(Contributor.part_id == Part.id, Contributor.role_id == 1)\
             .join(Person, Person.id == Contributor.person_id)\
             .filter(Contributor.person_id == Person.id)\
             .filter(Genre.abbr == genre)\
@@ -251,7 +251,7 @@ def stats() -> Any:
             .all()
 
     translators = session.query(Person.name, func.count(Contributor.person_id).label('count'))\
-                         .filter(Contributor.role_id == 1)\
+                         .filter(Contributor.role_id == 2)\
                          .join(Contributor.parts)\
                          .join(Contributor.person)\
                          .filter(Part.shortstory_id == None)\
@@ -261,7 +261,7 @@ def stats() -> Any:
                          .all()
 
     editors = session.query(Person.name, func.count(Contributor.person_id))\
-                     .filter(Contributor.role_id == 2)\
+                     .filter(Contributor.role_id == 3)\
                      .join(Contributor.parts)\
                      .join(Contributor.person)\
                      .filter(Part.edition_id is not None)\
@@ -552,7 +552,7 @@ def mybooks(userid=0):
     works = session.query(Work)\
         .join(Part)\
         .filter(Part.work_id == Work.id)\
-        .join(Contributor, Contributor.role_id == 0)\
+        .join(Contributor, Contributor.role_id == 1)\
         .filter(Contributor.part_id == Part.id)\
         .join(Edition)\
         .filter(Part.edition_id == Edition.id)\
@@ -575,7 +575,7 @@ def myseries():
     pubseriesids = [x.id for x in pubseries]
     app.logger.debug("IDs = " + str(pubseriesids))
     authors = session.query(Person)\
-                     .join(Contributor, Contributor.role_id == 0)\
+                     .join(Contributor, Contributor.role_id == 1)\
                      .filter(Contributor.person_id == Person.id)\
                      .join(Part)\
                      .filter(Contributor.part_id == Part.id)\
@@ -658,7 +658,7 @@ def search_form() -> Any:
         query = query.join(Part, Part.work_id == Work.id)\
                      .join(Edition, Part.edition_id == Edition.id)\
                      .filter(Part.shortstory_id == None)\
-                     .join(Contributor, Contributor.part_id == Part.id, Contributor.role_id == 0)\
+                     .join(Contributor, Contributor.part_id == Part.id, Contributor.role_id == 1)\
                      .join(Person, Person.id == Contributor.person_id)\
                      .join(WorkGenre, WorkGenre.work_id == Work.id)\
                      .join(Genre, Genre.id == WorkGenre.genre_id)

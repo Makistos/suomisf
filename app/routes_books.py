@@ -19,7 +19,7 @@ def books_by_lang(lang):
     retval = []
     session = new_session()
     authors = session.query(Person)\
-                     .join(Contributor, Contributor.role_id == 0)\
+                     .join(Contributor, Contributor.role_id == 1)\
                      .filter(Person.id == Contributor.person_id)\
                      .join(Part, Part.id == Contributor.part_id)\
                      .join(Work)\
@@ -59,7 +59,7 @@ def books_by_origin(country):
         works = session.query(Work)\
                        .join(Part)\
                        .filter(Work.id == Part.work_id)\
-                       .join(Contributor, Contributor.role_id == 0)\
+                       .join(Contributor, Contributor.role_id == 1)\
                        .filter(Part.id == Contributor.part_id)\
                        .join(Person)\
                        .filter(Person.id == Contributor.person_id)\
@@ -69,7 +69,7 @@ def books_by_origin(country):
         works = session.query(Work)\
                        .join(Part)\
                        .filter(Work.id == Part.work_id)\
-                       .join(Contributor, Contributor.role_id == 0)\
+                       .join(Contributor, Contributor.role_id == 1)\
                        .filter(Part.id == Contributor.part_id)\
                        .join(Person)\
                        .filter(Person.id == Contributor.person_id,
@@ -194,13 +194,13 @@ def part_delete(partid, session=None):
         commit = True
         session = new_session()
 
-    translators = session.query(Contributor, Contributor.role_id == 1)\
+    translators = session.query(Contributor, Contributor.role_id == 2)\
                          .filter(partid == Contributor.part_id)\
                          .all()
     for translator in translators:
         session.delete(translator)
 
-    authors = session.query(Contributor, Contributor.role_id == 0)\
+    authors = session.query(Contributor, Contributor.role_id == 1)\
                      .join(Part)\
                      .filter(Part.id == partid)\
                      .all()
@@ -260,7 +260,7 @@ def edition_delete(editionid, session=None):
 
     # Delete association rows for people
 
-    editors = session.query(Contributor, Contributor.role_id == 2)\
+    editors = session.query(Contributor, Contributor.role_id == 3)\
         .join(Part, Part.id == Contributor.part_id)\
         .filter(Part.edition_id == editionid)\
         .all()
@@ -343,7 +343,7 @@ def add_authored(authorid):
             app.logger.debug("part = {}, author= {}".format(part.id,
                                                             authorid))
             author = Contributor(
-                part_id=part.id, person_id=authorid, role_id=0)
+                part_id=part.id, person_id=authorid, role_id=1)
             session.add(author)
         session.commit()
         return redirect(url_for('work', workid=work.id))
@@ -357,7 +357,7 @@ def remove_author_from_work(workid, authorid):
 
     session = new_session()
 
-    parts = session.query(Contributor, Contributor.role_id == 0)\
+    parts = session.query(Contributor, Contributor.role_id == 1)\
                    .join(Part)\
                    .filter(Part.work_id == workid)\
                    .filter(Contributor.part_id == Part.id, Contributor.person_id == authorid)\
@@ -402,7 +402,7 @@ def remove_story_from_edition(editionid, storyid):
 def remove_translator_from_work(editionid, translatorid):
     session = new_session()
 
-    translator = session.query(Contributor, Contributor.role_id == 1)\
+    translator = session.query(Contributor, Contributor.role_id == 2)\
                         .join(Part)\
                         .filter(Part.id == Contributor.part_id)\
                         .filter(Part.edition_id == editionid)\
@@ -417,7 +417,7 @@ def remove_translator_from_work(editionid, translatorid):
 def remove_editor_from_work(editionid, editorid):
     session = new_session()
 
-    editor = session.query(Contributor, Contributor.role_id == 2)\
+    editor = session.query(Contributor, Contributor.role_id == 3)\
         .join(Part, Part.id == Contributor.part_id)\
         .filter(Part.edition_id == editionid)\
         .filter(Contributor.person_id == editorid)\
@@ -436,7 +436,7 @@ def remove_author_from_story(storyid, authorid):
 
     part_ids = [x.id for x in parts]
 
-    authors = session.query(Contributor, Contributor.role_id == 0)\
+    authors = session.query(Contributor, Contributor.role_id == 1)\
                      .filter(Contributor.person_id == authorid)\
                      .filter(Contributor.part_id.in_(part_ids))\
                      .all()

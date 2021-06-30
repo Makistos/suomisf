@@ -58,7 +58,7 @@ def edit_work(workid: Any) -> Any:
                       .filter(Work.id == workid)\
                       .first()
         authors = session.query(Person)\
-                         .join(Contributor, Contributor.role_id == 0)\
+                         .join(Contributor, Contributor.role_id == 1)\
                          .join(Part)\
                          .filter(Contributor.person_id == Person.id,
                                  Contributor.part_id == Part.id,
@@ -233,7 +233,7 @@ def add_edition(workid: Any) -> Any:
     edition = session.query(Edition).filter(Edition.id == editionid).first()
 
     # Copy authors to edition from work
-    authors = session.query(Contributor, Contributor.role_id == 0)\
+    authors = session.query(Contributor, Contributor.role_id == 1)\
                      .join(Part)\
                      .filter(Contributor.part_id == Part.id)\
                      .filter(Part.work_id == workid)\
@@ -244,7 +244,7 @@ def add_edition(workid: Any) -> Any:
         session.add(part)
         session.commit()
         auth = Contributor(
-            part_id=part.id, person_id=author.person_id, role_id=0)
+            part_id=part.id, person_id=author.person_id, role_id=1)
         session.add(auth)
         session.commit()
     session.commit()
@@ -252,13 +252,13 @@ def add_edition(workid: Any) -> Any:
     form = EditionForm(request.form)
 
     editors = session.query(Person)\
-                     .join(Contributor, Contributor.role_id == 2)\
+                     .join(Contributor, Contributor.role_id == 3)\
                      .join(Part, Part.id == Contributor.part_id)\
                      .filter(Person.id == Contributor.person_id)\
                      .filter(Part.edition_id == editionid)\
                      .all()
     translators = session.query(Person)\
-                         .join(Contributor, Contributor.role_id == 1)\
+                         .join(Contributor, Contributor.role_id == 2)\
                          .filter(Person.id == Contributor.person_id)\
                          .join(Part)\
                          .filter(Part.id == Contributor.part_id,
@@ -290,7 +290,7 @@ def save_authors_to_work() -> Any:
 
     (workid, people_ids) = get_select_ids(request.form)
 
-    existing_people = session.query(Contributor, Contributor.role_id == 0)\
+    existing_people = session.query(Contributor, Contributor.role_id == 1)\
         .join(Part)\
         .filter(Part.id == Contributor.part_id)\
         .filter(Part.work_id == workid)\
@@ -305,7 +305,7 @@ def save_authors_to_work() -> Any:
         [int(x['id']) for x in people_ids])
 
     for id in to_remove:
-        auth = session.query(Contributor, Contributor.role_id == 0)\
+        auth = session.query(Contributor, Contributor.role_id == 1)\
             .filter(Contributor.person_id == id)\
             .join(Part)\
             .filter(Part.id == Contributor.part_id)\
@@ -314,7 +314,7 @@ def save_authors_to_work() -> Any:
         session.delete(auth)
     for id in to_add:
         for part in parts:
-            auth = Contributor(part_id=part.id, person_id=id, role_id=0)
+            auth = Contributor(part_id=part.id, person_id=id, role_id=1)
             session.add(auth)
 
     session.commit()
@@ -332,7 +332,7 @@ def authors_for_work(workid: Any) -> Any:
     session = new_session()
 
     people = session.query(Person)\
-                    .join(Contributor, Contributor.role_id == 0)\
+                    .join(Contributor, Contributor.role_id == 1)\
                     .filter(Person.id == Contributor.person_id)\
                     .join(Part)\
                     .filter(Part.id == Contributor.part_id)\
@@ -596,7 +596,7 @@ def add_story_to_work() -> Any:
         .all()
 
     authors = session.query(Person)\
-                     .join(Contributor, Contributor.role_id == 0)\
+                     .join(Contributor, Contributor.role_id == 1)\
                      .filter(Person.id == Contributor.person_id)\
                      .join(Part)\
                      .filter(Part.id == Contributor.part_id)\
@@ -619,7 +619,7 @@ def add_story_to_work() -> Any:
             if authors:
                 for person in authors:
                     author = Contributor(
-                        person_id=person.id, part_id=part.id, role_id=0)
+                        person_id=person.id, part_id=part.id, role_id=1)
                     session.add(author)
                 session.commit()
                 update_creators_to_story(session, id, authors)
@@ -649,7 +649,7 @@ def add_edition_to_route(workid: Any) -> Any:
     session.commit()
 
     authors = session.query(Person)\
-                     .join(Contributor, Contributor.role_id == 0)\
+                     .join(Contributor, Contributor.role_id == 1)\
                      .filter(Person.id == Contributor.person_id)\
                      .join(Part)\
                      .filter(Part.id == Contributor.part_id)\
@@ -658,7 +658,7 @@ def add_edition_to_route(workid: Any) -> Any:
                      .all()
 
     for author in authors:
-        auth = Contributor(part_id=part.id, person_id=author.id, role_id=0)
+        auth = Contributor(part_id=part.id, person_id=author.id, role_id=1)
         session.add(auth)
     session.commit()
 
@@ -714,7 +714,7 @@ def new_work_for_person(personid: Any) -> Any:
         session.add(part)
         session.commit()
         author = Contributor(
-            person_id=form.hidden_author_id.data, part_id=part.id, role_id=0)
+            person_id=form.hidden_author_id.data, part_id=part.id, role_id=1)
         session.add(author)
         session.commit()
         types: List[str] = [''] * 4

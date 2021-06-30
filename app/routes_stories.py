@@ -32,7 +32,7 @@ def story(id: Any) -> Any:
 
     authors = session.query(Person)\
                      .distinct(Person.id)\
-                     .join(Contributor, Contributor.role_id == 0)\
+                     .join(Contributor, Contributor.role_id == 1)\
         .filter(Contributor.person_id == Person.id)\
         .filter(Person.id == Contributor.person_id)\
         .join(Part)\
@@ -150,7 +150,7 @@ def save_authors_to_story() -> Response:
     session = new_session()
 
     (storyid, people_ids) = get_select_ids(request.form)
-    existing_people = session.query(Contributor, Contributor.role_id == 0)\
+    existing_people = session.query(Contributor, Contributor.role_id == 1)\
                              .join(Part)\
                              .filter(Part.id == Contributor.part_id)\
                              .filter(Part.shortstory_id == storyid)\
@@ -160,7 +160,7 @@ def save_authors_to_story() -> Response:
         [x.person_id for x in existing_people], [int(x['id']) for x in people_ids])
 
     for id in to_remove:
-        auth = session.query(Contributor, Contributor.role_id == 0)\
+        auth = session.query(Contributor, Contributor.role_id == 1)\
                       .filter(Contributor.person_id == id)\
                       .join(Part)\
                       .filter(Part.id == Contributor.part_id)\
@@ -172,7 +172,7 @@ def save_authors_to_story() -> Response:
                        .filter(Part.shortstory_id == storyid)\
                        .all()
         for part in parts:
-            auth = Contributor(person_id=id, part_id=part.id, role_id=0)
+            auth = Contributor(person_id=id, part_id=part.id, role_id=1)
             session.add(auth)
 
     session.commit()
@@ -186,7 +186,7 @@ def save_authors_to_story() -> Response:
 def authors_for_story(storyid):
     session = new_session()
     people = session.query(Person)\
-                    .join(Contributor, Contributor.role_id == 0)\
+                    .join(Contributor, Contributor.role_id == 1)\
                     .filter(Contributor.person_id == Person.id)\
                     .join(Part)\
                     .filter(Part.shortstory_id == storyid)\

@@ -51,7 +51,7 @@ def publisher_list(session: Any) -> Dict[str, List[str]]:
 def author_list(session: Any) -> Dict[str, List[str]]:
     return {'author': [str(x.name) for x in
                        session.query(Person)
-                       .join(Contributor, Contributor.role_id == 0)
+                       .join(Contributor, Contributor.role_id == 1)
                        .filter(Contributor.person_id == Person.id)
                        .distinct()
                        .order_by(Person.name)
@@ -151,7 +151,7 @@ def people_for_book(s: Any, workid: Any, type: str) -> Any:
     if type == 'A':
         return s.query(Person)\
                 .join(Contributor.person)\
-                .filter(Contributor.role_id == 0)\
+                .filter(Contributor.role_id == 1)\
                 .join(Part)\
                 .filter(Contributor.part_id == Part.id)\
                 .filter(Part.work_id == workid)\
@@ -159,7 +159,7 @@ def people_for_book(s: Any, workid: Any, type: str) -> Any:
     elif type == 'T':
         return s.query(Person)\
                 .join(Contributor.person)\
-                .filter(Contributor.role_id == 1)\
+                .filter(Contributor.role_id == 2)\
                 .join(Part)\
                 .filter(Contributor.part_id == Part.id)\
                 .filter(Part.work_id == workid)\
@@ -167,7 +167,7 @@ def people_for_book(s: Any, workid: Any, type: str) -> Any:
     elif type == 'E':
         return s.query(Person)\
                 .join(Contributor.person)\
-                .filter(Contributor.role_id == 2)\
+                .filter(Contributor.role_id == 3)\
                 .join(Part)\
                 .filter(Part.edition_id == Edition.id)\
                 .join(Edition)\
@@ -182,7 +182,7 @@ def books_for_person(s, personid, type):
                 .join(Part)\
                 .filter(Part.work_id == Work.id)\
                 .join(Contributor.person)\
-                .filter(Contributor.role_id == 0)\
+                .filter(Contributor.role_id == 1)\
                 .filter(Contributor.part_id == Part.id)\
                 .order_by(Work.title)\
                 .all()
@@ -191,13 +191,13 @@ def books_for_person(s, personid, type):
                 .join(Part)\
                 .filter(Edition.id == Part.edition_id)\
                 .join(Contributor.person)\
-                .filter(Contributor.role_id == 1)\
+                .filter(Contributor.role_id == 2)\
                 .filter(Contributor.part_id == Part.id)\
                 .all()
     elif type == 'E':
         return s.query(Edition)\
                 .join(Contributor.person)\
-                .filter(Contributor.role_id == 2)\
+                .filter(Contributor.role_id == 3)\
                 .join(Part)\
                 .filter(Part.id == Contributor.part_id)\
                 .filter(Part.edition_id == Edition.id)\
@@ -242,13 +242,13 @@ def editions_for_work(workid) -> List[Dict[str, Any]]:
         # one publisher series and publisher.
         translators = session.query(Person)\
                              .join(Contributor.person)\
-                             .filter(Contributor.role_id == 1)\
+                             .filter(Contributor.role_id == 2)\
                              .join(Part, Part.id == Contributor.part_id)\
                              .filter(Part.edition_id == edition.id)\
                              .all()
         editors = session.query(Person)\
                          .join(Contributor.person)\
-                         .filter(Contributor.role_id == 2)\
+                         .filter(Contributor.role_id == 3)\
                          .join(Part, Part.id == Contributor.part_id)\
                          .filter(
             Part.edition_id == edition.id)\
@@ -290,7 +290,7 @@ def save_author_to_work(session, workid, authorname: str) -> None:
 
     authorid = author.id
 
-    already_exists = session.query(Contributor, Contributor.role_id == 0)\
+    already_exists = session.query(Contributor, Contributor.role_id == 1)\
                             .join(Part)\
                             .filter(Contributor.person_id == authorid)\
                             .filter(Part.work_id == workid)\
@@ -301,7 +301,7 @@ def save_author_to_work(session, workid, authorname: str) -> None:
                        .all()
         for part in parts:
             author = Contributor(person_id=authorid,
-                                 part_id=part.id, role_id=0)
+                                 part_id=part.id, role_id=1)
             session.add(author)
 
         session.commit()
@@ -320,7 +320,7 @@ def save_author_to_story(session, storyid, authorname: str) -> None:
                     .first()
 
     for part in parts:
-        auth = Contributor(part_id=part.id, person_id=author.id, role_id=0)
+        auth = Contributor(part_id=part.id, person_id=author.id, role_id=1)
         session.add(auth)
     session.commit()
 
@@ -341,7 +341,7 @@ def save_story_to_work(session, workid, title: str) -> None:
                       .filter(Part.work_id == workid)\
                       .all()
 
-    authors = session.query(Contributor, Contributor.role_id == 0)\
+    authors = session.query(Contributor, Contributor.role_id == 1)\
                      .join(Part)\
                      .filter(Part.id == Contributor.part_id)\
                      .filter(Part.work_id == workid)\
@@ -353,7 +353,7 @@ def save_story_to_work(session, workid, title: str) -> None:
         session.add(part)
         session.commit()
         for author in authors:
-            auth = Contributor(person_id=author.id, part_id=part.id, role_id=0)
+            auth = Contributor(person_id=author.id, part_id=part.id, role_id=1)
             session.add(auth)
 
     work = session.query(Work).filter(Work.id == workid).first()
@@ -402,7 +402,7 @@ def save_story_to_edition(session, editionid, title: str) -> None:
                    .filter(Part.edition_id == editionid)\
                    .all()
 
-    authors = session.query(Contributor, Contributor.role_id == 0)\
+    authors = session.query(Contributor, Contributor.role_id == 1)\
                      .join(Part)\
                      .filter(Contributor.part_id == Part.id)\
                      .filter(Part.edition_id == editionid)\
@@ -417,7 +417,7 @@ def save_story_to_edition(session, editionid, title: str) -> None:
         session.add(work)
         session.commit()
         for author in authors:
-            auth = Contributor(part_id=part.id, person_id=author.id, role_id=0)
+            auth = Contributor(part_id=part.id, person_id=author.id, role_id=1)
             session.add(auth)
             session.commit()
 

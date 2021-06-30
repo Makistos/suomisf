@@ -62,21 +62,21 @@ def save_edition(session: Any, form: Any, edition: Any) -> None:
     # Save translator and editor
     for part in parts:
         if translator:
-            transl = session.query(Contributor, Contributor.role_id == 1)\
+            transl = session.query(Contributor, Contributor.role_id == 2)\
                 .filter(Contributor.part_id == part.id, Contributor.person_id == translator.id)\
                 .first()
             if not transl:
                 transl = Contributor(
-                    part_id=part.id, person_id=translator.id, role_id=1)
+                    part_id=part.id, person_id=translator.id, role_id=2)
                 session.add(transl)
         if editor:
-            ed = session.query(Contributor, Contributor.role_id == 2)\
+            ed = session.query(Contributor, Contributor.role_id == 3)\
                         .join(Part, Part.id == Contributor.part_id)\
                         .filter(Part.edition_id == edition.id, Contributor.person_id == editor.id)\
                         .first()
             if not ed:
                 ed = Contributor(part_id=part.id,
-                                 person_id=editor.id, role_id=2)
+                                 person_id=editor.id, role_id=3)
                 session.add(ed)
     session.commit()
 
@@ -98,7 +98,7 @@ def edit_edition(editionid: Any) -> Any:
                            .first()
         translators = session.query(Person)\
                              .join(Contributor.person)\
-                             .filer(Contributor.role_id == 1)\
+                             .filer(Contributor.role_id == 2)\
                              .join(Part)\
                              .filter(Contributor.part_id == Part.id,
                                      Part.edition_id == Edition.id,
@@ -106,7 +106,7 @@ def edit_edition(editionid: Any) -> Any:
                              .first()
         editors = session.query(Person)\
                          .join(Contributor.person)\
-                         .filter(Contributor.role_id == 2)\
+                         .filter(Contributor.role_id == 3)\
                          .join(Part, Part.id == Contributor.part_id)\
                          .filter(Part.edition_id == editionid)\
                          .first()
@@ -121,8 +121,8 @@ def edit_edition(editionid: Any) -> Any:
     else:
         edition = Edition()
         publisher = Publisher()
-        translators = Contributor(role_id=1)
-        editors = Contributor(role_id=2)
+        translators = Contributor(role_id=2)
+        editors = Contributor(role_id=3)
         pubseries = Pubseries()
 
     form = EditionForm()
@@ -193,7 +193,7 @@ def edition(editionid: Any) -> Any:
 
     authors = session.query(Person)\
                      .join(Contributor.person)\
-                     .filter(Contributor.role_id == 0)\
+                     .filter(Contributor.role_id == 1)\
                      .join(Part, Part.id == Contributor.part_id)\
                      .filter(Part.edition_id == editionid)\
                      .all()
@@ -206,14 +206,14 @@ def edition(editionid: Any) -> Any:
 
     translators = session.query(Person)\
         .join(Contributor.person)\
-        .filter(Contributor.role_id == 1)\
+        .filter(Contributor.role_id == 2)\
         .join(Part)\
         .filter(Part.id == Contributor.part_id,
                 Part.edition_id == editionid)\
         .all()
     editors = session.query(Person)\
         .join(Contributor.person)\
-        .filter(Contributor.role_id == 2)\
+        .filter(Contributor.role_id == 3)\
         .join(Part, Part.id == Contributor.part_id)\
         .filter(Part.edition_id == editionid)\
         .all()
@@ -328,7 +328,7 @@ def translators_for_edition(editionid: Any) -> Any:
 
     people = session.query(Person)\
                     .join(Contributor.person)\
-                    .filer(Contributor.role_id == 1)\
+                    .filer(Contributor.role_id == 2)\
                     .join(Part)\
                     .filter(Part.id == Contributor.part_id)\
                     .filter(Part.edition_id == editionid)\
@@ -345,7 +345,7 @@ def save_translator_to_edition() -> Any:
 
     (editionid, people_ids) = get_select_ids(request.form)
 
-    existing_people = session.query(Contributor, Contributor.role_id == 1)\
+    existing_people = session.query(Contributor, Contributor.role_id == 2)\
         .join(Part)\
         .filter(Part.id == Contributor.part_id)\
         .filter(Part.edition_id == editionid)\
@@ -360,7 +360,7 @@ def save_translator_to_edition() -> Any:
         [int(x['id']) for x in people_ids])
 
     for id in to_remove:
-        tr = session.query(Contributor, Contributor.role_id == 1)\
+        tr = session.query(Contributor, Contributor.role_id == 2)\
                     .filter(Contributor.person_id == id)\
                     .join(Part)\
                     .filter(Part.id == Contributor.part_id)\
@@ -369,7 +369,7 @@ def save_translator_to_edition() -> Any:
         session.delete(tr)
     for id in to_add:
         for part in parts:
-            tr = Contributor(part_id=part.id, person_id=id, role_id=1)
+            tr = Contributor(part_id=part.id, person_id=id, role_id=2)
             session.add(tr)
 
     session.commit()
@@ -387,7 +387,7 @@ def editors_for_edition(editionid: Any) -> Any:
     session = new_session()
     people = session.query(Person)\
                     .join(Contributor.person)\
-                    .filer(Contributor.role_id == 2)\
+                    .filer(Contributor.role_id == 3)\
                     .join(Part, Part.id == Contributor.part_id)\
                     .filter(Part.edition_id == editionid)\
                     .all()

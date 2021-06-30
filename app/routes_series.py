@@ -29,7 +29,7 @@ def bookseries(seriesid):
                     .first()
     authors = session.query(Person)\
                      .join(Work.authors)\
-                     .join(Contributor, Contributor.role_id == 0)\
+                     .join(Contributor, Contributor.role_id == 1)\
                      .join(Part, Part.id == Contributor.part_id)\
                      .join(Part.edition)\
                      .filter(Work.bookseries_id == seriesid)\
