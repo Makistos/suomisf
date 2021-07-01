@@ -25,14 +25,14 @@ def bookseries(seriesid: Any) -> Any:
     series = session.query(Bookseries)\
                     .filter(Bookseries.id == seriesid)\
                     .first()
-    authors = session.query(Person)\
-                     .join(Work.authors)\
-                     .join(Contributor, Contributor.role_id == 1)\
-                     .join(Part, Part.id == Contributor.part_id)\
-                     .join(Part.edition)\
-                     .filter(Work.bookseries_id == seriesid)\
-                     .order_by(Person.name, Work.bookseriesnum)\
-                     .all()
+    # authors = session.query(Person)\
+    #                  .join(Work.authors)\
+    #                  .join(Contributor, Contributor.role_id == 1)\
+    #                  .join(Part, Part.id == Contributor.part_id)\
+    #                  .join(Part.edition)\
+    #                  .filter(Work.bookseries_id == seriesid)\
+    #                  .order_by(Person.name, Work.bookseriesnum)\
+    #                  .all()
     editions = session.query(Edition)\
                       .join(Part.work)\
                       .join(Part.edition)\
