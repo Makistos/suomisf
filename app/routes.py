@@ -74,8 +74,8 @@ def bookindex() -> Any:
     form.type.choices = types
 
     if form.validate_on_submit():
-        stmt = 'SELECT DISTINCT Work.* FROM '
-        tables = 'Work, Part '
+        stmt = 'SELECT DISTINCT work.* FROM '
+        tables = 'work, part '
         where = 'WHERE work.id = part.work_id '
         # if form.authorname.data:
         #     where += " and creator_str like '%" + form.authorname.data + "%'"
@@ -84,7 +84,7 @@ def bookindex() -> Any:
         if form.orig_title.data:
             where += " and work.orig_title like '%" + form.orig_title.data + "%' "
         if form.pubyear_start is not None or form.pubyear_end is not None:
-            tables += ', Edition '
+            tables += ', edition '
             where += ' and part.edition_id = edition.id '
         if form.pubyear_start.data is not None:
             where += " and edition.pubyear >= " + str(form.pubyear_start.data)
@@ -95,11 +95,11 @@ def bookindex() -> Any:
         if form.origyear_end.data is not None:
             where += " and work.pubyear <= " + str(form.origyear_end.data)
         if form.genre.data > 0:
-            tables += ', WorkGenre '
+            tables += ', workgenre '
             where += ' and workgenre.work_id = work.id '
             where += " and workgenre.genre_id = " + str(form.genre.data)
         if form.nationality.data > 0:
-            tables += ', Contributor, Person '
+            tables += ', contributor, person '
             where += ' and part.id = contributor.part_id and contributor.person_id = person.id '
             where += ' and person.nationality_id = ' + \
                 str(form.nationality.data)
@@ -121,7 +121,7 @@ def shortstoryindex() -> Any:
     form = SearchStoryForm(request.form)
 
     if form.validate_on_submit():
-        stmt = "SELECT DISTINCT ShortStory.* FROM ShortStory WHERE 1=1 "
+        stmt = "SELECT DISTINCT shortstory.* FROM shortstory WHERE 1=1 "
         # if form.authorname.data:
         #     stmt += " AND shortstory.creator_str like '%" + form.authorname.data + "%'"
         if form.title.data:
