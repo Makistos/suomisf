@@ -1,3 +1,4 @@
+import time
 from flask import render_template, request, flash, redirect, url_for,\
     make_response, jsonify, Response
 from flask_login import current_user, login_user, logout_user
@@ -59,6 +60,8 @@ def redirect_url(default='index'):
 @app.route('/bookindex', methods=['POST', 'GET'])
 def bookindex() -> Any:
     session = new_session()
+    times: List[float] = []
+    times.append(time.time())
 
     form = SearchBooksForm(request.form)
 
@@ -107,7 +110,13 @@ def bookindex() -> Any:
         works_db = session.query(Work)\
             .from_statement(text(stmt))\
             .all()
+        times.append(time.time())
         (works, count) = make_book_list(works_db, form.authorname.data)
+        times.append(time.time())
+        for i in range(len(times)):
+            app.logger.debug('Perf for bookindex:')
+            app.logger.debug(f'Time {i}: {times[i] - times[0]}.')
+            print(f'Time {i}: {times[i] - times[0]}.')
         return render_template('books.html', works=works, count=count)
 
     return render_template('bookindex.html', form=form)
