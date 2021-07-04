@@ -19,11 +19,14 @@
 	{% else %}
 	<h1>Kirjat</h1>
 	{% endif %}
-	<div>Yhteensä <b>{{ works|length }}</b> kirjaa</div>
-	{% for author in works|groupby(attribute='author_str') %}
-	<h2><span class="person-list">{{author.grouper}}</span></h2>
-	{% for work in author.list %}
-
+	<div>Yhteensä <b>{{ count }}</b> kirjaa</div>
+	{# {% for author in works|groupby(attribute='author_str') %}
+	{% for author in works %}
+	<h2><span class="person-list">{{author.name}}</span></h2>
+	{% for work in author.works %} #}
+	{% for author in works %}
+	<h2><span class="person-list">{{author.0}}</span></h2>
+	{% for work in author.1 %}
 	{% set edition = work.editions[0] %}
 	<div class="book">
 		{% include "_work.html" %}

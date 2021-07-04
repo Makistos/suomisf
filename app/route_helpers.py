@@ -13,6 +13,7 @@ from flask_login import current_user
 from flask import abort, Response
 from functools import wraps
 import json
+import itertools
 
 """
     This module contains the functions related to routes that are not directly
@@ -135,6 +136,29 @@ def get_join_changes(existing: List[int], new: List[int]) -> Tuple[List[int], Li
     return (to_add, to_delete)
 
 # ArticleTag.article
+
+
+def work_grouper(x: Any) -> str: return str(x.author_str)
+
+
+def make_book_list(books: Any, author_name: str = '') -> Tuple[List[Tuple[str, Any]], int]:
+    it = itertools.groupby(books, work_grouper)
+    works_d: Dict[str, Any] = {}
+    for key, group in it:
+        if author_name != '':
+            if author_name.lower() not in key.lower():
+                continue
+        for work in group:
+            if key in works_d:
+                works_d[key].append(work)
+            else:
+                works_d[key] = []
+                works_d[key].append(work)
+    works: List[Tuple[str, Any]] = list(works_d.items())
+    works.sort()
+
+    count = sum([len(x[1]) for x in works])
+    return (works, count)
 
 
 def save_join(session: Any, cls: object, *paths: Any) -> None:

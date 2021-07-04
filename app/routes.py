@@ -19,7 +19,7 @@ import json
 import logging
 import pprint
 import urllib
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Tuple
 
 
 @app.route('/')
@@ -75,10 +75,8 @@ def bookindex() -> Any:
 
     if form.validate_on_submit():
         stmt = 'SELECT DISTINCT work.* FROM '
-        tables = 'work, part '
+        tables = 'work, part'
         where = 'WHERE work.id = part.work_id '
-        # if form.authorname.data:
-        #     where += " and creator_str like '%" + form.authorname.data + "%'"
         if form.title.data:
             where += " and work.title like '%" + form.title.data + "%' "
         if form.orig_title.data:
@@ -106,15 +104,16 @@ def bookindex() -> Any:
         if form.type.data > 0:
             where += " and work.type = " + str(form.type.data)
         stmt += tables + where
-        works = session.query(Work)\
-                       .from_statement(text(stmt))\
-                       .all()
-        return render_template('books.html', works=works)
+        works_db = session.query(Work)\
+            .from_statement(text(stmt))\
+            .all()
+        (works, count) = make_book_list(works_db, form.authorname.data)
+        return render_template('books.html', works=works, count=count)
 
     return render_template('bookindex.html', form=form)
 
 
-@app.route('/shortstoryindex', methods=['POST', 'GET'])
+@ app.route('/shortstoryindex', methods=['POST', 'GET'])
 def shortstoryindex() -> Any:
     session = new_session()
 
@@ -146,7 +145,7 @@ def shortstoryindex() -> Any:
 # User related routes
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@ app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -162,13 +161,13 @@ def login():
     return render_template('login.html', title='Kirjaudu', form=form)
 
 
-@app.route('/logout')
+@ app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@ app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -192,19 +191,19 @@ def register():
     return render_template('register.html', form=form, title='Tunnuksen luonti')
 
 
-@app.route('/award/<awardid>')
+@ app.route('/award/<awardid>')
 def award(awardid: Any) -> Any:
     session = new_session()
 
     award = session.query(Award).filter(Award.id == awardid).first()
     awards = session.query(Awarded)\
-                    .filter(Awarded.award_id == awardid)\
-                    .all()
+        .filter(Awarded.award_id == awardid)\
+        .all()
 
     return render_template('award.html', award=award, awards=awards)
 
 
-@app.route('/awards')
+@ app.route('/awards')
 def awards() -> Any:
     session = new_session()
 
@@ -213,7 +212,7 @@ def awards() -> Any:
     return render_template('awards.html', awards=awards)
 
 
-@app.route('/stats')
+@ app.route('/stats')
 def stats() -> Any:
     session = new_session()
 
@@ -703,10 +702,12 @@ def search_form() -> Any:
                     query = query.filter(Person.nationality_id.in_([x for x in
                                                                     form.author_nationality.data]))
         query = query.order_by(Work.author_str)
-        works = query.all()
+        works_db = query.all()
+
+        (works, count) = make_book_list(works_db, form.authorname.data)
 
         return render_template('books.html',
-                               works=works)
+                               works=works, count=count)
 
     form.work_genre.choices = [('none', ''),
                                ('F', 'Fantasia'),

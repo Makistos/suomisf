@@ -328,7 +328,7 @@ def translators_for_edition(editionid: Any) -> Any:
 
     people = session.query(Person)\
                     .join(Contributor.person)\
-                    .filer(Contributor.role_id == 2)\
+                    .filter(Contributor.role_id == 2)\
                     .join(Part)\
                     .filter(Part.id == Contributor.part_id)\
                     .filter(Part.edition_id == editionid)\

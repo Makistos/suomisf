@@ -35,18 +35,19 @@ def books_by_lang(lang):
 
 
 @app.route('/books_by_genre/<genre>')
-def books_by_genre(genre):
+def books_by_genre(genre: Any) -> Any:
 
     session = new_session()
 
-    works = session.query(Work)\
-                   .join(WorkGenre)\
-                   .filter(WorkGenre.work_id == Work.id)\
-                   .join(Genre)\
-                   .filter(Genre.id == WorkGenre.genre_id)\
-                   .filter(Genre.name == genre)\
-                   .all()
-    return render_template('books.html', works=works)
+    works_db = session.query(Work)\
+        .join(WorkGenre)\
+        .filter(WorkGenre.work_id == Work.id)\
+        .join(Genre)\
+        .filter(Genre.id == WorkGenre.genre_id)\
+        .filter(Genre.name == genre)\
+        .all()
+    (works, count) = make_book_list(works_db)
+    return render_template('books.html', works=works, count=count)
 
 
 @app.route('/books_by_origin/<country>')
@@ -56,26 +57,27 @@ def books_by_origin(country):
     country_id = session.query(Country.id).filter(
         Country.name == country).first()
     if country[0] == '!':
-        works = session.query(Work)\
-                       .join(Part)\
-                       .filter(Work.id == Part.work_id)\
-                       .join(Contributor, Contributor.role_id == 1)\
-                       .filter(Part.id == Contributor.part_id)\
-                       .join(Person)\
-                       .filter(Person.id == Contributor.person_id)\
-                       .filter(Person.nationality_id != country_id)\
-                       .all()
+        works_db = session.query(Work)\
+            .join(Part)\
+            .filter(Work.id == Part.work_id)\
+            .join(Contributor, Contributor.role_id == 1)\
+            .filter(Part.id == Contributor.part_id)\
+            .join(Person)\
+            .filter(Person.id == Contributor.person_id)\
+            .filter(Person.nationality_id != country_id)\
+            .all()
     else:
-        works = session.query(Work)\
-                       .join(Part)\
-                       .filter(Work.id == Part.work_id)\
-                       .join(Contributor, Contributor.role_id == 1)\
-                       .filter(Part.id == Contributor.part_id)\
-                       .join(Person)\
-                       .filter(Person.id == Contributor.person_id,
-                               Person.nationality_id == country_id)\
-                       .all()
-    return render_template('books.html', works=works)
+        works_db = session.query(Work)\
+            .join(Part)\
+            .filter(Work.id == Part.work_id)\
+            .join(Contributor, Contributor.role_id == 1)\
+            .filter(Part.id == Contributor.part_id)\
+            .join(Person)\
+            .filter(Person.id == Contributor.person_id,
+                    Person.nationality_id == country_id)\
+            .all()
+    (works, count) = make_book_list(works_db)
+    return render_template('books.html', works=works, count=count)
 
 
 @app.route('/book_count_by_year/')
@@ -115,10 +117,11 @@ def editions_by_year(year):
 @app.route('/books')
 def books() -> Any:
     session = new_session()
-    works = session.query(Work)\
+    works_db = session.query(Work)\
         .order_by(Work.author_str)\
         .all()
-    return render_template('books.html', works=works)
+    (works, count) = make_book_list(works_db)
+    return render_template('books.html', works=works, count=count)
 
 
 @app.route('/booksX/<letter>')
@@ -160,8 +163,8 @@ def booksX(letter: str) -> Any:
     #works = [x for x in works_db if x.author_str.startswith(letter)]
     times.append(time.time())
     # work_dict = groupby(works, lambda x: x.author_str)
-    works = [x for x in works_db if x.author_str.startswith(letter)]
-    works.sort(key=lambda x: x.author_str)
+    works_l = [x for x in works_db if x.author_str.startswith(letter)]
+    #works.sort(key=lambda x: x.author_str)
     # times.append(time.time())
     # works_dict: Dict[str, List[Any]] = {}
     # for work in works:
@@ -171,8 +174,10 @@ def booksX(letter: str) -> Any:
     #         works_dict[work.author_str].append(work)
     for i in range(len(times)):
         app.logger.debug(f'Time {i}: {times[i] - times[0]}.')
+    (works, count) = make_book_list(works_l)
     return render_template('books.html', letter=letter,
-                           works=works, prev_letter=prev_letter, next_letter=next_letter)
+                           works=works, prev_letter=prev_letter, next_letter=next_letter,
+                           count=count)
 
 
 @app.route('/anthologies')
@@ -181,7 +186,8 @@ def anthologies():
 
     anthologies = session.query(Work).filter(Work.type == 2).all()
 
-    return render_template('books.html', works=anthologies)
+    (works, count) = make_book_list(anthologies)
+    return render_template('books.html', works=works, count=count)
 
 
 @app.route('/part_delete/<partid>', methods=["POST", "GET"])
