@@ -798,7 +798,7 @@ class Work(Base):
                 Contributor.part_id == Part.id, Contributor.role_id == 1, Part.work_id == Work.id,\
                 Part.shortstory_id == None)',
                            uselist=True,
-                           order_by='Person.alt_name', viewonly=True,
+                           viewonly=True,
                            foreign_keys=[Contributor.part_id, Contributor.person_id, Contributor.role_id])
     translators = relationship("Person",
                                secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
@@ -825,19 +825,18 @@ class Work(Base):
     stories = relationship('ShortStory', secondary='part', uselist=True,
                            viewonly=True)
 
-    _author_str: str = ''
+    author_str = Column(String(500))
 
-    @hybrid_property
-    def author_str(self) -> Any:
-        if self._author_str != '':
-            return self._author_str
+    # @hybrid_property
+    def update_author_str(self) -> Any:
+        retval: str = ''
         if len(self.authors) > 0:
-            self._author_str = ' & '.join([x.name for x in self.authors])
+            retval = ' & '.join([x.name for x in self.authors])
         else:
             # Collection of several authors, use editors instead
-            self._author_str = ' & '.join(
+            retval = ' & '.join(
                 [x.name for x in self.editions[0].editors]) + ' (toim.)'
-        return self._author_str
+        return retval
 
 
 class WorkGenre(Base):

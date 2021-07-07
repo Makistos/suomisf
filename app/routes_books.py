@@ -173,7 +173,7 @@ def booksX(letter: str) -> Any:
     #     else:
     #         works_dict[work.author_str].append(work)
     for i in range(len(times)):
-        print('Perf for booksX:')
+        app.logger.debug('Perf for booksX:')
         app.logger.debug(f'Time {i}: {times[i] - times[0]}.')
     (works, count) = make_book_list(works_l)
     return render_template('books.html', letter=letter,

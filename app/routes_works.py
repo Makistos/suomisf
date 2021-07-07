@@ -177,6 +177,7 @@ def work(workid: Any) -> Any:
         work.description = form.description.data
         work.imported_string = form.source.data
         work.type = form.type.data
+        work.author_str = work.update_author_str()
         session.add(work)
         session.commit()
         log_change(session, 'Work', work.id)

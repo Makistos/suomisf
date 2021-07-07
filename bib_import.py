@@ -1111,19 +1111,20 @@ def save_genres(session, workid, genrelist):
     return retval
 
 
-# def update_creators(session):
-#     """ Update the owner string for every work. This is used
-#         to group books together and is needed because combining
-#         authors and editors for books with multiple creators would
-#         be very complex otherwise. """
+def update_creators(session: Any) -> None:
+    """ Update the owner string for every work. This is used
+        to group books together and is needed because combining
+        authors and editors for books with multiple creators would
+        be very complex otherwise. """
 
-#     logging.info('Updating creator strings')
-#     print('Updating creator strings...')
-#     s = session()
-#     works = s.query(Work).all()
+    logging.info('Updating creator strings')
+    print('Updating creator strings...')
+    s = session()
+    works = s.query(Work).all()
 
-#     i = 0
-#     for work in works:
+    i = 0
+    for work in works:
+        work.author_str = work.update_author_str()
 #         authors = s.query(Person)\
 #             .join(Author)\
 #             .filter(Person.id == Author.person_id)\
@@ -1148,12 +1149,12 @@ def save_genres(session, workid, genrelist):
 #                 editor_list = ' & '.join([x.name for x in editors])
 #                 work.creator_str = editor_list + ' (toim.)'
 
-#         s.add(work)
-#         if i % 100 == 0:
-#             print('.', end='', flush=True)
-#         i += 1
-#     s.commit()
-#     print()
+        s.add(work)
+        if i % 100 == 0:
+            print('.', end='', flush=True)
+        i += 1
+    s.commit()
+    print()
 
 
 def add_missing_series(session):
@@ -1452,7 +1453,7 @@ def import_all(filelist):
     import_bookseries(session, bookseries)
     import_pubseries(session, pubseries)
     import_books(session, data)
-    # update_creators(session)
+    update_creators(session)
 
     add_missing_series(session)
     create_admin(session)
