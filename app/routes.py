@@ -112,12 +112,13 @@ def bookindex() -> Any:
             .all()
         times.append(time.time())
         (works, count) = make_book_list(works_db, form.authorname.data)
+        page = create_booklisting(works)
         times.append(time.time())
         for i in range(len(times)):
             app.logger.debug('Perf for bookindex:')
             app.logger.debug(f'Time {i}: {times[i] - times[0]}.')
             print(f'Time {i}: {times[i] - times[0]}.')
-        return render_template('books.html', works=works, count=count)
+        return render_template('books.html', books=page, count=count)
 
     return render_template('bookindex.html', form=form)
 
@@ -714,9 +715,9 @@ def search_form() -> Any:
         works_db = query.all()
 
         (works, count) = make_book_list(works_db, form.authorname.data)
-
+        page = create_booklisting(works)
         return render_template('books.html',
-                               works=works, count=count)
+                               books=page, count=count)
 
     form.work_genre.choices = [('none', ''),
                                ('F', 'Fantasia'),

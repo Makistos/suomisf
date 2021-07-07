@@ -47,7 +47,8 @@ def books_by_genre(genre: Any) -> Any:
         .filter(Genre.name == genre)\
         .all()
     (works, count) = make_book_list(works_db)
-    return render_template('books.html', works=works, count=count)
+    page: str = create_booklisting(works)
+    return render_template('books.html', books=page, count=count)
 
 
 @app.route('/books_by_origin/<country>')
@@ -77,7 +78,8 @@ def books_by_origin(country):
                     Person.nationality_id == country_id)\
             .all()
     (works, count) = make_book_list(works_db)
-    return render_template('books.html', works=works, count=count)
+    page: str = create_booklisting(works)
+    return render_template('books.html', books=page, count=count)
 
 
 @app.route('/book_count_by_year/')
@@ -121,7 +123,8 @@ def books() -> Any:
         .order_by(Work.author_str)\
         .all()
     (works, count) = make_book_list(works_db)
-    return render_template('books.html', works=works, count=count)
+    page: str = create_booklisting(works)
+    return render_template('books.html', books=page, count=count)
 
 
 @app.route('/booksX/<letter>')
@@ -176,17 +179,7 @@ def booksX(letter: str) -> Any:
         app.logger.debug('Perf for booksX:')
         app.logger.debug(f'Time {i}: {times[i] - times[0]}.')
     (works, count) = make_book_list(works_l)
-    page: str = ''
-    for author in works:
-        author_name = author[0]
-        works = author[1]
-        page += r'''<h2><span class="person-list">%s</span></h2>''' % author_name
-        for work in works:
-            page += str(work)
-            editions = list(work.editions)
-            if len(editions) > 1:
-                for edition in editions[1:]:
-                    page += str(edition)
+    page: str = create_booklisting(works)
     return render_template('books.html', letter=letter,
                            books=page, prev_letter=prev_letter, next_letter=next_letter,
                            count=count)
@@ -199,7 +192,8 @@ def anthologies():
     anthologies = session.query(Work).filter(Work.type == 2).all()
 
     (works, count) = make_book_list(anthologies)
-    return render_template('books.html', works=works, count=count)
+    page: str = create_booklisting(works)
+    return render_template('books.html', books=page, count=count)
 
 
 @app.route('/part_delete/<partid>', methods=["POST", "GET"])

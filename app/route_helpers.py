@@ -138,6 +138,21 @@ def get_join_changes(existing: List[int], new: List[int]) -> Tuple[List[int], Li
 # ArticleTag.article
 
 
+def create_booklisting(works: Any) -> str:
+    page: str = ''
+    for author in works:
+        author_name = author[0]
+        works = author[1]
+        page += r'''<h2><span class="person-list">%s</span></h2>''' % author_name
+        for work in works:
+            page += str(work)
+            editions = list(work.editions)
+            if len(editions) > 1:
+                for edition in editions[1:]:
+                    page += str(edition)
+    return page
+
+
 def work_grouper(x: Any) -> str: return str(x.author_str)
 
 
@@ -332,7 +347,7 @@ def save_author_to_work(session, workid, authorname: str) -> None:
 
         session.commit()
 
-    #update_work_creators(session, workid)
+    # update_work_creators(session, workid)
 
 
 def save_author_to_story(session, storyid, authorname: str) -> None:
@@ -350,7 +365,7 @@ def save_author_to_story(session, storyid, authorname: str) -> None:
         session.add(auth)
     session.commit()
 
-    #update_story_creators(session, storyid)
+    # update_story_creators(session, storyid)
 
 
 def save_story_to_work(session, workid, title: str) -> None:
@@ -491,7 +506,7 @@ def save_genres(session, work, genrefield):
                     .filter(WorkGenre.work_id == work.id)
     genres.delete()
     for g in genrefield:
-        #genre = session.query(Genre).filter(Genre.id == g).first()
+        # genre = session.query(Genre).filter(Genre.id == g).first()
         genreobj = WorkGenre(work_id=work.id, genre_id=g)
         session.add(genreobj)
     session.commit()
