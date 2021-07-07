@@ -298,7 +298,12 @@ class Edition(Base):
         retval = r'''<a href="/edition/%d.id" data-bs-toggle='tooltip' data-placement='right'
         title='<div style="text-align: center;"><h2>%s</h2><img src="%s"></div>'
         data-html='true'>''' % (self.id, self.title, img_src)
-        if self.version > 1:
+
+        if not self.version:
+            version = 1
+        else:
+            version = self.version
+        if version > 1:
             retval += f'{self.version}. laitos'
             if not self.editionnum:
                 retval += f' ?. painos'
