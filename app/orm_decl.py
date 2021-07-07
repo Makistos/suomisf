@@ -10,7 +10,7 @@ from sqlalchemy.pool import NullPool
 from sqlalchemy import create_engine
 from sqlalchemy.sql.elements import UnaryExpression
 from sqlalchemy.sql.expression import null
-from sqlalchemy.util.langhelpers import classproperty, public_factory
+from sqlalchemy.util.langhelpers import classproperty, ellipses_string, public_factory
 from wtforms.fields.core import IntegerField
 from app import app, db, login
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -285,6 +285,53 @@ class Edition(Base):
         'edition_size_assoc'), uselist=False, viewonly=True)
     images = relationship(
         'EditionImage', backref=backref('edition_image_assoc'), uselist=True, viewonly=True)
+
+    def __str__(self) -> str:
+        retval: str = ''
+        work = self.work[0]
+
+        if self.images:
+            img_src = self.images[0].image_src
+        else:
+            img_src = '/static/icons/blue-book-icon-small.png'
+
+        retval = r'''<a href="/edition/%d.id" data-bs-toggle='tooltip' data-placement='right'
+        title='<div style="text-align: center;"><h2>%s</h2><img src="%s"></div>'
+        data-html='true'>''' % (self.id, self.title, img_src)
+        if self.version > 1:
+            retval += f'{self.version}. laitos'
+            if not self.editionnum:
+                retval += f' ?. painos'
+            elif self.editionnum > 1:
+                retval += f' {self.editionnum}. painos'
+        else:
+            if not self.editionnum:
+                retval += '?. painos'
+            else:
+                retval += f'{self.editionnum}. painos'
+        retval += ':</a> '
+
+        if self.title != work.title:
+            retval += f'<b>{self.title}</b>.'
+
+        if self.pubseries:
+            retval += f'{self.pubseries.name}'
+            if self.pubseriesnum:
+                retval += f' {self.pubseriesnum}'
+            retval += '. '
+        if self.translators:
+            if self.translators != work.editions[0].translators:
+                retval += 'Suom '
+                retval += ' & '.join([x.alt_name for x in self.translators])
+                retval += '. '
+        if self.publisher:
+            retval += f'{self.publisher.name}'
+        if self.pubyear:
+            retval += f' {self.pubyear}'
+        if self.publisher or self.pubyear:
+            retval += '.'
+        retval += '<br>'
+        return retval
 
 
 class EditionImage(Base):

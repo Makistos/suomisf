@@ -32,7 +32,8 @@
 		{# {% include "_work.html" %} #}
 		{{ work | safe }}
 		{% for edition in work.editions[1:] %}
-		{% include "_otheredition.html" %}
+		{# {% include "_otheredition.html" %} #}
+		{{ edition | safe }}
 		{% endfor %}
 	</div>
 	{% endfor %}
