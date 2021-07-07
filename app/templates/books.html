@@ -24,20 +24,21 @@
 	{% for author in works %}
 	<h2><span class="person-list">{{author.name}}</span></h2>
 	{% for work in author.works %} #}
-	{% for author in works %}
+	{# {% for author in works %}
 	<h2><span class="person-list">{{author.0}}</span></h2>
 	{% for work in author.1 %}
 	{% set edition = work.editions[0] %}
-	<div class="book">
+	<div class="book"> #}
 		{# {% include "_work.html" %} #}
-		{{ work | safe }}
-		{% for edition in work.editions[1:] %}
+		{#{{ work | safe }}
+		{% for edition in work.editions[1:] %} #}
 		{# {% include "_otheredition.html" %} #}
-		{{ edition | safe }}
-		{% endfor %}
+		{# {{ edition | safe }}
+		{% endfor %} #}
+		{{ books | safe }}
 	</div>
-	{% endfor %}
-	{% endfor %}
+	{#{% endfor %}
+	{% endfor %}#}
 	{% endblock %}
 
 	{% block scripts %}
