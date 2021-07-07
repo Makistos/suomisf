@@ -1,3 +1,4 @@
+from flask import escape
 import os
 import sys
 import datetime
@@ -9,7 +10,7 @@ from sqlalchemy.pool import NullPool
 from sqlalchemy import create_engine
 from sqlalchemy.sql.elements import UnaryExpression
 from sqlalchemy.sql.expression import null
-from sqlalchemy.util.langhelpers import classproperty
+from sqlalchemy.util.langhelpers import classproperty, public_factory
 from wtforms.fields.core import IntegerField
 from app import app, db, login
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -836,6 +837,63 @@ class Work(Base):
             # Collection of several authors, use editors instead
             retval = ' & '.join(
                 [x.name for x in self.editions[0].editors]) + ' (toim.)'
+        return retval
+
+    def __str__(self) -> str:
+        retval: str = ''
+        edition = self.editions[0]
+        if edition.images:
+            img_src = edition.images[0].image_src
+        else:
+            image_src = "/static/icons/blue-book-icon-small.png"
+        # Title
+        retval = r'''<a href="/edition/%d" data-bs-toggle='tooltip' data-placement='right'
+        title='<div style="text-align: center;"><h2>{{edition.title}}</h2><img src="{{image_src}}"></div>'
+        data-html='true'><b>%s</b></a>.''' % (
+            edition.id, escape(self.title))
+
+        # Bookseries
+        if self.bookseries:
+            retval += f' {self.bookseries.name}'
+            if self.bookseriesnum:
+                retval += f' {self.bookseriesnum}'
+            retval += '.'
+
+        # Original title and year
+        if self.title != self.orig_title:
+            retval += f' ({self.orig_title}'
+            if self.pubyear != 0:
+                retval += f', {self.pubyear}'
+            retval += '). '
+        elif self.pubyear != 0 and self.pubyear != edition.pubyear:
+            retval += f' ({self.pubyear}).'
+
+        # Translators
+        if self.translators:
+            retval += ' Suom <span class="person-list">'
+            retval += ' & '.join([x.alt_name for x in self.translators])
+            retval += '</span>. '
+
+        # Publisher
+        if edition.publisher:
+            retval += f' {edition.publisher.name} '
+        if edition.pubyear:
+            retval += f' {edition.pubyear}'
+
+        retval += '. '
+
+        # Pubseries
+        if edition.pubseries:
+            retval += f' {edition.pubseries.name}'
+            if edition.pubseriesnum:
+                retval += f' {edition.pubseriesnum}'
+            retval += '. '
+
+        # Genres
+        if self.genres:
+            for genre in self.genres:
+                retval += f'<img src="/static/icons/{genre.abbr}_16.png" title="{genre.name}">'
+        retval += '<br>'
         return retval
 
 

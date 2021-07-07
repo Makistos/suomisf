@@ -29,7 +29,8 @@
 	{% for work in author.1 %}
 	{% set edition = work.editions[0] %}
 	<div class="book">
-		{% include "_work.html" %}
+		{# {% include "_work.html" %} #}
+		{{ work | safe }}
 		{% for edition in work.editions[1:] %}
 		{% include "_otheredition.html" %}
 		{% endfor %}
