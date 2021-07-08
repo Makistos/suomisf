@@ -52,30 +52,29 @@ def books_by_genre(genre: Any) -> Any:
 
 
 @app.route('/books_by_origin/<country>')
-def books_by_origin(country):
+def books_by_origin(country: str) -> Any:
     session = new_session()
 
-    country_id = session.query(Country.id).filter(
-        Country.name == country).first()
+    # country_id = session.query(Country.id).filter(
+    #     Country.name == country).first()
     if country[0] == '!':
+        country_id = int(country[1:])
         works_db = session.query(Work)\
-            .join(Part)\
+            .join(Part, Part.id == Contributor.part_id)\
             .filter(Work.id == Part.work_id)\
             .join(Contributor, Contributor.role_id == 1)\
-            .filter(Part.id == Contributor.part_id)\
             .join(Person)\
             .filter(Person.id == Contributor.person_id)\
             .filter(Person.nationality_id != country_id)\
             .all()
     else:
+        country_id = int(country)
         works_db = session.query(Work)\
-            .join(Part)\
+            .join(Part, Part.id == Contributor.part_id)\
             .filter(Work.id == Part.work_id)\
             .join(Contributor, Contributor.role_id == 1)\
-            .filter(Part.id == Contributor.part_id)\
-            .join(Person)\
-            .filter(Person.id == Contributor.person_id,
-                    Person.nationality_id == country_id)\
+            .join(Person, Person.id == Contributor.person_id)\
+            .filter(Person.nationality_id == country_id)\
             .all()
     (works, count) = make_book_list(works_db)
     page: str = create_booklisting(works)

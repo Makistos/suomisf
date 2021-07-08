@@ -287,8 +287,9 @@ def stats() -> Any:
         .limit(10)\
         .all()
 
-    countries = session.query(Person.nationality_id,
+    countries = session.query(Country.name, Person.nationality_id,
                               func.count(Person.nationality_id).label('count'))\
+        .filter(Country.id == Person.nationality_id)\
         .group_by(Person.nationality_id)\
         .order_by(func.count(Person.nationality_id).desc())\
         .limit(10)\

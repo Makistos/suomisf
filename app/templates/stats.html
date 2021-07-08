@@ -19,7 +19,7 @@
                 {% for c in counts %}
                 <li><img src="/static/icons/{{ c.abbr }}_16.png" title="{{c.genre_name}}">: <a href=" {{
                     url_for('books_by_genre', genre=c.genre_name)}}">{{
-                    c.work_count }}</a></li>
+                        c.work_count }}</a></li>
                 {% endfor %}
             </ul>
         </div>
@@ -139,10 +139,11 @@
             <ul>
                 {% for country in countries %}
                 <li><a href=" {{ url_for('people_by_nationality',
-                                   nationality=country.nationality)}}">{{country.nationality}}</a>:
+                                   nationality=country.nationality_id)}}">{{country.name}}</a>:
                     <a href=" {{url_for('books_by_origin',
-                                           country=country.nationality)}}">{{
-                                           country.count }}</a></li>
+                                           country=country.nationality_id)}}">{{
+                        country.count }}</a>
+                </li>
                 {% endfor %}
             </ul>
         </div>

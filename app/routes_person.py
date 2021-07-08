@@ -167,13 +167,14 @@ def new_person() -> Any:
 def people_by_nationality(nationality: str) -> Any:
     session = new_session()
     country = session.query(Country).filter(
-        Country.name == nationality).first()
+        Country.id == nationality).first()
     people = session.query(Person)\
-                    .filter(Person.nationality_id == country)\
+                    .filter(Person.nationality_id == country.id)\
                     .all()
 
+    letters = sorted(set([x.name[0].upper() for x in people if x.name != '']))
     return render_template('people.html', people=people,
-                           header=nationality)
+                           header=country.name, letters=letters)
 
 
 @app.route('/autocomp_person', methods=['POST', 'GET'])
