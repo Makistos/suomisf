@@ -271,7 +271,7 @@ def stats() -> Any:
                      .filter(Contributor.role_id == 3)\
                      .join(Contributor.parts)\
                      .join(Contributor.person)\
-                     .filter(Part.edition_id is not None)\
+                     .filter(Part.shortstory_id == None)\
                      .group_by(Person.id)\
                      .order_by(func.count(Contributor.person_id).desc())\
                      .limit(20)\
