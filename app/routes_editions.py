@@ -387,7 +387,7 @@ def editors_for_edition(editionid: Any) -> Any:
     session = new_session()
     people = session.query(Person)\
                     .join(Contributor.person)\
-                    .filer(Contributor.role_id == 3)\
+                    .filter(Contributor.role_id == 3)\
                     .join(Part, Part.id == Contributor.part_id)\
                     .filter(Part.edition_id == editionid)\
                     .all()

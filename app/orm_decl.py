@@ -2,6 +2,7 @@ from flask import escape
 import os
 import sys
 import datetime
+import html
 from sqlalchemy import (Column, ForeignKey, Integer,
                         String, Boolean, Date, DateTime, Text)
 from sqlalchemy.ext.declarative import declarative_base
@@ -296,7 +297,7 @@ class Edition(Base):
             img_src = '/static/icons/blue-book-icon-small.png'
 
         retval = r'''<a href="/edition/%d.id" data-bs-toggle='tooltip' data-placement='right' title='<div style="text-align: center;"><h2>%s</h2><img src="%s"></div>' data-html='true'>''' % (
-            self.id, self.title, img_src)
+            self.id, html.escape(self.title), img_src)
 
         if not self.version:
             version = 1
@@ -900,7 +901,7 @@ class Work(Base):
             img_src = "/static/icons/blue-book-icon-small.png"
         # Title
         retval = r'''<a href="/edition/%d" data-bs-toggle='tooltip' data-placement='right' title='<div style="text-align: center;"><h2>%s</h2><img src="%s"></div>' data-html='true'><b>%s</b></a>.''' % (
-            edition.id, edition.title, img_src, escape(self.title))
+            edition.id, html.escape(edition.title), img_src, escape(self.title))
 
         # Bookseries
         if self.bookseries:
