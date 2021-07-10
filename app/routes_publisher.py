@@ -17,6 +17,7 @@ from .route_helpers import *
 def publishers() -> Any:
     session = new_session()
     publishers = session.query(Publisher)\
+                        .filter(Publisher.editions != None)\
                         .order_by(Publisher.name)\
                         .all()
     return render_template('publishers.html', publishers=publishers)
