@@ -659,7 +659,7 @@ bookseries = [
      'Salaiset kansiot - The X-Files -sarja'),
     ('Sammon vartijat', 'Sammon vartijat'),
     ('Savuvarkaat', 'Savuvarkaat'),
-    ('Satumaa', 'Satumaa'),
+    ('Satumaa-sarja', 'Satumaa'),
     ('Scott Saunders -sarja', 'Scott Saunders -sarja'),
     ('Selviytyjät', 'Selviytyjät'),
     ('Sensored Reality', 'Sensored Reality'),
