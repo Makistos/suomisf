@@ -144,12 +144,16 @@ def create_booklisting(works: Any) -> str:
         author_name = author[0]
         works = author[1]
         page += r'''<h2><span class="person-list">%s</span></h2>''' % author_name
+        page += '\n'
         for work in works:
             page += str(work)
+            page += '\n'
             editions = list(work.editions)
             if len(editions) > 1:
                 for edition in editions[1:]:
                     page += str(edition)
+                    page += '\n'
+        page += '\n\n'
     return page
 
 

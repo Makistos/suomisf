@@ -469,13 +469,15 @@
           <div class="card-body">
             <ul class="list-group list-group-flush">
               {% for article in person.appears_in %}
-              <li class="list-group list-group-flush">
-                <b><a href="{{url_for('issue', id=article.issue.id)}}">{{ article.issue.magazine.name }} {% if
-                    article.issue.number -%} {{ article.issue.number }} /
-                    {{ article.issue.year }} {%- else -%} {{ article.issue.count
-                    }} {%- endif -%}</a></b>
-                {% if article.author_str != ''%} {{ article.author_str }}:{%
-                endif %} {{ article.title }}.
+              <li class="list-group list-group-flush ">
+                <span class="nowrap">
+                  <b><a href="{{url_for('issue', id=article.issue.id)}}">{{ article.issue.magazine.name }} {% if
+                      article.issue.number -%} {{ article.issue.number }} /
+                      {{ article.issue.year }} {%- else -%} {{ article.issue.count
+                      }} {%- endif -%}</a></b>
+                  {% if article.author_str != ''%} <span class="person-list">{{ article.author_str }}</span>:{%
+                  endif %} {{ article.title }}.
+                </span>
               </li>
               {% endfor %}
             </ul>
