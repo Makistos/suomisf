@@ -85,12 +85,26 @@ def get_person(s, name: str, create_missing: bool = False) -> Optional[int]:
                     name = 'Anonyymi'
                 if name.find(',') == -1:
                     # Firstname lastname
-                    names = name.split(' ')
+                    names = name.split()
                     #alt_name = names[-1] + ', ' + ' '.join(names[0:-1])
                     alt_name = name
-                    first_name = ' '.join(names[0:-1])
-                    last_name = names[-1]
-                    this_name = last_name + ', ' + ' '.join(first_name)
+                    if name == 'Olaf Stapledon':
+                        print(
+                            f'Stapleton: {names[0]} {names[1]} - {len(names)}.')
+                    if len(names) == 1:
+                        first_name = ''
+                        last_name = names[0]
+                        this_name = last_name
+                        print(f'Len == 1: {name} - {this_name}')
+                    elif len(names) == 2:
+                        first_name = names[0]
+                        last_name = names[1]
+                        this_name = last_name + ', ' + first_name
+                        print(f'Len == 2: {name} - {this_name}')
+                    else:
+                        first_name = ' '.join(names[0:-1])
+                        last_name = names[-1]
+                        this_name = last_name + ', ' + ' '.join(first_name)
                 else:
                     # Lastname, firstname
                     names = name.split(',')
@@ -427,7 +441,7 @@ def import_stories(s,
                 for trans_id in translator_ids:
                     translator = Contributor(part_id=part_item.id,
                                              person_id=trans_id,
-                                             role_id=3)
+                                             role_id=2)
                     s.add(translator)
 
                 if runo != '':

@@ -170,7 +170,7 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Luo:Kr] = Taru Luojola & Tarja Sipiläinen (toim.) : Kumman rakas, Osuuskumma-kustannus 2012
 [Mac:Kp] = Carmen Maria Machado : Kahdeksan puraisua (Her Body and Other Parties, 2017) S&S 2019
 [Man:Kk] = Eeva-Liisa Manner (toim.) : Kauhujen kirja, Weilin & Göös 1964
-[Mar:Sk] = George R(aymond) R(ichard) Martin : Seitsemän kuningaskunnan ritari (A Knight of the Seven Kingdoms, 2015). Kustannusosakeyhtiö Kirjava 2019
+[Mar:Sk] = George R.R. Martin : Seitsemän kuningaskunnan ritari (A Knight of the Seven Kingdoms, 2015). Kustannusosakeyhtiö Kirjava 2019
 [Mcc:K5] = Robert R. McCammon (toim.) : Kauhujen kirja 5 (Night Visions 8, 1991) Book Studio Oy 1994
 [Mor:Kp] = Lisa Morton & Leslie S. Klinger (toim.) : Klassikkokirjailijoiden parhaat kummitustarinat. (Ghost Stories: Classic Tales of Horror and Suspense, 2019). Minerva Kustannus Oy 2019
 [Neu:My] = Neuvostokirjailijain tieteiskertomuksia : Maxwellin yhtälöt (Uravnenija Maksvella) Kustannusliike Edistys 1964

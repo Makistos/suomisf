@@ -166,7 +166,7 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [San:Vt] = Kimmo Saneri : Valon takana, Karisto 1992
 [San:Vt] = Eino Santanen : rakas kapitalismi pilkku, Teos 2020
 [Sax:Hv] = Jani Saxell : Huomispäivän vartijat, Avain 2007
-[Sin:Kk] = (Aila) Johanna Sinisalo : Kädettömät kuninkaat ja muita häiritseviä tarinoita, Teos 2005
+[Sin:Kk] = Johanna Sinisalo : Kädettömät kuninkaat ja muita häiritseviä tarinoita, Teos 2005
 [Sin:Vs] = Johanna Sinisalo (toim.) : Verkon silmässä - Tarinoita internetin maailmasta, Tammi 2005
 [Sis:Mv] = Vesa Sisättö (toim.) : Muistojemme Viistokatu - kertomuksia kadusta, joka ei suostunut kuolemaan. Kustantamo Helmivyö 2021
 [Soi:Mi] = M(arkku) G. Soikkeli : Marsin ikävä ja muita kertomuksia, Turbator 2007
