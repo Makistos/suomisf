@@ -13,6 +13,7 @@ import csv
 import glob
 import re
 from typing import Dict, List, Tuple, Optional
+from copy import deepcopy
 
 db_url = app.config['SQLALCHEMY_DATABASE_URI']
 
@@ -411,9 +412,31 @@ def import_stories(s,
                         if person_id:
                             translator_ids.append(person_id)
 
-                story_item = s.query(ShortStory)\
+                story_items = s.query(ShortStory)\
                     .filter(ShortStory.title == orig_title)\
-                    .first()
+                    .all()
+                story_item = None
+                if len(story_items) == 1:
+                    story_item = story_items[0]
+                elif len(story_items) > 1:
+                    # More than one story with same title, check authors
+                    tmp_ids = deepcopy(author_ids)
+                    for story in story_items:
+                        for author in story.authors:
+                            if author.id in author_ids:
+                                tmp_ids.remove(author.id)
+                        if len(tmp_ids) == 0:
+                            # Found
+                            story_item = story
+                            break
+                    if not story_item:
+                        print(f'Story not found: {story.title}.')
+                        # authors = s.query(Person)\
+                        #     .join(Contributor, Contributor.person_id == Person.id)\
+                        #     .join(Part, Contributor.part_id == Part.id)\
+                        #     .filter(Part.shortstory_id == story.id)\
+                        #     .first()
+
                 if not story_item:
                     # if len(author_ids) > 1:
                     #    creator_str = make_creators(s, author_ids)

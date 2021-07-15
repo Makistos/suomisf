@@ -361,7 +361,7 @@ def import_stories(filename: str, books: Dict[str, Any] = {}) -> None:
                                     Contributor.role_id == 3)\
                             .all()
             if not editions:
-                #print(f'Edition not found: {book[0]} - {book[1]}')
+                print(f'Edition not found: {book[0]} - {book[1]}')
                 continue
             # This script assumes that for these books there is a
             # 1:m relationship, i.e. one work for m editions,
@@ -374,7 +374,7 @@ def import_stories(filename: str, books: Dict[str, Any] = {}) -> None:
             # Create row in ShortStory and Part.
             if key not in stories:
                 pass
-                #print(f'Key {key} not found in stories.')
+                print(f'Key {key} not found in stories.')
             else:
                 for st in stories[key]:
                     story = s.query(ShortStory)\

@@ -22,7 +22,7 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Bar:V5] = Clive Barker : Veren kirjat 5 (Books of Blood 5, 1985) Jalava 1993
 [Bar:V6] = Clive Barker : Veren kirjat 6 (Books of Blood 6, 1985) Jalava 1994
 [Bie:Pk] = Ambrose (Gwinett) Bierce : Pyhä kauhu, Karisto 1934, 1996
-[Bie:Vm] = Ambrose (Gwinett) Bierce : Vanhempain murhaajien klubi, Odessa 1986
+[Bie:Vm] = Ambrose (Gwinett) Bierce : Vanhempainmurhaajien klubi, Odessa 1986
 [Bli:Tl] = James (Benjamin) Blish : Tähtien lapset (The Seedling Stars, 1957) Ursa 1989
 [Blo:K7] = Robert (Albert) Bloch : Kauhu-7 (Horror-7, 1963) E.O. Savolainen 1964
 [Blo:Ku] = Robert (Albert) Bloch : Kauniita unia - parempia painajaisia (Pleasant Dreams - Nightmares, 1960) Nykylehdet Oy 1980
@@ -35,7 +35,7 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Bra:Ma] = Ray(mond Douglas) Bradbury : Marsin aikakirjat (The Martian Chronicles, 1950) Otava 1953
 [Bra:Tt] = Ray(mond Douglas) Bradbury : Toiset taivaat, WSOY 1993
 [Bra:Vv] = Ray(mond Douglas) Bradbury : Varhaiset varjot, WSOY 1992
-[Bul:Km] = Mihail Bulgakov : Kohtalokkaat munat - Satiireja ja muistelmia. WSOY 1975.
+[Bul:Km] = Mihail Bulgakov : Kohtalokkaat munat. WSOY 1975.
 [Car:Vk] = Angela (Olive) Carter : Verinen kammio sekä muita kertomuksia (The Bloody Chamber, 1979) TK-Kustannus 1994
 [Cha:Kk] = Robert W(illiam) Chambers : Keltainen kuningas (The King in Yellow, 1895) Basam Books Oy 2014
 [Che:Hk] = Ronald Chetwynd-Hayes : Hirviöklubi - Kertomuksia nykyajan hirviöistä (The Monster Club, 1975) Kymppilehdet Oy 1983
@@ -70,7 +70,7 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [For:Tt1] = Dion Fortune : Tohtori Tavernerin salaisuudet (The Secrets of Dr. Taverner, 1926) Suomen kirja 1945
 [For:Tt2] = Dion Fortune : Tohtori Tavernerin salaisuudet (The Secrets of Dr. Taverner, 1926) Ruusu-Ristin Kirjallisuuseura ry 2017
 [Fra:Ea] = Anatole France : Aadamin ensimmäisen vaimon tytär. Kertomuksia yliluonnollisista aiheista. Kansanvalta 1926.
-[Gab:Nm] = Diana Gabaldon : Tulivana. Neljä Matkantekijä-kertomusta (A Trail of Fire. Four Outlander Tales, 2012) Gummerus 2013
+[Gab:Tv] = Diana Gabaldon : Tulivana - Neljä Matkantekijä-kertomusta (A Trail of Fire. Four Outlander Tales, 2012) Gummerus 2013
 [Gai:Am] = Neil (Richard) Gaiman : Aarteita ja muistoesineitä (Valikoima alkuteoksesta Fragile Things, 2006) Kustannusosakeyhtiö Kirjava 2007
 [Gar:Su] = Gabriel Garcia Márquez : Surullinen ja uskomaton tarina (La increible y triste historia de la cándida Eréndira y de su abuela desalmada, 1972) WSOY 1975
 [Gau:Vk] = Théophile Gautier : Vereviä kertomuksia (Contes humoristiques, 1880) Faros-kustannus Oy 2014
@@ -84,7 +84,7 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Hai:Wt] = Peter Haining (toim.) : Weird Tales (Weird Tales, 1976) Book Studio Oy 1992
 [Hal:Uk] = Jukka Halme (toim.) : Uuskummaa?, Kustannusosakeyhtiö Kirjava 2006
 [Haw:Pk] = Nathaniel Hawthorne : Paholainen käsikirjoituksessa, LIKE 1990
-[Hea:Ik] = (Patrick) Lafcadio (Tessima Carlos) Hearn : Intohimon karma - Japanin kummitustarinoita, Orienta 2003
+[Hea:Ik] = (Patrick) Lafcadio (Tessima Carlos) Hearn : Intohimon karma. Orienta 2003
 [Hea:Kw] = (Patrick) Lafcadio (Tessima Carlos) Hearn : Kwaidan. (Kwaidan, 1904), Love-kirjat 1991
 [Hei:Mj] = Robert A(nson) Heinlein : Mies joka myi kuun (The Man Who Sold the Moon, 1950) Nide Oy 1956
 [Hel:Mt] = Anne Helttunen & Tuula Uusi-Hallila (toim.) : Majatalo ja muita kauhutarinoita, WSOY 2000
@@ -119,24 +119,24 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Jär:Uk] = Matti Järvinen (toim.) : Unikäärme ja muita vanhoja kauhukertomuksia. Nysalor-kustannus 2017
 [Kaf:Ek] = Franz Kafka : Erään koiran tutkimuksia. Otava 1967
 [Kaf:Nt] = Franz Kafka : Nälkätaiteilija. Gummerus 1959
-[Kal:Sf] = Reijo Kalvas (toim.) : Science fiction antologia 85, Viihdeviikarit 1985
+[Kal:Sf] = Reijo Kalvas (toim.) : Science Fiction - Antologia 85. Viihdeviikarit 1985
 [Kin:Aj] = Stephen (Edwin) King : Auringonlaskun jälkeen (Just After Sunset, 2008) Tammi 2010
 [Kin:Ao] = Stephen (Edwin) King : Anteeksi, oikea numero - Painajaisia ja unikuvia 2 (Nightmares and Dreamscapes (loppupuoli), 1993) Tammi 2000
 [Kin:Ea] = Stephen (Edwin) King : Ennen aamunkoittoa (Skeleton Crew, 1985) Book Studio Oy 1991
 [Kin:Jk] = Stephen (Edwin) King : Jälkeen keskiyön (Skeleton Crew, 1985) Book Studio Oy 1991
 [Kin:Kv] = Stephen (Edwin) King : Kauhun vuodenajat (Different Seasons, 1982), Book Studio Oy 1992
-[Kin:K2] = Stephen (Edwin) King : Kauhun vuodenajat 2 (Different Seasons, 1982), Book Studio Oy 1992
-[Kin:Mm] = Stephen (Edwin) King : Maantievirus matkalla pohjoiseen (Everything's Eventual. 14 Dark Stories, 2002) Tammi 2003
+[Kin:K2] = Stephen (Edwin) King : Kauhun vuodenajat II (Different Seasons, 1982), Book Studio Oy 1992
+[Kin:Mm] = Stephen (Edwin) King : Maantievirus matkalla pohjoiseen : 14 kolkkoa tarinaa (Everything's Eventual. 14 Dark Stories, 2002) Tammi 2003
 [Kin:Me] = Stephen (Edwin) King : Mitä enemmän verta (If It Bleeds, 2020) Tammi 2020
 [Kin:Mt] = Stephen (Edwin) King : Musta torni (The Dark Tower: The Gunslinger, 1982) Book Studio Oy 1992
 [Kin:Pe] = William King : Peikonsurma (Trollslayer, 1999) Acalla Oy 2001
 [Kin:Ps] = Stephen (Edwin) King : Pedon sydän (Hearts in Atlantis, 1999) Tammi 2000
 [Kin:Py] = Stephen (Edwin) King : Pimeä yö, tähdetön taivas (Full Dark, No Stars, 2010) Tammi 2012
 [Kin:Sy] = Stephen (Edwin) King : Sydänyö (Four Past Midnight, 1990) Tammi 1991
-[Kin:Ys] = Stephen (Edwin) King : Yksinäinen sormi - Painajaisia ja unikuvia 1 (Nightmares and Dreamscapes (alkupuoli), 1993) Tammi 1999
+[Kin:Ys] = Stephen (Edwin) King : Yksinäinen sormi (Nightmares and Dreamscapes (alkupuoli), 1993) Tammi 1999
 [Kin:Yä] = Stephen (Edwin) King : Yön äänet (Night Shift, 1978) Viihdeviikarit 1989
 [Kip:Pm] = Rudyard Kipling : Pedon merkki ja muita kauhuja, WSOY 1994
-[Kop:Ap] = Jari Koponen & Vesa Sisättö (toim.) : Aivopeili, Avain 2011
+[Kop:Ap] = Jari Koponen & Vesa Sisättö (toim.) : Aivopeili - Autonomian ajan tieteiskirjallisuutta, Avain 2011
 [Kop:Jv] = Jari Koponen & Olavi Markkanen & Riitta-Liisa Pihljerta & Pentti Holappa (toim.) : Jäinen vaeltaja, Ursa 1986
 [Kri:Nj] = Susan Krinard & Colleen Gleason & Janet Mullany & Mary Balogh : Noiduttu Jane, (Bespelling Jane Austen, 2010), Förlaget Harlequin AB 2011
 [Leg:Km] = Ursula K(roeber) Le Guin : Kertomuksia Maamereltä (Tales from Earthsea, 2001) WSOY 2002
@@ -146,16 +146,15 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Leg:Sk] = Ursula K(roeber) Le Guin : Sisämeren kalastaja (A Fisherman of the Inland Sea, 1994) Tampereen Science Fiction Seura 2000
 [Lem:Ks] = Stanislaw Lem : Konekansan satuja ja tarinoita (Bajki robotóv, 1964) Tammi 2004
 [Lem:Ky] = Stanislaw Lem : Kyberias (Cyberiada, 1965) Kirjayhtymä 1986
-[Lon:Pp] = Frank Belknap Long : Pimeänpelko (Night Fear, 1979) Nykylehdet 1981
+[Lon:Pp] = Frank Belknap Long : Pimeän pelko (Night Fear, 1979) Nykylehdet 1981
 [Lon:Du] = Jack London : Debsin uni, Love-kirjat 1982
 [Lon:Kn] = Jack London : Kuunaama, Sampo 1926
 [Lon:Pj] = Jack London : Punainen jumala, Minerva 1921
 [Lon:Yl] = Jack London : Yön lapsi, Minerva 1924
 [Lov:Al] = H(oward) P(hillips) Lovecraft : Alkemisti ja muita kertomuksia, Jalava 1994
-[Lov:Hs] = H(oward) P(hillips) Lovecraft : Hautakummun salaisuus sekä muita kertomuksia ja kirjoituksia, Jalava 2014
 [Lov:Kt6] = H(oward) P(hillpis) Lovecraft : Hautakummun salaisuus ja muita kertomuksia ja kirjoituksia. H.P. Lovecraftin kootut teokset 6. Jalava 2014
 [Lov:Kt4] = H(oward) P(hillips) Lovecraft : Hautausmaan kauhu ja muita kertomuksia. H.P. Lovecraftin kootut teokset 4. Jalava 2012
-[Lov:Hp] = H(oward) P(hillips) Lovecraft : H. P. Lovecraftin parhaat. Jalava 2020
+[Lov:Hp] = H(oward) P(hillips) Lovecraft : HP Lovecraftin parhaat. Jalava 2020
 [Lov:Nk] = H(oward) P(hillips) Lovecraft : Nimetön kaupunki, Jalava 1991
 [Lov:Kp] = H(oward) P(hillips) Lovecraft : Kuiskaus pimeässä, Jalava 1989
 [Lov:Kt1] = H(oward) P(hillips) Lovecraft : Kuiskaus pimeässä ja muita kertomuksia. H.P. Lovecraftin kootut teokset 1. Jalava 2009
@@ -179,7 +178,7 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Num:Va] = Juri Nummelin (toim.) : Vampyyri ja muita vanhoja kauhu- ja jännitysnovelleja, Helmivyö 2018
 [Pac:T1] = Josh Pachter (toim.) : Top Science Fiction 1 (Top Science Fiction, 1984) Jalava 1990
 [Pac:T2] = Josh Pachter (toim.) : Top Science Fiction 2 (Top Science Fiction, 1984) Jalava 1993
-[Poe:Kk] = Edgar Allan Poe : Korppi ja kultakuoriainen, WSOY 1959
+[Poe:Kk] = Edgar Allan Poe : Korppi ja kultakuoriainen sekä muita kertomuksia, WSOY 1959
 [Poe:Ko] = Edgar Allan Poe : Kootut kertomukset, Kustannusosakeyhtiö Teos 2006
 [Poe:No] = Edgar Allan Poe : Novelleja. Kirjallisuutta kouluille. WSOY 1970
 [Poe:Pk] = Edgar Allan Poe : Pelon ja kuoleman kertomuksia, Book Studio Oy 1993
@@ -216,7 +215,7 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Sad:We] = Markku Sadelehto (toim.) : Wendigo ja muita yliluonnollisia kauhukertomuksia, Jalava 2015
 [Sak:Ai] = Saki : Avoin ikkuna ja muita tarinoita, Vaskikirjat 2015
 [Sal:Dl] = R(obert) A(nthony) Salvatore : Drizztin legenda - Kootut novellit. (The Collected Stories - The Legend of Drizzt Anthology, 2011) Kustannus Jalava 2012
-[Sal:Mm] = Tuomas Saloranta & Jyrki Pitkä (toim.) : Murhamystiikkaa - okkulttisia etsivätarinoita, Tajunta Media 2014
+[Sal:Mm] = Tuomas Saloranta & Jyrki Pitkä (toim.) : Murhamystiikkaa, Tajunta Media 2014
 [Sau:Sp] = George Saunders : Sotapuiston perikato (CivilWarLand in Bad Decline, 1996) Siltala 2016
 [Shc:Mu] = Robert Sheckley : Matkalippu utopiaan (Citizen in Space, 1955) WSOY 1976
 [She:Lv] = Lucius Shepard : Lohikäärmeen varjossa, WSOY 1993
@@ -236,14 +235,14 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Van:Im] = Jack (/John Holbrook) Vance : Iltaruskon maa (The Dying Earth, 1950) Kirjayhtymä 1988
 [Van:Ip] = Jack (/John Holbrook) Vance : Ihmisen paluu (toim. Markku Sadelehto) Tampereen Science Fiction Seura  1999
 [Vdm:Pm] = Jeff VanderMeer : Pyhimysten ja mielipuolten kaupunki (The Hoegbotton Guide to the Early History of Ambergris) Loki-Kirjat 2006.
-[Var:Hr] = John (Herbert) Varley : Hyvästi, Robinson Crusoe, WSOY 1989
+[Var:Hr] = John (Herbert) Varley : Hyvästi Robinson Crusoe, WSOY 1989
 [Wal:Mm] = Howard Waldrop : Musiikkia miesäänille ja lentäville lautasille () Kustannusosakeyhtiö Kirjava 2007
 [Wel:He] = H(erbert) G(eorge) Wells : Eräitä kertoelmia, Emil Vainio 1907
 [Wel:He] = H(erbert) G(eorge) Wells : Hämähäkkilaakso & Eräitä kertoelmia, Tiberius kirjat 2019
 [Wel:Ph] = H(erbert) G(eorge) Wells : Punainen huone, WSOY  1994
-[Wel:Vh] = H(erbert) G(eorge) Wells : Voimakoneitten herra, Varastettu basilli ja muita tapauksia, Tiberius kirjat 2019
+[Wel:Vh] = H(erbert) G(eorge) Wells : Voimakoneitten herra Varastettu basilli ja muita tapauksia, Tiberius kirjat 2019
 [Wia:K7] = Stanley (Steven) Wiater (toim.) : Kauhujen kirja 7 (Night Visions 7, 1989) Book Studio Oy 1995
-[Win:K1] = Douglas E. Winter (toim.) : Kauhujen Kirja (Night Visions 5, 1988) Book Studio Oy 1991
+[Win:K1] = Douglas E. Winter (toim.) : Kauhujen kirja (Night Visions 5, 1988) Book Studio Oy 1991
 [Win:K2] = Douglas E. Winter (toim.) : Kauhujen kirja 2 (Prime Evil, 1988) Book Studio Oy 1992
 [Wol:Pk] = Sebastian Wolfe (toim.) : Pieni kauhukirja - 55 lyhyenlyhyttä kauhupalaa (Tiny Tales of Terror, 1992) Book Studio Oy 1992
 
@@ -1711,25 +1710,25 @@ Epäonnen pikkuleipä (The Misfortune Cookie, 1970) [Gre:K8]
 
 Diana Gabaldon
 --------------
-Armeijan käytäntö (The Custom of the Army, 2010) [Gab:Tv}
-Lehtenä pyhäinpäivän tuulessa (A Leaf on the Wind of All Hallows, 2010) [Gab:Tv}
-Lordi John ja zombien vitsaus (Lord John and the Plague of Zombies, 2011) [Gab:Tv}
-Välitila (The Space Between, 2012) [Gab:Tv}
+Armeijan käytäntö (The Custom of the Army, 2010) [Gab:Tv]
+Lehtenä pyhäinpäivän tuulessa (A Leaf on the Wind of All Hallows, 2010) [Gab:Tv]
+Lordi John ja zombien vitsaus (Lord John and the Plague of Zombies, 2011) [Gab:Tv]
+Välitila (The Space Between, 2012) [Gab:Tv]
 
 
 Neil Gaiman
 -----------
-Aarteita ja muistoesineitä (Keepsakes and Treasures: A Love Story, 1999) [Gai:Am}
-Harlekiini Valentiini (Harlequin Valentine, 1999) [Gai:Am}
+Aarteita ja muistoesineitä (Keepsakes and Treasures: A Love Story, 1999) [Gai:Am]
+Harlekiini Valentiini (Harlequin Valentine, 1999) [Gai:Am]
 Kaamean himon yön salatun talon kasvottomien orjien kielletyt morsiamet (Forbidden Brides of the Faceless Slaves in the Secret House of the Night of Dread Desire, 2004) [Gai:Am}
-Kitkerää paahtoa (Bitter Grounds, 2003) [Gai:Am}
-Laakson kuningas (The Monarch of the Glen, 2003) [Gai:Am}
-Ne muut (Other People, 2001) [Gai:Am}
+Kitkerää paahtoa (Bitter Grounds, 2003) [Gai:Am]
+Laakson kuningas (The Monarch of the Glen, 2003) [Gai:Am]
+Ne muut (Other People, 2001) [Gai:Am]
 Sivuja päiväkirjasta joka löytyi pitkänmatkan bussiin jätetystä kenkälaatikosta jostain Oklahoman Tulsan ja Kentuckyn Louisvillen väliltä (Pages from a Journal Found in a Shoebox Left in a Greyhound Bus Somewhere Between Tulsa, Oklahoma, and Louisville, Kentucky, 2002) [Gai:Am}
-Soraa muistojen tieltä (The Flints of Memory Lane, 1997) [Gai:Am}
-Sulkemisaika (Closing Time, 2003) [Gai:Am}
-Susanin ongelma (The Problem of Susan, 2004) [Gai:Am}
-Vihreiden kirjainten arvoitus (A Study in Emerald, 2003) [Gai:Am}
+Soraa muistojen tieltä (The Flints of Memory Lane, 1997) [Gai:Am]
+Sulkemisaika (Closing Time, 2003) [Gai:Am]
+Susanin ongelma (The Problem of Susan, 2004) [Gai:Am]
+Vihreiden kirjainten arvoitus (A Study in Emerald, 2003) [Gai:Am]
 
 
 Stephen Gallagher
@@ -2733,7 +2732,7 @@ Uni (The Dream, 1894) [Dal:Sk]
 Vihreää teetä (Green Tea, 1872) [Man:Kk]
 
 
-Ursula K. Le Guin
+Ursula K(roeber) Le Guin
 -----------------
 Aineistoa Seggrin oloista (The Matter of Seggri, 1994) [Leg:Ms]
 Aliset tähdet (The Stars Below, 1973) [Leg:Pl]
@@ -3796,7 +3795,7 @@ Vampyyri nimeltä Varmey (Varney the Vampire, 1845) [Tho:Vh]
 Varney-vampyyri (Varney the Vampyre (excerpts), 1847) [Wol:Pk]
 
 
-Saki (Hector Hugh Munro)
+Saki (oik. Hector Hugh Munro)
 ------------------------
 Armon ministerit (Ministers of Grace, 1911) [Sak:Ai]
 Avoin ikkuna (The Open Window, 1911) [Sak:Ai]
@@ -4185,7 +4184,7 @@ Whitley Strieber
 Allas (The Pool, 1988) [Win:K2]
 
 
-Arkadi & Boris Strugatski
+Arkadi Strugatski & Boris Strugatski
 -------------------------
 Kuusi tulitikkua (Šest’ spicek, 1959) [Neu:My]
 Pakoyritys [Str:Ph]
@@ -4280,7 +4279,7 @@ Salaperäinen vieras (The Mysterious Stranger, 1916) [Twa:Sv]
 Viisi elämän kirjaa (The Five Boons of Life, 1902) [Wol:Pk]
 
 
-A.E. van Vogt
+van Vogt, A.E.
 -------------
 Eläviä kuvia (Film Library, 1973) [Pac:T2]
 

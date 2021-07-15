@@ -16,7 +16,7 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Ala:Vk] = Jaana Ala-Huissi & Mervi Heikkilä : Verikuu ja muita outoja tarinoita, Haamu Kustannus 2018
 [Ala:Vl] = Katri Alatalo (toim.) : Varjojen lumo: Suomalaisia goottinovelleja, Vaskikirjat 2017
 [Ala:Är] = Katri Alatalo : Älä riko pintaa, Vaskikirjat 2016
-[Ant:Kv] = Samuli Antila & Markus Harju (toim.) : Ken vainajia muistelee, Espoon science fiction- ja fantasiaseura Esc ry 2013
+[Ant:Kv] = Samuli Antila & Markus Harju (toim.) : Ken vainajia muistelee ja muita myytillisiä tarinoita, Espoon science fiction- ja fantasiaseura Esc ry 2013
 [Ant:Pe] = Samuli Antila : Pelastaja ja muita tieteistarinoita, Kuoriaiskirjat 2018
 [Ant:Ra] = Samuli Antila : Rajat ja muita kauheita tarinoita, Kuoriaiskirjat 2014
 [Ars:Oa] = Emmanuel Arse : Olin avaruustaistolaisten seksiorja! ja muita eroottisia spekulaatioita. Basam Books 2019
@@ -26,7 +26,7 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Erk:Lo] = Harri Erkki : Loput, Turbator 2011
 [Erk:Pj] = Harri Erkki : Pitkä jauntti - Kertomuksia 1967–2007, Turbator 2007
 [Esk:Vk] = Markku Eskelinen & Silja Hiidenheimo (toim.) : Viiltokuvia - kotimaista kauhua, Tammi 1992
-[Haa:Ma] = Maija Haavisto & Juha Jyrkäs (toim.) : Marraskesi, Osuuskumma-kustannus 2016
+[Haa:Ma] = Maija Haavisto & Juha Jyrkäs (toim.) : Marraskesi - Tarinoita iholta ja ihon alta, Osuuskumma-kustannus 2016
 [Haa:Tp] = Harri Haarikko & Hinkkanen & Ijäs & Jerrman & Peltonen & Roimola (toim.) : Tähtipuu - 33 kotimaista tieteisnovellia, Ursa 1990
 [Haa:Tu] = Päivi Haanpää & Riikonen, Marika (toim.) : Tusina - Novelleja, Arthouse 2018
 [Hai:Hk] = Magdalena Hai : Haiseva käsi ja muita kauheita tarinoita Uhriniituntakaisesta, Karisto 2016
@@ -49,7 +49,7 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Ijä:Ey] = Jyrki Ijäs (toim.) : Ensimmäinen yhteys, Pirkanmaan Kirjapaino ja Lehtikustannus Oy 1988
 [Iso:Kr] = Risto Isomäki : Kristalliruusu, Kirjayhtymä 1991
 [Jan:Nl] = Tove (Marika) Jansson : Näkymätön lapsi ja muita kertomuksia (Den osynliga barnet och andra berättelser, 1962), WSOY 1962
-[Jyr:Jh] = Juha Jyrkäs & Tuomas Saloranta (toim.) : Ja hän huutaa - splatterpunk-antologia, Tajunta Media 2014
+[Jyr:Jh] = Juha Jyrkäs & Tuomas Saloranta (toim.) : Ja hän huutaa, Tajunta Media 2014
 [Jär:Ti] = Matti Järvinen (toim.) : Tulevaisuuden ihminen ja muita vanhoja tulevaisuuskertomuksia. Nysalor-kustannus 2017
 [Jää:Mj] = Pasi Ilmari Jääskeläinen : Missä junat kääntyvät, Tampereen Science Fiction Seura 2000
 [Jää:Tp] = Pasi Ilmari Jääskeläinen : Taivaalta pudonnut eläintarha, Atena 2008
@@ -58,23 +58,23 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Kar:Go] = Juhani Karila : Gorilla, Otava 2013
 [Kar:Ok] = Juhani Karila : Omenakrokotiilin kuolema, Siltala 2016
 [Kar:Gb] = Pasi Karppanen (toim.) : Genreblender. Turun yliopiston tieteiskulttuurikabinetti ry. ja Turun Science Fiction Seura ry. 2018
-[Kar:Hh] = Pasi Karppanen (toim.) : Hekuman huipulla, Suomen Tieteiskirjoittajat ry 2008
+[Kar:Hh] = Pasi Karppanen (toim.) : Hekuman huipulla - Eroottinen sf/f-antologia, Suomen Tieteiskirjoittajat ry 2008
 [Kar:No14] = Pasi Karppanen & Leila Paananen (toim.) : Nova 2014 -antologia. Turun Science Fiction Seura ry ja Turun yliopiston tieteiskulttuurikabinetti ry 2016
 [Kar:No15] = Pasi Karppanen & Leila Paananen (toim.) : Nova 2015 -antologia. Turun Science Fiction Seura ry ja Turun yliopiston tieteiskulttuurikabinetti ry 2017
 [Kar:No16] = Pasi Karppanen & Leila Paananen (toim.) : Nova 2016 -antologia. Turun Science Fiction Seura ry ja Turun yliopiston tieteiskulttuurikabinetti ry 2018
 [Kar:No17] = Pasi Karppanen & Leila Paananen (toim.) : Nova 2017 -antologia. Turun Science Fiction Seura ry ja Turun yliopiston tieteiskulttuurikabinetti ry 2019
 [Kar:St] = Pasi Karppanen (toim.) : Spekulatiivinen Turku. Turun yliopiston tieteiskulttuurikabinetti ry. ja Turun Science Fiction Seura ry. 2016
-[Kar:Ap] = Pasi Karppanen & Laura Ahlstedt (toim.) : Ajan poluilla, Turun yliopiston tieteiskulttuurikabinetti ry 2013
+[Kar:Ap] = Pasi Karppanen & Laura Ahlstedt (toim.) : Ajan poluilla - Kotimaisten vaihtoehtohistorianovellien antologia, Turun yliopiston tieteiskulttuurikabinetti ry 2013
 [Kar:Va] = Pasi Karppanen (toim.) : Valitut - Suomen presidenttien salainen historia. Turun yliopiston tieteiskulttuurikabinetti ry. 2018.
-[Kat:Ks] = Jussi Katajala : Korpin silmät kaiken näkevät, Osuuskumma 2015
-[Kat:Nm] = Jussi Katajala : Nollameridiaani, Osuuskumma 2017
+[Kat:Ks] = Jussi Katajala : Korpin silmät kaiken näkevät ja muita yöpuolen tarinoita, Osuuskumma 2015
+[Kat:Nm] = Jussi Katajala : Nollameridiaani ja muita kosmisia tarinoita, Osuuskumma 2017
 [Kat:Mk] = Jussi Katajala & Markus Harju & Alpo Leppänen (toim.) : Maailmanlopun kirjasto, URS 2013
-[Kel:Tj] = Artemis Kelosaari & Shimo Suntila (toim.) : Tämä jalka ei ole minun - Kauhuja omasta kehosta. Tajunta Media 2017
+[Kel:Tj] = Artemis Kelosaari & Shimo Suntila (toim.) : Tämä jalka ei ole minun: Kauhuja omasta kehosta. Tajunta Media 2017
 [Kiv:Mk] = S(eppo Kalevi) Albert Kivinen : Merkilliset kirjoitukset, Pirkanmaan Kirjapaino ja Lehtikustannus 1990
 [Koi:Äj] = Joona Koiranen (toim.) : Äänellä jonka kuulet: Spekulatiivisia novelleja sukupuolen moninaisuudesta, Ääres 2019
-[Kop:Ap] = Jari Koponen & Vesa Sisättö (toim.) : Aivopeili, Avain 2011
+[Kop:Ap] = Jari Koponen & Vesa Sisättö (toim.) : Aivopeili - Autonomian ajan tieteiskirjallisuutta, Avain 2011
 [Kop:Jv] = Jari Koponen & Markkanen & Pihljerta & Holappa (toim.) : Jäinen vaeltaja, Ursa 1986
-[Kor:Ks] = Kristian Korppi : Kuolleen silmät, Schildt 1926
+[Kor:Ks] = Kristian Korppi : Kuolleen silmät: kertomuksia tuntemattoman ovilta, Schildt 1926
 [Kos:Kj] = Juha-Pekka (JP) Koskinen : Kirjailija joka ei koskaan julkaissut mitään, Karisto 2007
 [Kou:Ms] = J. Kouta : Mustaa satiinia, omakustanne 1993
 [Kou:Sp] = J. Kouta : Synkkimistin päiväkirja, Piracy Press 1996
@@ -88,9 +88,9 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Lai:Tk] = Petri Laine : Taivaan kaikki värit, Turbator 2008
 [Lai:Kl] = Petri Laine & Anne Leinonen : Kuulen laulun kaukaisen, Kuoriaiskirjat 2014
 [Lau:Ko] = Mika-Petri Lauronen : Kontiainen. Osuuskumma-kustannus 2018
-[Lei:Ml] = Anne Leinonen & Tuomas Saloranta (toim.) : Mustaa lihaa - Kyberpunk-antologia, Suomen tieteis- ja fantasiakirjoittajat ry 2013
+[Lei:Ml] = Anne Leinonen & Tuomas Saloranta (toim.) : Mustaa lihaa, Suomen tieteis- ja fantasiakirjoittajat ry 2013
 [Lei:Hk] = Anne Leinonen & Tuomas Saloranta & Shimo Suntila (toim.) : Hurtan koodeksi, Suomen tieteis- ja fantasiakirjoittajat ry 2013
-[Lei:Pr] = Anne Leinonen : Pienen rasian jumala, Atena 2015
+[Lei:Pr] = Anne Leinonen : Pienen rasian jumala ja muita novelleja, Atena 2015
 [Lei:Ss] = Anne Leinonen & Mia Myllymäki (toim.) : Steampunk! - Silintereitä ja siipirattaita, Osuuskumma 2016
 [Lei:Vl] = Anne Leinonen : Valkeita lankoja, WSOY 2006
 [Lei:Hh] = Anne Leinonen (toim.) : Hänen huulensa ovat metsä, Kulttuuriyhdistys Korppi ry. 2017
@@ -100,40 +100,40 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Lep:Tj] = Erkka Leppänen (toim.) : Praedor - Tarinoita Jaconiasta, Vaskikirjat 2020
 [Lin:Ko] = Lucilla Lin : Kuolema on ikuista unta, Kuoriaiskirjat 2013
 [Lin:Ml] = Lucilla Lin : Musta linna ja muita outoja tarinoita, Nysalor-kustannus 2020
-[Liu:Vl] = Petri Liukkonen & Tanja Keskisimonen (toim.) : Vanhoja luita, Päätalo-instituutti 1996
+[Liu:Vl] = Petri Liukkonen & Tanja Keskisimonen (toim.) : Vanhoja luita ja muita epätodellisia tarinoita, Päätalo-instituutti 1996
 [Luo:Kr] = Taru Luojola & Tarja Sipiläinen (toim.) : Kumman rakas, Osuuskumma-kustannus 2012
-[Lön:Lp] = O.E. Lönnberg : Langanpäitä, Osuuskumma-kustannus 2017
+[Lön:Lp] = Olli E. Lönnberg : Langanpäitä, Osuuskumma-kustannus 2017
 [Man:Ar] = Rasa Manner & Sami Sipilä (toim.) : Astraaliripaska, Seonsana ry 2001
 [Mar:Ip] = Asko Martinheimo : Isojalkainen poika, WSOY 1996
 [Mer:Lm] = J.S. Meresmaa : Lintuhäkin muotoinen soittorasia, Osuuskumma 2019
-[Mer:Hh] = J.S. Meresmaa & Markus Harju (toim.) : Steampunk! - Höyryä ja helvetinkoneita, Osuuskumma 2013
+[Mer:Hh] = J.S. Meresmaa & Markus Harju (toim.) : Steampunk! Höyryä ja helvetinkoneita, Osuuskumma 2013
 [Mer:Mm] = J.S. Meresmaa & Christine Thorel (toim.) : Murtumia maisemassa - Urbaanin löytöretkeilyn antologia, Osuuskumma 2017
-[Mer:Sp] = J.S. Meresmaa & Markus Harju (toim.) : Steampunk! - Koneita ja korsetteja, Osuuskumma 2012
+[Mer:Sp] = J.S. Meresmaa & Markus Harju (toim.) : Steampunk! Koneita ja korsetteja, Osuuskumma 2012
 [Mer:Ss] = J.S. Meresmaa & Teresa Myllymäki & M. A. Tyrskyluoto (toim.) : Sirkus Synkkä, Osuuskumma-kustannus 2018
 [Mie:Ht] = J.K. Miettinen : Häiriötekijä, Turbator 2010
-[Myl:Mk] = Mia Myllymäki & Anu Korpinen (toim.) : Metsän kronikka - Tarinoita puista, Osuuskumma-kustannus 2019
+[Myl:Mk] = Mia Myllymäki & Anu Korpinen (toim.) : Metsän kronikka - tarinoita puista, Osuuskumma-kustannus 2019
 [Myl:Sn] = Mia Myllymäki & Katri Alatalo & Leila Paananen & Shimo Suntila (toim.) : Supernova, Suomen tieteis- ja fantasiakirjoittajat ry 2015
-[Män:Jm] = Juha Mäntylä & Arttu Tuominen (toim.) : Juhannusmorsian - Valon ja varjon tarinoita, Varjo kustannus 2019
-[Män:Kl] = Juha Mäntylä & Arttu Tuominen (toim.) : Koivulehto - Valon ja varjon tarinoita, Helmivyö 2017
+[Män:Jm] = Juha Mäntylä & Arttu Tuominen (toim.) : Juhannusmorsian, Varjo kustannus 2019
+[Män:Kl] = Juha Mäntylä & Arttu Tuominen (toim.) : Koivulehto, Helmivyö 2017
 [Män:Pe] = Juha Mäntylä (toim.) : Pienin ehdoin - kauhunovelliantologia, Scarabe 2017
-[Män:Tm] = Juha Mäntylä & Arttu Tuominen (toim.) : Tulipunainen mekko - Valon ja varjon tarinoita, Varjo kustannus 2018
+[Män:Tm] = Juha Mäntylä & Arttu Tuominen (toim.) : Tulipunainen mekko, Varjo kustannus 2018
 [Nen:Nr] = Kari Nenonen : Noitarovio, Jalava 1989
 [Nev:Ar] = Heikki Nevala : Arvet, Turbator 2010
 [Nev:Ru] = Heikki Nevala & Anni Nupponen & Shimo Suntila (toim.) : Ruumiittomat, Osuuskumma 2014
 [Nie:Nt] = Tero Niemi & Anne Salminen : Nimbus ja tähdet, Atena 2004
-[Nik:Km] = Raimo Nikkonen (toim.) : Keskiyön Mato Ikaalisissa, Ursa 1991
-[Num:Ke] = Juri Nummelin (toim.) : Kehrääjä - Vanhoja suomalaisia kauhunovelleja, Helmivyö 2019
+[Nik:Km] = Raimo Nikkonen (toim.) : Keskiyön mato Ikaalisissa, Ursa 1991
+[Num:Ke] = Juri Nummelin (toim.) : Kehrääjä, Helmivyö 2019
 [Num:Kh] = Juri Nummelin (toim.) : Kuutamohulluus ja muita vanhoja suomalaisia pulp-novelleja, ntamo 2015
-[Num:Kk] = Juri Nummelin (toim.) : Kirotun kirjan vartija - Suomalaisia Cthulhu-tarinoita, Jalava 2016
-[Num:Kp] = Juri Nummelin (toim.) : Kuun pimeä puoli - Suomalaisia ihmissusinovelleja, Jalava 2013
-[Num:Lm] = Juri Nummelin (toim.) : Luurankomies, Kuoriaiskirjat 2014
+[Num:Kk] = Juri Nummelin (toim.) : Kirotun kirjan vartija, Jalava 2016
+[Num:Kp] = Juri Nummelin (toim.) : Kuun pimeä puoli, Jalava 2013
+[Num:Lm] = Juri Nummelin (toim.) : Luurankomies ja muita kauhutarinoita Villistä Lännestä, Kuoriaiskirjat 2014
 [Num:Ms] = Juri Nummelin (toim.) : Mannerheimin seikkailuja, Turbator 2012
 [Num:Os] = Juri Nummelin (toim.) : On Suurten Muinaisten aika, Turbator 2012
-[Num:St] = Juri Nummelin (toim.) : Sininen tiikeri - Kryptozoologisia novelleja, Helmivyö 2018
-[Num:Sv] = Juri Nummelin (toim.) : Sadan vuoden unet - satuja aikuisille, Kustannus Jalava 2017
+[Num:St] = Juri Nummelin (toim.) : Sininen tiikeri, Helmivyö 2018
+[Num:Sv] = Juri Nummelin (toim.) : Sadan vuoden unet, Kustannus Jalava 2017
 [Num:Th] = Juri Nummelin (toim.) : Tuska ja hurmio - Eroottisia novelleja, Turbator 2011
 [Num:Tz] = Juri Nummelin (toim.) : Tuhansien zombien maa, Turbator 2009
-[Num:Vh] = Juri Nummelin (toim.) : Verenhimo - Suomalaisia vampyyritarinoita, Teos 2011
+[Num:Vh] = Juri Nummelin (toim.) : Verenhimo, Teos 2011
 [Nup:Jj] = Anni Nupponen : Joen jumala, Osuuskumma 2014
 [Nup:Ki] = Anni Kuu Nupponen & Artemis Kelosaari (toim.) : Kiima - Eroottisia tarinoita, Osuuskumma-kustannus 2020
 [Oja:Jl] = Heikki Oja : Jäinen lohikäärme, Tampereen Science Fiction Seura 2001
@@ -148,18 +148,18 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Rie:Ea] = Solina Riekkola & Minna Roininen & Matleena Sopanen (toim.) : Ei aivan ihmisiä: Novelleja tulevaisuuden älyistä, Osuuskumma-kustannus 2021
 [Ros:Yö] = Matti Rosvall & Sola & Viita (toim.) : Yövuoro ja toisia kertomuksia, Laatusana 1994
 [Sad:Kp] = Markku Sadelehto (toim.) : Kauhupokkari 1, Jalava 1991
-[Sal:Hn] = Tuomas Saloranta (toim.) : Huomenna ne tulevat, Espoon science fiction- ja fantasiaseura Esc ry 2012
-[Sal:Hv] = Tuomas Saloranta & Shimo Suntila (toim.) : Hopeoitu vainaja, Kuoriaiskirjat 2014
+[Sal:Hn] = Tuomas Saloranta (toim.) : Huomenna ne tulevat ja muita eriskummallisia kohtaamisia, Espoon science fiction- ja fantasiaseura Esc ry 2012
+[Sal:Hv] = Tuomas Saloranta & Shimo Suntila (toim.) : Hopeoitu vainaja ja muita sivuja Stepanin koodeksista, Kuoriaiskirjat 2014
 [Sal:Jk] = Petri Salin : Jäätynyt Kokytos, Turbator 2009
 [Sal:Kk] = Petri Salin : Kolmaskymmenes kolmas simpanssi, Turbator 2010
-[Sal:Ma] = Tuomas Saloranta : Mahtavat ammoiset, Kuoriaiskirjat 2014
-[Sal:Me] = Tuomas Saloranta & Markus Koskimies (toim.) : Me emme valehtele, Jyväskylän Science Fiction Seura 42 2012
-[Sal:Mm] = Tuomas Saloranta & Jyrki Pitkä (toim.) : Murhamystiikkaa - okkulttisia etsivätarinoita, Tajunta Media 2014
-[Sal:Mt] = Tuomas Saloranta : Musta tähti, Kuoriaiskirjat 2016
-[Sal:Pr] = Tuomas Saloranta (toim.) : Pimeyden reunalla, Turun yliopiston tieteiskulttuurikabinetti ry 2011
+[Sal:Ma] = Tuomas Saloranta : Mahtavat ammoiset ja muita karmaisevia kertomuksia, Kuoriaiskirjat 2014
+[Sal:Me] = Tuomas Saloranta & Markus Koskimies (toim.) : Me emme valehtele ja muita Puolueen hyväksymiä novelleja, Jyväskylän Science Fiction Seura 42 2012
+[Sal:Mm] = Tuomas Saloranta & Jyrki Pitkä (toim.) : Murhamystiikkaa, Tajunta Media 2014
+[Sal:Mt] = Tuomas Saloranta : Musta tähti ja muita tarinoita tulevaisuudesta, Kuoriaiskirjat 2016
+[Sal:Pr] = Tuomas Saloranta (toim.) : Pimeyden reunalla ja muita uusrahvaanomaisia kertomuksia, Turun yliopiston tieteiskulttuurikabinetti ry 2011
 [Sal:Sk] = Tuomas Saloranta (toim.) : Stepanin koodeksi, Kuoriaiskirjat 2013
-[Sal:Tv] = Tuomas Saloranta (toim.) : Tiamatin värit, Suomen tieteis- ja fantasiakirjoittajat ry 2012
-[Sal:Ua] = Tuomas Saloranta (toim.) : URS antologia, Kustannus Hauenleuka 2011
+[Sal:Tv] = Tuomas Saloranta (toim.) : Tiamatin värit ja muita tähtienvälisiä tarinoita, Suomen tieteis- ja fantasiakirjoittajat ry 2012
+[Sal:Ua] = Tuomas Saloranta (toim.) : URS - Uusrahvaanomaisen spekulatiivisen fiktion antologia, Kustannus Hauenleuka 2011
 [Sal:Uh] = Tuomas Saloranta (toim.) : URS - Harmaa antologia, Kustannus Hauenleuka 2012
 [Sal:Um] = Tuomas Saloranta (toim.) : URS - Musta antologia, Kustannus Hauenleuka 2012
 [San:As] = Kimmo Saneri : Avaruussirkus, Karisto 1988
@@ -168,9 +168,9 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Sax:Hv] = Jani Saxell : Huomispäivän vartijat, Avain 2007
 [Sin:Kk] = Johanna Sinisalo : Kädettömät kuninkaat ja muita häiritseviä tarinoita, Teos 2005
 [Sin:Vs] = Johanna Sinisalo (toim.) : Verkon silmässä - Tarinoita internetin maailmasta, Tammi 2005
-[Sis:Mv] = Vesa Sisättö (toim.) : Muistojemme Viistokatu - kertomuksia kadusta, joka ei suostunut kuolemaan. Kustantamo Helmivyö 2021
+[Sis:Mv] = Vesa Sisättö (toim.) : Muistojemme Viistokatu : kertomuksia kadusta, joka ei suostunut kuolemaan. Kustantamo Helmivyö 2021
 [Soi:Mi] = M(arkku) G. Soikkeli : Marsin ikävä ja muita kertomuksia, Turbator 2007
-[Sun:Hr] = Shimo Suntila & Juha Jyrkäs (toim.) : Hei, rillumapunk!, Kuoriaiskirjat 2015
+[Sun:Hr] = Shimo Suntila & Juha Jyrkäs (toim.) : Hei rillumapunk!, Kuoriaiskirjat 2015
 [Sun:Kt] = Shimo Suntila : Kirja tulee kirjan luo, Kuoriaiskirjat 2018
 [Sun:Sp] = Shimo Suntila : Sadanpäämies, Nysalor-kustannus 2020
 [Sun:Sk] = Shimo Suntila : Sata kummaa kertomusta, Kuoriaiskirjat 2013
@@ -2863,25 +2863,25 @@ Kun aamuun astuimme myrskyistä yön (2013) [Kar:Ap]
 
 Rajaniemi, Hannu
 ----------------
-Aave nimeltä Apollo A7LB (The Haunting of Apollo A7LB, 2015) [Raj_Np]
-Aavekoirat (Ghost Dogs, 2014) [Raj_Np]
-Deus Ex Homine (Deus Ex Homine, 2005) [Raj_Np]
-Elegia nuorelle hirvelle (Elegy for a Young Elk, 2010) [Raj_Np]
-Ihmisten kalastaja (Fisher of Men, 2006) [Raj_Np]
-Isännän ääni (His Master's Voice, 2008) [Raj_Np]
-Kaikkinäkö (Topsight, 2012) [Raj_Np]
-Käyttämättömiä huomisia ja muita tarinoita (Unused Tomorrows and Other Stories, 2008) [Raj_Np]
-Kääpiökuningattaren katedraali (The Jugaad Cathedral, 2012) [Raj_Np]
-Lumikki on kuollut (Snow White Is Dead, 2013) [Raj_Np] 
-Näkymättömät planeetat (Invisible Planets, 2014) [Raj_Np]
-Palvelin ja lohikäärme (The Server and the Dragon, 2010) [Raj_Np]
-Peitto kyistä, käärmehistä (The Viper Blanket, 2006) [Raj_Np]
-Peleistä vanhin (The Oldest Game, 2006) [Raj_Np]
-Rakastunut Pariisi (Paris in Love, 2008) [Raj_Np]
-Saatanan konekirjoittaja (Satan's Typist, 2011) [Raj_Np]
-Shibuya no Love (Shibuya No Love, 2004) [Raj_Np]
-Skywalker, Maasta (Skywalker of Earth, 2015) [Raj_Np]
-Tykhe ja muurahaiset (Tyche and the Ants, 2012) [Raj_Np]
+Aave nimeltä Apollo A7LB (The Haunting of Apollo A7LB, 2015) [Raj:Np]
+Aavekoirat (Ghost Dogs, 2014) [Raj:Np]
+Deus Ex Homine (Deus Ex Homine, 2005) [Raj:Np]
+Elegia nuorelle hirvelle (Elegy for a Young Elk, 2010) [Raj:Np]
+Ihmisten kalastaja (Fisher of Men, 2006) [Raj:Np]
+Isännän ääni (His Master's Voice, 2008) [Raj:Np]
+Kaikkinäkö (Topsight, 2012) [Raj:Np]
+Käyttämättömiä huomisia ja muita tarinoita (Unused Tomorrows and Other Stories, 2008) [Raj:Np]
+Kääpiökuningattaren katedraali (The Jugaad Cathedral, 2012) [Raj:Np]
+Lumikki on kuollut (Snow White Is Dead, 2013) [Raj:Np] 
+Näkymättömät planeetat (Invisible Planets, 2014) [Raj:Np]
+Palvelin ja lohikäärme (The Server and the Dragon, 2010) [Raj:Np]
+Peitto kyistä, käärmehistä (The Viper Blanket, 2006) [Raj:Np]
+Peleistä vanhin (The Oldest Game, 2006) [Raj:Np]
+Rakastunut Pariisi (Paris in Love, 2008) [Raj:Np]
+Saatanan konekirjoittaja (Satan's Typist, 2011) [Raj:Np]
+Shibuya no Love (Shibuya No Love, 2004) [Raj:Np]
+Skywalker, Maasta (Skywalker of Earth, 2015) [Raj:Np]
+Tykhe ja muurahaiset (Tyche and the Ants, 2012) [Raj:Np]
 
 
 Ranta, Kaisa
@@ -3261,7 +3261,7 @@ Salaisuus vahassa (2017) [Ala:Vl]
 Viides tiedekunta (2016) [Kar:St] 
 
 
-Sinisalo, Aila Johanna
+Sinisalo, Johanna
 -----------------
 Baby Doll (2002) [Sin:Kk]
 Etiäinen (2001) [Sin:Kk]
@@ -3844,7 +3844,7 @@ T. R. T.
 Ratkaisu (Lösningen, 1917) [Kop:Ap]
 
 
-Trufans
+Too, Trufans
 -------
 Rautasaaren veriyö (1987) [Haa:Tp]
 
