@@ -148,7 +148,7 @@ def shortstoryindex() -> Any:
                          .all()
         if form.authorname.data:
             stories = [
-                x for x in stories if form.authorname.data in x.author_str]
+                x for x in stories if form.authorname.data.lower() in x.author_str.lower()]
 
         return render_template('shortstories.html', stories=stories)
 

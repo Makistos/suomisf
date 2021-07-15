@@ -711,7 +711,7 @@ class ShortStory(Base):
     authors = relationship("Person",
                            secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
                            primaryjoin='and_(Person.id == Contributor.person_id,\
-                Contributor.part_id == Part.id, Contributor.role_id == 1, Part.work_id == ShortStory.id)',
+                           Contributor.role_id == 1, Part.shortstory_id == ShortStory.id)',
                            uselist=True, order_by='Person.alt_name', viewonly=True,
                            foreign_keys=[Contributor.part_id, Contributor.person_id, Contributor.role_id])
 
