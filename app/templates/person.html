@@ -383,13 +383,12 @@
             {% if stories %}
             {% for story in stories %}
             <b><a href="{{url_for('story', id=story.id)}}">{{story.title}}</a></b>
-            ({%- if story.orig_title != story.title %}{{story.orig_title}},{%endif %}
-            {{story.pubyear}}).
+            ({%- if story.orig_title != story.title %}{{story.orig_title}}, {%endif %}{{story.pubyear}}).
             {% if story.works|length %}
             <br>
             <div style="margin-left:1rem; margin-bottom:0rem;">Teoksissa:
               {% for work in story.works %}
-              <a href="{{url_for('work', workid=work.id)}}">{{work.title}}</a> ({{work.pubyear}}).
+              <a href="{{url_for('edition', editionid=work.editions[0].id)}}">{{work.title}}</a> ({{work.pubyear}}).
               {% endfor %}
             </div>
             {%endif %}
@@ -403,32 +402,6 @@
             {% endif %}
             {% endfor %}
             {% endif %}
-            {# {% if person.stories|length %}
-            <h5>Kokoelmissa</h5>
-            {% for story in person.stories %}
-            <div class="mb-2" style="padding-left: 25px;">
-              <a href=" {{ url_for('story', id=story.id) }}"><b>{{ story.title }}</b></a>
-              ({%- if story.title != story.orig_title -%}
-              {%- if story.orig_title -%} {{ story.orig_title }},
-              {%endif%}
-              {%endif%}
-              {{ story.pubyear}}).
-            </div>
-            {% endfor %}
-            {% endif %}
-            {% if person.magazine_stories|length %}
-            <h5>Lehdissä</h5>
-            {% for story in person.magazine_stories %}
-            <div class="mb-2" style="padding-left: 25px;">
-              <a href=" {{ url_for('story', id=story.id) }}"><b>{{ story.title }}</b></a>
-              ({%- if story.title != story.orig_title -%}
-              {%- if story.orig_title -%} {{ story.orig_title }},
-              {%endif%}
-              {%endif%}
-              {{ story.pubyear}}).
-            </div>
-            {% endfor %}
-            {% endif %} #}
 
           </div>
         </div>
