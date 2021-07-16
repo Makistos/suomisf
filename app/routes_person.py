@@ -102,6 +102,14 @@ def person(personid: Any) -> Any:
                     .group_by(Genre.name)\
                     .all()
 
+    stories: List[Any] = list(person.stories)
+    # First make both data sets into lists so they can be joined together.
+    # Then make the result into a set which removes duplicates and finally
+    # back to a list so that results can be sorted.
+    stories = list(set(list(person.stories) +
+                       list(person.magazine_stories)))
+
+    stories.sort(key=lambda x: x.title)
     genre_list: Dict[str, List[str]] = {}
     for genre in genres:
         genre_list[genre.abbr] = [genre.count, genre.name]
@@ -135,6 +143,7 @@ def person(personid: Any) -> Any:
     return render_template('person.html', person=person,
                            genres=genre_list,
                            series=series,
+                           stories=stories,
                            form=form)
 
 
