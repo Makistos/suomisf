@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from sqlalchemy.pool import NullPool
+from sqlalchemy.sql.sqltypes import Boolean
 from app.orm_decl import (Article, ArticleAuthor, ArticlePerson, ArticleTag,
                           Issue, Magazine, Person, Publisher, PublicationSize, Tag, IssueContent,
                           IssueEditor, ShortStory, Part, StoryTag, Contributor)
@@ -12,7 +13,7 @@ import os
 import csv
 import glob
 import re
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List, Tuple, Optional, Any
 from copy import deepcopy
 
 db_url = app.config['SQLALCHEMY_DATABASE_URI']
@@ -330,7 +331,12 @@ def import_articles(s,
                 #    creator_str = author_field.strip()
 
                 try:
-                    art = Article(title=title.strip())
+                    if title:
+                        title = title.strip()
+                    else:
+                        print(
+                            f'No title for article: {name} / {author_field}.')
+                    art = Article(title=title)
                 except Exception as exp:
                     print('Failed to strip article title.')
                 # creator_str=creator_str)
@@ -361,6 +367,16 @@ def import_articles(s,
 
     except Exception as e:
         print(f'Exception in import_articles: {e}.')
+
+
+def check_authors(story: Any, author_ids: List[int]) -> bool:
+    for author in story.authors:
+        if author.id in author_ids:
+            author_ids.remove(author.id)
+    if len(author_ids) == 0:
+        # Found
+        return True
+    return False
 
 
 def import_stories(s,
@@ -424,19 +440,23 @@ def import_stories(s,
                     .all()
                 story_item = None
                 if len(story_items) == 1:
-                    story_item = story_items[0]
+                    if check_authors(story_items[0], author_ids):
+                        story_item = story_items[0]
                 elif len(story_items) > 1:
                     # More than one story with same title, check authors
-                    tmp_ids = deepcopy(author_ids)
+                    #tmp_ids = deepcopy(author_ids)
                     for st in story_items:
                         # print(f'{st.title}')
-                        for author in st.authors:
-                            if author.id in author_ids:
-                                tmp_ids.remove(author.id)
-                        if len(tmp_ids) == 0:
-                            # Found
+                        if check_authors(st, author_ids):
                             story_item = st
                             break
+                        # for author in st.authors:
+                        #     if author.id in author_ids:
+                        #         tmp_ids.remove(author.id)
+                        # if len(tmp_ids) == 0:
+                        #     # Found
+                        #     story_item = st
+                        #     break
                     # if not story_item:
                         # print(
                         #     f'Story not found: {story}. Authors: {author_ids}, not found: {tmp_ids}.')
