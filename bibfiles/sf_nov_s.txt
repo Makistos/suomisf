@@ -170,7 +170,7 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Sin:Vs] = Johanna Sinisalo (toim.) : Verkon silmässä - Tarinoita internetin maailmasta, Tammi 2005
 [Sis:Mv] = Vesa Sisättö (toim.) : Muistojemme Viistokatu : kertomuksia kadusta, joka ei suostunut kuolemaan. Kustantamo Helmivyö 2021
 [Soi:Mi] = M(arkku) G. Soikkeli : Marsin ikävä ja muita kertomuksia, Turbator 2007
-[Sun:Hr] = Shimo Suntila & Juha Jyrkäs (toim.) : Hei rillumapunk!, Kuoriaiskirjat 2015
+[Sun:Hr] = Shimo Suntila & Juha Jyrkäs (toim.) : Hei, rillumapunk!, Kuoriaiskirjat 2015
 [Sun:Kt] = Shimo Suntila : Kirja tulee kirjan luo, Kuoriaiskirjat 2018
 [Sun:Sp] = Shimo Suntila : Sadanpäämies, Nysalor-kustannus 2020
 [Sun:Sk] = Shimo Suntila : Sata kummaa kertomusta, Kuoriaiskirjat 2013

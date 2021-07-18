@@ -26,8 +26,6 @@ def add_to_db(person: str):
     session = sessionmaker()
     session.configure(bind=engine)
 
-    if person.startswith('Hepo-oja'):
-        print('stop')
     s = session()
 
     alt_name = ''
@@ -417,8 +415,11 @@ if __name__ == '__main__':
                                    '[Neu:My]': ['Neuvostokirjailijain tieteiskertomuksia', 'Maxwellin yhtälöt (Uravnenija Maksvella)', True],
                                    '[Dah:Rk]': ['Roald Dahl', 'Rakkaani, kyyhkyläiseni', False],
                                    '[Kin:Ao]': ['Stephen (Edwin) King', 'Anteeksi, oikea numero', False],
-                                   '[Kin:Py]': ['Stephen (Edwin) King', 'Pimeä yö, tähdetön taivas', False]}
+                                   '[Kin:Py]': ['Stephen (Edwin) King', 'Pimeä yö, tähdetön taivas', False],
+                                   '[Lov:Hp]': ['H(oward) P(hillips) Lovecraft', 'H. P. Lovecraftin parhaat', False],
+                                   '[Var:Hr]': ['John (Herbert) Varley', 'Hyvästi, Robinson Crusoe', False],
+                                   '[Wel:Vh]': ['H(erbert) G(eorge) Wells', 'Voimakoneitten herra, Varastettu basilli ja muita tapauksia', False]}
     import_stories('bibfiles/sf_nov_u.txt', books)
 
-    books = {'[Sun:Kt]': ['Shimo Suntila', 'Hei, rillumapunk!', True]}
+    books = {'[Sun:Hr]': ['Shimo Suntila', 'Hei, rillumapunk!', True]}
     import_stories('bibfiles/sf_nov_s.txt', books)
