@@ -89,19 +89,14 @@ def get_person(s, name: str, create_missing: bool = False) -> Optional[int]:
                     names = name.split()
                     #alt_name = names[-1] + ', ' + ' '.join(names[0:-1])
                     alt_name = name
-                    if name == 'Olaf Stapledon':
-                        print(
-                            f'Stapleton: {names[0]} {names[1]} - {len(names)}.')
                     if len(names) == 1:
                         first_name = ''
                         last_name = names[0]
                         this_name = last_name
-                        print(f'Len == 1: {name} - {this_name}')
                     elif len(names) == 2:
                         first_name = names[0]
                         last_name = names[1]
                         this_name = last_name + ', ' + first_name
-                        print(f'Len == 2: {name} - {this_name}')
                     else:
                         first_name = ' '.join(names[0:-1])
                         last_name = names[-1]
@@ -296,7 +291,10 @@ def import_articles(s,
                 author_names: List[str] = []
                 author_ids = []
                 for auth in author_field.split('&'):
-                    author = auth.strip()
+                    try:
+                        author = auth.strip()
+                    except Exception as exp:
+                        print('Failed to strip author name.')
                     author_id = get_person(s, author.strip(), True)
                     if not author_id:
                         author_names.append(author)
@@ -304,15 +302,21 @@ def import_articles(s,
                         author_ids.append(author_id)
 
                 person_ids = []
-                if len(people) > 0:
-                    person_names = None
-                    for p in people.split('&'):
-                        person = p.strip()
-                        person_id = get_person(s, person.strip(), True)
-                        if person_id:
-                            person_ids.append(person_id)
+                if people is not None:
+                    if len(people) > 0:
+                        person_names = None
+                        for p in people.split('&'):
+                            try:
+                                person = p.strip()
+                            except Exception as exp:
+                                print('Failed to strip person name 1')
+                            person_id = get_person(s, person, True)
+                            if person_id:
+                                person_ids.append(person_id)
 
-                tag_list = tags.split(',')
+                tag_list: List[str] = []
+                if tags:
+                    tag_list = tags.split(',')
                 tag_ids = get_tags(s, tag_list)
 
                 author_str = None
@@ -325,7 +329,10 @@ def import_articles(s,
                 # else:
                 #    creator_str = author_field.strip()
 
-                art = Article(title=title.strip())
+                try:
+                    art = Article(title=title.strip())
+                except Exception as exp:
+                    print('Failed to strip article title.')
                 # creator_str=creator_str)
 
                 s.add(art)
@@ -421,16 +428,18 @@ def import_stories(s,
                 elif len(story_items) > 1:
                     # More than one story with same title, check authors
                     tmp_ids = deepcopy(author_ids)
-                    for story in story_items:
-                        for author in story.authors:
+                    for st in story_items:
+                        # print(f'{st.title}')
+                        for author in st.authors:
                             if author.id in author_ids:
                                 tmp_ids.remove(author.id)
                         if len(tmp_ids) == 0:
                             # Found
-                            story_item = story
+                            story_item = st
                             break
-                    if not story_item:
-                        print(f'Story not found: {story.title}.')
+                    # if not story_item:
+                        # print(
+                        #     f'Story not found: {story}. Authors: {author_ids}, not found: {tmp_ids}.')
                         # authors = s.query(Person)\
                         #     .join(Contributor, Contributor.person_id == Person.id)\
                         #     .join(Part, Contributor.part_id == Part.id)\
@@ -478,7 +487,7 @@ def import_stories(s,
                 s.add(ic)
                 s.commit()
     except Exception as e:
-        print(f'Exception in import_stories: {e}.')
+        print(f'Exception in import_stories: {e}. {title}')
 
 
 def read_file(filename: str, d: Dict):
