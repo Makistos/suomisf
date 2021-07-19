@@ -1035,7 +1035,6 @@ def import_books(session, authors):
                         coll_info=edition['coll_info'],
                         pages=None,
                         format_id=1,
-                        size_id=1,
                         dustcover=1,
                         coverimage=1,
                         misc=misc,
@@ -1401,11 +1400,11 @@ def add_default_rows(session: Any) -> Any:
         s.add(st)
     s.commit()
 
-    roles = ['Kirjoittaja',  # id 0
-             'Kääntäjä',  # id 1
-             'Toimittaja',  # id 2
-             'Kansikuva',  # id 3
-             'Kuvittaja'  # id 4
+    roles = ['Kirjoittaja',  # id 1
+             'Kääntäjä',  # id 2
+             'Toimittaja',  # id 3
+             'Kansikuva',  # id 4
+             'Kuvittaja'  # id 5
              ]
 
     for role in roles:

@@ -38,7 +38,7 @@ def save_edition(session: Any, form: Any, edition: Any) -> None:
     edition.cover_id = form.cover.data
     edition.binding_id = form.binding.data
     edition.format_id = form.format.data
-    edition.size_id = form.size.data
+    edition.size = form.size.data
     # edition.artist_id = artist.id
     edition.isbn = form.isbn.data
     edition.misc = form.misc.data
@@ -153,7 +153,7 @@ def edit_edition(editionid: Any) -> Any:
         form.pages.data = edition.pages
         form.binding.data = edition.binding_id
         form.format.data = edition.format_id
-        form.size.data = edition.size_id
+        form.size.data = edition.size
         # form.artist.data  = artist.name
         form.isbn.data = edition.isbn
         form.misc.data = edition.misc
@@ -279,26 +279,57 @@ def edition(editionid: Any) -> Any:
         form.isbn.data = edition.isbn
         form.pubseriesnum = edition.pubseriesnum
         form.pages.data = edition.pages
+        form.size.data = edition.size
         form.misc.data = edition.misc
         form.binding.data = edition.binding_id
 
     elif form.validate_on_submit():
-        edition.title = form.title.data
-        edition.subtitle = form.subtitle.data
-        edition.pubyear = form.pubyear.data
-        edition.editionnum = form.editionnum.data
-        edition.version = form.version.data
-        edition.isbn = form.isbn.data
-        edition.pubseriesnum = form.pubseriesnum.data
-        edition.pages = form.pages.data
-        edition.misc = form.misc.data
-        edition.binding_id = form.binding.data
-        edition.dustcover = form.dustcover.data
+        changes: List[str] = []
+        if edition.title != form.title.data:
+            changes.append('Nimeke')
+            edition.title = form.title.data
+        if edition.subtitle != form.subtitle.data:
+            changes.append('Alaotsikko')
+            edition.subtitle = form.subtitle.data
+        if edition.pubyear != form.pubyear.data:
+            changes.append('Julk.vuosi')
+            edition.pubyear = form.pubyear.data
+        if edition.editionnum != form.editionnum.data:
+            changes.append('Painosnro')
+            edition.editionnum = form.editionnum.data
+        if edition.version != form.version.data:
+            changes.append('Laitosnro')
+            edition.version = form.version.data
+        if edition.isbn != form.isbn.data:
+            changes.append('ISBN')
+            edition.isbn = form.isbn.data
+        if edition.pubseriesnum != form.pubseriesnum.data:
+            changes.append('Julk.sarjan nro')
+            edition.pubseriesnum = form.pubseriesnum.data
+        if edition.pages != form.pages.data:
+            changes.append('Sivumäärä')
+            edition.pages = form.pages.data
+        if edition.size != form.size.data:
+            changes.append('Koko')
+            edition.size = form.size.data
+        if edition.misc != form.misc.data:
+            changes.append('Muita tietoja')
+            edition.misc = form.misc.data
+        if edition.binding_id != form.binding.data:
+            changes.append('Sidonta')
+            edition.binding_id = form.binding.data
+        if edition.dustcover != form.dustcover.data:
+            changes.append('Paperikansi')
+            edition.dustcover = form.dustcover.data
+        if edition.coverimage != form.coverimage.data:
+            changes.append('Kansikuvallinen')
         edition.coverimage = form.coverimage.data
 
         session.add(edition)
         session.commit()
-        log_change(session, 'Edition', edition.id)
+        for change in changes:
+            log_change(session=session, table='Edition',
+                       id=edition.id, action='UPDATE', field=change)
     else:
         app.logger.debug('Errors: {}'.format(form.errors))
         print('Errors: {}'.format(form.errors))
@@ -373,7 +404,7 @@ def save_translator_to_edition() -> Any:
             session.add(tr)
 
     session.commit()
-
+    log_change(session, 'Painos', editionid, 'UPDATE', 'Kääntäjät')
     msg = 'Tallennus onnistui'
     category = 'success'
     resp = {'feedback': msg, 'category': category}
@@ -402,6 +433,7 @@ def save_editor_to_edition() -> Any:
     session = new_session()
     (editionid, people_ids) = get_select_ids(request.form)
     session.commit()
+    log_change(session, 'Painos', editionid, 'UPDATE', 'Toimittajat')
 
     msg = 'Tallennus onnistui'
     category = 'success'
@@ -437,6 +469,7 @@ def save_pubseries_to_edition() -> Any:
     edition.pubseries_id = pubseries_id
     session.add(edition)
     session.commit()
+    log_change(session, 'Painos', editionid, 'UPDATE', 'Julk.sarja')
 
     msg = 'Tallennus onnistui'
     category = 'success'
@@ -472,6 +505,7 @@ def save_publisher_to_edition() -> Any:
     edition.publisher_id = publisher_id[0]['id']
     session.add(edition)
     session.commit()
+    log_change(session, 'Painos', editionid, 'UPDATE', 'Julkaisija')
 
     msg = 'Tallennus onnistui'
     category = 'success'
@@ -495,41 +529,41 @@ def save_format_to_edition() -> Any:
 # Size
 
 
-@app.route('/size_for_edition/<editionid>', methods=['GET'])
-def size_for_edition(editionid: Any) -> Any:
-    session = new_session()
-    size = session.query(PublicationSize)\
-                  .join(Edition)\
-                  .filter(PublicationSize.id == Edition.size_id)\
-                  .filter(Edition.id == editionid)\
-                  .first()
+# @app.route('/size_for_edition/<editionid>', methods=['GET'])
+# def size_for_edition(editionid: Any) -> Any:
+#     session = new_session()
+#     size = session.query(PublicationSize)\
+#                   .join(Edition)\
+#                   .filter(PublicationSize.id == Edition.size_id)\
+#                   .filter(Edition.id == editionid)\
+#                   .first()
 
-    retval: List[Dict[str, str]] = []
-    if size:
-        obj: Dict[str, str] = {'id': size.id, 'text': size.name}
-        retval.append(obj)
-    return Response(json.dumps(retval))
+#     retval: List[Dict[str, str]] = []
+#     if size:
+#         obj: Dict[str, str] = {'id': size.id, 'text': size.name}
+#         retval.append(obj)
+#     return Response(json.dumps(retval))
 
 
-@app.route('/save_size_to_edition', methods=['POST'])
-@login_required  # type: ignore
-@admin_required
-def save_size_to_edition() -> Any:
-    (editionid, size_id) = get_select_ids(request.form)
+# @app.route('/save_size_to_edition', methods=['POST'])
+# @login_required  # type: ignore
+# @admin_required
+# def save_size_to_edition() -> Any:
+#     (editionid, size_id) = get_select_ids(request.form)
 
-    session = new_session()
+#     session = new_session()
 
-    edition = session.query(Edition)\
-                     .filter(Edition.id == editionid)\
-                     .first()
-    edition.size_id = size_id[0]['id']
-    session.add(edition)
-    session.commit()
+#     edition = session.query(Edition)\
+#                      .filter(Edition.id == editionid)\
+#                      .first()
+#     edition.size_id = size_id[0]['id']
+#     session.add(edition)
+#     session.commit()
 
-    msg = 'Tallennus onnistui'
-    category = 'success'
-    resp = {'feedback': msg, 'category': category}
-    return make_response(jsonify(resp), 200)
+#     msg = 'Tallennus onnistui'
+#     category = 'success'
+#     resp = {'feedback': msg, 'category': category}
+#     return make_response(jsonify(resp), 200)
 
 # Cover upload
 
@@ -568,6 +602,7 @@ def save_image_to_edition() -> Any:
                                   image_src=app.config['BOOKCOVER_DIR'] + filename)
                 session.add(ei)
                 session.commit()
+                log_change(session, 'Painos', int(id), 'UPDATE', 'Kuva')
                 return redirect(request.url)
         else:
             return redirect(request.url)

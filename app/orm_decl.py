@@ -249,7 +249,8 @@ class Edition(Base):
     pages = Column(Integer)
     binding_id = Column(Integer, ForeignKey('bindingtype.id'))
     format_id = Column(Integer, ForeignKey('format.id'))
-    size_id = Column(Integer, ForeignKey('publicationsize.id'))
+    size = Column(Integer)
+    #size_id = Column(Integer, ForeignKey('publicationsize.id'))
     dustcover = Column(Integer, default=0)  # 0 = not known, 1 = no, 2 = yes
     coverimage = Column(Integer, default=0)  # 0 = not known, 1 = no, 2 = yes
     misc = Column(String(500))
@@ -282,8 +283,6 @@ class Edition(Base):
         'edition_binding_assoc'), uselist=False, viewonly=True)
     format = relationship('Format', backref=backref(
         'edition_format_assoc'), uselist=False, viewonly=True)
-    size = relationship('PublicationSize', backref=backref(
-        'edition_size_assoc'), uselist=False, viewonly=True)
     images = relationship(
         'EditionImage', backref=backref('edition_image_assoc'), uselist=True, viewonly=True)
 

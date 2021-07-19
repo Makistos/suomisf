@@ -139,6 +139,7 @@ class EditionForm(FlaskForm):
     # pubseries = StringField('Kustantajan sarja')
     pubseriesnum = IntegerField('Sarjan numero', validators=[Optional()])
     pages = IntegerField('Sivuja', validators=[Optional()])
+    size = IntegerField('Koko', validators=[Optional()])
     # cover = SelectField('Kansi')
     binding = IntegerField('Sidonta', validators=[Optional()])
     dustcover = IntegerField('Ylivetokansi', validators=[Optional()])

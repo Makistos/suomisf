@@ -232,17 +232,22 @@
                             {% if edition.pages is not none %}
                             {{ edition.pages}} sivua.
                             {% endif %}
-                            {% if edition.size_id and edition.size_id != 1 %}
-                            {{edition.size.name}} ({{edition.size.mm_height}}mm x {{edition.size.mm_width}}mm).
+                            {% if edition.size %}
+                            {{edition.size}} cm.
                             {% endif %}
                         </div>
                         <!-- Size -->
                         {% if current_user.is_admin %}
                         <div class="col-6 edit-field">
-                            <label for="size">Koko</label>
+                            <label for="size">
+                                Koko
+                                <input type="text" class="form-control form-item" id="size" name="size"
+                                    value="{{edition.size if edition.size if not none}}">
+                            </label>
+                            <!-- <label for="size">Koko</label>
                             <select class="size-selector form-control" data-placeholder="Koko"
                                 data-search="/select_size" data-save="/save_size_to_edition"
-                                data-init="/size_for_edition" data-mininput="1" data-name="size" name="size"></select>
+                                data-init="/size_for_edition" data-mininput="1" data-name="size" name="size"></select> -->
                         </div>
                         {% endif %}
                     </div>
