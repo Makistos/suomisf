@@ -8,6 +8,7 @@ from app.forms import (WorkForm)
 from .route_helpers import *
 from typing import List, Dict, Any
 from sqlalchemy import func
+import datetime
 
 # Book related routes
 
@@ -113,6 +114,13 @@ def editions_by_year(year):
     return render_template('editions.html', editions=editions,
                            title='Julkaisut ' + str(year),
                            count=count)
+
+
+@app.route('/new_editions')
+def new_editions() -> Any:
+    curr_year = datetime.datetime.now().date().strftime('%Y')
+
+    return redirect(url_for('editions_by_year', year=curr_year))
 
 
 @app.route('/books')
