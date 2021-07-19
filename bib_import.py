@@ -1395,7 +1395,7 @@ def add_default_rows(session: Any) -> Any:
     s.commit()
 
     storytypes = ['Novelli', 'Pitkä novelli', 'Pienoisromaani', 'Runo',
-                  'Raapale', 'Artikkeli']
+                  'Raapale', 'Filk-laulu', 'Artikkeli', 'Esipuhe', 'Jälkisanat']
     for storytype in storytypes:
         st = StoryType(name=storytype)
         s.add(st)
