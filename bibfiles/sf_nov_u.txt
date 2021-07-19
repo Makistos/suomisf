@@ -2957,7 +2957,7 @@ Necronomicon (History of Necronomicon, 1938) [Lov:Kt3]
 Nimetön (The Unnamable, 1925) [Lov:Al] [Lov:Kt3]
 Nimetön kaupunki (The Nameless City, 1921) [Lov:Nk] [Lov:Kt2]
 Nyarlathotep (Nyarlathotep, 1920) [Lov:Kt4]
-Oliivipuu (The Tree, 1921) [Lov:Hs] [Lov:Kt6]
+Oliivipuu (The Tree, 1921) [Lov:Kt6]
 Olio kuun valossa (The Thing in the Moonlight, 1941) [Lov:Kt4]
 Olio kynnyksellä (The Thing on the Doorstep, 1937) [Lov:Kt3]
 Outo ukko (Old Bugs, 1959) [Lov:Kt4]
@@ -2967,10 +2967,10 @@ Rajan takaa (From Beyond, 1938) [Lov:Al] [Lov:Kt3]
 Randolph Carterin lausunto (The Statement of Randolph Carter, 1920) [Lov:Vu] [Lov:Sk] [Lov:Kt5]
 Randolph Carterin paluu (Through the Gates of the Silver Key, 1932) [Lov:Sk] [Lov:Kt5]
 Red Hookin kauhu (The Horror at Red Hook, 1927) [Lov:Vm] [Lov:Kt2]
-Riivattu kirkonmies (The Evil Clergyman, 1939) [Lov:Hs] [Lov:Kt6]
+Riivattu kirkonmies (The Evil Clergyman, 1939) [Lov:Kt6]
 Rotat seinissä (The Rats in the Walls, 1924) [Sad:O1] [Lov:Kt1]
 Sarnathin tuho (The Doom That Came to Sarnath, 1920) [Lov:Al] [Lov:Kt3]
-Sukuhauta (The Tomb, 1922) [Lov:Hs] [Lov:Kt6]
+Sukuhauta (The Tomb, 1922) [Lov:Kt6]
 Talo usvan keskellä (The Strange High House in the Mist, 1931) [Lov:Al] [Lov:Kt3]
 Temppeli (The Temple, 1925) [Lov:Tj] [Lov:Kt2]
 Tohtori Samuel Johnsonin muisto (A Reminiscence of Dr. Samuel Johnson, 1917) [Lov:Kt4]
@@ -3012,8 +3012,8 @@ Kunnes katoo meretkin (Till A' the Seas, 1935) [Lov:Kt4]
 
 H(oward) P(hillips) Lovecraft & Zealia Bishop
 ------------------------------
-Hautakummun salaisuus (The Mound, 1940) [Lov:Hs] [Lov:Kt6] [Lov:Hp]
-Medusan lonkerot (Medusa's Coil, 1939) [Lov:Hs] [Lov:Kt6]
+Hautakummun salaisuus (The Mound, 1940) [Lov:Kt6] [Lov:Hp]
+Medusan lonkerot (Medusa's Coil, 1939) [Lov:Kt6]
 Yigin lapset (The Curse of Yig, 1929) [Lov:Sk] [Lov:Kt5]
 
 
@@ -3025,7 +3025,7 @@ Runous ja jumalat (Poetry and the Gods, 1920) [Lov:Sk] [Lov:Kt5]
 H(oward) P(hillips) Lovecraft & Adolphe de Castro
 ----------------------------------
 Sähköpyöveli (The Electric Executioner, 1929) [Lov:Sk] [Lov:Kt5]
-Viimeinen koe (The Last Test, 1928) [Lov:Hs] [Lov:Kt6]
+Viimeinen koe (The Last Test, 1928) [Lov:Kt6]
 
 
 H(oward) P(hillips) Lovecraft & Sonia H. Greene

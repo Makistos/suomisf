@@ -346,6 +346,7 @@ publishers = [
     ('Stabenfeldt( AB)?', 'Stabenfeldt AB', 'Stabenfeldt AB'),
     ('Suom. sos. kustannusyhtiö', 'Suom. sos. kustannusyhtiö',
      'Suom. sos. kustannusyhtiö'),
+    ('Suomalainen kirjailijan kustantamo', 'Suomalainen kirjailijan kustantamo', 'Suomalainen kirjailijan kustantamo'),
     ('Suomalainen puolue', 'Suomalainen puolue', 'Suomalainen puolue'),
     ('Suomalais-amerikkalainen kustannusyhtiö', 'Suomalais-amerikkalainen kustannusyhtiö',
      'Suomalais-amerikkalainen kustannusyhtiö'),

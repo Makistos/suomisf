@@ -68,7 +68,7 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Kar:Va] = Pasi Karppanen (toim.) : Valitut - Suomen presidenttien salainen historia. Turun yliopiston tieteiskulttuurikabinetti ry. 2018.
 [Kat:Ks] = Jussi Katajala : Korpin silmät kaiken näkevät ja muita yöpuolen tarinoita, Osuuskumma 2015
 [Kat:Nm] = Jussi Katajala : Nollameridiaani ja muita kosmisia tarinoita, Osuuskumma 2017
-[Kat:Mk] = Jussi Katajala & Markus Harju & Alpo Leppänen (toim.) : Maailmanlopun kirjasto, URS 2013
+[Kat:Mk] = Jussi Katajala & Markus Harju & Alpo Leppänen (toim.) : Maailmanlopun kirjasto ja muita tuomiopäivän tarinoita, URS 2013
 [Kel:Tj] = Artemis Kelosaari & Shimo Suntila (toim.) : Tämä jalka ei ole minun: Kauhuja omasta kehosta. Tajunta Media 2017
 [Kiv:Mk] = S(eppo Kalevi) Albert Kivinen : Merkilliset kirjoitukset, Pirkanmaan Kirjapaino ja Lehtikustannus 1990
 [Koi:Äj] = Joona Koiranen (toim.) : Äänellä jonka kuulet: Spekulatiivisia novelleja sukupuolen moninaisuudesta, Ääres 2019
@@ -112,7 +112,7 @@ Listassa olevat novellikokoelmat ja niiden lyhenteet:
 [Mer:Ss] = J.S. Meresmaa & Teresa Myllymäki & M. A. Tyrskyluoto (toim.) : Sirkus Synkkä, Osuuskumma-kustannus 2018
 [Mie:Ht] = J.K. Miettinen : Häiriötekijä, Turbator 2010
 [Myl:Mk] = Mia Myllymäki & Anu Korpinen (toim.) : Metsän kronikka - tarinoita puista, Osuuskumma-kustannus 2019
-[Myl:Sn] = Mia Myllymäki & Katri Alatalo & Leila Paananen & Shimo Suntila (toim.) : Supernova, Suomen tieteis- ja fantasiakirjoittajat ry 2015
+[Myl:Sn] = Mia Myllymäki & Katri Alatalo & Leila Paananen & Shimo Suntila (toim.) : Supernova: Uusien kirjoittajien antologia, Suomen tieteis- ja fantasiakirjoittajat ry 2015
 [Män:Jm] = Juha Mäntylä & Arttu Tuominen (toim.) : Juhannusmorsian, Varjo kustannus 2019
 [Män:Kl] = Juha Mäntylä & Arttu Tuominen (toim.) : Koivulehto, Helmivyö 2017
 [Män:Pe] = Juha Mäntylä (toim.) : Pienin ehdoin - kauhunovelliantologia, Scarabe 2017
