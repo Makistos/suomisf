@@ -474,7 +474,8 @@ def import_stories(s,
 
                     story_item = ShortStory(title=title,
                                             orig_title=orig_title,
-                                            pubyear=orig_year)
+                                            pubyear=orig_year,
+                                            story_type=1)
                     # creator_str=creator_str)
                     s.add(story_item)
                     s.commit()

@@ -386,7 +386,8 @@ def import_stories(filename: str, books: Dict[str, Any] = {}) -> None:
                         author_list = ' & '.join([x.name for x in authors])
                         story = ShortStory(title=st['title'],
                                            orig_title=st['orig_title'],
-                                           pubyear=st['year'])
+                                           pubyear=st['year'],
+                                           story_type=1)
                         s.add(story)
                         s.commit()
                     for edition in editions:
