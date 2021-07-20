@@ -1336,7 +1336,7 @@ def add_default_rows(session: Any) -> Any:
         s.add(item)
     s.commit()
 
-    worktypes = ['Romaani', 'Kokoelma', 'Sarjakuva']
+    worktypes = ['Romaani', 'Kokoelma', 'Sarjakuva', 'Tietokirja']
     for worktype in worktypes:
         item = WorkType(name=worktype)
         s.add(item)
