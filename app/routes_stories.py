@@ -1,11 +1,11 @@
 from app import app
 from app.orm_decl import (ShortStory, Part,
-                          Person, StoryGenre, StoryTag, Edition, Work, Tag, Genre, Contributor)
+                          Person, StoryGenre, StoryTag, Edition, Work, Tag, Genre, Contributor, StoryType)
 from .route_helpers import *
 from flask import (render_template, request,
                    make_response, jsonify, Response)
 from flask_login import login_required
-from app.forms import StoryForm
+from app.forms import NewWorkForm, StoryForm
 import json
 from typing import List, Any, Dict
 
@@ -330,6 +330,58 @@ def select_story() -> Response:
             for story in stories:
                 retval['results'].append(
                     {'id': str(story.id), 'text': story.author_str + ': ' + story.title})
+        return Response(json.dumps(retval))
+    else:
+        return Response(json.dumps[''])
+
+
+@app.route('/type_for_story/<storyid>')
+def type_for_story(storyid: Any) -> Any:
+    session = new_session()
+
+    type = session.query(StoryType)\
+                  .join(ShortStory, ShortStory.story_type == StoryType.id)\
+                  .filter(ShortStory.id == storyid)\
+                  .first()
+
+    obj: List[Dict[str, str]] = [{'id': type.id, 'text': type.name}]
+
+    return Response(json.dumps(obj))
+
+
+@app.route('/save_type_to_story', methods=['POST'])
+def save_type_to_story() -> Any:
+    (storyid, type_id) = get_select_ids(request.form)
+
+    session = new_session()
+
+    story = session.query(ShortStory).filter(ShortStory.id == storyid).first()
+    story.story_type = type_id[0]['id']
+    session.add(story)
+    session.commit()
+    log_change(session, 'Novelli', storyid, 'UPDATE', 'Tyyppi')
+
+    msg = 'Tallennus onnistui'
+    category = 'success'
+    resp = {'feedback': msg, 'category': category}
+    return make_response(jsonify(resp), 200)
+
+
+@app.route('/select_storytype')
+def select_storytype() -> Response:
+    search = request.args['q']
+    session = new_session()
+
+    if search:
+        retval: Dict[str, List[Dict[str, Any]]] = {}
+        types = session.query(StoryType)\
+            .filter(StoryType.name.ilike('%' + search + '%'))\
+            .all()
+        retval['results'] = []
+        if types:
+            for type in types:
+                retval['results'].append(
+                    {'id': str(type.id),  'text': type.name})
         return Response(json.dumps(retval))
     else:
         return Response(json.dumps[''])
