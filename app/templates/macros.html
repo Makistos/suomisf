@@ -73,3 +73,40 @@
     {{text}}
 </button>
 {% endmacro %}
+
+{% macro print_story_type(type_name, stories, person) %}
+{% for a_group in stories %}
+<div class="mt-1">
+    {% if a_group.grouper == person.name %}
+    <h4 class="mb-0">{{type_name}}</h4>
+    {% else %}
+    <h4 class="mb-0">{{type_name}}: {{a_group.grouper}}</h4>
+    {% endif %}
+    {% for story in a_group.list %}
+    <b><a href="{{url_for('story', id=story.id)}}">{{story.title}}</a></b>
+    ({%- if story.orig_title != story.title %}{{story.orig_title}}, {%endif %}{{story.pubyear}}).
+    {% if story.works|length %}
+    <br>
+    <div style="margin-left:1rem; margin-bottom:0rem;">Teoksissa:
+        {% for work in story.works %}
+        <a href="{{url_for('edition', editionid=work.editions[0].id)}}">{{work.title}}</a> ({{work.pubyear}}).
+        {% endfor %}
+    </div>
+    {%endif %}
+    {% if story.issues|length %}
+    <div style="margin-left:1rem; margin-bottom:0rem;">Lehdissä:
+        {% for issue in story.issues %}
+        <a href="{{url_for('issue', id=issue.id)}}">{{issue.magazine.name}} {{issue.number}} /
+            {{issue.year}}</a>.
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endfor %}
+
+{% endmacro %}
+
+{% macro print_story_long(story) %}
+
+{% endmacro %}
