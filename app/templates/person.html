@@ -6,6 +6,7 @@
   {{ form.hidden_tag() }}
   {% endif %}
 
+
 </form>
 <div class="container">
   <div class="edit-field mt-3">
@@ -359,8 +360,11 @@
         <div id="edited" class="collapse" aria-labelledby="headEdited" data-parent="#authorCard">
           <div class="card-body">
             <ul class="list-group list-group-flush">
+              {% set skip_pubseriesnum = 1 %}
               {% for edition in person.edits|sort(attribute='title') %}
-              <div class="mb-2">{% include "_edition.html" %}</div>
+              <div class="book mb-2">
+                {% include "_edition.html" %}
+              </div>
               {% endfor %}
             </ul>
           </div>
