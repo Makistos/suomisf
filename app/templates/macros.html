@@ -74,39 +74,50 @@
 </button>
 {% endmacro %}
 
-{% macro print_story_type(type_name, stories, person) %}
-{% for a_group in stories %}
-<div class="mt-1">
-    {% if a_group.grouper == person.name %}
-    <h4 class="mb-0">{{type_name}}</h4>
-    {% else %}
-    <h4 class="mb-0">{{type_name}}: {{a_group.grouper}}</h4>
-    {% endif %}
-    {% for story in a_group.list %}
-    <b><a href="{{url_for('story', id=story.id)}}">{{story.title}}</a></b>
-    ({%- if story.orig_title != story.title %}{{story.orig_title}}, {%endif %}{{story.pubyear}}).
-    {% if story.works|length %}
-    <br>
-    <div style="margin-left:1rem; margin-bottom:0rem;">Teoksissa:
-        {% for work in story.works %}
-        <a href="{{url_for('edition', editionid=work.editions[0].id)}}">{{work.title}}</a> ({{work.pubyear}}).
-        {% endfor %}
-    </div>
-    {%endif %}
-    {% if story.issues|length %}
-    <div style="margin-left:1rem; margin-bottom:0rem;">Lehdissä:
-        {% for issue in story.issues %}
-        <a href="{{url_for('issue', id=issue.id)}}">{{issue.magazine.name}} {{issue.number}} /
-            {{issue.year}}</a>.
-        {% endfor %}
-    </div>
-    {% endif %}
+{% macro print_story_single(story) %}
+<b><a href="{{url_for('story', id=story.id)}}">{{story.title}}</a></b>
+({%- if story.orig_title != story.title %}{{story.orig_title}}, {%endif %}{{story.pubyear}}).
+{% if story.works|length %}
+<br>
+<div style="margin-left:1rem; margin-bottom:0rem;">Teoksissa:
+    {% for work in story.works %}
+    <a href="{{url_for('edition', editionid=work.editions[0].id)}}">{{work.title}}</a> ({{work.pubyear}}).
     {% endfor %}
 </div>
-{% endfor %}
+{%endif %}
+{% if story.issues|length %}
+<div style="margin-left:1rem; margin-bottom:0rem;">Lehdissä:
+    {% for issue in story.issues %}
+    <a href="{{url_for('issue', id=issue.id)}}">{{issue.magazine.name}} {{issue.number}} /
+        {{issue.year}}</a>.
+    {% endfor %}
+</div>
+{% endif %}
+{% endmacro %}
 
+{% macro print_story_type(type_name, type_id, stories, person) %}
+{% if stories|selectattr("story_type", "equalto", type_id)|list|length %}
+<h4 class="mb-2">{{type_name}}</h4>
+{% for story in stories|selectattr("author_str", "equalto", person.name)|selectattr("story_type", "equalto",
+type_id) %}
+{{ print_story_single(story)}}
+{% endfor %}
+{% for a_group in stories|selectattr("author_str", "ne", person.name)|selectattr("story_type", "equalto",
+type_id)|groupby(attribute="author_str") %}
+<h5 class="mb-2">{{type_name}}: {{a_group.grouper}}</h5>
+{% for story in a_group.list %}
+{{ print_story_single(story)}}
+{% endfor %}
+{% endfor %}
+{% endif %}
 {% endmacro %}
 
 {% macro print_story_long(story) %}
 
+{% endmacro %}
+
+{% macro print_article_long(article) %}
+{{ article.issue.magazine.name }} {% if article.issue.number %}
+{{ article.issue.number }} / {{ article.issue.year }} {% else %}
+{{ article.issue.count }} {% endif %}: <a href="{{url_for('article', id=article.id)}}">{{ article.title }}</a>.<br>
 {% endmacro %}

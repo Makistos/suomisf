@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from 'macros.html' import editionnum, print_story_long, print_story_type %}
+{% from 'macros.html' import editionnum, print_story_long, print_story_type, print_article_long %}
 {% block content %}
 {% if current_user.is_admin %}
 <form method="post" id="itemForm">
@@ -374,64 +374,21 @@
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
               data-target="#authoredStories" aria-expanded="false" aria-controls="authoredStories">
-              Novellit, artikkelit, raapaleet, runot, filk-laulut ym.
+              Novellit, raapaleet, runot, filk-laulut ym.
             </button>
           </h2>
         </div>
         <div id="authoredStories" class="collapse" aria-labelledby="headAuthoredStories" data-parent="#authorCard">
           <div class="card-body">
             {% if stories %}
-
-            {% set short_stories = stories|selectattr("story_type", "equalto", 1) %}
-            {% set a_stories = short_stories|groupby("author_str") %}
-            {{ print_story_type("Novellit", a_stories, person) }}
-
-            {% set short_stories = stories|selectattr("story_type", "equalto", 2) %}
-            {% set a_stories = short_stories|groupby("author_str") %}
-            {{ print_story_type("Pitkät novellit", a_stories, person) }}
-
-            {% set short_stories = stories|selectattr("story_type", "equalto", 3) %}
-            {% set a_stories = short_stories|groupby("author_str") %}
-            {{ print_story_type("Pienoisromaanit", a_stories, person) }}
-
-            {% set short_stories = stories|selectattr("story_type", "equalto", 4) %}
-            {% set a_stories = short_stories|groupby("author_str") %}
-            {{ print_story_type("Runot", a_stories, person) }}
-
-            {% set short_stories = stories|selectattr("story_type", "equalto", 5) %}
-            {% set a_stories = short_stories|groupby("author_str") %}
-            {{ print_story_type("Raapaleet", a_stories, person) }}
-
-            {% set short_stories = stories|selectattr("story_type", "equalto", 6) %}
-            {% set a_stories = short_stories|groupby("author_str") %}
-            {{ print_story_type("Filk-laulut", a_stories, person) }}
-
-            {% set short_stories = stories|selectattr("story_type", "equalto", 7) %}
-            {% set a_stories = short_stories|groupby("author_str") %}
-            {{ print_story_type("Artikkelit kirjoissa", a_stories, person) }}
-
-            {% for article_group in person.articles|groupby("author_str") %}
-            <div class="mt-2">
-              {% if article_group.grouper == person.name %}
-              <h4 class="mb-0">Artikkelit lehdissä</h4>
-              {% else %}
-              <h4 class="mb-0">Artikkelit lehdissä: {{article_group.grouper}}</h4>
-              {% endif %}
-              {% for article in article_group.list %}
-              {{ article.issue.magazine.name }} {% if article.issue.number %}
-              {{ article.issue.number }} / {{ article.issue.year }} {% else %}
-              {{ article.issue.count }} {% endif %}: {{ article.title }}.<br>
-              {% endfor %}
-            </div>
-            {% endfor %}
-
-            {% set short_stories = stories|selectattr("story_type", "equalto", 8) %}
-            {% set a_stories = short_stories|groupby("author_str") %}
-            {{ print_story_type("Esipuheet", a_stories, person) }}
-
-            {% set short_stories = stories|selectattr("story_type", "equalto", 9) %}
-            {% set a_stories = short_stories|groupby("author_str") %}
-            {{ print_story_type("Jälkisanat", a_stories, person) }}
+            {{ print_story_type("Novellit", 1, stories, person) }}
+            {{ print_story_type("Pitkät novellit", 2, stories, person) }}
+            {{ print_story_type("Pienoisromaanit", 3, stories, person) }}
+            {{ print_story_type("Runot", 4, stories, person) }}
+            {{ print_story_type("Raapaleet", 5, stories, person) }}
+            {{ print_story_type("Filk-laulut", 6, stories, person) }}
+            {{ print_story_type("Esipuheet", 8, stories, person) }}
+            {{ print_story_type("Jälkisanat", 9, stories, person) }}
             {% endif %}
 
           </div>
@@ -473,33 +430,47 @@
       </div>
       {% endif %}
 
-      {#
       {% if person.articles|length %}
       <div class="card">
         <div class="card-header" id="headArticles">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
               data-target="#articles" aria-expanded="false" aria-controls="appearsin">
-              Artikkelit lehdissä
+              Artikkelit
             </button>
           </h2>
         </div>
         <div id="articles" class="collapse" aria-labelledby="headArticles" data-parent="#authorCard">
           <div class="card-body">
             <ul class="list-group list-group-flush">
-              {% for article in person.articles %}
+              <div class="mt-2">
+                <h4 class="mb-0">Artikkelit lehdissä</h4>
+                {% for article in person.articles|selectattr("author_str", "equalto", person.name) %}
+                {{ print_article_long(article) }}
+                {% endfor %}
+                {% for a_group in person.articles|selectattr("author_str", "ne",
+                person.name)|groupby(attribute="author_str") %}
+                <h5 class="mb-0">Artikkelit lehdissä: {{a_group.grouper}}</h4>
+                  {% for article in a_group.list %}
+                  {{ print_article_long(article)}}
+                  {% endfor %}
+                  {% endfor %}
+              </div>
+              {{ print_story_type("Artikkelit kirjoissa", 7, stories, person) }}
+
+
+              <!-- {% for article in person.articles %}
               <li class="list-group list-group-flush">
                 {{ article.issue.magazine.name }} {% if article.issue.number %}
                 {{ article.issue.number }} / {{ article.issue.year }} {% else %}
                 {{ article.issue.count }} {% endif %}: {{ article.title }}.
               </li>
-              {% endfor %}
+              {% endfor %} -->
             </ul>
           </div>
         </div>
       </div>
       {% endif %}
-      #}
       {% if person.appears_in|length %}
       <div class="card">
         <div class="card-header" id="headAppearsIn">
