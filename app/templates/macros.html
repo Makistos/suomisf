@@ -97,17 +97,21 @@
 
 {% macro print_story_type(type_name, type_id, stories, person) %}
 {% if stories|selectattr("story_type", "equalto", type_id)|list|length %}
-<h4 class="mb-2">{{type_name}}</h4>
-{% for story in stories|selectattr("author_str", "equalto", person.name)|selectattr("story_type", "equalto",
-type_id) %}
-{{ print_story_single(story)}}
-{% endfor %}
+<div class="mb-3">
+    <h4 class="mb-0">{{type_name}}</h4>
+    {% for story in stories|selectattr("author_str", "equalto", person.name)|selectattr("story_type", "equalto",
+    type_id) %}
+    {{ print_story_single(story)}}
+    {% endfor %}
+</div>
 {% for a_group in stories|selectattr("author_str", "ne", person.name)|selectattr("story_type", "equalto",
 type_id)|groupby(attribute="author_str") %}
-<h5 class="mb-2">{{type_name}}: {{a_group.grouper}}</h5>
-{% for story in a_group.list %}
-{{ print_story_single(story)}}
-{% endfor %}
+<div class="mb-3">
+    <h5 class="mb-0">{{type_name}}: {{a_group.grouper}}</h5>
+    {% for story in a_group.list %}
+    {{ print_story_single(story)}}
+    {% endfor %}
+</div>
 {% endfor %}
 {% endif %}
 {% endmacro %}

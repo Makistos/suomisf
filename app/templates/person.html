@@ -264,7 +264,9 @@
           </div>
         </div>
       </div>
-      {% endif %} {% if person.works|length %}
+      {% endif %}
+      {% if person.works|length %}
+      <!-- Works -->
       <div class="card">
         <div class="card-header" id="headAuthoredBooks">
           <h2 class="mb-0">
@@ -286,12 +288,29 @@
       </div>
       <div id="authoredBooks" aria-labelledby="headAuthoredBooks" data-parent="#authorCard">
         <div class="card-body">
-          <div id="textual" class="mb-0">
-            {% for work in person.works %}
-            <div class="mb-2">
-              {% include "_work.html" %}
-              {% for edition in work.editions[1:] %}
-              {% include "_work_edition.html" %}
+          <div id="textual" class="mb-2">
+            <div class="mb-3">
+              {% for work in person.works|selectattr("author_str", "equalto", person.name) %}
+              {# {% for work in person.works %} #}
+              <div class="mb-1">
+                {% include "_work.html" %}
+                {% for edition in work.editions[1:] %}
+                {% include "_work_edition.html" %}
+                {% endfor %}
+              </div>
+              {% endfor %}
+            </div>
+            {% for w_group in person.works|selectattr("author_str", "ne", person.name)|groupby(attribute="author_str")
+            %}
+            <div class="mb-3">
+              <h5 class="mb-0">{{w_group.grouper}}</h5>
+              {% for work in w_group.list %}
+              <div class="mb-1">
+                {% include "_work.html" %}
+                {% for edition in work.editions[1:] %}
+                {% include "_work_edition.html" %}
+                {% endfor %}
+              </div>
               {% endfor %}
             </div>
             {% endfor %}
