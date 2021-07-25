@@ -492,6 +492,8 @@ class Part(Base):
     work_id = Column(Integer, ForeignKey('work.id'), nullable=True, index=True)
     shortstory_id = Column(Integer, ForeignKey(
         'shortstory.id'), nullable=True, index=True)
+    # For short stories, order number in a collection
+    order_num = Column(Integer)
     # Title is repeated from edition in the simple case but required for
     # e.g. collections.
     title = Column(String(500))

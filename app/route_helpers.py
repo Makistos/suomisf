@@ -704,9 +704,9 @@ def create_new_language(session: Any, lang_name: str) -> Tuple[int, str]:
     return (lang.id, lang.name)
 
 
-# def update_creators_to_story(session: Any, storyid: int, authors: Any) -> None:
-#     author_str = ' & '.join([x.name for x in authors])
-#     story = session.query(ShortStory).filter(ShortStory.id == storyid).first()
-#     story.creator_str = author_str
-#     session.add(story)
-#     session.commit()
+def update_creators_to_story(session: Any, storyid: int, authors: Any) -> None:
+    author_str = ' & '.join([x.name for x in authors])
+    story = session.query(ShortStory).filter(ShortStory.id == storyid).first()
+    story.creator_str = author_str
+    session.add(story)
+    session.commit()

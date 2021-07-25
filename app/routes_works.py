@@ -627,6 +627,15 @@ def add_story_to_work() -> Any:
 
     session.commit()
 
+    # for edition in editions:
+    #     order_num: int = 1
+    #     for story in story_ids:
+    #         part = session.query(Part)\
+    #             .filter(Part.shortstory_id == story['id'],
+    #                     Part.work_id == workid,
+    #                     Part.edition_id == edition.id)\
+    #             .all()
+
     msg = 'Tallennus onnistui'
     category = 'success'
     resp = {'feedback': msg, 'category': category}

@@ -291,7 +291,6 @@
           <div id="textual" class="mb-2">
             <div class="mb-3">
               {% for work in person.works|selectattr("author_str", "equalto", person.name) %}
-              {# {% for work in person.works %} #}
               <div class="mb-1">
                 {% include "_work.html" %}
                 {% for edition in work.editions[1:] %}
@@ -381,7 +380,7 @@
             <ul class="list-group list-group-flush">
               {% set skip_pubseriesnum = 1 %}
               {% for edition in person.edits|sort(attribute='title') %}
-              <div class="book mb-2">
+              <div class="mb-2">
                 {% include "_edition.html" %}
               </div>
               {% endfor %}

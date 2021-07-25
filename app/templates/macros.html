@@ -88,8 +88,15 @@
 {% if story.issues|length %}
 <div style="margin-left:1rem; margin-bottom:0rem;">Lehdissä:
     {% for issue in story.issues %}
-    <a href="{{url_for('issue', id=issue.id)}}">{{issue.magazine.name}} {{issue.number}} /
-        {{issue.year}}</a>.
+
+    <a href="{{url_for('issue', id=issue.id)}}">
+        {% if issue.number %}
+        {{issue.magazine.name}} {{issue.number}} /
+        {{issue.year}}
+        {%- else -%}
+        {{issue.magazine.name}} {{issue.count}}
+        {%- endif -%}
+    </a>.
     {% endfor %}
 </div>
 {% endif %}
