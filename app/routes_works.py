@@ -167,20 +167,37 @@ def work(workid: Any) -> Any:
         form.description.data = work.description
         form.source.data = work.imported_string
     elif form.validate_on_submit():
-        work.title = form.title.data
-        work.subtitle = form.subtitle.data
-        work.orig_title = form.orig_title.data
-        work.pubyear = form.pubyear.data
-        work.bookseriesnum = form.bookseriesnum.data
+        fields: List[str] = []
+        if work.title != form.title.data:
+            work.title = form.title.data
+            fields.append('Otsikko')
+        if work.subtitle != form.subtitle.data:
+            work.subtitle = form.subtitle.data
+            fields.append('Alaotsikko')
+        if work.orig_title != form.orig_title.data:
+            work.orig_title = form.orig_title.data
+            fields.append('Alkup.nimi')
+        if work.pubyear != form.pubyear.data:
+            work.pubyear = form.pubyear.data
+            fields.append('Julkaisuvuosi')
+        if work.bookseriesnum != form.bookseriesnum.data:
+            work.bookseriesnum = form.bookseriesnum.data
+            fields.append('Kirjasarjan numero')
         work.bookseriesorder = form.bookseriesorder.data
-        work.misc = form.misc.data
-        work.description = form.description.data
+        if work.misc != form.misc.data:
+            work.misc = form.misc.data
+            fields.append('Muuta')
+        if work.description != form.description.data:
+            work.description = form.description.data
+            fields.append('Kuvaus')
         work.imported_string = form.source.data
-        work.type = form.type.data
+        if work.type != form.type.data:
+            work.type = form.type.data
+            fields.append('Tyyppi')
         work.author_str = work.update_author_str()
         session.add(work)
         session.commit()
-        log_change(session, 'Work', work.id)
+        log_change(session, work, fields=fields)
     else:
         app.logger.error('Errors: {}'.format(form.errors))
         print(f'Errors: {form.errors}')
@@ -213,7 +230,7 @@ def new_work() -> Any:
         work.type = 1
         session.add(work)
         session.commit()
-        log_change(session, 'Work', work.id, action='NEW')
+        log_change(session, work, action='Uusi')
         return redirect(url_for('work', workid=work.id))
     else:
         app.logger.debug("Errors: {}".format(form.errors))
@@ -320,7 +337,12 @@ def save_authors_to_work() -> Any:
 
     session.commit()
 
-    update_work_creators(workid)
+    work = session.query(Work).filter(Work.id == workid).first()
+    work.update_author_str()
+    session.add(work)
+    session.commit()
+    log_change(session, work, fields=['Kirjoittajat'])
+    # update_work_creators(workid)
 
     msg = 'Tallennus onnistui'
     category = 'success'
@@ -357,6 +379,7 @@ def save_bookseries_to_work() -> Any:
     work.bookseries_id = series_ids[0]
     session.add(work)
     session.commit()
+    log_change(session, work, fields=['Kirjasarja'])
 
     msg = 'Tallennus onnistui'
     category = 'success'
@@ -433,6 +456,7 @@ def save_genres_to_work() -> Any:
         session.add(wg)
 
     session.commit()
+    log_change(session, work, fields=['Genret'])
 
     msg = 'Tallennus onnistui'
     category = 'success'
@@ -487,6 +511,8 @@ def save_tags_to_work() -> Any:
         wt = WorkTag(work_id=workid, tag_id=id)
         session.add(wt)
     session.commit()
+    work = session.query(Work).filter(Work.id == workid).first()
+    log_change(session, work, fields=['Asiasanat'])
 
     msg = 'Tallennus onnistui'
     category = 'success'
@@ -537,6 +563,7 @@ def save_language_to_work() -> Any:
     work.language = lang_id
     session.add(work)
     session.commit()
+    log_change(session, work, fields=['Kieli'])
 
     msg = 'Tallennus onnistui'
     category = 'success'
@@ -626,6 +653,8 @@ def add_story_to_work() -> Any:
                 update_creators_to_story(session, id, authors)
 
     session.commit()
+    work = session.query(Work).filter(Work.id == workid).first()
+    log_change(session, work, fields=['Novellit'])
 
     # for edition in editions:
     #     order_num: int = 1
@@ -682,7 +711,7 @@ def add_edition_to_route(workid: Any) -> Any:
         session.add(part)
     session.commit()
 
-    log_change(session, 'Edition', edition.id, action='NEW')
+    log_change(session, edition, action='Uusi')
 
     return redirect(url_for('edition', editionid=edition.id))
 

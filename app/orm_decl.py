@@ -84,6 +84,10 @@ class Article(Base):
             self._author_str = ' & '.join([x.name for x in self.author_rel])
         return self._author_str
 
+    @property
+    def name(self) -> str:
+        return self.title
+
 
 class ArticleAuthor(Base):
     __tablename__ = 'articleauthor'
@@ -286,6 +290,10 @@ class Edition(Base):
     images = relationship(
         'EditionImage', backref=backref('edition_image_assoc'), uselist=True, viewonly=True)
 
+    @property
+    def name(self) -> str:
+        return self.title
+
     def __str__(self) -> str:
         retval: str = ''
         work = self.work[0]
@@ -405,6 +413,18 @@ class Issue(Base):
     size = relationship('PublicationSize', uselist=False, viewonly=True)
     magazine = relationship('Magazine', uselist=False, viewonly=True)
 
+    @property
+    def name(self) -> str:
+        retval: str = self.magazine.name
+        if self.number:
+            retval += ' ' + str(self.number)
+            if self.number_extra:
+                retval += self.number_extra
+        elif self.count:
+            retval += ' ' + str(self.count)
+
+        return retval
+
 
 class IssueContent(Base):
     __tablename__ = 'issuecontent'
@@ -442,6 +462,7 @@ class Log(Base):
     table_name = Column(String(30), index=True)
     field_name = Column(String(30))
     table_id = Column(Integer)
+    object_name = Column(String(200))
     action = Column(String(30))
     user_id = Column(Integer, ForeignKey('user.id'))
     old_value = Column(String(500))
@@ -462,6 +483,10 @@ class Magazine(Base):
     publisher = relationship('Publisher', uselist=False)
     # Type of magazine. 0 = fanzine, 1 = other.
     type = Column(Integer, nullable=False)
+
+    @property
+    def name(self) -> str:
+        return self.name
 
 
 class MagazineTag(Base):
@@ -602,6 +627,9 @@ class Person(Base):
     # deatchcountry = relationship(
     #     'Country', foreign_keys=[deathcountry_id], uselist=False)
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class PersonLanguage(Base):
     __tablename__ = 'personlanguage'
@@ -727,6 +755,10 @@ class ShortStory(Base):
         if len(self.authors) > 0:
             self._author_str = ' & '.join([x.name for x in self.authors])
         return self._author_str
+
+    @property
+    def name(self) -> str:
+        return self.title
 
 
 class StoryGenre(Base):
@@ -882,6 +914,10 @@ class Work(Base):
                            viewonly=True)
 
     author_str = Column(String(500))
+
+    @property
+    def name(self) -> str:
+        return self.title
 
     # @hybrid_property
     def update_author_str(self) -> Any:

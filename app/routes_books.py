@@ -337,136 +337,136 @@ def work_delete(workid):
     session.commit()
 
 
-@app.route('/add_authored/<authorid>', methods=["POST", "GET"])
-def add_authored(authorid):
-    session = new_session()
-    author = session.query(Person)\
-                    .filter(Person.id == authorid)\
-                    .first()
-    work = Work()
+# @app.route('/add_authored/<authorid>', methods=["POST", "GET"])
+# def add_authored(authorid):
+#     session = new_session()
+#     author = session.query(Person)\
+#                     .filter(Person.id == authorid)\
+#                     .first()
+#     work = Work()
 
-    search_list = {}
+#     search_list = {}
 
-    form = WorkForm(request.form)
-    if request.method == 'GET':
-        form.author.data = author.name
+#     form = WorkForm(request.form)
+#     if request.method == 'GET':
+#         form.author.data = author.name
 
-    if form.validate_on_submit():
-        person = session.query(Person)\
-                        .filter(Person.name == authorid)\
-                        .first()
-        parts = session.query(Part)\
-                       .filter(work_id == workid)\
-                       .all()
-        for part in parts:
-            app.logger.debug("part = {}, author= {}".format(part.id,
-                                                            authorid))
-            author = Contributor(
-                part_id=part.id, person_id=authorid, role_id=1)
-            session.add(author)
-        session.commit()
-        return redirect(url_for('work', workid=work.id))
-    else:
-        app.logger.debug("Errors: {}".format(form.errors))
-    return render_template('person.html', id=authorid, form=form, search_lists=search_list, source='')
-
-
-@app.route('/remove_author_from_work/<workid>/<authorid>', methods=["GET", "POST"])
-def remove_author_from_work(workid, authorid):
-
-    session = new_session()
-
-    parts = session.query(Contributor, Contributor.role_id == 1)\
-                   .join(Part)\
-                   .filter(Part.work_id == workid)\
-                   .filter(Contributor.part_id == Part.id, Contributor.person_id == authorid)\
-                   .all()
-    for part in parts:
-        session.delete(part)
-    session.commit()
-
-    update_creators(session, workid)
-
-    return redirect(url_for('work', workid=workid))
+#     if form.validate_on_submit():
+#         person = session.query(Person)\
+#                         .filter(Person.name == authorid)\
+#                         .first()
+#         parts = session.query(Part)\
+#                        .filter(work_id == workid)\
+#                        .all()
+#         for part in parts:
+#             app.logger.debug("part = {}, author= {}".format(part.id,
+#                                                             authorid))
+#             author = Contributor(
+#                 part_id=part.id, person_id=authorid, role_id=1)
+#             session.add(author)
+#         session.commit()
+#         return redirect(url_for('work', workid=work.id))
+#     else:
+#         app.logger.debug("Errors: {}".format(form.errors))
+#     return render_template('person.html', id=authorid, form=form, search_lists=search_list, source='')
 
 
-@app.route('/remove_story_from_edition/<editionid>/<storyid>', methods=['GET', 'POST'])
-def remove_story_from_edition(editionid, storyid):
-    session = new_session()
+# @app.route('/remove_author_from_work/<workid>/<authorid>', methods=["GET", "POST"])
+# def remove_author_from_work(workid, authorid):
 
-    part = session.query(Part)\
-                  .filter(Part.edition_id == editionid,
-                          Part.shortstory_id == storyid)\
-                  .first()
-    session.delete(part)
+#     session = new_session()
 
-    stories = session.query(Part)\
-                     .filter(Part.edition_id == editionid)\
-                     .filter(Part.shortstory_id is not None)\
-                     .first()
+#     parts = session.query(Contributor, Contributor.role_id == 1)\
+#                    .join(Part)\
+#                    .filter(Part.work_id == workid)\
+#                    .filter(Contributor.part_id == Part.id, Contributor.person_id == authorid)\
+#                    .all()
+#     for part in parts:
+#         session.delete(part)
+#     session.commit()
 
-    if len(stories) == 0:
-        works = session.query(Work)\
-                       .join(Part)\
-                       .filter(Part.work_id == Work.id)\
-                       .filter(Part.edition_id == editionid)\
-                       .all()
-        for work in works:
-            work.collection = False
-            session.add(work)
-    session.commit()
+#     update_creators(session, workid)
+
+#     return redirect(url_for('work', workid=workid))
 
 
-@app.route('/remove_translator_from_work/<editionid>/<translatorid>', methods=['GET', 'POST'])
-def remove_translator_from_work(editionid, translatorid):
-    session = new_session()
+# @app.route('/remove_story_from_edition/<editionid>/<storyid>', methods=['GET', 'POST'])
+# def remove_story_from_edition(editionid, storyid):
+#     session = new_session()
 
-    translator = session.query(Contributor, Contributor.role_id == 2)\
-                        .join(Part)\
-                        .filter(Part.id == Contributor.part_id)\
-                        .filter(Part.edition_id == editionid)\
-                        .filter(Contributor.person_id == translatorid)\
-                        .first()
+#     part = session.query(Part)\
+#                   .filter(Part.edition_id == editionid,
+#                           Part.shortstory_id == storyid)\
+#                   .first()
+#     session.delete(part)
 
-    session.delete(translator)
-    session.commit()
+#     stories = session.query(Part)\
+#                      .filter(Part.edition_id == editionid)\
+#                      .filter(Part.shortstory_id is not None)\
+#                      .first()
+
+#     if len(stories) == 0:
+#         works = session.query(Work)\
+#                        .join(Part)\
+#                        .filter(Part.work_id == Work.id)\
+#                        .filter(Part.edition_id == editionid)\
+#                        .all()
+#         for work in works:
+#             work.collection = False
+#             session.add(work)
+#     session.commit()
 
 
-@app.route('/remove_editor_from_work/<editionid>/<editorid>', methods=['GET', 'POST'])
-def remove_editor_from_work(editionid, editorid):
-    session = new_session()
+# @app.route('/remove_translator_from_work/<editionid>/<translatorid>', methods=['GET', 'POST'])
+# def remove_translator_from_work(editionid, translatorid):
+#     session = new_session()
 
-    editor = session.query(Contributor, Contributor.role_id == 3)\
-        .join(Part, Part.id == Contributor.part_id)\
-        .filter(Part.edition_id == editionid)\
-        .filter(Contributor.person_id == editorid)\
-        .first()
-    session.delete(editor)
-    session.commit()
+#     translator = session.query(Contributor, Contributor.role_id == 2)\
+#                         .join(Part)\
+#                         .filter(Part.id == Contributor.part_id)\
+#                         .filter(Part.edition_id == editionid)\
+#                         .filter(Contributor.person_id == translatorid)\
+#                         .first()
+
+#     session.delete(translator)
+#     session.commit()
 
 
-@app.route('/remove_author_from_story<storyid>/<authorid>', methods=['GET', 'POST'])
-def remove_author_from_story(storyid, authorid):
-    session = new_session()
+# @app.route('/remove_editor_from_work/<editionid>/<editorid>', methods=['GET', 'POST'])
+# def remove_editor_from_work(editionid, editorid):
+#     session = new_session()
 
-    parts = session.query(Part)\
-                   .filter(Part.shortstory_id == storyid)\
-                   .all()
+#     editor = session.query(Contributor, Contributor.role_id == 3)\
+#         .join(Part, Part.id == Contributor.part_id)\
+#         .filter(Part.edition_id == editionid)\
+#         .filter(Contributor.person_id == editorid)\
+#         .first()
+#     session.delete(editor)
+#     session.commit()
 
-    part_ids = [x.id for x in parts]
 
-    authors = session.query(Contributor, Contributor.role_id == 1)\
-                     .filter(Contributor.person_id == authorid)\
-                     .filter(Contributor.part_id.in_(part_ids))\
-                     .all()
+# @app.route('/remove_author_from_story<storyid>/<authorid>', methods=['GET', 'POST'])
+# def remove_author_from_story(storyid, authorid):
+#     session = new_session()
 
-    for author in authors:
-        session.delete(author)
-    session.commit()
+#     parts = session.query(Part)\
+#                    .filter(Part.shortstory_id == storyid)\
+#                    .all()
 
-    update_story_creators(session, storyid)
+#     part_ids = [x.id for x in parts]
 
-    return redirect(url_for('story', id=storyid))
+#     authors = session.query(Contributor, Contributor.role_id == 1)\
+#                      .filter(Contributor.person_id == authorid)\
+#                      .filter(Contributor.part_id.in_(part_ids))\
+#                      .all()
+
+#     for author in authors:
+#         session.delete(author)
+#     session.commit()
+
+#     update_story_creators(session, storyid)
+
+#     return redirect(url_for('story', id=storyid))
 
 
 @app.route('/edit_story/<id>', methods=['GET', 'POST'])

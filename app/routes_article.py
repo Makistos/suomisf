@@ -74,7 +74,8 @@ def article(id: Any) -> Any:
         article.title = form.title.data
         session.add(article)
         session.commit()
-        log_change(session, 'Article', article.id)
+        log_change(session, article,
+                   fields=['Otsikko'])
     else:
         app.logger.debug("Errors: {}".format(form.errors))
         print("Errors: {}".format(form.errors))
@@ -87,89 +88,89 @@ def article(id: Any) -> Any:
                            form=form)
 
 
-@app.route('/edit_article/<id>', methods=['GET', 'POST'])
-@login_required  # type: ignore
-def edit_article(id: Any) -> Any:
-    if not current_user.is_admin:
-        abort(401)
+# @app.route('/edit_article/<id>', methods=['GET', 'POST'])
+# @login_required  # type: ignore
+# def edit_article(id: Any) -> Any:
+#     if not current_user.is_admin:
+#         abort(401)
 
-    session = new_session()
+#     session = new_session()
 
-    article = session.query(Article)\
-                     .filter(Article.id == id)\
-                     .first()
+#     article = session.query(Article)\
+#                      .filter(Article.id == id)\
+#                      .first()
 
-    authors = session.query(Person)\
-                     .join(ArticleAuthor)\
-                     .filter(ArticleAuthor.article_id == id)\
-                     .all()
+#     authors = session.query(Person)\
+#                      .join(ArticleAuthor)\
+#                      .filter(ArticleAuthor.article_id == id)\
+#                      .all()
 
-    people = session.query(Person)\
-                    .join(ArticlePerson)\
-                    .filter(ArticlePerson.article_id == id)\
-                    .all()
-    links = session.query(ArticleLink)\
-                   .filter(ArticleLink.article_id == id)\
-                   .all()
+#     people = session.query(Person)\
+#                     .join(ArticlePerson)\
+#                     .filter(ArticlePerson.article_id == id)\
+#                     .all()
+#     links = session.query(ArticleLink)\
+#                    .filter(ArticleLink.article_id == id)\
+#                    .all()
 
-    form = ArticleForm(request.form)
+#     form = ArticleForm(request.form)
 
-    if request.method == 'GET':
-        tags = session.query(Tag.name)\
-                      .join(ArticleTag)\
-                      .filter(Tag.id == ArticleTag.tag_id)\
-                      .filter(ArticleTag.article_id == id)\
-                      .all()
+#     if request.method == 'GET':
+#         tags = session.query(Tag.name)\
+#                       .join(ArticleTag)\
+#                       .filter(Tag.id == ArticleTag.tag_id)\
+#                       .filter(ArticleTag.article_id == id)\
+#                       .all()
 
-        form.title.data = article.title
-    if form.validate_on_submit():
-        article.title = form.title.data
-        session.add(article)
-        session.commit()
-        return redirect(url_for('article', id=article.id))
-    else:
-        app.logger.debug('Errors: {}'.format(form.errors))
+#         form.title.data = article.title
+#     if form.validate_on_submit():
+#         article.title = form.title.data
+#         session.add(article)
+#         session.commit()
+#         return redirect(url_for('article', id=article.id))
+#     else:
+#         app.logger.debug('Errors: {}'.format(form.errors))
 
-    return render_template('article.html',
-                           form=form,
-                           article=article,
-                           authors=authors,
-                           people=people,
-                           links=links)
+#     return render_template('article.html',
+#                            form=form,
+#                            article=article,
+#                            authors=authors,
+#                            people=people,
+#                            links=links)
 
 
-@app.route('/add_article/<article_id>/<issue_id>')
-@login_required  # type: ignore
-def add_article(article_id, issue_id):
-    if not current_user.is_admin:
-        abort(401)
+# @app.route('/add_article/<article_id>/<issue_id>')
+# @login_required  # type: ignore
+# def add_article(article_id, issue_id):
+#     if not current_user.is_admin:
+#         abort(401)
 
-    session = new_session()
+#     session = new_session()
 
-    article = Article()
+#     article = Article()
 
-    form = ArticleForm()
+#     form = ArticleForm()
 
-    if form.validate_on_submit():
-        article.title = form.title.data
-        session.add(article)
-        session.commit()
+#     if form.validate_on_submit():
+#         article.title = form.title.data
+#         session.add(article)
+#         session.commit()
 
-        author = session.query(Person)\
-                        .filter(Person.name == form.author.data)\
-                        .first()
-        auth = ArticleAuthor(article_id=article.id, person_id=author.id)
-        session.add(auth)
-        session.commit()
+#         author = session.query(Person)\
+#                         .filter(Person.name == form.author.data)\
+#                         .first()
+#         auth = ArticleAuthor(article_id=article.id, person_id=author.id)
+#         session.add(auth)
+#         session.commit()
 
-        save_tags(session, form.tags.data, "Article", article.id)
+#         save_tags(session, form.tags.data, "Article", article.id)
 
-        return render_template('article', article_id=article.id)
-    else:
-        app.logger.debug("pubid={}".format(form.pubseries.data))
-        app.logger.debug("Errors: {}".format(form.errors))
+#         return render_template('article', article_id=article.id)
+#     else:
+#         app.logger.debug("pubid={}".format(form.pubseries.data))
+#         app.logger.debug("Errors: {}".format(form.errors))
 
-    return render_template('edit_article.html', form=form)
+#     return render_template('edit_article.html', form=form)
 
 
 # def save_author_to_article(session, articleid, authorname):
@@ -198,6 +199,10 @@ def remove_author_from_article(session, articleid, authorname):
     if author:
         session.delete(author)
         session.commit()
+        article = session.query(Article).filter(
+            Article.id == articleid).first()
+        log_change(session, article,
+                   fields=['Kirjoittajat'])
 
 
 @login_required  # type: ignore
@@ -212,6 +217,11 @@ def save_person_to_article(session, articleid, personname):
         pers = ArticlePerson(article_id=articleid, person_id=person.id)
         session.add(pers)
         session.commit()
+        article = session.query(Article).filter(
+            Article.id == articleid).first()
+
+        log_change(session, article,
+                   fields=['Henkilöt'])
 
 
 def remove_person_from_article(session, articleid, personname):
@@ -228,6 +238,11 @@ def remove_person_from_article(session, articleid, personname):
     if person:
         session.delete(person)
         session.commit()
+        article = session.query(Article).filter(
+            Article.id == articleid).first()
+
+        log_change(session, article,
+                   fields=['Henkilöt'])
 
 
 def add_link_to_article(session, articleid, form):
@@ -236,6 +251,9 @@ def add_link_to_article(session, articleid, form):
 
     session.add(link)
     session.commit()
+    article = session.query(Article).filter(
+        Article.id == articleid).first()
+    log_change(session, article, fields=['Linkit'])
 
 
 def remove_link_from_article(session, linkid):
@@ -244,6 +262,9 @@ def remove_link_from_article(session, linkid):
                   .first()
     session.delete(link)
     session.commit()
+    # article = session.query(Article).filter(
+    #     Article.id == articleid).first()
+    # log_change(session, article, fields=['Linkit'])
 
 
 def update_article_creators(session, articleid):
@@ -276,6 +297,9 @@ def save_authors_to_article() -> Any:
         session.add(aa)
 
     session.commit()
+    article = session.query(Article).filter(Article.id == articleid).first()
+    log_change(session, article,
+               fields=['Kirjoittajat'])
 
     msg = 'Tallennus onnistui'
     category = 'success'
@@ -309,6 +333,9 @@ def save_people_to_article() -> Any:
         session.add(aa)
 
     session.commit()
+    article = session.query(Article).filter(Article.id == articleid).first()
+    log_change(session, article,
+               fields=['Henkilöt'])
 
     msg = 'Tallennus onnistui'
     category = 'success'
@@ -343,6 +370,9 @@ def save_tags_to_article() -> Any:
         session.add(at)
 
     session.commit()
+    article = session.query(Article).filter(Article.id == articleid).first()
+    log_change(session, article,
+               fields=['Asiasanat'])
 
     msg = 'Tallennus onnistui'
     category = 'success'

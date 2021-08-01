@@ -98,7 +98,7 @@ def person(personid: Any) -> Any:
                     .join(Contributor.person)\
                     .filter(Contributor.role_id == 0)\
                     .filter(Contributor.part_id == Part.id)\
-                    .filter(Person.id == person.id)\
+                    .filter(Person.id == personid)\
                     .group_by(Genre.name)\
                     .all()
 
@@ -124,19 +124,31 @@ def person(personid: Any) -> Any:
         form.bio.data = person.bio
         form.bio_src.data = person.bio_src
     elif form.validate_on_submit():
-        person.name = form.name.data
+        changes: List[str] = []
+        if person.name != form.name.data:
+            person.name = form.name.data
+            changes.append('Nimi')
         person.alt_name = form.alt_name.data
         person.fullname = form.fullname.data
         person.image_attr = form.image_attr.data
-        person.dob = form.dob.data
-        person.dod = form.dod.data
-        person.bio = form.bio.data.strip()
+        if person.dob != form.dob.data:
+            person.dob = form.dob.data
+            changes.append('Syntymävuosi')
+        if person.dod != form.dod.data:
+            person.dod = form.dod.data
+            changes.append('Kuolinvuosi')
+        bio = form.bio.data.strip()
+        if person.bio != None and person.bio != bio:
+            person.bio = form.bio.data.strip()
+            changes.append('Biografia')
         person.bio_src = form.bio_src.data
         session.add(person)
         session.commit()
-        log_change(session, 'Person', person.id)
         # Reload data so changes are updated to view
         person = session.query(Person).filter(Person.id == person.id).first()
+        log_change(session, person, fields=changes)
+        if 'Nimi' in changes:
+            update_creators(session, person)
     else:
         app.logger.error('Errors: {}'.format(form.errors))
         print(f'Errors: {form.errors}')
@@ -165,7 +177,7 @@ def new_person() -> Any:
             person.dod = form.dod.data
         session.add(person)
         session.commit()
-        log_change(session, 'Person', person.id, action='NEW')
+        log_change(session, person, action='Uusi')
         return redirect(url_for('person', personid=person.id))
     # else:
     #     app.logger.debug("Errors: {}".format(form.errors))
@@ -272,7 +284,8 @@ def save_languages_to_person() -> Any:
         session.add(pl)
 
     session.commit()
-
+    person = session.query(Person).filter(Person.id == personid).first()
+    log_change(session, person, fields=['Kielet'])
     msg = 'Tallennus onnistui'
     category = 'success'
     resp = {'feedback': msg, 'category': category}
@@ -331,7 +344,8 @@ def save_tags_to_person() -> Any:
         wt = PersonTag(person_id=personid, tag_id=id)
         session.add(wt)
     session.commit()
-
+    person = session.query(Person).filter(Person.id == personid).first()
+    log_change(session, person, fields=['Asiasanat'])
     msg = 'Tallennus onnistui'
     category = 'success'
     resp = {'feedback': msg, 'category': category}
@@ -381,7 +395,8 @@ def save_aliases_to_person() -> Any:
         alias = Alias(realname=personid, alias=id)
         session.add(alias)
     session.commit()
-
+    person = session.query(Person).filter(Person.id == personid).first()
+    log_change(session, person, fields=['Aliakset'])
     msg = 'Tallennus onnistui'
     category = 'success'
     resp = {'feedback': msg, 'category': category}
@@ -428,6 +443,8 @@ def save_real_names_to_person() -> Response:
         realname = Alias(realname=id, alias=personid)
         session.add(realname)
     session.commit()
+    person = session.query(Person).filter(Person.id == personid).first()
+    log_change(session, person, fields=['Oikea nimi'])
 
     msg = 'Tallennus onnistui'
     category = 'success'
@@ -463,7 +480,7 @@ def save_nationality_to_person() -> Response:
     person.nationality_id = country_ids[0]['id']
     session.add(person)
     session.commit()
-
+    log_change(session, person, fields=['Kansallisuus'])
     msg = 'Tallennus onnistui'
     category = 'success'
     resp = {'feedback': msg, 'category': category}

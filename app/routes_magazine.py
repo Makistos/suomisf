@@ -50,19 +50,28 @@ def edit_magazine(id):
         form.link.data = magazine.link
 
     if form.validate_on_submit():
+        changes: List[str] = []
         publisher = session.query(Publisher)\
                            .filter(Publisher.name == form.publisher.data)\
                            .first()
         magazine.id = id
-        magazine.name = form.name.data
-        magazine.publisher_id = publisher.id
-        magazine.issn = form.issn.data
-        magazine.description = form.description.data
+        if magazine.name != form.name.data:
+            magazine.name = form.name.data
+            changes.append('Nimi')
+        if magazine.publisher_id != publisher.id:
+            magazine.publisher_id = publisher.id
+            changes.append('Kustantaja')
+        if magazine.issn != form.issn.data:
+            magazine.issn = form.issn.data
+            changes.append('ISSN')
+        if magazine.description != form.description.data:
+            magazine.description = form.description.data
+            changes.append('Kuvaus')
         magazine.link = form.link.data
 
         session.add(magazine)
         session.commit()
-        log_change(session, 'Magazine', magazine.id)
+        log_change(session, magazine, fields=changes)
 
         return redirect(url_for('magazine', id=magazine.id))
     else:

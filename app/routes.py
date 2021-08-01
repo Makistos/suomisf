@@ -7,7 +7,7 @@ from app.orm_decl import (Person, Work,
                           Edition, Pubseries, Bookseries, User, UserBook, ShortStory, UserPubseries,
                           Genre, WorkGenre, Tag, Award, Awarded,
                           Magazine, Issue, PublicationSize, Publisher, Part, ArticleTag,
-                          Language, Country, Article, Contributor)
+                          Language, Country, Article, Contributor, Log)
 from sqlalchemy import func, text
 from sqlalchemy.orm import sessionmaker
 from app.forms import (LoginForm, RegistrationForm,
@@ -21,6 +21,7 @@ import logging
 import pprint
 import urllib
 from typing import Dict, List, Any, Tuple
+import datetime
 
 
 @app.route('/')
@@ -49,6 +50,18 @@ def index():
                            magazine_count=magazine_count,
                            issue_count=issue_count,
                            article_count=article_count)
+
+
+@app.route('/changes')
+def changes() -> Any:
+    session = new_session()
+
+    # Show last 30 days
+    cutoff_date = datetime.datetime.now() - datetime.timedelta(days=30)
+    changes = session.query(Log).filter(
+        Log.date >= cutoff_date).order_by(Log.date.desc()).all()
+
+    return render_template('changes.html', changes=changes)
 
 
 def redirect_url(default='index'):

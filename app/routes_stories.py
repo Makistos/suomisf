@@ -48,11 +48,19 @@ def story(id: Any) -> Any:
         form.orig_title.data = story.orig_title
         form.pubyear.data = story.pubyear
     elif form.validate_on_submit():
-        story.title = form.title.data
-        story.orig_title = form.orig_title.data
-        story.pubyear = form.pubyear.data
+        changes: List[str] = []
+        if story.title != form.title.data:
+            story.title = form.title.data
+            changes.append('Nimi')
+        if story.orig_title != form.orig_title.data:
+            story.orig_title = form.orig_title.data
+            changes.append('Alkukielinen nimi')
+        if story.pubyear != form.pubyear.data:
+            story.pubyear = form.pubyear.data
+            changes.append('Alkup. julkaisuvuosi')
         session.add(story)
         session.commit()
+        log_change(session, story, fields=changes)
     else:
         app.logger.error('Errors: {}'.format(form.errors))
         print(f'Errors: {form.errors}')
@@ -176,6 +184,8 @@ def save_authors_to_story() -> Response:
             session.add(auth)
 
     session.commit()
+    story = session.query(ShortStory).filter(ShortStory.id == storyid).first()
+    log_change(session, story, fields=['Kirjoittajat'])
     msg = 'Tallennus onnistui'
     category = 'success'
     resp = {'feedback': msg, 'category': category}
@@ -253,6 +263,8 @@ def save_genres_to_story() -> Response:
         sg = StoryGenre(genre_id=id, shortstory_id=storyid)
         session.add(sg)
     session.commit()
+    story = session.query(ShortStory).filter(ShortStory.id == storyid).first()
+    log_change(session, story, fields=['Genret'])
     msg = 'Tallennus onnistui'
     category = 'success'
     resp = {'feedback': msg, 'category': category}
@@ -307,7 +319,8 @@ def save_tags_to_story() -> Any:
         wt = StoryTag(shortstory_id=storyid, tag_id=id)
         session.add(wt)
     session.commit()
-
+    story = session.query(ShortStory).filter(ShortStory.id == storyid).first()
+    log_change(session, story, fields=['Asiasanat'])
     msg = 'Tallennus onnistui'
     category = 'success'
     resp = {'feedback': msg, 'category': category}
@@ -359,7 +372,7 @@ def save_type_to_story() -> Any:
     story.story_type = type_id[0]['id']
     session.add(story)
     session.commit()
-    log_change(session, 'Novelli', storyid, 'UPDATE', 'Tyyppi')
+    log_change(session, story, 'Tyyppi')
 
     msg = 'Tallennus onnistui'
     category = 'success'

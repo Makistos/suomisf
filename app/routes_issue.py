@@ -36,16 +36,31 @@ def issue(id: Any) -> Any:
         form.notes.data = issue.notes
         form.title.data = issue.title
     elif form.validate_on_submit():
-        issue.number = form.number.data
-        issue.number_extra = form.number_extra.data
-        issue.count = form.count.data
-        issue.year = form.year.data
-        issue.link = form.link.data
-        issue.notes = form.notes.data
-        issue.title = form.title.data
+        changes: List[str] = []
+        if issue.number != form.number.data:
+            issue.number = form.number.data
+            changes.append('Numero')
+        if issue.number.extra != form.number_extra.data:
+            issue.number_extra = form.number_extra.data
+            changes.append('Numeron lisätarkenne')
+        if issue.count != form.count.data:
+            issue.count = form.count.data
+            changes.append('Järjestysnumero')
+        if issue.year != form.year.data:
+            issue.year = form.year.data
+            changes.append('Vuosi')
+        if issue.link != form.link.data:
+            issue.link = form.link.data
+            changes.append('Linkki')
+        if issue.notes != form.notes.data:
+            issue.notes = form.notes.data
+            changes.append('Kommentit')
+        if issue.title != form.title.data:
+            issue.title = form.title.data
+            changes.append('Otsikko')
         session.add(issue)
         session.commit()
-        log_change(session, 'Issue', issue.id)
+        log_change(session, issue, fields=changes)
     else:
         app.logger.error('Errors: {}'.format(form.errors))
         print(f'Errors: {form.errors}')
@@ -85,7 +100,7 @@ def add_issue(magazine_id):
 
         session.add(issue)
         session.commit()
-
+        log_change(session, issue, action='Uusi')
         if form.editor.data != '':
             person = session.query(Person)\
                             .filter(Person.name == form.editor.data)\
@@ -225,9 +240,11 @@ def save_magazine_to_issue() -> Response:
     (issueid, magazine_ids) = get_select_ids(request.form)
     issue = session.query(Issue).filter(Issue.id == issueid).first()
     if issue:
-        issue.magazine_id = magazine_ids[0]
+        issue.magazine_id = magazine_ids[0]['id']
         session.add(issue)
         session.commit()
+        log_change(session, issue,
+                   fields=['Lehti'])
         msg = 'Tallennus onnistui'
         category = 'success'
         resp = {'feedback': msg, 'category': category}
@@ -275,7 +292,8 @@ def save_tags_to_issue() -> Response:
         it = IssueTag(issue_id=issueid, tag_id=id)
         session.add(it)
     session.commit()
-
+    log_change(session,
+               issue, fields=['Asiasanat'])
     msg = 'Tallennus onnistui'
     category = 'success'
     resp = {'feedback': msg, 'category': category}
@@ -320,6 +338,9 @@ def save_editors_to_issue() -> Response:
         it = IssueEditor(issue_id=issueid, person_id=id)
         session.add(it)
     session.commit()
+    issue = session.query(Issue).filter(Issue.id == issueid).first()
+    log_change(session,
+               issue, fields=['Päätoimittajat'])
 
     msg = 'Tallennus onnistui'
     category = 'success'
@@ -355,6 +376,8 @@ def save_size_to_issue() -> Response:
     issue.size = size_ids[0]
     session.add(issue)
     session.commit()
+    log_change(session,
+               issue, fields=['Koko'])
 
     msg = 'Tallennus onnistui'
     category = 'success'

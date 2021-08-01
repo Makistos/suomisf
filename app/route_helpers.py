@@ -14,6 +14,7 @@ from flask import abort, Response
 from functools import wraps
 import json
 import itertools
+from datetime import datetime
 
 """
     This module contains the functions related to routes that are not directly
@@ -39,10 +40,36 @@ def admin_required(f: Any) -> Any:
     return wrap
 
 
-def log_change(session: Any, table: str, id: int, action: str = 'UPDATE', field: str = '') -> None:
-    log = Log(table_name=table, table_id=id, action=action, field_name=field,
-              user_id=current_user.get_id())
-    session.add(log)
+table_locals = {'article': 'Artikkeli',
+                'edition': 'Painos',
+                'issue': 'Irtonumero',
+                'magazine': 'Lehti',
+                'person': 'Henkilö',
+                'publisher': 'Kustantaja',
+                'shortstory': 'Novelli',
+                'work': 'Teos'}
+
+
+def log_change(session: Any, obj: Any, action: str = 'Päivitys', fields: List[str] = []) -> None:
+    name: str = obj.name
+    tbl_name = table_locals[obj.__table__.name]
+    # if len(fields) == 0:
+    #     field = ''
+    # else:
+    #     field = ', '.join(fields)
+    if action == 'Päivitys':
+        for field in fields:
+            log = Log(table_name=tbl_name, table_id=obj.id, action=action, field_name=field,
+                      object_name=name,
+                      user_id=current_user.get_id(),
+                      date=datetime.now())
+            session.add(log)
+    else:
+        log = Log(table_name=tbl_name, table_id=obj.id, action=action, field_name='',
+                  object_name=name,
+                  user_id=current_user.get_id(),
+                  date=datetime.now())
+        session.add(log)
     session.commit()
 
 
@@ -702,6 +729,15 @@ def create_new_language(session: Any, lang_name: str) -> Tuple[int, str]:
     session.commit()
 
     return (lang.id, lang.name)
+
+
+# Called when a person's name field is changed. This requires updating all
+# author strings in works.
+def update_creators(session: Any, person: Any) -> None:
+    for work in person.works:
+        work.author_str = work.update_author_str()
+        session.add(work)
+    session.commit()
 
 
 def update_creators_to_story(session: Any, storyid: int, authors: Any) -> None:

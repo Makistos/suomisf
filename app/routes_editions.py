@@ -327,9 +327,8 @@ def edition(editionid: Any) -> Any:
 
         session.add(edition)
         session.commit()
-        for change in changes:
-            log_change(session=session, table='Edition',
-                       id=edition.id, action='UPDATE', field=change)
+        log_change(session, edition,
+                   fields=changes)
     else:
         app.logger.debug('Errors: {}'.format(form.errors))
         print('Errors: {}'.format(form.errors))
@@ -404,7 +403,8 @@ def save_translator_to_edition() -> Any:
             session.add(tr)
 
     session.commit()
-    log_change(session, 'Painos', editionid, 'UPDATE', 'Kääntäjät')
+    edition = session.query(Edition).filter(Edition.id == editionid).first()
+    log_change(session, obj=edition, fields=['Kääntäjät'])
     msg = 'Tallennus onnistui'
     category = 'success'
     resp = {'feedback': msg, 'category': category}
@@ -433,7 +433,8 @@ def save_editor_to_edition() -> Any:
     session = new_session()
     (editionid, people_ids) = get_select_ids(request.form)
     session.commit()
-    log_change(session, 'Painos', editionid, 'UPDATE', 'Toimittajat')
+    edition = session.query(Edition).filter(Edition.id == editionid).first()
+    log_change(session, edition, fields='Toimittajat')
 
     msg = 'Tallennus onnistui'
     category = 'success'
@@ -469,7 +470,7 @@ def save_pubseries_to_edition() -> Any:
     edition.pubseries_id = pubseries_id
     session.add(edition)
     session.commit()
-    log_change(session, 'Painos', editionid, 'UPDATE', 'Julk.sarja')
+    log_change(session, edition, fields=['Julk.sarja'])
 
     msg = 'Tallennus onnistui'
     category = 'success'
@@ -505,7 +506,7 @@ def save_publisher_to_edition() -> Any:
     edition.publisher_id = publisher_id[0]['id']
     session.add(edition)
     session.commit()
-    log_change(session, 'Painos', editionid, 'UPDATE', 'Julkaisija')
+    log_change(session, edition, fields=['Julkaisija'])
 
     msg = 'Tallennus onnistui'
     category = 'success'
@@ -602,7 +603,7 @@ def save_image_to_edition() -> Any:
                                   image_src=app.config['BOOKCOVER_DIR'] + filename)
                 session.add(ei)
                 session.commit()
-                log_change(session, 'Painos', int(id), 'UPDATE', 'Kuva')
+                log_change(session, 'Painos', int(id), 'Kuva')
                 return redirect(request.url)
         else:
             return redirect(request.url)
