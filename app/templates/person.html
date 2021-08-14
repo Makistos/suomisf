@@ -86,7 +86,16 @@
               value="{{person.image_attr if person.image_attr is not none}}" form="itemForm">
           </div>
         </div>
+        {% if person.image_src %}
+        <div class="row edit-field">
+          <div class="col">
+            <a href="{{url_for('remove_image_from_person', personid=person.id)}}">Poista kuva</a>
+          </div>
+        </div>
         {% endif %}
+        {% endif %}
+
+        <!-- Links -->
         {% if current_user.is_admin %}
         <div data-toggle="fieldset" id="link-fieldset" class="row edit-field mt-2">
           <div class="col">
@@ -131,13 +140,7 @@
             {% endfor %}
           </div>
         </div>
-        {% if person.image_src %}
-        <div class="row edit-field">
-          <div class="col">
-            <a href="{{url_for('remove_image_from_person', personid=person.id)}}">Poista kuva</a>
-          </div>
-        </div>
-        {% endif %}
+
       </div>
       <div class="col-lg-8 col-sm-12">
         {% if current_user.is_admin %}
@@ -698,14 +701,13 @@
             console.log(this);
             var id = $(this).attr('id').replace('-' + (elem_num - 1) + '-', '-' + (elem_num) + '-');
             $(this).attr('name', id).attr('id', id).val('').removeAttr("checked");
-          }); 'a'
+          });
           oldrow.after(row);
         });
         // Remove entry
         $this.find("button[data-toggle=fieldset-remove-row]").click(function () {
-          console.log("delete");
           if ($this.find("[data-toggle=fieldset-entry]").length > 1) {
-            var thisRow = $(this).closest("[data-togle=fieldset-entry]");
+            var thisRow = $(this).closest("[data-toggle=fieldset-entry]");
             thisRow.remove();
           }
         });
