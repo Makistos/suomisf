@@ -10,7 +10,7 @@ from app.orm_decl import (Person, PersonTag,
                           Part, Work, Genre,
                           Bookseries,
                           Country, Language, PersonLanguage,
-                          Tag, PersonTag, Alias, Contributor)
+                          Tag, PersonTag, Alias, Contributor, PersonLink)
 from sqlalchemy import func
 from typing import Dict, Any, List
 from .route_helpers import *
@@ -114,6 +114,7 @@ def person(personid: Any) -> Any:
     for genre in genres:
         genre_list[genre.abbr] = [genre.count, genre.name]
 
+    # links =
     if request.method == 'GET':
         form.name.data = person.name
         form.alt_name.data = person.alt_name
@@ -143,6 +144,18 @@ def person(personid: Any) -> Any:
             changes.append('Biografia')
         person.bio_src = form.bio_src.data
         session.add(person)
+        session.commit()
+        # Save links
+        session.query(PersonLink)\
+            .filter(PersonLink.person_id == person.id).delete()
+
+        for link in form.links.data:
+            if link['link']:
+                if len(link['link']) > 0:
+                    pl = PersonLink(person_id=person.id,
+                                    link=link['link'],
+                                    description=link['description'])
+                    session.add(pl)
         session.commit()
         # Reload data so changes are updated to view
         person = session.query(Person).filter(Person.id == person.id).first()

@@ -1,10 +1,12 @@
+from wtforms.fields.core import FieldList, FormField
 from app.route_helpers import new_session
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField,\
-    IntegerField, SelectField, HiddenField, RadioField, TextAreaField,\
-    SelectMultipleField, widgets
-from wtforms.validators import DataRequired, InputRequired, ValidationError, EqualTo, Optional
-from app.orm_decl import User, Person
+from wtforms import (StringField, PasswordField, BooleanField, SubmitField,
+                     IntegerField, SelectField, HiddenField, FieldList,
+                     TextAreaField, SelectMultipleField, widgets, Form)
+from wtforms.validators import (DataRequired, InputRequired, ValidationError,
+                                EqualTo, Optional)
+from app.orm_decl import PersonLink, User, Person
 from app import db
 from typing import Any
 
@@ -206,6 +208,11 @@ class NewWorkForm(FlaskForm):
     submit = SubmitField('Tallenna')
 
 
+class PersonLinkForm(Form):
+    link = StringField('Linkki')
+    description = StringField('Kuvaus')
+
+
 class PersonForm(FlaskForm):
     id = HiddenField('id')
     name = StringField('Kirjailjanimi', validators=[InputRequired()])
@@ -218,6 +225,7 @@ class PersonForm(FlaskForm):
     image_attr = StringField('Kuvan lähde', validators=[Optional()])
     bio = TextAreaField('Kuvaus', validators=[Optional()])
     bio_src = StringField('Kuvauksen lähde', validators=[Optional()])
+    links = FieldList(FormField(PersonLinkForm), min_entries=1)
     submit = SubmitField('Tallenna')
 
     # def validate_name(form: Any, field: Any) -> Any:

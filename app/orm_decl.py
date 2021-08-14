@@ -560,6 +560,7 @@ class Person(Base):
                            secondary='alias',
                            secondaryjoin=id == Alias.alias,
                            uselist=True, viewonly=True)
+    links = relationship("PersonLink", uselist=True, viewonly=True)
     works = relationship("Work",
                          secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
                          primaryjoin='and_(Person.id == Contributor.person_id,\

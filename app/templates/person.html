@@ -87,6 +87,50 @@
           </div>
         </div>
         {% endif %}
+        {% if current_user.is_admin %}
+        <div data-toggle="fieldset" id="link-fieldset" class="row edit-field mt-2">
+          <div class="col">
+            Linkit: <button type="button" data-toggle="fieldset-add-row" data-target="#link-fieldset">+</button>
+            <table>
+              <tr>
+                <th>Osoite</th>
+                <th>Kuvaus</th>
+              </tr>
+              {% if person.links|length %}
+              {% for link in person.links %}
+              <tr data-toggle="fieldset-entry">
+                <td><input id="links-{{loop.index0}}-link" type="text" class="form-control form-item"
+                    name="links-{{loop.index0}}-link" value="{{ link.link if link.link is not none}}" form="itemForm">
+                </td>
+                <td><input id="links-{{loop.index0}}-description" type="text" class="form-control form-item"
+                    name="links-{{loop.index0}}-description"
+                    value="{{link.description if link.description is not none}}" form="itemForm"></td>
+                <td><button type="button" data-toggle="fieldset-remove-row" id="link-{{loop.index0}}-remove">-</button>
+                </td>
+              </tr>
+              {% endfor %}
+              {% else %}
+              <tr data-toggle="fieldset-entry">
+                <td><input id="links-0-link" type="text" class="form-control form-item" name="links-0-link"
+                    form="itemForm">
+                </td>
+                <td><input id="links-0-description" type="text" class="form-control form-item"
+                    name="links-0-description" form="itemForm"></td>
+                <td><button type="button" data-toggle="fieldset-remove-row" id="link-0-remove">-</button>
+                </td>
+              </tr>
+              {% endif %}
+            </table>
+          </div>
+        </div>
+        {% endif %}
+        <div class="row view-field mb-2">
+          <div class="col">
+            {% for link in person.links %}
+            <a href="{{link.link}}">{{link.description}}</a>
+            {% endfor %}
+          </div>
+        </div>
         {% if person.image_src %}
         <div class="row edit-field">
           <div class="col">
@@ -222,17 +266,18 @@
           {% endif %}
         </div>
 
+        {% if current_user.is_admin %}
+        <div class="row edit-field mb-1">
+          <div class="col">
+            <label for="bio_src">Lähde</label>
+            <input type="text" class="form-control form-item" id="bio_src" name="bio_src"
+              value="{{person.bio_src if person.bio_src is not none}}" form="itemForm">
+          </div>
+        </div>
+        {% endif %}
       </div>
     </div>
-    {% if current_user.is_admin %}
-    <div class="row edit-field mb-1">
-      <div class="col">
-        <label for="bio_src">Lähde</label>
-        <input type="text" class="form-control form-item" id="bio_src" name="bio_src"
-          value="{{person.bio_src if person.bio_src is not none}}" form="itemForm">
-      </div>
-    </div>
-    {% endif %}
+
     {% if current_user.is_admin %}
     <div class="row">
       <div class="col">
@@ -634,6 +679,38 @@
         document.getElementById("switcher").textContent = "Kannet";
       }
     }
+  </script>
+  <script>
+    $(function () {
+      $("div[data-toggle=fieldset]").each(function () {
+        var $this = $(this);
+        // Add entry
+        $this.find("button[data-toggle=fieldset-add-row]").click(function () {
+          var target = $($(this).data("target"));
+          console.log("target");
+          console.log(target);
+          var oldrow = target.find("[data-toggle=fieldset-entry]:last");
+          var row = oldrow.clone(true, true);
+          var elem_id = row.find(":input")[0].id;
+          var elem_num = parseInt(elem_id.replace(/.*-(\d{1,4})-.*/m, '$1')) + 1;
+          row.attr('data-id', elem_num);
+          row.find(":input").each(function () {
+            console.log(this);
+            var id = $(this).attr('id').replace('-' + (elem_num - 1) + '-', '-' + (elem_num) + '-');
+            $(this).attr('name', id).attr('id', id).val('').removeAttr("checked");
+          }); 'a'
+          oldrow.after(row);
+        });
+        // Remove entry
+        $this.find("button[data-toggle=fieldset-remove-row]").click(function () {
+          console.log("delete");
+          if ($this.find("[data-toggle=fieldset-entry]").length > 1) {
+            var thisRow = $(this).closest("[data-togle=fieldset-entry]");
+            thisRow.remove();
+          }
+        });
+      });
+    });
   </script>
   {% endblock %}
 
