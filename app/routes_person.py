@@ -145,7 +145,12 @@ def person(personid: Any) -> Any:
         person.bio_src = form.bio_src.data
         session.add(person)
         session.commit()
+
         # Save links
+        links = list(person.links)
+        if dynamic_changed(links, form.links.data):
+            changes.append('Linkit')
+
         session.query(PersonLink)\
             .filter(PersonLink.person_id == person.id).delete()
 

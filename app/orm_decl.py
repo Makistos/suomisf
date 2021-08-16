@@ -253,7 +253,7 @@ class Edition(Base):
     pages = Column(Integer)
     binding_id = Column(Integer, ForeignKey('bindingtype.id'))
     format_id = Column(Integer, ForeignKey('format.id'))
-    size = Column(Integer)
+    size = Column(Integer)  # Height in centimeters
     #size_id = Column(Integer, ForeignKey('publicationsize.id'))
     dustcover = Column(Integer, default=0)  # 0 = not known, 1 = no, 2 = yes
     coverimage = Column(Integer, default=0)  # 0 = not known, 1 = no, 2 = yes
@@ -483,10 +483,6 @@ class Magazine(Base):
     publisher = relationship('Publisher', uselist=False)
     # Type of magazine. 0 = fanzine, 1 = other.
     type = Column(Integer, nullable=False)
-
-    @property
-    def name(self) -> str:
-        return self.name
 
 
 class MagazineTag(Base):
