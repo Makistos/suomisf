@@ -1,3 +1,8 @@
+"""
+    This module contains the functions related to routes that are not directly
+    route definitions.
+"""
+
 #!/usr/bin/python3
 
 from copy import deepcopy
@@ -18,13 +23,13 @@ import json
 import itertools
 from datetime import datetime
 
-"""
-    This module contains the functions related to routes that are not directly
-    route definitions.
-"""
-
 
 def new_session() -> Any:
+    ''' Create a new SQLAlchemy database session handle.
+
+    Returns:
+        Any: Session handler.
+    '''
     engine = create_engine(
         app.config['SQLALCHEMY_DATABASE_URI'], poolclass=NullPool)
     Session = sessionmaker(bind=engine)
@@ -53,6 +58,14 @@ table_locals = {'article': 'Artikkeli',
 
 
 def log_change(session: Any, obj: Any, action: str = 'Päivitys', fields: List[str] = []) -> None:
+    ''' Log a change made to data.
+
+    Args:
+        session (Any): Session handler.
+        obj (Any): Object that was changed.
+        action (str, optional): Description of change, either "Päivitys" or "Uusi". Defaults to 'Päivitys'.
+        fields (List[str], optional): Fields that were changed. Needed for "Päivitys", not used for "Uusi". Defaults to [].
+    '''
     name: str = obj.name
     tbl_name = table_locals[obj.__table__.name]
     # if len(fields) == 0:
@@ -76,6 +89,14 @@ def log_change(session: Any, obj: Any, action: str = 'Päivitys', fields: List[s
 
 
 def publisher_list(session: Any) -> Dict[str, List[str]]:
+    ''' Get a list of publishers from the database.
+
+    Args:
+        session (Any): Session handler.
+
+    Returns:
+        Dict[str, List[str]]:
+    '''
     return {'publisher': [str(x.name) for x in
                           session.query(Publisher).order_by(Publisher.name).all()]}
 
@@ -129,17 +150,12 @@ def get_select_ids(form: Any, item_field: str = 'itemId') -> Tuple[int, List[Dic
         function parses these fields and returns parent id and a list containing
         the ids as ints.
 
-        Parameters
-        ----------
-        form        : request.form
-            Form that contains the values.
-        item_field  : str
-            Name for the parent id field. Default: "itemId".
+        Args:
+            form (request.form): Form that contains the values.
+            item_field (str): Name for the parent id field. Default: "itemId".
 
-        Returns
-        -------
-        Tuple[int, List[int]]
-            A tuple of parent id and list of item ids.
+        Returns:
+            Tuple[int, List[int]]: A tuple of parent id and list of item ids.
     '''
     if ('items' not in form or item_field not in form):
         abort(400)
@@ -736,6 +752,12 @@ def create_new_language(session: Any, lang_name: str) -> Tuple[int, str]:
 # Called when a person's name field is changed. This requires updating all
 # author strings in works.
 def update_creators(session: Any, person: Any) -> None:
+    ''' Update author string for work.
+
+    Args:
+        session (Any): Session handler.
+        person (Any): Person db object.
+    '''
     for work in person.works:
         work.author_str = work.update_author_str()
         session.add(work)
@@ -743,6 +765,13 @@ def update_creators(session: Any, person: Any) -> None:
 
 
 def update_creators_to_story(session: Any, storyid: int, authors: Any) -> None:
+    ''' Updates creator string for story.
+
+    Args:
+        session (Any): Session handler.
+        storyid (int): Story id in database.
+        authors (Any): Author list read from database.
+    '''
     author_str = ' & '.join([x.name for x in authors])
     story = session.query(ShortStory).filter(ShortStory.id == storyid).first()
     story.creator_str = author_str
@@ -751,13 +780,25 @@ def update_creators_to_story(session: Any, storyid: int, authors: Any) -> None:
 
 
 def dynamic_changed(original_list: List[Any], new_list: List[Any]) -> bool:
+    ''' Check if contents of a dynamic field (e.g. links section) has changed.
+
+    Args:
+        original_list (List[Any]): Old values, use the database reference,
+                                    e.g. person.links
+        param new_list (List[Any]): Contents of the field when saving.
+                                    Use the field's data, e.g. form.links.data.
+
+    Returns:
+        bool: True if user made changes, False otherwise.
+    '''
     new_dict = {x['link']: x['description']
                 for x in new_list if x['link'] != ''}
     if len(original_list) != len(new_dict):
         return True
     for item in original_list:
         if item.link in new_dict:
-            del new_dict[item.link]
+            if item.description == new_dict['link']:
+                del new_dict[item.link]
     if len(new_dict) > 0:
         return True
 
