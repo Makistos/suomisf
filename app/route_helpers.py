@@ -797,7 +797,7 @@ def dynamic_changed(original_list: List[Any], new_list: List[Any]) -> bool:
         return True
     for item in original_list:
         if item.link in new_dict:
-            if item.description == new_dict['link']:
+            if item.description == new_dict[item.link]:
                 del new_dict[item.link]
     if len(new_dict) > 0:
         return True

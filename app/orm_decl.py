@@ -909,6 +909,7 @@ class Work(Base):
         'Language', backref=backref('language'), uselist=False)
     stories = relationship('ShortStory', secondary='part', uselist=True,
                            viewonly=True)
+    links = relationship("WorkLink", uselist=True, viewonly=True)
 
     author_str = Column(String(500))
 
@@ -994,8 +995,8 @@ class WorkGenre(Base):
 
 class WorkLink(Base):
     __tablename__ = 'worklink'
-    work_id = Column(Integer, ForeignKey('work.id'), nullable=False,
-                     primary_key=True)
+    id = Column(Integer, primary_key=True)
+    work_id = Column(Integer, ForeignKey('work.id'), nullable=False)
     link = Column(String(200), nullable=False)
     description = Column(String(100))
 

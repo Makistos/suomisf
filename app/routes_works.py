@@ -5,7 +5,7 @@ from flask_login import login_required, current_user
 from app.orm_decl import (Person, Work, Bookseries,
                           Edition, Part, Genre, WorkGenre, ShortStory,
                           BindingType, Part, WorkTag, Tag,
-                          Language, Contributor)
+                          Language, Contributor, WorkLink)
 from app.forms import (WorkForm, StoryForm, EditionForm)
 from sqlalchemy import func
 import json
@@ -197,6 +197,23 @@ def work(workid: Any) -> Any:
         work.author_str = work.update_author_str()
         session.add(work)
         session.commit()
+        # Save links
+        links = list(work.links)
+        if dynamic_changed(links, form.links.data):
+            fields.append('Linkit')
+
+        session.query(WorkLink)\
+            .filter(WorkLink.work_id == work.id).delete()
+
+        for link in form.links.data:
+            if link['link']:
+                if len(link['link']) > 0:
+                    wl = WorkLink(work_id=work.id,
+                                  link=link['link'],
+                                  description=link['description'])
+                    session.add(wl)
+        session.commit()
+        # Reload data so changes are updated to view
         log_change(session, work, fields=fields)
     else:
         app.logger.error('Errors: {}'.format(form.errors))

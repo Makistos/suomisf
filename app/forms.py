@@ -262,6 +262,11 @@ class StoryForm(FlaskForm):
     submit_story = SubmitField('Tallenna')
 
 
+class WorkLinkForm(Form):
+    link = StringField('Linkki')
+    description = StringField('Kuvaus')
+
+
 class WorkForm(FlaskForm):
     id = HiddenField('id')
     work_id = HiddenField('work_id')
@@ -280,6 +285,7 @@ class WorkForm(FlaskForm):
     image_src = StringField('Kuva')
     description = TextAreaField('Kuvaus')
     source = StringField('Lähde')
+    links = FieldList(FormField(WorkLinkForm), min_entries=1)
     submit = SubmitField('Tallenna')
 
 

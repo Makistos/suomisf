@@ -177,6 +177,58 @@
                 {% endif %}
             </div>
         </div>
+        <!-- Links -->
+        {% if current_user.is_admin %}
+        <div data-toggle="fieldset" id="link-fieldset" class="row edit-field mt-2">
+            <div class="col-lg-12 align-self-start">
+                Linkit: <button type="button" data-toggle="fieldset-add-row" data-target="#link-fieldset">+</button>
+                <table>
+                    <tr>
+                        <th>Osoite</th>
+                        <th>Kuvaus</th>
+                    </tr>
+                    {% if work.links|length %}
+                    {% for link in work.links %}
+                    <tr data-toggle="fieldset-entry">
+                        <td><input id="links-{{loop.index0}}-link" type="text" class="form-control form-item"
+                                name="links-{{loop.index0}}-link" value="{{ link.link if link.link is not none}}"
+                                form="itemForm">
+                        </td>
+                        <td><input id="links-{{loop.index0}}-description" type="text" class="form-control form-item"
+                                name="links-{{loop.index0}}-description"
+                                value="{{link.description if link.description is not none}}" form="itemForm"></td>
+                        <td><button type="button" data-toggle="fieldset-remove-row"
+                                id="link-{{loop.index0}}-remove">-</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr data-toggle="fieldset-entry">
+                        <td><input id="links-0-link" type="text" class="form-control form-item" name="links-0-link"
+                                form="itemForm">
+                        </td>
+                        <td><input id="links-0-description" type="text" class="form-control form-item"
+                                name="links-0-description" form="itemForm"></td>
+                        <td><button type="button" data-toggle="fieldset-remove-row" id="link-0-remove">-</button>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row view-field mb-2">
+            <div class="col">
+                {% if work.links|length > 1 %}
+                {% for link in work.links[0:-1] %}
+                <a href="{{link.link}}" target="_blank">{{link.description}}</a> &bull;
+                {% endfor %}
+                <a href="{{work.links[-1].link}}" target="_blank">{{work.links[-1].description}}</a>
+                {% elif work.links|length == 1 %}
+                <a href="{{work.links[0].link}}" target="_blank">{{work.links[0].description}}</a>
+                {% endif %}
+            </div>
+        </div>
         <!-- Misc -->
         <div class="row">
             {% if current_user.is_admin %}
@@ -316,6 +368,8 @@
     })
 </script>
 <script src="/static/js/contentSwitcher.js"></script>
+
+<script src="/static/js/dynamic_fields.js" type="text/javascript"></script>
 
 
 {% endblock %}
