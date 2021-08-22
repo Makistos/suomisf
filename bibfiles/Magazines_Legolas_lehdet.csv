@@ -1,52 +1,52 @@
-﻿Number;Number_extra;Count;Year;Editor;Image_src;Pages;Size;Link;Notes
-;;1;1991;Vainikainen, Johanna;;;A5;;Legolasin ensimmäinen numero.
-;;2;1992;Vainikainen, Johanna;;32;A5;;Kansi: Jukka Halme
-;;3;1992;Vainikainen, Johanna;;40;A5;;Kansi: Sari Luoto
-;;4;1992;Vainikainen, Johanna;;60;A5;;Kansi: Sami Kaarla
-;;5;1992;Vainikainen, Johanna;;28;A5;;Kansi: Petri Tolppanen
-;;6;1993;Kivelä, Marko;;36;A5;;Kansi: Petri Hiltunen
-;;7;1993;Vainikainen, Johanna;;44;A5;;Kansi: Jukka Halme
-;;8;1993;Vainikainen, Johanna;;48;A5;;Kansi: Jukka Halme
-;;9;1993;Vainikainen, Johanna;;36;A5;;Kansi: Jukka Laajarinne
-;;10;1994;Vainikainen, Johanna;;64;A5;;Kansi: Petri Hiltunen
-;;11;1994;Vainikainen, Johanna;;56;A5;;Kansi: Mikko Juhola
-;;12;1995;Vainikainen, Johanna;;76;A5;;Kansi: Jukka Halme. Yhteisnumero Kosmoskynä-lehden kanssa.
-;;13;1996;;;;A5;;
-;;14;1997;Halme, Jukka;;44;A5;;Kansi: Sari Luoto-Tudeer
-;;15;1997;Pohjola, Mike;;28;A4;;Legolarppaaja. Yhteisnumero Larppaaja-lehden kanssa.
-;;16;1998;Halme, Jukka;;44;A5;;Kansi: Sami Rouhiainen
-;;17;1998;Halme, Jukka;;40;A5;;Kansi: Eliza Maria Sandell
-;;18;;;;;A5;;
-;;19;2001;Peltonen, Leena;;48;A5;;Kansi: Tonja Goldblatt
-;;20;2000;Vinni, Pauli;;28;A5;;Kansi: Tonja Goldblatt
-;;21;2000;Vinni, Päivi;;36;A5;;Kansi: Tonja Goldblatt
-;;22;2001;Vinni, Päivi;;60;A5;;Kansi: Jani Nummela
-;;23;2001;Vinni, Päivi;;60;A5;;Kansi: Jukka Halme
-;;24;2002;;;;A5;;
-;;25;2002;;;;A5;;
-;;26;2003;Vinni, Päivi;;40;A5;;Kansi: Jukka Halme
-;;27;2003;Vinni, Päivi;;44;A5;;Kansi: Suvi Viitanen
-;;28;2003;Leikomaa, Marianne;;36;A5;;Kansi: Saara Salmi. Englanninkielinen erikoisnumero Green Leaf
-;;29;2003;Vinni, Päivi;;40;A5;;Kansi: Mikko Lepistö
-;;30;2004;Vinni, Päivi;;36;A5;;Kansi: Sari Luoto
-;;31;2004;Vinni, Päivi;;40;A5;;Kansi: Jani Hämäläinen
-;;32;2004;Vinni, Päivi;;44;A5;;Kansi: Wille Ruotsalainen
-;;33;2004;;;;A5;;
-;;34;2005;;;;A5;;
-;;35;2005;;;;A5;;
-;;36;2005;Vinni, Päivi;;44;A5;;Kansi: Jani Hämäläinen
-;;37;2005;Vinni, Päivi;;52;A5;;Kansi: Sari Luoto
-;;38;2006;Vinni, Päivi;;44;A5;;Kansi: Mikko Lepistö
-;;39;2006;Vinni, Päivi;;44;A5;;Kansi: Tonja Goldblatt
-;;40;2006;Vinni, Päivi;;44;A5;;Kansi: Jani Nummela
-;;41;2006;Vinni, Päivi;;24;A5;;Kansi: Anu Holopainen
-;;42;2007;Vinni, Pauli;;28;A5;;Kansi: Ilari Lampinen
-;;43;2008;Lauronen, Mika-Petri;;40;A5;;Kansi: Heta Happonen
-;;44;2008;Lauronen, Mika-Petri;;32;A5;;Kansi: Petri Hiltunen. Kaksoisnumero #44-#45
-;;46;2009;Lauronen, Mika-Petri;;32;A5;;Kansi: Kaisa Voutilainen
-;;47;2009;;;;A5;;
-;;48;2010;;;;A5;;
-;;49;2011;Uotila, Miikka;;24;A5;;Kansi: Mikko Nikkilä & Miikka Uotila. Filkkinumero.
-;;50;2012;;;;A5;;
-;;51;;;;;A5;;
-;;52;;;;;A5;;
+﻿Number;Number_extra;Count;Year;Editor;Image_src;Pages;Size;Link;Notes;Title;Alternate_numbering
+;;1;1991;Vainikainen, Johanna;;;A5;;Legolasin ensimmäinen numero.;;
+;;2;1992;Vainikainen, Johanna;;32;A5;;Kansi: Jukka Halme;;
+;;3;1992;Vainikainen, Johanna;;40;A5;;Kansi: Sari Luoto;;
+;;4;1992;Vainikainen, Johanna;;60;A5;;Kansi: Sami Kaarla;;
+;;5;1992;Vainikainen, Johanna;;28;A5;;Kansi: Petri Tolppanen;;
+;;6;1993;Kivelä, Marko;;36;A5;;Kansi: Petri Hiltunen;;
+;;7;1993;Vainikainen, Johanna;;44;A5;;Kansi: Jukka Halme;;
+;;8;1993;Vainikainen, Johanna;;48;A5;;Kansi: Jukka Halme;;
+;;9;1993;Vainikainen, Johanna;;36;A5;;Kansi: Jukka Laajarinne;;
+;;10;1994;Vainikainen, Johanna;;64;A5;;Kansi: Petri Hiltunen;;
+;;11;1994;Vainikainen, Johanna;;56;A5;;Kansi: Mikko Juhola;;
+;;12;1995;Vainikainen, Johanna;;76;A5;;Kansi: Jukka Halme. Yhteisnumero Kosmoskynä-lehden kanssa.;;
+;;13;1996;;;;A5;;;;
+;;14;1997;Halme, Jukka;;44;A5;;Kansi: Sari Luoto-Tudeer;;
+;;15;1997;Pohjola, Mike;;28;A4;;Legolarppaaja. Yhteisnumero Larppaaja-lehden kanssa.;;
+;;16;1998;Halme, Jukka;;44;A5;;Kansi: Sami Rouhiainen;;
+;;17;1998;Halme, Jukka;;40;A5;;Kansi: Eliza Maria Sandell;;
+;;18;;;;;A5;;;;
+;;19;2001;Peltonen, Leena;;48;A5;;Kansi: Tonja Goldblatt;;
+;;20;2000;Vinni, Pauli;;28;A5;;Kansi: Tonja Goldblatt;;
+;;21;2000;Vinni, Päivi;;36;A5;;Kansi: Tonja Goldblatt;;
+;;22;2001;Vinni, Päivi;;60;A5;;Kansi: Jani Nummela;;
+;;23;2001;Vinni, Päivi;;60;A5;;Kansi: Jukka Halme;;
+;;24;2002;;;;A5;;;;
+;;25;2002;;;;A5;;;;
+;;26;2003;Vinni, Päivi;;40;A5;;Kansi: Jukka Halme;;
+;;27;2003;Vinni, Päivi;;44;A5;;Kansi: Suvi Viitanen;;
+;;28;2003;Leikomaa, Marianne;;36;A5;;Kansi: Saara Salmi. Englanninkielinen erikoisnumero Green Leaf;;
+;;29;2003;Vinni, Päivi;;40;A5;;Kansi: Mikko Lepistö;;
+;;30;2004;Vinni, Päivi;;36;A5;;Kansi: Sari Luoto;;
+;;31;2004;Vinni, Päivi;;40;A5;;Kansi: Jani Hämäläinen;;
+;;32;2004;Vinni, Päivi;;44;A5;;Kansi: Wille Ruotsalainen;;
+;;33;2004;;;;A5;;;;
+;;34;2005;;;;A5;;;;
+;;35;2005;;;;A5;;;;
+;;36;2005;Vinni, Päivi;;44;A5;;Kansi: Jani Hämäläinen;;
+;;37;2005;Vinni, Päivi;;52;A5;;Kansi: Sari Luoto;;
+;;38;2006;Vinni, Päivi;;44;A5;;Kansi: Mikko Lepistö;;
+;;39;2006;Vinni, Päivi;;44;A5;;Kansi: Tonja Goldblatt;;
+;;40;2006;Vinni, Päivi;;44;A5;;Kansi: Jani Nummela;;
+;;41;2006;Vinni, Päivi;;24;A5;;Kansi: Anu Holopainen;;
+;;42;2007;Vinni, Pauli;;28;A5;;Kansi: Ilari Lampinen;;
+;;43;2008;Lauronen, Mika-Petri;;40;A5;;Kansi: Heta Happonen;;
+;;44;2008;Lauronen, Mika-Petri;;32;A5;;Kansi: Petri Hiltunen. Kaksoisnumero #44-#45;;
+;;46;2009;Lauronen, Mika-Petri;;32;A5;;Kansi: Kaisa Voutilainen;;
+;;47;2009;;;;A5;;;;
+;;48;2010;;;;A5;;;;
+;;49;2011;Uotila, Miikka;;24;A5;;Kansi: Mikko Nikkilä & Miikka Uotila. Filkkinumero.;;
+;;50;2012;;;;A5;;;;
+;;51;;;;;A5;;;;
+;;52;;;;;A5;;;;
