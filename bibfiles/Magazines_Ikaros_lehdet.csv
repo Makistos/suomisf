@@ -1,11 +1,11 @@
-﻿Number;Number_extra;Count;Year;Editor;Image_src;Pages;Size;Link;Notes
-1;;1;1986;Ijäs, Jyrki;;52;B5;;Ikaroksen ensimmäinen numero. Kansi: Heikki Kalliomaa.
-2;;2;1986;Ijäs, Jyrki;;48;B5;;Kansi: Jukka Murtosaari.
-3;;3;1986;Ijäs, Jyrki;;52;B5;;Kansi: Jouni Wääräkangas.
-4;;4;1986;Ijäs, Jyrki;;48;B5;;Kansi: Kari T. Leppänen.
-1;;5;1987;Ijäs, Jyrki;;48;B5;;Kansi: Kari T. Leppänen.
-2;;6;1987;Ijäs, Jyrki;;60;B5;;Kansi: Kari T. Leppänen.
-3;;7;1987;Ijäs, Jyrki;;12;A4;;Joulunumeo. Kansi: Lasse Mattila
-4;;8;1987;Ijäs, Jyrki;;16;A4;;Kansi: Erkki Parhamaa
-1;;9;1988;Ijäs, Jyrki;;32;A4;;J.G. Ballard Special. Kansi: Hunt Emerson
-2;;10;1988;Ijäs, Jyrki;;32;A4;;Kansi: Vass Mihály
+﻿Number;Number_extra;Count;Year;Editor;Image_src;Pages;Size;Link;Notes;Title;Alternate_numbering
+1;;1;1986;Ijäs, Jyrki;;52;B5;;Ikaroksen ensimmäinen numero. Kansi: Heikki Kalliomaa.;;
+2;;2;1986;Ijäs, Jyrki;;48;B5;;Kansi: Jukka Murtosaari.;;
+3;;3;1986;Ijäs, Jyrki;;52;B5;;Kansi: Jouni Wääräkangas.;;
+4;;4;1986;Ijäs, Jyrki;;48;B5;;Kansi: Kari T. Leppänen.;;
+1;;5;1987;Ijäs, Jyrki;;48;B5;;Kansi: Kari T. Leppänen.;;
+2;;6;1987;Ijäs, Jyrki;;60;B5;;Kansi: Kari T. Leppänen.;;
+3;;7;1987;Ijäs, Jyrki;;12;A4;;Joulunumeo. Kansi: Lasse Mattila;;
+4;;8;1987;Ijäs, Jyrki;;16;A4;;Kansi: Erkki Parhamaa;;
+1;;9;1988;Ijäs, Jyrki;;32;A4;;J.G. Ballard Special. Kansi: Hunt Emerson;;
+2;;10;1988;Ijäs, Jyrki;;32;A4;;Kansi: Vass Mihály;;

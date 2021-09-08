@@ -1,4 +1,4 @@
-﻿Number;Number_extra;Count;Year;Editor;Image_src;Pages;Size;Link;Notes;Title
-1;;1;2006;Leinonen, Anne;http://usvazine.net/kansiusvaint2006.gif;64;;http://usvazine.net/arkistousvaint06.htm;Englanninkielinen numero.;
-1;;2;2007;Leinonen, Anne;http://usvazine.net/kansiusvaint2007.gif;70;;http://usvazine.net/arkistousvaint07.htm;Englanninkielinen numero.;
-1;;3;2010;Leinonen, Anne;http://usvazine.net/kansiint2010.jpg;41;;http://usvazine.net/arkistousvaint10.htm;Englanninkielinen numero.;
+﻿Number;Number_extra;Count;Year;Editor;Image_src;Pages;Size;Link;Notes;Title;Alternate_numbering
+1;;1;2006;Leinonen, Anne;http://usvazine.net/kansiusvaint2006.gif;64;;http://usvazine.net/arkistousvaint06.htm;Englanninkielinen numero.;;
+1;;2;2007;Leinonen, Anne;http://usvazine.net/kansiusvaint2007.gif;70;;http://usvazine.net/arkistousvaint07.htm;Englanninkielinen numero.;;
+1;;3;2010;Leinonen, Anne;http://usvazine.net/kansiint2010.jpg;41;;http://usvazine.net/arkistousvaint10.htm;Englanninkielinen numero.;;
