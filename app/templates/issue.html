@@ -44,12 +44,12 @@
                                 data-save="/save_magazine_to_issue" data-init="/magazine_for_issue" data-name="magazine"
                                 id="magazine" name="magazine"></select>
                         </div>
-                        <div class="col-1 edit-field">
+                        <div class="col-2 edit-field">
                             <label for="number">Nro</label>
                             <input type="text" class="form-control form-item" name="number" id="number"
                                 value="{{issue.number if issue.number is not none}}" form="itemForm">
                         </div>
-                        <div class="col-1 edit-field">
+                        <div class="col-2 edit-field">
                             <label for="number_extra">Ekstra</label>
                             <input type="text" class="form-control form-item" name="number_extra" id="number_extra"
                                 value="{{issue.number_extra if issue.number_extra is not none}}" form="itemForm">
@@ -59,20 +59,26 @@
                             <input type="text" class="form-control form-item" name="year" id="year"
                                 value="{{issue.year if issue.year is not none}}" form="itemForm">
                         </div>
-                        <div class="col-1 edit-field">
+                        <div class="col-2 edit-field">
                             <label for="count">Jnum</label>
                             <input type="text" class="form-control form-item" name="count" id="count"
                                 value="{{issue.count if issue.count is not none}}" form="itemForm">
+                        </div>
+                        <div class="col-3 edit-field">
+                            <label for="cover_number">Kansinro</label>
+                            <input type="text" class="form-control form-item" name="cover_number" id="cover_number"
+                                value="{{issue.cover_number if issue.cover_number is not none}}" form="itemForm">
                         </div>
                         {% endif %}
                         <div class="col view-field">
                             <h2 class="card-title">
                                 {{ issue.magazine.name  }}
-                                {% if issue.number %}
+                                {# {% if issue.number %}
                                 {{ issue.number }} / {{ issue.year }}
                                 {% else %}
                                 {{ issue.count }}
-                                {% endif %}
+                                {% endif %} #}
+                                {{ issue.cover_number }}
                             </h2>
                         </div>
                     </div>

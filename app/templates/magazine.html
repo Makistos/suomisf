@@ -62,7 +62,7 @@
                             {% for issue in magazine.issues %}
                             <li class="list-group-item">
                                 <b><a href="{{ url_for('issue', id=issue.id)}}">
-                                        {% if issue.number -%}
+                                        {# {% if issue.number -%}
                                         {{ issue.number }}
                                         {%- if issue.number_extra -%}
                                         {{ issue.number_extra }}
@@ -74,7 +74,8 @@
                                         {{ issue.number_extra }}
                                         {% endif %}
                                         / {{ issue.year}}
-                                        {%- endif -%}
+                                        {%- endif -%} #}
+                                        {{ issue.cover_number }}
 
                                     </a></b>
                                 {%- if issue.title -%}

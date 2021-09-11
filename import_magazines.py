@@ -188,20 +188,27 @@ def import_issues(s, dir: str, name: str, id: int) -> None:
         number: Optional[int]
         count: Optional[int]
         year: Optional[int]
+        cover_number: str
         for issue in issues[name]:
+            number = None
+            count = None
+            year = None
             if issue['Number'] != '':
                 number = int(issue['Number'])
-            else:
-                number = None
             extra = issue['Number_extra']
             if issue['Count'] != '':
                 count = int(issue['Count'])
-            else:
-                count = None
             if issue['Year'] != '':
                 year = int(issue['Year'])
+            if issue['Alternate_numbering'] != '':
+                cover_number = issue['Alternate_numbering']
             else:
-                year = None
+                if number:
+                    cover_number = str(number) + extra
+                else:
+                    cover_number = str(count) + extra
+                if year:
+                    cover_number = cover_number + ' / ' + str(year)
             editors = issue['Editor'].split('&')
             image_src = issue['Image_src']
             pgs = issue['Pages']
@@ -233,6 +240,7 @@ def import_issues(s, dir: str, name: str, id: int) -> None:
                         number_extra=extra,
                         count=count,
                         year=year,
+                        cover_number=cover_number,
                         image_src=image_src,
                         pages=pages,
                         size_id=size_id,
@@ -512,6 +520,7 @@ def import_stories(s,
 
 
 def read_file(filename: str, d: Dict):
+    ''' Read contents of a csv file into a dictionary. '''
     with open(filename, 'r', encoding='utf-8-sig') as csvfile:
         print(f'Reading from {filename}.')
         csv_contents = csv.DictReader(csvfile,

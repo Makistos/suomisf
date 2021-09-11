@@ -11,8 +11,23 @@ from app.orm_decl import (
     Article, ShortStory)
 
 from .route_helpers import *
-from typing import Any, List, Dict
+from typing import Any, List, Dict, Optional
 import json
+
+
+def _make_cover_number(number: Optional[int], number_extra: Optional[str],
+                       count: Optional[int], year: Optional[int]) -> str:
+    cover_number: str = ''
+    if number:
+        cover_number = str(number)
+    else:
+        cover_number = str(count)
+    if number_extra:
+        cover_number = cover_number + number_extra
+    if year:
+        cover_number = cover_number + ' / ' + str(year)
+
+    return cover_number
 
 
 @app.route('/issue/<id>', methods=['POST', 'GET'])
@@ -32,23 +47,54 @@ def issue(id: Any) -> Any:
         form.number_extra.data = issue.number_extra
         form.count.data = issue.count
         form.year.data = issue.year
+        form.cover_number.data = issue.cover_number
         form.link.data = issue.link
         form.notes.data = issue.notes
         form.title.data = issue.title
     elif form.validate_on_submit():
         changes: List[str] = []
+        covnum_might_change: bool = False
+        old_cover_number = _make_cover_number(issue.number, issue.number_extra,
+                                              issue.count, issue.year)
+        cover_number = _make_cover_number(form.number.data,
+                                          form.number_extra.data,
+                                          form.count.data, form.year.data)
         if issue.number != form.number.data:
             issue.number = form.number.data
+            covnum_might_change = True
             changes.append('Numero')
-        if issue.number.extra != form.number_extra.data:
+        if issue.number_extra != form.number_extra.data:
             issue.number_extra = form.number_extra.data
+            covnum_might_change = True
             changes.append('Numeron lisätarkenne')
         if issue.count != form.count.data:
             issue.count = form.count.data
+            covnum_might_change = True
             changes.append('Järjestysnumero')
         if issue.year != form.year.data:
             issue.year = form.year.data
+            covnum_might_change = True
             changes.append('Vuosi')
+
+        if form.cover_number.data == '':
+            # Automatically fill with calculated value
+            issue.cover_number = cover_number
+            changes.append('Kansinumero')
+        elif form.cover_number.data != issue.cover_number:
+            # Fill with user supplied value
+            issue.cover_number = form.cover_number.data
+            changes.append('Kansinumero')
+        elif issue.cover_number != old_cover_number:
+            # Not automatically filled
+            if issue.cover_number != form.cover_number.data:
+                issue.cover_number = cover_number
+                changes.append('Kansinumero')
+        else:
+            # Automatically filled, so update if needed
+            if covnum_might_change:
+                issue.cover_number = cover_number
+                # Automatically filled, so don't add log row
+
         if issue.link != form.link.data:
             issue.link = form.link.data
             changes.append('Linkki')

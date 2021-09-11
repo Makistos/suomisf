@@ -395,6 +395,7 @@ class Issue(Base):
     number_extra = Column(String(20))
     count = Column(Integer)
     year = Column(Integer, index=True)
+    cover_number = Column(String(100))
     image_src = Column(String(200))
     image_attr = Column(String(100))  # Source website name
     pages = Column(Integer)

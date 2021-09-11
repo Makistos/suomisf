@@ -174,6 +174,7 @@ class IssueForm(FlaskForm):
     number_extra = StringField('Numeron tarkenne')
     count = IntegerField('Juokseva numero')
     year = IntegerField('Vuosi')
+    cover_number = StringField('Kansinumero')
     image_src = StringField('Kansikuva')
     pages = IntegerField('Sivuja')
     link = StringField('Linkki')
