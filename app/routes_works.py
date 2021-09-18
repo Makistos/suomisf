@@ -696,7 +696,7 @@ def add_edition_to_route(workid: Any) -> Any:
 
     work = session.query(Work).filter(Work.id == workid).all()
 
-    edition = Edition(title=work[0].title)
+    edition = Edition(title=work[0].title, pubyear=work[0].pubyear)
     session.add(edition)
     session.commit()
 
