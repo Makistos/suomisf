@@ -375,7 +375,8 @@ def save_translator_to_edition() -> Any:
 
     (editionid, people_ids) = get_select_ids(request.form)
 
-    existing_people = session.query(Contributor, Contributor.role_id == 2)\
+    existing_people = session.query(Contributor)\
+        .filter(Contributor.role_id == 2)\
         .join(Part)\
         .filter(Part.id == Contributor.part_id)\
         .filter(Part.edition_id == editionid)\
@@ -385,17 +386,21 @@ def save_translator_to_edition() -> Any:
                    .filter(Part.edition_id == editionid)\
                    .all()
 
+    for x in existing_people:
+        print(x)
+
     (to_add, to_remove) = get_join_changes(
         [x.person_id for x in existing_people],
         [int(x['id']) for x in people_ids])
 
     for id in to_remove:
-        tr = session.query(Contributor, Contributor.role_id == 2)\
-                    .filter(Contributor.person_id == id)\
-                    .join(Part)\
-                    .filter(Part.id == Contributor.part_id)\
-                    .filter(Part.edition_id == editionid)\
-                    .first()
+        tr = session.query(Contributor)\
+            .filter(Contributor.role_id == 2)\
+            .filter(Contributor.person_id == id)\
+            .join(Part)\
+            .filter(Part.id == Contributor.part_id)\
+            .filter(Part.edition_id == editionid)\
+            .first()
         session.delete(tr)
     for id in to_add:
         for part in parts:
@@ -432,6 +437,38 @@ def editors_for_edition(editionid: Any) -> Any:
 def save_editor_to_edition() -> Any:
     session = new_session()
     (editionid, people_ids) = get_select_ids(request.form)
+    existing_people = session.query(Contributor)\
+        .filter(Contributor.role_id == 3)\
+        .join(Part)\
+        .filter(Part.id == Contributor.part_id)\
+        .filter(Part.edition_id == editionid)\
+        .all()
+
+    parts = session.query(Part)\
+                   .filter(Part.edition_id == editionid)\
+                   .all()
+
+    for x in existing_people:
+        print(x)
+
+    (to_add, to_remove) = get_join_changes(
+        [x.person_id for x in existing_people],
+        [int(x['id']) for x in people_ids])
+
+    for id in to_remove:
+        ed = session.query(Contributor)\
+                    .filter(Contributor.role_id == 3)\
+                    .filter(Contributor.person_id == id)\
+                    .join(Part)\
+                    .filter(Part.id == Contributor.part_id)\
+                    .filter(Part.edition_id == editionid)\
+                    .first()
+        session.delete(ed)
+    for id in to_add:
+        for part in parts:
+            ed = Contributor(part_id=part.id, person_id=id, role_id=3)
+            session.add(ed)
+
     session.commit()
     edition = session.query(Edition).filter(Edition.id == editionid).first()
     log_change(session, edition, fields='Toimittajat')
@@ -467,7 +504,7 @@ def save_pubseries_to_edition() -> Any:
     edition = session.query(Edition)\
                      .filter(Edition.id == editionid)\
                      .first()
-    edition.pubseries_id = pubseries_id
+    edition.pubseries_id = pubseries_id[0]['id']
     session.add(edition)
     session.commit()
     log_change(session, edition, fields=['Julk.sarja'])
@@ -488,7 +525,9 @@ def publisher_for_edition(editionid: Any) -> Any:
                        .filter(Publisher.id == Edition.publisher_id)\
                        .filter(Edition.id == editionid)\
                        .first()
-    obj: List[Dict[str, str]] = [{'id': publisher.id, 'text': publisher.name}]
+    obj: List[Dict[str, str]] = []
+    if publisher:
+        obj = [{'id': publisher.id, 'text': publisher.name}]
     return Response(json.dumps(obj))
 
 
