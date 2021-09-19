@@ -296,7 +296,7 @@
         {% endif %}
         <h2>Painokset</h2>
         {% for edition in work.editions %}
-        <div class="mt-3 mb-5 single-edition">
+        <div class="mt-3 mb-5 single-edition view-field">
 
             {#<div class="row">
                 <div class="col"> #}
@@ -363,11 +363,10 @@
                     {% if edition.binding_id %}
                     {% if edition.binding_id > 1 %}
                     {{ edition.binding.name }}
-                    {% endif %}
+                    {%- endif -%}
                     {%- endif -%}
                     {%- if edition.isbn -%}
-                    {%- if edition.binding_id and edition.binding_id > 1 -%}
-                    .
+                    {%- if edition.binding_id and edition.binding_id > 1 -%}.
                     {% endif %}
                     <br>
                     {% endif %}
@@ -379,12 +378,10 @@
                     {% endif %}
                 </div>
                 {% if edition.images|length %}
-                <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="col-lg-4 col-md-6 col-sm-12 view-field">
                     <a href="{{url_for('edition', editionid=edition.id)}}">
                         <img src="{{edition.images[0].image_src}}" class="img-fluid img-halfheight">
                     </a>
-                    {#{% else %}
-                    <img src="/static/icons/book-icon-158.png" class="img-fluid">#}
                 </div>
                 {% endif %}
 
