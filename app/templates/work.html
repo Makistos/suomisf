@@ -334,12 +334,12 @@
                     <br>
                     {% endif %}
                     {% if editors|length %}
-                    <span class="person-list">{{editors|map(attribute='alt_name')|join(' & ')}}</span> (toim)
+                    Toim <span class="person-list">{{editors|map(attribute='alt_name')|join(' & ')}}</span>
                     <br>
                     {% endif %}
                     {% if edition.translators|length %}
-                    <span class="person-list">{{edition.translators|map(attribute='alt_name')|join(' & ')}}</span>
-                    (suom)<br>
+                    Suom <span class="person-list">{{edition.translators|map(attribute='alt_name')|join(' & ')}}</span>
+                    <br>
                     {% endif %}
 
                     {% if edition.pubseries %}
@@ -380,7 +380,9 @@
                 </div>
                 {% if edition.images|length %}
                 <div class="col-lg-4 col-md-6 col-sm-12">
-                    <img src="{{edition.images[0].image_src}}" class="img-fluid half-image">
+                    <a href="{{url_for('edition', editionid=edition.id)}}">
+                        <img src="{{edition.images[0].image_src}}" class="img-fluid img-halfheight">
+                    </a>
                     {#{% else %}
                     <img src="/static/icons/book-icon-158.png" class="img-fluid">#}
                 </div>
