@@ -298,8 +298,13 @@
         {% for edition in work.editions %}
         <div class="mt-3 mb-5 single-edition">
 
+            {#<div class="row">
+                <div class="col"> #}
+                    {#
+                </div>
+            </div>#}
             <div class="row">
-                <div class="col">
+                <div class="col view-field">
                     <h3>
                         <a href="{{url_for('edition', editionid=edition.id)}}">
                             {% if edition.version and edition.version > 1 %}
@@ -311,10 +316,6 @@
                             {%endif %}
                         </a>
                     </h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col view-field">
 
                     {% if edition.title != work.title %}
                     <b>{{edition.title}}</b><br>
@@ -378,8 +379,8 @@
                     {% endif %}
                 </div>
                 {% if edition.images|length %}
-                <div class="col-lg-4 col-sm-12">
-                    <img src="{{edition.images[0].image_src}}" class="img-fluid">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <img src="{{edition.images[0].image_src}}" class="img-fluid half-image">
                     {#{% else %}
                     <img src="/static/icons/book-icon-158.png" class="img-fluid">#}
                 </div>

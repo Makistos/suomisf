@@ -266,3 +266,10 @@ label {
 img.person {
   margin: 1rem;
 }
+
+img.half-image {
+  float: right;
+  width: 50%;
+  height: auto;
+  display: block;
+}
