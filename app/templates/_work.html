@@ -29,10 +29,10 @@
 {# Add title, with or without link. #}
 {% if print == 1 %}
 <b>{{ work.title }}</b>.
-{% else %}<b><a href="{{url_for('edition', editionid=edition.id) }}" data-bs-toggle='tooltip' data-placement='right'
-        title='<div style="text-align: center;"><h2>{{edition.title}}</h2><img src="{{image_src}}"></div>'
-        data-html='true'>
-        {{ work.title }}</a></b>.
+{% else %}<b><a href="{{url_for('work', workid=work.id) }}" data-bs-toggle='tooltip' data-placement='right'
+                title='<div style="text-align: center;"><h2>{{work.title}}</h2><img src="{{image_src}}"></div>'
+                data-html='true'>
+                {{ work.title }}</a></b>.
 {% endif %}
 
 {# Rest of the stuff besides the title: #}

@@ -273,62 +273,6 @@
                 <a href="{{url_for('add_edition_to_route', workid=work.id)}}">Lisää painos</a>
             </div>
         </div>
-        <div class="mb-3">
-            <h5>Painokset</h5>
-            <div class="mb-3">
-                <button onclick="switchStyle()" id="switcher" class="btn btn-secondary">Kannet</button>
-            </div>
-            <div class="ml-4">
-                <div id="textual">
-                    {% for edition in work.editions %}
-                    {% if edition.version %}
-                    {% if edition.version > 1 %}
-                    {{edition.version}}.laitos
-                    {% endif %}
-                    {% endif %}
-                    {% if edition.editionnum %}
-                    {{ edition.editionnum }}.painos.
-                    {% else %}
-                    ?.painos.
-                    {% endif %}
-                    <a href=" {{ url_for('edition', editionid=edition.id) }}">{{
-                        edition.title
-                        }}</a>.
-                    {%- if edition.translators %} {% include
-                    "_translators.html"-%}{%- endif %} {{ edition.publisher.name }}
-                    {{ edition.pubyear}}. {% if edition.pubseries.name|length %} {{
-                    edition.pubseries.name }} {%- if edition.pubseriesnum %}
-                    {{edition.pubseriesnum }}{% endif %}. {% endif %}
-                    <br>
-                    {% endfor %}
-                </div>
-                <div id="pics">
-                    {% for edition in work.editions %}
-                    {% if edition.images|length %}
-                    <figure class="figure">
-                        <a href="{{url_for('edition', editionid=edition.id)}}">
-                            <img src="{{edition.images[0].image_src}}" width="250" style="margin: 0 1rem 1rem 0">
-                            <figcaption>
-                                {% if edition.version %}
-                                {% if edition.version > 1 %}
-                                {{ edition.version }}. laitos
-                                {% endif %}
-                                {% endif %}
-                                {% if edition.editionnum %}
-                                {{ edition.editionnum}}.painos
-                                {% else %}
-                                ?.painos
-                                {% endif %}
-                            </figcaption>
-                        </a>
-                    </figure>
-                    {% endif %}
-
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-
         {% if work.stories|length %}
         <h5>Novellit</h5>
         <div class="ml-4">
@@ -350,6 +294,101 @@
             <label for="edit_form">Muokkaa</label>
         </div>
         {% endif %}
+        <h2>Painokset</h2>
+        {% for edition in work.editions %}
+        <div class="mt-3 mb-5 single-edition">
+
+            <div class="row">
+                <div class="col">
+                    <h3>
+                        <a href="{{url_for('edition', editionid=edition.id)}}">
+                            {% if edition.version and edition.version > 1 %}
+                            {{edition.version}}. laitos
+                            {% elif edition.editionnum %}
+                            {{edition.editionnum}}.p
+                            {% else %}
+                            ?.p
+                            {%endif %}
+                        </a>
+                    </h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col view-field">
+
+                    {% if edition.title != work.title %}
+                    <b>{{edition.title}}</b><br>
+                    {% if edition.subtitle %}
+                    <i>{{subtitle}}</i>
+                    {% endif %}
+                    {% endif %}
+                    {% if edition.publisher %}
+                    <a href="{{url_for('publisher', pubid=edition.publisher.id)}}">
+                        {{ edition.publisher.name }}</a>
+                    {% endif %}
+                    {% if edition.pubyear %}
+                    {{ edition.pubyear }}
+                    {%- endif -%}
+                    {% if edition.publisher or edition.pubyear -%}.
+                    <br>
+                    {% endif %}
+                    {% if editors|length %}
+                    <span class="person-list">{{editors|map(attribute='alt_name')|join(' & ')}}</span> (toim)
+                    <br>
+                    {% endif %}
+                    {% if edition.translators|length %}
+                    <span class="person-list">{{edition.translators|map(attribute='alt_name')|join(' & ')}}</span>
+                    (suom)<br>
+                    {% endif %}
+
+                    {% if edition.pubseries %}
+                    <a href="{{url_for('pubseries', seriesid=edition.pubseries.id)}}">
+                        {{ edition.pubseries.name }}</a>
+                    {%- if edition.pubseriesnum %}
+                    {{ edition.pubseriesnum }}{%- endif -%}.
+                    <br>
+                    {% endif %}
+                    {% if edition.pages is not none %}
+                    {{ edition.pages}} sivua.
+                    {% endif %}
+                    {% if edition.size %}
+                    {{edition.size}} cm.
+                    {% endif %}
+                    {{edition.misc}}
+                    {% if edition.isbn %}
+                    <br>
+                    ISBN {{ edition.isbn}}
+                    {%- endif -%}
+                    {% if edition.binding_id %}
+                    {% if edition.binding_id > 1 %}
+                    {{ edition.binding.name }}
+                    {% endif %}
+                    {%- endif -%}
+                    {%- if edition.isbn -%}
+                    {%- if edition.binding_id and edition.binding_id > 1 -%}
+                    .
+                    {% endif %}
+                    <br>
+                    {% endif %}
+                    {% if edition.dustcover == 3 %}
+                    Ylivetokannet.
+                    {% endif %}
+                    {% if edition.coverimage == 3 %}
+                    Kuvakannet.
+                    {% endif %}
+                </div>
+                {% if edition.images|length %}
+                <div class="col-lg-4 col-sm-12">
+                    <img src="{{edition.images[0].image_src}}" class="img-fluid">
+                    {#{% else %}
+                    <img src="/static/icons/book-icon-158.png" class="img-fluid">#}
+                </div>
+                {% endif %}
+
+            </div>
+            {% endfor %}
+        </div>
+
 </div>
 {% if current_user.is_admin %}
 </form>

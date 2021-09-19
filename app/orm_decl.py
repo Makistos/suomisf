@@ -938,8 +938,8 @@ class Work(Base):
         else:
             img_src = "/static/icons/blue-book-icon-small.png"
         # Title
-        retval = r'''<a href="/edition/%d" data-bs-toggle='tooltip' data-placement='right' title='<div style="text-align: center;"><h2>%s</h2><img src="%s"></div>' data-html='true'><b>%s</b></a>.''' % (
-            edition.id, html.escape(edition.title), img_src, escape(self.title))
+        retval = r'''<a href="/work/%d" data-bs-toggle='tooltip' data-placement='right' title='<div style="text-align: center;"><h2>%s</h2><img src="%s"></div>' data-html='true'><b>%s</b></a>.''' % (
+            self.id, html.escape(self.title), img_src, escape(self.title))
 
         # Bookseries
         if self.bookseries:
