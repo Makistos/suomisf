@@ -764,6 +764,15 @@ def update_creators(session: Any, person: Any) -> None:
     session.commit()
 
 
+def update_work_creators(session: Any, workid: Any) -> Any:
+    work = session.query(Work)\
+                  .filter(Work.id == workid)\
+                  .first()
+    work.author_str = work.update_author_str()
+    session.add(work)
+    session.commit()
+
+
 def update_creators_to_story(session: Any, storyid: int, authors: Any) -> None:
     ''' Updates creator string for story.
 

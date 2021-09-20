@@ -355,7 +355,7 @@
                     {% if edition.size %}
                     {{edition.size}} cm.
                     {% endif %}
-                    {{edition.misc}}
+                    {{edition.misc if edition.misc is not none}}
                     {% if edition.isbn %}
                     <br>
                     ISBN {{ edition.isbn}}

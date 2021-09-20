@@ -761,7 +761,7 @@ def new_work_for_person(personid: Any) -> Any:
         work.subtitle = form.subtitle.data
         work.orig_title = form.orig_title.data
         work.pubyear = form.pubyear.data
-
+        work.type = 1
         session.add(work)
         session.commit()
 
@@ -773,6 +773,7 @@ def new_work_for_person(personid: Any) -> Any:
             person_id=form.hidden_author_id.data, part_id=part.id, role_id=1)
         session.add(author)
         session.commit()
+        update_work_creators(session, work.id)
         types: List[str] = [''] * 4
         types[1] = 'checked'
         return render_template('work.html', work=work, form=form, types=types,
