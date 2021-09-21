@@ -382,7 +382,7 @@ def authors_for_work(workid: Any) -> Any:
     return(make_people_response(people))
 
 
-@app.route('/save_bookseries_to_work')
+@app.route('/save_bookseries_to_work', methods=['POST'])
 @login_required  # type: ignore
 @admin_required
 def save_bookseries_to_work() -> Any:
@@ -393,7 +393,7 @@ def save_bookseries_to_work() -> Any:
                   .filter(Work.id == workid)\
                   .first()
 
-    work.bookseries_id = series_ids[0]
+    work.bookseries_id = series_ids[0]['id']
     session.add(work)
     session.commit()
     log_change(session, work, fields=['Kirjasarja'])
