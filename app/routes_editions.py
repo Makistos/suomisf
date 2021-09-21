@@ -642,7 +642,9 @@ def save_image_to_edition() -> Any:
                                   image_src=app.config['BOOKCOVER_DIR'] + filename)
                 session.add(ei)
                 session.commit()
-                log_change(session, 'Painos', int(id), 'Kuva')
+                edition = session.query(Edition).filter(
+                    Edition.id == id).first()
+                log_change(session, edition, ['Kansikuva'])
                 return redirect(request.url)
         else:
             return redirect(request.url)
