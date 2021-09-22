@@ -249,7 +249,8 @@ class PublisherForm(FlaskForm):
 class PubseriesForm(FlaskForm):
     id = HiddenField('id')
     name = StringField('Koko nimi')
-    name = StringField('Nimi', validators=[DataRequired()])
+    name = StringField('Nimi', validators=[
+                       DataRequired()])
     publisher = StringField('Julkaisija', validators=[DataRequired()])
     important = BooleanField('Merkittävä')
     submit = SubmitField('Tallenna')
@@ -257,10 +258,15 @@ class PubseriesForm(FlaskForm):
 
 class StoryForm(FlaskForm):
     id = HiddenField('id')
+    hidden_work_id = HiddenField('work_id')
+    #hidden_edition_id = HiddenField('edition_id')
+    #hidden_issue_id = HiddenField('issue_id')
+    authors = SelectMultipleField(
+        'Kirjoittajat', choices=[], validate_choice=False, coerce=int, default=0)
     title = StringField('Nimi', validators=[DataRequired()])
     orig_title = StringField('Alkuperäinen nimi', validators=[Optional()])
     pubyear = IntegerField('Julkaisuvuosi', validators=[Optional()])
-    submit_story = SubmitField('Tallenna')
+    submit = SubmitField('Tallenna')
 
 
 class WorkLinkForm(Form):

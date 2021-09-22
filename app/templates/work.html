@@ -270,6 +270,7 @@
         {% endif %}
         <div class="row">
             <div class="col edit-field">
+                <a href="{{url_for('new_story_for_work', workid=work.id)}}">Lisää uusi novelli</a>&bullet;
                 <a href="{{url_for('add_edition_to_route', workid=work.id)}}">Lisää painos</a>
             </div>
         </div>

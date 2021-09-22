@@ -289,7 +289,7 @@
     {% if current_user.is_admin %}
     <div class="row">
       <div class="col">
-        <a href="{{url_for('new_work_for_person', personid=person.id)}}">Lisää teos</a>
+        <a href="{{url_for('new_work_for_person', personid=person.id)}}">Lisää teos</a>&bullet;
       </div>
     </div>
     {% endif %}

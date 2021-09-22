@@ -2,8 +2,8 @@ from app import app
 from app.orm_decl import (ShortStory, Part,
                           Person, StoryGenre, StoryTag, Edition, Work, Tag, Genre, Contributor, StoryType)
 from .route_helpers import *
-from flask import (render_template, request,
-                   make_response, jsonify, Response)
+from flask import (render_template, request, url_for,
+                   make_response, jsonify, Response, redirect)
 from flask_login import login_required
 from app.forms import NewWorkForm, StoryForm
 import json
@@ -151,6 +151,48 @@ def save_story_pubyear() -> Any:
     return make_response('Tuntematon kutsu', 400)
 
 
+@app.route('/new_story_for_work/<workid>', methods=['POST', 'GET'])
+@login_required  # type: ignore
+@admin_required
+def new_story_for_work(workid: Any) -> Any:
+    session = new_session()
+
+    form = StoryForm(request.form)
+
+    if request.method == 'GET':
+        form.hidden_work_id.data = workid
+
+    # elif form.validate_on_submit():
+    else:
+        story = ShortStory()
+        story.title = form.title.data
+        story.orig_title = form.orig_title.data
+        story.pubyear = form.pubyear.data
+        story.story_type = 1
+        session.add(story)
+        session.commit()
+
+        editions = session.query(Edition)\
+                          .join(Part)\
+                          .filter(Part.edition_id == Edition.id, Part.work_id == workid)\
+                          .filter(Part.shortstory_id == None)\
+                          .all()
+        for edition in editions:
+            part = Part(work_id=workid, edition_id=edition.id,
+                        shortstory_id=story.id)
+            session.add(part)
+            session.commit()
+            for author in form.authors.data:
+                contributor = Contributor(
+                    person_id=author, part_id=part.id, role_id=1)
+                session.add(contributor)
+            session.commit()
+
+        return redirect(url_for('story', id=story.id))
+
+    return render_template('new_story.html', form=form)
+
+
 @app.route('/save_authors_to_story', methods=["POST"])
 @login_required  # type: ignore
 @admin_required
@@ -158,23 +200,27 @@ def save_authors_to_story() -> Response:
     session = new_session()
 
     (storyid, people_ids) = get_select_ids(request.form)
-    existing_people = session.query(Contributor, Contributor.role_id == 1)\
-                             .join(Part)\
-                             .filter(Part.id == Contributor.part_id)\
-                             .filter(Part.shortstory_id == storyid)\
-                             .all()
+    existing_people = session.query(Contributor)\
+        .filter(Contributor.role_id == 1)\
+        .join(Part)\
+        .filter(Part.id == Contributor.part_id)\
+        .filter(Part.shortstory_id == storyid)\
+        .all()
 
+    existing_ids = set([int(x.person_id) for x in existing_people])
     (to_add, to_remove) = get_join_changes(
-        [x.person_id for x in existing_people], [int(x['id']) for x in people_ids])
+        existing_ids, [int(x['id']) for x in people_ids])
 
     for id in to_remove:
-        auth = session.query(Contributor, Contributor.role_id == 1)\
+        auth = session.query(Contributor)\
+                      .filter(Contributor.role_id == 1)\
                       .filter(Contributor.person_id == id)\
                       .join(Part)\
                       .filter(Part.id == Contributor.part_id)\
                       .filter(Part.shortstory_id == storyid)\
-                      .first()
-        session.delete(auth)
+                      .all()
+        for a in auth:
+            session.delete(a)
     for id in to_add:
         parts = session.query(Part)\
                        .filter(Part.shortstory_id == storyid)\
