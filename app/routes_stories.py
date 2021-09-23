@@ -188,7 +188,7 @@ def new_story_for_work(workid: Any) -> Any:
                 session.add(contributor)
             session.commit()
 
-        return redirect(url_for('story', id=story.id))
+        return redirect(url_for('work', workid=workid))
 
     return render_template('new_story.html', form=form)
 

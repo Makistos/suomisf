@@ -275,8 +275,8 @@
             </div>
         </div>
         {% if work.stories|length %}
-        <h5>Novellit</h5>
-        <div class="ml-4">
+        <div class="ml-4 view-field">
+            <h5>Novellit</h5>
             {% for story in work.stories %}
             {% if story.author_str != work.author_str %}
             <b><span class="person-list">{{ story.author_str }}</span></b>: {%
