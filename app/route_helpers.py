@@ -761,6 +761,9 @@ def update_creators(session: Any, person: Any) -> None:
     for work in person.works:
         work.author_str = work.update_author_str()
         session.add(work)
+    for edition in person.edits:
+        for work in edition.work:
+            work.author_str = work.update_author_str()
     session.commit()
 
 

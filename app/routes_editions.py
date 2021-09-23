@@ -470,6 +470,15 @@ def save_editor_to_edition() -> Any:
             session.add(ed)
 
     session.commit()
+
+    works = session.query(Work)\
+                   .join(Part)\
+                   .filter(Work.id == Part.work_id)\
+                   .filter(Part.edition_id == editionid)\
+                   .all()
+    for work in works:
+        work.update_author_str()
+
     edition = session.query(Edition).filter(Edition.id == editionid).first()
     log_change(session, edition, fields='Toimittajat')
 
