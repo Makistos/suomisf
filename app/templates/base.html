@@ -103,10 +103,10 @@
               Käyttäjät
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="{{ url_for('users') }}">Lista</a>
               {% if current_user.is_anonymous %}
               <a class="dropdown-item" href="{{ url_for('login') }}">Kirjaudu</a>
               {% else %}
+              <a class="dropdown-item" href="{{ url_for('users') }}">Lista</a>
               <a class="dropdown-item" href="{{ url_for('user', userid=current_user.id) }}">Omat tiedot</a>
               <a class="dropdown-item" href="{{ url_for('mybooks', userid=current_user.id) }}">Omat kirjat</a>
               {# <a class="dropdown-item" href="{{ url_for('myseries', userid=current_user.id) }}">Sarjat</a> #}
