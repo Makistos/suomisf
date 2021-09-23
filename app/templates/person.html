@@ -608,12 +608,12 @@
   </div>
   {% if current_user.is_admin and person.imported_string %}
   Lähde: {{person.imported_string }}
-  {% endif %}
   <div class="container">
     <input type="checkbox" id="edit_form" name="edit_form">
     <label for="edit_form">Muokkaa</label>
-
   </div>
+  {% endif %}
+
   {% block script %}
   <script src="/static/js/personlink.js" type="text/javascript"></script>
   <script type="text/javascript">
