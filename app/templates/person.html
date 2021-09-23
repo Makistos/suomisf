@@ -608,6 +608,8 @@
   </div>
   {% if current_user.is_admin and person.imported_string %}
   Lähde: {{person.imported_string }}
+  {% endif %}
+  {% if current_user.is_admin %}
   <div class="container">
     <input type="checkbox" id="edit_form" name="edit_form">
     <label for="edit_form">Muokkaa</label>
