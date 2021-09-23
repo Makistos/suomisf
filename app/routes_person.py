@@ -429,7 +429,7 @@ def real_names_for_person(personid: Any) -> Response:
 
     tags = session.query(Person)\
         .filter(Person.id.in_(ids))\
-        .first()
+        .all()
 
     retval: List[Dict[str, str]] = []
     if tags:
@@ -445,12 +445,12 @@ def save_real_names_to_person() -> Response:
 
     (personid, realname_ids) = get_select_ids(request.form)
 
-    existing_realnames = session.query(Alias.realname)\
+    existing_realnames = session.query(Alias)\
                                 .filter(Alias.alias == personid)\
                                 .all()
 
     (to_add, to_remove) = get_join_changes(
-        existing_realnames, [int(x['id']) for x in realname_ids])
+        set([int(x.realname) for x in existing_realnames]), [int(x['id']) for x in realname_ids])
 
     for id in to_remove:
         realname = session.query(Alias)\

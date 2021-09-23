@@ -15,7 +15,7 @@ from app.orm_decl import (Contributor, Language, Person, Publisher, Work,
                           PersonTag, BindingType, Format, Genre, ShortStory, ArticleTag,
                           WorkGenre, Log)
 from app import app
-from typing import List, Dict, Any, Tuple
+from typing import List, Dict, Any, Tuple, Set, Union
 from flask_login import current_user
 from flask import abort, Response
 from functools import wraps
@@ -167,7 +167,7 @@ def get_select_ids(form: Any, item_field: str = 'itemId') -> Tuple[int, List[Dic
     return(parentid, items)
 
 
-def get_join_changes(existing: List[int], new: List[int]) -> Tuple[List[int], List[int]]:
+def get_join_changes(existing: Union[List[int], Set[int]], new: List[int]) -> Tuple[List[int], List[int]]:
     to_add: List[int] = new
     to_delete: List[int] = []
 
