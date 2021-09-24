@@ -83,10 +83,13 @@ def person(personid: Any) -> Any:
 
     series = session.query(Bookseries)\
                     .join(Work)\
-                    .join(Part.authors)\
+                    .join(Part)\
+                    .join(Contributor)\
+                    .filter(Contributor.role_id == 1)\
                     .filter(Bookseries.id == Work.bookseries_id)\
                     .filter(Part.work_id == Work.id)\
-                    .filter(Person.id == personid)\
+                    .filter(Contributor.person_id == personid)\
+                    .filter(Contributor.part_id == Part.id)\
                     .group_by(Bookseries.id)\
                     .all()
     form = PersonForm(request.form)
