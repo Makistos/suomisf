@@ -36,9 +36,22 @@
 		{# {{ edition | safe }}
 		{% endfor %} #}
 		{{ books | safe }}
+		<h2 class="mt-3">
+			{% if prev_letter %}
+			<a href="{{ url_for('booksX', letter=prev_letter) }}">{{ prev_letter
+				}}</a>
+			{% endif %}
+			{% if prev_letter and next_letter %} | {% endif %}
+			{% if next_letter %}
+			<a href="{{ url_for('booksX', letter=next_letter) }}">{{
+				next_letter
+				}}</a>
+			{% endif %}
+		</h2>
 	</div>
 	{#{% endfor %}
 	{% endfor %}#}
+
 	{% endblock %}
 
 	{% block scripts %}
