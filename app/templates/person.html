@@ -346,6 +346,7 @@
               {% for work in person.works|selectattr("author_str", "equalto", person.name) %}
               <div class="mb-1">
                 {% include "_work.html" %}
+                {% set show_first_edition = 1 %}
                 {% for edition in work.editions[1:] %}
                 {% include "_work_edition.html" %}
                 {% endfor %}
@@ -359,6 +360,7 @@
               {% for work in w_group.list %}
               <div class="mb-1">
                 {% include "_work.html" %}
+                {% set show_first_edition = 1 %}
                 {% for edition in work.editions[1:] %}
                 {% include "_work_edition.html" %}
                 {% endfor %}

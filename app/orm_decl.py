@@ -303,7 +303,7 @@ class Edition(Base):
         else:
             img_src = '/static/icons/blue-book-icon-small.png'
 
-        retval = r'''<a href="/edition/%d.id" data-bs-toggle='tooltip' data-placement='right' title='<div style="text-align: center;"><h2>%s</h2><img src="%s"></div>' data-html='true'>''' % (
+        retval = r'''<a href="/edition/%d" data-bs-toggle='tooltip' data-placement='right' title='<div style="text-align: center;"><h2>%s</h2><img src="%s"></div>' data-html='true'>''' % (
             self.id, html.escape(self.title), img_src)
 
         if not self.version:
