@@ -151,6 +151,7 @@ class EditionForm(FlaskForm):
     description = TextAreaField('Kuvaus', validators=[Optional()])
     # artist = StringField('Taiteilija')
     misc = StringField('Muuta', validators=[Optional()])
+    imported_string = StringField('Lähde', validators=[Optional()])
     # source = StringField('Lähde')
     # image_src = StringField('Kuva')
     submit = SubmitField('Tallenna')

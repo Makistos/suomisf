@@ -444,9 +444,16 @@
         </div>
 
         {% if current_user.is_admin %}
-        <label for="imported_string">Lähde</label>
-        <input field="text" class="form-control form-item" id="imported_string" name="imported_string"
-            value="{{edition.imported_string if edition.imported_string is not none}}" form="itemForm">
+        <div class="edit-field">
+            <label for="imported_string">Lähde</label>
+            <input field="text" class="form-control form-item" id="imported_string" name="imported_string"
+                value="{{edition.imported_string if edition.imported_string is not none}}" form="itemForm">
+        </div>
+        <div class="view-field">
+            <p class="font-weight-light source">Lähde:<br>{{edition.imported_string|urlize(target="_blank")}}
+            </p>
+            </span>
+        </div>
         <br>
         <input type="checkbox" id="edit_form" name="edit_form">
         <label for="edit_form">Muokkaa</label>

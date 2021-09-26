@@ -294,17 +294,21 @@ class Edition(Base):
     def name(self) -> str:
         return self.title
 
-    def __str__(self) -> str:
-        retval: str = ''
-        work = self.work[0]
-
+    def popup(self) -> str:
         if self.images:
             img_src = self.images[0].image_src
         else:
             img_src = '/static/icons/blue-book-icon-small.png'
 
-        retval = r'''<a href="/edition/%d" data-bs-toggle='tooltip' data-placement='right' title='<div style="text-align: center;"><h2>%s</h2><img src="%s"></div>' data-html='true'>''' % (
-            self.id, html.escape(self.title), img_src)
+        retval = r'''<a href="/edition/%d" data-bs-toggle='tooltip' data-placement='right' title='<div style="text-align: center;">
+                <h2>%s</h2><img src="%s"></div>' data-html='true'>''' % (self.id, html.escape(self.title), img_src)
+        return retval
+
+    def __str__(self) -> str:
+        retval: str = ''
+        work = self.work[0]
+
+        retval = self.popup()
 
         if not self.version:
             version = 1

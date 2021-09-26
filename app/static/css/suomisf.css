@@ -276,3 +276,10 @@ img.person {
   height: auto;
   display: block;
 }*/
+
+p.source {
+  background-color: #f3f2f2;
+  padding: 0em;
+  font-weight: lighter;
+  font-size: small;
+}

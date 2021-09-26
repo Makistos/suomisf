@@ -282,6 +282,7 @@ def edition(editionid: Any) -> Any:
         form.size.data = edition.size
         form.misc.data = edition.misc
         form.binding.data = edition.binding_id
+        form.imported_string.data = edition.imported_string
 
     elif form.validate_on_submit():
         changes: List[str] = []
@@ -323,6 +324,7 @@ def edition(editionid: Any) -> Any:
             edition.dustcover = form.dustcover.data
         if edition.coverimage != form.coverimage.data:
             changes.append('Kansikuvallinen')
+        edition.imported_string = form.imported_string.data
         edition.coverimage = form.coverimage.data
 
         session.add(edition)
