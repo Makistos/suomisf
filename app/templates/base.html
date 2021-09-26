@@ -115,22 +115,8 @@
             </div>
           </li>
           {% if current_user.is_admin %}
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Muokkaa
-            </a>
-            <div class="dropdown-menu">
-              {% block edit_menu %}
-              <div class="form-check px-4 py-1">
-                <input type="checkbox" class="form-check-input" id="edit_form" name="edit_form">
-                <label class="form-check-label" for="edit_form">
-                  Muokkaa sivua
-                </label>
-              </div>
-              {% endblock %}
-            </div>
-          </li>
+          {% block edit_menu %}
+          {% endblock %}
           {% endif %}
         </ul>
       </div>

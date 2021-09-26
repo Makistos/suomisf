@@ -1,8 +1,11 @@
 {% extends "base.html" %}
-{% block edit_menu %} {{ super() }}
+{% from 'edit_menu.tmpl' import edit_menu_content %}
+{% block edit_menu %}
+{% call edit_menu_content() %}
 <a class="dropdown-item" href="{{url_for('new_story_for_work', workid=work.id)}}">Lisää uusi novelli</a>
 <a class="dropdown-item" href="{{url_for('add_edition_to_work', workid=work.id)}}">Lisää painos</a>
-{% endblock edit_menu %}
+{% endcall %}
+{% endblock %}
 {% block content %}
 
 <div class="container mt-5">
