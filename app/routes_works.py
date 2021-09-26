@@ -691,12 +691,13 @@ def add_story_to_work() -> Any:
 @app.route('/add_edition_to_work/<workid>')
 @login_required  # type: ignore
 @admin_required
-def add_edition_to_route(workid: Any) -> Any:
+def add_edition_to_work(workid: Any) -> Any:
     session = new_session()
 
     work = session.query(Work).filter(Work.id == workid).all()
 
-    edition = Edition(title=work[0].title, pubyear=work[0].pubyear)
+    edition = Edition(title=work[0].title,
+                      pubyear=work[0].pubyear, binding_id=1)
     session.add(edition)
     session.commit()
 

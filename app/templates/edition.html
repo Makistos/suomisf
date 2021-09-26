@@ -440,21 +440,24 @@
         </div>
 
         {% if current_user.is_admin %}
-        <div class="edit-field">
-            <label for="imported_string">Lähde</label>
-            <input field="text" class="form-control form-item" id="imported_string" name="imported_string"
-                value="{{edition.imported_string if edition.imported_string is not none}}" form="itemForm">
+        <div class="mt-4">
+            <div class="edit-field">
+                <label for="imported_string">Lähde</label>
+                <input field="text" class="form-control form-item" id="imported_string" name="imported_string"
+                    value="{{edition.imported_string if edition.imported_string is not none}}" form="itemForm">
+            </div>
+            {% if edition.imported_string is not none and edition.imported_string != "" %}
+            <div class="view-field">
+                <p class="font-weight-light source">Lähde:<br>{{edition.imported_string|urlize(target="_blank")}}
+                </p>
+                </span>
+            </div>
+            {% endif %}
         </div>
-        {% if edition.imported_string is not none and edition.imported_string != "" %}
-        <div class="view-field">
-            <p class="font-weight-light source">Lähde:<br>{{edition.imported_string|urlize(target="_blank")}}
-            </p>
-            </span>
+        <div class="fixed-top">
+            <input type="checkbox" id="edit_form" name="edit_form">
+            <label for="edit_form">Muokkaa</label>
         </div>
-        {% endif %}
-        <br>
-        <input type="checkbox" id="edit_form" name="edit_form">
-        <label for="edit_form">Muokkaa</label>
         {% endif %}
 
 
