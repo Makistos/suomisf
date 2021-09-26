@@ -412,7 +412,7 @@ def bookseries_for_work(workid: Any) -> Any:
                         .join(Work)\
                         .filter(Bookseries.id == Work.bookseries_id)\
                         .filter(Work.id == workid)\
-                        .all()
+                        .first()
     retval: List[Dict[str, str]] = []
     if bookseries:
         obj: Dict[str, str] = {}
