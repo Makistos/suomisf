@@ -104,7 +104,24 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               {% if current_user.is_anonymous %}
-              <a class="dropdown-item" href="{{ url_for('login') }}">Kirjaudu</a>
+              <form class="px-4 py-3" action="{{url_for('login')}}" method="post">
+                <div class="form-group">
+                  <label for="username">Käyttäjätunnus</label>
+                  <input type="text" class="form-control" id="username" name="username">
+                </div>
+                <div class="form-group">
+                  <label for="password">Salasana</label>
+                  <input type="password" class="form-control" id="password" name="password">
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="remember_me" name="remember_me">
+                  <label class="form-check-label" for="remember_me">Muista minut</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Kirjaudu</button>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{url_for('register')}}">Uusi käyttäjä? Luo tunnus</a>
+                {# <a class="dropdown-item" href="{{ url_for('login') }}">Kirjaudu</a> #}
+              </form>
               {% else %}
               <a class="dropdown-item" href="{{ url_for('users') }}">Lista</a>
               <a class="dropdown-item" href="{{ url_for('user', userid=current_user.id) }}">Omat tiedot</a>
@@ -118,8 +135,8 @@
           {% block edit_menu %}
           {% endblock %}
           {% endif %}
-        </ul>
       </div>
+      </ul>
       <div class="d-flex justify-content-end">
         <form class="form-inline my-2 my-lg-0" method="get" action="{{url_for('search')}}">
           <input class="form-control mr-sm-2" type="search" name="search" placeholder="Hakusana" aria-label="Search">
