@@ -358,7 +358,6 @@
                     {% endif %}
                     {{edition.misc if edition.misc is not none}}
                     {% if edition.isbn %}
-                    <br>
                     ISBN {{ edition.isbn}}
                     {%- endif -%}
                     {% if edition.binding_id %}
@@ -366,11 +365,8 @@
                     {{ edition.binding.name }}
                     {%- endif -%}
                     {%- endif -%}
-                    {%- if edition.isbn -%}
-                    {%- if edition.binding_id and edition.binding_id > 1 -%}.
-                    {% endif %}
+                    {%- if edition.isbn or edition.binding_id > 1 -%}.{% endif %}
                     <br>
-                    {% endif %}
                     {% if edition.dustcover == 3 %}
                     Ylivetokannet.
                     {% endif %}

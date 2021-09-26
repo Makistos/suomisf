@@ -284,13 +284,9 @@
                             {% if edition.binding_id %}
                             {% if edition.binding_id > 1 %}
                             {{ edition.binding.name }}
-                            {% endif %}
                             {%- endif -%}
-                            {%- if edition.isbn -%}
-                            {%- if edition.binding_id and edition.binding_id > 1 -%}
-                            .
-                            {% endif %}
-                            {% endif %}
+                            {%- endif -%}
+                            {%- if edition.isbn or edition.binding_id > 1 -%}.{% endif %}
                         </div>
                         {% if current_user.is_admin %}
                         <div class="col-3 edit-field">
@@ -449,11 +445,13 @@
             <input field="text" class="form-control form-item" id="imported_string" name="imported_string"
                 value="{{edition.imported_string if edition.imported_string is not none}}" form="itemForm">
         </div>
+        {% if edition.imported_string is not none and edition.imported_string != "" %}
         <div class="view-field">
             <p class="font-weight-light source">Lähde:<br>{{edition.imported_string|urlize(target="_blank")}}
             </p>
             </span>
         </div>
+        {% endif %}
         <br>
         <input type="checkbox" id="edit_form" name="edit_form">
         <label for="edit_form">Muokkaa</label>
