@@ -187,7 +187,8 @@ def work(workid: Any) -> Any:
         if work.misc != form.misc.data:
             work.misc = form.misc.data
             fields.append('Muuta')
-        if work.description != form.description.data:
+        if (work.description != form.description.data and
+                (work.description is not None or form.description.data != '')):
             work.description = form.description.data
             fields.append('Kuvaus')
         work.imported_string = form.source.data
@@ -228,7 +229,7 @@ def work(workid: Any) -> Any:
                            title=title)
 
 
-@app.route('/new_work', methods=['POST', 'GET'])
+@ app.route('/new_work', methods=['POST', 'GET'])
 # @login_required  # type: ignore
 # @admin_required
 def new_work() -> Any:
@@ -255,7 +256,7 @@ def new_work() -> Any:
     return render_template('new_work.html', form=form)
 
 
-@app.route('/add_edition/<workid>', methods=["POST", "GET"])
+@ app.route('/add_edition/<workid>', methods=["POST", "GET"])
 def add_edition(workid: Any) -> Any:
     session = new_session()
 
@@ -269,11 +270,11 @@ def add_edition(workid: Any) -> Any:
 
     # Copy authors to edition from work
     authors = session.query(Contributor, Contributor.role_id == 1)\
-                     .join(Part)\
-                     .filter(Contributor.part_id == Part.id)\
-                     .filter(Part.work_id == workid)\
-                     .distinct(Contributor.part_id)\
-                     .all()
+        .join(Part)\
+        .filter(Contributor.part_id == Part.id)\
+        .filter(Part.work_id == workid)\
+        .distinct(Contributor.part_id)\
+        .all()
     for author in authors:
         part = Part(work_id=workid, edition_id=edition.id)
         session.add(part)
@@ -287,24 +288,24 @@ def add_edition(workid: Any) -> Any:
     form = EditionForm(request.form)
 
     editors = session.query(Person)\
-                     .join(Contributor, Contributor.role_id == 3)\
-                     .join(Part, Part.id == Contributor.part_id)\
-                     .filter(Person.id == Contributor.person_id)\
-                     .filter(Part.edition_id == editionid)\
-                     .all()
+        .join(Contributor, Contributor.role_id == 3)\
+        .join(Part, Part.id == Contributor.part_id)\
+        .filter(Person.id == Contributor.person_id)\
+        .filter(Part.edition_id == editionid)\
+        .all()
     translators = session.query(Person)\
-                         .join(Contributor, Contributor.role_id == 2)\
-                         .filter(Person.id == Contributor.person_id)\
-                         .join(Part)\
-                         .filter(Part.id == Contributor.part_id,
-                                 Part.edition_id == edition.id)\
-                         .all()
+        .join(Contributor, Contributor.role_id == 2)\
+        .filter(Person.id == Contributor.person_id)\
+        .join(Part)\
+        .filter(Part.id == Contributor.part_id,
+                Part.edition_id == edition.id)\
+        .all()
     stories = session.query(ShortStory)\
-                     .join(Part)\
-                     .filter(Part.shortstory_id == ShortStory.id)\
-                     .filter(Part.edition_id == edition.id)\
-                     .group_by(Part.shortstory_id)\
-                     .all()
+        .join(Part)\
+        .filter(Part.shortstory_id == ShortStory.id)\
+        .filter(Part.edition_id == edition.id)\
+        .group_by(Part.shortstory_id)\
+        .all()
     binding_count = session.query(func.count(BindingType.id)).first()
     bindings: List[str] = [''] * (binding_count[0] + 1)
     if edition.binding_id:
@@ -317,9 +318,9 @@ def add_edition(workid: Any) -> Any:
                            stories=stories, bindings=bindings)
 
 
-@app.route('/save_authors_to_work', methods=['POST'])
-@login_required  # type: ignore
-@admin_required
+@ app.route('/save_authors_to_work', methods=['POST'])
+@ login_required  # type: ignore
+@ admin_required
 def save_authors_to_work() -> Any:
     session = new_session()
 
@@ -332,8 +333,8 @@ def save_authors_to_work() -> Any:
         .all()
 
     parts = session.query(Part)\
-                   .filter(Part.work_id == workid)\
-                   .all()
+        .filter(Part.work_id == workid)\
+        .all()
 
     (to_add, to_remove) = get_join_changes(
         [x.person_id for x in existing_people],
@@ -367,31 +368,31 @@ def save_authors_to_work() -> Any:
     return make_response(jsonify(resp), 200)
 
 
-@app.route('/authors_for_work/<workid>')
+@ app.route('/authors_for_work/<workid>')
 def authors_for_work(workid: Any) -> Any:
     session = new_session()
 
     people = session.query(Person)\
-                    .join(Contributor, Contributor.role_id == 1)\
-                    .filter(Person.id == Contributor.person_id)\
-                    .join(Part)\
-                    .filter(Part.id == Contributor.part_id)\
-                    .filter(Part.work_id == workid)\
-                    .all()
+        .join(Contributor, Contributor.role_id == 1)\
+        .filter(Person.id == Contributor.person_id)\
+        .join(Part)\
+        .filter(Part.id == Contributor.part_id)\
+        .filter(Part.work_id == workid)\
+        .all()
 
     return(make_people_response(people))
 
 
-@app.route('/save_bookseries_to_work', methods=['POST'])
-@login_required  # type: ignore
-@admin_required
+@ app.route('/save_bookseries_to_work', methods=['POST'])
+@ login_required  # type: ignore
+@ admin_required
 def save_bookseries_to_work() -> Any:
     session = new_session()
 
     (workid, series_ids) = get_select_ids(request.form)
     work = session.query(Work)\
-                  .filter(Work.id == workid)\
-                  .first()
+        .filter(Work.id == workid)\
+        .first()
 
     work.bookseries_id = series_ids[0]['id']
     session.add(work)
@@ -404,15 +405,15 @@ def save_bookseries_to_work() -> Any:
     return make_response(jsonify(resp), 200)
 
 
-@app.route('/bookseries_for_work/<workid>')
+@ app.route('/bookseries_for_work/<workid>')
 def bookseries_for_work(workid: Any) -> Any:
     session = new_session()
 
     bookseries = session.query(Bookseries)\
-                        .join(Work)\
-                        .filter(Bookseries.id == Work.bookseries_id)\
-                        .filter(Work.id == workid)\
-                        .first()
+        .join(Work)\
+        .filter(Bookseries.id == Work.bookseries_id)\
+        .filter(Work.id == workid)\
+        .first()
     retval: List[Dict[str, str]] = []
     if bookseries:
         obj: Dict[str, str] = {}
@@ -423,15 +424,15 @@ def bookseries_for_work(workid: Any) -> Any:
     return Response(json.dumps(retval))
 
 
-@app.route('/genres_for_work/<workid>')
+@ app.route('/genres_for_work/<workid>')
 def genres_for_work(workid: Any) -> Any:
     session = new_session()
 
     genres = session.query(Genre)\
-                    .join(WorkGenre)\
-                    .filter(WorkGenre.genre_id == Genre.id)\
-                    .filter(WorkGenre.work_id == workid)\
-                    .all()
+        .join(WorkGenre)\
+        .filter(WorkGenre.genre_id == Genre.id)\
+        .filter(WorkGenre.work_id == workid)\
+        .all()
 
     retval: List[Dict[str, str]] = []
     if genres:
@@ -444,9 +445,9 @@ def genres_for_work(workid: Any) -> Any:
     return Response(json.dumps(retval))
 
 
-@app.route('/save_genres_to_work')
-@login_required  # type: ignore
-@admin_required
+@ app.route('/save_genres_to_work')
+@ login_required  # type: ignore
+@ admin_required
 def save_genres_to_work() -> Any:
     session = new_session()
 
@@ -481,7 +482,7 @@ def save_genres_to_work() -> Any:
     return make_response(jsonify(resp), 200)
 
 
-@app.route('/tags_for_work/<workid>')
+@ app.route('/tags_for_work/<workid>')
 def tags_for_work(workid: Any) -> Any:
     session = new_session()
 
@@ -502,9 +503,9 @@ def tags_for_work(workid: Any) -> Any:
     return Response(json.dumps(retval))
 
 
-@app.route('/save_tags_to_work', methods=['POST'])
-@login_required  # type: ignore
-@admin_required
+@ app.route('/save_tags_to_work', methods=['POST'])
+@ login_required  # type: ignore
+@ admin_required
 def save_tags_to_work() -> Any:
 
     (workid, tag_ids) = get_select_ids(request.form)
@@ -513,16 +514,16 @@ def save_tags_to_work() -> Any:
     tag_ids = create_new_tags(session, tag_ids)
 
     existing_tags = session.query(WorkTag)\
-                           .filter(WorkTag.work_id == workid)\
-                           .all()
+        .filter(WorkTag.work_id == workid)\
+        .all()
 
     (to_add, to_remove) = get_join_changes(
         [x.tag_id for x in existing_tags], [int(x['id']) for x in tag_ids])
 
     for id in to_remove:
         wt = session.query(WorkTag)\
-                    .filter(WorkTag.work_id == workid, WorkTag.tag_id == id)\
-                    .first()
+            .filter(WorkTag.work_id == workid, WorkTag.tag_id == id)\
+            .first()
         session.delete(wt)
     for id in to_add:
         wt = WorkTag(work_id=workid, tag_id=id)
@@ -537,7 +538,7 @@ def save_tags_to_work() -> Any:
     return make_response(jsonify(resp), 200)
 
 
-@app.route('/language_for_work/<workid>')
+@ app.route('/language_for_work/<workid>')
 def language_for_work(workid: Any) -> Any:
     session = new_session()
     work = session.query(Work).filter(Work.id == workid).first()
@@ -557,9 +558,9 @@ def language_for_work(workid: Any) -> Any:
     return Response(json.dumps(retval))
 
 
-@app.route('/save_language_to_work', methods=['POST'])
-@login_required  # type: ignore
-@admin_required
+@ app.route('/save_language_to_work', methods=['POST'])
+@ login_required  # type: ignore
+@ admin_required
 def save_language_to_work() -> Any:
     lang_id: int
 
@@ -578,8 +579,8 @@ def save_language_to_work() -> Any:
         lang_id = lang.id
 
     work = session.query(Work)\
-                  .filter(Work.id == workid)\
-                  .first()
+        .filter(Work.id == workid)\
+        .first()
     work.language = lang_id
     session.add(work)
     session.commit()
@@ -591,15 +592,15 @@ def save_language_to_work() -> Any:
     return make_response(jsonify(resp), 200)
 
 
-@app.route('/stories_for_work/<workid>')
+@ app.route('/stories_for_work/<workid>')
 def stories_for_work(workid: Any) -> Any:
     session = new_session()
 
     stories = session.query(ShortStory)\
-                     .join(Part)\
-                     .filter(Part.work_id == workid)\
-                     .filter(Part.shortstory_id == ShortStory.id)\
-                     .all()
+        .join(Part)\
+        .filter(Part.work_id == workid)\
+        .filter(Part.shortstory_id == ShortStory.id)\
+        .all()
 
     retval: List[Dict[str, str]] = []
 
@@ -616,9 +617,9 @@ def stories_for_work(workid: Any) -> Any:
     return Response(json.dumps(retval))
 
 
-@app.route('/save_stories_to_work', methods=["POST"])
-@login_required  # type: ignore
-@admin_required
+@ app.route('/save_stories_to_work', methods=["POST"])
+@ login_required  # type: ignore
+@ admin_required
 def add_story_to_work() -> Any:
     session = new_session()
 
@@ -644,12 +645,12 @@ def add_story_to_work() -> Any:
         .all()
 
     authors = session.query(Person)\
-                     .join(Contributor, Contributor.role_id == 1)\
-                     .filter(Person.id == Contributor.person_id)\
-                     .join(Part)\
-                     .filter(Part.id == Contributor.part_id)\
-                     .filter(Part.work_id == workid)\
-                     .all()
+        .join(Contributor, Contributor.role_id == 1)\
+        .filter(Person.id == Contributor.person_id)\
+        .join(Part)\
+        .filter(Part.id == Contributor.part_id)\
+        .filter(Part.work_id == workid)\
+        .all()
 
     for id in to_remove:
         part = session.query(Part)\
@@ -691,9 +692,9 @@ def add_story_to_work() -> Any:
     return make_response(jsonify(resp), 200)
 
 
-@app.route('/add_edition_to_work/<workid>')
-@login_required  # type: ignore
-@admin_required
+@ app.route('/add_edition_to_work/<workid>')
+@ login_required  # type: ignore
+@ admin_required
 def add_edition_to_work(workid: Any) -> Any:
     session = new_session()
 
@@ -724,13 +725,13 @@ def add_edition_to_work(workid: Any) -> Any:
     session.commit()
 
     authors = session.query(Person)\
-                     .join(Contributor, Contributor.role_id == 1)\
-                     .filter(Person.id == Contributor.person_id)\
-                     .join(Part)\
-                     .filter(Part.id == Contributor.part_id)\
-                     .filter(Part.work_id == workid)\
-                     .distinct()\
-                     .all()
+        .join(Contributor, Contributor.role_id == 1)\
+        .filter(Person.id == Contributor.person_id)\
+        .join(Part)\
+        .filter(Part.id == Contributor.part_id)\
+        .filter(Part.work_id == workid)\
+        .distinct()\
+        .all()
 
     for author in authors:
         auth = Contributor(part_id=part.id, person_id=author.id, role_id=1)
@@ -738,8 +739,8 @@ def add_edition_to_work(workid: Any) -> Any:
     session.commit()
 
     stories = session.query(Part)\
-                     .filter(Part.work_id == workid, Part.shortstory_id != None)\
-                     .all()
+        .filter(Part.work_id == workid, Part.shortstory_id != None)\
+        .all()
 
     for story in stories:
         part = Part(work_id=workid, edition_id=edition.id,
@@ -764,9 +765,9 @@ def create_first_edition(session: Any, work: Work) -> int:
     return edition.id
 
 
-@app.route('/new_work_for_person/<personid>', methods=['POST', 'GET'])
-@login_required  # type: ignore
-@admin_required
+@ app.route('/new_work_for_person/<personid>', methods=['POST', 'GET'])
+@ login_required  # type: ignore
+@ admin_required
 def new_work_for_person(personid: Any) -> Any:
     session = new_session()
 
