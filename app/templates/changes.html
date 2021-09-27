@@ -24,7 +24,7 @@
                 {% elif change.table_name == 'Novelli' %}
                 <th scope="row"><a href="{{url_for('story', id=change.table_id)}}">{{change.object_name}}</a></th>
                 {% elif change.table_name == 'Artikkeli' %}
-                <th scope="row"><a href="{{url_for('article', articleid=change.table_id)}}">{{change.object_name}}</a>
+                <th scope="row"><a href="{{url_for('article', id=change.table_id)}}">{{change.object_name}}</a>
                 </th>
                 {% elif change.table_name == 'Lehti' %}
                 <th scope="row"><a href="{{url_for('magazine', id=change.table_id)}}">{{change.object_name}}</a></th>
