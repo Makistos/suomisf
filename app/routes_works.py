@@ -695,9 +695,24 @@ def add_edition_to_work(workid: Any) -> Any:
     session = new_session()
 
     work = session.query(Work).filter(Work.id == workid).all()
-
+    editions = session.query(Edition)\
+        .join(Part)\
+        .filter(Part.edition_id == Edition.id, Part.work_id == workid)\
+        .order_by(Edition.pubyear)\
+        .all()
+    latest_edition = editions[-1]
+    if latest_edition.editionnum:
+        editionnum = latest_edition.editionnum + 1
+    else:
+        editionnum = latest_edition
     edition = Edition(title=work[0].title,
-                      pubyear=work[0].pubyear, binding_id=1)
+                      subtitle=work[0].subtitle,
+                      pubyear=work[0].pubyear,
+                      binding_id=1,
+                      format_id=latest_edition.format_id,
+                      publisher_id=latest_edition.publisher_id,
+                      editionnum=editionnum)
+
     session.add(edition)
     session.commit()
 
