@@ -71,11 +71,12 @@ def article(id: Any) -> Any:
         form.title.data = article.title
 
     elif form.validate_on_submit():
-        article.title = form.title.data
-        session.add(article)
-        session.commit()
-        log_change(session, article,
-                   fields=['Otsikko'])
+        if article.title != form.title.data:
+            article.title = form.title.data
+            session.add(article)
+            session.commit()
+            log_change(session, article,
+                       fields=['Otsikko'])
     else:
         app.logger.debug("Errors: {}".format(form.errors))
         print("Errors: {}".format(form.errors))
