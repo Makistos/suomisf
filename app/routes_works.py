@@ -567,12 +567,14 @@ def save_language_to_work() -> Any:
     session = new_session()
 
     lang = session.query(Language)\
-        .filter(Language.id == lang_ids[0]['text'])\
+        .filter(Language.id == lang_ids[0]['id'])\
         .first()
 
     if lang is None:
         (lang_id, lang_name) = create_new_language(
             session, lang_ids[0]['text'])
+    else:
+        lang_id = lang.id
 
     work = session.query(Work)\
                   .filter(Work.id == workid)\
