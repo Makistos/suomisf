@@ -10,7 +10,7 @@ from app.forms import (WorkForm, StoryForm, EditionForm)
 from sqlalchemy import func
 import json
 from .route_helpers import *
-from typing import Any, List, Dict
+from typing import Any, List, Dict, Optional
 
 
 def save_work(session: Any, form: Any, work: Any) -> Any:
@@ -561,19 +561,20 @@ def language_for_work(workid: Any) -> Any:
 @login_required  # type: ignore
 @admin_required
 def save_language_to_work() -> Any:
+    lang_id: int
 
     (workid, lang_ids) = get_select_ids(request.form)
 
     session = new_session()
 
-    lang = session.query(Language)\
-        .filter(Language.id == lang_ids[0]['id'])\
-        .first()
-
-    if lang is None:
-        (lang_id, lang_name) = create_new_language(
+    if str(lang_ids[0]['id']) == str(lang_ids[0]['text']):
+        # Language was not found in db
+        (lang_id, _) = create_new_language(
             session, lang_ids[0]['text'])
     else:
+        lang = session.query(Language)\
+            .filter(Language.id == lang_ids[0]['id'])\
+            .first()
         lang_id = lang.id
 
     work = session.query(Work)\
