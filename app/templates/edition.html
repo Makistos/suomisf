@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+{% from 'edit_menu.tmpl' import edit_menu_content %}
+{% block edit_menu %}
+{% call edit_menu_content() %}
+{% endcall %}
+{% endblock %}
 {% block content %}
 <div class="container mt-5">
     {% if current_user.is_admin %}
@@ -454,8 +459,8 @@
             </div>
             {% endif %}
         </div>
-        <input type="checkbox" id="edit_form" name="edit_form">
-        <label for="edit_form">Muokkaa</label>
+        {# <input type="checkbox" id="edit_form" name="edit_form">
+        <label for="edit_form">Muokkaa</label> #}
         {% endif %}
 
 

@@ -1,4 +1,10 @@
 {% extends "base.html" %}
+{% from 'edit_menu.tmpl' import edit_menu_content %}
+{% block edit_menu %}
+{% call edit_menu_content() %}
+{% endcall %}
+{% endblock %}
+
 {% block content %}
 {% if current_user.is_admin %}
 <form method="post" id="itemForm">
@@ -233,11 +239,12 @@
             {% endfor %}
             {% endif %}
         </div>
+        {#
         {% if current_user.is_admin %}
         <input type="checkbox" id="edit_form" name="edit_form">
         <label for="edit_form">Muokkaa</label>
         {% endif %}
-
+        #}
     </div>
 
     </div>

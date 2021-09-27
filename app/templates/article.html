@@ -1,20 +1,22 @@
 {% extends "base.html" %}
+{% from 'edit_menu.tmpl' import edit_menu_content %}
+{% block edit_menu %}
+{% call edit_menu_content() %}
+{% endcall %}
+{% endblock %}
+
 {% block content %}
 
-<form method="post" id="itemForm"
- class="align-items-center px-1 gx-1 gy-1">
+<form method="post" id="itemForm" class="align-items-center px-1 gx-1 gy-1">
 	{{ form.hidden_tag() }}
 	<div class="container">
 		<div class="card border-primary mb-3">
 			<div class="card-header">
 				{% if current_user.is_admin %}
 				<div class="edit-field">
-					<select class="author-selector form-control" multiple="multiple"
-						data-placeholder="Kirjoittajat"
-						data-search="/select_person"
-						data-save="/save_authors_to_article"
-						data-init="/authors_for_article"
-						data-name="authors">
+					<select class="author-selector form-control" multiple="multiple" data-placeholder="Kirjoittajat"
+						data-search="/select_person" data-save="/save_authors_to_article"
+						data-init="/authors_for_article" data-name="authors">
 					</select>
 				</div>
 				{% endif %}
@@ -26,9 +28,8 @@
 			<div class="card-body">
 				<h3 class="card-title">
 					{% if current_user.is_admin %}
-					<input type="text" class="form-control h3 form-item" id="title"
-						value="{{article.title}}" name="title" style="border:0;"
-						form="itemForm">
+					<input type="text" class="form-control h3 form-item" id="title" value="{{article.title}}"
+						name="title" style="border:0;" form="itemForm">
 					{% else %}
 					{{article.title}}
 					{% endif %}
@@ -47,11 +48,8 @@
 						{% if current_user.is_admin %}
 						<div class="edit-field">
 							<select class="people-selector form-control" multiple="multiple"
-								data-placeholder="Artikkeliin liittyvät henkilöt"
-								data-search="/select_person"
-								data-save="/save_people_to_article"
-								data-init="/people_for_article"
-								data-name="people">
+								data-placeholder="Artikkeliin liittyvät henkilöt" data-search="/select_person"
+								data-save="/save_people_to_article" data-init="/people_for_article" data-name="people">
 							</select>
 						</div>
 						{% endif %}
@@ -65,13 +63,9 @@
 						<b>Avainsanat:</b>
 						{% if current_user.is_admin %}
 						<div class="edit-field">
-							<select class="tag-selector form-control" multiple="multiple"
-								data-placeholder="Asiasanat"
-								data-tags="true"
-								data-search="/select_tags"
-								data-save="/save_tags_to_article"
-								data-init="/tags_for_article"
-								data-name="tags"></select>
+							<select class="tag-selector form-control" multiple="multiple" data-placeholder="Asiasanat"
+								data-tags="true" data-search="/select_tags" data-save="/save_tags_to_article"
+								data-init="/tags_for_article" data-name="tags"></select>
 						</div>
 						{% endif %}
 						<div class="view-field">
@@ -100,51 +94,45 @@
 					</li>
 				</ul>
 
+				{#
 				{% if current_user.is_admin %}
 				<ul class="list-group list-group-flush">
 					<li class="list-group-item">
 						<input type="checkbox" id="edit_form" name="edit_form">
 						<label for="edit_form">Muokkaa</label>
 					</li>
-					{#
 					<li class="list-group-item">
 						<button type="button" class="btn btn-primary" data-toggle="modal"
 							data-target="#editLinks">Muokkaa linkkejä</button>
-					</li>#}
+					</li>
 
 				</ul>
 				{% endif %}
-				{#}
-			<div class="row">
-				<nav>
-					<div class="nav nav-tabs" id="nav-tab" role="tablist">
+				<div class="row">
+					<nav>
+						<div class="nav nav-tabs" id="nav-tab" role="tablist">
+							{% if current_user.is_admin %}
+							<a class="nav-link active" id="nav-admin-tab" data-bs-toggle="tab" href="#nav-admin"
+								role="tab" aria-controls="nav-admin" aria-selected="true">Ylläpito</a>
+							{% endif %}
+						</div>
+					</nav>
+					<div class="tab-content" id="nav-TabContent">
 						{% if current_user.is_admin %}
-						<a class="nav-link active" id="nav-admin-tab" data-bs-toggle="tab"
-						 href="#nav-admin" role="tab" aria-controls="nav-admin"
-						 aria-selected="true">Ylläpito</a>
+						<div class="tab-pane fade show active" id="nav-admin" role="tabpanel"
+							aria-labelledby="nav-admin-tab">
+							<input type="checkbox" id="edit_form" name="edit_form" />
+							<label for="edit_form">Muokkaa</label>
+						</div>
 						{% endif %}
 					</div>
-				</nav>
-						<div class="tab-content" id="nav-TabContent">
-						{% if current_user.is_admin %}
-							<div
-								class="tab-pane fade show active"
-								id="nav-admin"
-								role="tabpanel"
-								aria-labelledby="nav-admin-tab"
-							>
-								<input type="checkbox" id="edit_form" name="edit_form" />
-								<label for="edit_form">Muokkaa</label>
-							</div>
-						{% endif %}
-						</div>
 					</ul>
 				</div>
 			</div>
 			#}
 		</div>
 	</div>
-</div>
+	</div>
 </form>
 {% block script %}
 <script src="/static/js/personlink.js" type="text/javascript"></script>
