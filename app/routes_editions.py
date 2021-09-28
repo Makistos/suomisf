@@ -198,11 +198,12 @@ def edition(editionid: Any) -> Any:
                      .filter(Part.edition_id == editionid)\
                      .all()
 
-    other_editions = session.query(Edition)\
-                            .join(Part)\
-                            .filter(Part.work_id == work.id)\
-                            .filter(Edition.id != edition.id)\
-                            .all()
+    # other_editions = session.query(Edition)\
+    #                         .join(Part)\
+    #                         .filter(Part.work_id == work.id)\
+    #                         .filter(Edition.id != edition.id)\
+    #                         .all()
+    other_editions = [x for x in work.editions if x.id != editionid]
 
     translators = session.query(Person)\
         .join(Contributor.person)\
