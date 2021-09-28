@@ -203,7 +203,7 @@ def edition(editionid: Any) -> Any:
     #                         .filter(Part.work_id == work.id)\
     #                         .filter(Edition.id != edition.id)\
     #                         .all()
-    other_editions = [x for x in work.editions if x.id != editionid]
+    other_editions = [x for x in work.editions if x.id != int(editionid)]
 
     translators = session.query(Person)\
         .join(Contributor.person)\

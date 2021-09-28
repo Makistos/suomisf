@@ -319,7 +319,7 @@
                             </div>
                         </div>
                         <div class="col-3 edit-field">
-                            <label>Ylivetokannet</label>
+                            <label>Kansipaperi</label>
                             <div class="custom-control custom-radio">
                                 <input type="radio" name="dustcover" class="custon-control-input form-item"
                                     id="dustcover_none" value="1" {{dustcovers[1]}}>
@@ -343,7 +343,7 @@
                             </div>
                         </div>
                         <div class="col-3 edit-field">
-                            <label>Kuvakansi</label>
+                            <label>Ylivetokannet</label>
                             <div class="custom-control custom-radio">
                                 <input type="radio" name="coverimage" class="custon-control-input form-item"
                                     id="coverimage_none" value="1" {{coverimages[1]}}>
@@ -371,10 +371,10 @@
                     <div class="row view-field">
                         <div class="col">
                             {% if edition.dustcover == 3 %}
-                            Ylivetokannet.
+                            Kansipaperi.
                             {% endif %}
                             {% if edition.coverimage == 3 %}
-                            Kuvakannet.
+                            Ylivetokannet.
                             {% endif %}
                         </div>
                     </div>
