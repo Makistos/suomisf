@@ -406,8 +406,7 @@
             {% endfor %}
             {% if person.edits %}
             {% set showfirst = 1 %}
-            {% for work in person.edits %}
-            {% for edition in work.editions %}
+            {% for edition in person.edits %}
             {% if edition.images[0] %}
             <figure class="figure">
               <figcaption>{{edition.pubyear}} {{editionnum(edition.version, edition.editionnum, true)}}</figcaption>
@@ -417,7 +416,6 @@
               </a>
             </figure>
             {% endif %}
-            {% endfor %}
             {% endfor %}
             {% endif %}
           </div>
