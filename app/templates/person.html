@@ -376,6 +376,18 @@
               {% endfor %}
             </div>
             {% endfor %}
+
+            {% if person.edits %}
+            <h5 class="mb-0">Toimittanut</h5>
+            <div class="mb-3">
+              {% set skip_pubseriesnum = 1 %}
+              {% for edition in person.edits|sort(attribute='title') %}
+              <div class="mb-2">
+                {% include "_edition.html" %}
+              </div>
+              {% endfor %}
+            </div>
+            {% endif %}
           </div>
           <div id="pics" style="align-items: flex-start;">
             {% set showfirst = 1 %}
@@ -392,6 +404,22 @@
             {% endif %}
             {% endfor %}
             {% endfor %}
+            {% if person.edits %}
+            {% set showfirst = 1 %}
+            {% for work in person.edits %}
+            {% for edition in work.editions %}
+            {% if edition.images[0] %}
+            <figure class="figure">
+              <figcaption>{{edition.pubyear}} {{editionnum(edition.version, edition.editionnum, true)}}</figcaption>
+              <a href=" {{url_for('edition', editionid=edition.id)}}">
+                <img class="img-fluid" src="{{edition.images[0].image_src}}" alt="{{editionnum(edition.version,
+                    edition.editionnum, true)}}">
+              </a>
+            </figure>
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+            {% endif %}
           </div>
         </div>
       </div>
@@ -428,6 +456,7 @@
       </div>
       {% endif %}
 
+      {#
       {% if person.edits|length %}
       <div class="card">
         <div class="card-header" id="headEdited">
@@ -452,7 +481,7 @@
         </div>
       </div>
       {% endif %}
-
+      #}
       {% if stories %}
       <div class="card">
         <div class="card-header" id="headAuthoredStories">
