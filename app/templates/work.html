@@ -236,12 +236,15 @@
                 {% endif %}
             </div>
         </div>
-        <div class="row view-field-mb-2">
+        <div class="row view-field-mb-3">
             <div class="col">
                 {% if work.awards %}
-                {% for award in work.awards %}
-                {{award.award.name}}, {{award.year}} ({{award.category.name}})<br>
+                {% for award in work.awards[0:-1] %}
+                <b>{{award.award.name}}</b>, {{award.year}} ({{award.category.name}}) &bull;
                 {% endfor %}
+                {% set award = work.awards[-1] %}
+                <b>{{award.award.name}}</b>, {{award.year}} ({{award.category.name}})
+
                 {% endif %}
             </div>
         </div>
