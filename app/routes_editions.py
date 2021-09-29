@@ -7,7 +7,7 @@ from flask_login import login_required
 from app.orm_decl import (Person, Publisher, Edition,
                           Part, Pubseries,
                           Work, ShortStory, BindingType,
-                          PublicationSize, EditionImage, Bookseries, Contributor)
+                          EditionImage, Bookseries, Contributor)
 from app.forms import (EditionForm)
 from werkzeug.utils import secure_filename
 from .route_helpers import *
@@ -198,11 +198,6 @@ def edition(editionid: Any) -> Any:
                      .filter(Part.edition_id == editionid)\
                      .all()
 
-    # other_editions = session.query(Edition)\
-    #                         .join(Part)\
-    #                         .filter(Part.work_id == work.id)\
-    #                         .filter(Edition.id != edition.id)\
-    #                         .all()
     other_editions = [x for x in work.editions if x.id != int(editionid)]
 
     translators = session.query(Person)\

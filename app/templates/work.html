@@ -236,6 +236,15 @@
                 {% endif %}
             </div>
         </div>
+        <div class="row view-field-mb-2">
+            <div class="col">
+                {% if work.awards %}
+                {% for award in work.awards %}
+                {{award.award.name}}, {{award.year}} ({{award.category.name}})<br>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
         <!-- Misc -->
         <div class="row">
             {% if current_user.is_admin %}

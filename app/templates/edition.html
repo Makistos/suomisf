@@ -14,7 +14,6 @@
         <h4 class="mb-0 mt-4" style="text-align: center; font-variant: small-caps;">
             <!-- No editing authors in edition -->
             {% if editors|length == 0 %}
-            {#<span class="person-list">{{ authors|map(attribute='name')|join(' & ') }}</span> #}
             <span class="person-list">{{ edition.work[0].author_str }}</span>
             {% endif %}
         </h4>
@@ -249,10 +248,6 @@
                                 <input type="text" class="form-control form-item" id="size" name="size"
                                     value="{{edition.size if edition.size if not none}}">
                             </label>
-                            <!-- <label for="size">Koko</label>
-                            <select class="size-selector form-control" data-placeholder="Koko"
-                                data-search="/select_size" data-save="/save_size_to_edition"
-                                data-init="/size_for_edition" data-mininput="1" data-name="size" name="size"></select> -->
                         </div>
                         {% endif %}
                     </div>
@@ -459,8 +454,6 @@
             </div>
             {% endif %}
         </div>
-        {# <input type="checkbox" id="edit_form" name="edit_form">
-        <label for="edit_form">Muokkaa</label> #}
         {% endif %}
 
 

@@ -915,7 +915,7 @@ class Work(Base):
     stories = relationship('ShortStory', secondary='part', uselist=True,
                            viewonly=True)
     links = relationship("WorkLink", uselist=True, viewonly=True)
-
+    awards = relationship('Awarded', uselist=True, viewonly=True)
     author_str = Column(String(500))
 
     @property
