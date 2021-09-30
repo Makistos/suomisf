@@ -12,10 +12,7 @@
         {% endif %}
         <!-- Authors -->
         <h4 class="mb-0 mt-4" style="text-align: center; font-variant: small-caps;">
-            <!-- No editing authors in edition -->
-            {% if editors|length == 0 %}
             <span class="person-list">{{ edition.work[0].author_str }}</span>
-            {% endif %}
         </h4>
         <!-- Title -->
         {% if current_user.is_admin %}
