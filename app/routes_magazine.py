@@ -22,6 +22,7 @@ def magazine(id):
 
     issues = session.query(Issue)\
                     .filter(Issue.magazine_id == id)\
+                    .order_by(Issue.year, Issue.count, Issue.number, Issue.number_extra)\
                     .all()
 
     return render_template('magazine.html', magazine=magazine, issues=issues)
