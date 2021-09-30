@@ -224,18 +224,18 @@
             </div>
         </div>
         {% endif %}
-        {% if work.links|length > 1 %}
         <div class="row view-field mb-2">
             <div class="col">
+                {% if work.links|length > 1 %}
                 {% for link in work.links[0:-1] %}
                 <a href="{{link.link}}" target="_blank">{{link.description}}</a> &bull;
                 {% endfor %}
                 <a href="{{work.links[-1].link}}" target="_blank">{{work.links[-1].description}}</a>
                 {% elif work.links|length == 1 %}
                 <a href="{{work.links[0].link}}" target="_blank">{{work.links[0].description}}</a>
+                {% endif %}
             </div>
         </div>
-        {% endif %}
         {% if work.awards %}
         <div class="row view-field mb-3">
             <div class="col">
