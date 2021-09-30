@@ -110,7 +110,7 @@ def person(personid: Any) -> Any:
     if person.stories:
         stories = list(person.stories)
     if person.magazine_stories:
-        magazine_stories = list(magazine_stories)
+        magazine_stories = list(person.magazine_stories)
     # First make both data sets into lists so they can be joined together.
     # Then make the result into a set which removes duplicates and finally
     # back to a list so that results can be sorted.
