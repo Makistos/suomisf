@@ -20,12 +20,12 @@ def magazine(id):
                       .filter(Magazine.id == id)\
                       .first()
 
-    issues = session.query(Issue)\
-                    .filter(Issue.magazine_id == id)\
-                    .order_by(Issue.year, Issue.count, Issue.number, Issue.number_extra)\
-                    .all()
+    # issues = session.query(Issue)\
+    #                 .filter(Issue.magazine_id == id)\
+    #                 .order_by(Issue.year, Issue.count, Issue.number, Issue.number_extra)\
+    #                 .all()
 
-    return render_template('magazine.html', magazine=magazine, issues=issues)
+    return render_template('magazine.html', magazine=magazine)
 
 
 @app.route('/edit_magazine/<id>', methods=['GET', 'POST'])
