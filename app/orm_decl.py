@@ -484,7 +484,7 @@ class Magazine(Base):
     issn = Column(String(30))
     tags = relationship('Tag', secondary='magazinetag', uselist=True)
     issues = relationship('Issue', backref=backref('magazine_issue'),
-                          uselist=True, order_by='Issue.count')
+                          uselist=True, order_by='Issue.year, Issue.count, Issue.number, Issue.number_extra')
     publisher = relationship('Publisher', uselist=False)
     # Type of magazine. 0 = fanzine, 1 = other.
     type = Column(Integer, nullable=False)
