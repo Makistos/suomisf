@@ -46,10 +46,17 @@
   </div>
   <div class="view-field mb-3">
     <h1 class="mt-4 mb-1" style="text-align: center;">
-      {% if person.fullname %}
-      {{person.fullname}}
-      {% else %}
+      {% if person.alt_name %}
       {{person.alt_name}}</h1>
+    {% else %}
+    {{person.fullname}}</h1>
+    {% endif %}
+    {% if person.fullname %}
+    {% if person.alt_name != person.fullname %}
+    <h4 class="mt-0 mb-1" style="text-align: center;">
+      ({{ person.fullname }})
+    </h4>
+    {% endif %}
     {% endif %}
     {% if person.real_names %}
     <h4 style="text-align: center;">(Oik.
