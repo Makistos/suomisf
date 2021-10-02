@@ -645,8 +645,14 @@ def save_image_to_edition() -> Any:
                 image.save(os.path.join(
                     app.config['BOOKCOVER_SAVELOC'], filename))
                 session = new_session()
-                ei = EditionImage(edition_id=int(id),
-                                  image_src=app.config['BOOKCOVER_DIR'] + filename)
+                ei = session.query(EditionImage)\
+                            .filter(EditionImage.edition_id == int(id))\
+                            .first()
+                if ei:
+                    ei.image_src = app.config['BOOKCOVER_DIR'] + filename
+                else:
+                    ei = EditionImage(edition_id=int(id),
+                                      image_src=app.config['BOOKCOVER_DIR'] + filename)
                 session.add(ei)
                 session.commit()
                 edition = session.query(Edition).filter(
