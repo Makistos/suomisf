@@ -758,6 +758,7 @@ def create_first_edition(session: Any, work: Work) -> int:
     edition.title = work.title
     edition.subtitle = work.subtitle
     edition.pubyear = work.pubyear
+    edition.binding_id = 1
     edition.editionnum = 1
 
     session.add(edition)
