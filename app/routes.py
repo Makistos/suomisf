@@ -54,7 +54,7 @@ def index() -> Any:
 
     book1 = books_with_covers[floor(random.random()*bcount)]
     book2 = book1
-    while book2.id == book1.id or book2.work_id == book1.work_id:
+    while book2.id == book1.id or book2.work[0].id == book1.work[0].id:
         book2 = books_with_covers[floor(random.random() * bcount)]
 
     return render_template('index.html', work_count=work_count,
@@ -637,8 +637,8 @@ def search():
     session = new_session()
     q = ''
     searchword = request.args.get('search', '')
-    # for k, v in request.args.items():
-    #    app.logger.debug(k + " : " + v)
+    for k, v in request.args.items():
+        app.logger.debug(k + " : " + v)
     app.logger.info("searchword: " + searchword)
     searchword = bleach.clean(searchword)
     # if request.method == 'POST':
