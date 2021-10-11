@@ -326,7 +326,8 @@ def save_authors_to_work() -> Any:
 
     (workid, people_ids) = get_select_ids(request.form)
 
-    existing_people = session.query(Contributor, Contributor.role_id == 1)\
+    existing_people = session.query(Contributor)\
+        .filter(Contributor.role_id == 1)\
         .join(Part)\
         .filter(Part.id == Contributor.part_id)\
         .filter(Part.work_id == workid)\
@@ -341,7 +342,8 @@ def save_authors_to_work() -> Any:
         [int(x['id']) for x in people_ids])
 
     for id in to_remove:
-        auth = session.query(Contributor, Contributor.role_id == 1)\
+        auth = session.query(Contributor)\
+            .filter(Contributor.role_id == 1)\
             .filter(Contributor.person_id == id)\
             .join(Part)\
             .filter(Part.id == Contributor.part_id)\
