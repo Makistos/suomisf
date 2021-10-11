@@ -1,3 +1,4 @@
+import bleach
 import time
 from flask import render_template, request, flash, redirect, url_for,\
     make_response, jsonify, Response
@@ -7,7 +8,7 @@ from app.orm_decl import (Person, Work,
                           Edition, Pubseries, Bookseries, User, UserBook, ShortStory, UserPubseries,
                           Genre, WorkGenre, Tag, Award, Awarded,
                           Magazine, Issue, PublicationSize, Publisher, Part, ArticleTag,
-                          Language, Country, Article, Contributor, Log)
+                          Language, Country, Article, Contributor, Log, EditionImage)
 from sqlalchemy import func, text
 from sqlalchemy.orm import sessionmaker
 from app.forms import (LoginForm, RegistrationForm,
@@ -22,11 +23,13 @@ import pprint
 import urllib
 from typing import Dict, List, Any, Tuple
 import datetime
+import random
+from math import floor
 
 
 @app.route('/')
 @app.route('/index')
-def index():
+def index() -> Any:
     session = new_session()
     work_count = session.query(func.count(Work.id)).first()
     edition_count = session.query(func.count(Edition.id)).first()
@@ -40,6 +43,20 @@ def index():
     magazine_count = session.query(func.count(Magazine.id)).first()
     issue_count = session.query(func.count(Issue.id)).first()
     article_count = session.query(func.count(Article.id)).first()
+    cover_count = session.query(func.count(EditionImage.id)).first()
+
+    books_with_covers = session.query(Edition)\
+                               .join(EditionImage)\
+                               .filter(EditionImage.edition_id == Edition.id)\
+                               .filter(EditionImage.image_src is not None)\
+                               .all()
+    bcount = len(books_with_covers)
+
+    book1 = books_with_covers[floor(random.random()*bcount)]
+    book2 = book1
+    while book2.id == book1.id or book2.work_id == book1.work_id:
+        book2 = books_with_covers[floor(random.random() * bcount)]
+
     return render_template('index.html', work_count=work_count,
                            edition_count=edition_count,
                            author_count=author_count,
@@ -49,7 +66,9 @@ def index():
                            story_count=story_count,
                            magazine_count=magazine_count,
                            issue_count=issue_count,
-                           article_count=article_count)
+                           article_count=article_count,
+                           cover_count=cover_count,
+                           book1=book1, book2=book2)
 
 
 @app.route('/changes')
@@ -618,12 +637,13 @@ def search():
     session = new_session()
     q = ''
     searchword = request.args.get('search', '')
-    for k, v in request.args.items():
-        app.logger.debug(k + " : " + v)
+    # for k, v in request.args.items():
+    #    app.logger.debug(k + " : " + v)
     app.logger.info("searchword: " + searchword)
-    if request.method == 'POST':
-        q = request.form
-    app.logger.debug("q = " + q)
+    searchword = bleach.clean(searchword)
+    # if request.method == 'POST':
+    #    q = request.form
+    #app.logger.debug("q = " + q)
     works = \
         session.query(Work)\
                .filter(Work.title.ilike('%' + searchword + '%'))\
