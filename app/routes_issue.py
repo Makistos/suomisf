@@ -373,7 +373,7 @@ def save_editors_to_issue() -> Response:
         .all()
 
     (to_add, to_remove) = get_join_changes(
-        [x.tag_if for x in existing_editors], [int(x['id']) for x in person_ids])
+        [x.person_id for x in existing_editors], [int(x['id']) for x in person_ids])
 
     for id in to_remove:
         it = session.query(IssueEditor)\
