@@ -8,7 +8,7 @@ from app import app
 from app.forms import IssueForm
 from app.orm_decl import (
     Issue, IssueContent, IssueEditor, IssueTag, Magazine, Person, Tag,
-    Article, ShortStory)
+    Article, ShortStory, PublicationSize)
 
 from .route_helpers import *
 from typing import Any, List, Dict, Optional
@@ -419,7 +419,7 @@ def save_size_to_issue() -> Response:
     (issueid, size_ids) = get_select_ids(request.form)
 
     issue = session.query(Issue).filter(Issue.id == issueid).first()
-    issue.size = size_ids[0]
+    issue.size_id = size_ids[0]['id']
     session.add(issue)
     session.commit()
     log_change(session,
@@ -429,6 +429,24 @@ def save_size_to_issue() -> Response:
     category = 'success'
     resp = {'feedback': msg, 'category': category}
     return make_response(jsonify(resp), 200)
+
+
+@app.route('/size_for_issue/<issueid>', methods=['GET'])
+def size_for_issue(issueid: Any):
+    session = new_session()
+
+    issue = session.query(Issue).filter(Issue.id == issueid).first()
+
+    retval: List[Dict[str, str]] = []
+    if issue.size:
+        size = session.query(PublicationSize)\
+            .filter(PublicationSize.id == issue.size_id)\
+            .first()
+
+        obj: Dict[str, str] = {'id': size.id, 'text': size.name}
+        retval.append(obj)
+
+    return Response(json.dumps(retval))
 
 
 @app.route('/articles_for_issue/<issueid>')
