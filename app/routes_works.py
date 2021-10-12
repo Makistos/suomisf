@@ -380,6 +380,7 @@ def authors_for_work(workid: Any) -> Any:
         .join(Part)\
         .filter(Part.id == Contributor.part_id)\
         .filter(Part.work_id == workid)\
+        .filter(Part.shortstory_id == None)\
         .all()
 
     return(make_people_response(people))
