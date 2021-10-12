@@ -746,6 +746,12 @@ class ShortStory(Base):
                            Contributor.role_id == 1, Part.shortstory_id == ShortStory.id)',
                            uselist=True, order_by='Person.alt_name', viewonly=True,
                            foreign_keys=[Contributor.part_id, Contributor.person_id, Contributor.role_id])
+    translators = relationship("Person",
+                               secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
+                               primaryjoin='and_(Person.id == Contributor.person_id,\
+                               Contributor.role_id == 2, Part.shortstory_id == ShortStory.id)',
+                               uselist=True, order_by='Person.alt_name', viewonly=True,
+                               foreign_keys=[Contributor.part_id, Contributor.person_id, Contributor.role_id])
     type = relationship('StoryType', uselist=False, viewonly=True)
 
     _author_str: str = ''
