@@ -87,6 +87,21 @@
             <div class="row">
                 {% if current_user.is_admin %}
                 <div class="col edit-field mx-auto">
+                    <select class="translator-selector form-control" multiple="multiple" data-placeholder="Kääntäjät"
+                        data-search="/select_person" data-save="/save_translators_to_story"
+                        data-init="/translators_for_story" data-name="translators" id="translators"></select>
+                </div>
+                {% endif %}
+                <div class="col view-field mx-auto">
+                    {% if story.translators|length %}
+                    <span class="person-list">{{story.translators|map(attribute='alt_name')|join(' & ')}}</span>
+                    (suom)
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                {% if current_user.is_admin %}
+                <div class="col edit-field mx-auto">
                     <select class="genre-selector form-control" multiple="multiple" data-placeholder="Genret"
                         data-search="/select_genre" data-save="/save_genres_to_story" data-init="/genres_for_story"
                         data-name="genres" id="genres" data-mininput="1"></select>

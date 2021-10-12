@@ -260,6 +260,78 @@ def authors_for_story(storyid):
     return Response(json.dumps(retval))
 
 
+@app.route('/translators_for_story/<storyid>', methods=['GET'])
+def translators_for_story(storyid: Any):
+    session = new_session()
+    translators = session.query(Person)\
+                         .join(Contributor.person)\
+                         .filter(Contributor.role_id == 2)\
+                         .join(Part)\
+                         .filter(Part.id == Contributor.part_id)\
+                         .filter(Part.shortstory_id == storyid)\
+                         .all()
+
+    retval: List[Dict[str, str]] = []
+
+    if translators:
+        for tr in translators:
+            obj: Dict[str, str] = {}
+            obj['id'] = str(tr.id)
+            obj['text'] = tr.alt_name
+            retval.append(obj)
+
+    return Response(json.dumps(retval))
+
+
+@app.route('/save_translators_to_story', methods=['POST'])
+@login_required  # type: ignore
+@admin_required
+def save_translator_to_story() -> Any:
+    session = new_session()
+
+    (storyid, people_ids) = get_select_ids(request.form)
+
+    existing_people = session.query(Contributor)\
+        .filter(Contributor.role_id == 2)\
+        .join(Part)\
+        .filter(Part.id == Contributor.part_id)\
+        .filter(Part.shortstory_id == storyid)\
+        .all()
+
+    parts = session.query(Part)\
+                   .filter(Part.shortstory_id == storyid)\
+                   .all()
+
+    for x in existing_people:
+        print(x)
+
+    (to_add, to_remove) = get_join_changes(
+        [x.person_id for x in existing_people],
+        [int(x['id']) for x in people_ids])
+
+    for id in to_remove:
+        tr = session.query(Contributor)\
+            .filter(Contributor.role_id == 2)\
+            .filter(Contributor.person_id == id)\
+            .join(Part)\
+            .filter(Part.id == Contributor.part_id)\
+            .filter(Part.shortstory_id == storyid)\
+            .first()
+        session.delete(tr)
+    for id in to_add:
+        for part in parts:
+            tr = Contributor(part_id=part.id, person_id=id, role_id=2)
+            session.add(tr)
+
+    session.commit()
+    story = session.query(ShortStory).filter(ShortStory.id == storyid).first()
+    log_change(session, obj=story, fields=['Kääntäjät'])
+    msg = 'Tallennus onnistui'
+    category = 'success'
+    resp = {'feedback': msg, 'category': category}
+    return make_response(jsonify(resp), 200)
+
+
 @app.route('/genres_for_story/<storyid>', methods=["GET"])
 def genres_for_story(storyid: Any):
     session = new_session()
