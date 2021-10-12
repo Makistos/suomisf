@@ -4,9 +4,8 @@
 
 <div class="container">
 	<h1>{{magazine_name}}</h1>
-	<form action="" method=post >
+	<form action="" method=post>
 		{{ form.hidden_tag() }}
-		{{ render_field(form.editor, id="author") }}
 		{{ render_field(form.number, size=10) }}
 		{{ render_field(form.number_extra, size=10) }}
 		{{ render_field(form.count, size=10) }}
@@ -14,34 +13,33 @@
 		{{ render_field(form.image_src, size=100) }}
 		{{ render_field(form.pages, size=4) }}
 		{{ render_field(form.notes, size=100) }}
-		{{ render_field(form.size, id="size") }}
 		<p>{{ form.submit() }}</p>
 	</form>
 </div>
 
-	<script>
-	$(document).ready(function(){
+<script>
+	$(document).ready(function () {
 		{% if selected_size != '' %}
-			$("#size").val("{{ selected_size|string() }}");
+		$("#size").val("{{ selected_size|string() }}");
 		{% endif %}
 
 		$("author").autocomplete("enable");
 
-		$(function() {
+		$(function () {
 			$("#author").autocomplete({
-				source : function(request, response) {
+				source: function (request, response) {
 					$.ajax({
 						type: "POST",
 						url: "/autocomp_person",
 						dataType: "json",
 						cache: false,
 						data: {
-							q : request.term
+							q: request.term
 						},
-						success: function(data) {
+						success: function (data) {
 							response(data);
 						},
-						error: function(jqHR, textStatus, errorThrown) {
+						error: function (jqHR, textStatus, errorThrown) {
 							console.log(textStatus + " " + errorThrown);
 						}
 					});
@@ -51,6 +49,6 @@
 			});
 		});
 	});
-	</script>
+</script>
 
 {% endblock %}

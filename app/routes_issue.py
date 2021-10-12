@@ -121,9 +121,9 @@ def add_issue(magazine_id):
     issue = Issue()
 
     form = IssueForm(request.form)
-    sizes = size_list(session)
-    form.size.choices = sizes
-    form.size.default = "0"
+    # sizes = size_list(session)
+    # form.size.choices = sizes
+    # form.size.default = "0"
 
     magazine = session.query(Magazine)\
                       .filter(Magazine.id == magazine_id)\
@@ -139,28 +139,28 @@ def add_issue(magazine_id):
         issue.pages = form.pages.data
         issue.link = form.link.data
         issue.notes = form.notes.data
-        if form.size.data != '':
-            issue.size_id = int(form.size.data)
-        else:
-            issue.size = None
+        # if form.size.data != '':
+        #     issue.size_id = int(form.size.data)
+        # else:
+        #     issue.size = None
 
         session.add(issue)
         session.commit()
         log_change(session, issue, action='Uusi')
-        if form.editor.data != '':
-            person = session.query(Person)\
-                            .filter(Person.name == form.editor.data)\
-                            .first()
-            ie = session.query(IssueEditor)\
-                        .filter(IssueEditor.issue_id == issue.id)\
-                        .first()
-            if not ie:
-                ie = IssueEditor(person_id=person.id,
-                                 issue_id=issue.id)
-            else:
-                ie.person_id = person.id
-            session.add(ie)
-            session.commit()
+        # if form.editor.data != '':
+        #     person = session.query(Person)\
+        #                     .filter(Person.name == form.editor.data)\
+        #                     .first()
+        #     ie = session.query(IssueEditor)\
+        #                 .filter(IssueEditor.issue_id == issue.id)\
+        #                 .first()
+        #     if not ie:
+        #         ie = IssueEditor(person_id=person.id,
+        #                          issue_id=issue.id)
+        #     else:
+        #         ie.person_id = person.id
+        #     session.add(ie)
+        #     session.commit()
 
         return redirect(url_for('issue', id=issue.id))
     else:
