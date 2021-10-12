@@ -222,6 +222,7 @@ class PersonForm(FlaskForm):
     fullname = StringField('Koko nimi')
     first_name = StringField('Etunimi')
     last_name = StringField('Sukunimi')
+    other_names = TextAreaField('Muut nimen kirjoitusasut')
     dob = IntegerField('Syntymävuosi', validators=[Optional()])
     dod = IntegerField('Kuolinvuosi', validators=[Optional()])
     image_attr = StringField('Kuvan lähde', validators=[Optional()])
