@@ -127,6 +127,7 @@ def person(personid: Any) -> Any:
         form.name.data = person.name
         form.alt_name.data = person.alt_name
         form.fullname.data = person.fullname
+        form.other_names.data = person.other_names
         form.image_attr.data = person.image_attr
         form.dob.data = person.dob
         form.dod.data = person.dod
@@ -139,6 +140,10 @@ def person(personid: Any) -> Any:
             changes.append('Nimi')
         person.alt_name = form.alt_name.data
         person.fullname = form.fullname.data
+        other_names = form.other_names.data
+        if person.other_names != other_names:
+            person.other_names = form.other_names.data.strip()
+            changes.append('Muut nimen kirjoitusasut')
         person.image_attr = form.image_attr.data
         if person.dob != form.dob.data:
             person.dob = form.dob.data
@@ -147,7 +152,7 @@ def person(personid: Any) -> Any:
             person.dod = form.dod.data
             changes.append('Kuolinvuosi')
         bio = form.bio.data.strip()
-        if person.bio != None and person.bio != bio:
+        if person.bio != bio:
             person.bio = form.bio.data.strip()
             changes.append('Biografia')
         person.bio_src = form.bio_src.data
