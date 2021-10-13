@@ -309,10 +309,10 @@
             {% for group in novel_awards|groupby(attribute='work_id') %}
             <a href="{{url_for('work', workid=group.list[0].work_id)}}"><b>{{ group.list[0].work.title }}</b></a>:
             {% for award in group.list[0:-1] %}
-            {{ award.award.name }} ({{ award.year }}) /
+            <a href="{{url_for('award', awardid=award.award.id)}}">{{ award.award.name }}</a> ({{ award.year }}) /
             {%- endfor -%}
             {% set award = group.list[-1] %}
-            {{ award.award.name }} ({{ award.year}}).<br>
+            <a href="{{url_for('award', awardid=award.award.id)}}">{{ award.award.name }}</a> ({{ award.year}}).<br>
             {% endfor %}
           </div>
         </div>
