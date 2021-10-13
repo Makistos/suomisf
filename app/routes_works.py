@@ -448,7 +448,7 @@ def genres_for_work(workid: Any) -> Any:
     return Response(json.dumps(retval))
 
 
-@ app.route('/save_genres_to_work')
+@ app.route('/save_genres_to_work', methods=['POST'])
 @ login_required  # type: ignore
 @ admin_required
 def save_genres_to_work() -> Any:
@@ -463,7 +463,7 @@ def save_genres_to_work() -> Any:
         .all()
 
     (to_add, to_remove) = get_join_changes(
-        [x.genre_id for x in existing_genres],
+        [x.id for x in existing_genres],
         [int(x['id']) for x in genre_ids])
 
     for id in to_remove:
@@ -477,6 +477,7 @@ def save_genres_to_work() -> Any:
         session.add(wg)
 
     session.commit()
+    work = session.query(Work).filter(Work.id == workid).first()
     log_change(session, work, fields=['Genret'])
 
     msg = 'Tallennus onnistui'
