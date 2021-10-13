@@ -74,12 +74,14 @@ def person(personid: Any) -> Any:
     session = new_session()
     if personid.isdigit():
         person = session.query(Person).filter(Person.id == personid).first()
+        personid = person.id
     else:
         personid = urllib.parse.unquote(personid)
         person = session.query(Person).filter(Person.name == personid).first()
         if not person:
             person = session.query(Person).filter(
                 Person.alt_name == personid).first()
+        personid = person.id
 
     series = session.query(Bookseries)\
                     .join(Work)\
