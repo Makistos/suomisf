@@ -33,7 +33,7 @@ def authors() -> Any:
     session = new_session()
     people = session.query(Person)\
                     .join(Contributor.person)\
-                    .filter(Contributor.role_id == 0)\
+                    .filter(Contributor.role_id == 1)\
                     .order_by(Person.name).all()
     letters = sorted(set([x.name[0].upper() for x in people if x.name != '']))
     return render_template('people.html', people=people,
@@ -46,7 +46,7 @@ def translators() -> Any:
     session = new_session()
     people = session.query(Person)\
                     .join(Contributor.person)\
-                    .filter(Contributor.role_id == 1)\
+                    .filter(Contributor.role_id == 2)\
                     .order_by(Person.name).all()
     letters = sorted(set([x.name[0].upper() for x in people if x.name != '']))
     return render_template('people.html', people=people,
@@ -59,7 +59,7 @@ def editors() -> Any:
     session = new_session()
     people = session.query(Person)\
                     .join(Contributor.person)\
-                    .filter(Contributor.role_id == 2)\
+                    .filter(Contributor.role_id == 3)\
                     .join(Part, Part.id == Contributor.part_id)\
                     .order_by(Person.name).all()
     letters = sorted(set([x.name[0].upper() for x in people if x.name != '']))
