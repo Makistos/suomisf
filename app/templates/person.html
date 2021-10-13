@@ -287,6 +287,7 @@
           </div>
         </div>
         <!-- Personal awards -->
+        {% if person.personal_awards or novel_awards %}
         <div class="row">
           <div class="col">
             <h4>Palkinnot</h4>
@@ -314,6 +315,7 @@
             {% endfor %}
           </div>
         </div>
+        {% endif %}
 
       </div>
     </div>
