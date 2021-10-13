@@ -150,7 +150,7 @@
 
           </div>
           {% endif %}
-          <div class="col view-field text-center">
+          <div class="col view-field">
             {{person.personal_awards|map(attribute='name')|join('<br>')}}
           </div>
         </div>
@@ -218,6 +218,19 @@
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col">
+            {% for group in novel_awards|groupby(attribute='work_id') %}
+            <a href="{{url_for('work', workid=group.list[0].work_id)}}"><b>{{ group.list[0].work.title }}</b></a>:
+            {% for award in group.list[0:-1] %}
+            {{ award.award.name }} ({{ award.year }}) /
+            {%- endfor -%}
+            {% set award = group.list[-1] %}
+            {{ award.award.name }} ({{ award.year}}).<br>
+            {% endfor %}
+          </div>
+        </div>
+
         <div class="row">
           {% if current_user.is_admin %}
           <div class="col edit-field m-2">
@@ -318,17 +331,19 @@
               Palkitut teokset
             </button>
           </h2>
-          <div id="awards" class="collapse" aria-labelledby="headAwards" data-parent="#authorCard">
-            <div class="card-body">
-              <ul class="list-group list-group-flush">
-                {% for award in novel_awards %}
-                <li class="list-group-item">
-                  {{ award.year }}: {{ award.work.title }} ({{
-                  award.award.name }})
-                </li>
-                {% endfor %}
-              </ul>
-            </div>
+        </div>
+      </div>
+      <div id="awards" class="collapse" aria-labelledby="headAwards" data-parent="#authorCard">
+        <div class="card-body">
+          <div class="mb-3">
+            {% for group in novel_awards|groupby(attribute='work_id') %}
+            <a href="{{url_for('work', workid=group.list[0].work_id)}}"><b>{{ group.list[0].work.title }}</b></a>:
+            {% for award in group.list[0:-1] %}
+            {{ award.award.name }} ({{ award.year }}) /
+            {%- endfor -%}
+            {% set award = group.list[-1] %}
+            {{ award.award.name }} ({{ award.year}}).<br>
+            {% endfor %}
           </div>
         </div>
       </div>

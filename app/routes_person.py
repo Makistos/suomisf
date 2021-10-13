@@ -10,7 +10,7 @@ from app.orm_decl import (Person, PersonTag,
                           Part, Work, Genre,
                           Bookseries,
                           Country, Language, PersonLanguage,
-                          Tag, PersonTag, Alias, Contributor, PersonLink)
+                          Tag, PersonTag, Alias, Contributor, PersonLink, Awarded)
 from sqlalchemy import func
 from typing import Dict, Any, List
 from .route_helpers import *
@@ -105,6 +105,15 @@ def person(personid: Any) -> Any:
                     .group_by(Genre.name)\
                     .all()
 
+    novel_awards = session.query(Awarded)\
+                          .join(Work)\
+                          .filter(Work.id == Awarded.work_id)\
+                          .join(Part, Part.work_id == Work.id)\
+                          .join(Contributor, Contributor.part_id == Part.id)\
+                          .filter(Contributor.person_id == personid)\
+                          .filter(Contributor.role_id == 1)\
+                          .all()
+
     stories: List[Any] = []
     magazine_stories: List[Any] = []
     if person.stories:
@@ -187,6 +196,7 @@ def person(personid: Any) -> Any:
                            genres=genre_list,
                            series=series,
                            stories=stories,
+                           novel_awards=novel_awards,
                            form=form)
 
 
