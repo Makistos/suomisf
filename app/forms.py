@@ -11,6 +11,11 @@ from app import db
 from typing import Any
 
 
+class LinkForm(Form):
+    link = StringField('Linkki')
+    description = StringField('Kuvaus')
+
+
 class MultiCheckboxField(SelectMultipleField):
     widget = widgets.ListWidget(prefix_label=False)
     option_widget = widgets.CheckboxInput()
@@ -210,11 +215,6 @@ class NewWorkForm(FlaskForm):
     submit = SubmitField('Tallenna')
 
 
-class PersonLinkForm(Form):
-    link = StringField('Linkki')
-    description = StringField('Kuvaus')
-
-
 class PersonForm(FlaskForm):
     id = HiddenField('id')
     name = StringField('Kirjailjanimi', validators=[InputRequired()])
@@ -228,7 +228,7 @@ class PersonForm(FlaskForm):
     image_attr = StringField('Kuvan lähde', validators=[Optional()])
     bio = TextAreaField('Kuvaus', validators=[Optional()])
     bio_src = StringField('Kuvauksen lähde', validators=[Optional()])
-    links = FieldList(FormField(PersonLinkForm), min_entries=1)
+    links = FieldList(FormField(LinkForm), min_entries=1)
     submit = SubmitField('Tallenna')
 
     # def validate_name(form: Any, field: Any) -> Any:
@@ -242,9 +242,10 @@ class PersonForm(FlaskForm):
 
 class PublisherForm(FlaskForm):
     id = HiddenField('id')
-    name = StringField('Koko nimi')
     name = StringField('Nimi', validators=[DataRequired()])
     fullname = StringField('Koko nimi')
+    links = FieldList(FormField(LinkForm), min_entries=1)
+    description = TextAreaField('Kuvaus', validators=[Optional()])
     submit = SubmitField('Tallenna')
 
 

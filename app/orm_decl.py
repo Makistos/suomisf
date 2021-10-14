@@ -685,6 +685,7 @@ class Publisher(Base):
     editions = relationship("Edition", backref=backref(
         "edition4_assoc"), order_by="Edition.pubyear", viewonly=True)
     series = relationship('Pubseries', viewonly=True)
+    links = relationship("PublisherLink", uselist=True, viewonly=True)
 
 
 class PublisherLink(Base):
