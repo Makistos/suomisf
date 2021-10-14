@@ -478,7 +478,7 @@ def save_editor_to_edition() -> Any:
         work.update_author_str()
 
     edition = session.query(Edition).filter(Edition.id == editionid).first()
-    log_change(session, edition, fields='Toimittajat')
+    log_change(session, edition, fields=['Toimittajat'])
 
     msg = 'Tallennus onnistui'
     category = 'success'
