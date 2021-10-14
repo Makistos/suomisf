@@ -3,10 +3,12 @@
 <div class="container">
     <h1 class="title">{{header}}</h1>
     <div style="text-align: center;" class="mb-3">
-        <b><a href="{{url_for('people')}}">Kaikki</a> &bullet;
+        <b><a href="{{url_for('people')}}">Kaikki</a><br>
             <a href="{{url_for('authors')}}">Kirjailijat</a> &bullet;
+            <a href="{{url_for('story_authors')}}">Novellistit</a> &bullet;
             <a href="{{url_for('translators')}}">Kääntäjät</a> &bullet;
-            <a href="{{url_for('editors')}}">Toimittajat</a>
+            <a href="{{url_for('editors')}}">Toimittajat</a><br>
+            <a href="{{url_for('article_authors')}}">Artikkeleja kirjoittaneet</a>
         </b>
     </div>
     {% if current_user.is_admin %}

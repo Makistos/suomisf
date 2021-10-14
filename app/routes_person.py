@@ -6,7 +6,7 @@ from flask_login.utils import login_required
 
 from app import app
 from app.forms import PersonForm
-from app.orm_decl import (Person, PersonTag,
+from app.orm_decl import (ArticleAuthor, Person, PersonTag,
                           Part, Work, Genre,
                           Bookseries,
                           Country, Language, PersonLanguage,
@@ -34,10 +34,48 @@ def authors() -> Any:
     people = session.query(Person)\
                     .join(Contributor.person)\
                     .filter(Contributor.role_id == 1)\
+                    .join(Part)\
+                    .filter(Part.id == Contributor.part_id)\
+                    .filter(Part.shortstory_id == None)\
+                    .distinct(Person.id)\
                     .order_by(Person.name).all()
     letters = sorted(set([x.name[0].upper() for x in people if x.name != '']))
     return render_template('people.html', people=people,
                            header='Kirjailijat',
+                           letters=letters)
+
+
+@app.route('/story_authors')
+def story_authors() -> Any:
+    session = new_session()
+    people = session.query(Person)\
+                    .join(Contributor.person)\
+                    .filter(Contributor.role_id == 1)\
+                    .join(Part)\
+                    .filter(Part.id == Contributor.part_id)\
+                    .filter(Part.shortstory_id != None)\
+                    .distinct(Person.id)\
+                    .order_by(Person.name).all()
+    letters = sorted(set([x.name[0].upper() for x in people if x.name != '']))
+    return render_template('people.html', people=people,
+                           header='Novellistit',
+                           letters=letters)
+
+
+@app.route('/article_authors')
+def article_authors() -> Any:
+    session = new_session()
+
+    people = session.query(Person)\
+                    .join(ArticleAuthor)\
+                    .filter(ArticleAuthor.person_id == Person.id)\
+                    .distinct(Person.id)\
+                    .order_by(Person.name)\
+                    .all()
+
+    letters = sorted(set([x.name[0].upper() for x in people if x.name != '']))
+    return render_template('people.html', people=people,
+                           header='Artikkeleja kirjoittaneet',
                            letters=letters)
 
 
