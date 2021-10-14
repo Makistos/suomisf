@@ -319,6 +319,9 @@
                         <a href="{{url_for('edition', editionid=edition.id)}}">
                             {% if edition.version and edition.version > 1 %}
                             {{edition.version}}. laitos
+                            {% if edition.editionnum > 1 %}
+                            {{edition.editionnum}}p.
+                            {% endif %}
                             {% elif edition.editionnum %}
                             {{edition.editionnum}}.p
                             {% else %}
