@@ -23,7 +23,7 @@ def publishers() -> Any:
     return render_template('publishers.html', publishers=publishers)
 
 
-@app.route('/publisher/<pubid>')
+@app.route('/publisher/<pubid>', methods=['POST', 'GET'])
 def publisher(pubid: Any) -> Any:
     session = new_session()
     publisher = session.query(Publisher).filter(Publisher.id == pubid).first()
@@ -61,9 +61,55 @@ def publisher(pubid: Any) -> Any:
     editions = session.query(Edition)\
                       .order_by(Edition.pubyear)\
                       .filter(Edition.publisher_id == pubid).all()
+
+    form = PublisherForm(request.form)
+
+    if request.method == 'GET':
+        form.name.data = publisher.name
+        form.fullname.data = publisher.fullname
+        form.description.data = publisher.description
+    elif form.validate_on_submit():
+        changes: List[str] = []
+        if publisher.name != form.name.data:
+            publisher.name = form.name.data
+            changes.append('Nimi')
+        if publisher.fullname != form.fullname.data:
+            publisher.fullname = form.fullname.data
+            changes.append('Pitkä nimi')
+        descr = form.description.data.strip()
+        if publisher.description != descr:
+            publisher.description = descr
+            changes.append('Kuvaus')
+        session.add(publisher)
+        session.commit()
+
+        # Save links
+        links = list(publisher.links)
+        if dynamic_changed(links, form.links.data):
+            changes.append('Linkit')
+
+        session.query(PublisherLink)\
+               .filter(PublisherLink.publisher_id == publisher.id).delete()
+
+        for link in form.links.data:
+            if link['link']:
+                if len(link['link']) > 0:
+                    pl = PublisherLink(publisher_id=publisher.id,
+                                       link=link['link'],
+                                       description=link['description'])
+                    session.add(pl)
+        session.commit()
+
+        log_change(session, publisher, fields=changes)
+
+    else:
+        app.logger.error('Errors: {}'.format(form.errors))
+        print(f'Errors: {form.errors}')
+
     return render_template('publisher.html', publisher=publisher,
                            book_count=book_count, oldest=oldest,
-                           newest=newest, editions=editions, genres=genre_list)
+                           newest=newest, editions=editions, genres=genre_list,
+                           form=form)
 
 
 @app.route('/new_publisher', methods=['GET', 'POST'])
