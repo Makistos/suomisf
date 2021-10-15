@@ -94,7 +94,9 @@
             {{publisher.description|safe if publisher.description is not none}}
         </div>
         <div class="mb-3">
-            {% include "_genre_count.html" %}
+            <div style="text-align: center;">
+                {% include "_genre_count.html" %}
+            </div>
             <div>
                 <b>Kirjoja tietokannassa: </b> {{book_count}}
             </div>
