@@ -13,35 +13,6 @@ from .route_helpers import *
 import json
 from typing import List, Dict, Any
 
-# @app.route('/article/<id>', methods=['GET'])
-# def article(id):
-#     session = new_session()
-
-#     article = session.query(Article)\
-#                      .filter(Article.id == id)\
-#                      .first()
-
-#     authors = session.query(Person)\
-#                      .join(ArticleAuthor)\
-#                      .filter(ArticleAuthor.article_id == id)\
-#                      .all()
-
-#     people = session.query(Person)\
-#                     .join(ArticlePerson)\
-#                     .filter(ArticlePerson.article_id == id)\
-#                     .all()
-
-#     form = ArticleForm(request.form)
-
-#     if request.method == 'GET':
-#         form.title.data = article.title
-
-#     return render_template('article.html',
-#                            article=article,
-#                            authors=authors,
-#                            people=people,
-#                            form=form)
-
 
 @app.route('/article/<id>', methods=['POST', 'GET'])
 def article(id: Any) -> Any:

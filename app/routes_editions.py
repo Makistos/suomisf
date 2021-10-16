@@ -81,102 +81,102 @@ def save_edition(session: Any, form: Any, edition: Any) -> None:
     session.commit()
 
 
-@app.route('/edit_edition/<editionid>', methods=["POST", "GET"])
-def edit_edition(editionid: Any) -> Any:
-    session = new_session()
-    publisher_series: Any
-    publisher: Any
-    pubseries: Any
-    translators: Any
-    editors: Any
-    if str(editionid) != '0':
-        edition = session.query(Edition)\
-            .filter(Edition.id == editionid)\
-            .first()
-        publisher = session.query(Publisher)\
-                           .filter(Publisher.id == edition.publisher_id)\
-                           .first()
-        translators = session.query(Person)\
-                             .join(Contributor.person)\
-                             .filer(Contributor.role_id == 2)\
-                             .join(Part)\
-                             .filter(Contributor.part_id == Part.id,
-                                     Part.edition_id == Edition.id,
-                                     Edition.id == editionid)\
-                             .first()
-        editors = session.query(Person)\
-                         .join(Contributor.person)\
-                         .filter(Contributor.role_id == 3)\
-                         .join(Part, Part.id == Contributor.part_id)\
-                         .filter(Part.edition_id == editionid)\
-                         .first()
-        pubseries = \
-            session.query(Pubseries)\
-            .filter(Pubseries.id == edition.pubseries_id)\
-            .first()
-        if publisher:
-            publisher_series = pubseries_list(session, publisher.id)
-        else:
-            publisher_series = {}
-    else:
-        edition = Edition()
-        publisher = Publisher()
-        translators = Contributor(role_id=2)
-        editors = Contributor(role_id=3)
-        pubseries = Pubseries()
+# @app.route('/edit_edition/<editionid>', methods=["POST", "GET"])
+# def edit_edition(editionid: Any) -> Any:
+#     session = new_session()
+#     publisher_series: Any
+#     publisher: Any
+#     pubseries: Any
+#     translators: Any
+#     editors: Any
+#     if str(editionid) != '0':
+#         edition = session.query(Edition)\
+#             .filter(Edition.id == editionid)\
+#             .first()
+#         publisher = session.query(Publisher)\
+#                            .filter(Publisher.id == edition.publisher_id)\
+#                            .first()
+#         translators = session.query(Person)\
+#                              .join(Contributor.person)\
+#                              .filer(Contributor.role_id == 2)\
+#                              .join(Part)\
+#                              .filter(Contributor.part_id == Part.id,
+#                                      Part.edition_id == Edition.id,
+#                                      Edition.id == editionid)\
+#                              .first()
+#         editors = session.query(Person)\
+#                          .join(Contributor.person)\
+#                          .filter(Contributor.role_id == 3)\
+#                          .join(Part, Part.id == Contributor.part_id)\
+#                          .filter(Part.edition_id == editionid)\
+#                          .first()
+#         pubseries = \
+#             session.query(Pubseries)\
+#             .filter(Pubseries.id == edition.pubseries_id)\
+#             .first()
+#         if publisher:
+#             publisher_series = pubseries_list(session, publisher.id)
+#         else:
+#             publisher_series = {}
+#     else:
+#         edition = Edition()
+#         publisher = Publisher()
+#         translators = Contributor(role_id=2)
+#         editors = Contributor(role_id=3)
+#         pubseries = Pubseries()
 
-    form = EditionForm()
-    selected_pubseries = '0'
-    source = edition.imported_string
-    form.binding.choices = binding_list(session)
-    form.format.choices = format_list(session)
-    form.size.choices = size_list(session)
+#     form = EditionForm()
+#     selected_pubseries = '0'
+#     source = edition.imported_string
+#     form.binding.choices = binding_list(session)
+#     form.format.choices = format_list(session)
+#     form.size.choices = size_list(session)
 
-    if request.method == 'GET':
-        form.id.data = edition.id
-        form.workid.data = ','.join([str(x.id) for x in edition.work])
-        form.title.data = edition.title
-        form.subtitle.data = edition.subtitle
-        form.pubyear.data = edition.pubyear
-        form.edition.data = edition.editionnum
-        if edition.version:
-            form.version.data = edition.version
-        if publisher:
-            form.publisher.data = publisher.name
-        if translators:
-            form.translators.data = translators.name
-        if editors:
-            form.editors.data = editors.name
-        if pubseries:
-            form.pubseries.data = pubseries.name
-        form.pubseriesnum.data = edition.pubseriesnum
-        form.pages.data = edition.pages
-        form.binding.data = edition.binding_id
-        form.format.data = edition.format_id
-        form.size.data = edition.size
-        # form.artist.data  = artist.name
-        form.isbn.data = edition.isbn
-        form.misc.data = edition.misc
-        form.image_src.data = edition.image_src
-        # if pubseries:
-        #     i = 0
-        #     for idx, s in enumerate(publisher_series):
-        #         if s[1] == pubseries.name:
-        #             i = s[0]
-        #             break
-        #     form.pubseries.choices = [('0', 'Ei sarjaa')] + publisher_series
-        #     form.pubseries.default = str(i)
-        #     selected_pubseries = str(i)
-        # form.translators.data = ', '.join([t.name for t in translators])
-        # form.editors.data = ', '.join([e.name for e in editors])
-    if form.validate_on_submit():
-        save_edition(session, form, edition)
-        return redirect(url_for('edition', editionid=edition.id))
-    else:
-        app.logger.debug("Errors: {}".format(form.errors))
-        # app.logger.debug("pubid={}".format(form.pubseries.data))
-    return render_template('edit_edition.html', form=form,
-                           source=source)
+#     if request.method == 'GET':
+#         form.id.data = edition.id
+#         form.workid.data = ','.join([str(x.id) for x in edition.work])
+#         form.title.data = edition.title
+#         form.subtitle.data = edition.subtitle
+#         form.pubyear.data = edition.pubyear
+#         form.edition.data = edition.editionnum
+#         if edition.version:
+#             form.version.data = edition.version
+#         if publisher:
+#             form.publisher.data = publisher.name
+#         if translators:
+#             form.translators.data = translators.name
+#         if editors:
+#             form.editors.data = editors.name
+#         if pubseries:
+#             form.pubseries.data = pubseries.name
+#         form.pubseriesnum.data = edition.pubseriesnum
+#         form.pages.data = edition.pages
+#         form.binding.data = edition.binding_id
+#         form.format.data = edition.format_id
+#         form.size.data = edition.size
+#         # form.artist.data  = artist.name
+#         form.isbn.data = edition.isbn
+#         form.misc.data = edition.misc
+#         form.image_src.data = edition.image_src
+#         # if pubseries:
+#         #     i = 0
+#         #     for idx, s in enumerate(publisher_series):
+#         #         if s[1] == pubseries.name:
+#         #             i = s[0]
+#         #             break
+#         #     form.pubseries.choices = [('0', 'Ei sarjaa')] + publisher_series
+#         #     form.pubseries.default = str(i)
+#         #     selected_pubseries = str(i)
+#         # form.translators.data = ', '.join([t.name for t in translators])
+#         # form.editors.data = ', '.join([e.name for e in editors])
+#     if form.validate_on_submit():
+#         save_edition(session, form, edition)
+#         return redirect(url_for('edition', editionid=edition.id))
+#     else:
+#         app.logger.debug("Errors: {}".format(form.errors))
+#         # app.logger.debug("pubid={}".format(form.pubseries.data))
+#     return render_template('edit_edition.html', form=form,
+#                            source=source)
 
 
 @app.route('/edition/<editionid>', methods=['GET', 'POST'])
@@ -573,44 +573,6 @@ def save_cover_to_edition() -> Any:
 def save_format_to_edition() -> Any:
     pass
 
-# Size
-
-
-# @app.route('/size_for_edition/<editionid>', methods=['GET'])
-# def size_for_edition(editionid: Any) -> Any:
-#     session = new_session()
-#     size = session.query(PublicationSize)\
-#                   .join(Edition)\
-#                   .filter(PublicationSize.id == Edition.size_id)\
-#                   .filter(Edition.id == editionid)\
-#                   .first()
-
-#     retval: List[Dict[str, str]] = []
-#     if size:
-#         obj: Dict[str, str] = {'id': size.id, 'text': size.name}
-#         retval.append(obj)
-#     return Response(json.dumps(retval))
-
-
-# @app.route('/save_size_to_edition', methods=['POST'])
-# @login_required  # type: ignore
-# @admin_required
-# def save_size_to_edition() -> Any:
-#     (editionid, size_id) = get_select_ids(request.form)
-
-#     session = new_session()
-
-#     edition = session.query(Edition)\
-#                      .filter(Edition.id == editionid)\
-#                      .first()
-#     edition.size_id = size_id[0]['id']
-#     session.add(edition)
-#     session.commit()
-
-#     msg = 'Tallennus onnistui'
-#     category = 'success'
-#     resp = {'feedback': msg, 'category': category}
-#     return make_response(jsonify(resp), 200)
 
 # Cover upload
 
