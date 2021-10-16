@@ -132,8 +132,18 @@
             </div>
           </li>
           {% if current_user.is_admin %}
-          {% block edit_menu %}
-          {% endblock %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Ylläpito
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="{{url_for('new_person')}}">Lisää henkilö</a>
+              <a class="dropdown-item" href="{{url_for('new_bookseries')}}">Lisää kirjasarja</a>
+              {% block edit_menu %}
+              {% endblock %}
+            </div>
+          </li>
           {% endif %}
       </div>
       </ul>

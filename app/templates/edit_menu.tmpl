@@ -1,12 +1,4 @@
 {% macro edit_menu_content() -%}
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Ylläpito
-            </a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="{{url_for('new_person')}}">Lisää henkilö</a>
-              <a class="dropdown-item" href="{{url_for('new_bookseries')}}">Lisää kirjasarja</a>
               <div class="dropdown-divider"></div>
               <div class="form-check px-4 py-1">
                 <input type="checkbox" class="form-check-input" id="edit_form" name="edit_form">
@@ -15,6 +7,4 @@
                 </label>
               </div>
               {{ caller() }}
-            </div>
-          </li>
 {%- endmacro %}
