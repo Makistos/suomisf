@@ -257,7 +257,6 @@ def new_work() -> Any:
         # session.add(work)
         # session.commit()
 
-        # log_change(session, work, action='Uusi')
         # return redirect(url_for('work', workid=work.id))
     else:
         app.logger.debug("Errors: {}".format(form.errors))
@@ -823,4 +822,5 @@ def _create_new_work(session: Any, form: Any) -> Any:
     session.add(author)
     session.commit()
     update_work_creators(session, work.id)
+    log_change(session, work, action='Uusi')
     return work
