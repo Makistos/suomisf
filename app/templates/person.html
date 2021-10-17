@@ -3,7 +3,7 @@
 {% from 'edit_menu.tmpl' import edit_menu_content %}
 {% block edit_menu %}
 {% call edit_menu_content() %}
-<a class="dropdown-item" href="{{url_for('new_work_for_person', personid=person.id)}}">Lisää teos</a>
+<a class="dropdown-item" href="{{url_for('new_work_for_person', personid=person.id)}}">Lisää teos henkilölle</a>
 {% endcall %}
 {% endblock %}
 

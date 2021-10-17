@@ -281,6 +281,9 @@ class WorkForm(FlaskForm):
     id = HiddenField('id')
     work_id = HiddenField('work_id')
     hidden_author_id = HiddenField('author_id')
+    hidden_author_name = HiddenField('author_name')
+    authors = SelectField(
+        'Kirjoittajat', choices=[], validate_choice=False, coerce=int, default=0)
     title = StringField('Nimeke', validators=[DataRequired()])
     subtitle = StringField('Alaotsikko')
     orig_title = StringField('Alkuperäinen nimi')
