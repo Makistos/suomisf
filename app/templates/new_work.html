@@ -9,10 +9,10 @@
         {% if form.hidden_author_name.data == "" %}
         <div class="form-row">
             <div class="col-md-3 mb-3">
-                <b>Kirjoittajat</b>
+                <b>Kirjoittaja</b>
             </div>
             <div class="col-md-8 mb-3">
-                <select class="form-control" data-placeholder="Kirjoittajat" data-search="/select_person"
+                <select class="form-control" data-placeholder="Kirjoittaja" data-search="/select_person"
                     data-name="authors" id="authors" name="authors"></select>
             </div>
         </div>
@@ -30,6 +30,16 @@
         {{ render_field(form.subtitle) }}
         {{ render_field(form.orig_title) }}
         {{ render_field(form.pubyear) }}
+        <div class="form-row">
+            <div class="col-md-3 mb-3">
+                <b>Kustantaja</b>
+            </div>
+            <div class="col-md-8 mb-3">
+                <select class="form-control" data-placeholder="Kustantaja" data-search="/select_publisher"
+                    data-name="publisher" name="publisher" id="publisher">
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-md-3 mb-3">
             </div>

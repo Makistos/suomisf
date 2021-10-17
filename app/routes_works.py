@@ -238,26 +238,16 @@ def new_work() -> Any:
     form = WorkForm()
 
     if request.method == 'GET':
-        form.hidden_author_id = 0
+        form.hidden_author_id.data = 0
         form.hidden_author_name.data = ''
     elif form.validate_on_submit():
         types: List[str] = [''] * 4
         types[1] = 'checked'
-        form.hidden_author_id = form.authors.data
+        form.hidden_author_id.data = form.authors.data
         return render_template('work.html',
                                work=_create_new_work(session, form),
                                form=form, types=types,
                                next_book=None, prev_book=None)
-        # work = Work()
-        # work.title = form.title.data
-        # work.subtitle = form.subtitle.data
-        # work.orig_title = form.orig_title.data
-        # work.pubyear = int(form.pubyear.data)
-        # work.type = 1
-        # session.add(work)
-        # session.commit()
-
-        # return redirect(url_for('work', workid=work.id))
     else:
         app.logger.debug("Errors: {}".format(form.errors))
 
@@ -765,13 +755,15 @@ def add_edition_to_work(workid: Any) -> Any:
     return redirect(url_for('edition', editionid=edition.id))
 
 
-def create_first_edition(session: Any, work: Work) -> int:
+def create_first_edition(session: Any, work: Work, publisher_id: Optional[int] = None) -> int:
     edition = Edition()
     edition.title = work.title
     edition.subtitle = work.subtitle
     edition.pubyear = work.pubyear
     edition.binding_id = 1
     edition.editionnum = 1
+    if publisher_id:
+        edition.publisher_id = publisher_id
 
     session.add(edition)
     session.commit()
@@ -797,8 +789,6 @@ def new_work_for_person(personid: Any) -> Any:
                                work=_create_new_work(session, form),
                                form=form, types=types,
                                next_book=None, prev_book=None)
-        # return render_template('work.html', work=work, form=form, types=types,
-        #                       next_book=None, prev_book=None)
 
     return render_template('new_work.html', form=form)
 
@@ -813,7 +803,7 @@ def _create_new_work(session: Any, form: Any) -> Any:
     session.add(work)
     session.commit()
 
-    edition_id = create_first_edition(session, work)
+    edition_id = create_first_edition(session, work, form.publisher.data)
     part = Part(work_id=work.id, edition_id=edition_id)
     session.add(part)
     session.commit()

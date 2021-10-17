@@ -1,3 +1,4 @@
+from wtforms.fields import core
 from wtforms.fields.core import FieldList, FormField
 from app.route_helpers import new_session
 from flask_wtf import FlaskForm
@@ -284,6 +285,8 @@ class WorkForm(FlaskForm):
     hidden_author_name = HiddenField('author_name')
     authors = SelectField(
         'Kirjoittajat', choices=[], validate_choice=False, coerce=int, default=0)
+    publisher = SelectField('Kustantaja', choices=[], validate_choice=False,
+                            coerce=int, default=0)
     title = StringField('Nimeke', validators=[DataRequired()])
     subtitle = StringField('Alaotsikko')
     orig_title = StringField('Alkuperäinen nimi')
