@@ -190,7 +190,8 @@ def person(personid: Any) -> Any:
         person.alt_name = form.alt_name.data
         person.fullname = form.fullname.data
         other_names = form.other_names.data
-        if person.other_names != other_names:
+        if (person.other_names != form.other_names.data and
+                (person.other_names is not None or form.other_names.data != '')):
             person.other_names = form.other_names.data.strip()
             changes.append('Muut nimen kirjoitusasut')
         person.image_attr = form.image_attr.data
@@ -201,7 +202,8 @@ def person(personid: Any) -> Any:
             person.dod = form.dod.data
             changes.append('Kuolinvuosi')
         bio = form.bio.data.strip()
-        if person.bio != bio:
+        if (person.bio != bio and
+                (person.bio is not None or form.bio.data != '')):
             person.bio = form.bio.data.strip()
             changes.append('Biografia')
         person.bio_src = form.bio_src.data
@@ -240,7 +242,7 @@ def person(personid: Any) -> Any:
                            form=form)
 
 
-@app.route('/new_person', methods=['POST', 'GET'])
+@ app.route('/new_person', methods=['POST', 'GET'])
 def new_person() -> Any:
     session = new_session()
     person = Person()
@@ -265,21 +267,21 @@ def new_person() -> Any:
     return render_template('new_person.html', form=form, personid=person.id)
 
 
-@app.route('/people_by_nationality/<nationality>')
+@ app.route('/people_by_nationality/<nationality>')
 def people_by_nationality(nationality: str) -> Any:
     session = new_session()
     country = session.query(Country).filter(
         Country.id == nationality).first()
     people = session.query(Person)\
-                    .filter(Person.nationality_id == country.id)\
-                    .all()
+        .filter(Person.nationality_id == country.id)\
+        .all()
 
     letters = sorted(set([x.name[0].upper() for x in people if x.name != '']))
     return render_template('people.html', people=people,
                            header=country.name, letters=letters)
 
 
-@app.route('/autocomp_person', methods=['POST', 'GET'])
+@ app.route('/autocomp_person', methods=['POST', 'GET'])
 def autocomp_person() -> Response:
     search = request.form['q']
     session = new_session()
@@ -287,16 +289,16 @@ def autocomp_person() -> Response:
     print('search')
     if search:
         people = session.query(Person)\
-                        .filter(Person.name.ilike('%' + search + '%'))\
-                        .order_by(Person.name)\
-                        .all()
+            .filter(Person.name.ilike('%' + search + '%'))\
+            .order_by(Person.name)\
+            .all()
         l = [x.name for x in people]
         return Response(json.dumps(l))
     else:
         return Response(json.dumps(['']))
 
 
-@app.route('/select_person', methods=['GET'])
+@ app.route('/select_person', methods=['GET'])
 def select_person() -> Response:
     search = request.args['q']
     session = new_session()
@@ -304,9 +306,9 @@ def select_person() -> Response:
     if search:
         retval: Dict[str, List[Dict[str, Any]]] = {}
         people = session.query(Person)\
-                        .filter(Person.name.ilike('%' + search + '%'))\
-                        .order_by(Person.name)\
-                        .all()
+            .filter(Person.name.ilike('%' + search + '%'))\
+            .order_by(Person.name)\
+            .all()
 
         retval['results'] = []
         if people:
@@ -318,7 +320,7 @@ def select_person() -> Response:
         return Response(json.dumps(['']))
 
 
-@app.route('/languages_for_person/<personid>')
+@ app.route('/languages_for_person/<personid>')
 def languages_for_person(personid: Any) -> Response:
     session = new_session()
     languages = session.query(Language)\
@@ -337,9 +339,9 @@ def languages_for_person(personid: Any) -> Response:
     return Response(json.dumps(retval))
 
 
-@app.route('/save_languages_to_person', methods=['POST'])
-@login_required  # type: ignore
-@admin_required
+@ app.route('/save_languages_to_person', methods=['POST'])
+@ login_required  # type: ignore
+@ admin_required
 def save_languages_to_person() -> Any:
     session = new_session()
 
@@ -373,14 +375,14 @@ def save_languages_to_person() -> Any:
     return make_response(jsonify(resp), 200)
 
 
-@app.route('/remove_image_from_person/<personid>')
-@login_required  # type: ignore
-@admin_required
+@ app.route('/remove_image_from_person/<personid>')
+@ login_required  # type: ignore
+@ admin_required
 def remove_image_from_person(personid: Any) -> Any:
     return redirect(url_for('person', personid=personid))
 
 
-@app.route('/tags_for_person/<personid>')
+@ app.route('/tags_for_person/<personid>')
 def tags_for_person(personid: Any) -> Response:
     session = new_session()
     tags = session.query(Tag)\
@@ -399,9 +401,9 @@ def tags_for_person(personid: Any) -> Response:
     return Response(json.dumps(retval))
 
 
-@app.route('/save_tags_to_person', methods=['POST'])
-@login_required  # type: ignore
-@admin_required
+@ app.route('/save_tags_to_person', methods=['POST'])
+@ login_required  # type: ignore
+@ admin_required
 def save_tags_to_person() -> Any:
 
     (personid, tag_ids) = get_select_ids(request.form)
@@ -410,16 +412,16 @@ def save_tags_to_person() -> Any:
     tag_ids = create_new_tags(session, tag_ids)
 
     existing_tags = session.query(PersonTag)\
-                           .filter(PersonTag.person_id == personid)\
-                           .all()
+        .filter(PersonTag.person_id == personid)\
+        .all()
 
     (to_add, to_remove) = get_join_changes(
         [x.tag_id for x in existing_tags], [int(x['id']) for x in tag_ids])
 
     for id in to_remove:
         wt = session.query(PersonTag)\
-                    .filter(PersonTag.person_id == personid, PersonTag.tag_id == id)\
-                    .first()
+            .filter(PersonTag.person_id == personid, PersonTag.tag_id == id)\
+            .first()
         session.delete(wt)
     for id in to_add:
         wt = PersonTag(person_id=personid, tag_id=id)
@@ -433,7 +435,7 @@ def save_tags_to_person() -> Any:
     return make_response(jsonify(resp), 200)
 
 
-@app.route('/aliases_for_person/<personid>')
+@ app.route('/aliases_for_person/<personid>')
 def aliases_for_person(personid: Any) -> Response:
     session = new_session()
     aliases = session.query(Alias).filter(Alias.realname == personid).all()
@@ -451,9 +453,9 @@ def aliases_for_person(personid: Any) -> Response:
     return Response(json.dumps(retval))
 
 
-@app.route('/save_aliases_to_person', methods=['POST'])
-@login_required  # type: ignore
-@admin_required
+@ app.route('/save_aliases_to_person', methods=['POST'])
+@ login_required  # type: ignore
+@ admin_required
 def save_aliases_to_person() -> Any:
     (personid, alias_ids) = get_select_ids(request.form)
 
@@ -461,8 +463,8 @@ def save_aliases_to_person() -> Any:
     alias_ids = create_new_people(session, alias_ids)
 
     existing_aliases = session.query(Alias.alias)\
-                              .filter(Alias.realname == personid)\
-                              .all()
+        .filter(Alias.realname == personid)\
+        .all()
 
     (to_add, to_remove) = get_join_changes(
         existing_aliases, [int(x['id']) for x in alias_ids])
@@ -484,7 +486,7 @@ def save_aliases_to_person() -> Any:
     return make_response(jsonify(resp), 200)
 
 
-@app.route('/real_names_for_person/<personid>')
+@ app.route('/real_names_for_person/<personid>')
 def real_names_for_person(personid: Any) -> Response:
     session = new_session()
     aliases = session.query(Alias).filter(Alias.alias == personid).all()
@@ -502,15 +504,15 @@ def real_names_for_person(personid: Any) -> Response:
     return Response(json.dumps(retval))
 
 
-@app.route('/save_real_names_to_person', methods=['POST'])
+@ app.route('/save_real_names_to_person', methods=['POST'])
 def save_real_names_to_person() -> Response:
     session = new_session()
 
     (personid, realname_ids) = get_select_ids(request.form)
 
     existing_realnames = session.query(Alias)\
-                                .filter(Alias.alias == personid)\
-                                .all()
+        .filter(Alias.alias == personid)\
+        .all()
 
     (to_add, to_remove) = get_join_changes(
         set([int(x.realname) for x in existing_realnames]), [int(x['id']) for x in realname_ids])
@@ -533,7 +535,7 @@ def save_real_names_to_person() -> Response:
     return make_response(jsonify(resp), 200)
 
 
-@app.route('/nationality_for_person/<personid>')
+@ app.route('/nationality_for_person/<personid>')
 def nationality_for_person(personid: Any) -> Response:
     session = new_session()
 
@@ -549,9 +551,9 @@ def nationality_for_person(personid: Any) -> Response:
     return Response(json.dumps(retval))
 
 
-@app.route('/save_nationality_to_person', methods=['POST'])
-@login_required  # type: ignore
-@admin_required
+@ app.route('/save_nationality_to_person', methods=['POST'])
+@ login_required  # type: ignore
+@ admin_required
 def save_nationality_to_person() -> Response:
     session = new_session()
     (personid, country_ids) = get_select_ids(request.form)
