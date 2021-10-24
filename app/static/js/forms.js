@@ -1,65 +1,112 @@
 var loading = {};
 
+function saveAward() {
+  var target = $("#awards-fieldset");
+  var oldrow = target.find("[data-toggle=fieldset-entry]:last");
+  var empty = $("awards-0-name").val();
+  if (empty != "") {
+    var row = oldrow.clone(true, true);
+    var elem_id = row.find(":input")[0].id;
+    var elem_num = parseInt(elem_id.replace(/.*-(\d{1,4})-.*/m, "$1")) + 1;
+    row.attr("data-id", elem_num);
+  } else {
+    var row = oldrow;
+  }
+  row.find(":input").each(function () {
+    //console.log(this);
+    var id = $(this)
+      .attr("id")
+      .replace("-" + (elem_num - 1) + "-", "-" + elem_num + "-");
+    $(this).attr("name", id).attr("id", id).val("").removeAttr("checked");
+    if (id.endsWith("-year")) {
+      let year = $("#award-year").val();
+      $(this).val(year);
+    } else if (id.endsWith("-name")) {
+      let award = $("#award-name option:selected").text();
+      $(this).val(award);
+    } else if (id.endsWith("-category")) {
+      let cat = $("#category-name option:selected").text();
+      $(this).val(cat);
+    } else if (id.endsWith("-award_id")) {
+      let award = $("#award-name option:selected").val();
+      $(this).val(award);
+    } else if (id.endsWith("-category_id")) {
+      let cat = $("#category-name option:selected").val();
+      $(this).val(cat);
+    }
+  });
+  oldrow.after(row);
+}
+
+function enable_modals() {
+  $("#add-award").on("shown.bs.modal", function () {
+    $("#year").trigger("focus");
+  });
+  // $("div[data-toggle=awards-fieldset]").each(function () {
+  //   $(this)
+  //     .find("button[data-toggle=awards-fieldset-remove-row")
+  //     .click(function () {
+  //       if ($this.find("[data-toggle=awards-fieldset-entry]").length > 1) {
+  //         var thisRow = $(this).closest("[data-toggle=awards-fieldset-entry]");
+  //         thisRow.remove();
+  //       }
+  //     });
+  // });
+}
+
 $(document).ready(function () {
   // edit_form is the checkbox that admin can click to edit the fields
   $("#edit_form").removeAttr("checked");
 
-  $("select").each(function () {
-    loading[$(this).data("name")] = true;
-    if ($(this).data("width")) {
-      this_width = $(this).data("width");
-    } else {
-      this_width = "resolve";
-    }
-    if ($(this).data("mininput")) {
-      minInputLen = $(this).data("mininput");
-    } else {
-      minInputLen = 3;
-    }
-    if ($(this).data("separators")) {
-      separators = [$(this).data("separators")];
-    } else {
-      separators = [",", ", "];
-    }
-    $(this).select2({
-      ajax: {
-        url: $(this).data("search"),
-        dataType: "json",
-        delay: 250,
-        data: function (params) {
-          return {
-            q: params.term,
-          };
-        },
-      },
-      minimumInputLength: minInputLen,
-      placeholder: $(this).data("placeholder"),
-      tags: Boolean($(this).data("tags")),
-      tokenSeparators: separators,
-      width: this_width,
-    }),
-      /* Fill selectors with data from db. */
-      $.ajax({
-        type: "GET",
-        url: $(this).data("init") + "/" + itemId,
-      }).then((data) => {
-        fill_options($(this), data);
-        loading[$(this).data("name")] = false;
-      });
+  enable_modals();
 
-    // Callbacks that save changes to the select2 fields to db.
-    $(this).on("select2:select", function (evt) {
-      if (!loading[$(this).data("name")]) {
-        saveSelector($(this), $(this).data("save"), $(this).select2("data"));
-        var args = JSON.stringify(evt.params, function (key, value) {
-          if (value && value.nodeName) return "[DOM node]";
-          if (value instanceof $.Event) return "[$.Event]";
-          return value;
-        });
-        console.log("selecting: " + evt.params["data"]["id"]);
+  $("select").each(function () {
+    if ($(this).data("search")) {
+      //console.log("select2");
+      loading[$(this).data("name")] = true;
+      if ($(this).data("width")) {
+        this_width = $(this).data("width");
+      } else {
+        this_width = "resolve";
       }
-    }),
-      $(this).on("select2:unselect", function (evt) {
+      if ($(this).data("mininput")) {
+        minInputLen = $(this).data("mininput");
+      } else {
+        minInputLen = 3;
+      }
+      if ($(this).data("separators")) {
+        separators = [$(this).data("separators")];
+      } else {
+        separators = [",", ", "];
+      }
+      $(this).select2({
+        ajax: {
+          url: $(this).data("search"),
+          dataType: "json",
+          delay: 250,
+          data: function (params) {
+            return {
+              q: params.term,
+            };
+          },
+        },
+        minimumInputLength: minInputLen,
+        placeholder: $(this).data("placeholder"),
+        tags: Boolean($(this).data("tags")),
+        tokenSeparators: separators,
+        width: this_width,
+      }),
+        /* Fill selectors with data from db. */
+        $.ajax({
+          type: "GET",
+          url: $(this).data("init") + "/" + itemId,
+        }).then((data) => {
+          fill_options($(this), data);
+          loading[$(this).data("name")] = false;
+        });
+
+      // Callbacks that save changes to the select2 fields to db.
+      $(this).on("select2:select", function (evt) {
         if (!loading[$(this).data("name")]) {
           saveSelector($(this), $(this).data("save"), $(this).select2("data"));
           var args = JSON.stringify(evt.params, function (key, value) {
@@ -67,14 +114,30 @@ $(document).ready(function () {
             if (value instanceof $.Event) return "[$.Event]";
             return value;
           });
-          console.log("unselecting: " + evt.params["data"]["id"]);
+          //console.log("selecting: " + evt.params["data"]["id"]);
         }
-      });
+      }),
+        $(this).on("select2:unselect", function (evt) {
+          if (!loading[$(this).data("name")]) {
+            saveSelector(
+              $(this),
+              $(this).data("save"),
+              $(this).select2("data")
+            );
+            var args = JSON.stringify(evt.params, function (key, value) {
+              if (value && value.nodeName) return "[DOM node]";
+              if (value instanceof $.Event) return "[$.Event]";
+              return value;
+            });
+            //console.log("unselecting: " + evt.params["data"]["id"]);
+          }
+        });
+    }
   });
 
   // Fill existing values to select2 fields
   function fill_options(selector, data) {
-    console.log("selector " + selector.data("name") + ": " + data);
+    //console.log("selector " + selector.data("name") + ": " + data);
     var items = JSON.parse(data);
     for (var i = 0; i < items.length; i++) {
       var item = items[i];
@@ -139,7 +202,7 @@ $(document).ready(function () {
   }
 
   $(".form-item").each(function () {
-    console.log("id: " + this.id);
+    //console.log("id: " + this.id);
     //$(this).onblur = saveForm(this);
     this.addEventListener("blur", function () {
       //saveForm(this);
@@ -154,8 +217,8 @@ function saveSelector(target, endpoint, item_list) {
     return false;
   }
   const items = item_list.map((item) => ({ id: item.id, text: item.text }));
-  console.log(endpoint);
-  console.log(items);
+  //console.log(endpoint);
+  //console.log(items);
   $.ajax({
     url: endpoint,
     type: "POST",

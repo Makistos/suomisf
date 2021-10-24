@@ -132,3 +132,20 @@ type_id)|groupby(attribute="author_str") %}
 {{ article.issue.number }} / {{ article.issue.year }} {% else %}
 {{ article.issue.count }} {% endif %}: <a href="{{url_for('article', id=article.id)}}">{{ article.title }}</a>.<br>
 {% endmacro %}
+
+
+{% macro awards_form(awards) %}
+Palkinnot: {# <button type="button" data-toggle="fieldset-add-row" data-target="#award-fieldset">+</button> #}
+<table>
+    {% if awards|length %}
+    {% for award in awards %}
+    <tr data-toggle="fieldset-entry">
+        <td><b>{{award.award.name}}</b>, {{award.year}} ({{award.category.name}})</b></td>
+        <td><button type="button" data-toggle="fieldset-remove-row" id="award-{{loop.index0}}-remove">-</button>
+        </td>
+    </tr>
+    {% endfor %}
+    {% endif %}
+</table>
+
+{% endmacro %}

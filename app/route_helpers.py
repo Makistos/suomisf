@@ -9,6 +9,7 @@ from copy import deepcopy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, joinedload
 from sqlalchemy.pool import NullPool
+from sqlalchemy.sql.expression import true
 from sqlalchemy.sql.sqltypes import Boolean
 from app.orm_decl import (Contributor, Language, Person, Publisher, Work,
                           Edition, Part, Pubseries, Bookseries, PublicationSize, Tag,
@@ -803,15 +804,46 @@ def dynamic_changed(original_list: List[Any], new_list: List[Any]) -> bool:
     Returns:
         bool: True if user made changes, False otherwise.
     '''
-    new_dict = {x['link']: x['description']
-                for x in new_list if x['link'] != ''}
-    if len(original_list) != len(new_dict):
+    if len(original_list) != len(new_list):
         return True
-    for item in original_list:
-        if item.link in new_dict:
-            if item.description == new_dict[item.link]:
-                del new_dict[item.link]
-    if len(new_dict) > 0:
-        return True
+    for i in range(len(original_list)):
+        if original_list[i] != new_list[i]:
+            return True
 
     return False
+    # new_dict = {x['link']: x['description']
+    #             for x in new_list if x['link'] != ''}
+    # if len(original_list) != len(new_dict):
+    #     return True
+    # for item in original_list:
+    #     if item.link in new_dict:
+    #         if item.description == new_dict[item.link]:
+    #             del new_dict[item.link]
+    # if len(new_dict) > 0:
+    #     return True
+
+    # return False
+
+
+def awards_to_data(awards: List[Any]) -> List[Dict[str, Any]]:
+    retval: List[Dict[str, Any]] = []
+
+    for award in awards:
+        item = {'year': award.year,
+                'name': award.award.name,
+                'award_id': award.award.id,
+                'category': award.category.name,
+                'category_id': award.category.id}
+        retval.append(item)
+
+    return retval
+
+
+def links_to_data(links: List[Any]) -> List[Dict[str, Any]]:
+    retval: List[Dict[str, Any]] = []
+
+    for link in links:
+        item = {'link': link.link,
+                'description': link.description}
+        retval.append(item)
+    return retval

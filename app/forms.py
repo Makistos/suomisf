@@ -17,6 +17,19 @@ class LinkForm(Form):
     description = StringField('Kuvaus')
 
 
+class AwardForm(Form):
+    year = IntegerField('Vuosi', validators=[Optional()])
+    name = StringField('Palkinto', validators=[Optional()])
+    award_id = IntegerField('Palkintoid', validators=[Optional()])
+    category = StringField('Kategoria', validators=[Optional()])
+    category_id = IntegerField('Palkintoid', validators=[Optional()])
+
+
+class WorkLinkForm(Form):
+    link = StringField('Linkki')
+    description = StringField('Kuvaus')
+
+
 class MultiCheckboxField(SelectMultipleField):
     widget = widgets.ListWidget(prefix_label=False)
     option_widget = widgets.CheckboxInput()
@@ -263,19 +276,14 @@ class PubseriesForm(FlaskForm):
 class StoryForm(FlaskForm):
     id = HiddenField('id')
     hidden_work_id = HiddenField('work_id')
-    #hidden_edition_id = HiddenField('edition_id')
-    #hidden_issue_id = HiddenField('issue_id')
+    # hidden_edition_id = HiddenField('edition_id')
+    # hidden_issue_id = HiddenField('issue_id')
     authors = SelectMultipleField(
         'Kirjoittajat', choices=[], validate_choice=False, coerce=int, default=0)
     title = StringField('Nimi', validators=[DataRequired()])
     orig_title = StringField('Alkuperäinen nimi', validators=[Optional()])
     pubyear = IntegerField('Julkaisuvuosi', validators=[Optional()])
     submit = SubmitField('Tallenna')
-
-
-class WorkLinkForm(Form):
-    link = StringField('Linkki')
-    description = StringField('Kuvaus')
 
 
 class WorkForm(FlaskForm):
@@ -301,6 +309,7 @@ class WorkForm(FlaskForm):
     image_src = StringField('Kuva')
     description = TextAreaField('Kuvaus')
     source = StringField('Lähde')
+    awards = FieldList(FormField(AwardForm), min_entries=1)
     links = FieldList(FormField(WorkLinkForm), min_entries=1)
     submit = SubmitField('Tallenna')
 

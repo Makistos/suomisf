@@ -1,9 +1,11 @@
 {% extends "base.html" %}
+{% from 'macros.html' import awards_form %}
 {% from 'edit_menu.tmpl' import edit_menu_content %}
 {% block edit_menu %}
 {% call edit_menu_content() %}
-<a class="dropdown-item" href="{{url_for('new_story_for_work', workid=work.id)}}">Lisää uusi novelli</a>
-<a class="dropdown-item" href="{{url_for('add_edition_to_work', workid=work.id)}}">Lisää painos</a>
+<a class="dropdown-item" href="{{url_for('new_story_for_work', workid=work.id)}}">Uusi novelli</a>
+<a class="dropdown-item" href="{{url_for('add_edition_to_work', workid=work.id)}}">Uusi painos</a>
+<button type="button" class="dropdown-item" data-toggle="modal" data-target="#add-award">Uusi palkinto</button>
 {% endcall %}
 {% endblock %}
 {% block content %}
@@ -170,23 +172,86 @@
                 {%- if work.bookseriesnum %}
                 {% if work.bookseriesnum|length -%}, numero {{ work.bookseriesnum }}
                 {% if prev_book %}
-                <a href="{{url_for('work',
-                                        workid=prev_book.id)}}">
+                <a href="{{url_for('work', workid=prev_book.id)}}">
                     <img src="/static/icons/Arrows-Left-icon.png" alt="Edellinen" /></a>
 
                 {% endif %}
                 {% if next_book %}
-                <a href="{{url_for('work',
-                                                           workid=next_book.id)}}">
+                <a href="{{url_for('work', workid=next_book.id)}}">
                     <img src="/static/icons/Arrows-Right-icon.png" alt="Seuraava" /></a>
                 {% endif %}
                 {% endif %}
                 {% endif %}
             </div>
         </div>
-        <!-- Links -->
         {% if current_user.is_admin %}
-        <div data-toggle="fieldset" id="link-fieldset" class="row edit-field mt-2">
+        <!-- Awards -->
+        <div data-toggle="fieldset" id="awards-fieldset" class="row edit-field mt-2 mb-3">
+            <div class="col-lg-12 align-self-start">
+                {# {{ awards_form(work.awards) }} #}
+                Palkinnot<br>
+                {% if work.awards|length %}
+                <table>
+                    {% for award in work.awards %}
+                    <tr data-toggle="fieldset-entry">
+                        <td>
+                            <input id="awards-{{loop.index0}}-year" type="text" class="form-control form-item"
+                                name="awards-{{loop.index0}}-year" value="{{award.year}}" form="itemForm">
+                        </td>
+                        <td>
+                            <input id="awards-{{loop.index0}}-name" type="text" class="form-control form-item"
+                                name="awards-{{loop.index0}}-name" value="{{award.award.name}}" form="itemForm">
+                        </td>
+                        <td>
+                            <input id="awards-{{loop.index0}}-category" type="text" class="form-control form-item"
+                                name="awards-{{loop.index0}}-category" value="{{award.category.name}}" form="itemForm">
+                        </td>
+                        <td>
+                            <input id="awards-{{loop.index0}}-award_id" type="text" class="form-control form-item"
+                                name="awards-{{loop.index0}}-award_id" value="{{award.award.id}}" form="itemForm">
+                        </td>
+                        <td>
+                            <input id="awards-{{loop.index0}}-category_id" type="text" class="form-control form-item"
+                                name="awards-{{loop.index0}}-category_id" value="{{award.category.id}}" form="itemForm">
+                        </td>
+                        <td><button type="button" data-toggle="fieldset-remove-row"
+                                id="awards-{{loop.index0}}-remove">-</button></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% else %}
+                <table>
+                    <tr data-toggle="fieldset-entry">
+                        <td>
+                            <input id="awards-0-year" type="text" class="form-control form-item" name="awards-0-year"
+                                value="" form="itemForm">
+                        </td>
+                        <td>
+                            <input id="awards-0-name" type="text" class="form-control form-item" name="awards-0-name"
+                                value="" form="itemForm">
+                        </td>
+                        <td>
+                            <input id="awards-0-category" type="text" class="form-control form-item"
+                                name="awards-0-category" value="" form="itemForm">
+                        </td>
+                        <td>
+                            <input id="awards-0-award_id" type="text" class="form-control form-item"
+                                name="awards-0-award_id" value="" form="itemForm">
+                        </td>
+                        <td>
+                            <input id="awards-0-category_id" type="text" class="form-control form-item"
+                                name="awards-0-category_id" value="" form="itemForm">
+                        </td>
+                        <td><button type="button" data-toggle="fieldset-remove-row" id="award-0-remove">-</button></td>
+                    </tr>
+                </table>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        {% if current_user.is_admin %}
+        <!-- Links -->
+        <div data-toggle="fieldset" id="link-fieldset" class="row edit-field mt-2 mb-3">
             <div class="col-lg-12 align-self-start">
                 Linkit: <button type="button" data-toggle="fieldset-add-row" data-target="#link-fieldset">+</button>
                 <table>
@@ -404,6 +469,56 @@
 {% if current_user.is_admin %}
 </form>
 {% endif %}
+
+<div class="modal" tabindex="-1" role="dialog" id="add-award" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Palkinto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Sulje">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form>
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="award-year">Vuosi
+                                    <input type="text" class="form-control form-item" id="award-year" name="award-year">
+                                </label>
+                            </div>
+                            <div class="col-4">
+                                <label for="award">Palkinto
+                                    <select class="form-control" data-placeholder="Palkinto" id="award-name"
+                                        data-name="award-name" name="award-name">
+                                        {% for award in award_list %}
+                                        <option value="{{award.id}}">{{award.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-4">
+                                <label for="category">Kategoria
+                                    <select class="form-control" data-placeholder="Kategoria" data-name="category-name"
+                                        id="category-name" name="category-name">
+                                        {% for cat in award_categories %}
+                                        <option value="{{cat.id}}">{{cat.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="saveAward();">Tallenna</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Sulje</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% block script %}
 <script type="text/javascript">

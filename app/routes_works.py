@@ -2,10 +2,11 @@ from app import app
 from flask import (render_template, request, redirect, url_for,
                    make_response, jsonify, Response)
 from flask_login import login_required, current_user
-from app.orm_decl import (Person, Work, Bookseries,
+from app.orm_decl import (AwardCategories, Person, Work, Bookseries,
                           Edition, Part, Genre, WorkGenre, ShortStory,
                           BindingType, Part, WorkTag, Tag,
-                          Language, Contributor, WorkLink)
+                          Language, Contributor, WorkLink, Award, AwardCategory,
+                          Awarded)
 from app.forms import (WorkForm, StoryForm, EditionForm)
 from sqlalchemy import func
 import json
@@ -132,6 +133,19 @@ def work(workid: Any) -> Any:
         .filter(Part.work_id == workid)\
         .group_by(Part.shortstory_id)\
         .all()
+
+    award_list = session.query(Award)\
+        .join(AwardCategories)\
+        .filter(AwardCategories.award_id == Award.id)\
+        .join(AwardCategory)\
+        .filter(AwardCategory.id == AwardCategories.category_id)\
+        .filter(AwardCategory.type == 1)\
+        .all()
+
+    award_categories = session.query(AwardCategory)\
+                              .filter(AwardCategory.type == 1)\
+                              .all()
+
     form = WorkForm(request.form)
     form_story = StoryForm(request.form)
     prev_book = None
@@ -155,6 +169,11 @@ def work(workid: Any) -> Any:
                         next_book = books_in_series[idx+1]
                     break
 
+    awards_db = session.query(Award).all()
+    awards = [(a.id, a.name) for a in awards_db]
+    categories_db = session.query(AwardCategory).all()
+    categories = [(c.id, c.name) for c in categories_db]
+
     if request.method == 'GET':
         form.id.data = work.id
         form.title.data = work.title
@@ -166,6 +185,24 @@ def work(workid: Any) -> Any:
         form.misc.data = work.misc
         form.description.data = work.description
         form.source.data = work.imported_string
+
+        # work_awards = session.query(Awarded).filter(
+        #     Awarded.work_id == workid).all()
+        # form.awards[0].name.choices = awards
+        # form.awards[0].category.choices = categories
+        # if work_awards:
+        #     form.awards[0].year.data = work_awards[0].year
+        #     form.awards[0].name.data = work_awards[0].award_id
+        #     form.awards[0].category.data = work_awards[0].category_id
+        #     i: int = 1
+        #     for award in work_awards[1:]:
+        #         form.awards.append_entry()
+        #         form.awards[i].name.choices = awards
+        #         form.awards[i].year.data = work_awards[i].year
+        #         form.awards[i].name.data = work_awards[i].award_id
+        #         form.awards[i].category.data = work_awards[i].category_id
+        #         i += 1
+
     elif form.validate_on_submit():
         fields: List[str] = []
         if work.title != form.title.data:
@@ -198,22 +235,39 @@ def work(workid: Any) -> Any:
         work.author_str = work.update_author_str()
         session.add(work)
         session.commit()
+        # Save awards
+        existing_awards = awards_to_data(work.awards)
+        if dynamic_changed(existing_awards, form.awards.data):
+            fields.append('Palkinnot')
+
+            session.query(Awarded)\
+                .filter(Awarded.work_id == work.id).delete()
+
+            for award in form.awards.data:
+                if award['award_id']:
+                    aw = Awarded(work_id=work.id,
+                                 year=award['year'],
+                                 award_id=award['award_id'],
+                                 category_id=award['category_id'])
+                    session.add(aw)
+            session.commit()
+
         # Save links
-        links = list(work.links)
+        links = links_to_data(work.links)
         if dynamic_changed(links, form.links.data):
             fields.append('Linkit')
 
-        session.query(WorkLink)\
-            .filter(WorkLink.work_id == work.id).delete()
+            session.query(WorkLink)\
+                .filter(WorkLink.work_id == work.id).delete()
 
-        for link in form.links.data:
-            if link['link']:
-                if len(link['link']) > 0:
-                    wl = WorkLink(work_id=work.id,
-                                  link=link['link'],
-                                  description=link['description'])
-                    session.add(wl)
-        session.commit()
+            for link in form.links.data:
+                if link['link']:
+                    if len(link['link']) > 0:
+                        wl = WorkLink(work_id=work.id,
+                                      link=link['link'],
+                                      description=link['description'])
+                        session.add(wl)
+            session.commit()
         # Reload data so changes are updated to view
         log_change(session, work, fields=fields)
     else:
@@ -226,7 +280,11 @@ def work(workid: Any) -> Any:
                            form=form,
                            prev_book=prev_book, next_book=next_book,
                            types=types,
-                           title=title)
+                           title=title,
+                           awards=awards,
+                           categories=categories,
+                           award_list=award_list,
+                           award_categories=award_categories)
 
 
 @ app.route('/new_work', methods=['POST', 'GET'])

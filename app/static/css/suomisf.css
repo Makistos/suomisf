@@ -216,21 +216,21 @@ label {
   cursor: pointer;
 }
 
-.modal-header {
+/* .modal-header {
   padding: 2px 16px;
   background-color: #5cb85c;
   color: white;
-}
+} */
 
 .modal-body {
   padding: 2px 16px;
 }
 
-.modal-footer {
+/* .modal-footer {
   padding: 2px 16px;
   background-color: #5cb85c;
   color: white;
-}
+} */
 
 .align-center {
   text-align: center;
