@@ -5,7 +5,6 @@
 {% call edit_menu_content() %}
 <a class="dropdown-item" href="{{url_for('new_story_for_work', workid=work.id)}}">Uusi novelli</a>
 <a class="dropdown-item" href="{{url_for('add_edition_to_work', workid=work.id)}}">Uusi painos</a>
-<button type="button" class="dropdown-item" data-toggle="modal" data-target="#add-award">Uusi palkinto</button>
 {% endcall %}
 {% endblock %}
 {% block content %}
@@ -191,7 +190,7 @@
         <div data-toggle="fieldset" id="awards-fieldset" class="row edit-field mt-2 mb-3">
             <div class="col-lg-12 align-self-start">
                 {# {{ awards_form(work.awards) }} #}
-                Palkinnot<br>
+                Palkinnot: <button type="button" data-toggle="modal" data-target="#add-award">+</button>
                 {% if work.awards|length %}
                 <table>
                     {% for award in work.awards %}
