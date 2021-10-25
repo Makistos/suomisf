@@ -78,8 +78,10 @@
             <div class="view-field">
                 <p style="text-align: center;">
                     <i>
+                        {% if work.orig_title %}
                         {% if work.title != work.orig_title %} {{ work.orig_title }}
                         {%- if work.pubyear -%} , {% endif %}
+                        {% endif %}
                         {% endif %}
                         {%- if work.pubyear -%}
                         {{ work.pubyear }}
