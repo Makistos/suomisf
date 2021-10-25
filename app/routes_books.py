@@ -143,7 +143,7 @@ def booksX(letter: str) -> Any:
     times.append(time.time())
     works_db = session.query(Work)\
         .all()
-    creators = [x.author_str[0] for x in works_db]
+    creators = [x.author_str[0] for x in works_db if len(x.author_str) > 0]
     times.append(time.time())
     times.append(time.time())
     letters = list(set([x[0] for x in creators if not x[0].islower()]))
