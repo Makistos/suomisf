@@ -212,20 +212,22 @@ def person(personid: Any) -> Any:
 
         # Save links
         links = list(person.links)
+        if form.links.data[0]['link'] == '':
+            links.insert(0, form.links.data[0])
         if dynamic_changed(links, form.links.data):
             changes.append('Linkit')
 
-        session.query(PersonLink)\
-            .filter(PersonLink.person_id == person.id).delete()
+            session.query(PersonLink)\
+                .filter(PersonLink.person_id == person.id).delete()
 
-        for link in form.links.data:
-            if link['link']:
-                if len(link['link']) > 0:
-                    pl = PersonLink(person_id=person.id,
-                                    link=link['link'],
-                                    description=link['description'])
-                    session.add(pl)
-        session.commit()
+            for link in form.links.data:
+                if link['link']:
+                    if len(link['link']) > 0:
+                        pl = PersonLink(person_id=person.id,
+                                        link=link['link'],
+                                        description=link['description'])
+                        session.add(pl)
+            session.commit()
         # Reload data so changes are updated to view
         person = session.query(Person).filter(Person.id == person.id).first()
         log_change(session, person, fields=changes)

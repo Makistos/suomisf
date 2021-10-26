@@ -143,6 +143,7 @@ def booksX(letter: str) -> Any:
     times.append(time.time())
     works_db = session.query(Work)\
         .all()
+
     creators = [x.author_str[0] for x in works_db if len(x.author_str) > 0]
     times.append(time.time())
     times.append(time.time())
@@ -182,7 +183,7 @@ def booksX(letter: str) -> Any:
                            count=count)
 
 
-@app.route('/anthologies')
+@ app.route('/anthologies')
 def anthologies():
     session = new_session()
 
@@ -193,7 +194,7 @@ def anthologies():
     return render_template('books.html', books=page, count=count)
 
 
-@app.route('/part_delete/<partid>', methods=["POST", "GET"])
+@ app.route('/part_delete/<partid>', methods=["POST", "GET"])
 def part_delete(partid, session=None):
 
     commit = False
@@ -204,21 +205,21 @@ def part_delete(partid, session=None):
         session = new_session()
 
     translators = session.query(Contributor, Contributor.role_id == 2)\
-                         .filter(partid == Contributor.part_id)\
-                         .all()
+        .filter(partid == Contributor.part_id)\
+        .all()
     for translator in translators:
         session.delete(translator)
 
     authors = session.query(Contributor, Contributor.role_id == 1)\
-                     .join(Part)\
-                     .filter(Part.id == partid)\
-                     .all()
+        .join(Part)\
+        .filter(Part.id == partid)\
+        .all()
     for author in authors:
         session.delete(author)
 
     part = session.query(Part)\
-                  .filter(Part.id == partid)\
-                  .first()
+        .filter(Part.id == partid)\
+        .first()
     session.delete(part)
 
     if commit:
@@ -228,8 +229,8 @@ def part_delete(partid, session=None):
 def is_owned_edition(editionid):
     session = new_session()
     owned = session.query(UserBook)\
-                   .filter(UserBook.edition_id == editionid)\
-                   .count()
+        .filter(UserBook.edition_id == editionid)\
+        .count()
     if owned > 0:
         return True
     else:
@@ -239,19 +240,19 @@ def is_owned_edition(editionid):
 def is_owned_work(workid):
     session = new_session()
     owned = session.query(UserBook)\
-                   .join(Edition)\
-                   .filter(UserBook.edition_id == Edition.id)\
-                   .join(Part)\
-                   .filter(Part.edition_id == Edition.id, Part.work_id ==
-                           workid)\
-                   .count()
+        .join(Edition)\
+        .filter(UserBook.edition_id == Edition.id)\
+        .join(Part)\
+        .filter(Part.edition_id == Edition.id, Part.work_id ==
+                workid)\
+        .count()
     if owned > 0:
         return True
     else:
         return False
 
 
-@app.route('/edition_delete/<editionid>', methods=["POST", "GET"])
+@ app.route('/edition_delete/<editionid>', methods=["POST", "GET"])
 def edition_delete(editionid, session=None):
     """ Delete an edition along with rows from tables referencing
         the edition.
@@ -277,8 +278,8 @@ def edition_delete(editionid, session=None):
         session.delete(editor)
 
     parts = session.query(Part)\
-                   .filter(Part.edition_id == editionid)\
-                   .all()
+        .filter(Part.edition_id == editionid)\
+        .all()
     for part in parts:
         part_delete(part.id, session)
 
@@ -289,8 +290,8 @@ def edition_delete(editionid, session=None):
         session.delete(book)
 
     edition = session.query(Edition)\
-                     .filter(Edition.id == editionid)\
-                     .first()
+        .filter(Edition.id == editionid)\
+        .first()
 
     session.delete(edition)
 

@@ -237,6 +237,15 @@ def work(workid: Any) -> Any:
         session.commit()
         # Save awards
         existing_awards = awards_to_data(work.awards)
+        if form.awards.data[0]['name'] == '':
+            # This is a bit ugly, but seems like editing the form list is not
+            # possible. This fixes the issue that if there are no awards
+            # then form.awards.data includes an empty item so dynamic_changed
+            # returns true even if nothing has changed. This creates a new
+            # log item every time such a page is saved.
+            # Same fix is needed for every item using the same system, e.g.
+            # links field below.
+            existing_awards.insert(0, form.awards.data[0])
         if dynamic_changed(existing_awards, form.awards.data):
             fields.append('Palkinnot')
 
@@ -254,6 +263,8 @@ def work(workid: Any) -> Any:
 
         # Save links
         links = links_to_data(work.links)
+        if form.links.data[0]['link'] == '':
+            links.insert(0, form.links.data[0])
         if dynamic_changed(links, form.links.data):
             fields.append('Linkit')
 

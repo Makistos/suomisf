@@ -811,18 +811,6 @@ def dynamic_changed(original_list: List[Any], new_list: List[Any]) -> bool:
             return True
 
     return False
-    # new_dict = {x['link']: x['description']
-    #             for x in new_list if x['link'] != ''}
-    # if len(original_list) != len(new_dict):
-    #     return True
-    # for item in original_list:
-    #     if item.link in new_dict:
-    #         if item.description == new_dict[item.link]:
-    #             del new_dict[item.link]
-    # if len(new_dict) > 0:
-    #     return True
-
-    # return False
 
 
 def awards_to_data(awards: List[Any]) -> List[Dict[str, Any]]:
