@@ -38,7 +38,6 @@
         <div class="view-field">
             <h1 class="mb-2 mt-0" style="text-align: center;">{{work.title}}</h1>
         </div>
-        </h1>
         <!-- Subtitle -->
         {% if current_user.is_admin %}
         <div class="edit-field">
@@ -356,14 +355,6 @@
             </div>
         </div>
         {% endif %}
-        {#
-        <div class="row">
-            <div class="col edit-field">
-                <a href="{{url_for('new_story_for_work', workid=work.id)}}">Lisää uusi novelli</a>&bullet;
-                <a href="{{url_for('add_edition_to_work', workid=work.id)}}">Lisää painos</a>
-            </div>
-        </div>
-        #}
         {% if work.stories|length %}
         <div class="ml-4 view-field">
             <h5>Novellit</h5>
@@ -466,8 +457,8 @@
                 {% endif %}
 
             </div>
-            {% endfor %}
         </div>
+        {% endfor %}
 
         {% if current_user.is_admin %}
     </form>
