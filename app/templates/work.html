@@ -27,16 +27,17 @@
             </h4>
         </div>
         <!-- Title -->
-        <h1 class="mb-0 mt-0" style="text-align: center;">
-            {% if current_user.is_admin %}
-            <div class="edit-field">
+        {% if current_user.is_admin %}
+        <div class="edit-field">
+            <h1 class="mb-0 mt-0" style="text-align: center;">
                 <input type="text" class="form-control form-item" value="{{work.title}}" form="itemForm" id="title"
                     name="title">
-            </div>
-            {% endif %}
-            <div class="view-field">
-                <h1>{{work.title}}</h1>
-            </div>
+            </h1>
+        </div>
+        {% endif %}
+        <div class="view-field">
+            <h1 class="mb-2 mt-0" style="text-align: center;">{{work.title}}</h1>
+        </div>
         </h1>
         <!-- Subtitle -->
         {% if current_user.is_admin %}
@@ -102,11 +103,13 @@
                 {% endif %}
             </div>
             <div class="col view-field">
-                {% for genre in work.genres %}
-                <li class="list-inline-item">
-                    {{genre.name}} <img src="/static/icons/{{genre.abbr}}_16.png" alt="{{genre.name}}" />
-                </li>
-                {% endfor %}
+                <ul>
+                    {% for genre in work.genres %}
+                    <li class="list-inline-item">
+                        {{genre.name}} <img src="/static/icons/{{genre.abbr}}_16.png" alt="{{genre.name}}" />
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
         <!-- Tags -->
@@ -476,7 +479,7 @@
 {{ awards(award_list, award_categories) }}
 
 {% block script %}
-<script type="text/javascript">
+<script>
     var itemId = '{{work.id}}'
 </script>
 <script src="/static/js/ownership.js"></script>
