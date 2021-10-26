@@ -27,8 +27,8 @@
                 </td>
                 {% elif awrd.work %}
                 <td>{{ awrd.work.author_str}}:
-                    <a href="{{url_for('edition',
-                                          editionid=awrd.work.editions[0].id)}}">{{awrd.work.title}}</a>
+                    <a href="{{url_for('work',
+                                          workid=awrd.work.id)}}">{{awrd.work.title}}</a>
                 </td>
                 {% elif awrd.story %}
                 <td><a href="{{ url_for('story', id=awrd.story.id)}}">{{

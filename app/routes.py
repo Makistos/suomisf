@@ -241,6 +241,7 @@ def award(awardid: Any) -> Any:
     award = session.query(Award).filter(Award.id == awardid).first()
     awards = session.query(Awarded)\
         .filter(Awarded.award_id == awardid)\
+        .order_by(Awarded.year)\
         .all()
 
     return render_template('award.html', award=award, awards=awards)
