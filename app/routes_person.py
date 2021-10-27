@@ -10,7 +10,8 @@ from app.orm_decl import (ArticleAuthor, Person, PersonTag,
                           Part, Work, Genre,
                           Bookseries,
                           Country, Language, PersonLanguage,
-                          Tag, PersonTag, Alias, Contributor, PersonLink, Awarded)
+                          Tag, PersonTag, Alias, Contributor, PersonLink, Awarded,
+                          Award, AwardCategories, AwardCategory)
 from sqlalchemy import func
 from typing import Dict, Any, List
 from .route_helpers import *
@@ -154,6 +155,18 @@ def person(personid: Any) -> Any:
                           .filter(Contributor.role_id == 1)\
                           .all()
 
+    award_list = session.query(Award)\
+        .join(AwardCategories)\
+        .filter(AwardCategories.award_id == Award.id)\
+        .join(AwardCategory)\
+        .filter(AwardCategory.id == AwardCategories.category_id)\
+        .filter(AwardCategory.type == 0)\
+        .all()
+
+    award_categories = session.query(AwardCategory)\
+                              .filter(AwardCategory.type == 0)\
+                              .all()
+
     stories: List[Any] = []
     magazine_stories: List[Any] = []
     if person.stories:
@@ -210,6 +223,32 @@ def person(personid: Any) -> Any:
         session.add(person)
         session.commit()
 
+        # Save awards
+        existing_awards = awards_to_data(person.personal_awards)
+        if form.awards.data[0]['name'] == '':
+            # This is a bit ugly, but seems like editing the form list is not
+            # possible. This fixes the issue that if there are no awards
+            # then form.awards.data includes an empty item so dynamic_changed
+            # returns true even if nothing has changed. This creates a new
+            # log item every time such a page is saved.
+            # Same fix is needed for every item using the same system, e.g.
+            # links field below.
+            existing_awards.insert(0, form.awards.data[0])
+        if dynamic_changed(existing_awards, form.awards.data[0]):
+            changes.append('Palkinnot')
+
+            session.query(Awarded)\
+                   .filter(Awarded.person_id == person.id).delete()
+
+            for award in form.awards.data:
+                if award['award_id']:
+                    aw = Awarded(person_id=person.id,
+                                 year=award['year'],
+                                 award_id=award['award_id'],
+                                 category_id=award['category_id'])
+                    session.add(aw)
+            session.commit()
+
         # Save links
         links = list(person.links)
         if form.links.data[0]['link'] == '':
@@ -241,7 +280,9 @@ def person(personid: Any) -> Any:
                            series=series,
                            stories=stories,
                            novel_awards=novel_awards,
-                           form=form)
+                           form=form,
+                           award_list=award_list,
+                           award_categories=award_categories)
 
 
 @ app.route('/new_person', methods=['POST', 'GET'])

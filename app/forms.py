@@ -242,6 +242,7 @@ class PersonForm(FlaskForm):
     image_attr = StringField('Kuvan lähde', validators=[Optional()])
     bio = TextAreaField('Kuvaus', validators=[Optional()])
     bio_src = StringField('Kuvauksen lähde', validators=[Optional()])
+    awards = FieldList(FormField(AwardForm), min_entries=1)
     links = FieldList(FormField(LinkForm), min_entries=1)
     submit = SubmitField('Tallenna')
 

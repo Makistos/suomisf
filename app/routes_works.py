@@ -186,23 +186,6 @@ def work(workid: Any) -> Any:
         form.description.data = work.description
         form.source.data = work.imported_string
 
-        # work_awards = session.query(Awarded).filter(
-        #     Awarded.work_id == workid).all()
-        # form.awards[0].name.choices = awards
-        # form.awards[0].category.choices = categories
-        # if work_awards:
-        #     form.awards[0].year.data = work_awards[0].year
-        #     form.awards[0].name.data = work_awards[0].award_id
-        #     form.awards[0].category.data = work_awards[0].category_id
-        #     i: int = 1
-        #     for award in work_awards[1:]:
-        #         form.awards.append_entry()
-        #         form.awards[i].name.choices = awards
-        #         form.awards[i].year.data = work_awards[i].year
-        #         form.awards[i].name.data = work_awards[i].award_id
-        #         form.awards[i].category.data = work_awards[i].category_id
-        #         i += 1
-
     elif form.validate_on_submit():
         fields: List[str] = []
         if work.title != form.title.data:
