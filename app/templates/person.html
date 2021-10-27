@@ -387,287 +387,286 @@
     </div>
   </div>
 
-</div>
 
-{% if person.works|length or person.edits|length %}
-<!-- Works -->
-<div class="card">
-  <div class="card-header" id="headAuthoredBooks">
-    <h2 class="mb-0">
-      <div class="row">
-        <div class="col col-md-10">
-          <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-            data-target="#authoredBooks" aria-expanded="false" aria-controls="authoredBooks">
-            Teokset
-          </button>
+  {% if person.works|length or person.edits|length %}
+  <!-- Works -->
+  <div class="card">
+    <div class="card-header" id="headAuthoredBooks">
+      <h2 class="mb-0">
+        <div class="row">
+          <div class="col col-md-10">
+            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+              data-target="#authoredBooks" aria-expanded="false" aria-controls="authoredBooks">
+              Teokset
+            </button>
+          </div>
+          <div class="col">
+            <button onclick="switchStyle()" id="switcher" class="btn btn-light text-right">
+              Kannet
+            </button>
+          </div>
         </div>
-        <div class="col">
-          <button onclick="switchStyle()" id="switcher" class="btn btn-light text-right">
-            Kannet
-          </button>
-        </div>
-      </div>
-    </h2>
+      </h2>
+    </div>
   </div>
-</div>
-<div id="authoredBooks" aria-labelledby="headAuthoredBooks" data-parent="#authorCard">
-  <div class="card-body">
-    <div id="textual" class="mb-2">
-      <div class="mb-3">
-        {% for work in person.works|selectattr("author_str", "equalto", person.name) %}
-        <div class="mb-1">
-          {% include "_work.html" %}
-          {% set show_first_edition = 1 %}
-          {% for edition in work.editions[1:] %}
-          {% include "_work_edition.html" %}
+  <div id="authoredBooks" aria-labelledby="headAuthoredBooks" data-parent="#authorCard">
+    <div class="card-body">
+      <div id="textual" class="mb-2">
+        <div class="mb-3">
+          {% for work in person.works|selectattr("author_str", "equalto", person.name) %}
+          <div class="mb-1">
+            {% include "_work.html" %}
+            {% set show_first_edition = 1 %}
+            {% for edition in work.editions[1:] %}
+            {% include "_work_edition.html" %}
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
+        {% for w_group in person.works|selectattr("author_str", "ne", person.name)|groupby(attribute="author_str")
+        %}
+        <div class="mb-3">
+          <h5 class="mb-0">{{w_group.grouper}}</h5>
+          {% for work in w_group.list %}
+          <div class="mb-1">
+            {% include "_work.html" %}
+            {% set show_first_edition = 1 %}
+            {% for edition in work.editions[1:] %}
+            {% include "_work_edition.html" %}
+            {% endfor %}
+          </div>
           {% endfor %}
         </div>
         {% endfor %}
-      </div>
-      {% for w_group in person.works|selectattr("author_str", "ne", person.name)|groupby(attribute="author_str")
-      %}
-      <div class="mb-3">
-        <h5 class="mb-0">{{w_group.grouper}}</h5>
-        {% for work in w_group.list %}
-        <div class="mb-1">
-          {% include "_work.html" %}
-          {% set show_first_edition = 1 %}
-          {% for edition in work.editions[1:] %}
-          {% include "_work_edition.html" %}
+
+        {% if person.edits %}
+        <h5 class="mb-0">Toimittanut</h5>
+        <div class="mb-3">
+          {% set skip_pubseriesnum = 1 %}
+          {% for edition in person.edits|sort(attribute='title') %}
+          <div class="mb-2">
+            {% include "_edition.html" %}
+          </div>
           {% endfor %}
         </div>
+        {% endif %}
+      </div>
+      <div id="pics" style="align-items: flex-start;">
+        {% set showfirst = 1 %}
+        {% for work in person.works %}
+        {% for edition in work.editions %}
+        {% if edition.images[0] %}
+        <figure class="figure">
+          <figcaption>{{edition.pubyear}} {{editionnum(edition.version, edition.editionnum, true)}}</figcaption>
+          <a href=" {{url_for('edition', editionid=edition.id)}}">
+            <img class="img-fluid" src="{{edition.images[0].image_src}}" alt="{{editionnum(edition.version,
+                    edition.editionnum, true)}}">
+          </a>
+        </figure>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+        {% if person.edits %}
+        {% set showfirst = 1 %}
+        {% for edition in person.edits %}
+        {% if edition.images[0] %}
+        <figure class="figure">
+          <figcaption>{{edition.pubyear}} {{editionnum(edition.version, edition.editionnum, true)}}</figcaption>
+          <a href=" {{url_for('edition', editionid=edition.id)}}">
+            <img class="img-fluid" src="{{edition.images[0].image_src}}" alt="{{editionnum(edition.version,
+                    edition.editionnum, true)}}">
+          </a>
+        </figure>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% if series %}
+  <div class="card">
+    <div class="card-header" id="headSeries">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+          data-target="#series" aria-expanded="false" aria-controls="series">
+          Sarjat
+        </button>
+      </h2>
+    </div>
+  </div>
+  <div id="series" class="collapse" aria-labelledby="headSeries" data-parent="#authorCard">
+    <div class="card-body">
+      {% for s in series %}
+      <div class="mt-4">
+        <h4 class="mb-1">
+          <a href="{{ url_for('bookseries', seriesid=s.id)}}">
+            {{s.name }}</a>
+        </h4>
+        <br />
+        {% for work in s.works %}
+        {% if work.author_str != person.name %}
+        {{ work.author_str }}:
+        {% endif %}
+        {% include "_work.html" %}
         {% endfor %}
       </div>
       {% endfor %}
+    </div>
+  </div>
+  {% endif %}
 
-      {% if person.edits %}
-      <h5 class="mb-0">Toimittanut</h5>
-      <div class="mb-3">
+  {% if stories %}
+  <div class="card">
+    <div class="card-header" id="headAuthoredStories">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+          data-target="#authoredStories" aria-expanded="false" aria-controls="authoredStories">
+          Novellit, raapaleet, runot, filk-laulut ym.
+        </button>
+      </h2>
+    </div>
+    <div id="authoredStories" class="collapse" aria-labelledby="headAuthoredStories" data-parent="#authorCard">
+      <div class="card-body">
+        {% if stories %}
+        {{ print_story_type("Novellit", 1, stories, person) }}
+        {{ print_story_type("Pitkät novellit", 2, stories, person) }}
+        {{ print_story_type("Pienoisromaanit", 3, stories, person) }}
+        {{ print_story_type("Runot", 4, stories, person) }}
+        {{ print_story_type("Raapaleet", 5, stories, person) }}
+        {{ print_story_type("Filk-laulut", 6, stories, person) }}
+        {{ print_story_type("Esipuheet", 8, stories, person) }}
+        {{ print_story_type("Jälkisanat", 9, stories, person) }}
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if person.translations|length or
+  person.translated_stories|length%}
+  <div class="card">
+    <div class="card-header" id="headTranslated">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+          data-target="#translated" aria-expanded="false" aria-controls="translated">
+          Kääntänyt
+        </button>
+      </h2>
+    </div>
+    <div id="translated" class="collapse" aria-labelledby="headTranslated" data-parent="#authorCard">
+      <div class="card-body">
         {% set skip_pubseriesnum = 1 %}
-        {% for edition in person.edits|sort(attribute='title') %}
+        {% if person.translations %}
+        <h4>Romaanit</h4>
+        {% for edition in person.translations|sort(attribute='title') %}
+        <div class="mb-2">{% include "_edition.html" %}</div>
+        {% endfor %}
+        {% endif %}
+        {% if person.translated_stories %}
+        <h4 style="margin-top: 1rem">Novellit</h4>
+        {% for story in person.translated_stories|sort(attribute='title') %}
         <div class="mb-2">
-          {% include "_edition.html" %}
+          <a href="{{ url_for('story', id=story.id)}}">{{ story.title }}</a>
+          ({{story.orig_title}}, {{story.pubyear}})
         </div>
         {% endfor %}
+        {% endif %}
       </div>
-      {% endif %}
-    </div>
-    <div id="pics" style="align-items: flex-start;">
-      {% set showfirst = 1 %}
-      {% for work in person.works %}
-      {% for edition in work.editions %}
-      {% if edition.images[0] %}
-      <figure class="figure">
-        <figcaption>{{edition.pubyear}} {{editionnum(edition.version, edition.editionnum, true)}}</figcaption>
-        <a href=" {{url_for('edition', editionid=edition.id)}}">
-          <img class="img-fluid" src="{{edition.images[0].image_src}}" alt="{{editionnum(edition.version,
-                    edition.editionnum, true)}}">
-        </a>
-      </figure>
-      {% endif %}
-      {% endfor %}
-      {% endfor %}
-      {% if person.edits %}
-      {% set showfirst = 1 %}
-      {% for edition in person.edits %}
-      {% if edition.images[0] %}
-      <figure class="figure">
-        <figcaption>{{edition.pubyear}} {{editionnum(edition.version, edition.editionnum, true)}}</figcaption>
-        <a href=" {{url_for('edition', editionid=edition.id)}}">
-          <img class="img-fluid" src="{{edition.images[0].image_src}}" alt="{{editionnum(edition.version,
-                    edition.editionnum, true)}}">
-        </a>
-      </figure>
-      {% endif %}
-      {% endfor %}
-      {% endif %}
     </div>
   </div>
-</div>
-{% endif %}
-{% if series %}
-<div class="card">
-  <div class="card-header" id="headSeries">
-    <h2 class="mb-0">
-      <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-        data-target="#series" aria-expanded="false" aria-controls="series">
-        Sarjat
-      </button>
-    </h2>
-  </div>
-</div>
-<div id="series" class="collapse" aria-labelledby="headSeries" data-parent="#authorCard">
-  <div class="card-body">
-    {% for s in series %}
-    <div class="mt-4">
-      <h4 class="mb-1">
-        <a href="{{ url_for('bookseries', seriesid=s.id)}}">
-          {{s.name }}</a>
-      </h4>
-      <br />
-      {% for work in s.works %}
-      {% if work.author_str != person.name %}
-      {{ work.author_str }}:
-      {% endif %}
-      {% include "_work.html" %}
-      {% endfor %}
-    </div>
-    {% endfor %}
-  </div>
-</div>
-{% endif %}
+  {% endif %}
 
-{% if stories %}
-<div class="card">
-  <div class="card-header" id="headAuthoredStories">
-    <h2 class="mb-0">
-      <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-        data-target="#authoredStories" aria-expanded="false" aria-controls="authoredStories">
-        Novellit, raapaleet, runot, filk-laulut ym.
-      </button>
-    </h2>
-  </div>
-  <div id="authoredStories" class="collapse" aria-labelledby="headAuthoredStories" data-parent="#authorCard">
-    <div class="card-body">
-      {% if stories %}
-      {{ print_story_type("Novellit", 1, stories, person) }}
-      {{ print_story_type("Pitkät novellit", 2, stories, person) }}
-      {{ print_story_type("Pienoisromaanit", 3, stories, person) }}
-      {{ print_story_type("Runot", 4, stories, person) }}
-      {{ print_story_type("Raapaleet", 5, stories, person) }}
-      {{ print_story_type("Filk-laulut", 6, stories, person) }}
-      {{ print_story_type("Esipuheet", 8, stories, person) }}
-      {{ print_story_type("Jälkisanat", 9, stories, person) }}
-      {% endif %}
-
+  {% if person.articles|length %}
+  <div class="card">
+    <div class="card-header" id="headArticles">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+          data-target="#articles" aria-expanded="false" aria-controls="appearsin">
+          Artikkelit
+        </button>
+      </h2>
     </div>
-  </div>
-</div>
-{% endif %}
-
-{% if person.translations|length or
-person.translated_stories|length%}
-<div class="card">
-  <div class="card-header" id="headTranslated">
-    <h2 class="mb-0">
-      <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-        data-target="#translated" aria-expanded="false" aria-controls="translated">
-        Kääntänyt
-      </button>
-    </h2>
-  </div>
-  <div id="translated" class="collapse" aria-labelledby="headTranslated" data-parent="#authorCard">
-    <div class="card-body">
-      {% set skip_pubseriesnum = 1 %}
-      {% if person.translations %}
-      <h4>Romaanit</h4>
-      {% for edition in person.translations|sort(attribute='title') %}
-      <div class="mb-2">{% include "_edition.html" %}</div>
-      {% endfor %}
-      {% endif %}
-      {% if person.translated_stories %}
-      <h4 style="margin-top: 1rem">Novellit</h4>
-      {% for story in person.translated_stories|sort(attribute='title') %}
-      <div class="mb-2">
-        <a href="{{ url_for('story', id=story.id)}}">{{ story.title }}</a>
-        ({{story.orig_title}}, {{story.pubyear}})
+    <div id="articles" class="collapse" aria-labelledby="headArticles" data-parent="#authorCard">
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          <div class="mt-2">
+            <h4 class="mb-0">Artikkelit lehdissä</h4>
+            {% for article in person.articles|selectattr("author_str", "equalto", person.name) %}
+            {{ print_article_long(article) }}
+            {% endfor %}
+            {% for a_group in person.articles|selectattr("author_str", "ne",
+            person.name)|groupby(attribute="author_str") %}
+            <h5 class="mb-0">Artikkelit lehdissä: {{a_group.grouper}}</h4>
+              {% for article in a_group.list %}
+              {{ print_article_long(article)}}
+              {% endfor %}
+              {% endfor %}
+          </div>
+          {{ print_story_type("Artikkelit kirjoissa", 7, stories, person) }}
+        </ul>
       </div>
-      {% endfor %}
-      {% endif %}
     </div>
   </div>
-</div>
-{% endif %}
-
-{% if person.articles|length %}
-<div class="card">
-  <div class="card-header" id="headArticles">
-    <h2 class="mb-0">
-      <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-        data-target="#articles" aria-expanded="false" aria-controls="appearsin">
-        Artikkelit
-      </button>
-    </h2>
-  </div>
-  <div id="articles" class="collapse" aria-labelledby="headArticles" data-parent="#authorCard">
-    <div class="card-body">
-      <ul class="list-group list-group-flush">
-        <div class="mt-2">
-          <h4 class="mb-0">Artikkelit lehdissä</h4>
-          {% for article in person.articles|selectattr("author_str", "equalto", person.name) %}
-          {{ print_article_long(article) }}
+  {% endif %}
+  {% if person.appears_in|length %}
+  <div class="card">
+    <div class="card-header" id="headAppearsIn">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+          data-target="#appearsin" aria-expanded="false" aria-controls="appearsin">
+          Esiintynyt artikkeleissa
+        </button>
+      </h2>
+    </div>
+    <div id="appearsin" class="collapse" aria-labelledby="headAppearsIn" data-parent="#authorCard">
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          {% for article in person.appears_in %}
+          <li class="list-group list-group-flush ">
+            <span class="nowrap">
+              <b><a href="{{url_for('issue', id=article.issue.id)}}">{{ article.issue.magazine.name }} {% if
+                  article.issue.number -%} {{ article.issue.number }} /
+                  {{ article.issue.year }} {%- else -%} {{ article.issue.count
+                  }} {%- endif -%}</a></b>
+              {% if article.author_str != ''%} <span class="person-list">{{ article.author_str }}</span>:{%
+              endif %} {{ article.title }}.
+            </span>
+          </li>
           {% endfor %}
-          {% for a_group in person.articles|selectattr("author_str", "ne",
-          person.name)|groupby(attribute="author_str") %}
-          <h5 class="mb-0">Artikkelit lehdissä: {{a_group.grouper}}</h4>
-            {% for article in a_group.list %}
-            {{ print_article_long(article)}}
-            {% endfor %}
-            {% endfor %}
-        </div>
-        {{ print_story_type("Artikkelit kirjoissa", 7, stories, person) }}
-      </ul>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
-{% endif %}
-{% if person.appears_in|length %}
-<div class="card">
-  <div class="card-header" id="headAppearsIn">
-    <h2 class="mb-0">
-      <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-        data-target="#appearsin" aria-expanded="false" aria-controls="appearsin">
-        Esiintynyt artikkeleissa
-      </button>
-    </h2>
-  </div>
-  <div id="appearsin" class="collapse" aria-labelledby="headAppearsIn" data-parent="#authorCard">
-    <div class="card-body">
-      <ul class="list-group list-group-flush">
-        {% for article in person.appears_in %}
-        <li class="list-group list-group-flush ">
-          <span class="nowrap">
-            <b><a href="{{url_for('issue', id=article.issue.id)}}">{{ article.issue.magazine.name }} {% if
-                article.issue.number -%} {{ article.issue.number }} /
-                {{ article.issue.year }} {%- else -%} {{ article.issue.count
-                }} {%- endif -%}</a></b>
-            {% if article.author_str != ''%} <span class="person-list">{{ article.author_str }}</span>:{%
-            endif %} {{ article.title }}.
-          </span>
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
-</div>
-{% endif %}
+  {% endif %}
 
-{% if person.chief_editor|length %}
-<div class="card">
-  <div class="card-header" id="headChiefEditor">
-    <h2 class="mb-0">
-      <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-        data-target="#chiefeditor" aria-expanded="false" aria-controls="appearsin">
-        Päätoimittajana
-      </button>
-    </h2>
-  </div>
-  <div id="chiefeditor" class="collapse" aria-labelledby="headChiefEditor" data-parent="#authorCard">
-    <div class="card-body">
-      <ul class="list-group list-group-flush">
-        {% for issue in person.chief_editor %}
-        <li class="list-group list-group-flush">
-          <a href="{{ url_for('issue', id=issue.id)}}">
-            {{ issue.magazine.name }} {% if issue.number %} {{
-            issue.number }} / {{ issue.year }} {% else %} {{ issue.count
-            }} {% endif %}</a>
-        </li>
-        {% endfor %}
-      </ul>
+  {% if person.chief_editor|length %}
+  <div class="card">
+    <div class="card-header" id="headChiefEditor">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+          data-target="#chiefeditor" aria-expanded="false" aria-controls="appearsin">
+          Päätoimittajana
+        </button>
+      </h2>
+    </div>
+    <div id="chiefeditor" class="collapse" aria-labelledby="headChiefEditor" data-parent="#authorCard">
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          {% for issue in person.chief_editor %}
+          <li class="list-group list-group-flush">
+            <a href="{{ url_for('issue', id=issue.id)}}">
+              {{ issue.magazine.name }} {% if issue.number %} {{
+              issue.number }} / {{ issue.year }} {% else %} {{ issue.count
+              }} {% endif %}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
   </div>
-</div>
-{% endif %}
+  {% endif %}
 
 </div>
 </div>
