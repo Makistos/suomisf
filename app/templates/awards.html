@@ -3,6 +3,11 @@
 <div class="container">
     <h1 class="title">Palkinnot</h1>
 
+    <p>Kunkin palkinnon kohdalla luetellaan vain teokset ja henkilöt, jotka löytyvät tietokannasta.
+        SF-aiheisten palkintojen kohdalla tämä tarkoittaa, että henkilöpalkintojen osalta henkilöltä
+        on julkaistu suomeksi ainakin yksi teos ja teosten kohdalla, että juuri kyseinen teos on saatavilla
+        suomeksi.
+    </p>
     <h2>Kotimaiset palkinnot</h2>
     {% for award in awards %}
     {% if award.domestic == 1 %}
