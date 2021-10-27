@@ -251,7 +251,7 @@ def award(awardid: Any) -> Any:
 def awards() -> Any:
     session = new_session()
 
-    awards = session.query(Award).all()
+    awards = session.query(Award).order_by(Award.name).all()
 
     return render_template('awards.html', awards=awards)
 

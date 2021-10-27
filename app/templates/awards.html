@@ -2,13 +2,29 @@
 {% block content %}
 <div class="container">
     <h1 class="title">Palkinnot</h1>
+
+    <h2>Kotimaiset palkinnot</h2>
     {% for award in awards %}
+    {% if award.domestic == 1 %}
     <div class="mb-2">
         <span style="font-size: x-large;"><a href="{{ url_for('award', awardid=award.id) }}">{{ award.name
                 }}</a></span><br>
         {{ award.categories|map(attribute='name')|join(', ') }}<br>
         {{ award.description }}
     </div>
+    {% endif %}
+    {% endfor %}
+
+    <h2 class="mt-3">Ulkomaiset palkinnot</h2>
+    {% for award in awards %}
+    {% if award.domestic == 0 %}
+    <div class="mb-2">
+        <span style="font-size: x-large;"><a href="{{ url_for('award', awardid=award.id) }}">{{ award.name
+                }}</a></span><br>
+        {{ award.categories|map(attribute='name')|join(', ') }}<br>
+        {{ award.description }}
+    </div>
+    {% endif %}
     {% endfor %}
 </div>
 {% endblock %}
