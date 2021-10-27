@@ -131,6 +131,8 @@ class Award(Base):
     domestic = Column(Boolean, default=False)
     categories = relationship(
         'AwardCategory', secondary='awardcategories', viewonly=True)
+    winners = relationship(
+        'Awarded', viewonly=True)
 
 
 class AwardCategory(Base):
