@@ -276,9 +276,9 @@
           </div>
         </div>
         {% endif %}
-        {% if person.links|length > 1 %}
         <div class="row view-field mb-2 ml-3">
           <div class="col">
+            {% if person.links|length > 1 %}
             {% for link in person.links[0:-1] %}
             <a href="{{link.link}}" target="_blank">{{link.description}}</a> &bull;
             {% endfor %}
@@ -319,7 +319,8 @@
                     name="awards-{{loop.index0}}-category_id" value="{{award.category.id}}" form="itemForm">
                 </td>
                 <td><button type="button" data-toggle="fieldset-remove-row"
-                    id="awards-{{loop.index0}}-remove">-</button></td>
+                    id="awards-{{loop.index0}}-remove">-</button>
+                </td>
               </tr>
               {% endfor %}
             </table>
@@ -353,8 +354,8 @@
           </div>
         </div>
         {% endif %}
-        <!-- Personal awards -->
         {% if person.personal_awards or novel_awards %}
+        <!-- Personal awards -->
         <div class="view-field">
           <div class="row">
             <div class="col">
