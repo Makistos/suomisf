@@ -276,6 +276,7 @@
           </div>
         </div>
         {% endif %}
+        {% if person.links %}
         <div class="row view-field mb-2 ml-3">
           <div class="col">
             {% if person.links|length > 1 %}
@@ -285,6 +286,7 @@
             <a href="{{person.links[-1].link}}" target="_blank">{{person.links[-1].description}}</a>
             {% elif person.links|length == 1 %}
             <a href="{{person.links[0].link}}" target="_blank">{{person.links[0].description}}</a>
+            {% endif %}
           </div>
         </div>
         {% endif %}
