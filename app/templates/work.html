@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from 'macros.html' import awards_form %}
+{% from 'macros.html' import awards_form, edition_info %}
 {% from 'edit_menu.tmpl' import edit_menu_content %}
 {% block edit_menu %}
 {% call edit_menu_content() %}
@@ -388,64 +388,7 @@
                             {%endif %}
                         </a>
                     </h3>
-
-                    {% if edition.title != work.title %}
-                    <b>{{edition.title}}</b><br>
-                    {% if edition.subtitle %}
-                    <i>{{subtitle}}</i>
-                    {% endif %}
-                    {% endif %}
-                    {% if edition.publisher %}
-                    <a href="{{url_for('publisher', pubid=edition.publisher.id)}}">
-                        {{ edition.publisher.name }}</a>
-                    {% endif %}
-                    {% if edition.pubyear %}
-                    {{ edition.pubyear }}
-                    {%- endif -%}
-                    {% if edition.publisher or edition.pubyear -%}.
-                    <br>
-                    {% endif %}
-                    {% if editors|length %}
-                    Toim <span class="person-list">{{editors|map(attribute='alt_name')|join(' & ')}}</span>
-                    <br>
-                    {% endif %}
-                    {% if edition.translators|length %}
-                    Suom <span class="person-list">{{edition.translators|map(attribute='alt_name')|join(' & ')}}</span>
-                    <br>
-                    {% endif %}
-
-                    {% if edition.pubseries %}
-                    <a href="{{url_for('pubseries', seriesid=edition.pubseries.id)}}">
-                        {{ edition.pubseries.name }}</a>
-                    {%- if edition.pubseriesnum %}
-                    {{ edition.pubseriesnum }}{%- endif -%}.
-                    <br>
-                    {% endif %}
-                    {% if edition.pages is not none %}
-                    {{ edition.pages}} sivua.
-                    {% endif %}
-                    {% if edition.size %}
-                    {{edition.size}} cm.
-                    {% endif %}
-                    {% if edition.pages or edition.size %}<br>{% endif %}
-                    {% if edition.misc %}
-                    {{ edition.misc }}<br>
-                    {% endif %}
-                    {% if edition.isbn %}
-                    ISBN {{ edition.isbn}}
-                    {%- endif -%}
-                    {% if edition.binding_id %}
-                    {% if edition.binding_id > 1 %}
-                    {{ edition.binding.name }}
-                    {%- endif -%}
-                    {%- endif -%}
-                    {%- if edition.isbn or edition.binding_id > 1 -%}.<br>{% endif %}
-                    {% if edition.dustcover == 3 %}
-                    Kansipaperi.
-                    {% endif %}
-                    {% if edition.coverimage == 3 %}
-                    Ylivetokannet.
-                    {% endif %}
+                    {{ edition_info(work, edition) }}
                 </div>
                 {% if edition.images|length %}
                 <div class="col-lg-4 col-md-6 col-sm-12 view-field">
