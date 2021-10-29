@@ -367,7 +367,8 @@
           <div class="row view-field">
             <div class="col">
               {% for award in person.personal_awards %}
-              <b>{{award.award.name}}</b> ({{award.year}})<br>
+              <b><a href="{{url_for('award', awardid=award.award.id)}}">{{award.award.name}}</a></b>
+              ({{award.year}})<br>
               {% endfor %}
             </div>
           </div>
