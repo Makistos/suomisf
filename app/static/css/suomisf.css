@@ -283,3 +283,7 @@ p.source {
   font-weight: lighter;
   font-size: small;
 }
+
+.tooltip-inner {
+  min-width: 300px;
+}

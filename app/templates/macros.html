@@ -195,7 +195,7 @@ Suom <span class="person-list">{{edition.translators|map(attribute='alt_name')|j
 {% endif %}
 {% if edition.isbn %}
 ISBN {{ edition.isbn}}
-{%- endif -%}
+{% endif %}
 {% if edition.binding_id %}
 {% if edition.binding_id > 1 %}
 {{ edition.binding.name }}

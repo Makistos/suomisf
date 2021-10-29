@@ -29,6 +29,29 @@ load_dotenv(os.path.join(basedir, '.env'))
 db_url = app.config['SQLALCHEMY_DATABASE_URI']
 
 
+def popup(id, edition, title: str) -> str:
+    if edition.images:
+        img_src = edition.images[0].image_src
+    else:
+        img_src = '/static/icons/blue-book-icon-small.png'
+
+    retval = r'''<a href="/edition/%d"
+    data-bs-toggle='tooltip' data-placement='right' title='
+    <h2>%s</h2>
+        <div class="container" style="text-align: left;">
+            <div class="row">
+                <div class="col-4">
+                <img src="%s" width="100">
+                </div>
+                <div class="col-8">
+                %s
+                </div>
+            </div>
+    ' data-html="true" data-container="body">%s</a>''' \
+            % (id, html.escape(title), img_src, edition.long_info(), title)
+    return retval
+
+
 class AuthorComparator(Comparator):
     def __eq__(self, other):
         pass
@@ -296,22 +319,66 @@ class Edition(Base):
     def name(self) -> str:
         return self.title
 
+    def long_info(self) -> str:
+        retval: str = ''
+        if self.title != self.work[0].title:
+            retval += '<b>' + self.title + '</b><br>'
+            if self.subtitle:
+                retval += '<i>' + self.subtitle + '</i><br>'
+        if self.publisher_id:
+            retval += self.publisher.name + ' '
+        if self.pubyear:
+            retval += str(self.pubyear)
+        if self.publisher_id or self.pubyear:
+            retval += '.<br>'
+        if self.pubseries:
+            retval += self.pubseries.name
+            if self.pubseriesnum:
+                retval += ' ' + str(self.pubseriesnum)
+            retval += '.<br>'
+        if self.pages:
+            retval += str(self.pages) + ' sivua. '
+        if self.size:
+            retval += str(self.size) + 'cm.'
+        if self.pages or self.size:
+            retval += '<br>'
+        if self.isbn:
+            retval += 'ISBN ' + self.isbn + ' '
+        if self.binding_id:
+            if self.binding_id > 1:
+                retval += self.binding.name
+        if self.isbn or self.binding:
+            retval += '.<br>'
+        if self.dustcover:
+            retval += 'Kansipaperi.<br>'
+        if self.coverimage:
+            retval += 'Ylivetokannet.<br>'
+        return retval
+
     def popup(self) -> str:
         if self.images:
             img_src = self.images[0].image_src
         else:
             img_src = '/static/icons/blue-book-icon-small.png'
 
-        retval = r'''<a href="/edition/%d" data-bs-toggle='tooltip' data-placement='right' title='<div style="text-align: center;">
-                <h2>%s</h2><img src="%s"></div>' data-html='true'>''' % (self.id, html.escape(self.title), img_src)
+        retval = r'''<a href="/edition/%d"
+        data-bs-toggle='tooltip' data-placement='right' title='
+        <h2>%s</h2>
+            <div class="container" style="text-align: left;">
+                <div class="row">
+                    <div class="col-4">
+                    <img src="%s" width="100">
+                    </div>
+                    <div class="col-8">
+                    %s
+                    </div>
+                </div>
+        ' data-html="true" data-container="body">''' \
+                % (self.id, html.escape(self.title), img_src, self.long_info())
         return retval
 
-    def __str__(self) -> str:
+    def version_str(self) -> str:
         retval: str = ''
-        work = self.work[0]
-
-        retval = self.popup()
-
         if not self.version:
             version = 1
         else:
@@ -328,6 +395,13 @@ class Edition(Base):
             else:
                 retval += f'{self.editionnum}. painos'
         retval += ':</a> '
+        return retval
+
+    def __str__(self) -> str:
+        retval: str = ''
+        work = self.work[0]
+
+        retval = popup(self.id, self, self.version_str())
 
         if self.title != work.title:
             retval += f'<b>{self.title}</b>.'
@@ -951,9 +1025,9 @@ class Work(Base):
         else:
             img_src = "/static/icons/blue-book-icon-small.png"
         # Title
-        retval = r'''<a href="/work/%d" data-bs-toggle='tooltip' data-placement='right' title='<div style="text-align: center;"><h2>%s</h2><img src="%s"></div>' data-html='true'><b>%s</b></a>.''' % (
-            self.id, html.escape(self.title), img_src, escape(self.title))
-
+        # retval = r'''<a href="/work/%d" data-bs-toggle='tooltip' data-placement='right' title='<div style="text-align: center;"><h2>%s</h2><img src="%s"></div>' data-html='true'><b>%s</b></a>.''' % (
+            # self.id, html.escape(self.title), img_src, escape(self.title))
+        retval = popup(self.id, self.editions[0], '<b>' + self.title + '</b>.')
         # Bookseries
         if self.bookseries:
             retval += f' {self.bookseries.name}'
