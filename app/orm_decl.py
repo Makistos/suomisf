@@ -407,7 +407,7 @@ class Edition(Base):
         retval = popup(self.id, self, self.version_str())
 
         if self.title != work.title:
-            retval += f'<b>{self.title}</b>.'
+            retval += f'<b>{self.title}</b>. '
 
         if self.pubseries:
             retval += f'{self.pubseries.name}'
