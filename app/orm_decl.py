@@ -397,7 +397,7 @@ class Edition(Base):
                 retval += '?. painos'
             else:
                 retval += f'{self.editionnum}. painos'
-        retval += ':</a> '
+        retval += '</a>'
         return retval
 
     def __str__(self) -> str:
@@ -405,7 +405,7 @@ class Edition(Base):
         work = self.work[0]
 
         retval = popup(self.id, self, self.version_str())
-
+        retval += ': '
         if self.title != work.title:
             retval += f'<b>{self.title}</b>. '
 
@@ -1030,7 +1030,9 @@ class Work(Base):
         # Title
         # retval = r'''<a href="/work/%d" data-bs-toggle='tooltip' data-placement='right' title='<div style="text-align: center;"><h2>%s</h2><img src="%s"></div>' data-html='true'><b>%s</b></a>.''' % (
             # self.id, html.escape(self.title), img_src, escape(self.title))
-        retval = popup(self.id, self.editions[0], '<b>' + self.title + '</b>.')
+        retval = popup(
+            self.editions[0].id, self.editions[0], '<b>' + self.title + '</b>')
+        retval += '. '
         # Bookseries
         if self.bookseries:
             retval += f' {self.bookseries.name}'
