@@ -325,10 +325,10 @@ class Edition(Base):
             retval += '<b>' + self.title + '</b><br>'
             if self.subtitle:
                 retval += '<i>' + self.subtitle + '</i><br>'
-        if self.publisher_id:
-            retval += self.publisher.name + ' '
+        if self.publisher:
+            retval += self.publisher.name
         if self.pubyear:
-            retval += str(self.pubyear)
+            retval += ' ' + str(self.pubyear)
         if self.publisher_id or self.pubyear:
             retval += '.<br>'
         if self.pubseries:
@@ -343,12 +343,15 @@ class Edition(Base):
         if self.pages or self.size:
             retval += '<br>'
         if self.isbn:
-            retval += 'ISBN ' + self.isbn + ' '
+            retval += 'ISBN ' + self.isbn
         if self.binding_id:
             if self.binding_id > 1:
+                if self.isbn:
+                    retval += ' '
                 retval += self.binding.name
-        if self.isbn or self.binding:
-            retval += '.<br>'
+        if self.isbn or self.binding_id:
+            if self.binding_id > 1:
+                retval += 'x.<br>'
         if self.dustcover:
             retval += 'Kansipaperi.<br>'
         if self.coverimage:
