@@ -623,7 +623,7 @@ class Person(Base):
     languages = relationship(
         'Language', secondary='personlanguage', uselist=True, viewonly=True)
     personal_awards = relationship(
-        'Awarded', uselist=True, viewonly=True)
+        'Awarded', uselist=True, viewonly=True, order_by='Awarded.year')
     nationality = relationship(
         'Country', foreign_keys=[nationality_id], uselist=False, viewonly=True)
     # birtcountry = relationship(
