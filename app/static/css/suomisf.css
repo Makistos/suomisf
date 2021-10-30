@@ -285,9 +285,13 @@ p.source {
 }
 
 .tooltip-inner {
-  min-width: 300px;
+  min-width: 350px;
 }
 
 .tooltip.show {
   opacity: 1;
+}
+
+.popover {
+  max-width: 100%;
 }
