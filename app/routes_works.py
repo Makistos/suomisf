@@ -762,7 +762,7 @@ def add_edition_to_work(workid: Any) -> Any:
     if latest_edition.editionnum:
         editionnum = latest_edition.editionnum + 1
     else:
-        editionnum = latest_edition
+        editionnum = 1
     edition = Edition(title=work[0].title,
                       subtitle=work[0].subtitle,
                       pubyear=work[0].pubyear,
