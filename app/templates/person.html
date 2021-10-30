@@ -419,11 +419,17 @@
         <div class="mb-3">
           {% for work in person.works|selectattr("author_str", "equalto", person.name) %}
           <div class="mb-1">
+            {{ work|safe }}
+            {% for edition in work.editions[1:] %}
+            {{ edition|safe }}
+            {% endfor %}
+            {#
             {% include "_work.html" %}
             {% set show_first_edition = 1 %}
             {% for edition in work.editions[1:] %}
             {% include "_work_edition.html" %}
             {% endfor %}
+            #}
           </div>
           {% endfor %}
         </div>
@@ -433,11 +439,17 @@
           <h5 class="mb-0">{{w_group.grouper}}</h5>
           {% for work in w_group.list %}
           <div class="mb-1">
+            {{ work|safe }}
+            {% for edition in work.editions[1:] %}
+            {{ edition|safe}}
+            {% endfor %}
+            {#
             {% include "_work.html" %}
             {% set show_first_edition = 1 %}
             {% for edition in work.editions[1:] %}
             {% include "_work_edition.html" %}
             {% endfor %}
+            #}
           </div>
           {% endfor %}
         </div>
@@ -729,6 +741,16 @@ Lähde: {{person.imported_string }}
 </script>
 <script src="/static/js/ownership.js" type="text/javascript"></script>
 
+<script>
+  $(document).ready(function () {
+    $('[data-toggle="popover"]').popover({
+      html: true,
+      //title: $(this).data('title'),
+      trigger: 'hover',
+      placement: 'right'
+    });
+  });
+</script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     if (!!document.getElementById("pics") === false) {
