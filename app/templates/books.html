@@ -61,12 +61,13 @@
 		$(document).ready(function () {
 			$('[data-toggle="popover"]').popover({
 				html: true,
-				//title: $(this).data('title'),
 				trigger: 'hover',
-				placement: 'right'
+				placement: 'right',
+				container: 'body'
 			});
 		});
 	</script>
+
 	{#
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>

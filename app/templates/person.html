@@ -745,9 +745,9 @@ Lähde: {{person.imported_string }}
   $(document).ready(function () {
     $('[data-toggle="popover"]').popover({
       html: true,
-      //title: $(this).data('title'),
       trigger: 'hover',
-      placement: 'right'
+      placement: 'right',
+      container: 'body'
     });
   });
 </script>

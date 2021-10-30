@@ -42,7 +42,7 @@ def edition_popup(id: int, edition: Any, title: str, link: str) -> str:
         <div class="container" style="text-align: left;">
             <div class="row">
                 <div class="col-4">
-                <img src="%s" width="100">
+                <img src="%s" width="100px">
                 </div>
                 <div class="col-8">
                 %s
@@ -323,18 +323,18 @@ class Edition(Base):
 
     def long_info(self) -> str:
         retval: str = ''
-        if self.title != self.work[0].title:
-            retval += '<b>' + self.title + '</b><br>'
-            if self.subtitle:
-                retval += '<i>' + self.subtitle + '</i><br>'
+        # if self.title != self.work[0].title:
+        #    retval += '<b>' + html.escape(self.title) + '</b><br>'
+        #    if self.subtitle:
+        #        retval += '<i>' + html.escape(self.subtitle) + '</i><br>'
         if self.publisher:
-            retval += self.publisher.name
+            retval += html.escape(self.publisher.name)
         if self.pubyear:
             retval += ' ' + str(self.pubyear)
         if self.publisher_id or self.pubyear:
             retval += '.<br>'
         if self.pubseries:
-            retval += self.pubseries.name
+            retval += html.escape(self.pubseries.name)
             if self.pubseriesnum:
                 retval += ' ' + str(self.pubseriesnum)
             retval += '.<br>'
@@ -384,7 +384,7 @@ class Edition(Base):
         retval: str = ''
         work = self.work[0]
 
-        retval = edition_popup(self.id, self, self.title +
+        retval = edition_popup(self.id, self, html.escape(self.title) +
                                ': ' + self.version_str(), self.version_str())
         retval += ': '
         if self.title != work.title:
@@ -1012,7 +1012,7 @@ class Work(Base):
         # retval = r'''<a href="/work/%d" data-bs-toggle='tooltip' data-placement='right' title='<div style="text-align: center;"><h2>%s</h2><img src="%s"></div>' data-html='true'><b>%s</b></a>.''' % (
             # self.id, html.escape(self.title), img_src, escape(self.title))
         retval = edition_popup(
-            self.editions[0].id, self.editions[0], self.title, '<b>' + self.title + '</b>')
+            self.editions[0].id, self.editions[0], html.escape(self.title), '<b>' + html.escape(self.title) + '</b>')
         retval += '. '
         # Bookseries
         if self.bookseries:
