@@ -354,9 +354,9 @@ class Edition(Base):
         if self.isbn or self.binding_id:
             if self.binding_id > 1:
                 retval += '.<br>'
-        if self.dustcover:
+        if self.dustcover == 3:
             retval += 'Kansipaperi.<br>'
-        if self.coverimage:
+        if self.coverimage == 3:
             retval += 'Ylivetokannet.<br>'
         return retval
 
