@@ -287,3 +287,7 @@ p.source {
 .tooltip-inner {
   min-width: 300px;
 }
+
+.tooltip.show {
+  opacity: 1;
+}
