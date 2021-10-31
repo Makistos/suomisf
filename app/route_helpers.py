@@ -562,13 +562,13 @@ def save_genres(session, work, genrefield):
     session.commit()
 
 
-def genre_summary(books: Any) -> Dict[str, Tuple[str, int]]:
-    retval: Dict[str, Tuple[str, int]] = {}
+def genre_summary(books: Any) -> Dict[str, Tuple[int, str]]:
+    retval: Dict[str, Tuple[int, str]] = {}
 
     for book in books:
         for genre in book.genres:
             if genre.abbr not in retval:
-                retval[genre.abbr] = (1, 1)
+                retval[genre.abbr] = (1, genre.name)
             else:
                 v, g = retval[genre.abbr]
                 retval[genre.abbr] = (v+1, g)
