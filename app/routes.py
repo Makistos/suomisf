@@ -1,3 +1,4 @@
+from re import M
 import bleach
 import time
 from flask import render_template, request, flash, redirect, url_for,\
@@ -5,7 +6,7 @@ from flask import render_template, request, flash, redirect, url_for,\
 from flask_login import current_user, login_user, logout_user
 from sqlalchemy.util.langhelpers import format_argspec_plus
 from app import app
-from app.orm_decl import (Person, Work,
+from app.orm_decl import (ArticleAuthor, Person, Work,
                           Edition, Pubseries, Bookseries, User, UserBook, ShortStory, UserPubseries,
                           Genre, WorkGenre, Tag, Award, Awarded,
                           Magazine, Issue, PublicationSize, Publisher, Part, ArticleTag,
@@ -697,9 +698,24 @@ def search():
         .filter(Pubseries.name.ilike('%' + searchword + '%'))\
         .order_by(Pubseries.name)\
         .all()
+    magazines = session.query(Magazine)\
+        .filter(Magazine.name.ilike('%' + searchword + '%') |
+                Magazine.description.ilike('%' + searchword + '%'))\
+        .order_by(Magazine.name)\
+        .all()
+    issues = session.query(Issue)\
+        .filter(Issue.title.ilike('%' + searchword + '%') |
+                Issue.notes.ilike('%' + searchword + '%'))\
+        .all()
+    articles = session.query(Article)\
+        .filter(Article.title.ilike('%' + searchword + '%') |
+                Article.person.ilike('%' + searchword + '%') |
+                Article.excerpt.ilike('%' + searchword + '%'))\
+        .all()
     return render_template('search_results.html', works=works,
                            editions=editions, people=people, stories=stories,
                            publishers=publishers, bookseries=bookseries, pubseries=pubseries,
+                           magazines=magazines, issues=issues, articles=articles,
                            searchword=searchword)
 
 

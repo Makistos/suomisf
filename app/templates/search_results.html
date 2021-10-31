@@ -71,6 +71,32 @@
 			{% endfor %}
 		</li>
 		{% endif %}
+
+		{% if magazines %}
+		<li class="list-group-item">
+			<h2>Lehdet</h2>
+			{% for magazine in magazines %}
+			<p><a href="{{url_for('magazine', id=magazine.id)}}">{{magazine.name}}</a></p>
+			{% endfor %}
+		</li>
+		{% endif %}
+		{% if issues %}
+		<li class="list-group-item">
+			<h2>Lehden numerot</h2>
+			{% for issue in issues %}
+			<p><a href="{{url_for('issue', id=issue.id)}}">{{issue.magazine.name}}: {{issue.cover_number}}</a>
+			</p>
+			{% endfor %}
+		</li>
+		{% endif %}
+		{% if articles %}
+		<li class="list-group-item">
+			<h2>Artikkelit</h2>
+			{% for article in articles %}
+			<p><a href="{{url_for('article', id=article.id)}}">{{article.title}}</a></p>
+			{% endfor %}
+		</li>
+		{% endif %}
 	</ul>
 </div>
 {% endblock %}
