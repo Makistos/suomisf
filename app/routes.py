@@ -9,7 +9,7 @@ from app.orm_decl import (Person, Work,
                           Genre, WorkGenre, Tag, Award, Awarded,
                           Magazine, Issue, PublicationSize, Publisher, Part, ArticleTag,
                           Language, Country, Article, Contributor, Log, EditionImage)
-from sqlalchemy import func, text
+from sqlalchemy import func, text, or_
 from sqlalchemy.orm import sessionmaker
 from app.forms import (LoginForm, RegistrationForm,
                        UserForm,
@@ -644,39 +644,49 @@ def search():
     searchword = bleach.clean(searchword)
     # if request.method == 'POST':
     #    q = request.form
-    #app.logger.debug("q = " + q)
+    # app.logger.debug("q = " + q)
     works = \
         session.query(Work)\
-               .filter(Work.title.ilike('%' + searchword + '%'))\
+               .filter(Work.title.ilike('%' + searchword + '%') |
+                       Work.subtitle.ilike('%' + searchword + '%') |
+                       Work.orig_title.ilike('%' + searchword + '%') |
+                       Work.misc.ilike('%' + searchword + '%') |
+                       Work.description.ilike('%' + searchword + '%')) \
                .order_by(Work.title)\
                .all()
     editions = \
         session.query(Edition)\
-        .filter(Edition.title.ilike('%' + searchword + '%'))\
+        .filter(Edition.title.ilike('%' + searchword + '%') |
+                Edition.subtitle.ilike('%' + searchword + '%') |
+                Edition.misc.ilike('%' + searchword + '%'))\
         .order_by(Edition.title)\
         .all()
     stories = \
         session.query(ShortStory)\
-        .filter(ShortStory.title.ilike('%' + searchword + '%'))\
+        .filter(ShortStory.title.ilike('%' + searchword + '%') |
+                ShortStory.orig_title.ilike('%' + searchword + '%'))\
         .order_by(ShortStory.title)\
         .all()
     people = \
         session.query(Person)\
-        .filter(Person.name.ilike('%' + searchword + '%'))\
-        .order_by(Person.name)\
+        .filter(Person.name.ilike('%' + searchword + '%') |
+                Person.fullname.ilike('%' + searchword + '%') |
+                Person.other_names.ilike('%' + searchword + '%') |
+                Person.alt_name.ilike('%' + searchword + '%')) \
+        .order_by(Person.name) \
         .all()
-    publishers = \
-        session.query(Publisher)\
-        .filter(Publisher.name.ilike('%' + searchword + '%'))\
+    publishers = session.query(Publisher)\
+        .filter(Publisher.name.ilike('%' + searchword + '%') |
+                Publisher.fullname.ilike('%' + searchword + '%') |
+                Publisher.description.ilike('%' + searchword + '%')) \
         .order_by(Publisher.name)\
         .all()
-    bookseries = \
-        session.query(Bookseries)\
-        .filter(Bookseries.name.ilike('%' + searchword + '%'))\
+    bookseries = session.query(Bookseries)\
+        .filter(Bookseries.name.ilike('%' + searchword + '%') |
+                Bookseries.orig_name.ilike('%' + searchword + '%'))\
         .order_by(Bookseries.name)\
         .all()
-    pubseries = \
-        session.query(Pubseries)\
+    pubseries = session.query(Pubseries)\
         .filter(Pubseries.name.ilike('%' + searchword + '%'))\
         .order_by(Pubseries.name)\
         .all()
@@ -686,7 +696,7 @@ def search():
                            searchword=searchword)
 
 
-@app.route('/search_form', methods=["POST", "GET"])
+@ app.route('/search_form', methods=["POST", "GET"])
 def search_form() -> Any:
     session = new_session()
 
@@ -699,12 +709,12 @@ def search_form() -> Any:
     if request.method == 'POST':
         query = session.query(Work)
         query = query.join(Part, Part.work_id == Work.id)\
-                     .join(Edition, Part.edition_id == Edition.id)\
-                     .filter(Part.shortstory_id == None)\
-                     .join(Contributor, Contributor.part_id == Part.id, Contributor.role_id == 1)\
-                     .join(Person, Person.id == Contributor.person_id)\
-                     .join(WorkGenre, WorkGenre.work_id == Work.id)\
-                     .join(Genre, Genre.id == WorkGenre.genre_id)
+            .join(Edition, Part.edition_id == Edition.id)\
+            .filter(Part.shortstory_id == None)\
+            .join(Contributor, Contributor.part_id == Part.id, Contributor.role_id == 1)\
+            .join(Person, Person.id == Contributor.person_id)\
+            .join(WorkGenre, WorkGenre.work_id == Work.id)\
+            .join(Genre, Genre.id == WorkGenre.genre_id)
         if form.work_name.data != '':
             query = query.filter(Work.title.ilike(form.work_name.data))
         if form.work_origname.data != '':
@@ -770,13 +780,13 @@ def search_form() -> Any:
                                ('eiSF', 'Ei science fictionia')]
 
     nationalities = session.query(Person.nationality_id)\
-                           .distinct(Person.nationality_id)\
-                           .order_by(Person.nationality_id)\
-                           .all()
+        .distinct(Person.nationality_id)\
+        .order_by(Person.nationality_id)\
+        .all()
 
     nat_choices = [('none', ''), ('foreign', 'Ulkomaiset')] + \
-                  [(x.nationality, x.nationality) for x in
-                   nationalities if x.nationality is not None]
+        [(x.nationality, x.nationality) for x in
+         nationalities if x.nationality is not None]
     form.author_nationality.choices = nat_choices
 
     # form.author_nationality.choices = [(x.nationality, x.nationality) for x in
@@ -789,8 +799,8 @@ def search_form() -> Any:
                            editionnum=editionnum)
 
 
-@app.route('/addfavpubcol/<pubseriesid>', methods=["POST", "GET"])
-def addfavpubcol(pubseriesid):
+@ app.route('/addfavpubcol/<pubseriesid>', methods=["POST", "GET"])
+def addfavpubcol(pubseriesid: int) -> Any:
     session = new_session()
 
     upubseries = UserPubseries(series_id=pubseriesid,
@@ -800,110 +810,110 @@ def addfavpubcol(pubseriesid):
     return redirect(url_for('pubseries', seriesid=pubseriesid))
 
 
-@app.route('/removefavpubcol/<pubseriesid>', methods=["POST", "GET"])
+@ app.route('/removefavpubcol/<pubseriesid>', methods=["POST", "GET"])
 def removefavpubcol(pubseriesid):
     session = new_session()
 
     upubseries = session.query(UserPubseries)\
-                        .filter(UserPubseries.series_id == pubseriesid,
-                                UserPubseries.user_id ==
-                                current_user.get_id())\
-                        .first()
+        .filter(UserPubseries.series_id == pubseriesid,
+                UserPubseries.user_id ==
+                current_user.get_id())\
+        .first()
     session.delete(upubseries)
     session.commit()
     return redirect(url_for('myseries'))
 
 
-@app.route('/missing_nationality')
+@ app.route('/missing_nationality')
 def missing_nationality():
     session = new_session()
 
     missing = session.query(Person)\
-                     .filter(Person.nationality_id == None)\
-                     .order_by(Person.name)\
-                     .all()
+        .filter(Person.nationality_id == None)\
+        .order_by(Person.name)\
+        .all()
 
     return render_template('people.html', people=missing)
 
 
 # Routes for auto complete functionality in forms
 
-@app.route('/autocomp_story', methods=['POST'])
+@ app.route('/autocomp_story', methods=['POST'])
 def autocomp_story() -> Response:
     search = request.form['q']
     session = new_session()
 
     if search:
         stories = session.query(ShortStory)\
-                         .filter(ShortStory.title.ilike('%' + search + '%'))\
-                         .order_by(ShortStory.title)\
-                         .all()
+            .filter(ShortStory.title.ilike('%' + search + '%'))\
+            .order_by(ShortStory.title)\
+            .all()
         return Response(json.dumps([x.title for x in stories]))
     else:
         return Response(json.dumps(['']))
 
 
-@app.route('/autocomp_bookseries', methods=['POST'])
+@ app.route('/autocomp_bookseries', methods=['POST'])
 def autocomp_bookseries() -> Response:
     search = request.form['q']
 
     if search:
         session = new_session()
         series = session.query(Bookseries)\
-                        .filter(Bookseries.name.ilike('%' + search + '%'))\
-                        .order_by(Bookseries.name)\
-                        .all()
+            .filter(Bookseries.name.ilike('%' + search + '%'))\
+            .order_by(Bookseries.name)\
+            .all()
         return Response(json.dumps([x.name for x in series]))
     else:
         return Response(json.dumps(['']))
 
 
-@app.route('/autocomp_pubseries', methods=['POST'])
+@ app.route('/autocomp_pubseries', methods=['POST'])
 def autocomp_pubseries() -> Response:
     search = request.form['q']
 
     if search:
         session = new_session()
         series = session.query(Pubseries)\
-                        .filter(Pubseries.name.ilike('%' + search + '%'))\
-                        .order_by(Pubseries.name)\
-                        .all()
+            .filter(Pubseries.name.ilike('%' + search + '%'))\
+            .order_by(Pubseries.name)\
+            .all()
         return Response(json.dumps([x.name for x in series]))
     else:
         return Response(json.dumps(['']))
 
 
-@app.route('/autocomp_publisher', methods=['POST'])
+@ app.route('/autocomp_publisher', methods=['POST'])
 def autocomp_publisher() -> Response:
     search = request.form['q']
 
     if search:
         session = new_session()
         publishers = session.query(Publisher)\
-                            .filter(Publisher.name.ilike('%' + search + '%'))\
-                            .order_by(Publisher.name)\
-                            .all()
+            .filter(Publisher.name.ilike('%' + search + '%'))\
+            .order_by(Publisher.name)\
+            .all()
         return Response(json.dumps([x.name for x in publishers]))
     else:
         return Response(json.dumps(['']))
 
 
-@app.route('/autocomp_work', methods=['POST'])
+@ app.route('/autocomp_work', methods=['POST'])
 def autocomp_work() -> Response:
     search = request.form['q']
 
     if search:
         session = new_session()
         works = session.query(Work)\
-                       .filter(Work.title.ilike('%' + search + '%'))\
-                       .order_by(Work.title)\
-                       .all()
+            .filter(Work.title.ilike('%' + search + '%'))\
+            .order_by(Work.title)\
+            .all()
         return Response(json.dumps([x.title for x in works]))
     else:
         return Response(json.dumps(['']))
 
 
-@app.route('/autocomp_edition', methods=['POST'])
+@ app.route('/autocomp_edition', methods=['POST'])
 def autocomp_edition() -> Response:
     search = request.form['q']
 
@@ -918,7 +928,7 @@ def autocomp_edition() -> Response:
         return Response(json.dumps(['']))
 
 
-@app.route('/select_size', methods=['GET'])
+@ app.route('/select_size', methods=['GET'])
 def select_size() -> Response:
     search = request.args['q']
     session = new_session()
@@ -939,7 +949,7 @@ def select_size() -> Response:
         return Response(json.dumps(['']))
 
 
-@app.route('/select_pubseries', methods=['GET'])
+@ app.route('/select_pubseries', methods=['GET'])
 def select_pubseries() -> Response:
     search = request.args['q']
     session = new_session()
@@ -947,9 +957,9 @@ def select_pubseries() -> Response:
     if search:
         retval: Dict[str, List[Dict[str, Any]]] = {}
         pubseries = session.query(Pubseries)\
-                           .filter(Pubseries.name.ilike('%' + search + '%'))\
-                           .order_by(Pubseries.name)\
-                           .first()
+            .filter(Pubseries.name.ilike('%' + search + '%'))\
+            .order_by(Pubseries.name)\
+            .first()
 
         retval['results'] = []
         if pubseries:
@@ -960,7 +970,7 @@ def select_pubseries() -> Response:
         return Response(json.dumps(['']))
 
 
-@app.route('/select_bookseries', methods=['GET'])
+@ app.route('/select_bookseries', methods=['GET'])
 def select_bookseries() -> Response:
     search = request.args['q']
     session = new_session()
@@ -981,7 +991,7 @@ def select_bookseries() -> Response:
         return Response(json.dumps(['']))
 
 
-@app.route('/select_genre', methods=['GET'])
+@ app.route('/select_genre', methods=['GET'])
 def select_genre() -> Response:
     search = request.args['q']
     session = new_session()
@@ -989,9 +999,9 @@ def select_genre() -> Response:
     if search:
         retval: Dict[str, List[Dict[str, Any]]] = {}
         genres = session.query(Genre)\
-                        .filter(Genre.name.ilike('%' + search + '%'))\
-                        .order_by(Genre.name)\
-                        .all()
+            .filter(Genre.name.ilike('%' + search + '%'))\
+            .order_by(Genre.name)\
+            .all()
         retval['results'] = []
         if genres:
             for genre in genres:
@@ -1001,7 +1011,7 @@ def select_genre() -> Response:
         return Response(json.dumps(['']))
 
 
-@app.route('/select_language', methods=['GET'])
+@ app.route('/select_language', methods=['GET'])
 def select_language() -> Response:
     search = request.args['q']
     session = new_session()
@@ -1009,9 +1019,9 @@ def select_language() -> Response:
     if search:
         retval: Dict[str, List[Dict[str, Any]]] = {}
         languages = session.query(Language)\
-                           .filter(Language.name.ilike('%' + search + '%'))\
-                           .order_by(Language.name)\
-                           .all()
+            .filter(Language.name.ilike('%' + search + '%'))\
+            .order_by(Language.name)\
+            .all()
         retval['results'] = []
         if languages:
             for language in languages:
@@ -1022,7 +1032,7 @@ def select_language() -> Response:
         return Response(json.dumps(['']))
 
 
-@app.route('/select_country', methods=['GET'])
+@ app.route('/select_country', methods=['GET'])
 def select_country() -> Response:
     search = request.args['q']
     session = new_session()
