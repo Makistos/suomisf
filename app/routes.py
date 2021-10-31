@@ -150,15 +150,16 @@ def bookindex() -> Any:
         works_db = session.query(Work)\
             .from_statement(text(stmt))\
             .all()
-        times.append(time.time())
+        # times.append(time.time())
         (works, count) = make_book_list(works_db, form.authorname.data)
         page = create_booklisting(works)
         times.append(time.time())
-        for i in range(len(times)):
-            app.logger.debug('Perf for bookindex:')
-            app.logger.debug(f'Time {i}: {times[i] - times[0]}.')
-            print(f'Time {i}: {times[i] - times[0]}.')
-        return render_template('books.html', books=page, count=count)
+        # for i in range(len(times)):
+        #    app.logger.debug('Perf for bookindex:')
+        #    app.logger.debug(f'Time {i}: {times[i] - times[0]}.')
+        #    print(f'Time {i}: {times[i] - times[0]}.')
+        genrelist = genre_summary(works_db)
+        return render_template('books.html', books=page, count=count, genres=genrelist)
 
     return render_template('bookindex.html', form=form)
 

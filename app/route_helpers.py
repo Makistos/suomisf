@@ -562,6 +562,20 @@ def save_genres(session, work, genrefield):
     session.commit()
 
 
+def genre_summary(books: Any) -> Dict[str, Tuple[str, int]]:
+    retval: Dict[str, Tuple[str, int]] = {}
+
+    for book in books:
+        for genre in book.genres:
+            if genre.abbr not in retval:
+                retval[genre.abbr] = (1, 1)
+            else:
+                v, g = retval[genre.abbr]
+                retval[genre.abbr] = (v+1, g)
+    retval['Yht'] = (len(books), 'Yhteensä')
+    return retval
+
+
 def _add_tags(session, new_tags: List[str], old_tags: Dict[str, int]) -> List[int]:
     """ Adds any new tags to the Tag table and returns a list
         containing ids for all tags in the tags list.

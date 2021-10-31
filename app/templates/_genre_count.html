@@ -1,7 +1,8 @@
-<ul class="list-inline">
+<ul class="list-inline" class="mb-0">
     {% for genre, (count, name) in genres.items() %}
     {% if count %}
-    <li class="list-inline-item" style="padding: 1rem;"><img src="/static/icons/{{genre}}_32.png" title="{{name}}">
+    <li class="list-inline-item" style="padding-left: 1rem; padding-right: 1rem; padding-top: 1rem;"><img
+            src="/static/icons/{{genre}}_32.png" title="{{name}}">
         <b>{{count}}</b>
     </li>
     {% endif %}

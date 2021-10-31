@@ -136,21 +136,21 @@ def books() -> Any:
 
 @app.route('/booksX/<letter>')
 def booksX(letter: str) -> Any:
-    times: List[float] = []
-    times.append(time.time())
+    #times: List[float] = []
+    # times.append(time.time())
 
     session = new_session()
-    times.append(time.time())
+    # times.append(time.time())
     works_db = session.query(Work)\
         .all()
 
     creators = [x.author_str[0] for x in works_db if len(x.author_str) > 0]
-    times.append(time.time())
-    times.append(time.time())
+    # times.append(time.time())
+    # times.append(time.time())
     letters = list(set([x[0] for x in creators if not x[0].islower()]))
-    times.append(time.time())
+    # times.append(time.time())
     letters.sort()
-    times.append(time.time())
+    # times.append(time.time())
 
     prev_letter = None
     next_letter = None
@@ -170,17 +170,19 @@ def booksX(letter: str) -> Any:
                 next_letter = letters[0]
                 break
 
-    times.append(time.time())
-    times.append(time.time())
+    # times.append(time.time())
+    # times.append(time.time())
     works_l = [x for x in works_db if x.author_str.startswith(letter)]
-    for i in range(len(times)):
-        app.logger.debug('Perf for booksX:')
-        app.logger.debug(f'Time {i}: {times[i] - times[0]}.')
+    # for i in range(len(times)):
+    #    app.logger.debug('Perf for booksX:')
+    #    app.logger.debug(f'Time {i}: {times[i] - times[0]}.')
     (works, count) = make_book_list(works_l)
     page: str = create_booklisting(works)
+    genres = genre_summary(works_l)
     return render_template('books.html', letter=letter,
                            books=page, prev_letter=prev_letter, next_letter=next_letter,
-                           count=count)
+                           count=count,
+                           genres=genres)
 
 
 @ app.route('/anthologies')

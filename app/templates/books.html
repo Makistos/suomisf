@@ -19,7 +19,14 @@
 	{% else %}
 	<h1>Kirjat</h1>
 	{% endif %}
-	<div>Yhteensä <b>{{ count }}</b> kirjaa</div>
+	{% if genres %}
+	<div style="text-align: center;" class="mb-3 mt-3">
+		{% include "_genre_count.html" %}
+		<span class="font-weight-light">(
+			Kokonaissumma voi poiketa genrejen kokonaissummasta, koska sama kirja voi kuulua useampaan genreen.)
+		</span>
+	</div>
+	{% endif %}
 	{# {% for author in works|groupby(attribute='author_str') %}
 	{% for author in works %}
 	<h2><span class="person-list">{{author.name}}</span></h2>
