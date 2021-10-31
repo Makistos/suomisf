@@ -3,6 +3,7 @@ import time
 from flask import render_template, request, flash, redirect, url_for,\
     make_response, jsonify, Response
 from flask_login import current_user, login_user, logout_user
+from sqlalchemy.util.langhelpers import format_argspec_plus
 from app import app
 from app.orm_decl import (Person, Work,
                           Edition, Pubseries, Bookseries, User, UserBook, ShortStory, UserPubseries,
@@ -131,11 +132,17 @@ def bookindex() -> Any:
             tables += ', workgenre '
             where += ' and workgenre.work_id = work.id '
             where += " and workgenre.genre_id = " + str(form.genre.data)
-        if form.nationality.data > 0:
+        if form.nationality.data > 0 or form.authorname.data:
             tables += ', contributor, person '
             where += ' and part.id = contributor.part_id and contributor.person_id = person.id '
-            where += ' and person.nationality_id = ' + \
-                str(form.nationality.data)
+            if form.nationality.data > 0:
+                where += ' and person.nationality_id = ' + \
+                    str(form.nationality.data)
+            if form.authorname.data:
+                where += ' and (person.name like "%' + form.authorname.data + '%"' \
+                    ' or person.alt_name like "%' + form.authorname.data + '%"' \
+                    ' or person.other_names like "%' + form.authorname.data + '%"' \
+                    ' or person.fullname like "%' + form.authorname.data + '%")'
         if form.type.data > 0:
             where += " and work.type = " + str(form.type.data)
         stmt += tables + where
