@@ -454,7 +454,7 @@ def select_story() -> Response:
         retval: Dict[str, List[Dict[str, Any]]] = {}
         stories = session.query(ShortStory)\
                          .filter(ShortStory.title.ilike('%' + search + '%'))\
-                         .order_by(ShortStory.author_str, ShortStory.title)\
+                         .order_by(ShortStory.title)\
                          .all()
         retval['results'] = []
         if stories:

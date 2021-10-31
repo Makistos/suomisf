@@ -674,7 +674,7 @@ def stories_for_work(workid: Any) -> Any:
 @ app.route('/save_stories_to_work', methods=["POST"])
 @ login_required  # type: ignore
 @ admin_required
-def add_story_to_work() -> Any:
+def save_stories_to_work() -> Any:
     session = new_session()
 
     (workid, story_ids) = get_select_ids(request.form)
@@ -698,22 +698,25 @@ def add_story_to_work() -> Any:
         .filter(Part.work_id == workid)\
         .all()
 
-    authors = session.query(Person)\
-        .join(Contributor, Contributor.role_id == 1)\
-        .filter(Person.id == Contributor.person_id)\
-        .join(Part)\
-        .filter(Part.id == Contributor.part_id)\
-        .filter(Part.work_id == workid)\
-        .all()
-
     for id in to_remove:
         part = session.query(Part)\
             .join(ShortStory)\
             .filter(Part.work_id == workid)\
             .filter(Part.shortstory_id == id)\
             .first()
+        session.query(Contributor).filter(
+            Contributor.part_id == part.id).delete()
         session.delete(part)
     for id in to_add:
+        authors = session.query(Person)\
+            .join(Contributor, Contributor.role_id == 1)\
+            .filter(Person.id == Contributor.person_id)\
+            .join(Part)\
+            .filter(Part.id == Contributor.part_id)\
+            .filter(Part.work_id == workid)\
+            .filter(Part.shortstory_id == id)\
+            .all()
+
         for edition in editions:
             part = Part(work_id=workid, edition_id=edition.id,
                         shortstory_id=id)
