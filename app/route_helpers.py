@@ -707,14 +707,16 @@ def create_new_tags(session: Any, tags: List[Dict[str, Any]]) -> List[Dict[str, 
 
     for tag in tags:
         name = tag['text']
-        if tag['id'] == name:
+        t = session.query(Tag).filter(Tag.name == name).first()
+        if not t:
+            # if tag['id'] == name:
             new_tag = Tag(name=name)
             session.add(new_tag)
             session.commit()
             id = new_tag.id
             name = new_tag.name
         else:
-            id = int(tag['id'])
+            id = t.id
         retval.append({'id': id, 'text': name})
 
     return retval
