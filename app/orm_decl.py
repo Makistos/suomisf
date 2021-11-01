@@ -350,10 +350,12 @@ class Edition(Base):
             if self.binding_id > 1:
                 if self.isbn:
                     retval += ' '
-                retval += self.binding.name
+                if self.binding:
+                    retval += str(self.binding.name)
         if self.isbn or self.binding_id:
-            if self.binding_id > 1:
-                retval += '.<br>'
+            if self.binding_id:
+                if self.binding_id > 1 or self.isbn:
+                    retval += '.<br>'
         if self.dustcover == 3:
             retval += 'Kansipaperi.<br>'
         if self.coverimage == 3:
