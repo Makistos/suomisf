@@ -749,6 +749,9 @@ class Publisher(Base):
     series = relationship('Pubseries', viewonly=True)
     links = relationship("PublisherLink", uselist=True, viewonly=True)
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class PublisherLink(Base):
     __tablename__ = 'publisherlink'
