@@ -381,10 +381,12 @@ def save_authors_to_work() -> Any:
         .join(Part)\
         .filter(Part.id == Contributor.part_id)\
         .filter(Part.work_id == workid)\
+        .filter(Part.shortstory_id == None)\
         .all()
 
     parts = session.query(Part)\
         .filter(Part.work_id == workid)\
+        .filter(Part.shortstory_id == None)\
         .all()
 
     (to_add, to_remove) = get_join_changes(
@@ -398,6 +400,7 @@ def save_authors_to_work() -> Any:
             .join(Part)\
             .filter(Part.id == Contributor.part_id)\
             .filter(Part.work_id == workid)\
+            .filter(Part.shortstory_id == None)\
             .first()
         session.delete(auth)
     for id in to_add:
@@ -412,7 +415,6 @@ def save_authors_to_work() -> Any:
     session.add(work)
     session.commit()
     log_change(session, work, fields=['Kirjoittajat'])
-    # update_work_creators(workid)
 
     msg = 'Tallennus onnistui'
     category = 'success'
@@ -787,6 +789,7 @@ def add_edition_to_work(workid: Any) -> Any:
         .join(Part)\
         .filter(Part.id == Contributor.part_id)\
         .filter(Part.work_id == workid)\
+        .filter(Part.shortstory_id == None)\
         .distinct()\
         .all()
 

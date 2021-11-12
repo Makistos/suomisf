@@ -222,9 +222,16 @@ def save_authors_to_story() -> Response:
         for a in auth:
             session.delete(a)
     for id in to_add:
-        parts = session.query(Part)\
-                       .filter(Part.shortstory_id == storyid)\
-                       .all()
+        parts: List[Any] = session.query(Part)\
+            .filter(Part.shortstory_id == storyid)\
+            .all()
+        if not parts:
+            story = session.query(ShortStory).filter(
+                ShortStory.id == storyid).first()
+            part = Part(shortstory_id=storyid, title=story.title)
+            session.add(part)
+            session.commit()
+            parts.append(part)
         for part in parts:
             auth = Contributor(person_id=id, part_id=part.id, role_id=1)
             session.add(auth)

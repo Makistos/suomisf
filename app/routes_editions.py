@@ -16,167 +16,69 @@ import json
 import os
 
 
-def save_edition(session: Any, form: Any, edition: Any) -> None:
-    edition.title = form.title.data
-    edition.subtitle = form.subtitle.data
-    edition.pubyear = form.pubyear.data
-    edition.editionnum = form.edition.data
-    edition.version = form.version.data
-    translator = session.query(Person).filter(Person.name ==
-                                              form.translators.data).first()
-    editor = session.query(Person).filter(Person.name ==
-                                          form.editors.data).first()
-    publisher = session.query(Publisher).filter(Publisher.name ==
-                                                form.publisher.data).first()
-    if form.pubseries.data == 0:
-        edition.pubseries_id = None
-    else:
-        edition.pubseries_id = form.pubseries.data
-    edition.publisher_id = publisher.id
-    edition.pubseriesnum = form.pubseriesnum.data
-    edition.pages = form.pages.data
-    edition.cover_id = form.cover.data
-    edition.binding_id = form.binding.data
-    edition.format_id = form.format.data
-    edition.size = form.size.data
-    # edition.artist_id = artist.id
-    edition.isbn = form.isbn.data
-    edition.misc = form.misc.data
-    edition.image_src = form.image_src.data
-    session.add(edition)
-    session.commit()
-
-    parts: List[Part] = []
-    if form.id == 0:
-        # Add parts
-        for work in form.workid.split(','):
-            part = Part(edition_id=edition.id, work_id=work)
-            session.add(part)
-            parts.append(part)
-        session.commit()
-    else:
-        parts = session.query(Part)\
-                       .filter(Part.edition_id == edition.id)\
-                       .all()
-
-    # Save translator and editor
-    for part in parts:
-        if translator:
-            transl = session.query(Contributor, Contributor.role_id == 2)\
-                .filter(Contributor.part_id == part.id, Contributor.person_id == translator.id)\
-                .first()
-            if not transl:
-                transl = Contributor(
-                    part_id=part.id, person_id=translator.id, role_id=2)
-                session.add(transl)
-        if editor:
-            ed = session.query(Contributor, Contributor.role_id == 3)\
-                        .join(Part, Part.id == Contributor.part_id)\
-                        .filter(Part.edition_id == edition.id, Contributor.person_id == editor.id)\
-                        .first()
-            if not ed:
-                ed = Contributor(part_id=part.id,
-                                 person_id=editor.id, role_id=3)
-                session.add(ed)
-    session.commit()
-
-
-# @app.route('/edit_edition/<editionid>', methods=["POST", "GET"])
-# def edit_edition(editionid: Any) -> Any:
-#     session = new_session()
-#     publisher_series: Any
-#     publisher: Any
-#     pubseries: Any
-#     translators: Any
-#     editors: Any
-#     if str(editionid) != '0':
-#         edition = session.query(Edition)\
-#             .filter(Edition.id == editionid)\
-#             .first()
-#         publisher = session.query(Publisher)\
-#                            .filter(Publisher.id == edition.publisher_id)\
-#                            .first()
-#         translators = session.query(Person)\
-#                              .join(Contributor.person)\
-#                              .filer(Contributor.role_id == 2)\
-#                              .join(Part)\
-#                              .filter(Contributor.part_id == Part.id,
-#                                      Part.edition_id == Edition.id,
-#                                      Edition.id == editionid)\
-#                              .first()
-#         editors = session.query(Person)\
-#                          .join(Contributor.person)\
-#                          .filter(Contributor.role_id == 3)\
-#                          .join(Part, Part.id == Contributor.part_id)\
-#                          .filter(Part.edition_id == editionid)\
-#                          .first()
-#         pubseries = \
-#             session.query(Pubseries)\
-#             .filter(Pubseries.id == edition.pubseries_id)\
-#             .first()
-#         if publisher:
-#             publisher_series = pubseries_list(session, publisher.id)
-#         else:
-#             publisher_series = {}
+# def save_edition(session: Any, form: Any, edition: Any) -> None:
+#     edition.title = form.title.data
+#     edition.subtitle = form.subtitle.data
+#     edition.pubyear = form.pubyear.data
+#     edition.editionnum = form.edition.data
+#     edition.version = form.version.data
+#     translator = session.query(Person).filter(Person.name ==
+#                                               form.translators.data).first()
+#     editor = session.query(Person).filter(Person.name ==
+#                                           form.editors.data).first()
+#     publisher = session.query(Publisher).filter(Publisher.name ==
+#                                                 form.publisher.data).first()
+#     if form.pubseries.data == 0:
+#         edition.pubseries_id = None
 #     else:
-#         edition = Edition()
-#         publisher = Publisher()
-#         translators = Contributor(role_id=2)
-#         editors = Contributor(role_id=3)
-#         pubseries = Pubseries()
+#         edition.pubseries_id = form.pubseries.data
+#     edition.publisher_id = publisher.id
+#     edition.pubseriesnum = form.pubseriesnum.data
+#     edition.pages = form.pages.data
+#     edition.cover_id = form.cover.data
+#     edition.binding_id = form.binding.data
+#     edition.format_id = form.format.data
+#     edition.size = form.size.data
+#     # edition.artist_id = artist.id
+#     edition.isbn = form.isbn.data
+#     edition.misc = form.misc.data
+#     edition.image_src = form.image_src.data
+#     session.add(edition)
+#     session.commit()
 
-#     form = EditionForm()
-#     selected_pubseries = '0'
-#     source = edition.imported_string
-#     form.binding.choices = binding_list(session)
-#     form.format.choices = format_list(session)
-#     form.size.choices = size_list(session)
-
-#     if request.method == 'GET':
-#         form.id.data = edition.id
-#         form.workid.data = ','.join([str(x.id) for x in edition.work])
-#         form.title.data = edition.title
-#         form.subtitle.data = edition.subtitle
-#         form.pubyear.data = edition.pubyear
-#         form.edition.data = edition.editionnum
-#         if edition.version:
-#             form.version.data = edition.version
-#         if publisher:
-#             form.publisher.data = publisher.name
-#         if translators:
-#             form.translators.data = translators.name
-#         if editors:
-#             form.editors.data = editors.name
-#         if pubseries:
-#             form.pubseries.data = pubseries.name
-#         form.pubseriesnum.data = edition.pubseriesnum
-#         form.pages.data = edition.pages
-#         form.binding.data = edition.binding_id
-#         form.format.data = edition.format_id
-#         form.size.data = edition.size
-#         # form.artist.data  = artist.name
-#         form.isbn.data = edition.isbn
-#         form.misc.data = edition.misc
-#         form.image_src.data = edition.image_src
-#         # if pubseries:
-#         #     i = 0
-#         #     for idx, s in enumerate(publisher_series):
-#         #         if s[1] == pubseries.name:
-#         #             i = s[0]
-#         #             break
-#         #     form.pubseries.choices = [('0', 'Ei sarjaa')] + publisher_series
-#         #     form.pubseries.default = str(i)
-#         #     selected_pubseries = str(i)
-#         # form.translators.data = ', '.join([t.name for t in translators])
-#         # form.editors.data = ', '.join([e.name for e in editors])
-#     if form.validate_on_submit():
-#         save_edition(session, form, edition)
-#         return redirect(url_for('edition', editionid=edition.id))
+#     parts: List[Part] = []
+#     if form.id == 0:
+#         # Add parts
+#         for work in form.workid.split(','):
+#             part = Part(edition_id=edition.id, work_id=work)
+#             session.add(part)
+#             parts.append(part)
+#         session.commit()
 #     else:
-#         app.logger.debug("Errors: {}".format(form.errors))
-#         # app.logger.debug("pubid={}".format(form.pubseries.data))
-#     return render_template('edit_edition.html', form=form,
-#                            source=source)
+#         parts = session.query(Part)\
+#                        .filter(Part.edition_id == edition.id)\
+#                        .all()
+
+#     # Save translator and editor
+#     for part in parts:
+#         if translator:
+#             transl = session.query(Contributor, Contributor.role_id == 2)\
+#                 .filter(Contributor.part_id == part.id, Contributor.person_id == translator.id)\
+#                 .first()
+#             if not transl:
+#                 transl = Contributor(
+#                     part_id=part.id, person_id=translator.id, role_id=2)
+#                 session.add(transl)
+#         if editor:
+#             ed = session.query(Contributor, Contributor.role_id == 3)\
+#                         .join(Part, Part.id == Contributor.part_id)\
+#                         .filter(Part.edition_id == edition.id, Contributor.person_id == editor.id)\
+#                         .first()
+#             if not ed:
+#                 ed = Contributor(part_id=part.id,
+#                                  person_id=editor.id, role_id=3)
+#                 session.add(ed)
+#     session.commit()
 
 
 @app.route('/edition/<editionid>', methods=['GET', 'POST'])
@@ -378,6 +280,7 @@ def save_translator_to_edition() -> Any:
         .join(Part)\
         .filter(Part.id == Contributor.part_id)\
         .filter(Part.edition_id == editionid)\
+        .filter(Part.shortstory_id == None)\
         .all()
 
     parts = session.query(Part)\
@@ -398,6 +301,7 @@ def save_translator_to_edition() -> Any:
             .join(Part)\
             .filter(Part.id == Contributor.part_id)\
             .filter(Part.edition_id == editionid)\
+            .filter(Part.shortstory_id == None)\
             .first()
         session.delete(tr)
     for id in to_add:
@@ -424,6 +328,7 @@ def editors_for_edition(editionid: Any) -> Any:
                     .filter(Contributor.role_id == 3)\
                     .join(Part, Part.id == Contributor.part_id)\
                     .filter(Part.edition_id == editionid)\
+                    .filter(Part.shortstory_id == None)\
                     .all()
 
     return(make_people_response(people))
@@ -440,14 +345,13 @@ def save_editor_to_edition() -> Any:
         .join(Part)\
         .filter(Part.id == Contributor.part_id)\
         .filter(Part.edition_id == editionid)\
+        .filter(Part.shortstory_id == None)\
         .all()
 
     parts = session.query(Part)\
                    .filter(Part.edition_id == editionid)\
+                   .filter(Part.shortstory_id == None)\
                    .all()
-
-    for x in existing_people:
-        print(x)
 
     (to_add, to_remove) = get_join_changes(
         [x.person_id for x in existing_people],
@@ -460,6 +364,7 @@ def save_editor_to_edition() -> Any:
                     .join(Part)\
                     .filter(Part.id == Contributor.part_id)\
                     .filter(Part.edition_id == editionid)\
+                    .filter(Part.shortstory_id == None)\
                     .first()
         session.delete(ed)
     for id in to_add:
