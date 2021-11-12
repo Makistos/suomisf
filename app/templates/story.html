@@ -78,8 +78,10 @@
                         <i>
                             {% if story.title != story.orig_title %}
                             {{ story.orig_title }}
-                            {%- if story.pubyear -%}, {{ story.pubyear }}{% endif %}
                             {% endif %}
+                            {%- if story.title != story.orig_title -%}, {%endif %} {% if story.pubyear %} {{
+                            story.pubyear }}{% endif
+                            %}
                         </i>
                     </p>
                 </div>
