@@ -78,8 +78,9 @@
                         <i>
                             {% if story.title != story.orig_title %}
                             {{ story.orig_title }}
-                            {% endif %}
-                            {%- if story.title != story.orig_title -%}, {%endif %} {% if story.pubyear %} {{
+                            {%- endif -%}
+                            {%- if story.title != story.orig_title and story.orig_title -%}, {%endif %}{% if
+                            story.pubyear %} {{
                             story.pubyear }}{% endif
                             %}
                         </i>

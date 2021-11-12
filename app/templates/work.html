@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from 'macros.html' import awards_form, edition_info %}
+{% from 'macros.html' import awards_form, edition_info, edition_popup %}
 {% from 'edit_menu.tmpl' import edit_menu_content %}
 {% block edit_menu %}
 {% call edit_menu_content() %}
@@ -362,9 +362,11 @@
             <b><span class="person-list">{{ story.author_str }}</span></b>: {%
             endif %}
             <a href=" {{ url_for('story', id=story.id) }}">{{ story.title }}</a>
-            {% if story.orig_title != story.title %}({{ story.orig_title}}
-            {%- if story.pubyear %}, {{story.pubyear}}{% endif %}) {% elif
-            story.pubyear %} ({{ story.pubyear}}) {% endif %}
+            {% if story.orig_title != story.title or story.pubyear %}(
+            {%- if story.orig_title != story.title %}{{ story.orig_title}}{% endif %}
+            {%- if story.orig_title != story.title and story.orig_title and story.pubyear %}, {%endif %}
+            {% if story.pubyear %}{{story.pubyear}}{% endif -%}
+            ){% endif %}
             <br>
             {% endfor %}
         </div>
@@ -422,6 +424,16 @@
 <script src="/static/js/contentSwitcher.js"></script>
 
 <script src="/static/js/dynamic_fields.js"></script>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover({
+            html: true,
+            trigger: 'hover',
+            placement: 'right',
+            container: 'body'
+        });
+    });
+</script>
 
 
 {% endblock %}
