@@ -74,7 +74,7 @@
   <div class="mb-3 mt-4">
     <div class="row">
       <div class="col-lg-4 col-md-12">
-        <div class="row mb-3 ml-1 mr-1 mt-2">
+        <div class="row ml-1 mr-1 mt-2">
           <div clas="col">
             {% if person.image_src %}
             <figure>
@@ -103,7 +103,8 @@
         {% if person.image_src %}
         <div class="row edit-field">
           <div class="col">
-            <a href="{{url_for('remove_image_from_person', personid=person.id)}}">Poista kuva</a>
+            <!-- <a href="{{url_for('remove_image_from_person', id=person.id)}}">Poista kuva</a> -->
+            <button class="btnRemove" data-save="/remove_image_from_person">Poista kuva</button>
           </div>
         </div>
         {% endif %}
@@ -743,15 +744,29 @@ Lähde: {{person.imported_string }}
 
 <script>
   $(document).ready(function () {
-    $('[data-toggle="popover"]').popover({
-      html: true,
-      trigger: 'hover',
-      placement: 'right',
-      container: 'body'
+
+    $(".btnRemove").on("click", function (e) {
+      e.preventDefault();
+      console.log("itemId: " + JSON.stringify(itemId));
+      $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: $(this).data("save"),
+        data: {
+          itemId: JSON.stringify(itemId),
+        },
+      });
+
     });
   });
 </script>
 <script>
+  $('[data-toggle="popover"]').popover({
+    html: true,
+    trigger: 'hover',
+    placement: 'right',
+    container: 'body'
+  });
   document.addEventListener("DOMContentLoaded", function () {
     if (!!document.getElementById("pics") === false) {
       return;
@@ -778,6 +793,10 @@ Lähde: {{person.imported_string }}
     }
   }
 </script>
+
+<script>
+</script>
+
 <script src="/static/js/dynamic_fields.js" type="text/javascript"></script>
 {% endblock %}
 {% endblock %}

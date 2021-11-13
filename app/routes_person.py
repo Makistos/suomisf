@@ -2,7 +2,10 @@ import logging
 
 from flask import (redirect, render_template, request,
                    url_for, jsonify, Response, make_response)
+from flask.globals import session
 from flask_login.utils import login_required
+from werkzeug.datastructures import FileStorage
+from werkzeug.utils import secure_filename
 
 from app import app
 from app.forms import PersonForm
@@ -13,10 +16,11 @@ from app.orm_decl import (ArticleAuthor, Person, PersonTag,
                           Tag, PersonTag, Alias, Contributor, PersonLink, Awarded,
                           Award, AwardCategories, AwardCategory)
 from sqlalchemy import func
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 from .route_helpers import *
 import urllib
 import json
+import os
 
 
 @app.route('/people')
@@ -363,6 +367,60 @@ def select_person() -> Response:
         return Response(json.dumps(['']))
 
 
+def allowed_image(filename: Optional[str]) -> bool:
+    if not filename:
+        return False
+    if not "." in filename:
+        return False
+
+    ext = filename.split('.', -1)[-1]
+    if ext.upper() in ['jpg', 'JPG', 'png', 'PNG']:
+        return True
+    else:
+        return False
+
+
+@app.route('/save_image_to_person', methods=['POST'])
+@login_required  # type: ignore
+@admin_required
+def save_image_to_person() -> Any:
+    if request.method == 'POST':
+        image: FileStorage
+        id: str = ''
+        if request.files:
+            id = request.form['id']
+            image = request.files['image']
+            if image.filename == '':
+                return redirect(request.url)
+            if allowed_image(image.filename):
+                filename = secure_filename(image.filename)  # type: ignore
+                image.save(os.path.join(
+                    app.config['PERSONIMG_SAVELOC'], filename))
+                session = new_session()
+                person = session.query(Person).filter(Person.id == id).first()
+                person.image_src = app.config['PERSONIMG_DIR'] + filename
+                session.add(person)
+                session.commit()
+                log_change(session, person, ['Kuva'])
+                return redirect(request.url)
+        else:
+            return redirect(request.url)
+    return redirect(request.url)
+
+
+@app.route('/remove_image_from_person', methods=['POST'])
+@login_required  # type: ignore
+@admin_required
+def remove_image_from_person() -> Any:
+    id = json.loads(request.form['itemId'])
+    session = new_session()
+    person = session.query(Person).filter(Person.id == id).first()
+    person.image_src = ''
+    session.add(person)
+    session.commit()
+    return Response(json.dumps(['Ok']))
+
+
 @ app.route('/languages_for_person/<personid>')
 def languages_for_person(personid: Any) -> Response:
     session = new_session()
@@ -416,13 +474,6 @@ def save_languages_to_person() -> Any:
     category = 'success'
     resp = {'feedback': msg, 'category': category}
     return make_response(jsonify(resp), 200)
-
-
-@ app.route('/remove_image_from_person/<personid>')
-@ login_required  # type: ignore
-@ admin_required
-def remove_image_from_person(personid: Any) -> Any:
-    return redirect(url_for('person', personid=personid))
 
 
 @ app.route('/tags_for_person/<personid>')
