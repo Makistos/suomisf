@@ -77,12 +77,13 @@
         <div class="row ml-1 mr-1 mt-2">
           <div clas="col">
             {% if person.image_src %}
-            <figure>
-              <img src="{{person.image_src}}" class="img-fluid">
-              <figcaption>{{person.image_attr if person.image_attr is not none}}</figcaption>
+            <figure class="figure">
+              <img src="{{person.image_src}}" class="figure-img img-fluid" id="image">
+              <figcaption class="figure-caption text-right">{{person.image_attr if person.image_attr is not none}}
+              </figcaption>
             </figure>
             {% else %}
-            <img src="/static/icons/person_256.png">
+            <img src="/static/icons/person_256.png" class="img-fluid">
             {% endif %}
           </div>
         </div>
@@ -103,8 +104,8 @@
         {% if person.image_src %}
         <div class="row edit-field">
           <div class="col">
-            <!-- <a href="{{url_for('remove_image_from_person', id=person.id)}}">Poista kuva</a> -->
-            <button class="btnRemove" data-save="/remove_image_from_person">Poista kuva</button>
+            <button class="btnRemove" data-save="/remove_image_from_person"
+              data-replace="/static/icons/person_256.png">Poista kuva</button>
           </div>
         </div>
         {% endif %}
@@ -487,7 +488,7 @@
         {% set showfirst = 1 %}
         {% for edition in person.edits %}
         {% if edition.images[0] %}
-        <figure class="figure">
+        <figure class="figure-img">
           <figcaption>{{edition.pubyear}} {{editionnum(edition.version, edition.editionnum, true)}}</figcaption>
           <a href=" {{url_for('edition', editionid=edition.id)}}">
             <img class="img-fluid" src="{{edition.images[0].image_src}}" alt="{{editionnum(edition.version,
@@ -747,16 +748,21 @@ Lähde: {{person.imported_string }}
 
     $(".btnRemove").on("click", function (e) {
       e.preventDefault();
-      console.log("itemId: " + JSON.stringify(itemId));
-      $.ajax({
-        type: "POST",
-        dataType: "json",
-        url: $(this).data("save"),
-        data: {
-          itemId: JSON.stringify(itemId),
-        },
-      });
-
+      console.log($(this).data("replace"));
+      if (confirm("Oletko varma?")) {
+        img_src = $(this).data("replace");
+        $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: $(this).data("save"),
+          data: {
+            itemId: JSON.stringify(itemId),
+          },
+          success: function (data) {
+            $("#image").attr("src", img_src);
+          },
+        });
+      }
     });
   });
 </script>

@@ -85,17 +85,18 @@ div.three-column {
 }
 
 figure {
-  border: thin silver solid;
+  /*border: thin silver solid;*/
   margin-top: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 figcaption {
   text-align: center;
-  font-size: smaller;
-  margin-top: -1rem;
-  margin-left: 5rem;
   background: white;
-  width: 30%;
+}
+
+.source {
+  text-align: left;
+  font-size: smaller;
 }
 .row {
   border: 1;
