@@ -26,6 +26,26 @@
             </div>
         </div>
         {% endif %}
+        {% if form.hidden_editor_name.data == "" %}
+        <div class="form-row">
+            <div class="col-md-3 mb-3">
+                <b>Toimittaja</b>
+            </div>
+            <div class="col-md-8 mb-3">
+                <select class="form-control" data-placeholder="Toimittaja" data-search="/select_person"
+                    data-name="editors" id="editors" name="editors"></select>
+            </div>
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <b>Toimittaja</b>
+            </div>
+            <div class="col-md-8 mb-3">
+                {{ form.hidden_editor_name.data }}
+            </div>
+        </div>
+        {% endif %}
         {{ render_field(form.title) }}
         {{ render_field(form.subtitle) }}
         {{ render_field(form.orig_title) }}

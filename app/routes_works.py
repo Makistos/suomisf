@@ -292,10 +292,13 @@ def new_work() -> Any:
     if request.method == 'GET':
         form.hidden_author_id.data = 0
         form.hidden_author_name.data = ''
+        form.hidden_editor_id.data = 0
+        form.hidden_editor_name.data = ''
     elif form.validate_on_submit():
         types: List[str] = [''] * 4
         types[1] = 'checked'
         form.hidden_author_id.data = form.authors.data
+        form.hidden_editor_id.data = form.editors.data
         return render_template('work.html',
                                work=_create_new_work(session, form),
                                form=form, types=types,
@@ -865,9 +868,14 @@ def _create_new_work(session: Any, form: Any) -> Any:
     part = Part(work_id=work.id, edition_id=edition_id)
     session.add(part)
     session.commit()
-    author = Contributor(
-        person_id=form.hidden_author_id.data, part_id=part.id, role_id=1)
-    session.add(author)
+    if form.hidden_author_id.data:
+        author = Contributor(
+            person_id=form.hidden_author_id.data, part_id=part.id, role_id=1)
+        session.add(author)
+    if form.hidden_editor_id.data:
+        editor = Contributor(
+            person_id=form.hidden_editor_id.data, part_id=part.id, role_id=3)
+        session.add(editor)
     session.commit()
     update_work_creators(session, work.id)
     log_change(session, work, action='Uusi')
