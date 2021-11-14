@@ -531,15 +531,14 @@ def save_image_to_edition() -> Any:
     return redirect(request.url)
 
 
-@app.route('/remove_image_from_edition/<editionid>')
+@app.route('/remove_image_from_edition', methods=['POST'])
 @login_required  # type: ignore
 @admin_required
-def remove_image_from_edition(editionid: Any) -> Any:
-    # session = new_session()
-    # edition = session.query(Edition).filter(Edition.id == editionid).first()
-
-    # edition.image_src = ''
-    # session.add(edition)
-    # session.commit()
-
-    return redirect(url_for('edition', editionid=editionid))
+def remove_image_from_edition() -> Any:
+    id = json.loads(request.form['itemId'])
+    session = new_session()
+    image = session.query(EditionImage).filter(
+        EditionImage.edition_id == id).first()
+    session.delete(image)
+    session.commit()
+    return Response(json.dumps(['Ok']))

@@ -748,7 +748,6 @@ Lähde: {{person.imported_string }}
 
     $(".btnRemove").on("click", function (e) {
       e.preventDefault();
-      console.log($(this).data("replace"));
       if (confirm("Oletko varma?")) {
         img_src = $(this).data("replace");
         $.ajax({
