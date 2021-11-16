@@ -748,6 +748,7 @@ Lähde: {{person.imported_string }}
 
     $(".btnRemove").on("click", function (e) {
       e.preventDefault();
+      var curr = $(this);
       if (confirm("Oletko varma?")) {
         img_src = $(this).data("replace");
         $.ajax({
@@ -757,7 +758,7 @@ Lähde: {{person.imported_string }}
           data: {
             itemId: JSON.stringify(itemId),
           },
-          success: function (data) {
+          success: (data) => {
             $("#image").attr("src", img_src);
           },
         });

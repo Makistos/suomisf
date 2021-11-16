@@ -477,10 +477,8 @@
                     data: {
                         itemId: JSON.stringify(itemId),
                     },
-                    success: function (data) {
-                        if ($(this).is("[replace]")) {
-                            $("#image").attr("src", img_src);
-                        }
+                    success: (data) => {
+                        $("#image").attr("src", img_src);
                     },
                 });
             }
