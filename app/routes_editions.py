@@ -1,11 +1,12 @@
+from flask.globals import session
 from werkzeug.datastructures import FileStorage
 from app import app
 from sqlalchemy import func
 from flask import (render_template, request, redirect, url_for,
                    make_response, jsonify, Response)
 from flask_login import login_required
-from app.orm_decl import (Person, Publisher, Edition,
-                          Part, Pubseries,
+from app.orm_decl import (EditionLink, EditionPrice, Person, Publisher, Edition,
+                          Part, Pubseries, UserBook,
                           Work, ShortStory, BindingType,
                           EditionImage, Bookseries, Contributor)
 from app.forms import (EditionForm)
@@ -531,9 +532,82 @@ def save_image_to_edition() -> Any:
     return redirect(request.url)
 
 
-@app.route('/remove_image_from_edition', methods=['POST'])
+@app.route('/remove_edition', methods=['POST'])
 @login_required  # type: ignore
 @admin_required
+def remove_edition() -> Response:
+    editionid = json.loads(request.form['itemId'])
+    session = new_session()
+    work = session.query(Work)\
+                  .join(Part)\
+                  .filter(Part.work_id == Work.id)\
+                  .filter(Part.edition_id == editionid)\
+                  .first()
+    workid = work.id
+    work_editions = session.query(Edition)\
+                           .join(Part)\
+                           .filter(Part.edition_id == Edition.id)\
+                           .filter(Part.work_id == workid)\
+                           .all()
+    if len(work_editions) == 1:
+        return Response(json.dumps({'success': False, 'error': 'Viimeistä painosta ei voi poistaa teokselta'}),
+                        409, {'ContentType': 'application/json'})
+    user_books = session.query(UserBook).filter(
+        UserBook.edition_id == editionid).all()
+    if len(user_books) > 0:
+        return Response(json.dumps({'success': False, 'error': 'Käyttäjä omistaa kappaleen painosta.'}),
+                        409, {'ContentType': 'application/json'})
+    # stories = session.query(Part)\
+    #                  .filter(Part.edition_id == editionid)\
+    #                  .filter(Part.shortstory_id is not None)\
+    #                  .all()
+    # if len(stories) > 0:
+    #     return Response(json.dumps({'success': False, 'error': 'Poistettavalla painokse'}),
+    #                     409, {'ContentType': 'application/json'})
+
+    editionimages = session.query(EditionImage).filter(
+        EditionImage.edition_id == editionid).all()
+    for ei in editionimages:
+        session.delete(ei)
+    editionlinks = session.query(EditionLink).filter(
+        EditionLink.edition_id == editionid).all()
+    for link in editionlinks:
+        session.delete(link)
+    editionprices = session.query(EditionPrice).filter(
+        EditionPrice.edition_id == editionid).all()
+    for ep in editionprices:
+        session.delete(ep)
+    parts = session.query(Part).filter(Part.edition_id == editionid).all()
+    for part in parts:
+        if part.shortstory_id is None:
+            contributors = session.query(Contributor).filter(
+                Contributor.part_id == part.id).all()
+            for contrib in contributors:
+                session.delete(contrib)
+            session.delete(part)
+        else:
+            stories = session.query(Part)\
+                             .filter(Part.shortstory_id == part.shortstory_id)\
+                             .filter(Part.edition_id != editionid).all()
+            # Check if this is the only link between ShortStory and Contributor
+            if len(stories) > 1:
+                # It's not, we can delete this part
+                session.delete(part)
+            else:
+                # It is, adjust work and edition info.
+                part.edition_id = None
+                part.work_id = None
+                session.add(part)
+    edition = session.query(Edition).filter(Edition.id == editionid).first()
+    session.delete(edition)
+    session.commit()
+
+    return Response(json.dumps({'success': True, 'workid': workid}), 200, {'ContentType': 'application/json'})
+
+
+@ app.route('/remove_image_from_edition', methods=['POST'])
+@ login_required  # type: ignore
+@ admin_required
 def remove_image_from_edition() -> Any:
     id = json.loads(request.form['itemId'])
     session = new_session()

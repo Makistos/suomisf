@@ -2,6 +2,7 @@
 {% from 'edit_menu.tmpl' import edit_menu_content %}
 {% block edit_menu %}
 {% call edit_menu_content() %}
+<a class="dropdown-item btnRemoveEdition">Poista painos</a>
 {% endcall %}
 {% endblock %}
 {% block content %}
@@ -73,7 +74,7 @@
                     {% if edition.images|length %}
                     <div class="row edit-field">
                         <div class="col">
-                            <button class="btnRemove" data-save="/remove_image_from_edition"
+                            <button class="btnRemoveImage" data-save="/remove_image_from_edition"
                                 data-replace="/static/icons/book-icon-158.png">Poista kuva</button>
                         </div>
                     </div>
@@ -464,24 +465,45 @@
 <script>
     $(document).ready(function () {
 
-        $(".btnRemove").on("click", function (e) {
+
+        $(".btnRemoveImage").on("click", function (e) {
             e.preventDefault();
             if (confirm("Oletko varma?")) {
                 img_src = $(this).data("replace");
                 $.ajax({
-                    type: "POST",
+                    type: "POS T",
                     dataType: "json",
                     url: $(this).data("save"),
                     data: {
                         itemId: JSON.stringify(itemId),
                     },
                     success: function (data) {
-                        $("#image").attr("src", img_src);
+                        if ($(this).is("[replace]")) {
+                            $("#image").attr("src", img_src);
+                        }
                     },
                 });
             }
         });
-    });
+        $(".btnRemoveEdition").on("click", function (e) {
+            e.preventDefault();
+            if (confirm("Halutko poistaa tämän painoksen?")) {
+                $.ajax({
+                    type: "POST",
+                    url: "/remove_edition",
+                    data: {
+                        itemId: JSON.stringify(itemId),
+                    },
+                    success: (data) => {
+                        window.open('/work/' + JSON.parse(data)["workid"].toString(), "_self");
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        window.alert(JSON.parse(data)["error"]);
+                    },
+                })
+            }
+        })
+    })
 </script>
 <script src="/static/js/personlink.js" type="text/javascript"></script>
 <script type="text/javascript">
