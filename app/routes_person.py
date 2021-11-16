@@ -237,8 +237,8 @@ def person(personid: Any) -> Any:
             # log item every time such a page is saved.
             # Same fix is needed for every item using the same system, e.g.
             # links field below.
-            existing_awards.insert(0, form.awards.data[0])
-        if dynamic_changed(existing_awards, form.awards.data[0]):
+            existing_awards.insert(0, form.awards.data)
+        if form.awards.data[0] != 0 and dynamic_changed(existing_awards, form.awards.data):
             changes.append('Palkinnot')
 
             session.query(Awarded)\
@@ -254,7 +254,8 @@ def person(personid: Any) -> Any:
             session.commit()
 
         # Save links
-        links = list(person.links)
+        links = [{'link': x.link, 'description': x.description}
+                 for x in list(person.links)]
         if form.links.data[0]['link'] == '':
             links.insert(0, form.links.data[0])
         if dynamic_changed(links, form.links.data):
@@ -380,9 +381,9 @@ def allowed_image(filename: Optional[str]) -> bool:
         return False
 
 
-@app.route('/save_image_to_person', methods=['POST'])
-@login_required  # type: ignore
-@admin_required
+@ app.route('/save_image_to_person', methods=['POST'])
+@ login_required  # type: ignore
+@ admin_required
 def save_image_to_person() -> Any:
     if request.method == 'POST':
         image: FileStorage
@@ -408,9 +409,9 @@ def save_image_to_person() -> Any:
     return redirect(request.url)
 
 
-@app.route('/remove_image_from_person', methods=['POST'])
-@login_required  # type: ignore
-@admin_required
+@ app.route('/remove_image_from_person', methods=['POST'])
+@ login_required  # type: ignore
+@ admin_required
 def remove_image_from_person() -> Any:
     id = json.loads(request.form['itemId'])
     session = new_session()
@@ -462,7 +463,8 @@ def save_languages_to_person() -> Any:
             .filter(PersonLanguage.language_id == id)\
             .filter(PersonLanguage.person_id == personid)\
             .first()
-        session.delete(pl)
+        if pl:
+            session.delete(pl)
     for id in to_add:
         pl = PersonLanguage(person_id=personid, language_id=id)
         session.add(pl)
