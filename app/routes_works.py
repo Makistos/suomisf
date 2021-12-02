@@ -704,14 +704,15 @@ def save_stories_to_work() -> Any:
         .all()
 
     for id in to_remove:
-        part = session.query(Part)\
+        parts = session.query(Part)\
             .join(ShortStory)\
             .filter(Part.work_id == workid)\
             .filter(Part.shortstory_id == id)\
-            .first()
-        session.query(Contributor).filter(
-            Contributor.part_id == part.id).delete()
-        session.delete(part)
+            .all()
+        for part in parts:
+            session.query(Contributor).filter(
+                Contributor.part_id == part.id).delete()
+            session.delete(part)
     for id in to_add:
         authors = session.query(Person)\
             .join(Contributor, Contributor.role_id == 1)\
