@@ -1,3 +1,4 @@
+from sqlalchemy.sql.expression import desc
 from app import app
 from flask import (render_template, request, redirect, url_for,
                    make_response, jsonify, Response)
@@ -704,8 +705,16 @@ def save_stories_to_work() -> Any:
         .all()
 
     for id in to_remove:
+        contributors = session.query(Contributor.person_id,
+                                     Contributor.role_id,
+                                     Contributor.real_person_id,
+                                     Contributor.description)\
+            .join(Part)\
+            .filter(Part.id == Contributor.part_id)\
+            .filter(Part.shortstory_id == id)\
+            .distinct()\
+            .all()
         parts = session.query(Part)\
-            .join(ShortStory)\
             .filter(Part.work_id == workid)\
             .filter(Part.shortstory_id == id)\
             .all()
@@ -713,6 +722,25 @@ def save_stories_to_work() -> Any:
             session.query(Contributor).filter(
                 Contributor.part_id == part.id).delete()
             session.delete(part)
+        session.commit()
+        # Make sure there is a contributor row in case short story
+        # has no more links to works.
+        existing_parts = session.query(Part)\
+            .filter(Part.shortstory_id == id)\
+            .all()
+        if len(existing_parts) == 0:
+            part = Part(shortstory_id=id)
+            session.add(part)
+            session.commit()
+            for (person, role, real_person, description) in contributors:
+                contributor = Contributor(
+                    part_id=part.id,
+                    person_id=person,
+                    role_id=role,
+                    real_person_id=real_person,
+                    description=description)
+                session.add(contributor)
+            session.commit()
     for id in to_add:
         authors = session.query(Person)\
             .join(Contributor, Contributor.role_id == 1)\
