@@ -769,15 +769,18 @@ def add_edition_to_work(workid: Any) -> Any:
     latest_edition = editions[-1]
     if latest_edition.editionnum:
         editionnum = latest_edition.editionnum + 1
+        version = latest_edition.version
     else:
         editionnum = 1
+        version = 1
     edition = Edition(title=work[0].title,
                       subtitle=work[0].subtitle,
                       pubyear=work[0].pubyear,
                       binding_id=1,
                       format_id=latest_edition.format_id,
                       publisher_id=latest_edition.publisher_id,
-                      editionnum=editionnum)
+                      editionnum=editionnum,
+                      version=version)
 
     session.add(edition)
     session.commit()
@@ -807,7 +810,7 @@ def add_edition_to_work(workid: Any) -> Any:
 
     for story in stories:
         part = Part(work_id=workid, edition_id=edition.id,
-                    shortstory_id=story.id)
+                    shortstory_id=story.shortstory_id)
         session.add(part)
     session.commit()
 
