@@ -156,7 +156,7 @@ def api_GetUser(userId):
     return GetUser(options)
 
 
-@app.route('/api/works/<workId', methods=['get'])
+@app.route('/api/works/<workId>', methods=['get'])
 def api_getWork():
     options = {}
     options['id'] = request.args.get('id')
