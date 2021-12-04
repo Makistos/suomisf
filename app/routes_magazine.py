@@ -1,8 +1,5 @@
-import logging
-
 from flask import redirect, render_template, request, url_for, Response
 from flask_login.utils import login_required
-from sqlalchemy.util.langhelpers import ellipses_string
 
 from app import app
 from app.forms import MagazineForm

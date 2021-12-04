@@ -13,7 +13,7 @@ from sqlalchemy.sql.elements import UnaryExpression
 from sqlalchemy.sql.expression import null
 from sqlalchemy.util.langhelpers import classproperty, ellipses_string, public_factory
 from wtforms.fields.core import IntegerField
-from app import app, db, login
+from app import app, db_url, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from sqlalchemy.orm import sessionmaker
@@ -1036,9 +1036,9 @@ class Work(Base):
             retval += f' ({self.pubyear}).'
 
         # Translators
-        if self.translators:
+        if self.editions[0].translators:
             retval += ' Suom <span class="person-list">'
-            retval += ' & '.join([x.alt_name for x in self.translators])
+            retval += ' & '.join([x.alt_name for x in self.editions[0].translators])
             retval += '</span>. '
 
         # Publisher
