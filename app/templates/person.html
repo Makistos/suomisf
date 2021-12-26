@@ -488,7 +488,7 @@
         {% set showfirst = 1 %}
         {% for edition in person.edits %}
         {% if edition.images[0] %}
-        <figure class="figure-img">
+        <figure class="figure">
           <figcaption>{{edition.pubyear}} {{editionnum(edition.version, edition.editionnum, true)}}</figcaption>
           <a href=" {{url_for('edition', editionid=edition.id)}}">
             <img class="img-fluid" src="{{edition.images[0].image_src}}" alt="{{editionnum(edition.version,
