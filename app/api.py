@@ -4,13 +4,25 @@ from webargs.flaskparser import parser
 from marshmallow import Schema, fields
 from app.model import *
 from .impl import *
-from typing import Any
-
+from typing import Any, Tuple
+import json
 #app = Blueprint('api', __name__)
 
 
+@app.route('/api/login', methods=['post'])
+def api_login() -> Tuple[str, int]:
+    options = {}
+    try:
+        options['username'] = request.json['username']
+        options['password'] = request.json['password']
+    except (TypeError, KeyError) as exp:
+        return json.dumps({'code': 401,
+                           'message': 'Invalid parameters'}), 401
+    return LoginUser(options)
+
+
 @app.route('/api/issues/<issueId>', methods=['get'])
-def api_GetIssueForMagazine(issueId):
+def api_GetIssueForMagazine(issueId: str) -> Tuple[str, int]:
 
     options = {}
     options["issueId"] = issueId
@@ -18,8 +30,23 @@ def api_GetIssueForMagazine(issueId):
     return GetIssue(options)
 
 
+@app.route('/api/articles/<articleId>', methods=['get'])
+def api_GetArticle(articleId: str) -> Tuple[str, int]:
+    options = {}
+    options['articleId'] = articleId
+
+    return GetArticle(options)
+
+
+@app.route('/api/shorts/<shortId>', methods=['get'])
+def api_GetShort(shortId: str) -> Tuple[str, int]:
+    options = {}
+    options['shortId'] = shortId
+    return GetShort(options)
+
+
 @app.route('/api/issues/<issueId>', methods=['post'])
-def api_PostIssue(issueId):
+def api_PostIssue(issueId: str) -> Tuple[str, int]:
 
     options = {}
     options["issueId"] = issueId
@@ -28,12 +55,12 @@ def api_PostIssue(issueId):
 
 
 @app.route('/api/issues/<issueId>', methods=['patch'])
-def api_UpdateIssue(issueId):
+def api_UpdateIssue(issueId: str) -> Tuple[str, int]:
 
     options = {}
     options["issueId"] = issueId
 
-    schema = Issue()
+    schema = IssueSchema()
 
     body = parser.parse(schema, request, location='json')
 
@@ -41,7 +68,7 @@ def api_UpdateIssue(issueId):
 
 
 @app.route('/api/issues/<issueId>/articles', methods=['get'])
-def api_GetIssueArticles(issueId):
+def api_GetIssueArticles(issueId: str) -> Tuple[str, int]:
 
     options = {}
     options["issueId"] = issueId
@@ -50,7 +77,7 @@ def api_GetIssueArticles(issueId):
 
 
 @app.route('/api/issues/<issueId>/editors', methods=['get'])
-def api_GetIssue(issueId):
+def api_GetIssue(issueId: str) -> Tuple[str, int]:
 
     options = {}
     options["issueId"] = issueId
@@ -59,7 +86,7 @@ def api_GetIssue(issueId):
 
 
 @app.route('/api/issues/<issueId>/shorts', methods=['get'])
-def api_GetIssueShorts(issueId):
+def api_GetIssueShorts(issueId: str) -> Tuple[str, int]:
 
     options = {}
     options["issueId"] = issueId
@@ -68,7 +95,7 @@ def api_GetIssueShorts(issueId):
 
 
 @app.route('/api/issues/<issueId>/tags', methods=['get'])
-def api_GetIssueTags(issueId):
+def api_GetIssueTags(issueId: str) -> Tuple[str, int]:
 
     options = {}
     options["issueId"] = issueId
@@ -77,13 +104,13 @@ def api_GetIssueTags(issueId):
 
 
 @app.route('/api/magazines', methods=['get'])
-def api_ListMagazines():
+def api_ListMagazines() -> Tuple[str, int]:
 
     return ListMagazines()
 
 
 @app.route('/api/magazines/<magazineId>', methods=['get'])
-def api_GetMagazine(magazineId):
+def api_GetMagazine(magazineId: str) -> Tuple[str, int]:
 
     options = {}
     options["magazineId"] = magazineId
@@ -92,12 +119,12 @@ def api_GetMagazine(magazineId):
 
 
 @app.route('/api/magazines/<magazineId>', methods=['patch'])
-def api_UpdateMagazine(magazineId):
+def api_UpdateMagazine(magazineId: str) -> Tuple[str, int]:
 
     options = {}
     options["magazineId"] = magazineId
 
-    schema = Magazine()
+    schema = MagazineSchema()
 
     body = parser.parse(schema, request, location='json')
 
@@ -105,7 +132,7 @@ def api_UpdateMagazine(magazineId):
 
 
 @app.route('/api/magazines/<magazineId>/issues', methods=['get'])
-def api_GetMagazineIssues(magazineId):
+def api_GetMagazineIssues(magazineId: str) -> Tuple[str, int]:
 
     options = {}
     options["magazineId"] = magazineId
@@ -114,7 +141,7 @@ def api_GetMagazineIssues(magazineId):
 
 
 @app.route('/api/magazines/<magazineId>/publisher', methods=['get'])
-def api_GetMagazinePublisher(magazineId):
+def api_GetMagazinePublisher(magazineId: str) -> Tuple[str, int]:
 
     options = {}
     options["magazineId"] = magazineId
@@ -123,7 +150,7 @@ def api_GetMagazinePublisher(magazineId):
 
 
 @app.route('/api/magazines/<magazineId>/tags', methods=['get'])
-def api_GetMagazineTags(magazineId):
+def api_GetMagazineTags(magazineId: str) -> Tuple[str, int]:
 
     options = {}
     options["magazineId"] = magazineId
@@ -132,23 +159,20 @@ def api_GetMagazineTags(magazineId):
 
 
 @app.route('/api/publishers/<id>', methods=['get'])
-def api_GetPublisher(id: Any) -> Any:
+def api_GetPublisher(id: str) -> Tuple[str, int]:
     options = {}
     options['publisherId'] = id
     return GetPublisher(options)
 
 
 @app.route('/api/users', methods=['get'])
-def api_ListUser():
+def api_ListUsers() -> Tuple[str, int]:
 
-    options = {}
-    options["id"] = request.args.get("id")
-
-    return ListUser(options)
+    return ListUsers()
 
 
 @app.route('/api/users/<userId>', methods=['get'])
-def api_GetUser(userId):
+def api_GetUser(userId: str) -> Tuple[str, int]:
 
     options = {}
     options["userId"] = userId
@@ -157,8 +181,8 @@ def api_GetUser(userId):
 
 
 @app.route('/api/works/<workId>', methods=['get'])
-def api_getWork():
+def api_getWork(workid: str) -> Tuple[str, int]:
     options = {}
-    options['id'] = request.args.get('id')
+    options['id'] = workid
 
     return ListWork(options)

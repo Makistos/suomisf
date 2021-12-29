@@ -1,13 +1,18 @@
 from flask.helpers import url_for
 from marshmallow import Schema, fields
 from app import ma
-from app.orm_decl import (Article, Edition, Issue, Magazine, Person, Publisher,
-                          ShortStory, Tag, User, Work)
+from app.orm_decl import (Article, Edition, Issue, Magazine, Person, PublicationSize, Publisher,
+                          ShortStory, Tag, User, Work, Article)
 
 
-class TagSchema(ma.SQLAlchemyAutoSchema):
+class TagSchema(ma.SQLAlchemySchema):
     class Meta:
-        model = Tag
+        fields = ('id', 'name')
+
+
+class PersonSchemaSimple(ma.SQLAlchemySchema):
+    class Meta:
+        fields = ('id', 'name', 'alt_name', 'image_src')
 
 
 class PersonSchema(ma.SQLAlchemyAutoSchema):
@@ -18,6 +23,24 @@ class PersonSchema(ma.SQLAlchemyAutoSchema):
 class ArticleSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Article
+    tags = ma.List(ma.Nested(TagSchema))
+    author_rel = ma.List(fields.Nested(PersonSchema))
+
+
+class ShortSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = ShortStory
+    authors = ma.List(fields.Nested(PersonSchema))
+
+    id = fields.Int()
+    orig_title = fields.String()
+    pubyear = fields.Int()
+    title = fields.String()
+
+
+class PublicationSizeSchema(ma.SQLAlchemySchema):
+    class Meta:
+        fields = ('id', 'name')
 
 
 class EditionSchema(ma.SQLAlchemyAutoSchema):
@@ -35,14 +58,10 @@ class IssueSchema(ma.SQLAlchemyAutoSchema):
         model = Issue
         include_fk = True
     magazine = ma.auto_field()
-    #magazine = fields.Nested(MagazineSchema)
-
-
-class MagazineSchema(ma.SQLAlchemyAutoSchema):
-    class Meta:
-        model = Magazine
-        include_fk = True
-    issues = ma.List(fields.Nested(IssueSchema))
+    editors = ma.List(fields.Nested(PersonSchema))
+    size = fields.Nested(PublicationSizeSchema)
+    articles = ma.auto_field()
+    stories = ma.auto_field()
 
 
 class PublisherSchema(ma.SQLAlchemyAutoSchema):
@@ -50,15 +69,12 @@ class PublisherSchema(ma.SQLAlchemyAutoSchema):
         model = Publisher
 
 
-class ShortSchema(ma.SQLAlchemyAutoSchema):
+class MagazineSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-        model = ShortStory
-    authors = PersonSchema(many=True)
-
-    id = fields.Int()
-    orig_title = fields.String()
-    pubyear = fields.Int()
-    title = fields.String()
+        model = Magazine
+        include_fk = True
+    issues = ma.auto_field()  # ma.List(fields.Nested(IssueSchema))
+    publisher = fields.Nested(PublisherSchema)
 
 
 class UserSchema(ma.SQLAlchemyAutoSchema):

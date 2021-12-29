@@ -6,27 +6,36 @@ import html
 from sqlalchemy import (Column, ForeignKey, Integer,
                         String, Boolean, Date, DateTime, Text)
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship, backref, session
 from sqlalchemy.pool import NullPool
 from sqlalchemy import create_engine
 from sqlalchemy.sql.elements import UnaryExpression
 from sqlalchemy.sql.expression import null
 from sqlalchemy.util.langhelpers import classproperty, ellipses_string, public_factory
 from wtforms.fields.core import IntegerField
-from app import app, db_url, login
+from app import app, db_url, login, jwt_secret_key
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
-from typing import Any, List
+from typing import Any, List, Union
 from sqlalchemy.ext.hybrid import Comparator, hybrid_property
+import jwt
+from typing import Dict
+#from app.route_helpers import new_session
 
 Base = declarative_base()
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-load_dotenv(os.path.join(basedir, '.env'))
+# basedir = os.path.abspath(os.path.dirname(__file__))
+# load_dotenv(os.path.join(basedir, '.env'))
 
-db_url = app.config['SQLALCHEMY_DATABASE_URI']
+# db_url = app.config['SQLALCHEMY_DATABASE_URI']
+
+
+def generate_jwt_token(content: Dict[str, int]) -> List[str]:
+    encoded_content = jwt.encode(content, jwt_secret_key, algorithm="HS256")
+    token = str(encoded_content).split("'")
+    return token
 
 
 def edition_popup(id: int, edition: Any, title: str, link: str) -> str:
@@ -480,6 +489,16 @@ class Issue(Base):
     size = relationship('PublicationSize', uselist=False, viewonly=True)
     magazine = relationship('Magazine', uselist=False, viewonly=True)
 
+    @hybrid_property
+    def issue_order(self, other):
+        if self.count != None and other.count != None:
+            return self.count - other.count
+        if self.year != other.year:
+            return self.year - other.year
+        if self.number != other.number:
+            return self.number - other.number
+        return self.number_extra - other.number_extra
+
     @property
     def name(self) -> str:
         retval: str = self.magazine.name
@@ -891,6 +910,13 @@ class User(UserMixin, Base):
 
     def check_password(self, password: str) -> bool:
         return check_password_hash(self.password_hash, password)
+
+    def validate_user(self, password: str) -> Union[List[str], bool]:
+        if check_password_hash(self.password_hash, password):
+            jwt_token = generate_jwt_token({'id': self.id})
+            return jwt_token
+        else:
+            return False
 
     def __repr__(self) -> str:
         return '<User {}'.format(self.name)

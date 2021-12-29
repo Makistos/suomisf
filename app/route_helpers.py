@@ -15,7 +15,7 @@ from app.orm_decl import (Contributor, Language, Person, Publisher, Work,
                           Edition, Part, Pubseries, Bookseries, PublicationSize, Tag,
                           PersonTag, BindingType, Format, Genre, ShortStory, ArticleTag,
                           WorkGenre, Log)
-from app import app
+from app import db_url
 from typing import List, Dict, Any, Tuple, Set, Union
 from flask_login import current_user
 from flask import abort, Response
@@ -31,8 +31,8 @@ def new_session() -> Any:
     Returns:
         Any: Session handler.
     '''
-    engine = create_engine(
-        app.config['SQLALCHEMY_DATABASE_URI'], poolclass=NullPool)
+    engine = create_engine(db_url, poolclass=NullPool)
+    # app.config['SQLALCHEMY_DATABASE_URI'], poolclass=NullPool)
     Session = sessionmaker(bind=engine)
     session = Session()
     return session

@@ -195,7 +195,7 @@ Suom <span class="person-list">{{edition.translators|map(attribute='alt_name')|j
 {% endif %}
 {% if edition.isbn %}
 ISBN {{ edition.isbn}}
-{% endif %}
+{%- endif -%}
 {% if edition.binding_id %}
 {% if edition.binding_id > 1 %}
 {{ edition.binding.name }}
@@ -208,4 +208,53 @@ Kansipaperi.
 {% if edition.coverimage == 3 %}
 Ylivetokannet.
 {% endif %}
+{% endmacro %}
+
+{% macro edition_popup(id, edition, title, link) %}
+{% if edition.images %}
+{% set img_src = edition.images[0].image_src %}
+{% else %}
+{% set img_src = "/static/icons/blue-book-icon-small.png" %}
+{% endif %}
+
+<a href="/edition/{{id}}" data-toggle="popover" title="{{title}}"" data-content='
+ <div class=" container" style="text-align: left;">
+    <div class="row">
+        <div class="col-4">
+            <img src={{img_src}} width="100px">
+        </div>
+        <div clas="col-8">
+            {{edition.publisher}} {{ edition.pubyear}}.<br>
+            {% if edition.pubseries %}
+            {{ edition.pubseries.name }}
+            {%- if edition.pubseriesnum %}
+            {{ edition.pubseriesnum }}
+            {%- endif -%}
+            .<br>
+            {% endif %}
+            {% if edition.pages %}
+            {{edition.pages}} sivua.
+            {% endif %}
+            {% if edition.size %}
+            {{ edition.size }} cm.
+            {% endif %}
+            {% if edition.pages or edition.size %}<br>{% endif %}
+            {% if edition.isbn %}
+            {{ edition.isbn }}
+            {%- endif -%}
+            {% if edition.binding_id > 1 %}
+            {{ edition.binding.name }}
+            {%- endif -%}
+            {%- if edition.binding -%}.{% endif %}
+            {% if edition.isbn or edition.binding %}<br>{% endif %}
+            {% if edition.dustcover == 3 %}
+            Kansipaperi.<br>
+            {% endif %}
+            {% if edition.coverimage == 3 %}
+            Ylivetokannet.<br>
+            {% endif %}
+        </div>
+    </div>
+    </div>'>{{link}}
+</a>
 {% endmacro %}

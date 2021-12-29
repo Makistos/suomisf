@@ -1,16 +1,64 @@
 import json
 from os import sched_get_priority_max
-
 from flask.globals import session
+from flask.wrappers import Response
 
 from app.route_helpers import new_session
-from app.orm_decl import (Issue, Magazine, Publisher, User, Work)
-from app.model import (IssueSchema, MagazineSchema,
-                       PublisherSchema, UserSchema, WorkSchema)
+from app.orm_decl import (Article, Issue, Magazine,
+                          Publisher, ShortStory, User, Work)
+from app.model import (ArticleSchema, IssueSchema, MagazineSchema,
+                       PublisherSchema, ShortSchema, UserSchema, WorkSchema)
 from app import ma
+from typing import Dict, Tuple, List
 
 
-def GetIssueForMagazine(options):
+def LoginUser(options: Dict[str, str]) -> Tuple[str, int]:
+
+    session = new_session()
+    name = options['username']
+    password = options['password']
+
+    user = session.query(User).filter(User.name == name).first()
+
+    if user:
+        token = user.validate_user(password)
+        if token:
+            if user.is_admin:
+                role = 'admin'
+            elif user.name == 'demo_admin':
+                role = 'demo_admin'
+            else:
+                role = 'user'
+            return json.dumps({'username': user.name,
+                               'role': role,
+                               'accessToken': token}), 200
+    return json.dumps({'code': 401,
+                       'message': 'Kirjautuminen ei onnistunut'}), 401
+
+
+def GetArticle(options: Dict[str, str]) -> Tuple[str, int]:
+    session = new_session()
+
+    article = session.query(Article).filter(
+        Article.id == options['articleId']).first()
+
+    schema = ArticleSchema()
+    retval = schema.dump(article)
+    return schema.dump(article), 200
+
+
+def GetShort(options: Dict[str, str]) -> Tuple[str, int]:
+    session = new_session()
+
+    short = session.query(ShortStory).filter(
+        ShortStory.id == options['shortId']).first()
+
+    schema = ShortSchema()
+    retval = schema.dump(short)
+    return schema.dump(short), 200
+
+
+def GetIssueForMagazine(options: Dict[str, str]) -> Tuple[str, int]:
     """
     :param options: A dictionary containing all the paramters for the Operations
         options["issueId"]: Id of issue
@@ -36,7 +84,7 @@ def GetIssueForMagazine(options):
     }), 200
 
 
-def PostIssue(options):
+def PostIssue(options: Dict[str, str]) -> Tuple[str, int]:
     """
     :param options: A dictionary containing all the paramters for the Operations
         options["issueId"]: Id of issue
@@ -62,7 +110,7 @@ def PostIssue(options):
     }), 200
 
 
-def UpdateIssue(options, body):
+def UpdateIssue(options: Dict[str, str], body: List[str]) -> Tuple[str, int]:
     """
     :param options: A dictionary containing all the paramters for the Operations
         options["issueId"]: Id of issue
@@ -89,7 +137,7 @@ def UpdateIssue(options, body):
     }), 200
 
 
-def GetIssueArticles(options):
+def GetIssueArticles(options: Dict[str, str]) -> Tuple[str, int]:
     """
     :param options: A dictionary containing all the paramters for the Operations
         options["issueId"]: Id for issue
@@ -108,7 +156,7 @@ def GetIssueArticles(options):
     }]), 200
 
 
-def GetIssue(options):
+def GetIssue(options: Dict[str, str]) -> Tuple[str, int]:
     """
     :param options: A dictionary containing all the paramters for the Operations
         options["issueId"]: Id for issue
@@ -122,10 +170,11 @@ def GetIssue(options):
                    .filter(Issue.id == options['issueId'])\
                    .first()
     schema = IssueSchema()
+    retval = schema.dump(issue)
     return schema.dump(issue), 200
 
 
-def GetIssueShorts(options):
+def GetIssueShorts(options: Dict[str, str]) -> Tuple[str, int]:
     """
     :param options: A dictionary containing all the paramters for the Operations
         options["issueId"]: Id for issue
@@ -144,7 +193,7 @@ def GetIssueShorts(options):
     }]), 200
 
 
-def GetIssueTags(options):
+def GetIssueTags(options: Dict[str, str]) -> Tuple[str, int]:
     """
     :param options: A dictionary containing all the paramters for the Operations
         options["issueId"]: Id for issue
@@ -161,7 +210,7 @@ def GetIssueTags(options):
     }]), 200
 
 
-def ListMagazines():
+def ListMagazines() -> Tuple[str, int]:
     """
 
     """
@@ -169,16 +218,11 @@ def ListMagazines():
 
     magazines = session.query(Magazine).all()
     schema = MagazineSchema()
-
     retval = json.dumps([schema.dump(x) for x in magazines])
     return retval, 200
-    # return schema.dump(magazines), 200
-
-    # Implement your business logic here
-    # All the parameters are present in the options argument
 
 
-def GetMagazine(options):
+def GetMagazine(options: Dict[str, str]) -> Tuple[str, int]:
     """
     :param options: A dictionary containing all the paramters for the Operations
         options["magazineId"]: ID of the magazine
@@ -194,6 +238,7 @@ def GetMagazine(options):
                       .first()
     schema = MagazineSchema()
 
+    retval = schema.dump(magazine)
     return schema.dump(magazine), 200
 
     # return json.dumps({
@@ -208,7 +253,7 @@ def GetMagazine(options):
     # }), 200
 
 
-def UpdateMagazine(options, body):
+def UpdateMagazine(options: Dict[str, str], body: List[str]) -> Tuple[str, int]:
     """
     :param options: A dictionary containing all the paramters for the Operations
         options["magazineId"]: ID of the magazine
@@ -222,7 +267,7 @@ def UpdateMagazine(options, body):
     return '', 200
 
 
-def GetMagazineIssues(options):
+def GetMagazineIssues(options: Dict[str, str]) -> Tuple[str, int]:
     """
     :param options: A dictionary containing all the paramters for the Operations
         options["magazineId"]: ID of the magazine
@@ -248,7 +293,7 @@ def GetMagazineIssues(options):
     }]), 200
 
 
-def GetMagazinePublisher(options):
+def GetMagazinePublisher(options: Dict[str, str]) -> Tuple[str, int]:
     """
     :param options: A dictionary containing all the paramters for the Operations
         options["magazineId"]: ID of the magazine
@@ -268,7 +313,7 @@ def GetMagazinePublisher(options):
     }), 200
 
 
-def GetMagazineTags(options):
+def GetMagazineTags(options: Dict[str, str]) -> Tuple[str, int]:
     """
     :param options: A dictionary containing all the paramters for the Operations
         options["magazineId"]: ID of the magazine
@@ -285,7 +330,7 @@ def GetMagazineTags(options):
     }]), 200
 
 
-def GetPublisher(options):
+def GetPublisher(options: Dict[str, str]) -> Tuple[str, int]:
     session = new_session()
 
     publisher = session.query(Publisher)\
@@ -296,7 +341,7 @@ def GetPublisher(options):
     return schema.dump(publisher), 200
 
 
-def ListUser(options):
+def ListUsers() -> Tuple[str, int]:
     """
     :param options: A dictionary containing all the paramters for the Operations
         options["id"]: ID of the user
@@ -305,15 +350,15 @@ def ListUser(options):
 
     # Implement your business logic here
     # All the parameters are present in the options argument
+    session = new_session()
 
-    return json.dumps({
-        "id": "<int64>",
-        "name": "<string>",
-        "uri": "<string>",
-    }), 200
+    users = session.query(User).all()
+    schema = UserSchema()
+    retval = json.dumps([schema.dump(x) for x in users])
+    return retval, 200
 
 
-def GetUser(options):
+def GetUser(options: Dict[str, str]) -> Tuple[str, int]:
     """
     :param options: A dictionary containing all the paramters for the Operations
         options["userId"]: ID of user
@@ -328,7 +373,7 @@ def GetUser(options):
     return schema.dump(user), 200
 
 
-def ListWork(options):
+def ListWork(options: Dict[str, str]) -> Tuple[str, int]:
     session = new_session()
     work = session.query(Work).filter(Work.id == options['workId']).first()
     schema = WorkSchema()

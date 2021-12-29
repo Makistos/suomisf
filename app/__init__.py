@@ -25,6 +25,7 @@ else:
     print(f'Db: {app.config["SQLALCHEMY_DATABASE_URI"]}')
 print(f'ENV is set to {app.config["ENV"]}.')
 db_url = app.config['SQLALCHEMY_DATABASE_URI']
+jwt_secret_key = app.config['JWT_SECRET_KEY']
 app.static_folder = 'static'
 db = SQLAlchemy(app)
 ma = Marshmallow(app)

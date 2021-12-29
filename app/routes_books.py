@@ -14,7 +14,7 @@ import datetime
 
 
 @app.route('/books/lang')
-def books_by_lang(lang):
+def books_by_lang(lang: str) -> List[Any]:
     """ Returns a list of books such that each work is only represented by the
         first edition for given work in this language. """
     retval = []
@@ -83,7 +83,7 @@ def books_by_origin(country: str) -> Any:
 
 
 @app.route('/book_count_by_year/')
-def book_count_by_year():
+def book_count_by_year() -> str:
     session = new_session()
 
     # All based on edition pubyear
@@ -95,7 +95,7 @@ def book_count_by_year():
 
 
 @app.route('/editions_by_year/<year>')
-def editions_by_year(year):
+def editions_by_year(year: str) -> str:
     session = new_session()
 
     editions = session.query(Edition, Genre.name.label('genre_name'))\
@@ -135,7 +135,7 @@ def books() -> Any:
 
 
 @app.route('/booksX/<letter>')
-def booksX(letter: str) -> Any:
+def booksX(letter: str) -> str:
     #times: List[float] = []
     # times.append(time.time())
 
@@ -186,7 +186,7 @@ def booksX(letter: str) -> Any:
 
 
 @ app.route('/anthologies')
-def anthologies():
+def anthologies() -> str:
     session = new_session()
 
     anthologies = session.query(Work).filter(Work.type == 2).all()
@@ -197,7 +197,7 @@ def anthologies():
 
 
 @ app.route('/part_delete/<partid>', methods=["POST", "GET"])
-def part_delete(partid, session=None):
+def part_delete(partid: str, session: Any = None) -> None:
 
     commit = False
     if session == None:
@@ -228,7 +228,7 @@ def part_delete(partid, session=None):
         session.commit()
 
 
-def is_owned_edition(editionid):
+def is_owned_edition(editionid: str) -> bool:
     session = new_session()
     owned = session.query(UserBook)\
         .filter(UserBook.edition_id == editionid)\
@@ -239,7 +239,7 @@ def is_owned_edition(editionid):
         return False
 
 
-def is_owned_work(workid):
+def is_owned_work(workid: str) -> bool:
     session = new_session()
     owned = session.query(UserBook)\
         .join(Edition)\
@@ -255,13 +255,13 @@ def is_owned_work(workid):
 
 
 @ app.route('/edition_delete/<editionid>', methods=["POST", "GET"])
-def edition_delete(editionid, session=None):
+def edition_delete(editionid: str, session: Any = None) -> None:
     """ Delete an edition along with rows from tables referencing
         the edition.
     """
 
     if (not current_user.is_admin) or is_owned_edition(editionid):
-        return ""
+        return
 
     commit = False
     if session == None:
@@ -299,5 +299,3 @@ def edition_delete(editionid, session=None):
 
     if commit:
         session.commit()
-
-    return ""
