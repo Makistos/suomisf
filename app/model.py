@@ -1,7 +1,8 @@
+from re import M
 from flask.helpers import url_for
 from marshmallow import Schema, fields
 from app import ma
-from app.orm_decl import (Article, Edition, Issue, Magazine, Person, PublicationSize, Publisher,
+from app.orm_decl import (Article, ContributorRole, Edition, Issue, Magazine, Person, PublicationSize, Publisher,
                           ShortStory, Tag, User, Work, Article)
 
 
@@ -10,9 +11,19 @@ class TagSchema(ma.SQLAlchemySchema):
         fields = ('id', 'name')
 
 
-class PersonSchemaSimple(ma.SQLAlchemySchema):
+class ContributorRoleSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-        fields = ('id', 'name', 'alt_name', 'image_src')
+        model = ContributorRole
+
+
+class PersonBriefSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model = Person
+    id = fields.Number()
+    name = fields.String()
+    alt_name = fields.String()
+    image_src = fields.String()
+    roles = ma.List(fields.Nested(ContributorRoleSchema))
 
 
 class PersonSchema(ma.SQLAlchemyAutoSchema):
@@ -20,22 +31,65 @@ class PersonSchema(ma.SQLAlchemyAutoSchema):
         model = Person
 
 
-class ArticleSchema(ma.SQLAlchemyAutoSchema):
+class MagazineBriefSchema(ma.SQLAlchemySchema):
+    class Meta:
+        fields = ('id', 'name')
+
+
+class IssueBriefSchema(ma.SQLAlchemySchema):
+    class Meta:
+        fields = ('id', 'cover_number', 'title', 'magazine')
+    magazine = fields.Nested(MagazineBriefSchema)
+
+
+class ArticleBriefSchema(ma.SQLAlchemySchema):
     class Meta:
         model = Article
-    tags = ma.List(ma.Nested(TagSchema))
-    author_rel = ma.List(fields.Nested(PersonSchema))
+    id = fields.Int()
+    title = fields.String()
+    author_rel = ma.List(fields.Nested(PersonBriefSchema))
+    excerpt = fields.String()
+    #issue = fields.Nested(IssueBrief)
 
 
-class ShortSchema(ma.SQLAlchemyAutoSchema):
+class ArticleSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model = Article
+    id = fields.Int()
+    title = fields.String()
+    person = fields.String()
+    author_rel = ma.List(fields.Nested(PersonBriefSchema))
+    tags = ma.List(fields.Nested(TagSchema))
+    issue = fields.Nested(IssueBriefSchema)
+    excerpt = fields.String()
+
+
+class ShortBriefSchema(ma.SQLAlchemySchema):
     class Meta:
         model = ShortStory
-    authors = ma.List(fields.Nested(PersonSchema))
 
     id = fields.Int()
+    title = fields.String()
     orig_title = fields.String()
     pubyear = fields.Int()
+    authors = ma.List(fields.Nested(PersonBriefSchema))
+
+
+class ShortSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model = ShortStory
+
+    id = fields.Int()
     title = fields.String()
+    orig_title = fields.String()
+    pubyear = fields.Int()
+    authors = ma.List(fields.Nested(PersonBriefSchema))
+    translators = ma.List(fields.Nested(PersonBriefSchema))
+    tags = ma.List(fields.Nested(TagSchema))
+    issues = ma.List(fields.Nested(IssueBriefSchema))
+    #works = ma.List(fields.Nested(WorkBriefSchema))
+    #editions = ma.List(fields.Nested(EditionBriefSchema))
+    #genres = ma.List(fields.Nested(GenreSchema))
 
 
 class PublicationSizeSchema(ma.SQLAlchemySchema):
@@ -58,10 +112,11 @@ class IssueSchema(ma.SQLAlchemyAutoSchema):
         model = Issue
         include_fk = True
     magazine = ma.auto_field()
-    editors = ma.List(fields.Nested(PersonSchema))
+    editors = ma.List(fields.Nested(PersonBriefSchema))
     size = fields.Nested(PublicationSizeSchema)
-    articles = ma.auto_field()
-    stories = ma.auto_field()
+    articles = ma.List(fields.Nested(ArticleBriefSchema()))
+    stories = ma.List(fields.Nested(ShortBriefSchema()))
+    magazine = fields.Nested(MagazineBriefSchema)
 
 
 class PublisherSchema(ma.SQLAlchemyAutoSchema):

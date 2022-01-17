@@ -1,12 +1,14 @@
 import json
+from operator import ne
 from os import sched_get_priority_max
 from flask.globals import session
 from flask.wrappers import Response
 
 from app.route_helpers import new_session
-from app.orm_decl import (Article, Issue, Magazine,
+from app.orm_decl import (Article, Issue, Magazine, Person,
                           Publisher, ShortStory, User, Work)
 from app.model import (ArticleSchema, IssueSchema, MagazineSchema,
+                       PersonBriefSchema, PersonSchema,
                        PublisherSchema, ShortSchema, UserSchema, WorkSchema)
 from app import ma
 from typing import Dict, Tuple, List
@@ -217,9 +219,10 @@ def ListMagazines() -> Tuple[str, int]:
     session = new_session()
 
     magazines = session.query(Magazine).all()
-    schema = MagazineSchema()
-    retval = json.dumps([schema.dump(x) for x in magazines])
-    return retval, 200
+    retval = []
+    for magazine in magazines:
+        retval.append({'id': magazine.id, 'name': magazine.name})
+    return json.dumps(retval), 200
 
 
 def GetMagazine(options: Dict[str, str]) -> Tuple[str, int]:
@@ -339,6 +342,24 @@ def GetPublisher(options: Dict[str, str]) -> Tuple[str, int]:
     schema = PublisherSchema()
 
     return schema.dump(publisher), 200
+
+
+def ListPeople() -> Tuple[str, int]:
+    session = new_session()
+
+    people = session.query(Person).all()
+    schema = PersonSchema()
+    retval = json.dumps([schema.dump(x) for x in people])
+    return retval, 200
+
+
+def GetPerson(options: Dict[str, str]) -> Tuple[str, int]:
+    session = new_session()
+    person = session.query(Person).filter(
+        Person.id == options['personId']).first()
+    schema = PersonBriefSchema()
+    retval = schema.dump(person)
+    return retval, 200
 
 
 def ListUsers() -> Tuple[str, int]:

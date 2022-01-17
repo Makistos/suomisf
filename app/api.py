@@ -158,6 +158,18 @@ def api_GetMagazineTags(magazineId: str) -> Tuple[str, int]:
     return GetMagazineTags(options)
 
 
+@app.route('/api/people', methods=['get'])
+def api_GetPeople() -> Tuple[str, int]:
+    return ListPeople()
+
+
+@app.route('/api/people/<id>', methods=['get'])
+def api_GetPerson(id: str) -> Tuple[str, int]:
+    options = {}
+    options['personId'] = id
+    return GetPerson(options)
+
+
 @app.route('/api/publishers/<id>', methods=['get'])
 def api_GetPublisher(id: str) -> Tuple[str, int]:
     options = {}

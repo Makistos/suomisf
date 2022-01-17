@@ -1,3 +1,4 @@
+from itertools import groupby
 from flask import escape
 import os
 import sys
@@ -705,6 +706,13 @@ class Person(Base):
         'Awarded', uselist=True, viewonly=True, order_by='Awarded.year')
     nationality = relationship(
         'Country', foreign_keys=[nationality_id], uselist=False, viewonly=True)
+    roles = relationship(
+        'ContributorRole',
+        secondary='join(Contributor, ContributorRole, Contributor.role_id == ContributorRole.id)',
+        primaryjoin="and_(Person.id == Contributor.person_id)",
+        uselist=True, viewonly=True,
+        foreign_keys=[Contributor.person_id, Contributor.role_id]
+    )
     # birtcountry = relationship(
     #     'Country', foreign_keys=[birthcountry_id], uselist=False)
     # deatchcountry = relationship(
