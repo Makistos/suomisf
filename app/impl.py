@@ -1,3 +1,5 @@
+import datetime
+import decimal
 import json
 from operator import ne
 from os import sched_get_priority_max
@@ -344,12 +346,22 @@ def GetPublisher(options: Dict[str, str]) -> Tuple[str, int]:
     return schema.dump(publisher), 200
 
 
+def alchemyencoder(obj):
+    """JSON encoder function for SQLAlchemy special classes."""
+    if isinstance(obj, datetime.date):
+        return obj.isoformat()
+    elif isinstance(obj, decimal.Decimal):
+        return float(obj)
+
+
 def ListPeople() -> Tuple[str, int]:
     session = new_session()
 
     people = session.query(Person).all()
-    schema = PersonSchema()
+    #retval = json.dumps([dict(x) for x in people], default=alchemyencoder)
+    schema = PersonBriefSchema()
     retval = json.dumps([schema.dump(x) for x in people])
+    #retval = tuple(schema.dump(people))
     return retval, 200
 
 

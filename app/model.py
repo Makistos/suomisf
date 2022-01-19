@@ -2,7 +2,7 @@ from re import M
 from flask.helpers import url_for
 from marshmallow import Schema, fields
 from app import ma
-from app.orm_decl import (Article, ContributorRole, Edition, Issue, Magazine, Person, PublicationSize, Publisher,
+from app.orm_decl import (Article, ContributorRole, Country, Edition, Issue, Magazine, Person, PublicationSize, Publisher,
                           ShortStory, Tag, User, Work, Article)
 
 
@@ -11,9 +11,33 @@ class TagSchema(ma.SQLAlchemySchema):
         fields = ('id', 'name')
 
 
+class TagBriefSchema(ma.SQLAlchemySchema):
+    class Meta:
+        fields = ['name']
+
+
 class ContributorRoleSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = ContributorRole
+    id = fields.Number()
+    name = fields.String()
+
+
+class ContributorRoleBriefSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        fields = ['name']
+
+
+class CountrySchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Country
+    id = fields.Number()
+    name = fields.String()
+
+
+class CountryBriefSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        fields = ['name']
 
 
 class PersonBriefSchema(ma.SQLAlchemySchema):
@@ -23,7 +47,10 @@ class PersonBriefSchema(ma.SQLAlchemySchema):
     name = fields.String()
     alt_name = fields.String()
     image_src = fields.String()
-    roles = ma.List(fields.Nested(ContributorRoleSchema))
+    dob = fields.Number()
+    dod = fields.Number()
+    roles = fields.Pluck("self", "name", many=True)
+    nationality = fields.Pluck("self", "name")
 
 
 class PersonSchema(ma.SQLAlchemyAutoSchema):
@@ -49,7 +76,7 @@ class ArticleBriefSchema(ma.SQLAlchemySchema):
     title = fields.String()
     author_rel = ma.List(fields.Nested(PersonBriefSchema))
     excerpt = fields.String()
-    #issue = fields.Nested(IssueBrief)
+    # issue = fields.Nested(IssueBrief)
 
 
 class ArticleSchema(ma.SQLAlchemySchema):
@@ -87,9 +114,9 @@ class ShortSchema(ma.SQLAlchemySchema):
     translators = ma.List(fields.Nested(PersonBriefSchema))
     tags = ma.List(fields.Nested(TagSchema))
     issues = ma.List(fields.Nested(IssueBriefSchema))
-    #works = ma.List(fields.Nested(WorkBriefSchema))
-    #editions = ma.List(fields.Nested(EditionBriefSchema))
-    #genres = ma.List(fields.Nested(GenreSchema))
+    # works = ma.List(fields.Nested(WorkBriefSchema))
+    # editions = ma.List(fields.Nested(EditionBriefSchema))
+    # genres = ma.List(fields.Nested(GenreSchema))
 
 
 class PublicationSizeSchema(ma.SQLAlchemySchema):
