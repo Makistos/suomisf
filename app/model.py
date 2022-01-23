@@ -35,7 +35,7 @@ class CountrySchema(ma.SQLAlchemyAutoSchema):
     name = fields.String()
 
 
-class CountryBriefSchema(ma.SQLAlchemyAutoSchema):
+class CountryBriefSchema(ma.SQLAlchemySchema):
     class Meta:
         fields = ['name']
 

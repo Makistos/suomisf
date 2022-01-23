@@ -7,9 +7,9 @@ from flask.globals import session
 from flask.wrappers import Response
 
 from app.route_helpers import new_session
-from app.orm_decl import (Article, Issue, Magazine, Person,
+from app.orm_decl import (Article, Country, Issue, Magazine, Person,
                           Publisher, ShortStory, User, Work)
-from app.model import (ArticleSchema, IssueSchema, MagazineSchema,
+from app.model import (ArticleSchema, CountryBriefSchema, CountrySchema, IssueSchema, MagazineSchema,
                        PersonBriefSchema, PersonSchema,
                        PublisherSchema, ShortSchema, UserSchema, WorkSchema)
 from app import ma
@@ -357,7 +357,7 @@ def alchemyencoder(obj):
 def ListPeople() -> Tuple[str, int]:
     session = new_session()
 
-    people = session.query(Person).all()
+    people = session.query(Person).filter(Person.id < 500).all()
     #retval = json.dumps([dict(x) for x in people], default=alchemyencoder)
     schema = PersonBriefSchema()
     retval = json.dumps([schema.dump(x) for x in people])
@@ -411,3 +411,11 @@ def ListWork(options: Dict[str, str]) -> Tuple[str, int]:
     work = session.query(Work).filter(Work.id == options['workId']).first()
     schema = WorkSchema()
     return schema.dump(work), 200
+
+
+def ListCountries() -> Tuple[str, str]:
+    session = new_session()
+    countries = session.query(Country).all()
+    schema = CountrySchema()
+    retval = json.dumps([schema.dump(x) for x in countries])
+    return retval, 200

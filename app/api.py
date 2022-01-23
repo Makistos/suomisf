@@ -198,3 +198,8 @@ def api_getWork(workid: str) -> Tuple[str, int]:
     options['id'] = workid
 
     return ListWork(options)
+
+
+@app.route('/api/countries', methods=['get'])
+def api_listCountries() -> Tuple[str, str]:
+    return ListCountries()
