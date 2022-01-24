@@ -51,6 +51,8 @@ class PersonBriefSchema(ma.SQLAlchemySchema):
     dod = fields.Number()
     roles = fields.Pluck("self", "name", many=True)
     nationality = fields.Pluck("self", "name")
+    work_count = fields.Number()
+    story_count = fields.Number()
 
 
 class PersonSchema(ma.SQLAlchemyAutoSchema):

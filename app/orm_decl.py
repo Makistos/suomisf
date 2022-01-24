@@ -711,8 +711,16 @@ class Person(Base):
         secondary='join(Contributor, ContributorRole, Contributor.role_id == ContributorRole.id)',
         primaryjoin="and_(Person.id == Contributor.person_id)",
         uselist=True, viewonly=True,
-        foreign_keys=[Contributor.person_id, Contributor.role_id]
-    )
+        foreign_keys=[Contributor.person_id, Contributor.role_id])
+
+    @hybrid_property
+    def work_count(self) -> int:
+        return len(self.works)
+
+    @hybrid_property
+    def story_count(self) -> int:
+        return len(self.stories)
+
     # birtcountry = relationship(
     #     'Country', foreign_keys=[birthcountry_id], uselist=False)
     # deatchcountry = relationship(
