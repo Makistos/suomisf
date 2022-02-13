@@ -1,12 +1,11 @@
 from app import app
-from flask import Blueprint, request
+from flask import request
 from webargs.flaskparser import parser
-from marshmallow import Schema, fields
 from app.model import *
 from .impl import *
-from typing import Any, Tuple
+from typing import Any, Tuple, NewType, Union, List, Dict
 import json
-#app = Blueprint('api', __name__)
+from .api_errors import APIError
 
 
 @app.route('/api/login', methods=['post'])
@@ -62,9 +61,9 @@ def api_UpdateIssue(issueId: str) -> Tuple[str, int]:
 
     schema = IssueSchema()
 
-    body = parser.parse(schema, request, location='json')
+    #body = parser.parse(schema, request, location='json')
 
-    return UpdateIssue(options, body)
+    return UpdateIssue(options, "")
 
 
 @app.route('/api/issues/<issueId>/articles', methods=['get'])
@@ -126,9 +125,9 @@ def api_UpdateMagazine(magazineId: str) -> Tuple[str, int]:
 
     schema = MagazineSchema()
 
-    body = parser.parse(schema, request, location='json')
+    #body = parser.parse(schema, request, location='json')
 
-    return UpdateMagazine(options, body)
+    return UpdateMagazine(options, "")
 
 
 @app.route('/api/magazines/<magazineId>/issues', methods=['get'])
@@ -158,32 +157,149 @@ def api_GetMagazineTags(magazineId: str) -> Tuple[str, int]:
     return GetMagazineTags(options)
 
 
-@app.route('/api/people', methods=['get'])
+ConstraintType = NewType('ConstraintType', List[Dict[str, str]])
+FilterType = NewType('FilterType', Dict[str, Union[str, ConstraintType]])
+
+
+def fixOperator(op: str, value: str) -> Tuple[str, str]:
+
+    if op == 'equals':
+        return ('eq', value)
+    if op == 'notequals':
+        return ('ne', value)
+    if op == 'startsWith':
+        if value:
+            value = value + '%'
+        return ('ilike', value)
+    if op == 'endsWith':
+        if value:
+            value = '%' + value
+        return ('ilike', value)
+    if op == 'contains':
+        if value:
+            value = '%' + value + '%'
+        return ('ilike', value)
+    if op == 'notContains':
+        if value:
+            value = '%' + value + '%'
+        # Needs special attention in filtering
+        return ('notContains', value)
+    if op == 'lt':
+        return ('lt', value)
+    if op == 'lte':
+        return ('lte', value)
+    if op == 'gt':
+        return ('gt', value)
+    if op == 'gte':
+        return ('gte', value)
+    if op == 'in':
+        # Needs special attention in filtering
+        return ('in', value)
+    else:
+        raise APIError('Invalid filter operation %s' % op, 405)
+
+
+@app.route('/api/people/', methods=['get'])
 def api_GetPeople() -> Tuple[str, int]:
-    return ListPeople()
+    # This function receives parameters in the form of
+    # first=50&...filters_name_operator=1&filters_name_constraints_value=null..
+    # I.e. the original dictionary has been translated into variables. The
+    # Javascript dictionary looks like this:
+    # {
+    #     first: 0,
+    #     rows: 50,
+    #     page: 0,
+    #     sortField: "name",
+    #     sortOrder: 1,
+    #     multiSortMeta: null,
+    #     filters: {
+    #         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    #         name: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
+    #         dob: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
+    #         dod: { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] },
+    #         nationality: { value: null, matchMode: FilterMatchMode.EQUALS },
+    #         work_count: { value: null, matchMode: FilterMatchMode.EQUALS },
+    #         story_count: { value: null, matchMode: FilterMatchMode.EQUALS },
+    #         roles: { value: null, matchMode: FilterMatchMode.EQUALS }
+    #     }
+    # }
+    #
+    # This function will translate the parameter list back to a similar Python
+    # dict.
+    # Those constants in the list are explained in the implementation function,
+    # but they are simple self-explaining strings.
+
+    url_params = request.args.to_dict()
+    params: Dict[str, Any] = {}
+    # params = request.args
+    for (param, value) in url_params.items():
+        # param, value = p.split('=')
+        if value == 'null' or value == 'undefined':
+            value = None
+        if '_' not in param and param != 'filters':
+            # This takes care of the first six parameters.
+            params[param] = value
+        else:
+            # In effect we have two situations here: either a parameter that
+            # has a simple value, like filters_global_value=null or a constraint
+            # e.g. filters_name_constraints_0_value=null.
+            parts = param.split('_')
+            # Filters is the only word these parameters
+            # start with so we can skip that
+            filter_field = parts[1]  # global, name, dob, etc.
+            filter_name = parts[2]   # value, operator, constraints, etc.
+            if filter_field not in params:
+                params[filter_field] = {}
+            if filter_name == 'constraints':
+                constraint_num = int(parts[3])  # 0, 1...
+                constraint_name = parts[4]  # value or matchmode
+                if 'constraints' not in params[filter_field]:
+                    params[filter_field]['constraints'] = [{}]
+                if len(params[filter_field]['constraints']) < constraint_num:
+                    # Array values might be in wrong order
+                    len_inc = constraint_num - \
+                        len(params[filter_field]['constraints'])
+                    for _ in range(len_inc):
+                        params[filter_field]['constraints'].append([{}])
+                params[filter_field]['constraints'][constraint_num][constraint_name] = value
+            else:
+                if filter_name == 'matchMode':
+                    s = params[filter_field]['value']
+                    try:
+                        (value, s) = fixOperator(value, s)
+                    except APIError as exp:
+                        return exp.message, exp.code
+                    params[filter_field]['value'] = s
+                params[filter_field][filter_name] = value
+    try:
+        retval = ListPeople(params)
+    except APIError as exp:
+        print(exp.message)
+        return exp.message, exp.code
+    return retval
 
 
-@app.route('/api/people/<id>', methods=['get'])
+@ app.route('/api/person/<id>', methods=['get'])
 def api_GetPerson(id: str) -> Tuple[str, int]:
     options = {}
     options['personId'] = id
     return GetPerson(options)
 
 
-@app.route('/api/publishers/<id>', methods=['get'])
+@ app.route('/api/publishers/<id>', methods=['get'])
 def api_GetPublisher(id: str) -> Tuple[str, int]:
     options = {}
     options['publisherId'] = id
     return GetPublisher(options)
 
 
-@app.route('/api/users', methods=['get'])
+@ app.route('/api/users', methods=['get'])
 def api_ListUsers() -> Tuple[str, int]:
 
     return ListUsers()
 
 
-@app.route('/api/users/<userId>', methods=['get'])
+@ app.route('/api/users/<userId>', methods=['get'])
 def api_GetUser(userId: str) -> Tuple[str, int]:
 
     options = {}
@@ -192,7 +308,7 @@ def api_GetUser(userId: str) -> Tuple[str, int]:
     return GetUser(options)
 
 
-@app.route('/api/works/<workId>', methods=['get'])
+@ app.route('/api/works/<workId>', methods=['get'])
 def api_getWork(workid: str) -> Tuple[str, int]:
     options = {}
     options['id'] = workid
@@ -200,6 +316,6 @@ def api_getWork(workid: str) -> Tuple[str, int]:
     return ListWork(options)
 
 
-@app.route('/api/countries', methods=['get'])
-def api_listCountries() -> Tuple[str, str]:
+@ app.route('/api/countries/', methods=['get'])
+def api_ListCountries() -> Tuple[str, str]:
     return ListCountries()

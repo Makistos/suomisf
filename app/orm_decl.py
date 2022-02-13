@@ -714,17 +714,36 @@ class Person(Base):
         foreign_keys=[Contributor.person_id, Contributor.role_id])
 
     @hybrid_property
-    def work_count(self) -> int:
+    def workcount(self) -> int:
         return len(self.works)
 
     @hybrid_property
-    def story_count(self) -> int:
+    def storycount(self) -> int:
         return len(self.stories)
+
+    @hybrid_property
+    def nationalityname(self) -> Union[str, None]:
+        if self.nationality:
+            return self.nationality.name
+        else:
+            return None
 
     # birtcountry = relationship(
     #     'Country', foreign_keys=[birthcountry_id], uselist=False)
     # deatchcountry = relationship(
     #     'Country', foreign_keys=[deathcountry_id], uselist=False)
+
+    def serialize(self) -> Dict[str, Any]:
+        return {
+            'id': self.id,
+            'name': self.name,
+            'dob': self.dob,
+            'dod': self.dod,
+            'workcount': self.workcount,
+            'storycount': self.storycount,
+            'nationalityname': self.nationalityname
+
+        }
 
     def __str__(self) -> str:
         return self.name

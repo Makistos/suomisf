@@ -1,5 +1,6 @@
 from re import M
 from flask.helpers import url_for
+#import toastedmarshmallow
 from marshmallow import Schema, fields
 from app import ma
 from app.orm_decl import (Article, ContributorRole, Country, Edition, Issue, Magazine, Person, PublicationSize, Publisher,
@@ -50,9 +51,10 @@ class PersonBriefSchema(ma.SQLAlchemySchema):
     dob = fields.Number()
     dod = fields.Number()
     roles = fields.Pluck("self", "name", many=True)
-    nationality = fields.Pluck("self", "name")
-    work_count = fields.Number()
-    story_count = fields.Number()
+    #nationality = fields.Pluck("self", "name")
+    nationality = fields.String(attribute='nationalityname')
+    workcount = fields.Number()
+    storycount = fields.Number()
 
 
 class PersonSchema(ma.SQLAlchemyAutoSchema):

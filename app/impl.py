@@ -1,19 +1,25 @@
+import time
 import datetime
 import decimal
 import json
-from operator import ne
+#import toastedmarshmallow
+#from marshmallow import Schema, fields
+from operator import and_, ne, or_, not_
 from os import sched_get_priority_max
+from webbrowser import get
 from flask.globals import session
 from flask.wrappers import Response
-
+from sqlalchemy import inspect
+from app.api_errors import APIError
 from app.route_helpers import new_session
-from app.orm_decl import (Article, Country, Issue, Magazine, Person,
+from app.orm_decl import (Article, ContributorRole, Country, Issue, Magazine, Person,
                           Publisher, ShortStory, User, Work)
 from app.model import (ArticleSchema, CountryBriefSchema, CountrySchema, IssueSchema, MagazineSchema,
                        PersonBriefSchema, PersonSchema,
                        PublisherSchema, ShortSchema, UserSchema, WorkSchema)
-from app import ma
-from typing import Dict, Tuple, List
+#from app import ma
+from typing import Dict, Tuple, List, Union, Any
+from app import app
 
 
 def LoginUser(options: Dict[str, str]) -> Tuple[str, int]:
@@ -354,14 +360,119 @@ def alchemyencoder(obj):
         return float(obj)
 
 
-def ListPeople() -> Tuple[str, int]:
-    session = new_session()
+def _strMatchMode(value: str, mode: str) -> str:
+    if mode == 'startsWith':
+        return value + '%'
+    if mode == 'contains':
+        return '%' + value + '%'
+    if mode == 'notContains':
+        return ''
+    if mode == 'endsWith':
+        return '%' + value
 
-    people = session.query(Person).filter(Person.id < 500).all()
-    #retval = json.dumps([dict(x) for x in people], default=alchemyencoder)
-    schema = PersonBriefSchema()
-    retval = json.dumps([schema.dump(x) for x in people])
-    #retval = tuple(schema.dump(people))
+
+person_relationships = {'nationality': 'name',
+                        'roles': 'name'}
+
+
+def filter_person_query(table: Any,
+                        query: Any,
+                        key: str,
+                        raw_filters: Dict[str, Any],
+                        related_table: Any = None) -> Any:
+    op = raw_filters['matchMode']
+    value = raw_filters['value']
+    if key in person_relationships:
+        column = getattr(table, key, None)
+        related_key = person_relationships[key]
+        related_col = getattr(related_table, related_key, None)
+        if op == 'in':
+            filt = query.join(column).filter(related_col.in_([value]))
+        else:
+            attr = list(filter(lambda e: hasattr(related_col, e % op), [
+                '%s', '%s_', '__%s__']))[0] % op
+            filt = getattr(related_col, attr)(value)
+        if op == 'notContains':
+            query = query.join(column).filter(not_(filt))
+        else:
+            query = query.join(column).filter(filt)
+    else:
+        column = getattr(table, key, None)
+        if op == 'in':
+            filt = column.in_(value)
+        else:
+            if op == 'notContains':
+                op_ = 'ilike'
+            else:
+                op_ = op
+            attr = list(filter(lambda e: hasattr(column, e % op_), [
+                '%s', '%s_', '__%s__']))[0] % op_
+            filt = getattr(column, attr)(value)
+        if op == 'notContains':
+            query = query.filter(~filt)
+        else:
+            query = query.filter(filt)
+    return query
+
+
+# def sort_query(table: Any, )
+
+
+_allowed_person_fields = ['name', 'dob', 'dod',
+                          'nationality',
+                          'workcount', 'storycount',
+                          'roles',
+                          'global']
+
+
+def ListPeople(params: Dict[str, Any]) -> Tuple[str, int]:
+    d: Dict[str, Union[int, List[str]]] = {}
+    retval: Tuple[str, int]
+    session = new_session()
+    people = session.query(Person)
+    value = "Suomi"
+    # Filter & sort
+    for field, filters in params.items():
+        if type(filters) is dict:
+            if field not in _allowed_person_fields:
+                raise APIError('Invalid filter field %s' % field, 405)
+            if filters['value']:
+                if field == 'nationality':
+                    people = filter_person_query(
+                        Person, people, field, filters, Country)
+                elif field == 'roles':
+                    people = filter_person_query(
+                        Person, people, field, filters, ContributorRole)
+                else:
+                    people = filter_person_query(
+                        Person, people, field, filters)
+    #people = sort_query(Person, people, field)
+    count = len(people.all())
+    sort_col = getattr(Person, params['sortField'], None)
+    if params['sortOrder'] == '1':
+        people = people.order_by(sort_col.asc())
+    else:
+        people = people.order_by(sort_col.desc())
+
+    #people = people.order_by(Person.id.desc()).all()
+    if 'rows' in params:
+        # Pagination
+        if not 'page' in params:
+            params['page'] = 0
+        start = int(params['rows']) * (int(params['page']))
+        end = int(params['rows']) * (int(params['page']) + 1)
+        app.logger.warn("page: " + str(params['page']) +
+                        " rows: " + str(params['rows']) +
+                        " start: " + str(start) +
+                        " end: " + str(end))
+        people = people[start:end]
+    schema = PersonBriefSchema(many=True)
+    start = time.time()
+    d['people'] = schema.dump(people)
+    end = time.time()
+    print(end-start)
+    d['totalRecords'] = count
+    retval = json.dumps(d)
     return retval, 200
 
 
@@ -400,8 +511,8 @@ def GetUser(options: Dict[str, str]) -> Tuple[str, int]:
 
     session = new_session()
     user = session.query(User)\
-                  .filter(User.id == options['userId'])\
-                  .first()
+        .filter(User.id == options['userId'])\
+        .first()
     schema = UserSchema()
     return schema.dump(user), 200
 
@@ -416,6 +527,6 @@ def ListWork(options: Dict[str, str]) -> Tuple[str, int]:
 def ListCountries() -> Tuple[str, str]:
     session = new_session()
     countries = session.query(Country).all()
-    schema = CountrySchema()
-    retval = json.dumps([schema.dump(x) for x in countries])
+    schema = CountrySchema(many=True)
+    retval = json.dumps(schema.dump(countries))
     return retval, 200
