@@ -56,7 +56,7 @@ class ContributorRoleBriefSchema(ma.SQLAlchemyAutoSchema):
         model = ContributorRole
 
 
-class CountryBriefSchema(ma.SQLAlchemySchema):
+class CountryBriefSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Country
 
@@ -66,7 +66,7 @@ class GenreBriefSchema(ma.SQLAlchemyAutoSchema):
         model = Genre
 
 
-class PersonBriefSchema(ma.SQLAlchemySchema):
+class PersonBriefSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Person
     id = fields.Number()
@@ -93,12 +93,12 @@ class WorkBriefSchema(ma.SQLAlchemyAutoSchema):
     genres = ma.List(fields.Nested(GenreBriefSchema))
 
 
-class MagazineBriefSchema(ma.SQLAlchemySchema):
+class MagazineBriefSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Magazine
 
 
-class ShortBriefSchema(ma.SQLAlchemySchema):
+class ShortBriefSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = ShortStory
 
@@ -109,7 +109,7 @@ class ShortBriefSchema(ma.SQLAlchemySchema):
     authors = ma.List(fields.Nested(PersonBriefSchema))
 
 
-class ArticleBriefSchema(ma.SQLAlchemySchema):
+class ArticleBriefSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Article
     id = fields.Int()
@@ -178,7 +178,7 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):
     bookseries = fields.Nested(BookseriesBriefSchema)
 
 
-class ArticleSchema(ma.SQLAlchemySchema):
+class ArticleSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Article
     id = fields.Int()
@@ -209,7 +209,7 @@ class PersonSchema(ma.SQLAlchemyAutoSchema):
     nationality = fields.Nested(CountryBriefSchema)
 
 
-class ShortSchema(ma.SQLAlchemySchema):
+class ShortSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = ShortStory
 
