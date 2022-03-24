@@ -5,7 +5,8 @@ import sys
 import datetime
 import html
 from sqlalchemy import (Column, ForeignKey, Integer,
-                        String, Boolean, Date, DateTime, Text)
+                        String, Boolean, Date, DateTime, Text, Table)
+from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, backref, session
 from sqlalchemy.pool import NullPool
@@ -23,7 +24,7 @@ from typing import Any, List, Union
 from sqlalchemy.ext.hybrid import Comparator, hybrid_property
 import jwt
 from typing import Dict
-#from app.route_helpers import new_session
+# from app.route_helpers import new_session
 
 Base = declarative_base()
 
@@ -291,7 +292,7 @@ class Edition(Base):
     binding_id = Column(Integer, ForeignKey('bindingtype.id'))
     format_id = Column(Integer, ForeignKey('format.id'))
     size = Column(Integer)  # Height in centimeters
-    #size_id = Column(Integer, ForeignKey('publicationsize.id'))
+    # size_id = Column(Integer, ForeignKey('publicationsize.id'))
     dustcover = Column(Integer, default=0)  # 0 = not known, 1 = no, 2 = yes
     coverimage = Column(Integer, default=0)  # 0 = not known, 1 = no, 2 = yes
     misc = Column(String(500))
@@ -653,6 +654,14 @@ class Person(Base):
                             Part.shortstory_id == None)',
                          order_by='Work.title',
                          uselist=True, viewonly=True)
+    # works = relationship("Work",
+    #                      primaryjoin='and_(Person.id == Contributor.person_id,\
+    #                         Contributor.part_id == Part.id,\
+    #                         Contributor.role_id == 1,\
+    #                         Part.work_id == Work.id,\
+    #                         Part.shortstory_id == None)',
+    #                      order_by='Work.title',
+    #                      uselist=True, viewonly=True)
     stories = relationship("ShortStory",
                            secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
                            primaryjoin='and_(Person.id == Contributor.person_id,\
@@ -661,7 +670,7 @@ class Person(Base):
                     Part.edition_id != None)',
                            uselist=True, viewonly=True)
     # Author.part_id == Part.id, Part.work_id == Work.id,\
-    #edits = relationship("Edition", secondary='editor', viewonly=True)
+    # edits = relationship("Edition", secondary='editor', viewonly=True)
     edits = relationship("Edition",
                          secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
                          primaryjoin='and_(Person.id == Contributor.person_id,\
@@ -712,6 +721,9 @@ class Person(Base):
         primaryjoin="and_(Person.id == Contributor.person_id)",
         uselist=True, viewonly=True,
         foreign_keys=[Contributor.person_id, Contributor.role_id])
+    wrks = relationship('Work', secondary=lambda: personworks_table)
+
+    works2 = association_proxy('wrks', 'work')
 
     @hybrid_property
     def workcount(self) -> int:
@@ -727,23 +739,6 @@ class Person(Base):
             return self.nationality.name
         else:
             return None
-
-    # birtcountry = relationship(
-    #     'Country', foreign_keys=[birthcountry_id], uselist=False)
-    # deatchcountry = relationship(
-    #     'Country', foreign_keys=[deathcountry_id], uselist=False)
-
-    def serialize(self) -> Dict[str, Any]:
-        return {
-            'id': self.id,
-            'name': self.name,
-            'dob': self.dob,
-            'dod': self.dod,
-            'workcount': self.workcount,
-            'storycount': self.storycount,
-            'nationalityname': self.nationalityname
-
-        }
 
     def __str__(self) -> str:
         return self.name
@@ -1164,7 +1159,13 @@ class WorkType(Base):
     name = Column(String(100), nullable=False, index=True)
 
 
-@login.user_loader
+personworks_table = Table('personworks', Base.metadata,
+                          Column('person_id', Integer, ForeignKey(
+                              'person.id'), primary_key=True),
+                          Column('work.id', Integer, ForeignKey('work.id'), primary_key=True))
+
+
+@ login.user_loader
 def load_user(id: Any) -> Any:
     engine = create_engine(db_url, poolclass=NullPool)
     Session = sessionmaker(bind=engine)

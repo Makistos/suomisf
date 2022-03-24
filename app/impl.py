@@ -2,21 +2,20 @@ import time
 import datetime
 import decimal
 import json
-#import toastedmarshmallow
 #from marshmallow import Schema, fields
 from operator import and_, ne, or_, not_
 from os import sched_get_priority_max
 from webbrowser import get
 from flask.globals import session
 from flask.wrappers import Response
-from sqlalchemy import inspect
+from sqlalchemy import inspect, func
 from app.api_errors import APIError
 from app.route_helpers import new_session
 from app.orm_decl import (Article, ContributorRole, Country, Issue, Magazine, Person,
                           Publisher, ShortStory, User, Work)
-from app.model import (ArticleSchema, CountryBriefSchema, CountrySchema, IssueSchema, MagazineSchema,
+from app.model import (ArticleSchema, CountryBriefSchema, CountryBriefSchema, IssueSchema, MagazineSchema,
                        PersonBriefSchema, PersonSchema,
-                       PublisherSchema, ShortSchema, UserSchema, WorkSchema)
+                       PublisherBriefSchema, ShortSchema, UserSchema, WorkSchema)
 #from app import ma
 from typing import Dict, Tuple, List, Union, Any
 from app import app
@@ -347,7 +346,7 @@ def GetPublisher(options: Dict[str, str]) -> Tuple[str, int]:
     publisher = session.query(Publisher)\
                        .filter(Publisher.id == options['publisherId'])\
                        .first()
-    schema = PublisherSchema()
+    schema = PublisherBriefSchema()
 
     return schema.dump(publisher), 200
 
@@ -415,9 +414,6 @@ def filter_person_query(table: Any,
     return query
 
 
-# def sort_query(table: Any, )
-
-
 _allowed_person_fields = ['name', 'dob', 'dod',
                           'nationality',
                           'workcount', 'storycount',
@@ -431,7 +427,7 @@ def ListPeople(params: Dict[str, Any]) -> Tuple[str, int]:
     session = new_session()
     people = session.query(Person)
     value = "Suomi"
-    # Filter & sort
+    # Filter
     for field, filters in params.items():
         if type(filters) is dict:
             if field not in _allowed_person_fields:
@@ -446,17 +442,27 @@ def ListPeople(params: Dict[str, Any]) -> Tuple[str, int]:
                 else:
                     people = filter_person_query(
                         Person, people, field, filters)
-    #people = sort_query(Person, people, field)
     count = len(people.all())
-    sort_col = getattr(Person, params['sortField'], None)
-    if params['sortOrder'] == '1':
-        people = people.order_by(sort_col.asc())
-    else:
-        people = people.order_by(sort_col.desc())
 
-    #people = people.order_by(Person.id.desc()).all()
+    # Sort
+    sort_field = params['sortField']
+    if (sort_field == 'name' or
+        sort_field == 'dob' or
+            sort_field == 'dod'):
+        sort_col = getattr(Person, sort_field, None)
+        if params['sortOrder'] == '1':
+            people = people.order_by(sort_col.asc())
+        else:
+            people = people.order_by(sort_col.desc())
+    if sort_field == 'nationality':
+        sort_col = getattr(Country, 'name', None)
+        people = people.join(Person.nationality)\
+            .order_by(Country.name.asc())
+    elif sort_field == 'workcount':
+        people = people.join(Person.works)\
+            .order_by(func.count(Work.id))
+    # Pagination
     if 'rows' in params:
-        # Pagination
         if not 'page' in params:
             params['page'] = 0
         start = int(params['rows']) * (int(params['page']))
@@ -466,11 +472,10 @@ def ListPeople(params: Dict[str, Any]) -> Tuple[str, int]:
                         " start: " + str(start) +
                         " end: " + str(end))
         people = people[start:end]
+
+    # Serialize to JSON
     schema = PersonBriefSchema(many=True)
-    start = time.time()
     d['people'] = schema.dump(people)
-    end = time.time()
-    print(end-start)
     d['totalRecords'] = count
     retval = json.dumps(d)
     return retval, 200
@@ -480,7 +485,9 @@ def GetPerson(options: Dict[str, str]) -> Tuple[str, int]:
     session = new_session()
     person = session.query(Person).filter(
         Person.id == options['personId']).first()
-    schema = PersonBriefSchema()
+    if not person:
+        return "Unknown person", 401
+    schema = PersonSchema()
     retval = schema.dump(person)
     return retval, 200
 
@@ -517,16 +524,20 @@ def GetUser(options: Dict[str, str]) -> Tuple[str, int]:
     return schema.dump(user), 200
 
 
-def ListWork(options: Dict[str, str]) -> Tuple[str, int]:
+def GetWork(options: Dict[str, str]) -> Tuple[str, int]:
     session = new_session()
     work = session.query(Work).filter(Work.id == options['workId']).first()
     schema = WorkSchema()
     return schema.dump(work), 200
 
 
+def GetWorksByAuthor(author: str) -> Tuple[str, int]:
+    session = new_session()
+
+
 def ListCountries() -> Tuple[str, str]:
     session = new_session()
     countries = session.query(Country).all()
-    schema = CountrySchema(many=True)
+    schema = CountryBriefSchema(many=True)
     retval = json.dumps(schema.dump(countries))
     return retval, 200

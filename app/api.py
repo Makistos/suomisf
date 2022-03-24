@@ -279,7 +279,7 @@ def api_GetPeople() -> Tuple[str, int]:
     return retval
 
 
-@ app.route('/api/person/<id>', methods=['get'])
+@ app.route('/api/people/<id>', methods=['get'])
 def api_GetPerson(id: str) -> Tuple[str, int]:
     options = {}
     options['personId'] = id
@@ -313,7 +313,16 @@ def api_getWork(workid: str) -> Tuple[str, int]:
     options = {}
     options['id'] = workid
 
-    return ListWork(options)
+    return GetWork(options)
+
+
+@app.route('/api/works', methods=['get'])
+def api_GetWorks() -> Tuple[str, int]:
+    url_params = request.args.to_dict()
+    if 'author' in url_params:
+        retval = GetWorksByAuthor(url_params['author'])
+
+    return retval
 
 
 @ app.route('/api/countries/', methods=['get'])
