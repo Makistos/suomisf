@@ -107,6 +107,7 @@ class ShortBriefSchema(ma.SQLAlchemyAutoSchema):
     orig_title = fields.String()
     pubyear = fields.Int()
     authors = ma.List(fields.Nested(PersonBriefSchema))
+    type = fields.Nested(StoryTypeBriefSchema)
 
 
 class ArticleBriefSchema(ma.SQLAlchemyAutoSchema):
