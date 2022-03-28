@@ -186,7 +186,7 @@ class ArticleSchema(ma.SQLAlchemyAutoSchema):
     title = fields.String()
     person = fields.String()
     author_rel = ma.List(fields.Nested(PersonBriefSchema))
-    tags = ma.List(fields.Nested(TagSchema))
+    tags = ma.List(fields.Nested(TagBriefSchema))
     issue = fields.Nested(IssueBriefSchema)
     excerpt = fields.String()
 
