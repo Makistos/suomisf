@@ -177,6 +177,7 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):
     editions = ma.List(fields.Nested(EditionSchema))
     genres = ma.List(fields.Nested(GenreBriefSchema))
     bookseries = fields.Nested(BookseriesBriefSchema)
+    tags = ma.List(fields.Nested(TagBriefSchema))
 
 
 class ArticleSchema(ma.SQLAlchemyAutoSchema):
