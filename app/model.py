@@ -173,11 +173,11 @@ class EditionSchema(ma.SQLAlchemyAutoSchema):
 class WorkSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Work
-    title = fields.String()
     editions = ma.List(fields.Nested(EditionSchema))
     genres = ma.List(fields.Nested(GenreBriefSchema))
     bookseries = fields.Nested(BookseriesBriefSchema)
     tags = ma.List(fields.Nested(TagBriefSchema))
+    language_name = fields.Nested(CountryBriefSchema)
 
 
 class ArticleSchema(ma.SQLAlchemyAutoSchema):
