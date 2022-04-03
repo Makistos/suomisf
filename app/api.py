@@ -308,14 +308,6 @@ def api_GetUser(userId: str) -> Tuple[str, int]:
     return GetUser(options)
 
 
-@ app.route('/api/works/<workId>', methods=['get'])
-def api_getWork(workid: str) -> Tuple[str, int]:
-    options = {}
-    options['id'] = workid
-
-    return GetWork(options)
-
-
 @app.route('/api/works', methods=['get'])
 def api_GetWorks() -> Tuple[str, int]:
     url_params = request.args.to_dict()
@@ -323,6 +315,14 @@ def api_GetWorks() -> Tuple[str, int]:
         retval = GetWorksByAuthor(url_params['author'])
 
     return retval
+
+
+@ app.route('/api/works/<id>', methods=['get'])
+def api_getWork(id: str) -> Tuple[str, int]:
+    options = {}
+    options['workId'] = id
+
+    return GetWork(options)
 
 
 @ app.route('/api/countries/', methods=['get'])

@@ -1,9 +1,9 @@
 from marshmallow import Schema, fields
 from app import ma
-from app.orm_decl import (Article, Award, Bookseries, ContributorRole, Country, Edition,
+from app.orm_decl import (Article, Award, BindingType, Bookseries, ContributorRole, Country, Edition,
                           EditionImage, Genre, Issue, Magazine, Person, PersonLink,
                           PublicationSize, Publisher, Pubseries, ShortStory, Tag, User,
-                          Work, Article, StoryType)
+                          Work, Article, StoryType, WorkLink)
 
 # Brief schemas should not include any relationships to other
 # tables. These exists to get around the issue with Python that
@@ -19,6 +19,11 @@ from app.orm_decl import (Article, Award, Bookseries, ContributorRole, Country, 
 class ErrorSchema(Schema):
     code = fields.Int(required=True,)
     message = fields.String(required=True,)
+
+
+class BindingBriefSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = BindingType
 
 
 class BookseriesBriefSchema(ma.SQLAlchemyAutoSchema):
@@ -49,6 +54,11 @@ class StoryTypeBriefSchema(ma.SQLAlchemyAutoSchema):
 class TagBriefSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Tag
+
+
+class WorkLinkBriefSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = WorkLink
 
 
 class ContributorRoleBriefSchema(ma.SQLAlchemyAutoSchema):
@@ -168,6 +178,9 @@ class EditionSchema(ma.SQLAlchemyAutoSchema):
     translators = ma.List(fields.Nested(PersonBriefSchema))
     pubseries = fields.Nested(PubseriesBriefSchema)
     work = ma.List(fields.Nested(WorkBriefSchema))
+    images = ma.List(fields.Nested(EditionImageBriefSchema))
+    binding = fields.Nested(BindingBriefSchema)
+    #format = fields.Nested(FormatBriefSchema)
 
 
 class WorkSchema(ma.SQLAlchemyAutoSchema):
@@ -178,6 +191,8 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):
     bookseries = fields.Nested(BookseriesBriefSchema)
     tags = ma.List(fields.Nested(TagBriefSchema))
     language_name = fields.Nested(CountryBriefSchema)
+    authors = ma.List(fields.Nested(PersonBriefSchema))
+    links = ma.List(fields.Nested(WorkLinkBriefSchema))
 
 
 class ArticleSchema(ma.SQLAlchemyAutoSchema):
