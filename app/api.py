@@ -1,11 +1,18 @@
 from app import app
+import bleach
 from flask import request
 from webargs.flaskparser import parser
 from app.model import *
 from .impl import *
-from typing import Any, Tuple, NewType, Union, List, Dict
+from typing import Any, Tuple, NewType, Union, List, Dict, TypedDict
 import json
 from .api_errors import APIError
+from app.api_errors import APIError
+from app.route_helpers import new_session
+
+
+SearchResult = List[SearchResultFields]
+SearchResults = Dict[str, SearchResult]
 
 
 @app.route('/api/login', methods=['post'])
@@ -61,7 +68,7 @@ def api_UpdateIssue(issueId: str) -> Tuple[str, int]:
 
     schema = IssueSchema()
 
-    #body = parser.parse(schema, request, location='json')
+    # body = parser.parse(schema, request, location='json')
 
     return UpdateIssue(options, "")
 
@@ -125,7 +132,7 @@ def api_UpdateMagazine(magazineId: str) -> Tuple[str, int]:
 
     schema = MagazineSchema()
 
-    #body = parser.parse(schema, request, location='json')
+    # body = parser.parse(schema, request, location='json')
 
     return UpdateMagazine(options, "")
 
@@ -328,3 +335,17 @@ def api_getWork(id: str) -> Tuple[str, int]:
 @ app.route('/api/countries/', methods=['get'])
 def api_ListCountries() -> Tuple[str, str]:
     return ListCountries()
+
+
+@app.route('/api/search/<word>', methods=['get', 'post'])
+def api_Search(word: str) -> Tuple[str, int]:
+    retval = ''
+    retcode = 400
+    results: SearchResults = {}
+
+    #searchword = request.args.get('search', '')
+    searchword = bleach.clean(word)
+
+    session = new_session()
+    results['works'] = SearchWorks(session, searchword)
+    return json.dumps(results), retcode

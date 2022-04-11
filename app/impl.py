@@ -3,6 +3,7 @@ import datetime
 import decimal
 import json
 #from marshmallow import Schema, fields
+
 from operator import and_, ne, or_, not_
 from os import sched_get_priority_max
 from webbrowser import get
@@ -17,8 +18,20 @@ from app.model import (ArticleSchema, CountryBriefSchema, CountryBriefSchema, Is
                        PersonBriefSchema, PersonSchema,
                        PublisherBriefSchema, ShortSchema, UserSchema, WorkSchema)
 #from app import ma
-from typing import Dict, Tuple, List, Union, Any
+from typing import Dict, Tuple, List, Union, Any, TypedDict
 from app import app
+
+
+class SearchResultFields(TypedDict):
+    id: str
+    img: str
+    header: str
+    description: str
+    type: str
+
+
+SearchResult = List[SearchResultFields]
+SearchResults = Dict[str, SearchResult]
 
 
 def LoginUser(options: Dict[str, str]) -> Tuple[str, int]:
@@ -541,3 +554,31 @@ def ListCountries() -> Tuple[str, str]:
     schema = CountryBriefSchema(many=True)
     retval = json.dumps(schema.dump(countries))
     return retval, 200
+
+
+def SearchWorks(session: Any, searchword: str) -> SearchResult:
+    retval: SearchResult = []
+    works = session.query(Work)\
+        .filter(Work.title.ilike('%' + searchword + '%') |
+                Work.subtitle.ilike('%' + searchword + '%') |
+                Work.orig_title.ilike('%' + searchword + '%') |
+                Work.misc.ilike('%' + searchword + '%') |
+                Work.description.ilike('%' + searchword + '%')) \
+        .order_by(Work.title)\
+        .all()
+
+    for work in works:
+        if work.description:
+            description = work.description
+        else:
+            description = ''
+        item: SearchResultFields = {
+            'id': work.id,
+            'img': '',
+            'header': work.title,
+            'description': description,
+            'type': 'work'
+        }
+        retval.append(item)
+
+    return retval
