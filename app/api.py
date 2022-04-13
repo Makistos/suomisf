@@ -340,7 +340,7 @@ def api_ListCountries() -> Tuple[str, str]:
 @app.route('/api/search/<word>', methods=['get', 'post'])
 def api_Search(word: str) -> Tuple[str, int]:
     retval = ''
-    retcode = 400
+    retcode = 200
     results: SearchResults = {}
 
     #searchword = request.args.get('search', '')
