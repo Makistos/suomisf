@@ -337,15 +337,18 @@ def api_ListCountries() -> Tuple[str, str]:
     return ListCountries()
 
 
-@app.route('/api/search/<word>', methods=['get', 'post'])
-def api_Search(word: str) -> Tuple[str, int]:
+@app.route('/api/search/<pattern>', methods=['get', 'post'])
+def api_Search(pattern: str) -> Tuple[str, int]:
     retval = ''
     retcode = 200
-    results: SearchResults = {}
+    results: SearchResult = []
 
     #searchword = request.args.get('search', '')
-    searchword = bleach.clean(word)
+    pattern = bleach.clean(pattern)
+    words = pattern.split(' ')
 
     session = new_session()
-    results['works'] = SearchWorks(session, searchword)
+    results = SearchWorks(session, words)
+    results += SearchPeople(session, words)
+    results = sorted(results, key=lambda d: d['score'], reverse=True)
     return json.dumps(results), retcode

@@ -28,6 +28,7 @@ class SearchResultFields(TypedDict):
     header: str
     description: str
     type: str
+    score: int
 
 
 SearchResult = List[SearchResultFields]
@@ -556,29 +557,123 @@ def ListCountries() -> Tuple[str, str]:
     return retval, 200
 
 
-def SearchWorks(session: Any, searchword: str) -> SearchResult:
-    retval: SearchResult = []
-    works = session.query(Work)\
-        .filter(Work.title.ilike('%' + searchword + '%') |
-                Work.subtitle.ilike('%' + searchword + '%') |
-                Work.orig_title.ilike('%' + searchword + '%') |
-                Work.misc.ilike('%' + searchword + '%') |
-                Work.description.ilike('%' + searchword + '%')) \
-        .order_by(Work.title)\
-        .all()
+PERSON_NAME = 20
+PERSON_OTHER = 10
+WORK_TITLE = 19
+WORK_OTHER = 9
+STORY_NAME = 18
+STORY_OTHER = 8
+ARTICLE_TITLE = 17
+ARTICLE_OTHER = 7
+PUBLISHER_NAME = 16
+PUBLISHER_OTHER = 6
 
-    for work in works:
-        if work.description:
-            description = work.description
+
+def searchScore(table: str, item, word: str) -> int:
+    retval: int = 0
+
+    if table == 'work':
+        if word in item.title.lower():
+            return WORK_TITLE
         else:
-            description = ''
-        item: SearchResultFields = {
-            'id': work.id,
-            'img': '',
-            'header': work.title,
-            'description': description,
-            'type': 'work'
-        }
-        retval.append(item)
+            return WORK_OTHER
+    if table == 'person':
+        if item.fullname:
+            if word in item.fullname.lower():
+                return PERSON_NAME
+        if item.name:
+            if word in item.name.lower():
+                return PERSON_NAME
+        if item.alt_name.lower():
+            if word in item.alt_name:
+                return PERSON_NAME
+        else:
+            return PERSON_OTHER
+    return retval
+
+
+def SearchWorks(session: Any, searchwords: List[str]) -> SearchResult:
+    retval: SearchResult = []
+    found_works: Dict[int, SearchResultFields] = {}
+
+    for searchword in searchwords:
+        works = session.query(Work)\
+            .filter(Work.title.ilike('%' + searchword + '%') |
+                    Work.subtitle.ilike('%' + searchword + '%') |
+                    Work.orig_title.ilike('%' + searchword + '%') |
+                    Work.misc.ilike('%' + searchword + '%') |
+                    Work.description.ilike('%' + searchword + '%')) \
+            .order_by(Work.title)\
+            .all()
+
+        for work in works:
+            if work.id in found_works:
+                found_works[work.id]['score'] *= searchScore(
+                    'work', work, searchword)
+            else:
+                if work.description:
+                    description = work.description
+                else:
+                    description = ''
+
+                item: SearchResultFields = {
+                    'id': work.id,
+                    'img': '',
+                    'header': work.title,
+                    'description': description,
+                    'type': 'work',
+                    'score': searchScore('work', work, searchword)
+                }
+                found_works[work.id] = item
+        retval = [value for _, value in found_works.items()]
+        # for key, item in found_works:
+        #     retval.append(item)
+
+    return retval
+
+
+def SearchPeople(session, searchwords: List[str]) -> SearchResult:
+    retval: SearchResult = []
+    found_people: Dict[int, SearchResultFields] = {}
+
+    for searchword in searchwords:
+        people = \
+            session.query(Person)\
+            .filter(Person.name.ilike('%' + searchword + '%') |
+                    Person.fullname.ilike('%' + searchword + '%') |
+                    Person.other_names.ilike('%' + searchword + '%') |
+                    Person.alt_name.ilike('%' + searchword + '%') |
+                    Person.bio.ilike('%' + searchword + '%')) \
+            .order_by(Person.name) \
+            .all()
+
+        for person in people:
+            if person.id in found_people:
+                found_people[person.id]['score'] *= \
+                    searchScore('person', person, searchword)
+            else:
+                description = ''
+                if person.nationality:
+                    description = person.nationality.name
+                if person.dob or person.dod:
+                    description += ' ('
+                if person.dob:
+                    description += str(person.dob)
+                if person.dob or person.dod:
+                    description += '-'
+                if person.dod:
+                    description += str(person.dod)
+                if person.dob or person.dod:
+                    description += ')'
+                item: SearchResultFields = {
+                    'id': person.id,
+                    'img': '',
+                    'header': person.name,
+                    'description': description,
+                    'type': 'person',
+                    'score': searchScore('person', person, searchword)
+                }
+                found_people[person.id] = item
+        retval = [value for _, value in found_people.items()]
 
     return retval
