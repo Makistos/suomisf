@@ -293,8 +293,8 @@ class Edition(Base):
     format_id = Column(Integer, ForeignKey('format.id'))
     size = Column(Integer)  # Height in centimeters
     # size_id = Column(Integer, ForeignKey('publicationsize.id'))
-    dustcover = Column(Integer, default=0)  # 0 = not known, 1 = no, 2 = yes
-    coverimage = Column(Integer, default=0)  # 0 = not known, 1 = no, 2 = yes
+    dustcover = Column(Integer, default=0)  # 1 = not known, 2 = no, 3 = yes
+    coverimage = Column(Integer, default=0)  # 1 = not known, 2 = no, 3 = yes
     misc = Column(String(500))
     imported_string = Column(String(500))
     parts = relationship('Part', backref=backref('parts_lookup'),
@@ -914,6 +914,7 @@ class Tag(Base):
     __tablename__ = 'tag'
     id = Column(Integer, primary_key=True)
     name = Column(String(100), nullable=False, index=True)
+    type = Column(String(100))
     works = relationship('Work', secondary='worktag',
                          uselist=True, viewonly=True)
     articles = relationship(
