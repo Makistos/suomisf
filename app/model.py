@@ -1,7 +1,7 @@
 from marshmallow import Schema, fields
 from app import ma
 from app.orm_decl import (Article, Award, BindingType, Bookseries, ContributorRole, Country, Edition,
-                          EditionImage, Genre, Issue, Magazine, Person, PersonLink,
+                          EditionImage, Genre, Issue, Log, Magazine, Person, PersonLink,
                           PublicationSize, Publisher, Pubseries, ShortStory, Tag, User,
                           Work, Article, StoryType, WorkLink, Format)
 
@@ -14,6 +14,17 @@ from app.orm_decl import (Article, Award, BindingType, Bookseries, ContributorRo
 
 # Some exceptions are required. Therefore ordering of these
 # definitions might well be critical.
+
+
+class UserSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = User
+
+
+class LogSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Log
+    user = fields.Nested(UserSchema)
 
 
 class ErrorSchema(Schema):
@@ -264,8 +275,3 @@ class MagazineSchema(ma.SQLAlchemyAutoSchema):
         include_fk = True
     issues = ma.auto_field()  # ma.List(fields.Nested(IssueSchema))
     publisher = fields.Nested(PublisherBriefSchema)
-
-
-class UserSchema(ma.SQLAlchemyAutoSchema):
-    class Meta:
-        model = User

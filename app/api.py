@@ -238,7 +238,6 @@ def api_GetPeople() -> Tuple[str, int]:
 
     url_params = request.args.to_dict()
     params: Dict[str, Any] = {}
-    # params = request.args
     for (param, value) in url_params.items():
         # param, value = p.split('=')
         if value == 'null' or value == 'undefined':
@@ -352,3 +351,22 @@ def api_Search(pattern: str) -> Tuple[str, int]:
     results += SearchPeople(session, words)
     results = sorted(results, key=lambda d: d['score'], reverse=True)
     return json.dumps(results), retcode
+
+
+@app.route('/api/changes', methods=['get'])
+def api_Changes() -> Tuple[str, int]:
+    retval = ('', 200)
+    url_params = request.args.to_dict()
+
+    params: Dict[str, Any] = {}
+    for (param, value) in url_params.items():
+        # param, value = p.split('=')
+        if value == 'null' or value == 'undefined':
+            value = None
+        params[param] = value
+
+    try:
+        retval = GetChanges(params)
+    except APIError as exp:
+        print(exp.message)
+    return json.dumps(retval), 200

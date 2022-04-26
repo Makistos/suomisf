@@ -555,6 +555,7 @@ class Log(Base):
     user_id = Column(Integer, ForeignKey('user.id'))
     old_value = Column(String(500))
     date = Column(DateTime, default=datetime.datetime.now())
+    user = relationship('User', uselist=False)
 
 
 class Magazine(Base):

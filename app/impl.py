@@ -13,9 +13,9 @@ from sqlalchemy import inspect, func
 from app.api_errors import APIError
 from app.route_helpers import new_session
 from app.orm_decl import (Article, ContributorRole, Country, Issue, Magazine, Person,
-                          Publisher, ShortStory, User, Work)
+                          Publisher, ShortStory, User, Work, Log)
 from app.model import (ArticleSchema, CountryBriefSchema, CountryBriefSchema, IssueSchema, MagazineSchema,
-                       PersonBriefSchema, PersonSchema,
+                       PersonBriefSchema, PersonSchema, LogSchema,
                        PublisherBriefSchema, ShortSchema, UserSchema, WorkSchema)
 #from app import ma
 from typing import Dict, Tuple, List, Union, Any, TypedDict
@@ -675,5 +675,28 @@ def SearchPeople(session, searchwords: List[str]) -> SearchResult:
                 }
                 found_people[person.id] = item
         retval = [value for _, value in found_people.items()]
+
+    return retval
+
+
+def GetChanges(params: Dict[str, Any]) -> str:
+    # Get changes made to the database.
+    #
+    # Defaults to all changes made in the last 30 days.
+    #
+    retval = ''
+    period_length: int = 30
+    session = new_session()
+    if 'period' in params:
+        try:
+            period_length = int(params['period'])
+        except TypeError as exp:
+            raise APIError
+
+    cutoff_date = datetime.datetime.now() - datetime.timedelta(period_length)
+    changes = session.query(Log).filter(
+        Log.date >= cutoff_date).order_by(Log.date.desc()).all()
+    schema = LogSchema(many=True)
+    retval = schema.dump(changes)
 
     return retval
