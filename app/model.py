@@ -119,21 +119,37 @@ class WorkBriefSchema(ma.SQLAlchemyAutoSchema):
     genres = ma.List(fields.Nested(GenreBriefSchema))
 
 
+class EditionBriefSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Edition
+
+    work = ma.List(fields.Nested(WorkBriefSchema))
+
+
 class MagazineBriefSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Magazine
+
+
+class IssueBriefSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Issue
+        #include_fk = True
 
 
 class ShortBriefSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = ShortStory
 
-    id = fields.Int()
-    title = fields.String()
-    orig_title = fields.String()
-    pubyear = fields.Int()
+    #id = fields.Int()
+    #title = fields.String()
+    #orig_title = fields.String()
+    #pubyear = fields.Int()
     authors = ma.List(fields.Nested(PersonBriefSchema))
     type = fields.Nested(StoryTypeBriefSchema)
+    issues = ma.List(fields.Nested(IssueBriefSchema))
+    editions = ma.List(fields.Nested(EditionBriefSchema))
+    genres = ma.List(fields.Nested(GenreBriefSchema))
 
 
 class ArticleBriefSchema(ma.SQLAlchemyAutoSchema):
@@ -143,12 +159,6 @@ class ArticleBriefSchema(ma.SQLAlchemyAutoSchema):
     title = fields.String()
     author_rel = ma.List(fields.Nested(PersonBriefSchema))
     excerpt = fields.String()
-
-
-class IssueBriefSchema(ma.SQLAlchemyAutoSchema):
-    class Meta:
-        model = Issue
-        #include_fk = True
 
 
 class AwardBriefSchema(ma.SQLAlchemyAutoSchema):
@@ -165,10 +175,6 @@ class PubseriesBriefSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Pubseries
 
-
-class EditionBriefSchema(ma.SQLAlchemyAutoSchema):
-    class Meta:
-        model = Edition
 
 # Full schemas. Mainly used to be returned as the main object
 # type in API calls. This makes is super easy to retrieve all
