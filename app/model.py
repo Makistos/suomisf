@@ -124,6 +124,7 @@ class EditionBriefSchema(ma.SQLAlchemyAutoSchema):
         model = Edition
 
     work = ma.List(fields.Nested(WorkBriefSchema))
+    editors = ma.List(fields.Nested(PersonBriefSchema))
 
 
 class MagazineBriefSchema(ma.SQLAlchemyAutoSchema):
@@ -135,6 +136,7 @@ class IssueBriefSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Issue
         #include_fk = True
+    magazine = fields.Nested(MagazineBriefSchema)
 
 
 class ShortBriefSchema(ma.SQLAlchemyAutoSchema):
@@ -203,6 +205,7 @@ class EditionSchema(ma.SQLAlchemyAutoSchema):
     images = ma.List(fields.Nested(EditionImageBriefSchema))
     binding = fields.Nested(BindingBriefSchema)
     format = fields.Nested(FormatBriefSchema)
+    editors = ma.List(fields.Nested(PersonBriefSchema))
 
 
 class WorkSchema(ma.SQLAlchemyAutoSchema):
@@ -216,6 +219,7 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):
     authors = ma.List(fields.Nested(PersonBriefSchema))
     links = ma.List(fields.Nested(WorkLinkBriefSchema))
     stories = ma.List(fields.Nested(ShortBriefSchema))
+    translators = ma.List(fields.Nested(PersonBriefSchema))
 
 
 class ArticleSchema(ma.SQLAlchemyAutoSchema):
