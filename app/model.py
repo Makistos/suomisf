@@ -109,6 +109,14 @@ class PersonBriefSchema(ma.SQLAlchemyAutoSchema):
     storycount = fields.Number()
 
 
+class WorkEditionBriefSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Edition
+
+    editors = ma.List(fields.Nested(PersonBriefSchema))
+    translators = ma.List(fields.Nested(PersonBriefSchema))
+
+
 class WorkBriefSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Work
@@ -116,8 +124,10 @@ class WorkBriefSchema(ma.SQLAlchemyAutoSchema):
     title = fields.String()
     orig_title = fields.String()
     author_str = fields.String()
+    editions = ma.List(fields.Nested(WorkEditionBriefSchema))
     authors = ma.List(fields.Nested(PersonBriefSchema))
     genres = ma.List(fields.Nested(GenreBriefSchema))
+    bookseries = fields.Nested(BookseriesBriefSchema)
 
 
 class EditionBriefSchema(ma.SQLAlchemyAutoSchema):
@@ -196,6 +206,12 @@ class AwardedSchema(ma.SQLAlchemyAutoSchema):
     work = fields.Nested(WorkBriefSchema)
     category = fields.Nested(AwardCategorySchema)
     story = fields.Nested(ShortBriefSchema)
+
+
+class BookseriesSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Bookseries
+    works = ma.List(fields.Nested(WorkBriefSchema))
 
 
 class TagSchema(ma.SQLAlchemyAutoSchema):

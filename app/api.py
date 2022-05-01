@@ -27,6 +27,14 @@ def api_login() -> Tuple[str, int]:
     return LoginUser(options)
 
 
+@app.route('/api/bookseries/<bookseriesId>', methods=['get'])
+def api_GetBookseries(bookseriesId: str) -> Tuple[str, int]:
+    options = {}
+    options['bookseriesId'] = bookseriesId
+
+    return GetBookseries(options)
+
+
 @app.route('/api/issues/<issueId>', methods=['get'])
 def api_GetIssueForMagazine(issueId: str) -> Tuple[str, int]:
 

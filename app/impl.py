@@ -12,9 +12,9 @@ from flask.wrappers import Response
 from sqlalchemy import inspect, func
 from app.api_errors import APIError
 from app.route_helpers import new_session
-from app.orm_decl import (Article, ContributorRole, Country, Issue, Magazine, Person,
+from app.orm_decl import (Article, Bookseries, ContributorRole, Country, Issue, Magazine, Person,
                           Publisher, ShortStory, User, Work, Log)
-from app.model import (ArticleSchema, CountryBriefSchema, CountryBriefSchema, IssueSchema, MagazineSchema,
+from app.model import (ArticleSchema, BookseriesSchema, CountryBriefSchema, CountryBriefSchema, IssueSchema, MagazineSchema,
                        PersonBriefSchema, PersonSchema, LogSchema,
                        PublisherBriefSchema, ShortSchema, UserSchema, WorkSchema)
 #from app import ma
@@ -68,6 +68,17 @@ def GetArticle(options: Dict[str, str]) -> Tuple[str, int]:
     schema = ArticleSchema()
     retval = schema.dump(article)
     return schema.dump(article), 200
+
+
+def GetBookseries(options: Dict[str, str]) -> Tuple[str, int]:
+    session = new_session()
+
+    bookseries = session.query(Bookseries).filter(
+        Bookseries.id == options['bookseriesId']).first()
+
+    schema = BookseriesSchema()
+    retval = schema.dump(bookseries)
+    return schema.dump(bookseries), 200
 
 
 def GetShort(options: Dict[str, str]) -> Tuple[str, int]:
