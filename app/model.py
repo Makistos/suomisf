@@ -1,6 +1,7 @@
+from unicodedata import category
 from marshmallow import Schema, fields
 from app import ma
-from app.orm_decl import (Article, Award, BindingType, Bookseries, ContributorRole, Country, Edition,
+from app.orm_decl import (Article, Award, AwardCategory, Awarded, BindingType, Bookseries, ContributorRole, Country, Edition,
                           EditionImage, Genre, Issue, Log, Magazine, Person, PersonLink,
                           PublicationSize, Publisher, Pubseries, ShortStory, Tag, User,
                           Work, Article, StoryType, WorkLink, Format)
@@ -168,6 +169,11 @@ class AwardBriefSchema(ma.SQLAlchemyAutoSchema):
         model = Award
 
 
+class AwardCategorySchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = AwardCategory
+
+
 class PublisherBriefSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Publisher
@@ -181,6 +187,15 @@ class PubseriesBriefSchema(ma.SQLAlchemyAutoSchema):
 # Full schemas. Mainly used to be returned as the main object
 # type in API calls. This makes is super easy to retrieve all
 # relevant data for certain object types.
+
+class AwardedSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Awarded
+    award = fields.Nested(AwardBriefSchema)
+    person = fields.Nested(PersonBriefSchema)
+    work = fields.Nested(WorkBriefSchema)
+    category = fields.Nested(AwardCategorySchema)
+    story = fields.Nested(ShortBriefSchema)
 
 
 class TagSchema(ma.SQLAlchemyAutoSchema):
@@ -220,6 +235,7 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):
     links = ma.List(fields.Nested(WorkLinkBriefSchema))
     stories = ma.List(fields.Nested(ShortBriefSchema))
     translators = ma.List(fields.Nested(PersonBriefSchema))
+    awards = ma.List(fields.Nested(AwardedSchema))
 
 
 class ArticleSchema(ma.SQLAlchemyAutoSchema):
@@ -251,6 +267,7 @@ class PersonSchema(ma.SQLAlchemyAutoSchema):
     appears_in = ma.List(fields.Nested(ArticleBriefSchema))
     personal_awards = ma.List(fields.Nested(AwardBriefSchema))
     nationality = fields.Nested(CountryBriefSchema)
+    awarded = ma.List(fields.Nested(AwardedSchema))
 
 
 class ShortSchema(ma.SQLAlchemyAutoSchema):

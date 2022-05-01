@@ -723,7 +723,7 @@ class Person(Base):
         uselist=True, viewonly=True,
         foreign_keys=[Contributor.person_id, Contributor.role_id])
     wrks = relationship('Work', secondary=lambda: personworks_table)
-
+    awarded = relationship('Awarded', uselist=True, viewonly=True)
     works2 = association_proxy('wrks', 'work')
 
     @hybrid_property
