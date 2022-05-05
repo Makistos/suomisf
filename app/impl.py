@@ -12,7 +12,7 @@ from flask.wrappers import Response
 from sqlalchemy import inspect, func
 from app.api_errors import APIError
 from app.route_helpers import new_session
-from app.orm_decl import (Article, Bookseries, ContributorRole, Country, Issue, Magazine, Person,
+from app.orm_decl import (Alias, Article, Bookseries, ContributorRole, Country, Issue, Magazine, Person,
                           Publisher, ShortStory, User, Work, Log)
 from app.model import (ArticleSchema, BookseriesSchema, CountryBriefSchema, CountryBriefSchema, IssueSchema, MagazineSchema,
                        PersonBriefSchema, PersonSchema, LogSchema,
@@ -20,6 +20,7 @@ from app.model import (ArticleSchema, BookseriesSchema, CountryBriefSchema, Coun
 #from app import ma
 from typing import Dict, Tuple, List, Union, Any, TypedDict
 from app import app
+from collections import Counter
 
 
 class SearchResultFields(TypedDict):
@@ -508,8 +509,17 @@ def ListPeople(params: Dict[str, Any]) -> Tuple[str, int]:
 
 def GetPerson(options: Dict[str, str]) -> Tuple[str, int]:
     session = new_session()
+    person_id = options['personId']
+    aliases = session.query(Alias)\
+        .filter(Alias.alias == person_id).all()
+    if len(aliases) == 1:
+        # This is an alias that has only been used by one person,
+        # find out real person.
+        real_person = session.query(Person).filter(
+            Person.id == aliases[0].realname).first()
+        person_id = real_person.id
     person = session.query(Person).filter(
-        Person.id == options['personId']).first()
+        Person.id == person_id).first()
     if not person:
         return "Unknown person", 401
     schema = PersonSchema()
@@ -690,7 +700,7 @@ def SearchPeople(session, searchwords: List[str]) -> SearchResult:
     return retval
 
 
-def GetChanges(params: Dict[str, Any]) -> str:
+def GetChanges(params: Dict[str, Any]) -> Tuple[str, int]:
     # Get changes made to the database.
     #
     # Defaults to all changes made in the last 30 days.
@@ -709,5 +719,26 @@ def GetChanges(params: Dict[str, Any]) -> str:
         Log.date >= cutoff_date).order_by(Log.date.desc()).all()
     schema = LogSchema(many=True)
     retval = schema.dump(changes)
+
+    return retval, 200
+
+
+def GetAuthorFirstLetters(target: str) -> Tuple[str, int]:
+    retval = ('', 200)
+    session = new_session()
+
+    if target == 'works':
+        # Substring doesn't really work with unicode names in SQL so have to
+        # that manually.
+        names = session.query(Work.author_str)\
+            .order_by(Work.author_str)\
+            .all()
+        letters = [s[0][0].upper() for s in names]
+        retval = json.dumps(Counter(letters)), 200
+
+    elif target == 'stories':
+        letters = session.query(Person)
+    else:
+        retval = ('', 400)
 
     return retval

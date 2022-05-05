@@ -378,3 +378,30 @@ def api_Changes() -> Tuple[str, int]:
     except APIError as exp:
         print(exp.message)
     return json.dumps(retval), 200
+
+
+@app.route('/api/firstlettervector', methods=['get'])
+def firstlettervector() -> Tuple[str, int]:
+    """Get first letters for for target type.
+
+    This function is used internally by the UI to create
+    links to various pages, e.g. a list for choosing books
+    based on the first letter of the author.
+
+    Parameters
+    ----------
+    target: str
+        Either "works" or "stories".
+
+    Returns
+    -------
+    List[str, int]
+        str is the return value in JSON. int is http return code.
+        Str contains a dictionary where each item's key is a letter and
+        value is the count of items (e.g. works).
+
+    """
+    url_params = request.args.to_dict()
+    retval = GetAuthorFirstLetters(url_params['target'])
+
+    return retval
