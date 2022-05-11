@@ -117,7 +117,10 @@ def person(personid: Any) -> Any:
     session = new_session()
     if personid.isdigit():
         person = session.query(Person).filter(Person.id == personid).first()
-        personid = person.id
+        if person:
+            personid = person.id
+        else:
+            return redirect('/')
     else:
         personid = urllib.parse.unquote(personid)
         person = session.query(Person).filter(Person.name == personid).first()
