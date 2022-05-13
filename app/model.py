@@ -115,6 +115,7 @@ class WorkEditionBriefSchema(ma.SQLAlchemyAutoSchema):
 
     editors = ma.List(fields.Nested(PersonBriefSchema))
     translators = ma.List(fields.Nested(PersonBriefSchema))
+    images = ma.List(fields.Nested(EditionImageBriefSchema))
 
 
 class WorkBriefSchema(ma.SQLAlchemyAutoSchema):
@@ -136,6 +137,7 @@ class EditionBriefSchema(ma.SQLAlchemyAutoSchema):
 
     work = ma.List(fields.Nested(WorkBriefSchema))
     editors = ma.List(fields.Nested(PersonBriefSchema))
+    images = ma.List(fields.Nested(EditionImageBriefSchema))
 
 
 class MagazineBriefSchema(ma.SQLAlchemyAutoSchema):
