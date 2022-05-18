@@ -216,6 +216,13 @@ class BookseriesSchema(ma.SQLAlchemyAutoSchema):
     works = ma.List(fields.Nested(WorkBriefSchema))
 
 
+class PubseriesSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Pubseries
+    publisher = fields.Nested(PublisherBriefSchema)
+    editions = ma.List(fields.Nested(EditionBriefSchema))
+
+
 class TagSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Tag

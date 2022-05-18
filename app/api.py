@@ -35,6 +35,14 @@ def api_GetBookseries(bookseriesId: str) -> Tuple[str, int]:
     return GetBookseries(options)
 
 
+@app.route('/api/pubseries/<pubseriesId>', methods=['get'])
+def api_GetPubseries(pubseriesId: str) -> Tuple[str, int]:
+    options = {}
+    options['pubseriesId'] = pubseriesId
+
+    return GetPubseries(options)
+
+
 @app.route('/api/issues/<issueId>', methods=['get'])
 def api_GetIssueForMagazine(issueId: str) -> Tuple[str, int]:
 

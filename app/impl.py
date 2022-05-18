@@ -13,10 +13,10 @@ from sqlalchemy import inspect, func
 from app.api_errors import APIError
 from app.route_helpers import new_session
 from app.orm_decl import (Alias, Article, Bookseries, ContributorRole, Country, Issue, Magazine, Person,
-                          Publisher, ShortStory, User, Work, Log)
+                          Publisher, ShortStory, User, Work, Log, Pubseries)
 from app.model import (ArticleSchema, BookseriesSchema, CountryBriefSchema, CountryBriefSchema, IssueSchema, MagazineSchema,
                        PersonBriefSchema, PersonSchema, LogSchema,
-                       PublisherBriefSchema, ShortSchema, UserSchema, WorkSchema)
+                       PublisherBriefSchema, ShortSchema, UserSchema, WorkSchema, PubseriesSchema)
 #from app import ma
 from typing import Dict, Tuple, List, Union, Any, TypedDict
 from app import app
@@ -80,6 +80,17 @@ def GetBookseries(options: Dict[str, str]) -> Tuple[str, int]:
     schema = BookseriesSchema()
     retval = schema.dump(bookseries)
     return schema.dump(bookseries), 200
+
+
+def GetPubseries(options: Dict[str, str]) -> Tuple[str, int]:
+    session = new_session()
+
+    pubseries = session.query(Pubseries).filter(
+        Pubseries.id == options['pubseriesId']).first()
+
+    schema = PubseriesSchema()
+    retval = schema.dump(pubseries)
+    return schema.dump(pubseries), 200
 
 
 def GetShort(options: Dict[str, str]) -> Tuple[str, int]:

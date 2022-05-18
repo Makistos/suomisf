@@ -655,6 +655,17 @@ class Person(Base):
                             Part.shortstory_id == None)',
                          order_by='Work.title',
                          uselist=True, viewonly=True)
+    # all_works = relationship("Work",
+    #                      secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
+    #                      primaryjoin='and_\
+    #                         (or_(Person.id == Contributor.person_id,\
+    #                             Contributor.person_id.in_(Person.id)\
+    #                         Contributor.part_id == Part.id,\
+    #                         Contributor.role_id == 1,\
+    #                         Part.work_id == Work.id,\
+    #                         Part.shortstory_id == None)',
+    #                      order_by='Work.title',
+    #                      uselist=True, viewonly=True)
     # works = relationship("Work",
     #                      primaryjoin='and_(Person.id == Contributor.person_id,\
     #                         Contributor.part_id == Part.id,\
