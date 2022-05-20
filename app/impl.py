@@ -529,12 +529,27 @@ def GetPerson(options: Dict[str, str]) -> Tuple[str, int]:
         real_person = session.query(Person).filter(
             Person.id == aliases[0].realname).first()
         person_id = real_person.id
+
     person = session.query(Person).filter(
         Person.id == person_id).first()
     if not person:
         return "Unknown person", 401
+
+    aliases = session.query(Alias)\
+        .filter(Alias.realname == person.id).all()
+
+    if len(aliases) > 0:
+        # Person has aliases
+        for alias_id in aliases:
+            alias = session.query(Person)\
+                .filter(Person.id == alias_id.alias).first()
+            person.works = person.works + alias.works
+
     schema = PersonSchema()
     retval = schema.dump(person)
+
+    #retval = json.dumps(person_json)
+
     return retval, 200
 
 
