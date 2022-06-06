@@ -295,6 +295,13 @@ class PersonSchema(ma.SQLAlchemyAutoSchema):
     awarded = ma.List(fields.Nested(AwardedSchema))
 
 
+class PublisherSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Publisher
+    editions = ma.List(fields.Nested(EditionBriefSchema))
+    series = ma.List(fields.Nested(PubseriesBriefSchema))
+
+
 class ShortSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = ShortStory

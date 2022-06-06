@@ -15,7 +15,7 @@ from app.route_helpers import new_session
 from app.orm_decl import (Alias, Article, Bookseries, ContributorRole, Country, Issue, Magazine, Person,
                           Publisher, ShortStory, User, Work, Log, Pubseries)
 from app.model import (ArticleSchema, BookseriesSchema, CountryBriefSchema, CountryBriefSchema, IssueSchema, MagazineSchema,
-                       PersonBriefSchema, PersonSchema, LogSchema,
+                       PersonBriefSchema, PersonSchema, LogSchema, PublisherSchema,
                        PublisherBriefSchema, ShortSchema, UserSchema, WorkSchema, PubseriesSchema)
 #from app import ma
 from typing import Dict, Tuple, List, Union, Any, TypedDict
@@ -383,7 +383,7 @@ def GetPublisher(options: Dict[str, str]) -> Tuple[str, int]:
     publisher = session.query(Publisher)\
                        .filter(Publisher.id == options['publisherId'])\
                        .first()
-    schema = PublisherBriefSchema()
+    schema = PublisherSchema()
 
     return schema.dump(publisher), 200
 
