@@ -14,9 +14,9 @@ from app.api_errors import APIError
 from app.route_helpers import new_session
 from app.orm_decl import (Alias, Article, Bookseries, ContributorRole, Country, Issue, Magazine, Person,
                           Publisher, ShortStory, User, Work, Log, Pubseries)
-from app.model import (ArticleSchema, BookseriesSchema, CountryBriefSchema, CountryBriefSchema, IssueSchema, MagazineSchema,
+from app.model import (ArticleSchema, BookseriesBriefSchema, BookseriesSchema, CountryBriefSchema, CountryBriefSchema, IssueSchema, MagazineSchema,
                        PersonBriefSchema, PersonSchema, LogSchema, PublisherSchema,
-                       PublisherBriefSchema, ShortSchema, UserSchema, WorkSchema, PubseriesSchema)
+                       PublisherBriefSchemaWEditions, PubseriesBriefSchema, ShortSchema, UserSchema, WorkSchema, PubseriesSchema)
 #from app import ma
 from typing import Dict, Tuple, List, Union, Any, TypedDict
 from app import app
@@ -516,6 +516,39 @@ def ListPeople(params: Dict[str, Any]) -> Tuple[str, int]:
     d['totalRecords'] = count
     retval = json.dumps(d)
     return retval, 200
+
+
+def ListBookseries() -> Tuple[str, int]:
+    session = new_session()
+
+    bookseries = session.query(Bookseries).all()
+
+    schema = BookseriesBriefSchema(many=True)
+    retval = schema.dump(bookseries)
+    return json.dumps(retval), 200
+
+
+def ListPublishers() -> Tuple[str, int]:
+    session = new_session()
+
+    publishers = session.query(Publisher).all()
+    schema = PublisherBriefSchemaWEditions(many=True)
+    retval = schema.dump(publishers)
+    #pub_dict = dict([(value['id'], value) for value in retval])
+    # for publisher in publishers:
+    #    pub_dict[publisher['id']]['edition_count'] = publisher.editions.length
+    #publisher['edition_count'] = publisher.editions.length
+    return json.dumps(retval), 200
+
+
+def ListPubseries() -> Tuple[str, int]:
+    session = new_session()
+
+    pubseries = session.query(Pubseries).all()
+
+    schema = PubseriesBriefSchema(many=True)
+    retval = schema.dump(pubseries)
+    return json.dumps(retval), 200
 
 
 def GetPerson(options: Dict[str, str]) -> Tuple[str, int]:

@@ -131,6 +131,12 @@ class WorkBriefSchema(ma.SQLAlchemyAutoSchema):
     bookseries = fields.Nested(BookseriesBriefSchema)
 
 
+class EditionBriefestSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Edition
+    images = ma.List(fields.Nested(EditionImageBriefSchema))
+
+
 class EditionBriefSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Edition
@@ -189,6 +195,13 @@ class AwardCategorySchema(ma.SQLAlchemyAutoSchema):
 class PublisherBriefSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Publisher
+
+
+class PublisherBriefSchemaWEditions(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Publisher
+
+    editions = ma.List(fields.Nested(EditionBriefestSchema))
 
 
 class PubseriesBriefSchema(ma.SQLAlchemyAutoSchema):

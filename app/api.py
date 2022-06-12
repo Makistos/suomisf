@@ -315,6 +315,26 @@ def api_GetPublisher(id: str) -> Tuple[str, int]:
     return GetPublisher(options)
 
 
+@app.route('/api/bookseries', methods=['get'])
+def api_ListBookseries() -> Tuple[str, int]:
+    return ListBookseries()
+
+
+@ app.route('/api/countries', methods=['get'])
+def api_ListCountries() -> Tuple[str, str]:
+    return ListCountries()
+
+
+@app.route('/api/publishers', methods=['get'])
+def api_ListPublishers() -> Tuple[str, int]:
+    return ListPublishers()
+
+
+@app.route('/api/pubseries', methods=['get'])
+def api_ListPubseries() -> Tuple[str, int]:
+    return ListPubseries()
+
+
 @ app.route('/api/users', methods=['get'])
 def api_ListUsers() -> Tuple[str, int]:
 
@@ -345,11 +365,6 @@ def api_getWork(id: str) -> Tuple[str, int]:
     options['workId'] = id
 
     return GetWork(options)
-
-
-@ app.route('/api/countries/', methods=['get'])
-def api_ListCountries() -> Tuple[str, str]:
-    return ListCountries()
 
 
 @app.route('/api/search/<pattern>', methods=['get', 'post'])
