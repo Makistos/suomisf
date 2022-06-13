@@ -3,7 +3,7 @@ from marshmallow import Schema, fields
 from app import ma
 from app.orm_decl import (Article, Award, AwardCategory, Awarded, BindingType, Bookseries, ContributorRole, Country, Edition,
                           EditionImage, Genre, Issue, Log, Magazine, Person, PersonLink,
-                          PublicationSize, Publisher, Pubseries, ShortStory, Tag, User,
+                          PublicationSize, Publisher, PublisherLink, Pubseries, ShortStory, Tag, User,
                           Work, Article, StoryType, WorkLink, Format)
 
 # Brief schemas should not include any relationships to other
@@ -308,11 +308,17 @@ class PersonSchema(ma.SQLAlchemyAutoSchema):
     awarded = ma.List(fields.Nested(AwardedSchema))
 
 
+class PublisherLinkSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = PublisherLink
+
+
 class PublisherSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Publisher
     editions = ma.List(fields.Nested(EditionBriefSchema))
     series = ma.List(fields.Nested(PubseriesBriefSchema))
+    links = ma.List(fields.Nested(PublisherLinkSchema))
 
 
 class ShortSchema(ma.SQLAlchemyAutoSchema):
