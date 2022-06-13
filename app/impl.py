@@ -577,7 +577,8 @@ def GetPerson(options: Dict[str, str]) -> Tuple[str, int]:
             alias = session.query(Person)\
                 .filter(Person.id == alias_id.alias).first()
             person.works = person.works + alias.works
-
+            person.edits = person.edits + alias.edits
+            person.translations = person.translations + alias.translations
     schema = PersonSchema()
     retval = schema.dump(person)
 
