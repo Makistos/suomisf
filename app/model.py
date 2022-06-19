@@ -43,9 +43,15 @@ class FormatBriefSchema(ma.SQLAlchemyAutoSchema):
         model = Format
 
 
+class WorkBriefestSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Work
+
+
 class BookseriesBriefSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Bookseries
+    works = ma.List(fields.Nested(WorkBriefestSchema))
 
 
 class EditionImageBriefSchema(ma.SQLAlchemyAutoSchema):
@@ -207,6 +213,9 @@ class PublisherBriefSchemaWEditions(ma.SQLAlchemyAutoSchema):
 class PubseriesBriefSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Pubseries
+
+    publisher = fields.Nested(PublisherBriefSchema)
+    editions = ma.List(fields.Nested(EditionBriefestSchema))
 
 
 # Full schemas. Mainly used to be returned as the main object
