@@ -1,3 +1,4 @@
+from http.client import RemoteDisconnected
 from app import app
 import bleach
 from flask import request
@@ -382,6 +383,15 @@ def api_Search(pattern: str) -> Tuple[str, int]:
     results += SearchPeople(session, words)
     results = sorted(results, key=lambda d: d['score'], reverse=True)
     return json.dumps(results), retcode
+
+
+@app.route('/api/searchshorts', methods=['post'])
+def api_searchShorts() -> Tuple[str, int]:
+    retval: Tuple[str, int]
+    params = json.loads(request.data)
+    retval = SearchShorts(params)
+    ret = json.dumps(retval[0])
+    return retval[0], retval[1]
 
 
 @app.route('/api/changes', methods=['get'])

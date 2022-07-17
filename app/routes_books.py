@@ -288,8 +288,8 @@ def edition_delete(editionid: str, session: Any = None) -> None:
     userbooks = session.query(UserBook)\
         .filter(UserBook.edition_id == editionid)\
         .all()
-    for book in owned:
-        session.delete(book)
+    # for book in owned:
+    #     session.delete(book)
 
     edition = session.query(Edition)\
         .filter(Edition.id == editionid)\

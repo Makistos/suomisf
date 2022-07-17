@@ -2,7 +2,7 @@ import time
 import datetime
 import decimal
 import json
-#from marshmallow import Schema, fields
+# from marshmallow import Schema, fields
 
 from operator import and_, ne, or_, not_
 from os import sched_get_priority_max
@@ -17,10 +17,12 @@ from app.orm_decl import (Alias, Article, Bookseries, ContributorRole, Country, 
 from app.model import (ArticleSchema, BookseriesBriefSchema, BookseriesSchema, CountryBriefSchema, CountryBriefSchema, IssueSchema, MagazineSchema,
                        PersonBriefSchema, PersonSchema, LogSchema, PublisherSchema,
                        PublisherBriefSchemaWEditions, PubseriesBriefSchema, ShortSchema, UserSchema, WorkSchema, PubseriesSchema)
-#from app import ma
+# from app import ma
 from typing import Dict, Tuple, List, Union, Any, TypedDict
 from app import app
 from collections import Counter
+from sqlalchemy import text
+import bleach
 
 
 class SearchResultFields(TypedDict):
@@ -534,10 +536,10 @@ def ListPublishers() -> Tuple[str, int]:
     publishers = session.query(Publisher).all()
     schema = PublisherBriefSchemaWEditions(many=True)
     retval = schema.dump(publishers)
-    #pub_dict = dict([(value['id'], value) for value in retval])
+    # pub_dict = dict([(value['id'], value) for value in retval])
     # for publisher in publishers:
     #    pub_dict[publisher['id']]['edition_count'] = publisher.editions.length
-    #publisher['edition_count'] = publisher.editions.length
+    # publisher['edition_count'] = publisher.editions.length
     return json.dumps(retval), 200
 
 
@@ -582,7 +584,7 @@ def GetPerson(options: Dict[str, str]) -> Tuple[str, int]:
     schema = PersonSchema()
     retval = schema.dump(person)
 
-    #retval = json.dumps(person_json)
+    # retval = json.dumps(person_json)
 
     return retval, 200
 
@@ -711,6 +713,57 @@ def SearchWorks(session: Any, searchwords: List[str]) -> SearchResult:
         #     retval.append(item)
 
     return retval
+
+
+def SearchShorts(params: Dict[str, str]) -> Tuple[str, int]:
+    retval: Tuple[str, int]
+    session = new_session()
+
+    stmt = 'SELECT DISTINCT shortstory.* FROM shortstory '
+    if 'author' in params:
+        author = bleach.clean(params['author'])
+        stmt += 'INNER JOIN part on part.shortstory_id = shortstory.id '
+        stmt += 'INNER JOIN contributor on contributor.part_id = part.id '
+        stmt += 'INNER JOIN person on person.id = contributor.person_id '
+        stmt += 'AND lower(person.name) like lower("%' + author + '%") '
+    if ('title' in params or 'orig_name' in params
+            or 'pubyear_first' in params or 'pubyear_last' in params):
+        stmt += " WHERE 1=1 "
+        if 'title' in params and params['title'] != '':
+            title = bleach.clean(params['title'])
+            stmt += 'AND lower(shortstory.title) like lower("%' + \
+                title + '%") '
+        if 'orig_name' in params and params['orig_name'] != '':
+            orig_name = bleach.clean(params['orig_name'])
+            stmt += 'AND lower(shortstory.orig_name) like lower("%' + \
+                orig_name + '%") '
+        if 'pubyear_first' in params and params['pubyear_first'] != '':
+            pubyear_first = bleach.clean(params['pubyear_first'])
+            try:
+                # Test that value is actually an integer, we still need to use
+                # the string version in the query.
+                test_value = int(pubyear_first)
+                stmt += 'AND shortstory.pubyear >= ' + pubyear_first + ' '
+            except (TypeError) as exp:
+                app.logger.error('Failed to convert pubyear_first')
+        if 'pubyear_last' in params and params['pubyear_last'] != '':
+            pubyear_last = bleach.clean(params['pubyear_last'])
+            try:
+                test_value = int(pubyear_last)
+                stmt += 'AND shortstory.pubyear <= ' + pubyear_last + ' '
+            except (TypeError) as exp:
+                app.logger.error('Failed to convert pubyear_first')
+
+    stmt += 'ORDER BY shortstory.title'
+
+    print(stmt)
+    shorts = session.query(ShortStory)\
+        .from_statement(text(stmt))\
+        .all()
+
+    schema = ShortSchema(many=True)
+    retval = schema.dump(shorts)
+    return json.dumps(retval), 200
 
 
 def SearchPeople(session, searchwords: List[str]) -> SearchResult:
