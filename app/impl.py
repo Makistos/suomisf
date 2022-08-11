@@ -768,7 +768,7 @@ def SearchBooks(params: Dict[str, str]) -> Tuple[str, int]:
                 title + '%") '
         if 'orig_name' in params and params['orig_name'] != '':
             orig_name = bleach.clean(params['orig_name'])
-            stmt += 'AND lower(work.orig_name) like lower("%' + \
+            stmt += 'AND lower(work.orig_title) like lower("%' + \
                 orig_name + '%") '
         if 'pubyear_first' in params and params['pubyear_first'] != '':
             pubyear_first = bleach.clean(params['pubyear_first'])
