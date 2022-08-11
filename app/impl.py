@@ -13,10 +13,9 @@ from sqlalchemy import inspect, func
 from app.api_errors import APIError
 from app.route_helpers import new_session
 from app.orm_decl import (Alias, Article, Bookseries, ContributorRole, Country, Issue, Magazine, Person,
-                          Publisher, ShortStory, User, Work, Log, Pubseries)
-from app.model import (ArticleSchema, BookseriesBriefSchema, BookseriesSchema, CountryBriefSchema, CountryBriefSchema, IssueSchema, MagazineSchema,
-                       PersonBriefSchema, PersonSchema, LogSchema, PublisherSchema,
-                       PublisherBriefSchemaWEditions, PubseriesBriefSchema, ShortSchema, UserSchema, WorkSchema, PubseriesSchema)
+                          Publisher, ShortStory, User, Work, Log, Pubseries, Genre, WorkType)
+from app.model import *
+
 # from app import ma
 from typing import Dict, Tuple, List, Union, Any, TypedDict
 from app import app
@@ -632,14 +631,6 @@ def GetWorksByAuthor(author: str) -> Tuple[str, int]:
     session = new_session()
 
 
-def ListCountries() -> Tuple[str, str]:
-    session = new_session()
-    countries = session.query(Country).all()
-    schema = CountryBriefSchema(many=True)
-    retval = json.dumps(schema.dump(countries))
-    return retval, 200
-
-
 PERSON_NAME = 20
 PERSON_OTHER = 10
 WORK_TITLE = 19
@@ -709,10 +700,115 @@ def SearchWorks(session: Any, searchwords: List[str]) -> SearchResult:
                 }
                 found_works[work.id] = item
         retval = [value for _, value in found_works.items()]
-        # for key, item in found_works:
-        #     retval.append(item)
 
     return retval
+
+
+def SearchBooks(params: Dict[str, str]) -> Tuple[str, int]:
+    retval: Tuple[str, int]
+    session = new_session()
+    joins: List[str] = []
+
+    stmt = 'SELECT DISTINCT work.* FROM work '
+    if 'author' in params:
+        author = bleach.clean(params['author'])
+        stmt += 'INNER JOIN part on part.work_id = work.id '
+        stmt += 'INNER JOIN contributor on contributor.part_id = part.id '
+        stmt += 'INNER JOIN person on person.id = contributor.person_id '
+        stmt += 'AND (lower(person.name) like lower("' + author + \
+            '%") OR lower(person.alt_name) like lower("' + author + '%")) '
+        joins.append('part')
+        joins.append('contributor')
+        joins.append('person')
+    if 'printyear_first' in params or 'printyear_last' in params:
+        if 'printyear_first' in params and params['printyear_first'] != '':
+            printyear_first = bleach.clean(params['printyear_first'])
+            try:
+                test_value = int(printyear_first)
+                if not 'part' in joins:
+                    stmt += 'INNER JOIN part on part.work_id = work.id '
+                    joins.append('part')
+                stmt += 'INNER JOIN edition on edition.id = part.edition_id '
+                stmt += 'AND edition.pubyear >= ' + printyear_first + ' '
+            except (TypeError) as exp:
+                app.logger.error('Failed to convert printyear_first')
+        if 'printyear_last' in params and params['printyear_last'] != '':
+            printyear_last = bleach.clean(params['printyear_last'])
+            try:
+                test_value = int(printyear_last)
+                if not 'part' in joins:
+                    stmt += 'INNER JOIN part on part.work_id = work.id '
+                    joins.append('part')
+                stmt += 'INNER JOIN edition on edition.id = part.edition_id '
+                stmt += 'AND edition.pubyear <= ' + printyear_last + ' '
+            except (TypeError) as exp:
+                app.logger.error('Failed to convert printyear_last')
+    if 'genre' in params:
+        stmt += 'INNER JOIN workgenre on workgenre.work_id = work.id '
+        stmt += 'AND workgenre.genre_id = "' + str(params['genre']) + '" '
+    if 'nationality' in params:
+        if not 'part' in joins:
+            stmt += 'INNER JOIN part on part.work_id = work.id '
+            joins.append('part')
+        if not 'contributor' in joins:
+            stmt += 'INNER JOIN contributor on contributor.part_id = part.id '
+            joins.append('contributor')
+        if not 'person' in joins:
+            stmt += 'INNER JOIN person on person.id = contributor.person_id '
+            joins.append('person')
+        stmt += 'AND person.nationality_id = "' + \
+            str(params['nationality']) + '" '
+    if ('title' in params or 'orig_name' in params
+        or 'pubyear_first' in params or 'pubyear_last' in params
+            or 'genre' in params or 'nationality' in params or 'type' in params):
+        stmt += 'WHERE 1=1 '
+        if 'title' in params and params['title'] != '':
+            title = bleach.clean(params['title'])
+            stmt += 'AND lower(work.title) like lower("%' + \
+                title + '%") '
+        if 'orig_name' in params and params['orig_name'] != '':
+            orig_name = bleach.clean(params['orig_name'])
+            stmt += 'AND lower(work.orig_name) like lower("%' + \
+                orig_name + '%") '
+        if 'pubyear_first' in params and params['pubyear_first'] != '':
+            pubyear_first = bleach.clean(params['pubyear_first'])
+            try:
+                # Test that value is actually an integer, we still need to use
+                # the string version in the query.
+                test_value = int(pubyear_first)
+                stmt += 'AND work.pubyear >= ' + pubyear_first + ' '
+            except (TypeError) as exp:
+                app.logger.error('Failed to convert pubyear_first')
+        if 'pubyear_last' in params and params['pubyear_last'] != '':
+            pubyear_last = bleach.clean(params['pubyear_last'])
+            try:
+                test_value = int(pubyear_last)
+                stmt += 'AND work.pubyear <= ' + pubyear_last + ' '
+            except (TypeError) as exp:
+                app.logger.error('Failed to convert pubyear_first')
+        if 'type' in params:
+            stmt += 'AND work.type = "' + str(params['type']) + '" '
+    stmt += ' ORDER BY work.author_str, work.title'
+
+    app.logger.warn(stmt)
+    works = session.query(Work)\
+        .from_statement(text(stmt))\
+        .all()
+    schema = WorkBriefSchema(many=True)
+    retval = schema.dump(works)
+    return json.dumps(retval), 200
+
+
+def SearchWorksByAuthor(params: Dict[str, str]) -> Tuple[str, int]:
+    retval: Tuple[str, int]
+    session = new_session()
+
+    works = session.query(Work)\
+        .filter(Work.author_str.ilike(params['letter'] + '%'))\
+        .order_by(Work.author_str)
+    schema = WorkBriefSchema(many=True)
+    retval = schema.dump(works)
+    return json.dumps(retval), 200
 
 
 def SearchShorts(params: Dict[str, str]) -> Tuple[str, int]:
@@ -725,7 +821,8 @@ def SearchShorts(params: Dict[str, str]) -> Tuple[str, int]:
         stmt += 'INNER JOIN part on part.shortstory_id = shortstory.id '
         stmt += 'INNER JOIN contributor on contributor.part_id = part.id '
         stmt += 'INNER JOIN person on person.id = contributor.person_id '
-        stmt += 'AND lower(person.name) like lower("%' + author + '%") '
+        stmt += 'AND (lower(person.name) like lower("' + author + \
+            '%") OR lower(person.alt_name) like lower("' + author + '%")) '
     if ('title' in params or 'orig_name' in params
             or 'pubyear_first' in params or 'pubyear_last' in params):
         stmt += " WHERE 1=1 "
@@ -855,3 +952,36 @@ def GetAuthorFirstLetters(target: str) -> Tuple[str, int]:
         retval = ('', 400)
 
     return retval
+
+
+def GenreList() -> Tuple[str, int]:
+    retval = ('', 200)
+    session = new_session()
+
+    genres = session.query(Genre).order_by(Genre.id)
+    schema = GenreBriefSchema(many=True)
+    retval = schema.dump(genres)
+
+    return json.dumps(retval), 200
+
+
+def CountryList() -> Tuple[str, int]:
+    retval = ('', 200)
+    session = new_session()
+
+    countries = session.query(Country).order_by(Country.name)
+    schema = CountryBriefSchema(many=True)
+    retval = schema.dump(countries)
+
+    return json.dumps(retval), 200
+
+
+def WorkTypesList() -> Tuple[str, int]:
+    retval = ('', 200)
+    session = new_session()
+
+    types = session.query(WorkType).order_by(WorkType.id)
+    schema = CountryBriefSchema(many=True)
+    retval = schema.dump(types)
+
+    return json.dumps(retval), 200

@@ -4,7 +4,7 @@ from app import ma
 from app.orm_decl import (Article, Award, AwardCategory, Awarded, BindingType, Bookseries, ContributorRole, Country, Edition,
                           EditionImage, Genre, Issue, Log, Magazine, Person, PersonLink,
                           PublicationSize, Publisher, PublisherLink, Pubseries, ShortStory, Tag, User,
-                          Work, Article, StoryType, WorkLink, Format)
+                          Work, Article, StoryType, WorkLink, Format, WorkType)
 
 # Brief schemas should not include any relationships to other
 # tables. These exists to get around the issue with Python that
@@ -122,6 +122,11 @@ class WorkEditionBriefSchema(ma.SQLAlchemyAutoSchema):
     editors = ma.List(fields.Nested(PersonBriefSchema))
     translators = ma.List(fields.Nested(PersonBriefSchema))
     images = ma.List(fields.Nested(EditionImageBriefSchema))
+
+
+class WorkTypeBriefSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = WorkType
 
 
 class WorkBriefSchema(ma.SQLAlchemyAutoSchema):

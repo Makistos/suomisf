@@ -321,11 +321,6 @@ def api_ListBookseries() -> Tuple[str, int]:
     return ListBookseries()
 
 
-@ app.route('/api/countries', methods=['get'])
-def api_ListCountries() -> Tuple[str, str]:
-    return ListCountries()
-
-
 @app.route('/api/publishers', methods=['get'])
 def api_ListPublishers() -> Tuple[str, int]:
     return ListPublishers()
@@ -385,6 +380,26 @@ def api_Search(pattern: str) -> Tuple[str, int]:
     return json.dumps(results), retcode
 
 
+@app.route('/api/searchworks', methods=['post'])
+def api_searchWorks() -> Tuple[str, int]:
+    retval: Tuple[str, int] = ('', 200)
+
+    params = json.loads(request.data)
+    retval = SearchBooks(params)
+
+    return retval
+
+
+@app.route('/api/worksbyinitial/<letter>', methods=['get'])
+def api_searchWorksByInitial(letter: str) -> Tuple[str, int]:
+    retval: Tuple[str, int] = ('', 200)
+
+    params = {}
+    params['letter'] = letter
+    retval = SearchWorksByAuthor(params)
+    return retval
+
+
 @app.route('/api/searchshorts', methods=['post'])
 def api_searchShorts() -> Tuple[str, int]:
     retval: Tuple[str, int]
@@ -413,8 +428,8 @@ def api_Changes() -> Tuple[str, int]:
     return json.dumps(retval), 200
 
 
-@app.route('/api/firstlettervector', methods=['get'])
-def firstlettervector() -> Tuple[str, int]:
+@app.route('/api/firstlettervector/<target>', methods=['get'])
+def firstlettervector(target: str) -> Tuple[str, int]:
     """Get first letters for for target type.
 
     This function is used internally by the UI to create
@@ -435,6 +450,32 @@ def firstlettervector() -> Tuple[str, int]:
 
     """
     url_params = request.args.to_dict()
-    retval = GetAuthorFirstLetters(url_params['target'])
+    retval = GetAuthorFirstLetters(target)
 
     return retval
+
+
+@app.route('/api/genres', methods=['get'])
+def genres() -> Tuple[str, int]:
+    """
+    Returns a list of all of the genres in the system in the order
+    they are in the database (i.e. by id).
+    """
+    return GenreList()
+
+
+@app.route('/api/countries', methods=['get'])
+def countries() -> Tuple[str, int]:
+    """
+    Returns a list of all of the countries in the system ordered by name.
+    """
+    return CountryList()
+
+
+@app.route('/api/worktypes', methods=['get'])
+def worktypes() -> Tuple[str, int]:
+    """
+    Returns a list of all of the work types in the system in the order they
+    are in the database (i.e. by id).
+    """
+    return WorkTypesList()
