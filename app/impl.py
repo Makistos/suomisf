@@ -717,6 +717,7 @@ def SearchBooks(params: Dict[str, str]) -> Tuple[str, int]:
         stmt += 'INNER JOIN person on person.id = contributor.person_id '
         stmt += 'AND (lower(person.name) like lower("' + author + \
             '%") OR lower(person.alt_name) like lower("' + author + '%")) '
+        stmt += 'AND part.shortstory_id is null '
         joins.append('part')
         joins.append('contributor')
         joins.append('person')
