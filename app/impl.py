@@ -713,7 +713,7 @@ def SearchBooks(params: Dict[str, str]) -> Tuple[str, int]:
     if 'author' in params and params['author'] != '':
         author = bleach.clean(params['author'])
         stmt += 'INNER JOIN part on part.work_id = work.id AND part.shortstory_id is null '
-        stmt += 'INNER JOIN contributor on contributor.part_id = part.id AND (contributor.role_id = 1 or contributor.role_id = 3) '
+        stmt += 'INNER JOIN contributor on contributor.part_id = part.id AND contributor.role_id = 1 '
         stmt += 'INNER JOIN person on person.id = contributor.person_id '
         stmt += 'AND (lower(person.name) like lower("' + author + \
             '%") OR lower(person.alt_name) like lower("' + author + '%")) '
@@ -752,7 +752,7 @@ def SearchBooks(params: Dict[str, str]) -> Tuple[str, int]:
             stmt += 'INNER JOIN part on part.work_id = work.id AND part.shortstory_id is null '
             joins.append('part')
         if not 'contributor' in joins:
-            stmt += 'INNER JOIN contributor on contributor.part_id = part.id AND (contributor.role_id = 1 or contributor.role_id = 3) '
+            stmt += 'INNER JOIN contributor on contributor.part_id = part.id AND contributor.role_id = 1 '
             joins.append('contributor')
         if not 'person' in joins:
             stmt += 'INNER JOIN person on person.id = contributor.person_id '
