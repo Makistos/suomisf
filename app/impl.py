@@ -710,18 +710,17 @@ def SearchBooks(params: Dict[str, str]) -> Tuple[str, int]:
     joins: List[str] = []
 
     stmt = 'SELECT DISTINCT work.* FROM work '
-    if 'author' in params:
+    if 'author' in params and params['author'] != '':
         author = bleach.clean(params['author'])
-        stmt += 'INNER JOIN part on part.work_id = work.id '
-        stmt += 'INNER JOIN contributor on contributor.part_id = part.id '
+        stmt += 'INNER JOIN part on part.work_id = work.id AND part.shortstory_id is null '
+        stmt += 'INNER JOIN contributor on contributor.part_id = part.id AND (contributor.role_id = 1 or contributor.role_id = 3) '
         stmt += 'INNER JOIN person on person.id = contributor.person_id '
         stmt += 'AND (lower(person.name) like lower("' + author + \
             '%") OR lower(person.alt_name) like lower("' + author + '%")) '
-        stmt += 'AND part.shortstory_id is null '
         joins.append('part')
         joins.append('contributor')
         joins.append('person')
-    if 'printyear_first' in params or 'printyear_last' in params:
+    if 'printyear_first' in params and params['printyear'] != '':
         if 'printyear_first' in params and params['printyear_first'] != '':
             printyear_first = bleach.clean(params['printyear_first'])
             try:
@@ -733,6 +732,7 @@ def SearchBooks(params: Dict[str, str]) -> Tuple[str, int]:
                 stmt += 'AND edition.pubyear >= ' + printyear_first + ' '
             except (TypeError) as exp:
                 app.logger.error('Failed to convert printyear_first')
+    if 'printyear_last' in params and params['printyear_last'] != '':
         if 'printyear_last' in params and params['printyear_last'] != '':
             printyear_last = bleach.clean(params['printyear_last'])
             try:
@@ -744,15 +744,15 @@ def SearchBooks(params: Dict[str, str]) -> Tuple[str, int]:
                 stmt += 'AND edition.pubyear <= ' + printyear_last + ' '
             except (TypeError) as exp:
                 app.logger.error('Failed to convert printyear_last')
-    if 'genre' in params:
+    if 'genre' in params and params['genre'] != '':
         stmt += 'INNER JOIN workgenre on workgenre.work_id = work.id '
         stmt += 'AND workgenre.genre_id = "' + str(params['genre']) + '" '
-    if 'nationality' in params:
+    if 'nationality' in params and params['nationality'] != '':
         if not 'part' in joins:
-            stmt += 'INNER JOIN part on part.work_id = work.id '
+            stmt += 'INNER JOIN part on part.work_id = work.id AND part.shortstory_id is null '
             joins.append('part')
         if not 'contributor' in joins:
-            stmt += 'INNER JOIN contributor on contributor.part_id = part.id '
+            stmt += 'INNER JOIN contributor on contributor.part_id = part.id AND (contributor.role_id = 1 or contributor.role_id = 3) '
             joins.append('contributor')
         if not 'person' in joins:
             stmt += 'INNER JOIN person on person.id = contributor.person_id '
@@ -765,12 +765,12 @@ def SearchBooks(params: Dict[str, str]) -> Tuple[str, int]:
         stmt += 'WHERE 1=1 '
         if 'title' in params and params['title'] != '':
             title = bleach.clean(params['title'])
-            stmt += 'AND lower(work.title) like lower("%' + \
-                title + '%") '
+            stmt += 'AND (lower(work.title) like lower("' + title + '%") \
+                OR lower(work.title) like lower("% ' + title + '%")) '
         if 'orig_name' in params and params['orig_name'] != '':
             orig_name = bleach.clean(params['orig_name'])
-            stmt += 'AND lower(work.orig_title) like lower("%' + \
-                orig_name + '%") '
+            stmt += 'AND (lower(work.orig_title) like lower("' + orig_name + '%") \
+                OR lower(work.orig_title) like lower("% ' + orig_name + '%")) '
         if 'pubyear_first' in params and params['pubyear_first'] != '':
             pubyear_first = bleach.clean(params['pubyear_first'])
             try:
@@ -787,7 +787,7 @@ def SearchBooks(params: Dict[str, str]) -> Tuple[str, int]:
                 stmt += 'AND work.pubyear <= ' + pubyear_last + ' '
             except (TypeError) as exp:
                 app.logger.error('Failed to convert pubyear_first')
-        if 'type' in params:
+        if 'type' in params and params['type'] != '':
             stmt += 'AND work.type = "' + str(params['type']) + '" '
     stmt += ' ORDER BY work.author_str, work.title'
 
