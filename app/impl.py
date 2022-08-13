@@ -720,7 +720,7 @@ def SearchBooks(params: Dict[str, str]) -> Tuple[str, int]:
         joins.append('part')
         joins.append('contributor')
         joins.append('person')
-    if 'printyear_first' in params and params['printyear'] != '':
+    if 'printyear_first' in params and params['printyear_first'] != '':
         if 'printyear_first' in params and params['printyear_first'] != '':
             printyear_first = bleach.clean(params['printyear_first'])
             try:
@@ -728,7 +728,9 @@ def SearchBooks(params: Dict[str, str]) -> Tuple[str, int]:
                 if not 'part' in joins:
                     stmt += 'INNER JOIN part on part.work_id = work.id '
                     joins.append('part')
-                stmt += 'INNER JOIN edition on edition.id = part.edition_id '
+                if not 'edition' in joins:
+                    stmt += 'INNER JOIN edition on edition.id = part.edition_id '
+                    joins.append('edition')
                 stmt += 'AND edition.pubyear >= ' + printyear_first + ' '
             except (TypeError) as exp:
                 app.logger.error('Failed to convert printyear_first')
@@ -740,7 +742,9 @@ def SearchBooks(params: Dict[str, str]) -> Tuple[str, int]:
                 if not 'part' in joins:
                     stmt += 'INNER JOIN part on part.work_id = work.id '
                     joins.append('part')
-                stmt += 'INNER JOIN edition on edition.id = part.edition_id '
+                if not 'edition' in joins:
+                    stmt += 'INNER JOIN edition on edition.id = part.edition_id '
+                    joins.append('edition')
                 stmt += 'AND edition.pubyear <= ' + printyear_last + ' '
             except (TypeError) as exp:
                 app.logger.error('Failed to convert printyear_last')
