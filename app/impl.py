@@ -5,7 +5,6 @@ import json
 # from marshmallow import Schema, fields
 
 from operator import and_, ne, or_, not_
-from os import sched_get_priority_max
 from webbrowser import get
 from flask.globals import session
 from flask.wrappers import Response
@@ -922,16 +921,58 @@ def GetChanges(params: Dict[str, Any]) -> Tuple[str, int]:
     #
     retval = ''
     period_length: int = 30
+    stmt: str = 'SELECT Log.* FROM Log WHERE 1=1 '
     session = new_session()
+
     if 'period' in params:
         try:
             period_length = int(params['period'])
         except TypeError as exp:
             raise APIError
+        cutoff_date = datetime.datetime.now() - datetime.timedelta(period_length)
+        stmt += 'AND Log.Date >= "' + str(cutoff_date) + '" '
 
-    cutoff_date = datetime.datetime.now() - datetime.timedelta(period_length)
-    changes = session.query(Log).filter(
-        Log.date >= cutoff_date).order_by(Log.date.desc()).all()
+    if 'table' in params:
+        table = bleach.clean(params['table'])
+        stmt += 'AND table_name = "' + table + '" '
+
+    if 'id' in params:
+        try:
+            id = int(params['id'])
+        except TypeError as exp:
+            raise APIError
+        stmt += 'AND table_id = "' + str(id) + '" '
+
+    if 'action' in params:
+        action = bleach.clean(params['action'])
+        stmt += 'AND action = "' + action + '" '
+
+    if 'field' in params:
+        field = bleach.clean(params['field'])
+        stmt += 'AND field_name = "' + field + '" '
+
+    if 'userid' in params:
+        try:
+            userid = int(params['userid'])
+        except TypeError as exp:
+            raise APIError
+        stmt += 'AND user_id = "' + str(userid) + '" '
+
+    stmt += 'ORDER BY date DESC '
+    if 'limit' in params:
+        limit: int = 0
+        try:
+            limit = int(params['limit'])
+        except TypeError as exp:
+            raise APIError
+        stmt += 'LIMIT ' + str(limit) + ' '
+
+    print(stmt)
+    changes = session.query(Log)\
+        .from_statement(text(stmt))\
+        .all()
+    # changes = session.query(Log).filter(
+    #     Log.date >= cutoff_date).order_by(Log.date.desc()).all()
     schema = LogSchema(many=True)
     retval = schema.dump(changes)
 
