@@ -17,9 +17,10 @@ from app.orm_decl import (Article, Award, AwardCategory, Awarded, BindingType, B
 # definitions might well be critical.
 
 
-class UserSchema(ma.SQLAlchemyAutoSchema):
-    class Meta:
-        model = User
+class UserSchema(ma.SQLAlchemySchema):
+    id = fields.Int(required=True)
+    name = fields.String(required=True)
+    is_admin = fields.Boolean(required=True)
 
 
 class LogSchema(ma.SQLAlchemyAutoSchema):
