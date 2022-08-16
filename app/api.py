@@ -369,7 +369,7 @@ def api_Search(pattern: str) -> Tuple[str, int]:
     retcode = 200
     results: SearchResult = []
 
-    #searchword = request.args.get('search', '')
+    # searchword = request.args.get('search', '')
     pattern = bleach.clean(pattern)
     words = pattern.split(' ')
 
@@ -479,3 +479,13 @@ def worktypes() -> Tuple[str, int]:
     are in the database (i.e. by id).
     """
     return WorkTypesList()
+
+
+@app.route('/api/tags', methods=['get'])
+def api_tags() -> Tuple[str, int]:
+    return TagList()
+
+
+@app.route('/api/tags/<id>', methods=['get'])
+def api_tag(id: str) -> Tuple[str, int]:
+    return TagInfo(id)

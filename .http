@@ -1,0 +1,19 @@
+GET http://localhost:5000/api/changes?period=120&limit=5 HTTP/1.1
+
+###
+GET http://localhost:5000/api/changes?period=120&action=Uusi HTTP/1.1
+
+###
+GET http://localhost:5000/api/changes?action=Uusi&limit=4&userid=1 HTTP/1.1
+
+###
+GET http://localhost:5000/api/changes?field=Aliakset&limit=50 HTTP/1.1
+
+###
+GET http://localhost:5000/api/changes?id=5427&table=Teos HTTP/1.1
+
+###
+GET http://localhost:5000/api/tags HTTP/1.1
+
+###
+GET http://localhost:5000/api/tags/547 HTTP/1.1

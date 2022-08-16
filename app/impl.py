@@ -11,8 +11,9 @@ from flask.wrappers import Response
 from sqlalchemy import inspect, func
 from app.api_errors import APIError
 from app.route_helpers import new_session
-from app.orm_decl import (Alias, Article, Bookseries, ContributorRole, Country, Issue, Magazine, Person,
-                          Publisher, ShortStory, User, Work, Log, Pubseries, Genre, WorkType)
+from app.orm_decl import (Alias, Article, Bookseries, ContributorRole, Country,
+                          Issue, Magazine, Person, Publisher, ShortStory, User,
+                          Work, Log, Pubseries, Genre, WorkType, Tag)
 from app.model import *
 
 # from app import ma
@@ -1030,4 +1031,25 @@ def WorkTypesList() -> Tuple[str, int]:
     schema = CountryBriefSchema(many=True)
     retval = schema.dump(types)
 
+    return json.dumps(retval), 200
+
+
+def TagList() -> Tuple[str, int]:
+    retval = ('', 200)
+    session = new_session()
+
+    tags = session.query(Tag).order_by(Tag.name)
+    schema = TagBriefSchema(many=True)
+    retval = schema.dump(tags)
+
+    return json.dumps(retval), 200
+
+
+def TagInfo(id: str) -> Tuple[str, int]:
+    retval = ('', 200)
+    session = new_session()
+
+    tag = session.query(Tag).filter(Tag.id == id).first()
+    schema = TagSchema()
+    retval = schema.dump(tag)
     return json.dumps(retval), 200
