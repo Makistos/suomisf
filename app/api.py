@@ -2,6 +2,7 @@ from http.client import RemoteDisconnected
 from app import app
 import bleach
 from flask import request
+from flask_login import login_required
 from webargs.flaskparser import parser
 from app.model import *
 from .impl import *
@@ -9,7 +10,7 @@ from typing import Any, Tuple, NewType, Union, List, Dict, TypedDict
 import json
 from .api_errors import APIError
 from app.api_errors import APIError
-from app.route_helpers import new_session
+from app.route_helpers import admin_required, new_session
 
 
 SearchResult = List[SearchResultFields]
@@ -489,3 +490,32 @@ def api_tags() -> Tuple[str, int]:
 @app.route('/api/tags/<id>', methods=['get'])
 def api_tag(id: str) -> Tuple[str, int]:
     return TagInfo(id)
+
+
+@app.route('/api/tagSearch/<pattern>', methods=['get'])
+def api_tagSearch(pattern: str) -> Tuple[str, int]:
+    pattern = bleach.clean(pattern)
+    return TagSearch(pattern)
+
+# API calls requiring admin rights
+
+
+@app.route('/api/tagMerge', methods=['post'])
+@login_required  # type: ignore
+@admin_required
+def api_tagMerge() -> Tuple[str, int]:
+    pass
+
+
+@app.route('/api/tagRename', methods=['post'])
+@login_required  # type: ignore
+@admin_required
+def api_tagRename() -> Tuple[str, int]:
+    pass
+
+
+@app.route('/api/tagDelete', methods=['post'])
+@login_required  # type: ignore
+@admin_required
+def api_tagDelete() -> Tuple[str, int]:
+    pass

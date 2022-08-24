@@ -1053,3 +1053,17 @@ def TagInfo(id: str) -> Tuple[str, int]:
     schema = TagSchema()
     retval = schema.dump(tag)
     return json.dumps(retval), 200
+
+
+def TagSearch(query: str) -> Tuple[str, int]:
+    retval = ('', 200)
+    session = new_session()
+
+    tags = session.query(Tag)\
+        .filter(Tag.name.ilike(query + '%'))\
+        .order_by(Tag.name)\
+        .all()
+
+    schema = TagBriefSchema(many=True)
+    retval = schema.dump(tags)
+    return json.dumps(retval), 200
