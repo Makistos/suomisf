@@ -1,3 +1,6 @@
+POST http://localhost:5000/api/login HTTP/1.1
+
+###
 GET http://localhost:5000/api/changes?period=120&limit=5 HTTP/1.1
 
 ###
@@ -16,4 +19,13 @@ GET http://localhost:5000/api/changes?id=5427&table=Teos HTTP/1.1
 GET http://localhost:5000/api/tags HTTP/1.1
 
 ###
-GET http://localhost:5000/api/tags/547 HTTP/1.1
+GET http://localhost:5000/api/tags/466 HTTP/1.1
+
+###
+POST http://localhost:5000/api/tagCreate?name=testing HTTP/1.1
+
+###
+GET http://localhost:5000/api/magazines HTTP/1.1
+
+###
+GET http://localhost:5000/api/bookseries/1 HTTP/1.1

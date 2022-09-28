@@ -40,6 +40,17 @@ def generate_jwt_token(content: Dict[str, int]) -> List[str]:
     return token
 
 
+def decode_jwt_token(auth_token):
+    try:
+        payload = jwt.decode(auth_token, jwt_secret_key, algorithms="HS256")
+        return payload['sub']
+    except jwt.ExpiredSignatureError:
+        app.logger.warn('JWT token expired.')
+        return ""
+    except jwt.InvalidTokenError:
+        app.logger.warn('Invalid JWT token.')
+
+
 def edition_popup(id: int, edition: Any, title: str, link: str) -> str:
     if edition.images:
         img_src = edition.images[0].image_src
