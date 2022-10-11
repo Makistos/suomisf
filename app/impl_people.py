@@ -1,3 +1,4 @@
+from ast import expr_context
 import json
 from app import app
 from app.route_helpers import new_session
@@ -63,6 +64,28 @@ def _filter_person_query(table: Any,
         else:
             query = query.filter(filt)
     return query
+
+
+def FilterPeople(query: str) -> ResponseType:
+    session = new_session()
+    try:
+        people = session.query(Person)\
+            .filter(Person.name.ilike(query + '%'))\
+            .order_by(Person.name)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(
+            f'Exception in FilterPeople (query: {query}): ' + str(exp))
+        return ResponseType('FilterPeople: Tietokantavirhe.', 400)
+    try:
+        schema = PersonBriefSchema(many=True)
+        retval = schema.dump(people)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(
+            f'FilterPeople schema error (query: {query}): ' + str(exp))
+        return ResponseType('FilterPeople: Skeemavirhe.', 400)
+
+    return ResponseType(retval, 200)
 
 
 def GetAuthorFirstLetters(target: str) -> Tuple[str, int]:

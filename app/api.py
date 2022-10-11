@@ -1,3 +1,4 @@
+import re
 from urllib import response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 import json
@@ -35,7 +36,7 @@ def MakeAPIError(response: ResponseType) -> Response:
 
 def MakeApiResponse(response: ResponseType) -> Response:
     # Response is made into a list for performance as per Flask documentation
-    if response.status != 200:
+    if response.status >= 400 and response.status <= 511:
         return MakeAPIError(response)
 
     return Response(response=list(json.dumps(response.response)),
@@ -141,60 +142,6 @@ def api_GetShort(shortId: str) -> Response:
         return MakeApiResponse(response)
 
     return MakeApiResponse(GetShort(id))
-
-
-@ app.route('/api/issues/<issueId>', methods=['post'])
-def api_PostIssue(issueId: str) -> Tuple[str, int]:
-
-    options = {}
-    options["issueId"] = issueId
-
-    # return PostIssue(options)
-
-
-@ app.route('/api/issues/<issueId>', methods=['patch'])
-def api_UpdateIssue(issueId: str) -> Tuple[str, int]:
-
-    options = {}
-    options["issueId"] = issueId
-
-    schema = IssueSchema()
-
-    # body = parser.parse(schema, request, location='json')
-
-    # return UpdateIssue(options, "")
-
-
-@ app.route('/api/issues/<issueId>/articles', methods=['get'])
-def api_GetIssueArticles(issueId: str) -> Tuple[str, int]:
-
-    options = {}
-    options["issueId"] = issueId
-
-    # return GetIssueArticles(options)
-
-
-@ app.route('/api/issues/<issueId>/editors', methods=['get'])
-def api_GetIssue(issueId: str) -> Tuple[str, int]:
-
-    try:
-        id = int(issueId)
-    except:
-        app.logger.error(f'api_GetIssue: Invalid id {issueId}.')
-        response = ResponseType(
-            f'api_GetIssue: Virheellinen tunniste {issueId}.', 400)
-        return MakeApiResponse(response)
-
-    return MakeApiResponse(GetIssue(id))
-
-
-@ app.route('/api/issues/<issueId>/shorts', methods=['get'])
-def api_GetIssueShorts(issueId: str) -> Tuple[str, int]:
-
-    options = {}
-    options["issueId"] = issueId
-
-    # return GetIssueShorts(options)
 
 
 @ app.route('/api/issues/<issueId>/tags', methods=['get'])
@@ -492,6 +439,33 @@ def api_Search(pattern: str) -> Tuple[str, int]:
     return json.dumps(results), retcode
 
 
+@app.route('/api/filter/people/<pattern>', methods=['get'])
+def api_FilterPeople(pattern: str) -> Response:
+    """
+    Filter people list.
+
+    Pattern has to be at least three characters long. Matching is done
+    from start of the name field.
+
+    Parameters
+    ----------
+    pattern: str
+        Pattern to search for.
+
+    Returns
+    -------
+
+    """
+    pattern = bleach.clean(pattern)
+    if len(pattern) < 3:
+        app.logger.error('FilterPeople: Pattern too short.')
+        response = ResponseType(
+            'Liian lyhyt hakuehto', status=400)
+        return MakeApiResponse(response)
+    retval = FilterPeople(pattern)
+    return MakeApiResponse(retval)
+
+
 @ app.route('/api/searchworks', methods=['post'])
 def api_searchWorks() -> Response:
     params = json.loads(request.data)
@@ -509,12 +483,10 @@ def api_searchWorksByInitial(letter: str) -> Response:
 
 
 @ app.route('/api/searchshorts', methods=['post'])
-def api_searchShorts() -> Tuple[str, int]:
-    retval: Tuple[str, int]
+def api_searchShorts() -> Response:
     params = json.loads(request.data)
     retval = SearchShorts(params)
-    ret = json.dumps(retval[0])
-    return retval[0], retval[1]
+    return MakeApiResponse(retval)
 
 
 @ app.route('/api/changes', methods=['get'])
@@ -641,6 +613,38 @@ def api_tagToArticle(id: int, tagid: int) -> Response:
         return MakeApiResponse(response)
 
     retval = func(article_id, tag_id)
+
+    return MakeApiResponse(retval)
+
+
+# Shorts
+
+
+@app.route('/api/shorts/', methods=['post', 'put'])
+@jwt_admin_required
+def api_ShortCreateUpdate() -> Response:
+    params = json.loads(request.data)
+    params = bleach.clean(params)
+    if request.method == 'POST':
+        retval = MakeApiResponse(StoryAdd(params))
+    elif request.method == 'PUT':
+        retval = MakeApiResponse(StoryUpdate(params))
+
+    return retval
+
+
+@app.route('/api/shorts/<id>', methods=['delete'])
+@jwt_admin_required
+def api_ShortDelete(id: int) -> Response:
+    try:
+        short_id = int(id)
+    except TypeError as exp:
+        app.logger.error(
+            f'api_ShortDelete: Invalid id. id={id}.')
+        response = ResponseType('Virheellinen tunniste', status=400)
+        return MakeApiResponse(response)
+
+    retval = StoryDelete(short_id)
 
     return MakeApiResponse(retval)
 
