@@ -439,6 +439,42 @@ def api_Search(pattern: str) -> Tuple[str, int]:
     return json.dumps(results), retcode
 
 
+@app.route('/api/filter/bookseries/<pattern>', methods=['get'])
+def api_FilterBookseries(pattern: str) -> Response:
+    pattern = bleach.clean(pattern)
+    if len(pattern) < 2:
+        app.logger.error('FilterBookseries: Pattern too short.')
+        response = ResponseType(
+            'Liian lyhyt hakuehto', status=400)
+        return MakeApiResponse(response)
+    retval = FilterBookseries(pattern)
+    return MakeApiResponse(retval)
+
+
+@app.route('/api/filter/countries/<pattern>', methods=['get'])
+def api_FilterCountries(pattern: str) -> Response:
+    pattern = bleach.clean(pattern)
+    if len(pattern) < 2:
+        app.logger.error('FilterCountries: Pattern too short.')
+        response = ResponseType(
+            'Liian lyhyt hakuehto', status=400)
+        return MakeApiResponse(response)
+    retval = FilterCountries(pattern)
+    return MakeApiResponse(retval)
+
+
+@app.route('/api/filter/languages/<pattern>', methods=['get'])
+def api_FilterLanguages(pattern: str) -> Response:
+    pattern = bleach.clean(pattern)
+    if len(pattern) < 2:
+        app.logger.error('FilterLanguages: Pattern too short.')
+        response = ResponseType(
+            'Liian lyhyt hakuehto', status=400)
+        return MakeApiResponse(response)
+    retval = FilterLanguages(pattern)
+    return MakeApiResponse(retval)
+
+
 @app.route('/api/filter/people/<pattern>', methods=['get'])
 def api_FilterPeople(pattern: str) -> Response:
     """
@@ -464,6 +500,23 @@ def api_FilterPeople(pattern: str) -> Response:
         return MakeApiResponse(response)
     retval = FilterPeople(pattern)
     return MakeApiResponse(retval)
+
+
+@app.route('/api/filter/publishers/<pattern>', methods=['get'])
+def api_FilterPublishers(pattern: str) -> Response:
+    pattern = bleach.clean(pattern)
+    if len(pattern) < 2:
+        app.logger.error('FilterPublishers: Pattern too short.')
+        response = ResponseType(
+            'Liian lyhyt hakuehto', status=400)
+        return MakeApiResponse(response)
+    retval = FilterPublishers(pattern)
+    return MakeApiResponse(retval)
+
+
+@app.route('/api/filter/pubseries/<pattern>', methods=['get'])
+def api_FilterPubseries(pattern: str) -> Response:
+    pattern = bleach.clean(pattern)
 
 
 @ app.route('/api/searchworks', methods=['post'])

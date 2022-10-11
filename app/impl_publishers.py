@@ -10,6 +10,28 @@ from app.impl import ResponseType
 from app import app
 
 
+def FilterPublishers(query: str) -> ResponseType:
+    session = new_session()
+    try:
+        publishers = session.query(Publisher)\
+            .filter(Publisher.name.ilike(query + '%'))\
+            .order_by(Publisher.name)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(
+            f'Exception in FilterPublishers (query: {query}): ' + str(exp))
+        return ResponseType('FilterPublishers: Tietokantavirhe.', 400)
+    try:
+        schema = PublisherBriefSchema(many=True)
+        retval = schema.dump(publishers)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(
+            f'FilterPublishers schema error (query: {query}): ' + str(exp))
+        return ResponseType('FilterPublishers: Skeemavirhe.', 400)
+
+    return ResponseType(retval, 200)
+
+
 def GetPublisher(id: int) -> ResponseType:
     session = new_session()
 

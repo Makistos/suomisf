@@ -7,6 +7,28 @@ from app.impl import ResponseType
 from app import app
 
 
+def FilterPubseries(query: str) -> ResponseType:
+    session = new_session()
+    try:
+        pubseries = session.query(Pubseries)\
+            .filter(Pubseries.name.ilike(query + '%'))\
+            .order_by(Pubseries.name)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(
+            f'Exception in FilterPubseries (query: {query}): ' + str(exp))
+        return ResponseType('FilterPubseries: Tietokantavirhe.', 400)
+    try:
+        schema = PubseriesBriefSchema(many=True)
+        retval = schema.dump(pubseries)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(
+            f'FilterPubseries schema error (query: {query}): ' + str(exp))
+        return ResponseType('FilterPubseries: Skeemavirhe.', 400)
+
+    return ResponseType(retval, 200)
+
+
 def GetPubseries(id: int) -> ResponseType:
     session = new_session()
 

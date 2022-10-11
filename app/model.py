@@ -2,7 +2,7 @@ from unicodedata import category
 from marshmallow import Schema, fields
 from app import ma
 from app.orm_decl import (Article, Award, AwardCategory, Awarded, BindingType, Bookseries, ContributorRole, Country, Edition,
-                          EditionImage, Genre, Issue, Log, Magazine, Person, PersonLink,
+                          EditionImage, Genre, Issue, Language, Log, Magazine, Person, PersonLink,
                           PublicationSize, Publisher, PublisherLink, Pubseries, ShortStory, Tag, User,
                           Work, Article, StoryType, WorkLink, Format, WorkType)
 
@@ -21,6 +21,11 @@ class UserSchema(ma.SQLAlchemySchema):
     id = fields.Int(required=True)
     name = fields.String(required=True)
     is_admin = fields.Boolean(required=True)
+
+
+class LanguageSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Language
 
 
 class LogSchema(ma.SQLAlchemyAutoSchema):

@@ -3,7 +3,7 @@ import datetime
 from sqlalchemy.exc import SQLAlchemyError
 from app.api_errors import APIError
 from app.route_helpers import new_session
-from app.orm_decl import (Country, Log, Genre)
+from app.orm_decl import (Country, Log, Genre, Language)
 from app.model import *
 from marshmallow import exceptions
 from typing import Dict, NamedTuple, Tuple, List, Union, Any, TypedDict
@@ -169,5 +169,49 @@ def CountryList() -> ResponseType:
     except exceptions.MarshmallowError as exp:
         app.logger.error('CountryList schema error: ' + str(exp))
         return ResponseType('Countrylist: Skeemavirhe.', 400)
+
+    return ResponseType(retval, 200)
+
+
+def FilterCountries(query: str) -> ResponseType:
+    session = new_session()
+    try:
+        countries = session.query(Country)\
+            .filter(Country.name.ilike(query + '%'))\
+            .order_by(Country.name)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(
+            f'Exception in FilterCountries (query: {query}): ' + str(exp))
+        return ResponseType('FilterCountries: Tietokantavirhe.', 400)
+    try:
+        schema = CountryBriefSchema(many=True)
+        retval = schema.dump(countries)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(
+            f'FilterCountries schema error (query: {query}): ' + str(exp))
+        return ResponseType('FilterCountries: Skeemavirhe.', 400)
+
+    return ResponseType(retval, 200)
+
+
+def FilterLanguages(query: str) -> ResponseType:
+    session = new_session()
+    try:
+        languages = session.query(Language)\
+            .filter(Language.name.ilike(query + '%'))\
+            .order_by(Language.name)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(
+            f'Exception in FilterLanguages (query: {query}): ' + str(exp))
+        return ResponseType('FilterLanguages: Tietokantavirhe.', 400)
+    try:
+        schema = LanguageSchema(many=True)
+        retval = schema.dump(languages)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(
+            f'FilterLanguages schema error (query: {query}): ' + str(exp))
+        return ResponseType('FilterLanguages: Skeemavirhe.', 400)
 
     return ResponseType(retval, 200)
