@@ -88,6 +88,33 @@ def FilterPeople(query: str) -> ResponseType:
     return ResponseType(retval, 200)
 
 
+def FilterAliases(person_id: int) -> ResponseType:
+    session = new_session()
+    try:
+        aliases = session.query(Alias)\
+            .filter(Alias.realname == person_id)\
+            .all()
+        ids = [x.alias for x in aliases]
+    except SQLAlchemyError as exp:
+        app.logger.error(
+            f'Exception in FilterAliases (åerson_id {person_id}): ' + str(exp))
+        return ResponseType('FilterAliases: Tietokantavirhe.', 400)
+
+    # aliases = session.query(Alias).filter(Alias.realname == personid).all()
+    # ids = [x.alias for x in aliases]
+
+    # personas = session.query(Person)\
+    #     .filter(Person.id.in_(ids))\
+    #     .all()
+
+    # retval: List[Dict[str, str]] = []
+    # if personas:
+    #     for persona in personas:
+    #         obj: Dict[str, str] = {'id': persona.id, 'text': persona.name}
+    #         retval.append(obj)
+    # return Response(json.dumps(retval))
+
+
 def GetAuthorFirstLetters(target: str) -> Tuple[str, int]:
     retval = ('', 200)
     session = new_session()

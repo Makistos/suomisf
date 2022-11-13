@@ -1,7 +1,7 @@
 from unicodedata import category
 from marshmallow import Schema, fields
 from app import ma
-from app.orm_decl import (Article, Award, AwardCategory, Awarded, BindingType, Bookseries, ContributorRole, Country, Edition,
+from app.orm_decl import (Article, Award, AwardCategory, Awarded, BindingType, Bookseries, Contributor, ContributorRole, Country, Edition,
                           EditionImage, Genre, Issue, Language, Log, Magazine, Person, PersonLink,
                           PublicationSize, Publisher, PublisherLink, Pubseries, ShortStory, Tag, User,
                           Work, Article, StoryType, WorkLink, Format, WorkType)
@@ -90,7 +90,7 @@ class WorkLinkBriefSchema(ma.SQLAlchemyAutoSchema):
         model = WorkLink
 
 
-class ContributorRoleBriefSchema(ma.SQLAlchemyAutoSchema):
+class ContributorRoleSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = ContributorRole
 
@@ -171,7 +171,7 @@ class MagazineBriefSchema(ma.SQLAlchemyAutoSchema):
 class IssueBriefSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Issue
-        #include_fk = True
+        # include_fk = True
     magazine = fields.Nested(MagazineBriefSchema)
 
 
@@ -179,10 +179,10 @@ class ShortBriefSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = ShortStory
 
-    #id = fields.Int()
-    #title = fields.String()
-    #orig_title = fields.String()
-    #pubyear = fields.Int()
+    # id = fields.Int()
+    # title = fields.String()
+    # orig_title = fields.String()
+    # pubyear = fields.Int()
     authors = ma.List(fields.Nested(PersonBriefSchema))
     type = fields.Nested(StoryTypeBriefSchema)
     issues = ma.List(fields.Nested(IssueBriefSchema))
@@ -265,6 +265,15 @@ class TagSchema(ma.SQLAlchemyAutoSchema):
     stories = ma.List(fields.Nested(ShortBriefSchema))
     magazines = ma.List(fields.Nested(MagazineBriefSchema))
     people = ma.List(fields.Nested(PersonBriefSchema))
+
+
+class ContributorSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Contributor
+    person = fields.Nested(PersonBriefSchema(only=('id', 'name',)))
+    role = fields.Nested(ContributorRoleSchema)
+    description = fields.String()
+    real_person = fields.Nested(lambda: PersonSchema(only=('id', 'name')))
 
 
 class EditionSchema(ma.SQLAlchemyAutoSchema):
@@ -353,6 +362,7 @@ class ShortSchema(ma.SQLAlchemyAutoSchema):
     editions = ma.List(fields.Nested(EditionBriefSchema))
     genres = ma.List(fields.Nested(GenreBriefSchema))
     type = fields.Nested(StoryTypeBriefSchema)
+    contributors = ma.List(fields.Nested(ContributorSchema))
 
 
 class IssueSchema(ma.SQLAlchemyAutoSchema):

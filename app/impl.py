@@ -1,9 +1,10 @@
 import datetime
+from xmlrpc.client import Boolean
 
 from sqlalchemy.exc import SQLAlchemyError
 from app.api_errors import APIError
 from app.route_helpers import new_session
-from app.orm_decl import (Country, Log, Genre, Language)
+from app.orm_decl import (Country, Log, Genre, Language, ContributorRole)
 from app.model import *
 from marshmallow import exceptions
 from typing import Dict, NamedTuple, Tuple, List, Union, Any, TypedDict
@@ -48,6 +49,30 @@ class SearchScores(IntEnum):
     PUBLISHER_NAME = 16
     PUBLISHER_OTHER = 6
     NONE = 0
+
+# def getJoinChanges(existing: List[Any], updated: List[Any], comparator) -> List[Any]:
+
+
+def checkInt(value: Any = None,
+             zerosAllowed: Boolean = True,
+             negativeValuesAllowed: Boolean = False) -> Union[int, None]:
+    """
+    Checks that given value is an integer.
+
+    Parameters
+    ----------
+
+    """
+    retval: int = 0
+    try:
+        retval = int(value)
+    except (TypeError, ValueError) as exp:
+        return None
+    if not zerosAllowed and retval == 0:
+        return None
+    if not negativeValuesAllowed and retval < 0:
+        return None
+    return retval
 
 
 def searchScore(table: str, item: Any, word: str) -> IntEnum:
@@ -168,7 +193,25 @@ def CountryList() -> ResponseType:
         retval = schema.dump(countries)
     except exceptions.MarshmallowError as exp:
         app.logger.error('CountryList schema error: ' + str(exp))
-        return ResponseType('Countrylist: Skeemavirhe.', 400)
+        return ResponseType('CountryList: Skeemavirhe.', 400)
+
+    return ResponseType(retval, 200)
+
+
+def RoleList() -> ResponseType:
+    session = new_session()
+
+    try:
+        roles = session.query(ContributorRole)
+    except SQLAlchemyError as exp:
+        app.logger.error('Db Exception in RoleList(): ' + str(exp))
+        return ResponseType('RoleList: Tietokantavirhe.', 400)
+    try:
+        schema = ContributorRoleSchema(many=True)
+        retval = schema.dump(roles)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error('RoleList schema error: ' + str(exp))
+        return ResponseType('RoleList: Skeemavirhe.', 400)
 
     return ResponseType(retval, 200)
 

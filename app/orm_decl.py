@@ -264,6 +264,8 @@ class Contributor(Base):
     description = Column(String(50))
     person = relationship('Person', foreign_keys=[person_id])
     parts = relationship("Part", backref=backref("part2_assoc"), viewonly=True)
+    role = relationship('ContributorRole', viewonly=True)
+    real_person = relationship('Person', foreign_keys=[real_person_id])
 
 
 class ContributorRole(Base):
@@ -891,7 +893,8 @@ class ShortStory(Base):
                                uselist=True, order_by='Person.alt_name', viewonly=True,
                                foreign_keys=[Contributor.part_id, Contributor.person_id, Contributor.role_id])
     type = relationship('StoryType', uselist=False, viewonly=True)
-
+    contributors = relationship(
+        'Contributor', secondary='part', uselist=True, viewonly=True)
     _author_str: str = ''
 
     @hybrid_property

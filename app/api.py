@@ -343,7 +343,7 @@ def api_GetPeople() -> Tuple[str, int]:
 def api_GetPerson(person_id: str) -> Response:
     try:
         id = int(person_id)
-    except TypeError as exp:
+    except (TypeError, ValueError) as exp:
         app.logger.error(f'api_GetPerson: Invalid id {id}.')
         response = ResponseType(
             f'api_GetPerson: Virheellinen tunniste {id}.', 400)
@@ -502,6 +502,18 @@ def api_FilterPeople(pattern: str) -> Response:
     return MakeApiResponse(retval)
 
 
+@app.route('/api/filter/alias/<id>', methods=['get'])
+def api_FilterAlias(id: str) -> Response:
+    try:
+        person_id = int(id)
+    except (TypeError, ValueError) as exp:
+        app.logger.error(f'api_FilterAlias: Invalid id {id}.')
+        response = ResponseType(f'Virheellinen tunniste: {id}.', 400)
+        return MakeApiResponse(response)
+
+    return MakeApiResponse(FilterAliases(person_id))
+
+
 @app.route('/api/filter/publishers/<pattern>', methods=['get'])
 def api_FilterPublishers(pattern: str) -> Response:
     pattern = bleach.clean(pattern)
@@ -540,6 +552,11 @@ def api_searchShorts() -> Response:
     params = json.loads(request.data)
     retval = SearchShorts(params)
     return MakeApiResponse(retval)
+
+
+@app.route('/api/shorttypes', methods=['get'])
+def api_shortTypes() -> Response:
+    return MakeApiResponse(GetShortTypes())
 
 
 @ app.route('/api/changes', methods=['get'])
@@ -605,6 +622,15 @@ def countries() -> Response:
     Returns a list of all of the countries in the system ordered by name.
     """
     return MakeApiResponse(CountryList())
+
+
+@app.route('/api/roles', methods=['get'])
+def api_roles() -> Response:
+    """
+    Returns a list of contributor roles in the system in the order they are
+    in the database (i.e. by id).
+    """
+    return MakeApiResponse(RoleList())
 
 
 @ app.route('/api/worktypes', methods=['get'])
@@ -676,8 +702,8 @@ def api_tagToArticle(id: int, tagid: int) -> Response:
 @app.route('/api/shorts/', methods=['post', 'put'])
 @jwt_admin_required
 def api_ShortCreateUpdate() -> Response:
-    params = json.loads(request.data)
-    params = bleach.clean(params)
+    params = bleach.clean(request.data.decode('utf-8'))
+    params = json.loads(params)
     if request.method == 'POST':
         retval = MakeApiResponse(StoryAdd(params))
     elif request.method == 'PUT':

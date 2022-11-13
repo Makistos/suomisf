@@ -1,16 +1,45 @@
 import bleach
-import json
-from typing import Dict, Tuple
+from typing import Dict, Any
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 
-from app.impl import ResponseType
+from app.impl import ResponseType, checkInt
 from app.route_helpers import new_session
-from app.orm_decl import (ShortStory, StoryTag)
-from app.model import (ShortSchema)
+from app.orm_decl import (ShortStory, StoryTag, Edition,
+                          Part, Contributor, StoryType, Contributor)
+from app.model import ShortSchema, StoryTypeBriefSchema
 
 from app import app
+
+
+def checkStoryType(session: Any, story_type: Any) -> bool:
+    st = checkInt(story_type)
+    if st == None:
+        return False
+    t = session.query(StoryType).filter(StoryType.id == st).first()
+    if not t:
+        return False
+    return True
+
+
+def GetShortTypes() -> ResponseType:
+    session = new_session()
+
+    try:
+        types = session.query(StoryType).all()
+    except SQLAlchemyError as exp:
+        app.logger.error('Exception in GetShortTypes: ' + str(exp))
+        return ResponseType(f'GetShortTypes: Tietokantavirhe. id={id}', 400)
+
+    try:
+        schema = StoryTypeBriefSchema(many=True)
+        retval = schema.dump(types)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error('GetShortTypes schema error: ' + str(exp))
+        return ResponseType('GetShortTypes: Skeemavirhe.', 400)
+
+    return ResponseType(retval, 200)
 
 
 def GetShort(id: int) -> ResponseType:
@@ -91,6 +120,114 @@ def SearchShorts(params: Dict[str, str]) -> ResponseType:
         return ResponseType('SearchShorts: Skeemavirhe.', 400)
 
     return ResponseType(retval, 200)
+
+
+def StoryAdd(data: Any) -> ResponseType:
+    session = new_session()
+    retval = ResponseType('OK', 200)
+
+    changes = data['changed']
+
+    for key, value in changes.items():
+        if type(value) is list:
+            for item in value:
+                for key2, value2 in item.items():
+                    if value2 == True:
+                        print(f'Key: {key}/{key2}')
+        elif value == True:
+            print(f'Key: {key}')
+
+    return retval
+
+
+def StoryUpdate(data: Any) -> ResponseType:
+    session = new_session()
+    retval = ResponseType('OK', 201)
+
+    short_id = checkInt(data.short_id)
+    if short_id == None:
+        app.logger.error(f'StoryUpdate exception. Not a key: {data.short_id}.')
+        return ResponseType(
+            f'StoryUpdate: virheellinen tietokanta-avain {data.short_id}.', 400)
+
+    story = ShortStory()
+
+    if len(data.title) == 0:
+        app.logger.error('StoryUpdate: Title is required field.')
+        return ResponseType('StoryUpdate: Nimi on pakollinen tieto.', 400)
+    story.title = data.title
+    story.orig_title = data.title
+
+    pubyear = checkInt(data.pubyear, False, False)
+    if pubyear == None:
+        app.logger.error(f'StoryUpdate exception. Not a year: {data.pubyear}.')
+        return ResponseType(
+            f'StoryUpdate: virheellinen julkaisuvuosi {data.pubyear}.', 400)
+
+    story.pubyear = pubyear
+    if checkStoryType(session, data.story_type) == False:
+        app.logger.error(
+            f'StoryUpdate exception. Not a type: {data.story_type}.')
+        return ResponseType(
+            f'StoryUpdate: virheellinen tyyppi {data.story_type}.', 400)
+
+    story.story_type = data.story_type
+    try:
+        session.add(story)
+        session.commit()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'Exception in StoryUpdate: {exp}.')
+        return ResponseType(f'StoryUpdate: Tietokantavirhe.', 400)
+
+    if data.edition_id != None:
+        # Story not included in every edition of a work.
+        edition_id = data.edition_id
+        part = session.query(Part)\
+            .filter(Part.edition_id == edition_id, Part.shortstory_id == short_id)\
+            .first()
+        contributors = session.query(Contributors)\
+            .filter(Contributor.part_id == part.id)\
+            .all()
+
+    elif data.work_id != None:
+        workid = data.work_id
+        try:
+            editions = session.query(Edition)\
+                .join(Part)\
+                .filter(Part.edition_id == Edition.id, Part.work_id == workid)\
+                .filter(Part.shortstory_id == None)\
+                .all()
+        except SQLAlchemyError as exp:
+            app.logger.error(f'Exception in StoryUpdate: {exp}.')
+            return ResponseType(f'StoryUpdate: Tietokantavirhe.', 400)
+
+        for edition in editions:
+            try:
+                part = Part(work_id=workid, edition_id=edition.id,
+                            shortstory_id=story.id)
+                session.add(part)
+                session.commit()
+                for author in data.authors:
+                    contributor = Contributor(
+                        person_id=author, part_id=part.id, role_id=1)
+                    session.add(contributor)
+                session.commit()
+            except SQLAlchemyError as exp:
+                app.logger.error(f'Exception in StoryUpdate: {exp}.')
+                return ResponseType(f'StoryUpdate: Tietokantavirhe.', 400)
+    else:
+        app.logger.error(f'StoryUpdate: Must have work or edition id.')
+        return ResponseType(
+            f'StoryUpdate: Novellilla täytyy olla teos tai painos.', 400)
+
+    return retval
+
+
+def StoryDelete(id: int) -> ResponseType:
+    session = new_session()
+    retval = ResponseType('OK', 200)
+
+    return retval
 
 
 def StoryTagAdd(short_id: int, tag_id: int) -> ResponseType:
