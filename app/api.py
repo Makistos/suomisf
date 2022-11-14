@@ -531,6 +531,18 @@ def api_FilterPubseries(pattern: str) -> Response:
     pattern = bleach.clean(pattern)
 
 
+@app.route('/api/filter/tags/<pattern>', methods=['get'])
+def api_FilterTags(pattern: str) -> Response:
+    pattern = bleach.clean(pattern)
+    if len(pattern) < 2:
+        app.logger.error('FilterTags: Pattern too short.')
+        response = ResponseType(
+            'Liian lyhyt hakuehto', status=400)
+        return MakeApiResponse(response)
+    retval = TagFilter(pattern)
+    return MakeApiResponse(retval)
+
+
 @ app.route('/api/searchworks', methods=['post'])
 def api_searchWorks() -> Response:
     params = json.loads(request.data)

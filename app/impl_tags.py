@@ -9,6 +9,29 @@ from .impl import ResponseType
 from app import app
 
 
+def TagFilter(query: str) -> ResponseType:
+    session = new_session()
+
+    try:
+        tags = session.query(Tag)\
+            .filter(Tag.name.ilike(query + '%'))\
+            .order_by(Tag.name)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(
+            f'Exception in TagFilter (query: {query}): ' + str(exp))
+        return ResponseType('TagFilter: Tietokantavirhe.', 400)
+    try:
+        schema = TagSchema(many=True, only=('id', 'name'))
+        retval = schema.dump(tags)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(
+            f'TagFilter schema error (query: {query}): ' + str(exp))
+        return ResponseType('TagFilter: Skeemavirhe.', 400)
+
+    return ResponseType(retval, 200)
+
+
 def TagList() -> ResponseType:
     session = new_session()
 
