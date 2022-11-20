@@ -66,7 +66,7 @@ def api_GetBookseries(bookseriesId: str) -> Response:
 
     try:
         id = int(bookseriesId)
-    except TypeError as exp:
+    except (TypeError, ValueError) as exp:
         app.logger.error(f'api_GetBookseries: Invalid id {bookseriesId}.')
         response = ResponseType(
             f'apiGetBookseries: Virheellinen tunniste {bookseriesId}.', 400)
@@ -79,7 +79,7 @@ def api_GetBookseries(bookseriesId: str) -> Response:
 def api_GetPubseries(pubseriesId: str) -> Response:
     try:
         id = int(pubseriesId)
-    except TypeError as exp:
+    except (TypeError, ValueError) as exp:
         app.logger.error(f'api_GetPubseries: Invalid id {pubseriesId}.')
         response = ResponseType(
             f'api_GetBookseries: Virheellinen tunniste {pubseriesId}.', 400)
@@ -93,7 +93,7 @@ def api_GetIssueForMagazine(issueId: str) -> Response:
 
     try:
         id = int(issueId)
-    except TypeError as exp:
+    except (TypeError, ValueError) as exp:
         app.logger.error(f'api_GetIssueForMagazine: Invalid id {issueId}.')
         response = ResponseType(
             f'api_GetIssueForMagazine: Virheellinen tunniste {issueId}.', 400)
@@ -107,7 +107,7 @@ def api_GetArticle(articleId: str) -> Response:
 
     try:
         id = int(articleId)
-    except TypeError as exp:
+    except (TypeError, ValueError) as exp:
         app.logger.error(f'api_GetArticle: Invalid id {articleId}.')
         response = ResponseType(
             f'api_GetArticle: Virheellinen tunniste {articleId}.', 400)
@@ -121,7 +121,7 @@ def api_GetArticleTags(articleId: int) -> Response:
 
     try:
         article_id = int(articleId)
-    except TypeError as exp:
+    except (TypeError, ValueError) as exp:
         app.logger.error(f'api_GetArticleTags: Invalid id {articleId}.')
         response = ResponseType(
             f'apiGetArticleTags: Virheellinen tunniste {articleId}.', 400)
@@ -356,7 +356,7 @@ def api_GetPerson(person_id: str) -> Response:
 def api_GetPublisher(id: str) -> ResponseType:
     try:
         publisher_id = int(id)
-    except TypeError as exp:
+    except (TypeError, ValueError) as exp:
         app.logger.error(f'api_GetPublisher: Invalid id {id}.')
         response = ResponseType(
             f'api_GetPublisher: Virheellinen tunniste {id}.', 400)
@@ -391,7 +391,7 @@ def api_GetUser(userId: str) -> Response:
 
     try:
         id = int(userId)
-    except TypeError as exp:
+    except (TypeError, ValueError) as exp:
         app.logger.error(f'api_GetUser: Invalid id {id}.')
         response = ResponseType(f'Virheellinen tunniste: {id}.', 400)
         return MakeApiResponse(response)
@@ -414,7 +414,7 @@ def api_getWork(id: str) -> Response:
 
     try:
         work_id = int(id)
-    except TypeError as exp:
+    except (TypeError, ValueError) as exp:
         app.logger.error(f'api_getWork: Invalid id {id}.')
         response = ResponseType(f'Virheellinen tunniste: {id}.', 400)
         return MakeApiResponse(response)
@@ -674,7 +674,7 @@ def api_tags() -> Response:
 def api_tag(id: str) -> Response:
     try:
         tag_id = int(id)
-    except TypeError as exp:
+    except (TypeError, ValueError) as exp:
         app.logger.error(f'api_tag: Invalid id {id}.')
         response = ResponseType('Virheellinen tunniste', status=400)
         return MakeApiResponse(response)
@@ -697,7 +697,7 @@ def api_tagToArticle(id: int, tagid: int) -> Response:
     try:
         article_id = int(id)
         tag_id = int(tagid)
-    except (TypeError) as exp:
+    except (TypeError, ValueError) as exp:
         app.logger.error(
             f'{func.__name__}: Invalid id. id={id}, tagid={tagid}.')
         response = ResponseType('Virheellinen tunniste', status=400)
@@ -729,7 +729,7 @@ def api_ShortCreateUpdate() -> Response:
 def api_ShortDelete(id: int) -> Response:
     try:
         short_id = int(id)
-    except TypeError as exp:
+    except (TypeError, ValueError) as exp:
         app.logger.error(
             f'api_ShortDelete: Invalid id. id={id}.')
         response = ResponseType('Virheellinen tunniste', status=400)
@@ -751,7 +751,7 @@ def api_tagToIssue(id: int, tagid: int) -> Response:
     try:
         issue_id = int(id)
         tag_id = int(tagid)
-    except (TypeError) as exp:
+    except (TypeError, ValueError) as exp:
         app.logger.error(
             f'{func.__name__}: Invalid id. id={id}, tagid={tagid}.')
         response = ResponseType('Virheellinen tunniste', status=400)
@@ -773,7 +773,7 @@ def api_tagToPerson(id: int, tagid: int) -> Response:
     try:
         person_id = int(id)
         tag_id = int(tagid)
-    except (TypeError) as exp:
+    except (TypeError, ValueError) as exp:
         app.logger.error(
             f'{func.__name__}: Invalid id. id={id}, tagid={tagid}.')
         response = ResponseType('Virheellinen tunniste', status=400)
@@ -795,7 +795,7 @@ def api_tagToStory(id: int, tagid: int) -> Response:
     try:
         story_id = int(id)
         tag_id = int(tagid)
-    except (TypeError) as exp:
+    except (TypeError, ValueError) as exp:
         app.logger.error(
             f'{func.__name__}: Invalid id. id={id}, tagid={tagid}.')
         response = ResponseType('Virheellinen tunniste', status=400)
@@ -817,7 +817,7 @@ def api_tagToWork(id: int, tagid: int) -> Response:
     try:
         work_id = int(id)
         tag_id = int(tagid)
-    except (TypeError) as exp:
+    except (TypeError, ValueError) as exp:
         app.logger.error(
             f'{func.__name__}: Invalid id. id={id}, tagid={tagid}.')
         response = ResponseType('Virheellinen tunniste', status=400)
@@ -861,7 +861,7 @@ def api_tagMerge(id: int, id2: int) -> Tuple[str, int]:
     try:
         idTo = int(id)
         idFrom = int(id2)
-    except (TypeError) as exp:
+    except (TypeError, ValueError) as exp:
         app.logger.error(f'api_tagMerge: Invalid id. Id = {id}.')
         response = ResponseType('Virheellinen asiasanan tunniste.', status=400)
         return MakeApiResponse(response)
