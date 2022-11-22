@@ -260,7 +260,7 @@ def fixOperator(op: str, value: str) -> Tuple[str, str]:
         raise APIError('Invalid filter operation %s' % op, 405)
 
 
-@ app.route('/api/people', methods=['get'])
+@ app.route('/api/people/', methods=['get'])
 def api_GetPeople() -> Tuple[str, int]:
     # This function receives parameters in the form of
     # first=50&...filters_name_operator=1&filters_name_constraints_value=null..
