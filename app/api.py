@@ -260,7 +260,7 @@ def fixOperator(op: str, value: str) -> Tuple[str, str]:
         raise APIError('Invalid filter operation %s' % op, 405)
 
 
-@ app.route('/api/people/', methods=['get'])
+@ app.route('/api/people', methods=['get'])
 def api_GetPeople() -> Tuple[str, int]:
     # This function receives parameters in the form of
     # first=50&...filters_name_operator=1&filters_name_constraints_value=null..
@@ -344,9 +344,9 @@ def api_GetPerson(person_id: str) -> Response:
     try:
         id = int(person_id)
     except (TypeError, ValueError) as exp:
-        app.logger.error(f'api_GetPerson: Invalid id {id}.')
+        app.logger.error(f'api_GetPerson: Invalid id {person_id}.')
         response = ResponseType(
-            f'api_GetPerson: Virheellinen tunniste {id}.', 400)
+            f'api_GetPerson: Virheellinen tunniste {person_id}.', 400)
         return MakeApiResponse(response)
 
     return MakeApiResponse(GetPerson(id))
