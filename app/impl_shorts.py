@@ -140,38 +140,39 @@ def StoryAdd(data: Any) -> ResponseType:
     return retval
 
 
-def StoryUpdate(data: Any) -> ResponseType:
+def StoryUpdate(params: Any) -> ResponseType:
     session = new_session()
     retval = ResponseType('OK', 201)
+    data = params['data']
+    short_id = checkInt(data['id'])
 
-    short_id = checkInt(data.short_id)
     if short_id == None:
-        app.logger.error(f'StoryUpdate exception. Not a key: {data.short_id}.')
-        return ResponseType(
-            f'StoryUpdate: virheellinen tietokanta-avain {data.short_id}.', 400)
+        story = ShortStory()
+    else:
+        story = session.query(ShortStory).filter(
+            ShortStory.id == short_id).first()
 
-    story = ShortStory()
-
-    if len(data.title) == 0:
-        app.logger.error('StoryUpdate: Title is required field.')
+    if len(data['title']) == 0:
+        app.logger.error('StoryUpdate: Title is a required field.')
         return ResponseType('StoryUpdate: Nimi on pakollinen tieto.', 400)
-    story.title = data.title
-    story.orig_title = data.title
+    story.title = data['title']
+    story.orig_title = data['orig_title']
 
-    pubyear = checkInt(data.pubyear, False, False)
+    pubyear = checkInt(data['pubyear'], False, False)
     if pubyear == None:
-        app.logger.error(f'StoryUpdate exception. Not a year: {data.pubyear}.')
+        app.logger.error(
+            f'StoryUpdate exception. Not a year: {data["pubyear"]}.')
         return ResponseType(
-            f'StoryUpdate: virheellinen julkaisuvuosi {data.pubyear}.', 400)
+            f'StoryUpdate: virheellinen julkaisuvuosi {data["pubyear"]}.', 400)
 
     story.pubyear = pubyear
-    if checkStoryType(session, data.story_type) == False:
+    if checkStoryType(session, data['story_type']) == False:
         app.logger.error(
-            f'StoryUpdate exception. Not a type: {data.story_type}.')
+            f'StoryUpdate exception. Not a type: {data["story_type"]}.')
         return ResponseType(
-            f'StoryUpdate: virheellinen tyyppi {data.story_type}.', 400)
+            f'StoryUpdate: virheellinen tyyppi {data["story_type"]}.', 400)
 
-    story.story_type = data.story_type
+    story.story_type = data["story_type"]
     try:
         session.add(story)
         session.commit()
@@ -179,46 +180,46 @@ def StoryUpdate(data: Any) -> ResponseType:
         app.logger.error(f'Exception in StoryUpdate: {exp}.')
         return ResponseType(f'StoryUpdate: Tietokantavirhe.', 400)
 
-    if data.edition_id != None:
-        # Story not included in every edition of a work.
-        edition_id = data.edition_id
-        part = session.query(Part)\
-            .filter(Part.edition_id == edition_id, Part.shortstory_id == short_id)\
-            .first()
-        contributors = session.query(Contributors)\
-            .filter(Contributor.part_id == part.id)\
-            .all()
+    # if data.edition_id != None:
+    #     # Story not included in every edition of a work.
+    #     edition_id = data.edition_id
+    #     part = session.query(Part)\
+    #         .filter(Part.edition_id == edition_id, Part.shortstory_id == short_id)\
+    #         .first()
+    #     contributors = session.query(Contributor)\
+    #         .filter(Contributor.part_id == part.id)\
+    #         .all()
 
-    elif data.work_id != None:
-        workid = data.work_id
-        try:
-            editions = session.query(Edition)\
-                .join(Part)\
-                .filter(Part.edition_id == Edition.id, Part.work_id == workid)\
-                .filter(Part.shortstory_id == None)\
-                .all()
-        except SQLAlchemyError as exp:
-            app.logger.error(f'Exception in StoryUpdate: {exp}.')
-            return ResponseType(f'StoryUpdate: Tietokantavirhe.', 400)
+    # elif data.work_id != None:
+    #     workid = data.work_id
+    #     try:
+    #         editions = session.query(Edition)\
+    #             .join(Part)\
+    #             .filter(Part.edition_id == Edition.id, Part.work_id == workid)\
+    #             .filter(Part.shortstory_id == None)\
+    #             .all()
+    #     except SQLAlchemyError as exp:
+    #         app.logger.error(f'Exception in StoryUpdate: {exp}.')
+    #         return ResponseType(f'StoryUpdate: Tietokantavirhe.', 400)
 
-        for edition in editions:
-            try:
-                part = Part(work_id=workid, edition_id=edition.id,
-                            shortstory_id=story.id)
-                session.add(part)
-                session.commit()
-                for author in data.authors:
-                    contributor = Contributor(
-                        person_id=author, part_id=part.id, role_id=1)
-                    session.add(contributor)
-                session.commit()
-            except SQLAlchemyError as exp:
-                app.logger.error(f'Exception in StoryUpdate: {exp}.')
-                return ResponseType(f'StoryUpdate: Tietokantavirhe.', 400)
-    else:
-        app.logger.error(f'StoryUpdate: Must have work or edition id.')
-        return ResponseType(
-            f'StoryUpdate: Novellilla täytyy olla teos tai painos.', 400)
+    #     for edition in editions:
+    #         try:
+    #             part = Part(work_id=workid, edition_id=edition.id,
+    #                         shortstory_id=story.id)
+    #             session.add(part)
+    #             session.commit()
+    #             for author in data.authors:
+    #                 contributor = Contributor(
+    #                     person_id=author, part_id=part.id, role_id=1)
+    #                 session.add(contributor)
+    #             session.commit()
+    #         except SQLAlchemyError as exp:
+    #             app.logger.error(f'Exception in StoryUpdate: {exp}.')
+    #             return ResponseType(f'StoryUpdate: Tietokantavirhe.', 400)
+    # else:
+    #     app.logger.error(f'StoryUpdate: Must have work or edition id.')
+    #     return ResponseType(
+    #         f'StoryUpdate: Novellilla täytyy olla teos tai painos.', 400)
 
     return retval
 
