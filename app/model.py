@@ -128,6 +128,7 @@ class WorkEditionBriefSchema(ma.SQLAlchemyAutoSchema):
     editors = ma.List(fields.Nested(PersonBriefSchema))
     translators = ma.List(fields.Nested(PersonBriefSchema))
     images = ma.List(fields.Nested(EditionImageBriefSchema))
+    publisher = fields.Nested(lambda: PublisherSchema(only=('id', 'name')))
 
 
 class WorkTypeBriefSchema(ma.SQLAlchemyAutoSchema):
