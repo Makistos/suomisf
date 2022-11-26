@@ -219,7 +219,8 @@ class PublisherBriefSchemaWEditions(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Publisher
 
-    editions = ma.List(fields.Nested(EditionBriefestSchema))
+    editions = ma.List(fields.Nested(
+        lambda: EditionSchema(only=('id', 'pubyear'))))
 
 
 class PubseriesBriefSchema(ma.SQLAlchemyAutoSchema):
