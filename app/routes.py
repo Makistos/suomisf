@@ -1004,12 +1004,13 @@ def select_bookseries() -> Response:
         bookseries = session.query(Bookseries)\
             .filter(Bookseries.name.ilike('%' + search + '%'))\
             .order_by(Bookseries.name)\
-            .first()
+            .all()
 
         retval['results'] = []
-        if bookseries:
-            retval['results'].append(
-                {'id': bookseries.id, 'text': bookseries.name})
+        if len(bookseries) > 0:
+            for series in bookseries:
+                retval['results'].append(
+                    {'id': series.id, 'text': series.name})
         return Response(json.dumps(retval))
     else:
         return Response(json.dumps(['']))
