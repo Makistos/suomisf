@@ -742,27 +742,46 @@ def save_stories_to_work() -> Any:
                 session.add(contributor)
             session.commit()
     for id in to_add:
-        authors = session.query(Person)\
-            .join(Contributor, Contributor.role_id == 1)\
-            .filter(Person.id == Contributor.person_id)\
+        # authors = session.query(Person)\
+        #     .join(Contributor, Contributor.role_id == 1)\
+        #     .filter(Person.id == Contributor.person_id)\
+        #     .join(Part)\
+        #     .filter(Part.id == Contributor.part_id)\
+        #     .filter(Part.shortstory_id == id)\
+        #     .all()
+
+        # Search for every contribution related to this shortstory
+        contribs = session.query(Contributor)\
             .join(Part)\
             .filter(Part.id == Contributor.part_id)\
-            .filter(Part.work_id == workid)\
             .filter(Part.shortstory_id == id)\
             .all()
+
+        # Remove duplicate contributions
+        all_contribs: Dict[str, List[Dict[str, int]]] = {}
+        for c in contribs:
+            if c.person_id not in all_contribs:
+                all_contribs[c.person_id] = []
+            if c.role_id not in all_contribs[c.person_id]:
+                all_contribs[c.person_id].append(
+                    {"person_id": c.person_id,
+                     "role_id": c.role_id})
 
         for edition in editions:
             part = Part(work_id=workid, edition_id=edition.id,
                         shortstory_id=id)
             session.add(part)
             session.commit()
-            if authors:
-                for person in authors:
-                    author = Contributor(
-                        person_id=person.id, part_id=part.id, role_id=1)
-                    session.add(author)
+            if contribs:
+                for person in all_contribs.values():
+                    for role in person:
+                        author = Contributor(
+                            person_id=role["person_id"],
+                            part_id=part.id,
+                            role_id=role["role_id"])
+                        session.add(author)
                 session.commit()
-                update_creators_to_story(session, id, authors)
+                #update_creators_to_story(session, id)
 
     session.commit()
     work = session.query(Work).filter(Work.id == workid).first()
