@@ -734,7 +734,7 @@ def save_stories_to_work() -> Any:
             session.commit()
             for (person, role, real_person, description) in contributors:
                 contributor = Contributor(
-                    part_id=part.id,
+                    part_id=id,
                     person_id=person,
                     role_id=role,
                     real_person_id=real_person,
