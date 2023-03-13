@@ -26,6 +26,8 @@ class UserSchema(ma.SQLAlchemySchema):
 class LanguageSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Language
+    id = fields.Int(required=True)
+    name = fields.String(required=True)
 
 
 class LogSchema(ma.SQLAlchemyAutoSchema):
@@ -103,6 +105,9 @@ class CountryBriefSchema(ma.SQLAlchemyAutoSchema):
 class GenreBriefSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Genre
+    id = fields.Int(required=True)
+    name = fields.String(required=True)
+    abbr = fields.String()
 
 
 class PersonBriefSchema(ma.SQLAlchemyAutoSchema):
@@ -365,6 +370,7 @@ class ShortSchema(ma.SQLAlchemyAutoSchema):
     genres = ma.List(fields.Nested(GenreBriefSchema))
     type = fields.Nested(StoryTypeBriefSchema)
     contributors = ma.List(fields.Nested(ContributorSchema))
+    lang = fields.Nested(LanguageSchema)
 
 
 class IssueSchema(ma.SQLAlchemyAutoSchema):

@@ -159,22 +159,23 @@ def ListPeople(params: Dict[str, Any]) -> ResponseType:
         count = len(people.all())
 
         # Sort
-        sort_field = params['sortField']
-        if (sort_field == 'name' or
-            sort_field == 'dob' or
-                sort_field == 'dod'):
-            sort_col = getattr(Person, sort_field, None)
-            if params['sortOrder'] == '1':
-                people = people.order_by(sort_col.asc())
-            else:
-                people = people.order_by(sort_col.desc())
-        if sort_field == 'nationality':
-            sort_col = getattr(Country, 'name', None)
-            people = people.join(Person.nationality)\
-                .order_by(Country.name.asc())
-        elif sort_field == 'workcount':
-            people = people.join(Person.works)\
-                .order_by(func.count(Work.id))
+        if 'sortField' in params:
+            sort_field = params['sortField']
+            if (sort_field == 'name' or
+                sort_field == 'dob' or
+                    sort_field == 'dod'):
+                sort_col = getattr(Person, sort_field, None)
+                if params['sortOrder'] == '1':
+                    people = people.order_by(sort_col.asc())
+                else:
+                    people = people.order_by(sort_col.desc())
+            if sort_field == 'nationality':
+                sort_col = getattr(Country, 'name', None)
+                people = people.join(Person.nationality)\
+                    .order_by(Country.name.asc())
+            elif sort_field == 'workcount':
+                people = people.join(Person.works)\
+                    .order_by(func.count(Work.id))
     except SQLAlchemyError as exp:
         app.logger.error('Exception in ListPeople: ' + str(exp))
         return ResponseType(f'ListPeople: Tietokantavirhe.', 400)

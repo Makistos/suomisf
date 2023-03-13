@@ -793,7 +793,7 @@ def update_work_creators(session: Any, workid: Any) -> Any:
     session.commit()
 
 
-def update_creators_to_story(session: Any, storyid: int, authors: Any) -> None:
+def update_creators_to_story(session: Any, storyid: int) -> None:
     ''' Updates creator string for story.
 
     Args:
@@ -801,7 +801,16 @@ def update_creators_to_story(session: Any, storyid: int, authors: Any) -> None:
         storyid (int): Story id in database.
         authors (Any): Author list read from database.
     '''
-    author_str = ' & '.join([x.name for x in authors])
+    #author_str = ' & '.join([x.name for x in authors])
+    authors = session.query(Person)\
+        .join(Contributor)\
+        .filter(Contributor.person_id == Person.id)\
+        .join(Part)\
+        .filter(Part.id == Contributor.part_id, Part.shortstory_id == storyid)\
+        .distinct()\
+        .all()
+    author_str = '& '.join([x.name for x in authors])
+
     story = session.query(ShortStory).filter(ShortStory.id == storyid).first()
     story.creator_str = author_str
     session.add(story)

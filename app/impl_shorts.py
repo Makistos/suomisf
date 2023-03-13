@@ -4,11 +4,13 @@ from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 
-from app.impl import ResponseType, checkInt
+from app.impl import ResponseType, checkInt, LogChanges, GetJoinChanges
 from app.route_helpers import new_session
 from app.orm_decl import (ShortStory, StoryTag, Edition,
-                          Part, Contributor, StoryType, Contributor)
+                          Part, Contributor, StoryType, Contributor,
+                          Genre, StoryGenre)
 from app.model import ShortSchema, StoryTypeBriefSchema
+from app.impl_contributors import _updateShortContributors
 
 from app import app
 
@@ -142,9 +144,16 @@ def StoryAdd(data: Any) -> ResponseType:
 
 def StoryUpdate(params: Any) -> ResponseType:
     session = new_session()
+    old_values = {}
+    story: Any = None
     retval = ResponseType('OK', 201)
     data = params['data']
+    changed = params['changed']
     short_id = checkInt(data['id'])
+
+    if len(changed) == 0:
+        # Nothing has changed
+        return ResponseType('OK', 200)
 
     if short_id == None:
         story = ShortStory()
@@ -152,33 +161,103 @@ def StoryUpdate(params: Any) -> ResponseType:
         story = session.query(ShortStory).filter(
             ShortStory.id == short_id).first()
 
-    if len(data['title']) == 0:
-        app.logger.error('StoryUpdate: Title is a required field.')
-        return ResponseType('StoryUpdate: Nimi on pakollinen tieto.', 400)
-    story.title = data['title']
-    story.orig_title = data['orig_title']
+    # Save title
+    if 'title' in changed:
+        if changed['title'] == True:
+            if len(data['title']) == 0:
+                app.logger.error('StoryUpdate: Title is a required field.')
+                return ResponseType('StoryUpdate: Nimi on pakollinen tieto.', 400)
+            old_values['title'] = story.title
+            story.title = data['title']
 
-    pubyear = checkInt(data['pubyear'], False, False)
-    if pubyear == None:
-        app.logger.error(
-            f'StoryUpdate exception. Not a year: {data["pubyear"]}.')
-        return ResponseType(
-            f'StoryUpdate: virheellinen julkaisuvuosi {data["pubyear"]}.', 400)
+    # Save original title
+    if 'orig_title' in changed:
+        if changed['orig_title'] == True:
+            story.orig_title = data['orig_title']
 
-    story.pubyear = pubyear
-    if checkStoryType(session, data['story_type']) == False:
-        app.logger.error(
-            f'StoryUpdate exception. Not a type: {data["story_type"]}.')
-        return ResponseType(
-            f'StoryUpdate: virheellinen tyyppi {data["story_type"]}.', 400)
+    # Save original (first) publication year
+    if 'pubyear' in changed:
+        if changed['pubyear'] == True:
+            pubyear = checkInt(data['pubyear'], False, False)
+            if pubyear == None:
+                app.logger.error(
+                    f'StoryUpdate exception. Not a year: {data["pubyear"]}.')
+                return ResponseType(
+                    f'StoryUpdate: virheellinen julkaisuvuosi {data["pubyear"]}.', 400)
+            old_values['pubyear'] = story.pubyear
+            story.pubyear = pubyear
 
-    story.story_type = data["story_type"]
+    # Save story type
+    if 'type' in changed:
+        if changed['type'] == True:
+            if checkStoryType(session, data['type']['id']) == False:
+                app.logger.error(
+                    f'StoryUpdate exception. Not a type: {data["type"]}.')
+                return ResponseType(
+                    f'StoryUpdate: virheellinen tyyppi {data["type"]}.', 400)
+            old_values['type'] = story.type.name
+            story.story_type = data["type"]['id']
+
+    # Save original language
+    if 'lang' in changed:
+        if changed['lang'] == True:
+            if data['lang'] != None:
+                language = checkInt(data['lang']['id'], True, True)
+            else:
+                language = None
+            old_values['lang'] = story.language
+            story.language = language
+
     try:
         session.add(story)
-        session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(f'Exception in StoryUpdate: {exp}.')
         return ResponseType(f'StoryUpdate: Tietokantavirhe.', 400)
+
+    # Save contributors
+    if 'contributors' in changed:
+        _updateShortContributors(
+            session, story.id, data['contributors'], changed['contributors'])
+
+    # Save genres
+    if 'genres' in changed:
+        existing_genres = session.query(StoryGenre)\
+            .filter(StoryGenre.shortstory_id == story.id) \
+            .all()
+        (to_add, to_remove) = GetJoinChanges(
+            [x.genre_id for x in existing_genres],
+            [x['id'] for x in data['genres']])
+        for id in to_remove:
+            dg = session.query(StoryGenre)\
+                .filter(StoryGenre.genre_id == id)\
+                .filter(StoryGenre.shortstory_id == story.id)\
+                .first()
+            session.delete(dg)
+        for id in to_add:
+            sg = StoryGenre(genre_id=id, shortstory_id=story.id)
+            session.add(sg)
+        old_values['genres'] = ' -'.join([str(x) for x in to_add])
+        old_values['genres'] += ' +'.join([str(x) for x in to_remove])
+
+    # Save tags
+    if 'tags' in changed:
+        existing_tags = session.query(StoryTag)\
+            .filter(StoryTag.shortstory_id == story.id)\
+            .all()
+        (to_add, to_remove) = GetJoinChanges(
+            [x.tag_id for x in existing_tags],
+            [x['id'] for x in data['tags']])
+        for id in to_remove:
+            dt = session.query(StoryTag)\
+                .filter(StoryTag.tag_id == id)\
+                .filter(StoryTag.shortstory_id == story.id)\
+                .first()
+            session.delete(dt)
+        for id in to_add:
+            st = StoryTag(tag_id=id, shortstory_id=story.id)
+            session.add(st)
+        old_values['tags'] = ' -'.join([str(x) for x in to_add])
+        old_values['tags'] += ' +'.join([str(x) for x in to_remove])
 
     # if data.edition_id != None:
     #     # Story not included in every edition of a work.
@@ -220,6 +299,16 @@ def StoryUpdate(params: Any) -> ResponseType:
     #     app.logger.error(f'StoryUpdate: Must have work or edition id.')
     #     return ResponseType(
     #         f'StoryUpdate: Novellilla täytyy olla teos tai painos.', 400)
+
+    LogChanges(session=session, obj=story, action="Päivitys",
+               fields=changed, old_values=old_values)
+
+    try:
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f'Exception in StoryUpdate commit: {exp}.')
+        return ResponseType(f'StoryUpdate: Tietokantavirhe tallennettaessa.', 400)
 
     return retval
 
