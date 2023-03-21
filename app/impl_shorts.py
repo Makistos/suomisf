@@ -10,7 +10,7 @@ from app.orm_decl import (ShortStory, StoryTag, Edition,
                           Part, Contributor, StoryType, Contributor,
                           Genre, StoryGenre)
 from app.model import ShortSchema, StoryTypeBriefSchema
-from app.impl_contributors import _updateShortContributors
+from app.impl_contributors import updateShortContributors
 
 from app import app
 
@@ -146,7 +146,7 @@ def StoryUpdate(params: Any) -> ResponseType:
     session = new_session()
     old_values = {}
     story: Any = None
-    retval = ResponseType('OK', 201)
+    retval = ResponseType('OK', 200)
     data = params['data']
     changed = params['changed']
     short_id = checkInt(data['id'])
@@ -173,6 +173,7 @@ def StoryUpdate(params: Any) -> ResponseType:
     # Save original title
     if 'orig_title' in changed:
         if changed['orig_title'] == True:
+            old_values['orig_title'] = story.orig_title
             story.orig_title = data['orig_title']
 
     # Save original (first) publication year
@@ -205,7 +206,7 @@ def StoryUpdate(params: Any) -> ResponseType:
                 language = checkInt(data['lang']['id'], True, True)
             else:
                 language = None
-            old_values['lang'] = story.language
+            old_values['lang'] = story.language.name
             story.language = language
 
     try:
@@ -216,8 +217,8 @@ def StoryUpdate(params: Any) -> ResponseType:
 
     # Save contributors
     if 'contributors' in changed:
-        _updateShortContributors(
-            session, story.id, data['contributors'], changed['contributors'])
+        updateShortContributors(
+            session, story.id, data['contributors'])
 
     # Save genres
     if 'genres' in changed:
@@ -258,47 +259,6 @@ def StoryUpdate(params: Any) -> ResponseType:
             session.add(st)
         old_values['tags'] = ' -'.join([str(x) for x in to_add])
         old_values['tags'] += ' +'.join([str(x) for x in to_remove])
-
-    # if data.edition_id != None:
-    #     # Story not included in every edition of a work.
-    #     edition_id = data.edition_id
-    #     part = session.query(Part)\
-    #         .filter(Part.edition_id == edition_id, Part.shortstory_id == short_id)\
-    #         .first()
-    #     contributors = session.query(Contributor)\
-    #         .filter(Contributor.part_id == part.id)\
-    #         .all()
-
-    # elif data.work_id != None:
-    #     workid = data.work_id
-    #     try:
-    #         editions = session.query(Edition)\
-    #             .join(Part)\
-    #             .filter(Part.edition_id == Edition.id, Part.work_id == workid)\
-    #             .filter(Part.shortstory_id == None)\
-    #             .all()
-    #     except SQLAlchemyError as exp:
-    #         app.logger.error(f'Exception in StoryUpdate: {exp}.')
-    #         return ResponseType(f'StoryUpdate: Tietokantavirhe.', 400)
-
-    #     for edition in editions:
-    #         try:
-    #             part = Part(work_id=workid, edition_id=edition.id,
-    #                         shortstory_id=story.id)
-    #             session.add(part)
-    #             session.commit()
-    #             for author in data.authors:
-    #                 contributor = Contributor(
-    #                     person_id=author, part_id=part.id, role_id=1)
-    #                 session.add(contributor)
-    #             session.commit()
-    #         except SQLAlchemyError as exp:
-    #             app.logger.error(f'Exception in StoryUpdate: {exp}.')
-    #             return ResponseType(f'StoryUpdate: Tietokantavirhe.', 400)
-    # else:
-    #     app.logger.error(f'StoryUpdate: Must have work or edition id.')
-    #     return ResponseType(
-    #         f'StoryUpdate: Novellilla täytyy olla teos tai painos.', 400)
 
     LogChanges(session=session, obj=story, action="Päivitys",
                fields=changed, old_values=old_values)

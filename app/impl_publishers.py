@@ -1,12 +1,12 @@
 import json
-from typing import Dict, Tuple
+from typing import Dict, Tuple, Any
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.route_helpers import new_session
 from app.orm_decl import Publisher
 from app.model import (PublisherBriefSchema,
                        PublisherSchema, PublisherBriefSchemaWEditions)
-from app.impl import ResponseType
+from app.impl import ResponseType, checkInt, LogChanges
 from app import app
 
 
@@ -70,3 +70,79 @@ def ListPublishers() -> ResponseType:
         return ResponseType('ListPublishers: Skeemavirhe.', 400)
 
     return ResponseType(retval, 200)
+
+
+def PublisherAdd(params: Any) -> ResponseType:
+    session = new_session()
+    retval = ResponseType('OK', 200)
+
+    return retval
+
+
+def PublisherUpdate(params: Any) -> ResponseType:
+    session = new_session()
+    retval = ResponseType('OK', 200)
+    old_values = {}
+    publisher: Any = None
+    data = params['data']
+    changed = params['changed']
+    publisher_id = checkInt(data['id'])
+
+    if len(changed) == 0:
+        return ResponseType('OK', 200)
+
+    publisher = session.query(Publisher).filter(
+        Publisher.id == publisher_id).first()
+
+    if 'name' in changed:
+        if changed['name'] == True:
+            if len(data['name']) == 0:
+                app.logger.error('PublisherUpdate: Name is a required field')
+                return ResponseType('PublisherUpdate: Nimi on pakollinen tieto.', 400)
+            if data['name'] != publisher.name:
+                similar = session.query(Publisher).filter(
+                    Publisher.name == data['name']).all()
+                if len(similar) > 0:
+                    app.logger.error('PublisherUpdate: Name must be unique.')
+                    return ResponseType('PublisherUpdate: Nimi on jo käytössä', 400)
+            old_values['name'] = publisher.name
+            publisher.name = data['name']
+
+    if 'fullname' in changed:
+        if changed['fullname'] == True:
+            if len(data['fullname']) == 0:
+                app.logger.error(
+                    'PublisherUpdate: fullname is a required field')
+                return ResponseType('PublisherUpdate: Nimi on pakollinen tieto.', 400)
+            if data['fullname'] != publisher.fullname:
+                similar = session.query(Publisher).filter(
+                    Publisher.fullname == data['fullname']).all()
+                if len(similar) > 0:
+                    app.logger.error(
+                        'PublisherUpdate: fullname must be unique.')
+                    return ResponseType('PublisherUpdate: Nimi on jo käytössä', 400)
+            old_values['fullname'] = publisher.fullname
+            publisher.fullname = data['fullname']
+
+    if 'description' in changed:
+        if changed['description'] == True:
+            old_values['description'] = publisher.description
+            publisher.description = data['description']
+
+    LogChanges(session=session, obj=publisher, action='Päivitys',
+               fields=changed, old_values=old_values)
+
+    try:
+        session.add(publisher)
+    except SQLAlchemyError as exp:
+        app.logger.error(f'Exception in PublisherUpdate: {exp}.')
+        return ResponseType(f'PublisherUpdate: Tietokantavirhe.', 400)
+
+    try:
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f'Exception in PublisherUpdate commit: {exp}.')
+        return ResponseType(f'PublisherUpdate: Tietokantavirhe tallennettaessa.', 400)
+
+    return retval

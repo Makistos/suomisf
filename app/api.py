@@ -939,3 +939,16 @@ def api_tagRename() -> Response:
     name = bleach.clean(name)
     response = TagRename(id, name)
     return MakeApiResponse(response)
+
+
+@app.route('/api/publishers/', methods=['post', 'put'])
+@jwt_admin_required
+def api_PublisherCreateUpdate() -> Response:
+    params = bleach.clean(request.data.decode('utf-8'))
+    params = json.loads(params)
+    if request.method == 'POST':
+        retval = MakeApiResponse(PublisherAdd(params))
+    elif request.method == 'PUT':
+        retval = MakeApiResponse(PublisherUpdate(params))
+
+    return retval
