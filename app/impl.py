@@ -4,7 +4,8 @@ from xmlrpc.client import Boolean
 from sqlalchemy.exc import SQLAlchemyError
 from app.api_errors import APIError
 from app.route_helpers import new_session
-from app.orm_decl import (Country, Log, Genre, Language, ContributorRole)
+from app.orm_decl import (Country, Log, Genre, Language, ContributorRole,
+                          Work, Edition, ShortStory, Magazine, EditionImage)
 from app.model import *
 from marshmallow import exceptions
 from typing import Dict, NamedTuple, Tuple, List, Union, Any, TypedDict, Set
@@ -351,3 +352,32 @@ def GetJoinChanges(existing: Union[List[int], Set[int]], new: List[int]) -> Tupl
                 to_delete.append(id)
 
     return (to_add, to_delete)
+
+
+def GetFrontpageData() -> ResponseType:
+    session = new_session()
+    retval = {}
+    workCount = session.query(Work.id).count()
+    retval['works'] = workCount
+    editionCount = session.query(Edition.id).count()
+    retval['editions'] = editionCount
+    shortsCount = session.query(ShortStory.id).count()
+    retval['shorts'] = shortsCount
+    magazineCount = session.query(Magazine.id).count()
+    retval['magazines'] = magazineCount
+    coverCount = session.query(EditionImage.id).count()
+    retval['covers'] = coverCount
+    latest = session.query(Edition).order_by(Edition.id.desc()).all()
+    latestList: List[Any] = []
+    ids: List[int] = []
+    for edition in latest:
+        if edition.id not in ids:
+            latestList.append(edition)
+            ids.append(edition.id)
+        if len(latestList) == 4:
+            break
+
+    schema = EditionBriefestSchema()
+    latestList = schema.dump(latestList, many=True)
+    retval['latest'] = latestList
+    return ResponseType(retval, 200)

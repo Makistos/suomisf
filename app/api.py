@@ -61,6 +61,11 @@ def api_login() -> Response:
     return LoginUser(options)
 
 
+@app.route('/api/frontpagedata', methods=['get'])
+def frontpagestats() -> Response:
+    return MakeApiResponse(GetFrontpageData())
+
+
 @ app.route('/api/bookseries/<bookseriesId>', methods=['get'])
 def api_GetBookseries(bookseriesId: str) -> Response:
 

@@ -158,6 +158,8 @@ class EditionBriefestSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Edition
     images = ma.List(fields.Nested(EditionImageBriefSchema))
+    #work = fields.Pluck(WorkBriefestSchema, 'id')
+    work = ma.List(fields.Nested(WorkBriefestSchema))
 
 
 class EditionBriefSchema(ma.SQLAlchemyAutoSchema):
