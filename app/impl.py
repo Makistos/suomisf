@@ -371,9 +371,9 @@ def GetFrontpageData() -> ResponseType:
     latestList: List[Any] = []
     ids: List[int] = []
     for edition in latest:
-        if edition.id not in ids:
+        if edition.work[0].id not in ids:
             latestList.append(edition)
-            ids.append(edition.id)
+            ids.append(edition.work[0].id)
         if len(latestList) == 4:
             break
 
