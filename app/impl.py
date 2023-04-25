@@ -15,6 +15,7 @@ import bleach
 from enum import IntEnum
 from flask_login import current_user
 import json
+from datetime import timedelta, date
 
 
 class ResponseType(NamedTuple):
@@ -117,6 +118,9 @@ def GetChanges(params: Dict[str, Any]) -> ResponseType:
             raise APIError
         cutoff_date = datetime.now() - timedelta(period_length)
         stmt += 'AND Log.Date >= "' + str(cutoff_date) + '" '
+    else:
+        cutoff_date = datetime.now() - timedelta(days=30)
+        stmt += 'AND Log.Date >= "' + str(cutoff_date) + '" '
 
     if 'table' in params:
         table = bleach.clean(params['table'])
@@ -154,13 +158,21 @@ def GetChanges(params: Dict[str, Any]) -> ResponseType:
         stmt += 'LIMIT ' + str(limit) + ' '
 
     print(stmt)
-    changes = session.query(Log)\
-        .from_statement(text(stmt))\
-        .all()
+    try:
+        changes = session.query(Log)\
+            .from_statement(text(stmt))\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error('Exception in GetChanges: ' + str(exp))
+        return ResponseType(f'GetChanges: Tietokantavirhe.', 400)
     # changes = session.query(Log).filter(
     #     Log.date >= cutoff_date).order_by(Log.date.desc()).all()
-    schema = LogSchema(many=True)
-    retval = schema.dump(changes)
+    try:
+        schema = LogSchema(many=True)
+        retval = schema.dump(changes)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error('GetChanges schema error: ' + str(exp))
+        return ResponseType('GetChanges: Skeemavirhe.', 400)
 
     return ResponseType(retval, 200)
 
@@ -191,15 +203,16 @@ def LogChanges(session: Any, obj: Any, action: str = 'Päivitys',
     '''
     name: str = obj.name
     tbl_name = table_locals[obj.__table__.name]
+    old_value: Union[str, None]
 
     if action == 'Päivitys':
         for field in fields:
             if field in old_values:
-                old_value = old_values[field]
+                old_value = bleach.clean(old_values[field])
             else:
                 old_value = None
             log = Log(table_name=tbl_name,
-                      field_name=field,
+                      field_name=bleach.clean(field),
                       table_id=obj.id,
                       object_name=name,
                       action=action,

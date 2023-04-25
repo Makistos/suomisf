@@ -44,6 +44,11 @@ def MakeApiResponse(response: ResponseType) -> Response:
                     mimetype=default_mimetype)
 
 
+# This function is used to log in the user using the HTTP POST method.
+# 1. The function checks if the parameters are passed correctly.
+# 2. If the parameters are not passed correctly, the function returns a 401 error.
+# 3. If the parameters are passed correctly, the function calls the LoginUser function.
+
 @ app.route('/api/login', methods=['post'])
 def api_login() -> Response:
     options = {}
@@ -55,6 +60,10 @@ def api_login() -> Response:
             options['username'] = request.json['authorization']['username']
             options['password'] = request.json['authorization']['password']
     except (TypeError, KeyError) as exp:
+        response = ResponseType('api_login: Virheelliset parametrit.', 401)
+        return MakeApiResponse(response)
+
+    if not options['username'] or not options['password']:
         response = ResponseType('api_login: Virheelliset parametrit.', 401)
         return MakeApiResponse(response)
 
@@ -425,6 +434,19 @@ def api_getWork(id: str) -> Response:
         return MakeApiResponse(response)
 
     return MakeApiResponse(GetWork(work_id))
+
+
+@app.route('/api/works/', methods=['post', 'put'])
+@jwt_admin_required
+def api_WorkCreateUpdate() -> Response:
+    params = bleach.clean(request.data.decode('utf-8'))
+    params = json.loads(params)
+    if request.method == 'POST':
+        retval = MakeApiResponse(WorkAdd(params))
+    elif request.method == 'PUT':
+        retval = MakeApiResponse(WorkUpdate(params))
+
+    return retval
 
 
 @ app.route('/api/search/<pattern>', methods=['get', 'post'])
