@@ -663,7 +663,7 @@ def countries() -> Response:
     return MakeApiResponse(CountryList())
 
 
-@app.route('/api/roles', methods=['get'])
+@app.route('/api/roles/', methods=['get'])
 def api_roles() -> Response:
     """
     Returns a list of contributor roles in the system in the order they are

@@ -9,7 +9,7 @@ from app.route_helpers import new_session
 from app.orm_decl import (ShortStory, StoryTag, Edition,
                           Part, Contributor, StoryType, Contributor,
                           Genre, StoryGenre)
-from app.model import ShortSchema, StoryTypeBriefSchema
+from app.model import ShortSchema, StoryTypeBriefSchema, ShortSchemaForSearch
 from app.impl_contributors import updateShortContributors
 
 from app import app
@@ -115,7 +115,7 @@ def SearchShorts(params: Dict[str, str]) -> ResponseType:
         return ResponseType(f'SearchShorts: Tietokantavirhe. id={id}', 400)
 
     try:
-        schema = ShortSchema(many=True)
+        schema = ShortSchemaForSearch(many=True)
         retval = schema.dump(shorts)
     except exceptions.MarshmallowError as exp:
         app.logger.error('SearchShorts schema error: ' + str(exp))

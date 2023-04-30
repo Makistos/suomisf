@@ -393,3 +393,39 @@ class MagazineSchema(ma.SQLAlchemyAutoSchema):
         include_fk = True
     issues = ma.auto_field()  # ma.List(fields.Nested(IssueSchema))
     publisher = fields.Nested(PublisherBriefSchema)
+
+
+# Schemas for short story search
+
+class ShortSearchEdition(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Edition
+
+    images = ma.List(fields.Nested(EditionImageBriefSchema))
+    work = ma.List(fields.Nested(WorkBriefestSchema))
+
+
+class ShortSearchWork(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Work
+
+
+class ShortSearchContributor(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Contributor
+    person = fields.Nested(PersonBriefSchema(only=('id', 'name',)))
+    role = fields.Nested(ContributorRoleSchema)
+    description = fields.String()
+    real_person = fields.Nested(lambda: PersonSchema(only=('id', 'name')))
+
+
+class ShortSchemaForSearch(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = ShortStory
+
+    works = ma.List(fields.Nested(ShortSearchWork))
+    editions = ma.List(fields.Nested(ShortSearchEdition))
+    genres = ma.List(fields.Nested(GenreBriefSchema))
+    type = fields.Nested(StoryTypeBriefSchema)
+    contributors = ma.List(fields.Nested(ContributorSchema))
+    lang = fields.Nested(LanguageSchema)
