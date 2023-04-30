@@ -419,12 +419,24 @@ class ShortSearchContributor(ma.SQLAlchemyAutoSchema):
     real_person = fields.Nested(lambda: PersonSchema(only=('id', 'name')))
 
 
+class ShortSearchMagazine(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Magazine
+
+
+class ShortSearchIssue(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Issue
+    magazine = fields.Nested(ShortSearchMagazine)
+
+
 class ShortSchemaForSearch(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = ShortStory
 
     works = ma.List(fields.Nested(ShortSearchWork))
     editions = ma.List(fields.Nested(ShortSearchEdition))
+    issues = ma.List(fields.Nested(ShortSearchIssue))
     genres = ma.List(fields.Nested(GenreBriefSchema))
     type = fields.Nested(StoryTypeBriefSchema)
     contributors = ma.List(fields.Nested(ContributorSchema))
