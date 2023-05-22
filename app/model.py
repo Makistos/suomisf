@@ -123,7 +123,8 @@ class PersonBriefSchema(ma.SQLAlchemyAutoSchema):
     roles = fields.Pluck("self", "name", many=True)
     nationality = fields.String(attribute='nationalityname')
     workcount = fields.Number()
-    storycount = fields.Number()
+    #storycount = fields.Number()
+    storycount = fields.Function(lambda obj: len([x.id for x in obj.stories]))
 
 
 class WorkEditionBriefSchema(ma.SQLAlchemyAutoSchema):
@@ -141,9 +142,18 @@ class WorkTypeBriefSchema(ma.SQLAlchemyAutoSchema):
         model = WorkType
 
 
+class WorkContributorSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Contributor
+    person = fields.Nested(PersonBriefSchema(only=('id', 'name',)))
+    role = fields.Nested(ContributorRoleSchema)
+    description = fields.String()
+    real_person = fields.Nested(lambda: PersonSchema(only=('id', 'name')))
+
 class WorkBriefSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Work
+
     id = fields.Number()
     title = fields.String()
     orig_title = fields.String()
@@ -152,6 +162,7 @@ class WorkBriefSchema(ma.SQLAlchemyAutoSchema):
     authors = ma.List(fields.Nested(PersonBriefSchema))
     genres = ma.List(fields.Nested(GenreBriefSchema))
     bookseries = fields.Nested(BookseriesBriefSchema)
+    tags = ma.List(fields.Nested(TagBriefSchema))
 
 
 class EditionBriefestSchema(ma.SQLAlchemyAutoSchema):
@@ -182,6 +193,15 @@ class IssueBriefSchema(ma.SQLAlchemyAutoSchema):
         # include_fk = True
     magazine = fields.Nested(MagazineBriefSchema)
 
+class ContributorSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Contributor
+    person = fields.Nested(PersonBriefSchema(only=('id', 'name',)))
+    role = fields.Nested(ContributorRoleSchema)
+    description = fields.String()
+    real_person = fields.Nested(lambda: PersonSchema(only=('id', 'name')))
+
+
 
 class ShortBriefSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
@@ -196,6 +216,7 @@ class ShortBriefSchema(ma.SQLAlchemyAutoSchema):
     issues = ma.List(fields.Nested(IssueBriefSchema))
     editions = ma.List(fields.Nested(EditionBriefSchema))
     genres = ma.List(fields.Nested(GenreBriefSchema))
+    contributors = ma.List(fields.Nested(ContributorSchema))
 
 
 class ArticleBriefSchema(ma.SQLAlchemyAutoSchema):
@@ -276,15 +297,6 @@ class TagSchema(ma.SQLAlchemyAutoSchema):
     people = ma.List(fields.Nested(PersonBriefSchema))
 
 
-class ContributorSchema(ma.SQLAlchemyAutoSchema):
-    class Meta:
-        model = Contributor
-    person = fields.Nested(PersonBriefSchema(only=('id', 'name',)))
-    role = fields.Nested(ContributorRoleSchema)
-    description = fields.String()
-    real_person = fields.Nested(lambda: PersonSchema(only=('id', 'name')))
-
-
 class EditionSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Edition
@@ -297,7 +309,7 @@ class EditionSchema(ma.SQLAlchemyAutoSchema):
     binding = fields.Nested(BindingBriefSchema)
     format = fields.Nested(FormatBriefSchema)
     editors = ma.List(fields.Nested(PersonBriefSchema))
-
+    contributions = ma.List(fields.Nested(ContributorSchema))
 
 class WorkSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
@@ -312,6 +324,7 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):
     stories = ma.List(fields.Nested(ShortBriefSchema))
     translators = ma.List(fields.Nested(PersonBriefSchema))
     awards = ma.List(fields.Nested(AwardedSchema))
+    contributions = ma.List(fields.Nested(ContributorSchema))
 
 
 class ArticleSchema(ma.SQLAlchemyAutoSchema):
@@ -332,7 +345,7 @@ class PersonSchema(ma.SQLAlchemyAutoSchema):
     real_names = ma.List(fields.Nested(PersonBriefSchema))
     aliases = ma.List(fields.Nested(PersonBriefSchema))
     links = ma.List(fields.Nested(PersonLinkBriefSchema))
-    works = ma.List(fields.Nested(WorkSchema))
+    works = ma.List(fields.Nested(WorkBriefSchema))
     stories = ma.List(fields.Nested(ShortBriefSchema))
     edits = ma.List(fields.Nested(EditionSchema))
     translations = ma.List(fields.Nested(EditionSchema))

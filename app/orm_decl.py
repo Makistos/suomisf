@@ -327,6 +327,11 @@ class Edition(Base):
                                uselist=True, viewonly=True,
                                foreign_keys=[Contributor.person_id, Contributor.part_id, Contributor.role_id])
     work = relationship('Work', secondary='part', uselist=True, viewonly=True)
+    contributions = relationship(
+        'Contributor',
+        secondary='part',
+        primaryjoin='and_(Part.edition_id == Edition.id, Part.shortstory_id == None, Contributor.role_id != 1, Contributor.role_id != 3)',
+        uselist=True, viewonly=True)
 
     # publisher = relationship("Publisher", backref=backref('publisher_lookup',
     publisher = relationship("Publisher", backref=backref('edition_assoc4',
@@ -1063,6 +1068,9 @@ class Work(Base):
                             lazy='dynamic',
                             order_by='Edition.pubyear, Edition.version, Edition.editionnum',
                             viewonly=True)
+    contributions = relationship('Contributor', secondary='part',
+                                 primaryjoin='and_(Part.work_id == Work.id, Part.shortstory_id == None, Contributor.role_id.in_([1,3]))',
+                                 viewonly=True, uselist=True)
     genres = relationship("Genre", secondary='workgenre',
                           uselist=True, viewonly=True)
     tags = relationship('Tag', secondary='worktag',

@@ -27,6 +27,19 @@ def GetWork(id: int) -> ResponseType:
         app.logger.error(f'GetWork: Work not found {id}.')
         return ResponseType('Teosta ei löytynyt. id={id}.', 400)
     try:
+        contributions: List[Any] = []
+        # Remove duplicates
+        for contributor in work.contributions:
+            already_added = False
+            for contribution in contributions:
+                if (contribution.person_id == contributor.person_id and
+                    contribution.role_id == contributor.role_id and
+                    contribution.real_person_id == contributor.real_person_id and
+                    contribution.description == contributor.description):
+                    already_added = True
+            if not already_added:
+                contributions.append(contributor)
+        work.contributions = contributions
         schema = WorkSchema()
         retval = schema.dump(work)
     except exceptions.MarshmallowError as exp:

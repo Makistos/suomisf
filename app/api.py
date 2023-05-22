@@ -12,6 +12,7 @@ from app.route_helpers import admin_required, new_session
 from app.api_errors import APIError
 from app.api_errors import APIError
 from app.api_jwt import jwt_admin_required
+import time
 from app.impl import *
 from app.impl_articles import *
 from app.impl_bookseries import *
@@ -144,18 +145,6 @@ def api_GetArticleTags(articleId: int) -> Response:
     retval = ArticleTags(article_id)
     return MakeApiResponse(retval)
 
-
-@ app.route('/api/shorts/<shortId>', methods=['get'])
-def api_GetShort(shortId: str) -> Response:
-    try:
-        id = int(shortId)
-    except:
-        app.logger.error(f'api_GetShort: Invalid id {shortId}.')
-        response = ResponseType(
-            f'api_GetShort: Virheellinen tunniste {shortId}.', 400)
-        return MakeApiResponse(response)
-
-    return MakeApiResponse(GetShort(id))
 
 
 @ app.route('/api/issues/<issueId>/tags', methods=['get'])
@@ -588,8 +577,12 @@ def api_searchWorksByInitial(letter: str) -> Response:
 
 @ app.route('/api/searchshorts', methods=['post'])
 def api_searchShorts() -> Response:
+    st = time.time()
     params = json.loads(request.data)
     retval = SearchShorts(params)
+    et = time.time()
+    elapsed = str(et-st)
+    app.logger.warn('SearchShorts: done in ' + elapsed + " s")
     return MakeApiResponse(retval)
 
 
@@ -736,6 +729,18 @@ def api_tagToArticle(id: int, tagid: int) -> Response:
 
 
 # Shorts
+
+@ app.route('/api/shorts/<shortId>', methods=['get'])
+def api_GetShort(shortId: str) -> Response:
+    try:
+        id = int(shortId)
+    except:
+        app.logger.error(f'api_GetShort: Invalid id {shortId}.')
+        response = ResponseType(
+            f'api_GetShort: Virheellinen tunniste {shortId}.', 400)
+        return MakeApiResponse(response)
+
+    return MakeApiResponse(GetShort(id))
 
 
 @app.route('/api/shorts/', methods=['post', 'put'])
