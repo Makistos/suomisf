@@ -2,7 +2,8 @@ from ast import expr_context
 import json
 from app import app
 from app.route_helpers import new_session
-from app.model import (PersonSchema, PersonBriefSchema)
+from app.model import (PersonBriefSchema)
+from app.model_person import (PersonSchema)
 from app.orm_decl import (Person, PersonTag)
 from sqlalchemy.exc import SQLAlchemyError
 from app.orm_decl import (Alias, Country, ContributorRole, Work)
@@ -112,7 +113,10 @@ def FilterAliases(person_id: int) -> ResponseType:
     #     for persona in personas:
     #         obj: Dict[str, str] = {'id': persona.id, 'text': persona.name}
     #         retval.append(obj)
-    # return Response(json.dumps(retval))
+    #return Response(json.dumps(retval))
+    schema = PersonBriefSchema(many=True)
+    retval = schema.dump(aliases)
+    return ResponseType(retval, 200)
 
 
 def GetAuthorFirstLetters(target: str) -> Tuple[str, int]:

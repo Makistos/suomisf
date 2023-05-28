@@ -9,7 +9,8 @@ from app.route_helpers import new_session
 from app.orm_decl import (ShortStory, StoryTag, Edition,
                           Part, Contributor, StoryType, Contributor,
                           Genre, StoryGenre)
-from app.model import ShortSchema, StoryTypeBriefSchema, ShortSchemaForSearch
+from app.model_shortsearch import ShortSchemaForSearch
+from app.model import ShortSchema, StoryTypeSchema
 from app.impl_contributors import updateShortContributors
 
 from app import app
@@ -35,7 +36,7 @@ def GetShortTypes() -> ResponseType:
         return ResponseType(f'GetShortTypes: Tietokantavirhe. id={id}', 400)
 
     try:
-        schema = StoryTypeBriefSchema(many=True)
+        schema = StoryTypeSchema(many=True)
         retval = schema.dump(types)
     except exceptions.MarshmallowError as exp:
         app.logger.error('GetShortTypes schema error: ' + str(exp))
