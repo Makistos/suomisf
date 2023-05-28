@@ -17,7 +17,7 @@ import datetime
 def books_by_lang(lang: str) -> List[Any]:
     """ Returns a list of books such that each work is only represented by the
         first edition for given work in this language. """
-    retval = []
+    retval: List[Any] = []
     session = new_session()
     authors = session.query(Person)\
                      .join(Contributor, Contributor.role_id == 1)\
@@ -33,6 +33,7 @@ def books_by_lang(lang: str) -> List[Any]:
             first_ed = sorted([x for x in work.editions if x.lang == lang],
                               key=lambda x: x['edition_num'])[0]
             # retval += {
+    return retval
 
 
 @app.route('/books_by_genre/<genre>')
@@ -141,7 +142,7 @@ def booksX(letter: str) -> str:
 
     session = new_session()
     # times.append(time.time())
-    works_db = session.query(Work)\
+    works_db = session.query(Work).filter(Work.author_str != None)\
         .all()
 
     creators = [x.author_str[0] for x in works_db if len(x.author_str) > 0]
