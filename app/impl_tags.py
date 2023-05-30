@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, List
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.orm_decl import (Tag, ArticleTag, IssueTag,
@@ -8,6 +8,14 @@ from app.route_helpers import new_session
 from .impl import ResponseType
 from app import app
 
+
+def tagsHaveChanged(old_values: List[Any], new_values: List[Any]) -> bool:
+    if len(old_values) != len(new_values):
+        return True
+    for idx, old_value in enumerate(old_values):
+        if old_value.id != new_values[idx]['id']:
+            return True
+    return False
 
 def TagFilter(query: str) -> ResponseType:
     session = new_session()

@@ -1,4 +1,4 @@
-from typing import Any, Dict, Union
+from typing import Any, Dict, Union, List
 from app.orm_decl import (Part, Contributor)
 
 
@@ -17,6 +17,17 @@ def _updatePartContributors(session: Any, part_id: int, contributors: Any) -> No
         session.add(new_contributor)
 
 
+def contributorsHaveChanged(old_values: List[Any], new_values: List[Any]) -> bool:
+    if len(old_values) != len(new_values):
+        return True
+    for idx, old_value in enumerate(old_values):
+        if old_value.person_id != new_values[idx]['person']['id'] or \
+                old_value.role_id != new_values[idx]['role']['id'] or \
+                old_value.description != new_values[idx]['description']:
+            return True
+    return False
+
+
 def updateShortContributors(session: Any, short_id: int, contributors: Any) -> None:
     parts = session.query(Part).filter(Part.shortstory_id == short_id).all()
     for part in parts:
@@ -26,7 +37,7 @@ def updateShortContributors(session: Any, short_id: int, contributors: Any) -> N
 def updateEditionContributors(session: Any, edition_id: int, contributors: Any) -> None:
     parts = session.query(Part)\
         .filter(Part.edition_id == edition_id)\
-        .filter(Part.shortstory_id is None)\
+        .filter(Part.shortstory_id == None)\
         .all()
     for part in parts:
         _updatePartContributors(session, part.id, contributors)
@@ -35,7 +46,7 @@ def updateEditionContributors(session: Any, edition_id: int, contributors: Any) 
 def updateWorkContributors(session: Any, work_id: int, contributors: Any) -> None:
     parts = session.query(Part)\
         .filter(Part.work_id == work_id)\
-        .filter(Part.shortstory_id is None)\
+        .filter(Part.shortstory_id == None)\
         .all()
     for part in parts:
         _updatePartContributors(session, part.id, contributors)

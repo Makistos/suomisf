@@ -9,7 +9,9 @@ from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.impl import ResponseType, checkInt, LogChanges, GetJoinChanges
-from app.impl_contributors import updateWorkContributors
+from app.impl_contributors import updateWorkContributors, contributorsHaveChanged
+from app.impl_genres import genresHaveChanged
+from app.impl_tags import tagsHaveChanged
 
 from typing import Dict, List, Any
 from app import app
@@ -308,69 +310,67 @@ def WorkUpdate(params: Any) -> ResponseType:
     changed = params['changed']
     work_id = checkInt(data['id'])
 
-    if len(changed) == 0:
-        return retval
     work = session.query(Work).filter(Work.id == work_id).first()
     if not work:
         app.logger.error(f'WorkSave: Work not found. Id = {work_id}.')
         return ResponseType('Teosta ei löydy', 400)
 
-    if 'title' in changed:
-        if changed['title']:
+    if 'title' in data:
+        if data['title'] != work.title:
             if len(data['title']) == 0:
                 app.logger.error(f'WorkSave: Empty title. Id = {work_id}.')
                 return ResponseType('Tyhjä nimi', 400)
             old_values['title'] = work.title
             work.title = bleach.clean(data['title'])
 
-    if 'subtitle' in changed:
-        if changed['subtitle']:
+    if 'subtitle' in data:
+        if data['subtitle'] != work.subtitle:
             old_values['subtitle'] = work.subtitle
             work.subtitle = bleach.clean(data['subtitle'])
 
-    if 'orig_title' in changed:
-        if changed['orig_title']:
+    if 'orig_title' in data:
+        if data['orig_title'] != work.orig_title:
             old_values['orig_title'] = work.orig_title
             work.orig_title = bleach.clean(data['orig_title'])
 
-    if 'pubyear' in changed:
-        if changed['pubyear']:
+    if 'pubyear' in data:
+        if data['pubyear'] != work.pubyear:
             old_values['pubyear'] = work.pubyear
             work.pubyear = bleach.clean(data['pubyear'])
 
-    if 'bookseriesnum' in changed:
-        if changed['bookseriesnum']:
+    if 'bookseries_number' in data:
+        if data['bookseries_number'] != work.bookseriesnum:
             old_values['bookseriesnum'] = work.bookseriesnum
             work.bookseriesnum = bleach.clean(data['bookseriesnum'])
 
-    if 'bookseriesorder' in changed:
-        if changed['bookseriesorder']:
+    if 'bookseriesorder' in data:
+        if data['bookseriesorder'] != work.bookseriesorder:
             old_values['bookseriesorder'] = work.bookseriesorder
             work.bookseriesorder = bleach.clean(data['bookseriesorder'])
 
-    if 'misc' in changed:
-        if changed['misc']:
+    if 'misc' in data:
+        if data['misc'] != work.misc:
             old_values['misc'] = work.misc
             work.misc = bleach.clean(data['misc'])
 
-    if 'description' in changed:
-        if changed['description']:
+    if 'description' in data:
+        if data['description'] != work.description:
             old_values['description'] = work.description
             work.description = bleach.clean(data['description'])
 
-    if 'descr_attr' in changed:
-        if changed['descr_attr']:
+    if 'descr_attrs' in data:
+        if data['descr_attrs'] != work.descr_attr:
             old_values['descr_attr'] = work.descr_attr
-            work.descr_attr = bleach.clean(data['descr_attr'])
+            work.descr_attr = bleach.clean(data['descr_attrs'])
 
-    if 'imported_string' in changed:
-        if changed['imported_string']:
+    if 'imported_string' in data:
+        if data['imported_string'] != work.imported_string:
             old_values['imported_string'] = work.imported_string
             work.imported_string = bleach.clean(data['imported_string'])
 
     # Language
-    if 'language' in changed:
-        if changed['language']:
+    if 'language' in data:
+        if data['language'] != work.language:
             if data['language'] != None:
                 language = checkInt(data['language']['id'])
             else:
@@ -379,66 +379,74 @@ def WorkUpdate(params: Any) -> ResponseType:
             work.language = language
 
     # Bookseries
-    if 'bookseries_id' in changed:
-        if changed['bookseries_id']:
-            if data['bookseries_id'] != None:
-                bookseries_id = checkInt(data['bookseries_id'])
-            else:
-                bookseries_id = None
-            old_values['bookseries_id'] = work.bookseries_id
-            work.bookseries_id = bookseries_id
+    if 'bookseries' in data:
+        if data['bookseries'] != None:
+            if data['bookseries']['id'] != work.bookseries['id']:
+                if data['bookseries']['id'] != None:
+                    bookseries_id = checkInt(data['bookseries_id'])
+                else:
+                    bookseries_id = None
+                old_values['bookseries'] = work.bookseries['name']
+                work.bookseries_id = bookseries_id
 
     # Worktype
-    if 'type' in changed:
-        if changed['type']:
+    if 'type' in data:
+        if data['type'] != work.type:
             old_values['type'] = work.type
             work.type = checkInt(data['type'])
 
     # Contributors
-    if 'contributors' in changed:
-        updateWorkContributors(session, work.id, data['contributors'])
+    if 'contributors' in data:
+        if contributorsHaveChanged(work.contributions, data['contributors']):
+            updateWorkContributors(session, work.id, data['contributors'])
 
     # Genres
-    if 'genres' in changed:
-        existing_genres = session.query(WorkGenre)\
-            .filter(WorkGenre.work_id == work_id)\
-            .all()
-        (to_add, to_remove) = GetJoinChanges([x.genre_id for x in existing_genres],
-                                             [x['id'] for x in data['genres']])
-        for id in to_remove:
-            dg = session.query(WorkGenre)\
-                .filter(WorkGenre.work_id == id)\
-                .filter(WorkGenre.genre_id == id)\
-                .first()
-            session.delete(dg)
-        for id in to_add:
-            sg = WorkGenre(genre_id=id, work_id=work.id)
-            session.add(sg)
-        old_values['genres'] = ' -'.join([str(x) for x in to_add])
-        old_values['genres'] += ' +'.join([str(x) for x in to_remove])
+    if 'genres' in data:
+        if genresHaveChanged(work.genres, data['genres']):
+            existing_genres = session.query(WorkGenre)\
+                .filter(WorkGenre.work_id == work_id)\
+                .all()
+            (to_add, to_remove) = GetJoinChanges([x.genre_id for x in existing_genres],
+                                                [x['id'] for x in data['genres']])
+            for id in to_remove:
+                dg = session.query(WorkGenre)\
+                    .filter(WorkGenre.work_id == id)\
+                    .filter(WorkGenre.genre_id == id)\
+                    .first()
+                session.delete(dg)
+            for id in to_add:
+                sg = WorkGenre(genre_id=id, work_id=work.id)
+                session.add(sg)
+            old_values['genres'] = ' -'.join([str(x) for x in to_add])
+            old_values['genres'] += ' +'.join([str(x) for x in to_remove])
 
     # Tags
-    if 'tags' in changed:
-        existing_tags = session.query(WorkTag)\
-            .filter(WorkTag.work_id == work_id)\
-            .all()
-        (to_add, to_remove) = GetJoinChanges([x.tag_id for x in existing_tags],
-                                             [x['id'] for x in data['tags']])
-        for id in to_remove:
-            dt = session.query(WorkTag)\
-                .filter(WorkTag.work_id == id)\
-                .filter(WorkTag.tag_id == id)\
-                .first()
-            session.delete(dt)
-        for id in to_add:
-            st = WorkTag(tag_id=id, work_id=work.id)
-            session.add(st)
-        old_values['tags'] = ' -'.join([str(x) for x in to_add])
-        old_values['tags'] += ' +'.join([str(x) for x in to_remove])
+    if 'tags' in data:
+        if tagsHaveChanged(work.tags, data['tags']):
+            existing_tags = session.query(WorkTag)\
+                .filter(WorkTag.work_id == work_id)\
+                .all()
+            (to_add, to_remove) = GetJoinChanges([x.tag_id for x in existing_tags],
+                                                [x['id'] for x in data['tags']])
+            for id in to_remove:
+                dt = session.query(WorkTag)\
+                    .filter(WorkTag.work_id == id)\
+                    .filter(WorkTag.tag_id == id)\
+                    .first()
+                session.delete(dt)
+            for id in to_add:
+                st = WorkTag(tag_id=id, work_id=work.id)
+                session.add(st)
+            old_values['tags'] = ' -'.join([str(x) for x in to_add])
+            old_values['tags'] += ' +'.join([str(x) for x in to_remove])
 
     # Links
 
     # Awards
+
+    if len(old_values) == 0:
+        # Nothing has changed.
+        return retval
 
     LogChanges(session=session, obj=work, action='Päivitys',
                old_values=old_values, fields=changed)
