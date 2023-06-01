@@ -300,14 +300,13 @@ def WorkAdd(params: Any) -> ResponseType:
 
     return retval
 
-
+# Save changes to work to database
 def WorkUpdate(params: Any) -> ResponseType:
     retval = ResponseType('', 200)
     session = new_session()
     old_values = {}
     work: Any = None
     data = params['data']
-    changed = params['changed']
     work_id = checkInt(data['id'])
 
     work = session.query(Work).filter(Work.id == work_id).first()
@@ -370,11 +369,19 @@ def WorkUpdate(params: Any) -> ResponseType:
 
     # Language
     if 'language' in data:
-        if data['language'] != work.language:
-            if data['language'] != None:
-                language = checkInt(data['language']['id'])
-            else:
+        language = None
+        hasChanged = False
+        if data['language'] == None:
+            if work.language != None:  # Removed language
                 language = None
+                hasChanged = True
+            elif data['language']['id'] != work.language:  # Changed language
+                language = checkInt(data['language']['id'])
+                hasChanged = True
+        elif work.language == None:  # Added language
+            language = checkInt(data['language']['id'])
+            hasChanged = True
+        if hasChanged:
             old_values['language'] = work.language
             work.language = language
 
@@ -383,7 +390,7 @@ def WorkUpdate(params: Any) -> ResponseType:
         if data['bookseries'] != None:
             if data['bookseries']['id'] != work.bookseries['id']:
                 if data['bookseries']['id'] != None:
-                    bookseries_id = checkInt(data['bookseries_id'])
+                    bookseries_id = checkInt(data['bookseries']['id'])
                 else:
                     bookseries_id = None
                 old_values['bookseries'] = work.bookseries['name']
@@ -449,11 +456,12 @@ def WorkUpdate(params: Any) -> ResponseType:
         return retval
 
     LogChanges(session=session, obj=work, action='Päivitys',
-               old_values=old_values, fields=changed)
+               old_values=old_values)
 
     try:
         session.add(work)
     except SQLAlchemyError as exp:
+        session.rollback()
         app.logger.error('Exception in WorkSave(): ' + str(exp))
         return ResponseType(f'WorkSave: Tietokantavirhe. id={work.id}', 400)
 

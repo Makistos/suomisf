@@ -188,7 +188,7 @@ table_locals = {'article': 'Artikkeli',
 
 
 def LogChanges(session: Any, obj: Any, action: str = 'Päivitys',
-               fields: List[str] = [], old_values: Dict[str, Any] = {}) -> None:
+               old_values: Dict[str, Any] = {}) -> None:
     ''' Log a change made to data.
 
     Logging is done in the same session as the object itself, so it will
@@ -203,21 +203,21 @@ def LogChanges(session: Any, obj: Any, action: str = 'Päivitys',
     '''
     name: str = obj.name
     tbl_name = table_locals[obj.__table__.name]
-    old_value: Union[str, None]
+    #old_value: Union[str, None]
 
     if action == 'Päivitys':
-        for field in fields:
-            if field in old_values:
-                old_value = bleach.clean(old_values[field])
-            else:
-                old_value = None
+        for field, value in old_values.items():
+            # if field in old_values:
+            #     old_value = bleach.clean(old_values[field])
+            # else:
+            #     old_value = None
             log = Log(table_name=tbl_name,
-                      field_name=bleach.clean(field),
+                      field_name=field,
                       table_id=obj.id,
                       object_name=name,
                       action=action,
                       user_id=current_user.get_id(),
-                      old_value=old_value,
+                      old_value=value,
                       date=datetime.now())
             session.add(log)
     else:
