@@ -11,6 +11,16 @@ from app.impl import ResponseType, checkInt, LogChanges, GetJoinChanges
 import bleach
 from app import app
 
+# Save new edition to database
+def EditionCreate(params: Any) -> ResponseType:
+  retval = ResponseType('', 200)
+  session = new_session()
+  data = params['data']
+  edition = Edition()
+  edition.title = bleach.clean(data['title'])
+  edition.subtitle = bleach.clean(data['subtitle'])
+
+  return retval
 
 
 # Save changes to edition to database.
@@ -33,16 +43,107 @@ def EditionUpdate(params: Any) -> ResponseType:
         app.logger.error(f'EditionUpdate: Title is empty.')
         return ResponseType(f'Otsikko ei voi olla tyhjä.', 400)
       else:
-        old_values['title'] = data['title']
+        old_values['title'] = edition.title
         edition.title = bleach.clean(data['title'])
+
+  if 'pubyear' in data:
+    if data['pubyear'] == None:
+      app.logger.error(f'EditionUpdate: Pubyear is empty.')
+      return ResponseType(f'Julkaisuvuosi ei voi olla tyhjä.', 400)
+    if data['pubyear'] != edition.pubyear:
+      old_values['pubyear'] = edition.pubyear
+      edition.pubyear = bleach.clean(data['pubyear'])
 
   if 'publisher' in data:
     if data['publisher'] == None:
       app.logger.error(f'EditionUpdate: Publisher is empty.')
       return ResponseType(f'Kustantaja ei voi olla tyhjä.', 400)
-    if data['publisher'] != edition.publisher:
-      old_values['publisher'] = data['publisher']
-      edition.publisher = bleach.clean(data['publisher'])
+    if data['publisher']['id'] != edition.publisher_id:
+        if data['publisher']['id'] != None:
+            publisher_id = checkInt(data['publisher']['id'])
+        else:
+            publisher_id = None
+        old_values['publisher'] = edition.publisher['name']
+        edition.publisher_id = publisher_id
+
+  if 'editionnum' in data:
+    if data['editionnum'] == None:
+      app.logger.error(f'EditionUpdate: Editionnum is empty.')
+      return ResponseType(f'Painosnumero ei voi olla tyhjä.', 400)
+    if data['editionnum'] != edition.editionnum:
+      old_values['editionnum'] = edition.editionnum
+      edition.editionnum = bleach.clean(data['editionnum'])
+
+  if 'version' in data:
+    if data['version'] == '':
+      data['version'] = None
+    if data['version'] != edition.version:
+      old_values['version'] = edition.version
+      edition.version = bleach.clean(data['version'])
+
+  if 'isbn' in data:
+    if data['isbn'] != edition.isbn:
+      old_values['isbn'] = edition.isbn
+      edition.isbn = bleach.clean(data['isbn'])
+
+  if 'pages' in data:
+    if data['pages'] != edition.pages:
+      old_values['pages'] = edition.pages
+      edition.pages_id = bleach.clean(data['pages']['id'])
+
+  if 'binding' in data:
+    if data['binding']['id'] != edition.binding_id:
+      old_values['binding'] = edition.binding.name
+      edition.binding_id = bleach.clean(data['binding']['id'])
+
+  if 'format' in data:
+    if data['format']['id'] != edition.format_id:
+      old_values['format'] = edition.format.name
+      edition.format_id = bleach.clean(data['format']['id'])
+
+  if 'size' in data:
+    if data['size'] != edition.size:
+      old_values['size'] = edition.size
+      edition.size = bleach.clean(data['size'])
+
+  if 'printedin' in data:
+    if data['printedin'] != edition.printedin:
+      old_values['printedin'] = edition.printedin
+      edition.printedin = bleach.clean(data['printedin'])
+
+  if 'pubseries' in data:
+    if data['pubseries']['id'] != edition.pubseries_id:
+      if data['pubseries']['id'] != None:
+        pubseries_id = checkInt(data['pubseries']['id'])
+      else:
+        pubseries_id = None
+      old_values['pubseries'] = edition.pubseries['name']
+      edition.pubseries = pubseries_id
+
+  if 'pubseriesnum' in data:
+    if data['pubseriesnum'] != edition.pubseriesnum:
+      old_values['pubseriesnum'] = edition.pubseriesnum
+      edition.pubseriesnum = bleach.clean(data['pubseriesnum'])
+
+  if 'dustcover' in data:
+    if data['dustcover'] != edition.dustcover:
+      old_values['dustcover'] = edition.dustcover.name
+      edition.dustcover = bleach.clean(data['dustcover'])
+
+  if 'coverimage' in data:
+    if data['coverimage'] != edition.coverimage:
+      old_values['coverimage'] = edition.coverimage.name
+      edition.coverimage = bleach.clean(data['coverimage'])
+
+  if 'misc' in data:
+    if data['misc'] != edition.misc:
+      old_values['misc'] = edition.misc
+      edition.misc = bleach.clean(data['misc'])
+
+  if 'imported_string' in data:
+    if data['imported_string'] != edition.imported_string:
+      old_values['imported_string'] = edition.imported_string
+      edition.imported_string = bleach.clean(data['imported_string'])
 
   if len(old_values) == 0:
     # No changes
