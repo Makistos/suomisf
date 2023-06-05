@@ -52,7 +52,7 @@ def EditionUpdate(params: Any) -> ResponseType:
       return ResponseType(f'Julkaisuvuosi ei voi olla tyhjä.', 400)
     if data['pubyear'] != edition.pubyear:
       old_values['pubyear'] = edition.pubyear
-      edition.pubyear = bleach.clean(data['pubyear'])
+      edition.pubyear = checkInt(data['pubyear'])
 
   if 'publisher' in data:
     if data['publisher'] == None:
@@ -72,14 +72,14 @@ def EditionUpdate(params: Any) -> ResponseType:
       return ResponseType(f'Painosnumero ei voi olla tyhjä.', 400)
     if data['editionnum'] != edition.editionnum:
       old_values['editionnum'] = edition.editionnum
-      edition.editionnum = bleach.clean(data['editionnum'])
+      edition.editionnum = checkInt(data['editionnum'])
 
   if 'version' in data:
     if data['version'] == '':
       data['version'] = None
     if data['version'] != edition.version:
       old_values['version'] = edition.version
-      edition.version = bleach.clean(data['version'])
+      edition.version = checkInt(data['version'])
 
   if 'isbn' in data:
     if data['isbn'] != edition.isbn:
@@ -89,22 +89,22 @@ def EditionUpdate(params: Any) -> ResponseType:
   if 'pages' in data:
     if data['pages'] != edition.pages:
       old_values['pages'] = edition.pages
-      edition.pages_id = bleach.clean(data['pages']['id'])
+      edition.pages = checkInt(data['pages'])
 
   if 'binding' in data:
     if data['binding']['id'] != edition.binding_id:
       old_values['binding'] = edition.binding.name
-      edition.binding_id = bleach.clean(data['binding']['id'])
+      edition.binding_id = checkInt(data['binding']['id'])
 
   if 'format' in data:
     if data['format']['id'] != edition.format_id:
       old_values['format'] = edition.format.name
-      edition.format_id = bleach.clean(data['format']['id'])
+      edition.format_id = checkInt(data['format']['id'])
 
   if 'size' in data:
     if data['size'] != edition.size:
       old_values['size'] = edition.size
-      edition.size = bleach.clean(data['size'])
+      edition.size = checkInt(data['size'])
 
   if 'printedin' in data:
     if data['printedin'] != edition.printedin:
@@ -123,17 +123,17 @@ def EditionUpdate(params: Any) -> ResponseType:
   if 'pubseriesnum' in data:
     if data['pubseriesnum'] != edition.pubseriesnum:
       old_values['pubseriesnum'] = edition.pubseriesnum
-      edition.pubseriesnum = bleach.clean(data['pubseriesnum'])
+      edition.pubseriesnum = checkInt(data['pubseriesnum'])
 
   if 'dustcover' in data:
     if data['dustcover'] != edition.dustcover:
-      old_values['dustcover'] = edition.dustcover.name
-      edition.dustcover = bleach.clean(data['dustcover'])
+      old_values['dustcover'] = edition.dustcover
+      edition.dustcover = checkInt(data['dustcover'])
 
   if 'coverimage' in data:
     if data['coverimage'] != edition.coverimage:
-      old_values['coverimage'] = edition.coverimage.name
-      edition.coverimage = bleach.clean(data['coverimage'])
+      old_values['coverimage'] = edition.coverimage
+      edition.coverimage = checkInt(data['coverimage'])
 
   if 'misc' in data:
     if data['misc'] != edition.misc:
@@ -145,6 +145,10 @@ def EditionUpdate(params: Any) -> ResponseType:
       old_values['imported_string'] = edition.imported_string
       edition.imported_string = bleach.clean(data['imported_string'])
 
+  if 'contributors' in data:
+    if contributorsHaveChanged(edition.contributions, data['contributors']):
+      updateEditionContributors(session, edition.id, data['contributors'])
+
   if len(old_values) == 0:
     # No changes
     return retval
@@ -153,7 +157,7 @@ def EditionUpdate(params: Any) -> ResponseType:
               old_values=old_values)
 
   try:
-    session.add()
+    session.add(edition)
   except SQLAlchemyError as exp:
     session.rollback()
     app.logger.error('Exception in EditionUpdate: ' + str(exp))
