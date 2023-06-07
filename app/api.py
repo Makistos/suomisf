@@ -16,6 +16,7 @@ import time
 from app.impl import *
 from app.impl_articles import *
 from app.impl_bookseries import *
+from app.impl_editions import *
 from app.impl_issues import *
 from app.impl_magazines import *
 from app.impl_people import *
@@ -75,6 +76,17 @@ def api_login() -> Response:
 def frontpagestats() -> Response:
     return MakeApiResponse(GetFrontpageData())
 
+@app.route('/api/editions', methods=['post', 'put'])
+@jwt_admin_required
+def api_EditionCreateUpdate() -> Response:
+    params = bleach.clean(request.data.decode('utf-8'))
+    params = json.loads(params)
+    if request.method == 'POST':
+        retval = MakeApiResponse(EditionCreate(params))
+    elif request.method == 'PUT':
+        retval = MakeApiResponse(EditionUpdate(params))
+
+    return retval
 
 @ app.route('/api/bookseries/<bookseriesId>', methods=['get'])
 def api_GetBookseries(bookseriesId: str) -> Response:
