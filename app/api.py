@@ -996,3 +996,8 @@ def api_PublisherCreateUpdate() -> Response:
         retval = MakeApiResponse(PublisherUpdate(params))
 
     return retval
+
+@app.route('/api/worktypes/', methods=['get'])
+def api_WorkTypes() -> Response:
+    retval = MakeApiResponse(WorkTypeGetAll())
+    return retval

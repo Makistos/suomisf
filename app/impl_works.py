@@ -3,7 +3,7 @@ from app.route_helpers import new_session
 from app.impl import (ResponseType, SearchScores, SearchResult,
                       SearchResultFields, searchScore)
 from app.orm_decl import (Work, WorkType, WorkTag, WorkGenre, WorkTag)
-from app.model import (CountryBriefSchema, WorkBriefSchema)
+from app.model import (CountryBriefSchema, WorkBriefSchema, WorkTypeBriefSchema)
 from app.model import WorkSchema
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
@@ -472,3 +472,21 @@ def WorkUpdate(params: Any) -> ResponseType:
         app.logger.error('Exception in WorkSave() commit: ' + str(exp))
         return ResponseType(f'WorkSave: Tietokantavirhe. id={work.id}', 400)
     return retval
+
+def WorkTypeGetAll() -> ResponseType:
+    session = new_session()
+
+    try:
+        worktypes = session.query(WorkType).all()
+    except SQLAlchemyError as exp:
+        app.logger.error('Exception in WorkTypeGetAll(): ' + str(exp))
+        return ResponseType('WorkTypeGetAll: Tietokantavirhe', 400)
+
+    try:
+        schema = WorkTypeBriefSchema(many=True)
+        retval = schema.dump(worktypes)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error('Exception in WorkTypeGetAll(): ' + str(exp))
+        return ResponseType('WorkTypeGetAll: Serialisointivirhe', 400)
+
+    return ResponseType(retval, 200)
