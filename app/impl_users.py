@@ -31,6 +31,8 @@ def LoginUser(options: Dict[str, str]) -> Response:
             access_token = create_access_token(identity=str(user.id))
             refresh_token = create_refresh_token(identity=str(user.id))
             data = json.dumps({'role': role,
+                               'name': user.name,
+                               'id': user.id,
                                'accessToken': access_token,
                                'refreshToken': refresh_token})
             resp = make_response(data, 200)
