@@ -10,7 +10,7 @@ from app.orm_decl import User
 import json
 
 
-def jwt_admin_required(f: Any) -> Any:
+def jwt_admin_required() -> Any:
     """
     Check that user has admin rights.
 
@@ -19,7 +19,6 @@ def jwt_admin_required(f: Any) -> Any:
 
     If user doesn't have rights, a 401 response is returned.
     """
-    #@jwt_required(verify_type=False)
     def wrapper(f: Any) -> Any:
         @wraps(f)
         def decorator(*args: Any, **kwargs: Any) -> Any:
@@ -30,5 +29,4 @@ def jwt_admin_required(f: Any) -> Any:
             else:
                 return make_response(json.dumps({'msg': 'Ei oikeutta toimintoon'}), 401)
         return decorator
-    wrapper.__name__ = f.__name__
     return wrapper

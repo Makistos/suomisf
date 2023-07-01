@@ -76,8 +76,9 @@ def api_login() -> Response:
 def frontpagestats() -> Response:
     return MakeApiResponse(GetFrontpageData())
 
+
 @app.route('/api/editions', methods=['post', 'put'])
-@jwt_admin_required
+@jwt_admin_required()
 def api_EditionCreateUpdate() -> Response:
     params = bleach.clean(request.data.decode('utf-8'))
     params = json.loads(params)
@@ -438,7 +439,7 @@ def api_getWork(id: str) -> Response:
 
 
 @app.route('/api/works/', methods=['post', 'put'])
-@jwt_admin_required
+@jwt_admin_required()
 def api_WorkCreateUpdate() -> Response:
     params = bleach.clean(request.data.decode('utf-8'))
     params = json.loads(params)
@@ -448,7 +449,6 @@ def api_WorkCreateUpdate() -> Response:
         retval = MakeApiResponse(WorkUpdate(params))
 
     return retval
-
 
 @ app.route('/api/search/<pattern>', methods=['get', 'post'])
 def api_Search(pattern: str) -> Tuple[str, int]:
@@ -529,7 +529,6 @@ def api_FilterPeople(pattern: str) -> Response:
     retval = FilterPeople(pattern)
     return MakeApiResponse(retval)
 
-
 @app.route('/api/filter/alias/<id>', methods=['get'])
 def api_FilterAlias(id: str) -> Response:
     try:
@@ -557,6 +556,13 @@ def api_FilterPublishers(pattern: str) -> Response:
 @app.route('/api/filter/pubseries/<pattern>', methods=['get'])
 def api_FilterPubseries(pattern: str) -> Response:
     pattern = bleach.clean(pattern)
+    if len(pattern) < 2:
+        app.logger.error('FilterPubseries: Pattern too short.')
+        response = ResponseType(
+            'Liian lyhyt hakuehto', status=400)
+        return MakeApiResponse(response)
+    retval = FilterPubseries(pattern)
+    return MakeApiResponse(retval)
 
 
 @app.route('/api/filter/tags/<pattern>', methods=['get'])
@@ -719,7 +725,7 @@ def api_tag(id: str) -> Response:
 # Articles
 
 @app.route('/api/articles/<id>/tags/<tagid>', methods=['put', 'delete'])
-@jwt_admin_required
+@jwt_admin_required()
 def api_tagToArticle(id: int, tagid: int) -> Response:
     if request.method == 'PUT':
         func = ArticleTagAdd
@@ -756,7 +762,7 @@ def api_GetShort(shortId: str) -> Response:
 
 
 @app.route('/api/shorts/', methods=['post', 'put'])
-@jwt_admin_required
+@jwt_admin_required()
 def api_ShortCreateUpdate() -> Response:
     params = bleach.clean(request.data.decode('utf-8'))
     params = json.loads(params)
@@ -769,7 +775,7 @@ def api_ShortCreateUpdate() -> Response:
 
 
 @app.route('/api/shorts/<id>', methods=['delete'])
-@jwt_admin_required
+@jwt_admin_required()
 def api_ShortDelete(id: int) -> Response:
     try:
         short_id = int(id)
@@ -785,7 +791,7 @@ def api_ShortDelete(id: int) -> Response:
 
 
 @app.route('/api/issue/<id>/tags/<tagid>', methods=['put', 'delete'])
-@jwt_admin_required
+@jwt_admin_required()
 def api_tagToIssue(id: int, tagid: int) -> Response:
     if request.method == 'PUT':
         func = IssueTagAdd
@@ -807,7 +813,7 @@ def api_tagToIssue(id: int, tagid: int) -> Response:
 
 
 @app.route('/api/person/<id>/tags/<tagid>', methods=['put', 'delete'])
-@jwt_admin_required
+@jwt_admin_required()
 def api_tagToPerson(id: int, tagid: int) -> Response:
     if request.method == 'PUT':
         func = PersonTagAdd
@@ -829,7 +835,7 @@ def api_tagToPerson(id: int, tagid: int) -> Response:
 
 
 @app.route('/api/story/<id>/tags/<tagid>', methods=['put', 'delete'])
-@jwt_admin_required
+@jwt_admin_required()
 def api_tagToStory(id: int, tagid: int) -> Response:
     if request.method == 'PUT':
         func = StoryTagAdd
@@ -851,7 +857,7 @@ def api_tagToStory(id: int, tagid: int) -> Response:
 
 
 @app.route('/api/work/<id>/tags/<tagid>', methods=['put', 'delete'])
-@jwt_admin_required
+@jwt_admin_required()
 def api_tagToWork(id: int, tagid: int) -> Response:
     if request.method == 'PUT':
         func = WorkTagAdd
@@ -873,7 +879,7 @@ def api_tagToWork(id: int, tagid: int) -> Response:
 
 
 @ app.route('/api/tags', methods=['post'])
-@ jwt_admin_required
+@ jwt_admin_required()
 def api_tagCreate() -> Tuple[str, int]:
     url_params = request.args.to_dict()
     name = url_params['name']
@@ -885,7 +891,7 @@ def api_tagCreate() -> Tuple[str, int]:
 
 
 @ app.route('/api/tags/<id>/merge/<id2>', methods=['post'])
-@ jwt_admin_required
+@ jwt_admin_required()
 def api_tagMerge(id: int, id2: int) -> Tuple[str, int]:
     """
     Merge items of two tags into one and delete the obsolete tag.
@@ -915,7 +921,7 @@ def api_tagMerge(id: int, id2: int) -> Tuple[str, int]:
 
 
 @ app.route('/api/tags/<id>', methods=['delete'])
-@ jwt_admin_required
+@ jwt_admin_required()
 def api_tagDelete(id: int) -> Response:
     """
     Delete selected tag. Tag is only deleted if it isn't used anywhere.
@@ -944,7 +950,7 @@ def api_tagDelete(id: int) -> Response:
 
 
 @ app.route('/api/tags', methods=['put'])
-@ jwt_admin_required
+@ jwt_admin_required()
 def api_tagRename() -> Response:
     """
     Rename given tag. Cannot be named to an existing tag. tagMerge is used
@@ -986,7 +992,7 @@ def api_tagRename() -> Response:
 
 
 @app.route('/api/publishers/', methods=['post', 'put'])
-@jwt_admin_required
+@jwt_admin_required()
 def api_PublisherCreateUpdate() -> Response:
     params = bleach.clean(request.data.decode('utf-8'))
     params = json.loads(params)
@@ -995,6 +1001,11 @@ def api_PublisherCreateUpdate() -> Response:
     elif request.method == 'PUT':
         retval = MakeApiResponse(PublisherUpdate(params))
 
+    return retval
+
+@app.route('/api/bindings', methods=['get'])
+def api_Bindings() -> Response:
+    retval = MakeApiResponse(BindingGetAll())
     return retval
 
 @app.route('/api/worktypes/', methods=['get'])
