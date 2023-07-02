@@ -1,5 +1,4 @@
 from itertools import groupby
-from flask import escape
 import os
 import sys
 import datetime
