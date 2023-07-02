@@ -24,11 +24,13 @@ def LoginUser(options: Dict[str, str]) -> Response:
         if token:
             if user.is_admin:
                 role = 'admin'
+                access_token = create_access_token(identity=str(user.id), additional_claims={"is_administrator": True})
             elif user.name == 'demo_admin':
                 role = 'demo_admin'
+                access_token = create_access_token(identity=str(user.id), additional_claims={"is_administrator": True})
             else:
                 role = 'user'
-            access_token = create_access_token(identity=str(user.id))
+                access_token = create_access_token(identity=str(user.id))
             refresh_token = create_refresh_token(identity=str(user.id))
             data = json.dumps({'role': role,
                                'name': user.name,
