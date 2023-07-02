@@ -59,7 +59,8 @@ class SearchScores(IntEnum):
 
 def checkInt(value: Any = None,
              zerosAllowed: Boolean = True,
-             negativeValuesAllowed: Boolean = False) -> Union[int, None]:
+             negativeValuesAllowed: Boolean = False,
+             allowed: List[int] = []) -> Union[int, None]:
     """
     Checks that given value is an integer.
 
@@ -76,6 +77,9 @@ def checkInt(value: Any = None,
         return None
     if not negativeValuesAllowed and retval < 0:
         return None
+    if len(allowed) > 0:
+        if retval not in allowed:
+            return None
     return retval
 
 

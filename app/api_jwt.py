@@ -1,13 +1,28 @@
-from flask import make_response
-from flask.wrappers import Response
+from flask import make_response  # type: ignore
+from flask.wrappers import Response  # type: ignore
 from app import jwt
 import json
-from typing import Any, Tuple, NewType, Union, List, Dict, TypedDict
-from flask_jwt_extended import get_jwt_identity, jwt_required, verify_jwt_in_request, get_jwt
+from typing import Any
+from flask_jwt_extended import verify_jwt_in_request, get_jwt, get_jwt_identity, create_access_token, set_access_cookies  # type: ignore
 from functools import wraps
-from app.route_helpers import new_session
 from app.orm_decl import User
 import json
+from datetime import datetime, timedelta, timezone
+from app import app
+
+@app.after_request
+def refresh_existing(response: Response) -> Response:
+    try:
+        exp_timestamp = get_jwt()["exp"]
+        now = datetime.now(timezone.utc)
+        target_timestamp = datetime.timestamp(now + timedelta(minutes=30))
+        if target_timestamp > exp_timestamp:
+            access_token = create_access_token(identity=str(get_jwt_identity()))
+            set_access_cookies(response, access_token)
+        app.logger.info('refresh_existing')
+        return response
+    except (RuntimeError, KeyError):
+        return response
 
 
 def jwt_admin_required() -> Any:

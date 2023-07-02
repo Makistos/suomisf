@@ -1,13 +1,12 @@
 import re
 from urllib import response
-from flask_jwt_extended import jwt_required, get_jwt_identity
 import json
 from typing import Any, Tuple, NewType, Type, Union, List, Dict
 from app.model import *
 from app import app
-import bleach
-from flask import request
-from flask.wrappers import Response
+import bleach  # type: ignore
+from flask import request # type: ignore
+from flask.wrappers import Response # type: ignore
 from app.route_helpers import admin_required, new_session
 from app.api_errors import APIError
 from app.api_errors import APIError
