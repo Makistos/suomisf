@@ -5,11 +5,11 @@ from typing import Any, Dict, List, Optional, Union
 from app.orm_decl import (Edition, Part, Tag, Work, BindingType, Format,
                           Publisher, Pubseries)
 from app.impl_contributors import contributorsHaveChanged, updateEditionContributors
-from sqlalchemy.exc import SQLAlchemyError # type: ignore
-from marshmallow import exceptions # type: ignore
+from sqlalchemy.exc import SQLAlchemyError
+from marshmallow import exceptions
 from app.model import EditionSchema, BindingBriefSchema
 from app.impl import ResponseType, checkInt, LogChanges, GetJoinChanges
-import bleach # type: ignore
+import bleach
 from app import app
 
 # Save first edition for work
@@ -191,21 +191,19 @@ def EditionUpdate(params: Any) -> ResponseType:
 
   # Publisher, required field. Has to exist in database.
   if 'publisher' in data:
-    if data['publisher']['id'] != edition.publisher_id:
-      if data['publisher'] == None:
-        app.logger.error(f'EditionUpdate: Publisher is empty.')
-        return ResponseType(f'Kustantaja ei voi olla tyhjä.', 400)
-      publisher_id = checkInt(data['publisher']['id'], negativeValuesAllowed=False)
-      if publisher_id:
-        publisher = session.query(Publisher).filter(Publisher.id == publisher_id).first()
-        if not publisher:
-          app.logger.error(f'EditionUpdate: Publisher not found. id={publisher_id}')
-          return ResponseType(f'Kustantajaa ei löydy. id={publisher_id}', 400)
-      else:
-        app.logger.error(f'EditionUpdate: Invalid publisher id. id={publisher_id}')
-        return ResponseType(f'Virheellinen kustantaja. id={publisher_id}', 400)
-      old_values['publisher'] = edition.publisher.name
-      edition.publisher_id = publisher_id
+    if data['publisher'] != None:
+      if data['publisher']['id'] != edition.publisher_id:
+        publisher_id = checkInt(data['publisher']['id'], negativeValuesAllowed=False)
+        if publisher_id:
+          publisher = session.query(Publisher).filter(Publisher.id == publisher_id).first()
+          if not publisher:
+            app.logger.error(f'EditionUpdate: Publisher not found. id={publisher_id}')
+            return ResponseType(f'Kustantajaa ei löydy. id={publisher_id}', 400)
+        else:
+          app.logger.error(f'EditionUpdate: Invalid publisher id. id={publisher_id}')
+          return ResponseType(f'Virheellinen kustantaja. id={publisher_id}', 400)
+        old_values['publisher'] = edition.publisher.name
+        edition.publisher_id = publisher_id
 
   # Edition number, required field
   if 'editionnum' in data:
@@ -258,23 +256,25 @@ def EditionUpdate(params: Any) -> ResponseType:
 
   # Binding type, required field. Has to exist in database.
   if 'binding' in data:
-    if data['binding']['id'] != edition.binding_id:
-      binding_id = checkInt(data['binding']['id'], allowed=[b.id for b in bindings])
-      if binding_id == None:
-        app.logger.error(f'EditionUpdate: Invalid binding.')
-        return ResponseType(f'Virheellinen sidonta.', 400)
-      old_values['binding'] = edition.binding.name
-      edition.binding_id = binding_id
+    if data['binding'] != None:
+      if data['binding']['id'] != edition.binding_id:
+        binding_id = checkInt(data['binding']['id'], allowed=[b.id for b in bindings])
+        if binding_id == None:
+          app.logger.error(f'EditionUpdate: Invalid binding.')
+          return ResponseType(f'Virheellinen sidonta.', 400)
+        old_values['binding'] = edition.binding.name
+        edition.binding_id = binding_id
 
   # Edition format, required field. Has to exist in database.
   if 'format' in data:
-    if data['format']['id'] != edition.format_id:
-      format_id = checkInt(data['format']['id'], allowed=[f.id for f in formats])
-      if format_id == None:
-        app.logger.error(f'EditionUpdate: Invalid format.')
-        return ResponseType(f'Virheellinen formaatti.', 400)
-      old_values['format'] = edition.format.name
-      edition.format_id = format_id
+    if data['format'] != None:
+      if data['format']['id'] != edition.format_id:
+        format_id = checkInt(data['format']['id'], allowed=[f.id for f in formats])
+        if format_id == None:
+          app.logger.error(f'EditionUpdate: Invalid format.')
+          return ResponseType(f'Virheellinen formaatti.', 400)
+        old_values['format'] = edition.format.name
+        edition.format_id = format_id
 
   # Size (height in cm), not required
   if 'size' in data:
@@ -299,12 +299,15 @@ def EditionUpdate(params: Any) -> ResponseType:
 
   # Publisher's series, not required
   if 'pubseries' in data:
-    if data['pubseries']['id'] != edition.pubseries_id:
-      if data['pubseries']['id'] != None:
-        pubseries_id = checkInt(data['pubseries']['id'])
-        if pubseries_id == None:
-          app.logger.error(f'EditionUpdate: Invalid pubseries id.')
-          return ResponseType(f'Virheellinen kustantajan sarja.', 400)
+    if data['pubseries'] == None:
+      pubseries_id = None
+    else:
+      pubseries_id = checkInt(data['pubseries']['id'])
+      if pubseries_id == None:
+        app.logger.error(f'EditionUpdate: Invalid pubseries id.')
+        return ResponseType(f'Virheellinen kustantajan sarja.', 400)
+    if pubseries_id != edition.pubseries_id:
+      if pubseries_id != None:
         pubseries = session.query(Pubseries).filter(Pubseries.id == pubseries_id).first()
         if not pubseries:
           app.logger.error(f'EditionUpdate: Pubseries not found. id={pubseries_id}')
