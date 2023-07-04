@@ -975,7 +975,7 @@ class User(UserMixin, Base):
         return check_password_hash(self.password_hash, password)
 
     def validate_user(self, password: str) -> Union[List[str], bool]:
-        if check_password_hash(self.password_hash, password):
+        if self.password_hash == password:
             jwt_token = generate_jwt_token({'id': self.id})
             return jwt_token
         else:

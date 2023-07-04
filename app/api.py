@@ -25,6 +25,7 @@ from app.impl_shorts import *
 from app.impl_tags import *
 from app.impl_users import *
 from app.impl_works import *
+from flask_jwt_extended import jwt_required, verify_jwt_in_request
 
 default_mimetype = 'application/json'  # Data is always returned as JSON
 
@@ -45,13 +46,7 @@ def MakeApiResponse(response: ResponseType) -> Response:
                     mimetype=default_mimetype)
 
 
-# This function is used to log in the user using the HTTP POST method.
-# 1. The function checks if the parameters are passed correctly.
-# 2. If the parameters are not passed correctly, the function returns a 401 error.
-# 3. If the parameters are passed correctly, the function calls the LoginUser function.
-
-@ app.route('/api/login', methods=['post'])
-def api_login() -> Response:
+def login_options(request: Any) -> Dict[str, str]:
     options = {}
     try:
         if request.json:
@@ -68,8 +63,52 @@ def api_login() -> Response:
         response = ResponseType('api_login: Virheelliset parametrit.', 401)
         return MakeApiResponse(response)
 
-    return LoginUser(options)
+    return options
+# This function is used to log in the user using the HTTP POST method.
+# 1. The function checks if the parameters are passed correctly.
+# 2. If the parameters are not passed correctly, the function returns a 401 error.
+# 3. If the parameters are passed correctly, the function calls the LoginUser function.
 
+@app.route('/api/login', methods=['post'])
+@jwt_required(optional=True)
+def api_login() -> Response:
+    options = login_options(request)
+    # try:
+    #     if request.json:
+    #         options['username'] = request.json['username']
+    #         options['password'] = request.json['password']
+    #     else:
+    #         options['username'] = request.json['authorization']['username']
+    #         options['password'] = request.json['authorization']['password']
+    # except (TypeError, KeyError) as exp:
+    #     response = ResponseType('api_login: Virheelliset parametrit.', 401)
+    #     return MakeApiResponse(response)
+
+    # if not options['username'] or not options['password']:
+    #     response = ResponseType('api_login: Virheelliset parametrit.', 401)
+    #     return MakeApiResponse(response)
+    retval = LoginUser(options)
+    return retval
+
+@app.route('/api/refresh', methods=['post'])
+@jwt_required(refresh=True)
+def api_refresh() -> Response:
+    options = {}
+    try:
+        if request.json:
+            options['username'] = request.json['username']
+    #         options['password'] = request.json['password']
+        else:
+            options['username'] = request.json['authorization']['username']
+    #         options['password'] = request.json['authorization']['password']
+    except (TypeError, KeyError) as exp:
+        response = ResponseType('api_login: Virheelliset parametrit.', 401)
+        return MakeApiResponse(response)
+
+    if not options['username']:
+        response = ResponseType('api_login: Virheelliset parametrit.', 401)
+        return MakeApiResponse(response)
+    return RefreshToken(options)
 
 @app.route('/api/frontpagedata', methods=['get'])
 def frontpagestats() -> Response:

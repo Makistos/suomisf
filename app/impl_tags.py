@@ -8,7 +8,6 @@ from app.route_helpers import new_session
 from .impl import ResponseType
 from app import app
 
-
 def tagsHaveChanged(old_values: List[Any], new_values: List[Any]) -> bool:
     if len(old_values) != len(new_values):
         return True
