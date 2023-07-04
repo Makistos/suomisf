@@ -2,7 +2,8 @@ import bleach
 from app.route_helpers import new_session
 from app.impl import (ResponseType, SearchScores, SearchResult,
                       SearchResultFields, searchScore)
-from app.orm_decl import (Work, WorkType, WorkTag, WorkGenre, WorkTag)
+from app.orm_decl import (Contributor, Edition, Part, Work, WorkType, WorkTag,
+                          WorkGenre, WorkLink, WorkTag)
 from app.model import (CountryBriefSchema, WorkBriefSchema, WorkTypeBriefSchema)
 from app.model import WorkSchema
 from sqlalchemy import text
@@ -12,9 +13,19 @@ from app.impl import ResponseType, checkInt, LogChanges, GetJoinChanges
 from app.impl_contributors import updateWorkContributors, contributorsHaveChanged
 from app.impl_genres import genresHaveChanged
 from app.impl_tags import tagsHaveChanged
+from app.impl_links import linksHaveChanged
+from app.impl_editions import EditionCreateFirst
 
 from typing import Dict, List, Any
 from app import app
+
+def createAuthorStr(authors: List[Any], editions: List[Any]) -> str:
+    retval = ''
+    if len(authors)>0:
+        retval = ' & '.join([author.name for author in authors])
+    else:
+        retval = ' & '.join([x.name for x in editions[0].editors]) + ' (toim.)'
+    return retval
 
 
 def GetWork(id: int) -> ResponseType:
@@ -297,6 +308,109 @@ def WorkAdd(params: Any) -> ResponseType:
     retval = ResponseType('', 200)
 
     changes = params['changed']
+    data = params['data']
+
+    work = Work()
+
+    if len(data['title']) == 0:
+        app.logger.error('WorkAdd: Empty title.')
+        return ResponseType('Tyhjä nimi', 400)
+
+    work.title = bleach.clean(data['title'])
+    work.subtitle = bleach.clean(data['subtitle'])
+    work.orig_title = bleach.clean(data['orig_title'])
+
+    try:
+        work.pubyear = int(data['pubyear'])
+    except ValueError:
+        app.logger.error('WorkAdd: Invalid pubyear.')
+        return ResponseType('Virheellinen julkaisuvuosi', 400)
+
+    work.bookseriesnum = data['bookseriesnum']
+    work.bookseries = data['bookseries']['id']
+    try:
+        work.bookseriesorder = int(data['bookseriesorder'])
+    except ValueError:
+        app.logger.error('WorkAdd: Invalid bookseriesorder.')
+        return ResponseType('Virheellinen järjestysnumero sarjalla', 400)
+
+    if 'type' in data:
+        work.type = data['type']['id']
+    work.misc = data['misc']
+    work.description = data['description']
+    work.descr_attr = data['descr_attr']
+    work.imported_string = data['imported_string']
+
+    try:
+        session.add(work)
+        session.commit()
+    except SQLAlchemyError as exp:
+        app.logger.error('Exception in WorkAdd: ' + str(exp))
+        return ResponseType(f'WorkAdd: Tietokantavirhe teoksessa. work_id={work.id}', 400)
+
+    # Add first edition (requires work id)
+    new_edition = EditionCreateFirst(work)
+    try:
+        session.add(new_edition)
+        session.commit()
+    except SQLAlchemyError as exp:
+        app.logger.error('Exception in WorkAdd: ' + str(exp))
+        return ResponseType(f'WorkAdd: Tietokantavirhe painoksessa. work_id={work.id}', 400)
+
+    # Add part to tie work and edition together (requires work id and edition id)
+    new_part = Part(work_id=work.id, edition_id=new_edition.id)
+    try:
+        session.add(new_part)
+        session.commit()
+    except SQLAlchemyError as exp:
+        app.logger.error('Exception in WorkAdd: ' + str(exp))
+        return ResponseType(f'WorkAdd: Tietokantavirhe Part-taulussa. work_id={work.id}', 400)
+
+    # Add contributors (requires part id)
+    try:
+        for contrib in data['contributors']:
+            new_contributor = Contributor(
+                part_id=new_part.id,
+                person_id=contrib['id'],
+                role_id=contrib['role']['id'],
+                real_person_id = contrib['real_person']['id'],
+                description=contrib['description']
+            )
+            session.add(new_contributor)
+        session.commit()
+    except SQLAlchemyError as exp:
+        app.logger.error('Exception in WorkAdd: ' + str(exp))
+        return ResponseType(f'WorkAdd: Tietokantavirhe tekijöissä. work_id={work.id}', 400)
+
+    # Add tags (requires work id)
+    for tag in data['tags']:
+        new_tag = WorkTag(work_id=work.id, tag_id=tag['id'])
+        session.add(new_tag)
+
+    # Add links (requires work id)
+    for link in data['links']:
+        new_link = WorkLink(work_id=work.id, link=link['link'],
+                            description=link['description'])
+        session.add(new_link)
+
+    # Add genres (requires work id)
+    for genre in data['genres']:
+        new_genre = WorkGenre(work_id=work.id, genre_id=genre['id'])
+        session.add(new_genre)
+
+    try:
+        session.commit()
+    except SQLAlchemyError as exp:
+        app.logger.error('Exception in WorkAdd: ' + str(exp))
+        return ResponseType(f'WorkAdd: Tietokantavirhe asiasanoissa, linkeissä tai genreissä. work_id={work.id}',
+                            400)
+
+    # Update author string
+    try:
+        work.update_author_str()
+    except SQLAlchemyError as exp:
+        app.logger.error('Exception in WorkAdd: ' + str(exp))
+        return ResponseType(f'WorkAdd: Tietokantavirhe tekijänimissä. work_id={work.id}', 400)
 
     return retval
 
@@ -415,14 +529,16 @@ def WorkUpdate(params: Any) -> ResponseType:
                 .all()
             (to_add, to_remove) = GetJoinChanges([x.genre_id for x in existing_genres],
                                                 [x['id'] for x in data['genres']])
-            for id in to_remove:
-                dg = session.query(WorkGenre)\
-                    .filter(WorkGenre.work_id == id)\
-                    .filter(WorkGenre.genre_id == id)\
-                    .first()
-                session.delete(dg)
-            for id in to_add:
-                sg = WorkGenre(genre_id=id, work_id=work.id)
+            session.delete(existing_genres)
+            # for id in to_remove:
+            #     dg = session.query(WorkGenre)\
+            #         .filter(WorkGenre.work_id == id)\
+            #         .filter(WorkGenre.genre_id == id)\
+            #         .first()
+            #     session.delete(dg)
+            # for id in to_add:
+            for genre in data['genres']:
+                sg = WorkGenre(genre_id=genre['id'], work_id=work.id)
                 session.add(sg)
             old_values['genres'] = ' -'.join([str(x) for x in to_add])
             old_values['genres'] += ' +'.join([str(x) for x in to_remove])
@@ -435,19 +551,38 @@ def WorkUpdate(params: Any) -> ResponseType:
                 .all()
             (to_add, to_remove) = GetJoinChanges([x.tag_id for x in existing_tags],
                                                 [x['id'] for x in data['tags']])
-            for id in to_remove:
-                dt = session.query(WorkTag)\
-                    .filter(WorkTag.work_id == id)\
-                    .filter(WorkTag.tag_id == id)\
-                    .first()
-                session.delete(dt)
-            for id in to_add:
-                st = WorkTag(tag_id=id, work_id=work.id)
+            session.delete(work.tags)
+            for tag in data['tags']:
+                st = WorkTag(tag_id=tag['id'], work_id=work.id)
                 session.add(st)
+
+            # for id in to_remove:
+            #     dt = session.query(WorkTag)\
+            #         .filter(WorkTag.work_id == id)\
+            #         .filter(WorkTag.tag_id == id)\
+            #         .first()
+            #     session.delete(dt)
+            # for id in to_add:
+            #     st = WorkTag(tag_id=id, work_id=work.id)
+            #     session.add(st)
             old_values['tags'] = ' -'.join([str(x) for x in to_add])
             old_values['tags'] += ' +'.join([str(x) for x in to_remove])
 
     # Links
+    if 'links' in data:
+        if linksHaveChanged(work.links, data['links']):
+            existing_links = session.query(WorkLink)\
+                .filter(WorkLink.work_id == work_id)\
+                .all()
+            (to_add, to_remove) = GetJoinChanges([x.link for x in existing_links],
+                                                    [x['url'] for x in data['links']])
+            session.delete(work.links)
+            for link in data['links']:
+                sl = WorkLink(work_id=work.id, link=link['url'],
+                              description=link['description'])
+                session.add(sl)
+            old_values['links'] = ' -'.join([str(x) for x in to_add])
+            old_values['links'] += ' +'.join([str(x) for x in to_remove])
 
     # Awards
 
@@ -471,7 +606,11 @@ def WorkUpdate(params: Any) -> ResponseType:
         session.rollback()
         app.logger.error('Exception in WorkSave() commit: ' + str(exp))
         return ResponseType(f'WorkSave: Tietokantavirhe. id={work.id}', 400)
+
+    work.update_author_str()
+
     return retval
+
 
 def WorkTypeGetAll() -> ResponseType:
     session = new_session()

@@ -25,7 +25,7 @@ from app.impl_shorts import *
 from app.impl_tags import *
 from app.impl_users import *
 from app.impl_works import *
-from flask_jwt_extended import jwt_required, verify_jwt_in_request
+from flask_jwt_extended import jwt_required
 
 default_mimetype = 'application/json'  # Data is always returned as JSON
 
@@ -73,20 +73,6 @@ def login_options(request: Any) -> Dict[str, str]:
 @jwt_required(optional=True)
 def api_login() -> Response:
     options = login_options(request)
-    # try:
-    #     if request.json:
-    #         options['username'] = request.json['username']
-    #         options['password'] = request.json['password']
-    #     else:
-    #         options['username'] = request.json['authorization']['username']
-    #         options['password'] = request.json['authorization']['password']
-    # except (TypeError, KeyError) as exp:
-    #     response = ResponseType('api_login: Virheelliset parametrit.', 401)
-    #     return MakeApiResponse(response)
-
-    # if not options['username'] or not options['password']:
-    #     response = ResponseType('api_login: Virheelliset parametrit.', 401)
-    #     return MakeApiResponse(response)
     retval = LoginUser(options)
     return retval
 
@@ -97,10 +83,8 @@ def api_refresh() -> Response:
     try:
         if request.json:
             options['username'] = request.json['username']
-    #         options['password'] = request.json['password']
         else:
             options['username'] = request.json['authorization']['username']
-    #         options['password'] = request.json['authorization']['password']
     except (TypeError, KeyError) as exp:
         response = ResponseType('api_login: Virheelliset parametrit.', 401)
         return MakeApiResponse(response)
