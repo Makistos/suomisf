@@ -4,7 +4,8 @@ from app.route_helpers import new_session
 from typing import Any, Dict, List, Optional, Union
 from app.orm_decl import (Edition, Part, Tag, Work, BindingType, Format,
                           Publisher, Pubseries)
-from app.impl_contributors import contributorsHaveChanged, updateEditionContributors
+from app.impl_contributors import (contributorsHaveChanged,
+                                   updateEditionContributors, getContributorsString)
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.model import EditionSchema, BindingBriefSchema
@@ -381,10 +382,12 @@ def EditionUpdate(params: Any) -> ResponseType:
 
   if 'contributors' in data:
     if contributorsHaveChanged(edition.contributions, data['contributors']):
-      updateEditionContributors(session, edition.id, data['contributors'])
+      updateEditionContributors(session, edition, data['contributors'])
+      old_values['contributors'] = getContributorsString(edition.contributions)
 
   if len(old_values) == 0:
     # No changes
+    session.rollback()
     return retval
 
   LogChanges(session=session, obj=edition, action='Päivitys',

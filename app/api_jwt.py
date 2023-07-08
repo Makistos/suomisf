@@ -1,5 +1,5 @@
-from flask import make_response  # type: ignore
-from flask.wrappers import Response  # type: ignore
+from flask import make_response
+from flask.wrappers import Response
 from app import jwt
 import json
 from typing import Any
