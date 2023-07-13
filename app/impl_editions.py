@@ -3,7 +3,7 @@ import json
 from app.route_helpers import new_session
 from typing import Any, Dict, List, Optional, Union
 from app.orm_decl import (Edition, Part, Tag, Work, BindingType, Format,
-                          Publisher, Pubseries)
+                          Publisher, Pubseries, Contributor, EditionImage, EditionLink, EditionPrice)
 from app.impl_contributors import (contributorsHaveChanged,
                                    updateEditionContributors, getContributorsString,
                                    getWorkContributors)
@@ -466,3 +466,26 @@ def BindingGetAll() -> ResponseType:
     return ResponseType('BindingGetAll: Tietokantavirhe.', 400)
   return ResponseType(retval, 200)
 
+def EditionDelete(id: str) -> ResponseType:
+  session = new_session()
+  retval = ResponseType('Poisto onnistui.', 200)
+  editionId = checkInt(id, zerosAllowed=False, negativeValuesAllowed=False)
+  if editionId == None:
+    return ResponseType('EditionDelete: Virheellinen id.', 400)
+
+  try:
+    parts = session.query(Part).filter(Part.edition_id == editionId).all()
+    for part in parts:
+      session.query(Contributor).filter(Contributor.part_id == part.id).delete()
+      session.delete(part)
+    session.query(EditionImage).filter(EditionImage.edition_id == editionId).delete()
+    session.query(EditionLink).filter(EditionLink.edition_id == editionId).delete()
+    session.query(EditionPrice).filter(EditionPrice.edition_id == editionId).delete()
+    session.query(Edition).filter(Edition.id == id).delete()
+    session.commit()
+  except SQLAlchemyError as exp:
+    session.rollback()
+    app.logger.error('Exception in EditionDelete, id={%id}: ' + str(exp))
+    return ResponseType('EditionDelete: Tietokantavirhe.', 400)
+
+  return retval

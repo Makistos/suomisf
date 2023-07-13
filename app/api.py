@@ -111,6 +111,11 @@ def api_EditionCreateUpdate() -> Response:
 
     return retval
 
+@app.route('/api/editions/<editionId>', methods=['delete'])
+@jwt_admin_required()
+def api_EditionDelete(editionId: str) -> Response:
+    return MakeApiResponse(EditionDelete(editionId))
+
 @ app.route('/api/bookseries/<bookseriesId>', methods=['get'])
 def api_GetBookseries(bookseriesId: str) -> Response:
 
