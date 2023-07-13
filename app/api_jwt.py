@@ -3,7 +3,7 @@ from flask.wrappers import Response
 from app import jwt
 import json
 from typing import Any
-from flask_jwt_extended import verify_jwt_in_request, get_jwt, get_jwt_identity, create_access_token, set_access_cookies  # type: ignore
+from flask_jwt_extended import verify_jwt_in_request, get_jwt, get_jwt_identity, create_access_token, set_access_cookies
 from functools import wraps
 from app.orm_decl import User
 import json

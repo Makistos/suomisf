@@ -5,7 +5,8 @@ from typing import Any, Dict, List, Optional, Union
 from app.orm_decl import (Edition, Part, Tag, Work, BindingType, Format,
                           Publisher, Pubseries)
 from app.impl_contributors import (contributorsHaveChanged,
-                                   updateEditionContributors, getContributorsString)
+                                   updateEditionContributors, getContributorsString,
+                                   getWorkContributors)
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.model import EditionSchema, BindingBriefSchema
@@ -35,7 +36,11 @@ def EditionCreate(params: Any) -> ResponseType:
     return ResponseType('EditionCreate: Teoksen id (work_id) puuttuu.', 400)
 
   # Check that work exists
-  work = session.query(Work).filter(Work.id == bleach.clean(data['work_id'])).first()
+  work_id = checkInt(data['work_id'], zerosAllowed=False, negativeValuesAllowed=False)
+  if not work_id:
+    app.logger.error('Exception in EditionCreate: Invalid work_id. work_id={data["work_id"]}')
+    return ResponseType(f'Virheellinen teoksen id. id={data["work_id"]}', 400)
+  work = session.query(Work).filter(Work.id == work_id).first()
   if not work:
     app.logger.error('Exception in EditionCreate: work not found. id={data["work_id"]}')
     return ResponseType(f'Teosta ei löydy. id={data["work_id"]}', 400)
@@ -83,15 +88,21 @@ def EditionCreate(params: Any) -> ResponseType:
   if 'isbn' in data:
     # TODO: Validate ISBN
     edition.isbn = bleach.clean(data['isbn'])
+
+  # Publisher's series, not required
   if 'pubseries' in data:
-    pubseries_id = checkInt(data['pubseries']['id'],
-                            negativeValuesAllowed=False)
-    if pubseries_id:
-      pubseries = session.query(Publisher).filter(Publisher.id == pubseries_id).first()
-      if not pubseries:
-        app.logger.error('Exception in EditionCreate: Pubseries not found. id={pubseries_id}')
-        return ResponseType(f'Julkaisusarjaa ei löydy. id={pubseries_id}', 400)
+    if data['pubseries'] == None or 'id' not in data['pubseries']:
+      pubseries_id = None
+    else:
+      pubseries_id = checkInt(data['pubseries']['id'],
+                              negativeValuesAllowed=False)
+      if pubseries_id:
+        pubseries = session.query(Publisher).filter(Publisher.id == pubseries_id).first()
+        if not pubseries:
+          app.logger.error('Exception in EditionCreate: Pubseries not found. id={pubseries_id}')
+          return ResponseType(f'Julkaisusarjaa ei löydy. id={pubseries_id}', 400)
     edition.pubseries_id = pubseries_id
+
   if 'pubseriesnum' in data:
     edition.pubseriesnum = checkInt(data['pubseriesnum'])
   if 'coll_info' in data:
@@ -99,14 +110,20 @@ def EditionCreate(params: Any) -> ResponseType:
     edition.coll_info = bleach.clean(data['coll_info'])
   if 'pages' in data:
     edition.pages = checkInt(data['pages'], negativeValuesAllowed=False)
-  if 'binding' in data:
+  if 'binding' in data and 'id' in data['binding']:
     # Invalid binding id will just set binding to None
     edition.binding_id = checkInt(data['binding']['id'],
                                   allowed=[b.id for b in bindings])
-  if 'format' in data:
+  else:
+    edition.binding_id = bindings[0].id
+
+  if 'format' in data and data['format'] != None:
     # Invalid format id will just set format to None
     edition.format_id = checkInt(data['format']['id'],
                                 allowed=[f.id for f in formats])
+  else:
+    edition.format_id = formats[0].id
+
   if 'size' in data:
     edition.size = checkInt(data['size'], negativeValuesAllowed=False)
   if 'dustcover' in data:
@@ -123,6 +140,7 @@ def EditionCreate(params: Any) -> ResponseType:
     else:
       # Default value
       edition.coverimage = 1
+
   if 'misc' in data:
     edition.misc = bleach.clean(data['misc'])
   if 'imported_string' in data:
@@ -132,15 +150,36 @@ def EditionCreate(params: Any) -> ResponseType:
     session.add(edition)
     session.commit()
   except SQLAlchemyError as e:
+    session.rollback()
     app.logger.error(f'Exception in EditionCreate: {e}')
     return ResponseType('EditionCreate: Tietokantavirhe.', 500)
 
-  # Create Part
+  # Create Part. This requires edition to exist.
   part = Part()
   part.edition_id = edition.id
-  part.work_id = data['work_id']
-  session.add(part)
-  session.commit()
+  part.work_id = work_id
+  try:
+    session.add(part)
+    session.commit()
+  except SQLAlchemyError as e:
+    session.rollback()
+    app.logger.error(f'Exception in EditionCreate creating part: {e}')
+    return ResponseType('EditionCreate: Tietokantavirhe.', 500)
+
+  # Contributors require a part.
+  if 'contributors' in data:
+    contributors = getWorkContributors(session, part.work_id)
+    for contrib in data['contributors']:
+      contributors.append(contrib)
+    updateEditionContributors(session, edition, contributors)
+  try:
+    session.commit()
+  except SQLAlchemyError as e:
+    session.rollback()
+    app.logger.error(f'Exception in EditionCreate updating contributors: {e}')
+    return ResponseType('EditionCreate: Tietokantavirhe.', 500)
+
+  LogChanges(session, obj=edition, action='Uusi')
 
   retval = ResponseType(str(edition.id), 200)
   return retval
@@ -382,8 +421,11 @@ def EditionUpdate(params: Any) -> ResponseType:
 
   if 'contributors' in data:
     if contributorsHaveChanged(edition.contributions, data['contributors']):
-      updateEditionContributors(session, edition, data['contributors'])
-      old_values['contributors'] = getContributorsString(edition.contributions)
+      changes = updateEditionContributors(session, edition, data['contributors'])
+      if changes:
+        # We check for invalid values in updateEditionContributors and only log
+        # this if there were any updates.
+        old_values['contributors'] = getContributorsString(edition.contributions)
 
   if len(old_values) == 0:
     # No changes
