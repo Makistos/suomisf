@@ -124,7 +124,7 @@ def api_GetBookseries(bookseriesId: str) -> Response:
     except (TypeError, ValueError) as exp:
         app.logger.error(f'api_GetBookseries: Invalid id {bookseriesId}.')
         response = ResponseType(
-            f'apiGetBookseries: Virheellinen tunniste {bookseriesId}.', 400)
+           f'apiGetBookseries: Virheellinen tunniste {bookseriesId}.', 400)
         return MakeApiResponse(response)
 
     return MakeApiResponse(GetBookseries(id))
@@ -1038,4 +1038,16 @@ def api_Bindings() -> Response:
 @app.route('/api/worktypes/', methods=['get'])
 def api_WorkTypes() -> Response:
     retval = MakeApiResponse(WorkTypeGetAll())
+    return retval
+
+@app.route('/api/editions/<id>/images', methods=['post'])
+def api_uploadEditionImage(id: str) -> Response:
+    try:
+        file = request.files['image']
+    except KeyError as exp:
+        app.logger.error('api_uploadEditionImage: File not found.')
+        response = ResponseType('Tiedosto puuttuu', status=400)
+        return MakeApiResponse(response)
+
+    retval = MakeApiResponse(EditionImageUpload(id, file))
     return retval

@@ -209,7 +209,7 @@ def LogChanges(session: Any, obj: Any, action: str = 'Päivitys',
     tbl_name = table_locals[obj.__table__.name]
     #old_value: Union[str, None]
 
-    if action == 'Päivitys':
+    if action == 'Päivitys' or action == 'Poisto':
         for field, value in old_values.items():
             # if field in old_values:
             #     old_value = bleach.clean(old_values[field])

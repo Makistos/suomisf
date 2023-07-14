@@ -1,6 +1,8 @@
 # Desc: Editions implementation
 import json
 from app.route_helpers import new_session
+from werkzeug.datastructures import FileStorage
+from werkzeug.utils import secure_filename
 from typing import Any, Dict, List, Optional, Union
 from app.orm_decl import (Edition, Part, Tag, Work, BindingType, Format,
                           Publisher, Pubseries, Contributor, EditionImage, EditionLink, EditionPrice)
@@ -13,7 +15,7 @@ from app.model import EditionSchema, BindingBriefSchema
 from app.impl import ResponseType, checkInt, LogChanges, GetJoinChanges
 import bleach
 from app import app
-
+import os
 # Save first edition for work
 def EditionCreateFirst(work: Work) -> Edition:
   retval = Edition()
@@ -468,11 +470,14 @@ def BindingGetAll() -> ResponseType:
 
 def EditionDelete(id: str) -> ResponseType:
   session = new_session()
+  old_values = {}
   retval = ResponseType('Poisto onnistui.', 200)
   editionId = checkInt(id, zerosAllowed=False, negativeValuesAllowed=False)
   if editionId == None:
     return ResponseType('EditionDelete: Virheellinen id.', 400)
 
+  edition = session.query(Edition).filter(Edition.id == editionId).first()
+  old_values['edition'] = "-Painos: " + edition.editionum + ", Laitos: " + edition.version
   try:
     parts = session.query(Part).filter(Part.edition_id == editionId).all()
     for part in parts:
@@ -488,4 +493,60 @@ def EditionDelete(id: str) -> ResponseType:
     app.logger.error('Exception in EditionDelete, id={%id}: ' + str(exp))
     return ResponseType('EditionDelete: Tietokantavirhe.', 400)
 
+  LogChanges(session=session, obj=edition, action='Poisto',
+              old_values=old_values)
+  return retval
+
+def allowed_image(filename: Optional[str]) -> bool:
+    if not filename:
+        return False
+    if not "." in filename:
+        return False
+
+    ext = filename.rsplit('.', 10)[1]
+    if ext.upper() in ['jpg', 'JPG']:
+        return True
+    else:
+        return False
+
+
+def EditionImageUpload(id: str, image: FileStorage) -> ResponseType:
+  retval = ResponseType('Kuvan lisäys onnistui.', 200)
+  old_values: Dict[str, Union[str, None]] = {}
+  editionId = checkInt(id, zerosAllowed=False, negativeValuesAllowed=False)
+
+  if editionId == None:
+    return ResponseType('EditionImageUpload: Virheellinen id.', 400)
+  image_name = image.filename
+
+  if image_name == None or image_name == '':
+    return ResponseType('EditionImageUpload: Kuvan nimi puuttuu.', 400)
+  assert image_name is not None
+
+  if not allowed_image(image_name):
+    return ResponseType('EditionImageUpload: Virheellinen kuvan tyyppi.', 400)
+
+  filename = secure_filename(image_name)
+  image.save(os.path.join(app.config['BOOKCOVER_SAVELOC'], filename))
+
+  session= new_session()
+  edition_image = session.query(EditionImage).filter(EditionImage.edition_id == editionId).first()
+  file_loc = app.config['BOOKCOVER_DIR'] + filename
+  if edition_image == None:
+    edition_image = EditionImage(edition_id=editionId, image_src=file_loc)  # type: ignore
+    old_values['coverimage'] = None
+  else:
+    old_values['coverimage'] = edition_image.image_src
+    edition_image.image_src = file_loc
+  try:
+    session.add(edition_image)
+    session.commit()
+  except SQLAlchemyError as exp:
+    session.rollback()
+    app.logger.error('Exception in EditionImageUpload, id={%id}: ' + str(exp))
+    return ResponseType('EditionImageUpload: Tietokantavirhe.', 400)
+
+  edition = session.query(Edition).filter(Edition.id == editionId).first()
+  LogChanges(session=session, obj=edition, action='Päivitys',
+              old_values=old_values)
   return retval
