@@ -1078,6 +1078,8 @@ class Work(Base):
         'Language', backref=backref('language'), uselist=False)
     stories = relationship('ShortStory', secondary='part', uselist=True,
                            viewonly=True)
+    work_type = relationship('WorkType', backref=backref('worktype'),
+                                uselist=False)
     links = relationship("WorkLink", uselist=True, viewonly=True)
     awards = relationship('Awarded', uselist=True, viewonly=True)
     author_str = Column(String(500))

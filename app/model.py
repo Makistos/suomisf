@@ -140,7 +140,8 @@ class WorkEditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 class WorkTypeBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         model = WorkType
-
+    id = fields.Int()
+    name = fields.String()
 
 class WorkContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
@@ -325,6 +326,7 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     translators = ma.List(fields.Nested(PersonBriefSchema))
     awards = ma.List(fields.Nested(AwardedSchema))
     contributions = ma.List(fields.Nested(ContributorSchema))
+    work_type = fields.Nested(WorkTypeBriefSchema)
 
 
 class ArticleSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
