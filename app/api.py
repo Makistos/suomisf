@@ -26,6 +26,7 @@ from app.impl_tags import *
 from app.impl_users import *
 from app.impl_works import *
 from flask_jwt_extended import jwt_required
+import urllib
 
 default_mimetype = 'application/json'  # Data is always returned as JSON
 
@@ -1041,13 +1042,15 @@ def api_WorkTypes() -> Response:
     return retval
 
 @app.route('/api/editions/<id>/images', methods=['post'])
+@jwt_admin_required()
 def api_uploadEditionImage(id: str) -> Response:
     try:
-        file = request.files['image']
+        file = request.files['file']
     except KeyError as exp:
         app.logger.error('api_uploadEditionImage: File not found.')
         response = ResponseType('Tiedosto puuttuu', status=400)
         return MakeApiResponse(response)
 
-    retval = MakeApiResponse(EditionImageUpload(id, file))
+    retval = MakeApiResponse(
+        EditionImageUpload(id, file))
     return retval
