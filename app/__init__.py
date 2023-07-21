@@ -32,7 +32,7 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 jwt = JWTManager(app)
 
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-type'
 
 #migrate = Migrate()
