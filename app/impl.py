@@ -192,7 +192,7 @@ table_locals = {'article': 'Artikkeli',
 
 
 def LogChanges(session: Any, obj: Any, action: str = 'Päivitys',
-               old_values: Dict[str, Any] = {}) -> None:
+               old_values: Dict[str, Any] = {}) -> int:
     ''' Log a change made to data.
 
     Logging is done in the same session as the object itself, so it will
@@ -205,6 +205,7 @@ def LogChanges(session: Any, obj: Any, action: str = 'Päivitys',
         action (str, optional): Description of change, either "Päivitys" or "Uusi". Defaults to 'Päivitys'.
         fields (List[str], optional): Fields that were changed. Needed for "Päivitys", not used for "Uusi". Defaults to [].
     '''
+    retval: int = 0
     name: str = obj.name
     tbl_name = table_locals[obj.__table__.name]
     #old_value: Union[str, None]
@@ -233,7 +234,8 @@ def LogChanges(session: Any, obj: Any, action: str = 'Päivitys',
                   user_id=current_user.get_id(),
                   date=datetime.now())
         session.add(log)
-
+        retval = log.id
+    return retval
 
 def GenreList() -> ResponseType:
     session = new_session()

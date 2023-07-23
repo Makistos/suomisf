@@ -5,7 +5,8 @@ from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
 from typing import Any, Dict, List, Optional, Union
 from app.orm_decl import (Edition, Part, Tag, Work, BindingType, Format,
-                          Publisher, Pubseries, Contributor, EditionImage, EditionLink, EditionPrice)
+                          Publisher, Pubseries, Contributor, EditionImage, EditionLink, EditionPrice,
+                          Log)
 from app.impl_contributors import (contributorsHaveChanged,
                                    updateEditionContributors, getContributorsString,
                                    getWorkContributors)
@@ -474,10 +475,21 @@ def EditionDelete(id: str) -> ResponseType:
   retval = ResponseType('Poisto onnistui.', 200)
   editionId = checkInt(id, zerosAllowed=False, negativeValuesAllowed=False)
   if editionId == None:
+    app.logger.error('Exception in EditionDelete: Invalid id. id={id}')
     return ResponseType('EditionDelete: Virheellinen id.', 400)
 
   edition = session.query(Edition).filter(Edition.id == editionId).first()
-  old_values['edition'] = "-Painos: " + edition.editionum + ", Laitos: " + edition.version
+  if not edition:
+    app.logger.error('Exception in EditionDelete: Edition not found. id={editionId}')
+    return ResponseType('EditionDelete: Painosta ei löydy.', 400)
+
+  if not edition.version:
+    version = "1"
+  else:
+    version = str(edition.version)
+  old_values['edition'] = "-Painos: " + str(edition.editionnum) + ", Laitos: " + version
+  id = LogChanges(session=session, obj=edition, action='Poisto',
+              old_values=old_values)
   try:
     parts = session.query(Part).filter(Part.edition_id == editionId).all()
     for part in parts:
@@ -490,11 +502,12 @@ def EditionDelete(id: str) -> ResponseType:
     session.commit()
   except SQLAlchemyError as exp:
     session.rollback()
+    if id != 0:
+      # Delete invalid Log line
+      session.query(Log).filter(Log.id == id).delete()
     app.logger.error('Exception in EditionDelete, id={%id}: ' + str(exp))
     return ResponseType('EditionDelete: Tietokantavirhe.', 400)
 
-  LogChanges(session=session, obj=edition, action='Poisto',
-              old_values=old_values)
   return retval
 
 def allowed_image(filename: Optional[str]) -> bool:
