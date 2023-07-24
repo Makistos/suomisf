@@ -1054,3 +1054,10 @@ def api_uploadEditionImage(id: str) -> Response:
     retval = MakeApiResponse(
         EditionImageUpload(id, file))
     return retval
+
+@app.route('/api/editions/<id>/images/<imageid>', methods=['delete'])
+@jwt_admin_required()
+def api_deleteEditionImage(id: str, imageid: str) -> Response:
+    retval = MakeApiResponse(
+        EditionImageDelete(id, imageid))
+    return retval

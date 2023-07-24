@@ -563,3 +563,43 @@ def EditionImageUpload(id: str, image: FileStorage) -> ResponseType:
   LogChanges(session=session, obj=edition, action='Päivitys',
               old_values=old_values)
   return retval
+
+
+def EditionImageDelete(editionid: str, imageid: str) -> ResponseType:
+  """Delete image from edition.
+     @param editionid: Edition id
+     @param imageid: Image id
+  """
+  session = new_session()
+  retval = ResponseType('Kuvan poisto onnistui.', 200)
+
+  editionId = checkInt(editionid, zerosAllowed=False, negativeValuesAllowed=False)
+  if editionId == None:
+    return ResponseType('EditionImageDelete: Virheellinen painoksen id.', 400)
+  imageId = checkInt(imageid, zerosAllowed=False, negativeValuesAllowed=False)
+  if imageId == None:
+    return ResponseType('EditionImageDelete: Virheellinen kuvan id.', 400)
+
+  edition = session.query(Edition).filter(Edition.id == editionId).first()
+  edition_image = session.query(EditionImage)\
+    .filter(EditionImage.edition_id == editionId).first()
+  if edition_image == None:
+    return ResponseType('EditionImageDelete: Kuvaa ei löydy.', 400)
+
+  old_values = {}
+  old_values['coverimage'] = edition_image.image_src
+  id = LogChanges(session=session, obj=edition, action='Poisto',
+              old_values=old_values)
+
+  try:
+    session.delete(edition_image)
+    session.commit()
+  except SQLAlchemyError as exp:
+    session.rollback()
+    if id != 0:
+      # Delete invalid Log line
+      session.query(Log).filter(Log.id == id).delete()
+    app.logger.error('Exception in EditionImageDelete, id={%id}: ' + str(exp))
+    return ResponseType('EditionImageDelete: Tietokantavirhe.', 400)
+
+  return retval

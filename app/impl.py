@@ -390,11 +390,14 @@ def GetFrontpageData() -> ResponseType:
     latestList: List[Any] = []
     ids: List[int] = []
     for edition in latest:
-        if edition.work[0].id not in ids:
-            latestList.append(edition)
-            ids.append(edition.work[0].id)
-        if len(latestList) == 4:
-            break
+        try:
+            if edition.work[0].id not in ids:
+                latestList.append(edition)
+                ids.append(edition.work[0].id)
+            if len(latestList) == 4:
+                break
+        except IndexError:
+            app.logger.error(f'IndexError in GetFrontpageData: {edition.id}')
 
     schema = EditionBriefestSchema()
     latestList = schema.dump(latestList, many=True)
