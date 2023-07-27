@@ -197,10 +197,10 @@ class IssueBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 class ContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         model = Contributor
-    person = fields.Nested(PersonBriefSchema(only=('id', 'name',)))
+    person = fields.Nested(PersonBriefSchema(only=('id', 'name', 'alt_name')))
     role = fields.Nested(ContributorRoleSchema)
     description = fields.String()
-    real_person = fields.Nested(lambda: PersonBriefSchema(only=('id', 'name')))
+    real_person = fields.Nested(lambda: PersonBriefSchema(only=('id', 'name', 'alt_name')))
 
 
 
