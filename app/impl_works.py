@@ -236,23 +236,23 @@ def SearchWorksByAuthor(params: Dict[str, str]) -> ResponseType:
     return ResponseType(retval, 200)
 
 
-def WorkTypesList() -> ResponseType:
-    session = new_session()
+# def WorkTypesList() -> ResponseType:
+#     session = new_session()
 
-    try:
-        types = session.query(WorkType).order_by(WorkType.id)
-    except SQLAlchemyError as exp:
-        app.logger.error('Exception in WorkTypesList: ' + str(exp))
-        return ResponseType(f'WorkTypesList: Tietokantavirhe. id={id}', 400)
+#     try:
+#         types = session.query(WorkType).order_by(WorkType.id)
+#     except SQLAlchemyError as exp:
+#         app.logger.error('Exception in WorkTypesList: ' + str(exp))
+#         return ResponseType(f'WorkTypesList: Tietokantavirhe. id={id}', 400)
 
-    try:
-        schema = CountryBriefSchema(many=True)
-        retval = schema.dump(types)
-    except exceptions.MarshmallowError as exp:
-        app.logger.error('WorkTypesList schema error: ' + str(exp))
-        return ResponseType('WorkTypesList: Skeemavirhe.', 400)
+#     try:
+#         schema = CountryBriefSchema(many=True)
+#         retval = schema.dump(types)
+#     except exceptions.MarshmallowError as exp:
+#         app.logger.error('WorkTypesList schema error: ' + str(exp))
+#         return ResponseType('WorkTypesList: Skeemavirhe.', 400)
 
-    return ResponseType(retval, 200)
+#     return ResponseType(retval, 200)
 
 
 def WorkTagAdd(work_id: int, tag_id: int) -> ResponseType:

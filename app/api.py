@@ -31,6 +31,13 @@ import urllib
 default_mimetype = 'application/json'  # Data is always returned as JSON
 
 
+ConstraintType = NewType('ConstraintType', List[Dict[str, str]])
+FilterType = NewType('FilterType', Dict[str, Union[str, ConstraintType]])
+
+
+###
+# Generic functions
+
 def MakeAPIError(response: ResponseType) -> Response:
     return Response(response=list(json.dumps({'msg': response.response})),
                     status=response.status,
@@ -65,6 +72,47 @@ def login_options(request: Any) -> Dict[str, str]:
         return MakeApiResponse(response)
 
     return options
+
+def fixOperator(op: str, value: str) -> Tuple[str, str]:
+
+    if op == 'equals':
+        return ('eq', value)
+    if op == 'notequals':
+        return ('ne', value)
+    if op == 'startsWith':
+        if value:
+            value = value + '%'
+        return ('ilike', value)
+    if op == 'endsWith':
+        if value:
+            value = '%' + value
+        return ('ilike', value)
+    if op == 'contains':
+        if value:
+            value = '%' + value + '%'
+        return ('ilike', value)
+    if op == 'notContains':
+        if value:
+            value = '%' + value + '%'
+        # Needs special attention in filtering
+        return ('notContains', value)
+    if op == 'lt':
+        return ('lt', value)
+    if op == 'lte':
+        return ('lte', value)
+    if op == 'gt':
+        return ('gt', value)
+    if op == 'gte':
+        return ('gte', value)
+    if op == 'in':
+        # Needs special attention in filtering
+        return ('in', value)
+    else:
+        raise APIError('Invalid filter operation %s' % op, 405)
+
+###
+# User control related functions
+
 # This function is used to log in the user using the HTTP POST method.
 # 1. The function checks if the parameters are passed correctly.
 # 2. If the parameters are not passed correctly, the function returns a 401 error.
@@ -95,68 +143,51 @@ def api_refresh() -> Response:
         return MakeApiResponse(response)
     return RefreshToken(options)
 
+
+###
+# Front page
 @app.route('/api/frontpagedata', methods=['get'])
 def frontpagestats() -> Response:
     return MakeApiResponse(GetFrontpageData())
 
 
-@app.route('/api/editions', methods=['post', 'put'])
-@jwt_admin_required()
-def api_EditionCreateUpdate() -> Response:
-    params = bleach.clean(request.data.decode('utf-8'))
-    params = json.loads(params)
-    if request.method == 'POST':
-        retval = MakeApiResponse(EditionCreate(params))
-    elif request.method == 'PUT':
-        retval = MakeApiResponse(EditionUpdate(params))
+###
+# Generic search functions
 
-    return retval
+@ app.route('/api/search/<pattern>', methods=['get', 'post'])
+def api_Search(pattern: str) -> Tuple[str, int]:
+    retval = ''
+    retcode = 200
+    results: SearchResult = []
 
-@app.route('/api/editions/<editionId>', methods=['delete'])
-@jwt_admin_required()
-def api_EditionDelete(editionId: str) -> Response:
-    return MakeApiResponse(EditionDelete(editionId))
+    # searchword = request.args.get('search', '')
+    pattern = bleach.clean(pattern)
+    words = pattern.split(' ')
 
-@ app.route('/api/bookseries/<bookseriesId>', methods=['get'])
-def api_GetBookseries(bookseriesId: str) -> Response:
+    session = new_session()
+    results = SearchWorks(session, words)
+    results += SearchPeople(session, words)
+    results = sorted(results, key=lambda d: d['score'], reverse=True)
+    return json.dumps(results), retcode
 
+
+###
+# Alias related functions
+
+@app.route('/api/filter/alias/<id>', methods=['get'])
+def api_FilterAlias(id: str) -> Response:
     try:
-        id = int(bookseriesId)
+        person_id = int(id)
     except (TypeError, ValueError) as exp:
-        app.logger.error(f'api_GetBookseries: Invalid id {bookseriesId}.')
-        response = ResponseType(
-           f'apiGetBookseries: Virheellinen tunniste {bookseriesId}.', 400)
+        app.logger.error(f'api_FilterAlias: Invalid id {id}.')
+        response = ResponseType(f'Virheellinen tunniste: {id}.', 400)
         return MakeApiResponse(response)
 
-    return MakeApiResponse(GetBookseries(id))
+    return MakeApiResponse(FilterAliases(person_id))
 
 
-@ app.route('/api/pubseries/<pubseriesId>', methods=['get'])
-def api_GetPubseries(pubseriesId: str) -> Response:
-    try:
-        id = int(pubseriesId)
-    except (TypeError, ValueError) as exp:
-        app.logger.error(f'api_GetPubseries: Invalid id {pubseriesId}.')
-        response = ResponseType(
-            f'api_GetBookseries: Virheellinen tunniste {pubseriesId}.', 400)
-        return MakeApiResponse(response)
-
-    return MakeApiResponse(GetPubseries(id))
-
-
-@ app.route('/api/issues/<issueId>', methods=['get'])
-def api_GetIssueForMagazine(issueId: str) -> Response:
-
-    try:
-        id = int(issueId)
-    except (TypeError, ValueError) as exp:
-        app.logger.error(f'api_GetIssueForMagazine: Invalid id {issueId}.')
-        response = ResponseType(
-            f'api_GetIssueForMagazine: Virheellinen tunniste {issueId}.', 400)
-        return MakeApiResponse(response)
-
-    return MakeApiResponse(GetIssue(id))
-
+###
+# Article related functions
 
 @ app.route('/api/articles/<articleId>', methods=['get'])
 def api_GetArticle(articleId: str) -> Response:
@@ -186,7 +217,182 @@ def api_GetArticleTags(articleId: int) -> Response:
     retval = ArticleTags(article_id)
     return MakeApiResponse(retval)
 
+@app.route('/api/articles/<id>/tags/<tagid>', methods=['put', 'delete'])
+@jwt_admin_required()
+def api_tagToArticle(id: int, tagid: int) -> Response:
+    if request.method == 'PUT':
+        func = ArticleTagAdd
+    elif request.method == 'DELETE':
+        func = ArticleTagRemove
 
+    try:
+        article_id = int(id)
+        tag_id = int(tagid)
+    except (TypeError, ValueError) as exp:
+        app.logger.error(
+            f'{func.__name__}: Invalid id. id={id}, tagid={tagid}.')
+        response = ResponseType('Virheellinen tunniste', status=400)
+        return MakeApiResponse(response)
+
+    retval = func(article_id, tag_id)
+
+    return MakeApiResponse(retval)
+
+
+###
+# Binding related functions
+
+@app.route('/api/bindings', methods=['get'])
+def api_Bindings() -> Response:
+    retval = MakeApiResponse(BindingGetAll())
+    return retval
+
+
+###
+# Bookseries related functions
+
+@ app.route('/api/bookseries', methods=['get'])
+def api_ListBookseries() -> Response:
+    return MakeApiResponse(ListBookseries())
+
+@ app.route('/api/bookseries/<bookseriesId>', methods=['get'])
+def api_GetBookseries(bookseriesId: str) -> Response:
+
+    try:
+        id = int(bookseriesId)
+    except (TypeError, ValueError) as exp:
+        app.logger.error(f'api_GetBookseries: Invalid id {bookseriesId}.')
+        response = ResponseType(
+           f'apiGetBookseries: Virheellinen tunniste {bookseriesId}.', 400)
+        return MakeApiResponse(response)
+
+    return MakeApiResponse(GetBookseries(id))
+
+@app.route('/api/filter/bookseries/<pattern>', methods=['get'])
+def api_FilterBookseries(pattern: str) -> Response:
+    pattern = bleach.clean(pattern)
+    if len(pattern) < 2:
+        app.logger.error('FilterBookseries: Pattern too short.')
+        response = ResponseType(
+            'Liian lyhyt hakuehto', status=400)
+        return MakeApiResponse(response)
+    retval = FilterBookseries(pattern)
+    return MakeApiResponse(retval)
+
+
+###
+# Change related functions
+
+@ app.route('/api/changes', methods=['get'])
+def api_Changes() -> Tuple[str, int]:
+    url_params = request.args.to_dict()
+
+    params: Dict[str, Any] = {}
+    for (param, value) in url_params.items():
+        # param, value = p.split('=')
+        if value == 'null' or value == 'undefined':
+            value = None
+        params[param] = value
+
+    try:
+        retval = GetChanges(params)
+    except APIError as exp:
+        app.logger.error('Exception in api_Changes: ' + str(exp))
+        response = Response('api_Changes: poikkeus.', 400)
+        return MakeApiResponse(response)
+
+    return MakeApiResponse(retval)
+
+
+###
+# Country related functions
+
+@ app.route('/api/countries', methods=['get'])
+def countries() -> Response:
+    """
+    Returns a list of all of the countries in the system ordered by name.
+    """
+    return MakeApiResponse(CountryList())
+
+@app.route('/api/filter/countries/<pattern>', methods=['get'])
+def api_FilterCountries(pattern: str) -> Response:
+    pattern = bleach.clean(pattern)
+    if len(pattern) < 2:
+        app.logger.error('FilterCountries: Pattern too short.')
+        response = ResponseType(
+            'Liian lyhyt hakuehto', status=400)
+        return MakeApiResponse(response)
+    retval = FilterCountries(pattern)
+    return MakeApiResponse(retval)
+
+###
+# Edition related functions
+
+@app.route('/api/editions', methods=['post', 'put'])
+@jwt_admin_required()
+def api_EditionCreateUpdate() -> Response:
+    params = bleach.clean(request.data.decode('utf-8'))
+    params = json.loads(params)
+    if request.method == 'POST':
+        retval = MakeApiResponse(EditionCreate(params))
+    elif request.method == 'PUT':
+        retval = MakeApiResponse(EditionUpdate(params))
+
+    return retval
+
+@app.route('/api/editions/<editionId>', methods=['delete'])
+@jwt_admin_required()
+def api_EditionDelete(editionId: str) -> Response:
+    return MakeApiResponse(EditionDelete(editionId))
+
+@app.route('/api/editions/<id>/images', methods=['post'])
+@jwt_admin_required()
+def api_uploadEditionImage(id: str) -> Response:
+    try:
+        file = request.files['file']
+    except KeyError as exp:
+        app.logger.error('api_uploadEditionImage: File not found.')
+        response = ResponseType('Tiedosto puuttuu', status=400)
+        return MakeApiResponse(response)
+
+    retval = MakeApiResponse(
+        EditionImageUpload(id, file))
+    return retval
+
+@app.route('/api/editions/<id>/images/<imageid>', methods=['delete'])
+@jwt_admin_required()
+def api_deleteEditionImage(id: str, imageid: str) -> Response:
+    retval = MakeApiResponse(
+        EditionImageDelete(id, imageid))
+    return retval
+
+
+###
+# Genre related functions
+
+@ app.route('/api/genres', methods=['get'])
+def genres() -> Response:
+    """
+    Returns a list of all of the genres in the system in the order
+    they are in the database (i.e. by id).
+    """
+    return MakeApiResponse(GenreList())
+
+
+###
+# Issue related functions
+@ app.route('/api/issues/<issueId>', methods=['get'])
+def api_GetIssueForMagazine(issueId: str) -> Response:
+
+    try:
+        id = int(issueId)
+    except (TypeError, ValueError) as exp:
+        app.logger.error(f'api_GetIssueForMagazine: Invalid id {issueId}.')
+        response = ResponseType(
+            f'api_GetIssueForMagazine: Virheellinen tunniste {issueId}.', 400)
+        return MakeApiResponse(response)
+
+    return MakeApiResponse(GetIssue(id))
 
 @ app.route('/api/issues/<issueId>/tags', methods=['get'])
 def api_GetIssueTags(issueId: str) -> Response:
@@ -201,6 +407,24 @@ def api_GetIssueTags(issueId: str) -> Response:
 
     return MakeApiResponse(GetIssueTags(id))
 
+
+###
+# Language related functions
+
+@app.route('/api/filter/languages/<pattern>', methods=['get'])
+def api_FilterLanguages(pattern: str) -> Response:
+    pattern = bleach.clean(pattern)
+    if len(pattern) < 2:
+        app.logger.error('FilterLanguages: Pattern too short.')
+        response = ResponseType(
+            'Liian lyhyt hakuehto', status=400)
+        return MakeApiResponse(response)
+    retval = FilterLanguages(pattern)
+    return MakeApiResponse(retval)
+
+
+###
+# Magazine related functions
 
 @ app.route('/api/magazines', methods=['get'])
 def api_ListMagazines() -> Response:
@@ -261,48 +485,8 @@ def api_GetMagazineTags(magazineId: str) -> Tuple[str, int]:
 
     # return GetMagazineTags(options)
 
-
-ConstraintType = NewType('ConstraintType', List[Dict[str, str]])
-FilterType = NewType('FilterType', Dict[str, Union[str, ConstraintType]])
-
-
-def fixOperator(op: str, value: str) -> Tuple[str, str]:
-
-    if op == 'equals':
-        return ('eq', value)
-    if op == 'notequals':
-        return ('ne', value)
-    if op == 'startsWith':
-        if value:
-            value = value + '%'
-        return ('ilike', value)
-    if op == 'endsWith':
-        if value:
-            value = '%' + value
-        return ('ilike', value)
-    if op == 'contains':
-        if value:
-            value = '%' + value + '%'
-        return ('ilike', value)
-    if op == 'notContains':
-        if value:
-            value = '%' + value + '%'
-        # Needs special attention in filtering
-        return ('notContains', value)
-    if op == 'lt':
-        return ('lt', value)
-    if op == 'lte':
-        return ('lte', value)
-    if op == 'gt':
-        return ('gt', value)
-    if op == 'gte':
-        return ('gte', value)
-    if op == 'in':
-        # Needs special attention in filtering
-        return ('in', value)
-    else:
-        raise APIError('Invalid filter operation %s' % op, 405)
-
+###
+# People related functions
 
 @ app.route('/api/people/', methods=['get'])
 def api_GetPeople() -> Tuple[str, int]:
@@ -395,141 +579,26 @@ def api_GetPerson(person_id: str) -> Response:
 
     return MakeApiResponse(GetPerson(id))
 
-
-@ app.route('/api/publishers/<id>', methods=['get'])
-def api_GetPublisher(id: str) -> ResponseType:
-    try:
-        publisher_id = int(id)
-    except (TypeError, ValueError) as exp:
-        app.logger.error(f'api_GetPublisher: Invalid id {id}.')
-        response = ResponseType(
-            f'api_GetPublisher: Virheellinen tunniste {id}.', 400)
-        return MakeApiResponse(response)
-
-    return MakeApiResponse(GetPublisher(publisher_id))
-
-
-@ app.route('/api/bookseries', methods=['get'])
-def api_ListBookseries() -> Response:
-    return MakeApiResponse(ListBookseries())
-
-
-@ app.route('/api/publishers', methods=['get'])
-def api_ListPublishers() -> Tuple[str, int]:
-    return MakeApiResponse(ListPublishers())
-
-
-@ app.route('/api/pubseries', methods=['get'])
-def api_ListPubseries() -> Tuple[str, int]:
-    return MakeApiResponse(ListPubseries())
-
-
-@ app.route('/api/users', methods=['get'])
-def api_ListUsers() -> Tuple[str, int]:
-
-    return MakeApiResponse(ListUsers())
-
-
-@ app.route('/api/users/<userId>', methods=['get'])
-def api_GetUser(userId: str) -> Response:
-
-    try:
-        id = int(userId)
-    except (TypeError, ValueError) as exp:
-        app.logger.error(f'api_GetUser: Invalid id {id}.')
-        response = ResponseType(f'Virheellinen tunniste: {id}.', 400)
-        return MakeApiResponse(response)
-
-    return MakeApiResponse(GetUser(id))
-
-
-@ app.route('/api/works', methods=['get'])
-def api_GetWorks() -> Response:
-    url_params = request.args.to_dict()
-
-    if 'author' in url_params:
-        retval = GetWorksByAuthor(url_params['author'])
-
-    return MakeApiResponse(retval)
-
-
-@ app.route('/api/works/<id>', methods=['get'])
-def api_getWork(id: str) -> Response:
-
-    try:
-        work_id = int(id)
-    except (TypeError, ValueError) as exp:
-        app.logger.error(f'api_getWork: Invalid id {id}.')
-        response = ResponseType(f'Virheellinen tunniste: {id}.', 400)
-        return MakeApiResponse(response)
-
-    return MakeApiResponse(GetWork(work_id))
-
-
-@app.route('/api/works/', methods=['post', 'put'])
+@app.route('/api/person/<id>/tags/<tagid>', methods=['put', 'delete'])
 @jwt_admin_required()
-def api_WorkCreateUpdate() -> Response:
-    params = bleach.clean(request.data.decode('utf-8'))
-    params = json.loads(params)
-    if request.method == 'POST':
-        retval = MakeApiResponse(WorkAdd(params))
-    elif request.method == 'PUT':
-        retval = MakeApiResponse(WorkUpdate(params))
+def api_tagToPerson(id: int, tagid: int) -> Response:
+    if request.method == 'PUT':
+        func = PersonTagAdd
+    elif request.method == 'DELETE':
+        func = PersonTagRemove
 
-    return retval
-
-@ app.route('/api/search/<pattern>', methods=['get', 'post'])
-def api_Search(pattern: str) -> Tuple[str, int]:
-    retval = ''
-    retcode = 200
-    results: SearchResult = []
-
-    # searchword = request.args.get('search', '')
-    pattern = bleach.clean(pattern)
-    words = pattern.split(' ')
-
-    session = new_session()
-    results = SearchWorks(session, words)
-    results += SearchPeople(session, words)
-    results = sorted(results, key=lambda d: d['score'], reverse=True)
-    return json.dumps(results), retcode
-
-
-@app.route('/api/filter/bookseries/<pattern>', methods=['get'])
-def api_FilterBookseries(pattern: str) -> Response:
-    pattern = bleach.clean(pattern)
-    if len(pattern) < 2:
-        app.logger.error('FilterBookseries: Pattern too short.')
-        response = ResponseType(
-            'Liian lyhyt hakuehto', status=400)
+    try:
+        person_id = int(id)
+        tag_id = int(tagid)
+    except (TypeError, ValueError) as exp:
+        app.logger.error(
+            f'{func.__name__}: Invalid id. id={id}, tagid={tagid}.')
+        response = ResponseType('Virheellinen tunniste', status=400)
         return MakeApiResponse(response)
-    retval = FilterBookseries(pattern)
+
+    retval = func(person_id, tag_id)
+
     return MakeApiResponse(retval)
-
-
-@app.route('/api/filter/countries/<pattern>', methods=['get'])
-def api_FilterCountries(pattern: str) -> Response:
-    pattern = bleach.clean(pattern)
-    if len(pattern) < 2:
-        app.logger.error('FilterCountries: Pattern too short.')
-        response = ResponseType(
-            'Liian lyhyt hakuehto', status=400)
-        return MakeApiResponse(response)
-    retval = FilterCountries(pattern)
-    return MakeApiResponse(retval)
-
-
-@app.route('/api/filter/languages/<pattern>', methods=['get'])
-def api_FilterLanguages(pattern: str) -> Response:
-    pattern = bleach.clean(pattern)
-    if len(pattern) < 2:
-        app.logger.error('FilterLanguages: Pattern too short.')
-        response = ResponseType(
-            'Liian lyhyt hakuehto', status=400)
-        return MakeApiResponse(response)
-    retval = FilterLanguages(pattern)
-    return MakeApiResponse(retval)
-
 
 @app.route('/api/filter/people/<pattern>', methods=['get'])
 def api_FilterPeople(pattern: str) -> Response:
@@ -557,17 +626,66 @@ def api_FilterPeople(pattern: str) -> Response:
     retval = FilterPeople(pattern)
     return MakeApiResponse(retval)
 
-@app.route('/api/filter/alias/<id>', methods=['get'])
-def api_FilterAlias(id: str) -> Response:
+###
+# Pubseries related functions
+
+@ app.route('/api/pubseries', methods=['get'])
+def api_ListPubseries() -> Tuple[str, int]:
+    return MakeApiResponse(ListPubseries())
+
+@app.route('/api/publishers/', methods=['post', 'put'])
+@jwt_admin_required()
+def api_PublisherCreateUpdate() -> Response:
+    params = bleach.clean(request.data.decode('utf-8'))
+    params = json.loads(params)
+    if request.method == 'POST':
+        retval = MakeApiResponse(PublisherAdd(params))
+    elif request.method == 'PUT':
+        retval = MakeApiResponse(PublisherUpdate(params))
+
+    return retval
+
+@ app.route('/api/pubseries/<pubseriesId>', methods=['get'])
+def api_GetPubseries(pubseriesId: str) -> Response:
     try:
-        person_id = int(id)
+        id = int(pubseriesId)
     except (TypeError, ValueError) as exp:
-        app.logger.error(f'api_FilterAlias: Invalid id {id}.')
-        response = ResponseType(f'Virheellinen tunniste: {id}.', 400)
+        app.logger.error(f'api_GetPubseries: Invalid id {pubseriesId}.')
+        response = ResponseType(
+            f'api_GetBookseries: Virheellinen tunniste {pubseriesId}.', 400)
         return MakeApiResponse(response)
 
-    return MakeApiResponse(FilterAliases(person_id))
+    return MakeApiResponse(GetPubseries(id))
 
+@app.route('/api/filter/pubseries/<pattern>', methods=['get'])
+def api_FilterPubseries(pattern: str) -> Response:
+    pattern = bleach.clean(pattern)
+    if len(pattern) < 2:
+        app.logger.error('FilterPubseries: Pattern too short.')
+        response = ResponseType(
+            'Liian lyhyt hakuehto', status=400)
+        return MakeApiResponse(response)
+    retval = FilterPubseries(pattern)
+    return MakeApiResponse(retval)
+
+###
+# Publisher related functions
+
+@ app.route('/api/publishers', methods=['get'])
+def api_ListPublishers() -> Tuple[str, int]:
+    return MakeApiResponse(ListPublishers())
+
+@ app.route('/api/publishers/<id>', methods=['get'])
+def api_GetPublisher(id: str) -> ResponseType:
+    try:
+        publisher_id = int(id)
+    except (TypeError, ValueError) as exp:
+        app.logger.error(f'api_GetPublisher: Invalid id {id}.')
+        response = ResponseType(
+            f'api_GetPublisher: Virheellinen tunniste {id}.', 400)
+        return MakeApiResponse(response)
+
+    return MakeApiResponse(GetPublisher(publisher_id))
 
 @app.route('/api/filter/publishers/<pattern>', methods=['get'])
 def api_FilterPublishers(pattern: str) -> Response:
@@ -581,45 +699,58 @@ def api_FilterPublishers(pattern: str) -> Response:
     return MakeApiResponse(retval)
 
 
-@app.route('/api/filter/pubseries/<pattern>', methods=['get'])
-def api_FilterPubseries(pattern: str) -> Response:
-    pattern = bleach.clean(pattern)
-    if len(pattern) < 2:
-        app.logger.error('FilterPubseries: Pattern too short.')
-        response = ResponseType(
-            'Liian lyhyt hakuehto', status=400)
+###
+# Role related functions
+
+@app.route('/api/roles/', methods=['get'])
+def api_roles() -> Response:
+    """
+    Returns a list of contributor roles in the system in the order they are
+    in the database (i.e. by id).
+    """
+    return MakeApiResponse(RoleList())
+
+###
+# Story related functions
+
+@app.route('/api/shorts/', methods=['post', 'put'])
+@jwt_admin_required()
+def api_ShortCreateUpdate() -> Response:
+    params = bleach.clean(request.data.decode('utf-8'))
+    params = json.loads(params)
+    if request.method == 'POST':
+        retval = MakeApiResponse(StoryAdd(params))
+    elif request.method == 'PUT':
+        retval = MakeApiResponse(StoryUpdate(params))
+
+    return retval
+
+@app.route('/api/shorts/<id>', methods=['delete'])
+@jwt_admin_required()
+def api_ShortDelete(id: int) -> Response:
+    try:
+        short_id = int(id)
+    except (TypeError, ValueError) as exp:
+        app.logger.error(
+            f'api_ShortDelete: Invalid id. id={id}.')
+        response = ResponseType('Virheellinen tunniste', status=400)
         return MakeApiResponse(response)
-    retval = FilterPubseries(pattern)
+
+    retval = StoryDelete(short_id)
+
     return MakeApiResponse(retval)
 
-
-@app.route('/api/filter/tags/<pattern>', methods=['get'])
-def api_FilterTags(pattern: str) -> Response:
-    pattern = bleach.clean(pattern)
-    if len(pattern) < 2:
-        app.logger.error('FilterTags: Pattern too short.')
+@ app.route('/api/shorts/<shortId>', methods=['get'])
+def api_GetShort(shortId: str) -> Response:
+    try:
+        id = int(shortId)
+    except:
+        app.logger.error(f'api_GetShort: Invalid id {shortId}.')
         response = ResponseType(
-            'Liian lyhyt hakuehto', status=400)
+            f'api_GetShort: Virheellinen tunniste {shortId}.', 400)
         return MakeApiResponse(response)
-    retval = TagFilter(pattern)
-    return MakeApiResponse(retval)
 
-
-@ app.route('/api/searchworks', methods=['post'])
-def api_searchWorks() -> Response:
-    params = json.loads(request.data)
-    retval = SearchBooks(params)
-
-    return MakeApiResponse(retval)
-
-
-@ app.route('/api/worksbyinitial/<letter>', methods=['get'])
-def api_searchWorksByInitial(letter: str) -> Response:
-    params = {}
-    params['letter'] = letter
-    retval = SearchWorksByAuthor(params)
-    return MakeApiResponse(retval)
-
+    return MakeApiResponse(GetShort(id))
 
 @ app.route('/api/searchshorts', methods=['post'])
 def api_searchShorts() -> Response:
@@ -637,88 +768,30 @@ def api_shortTypes() -> Response:
     return MakeApiResponse(GetShortTypes())
 
 
-@ app.route('/api/changes', methods=['get'])
-def api_Changes() -> Tuple[str, int]:
-    url_params = request.args.to_dict()
+###
+# User related functions
 
-    params: Dict[str, Any] = {}
-    for (param, value) in url_params.items():
-        # param, value = p.split('=')
-        if value == 'null' or value == 'undefined':
-            value = None
-        params[param] = value
+@ app.route('/api/users', methods=['get'])
+def api_ListUsers() -> Tuple[str, int]:
+
+    return MakeApiResponse(ListUsers())
+
+
+@ app.route('/api/users/<userId>', methods=['get'])
+def api_GetUser(userId: str) -> Response:
 
     try:
-        retval = GetChanges(params)
-    except APIError as exp:
-        app.logger.error('Exception in api_Changes: ' + str(exp))
-        response = Response('api_Changes: poikkeus.', 400)
+        id = int(userId)
+    except (TypeError, ValueError) as exp:
+        app.logger.error(f'api_GetUser: Invalid id {id}.')
+        response = ResponseType(f'Virheellinen tunniste: {id}.', 400)
         return MakeApiResponse(response)
 
-    return MakeApiResponse(retval)
+    return MakeApiResponse(GetUser(id))
 
 
-@ app.route('/api/firstlettervector/<target>', methods=['get'])
-def firstlettervector(target: str) -> Tuple[str, int]:
-    """Get first letters for for target type.
-
-    This function is used internally by the UI to create
-    links to various pages, e.g. a list for choosing books
-    based on the first letter of the author.
-
-    Parameters
-    ----------
-    target: str
-        Either "works" or "stories".
-
-    Returns
-    -------
-    List[str, int]
-        str is the return value in JSON. int is http return code.
-        Str contains a dictionary where each item's key is a letter and
-        value is the count of items (e.g. works).
-
-    """
-    url_params = request.args.to_dict()
-    retval = GetAuthorFirstLetters(target)
-
-    return retval
-
-
-@ app.route('/api/genres', methods=['get'])
-def genres() -> Response:
-    """
-    Returns a list of all of the genres in the system in the order
-    they are in the database (i.e. by id).
-    """
-    return MakeApiResponse(GenreList())
-
-
-@ app.route('/api/countries', methods=['get'])
-def countries() -> Response:
-    """
-    Returns a list of all of the countries in the system ordered by name.
-    """
-    return MakeApiResponse(CountryList())
-
-
-@app.route('/api/roles/', methods=['get'])
-def api_roles() -> Response:
-    """
-    Returns a list of contributor roles in the system in the order they are
-    in the database (i.e. by id).
-    """
-    return MakeApiResponse(RoleList())
-
-
-@ app.route('/api/worktypes', methods=['get'])
-def worktypes() -> Response:
-    """
-    Returns a list of all of the work types in the system in the order they
-    are in the database (i.e. by id).
-    """
-    return MakeApiResponse(WorkTypesList())
-
+###
+# Tag related functions
 
 @ app.route('/api/tags', methods=['get'])
 def api_tags() -> Response:
@@ -735,7 +808,6 @@ def api_tags() -> Response:
 
     return MakeApiResponse(TagList())
 
-
 @ app.route('/api/tags/<id>', methods=['get'])
 def api_tag(id: str) -> Response:
     try:
@@ -747,76 +819,29 @@ def api_tag(id: str) -> Response:
 
     return MakeApiResponse(TagInfo(tag_id))
 
-
-# API calls requiring admin rights
-
-# Articles
-
-@app.route('/api/articles/<id>/tags/<tagid>', methods=['put', 'delete'])
-@jwt_admin_required()
-def api_tagToArticle(id: int, tagid: int) -> Response:
-    if request.method == 'PUT':
-        func = ArticleTagAdd
-    elif request.method == 'DELETE':
-        func = ArticleTagRemove
-
-    try:
-        article_id = int(id)
-        tag_id = int(tagid)
-    except (TypeError, ValueError) as exp:
-        app.logger.error(
-            f'{func.__name__}: Invalid id. id={id}, tagid={tagid}.')
-        response = ResponseType('Virheellinen tunniste', status=400)
-        return MakeApiResponse(response)
-
-    retval = func(article_id, tag_id)
-
-    return MakeApiResponse(retval)
-
-
-# Shorts
-
-@ app.route('/api/shorts/<shortId>', methods=['get'])
-def api_GetShort(shortId: str) -> Response:
-    try:
-        id = int(shortId)
-    except:
-        app.logger.error(f'api_GetShort: Invalid id {shortId}.')
+@app.route('/api/filter/tags/<pattern>', methods=['get'])
+def api_FilterTags(pattern: str) -> Response:
+    pattern = bleach.clean(pattern)
+    if len(pattern) < 2:
+        app.logger.error('FilterTags: Pattern too short.')
         response = ResponseType(
-            f'api_GetShort: Virheellinen tunniste {shortId}.', 400)
+            'Liian lyhyt hakuehto', status=400)
         return MakeApiResponse(response)
-
-    return MakeApiResponse(GetShort(id))
-
-
-@app.route('/api/shorts/', methods=['post', 'put'])
-@jwt_admin_required()
-def api_ShortCreateUpdate() -> Response:
-    params = bleach.clean(request.data.decode('utf-8'))
-    params = json.loads(params)
-    if request.method == 'POST':
-        retval = MakeApiResponse(StoryAdd(params))
-    elif request.method == 'PUT':
-        retval = MakeApiResponse(StoryUpdate(params))
-
-    return retval
-
-
-@app.route('/api/shorts/<id>', methods=['delete'])
-@jwt_admin_required()
-def api_ShortDelete(id: int) -> Response:
-    try:
-        short_id = int(id)
-    except (TypeError, ValueError) as exp:
-        app.logger.error(
-            f'api_ShortDelete: Invalid id. id={id}.')
-        response = ResponseType('Virheellinen tunniste', status=400)
-        return MakeApiResponse(response)
-
-    retval = StoryDelete(short_id)
-
+    retval = TagFilter(pattern)
     return MakeApiResponse(retval)
 
+# Admin
+
+@ app.route('/api/tags', methods=['post'])
+@ jwt_admin_required()
+def api_tagCreate() -> Tuple[str, int]:
+    url_params = request.args.to_dict()
+    name = url_params['name']
+    name = bleach.clean(name)
+
+    retval = TagCreate(name)
+
+    return MakeApiResponse(retval)
 
 @app.route('/api/issue/<id>/tags/<tagid>', methods=['put', 'delete'])
 @jwt_admin_required()
@@ -836,28 +861,6 @@ def api_tagToIssue(id: int, tagid: int) -> Response:
         return MakeApiResponse(response)
 
     retval = func(issue_id, tag_id)
-
-    return MakeApiResponse(retval)
-
-
-@app.route('/api/person/<id>/tags/<tagid>', methods=['put', 'delete'])
-@jwt_admin_required()
-def api_tagToPerson(id: int, tagid: int) -> Response:
-    if request.method == 'PUT':
-        func = PersonTagAdd
-    elif request.method == 'DELETE':
-        func = PersonTagRemove
-
-    try:
-        person_id = int(id)
-        tag_id = int(tagid)
-    except (TypeError, ValueError) as exp:
-        app.logger.error(
-            f'{func.__name__}: Invalid id. id={id}, tagid={tagid}.')
-        response = ResponseType('Virheellinen tunniste', status=400)
-        return MakeApiResponse(response)
-
-    retval = func(person_id, tag_id)
 
     return MakeApiResponse(retval)
 
@@ -882,41 +885,6 @@ def api_tagToStory(id: int, tagid: int) -> Response:
     retval = func(story_id, tag_id)
 
     return MakeApiResponse(retval)
-
-
-@app.route('/api/work/<id>/tags/<tagid>', methods=['put', 'delete'])
-@jwt_admin_required()
-def api_tagToWork(id: int, tagid: int) -> Response:
-    if request.method == 'PUT':
-        func = WorkTagAdd
-    elif request.method == 'DELETE':
-        func = WorkTagRemove
-
-    try:
-        work_id = int(id)
-        tag_id = int(tagid)
-    except (TypeError, ValueError) as exp:
-        app.logger.error(
-            f'{func.__name__}: Invalid id. id={id}, tagid={tagid}.')
-        response = ResponseType('Virheellinen tunniste', status=400)
-        return MakeApiResponse(response)
-
-    retval = func(work_id, tag_id)
-
-    return MakeApiResponse(retval)
-
-
-@ app.route('/api/tags', methods=['post'])
-@ jwt_admin_required()
-def api_tagCreate() -> Tuple[str, int]:
-    url_params = request.args.to_dict()
-    name = url_params['name']
-    name = bleach.clean(name)
-
-    retval = TagCreate(name)
-
-    return MakeApiResponse(retval)
-
 
 @ app.route('/api/tags/<id>/merge/<id2>', methods=['post'])
 @ jwt_admin_required()
@@ -947,7 +915,6 @@ def api_tagMerge(id: int, id2: int) -> Tuple[str, int]:
     retval = TagMerge(idTo, idFrom)
     return MakeApiResponse(retval)
 
-
 @ app.route('/api/tags/<id>', methods=['delete'])
 @ jwt_admin_required()
 def api_tagDelete(id: int) -> Response:
@@ -975,7 +942,6 @@ def api_tagDelete(id: int) -> Response:
     response = TagDelete(id)
     retval = MakeApiResponse(response)
     return retval
-
 
 @ app.route('/api/tags', methods=['put'])
 @ jwt_admin_required()
@@ -1019,21 +985,42 @@ def api_tagRename() -> Response:
     return MakeApiResponse(response)
 
 
-@app.route('/api/publishers/', methods=['post', 'put'])
+###
+# Work related functions
+
+@ app.route('/api/works', methods=['get'])
+def api_GetWorks() -> Response:
+    url_params = request.args.to_dict()
+
+    if 'author' in url_params:
+        retval = GetWorksByAuthor(url_params['author'])
+
+    return MakeApiResponse(retval)
+
+
+@ app.route('/api/works/<id>', methods=['get'])
+def api_getWork(id: str) -> Response:
+
+    try:
+        work_id = int(id)
+    except (TypeError, ValueError) as exp:
+        app.logger.error(f'api_getWork: Invalid id {id}.')
+        response = ResponseType(f'Virheellinen tunniste: {id}.', 400)
+        return MakeApiResponse(response)
+
+    return MakeApiResponse(GetWork(work_id))
+
+
+@app.route('/api/works/', methods=['post', 'put'])
 @jwt_admin_required()
-def api_PublisherCreateUpdate() -> Response:
+def api_WorkCreateUpdate() -> Response:
     params = bleach.clean(request.data.decode('utf-8'))
     params = json.loads(params)
     if request.method == 'POST':
-        retval = MakeApiResponse(PublisherAdd(params))
+        retval = MakeApiResponse(WorkAdd(params))
     elif request.method == 'PUT':
-        retval = MakeApiResponse(PublisherUpdate(params))
+        retval = MakeApiResponse(WorkUpdate(params))
 
-    return retval
-
-@app.route('/api/bindings', methods=['get'])
-def api_Bindings() -> Response:
-    retval = MakeApiResponse(BindingGetAll())
     return retval
 
 @app.route('/api/worktypes/', methods=['get'])
@@ -1041,23 +1028,75 @@ def api_WorkTypes() -> Response:
     retval = MakeApiResponse(WorkTypeGetAll())
     return retval
 
-@app.route('/api/editions/<id>/images', methods=['post'])
+@app.route('/api/work/<id>/tags/<tagid>', methods=['put', 'delete'])
 @jwt_admin_required()
-def api_uploadEditionImage(id: str) -> Response:
+def api_tagToWork(id: int, tagid: int) -> Response:
+    if request.method == 'PUT':
+        func = WorkTagAdd
+    elif request.method == 'DELETE':
+        func = WorkTagRemove
+
     try:
-        file = request.files['file']
-    except KeyError as exp:
-        app.logger.error('api_uploadEditionImage: File not found.')
-        response = ResponseType('Tiedosto puuttuu', status=400)
+        work_id = int(id)
+        tag_id = int(tagid)
+    except (TypeError, ValueError) as exp:
+        app.logger.error(
+            f'{func.__name__}: Invalid id. id={id}, tagid={tagid}.')
+        response = ResponseType('Virheellinen tunniste', status=400)
         return MakeApiResponse(response)
 
-    retval = MakeApiResponse(
-        EditionImageUpload(id, file))
-    return retval
+    retval = func(work_id, tag_id)
 
-@app.route('/api/editions/<id>/images/<imageid>', methods=['delete'])
-@jwt_admin_required()
-def api_deleteEditionImage(id: str, imageid: str) -> Response:
-    retval = MakeApiResponse(
-        EditionImageDelete(id, imageid))
+    return MakeApiResponse(retval)
+
+@ app.route('/api/worksbyinitial/<letter>', methods=['get'])
+def api_searchWorksByInitial(letter: str) -> Response:
+    params = {}
+    params['letter'] = letter
+    retval = SearchWorksByAuthor(params)
+    return MakeApiResponse(retval)
+
+@ app.route('/api/searchworks', methods=['post'])
+def api_searchWorks() -> Response:
+    params = json.loads(request.data)
+    retval = SearchBooks(params)
+
+    return MakeApiResponse(retval)
+
+
+# @ app.route('/api/worktypes', methods=['get'])
+# def worktypes() -> Response:
+#     """
+#     Returns a list of all of the work types in the system in the order they
+#     are in the database (i.e. by id).
+#     """
+#     return MakeApiResponse(WorkTypesList())
+
+###
+# Misc functions
+
+@ app.route('/api/firstlettervector/<target>', methods=['get'])
+def firstlettervector(target: str) -> Tuple[str, int]:
+    """Get first letters for for target type.
+
+    This function is used internally by the UI to create
+    links to various pages, e.g. a list for choosing books
+    based on the first letter of the author.
+
+    Parameters
+    ----------
+    target: str
+        Either "works" or "stories".
+
+    Returns
+    -------
+    List[str, int]
+        str is the return value in JSON. int is http return code.
+        Str contains a dictionary where each item's key is a letter and
+        value is the count of items (e.g. works).
+
+    """
+    url_params = request.args.to_dict()
+    retval = GetAuthorFirstLetters(target)
+
     return retval
