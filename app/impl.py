@@ -398,6 +398,7 @@ def GetFrontpageData() -> ResponseType:
                 break
         except IndexError:
             app.logger.error(f'IndexError in GetFrontpageData: {edition.id}')
+            return ResponseType('GetFrontpageData: Tietokantavirhe.', 400)
 
     schema = EditionBriefestSchema()
     latestList = schema.dump(latestList, many=True)

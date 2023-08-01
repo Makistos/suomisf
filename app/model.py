@@ -159,6 +159,7 @@ class WorkBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     title = fields.String()
     orig_title = fields.String()
     author_str = fields.String()
+    contributions = ma.List(fields.Nested(WorkContributorSchema))
     editions = ma.List(fields.Nested(WorkEditionBriefSchema))
     authors = ma.List(fields.Nested(PersonBriefSchema))
     genres = ma.List(fields.Nested(GenreBriefSchema))
@@ -180,6 +181,7 @@ class EditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 
     work = ma.List(fields.Nested(WorkBriefSchema))
     editors = ma.List(fields.Nested(PersonBriefSchema))
+    contributions = ma.List(fields.Nested(WorkContributorSchema))
     images = ma.List(fields.Nested(EditionImageBriefSchema))
 
 
