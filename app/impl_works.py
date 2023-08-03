@@ -3,20 +3,23 @@ from app.route_helpers import new_session
 from app.impl import (ResponseType, SearchScores, SearchResult,
                       SearchResultFields, searchScore)
 from app.orm_decl import (Contributor, Edition, Part, Work, WorkType, WorkTag,
-                          WorkGenre, WorkLink, WorkTag)
+                          WorkGenre, WorkLink, WorkTag, Person)
 from app.model import (CountryBriefSchema, WorkBriefSchema, WorkTypeBriefSchema)
 from app.model import WorkSchema
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.impl import ResponseType, checkInt, LogChanges, GetJoinChanges
-from app.impl_contributors import updateWorkContributors, contributorsHaveChanged
+from app.impl_contributors import (updateWorkContributors, contributorsHaveChanged,
+                                   getContributorsString, hasContributionRole)
 from app.impl_genres import genresHaveChanged
 from app.impl_tags import tagsHaveChanged
 from app.impl_links import linksHaveChanged
 from app.impl_editions import EditionCreateFirst
+from app.impl_genres import checkGenreField
+import html
 
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Union
 from app import app
 
 def createAuthorStr(authors: List[Any], editions: List[Any]) -> str:
@@ -307,7 +310,6 @@ def WorkAdd(params: Any) -> ResponseType:
     session = new_session()
     retval = ResponseType('', 200)
 
-    changes = params['changed']
     data = params['data']
 
     work = Work()
@@ -316,30 +318,48 @@ def WorkAdd(params: Any) -> ResponseType:
         app.logger.error('WorkAdd: Empty title.')
         return ResponseType('Tyhjä nimi', 400)
 
+    if not 'contributions' in data:
+        app.logger.error('WorkAdd: No contributions.')
+        return ResponseType('Ei kirjoittajaa tai toimittajaa', 400)
+
+    if not (hasContributionRole(data['contributions'], 1) or
+            hasContributionRole(data['contributions'], 3)):
+        app.logger.error('WorkAdd: No author or editor.')
+        return ResponseType('Ei kirjoittajaa tai toimittajaa', 400)
+
     work.title = bleach.clean(data['title'])
     work.subtitle = bleach.clean(data['subtitle'])
     work.orig_title = bleach.clean(data['orig_title'])
 
-    try:
-        work.pubyear = int(data['pubyear'])
-    except ValueError:
-        app.logger.error('WorkAdd: Invalid pubyear.')
-        return ResponseType('Virheellinen julkaisuvuosi', 400)
+    work.pubyear = checkInt(data['pubyear'])
 
-    work.bookseriesnum = data['bookseriesnum']
-    work.bookseries = data['bookseries']['id']
-    try:
-        work.bookseriesorder = int(data['bookseriesorder'])
-    except ValueError:
-        app.logger.error('WorkAdd: Invalid bookseriesorder.')
-        return ResponseType('Virheellinen järjestysnumero sarjalla', 400)
+    work.bookseriesnum = bleach.clean(data['bookseriesnum'])
+    if 'bookseries' in data:
+        if data['bookseries'] is not None:
+            if 'id' in data['bookseries']:
+                work.bookseries_id = checkInt(data['bookseries']['id'],
+                                            zerosAllowed=False,
+                                            negativeValuesAllowed=False)
+    work.bookseriesorder = checkInt(data['bookseriesorder'])
 
-    if 'type' in data:
-        work.type = data['type']['id']
-    work.misc = data['misc']
-    work.description = data['description']
-    work.descr_attr = data['descr_attr']
-    work.imported_string = data['imported_string']
+    # Work type is required and defaults to 1 (book)
+    work_type: Union[int, None] = 1
+    if 'work_type' in data:
+        if data['work_type'] is not None:
+            if 'id' in data['work_type']:
+                work_type = checkInt(data['work_type']['id'],
+                                    zerosAllowed=False,
+                                    negativeValuesAllowed=False)
+    work.type =  work_type
+
+    if 'description' in data:
+        work.description = html.unescape(bleach.clean(data['description']))
+    if 'descr_attr' in data:
+        work.descr_attr = bleach.clean(data['descr_attr'])
+    if 'misc' in data:
+        work.misc = bleach.clean(data['misc'])
+    if 'imported_string' in data:
+        work.imported_string = bleach.clean(data['imported_string'])
 
     try:
         session.add(work)
@@ -368,13 +388,42 @@ def WorkAdd(params: Any) -> ResponseType:
 
     # Add contributors (requires part id)
     try:
-        for contrib in data['contributors']:
+        for contrib in data['contributions']:
+            # Check that required fields exist
+            if not ('person' in contrib and 'role' in contrib):
+                app.logger.error('WorkAdd: Contributor missing person or role.')
+                return ResponseType('Tekijän tiedot puutteelliset', 400)
+            if not ('id' in contrib['person'] and 'id' in contrib['role']):
+                app.logger.error('WorkAdd: Contributor missing person id or role id.')
+                return ResponseType('Tekijän tiedot puutteelliset', 400)
+            person = session.query(Person).filter(Person.id == contrib['person']['id']).first()
+            if not person:
+                app.logger.error('WorkAdd: Contributor person not found.')
+                return ResponseType('Tekijää ei löydy, id={id}', 400)
+            role = session.query(WorkType).filter(WorkType.id == contrib['role']['id']).first()
+            if not role:
+                app.logger.error('WorkAdd: Contributor role not found.')
+                return ResponseType('Tekijän roolia ei löydy, id={id}', 400)
+            # Real person is not a required field
+            real_person_id = None
+            if 'id'in contrib['real_person']:
+                if contrib['real_person']['id'] != 0:
+                    real_person_id = contrib['real_person']['id']
+                    real_person = session.query(Person).filter(Person.id == real_person_id).first()
+                    if not real_person:
+                        app.logger.error('WorkAdd: Contributor real person not found.')
+                        return ResponseType('Aliaksen omistajaa ei löydy, id={id}', 400)
+            # Description is not a required field
+            if 'description' in contrib:
+                description = contrib['description']
+            else:
+                description = None
             new_contributor = Contributor(
                 part_id=new_part.id,
-                person_id=contrib['id'],
+                person_id=contrib['person']['id'],
                 role_id=contrib['role']['id'],
-                real_person_id = contrib['real_person']['id'],
-                description=contrib['description']
+                real_person_id = real_person_id,
+                description=description
             )
             session.add(new_contributor)
         session.commit()
@@ -383,20 +432,39 @@ def WorkAdd(params: Any) -> ResponseType:
         return ResponseType(f'WorkAdd: Tietokantavirhe tekijöissä. work_id={work.id}', 400)
 
     # Add tags (requires work id)
-    for tag in data['tags']:
-        new_tag = WorkTag(work_id=work.id, tag_id=tag['id'])
-        session.add(new_tag)
+    if 'tags' in data:
+        for tag in data['tags']:
+            if 'id' in tag:
+                if tag['id'] != 0 and tag['id'] != None:
+                    new_tag = WorkTag(work_id=work.id, tag_id=tag['id'])
+                    session.add(new_tag)
 
     # Add links (requires work id)
-    for link in data['links']:
-        new_link = WorkLink(work_id=work.id, link=link['link'],
-                            description=link['description'])
-        session.add(new_link)
+    if 'links' in data:
+        for link in data['links']:
+            if not 'link' in link:
+                app.logger.error('WorkAdd: Link missing link.')
+                return ResponseType('Linkin tiedot puutteelliset', 400)
+            if link['link'] != '' and link['link'] != None:
+                # Description is not a required field
+                if 'description' in link:
+                    description = link['description']
+                else:
+                    description = None
+                if 'link' in link:
+                    new_link = WorkLink(work_id=work.id, link=link['link'],
+                                        description=description)
+                    session.add(new_link)
 
     # Add genres (requires work id)
-    for genre in data['genres']:
-        new_genre = WorkGenre(work_id=work.id, genre_id=genre['id'])
-        session.add(new_genre)
+    if 'genres' in data:
+        for genre in data['genres']:
+            isOk = checkGenreField(session, genre)
+            if not isOk:
+                app.logger.error('WorkAdd: Genre missing id.')
+                return ResponseType('Genren tiedot puutteelliset', 400)
+            new_genre = WorkGenre(work_id=work.id, genre_id=genre['id'])
+            session.add(new_genre)
 
     try:
         session.commit()
@@ -412,7 +480,8 @@ def WorkAdd(params: Any) -> ResponseType:
         app.logger.error('Exception in WorkAdd: ' + str(exp))
         return ResponseType(f'WorkAdd: Tietokantavirhe tekijänimissä. work_id={work.id}', 400)
 
-    return retval
+    LogChanges(session, obj=work, action='Uusi')
+    return ResponseType(str(work.id), 201)
 
 # Save changes to work to database
 def WorkUpdate(params: Any) -> ResponseType:
@@ -451,8 +520,8 @@ def WorkUpdate(params: Any) -> ResponseType:
             old_values['pubyear'] = work.pubyear
             work.pubyear = bleach.clean(data['pubyear'])
 
-    if 'bookseries_number' in data:
-        if data['bookseries_number'] != work.bookseriesnum:
+    if 'bookseriesnum' in data:
+        if data['bookseriesnum'] != work.bookseriesnum:
             old_values['bookseriesnum'] = work.bookseriesnum
             work.bookseriesnum = bleach.clean(data['bookseriesnum'])
 
@@ -467,12 +536,13 @@ def WorkUpdate(params: Any) -> ResponseType:
             work.misc = bleach.clean(data['misc'])
 
     if 'description' in data:
-        if data['description'] != work.description:
+        html_text = html.unescape(data['description'])
+        if html_text != work.description:
             old_values['description'] = work.description
-            work.description = bleach.clean(data['description'])
+            work.description = bleach.clean(html_text)
 
-    if 'descr_attrs' in data:
-        if data['descr_attrs'] != work.descr_attr:
+    if 'descr_attr' in data:
+        if data['descr_attr'] != work.descr_attr:
             old_values['descr_attr'] = work.descr_attr
             work.descr_attr = bleach.clean(data['descr_attrs'])
 
@@ -502,7 +572,7 @@ def WorkUpdate(params: Any) -> ResponseType:
     # Bookseries
     if 'bookseries' in data:
         if data['bookseries'] != None:
-            if data['bookseries']['id'] != work.bookseries['id']:
+            if data['bookseries']['id'] != work.bookseries_id:
                 if data['bookseries']['id'] != None:
                     bookseries_id = checkInt(data['bookseries']['id'])
                 else:
@@ -517,9 +587,10 @@ def WorkUpdate(params: Any) -> ResponseType:
             work.type = checkInt(data['type'])
 
     # Contributors
-    if 'contributors' in data:
-        if contributorsHaveChanged(work.contributions, data['contributors']):
-            updateWorkContributors(session, work.id, data['contributors'])
+    if 'contributions' in data:
+        if contributorsHaveChanged(work.contributions, data['contributions']):
+            old_values['contributions'] = getContributorsString(work.contributions)
+            updateWorkContributors(session, work.id, data['contributions'])
 
     # Genres
     if 'genres' in data:
@@ -616,7 +687,7 @@ def WorkTypeGetAll() -> ResponseType:
     session = new_session()
 
     try:
-        worktypes = session.query(WorkType).all()
+        worktypes = session.query(WorkType).order_by(WorkType.id).all()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in WorkTypeGetAll(): ' + str(exp))
         return ResponseType('WorkTypeGetAll: Tietokantavirhe', 400)

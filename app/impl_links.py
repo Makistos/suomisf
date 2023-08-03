@@ -10,4 +10,3 @@ def linksHaveChanged(old_values: List[WorkLink], new_values: List[Any]) -> bool:
          old_value.link != new_values[idx]['link']:
             return True
     return False
-

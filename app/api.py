@@ -121,6 +121,37 @@ def fixOperator(op: str, value: str) -> Tuple[str, str]:
 @app.route('/api/login', methods=['post'])
 @jwt_required(optional=True)
 def api_login() -> Response:
+    """
+    @api {post} /api/login Login
+    @apiName Login
+    @apiGroup User
+    @apiPermission none
+    @apiDescription Log in the user. The user must be registered in the system.
+    @apiBody {String} username Username
+    @apiBody {String} password Password
+    @apiSuccess {String} access_token Access token
+    @apiSuccess {String} refresh_token Refresh token
+    @apiSuccess {String} user Username
+    @apiSuccess {String} role User role
+    @apiSuccess {String} id User id
+    @apiSuccessExample {json} Success-Response:
+        HTTP/1.1 200 OK
+        {
+        "access_token": <access_token>,
+        "refresh_token": <refresh_token>,
+        "user": "exampleuser",
+        "role": "user",
+        "id": 1
+        }
+    @apiError (Error 401) {String} message Error message
+    @apiErrorExample {json} Error-Response:
+        HTTP/1.1 401 Unauthorized
+        {
+        "code": 401,
+        "message": "Kirjautuminen ei onnistunut"
+        }
+
+    """
     options = login_options(request)
     retval = LoginUser(options)
     return retval
@@ -128,6 +159,35 @@ def api_login() -> Response:
 @app.route('/api/refresh', methods=['post'])
 @jwt_required(refresh=True)
 def api_refresh() -> Response:
+    """
+    @api {post} /api/refresh Refresh token
+    @apiName Refresh Token
+    @apiGroup User
+    @apiPermission user
+    @apiDescription Refresh the access token.
+    @apiHeader {String} Authorization Bearer token
+    @apiSuccess {String} access_token Access token
+    @apiSuccess {String} refresh_token Refresh token
+    @apiSuccess {String} user Username
+    @apiSuccess {String} role User role
+    @apiSuccess {String} id User id
+    @apiSuccessExample {json} Success-Response:
+        HTTP/1.1 200 OK
+        {
+        "access_token": <access_token>,
+        "refresh_token": <refresh_token>,
+        "user": "exampleuser",
+        "role": "user",
+        "id": 1
+        }
+    @apiError (Error 401) {String} message Error message
+    @apiErrorExample {json} Error-Response:
+        HTTP/1.1 401 Unauthorized
+        {
+        "code": 401,
+        "message": "Kirjautuminen ei onnistunut"
+        }
+    """
     options = {}
     try:
         if request.json:
@@ -148,6 +208,45 @@ def api_refresh() -> Response:
 # Front page
 @app.route('/api/frontpagedata', methods=['get'])
 def frontpagestats() -> Response:
+    """
+    @api {get} /api/frontpagedata Front page data
+    @apiName Front page data
+    @apiGroup Front page
+    @apiPermission none
+    @apiDescription Get data for the front page. This includes various
+    statistics and the latest additions to the database.
+    @apiSuccess {Number} works Number of works in the database
+    @apiSuccess {Number} editions Number of editions in the database
+    @apiSuccess {Number} magazines Number of magazines in the database
+    @apiSuccess {Number} shorts Number of short stories in the database
+    @apiSuccess {Number} covers Number of covers in the database
+    @apiSuccess {Edition[]} latest Latest additions to the database (4)
+    @apiSuccessExample {json} Success-Response:
+        HTTP/1.1 200 OK
+        {
+        "response": [
+            {
+            "works": 1000,
+            "editions": 2000,
+            "magazines": 3000,
+            "shorts": 4000,
+            "magazines": 50,
+            "covers": 1500,
+            "latest": [
+                {
+                    }
+                ]
+            }
+        ]
+        }
+    @apiError (Error 400) {String} message Error message
+    @apiErrorExample {json} Error-Response:
+        HTTP/1.1 400 Bad request
+        {
+        "code": 400,
+        "message": "GetFrontpageData: Tietokantavirhe."
+        }
+    """
     return MakeApiResponse(GetFrontpageData())
 
 
@@ -406,6 +505,27 @@ def api_GetIssueTags(issueId: str) -> Response:
         return MakeApiResponse(response)
 
     return MakeApiResponse(GetIssueTags(id))
+
+@app.route('/api/issue/<id>/tags/<tagid>', methods=['put', 'delete'])
+@jwt_admin_required()
+def api_tagToIssue(id: int, tagid: int) -> Response:
+    if request.method == 'PUT':
+        func = IssueTagAdd
+    elif request.method == 'DELETE':
+        func = IssueTagRemove
+
+    try:
+        issue_id = int(id)
+        tag_id = int(tagid)
+    except (TypeError, ValueError) as exp:
+        app.logger.error(
+            f'{func.__name__}: Invalid id. id={id}, tagid={tagid}.')
+        response = ResponseType('Virheellinen tunniste', status=400)
+        return MakeApiResponse(response)
+
+    retval = func(issue_id, tag_id)
+
+    return MakeApiResponse(retval)
 
 
 ###
@@ -767,6 +887,27 @@ def api_searchShorts() -> Response:
 def api_shortTypes() -> Response:
     return MakeApiResponse(GetShortTypes())
 
+@app.route('/api/story/<id>/tags/<tagid>', methods=['put', 'delete'])
+@jwt_admin_required()
+def api_tagToStory(id: int, tagid: int) -> Response:
+    if request.method == 'PUT':
+        func = StoryTagAdd
+    elif request.method == 'DELETE':
+        func = StoryTagRemove
+
+    try:
+        story_id = int(id)
+        tag_id = int(tagid)
+    except (TypeError, ValueError) as exp:
+        app.logger.error(
+            f'{func.__name__}: Invalid id. id={id}, tagid={tagid}.')
+        response = ResponseType('Virheellinen tunniste', status=400)
+        return MakeApiResponse(response)
+
+    retval = func(story_id, tag_id)
+
+    return MakeApiResponse(retval)
+
 
 ###
 # User related functions
@@ -808,6 +949,21 @@ def api_tags() -> Response:
 
     return MakeApiResponse(TagList())
 
+@ app.route('/api/tags', methods=['post'])
+@ jwt_admin_required()
+def api_tagCreate() -> Tuple[str, int]:
+    """
+    Create a new tag.
+
+    """
+    url_params = request.args.to_dict()
+    name = url_params['name']
+    name = bleach.clean(name)
+
+    retval = TagCreate(name)
+
+    return MakeApiResponse(retval)
+
 @ app.route('/api/tags/<id>', methods=['get'])
 def api_tag(id: str) -> Response:
     try:
@@ -819,6 +975,47 @@ def api_tag(id: str) -> Response:
 
     return MakeApiResponse(TagInfo(tag_id))
 
+@ app.route('/api/tags', methods=['put'])
+@ jwt_admin_required()
+def api_tagRename() -> Response:
+    """
+    Rename given tag. Cannot be named to an existing tag. tagMerge is used
+    for combining tags.
+
+    Parameters
+    ----------
+    id : int
+        Id of tag to rename.
+    name: str
+        New name for tag.
+
+    Returns
+    -------
+    200 - Request succeeded.
+    400 - Bad Request. Either a tag by that name already exists of not tag
+          with given id found or parameters are faulty.
+    """
+    url_params = request.get_json()
+
+    try:
+        id = int(url_params['id'])
+    except (TypeError, ValueError) as exp:
+        app.logger.error(
+            'api_tagRename: Invalid ID. Id = {}.'.format(url_params['id']))
+        response = ResponseType('Virheellinen tunniste', status=400)
+        return MakeApiResponse(response)
+
+    name = bleach.clean(url_params['name'])
+    if len(name) == 0:
+        app.logger.error('api_tagRename: Empty name.')
+        response = ResponseType(
+            'Asiasana ei voi olla tyhjä merkkijono', status=400)
+        return MakeApiResponse(response)
+
+    name = bleach.clean(name)
+    response = TagRename(id, name)
+    return MakeApiResponse(response)
+
 @app.route('/api/filter/tags/<pattern>', methods=['get'])
 def api_FilterTags(pattern: str) -> Response:
     pattern = bleach.clean(pattern)
@@ -828,62 +1025,6 @@ def api_FilterTags(pattern: str) -> Response:
             'Liian lyhyt hakuehto', status=400)
         return MakeApiResponse(response)
     retval = TagFilter(pattern)
-    return MakeApiResponse(retval)
-
-# Admin
-
-@ app.route('/api/tags', methods=['post'])
-@ jwt_admin_required()
-def api_tagCreate() -> Tuple[str, int]:
-    url_params = request.args.to_dict()
-    name = url_params['name']
-    name = bleach.clean(name)
-
-    retval = TagCreate(name)
-
-    return MakeApiResponse(retval)
-
-@app.route('/api/issue/<id>/tags/<tagid>', methods=['put', 'delete'])
-@jwt_admin_required()
-def api_tagToIssue(id: int, tagid: int) -> Response:
-    if request.method == 'PUT':
-        func = IssueTagAdd
-    elif request.method == 'DELETE':
-        func = IssueTagRemove
-
-    try:
-        issue_id = int(id)
-        tag_id = int(tagid)
-    except (TypeError, ValueError) as exp:
-        app.logger.error(
-            f'{func.__name__}: Invalid id. id={id}, tagid={tagid}.')
-        response = ResponseType('Virheellinen tunniste', status=400)
-        return MakeApiResponse(response)
-
-    retval = func(issue_id, tag_id)
-
-    return MakeApiResponse(retval)
-
-
-@app.route('/api/story/<id>/tags/<tagid>', methods=['put', 'delete'])
-@jwt_admin_required()
-def api_tagToStory(id: int, tagid: int) -> Response:
-    if request.method == 'PUT':
-        func = StoryTagAdd
-    elif request.method == 'DELETE':
-        func = StoryTagRemove
-
-    try:
-        story_id = int(id)
-        tag_id = int(tagid)
-    except (TypeError, ValueError) as exp:
-        app.logger.error(
-            f'{func.__name__}: Invalid id. id={id}, tagid={tagid}.')
-        response = ResponseType('Virheellinen tunniste', status=400)
-        return MakeApiResponse(response)
-
-    retval = func(story_id, tag_id)
-
     return MakeApiResponse(retval)
 
 @ app.route('/api/tags/<id>/merge/<id2>', methods=['post'])
@@ -943,47 +1084,6 @@ def api_tagDelete(id: int) -> Response:
     retval = MakeApiResponse(response)
     return retval
 
-@ app.route('/api/tags', methods=['put'])
-@ jwt_admin_required()
-def api_tagRename() -> Response:
-    """
-    Rename given tag. Cannot be named to an existing tag. tagMerge is used
-    for combining tags.
-
-    Parameters
-    ----------
-    id : int
-        Id of tag to rename.
-    name: str
-        New name for tag.
-
-    Returns
-    -------
-    200 - Request succeeded.
-    400 - Bad Request. Either a tag by that name already exists of not tag
-          with given id found or parameters are faulty.
-    """
-    url_params = request.get_json()
-
-    try:
-        id = int(url_params['id'])
-    except (TypeError, ValueError) as exp:
-        app.logger.error(
-            'api_tagRename: Invalid ID. Id = {}.'.format(url_params['id']))
-        response = ResponseType('Virheellinen tunniste', status=400)
-        return MakeApiResponse(response)
-
-    name = bleach.clean(url_params['name'])
-    if len(name) == 0:
-        app.logger.error('api_tagRename: Empty name.')
-        response = ResponseType(
-            'Asiasana ei voi olla tyhjä merkkijono', status=400)
-        return MakeApiResponse(response)
-
-    name = bleach.clean(name)
-    response = TagRename(id, name)
-    return MakeApiResponse(response)
-
 
 ###
 # Work related functions
@@ -1000,7 +1100,123 @@ def api_GetWorks() -> Response:
 
 @ app.route('/api/works/<id>', methods=['get'])
 def api_getWork(id: str) -> Response:
-
+    """
+    @api {get} /api/works/:id Get work
+    @apiName Get Work
+    @apiGroup Work
+    @apiDescription Get work by id.
+    @apiParam {Number} id of Work.
+    @apiSuccess {ResponseType} work Work object.
+    @apiSuccessExample {json} Success-Response:
+        HTTP/1.1 200 OK
+        {
+            "response":
+                {
+                "misc": "",
+                "work_type": {
+                    "id": 1,
+                    "name": "Romaani"
+                },
+                "title": "Kivineitsyt",
+                "id": 1,
+                "bookseriesorder": 0,
+                "links": [],
+                "bookseries": null,
+                "tags": [],
+                "genres": [
+                    {
+                    "abbr": "F",
+                    "id": 1,
+                    "name": "Fantasia"
+                    }
+                ],
+                "contributions": [
+                    {
+                    "real_person": null,
+                    "description": null,
+                    "role": {
+                        "id": 1,
+                        "name": "Kirjoittaja"
+                    },
+                    "person": {
+                        "id": 1,
+                        "alt_name": "Barry Unsworth",
+                        "name": "Unsworth, Barry"
+                    }
+                    }
+                ],
+                "language_name": null,
+                "bookseriesnum": "",
+                "awards": [],
+                "subtitle": "",
+                "descr_attr": null,
+                "imported_string": "\n<b>Kivineitsyt</b>. (Stone Virgin, 1985). Suom Aira Buffa. WSOY 1986. [F].",
+                "author_str": "Unsworth, Barry",
+                "pubyear": 1985,
+                "orig_title": "Stone Virgin",
+                "editions": [
+                    {
+                    "size": null,
+                    "misc": "",
+                    "title": "Kivineitsyt",
+                    "id": 1,
+                    "dustcover": 1,
+                    "format": {
+                        "id": 1,
+                        "name": "Paperi"
+                    },
+                    "version": null,
+                    "images": [],
+                    "coverimage": 1,
+                    "isbn": "",
+                    "contributions": [
+                        {
+                        "real_person": null,
+                        "description": null,
+                        "role": {
+                            "id": 2,
+                            "name": "Kääntäjä"
+                        },
+                        "person": {
+                            "id": 2,
+                            "alt_name": "Aira Buffa",
+                            "name": "Buffa, Aira"
+                        }
+                        }
+                    ],
+                    "pages": null,
+                    "subtitle": "",
+                    "binding": {
+                        "id": 1,
+                        "name": "Ei tietoa/muu"
+                    },
+                    "pubseries": null,
+                    "publisher": {
+                        "image_attr": null,
+                        "name": "WSOY",
+                        "id": 387,
+                        "fullname": "Werner Söderström Oy",
+                        "image_src": null
+                    },
+                    "imported_string": "\n<b>Kivineitsyt</b>. (Stone Virgin, 1985). Suom Aira Buffa. WSOY 1986. [F].",
+                    "editionnum": 1,
+                    "printedin": null,
+                    "pubyear": 1986,
+                    "pubseriesnum": null
+                    }
+                ],
+                "description": null,
+                "stories": []
+                },
+            "status": 200
+        }
+    @apiErrorExample {json} Error-Response:
+        HTTP/1.1 400 Bad Request
+        {
+            "response": "GetWork: Tietokantavirhe",
+            "status": 400
+        }
+    """
     try:
         work_id = int(id)
     except (TypeError, ValueError) as exp:
@@ -1023,8 +1239,37 @@ def api_WorkCreateUpdate() -> Response:
 
     return retval
 
-@app.route('/api/worktypes/', methods=['get'])
+@app.route('/api/worktypes', methods=['get'])
 def api_WorkTypes() -> Response:
+    """
+    @api {get} /api/worktypes Get all work types
+    @apiName Get WorkTypes
+    @apiGroup Work
+    @apiDescription Get all work types in the system.
+    @apiSuccess {ResponseType} worktypes List of work types.
+    @apiSuccessExample {json} Success-Response:
+        HTTP/1.1 200 OK
+        {
+            "response": [
+                {
+                    "id": 1,
+                    "name": "Romaani"
+                },
+                {
+                    "id": 2,
+                    "name": "Kokoelma"
+                },
+                ...
+            ],
+            "status": 200
+        }
+    @apiErrorExample {json} Error-Response:
+        HTTP/1.1 400 Bad Request
+        {
+            "response": "WorkTypeGetAll: Tietokantavirhe",
+            "status": 400
+        }
+    """
     retval = MakeApiResponse(WorkTypeGetAll())
     return retval
 

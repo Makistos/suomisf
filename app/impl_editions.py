@@ -25,6 +25,10 @@ def EditionCreateFirst(work: Work) -> Edition:
   retval.pubyear = work.pubyear or 0
   retval.editionnum = 1
   retval.version = 1
+  retval.binding_id = 1
+  retval.dustcover = 1
+  retval.coverimage = 1
+  retval.format_id = 1
 
   return retval
 

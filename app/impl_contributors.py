@@ -19,6 +19,23 @@ def _updatePartContributors(session: Any, part_id: int, contributors: Any) -> No
         #     new_contributor.real_person.id = contrib['real_person'].id,
         session.add(new_contributor)
 
+def _removeDuplicates(contributors: List[Any]) -> List[Any]:
+    """
+    Remove duplicate contributors from the list. This happens with a work
+    if it has multiple editions. They can not be removed with the distinct
+    operation because they are separate rows in the database. But from the
+    point of seeing if things have changed we need to remove duplicates.
+    """
+    retval: List[Any] = []
+    for contrib in contributors:
+        found = False
+        for contrib2 in retval:
+            if contrib.person_id == contrib2.person_id and contrib.role_id == contrib2.role_id \
+                and contrib.description == contrib2.description:
+                found = True
+        if not found:
+            retval.append(contrib)
+    return retval
 
 def contributorsHaveChanged(old_values: List[Any], new_values: List[Any]) -> bool:
     """
@@ -33,6 +50,7 @@ def contributorsHaveChanged(old_values: List[Any], new_values: List[Any]) -> boo
             # Remove empty rows (person and role are required fields)
             continue
         l.append(value)
+    old_values = _removeDuplicates(old_values)
     if len(old_values) != len(l):
         return True
     for idx, old_value in enumerate(old_values):
@@ -110,7 +128,7 @@ def updateEditionContributors(session: Any, edition: Edition, contributors: Any)
     return retval
 
 
-def updateWorkContributors(session: Any, work_id: int, contributors: Any) -> None:
+def updateWorkContributors(session: Any, work_id: int, contributors: Any) -> bool:
     """
     Updates the contributors of a work in the database.
 
@@ -119,12 +137,15 @@ def updateWorkContributors(session: Any, work_id: int, contributors: Any) -> Non
         work_id: The ID of the work to update.
         contributors: The list of contributors to update the work with.
     """
+    retval = False
     parts = session.query(Part)\
         .filter(Part.work_id == work_id)\
         .filter(Part.shortstory_id == None)\
         .all()
     for part in parts:
         _updatePartContributors(session, part.id, contributors)
+
+    return retval
 
 
 def getContributorsString(contributors: Any) -> str:
@@ -188,3 +209,21 @@ def getWorkContributors(session: Any, work_id: int) -> Any:
             retval.append(c)
 
     return retval
+
+def hasContributionRole(contributors: List[Any], role_id: int) -> bool:
+    """
+    Returns a boolean indicating whether or not the given list of contributors
+    contains a contributor with the given role.
+
+    Args:
+        contributors: A list of dictionaries representing the contributors.
+        role_id: The ID of the role to check for.
+
+    Returns:
+        A boolean indicating whether or not the given list of contributors
+        contains a contributor with the given role.
+    """
+    for contrib in contributors:
+        if contrib['role']['id'] == role_id:
+            return True
+    return False
