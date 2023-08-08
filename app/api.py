@@ -27,6 +27,8 @@ from app.impl_users import *
 from app.impl_works import *
 from flask_jwt_extended import jwt_required
 import urllib
+import jsonschema
+from jsonschema import validate
 
 default_mimetype = 'application/json'  # Data is always returned as JSON
 
@@ -353,6 +355,44 @@ def api_Bindings() -> Response:
 @ app.route('/api/bookseries', methods=['get'])
 def api_ListBookseries() -> Response:
     return MakeApiResponse(ListBookseries())
+
+BookseriesSchema = {
+    "type": "object",
+    "properties": {
+        "data": {
+            "type": "object",
+            "properties": {
+                "id": {"type": ["integer", "null"]},
+                "name": {"type": "string"},
+                "orig_name": {"type": "string"},
+                "important": {"type": "boolean"},
+            },
+            "required": ["name"],
+        },
+    },
+}
+
+@app.route('/api/bookseries', methods=['post', 'put'])
+#@jwt_admin_required()
+def api_BookseriesCreateUpdate() -> Response:
+    try:
+        params = json.loads(bleach.clean(request.data.decode('utf-8')))
+    except (TypeError, ValueError) as exp:
+        app.logger.error('api_BookseriesCreateUpdate: Invalid JSON.')
+        response = ResponseType('api_BookseriesCreateUpdate: Virheelliset parametrit.', 400)
+        return MakeApiResponse(response)
+    try:
+        validate(instance=params, schema=BookseriesSchema)
+    except jsonschema.exceptions.ValidationError as exp:
+        app.logger.error('api_BookseriesCreateUpdate: Invalid JSON.')
+        response = ResponseType('api_BookseriesCreateUpdate: Virheelliset parametrit.', 400)
+        return MakeApiResponse(response)
+    if request.method == 'POST':
+        retval = MakeApiResponse(BookseriesCreate(params))
+    elif request.method == 'PUT':
+        retval = MakeApiResponse(BookseriesUpdate(params))
+
+    return retval
 
 @ app.route('/api/bookseries/<bookseriesId>', methods=['get'])
 def api_GetBookseries(bookseriesId: str) -> Response:

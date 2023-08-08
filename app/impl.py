@@ -182,6 +182,7 @@ def GetChanges(params: Dict[str, Any]) -> ResponseType:
 
 
 table_locals = {'article': 'Artikkeli',
+                'bookseries': 'Kirjasarja',
                 'edition': 'Painos',
                 'issue': 'Irtonumero',
                 'magazine': 'Lehti',

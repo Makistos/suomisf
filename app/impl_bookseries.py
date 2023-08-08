@@ -3,8 +3,10 @@ from marshmallow import exceptions
 from app.orm_decl import (Bookseries)
 from app.model import (BookseriesSchema, BookseriesBriefSchema)
 from app.route_helpers import new_session
-from app.impl import ResponseType
+from app.impl import ResponseType, LogChanges, checkInt
 from app import app
+from typing import Any, Union
+import bleach
 
 
 def FilterBookseries(query: str) -> ResponseType:
@@ -66,3 +68,100 @@ def ListBookseries() -> ResponseType:
         return ResponseType('ListBookseries: Skeemavirhe.', 400)
 
     return ResponseType(retval, 200)
+
+def BookseriesCreate(params: Any) -> ResponseType:
+    """
+    Creates a new bookseries in the database.
+    """
+    session = new_session()
+    data = params['data']
+
+    if 'name' not in data:
+        app.logger.error('BookseriesCreate: Name is missing.')
+        return ResponseType('BookseriesCreate: Nimi puuttuu.', 400)
+
+    bs = session.query(Bookseries).filter(Bookseries.name == data['name']).first()
+    if bs:
+        app.logger.error('BookseriesCreate: Name already exists.')
+        return ResponseType('BookseriesCreate: Nimi on jo olemassa.', 400)
+
+    bookseries = Bookseries()
+    bookseries.name = data['name']
+
+    if 'orig_name' in data:
+        if bookseries.orig_name == '':
+            orig_name = None
+        else:
+            orig_name = data['orig_name']
+        bookseries.orig_name = orig_name
+
+    if 'important' in data:
+        if data['important'] ==0:
+            important = False
+        else:
+            important = True
+        bookseries.important = important
+
+    try:
+        session.add(bookseries)
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error('Exception in BookseriesCreate: ' + str(exp))
+        return ResponseType('BookseriesCreate: Tietokantavirhe.', 400)
+
+    LogChanges(session, obj=bookseries, action='Uusi')
+
+    return ResponseType(str(bookseries.id), 201)
+
+
+def BookseriesUpdate(params: Any) -> ResponseType:
+    retval = ResponseType('OK', 200)
+    session = new_session()
+    data = params['data']
+    old_values = {}
+
+    bookseries_id = checkInt(data['id'], negativeValuesAllowed=False, zerosAllowed=False)
+    if bookseries_id == None:
+        app.logger.error('BookseriesUpdate: Invalid id.')
+        return ResponseType('BookseriesUpdate: Virheellinen id.', 400)
+
+    bookseries = session.query(Bookseries).filter(Bookseries.id == bookseries_id).first()
+    if not bookseries:
+        app.logger.error('BookseriesUpdate: Unknown bookseries id.')
+        return ResponseType('BookseriesUpdate: Tuntematon id.', 400)
+
+    if 'name' in data:
+        if data['name'] == '':
+            app.logger.error('BookseriesUpdate: Name cannot be empty.')
+            return ResponseType('BookseriesUpdate: Nimi ei voi olla tyhjä.', 400)
+        bs = session.query(Bookseries).filter(Bookseries.name == data['name']).first()
+        if bs:
+            app.logger.error('BookseriesCreate: Name already exists.')
+            return ResponseType('BookseriesCreate: Nimi on jo olemassa.', 400)
+        if data['name'] != bookseries.name:
+            old_values['name'] = bookseries.name
+            bookseries.name = data['name']
+
+    if 'orig_name' in data:
+        if data['orig_name'] != bookseries.orig_name:
+            old_values['orig_name'] = bookseries.orig_name
+            if data['orig_name'] == '':
+                bookseries.orig_name = None
+            else:
+                bookseries.orig_name = data['orig_name']
+
+    if 'important' in data:
+        old_values['important'] = bookseries.important
+        bookseries.important = data['important']
+
+    try:
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error('Exception in BookseriesUpdate: ' + str(exp))
+        return ResponseType('BookseriesUpdate: Tietokantavirhe.', 400)
+
+    LogChanges(session, obj=bookseries, old_values=old_values, action='Päivitys')
+
+    return retval

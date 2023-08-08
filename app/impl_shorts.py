@@ -127,7 +127,7 @@ def SearchShorts(params: Dict[str, str]) -> ResponseType:
 
 def StoryAdd(data: Any) -> ResponseType:
     session = new_session()
-    retval = ResponseType('OK', 200)
+    retval = ResponseType('OK', 201)
 
     changes = data['changed']
 
