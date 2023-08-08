@@ -373,7 +373,7 @@ BookseriesSchema = {
 }
 
 @app.route('/api/bookseries', methods=['post', 'put'])
-#@jwt_admin_required()
+@jwt_admin_required()   # type: ignore
 def api_BookseriesCreateUpdate() -> Response:
     try:
         params = json.loads(bleach.clean(request.data.decode('utf-8')))
@@ -393,6 +393,13 @@ def api_BookseriesCreateUpdate() -> Response:
         retval = MakeApiResponse(BookseriesUpdate(params))
 
     return retval
+
+
+@app.route('/api/bookseries/<bookseriesId>', methods=['delete'])
+@jwt_admin_required()  # type: ignore
+def api_BookseriesDelete(bookseriesId: str) -> Response:
+    return MakeApiResponse(BookseriesDelete(bookseriesId))
+
 
 @ app.route('/api/bookseries/<bookseriesId>', methods=['get'])
 def api_GetBookseries(bookseriesId: str) -> Response:

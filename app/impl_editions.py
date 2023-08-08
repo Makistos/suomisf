@@ -492,7 +492,7 @@ def EditionDelete(id: str) -> ResponseType:
   else:
     version = str(edition.version)
   old_values['edition'] = "-Painos: " + str(edition.editionnum) + ", Laitos: " + version
-  id = LogChanges(session=session, obj=edition, action='Poisto',
+  log_id = LogChanges(session=session, obj=edition, action='Poisto',
               old_values=old_values)
   try:
     parts = session.query(Part).filter(Part.edition_id == editionId).all()
@@ -506,10 +506,10 @@ def EditionDelete(id: str) -> ResponseType:
     session.commit()
   except SQLAlchemyError as exp:
     session.rollback()
-    if id != 0:
+    if log_id != 0:
       # Delete invalid Log line
-      session.query(Log).filter(Log.id == id).delete()
-    app.logger.error('Exception in EditionDelete, id={%id}: ' + str(exp))
+      session.query(Log).filter(Log.id == log_id).delete()
+    app.logger.error('Exception in EditionDelete, id={edition_id}: ' + str(exp))
     return ResponseType('EditionDelete: Tietokantavirhe.', 400)
 
   return retval

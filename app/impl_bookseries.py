@@ -1,6 +1,6 @@
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
-from app.orm_decl import (Bookseries)
+from app.orm_decl import (Bookseries, Work)
 from app.model import (BookseriesSchema, BookseriesBriefSchema)
 from app.route_helpers import new_session
 from app.impl import ResponseType, LogChanges, checkInt
@@ -162,6 +162,38 @@ def BookseriesUpdate(params: Any) -> ResponseType:
         app.logger.error('Exception in BookseriesUpdate: ' + str(exp))
         return ResponseType('BookseriesUpdate: Tietokantavirhe.', 400)
 
-    LogChanges(session, obj=bookseries, old_values=old_values, action='Päivitys')
+    id = LogChanges(session, obj=bookseries, old_values=old_values, action='Päivitys')
 
     return retval
+
+def BookseriesDelete(id: str) -> ResponseType:
+    session = new_session()
+    old_values = {}
+
+    bookseries_id = checkInt(id, negativeValuesAllowed=False, zerosAllowed=False)
+    if bookseries_id == None:
+        app.logger.error('BookseriesDelete: Invalid id.')
+        return ResponseType('BookseriesDelete: Virheellinen id.', 400)
+
+    bookseries = session.query(Bookseries).filter(Bookseries.id == bookseries_id).first()
+    if not bookseries:
+        app.logger.error('BookseriesDelete: Unknown bookseries id.')
+        return ResponseType('BookseriesDelete: Tuntematon id.', 400)
+    old_values['name'] = bookseries.name
+
+    works = session.query(Work).filter(Work.bookseries_id == bookseries_id).all()
+    if works:
+        app.logger.error('BookseriesDelete: Bookseries has works.')
+        return ResponseType('BookseriesDelete: Kirjasarjalla on teoksia.', 400)
+
+    try:
+        session.delete(bookseries)
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error('Exception in BookseriesDelete: ' + str(exp))
+        return ResponseType('BookseriesDelete: Tietokantavirhe.', 400)
+
+    LogChanges(session, obj=bookseries, action='Poisto', old_values=old_values)
+
+    return ResponseType('OK', 200)
