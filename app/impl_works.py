@@ -17,6 +17,7 @@ from app.impl_tags import tagsHaveChanged
 from app.impl_links import linksHaveChanged
 from app.impl_editions import EditionCreateFirst
 from app.impl_genres import checkGenreField
+from app.impl_editions import deleteEdition
 import html
 
 from typing import Dict, List, Any, Union
@@ -475,7 +476,9 @@ def WorkAdd(params: Any) -> ResponseType:
 
     # Update author string
     try:
-        work.update_author_str()
+        author_str = work.update_author_str()
+        work.author_str = author_str
+        session.commit()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in WorkAdd: ' + str(exp))
         return ResponseType(f'WorkAdd: Tietokantavirhe tekijänimissä. work_id={work.id}', 400)
@@ -553,21 +556,13 @@ def WorkUpdate(params: Any) -> ResponseType:
 
     # Language
     if 'language' in data:
-        language = None
-        hasChanged = False
-        if data['language'] == None:
-            if work.language != None:  # Removed language
-                language = None
-                hasChanged = True
-            elif data['language']['id'] != work.language:  # Changed language
-                language = checkInt(data['language']['id'])
-                hasChanged = True
-        elif work.language == None:  # Added language
-            language = checkInt(data['language']['id'])
-            hasChanged = True
-        if hasChanged:
-            old_values['language'] = work.language
-            work.language = language
+        if 'id' in data['language']:
+            if data['language']['id'] != work.language:
+                old_values['language'] = work.language_name.name
+                work.language = checkInt(data['language']['id'])
+        elif work.language != None:
+            old_values['language'] = work.language_name.name
+            work.language = None
 
     # Bookseries
     if 'bookseries' in data:
@@ -700,3 +695,46 @@ def WorkTypeGetAll() -> ResponseType:
         return ResponseType('WorkTypeGetAll: Serialisointivirhe', 400)
 
     return ResponseType(retval, 200)
+
+def WorkDelete(id: int) -> ResponseType:
+    session = new_session()
+
+    try:
+        work = session.query(Work).filter(Work.id == id).first()
+    except SQLAlchemyError as exp:
+        app.logger.error('Exception in WorkDelete(): ' + str(exp))
+        return ResponseType('WorkDelete: Tietokantavirhe', 400)
+
+    if work == None:
+        app.logger.error('Exception in WorkDelete(): Work not found.')
+        return ResponseType('WorkDelete: Teosta ei löydy', 404)
+
+    # Delete everything related to the work
+    try:
+        editions = session.query(Edition)\
+        .join(Part)\
+        .filter(Part.work_id == id)\
+        .filter(Part.edition_id == Edition.id)\
+        .all()
+    except SQLAlchemyError as exp:
+        app.logger.error('Exception in WorkDelete() deleting editions: ' + str(exp))
+        return ResponseType('WorkDelete: Tietokantavirhe', 400)
+    for edition in editions:
+        deleteEdition(session, edition.id)
+
+    try:
+        session.query(WorkGenre).filter(WorkGenre.work_id == id).delete()
+        session.query(WorkTag).filter(WorkTag.work_id == id).delete()
+        session.query(WorkLink).filter(WorkLink.work_id == id).delete()
+        session.query(Work).filter(Work.id == id).delete()
+    except SQLAlchemyError as exp:
+        app.logger.error('Exception in WorkDelete() deleting work: ' + str(exp))
+        return ResponseType('WorkDelete: Tietokantavirhe', 400)
+
+    try:
+        session.commit()
+    except SQLAlchemyError as exp:
+        app.logger.error('Exception in WorkDelete() commit: ' + str(exp))
+        return ResponseType('WorkDelete: Tietokantavirhe', 400)
+
+    return ResponseType('WorkDelete: Teos poistettu', 200)

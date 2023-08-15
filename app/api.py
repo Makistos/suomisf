@@ -1275,7 +1275,7 @@ def api_getWork(id: str) -> Response:
 
 
 @app.route('/api/works/', methods=['post', 'put'])
-@jwt_admin_required()
+@jwt_admin_required()  # type: ignore
 def api_WorkCreateUpdate() -> Response:
     params = bleach.clean(request.data.decode('utf-8'))
     params = json.loads(params)
@@ -1285,6 +1285,37 @@ def api_WorkCreateUpdate() -> Response:
         retval = MakeApiResponse(WorkUpdate(params))
 
     return retval
+
+@app.route('/api/works/<id>', methods=['delete'])
+@jwt_admin_required()  # type: ignore
+def api_WorkDelete(id: str) -> Response:
+    """
+    @api {delete} /api/works/:id Delete work
+    @apiName Delete Work
+    @apiGroup Work
+    @apiDescription Delete work by id.
+    @apiParam {Number} id of Work.
+    @apiSuccess {ResponseType} work Work object.
+    @apiSuccessExample {json} Success-Response:
+        HTTP/1.1 200 OK
+        {
+            "response": "WorkDelete: Teos poistettu",
+            "status": 200
+        }
+    @apiErrorExample {json} Error-Response:
+        HTTP/1.1 400 Bad Request
+        {
+            "response": "WorkDelete: Tietokantavirhe",
+            "status": 400
+        }
+    """
+    try:
+        work_id = int(id)
+    except (TypeError, ValueError) as exp:
+        app.logger.error(f'api_WorkDelete: Invalid id {id}.')
+        return MakeApiResponse(ResponseType(f'Virheellinen tunniste: {id}.', 400))
+
+    return MakeApiResponse(WorkDelete(work_id))
 
 @app.route('/api/worktypes', methods=['get'])
 def api_WorkTypes() -> Response:
@@ -1321,7 +1352,7 @@ def api_WorkTypes() -> Response:
     return retval
 
 @app.route('/api/work/<id>/tags/<tagid>', methods=['put', 'delete'])
-@jwt_admin_required()
+@jwt_admin_required()  # type: ignore
 def api_tagToWork(id: int, tagid: int) -> Response:
     if request.method == 'PUT':
         func = WorkTagAdd

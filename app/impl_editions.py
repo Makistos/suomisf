@@ -473,6 +473,22 @@ def BindingGetAll() -> ResponseType:
     return ResponseType('BindingGetAll: Tietokantavirhe.', 400)
   return ResponseType(retval, 200)
 
+def deleteEdition(session, editionId: int) -> bool:  # noqa: C901
+  try:
+    parts = session.query(Part).filter(Part.edition_id == editionId).all()
+    for part in parts:
+      session.query(Contributor).filter(Contributor.part_id == part.id).delete()
+      session.delete(part)
+    session.query(EditionImage).filter(EditionImage.edition_id == editionId).delete()
+    session.query(EditionLink).filter(EditionLink.edition_id == editionId).delete()
+    session.query(EditionPrice).filter(EditionPrice.edition_id == editionId).delete()
+    session.query(Edition).filter(Edition.id == id).delete()
+    session.commit()
+  except SQLAlchemyError as exp:
+    session.rollback()
+    return False
+  return True
+
 def EditionDelete(id: str) -> ResponseType:
   session = new_session()
   old_values = {}
@@ -494,22 +510,12 @@ def EditionDelete(id: str) -> ResponseType:
   old_values['edition'] = "-Painos: " + str(edition.editionnum) + ", Laitos: " + version
   log_id = LogChanges(session=session, obj=edition, action='Poisto',
               old_values=old_values)
-  try:
-    parts = session.query(Part).filter(Part.edition_id == editionId).all()
-    for part in parts:
-      session.query(Contributor).filter(Contributor.part_id == part.id).delete()
-      session.delete(part)
-    session.query(EditionImage).filter(EditionImage.edition_id == editionId).delete()
-    session.query(EditionLink).filter(EditionLink.edition_id == editionId).delete()
-    session.query(EditionPrice).filter(EditionPrice.edition_id == editionId).delete()
-    session.query(Edition).filter(Edition.id == id).delete()
-    session.commit()
-  except SQLAlchemyError as exp:
-    session.rollback()
+  success = deleteEdition(session, editionId)  # type: ignore
+  if not success:
     if log_id != 0:
       # Delete invalid Log line
       session.query(Log).filter(Log.id == log_id).delete()
-    app.logger.error('Exception in EditionDelete, id={edition_id}: ' + str(exp))
+    app.logger.error('Exception in EditionDelete, id={edition_id}')
     return ResponseType('EditionDelete: Tietokantavirhe.', 400)
 
   return retval
