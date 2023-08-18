@@ -89,14 +89,14 @@ def BookseriesCreate(params: Any) -> ResponseType:
     bookseries.name = data['name']
 
     if 'orig_name' in data:
-        if bookseries.orig_name == '':
+        if data['orig_name'] == '':
             orig_name = None
         else:
             orig_name = data['orig_name']
         bookseries.orig_name = orig_name
 
     if 'important' in data:
-        if data['important'] ==0:
+        if data['important'] == 0:
             important = False
         else:
             important = True
@@ -135,7 +135,9 @@ def BookseriesUpdate(params: Any) -> ResponseType:
         if data['name'] == '':
             app.logger.error('BookseriesUpdate: Name cannot be empty.')
             return ResponseType('BookseriesUpdate: Nimi ei voi olla tyhjä.', 400)
-        bs = session.query(Bookseries).filter(Bookseries.name == data['name']).first()
+        bs = session.query(Bookseries).filter(Bookseries.name == data['name'])\
+            .filter(Bookseries.id != bookseries_id)\
+            .first()
         if bs:
             app.logger.error('BookseriesCreate: Name already exists.')
             return ResponseType('BookseriesCreate: Nimi on jo olemassa.', 400)

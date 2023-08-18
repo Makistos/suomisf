@@ -556,24 +556,33 @@ def WorkUpdate(params: Any) -> ResponseType:
 
     # Language
     if 'language' in data:
-        if 'id' in data['language']:
-            if data['language']['id'] != work.language:
+        if data['language'] != work.language:
+            if work.language_name:
                 old_values['language'] = work.language_name.name
+            else:
+                old_values['language'] = ''
+            if data['language'] == None:
+                work.language = None
+            else:
+                if not 'id' in data['language']:
+                    app.logger.error('WorkSave: Language missing id.')
+                    return ResponseType('Kielen tiedot puutteelliset', 400)
                 work.language = checkInt(data['language']['id'])
-        elif work.language != None:
-            old_values['language'] = work.language_name.name
-            work.language = None
 
     # Bookseries
     if 'bookseries' in data:
-        if data['bookseries'] != None:
-            if data['bookseries']['id'] != work.bookseries_id:
-                if data['bookseries']['id'] != None:
-                    bookseries_id = checkInt(data['bookseries']['id'])
-                else:
-                    bookseries_id = None
-                old_values['bookseries'] = work.bookseries['name']
-                work.bookseries_id = bookseries_id
+        if data['bookseries'] != work.bookseries:
+            if work.bookseries:
+                old_values['bookseries'] = work.bookseries.name
+            else:
+                old_values['bookseries'] = ''
+            if data['bookseries'] == None:
+                work.bookseries = None
+            else:
+                if not 'id' in data['bookseries']:
+                    app.logger.error('WorkSave: Bookseries missing id.')
+                    return ResponseType('Sarjan tiedot puutteelliset', 400)
+                work.bookseries_id = checkInt(data['bookseries']['id'])
 
     # Worktype
     if 'type' in data:
@@ -595,7 +604,8 @@ def WorkUpdate(params: Any) -> ResponseType:
                 .all()
             (to_add, to_remove) = GetJoinChanges([x.genre_id for x in existing_genres],
                                                 [x['id'] for x in data['genres']])
-            session.delete(existing_genres)
+            if len(existing_genres) > 0:
+                session.delete(existing_genres)
             # for id in to_remove:
             #     dg = session.query(WorkGenre)\
             #         .filter(WorkGenre.work_id == id)\
@@ -617,7 +627,8 @@ def WorkUpdate(params: Any) -> ResponseType:
                 .all()
             (to_add, to_remove) = GetJoinChanges([x.tag_id for x in existing_tags],
                                                 [x['id'] for x in data['tags']])
-            session.delete(work.tags)
+            if len(existing_tags) > 0:
+                session.delete(existing_tags)
             for tag in data['tags']:
                 st = WorkTag(tag_id=tag['id'], work_id=work.id)
                 session.add(st)
@@ -636,15 +647,20 @@ def WorkUpdate(params: Any) -> ResponseType:
 
     # Links
     if 'links' in data:
-        if linksHaveChanged(work.links, data['links']):
+        new_links = [x for x in data['links'] if x['link'] != '']
+        if linksHaveChanged(work.links, new_links):
             existing_links = session.query(WorkLink)\
                 .filter(WorkLink.work_id == work_id)\
                 .all()
             (to_add, to_remove) = GetJoinChanges([x.link for x in existing_links],
-                                                    [x['url'] for x in data['links']])
-            session.delete(work.links)
-            for link in data['links']:
-                sl = WorkLink(work_id=work.id, link=link['url'],
+                                                    [x['link'] for x in data['links']])
+            if len(existing_links) > 0:
+                session.delete(existing_links)
+            for link in new_links:
+                if 'link' not in link:
+                    app.logger.error('WorkSave: Link missing address.')
+                    return ResponseType('Linkin tiedot puutteelliset', 400)
+                sl = WorkLink(work_id=work.id, link=link['link'],
                               description=link['description'])
                 session.add(sl)
             old_values['links'] = ' -'.join([str(x) for x in to_add])
