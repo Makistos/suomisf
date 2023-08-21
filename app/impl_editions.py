@@ -346,7 +346,7 @@ def EditionUpdate(params: Any) -> ResponseType:
 
   # Publisher's series, not required
   if 'pubseries' in data:
-    if data['pubseries'] == None:
+    if data['pubseries'] == None or data['pubseries'] == '':
       pubseries_id = None
     else:
       pubseries_id = checkInt(data['pubseries']['id'])
@@ -473,7 +473,7 @@ def BindingGetAll() -> ResponseType:
     return ResponseType('BindingGetAll: Tietokantavirhe.', 400)
   return ResponseType(retval, 200)
 
-def deleteEdition(session, editionId: int) -> bool:  # noqa: C901
+def deleteEdition(session: Any, editionId: int) -> bool:  # noqa: C901
   try:
     parts = session.query(Part).filter(Part.edition_id == editionId).all()
     for part in parts:

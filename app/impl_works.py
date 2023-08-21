@@ -561,7 +561,7 @@ def WorkUpdate(params: Any) -> ResponseType:
                 old_values['language'] = work.language_name.name
             else:
                 old_values['language'] = ''
-            if data['language'] == None:
+            if data['language'] == None or data['language'] == '':
                 work.language = None
             else:
                 if not 'id' in data['language']:
