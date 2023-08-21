@@ -576,8 +576,8 @@ def WorkUpdate(params: Any) -> ResponseType:
                 old_values['bookseries'] = work.bookseries.name
             else:
                 old_values['bookseries'] = ''
-            if data['bookseries'] == None:
-                work.bookseries = None
+            if data['bookseries'] == None or data['bookseries'] == '':
+                work.bookseries_id = None
             else:
                 if not 'id' in data['bookseries']:
                     app.logger.error('WorkSave: Bookseries missing id.')
@@ -714,6 +714,7 @@ def WorkTypeGetAll() -> ResponseType:
 
 def WorkDelete(id: int) -> ResponseType:
     session = new_session()
+    old_values = {}
 
     try:
         work = session.query(Work).filter(Work.id == id).first()
@@ -748,6 +749,9 @@ def WorkDelete(id: int) -> ResponseType:
         return ResponseType('WorkDelete: Tietokantavirhe', 400)
 
     try:
+        old_values['name'] = work.title
+        LogChanges(session, obj=work, action='Poisto', old_values=old_values)
+        session.delete(work)
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in WorkDelete() commit: ' + str(exp))
