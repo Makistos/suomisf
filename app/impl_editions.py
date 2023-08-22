@@ -249,7 +249,10 @@ def EditionUpdate(params: Any) -> ResponseType:
         else:
           app.logger.error(f'EditionUpdate: Invalid publisher id. id={publisher_id}')
           return ResponseType(f'Virheellinen kustantaja. id={publisher_id}', 400)
-        old_values['publisher'] = edition.publisher.name
+        if edition.publisher != None:
+          old_values['publisher'] = edition.publisher.name
+        else:
+          old_values['publisher'] = None
         edition.publisher_id = publisher_id
 
   # Edition number, required field
