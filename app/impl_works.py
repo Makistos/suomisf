@@ -541,7 +541,7 @@ def WorkUpdate(params: Any) -> ResponseType:
     if 'description' in data:
         html_text = html.unescape(data['description'])
         if html_text != work.description:
-            old_values['description'] = work.description
+            old_values['description'] = work.description[0:200]
             work.description = bleach.clean(html_text)
 
     if 'descr_attr' in data:
