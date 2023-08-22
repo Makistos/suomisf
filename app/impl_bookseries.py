@@ -189,6 +189,7 @@ def BookseriesDelete(id: str) -> ResponseType:
         return ResponseType('BookseriesDelete: Kirjasarjalla on teoksia.', 400)
 
     try:
+        LogChanges(session, obj=bookseries, action='Poisto', old_values=old_values)
         session.delete(bookseries)
         session.commit()
     except SQLAlchemyError as exp:
@@ -196,6 +197,5 @@ def BookseriesDelete(id: str) -> ResponseType:
         app.logger.error('Exception in BookseriesDelete: ' + str(exp))
         return ResponseType('BookseriesDelete: Tietokantavirhe.', 400)
 
-    LogChanges(session, obj=bookseries, action='Poisto', old_values=old_values)
 
     return ResponseType('OK', 200)
