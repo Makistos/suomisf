@@ -4,9 +4,9 @@ import json
 from typing import Any, Tuple, NewType, Type, Union, List, Dict
 from app.model import *
 from app import app
-import bleach  # type: ignore
-from flask import request # type: ignore
-from flask.wrappers import Response # type: ignore
+import bleach
+from flask import request
+from flask.wrappers import Response
 from app.route_helpers import admin_required, new_session
 from app.api_errors import APIError
 from app.api_errors import APIError
@@ -25,6 +25,7 @@ from app.impl_shorts import *
 from app.impl_tags import *
 from app.impl_users import *
 from app.impl_works import *
+from app.api_schemas import *
 from flask_jwt_extended import jwt_required
 import urllib
 import jsonschema
@@ -121,7 +122,7 @@ def fixOperator(op: str, value: str) -> Tuple[str, str]:
 # 3. If the parameters are passed correctly, the function calls the LoginUser function.
 
 @app.route('/api/login', methods=['post'])
-@jwt_required(optional=True)
+@jwt_required(optional=True) # type: ignore
 def api_login() -> Response:
     """
     @api {post} /api/login Login
@@ -159,7 +160,7 @@ def api_login() -> Response:
     return retval
 
 @app.route('/api/refresh', methods=['post'])
-@jwt_required(refresh=True)
+@jwt_required(refresh=True) # type: ignore
 def api_refresh() -> Response:
     """
     @api {post} /api/refresh Refresh token
@@ -319,7 +320,7 @@ def api_GetArticleTags(articleId: int) -> Response:
     return MakeApiResponse(retval)
 
 @app.route('/api/articles/<id>/tags/<tagid>', methods=['put', 'delete'])
-@jwt_admin_required()
+@jwt_admin_required() # type: ignore
 def api_tagToArticle(id: int, tagid: int) -> Response:
     if request.method == 'PUT':
         func = ArticleTagAdd
@@ -355,22 +356,6 @@ def api_Bindings() -> Response:
 @ app.route('/api/bookseries', methods=['get'])
 def api_ListBookseries() -> Response:
     return MakeApiResponse(ListBookseries())
-
-BookseriesSchema = {
-    "type": "object",
-    "properties": {
-        "data": {
-            "type": "object",
-            "properties": {
-                "id": {"type": ["integer", "null"]},
-                "name": {"type": "string"},
-                "orig_name": {"type": "string"},
-                "important": {"type": "boolean"},
-            },
-            "required": ["name"],
-        },
-    },
-}
 
 @app.route('/api/bookseries', methods=['post', 'put'])
 @jwt_admin_required()   # type: ignore
@@ -475,7 +460,7 @@ def api_FilterCountries(pattern: str) -> Response:
 # Edition related functions
 
 @app.route('/api/editions', methods=['post', 'put'])
-@jwt_admin_required()
+@jwt_admin_required() # type: ignore
 def api_EditionCreateUpdate() -> Response:
     params = bleach.clean(request.data.decode('utf-8'))
     params = json.loads(params)
@@ -487,12 +472,12 @@ def api_EditionCreateUpdate() -> Response:
     return retval
 
 @app.route('/api/editions/<editionId>', methods=['delete'])
-@jwt_admin_required()
+@jwt_admin_required() # type: ignore
 def api_EditionDelete(editionId: str) -> Response:
     return MakeApiResponse(EditionDelete(editionId))
 
 @app.route('/api/editions/<id>/images', methods=['post'])
-@jwt_admin_required()
+@jwt_admin_required()  # type: ignore
 def api_uploadEditionImage(id: str) -> Response:
     try:
         file = request.files['file']
@@ -506,7 +491,7 @@ def api_uploadEditionImage(id: str) -> Response:
     return retval
 
 @app.route('/api/editions/<id>/images/<imageid>', methods=['delete'])
-@jwt_admin_required()
+@jwt_admin_required()  # type: ignore
 def api_deleteEditionImage(id: str, imageid: str) -> Response:
     retval = MakeApiResponse(
         EditionImageDelete(id, imageid))
@@ -554,7 +539,7 @@ def api_GetIssueTags(issueId: str) -> Response:
     return MakeApiResponse(GetIssueTags(id))
 
 @app.route('/api/issue/<id>/tags/<tagid>', methods=['put', 'delete'])
-@jwt_admin_required()
+@jwt_admin_required() # type: ignore
 def api_tagToIssue(id: int, tagid: int) -> Response:
     if request.method == 'PUT':
         func = IssueTagAdd
@@ -620,6 +605,7 @@ def api_UpdateMagazine(magazineId: str) -> Tuple[str, int]:
     options["magazineId"] = magazineId
 
     schema = MagazineSchema()
+    return ("", 0)
 
     # body = parser.parse(schema, request, location='json')
 
@@ -632,6 +618,7 @@ def api_GetMagazineIssues(magazineId: str) -> Tuple[str, int]:
     options = {}
     options["magazineId"] = magazineId
 
+    return ("", 0)
     # return GetMagazineIssues(options)
 
 
@@ -641,6 +628,7 @@ def api_GetMagazinePublisher(magazineId: str) -> Tuple[str, int]:
     options = {}
     options["magazineId"] = magazineId
 
+    return ("", 0)
     # return GetMagazinePublisher(options)
 
 
@@ -650,6 +638,7 @@ def api_GetMagazineTags(magazineId: str) -> Tuple[str, int]:
     options = {}
     options["magazineId"] = magazineId
 
+    return ("", 0)
     # return GetMagazineTags(options)
 
 ###
@@ -746,8 +735,43 @@ def api_GetPerson(person_id: str) -> Response:
 
     return MakeApiResponse(GetPerson(id))
 
+@app.route('/api/people', methods=['post', 'put'])
+@jwt_admin_required() # type: ignore
+def api_CreateUpdatePerson(person_id: str) -> Response:
+    try:
+        params = json.loads(bleach.clean(request.data.decode('utf-8')))
+    except (TypeError, ValueError) as exp:
+        app.logger.error('api_CreateUpdatePerson: Invalid JSON.')
+        response = ResponseType('api_CreateUpdatePerson: Virheelliset parametrit.', 400)
+        return MakeApiResponse(response)
+    try:
+        validate(instance=params, schema=PersonSchema)
+    except jsonschema.exceptions.ValidationError as exp:
+        app.logger.error('api_CreateUpdatePerson: Invalid JSON.')
+        response = ResponseType('api_CreateUpdatePerson: Virheelliset parametrit.', 400)
+        return MakeApiResponse(response)
+    if request.method == 'POST':
+        retval = MakeApiResponse(PersonAdd(params))
+    elif request.method == 'PUT':
+        retval = MakeApiResponse(PersonUpdate(params))
+
+    return retval
+
+@app.route('/api/people/<person_id>', methods=['delete'])
+@jwt_admin_required() # type: ignore
+def api_DeletePerson(person_id: str) -> Response:
+    try:
+        id = int(person_id)
+    except (TypeError, ValueError) as exp:
+        app.logger.error(f'api_DeletePerson: Invalid id {person_id}.')
+        response = ResponseType(
+            f'api_DeletePerson: Virheellinen tunniste {person_id}.', 400)
+        return MakeApiResponse(response)
+    return MakeApiResponse(PersonDelete(id))
+
+
 @app.route('/api/person/<id>/tags/<tagid>', methods=['put', 'delete'])
-@jwt_admin_required()
+@jwt_admin_required()  # type: ignore
 def api_tagToPerson(id: int, tagid: int) -> Response:
     if request.method == 'PUT':
         func = PersonTagAdd
@@ -801,7 +825,7 @@ def api_ListPubseries() -> Tuple[str, int]:
     return MakeApiResponse(ListPubseries())
 
 @app.route('/api/publishers/', methods=['post', 'put'])
-@jwt_admin_required()
+@jwt_admin_required() # type: ignore
 def api_PublisherCreateUpdate() -> Response:
     params = bleach.clean(request.data.decode('utf-8'))
     params = json.loads(params)
@@ -881,7 +905,7 @@ def api_roles() -> Response:
 # Story related functions
 
 @app.route('/api/shorts/', methods=['post', 'put'])
-@jwt_admin_required()
+@jwt_admin_required() # type: ignore
 def api_ShortCreateUpdate() -> Response:
     params = bleach.clean(request.data.decode('utf-8'))
     params = json.loads(params)
@@ -893,7 +917,7 @@ def api_ShortCreateUpdate() -> Response:
     return retval
 
 @app.route('/api/shorts/<id>', methods=['delete'])
-@jwt_admin_required()
+@jwt_admin_required() # type: ignore
 def api_ShortDelete(id: int) -> Response:
     try:
         short_id = int(id)
@@ -935,7 +959,7 @@ def api_shortTypes() -> Response:
     return MakeApiResponse(GetShortTypes())
 
 @app.route('/api/story/<id>/tags/<tagid>', methods=['put', 'delete'])
-@jwt_admin_required()
+@jwt_admin_required() # type: ignore
 def api_tagToStory(id: int, tagid: int) -> Response:
     if request.method == 'PUT':
         func = StoryTagAdd
@@ -997,7 +1021,7 @@ def api_tags() -> Response:
     return MakeApiResponse(TagList())
 
 @ app.route('/api/tags', methods=['post'])
-@ jwt_admin_required()
+@ jwt_admin_required() # type: ignore
 def api_tagCreate() -> Tuple[str, int]:
     """
     Create a new tag.
@@ -1023,7 +1047,7 @@ def api_tag(id: str) -> Response:
     return MakeApiResponse(TagInfo(tag_id))
 
 @ app.route('/api/tags', methods=['put'])
-@ jwt_admin_required()
+@ jwt_admin_required() # type: ignore
 def api_tagRename() -> Response:
     """
     Rename given tag. Cannot be named to an existing tag. tagMerge is used
@@ -1075,7 +1099,7 @@ def api_FilterTags(pattern: str) -> Response:
     return MakeApiResponse(retval)
 
 @ app.route('/api/tags/<id>/merge/<id2>', methods=['post'])
-@ jwt_admin_required()
+@ jwt_admin_required() # type: ignore
 def api_tagMerge(id: int, id2: int) -> Tuple[str, int]:
     """
     Merge items of two tags into one and delete the obsolete tag.
@@ -1104,7 +1128,7 @@ def api_tagMerge(id: int, id2: int) -> Tuple[str, int]:
     return MakeApiResponse(retval)
 
 @ app.route('/api/tags/<id>', methods=['delete'])
-@ jwt_admin_required()
+@ jwt_admin_required() # type: ignore
 def api_tagDelete(id: int) -> Response:
     """
     Delete selected tag. Tag is only deleted if it isn't used anywhere.
@@ -1277,7 +1301,7 @@ def api_getWork(id: str) -> Response:
 @app.route('/api/works/', methods=['post', 'put'])
 @jwt_admin_required()  # type: ignore
 def api_WorkCreateUpdate() -> Response:
-    params = bleach.clean(request.data.decode('utf-8'))
+    params = request.data.decode('utf-8')
     params = json.loads(params)
     if request.method == 'POST':
         retval = MakeApiResponse(WorkAdd(params))
