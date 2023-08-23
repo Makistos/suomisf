@@ -539,7 +539,11 @@ def WorkUpdate(params: Any) -> ResponseType:
             work.misc = bleach.clean(data['misc'])
 
     if 'description' in data:
-        html_text = html.unescape(data['description'])
+        try:
+            html_text = html.unescape(data['description'])
+        except (TypeError) as exp:
+            app.logger.error('WorkSave: Failed to unescape html: ' + data["description"] + '.')
+            return ResponseType('Kuvauksen html-muotoilu epäonnistui', 400)
         if html_text != work.description:
             if work.description:
                 old_values['description'] = work.description[0:200]
@@ -608,7 +612,8 @@ def WorkUpdate(params: Any) -> ResponseType:
             (to_add, to_remove) = GetJoinChanges([x.genre_id for x in existing_genres],
                                                 [x['id'] for x in data['genres']])
             if len(existing_genres) > 0:
-                session.delete(existing_genres)
+                for genre in existing_genres:
+                    session.delete(genre)
             # for id in to_remove:
             #     dg = session.query(WorkGenre)\
             #         .filter(WorkGenre.work_id == id)\
@@ -659,7 +664,8 @@ def WorkUpdate(params: Any) -> ResponseType:
             (to_add, to_remove) = GetJoinChanges([x.link for x in existing_links],
                                                     [x['link'] for x in data['links']])
             if len(existing_links) > 0:
-                session.delete(existing_links)
+                for link in existing_links:
+                    session.delete(link)
             for link in new_links:
                 if 'link' not in link:
                     app.logger.error('WorkSave: Link missing address.')
