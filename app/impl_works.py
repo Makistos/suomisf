@@ -631,7 +631,8 @@ def WorkUpdate(params: Any) -> ResponseType:
             (to_add, to_remove) = GetJoinChanges([x.tag_id for x in existing_tags],
                                                 [x['id'] for x in data['tags']])
             if len(existing_tags) > 0:
-                session.delete(existing_tags)
+                for tag in existing_tags:
+                    session.delete(tag)
             for tag in data['tags']:
                 st = WorkTag(tag_id=tag['id'], work_id=work.id)
                 session.add(st)
