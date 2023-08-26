@@ -3,6 +3,46 @@ from app.orm_decl import (Part, Contributor, Edition)
 from sqlalchemy import and_, or_
 from app.impl import checkInt
 from app import app
+from app.route_helpers import new_session
+from app.orm_decl import Person
+
+def _createNewPerson(session: Any, contrib: Any) -> Union[Person, None]:
+    person = Person()
+    # Check if this person already exists somehow
+    try:
+        existing_person: Person = session.query(Person).filter(Person.name == contrib['person']).first()
+    except Exception as exp:
+        app.logger.error('_createNewPerson: ' + str(exp))
+        return None
+    if existing_person:
+        return existing_person
+    person.name = contrib['person']
+    session.add(person)
+    try:
+        session.commit()
+    except Exception as exp:
+        app.logger.error('_createNewPerson: ' + str(exp))
+        session.rollback()
+        return None
+    return person
+
+
+def _createNewContributors(session: Any, contributors: Any) -> List[Any]:
+    retval: List[Any] = []
+    person: Union[Person, None] = None
+    for contrib in contributors:
+        person = None
+        if 'id' not in contrib['person']:
+            person = _createNewPerson(session, contrib)
+        else:
+            person = session.query(Person).filter(Person.id == contrib['person']['id']).first()
+            if not person:
+                person = _createNewPerson(session, contrib)
+        if person:
+            contrib = {'person': {'id': person.id}, 'role': contrib['role'], 'description': contrib['description']}
+            retval.append(contrib)
+
+    return retval
 
 def _updatePartContributors(session: Any, part_id: int, contributors: Any) -> None:
     # Remove existing rows from table.
@@ -46,6 +86,9 @@ def contributorsHaveChanged(old_values: List[Any], new_values: List[Any]) -> boo
     """
     l: Any = []
     for value in new_values:
+        if 'id' not in value['person']:
+            # User added a new contributor that does not exist in the database
+            return True
         if value['person']['id'] == 0 or value['role']['id'] == 0:
             # Remove empty rows (person and role are required fields)
             continue
@@ -63,6 +106,7 @@ def contributorsHaveChanged(old_values: List[Any], new_values: List[Any]) -> boo
 
 def updateShortContributors(session: Any, short_id: int, contributors: Any) -> None:
     parts = session.query(Part).filter(Part.shortstory_id == short_id).all()
+    contributors = _createNewContributors(session, contributors)
     for part in parts:
         _updatePartContributors(session, part.id, contributors)
 
@@ -92,6 +136,8 @@ def updateEditionContributors(session: Any, edition: Edition, contributors: Any)
         .filter(Part.edition_id == edition.id)\
         .filter(Part.shortstory_id == None)\
         .all()
+    # Create new contributors if needed
+    contributors = _createNewContributors(session, contributors)
     for part in parts:
         # First delete contributors that are not author or editor
         session.query(Contributor)\
@@ -100,18 +146,17 @@ def updateEditionContributors(session: Any, edition: Edition, contributors: Any)
         .delete()
         # Then add the new contributors
         for contrib in contributors:
-            if 'person' in contrib and 'id' in contrib['person']:
-                person_id = checkInt(contrib['person']['id'], negativeValuesAllowed=False, zerosAllowed=False)
-            else:
-                person_id = None
-            if person_id == None:
-                app.logger.error('Missing or invalid person id.')
-                continue
+            # if 'person' in contrib and 'id' in contrib['person']:
+            #     person_id = checkInt(contrib['person']['id'], negativeValuesAllowed=False, zerosAllowed=False)
+            # else:
+            #     person_id = None
+            #     app.logger.error('Missing or invalid person id.')
+            #     continue
+            person_id = contrib['person']['id']
             if 'role' in contrib and 'id' in contrib['role']:
                 role_id = checkInt(contrib['role']['id'], negativeValuesAllowed=False, zerosAllowed=False)
             else:
                 role_id = None
-            if role_id == None:
                 app.logger.error('Missing or invalid role id.')
                 continue
             if 'description' in contrib:
@@ -142,6 +187,8 @@ def updateWorkContributors(session: Any, work_id: int, contributors: Any) -> boo
         .filter(Part.work_id == work_id)\
         .filter(Part.shortstory_id == None)\
         .all()
+    # Create new contributors if needed
+    contributors = _createNewContributors(session, contributors)
     for part in parts:
         _updatePartContributors(session, part.id, contributors)
 
