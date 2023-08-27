@@ -335,6 +335,18 @@ def FilterLanguages(query: str) -> ResponseType:
 
     return ResponseType(retval, 200)
 
+def AddLanguage(name: str) -> Union[int, None]:
+    session = new_session()
+    try:
+        language = Language(name=name)
+        session.add(language)
+        session.commit()
+        return language.id
+    except SQLAlchemyError as exp:
+        app.logger.error(
+            f'Exception in AddLanguage (name: {name}): ' + str(exp))
+        return None
+
 
 def GetSelectIds(form: Any, item_field: str = 'itemId') -> Tuple[int, List[Dict[str, str]]]:
     ''' Read parameters from  a front end request for a select component.

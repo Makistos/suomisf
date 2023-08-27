@@ -6,14 +6,16 @@ from app.model import (PersonBriefSchema)
 from app.model_person import (PersonSchema)
 from app.orm_decl import (Person, PersonTag)
 from sqlalchemy.exc import SQLAlchemyError
-from app.orm_decl import (Alias, Country, ContributorRole, Work)
-from app.impl import (ResponseType, SearchResult,
+from app.orm_decl import (Alias, Country, ContributorRole, Work, Contributor,
+                          PersonLink, Awarded, PersonLanguage, PersonTag,
+                          IssueEditor, ArticlePerson, ArticleAuthor)
+from app.impl import (ResponseType, SearchResult, LogChanges,
                       SearchResultFields, searchScore)
 from collections import Counter
 from typing import Tuple, Dict, Any, List, Union
 from operator import not_
 from app.api_errors import APIError
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from marshmallow import exceptions
 
 
@@ -249,6 +251,108 @@ def GetPerson(person_id: int) -> ResponseType:
         return ResponseType('GetPerson: Skeemavirhe.', 400)
 
     return ResponseType(retval, 200)
+
+
+def PersonAdd(params: Any) -> ResponseType:
+    session = new_session()
+    data = params['data']
+
+    person = Person()
+
+
+
+    return ResponseType(str(person.id), 201)
+
+def PersonUpdate(params: Any) -> ResponseType:
+    session = new_session()
+
+def PersonDelete(person_id: int) -> ResponseType:
+    session = new_session()
+    old_values = {}
+    # Check that person exists
+    person = session.query(Person).filter(
+        Person.id == person_id).first()
+    if not person:
+        return ResponseType(f'PersonDelete: Henkilöä ei löydy. person_id={person_id}.', 400)
+
+    # Check that there are no items that reference this person
+    contributions = session.query(Contributor).filter(
+        Contributor.person_id == person_id).all()
+    if len(contributions) > 0:
+        return ResponseType(f'PersonDelete: Henkilöä ei voi poistaa, koska hänellä on rooleja.', 400)
+
+    aliases  = session.query(Alias).filter(
+        or_(Alias.alias == person_id, Alias.realname == person_id)).all()
+
+    if len(aliases) > 0:
+        return ResponseType(f'PersonDelete: Henkilöä ei voi poistaa, koska hänellä on aliaksia.', 400)
+
+    issueeditor = session.query(IssueEditor).filter(
+        IssueEditor.person_id == person_id).all()
+    if len(issueeditor) > 0:
+        return ResponseType(f'PersonDelete: Henkilöä ei voi poistaa, koska hänellä on toimittajuuksia.', 400)
+
+    articleperson = session.query(ArticlePerson).filter(
+        ArticlePerson.person_id == person_id).all()
+    if len(articleperson) > 0:
+        return ResponseType(f'PersonDelete: Henkilöä ei voi poistaa, koska hänestä on artikkeleita.', 400)
+
+    articlehAuthor = session.query(ArticleAuthor).filter(
+        ArticleAuthor.person_id == person_id).all()
+    if len(articlehAuthor) > 0:
+        return ResponseType(f'PersonDelete: Henkilöä ei voi poistaa, koska hänestä on artikkeleita.', 400)
+
+    awarded = session.query(Awarded).filter(
+        Awarded.person_id == person_id).all()
+    if len(awarded) > 0:
+        return ResponseType(f'PersonDelete: Henkilöä ei voi poistaa, koska hänelle on annettu palkintoja.', 400)
+
+
+    # Delete person
+    personlink = session.query(PersonLink).filter(
+        PersonLink.person_id == person_id).all()
+    try:
+        for link in personlink:
+            session.delete(link)
+        session.commit()
+    except SQLAlchemyError as exp:
+        app.logger.error(
+            'Exception in PersonDelete(): ' + str(exp))
+        return ResponseType(f'PersonDelete: Tietokantavirhe.', 400)
+
+    persontags = session.query(PersonTag).filter(
+        PersonTag.person_id == person_id).all()
+    try:
+        for tag in persontags:
+            session.delete(tag)
+        session.commit()
+    except SQLAlchemyError as exp:
+        app.logger.error(
+            'Exception in PersonDelete(): ' + str(exp))
+        return ResponseType(f'PersonDelete: Tietokantavirhe.', 400)
+
+    personlanguage = session.query(PersonLanguage).filter(
+        PersonLanguage.person_id == person_id).all()
+    try:
+        for lang in personlanguage:
+            session.delete(lang)
+        session.commit()
+    except SQLAlchemyError as exp:
+        app.logger.error(
+            'Exception in PersonDelete(): ' + str(exp))
+        return ResponseType(f'PersonDelete: Tietokantavirhe.', 400)
+
+    try:
+        old_values['name'] = person.name
+        LogChanges(session, obj=person, action='Poisto', old_values=old_values)
+        session.delete(person)
+        session.commit()
+    except SQLAlchemyError as exp:
+        app.logger.error(
+            'Exception in PersonDelete(): ' + str(exp))
+        return ResponseType(f'PersonDelete: Tietokantavirhe.', 400)
+
+    return ResponseType('OK', 200)
 
 
 def PersonTagAdd(person_id: int, tag_id: int) -> ResponseType:

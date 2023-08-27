@@ -1,10 +1,11 @@
 import bleach
 from app.route_helpers import new_session
 from app.impl import (ResponseType, SearchScores, SearchResult,
-                      SearchResultFields, searchScore)
+                      SearchResultFields, searchScore, AddLanguage)
 from app.orm_decl import (Contributor, Edition, Part, Work, WorkType, WorkTag,
                           WorkGenre, WorkLink, WorkTag, Person)
-from app.model import (CountryBriefSchema, WorkBriefSchema, WorkTypeBriefSchema)
+from app.model import (CountryBriefSchema, WorkBriefSchema, WorkTypeBriefSchema,
+                       Language, Bookseries)
 from app.model import WorkSchema
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
@@ -18,6 +19,7 @@ from app.impl_links import linksHaveChanged
 from app.impl_editions import EditionCreateFirst
 from app.impl_genres import checkGenreField
 from app.impl_editions import deleteEdition
+from app.impl_bookseries import AddBookseries
 import html
 
 from typing import Dict, List, Any, Union
@@ -564,32 +566,50 @@ def WorkUpdate(params: Any) -> ResponseType:
     # Language
     if 'language' in data:
         if data['language'] != work.language:
+            lang_id = None
             if work.language_name:
                 old_values['language'] = work.language_name.name
             else:
                 old_values['language'] = ''
-            if data['language'] == None or data['language'] == '':
-                work.language = None
+            if not 'id' in data['language']:
+                # User added a new language. Front returns this as a string
+                # in the language field so we need to add this language to
+                # the database first.
+                lang_id = AddLanguage(bleach.clean(data['language']))
             else:
-                if not 'id' in data['language']:
-                    app.logger.error('WorkSave: Language missing id.')
-                    return ResponseType('Kielen tiedot puutteelliset', 400)
-                work.language = checkInt(data['language']['id'])
+                lang_id = checkInt(data['language']['id'])
+                if lang_id != None:
+                    lang = session.query(Language)\
+                        .filter(Language.id == lang_id)\
+                        .first()
+                    if not lang:
+                        app.logger.error('WorkSave: Language not found. Id = ' + str(data['language']['id']) + '.')
+                        return ResponseType('Kieltä ei löydy', 400)
+            work.language = lang_id
 
     # Bookseries
     if 'bookseries' in data:
         if data['bookseries'] != work.bookseries:
+            bs_id = None
             if work.bookseries:
                 old_values['bookseries'] = work.bookseries.name
             else:
                 old_values['bookseries'] = ''
-            if data['bookseries'] == None or data['bookseries'] == '':
-                work.bookseries_id = None
+            if not 'id' in data['bookseries']:
+                # User added a new bookseries. Front returns this as a string
+                # in the bookseries field so we need to add this bookseries to
+                # the database first.
+                bs_id = AddBookseries(bleach.clean(data['bookseries']))
             else:
-                if not 'id' in data['bookseries']:
-                    app.logger.error('WorkSave: Bookseries missing id.')
-                    return ResponseType('Sarjan tiedot puutteelliset', 400)
-                work.bookseries_id = checkInt(data['bookseries']['id'])
+                bs_id = checkInt(data['bookseries']['id'])
+                if bs_id != None:
+                    bs = session.query(Bookseries)\
+                        .filter(Bookseries.id == bs_id)\
+                        .first()
+                    if not bs:
+                        app.logger.error('WorkSave: Bookseries not found. Id = ' + str(data['bookseries']['id']) + '.')
+                        return ResponseType('Kirjasarjaa ei löydy', 400)
+            work.bookseries_id = bs_id
 
     # Worktype
     if 'type' in data:
@@ -747,23 +767,28 @@ def WorkDelete(id: int) -> ResponseType:
         app.logger.error('Exception in WorkDelete() deleting editions: ' + str(exp))
         return ResponseType('WorkDelete: Tietokantavirhe', 400)
     for edition in editions:
-        deleteEdition(session, edition.id)
+        success = deleteEdition(session, edition.id)
+        if not success:
+            session.rollback()
+            app.logger.error('Exception in WorkDelete() deleting edition: ' + str(exp))
+            return ResponseType('WorkDelete: Tietokantavirhe', 400)
 
     try:
+        old_values['name'] = work.title
+        LogChanges(session, obj=work, action='Poisto', old_values=old_values)
         session.query(WorkGenre).filter(WorkGenre.work_id == id).delete()
         session.query(WorkTag).filter(WorkTag.work_id == id).delete()
         session.query(WorkLink).filter(WorkLink.work_id == id).delete()
         session.query(Work).filter(Work.id == id).delete()
     except SQLAlchemyError as exp:
+        session.rollback()
         app.logger.error('Exception in WorkDelete() deleting work: ' + str(exp))
         return ResponseType('WorkDelete: Tietokantavirhe', 400)
 
     try:
-        old_values['name'] = work.title
-        LogChanges(session, obj=work, action='Poisto', old_values=old_values)
-        session.delete(work)
         session.commit()
     except SQLAlchemyError as exp:
+        session.rollback()
         app.logger.error('Exception in WorkDelete() commit: ' + str(exp))
         return ResponseType('WorkDelete: Tietokantavirhe', 400)
 

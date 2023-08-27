@@ -199,3 +199,16 @@ def BookseriesDelete(id: str) -> ResponseType:
 
 
     return ResponseType('OK', 200)
+
+
+def AddBookseries(name: str) -> Union[int, None]:
+    session = new_session()
+    try:
+        bs = Bookseries(name=name)
+        session.add(bs)
+        session.commit()
+        return bs.id
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error('Exception in AddBookseries: ' + str(exp))
+        return None

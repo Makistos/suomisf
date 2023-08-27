@@ -5,6 +5,7 @@ from app.orm_decl import Pubseries
 from app.model import (PubseriesSchema, PubseriesBriefSchema)
 from app.impl import ResponseType
 from app import app
+from typing import Any, Union
 
 
 def FilterPubseries(query: str) -> ResponseType:
@@ -66,3 +67,14 @@ def ListPubseries() -> ResponseType:
         return ResponseType('ListPubseries: Skeemavirhe.', 400)
 
     return ResponseType(retval, 200)
+
+def AddPubseries(name: str, publisher_id: int) -> Union[int, None]:
+    session = new_session()
+    try:
+        pubseries = Pubseries(name=name, publisher_id=publisher_id)
+        session.add(pubseries)
+        session.commit()
+        return pubseries.id
+    except SQLAlchemyError as exp:
+        app.logger.error('Exception in AddPubseries: ' + str(exp))
+        return None

@@ -14,6 +14,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.model import EditionSchema, BindingBriefSchema
 from app.impl import ResponseType, checkInt, LogChanges, GetJoinChanges
+from app.impl_pubseries import AddPubseries
 import bleach
 from app import app
 import os
@@ -349,23 +350,40 @@ def EditionUpdate(params: Any) -> ResponseType:
 
   # Publisher's series, not required
   if 'pubseries' in data:
-    if data['pubseries'] == None or data['pubseries'] == '':
-      pubseries_id = None
-    else:
-      pubseries_id = checkInt(data['pubseries']['id'])
-      if pubseries_id == None:
-        app.logger.error(f'EditionUpdate: Invalid pubseries id.')
-        return ResponseType(f'Virheellinen kustantajan sarja.', 400)
-    if pubseries_id != edition.pubseries_id:
-      if pubseries_id != None:
-        pubseries = session.query(Pubseries).filter(Pubseries.id == pubseries_id).first()
-        if not pubseries:
-          app.logger.error(f'EditionUpdate: Pubseries not found. id={pubseries_id}')
-          return ResponseType(f'Kustantajan sarjaa ei löydy. id={pubseries_id}', 400)
+    if data['pubseries'] != edition.pubseries:
+      ps_id = None
+      if edition.pubseries:
+        old_values['pubseries'] = edition.pubseries.name
       else:
-        pubseries_id = None
-      old_values['pubseries'] = edition.pubseries.name
-      edition.pubseries_id = pubseries_id
+        old_values['pubseries'] = ''
+      if not 'id' in data['pubseries']:
+        # User added a new pubseries. Front returns this as a string in the
+        # bookseries field so we need to create a new pubseries to the
+        # database first.
+        ps_id = AddPubseries(data['pubseries'], edition.publisher_id)
+      else:
+        ps_id = checkInt(data['pubseries']['id'])
+        if ps_id != None:
+          ps = session.query(Pubseries).filter(Pubseries.id == ps_id).first()
+          if not ps:
+            app.logger.error(f'EditionUpdate: Pubseries not found. id={ps_id}')
+            return ResponseType(f'Kustantajan sarjaa ei löydy. id={ps_id}', 400)
+      edition.pubseries_id = ps_id
+    # else:
+    #   pubseries_id = checkInt(data['pubseries']['id'])
+    #   if pubseries_id == None:
+    #     app.logger.error(f'EditionUpdate: Invalid pubseries id.')
+    #     return ResponseType(f'Virheellinen kustantajan sarja.', 400)
+    # if pubseries_id != edition.pubseries_id:
+    #   if pubseries_id != None:
+    #     pubseries = session.query(Pubseries).filter(Pubseries.id == pubseries_id).first()
+    #     if not pubseries:
+    #       app.logger.error(f'EditionUpdate: Pubseries not found. id={pubseries_id}')
+    #       return ResponseType(f'Kustantajan sarjaa ei löydy. id={pubseries_id}', 400)
+    #   else:
+    #     pubseries_id = None
+    #   old_values['pubseries'] = edition.pubseries.name
+    #   edition.pubseries_id = pubseries_id
 
   # Publisher's series number, not required
   if 'pubseriesnum' in data:
@@ -486,9 +504,10 @@ def deleteEdition(session: Any, editionId: int) -> bool:  # noqa: C901
     session.query(EditionLink).filter(EditionLink.edition_id == editionId).delete()
     session.query(EditionPrice).filter(EditionPrice.edition_id == editionId).delete()
     session.query(Edition).filter(Edition.id == id).delete()
-    session.commit()
+    #session.commit()
   except SQLAlchemyError as exp:
-    session.rollback()
+    app.logger.error('Exception in deleteEdition: ' + str(exp))
+    #session.rollback()
     return False
   return True
 
@@ -518,8 +537,11 @@ def EditionDelete(id: str) -> ResponseType:
     if log_id != 0:
       # Delete invalid Log line
       session.query(Log).filter(Log.id == log_id).delete()
+    session.rollback()
     app.logger.error('Exception in EditionDelete, id={edition_id}')
     return ResponseType('EditionDelete: Tietokantavirhe.', 400)
+  else:
+    session.commit()
 
   return retval
 
