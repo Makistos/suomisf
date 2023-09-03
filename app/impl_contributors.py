@@ -7,6 +7,13 @@ from app.route_helpers import new_session
 from app.orm_decl import Person
 
 def _createNewPerson(session: Any, contrib: Any) -> Union[Person, None]:
+    """
+    Create a new person and add it to the database.
+
+    This function is used to create a new person when adding a new contributor.
+    This person will have the same name and alt_name so information needs to be
+    fixed later.
+    """
     person = Person()
     # Check if this person already exists somehow
     try:
@@ -17,6 +24,7 @@ def _createNewPerson(session: Any, contrib: Any) -> Union[Person, None]:
     if existing_person:
         return existing_person
     person.name = contrib['person']
+    person.alt_name = contrib['person']
     session.add(person)
     try:
         session.commit()
