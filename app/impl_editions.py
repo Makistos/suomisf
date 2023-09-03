@@ -33,6 +33,30 @@ def EditionCreateFirst(work: Work) -> Edition:
 
   return retval
 
+def _setPubseries(session: Any, edition: Any, data: Any, old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+  if data['pubseries'] != edition.pubseries:
+    ps_id = None
+    if old_values:
+      if edition.pubseries:
+        old_values['pubseries'] = edition.pubseries.name
+      else:
+        old_values['pubseries'] = ''
+    if not 'id' in data['pubseries']:
+      # User added a new pubseries. Front returns this as a string in the
+      # bookseries field so we need to create a new pubseries to the
+      # database first.
+      ps_id = AddPubseries(data['pubseries'], edition.publisher_id)
+    else:
+      ps_id = checkInt(data['pubseries']['id'])
+      if ps_id != None:
+        ps = session.query(Pubseries).filter(Pubseries.id == ps_id).first()
+        if not ps:
+          app.logger.error(f'EditionUpdate: Pubseries not found. id={ps_id}')
+          return ResponseType(f'Kustantajan sarjaa ei löydy. id={ps_id}', 400)
+    edition.pubseries_id = ps_id
+  return None
+
+
 # Save new edition to database. Params requires work_id parameter.
 def EditionCreate(params: Any) -> ResponseType:
   retval = ResponseType('', 200)
@@ -99,17 +123,18 @@ def EditionCreate(params: Any) -> ResponseType:
 
   # Publisher's series, not required
   if 'pubseries' in data:
-    if data['pubseries'] == None or 'id' not in data['pubseries']:
-      pubseries_id = None
-    else:
-      pubseries_id = checkInt(data['pubseries']['id'],
-                              negativeValuesAllowed=False)
-      if pubseries_id:
-        pubseries = session.query(Publisher).filter(Publisher.id == pubseries_id).first()
-        if not pubseries:
-          app.logger.error('Exception in EditionCreate: Pubseries not found. id={pubseries_id}')
-          return ResponseType(f'Julkaisusarjaa ei löydy. id={pubseries_id}', 400)
-    edition.pubseries_id = pubseries_id
+    result = _setPubseries(session, edition, data, None)
+    # if data['pubseries'] == None or 'id' not in data['pubseries']:
+    #   pubseries_id = None
+    # else:
+    #   pubseries_id = checkInt(data['pubseries']['id'],
+    #                           negativeValuesAllowed=False)
+    #   if pubseries_id:
+    #     pubseries = session.query(Publisher).filter(Publisher.id == pubseries_id).first()
+    #     if not pubseries:
+    #       app.logger.error('Exception in EditionCreate: Pubseries not found. id={pubseries_id}')
+    #       return ResponseType(f'Julkaisusarjaa ei löydy. id={pubseries_id}', 400)
+    # edition.pubseries_id = pubseries_id
 
   if 'pubseriesnum' in data:
     edition.pubseriesnum = checkInt(data['pubseriesnum'])
@@ -350,25 +375,9 @@ def EditionUpdate(params: Any) -> ResponseType:
 
   # Publisher's series, not required
   if 'pubseries' in data:
-    if data['pubseries'] != edition.pubseries:
-      ps_id = None
-      if edition.pubseries:
-        old_values['pubseries'] = edition.pubseries.name
-      else:
-        old_values['pubseries'] = ''
-      if not 'id' in data['pubseries']:
-        # User added a new pubseries. Front returns this as a string in the
-        # bookseries field so we need to create a new pubseries to the
-        # database first.
-        ps_id = AddPubseries(data['pubseries'], edition.publisher_id)
-      else:
-        ps_id = checkInt(data['pubseries']['id'])
-        if ps_id != None:
-          ps = session.query(Pubseries).filter(Pubseries.id == ps_id).first()
-          if not ps:
-            app.logger.error(f'EditionUpdate: Pubseries not found. id={ps_id}')
-            return ResponseType(f'Kustantajan sarjaa ei löydy. id={ps_id}', 400)
-      edition.pubseries_id = ps_id
+    result = _setPubseries(session, edition, data, old_values)
+    if result:
+      return retval
     # else:
     #   pubseries_id = checkInt(data['pubseries']['id'])
     #   if pubseries_id == None:

@@ -38,7 +38,6 @@ def TagFilter(query: str) -> ResponseType:
 
     return ResponseType(retval, 200)
 
-
 def TagList() -> ResponseType:
     session = new_session()
 

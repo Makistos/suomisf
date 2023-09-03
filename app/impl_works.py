@@ -3,9 +3,8 @@ from app.route_helpers import new_session
 from app.impl import (ResponseType, SearchScores, SearchResult,
                       SearchResultFields, searchScore, AddLanguage)
 from app.orm_decl import (Contributor, Edition, Part, Work, WorkType, WorkTag,
-                          WorkGenre, WorkLink, WorkTag, Person)
-from app.model import (CountryBriefSchema, WorkBriefSchema, WorkTypeBriefSchema,
-                       Language, Bookseries)
+                          WorkGenre, WorkLink, WorkTag, Person, Language, Bookseries)
+from app.model import (CountryBriefSchema, WorkBriefSchema, WorkTypeBriefSchema)
 from app.model import WorkSchema
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
@@ -24,6 +23,92 @@ import html
 
 from typing import Dict, List, Any, Union
 from app import app
+
+def _setBookseries(session: Any, work: Work, data: Any, old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+    if data['bookseries'] != work.bookseries:
+        bs_id = None
+        if old_values:
+            if work.bookseries:
+                old_values['bookseries'] = work.bookseries.name
+            else:
+                old_values['bookseries'] = ''
+        if not 'id' in data['bookseries']:
+            # User added a new bookseries. Front returns this as a string
+            # in the bookseries field so we need to add this bookseries to
+            # the database first.
+            bs_id = AddBookseries(bleach.clean(data['bookseries']))
+        else:
+            bs_id = checkInt(data['bookseries']['id'], zerosAllowed=False, negativeValuesAllowed=False)
+            if bs_id != None:
+                bs = session.query(Bookseries)\
+                    .filter(Bookseries.id == bs_id)\
+                    .first()
+                if not bs:
+                    app.logger.error('WorkSave: Bookseries not found. Id = ' + str(data['bookseries']['id']) + '.')
+                    return ResponseType('Kirjasarjaa ei löydy', 400)
+        work.bookseries_id = bs_id
+    return None
+
+
+def _setDescription(work: Work, data: Any, old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+    try:
+        html_text = html.unescape(data['description'])
+    except (TypeError) as exp:
+        app.logger.error('WorkSave: Failed to unescape html: ' + data["description"] + '.')
+        return ResponseType('Kuvauksen html-muotoilu epäonnistui', 400)
+    if html_text != work.description:
+        if old_values:
+            if work.description:
+                old_values['description'] = work.description[0:200]
+            else:
+                old_values['description'] = ''
+        work.description = html_text
+    return None
+
+
+def _setLanguage(session: Any, work: Any, data: Any, old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+    if data['language'] != work.language:
+        lang_id = None
+        if old_values:
+            if work.language_name:
+                old_values['language'] = work.language_name.name
+            else:
+                old_values['language'] = None
+        if not 'id' in data['language']:
+            # User added a new language. Front returns this as a string
+            # in the language field so we need to add this language to
+            # the database first.
+            lang_id = AddLanguage(bleach.clean(data['language']))
+        else:
+            lang_id = checkInt(data['language']['id'])
+            if lang_id != None:
+                lang = session.query(Language)\
+                    .filter(Language.id == lang_id)\
+                    .first()
+                if not lang:
+                    app.logger.error('WorkSave: Language not found. Id = ' + str(data['language']['id']) + '.')
+                    return ResponseType('Kieltä ei löydy', 400)
+        work.language = lang_id
+    return None
+
+
+def _setWorkType(work: Any, data: Any, old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+    if data['work_type'] is not None:
+        if 'id' in data['work_type']:
+            work_type = checkInt(data['work_type']['id'],
+                                zerosAllowed=False,
+                                negativeValuesAllowed=False)
+            if work_type == None:
+                app.logger.error('WorkSave: Invalid work_type id.')
+                return ResponseType('WorkSave: Virheellinen teostyyppi.', 400)
+            if old_values:
+                if work.work_type:
+                    old_values['work_type'] = work.work_type.name
+                else:
+                    old_values['work_type'] = ''
+            work.work_type = work_type
+    return None
+
 
 def createAuthorStr(authors: List[Any], editions: List[Any]) -> str:
     retval = ''
@@ -338,25 +423,35 @@ def WorkAdd(params: Any) -> ResponseType:
 
     work.bookseriesnum = bleach.clean(data['bookseriesnum'])
     if 'bookseries' in data:
-        if data['bookseries'] is not None:
-            if 'id' in data['bookseries']:
-                work.bookseries_id = checkInt(data['bookseries']['id'],
-                                            zerosAllowed=False,
-                                            negativeValuesAllowed=False)
+        result = _setBookseries(session, work, data, None)
+        if result:
+            return result
+        # if data['bookseries'] is not None:
+        #     if 'id' in data['bookseries']:
+        #         work.bookseries_id = checkInt(data['bookseries']['id'],
+        #                                     zerosAllowed=False,
+        #                                     negativeValuesAllowed=False)
     work.bookseriesorder = checkInt(data['bookseriesorder'])
 
+    if 'language' in data:
+        result = _setLanguage(session, work, data, None)
+        if result:
+            return result
     # Work type is required and defaults to 1 (book)
-    work_type: Union[int, None] = 1
+    work.type =  1
     if 'work_type' in data:
-        if data['work_type'] is not None:
-            if 'id' in data['work_type']:
-                work_type = checkInt(data['work_type']['id'],
-                                    zerosAllowed=False,
-                                    negativeValuesAllowed=False)
-    work.type =  work_type
+        result = _setWorkType(work, data, None)
+        # if data['work_type'] is not None:
+        #     if 'id' in data['work_type']:
+        #         work_type = checkInt(data['work_type']['id'],
+        #                             zerosAllowed=False,
+        #                             negativeValuesAllowed=False)
 
     if 'description' in data:
-        work.description = html.unescape(bleach.clean(data['description']))
+        result = _setDescription(work, data, None)
+        if result:
+            return result
+        #work.description = html.unescape(bleach.clean(data['description']))
     if 'descr_attr' in data:
         work.descr_attr = bleach.clean(data['descr_attr'])
     if 'misc' in data:
@@ -390,49 +485,7 @@ def WorkAdd(params: Any) -> ResponseType:
         return ResponseType(f'WorkAdd: Tietokantavirhe Part-taulussa. work_id={work.id}', 400)
 
     # Add contributors (requires part id)
-    try:
-        for contrib in data['contributions']:
-            # Check that required fields exist
-            if not ('person' in contrib and 'role' in contrib):
-                app.logger.error('WorkAdd: Contributor missing person or role.')
-                return ResponseType('Tekijän tiedot puutteelliset', 400)
-            if not ('id' in contrib['person'] and 'id' in contrib['role']):
-                app.logger.error('WorkAdd: Contributor missing person id or role id.')
-                return ResponseType('Tekijän tiedot puutteelliset', 400)
-            person = session.query(Person).filter(Person.id == contrib['person']['id']).first()
-            if not person:
-                app.logger.error('WorkAdd: Contributor person not found.')
-                return ResponseType('Tekijää ei löydy, id={id}', 400)
-            role = session.query(WorkType).filter(WorkType.id == contrib['role']['id']).first()
-            if not role:
-                app.logger.error('WorkAdd: Contributor role not found.')
-                return ResponseType('Tekijän roolia ei löydy, id={id}', 400)
-            # Real person is not a required field
-            real_person_id = None
-            if 'id'in contrib['real_person']:
-                if contrib['real_person']['id'] != 0:
-                    real_person_id = contrib['real_person']['id']
-                    real_person = session.query(Person).filter(Person.id == real_person_id).first()
-                    if not real_person:
-                        app.logger.error('WorkAdd: Contributor real person not found.')
-                        return ResponseType('Aliaksen omistajaa ei löydy, id={id}', 400)
-            # Description is not a required field
-            if 'description' in contrib:
-                description = contrib['description']
-            else:
-                description = None
-            new_contributor = Contributor(
-                part_id=new_part.id,
-                person_id=contrib['person']['id'],
-                role_id=contrib['role']['id'],
-                real_person_id = real_person_id,
-                description=description
-            )
-            session.add(new_contributor)
-        session.commit()
-    except SQLAlchemyError as exp:
-        app.logger.error('Exception in WorkAdd: ' + str(exp))
-        return ResponseType(f'WorkAdd: Tietokantavirhe tekijöissä. work_id={work.id}', 400)
+    updateWorkContributors(session, work.id, data['contributions'])
 
     # Add tags (requires work id)
     if 'tags' in data:
@@ -541,17 +594,9 @@ def WorkUpdate(params: Any) -> ResponseType:
             work.misc = bleach.clean(data['misc'])
 
     if 'description' in data:
-        try:
-            html_text = html.unescape(data['description'])
-        except (TypeError) as exp:
-            app.logger.error('WorkSave: Failed to unescape html: ' + data["description"] + '.')
-            return ResponseType('Kuvauksen html-muotoilu epäonnistui', 400)
-        if html_text != work.description:
-            if work.description:
-                old_values['description'] = work.description[0:200]
-            else:
-                old_values['description'] = ''
-            work.description = html_text
+        result = _setDescription(work, data, old_values)
+        if result:
+            return result
 
     if 'descr_attr' in data:
         if data['descr_attr'] != work.descr_attr:
@@ -565,57 +610,63 @@ def WorkUpdate(params: Any) -> ResponseType:
 
     # Language
     if 'language' in data:
-        if data['language'] != work.language:
-            lang_id = None
-            if work.language_name:
-                old_values['language'] = work.language_name.name
-            else:
-                old_values['language'] = ''
-            if not 'id' in data['language']:
-                # User added a new language. Front returns this as a string
-                # in the language field so we need to add this language to
-                # the database first.
-                lang_id = AddLanguage(bleach.clean(data['language']))
-            else:
-                lang_id = checkInt(data['language']['id'])
-                if lang_id != None:
-                    lang = session.query(Language)\
-                        .filter(Language.id == lang_id)\
-                        .first()
-                    if not lang:
-                        app.logger.error('WorkSave: Language not found. Id = ' + str(data['language']['id']) + '.')
-                        return ResponseType('Kieltä ei löydy', 400)
-            work.language = lang_id
+        result = _setLanguage(session, work, data, old_values)
+        if result:
+            return result
+        # if data['language'] != work.language:
+        #     lang_id = None
+        #     if work.language_name:
+        #         old_values['language'] = work.language_name.name
+        #     else:
+        #         old_values['language'] = None
+        #     if not 'id' in data['language']:
+        #         # User added a new language. Front returns this as a string
+        #         # in the language field so we need to add this language to
+        #         # the database first.
+        #         lang_id = AddLanguage(bleach.clean(data['language']))
+        #     else:
+        #         lang_id = checkInt(data['language']['id'])
+        #         if lang_id != None:
+        #             lang = session.query(Language)\
+        #                 .filter(Language.id == lang_id)\
+        #                 .first()
+        #             if not lang:
+        #                 app.logger.error('WorkSave: Language not found. Id = ' + str(data['language']['id']) + '.')
+        #                 return ResponseType('Kieltä ei löydy', 400)
+        #     work.language = lang_id
 
     # Bookseries
     if 'bookseries' in data:
-        if data['bookseries'] != work.bookseries:
-            bs_id = None
-            if work.bookseries:
-                old_values['bookseries'] = work.bookseries.name
-            else:
-                old_values['bookseries'] = ''
-            if not 'id' in data['bookseries']:
-                # User added a new bookseries. Front returns this as a string
-                # in the bookseries field so we need to add this bookseries to
-                # the database first.
-                bs_id = AddBookseries(bleach.clean(data['bookseries']))
-            else:
-                bs_id = checkInt(data['bookseries']['id'])
-                if bs_id != None:
-                    bs = session.query(Bookseries)\
-                        .filter(Bookseries.id == bs_id)\
-                        .first()
-                    if not bs:
-                        app.logger.error('WorkSave: Bookseries not found. Id = ' + str(data['bookseries']['id']) + '.')
-                        return ResponseType('Kirjasarjaa ei löydy', 400)
-            work.bookseries_id = bs_id
+        result = _setBookseries(session, work, data, old_values)
+        if result:
+            return result
+        # if data['bookseries'] != work.bookseries:
+        #     bs_id = None
+        #     if work.bookseries:
+        #         old_values['bookseries'] = work.bookseries.name
+        #     else:
+        #         old_values['bookseries'] = ''
+        #     if not 'id' in data['bookseries']:
+        #         # User added a new bookseries. Front returns this as a string
+        #         # in the bookseries field so we need to add this bookseries to
+        #         # the database first.
+        #         bs_id = AddBookseries(bleach.clean(data['bookseries']))
+        #     else:
+        #         bs_id = checkInt(data['bookseries']['id'])
+        #         if bs_id != None:
+        #             bs = session.query(Bookseries)\
+        #                 .filter(Bookseries.id == bs_id)\
+        #                 .first()
+        #             if not bs:
+        #                 app.logger.error('WorkSave: Bookseries not found. Id = ' + str(data['bookseries']['id']) + '.')
+        #                 return ResponseType('Kirjasarjaa ei löydy', 400)
+        #     work.bookseries_id = bs_id
 
     # Worktype
-    if 'type' in data:
-        if data['type'] != work.type:
-            old_values['type'] = work.type
-            work.type = checkInt(data['type'])
+    if 'work_type' in data:
+        result = _setWorkType(work, data, old_values)
+        if result:
+            return result
 
     # Contributors
     if 'contributions' in data:
@@ -770,7 +821,6 @@ def WorkDelete(id: int) -> ResponseType:
         success = deleteEdition(session, edition.id)
         if not success:
             session.rollback()
-            app.logger.error('Exception in WorkDelete() deleting edition: ' + str(exp))
             return ResponseType('WorkDelete: Tietokantavirhe', 400)
 
     try:
