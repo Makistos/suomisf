@@ -95,18 +95,20 @@ def _setLanguage(session: Any, work: Any, data: Any, old_values: Union[Dict[str,
 def _setWorkType(work: Any, data: Any, old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
     if data['work_type'] is not None:
         if 'id' in data['work_type']:
-            work_type = checkInt(data['work_type']['id'],
+            work_type_id = checkInt(data['work_type']['id'],
                                 zerosAllowed=False,
                                 negativeValuesAllowed=False)
-            if work_type == None:
+
+            if work_type_id == None:
                 app.logger.error('WorkSave: Invalid work_type id.')
                 return ResponseType('WorkSave: Virheellinen teostyyppi.', 400)
             if old_values:
-                if work.work_type:
-                    old_values['work_type'] = work.work_type.name
-                else:
-                    old_values['work_type'] = ''
-            work.work_type = work_type
+                if work.work_type.id != work_type_id:
+                    if work.work_type:
+                        old_values['work_type'] = work.work_type.name
+                    else:
+                        old_values['work_type'] = ''
+            work.work_type_id = work_type_id
     return None
 
 
@@ -576,7 +578,7 @@ def WorkUpdate(params: Any) -> ResponseType:
     if 'pubyear' in data:
         if data['pubyear'] != work.pubyear:
             old_values['pubyear'] = work.pubyear
-            work.pubyear = bleach.clean(data['pubyear'])
+            work.pubyear = checkInt(data['pubyear'])
 
     if 'bookseriesnum' in data:
         if data['bookseriesnum'] != work.bookseriesnum:
