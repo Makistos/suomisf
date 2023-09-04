@@ -179,6 +179,9 @@ def EditionCreate(params: Any) -> ResponseType:
   if 'imported_string' in data:
     edition.imported_string = bleach.clean(data['imported_string'])
 
+  if 'verified' in data:
+    edition.verified = data['verified']
+
   try:
     session.add(edition)
     session.commit()
@@ -455,6 +458,14 @@ def EditionUpdate(params: Any) -> ResponseType:
       if imported_string == '':
         imported_string = None
       edition.imported_string = imported_string
+
+  if 'verified' in data:
+    if data['verified'] != edition.verified:
+      if edition.verified == True:
+        old_values['verified'] = "Kyllä"
+      else:
+        old_values['verified'] = "Ei"
+      edition.verified = data["verified"]
 
   if 'contributors' in data:
     if contributorsHaveChanged(edition.contributions, data['contributors']):

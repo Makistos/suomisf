@@ -309,6 +309,7 @@ class Edition(Base):
     coverimage = Column(Integer, default=0)  # 1 = not known, 2 = no, 3 = yes
     misc = Column(String(500))
     imported_string = Column(String(500))
+    verified = Column(Boolean, default=False)
     parts = relationship('Part', backref=backref('parts_lookup'),
                          uselist=True, viewonly=True)
     # editors = relationship('Person', secondary='editor',
