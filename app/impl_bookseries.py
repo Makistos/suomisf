@@ -154,8 +154,9 @@ def BookseriesUpdate(params: Any) -> ResponseType:
                 bookseries.orig_name = data['orig_name']
 
     if 'important' in data:
-        old_values['important'] = bookseries.important
-        bookseries.important = data['important']
+        if data['important'] != bookseries.important:
+            old_values['important'] = bookseries.important
+            bookseries.important = data['important']
 
     try:
         session.commit()
