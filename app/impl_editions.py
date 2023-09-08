@@ -33,7 +33,7 @@ def EditionCreateFirst(work: Work) -> Edition:
 
   return retval
 
-def _setPubseries(session: Any, edition: Any, data: Any, old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+def _setPubseries(session: Any, edition: Edition, data: Any, old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
   if data['pubseries'] != edition.pubseries:
     ps_id = None
     if old_values:

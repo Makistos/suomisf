@@ -644,7 +644,29 @@ def api_GetMagazineTags(magazineId: str) -> Tuple[str, int]:
 ###
 # People related functions
 
-@ app.route('/api/people/', methods=['get'])
+@app.route('/api/people', methods=['post', 'put'], strict_slashes=False)
+#@jwt_admin_required() # type: ignore
+def api_CreateUpdatePerson() -> Response:
+    try:
+        params = json.loads(bleach.clean(request.data.decode('utf-8')))
+    except (TypeError, ValueError) as exp:
+        app.logger.error('api_CreateUpdatePerson: Invalid JSON.')
+        response = ResponseType('api_CreateUpdatePerson: Virheelliset parametrit.', 400)
+        return MakeApiResponse(response)
+    try:
+        validate(instance=params, schema=PersonSchema)
+    except jsonschema.exceptions.ValidationError as exp:
+        app.logger.error('api_CreateUpdatePerson: Invalid JSON.')
+        response = ResponseType('api_CreateUpdatePerson: Virheelliset parametrit.', 400)
+        return MakeApiResponse(response)
+    if request.method == 'POST':
+        retval = MakeApiResponse(PersonAdd(params))
+    elif request.method == 'PUT':
+        retval = MakeApiResponse(PersonUpdate(params))
+
+    return retval
+
+@app.route('/api/people/', methods=['get'])
 def api_GetPeople() -> Tuple[str, int]:
     # This function receives parameters in the form of
     # first=50&...filters_name_operator=1&filters_name_constraints_value=null..
@@ -723,8 +745,9 @@ def api_GetPeople() -> Tuple[str, int]:
     return retval
 
 
-@ app.route('/api/people/<person_id>', methods=['get'])
+@ app.route('/api/people/<person_id>', methods=['get'], strict_slashes=False)
 def api_GetPerson(person_id: str) -> Response:
+    #app.logger.error(app.url_map)
     try:
         id = int(person_id)
     except (TypeError, ValueError) as exp:
@@ -734,28 +757,6 @@ def api_GetPerson(person_id: str) -> Response:
         return MakeApiResponse(response)
 
     return MakeApiResponse(GetPerson(id))
-
-@app.route('/api/people', methods=['post', 'put'])
-@jwt_admin_required() # type: ignore
-def api_CreateUpdatePerson(person_id: str) -> Response:
-    try:
-        params = json.loads(bleach.clean(request.data.decode('utf-8')))
-    except (TypeError, ValueError) as exp:
-        app.logger.error('api_CreateUpdatePerson: Invalid JSON.')
-        response = ResponseType('api_CreateUpdatePerson: Virheelliset parametrit.', 400)
-        return MakeApiResponse(response)
-    try:
-        validate(instance=params, schema=PersonSchema)
-    except jsonschema.exceptions.ValidationError as exp:
-        app.logger.error('api_CreateUpdatePerson: Invalid JSON.')
-        response = ResponseType('api_CreateUpdatePerson: Virheelliset parametrit.', 400)
-        return MakeApiResponse(response)
-    if request.method == 'POST':
-        retval = MakeApiResponse(PersonAdd(params))
-    elif request.method == 'PUT':
-        retval = MakeApiResponse(PersonUpdate(params))
-
-    return retval
 
 @app.route('/api/people/<person_id>', methods=['delete'])
 @jwt_admin_required() # type: ignore
@@ -1298,7 +1299,7 @@ def api_getWork(id: str) -> Response:
     return MakeApiResponse(GetWork(work_id))
 
 
-@app.route('/api/works/', methods=['post', 'put'])
+@app.route('/api/works', methods=['post', 'put'], strict_slashes=False)
 @jwt_admin_required()  # type: ignore
 def api_WorkCreateUpdate() -> Response:
     params = request.data.decode('utf-8')

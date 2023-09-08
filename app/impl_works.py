@@ -545,7 +545,7 @@ def WorkAdd(params: Any) -> ResponseType:
 
 # Save changes to work to database
 def WorkUpdate(params: Any) -> ResponseType:
-    retval = ResponseType('', 200)
+    retval = ResponseType('OK', 200)
     session = new_session()
     old_values = {}
     work: Any = None
@@ -615,54 +615,12 @@ def WorkUpdate(params: Any) -> ResponseType:
         result = _setLanguage(session, work, data, old_values)
         if result:
             return result
-        # if data['language'] != work.language:
-        #     lang_id = None
-        #     if work.language_name:
-        #         old_values['language'] = work.language_name.name
-        #     else:
-        #         old_values['language'] = None
-        #     if not 'id' in data['language']:
-        #         # User added a new language. Front returns this as a string
-        #         # in the language field so we need to add this language to
-        #         # the database first.
-        #         lang_id = AddLanguage(bleach.clean(data['language']))
-        #     else:
-        #         lang_id = checkInt(data['language']['id'])
-        #         if lang_id != None:
-        #             lang = session.query(Language)\
-        #                 .filter(Language.id == lang_id)\
-        #                 .first()
-        #             if not lang:
-        #                 app.logger.error('WorkSave: Language not found. Id = ' + str(data['language']['id']) + '.')
-        #                 return ResponseType('Kieltä ei löydy', 400)
-        #     work.language = lang_id
 
     # Bookseries
     if 'bookseries' in data:
         result = _setBookseries(session, work, data, old_values)
         if result:
             return result
-        # if data['bookseries'] != work.bookseries:
-        #     bs_id = None
-        #     if work.bookseries:
-        #         old_values['bookseries'] = work.bookseries.name
-        #     else:
-        #         old_values['bookseries'] = ''
-        #     if not 'id' in data['bookseries']:
-        #         # User added a new bookseries. Front returns this as a string
-        #         # in the bookseries field so we need to add this bookseries to
-        #         # the database first.
-        #         bs_id = AddBookseries(bleach.clean(data['bookseries']))
-        #     else:
-        #         bs_id = checkInt(data['bookseries']['id'])
-        #         if bs_id != None:
-        #             bs = session.query(Bookseries)\
-        #                 .filter(Bookseries.id == bs_id)\
-        #                 .first()
-        #             if not bs:
-        #                 app.logger.error('WorkSave: Bookseries not found. Id = ' + str(data['bookseries']['id']) + '.')
-        #                 return ResponseType('Kirjasarjaa ei löydy', 400)
-        #     work.bookseries_id = bs_id
 
     # Worktype
     if 'work_type' in data:
@@ -687,13 +645,6 @@ def WorkUpdate(params: Any) -> ResponseType:
             if len(existing_genres) > 0:
                 for genre in existing_genres:
                     session.delete(genre)
-            # for id in to_remove:
-            #     dg = session.query(WorkGenre)\
-            #         .filter(WorkGenre.work_id == id)\
-            #         .filter(WorkGenre.genre_id == id)\
-            #         .first()
-            #     session.delete(dg)
-            # for id in to_add:
             for genre in data['genres']:
                 sg = WorkGenre(genre_id=genre['id'], work_id=work.id)
                 session.add(sg)
@@ -714,16 +665,6 @@ def WorkUpdate(params: Any) -> ResponseType:
             for tag in data['tags']:
                 st = WorkTag(tag_id=tag['id'], work_id=work.id)
                 session.add(st)
-
-            # for id in to_remove:
-            #     dt = session.query(WorkTag)\
-            #         .filter(WorkTag.work_id == id)\
-            #         .filter(WorkTag.tag_id == id)\
-            #         .first()
-            #     session.delete(dt)
-            # for id in to_add:
-            #     st = WorkTag(tag_id=id, work_id=work.id)
-            #     session.add(st)
             old_values['tags'] = ' -'.join([str(x) for x in to_add])
             old_values['tags'] += ' +'.join([str(x) for x in to_remove])
 
@@ -741,8 +682,8 @@ def WorkUpdate(params: Any) -> ResponseType:
                     session.delete(link)
             for link in new_links:
                 if 'link' not in link:
-                    app.logger.error('WorkSave: Link missing address.')
-                    return ResponseType('Linkin tiedot puutteelliset', 400)
+                    app.logger.error('WorkUpdate: Link missing address.')
+                    return ResponseType('WorkUpdate: Linkin tiedot puutteelliset', 400)
                 sl = WorkLink(work_id=work.id, link=link['link'],
                               description=link['description'])
                 session.add(sl)

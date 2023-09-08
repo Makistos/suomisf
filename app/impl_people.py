@@ -8,7 +8,7 @@ from app.orm_decl import (Person, PersonTag)
 from sqlalchemy.exc import SQLAlchemyError
 from app.orm_decl import (Alias, Country, ContributorRole, Work, Contributor,
                           PersonLink, Awarded, PersonLanguage, PersonTag,
-                          IssueEditor, ArticlePerson, ArticleAuthor)
+                          IssueEditor, ArticlePerson, ArticleAuthor, PersonLink)
 from app.impl import (ResponseType, SearchResult, LogChanges,
                       SearchResultFields, searchScore)
 from collections import Counter
@@ -17,7 +17,12 @@ from operator import not_
 from app.api_errors import APIError
 from sqlalchemy import func, or_
 from marshmallow import exceptions
-
+from app.impl import ResponseType, LogChanges, checkInt, GetJoinChanges
+from app.impl_country import AddCountry
+from app.impl_links import linksHaveChanged
+import bleach
+from flask.wrappers import Response
+from flask import request
 
 _allowed_person_fields = ['name', 'dob', 'dod',
                           'nationality',
@@ -67,6 +72,30 @@ def _filter_person_query(table: Any,
         else:
             query = query.filter(filt)
     return query
+
+
+def _setNationality(session: Any, person: Person, data: Any, old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+    nat_id = None
+    if not 'id' in data['nationality']:
+        if data['nationality'] != '' and data['nationality'] != None:
+            # Add new nationality to db
+            nat_id = AddCountry(bleach.clean(data['nationality']))
+    else:
+        nat_id = checkInt(data['nationality']['id'], zerosAllowed=False, negativeValuesAllowed=False)
+    if nat_id != person.nationality.id:
+        if old_values:
+            if person.nationality:
+                old_values['nationality'] = person.nationality.name
+            else:
+                old_values['nationality'] = ''
+        if nat_id != None:
+            nat = session.query(Country).filter(Country.id == nat_id).first()
+            if nat:
+                nat_id = nat.id
+            else:
+                nat_id = None
+        person.nationality_id = nat_id
+    return None
 
 
 def FilterPeople(query: str) -> ResponseType:
@@ -264,7 +293,137 @@ def PersonAdd(params: Any) -> ResponseType:
     return ResponseType(str(person.id), 201)
 
 def PersonUpdate(params: Any) -> ResponseType:
+    retval = ResponseType('OK', 200)
     session = new_session()
+    old_values: Dict[str, Any] = {}
+    data = params['data']
+
+    person_id = checkInt(data['id'], zerosAllowed=False, negativeValuesAllowed=False)
+    if person_id == None:
+        app.logger.error('PersonUpdate: Invalid id.')
+        return ResponseType('PersonUpdate: Virheellinen id.', 400)
+
+    # Check that person exists
+    person = session.query(Person).filter(
+        Person.id == person_id).first()
+    if not person:
+        app.logger.error(
+            f'PersonUpdate: Person not found. Id = {person_id}.')
+        return ResponseType(f'PersonUpdate: Henkilöä ei löydy. person_id={person_id}.', 400)
+
+    # Check that name is not empty
+    if 'name' not in data:
+        app.logger.error('PersonUpdate: Name is missing.')
+        return ResponseType('PersonUpdate: Nimi puuttuu.', 400)
+    if data['name'] == '':
+        app.logger.error('PersonUpdate: Name is empty.')
+        return ResponseType('PersonUpdate: Nimi ei voi olla tyhjä puuttuu.', 400)
+
+    name = bleach.clean(data['name'])
+    if data['name'] != person.name:
+        old_values['name'] = person.name
+        person.name = name
+
+    if 'alt_name' not in data:
+        alt_name = name
+    else:
+        alt_name = bleach.clean(data['alt_name'])
+
+    if alt_name != person.alt_name:
+        old_values['alt_name'] = person.alt_name
+        person.alt_name = alt_name
+
+    if 'fullname' in data:
+        if data['fullname'] != person.fullname:
+            old_values['fullname'] = person.fullname
+            person.fullname = bleach.clean(data['fullname'])
+
+    if 'other_names' in data:
+        if data['other_names'] != person.other_names:
+            old_values['other_names'] = person.other_names
+            person.other_names = bleach.clean(data['other_names'])
+
+    if 'first_name' in data:
+        if data['first_name'] != person.first_name:
+            old_values['first_name'] = person.first_name
+            person.first_name = bleach.clean(data['first_name'])
+
+    if 'last_name' in data:
+        if data['last_name'] != person.last_name:
+            old_values['last_name'] = person.last_name
+            person.last_name = bleach.clean(data['last_name'])
+
+    if 'image_src' in data:
+        if data['image_src'] != person.image_src:
+            old_values['image_src'] = person.image_src
+            person.image_src = bleach.clean(data['image_src'])
+
+    if 'dob' in data:
+        dob = checkInt(data['dob'])
+        if dob != person.dob:
+            old_values['dob'] = person.dob
+            person.dob = dob
+
+    if 'dod' in data:
+        dod = checkInt(data['dod'])
+        if dod != person.dod:
+            old_values['dod'] = person.dod
+            person.dod = dod
+
+    if 'bio' in data:
+        if data['bio'] != person.bio:
+            old_values['bio'] = person.bio
+            if data['bio'] == None:
+                person.bio = None
+            else:
+                person.bio = bleach.clean(data['bio'])
+
+    if 'bio_src' in data:
+        if data['bio_src'] != person.bio_src:
+            old_values['bio_src'] = person.bio_src
+            person.bio_src = bleach.clean(data['bio_src'])
+
+    if 'nationality' in data:
+        result = _setNationality(session, person, data, old_values)
+        if result:
+            return result
+
+    if 'links' in data:
+        new_links = [x for x in data['links'] if x['link'] != '']
+        if linksHaveChanged(person.links, new_links):
+            existing_links = session.query(PersonLink).filter(
+                PersonLink.person_id == person_id).all()
+            (to_add, to_remove) = GetJoinChanges([x.link for x in existing_links],
+                                                 [x['link'] for x in new_links])
+            if len(existing_links) > 0:
+                for link in existing_links:
+                    session.delete(link)
+            for link in new_links:
+                if 'link' not in link:
+                    app.logger.error('PersonUpdate: Link missing address.')
+                    return ResponseType('PersonUpdate: Linkin tiedot puutteelliset.', 400)
+                # person_id can't be None here even though Mypy thinks so
+                pl = PersonLink(person_id=person_id, link=link['link'],  # type: ignore
+                                description=link['description'])
+                session.add(pl)
+            old_values['links'] = ' -'.join([str(x) for x in to_add])
+            old_values['links'] = ' +' + \
+                ' -'.join([str(x) for x in to_remove])
+
+    if len(old_values) == 0:
+        # Nothing has changed
+        return retval
+
+    try:
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(
+            'Exception in PersonUpdate(): ' + str(exp))
+        return ResponseType(f'PersonUpdate: Tietokantavirhe.', 400)
+    id = LogChanges(session, obj=person, action='Muokkaus', old_values=old_values)
+
+    return retval
 
 def PersonDelete(person_id: int) -> ResponseType:
     session = new_session()
