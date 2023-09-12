@@ -85,9 +85,9 @@ def _setNationality(session: Any, person: Person, data: Any, old_values: Union[D
     if nat_id != person.nationality.id:
         if old_values:
             if person.nationality:
-                old_values['nationality'] = person.nationality.name
+                old_values['Kansallisuus'] = person.nationality.name
             else:
-                old_values['nationality'] = ''
+                old_values['Kansallisuus'] = ''
         if nat_id != None:
             nat = session.query(Country).filter(Country.id == nat_id).first()
             if nat:
@@ -321,7 +321,7 @@ def PersonUpdate(params: Any) -> ResponseType:
 
     name = bleach.clean(data['name'])
     if data['name'] != person.name:
-        old_values['name'] = person.name
+        old_values['Nimi'] = person.name
         person.name = name
 
     if 'alt_name' not in data:
@@ -330,49 +330,49 @@ def PersonUpdate(params: Any) -> ResponseType:
         alt_name = bleach.clean(data['alt_name'])
 
     if alt_name != person.alt_name:
-        old_values['alt_name'] = person.alt_name
+        old_values['Vaihtoehtoinen nimi'] = person.alt_name
         person.alt_name = alt_name
 
     if 'fullname' in data:
         if data['fullname'] != person.fullname:
-            old_values['fullname'] = person.fullname
+            old_values['Koko nimi'] = person.fullname
             person.fullname = bleach.clean(data['fullname'])
 
     if 'other_names' in data:
         if data['other_names'] != person.other_names:
-            old_values['other_names'] = person.other_names
+            old_values['Muut nimet'] = person.other_names
             person.other_names = bleach.clean(data['other_names'])
 
     if 'first_name' in data:
         if data['first_name'] != person.first_name:
-            old_values['first_name'] = person.first_name
+            old_values['Etunimi'] = person.first_name
             person.first_name = bleach.clean(data['first_name'])
 
     if 'last_name' in data:
         if data['last_name'] != person.last_name:
-            old_values['last_name'] = person.last_name
+            old_values['Sukunimi'] = person.last_name
             person.last_name = bleach.clean(data['last_name'])
 
     if 'image_src' in data:
         if data['image_src'] != person.image_src:
-            old_values['image_src'] = person.image_src
+            old_values['Kuvan lähde'] = person.image_src
             person.image_src = bleach.clean(data['image_src'])
 
     if 'dob' in data:
         dob = checkInt(data['dob'])
         if dob != person.dob:
-            old_values['dob'] = person.dob
+            old_values['Syntymävuosi'] = person.dob
             person.dob = dob
 
     if 'dod' in data:
         dod = checkInt(data['dod'])
         if dod != person.dod:
-            old_values['dod'] = person.dod
+            old_values['Kuolinvuosi'] = person.dod
             person.dod = dod
 
     if 'bio' in data:
         if data['bio'] != person.bio:
-            old_values['bio'] = person.bio
+            old_values['Biografia'] = person.bio
             if data['bio'] == None:
                 person.bio = None
             else:
@@ -380,7 +380,7 @@ def PersonUpdate(params: Any) -> ResponseType:
 
     if 'bio_src' in data:
         if data['bio_src'] != person.bio_src:
-            old_values['bio_src'] = person.bio_src
+            old_values['Biografian lähde'] = person.bio_src
             person.bio_src = bleach.clean(data['bio_src'])
 
     if 'nationality' in data:
@@ -406,8 +406,8 @@ def PersonUpdate(params: Any) -> ResponseType:
                 pl = PersonLink(person_id=person_id, link=link['link'],  # type: ignore
                                 description=link['description'])
                 session.add(pl)
-            old_values['links'] = ' -'.join([str(x) for x in to_add])
-            old_values['links'] = ' +' + \
+            old_values['Linkit'] = ' -'.join([str(x) for x in to_add])
+            old_values['Linkit'] = ' +' + \
                 ' -'.join([str(x) for x in to_remove])
 
     if len(old_values) == 0:
@@ -421,7 +421,7 @@ def PersonUpdate(params: Any) -> ResponseType:
         app.logger.error(
             'Exception in PersonUpdate(): ' + str(exp))
         return ResponseType(f'PersonUpdate: Tietokantavirhe.', 400)
-    id = LogChanges(session, obj=person, action='Muokkaus', old_values=old_values)
+    id = LogChanges(session, obj=person, action='Päivitys', old_values=old_values)
 
     return retval
 
@@ -502,7 +502,7 @@ def PersonDelete(person_id: int) -> ResponseType:
         return ResponseType(f'PersonDelete: Tietokantavirhe.', 400)
 
     try:
-        old_values['name'] = person.name
+        old_values['Nimi'] = person.name
         LogChanges(session, obj=person, action='Poisto', old_values=old_values)
         session.delete(person)
         session.commit()

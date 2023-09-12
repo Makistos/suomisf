@@ -142,12 +142,12 @@ def BookseriesUpdate(params: Any) -> ResponseType:
             app.logger.error('BookseriesCreate: Name already exists.')
             return ResponseType('BookseriesCreate: Nimi on jo olemassa.', 400)
         if data['name'] != bookseries.name:
-            old_values['name'] = bookseries.name
+            old_values['Nimi'] = bookseries.name
             bookseries.name = data['name']
 
     if 'orig_name' in data:
         if data['orig_name'] != bookseries.orig_name:
-            old_values['orig_name'] = bookseries.orig_name
+            old_values['Alkukielinen nimi'] = bookseries.orig_name
             if data['orig_name'] == '':
                 bookseries.orig_name = None
             else:
@@ -155,7 +155,7 @@ def BookseriesUpdate(params: Any) -> ResponseType:
 
     if 'important' in data:
         if data['important'] != bookseries.important:
-            old_values['important'] = bookseries.important
+            old_values['Tärkeä'] = bookseries.important
             bookseries.important = data['important']
 
     try:
@@ -182,7 +182,7 @@ def BookseriesDelete(id: str) -> ResponseType:
     if not bookseries:
         app.logger.error('BookseriesDelete: Unknown bookseries id.')
         return ResponseType('BookseriesDelete: Tuntematon id.', 400)
-    old_values['name'] = bookseries.name
+    old_values['Nimi'] = bookseries.name
 
     works = session.query(Work).filter(Work.bookseries_id == bookseries_id).all()
     if works:

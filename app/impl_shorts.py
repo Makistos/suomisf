@@ -168,13 +168,13 @@ def StoryUpdate(params: Any) -> ResponseType:
             if len(data['title']) == 0:
                 app.logger.error('StoryUpdate: Title is a required field.')
                 return ResponseType('StoryUpdate: Nimi on pakollinen tieto.', 400)
-            old_values['title'] = story.title
+            old_values['Nimi'] = story.title
             story.title = data['title']
 
     # Save original title
     if 'orig_title' in changed:
         if changed['orig_title'] == True:
-            old_values['orig_title'] = story.orig_title
+            old_values['Alkukielinen nimi'] = story.orig_title
             story.orig_title = data['orig_title']
 
     # Save original (first) publication year
@@ -186,7 +186,7 @@ def StoryUpdate(params: Any) -> ResponseType:
                     f'StoryUpdate exception. Not a year: {data["pubyear"]}.')
                 return ResponseType(
                     f'StoryUpdate: virheellinen julkaisuvuosi {data["pubyear"]}.', 400)
-            old_values['pubyear'] = story.pubyear
+            old_values['Julkaistu'] = story.pubyear
             story.pubyear = pubyear
 
     # Save story type
@@ -197,7 +197,7 @@ def StoryUpdate(params: Any) -> ResponseType:
                     f'StoryUpdate exception. Not a type: {data["type"]}.')
                 return ResponseType(
                     f'StoryUpdate: virheellinen tyyppi {data["type"]}.', 400)
-            old_values['type'] = story.type.name
+            old_values['Tyyppi'] = story.type.name
             story.story_type = data["type"]['id']
 
     # Save original language
@@ -207,7 +207,7 @@ def StoryUpdate(params: Any) -> ResponseType:
                 language = checkInt(data['lang']['id'], True, True)
             else:
                 language = None
-            old_values['lang'] = story.language.name
+            old_values['Kieli'] = story.language.name
             story.language = language
 
     try:
@@ -238,8 +238,8 @@ def StoryUpdate(params: Any) -> ResponseType:
         for id in to_add:
             sg = StoryGenre(genre_id=id, shortstory_id=story.id)
             session.add(sg)
-        old_values['genres'] = ' -'.join([str(x) for x in to_add])
-        old_values['genres'] += ' +'.join([str(x) for x in to_remove])
+        old_values['Genret'] = ' -'.join([str(x) for x in to_add])
+        old_values['Genret'] += ' +'.join([str(x) for x in to_remove])
 
     # Save tags
     if 'tags' in changed:
@@ -258,11 +258,11 @@ def StoryUpdate(params: Any) -> ResponseType:
         for id in to_add:
             st = StoryTag(tag_id=id, shortstory_id=story.id)
             session.add(st)
-        old_values['tags'] = ' -'.join([str(x) for x in to_add])
-        old_values['tags'] += ' +'.join([str(x) for x in to_remove])
+        old_values['Asiasanat'] = ' -'.join([str(x) for x in to_add])
+        old_values['Asiasanat'] += ' +'.join([str(x) for x in to_remove])
 
     LogChanges(session=session, obj=story, action="Päivitys",
-               fields=changed, old_values=old_values)
+               old_values=old_values)
 
     try:
         session.commit()

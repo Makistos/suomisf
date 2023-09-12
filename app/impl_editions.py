@@ -38,9 +38,9 @@ def _setPubseries(session: Any, edition: Edition, data: Any, old_values: Union[D
     ps_id = None
     if old_values:
       if edition.pubseries:
-        old_values['pubseries'] = edition.pubseries.name
+        old_values['Kustantajan sarja'] = edition.pubseries.name
       else:
-        old_values['pubseries'] = ''
+        old_values['Kustantajan sarja'] = ''
     if not 'id' in data['pubseries']:
       # User added a new pubseries. Front returns this as a string in the
       # bookseries field so we need to create a new pubseries to the
@@ -244,13 +244,13 @@ def EditionUpdate(params: Any) -> ResponseType:
         app.logger.error(f'EditionUpdate: Title is empty.')
         return ResponseType(f'Otsikko ei voi olla tyhjä.', 400)
       else:
-        old_values['title'] = edition.title
+        old_values['Nimeke'] = edition.title
         edition.title = bleach.clean(data['title'])
 
   # Subtitle, not required
   if 'subtitle' in data:
     if data['subtitle'] != edition.subtitle:
-      old_values['subtitle'] = edition.subtitle
+      old_values['Alaotsikko'] = edition.subtitle
       subtitle: Union[str, None] = bleach.clean(data['subtitle'])
       if subtitle == '':
         subtitle = None
@@ -262,7 +262,7 @@ def EditionUpdate(params: Any) -> ResponseType:
       app.logger.error(f'EditionUpdate: Pubyear is empty.')
       return ResponseType(f'Julkaisuvuosi ei voi olla tyhjä.', 400)
     if data['pubyear'] != edition.pubyear:
-      old_values['pubyear'] = edition.pubyear
+      old_values['Kustannusvuosi'] = edition.pubyear
       edition.pubyear = checkInt(data['pubyear'])
 
   # Publisher, required field. Has to exist in database.
@@ -279,9 +279,9 @@ def EditionUpdate(params: Any) -> ResponseType:
           app.logger.error(f'EditionUpdate: Invalid publisher id. id={publisher_id}')
           return ResponseType(f'Virheellinen kustantaja. id={publisher_id}', 400)
         if edition.publisher != None:
-          old_values['publisher'] = edition.publisher.name
+          old_values['Kustantaja'] = edition.publisher.name
         else:
-          old_values['publisher'] = None
+          old_values['Kustantaja'] = None
         edition.publisher_id = publisher_id
 
   # Edition number, required field
@@ -294,7 +294,7 @@ def EditionUpdate(params: Any) -> ResponseType:
       if editionnum == None:
         app.logger.error(f'EditionUpdate: Invalid editionnum.')
         return ResponseType(f'Virheellinen painosnumero.', 400)
-      old_values['editionnum'] = edition.editionnum
+      old_values['Painos'] = edition.editionnum
       edition.editionnum = editionnum
 
   # Version (laitos), not required
@@ -308,13 +308,13 @@ def EditionUpdate(params: Any) -> ResponseType:
         app.logger.error(f'EditionUpdate: Invalid version.')
         return ResponseType(f'Virheellinen laitos.', 400)
       # Either removing value (version=None) or setting a new one
-      old_values['version'] = edition.version
+      old_values['Laitos'] = edition.version
       edition.version = version
 
   # ISBN, not required
   if 'isbn' in data:
     if data['isbn'] != edition.isbn:
-      old_values['isbn'] = edition.isbn
+      old_values['ISBN'] = edition.isbn
       isbn: Union[str, None] = bleach.clean(data['isbn'])
       if isbn == '':
         isbn = None
@@ -329,7 +329,7 @@ def EditionUpdate(params: Any) -> ResponseType:
         app.logger.error(f'EditionUpdate: Invalid pages.')
         return ResponseType(f'Virheellinen sivumäärä.', 400)
       # Either removing value or setting a new one
-      old_values['pages'] = edition.pages
+      old_values['Sivuja'] = edition.pages
       edition.pages = pages
 
 
@@ -341,7 +341,7 @@ def EditionUpdate(params: Any) -> ResponseType:
         if binding_id == None:
           app.logger.error(f'EditionUpdate: Invalid binding.')
           return ResponseType(f'Virheellinen sidonta.', 400)
-        old_values['binding'] = edition.binding.name
+        old_values['Sidonta'] = edition.binding.name
         edition.binding_id = binding_id
 
   # Edition format, required field. Has to exist in database.
@@ -352,7 +352,7 @@ def EditionUpdate(params: Any) -> ResponseType:
         if format_id == None:
           app.logger.error(f'EditionUpdate: Invalid format.')
           return ResponseType(f'Virheellinen formaatti.', 400)
-        old_values['format'] = edition.format.name
+        old_values['Formaatti'] = edition.format.name
         edition.format_id = format_id
 
   # Size (height in cm), not required
@@ -364,13 +364,13 @@ def EditionUpdate(params: Any) -> ResponseType:
         app.logger.error(f'EditionUpdate: Invalid size.')
         return ResponseType(f'Virheellinen koko.', 400)
       # Either removing value or setting a new one
-      old_values['size'] = edition.size
+      old_values['Koko'] = edition.size
       edition.size = size
 
   # Print location, not required
   if 'printedin' in data:
     if data['printedin'] != edition.printedin:
-      old_values['printedin'] = edition.printedin
+      old_values['Painopaikka'] = edition.printedin
       printedin: Union[str, None] = bleach.clean(data['printedin'])
       if printedin == '':
         printedin = None
@@ -381,21 +381,6 @@ def EditionUpdate(params: Any) -> ResponseType:
     result = _setPubseries(session, edition, data, old_values)
     if result:
       return retval
-    # else:
-    #   pubseries_id = checkInt(data['pubseries']['id'])
-    #   if pubseries_id == None:
-    #     app.logger.error(f'EditionUpdate: Invalid pubseries id.')
-    #     return ResponseType(f'Virheellinen kustantajan sarja.', 400)
-    # if pubseries_id != edition.pubseries_id:
-    #   if pubseries_id != None:
-    #     pubseries = session.query(Pubseries).filter(Pubseries.id == pubseries_id).first()
-    #     if not pubseries:
-    #       app.logger.error(f'EditionUpdate: Pubseries not found. id={pubseries_id}')
-    #       return ResponseType(f'Kustantajan sarjaa ei löydy. id={pubseries_id}', 400)
-    #   else:
-    #     pubseries_id = None
-    #   old_values['pubseries'] = edition.pubseries.name
-    #   edition.pubseries_id = pubseries_id
 
   # Publisher's series number, not required
   if 'pubseriesnum' in data:
@@ -405,7 +390,7 @@ def EditionUpdate(params: Any) -> ResponseType:
         # Trying to set a value but it's not an integer
         app.logger.error(f'EditionUpdate: Invalid pubseriesnum.')
         return ResponseType(f'Virheellinen sarjan numero.', 400)
-      old_values['pubseriesnum'] = edition.pubseriesnum
+      old_values['Kustantajan sarjan numero'] = edition.pubseriesnum
       edition.pubseriesnum = pubseriesnum
 
   # Whether the book has a dustcover, not required
@@ -421,7 +406,7 @@ def EditionUpdate(params: Any) -> ResponseType:
          old_value = "Ei"
       else:
         old_value = "Kyllä"
-      old_values['dustcover'] = old_value
+      old_values['Kansipaperi'] = old_value
       edition.dustcover = dustcover
 
   # Whether the book has a cover image, not required.
@@ -438,13 +423,13 @@ def EditionUpdate(params: Any) -> ResponseType:
          old_value = "Ei"
       else:
         old_value = "Kyllä"
-      old_values['coverimage'] = old_value
+      old_values['Ylivetokansi'] = old_value
       edition.coverimage = coverimage
 
   # Miscellanous notes, not required
   if 'misc' in data:
     if data['misc'] != edition.misc:
-      old_values['misc'] = edition.misc
+      old_values['Muuta'] = edition.misc
       misc: Union[str, None] = bleach.clean(data['misc'])
       if misc == '':
         misc = None
@@ -453,7 +438,7 @@ def EditionUpdate(params: Any) -> ResponseType:
   # Holds string where data was originally extracted from. Also used for source.
   if 'imported_string' in data:
     if data['imported_string'] != edition.imported_string:
-      old_values['imported_string'] = edition.imported_string
+      old_values['Lähde'] = edition.imported_string
       imported_string: Union[str, None] = bleach.clean(data['imported_string'])
       if imported_string == '':
         imported_string = None
@@ -462,9 +447,9 @@ def EditionUpdate(params: Any) -> ResponseType:
   if 'verified' in data:
     if data['verified'] != edition.verified:
       if edition.verified == True:
-        old_values['verified'] = "Kyllä"
+        old_values['Tarkastettu'] = "Kyllä"
       else:
-        old_values['verified'] = "Ei"
+        old_values['Tarkastettu'] = "Ei"
       edition.verified = data["verified"]
 
   if 'contributors' in data:
@@ -473,7 +458,7 @@ def EditionUpdate(params: Any) -> ResponseType:
       if changes:
         # We check for invalid values in updateEditionContributors and only log
         # this if there were any updates.
-        old_values['contributors'] = getContributorsString(edition.contributions)
+        old_values['Tekijät'] = getContributorsString(edition.contributions)
 
   if len(old_values) == 0:
     # No changes
@@ -549,7 +534,7 @@ def EditionDelete(id: str) -> ResponseType:
     version = "1"
   else:
     version = str(edition.version)
-  old_values['edition'] = "-Painos: " + str(edition.editionnum) + ", Laitos: " + version
+  old_values['Painos'] = "-Painos: " + str(edition.editionnum) + ", Laitos: " + version
   log_id = LogChanges(session=session, obj=edition, action='Poisto',
               old_values=old_values)
   success = deleteEdition(session, editionId)  # type: ignore
@@ -602,9 +587,9 @@ def EditionImageUpload(id: str, image: FileStorage) -> ResponseType:
   file_loc = app.config['BOOKCOVER_DIR'] + filename
   if edition_image == None:
     edition_image = EditionImage(edition_id=editionId, image_src=file_loc)  # type: ignore
-    old_values['coverimage'] = None
+    old_values['Kansikuva'] = None
   else:
-    old_values['coverimage'] = edition_image.image_src
+    old_values['Kansikuva'] = edition_image.image_src
     edition_image.image_src = file_loc
   try:
     session.add(edition_image)
@@ -642,7 +627,7 @@ def EditionImageDelete(editionid: str, imageid: str) -> ResponseType:
     return ResponseType('EditionImageDelete: Kuvaa ei löydy.', 400)
 
   old_values = {}
-  old_values['coverimage'] = edition_image.image_src
+  old_values['Kansikuva'] = edition_image.image_src
   id = LogChanges(session=session, obj=edition, action='Poisto',
               old_values=old_values)
 

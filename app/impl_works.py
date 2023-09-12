@@ -29,9 +29,9 @@ def _setBookseries(session: Any, work: Work, data: Any, old_values: Union[Dict[s
         bs_id = None
         if old_values:
             if work.bookseries:
-                old_values['bookseries'] = work.bookseries.name
+                old_values['Kirjasarja'] = work.bookseries.name
             else:
-                old_values['bookseries'] = ''
+                old_values['Kirjasarja'] = ''
         if not 'id' in data['bookseries']:
             # User added a new bookseries. Front returns this as a string
             # in the bookseries field so we need to add this bookseries to
@@ -59,9 +59,9 @@ def _setDescription(work: Work, data: Any, old_values: Union[Dict[str, Any], Non
     if html_text != work.description:
         if old_values:
             if work.description:
-                old_values['description'] = work.description[0:200]
+                old_values['Kuvaus'] = work.description[0:200]
             else:
-                old_values['description'] = ''
+                old_values['Kuvaus'] = ''
         work.description = html_text
     return None
 
@@ -71,9 +71,9 @@ def _setLanguage(session: Any, work: Any, data: Any, old_values: Union[Dict[str,
         lang_id = None
         if old_values:
             if work.language_name:
-                old_values['language'] = work.language_name.name
+                old_values['Kieli'] = work.language_name.name
             else:
-                old_values['language'] = None
+                old_values['Kieli'] = None
         if not 'id' in data['language']:
             # User added a new language. Front returns this as a string
             # in the language field so we need to add this language to
@@ -105,9 +105,9 @@ def _setWorkType(work: Any, data: Any, old_values: Union[Dict[str, Any], None]) 
             if old_values:
                 if work.work_type.id != work_type_id:
                     if work.work_type:
-                        old_values['work_type'] = work.work_type.name
+                        old_values['Tyyppi'] = work.work_type.name
                     else:
-                        old_values['work_type'] = ''
+                        old_values['Tyyppi'] = ''
             work.work_type_id = work_type_id
     return None
 
@@ -562,37 +562,37 @@ def WorkUpdate(params: Any) -> ResponseType:
             if len(data['title']) == 0:
                 app.logger.error(f'WorkSave: Empty title. Id = {work_id}.')
                 return ResponseType('Tyhjä nimi', 400)
-            old_values['title'] = work.title
+            old_values['Nimeke'] = work.title
             work.title = bleach.clean(data['title'])
 
     if 'subtitle' in data:
         if data['subtitle'] != work.subtitle:
-            old_values['subtitle'] = work.subtitle
+            old_values['Alaotsikko'] = work.subtitle
             work.subtitle = bleach.clean(data['subtitle'])
 
     if 'orig_title' in data:
         if data['orig_title'] != work.orig_title:
-            old_values['orig_title'] = work.orig_title
+            old_values['Alkukielinen nimi'] = work.orig_title
             work.orig_title = bleach.clean(data['orig_title'])
 
     if 'pubyear' in data:
         if data['pubyear'] != work.pubyear:
-            old_values['pubyear'] = work.pubyear
+            old_values['Julkaisuvuosi'] = work.pubyear
             work.pubyear = checkInt(data['pubyear'])
 
     if 'bookseriesnum' in data:
         if data['bookseriesnum'] != work.bookseriesnum:
-            old_values['bookseriesnum'] = work.bookseriesnum
+            old_values['Kirjasarjan numero'] = work.bookseriesnum
             work.bookseriesnum = bleach.clean(data['bookseriesnum'])
 
     if 'bookseriesorder' in data:
         if data['bookseriesorder'] != work.bookseriesorder:
-            old_values['bookseriesorder'] = work.bookseriesorder
+            old_values['Kirjasarjan järjestys'] = work.bookseriesorder
             work.bookseriesorder = bleach.clean(data['bookseriesorder'])
 
     if 'misc' in data:
         if data['misc'] != work.misc:
-            old_values['misc'] = work.misc
+            old_values['Muuta'] = work.misc
             work.misc = bleach.clean(data['misc'])
 
     if 'description' in data:
@@ -602,12 +602,12 @@ def WorkUpdate(params: Any) -> ResponseType:
 
     if 'descr_attr' in data:
         if data['descr_attr'] != work.descr_attr:
-            old_values['descr_attr'] = work.descr_attr
+            old_values['Kuvauksen lähde'] = work.descr_attr
             work.descr_attr = bleach.clean(data['descr_attrs'])
 
     if 'imported_string' in data:
         if data['imported_string'] != work.imported_string:
-            old_values['imported_string'] = work.imported_string
+            old_values['Lähde'] = work.imported_string
             work.imported_string = bleach.clean(data['imported_string'])
 
     # Language
@@ -631,7 +631,7 @@ def WorkUpdate(params: Any) -> ResponseType:
     # Contributors
     if 'contributions' in data:
         if contributorsHaveChanged(work.contributions, data['contributions']):
-            old_values['contributions'] = getContributorsString(work.contributions)
+            old_values['Tekijät'] = getContributorsString(work.contributions)
             updateWorkContributors(session, work.id, data['contributions'])
 
     # Genres
@@ -648,8 +648,8 @@ def WorkUpdate(params: Any) -> ResponseType:
             for genre in data['genres']:
                 sg = WorkGenre(genre_id=genre['id'], work_id=work.id)
                 session.add(sg)
-            old_values['genres'] = ' -'.join([str(x) for x in to_add])
-            old_values['genres'] += ' +'.join([str(x) for x in to_remove])
+            old_values['Genret'] = ' -'.join([str(x) for x in to_add])
+            old_values['Genret'] += ' +'.join([str(x) for x in to_remove])
 
     # Tags
     if 'tags' in data:
@@ -665,8 +665,8 @@ def WorkUpdate(params: Any) -> ResponseType:
             for tag in data['tags']:
                 st = WorkTag(tag_id=tag['id'], work_id=work.id)
                 session.add(st)
-            old_values['tags'] = ' -'.join([str(x) for x in to_add])
-            old_values['tags'] += ' +'.join([str(x) for x in to_remove])
+            old_values['Asiasanat'] = ' -'.join([str(x) for x in to_add])
+            old_values['Asiasanat'] += ' +'.join([str(x) for x in to_remove])
 
     # Links
     if 'links' in data:
@@ -687,8 +687,8 @@ def WorkUpdate(params: Any) -> ResponseType:
                 sl = WorkLink(work_id=work.id, link=link['link'],
                               description=link['description'])
                 session.add(sl)
-            old_values['links'] = ' -'.join([str(x) for x in to_add])
-            old_values['links'] += ' +'.join([str(x) for x in to_remove])
+            old_values['Linkit'] = ' -'.join([str(x) for x in to_add])
+            old_values['Linkit'] += ' +'.join([str(x) for x in to_remove])
 
     # Awards
 
@@ -767,7 +767,7 @@ def WorkDelete(id: int) -> ResponseType:
             return ResponseType('WorkDelete: Tietokantavirhe', 400)
 
     try:
-        old_values['name'] = work.title
+        old_values['Nimi'] = work.title
         LogChanges(session, obj=work, action='Poisto', old_values=old_values)
         session.query(WorkGenre).filter(WorkGenre.work_id == id).delete()
         session.query(WorkTag).filter(WorkTag.work_id == id).delete()

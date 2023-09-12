@@ -105,7 +105,7 @@ def PublisherUpdate(params: Any) -> ResponseType:
                 if len(similar) > 0:
                     app.logger.error('PublisherUpdate: Name must be unique.')
                     return ResponseType('PublisherUpdate: Nimi on jo käytössä', 400)
-            old_values['name'] = publisher.name
+            old_values['Nimi'] = publisher.name
             publisher.name = data['name']
 
     if 'fullname' in changed:
@@ -121,16 +121,16 @@ def PublisherUpdate(params: Any) -> ResponseType:
                     app.logger.error(
                         'PublisherUpdate: fullname must be unique.')
                     return ResponseType('PublisherUpdate: Nimi on jo käytössä', 400)
-            old_values['fullname'] = publisher.fullname
+            old_values['Koko nimi'] = publisher.fullname
             publisher.fullname = data['fullname']
 
     if 'description' in changed:
         if changed['description'] == True:
-            old_values['description'] = publisher.description
+            old_values['Kuvaus'] = publisher.description
             publisher.description = data['description']
 
     LogChanges(session=session, obj=publisher, action='Päivitys',
-               fields=changed, old_values=old_values)
+               old_values=old_values)
 
     try:
         session.add(publisher)
