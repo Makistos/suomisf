@@ -421,7 +421,9 @@ def PersonUpdate(params: Any) -> ResponseType:
         app.logger.error(
             'Exception in PersonUpdate(): ' + str(exp))
         return ResponseType(f'PersonUpdate: Tietokantavirhe.', 400)
+
     id = LogChanges(session, obj=person, action='Päivitys', old_values=old_values)
+    session.commit()
 
     return retval
 

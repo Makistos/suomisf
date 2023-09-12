@@ -541,6 +541,7 @@ def WorkAdd(params: Any) -> ResponseType:
         return ResponseType(f'WorkAdd: Tietokantavirhe tekijänimissä. work_id={work.id}', 400)
 
     LogChanges(session, obj=work, action='Uusi')
+    session.commit()
     return ResponseType(str(work.id), 201)
 
 # Save changes to work to database

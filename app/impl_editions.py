@@ -216,6 +216,7 @@ def EditionCreate(params: Any) -> ResponseType:
     return ResponseType('EditionCreate: Tietokantavirhe.', 500)
 
   LogChanges(session, obj=edition, action='Uusi')
+  session.commit()
 
   retval = ResponseType(str(edition.id), 200)
   return retval
