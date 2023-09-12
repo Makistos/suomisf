@@ -294,7 +294,7 @@ def EditionUpdate(params: Any) -> ResponseType:
       if editionnum == None:
         app.logger.error(f'EditionUpdate: Invalid editionnum.')
         return ResponseType(f'Virheellinen painosnumero.', 400)
-      old_values['Painos'] = edition.editionnum
+      old_values['Painosnro'] = edition.editionnum
       edition.editionnum = editionnum
 
   # Version (laitos), not required
@@ -308,7 +308,7 @@ def EditionUpdate(params: Any) -> ResponseType:
         app.logger.error(f'EditionUpdate: Invalid version.')
         return ResponseType(f'Virheellinen laitos.', 400)
       # Either removing value (version=None) or setting a new one
-      old_values['Laitos'] = edition.version
+      old_values['Laitosnro'] = edition.version
       edition.version = version
 
   # ISBN, not required
