@@ -36,7 +36,7 @@ def EditionCreateFirst(work: Work) -> Edition:
 def _setPubseries(session: Any, edition: Edition, data: Any, old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
   if data['pubseries'] != edition.pubseries:
     ps_id = None
-    if old_values:
+    if old_values is not None:
       if edition.pubseries:
         old_values['Kustantajan sarja'] = edition.pubseries.name
       else:

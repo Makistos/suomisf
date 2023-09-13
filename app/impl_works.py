@@ -27,7 +27,7 @@ from app import app
 def _setBookseries(session: Any, work: Work, data: Any, old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
     if data['bookseries'] != work.bookseries:
         bs_id = None
-        if old_values:
+        if old_values is not None:
             if work.bookseries:
                 old_values['Kirjasarja'] = work.bookseries.name
             else:
@@ -57,7 +57,7 @@ def _setDescription(work: Work, data: Any, old_values: Union[Dict[str, Any], Non
         app.logger.error('WorkSave: Failed to unescape html: ' + data["description"] + '.')
         return ResponseType('Kuvauksen html-muotoilu epäonnistui', 400)
     if html_text != work.description:
-        if old_values:
+        if old_values is not None:
             if work.description:
                 old_values['Kuvaus'] = work.description[0:200]
             else:
@@ -69,7 +69,7 @@ def _setDescription(work: Work, data: Any, old_values: Union[Dict[str, Any], Non
 def _setLanguage(session: Any, work: Any, data: Any, old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
     if data['language'] != work.language:
         lang_id = None
-        if old_values:
+        if old_values is not None:
             if work.language_name:
                 old_values['Kieli'] = work.language_name.name
             else:
@@ -102,7 +102,7 @@ def _setWorkType(work: Any, data: Any, old_values: Union[Dict[str, Any], None]) 
             if work_type_id == None:
                 app.logger.error('WorkSave: Invalid work_type id.')
                 return ResponseType('WorkSave: Virheellinen teostyyppi.', 400)
-            if old_values:
+            if old_values is not None:
                 if work.work_type.id != work_type_id:
                     if work.work_type:
                         old_values['Tyyppi'] = work.work_type.name
