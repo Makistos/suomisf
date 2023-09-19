@@ -5,7 +5,9 @@ from sqlalchemy.exc import SQLAlchemyError
 from app.api_errors import APIError
 from app.route_helpers import new_session
 from app.orm_decl import (Country, Log, Genre, Language, ContributorRole,
-                          Work, Edition, ShortStory, Magazine, EditionImage)
+                          Work, Edition, ShortStory, Magazine, EditionImage,
+                          ArticleLink, BookseriesLink, EditionLink,
+                          PersonLink, PublisherLink, PubseriesLink, WorkLink)
 from app.model import *
 from marshmallow import exceptions
 from typing import Dict, NamedTuple, Tuple, List, Union, Any, TypedDict, Set
@@ -192,7 +194,7 @@ table_locals = {'article': 'Artikkeli',
                 'work': 'Teos'}
 
 
-def LogChanges(session: Any, obj: Any, action: str = 'Päivitys',
+def LogChanges(session: Any, obj: Any, name_field: str = "name", action: str = 'Päivitys',
                old_values: Dict[str, Any] = {}) -> int:
     ''' Log a change made to data.
 
@@ -207,7 +209,8 @@ def LogChanges(session: Any, obj: Any, action: str = 'Päivitys',
         fields (List[str], optional): Fields that were changed. Needed for "Päivitys", not used for "Uusi". Defaults to [].
     '''
     retval: int = 0
-    name: str = obj.name
+    #name: str = obj.name
+    name: str = getattr(obj, name_field)
     tbl_name = table_locals[obj.__table__.name]
     #old_value: Union[str, None]
 
@@ -335,6 +338,31 @@ def FilterLanguages(query: str) -> ResponseType:
 
     return ResponseType(retval, 200)
 
+def SetLanguage(session: Any, item: Any, data: Any, old_values:  Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+    if data['language'] != item.language:
+        lang_id = None
+        if old_values is not None:
+            if item.language_name:
+                old_values['Kieli'] = item.language_name.name
+            else:
+                old_values['Kieli'] = None
+        if not 'id' in data['language']:
+            # User added a new language. Front returns this as a string
+            # in the language field so we need to add this language to
+            # the database first.
+            lang_id = AddLanguage(bleach.clean(data['language']))
+        else:
+            lang_id = checkInt(data['language']['id'])
+            if lang_id != None:
+                lang = session.query(Language)\
+                    .filter(Language.id == lang_id)\
+                    .first()
+                if not lang:
+                    app.logger.error('SetLanguage: Language not found. Id = ' + str(data['language']['id']) + '.')
+                    return ResponseType('Kieltä ei löydy', 400)
+        item.language = lang_id
+    return None
+
 def AddLanguage(name: str) -> Union[int, None]:
     session = new_session()
     try:
@@ -346,6 +374,43 @@ def AddLanguage(name: str) -> Union[int, None]:
         app.logger.error(
             f'Exception in AddLanguage (name: {name}): ' + str(exp))
         return None
+
+def FilterLinkNames(query: str) -> ResponseType:
+    session = new_session()
+    try:
+        al = session.query(ArticleLink.description)\
+            .filter(ArticleLink.description.ilike(query + '%')).distinct().all()
+        bl = session.query(BookseriesLink.description)\
+            .filter(BookseriesLink.description.ilike(query + '%')).distinct().all()
+        el = session.query(EditionLink.description)\
+            .filter(EditionLink.description.ilike(query + '%')).distinct().all()
+        pel = session.query(PersonLink.description)\
+            .filter(PersonLink.description.ilike(query + '%')).distinct().all()
+        pul = session.query(PublisherLink.description)\
+            .filter(PublisherLink.description.ilike(query + '%')).distinct().all()
+        publ = session.query(PubseriesLink.description)\
+            .filter(PubseriesLink.description.ilike(query + '%')).distinct().all()
+        wl = session.query(WorkLink.description)\
+            .filter(WorkLink.description.ilike(query + '%')).distinct().all()
+    except SQLAlchemyError as exp:
+        app.logger.error(
+            f'Exception in FilterLinkNames (query: {query}): ' + str(exp))
+        return ResponseType('FilterLinkNames: Tietokantavirhe.', 400)
+
+    linkNames: List[str] = list(set([x for x in al]
+                                  + [x for x in bl]
+                                  + [x for x in el]
+                                  + [x for x in pel]
+                                  + [x for x in pul]
+                                  + [x for x in publ]
+                                  + [x for x in wl]))
+    # linkNames.sort()
+    # retval: List[Dict[str, str]] = []
+    # for ln in linkNames:
+    #     retval.append({'name': ln})
+    schema = LinkSchema(many=True)
+    retval = schema.dump(linkNames)
+    return ResponseType(retval, 200)
 
 
 def GetSelectIds(form: Any, item_field: str = 'itemId') -> Tuple[int, List[Dict[str, str]]]:

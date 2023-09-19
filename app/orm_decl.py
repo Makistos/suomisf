@@ -757,7 +757,7 @@ class Person(Base):
 
     @hybrid_property
     def workcount(self) -> int:
-        return len(self.works)
+        return len([x for x in self.works])
 
     @hybrid_property
     def storycount(self) -> int:
@@ -912,7 +912,7 @@ class ShortStory(Base):
             self._author_str = ' & '.join([x.name for x in self.authors])
         return self._author_str
 
-    @property
+    @hybrid_property
     def name(self) -> str:
         return self.title
 

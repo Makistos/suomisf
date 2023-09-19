@@ -497,6 +497,11 @@ def api_deleteEditionImage(id: str, imageid: str) -> Response:
         EditionImageDelete(id, imageid))
     return retval
 
+@app.route('/api/filter/linknames/<pattern>', methods=['get'])
+def api_FilterLinkNames(pattern: str) -> Response:
+    pattern = bleach.clean(pattern)
+    retval = FilterLinkNames(pattern)
+    return MakeApiResponse(retval)
 
 ###
 # Genre related functions
@@ -905,7 +910,7 @@ def api_roles() -> Response:
 ###
 # Story related functions
 
-@app.route('/api/shorts/', methods=['post', 'put'])
+@app.route('/api/shorts', methods=['post', 'put'])
 @jwt_admin_required() # type: ignore
 def api_ShortCreateUpdate() -> Response:
     params = bleach.clean(request.data.decode('utf-8'))
@@ -1299,7 +1304,7 @@ def api_getWork(id: str) -> Response:
     return MakeApiResponse(GetWork(work_id))
 
 
-@app.route('/api/works', methods=['post', 'put'], strict_slashes=False)
+@app.route('/api/works', methods=['post', 'put'])
 @jwt_admin_required()  # type: ignore
 def api_WorkCreateUpdate() -> Response:
     params = request.data.decode('utf-8')

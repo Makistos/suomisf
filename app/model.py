@@ -110,6 +110,10 @@ class GenreBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     abbr = fields.String()
 
 
+class LinkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    class Meta:
+        model = PersonLink
+
 class PersonBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         model = Person

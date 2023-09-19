@@ -92,6 +92,8 @@ def contributorsHaveChanged(old_values: List[Any], new_values: List[Any]) -> boo
     :param new_values: list of new contributors
     :return: boolean indicating whether or not the list of new values is different from the list of old values
     """
+    if len(old_values) != len(new_values):
+        return True
     l: Any = []
     for value in new_values:
         if 'id' not in value['person']:

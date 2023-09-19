@@ -1,7 +1,7 @@
 import bleach
 from app.route_helpers import new_session
 from app.impl import (ResponseType, SearchScores, SearchResult,
-                      SearchResultFields, searchScore, AddLanguage)
+                      SearchResultFields, searchScore, AddLanguage, SetLanguage)
 from app.orm_decl import (Contributor, Edition, Part, Work, WorkType, WorkTag,
                           WorkGenre, WorkLink, WorkTag, Person, Language, Bookseries)
 from app.model import (CountryBriefSchema, WorkBriefSchema, WorkTypeBriefSchema)
@@ -66,32 +66,6 @@ def _setDescription(work: Work, data: Any, old_values: Union[Dict[str, Any], Non
     return None
 
 
-def _setLanguage(session: Any, work: Any, data: Any, old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
-    if data['language'] != work.language:
-        lang_id = None
-        if old_values is not None:
-            if work.language_name:
-                old_values['Kieli'] = work.language_name.name
-            else:
-                old_values['Kieli'] = None
-        if not 'id' in data['language']:
-            # User added a new language. Front returns this as a string
-            # in the language field so we need to add this language to
-            # the database first.
-            lang_id = AddLanguage(bleach.clean(data['language']))
-        else:
-            lang_id = checkInt(data['language']['id'])
-            if lang_id != None:
-                lang = session.query(Language)\
-                    .filter(Language.id == lang_id)\
-                    .first()
-                if not lang:
-                    app.logger.error('WorkSave: Language not found. Id = ' + str(data['language']['id']) + '.')
-                    return ResponseType('Kieltä ei löydy', 400)
-        work.language = lang_id
-    return None
-
-
 def _setWorkType(work: Any, data: Any, old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
     if data['work_type'] is not None:
         if 'id' in data['work_type']:
@@ -120,6 +94,13 @@ def createAuthorStr(authors: List[Any], editions: List[Any]) -> str:
         retval = ' & '.join([x.name for x in editions[0].editors]) + ' (toim.)'
     return retval
 
+def _similarDescription(descr1: Union[str, None], descr2: Union[str, None]) -> bool:
+    if descr1 == '':
+        descr1 = None
+    if descr2 == '':
+        descr2 = None
+
+    return descr1 == descr2
 
 def GetWork(id: int) -> ResponseType:
     session = new_session()
@@ -141,11 +122,25 @@ def GetWork(id: int) -> ResponseType:
                 if (contribution.person_id == contributor.person_id and
                     contribution.role_id == contributor.role_id and
                     contribution.real_person_id == contributor.real_person_id and
-                    contribution.description == contributor.description):
+                    _similarDescription(contribution.description, contributor.description)):
                     already_added = True
             if not already_added:
                 contributions.append(contributor)
         work.contributions = contributions
+        contributions = []
+        for short in work.stories:
+            for contributor in short.contributors:
+                already_added = False
+                for contribution in contributions:
+                    if (contribution.person_id == contributor.person_id and
+                        contribution.role_id == contributor.role_id and
+                        contribution.real_person_id == contributor.real_person_id and
+                        _similarDescription(contribution.description, contributor.description)):
+                        already_added = True
+                if not already_added:
+                    contributions.append(contributor)
+            short.contributors = contributions
+            contributions = []
         schema = WorkSchema()
         retval = schema.dump(work)
     except exceptions.MarshmallowError as exp:
@@ -436,7 +431,7 @@ def WorkAdd(params: Any) -> ResponseType:
     work.bookseriesorder = checkInt(data['bookseriesorder'])
 
     if 'language' in data:
-        result = _setLanguage(session, work, data, None)
+        result = SetLanguage(session, work, data, None)
         if result:
             return result
     # Work type is required and defaults to 1 (book)
@@ -613,7 +608,7 @@ def WorkUpdate(params: Any) -> ResponseType:
 
     # Language
     if 'language' in data:
-        result = _setLanguage(session, work, data, old_values)
+        result = SetLanguage(session, work, data, old_values)
         if result:
             return result
 

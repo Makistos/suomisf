@@ -1,20 +1,46 @@
 import bleach
-from typing import Dict, Any
+from typing import Dict, Any, Union
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 
-from app.impl import ResponseType, checkInt, LogChanges, GetJoinChanges
+from app.impl import (ResponseType, checkInt, LogChanges, GetJoinChanges,
+                      AddLanguage, SetLanguage)
 from app.route_helpers import new_session
 from app.orm_decl import (ShortStory, StoryTag, Edition,
                           Part, Contributor, StoryType, Contributor,
-                          Genre, StoryGenre)
+                          Genre, StoryGenre, Language)
 from app.model_shortsearch import ShortSchemaForSearch
 from app.model import ShortSchema, StoryTypeSchema
-from app.impl_contributors import updateShortContributors
+from app.impl_contributors import (updateShortContributors,
+                                   contributorsHaveChanged, getContributorsString)
 
 from app import app
 
+def _setLanguage(session: Any, item: Any, data: Any, old_values:  Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+    if data['lang'] != item.language:
+        lang_id = None
+        if old_values is not None:
+            if item.lang != None:
+                old_values['Kieli'] = item.lang.name
+            else:
+                old_values['Kieli'] = None
+        if not 'id' in data['lang']:
+            # User added a new language. Front returns this as a string
+            # in the language field so we need to add this language to
+            # the database first.
+            lang_id = AddLanguage(bleach.clean(data['lang']))
+        else:
+            lang_id = checkInt(data['lang']['id'])
+            if lang_id != None:
+                lang = session.query(Language)\
+                    .filter(Language.id == lang_id)\
+                    .first()
+                if not lang:
+                    app.logger.error('SetLanguage: Language not found. Id = ' + str(data['language']['id']) + '.')
+                    return ResponseType('Kieltä ei löydy', 400)
+        item.language = lang_id
+    return None
 
 def checkStoryType(session: Any, story_type: Any) -> bool:
     st = checkInt(story_type)
@@ -149,49 +175,44 @@ def StoryUpdate(params: Any) -> ResponseType:
     story: Any = None
     retval = ResponseType('OK', 200)
     data = params['data']
-    changed = params['changed']
     short_id = checkInt(data['id'])
 
-    if len(changed) == 0:
-        # Nothing has changed
-        return ResponseType('OK', 200)
-
+    short_id = checkInt(data['id'], False, False)
     if short_id == None:
-        story = ShortStory()
-    else:
-        story = session.query(ShortStory).filter(
-            ShortStory.id == short_id).first()
+        app.logger.error(f'StoryUpdate: Invalid id: {data["id"]}.')
+        return ResponseType(f'StoryUpdate: virheellinen id {data["id"]}.', 400)
+
+    story = session.query(ShortStory).filter(
+        ShortStory.id == short_id).first()
+    if not story:
+        app.logger.error(f'StoryUpdate: Story not found. Id = {short_id}.')
+        return ResponseType(f'StoryUpdate: Novellia ei löydy. id={short_id}.', 400)
 
     # Save title
-    if 'title' in changed:
-        if changed['title'] == True:
-            if len(data['title']) == 0:
-                app.logger.error('StoryUpdate: Title is a required field.')
-                return ResponseType('StoryUpdate: Nimi on pakollinen tieto.', 400)
+    if 'title' in data:
+        if data['title'] == None or len(data['title']) == 0:
+            app.logger.error('StoryUpdate: Title is a required field.')
+            return ResponseType('StoryUpdate: Nimi on pakollinen tieto.', 400)
+        if data['title'] != story.title:
             old_values['Nimi'] = story.title
             story.title = data['title']
 
     # Save original title
-    if 'orig_title' in changed:
-        if changed['orig_title'] == True:
+    if 'orig_title' in data:
+        if data['orig_title'] != story.orig_title:
             old_values['Alkukielinen nimi'] = story.orig_title
             story.orig_title = data['orig_title']
 
     # Save original (first) publication year
-    if 'pubyear' in changed:
-        if changed['pubyear'] == True:
-            pubyear = checkInt(data['pubyear'], False, False)
-            if pubyear == None:
-                app.logger.error(
-                    f'StoryUpdate exception. Not a year: {data["pubyear"]}.')
-                return ResponseType(
-                    f'StoryUpdate: virheellinen julkaisuvuosi {data["pubyear"]}.', 400)
+    if 'pubyear' in data:
+        if data['pubyear'] != story.pubyear:
+            pubyear = checkInt(data['pubyear'])
             old_values['Julkaistu'] = story.pubyear
             story.pubyear = pubyear
 
     # Save story type
-    if 'type' in changed:
-        if changed['type'] == True:
+    if 'type' in data:
+        if data['type']['id'] != story.type.id:
             if checkStoryType(session, data['type']['id']) == False:
                 app.logger.error(
                     f'StoryUpdate exception. Not a type: {data["type"]}.')
@@ -201,28 +222,27 @@ def StoryUpdate(params: Any) -> ResponseType:
             story.story_type = data["type"]['id']
 
     # Save original language
-    if 'lang' in changed:
-        if changed['lang'] == True:
-            if data['lang'] != None:
-                language = checkInt(data['lang']['id'], True, True)
-            else:
-                language = None
-            old_values['Kieli'] = story.language.name
-            story.language = language
+    if 'lang' in data:
+        result =  _setLanguage(session, story, data, old_values)
+        if result:
+            return result
 
     try:
         session.add(story)
     except SQLAlchemyError as exp:
+        session.rollback()
         app.logger.error(f'Exception in StoryUpdate: {exp}.')
         return ResponseType(f'StoryUpdate: Tietokantavirhe.', 400)
 
     # Save contributors
-    if 'contributors' in changed:
-        updateShortContributors(
-            session, story.id, data['contributors'])
+    if 'contributors' in data:
+        if contributorsHaveChanged(story.contributors, data['contributors']):
+            updateShortContributors(
+                session, story.id, data['contributors'])
+            old_values['Tekijät'] = getContributorsString(story.contributors)
 
     # Save genres
-    if 'genres' in changed:
+    if 'genres' in data:
         existing_genres = session.query(StoryGenre)\
             .filter(StoryGenre.shortstory_id == story.id) \
             .all()
@@ -238,11 +258,12 @@ def StoryUpdate(params: Any) -> ResponseType:
         for id in to_add:
             sg = StoryGenre(genre_id=id, shortstory_id=story.id)
             session.add(sg)
-        old_values['Genret'] = ' -'.join([str(x) for x in to_add])
-        old_values['Genret'] += ' +'.join([str(x) for x in to_remove])
+        if len(to_add) > 0 or len(to_remove) > 0:
+            old_values['Genret'] = ' -'.join([str(x) for x in to_add])
+            old_values['Genret'] += ' +'.join([str(x) for x in to_remove])
 
     # Save tags
-    if 'tags' in changed:
+    if 'tags' in data:
         existing_tags = session.query(StoryTag)\
             .filter(StoryTag.shortstory_id == story.id)\
             .all()
@@ -258,10 +279,14 @@ def StoryUpdate(params: Any) -> ResponseType:
         for id in to_add:
             st = StoryTag(tag_id=id, shortstory_id=story.id)
             session.add(st)
-        old_values['Asiasanat'] = ' -'.join([str(x) for x in to_add])
-        old_values['Asiasanat'] += ' +'.join([str(x) for x in to_remove])
+        if len(to_add) > 0 or len(to_remove) > 0:
+            old_values['Asiasanat'] = ' -'.join([str(x) for x in to_add])
+            old_values['Asiasanat'] += ' +'.join([str(x) for x in to_remove])
 
-    LogChanges(session=session, obj=story, action="Päivitys",
+    if len(old_values) == 0:
+        return ResponseType('OK', 200)
+
+    LogChanges(session=session, obj=story, name_field="title", action="Päivitys",
                old_values=old_values)
 
     try:
