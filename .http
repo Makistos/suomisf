@@ -29,3 +29,38 @@ GET http://localhost:5000/api/magazines HTTP/1.1
 
 ###
 GET http://localhost:5000/api/bookseries/1 HTTP/1.1
+
+
+# Performance testing
+
+###
+GET https://www.sf-bibliografia.fi/api/people/2820 HTTP/1.1
+# 7253, 5479, 6619, 7162, 5712 / avg: 6445 / length: 1114861
+# 3012, 5157, 4228, 2952, 2966 / avg: 3663 / length: 443998
+# 3501, 3507, 4167, 3562, 3420 / avg: 3631 / length: 450411
+
+###
+GET https://www.sf-bibliografia.fi/api/people/2286 HTTP/1.1
+# 8787, 10732, 7991, 7441, 7500 / avg: 8490 / length: 1404226
+# 4586, 3871, 4257, 4256, 4895 / avg: 4373 / length: 622905
+# 4890, 5039, 5310, 4766, 4282 / avg: 4857 / length: 630262
+
+###
+GET https://www.sf-bibliografia.fi/api/people/2687 HTTP/1.1
+# 1932, 2028, 1957, 1765, 2473 / avg: 2031 / length: 275431
+# 1016, 920, 910, 972, 906 / avg: 945 / length: 110548
+# 1109, 910, 966, 998, 1148 / avg: 1026 / length: 111250
+
+###
+GET https://www.sf-bibliografia.fi/api/people/610 HTTP/1.1
+# 10819, 11105, 9656, 10926, 9635 / avg: 10428 / length: 1439022
+# 5302, 5524, 5387, 5421, 6007 / avg: 5528 / length: 699522
+# 6183, 5950, 6138, 5391, 4977 / avg: 5727 / length: 702184
+
+###
+GET http://localhost:5000/api/people/2820 HTTP/1.1
+# length: 2170647 / 387334
+
+###
+GET http://localhost:5000/api/people/1360 HTTP/1.1
+# 11490 / 4826
