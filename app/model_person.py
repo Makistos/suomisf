@@ -43,12 +43,17 @@ class PersonPageArticleSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     issue = fields.Nested(IssueBriefSchema)
     excerpt = fields.String()
 
+class PersonPageEditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    id = fields.Int()
+    title = fields.String()
+    work = fields.Nested(lambda: WorkBriefSchema(only=['id', 'title', 'orig_title']))
+
 class PersonPageEditionWorkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     id = fields.Int()
     title = fields.String()
     orig_title = fields.String()
     author_str = fields.String()
-    editions = ma.List(fields.Nested(lambda: EditionBriefSchema(
+    editions = ma.List(fields.Nested(lambda: PersonPageEditionBriefSchema(
         only=['id', 'title', 'work'])))
     genres = ma.List(fields.Nested(GenreBriefSchema))
     bookseries = fields.Nested(lambda: BookseriesBriefSchema(exclude=['works']))
@@ -98,8 +103,6 @@ class PersonPageShortBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     contributors = ma.List(fields.Nested(PersonPageContributorSchema))
 
 class PersonPageWorkBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
-    class Meta:
-        model = Work
 
     id = fields.Number()
     title = fields.String()
