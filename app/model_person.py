@@ -40,7 +40,8 @@ class PersonPageArticleSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     person = fields.String()
     author_rel = ma.List(fields.Nested(PersonPageBriefSchema))
     tags = ma.List(fields.Nested(TagBriefSchema))
-    issue = fields.Nested(IssueBriefSchema)
+    issue = fields.Nested(lambda: IssueBriefSchema(
+        only=['id', 'cover_number', 'magazine', 'year', 'number']))
     excerpt = fields.String()
 
 class PersonPageEditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -53,6 +54,7 @@ class PersonPageEditionWorkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     title = fields.String()
     orig_title = fields.String()
     author_str = fields.String()
+    pubyear = fields.Int()
     editions = ma.List(fields.Nested(lambda: PersonPageEditionBriefSchema(
         only=['id', 'title', 'work'])))
     genres = ma.List(fields.Nested(GenreBriefSchema))
@@ -70,7 +72,7 @@ class PersonPageEditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     #translators = ma.List(fields.Nested(PersonPageBriefSchema))
     pubseries = fields.Nested(PersonPagePubseriesSchema)
     work = ma.List(fields.Nested(lambda: PersonPageEditionWorkSchema(
-        only=['id', 'title', 'orig_title', 'editions', 'genres', 'bookseries',
+        only=['id', 'title', 'orig_title', 'pubyear', 'editions', 'genres', 'bookseries',
               'tags', 'contributions'])))
     #images = ma.List(fields.Nested(EditionImageBriefSchema))
     #binding = fields.Nested(BindingBriefSchema)
@@ -97,11 +99,13 @@ class PersonPageShortBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     # pubyear = fields.Int()
     #authors = ma.List(fields.Nested(PersonBriefSchema))
     type = fields.Nested(StoryTypeSchema)
-    issues = ma.List(fields.Nested(IssueBriefSchema))
+    issues = ma.List(fields.Nested(lambda: IssueBriefSchema(
+        only=['id', 'cover_number', 'magazine', 'year', 'number'])))
     editions = ma.List(fields.Nested(PersonPageEditionSchema))
     genres = ma.List(fields.Nested(GenreBriefSchema))
     contributors = ma.List(fields.Nested(PersonPageContributorSchema))
-
+    tags = ma.List(fields.Nested(TagBriefSchema))
+    language = fields.Nested(CountryBriefSchema)
 class PersonPageWorkBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 
     id = fields.Number()
