@@ -33,11 +33,18 @@ PersonSchema = {
                 "bio": {"type": ["string", "null"]},
                 "bio_src": {"type": ["string", "null"]},
                 "nationality": {
-                    "type": "object",
-                    "properties": {
-                        "id": {"type": ["integer", "null"]},
-                        "name": {"type": "string"},
+                  "anyOf": [
+                    {
+                        "type": "object",
+                        "properties": {
+                            "id": {"type": ["integer", "null"]},
+                            "name": {"type": "string"},
+                        }
                     },
+                    {
+                      "type": "string"
+                    }
+                  ]
                 },
                 "links": {
                     "type": "array",

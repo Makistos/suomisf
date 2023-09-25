@@ -82,13 +82,14 @@ def _setNationality(session: Any, person: Person, data: Any, old_values: Union[D
             nat_id = AddCountry(bleach.clean(data['nationality']))
     else:
         nat_id = checkInt(data['nationality']['id'], zerosAllowed=False, negativeValuesAllowed=False)
-    if nat_id != person.nationality.id:
-        if old_values:
+    if nat_id != person.nationality_id:
+        if old_values is not None:
             if person.nationality:
                 old_values['Kansallisuus'] = person.nationality.name
             else:
                 old_values['Kansallisuus'] = ''
         if nat_id != None:
+            # Check that nationality exists
             nat = session.query(Country).filter(Country.id == nat_id).first()
             if nat:
                 nat_id = nat.id
