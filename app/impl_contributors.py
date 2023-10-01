@@ -53,9 +53,11 @@ def _createNewContributors(session: Any, contributors: Any) -> List[Any]:
     return retval
 
 def _updatePartContributors(session: Any, part_id: int, contributors: Any) -> None:
+    """ Update the contributors of a part for works."""
     # Remove existing rows from table.
     session.query(Contributor).filter(
         Contributor.part_id == part_id)\
+        .filter(or_(Contributor.role_id == 1, Contributor.role_id == 3))\
         .delete()
     for contrib in contributors:
         new_contributor = Contributor(
@@ -92,6 +94,7 @@ def contributorsHaveChanged(old_values: List[Any], new_values: List[Any]) -> boo
     :param new_values: list of new contributors
     :return: boolean indicating whether or not the list of new values is different from the list of old values
     """
+    old_values = _removeDuplicates(old_values)
     if len(old_values) != len(new_values):
         return True
     l: Any = []
@@ -103,7 +106,6 @@ def contributorsHaveChanged(old_values: List[Any], new_values: List[Any]) -> boo
             # Remove empty rows (person and role are required fields)
             continue
         l.append(value)
-    old_values = _removeDuplicates(old_values)
     if len(old_values) != len(l):
         return True
     for idx, old_value in enumerate(old_values):
