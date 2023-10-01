@@ -52,7 +52,7 @@ def MakeApiResponse(response: ResponseType) -> Response:
     if response.status >= 400 and response.status <= 511:
         return MakeAPIError(response)
 
-    return Response(response=list(json.dumps(response.response)),
+    return Response(response=json.dumps(response.response),
                     status=response.status,
                     mimetype=default_mimetype)
 

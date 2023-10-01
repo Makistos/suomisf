@@ -673,6 +673,14 @@ class Person(Base):
                             Part.shortstory_id == None)',
                          order_by='Work.title',
                          uselist=True, viewonly=True)
+    work_contributions = relationship("Work",
+                         secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
+                         primaryjoin='and_(Person.id == Contributor.person_id,\
+                            Contributor.part_id == Part.id,\
+                            Part.work_id == Work.id,\
+                            Part.shortstory_id == None)',
+                         order_by='Work.title',
+                         uselist=True, viewonly=True)
     # all_works = relationship("Work",
     #                      secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
     #                      primaryjoin='and_\
@@ -720,6 +728,15 @@ class Person(Base):
                                     Part.shortstory_id == None)',
                                 order_by='Edition.title',
                                 uselist=True, viewonly=True)
+    editions = relationship("Edition",
+                                secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
+                                primaryjoin='and_(Person.id == Contributor.person_id,\
+                                    Contributor.part_id == Part.id,\
+                                    Part.edition_id == Edition.id,\
+                                    Part.shortstory_id == None)',
+                                order_by='Edition.title',
+                                uselist=True, viewonly=True)
+
     # foreign_keys=[Contributor.person_id, Contributor.part_id, Contributor.role_id])
     chief_editor = relationship(
         'Issue', secondary='issueeditor', uselist=True, viewonly=True)
