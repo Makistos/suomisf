@@ -42,7 +42,7 @@ PersonSchema = {
                         }
                     },
                     {
-                      "type": "string"
+                      "type": ["string", "null"]
                     }
                   ]
                 },

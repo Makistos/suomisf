@@ -75,19 +75,20 @@ def _filter_person_query(table: Any,
 
 
 def _setNationality(session: Any, person: Person, data: Any, old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
-    nat_id = None
-    if not 'id' in data['nationality']:
-        if data['nationality'] != '' and data['nationality'] != None:
-            # Add new nationality to db
-            nat_id = AddCountry(bleach.clean(data['nationality']))
-    else:
-        nat_id = checkInt(data['nationality']['id'], zerosAllowed=False, negativeValuesAllowed=False)
-    if nat_id != person.nationality_id:
+    if data['nationality'] != person.nationality:
+        nat_id = None
         if old_values is not None:
             if person.nationality:
                 old_values['Kansallisuus'] = person.nationality.name
             else:
                 old_values['Kansallisuus'] = ''
+        if not 'id' in data['nationality'] and data['nationality'] != '':
+                # Add new nationality to db
+                nat_id = AddCountry(bleach.clean(data['nationality']))
+        elif data['nationality'] == '':
+            nat_id = None
+        else:
+            nat_id = checkInt(data['nationality']['id'], zerosAllowed=False, negativeValuesAllowed=False)
         if nat_id != None:
             # Check that nationality exists
             nat = session.query(Country).filter(Country.id == nat_id).first()

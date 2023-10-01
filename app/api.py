@@ -661,7 +661,7 @@ def api_CreateUpdatePerson() -> Response:
     try:
         validate(instance=params, schema=PersonSchema)
     except jsonschema.exceptions.ValidationError as exp:
-        app.logger.error('api_CreateUpdatePerson: Invalid JSON.')
+        app.logger.error('api_CreateUpdatePerson: Invalid JSON {exp}.')
         response = ResponseType('api_CreateUpdatePerson: Virheelliset parametrit.', 400)
         return MakeApiResponse(response)
     if request.method == 'POST':
