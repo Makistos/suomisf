@@ -131,12 +131,21 @@ class PersonBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     storycount = fields.Function(lambda obj: len([x.id for x in obj.stories]))
 
 
+class WorkContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    class Meta:
+        model = Contributor
+    person = fields.Nested(PersonBriefSchema(only=('id', 'name', 'alt_name')))
+    role = fields.Nested(ContributorRoleSchema)
+    description = fields.String()
+    real_person = fields.Nested(lambda: PersonBriefSchema(only=('id', 'name')))
+
 class WorkEditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         model = Edition
 
     editors = ma.List(fields.Nested(PersonBriefSchema))
     translators = ma.List(fields.Nested(PersonBriefSchema))
+    contributions = ma.List(fields.Nested(WorkContributorSchema))
     images = ma.List(fields.Nested(EditionImageBriefSchema))
     publisher = fields.Nested(lambda: PublisherSchema(only=('id', 'name')))
 
@@ -146,14 +155,6 @@ class WorkTypeBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         model = WorkType
     id = fields.Int()
     name = fields.String()
-
-class WorkContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
-    class Meta:
-        model = Contributor
-    person = fields.Nested(PersonBriefSchema(only=('id', 'name', 'alt_name')))
-    role = fields.Nested(ContributorRoleSchema)
-    description = fields.String()
-    real_person = fields.Nested(lambda: PersonBriefSchema(only=('id', 'name')))
 
 class WorkBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:

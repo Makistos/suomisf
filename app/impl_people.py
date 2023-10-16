@@ -4,11 +4,14 @@ from app import app
 from app.route_helpers import new_session
 from app.model import (PersonBriefSchema)
 from app.model_person import (PersonSchema)
+from app.model import (ShortBriefSchema)
 from app.orm_decl import (Person, PersonTag)
 from sqlalchemy.exc import SQLAlchemyError
 from app.orm_decl import (Alias, Country, ContributorRole, Work, Contributor,
                           PersonLink, Awarded, PersonLanguage, PersonTag,
-                          IssueEditor, ArticlePerson, ArticleAuthor, PersonLink)
+                          IssueEditor, ArticlePerson, ArticleAuthor, PersonLink,
+                          ShortStory, Part, Contributor, ContributorRole,
+                          IssueContent)
 from app.impl import (ResponseType, SearchResult, LogChanges,
                       SearchResultFields, searchScore)
 from collections import Counter
@@ -613,3 +616,42 @@ def SearchPeople(session: Any, searchwords: List[str]) -> SearchResult:
         retval = [value for _, value in found_people.items()]
 
     return retval
+
+def PersonShorts(id: int) -> ResponseType:
+    """ Get shorts written by person
+    """
+    session = new_session()
+
+    try:
+        shorts = session.query(ShortStory)\
+            .join(Part)\
+            .filter(Part.shortstory_id == ShortStory.id)\
+            .join(Contributor)\
+            .filter(Contributor.part_id == Part.id, Contributor.role_id == 1)\
+            .distinct()\
+            .all()
+        ashorts = session.query(ShortStory)\
+            .join(IssueContent)\
+            .filter(ShortStory.id == IssueContent.shortstory_id)\
+            .join(Part)\
+            .filter(IssueContent.shortstory_id == Part.id)\
+            .join(Contributor)\
+            .filter(Part.id == Contributor.part_id)\
+            .filter(Contributor.person_id == id)\
+            .filter(Contributor.role_id == 1)\
+            .distinct()\
+            .all()
+
+        #shorts = {...shorts, ...ashorts}
+
+    except SQLAlchemyError as exp:
+        app.logger.error(
+            'Exception in PersonShorts(): ' + str(exp))
+        return ResponseType(f'PersonShorts: Tietokantavirhe.', 400)
+    try:
+        schema = ShortBriefSchema(many=True)
+        retval = schema.dump(shorts)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error('PersonShorts schema error: ' + str(exp))
+        return ResponseType('PersonShorts: Skeemavirhe.', 400)
+    return ResponseType(retval, 200)

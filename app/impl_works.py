@@ -3,8 +3,10 @@ from app.route_helpers import new_session
 from app.impl import (ResponseType, SearchScores, SearchResult,
                       SearchResultFields, searchScore, AddLanguage, SetLanguage)
 from app.orm_decl import (Contributor, Edition, Part, Work, WorkType, WorkTag,
-                          WorkGenre, WorkLink, WorkTag, Person, Language, Bookseries)
-from app.model import (CountryBriefSchema, WorkBriefSchema, WorkTypeBriefSchema)
+                          WorkGenre, WorkLink, WorkTag, Person, Language, Bookseries,
+                          ShortStory)
+from app.model import (CountryBriefSchema, WorkBriefSchema, WorkTypeBriefSchema,
+                       ShortBriefSchema)
 from app.model import WorkSchema
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
@@ -309,7 +311,7 @@ def SearchWorksByAuthor(params: Dict[str, str]) -> ResponseType:
     try:
         works = session.query(Work)\
             .filter(Work.author_str.ilike(params['letter'] + '%'))\
-            .order_by(Work.author_str)
+            .order_by(Work.author_str).all()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in SearchWorksByAuthor: ' + str(exp))
         return ResponseType(f'SearchWorksByAuthor: Tietokantavirhe. id={id}', 400)
@@ -782,3 +784,19 @@ def WorkDelete(id: int) -> ResponseType:
         return ResponseType('WorkDelete: Tietokantavirhe', 400)
 
     return ResponseType('WorkDelete: Teos poistettu', 200)
+
+def GetWorkShorts(id: int) -> ResponseType:
+    session = new_session()
+    try:
+        shorts = session.query(ShortStory)\
+            .join(Part)\
+            .filter(Part.work_id == id)\
+            .filter(Part.shortstory_id == ShortStory.id)\
+            .distinct()\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'Exception in WorkShorts(): {str(exp)}')
+        return ResponseType('WorkShorts: Tietokantavirhe', 400)
+    schema = ShortBriefSchema(many=True)
+    retval = schema.dump(shorts)
+    return ResponseType(retval, 200)

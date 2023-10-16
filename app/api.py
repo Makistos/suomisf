@@ -776,6 +776,18 @@ def api_DeletePerson(person_id: str) -> Response:
     return MakeApiResponse(PersonDelete(id))
 
 
+@app.route('/api/people/shorts/<id>', methods=['get'])
+def api_ListShorts(id: int) -> Response:
+    try:
+        peron_id = int(id)
+    except (TypeError, ValueError) as exp:
+        app.logger.error(f'api_ListShorts: Invalid id {id}.')
+        response = ResponseType(
+            f'api_ListShorts: Virheellinen tunniste {id}.', 400)
+        return MakeApiResponse(response)
+    return MakeApiResponse(PersonShorts(id))
+
+
 @app.route('/api/person/<id>/tags/<tagid>', methods=['put', 'delete'])
 @jwt_admin_required()  # type: ignore
 def api_tagToPerson(id: int, tagid: int) -> Response:
@@ -1346,6 +1358,16 @@ def api_WorkDelete(id: str) -> Response:
         return MakeApiResponse(ResponseType(f'Virheellinen tunniste: {id}.', 400))
 
     return MakeApiResponse(WorkDelete(work_id))
+
+@app.route('/api/works/shorts/<id>', methods=['get'])
+def api_WorkShorts(id: int) -> Response:
+    try:
+        work_id = int(id)
+    except (TypeError, ValueError) as exp:
+        app.logger.error(f'api_WorkShorts: Invalid id {id}.')
+        response = ResponseType(f'Virheellinen tunniste: {id}.', 400)
+        return MakeApiResponse(response)
+    return MakeApiResponse(GetWorkShorts(work_id))
 
 @app.route('/api/worktypes', methods=['get'])
 def api_WorkTypes() -> Response:
