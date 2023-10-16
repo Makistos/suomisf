@@ -7,6 +7,7 @@ from app.orm_decl import (Contributor, Edition, Part, Work, WorkType, WorkTag,
                           ShortStory)
 from app.model import (CountryBriefSchema, WorkBriefSchema, WorkTypeBriefSchema,
                        ShortBriefSchema)
+from app.model_bookindex import (BookIndexSchema)
 from app.model import WorkSchema
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
@@ -317,7 +318,8 @@ def SearchWorksByAuthor(params: Dict[str, str]) -> ResponseType:
         return ResponseType(f'SearchWorksByAuthor: Tietokantavirhe. id={id}', 400)
 
     try:
-        schema = WorkBriefSchema(many=True)
+        #schema = WorkBriefSchema(many=True)
+        schema = BookIndexSchema(many=True)
         retval = schema.dump(works)
     except exceptions.MarshmallowError as exp:
         app.logger.error('SearchWorksByAuthor schema error: ' + str(exp))
