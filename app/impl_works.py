@@ -20,12 +20,12 @@ from app.impl_contributors import (update_work_contributors,
                                    get_contributors_string,
                                    has_contribution_role)
 from app.impl_genres import genresHaveChanged
-from app.impl_tags import tagsHaveChanged
+from app.impl_tags import tags_have_changed
 from app.impl_links import linksHaveChanged
-from app.impl_editions import EditionCreateFirst
+from app.impl_editions import create_first_edition
 from app.impl_genres import checkGenreField
-from app.impl_editions import deleteEdition
-from app.impl_bookseries import AddBookseries
+from app.impl_editions import delete_edition
+from app.impl_bookseries import add_bookseries
 
 from app import app
 
@@ -56,7 +56,7 @@ def _set_bookseries(
             # User added a new bookseries. Front returns this as a string
             # in the bookseries field so we need to add this bookseries to
             # the database first.
-            bs_id = AddBookseries(bleach.clean(data['bookseries']))
+            bs_id = add_bookseries(bleach.clean(data['bookseries']))
         else:
             bs_id = check_int(data['bookseries']['id'], zeros_allowed=False,
                               negative_values=False)
@@ -601,7 +601,7 @@ def work_add(params: Any) -> ResponseType:
                              work_id={work.id}', 400)
 
     # Add first edition (requires work id)
-    new_edition = EditionCreateFirst(work)
+    new_edition = create_first_edition(work)
     try:
         session.add(new_edition)
         session.commit()
@@ -738,7 +738,8 @@ def work_update(
     if 'bookseriesorder' in data:
         if data['bookseriesorder'] != work.bookseriesorder:
             old_values['Kirjasarjan järjestys'] = work.bookseriesorder
-            work.bookseriesorder = bleach.clean(data['bookseriesorder'])
+            work.bookseriesorder = bleach.clean(
+                str(data['bookseriesorder']))
 
     if 'misc' in data:
         if data['misc'] != work.misc:
@@ -805,7 +806,7 @@ def work_update(
 
     # Tags
     if 'tags' in data:
-        if tagsHaveChanged(work.tags, data['tags']):
+        if tags_have_changed(work.tags, data['tags']):
             existing_tags = session.query(WorkTag)\
                 .filter(WorkTag.work_id == work_id)\
                 .all()
@@ -836,8 +837,8 @@ def work_update(
                     session.delete(link)
             for link in new_links:
                 if 'link' not in link:
-                    app.logger.error('WorkUpdate: Link missing address.')
-                    return ResponseType('WorkUpdate: Linkin tiedot \
+                    app.logger.error('work_update: Link missing address.')
+                    return ResponseType('work_update: Linkin tiedot \
                                         puutteelliset', 400)
                 sl = WorkLink(work_id=work.id, link=link['link'],
                               description=link['description'])
@@ -941,7 +942,7 @@ def work_delete(work_id: int) -> ResponseType:
         app.logger.error(f'Exception in WorkDelete() deleting editions: {exp}')
         return ResponseType('WorkDelete: Tietokantavirhe', 400)
     for edition in editions:
-        success = deleteEdition(session, edition.id)
+        success = delete_edition(session, edition.id)
         if not success:
             session.rollback()
             return ResponseType('WorkDelete: Tietokantavirhe', 400)
