@@ -1,9 +1,10 @@
+""" Functions related to users. """
 import json
-from typing import Dict, Tuple
+from typing import Dict
 from flask.wrappers import Response
+from flask import make_response, jsonify
 from flask_jwt_extended import (create_access_token, create_refresh_token,
                                 get_jwt_identity)
-from flask import make_response, jsonify
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.route_helpers import new_session
@@ -14,25 +15,48 @@ from app import app
 
 
 def create_token(username: str) -> Response:
+    """
+    Creates a token for the given username.
+
+    Args:
+        username (str): The username for which to create the token.
+
+    Returns:
+        Response: The response containing the access token, refresh token,
+                  user name, role, and user ID. If the login fails, a response
+                  with a code of 401 and an error message is returned.
+    """
     session = new_session()
     user = session.query(User).filter(User.name == username).first()
     token = user.validate_user(user.password_hash)
     if token:
         if user.is_admin:
             role = 'admin'
-            access_token = create_access_token(identity=str(user.id), additional_claims={"is_administrator": True, "role": "admin", "name": user.name})
+            access_token = create_access_token(
+                identity=str(user.id),
+                additional_claims={"is_administrator": True,
+                                   "role": "admin",
+                                   "name": user.name})
         elif user.name == 'demo_admin':
             role = 'demo_admin'
-            access_token = create_access_token(identity=str(user.id), additional_claims={"is_administrator": True, "role": "demo_admin", "name": user.name})
+            access_token = create_access_token(
+                identity=str(user.id),
+                additional_claims={"is_administrator": True,
+                                   "role": "demo_admin",
+                                   "name": user.name})
         else:
             role = 'user'
-            access_token = create_access_token(identity=str(user.id), additional_claims={"is_administrator": False, "role": "user", "name": user.name})
-        refresh_token = create_refresh_token(identity=str(user.id))
+            access_token = create_access_token(
+                identity=str(user.id),
+                additional_claims={"is_administrator": False,
+                                   "role": "user",
+                                   "name": user.name})
+        refreshtoken = create_refresh_token(identity=str(user.id))
         data = jsonify(access_token=access_token,
-                        refresh_token=refresh_token,
-                        user=user.name,
-                        role=role,
-                        id=user.id)
+                       refresh_token=refreshtoken,
+                       user=user.name,
+                       role=role,
+                       id=user.id)
         resp = make_response(data, 200)
         resp.headers['Content-Type'] = 'application/json'
         return resp
@@ -42,10 +66,23 @@ def create_token(username: str) -> Response:
         json.dumps({'code': 401,
                     'message': 'Kirjautuminen ei onnistunut'}), 401)
 
-def LoginUser(options: Dict[str, str]) -> Response:
+
+def login_user(options: Dict[str, str]) -> Response:
+    """
+    Logs in a user with the provided options.
+
+    Args:
+        options (Dict[str, str]): A dictionary containing the user's login
+                                  options.
+            - 'username' (str): The username of the user.
+            - 'password' (str): The password of the user.
+
+    Returns:
+        Response: The response containing the token for the logged-in user.
+    """
     session = new_session()
     name = options['username']
-    password = options['password']
+    # password = options['password']
 
     user = session.query(User).filter(User.name == name).first()
 
@@ -53,46 +90,80 @@ def LoginUser(options: Dict[str, str]) -> Response:
     return resp
 
 
-def RefreshToken(options: Dict[str, str]) -> Response:
+def refresh_token(options: Dict[str, str]) -> Response:
+    """
+    Refreshes the access token and returns a response.
+
+    Args:
+        options (Dict[str, str]): A dictionary containing options for
+                                  refreshing the token.
+
+    Returns:
+        Response: The response object containing the access token and other
+                  information.
+    """
     session = new_session()
     userid = get_jwt_identity()
     user = session.query(User).filter_by(id=userid).first()
     if not user or user.name != options['username']:
         return make_response(
             json.dumps({'code': 401,
-                        'message': f'Tuntematon käyttäjä {options["username"]}'}), 401)
+                        'message': f'Tuntematon käyttäjä \
+                            {options["username"]}'}), 401)
     if user.is_admin:
         role = 'admin'
-        access_token = create_access_token(identity=str(user.id), additional_claims={"is_administrator": True, "role": "admin", "name": user.name})
+        access_token = create_access_token(
+            identity=str(user.id),
+            additional_claims={"is_administrator": True,
+                               "role": "admin",
+                               "name": user.name})
     elif user.name == 'demo_admin':
         role = 'admin'
-        access_token = create_access_token(identity=str(user.id), additional_claims={"is_administrator": True, "role": "demo_admin", "name": user.name})
+        access_token = create_access_token(
+            identity=str(user.id),
+            additional_claims={"is_administrator": True,
+                               "role": "demo_admin",
+                               "name": user.name})
     else:
         role = 'user'
-        access_token = create_access_token(identity=str(user.id), additional_claims={"is_administrator": False, "role": "user", "name": user.name})
-    refresh_token = create_refresh_token(identity=str(user.id))
+        access_token = create_access_token(
+            identity=str(user.id),
+            additional_claims={"is_administrator": False,
+                               "role": "user",
+                               "name": user.name})
+    refreshtoken = create_refresh_token(identity=str(user.id))
     data = jsonify(access_token=access_token,
-                    refresh_token=refresh_token,
-                    user=user.name,
-                    role=role,
-                    id=user.id)
+                   refresh_token=refreshtoken,
+                   user=user.name,
+                   role=role,
+                   id=user.id)
     resp = make_response(data, 200)
     return resp
 
 
-def GetUser(id: int) -> ResponseType:
+def get_user(user_id: int) -> ResponseType:
+    """
+    Retrieves a user from the database based on the specified user ID.
+
+    Parameters:
+        user_id (int): The ID of the user to retrieve.
+
+    Returns:
+        ResponseType: The response object containing the user data if found, or
+                      an error message if not found or an exception occurred.
+    """
     session = new_session()
     try:
         user = session.query(User)\
-            .filter(User.id == id)\
+            .filter(User.id == user_id)\
             .first()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in GetUser: ' + str(exp))
-        return ResponseType(f'GetUser: Tietokantavirhe. id={id}', 400)
+        return ResponseType(f'GetUser: Tietokantavirhe. id={user_id}', 400)
 
     if not user:
-        app.logger.error(f'GetUser: Unknown user {id}.')
-        return ResponseType(f'Käyttäjää ei löytynyt. id={id}.', 400)
+        app.logger.error(f'GetUser: Unknown user {user_id}.')
+        return ResponseType(f'Käyttäjää ei löytynyt. id={user_id}.', 400)
 
     try:
         schema = UserSchema()
@@ -104,7 +175,15 @@ def GetUser(id: int) -> ResponseType:
     return ResponseType(retval, 200)
 
 
-def ListUsers() -> ResponseType:
+def list_users() -> ResponseType:
+    """
+    Retrieves a list of all users from the database.
+
+    Returns:
+        ResponseType: The response object containing the list of users if
+                      successful, or an error message and status code if an
+                      error occurs.
+    """
     session = new_session()
 
     try:
