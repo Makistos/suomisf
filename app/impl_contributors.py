@@ -1,12 +1,15 @@
+""" Contributor related functions."""
 from typing import Any, Dict, Union, List
-from app.orm_decl import (Part, Contributor, Edition)
 from sqlalchemy import and_, or_
-from app.impl import checkInt
+from sqlalchemy.exc import SQLAlchemyError
+
+from app.orm_decl import (Part, Contributor, Edition)
+from app.impl import check_int
 from app import app
-from app.route_helpers import new_session
 from app.orm_decl import Person
 
-def _createNewPerson(session: Any, contrib: Any) -> Union[Person, None]:
+
+def _create_new_person(session: Any, contrib: Any) -> Union[Person, None]:
     """
     Create a new person and add it to the database.
 
@@ -17,8 +20,9 @@ def _createNewPerson(session: Any, contrib: Any) -> Union[Person, None]:
     person = Person()
     # Check if this person already exists somehow
     try:
-        existing_person: Person = session.query(Person).filter(Person.name == contrib['person']).first()
-    except Exception as exp:
+        existing_person: Person = session.query(Person)\
+            .filter(Person.name == contrib['person']).first()
+    except SQLAlchemyError as exp:
         app.logger.error('_createNewPerson: ' + str(exp))
         return None
     if existing_person:
@@ -28,31 +32,49 @@ def _createNewPerson(session: Any, contrib: Any) -> Union[Person, None]:
     session.add(person)
     try:
         session.commit()
-    except Exception as exp:
+    except SQLAlchemyError as exp:
         app.logger.error('_createNewPerson: ' + str(exp))
         session.rollback()
         return None
     return person
 
 
-def _createNewContributors(session: Any, contributors: Any) -> List[Any]:
+def _create_new_contributors(session: Any, contributors: Any) -> List[Any]:
+    """
+    Create new contributors based on the provided session and contributors
+    list.
+
+    Args:
+        session (Any): The session object for the database connection.
+        contributors (Any): The list of contributors.
+
+    Returns:
+        List[Any]: The list of new contributors created.
+
+    """
     retval: List[Any] = []
     person: Union[Person, None] = None
     for contrib in contributors:
         person = None
         if 'id' not in contrib['person']:
-            person = _createNewPerson(session, contrib)
+            person = _create_new_person(session, contrib)
         else:
-            person = session.query(Person).filter(Person.id == contrib['person']['id']).first()
+            person = session.query(Person)\
+                .filter(Person.id == contrib['person']['id']).first()
             if not person:
-                person = _createNewPerson(session, contrib)
+                person = _create_new_person(session, contrib)
         if person:
-            contrib = {'person': {'id': person.id}, 'role': contrib['role'], 'description': contrib['description']}
+            contrib = {'person': {'id': person.id}, 'role': contrib['role'],
+                       'description': contrib['description']}
             retval.append(contrib)
 
     return retval
 
-def _updatePartContributors(session: Any, part_id: int, contributors: Any) -> None:
+
+def _update_part_contributors(
+        session: Any,
+        part_id: int,
+        contributors: Any) -> None:
     """ Update the contributors of a part for works."""
     # Remove existing rows from table.
     session.query(Contributor).filter(
@@ -69,7 +91,8 @@ def _updatePartContributors(session: Any, part_id: int, contributors: Any) -> No
         #     new_contributor.real_person.id = contrib['real_person'].id,
         session.add(new_contributor)
 
-def _removeDuplicates(contributors: List[Any]) -> List[Any]:
+
+def _remove_duplicates(contributors: List[Any]) -> List[Any]:
     """
     Remove duplicate contributors from the list. This happens with a work
     if it has multiple editions. They can not be removed with the distinct
@@ -80,21 +103,31 @@ def _removeDuplicates(contributors: List[Any]) -> List[Any]:
     for contrib in contributors:
         found = False
         for contrib2 in retval:
-            if contrib.person_id == contrib2.person_id and contrib.role_id == contrib2.role_id \
-                and contrib.description == contrib2.description:
+            if (contrib.person_id == contrib2.person_id and
+                    contrib.role_id == contrib2.role_id and
+                    contrib.description == contrib2.description):
                 found = True
         if not found:
             retval.append(contrib)
     return retval
 
-def contributorsHaveChanged(old_values: List[Any], new_values: List[Any]) -> bool:
+
+def contributors_have_changed(
+        old_values: List[Any],
+        new_values: List[Any]) -> bool:
     """
-    Returns a boolean indicating whether or not the list of new values is different from the list of old values
-    :param old_values: list of previous contributors
-    :param new_values: list of new contributors
-    :return: boolean indicating whether or not the list of new values is different from the list of old values
+    Returns a boolean indicating whether or not the list of new values is
+    different from the list of old values.
+
+    Args:
+        old_values (List[Any]): list of previous contributors
+        new_values(List[Any]): list of new contributors
+
+    Returns:
+        boolean: indicating whether or not the list of new values is
+        different from the list of old values.
     """
-    old_values = _removeDuplicates(old_values)
+    old_values = _remove_duplicates(old_values)
     if len(old_values) != len(new_values):
         return True
     l: Any = []
@@ -116,14 +149,29 @@ def contributorsHaveChanged(old_values: List[Any], new_values: List[Any]) -> boo
     return False
 
 
-def updateShortContributors(session: Any, short_id: int, contributors: Any) -> None:
+def update_short_contributors(
+        session: Any,
+        short_id: int, contributors: Any) -> None:
+    """
+    Update the short contributors for a given short ID.
+
+    Args:
+        session (Any): The session object for database operations.
+        short_id (int): The ID of the short story.
+        contributors (Any): The contributors object.
+
+    Returns:
+        None: This function does not return anything.
+    """
     parts = session.query(Part).filter(Part.shortstory_id == short_id).all()
-    contributors = _createNewContributors(session, contributors)
+    contributors = _create_new_contributors(session, contributors)
     for part in parts:
-        _updatePartContributors(session, part.id, contributors)
+        _update_part_contributors(session, part.id, contributors)
 
 
-def updateEditionContributors(session: Any, edition: Edition, contributors: Any) -> bool:
+def update_edition_contributors(
+        session: Any,
+        edition: Edition, contributors: Any) -> bool:
     """
     Updates the contributors for the given edition in the database.
 
@@ -146,27 +194,22 @@ def updateEditionContributors(session: Any, edition: Edition, contributors: Any)
     retval = False
     parts = session.query(Part)\
         .filter(Part.edition_id == edition.id)\
-        .filter(Part.shortstory_id == None)\
+        .filter(Part.shortstory_id is not None)\
         .all()
     # Create new contributors if needed
-    contributors = _createNewContributors(session, contributors)
+    contributors = _create_new_contributors(session, contributors)
     for part in parts:
         # First delete contributors that are not author or editor
         session.query(Contributor)\
-        .filter(Contributor.part_id == part.id)\
-        .filter(and_(Contributor.role_id != 1, Contributor.role_id != 3))\
-        .delete()
+            .filter(Contributor.part_id == part.id)\
+            .filter(and_(Contributor.role_id != 1, Contributor.role_id != 3))\
+            .delete()
         # Then add the new contributors
         for contrib in contributors:
-            # if 'person' in contrib and 'id' in contrib['person']:
-            #     person_id = checkInt(contrib['person']['id'], negativeValuesAllowed=False, zerosAllowed=False)
-            # else:
-            #     person_id = None
-            #     app.logger.error('Missing or invalid person id.')
-            #     continue
             person_id = contrib['person']['id']
             if 'role' in contrib and 'id' in contrib['role']:
-                role_id = checkInt(contrib['role']['id'], negativeValuesAllowed=False, zerosAllowed=False)
+                role_id = check_int(contrib['role']['id'],
+                                    negative_values=False, zeros_allowed=False)
             else:
                 role_id = None
                 app.logger.error('Missing or invalid role id.')
@@ -175,7 +218,7 @@ def updateEditionContributors(session: Any, edition: Edition, contributors: Any)
                 description = contrib['description']
             else:
                 description = None
-            new_contributor = Contributor( # type: ignore
+            new_contributor = Contributor(  # type: ignore
                 part_id=part.id,
                 person_id=person_id,
                 role_id=role_id,
@@ -185,7 +228,10 @@ def updateEditionContributors(session: Any, edition: Edition, contributors: Any)
     return retval
 
 
-def updateWorkContributors(session: Any, work_id: int, contributors: Any) -> bool:
+def update_work_contributors(
+        session: Any,
+        work_id: int,
+        contributors: Any) -> bool:
     """
     Updates the contributors of a work in the database.
 
@@ -197,33 +243,34 @@ def updateWorkContributors(session: Any, work_id: int, contributors: Any) -> boo
     retval = False
     parts = session.query(Part)\
         .filter(Part.work_id == work_id)\
-        .filter(Part.shortstory_id == None)\
+        .filter(Part.shortstory_id is not None)\
         .all()
     # Create new contributors if needed
-    contributors = _createNewContributors(session, contributors)
+    contributors = _create_new_contributors(session, contributors)
     for part in parts:
-        _updatePartContributors(session, part.id, contributors)
+        _update_part_contributors(session, part.id, contributors)
 
     return retval
 
 
-def getContributorsString(contributors: Any) -> str:
+def get_contributors_string(contributors: Any) -> str:
     """ Return a string representation of contributors.
         @param contributors: List of Contributor objects
         @return: String representation of contributors
     """
     retval = []
     for contrib in contributors:
-        str = ''
+        s = ''
         if contrib.role_id != 1 or contrib.role_id != 3:
-            str += contrib.person.name + ' [' + contrib.role.name
-            if contrib.description != None and contrib.description != '':
-               str+= '(' + contrib.description + ')'
-            str += ']'
-        retval.append(str)
+            s += contrib.person.name + ' [' + contrib.role.name
+            if contrib.description is not None and contrib.description != '':
+                s += '(' + contrib.description + ')'
+            s += ']'
+        retval.append(s)
     return '\n'.join(retval)
 
-def getWorkContributors(session: Any, work_id: int) -> Any:
+
+def get_work_contributors(session: Any, work_id: int) -> Any:
     """
     Returns a list of dictionaries representing the contributors of a work.
 
@@ -248,7 +295,7 @@ def getWorkContributors(session: Any, work_id: int) -> Any:
         .join(Part)\
         .filter(Contributor.part_id == Part.id)\
         .filter(Part.work_id == work_id)\
-        .filter(Part.shortstory_id == None)\
+        .filter(Part.shortstory_id is not None)\
         .filter(or_(Contributor.role_id == 1, Contributor.role_id == 3))\
         .distinct()\
         .all()
@@ -258,18 +305,22 @@ def getWorkContributors(session: Any, work_id: int) -> Any:
     for contrib in contributors:
         found = False
         for contrib2 in retval:
-            if contrib.person_id == contrib2['person']['id'] and contrib.role_id == contrib2['role']['id'] \
-                and contrib.description == contrib2['description']:
+            if (contrib.person_id == contrib2['person']['id'] and
+                    contrib.role_id == contrib2['role']['id'] and
+                    contrib.description == contrib2['description']):
                 found = True
         if not found:
-            c = {'person': {'id': contrib.person_id, 'name': contrib.person.name},
-                    'role': {'id': contrib.role_id, 'name': contrib.role.name},
-                    'description': contrib.description}
+            c = {'person': {'id': contrib.person_id,
+                            'name': contrib.person.name},
+                 'role': {'id': contrib.role_id,
+                          'name': contrib.role.name},
+                 'description': contrib.description}
             retval.append(c)
 
     return retval
 
-def hasContributionRole(contributors: List[Any], role_id: int) -> bool:
+
+def has_contribution_role(contributors: List[Any], role_id: int) -> bool:
     """
     Returns a boolean indicating whether or not the given list of contributors
     contains a contributor with the given role.
