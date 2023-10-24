@@ -1,31 +1,28 @@
-from ast import expr_context
+""" People related stuff. """
 import json
-from app import app
+from collections import Counter
+from typing import Tuple, Dict, Any, List, Union
+from operator import not_
+from sqlalchemy import func, or_
+from sqlalchemy.exc import SQLAlchemyError
+from marshmallow import exceptions
+import bleach
+
 from app.route_helpers import new_session
 from app.model import (PersonBriefSchema)
 from app.model_person import (PersonSchema)
 from app.model import (ShortBriefSchema)
-from app.orm_decl import (Person, PersonTag)
-from sqlalchemy.exc import SQLAlchemyError
 from app.orm_decl import (Alias, Country, ContributorRole, Work, Contributor,
                           PersonLink, Awarded, PersonLanguage, PersonTag,
-                          IssueEditor, ArticlePerson, ArticleAuthor, PersonLink,
-                          ShortStory, Part, Contributor, ContributorRole,
-                          IssueContent)
-from app.impl import (ResponseType, SearchResult, LogChanges,
-                      SearchResultFields, searchScore)
-from collections import Counter
-from typing import Tuple, Dict, Any, List, Union
-from operator import not_
+                          IssueEditor, ArticlePerson, ArticleAuthor,
+                          ShortStory, Part, Person)
+from app.impl import (ResponseType, SearchResult, log_changes,
+                      SearchResultFields, searchscore, check_int,
+                      get_join_changes)
 from app.api_errors import APIError
-from sqlalchemy import func, or_
-from marshmallow import exceptions
-from app.impl import ResponseType, LogChanges, checkInt, GetJoinChanges
 from app.impl_country import AddCountry
 from app.impl_links import linksHaveChanged
-import bleach
-from flask.wrappers import Response
-from flask import request
+from app import app
 
 _allowed_person_fields = ['name', 'dob', 'dod',
                           'nationality',
@@ -77,7 +74,23 @@ def _filter_person_query(table: Any,
     return query
 
 
-def _setNationality(session: Any, person: Person, data: Any, old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+def _set_nationality(
+        session: Any,
+        person: Person,
+        data: Any,
+        old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+    """
+    Set the nationality of a person in the given session.
+
+    Parameters:
+        session (Any): The session object.
+        person (Person): The person object.
+        data (Any): The data object.
+        old_values (Union[Dict[str, Any], None]): The old values object.
+
+    Returns:
+        Union[ResponseType, None]: The response type or None.
+    """
     if data['nationality'] != person.nationality:
         nat_id = None
         if old_values is not None:
@@ -85,14 +98,16 @@ def _setNationality(session: Any, person: Person, data: Any, old_values: Union[D
                 old_values['Kansallisuus'] = person.nationality.name
             else:
                 old_values['Kansallisuus'] = ''
-        if not 'id' in data['nationality'] and data['nationality'] != '':
-                # Add new nationality to db
-                nat_id = AddCountry(bleach.clean(data['nationality']))
+        if 'id' not in data['nationality'] and data['nationality'] != '':
+            # Add new nationality to db
+            nat_id = AddCountry(bleach.clean(data['nationality']))
         elif data['nationality'] == '':
             nat_id = None
         else:
-            nat_id = checkInt(data['nationality']['id'], zerosAllowed=False, negativeValuesAllowed=False)
-        if nat_id != None:
+            nat_id = check_int(data['nationality']['id'],
+                               zeros_allowed=False,
+                               negative_values=False)
+        if nat_id is not None:
             # Check that nationality exists
             nat = session.query(Country).filter(Country.id == nat_id).first()
             if nat:
@@ -103,7 +118,17 @@ def _setNationality(session: Any, person: Person, data: Any, old_values: Union[D
     return None
 
 
-def FilterPeople(query: str) -> ResponseType:
+def filter_people(query: str) -> ResponseType:
+    """
+    Filters people based on a given query.
+
+    Args:
+        query (str): The query string to filter the people by.
+
+    Returns:
+        ResponseType: The response containing the filtered people or an error
+                      message.
+    """
     session = new_session()
     try:
         people = session.query(Person)\
@@ -125,13 +150,26 @@ def FilterPeople(query: str) -> ResponseType:
     return ResponseType(retval, 200)
 
 
-def FilterAliases(person_id: int) -> ResponseType:
+def filter_aliases(person_id: int) -> ResponseType:
+    """
+    Retrieves aliases for a given person ID.
+
+    Args:
+        person_id (int): The ID of the person.
+
+    Returns:
+        ResponseType: The response containing the aliases as a list of
+                      dictionaries.
+
+    Raises:
+        SQLAlchemyError: If there is an error in the database query.
+    """
     session = new_session()
     try:
         aliases = session.query(Alias)\
             .filter(Alias.realname == person_id)\
             .all()
-        ids = [x.alias for x in aliases]
+        # ids = [x.alias for x in aliases]
     except SQLAlchemyError as exp:
         app.logger.error(
             f'Exception in FilterAliases (åerson_id {person_id}): ' + str(exp))
@@ -149,13 +187,17 @@ def FilterAliases(person_id: int) -> ResponseType:
     #     for persona in personas:
     #         obj: Dict[str, str] = {'id': persona.id, 'text': persona.name}
     #         retval.append(obj)
-    #return Response(json.dumps(retval))
+    # return Response(json.dumps(retval))
     schema = PersonBriefSchema(many=True)
     retval = schema.dump(aliases)
     return ResponseType(retval, 200)
 
 
-def GetAuthorFirstLetters(target: str) -> Tuple[str, int]:
+def get_author_first_letters(target: str) -> Tuple[str, int]:
+    """
+    Finds all the letters that have any authors starting with it.
+
+    """
     retval = ('', 200)
     session = new_session()
 
@@ -164,9 +206,12 @@ def GetAuthorFirstLetters(target: str) -> Tuple[str, int]:
         # that manually.
         names = session.query(Work.author_str)\
             .order_by(Work.author_str)\
-            .filter(Work.author_str != None)\
+            .filter(Work.author_str is not None)\
             .all()
-        letters = sorted(list(set([s[0][0].upper() for s in names if s and s[0][0].isalpha()])))
+        letters = sorted(
+            list(
+                set([s[0][0].upper()
+                     for s in names if s and s[0][0].isalpha()])))
         retval = json.dumps(Counter(letters)), 200
 
     elif target == 'stories':
@@ -177,16 +222,33 @@ def GetAuthorFirstLetters(target: str) -> Tuple[str, int]:
     return retval
 
 
-def ListPeople(params: Dict[str, Any]) -> ResponseType:
+def list_people(params: Dict[str, Any]) -> ResponseType:
+    """
+    List people based on the given parameters and return the response.
+
+    Args:
+        params (Dict[str, Any]): A dictionary containing the parameters for
+                                 filtering, sorting, and pagination.
+
+    Returns:
+        ResponseType: A response object containing the list of people and other
+                      metadata.
+
+    Raises:
+        APIError: If an invalid filter field is provided.
+        SQLAlchemyError: If there is an error in the database query.
+        exceptions.MarshmallowError: If there is an error in the serialization
+                                     schema.
+    """
     d: Dict[str, Union[int, List[str]]] = {}
     session = new_session()
     try:
         people = session.query(Person)
         # Filter
         for field, filters in params.items():
-            if type(filters) is dict:
+            if isinstance(filters, dict):
                 if field not in _allowed_person_fields:
-                    raise APIError('Invalid filter field %s' % field, 405)
+                    raise APIError(f'Invalid filter field {field}', 405)
                 if filters['value']:
                     if field == 'nationality':
                         people = _filter_person_query(
@@ -202,9 +264,7 @@ def ListPeople(params: Dict[str, Any]) -> ResponseType:
         # Sort
         if 'sortField' in params:
             sort_field = params['sortField']
-            if (sort_field == 'name' or
-                sort_field == 'dob' or
-                    sort_field == 'dod'):
+            if (sort_field in ['name', 'dob', 'dod']):
                 sort_col = getattr(Person, sort_field, None)
                 if params['sortOrder'] == '1':
                     people = people.order_by(sort_col.asc())
@@ -219,11 +279,11 @@ def ListPeople(params: Dict[str, Any]) -> ResponseType:
                     .order_by(func.count(Work.id))
     except SQLAlchemyError as exp:
         app.logger.error('Exception in ListPeople: ' + str(exp))
-        return ResponseType(f'ListPeople: Tietokantavirhe.', 400)
+        return ResponseType('ListPeople: Tietokantavirhe.', 400)
 
     # Pagination
     if 'rows' in params:
-        if not 'page' in params:
+        if 'page' not in params:
             params['page'] = 0
         start = int(params['rows']) * (int(params['page']))
         end = int(params['rows']) * (int(params['page']) + 1)
@@ -245,7 +305,17 @@ def ListPeople(params: Dict[str, Any]) -> ResponseType:
     return ResponseType(d, 200)
 
 
-def GetPerson(person_id: int) -> ResponseType:
+def get_person(person_id: int) -> ResponseType:
+    """
+    Retrieves information about a person based on their ID.
+
+    Parameters:
+        person_id (int): The ID of the person.
+
+    Returns:
+        ResponseType: The response containing the person's information or an
+                      error message.
+    """
     session = new_session()
     try:
         aliases = session.query(Alias)\
@@ -277,7 +347,7 @@ def GetPerson(person_id: int) -> ResponseType:
                 person.edit_contributions = person.edits
     except SQLAlchemyError as exp:
         app.logger.error('Exception in GetPerson: ' + str(exp))
-        return ResponseType(f'GetPerson: Tietokantavirhe.', 400)
+        return ResponseType('GetPerson: Tietokantavirhe.', 400)
 
     try:
         schema = PersonSchema()
@@ -289,24 +359,57 @@ def GetPerson(person_id: int) -> ResponseType:
     return ResponseType(retval, 200)
 
 
-def PersonAdd(params: Any) -> ResponseType:
-    session = new_session()
-    data = params['data']
+# def PersonAdd(params: Any) -> ResponseType:
+#     session = new_session()
+#     data = params['data']
 
-    person = Person()
+#     person = Person()
+
+#     return ResponseType(str(person.id), 201)
 
 
+def person_update(params: Any) -> ResponseType:
+    """
+    Update a person's information in the database.
 
-    return ResponseType(str(person.id), 201)
+    Args:
+        params (Any): The parameters for updating the person.
+            - data (dict): The data for updating the person.
+                - id (int): The ID of the person to update.
+                - name (str): The new name of the person.
+                - alt_name (str, optional): The new alternative name of the
+                                            person.
+                - fullname (str, optional): The new full name of the person.
+                - other_names (str, optional): The new other names of the
+                                               person.
+                - first_name (str, optional): The new first name of the person.
+                - last_name (str, optional): The new last name of the person.
+                - image_src (str, optional): The new image source of the
+                                             person.
+                - dob (int, optional): The new date of birth of the person.
+                - dod (int, optional): The new date of death of the person.
+                - bio (str, optional): The new biography of the person.
+                - bio_src (str, optional): The new biography source of the
+                                           person.
+                - nationality (str, optional): The new nationality of the
+                                               person.
+                - links (list[dict], optional): The new links of the person.
+                    - link (str): The URL of the link.
+                    - description (str): The description of the link.
 
-def PersonUpdate(params: Any) -> ResponseType:
+    Returns:
+        ResponseType: The response indicating the result of the update
+                      operation.
+    """
     retval = ResponseType('OK', 200)
     session = new_session()
     old_values: Dict[str, Any] = {}
     data = params['data']
 
-    person_id = checkInt(data['id'], zerosAllowed=False, negativeValuesAllowed=False)
-    if person_id == None:
+    person_id = check_int(data['id'],
+                          zeros_allowed=False,
+                          negative_values=False)
+    if person_id is None:
         app.logger.error('PersonUpdate: Invalid id.')
         return ResponseType('PersonUpdate: Virheellinen id.', 400)
 
@@ -316,7 +419,8 @@ def PersonUpdate(params: Any) -> ResponseType:
     if not person:
         app.logger.error(
             f'PersonUpdate: Person not found. Id = {person_id}.')
-        return ResponseType(f'PersonUpdate: Henkilöä ei löydy. person_id={person_id}.', 400)
+        return ResponseType(f'PersonUpdate: Henkilöä ei löydy. \
+                            person_id={person_id}.', 400)
 
     # Check that name is not empty
     if 'name' not in data:
@@ -324,7 +428,8 @@ def PersonUpdate(params: Any) -> ResponseType:
         return ResponseType('PersonUpdate: Nimi puuttuu.', 400)
     if data['name'] == '':
         app.logger.error('PersonUpdate: Name is empty.')
-        return ResponseType('PersonUpdate: Nimi ei voi olla tyhjä puuttuu.', 400)
+        return ResponseType('PersonUpdate: Nimi ei voi olla tyhjä puuttuu.',
+                            400)
 
     name = bleach.clean(data['name'])
     if data['name'] != person.name:
@@ -366,13 +471,13 @@ def PersonUpdate(params: Any) -> ResponseType:
             person.image_src = bleach.clean(data['image_src'])
 
     if 'dob' in data:
-        dob = checkInt(data['dob'])
+        dob = check_int(data['dob'])
         if dob != person.dob:
             old_values['Syntymävuosi'] = person.dob
             person.dob = dob
 
     if 'dod' in data:
-        dod = checkInt(data['dod'])
+        dod = check_int(data['dod'])
         if dod != person.dod:
             old_values['Kuolinvuosi'] = person.dod
             person.dod = dod
@@ -380,7 +485,7 @@ def PersonUpdate(params: Any) -> ResponseType:
     if 'bio' in data:
         if data['bio'] != person.bio:
             old_values['Biografia'] = person.bio
-            if data['bio'] == None:
+            if data['bio'] is None:
                 person.bio = None
             else:
                 person.bio = bleach.clean(data['bio'])
@@ -391,8 +496,9 @@ def PersonUpdate(params: Any) -> ResponseType:
             person.bio_src = bleach.clean(data['bio_src'])
 
     if 'nationality' in data:
-        result = _setNationality(session, person, data, old_values)
-        if result:
+        # pylint: disable-next=assignment-from-none
+        result = _set_nationality(session, person, data, old_values)
+        if result is None:
             return result
 
     if 'links' in data:
@@ -400,18 +506,21 @@ def PersonUpdate(params: Any) -> ResponseType:
         if linksHaveChanged(person.links, new_links):
             existing_links = session.query(PersonLink).filter(
                 PersonLink.person_id == person_id).all()
-            (to_add, to_remove) = GetJoinChanges([x.link for x in existing_links],
-                                                 [x['link'] for x in new_links])
+            (to_add, to_remove) = get_join_changes(
+                [x.link for x in existing_links],
+                [x['link'] for x in new_links])
             if len(existing_links) > 0:
                 for link in existing_links:
                     session.delete(link)
             for link in new_links:
                 if 'link' not in link:
                     app.logger.error('PersonUpdate: Link missing address.')
-                    return ResponseType('PersonUpdate: Linkin tiedot puutteelliset.', 400)
+                    return ResponseType('PersonUpdate: Linkin tiedot \
+                                         puutteelliset.', 400)
                 # person_id can't be None here even though Mypy thinks so
-                pl = PersonLink(person_id=person_id, link=link['link'],  # type: ignore
-                                description=link['description'])
+                pl = PersonLink(
+                    person_id=person_id, link=link['link'],  # type: ignore
+                    description=link['description'])
                 session.add(pl)
             old_values['Linkit'] = ' -'.join([str(x) for x in to_add])
             old_values['Linkit'] = ' +' + \
@@ -427,54 +536,77 @@ def PersonUpdate(params: Any) -> ResponseType:
         session.rollback()
         app.logger.error(
             'Exception in PersonUpdate(): ' + str(exp))
-        return ResponseType(f'PersonUpdate: Tietokantavirhe.', 400)
+        return ResponseType('PersonUpdate: Tietokantavirhe.', 400)
 
-    id = LogChanges(session, obj=person, action='Päivitys', old_values=old_values)
+    log_id = log_changes(session,
+                         obj=person,
+                         action='Päivitys',
+                         old_values=old_values)
+    if log_id == 0:
+        app.logger.error('PersonUpdate: Failed to log changes.')
     session.commit()
 
     return retval
 
-def PersonDelete(person_id: int) -> ResponseType:
+
+# pylint: disable-next=too-many-locals,too-many-return-statements,too-many-branches  # noqa: E501
+def person_delete(person_id: int) -> ResponseType:
+    """
+    Deletes a person from the database.
+
+    Args:
+        person_id (int): The ID of the person to be deleted.
+
+    Returns:
+        ResponseType: The response indicating the success or failure of the
+                      deletion operation.
+    """
     session = new_session()
     old_values = {}
     # Check that person exists
     person = session.query(Person).filter(
         Person.id == person_id).first()
     if not person:
-        return ResponseType(f'PersonDelete: Henkilöä ei löydy. person_id={person_id}.', 400)
+        return ResponseType(f'PersonDelete: Henkilöä ei löydy. \
+                            person_id={person_id}.', 400)
 
     # Check that there are no items that reference this person
     contributions = session.query(Contributor).filter(
         Contributor.person_id == person_id).all()
     if len(contributions) > 0:
-        return ResponseType(f'PersonDelete: Henkilöä ei voi poistaa, koska hänellä on rooleja.', 400)
+        return ResponseType('PersonDelete: Henkilöä ei voi poistaa, koska \
+                            hänellä on rooleja.', 400)
 
-    aliases  = session.query(Alias).filter(
+    aliases = session.query(Alias).filter(
         or_(Alias.alias == person_id, Alias.realname == person_id)).all()
 
     if len(aliases) > 0:
-        return ResponseType(f'PersonDelete: Henkilöä ei voi poistaa, koska hänellä on aliaksia.', 400)
+        return ResponseType('PersonDelete: Henkilöä ei voi poistaa, koska \
+                            hänellä on aliaksia.', 400)
 
     issueeditor = session.query(IssueEditor).filter(
         IssueEditor.person_id == person_id).all()
     if len(issueeditor) > 0:
-        return ResponseType(f'PersonDelete: Henkilöä ei voi poistaa, koska hänellä on toimittajuuksia.', 400)
+        return ResponseType('PersonDelete: Henkilöä ei voi poistaa, koska \
+                            hänellä on toimittajuuksia.', 400)
 
     articleperson = session.query(ArticlePerson).filter(
         ArticlePerson.person_id == person_id).all()
     if len(articleperson) > 0:
-        return ResponseType(f'PersonDelete: Henkilöä ei voi poistaa, koska hänestä on artikkeleita.', 400)
+        return ResponseType('PersonDelete: Henkilöä ei voi poistaa, koska \
+                            hänestä on artikkeleita.', 400)
 
-    articlehAuthor = session.query(ArticleAuthor).filter(
+    articleauthor = session.query(ArticleAuthor).filter(
         ArticleAuthor.person_id == person_id).all()
-    if len(articlehAuthor) > 0:
-        return ResponseType(f'PersonDelete: Henkilöä ei voi poistaa, koska hänestä on artikkeleita.', 400)
+    if len(articleauthor) > 0:
+        return ResponseType('PersonDelete: Henkilöä ei voi poistaa, koska \
+                            hänestä on artikkeleita.', 400)
 
     awarded = session.query(Awarded).filter(
         Awarded.person_id == person_id).all()
     if len(awarded) > 0:
-        return ResponseType(f'PersonDelete: Henkilöä ei voi poistaa, koska hänelle on annettu palkintoja.', 400)
-
+        return ResponseType('PersonDelete: Henkilöä ei voi poistaa, koska \
+                            hänelle on annettu palkintoja.', 400)
 
     # Delete person
     personlink = session.query(PersonLink).filter(
@@ -486,7 +618,7 @@ def PersonDelete(person_id: int) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error(
             'Exception in PersonDelete(): ' + str(exp))
-        return ResponseType(f'PersonDelete: Tietokantavirhe.', 400)
+        return ResponseType('PersonDelete: Tietokantavirhe.', 400)
 
     persontags = session.query(PersonTag).filter(
         PersonTag.person_id == person_id).all()
@@ -497,7 +629,7 @@ def PersonDelete(person_id: int) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error(
             'Exception in PersonDelete(): ' + str(exp))
-        return ResponseType(f'PersonDelete: Tietokantavirhe.', 400)
+        return ResponseType('PersonDelete: Tietokantavirhe.', 400)
 
     personlanguage = session.query(PersonLanguage).filter(
         PersonLanguage.person_id == person_id).all()
@@ -508,22 +640,35 @@ def PersonDelete(person_id: int) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error(
             'Exception in PersonDelete(): ' + str(exp))
-        return ResponseType(f'PersonDelete: Tietokantavirhe.', 400)
+        return ResponseType('PersonDelete: Tietokantavirhe.', 400)
 
     try:
         old_values['Nimi'] = person.name
-        LogChanges(session, obj=person, action='Poisto', old_values=old_values)
+        log_changes(session,
+                    obj=person,
+                    action='Poisto',
+                    old_values=old_values)
         session.delete(person)
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(
             'Exception in PersonDelete(): ' + str(exp))
-        return ResponseType(f'PersonDelete: Tietokantavirhe.', 400)
+        return ResponseType('PersonDelete: Tietokantavirhe.', 400)
 
     return ResponseType('OK', 200)
 
 
-def PersonTagAdd(person_id: int, tag_id: int) -> ResponseType:
+def person_tag_add(person_id: int, tag_id: int) -> ResponseType:
+    """
+    Add a tag to a person.
+
+    Parameters:
+        person_id (int): The ID of the person.
+        tag_id (int): The ID of the tag.
+
+    Returns:
+        ResponseType: An object containing the response data and status code.
+    """
     retval = ResponseType('', 200)
     session = new_session()
 
@@ -533,45 +678,75 @@ def PersonTagAdd(person_id: int, tag_id: int) -> ResponseType:
         if not person:
             app.logger.error(
                 f'PersonTagAdd: Person not found. Id = {person_id}.')
-            return ResponseType(f'PersonTagAdd: Henkilöä ei löydy. person_id={person_id}, tag_id={tag_id}.', 400)
+            return ResponseType(f'PersonTagAdd: Henkilöä ei löydy. \
+                                person_id={person_id}, tag_id={tag_id}.', 400)
 
-        personTag = PersonTag()
-        personTag.person_id = person_id
-        personTag.tag_id = tag_id
-        session.add(personTag)
+        person_tag = PersonTag()
+        person_tag.person_id = person_id
+        person_tag.tag_id = tag_id
+        session.add(person_tag)
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(
             'Exception in PersonTagAdd(): ' + str(exp))
-        return ResponseType(f'PersonTagAdd: Tietokantavirhe. person_id={person_id}, tag_id={tag_id}.', 400)
+        return ResponseType(f'PersonTagAdd: Tietokantavirhe. \
+                            person_id={person_id}, tag_id={tag_id}.', 400)
 
     return retval
 
 
-def PersonTagRemove(person_id: int, tag_id: int) -> ResponseType:
+def person_tag_remove(person_id: int, tag_id: int) -> ResponseType:
+    """
+    Removes a tag from a person.
+
+    Args:
+        person_id (int): The ID of the person.
+        tag_id (int): The ID of the tag to be removed.
+
+    Returns:
+        ResponseType: The response object containing the result of the
+                      operation.
+    """
     retval = ResponseType('', 200)
     session = new_session()
 
     try:
-        personTag = session.query(PersonTag)\
-            .filter(PersonTag.person_id == person_id, PersonTag.tag_id == tag_id)\
+        person_tag = session.query(PersonTag)\
+            .filter(PersonTag.person_id == person_id,
+                    PersonTag.tag_id == tag_id)\
             .first()
-        if not personTag:
+        if not person_tag:
             app.logger.error(
-                f'PersonTagRemove: Issue has no such tag: issue_id {person_id}, tag {tag_id}.'
+                f'PersonTagRemove: Issue has no such tag: \
+                issue_id {person_id}, tag {tag_id}.'
             )
-            return ResponseType(f'PersonTagRemove: Tagia ei löydy numerolta. person_id={person_id}, tag_id={tag_id}.', 400)
-        session.delete(personTag)
+            return ResponseType(f'PersonTagRemove: Tagia ei löydy numerolta. \
+                                person_id={person_id}, tag_id={tag_id}.', 400)
+        session.delete(person_tag)
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(
             'Exception in PersonTagRemove(): ' + str(exp))
-        return ResponseType(f'PersonTagRemove: Tietokantavirhe. person_id={person_id}, tag_id={tag_id}.', 400)
+        return ResponseType(f'PersonTagRemove: Tietokantavirhe. \
+                            person_id={person_id}, tag_id={tag_id}.', 400)
 
     return retval
 
 
-def SearchPeople(session: Any, searchwords: List[str]) -> SearchResult:
+def search_people(session: Any, searchwords: List[str]) -> SearchResult:
+    """
+    Search for people based on given search words.
+
+    Args:
+        session (Any): The session object for the database connection.
+        searchwords (List[str]): The list of search words to use for searching
+                                 people.
+
+    Returns:
+        SearchResult: The list of search results containing information about
+                      the found people.
+
+    """
     retval: SearchResult = []
     found_people: Dict[int, SearchResultFields] = {}
 
@@ -589,7 +764,7 @@ def SearchPeople(session: Any, searchwords: List[str]) -> SearchResult:
         for person in people:
             if person.id in found_people:
                 found_people[person.id]['score'] *= \
-                    searchScore('person', person, searchword)
+                    searchscore('person', person, searchword)
             else:
                 description = ''
                 if person.nationality:
@@ -610,14 +785,15 @@ def SearchPeople(session: Any, searchwords: List[str]) -> SearchResult:
                     'header': person.name,
                     'description': description,
                     'type': 'person',
-                    'score': searchScore('person', person, searchword)
+                    'score': searchscore('person', person, searchword)
                 }
                 found_people[person.id] = item
         retval = [value for _, value in found_people.items()]
 
     return retval
 
-def PersonShorts(id: int) -> ResponseType:
+
+def person_shorts(person_id: int) -> ResponseType:
     """ Get shorts written by person
     """
     session = new_session()
@@ -627,27 +803,28 @@ def PersonShorts(id: int) -> ResponseType:
             .join(Part)\
             .filter(Part.shortstory_id == ShortStory.id)\
             .join(Contributor)\
-            .filter(Contributor.part_id == Part.id, Contributor.role_id == 1)\
+            .filter(Contributor.part_id == Part.id, Contributor.role_id == 1,
+                    Contributor.person_id == person_id)\
             .distinct()\
             .all()
-        ashorts = session.query(ShortStory)\
-            .join(IssueContent)\
-            .filter(ShortStory.id == IssueContent.shortstory_id)\
-            .join(Part)\
-            .filter(IssueContent.shortstory_id == Part.id)\
-            .join(Contributor)\
-            .filter(Part.id == Contributor.part_id)\
-            .filter(Contributor.person_id == id)\
-            .filter(Contributor.role_id == 1)\
-            .distinct()\
-            .all()
+        # ashorts = session.query(ShortStory)\
+        #     .join(IssueContent)\
+        #     .filter(ShortStory.id == IssueContent.shortstory_id)\
+        #     .join(Part)\
+        #     .filter(IssueContent.shortstory_id == Part.id)\
+        #     .join(Contributor)\
+        #     .filter(Part.id == Contributor.part_id)\
+        #     .filter(Contributor.person_id == id)\
+        #     .filter(Contributor.role_id == 1)\
+        #     .distinct()\
+        #     .all()
 
-        #shorts = {...shorts, ...ashorts}
+        # shorts = {...shorts, ...ashorts}
 
     except SQLAlchemyError as exp:
         app.logger.error(
             'Exception in PersonShorts(): ' + str(exp))
-        return ResponseType(f'PersonShorts: Tietokantavirhe.', 400)
+        return ResponseType('PersonShorts: Tietokantavirhe.', 400)
     try:
         schema = ShortBriefSchema(many=True)
         retval = schema.dump(shorts)
