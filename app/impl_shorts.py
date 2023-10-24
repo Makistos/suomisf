@@ -1,50 +1,80 @@
-import bleach
+""" Functions related to short stories. """
 from typing import Dict, Any, Union
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
+import bleach
 
-from app.impl import (ResponseType, checkInt, LogChanges, GetJoinChanges,
-                      AddLanguage, SetLanguage)
+from app.impl import (ResponseType, check_int, log_changes, get_join_changes,
+                      add_language)
 from app.route_helpers import new_session
-from app.orm_decl import (ShortStory, StoryTag, Edition,
-                          Part, Contributor, StoryType, Contributor,
-                          Genre, StoryGenre, Language)
+from app.orm_decl import (ShortStory, StoryTag, StoryType, StoryGenre,
+                          Language)
 from app.model_shortsearch import ShortSchemaForSearch
 from app.model import ShortSchema, StoryTypeSchema
-from app.impl_contributors import (updateShortContributors,
-                                   contributorsHaveChanged, getContributorsString)
+from app.impl_contributors import (update_short_contributors,
+                                   contributors_have_changed,
+                                   get_contributors_string)
 
 from app import app
 
-def _setLanguage(session: Any, item: Any, data: Any, old_values:  Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+
+def _set_language(
+        session: Any,
+        item: Any,
+        data: Any,
+        old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+    """
+    Sets the language of an item for a short.
+
+    Args:
+        session (Any): The session object.
+        item (Any): The item object to set the language for.
+        data (Any): The data object containing the new language information.
+        old_values (Union[Dict[str, Any], None]): The old values of the item,
+        or None if no old values are available.
+
+    Returns:
+        Union[ResponseType, None]: The response type if an error occurs, or
+        None if the language is set successfully.
+    """
     if data['lang'] != item.language:
         lang_id = None
         if old_values is not None:
-            if item.lang != None:
-                old_values['Kieli'] = item.lang.name
-            else:
-                old_values['Kieli'] = None
-        if not 'id' in data['lang']:
+            old_values['Kieli'] = (item.lang.name
+                                   if item.lang is not None else '')
+        if 'id' not in data['lang']:
             # User added a new language. Front returns this as a string
             # in the language field so we need to add this language to
             # the database first.
-            lang_id = AddLanguage(bleach.clean(data['lang']))
+            lang_id = add_language(bleach.clean(data['lang']))
         else:
-            lang_id = checkInt(data['lang']['id'])
-            if lang_id != None:
+            lang_id = check_int(data['lang']['id'])
+            if lang_id is not None:
                 lang = session.query(Language)\
                     .filter(Language.id == lang_id)\
                     .first()
                 if not lang:
-                    app.logger.error('SetLanguage: Language not found. Id = ' + str(data['language']['id']) + '.')
+                    app.logger.error(f'SetLanguage: Language not found. Id = \
+                                      {data["language"]["id"]}.')
                     return ResponseType('Kieltä ei löydy', 400)
         item.language = lang_id
     return None
 
-def checkStoryType(session: Any, story_type: Any) -> bool:
-    st = checkInt(story_type)
-    if st == None:
+
+def check_story_type(session: Any, story_type: Any) -> bool:
+    """
+    Check the story type.
+
+    Args:
+        session (Any): The session object.
+        story_type (Any): The story type.
+
+    Returns:
+        bool: True if the story type exists, False otherwise.
+    """
+    st = check_int(story_type)
+    if st is None:
         return False
     t = session.query(StoryType).filter(StoryType.id == st).first()
     if not t:
@@ -52,46 +82,75 @@ def checkStoryType(session: Any, story_type: Any) -> bool:
     return True
 
 
-def GetShortTypes() -> ResponseType:
+def get_short_types() -> ResponseType:
+    """
+    Retrieves the short types from the database.
+
+    Returns:
+        ResponseType: The response object containing the result of the
+        operation.
+    """
     session = new_session()
 
     try:
         types = session.query(StoryType).all()
     except SQLAlchemyError as exp:
-        app.logger.error('Exception in GetShortTypes: ' + str(exp))
+        app.logger.error(f'Exception in GetShortTypes: {exp}.')
         return ResponseType(f'GetShortTypes: Tietokantavirhe. id={id}', 400)
 
     try:
         schema = StoryTypeSchema(many=True)
         retval = schema.dump(types)
     except exceptions.MarshmallowError as exp:
-        app.logger.error('GetShortTypes schema error: ' + str(exp))
+        app.logger.error(f'GetShortTypes schema error: {exp}.')
         return ResponseType('GetShortTypes: Skeemavirhe.', 400)
 
     return ResponseType(retval, 200)
 
 
-def GetShort(id: int) -> ResponseType:
+def get_short(short_id: int) -> ResponseType:
+    """
+    Retrieves a short story from the database based on the provided ID.
+
+    Args:
+        id (int): The ID of the short story to retrieve.
+
+    Returns:
+        ResponseType: The response containing the retrieved short story.
+
+    Raises:
+        SQLAlchemyError: If there is an error querying the database.
+        exceptions.MarshmallowError: If there is an error with the schema.
+    """
     session = new_session()
 
     try:
         short = session.query(ShortStory).filter(
-            ShortStory.id == id).first()
+            ShortStory.id == short_id).first()
     except SQLAlchemyError as exp:
-        app.logger.error('Exception in GetShort: ' + str(exp))
-        return ResponseType(f'GetShort: Tietokantavirhe. id={id}', 400)
+        app.logger.error(f'Exception in GetShort: {exp}')
+        return ResponseType(f'GetShort: Tietokantavirhe. id={short_id}', 400)
 
     try:
         schema = ShortSchema()
         retval = schema.dump(short)
     except exceptions.MarshmallowError as exp:
-        app.logger.error('GetStory schema error: ' + str(exp))
+        app.logger.error(f'GetStory schema error: {exp}.')
         return ResponseType('GetStory: Skeemavirhe.', 400)
 
     return ResponseType(retval, 200)
 
 
-def SearchShorts(params: Dict[str, str]) -> ResponseType:
+def search_shorts(params: Dict[str, str]) -> ResponseType:
+    """
+    Searches for short stories based on the given parameters.
+
+    Args:
+        params (Dict[str, str]): A dictionary containing the search parameters.
+
+    Returns:
+        ResponseType: The response object containing the search results.
+    """
     session = new_session()
 
     stmt = 'SELECT DISTINCT shortstory.* FROM shortstory '
@@ -118,17 +177,18 @@ def SearchShorts(params: Dict[str, str]) -> ResponseType:
             try:
                 # Test that value is actually an integer, we still need to use
                 # the string version in the query.
+                # pylint: disable-next=unused-variable
                 test_value = int(pubyear_first)
                 stmt += 'AND shortstory.pubyear >= ' + pubyear_first + ' '
             except (TypeError) as exp:
-                app.logger.error('Failed to convert pubyear_first')
+                app.logger.error(f'Failed to convert pubyear_first: {exp}')
         if 'pubyear_last' in params and params['pubyear_last'] != '':
             pubyear_last = bleach.clean(params['pubyear_last'])
             try:
-                test_value = int(pubyear_last)
+                test_value = int(pubyear_last)  # noqa: F841
                 stmt += 'AND shortstory.pubyear <= ' + pubyear_last + ' '
             except (TypeError) as exp:
-                app.logger.error('Failed to convert pubyear_first')
+                app.logger.error(f'Failed to convert pubyear_first: {exp}')
 
     stmt += 'ORDER BY shortstory.title'
 
@@ -151,34 +211,54 @@ def SearchShorts(params: Dict[str, str]) -> ResponseType:
     return ResponseType(retval, 200)
 
 
-def StoryAdd(data: Any) -> ResponseType:
-    session = new_session()
+def story_add(data: Any) -> ResponseType:
+    """
+    Adds a story to the database.
+
+    Args:
+        data (Any): The data to be added to the database.
+
+    Returns:
+        ResponseType: The response indicating the success status of the
+        operation.
+    """
+    # session = new_session()
     retval = ResponseType('OK', 201)
 
     changes = data['changed']
 
     for key, value in changes.items():
-        if type(value) is list:
+        if isinstance(value, list):
             for item in value:
                 for key2, value2 in item.items():
-                    if value2 == True:
+                    if value2:
                         print(f'Key: {key}/{key2}')
-        elif value == True:
+        elif value:
             print(f'Key: {key}')
 
     return retval
 
 
-def StoryUpdate(params: Any) -> ResponseType:
+def story_updated(params: Any) -> ResponseType:
+    """
+    Updates a story in the database based on the given parameters.
+
+    Parameters:
+    - params (Any): The parameters for updating the story.
+
+    Returns:
+    - ResponseType: The response indicating the success or failure of the
+    update operation.
+    """
     session = new_session()
     old_values = {}
     story: Any = None
     retval = ResponseType('OK', 200)
     data = params['data']
-    short_id = checkInt(data['id'])
+    short_id = check_int(data['id'])
 
-    short_id = checkInt(data['id'], False, False)
-    if short_id == None:
+    short_id = check_int(data['id'], False, False)
+    if short_id is None:
         app.logger.error(f'StoryUpdate: Invalid id: {data["id"]}.')
         return ResponseType(f'StoryUpdate: virheellinen id {data["id"]}.', 400)
 
@@ -186,11 +266,12 @@ def StoryUpdate(params: Any) -> ResponseType:
         ShortStory.id == short_id).first()
     if not story:
         app.logger.error(f'StoryUpdate: Story not found. Id = {short_id}.')
-        return ResponseType(f'StoryUpdate: Novellia ei löydy. id={short_id}.', 400)
+        return ResponseType(f'StoryUpdate: Novellia ei löydy. id={short_id}.',
+                            400)
 
     # Save title
     if 'title' in data:
-        if data['title'] == None or len(data['title']) == 0:
+        if data['title'] is None or len(data['title']) == 0:
             app.logger.error('StoryUpdate: Title is a required field.')
             return ResponseType('StoryUpdate: Nimi on pakollinen tieto.', 400)
         if data['title'] != story.title:
@@ -206,14 +287,14 @@ def StoryUpdate(params: Any) -> ResponseType:
     # Save original (first) publication year
     if 'pubyear' in data:
         if data['pubyear'] != story.pubyear:
-            pubyear = checkInt(data['pubyear'])
+            pubyear = check_int(data['pubyear'])
             old_values['Julkaistu'] = story.pubyear
             story.pubyear = pubyear
 
     # Save story type
     if 'type' in data:
         if data['type']['id'] != story.type.id:
-            if checkStoryType(session, data['type']['id']) == False:
+            if not check_story_type(session, data['type']['id']):
                 app.logger.error(
                     f'StoryUpdate exception. Not a type: {data["type"]}.')
                 return ResponseType(
@@ -223,7 +304,7 @@ def StoryUpdate(params: Any) -> ResponseType:
 
     # Save original language
     if 'lang' in data:
-        result =  _setLanguage(session, story, data, old_values)
+        result = _set_language(session, story, data, old_values)
         if result:
             return result
 
@@ -232,31 +313,31 @@ def StoryUpdate(params: Any) -> ResponseType:
     except SQLAlchemyError as exp:
         session.rollback()
         app.logger.error(f'Exception in StoryUpdate: {exp}.')
-        return ResponseType(f'StoryUpdate: Tietokantavirhe.', 400)
+        return ResponseType('StoryUpdate: Tietokantavirhe.', 400)
 
     # Save contributors
     if 'contributors' in data:
-        if contributorsHaveChanged(story.contributors, data['contributors']):
-            updateShortContributors(
+        if contributors_have_changed(story.contributors, data['contributors']):
+            update_short_contributors(
                 session, story.id, data['contributors'])
-            old_values['Tekijät'] = getContributorsString(story.contributors)
+            old_values['Tekijät'] = get_contributors_string(story.contributors)
 
     # Save genres
     if 'genres' in data:
         existing_genres = session.query(StoryGenre)\
             .filter(StoryGenre.shortstory_id == story.id) \
             .all()
-        (to_add, to_remove) = GetJoinChanges(
+        (to_add, to_remove) = get_join_changes(
             [x.genre_id for x in existing_genres],
             [x['id'] for x in data['genres']])
-        for id in to_remove:
+        for genre_id in to_remove:
             dg = session.query(StoryGenre)\
-                .filter(StoryGenre.genre_id == id)\
+                .filter(StoryGenre.genre_id == genre_id)\
                 .filter(StoryGenre.shortstory_id == story.id)\
                 .first()
             session.delete(dg)
-        for id in to_add:
-            sg = StoryGenre(genre_id=id, shortstory_id=story.id)
+        for genre_id in to_add:
+            sg = StoryGenre(genre_id=genre_id, shortstory_id=story.id)
             session.add(sg)
         if len(to_add) > 0 or len(to_remove) > 0:
             old_values['Genret'] = ' -'.join([str(x) for x in to_add])
@@ -267,17 +348,17 @@ def StoryUpdate(params: Any) -> ResponseType:
         existing_tags = session.query(StoryTag)\
             .filter(StoryTag.shortstory_id == story.id)\
             .all()
-        (to_add, to_remove) = GetJoinChanges(
+        (to_add, to_remove) = get_join_changes(
             [x.tag_id for x in existing_tags],
             [x['id'] for x in data['tags']])
-        for id in to_remove:
+        for tag_id in to_remove:
             dt = session.query(StoryTag)\
-                .filter(StoryTag.tag_id == id)\
+                .filter(StoryTag.tag_id == tag_id)\
                 .filter(StoryTag.shortstory_id == story.id)\
                 .first()
             session.delete(dt)
-        for id in to_add:
-            st = StoryTag(tag_id=id, shortstory_id=story.id)
+        for tag_id in to_add:
+            st = StoryTag(tag_id=tag_id, shortstory_id=story.id)
             session.add(st)
         if len(to_add) > 0 or len(to_remove) > 0:
             old_values['Asiasanat'] = ' -'.join([str(x) for x in to_add])
@@ -286,27 +367,39 @@ def StoryUpdate(params: Any) -> ResponseType:
     if len(old_values) == 0:
         return ResponseType('OK', 200)
 
-    LogChanges(session=session, obj=story, name_field="title", action="Päivitys",
-               old_values=old_values)
+    log_changes(session=session, obj=story, name_field="title",
+                action="Päivitys", old_values=old_values)
 
     try:
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()
         app.logger.error(f'Exception in StoryUpdate commit: {exp}.')
-        return ResponseType(f'StoryUpdate: Tietokantavirhe tallennettaessa.', 400)
+        return ResponseType('StoryUpdate: Tietokantavirhe tallennettaessa.',
+                            400)
 
     return retval
 
 
-def StoryDelete(id: int) -> ResponseType:
-    session = new_session()
-    retval = ResponseType('OK', 200)
+# def story_delete(short_id: int) -> ResponseType:
+#     session = new_session()
+#     retval = ResponseType('OK', 200)
 
-    return retval
+#     return retval
 
 
-def StoryTagAdd(short_id: int, tag_id: int) -> ResponseType:
+def story_tag_add(short_id: int, tag_id: int) -> ResponseType:
+    """
+    Adds a tag to a short story.
+
+    Args:
+        short_id (int): The ID of the short story.
+        tag_id (int): The ID of the tag to be added.
+
+    Returns:
+        ResponseType: The response type indicating the success or failure of
+        the operation.
+    """
     session = new_session()
 
     try:
@@ -317,37 +410,53 @@ def StoryTagAdd(short_id: int, tag_id: int) -> ResponseType:
                 f'StoryTagAdd: Short not found. Id = {short_id}.')
             return ResponseType('Novellia ei löydy', 400)
 
-        shortTag = StoryTag()
-        shortTag.shortstory_id = short_id
-        shortTag.tag_id = tag_id
-        session.add(shortTag)
+        short_tag = StoryTag()
+        short_tag.shortstory_id = short_id
+        short_tag.tag_id = tag_id
+        session.add(short_tag)
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(
             'Exception in ShortTagAdd(): ' + str(exp))
-        return ResponseType(f'ShortTagAdd: Tietokantavirhe. short_id={short_id}, tag_id={tag_id}.', 400)
+        return ResponseType(f'ShortTagAdd: Tietokantavirhe. \
+                            short_id={short_id}, tag_id={tag_id}.', 400)
 
     return ResponseType('Asiasana lisätty novellille', 200)
 
 
-def StoryTagRemove(short_id: int, tag_id: int) -> ResponseType:
+def story_tag_remove(short_id: int, tag_id: int) -> ResponseType:
+    """
+    Removes a tag from a story.
+
+    Parameters:
+        short_id (int): The ID of the short story.
+        tag_id (int): The ID of the tag to be removed.
+
+    Returns:
+        ResponseType: The response object containing the result of the
+        operation.
+    """
     retval = ResponseType('', 200)
     session = new_session()
 
     try:
-        shortTag = session.query(StoryTag)\
-            .filter(StoryTag.shortstory_id == short_id, StoryTag.tag_id == tag_id)\
+        short_tag = session.query(StoryTag)\
+            .filter(StoryTag.shortstory_id == short_id,
+                    StoryTag.tag_id == tag_id)\
             .first()
-        if not shortTag:
+        if not short_tag:
             app.logger.error(
-                f'ShortTagRemove: Short has no such tag: short_id {short_id}, tag {tag_id}.'
+                f'ShortTagRemove: Short has no such tag: short_id {short_id}, \
+                      tag {tag_id}.'
             )
-            return ResponseType(f'ShortTagRemove: Tagia ei löydy novellilta. short_id={short_id}, tag_id={tag_id}.', 400)
-        session.delete(shortTag)
+            return ResponseType(f'ShortTagRemove: Tagia ei löydy novellilta. \
+                                short_id={short_id}, tag_id={tag_id}.', 400)
+        session.delete(short_tag)
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(
             'Exception in ShortTagRemove(): ' + str(exp))
-        return ResponseType(f'ShortTagRemove: Tietokantavirhe. short_id={short_id}, tag_id={tag_id}.', 400)
+        return ResponseType(f'ShortTagRemove: Tietokantavirhe. \
+                            short_id={short_id}, tag_id={tag_id}.', 400)
 
     return retval
