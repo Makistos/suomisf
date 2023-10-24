@@ -1,3 +1,4 @@
+""" Functions related to tags. """
 from typing import Any, List
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
@@ -5,10 +6,21 @@ from app.orm_decl import (Tag, ArticleTag, IssueTag,
                           PersonTag, StoryTag, WorkTag)
 from app.model import (TagBriefSchema, TagSchema)
 from app.route_helpers import new_session
-from .impl import ResponseType
+from app.impl import ResponseType
 from app import app
 
-def tagsHaveChanged(old_values: List[Any], new_values: List[Any]) -> bool:
+
+def tags_have_changed(old_values: List[Any], new_values: List[Any]) -> bool:
+    """
+    Check if the tags have changed.
+
+    Args:
+        old_values (List[Any]): The list of old tag values.
+        new_values (List[Any]): The list of new tag values.
+
+    Returns:
+        bool: True if the tags have changed, False otherwise.
+    """
     if len(old_values) != len(new_values):
         return True
     for idx, old_value in enumerate(old_values):
@@ -16,7 +28,22 @@ def tagsHaveChanged(old_values: List[Any], new_values: List[Any]) -> bool:
             return True
     return False
 
-def TagFilter(query: str) -> ResponseType:
+
+def tag_filter(query: str) -> ResponseType:
+    """
+    Retrieves a list of tags from the database that match the given query.
+
+    Args:
+        query (str): The query string to match against tag names.
+
+    Returns:
+        ResponseType: The response containing the list of matching tags.
+
+    Raises:
+        SQLAlchemyError: If there is an error during the database query.
+        exceptions.MarshmallowError: If there is an error during schema
+                                     serialization.
+    """
     session = new_session()
 
     try:
@@ -38,14 +65,22 @@ def TagFilter(query: str) -> ResponseType:
 
     return ResponseType(retval, 200)
 
-def TagList() -> ResponseType:
+
+def tag_list() -> ResponseType:
+    """
+    Retrieves a list of tags from the database.
+
+    Returns:
+        ResponseType: An object representing the response containing the list
+                       of tags.
+    """
     session = new_session()
 
     try:
         tags = session.query(Tag).order_by(Tag.name)
     except SQLAlchemyError as exp:
         app.logger.error('Exception in TagList: ' + str(exp))
-        return ResponseType(f'TagList: Tietokantavirhe.', 400)
+        return ResponseType('TagList: Tietokantavirhe.', 400)
 
     try:
         schema = TagBriefSchema(many=True)
@@ -57,26 +92,50 @@ def TagList() -> ResponseType:
     return ResponseType(retval, 200)
 
 
-def TagInfo(id: int) -> ResponseType:
+def tag_info(tag_id: int) -> ResponseType:
+    """
+    Retrieves information about a tag based on its ID.
+
+    Args:
+        id (int): The ID of the tag.
+
+    Returns:
+        ResponseType: An object containing the tag information.
+
+    Raises:
+        SQLAlchemyError: If there is an error in querying the database.
+        exceptions.MarshmallowError: If there is an error in the schema.
+
+    """
     session = new_session()
 
     try:
-        tag = session.query(Tag).filter(Tag.id == id).first()
+        tag = session.query(Tag).filter(Tag.id == tag_id).first()
     except SQLAlchemyError as exp:
-        app.logger.error(f'Exception in TagInfo (id: {id}): ' + str(exp))
-        return ResponseType(f'TagInfo: Tietokantavirhe.', 400)
+        app.logger.error(f'Exception in TagInfo (id: {tag_id}): ' + str(exp))
+        return ResponseType('TagInfo: Tietokantavirhe.', 400)
 
     try:
         schema = TagSchema()
         retval = schema.dump(tag)
     except exceptions.MarshmallowError as exp:
-        app.logger.error(f'TagInfo schema error (id: {id}): ' + str(exp))
+        app.logger.error(f'TagInfo schema error (id: {tag_id}): ' + str(exp))
         return ResponseType('TagInfo: Skeemavirhe.', 400)
 
     return ResponseType(retval, 200)
 
 
-def TagSearch(query: str) -> ResponseType:
+def tag_search(query: str) -> ResponseType:
+    """
+    Searches for tags based on a given query string.
+
+    Args:
+        query (str): The query string used to search for tags.
+
+    Returns:
+        ResponseType: An object representing the response of the tag search
+                       operation.
+    """
     session = new_session()
 
     try:
@@ -87,7 +146,7 @@ def TagSearch(query: str) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error(
             f'Exception in TagSearch (query: {query}): ' + str(exp))
-        return ResponseType(f'TagSearch: Tietokantavirhe.', 400)
+        return ResponseType('TagSearch: Tietokantavirhe.', 400)
 
     try:
         schema = TagBriefSchema(many=True)
@@ -100,7 +159,17 @@ def TagSearch(query: str) -> ResponseType:
     return ResponseType(retval, 200)
 
 
-def _tagExists(session: Any, name: str) -> bool:
+def _tag_exists(session: Any, name: str) -> bool:
+    """
+    Check if a tag with the given name exists in the database.
+
+    Args:
+        session (Any): The database session.
+        name (str): The name of the tag to check.
+
+    Returns:
+        bool: True if the tag exists, False otherwise.
+    """
 
     try:
         count = session.query(Tag)\
@@ -117,9 +186,19 @@ def _tagExists(session: Any, name: str) -> bool:
     return False
 
 
-def TagCreate(name: str) -> ResponseType:
+def tag_create(name: str) -> ResponseType:
+    """
+    Creates a new tag with the specified name.
+
+    Parameters:
+        name (str): The name of the tag to create.
+
+    Returns:
+        ResponseType: The response object indicating the status of the tag
+                       creation.
+    """
     session = new_session()
-    if _tagExists(session, name):
+    if _tag_exists(session, name):
         app.logger.error(
             f'TagRename: Tag already exists. name = {name}.')
         return ResponseType('Asiasana on jo olemassa', 400)
@@ -132,24 +211,24 @@ def TagCreate(name: str) -> ResponseType:
     return ResponseType({'id': tag.id}, 200)
 
 
-def TagRename(id: int, name: str) -> ResponseType:
+def tag_rename(tag_id: int, name: str) -> ResponseType:
     """ See api_tagRename() in api.py. """
     session = new_session()
 
-    if _tagExists(session, name):
+    if _tag_exists(session, name):
         app.logger.error(
-            f'TagRename: Tag already exists. Id = {id}, name = {name}.')
+            f'TagRename: Tag already exists. Id = {tag_id}, name = {name}.')
         return ResponseType('Asiasana on jo olemassa', 400)
 
     try:
-        tag = session.query(Tag).filter(Tag.id == id).first()
+        tag = session.query(Tag).filter(Tag.id == tag_id).first()
     except SQLAlchemyError as exp:
         app.logger.error(
-            f'Exception in TagRename (id: {id}, name: {name}): ' + str(exp))
-        return ResponseType(f'TagRename: Tietokantavirhe.', 400)
+            f'Exception in TagRename (id: {tag_id}, name: {name}):  {exp}')
+        return ResponseType('TagRename: Tietokantavirhe.', 400)
 
     if not tag:
-        app.logger.error(f'TagRename: Tag not found. Id = {id}.')
+        app.logger.error(f'TagRename: Tag not found. Id = {tag_id}.')
         return ResponseType('Asiasanan tunnistetta ei löydy', 400)
 
     tag.name = name
@@ -166,77 +245,86 @@ def TagRename(id: int, name: str) -> ResponseType:
     return ResponseType(retval, 200)
 
 
-def TagDelete(id: int) -> ResponseType:
+def tag_delete(tag_id: int) -> ResponseType:
     """ See api_tagDelete in api.py. """
     retval = ResponseType('', 200)
 
     session = new_session()
 
-    articleTags = session.query(ArticleTag).filter(
-        ArticleTag.tag_id == id).all()
-    if articleTags:
-        app.logger.error(f'TagDelete: Tag is attached to articles. Id = {id}.')
+    article_tags = session.query(ArticleTag).filter(
+        ArticleTag.tag_id == tag_id).all()
+    if article_tags:
+        app.logger.error(f'TagDelete: Tag is attached to articles. \
+                         Id = {tag_id}.')
         return ResponseType('Asiasanaa käytetään artikkeleiden kanssa.', 400)
 
-    issueTags = session.query(IssueTag).filter(IssueTag.tag_id == id).all()
-    if issueTags:
-        app.logger.error(f'TagDelete: Tag is attached to issues. Id = {id}.')
-        return ResponseType('Asiasanaa käytetään lehden numeroiden kanssa.', 400)
+    issue_tags = session.query(IssueTag)\
+        .filter(IssueTag.tag_id == tag_id).all()
+    if issue_tags:
+        app.logger.error(f'TagDelete: Tag is attached to issues. \
+                         Id = {tag_id}.')
+        return ResponseType('Asiasanaa käytetään lehden numeroiden kanssa.',
+                            400)
 
-    personTags = session.query(PersonTag).filter(PersonTag.tag_id == id).all()
-    if personTags:
-        app.logger.error(f'TagDelete: Tag is attached to people. Id = {id}.')
+    person_tags = session.query(PersonTag)\
+        .filter(PersonTag.tag_id == tag_id).all()
+    if person_tags:
+        app.logger.error(f'TagDelete: Tag is attached to people. \
+                         Id = {tag_id}.')
         return ResponseType('Asiasanaa käytetään henkilöiden kanssa.', 400)
 
-    storyTags = session.query(StoryTag).filter(StoryTag.tag_id == id).all()
-    if storyTags:
-        app.logger.error(f'TagDelete: Tag is attached to stories. Id = {id}.')
+    story_tags = session.query(StoryTag)\
+        .filter(StoryTag.tag_id == tag_id).all()
+    if story_tags:
+        app.logger.error(f'TagDelete: Tag is attached to stories. \
+                         Id = {tag_id}.')
         return ResponseType('Asiasanaa käytetään novelleiden kanssa.', 400)
 
-    workTags = session.query(WorkTag).filter(WorkTag.tag_id == id).all()
-    if workTags:
-        app.logger.error(f'TagDelete: Tag is attached to works. Id = {id}.')
+    work_tags = session.query(WorkTag).filter(WorkTag.tag_id == tag_id).all()
+    if work_tags:
+        app.logger.error(f'TagDelete: Tag is attached to works. \
+                         Id = {tag_id}.')
         return ResponseType('Asiasanaa käytetään teosten kanssa.', 400)
 
     try:
         tag = session.query(Tag)\
-            .filter(Tag.id == id)\
+            .filter(Tag.id == tag_id)\
             .first()
         session.delete(tag)
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in TagDelete: ' + str(exp))
-        return ResponseType(f'TagDelete: Tietokantavirhe. id={id}', 400)
+        return ResponseType(f'TagDelete: Tietokantavirhe. id={tag_id}', 400)
 
     if not tag:
-        app.logger.error(f'TagDelete: Tag not found. id = {id}.')
+        app.logger.error(f'TagDelete: Tag not found. id = {tag_id}.')
         return ResponseType('Asiasanan tunnistetta ei löydy', 400)
 
     return retval
 
 
-def TagMerge(idTo: int, idFrom: int) -> ResponseType:
+def tag_merge(id_to: int, id_from: int) -> ResponseType:
     """ See api_tagMerge in api.py. """
     retval = ResponseType('', 200)
     session = new_session()
 
     try:
-        tagTo = session.query(Tag).filter(Tag.id == idTo).first()
-        tagFrom = session.query(Tag).filter(Tag.id == idFrom).first()
+        tag_to = session.query(Tag).filter(Tag.id == id_to).first()
+        tag_from = session.query(Tag).filter(Tag.id == id_from).first()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in TagMerge: ' + str(exp))
         return ResponseType(f'TagMerge: Tietokantavirhe. id={id}', 400)
 
-    if not tagTo or not tagFrom:
+    if not tag_to or not tag_from:
         app.logger.error(
-            f'TagMerge: Tag not found. To = {idTo}, From = {idFrom}.')
+            f'TagMerge: Tag not found. To = {id_to}, From = {id_from}.')
         return ResponseType('Tuntematon asiasanan tunniste', 400)
 
     # Update
     try:
         session.query(ArticleTag)\
-            .filter(ArticleTag.tag_id == idFrom)\
-            .update({ArticleTag.article_id: idTo}, synchronize_session=True)
+            .filter(ArticleTag.tag_id == id_from)\
+            .update({ArticleTag.article_id: id_to}, synchronize_session=True)
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in TagMerge: ' + str(exp))
