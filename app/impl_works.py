@@ -1,20 +1,24 @@
+""" Implementations for work related functions.
+"""
+import html
+from typing import Dict, List, Any, Union
 import bleach
-from app.route_helpers import new_session
-from app.impl import (ResponseType, SearchScores, SearchResult,
-                      SearchResultFields, searchScore, AddLanguage, SetLanguage)
-from app.orm_decl import (Contributor, Edition, Part, Work, WorkType, WorkTag,
-                          WorkGenre, WorkLink, WorkTag, Person, Language, Bookseries,
-                          ShortStory)
-from app.model import (CountryBriefSchema, WorkBriefSchema, WorkTypeBriefSchema,
-                       ShortBriefSchema)
-from app.model_bookindex import (BookIndexSchema)
-from app.model import WorkSchema
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
-from app.impl import ResponseType, checkInt, LogChanges, GetJoinChanges
-from app.impl_contributors import (updateWorkContributors, contributorsHaveChanged,
-                                   getContributorsString, hasContributionRole)
+from app.route_helpers import new_session
+from app.impl import (ResponseType, SearchResult,
+                      SearchResultFields, searchscore, set_language, check_int,
+                      log_changes, get_join_changes)
+from app.orm_decl import (Edition, Part, Work, WorkType, WorkTag,
+                          WorkGenre, WorkLink, Bookseries, ShortStory)
+from app.model import (WorkBriefSchema, WorkTypeBriefSchema, ShortBriefSchema)
+from app.model_bookindex import (BookIndexSchema)
+from app.model import WorkSchema
+from app.impl_contributors import (update_work_contributors,
+                                   contributors_have_changed,
+                                   get_contributors_string,
+                                   has_contribution_role)
 from app.impl_genres import genresHaveChanged
 from app.impl_tags import tagsHaveChanged
 from app.impl_links import linksHaveChanged
@@ -22,61 +26,107 @@ from app.impl_editions import EditionCreateFirst
 from app.impl_genres import checkGenreField
 from app.impl_editions import deleteEdition
 from app.impl_bookseries import AddBookseries
-import html
 
-from typing import Dict, List, Any, Union
 from app import app
 
-def _setBookseries(session: Any, work: Work, data: Any, old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+
+def _set_bookseries(
+        session: Any, work: Work, data: Any,
+        old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+    """
+    Sets the book series for a given work.
+
+    Args:
+        session (Any): The session object for the database connection.
+        work (Work): The work object to set the book series for.
+        data (Any): The data object containing the book series information.
+        old_values (Union[Dict[str, Any], None]): The old values of the work
+        object.
+
+    Returns:
+        Union[ResponseType, None]: The response type if there is an error,
+                                   otherwise None.
+    """
     if data['bookseries'] != work.bookseries:
         bs_id = None
         if old_values is not None:
-            if work.bookseries:
-                old_values['Kirjasarja'] = work.bookseries.name
-            else:
-                old_values['Kirjasarja'] = ''
-        if not 'id' in data['bookseries']:
+            old_values['Kirjasarja'] = (work.bookseries.name
+                                        if work.bookseries else '')
+        if 'id' not in data['bookseries']:
             # User added a new bookseries. Front returns this as a string
             # in the bookseries field so we need to add this bookseries to
             # the database first.
             bs_id = AddBookseries(bleach.clean(data['bookseries']))
         else:
-            bs_id = checkInt(data['bookseries']['id'], zerosAllowed=False, negativeValuesAllowed=False)
-            if bs_id != None:
+            bs_id = check_int(data['bookseries']['id'], zeros_allowed=False,
+                              negative_values=False)
+            if bs_id is not None:
                 bs = session.query(Bookseries)\
                     .filter(Bookseries.id == bs_id)\
                     .first()
                 if not bs:
-                    app.logger.error('WorkSave: Bookseries not found. Id = ' + str(data['bookseries']['id']) + '.')
+                    app.logger.error(f'''WorkSave: Bookseries not found. Id =
+                                     {data["bookseries"]["id"]}.''')
                     return ResponseType('Kirjasarjaa ei löydy', 400)
         work.bookseries_id = bs_id
     return None
 
 
-def _setDescription(work: Work, data: Any, old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+def _set_description(
+        work: Work,
+        data: Any,
+        old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+    """
+    Set the description of a work.
+
+    Args:
+        work (Work): The work object to set the description for.
+        data (Any): The data containing the new description.
+        old_values (Union[Dict[str, Any], None]): The old values of the work,
+        if available.
+
+    Returns:
+        Union[ResponseType, None]: The response type if there was an error,
+                                   otherwise None.
+    """
     try:
         html_text = html.unescape(data['description'])
     except (TypeError) as exp:
-        app.logger.error('WorkSave: Failed to unescape html: ' + data["description"] + '.')
+        app.logger.error('WorkSave: Failed to unescape html: ' +
+                         data["description"] + '.' + str(exp))
         return ResponseType('Kuvauksen html-muotoilu epäonnistui', 400)
     if html_text != work.description:
         if old_values is not None:
-            if work.description:
-                old_values['Kuvaus'] = work.description[0:200]
-            else:
-                old_values['Kuvaus'] = ''
+            old_values['Kuvaus'] = (work.description[0:200]
+                                    if work.description else '')
         work.description = html_text
     return None
 
 
-def _setWorkType(work: Any, data: Any, old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+def _set_work_type(
+        work: Any,
+        data: Any,
+        old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+    """
+    Sets the work type for a given work.
+
+    Args:
+        work (Any): The work object to set the work type for.
+        data (Any): The data containing the work type information.
+        old_values (Union[Dict[str, Any], None]): The old values of the work
+        type, if any.
+
+    Returns:
+        Union[ResponseType, None]: The response type if an error occurs,
+                                   None otherwise.
+    """
     if data['work_type'] is not None:
         if 'id' in data['work_type']:
-            work_type_id = checkInt(data['work_type']['id'],
-                                zerosAllowed=False,
-                                negativeValuesAllowed=False)
+            work_type_id = check_int(data['work_type']['id'],
+                                     zeros_allowed=False,
+                                     negative_values=False)
 
-            if work_type_id == None:
+            if work_type_id is None:
                 app.logger.error('WorkSave: Invalid work_type id.')
                 return ResponseType('WorkSave: Virheellinen teostyyppi.', 400)
             if old_values is not None:
@@ -89,15 +139,38 @@ def _setWorkType(work: Any, data: Any, old_values: Union[Dict[str, Any], None]) 
     return None
 
 
-def createAuthorStr(authors: List[Any], editions: List[Any]) -> str:
+def create_author_str(authors: List[Any], editions: List[Any]) -> str:
+    """
+    Generate a string representing the list of authors or editors of a book.
+
+    Args:
+        authors (List[Any]): A list of author objects.
+        editions (List[Any]): A list of edition objects.
+
+    Returns:
+        str: A string representing the list of authors or editors of a book.
+    """
     retval = ''
-    if len(authors)>0:
+    if len(authors) > 0:
         retval = ' & '.join([author.name for author in authors])
     else:
         retval = ' & '.join([x.name for x in editions[0].editors]) + ' (toim.)'
     return retval
 
-def _similarDescription(descr1: Union[str, None], descr2: Union[str, None]) -> bool:
+
+def _similar_description(
+        descr1: Union[str, None], descr2: Union[str, None]) -> bool:
+    """
+    Check if two descriptions are similar. Empty string and None values are
+    considered same.
+
+    Args:
+        descr1 (Union[str, None]): The first description.
+        descr2 (Union[str, None]): The second description.
+
+    Returns:
+        bool: True if the descriptions are similar, False otherwise.
+    """
     if descr1 == '':
         descr1 = None
     if descr2 == '':
@@ -105,16 +178,27 @@ def _similarDescription(descr1: Union[str, None], descr2: Union[str, None]) -> b
 
     return descr1 == descr2
 
-def GetWork(id: int) -> ResponseType:
+
+def get_work(work_id: int) -> ResponseType:
+    """
+    Retrieves a specific work from the database based on the provided work ID.
+
+    Args:
+        work_id (int): The ID of the work to retrieve.
+
+    Returns:
+        ResponseType: The response object containing the retrieved work if
+        successful, or an error message with a status code if unsuccessful.
+    """
     session = new_session()
     try:
-        work = session.query(Work).filter(Work.id == id).first()
+        work = session.query(Work).filter(Work.id == work_id).first()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in GetWork: ' + str(exp))
-        return ResponseType(f'GetWork: Tietokantavirhe. id={id}', 400)
+        return ResponseType(f'GetWork: Tietokantavirhe. id={work_id}', 400)
 
     if not work:
-        app.logger.error(f'GetWork: Work not found {id}.')
+        app.logger.error(f'GetWork: Work not found {work_id}.')
         return ResponseType('Teosta ei löytynyt. id={id}.', 400)
     try:
         contributions: List[Any] = []
@@ -124,8 +208,9 @@ def GetWork(id: int) -> ResponseType:
             for contribution in contributions:
                 if (contribution.person_id == contributor.person_id and
                     contribution.role_id == contributor.role_id and
-                    contribution.real_person_id == contributor.real_person_id and
-                    _similarDescription(contribution.description, contributor.description)):
+                    contribution.real_person_id == contributor.real_person_id
+                    and _similar_description(contribution.description,
+                                             contributor.description)):
                     already_added = True
             if not already_added:
                 contributions.append(contributor)
@@ -137,8 +222,10 @@ def GetWork(id: int) -> ResponseType:
                 for contribution in contributions:
                     if (contribution.person_id == contributor.person_id and
                         contribution.role_id == contributor.role_id and
-                        contribution.real_person_id == contributor.real_person_id and
-                        _similarDescription(contribution.description, contributor.description)):
+                        contribution.real_person_id ==
+                        contributor.real_person_id and
+                        _similar_description(contribution.description,
+                                             contributor.description)):
                         already_added = True
                 if not already_added:
                     contributions.append(contributor)
@@ -153,13 +240,24 @@ def GetWork(id: int) -> ResponseType:
     return ResponseType(retval, 200)
 
 
-def GetWorksByAuthor(author: int) -> ResponseType:
-    session = new_session()
+# def get_works_by_author(author: int) -> ResponseType:
+#     session = new_session()
 
-    return ResponseType('', 200)
+#     return ResponseType('', 200)
 
 
-def SearchWorks(session: Any, searchwords: List[str]) -> SearchResult:
+def search_works(session: Any, searchwords: List[str]) -> SearchResult:
+    """
+    Search for works based on the given search words.
+
+    Args:
+        session (Any): The session object to use for the database query.
+        searchwords (List[str]): The list of search words to use for the
+        search.
+
+    Returns:
+        SearchResult: A list of search results matching the search words.
+    """
     retval: SearchResult = []
     found_works: Dict[int, SearchResultFields] = {}
 
@@ -175,13 +273,10 @@ def SearchWorks(session: Any, searchwords: List[str]) -> SearchResult:
 
         for work in works:
             if work.id in found_works:
-                found_works[work.id]['score'] *= searchScore(
+                found_works[work.id]['score'] *= searchscore(
                     'work', work, searchword)
             else:
-                if work.description:
-                    description = work.description
-                else:
-                    description = ''
+                description = (work.description if work.description else '')
 
                 item: SearchResultFields = {
                     'id': work.id,
@@ -189,7 +284,7 @@ def SearchWorks(session: Any, searchwords: List[str]) -> SearchResult:
                     'header': work.title,
                     'description': description,
                     'type': 'work',
-                    'score': searchScore('work', work, searchword)
+                    'score': searchscore('work', work, searchword)
                 }
                 found_works[work.id] = item
         retval = [value for _, value in found_works.items()]
@@ -197,15 +292,26 @@ def SearchWorks(session: Any, searchwords: List[str]) -> SearchResult:
     return retval
 
 
-def SearchBooks(params: Dict[str, str]) -> ResponseType:
+def search_books(params: Dict[str, str]) -> ResponseType:
+    """
+    Searches for books based on the given parameters.
+
+    Args:
+        params (Dict[str, str]): A dictionary containing the search parameters.
+
+    Returns:
+        ResponseType: An object representing the response of the search.
+    """
     session = new_session()
     joins: List[str] = []
 
     stmt = 'SELECT DISTINCT work.* FROM work '
     if 'author' in params and params['author'] != '':
         author = bleach.clean(params['author'])
-        stmt += 'INNER JOIN part on part.work_id = work.id AND part.shortstory_id is null '
-        stmt += 'INNER JOIN contributor on contributor.part_id = part.id AND contributor.role_id = 1 '
+        stmt += 'INNER JOIN part on part.work_id = work.id '
+        stmt += 'AND part.shortstory_id is null '
+        stmt += 'INNER JOIN contributor on contributor.part_id = part.id '
+        stmt += 'AND contributor.role_id = 1 '
         stmt += 'INNER JOIN person on person.id = contributor.person_id '
         stmt += 'AND (lower(person.name) like lower("' + author + \
             '%") OR lower(person.alt_name) like lower("' + author + '%")) '
@@ -216,48 +322,54 @@ def SearchBooks(params: Dict[str, str]) -> ResponseType:
         if 'printyear_first' in params and params['printyear_first'] != '':
             printyear_first = bleach.clean(params['printyear_first'])
             try:
+                # pylint: disable-next=unused-variable
                 test_value = int(printyear_first)
-                if not 'part' in joins:
+                if 'part' not in joins:
                     stmt += 'INNER JOIN part on part.work_id = work.id '
                     joins.append('part')
-                if not 'edition' in joins:
-                    stmt += 'INNER JOIN edition on edition.id = part.edition_id '
+                if 'edition' not in joins:
+                    stmt += 'INNER JOIN edition on edition.id '
+                    stmt += '= part.edition_id '
                     joins.append('edition')
                 stmt += 'AND edition.pubyear >= ' + printyear_first + ' '
-            except (TypeError) as exp:
+            except (TypeError):
                 app.logger.error('Failed to convert printyear_first')
     if 'printyear_last' in params and params['printyear_last'] != '':
         if 'printyear_last' in params and params['printyear_last'] != '':
             printyear_last = bleach.clean(params['printyear_last'])
             try:
                 test_value = int(printyear_last)
-                if not 'part' in joins:
+                if 'part' not in joins:
                     stmt += 'INNER JOIN part on part.work_id = work.id '
                     joins.append('part')
-                if not 'edition' in joins:
-                    stmt += 'INNER JOIN edition on edition.id = part.edition_id '
+                if 'edition' not in joins:
+                    stmt += 'INNER JOIN edition on edition.id = '
+                    stmt += 'part.edition_id '
                     joins.append('edition')
                 stmt += 'AND edition.pubyear <= ' + printyear_last + ' '
             except (TypeError) as exp:
-                app.logger.error('Failed to convert printyear_last')
+                app.logger.error(f'Failed to convert printyear_last: {exp}')
     if 'genre' in params and params['genre'] != '':
         stmt += 'INNER JOIN workgenre on workgenre.work_id = work.id '
         stmt += 'AND workgenre.genre_id = "' + str(params['genre']) + '" '
     if 'nationality' in params and params['nationality'] != '':
-        if not 'part' in joins:
-            stmt += 'INNER JOIN part on part.work_id = work.id AND part.shortstory_id is null '
+        if 'part' not in joins:
+            stmt += 'INNER JOIN part on part.work_id = work.id AND '
+            stmt += 'part.shortstory_id is null '
             joins.append('part')
-        if not 'contributor' in joins:
-            stmt += 'INNER JOIN contributor on contributor.part_id = part.id AND contributor.role_id = 1 '
+        if 'contributor' not in joins:
+            stmt += 'INNER JOIN contributor on contributor.part_id = part.id '
+            stmt += 'AND contributor.role_id = 1 '
             joins.append('contributor')
-        if not 'person' in joins:
+        if 'person' not in joins:
             stmt += 'INNER JOIN person on person.id = contributor.person_id '
             joins.append('person')
         stmt += 'AND person.nationality_id = "' + \
             str(params['nationality']) + '" '
     if ('title' in params or 'orig_name' in params
         or 'pubyear_first' in params or 'pubyear_last' in params
-            or 'genre' in params or 'nationality' in params or 'type' in params):
+            or 'genre' in params or 'nationality' in params
+            or 'type' in params):
         stmt += 'WHERE 1=1 '
         if 'title' in params and params['title'] != '':
             title = bleach.clean(params['title'])
@@ -265,7 +377,8 @@ def SearchBooks(params: Dict[str, str]) -> ResponseType:
                 OR lower(work.title) like lower("% ' + title + '%")) '
         if 'orig_name' in params and params['orig_name'] != '':
             orig_name = bleach.clean(params['orig_name'])
-            stmt += 'AND (lower(work.orig_title) like lower("' + orig_name + '%") \
+            stmt += 'AND (lower(work.orig_title) like lower("'
+            stmt += orig_name + '%") \
                 OR lower(work.orig_title) like lower("% ' + orig_name + '%")) '
         if 'pubyear_first' in params and params['pubyear_first'] != '':
             pubyear_first = bleach.clean(params['pubyear_first'])
@@ -275,14 +388,14 @@ def SearchBooks(params: Dict[str, str]) -> ResponseType:
                 test_value = int(pubyear_first)
                 stmt += 'AND work.pubyear >= ' + pubyear_first + ' '
             except (TypeError) as exp:
-                app.logger.error('Failed to convert pubyear_first')
+                app.logger.error(f'Failed to convert pubyear_first: {exp}')
         if 'pubyear_last' in params and params['pubyear_last'] != '':
             pubyear_last = bleach.clean(params['pubyear_last'])
             try:
-                test_value = int(pubyear_last)
+                test_value = int(pubyear_last)  # noqa: F841
                 stmt += 'AND work.pubyear <= ' + pubyear_last + ' '
             except (TypeError) as exp:
-                app.logger.error('Failed to convert pubyear_first')
+                app.logger.error(f'Failed to convert pubyear_first: {exp}')
         if 'type' in params and params['type'] != '':
             stmt += 'AND work.type = "' + str(params['type']) + '" '
     stmt += ' ORDER BY work.author_str, work.title'
@@ -306,7 +419,22 @@ def SearchBooks(params: Dict[str, str]) -> ResponseType:
     return ResponseType(retval, 200)
 
 
-def SearchWorksByAuthor(params: Dict[str, str]) -> ResponseType:
+def search_works_by_author(params: Dict[str, str]) -> ResponseType:
+    """
+    Search for works by author.
+
+    Args:
+        params (Dict[str, str]): A dictionary of parameters for the search.
+
+    Returns:
+        ResponseType: The response type containing the search results.
+
+    Raises:
+        SQLAlchemyError: If there is an error in the SQLAlchemy query.
+        exceptions.MarshmallowError: If there is an error in the Marshmallow
+                                     schema.
+
+    """
     session = new_session()
 
     try:
@@ -315,10 +443,11 @@ def SearchWorksByAuthor(params: Dict[str, str]) -> ResponseType:
             .order_by(Work.author_str).all()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in SearchWorksByAuthor: ' + str(exp))
-        return ResponseType(f'SearchWorksByAuthor: Tietokantavirhe. id={id}', 400)
+        return ResponseType(f'SearchWorksByAuthor: Tietokantavirhe. id={id}',
+                            400)
 
     try:
-        #schema = WorkBriefSchema(many=True)
+        # schema = WorkBriefSchema(many=True)
         schema = BookIndexSchema(many=True)
         retval = schema.dump(works)
     except exceptions.MarshmallowError as exp:
@@ -328,76 +457,90 @@ def SearchWorksByAuthor(params: Dict[str, str]) -> ResponseType:
     return ResponseType(retval, 200)
 
 
-# def WorkTypesList() -> ResponseType:
-#     session = new_session()
+def work_tag_add(work_id: int, tag_id: int) -> ResponseType:
+    """
+    Adds a tag to a work.
 
-#     try:
-#         types = session.query(WorkType).order_by(WorkType.id)
-#     except SQLAlchemyError as exp:
-#         app.logger.error('Exception in WorkTypesList: ' + str(exp))
-#         return ResponseType(f'WorkTypesList: Tietokantavirhe. id={id}', 400)
+    Args:
+        work_id (int): The ID of the work to add the tag to.
+        tag_id (int): The ID of the tag to add to the work.
 
-#     try:
-#         schema = CountryBriefSchema(many=True)
-#         retval = schema.dump(types)
-#     except exceptions.MarshmallowError as exp:
-#         app.logger.error('WorkTypesList schema error: ' + str(exp))
-#         return ResponseType('WorkTypesList: Skeemavirhe.', 400)
-
-#     return ResponseType(retval, 200)
-
-
-def WorkTagAdd(work_id: int, tag_id: int) -> ResponseType:
-    retval = ResponseType('', 200)
+    Returns:
+        ResponseType: The response indicating the success or failure of the
+        operation.
+    """
     session = new_session()
 
     try:
-        short = session.query(Work).filter(
+        work = session.query(Work).filter(
             Work.id == work_id).first()
-        if not short:
+        if not work:
             app.logger.error(
                 f'WorkTagAdd: Short not found. Id = {work_id}.')
             return ResponseType('Novellia ei löydy', 400)
 
-        shortTag = WorkTag()
-        shortTag.work_id = work_id
-        shortTag.tag_id = tag_id
-        session.add(shortTag)
+        work_tag = WorkTag()
+        work_tag.work_id = work_id
+        work_tag.tag_id = tag_id
+        session.add(work_tag)
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(
             'Exception in WorkTagAdd(): ' + str(exp))
-        return ResponseType(f'WorkTagAdd: Tietokantavirhe. work_id={work_id}, tag_id={tag_id}.', 400)
+        return ResponseType(f'''WorkTagAdd: Tietokantavirhe. work_id={work_id},
+                            tag_id={tag_id}.''', 400)
 
-    return retval
+    return ResponseType('', 200)
 
 
-def WorkTagRemove(work_id: int, tag_id: int) -> ResponseType:
+def work_tag_remove(work_id: int, tag_id: int) -> ResponseType:
+    """
+    Remove a tag from a work.
+
+    Parameters:
+        work_id (int): The ID of the work.
+        tag_id (int): The ID of the tag.
+
+    Returns:
+        ResponseType: An instance of the ResponseType class containing the
+        result of the operation.
+    """
     retval = ResponseType('', 200)
     session = new_session()
 
     try:
-        shortTag = session.query(WorkTag)\
+        work_tag = session.query(WorkTag)\
             .filter(WorkTag.work_id == work_id, WorkTag.tag_id == tag_id)\
             .first()
-        if not shortTag:
+        if not work_tag:
             app.logger.error(
-                f'WorkTagRemove: Short has no such tag: work_id {work_id}, tag {tag_id}.'
+                f'WorkTagRemove: Short has no such tag: work_id {work_id},\
+                      tag {tag_id}.'
             )
-            return ResponseType(f'WorkTagRemove: Tagia ei löydy novellilta. work_id={work_id}, tag_id={tag_id}.', 400)
-        session.delete(shortTag)
+            return ResponseType(f'WorkTagRemove: Tagia ei löydy novellilta. \
+                                work_id={work_id}, tag_id={tag_id}.', 400)
+        session.delete(work_tag)
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(
             'Exception in WorkTagRemove(): ' + str(exp))
-        return ResponseType(f'WorkTagRemove: Tietokantavirhe. work_id={work_id}, tag_id={tag_id}.', 400)
+        return ResponseType(f'WorkTagRemove: Tietokantavirhe. \
+                            work_id={work_id}, tag_id={tag_id}.', 400)
 
     return retval
 
 
-def WorkAdd(params: Any) -> ResponseType:
+def work_add(params: Any) -> ResponseType:
+    """
+    A function that adds a new work to the database.
+
+    Parameters:
+    - params (Any): The parameters for the work.
+
+    Returns:
+    - ResponseType: The response containing the result of the operation.
+    """
     session = new_session()
-    retval = ResponseType('', 200)
 
     data = params['data']
 
@@ -407,12 +550,12 @@ def WorkAdd(params: Any) -> ResponseType:
         app.logger.error('WorkAdd: Empty title.')
         return ResponseType('Tyhjä nimi', 400)
 
-    if not 'contributions' in data:
+    if 'contributions' not in data:
         app.logger.error('WorkAdd: No contributions.')
         return ResponseType('Ei kirjoittajaa tai toimittajaa', 400)
 
-    if not (hasContributionRole(data['contributions'], 1) or
-            hasContributionRole(data['contributions'], 3)):
+    if not (has_contribution_role(data['contributions'], 1) or
+            has_contribution_role(data['contributions'], 3)):
         app.logger.error('WorkAdd: No author or editor.')
         return ResponseType('Ei kirjoittajaa tai toimittajaa', 400)
 
@@ -420,39 +563,28 @@ def WorkAdd(params: Any) -> ResponseType:
     work.subtitle = bleach.clean(data['subtitle'])
     work.orig_title = bleach.clean(data['orig_title'])
 
-    work.pubyear = checkInt(data['pubyear'])
+    work.pubyear = check_int(data['pubyear'])
 
     work.bookseriesnum = bleach.clean(data['bookseriesnum'])
     if 'bookseries' in data:
-        result = _setBookseries(session, work, data, None)
+        result = _set_bookseries(session, work, data, None)
         if result:
             return result
-        # if data['bookseries'] is not None:
-        #     if 'id' in data['bookseries']:
-        #         work.bookseries_id = checkInt(data['bookseries']['id'],
-        #                                     zerosAllowed=False,
-        #                                     negativeValuesAllowed=False)
-    work.bookseriesorder = checkInt(data['bookseriesorder'])
+    work.bookseriesorder = check_int(data['bookseriesorder'])
 
     if 'language' in data:
-        result = SetLanguage(session, work, data, None)
+        result = set_language(session, work, data, None)
         if result:
             return result
     # Work type is required and defaults to 1 (book)
-    work.type =  1
+    work.type = 1
     if 'work_type' in data:
-        result = _setWorkType(work, data, None)
-        # if data['work_type'] is not None:
-        #     if 'id' in data['work_type']:
-        #         work_type = checkInt(data['work_type']['id'],
-        #                             zerosAllowed=False,
-        #                             negativeValuesAllowed=False)
+        result = _set_work_type(work, data, None)
 
     if 'description' in data:
-        result = _setDescription(work, data, None)
+        result = _set_description(work, data, None)
         if result:
             return result
-        #work.description = html.unescape(bleach.clean(data['description']))
     if 'descr_attr' in data:
         work.descr_attr = bleach.clean(data['descr_attr'])
     if 'misc' in data:
@@ -465,7 +597,8 @@ def WorkAdd(params: Any) -> ResponseType:
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in WorkAdd: ' + str(exp))
-        return ResponseType(f'WorkAdd: Tietokantavirhe teoksessa. work_id={work.id}', 400)
+        return ResponseType(f'WorkAdd: Tietokantavirhe teoksessa. \
+                             work_id={work.id}', 400)
 
     # Add first edition (requires work id)
     new_edition = EditionCreateFirst(work)
@@ -474,35 +607,38 @@ def WorkAdd(params: Any) -> ResponseType:
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in WorkAdd: ' + str(exp))
-        return ResponseType(f'WorkAdd: Tietokantavirhe painoksessa. work_id={work.id}', 400)
+        return ResponseType(f'WorkAdd: Tietokantavirhe painoksessa. \
+                            work_id={work.id}', 400)
 
-    # Add part to tie work and edition together (requires work id and edition id)
+    # Add part to tie work and edition together (requires work id and edition
+    # id)
     new_part = Part(work_id=work.id, edition_id=new_edition.id)
     try:
         session.add(new_part)
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in WorkAdd: ' + str(exp))
-        return ResponseType(f'WorkAdd: Tietokantavirhe Part-taulussa. work_id={work.id}', 400)
+        return ResponseType(f'WorkAdd: Tietokantavirhe Part-taulussa. \
+                            work_id={work.id}', 400)
 
     # Add contributors (requires part id)
-    updateWorkContributors(session, work.id, data['contributions'])
+    update_work_contributors(session, work.id, data['contributions'])
 
     # Add tags (requires work id)
     if 'tags' in data:
         for tag in data['tags']:
             if 'id' in tag:
-                if tag['id'] != 0 and tag['id'] != None:
+                if tag['id'] != 0 and tag['id'] is not None:
                     new_tag = WorkTag(work_id=work.id, tag_id=tag['id'])
                     session.add(new_tag)
 
     # Add links (requires work id)
     if 'links' in data:
         for link in data['links']:
-            if not 'link' in link:
+            if 'link' not in link:
                 app.logger.error('WorkAdd: Link missing link.')
                 return ResponseType('Linkin tiedot puutteelliset', 400)
-            if link['link'] != '' and link['link'] != None:
+            if link['link'] != '' and link['link'] is not None:
                 # Description is not a required field
                 if 'description' in link:
                     description = link['description']
@@ -516,8 +652,8 @@ def WorkAdd(params: Any) -> ResponseType:
     # Add genres (requires work id)
     if 'genres' in data:
         for genre in data['genres']:
-            isOk = checkGenreField(session, genre)
-            if not isOk:
+            is_ok = checkGenreField(session, genre)
+            if not is_ok:
                 app.logger.error('WorkAdd: Genre missing id.')
                 return ResponseType('Genren tiedot puutteelliset', 400)
             new_genre = WorkGenre(work_id=work.id, genre_id=genre['id'])
@@ -527,8 +663,8 @@ def WorkAdd(params: Any) -> ResponseType:
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in WorkAdd: ' + str(exp))
-        return ResponseType(f'WorkAdd: Tietokantavirhe asiasanoissa, linkeissä tai genreissä. work_id={work.id}',
-                            400)
+        return ResponseType(f'WorkAdd: Tietokantavirhe asiasanoissa, linkeissä\
+                            tai genreissä. work_id={work.id}', 400)
 
     # Update author string
     try:
@@ -537,20 +673,34 @@ def WorkAdd(params: Any) -> ResponseType:
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in WorkAdd: ' + str(exp))
-        return ResponseType(f'WorkAdd: Tietokantavirhe tekijänimissä. work_id={work.id}', 400)
+        return ResponseType(f'WorkAdd: Tietokantavirhe tekijänimissä. \
+                            work_id={work.id}', 400)
 
-    LogChanges(session, obj=work, action='Uusi')
+    log_changes(session, obj=work, action='Uusi')
     session.commit()
     return ResponseType(str(work.id), 201)
 
-# Save changes to work to database
-def WorkUpdate(params: Any) -> ResponseType:
+
+# This is a simple function, splitting it to fit standards would make no sense.
+# pylint: disable-next=too-many-locals,too-many-branches,too-many-statements,too-many-return-statements # noqa: E501
+def work_update(
+        params: Any) -> ResponseType:
+    """
+    Updates the work information based on the given parameters.
+
+    Parameters:
+    - params (Any): The parameters for the update.
+
+    Returns:
+    - ResponseType: The response type object indicating the status of the
+    update.
+    """
     retval = ResponseType('OK', 200)
     session = new_session()
     old_values = {}
     work: Any = None
     data = params['data']
-    work_id = checkInt(data['id'])
+    work_id = check_int(data['id'])
 
     work = session.query(Work).filter(Work.id == work_id).first()
     if not work:
@@ -578,7 +728,7 @@ def WorkUpdate(params: Any) -> ResponseType:
     if 'pubyear' in data:
         if data['pubyear'] != work.pubyear:
             old_values['Julkaisuvuosi'] = work.pubyear
-            work.pubyear = checkInt(data['pubyear'])
+            work.pubyear = check_int(data['pubyear'])
 
     if 'bookseriesnum' in data:
         if data['bookseriesnum'] != work.bookseriesnum:
@@ -596,7 +746,7 @@ def WorkUpdate(params: Any) -> ResponseType:
             work.misc = bleach.clean(data['misc'])
 
     if 'description' in data:
-        result = _setDescription(work, data, old_values)
+        result = _set_description(work, data, old_values)
         if result:
             return result
 
@@ -612,27 +762,28 @@ def WorkUpdate(params: Any) -> ResponseType:
 
     # Language
     if 'language' in data:
-        result = SetLanguage(session, work, data, old_values)
+        result = set_language(session, work, data, old_values)
         if result:
             return result
 
     # Bookseries
     if 'bookseries' in data:
-        result = _setBookseries(session, work, data, old_values)
+        result = _set_bookseries(session, work, data, old_values)
         if result:
             return result
 
     # Worktype
     if 'work_type' in data:
-        result = _setWorkType(work, data, old_values)
+        result = _set_work_type(work, data, old_values)
         if result:
             return result
 
     # Contributors
     if 'contributions' in data:
-        if contributorsHaveChanged(work.contributions, data['contributions']):
-            old_values['Tekijät'] = getContributorsString(work.contributions)
-            updateWorkContributors(session, work.id, data['contributions'])
+        if contributors_have_changed(work.contributions,
+                                     data['contributions']):
+            old_values['Tekijät'] = get_contributors_string(work.contributions)
+            update_work_contributors(session, work.id, data['contributions'])
 
     # Genres
     if 'genres' in data:
@@ -640,8 +791,9 @@ def WorkUpdate(params: Any) -> ResponseType:
             existing_genres = session.query(WorkGenre)\
                 .filter(WorkGenre.work_id == work_id)\
                 .all()
-            (to_add, to_remove) = GetJoinChanges([x.genre_id for x in existing_genres],
-                                                [x['id'] for x in data['genres']])
+            (to_add, to_remove) = get_join_changes(
+                [x.genre_id for x in existing_genres],
+                [x['id'] for x in data['genres']])
             if len(existing_genres) > 0:
                 for genre in existing_genres:
                     session.delete(genre)
@@ -657,8 +809,9 @@ def WorkUpdate(params: Any) -> ResponseType:
             existing_tags = session.query(WorkTag)\
                 .filter(WorkTag.work_id == work_id)\
                 .all()
-            (to_add, to_remove) = GetJoinChanges([x.tag_id for x in existing_tags],
-                                                [x['id'] for x in data['tags']])
+            (to_add, to_remove) = get_join_changes(
+                [x.tag_id for x in existing_tags],
+                [x['id'] for x in data['tags']])
             if len(existing_tags) > 0:
                 for tag in existing_tags:
                     session.delete(tag)
@@ -675,15 +828,17 @@ def WorkUpdate(params: Any) -> ResponseType:
             existing_links = session.query(WorkLink)\
                 .filter(WorkLink.work_id == work_id)\
                 .all()
-            (to_add, to_remove) = GetJoinChanges([x.link for x in existing_links],
-                                                    [x['link'] for x in data['links']])
+            (to_add, to_remove) = get_join_changes(
+                [x.link for x in existing_links],
+                [x['link'] for x in data['links']])
             if len(existing_links) > 0:
                 for link in existing_links:
                     session.delete(link)
             for link in new_links:
                 if 'link' not in link:
                     app.logger.error('WorkUpdate: Link missing address.')
-                    return ResponseType('WorkUpdate: Linkin tiedot puutteelliset', 400)
+                    return ResponseType('WorkUpdate: Linkin tiedot \
+                                        puutteelliset', 400)
                 sl = WorkLink(work_id=work.id, link=link['link'],
                               description=link['description'])
                 session.add(sl)
@@ -696,8 +851,8 @@ def WorkUpdate(params: Any) -> ResponseType:
         # Nothing has changed.
         return retval
 
-    LogChanges(session=session, obj=work, action='Päivitys',
-               old_values=old_values)
+    log_changes(session=session, obj=work, action='Päivitys',
+                old_values=old_values)
 
     try:
         session.add(work)
@@ -718,7 +873,14 @@ def WorkUpdate(params: Any) -> ResponseType:
     return retval
 
 
-def WorkTypeGetAll() -> ResponseType:
+def worktype_get_all() -> ResponseType:
+    """
+    Retrieves all work types from the database and returns them as a response.
+
+    Returns:
+        ResponseType: The response object containing the result of the
+        operation.
+    """
     session = new_session()
 
     try:
@@ -736,29 +898,47 @@ def WorkTypeGetAll() -> ResponseType:
 
     return ResponseType(retval, 200)
 
-def WorkDelete(id: int) -> ResponseType:
+
+def work_delete(work_id: int) -> ResponseType:
+    """
+    Deletes a work from the database and all related records.
+
+    Args:
+        id (int): The ID of the work to be deleted.
+
+    Returns:
+        ResponseType: The response indicating the success or failure of the
+            deletion operation.
+            - If the work is successfully deleted, returns a response with
+              status code 200 and the message 'WorkDelete: Teos poistettu'.
+            - If the work is not found, returns a response with status code
+              404 and the message 'WorkDelete: Teosta ei löydy'.
+            - If there is a database error while deleting the work or its
+              related records, returns a response with status code 400 and the
+              message 'WorkDelete: Tietokantavirhe'.
+    """
     session = new_session()
     old_values = {}
 
     try:
-        work = session.query(Work).filter(Work.id == id).first()
+        work = session.query(Work).filter(Work.id == work_id).first()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in WorkDelete(): ' + str(exp))
         return ResponseType('WorkDelete: Tietokantavirhe', 400)
 
-    if work == None:
+    if work is None:
         app.logger.error('Exception in WorkDelete(): Work not found.')
         return ResponseType('WorkDelete: Teosta ei löydy', 404)
 
     # Delete everything related to the work
     try:
         editions = session.query(Edition)\
-        .join(Part)\
-        .filter(Part.work_id == id)\
-        .filter(Part.edition_id == Edition.id)\
-        .all()
+            .join(Part)\
+            .filter(Part.work_id == work_id)\
+            .filter(Part.edition_id == Edition.id)\
+            .all()
     except SQLAlchemyError as exp:
-        app.logger.error('Exception in WorkDelete() deleting editions: ' + str(exp))
+        app.logger.error(f'Exception in WorkDelete() deleting editions: {exp}')
         return ResponseType('WorkDelete: Tietokantavirhe', 400)
     for edition in editions:
         success = deleteEdition(session, edition.id)
@@ -768,31 +948,41 @@ def WorkDelete(id: int) -> ResponseType:
 
     try:
         old_values['Nimi'] = work.title
-        LogChanges(session, obj=work, action='Poisto', old_values=old_values)
-        session.query(WorkGenre).filter(WorkGenre.work_id == id).delete()
-        session.query(WorkTag).filter(WorkTag.work_id == id).delete()
-        session.query(WorkLink).filter(WorkLink.work_id == id).delete()
-        session.query(Work).filter(Work.id == id).delete()
+        log_changes(session, obj=work, action='Poisto', old_values=old_values)
+        session.query(WorkGenre).filter(WorkGenre.work_id == work_id).delete()
+        session.query(WorkTag).filter(WorkTag.work_id == work_id).delete()
+        session.query(WorkLink).filter(WorkLink.work_id == work_id).delete()
+        session.query(Work).filter(Work.id == work_id).delete()
     except SQLAlchemyError as exp:
         session.rollback()
-        app.logger.error('Exception in WorkDelete() deleting work: ' + str(exp))
+        app.logger.error(f'Exception in WorkDelete() deleting work: {exp}')
         return ResponseType('WorkDelete: Tietokantavirhe', 400)
 
     try:
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()
-        app.logger.error('Exception in WorkDelete() commit: ' + str(exp))
+        app.logger.error(f'Exception in WorkDelete() commit: {exp}')
         return ResponseType('WorkDelete: Tietokantavirhe', 400)
 
     return ResponseType('WorkDelete: Teos poistettu', 200)
 
-def GetWorkShorts(id: int) -> ResponseType:
+
+def get_work_shorts(work_id: int) -> ResponseType:
+    """
+    Retrieves the short stories associated with a work.
+
+    Args:
+        work_id (int): The ID of the work.
+
+    Returns:
+        ResponseType: The response containing the serialized short stories.
+    """
     session = new_session()
     try:
         shorts = session.query(ShortStory)\
             .join(Part)\
-            .filter(Part.work_id == id)\
+            .filter(Part.work_id == work_id)\
             .filter(Part.shortstory_id == ShortStory.id)\
             .distinct()\
             .all()
