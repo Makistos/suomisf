@@ -1,31 +1,38 @@
+""" Misc functions and definitions not in other impl_* files.
+"""
 from datetime import datetime, timedelta
-from xmlrpc.client import Boolean
-
+from enum import IntEnum
+import json
+from typing import Dict, NamedTuple, Tuple, List, Union, Any, TypedDict, Set
+# from xmlrpc.client import Boolean
+from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
+import bleach
+from flask_login import current_user
+from marshmallow import exceptions
+
 from app.api_errors import APIError
 from app.route_helpers import new_session
 from app.orm_decl import (Country, Log, Genre, Language, ContributorRole,
                           Work, Edition, ShortStory, Magazine, EditionImage,
                           ArticleLink, BookseriesLink, EditionLink,
                           PersonLink, PublisherLink, PubseriesLink, WorkLink)
-from app.model import *
-from marshmallow import exceptions
-from typing import Dict, NamedTuple, Tuple, List, Union, Any, TypedDict, Set
+from app.model import (GenreBriefSchema, EditionBriefestSchema, LanguageSchema,
+                       CountryBriefSchema, ContributorRoleSchema, LogSchema,
+                       LinkSchema)
 from app import app
-from sqlalchemy import text
-import bleach
-from enum import IntEnum
-from flask_login import current_user
-import json
-from datetime import timedelta, date
 
 
 class ResponseType(NamedTuple):
+    """ Response type.
+    """
     response: Union[str, Dict[str, Any]]
     status: int
 
 
 class SearchResultFields(TypedDict):
+    """ Search result fields.
+    """
     id: str
     img: str
     header: str
@@ -44,6 +51,8 @@ SearchResults = Dict[str, SearchResult]
 
 
 class SearchScores(IntEnum):
+    """ Scores for each search result, used to sort results.
+    """
     PERSON_NAME = 20
     PERSON_OTHER = 10
     WORK_TITLE = 19
@@ -56,28 +65,45 @@ class SearchScores(IntEnum):
     PUBLISHER_OTHER = 6
     NONE = 0
 
-# def getJoinChanges(existing: List[Any], updated: List[Any], comparator) -> List[Any]:
 
-
-def checkInt(value: Any = None,
-             zerosAllowed: Boolean = True,
-             negativeValuesAllowed: Boolean = False,
-             allowed: List[int] = []) -> Union[int, None]:
+# pylint: disable-next=dangerous-default-value
+def check_int(value: Any = None,
+              zeros_allowed: bool = True,
+              negative_values: bool = False,
+              allowed: List[int] = []) -> Union[int, None]:
     """
-    Checks that given value is an integer.
+    Search for a given `item` and `word` in the specified `table` and return
+    the corresponding search score.
 
-    Parameters
-    ----------
+    Args:
+        table (str): The table to search in. Can be either 'work' or 'person'.
+        item (Any): The item to search within.
+        word (str): The word to search for.
 
+    Returns:
+        IntEnum: The search score value based on the search result. Possible i
+        values are:
+            - `SearchScores.NONE`: If no match is found.
+            - `SearchScores.WORK_TITLE`: If the word is found in the `item`'s
+                                         title when `table` is 'work'.
+            - `SearchScores.WORK_OTHER`: If the word is found in the `item` but
+                                         not in the title when `table` is
+                                         'work'.
+            - `SearchScores.PERSON_NAME`: If the word is found in the `item`'s
+                                          fullname, name, or alt_name when
+                                          `table` is 'person'.
+            - `SearchScores.PERSON_OTHER`: If the word is found in the `item`
+                                           but not in fullname, name, or
+                                           alt_name when `table` is 'person'.
     """
     retval: int = 0
     try:
         retval = int(value)
-    except (TypeError, ValueError) as exp:
+    except (TypeError, ValueError):
         return None
-    if not zerosAllowed and retval == 0:
+    if not zeros_allowed and retval == 0:
         return None
-    if not negativeValuesAllowed and retval < 0:
+    if not negative_values and retval < 0:
         return None
     if len(allowed) > 0:
         if retval not in allowed:
@@ -85,14 +111,25 @@ def checkInt(value: Any = None,
     return retval
 
 
-def searchScore(table: str, item: Any, word: str) -> IntEnum:
+def searchscore(table: str, item: Any, word: str) -> IntEnum:
+    """
+    Calculate the search score for a given item in a table based on a search
+    word.
+
+    Args:
+        table (str): The name of the table to search in.
+        item (Any): The item to search for.
+        word (str): The search word.
+
+    Returns:
+        IntEnum: The search score for the item.
+    """
     retval: IntEnum = SearchScores.NONE
 
     if table == 'work':
         if word in item.title.lower():
             return SearchScores.WORK_TITLE
-        else:
-            return SearchScores.WORK_OTHER
+        return SearchScores.WORK_OTHER
     if table == 'person':
         if item.fullname:
             if word in item.fullname.lower():
@@ -108,11 +145,19 @@ def searchScore(table: str, item: Any, word: str) -> IntEnum:
     return retval
 
 
-def GetChanges(params: Dict[str, Any]) -> ResponseType:
-    # Get changes made to the database.
-    #
-    # Defaults to all changes made in the last 30 days.
-    #
+def get_changes(params: Dict[str, Any]) -> ResponseType:
+    """
+    Get changes made to the database.
+
+    Defaults to all changes made in the last 30 days.
+
+    Args:
+        params (Dict[str, Any]): A dictionary containing the parameters for the
+        function.
+
+    Returns:
+        ResponseType: The response type of the function.
+    """
     period_length: int = 30
     stmt: str = 'SELECT Log.* FROM Log WHERE 1=1 '
     session = new_session()
@@ -121,7 +166,8 @@ def GetChanges(params: Dict[str, Any]) -> ResponseType:
         try:
             period_length = int(params['period'])
         except TypeError as exp:
-            raise APIError
+            app.logger.error(f'get_changes: {exp}')
+            raise APIError from exp
         cutoff_date = datetime.now() - timedelta(period_length)
         stmt += 'AND Log.Date >= "' + str(cutoff_date) + '" '
     else:
@@ -134,10 +180,11 @@ def GetChanges(params: Dict[str, Any]) -> ResponseType:
 
     if 'id' in params:
         try:
-            id = int(params['id'])
+            table_id = int(params['id'])
         except TypeError as exp:
-            raise APIError
-        stmt += 'AND table_id = "' + str(id) + '" '
+            app.logger.error(f'get_changes: {exp}')
+            raise APIError from exp
+        stmt += 'AND table_id = "' + str(table_id) + '" '
 
     if 'action' in params:
         action = bleach.clean(params['action'])
@@ -151,7 +198,8 @@ def GetChanges(params: Dict[str, Any]) -> ResponseType:
         try:
             userid = int(params['userid'])
         except TypeError as exp:
-            raise APIError
+            app.logger.error(f'get_changes: {exp}')
+            raise APIError from exp
         stmt += 'AND user_id = "' + str(userid) + '" '
 
     stmt += 'ORDER BY date DESC '
@@ -160,7 +208,8 @@ def GetChanges(params: Dict[str, Any]) -> ResponseType:
         try:
             limit = int(params['limit'])
         except TypeError as exp:
-            raise APIError
+            app.logger.error(f'get_changes: {exp}')
+            raise APIError from exp
         stmt += 'LIMIT ' + str(limit) + ' '
 
     print(stmt)
@@ -170,7 +219,7 @@ def GetChanges(params: Dict[str, Any]) -> ResponseType:
             .all()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in GetChanges: ' + str(exp))
-        return ResponseType(f'GetChanges: Tietokantavirhe.', 400)
+        return ResponseType('GetChanges: Tietokantavirhe.', 400)
     # changes = session.query(Log).filter(
     #     Log.date >= cutoff_date).order_by(Log.date.desc()).all()
     try:
@@ -194,8 +243,10 @@ table_locals = {'article': 'Artikkeli',
                 'work': 'Teos'}
 
 
-def LogChanges(session: Any, obj: Any, name_field: str = "name", action: str = 'Päivitys',
-               old_values: Dict[str, Any] = {}) -> int:
+# pylint: disable-next=dangerous-default-value
+def log_changes(session: Any, obj: Any, name_field: str = "name",
+                action: str = 'Päivitys',
+                old_values: Dict[str, Any] = {}) -> int:
     ''' Log a change made to data.
 
     Logging is done in the same session as the object itself, so it will
@@ -205,16 +256,20 @@ def LogChanges(session: Any, obj: Any, name_field: str = "name", action: str = '
     Args:
         session (Any): Session handler.
         obj (Any): Object that was changed.
-        action (str, optional): Description of change, either "Päivitys" or "Uusi". Defaults to 'Päivitys'.
-        fields (List[str], optional): Fields that were changed. Needed for "Päivitys", not used for "Uusi". Defaults to [].
+        action (str, optional): Description of change, either "Päivitys" or
+                                "Uusi". Defaults to 'Päivitys'.
+        fields (List[str], optional): Fields that were changed. Needed for
+                                      "Päivitys", not used for "Uusi". Defaults
+                                      to [].
+
+    Returns:
+        int: The id of the log entry.
     '''
     retval: int = 0
-    #name: str = obj.name
     name: str = getattr(obj, name_field)
     tbl_name = table_locals[obj.__table__.name]
-    #old_value: Union[str, None]
 
-    if action == 'Päivitys' or action == 'Poisto':
+    if action in ['Päivitys', 'Poisto']:
         for field, value in old_values.items():
             # if field in old_values:
             #     old_value = bleach.clean(old_values[field])
@@ -241,7 +296,20 @@ def LogChanges(session: Any, obj: Any, name_field: str = "name", action: str = '
         retval = log.id
     return retval
 
-def GenreList() -> ResponseType:
+
+def genre_list() -> ResponseType:
+    """
+    Calculate the search score for a given item in a table based on a search
+    word.
+
+    Args:
+        table (str): The name of the table to search in.
+        item (Any): The item to search for.
+        word (str): The search word.
+
+    Returns:
+        IntEnum: The search score for the item.
+    """
     session = new_session()
 
     try:
@@ -259,7 +327,23 @@ def GenreList() -> ResponseType:
     return ResponseType(retval, 200)
 
 
-def CountryList() -> ResponseType:
+def country_list() -> ResponseType:
+    """
+    Retrieves a list of countries from the database and returns it in the
+    response.
+
+    Returns:
+        ResponseType: The response object containing the list of countries and
+        the status code.
+
+    Raises:
+        SQLAlchemyError: If there is an error with the database query.
+        exceptions.MarshmallowError: If there is an error with the data schema.
+
+    Example Usage:
+        response = CountryList()
+        print(response)
+    """
     session = new_session()
 
     try:
@@ -277,7 +361,14 @@ def CountryList() -> ResponseType:
     return ResponseType(retval, 200)
 
 
-def RoleList() -> ResponseType:
+def role_list() -> ResponseType:
+    """
+    Retrieves a list of contributor roles from the database.
+
+    Returns:
+        ResponseType: The response object containing the list of roles and
+        the HTTP status code.
+    """
     session = new_session()
 
     try:
@@ -295,7 +386,17 @@ def RoleList() -> ResponseType:
     return ResponseType(retval, 200)
 
 
-def FilterCountries(query: str) -> ResponseType:
+def filter_countries(query: str) -> ResponseType:
+    """
+    Retrieves a list of countries that match the given query.
+
+    Args:
+        query (str): The search query.
+
+    Returns:
+        ResponseType: The response object containing either the filtered
+        countries or an error message.
+    """
     session = new_session()
     try:
         countries = session.query(Country)\
@@ -317,7 +418,17 @@ def FilterCountries(query: str) -> ResponseType:
     return ResponseType(retval, 200)
 
 
-def FilterLanguages(query: str) -> ResponseType:
+def filter_languages(query: str) -> ResponseType:
+    """
+    Filters the languages based on the given query.
+
+    Args:
+        query (str): A string representing the query to filter the languages.
+
+    Returns:
+        ResponseType: An instance of ResponseType containing the filtered
+        languages.
+    """
     session = new_session()
     try:
         languages = session.query(Language)\
@@ -338,7 +449,24 @@ def FilterLanguages(query: str) -> ResponseType:
 
     return ResponseType(retval, 200)
 
-def SetLanguage(session: Any, item: Any, data: Any, old_values:  Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+
+def set_language(
+        session: Any,
+        item: Any,
+        data: Any,
+        old_values:  Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+    """
+    Set the language for an item.
+
+    Args:
+        session (Any): The current session.
+        item (Any): The item to set the language for.
+        data (Any): The data containing the new language information.
+        old_values (Union[Dict[str, Any], None]): The old values of the item.
+
+    Returns:
+        Union[ResponseType, None]: The response type or None.
+    """
     if data['language'] != item.language:
         lang_id = None
         if old_values is not None:
@@ -346,24 +474,36 @@ def SetLanguage(session: Any, item: Any, data: Any, old_values:  Union[Dict[str,
                 old_values['Kieli'] = item.language_name.name
             else:
                 old_values['Kieli'] = None
-        if not 'id' in data['language']:
+        if 'id' not in data['language']:
             # User added a new language. Front returns this as a string
             # in the language field so we need to add this language to
             # the database first.
-            lang_id = AddLanguage(bleach.clean(data['language']))
+            lang_id = add_language(bleach.clean(data['language']))
         else:
-            lang_id = checkInt(data['language']['id'])
-            if lang_id != None:
+            lang_id = check_int(data['language']['id'])
+            if lang_id is not None:
                 lang = session.query(Language)\
                     .filter(Language.id == lang_id)\
                     .first()
                 if not lang:
-                    app.logger.error('SetLanguage: Language not found. Id = ' + str(data['language']['id']) + '.')
+                    app.logger.error(f'SetLanguage: Language not found. Id = \
+                                     {data["language"]["id"]}.')
                     return ResponseType('Kieltä ei löydy', 400)
         item.language = lang_id
     return None
 
-def AddLanguage(name: str) -> Union[int, None]:
+
+def add_language(name: str) -> Union[int, None]:
+    """
+    Adds a new language to the database.
+
+    Args:
+        name (str): The name of the language.
+
+    Returns:
+        Union[int, None]: The ID of the newly added language if successful,
+        None otherwise.
+    """
     session = new_session()
     try:
         language = Language(name=name)
@@ -375,21 +515,42 @@ def AddLanguage(name: str) -> Union[int, None]:
             f'Exception in AddLanguage (name: {name}): ' + str(exp))
         return None
 
-def FilterLinkNames(query: str) -> ResponseType:
+
+def filter_link_names(query: str) -> ResponseType:
+    """
+    Filters link names based on a given query and returns a response.
+
+    Args:
+        query (str): The query to filter the link names.
+
+    Returns:
+        ResponseType: The response containing the filtered link names.
+
+    Raises:
+        SQLAlchemyError: If there is an error in the SQL query.
+
+    Example:
+        filter_link_names('query') -> ResponseType
+    """
     session = new_session()
     try:
         al = session.query(ArticleLink.description)\
-            .filter(ArticleLink.description.ilike(query + '%')).distinct().all()
+            .filter(ArticleLink.description.ilike(query + '%'))\
+            .distinct().all()
         bl = session.query(BookseriesLink.description)\
-            .filter(BookseriesLink.description.ilike(query + '%')).distinct().all()
+            .filter(BookseriesLink.description.ilike(query + '%'))\
+            .distinct().all()
         el = session.query(EditionLink.description)\
-            .filter(EditionLink.description.ilike(query + '%')).distinct().all()
+            .filter(EditionLink.description.ilike(query + '%'))\
+            .distinct().all()
         pel = session.query(PersonLink.description)\
             .filter(PersonLink.description.ilike(query + '%')).distinct().all()
         pul = session.query(PublisherLink.description)\
-            .filter(PublisherLink.description.ilike(query + '%')).distinct().all()
+            .filter(PublisherLink.description.ilike(query + '%'))\
+            .distinct().all()
         publ = session.query(PubseriesLink.description)\
-            .filter(PubseriesLink.description.ilike(query + '%')).distinct().all()
+            .filter(PubseriesLink.description.ilike(query + '%'))\
+            .distinct().all()
         wl = session.query(WorkLink.description)\
             .filter(WorkLink.description.ilike(query + '%')).distinct().all()
     except SQLAlchemyError as exp:
@@ -397,29 +558,31 @@ def FilterLinkNames(query: str) -> ResponseType:
             f'Exception in FilterLinkNames (query: {query}): ' + str(exp))
         return ResponseType('FilterLinkNames: Tietokantavirhe.', 400)
 
-    linkNames: List[str] = list(set([x for x in al]
-                                  + [x for x in bl]
-                                  + [x for x in el]
-                                  + [x for x in pel]
-                                  + [x for x in pul]
-                                  + [x for x in publ]
-                                  + [x for x in wl]))
+    link_names: List[str] = list(set([x for x in al]
+                                     + [x for x in bl]
+                                     + [x for x in el]
+                                     + [x for x in pel]
+                                     + [x for x in pul]
+                                     + [x for x in publ]
+                                     + [x for x in wl]))
     # linkNames.sort()
     # retval: List[Dict[str, str]] = []
     # for ln in linkNames:
     #     retval.append({'name': ln})
     schema = LinkSchema(many=True)
-    retval = schema.dump(linkNames)
+    retval = schema.dump(link_names)
     return ResponseType(retval, 200)
 
 
-def GetSelectIds(form: Any, item_field: str = 'itemId') -> Tuple[int, List[Dict[str, str]]]:
+def get_select_ids(
+        form: Any,
+        item_field: str = 'itemId') -> Tuple[int, List[Dict[str, str]]]:
     ''' Read parameters from  a front end request for a select component.
 
         Each request has the parent id (work id etc) and a list of item ids
         corresponding to the items selected in a select component. This
-        function parses these fields and returns parent id and a list containing
-        the ids as ints.
+        function parses these fields and returns parent id and a list
+        containing the ids as ints.
 
         Args:
             form (request.form): Form that contains the values.
@@ -429,56 +592,86 @@ def GetSelectIds(form: Any, item_field: str = 'itemId') -> Tuple[int, List[Dict[
             Tuple[int, List[int]]: A tuple of parent id and list of item ids.
     '''
     if ('items' not in form or item_field not in form):
-        return(0, [])
+        return (0, [])
 
     parentid = int(json.loads(form[item_field]))
     items = json.loads(form['items'])
 
-    return(parentid, items)
+    return (parentid, items)
 
 
-def GetJoinChanges(existing: Union[List[int], Set[int]], new: List[int]) -> Tuple[List[int], List[int]]:
+def get_join_changes(
+        existing: Union[List[int], Set[int]],
+        new: List[int]) -> Tuple[List[int], List[int]]:
+    """
+    Calculate the changes needed to update an existing list or set with a new
+    list.
+
+    Args:
+        existing (Union[List[int], Set[int]]): The existing list or set.
+        new (List[int]): The new list to update.
+
+    Returns:
+        Tuple[List[int], List[int]]: A tuple containing two lists. The first
+        list contains the items to add to the existing list or set. The second
+        list contains the items to delete from the existing list or set.
+    """
     to_add: List[int] = new
     to_delete: List[int] = []
 
     if existing:
-        for id in existing:
-            if id in new:
-                to_add.remove(id)
+        for item_id in existing:
+            if item_id in new:
+                to_add.remove(item_id)
             else:
-                to_delete.append(id)
+                to_delete.append(item_id)
 
     return (to_add, to_delete)
 
 
-def GetFrontpageData() -> ResponseType:
+def get_frontpage_data() -> ResponseType:
+    """
+    Retrieves data for the front page.
+
+    This function connects to a database session and retrieves various counts
+    and information to populate the front page of a website or application. It
+    queries the number of works, editions, short stories, magazines, and
+    edition images from the session. It also retrieves the latest editions and
+    formats the data using the EditionBriefestSchema. The result is returned as
+    a dictionary with keys 'works', 'editions', 'shorts', 'magazines',
+    'covers', and 'latest'. The function returns a ResponseType object with the
+    populated dictionary and a status code of 200.
+
+    Returns:
+        ResponseType: The response object containing the front page data.
+    """
     session = new_session()
     retval = {}
-    workCount = session.query(Work.id).count()
-    retval['works'] = workCount
-    editionCount = session.query(Edition.id).count()
-    retval['editions'] = editionCount
-    shortsCount = session.query(ShortStory.id).count()
-    retval['shorts'] = shortsCount
-    magazineCount = session.query(Magazine.id).count()
-    retval['magazines'] = magazineCount
-    coverCount = session.query(EditionImage.id).count()
-    retval['covers'] = coverCount
+    work_count = session.query(Work.id).count()
+    retval['works'] = work_count
+    edition_count = session.query(Edition.id).count()
+    retval['editions'] = edition_count
+    shorts_count = session.query(ShortStory.id).count()
+    retval['shorts'] = shorts_count
+    magazine_count = session.query(Magazine.id).count()
+    retval['magazines'] = magazine_count
+    cover_count = session.query(EditionImage.id).count()
+    retval['covers'] = cover_count
     latest = session.query(Edition).order_by(Edition.id.desc()).all()
-    latestList: List[Any] = []
+    latest_list: List[Any] = []
     ids: List[int] = []
     for edition in latest:
         try:
             if edition.work[0].id not in ids:
-                latestList.append(edition)
+                latest_list.append(edition)
                 ids.append(edition.work[0].id)
-            if len(latestList) == 4:
+            if len(latest_list) == 4:
                 break
         except IndexError:
             app.logger.error(f'IndexError in GetFrontpageData: {edition.id}')
             return ResponseType('GetFrontpageData: Tietokantavirhe.', 400)
 
     schema = EditionBriefestSchema()
-    latestList = schema.dump(latestList, many=True)
-    retval['latest'] = latestList
+    latest_list = schema.dump(latest_list, many=True)
+    retval['latest'] = latest_list
     return ResponseType(retval, 200)
