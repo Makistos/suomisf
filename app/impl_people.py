@@ -527,7 +527,7 @@ def person_update(params: Any) -> ResponseType:
     if 'nationality' in data:
         # pylint: disable-next=assignment-from-none
         result = _set_nationality(session, person, data, old_values)
-        if result is None:
+        if result:
             return result
 
     if 'links' in data:
