@@ -1,10 +1,13 @@
-from unicodedata import category
+# pylint: disable=no-member, too-few-public-methods, too-many-ancestors
+""" SQLAlchemy models not fitting into other model_ files. """
 from marshmallow import Schema, fields
 from app import ma
-from app.orm_decl import (Article, Award, AwardCategory, Awarded, BindingType, Bookseries, Contributor, ContributorRole, Country, Edition,
-                          EditionImage, Genre, Issue, Language, Log, Magazine, Person, PersonLink,
-                          PublicationSize, Publisher, PublisherLink, Pubseries, ShortStory, Tag, User,
-                          Work, Article, StoryType, WorkLink, Format, WorkType)
+from app.orm_decl import (Article, Award, AwardCategory, Awarded, BindingType,
+                          Bookseries, Contributor, ContributorRole, Country,
+                          Edition, EditionImage, Genre, Issue, Language, Log,
+                          Magazine, Person, PersonLink, PublicationSize,
+                          Publisher, PublisherLink, Pubseries, ShortStory, Tag,
+                          Work, StoryType, WorkLink, Format, WorkType)
 
 # Brief schemas should not include any relationships to other
 # tables. These exists to get around the issue with Python that
@@ -18,92 +21,124 @@ from app.orm_decl import (Article, Award, AwardCategory, Awarded, BindingType, B
 
 
 class UserSchema(ma.SQLAlchemySchema):  # type: ignore
+    """ User schema. """
     id = fields.Int(required=True)
     name = fields.String(required=True)
     is_admin = fields.Boolean(required=True)
 
 
 class LanguageSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Language schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Language
     id = fields.Int(required=True)
     name = fields.String(required=True)
 
 
 class LogSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Log schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Log
     user = fields.Nested(UserSchema)
 
 
 class ErrorSchema(Schema):
+    """ Error schema. """
     code = fields.Int(required=True,)
     message = fields.String(required=True,)
 
 
 class BindingBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Binding schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = BindingType
 
 
 class FormatBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Format schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Format
 
 
 class WorkBriefestSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Work schema with no relationships. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Work
 
 
 class BookseriesBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Bookseries schema with only works relationship. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Bookseries
     works = ma.List(fields.Nested(WorkBriefestSchema))
 
 
 class EditionImageBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Edition image schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = EditionImage
 
 
 class PersonLinkBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Person link schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = PersonLink
 
 
 class PublicationSizeBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Publication size schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = PublicationSize
 
 
 class StoryTypeSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Story type schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = StoryType
 
 
 class TagBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Tag schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Tag
 
 
 class WorkLinkBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Work link schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = WorkLink
 
 
 class ContributorRoleSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Contributor role schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = ContributorRole
 
 
 class CountryBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Country schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Country
 
 
 class GenreBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Genre schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Genre
     id = fields.Int(required=True)
     name = fields.String(required=True)
@@ -111,11 +146,16 @@ class GenreBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 
 
 class LinkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Link schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = PersonLink
 
+
 class PersonBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Person schema with no relationships. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Person
     id = fields.Number()
     name = fields.String()
@@ -127,22 +167,26 @@ class PersonBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     roles = fields.Pluck("self", "name", many=True)
     nationality = fields.String(attribute='nationalityname')
     workcount = fields.Number()
-    #storycount = fields.Number()
+    # storycount = fields.Number()
     storycount = fields.Function(lambda obj: len([x.id for x in obj.stories]))
 
 
 class WorkContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Work contributor schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Contributor
     person = fields.Nested(PersonBriefSchema(only=('id', 'name', 'alt_name')))
     role = fields.Nested(ContributorRoleSchema)
     description = fields.String()
     real_person = fields.Nested(lambda: PersonBriefSchema(only=('id', 'name')))
 
-class WorkEditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
-    class Meta:
-        model = Edition
 
+class WorkEditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Work edition schema. """
+    class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
+        model = Edition
     editors = ma.List(fields.Nested(PersonBriefSchema))
     translators = ma.List(fields.Nested(PersonBriefSchema))
     contributions = ma.List(fields.Nested(WorkContributorSchema))
@@ -151,15 +195,19 @@ class WorkEditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 
 
 class WorkTypeBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Work type schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = WorkType
     id = fields.Int()
     name = fields.String()
 
-class WorkBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
-    class Meta:
-        model = Work
 
+class WorkBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Work schema without all relationships. """
+    class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
+        model = Work
     id = fields.Number()
     title = fields.String()
     orig_title = fields.String()
@@ -173,17 +221,22 @@ class WorkBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 
 
 class EditionBriefestSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Edition schema with just images and work relationships. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Edition
     images = ma.List(fields.Nested(EditionImageBriefSchema))
-    #work = fields.Pluck(WorkBriefestSchema, 'id')
+    # work = fields.Pluck(WorkBriefestSchema, 'id')
     work = ma.List(fields.Nested(WorkBriefestSchema))
 
 
 class EditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Edition schema with work, editors, contributions and  images
+    relationships.
+    """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Edition
-
     work = ma.List(fields.Nested(WorkBriefSchema))
     editors = ma.List(fields.Nested(PersonBriefSchema))
     contributions = ma.List(fields.Nested(WorkContributorSchema))
@@ -191,34 +244,38 @@ class EditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 
 
 class MagazineBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Magazine schema with no relationships. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Magazine
 
 
 class IssueBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Issue schema with just magazine relationship. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Issue
-        # include_fk = True
     magazine = fields.Nested(MagazineBriefSchema)
 
+
 class ContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Contributor schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Contributor
     person = fields.Nested(PersonBriefSchema(only=('id', 'name', 'alt_name')))
     role = fields.Nested(ContributorRoleSchema)
     description = fields.String()
-    real_person = fields.Nested(lambda: PersonBriefSchema(only=('id', 'name', 'alt_name')))
-
+    real_person = fields.Nested(
+        lambda: PersonBriefSchema(only=('id', 'name',
+                                        'alt_name')))
 
 
 class ShortBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Short story schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = ShortStory
-
-    # id = fields.Int()
-    # title = fields.String()
-    # orig_title = fields.String()
-    # pubyear = fields.Int()
     authors = ma.List(fields.Nested(PersonBriefSchema))
     type = fields.Nested(StoryTypeSchema)
     issues = ma.List(fields.Nested(IssueBriefSchema))
@@ -228,7 +285,9 @@ class ShortBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 
 
 class ArticleBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Article schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Article
     id = fields.Int()
     title = fields.String()
@@ -237,32 +296,40 @@ class ArticleBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 
 
 class AwardBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Award schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Award
 
 
 class AwardCategorySchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Award category schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = AwardCategory
 
 
 class PublisherBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Publisher schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Publisher
 
 
 class PublisherBriefSchemaWEditions(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Publisher schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Publisher
-
     editions = ma.List(fields.Nested(
         lambda: EditionSchema(only=('id', 'pubyear'))))
 
 
 class PubseriesBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Publisher schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Pubseries
-
     publisher = fields.Nested(PublisherBriefSchema)
     editions = ma.List(fields.Nested(EditionBriefestSchema))
 
@@ -272,7 +339,9 @@ class PubseriesBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 # relevant data for certain object types.
 
 class AwardedSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Awarded schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Awarded
     award = fields.Nested(AwardBriefSchema)
     person = fields.Nested(PersonBriefSchema)
@@ -282,20 +351,26 @@ class AwardedSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 
 
 class BookseriesSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Book series schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Bookseries
     works = ma.List(fields.Nested(WorkBriefSchema))
 
 
 class PubseriesSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Publisher schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Pubseries
     publisher = fields.Nested(PublisherBriefSchema)
     editions = ma.List(fields.Nested(EditionBriefSchema))
 
 
 class TagSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Tag schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Tag
 
     works = ma.List(fields.Nested(WorkBriefSchema))
@@ -306,7 +381,9 @@ class TagSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 
 
 class EditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Edition schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Edition
     publisher = fields.Nested(PublisherBriefSchema)
     images = ma.List(fields.Nested(EditionImageBriefSchema))
@@ -319,8 +396,11 @@ class EditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     editors = ma.List(fields.Nested(PersonBriefSchema))
     contributions = ma.List(fields.Nested(ContributorSchema))
 
+
 class WorkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Work schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Work
     editions = ma.List(fields.Nested(EditionSchema))
     genres = ma.List(fields.Nested(GenreBriefSchema))
@@ -337,7 +417,9 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 
 
 class ArticleSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Article schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Article
     id = fields.Int()
     title = fields.String()
@@ -348,15 +430,17 @@ class ArticleSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     excerpt = fields.String()
 
 
-
-
 class PublisherLinkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Publisher link schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = PublisherLink
 
 
 class PublisherSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Publisher schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Publisher
     editions = ma.List(fields.Nested(EditionBriefSchema))
     series = ma.List(fields.Nested(PubseriesBriefSchema))
@@ -364,9 +448,10 @@ class PublisherSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 
 
 class ShortSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Short story schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = ShortStory
-
     authors = ma.List(fields.Nested(PersonBriefSchema))
     translators = ma.List(fields.Nested(PersonBriefSchema))
     tags = ma.List(fields.Nested(TagSchema))
@@ -380,7 +465,9 @@ class ShortSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 
 
 class IssueSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Issue schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Issue
         include_fk = True
     magazine = ma.auto_field()
@@ -392,10 +479,10 @@ class IssueSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 
 
 class MagazineSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Magazine schema. """
     class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
         model = Magazine
         include_fk = True
     issues = ma.auto_field()  # ma.List(fields.Nested(IssueSchema))
     publisher = fields.Nested(PublisherBriefSchema)
-
-
