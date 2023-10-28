@@ -332,7 +332,7 @@ def search_books(params: Dict[str, str]) -> ResponseType:
                     stmt += '= part.edition_id '
                     joins.append('edition')
                 stmt += 'AND edition.pubyear >= ' + printyear_first + ' '
-            except (TypeError):
+            except TypeError:
                 app.logger.error('Failed to convert printyear_first')
     if 'printyear_last' in params and params['printyear_last'] != '':
         if 'printyear_last' in params and params['printyear_last'] != '':
@@ -637,7 +637,7 @@ def work_add(params: Any) -> ResponseType:
         for link in data['links']:
             if 'link' not in link:
                 app.logger.error('WorkAdd: Link missing link.')
-                return ResponseType('Linkin tiedot puutteelliset', 400)
+                return ResponseType('Linkin tiedot puutteelliset', 500)
             if link['link'] != '' and link['link'] is not None:
                 # Description is not a required field
                 if 'description' in link:
