@@ -1,3 +1,4 @@
+""" API schemas. """
 BookseriesSchema = {
     "type": "object",
     "properties": {
