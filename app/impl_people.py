@@ -359,16 +359,45 @@ def get_person(person_id: int) -> ResponseType:
     return ResponseType(retval, 200)
 
 
-# def PersonAdd(params: Any) -> ResponseType:
-#     session = new_session()
-#     data = params['data']
+def person_add(params: Any) -> ResponseType:
+    """
+    Adds a new person to the system.
 
-#     person = Person()
+    Args:
+        params (Any): The parameters for adding a person.
 
-#     return ResponseType(str(person.id), 201)
+    Returns:
+        ResponseType: The response containing the ID of the newly added person.
+    """
+    session = new_session()
+    data = params['data']
+
+    person = Person()
+    person.name = data['name']
+    person.alt_name = data['alt_name']
+    person.full_name = data['fullname']
+    person.bio = data['bio']
+    person.bio_src = data['bio_src']
+    person.first_name = data['first_name']
+    person.last_name = data['last_name']
+    person.image_src = data['image_src']
+    person.dob = data['dob']
+    person.dod = data['dod']
+    person.nationality_id = data['nationality']['id']
+    person.other_names = data['other_names']
+
+    try:
+        session.add(person)
+        session.commit()
+    except SQLAlchemyError as exp:
+        app.logger.error('Exception in person_add: ' + str(exp))
+        return ResponseType('Tietokantavirhe.', 400)
+
+    return ResponseType(str(person.id), 201)
 
 
 def person_update(params: Any) -> ResponseType:
+    # pylint: disable=too-many-branches,too-many-statements,too-many-locals,too-many-return-statements  # noqa: E501
     """
     Update a person's information in the database.
 
