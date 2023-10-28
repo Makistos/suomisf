@@ -381,11 +381,33 @@ def story_updated(params: Any) -> ResponseType:
     return retval
 
 
-# def story_delete(short_id: int) -> ResponseType:
-#     session = new_session()
-#     retval = ResponseType('OK', 200)
+def story_delete(short_id: int) -> ResponseType:
+    """
+    Delete a story with the given short ID.
 
-#     return retval
+    Args:
+        short_id (int): The short ID of the story to be deleted.
+
+    Returns:
+        ResponseType: The response indicating the result of the deletion.
+    """
+
+    session = new_session()
+    try:
+        story = session.query(ShortStory)\
+            .filter(ShortStory.id == short_id)\
+            .first()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'Exception in StoryDelete: {exp}.')
+        return ResponseType('StoryDelete: Tietokantavirhe.', 400)
+
+    if not story:
+        app.logger.error(f'StoryDelete: Story not found. Id = {short_id}.')
+        return ResponseType(f'StoryDelete: Novellia ei löydy. id={short_id}.',
+                            400)
+    session.delete(story)
+
+    return ResponseType('OK', 200)
 
 
 def story_tag_add(short_id: int, tag_id: int) -> ResponseType:
