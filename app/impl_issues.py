@@ -1,11 +1,10 @@
 """ Issue related functions. """
-import json
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.impl import ResponseType
 from app.route_helpers import new_session
-from app.orm_decl import (Issue, IssueTag)
-from app.model import IssueSchema
+from app.orm_decl import (Issue, IssueTag, Tag)
+from app.model import IssueSchema, TagSchema
 
 from app import app
 
@@ -57,12 +56,25 @@ def get_issue_tags(issue_id: int) -> ResponseType:
         ResponseType: The response object containing the tags associated with
                       the issue.
     """
+    session = new_session()
+    try:
+        tags = session.query(Tag)\
+            .join(IssueTag)\
+            .filter(IssueTag.issue_id == issue_id)\
+            .filter(IssueTag.tag_id == Tag.id)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'Exception in get_issue_tags: {exp}')
+        return ResponseType(f'get_issue_tags: Tietokantavirhe. id={issue_id}',
+                            400)
+    try:
+        schema = TagSchema(many=True)
+        retval = schema.dump(tags)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'get_issue_tags schema error: {exp}')
+        return ResponseType('get_issue_tags: Skeemavirhe.', 400)
 
-    return ResponseType(json.dumps([{
-        "id": "<integer>",
-        "name": "<string>",
-        "uri": "<string>",
-    }]), 200)
+    return ResponseType(retval, 200)
 
 
 def issue_tag_add(issue_id: int, tag_id: int) -> ResponseType:
