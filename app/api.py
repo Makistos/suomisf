@@ -95,7 +95,7 @@ def make_api_response(response: ResponseType) -> Response:
                     mimetype=DEFAULT_MIMETYPE)
 
 
-def login_options(req: Any) -> Dict[str, str]:
+def login_options(req: Any) -> Response:
     """
     Generate the login options based on the given request.
 
@@ -525,7 +525,7 @@ def api_bookseriescreateupdate() -> Response:
         None
     """
     try:
-        params = json.loads(bleach.clean(request.data.decode('utf-8')))
+        params = json.loads(request.data.decode('utf-8'))
     except (TypeError, ValueError):
         app.logger.error('api_bookseriescreateupdate: Invalid JSON.')
         response = ResponseType(
@@ -621,7 +621,7 @@ def api_filterbookseries(pattern: str) -> Response:
 # Change related functions
 
 @ app.route('/api/changes', methods=['get'])
-def api_changes() -> Tuple[str, int]:
+def api_changes() -> Response:
     """
     Get changes done to the data from the Log table.
 
@@ -644,7 +644,7 @@ def api_changes() -> Tuple[str, int]:
         retval = get_changes(params)
     except APIError as exp:
         app.logger.error('Exception in api_Changes: ' + str(exp))
-        response = Response('api_Changes: poikkeus.', 400)
+        response = ResponseType('api_Changes: poikkeus.', 400)
         return make_api_response(response)
 
     return make_api_response(retval)
@@ -700,7 +700,7 @@ def api_editioncreateupdate() -> Response:
     Returns:
         Response: The response object containing the result of the API request.
     """
-    params = bleach.clean(request.data.decode('utf-8'))
+    params = request.data.decode('utf-8')
     params = json.loads(params)
     if request.method == 'POST':
         retval = make_api_response(create_edition(params))
@@ -1063,14 +1063,16 @@ def api_createupdateperson() -> Response:
         params = json.loads(bleach.clean(request.data.decode('utf-8')))
     except (TypeError, ValueError):
         app.logger.error('api_CreateUpdatePerson: Invalid JSON.')
-        return ResponseType('api_CreateUpdatePerson: Virheelliset parametrit.',
-                            400)
+        return make_api_response(
+            ResponseType('api_CreateUpdatePerson: Virheelliset parametrit.',
+                         400))
     try:
         validate(instance=params, schema=PersonSchema)
     except jsonschema.exceptions.ValidationError as exp:
         app.logger.error(f'api_CreateUpdatePerson: Invalid JSON {exp}.')
-        return ResponseType('api_CreateUpdatePerson: Virheelliset parametrit.',
-                            400)
+        return make_api_response(
+            ResponseType('api_CreateUpdatePerson: Virheelliset parametrit.',
+                         400))
     if request.method == 'POST':
         retval = make_api_response(person_add(params))
     elif request.method == 'PUT':
@@ -1080,7 +1082,7 @@ def api_createupdateperson() -> Response:
 
 
 @app.route('/api/people/', methods=['get'])
-def api_getpeople() -> Tuple[str, int]:
+def api_getpeople() -> Response:
 
     """
     This function receives parameters in the form of
@@ -1168,15 +1170,16 @@ def api_getpeople() -> Tuple[str, int]:
                     try:
                         (value, s) = fix_operator(value, s)
                     except APIError as exp:
-                        return exp.message, exp.code
+                        return make_api_response(
+                            ResponseType(exp.message, exp.code))
                     params[filter_field]['value'] = s
                 params[filter_field][filter_name] = value
     try:
         retval = list_people(params)
     except APIError as exp:
         print(exp.message)
-        return exp.message, exp.code
-    return retval
+        return make_api_response(ResponseType(exp.message, exp.code))
+    return make_api_response(retval)
 
 
 @ app.route('/api/people/<person_id>', methods=['get'], strict_slashes=False)
@@ -1198,9 +1201,9 @@ def api_getperson(person_id: str) -> Response:
     try:
         int_id = int(person_id)
     except (TypeError, ValueError):
-        app.logger.error(f'api_GetPerson: Invalid id {person_id}.')
+        app.logger.error(f'api_getperson: Invalid id {person_id}.')
         response = ResponseType(
-            f'api_GetPerson: Virheellinen tunniste {person_id}.', 400)
+            f'api_getperson: Virheellinen tunniste {person_id}.', 400)
         return make_api_response(response)
 
     return make_api_response(get_person(int_id))
@@ -1315,7 +1318,7 @@ def api_filterpeople(pattern: str) -> Response:
 
 
 @app.route('/api/pubseries', methods=['get'])
-def api_listpubseries() -> Tuple[str, int]:
+def api_listpubseries() -> Response:
     """
     This function is a route handler for the '/api/pubseries' endpoint. It
     accepts GET requests and returns a tuple containing a string and an
@@ -1407,7 +1410,7 @@ def api_filterpubseries(pattern: str) -> Response:
 
 
 @ app.route('/api/publishers', methods=['get'])
-def api_listpublishers() -> Tuple[str, int]:
+def api_listpublishers() -> Response:
     """
     This function is a route handler for the '/api/publishers' endpoint. It
     accepts GET requests and returns a tuple containing the response data and
@@ -1423,7 +1426,7 @@ def api_listpublishers() -> Tuple[str, int]:
 
 
 @ app.route('/api/publishers/<publisherid>', methods=['get'])
-def api_getpublisher(publisherid: str) -> ResponseType:
+def api_getpublisher(publisherid: str) -> Response:
     """
     Retrieves a publisher from the API based on the provided publisher ID.
 
@@ -1637,7 +1640,7 @@ def api_tagtostory(storyid: int, tagid: int) -> Response:
 # User related functions
 
 @ app.route('/api/users', methods=['get'])
-def api_listusers() -> Tuple[str, int]:
+def api_listusers() -> Response:
     """
     This function is an API endpoint that returns a list of users. It is
     decorated with the `@app.route` decorator, which maps the URL `/api/users`
@@ -1700,7 +1703,7 @@ def api_tags() -> Response:
 
 @ app.route('/api/tags', methods=['post'])
 @ jwt_admin_required()  # type: ignore
-def api_tagcreate() -> Tuple[str, int]:
+def api_tagcreate() -> Response:
     """
     Create a new tag.
 
@@ -1755,7 +1758,8 @@ def api_tagrename() -> Response:
     400 - Bad Request. Either a tag by that name already exists of not tag
           with given id found or parameters are faulty.
     """
-    url_params = request.get_json()
+    # url_params = request.get_json()
+    url_params = json.loads(request.data)
 
     try:
         int_id = int(url_params['id'])
@@ -1765,14 +1769,13 @@ def api_tagrename() -> Response:
         response = ResponseType('Virheellinen tunniste', status=400)
         return make_api_response(response)
 
-    name = bleach.clean(url_params['name'])
+    name = url_params['name']
     if len(name) == 0:
         app.logger.error('api_tagrename: Empty name.')
         response = ResponseType(
             'Asiasana ei voi olla tyhjä merkkijono', status=400)
         return make_api_response(response)
 
-    name = bleach.clean(name)
     response = tag_rename(int_id, name)
     return make_api_response(response)
 
@@ -1803,7 +1806,7 @@ def api_filtertags(pattern: str) -> Response:
 
 @ app.route('/api/tags/<id>/merge/<id2>', methods=['post'])
 @ jwt_admin_required()  # type: ignore
-def api_tagmerge(id1: int, id2: int) -> Tuple[str, int]:
+def api_tagmerge(id1: int, id2: int) -> Response:
     """
     Merge items of two tags into one and delete the obsolete tag.
 
