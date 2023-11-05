@@ -11,7 +11,7 @@ import bleach
 from app.route_helpers import new_session
 from app.model import (PersonBriefSchema)
 from app.model_person import (PersonSchema)
-from app.model import (ShortBriefSchema)
+from app.model import (ShortBriefestSchema)
 from app.orm_decl import (Alias, Country, ContributorRole, Work, Contributor,
                           PersonLink, Awarded, PersonLanguage, PersonTag,
                           IssueEditor, ArticlePerson, ArticleAuthor,
@@ -39,6 +39,20 @@ def _filter_person_query(table: Any,
                          key: str,
                          raw_filters: Dict[str, Any],
                          related_table: Any = None) -> Any:
+    """
+    Filter a person query based on the provided filters.
+
+    Args:
+        table (Any): The table to query.
+        query (Any): The query object.
+        key (str): The key to filter on.
+        raw_filters (Dict[str, Any]): The raw filters to apply.
+        related_table (Any, optional): The related table to join. Defaults to
+                                       None.
+
+    Returns:
+        Any: The filtered query object.
+    """
     op = raw_filters['matchMode']
     value = raw_filters['value']
     if key in _person_relationships:
@@ -578,8 +592,8 @@ def person_update(params: Any) -> ResponseType:
     return retval
 
 
-# pylint: disable-next=too-many-locals,too-many-return-statements,too-many-branches  # noqa: E501
 def person_delete(person_id: int) -> ResponseType:
+    # pylint: disable-next=too-many-locals,too-many-return-statements,too-many-branches  # noqa: E501
     """
     Deletes a person from the database.
 
@@ -823,7 +837,16 @@ def search_people(session: Any, searchwords: List[str]) -> SearchResult:
 
 
 def person_shorts(person_id: int) -> ResponseType:
-    """ Get shorts written by person
+    """
+    Retrieves a list of short stories associated with a given person ID.
+
+    Args:
+        person_id (int): The ID of the person whose short stories are being
+                         retrieved.
+
+    Returns:
+        ResponseType: The response object containing the list of short stories
+                      in JSON format.
     """
     session = new_session()
 
@@ -855,7 +878,7 @@ def person_shorts(person_id: int) -> ResponseType:
             'Exception in PersonShorts(): ' + str(exp))
         return ResponseType('PersonShorts: Tietokantavirhe.', 400)
     try:
-        schema = ShortBriefSchema(many=True)
+        schema = ShortBriefestSchema(many=True)
         retval = schema.dump(shorts)
     except exceptions.MarshmallowError as exp:
         app.logger.error('PersonShorts schema error: ' + str(exp))

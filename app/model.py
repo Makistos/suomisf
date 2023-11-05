@@ -140,9 +140,9 @@ class GenreBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Genre
-    id = fields.Int(required=True)
-    name = fields.String(required=True)
-    abbr = fields.String()
+    # id = fields.Int(required=True)
+    # name = fields.String(required=True)
+    # abbr = fields.String()
 
 
 class LinkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -165,7 +165,8 @@ class PersonBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     dob = fields.Number()
     dod = fields.Number()
     roles = fields.Pluck("self", "name", many=True)
-    nationality = fields.String(attribute='nationalityname')
+    # nationality = fields.String(attribute='nationalityname')
+    nationality = fields.Nested(lambda: CountryBriefSchema)
     workcount = fields.Number()
     # storycount = fields.Number()
     storycount = fields.Function(lambda obj: len([x.id for x in obj.stories]))
@@ -281,6 +282,14 @@ class ShortBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     issues = ma.List(fields.Nested(IssueBriefSchema))
     editions = ma.List(fields.Nested(EditionBriefSchema))
     genres = ma.List(fields.Nested(GenreBriefSchema))
+    contributors = ma.List(fields.Nested(ContributorSchema))
+
+
+class ShortBriefestSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Short story schema for dropdowns etc. """
+    class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
+        model = ShortStory
     contributors = ma.List(fields.Nested(ContributorSchema))
 
 
