@@ -7,7 +7,6 @@ from typing import Dict, NamedTuple, Tuple, List, Union, Any, TypedDict, Set
 # from xmlrpc.client import Boolean
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
-import bleach
 from flask_login import current_user
 from marshmallow import exceptions
 
@@ -175,7 +174,7 @@ def get_changes(params: Dict[str, Any]) -> ResponseType:
         stmt += 'AND Log.Date >= "' + str(cutoff_date) + '" '
 
     if 'table' in params:
-        table = bleach.clean(params['table'])
+        table = params['table']
         stmt += 'AND table_name = "' + table + '" '
 
     if 'id' in params:
@@ -187,11 +186,11 @@ def get_changes(params: Dict[str, Any]) -> ResponseType:
         stmt += 'AND table_id = "' + str(table_id) + '" '
 
     if 'action' in params:
-        action = bleach.clean(params['action'])
+        action = params['action']
         stmt += 'AND action = "' + action + '" '
 
     if 'field' in params:
-        field = bleach.clean(params['field'])
+        field = params['field']
         stmt += 'AND field_name = "' + field + '" '
 
     if 'userid' in params:
@@ -478,7 +477,7 @@ def set_language(
             # User added a new language. Front returns this as a string
             # in the language field so we need to add this language to
             # the database first.
-            lang_id = add_language(bleach.clean(data['language']))
+            lang_id = add_language(data['language'])
         else:
             lang_id = check_int(data['language']['id'])
             if lang_id is not None:

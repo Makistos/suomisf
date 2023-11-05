@@ -1060,7 +1060,7 @@ def api_createupdateperson() -> Response:
 
     """
     try:
-        params = json.loads(bleach.clean(request.data.decode('utf-8')))
+        params = json.loads(request.data.decode('utf-8'))
     except (TypeError, ValueError):
         app.logger.error('api_CreateUpdatePerson: Invalid JSON.')
         return make_api_response(
@@ -1353,7 +1353,7 @@ def api_publishercreateupdate() -> Response:
     Raises:
     - None
     """
-    params = bleach.clean(request.data.decode('utf-8'))
+    params = request.data.decode('utf-8')
     params = json.loads(params)
     if request.method == 'POST':
         retval = make_api_response(publisher_add(params))
@@ -1505,7 +1505,7 @@ def api_shortcreateupdate() -> Response:
     Raises:
         None
     """
-    params = bleach.clean(request.data.decode('utf-8'))
+    params = request.data.decode('utf-8')
     params = json.loads(params)
     if request.method == 'POST':
         retval = make_api_response(story_add(params))
@@ -1710,7 +1710,6 @@ def api_tagcreate() -> Response:
     """
     url_params = request.args.to_dict()
     name = url_params['name']
-    name = bleach.clean(name)
 
     retval = tag_create(name)
 

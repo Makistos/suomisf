@@ -56,7 +56,7 @@ def _set_bookseries(
             # User added a new bookseries. Front returns this as a string
             # in the bookseries field so we need to add this bookseries to
             # the database first.
-            bs_id = add_bookseries(bleach.clean(data['bookseries']))
+            bs_id = add_bookseries(data['bookseries'])
         else:
             bs_id = check_int(data['bookseries']['id'], zeros_allowed=False,
                               negative_values=False)
@@ -559,13 +559,13 @@ def work_add(params: Any) -> ResponseType:
         app.logger.error('WorkAdd: No author or editor.')
         return ResponseType('Ei kirjoittajaa tai toimittajaa', 400)
 
-    work.title = bleach.clean(data['title'])
-    work.subtitle = bleach.clean(data['subtitle'])
-    work.orig_title = bleach.clean(data['orig_title'])
+    work.title = data['title']
+    work.subtitle = data['subtitle']
+    work.orig_title = data['orig_title']
 
     work.pubyear = check_int(data['pubyear'])
 
-    work.bookseriesnum = bleach.clean(data['bookseriesnum'])
+    work.bookseriesnum = data['bookseriesnum']
     if 'bookseries' in data:
         result = _set_bookseries(session, work, data, None)
         if result:
@@ -586,11 +586,11 @@ def work_add(params: Any) -> ResponseType:
         if result:
             return result
     if 'descr_attr' in data:
-        work.descr_attr = bleach.clean(data['descr_attr'])
+        work.descr_attr = data['descr_attr']
     if 'misc' in data:
-        work.misc = bleach.clean(data['misc'])
+        work.misc = data['misc']
     if 'imported_string' in data:
-        work.imported_string = bleach.clean(data['imported_string'])
+        work.imported_string = data['imported_string']
 
     try:
         session.add(work)
@@ -713,17 +713,17 @@ def work_update(
                 app.logger.error(f'WorkSave: Empty title. Id = {work_id}.')
                 return ResponseType('Tyhjä nimi', 400)
             old_values['Nimeke'] = work.title
-            work.title = bleach.clean(data['title'])
+            work.title = data['title']
 
     if 'subtitle' in data:
         if data['subtitle'] != work.subtitle:
             old_values['Alaotsikko'] = work.subtitle
-            work.subtitle = bleach.clean(data['subtitle'])
+            work.subtitle = data['subtitle']
 
     if 'orig_title' in data:
         if data['orig_title'] != work.orig_title:
             old_values['Alkukielinen nimi'] = work.orig_title
-            work.orig_title = bleach.clean(data['orig_title'])
+            work.orig_title = data['orig_title']
 
     if 'pubyear' in data:
         if data['pubyear'] != work.pubyear:
@@ -733,18 +733,17 @@ def work_update(
     if 'bookseriesnum' in data:
         if data['bookseriesnum'] != work.bookseriesnum:
             old_values['Kirjasarjan numero'] = work.bookseriesnum
-            work.bookseriesnum = bleach.clean(data['bookseriesnum'])
+            work.bookseriesnum = data['bookseriesnum']
 
     if 'bookseriesorder' in data:
         if data['bookseriesorder'] != work.bookseriesorder:
             old_values['Kirjasarjan järjestys'] = work.bookseriesorder
-            work.bookseriesorder = bleach.clean(
-                str(data['bookseriesorder']))
+            work.bookseriesorder = str(data['bookseriesorder'])
 
     if 'misc' in data:
         if data['misc'] != work.misc:
             old_values['Muuta'] = work.misc
-            work.misc = bleach.clean(data['misc'])
+            work.misc = data['misc']
 
     if 'description' in data:
         result = _set_description(work, data, old_values)
@@ -754,12 +753,12 @@ def work_update(
     if 'descr_attr' in data:
         if data['descr_attr'] != work.descr_attr:
             old_values['Kuvauksen lähde'] = work.descr_attr
-            work.descr_attr = bleach.clean(data['descr_attrs'])
+            work.descr_attr = data['descr_attrs']
 
     if 'imported_string' in data:
         if data['imported_string'] != work.imported_string:
             old_values['Lähde'] = work.imported_string
-            work.imported_string = bleach.clean(data['imported_string'])
+            work.imported_string = data['imported_string']
 
     # Language
     if 'language' in data:

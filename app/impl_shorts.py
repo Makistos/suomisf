@@ -47,7 +47,7 @@ def _set_language(
             # User added a new language. Front returns this as a string
             # in the language field so we need to add this language to
             # the database first.
-            lang_id = add_language(bleach.clean(data['lang']))
+            lang_id = add_language(data['lang'])
         else:
             lang_id = check_int(data['lang']['id'])
             if lang_id is not None:

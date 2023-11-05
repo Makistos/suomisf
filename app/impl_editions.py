@@ -5,7 +5,6 @@ from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
-import bleach
 from app.orm_decl import (
     Edition,
     Part,
@@ -152,9 +151,9 @@ def create_edition(params: Any) -> ResponseType:
 
     edition = Edition()
     if "title" in data:
-        edition.title = bleach.clean(data["title"])
+        edition.title = data["title"]
     if "subtitle" in data:
-        edition.subtitle = bleach.clean(data["subtitle"])
+        edition.subtitle = data["subtitle"]
     # Check that pubyear exists (required)
     if "pubyear" not in data:
         app.logger.error("Exception in EditionCreate: pubyear not found.")
@@ -214,7 +213,7 @@ def create_edition(params: Any) -> ResponseType:
 
     if "isbn" in data:
         # TODO: Validate ISBN
-        edition.isbn = bleach.clean(data["isbn"])
+        edition.isbn = data["isbn"]
 
     # Publisher's series, not required
     if "pubseries" in data:
@@ -227,7 +226,7 @@ def create_edition(params: Any) -> ResponseType:
         edition.pubseriesnum = check_int(data["pubseriesnum"])
     if "coll_info" in data:
         # This is not really used anywhere, but it's here for completeness
-        edition.coll_info = bleach.clean(data["coll_info"])
+        edition.coll_info = data["coll_info"]
     if "pages" in data:
         edition.pages = check_int(data["pages"], negative_values=False)
     if "binding" in data and "id" in data["binding"]:
@@ -266,9 +265,9 @@ def create_edition(params: Any) -> ResponseType:
             edition.coverimage = 1
 
     if "misc" in data:
-        edition.misc = bleach.clean(data["misc"])
+        edition.misc = data["misc"]
     if "imported_string" in data:
-        edition.imported_string = bleach.clean(data["imported_string"])
+        edition.imported_string = data["imported_string"]
 
     if "verified" in data:
         edition.verified = data["verified"]
@@ -339,13 +338,13 @@ def update_edition(params: Any) -> ResponseType:
                 return ResponseType("Otsikko ei voi olla tyhjä.", 400)
             else:
                 old_values["Nimeke"] = edition.title
-                edition.title = bleach.clean(data["title"])
+                edition.title = data["title"]
 
     # Subtitle, not required
     if "subtitle" in data:
         if data["subtitle"] != edition.subtitle:
             old_values["Alaotsikko"] = edition.subtitle
-            subtitle: Union[str, None] = bleach.clean(data["subtitle"])
+            subtitle: Union[str, None] = data["subtitle"]
             if subtitle == "":
                 subtitle = None
             edition.subtitle = subtitle
@@ -424,7 +423,7 @@ def update_edition(params: Any) -> ResponseType:
     if "isbn" in data:
         if data["isbn"] != edition.isbn:
             old_values["ISBN"] = edition.isbn
-            isbn: Union[str, None] = bleach.clean(data["isbn"])
+            isbn: Union[str, None] = data["isbn"]
             if isbn == "":
                 isbn = None
             edition.isbn = isbn
@@ -483,7 +482,7 @@ def update_edition(params: Any) -> ResponseType:
     if "printedin" in data:
         if data["printedin"] != edition.printedin:
             old_values["Painopaikka"] = edition.printedin
-            printedin: Union[str, None] = bleach.clean(data["printedin"])
+            printedin: Union[str, None] = data["printedin"]
             if printedin == "":
                 printedin = None
             edition.printedin = printedin
@@ -542,7 +541,7 @@ def update_edition(params: Any) -> ResponseType:
     if "misc" in data:
         if data["misc"] != edition.misc:
             old_values["Muuta"] = edition.misc
-            misc: Union[str, None] = bleach.clean(data["misc"])
+            misc: Union[str, None] = data["misc"]
             if misc == "":
                 misc = None
             edition.misc = misc
@@ -552,9 +551,9 @@ def update_edition(params: Any) -> ResponseType:
     if "imported_string" in data:
         if data["imported_string"] != edition.imported_string:
             old_values["Lähde"] = edition.imported_string
-            imported_string = bleach.clean(data["imported_string"])
+            imported_string = data["imported_string"]
             if imported_string == "":
-                imported_string = None
+                imported_string = ''
             edition.imported_string = imported_string
 
     if "verified" in data:

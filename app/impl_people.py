@@ -6,7 +6,6 @@ from operator import not_
 from sqlalchemy import func, or_
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
-import bleach
 
 from app.route_helpers import new_session
 from app.model import (PersonBriefSchema)
@@ -114,7 +113,7 @@ def _set_nationality(
                 old_values['Kansallisuus'] = ''
         if 'id' not in data['nationality'] and data['nationality'] != '':
             # Add new nationality to db
-            nat_id = AddCountry(bleach.clean(data['nationality']))
+            nat_id = AddCountry(data['nationality'])
         elif data['nationality'] == '':
             nat_id = None
         else:
@@ -474,7 +473,7 @@ def person_update(params: Any) -> ResponseType:
         return ResponseType('PersonUpdate: Nimi ei voi olla tyhjä puuttuu.',
                             400)
 
-    name = bleach.clean(data['name'])
+    name = data['name']
     if data['name'] != person.name:
         old_values['Nimi'] = person.name
         person.name = name
@@ -482,7 +481,7 @@ def person_update(params: Any) -> ResponseType:
     if 'alt_name' not in data:
         alt_name = name
     else:
-        alt_name = bleach.clean(data['alt_name'])
+        alt_name = data['alt_name']
 
     if alt_name != person.alt_name:
         old_values['Vaihtoehtoinen nimi'] = person.alt_name
@@ -491,27 +490,27 @@ def person_update(params: Any) -> ResponseType:
     if 'fullname' in data:
         if data['fullname'] != person.fullname:
             old_values['Koko nimi'] = person.fullname
-            person.fullname = bleach.clean(data['fullname'])
+            person.fullname = data['fullname']
 
     if 'other_names' in data:
         if data['other_names'] != person.other_names:
             old_values['Muut nimet'] = person.other_names
-            person.other_names = bleach.clean(data['other_names'])
+            person.other_names = data['other_names']
 
     if 'first_name' in data:
         if data['first_name'] != person.first_name:
             old_values['Etunimi'] = person.first_name
-            person.first_name = bleach.clean(data['first_name'])
+            person.first_name = data['first_name']
 
     if 'last_name' in data:
         if data['last_name'] != person.last_name:
             old_values['Sukunimi'] = person.last_name
-            person.last_name = bleach.clean(data['last_name'])
+            person.last_name = data['last_name']
 
     if 'image_src' in data:
         if data['image_src'] != person.image_src:
             old_values['Kuvan lähde'] = person.image_src
-            person.image_src = bleach.clean(data['image_src'])
+            person.image_src = data['image_src']
 
     if 'dob' in data:
         dob = check_int(data['dob'])
@@ -531,12 +530,12 @@ def person_update(params: Any) -> ResponseType:
             if data['bio'] is None:
                 person.bio = None
             else:
-                person.bio = bleach.clean(data['bio'])
+                person.bio = data['bio']
 
     if 'bio_src' in data:
         if data['bio_src'] != person.bio_src:
             old_values['Biografian lähde'] = person.bio_src
-            person.bio_src = bleach.clean(data['bio_src'])
+            person.bio_src = data['bio_src']
 
     if 'nationality' in data:
         # pylint: disable-next=assignment-from-none
