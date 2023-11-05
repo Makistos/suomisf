@@ -77,7 +77,7 @@ class PersonPageEditionWorkSchema(ma.SQLAlchemySchema):  # type: ignore
         only=['description', 'person', 'role'])))
 
 
-class PersonPageEditionSchema(ma.SQLAlchemySchema):  # type: ignore
+class PersonPageEditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     """ Edition schema. """
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
