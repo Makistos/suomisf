@@ -218,13 +218,15 @@ def get_author_first_letters(target: str) -> Tuple[str, int]:
         # Substring doesn't really work with unicode names in SQL so have to
         # that manually.
         names = session.query(Work.author_str)\
-            .order_by(Work.author_str)\
             .filter(Work.author_str is not None)\
+            .order_by(Work.author_str)\
+            .distinct()\
             .all()
         letters = sorted(
             list(
                 set([s[0][0].upper()
-                     for s in names if s and s[0][0].isalpha()])))
+                     for s in names
+                     if s[0] is not None and s[0][0].isalpha()])))
         retval = json.dumps(Counter(letters)), 200
 
     elif target == 'stories':
