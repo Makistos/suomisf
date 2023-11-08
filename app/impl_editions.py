@@ -17,6 +17,7 @@ from app.orm_decl import (
     EditionImage,
     EditionLink,
     EditionPrice,
+    ShortStory,
     Log,
 )
 from app.impl_contributors import (
@@ -26,7 +27,7 @@ from app.impl_contributors import (
     get_work_contributors,
 )
 from app.route_helpers import new_session
-from app.model import BindingBriefSchema
+from app.model import BindingBriefSchema, ShortBriefSchema
 from app.impl import ResponseType, check_int, log_changes
 from app.impl_pubseries import add_pubseries
 from app import app
@@ -87,20 +88,29 @@ def _set_pubseries(
                 old_values["Kustantajan sarja"] = edition.pubseries.name
             else:
                 old_values["Kustantajan sarja"] = ""
-        if "id" not in data["pubseries"]:
-            # User added a new pubseries. Front returns this as a string in the
-            # bookseries field so we need to create a new pubseries to the
-            # database first.
+        if (data["pubseries"] != "" and data["pubseries"] is not None and
+                "id" not in data["pubseries"]):
+            # User added a new pubseries. Front returns this as a string
+            # in the bookseries field so we need to create a new pubseries
+            # to the # database first.
             if edition.publisher_id:
-                ps_id = add_pubseries(data["pubseries"], edition.publisher_id)
+                ps_id = add_pubseries(data["pubseries"],
+                                      edition.publisher_id)
         else:
+
+            if (data["pubseries"] == "" or data["pubseries"] is None or
+                    data["pubseries"]["name"] == "" or
+                    data["pubseries"]["name"] is None):
+                # User cleared the field -> remove pubseries
+                edition.pubseries_id = None
+                return None
             ps_id = check_int(data["pubseries"]["id"])
             if ps_id is not None:
                 ps = session.query(Pubseries)\
-                  .filter(Pubseries.id == ps_id).first()
+                    .filter(Pubseries.id == ps_id).first()
                 if not ps:
                     app.logger.error(f"EditionUpdate: Pubseries not found. \
-                                     id={ps_id}")
+                                    id={ps_id}")
                     return ResponseType(f"Kustantajan sarjaa ei löydy. \
                                         id={ps_id}", 400)
         edition.pubseries_id = ps_id
@@ -840,3 +850,35 @@ def edition_image_delete(editionid: str, imageid: str) -> ResponseType:
         return ResponseType("edition_image_delete: Tietokantavirhe.", 400)
 
     return retval
+
+
+def edition_shorts(edition_id: str) -> ResponseType:
+    """
+    Retrieves a list of short stories for a given edition.
+
+    Args:
+        edition_id (str): The ID of the edition.
+
+    Returns:
+        ResponseType: A response object containing the list of short stories.
+    """
+    session = new_session()
+    try:
+        shorts = session.query(ShortStory)\
+            .join(Part)\
+            .filter(Part.edition_id == edition_id)\
+            .filter(Part.shortstory_id == ShortStory.id)\
+            .distinct()\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'Exception in EditionShorts(): {str(exp)}')
+        return ResponseType('EditionShorts: Tietokantavirhe', 400)
+
+    try:
+        schema = ShortBriefSchema(many=True)
+        retval = schema.dump(shorts)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'Exception in EditionShorts(): {str(exp)}')
+        return ResponseType('EditionShorts: Tietokantavirhe', 400)
+
+    return ResponseType(retval, 200)
