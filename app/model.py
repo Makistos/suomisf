@@ -166,7 +166,7 @@ class PersonBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     dod = fields.Number()
     roles = fields.Pluck("self", "name", many=True)
     # nationality = fields.String(attribute='nationalityname')
-    nationality = fields.Nested(lambda: CountryBriefSchema)
+    nationality = fields.Nested(CountryBriefSchema)
     workcount = fields.Number()
     # storycount = fields.Number()
     storycount = fields.Function(lambda obj: len([x.id for x in obj.stories]))
@@ -291,6 +291,7 @@ class ShortBriefestSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         """ Metadata for SQLAlchemyAutoSchema. """
         model = ShortStory
     contributors = ma.List(fields.Nested(ContributorSchema))
+    type = fields.Nested(StoryTypeSchema)
 
 
 class ArticleBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
