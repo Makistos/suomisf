@@ -11,8 +11,10 @@ from app.impl import (ResponseType, SearchResult,
                       SearchResultFields, searchscore, set_language, check_int,
                       log_changes, get_join_changes)
 from app.orm_decl import (Edition, Part, Work, WorkType, WorkTag,
-                          WorkGenre, WorkLink, Bookseries, ShortStory)
-from app.model import (WorkBriefSchema, WorkTypeBriefSchema, ShortBriefSchema)
+                          WorkGenre, WorkLink, Bookseries, ShortStory,
+                          Contributor)
+from app.model import (WorkBriefSchema, WorkTypeBriefSchema,
+                       ShortBriefSchema)
 from app.model_bookindex import (BookIndexSchema)
 from app.model import WorkSchema
 from app.impl_contributors import (update_work_contributors,
@@ -26,6 +28,7 @@ from app.impl_editions import create_first_edition
 from app.impl_genres import checkGenreField
 from app.impl_editions import delete_edition
 from app.impl_bookseries import add_bookseries
+from app.impl_shorts import save_short_to_work
 
 from app import app
 
@@ -52,12 +55,19 @@ def _set_bookseries(
         if old_values is not None:
             old_values['Kirjasarja'] = (work.bookseries.name
                                         if work.bookseries else '')
-        if 'id' not in data['bookseries']:
+        if (data['bookseries'] != "" and data['bookseries'] is not None and
+                'id' not in data['bookseries']):
             # User added a new bookseries. Front returns this as a string
             # in the bookseries field so we need to add this bookseries to
             # the database first.
             bs_id = add_bookseries(data['bookseries'])
         else:
+            if (data['bookseries'] == "" or data["bookseries"] is None or
+                    data["bookseries"]["name"] == "" or
+                    data["bookseries"]["name"] is None):
+                # User cleared the field -> remove bookseries
+                work.bookseries_id = None
+                return None
             bs_id = check_int(data['bookseries']['id'], zeros_allowed=False,
                               negative_values=False)
             if bs_id is not None:
@@ -465,7 +475,7 @@ def work_tag_add(work_id: int, tag_id: int) -> ResponseType:
         work_id (int): The ID of the work to add the tag to.
         tag_id (int): The ID of the tag to add to the work.
 
-    Returns:
+    Returns
         ResponseType: The response indicating the success or failure of the
         operation.
     """
@@ -992,3 +1002,97 @@ def get_work_shorts(work_id: int) -> ResponseType:
     schema = ShortBriefSchema(many=True)
     retval = schema.dump(shorts)
     return ResponseType(retval, 200)
+
+
+def save_work_shorts(params: Any) -> ResponseType:
+    """
+    Saves short stories to a work.
+
+    Args:
+        params (Any): A dictionary containing the parameters for saving the
+                      short stories.
+            It should have the following keys:
+            - 'work_id': The ID of the work to which the short stories will be
+                         saved.
+            - 'shorts': A list of short stories to be saved.
+
+    Returns:
+        ResponseType: The response object indicating the success of the
+                      operation.
+            It has the following attributes:
+            - 'message': A string indicating the success message.
+            - 'status_code': An integer representing the HTTP status code.
+
+    Raises:
+        None
+
+    """
+    session = new_session()
+
+    work_id = params['work_id']
+    shorts = params['shorts']
+
+    # Because of the stupid db schema we need to save contributors first so we
+    # can put them back later.
+    contributors: Dict[int, List[Dict[str, Any]]] = {}
+
+    # Delete old parts
+    old_parts = session.query(Part)\
+        .filter(Part.work_id == work_id)\
+        .filter(Part.shortstory_id is not None)\
+        .all()
+    for part in old_parts:
+        contribs = session.query(Contributor)\
+            .filter(Contributor.part_id == part.id)\
+            .all()
+        if part.shortstory_id not in contributors:
+            contributors[part.shortstory_id] = []
+            for contrib in contribs:
+                contributors[part.shortstory_id].append(
+                    {
+                        "person_id": contrib.person_id,
+                        "role_id": contrib.role_id,
+                        "real_person_id": contrib.real_person_id,
+                        "description": contrib.description
+                    }
+                )
+                session.delete(contrib)
+        # for contrib in contribs:
+        #     session.delete(contrib)
+        session.delete(part)
+
+    for short in shorts:
+        retval = save_short_to_work(session, work_id, short)
+        if not retval:
+            session.rollback()
+            app.logger.error(
+                f'Failed to save short {short} to work {work_id}.')
+            return ResponseType('save_work_shorts: Tietokantavirhe', 400)
+
+    # session.commit()
+
+    # Put contributors back
+    try:
+        new_parts = session.query(Part)\
+            .filter(Part.work_id == work_id)\
+            .filter(Part.shortstory_id is not None)\
+            .all()
+        for part in new_parts:
+            for contrib in contributors[part.shortstory_id]:
+                new_contrib = Contributor(
+                    part_id=part.id,
+                    person_id=contrib['person_id'],
+                    role_id=contrib['role_id'],
+                    description=contrib['description']
+                )
+                session.add(new_contrib)
+    except SQLAlchemyError:
+        session.rollback()
+        app.logger.error(
+            f'Failed to save contributors for work {work_id}.')
+        return ResponseType(
+            'save_work_shorts: Tekijätietoja ei saatu tallennettua', 400)
+
+    # session.commit()
+
+    return ResponseType('OK', 200)
