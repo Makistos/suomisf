@@ -145,7 +145,7 @@ def _set_work_type(
                         old_values['Tyyppi'] = work.work_type.name
                     else:
                         old_values['Tyyppi'] = ''
-            work.work_type_id = work_type_id
+            work.type = work_type_id
     return None
 
 
