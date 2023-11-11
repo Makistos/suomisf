@@ -95,7 +95,7 @@ def make_api_response(response: ResponseType) -> Response:
                     mimetype=DEFAULT_MIMETYPE)
 
 
-def login_options(req: Any) -> Response:
+def login_options(req: Any) -> Dict[str, Any]:
     """
     Generate the login options based on the given request.
 
@@ -119,13 +119,12 @@ def login_options(req: Any) -> Response:
             options['username'] = req.json['authorization']['username']
             options['password'] = req.json['authorization']['password']
     except (TypeError, KeyError) as exp:
-        response = ResponseType(f'api_login: Virheelliset parametrit: {exp}.',
-                                401)
-        return make_api_response(response)
+        app.logger.error(f'api_login: Virheelliset parametrit: {exp}.')
+        return {}
 
     if not options['username'] or not options['password']:
-        response = ResponseType('api_login: Virheelliset parametrit.', 401)
-        return make_api_response(response)
+        app.logger.error('api_login: Virheelliset parametrit.')
+        return {}
 
     return options
 
@@ -226,6 +225,9 @@ def api_login() -> Response:
 
     """
     options = login_options(request)
+    if not options:
+        err = ResponseType('Virheellinen kirjautuminen', 401)
+        return make_api_error(err)
     retval = login_user(options)
     return retval
 
