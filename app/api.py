@@ -1716,7 +1716,7 @@ def api_tagcreate() -> Response:
     return make_api_response(retval)
 
 
-@ app.route('/api/tags/<id>', methods=['get'])
+@ app.route('/api/tags/<tag_id>', methods=['get'])
 def api_tag(tag_id: str) -> Response:
     """
     Retrieves information about a tag with the specified ID.
