@@ -85,9 +85,9 @@ def _set_pubseries(
         ps_id = None
         if old_values is not None:
             if edition.pubseries:
-                old_values["Kustantajan sarja"] = edition.pubseries.name
-            else:
-                old_values["Kustantajan sarja"] = ""
+                old_values["Kustantajan sarja"] \
+                    = (edition.pubseries.name
+                       if edition.pubseries else '')
         if (data["pubseries"] != "" and data["pubseries"] is not None and
                 "id" not in data["pubseries"]):
             # User added a new pubseries. Front returns this as a string
@@ -97,7 +97,6 @@ def _set_pubseries(
                 ps_id = add_pubseries(data["pubseries"],
                                       edition.publisher_id)
         else:
-
             if (data["pubseries"] == "" or data["pubseries"] is None or
                     data["pubseries"]["name"] == "" or
                     data["pubseries"]["name"] is None):
@@ -371,36 +370,34 @@ def update_edition(params: Any) -> ResponseType:
     # Publisher, required field. Has to exist in database.
     if "publisher" in data:
         if data["publisher"] is not None:
-            if data["publisher"]["id"] != edition.publisher_id:
+            publisher_id: Union[int, None] = None
+            if 'id' not in data['publisher']:
+                publisher = session.query(Publisher)\
+                    .filter(Publisher.name == data['publisher'])\
+                    .first()
+                if publisher:
+                    publisher_id = check_int(publisher.id)
+            else:
                 publisher_id = check_int(data["publisher"]["id"],
                                          negative_values=False)
-                if publisher_id:
-                    publisher = (
-                        session.query(Publisher)
-                        .filter(Publisher.id == publisher_id)
-                        .first()
-                    )
-                    if not publisher:
-                        app.logger.error(
-                            f"EditionUpdate: Publisher not found. \
-                              id={publisher_id}"
-                        )
-                        return ResponseType(
-                            f"Kustantajaa ei löydy. id={publisher_id}", 400
-                        )
-                else:
-                    app.logger.error(
-                        f"EditionUpdate: Invalid publisher id. \
-                          id={publisher_id}"
-                    )
-                    return ResponseType(
-                        f"Virheellinen kustantaja. id={publisher_id}", 400
-                    )
+                publisher = session.query(Publisher)\
+                    .filter(Publisher.id == publisher_id)\
+                    .first()
+            if not publisher:
+                app.logger.error("EditionUpdate: Publisher not found. "
+                                 f"publisher={data['publisher']}")
+                return ResponseType(
+                    f"Kustantajaa ei löydy. {data['publisher']}", 400
+                )
+            if publisher_id != edition.publisher_id:
                 if edition.publisher is not None:
                     old_values["Kustantaja"] = edition.publisher.name
                 else:
                     old_values["Kustantaja"] = None
                 edition.publisher_id = publisher_id
+        else:
+            app.logger.error("EditionUpdate: Publisher is empty.")
+            return ResponseType("Kustantaja ei voi olla tyhjä.", 400)
 
     # Edition number, required field
     if "editionnum" in data:
