@@ -92,10 +92,11 @@ def _update_part_contributors(
         session.add(new_contributor)
 
 
-def _remove_duplicates(contributors: List[Any]) -> List[Any]:
+def _remove_duplicates_and_empty(contributors: List[Any]) -> List[Any]:
     """
-    Remove duplicate contributors from the list. This happens with a work
-    if it has multiple editions. They can not be removed with the distinct
+    Remove duplicate and empty contributors from the list. This happens with a
+    work if it has multiple editions and when it has no contributors (there
+    will be one empty contributor). They can not be removed with the distinct
     operation because they are separate rows in the database. But from the
     point of seeing if things have changed we need to remove duplicates.
     """
@@ -107,7 +108,7 @@ def _remove_duplicates(contributors: List[Any]) -> List[Any]:
                     contrib.role_id == contrib2.role_id and
                     contrib.description == contrib2.description):
                 found = True
-        if not found:
+        if not found and contrib['person']['id'] not in (0, None):
             retval.append(contrib)
     return retval
 
@@ -127,7 +128,8 @@ def contributors_have_changed(
         boolean: indicating whether or not the list of new values is
         different from the list of old values.
     """
-    old_values = _remove_duplicates(old_values)
+    old_values = _remove_duplicates_and_empty(old_values)
+    new_values = _remove_duplicates_and_empty(new_values)
     if len(old_values) != len(new_values):
         return True
     l: Any = []
