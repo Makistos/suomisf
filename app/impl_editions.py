@@ -83,11 +83,10 @@ def _set_pubseries(
     """
     if data["pubseries"] != edition.pubseries:
         ps_id = None
-        if old_values is not None:
-            if edition.pubseries:
-                old_values["Kustantajan sarja"] \
-                    = (edition.pubseries.name
-                       if edition.pubseries else '')
+        if old_values is not None and edition.pubseries:
+            old_values["Kustantajan sarja"] \
+                = (edition.pubseries.name
+                    if edition.pubseries else '')
         if (data["pubseries"] != "" and data["pubseries"] is not None and
                 "id" not in data["pubseries"]):
             # User added a new pubseries. Front returns this as a string
@@ -108,10 +107,10 @@ def _set_pubseries(
                 ps = session.query(Pubseries)\
                     .filter(Pubseries.id == ps_id).first()
                 if not ps:
-                    app.logger.error(f"EditionUpdate: Pubseries not found. \
-                                    id={ps_id}")
-                    return ResponseType(f"Kustantajan sarjaa ei löydy. \
-                                        id={ps_id}", 400)
+                    app.logger.error('EditionUpdate: Pubseries not found. '
+                                     f'id={ps_id}')
+                    return ResponseType('Kustantajan sarjaa ei löydy. '
+                                        f'id={ps_id}', 400)
         edition.pubseries_id = ps_id
     return None
 
@@ -143,8 +142,8 @@ def create_edition(params: Any) -> ResponseType:
                         negative_values=False)
     if not work_id:
         app.logger.error(
-            'Exception in EditionCreate: Invalid work_id. \
-              work_id={data["work_id"]}'
+            'Exception in EditionCreate: Invalid work_id. '
+            f'work_id={data["work_id"]}'
         )
         return ResponseType(f'Virheellinen teoksen id. id={data["work_id"]}',
                             400)
@@ -171,8 +170,8 @@ def create_edition(params: Any) -> ResponseType:
     pubyear: Union[int, None] = check_int(value=data["pubyear"])
     if not pubyear:
         app.logger.error(
-            'Exception in EditionCreate: Invalid pubyear. \
-              pubyear={data["pubyear"]}'
+            'Exception in EditionCreate: Invalid pubyear. '
+            f'pubyear={data["pubyear"]}'
         )
         return ResponseType(
             f'Julkaisuvuosi on virheellinen. pubyear={data["pubyear"]}', 400
@@ -182,12 +181,12 @@ def create_edition(params: Any) -> ResponseType:
         editionnum = check_int(data["editionnum"])
         if not editionnum:
             app.logger.error(
-                'Exception in EditionCreate: Invalid edition number. edition \
-                  number={data["editionnum"]}'
+                'Exception in EditionCreate: Invalid edition number. edition '
+                f'number={data["editionnum"]}'
             )
             return ResponseType(
-                f'Painosnumero on virheellinen. \
-                  Painosnumero={data["editionnum"]}', 400
+                'Painosnumero on virheellinen. '
+                f'Painosnumero={data["editionnum"]}', 400
             )
         edition.editionnum = editionnum
     if "version" in data:
@@ -200,12 +199,12 @@ def create_edition(params: Any) -> ResponseType:
                                  negative_values=False)
         if not publisher_id:
             app.logger.error(
-                'Exception in EditionCreate: Invalid publisher id. \
-                  publisher id={data["publisher"]["id"]}'
+                'Exception in EditionCreate: Invalid publisher id. '
+                f'publisher id={data["publisher"]["id"]}'
             )
             return ResponseType(
-                f'Kustantajan id on virheellinen. \
-                  id={data["publisher"]["id"]}', 400
+                'Kustantajan id on virheellinen. '
+                f'id={data["publisher"]["id"]}', 400
             )
         publisher = session.query(Publisher)\
             .filter(Publisher.id == publisher_id)\
@@ -213,8 +212,8 @@ def create_edition(params: Any) -> ResponseType:
 
         if not publisher:
             app.logger.error(
-                "Exception in EditionCreate: Publisher not found. \
-                  id={publisher_id}"
+                'Exception in EditionCreate: Publisher not found. '
+                f'id={publisher_id}'
             )
             return ResponseType(f"Kustantajaa ei löydy. id={publisher_id}",
                                 400)
@@ -311,8 +310,8 @@ def create_edition(params: Any) -> ResponseType:
         session.commit()
     except SQLAlchemyError as e:
         session.rollback()
-        app.logger.error(f"Exception in EditionCreate updating contributors: \
-                         {e}")
+        app.logger.error('Exception in EditionCreate updating contributors: '
+                         f'{e}')
         return ResponseType("EditionCreate: Tietokantavirhe.", 500)
 
     log_changes(session, obj=edition, action="Uusi")
@@ -340,77 +339,73 @@ def update_edition(params: Any) -> ResponseType:
     formats = session.query(Format).all()
 
     # Title, required field, cannot be empty
-    if "title" in data:
-        if data["title"] != edition.title:
-            if not edition.title or len(edition.title) == 0:
-                app.logger.error("EditionUpdate: Title is empty.")
-                return ResponseType("Otsikko ei voi olla tyhjä.", 400)
-            else:
-                old_values["Nimeke"] = edition.title
-                edition.title = data["title"]
+    if "title" in data and data["title"] != edition.title:
+        if not edition.title or len(edition.title) == 0:
+            app.logger.error("EditionUpdate: Title is empty.")
+            return ResponseType("Otsikko ei voi olla tyhjä.", 400)
+        else:
+            old_values["Nimeke"] = edition.title
+            edition.title = data["title"]
 
     # Subtitle, not required
-    if "subtitle" in data:
-        if data["subtitle"] != edition.subtitle:
-            old_values["Alaotsikko"] = edition.subtitle
-            subtitle: Union[str, None] = data["subtitle"]
-            if subtitle == "":
-                subtitle = None
-            edition.subtitle = subtitle
+    if "subtitle" in data and data["subtitle"] != edition.subtitle:
+        old_values["Alaotsikko"] = edition.subtitle
+        subtitle: Union[str, None] = data["subtitle"]
+        if subtitle == "":
+            subtitle = None
+        edition.subtitle = subtitle
 
     # Pubyear, required field
     if "pubyear" in data:
-        if data["pubyear"] is None:
+        pubyear = check_int(data['pubyear'])
+        if pubyear is not None:
+            if pubyear != edition.pubyear:
+                old_values["Kustannusvuosi"] = edition.pubyear
+            edition.pubyear = pubyear
+        else:
             app.logger.error("EditionUpdate: Pubyear is empty.")
             return ResponseType("Julkaisuvuosi ei voi olla tyhjä.", 400)
-        if data["pubyear"] != edition.pubyear:
-            old_values["Kustannusvuosi"] = edition.pubyear
-            edition.pubyear = check_int(data["pubyear"])
 
     # Publisher, required field. Has to exist in database.
-    if "publisher" in data:
-        if data["publisher"] is not None:
-            publisher_id: Union[int, None] = None
-            if 'id' not in data['publisher']:
-                publisher = session.query(Publisher)\
-                    .filter(Publisher.name == data['publisher'])\
-                    .first()
-                if publisher:
-                    publisher_id = check_int(publisher.id)
-            else:
-                publisher_id = check_int(data["publisher"]["id"],
-                                         negative_values=False)
-                publisher = session.query(Publisher)\
-                    .filter(Publisher.id == publisher_id)\
-                    .first()
-            if not publisher:
-                app.logger.error("EditionUpdate: Publisher not found. "
-                                 f"publisher={data['publisher']}")
-                return ResponseType(
-                    f"Kustantajaa ei löydy. {data['publisher']}", 400
-                )
-            if publisher_id != edition.publisher_id:
-                if edition.publisher is not None:
-                    old_values["Kustantaja"] = edition.publisher.name
-                else:
-                    old_values["Kustantaja"] = None
-                edition.publisher_id = publisher_id
+    if "publisher" in data and data["publisher"] is not None:
+        publisher_id: Union[int, None] = None
+        if 'id' not in data['publisher']:
+            publisher = session.query(Publisher)\
+                .filter(Publisher.name == data['publisher'])\
+                .first()
+            if publisher:
+                publisher_id = check_int(publisher.id)
         else:
-            app.logger.error("EditionUpdate: Publisher is empty.")
-            return ResponseType("Kustantaja ei voi olla tyhjä.", 400)
+            publisher_id = check_int(data["publisher"]["id"],
+                                     negative_values=False)
+            publisher = session.query(Publisher)\
+                .filter(Publisher.id == publisher_id)\
+                .first()
+        if not publisher:
+            app.logger.error("EditionUpdate: Publisher not found. "
+                             f"publisher={data['publisher']}")
+            return ResponseType(
+                f"Kustantajaa ei löydy. {data['publisher']}", 400
+            )
+        if publisher_id != edition.publisher_id:
+            old_values["Kustantaja"] = (
+                edition.publisher.name if edition.publisher else None)
+            edition.publisher_id = publisher_id
+    else:
+        app.logger.error("EditionUpdate: Publisher is empty.")
+        return ResponseType("Kustantaja ei voi olla tyhjä.", 400)
 
     # Edition number, required field
-    if "editionnum" in data:
-        if data["editionnum"] is None:
-            app.logger.error("EditionUpdate: Editionnum is empty.")
-            return ResponseType("Painosnumero ei voi olla tyhjä.", 400)
-        if data["editionnum"] != edition.editionnum:
-            editionnum = check_int(data["editionnum"])
-            if editionnum is None:
-                app.logger.error("EditionUpdate: Invalid editionnum.")
-                return ResponseType("Virheellinen painosnumero.", 400)
-            old_values["Painosnro"] = edition.editionnum
-            edition.editionnum = editionnum
+    if "editionnum" in data and data["editionnum"] != edition.editionnum:
+        editionnum = check_int(data["editionnum"])
+        if editionnum is None:
+            app.logger.error("EditionUpdate: Invalid editionnum.")
+            return ResponseType("Virheellinen painosnumero.", 400)
+        old_values["Painosnro"] = edition.editionnum
+        edition.editionnum = editionnum
+    elif data["editionnum"] is None:
+        app.logger.error("EditionUpdate: Editionnum is empty.")
+        return ResponseType("Painosnumero ei voi olla tyhjä.", 400)
 
     # Version (laitos), not required
     if "version" in data:
@@ -427,72 +422,68 @@ def update_edition(params: Any) -> ResponseType:
             edition.version = version
 
     # ISBN, not required
-    if "isbn" in data:
-        if data["isbn"] != edition.isbn:
-            old_values["ISBN"] = edition.isbn
-            isbn: Union[str, None] = data["isbn"]
-            if isbn == "":
-                isbn = None
-            edition.isbn = isbn
+    if "isbn" in data and data["isbn"] != edition.isbn:
+        old_values["ISBN"] = edition.isbn
+        isbn: Union[str, None] = data["isbn"]
+        if isbn == "":
+            isbn = None
+        edition.isbn = isbn
 
     # Number of pages, not required
-    if "pages" in data:
-        if data["pages"] != edition.pages:
-            pages = check_int(data["pages"], negative_values=False)
-            if pages is None and data["pages"] is not None:
-                # Trying to set a value but it's not an integer
-                app.logger.error("EditionUpdate: Invalid pages.")
-                return ResponseType("Virheellinen sivumäärä.", 400)
-            # Either removing value or setting a new one
-            old_values["Sivuja"] = edition.pages
-            edition.pages = pages
+    if "pages" in data and data["pages"] != edition.pages:
+        pages = check_int(data["pages"], negative_values=False)
+        if pages is None and data["pages"] is not None:
+            # Trying to set a value but it's not an integer
+            app.logger.error("EditionUpdate: Invalid pages.")
+            return ResponseType("Virheellinen sivumäärä.", 400)
+        # Either removing value or setting a new one
+        old_values["Sivuja"] = edition.pages
+        edition.pages = pages
 
     # Binding type, required field. Has to exist in database.
-    if "binding" in data:
-        if data["binding"] is not None:
-            if data["binding"]["id"] != edition.binding_id:
-                binding_id = check_int(
-                    data["binding"]["id"], allowed=[b.id for b in bindings]
-                )
-                if binding_id is None:
-                    app.logger.error("EditionUpdate: Invalid binding.")
-                    return ResponseType("Virheellinen sidonta.", 400)
-                old_values["Sidonta"] = edition.binding.name
-                edition.binding_id = binding_id
+    if "binding" in data and data["binding"] is not None:
+        if data["binding"]["id"] != edition.binding_id:
+            binding_id = check_int(
+                data["binding"]["id"], allowed=[b.id for b in bindings]
+            )
+            if binding_id is None:
+                app.logger.error("EditionUpdate: Invalid binding.")
+                return ResponseType("Virheellinen sidonta.", 400)
+            old_values["Sidonta"] = edition.binding.name
+            edition.binding_id = binding_id
 
     # Edition format, required field. Has to exist in database.
-    if "format" in data:
-        if data["format"] is not None:
-            if data["format"]["id"] != edition.format_id:
-                format_id = check_int(
-                    data["format"]["id"], allowed=[f.id for f in formats]
-                )
-                if format_id is None:
-                    app.logger.error("EditionUpdate: Invalid format.")
-                    return ResponseType("Virheellinen formaatti.", 400)
-                old_values["Formaatti"] = edition.format.name
-                edition.format_id = format_id
+    if ("format" in data
+            and data["format"] is not None
+            and "id" in data["format"]
+            and data["format"]["id"] != edition.format_id):
+        format_id = check_int(
+            data["format"]["id"], allowed=[f.id for f in formats]
+        )
+        if format_id is None:
+            app.logger.error("EditionUpdate: Invalid format.")
+            return ResponseType("Virheellinen formaatti.", 400)
+        old_values["Formaatti"] = edition.format.name
+        edition.format_id = format_id
 
     # Size (height in cm), not required
-    if "size" in data:
-        if data["size"] != edition.size:
-            size = check_int(data["size"], negative_values=False)
-            if size is None and data["size"] is not None:
-                # Trying to set a value but it's not an integer
-                app.logger.error("EditionUpdate: Invalid size.")
-                return ResponseType("Virheellinen koko.", 400)
-            # Either removing value or setting a new one
-            old_values["Koko"] = edition.size
-            edition.size = size
+    if "size" in data and data["size"] != edition.size:
+        size = check_int(data["size"], negative_values=False)
+        if size is None and data["size"] is not None:
+            # Trying to set a value but it's not an integer
+            app.logger.error("EditionUpdate: Invalid size.")
+            return ResponseType("Virheellinen koko.", 400)
+        # Either removing value or setting a new one
+        old_values["Koko"] = edition.size
+        edition.size = size
 
     # Print location, not required
-    if "printedin" in data:
-        if data["printedin"] != edition.printedin:
-            old_values["Painopaikka"] = edition.printedin
-            printedin: Union[str, None] = data["printedin"]
-            if printedin == "":
-                printedin = None
-            edition.printedin = printedin
+    if "printedin" in data and data["printedin"] != edition.printedin:
+        old_values["Painopaikka"] = edition.printedin
+        printedin: Union[str, None] = data["printedin"]
+        if printedin == "":
+            printedin = None
+        edition.printedin = printedin
 
     # Publisher's series, not required
     if "pubseries" in data:
@@ -501,75 +492,70 @@ def update_edition(params: Any) -> ResponseType:
             return retval
 
     # Publisher's series number, not required
-    if "pubseriesnum" in data:
-        if data["pubseriesnum"] != edition.pubseriesnum:
-            pubseriesnum = check_int(data["pubseriesnum"])
-            if pubseriesnum is None and data["pubseriesnum"] is not None:
-                # Trying to set a value but it's not an integer
-                app.logger.error("EditionUpdate: Invalid pubseriesnum.")
-                return ResponseType("Virheellinen sarjan numero.", 400)
-            old_values["Kustantajan sarjan numero"] = edition.pubseriesnum
-            edition.pubseriesnum = pubseriesnum
+    if "pubseriesnum" in data and data["pubseriesnum"] != edition.pubseriesnum:
+        pubseriesnum = check_int(data["pubseriesnum"])
+        if pubseriesnum is None and data["pubseriesnum"] is not None:
+            # Trying to set a value but it's not an integer
+            app.logger.error("EditionUpdate: Invalid pubseriesnum.")
+            return ResponseType("Virheellinen sarjan numero.", 400)
+        old_values["Kustantajan sarjan numero"] = edition.pubseriesnum
+        edition.pubseriesnum = pubseriesnum
 
     # Whether the book has a dustcover, not required
-    if "dustcover" in data:
-        if data["dustcover"] != edition.dustcover:
-            dustcover = check_int(data["dustcover"], allowed=[1, 2, 3])
-            if dustcover is None:
-                app.logger.error("EditionUpdate: Invalid dustcover.")
-                return ResponseType("Virheellinen kansipaperin tyyppi.", 400)
-            if edition.dustcover == 1:
-                old_value = "Ei tietoa"
-            elif edition.dustcover == 2:
-                old_value = "Ei"
-            else:
-                old_value = "Kyllä"
-            old_values["Kansipaperi"] = old_value
-            edition.dustcover = dustcover
+    if "dustcover" in data and data["dustcover"] != edition.dustcover:
+        dustcover = check_int(data["dustcover"], allowed=[1, 2, 3])
+        if dustcover is None:
+            app.logger.error("EditionUpdate: Invalid dustcover.")
+            return ResponseType("Virheellinen kansipaperin tyyppi.", 400)
+        if edition.dustcover == 1:
+            old_value = "Ei tietoa"
+        elif edition.dustcover == 2:
+            old_value = "Ei"
+        else:
+            old_value = "Kyllä"
+        old_values["Kansipaperi"] = old_value
+        edition.dustcover = dustcover
 
     # Whether the book has a cover image, not required.
     # This is used for hardcovers only.
-    if "coverimage" in data:
-        if data["coverimage"] != edition.coverimage:
-            coverimage = check_int(data["coverimage"], allowed=[1, 2, 3])
-            if coverimage is None:
-                app.logger.error("EditionUpdate: Invalid coverimage.")
-                return ResponseType("Virheellinen kansikuvan tyyppi.", 400)
-            if edition.coverimage == 1:
-                old_value = "Ei tietoa"
-            elif edition.coverimage == 2:
-                old_value = "Ei"
-            else:
-                old_value = "Kyllä"
-            old_values["Ylivetokansi"] = old_value
-            edition.coverimage = coverimage
+    if "coverimage" in data and data["coverimage"] != edition.coverimage:
+        coverimage = check_int(data["coverimage"], allowed=[1, 2, 3])
+        if coverimage is None:
+            app.logger.error("EditionUpdate: Invalid coverimage.")
+            return ResponseType("Virheellinen kansikuvan tyyppi.", 400)
+        if edition.coverimage == 1:
+            old_value = "Ei tietoa"
+        elif edition.coverimage == 2:
+            old_value = "Ei"
+        else:
+            old_value = "Kyllä"
+        old_values["Ylivetokansi"] = old_value
+        edition.coverimage = coverimage
 
     # Miscellanous notes, not required
-    if "misc" in data:
-        if data["misc"] != edition.misc:
-            old_values["Muuta"] = edition.misc
-            misc: Union[str, None] = data["misc"]
-            if misc == "":
-                misc = None
-            edition.misc = misc
+    if "misc" in data and data["misc"] != edition.misc:
+        old_values["Muuta"] = edition.misc
+        misc: Union[str, None] = data["misc"]
+        if misc == "":
+            misc = None
+        edition.misc = misc
 
     # Holds string where data was originally extracted from. Also used for
     # source.
-    if "imported_string" in data:
-        if data["imported_string"] != edition.imported_string:
-            old_values["Lähde"] = edition.imported_string
-            imported_string = data["imported_string"]
-            if imported_string == "":
-                imported_string = ''
-            edition.imported_string = imported_string
+    if ("imported_string" in data
+            and data["imported_string"] != edition.imported_string):
+        old_values["Lähde"] = edition.imported_string
+        imported_string = data["imported_string"]
+        if imported_string == "":
+            imported_string = ''
+        edition.imported_string = imported_string
 
-    if "verified" in data:
-        if data["verified"] != edition.verified:
-            if edition.verified:
-                old_values["Tarkastettu"] = "Kyllä"
-            else:
-                old_values["Tarkastettu"] = "Ei"
-            edition.verified = data["verified"]
+    if "verified" in data and data["verified"] != edition.verified:
+        if edition.verified:
+            old_values["Tarkastettu"] = "Kyllä"
+        else:
+            old_values["Tarkastettu"] = "Ei"
+        edition.verified = data["verified"]
 
     if "contributors" in data:
         if contributors_have_changed(edition.contributions,
