@@ -5,6 +5,7 @@ from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
+from app.isbn import check_isbn  # type: ignore
 from app.orm_decl import (
     Edition,
     Part,
@@ -220,8 +221,17 @@ def create_edition(params: Any) -> ResponseType:
         edition.publisher_id = publisher_id
 
     if "isbn" in data:
-        # TODO: Validate ISBN
-        edition.isbn = data["isbn"]
+        isbn = data["isbn"]
+        if isbn not in [None, ""]:
+            if not check_isbn(data["isbn"]):
+                app.logger.error(
+                    'Exception in EditionCreate: Invalid ISBN. '
+                    f'ISBN={isbn}'
+                )
+                return ResponseType('Virheellinen ISBN.', 400)
+        elif isbn == "":
+            isbn = None
+        edition.isbn = isbn
 
     # Publisher's series, not required
     if "pubseries" in data:
@@ -425,8 +435,12 @@ def update_edition(params: Any) -> ResponseType:
     if "isbn" in data and data["isbn"] != edition.isbn:
         old_values["ISBN"] = edition.isbn
         isbn: Union[str, None] = data["isbn"]
-        if isbn == "":
+        if isbn == "" or isbn is None:
             isbn = None
+        else:
+            if not check_isbn(isbn):
+                app.logger.error("EditionUpdate: Invalid ISBN: {isbn}.")
+                return ResponseType("Virheellinen ISBN.", 400)
         edition.isbn = isbn
 
     # Number of pages, not required
