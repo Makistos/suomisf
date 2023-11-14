@@ -135,11 +135,13 @@ class PersonPageWorkBriefSchema(ma.SQLAlchemySchema):  # type: ignore
     title = fields.String()
     orig_title = fields.String()
     author_str = fields.String()
+    pubyear = fields.Number()
     contributions = ma.List(fields.Nested(WorkContributorSchema))
     editions = ma.List(fields.Nested(PersonPageEditionSchema))
     genres = ma.List(fields.Nested(GenreBriefSchema))
     bookseries = fields.Nested(
         lambda: BookseriesBriefSchema(exclude=['works']))
+    bookseriesnum = fields.String()
     tags = ma.List(fields.Nested(TagBriefSchema))
 
 
