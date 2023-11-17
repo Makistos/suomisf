@@ -735,10 +735,7 @@ def allowed_image(filename: Optional[str]) -> bool:
         return False
 
     ext = filename.rsplit(".", 10)[1]
-    if ext.upper() in ["jpg", "JPG"]:
-        return True
-    else:
-        return False
+    return ext.upper() in ["jpg", "JPG"]
 
 
 def edition_image_upload(editionid: str, image: FileStorage) -> ResponseType:
