@@ -104,8 +104,8 @@ def _remove_duplicates_and_empty(contributors: List[Any]) -> List[Any]:
     for contrib in contributors:
         found = False
         for contrib2 in retval:
-            if (contrib.person_id == contrib2.person_id and
-                    contrib.role_id == contrib2.role_id and
+            if (contrib['person']['id'] == contrib2['person']['id'] and
+                    contrib['role']['id'] == contrib2['role']['id'] and
                     contrib.description == contrib2.description):
                 found = True
         if not found and contrib['person']['id'] not in (0, None):
@@ -128,7 +128,7 @@ def contributors_have_changed(
         boolean: indicating whether or not the list of new values is
         different from the list of old values.
     """
-    old_values = _remove_duplicates_and_empty(old_values)
+    # old_values = _remove_duplicates_and_empty(old_values)
     new_values = _remove_duplicates_and_empty(new_values)
     if len(old_values) != len(new_values):
         return True
