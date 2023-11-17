@@ -360,6 +360,7 @@ def get_person(person_id: int) -> ResponseType:
                 person.translations = person.translations + alias.translations
                 person.work_contributions = person.works
                 person.edit_contributions = person.edits
+                person.editions = person.editions + alias.editions
     except SQLAlchemyError as exp:
         app.logger.error('Exception in GetPerson: ' + str(exp))
         return ResponseType('GetPerson: Tietokantavirhe.', 400)
