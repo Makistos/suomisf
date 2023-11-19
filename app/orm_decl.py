@@ -1546,6 +1546,7 @@ def load_user(user_id: Any) -> Any:
     return session.query(User).get(int(user_id))
 
 
-engine = create_engine(db_url, poolclass=NullPool)  # , echo=True)
+engine = create_engine(db_url, poolclass=NullPool)
+# engine = create_engine(db_url, poolclass=NullPool, echo=True)
 
 Base.metadata.create_all(engine)

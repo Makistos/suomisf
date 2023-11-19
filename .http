@@ -30,6 +30,8 @@ GET http://localhost:5000/api/magazines HTTP/1.1
 ###
 GET http://localhost:5000/api/bookseries/1 HTTP/1.1
 
+###
+GET http://localhost:5000/api/people/shorts/2820
 
 # Performance testing
 

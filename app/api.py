@@ -20,7 +20,7 @@ from app.impl_bookseries import (list_bookseries, get_bookseries,
                                  bookseries_delete, filter_bookseries)
 from app.impl_editions import (get_bindings, create_edition, update_edition,
                                edition_delete, edition_image_upload,
-                               edition_image_delete)
+                               edition_image_delete, edition_shorts)
 from app.impl_issues import (get_issue, get_issue_tags, issue_tag_add,
                              issue_tag_remove)
 from app.impl_magazines import (list_magazines, get_magazine)
@@ -42,7 +42,8 @@ from app.impl_users import (login_user, refresh_token, list_users, get_user)
 from app.impl_works import (search_works, get_work, work_add, work_update,
                             work_delete, get_work_shorts, worktype_get_all,
                             work_tag_add, work_tag_remove,
-                            search_works_by_author, search_books)
+                            search_works_by_author, search_books,
+                            save_work_shorts)
 from app.api_schemas import (PersonSchema, BookseriesSchema)
 from app.route_helpers import new_session
 from app import app
@@ -768,6 +769,20 @@ def api_deleteeditionimage(editionid: str, imageid: str) -> Response:
     retval = make_api_response(
         edition_image_delete(editionid, imageid))
     return retval
+
+
+@app.route('/api/editions/<editionid>/shorts', methods=['get'])
+def api_editionshorts(editionid: str) -> Response:
+    """
+    Get the shorts for a specific edition.
+
+    Args:
+        editionid (str): The ID of the edition.
+
+    Returns:
+        Response: The API response containing the shorts for the edition.
+    """
+    return make_api_response(edition_shorts(editionid))
 
 
 @app.route('/api/filter/linknames/<pattern>', methods=['get'])
@@ -2090,6 +2105,14 @@ def api_workshorts(workid: int) -> Response:
         response = ResponseType(f'Virheellinen tunniste: {workid}.', 400)
         return make_api_response(response)
     return make_api_response(get_work_shorts(int_id))
+
+
+@app.route('/api/works/shorts', methods=['put', 'post'])
+def api_workshorts_save() -> Response:
+    """ Save shorts in a collection. """
+    params = request.data.decode('utf-8')
+    params = json.loads(params)
+    return make_api_response(save_work_shorts(params))
 
 
 @app.route('/api/worktypes', methods=['get'])

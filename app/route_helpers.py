@@ -3,26 +3,21 @@
     route definitions.
 """
 
-#!/usr/bin/python3
-
-from copy import deepcopy
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, joinedload
-from sqlalchemy.pool import NullPool
-from sqlalchemy.sql.expression import true
-from sqlalchemy.sql.sqltypes import Boolean
-from app.orm_decl import (Contributor, Language, Person, Publisher, Work,
-                          Edition, Part, Pubseries, Bookseries, PublicationSize, Tag,
-                          PersonTag, BindingType, Format, Genre, ShortStory, ArticleTag,
-                          WorkGenre, Log)
-from app import db_url
 from typing import List, Dict, Any, Tuple, Set, Union
-from flask_login import current_user
-from flask import abort, Response
 from functools import wraps
 import json
 import itertools
 from datetime import datetime
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, joinedload
+from sqlalchemy.pool import NullPool
+from flask_login import current_user
+from flask import abort, Response
+from app.orm_decl import (Contributor, Language, Person, Publisher, Work,
+                          Edition, Part, Pubseries, Bookseries,
+                          PublicationSize, Tag, PersonTag, BindingType, Format,
+                          Genre, ShortStory, ArticleTag, WorkGenre, Log)
+from app import db_url
 
 
 def new_session() -> Any:
@@ -32,6 +27,7 @@ def new_session() -> Any:
         Any: Session handler.
     '''
     engine = create_engine(db_url, poolclass=NullPool)
+    # engine = create_engine(db_url, poolclass=NullPool, echo=True)
     # app.config['SQLALCHEMY_DATABASE_URI'], poolclass=NullPool)
     Session = sessionmaker(bind=engine)
     session = Session()
@@ -58,30 +54,32 @@ table_locals = {'article': 'Artikkeli',
                 'work': 'Teos'}
 
 
-def log_change(session: Any, obj: Any, action: str = 'Päivitys', fields: List[str] = []) -> None:
+def log_change(session: Any, obj: Any, action: str = 'Päivitys',
+               fields: List[str] = []) -> None:
     ''' Log a change made to data.
 
     Args:
         session (Any): Session handler.
         obj (Any): Object that was changed.
-        action (str, optional): Description of change, either "Päivitys" or "Uusi". Defaults to 'Päivitys'.
-        fields (List[str], optional): Fields that were changed. Needed for "Päivitys", not used for "Uusi". Defaults to [].
+        action (str, optional): Description of change, either "Päivitys" or
+                                "Uusi". Defaults to 'Päivitys'.
+        fields (List[str], optional): Fields that were changed. Needed for
+                                      "Päivitys", not used for "Uusi". Defaults
+                                      to [].
     '''
     name: str = obj.name
     tbl_name = table_locals[obj.__table__.name]
-    # if len(fields) == 0:
-    #     field = ''
-    # else:
-    #     field = ', '.join(fields)
     if action == 'Päivitys':
         for field in fields:
-            log = Log(table_name=tbl_name, table_id=obj.id, action=action, field_name=field,
+            log = Log(table_name=tbl_name, table_id=obj.id, action=action,
+                      field_name=field,
                       object_name=name,
                       user_id=current_user.get_id(),
                       date=datetime.now())
             session.add(log)
     else:
-        log = Log(table_name=tbl_name, table_id=obj.id, action=action, field_name='',
+        log = Log(table_name=tbl_name, table_id=obj.id, action=action,
+                  field_name='',
                   object_name=name,
                   user_id=current_user.get_id(),
                   date=datetime.now())
@@ -98,11 +96,23 @@ def publisher_list(session: Any) -> Dict[str, List[str]]:
     Returns:
         Dict[str, List[str]]:
     '''
-    return {'publisher': [str(x.name) for x in
-                          session.query(Publisher).order_by(Publisher.name).all()]}
+    return {
+        'publisher': [str(x.name) for x in
+                      session.query(Publisher).order_by(Publisher.name).all()]}
 
 
 def author_list(session: Any) -> Dict[str, List[str]]:
+    """
+    Generates a dictionary containing a list of authors.
+
+    Args:
+        session (Any): The session object used to query the database.
+
+    Returns:
+        Dict[str, List[str]]: A dictionary with a key 'author' and a value that
+        is a list of strings representing the names of the authors. The names
+        are sorted in ascending order.
+    """
     return {'author': [str(x.name) for x in
                        session.query(Person)
                        .join(Contributor, Contributor.role_id == 1)
@@ -113,6 +123,18 @@ def author_list(session: Any) -> Dict[str, List[str]]:
 
 
 def pubseries_list(session: Any, pubid: Any) -> List[Tuple[str, str]]:
+    """
+    Generate a list of tuples containing the ID and name of pubseries.
+
+    Args:
+        session (Any): The session object for the database connection.
+        pubid (Any): The ID of the publisher. If pubid is not 0, the query will
+                     filter by publisher_id.
+
+    Returns:
+        List[Tuple[str, str]]: A list of tuples containing the ID and name of
+                               pubseries.
+    """
     retval = [('0', 'Ei sarjaa')]
 
     if pubid != 0:
@@ -124,6 +146,17 @@ def pubseries_list(session: Any, pubid: Any) -> List[Tuple[str, str]]:
 
 
 def size_list(session: Any) -> List[Tuple[str, str]]:
+    """
+    Returns a list of tuples containing the id and name of each publication
+    size in the given session.
+
+    Parameters:
+    - session: An instance of the session object.
+
+    Returns:
+    - A list of tuples, where each tuple contains the id and name of a
+      publication size.
+    """
     return [(str(x.id), str(x.name)) for x in
             session.query(PublicationSize).all()]
 

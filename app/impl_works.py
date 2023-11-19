@@ -1008,6 +1008,15 @@ def save_work_shorts(params: Any) -> ResponseType:
     """
     Saves short stories to a work.
 
+    This function is way too complex thanks to the less-than-perfect database
+    model. The only way to store contributors to a story is through the part
+    table. If a story is not connected to any work then we need to create an
+    "empty" part which does not reference any works (or editions for that
+    matter).
+
+    In this case it is possible that a story is removed from the only work they
+    are attached to so we need to make sure these stories have an empty part.
+
     Args:
         params (Any): A dictionary containing the parameters for saving the
                       short stories.
@@ -1030,69 +1039,175 @@ def save_work_shorts(params: Any) -> ResponseType:
     session = new_session()
 
     work_id = params['work_id']
-    shorts = params['shorts']
+    new_shorts_list = params['shorts']
 
     # Because of the stupid db schema we need to save contributors first so we
     # can put them back later.
-    contributors: Dict[int, List[Dict[str, Any]]] = {}
+    old_contributors: Dict[int, List[Dict[str, Any]]] = {}
+    new_contributors: Dict[int, List[Dict[str, Any]]] = {}
+    old_story_ids: Dict[int, int] = {}
+
+    # Find short stories that existed for work
+    try:
+        old_stories_list = session.query(ShortStory)\
+            .join(Part)\
+            .filter(Part.work_id == work_id)\
+            .filter(Part.shortstory_id.isnot(None))\
+            .filter(ShortStory.id == Part.shortstory_id)\
+            .distinct()\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'save_work_shorts(): {(work_id)} {str(exp)}')
+        return ResponseType(f'Tietokantavirhe: {exp}', 400)
+
+    # Store contributors for existing stories, this is needed in case a story
+    # is removed from work and there are no other works or magazines it appears
+    # in. In that case we need to save contributors to an "empty" part.
+    for story in old_stories_list:
+        try:
+            contribs = session.query(Contributor)\
+                .join(Part)\
+                .filter(Part.shortstory_id == story.id)\
+                .filter(Part.id == Contributor.part_id)\
+                .all()
+        except SQLAlchemyError as exp:
+            app.logger.error(f'save_work_shorts(): ({work_id}) {str(exp)}')
+            return ResponseType(f'Tietokantavirhe: {exp}', 400)
+        old_contributors[story.id] = []
+        for contrib in contribs:
+            old_contributors[story.id].append({
+                "person_id": contrib.person_id,
+                "role_id": contrib.role_id,
+                "real_person_id": contrib.real_person_id,
+                "description": contrib.description
+            })
+        old_story_ids[story.id] = story.id
+
+    # Find contributors for new stories
+    for short in new_shorts_list:
+        try:
+            contribs = session.query(Contributor)\
+                .join(Part)\
+                .filter(Part.shortstory_id == short)\
+                .filter(Part.id == Contributor.part_id)\
+                .all()
+        except SQLAlchemyError as exp:
+            app.logger.error(f'save_work_shorts(): ({work_id}) {str(exp)}')
+            return ResponseType(f'Tietokantavirhe: {exp}', 400)
+        if contribs:
+            for contrib in contribs:
+                if short not in new_contributors:
+                    new_contributors[short] = [
+                        {
+                            "person_id": contrib.person_id,
+                            "role_id": contrib.role_id,
+                            "real_person_id": contrib.real_person_id,
+                            "description": contrib.description
+                        }
+                    ]
 
     # Delete old parts
     old_parts = session.query(Part)\
         .filter(Part.work_id == work_id)\
-        .filter(Part.shortstory_id is not None)\
+        .filter(Part.shortstory_id.isnot(None))\
         .all()
     for part in old_parts:
         contribs = session.query(Contributor)\
             .filter(Contributor.part_id == part.id)\
             .all()
-        if part.shortstory_id not in contributors:
-            contributors[part.shortstory_id] = []
-            for contrib in contribs:
-                contributors[part.shortstory_id].append(
-                    {
-                        "person_id": contrib.person_id,
-                        "role_id": contrib.role_id,
-                        "real_person_id": contrib.real_person_id,
-                        "description": contrib.description
-                    }
-                )
-                session.delete(contrib)
-        # for contrib in contribs:
-        #     session.delete(contrib)
+        for contrib in contribs:
+            session.delete(contrib)
+
+    session.commit()
+
+    for part in old_parts:
         session.delete(part)
 
-    for short in shorts:
+    session.commit()
+
+    for short in new_shorts_list:
         retval = save_short_to_work(session, work_id, short)
         if not retval:
             session.rollback()
             app.logger.error(
+                'save_work_shorts(): '
                 f'Failed to save short {short} to work {work_id}.')
-            return ResponseType('save_work_shorts: Tietokantavirhe', 400)
+            return ResponseType('Tietojen tallentaminen ei onnistunut', 400)
 
-    # session.commit()
-
-    # Put contributors back
+    # Save contributors to new entries
     try:
         new_parts = session.query(Part)\
             .filter(Part.work_id == work_id)\
-            .filter(Part.shortstory_id is not None)\
+            .filter(Part.shortstory_id.isnot(None))\
             .all()
         for part in new_parts:
-            for contrib in contributors[part.shortstory_id]:
+            for contrib in new_contributors[part.shortstory_id]:
                 new_contrib = Contributor(
                     part_id=part.id,
                     person_id=contrib['person_id'],
                     role_id=contrib['role_id'],
+                    real_person_id=contrib['real_person_id'],
                     description=contrib['description']
                 )
                 session.add(new_contrib)
-    except SQLAlchemyError:
+            # This story has a part
+            if part.shortstory_id in old_contributors:
+                del old_contributors[part.shortstory_id]
+    except SQLAlchemyError as exp:
         session.rollback()
         app.logger.error(
-            f'Failed to save contributors for work {work_id}.')
+            'save_work_shorts(): '
+            f'Failed to save contributors for work {work_id}: {exp}.')
         return ResponseType(
-            'save_work_shorts: Tekijätietoja ei saatu tallennettua', 400)
+            f'Tekijätietoja ei saatu tallennettua: {exp}', 400)
 
-    # session.commit()
+    session.commit()
+
+    # Save contributor info for shorts that are not in any work anymore.
+    # old_contributors should only contain shorts that are not in the work
+    # any more.
+    # First create the parts:
+    new_part_ids = []
+    try:
+        for short in old_contributors:
+            parts = session.query(Part)\
+                .filter(Part.shortstory_id == short)\
+                .all()
+            if len(parts) == 0:
+                part = Part(shortstory_id=short)
+                session.add(part)
+                new_part_ids.append((part.id, short))
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(
+            'save_work_shorts(): '
+            'Failed to save contributors for stories for work '
+            f'{work_id}: {exp} .')
+        return ResponseType(
+            f'Tekijätietoja ei saatu tallennettua: {exp}', 400)
+
+    session.commit()
+
+    # Then add contributors to these homeless stories:
+    try:
+        for part in new_part_ids:
+            for contrib in old_contributors[part[1]]:
+                new_contrib = Contributor(
+                    part_id=part[0],
+                    person_id=contrib['person_id'],
+                    role_id=contrib['role_id'],
+                    real_person_id=contrib['real_person_id'],
+                    description=contrib['description'],
+                )
+                session.add(new_contrib)
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(
+            'save_work_shorts(): '
+            f'Failed to save contributors for stories {work_id}: {exp} .')
+        return ResponseType(
+            f'Tekijätietoja ei saatu tallennettua: {exp}', 400)
+
+    session.commit()
 
     return ResponseType('OK', 200)
