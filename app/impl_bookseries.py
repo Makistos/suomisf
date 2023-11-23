@@ -300,6 +300,11 @@ def add_bookseries(name: str) -> Union[int, None]:
                           None otherwise.
     """
     session = new_session()
+    existing = session.query(Bookseries)\
+        .filter(Bookseries.name == name)\
+        .first()
+    if existing:
+        return existing.id
     try:
         bs = Bookseries(name=name)
         session.add(bs)
