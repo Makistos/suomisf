@@ -65,7 +65,7 @@ def _create_new_contributors(session: Any, contributors: Any) -> List[Any]:
                 person = _create_new_person(session, contrib)
         if person:
             description = (contrib['description']
-                           if 'description' in contrib else None)
+                           if 'description' in contrib else '')
             contrib = {'person': {'id': person.id}, 'role': contrib['role'],
                        'description': description}
             retval.append(contrib)
@@ -299,7 +299,7 @@ def get_work_contributors(session: Any, work_id: int) -> Any:
         .join(Part)\
         .filter(Contributor.part_id == Part.id)\
         .filter(Part.work_id == work_id)\
-        .filter(Part.shortstory_id is not None)\
+        .filter(Part.shortstory_id.is_(None))\
         .filter(or_(Contributor.role_id == 1, Contributor.role_id == 3))\
         .distinct()\
         .all()
@@ -309,6 +309,12 @@ def get_work_contributors(session: Any, work_id: int) -> Any:
     for contrib in contributors:
         found = False
         for contrib2 in retval:
+            desc1 = contrib.description if contrib.description else ''
+            desc2 = contrib2['description'] if contrib2['description'] else ''
+            if (contrib.person_id == contrib2['person']['id'] and
+                    contrib.role_id == contrib2['role']['id'] and
+                    desc1 == desc2):
+                found = True
             if (contrib.person_id == contrib2['person']['id'] and
                     contrib.role_id == contrib2['role']['id'] and
                     contrib.description == contrib2['description']):
