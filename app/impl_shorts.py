@@ -38,18 +38,24 @@ def _set_language(
         Union[ResponseType, None]: The response type if an error occurs, or
         None if the language is set successfully.
     """
-    if data['lang'] != item.language:
+    if 'lang' not in data:
+        return None
+    if 'id' not in data['lang']:
         lang_id = None
+        name = data['lang'] if data['lang'] != '' else None
+    else:
+        lang_id = check_int(data['lang']['id'])
+        name = data['lang']['name']
+    if lang_id != item.language:
         if old_values is not None:
             old_values['Kieli'] = (item.lang.name
                                    if item.lang is not None else '')
-        if 'id' not in data['lang']:
+        if lang_id is None and name is not None:
             # User added a new language. Front returns this as a string
             # in the language field so we need to add this language to
             # the database first.
-            lang_id = add_language(data['lang'])
+            lang_id = add_language(name)
         else:
-            lang_id = check_int(data['lang']['id'])
             if lang_id is not None:
                 lang = session.query(Language)\
                     .filter(Language.id == lang_id)\
@@ -222,21 +228,84 @@ def story_add(data: Any) -> ResponseType:
         ResponseType: The response indicating the success status of the
         operation.
     """
-    # session = new_session()
-    retval = ResponseType('OK', 201)
+    session = new_session()
 
-    changes = data['changed']
+    data = data['data']
 
-    for key, value in changes.items():
-        if isinstance(value, list):
-            for item in value:
-                for key2, value2 in item.items():
-                    if value2:
-                        print(f'Key: {key}/{key2}')
-        elif value:
-            print(f'Key: {key}')
+    story = ShortStory()
 
-    return retval
+    if ('title' not in data or len(data['title']) == 0
+            or data['title'] is None):
+        app.logger.error('story_add: Title is empty.')
+        return ResponseType('Otsikko ei voi olla tyhjä.', 400)
+    story.title = data['title']
+
+    if 'orig_name' in data:
+        story.orig_title = data['orig_title']
+
+    if 'type' not in data:
+        typ = 1  # default, short story
+    else:
+        if not check_story_type(session, data['type']['id']):
+            app.logger.error(
+                f'StoryUpdate exception. Not a type: {data["type"]}.')
+            return ResponseType(
+                f'Virheellinen tyyppi {data["type"]}.', 400)
+        typ = data["type"]['id']
+    story.story_type = typ
+
+    if 'pubyear' in data:
+        pubyear = check_int(data['pubyear'])
+        story.pubyear = pubyear
+
+    result = _set_language(session, story, data, old_values=None)
+    if result:
+        return result
+
+    try:
+        session.add(story)
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f'Exception in story_add(): {exp}.')
+        return ResponseType(f'Tietokantavirhe: {exp}.', 400)
+
+    if 'contributors' not in data:
+        app.logger.error('story_add: No contributors.')
+        return ResponseType('Tekijä puuttuu.', 400)
+
+    # Add new part (required for contributors)
+    part = Part(shortstory_id=story.id)
+    session.add(part)
+    try:
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f'Exception in story_add(): {exp}.')
+        return ResponseType(f'Tietokantavirhe: {exp}.', 400)
+
+    # Add contributors
+    update_short_contributors(session, story.id, data['contributors'])
+
+    # Add genres
+    for genre in data['genres']:
+        g = StoryGenre(shortstory_id=story.id, genre_id=genre['id'])
+        session.add(g)
+
+    # Add tags
+    for tag in data['tags']:
+        t = StoryTag(shortstory_id=story.id, tag_id=tag['id'])
+        session.add(t)
+
+    try:
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f'Exception in story_add(): {exp}.')
+        return ResponseType(f'Tietokantavirhe: {exp}.', 400)
+
+    app.logger.error(f'story: {story.id}')
+    return ResponseType(str(story.id), 201)
 
 
 def story_updated(params: Any) -> ResponseType:
@@ -253,7 +322,6 @@ def story_updated(params: Any) -> ResponseType:
     session = new_session()
     old_values = {}
     story: Any = None
-    retval = ResponseType('OK', 200)
     data = params['data']
     short_id = check_int(data['id'])
 
@@ -365,7 +433,7 @@ def story_updated(params: Any) -> ResponseType:
             old_values['Asiasanat'] += ' +'.join([str(x) for x in to_remove])
 
     if len(old_values) == 0:
-        return ResponseType('OK', 200)
+        return ResponseType(str(story.id), 200)
 
     log_changes(session=session, obj=story, name_field="title",
                 action="Päivitys", old_values=old_values)
@@ -378,7 +446,7 @@ def story_updated(params: Any) -> ResponseType:
         return ResponseType('StoryUpdate: Tietokantavirhe tallennettaessa.',
                             400)
 
-    return retval
+    return ResponseType(str(story.id), 200)
 
 
 def story_delete(short_id: int) -> ResponseType:

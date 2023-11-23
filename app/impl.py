@@ -504,6 +504,11 @@ def add_language(name: str) -> Union[int, None]:
         None otherwise.
     """
     session = new_session()
+    existing = session.query(Language)\
+        .filter(Language.name == name)\
+        .first()
+    if existing:
+        return existing.id
     try:
         language = Language(name=name)
         session.add(language)
