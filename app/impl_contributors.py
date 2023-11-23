@@ -64,8 +64,10 @@ def _create_new_contributors(session: Any, contributors: Any) -> List[Any]:
             if not person:
                 person = _create_new_person(session, contrib)
         if person:
+            description = (contrib['description']
+                           if 'description' in contrib else None)
             contrib = {'person': {'id': person.id}, 'role': contrib['role'],
-                       'description': contrib['description']}
+                       'description': description}
             retval.append(contrib)
 
     return retval
