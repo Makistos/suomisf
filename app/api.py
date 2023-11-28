@@ -1548,7 +1548,7 @@ def api_shortdelete(shortid: int) -> Response:
         short_id = int(shortid)
     except (TypeError, ValueError):
         app.logger.error(
-            f'api_ShortDelete: Invalid id. id={shortid}.')
+            f'api_shortdelete: Invalid id. id={shortid}.')
         response = ResponseType('Virheellinen tunniste', status=400)
         return make_api_response(response)
 

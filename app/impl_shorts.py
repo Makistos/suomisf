@@ -9,7 +9,8 @@ from app.impl import (ResponseType, check_int, log_changes, get_join_changes,
                       add_language)
 from app.route_helpers import new_session
 from app.orm_decl import (ShortStory, StoryTag, StoryType, StoryGenre,
-                          Language, Part, Edition)
+                          Language, Part, Edition, Awarded, IssueContent,
+                          Contributor)
 from app.model_shortsearch import ShortSchemaForSearch
 from app.model import ShortSchema, StoryTypeSchema
 from app.impl_contributors import (update_short_contributors,
@@ -461,6 +462,15 @@ def story_delete(short_id: int) -> ResponseType:
     """
 
     session = new_session()
+    awarded = session.query(Awarded)\
+        .filter(Awarded.story_id == short_id)\
+        .all()
+    if len(awarded) > 0:
+        app.logger.error(
+            f'StoryDelete: Story has been awarded. short_id={short_id}.')
+        return ResponseType(f'story_delete: Novellilla on palkinto. \
+                            id={short_id}.', 400)
+
     try:
         story = session.query(ShortStory)\
             .filter(ShortStory.id == short_id)\
@@ -473,7 +483,47 @@ def story_delete(short_id: int) -> ResponseType:
         app.logger.error(f'StoryDelete: Story not found. Id = {short_id}.')
         return ResponseType(f'StoryDelete: Novellia ei löydy. id={short_id}.',
                             400)
+
+    in_issues = session.query(IssueContent)\
+        .filter(IssueContent.shortstory_id == short_id)\
+        .all()
+    for issue in in_issues:
+        session.delete(issue)
+
+    genres = session.query(StoryGenre)\
+        .filter(StoryGenre.shortstory_id == short_id)\
+        .all()
+    for genre in genres:
+        session.delete(genre)
+
+    tags = session.query(StoryTag)\
+        .filter(StoryTag.shortstory_id == short_id)\
+        .all()
+    for tag in tags:
+        session.delete(tag)
+
+    contributors = session.query(Contributor)\
+        .join(Part)\
+        .filter(Part.id == Contributor.part_id)\
+        .filter(Part.shortstory_id == short_id)\
+        .all()
+    for contrib in contributors:
+        session.delete(contrib)
+
+    parts = session.query(Part)\
+        .filter(Part.shortstory_id == short_id)\
+        .all()
+    for part in parts:
+        session.delete(part)
+
     session.delete(story)
+
+    try:
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f'Exception in story_delete commit: {exp}.')
+        return ResponseType('story_delete: Tietokantavirhe.', 400)
 
     return ResponseType('OK', 200)
 

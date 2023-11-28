@@ -255,7 +255,7 @@ class AwardCategories(Base):
 
 
 class Awarded(Base):
-    """ Links awards to persons. """
+    """ Links awards to person, work or story and category as well as year. """
     __tablename__ = 'awarded'
     id = Column(Integer, primary_key=True)
     year = Column(Integer)
@@ -873,8 +873,7 @@ class Person(Base):
         secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
         primaryjoin='and_(Person.id == Contributor.person_id,\
                      Contributor.part_id == Part.id, Contributor.role_id == 1,\
-                     Part.shortstory_id == ShortStory.id,\
-                     Part.edition_id != None)',
+                     Part.shortstory_id == ShortStory.id)',
         uselist=True, viewonly=True)
     # Author.part_id == Part.id, Part.work_id == Work.id,\
     # edits = relationship("Edition", secondary='editor', viewonly=True)
