@@ -12,7 +12,7 @@ from app.orm_decl import (ShortStory, StoryTag, StoryType, StoryGenre,
                           Language, Part, Edition, Awarded, IssueContent,
                           Contributor)
 from app.model_shortsearch import ShortSchemaForSearch
-from app.model import ShortSchema, StoryTypeSchema
+from app.model import ShortSchema, StoryTypeSchema, ShortBriefSchema
 from app.impl_contributors import (update_short_contributors,
                                    contributors_have_changed,
                                    get_contributors_string)
@@ -660,3 +660,33 @@ def save_short_to_work(session: Any, work_id: int, short_id: int) -> bool:
         app.logger.error(f'Exception in save_short_to_work: {exp}')
         return False
     return True
+
+
+def get_latest_shorts(count: int) -> ResponseType:
+    """
+    Retrieves the latest shorts.
+
+    Args:
+        count (int): The number of shorts to retrieve.
+
+    Returns:
+        ResponseType: The response containing the serialized shorts.
+    """
+    session = new_session()
+    try:
+        shorts = session.query(ShortStory)\
+            .order_by(ShortStory.id.desc())\
+            .limit(count)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'Exception in get_latest_shorts(): {str(exp)}')
+        return ResponseType('Tietokantavirhe', 400)
+
+    try:
+        schema = ShortBriefSchema(many=True)
+        retval = schema.dump(shorts)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'Exception in get_latest_shorts(): {str(exp)}')
+        return ResponseType('get_latest_shorts: Tietokantavirhe', 400)
+
+    return ResponseType(retval, 200)

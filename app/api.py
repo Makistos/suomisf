@@ -10,7 +10,8 @@ from flask import request
 from flask.wrappers import Response
 from app.impl import (ResponseType, get_frontpage_data, SearchResult,
                       get_changes, filter_countries, filter_languages,
-                      country_list, filter_link_names, genre_list, role_list)
+                      country_list, filter_link_names, genre_list, role_list,
+                      get_latest_covers)
 from app.api_errors import APIError
 from app.api_jwt import jwt_admin_required
 from app.impl_articles import (get_article, article_tag_add,
@@ -20,14 +21,16 @@ from app.impl_bookseries import (list_bookseries, get_bookseries,
                                  bookseries_delete, filter_bookseries)
 from app.impl_editions import (get_bindings, create_edition, update_edition,
                                edition_delete, edition_image_upload,
-                               edition_image_delete, edition_shorts)
+                               edition_image_delete, edition_shorts,
+                               get_latest_editions)
 from app.impl_issues import (get_issue, get_issue_tags, issue_tag_add,
                              issue_tag_remove)
 from app.impl_magazines import (list_magazines, get_magazine)
 from app.impl_people import (search_people, filter_aliases, person_update,
                              person_shorts, person_tag_add, person_tag_remove,
                              filter_people, list_people, person_delete,
-                             get_person, get_author_first_letters, person_add)
+                             get_person, get_author_first_letters, person_add,
+                             get_latest_people)
 from app.impl_publishers import (publisher_add, publisher_update,
                                  list_publishers, get_publisher,
                                  filter_publishers)
@@ -35,7 +38,8 @@ from app.impl_pubseries import (list_pubseries, get_pubseries,
                                 filter_pubseries)
 from app.impl_shorts import (search_shorts, story_add, story_updated,
                              story_delete, get_short, get_short_types,
-                             story_tag_add, story_tag_remove)
+                             story_tag_add, story_tag_remove,
+                             get_latest_shorts)
 from app.impl_tags import (tag_list, tag_search, tag_create, tag_info,
                            tag_rename, tag_filter, tag_merge, tag_delete)
 from app.impl_users import (login_user, refresh_token, list_users, get_user)
@@ -43,7 +47,7 @@ from app.impl_works import (search_works, get_work, work_add, work_update,
                             work_delete, get_work_shorts, worktype_get_all,
                             work_tag_add, work_tag_remove,
                             search_works_by_author, search_books,
-                            save_work_shorts)
+                            save_work_shorts, get_latest_works)
 from app.api_schemas import (PersonSchema, BookseriesSchema)
 from app.route_helpers import new_session
 from app import app
@@ -921,9 +925,134 @@ def api_filterlanguages(pattern: str) -> Response:
     retval = filter_languages(pattern)
     return make_api_response(retval)
 
+###
+# Latest additions
+
+
+@app.route('/api/latest/covers/<count>', methods=['get'])
+def api_latestcovers(count: int) -> Response:
+    """
+    Get the latest covers.
+
+    Args:
+        count (int): The number of covers to return.
+
+    Returns:
+        Response: The response object containing the list of latest covers.
+
+    Raises:
+        ValueError: If the count is not an integer.
+    """
+    try:
+        count = int(count)
+    except (ValueError, TypeError):
+        app.logger.error(f'api_latestcovers: Invalid count {count}.')
+        response = ResponseType(
+            f'api_latestcovers: Virheellinen maara {count}.', 400)
+        return make_api_response(response)
+    return make_api_response(get_latest_covers(count))
+
+
+@app.route('/api/latest/editions/<count>', methods=['get'])
+def api_latesteditions(count: int) -> Response:
+    """
+    Get the latest editions.
+
+    Args:
+        count (int): The number of editions to return.
+
+    Returns:
+        Response: The response object containing the list of latest editions.
+
+    Raises:
+        ValueError: If the count is not an integer.
+    """
+    try:
+        count = int(count)
+    except (ValueError, TypeError):
+        app.logger.error(f'api_latesteditions: Invalid count {count}.')
+        response = ResponseType(
+            f'api_latesteditions: Virheellinen maara {count}.', 400)
+        return make_api_response(response)
+    return make_api_response(get_latest_editions(count))
+
+
+@app.route('/api/latest/people/<count>', methods=['get'])
+def api_latestpeople(count: int) -> Response:
+    """
+    Get the latest people.
+
+    Args:
+        count (int): The number of people to return.
+
+    Returns:
+        Response: The response object containing the list of latest people.
+
+    Raises:
+        ValueError: If the count is not an integer.
+    """
+    try:
+        count = int(count)
+    except (ValueError, TypeError):
+        app.logger.error(f'api_latestpeople: Invalid count {count}.')
+        response = ResponseType(
+            f'api_latestpeople: Virheellinen maara {count}.', 400)
+        return make_api_response(response)
+    return make_api_response(get_latest_people(count))
+
+
+@app.route('/api/latest/shorts/<count>', methods=['get'])
+def api_latestshorts(count: int) -> Response:
+    """
+    Get the latest shorts.
+
+    Args:
+        count (int): The number of shorts to return.
+
+    Returns:
+        Response: The response object containing the list of latest shorts.
+
+    Raises:
+        None
+    """
+    try:
+        count = int(count)
+    except (ValueError, TypeError):
+        app.logger.error(f'api_latestshorts: Invalid count {count}.')
+        response = ResponseType(
+            f'api_latestshorts: Virheellinen maara {count}.', 400)
+        return make_api_response(response)
+
+    return make_api_response(get_latest_shorts(count))
+
+
+@app.route('/api/latest/works/<count>', methods=['get'])
+def api_latestworks(count: int) -> Response:
+    """
+    Get the latest works.
+
+    Args:
+        count (int): The number of works to return.
+
+    Returns:
+        Response: The response object containing the list of latest works.
+
+    Raises:
+        ValueError: If the count is not an integer.
+    """
+    try:
+        count = int(count)
+    except (ValueError, TypeError):
+        app.logger.error(f'api_latestworks: Invalid count {count}.')
+        response = ResponseType(
+            f'api_latestworks: Virheellinen maara {count}.', 400)
+        return make_api_response(response)
+    return make_api_response(get_latest_works(count))
+
 
 ###
 # Magazine related functions
+
 
 @ app.route('/api/magazines', methods=['get'])
 def api_listmagazines() -> Response:

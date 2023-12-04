@@ -391,7 +391,7 @@ def person_add(params: Any) -> ResponseType:
     person = Person()
     person.name = data['name']
     person.alt_name = data['alt_name']
-    person.full_name = data['fullname']
+    person.fullname = data['fullname']
     person.bio = data['bio']
     person.bio_src = data['bio_src']
     person.first_name = data['first_name']
@@ -885,4 +885,36 @@ def person_shorts(person_id: int) -> ResponseType:
     except exceptions.MarshmallowError as exp:
         app.logger.error('PersonShorts schema error: ' + str(exp))
         return ResponseType('PersonShorts: Skeemavirhe.', 400)
+    return ResponseType(retval, 200)
+
+
+def get_latest_people(count: int) -> ResponseType:
+    """
+    Retrieves a list of the latest people from the database.
+
+    Args:
+        count (int): The number of people to retrieve.
+
+    Returns:
+        ResponseType: The response object containing the list of latest people
+                      in JSON format.
+    """
+    session = new_session()
+
+    try:
+        people = session.query(Person)\
+            .order_by(Person.id.desc())\
+            .limit(count)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(
+            'Exception in get_latest_people(): ' + str(exp))
+        return ResponseType('get_latest_people: Tietokantavirhe.', 400)
+    try:
+        schema = PersonBriefSchema(many=True)
+        retval = schema.dump(people)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error('get_latest_people schema error: ' + str(exp))
+        return ResponseType('get_latest_people: Skeemavirhe.', 400)
+
     return ResponseType(retval, 200)

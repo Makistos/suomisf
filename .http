@@ -83,3 +83,21 @@ GET https://www.sf-bibliografia.fi/api/worksbyinitial/s HTTP/1.1
 
 ###
 GET http://localhost:5000/api/worksbyinitial/b HTTP/1.1
+
+###
+GET http://localhost:5000/api/latest/works/10 HTTP/1.1
+
+###
+GET http://localhost:5000/api/latest/editions/10 HTTP/1.1
+
+###
+GET http://localhost:5000/api/latest/shorts/10 HTTP/1.1
+
+###
+GET http://localhost:5000/api/latest/people/10 HTTP/1.1
+
+###
+GET http://localhost:5000/api/latest/people/10 HTTP/1.1
+
+###
+GET http://localhost:5000/api/latest/covers/10 HTTP/1.1

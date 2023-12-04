@@ -231,6 +231,14 @@ class EditionBriefestSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     work = ma.List(fields.Nested(WorkBriefestSchema))
 
 
+class EditionImageSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Edition image schema. """
+    class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
+        model = EditionImage
+    edition = fields.Nested(EditionBriefestSchema)
+
+
 class EditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     """ Edition schema with work, editors, contributions and  images
     relationships.

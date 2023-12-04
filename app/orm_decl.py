@@ -565,6 +565,7 @@ class EditionImage(Base):
         'edition.id'), nullable=False)
     image_src = Column(String(200), nullable=False)
     image_attr = Column(String(100))  # Source website name
+    edition = relationship('Edition', uselist=False, viewonly=True)
 
 
 class EditionLink(Base):

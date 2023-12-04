@@ -28,7 +28,7 @@ from app.impl_contributors import (
     get_work_contributors,
 )
 from app.route_helpers import new_session
-from app.model import BindingBriefSchema, ShortBriefSchema
+from app.model import BindingBriefSchema, ShortBriefSchema, EditionBriefSchema
 from app.impl import ResponseType, check_int, log_changes
 from app.impl_pubseries import add_pubseries
 from app import app
@@ -874,5 +874,35 @@ def edition_shorts(edition_id: str) -> ResponseType:
     except exceptions.MarshmallowError as exp:
         app.logger.error(f'Exception in EditionShorts(): {str(exp)}')
         return ResponseType('EditionShorts: Tietokantavirhe', 400)
+
+    return ResponseType(retval, 200)
+
+
+def get_latest_editions(count: int) -> ResponseType:
+    """
+    Retrieves the latest editions from the database.
+
+    Args:
+        count (int): The number of editions to retrieve.
+
+    Returns:
+        ResponseType: The response object containing the list of editions.
+    """
+    session = new_session()
+    try:
+        editions = session.query(Edition)\
+            .order_by(Edition.id.desc())\
+            .limit(count)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'Exception in get_latest_editions(): {str(exp)}')
+        return ResponseType('get_latest_editions: Tietokantavirhe', 400)
+
+    try:
+        schema = EditionBriefSchema(many=True)
+        retval = schema.dump(editions)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'Exception in get_latest_editions(): {str(exp)}')
+        return ResponseType('get_latest_editions: Tietokantavirhe', 400)
 
     return ResponseType(retval, 200)

@@ -1211,3 +1211,28 @@ def save_work_shorts(params: Any) -> ResponseType:
     session.commit()
 
     return ResponseType('OK', 200)
+
+
+def get_latest_works(count: int) -> ResponseType:
+    """
+    Returns the latest works.
+
+    Args:
+        count (number): The number of works to return.
+
+    Returns:
+        ResponseType: The response containing the list of works.
+    """
+    session = new_session()
+    works = session.query(Work)\
+        .order_by(Work.id.desc())\
+        .limit(count)\
+        .all()
+    try:
+        schema = WorkBriefSchema(many=True)
+        retval = schema.dump(works)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'Exception in get_latest_works(): {exp}')
+        return ResponseType('get_latest_works: Skeemavirhe', 400)
+
+    return ResponseType(retval, 200)

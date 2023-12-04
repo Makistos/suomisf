@@ -18,7 +18,7 @@ from app.orm_decl import (Country, Log, Genre, Language, ContributorRole,
                           PersonLink, PublisherLink, PubseriesLink, WorkLink)
 from app.model import (GenreBriefSchema, EditionBriefestSchema, LanguageSchema,
                        CountryBriefSchema, ContributorRoleSchema, LogSchema,
-                       LinkSchema)
+                       LinkSchema, EditionImageSchema)
 from app import app
 
 
@@ -678,4 +678,34 @@ def get_frontpage_data() -> ResponseType:
     schema = EditionBriefestSchema()
     latest_list = schema.dump(latest_list, many=True)
     retval['latest'] = latest_list
+    return ResponseType(retval, 200)
+
+
+def get_latest_covers(count: int) -> ResponseType:
+    """
+    Retrieves the latest covers.
+
+    Args:
+        count (int): The number of covers to retrieve.
+
+    Returns:
+        ResponseType: The response containing the serialized covers.
+    """
+    session = new_session()
+    try:
+        covers = session.query(EditionImage)\
+            .order_by(EditionImage.id.desc())\
+            .limit(count)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'Exception in get_latest_covers(): {str(exp)}')
+        return ResponseType('get_latest_covers: Tietokantavirhe', 400)
+
+    try:
+        schema = EditionImageSchema(many=True)
+        retval = schema.dump(covers)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'Exception in get_latest_covers(): {str(exp)}')
+        return ResponseType('get_latest_covers: Skeemavirhe', 400)
+
     return ResponseType(retval, 200)
