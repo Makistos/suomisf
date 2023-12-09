@@ -19,6 +19,7 @@ from app.orm_decl import (Country, Log, Genre, Language, ContributorRole,
 from app.model import (GenreBriefSchema, EditionBriefestSchema, LanguageSchema,
                        CountryBriefSchema, ContributorRoleSchema, LogSchema,
                        LinkSchema, EditionImageSchema)
+from app.types import HttpResponseCode, ContributorType
 from app import app
 
 
@@ -26,7 +27,7 @@ class ResponseType(NamedTuple):
     """ Response type.
     """
     response: Union[str, Dict[str, Any]]
-    status: int
+    status: Union[int, HttpResponseCode]
 
 
 class SearchResultFields(TypedDict):
@@ -373,16 +374,67 @@ def role_list() -> ResponseType:
     try:
         roles = session.query(ContributorRole)
     except SQLAlchemyError as exp:
-        app.logger.error('Db Exception in RoleList(): ' + str(exp))
-        return ResponseType('RoleList: Tietokantavirhe.', 400)
+        app.logger.error(f'role_list: Db Exception:  {exp}')
+        return ResponseType('role_list: Tietokantavirhe.',
+                            status=HttpResponseCode.INTERNAL_SERVER_ERROR)
     try:
         schema = ContributorRoleSchema(many=True)
         retval = schema.dump(roles)
     except exceptions.MarshmallowError as exp:
-        app.logger.error('RoleList schema error: ' + str(exp))
-        return ResponseType('RoleList: Skeemavirhe.', 400)
+        app.logger.error(f'role_list schema error: {exp}')
+        return ResponseType('role_list: Skeemavirhe.',
+                            status=HttpResponseCode.INTERNAL_SERVER_ERROR)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, status=HttpResponseCode.OK)
+
+
+def role_get(target: str) -> ResponseType:
+    """
+    Retrieves a single contributor role from the database.
+
+    Args:
+        target (str): The name of the role to retrieve.
+
+    Returns:
+        ResponseType: The response object containing the role and the HTTP
+        status code.
+    """
+    session = new_session()
+    role_ids: List[int] = []
+
+    if target in ['work', 'edition']:
+        # Work has author and editor, edition has everything else
+        # Note that ContributorType can't be used here as it seems IntEnum
+        # does not work in the query
+        role_ids = [1, 3]
+    elif target == 'short':
+        role_ids = [1, 2]
+    else:
+        app.logger.error(f'role_get: Unknown target: {target}')
+        return ResponseType(f'role_get: Tuntematon kohde {target}.',
+                            status=HttpResponseCode.BAD_REQUEST)
+
+    try:
+        if target == 'edition':
+            roles = session.query(ContributorRole)\
+                .filter(ContributorRole.id.notin_(role_ids)).all()
+        else:
+            roles = session.query(ContributorRole)\
+                .filter(ContributorRole.id.in_(role_ids)).all()
+
+    except SQLAlchemyError as exp:
+        app.logger.error(f'role_list Db Exception: {exp}')
+        return ResponseType('role_get tietokantavirhe: {exp}.',
+                            status=HttpResponseCode.INTERNAL_SERVER_ERROR)
+    try:
+        schema = ContributorRoleSchema(many=True)
+        retval = schema.dump(roles)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'role_get schema error: {exp}')
+        return ResponseType('role_get skeemavirhe: {exp}',
+                            status=HttpResponseCode.INTERNAL_SERVER_ERROR)
+
+    return ResponseType(retval, status=HttpResponseCode.OK)
 
 
 def filter_countries(query: str) -> ResponseType:

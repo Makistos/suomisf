@@ -11,7 +11,7 @@ from flask.wrappers import Response
 from app.impl import (ResponseType, get_frontpage_data, SearchResult,
                       get_changes, filter_countries, filter_languages,
                       country_list, filter_link_names, genre_list, role_list,
-                      get_latest_covers)
+                      get_latest_covers, role_get)
 from app.api_errors import APIError
 from app.api_jwt import jwt_admin_required
 from app.impl_articles import (get_article, article_tag_add,
@@ -50,6 +50,7 @@ from app.impl_works import (search_works, get_work, work_add, work_update,
                             save_work_shorts, get_latest_works)
 from app.api_schemas import (PersonSchema, BookseriesSchema)
 from app.route_helpers import new_session
+from app.types import HttpResponseCode
 from app import app
 
 DEFAULT_MIMETYPE = 'application/json'  # Data is always returned as JSON
@@ -182,7 +183,8 @@ def fix_operator(op: str, value: str) -> Tuple[str, str]:
         # Needs special attention in filtering
         return ('in', value)
     else:
-        raise APIError(f'Invalid filter operation {op}', 405)
+        raise APIError(f'Invalid filter operation {op}',
+                       HttpResponseCode.METHOD_NOT_ALLOWED)
 
 ###
 # User control related functions
@@ -231,7 +233,8 @@ def api_login() -> Response:
     """
     options = login_options(request)
     if not options:
-        err = ResponseType('Virheellinen kirjautuminen', 401)
+        err = ResponseType('Virheellinen kirjautuminen',
+                           HttpResponseCode.UNAUTHORIZED)
         return make_api_error(err)
     retval = login_user(options)
     return retval
@@ -277,11 +280,12 @@ def api_refresh() -> Response:
             options['username'] = request.json['authorization']['username']
     except (TypeError, KeyError) as exp:
         response = ResponseType(f'api_login: Virheelliset parametrit: {exp}.',
-                                401)
+                                HttpResponseCode.UNAUTHORIZED)
         return make_api_response(response)
 
     if not options['username']:
-        response = ResponseType('api_login: Virheelliset parametrit.', 401)
+        response = ResponseType('api_login: Virheelliset parametrit.',
+                                HttpResponseCode.UNAUTHORIZED)
         return make_api_response(response)
     return refresh_token(options)
 
@@ -380,7 +384,8 @@ def api_filteralias(personid: str) -> Response:
         int_id = int(personid)
     except (TypeError, ValueError):
         app.logger.error(f'api_filteralias: Invalid id {personid}.')
-        response = ResponseType(f'Virheellinen tunniste: {personid}.', 400)
+        response = ResponseType(f'Virheellinen tunniste: {personid}.',
+                                HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     return make_api_response(filter_aliases(int_id))
@@ -412,7 +417,8 @@ def api_getarticle(articleid: str) -> Response:
     except (TypeError, ValueError):
         app.logger.error(f'api_getarticle: Invalid id {articleid}.')
         response = ResponseType(
-            f'api_getarticle: Virheellinen tunniste {articleid}.', 400)
+            f'api_getarticle: Virheellinen tunniste {articleid}.',
+            HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     return make_api_response(get_article(int_id))
@@ -436,7 +442,8 @@ def api_getarticletags(articleid: int) -> Response:
     except (TypeError, ValueError):
         app.logger.error(f'api_getarticletags: Invalid id {articleid}.')
         response = ResponseType(
-            f'apigetarticletags: Virheellinen tunniste {articleid}.', 400)
+            f'api_getarticletags: Virheellinen tunniste {articleid}.',
+            HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     retval = article_tags(int_id)
@@ -467,7 +474,8 @@ def api_tagtoarticle(articleid: int, tagid: int) -> Response:
     except (TypeError, ValueError):
         app.logger.error(
             f'{func.__name__}: Invalid id. id={articleid}, tagid={tagid}.')
-        response = ResponseType('Virheellinen tunniste', status=400)
+        response = ResponseType('Virheellinen tunniste',
+                                status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     retval = func(int_id, tag_id)
@@ -536,14 +544,16 @@ def api_bookseriescreateupdate() -> Response:
     except (TypeError, ValueError):
         app.logger.error('api_bookseriescreateupdate: Invalid JSON.')
         response = ResponseType(
-            'api_bookseriescreateupdate: Virheelliset parametrit.', 400)
+            'api_bookseriescreateupdate: Virheelliset parametrit.',
+            status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
     try:
         validate(instance=params, schema=BookseriesSchema)
     except jsonschema.exceptions.ValidationError:
         app.logger.error('api_bookseriescreateupdate: Invalid JSON.')
         response = ResponseType(
-            'api_bookseriescreateupdate: Virheelliset parametrit.', 400)
+            'api_bookseriescreateupdate: Virheelliset parametrit.',
+            status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
     if request.method == 'POST':
         retval = make_api_response(bookseries_create(params))
@@ -594,7 +604,8 @@ def api_getbookseries(bookseriesid: str) -> Response:
     except (TypeError, ValueError):
         app.logger.error(f'api_getbookseries: Invalid id {bookseriesid}.')
         response = ResponseType(
-           f'api_getbookseries: Virheellinen tunniste {bookseriesid}.', 400)
+           f'api_getbookseries: Virheellinen tunniste {bookseriesid}.',
+           status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     return make_api_response(get_bookseries(int_id))
@@ -618,7 +629,7 @@ def api_filterbookseries(pattern: str) -> Response:
     if len(pattern) < 2:
         app.logger.error('FilterBookseries: Pattern too short.')
         response = ResponseType(
-            'Liian lyhyt hakuehto', status=400)
+            'Liian lyhyt hakuehto', status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
     retval = filter_bookseries(pattern)
     return make_api_response(retval)
@@ -643,15 +654,16 @@ def api_changes() -> Response:
     params: Dict[str, Any] = {}
     for (param, value) in url_params.items():
         # param, value = p.split('=')
-        if value == 'null' or value == 'undefined':
+        if value in ('null', 'undefined'):
             value = None
         params[param] = value
 
     try:
         retval = get_changes(params)
     except APIError as exp:
-        app.logger.error('Exception in api_Changes: ' + str(exp))
-        response = ResponseType('api_Changes: poikkeus.', 400)
+        app.logger.error('Exception in api_changes: ' + str(exp))
+        response = ResponseType('api_changes: poikkeus.',
+                                status=HttpResponseCode.INTERNAL_SERVER_ERROR)
         return make_api_response(response)
 
     return make_api_response(retval)
@@ -686,7 +698,7 @@ def api_filtercountries(pattern: str) -> Response:
     if len(pattern) < 2:
         app.logger.error('FilterCountries: Pattern too short.')
         response = ResponseType(
-            'Liian lyhyt hakuehto', status=400)
+            'Liian lyhyt hakuehto', status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
     retval = filter_countries(pattern)
     return make_api_response(retval)
@@ -749,7 +761,8 @@ def api_uploadeditionimage(editionid: str) -> Response:
         file = request.files['file']
     except KeyError:
         app.logger.error('api_uploadEditionImage: File not found.')
-        response = ResponseType('Tiedosto puuttuu', status=400)
+        response = ResponseType('Tiedosto puuttuu',
+                                status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     retval = make_api_response(
@@ -835,7 +848,8 @@ def api_getissueformagazine(issueid: str) -> Response:
     except (TypeError, ValueError):
         app.logger.error(f'api_getissueformagazine: Invalid id {issueid}.')
         response = ResponseType(
-            f'api_getissueformagazine: Virheellinen tunniste {issueid}.', 400)
+            f'api_getissueformagazine: Virheellinen tunniste {issueid}.',
+            status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     return make_api_response(get_issue(int_id))
@@ -858,7 +872,8 @@ def api_getissuetags(issue_id: str) -> Response:
     except (ValueError, TypeError):
         app.logger.error(f'api_getissuetags: Invalid id {issue_id}.')
         response = ResponseType(
-            f'api_getissuetags: Virheellinen tunniste {issue_id}.', 400)
+            f'api_getissuetags: Virheellinen tunniste {issue_id}.',
+            status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     return make_api_response(get_issue_tags(int_id))
@@ -891,7 +906,8 @@ def api_tagtoissue(issueid: int, tagid: int) -> Response:
     except (TypeError, ValueError):
         app.logger.error(
             f'{func.__name__}: Invalid id. id={issueid}, tagid={tagid}.')
-        response = ResponseType('Virheellinen tunniste', status=400)
+        response = ResponseType('Virheellinen tunniste',
+                                status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     retval = func(issue_id, tag_id)
@@ -920,7 +936,7 @@ def api_filterlanguages(pattern: str) -> Response:
     if len(pattern) < 2:
         app.logger.error('FilterLanguages: Pattern too short.')
         response = ResponseType(
-            'Liian lyhyt hakuehto', status=400)
+            'Liian lyhyt hakuehto', status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
     retval = filter_languages(pattern)
     return make_api_response(retval)
@@ -948,7 +964,8 @@ def api_latestcovers(count: int) -> Response:
     except (ValueError, TypeError):
         app.logger.error(f'api_latestcovers: Invalid count {count}.')
         response = ResponseType(
-            f'api_latestcovers: Virheellinen maara {count}.', 400)
+            f'api_latestcovers: Virheellinen maara {count}.',
+            status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
     return make_api_response(get_latest_covers(count))
 
@@ -972,7 +989,8 @@ def api_latesteditions(count: int) -> Response:
     except (ValueError, TypeError):
         app.logger.error(f'api_latesteditions: Invalid count {count}.')
         response = ResponseType(
-            f'api_latesteditions: Virheellinen maara {count}.', 400)
+            f'api_latesteditions: Virheellinen maara {count}.',
+            status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
     return make_api_response(get_latest_editions(count))
 
@@ -996,7 +1014,8 @@ def api_latestpeople(count: int) -> Response:
     except (ValueError, TypeError):
         app.logger.error(f'api_latestpeople: Invalid count {count}.')
         response = ResponseType(
-            f'api_latestpeople: Virheellinen maara {count}.', 400)
+            f'api_latestpeople: Virheellinen maara {count}.',
+            status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
     return make_api_response(get_latest_people(count))
 
@@ -1020,7 +1039,8 @@ def api_latestshorts(count: int) -> Response:
     except (ValueError, TypeError):
         app.logger.error(f'api_latestshorts: Invalid count {count}.')
         response = ResponseType(
-            f'api_latestshorts: Virheellinen maara {count}.', 400)
+            f'api_latestshorts: Virheellinen maara {count}.',
+            status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     return make_api_response(get_latest_shorts(count))
@@ -1045,7 +1065,8 @@ def api_latestworks(count: int) -> Response:
     except (ValueError, TypeError):
         app.logger.error(f'api_latestworks: Invalid count {count}.')
         response = ResponseType(
-            f'api_latestworks: Virheellinen maara {count}.', 400)
+            f'api_latestworks: Virheellinen maara {count}.',
+            status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
     return make_api_response(get_latest_works(count))
 
@@ -1086,7 +1107,8 @@ def api_getmagazine(magazineid: str) -> Response:
     except (ValueError, TypeError):
         app.logger.error(f'api_GetMagazine: Invalid id {magazineid}.')
         response = ResponseType(
-            f'api_GetMagazine: Virheellinen tunniste {magazineid}.', 400)
+            f'api_GetMagazine: Virheellinen tunniste {magazineid}.',
+            status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     return make_api_response(get_magazine(int_id))
@@ -1211,14 +1233,14 @@ def api_createupdateperson() -> Response:
         app.logger.error('api_CreateUpdatePerson: Invalid JSON.')
         return make_api_response(
             ResponseType('api_CreateUpdatePerson: Virheelliset parametrit.',
-                         400))
+                         status=HttpResponseCode.BAD_REQUEST))
     try:
         validate(instance=params, schema=PersonSchema)
     except jsonschema.exceptions.ValidationError as exp:
         app.logger.error(f'api_CreateUpdatePerson: Invalid JSON {exp}.')
         return make_api_response(
             ResponseType('api_CreateUpdatePerson: Virheelliset parametrit.',
-                         400))
+                         status=HttpResponseCode.BAD_REQUEST))
     if request.method == 'POST':
         retval = make_api_response(person_add(params))
     elif request.method == 'PUT':
@@ -1349,7 +1371,8 @@ def api_getperson(person_id: str) -> Response:
     except (TypeError, ValueError):
         app.logger.error(f'api_getperson: Invalid id {person_id}.')
         response = ResponseType(
-            f'api_getperson: Virheellinen tunniste {person_id}.', 400)
+            f'api_getperson: Virheellinen tunniste {person_id}.',
+            status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     return make_api_response(get_person(int_id))
@@ -1372,7 +1395,8 @@ def api_deleteperson(person_id: str) -> Response:
     except (TypeError, ValueError):
         app.logger.error(f'api_DeletePerson: Invalid id {person_id}.')
         response = ResponseType(
-            f'api_DeletePerson: Virheellinen tunniste {person_id}.', 400)
+            f'api_DeletePerson: Virheellinen tunniste {person_id}.',
+            status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
     return make_api_response(person_delete(int_id))
 
@@ -1393,7 +1417,8 @@ def api_listshorts(personid: int) -> Response:
     except (TypeError, ValueError):
         app.logger.error(f'api_ListShorts: Invalid id {personid}.')
         response = ResponseType(
-            f'api_ListShorts: Virheellinen tunniste {personid}.', 400)
+            f'api_ListShorts: Virheellinen tunniste {personid}.',
+            status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
     return make_api_response(person_shorts(int_id))
 
@@ -1425,7 +1450,8 @@ def api_tagtoperson(personid: int, tagid: int) -> Response:
     except (TypeError, ValueError):
         app.logger.error(
             f'{func.__name__}: Invalid id. id={personid}, tagid={tagid}.')
-        response = ResponseType('Virheellinen tunniste', status=400)
+        response = ResponseType('Virheellinen tunniste',
+                                status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     retval = func(person_id, tag_id)
@@ -1454,7 +1480,7 @@ def api_filterpeople(pattern: str) -> Response:
     if len(pattern) < 3:
         app.logger.error('FilterPeople: Pattern too short.')
         response = ResponseType(
-            'Liian lyhyt hakuehto', status=400)
+            'Liian lyhyt hakuehto', status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
     retval = filter_people(pattern)
     return make_api_response(retval)
@@ -1529,7 +1555,8 @@ def api_getpubseries(pubseriesid: str) -> Response:
     except (TypeError, ValueError):
         app.logger.error(f'api_GetPubseries: Invalid id {pubseriesid}.')
         response = ResponseType(
-            f'api_GetBookseries: Virheellinen tunniste {pubseriesid}.', 400)
+            f'api_GetBookseries: Virheellinen tunniste {pubseriesid}.',
+            status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     return make_api_response(get_pubseries(int_id))
@@ -1588,7 +1615,8 @@ def api_getpublisher(publisherid: str) -> Response:
     except (TypeError, ValueError):
         app.logger.error(f'api_GetPublisher: Invalid id {publisherid}.')
         response = ResponseType(
-            f'api_GetPublisher: Virheellinen tunniste {publisherid}.', 400)
+            f'api_GetPublisher: Virheellinen tunniste {publisherid}.',
+            status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     return make_api_response(get_publisher(int_id))
@@ -1612,7 +1640,7 @@ def api_filterpublishers(pattern: str) -> Response:
     if len(pattern) < 2:
         app.logger.error('FilterPublishers: Pattern too short.')
         response = ResponseType(
-            'Liian lyhyt hakuehto', status=400)
+            'Liian lyhyt hakuehto', status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
     retval = filter_publishers(pattern)
     return make_api_response(retval)
@@ -1628,6 +1656,21 @@ def api_roles() -> Response:
     in the database (i.e. by id).
     """
     return make_api_response(role_list())
+
+
+@app.route('/api/roles/<target>', methods=['get'])
+def api_role(target: str) -> Response:
+    """
+    Return a list of roles for a given target.
+
+    Parameters:
+        target (str): Target to request roles for, either 'work', 'short'
+                      or 'edition'.
+
+    Returns:
+        Response: Requested roles.
+    """
+    return make_api_response(role_get(target))
 
 ###
 # Story related functions
@@ -1678,7 +1721,8 @@ def api_shortdelete(shortid: int) -> Response:
     except (TypeError, ValueError):
         app.logger.error(
             f'api_shortdelete: Invalid id. id={shortid}.')
-        response = ResponseType('Virheellinen tunniste', status=400)
+        response = ResponseType('Virheellinen tunniste',
+                                status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     retval = story_delete(short_id)
@@ -1702,7 +1746,8 @@ def api_getshort(shortid: str) -> Response:
     except (ValueError, TypeError):
         app.logger.error(f'api_GetShort: Invalid id {shortid}.')
         response = ResponseType(
-            f'api_GetShort: Virheellinen tunniste {shortid}.', 400)
+            f'api_GetShort: Virheellinen tunniste {shortid}.',
+            status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     return make_api_response(get_short(int_id))
@@ -1774,7 +1819,8 @@ def api_tagtostory(storyid: int, tagid: int) -> Response:
     except (TypeError, ValueError):
         app.logger.error(
             f'{func.__name__}: Invalid id. id={storyid}, tagid={tagid}.')
-        response = ResponseType('Virheellinen tunniste', status=400)
+        response = ResponseType('Virheellinen tunniste',
+                                status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     retval = func(int_id, tag_id)
@@ -1816,7 +1862,8 @@ def api_getuser(userid: str) -> Response:
         int_id = int(userid)
     except (TypeError, ValueError):
         app.logger.error(f'api_GetUser: Invalid id {userid}.')
-        response = ResponseType(f'Virheellinen tunniste: {userid}.', 400)
+        response = ResponseType(f'Virheellinen tunniste: {userid}.',
+                                status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     return make_api_response(get_user(int_id))
@@ -1838,11 +1885,11 @@ def api_tags() -> Response:
         if 'search' in args:
             pattern = bleach.clean(args['search'])
             return make_api_response(tag_search(pattern))
-        else:
-            app.logger.error(f'api_tags: Invalid parameters: {args}')
-            response = ResponseType(
-                'app_tags: Parametrejä ei ole tuettu.', 400)
-            return make_api_response(response)
+        app.logger.error(f'api_tags: Invalid parameters: {args}')
+        response = ResponseType(
+            'app_tags: Parametrejä ei ole tuettu.',
+            status=HttpResponseCode.BAD_REQUEST)
+        return make_api_response(response)
 
     return make_api_response(tag_list())
 
@@ -1877,7 +1924,8 @@ def api_tag(tag_id: str) -> Response:
         int_id = int(tag_id)
     except (TypeError, ValueError):
         app.logger.error(f'api_tag: Invalid id {tag_id}.')
-        response = ResponseType('Virheellinen tunniste', status=400)
+        response = ResponseType('Virheellinen tunniste',
+                                status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     return make_api_response(tag_info(int_id))
@@ -1911,14 +1959,16 @@ def api_tagrename() -> Response:
     except (TypeError, ValueError):
         app.logger.error(
             f'api_tagrename: Invalid ID. Id = {url_params["id"]}.')
-        response = ResponseType('Virheellinen tunniste', status=400)
+        response = ResponseType('Virheellinen tunniste',
+                                status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     name = url_params['name']
     if len(name) == 0:
         app.logger.error('api_tagrename: Empty name.')
         response = ResponseType(
-            'Asiasana ei voi olla tyhjä merkkijono', status=400)
+            'Asiasana ei voi olla tyhjä merkkijono',
+            status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     response = tag_rename(int_id, name)
@@ -1943,7 +1993,8 @@ def api_filtertags(pattern: str) -> Response:
     if len(pattern) < 2:
         app.logger.error('FilterTags: Pattern too short.')
         response = ResponseType(
-            'Liian lyhyt hakuehto', status=400)
+            'Liian lyhyt hakuehto',
+            status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
     retval = tag_filter(pattern)
     return make_api_response(retval)
@@ -1972,7 +2023,8 @@ def api_tagmerge(id1: int, id2: int) -> Response:
         id_from = int(id2)
     except (TypeError, ValueError):
         app.logger.error(f'api_tagmerge: Invalid id. Id = {id1}.')
-        response = ResponseType('Virheellinen asiasanan tunniste.', status=400)
+        response = ResponseType('Virheellinen asiasanan tunniste.',
+                                status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     retval = tag_merge(id_to, id_from)
@@ -2000,7 +2052,8 @@ def api_tagdelete(tagid: int) -> Response:
         int_id = int(tagid)
     except (TypeError,  ValueError):
         app.logger.error(f'api_tagDelete: Invalid ID. Id = {tagid}.')
-        response = ResponseType('Virheellinen tunniste', status=400)
+        response = ResponseType('Virheellinen tunniste',
+                                status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     response = tag_delete(int_id)
@@ -2157,7 +2210,8 @@ def api_getwork(workid: str) -> Response:
         int_id = int(workid)
     except (TypeError, ValueError):
         app.logger.error(f'api_getWork: Invalid id {workid}.')
-        response = ResponseType(f'Virheellinen tunniste: {workid}.', 400)
+        response = ResponseType(f'Virheellinen tunniste: {workid}.',
+                                HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     return make_api_response(get_work(int_id))
@@ -2219,7 +2273,8 @@ def api_workdelete(workid: str) -> Response:
     except (TypeError, ValueError):
         app.logger.error(f'api_workdelete: Invalid id {workid}.')
         return make_api_response(ResponseType(f'Virheellinen tunniste: \
-                                              {workid}.', 400))
+                                              {workid}.',
+                                              HttpResponseCode.BAD_REQUEST))
 
     return make_api_response(work_delete(int_id))
 
@@ -2231,7 +2286,8 @@ def api_workshorts(workid: int) -> Response:
         int_id = int(workid)
     except (TypeError, ValueError):
         app.logger.error(f'api_WorkShorts: Invalid id {workid}.')
-        response = ResponseType(f'Virheellinen tunniste: {workid}.', 400)
+        response = ResponseType(f'Virheellinen tunniste: {workid}.',
+                                HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
     return make_api_response(get_work_shorts(int_id))
 
@@ -2303,7 +2359,8 @@ def api_tagtowork(workid: int, tagid: int) -> Response:
     except (TypeError, ValueError):
         app.logger.error(
             f'{func.__name__}: Invalid id. id={workid}, tagid={tagid}.')
-        response = ResponseType('Virheellinen tunniste', status=400)
+        response = ResponseType('Virheellinen tunniste',
+                                status=HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
 
     retval = func(work_id, tag_id)
