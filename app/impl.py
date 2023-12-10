@@ -6,7 +6,7 @@ import json
 from typing import Dict, NamedTuple, Tuple, List, Union, Any, TypedDict, Set
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
-from flask_login import current_user
+from flask_login import current_user  # type: ignore
 from marshmallow import exceptions
 
 from app.api_errors import APIError
