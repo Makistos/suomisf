@@ -101,3 +101,16 @@ GET http://localhost:5000/api/latest/people/10 HTTP/1.1
 
 ###
 GET http://localhost:5000/api/latest/covers/10 HTTP/1.1
+
+###
+GET http://localhost:5000/api/roles HTTP/1.1
+
+###
+GET http://localhost:5000/api/roles/work HTTP/1.1
+###
+GET http://localhost:5000/api/roles/short HTTP/1.1
+###
+GET http://localhost:5000/api/roles/edition HTTP/1.1
+
+###
+GET http://localhost:5000/api/articles/x/tags HTTP/1.1

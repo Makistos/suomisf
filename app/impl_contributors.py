@@ -7,6 +7,7 @@ from app.orm_decl import (Part, Contributor, Edition)
 from app.impl import check_int
 from app import app
 from app.orm_decl import Person
+from app.types import ContributorType, ContributorTarget
 
 
 def _create_new_person(session: Any, contrib: Any) -> Union[Person, None]:
@@ -76,13 +77,32 @@ def _create_new_contributors(session: Any, contributors: Any) -> List[Any]:
 def _update_part_contributors(
         session: Any,
         part_id: int,
-        contributors: Any) -> None:
+        contributors: Any,
+        item_type: ContributorTarget
+        ) -> None:
     """ Update the contributors of a part for works."""
     # Remove existing rows from table.
-    session.query(Contributor).filter(
-        Contributor.part_id == part_id)\
-        .filter(or_(Contributor.role_id == 1, Contributor.role_id == 3))\
-        .delete()
+    if item_type == ContributorTarget.WORK:
+        session.query(Contributor).filter(
+            Contributor.part_id == part_id)\
+            .filter(or_(Contributor.role_id == ContributorType.AUTHOR,
+                        Contributor.role_id == ContributorType.EDITOR))\
+            .delete()
+    elif item_type == ContributorTarget.EDITION:
+        session.query(Contributor).filter(
+            Contributor.part_id == part_id)\
+            .filter(or_(Contributor.role_id != ContributorType.AUTHOR,
+                        Contributor.role_id != ContributorType.EDITOR))\
+            .delete()
+    elif item_type == ContributorTarget.SHORT:
+        session.query(Contributor).filter(
+            Contributor.part_id == part_id)\
+            .filter(or_(Contributor.role_id == ContributorType.AUTHOR,
+                        Contributor.role_id == ContributorType.TRANSLATOR))\
+            .delete()
+    else:
+        app.logger.eror(f'Unknown contributor type: {item_type}')
+        raise ValueError(f'Unknown contributor type: {item_type}')
     for contrib in contributors:
         new_contributor = Contributor(
             part_id=part_id,
@@ -175,7 +195,8 @@ def update_short_contributors(
     parts = session.query(Part).filter(Part.shortstory_id == short_id).all()
     contributors = _create_new_contributors(session, contributors)
     for part in parts:
-        _update_part_contributors(session, part.id, contributors)
+        _update_part_contributors(session, part.id, contributors,
+                                  ContributorTarget.SHORT)
 
 
 def update_edition_contributors(
@@ -211,7 +232,8 @@ def update_edition_contributors(
         # First delete contributors that are not author or editor
         session.query(Contributor)\
             .filter(Contributor.part_id == part.id)\
-            .filter(and_(Contributor.role_id != 1, Contributor.role_id != 3))\
+            .filter(and_(Contributor.role_id != ContributorType.AUTHOR,
+                         Contributor.role_id != ContributorType.EDITOR))\
             .delete()
         # Then add the new contributors
         for contrib in contributors:
@@ -257,18 +279,38 @@ def update_work_contributors(
     # Create new contributors if needed
     contributors = _create_new_contributors(session, contributors)
     for part in parts:
-        _update_part_contributors(session, part.id, contributors)
+        _update_part_contributors(session, part.id, contributors,
+                                  ContributorTarget.WORK)
 
     return retval
 
 
-def get_contributors_string(contributors: Any) -> str:
+def get_contributors_string(contributors: Any,
+                            contribution_type: ContributorTarget) -> str:
     """ Return a string representation of contributors.
         @param contributors: List of Contributor objects
         @return: String representation of contributors
     """
     retval = []
-    for contrib in contributors:
+    # Select contributors:
+    cleaned_contribs: List[Contributor] = []
+    if contribution_type in [ContributorTarget.WORK, ContributorTarget.SHORT]:
+        # Remove duplicates caused by multiple editions
+        for contrib in contributors:
+            found = False
+            for contrib2 in cleaned_contribs:
+                if (contrib.person.id == contrib2.person.id and
+                        contrib.role.id == contrib2.role.id and
+                        contrib.description == contrib2.description):
+                    found = True
+            if not found:
+                cleaned_contribs.append(contrib)
+    elif contribution_type == ContributorTarget.EDITION:
+        # Remove authors and editors
+        cleaned_contribs = [
+            x for x in contributors if x.role.id != ContributorType.AUTHOR and
+            x.role_id != ContributorType.EDITOR]
+    for contrib in cleaned_contribs:
         s = ''
         if contrib.role_id != 1 or contrib.role_id != 3:
             s += contrib.person.name + ' [' + contrib.role.name
@@ -305,7 +347,8 @@ def get_work_contributors(session: Any, work_id: int) -> Any:
         .filter(Contributor.part_id == Part.id)\
         .filter(Part.work_id == work_id)\
         .filter(Part.shortstory_id.is_(None))\
-        .filter(or_(Contributor.role_id == 1, Contributor.role_id == 3))\
+        .filter(or_(Contributor.role_id == ContributorType.AUTHOR,
+                    Contributor.role_id == ContributorType.EDITOR))\
         .distinct()\
         .all()
     retval: List[Dict[Any, Any]] = []

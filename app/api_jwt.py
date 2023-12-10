@@ -33,16 +33,25 @@ def jwt_admin_required() -> Any:
     If user doesn't have rights, a 401 response is returned.
     """
     def wrapper(f: Any) -> Any:
+        """
+        A decorator that verifies the JWT in the request and checks if the
+        user is an admin.
+
+        Parameters:
+            f (Any): The function to be decorated.
+
+        Returns:
+            Any: The decorated function.
+        """
         @wraps(f)
         def decorator(*args: Any, **kwargs: Any) -> Any:
             verify_jwt_in_request()
             jwt_id = get_jwt_identity()
             session = new_session()
             user = session.query(User).filter_by(id=jwt_id).first()
-            if user.is_admin:
+            if user and user.is_admin:
                 return f(*args, **kwargs)
-            else:
-                return make_response(
-                    json.dumps({'msg': 'Ei oikeutta toimintoon'}), 401)
+            return make_response(
+                json.dumps({'msg': 'Ei oikeutta toimintoon'}), 403)
         return decorator
     return wrapper

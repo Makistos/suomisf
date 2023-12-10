@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 from enum import IntEnum
 import json
 from typing import Dict, NamedTuple, Tuple, List, Union, Any, TypedDict, Set
-# from xmlrpc.client import Boolean
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from flask_login import current_user
@@ -167,7 +166,8 @@ def get_changes(params: Dict[str, Any]) -> ResponseType:
             period_length = int(params['period'])
         except TypeError as exp:
             app.logger.error(f'get_changes: {exp}')
-            raise APIError from exp
+            raise APIError(f'Invalid period length {params["period"]}.',
+                           HttpResponseCode.BAD_REQUEST) from exp
         cutoff_date = datetime.now() - timedelta(period_length)
         stmt += 'AND Log.Date >= "' + str(cutoff_date) + '" '
     else:
@@ -183,7 +183,8 @@ def get_changes(params: Dict[str, Any]) -> ResponseType:
             table_id = int(params['id'])
         except TypeError as exp:
             app.logger.error(f'get_changes: {exp}')
-            raise APIError from exp
+            raise APIError(f'Invalid table id  {params["id"]}.',
+                           HttpResponseCode.BAD_REQUEST) from exp
         stmt += 'AND table_id = "' + str(table_id) + '" '
 
     if 'action' in params:
@@ -199,7 +200,8 @@ def get_changes(params: Dict[str, Any]) -> ResponseType:
             userid = int(params['userid'])
         except TypeError as exp:
             app.logger.error(f'get_changes: {exp}')
-            raise APIError from exp
+            raise APIError(f'Invalid user id  {params["userid"]}.',
+                           HttpResponseCode.BAD_REQUEST) from exp
         stmt += 'AND user_id = "' + str(userid) + '" '
 
     stmt += 'ORDER BY date DESC '
@@ -209,7 +211,8 @@ def get_changes(params: Dict[str, Any]) -> ResponseType:
             limit = int(params['limit'])
         except TypeError as exp:
             app.logger.error(f'get_changes: {exp}')
-            raise APIError from exp
+            raise APIError(f'Invalid limit {params["limit"]}.',
+                           HttpResponseCode.BAD_REQUEST) from exp
         stmt += 'LIMIT ' + str(limit) + ' '
 
     print(stmt)
@@ -219,7 +222,8 @@ def get_changes(params: Dict[str, Any]) -> ResponseType:
             .all()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in GetChanges: ' + str(exp))
-        return ResponseType('GetChanges: Tietokantavirhe.', 400)
+        return ResponseType('GetChanges: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR)
     # changes = session.query(Log).filter(
     #     Log.date >= cutoff_date).order_by(Log.date.desc()).all()
     try:
@@ -227,9 +231,10 @@ def get_changes(params: Dict[str, Any]) -> ResponseType:
         retval = schema.dump(changes)
     except exceptions.MarshmallowError as exp:
         app.logger.error('GetChanges schema error: ' + str(exp))
-        return ResponseType('GetChanges: Skeemavirhe.', 400)
+        return ResponseType('GetChanges: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK)
 
 
 table_locals = {'article': 'Artikkeli',
@@ -404,11 +409,10 @@ def role_get(target: str) -> ResponseType:
 
     if target in ['work', 'edition']:
         # Work has author and editor, edition has everything else
-        # Note that ContributorType can't be used here as it seems IntEnum
-        # does not work in the query
-        role_ids = [1, 3]
+        role_ids = [ContributorType.AUTHOR.value, ContributorType.EDITOR.value]
     elif target == 'short':
-        role_ids = [1, 2]
+        role_ids = [ContributorType.AUTHOR.value,
+                    ContributorType.TRANSLATOR.value]
     else:
         app.logger.error(f'role_get: Unknown target: {target}')
         return ResponseType(f'role_get: Tuntematon kohde {target}.',

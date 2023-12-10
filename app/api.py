@@ -275,15 +275,16 @@ def api_refresh() -> Response:
     options = {}
     try:
         if request.json:
-            options['username'] = request.json['username']
-        else:
-            options['username'] = request.json['authorization']['username']
+            if 'username' in request.json:
+                options['username'] = request.json['username']
+            elif 'authorization' in request.json:
+                options['username'] = request.json['authorization']['username']
     except (TypeError, KeyError) as exp:
         response = ResponseType(f'api_login: Virheelliset parametrit: {exp}.',
                                 HttpResponseCode.UNAUTHORIZED)
         return make_api_response(response)
 
-    if not options['username']:
+    if 'username' not in options:
         response = ResponseType('api_login: Virheelliset parametrit.',
                                 HttpResponseCode.UNAUTHORIZED)
         return make_api_response(response)

@@ -29,6 +29,7 @@ from app.impl_genres import checkGenreField
 from app.impl_editions import delete_edition
 from app.impl_bookseries import add_bookseries
 from app.impl_shorts import save_short_to_work
+from app.types import ContributorTarget
 
 from app import app
 
@@ -100,7 +101,10 @@ def _set_description(
                                    otherwise None.
     """
     try:
-        html_text = html.unescape(data['description'])
+        if data['description']:
+            html_text = html.unescape(data['description'])
+        else:
+            html_text = ''
     except (TypeError) as exp:
         app.logger.error('WorkSave: Failed to unescape html: ' +
                          data["description"] + '.' + str(exp))
@@ -792,7 +796,8 @@ def work_update(
     if 'contributions' in data:
         if contributors_have_changed(work.contributions,
                                      data['contributions']):
-            old_values['Tekijät'] = get_contributors_string(work.contributions)
+            old_values['Tekijät'] = get_contributors_string(
+                work.contributions, ContributorTarget.WORK)
             update_work_contributors(session, work.id, data['contributions'])
 
     # Genres

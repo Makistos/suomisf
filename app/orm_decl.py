@@ -545,7 +545,8 @@ class Edition(Base):
         if self.translators:
             if self.translators != work.editions[0].translators:
                 retval += 'Suom '
-                retval += ' & '.join([x.alt_name for x in self.translators])
+                retval += ' & '.join(
+                    [x.alt_name for x in self.translators if x.alt_name])
                 retval += '. '
         if self.publisher:
             retval += f'{self.publisher.name}'
@@ -1240,6 +1241,8 @@ class User(UserMixin, Base):
             bool: True if the password matches the hashed password, False
                   otherwise.
         """
+        if self.password_hash is None:
+            return False
         return check_password_hash(self.password_hash, password)
 
     def validate_user(self, password: str) -> Union[List[str], bool]:
@@ -1452,7 +1455,8 @@ class Work(Base):
         if self.editions[0].translators:
             retval += ' Suom <span class="person-list">'
             retval += ' & '.join(
-                [x.alt_name for x in self.editions[0].translators])
+                [x.alt_name for x in self.editions[0].translators
+                 if x.alt_name])
             retval += '</span>. '
 
         # Publisher

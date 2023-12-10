@@ -31,6 +31,7 @@ from app.route_helpers import new_session
 from app.model import BindingBriefSchema, ShortBriefSchema, EditionBriefSchema
 from app.impl import ResponseType, check_int, log_changes
 from app.impl_pubseries import add_pubseries
+from app.types import ContributorTarget
 from app import app
 
 
@@ -581,7 +582,7 @@ def update_edition(params: Any) -> ResponseType:
                 # We check for invalid values in updateEditionContributors and
                 # only log this if there were any updates.
                 old_values["Tekijät"] = get_contributors_string(
-                    edition.contributions)
+                    edition.contributions, ContributorTarget.EDITION)
 
     if len(old_values) == 0:
         # No changes

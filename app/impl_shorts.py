@@ -16,7 +16,7 @@ from app.model import ShortSchema, StoryTypeSchema, ShortBriefSchema
 from app.impl_contributors import (update_short_contributors,
                                    contributors_have_changed,
                                    get_contributors_string)
-
+from app.types import ContributorTarget
 from app import app
 
 
@@ -387,9 +387,17 @@ def story_updated(params: Any) -> ResponseType:
     # Save contributors
     if 'contributors' in data:
         if contributors_have_changed(story.contributors, data['contributors']):
+            try:
+                contributor_str = get_contributors_string(
+                    story.contributors, ContributorTarget.SHORT)
+            except ValueError as exp:
+                session.rollback()
+                app.logger.error(f'Exception in StoryUpdate: {exp}.')
+                return ResponseType(
+                    f'StoryUpdate: Tietokantavirhe: {exp}.', 400)
             update_short_contributors(
                 session, story.id, data['contributors'])
-            old_values['Tekijät'] = get_contributors_string(story.contributors)
+            old_values['Tekijät'] = contributor_str
 
     # Save genres
     if 'genres' in data:
