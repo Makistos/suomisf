@@ -21,6 +21,7 @@ from app.impl import (ResponseType, SearchResult, log_changes,
 from app.api_errors import APIError
 from app.impl_country import AddCountry
 from app.impl_links import linksHaveChanged
+from app.types import HttpResponseCode
 from app import app
 
 _allowed_person_fields = ['name', 'dob', 'dod',
@@ -345,7 +346,9 @@ def get_person(person_id: int) -> ResponseType:
         person = session.query(Person).filter(
             Person.id == person_id).first()
         if not person:
-            return ResponseType(f"Unknown person. Id={person_id}.", 401)
+            app.logger.error(f'get_person: Unknown person. Id={person_id}.')
+            return ResponseType(f"Unknown person. Id={person_id}.",
+                                HttpResponseCode.BAD_REQUEST)
 
         aliases = session.query(Alias)\
             .filter(Alias.realname == person.id).all()
@@ -361,18 +364,28 @@ def get_person(person_id: int) -> ResponseType:
                 person.work_contributions = person.works
                 person.edit_contributions = person.edits
                 person.editions = person.editions + alias.editions
+                person.stories = person.stories + alias.stories
+                person.appears_in = person.appears_in + alias.appears_in
+                person.articles = person.articles + alias.articles
+                person.links = person.links + alias.links
+                person.magazine_stories = person.magazine_stories + \
+                    alias.magazine_stories
+                person.roles = person.roles + alias.roles
+
     except SQLAlchemyError as exp:
-        app.logger.error('Exception in GetPerson: ' + str(exp))
-        return ResponseType('GetPerson: Tietokantavirhe.', 400)
+        app.logger.error(f'get_person exception: {exp}.')
+        return ResponseType(f'get_person tietokantavirhe: {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR)
 
     try:
         schema = PersonSchema()
         retval = schema.dump(person)
     except exceptions.MarshmallowError as exp:
-        app.logger.error('GetPerson schema error: ' + str(exp))
-        return ResponseType('GetPerson: Skeemavirhe.', 400)
+        app.logger.error(f'get_person schema error: {exp}.')
+        return ResponseType(f'get_person skeemavirhe: {exp}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK)
 
 
 def person_add(params: Any) -> ResponseType:
