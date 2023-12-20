@@ -11,24 +11,24 @@ from app.route_helpers import new_session
 from app.orm_decl import (User)
 from app.model import (UserSchema)
 from app.impl import ResponseType
+from app.types import (HttpResponseCode)
 from app import app
 
 
-def create_token(username: str) -> Response:
+def create_token(user: User, password: str) -> Response:
     """
     Creates a token for the given username.
 
     Args:
-        username (str): The username for which to create the token.
+        user (User): The user for which to create the token.
+        password (str): The password of the user.
 
     Returns:
         Response: The response containing the access token, refresh token,
                   user name, role, and user ID. If the login fails, a response
                   with a code of 401 and an error message is returned.
     """
-    session = new_session()
-    user = session.query(User).filter(User.name == username).first()
-    token = user.validate_user(user.password_hash)
+    token = user.validate_user(password)
     if token:
         if user.is_admin:
             role = 'admin'
@@ -57,14 +57,14 @@ def create_token(username: str) -> Response:
                        user=user.name,
                        role=role,
                        id=user.id)
-        resp = make_response(data, 200)
+        resp = make_response(data, HttpResponseCode.OK.value)
         resp.headers['Content-Type'] = 'application/json'
         return resp
 
-    app.logger.warn('Failed login for {name}.')
+    app.logger.warn(f'Failed login for {user.name}.')
     return make_response(
-        json.dumps({'code': 401,
-                    'message': 'Kirjautuminen ei onnistunut'}), 401)
+        json.dumps({'msg': 'Väärä salasana'}),
+        HttpResponseCode.UNAUTHORIZED.value)
 
 
 def login_user(options: Dict[str, str]) -> Response:
@@ -82,11 +82,15 @@ def login_user(options: Dict[str, str]) -> Response:
     """
     session = new_session()
     name = options['username']
-    # password = options['password']
+    password = options['password']
 
     user = session.query(User).filter(User.name == name).first()
+    if not user:
+        return make_response(
+            json.dumps({'msg': 'Tuntematon käyttäjä'}),
+            HttpResponseCode.UNAUTHORIZED.value)
 
-    resp = create_token(user.name)
+    resp = create_token(user, password)
     return resp
 
 
@@ -107,9 +111,9 @@ def refresh_token(options: Dict[str, str]) -> Response:
     user = session.query(User).filter_by(id=userid).first()
     if not user or user.name != options['username']:
         return make_response(
-            json.dumps({'code': 401,
-                        'message': f'Tuntematon käyttäjä \
-                            {options["username"]}'}), 401)
+            json.dumps({'msg': f'Tuntematon käyttäjä \
+                            {options["username"]}'}),
+            HttpResponseCode.UNAUTHORIZED.value)
     if user.is_admin:
         role = 'admin'
         access_token = create_access_token(
@@ -137,7 +141,7 @@ def refresh_token(options: Dict[str, str]) -> Response:
                    user=user.name,
                    role=role,
                    id=user.id)
-    resp = make_response(data, 200)
+    resp = make_response(data, HttpResponseCode.OK.value)
     return resp
 
 
@@ -159,20 +163,23 @@ def get_user(user_id: int) -> ResponseType:
             .first()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in GetUser: ' + str(exp))
-        return ResponseType(f'GetUser: Tietokantavirhe. id={user_id}', 400)
+        return ResponseType(f'GetUser: Tietokantavirhe. id={user_id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     if not user:
         app.logger.error(f'GetUser: Unknown user {user_id}.')
-        return ResponseType(f'Käyttäjää ei löytynyt. id={user_id}.', 400)
+        return ResponseType(f'Käyttäjää ei löytynyt. id={user_id}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         schema = UserSchema()
         retval = schema.dump(user)
     except exceptions.MarshmallowError as exp:
         app.logger.error('GetUser schema error: ' + str(exp))
-        return ResponseType('GetUser: Skeemavirhe.', 400)
+        return ResponseType('GetUser: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def list_users() -> ResponseType:
@@ -190,12 +197,14 @@ def list_users() -> ResponseType:
         users = session.query(User).all()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in ListUsers: ' + str(exp))
-        return ResponseType('ListUsers: Tietokantavirhe.', 400)
+        return ResponseType('ListUsers: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         schema = UserSchema(many=True)
         retval = schema.dump(users)
     except exceptions.MarshmallowError as exp:
         app.logger.error('ListUsers schema error: ' + str(exp))
-        return ResponseType('ListUsers: Skeemavirhe.', 400)
-    return ResponseType(retval, 200)
+        return ResponseType('ListUsers: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    return ResponseType(retval, HttpResponseCode.OK.value)

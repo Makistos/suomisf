@@ -56,10 +56,10 @@ def jwt_admin_required() -> Any:
                 return make_response(
                     json.dumps({'msg':
                                 'Toiminto vaatii ylläpitäjän oikeudet'}),
-                    HttpResponseCode.FORBIDDEN)
+                    HttpResponseCode.FORBIDDEN.value)
             return make_response(
                 json.dumps({'msg': 'Ei käyttöoikeutta'}),
-                HttpResponseCode.UNAUTHORIZED
+                HttpResponseCode.UNAUTHORIZED.value
             )
         return decorator
     return wrapper

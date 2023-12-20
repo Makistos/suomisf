@@ -1257,11 +1257,11 @@ class User(UserMixin, Base):
             Union[List[str], bool]: If the password is correct, returns a JWT
             token. Otherwise, returns False.
         """
-        if self.password_hash == password:
+
+        if self.check_password(password):
             jwt_token = generate_jwt_token({'id': self.id})
             return jwt_token
-        else:
-            return False
+        return False
 
     def __repr__(self) -> str:
         """
