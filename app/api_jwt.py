@@ -6,6 +6,7 @@ from flask import make_response
 from flask_jwt_extended import verify_jwt_in_request, get_jwt_identity
 from app.orm_decl import User
 from app.route_helpers import new_session
+from app.types import HttpResponseCode
 
 # @app.after_request
 # def refresh_existing(response: Response) -> Response:
@@ -51,7 +52,14 @@ def jwt_admin_required() -> Any:
             user = session.query(User).filter_by(id=jwt_id).first()
             if user and user.is_admin:
                 return f(*args, **kwargs)
+            if user:
+                return make_response(
+                    json.dumps({'msg':
+                                'Toiminto vaatii ylläpitäjän oikeudet'}),
+                    HttpResponseCode.FORBIDDEN)
             return make_response(
-                json.dumps({'msg': 'Ei oikeutta toimintoon'}), 403)
+                json.dumps({'msg': 'Ei käyttöoikeutta'}),
+                HttpResponseCode.UNAUTHORIZED
+            )
         return decorator
     return wrapper
