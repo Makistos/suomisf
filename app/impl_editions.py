@@ -85,10 +85,9 @@ def _set_pubseries(
     """
     if data["pubseries"] != edition.pubseries:
         ps_id = None
-        if old_values is not None and edition.pubseries:
-            old_values["Kustantajan sarja"] \
-                = (edition.pubseries.name
-                    if edition.pubseries else '')
+        if old_values is not None:
+            old_values["Kustantajan sarja"] = (edition.pubseries.name
+                                               if edition.pubseries else '')
         if (data["pubseries"] != "" and data["pubseries"] is not None and
                 "id" not in data["pubseries"]):
             # User added a new pubseries. Front returns this as a string
