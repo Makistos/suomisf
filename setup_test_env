@@ -1,0 +1,4 @@
+mysqladmin --user=root --password=${MYSQL_PW} drop suomisf
+mysqladmin --user=root --password=${MYSQL_PW} create suomisf
+mysql --user=root --password=${MYSQL_PW} < backup/backup.sql
+mysql --user=root --password=${MYSQL_PW} < test/db/create_test_user.sql
