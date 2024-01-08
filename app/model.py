@@ -313,18 +313,19 @@ class ArticleBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     excerpt = fields.String()
 
 
-class AwardBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
-    """ Award schema. """
-    class Meta:
-        """ Metadata for SQLAlchemyAutoSchema. """
-        model = Award
-
-
 class AwardCategorySchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     """ Award category schema. """
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = AwardCategory
+
+
+class AwardBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Award schema. """
+    class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
+        model = Award
+    categories = ma.List(fields.Nested(AwardCategorySchema))
 
 
 class PublisherBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -361,11 +362,23 @@ class AwardedSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Awarded
-    award = fields.Nested(AwardBriefSchema)
+    # award = fields.Nested(
+    #     AwardBriefSchema(only=('id', 'name', 'domestic')))
     person = fields.Nested(PersonBriefSchema)
-    work = fields.Nested(WorkBriefSchema)
+    work = fields.Nested(
+        WorkBriefSchema(
+            only=('id', 'title', 'author_str', 'orig_title', 'pubyear')))
     category = fields.Nested(AwardCategorySchema)
     story = fields.Nested(ShortBriefSchema)
+
+
+class AwardSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Award schema with all relationships. """
+    class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
+        model = Award
+    categories = ma.List(fields.Nested(AwardCategorySchema))
+    winners = ma.List(fields.Nested(AwardedSchema))
 
 
 class BookseriesSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
