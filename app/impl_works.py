@@ -1080,12 +1080,19 @@ def save_work_shorts(params: Any) -> ResponseType:
             return ResponseType(f'Tietokantavirhe: {exp}', 400)
         old_contributors[story.id] = []
         for contrib in contribs:
-            old_contributors[story.id].append({
-                "person_id": contrib.person_id,
-                "role_id": contrib.role_id,
-                "real_person_id": contrib.real_person_id,
-                "description": contrib.description
-            })
+            found = False
+            # Check if contributor info is already in list
+            for contrib2 in old_contributors[story.id]:
+                if (contrib.person_id == contrib2["person_id"] and
+                        contrib.role_id == contrib2["role_id"]):
+                    found = True
+            if not found:
+                old_contributors[story.id].append({
+                    "person_id": contrib.person_id,
+                    "role_id": contrib.role_id,
+                    "real_person_id": contrib.real_person_id,
+                    "description": contrib.description
+                })
         old_story_ids[story.id] = story.id
 
     # Find contributors for new stories
