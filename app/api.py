@@ -16,6 +16,7 @@ from app.api_errors import APIError
 from app.api_jwt import jwt_admin_required
 from app.impl_articles import (get_article, article_tag_add,
                                article_tag_remove, article_tags)
+from app.impl_awards import (list_awards, get_award)
 from app.impl_bookseries import (list_bookseries, get_bookseries,
                                  bookseries_create, bookseries_update,
                                  bookseries_delete, filter_bookseries)
@@ -482,6 +483,39 @@ def api_tagtoarticle(articleid: int, tagid: int) -> Response:
     retval = func(int_id, tag_id)
 
     return make_api_response(retval)
+
+
+###
+# Award related functions
+
+@app.route('/api/awards', methods=['get'])
+def api_listawards() -> Response:
+    """
+    This function is a route handler for the '/api/awards' endpoint. It
+    accepts GET requests and returns a Response object.
+
+    Parameters:
+        None
+
+    Returns:
+        Response: The response object containing the list of awards.
+    """
+    return make_api_response(list_awards())
+
+
+@app.route('/api/awards/<award_id>', methods=['get'])
+def api_getaward(award_id: int) -> Response:
+    """
+    This function is a route handler for the '/api/awards/<award_id>' endpoint.
+    It accepts GET requests and returns a Response object.
+
+    Parameters:
+        award_id (int): The ID of the award to retrieve.
+
+    Returns:
+        Response: The response object containing the award data.
+    """
+    return make_api_response(get_award(award_id))
 
 
 ###
