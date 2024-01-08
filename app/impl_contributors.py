@@ -85,24 +85,27 @@ def _update_part_contributors(
     if item_type == ContributorTarget.WORK:
         session.query(Contributor).filter(
             Contributor.part_id == part_id)\
-            .filter(or_(Contributor.role_id == ContributorType.AUTHOR,
-                        Contributor.role_id == ContributorType.EDITOR))\
+            .filter(or_(Contributor.role_id == ContributorType.AUTHOR.value,
+                        Contributor.role_id == ContributorType.EDITOR.value))\
             .delete()
     elif item_type == ContributorTarget.EDITION:
         session.query(Contributor).filter(
             Contributor.part_id == part_id)\
-            .filter(or_(Contributor.role_id != ContributorType.AUTHOR,
-                        Contributor.role_id != ContributorType.EDITOR))\
+            .filter(or_(Contributor.role_id != ContributorType.AUTHOR.value,
+                        Contributor.role_id != ContributorType.EDITOR.value))\
             .delete()
     elif item_type == ContributorTarget.SHORT:
         session.query(Contributor).filter(
             Contributor.part_id == part_id)\
-            .filter(or_(Contributor.role_id == ContributorType.AUTHOR,
-                        Contributor.role_id == ContributorType.TRANSLATOR))\
+            .filter(or_(
+                Contributor.role_id == ContributorType.AUTHOR.value,
+                Contributor.role_id == ContributorType.TRANSLATOR.value))\
             .delete()
     else:
-        app.logger.eror(f'Unknown contributor type: {item_type}')
-        raise ValueError(f'Unknown contributor type: {item_type}')
+        app.logger.eror(f'Unknown contributor type: {item_type.value}')
+        raise ValueError(f'Unknown contributor type: {item_type.value}')
+
+    session.flush()
     for contrib in contributors:
         new_contributor = Contributor(
             part_id=part_id,
@@ -232,8 +235,8 @@ def update_edition_contributors(
         # First delete contributors that are not author or editor
         session.query(Contributor)\
             .filter(Contributor.part_id == part.id)\
-            .filter(and_(Contributor.role_id != ContributorType.AUTHOR,
-                         Contributor.role_id != ContributorType.EDITOR))\
+            .filter(and_(Contributor.role_id != ContributorType.AUTHOR.value,
+                         Contributor.role_id != ContributorType.EDITOR.value))\
             .delete()
         # Then add the new contributors
         for contrib in contributors:

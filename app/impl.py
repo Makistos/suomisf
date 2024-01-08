@@ -221,8 +221,8 @@ def get_changes(params: Dict[str, Any]) -> ResponseType:
             .from_statement(text(stmt))\
             .all()
     except SQLAlchemyError as exp:
-        app.logger.error('Exception in GetChanges: ' + str(exp))
-        return ResponseType('GetChanges: Tietokantavirhe.',
+        app.logger.error(f'Exception in get_changes: {exp}.')
+        return ResponseType(f'get_changes: Tietokantavirhe: {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR)
     # changes = session.query(Log).filter(
     #     Log.date >= cutoff_date).order_by(Log.date.desc()).all()
@@ -230,8 +230,8 @@ def get_changes(params: Dict[str, Any]) -> ResponseType:
         schema = LogSchema(many=True)
         retval = schema.dump(changes)
     except exceptions.MarshmallowError as exp:
-        app.logger.error('GetChanges schema error: ' + str(exp))
-        return ResponseType('GetChanges: Skeemavirhe.',
+        app.logger.error(f'get_changes schema error: {exp}.')
+        return ResponseType(f'get_changes: Skeemavirhe: {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR)
 
     return ResponseType(retval, HttpResponseCode.OK)
@@ -320,16 +320,18 @@ def genre_list() -> ResponseType:
     try:
         genres = session.query(Genre).order_by(Genre.id)
     except SQLAlchemyError as exp:
-        app.logger.error('Db Exception in GenreList(): ' + str(exp))
-        return ResponseType('GenreList: Tietokantavirhe.', 400)
+        app.logger.error(f'Db Exception in genre_list(): {exp}.')
+        return ResponseType(f'genre_list: Tietokantavirhe: {exp}.',
+                            status=HttpResponseCode.INTERNAL_SERVER_ERROR)
     try:
         schema = GenreBriefSchema(many=True)
         retval = schema.dump(genres)
     except exceptions.MarshmallowError as exp:
-        app.logger.error('GenreList schema error: ' + str(exp))
-        return ResponseType('Genrelist: Skeemavirhe.', 400)
+        app.logger.error(f'genre_list schema error: {exp}.')
+        return ResponseType(f'genre_list: Skeemavirhe: {exp}.',
+                            status=HttpResponseCode.INTERNAL_SERVER_ERROR)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK)
 
 
 def country_list() -> ResponseType:
@@ -354,16 +356,18 @@ def country_list() -> ResponseType:
     try:
         countries = session.query(Country).order_by(Country.name)
     except SQLAlchemyError as exp:
-        app.logger.error('Db Exception in CountryList(): ' + str(exp))
-        return ResponseType('CountryList: Tietokantavirhe.', 400)
+        app.logger.error(f'Db Exception in country_list(): {exp}.')
+        return ResponseType(f'country_list: Tietokantavirhe: {exp}.',
+                            status=HttpResponseCode.INTERNAL_SERVER_ERROR)
     try:
         schema = CountryBriefSchema(many=True)
         retval = schema.dump(countries)
     except exceptions.MarshmallowError as exp:
-        app.logger.error('CountryList schema error: ' + str(exp))
-        return ResponseType('CountryList: Skeemavirhe.', 400)
+        app.logger.error(f'country_list schema error: {exp}.')
+        return ResponseType(f'country_list: Skeemavirhe: {exp}.',
+                            status=HttpResponseCode.INTERNAL_SERVER_ERROR)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK)
 
 
 def role_list() -> ResponseType:
@@ -379,7 +383,7 @@ def role_list() -> ResponseType:
     try:
         roles = session.query(ContributorRole)
     except SQLAlchemyError as exp:
-        app.logger.error(f'role_list: Db Exception:  {exp}')
+        app.logger.error(f'role_list: Db Exception: {exp}')
         return ResponseType('role_list: Tietokantavirhe.',
                             status=HttpResponseCode.INTERNAL_SERVER_ERROR)
     try:
@@ -461,16 +465,18 @@ def filter_countries(query: str) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error(
             f'Exception in FilterCountries (query: {query}): ' + str(exp))
-        return ResponseType('FilterCountries: Tietokantavirhe.', 400)
+        return ResponseType('FilterCountries: Tietokantavirhe.',
+                            status=HttpResponseCode.INTERNAL_SERVER_ERROR)
     try:
         schema = CountryBriefSchema(many=True)
         retval = schema.dump(countries)
     except exceptions.MarshmallowError as exp:
         app.logger.error(
             f'FilterCountries schema error (query: {query}): ' + str(exp))
-        return ResponseType('FilterCountries: Skeemavirhe.', 400)
+        return ResponseType('FilterCountries: Skeemavirhe.',
+                            status=HttpResponseCode.INTERNAL_SERVER_ERROR)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK)
 
 
 def filter_languages(query: str) -> ResponseType:
@@ -492,17 +498,19 @@ def filter_languages(query: str) -> ResponseType:
             .all()
     except SQLAlchemyError as exp:
         app.logger.error(
-            f'Exception in FilterLanguages (query: {query}): ' + str(exp))
-        return ResponseType('FilterLanguages: Tietokantavirhe.', 400)
+            f'Exception in FilterLanguages (query: {query}): {exp}.')
+        return ResponseType('FilterLanguages: Tietokantavirhe.',
+                            status=HttpResponseCode.INTERNAL_SERVER_ERROR)
     try:
         schema = LanguageSchema(many=True)
         retval = schema.dump(languages)
     except exceptions.MarshmallowError as exp:
         app.logger.error(
-            f'FilterLanguages schema error (query: {query}): ' + str(exp))
-        return ResponseType('FilterLanguages: Skeemavirhe.', 400)
+            f'FilterLanguages schema error (query: {query}): {exp}.')
+        return ResponseType('FilterLanguages: Skeemavirhe.',
+                            status=HttpResponseCode.INTERNAL_SERVER_ERROR)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK)
 
 
 def set_language(
@@ -543,7 +551,8 @@ def set_language(
                 if not lang:
                     app.logger.error(f'SetLanguage: Language not found. Id = \
                                      {data["language"]["id"]}.')
-                    return ResponseType('Kieltä ei löydy', 400)
+                    return ResponseType('Kieltä ei löydy',
+                                        status=HttpResponseCode.BAD_REQUEST)
         item.language = lang_id
     return None
 
@@ -572,7 +581,7 @@ def add_language(name: str) -> Union[int, None]:
         return language.id
     except SQLAlchemyError as exp:
         app.logger.error(
-            f'Exception in AddLanguage (name: {name}): ' + str(exp))
+            f'Exception in AddLanguage (name: {name}): {exp}')
         return None
 
 
@@ -615,8 +624,9 @@ def filter_link_names(query: str) -> ResponseType:
             .filter(WorkLink.description.ilike(query + '%')).distinct().all()
     except SQLAlchemyError as exp:
         app.logger.error(
-            f'Exception in FilterLinkNames (query: {query}): ' + str(exp))
-        return ResponseType('FilterLinkNames: Tietokantavirhe.', 400)
+            f'Exception in FilterLinkNames (query: {query}): {exp}.')
+        return ResponseType(f'FilterLinkNames: Tietokantavirhe: {exp}.',
+                            status=HttpResponseCode.INTERNAL_SERVER_ERROR)
 
     link_names: List[str] = list(set([x for x in al]
                                      + [x for x in bl]
@@ -631,7 +641,7 @@ def filter_link_names(query: str) -> ResponseType:
     #     retval.append({'name': ln})
     schema = LinkSchema(many=True)
     retval = schema.dump(link_names)
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK)
 
 
 def get_select_ids(
@@ -727,9 +737,12 @@ def get_frontpage_data() -> ResponseType:
                 ids.append(edition.work[0].id)
             if len(latest_list) == 4:
                 break
-        except IndexError:
-            app.logger.error(f'IndexError in GetFrontpageData: {edition.id}')
-            return ResponseType('GetFrontpageData: Tietokantavirhe.', 400)
+        except IndexError as exp:
+            app.logger.error(
+                f'IndexError in get_frontpage_data() {edition.id}: {exp}')
+            return ResponseType(
+                f'get_frontpage_data: Indeksivirhe {edition.id}: {exp}.',
+                status=HttpResponseCode.INTERNAL_SERVER_ERROR)
 
     schema = EditionBriefestSchema()
     latest_list = schema.dump(latest_list, many=True)
@@ -755,13 +768,15 @@ def get_latest_covers(count: int) -> ResponseType:
             .all()
     except SQLAlchemyError as exp:
         app.logger.error(f'Exception in get_latest_covers(): {str(exp)}')
-        return ResponseType('get_latest_covers: Tietokantavirhe', 400)
+        return ResponseType('get_latest_covers: Tietokantavirhe',
+                            status=HttpResponseCode.INTERNAL_SERVER_ERROR)
 
     try:
         schema = EditionImageSchema(many=True)
         retval = schema.dump(covers)
     except exceptions.MarshmallowError as exp:
         app.logger.error(f'Exception in get_latest_covers(): {str(exp)}')
-        return ResponseType('get_latest_covers: Skeemavirhe', 400)
+        return ResponseType('get_latest_covers: Skeemavirhe',
+                            status=HttpResponseCode.INTERNAL_SERVER_ERROR)
 
     return ResponseType(retval, 200)
