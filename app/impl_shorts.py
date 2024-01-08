@@ -16,7 +16,7 @@ from app.model import ShortSchema, StoryTypeSchema, ShortBriefSchema
 from app.impl_contributors import (update_short_contributors,
                                    contributors_have_changed,
                                    get_contributors_string)
-from app.types import ContributorTarget
+from app.types import ContributorTarget, HttpResponseCode
 from app import app
 
 
@@ -64,7 +64,8 @@ def _set_language(
                 if not lang:
                     app.logger.error(f'SetLanguage: Language not found. Id = \
                                       {data["language"]["id"]}.')
-                    return ResponseType('Kieltä ei löydy', 400)
+                    return ResponseType('Kieltä ei löydy',
+                                        HttpResponseCode.BAD_REQUEST.value)
         item.language = lang_id
     return None
 
@@ -102,17 +103,20 @@ def get_short_types() -> ResponseType:
     try:
         types = session.query(StoryType).all()
     except SQLAlchemyError as exp:
-        app.logger.error(f'Exception in GetShortTypes: {exp}.')
-        return ResponseType(f'GetShortTypes: Tietokantavirhe. id={id}', 400)
+        app.logger.error(f'Exception in get_short_types: {exp}.')
+        return ResponseType(
+            f'get_short_types: Tietokantavirhe. id={id}: {exp}.',
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         schema = StoryTypeSchema(many=True)
         retval = schema.dump(types)
     except exceptions.MarshmallowError as exp:
-        app.logger.error(f'GetShortTypes schema error: {exp}.')
-        return ResponseType('GetShortTypes: Skeemavirhe.', 400)
+        app.logger.error(f'get_short_types schema error: {exp}.')
+        return ResponseType(f'get_short_types: Skeemavirhe: {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def get_short(short_id: int) -> ResponseType:
@@ -135,17 +139,20 @@ def get_short(short_id: int) -> ResponseType:
         short = session.query(ShortStory).filter(
             ShortStory.id == short_id).first()
     except SQLAlchemyError as exp:
-        app.logger.error(f'Exception in GetShort: {exp}')
-        return ResponseType(f'GetShort: Tietokantavirhe. id={short_id}', 400)
+        app.logger.error(f'get_short exception: {exp}.')
+        return ResponseType(
+            f'get_short: Tietokantavirhe. id={short_id}: {exp}.',
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         schema = ShortSchema()
         retval = schema.dump(short)
     except exceptions.MarshmallowError as exp:
-        app.logger.error(f'GetStory schema error: {exp}.')
-        return ResponseType('GetStory: Skeemavirhe.', 400)
+        app.logger.error(f'get_short schema error: {exp}.')
+        return ResponseType('get_short: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def search_shorts(params: Dict[str, str]) -> ResponseType:
@@ -329,20 +336,22 @@ def story_updated(params: Any) -> ResponseType:
     short_id = check_int(data['id'], False, False)
     if short_id is None:
         app.logger.error(f'StoryUpdate: Invalid id: {data["id"]}.')
-        return ResponseType(f'StoryUpdate: virheellinen id {data["id"]}.', 400)
+        return ResponseType(f'StoryUpdate: virheellinen id {data["id"]}.',
+                            HttpResponseCode.BAD_REQUEST.value)
 
     story = session.query(ShortStory).filter(
         ShortStory.id == short_id).first()
     if not story:
         app.logger.error(f'StoryUpdate: Story not found. Id = {short_id}.')
         return ResponseType(f'StoryUpdate: Novellia ei löydy. id={short_id}.',
-                            400)
+                            HttpResponseCode.BAD_REQUEST.value)
 
     # Save title
     if 'title' in data:
         if data['title'] is None or len(data['title']) == 0:
             app.logger.error('StoryUpdate: Title is a required field.')
-            return ResponseType('StoryUpdate: Nimi on pakollinen tieto.', 400)
+            return ResponseType('StoryUpdate: Nimi on pakollinen tieto.',
+                                HttpResponseCode.BAD_REQUEST.value)
         if data['title'] != story.title:
             old_values['Nimi'] = story.title
             story.title = data['title']
@@ -367,7 +376,8 @@ def story_updated(params: Any) -> ResponseType:
                 app.logger.error(
                     f'StoryUpdate exception. Not a type: {data["type"]}.')
                 return ResponseType(
-                    f'StoryUpdate: virheellinen tyyppi {data["type"]}.', 400)
+                    f'StoryUpdate: virheellinen tyyppi {data["type"]}.',
+                    HttpResponseCode.BAD_REQUEST.value)
             old_values['Tyyppi'] = story.type.name
             story.story_type = data["type"]['id']
 
@@ -382,7 +392,8 @@ def story_updated(params: Any) -> ResponseType:
     except SQLAlchemyError as exp:
         session.rollback()
         app.logger.error(f'Exception in StoryUpdate: {exp}.')
-        return ResponseType('StoryUpdate: Tietokantavirhe.', 400)
+        return ResponseType('StoryUpdate: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     # Save contributors
     if 'contributors' in data:
@@ -394,7 +405,8 @@ def story_updated(params: Any) -> ResponseType:
                 session.rollback()
                 app.logger.error(f'Exception in StoryUpdate: {exp}.')
                 return ResponseType(
-                    f'StoryUpdate: Tietokantavirhe: {exp}.', 400)
+                    f'StoryUpdate: Tietokantavirhe: {exp}.',
+                    HttpResponseCode.INTERNAL_SERVER_ERROR.value)
             update_short_contributors(
                 session, story.id, data['contributors'])
             old_values['Tekijät'] = contributor_str
@@ -442,7 +454,7 @@ def story_updated(params: Any) -> ResponseType:
             old_values['Asiasanat'] += ' +'.join([str(x) for x in to_remove])
 
     if len(old_values) == 0:
-        return ResponseType(str(story.id), 200)
+        return ResponseType(str(story.id), HttpResponseCode.OK.value)
 
     log_changes(session=session, obj=story, name_field="title",
                 action="Päivitys", old_values=old_values)
@@ -453,9 +465,9 @@ def story_updated(params: Any) -> ResponseType:
         session.rollback()
         app.logger.error(f'Exception in StoryUpdate commit: {exp}.')
         return ResponseType('StoryUpdate: Tietokantavirhe tallennettaessa.',
-                            400)
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(str(story.id), 200)
+    return ResponseType(str(story.id), HttpResponseCode.OK.value)
 
 
 def story_delete(short_id: int) -> ResponseType:
@@ -477,7 +489,8 @@ def story_delete(short_id: int) -> ResponseType:
         app.logger.error(
             f'StoryDelete: Story has been awarded. short_id={short_id}.')
         return ResponseType(f'story_delete: Novellilla on palkinto. \
-                            id={short_id}.', 400)
+                            id={short_id}.',
+                            HttpResponseCode.BAD_REQUEST.value)
 
     try:
         story = session.query(ShortStory)\
@@ -485,12 +498,13 @@ def story_delete(short_id: int) -> ResponseType:
             .first()
     except SQLAlchemyError as exp:
         app.logger.error(f'Exception in StoryDelete: {exp}.')
-        return ResponseType('StoryDelete: Tietokantavirhe.', 400)
+        return ResponseType('StoryDelete: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     if not story:
         app.logger.error(f'StoryDelete: Story not found. Id = {short_id}.')
         return ResponseType(f'StoryDelete: Novellia ei löydy. id={short_id}.',
-                            400)
+                            HttpResponseCode.BAD_REQUEST.value)
 
     in_issues = session.query(IssueContent)\
         .filter(IssueContent.shortstory_id == short_id)\
@@ -531,9 +545,10 @@ def story_delete(short_id: int) -> ResponseType:
     except SQLAlchemyError as exp:
         session.rollback()
         app.logger.error(f'Exception in story_delete commit: {exp}.')
-        return ResponseType('story_delete: Tietokantavirhe.', 400)
+        return ResponseType('story_delete: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType('OK', 200)
+    return ResponseType('OK', HttpResponseCode.OK.value)
 
 
 def story_tag_add(short_id: int, tag_id: int) -> ResponseType:
@@ -556,7 +571,8 @@ def story_tag_add(short_id: int, tag_id: int) -> ResponseType:
         if not short:
             app.logger.error(
                 f'StoryTagAdd: Short not found. Id = {short_id}.')
-            return ResponseType('Novellia ei löydy', 400)
+            return ResponseType('Novellia ei löydy',
+                                HttpResponseCode.BAD_REQUEST.value)
 
         short_tag = StoryTag()
         short_tag.shortstory_id = short_id
@@ -567,9 +583,11 @@ def story_tag_add(short_id: int, tag_id: int) -> ResponseType:
         app.logger.error(
             'Exception in ShortTagAdd(): ' + str(exp))
         return ResponseType(f'ShortTagAdd: Tietokantavirhe. \
-                            short_id={short_id}, tag_id={tag_id}.', 400)
+                            short_id={short_id}, tag_id={tag_id}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType('Asiasana lisätty novellille', 200)
+    return ResponseType('Asiasana lisätty novellille',
+                        HttpResponseCode.OK.value)
 
 
 def story_tag_remove(short_id: int, tag_id: int) -> ResponseType:
@@ -584,9 +602,8 @@ def story_tag_remove(short_id: int, tag_id: int) -> ResponseType:
         ResponseType: The response object containing the result of the
         operation.
     """
-    retval = ResponseType('', 200)
     session = new_session()
-
+    tag_name = ""
     try:
         short_tag = session.query(StoryTag)\
             .filter(StoryTag.shortstory_id == short_id,
@@ -594,20 +611,28 @@ def story_tag_remove(short_id: int, tag_id: int) -> ResponseType:
             .first()
         if not short_tag:
             app.logger.error(
-                f'ShortTagRemove: Short has no such tag: short_id {short_id}, \
-                      tag {tag_id}.'
+                'story_tag_remove: Short has no such tag: '
+                'short_id {short_id}, '
+                'tag {tag_id}.'
             )
-            return ResponseType(f'ShortTagRemove: Tagia ei löydy novellilta. \
-                                short_id={short_id}, tag_id={tag_id}.', 400)
+            return ResponseType('story_tag_remove: '
+                                'Tagia ei löydy novellilta. '
+                                f'short_id={short_id}, tag_id={tag_id}.',
+                                HttpResponseCode.BAD_REQUEST.value)
+        tag_name = short_tag.name
         session.delete(short_tag)
         session.commit()
     except SQLAlchemyError as exp:
-        app.logger.error(
-            'Exception in ShortTagRemove(): ' + str(exp))
-        return ResponseType(f'ShortTagRemove: Tietokantavirhe. \
-                            short_id={short_id}, tag_id={tag_id}.', 400)
+        app.logger.error(f'story_tag_remove():  {exp}.')
+        return ResponseType(f'story_tagremove: Tietokantavirhe. \
+                            short_id={short_id}, tag_id={tag_id}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return retval
+    short = session.query(ShortStory).filter(
+        ShortStory.id == short_id).first()
+    return ResponseType(
+        f'Asiasana {tag_name} poistettu novellilta {short.title}.',
+        HttpResponseCode.OK.value)
 
 
 def save_short_to_edition(
