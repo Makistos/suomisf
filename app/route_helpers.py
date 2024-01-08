@@ -11,7 +11,7 @@ from datetime import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, joinedload
 from sqlalchemy.pool import NullPool
-from flask_login import current_user
+from flask_login import current_user  # type: ignore
 from flask import abort, Response
 from app.orm_decl import (Contributor, Language, Person, Publisher, Work,
                           Edition, Part, Pubseries, Bookseries,
@@ -29,18 +29,30 @@ def new_session() -> Any:
     engine = create_engine(db_url, poolclass=NullPool)
     # engine = create_engine(db_url, poolclass=NullPool, echo=True)
     # app.config['SQLALCHEMY_DATABASE_URI'], poolclass=NullPool)
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    session_obj = sessionmaker(bind=engine)
+    session = session_obj()
     return session
 
 
 def admin_required(f: Any) -> Any:
+    """
+    Decorator that checks if the current user is an admin before allowing
+    access to a function.
+
+    Parameters:
+        f (Any): The function to be wrapped.
+
+    Returns:
+        Any: The wrapped function.
+
+    Raises:
+        HTTPException: If the current user is not an admin (status code 401).
+    """
     @wraps(f)
     def wrap(*args: Any, **kwargs: Any) -> Any:
         if current_user.is_admin:
             return f(*args, **kwargs)
-        else:
-            abort(401)
+        abort(401)
     return wrap
 
 
