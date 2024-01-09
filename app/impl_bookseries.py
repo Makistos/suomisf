@@ -8,6 +8,7 @@ from app.model import (BookseriesSchema, BookseriesBriefSchema)
 from app.route_helpers import new_session
 from app.impl import ResponseType, log_changes, check_int
 from app import app
+from app.types import HttpResponseCode
 
 
 def filter_bookseries(query: str) -> ResponseType:
@@ -31,16 +32,18 @@ def filter_bookseries(query: str) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error(
             f'Exception in FilterBookseries (query: {query}): ' + str(exp))
-        return ResponseType('FilterBookseries: Tietokantavirhe.', 400)
+        return ResponseType('FilterBookseries: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     try:
         schema = BookseriesBriefSchema(many=True)
         retval = schema.dump(bookseries)
     except exceptions.MarshmallowError as exp:
         app.logger.error(
             f'FilterBookseries schema error (query: {query}): ' + str(exp))
-        return ResponseType('FilterBookseries: Skeemavirhe.', 400)
+        return ResponseType('FilterBookseries: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def get_bookseries(series_id: int) -> ResponseType:
@@ -61,16 +64,19 @@ def get_bookseries(series_id: int) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error('Exception in GetBookseries: ' + str(exp))
         return ResponseType(f'GetBookseries: Tietokantavirhe. id={series_id}',
-                            400)
-
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    if bookseries is None:
+        return ResponseType(f'GetBookseries: Sarjaa ei löydy. id={series_id}',
+                            HttpResponseCode.NOT_FOUND.value)
     try:
         schema = BookseriesSchema()
         retval = schema.dump(bookseries)
     except exceptions.MarshmallowError as exp:
         app.logger.error('GetBookseries schema error: ' + str(exp))
-        return ResponseType('GetBookseries: Skeemavirhe.', 400)
+        return ResponseType('GetBookseries: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def list_bookseries() -> ResponseType:
@@ -86,16 +92,18 @@ def list_bookseries() -> ResponseType:
         bookseries = session.query(Bookseries).all()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in ListBookseries: ' + str(exp))
-        return ResponseType(f'ListBookseries: Tietokantavirhe. id={id}', 400)
+        return ResponseType(f'ListBookseries: Tietokantavirhe. id={id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         schema = BookseriesBriefSchema(many=True)
         retval = schema.dump(bookseries)
     except exceptions.MarshmallowError as exp:
         app.logger.error('ListBookseries schema error: ' + str(exp))
-        return ResponseType('ListBookseries: Skeemavirhe.', 400)
+        return ResponseType('ListBookseries: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def bookseries_create(params: Any) -> ResponseType:
@@ -117,13 +125,15 @@ def bookseries_create(params: Any) -> ResponseType:
 
     if 'name' not in data:
         app.logger.error('BookseriesCreate: Name is missing.')
-        return ResponseType('BookseriesCreate: Nimi puuttuu.', 400)
+        return ResponseType('BookseriesCreate: Nimi puuttuu.',
+                            HttpResponseCode.BAD_REQUEST.value)
 
     bs = session.query(Bookseries)\
         .filter(Bookseries.name == data['name']).first()
     if bs:
         app.logger.error('BookseriesCreate: Name already exists.')
-        return ResponseType('BookseriesCreate: Nimi on jo olemassa.', 400)
+        return ResponseType('BookseriesCreate: Nimi on jo olemassa.',
+                            HttpResponseCode.BAD_REQUEST.value)
 
     bookseries = Bookseries()
     bookseries.name = data['name']
@@ -148,11 +158,12 @@ def bookseries_create(params: Any) -> ResponseType:
     except SQLAlchemyError as exp:
         session.rollback()
         app.logger.error('Exception in BookseriesCreate: ' + str(exp))
-        return ResponseType('BookseriesCreate: Tietokantavirhe.', 400)
+        return ResponseType('BookseriesCreate: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     log_changes(session, obj=bookseries, action='Uusi')
 
-    return ResponseType(str(bookseries.id), 201)
+    return ResponseType(str(bookseries.id), HttpResponseCode.CREATED.value)
 
 
 def bookseries_update(params: Any) -> ResponseType:
@@ -173,7 +184,6 @@ def bookseries_update(params: Any) -> ResponseType:
         ValueError: If the name already exists.
         ValueError: If there is an exception during the database commit.
     """
-    retval = ResponseType('OK', 200)
     session = new_session()
     data = params['data']
     old_values = {}
@@ -183,13 +193,15 @@ def bookseries_update(params: Any) -> ResponseType:
                               zeros_allowed=False)
     if bookseries_id is None:
         app.logger.error('BookseriesUpdate: Invalid id.')
-        return ResponseType('BookseriesUpdate: Virheellinen id.', 400)
+        return ResponseType('BookseriesUpdate: Virheellinen id.',
+                            HttpResponseCode.BAD_REQUEST.value)
 
     bookseries = session.query(Bookseries)\
         .filter(Bookseries.id == bookseries_id).first()
     if not bookseries:
         app.logger.error('BookseriesUpdate: Unknown bookseries id.')
-        return ResponseType('BookseriesUpdate: Tuntematon id.', 400)
+        return ResponseType('BookseriesUpdate: Tuntematon id.',
+                            HttpResponseCode.BAD_REQUEST.value)
 
     if 'name' in data:
         if data['name'] == '':
@@ -201,7 +213,8 @@ def bookseries_update(params: Any) -> ResponseType:
             .first()
         if bs:
             app.logger.error('BookseriesCreate: Name already exists.')
-            return ResponseType('BookseriesCreate: Nimi on jo olemassa.', 400)
+            return ResponseType('BookseriesCreate: Nimi on jo olemassa.',
+                                HttpResponseCode.BAD_REQUEST.value)
         if data['name'] != bookseries.name:
             old_values['Nimi'] = bookseries.name
             bookseries.name = data['name']
@@ -224,7 +237,8 @@ def bookseries_update(params: Any) -> ResponseType:
     except SQLAlchemyError as exp:
         session.rollback()
         app.logger.error('Exception in BookseriesUpdate: ' + str(exp))
-        return ResponseType('BookseriesUpdate: Tietokantavirhe.', 400)
+        return ResponseType('BookseriesUpdate: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     log_id = log_changes(session,
                          obj=bookseries,
@@ -234,7 +248,7 @@ def bookseries_update(params: Any) -> ResponseType:
     if log_id == 0:
         app.logger.error('BookseriesUpdate: Failed to log changes.')
 
-    return retval
+    return ResponseType('OK', HttpResponseCode.OK.value)
 
 
 def bookseries_delete(series_id: str) -> ResponseType:
@@ -256,20 +270,23 @@ def bookseries_delete(series_id: str) -> ResponseType:
                               zeros_allowed=False)
     if bookseries_id is None:
         app.logger.error('BookseriesDelete: Invalid id.')
-        return ResponseType('BookseriesDelete: Virheellinen id.', 400)
+        return ResponseType('BookseriesDelete: Virheellinen id.',
+                            HttpResponseCode.BAD_REQUEST.value)
 
     bookseries = session.query(Bookseries)\
         .filter(Bookseries.id == bookseries_id).first()
     if not bookseries:
         app.logger.error('BookseriesDelete: Unknown bookseries id.')
-        return ResponseType('BookseriesDelete: Tuntematon id.', 400)
+        return ResponseType('BookseriesDelete: Tuntematon id.',
+                            HttpResponseCode.BAD_REQUEST.value)
     old_values['Nimi'] = bookseries.name
 
     works = session.query(Work)\
         .filter(Work.bookseries_id == bookseries_id).all()
     if works:
         app.logger.error('BookseriesDelete: Bookseries has works.')
-        return ResponseType('BookseriesDelete: Kirjasarjalla on teoksia.', 400)
+        return ResponseType('BookseriesDelete: Kirjasarjalla on teoksia.',
+                            HttpResponseCode.BAD_REQUEST.value)
 
     try:
         log_id = log_changes(session,
@@ -283,9 +300,10 @@ def bookseries_delete(series_id: str) -> ResponseType:
     except SQLAlchemyError as exp:
         session.rollback()
         app.logger.error('Exception in BookseriesDelete: ' + str(exp))
-        return ResponseType('BookseriesDelete: Tietokantavirhe.', 400)
+        return ResponseType('BookseriesDelete: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType('OK', 200)
+    return ResponseType('OK', HttpResponseCode.OK.value)
 
 
 def add_bookseries(name: str) -> Union[int, None]:
