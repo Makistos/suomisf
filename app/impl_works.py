@@ -29,7 +29,7 @@ from app.impl_genres import checkGenreField
 from app.impl_editions import delete_edition
 from app.impl_bookseries import add_bookseries
 from app.impl_shorts import save_short_to_work
-from app.types import ContributorTarget
+from app.types import ContributorTarget, HttpResponseCode
 
 from app import app
 
@@ -78,7 +78,8 @@ def _set_bookseries(
                 if not bs:
                     app.logger.error(f'''WorkSave: Bookseries not found. Id =
                                      {data["bookseries"]["id"]}.''')
-                    return ResponseType('Kirjasarjaa ei löydy', 400)
+                    return ResponseType('Kirjasarjaa ei löydy',
+                                        HttpResponseCode.BAD_REQUEST.value)
         work.bookseries_id = bs_id
     return None
 
@@ -108,7 +109,8 @@ def _set_description(
     except (TypeError) as exp:
         app.logger.error('WorkSave: Failed to unescape html: ' +
                          data["description"] + '.' + str(exp))
-        return ResponseType('Kuvauksen html-muotoilu epäonnistui', 400)
+        return ResponseType('Kuvauksen html-muotoilu epäonnistui',
+                            HttpResponseCode.BAD_REQUEST.value)
     if html_text != work.description:
         if old_values is not None:
             old_values['Kuvaus'] = (work.description[0:200]
@@ -142,7 +144,8 @@ def _set_work_type(
 
             if work_type_id is None:
                 app.logger.error('WorkSave: Invalid work_type id.')
-                return ResponseType('WorkSave: Virheellinen teostyyppi.', 400)
+                return ResponseType('WorkSave: Virheellinen teostyyppi.',
+                                    HttpResponseCode.BAD_REQUEST.value)
             if old_values is not None:
                 if work.work_type.id != work_type_id:
                     if work.work_type:
@@ -209,11 +212,13 @@ def get_work(work_id: int) -> ResponseType:
         work = session.query(Work).filter(Work.id == work_id).first()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in GetWork: ' + str(exp))
-        return ResponseType(f'GetWork: Tietokantavirhe. id={work_id}', 400)
+        return ResponseType(f'GetWork: Tietokantavirhe. id={work_id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     if not work:
         app.logger.error(f'GetWork: Work not found {work_id}.')
-        return ResponseType('Teosta ei löytynyt. id={id}.', 400)
+        return ResponseType('Teosta ei löytynyt. id={id}.',
+                            HttpResponseCode.NOT_FOUND.value)
     try:
         contributions: List[Any] = []
         # Remove duplicates
@@ -249,9 +254,10 @@ def get_work(work_id: int) -> ResponseType:
         retval = schema.dump(work)
     except exceptions.MarshmallowError as exp:
         app.logger.error('GetWork schema error: ' + str(exp))
-        return ResponseType('GetWork: Skeemavirhe.', 400)
+        return ResponseType('GetWork: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 # def get_works_by_author(author: int) -> ResponseType:
@@ -421,16 +427,18 @@ def search_books(params: Dict[str, str]) -> ResponseType:
             .all()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in SearchBooks: ' + str(exp))
-        return ResponseType(f'SearchBooks: Tietokantavirhe. id={id}', 400)
+        return ResponseType(f'SearchBooks: Tietokantavirhe. id={id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         schema = WorkBriefSchema(many=True)
         retval = schema.dump(works)
     except exceptions.MarshmallowError as exp:
         app.logger.error('SearchBooks schema error: ' + str(exp))
-        return ResponseType('SearchBooks: Skeemavirhe.', 400)
+        return ResponseType('SearchBooks: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def search_works_by_author(params: Dict[str, str]) -> ResponseType:
@@ -458,7 +466,7 @@ def search_works_by_author(params: Dict[str, str]) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error('Exception in SearchWorksByAuthor: ' + str(exp))
         return ResponseType(f'SearchWorksByAuthor: Tietokantavirhe. id={id}',
-                            400)
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         # schema = WorkBriefSchema(many=True)
@@ -466,9 +474,10 @@ def search_works_by_author(params: Dict[str, str]) -> ResponseType:
         retval = schema.dump(works)
     except exceptions.MarshmallowError as exp:
         app.logger.error('SearchWorksByAuthor schema error: ' + str(exp))
-        return ResponseType('SearchWorksByAuthor: Skeemavirhe.', 400)
+        return ResponseType('SearchWorksByAuthor: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def work_tag_add(work_id: int, tag_id: int) -> ResponseType:
@@ -491,7 +500,8 @@ def work_tag_add(work_id: int, tag_id: int) -> ResponseType:
         if not work:
             app.logger.error(
                 f'WorkTagAdd: Short not found. Id = {work_id}.')
-            return ResponseType('Novellia ei löydy', 400)
+            return ResponseType('Novellia ei löydy',
+                                HttpResponseCode.BAD_REQUEST.value)
 
         work_tag = WorkTag()
         work_tag.work_id = work_id
@@ -502,9 +512,10 @@ def work_tag_add(work_id: int, tag_id: int) -> ResponseType:
         app.logger.error(
             'Exception in WorkTagAdd(): ' + str(exp))
         return ResponseType(f'''WorkTagAdd: Tietokantavirhe. work_id={work_id},
-                            tag_id={tag_id}.''', 400)
+                            tag_id={tag_id}.''',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType('', 200)
+    return ResponseType('', HttpResponseCode.OK.value)
 
 
 def work_tag_remove(work_id: int, tag_id: int) -> ResponseType:
@@ -519,7 +530,6 @@ def work_tag_remove(work_id: int, tag_id: int) -> ResponseType:
         ResponseType: An instance of the ResponseType class containing the
         result of the operation.
     """
-    retval = ResponseType('', 200)
     session = new_session()
 
     try:
@@ -532,16 +542,18 @@ def work_tag_remove(work_id: int, tag_id: int) -> ResponseType:
                       tag {tag_id}.'
             )
             return ResponseType(f'WorkTagRemove: Tagia ei löydy novellilta. \
-                                work_id={work_id}, tag_id={tag_id}.', 400)
+                                work_id={work_id}, tag_id={tag_id}.',
+                                HttpResponseCode.INTERNAL_SERVER_ERROR.value)
         session.delete(work_tag)
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(
             'Exception in WorkTagRemove(): ' + str(exp))
         return ResponseType(f'WorkTagRemove: Tietokantavirhe. \
-                            work_id={work_id}, tag_id={tag_id}.', 400)
+                            work_id={work_id}, tag_id={tag_id}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return retval
+    return ResponseType('OK', HttpResponseCode.OK.value)
 
 
 def work_add(params: Any) -> ResponseType:
@@ -562,16 +574,18 @@ def work_add(params: Any) -> ResponseType:
 
     if len(data['title']) == 0:
         app.logger.error('WorkAdd: Empty title.')
-        return ResponseType('Tyhjä nimi', 400)
+        return ResponseType('Tyhjä nimi', HttpResponseCode.BAD_REQUEST.value)
 
     if 'contributions' not in data:
         app.logger.error('WorkAdd: No contributions.')
-        return ResponseType('Ei kirjoittajaa tai toimittajaa', 400)
+        return ResponseType('Ei kirjoittajaa tai toimittajaa',
+                            HttpResponseCode.BAD_REQUEST.value)
 
     if not (has_contribution_role(data['contributions'], 1) or
             has_contribution_role(data['contributions'], 3)):
         app.logger.error('WorkAdd: No author or editor.')
-        return ResponseType('Ei kirjoittajaa tai toimittajaa', 400)
+        return ResponseType('Ei kirjoittajaa tai toimittajaa',
+                            HttpResponseCode.BAD_REQUEST.value)
 
     work.title = data['title']
     work.subtitle = data['subtitle']
@@ -612,7 +626,8 @@ def work_add(params: Any) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error('Exception in WorkAdd: ' + str(exp))
         return ResponseType(f'WorkAdd: Tietokantavirhe teoksessa. \
-                             work_id={work.id}', 400)
+                             work_id={work.id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     # Add first edition (requires work id)
     new_edition = create_first_edition(work)
@@ -622,7 +637,8 @@ def work_add(params: Any) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error('Exception in WorkAdd: ' + str(exp))
         return ResponseType(f'WorkAdd: Tietokantavirhe painoksessa. \
-                            work_id={work.id}', 400)
+                            work_id={work.id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     # Add part to tie work and edition together (requires work id and edition
     # id)
@@ -633,7 +649,8 @@ def work_add(params: Any) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error('Exception in WorkAdd: ' + str(exp))
         return ResponseType(f'WorkAdd: Tietokantavirhe Part-taulussa. \
-                            work_id={work.id}', 400)
+                            work_id={work.id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     # Add contributors (requires part id)
     update_work_contributors(session, work.id, data['contributions'])
@@ -651,7 +668,8 @@ def work_add(params: Any) -> ResponseType:
         for link in data['links']:
             if 'link' not in link:
                 app.logger.error('WorkAdd: Link missing link.')
-                return ResponseType('Linkin tiedot puutteelliset', 500)
+                return ResponseType('Linkin tiedot puutteelliset',
+                                    HttpResponseCode.BAD_REQUEST.value)
             if link['link'] != '' and link['link'] is not None:
                 # Description is not a required field
                 if 'description' in link:
@@ -669,7 +687,9 @@ def work_add(params: Any) -> ResponseType:
             is_ok = checkGenreField(session, genre)
             if not is_ok:
                 app.logger.error('WorkAdd: Genre missing id.')
-                return ResponseType('Genren tiedot puutteelliset', 400)
+                return ResponseType(
+                    'Genren tiedot puutteelliset',
+                    HttpResponseCode.INTERNAL_SERVER_ERROR.value)
             new_genre = WorkGenre(work_id=work.id, genre_id=genre['id'])
             session.add(new_genre)
 
@@ -678,7 +698,8 @@ def work_add(params: Any) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error('Exception in WorkAdd: ' + str(exp))
         return ResponseType(f'WorkAdd: Tietokantavirhe asiasanoissa, linkeissä\
-                            tai genreissä. work_id={work.id}', 400)
+                            tai genreissä. work_id={work.id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     # Update author string
     try:
@@ -688,11 +709,12 @@ def work_add(params: Any) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error('Exception in WorkAdd: ' + str(exp))
         return ResponseType(f'WorkAdd: Tietokantavirhe tekijänimissä. \
-                            work_id={work.id}', 400)
+                            work_id={work.id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     log_changes(session, obj=work, action='Uusi')
     session.commit()
-    return ResponseType(str(work.id), 201)
+    return ResponseType(str(work.id), HttpResponseCode.CREATED.value)
 
 
 # This is a simple function, splitting it to fit standards would make no sense.
@@ -709,7 +731,7 @@ def work_update(
     - ResponseType: The response type object indicating the status of the
     update.
     """
-    retval = ResponseType('OK', 200)
+    retval = ResponseType('OK', HttpResponseCode.OK.value)
     session = new_session()
     old_values = {}
     work: Any = None
@@ -719,13 +741,15 @@ def work_update(
     work = session.query(Work).filter(Work.id == work_id).first()
     if not work:
         app.logger.error(f'WorkSave: Work not found. Id = {work_id}.')
-        return ResponseType('Teosta ei löydy', 400)
+        return ResponseType('Teosta ei löydy',
+                            HttpResponseCode.NOT_FOUND.value)
 
     if 'title' in data:
         if data['title'] != work.title:
             if len(data['title']) == 0:
                 app.logger.error(f'WorkSave: Empty title. Id = {work_id}.')
-                return ResponseType('Tyhjä nimi', 400)
+                return ResponseType('Tyhjä nimi',
+                                    HttpResponseCode.BAD_REQUEST.value)
             old_values['Nimeke'] = work.title
             work.title = data['title']
 
@@ -874,14 +898,16 @@ def work_update(
     except SQLAlchemyError as exp:
         session.rollback()
         app.logger.error('Exception in WorkSave(): ' + str(exp))
-        return ResponseType(f'WorkSave: Tietokantavirhe. id={work.id}', 400)
+        return ResponseType(f'WorkSave: Tietokantavirhe. id={work.id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()
         app.logger.error('Exception in WorkSave() commit: ' + str(exp))
-        return ResponseType(f'WorkSave: Tietokantavirhe. id={work.id}', 400)
+        return ResponseType(f'WorkSave: Tietokantavirhe. id={work.id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     work.update_author_str()
 
@@ -902,16 +928,18 @@ def worktype_get_all() -> ResponseType:
         worktypes = session.query(WorkType).order_by(WorkType.id).all()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in WorkTypeGetAll(): ' + str(exp))
-        return ResponseType('WorkTypeGetAll: Tietokantavirhe', 400)
+        return ResponseType('WorkTypeGetAll: Tietokantavirhe',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         schema = WorkTypeBriefSchema(many=True)
         retval = schema.dump(worktypes)
     except exceptions.MarshmallowError as exp:
         app.logger.error('Exception in WorkTypeGetAll(): ' + str(exp))
-        return ResponseType('WorkTypeGetAll: Serialisointivirhe', 400)
+        return ResponseType('WorkTypeGetAll: Serialisointivirhe',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def work_delete(work_id: int) -> ResponseType:
@@ -939,11 +967,13 @@ def work_delete(work_id: int) -> ResponseType:
         work = session.query(Work).filter(Work.id == work_id).first()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in WorkDelete(): ' + str(exp))
-        return ResponseType('WorkDelete: Tietokantavirhe', 400)
+        return ResponseType('WorkDelete: Tietokantavirhe',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     if work is None:
         app.logger.error('Exception in WorkDelete(): Work not found.')
-        return ResponseType('WorkDelete: Teosta ei löydy', 404)
+        return ResponseType('WorkDelete: Teosta ei löydy',
+                            HttpResponseCode.NOT_FOUND.value)
 
     # Delete everything related to the work
     try:
@@ -954,12 +984,14 @@ def work_delete(work_id: int) -> ResponseType:
             .all()
     except SQLAlchemyError as exp:
         app.logger.error(f'Exception in WorkDelete() deleting editions: {exp}')
-        return ResponseType('WorkDelete: Tietokantavirhe', 400)
+        return ResponseType('WorkDelete: Tietokantavirhe',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     for edition in editions:
         success = delete_edition(session, edition.id)
         if not success:
             session.rollback()
-            return ResponseType('WorkDelete: Tietokantavirhe', 400)
+            return ResponseType('WorkDelete: Tietokantavirhe',
+                                HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         old_values['Nimi'] = work.title
@@ -971,16 +1003,19 @@ def work_delete(work_id: int) -> ResponseType:
     except SQLAlchemyError as exp:
         session.rollback()
         app.logger.error(f'Exception in WorkDelete() deleting work: {exp}')
-        return ResponseType('WorkDelete: Tietokantavirhe', 400)
+        return ResponseType('WorkDelete: Tietokantavirhe',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()
         app.logger.error(f'Exception in WorkDelete() commit: {exp}')
-        return ResponseType('WorkDelete: Tietokantavirhe', 400)
+        return ResponseType('WorkDelete: Tietokantavirhe',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType('WorkDelete: Teos poistettu', 200)
+    return ResponseType('WorkDelete: Teos poistettu',
+                        HttpResponseCode.OK.value)
 
 
 def get_work_shorts(work_id: int) -> ResponseType:
@@ -1003,10 +1038,11 @@ def get_work_shorts(work_id: int) -> ResponseType:
             .all()
     except SQLAlchemyError as exp:
         app.logger.error(f'Exception in WorkShorts(): {str(exp)}')
-        return ResponseType('WorkShorts: Tietokantavirhe', 400)
+        return ResponseType('WorkShorts: Tietokantavirhe',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     schema = ShortBriefSchema(many=True)
     retval = schema.dump(shorts)
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def save_work_shorts(params: Any) -> ResponseType:
@@ -1063,7 +1099,8 @@ def save_work_shorts(params: Any) -> ResponseType:
             .all()
     except SQLAlchemyError as exp:
         app.logger.error(f'save_work_shorts(): {(work_id)} {str(exp)}')
-        return ResponseType(f'Tietokantavirhe: {exp}', 400)
+        return ResponseType(f'Tietokantavirhe: {exp}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     # Store contributors for existing stories, this is needed in case a story
     # is removed from work and there are no other works or magazines it appears
@@ -1077,7 +1114,8 @@ def save_work_shorts(params: Any) -> ResponseType:
                 .all()
         except SQLAlchemyError as exp:
             app.logger.error(f'save_work_shorts(): ({work_id}) {str(exp)}')
-            return ResponseType(f'Tietokantavirhe: {exp}', 400)
+            return ResponseType(f'Tietokantavirhe: {exp}',
+                                HttpResponseCode.INTERNAL_SERVER_ERROR.value)
         old_contributors[story.id] = []
         for contrib in contribs:
             found = False
@@ -1105,7 +1143,8 @@ def save_work_shorts(params: Any) -> ResponseType:
                 .all()
         except SQLAlchemyError as exp:
             app.logger.error(f'save_work_shorts(): ({work_id}) {str(exp)}')
-            return ResponseType(f'Tietokantavirhe: {exp}', 400)
+            return ResponseType(f'Tietokantavirhe: {exp}',
+                                HttpResponseCode.INTERNAL_SERVER_ERROR.value)
         if contribs:
             for contrib in contribs:
                 if short not in new_contributors:
@@ -1144,7 +1183,8 @@ def save_work_shorts(params: Any) -> ResponseType:
             app.logger.error(
                 'save_work_shorts(): '
                 f'Failed to save short {short} to work {work_id}.')
-            return ResponseType('Tietojen tallentaminen ei onnistunut', 400)
+            return ResponseType('Tietojen tallentaminen ei onnistunut',
+                                HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     # Save contributors to new entries
     try:
@@ -1171,7 +1211,8 @@ def save_work_shorts(params: Any) -> ResponseType:
             'save_work_shorts(): '
             f'Failed to save contributors for work {work_id}: {exp}.')
         return ResponseType(
-            f'Tekijätietoja ei saatu tallennettua: {exp}', 400)
+            f'Tekijätietoja ei saatu tallennettua: {exp}',
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     session.commit()
 
@@ -1196,7 +1237,8 @@ def save_work_shorts(params: Any) -> ResponseType:
             'Failed to save contributors for stories for work '
             f'{work_id}: {exp} .')
         return ResponseType(
-            f'Tekijätietoja ei saatu tallennettua: {exp}', 400)
+            f'Tekijätietoja ei saatu tallennettua: {exp}',
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     session.commit()
 
@@ -1218,11 +1260,12 @@ def save_work_shorts(params: Any) -> ResponseType:
             'save_work_shorts(): '
             f'Failed to save contributors for stories {work_id}: {exp} .')
         return ResponseType(
-            f'Tekijätietoja ei saatu tallennettua: {exp}', 400)
+            f'Tekijätietoja ei saatu tallennettua: {exp}',
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     session.commit()
 
-    return ResponseType('OK', 200)
+    return ResponseType('OK', HttpResponseCode.OK.value)
 
 
 def get_latest_works(count: int) -> ResponseType:
@@ -1245,6 +1288,7 @@ def get_latest_works(count: int) -> ResponseType:
         retval = schema.dump(works)
     except exceptions.MarshmallowError as exp:
         app.logger.error(f'Exception in get_latest_works(): {exp}')
-        return ResponseType('get_latest_works: Skeemavirhe', 400)
+        return ResponseType('get_latest_works: Skeemavirhe',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
