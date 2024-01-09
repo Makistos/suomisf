@@ -213,16 +213,18 @@ def search_shorts(params: Dict[str, str]) -> ResponseType:
             .all()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in SearchShorts: ' + str(exp))
-        return ResponseType(f'SearchShorts: Tietokantavirhe. id={id}', 400)
+        return ResponseType(f'SearchShorts: Tietokantavirhe. id={id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         schema = ShortSchemaForSearch(many=True)
         retval = schema.dump(shorts)
     except exceptions.MarshmallowError as exp:
         app.logger.error('SearchShorts schema error: ' + str(exp))
-        return ResponseType('SearchShorts: Skeemavirhe.', 400)
+        return ResponseType('SearchShorts: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def story_add(data: Any) -> ResponseType:
@@ -245,7 +247,8 @@ def story_add(data: Any) -> ResponseType:
     if ('title' not in data or len(data['title']) == 0
             or data['title'] is None):
         app.logger.error('story_add: Title is empty.')
-        return ResponseType('Otsikko ei voi olla tyhjä.', 400)
+        return ResponseType('Otsikko ei voi olla tyhjä.',
+                            HttpResponseCode.BAD_REQUEST.value)
     story.title = data['title']
 
     if 'orig_name' in data:
@@ -258,7 +261,8 @@ def story_add(data: Any) -> ResponseType:
             app.logger.error(
                 f'StoryUpdate exception. Not a type: {data["type"]}.')
             return ResponseType(
-                f'Virheellinen tyyppi {data["type"]}.', 400)
+                f'Virheellinen tyyppi {data["type"]}.',
+                HttpResponseCode.BAD_REQUEST.value)
         typ = data["type"]['id']
     story.story_type = typ
 
@@ -276,11 +280,13 @@ def story_add(data: Any) -> ResponseType:
     except SQLAlchemyError as exp:
         session.rollback()
         app.logger.error(f'Exception in story_add(): {exp}.')
-        return ResponseType(f'Tietokantavirhe: {exp}.', 400)
+        return ResponseType(f'Tietokantavirhe: {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     if 'contributors' not in data:
         app.logger.error('story_add: No contributors.')
-        return ResponseType('Tekijä puuttuu.', 400)
+        return ResponseType('Tekijä puuttuu.',
+                            HttpResponseCode.BAD_REQUEST.value)
 
     # Add new part (required for contributors)
     part = Part(shortstory_id=story.id)
@@ -290,7 +296,8 @@ def story_add(data: Any) -> ResponseType:
     except SQLAlchemyError as exp:
         session.rollback()
         app.logger.error(f'Exception in story_add(): {exp}.')
-        return ResponseType(f'Tietokantavirhe: {exp}.', 400)
+        return ResponseType(f'Tietokantavirhe: {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     # Add contributors
     update_short_contributors(session, story.id, data['contributors'])
@@ -310,10 +317,11 @@ def story_add(data: Any) -> ResponseType:
     except SQLAlchemyError as exp:
         session.rollback()
         app.logger.error(f'Exception in story_add(): {exp}.')
-        return ResponseType(f'Tietokantavirhe: {exp}.', 400)
+        return ResponseType(f'Tietokantavirhe: {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     app.logger.error(f'story: {story.id}')
-    return ResponseType(str(story.id), 201)
+    return ResponseType(str(story.id), HttpResponseCode.CREATED.value)
 
 
 def story_updated(params: Any) -> ResponseType:
@@ -713,13 +721,15 @@ def get_latest_shorts(count: int) -> ResponseType:
             .all()
     except SQLAlchemyError as exp:
         app.logger.error(f'Exception in get_latest_shorts(): {str(exp)}')
-        return ResponseType('Tietokantavirhe', 400)
+        return ResponseType('Tietokantavirhe',
+                            status=HttpResponseCode.INTERNAL_SERVER_ERROR)
 
     try:
         schema = ShortBriefSchema(many=True)
         retval = schema.dump(shorts)
     except exceptions.MarshmallowError as exp:
         app.logger.error(f'Exception in get_latest_shorts(): {str(exp)}')
-        return ResponseType('get_latest_shorts: Tietokantavirhe', 400)
+        return ResponseType('get_latest_shorts: Tietokantavirhe',
+                            status=HttpResponseCode.INTERNAL_SERVER_ERROR)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, status=HttpResponseCode.OK.value)
