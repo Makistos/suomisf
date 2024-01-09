@@ -152,16 +152,18 @@ def filter_people(query: str) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error(
             f'Exception in FilterPeople (query: {query}): ' + str(exp))
-        return ResponseType('FilterPeople: Tietokantavirhe.', 400)
+        return ResponseType('FilterPeople: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     try:
         schema = PersonBriefSchema(many=True)
         retval = schema.dump(people)
     except exceptions.MarshmallowError as exp:
         app.logger.error(
             f'FilterPeople schema error (query: {query}): ' + str(exp))
-        return ResponseType('FilterPeople: Skeemavirhe.', 400)
+        return ResponseType('FilterPeople: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def filter_aliases(person_id: int) -> ResponseType:
@@ -187,7 +189,8 @@ def filter_aliases(person_id: int) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error(
             f'Exception in FilterAliases (åerson_id {person_id}): ' + str(exp))
-        return ResponseType('FilterAliases: Tietokantavirhe.', 400)
+        return ResponseType('FilterAliases: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     # aliases = session.query(Alias).filter(Alias.realname == personid).all()
     # ids = [x.alias for x in aliases]
@@ -204,7 +207,7 @@ def filter_aliases(person_id: int) -> ResponseType:
     # return Response(json.dumps(retval))
     schema = PersonBriefSchema(many=True)
     retval = schema.dump(aliases)
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def get_author_first_letters(target: str) -> Tuple[str, int]:
@@ -212,7 +215,7 @@ def get_author_first_letters(target: str) -> Tuple[str, int]:
     Finds all the letters that have any authors starting with it.
 
     """
-    retval = ('', 200)
+    retval = ('', HttpResponseCode.OK.value)
     session = new_session()
 
     if target == 'works':
@@ -228,12 +231,12 @@ def get_author_first_letters(target: str) -> Tuple[str, int]:
                 set([s[0][0].upper()
                      for s in names
                      if s[0] is not None and s[0][0].isalpha()])))
-        retval = json.dumps(Counter(letters)), 200
+        retval = json.dumps(Counter(letters)), HttpResponseCode.OK.value
 
     elif target == 'stories':
         letters = session.query(Person)
     else:
-        retval = ('', 400)
+        retval = ('', HttpResponseCode.BAD_REQUEST.value)
 
     return retval
 
@@ -264,7 +267,8 @@ def list_people(params: Dict[str, Any]) -> ResponseType:
         for field, filters in params.items():
             if isinstance(filters, dict):
                 if field not in _allowed_person_fields:
-                    raise APIError(f'Invalid filter field {field}', 405)
+                    raise APIError(f'Invalid filter field {field}',
+                                   HttpResponseCode.METHOD_NOT_ALLOWED.value)
                 if filters['value']:
                     if field == 'nationality':
                         people = _filter_person_query(
@@ -295,7 +299,8 @@ def list_people(params: Dict[str, Any]) -> ResponseType:
                     .order_by(func.count(Work.id))
     except SQLAlchemyError as exp:
         app.logger.error('Exception in ListPeople: ' + str(exp))
-        return ResponseType('ListPeople: Tietokantavirhe.', 400)
+        return ResponseType('ListPeople: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     # Pagination
     if 'rows' in params:
@@ -315,10 +320,11 @@ def list_people(params: Dict[str, Any]) -> ResponseType:
         d['people'] = schema.dump(people)
     except exceptions.MarshmallowError as exp:
         app.logger.error('ListPeople schema error: ' + str(exp))
-        return ResponseType('ListPeople: Skeemavirhe.', 400)
+        return ResponseType('ListPeople: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     d['totalRecords'] = count
-    return ResponseType(d, 200)
+    return ResponseType(d, HttpResponseCode.OK.value)
 
 
 def get_person(person_id: int) -> ResponseType:
@@ -420,9 +426,10 @@ def person_add(params: Any) -> ResponseType:
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in person_add: ' + str(exp))
-        return ResponseType('Tietokantavirhe.', 400)
+        return ResponseType('Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(str(person.id), 201)
+    return ResponseType(str(person.id), HttpResponseCode.CREATED.value)
 
 
 def person_update(params: Any) -> ResponseType:
@@ -459,7 +466,7 @@ def person_update(params: Any) -> ResponseType:
         ResponseType: The response indicating the result of the update
                       operation.
     """
-    retval = ResponseType('OK', 200)
+    retval = ResponseType('OK', HttpResponseCode.OK.value)
     session = new_session()
     old_values: Dict[str, Any] = {}
     data = params['data']
@@ -469,7 +476,8 @@ def person_update(params: Any) -> ResponseType:
                           negative_values=False)
     if person_id is None:
         app.logger.error('PersonUpdate: Invalid id.')
-        return ResponseType('PersonUpdate: Virheellinen id.', 400)
+        return ResponseType('PersonUpdate: Virheellinen id.',
+                            HttpResponseCode.BAD_REQUEST.value)
 
     # Check that person exists
     person = session.query(Person).filter(
@@ -478,16 +486,18 @@ def person_update(params: Any) -> ResponseType:
         app.logger.error(
             f'PersonUpdate: Person not found. Id = {person_id}.')
         return ResponseType(f'PersonUpdate: Henkilöä ei löydy. \
-                            person_id={person_id}.', 400)
+                            person_id={person_id}.',
+                            HttpResponseCode.BAD_REQUEST.value)
 
     # Check that name is not empty
     if 'name' not in data:
         app.logger.error('PersonUpdate: Name is missing.')
-        return ResponseType('PersonUpdate: Nimi puuttuu.', 400)
+        return ResponseType('PersonUpdate: Nimi puuttuu.',
+                            HttpResponseCode.BAD_REQUEST.value)
     if data['name'] == '':
         app.logger.error('PersonUpdate: Name is empty.')
         return ResponseType('PersonUpdate: Nimi ei voi olla tyhjä puuttuu.',
-                            400)
+                            HttpResponseCode.BAD_REQUEST.value)
 
     name = data['name']
     if data['name'] != person.name:
@@ -574,7 +584,8 @@ def person_update(params: Any) -> ResponseType:
                 if 'link' not in link:
                     app.logger.error('PersonUpdate: Link missing address.')
                     return ResponseType('PersonUpdate: Linkin tiedot \
-                                         puutteelliset.', 400)
+                                         puutteelliset.',
+                                        HttpResponseCode.BAD_REQUEST.value)
                 # person_id can't be None here even though Mypy thinks so
                 pl = PersonLink(
                     person_id=person_id, link=link['link'],  # type: ignore
@@ -594,7 +605,8 @@ def person_update(params: Any) -> ResponseType:
         session.rollback()
         app.logger.error(
             'Exception in PersonUpdate(): ' + str(exp))
-        return ResponseType('PersonUpdate: Tietokantavirhe.', 400)
+        return ResponseType('PersonUpdate: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     log_id = log_changes(session,
                          obj=person,
@@ -626,45 +638,52 @@ def person_delete(person_id: int) -> ResponseType:
         Person.id == person_id).first()
     if not person:
         return ResponseType(f'PersonDelete: Henkilöä ei löydy. \
-                            person_id={person_id}.', 400)
+                            person_id={person_id}.',
+                            HttpResponseCode.BAD_REQUEST.value)
 
     # Check that there are no items that reference this person
     contributions = session.query(Contributor).filter(
         Contributor.person_id == person_id).all()
     if len(contributions) > 0:
         return ResponseType('PersonDelete: Henkilöä ei voi poistaa, koska \
-                            hänellä on rooleja.', 400)
+                            hänellä on rooleja.',
+                            HttpResponseCode.BAD_REQUEST.value)
 
     aliases = session.query(Alias).filter(
         or_(Alias.alias == person_id, Alias.realname == person_id)).all()
 
     if len(aliases) > 0:
         return ResponseType('PersonDelete: Henkilöä ei voi poistaa, koska \
-                            hänellä on aliaksia.', 400)
+                            hänellä on aliaksia.',
+                            HttpResponseCode.BAD_REQUEST.value)
 
     issueeditor = session.query(IssueEditor).filter(
         IssueEditor.person_id == person_id).all()
     if len(issueeditor) > 0:
         return ResponseType('PersonDelete: Henkilöä ei voi poistaa, koska \
-                            hänellä on toimittajuuksia.', 400)
+                            hänellä on toimittajuuksia.',
+                            HttpResponseCode.BAD_REQUEST.value)
 
     articleperson = session.query(ArticlePerson).filter(
         ArticlePerson.person_id == person_id).all()
     if len(articleperson) > 0:
         return ResponseType('PersonDelete: Henkilöä ei voi poistaa, koska \
-                            hänestä on artikkeleita.', 400)
+                            hänestä on artikkeleita.',
+                            HttpResponseCode.BAD_REQUEST.value)
 
     articleauthor = session.query(ArticleAuthor).filter(
         ArticleAuthor.person_id == person_id).all()
     if len(articleauthor) > 0:
         return ResponseType('PersonDelete: Henkilöä ei voi poistaa, koska \
-                            hänestä on artikkeleita.', 400)
+                            hänestä on artikkeleita.',
+                            HttpResponseCode.BAD_REQUEST.value)
 
     awarded = session.query(Awarded).filter(
         Awarded.person_id == person_id).all()
     if len(awarded) > 0:
         return ResponseType('PersonDelete: Henkilöä ei voi poistaa, koska \
-                            hänelle on annettu palkintoja.', 400)
+                            hänelle on annettu palkintoja.',
+                            HttpResponseCode.BAD_REQUEST.value)
 
     # Delete person
     personlink = session.query(PersonLink).filter(
@@ -676,7 +695,8 @@ def person_delete(person_id: int) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error(
             'Exception in PersonDelete(): ' + str(exp))
-        return ResponseType('PersonDelete: Tietokantavirhe.', 400)
+        return ResponseType('PersonDelete: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     persontags = session.query(PersonTag).filter(
         PersonTag.person_id == person_id).all()
@@ -687,7 +707,8 @@ def person_delete(person_id: int) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error(
             'Exception in PersonDelete(): ' + str(exp))
-        return ResponseType('PersonDelete: Tietokantavirhe.', 400)
+        return ResponseType('PersonDelete: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     personlanguage = session.query(PersonLanguage).filter(
         PersonLanguage.person_id == person_id).all()
@@ -698,7 +719,8 @@ def person_delete(person_id: int) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error(
             'Exception in PersonDelete(): ' + str(exp))
-        return ResponseType('PersonDelete: Tietokantavirhe.', 400)
+        return ResponseType('PersonDelete: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         old_values['Nimi'] = person.name
@@ -711,9 +733,10 @@ def person_delete(person_id: int) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error(
             'Exception in PersonDelete(): ' + str(exp))
-        return ResponseType('PersonDelete: Tietokantavirhe.', 400)
+        return ResponseType('PersonDelete: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType('OK', 200)
+    return ResponseType('OK', HttpResponseCode.OK.value)
 
 
 def person_tag_add(person_id: int, tag_id: int) -> ResponseType:
@@ -727,7 +750,6 @@ def person_tag_add(person_id: int, tag_id: int) -> ResponseType:
     Returns:
         ResponseType: An object containing the response data and status code.
     """
-    retval = ResponseType('', 200)
     session = new_session()
 
     try:
@@ -737,7 +759,8 @@ def person_tag_add(person_id: int, tag_id: int) -> ResponseType:
             app.logger.error(
                 f'PersonTagAdd: Person not found. Id = {person_id}.')
             return ResponseType(f'PersonTagAdd: Henkilöä ei löydy. \
-                                person_id={person_id}, tag_id={tag_id}.', 400)
+                                person_id={person_id}, tag_id={tag_id}.',
+                                HttpResponseCode.BAD_REQUEST.value)
 
         person_tag = PersonTag()
         person_tag.person_id = person_id
@@ -748,9 +771,10 @@ def person_tag_add(person_id: int, tag_id: int) -> ResponseType:
         app.logger.error(
             'Exception in PersonTagAdd(): ' + str(exp))
         return ResponseType(f'PersonTagAdd: Tietokantavirhe. \
-                            person_id={person_id}, tag_id={tag_id}.', 400)
+                            person_id={person_id}, tag_id={tag_id}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return retval
+    return ResponseType('OK', HttpResponseCode.OK.value)
 
 
 def person_tag_remove(person_id: int, tag_id: int) -> ResponseType:
@@ -765,7 +789,6 @@ def person_tag_remove(person_id: int, tag_id: int) -> ResponseType:
         ResponseType: The response object containing the result of the
                       operation.
     """
-    retval = ResponseType('', 200)
     session = new_session()
 
     try:
@@ -779,16 +802,18 @@ def person_tag_remove(person_id: int, tag_id: int) -> ResponseType:
                 issue_id {person_id}, tag {tag_id}.'
             )
             return ResponseType(f'PersonTagRemove: Tagia ei löydy numerolta. \
-                                person_id={person_id}, tag_id={tag_id}.', 400)
+                                person_id={person_id}, tag_id={tag_id}.',
+                                HttpResponseCode.BAD_REQUEST.value)
         session.delete(person_tag)
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(
             'Exception in PersonTagRemove(): ' + str(exp))
         return ResponseType(f'PersonTagRemove: Tietokantavirhe. \
-                            person_id={person_id}, tag_id={tag_id}.', 400)
+                            person_id={person_id}, tag_id={tag_id}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return retval
+    return ResponseType('OK', HttpResponseCode.OK.value)
 
 
 def search_people(session: Any, searchwords: List[str]) -> SearchResult:
@@ -891,14 +916,16 @@ def person_shorts(person_id: int) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error(
             'Exception in PersonShorts(): ' + str(exp))
-        return ResponseType('PersonShorts: Tietokantavirhe.', 400)
+        return ResponseType('PersonShorts: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     try:
         schema = ShortBriefestSchema(many=True)
         retval = schema.dump(shorts)
     except exceptions.MarshmallowError as exp:
         app.logger.error('PersonShorts schema error: ' + str(exp))
-        return ResponseType('PersonShorts: Skeemavirhe.', 400)
-    return ResponseType(retval, 200)
+        return ResponseType('PersonShorts: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def get_latest_people(count: int) -> ResponseType:
@@ -922,12 +949,14 @@ def get_latest_people(count: int) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error(
             'Exception in get_latest_people(): ' + str(exp))
-        return ResponseType('get_latest_people: Tietokantavirhe.', 400)
+        return ResponseType('get_latest_people: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     try:
         schema = PersonBriefSchema(many=True)
         retval = schema.dump(people)
     except exceptions.MarshmallowError as exp:
         app.logger.error('get_latest_people schema error: ' + str(exp))
-        return ResponseType('get_latest_people: Skeemavirhe.', 400)
+        return ResponseType('get_latest_people: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
