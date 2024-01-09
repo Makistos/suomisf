@@ -7,6 +7,7 @@ from app.orm_decl import Pubseries
 from app.model import (PubseriesSchema, PubseriesBriefSchema)
 from app.impl import ResponseType
 from app import app
+from app.types import HttpResponseCode
 
 
 def filter_pubseries(query: str) -> ResponseType:
@@ -36,16 +37,18 @@ def filter_pubseries(query: str) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error(
             f'Exception in FilterPubseries (query: {query}): ' + str(exp))
-        return ResponseType('FilterPubseries: Tietokantavirhe.', 400)
+        return ResponseType('FilterPubseries: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     try:
         schema = PubseriesBriefSchema(many=True)
         retval = schema.dump(pubseries)
     except exceptions.MarshmallowError as exp:
         app.logger.error(
             f'FilterPubseries schema error (query: {query}): ' + str(exp))
-        return ResponseType('FilterPubseries: Skeemavirhe.', 400)
+        return ResponseType('FilterPubseries: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def get_pubseries(series_id: int) -> ResponseType:
@@ -66,18 +69,21 @@ def get_pubseries(series_id: int) -> ResponseType:
         pubseries = session.query(Pubseries).filter(
             Pubseries.id == series_id).first()
     except SQLAlchemyError as exp:
-        app.logger.error('Exception in GetPubseries: ' + str(exp))
-        return ResponseType(f'GetPubseries: Tietokantavirhe. id={series_id}',
-                            400)
-
+        app.logger.error('Exception in get_pubseries: ' + str(exp))
+        return ResponseType(f'get_pubseries: Tietokantavirhe. id={series_id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    if pubseries is None:
+        return ResponseType(f'get_pubseries: Sarjaa ei löydy. id={series_id}',
+                            HttpResponseCode.NOT_FOUND.value)
     try:
         schema = PubseriesSchema()
         retval = schema.dump(pubseries)
     except exceptions.MarshmallowError as exp:
-        app.logger.error('GetPubseries schema error: ' + str(exp))
-        return ResponseType('GetPubseries: Skeemavirhe.', 400)
+        app.logger.error('get_pubseries schema error: ' + str(exp))
+        return ResponseType('get_pubseries: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def list_pubseries() -> ResponseType:
@@ -94,16 +100,18 @@ def list_pubseries() -> ResponseType:
         pubseries = session.query(Pubseries).all()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in ListPubseries: ' + str(exp))
-        return ResponseType('ListPubseries: Tietokantavirhe.', 400)
+        return ResponseType('ListPubseries: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         schema = PubseriesBriefSchema(many=True)
         retval = schema.dump(pubseries)
     except exceptions.MarshmallowError as exp:
         app.logger.error('ListPubseries schema error: ' + str(exp))
-        return ResponseType('ListPubseries: Skeemavirhe.', 400)
+        return ResponseType('ListPubseries: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def add_pubseries(name: str, publisher_id: int) -> Union[int, None]:
