@@ -7,6 +7,7 @@ from app.orm_decl import (Issue, IssueTag, Tag)
 from app.model import IssueSchema, TagSchema
 
 from app import app
+from app.types import HttpResponseCode
 
 
 def get_issue(issue_id: int) -> ResponseType:
@@ -32,17 +33,19 @@ def get_issue(issue_id: int) -> ResponseType:
             .filter(Issue.id == issue_id)\
             .first()
     except SQLAlchemyError as exp:
-        app.logger.error('Exception in GetIssue: ' + str(exp))
-        return ResponseType(f'GetIssue: Tietokantavirhe. id={issue_id}', 400)
+        app.logger.error('get_issue: ' + str(exp))
+        return ResponseType(f'get_issue: Tietokantavirhe. id={issue_id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         schema = IssueSchema()
         retval = schema.dump(issue)
     except exceptions.MarshmallowError as exp:
-        app.logger.error('GetBookseries schema error: ' + str(exp))
-        return ResponseType('GetBookseries: Skeemavirhe.', 400)
+        app.logger.error('get_issue schema error: ' + str(exp))
+        return ResponseType('get_issue: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def get_issue_tags(issue_id: int) -> ResponseType:
@@ -64,17 +67,18 @@ def get_issue_tags(issue_id: int) -> ResponseType:
             .filter(IssueTag.tag_id == Tag.id)\
             .all()
     except SQLAlchemyError as exp:
-        app.logger.error(f'Exception in get_issue_tags: {exp}')
+        app.logger.error(f'get_issue_tags: {exp}')
         return ResponseType(f'get_issue_tags: Tietokantavirhe. id={issue_id}',
-                            400)
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     try:
         schema = TagSchema(many=True)
         retval = schema.dump(tags)
     except exceptions.MarshmallowError as exp:
         app.logger.error(f'get_issue_tags schema error: {exp}')
-        return ResponseType('get_issue_tags: Skeemavirhe.', 400)
+        return ResponseType('get_issue_tags: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def issue_tag_add(issue_id: int, tag_id: int) -> ResponseType:
@@ -89,7 +93,6 @@ def issue_tag_add(issue_id: int, tag_id: int) -> ResponseType:
         ResponseType: The response object containing the result of the
                       operation.
     """
-    retval = ResponseType('', 200)
     session = new_session()
 
     try:
@@ -97,8 +100,9 @@ def issue_tag_add(issue_id: int, tag_id: int) -> ResponseType:
             Issue.id == issue_id).first()
         if not short:
             app.logger.error(
-                f'IssueTagAdd: Issue not found. Id = {issue_id}.')
-            return ResponseType('Numeroa ei löydy', 400)
+                f'issue_tag_add: Issue not found. Id = {issue_id}.')
+            return ResponseType('Numeroa ei löydy',
+                                HttpResponseCode.BAD_REQUEST.value)
 
         issue_tag = IssueTag()
         issue_tag.issue_id = issue_id
@@ -107,11 +111,12 @@ def issue_tag_add(issue_id: int, tag_id: int) -> ResponseType:
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(
-            'Exception in IssueTagAdd(): ' + str(exp))
-        return ResponseType(f'IssueTagAdd: Tietokantavirhe. \
-                            issue_id={issue_id}, tag_id={tag_id}.', 400)
+            f'issue_tag_add() ({issue_id}, {tag_id}): {exp}')
+        return ResponseType('issue_tag_add: Tietokantavirhe. '
+                            f'issue_id={issue_id}, tag_id={tag_id}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return retval
+    return ResponseType('', HttpResponseCode.OK.value)
 
 
 def issue_tag_remove(issue_id: int, tag_id: int) -> ResponseType:
@@ -129,7 +134,6 @@ def issue_tag_remove(issue_id: int, tag_id: int) -> ResponseType:
         SQLAlchemyError: If there is an error with the SQLAlchemy operation.
 
     """
-    retval = ResponseType('', 200)
     session = new_session()
 
     try:
@@ -138,17 +142,20 @@ def issue_tag_remove(issue_id: int, tag_id: int) -> ResponseType:
             .first()
         if not issue_tag:
             app.logger.error(
-                f'IssueTagRemove: Issue has no such tag: issue_id {issue_id}, \
-                    tag {tag_id}.'
+                ('issue_tag_remove: Issue has no such tag: '
+                 f'issue_id {issue_id}, '
+                 f'tag {tag_id}.')
             )
-            return ResponseType(f'IssueTagRemove: Tagia ei löydy numerolta. \
-                                issue_id={issue_id}, tag_id={tag_id}.', 400)
+            return ResponseType('issue_tag_remove: Tagia ei löydy numerolta. '
+                                f'issue_id={issue_id}, tag_id={tag_id}.',
+                                HttpResponseCode.BAD_REQUEST.value)
         session.delete(issue_tag)
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(
-            'Exception in ShortTagRemove(): ' + str(exp))
-        return ResponseType(f'IssueTagRemove: Tietokantavirhe. \
-                            issue_id={issue_id}, tag_id={tag_id}.', 400)
+            f'issue_tag_remove() ({issue_id}, {tag_id}): {exp}')
+        return ResponseType('issue_tag_remove: Tietokantavirhe. '
+                            f'issue_id={issue_id}, tag_id={tag_id}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return retval
+    return ResponseType('', HttpResponseCode.OK.value)
