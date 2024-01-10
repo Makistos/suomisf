@@ -31,7 +31,7 @@ from app.route_helpers import new_session
 from app.model import BindingBriefSchema, ShortBriefSchema, EditionBriefSchema
 from app.impl import ResponseType, check_int, log_changes
 from app.impl_pubseries import add_pubseries
-from app.types import ContributorTarget
+from app.types import ContributorTarget, HttpResponseCode
 from app import app
 
 
@@ -108,10 +108,11 @@ def _set_pubseries(
                 ps = session.query(Pubseries)\
                     .filter(Pubseries.id == ps_id).first()
                 if not ps:
-                    app.logger.error('EditionUpdate: Pubseries not found. '
+                    app.logger.error('_set_pubseries: Pubseries not found. '
                                      f'id={ps_id}')
                     return ResponseType('Kustantajan sarjaa ei löydy. '
-                                        f'id={ps_id}', 400)
+                                        f'id={ps_id}',
+                                        HttpResponseCode.BAD_REQUEST.value)
         edition.pubseries_id = ps_id
     return None
 
@@ -128,14 +129,13 @@ def create_edition(params: Any) -> ResponseType:
         ResponseType: The response containing the created edition ID or an
                       error message.
     """
-    retval = ResponseType("", 200)
     session = new_session()
     data = params["data"]
 
     if "work_id" not in data:
-        app.logger.error("Exception in EditionCreate: work_id not found.")
-        return ResponseType("EditionCreate: Teoksen id (work_id) puuttuu.",
-                            400)
+        app.logger.error("create_edition: work_id not found.")
+        return ResponseType("create_edition: Teoksen id (work_id) puuttuu.",
+                            HttpResponseCode.BAD_REQUEST.value)
 
     # Check that work exists
     work_id = check_int(data["work_id"],
@@ -143,17 +143,18 @@ def create_edition(params: Any) -> ResponseType:
                         negative_values=False)
     if not work_id:
         app.logger.error(
-            'Exception in EditionCreate: Invalid work_id. '
+            'create_edition: Invalid work_id. '
             f'work_id={data["work_id"]}'
         )
         return ResponseType(f'Virheellinen teoksen id. id={data["work_id"]}',
-                            400)
+                            HttpResponseCode.BAD_REQUEST.value)
     work = session.query(Work).filter(Work.id == work_id).first()
     if not work:
         app.logger.error(
-            'Exception in EditionCreate: work not found. id={data["work_id"]}'
+            'dition_create: work not found. id={data["work_id"]}'
         )
-        return ResponseType(f'Teosta ei löydy. id={data["work_id"]}', 400)
+        return ResponseType(f'Teosta ei löydy. id={data["work_id"]}',
+                            HttpResponseCode.BAD_REQUEST.value)
 
     bindings = session.query(BindingType).all()
     formats = session.query(Format).all()
@@ -165,29 +166,31 @@ def create_edition(params: Any) -> ResponseType:
         edition.subtitle = data["subtitle"]
     # Check that pubyear exists (required)
     if "pubyear" not in data:
-        app.logger.error("Exception in EditionCreate: pubyear not found.")
-        return ResponseType("EditionCreate: Julkaisuvuosi (pubyear) puuttuu.",
-                            400)
+        app.logger.error("create_edition: pubyear not found.")
+        return ResponseType("create_edition: Julkaisuvuosi (pubyear) puuttuu.",
+                            HttpResponseCode.BAD_REQUEST.value)
     pubyear: Union[int, None] = check_int(value=data["pubyear"])
     if not pubyear:
         app.logger.error(
-            'Exception in EditionCreate: Invalid pubyear. '
+            'create_edition: Invalid pubyear. '
             f'pubyear={data["pubyear"]}'
         )
         return ResponseType(
-            f'Julkaisuvuosi on virheellinen. pubyear={data["pubyear"]}', 400
+            f'Julkaisuvuosi on virheellinen. pubyear={data["pubyear"]}',
+            HttpResponseCode.BAD_REQUEST.value
         )
     edition.pubyear = pubyear
     if "editionnum" in data:
         editionnum = check_int(data["editionnum"])
         if not editionnum:
             app.logger.error(
-                'Exception in EditionCreate: Invalid edition number. edition '
+                'create_edition: Invalid edition number. edition '
                 f'number={data["editionnum"]}'
             )
             return ResponseType(
                 'Painosnumero on virheellinen. '
-                f'Painosnumero={data["editionnum"]}', 400
+                f'Painosnumero={data["editionnum"]}',
+                HttpResponseCode.BAD_REQUEST.value
             )
         edition.editionnum = editionnum
     if "version" in data:
@@ -200,12 +203,13 @@ def create_edition(params: Any) -> ResponseType:
                                  negative_values=False)
         if not publisher_id:
             app.logger.error(
-                'Exception in EditionCreate: Invalid publisher id. '
+                'create_edition: Invalid publisher id. '
                 f'publisher id={data["publisher"]["id"]}'
             )
             return ResponseType(
                 'Kustantajan id on virheellinen. '
-                f'id={data["publisher"]["id"]}', 400
+                f'id={data["publisher"]["id"]}',
+                HttpResponseCode.BAD_REQUEST.value
             )
         publisher = session.query(Publisher)\
             .filter(Publisher.id == publisher_id)\
@@ -213,11 +217,11 @@ def create_edition(params: Any) -> ResponseType:
 
         if not publisher:
             app.logger.error(
-                'Exception in EditionCreate: Publisher not found. '
+                'create_edition: Publisher not found. '
                 f'id={publisher_id}'
             )
             return ResponseType(f"Kustantajaa ei löydy. id={publisher_id}",
-                                400)
+                                HttpResponseCode.BAD_REQUEST.value)
         edition.publisher_id = publisher_id
 
     if "isbn" in data:
@@ -225,10 +229,11 @@ def create_edition(params: Any) -> ResponseType:
         if isbn not in [None, ""]:
             if not check_isbn(data["isbn"]):
                 app.logger.error(
-                    'Exception in EditionCreate: Invalid ISBN. '
+                    'create_edition: Invalid ISBN. '
                     f'ISBN={isbn}'
                 )
-                return ResponseType('Virheellinen ISBN.', 400)
+                return ResponseType('Virheellinen ISBN.',
+                                    HttpResponseCode.BAD_REQUEST.value)
         elif isbn == "":
             isbn = None
         edition.isbn = isbn
@@ -295,8 +300,9 @@ def create_edition(params: Any) -> ResponseType:
         session.commit()
     except SQLAlchemyError as e:
         session.rollback()
-        app.logger.error(f"Exception in EditionCreate: {e}")
-        return ResponseType("EditionCreate: Tietokantavirhe.", 500)
+        app.logger.error(f"create_edition: {e}")
+        return ResponseType("create_edition: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     # Create Part. This requires edition to exist.
     part = Part()
@@ -307,8 +313,9 @@ def create_edition(params: Any) -> ResponseType:
         session.commit()
     except SQLAlchemyError as e:
         session.rollback()
-        app.logger.error(f"Exception in EditionCreate creating part: {e}")
-        return ResponseType("EditionCreate: Tietokantavirhe.", 500)
+        app.logger.error(f"create_edition creating part: {e}")
+        return ResponseType("create_edition: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     # Contributors require a part.
     if "contributors" in data:
@@ -320,21 +327,21 @@ def create_edition(params: Any) -> ResponseType:
         session.commit()
     except SQLAlchemyError as e:
         session.rollback()
-        app.logger.error('Exception in EditionCreate updating contributors: '
+        app.logger.error('create_edition updating contributors: '
                          f'{e}')
-        return ResponseType("EditionCreate: Tietokantavirhe.", 500)
+        return ResponseType("create_edition: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     log_changes(session, obj=edition, action="Uusi")
     session.commit()
 
-    retval = ResponseType(str(edition.id), 200)
-    return retval
+    return ResponseType(str(edition.id), HttpResponseCode.CREATED.value)
 
 
 # Save changes to edition to database.
 def update_edition(params: Any) -> ResponseType:
     """ Update edition in database. """
-    retval = ResponseType("", 200)
+    retval = ResponseType("", HttpResponseCode.OK.value)
     session = new_session()
     old_values = {}
     data = params["data"]
@@ -342,8 +349,9 @@ def update_edition(params: Any) -> ResponseType:
 
     edition = session.query(Edition).filter(Edition.id == edition_id).first()
     if not edition:
-        app.logger.error(f"EditionUpdate: Edition {edition_id} not found.")
-        return ResponseType(f"Painosta {edition_id} ei löydy.", 404)
+        app.logger.error(f"update_edition: Edition {edition_id} not found.")
+        return ResponseType(f"Painosta {edition_id} ei löydy.",
+                            HttpResponseCode.NOT_FOUND.value)
 
     bindings = session.query(BindingType).all()
     formats = session.query(Format).all()
@@ -351,8 +359,9 @@ def update_edition(params: Any) -> ResponseType:
     # Title, required field, cannot be empty
     if "title" in data and data["title"] != edition.title:
         if not edition.title or len(edition.title) == 0:
-            app.logger.error("EditionUpdate: Title is empty.")
-            return ResponseType("Otsikko ei voi olla tyhjä.", 400)
+            app.logger.error("update_edition: Title is empty.")
+            return ResponseType("Otsikko ei voi olla tyhjä.",
+                                HttpResponseCode.BAD_REQUEST.value)
         else:
             old_values["Nimeke"] = edition.title
             edition.title = data["title"]
@@ -373,8 +382,9 @@ def update_edition(params: Any) -> ResponseType:
                 old_values["Kustannusvuosi"] = edition.pubyear
             edition.pubyear = pubyear
         else:
-            app.logger.error("EditionUpdate: Pubyear is empty.")
-            return ResponseType("Julkaisuvuosi ei voi olla tyhjä.", 400)
+            app.logger.error("update_edition: Pubyear is empty.")
+            return ResponseType("Julkaisuvuosi ei voi olla tyhjä.",
+                                HttpResponseCode.BAD_REQUEST.value)
 
     # Publisher, required field. Has to exist in database.
     if "publisher" in data and data["publisher"] is not None:
@@ -392,30 +402,34 @@ def update_edition(params: Any) -> ResponseType:
                 .filter(Publisher.id == publisher_id)\
                 .first()
         if not publisher:
-            app.logger.error("EditionUpdate: Publisher not found. "
+            app.logger.error("update_edition: Publisher not found. "
                              f"publisher={data['publisher']}")
             return ResponseType(
-                f"Kustantajaa ei löydy. {data['publisher']}", 400
+                f"Kustantajaa ei löydy. {data['publisher']}",
+                HttpResponseCode.BAD_REQUEST.value
             )
         if publisher_id != edition.publisher_id:
             old_values["Kustantaja"] = (
                 edition.publisher.name if edition.publisher else None)
             edition.publisher_id = publisher_id
     else:
-        app.logger.error("EditionUpdate: Publisher is empty.")
-        return ResponseType("Kustantaja ei voi olla tyhjä.", 400)
+        app.logger.error("update_edition: Publisher is empty.")
+        return ResponseType("Kustantaja ei voi olla tyhjä.",
+                            HttpResponseCode.BAD_REQUEST.value)
 
     # Edition number, required field
     if "editionnum" in data and data["editionnum"] != edition.editionnum:
         editionnum = check_int(data["editionnum"])
         if editionnum is None:
-            app.logger.error("EditionUpdate: Invalid editionnum.")
-            return ResponseType("Virheellinen painosnumero.", 400)
+            app.logger.error("update_edition: Invalid editionnum.")
+            return ResponseType("Virheellinen painosnumero.",
+                                HttpResponseCode.BAD_REQUEST.value)
         old_values["Painosnro"] = edition.editionnum
         edition.editionnum = editionnum
     elif data["editionnum"] is None:
-        app.logger.error("EditionUpdate: Editionnum is empty.")
-        return ResponseType("Painosnumero ei voi olla tyhjä.", 400)
+        app.logger.error("update_edition: Editionnum is empty.")
+        return ResponseType("Painosnumero ei voi olla tyhjä.",
+                            HttpResponseCode.BAD_REQUEST.value)
 
     # Version (laitos), not required
     if "version" in data:
@@ -425,8 +439,9 @@ def update_edition(params: Any) -> ResponseType:
             version = check_int(data["version"])
             if version is None and data["version"] is not None:
                 # Trying to set a value but it's not an integer
-                app.logger.error("EditionUpdate: Invalid version.")
-                return ResponseType("Virheellinen laitos.", 400)
+                app.logger.error("update_edition: Invalid version.")
+                return ResponseType("Virheellinen laitos.",
+                                    HttpResponseCode.BAD_REQUEST.value)
             # Either removing value (version=None) or setting a new one
             old_values["Laitosnro"] = edition.version
             edition.version = version
@@ -439,8 +454,9 @@ def update_edition(params: Any) -> ResponseType:
             isbn = None
         else:
             if not check_isbn(isbn):
-                app.logger.error("EditionUpdate: Invalid ISBN: {isbn}.")
-                return ResponseType("Virheellinen ISBN.", 400)
+                app.logger.error("update_edition: Invalid ISBN: {isbn}.")
+                return ResponseType("Virheellinen ISBN.",
+                                    HttpResponseCode.BAD_REQUEST.value)
         edition.isbn = isbn
 
     # Number of pages, not required
@@ -448,8 +464,9 @@ def update_edition(params: Any) -> ResponseType:
         pages = check_int(data["pages"], negative_values=False)
         if pages is None and data["pages"] is not None:
             # Trying to set a value but it's not an integer
-            app.logger.error("EditionUpdate: Invalid pages.")
-            return ResponseType("Virheellinen sivumäärä.", 400)
+            app.logger.error("update_edition: Invalid pages.")
+            return ResponseType("Virheellinen sivumäärä.",
+                                HttpResponseCode.BAD_REQUEST.value)
         # Either removing value or setting a new one
         old_values["Sivuja"] = edition.pages
         edition.pages = pages
@@ -461,8 +478,9 @@ def update_edition(params: Any) -> ResponseType:
                 data["binding"]["id"], allowed=[b.id for b in bindings]
             )
             if binding_id is None:
-                app.logger.error("EditionUpdate: Invalid binding.")
-                return ResponseType("Virheellinen sidonta.", 400)
+                app.logger.error("update_edition: Invalid binding.")
+                return ResponseType("Virheellinen sidonta.",
+                                    HttpResponseCode.BAD_REQUEST.value)
             old_values["Sidonta"] = edition.binding.name
             edition.binding_id = binding_id
 
@@ -475,8 +493,9 @@ def update_edition(params: Any) -> ResponseType:
             data["format"]["id"], allowed=[f.id for f in formats]
         )
         if format_id is None:
-            app.logger.error("EditionUpdate: Invalid format.")
-            return ResponseType("Virheellinen formaatti.", 400)
+            app.logger.error("update_edition: Invalid format.")
+            return ResponseType("Virheellinen formaatti.",
+                                HttpResponseCode.BAD_REQUEST.value)
         old_values["Formaatti"] = edition.format.name
         edition.format_id = format_id
 
@@ -485,8 +504,9 @@ def update_edition(params: Any) -> ResponseType:
         size = check_int(data["size"], negative_values=False)
         if size is None and data["size"] is not None:
             # Trying to set a value but it's not an integer
-            app.logger.error("EditionUpdate: Invalid size.")
-            return ResponseType("Virheellinen koko.", 400)
+            app.logger.error("update_edition: Invalid size.")
+            return ResponseType("Virheellinen koko.",
+                                HttpResponseCode.BAD_REQUEST.value)
         # Either removing value or setting a new one
         old_values["Koko"] = edition.size
         edition.size = size
@@ -510,8 +530,9 @@ def update_edition(params: Any) -> ResponseType:
         pubseriesnum = check_int(data["pubseriesnum"])
         if pubseriesnum is None and data["pubseriesnum"] is not None:
             # Trying to set a value but it's not an integer
-            app.logger.error("EditionUpdate: Invalid pubseriesnum.")
-            return ResponseType("Virheellinen sarjan numero.", 400)
+            app.logger.error("update_edition: Invalid pubseriesnum.")
+            return ResponseType("Virheellinen sarjan numero.",
+                                HttpResponseCode.BAD_REQUEST.value)
         old_values["Kustantajan sarjan numero"] = edition.pubseriesnum
         edition.pubseriesnum = pubseriesnum
 
@@ -519,8 +540,9 @@ def update_edition(params: Any) -> ResponseType:
     if "dustcover" in data and data["dustcover"] != edition.dustcover:
         dustcover = check_int(data["dustcover"], allowed=[1, 2, 3])
         if dustcover is None:
-            app.logger.error("EditionUpdate: Invalid dustcover.")
-            return ResponseType("Virheellinen kansipaperin tyyppi.", 400)
+            app.logger.error("update_edition: Invalid dustcover.")
+            return ResponseType("Virheellinen kansipaperin tyyppi.",
+                                HttpResponseCode.BAD_REQUEST.value)
         if edition.dustcover == 1:
             old_value = "Ei tietoa"
         elif edition.dustcover == 2:
@@ -535,8 +557,9 @@ def update_edition(params: Any) -> ResponseType:
     if "coverimage" in data and data["coverimage"] != edition.coverimage:
         coverimage = check_int(data["coverimage"], allowed=[1, 2, 3])
         if coverimage is None:
-            app.logger.error("EditionUpdate: Invalid coverimage.")
-            return ResponseType("Virheellinen kansikuvan tyyppi.", 400)
+            app.logger.error("update_edition: Invalid coverimage.")
+            return ResponseType("Virheellinen kansikuvan tyyppi.",
+                                HttpResponseCode.BAD_REQUEST.value)
         if edition.coverimage == 1:
             old_value = "Ei tietoa"
         elif edition.coverimage == 2:
@@ -597,17 +620,17 @@ def update_edition(params: Any) -> ResponseType:
         session.add(edition)
     except SQLAlchemyError as exp:
         session.rollback()
-        app.logger.error("Exception in EditionUpdate: " + str(exp))
-        return ResponseType("EditionUpdate: Tietokantavirhe. id={edition.id}.",
-                            400)
+        app.logger.error("update_edition: " + str(exp))
+        return ResponseType("update_edition: Tietokantavirhe. id={edition.id}.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()
-        app.logger.error("Exception in EditionUpdate: " + str(exp))
-        return ResponseType("EditionUpdate: Tietokantavirhe. id={edition.id}",
-                            400)
+        app.logger.error("update_edition: " + str(exp))
+        return ResponseType("update_edition: Tietokantavirhe. id={edition.id}",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return retval
 
@@ -625,15 +648,17 @@ def get_bindings() -> ResponseType:
     try:
         bindings = session.query(BindingType).all()
     except SQLAlchemyError as exp:
-        app.logger.error("Exception in BindingGetAll: " + str(exp))
-        return ResponseType("BindingGetAll: Tietokantavirhe.", 400)
+        app.logger.error("binding_get_all: " + str(exp))
+        return ResponseType("binding_get_all: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     try:
         schema = BindingBriefSchema(many=True)
         retval = schema.dump(bindings)
     except exceptions.MarshmallowError as exp:
-        app.logger.error("Exception in BindingGetAll: " + str(exp))
-        return ResponseType("BindingGetAll: Tietokantavirhe.", 400)
-    return ResponseType(retval, 200)
+        app.logger.error("binding_get_all: " + str(exp))
+        return ResponseType("binding_get_all: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def delete_edition(session: Any, edition_id: int) -> bool:  # noqa: C901
@@ -664,7 +689,7 @@ def delete_edition(session: Any, edition_id: int) -> bool:  # noqa: C901
         ).delete()
         session.query(Edition).filter(Edition.id == edition_id).delete()
     except SQLAlchemyError as exp:
-        app.logger.error("Exception in deleteEdition: " + str(exp))
+        app.logger.error("delete_edition: " + str(exp))
         return False
     return True
 
@@ -682,18 +707,19 @@ def edition_delete(edition_id: str) -> ResponseType:
     """
     session = new_session()
     old_values = {}
-    retval = ResponseType("Poisto onnistui.", 200)
     int_id = check_int(edition_id, zeros_allowed=False, negative_values=False)
     if int_id is None:
-        app.logger.error("Exception in EditionDelete: Invalid id. id={id}")
-        return ResponseType("EditionDelete: Virheellinen id.", 400)
+        app.logger.error("edition_delete: Invalid id. id={id}")
+        return ResponseType("edition_delete: Virheellinen id.",
+                            HttpResponseCode.BAD_REQUEST.value)
 
     edition = session.query(Edition).filter(Edition.id == int_id).first()
     if not edition:
         app.logger.error(
-            "Exception in EditionDelete: Edition not found. id={editionId}"
+            "edition_delete: Edition not found. id={editionId}"
         )
-        return ResponseType("EditionDelete: Painosta ei löydy.", 400)
+        return ResponseType("edition_delete: Painosta ei löydy.",
+                            HttpResponseCode.BAD_REQUEST.value)
 
     if not edition.version:
         version = "1"
@@ -711,12 +737,13 @@ def edition_delete(edition_id: str) -> ResponseType:
             # Delete invalid Log line
             session.query(Log).filter(Log.id == log_id).delete()
         session.rollback()
-        app.logger.error("Exception in EditionDelete, id={edition_id}")
-        return ResponseType("EditionDelete: Tietokantavirhe.", 400)
+        app.logger.error("Exception in edition_delete, id={edition_id}")
+        return ResponseType("edition_delete: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     session.commit()
 
-    return retval
+    return ResponseType("Poisto onnistui.", HttpResponseCode.OK.value)
 
 
 def allowed_image(filename: Optional[str]) -> bool:
@@ -749,23 +776,24 @@ def edition_image_upload(editionid: str, image: FileStorage) -> ResponseType:
     Returns:
         ResponseType: The response object indicating the status of the upload.
     """
-    retval = ResponseType("Kuvan lisäys onnistui.", 200)
     old_values: Dict[str, Union[str, None]] = {}
     int_id = check_int(editionid,
                        zeros_allowed=False,
                        negative_values=False)
 
     if int_id is None:
-        return ResponseType("EditionImageUpload: Virheellinen id.", 400)
+        return ResponseType("edition_image_upload: Virheellinen id.",
+                            HttpResponseCode.BAD_REQUEST.value)
     image_name = image.filename
 
     if image_name is None or image_name == "":
-        return ResponseType("EditionImageUpload: Kuvan nimi puuttuu.", 400)
+        return ResponseType("edition_image_upload: Kuvan nimi puuttuu.",
+                            HttpResponseCode.BAD_REQUEST.value)
     assert image_name is not None
 
     if not allowed_image(image_name):
-        return ResponseType("EditionImageUpload: Virheellinen kuvan tyyppi.",
-                            400)
+        return ResponseType("edition_image_upload: Virheellinen kuvan tyyppi.",
+                            HttpResponseCode.BAD_REQUEST.value)
 
     filename = secure_filename(image_name)
     image.save(os.path.join(app.config["BOOKCOVER_SAVELOC"], filename))
@@ -787,16 +815,17 @@ def edition_image_upload(editionid: str, image: FileStorage) -> ResponseType:
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()
-        app.logger.error(f"Exception in EditionImageUpload, id={int_id}: \
+        app.logger.error(f"edition_image_upload, id={int_id}: \
                           {exp}")
-        return ResponseType("EditionImageUpload: Tietokantavirhe.", 400)
+        return ResponseType("edition_image_upload: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     edition = session.query(Edition).filter(Edition.id == int_id).first()
     log_changes(session=session,
                 obj=edition,
                 action="Päivitys",
                 old_values=old_values)
-    return retval
+    return ResponseType("Kuvan lisäys onnistui.", HttpResponseCode.OK.value)
 
 
 def edition_image_delete(editionid: str, imageid: str) -> ResponseType:
@@ -805,24 +834,25 @@ def edition_image_delete(editionid: str, imageid: str) -> ResponseType:
     @param imageid: Image id
     """
     session = new_session()
-    retval = ResponseType("Kuvan poisto onnistui.", 200)
 
     int_id = check_int(editionid,
                        zeros_allowed=False,
                        negative_values=False)
     if int_id is None:
-        return ResponseType("EditionImageDelete: Virheellinen painoksen id.",
-                            400)
+        return ResponseType("edition_image_delete: Virheellinen painoksen id.",
+                            HttpResponseCode.BAD_REQUEST.value)
     image_id = check_int(imageid, zeros_allowed=False, negative_values=False)
     if image_id is None:
-        return ResponseType("EditionImageDelete: Virheellinen kuvan id.", 400)
+        return ResponseType("edition_image_delete: Virheellinen kuvan id.",
+                            HttpResponseCode.BAD_REQUEST.value)
 
     edition = session.query(Edition).filter(Edition.id == int_id).first()
     edition_image = session.query(EditionImage)\
         .filter(EditionImage.edition_id == int_id)\
         .first()
     if edition_image is None:
-        return ResponseType("EditionImageDelete: Kuvaa ei löydy.", 400)
+        return ResponseType("edition_image_delete: Kuvaa ei löydy.",
+                            HttpResponseCode.BAD_REQUEST.value)
 
     old_values = {}
     old_values["Kansikuva"] = edition_image.image_src
@@ -830,7 +860,7 @@ def edition_image_delete(editionid: str, imageid: str) -> ResponseType:
         session=session, obj=edition, action="Poisto", old_values=old_values
     )
     if log_id == 0:
-        app.logger.error('EditionImageDelete: Failed to log changes.')
+        app.logger.error('edition_image_delete: Failed to log changes.')
 
     try:
         session.delete(edition_image)
@@ -840,10 +870,11 @@ def edition_image_delete(editionid: str, imageid: str) -> ResponseType:
         if log_id != 0:
             # Delete invalid Log line
             session.query(Log).filter(Log.id == log_id).delete()
-        app.logger.error(f"Exception in edition_image_delete: {exp}")
-        return ResponseType("edition_image_delete: Tietokantavirhe.", 400)
+        app.logger.error(f"edition_image_delete: {exp}")
+        return ResponseType("edition_image_delete: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return retval
+    return ResponseType("Kuvan poisto onnistui.", HttpResponseCode.OK.value)
 
 
 def edition_shorts(edition_id: str) -> ResponseType:
@@ -865,17 +896,19 @@ def edition_shorts(edition_id: str) -> ResponseType:
             .distinct()\
             .all()
     except SQLAlchemyError as exp:
-        app.logger.error(f'Exception in EditionShorts(): {str(exp)}')
-        return ResponseType('EditionShorts: Tietokantavirhe', 400)
+        app.logger.error(f'edition_shorts(): {str(exp)}')
+        return ResponseType('edition_shorts: Tietokantavirhe',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         schema = ShortBriefSchema(many=True)
         retval = schema.dump(shorts)
     except exceptions.MarshmallowError as exp:
-        app.logger.error(f'Exception in EditionShorts(): {str(exp)}')
-        return ResponseType('EditionShorts: Tietokantavirhe', 400)
+        app.logger.error(f'edition_shorts(): {str(exp)}')
+        return ResponseType('edition_shorts: Tietokantavirhe',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def get_latest_editions(count: int) -> ResponseType:
@@ -895,14 +928,16 @@ def get_latest_editions(count: int) -> ResponseType:
             .limit(count)\
             .all()
     except SQLAlchemyError as exp:
-        app.logger.error(f'Exception in get_latest_editions(): {str(exp)}')
-        return ResponseType('get_latest_editions: Tietokantavirhe', 400)
+        app.logger.error(f'get_latest_editions: {str(exp)}')
+        return ResponseType('get_latest_editions: Tietokantavirhe',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         schema = EditionBriefSchema(many=True)
         retval = schema.dump(editions)
     except exceptions.MarshmallowError as exp:
         app.logger.error(f'Exception in get_latest_editions(): {str(exp)}')
-        return ResponseType('get_latest_editions: Tietokantavirhe', 400)
+        return ResponseType('get_latest_editions: Tietokantavirhe',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
