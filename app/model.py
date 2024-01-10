@@ -362,8 +362,8 @@ class AwardedSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Awarded
-    # award = fields.Nested(
-    #     AwardBriefSchema(only=('id', 'name', 'domestic')))
+    award = fields.Nested(
+        AwardBriefSchema(only=('id', 'name', 'domestic')))
     person = fields.Nested(PersonBriefSchema)
     work = fields.Nested(
         WorkBriefSchema(
