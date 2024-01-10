@@ -120,3 +120,6 @@ GET http://localhost:5000/api/awards HTTP/1.1
 
 ###
 GET http://localhost:5000/api/awards/6 HTTP/1.1
+
+###
+GET http://localhost:5000/api/works/awards/4471 HTTP/1.1

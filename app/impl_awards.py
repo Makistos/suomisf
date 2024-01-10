@@ -1,13 +1,15 @@
 """
 Module for award-related functions.
 """
+from typing import Any
+
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 
 from app.route_helpers import new_session
 from app.impl import ResponseType
-from app.model import AwardBriefSchema, AwardSchema
-from app.orm_decl import Award
+from app.model import AwardBriefSchema, AwardSchema, AwardedSchema
+from app.orm_decl import Award, Awarded
 from app.types import HttpResponseCode
 
 from app import app
@@ -59,10 +61,51 @@ def get_award(award_id: int) -> ResponseType:
             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     try:
         schema = AwardSchema()
-        award = schema.dump(award)
+        retval = schema.dump(award)
     except exceptions.MarshmallowError as exp:
         app.logger.error(f'get_award schema error: {exp}.')
         return ResponseType(f'get_award: Skeemavirhe. {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(award, HttpResponseCode.OK)
+    return ResponseType(retval, HttpResponseCode.OK)
+
+
+def get_awards_for_work(work_id: int) -> ResponseType:
+    """
+    Get the awards for a specific work.
+
+    Args:
+        work_id (int): The ID of the work.
+
+    Returns:
+        ResponseType: The list of awards for the work.
+    """
+    session = new_session()
+
+    try:
+        awards = session.query(Awarded)\
+            .filter(Awarded.work_id == work_id)\
+            .order_by(Awarded.year)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'get_awards_for_work: {exp}.')
+        return ResponseType(f'get_awards_for_work: Tietokantavirhe. {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    try:
+        schema = AwardedSchema(many=True)
+        retval = schema.dump(awards)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'get_awards_for_work schema error: {exp}.')
+        return ResponseType(f'get_awards_for_work: Skeemavirhe. {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def update_awarded(params: Any) -> ResponseType:
+    session = new_session()
+    old_values = {}
+    data = params["data"]
+
+    return ResponseType('OK', HttpResponseCode.OK.value)

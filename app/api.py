@@ -16,7 +16,7 @@ from app.api_errors import APIError
 from app.api_jwt import jwt_admin_required
 from app.impl_articles import (get_article, article_tag_add,
                                article_tag_remove, article_tags)
-from app.impl_awards import (list_awards, get_award)
+from app.impl_awards import (get_awards_for_work, list_awards, get_award)
 from app.impl_bookseries import (list_bookseries, get_bookseries,
                                  bookseries_create, bookseries_update,
                                  bookseries_delete, filter_bookseries)
@@ -2278,6 +2278,27 @@ def api_workcreateupdate() -> Response:
         retval = make_api_response(work_update(params))
 
     return retval
+
+
+@app.route('/api/works/awards/<workid>', methods=['get'])
+def api_workawards(workid: str) -> Response:
+    """
+    @api {get} /api/works/awards/:id Get work awards
+    @apiName Get Work Awards
+    @apiGroup Work
+    @apiDescription Get awards for a work.
+    @apiParam {Number} id of Work.
+    @apiSuccess {ResponseType} awards Array of awards.
+    @apiSuccessExample {json} Success-Response:
+    """
+    try:
+        int_id = int(workid)
+    except (TypeError, ValueError):
+        app.logger.error(f'api_workawards: Invalid id {workid}.')
+        response = ResponseType(f'Virheellinen tunniste: {workid}.',
+                                HttpResponseCode.BAD_REQUEST)
+        return make_api_response(response)
+    return make_api_response(get_awards_for_work(int_id))
 
 
 @app.route('/api/works/<workid>', methods=['delete'])
