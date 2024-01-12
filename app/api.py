@@ -16,7 +16,7 @@ from app.api_errors import APIError
 from app.api_jwt import jwt_admin_required
 from app.impl_articles import (get_article, article_tag_add,
                                article_tag_remove, article_tags)
-from app.impl_awards import (get_awards_for_work, list_awards, get_award)
+from app.impl_awards import (get_awards_for_work, get_person_awards, list_awards, get_award)
 from app.impl_bookseries import (list_bookseries, get_bookseries,
                                  bookseries_create, bookseries_update,
                                  bookseries_delete, filter_bookseries)
@@ -1436,6 +1436,28 @@ def api_deleteperson(person_id: str) -> Response:
     return make_api_response(person_delete(int_id))
 
 
+@app.route('/api/people/<person_id>/awards', methods=['get'])
+def api_personawards(person_id: str) -> Response:
+    """
+    Retrieves a list of awards for a specific person.
+
+    Args:
+        person_id (str): The ID of the person.
+
+    Returns:
+        Response: The response object containing the list of awards.
+    """
+    try:
+        int_id = int(person_id)
+    except (TypeError, ValueError):
+        app.logger.error(f'api_PersonAwards: Invalid id {person_id}.')
+        response = ResponseType(
+            f'api_PersonAwards: Virheellinen tunniste {person_id}.',
+            status=HttpResponseCode.BAD_REQUEST)
+        return make_api_response(response)
+    return make_api_response(get_person_awards(int_id))
+
+
 @app.route('/api/people/shorts/<personid>', methods=['get'])
 def api_listshorts(personid: int) -> Response:
     """
@@ -2280,7 +2302,7 @@ def api_workcreateupdate() -> Response:
     return retval
 
 
-@app.route('/api/works/awards/<workid>', methods=['get'])
+@app.route('/api/works/<workid>/awards', methods=['get'])
 def api_workawards(workid: str) -> Response:
     """
     @api {get} /api/works/awards/:id Get work awards
