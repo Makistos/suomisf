@@ -4,7 +4,7 @@ from typing import Any, List, Union, Dict
 import datetime
 import html
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
+from flask_login import UserMixin  # type: ignore
 from sqlalchemy import (Column, ForeignKey, Integer,
                         String, Boolean, Date, DateTime, Text, Table)
 from sqlalchemy.orm import sessionmaker
@@ -57,10 +57,10 @@ def decode_jwt_token(auth_token):
         payload = jwt.decode(auth_token, jwt_secret_key, algorithms="HS256")
         return payload['sub']
     except jwt.ExpiredSignatureError:
-        app.logger.warn('JWT token expired.')
+        app.logger.warning('JWT token expired.')
         return ""
     except jwt.InvalidTokenError:
-        app.logger.warn('Invalid JWT token.')
+        app.logger.warning('Invalid JWT token.')
 
 
 def edition_popup(edition_id: int, edition: Any, title: str, link: str) -> str:
