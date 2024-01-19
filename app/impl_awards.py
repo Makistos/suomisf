@@ -190,8 +190,85 @@ def get_story_awards(story_id: int) -> ResponseType:
 
 
 def update_awarded(params: Any) -> ResponseType:
+    """
+    Updates the awarded data based on the provided parameters.
+
+    Does not log changes at the moment.
+
+    Args:
+        params (Any): The parameters for the update operation.
+
+    Returns:
+        ResponseType: The response type indicating the status of the update
+        operation.
+    """
     session = new_session()
-    old_values = {}
     data = params["data"]
+    award_type = data['award_type']
+    try:
+        if award_type == 'person':
+            old_awards = session.query(Awarded)\
+                .filter(Awarded.person_id == data["person_id"])\
+                .all()
+        elif award_type == 'work':
+            old_awards = session.query(Awarded)\
+                .filter(Awarded.work_id == data["work_id"])\
+                .all()
+        elif award_type == 'story':
+            old_awards = session.query(Awarded)\
+                .filter(Awarded.story_id == data["story_id"])\
+                .all()
+        else:
+            app.logger.error('update_awarded: Unknown award type: '
+                             f'{award_type}.')
+            return ResponseType('update_awarded: Virheellinen palkintotyyppi: '
+                                f'{award_type}.',
+                                HttpResponseCode.BAD_REQUEST.value)
+    except SQLAlchemyError as exp:
+        app.logger.error(f'update_awarded: {exp}.')
+        return ResponseType(f'update_awarded: Tietokantavirhe. {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    # Check if there are any changes
+    new_awards = data['awards']  # Contains the award info from user
+    changed = False
+    if len(old_awards) != len(new_awards):
+        changed = True
+    else:
+        for idx, old_award in enumerate(old_awards):
+            if (old_award.year != new_awards[idx]['year'] or
+                    old_award.category_id != new_awards[idx]['category_id'] or
+                    old_award.award_id != new_awards[idx]['award_id'] or
+                    old_award.person_id != new_awards[idx]['person_id'] or
+                    old_award.work_id != new_awards[idx]['work_id'] or
+                    old_award.story_id != new_awards[idx]['story_id']):
+                changed = True
+                break
+    if not changed:
+        # Nothing changed, skip rest
+        return ResponseType('OK', HttpResponseCode.OK.value)
+
+    # Save changes
+    try:
+        for award in old_awards:
+            session.delete(award)
+        for award in new_awards:
+            new = Awarded()
+            new.year = award['year']
+            new.award_id = award['award_id']
+            new.category_id = award['category_id']
+            if award_type == 'person':
+                new.person_id = award['person_id']
+            elif award_type == 'work':
+                new.work_id = award['work_id']
+            elif award_type == 'story':
+                new.story_id = award['story_id']
+            session.add(new)
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f'update_awarded: {exp}.')
+        return ResponseType(f'update_awarded: Tietokantavirhe. {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType('OK', HttpResponseCode.OK.value)
