@@ -17,13 +17,15 @@ from flask_jwt_extended import JWTManager
 #from flask_wtf.csrf import CSRFProtect
 
 app = Flask(__name__)
-if app.config['ENV'] == "production":
+if os.environ.get('TESTING'):
+    app.config.from_object("config.TestingConfig")
+elif app.config['ENV'] == "production":
     app.config.from_object("config.ProdConfig")
 elif app.config['ENV'] == 'staging':
     app.config.from_object("config.StagingConfig")
 else:
     app.config.from_object("config.DevConfig")
-    print(f'Db: {app.config["SQLALCHEMY_DATABASE_URI"]}')
+print(f'Db: {app.config["SQLALCHEMY_DATABASE_URI"]}')
 print(f'ENV is set to {app.config["ENV"]}.')
 db_url = app.config['SQLALCHEMY_DATABASE_URI']
 jwt_secret_key = app.config['JWT_SECRET_KEY']
@@ -52,9 +54,9 @@ from app import (routes, routes_article, routes_books,
 # This has to be here, not at the top of application or it won't start!
 #toolbar = DebugToolbarExtension(app)
 
-
 if not app.debug and not app.testing:
     if app.config['LOG_TO_STDOUT']:
+        FORMAT = "%(levelname)5s in %(module)s:%(funcName)s():%(lineno)s -> %(message)s"
         stream_handler = logging.StreamHandler()
         stream_handler.setLevel(logging.INFO)
         # app.logger.addHandler(stream_handler)
@@ -67,7 +69,16 @@ if not app.debug and not app.testing:
             '%(asctime)s %(levelname)s: %(message)s '
             '[in %(pathname)s:%(lineno)d]'))
         file_handler.setLevel(logging.DEBUG)
-        # app.logger.addHandler(file_handler)
+    FORMAT = "[%(asctime)]%(levelname)5s in %(module)s:%(funcName)s():%(lineno)s -> %(message)s"
+    logging.basicConfig()
+
+    # app.logger.addHandler(file_handler)
+else:
+    FORMAT = "%(levelname)5s in %(module)s:%(funcName)s():%(lineno)s -> %(message)s"
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.INFO)
+    logging.basicConfig(format=FORMAT)
+    app.logger = logger
 
     # app.logger.setLevel(logging.INFO)
     #app.logger.info('SuomiSF startup')
