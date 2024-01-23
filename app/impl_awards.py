@@ -26,14 +26,14 @@ def list_awards() -> ResponseType:
     try:
         awards = session.query(Award).order_by(Award.name).all()
     except SQLAlchemyError as exp:
-        app.logger.error(f'list_awards: {exp}.')
+        app.logger.error(f'Db error: {exp}.')
         return ResponseType(f'list_awards tietokantavirhe: {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     try:
         schema = AwardBriefSchema(many=True)
         awards = schema.dump(awards)
     except exceptions.MarshmallowError as exp:
-        app.logger.error(f'list_awards schema error: {exp}.')
+        app.logger.error(f'Schema error: {exp}.')
         return ResponseType(f'list_awards skeemavirhe: {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
@@ -55,15 +55,15 @@ def get_award(award_id: int) -> ResponseType:
     try:
         award = session.query(Award).filter(Award.id == award_id).first()
     except SQLAlchemyError as exp:
-        app.logger.error(f'get_award: {exp}.')
+        app.logger.error(f'Db error: {exp}.')
         return ResponseType(
-            f'get_award: Tietokantavirhe. id={award_id}: {exp}.',
+            f'Tietokantavirhe. id={award_id}: {exp}.',
             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     try:
         schema = AwardSchema()
         retval = schema.dump(award)
     except exceptions.MarshmallowError as exp:
-        app.logger.error(f'get_award schema error: {exp}.')
+        app.logger.error(f'Schema error: {exp}.')
         return ResponseType(f'get_award: Skeemavirhe. {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
@@ -88,7 +88,7 @@ def get_awards_for_work(work_id: int) -> ResponseType:
             .order_by(Awarded.year)\
             .all()
     except SQLAlchemyError as exp:
-        app.logger.error(f'get_awards_for_work: {exp}.')
+        app.logger.error(f'Db error: {exp}.')
         return ResponseType(f'get_awards_for_work: Tietokantavirhe. {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
@@ -96,7 +96,7 @@ def get_awards_for_work(work_id: int) -> ResponseType:
         schema = AwardedSchema(many=True)
         retval = schema.dump(awards)
     except exceptions.MarshmallowError as exp:
-        app.logger.error(f'get_awards_for_work schema error: {exp}.')
+        app.logger.error(f'Schema error: {exp}.')
         return ResponseType(f'get_awards_for_work: Skeemavirhe. {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
@@ -141,7 +141,7 @@ def get_person_awards(person_id: int) -> ResponseType:
             .distinct()\
             .all()
     except SQLAlchemyError as exp:
-        app.logger.error(f'get_person_awards: {exp}.')
+        app.logger.error(f'Db error: {exp}.')
         return ResponseType(f'get_person_awards: Tietokantavirhe. {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
@@ -151,7 +151,7 @@ def get_person_awards(person_id: int) -> ResponseType:
         schema = AwardedSchema(many=True)
         retval = schema.dump(all_awards)
     except exceptions.MarshmallowError as exp:
-        app.logger.error(f'get_person_awards schema error: {exp}.')
+        app.logger.error(f'Schema error: {exp}.')
         return ResponseType(f'get_person_awards: Skeemavirhe. {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     return ResponseType(retval, HttpResponseCode.OK.value)
@@ -175,7 +175,7 @@ def get_story_awards(story_id: int) -> ResponseType:
             .order_by(Awarded.year)\
             .all()
     except SQLAlchemyError as exp:
-        app.logger.error(f'get_story_awards: {exp}.')
+        app.logger.error(f'Db error: {exp}.')
         return ResponseType(f'get_story_awards: Tietokantavirhe. {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
@@ -183,7 +183,7 @@ def get_story_awards(story_id: int) -> ResponseType:
         schema = AwardedSchema(many=True)
         retval = schema.dump(awards)
     except exceptions.MarshmallowError as exp:
-        app.logger.error(f'get_story_awards schema error: {exp}.')
+        app.logger.error('Schema error: {exp}.')
         return ResponseType(f'get_story_awards: Skeemavirhe. {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     return ResponseType(retval, HttpResponseCode.OK.value)
@@ -225,7 +225,7 @@ def update_awarded(params: Any) -> ResponseType:
                                 f'{award_type}.',
                                 HttpResponseCode.BAD_REQUEST.value)
     except SQLAlchemyError as exp:
-        app.logger.error(f'update_awarded: {exp}.')
+        app.logger.error(exp)
         return ResponseType(f'update_awarded: Tietokantavirhe. {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
@@ -267,7 +267,7 @@ def update_awarded(params: Any) -> ResponseType:
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()
-        app.logger.error(f'update_awarded: {exp}.')
+        app.logger.error(exp)
         return ResponseType(f'update_awarded: Tietokantavirhe. {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 

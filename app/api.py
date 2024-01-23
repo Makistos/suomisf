@@ -16,7 +16,8 @@ from app.api_errors import APIError
 from app.api_jwt import jwt_admin_required
 from app.impl_articles import (get_article, article_tag_add,
                                article_tag_remove, article_tags)
-from app.impl_awards import (get_awards_for_work, get_person_awards, list_awards, get_award)
+from app.impl_awards import (get_awards_for_work, get_person_awards,
+                             list_awards, get_award)
 from app.impl_bookseries import (list_bookseries, get_bookseries,
                                  bookseries_create, bookseries_update,
                                  bookseries_delete, filter_bookseries)
@@ -26,6 +27,7 @@ from app.impl_editions import (get_bindings, create_edition, update_edition,
                                get_latest_editions)
 from app.impl_issues import (get_issue, get_issue_tags, issue_tag_add,
                              issue_tag_remove)
+from app.impl_logs import get_edition_changes, get_work_changes
 from app.impl_magazines import (list_magazines, get_magazine)
 from app.impl_people import (search_people, filter_aliases, person_update,
                              person_shorts, person_tag_add, person_tag_remove,
@@ -126,7 +128,7 @@ def login_options(req: Any) -> Dict[str, Any]:
             options['username'] = req.json['authorization']['username']
             options['password'] = req.json['authorization']['password']
     except (TypeError, KeyError) as exp:
-        app.logger.error(f'api_login: Virheelliset parametrit: {exp}.')
+        app.logger.error('Virheelliset parametrit: %s.', exp)
         return {}
 
     if not options['username'] or not options['password']:
@@ -136,7 +138,7 @@ def login_options(req: Any) -> Dict[str, Any]:
     return options
 
 
-def fix_operator(op: str, value: str) -> Tuple[str, str]:
+def fix_operator(operator: str, value: str) -> Tuple[str, str]:
     """
     Fixes the operator and value for a given operation.
 
@@ -151,41 +153,40 @@ def fix_operator(op: str, value: str) -> Tuple[str, str]:
         APIError: If the operation is not valid.
     """
 
-    if op == 'equals':
+    if operator == 'equals':
         return ('eq', value)
-    if op == 'notequals':
+    if operator == 'notequals':
         return ('ne', value)
-    if op == 'startsWith':
+    if operator == 'startsWith':
         if value:
             value = value + '%'
         return ('ilike', value)
-    if op == 'endsWith':
+    if operator == 'endsWith':
         if value:
             value = '%' + value
         return ('ilike', value)
-    if op == 'contains':
+    if operator == 'contains':
         if value:
             value = '%' + value + '%'
         return ('ilike', value)
-    if op == 'notContains':
+    if operator == 'notContains':
         if value:
             value = '%' + value + '%'
         # Needs special attention in filtering
         return ('notContains', value)
-    if op == 'lt':
+    if operator == 'lt':
         return ('lt', value)
-    if op == 'lte':
+    if operator == 'lte':
         return ('lte', value)
-    if op == 'gt':
+    if operator == 'gt':
         return ('gt', value)
-    if op == 'gte':
+    if operator == 'gte':
         return ('gte', value)
-    if op == 'in':
+    if operator == 'in':
         # Needs special attention in filtering
         return ('in', value)
-    else:
-        raise APIError(f'Invalid filter operation {op}',
-                       HttpResponseCode.METHOD_NOT_ALLOWED)
+    raise APIError(f'Invalid filter operation {operator}',
+                   HttpResponseCode.METHOD_NOT_ALLOWED)
 
 ###
 # User control related functions
@@ -385,7 +386,7 @@ def api_filteralias(personid: str) -> Response:
     try:
         int_id = int(personid)
     except (TypeError, ValueError):
-        app.logger.error(f'api_filteralias: Invalid id {personid}.')
+        app.logger.error('api_filteralias: Invalid id %s.', personid)
         response = ResponseType(f'Virheellinen tunniste: {personid}.',
                                 HttpResponseCode.BAD_REQUEST)
         return make_api_response(response)
@@ -417,7 +418,7 @@ def api_getarticle(articleid: str) -> Response:
     try:
         int_id = int(articleid)
     except (TypeError, ValueError):
-        app.logger.error(f'api_getarticle: Invalid id {articleid}.')
+        app.logger.error('api_getarticle: Invalid id %s.', articleid)
         response = ResponseType(
             f'api_getarticle: Virheellinen tunniste {articleid}.',
             HttpResponseCode.BAD_REQUEST)
@@ -442,7 +443,7 @@ def api_getarticletags(articleid: int) -> Response:
     try:
         int_id = int(articleid)
     except (TypeError, ValueError):
-        app.logger.error(f'api_getarticletags: Invalid id {articleid}.')
+        app.logger.error('api_getarticletags: Invalid id %s.', articleid)
         response = ResponseType(
             f'api_getarticletags: Virheellinen tunniste {articleid}.',
             HttpResponseCode.BAD_REQUEST)
@@ -696,7 +697,7 @@ def api_changes() -> Response:
     try:
         retval = get_changes(params)
     except APIError as exp:
-        app.logger.error('Exception in api_changes: ' + str(exp))
+        app.logger.error(f'Exception in api_changes: {exp}')
         response = ResponseType('api_changes: poikkeus.',
                                 status=HttpResponseCode.INTERNAL_SERVER_ERROR)
         return make_api_response(response)
@@ -803,6 +804,20 @@ def api_uploadeditionimage(editionid: str) -> Response:
     retval = make_api_response(
         edition_image_upload(editionid, file))
     return retval
+
+
+@app.route('/api/editions/<edition_id>/changes', methods=['get'])
+def api_editionchanges(edition_id: int) -> Response:
+    """
+    Get changes for an edition.
+
+    Args:
+        edition_id (int): The ID of the edition.
+
+    Returns:
+        Response: The API response containing the changes.
+    """
+    return make_api_response(get_edition_changes(edition_id))
 
 
 @app.route('/api/editions/<editionid>/images/<imageid>', methods=['delete'])
@@ -1338,7 +1353,7 @@ def api_getpeople() -> Response:
     params: Dict[str, Any] = {}
     for (param, value) in url_params.items():
         # param, value = p.split('=')
-        if value == 'null' or value == 'undefined':
+        if value in ('null', 'undefined'):
             value = None
         if '_' not in param and param != 'filters':
             # This takes care of the first six parameters.
@@ -1369,13 +1384,13 @@ def api_getpeople() -> Response:
                     'constraints'][constraint_num][constraint_name] = value
             else:
                 if filter_name == 'matchMode':
-                    s = params[filter_field]['value']
+                    input_value = params[filter_field]['value']
                     try:
-                        (value, s) = fix_operator(value, s)
+                        (value, input_value) = fix_operator(value, input_value)
                     except APIError as exp:
                         return make_api_response(
                             ResponseType(exp.message, exp.code))
-                    params[filter_field]['value'] = s
+                    params[filter_field]['value'] = input_value
                 params[filter_field][filter_name] = value
     try:
         retval = list_people(params)
@@ -1450,7 +1465,7 @@ def api_personawards(person_id: str) -> Response:
     try:
         int_id = int(person_id)
     except (TypeError, ValueError):
-        app.logger.error(f'api_PersonAwards: Invalid id {person_id}.')
+        app.logger.error('Invalid id %s.', person_id)
         response = ResponseType(
             f'api_PersonAwards: Virheellinen tunniste {person_id}.',
             status=HttpResponseCode.BAD_REQUEST)
@@ -2444,6 +2459,28 @@ def api_tagtowork(workid: int, tagid: int) -> Response:
     retval = func(work_id, tag_id)
 
     return make_api_response(retval)
+
+
+@app.route('/api/works/<workid>/changes', methods=['get'])
+def api_workchanges(workid: int) -> Response:
+    """
+    Get changes for a work.
+
+    Args:
+        workid (int): The ID of the work.
+
+    Returns:
+        Response: The API response containing the changes.
+    """
+    try:
+        work_id = int(workid)
+    except (TypeError, ValueError):
+        app.logger.error(f'Invalid id {workid}.')
+        response = ResponseType(f'Virheellinen tunniste: {workid}.',
+                                HttpResponseCode.BAD_REQUEST)
+        return make_api_response(response)
+
+    return make_api_response(get_work_changes(work_id))
 
 
 @ app.route('/api/worksbyinitial/<letter>', methods=['get'])

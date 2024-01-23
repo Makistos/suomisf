@@ -5,6 +5,7 @@ from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
+from app.impl_logs import log_changes
 from app.isbn import check_isbn  # type: ignore
 from app.orm_decl import (
     Edition,
@@ -29,7 +30,7 @@ from app.impl_contributors import (
 )
 from app.route_helpers import new_session
 from app.model import BindingBriefSchema, ShortBriefSchema, EditionBriefSchema
-from app.impl import ResponseType, check_int, log_changes
+from app.impl import ResponseType, check_int
 from app.impl_pubseries import add_pubseries
 from app.types import ContributorTarget, HttpResponseCode
 from app import app
@@ -621,8 +622,9 @@ def update_edition(params: Any) -> ResponseType:
     except SQLAlchemyError as exp:
         session.rollback()
         app.logger.error("update_edition: " + str(exp))
-        return ResponseType("update_edition: Tietokantavirhe. id={edition.id}.",
-                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+        return ResponseType(
+            "update_edition: Tietokantavirhe. id={edition.id}.",
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         session.commit()

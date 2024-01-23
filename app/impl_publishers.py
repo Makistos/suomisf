@@ -2,12 +2,13 @@
 from typing import Any
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
+from app.impl_logs import log_changes
 from app.route_helpers import new_session
 from app.orm_decl import Publisher
 from app.model import (PublisherBriefSchema,
                        PublisherSchema, PublisherBriefSchemaWEditions,
                        PublisherLink)
-from app.impl import ResponseType, check_int, log_changes
+from app.impl import ResponseType, check_int
 from app import app
 
 

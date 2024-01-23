@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 from enum import IntEnum
 import json
 from typing import Dict, NamedTuple, Tuple, List, Union, Any, TypedDict, Set
-from flask_jwt_extended import get_jwt_identity
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
@@ -235,78 +234,6 @@ def get_changes(params: Dict[str, Any]) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR)
 
     return ResponseType(retval, HttpResponseCode.OK)
-
-
-table_locals = {'article': 'Artikkeli',
-                'bookseries': 'Kirjasarja',
-                'edition': 'Painos',
-                'issue': 'Irtonumero',
-                'magazine': 'Lehti',
-                'person': 'Henkilö',
-                'publisher': 'Kustantaja',
-                'shortstory': 'Novelli',
-                'work': 'Teos'}
-
-
-# pylint: disable-next=dangerous-default-value
-def log_changes(session: Any, obj: Any, name_field: str = "name",
-                action: str = 'Päivitys',
-                old_values: Dict[str, Any] = {}) -> int:
-    ''' Log a change made to data.
-
-    Logging is done in the same session as the object itself, so it will
-    also be in the same commit. I.e. if storing data fails for some reason
-    log is also not stored.
-
-    Args:
-        session (Any): Session handler.
-        obj (Any): Object that was changed.
-        action (str, optional): Description of change, either "Päivitys" or
-                                "Uusi". Defaults to 'Päivitys'.
-        fields (List[str], optional): Fields that were changed. Needed for
-                                      "Päivitys", not used for "Uusi". Defaults
-                                      to [].
-
-    Returns:
-        int: The id of the log entry.
-    '''
-    retval: int = 0
-    name: str = getattr(obj, name_field)
-    tbl_name = table_locals[obj.__table__.name]
-
-    jwt_id = get_jwt_identity()
-
-    if jwt_id is None:
-        app.logger.warning('No JWT token or missing identity.')
-        return retval
-
-    user_id = int(jwt_id)
-    if action in ['Päivitys', 'Poisto']:
-        for field, value in old_values.items():
-            # if field in old_values:
-            #     old_value = bleach.clean(old_values[field])
-            # else:
-            #     old_value = None
-            log = Log(table_name=tbl_name,
-                      field_name=field,
-                      table_id=obj.id,
-                      object_name=name,
-                      action=action,
-                      user_id=user_id,
-                      old_value=value,
-                      date=datetime.now())
-            session.add(log)
-    else:
-        log = Log(table_name=tbl_name,
-                  field_name='',
-                  table_id=obj.id,
-                  object_name=name,
-                  action=action,
-                  user_id=user_id,
-                  date=datetime.now())
-        session.add(log)
-        retval = log.id
-    return retval
 
 
 def genre_list() -> ResponseType:

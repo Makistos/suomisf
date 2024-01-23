@@ -6,6 +6,7 @@ from operator import not_
 from sqlalchemy import func, or_
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
+from app.impl_logs import log_changes
 
 from app.route_helpers import new_session
 from app.model import (PersonBriefSchema)
@@ -15,8 +16,7 @@ from app.orm_decl import (Alias, Country, ContributorRole, Work, Contributor,
                           PersonLink, Awarded, PersonLanguage, PersonTag,
                           IssueEditor, ArticlePerson, ArticleAuthor,
                           ShortStory, Part, Person)
-from app.impl import (ResponseType, SearchResult, log_changes,
-                      SearchResultFields, searchscore, check_int,
+from app.impl import (ResponseType, SearchResult, SearchResultFields, searchscore, check_int,
                       get_join_changes)
 from app.api_errors import APIError
 from app.impl_country import AddCountry
@@ -308,7 +308,7 @@ def list_people(params: Dict[str, Any]) -> ResponseType:
             params['page'] = 0
         start = int(params['rows']) * (int(params['page']))
         end = int(params['rows']) * (int(params['page']) + 1)
-        app.logger.warn("page: " + str(params['page']) +
+        app.logger.warning("page: " + str(params['page']) +
                         " rows: " + str(params['rows']) +
                         " start: " + str(start) +
                         " end: " + str(end))

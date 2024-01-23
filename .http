@@ -119,7 +119,16 @@ GET http://localhost:5000/api/articles/x/tags HTTP/1.1
 GET http://localhost:5000/api/awards HTTP/1.1
 
 ###
-GET http://localhost:5000/api/awards/6 HTTP/1.1
+GET http://localhost:5000/api/awards/1 HTTP/1.1
 
 ###
-GET http://localhost:5000/api/works/awards/4471 HTTP/1.1
+GET http://localhost:5000/api/works/4471/awards HTTP/1.1
+
+###
+GET http://localhost:5000/api/people/2687/awards HTTP/1.1
+
+###
+GET http://localhost:5000/api/works/4182/changes HTTP/1.1
+
+###
+GET http://localhost:5000/api/editions/3098/changes HTTP/1.1

@@ -2,11 +2,12 @@
 from typing import Any, Union
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
+from app.impl_logs import log_changes
 
 from app.orm_decl import (Bookseries, Work)
 from app.model import (BookseriesSchema, BookseriesBriefSchema)
 from app.route_helpers import new_session
-from app.impl import ResponseType, log_changes, check_int
+from app.impl import ResponseType, check_int
 from app import app
 from app.types import HttpResponseCode
 

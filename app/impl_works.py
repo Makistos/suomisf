@@ -6,10 +6,11 @@ import bleach
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
+from app.impl_logs import log_changes
 from app.route_helpers import new_session
 from app.impl import (ResponseType, SearchResult,
                       SearchResultFields, searchscore, set_language, check_int,
-                      log_changes, get_join_changes)
+                      get_join_changes)
 from app.orm_decl import (Edition, Part, Work, WorkType, WorkTag,
                           WorkGenre, WorkLink, Bookseries, ShortStory,
                           Contributor)

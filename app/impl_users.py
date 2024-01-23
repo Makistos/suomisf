@@ -61,7 +61,7 @@ def create_token(user: User, password: str) -> Response:
         resp.headers['Content-Type'] = 'application/json'
         return resp
 
-    app.logger.warn(f'Failed login for {user.name}.')
+    app.logger.warning(f'Failed login for {user.name}.')
     return make_response(
         json.dumps({'msg': 'Väärä salasana'}),
         HttpResponseCode.UNAUTHORIZED.value)
