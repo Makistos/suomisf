@@ -4,9 +4,9 @@ from datetime import datetime, timedelta
 from enum import IntEnum
 import json
 from typing import Dict, NamedTuple, Tuple, List, Union, Any, TypedDict, Set
+from flask_jwt_extended import get_jwt_identity
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
-from flask_login import current_user  # type: ignore
 from marshmallow import exceptions
 
 from app.api_errors import APIError
@@ -274,6 +274,13 @@ def log_changes(session: Any, obj: Any, name_field: str = "name",
     name: str = getattr(obj, name_field)
     tbl_name = table_locals[obj.__table__.name]
 
+    jwt_id = get_jwt_identity()
+
+    if jwt_id is None:
+        app.logger.warning('No JWT token or missing identity.')
+        return retval
+
+    user_id = int(jwt_id)
     if action in ['Päivitys', 'Poisto']:
         for field, value in old_values.items():
             # if field in old_values:
@@ -285,7 +292,7 @@ def log_changes(session: Any, obj: Any, name_field: str = "name",
                       table_id=obj.id,
                       object_name=name,
                       action=action,
-                      user_id=current_user.get_id(),
+                      user_id=user_id,
                       old_value=value,
                       date=datetime.now())
             session.add(log)
@@ -295,7 +302,7 @@ def log_changes(session: Any, obj: Any, name_field: str = "name",
                   table_id=obj.id,
                   object_name=name,
                   action=action,
-                  user_id=current_user.get_id(),
+                  user_id=user_id,
                   date=datetime.now())
         session.add(log)
         retval = log.id
