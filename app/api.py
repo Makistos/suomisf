@@ -1550,7 +1550,7 @@ def api_filterpeople(pattern: str) -> Response:
 
     """
     pattern = bleach.clean(pattern)
-    if len(pattern) < 3:
+    if len(pattern) < 2:
         app.logger.error('FilterPeople: Pattern too short.')
         response = ResponseType(
             'Liian lyhyt hakuehto', status=HttpResponseCode.BAD_REQUEST.value)
@@ -2309,7 +2309,13 @@ def api_workcreateupdate() -> Response:
         None
     """
     params = request.data.decode('utf-8')
-    params = json.loads(params)
+    try:
+        params = json.loads(params)
+    except json.decoder.JSONDecodeError as exp:
+        app.logger.error(f'Invalid JSON: {exp}.')
+        response = ResponseType(f'Virheellinen JSON: {exp}.',
+                                HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
     if request.method == 'POST':
         retval = make_api_response(work_add(params))
     elif request.method == 'PUT':
