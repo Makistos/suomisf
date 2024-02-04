@@ -589,17 +589,33 @@ def work_add(params: Any) -> ResponseType:
                             HttpResponseCode.BAD_REQUEST.value)
 
     work.title = data['title']
-    work.subtitle = data['subtitle']
-    work.orig_title = data['orig_title']
+    if 'subtitle' in data:
+        work.subtitle = data['subtitle']
+    else:
+        work.subtitle = work.title
 
-    work.pubyear = check_int(data['pubyear'])
+    if 'orig_title' in data:
+        work.orig_title = data['orig_title']
+    else:
+        work.orig_title = ''
 
-    work.bookseriesnum = data['bookseriesnum']
+    if 'pubyear' in data:
+        work.pubyear = check_int(data['pubyear'])
+    else:
+        work.pubyear = None
+
+    if 'bookseriesnum' in data:
+        work.bookseriesnum = data['bookseriesnum']
+    else:
+        work.bookseriesnum = ''
     if 'bookseries' in data:
         result = _set_bookseries(session, work, data, None)
         if result:
             return result
-    work.bookseriesorder = check_int(data['bookseriesorder'])
+    if 'bookseriesorder' in data:
+        work.bookseriesorder = check_int(data['bookseriesorder'])
+    else:
+        work.bookseriesorder = None
 
     if 'language' in data:
         result = set_language(session, work, data, None)
