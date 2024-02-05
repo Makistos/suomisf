@@ -1,0 +1,31 @@
+### 
+# @name login
+POST {{host}}/api/login
+Content-Type: application/json
+
+{
+    "username": "{{username}}",
+    "password": "{{password}}"
+}
+?? status == 200
+
+###
+POST {{host}}/api/login
+Content-Type: application/json
+
+{
+    "username": "{{username}}",
+    "password": ""
+}
+?? status == 401
+
+###
+POST {{host}}/api/login
+Content-Type: application/json
+
+{
+    "username": "",
+    "password": ""
+}
+?? status == 401
+

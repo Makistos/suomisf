@@ -1,0 +1,64 @@
+# @import ./login.http
+###
+
+GET {{host}}/api/works/1000
+?? status == 200
+
+###
+# @name invalid_work_post
+# @ref login
+POST {{host}}/api/works
+Authorization: Bearer {{login.access_token}}
+?? status == 400
+
+###
+# @name create_work
+# @ref login
+POST {{host}}/api/works
+Authorization: Bearer {{login.access_token}}
+
+{
+    "data" : {
+        "title": "TestiKirja",
+        "subtitle": "",
+        "orig_title": "",
+        "pubyear": "2000",
+        "contributions": 
+        [   
+        {
+            "person": { "id": 1000},
+            "role": {"id": 1}
+        }
+        ]
+    }
+}
+?? status == 201
+
+###
+# @name update_work
+# @ref login
+PUT {{host}}/api/works
+Authorization: Bearer {{login.access_token}}
+
+{ 
+    "data": {
+            "id": {{create_work}},
+            "title": "Testi Kirja"
+        }
+}
+?? status == 200
+
+###
+# @name check_work
+GET {{host}}/api/works/{{create_work}}
+{{
+    test.status(200);
+    test.hasResponseBody();
+}}
+
+###
+# @name delete_work
+# @ref login
+DELETE {{host}}/api/works/{{create_work}}
+Authorization: Bearer {{login.access_token}}
+?? status == 200
