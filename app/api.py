@@ -8,6 +8,7 @@ import bleach
 from flask_jwt_extended import jwt_required
 from flask import request
 from flask.wrappers import Response
+from app.api_helpers import make_api_error, make_api_response
 from app.impl import (ResponseType, get_frontpage_data, SearchResult,
                       get_changes, filter_countries, filter_languages,
                       country_list, filter_link_names, genre_list, role_list,
@@ -28,7 +29,6 @@ from app.impl_editions import (get_bindings, create_edition, update_edition,
 from app.impl_issues import (get_issue, get_issue_tags, issue_tag_add,
                              issue_tag_remove)
 from app.impl_logs import get_edition_changes, get_work_changes
-from app.impl_magazines import (list_magazines, get_magazine)
 from app.impl_people import (search_people, filter_aliases, person_update,
                              person_shorts, person_tag_add, person_tag_remove,
                              filter_people, list_people, person_delete,
@@ -56,52 +56,12 @@ from app.route_helpers import new_session
 from app.types import HttpResponseCode
 from app import app
 
-DEFAULT_MIMETYPE = 'application/json'  # Data is always returned as JSON
-
-
 ConstraintType = NewType('ConstraintType', List[Dict[str, str]])
 FilterType = NewType('FilterType', Dict[str, Union[str, ConstraintType]])
 
 
 ###
 # Generic functions
-
-def make_api_error(response: ResponseType) -> Response:
-    """
-    Generate a response object for an API error.
-
-    Args:
-        response (ResponseType): The response object containing the error
-                                  message.
-
-    Returns:
-        Response: The response object with the error message, status code, and
-                   mimetype.
-    """
-    return Response(response=list(json.dumps({'msg': response.response})),
-                    status=response.status,
-                    mimetype=DEFAULT_MIMETYPE)
-
-
-def make_api_response(response: ResponseType) -> Response:
-    """
-    Generate a Flask Response object from a given ResponseType object.
-
-    Args:
-        response (ResponseType): The ResponseType object to be converted into a
-                                 Flask Response object.
-
-    Returns:
-        Response: The Flask Response object generated from the given
-                  ResponseType object.
-    """
-    # Response is made into a list for performance as per Flask documentation
-    if response.status >= 400 and response.status <= 511:
-        return make_api_error(response)
-
-    return Response(response=json.dumps(response.response),
-                    status=response.status,
-                    mimetype=DEFAULT_MIMETYPE)
 
 
 def login_options(req: Any) -> Dict[str, Any]:
@@ -1120,129 +1080,6 @@ def api_latestworks(count: int) -> Response:
             status=HttpResponseCode.BAD_REQUEST.value)
         return make_api_response(response)
     return make_api_response(get_latest_works(count))
-
-
-###
-# Magazine related functions
-
-
-@ app.route('/api/magazines', methods=['get'])
-def api_listmagazines() -> Response:
-    """
-    Retrieves a list of magazines from the API.
-
-    Returns:
-        Response: The response object containing the list of magazines.
-    """
-
-    return make_api_response(list_magazines())
-
-
-@ app.route('/api/magazines/<magazineid>', methods=['get'])
-def api_getmagazine(magazineid: str) -> Response:
-    """
-    Get a magazine by its ID.
-
-    Args:
-        magazineId (str): The ID of the magazine.
-
-    Returns:
-        Response: The response object containing the magazine data.
-
-    Raises:
-        ValueError: If the magazine ID is invalid.
-    """
-
-    try:
-        int_id = int(magazineid)
-    except (ValueError, TypeError):
-        app.logger.error(f'api_GetMagazine: Invalid id {magazineid}.')
-        response = ResponseType(
-            f'api_GetMagazine: Virheellinen tunniste {magazineid}.',
-            status=HttpResponseCode.BAD_REQUEST.value)
-        return make_api_response(response)
-
-    return make_api_response(get_magazine(int_id))
-
-
-@ app.route('/api/magazines/<magazineid>', methods=['patch'])
-def api_updatemagazine(magazineid: str) -> Tuple[str, int]:
-    """
-    Updates a magazine with the given `magazineId`.
-
-    Args:
-        magazineId (str): The ID of the magazine to update.
-
-    Returns:
-        Tuple[str, int]: A tuple containing an empty string and an integer
-        status code.
-    """
-
-    options = {}
-    options["magazineId"] = magazineid
-
-    return ("", 0)
-
-    # return UpdateMagazine(options, "")
-
-
-@ app.route('/api/magazines/<magazineid>/issues', methods=['get'])
-def api_getmagazineissues(magazineid: str) -> Tuple[str, int]:
-    """
-    Retrieves the issues of a specific magazine.
-
-    Args:
-        magazineId (str): The ID of the magazine.
-
-    Returns:
-        Tuple[str, int]: A tuple containing an empty string and an integer
-                         value.
-    """
-
-    options = {}
-    options["magazineId"] = magazineid
-
-    return ("", 0)
-    # return GetMagazineIssues(options)
-
-
-@ app.route('/api/magazines/<magazineid>/publisher', methods=['get'])
-def api_getmagazinepublisher(magazineid: str) -> Tuple[str, int]:
-    """
-    Get the publisher of a magazine.
-
-    Args:
-        magazineid (str): The ID of the magazine.
-
-    Returns:
-        Tuple[str, int]: A tuple containing an empty string and an integer.
-    """
-
-    options = {}
-    options["magazineId"] = magazineid
-
-    return ("", 0)
-    # return GetMagazinePublisher(options)
-
-
-@ app.route('/api/magazines/<magazineid>/tags', methods=['get'])
-def api_getmagazinetags(magazineid: str) -> Tuple[str, int]:
-    """
-    Get the tags associated with a specific magazine.
-
-    Args:
-        magazineid (str): The ID of the magazine.
-
-    Returns:
-        Tuple[str, int]: A tuple containing an empty string and an integer
-        value.
-    """
-
-    options = {}
-    options["magazineId"] = magazineid
-
-    return ("", 0)
-    # return GetMagazineTags(options)
 
 ###
 # People related functions
