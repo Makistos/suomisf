@@ -1,5 +1,6 @@
 # @import ./login.http
 ###
+# @name get_work
 
 GET {{host}}/api/works/1000
 ?? status == 200
@@ -40,12 +41,7 @@ Authorization: Bearer {{login.access_token}}
 PUT {{host}}/api/works
 Authorization: Bearer {{login.access_token}}
 
-{ 
-    "data": {
-            "id": {{create_work}},
-            "title": "Testi Kirja"
-        }
-}
+<@ ./workData.json
 ?? status == 200
 
 ###
