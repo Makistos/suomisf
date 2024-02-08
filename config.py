@@ -25,9 +25,9 @@ class DevConfig(Config):
     SQLALCHEMY_ECHO = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'suomisf.db')
-    BOOKCOVER_SAVELOC = '/home/mep/src/suomisf/app/static/images/books/'
-    PERSONIMG_SAVELOC = '/home/mep/src/suomisf/app/static/images/people/'
-    MAGAZINECOVER_SAVELOC = '/home/mep/src/suomisf/app/static/images/magazines/'
+    BOOKCOVER_SAVELOC = '/home/mep/suomisf/app/static/images/books/'
+    PERSONIMG_SAVELOC = '/home/mep/suomisf/app/static/images/people/'
+    MAGAZINECOVER_SAVELOC = '/home/mep/suomisf/app/static/images/magazines/'
 
 
 class ProdConfig(Config):
@@ -38,9 +38,9 @@ class ProdConfig(Config):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite://' + os.path.join(basedir, 'suomisf.db')
-    BOOKCOVER_SAVELOC = '/home/Makistos/mysite/app/static/images/books/'
-    PERSONIMG_SAVELOC = '/home/Makistos/mysite/suomisf/app/static/images/people/'
-    MAGAZINECOVER_SAVELOC = '/home/Makistos/mysite/suomisf/app/static/images/magazines/'
+    BOOKCOVER_SAVELOC = '/home/mep/suomisf/app/static/images/books/'
+    PERSONIMG_SAVELOC = '/home/mep/suomisf/app/static/images/people/'
+    MAGAZINECOVER_SAVELOC = '/home/mep/suomisf/app/static/images/magazines/'
 
 
 class StagingConfig(Config):
