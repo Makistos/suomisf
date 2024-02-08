@@ -1,7 +1,7 @@
 POST http://localhost:5000/api/login HTTP/1.1
 
 ###
-GET http://localhost:5000/api/changes?period=120&limit=5 HTTP/1.1
+GET http://127.0.0.1:5000/api/changes?period=120&limit=5 HTTP/1.1
 
 ###
 GET http://localhost:5000/api/changes?period=120&action=Uusi HTTP/1.1

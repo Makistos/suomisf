@@ -9,3 +9,5 @@ authors.txt
 bibtmp/*
 *.un~
 apidoc/*
+.env
+**/.env
