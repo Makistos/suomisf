@@ -919,14 +919,14 @@ def work_update(
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
+        author_str = work.update_author_str()
+        work.author_str = author_str
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()
         app.logger.error('Exception in WorkSave() commit: ' + str(exp))
         return ResponseType(f'WorkSave: Tietokantavirhe. id={work.id}',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
-
-    work.update_author_str()
 
     return retval
 
