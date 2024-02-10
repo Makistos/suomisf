@@ -1,0 +1,49 @@
+# @import ./login.http
+
+###
+# @name create_author
+# @ref login
+POST {{host}}/api/people
+Authorization: Bearer {{login.access_token}}
+
+<@ ./data/person_author.json
+?? status == 201
+
+###
+# @name create_translator
+# @ref login
+POST {{host}}/api/people
+Authorization: Bearer {{login.access_token}}
+
+<@ ./data/person_translator.json
+?? status == 201
+
+###
+# @name create_editor
+# @ref login
+POST {{host}}/api/people
+Authorization: Bearer {{login.access_token}}
+
+<@ ./data/person_editor.json
+?? status == 201
+
+###
+# @name update_person
+# @ref login
+PUT {{host}}/api/people
+Authorization: Bearer {{login.access_token}}
+
+<@ ./data/person_update.json
+?? status == 200
+
+###
+# @name get_person
+GET {{host}}/api/people/{{create_author}}
+?? status == 200
+
+###
+# @name delete_person
+# @ref login
+DELETE {{host}}/api/people/{{create_author}}
+Authorization: Bearer {{login.access_token}}
+?? status == 200
