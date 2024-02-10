@@ -156,6 +156,7 @@ def log_changes(session: Any, obj: Any, name_field: str = "name",
                       old_value=value,
                       date=datetime.now())
             session.add(log)
+            retval = log.id
     else:
         log = Log(table_name=tbl_name,
                   field_name='',

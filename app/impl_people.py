@@ -9,15 +9,16 @@ from marshmallow import exceptions
 from app.impl_logs import log_changes
 
 from app.route_helpers import new_session
-from app.model import (PersonBriefSchema)
+from app.model import (IssueSchema, PersonBriefSchema)
 from app.model_person import (PersonSchema)
 from app.model import (ShortBriefestSchema)
-from app.orm_decl import (Alias, Country, ContributorRole, Work, Contributor,
+from app.orm_decl import (Alias, Country, ContributorRole, Issue, Work,
+                          Contributor,
                           PersonLink, Awarded, PersonLanguage, PersonTag,
                           IssueEditor, ArticlePerson, ArticleAuthor,
                           ShortStory, Part, Person)
-from app.impl import (ResponseType, SearchResult, SearchResultFields, searchscore, check_int,
-                      get_join_changes)
+from app.impl import (ResponseType, SearchResult, SearchResultFields,
+                      searchscore, check_int, get_join_changes)
 from app.api_errors import APIError
 from app.impl_country import AddCountry
 from app.impl_links import linksHaveChanged
@@ -59,19 +60,20 @@ def _filter_person_query(table: Any,
         column = getattr(table, key, None)
         related_key = _person_relationships[key]
         related_col = getattr(related_table, related_key, None)
-        if op == 'in':
-            filt = query.join(column).filter(related_col.in_([value]))
-        else:
-            attr = list(filter(lambda e: hasattr(related_col, e % op), [
-                '%s', '%s_', '__%s__']))[0] % op
-            filt = getattr(related_col, attr)(value)
+        if related_col:
+            if op == 'in':
+                filt = query.join(column).filter(related_col.in_([value]))
+            else:
+                attr = list(filter(lambda e: hasattr(related_col, e % op), [
+                    '%s', '%s_', '__%s__']))[0] % op
+                filt = getattr(related_col, attr)(value)
         if op == 'notContains':
             query = query.join(column).filter(not_(filt))
         else:
             query = query.join(column).filter(filt)
     else:
         column = getattr(table, key, None)
-        if op == 'in':
+        if column and op == 'in':
             filt = column.in_(value)
         else:
             if op == 'notContains':
@@ -286,10 +288,11 @@ def list_people(params: Dict[str, Any]) -> ResponseType:
             sort_field = params['sortField']
             if (sort_field in ['name', 'dob', 'dod']):
                 sort_col = getattr(Person, sort_field, None)
-                if params['sortOrder'] == '1':
-                    people = people.order_by(sort_col.asc())
-                else:
-                    people = people.order_by(sort_col.desc())
+                if sort_col:
+                    if params['sortOrder'] == '1':
+                        people = people.order_by(sort_col.asc())
+                    else:
+                        people = people.order_by(sort_col.desc())
             if sort_field == 'nationality':
                 sort_col = getattr(Country, 'name', None)
                 people = people.join(Person.nationality)\
@@ -309,9 +312,9 @@ def list_people(params: Dict[str, Any]) -> ResponseType:
         start = int(params['rows']) * (int(params['page']))
         end = int(params['rows']) * (int(params['page']) + 1)
         app.logger.warning("page: " + str(params['page']) +
-                        " rows: " + str(params['rows']) +
-                        " start: " + str(start) +
-                        " end: " + str(end))
+                           " rows: " + str(params['rows']) +
+                           " start: " + str(start) +
+                           " end: " + str(end))
         people = people[start:end]
 
     # Serialize to JSON
@@ -354,7 +357,7 @@ def get_person(person_id: int) -> ResponseType:
         if not person:
             app.logger.error(f'get_person: Unknown person. Id={person_id}.')
             return ResponseType(f"Unknown person. Id={person_id}.",
-                                HttpResponseCode.BAD_REQUEST)
+                                HttpResponseCode.BAD_REQUEST.value)
 
         aliases = session.query(Alias)\
             .filter(Alias.realname == person.id).all()
@@ -381,7 +384,7 @@ def get_person(person_id: int) -> ResponseType:
     except SQLAlchemyError as exp:
         app.logger.error(f'get_person exception: {exp}.')
         return ResponseType(f'get_person tietokantavirhe: {exp}.',
-                            HttpResponseCode.INTERNAL_SERVER_ERROR)
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         schema = PersonSchema()
@@ -389,9 +392,9 @@ def get_person(person_id: int) -> ResponseType:
     except exceptions.MarshmallowError as exp:
         app.logger.error(f'get_person schema error: {exp}.')
         return ResponseType(f'get_person skeemavirhe: {exp}',
-                            HttpResponseCode.INTERNAL_SERVER_ERROR)
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, HttpResponseCode.OK)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def person_add(params: Any) -> ResponseType:
@@ -408,18 +411,28 @@ def person_add(params: Any) -> ResponseType:
     data = params['data']
 
     person = Person()
+    if 'name' not in data:
+        app.logger.error('No name in data.')
+        return ResponseType('Nimi puuttuu.',
+                            HttpResponseCode.BAD_REQUEST.value)
+
     person.name = data['name']
-    person.alt_name = data['alt_name']
-    person.fullname = data['fullname']
-    person.bio = data['bio']
-    person.bio_src = data['bio_src']
-    person.first_name = data['first_name']
-    person.last_name = data['last_name']
-    person.image_src = data['image_src']
-    person.dob = data['dob']
-    person.dod = data['dod']
-    person.nationality_id = data['nationality']['id']
-    person.other_names = data['other_names']
+
+    person.alt_name = data['alt_name'] if 'alt_name' in data else person.name
+    person.fullname = data['fullname'] if 'fullname' in data else person.name
+    person.bio = data['bio'] if 'bio' in data else None
+    person.bio_src = data['bio_src'] if 'bio_src' in data else None
+    person.first_name = data['first_name'] if 'first_name' in data else None
+    person.last_name = data['last_name'] if 'last_name' in data else None
+    person.image_src = data['image_src'] if 'image_src' in data else None
+    person.dob = data['dob'] if 'dob' in data else None
+    person.dod = data['dod'] if 'dod' in data else None
+    if 'nationality' in data and 'id' in data['nationality']:
+        person.nationality_id = data['nationality']['id']
+    else:
+        person.nationality_id = data['nationality_id'] \
+            if 'nationality_id' in data else None
+    person.other_names = data['other_names'] if 'other_names' in data else None
 
     try:
         session.add(person)
@@ -490,26 +503,30 @@ def person_update(params: Any) -> ResponseType:
                             HttpResponseCode.BAD_REQUEST.value)
 
     # Check that name is not empty
-    if 'name' not in data:
-        app.logger.error('PersonUpdate: Name is missing.')
-        return ResponseType('PersonUpdate: Nimi puuttuu.',
-                            HttpResponseCode.BAD_REQUEST.value)
-    if data['name'] == '':
-        app.logger.error('PersonUpdate: Name is empty.')
-        return ResponseType('PersonUpdate: Nimi ei voi olla tyhjä puuttuu.',
-                            HttpResponseCode.BAD_REQUEST.value)
+    # if 'name' not in data:
+    #     app.logger.error('PersonUpdate: Name is missing.')
+    #     return ResponseType('PersonUpdate: Nimi puuttuu.',
+    #                         HttpResponseCode.BAD_REQUEST.value)
 
-    name = data['name']
-    if data['name'] != person.name:
-        old_values['Nimi'] = person.name
-        person.name = name
+    if 'name' in data:
+        if data['name'] == '':
+            app.logger.error('PersonUpdate: Name is empty.')
+            return ResponseType(
+                'PersonUpdate: Nimi ei voi olla tyhjä puuttuu.',
+                HttpResponseCode.BAD_REQUEST.value)
+        name = data['name']
+        if data['name'] != person.name:
+            old_values['Nimi'] = person.name
+            person.name = name
 
-    if 'alt_name' not in data:
+    if 'alt_name' in data:
+        alt_name = data['alt_name']
+    elif 'name' in data:
         alt_name = name
     else:
-        alt_name = data['alt_name']
+        alt_name = ''
 
-    if alt_name != person.alt_name:
+    if 'alt_name' in data and alt_name != person.alt_name:
         old_values['Vaihtoehtoinen nimi'] = person.alt_name
         person.alt_name = alt_name
 
@@ -608,12 +625,12 @@ def person_update(params: Any) -> ResponseType:
         return ResponseType('PersonUpdate: Tietokantavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    log_id = log_changes(session,
-                         obj=person,
-                         action='Päivitys',
-                         old_values=old_values)
-    if log_id == 0:
-        app.logger.error('PersonUpdate: Failed to log changes.')
+    log_changes(session,
+                obj=person,
+                action='Päivitys',
+                old_values=old_values)
+    # if log_id == 0:
+    #     app.logger.error('PersonUpdate: Failed to log changes.')
     session.commit()
 
     return retval
@@ -957,6 +974,52 @@ def get_latest_people(count: int) -> ResponseType:
     except exceptions.MarshmallowError as exp:
         app.logger.error('get_latest_people schema error: ' + str(exp))
         return ResponseType('get_latest_people: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def person_chiefeditor(person_id: int) -> ResponseType:
+    """
+    Retrieves the chief editor for a given person ID.
+
+    Args:
+        person_id (int): The ID of the person.
+
+    Returns:
+        ResponseType: The response object containing the chief editor in JSON
+                      format.
+    """
+    session = new_session()
+
+    try:
+        person = session.query(Person)\
+            .filter(Person.id == person_id)\
+            .first()
+        if not person:
+            app.logger.error(
+                f'Person not found. Id = {person_id}.')
+            return ResponseType(f'Henkilöä ei löydy. \
+                                person_id={person_id}.',
+                                HttpResponseCode.BAD_REQUEST.value)
+
+        chiefeditor = session.query(Issue)\
+            .join(IssueEditor)\
+            .filter(IssueEditor.person_id == person_id)\
+            .filter(IssueEditor.issue_id == Issue.id)\
+            .first()
+
+    except SQLAlchemyError as exp:
+        app.logger.error(exp)
+        return ResponseType('Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    try:
+        schema = IssueSchema()
+        retval = schema.dump(chiefeditor)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error('Schema error: ' + str(exp))
+        return ResponseType('Skeemavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType(retval, HttpResponseCode.OK.value)
