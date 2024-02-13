@@ -1,6 +1,11 @@
 # @import ./login.http
 
 ###
+# @name get_people
+# GET {{host}}/api/people
+# ?? status == 200
+
+###
 # @name create_author
 # @ref login
 POST {{host}}/api/people
@@ -28,7 +33,7 @@ Authorization: Bearer {{login.access_token}}
 ?? status == 201
 
 ###
-# @name update_person
+# @name update_author
 # @ref login
 PUT {{host}}/api/people
 Authorization: Bearer {{login.access_token}}
@@ -42,8 +47,68 @@ GET {{host}}/api/people/{{create_author}}
 ?? status == 200
 
 ###
-# @name delete_person
+# @name get_chiefeditor_empty
+GET {{host}}/api/people/{{create_translator}}/chiefeditor
+{{
+  test.status(200);
+  test.responseBody('{}');
+}}
+
+###
+# @name delete_author
 # @ref login
 DELETE {{host}}/api/people/{{create_author}}
 Authorization: Bearer {{login.access_token}}
 ?? status == 200
+
+###
+# @name delete_editor
+# @ref login
+DELETE {{host}}/api/people/{{create_editor}}
+Authorization: Bearer {{login.access_token}}
+?? status == 200
+
+###
+# @name delete_translator
+# @ref login
+DELETE {{host}}/api/people/{{create_translator}}
+Authorization: Bearer {{login.access_token}}
+?? status == 200
+
+
+# Error cases
+
+
+###
+# @name get_person_bad_id
+GET {{host}}/api/people/xxx
+?? status == 400
+
+###
+# @name get_person_unknown_id
+GET {{host}}/api/people/1000000
+?? status == 400
+
+###
+# @name delete_person_bad_id
+# @ref login
+DELETE {{host}}/api/people/xxx
+Authorization: Bearer {{login.access_token}}
+?? status == 400
+
+###
+# @name delete_person_unknown_id
+# @ref login
+DELETE {{host}}/api/people/1000000
+Authorization: Bearer {{login.access_token}}
+?? status == 400
+
+###
+# @name delete_person_unknown_id
+DELETE {{host}}/api/people/1000000
+?? status == 401
+
+###
+# @name get_chief_editor_unknown_id
+GET {{host}}/api/people/1000000/chiefeditor
+?? status == 400

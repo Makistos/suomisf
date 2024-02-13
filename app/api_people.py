@@ -4,15 +4,13 @@ import json
 from typing import Any, Dict
 import bleach
 from flask import Response, request
-from jsonschema import validate
-import jsonschema
 from app.api import fix_operator
 from app.api_errors import APIError
 from app.api_helpers import make_api_response
-from app.api_schemas import PersonSchema
 
 from app.impl import ResponseType
-from app.impl_people import (filter_people, list_people, person_add,
+from app.impl_people import (filter_people, get_person_articles, list_people, person_add,
+                             person_chiefeditor,
                              person_update, get_person, person_delete,
                              person_tag_add, person_tag_remove,
                              person_shorts)
@@ -52,6 +50,11 @@ def api_createupdateperson() -> Response:
         - The JSON payload should conform to the PersonSchema.
         - The function logs any errors encountered during the process.
 
+    Tests:
+        create_author: Create a person
+        create_translator: Create a person
+        create_editor: Create a person
+        update_author: Update a person's info
     """
     try:
         params = json.loads(request.data.decode('utf-8'))
@@ -190,6 +193,11 @@ def api_getperson(person_id: str) -> Response:
     Raises:
         TypeError: If the person ID is not an integer.
         ValueError: If the person ID is not a valid integer.
+
+    Tests:
+        get_person: Get existing person
+        get_person_bad_id: Try id which is not a number
+        get_person_unknown_id: Try id not existing in db
     """
     # app.logger.error(app.url_map)
     try:
@@ -215,16 +223,46 @@ def api_deleteperson(person_id: str) -> Response:
 
     Returns:
         Response: The response object containing the result of the deletion.
+
+    Tests:
+        delete_author: Delete an existing person
+        delete_editor: Delete an existing person
+        delete_translator: Delete an existing person
+        delete_person_bad_id: Try id which is not a number
+        delete_person_unknown_id: Try id not existing in db
+        delete_person_not_authorized: Try to delete without authorization
     """
     try:
         int_id = int(person_id)
     except (TypeError, ValueError):
-        app.logger.error(f'api_DeletePerson: Invalid id {person_id}.')
+        app.logger.error(f'Invalid id {person_id}.')
         response = ResponseType(
-            f'api_DeletePerson: Virheellinen tunniste {person_id}.',
+            f'Virheellinen tunniste {person_id}.',
             status=HttpResponseCode.BAD_REQUEST.value)
         return make_api_response(response)
     return make_api_response(person_delete(int_id))
+
+
+@app.route('/api/people/<person_id>/articles', methods=['get'])
+def api_personarticles(person_id: str) -> Response:
+    """
+    Retrieves a list of articles for a specific person.
+
+    Args:
+        person_id (str): The ID of the person.
+
+    Returns:
+        Response: The response object containing the list of articles.
+    """
+    try:
+        int_id = int(person_id)
+    except (TypeError, ValueError):
+        app.logger.error('Invalid id %s.', person_id)
+        response = ResponseType(
+            f'Virheellinen tunniste {person_id}.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+    return make_api_response(get_person_articles(int_id))
 
 
 @app.route('/api/people/<person_id>/awards', methods=['get'])
@@ -243,13 +281,35 @@ def api_personawards(person_id: str) -> Response:
     except (TypeError, ValueError):
         app.logger.error('Invalid id %s.', person_id)
         response = ResponseType(
-            f'api_PersonAwards: Virheellinen tunniste {person_id}.',
+            f'Virheellinen tunniste {person_id}.',
             status=HttpResponseCode.BAD_REQUEST.value)
         return make_api_response(response)
     return make_api_response(get_person_awards(int_id))
 
 
-@app.route('/api/people/shorts/<personid>', methods=['get'])
+@app.route('/api/people/<personid>/chiefeditor', methods=['get'])
+def api_chiefeditor(personid: int) -> Response:
+    """
+    Retrieves issues person is editor in chief.
+
+    Args:
+        id (int): The ID of the person.
+
+    Returns:
+        Response: The response object containing the issues.
+    """
+    try:
+        int_id = int(personid)
+    except (TypeError, ValueError):
+        app.logger.error(f'Invalid id {personid}.')
+        response = ResponseType(
+            f'Virheellinen tunniste {personid}.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+    return make_api_response(person_chiefeditor(int_id))
+
+
+@app.route('/api/people/<personid>/shorts', methods=['get'])
 def api_listshorts(personid: int) -> Response:
     """
     Retrieves a list of shorts for a specific person.
@@ -263,9 +323,9 @@ def api_listshorts(personid: int) -> Response:
     try:
         int_id = int(personid)
     except (TypeError, ValueError):
-        app.logger.error(f'api_ListShorts: Invalid id {personid}.')
+        app.logger.error(f'Invalid id {personid}.')
         response = ResponseType(
-            f'api_ListShorts: Virheellinen tunniste {personid}.',
+            f'Virheellinen tunniste {personid}.',
             status=HttpResponseCode.BAD_REQUEST.value)
         return make_api_response(response)
     return make_api_response(person_shorts(int_id))
@@ -326,7 +386,7 @@ def api_filterpeople(pattern: str) -> Response:
     """
     pattern = bleach.clean(pattern)
     if len(pattern) < 2:
-        app.logger.error('FilterPeople: Pattern too short.')
+        app.logger.error('Pattern too short.')
         response = ResponseType(
             'Liian lyhyt hakuehto', status=HttpResponseCode.BAD_REQUEST.value)
         return make_api_response(response)

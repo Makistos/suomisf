@@ -9,10 +9,11 @@ from marshmallow import exceptions
 from app.impl_logs import log_changes
 
 from app.route_helpers import new_session
-from app.model import (IssueSchema, PersonBriefSchema)
+from app.model import (ArticleSchema, IssueSchema, PersonBriefSchema)
 from app.model_person import (PersonSchema)
 from app.model import (ShortBriefestSchema)
-from app.orm_decl import (Alias, Country, ContributorRole, Issue, Work,
+from app.orm_decl import (Alias, Article, Country, ContributorRole, Issue,
+                          Work,
                           Contributor,
                           PersonLink, Awarded, PersonLanguage, PersonTag,
                           IssueEditor, ArticlePerson, ArticleAuthor,
@@ -392,6 +393,40 @@ def get_person(person_id: int) -> ResponseType:
     except exceptions.MarshmallowError as exp:
         app.logger.error(f'get_person schema error: {exp}.')
         return ResponseType(f'get_person skeemavirhe: {exp}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def get_person_articles(person_id: int) -> ResponseType:
+    """
+    Retrieves the articles written by a specific person from the database.
+
+    Args:
+        person_id (int): The unique identifier of the person.
+
+    Returns:
+        ResponseType: An object containing the retrieved articles and the HTTP
+                      response code.
+    """
+    session = new_session()
+    try:
+        articles = session.query(Article)\
+            .join(ArticleAuthor)\
+            .filter(ArticleAuthor.person_id == person_id,
+                    ArticleAuthor.article_id == Article.id) \
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'get_person_articles exception: {exp}.')
+        return ResponseType(f'get_person_articles tietokantavirhe: {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    try:
+        schema = ArticleSchema(many=True)
+        retval = schema.dump(articles)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'get_person_articles schema error: {exp}.')
+        return ResponseType(f'get_person_articles skeemavirhe: {exp}',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType(retval, HttpResponseCode.OK.value)
@@ -989,6 +1024,12 @@ def person_chiefeditor(person_id: int) -> ResponseType:
     Returns:
         ResponseType: The response object containing the chief editor in JSON
                       format.
+
+    Tests:
+        get_chief_editor_empty: Get editor-in-chief info for person with no
+                                info.
+        get_chief_editor_unknown_id: Try to get editor-in-chief info for
+                                     non-existing person.
     """
     session = new_session()
 

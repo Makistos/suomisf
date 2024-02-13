@@ -132,3 +132,9 @@ GET http://localhost:5000/api/works/4182/changes HTTP/1.1
 
 ###
 GET http://localhost:5000/api/editions/3098/changes HTTP/1.1
+
+###
+GET http://localhost:5000/api/people/2370/chiefeditor HTTP/1.1
+
+###
+GET http://localhost:5000/api/people/706/articles HTTP/1.1
