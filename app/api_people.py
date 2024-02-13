@@ -9,7 +9,8 @@ from app.api_errors import APIError
 from app.api_helpers import make_api_response
 
 from app.impl import ResponseType
-from app.impl_people import (filter_people, get_person_articles, list_people, person_add,
+from app.impl_people import (filter_people, get_person_articles, list_people,
+                             person_add,
                              person_chiefeditor,
                              person_update, get_person, person_delete,
                              person_tag_add, person_tag_remove,
