@@ -60,9 +60,9 @@ def api_createupdateperson() -> Response:
     try:
         params = json.loads(request.data.decode('utf-8'))
     except (TypeError, ValueError):
-        app.logger.error('api_CreateUpdatePerson: Invalid JSON.')
+        app.logger.error('Invalid JSON.')
         return make_api_response(
-            ResponseType('api_CreateUpdatePerson: Virheelliset parametrit.',
+            ResponseType('Virheelliset parametrit.',
                          status=HttpResponseCode.BAD_REQUEST.value))
     # try:
     #     validate(instance=params, schema=PersonSchema)

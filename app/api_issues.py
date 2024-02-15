@@ -1,4 +1,4 @@
-""" Issue related functions
+""" Issue related API functions
 """
 
 from flask.wrappers import Response

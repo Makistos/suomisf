@@ -1,12 +1,15 @@
 """ API related functions for magazines.
 """
 
+import json
 from typing import Tuple
-from flask import Response
+from flask import Response, request
 from app.api_helpers import make_api_response
 from app.impl import ResponseType
-from app.impl_magazines import (list_magazines, get_magazine)
+from app.impl_magazines import (add_magazine, delete_magazine, list_magazines,
+                                get_magazine, update_magazine)
 from app.types import HttpResponseCode
+from app.api_jwt import jwt_admin_required
 
 from app import app
 
@@ -21,6 +24,9 @@ def api_listmagazines() -> Response:
 
     Returns:
         Response: The response object containing the list of magazines.
+
+    Tests:
+        list_magazines: List existing magazines
     """
 
     return make_api_response(list_magazines())
@@ -39,6 +45,9 @@ def api_getmagazine(magazineid: str) -> Response:
 
     Raises:
         ValueError: If the magazine ID is invalid.
+
+    Tests:
+        get_magazine: Get existing magazine
     """
 
     try:
@@ -53,45 +62,75 @@ def api_getmagazine(magazineid: str) -> Response:
     return make_api_response(get_magazine(int_id))
 
 
-@ app.route('/api/magazines/<magazineid>', methods=['patch'])
-def api_updatemagazine(magazineid: str) -> Tuple[str, int]:
+@app.route('/api/magazines', methods=['post', 'put'])
+@jwt_admin_required()  # type: ignore
+def api_magazinecreateupdate() -> Response:
     """
-    Updates a magazine with the given `magazineId`.
+    Create or update a magazine.
 
-    Args:
-        magazineId (str): The ID of the magazine to update.
+    This function is responsible for handling the '/api/magazines' endpoint
+    requests with both 'POST' and 'PUT' methods. It expects the request data
+    to be in JSON format and performs input validation using the `bleach`
+    library.
+
+    Parameters:
+    - None
 
     Returns:
-        Tuple[str, int]: A tuple containing an empty string and an integer
-        status code.
+    - A `Response` object representing the API response.
+
+    Raises:
+    - None
+
+    Tests:
+    - create_magazine: Create new magazine
+    - update_magazine: Update existing magazine
+    - update_magazine_invalid_type: Type is not 0 or 1
+    - update_magazine_type_not_number: Type is not a number
     """
 
-    options = {}
-    options["magazineId"] = magazineid
+    try:
+        params = json.loads(request.data.decode('utf-8'))
+    except (TypeError, ValueError):
+        app.logger.error(f'Invalid JSON: {request.data}.')
+        response = ResponseType(
+            f'Virheellinen JSON: {request.data}.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+    if request.method == 'POST':
+        retval = make_api_response(add_magazine(params))
+    elif request.method == 'PUT':
+        retval = make_api_response(update_magazine(params))
 
-    return ("", 0)
-
-    # return UpdateMagazine(options, "")
+    return retval
 
 
-@ app.route('/api/magazines/<magazineid>/issues', methods=['get'])
-def api_getmagazineissues(magazineid: str) -> Tuple[str, int]:
+@app.route('/api/magazines/<magazineid>', methods=['delete'])
+@jwt_admin_required()  # type: ignore
+def api_deletemagazine(magazineid: str) -> Response:
     """
-    Retrieves the issues of a specific magazine.
+    Delete a magazine.
 
     Args:
         magazineId (str): The ID of the magazine.
 
     Returns:
         Tuple[str, int]: A tuple containing an empty string and an integer
-                         value.
+        value.
+
+    Tests:
+        delete_magazine: Delete existing magazine
     """
+    try:
+        int_id = int(magazineid)
+    except (ValueError, TypeError):
+        app.logger.error(f'Invalid id {magazineid}.')
+        response = ResponseType(
+            f'Virheellinen tunniste {magazineid}.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
 
-    options = {}
-    options["magazineId"] = magazineid
-
-    return ("", 0)
-    # return GetMagazineIssues(options)
+    return make_api_response(delete_magazine(int_id))
 
 
 @ app.route('/api/magazines/<magazineid>/publisher', methods=['get'])

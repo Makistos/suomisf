@@ -134,8 +134,8 @@ def create_edition(params: Any) -> ResponseType:
     data = params["data"]
 
     if "work_id" not in data:
-        app.logger.error("create_edition: work_id not found.")
-        return ResponseType("create_edition: Teoksen id (work_id) puuttuu.",
+        app.logger.error("Work_id not found.")
+        return ResponseType("Teoksen id (work_id) puuttuu.",
                             HttpResponseCode.BAD_REQUEST.value)
 
     # Check that work exists
@@ -152,7 +152,7 @@ def create_edition(params: Any) -> ResponseType:
     work = session.query(Work).filter(Work.id == work_id).first()
     if not work:
         app.logger.error(
-            'dition_create: work not found. id={data["work_id"]}'
+            'Work not found. id={data["work_id"]}'
         )
         return ResponseType(f'Teosta ei löydy. id={data["work_id"]}',
                             HttpResponseCode.BAD_REQUEST.value)
@@ -167,8 +167,8 @@ def create_edition(params: Any) -> ResponseType:
         edition.subtitle = data["subtitle"]
     # Check that pubyear exists (required)
     if "pubyear" not in data:
-        app.logger.error("create_edition: pubyear not found.")
-        return ResponseType("create_edition: Julkaisuvuosi (pubyear) puuttuu.",
+        app.logger.error("Pubyear not found.")
+        return ResponseType("Julkaisuvuosi (pubyear) puuttuu.",
                             HttpResponseCode.BAD_REQUEST.value)
     pubyear: Union[int, None] = check_int(value=data["pubyear"])
     if not pubyear:
