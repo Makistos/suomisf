@@ -200,16 +200,19 @@ def create_edition(params: Any) -> ResponseType:
             version = 1
         edition.version = version
     if "publisher" in data:
-        publisher_id = check_int(data["publisher"]["id"],
-                                 negative_values=False)
+        if "id" in data["publisher"]:
+            publisher_id = data["publisher"]["id"]
+        else:
+            publisher_id = data["publisher"]
+        publisher_id = check_int(publisher_id, negative_values=False)
         if not publisher_id:
             app.logger.error(
-                'create_edition: Invalid publisher id. '
-                f'publisher id={data["publisher"]["id"]}'
+                'Invalid publisher id. '
+                f'publisher id={publisher_id}'
             )
             return ResponseType(
                 'Kustantajan id on virheellinen. '
-                f'id={data["publisher"]["id"]}',
+                f'id={publisher_id}',
                 HttpResponseCode.BAD_REQUEST.value
             )
         publisher = session.query(Publisher)\
