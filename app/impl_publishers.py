@@ -1,5 +1,6 @@
 """ Functions related to publishers. """
-from typing import Any
+from typing import Any, Union
+from sqlalchemy import or_
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.impl_logs import log_changes
@@ -10,6 +11,7 @@ from app.model import (PublisherBriefSchema,
                        PublisherLink)
 from app.impl import ResponseType, check_int
 from app import app
+from app.types import HttpResponseCode
 
 
 def filter_publishers(query: str) -> ResponseType:
@@ -32,17 +34,18 @@ def filter_publishers(query: str) -> ResponseType:
             .all()
     except SQLAlchemyError as exp:
         app.logger.error(
-            f'Exception in FilterPublishers (query: {query}): ' + str(exp))
-        return ResponseType('FilterPublishers: Tietokantavirhe.', 400)
+            f'Query: {query}: {exp}')
+        return ResponseType('Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     try:
         schema = PublisherBriefSchema(many=True)
         retval = schema.dump(publishers)
     except exceptions.MarshmallowError as exp:
-        app.logger.error(
-            f'FilterPublishers schema error (query: {query}): ' + str(exp))
-        return ResponseType('FilterPublishers: Skeemavirhe.', 400)
+        app.logger.error(f'Query: {query}: {exp}')
+        return ResponseType('Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def get_publisher(pub_id: int) -> ResponseType:
@@ -64,18 +67,19 @@ def get_publisher(pub_id: int) -> ResponseType:
             .filter(Publisher.id == pub_id)\
             .first()
     except SQLAlchemyError as exp:
-        app.logger.error('Exception in GetPublishers: ' + str(exp))
-        return ResponseType(f'GetPublishers: Tietokantavirhe. id={pub_id}',
-                            400)
+        app.logger.error(exp)
+        return ResponseType(f'Tietokantavirhe. id={pub_id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         schema = PublisherSchema()
         retval = schema.dump(publisher)
     except exceptions.MarshmallowError as exp:
-        app.logger.error('GetPublisher schema error: ' + str(exp))
-        return ResponseType('GetPublisher: Skeemavirhe.', 400)
+        app.logger.error(exp)
+        return ResponseType('Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def list_publishers() -> ResponseType:
@@ -91,17 +95,19 @@ def list_publishers() -> ResponseType:
     try:
         publishers = session.query(Publisher).all()
     except SQLAlchemyError as exp:
-        app.logger.error('Exception in ListPublishers: ' + str(exp))
-        return ResponseType(f'ListPublishers: Tietokantavirhe. id={id}', 400)
+        app.logger.error(exp)
+        return ResponseType(f'Tietokantavirhe. id={id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         schema = PublisherBriefSchemaWEditions(many=True)
         retval = schema.dump(publishers)
     except exceptions.MarshmallowError as exp:
-        app.logger.error('ListPublishers schema error: ' + str(exp))
-        return ResponseType('ListPublishers: Skeemavirhe.', 400)
+        app.logger.error(exp)
+        return ResponseType('Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType(retval, 200)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def publisher_add(params: Any) -> ResponseType:
@@ -116,27 +122,51 @@ def publisher_add(params: Any) -> ResponseType:
                       operation.
     """
     session = new_session()
-    retval = ResponseType('OK', 200)
 
     publisher = Publisher()
     data = params['data']
+    if 'name' not in data or data['name'] == '' or data['name'] is None:
+        app.logger.error('Publisher name missing.')
+        return ResponseType('Kustantajan nimi puuttuu',
+                            HttpResponseCode.BAD_REQUEST.value)
+    if ('fullname' not in data or data['fullname'] == '' or
+            data['fullname'] is None):
+        app.logger.error('Publisher fullname missing.')
+        return ResponseType('Kustantajan koko nimi puuttuu',
+                            HttpResponseCode.BAD_REQUEST.value)
+    similar = session.query(Publisher) \
+        .filter(or_(Publisher.name == data['name'],
+                    Publisher.fullname == data['fullname']))\
+        .all()
+    if len(similar) > 0:
+        app.logger.error(f'Publisher name or fullname must be unique: {data}.')
+        return ResponseType('Nimi tai koko nimi on jo käytössä',
+                            HttpResponseCode.BAD_REQUEST.value)
+
     publisher.name = data['name']
     publisher.fullname = data['fullname']
-    publisher.description = data['description']
-    publisher.image_src = data['image_src']
+    publisher.description = data['description'] if 'description' in data \
+        else None
+    publisher.image_src = data['image_src'] if 'image_src' in data \
+        else None
+    publisher.image_attr = data['image_attr'] if 'image_attr' in data \
+        else None
 
     try:
         session.add(publisher)
+        session.flush()
     except SQLAlchemyError as exp:
-        app.logger.error('Exception in publisher_add: ' + str(exp))
-        return ResponseType('publisher_add: Tietokantavirhe.', 400)
+        app.logger.error(exp)
+        return ResponseType('Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     # Add links for publisher, requires ID.
     if 'links' in data:
         for link in data['links']:
             if 'link' not in link:
-                app.logger.error('publisher_add: Link missing link.')
-                return ResponseType('Linkin tiedot puutteelliset', 500)
+                app.logger.error('Link missing link.')
+                return ResponseType('Linkin tiedot puutteelliset',
+                                    HttpResponseCode.BAD_REQUEST.value)
             if link['link'] != '' and link['link'] is not None:
                 if 'description' in link:
                     description = link['description']
@@ -144,16 +174,18 @@ def publisher_add(params: Any) -> ResponseType:
                     description = ''
                 if 'link' in link:
                     new_link = PublisherLink(publisher_id=publisher.id,
+                                             link=link['link'],
                                              description=description)
                     session.add(new_link)
     try:
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()
-        app.logger.error('Exception in publisher_add commit: ' + str(exp))
-        return ResponseType('publisher_add: Tietokantavirhe.', 400)
+        app.logger.error(exp)
+        return ResponseType('Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return retval
+    return ResponseType(str(publisher.id), HttpResponseCode.CREATED.value)
 
 
 def publisher_update(params: Any) -> ResponseType:
@@ -168,73 +200,134 @@ def publisher_update(params: Any) -> ResponseType:
                       update.
     """
     session = new_session()
-    retval = ResponseType('OK', 200)
     old_values = {}
-    publisher: Any = None
     data = params['data']
-    changed = params['changed']
     publisher_id = check_int(data['id'])
 
-    if len(changed) == 0:
-        return ResponseType('OK', 200)
+    if not publisher_id:
+        app.logger.error('ID missing.')
+        return ResponseType('ID on pakollinen tieto',
+                            HttpResponseCode.BAD_REQUEST.value)
 
     publisher = session.query(Publisher).filter(
         Publisher.id == publisher_id).first()
 
-    if 'name' in changed:
-        if changed['name']:
-            if len(data['name']) == 0:
-                app.logger.error('PublisherUpdate: Name is a required field')
-                return ResponseType(
-                    'PublisherUpdate: Nimi on pakollinen tieto.', 400)
-            if data['name'] != publisher.name:
-                similar = session.query(Publisher).filter(
-                    Publisher.name == data['name']).all()
-                if len(similar) > 0:
-                    app.logger.error('PublisherUpdate: Name must be unique.')
-                    return ResponseType(
-                        'PublisherUpdate: Nimi on jo käytössä', 400)
-            old_values['Nimi'] = publisher.name
-            publisher.name = data['name']
+    if 'name' in data and data['name'] != publisher.name:
+        if len(data['name']) == 0 or data['name'] is None:
+            app.logger.error('Name is a required field')
+            return ResponseType('Nimi on pakollinen tieto',
+                                HttpResponseCode.BAD_REQUEST.value)
+        similar = session.query(Publisher).filter(
+            Publisher.name == data['name']).all()
+        if len(similar) > 0:
+            app.logger.error('Name must be unique.')
+            return ResponseType('Nimi on jo käytössä',
+                                HttpResponseCode.BAD_REQUEST.value)
+        old_values['Nimi'] = publisher.name
+        publisher.name = data['name']
 
-    if 'fullname' in changed:
-        if changed['fullname']:
-            if len(data['fullname']) == 0:
+    if 'fullname' in data and data['fullname'] != publisher.fullname:
+        if len(data['fullname']) == 0 or data['fullname'] is None:
+            app.logger.error(
+                'Fullname is a required field')
+            return ResponseType(
+                'Koko nimi on pakollinen tieto.',
+                HttpResponseCode.BAD_REQUEST.value)
+        if data['fullname'] != publisher.fullname:
+            similar = session.query(Publisher).filter(
+                Publisher.fullname == data['fullname']).all()
+            if len(similar) > 0:
                 app.logger.error(
-                    'PublisherUpdate: fullname is a required field')
+                    'Fullname must be unique.')
                 return ResponseType(
-                    'PublisherUpdate: Nimi on pakollinen tieto.', 400)
-            if data['fullname'] != publisher.fullname:
-                similar = session.query(Publisher).filter(
-                    Publisher.fullname == data['fullname']).all()
-                if len(similar) > 0:
-                    app.logger.error(
-                        'PublisherUpdate: fullname must be unique.')
-                    return ResponseType(
-                        'PublisherUpdate: Nimi on jo käytössä', 400)
-            old_values['Koko nimi'] = publisher.fullname
-            publisher.fullname = data['fullname']
+                    'Koko nimi on jo käytössä',
+                    HttpResponseCode.BAD_REQUEST.value)
+        old_values['Koko nimi'] = publisher.fullname
+        publisher.fullname = data['fullname']
 
-    if 'description' in changed:
-        if changed['description']:
-            old_values['Kuvaus'] = publisher.description
-            publisher.description = data['description']
+    if 'description' in data and data['description'] != publisher.description:
+        old_values['Kuvaus'] = publisher.description
+        publisher.description = data['description']
+
+    if 'image_src' in data and data['image_src'] != publisher.image_src:
+        old_values['Kuva'] = publisher.image_src
+        publisher.image_src = data['image_src']
+
+    if 'image_attr' in data and data['image_attr'] != publisher.image_attr:
+        old_values['Kuvan lähde'] = publisher.image_attr
+        publisher.image_attr = data['image_attr']
+
+    if 'links' in data and len(data['links']) > 0:
+        # todo
+        pass
 
     log_changes(session=session, obj=publisher, action='Päivitys',
                 old_values=old_values)
 
     try:
         session.add(publisher)
-    except SQLAlchemyError as exp:
-        app.logger.error(f'Exception in PublisherUpdate: {exp}.')
-        return ResponseType('PublisherUpdate: Tietokantavirhe.', 400)
-
-    try:
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()
-        app.logger.error(f'Exception in PublisherUpdate commit: {exp}.')
-        return ResponseType(
-            'PublisherUpdate: Tietokantavirhe tallennettaessa.', 400)
+        app.logger.error(exp)
+        return ResponseType('Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return retval
+    return ResponseType('OK', HttpResponseCode.OK.value)
+
+
+def publisher_delete(pub_id: int) -> ResponseType:
+    """
+    Deletes the publisher with the given ID from the database.
+
+    Args:
+        pub_id (int): The ID of the publisher to delete.
+
+    Returns:
+        ResponseType: The response indicating the success or failure of the
+                      deletion.
+    """
+    session = new_session()
+    publisher = session.query(Publisher).filter(Publisher.id == pub_id).first()
+
+    if publisher:
+        try:
+            session.delete(publisher)
+            session.commit()
+        except SQLAlchemyError as exp:
+            session.rollback()
+            app.logger.error(exp)
+            return ResponseType('Tietokantavirhe poistettaessa.',
+                                HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType('OK', HttpResponseCode.OK.value)
+
+
+def add_publisher(session: Any, name: str) -> Union[int, None]:
+    """
+    Adds a publisher to the database if it doesn't already exist, and returns
+    the publisher's ID.
+
+    Args:
+        session (Any): The database session.
+        name (str): The name of the publisher to add.
+
+    Returns:
+        Union[int, None]: The ID of the publisher if it already exists, or None
+        if an exception occurs.
+    """
+
+    publisher = session.query(Publisher).filter(Publisher.name == name).first()
+    if publisher:
+        return publisher.id
+
+    publisher = Publisher(name=name)
+    try:
+        session.add(publisher)
+        session.flush()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f'Exception in AddPublisher: {exp}.')
+        return None
+
+    return publisher.id

@@ -1,0 +1,44 @@
+# @import ./login.http
+
+###
+# @ref login
+# @name create_publisher
+POST {{host}}/api/publishers
+Authorization: Bearer {{login.access_token}}
+
+{
+    "data": {
+            "name": "Foo Bar Kustannus",
+            "fullname": "Foo Bar Kustannus Oy"
+        }
+}
+?? status == 201
+
+###
+# @ref login
+# @name update_publisher
+PUT {{host}}/api/publishers
+Authorization: Bearer {{login.access_token}}
+
+{
+    "data": {
+            "id": {{create_publisher}},
+            "name": "FooBar Kustannus",
+            "fullname": "FooBar Kustannus Oy",
+            "description": "Foo bar"
+        }
+}
+?? status == 200
+
+###
+# @name get_publisher
+GET {{host}}/api/publishers/{{create_publisher}}
+?? status == 200
+?? js response.parsedBody.name == FooBar Kustannus
+
+###
+# @ref login
+# @name delete_publisher
+DELETE {{host}}/api/publishers/{{create_publisher}}
+Authorization: Bearer {{login.access_token}}
+?? status == 200
