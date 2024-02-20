@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.impl_logs import log_changes
+from app.impl_publishers import add_publisher
 from app.isbn import check_isbn  # type: ignore
 from app.orm_decl import (
     Edition,
@@ -60,6 +61,66 @@ def create_first_edition(work: Work) -> Edition:
     retval.format_id = 1
 
     return retval
+
+
+def _set_publisher(
+    session: Any,
+    edition: Edition,
+    data: Any,
+    old_values: Union[Dict[str, Any], None]
+) -> Union[ResponseType, None]:
+    """
+    Sets the publisher for the given edition and returns a response type or
+    None.
+
+    Args:
+        session: The session object.
+        edition: The edition object.
+        data: The data object.
+        old_values: The old values.
+
+    Returns:
+        Union[ResponseType, None]: The response type or None.
+    """
+    if (data["publisher"] == "" or data["publisher"] is None):
+        app.logger.error(f'Publisher missing for edition {edition.id}')
+        return ResponseType('Kustantaja on pakollinen tieto',
+                            HttpResponseCode.BAD_REQUEST.value)
+    if data["publisher"] != edition.publisher:
+        if old_values is not None:
+            old_values["Kustantaja"] = (edition.publisher.name
+                                        if edition.publisher else '')
+        if (data["publisher"] is not None and
+                "id" not in data["publisher"]):
+            pub_id = check_int(data["publisher"])
+            if not pub_id:
+                # User added a new publisher. Front returns this as a string
+                # with the id of the new publisher
+                pub_id = add_publisher(session, data["publisher"])
+                if not pub_id:
+                    app.logger.error(
+                        f'Internal error creating publisher for {edition.id}')
+                    return ResponseType(
+                        'Uuden kustantajan luominen ei onnistunut: '
+                        f'{data["publisher"]}',
+                        HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+        else:
+            pub_id = check_int(data["publisher"]["id"])  # type: ignore
+            if pub_id is None:
+                app.logger.error(
+                    f'Publisher missing for edition {edition.id}')
+                return ResponseType('Kustantaja on pakollinen tieto',
+                                    HttpResponseCode.BAD_REQUEST.value)
+            publisher = session.query(Publisher).filter(
+                Publisher.id == pub_id
+            ).first()
+            if not publisher:
+                app.logger.error(
+                    f'Publisher missing for edition {edition.id}')
+                return ResponseType('Kustantaja on pakollinen tieto',
+                                    HttpResponseCode.BAD_REQUEST.value)
+        edition.publisher_id = pub_id
+    return None
 
 
 def _set_pubseries(
@@ -392,6 +453,7 @@ def update_edition(params: Any) -> ResponseType:
 
     # Publisher, required field. Has to exist in database.
     if "publisher" in data and data["publisher"] is not None:
+        _set_publisher(session, edition, data, old_values)
         publisher_id: Union[int, None] = None
         if 'id' not in data['publisher']:
             publisher = session.query(Publisher)\
