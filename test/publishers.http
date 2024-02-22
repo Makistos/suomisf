@@ -1,44 +1,140 @@
 # @import ./login.http
 
 ###
+# @name publisher_list_all
+GET {{host}}/api/publishers
+#?? js response.parseBody.data.length > 0
+?? status == 200
+
+###
 # @ref login
-# @name create_publisher
+# @name publisher_create
 POST {{host}}/api/publishers
 Authorization: Bearer {{login.access_token}}
 
 {
     "data": {
             "name": "Foo Bar Kustannus",
-            "fullname": "Foo Bar Kustannus Oy"
+            "fullname": "Foo Bar Kustannus Oy",
+            "links": [
+                {"link": "http://link.me",
+                "description": "Link for Foo Bar Kustannus"}
+            ]
         }
 }
 ?? status == 201
 
 ###
 # @ref login
-# @name update_publisher
+# @name publisher_create_similar_name
+POST {{host}}/api/publishers
+Authorization: Bearer {{login.access_token}}
+
+{
+    "data": {
+            "name": "Foo Bar Kustannus",
+            "fullname": "FooBar Kustannus Oy"
+        }
+}
+?? status == 400
+
+###
+# @ref login
+# @name publisher_update
 PUT {{host}}/api/publishers
 Authorization: Bearer {{login.access_token}}
 
 {
     "data": {
-            "id": {{create_publisher}},
+            "id": {{publisher_create}},
             "name": "FooBar Kustannus",
             "fullname": "FooBar Kustannus Oy",
-            "description": "Foo bar"
+            "description": "Foo bar",
+            "links": [
+                {"link": "https://link.me",
+                "description": "Link for FooBar Kustannus"}
+            ]
         }
 }
 ?? status == 200
 
 ###
-# @name get_publisher
-GET {{host}}/api/publishers/{{create_publisher}}
+# @name publisher_get
+GET {{host}}/api/publishers/{{publisher_create}}
 ?? status == 200
-?? js response.parsedBody.name == FooBar Kustannus
+?? body name == FooBar Kustannus
+?? body fullname == FooBar Kustannus Oy
+?? body description == Foo bar
+?? body links[0].link == https://link.me
+?? body links[0].description == Link for FooBar Kustannus
+?? body links.length == 1
 
 ###
 # @ref login
-# @name delete_publisher
-DELETE {{host}}/api/publishers/{{create_publisher}}
+# @name publisher_similar_fullname
+POST {{host}}/api/publishers
+Authorization: Bearer {{login.access_token}}
+
+{
+    "data": {
+            "name": "Foo Bar Kustannus",
+            "fullname": "FooBar Kustannus Oy"
+        }
+}
+?? status == 400
+
+###
+# @ref login
+# @name publisher_update_missing_id
+PUT {{host}}/api/publishers
+Authorization: Bearer {{login.access_token}}
+
+{
+    "data": {
+            "name": "FooBar Kustannus",
+            "fullname": "FooBar Kustannus Oy",
+            "description": "Foo bar"
+        }
+}
+?? status == 400
+
+###
+# @name publisher_id_invalid
+GET {{host}}/api/publishers/xxx
+?? status == 400
+
+###
+# @name publisher_id_not_found
+GET {{host}}/api/1000000
+?? status == 404
+
+###
+# @ref login
+# @name publisher_missing_name
+POST {{host}}/api/publishers
+Authorization: Bearer {{login.access_token}}
+
+{
+    "data": {
+            "fullname": "Foo Bar Kustannus Oy"
+        }
+}
+?? status == 400
+
+###
+# @ref login
+# @name publisher_delete
+DELETE {{host}}/api/publishers/{{publisher_create}}
 Authorization: Bearer {{login.access_token}}
 ?? status == 200
+
+###
+# @ref login
+# @name publisher_invalid_id
+DELETE {{host}}/api/publishers/{{publisher_create}}
+Authorization: Bearer {{login.access_token}}
+?? status == 200
+
+###
+GET {{host}}/api/publishers/{{publisher_create}}
+?? status == 404

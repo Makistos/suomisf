@@ -1,17 +1,73 @@
 """ Functions related to publishers. """
-from typing import Any, Union
+from typing import Any, Union, Dict, List
 from sqlalchemy import or_
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
+from app.impl_links import links_have_changed
 from app.impl_logs import log_changes
 from app.route_helpers import new_session
 from app.orm_decl import Publisher
 from app.model import (PublisherBriefSchema,
                        PublisherSchema, PublisherBriefSchemaWEditions,
                        PublisherLink)
-from app.impl import ResponseType, check_int
+from app.impl import ResponseType, check_int, get_join_changes
 from app import app
 from app.types import HttpResponseCode
+
+
+def _save_links(
+        session: Any,
+        links: List[Dict[str, str]],
+        publisher_id: int,
+        old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+    """
+    Save links to the database for a given publisher.
+
+    Args:
+        session: The database session.
+        links: A list of links to be saved.
+        publisher_id: Id of the publisher for whom the links are being saved.
+
+    Returns:
+        Union[ResponseType, None]: The response type or None.
+
+    Tests:
+        publisher_create: Add a link to new publisher
+        publisher_update: Update a link to existing publisher
+    """
+    existing_links = session.query(PublisherLink).filter(
+        PublisherLink.publisher_id == publisher_id).all()
+    (to_add, to_remove) = get_join_changes(
+        [x.link for x in existing_links],
+        [x['link'] for x in links])  # type: ignore
+    _ = [session.delete(link) for link in existing_links
+         if link.link in to_remove]
+    # if len(existing_links) > 0:
+    #     for link in existing_links:
+    #         session.delete(link)
+    new_links = [x for x in links if x['link'] != '']
+
+    for link in new_links:
+        if 'link' not in link:
+            app.logger.error('Link missing link.')
+            return ResponseType('Linkin tiedot puutteelliset',
+                                HttpResponseCode.BAD_REQUEST.value)
+        if link['link'] != '' and link['link'] is not None:
+            if 'description' in link:
+                description = link['description']
+            else:
+                description = ''
+            if 'link' in link:
+                new_link = PublisherLink(publisher_id=publisher_id,
+                                         link=link['link'],
+                                         description=description)
+                session.add(new_link)
+
+    if old_values:
+        old_values['Linkit'] = '-'.join(str(x) for x in to_remove)
+        old_values['Linkit'] = '+'.join(str(x) for x in to_add)
+
+    return None
 
 
 def filter_publishers(query: str) -> ResponseType:
@@ -59,6 +115,11 @@ def get_publisher(pub_id: int) -> ResponseType:
         ResponseType: The response object containing the retrieved publisher if
                       successful, or an error message if there was a database
                       or schema error.
+
+    Tests:
+        publisher_get: Get an existing publisher
+        publisher_invalid_id: Try to get a publisher with invalid id
+        publisher_id_not_found: Try to get a publisher that doesn't exist
     """
     session = new_session()
 
@@ -71,6 +132,9 @@ def get_publisher(pub_id: int) -> ResponseType:
         return ResponseType(f'Tietokantavirhe. id={pub_id}',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
+    if not publisher:
+        return ResponseType(f'Kustantajaa {pub_id} ei ole olemassa.',
+                            HttpResponseCode.NOT_FOUND.value)
     try:
         schema = PublisherSchema()
         retval = schema.dump(publisher)
@@ -89,6 +153,9 @@ def list_publishers() -> ResponseType:
     Returns:
         ResponseType: The response object containing the list of publishers and
                       the status code.
+
+    Tests:
+        publisher_list_all: Get all publishers
     """
     session = new_session()
 
@@ -120,6 +187,14 @@ def publisher_add(params: Any) -> ResponseType:
     Returns:
         ResponseType: The response object indicating the status of the
                       operation.
+
+    Tests:
+        publisher_create: Create a new publisher
+        publisher_similar_name: Create a new publisher with same name as
+                                an existing publisher
+        publisher_similar_fullname: Create a new publisher with same fullname
+                                    as an existing publisher
+        publisher_missing_name: Create a new publisher with missing name
     """
     session = new_session()
 
@@ -162,21 +237,13 @@ def publisher_add(params: Any) -> ResponseType:
 
     # Add links for publisher, requires ID.
     if 'links' in data:
-        for link in data['links']:
-            if 'link' not in link:
-                app.logger.error('Link missing link.')
-                return ResponseType('Linkin tiedot puutteelliset',
-                                    HttpResponseCode.BAD_REQUEST.value)
-            if link['link'] != '' and link['link'] is not None:
-                if 'description' in link:
-                    description = link['description']
-                else:
-                    description = ''
-                if 'link' in link:
-                    new_link = PublisherLink(publisher_id=publisher.id,
-                                             link=link['link'],
-                                             description=description)
-                    session.add(new_link)
+        retval = _save_links(session=session,
+                             links=data['links'],
+                             publisher_id=publisher.id,
+                             old_values=None)
+        if retval:
+            return retval
+
     try:
         session.commit()
     except SQLAlchemyError as exp:
@@ -198,10 +265,20 @@ def publisher_update(params: Any) -> ResponseType:
     Returns:
         ResponseType: The response indicating the success or failure of the
                       update.
+
+    Tests:
+        publisher_update: Update an existing publisher
+        publisher_update_missing_id: Update a publisher with missing ID
     """
     session = new_session()
     old_values = {}
     data = params['data']
+
+    if 'id' not in data:
+        app.logger.error('ID missing.')
+        return ResponseType('ID on pakollinen tieto',
+                            HttpResponseCode.BAD_REQUEST.value)
+
     publisher_id = check_int(data['id'])
 
     if not publisher_id:
@@ -211,6 +288,10 @@ def publisher_update(params: Any) -> ResponseType:
 
     publisher = session.query(Publisher).filter(
         Publisher.id == publisher_id).first()
+    if not publisher:
+        app.logger.error('Publisher not found.')
+        return ResponseType('Kustantaja ei ole olemassa',
+                            HttpResponseCode.NOT_FOUND.value)
 
     if 'name' in data and data['name'] != publisher.name:
         if len(data['name']) == 0 or data['name'] is None:
@@ -218,7 +299,8 @@ def publisher_update(params: Any) -> ResponseType:
             return ResponseType('Nimi on pakollinen tieto',
                                 HttpResponseCode.BAD_REQUEST.value)
         similar = session.query(Publisher).filter(
-            Publisher.name == data['name']).all()
+            Publisher.name == data['name'],
+            Publisher.id != publisher_id).all()
         if len(similar) > 0:
             app.logger.error('Name must be unique.')
             return ResponseType('Nimi on jo käytössä',
@@ -235,7 +317,8 @@ def publisher_update(params: Any) -> ResponseType:
                 HttpResponseCode.BAD_REQUEST.value)
         if data['fullname'] != publisher.fullname:
             similar = session.query(Publisher).filter(
-                Publisher.fullname == data['fullname']).all()
+                Publisher.fullname == data['fullname'],
+                Publisher.id != publisher_id).all()
             if len(similar) > 0:
                 app.logger.error(
                     'Fullname must be unique.')
@@ -257,9 +340,13 @@ def publisher_update(params: Any) -> ResponseType:
         old_values['Kuvan lähde'] = publisher.image_attr
         publisher.image_attr = data['image_attr']
 
-    if 'links' in data and len(data['links']) > 0:
-        # todo
-        pass
+    if 'links' in data and links_have_changed(publisher.links, data['links']):
+        retval = _save_links(session=session,
+                             links=data['links'],
+                             publisher_id=publisher.id,
+                             old_values=old_values)
+        if retval:
+            return retval
 
     log_changes(session=session, obj=publisher, action='Päivitys',
                 old_values=old_values)
@@ -280,14 +367,30 @@ def publisher_delete(pub_id: int) -> ResponseType:
     """
     Deletes the publisher with the given ID from the database.
 
+    If publisher does not exist, function still returns 200.
+
     Args:
         pub_id (int): The ID of the publisher to delete.
 
     Returns:
         ResponseType: The response indicating the success or failure of the
                       deletion.
+
+    Tests:
+        publisher_delete: Delete an existing publisher
+        publisher_invalid_id: Try to delete a publisher with invalid id
     """
     session = new_session()
+    try:
+        session.query(PublisherLink)\
+            .filter(PublisherLink.publisher_id == pub_id)\
+            .delete()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(exp)
+        return ResponseType('Tietokantavirhe poistettaessa linkkejä.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
     publisher = session.query(Publisher).filter(Publisher.id == pub_id).first()
 
     if publisher:
