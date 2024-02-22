@@ -14,12 +14,17 @@ set of values for specific purposes.
 
 Note:
 - This module relies on the `Enum` class from the `enum` module.
-- You can import `ContributorTargets` and `ContributorRole` from this module
+- You can import `ContributorTarget` and `ContributorRole` from this module
   to use them in other parts of your code.
 """
 from enum import Enum, IntEnum
 
-ContributorTarget = Enum('ContributorTargets', ['WORK', 'EDITION', 'SHORT'])
+
+class ContributorTarget(Enum):
+    """ Contains all the contributor targets in the database."""
+    WORK = 1
+    EDITION = 2
+    SHORT = 3
 
 
 class ContributorType(IntEnum):
