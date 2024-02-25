@@ -402,6 +402,9 @@ def publisher_delete(pub_id: int) -> ResponseType:
             app.logger.error(exp)
             return ResponseType('Tietokantavirhe poistettaessa.',
                                 HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    else:
+        return ResponseType('Kustantajaa ei ole olemassa',
+                            HttpResponseCode.NOT_FOUND.value)
 
     return ResponseType('OK', HttpResponseCode.OK.value)
 
