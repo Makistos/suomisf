@@ -1,9 +1,10 @@
 """ Issue related functions. """
+from typing import Any, Dict
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.impl import ResponseType
 from app.route_helpers import new_session
-from app.orm_decl import (Issue, IssueTag, Tag)
+from app.orm_decl import (Issue, IssueTag, PublicationSize, Tag)
 from app.model import IssueSchema, TagSchema
 
 from app import app
@@ -46,6 +47,79 @@ def get_issue(issue_id: int) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def add_issue(params: Dict[str, Any]) -> ResponseType:
+    """
+    Adds a new issue to the database.
+
+    Args:
+        issue_data (dict): The issue data to add.
+
+    Returns:
+        ResponseType: The response object containing the added issue.
+
+    Raises:
+        SQLAlchemyError: If there is an error executing the database query.
+        exceptions.MarshmallowError: If there is an error serializing the
+                                     issue object.
+    """
+    session = new_session()
+    issue = params['data']
+
+    new_issue = Issue()
+
+    if 'magazine_id' not in issue:
+        app.logger.error('Missing magazine_id.')
+        return ResponseType('Lehnde tunniste puuttuu.',
+                            HttpResponseCode.BAD_REQUEST.value)
+    try:
+        magazine_id_int = int(issue['magazine_id'])
+    except ValueError:
+        app.logger.error('Invalid magazine_id.')
+        return ResponseType('Lehnde tunniste on virheellinen.',
+                            HttpResponseCode.BAD_REQUEST.value)
+
+    new_issue.magazine_id = magazine_id_int
+
+    new_issue.number = issue['number'] if 'number' in issue else None
+    new_issue.number_extra = issue['number_extra']\
+        if 'number_extra' in issue else None
+    new_issue.count = issue['count'] if 'count' in issue else None
+    new_issue.year = issue['year'] if 'year' in issue else None
+    new_issue.cover_number = issue['cover_number']\
+        if 'cover_number' in issue else None
+    new_issue.image_attr = issue['image_attr']\
+        if 'image_attr' in issue else None
+    new_issue.image_src = issue['image_src']\
+        if 'image_src' in issue else None
+    new_issue.pages = issue['pages'] if 'pages' in issue else None
+    if 'size_id' in issue:
+        try:
+            size_id_int = int(issue['size_id'])
+        except ValueError:
+            app.logger.error('Invalid size_id.')
+            return ResponseType('Julkaisukoko on virheellinen.',
+                                HttpResponseCode.BAD_REQUEST.value)
+
+        pub_size = session.query(PublicationSize)\
+            .filter(PublicationSize.id == size_id_int)\
+            .first()
+        if not pub_size:
+            app.logger.error('Invalid size_id.')
+            return ResponseType('Julkaisukoko on virheellinen: {size_id}.',
+                                HttpResponseCode.BAD_REQUEST.value)
+
+        new_issue.size_id = size_id_int
+    new_issue.size_id = issue['size_id'] if 'size_id' in issue else None
+    new_issue.link = issue['link'] if 'link' in issue else None
+    new_issue.notes = issue['notes'] if 'notes' in issue else None
+    new_issue.title = issue['title'] if 'title' in issue else None
+
+    session.add(new_issue)
+    session.commit()
+
+    return ResponseType(str(new_issue.id), HttpResponseCode.OK.value)
 
 
 def get_issue_tags(issue_id: int) -> ResponseType:
