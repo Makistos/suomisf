@@ -48,6 +48,8 @@ def api_getmagazine(magazineid: str) -> Response:
 
     Tests:
         get_magazine: Get existing magazine
+        get_magazine_invalid_id: Try id which is not a number
+        get_magazine_unknown_id: Try id not existing in db
     """
 
     try:
@@ -118,8 +120,13 @@ def api_deletemagazine(magazineid: str) -> Response:
         Tuple[str, int]: A tuple containing an empty string and an integer
         value.
 
+    Raises:
+        ValueError: If the magazine ID is invalid.
+
     Tests:
         delete_magazine: Delete existing magazine
+        delete_magazine_unknown_id: Try id not existing in db
+        delete_magazine_invalid_id: Try id which is not a number
     """
     try:
         int_id = int(magazineid)

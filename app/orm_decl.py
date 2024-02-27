@@ -1043,6 +1043,7 @@ class Publisher(Base):
         "edition4_assoc"), order_by="Edition.pubyear", viewonly=True)
     series = relationship('Pubseries', viewonly=True)
     links = relationship("PublisherLink", uselist=True, viewonly=True)
+    magazines = relationship("Magazine", uselist=True, viewonly=True)
 
     def __str__(self) -> str:
         return self.name

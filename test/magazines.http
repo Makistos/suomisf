@@ -81,6 +81,18 @@ Authorization: Bearer {{login.access_token}}
 ?? status == 200
 
 ###
+# @name delete_magazine_unknown_id
+DELETE {{host}}/api/magazines/{{create_magazine}}
+Authorization: Bearer {{login.access_token}}
+?? status == 200
+
+###
+# @name delete_magazine_invalid_id
+DELETE {{host}}/api/magazines/xxx
+Authorization: Bearer {{login.access_token}}
+?? status == 400
+
+###
 # @name create_magazine_no_name
 # @ref login
 POST {{host}}/api/magazines
@@ -96,7 +108,7 @@ Authorization: Bearer {{login.access_token}}
 ?? status == 400
 
 ###
-# @name get_magazine_none_existing
+# @name get_magazine_unknown_id
 GET  {{host}}/api/magazines/1000000
 ?? status == 404
 
