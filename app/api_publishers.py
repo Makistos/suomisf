@@ -33,6 +33,16 @@ def api_publishercreateupdate() -> Response:
 
     Raises:
     - None
+
+    Tests:
+        publisher_create: Create a new publisher
+        publisher_similar_name: Create a new publisher with same name as
+                                an existing publisher
+        publisher_similar_fullname: Create a new publisher with same fullname
+                                    as an existing publisher
+        publisher_missing_name: Create a new publisher with missing name
+        publisher_update: Update an existing publisher
+        publisher_update_missing_id: Update a publisher with missing ID
     """
     params = request.data.decode('utf-8')
     params = json.loads(params)
@@ -52,15 +62,19 @@ def api_listpublishers() -> Response:
     the HTTP status code.
 
     Parameters:
-    None
+        None
 
     Returns:
-    A tuple containing the response data and the HTTP status code.
+        A tuple containing the response data and the HTTP status code.
+
+    Tests:
+        publisher_list_all: Get all publishers
     """
     return make_api_response(list_publishers())
 
 
 @app.route('/api/publishers/<publisherid>', methods=['delete'])
+@jwt_admin_required()  # type: ignore
 def api_deletepublisher(publisherid: str) -> Response:
     """
     Delete a publisher.
@@ -70,6 +84,10 @@ def api_deletepublisher(publisherid: str) -> Response:
 
     Returns:
         Response: The API response.
+
+    Tests:
+        publisher_delete: Delete an existing publisher
+        publisher_invalid_id: Try to delete a publisher with invalid id
     """
     try:
         int_id = int(publisherid)
@@ -94,13 +112,17 @@ def api_getpublisher(publisherid: str) -> Response:
     Returns:
         ResponseType: The response object containing the publisher data or an
         error message.
+
+    Tests:
+        publisher_get: Get an existing publisher
+        publisher_invalid_id: Try to get a publisher with invalid id
     """
     try:
         int_id = int(publisherid)
     except (TypeError, ValueError):
-        app.logger.error(f'api_GetPublisher: Invalid id {publisherid}.')
+        app.logger.error(f'Invalid id {publisherid}.')
         response = ResponseType(
-            f'api_GetPublisher: Virheellinen tunniste {publisherid}.',
+            f'Virheellinen tunniste {publisherid}.',
             status=HttpResponseCode.BAD_REQUEST.value)
         return make_api_response(response)
 
@@ -123,7 +145,7 @@ def api_filterpublishers(pattern: str) -> Response:
     """
     pattern = bleach.clean(pattern)
     if len(pattern) < 2:
-        app.logger.error('FilterPublishers: Pattern too short.')
+        app.logger.error('Pattern too short.')
         response = ResponseType(
             'Liian lyhyt hakuehto', status=HttpResponseCode.BAD_REQUEST.value)
         return make_api_response(response)

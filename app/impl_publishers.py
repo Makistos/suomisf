@@ -5,10 +5,11 @@ from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.impl_links import links_have_changed
 from app.impl_logs import log_changes
+from app.model_publisher import PublisherPageSchema
 from app.route_helpers import new_session
 from app.orm_decl import Publisher
 from app.model import (PublisherBriefSchema,
-                       PublisherSchema, PublisherBriefSchemaWEditions,
+                       PublisherBriefSchemaWEditions,
                        PublisherLink)
 from app.impl import ResponseType, check_int, get_join_changes
 from app import app
@@ -30,10 +31,6 @@ def _save_links(
 
     Returns:
         Union[ResponseType, None]: The response type or None.
-
-    Tests:
-        publisher_create: Add a link to new publisher
-        publisher_update: Update a link to existing publisher
     """
     existing_links = session.query(PublisherLink).filter(
         PublisherLink.publisher_id == publisher_id).all()
@@ -115,10 +112,6 @@ def get_publisher(pub_id: int) -> ResponseType:
         ResponseType: The response object containing the retrieved publisher if
                       successful, or an error message if there was a database
                       or schema error.
-
-    Tests:
-        publisher_get: Get an existing publisher
-        publisher_invalid_id: Try to get a publisher with invalid id
         publisher_id_not_found: Try to get a publisher that doesn't exist
     """
     session = new_session()
@@ -136,7 +129,7 @@ def get_publisher(pub_id: int) -> ResponseType:
         return ResponseType(f'Kustantajaa {pub_id} ei ole olemassa.',
                             HttpResponseCode.NOT_FOUND.value)
     try:
-        schema = PublisherSchema()
+        schema = PublisherPageSchema()
         retval = schema.dump(publisher)
     except exceptions.MarshmallowError as exp:
         app.logger.error(exp)
@@ -153,9 +146,6 @@ def list_publishers() -> ResponseType:
     Returns:
         ResponseType: The response object containing the list of publishers and
                       the status code.
-
-    Tests:
-        publisher_list_all: Get all publishers
     """
     session = new_session()
 
@@ -187,14 +177,6 @@ def publisher_add(params: Any) -> ResponseType:
     Returns:
         ResponseType: The response object indicating the status of the
                       operation.
-
-    Tests:
-        publisher_create: Create a new publisher
-        publisher_similar_name: Create a new publisher with same name as
-                                an existing publisher
-        publisher_similar_fullname: Create a new publisher with same fullname
-                                    as an existing publisher
-        publisher_missing_name: Create a new publisher with missing name
     """
     session = new_session()
 
@@ -265,10 +247,6 @@ def publisher_update(params: Any) -> ResponseType:
     Returns:
         ResponseType: The response indicating the success or failure of the
                       update.
-
-    Tests:
-        publisher_update: Update an existing publisher
-        publisher_update_missing_id: Update a publisher with missing ID
     """
     session = new_session()
     old_values = {}
@@ -375,10 +353,6 @@ def publisher_delete(pub_id: int) -> ResponseType:
     Returns:
         ResponseType: The response indicating the success or failure of the
                       deletion.
-
-    Tests:
-        publisher_delete: Delete an existing publisher
-        publisher_invalid_id: Try to delete a publisher with invalid id
     """
     session = new_session()
     try:
@@ -403,7 +377,7 @@ def publisher_delete(pub_id: int) -> ResponseType:
             return ResponseType('Tietokantavirhe poistettaessa.',
                                 HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     else:
-        return ResponseType('Kustantajaa ei ole olemassa',
+        return ResponseType('Kustantajaa ei ole olemassa).',
                             HttpResponseCode.NOT_FOUND.value)
 
     return ResponseType('OK', HttpResponseCode.OK.value)
