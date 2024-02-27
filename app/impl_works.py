@@ -24,7 +24,7 @@ from app.impl_contributors import (update_work_contributors,
                                    has_contribution_role)
 from app.impl_genres import genresHaveChanged
 from app.impl_tags import tags_have_changed
-from app.impl_links import linksHaveChanged
+from app.impl_links import links_have_changed
 from app.impl_editions import create_first_edition
 from app.impl_genres import checkGenreField
 from app.impl_editions import delete_edition
@@ -880,7 +880,7 @@ def work_update(
     # Links
     if 'links' in data:
         new_links = [x for x in data['links'] if x['link'] != '']
-        if linksHaveChanged(work.links, new_links):
+        if links_have_changed(work.links, new_links):
             existing_links = session.query(WorkLink)\
                 .filter(WorkLink.work_id == work_id)\
                 .all()

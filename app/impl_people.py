@@ -22,7 +22,7 @@ from app.impl import (ResponseType, SearchResult, SearchResultFields,
                       searchscore, check_int, get_join_changes)
 from app.api_errors import APIError
 from app.impl_country import AddCountry
-from app.impl_links import linksHaveChanged
+from app.impl_links import links_have_changed
 from app.types import HttpResponseCode
 from app import app
 
@@ -623,7 +623,7 @@ def person_update(params: Any) -> ResponseType:
 
     if 'links' in data:
         new_links = [x for x in data['links'] if x['link'] != '']
-        if linksHaveChanged(person.links, new_links):
+        if links_have_changed(person.links, new_links):
             existing_links = session.query(PersonLink).filter(
                 PersonLink.person_id == person_id).all()
             (to_add, to_remove) = get_join_changes(
