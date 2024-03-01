@@ -50,7 +50,7 @@ from app import (routes, routes_article, routes_books,
                  routes_editions, routes_issue, routes_magazine, routes_person,
                  routes_publisher, routes_series, routes_stories,
                  routes_works, api, api_issues, api_magazines, api_people,
-                 api_publishers)
+                 api_publishers, api_pubseries)
 
 # This has to be here, not at the top of application or it won't start!
 #toolbar = DebugToolbarExtension(app)

@@ -128,12 +128,12 @@ DELETE {{host}}/api/publishers/{{publisher_create}}
 Authorization: Bearer {{login.access_token}}
 ?? status == 200
 
-###
+### Delete Publisher
 # @ref login
 # @name publisher_invalid_id
 DELETE {{host}}/api/publishers/{{publisher_create}}
 Authorization: Bearer {{login.access_token}}
-?? status == 200
+?? status == 404
 
 ###
 GET {{host}}/api/publishers/{{publisher_create}}

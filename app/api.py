@@ -30,8 +30,6 @@ from app.impl_logs import get_edition_changes, get_work_changes
 from app.impl_people import (search_people, filter_aliases,
                              get_author_first_letters,
                              get_latest_people)
-from app.impl_pubseries import (list_pubseries, get_pubseries,
-                                filter_pubseries)
 from app.impl_shorts import (search_shorts, story_add, story_updated,
                              story_delete, get_short, get_short_types,
                              story_tag_add, story_tag_remove,
@@ -987,70 +985,6 @@ def api_latestworks(count: int) -> Response:
             status=HttpResponseCode.BAD_REQUEST.value)
         return make_api_response(response)
     return make_api_response(get_latest_works(count))
-
-###
-# Pubseries related functions
-
-
-@app.route('/api/pubseries', methods=['get'])
-def api_listpubseries() -> Response:
-    """
-    This function is a route handler for the '/api/pubseries' endpoint. It
-    accepts GET requests and returns a tuple containing a string and an
-    integer. The string is the response body, and the integer is the HTTP
-    status code.
-
-    Parameters:
-    - None
-
-    Returns:
-    - A tuple containing a string and an integer.
-    """
-    return make_api_response(list_pubseries())
-
-
-@ app.route('/api/pubseries/<pubseriesid>', methods=['get'])
-def api_getpubseries(pubseriesid: str) -> Response:
-    """
-    Retrieves a pubseries with the specified ID from the API.
-
-    Args:
-        pubseriesId (str): The ID of the pubseries to retrieve.
-
-    Returns:
-        Response: The response object containing the retrieved pubseries.
-
-    Raises:
-        ValueError: If the pubseries ID is invalid.
-
-    """
-    try:
-        int_id = int(pubseriesid)
-    except (TypeError, ValueError):
-        app.logger.error(f'api_GetPubseries: Invalid id {pubseriesid}.')
-        response = ResponseType(
-            f'api_GetBookseries: Virheellinen tunniste {pubseriesid}.',
-            status=HttpResponseCode.BAD_REQUEST.value)
-        return make_api_response(response)
-
-    return make_api_response(get_pubseries(int_id))
-
-
-@app.route('/api/filter/pubseries/<pattern>', methods=['get'])
-def api_filterpubseries(pattern: str) -> Response:
-    """
-    This function is a Flask route that filters publications based on a given
-    pattern. It takes a string parameter `pattern` which is used to filter the
-    publications. The function returns a Flask Response object.
-    """
-    pattern = bleach.clean(pattern)
-    if len(pattern) < 2:
-        app.logger.error('FilterPubseries: Pattern too short.')
-        response = ResponseType(
-            'Liian lyhyt hakuehto', status=400)
-        return make_api_response(response)
-    retval = filter_pubseries(pattern)
-    return make_api_response(retval)
 
 
 ###

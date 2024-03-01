@@ -394,7 +394,10 @@ class PubseriesSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Pubseries
-    publisher = fields.Nested(PublisherBriefSchema)
+    pubseries_id = fields.Int()
+    publisher = fields.Nested(PublisherBriefSchema(
+        only=('id', 'name', 'fullname')
+    ))
     editions = ma.List(fields.Nested(EditionBriefSchema))
 
 
