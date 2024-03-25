@@ -138,3 +138,11 @@ GET http://localhost:5000/api/people/2370/chiefeditor HTTP/1.1
 
 ###
 GET http://localhost:5000/api/people/706/articles HTTP/1.1
+
+###
+GET http://localhost:5000/api/publishers/387 HTTP/1.1
+
+###
+GET https://www.sf-bibliografia.fi/api/publishers/387 HTTP/1.1
+# 21367, 20038, 20146 /length: 13173845
+# 5106, 4207, 4038/ length: 2715761

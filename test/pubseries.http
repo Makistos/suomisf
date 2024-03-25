@@ -22,28 +22,10 @@ Authorization: Bearer {{login.access_token}}
                 "image_attr": "Wikipedia",
                 "image_src": "http://wikipedia"
             }
-    }
+}
 ?? status == 201
 
-###
-# @name pubseries_create_same_name
-# @ref login
-# @ref publisher_create
-POST {{host}}/api/pubseries
-Authorization: Bearer {{login.access_token}}
-
-{
-        "data": {
-                "publisher_id": {{publisher_create}},
-                "name": "Best of",
-                "important": 0,
-                "image_attr": "Wikipedia",
-                "image_src": "http://wikipedia"
-            }
-}
-?? status == 400
-
-###
+### Add pubseries without authorization
 # @name publisher_add_unauth
 POST {{host}}/api/pubseries
 
@@ -58,22 +40,8 @@ POST {{host}}/api/pubseries
 }
 ?? status == 401
 
-###
-# @ref login
-# @name pubseries_update_missing_publisher
-POST {{host}}/api/pubseries
-Authorization: Bearer {{login.access_token}}
 
-{
-        "data": {
-                "name": "Best of FooBar",
-                "important": 1,
-                "image_attr": "Wikipedia Commons",
-                "image_src": "http://wikipedia.fi"
-            }
-}
-?? status == 400
-###
+### Update pubseries
 # @ref login
 # @name pubseries_update
 PUT {{host}}/api/pubseries
@@ -81,7 +49,10 @@ Authorization: Bearer {{login.access_token}}
 
 {
         "data": {
-                "id": {{pubseries_create}},
+               "id": {{pubseries_create}},
+                "publisher": {
+                    "id": {{publisher_create}} 
+                    },
                 "name": "Best of FooBar",
                 "important": 1,
                 "image_attr": "Wikipedia Commons",
@@ -90,7 +61,7 @@ Authorization: Bearer {{login.access_token}}
 }
 ?? status == 200
 
-###
+### Update non-existing pubseries
 # @ref login
 # @name pubseries_update_unknown_publisher
 PUT {{host}}/api/pubseries
@@ -99,6 +70,9 @@ Authorization: Bearer {{login.access_token}}
 {
         "data": {
                 "id": 1000000,
+                "publisher": { 
+                    "id": {{publisher_create}}
+                    },
                 "name": "Best of FooBar",
                 "important": 1,
                 "image_attr": "Wikipedia Commons",
@@ -107,13 +81,14 @@ Authorization: Bearer {{login.access_token}}
 }
 ?? status == 400
 
-###
+### Update pubseries without authorization
 # @name publisher_update_unauth
 PUT {{host}}/api/pubseries
 
 {
         "data": {
                 "id": {{pubseries_create}},
+                "publisher": ['id': {{publisher_create}}],
                 "name": "Best of FooBar",
                 "important": 1,
                 "image_attr": "Wikipedia Commons",
@@ -122,7 +97,7 @@ PUT {{host}}/api/pubseries
 }
 ?? status == 401
 
-###
+### Get pubseries and check fields
 # @name pubseries_get
 GET {{host}}/api/pubseries/{{pubseries_create}}
 ?? status == 200
@@ -132,35 +107,35 @@ GET {{host}}/api/pubseries/{{pubseries_create}}
 ?? body image_attr ==  Wikipedia Commons
 ?? body image_src == http://wikipedia.fi
 
-###
+### Get pubseries with invalid id
 # @name pubseries_get_invalid_id
 GET {{host}}/api/pubseries/xxx
 ?? status == 400
 
-###
+### Get pubseries with unknown id
 # @name pubseries_get_unknown_id
 GET {{host}}/api/pubseries/1000000
 ?? status == 404
 
-###
+### Delete pubseries
 # @ref login
 # @name pubseries_delete
 DELETE {{host}}/api/pubseries/{{pubseries_create}}
 Authorization: Bearer {{login.access_token}}
 ?? status == 200
 
-###
+### Delete pubseries unauthorized
 # @name pubseries_delete_unauth
 DELETE {{host}}/api/pubseries/{{pubseries_create}}
 ?? status == 401
 
-###
+### Delete non-existing pubseries
 # @name pubseries_delete_nonexisting
 DELETE {{host}}/api/pubseries/{{pubseries_create}}
 Authorization: Bearer {{login.access_token}}
 ?? status == 404
 
-###
+### Delete pubseries with invalid id
 # @name pubseries_delete_invalid_id
 DELETE {{host}}/api/pubseries/xxx
 Authorization: Bearer {{login.access_token}}

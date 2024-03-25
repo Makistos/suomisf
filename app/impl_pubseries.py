@@ -208,6 +208,11 @@ def pubseries_update(params: Any) -> ResponseType:
 
     if 'name' in data:
         pubseries.name = data['name']
+    else:
+        app.logger.error('Pubseries name is required')
+        return ResponseType('Sarjan nimi on pakollinen tieto',
+                            HttpResponseCode.BAD_REQUEST.value)
+
     if 'publisher_id' in data:
         pub_id = data['publisher_id']
         try:
@@ -217,14 +222,33 @@ def pubseries_update(params: Any) -> ResponseType:
             return ResponseType(
                 f'Virheellinen kustantajan tunniste {pub_id}.',
                 HttpResponseCode.BAD_REQUEST.value)
-        publisher = session.query(Publisher)\
-            .filter(Publisher.id == publisher_id)\
-            .first()
-        if publisher is None:
-            app.logger.error(f'Publisher not found: {publisher_id}')
-            return ResponseType(f'Kustantajaa ei löydy: {publisher_id}',
-                                HttpResponseCode.BAD_REQUEST.value)
-        pubseries.publisher_id = publisher_id
+    elif 'publisher' not in data:
+        app.logger.error('Pubseries requires a publisher')
+        return ResponseType('Kustantaja on pakollinen tieto',
+                            HttpResponseCode.BAD_REQUEST.value)
+    elif 'id' not in data['publisher']:
+        app.logger.error('Publisher ID is required')
+        return ResponseType('Kustantajan tunniste on pakollinen tieto',
+                            HttpResponseCode.BAD_REQUEST.value)
+    else:
+        pub_id = data['publisher']['id']
+        try:
+            publisher_id = int(pub_id)
+        except (TypeError, ValueError):
+            app.logger.error(f'Invalid publisher id {pub_id}.')
+            return ResponseType(
+                f'Virheellinen kustantajan tunniste {pub_id}.',
+                HttpResponseCode.BAD_REQUEST.value)
+
+    publisher = session.query(Publisher)\
+        .filter(Publisher.id == publisher_id)\
+        .first()
+    if publisher is None:
+        app.logger.error(f'Publisher not found: {publisher_id}')
+        return ResponseType(f'Kustantajaa ei löydy: {publisher_id}',
+                            HttpResponseCode.BAD_REQUEST.value)
+    pubseries.publisher_id = publisher_id
+
     if 'important' in data:
         pubseries.important = data['important']
     if 'image_attr' in data:
