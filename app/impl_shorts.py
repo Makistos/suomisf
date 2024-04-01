@@ -64,7 +64,7 @@ def _set_language(
                     .first()
                 if not lang:
                     app.logger.error(f'SetLanguage: Language not found. Id = \
-                                      {data["language"]["id"]}.')
+                                      {data["lang"]["id"]}.')
                     return ResponseType('Kieltä ei löydy',
                                         HttpResponseCode.BAD_REQUEST.value)
         item.language = lang_id

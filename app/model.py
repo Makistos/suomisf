@@ -291,6 +291,7 @@ class ShortBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     editions = ma.List(fields.Nested(EditionBriefSchema))
     genres = ma.List(fields.Nested(GenreBriefSchema))
     contributors = ma.List(fields.Nested(ContributorSchema))
+    lang = fields.Nested(LanguageSchema)
 
 
 class ShortBriefestSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -300,6 +301,7 @@ class ShortBriefestSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         model = ShortStory
     contributors = ma.List(fields.Nested(ContributorSchema))
     type = fields.Nested(StoryTypeSchema)
+    lang = fields.Nested(LanguageSchema)
 
 
 class ArticleBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
