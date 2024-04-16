@@ -19,7 +19,7 @@ Flask-Migrate==2.5.2
 Flask-SQLAlchemy==2.5.1
 Flask-WTF==0.15.1
 greenlet==1.0.0
-gunicorn==19.9.0
+gunicorn==22.0.0
 importlib-metadata==4.12.0
 importlib-resources==5.12.0
 iniconfig==1.1.1
