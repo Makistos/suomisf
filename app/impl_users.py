@@ -54,7 +54,7 @@ def create_token(user: User, password: str) -> Response:
         refreshtoken = create_refresh_token(identity=str(user.id))
         data = jsonify(access_token=access_token,
                        refresh_token=refreshtoken,
-                       user=user.name,
+                       name=user.name,
                        role=role,
                        id=user.id)
         resp = make_response(data, HttpResponseCode.OK.value)
