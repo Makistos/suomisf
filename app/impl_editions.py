@@ -86,7 +86,7 @@ def _set_publisher(
         app.logger.error(f'Publisher missing for edition {edition.id}')
         return ResponseType('Kustantaja on pakollinen tieto',
                             HttpResponseCode.BAD_REQUEST.value)
-    if data["publisher"]["id"] != edition.publisher.id:
+    if data["publisher"]["id"] != edition.publisher_id:
         if old_values is not None:
             old_values["Kustantaja"] = (edition.publisher.name
                                         if edition.publisher else '')
