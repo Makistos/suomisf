@@ -26,7 +26,7 @@ from app.impl_editions import (get_bindings, create_edition, update_edition,
                                edition_delete, edition_image_upload,
                                edition_image_delete, edition_shorts,
                                get_latest_editions)
-from app.impl_logs import get_edition_changes, get_work_changes
+from app.impl_logs import get_edition_changes
 from app.impl_people import (search_people, filter_aliases,
                              get_author_first_letters,
                              get_latest_people)
@@ -1734,28 +1734,6 @@ def api_tagtowork(workid: int, tagid: int) -> Response:
     retval = func(work_id, tag_id)
 
     return make_api_response(retval)
-
-
-@app.route('/api/works/<workid>/changes', methods=['get'])
-def api_workchanges(workid: int) -> Response:
-    """
-    Get changes for a work.
-
-    Args:
-        workid (int): The ID of the work.
-
-    Returns:
-        Response: The API response containing the changes.
-    """
-    try:
-        work_id = int(workid)
-    except (TypeError, ValueError):
-        app.logger.error(f'Invalid id {workid}.')
-        response = ResponseType(f'Virheellinen tunniste: {workid}.',
-                                HttpResponseCode.BAD_REQUEST.value)
-        return make_api_response(response)
-
-    return make_api_response(get_work_changes(work_id))
 
 
 @ app.route('/api/worksbyinitial/<letter>', methods=['get'])
