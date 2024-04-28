@@ -464,7 +464,7 @@ def set_language(
     Returns:
         Union[ResponseType, None]: The response type or None.
     """
-    if data['language'] != item.language:
+    if data['language']['id'] != item.language:
         lang_id = None
         if old_values is not None:
             if item.language_name:

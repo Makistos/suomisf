@@ -11,7 +11,7 @@ from app.route_helpers import new_session
 from app.impl import (ResponseType, SearchResult,
                       SearchResultFields, searchscore, set_language, check_int,
                       get_join_changes)
-from app.orm_decl import (Edition, Part, Work, WorkType, WorkTag,
+from app.orm_decl import (Edition, Genre, Part, Work, WorkType, WorkTag,
                           WorkGenre, WorkLink, Bookseries, ShortStory,
                           Contributor)
 from app.model import (WorkBriefSchema, WorkTypeBriefSchema,
@@ -856,8 +856,17 @@ def work_update(
             for genre in data['genres']:
                 sg = WorkGenre(genre_id=genre['id'], work_id=work.id)
                 session.add(sg)
-            old_values['Genret'] = ' -'.join([str(x) for x in to_add])
-            old_values['Genret'] += ' +'.join([str(x) for x in to_remove])
+            old_genres = session.query(Genre.name)\
+                .filter(Genre.id.in_([x.genre_id for x in existing_genres]))\
+                .all()
+            # to_add = session.query(Genre.name)\
+            #     .filter(Genre.id.in_(to_add))\
+            #     .all()
+            old_values['Genret'] = ','.join([str(x[0]) for x in old_genres])
+            # if (len(to_add) > 0 and len(to_remove) > 0):
+            #     old_values['Genret'] += '\n'
+            # old_values['Genret'] += ' +' + ','.join([str(x[0]) for x in
+            # to_remove])
 
     # Tags
     if 'tags' in data:

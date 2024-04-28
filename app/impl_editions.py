@@ -86,7 +86,7 @@ def _set_publisher(
         app.logger.error(f'Publisher missing for edition {edition.id}')
         return ResponseType('Kustantaja on pakollinen tieto',
                             HttpResponseCode.BAD_REQUEST.value)
-    if data["publisher"] != edition.publisher:
+    if data["publisher"]["id"] != edition.publisher.id:
         if old_values is not None:
             old_values["Kustantaja"] = (edition.publisher.name
                                         if edition.publisher else '')
@@ -454,30 +454,30 @@ def update_edition(params: Any) -> ResponseType:
     # Publisher, required field. Has to exist in database.
     if "publisher" in data and data["publisher"] is not None:
         _set_publisher(session, edition, data, old_values)
-        publisher_id: Union[int, None] = None
-        if 'id' not in data['publisher']:
-            publisher = session.query(Publisher)\
-                .filter(Publisher.name == data['publisher'])\
-                .first()
-            if publisher:
-                publisher_id = check_int(publisher.id)
-        else:
-            publisher_id = check_int(data["publisher"]["id"],
-                                     negative_values=False)
-            publisher = session.query(Publisher)\
-                .filter(Publisher.id == publisher_id)\
-                .first()
-        if not publisher:
-            app.logger.error("update_edition: Publisher not found. "
-                             f"publisher={data['publisher']}")
-            return ResponseType(
-                f"Kustantajaa ei löydy. {data['publisher']}",
-                HttpResponseCode.BAD_REQUEST.value
-            )
-        if publisher_id != edition.publisher_id:
-            old_values["Kustantaja"] = (
-                edition.publisher.name if edition.publisher else None)
-            edition.publisher_id = publisher_id
+        # publisher_id: Union[int, None] = None
+        # if 'id' not in data['publisher']:
+        #     publisher = session.query(Publisher)\
+        #         .filter(Publisher.name == data['publisher'])\
+        #         .first()
+        #     if publisher:
+        #         publisher_id = check_int(publisher.id)
+        # else:
+        #     publisher_id = check_int(data["publisher"]["id"],
+        #                              negative_values=False)
+        #     publisher = session.query(Publisher)\
+        #         .filter(Publisher.id == publisher_id)\
+        #         .first()
+        # if not publisher:
+        #     app.logger.error("update_edition: Publisher not found. "
+        #                      f"publisher={data['publisher']}")
+        #     return ResponseType(
+        #         f"Kustantajaa ei löydy. {data['publisher']}",
+        #         HttpResponseCode.BAD_REQUEST.value
+        #     )
+        # if publisher_id != edition.publisher_id:
+        #     old_values["Kustantaja"] = (
+        #         edition.publisher.name if edition.publisher else None)
+        #     edition.publisher_id = publisher_id
     else:
         app.logger.error("update_edition: Publisher is empty.")
         return ResponseType("Kustantaja ei voi olla tyhjä.",
@@ -612,9 +612,9 @@ def update_edition(params: Any) -> ResponseType:
         if edition.dustcover == 1:
             old_value = "Ei tietoa"
         elif edition.dustcover == 2:
-            old_value = "Ei"
-        else:
             old_value = "Kyllä"
+        else:
+            old_value = "Ei"
         old_values["Kansipaperi"] = old_value
         edition.dustcover = dustcover
 
