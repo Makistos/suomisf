@@ -11,7 +11,7 @@ from app.route_helpers import new_session
 from app.impl import (ResponseType, SearchResult,
                       SearchResultFields, searchscore, set_language, check_int,
                       get_join_changes)
-from app.orm_decl import (Edition, Genre, Part, Work, WorkType, WorkTag,
+from app.orm_decl import (Edition, Genre, Part, Tag, Work, WorkType, WorkTag,
                           WorkGenre, WorkLink, Bookseries, ShortStory,
                           Contributor)
 from app.model import (WorkBriefSchema, WorkTypeBriefSchema,
@@ -883,8 +883,11 @@ def work_update(
             for tag in data['tags']:
                 st = WorkTag(tag_id=tag['id'], work_id=work.id)
                 session.add(st)
-            old_values['Asiasanat'] = ' -'.join([str(x) for x in to_add])
-            old_values['Asiasanat'] += ' +'.join([str(x) for x in to_remove])
+            old_tags = session.query(Tag.name)\
+                .filter(Tag.id.in_([x.tag_id for x in existing_tags]))\
+                .all()
+            old_values['Asiasanat'] = ','.join([str(x[0]) for x in old_tags])
+            # old_values['Asiasanat'] += ' +'.join([str(x) for x in to_remove])
 
     # Links
     if 'links' in data:
