@@ -261,6 +261,10 @@ def create_edition(params: Any) -> ResponseType:
             version = 1
         edition.version = version
     if "publisher" in data:
+        if "publisher" not in data or data["publisher"] is None:
+            app.logger.error("Publisher missing.")
+            return ResponseType("Kustantaja puuttuu.",
+                                HttpResponseCode.BAD_REQUEST.value)
         if "id" in data["publisher"]:
             publisher_id = data["publisher"]["id"]
         else:
