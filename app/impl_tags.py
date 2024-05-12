@@ -77,7 +77,7 @@ def tag_list() -> ResponseType:
     session = new_session()
 
     try:
-        tags = session.query(Tag).order_by(Tag.name)
+        tags = session.query(Tag).order_by(Tag.name).all()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in TagList: ' + str(exp))
         return ResponseType('TagList: Tietokantavirhe.', 400)

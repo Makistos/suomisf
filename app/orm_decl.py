@@ -1195,7 +1195,9 @@ class Tag(Base):
     __tablename__ = 'tag'
     id = Column(Integer, primary_key=True)
     name = Column(String(100), nullable=False, index=True)
-    type = Column(String(100))
+    # type = Column(String(100))
+    type_id = Column(Integer, ForeignKey('tagtype.id'))
+    type = relationship('TagType', uselist=False, viewonly=True)
     works = relationship('Work', secondary='worktag',
                          uselist=True, viewonly=True)
     articles = relationship(
@@ -1206,6 +1208,13 @@ class Tag(Base):
         'Magazine', secondary='magazinetag', uselist=True, viewonly=True)
     people = relationship('Person', secondary='persontag',
                           uselist=True, viewonly=True)
+
+
+class TagType(Base):
+    """ Tag types. """
+    __tablename__ = 'tagtype'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50), unique=True)
 
 
 class User(UserMixin, Base):
