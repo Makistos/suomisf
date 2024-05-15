@@ -35,7 +35,8 @@ from app.impl_shorts import (search_shorts, story_add, story_updated,
                              story_tag_add, story_tag_remove,
                              get_latest_shorts)
 from app.impl_tags import (tag_list, tag_search, tag_create, tag_info,
-                           tag_rename, tag_filter, tag_merge, tag_delete)
+                           tag_update, tag_filter, tag_merge, tag_delete,
+                           tag_types)
 from app.impl_users import (login_user, refresh_token, list_users, get_user)
 from app.impl_works import (search_works, get_work, work_add, work_update,
                             work_delete, get_work_shorts, worktype_get_all,
@@ -292,7 +293,6 @@ def frontpagestats() -> Response:
 
 ###
 # Generic search functions
-
 @ app.route('/api/search/<pattern>', methods=['get', 'post'])
 def api_search(pattern: str) -> Tuple[str, int]:
     """
@@ -1274,7 +1274,7 @@ def api_tag(tag_id: str) -> Response:
 
 @ app.route('/api/tags', methods=['put'])
 @ jwt_admin_required()  # type: ignore
-def api_tagrename() -> Response:
+def api_tagupdate() -> Response:
     """
     Rename given tag. Cannot be named to an existing tag. tagMerge is used
     for combining tags.
@@ -1292,27 +1292,15 @@ def api_tagrename() -> Response:
     400 - Bad Request. Either a tag by that name already exists of not tag
           with given id found or parameters are faulty.
     """
-    # url_params = request.get_json()
-    url_params = json.loads(request.data)
-
     try:
-        int_id = int(url_params['id'])
+        params = json.loads(request.data.decode('utf-8'))
     except (TypeError, ValueError):
-        app.logger.error(
-            f'api_tagrename: Invalid ID. Id = {url_params["id"]}.')
-        response = ResponseType('Virheellinen tunniste',
+        app.logger.error('nvalid JSON.')
+        response = ResponseType('Virheellinen JSON',
                                 status=HttpResponseCode.BAD_REQUEST.value)
         return make_api_response(response)
 
-    name = url_params['name']
-    if len(name) == 0:
-        app.logger.error('api_tagrename: Empty name.')
-        response = ResponseType(
-            'Asiasana ei voi olla tyhjä merkkijono',
-            status=HttpResponseCode.BAD_REQUEST.value)
-        return make_api_response(response)
-
-    response = tag_rename(int_id, name)
+    response = tag_update(params)
     return make_api_response(response)
 
 
@@ -1341,9 +1329,9 @@ def api_filtertags(pattern: str) -> Response:
     return make_api_response(retval)
 
 
-@ app.route('/api/tags/<id>/merge/<id2>', methods=['post'])
+@ app.route('/api/tags/<source_id>/merge/<target_id>', methods=['post'])
 @ jwt_admin_required()  # type: ignore
-def api_tagmerge(id1: int, id2: int) -> Response:
+def api_tagmerge(source_id: int, target_id: int) -> Response:
     """
     Merge items of two tags into one and delete the obsolete tag.
 
@@ -1360,10 +1348,11 @@ def api_tagmerge(id1: int, id2: int) -> Response:
     400 - Request failed because one of the ids was invalid.
     """
     try:
-        id_to = int(id1)
-        id_from = int(id2)
+        id_to = int(source_id)
+        id_from = int(target_id)
     except (TypeError, ValueError):
-        app.logger.error(f'api_tagmerge: Invalid id. Id = {id1}.')
+        app.logger.error('api_tagmerge: Invalid id. Source = %s, target = %s',
+                         source_id, target_id)
         response = ResponseType('Virheellinen asiasanan tunniste.',
                                 status=HttpResponseCode.BAD_REQUEST.value)
         return make_api_response(response)
@@ -1372,7 +1361,7 @@ def api_tagmerge(id1: int, id2: int) -> Response:
     return make_api_response(retval)
 
 
-@ app.route('/api/tags/<tagd>', methods=['delete'])
+@ app.route('/api/tags/<tagid>', methods=['delete'])
 @ jwt_admin_required()  # type: ignore
 def api_tagdelete(tagid: int) -> Response:
     """
@@ -1401,6 +1390,23 @@ def api_tagdelete(tagid: int) -> Response:
     retval = make_api_response(response)
     return retval
 
+
+@app.route('/api/tags/types', methods=['get'])
+def api_tagtypes() -> Response:
+    """
+    Get all tag types.
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    200 - Request succeeded
+    400 - Request failed
+    """
+    retval = tag_types()
+    return make_api_response(retval)
 
 ###
 # Work related functions
