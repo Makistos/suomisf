@@ -747,7 +747,8 @@ def create_new_people(session: Any, names: List[Dict[str, Any]]) -> List[Dict[st
     return retval
 
 
-def create_new_tags(session: Any, tags: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+def create_new_tags(
+        session: Any, tags: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     retval: List[Dict[str, Any]] = []
 
     for tag in tags:
@@ -755,14 +756,14 @@ def create_new_tags(session: Any, tags: List[Dict[str, Any]]) -> List[Dict[str, 
         t = session.query(Tag).filter(Tag.name == name).first()
         if not t:
             # if tag['id'] == name:
-            new_tag = Tag(name=name)
+            new_tag = Tag(name=name, type_id=1)
             session.add(new_tag)
             session.commit()
-            id = new_tag.id
+            tag_id = new_tag.id
             name = new_tag.name
         else:
-            id = t.id
-        retval.append({'id': id, 'text': name})
+            tag_id = t.id
+        retval.append({'id': tag_id, 'text': name, 'type_id': 1})
 
     return retval
 
