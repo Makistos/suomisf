@@ -85,6 +85,64 @@ def _set_bookseries(
     return None
 
 
+def _set_tags(
+        session: Any, work: Work, tags: Any,
+        old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+    """
+    Sets the tags for a given work.
+
+    Args:
+        session (Any): The session object for the database connection.
+        work (Work): The work object to set the tags for.
+        data (Any): The data object containing the tags information.
+        old_values (Union[Dict[str, Any], None]): The old values of the work
+        object.
+
+    Returns:
+        Union[ResponseType, None]: The response type if there is an error,
+                                   otherwise None.
+    """
+    if tags_have_changed(work.tags, tags):
+        # Check if we need to create new tags
+        try:
+            for tag in tags:
+                if tag['id'] == 0:
+                    already_exists = session.query(Tag)\
+                        .filter(Tag.name == tag['name'])\
+                        .first()
+                    if not already_exists:
+                        new_tag = Tag(name=tag['name'], type_id=1)
+                        session.add(new_tag)
+                        session.flush()
+                        tag['id'] = new_tag.id
+                    else:
+                        tag['id'] = already_exists.id
+        except SQLAlchemyError as exp:
+            app.logger.error(f'{exp}')
+            return ResponseType('Uusia asiasanoja ei saatu talletettua.',
+                                HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+        existing_tags = session.query(WorkTag)\
+            .filter(WorkTag.work_id == work.id)\
+            .all()
+        # (to_add, to_remove) = get_join_changes(
+        #     [x.tag_id for x in existing_tags],
+        #     [x['id'] for x in data['tags']])
+        if len(existing_tags) > 0:
+            for tag in existing_tags:
+                session.delete(tag)
+        for tag in tags:
+            st = WorkTag(tag_id=tag['id'], work_id=work.id)
+            session.add(st)
+        old_tags = session.query(Tag.name)\
+            .filter(Tag.id.in_([x.tag_id for x in existing_tags]))\
+            .all()
+        if old_values is not None:
+            old_values['Asiasanat'] = ','.join([str(x[0]) for x in old_tags])
+
+    return None
+
+
 def _set_description(
         work: Work,
         data: Any,
@@ -870,24 +928,9 @@ def work_update(
 
     # Tags
     if 'tags' in data:
-        if tags_have_changed(work.tags, data['tags']):
-            existing_tags = session.query(WorkTag)\
-                .filter(WorkTag.work_id == work_id)\
-                .all()
-            (to_add, to_remove) = get_join_changes(
-                [x.tag_id for x in existing_tags],
-                [x['id'] for x in data['tags']])
-            if len(existing_tags) > 0:
-                for tag in existing_tags:
-                    session.delete(tag)
-            for tag in data['tags']:
-                st = WorkTag(tag_id=tag['id'], work_id=work.id)
-                session.add(st)
-            old_tags = session.query(Tag.name)\
-                .filter(Tag.id.in_([x.tag_id for x in existing_tags]))\
-                .all()
-            old_values['Asiasanat'] = ','.join([str(x[0]) for x in old_tags])
-            # old_values['Asiasanat'] += ' +'.join([str(x) for x in to_remove])
+        result = _set_tags(session, work, data['tags'], old_values)
+        if result:
+            return result
 
     # Links
     if 'links' in data:

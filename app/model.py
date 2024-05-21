@@ -42,7 +42,7 @@ class ArticleBriefestSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         model = Article
 
 
-class ShortBriefestSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+class ShortTagSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     """ Short story schema. """
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
@@ -57,7 +57,7 @@ class TagBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     type = fields.Nested(TagTypeSchema)
     works = ma.List(fields.Nested(WorkBriefestSchema(only=("id",))))
     articles = ma.List(fields.Nested(ArticleBriefestSchema(only=("id",))))
-    stories = ma.List(fields.Nested(ShortBriefestSchema(only=("id",))))
+    stories = ma.List(fields.Nested(ShortTagSchema(only=("id",))))
 
 
 class UserSchema(ma.SQLAlchemySchema):  # type: ignore

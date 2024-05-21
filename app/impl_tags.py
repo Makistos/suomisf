@@ -25,6 +25,9 @@ def tags_have_changed(old_values: List[Any], new_values: List[Any]) -> bool:
     if len(old_values) != len(new_values):
         return True
     for idx, old_value in enumerate(old_values):
+        if new_values[idx]['id'] == 0:
+            # New tag -> Must have changed
+            return True
         if old_value.id != new_values[idx]['id']:
             return True
     return False
@@ -215,6 +218,7 @@ def tag_create(name: str) -> ResponseType:
 
     tag = Tag()
     tag.name = name
+    tag.type_id = 1
     session.add(tag)
     session.commit()
 

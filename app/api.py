@@ -1242,8 +1242,8 @@ def api_tagcreate() -> Response:
     Create a new tag.
 
     """
-    url_params = request.args.to_dict()
-    name = url_params['name']
+    params = json.loads(request.data.decode('utf-8'))
+    name = params['data']['name']
 
     retval = tag_create(name)
 
