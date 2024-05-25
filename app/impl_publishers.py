@@ -401,7 +401,7 @@ def add_publisher(session: Any, name: str) -> Union[int, None]:
     if publisher:
         return publisher.id
 
-    publisher = Publisher(name=name)
+    publisher = Publisher(name=name, fullname=name)
     try:
         session.add(publisher)
         session.flush()
