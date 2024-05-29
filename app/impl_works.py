@@ -6,6 +6,7 @@ import bleach
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
+from app.impl_helpers import object_differ, str_differ
 from app.impl_logs import log_changes
 from app.route_helpers import new_session
 from app.impl import (ResponseType, SearchResult,
@@ -52,7 +53,7 @@ def _set_bookseries(
         Union[ResponseType, None]: The response type if there is an error,
                                    otherwise None.
     """
-    if data['bookseries'] != work.bookseries:
+    if object_differ(data['bookseries'], work.bookseries):
         bs_id = None
         if old_values is not None:
             old_values['Kirjasarja'] = (work.bookseries.name
@@ -170,7 +171,7 @@ def _set_description(
                          data["description"] + '.' + str(exp))
         return ResponseType('Kuvauksen html-muotoilu epäonnistui',
                             HttpResponseCode.BAD_REQUEST.value)
-    if html_text != work.description:
+    if str_differ(html_text, work.description):
         if old_values is not None:
             old_values['Kuvaus'] = (work.description[0:200]
                                     if work.description else '')
@@ -820,7 +821,7 @@ def work_update(
                             HttpResponseCode.NOT_FOUND.value)
 
     if 'title' in data:
-        if data['title'] != work.title:
+        if str_differ(data['title'], work.title):
             if len(data['title']) == 0:
                 app.logger.error(f'WorkSave: Empty title. Id = {work_id}.')
                 return ResponseType('Tyhjä nimi',
@@ -829,12 +830,12 @@ def work_update(
             work.title = data['title']
 
     if 'subtitle' in data:
-        if data['subtitle'] != work.subtitle:
+        if str_differ(data['subtitle'], work.subtitle):
             old_values['Alaotsikko'] = work.subtitle
             work.subtitle = data['subtitle']
 
     if 'orig_title' in data:
-        if data['orig_title'] != work.orig_title:
+        if str_differ(data['orig_title'], work.orig_title):
             old_values['Alkukielinen nimi'] = work.orig_title
             work.orig_title = data['orig_title']
 
@@ -851,10 +852,10 @@ def work_update(
     if 'bookseriesorder' in data:
         if data['bookseriesorder'] != work.bookseriesorder:
             old_values['Kirjasarjan järjestys'] = work.bookseriesorder
-            work.bookseriesorder = str(data['bookseriesorder'])
+            work.bookseriesorder = check_int(data['bookseriesorder'])
 
     if 'misc' in data:
-        if data['misc'] != work.misc:
+        if str_differ(data['misc'], work.misc):
             old_values['Muuta'] = work.misc
             work.misc = data['misc']
 
@@ -864,12 +865,12 @@ def work_update(
             return result
 
     if 'descr_attr' in data:
-        if data['descr_attr'] != work.descr_attr:
+        if str_differ(data['descr_attr'], work.descr_attr):
             old_values['Kuvauksen lähde'] = work.descr_attr
-            work.descr_attr = data['descr_attrs']
+            work.descr_attr = data['descr_attr']
 
     if 'imported_string' in data:
-        if data['imported_string'] != work.imported_string:
+        if str_differ(data['imported_string'], work.imported_string):
             old_values['Lähde'] = work.imported_string
             work.imported_string = data['imported_string']
 

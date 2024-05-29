@@ -5,6 +5,7 @@ from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
+from app.impl_helpers import object_differ, str_differ
 from app.impl_logs import log_changes
 from app.impl_publishers import add_publisher
 from app.isbn import check_isbn  # type: ignore
@@ -86,7 +87,7 @@ def _set_publisher(
         app.logger.error(f'Publisher missing for edition {edition.id}')
         return ResponseType('Kustantaja on pakollinen tieto',
                             HttpResponseCode.BAD_REQUEST.value)
-    if data["publisher"] != edition.publisher:
+    if object_differ(data["publisher"], edition.publisher):
         if old_values is not None:
             old_values["Kustantaja"] = (edition.publisher.name
                                         if edition.publisher else '')
@@ -398,17 +399,16 @@ def update_edition(params: Any) -> ResponseType:
     formats = session.query(Format).all()
 
     # Title, required field, cannot be empty
-    if "title" in data and data["title"] != edition.title:
+    if "title" in data and str_differ(data["title"], edition.title):
         if not edition.title or len(edition.title) == 0:
             app.logger.error("update_edition: Title is empty.")
             return ResponseType("Otsikko ei voi olla tyhjä.",
                                 HttpResponseCode.BAD_REQUEST.value)
-        else:
-            old_values["Nimeke"] = edition.title
-            edition.title = data["title"]
+        old_values["Nimeke"] = edition.title
+        edition.title = data["title"]
 
     # Subtitle, not required
-    if "subtitle" in data and data["subtitle"] != edition.subtitle:
+    if "subtitle" in data and str_differ(data["subtitle"], edition.subtitle):
         old_values["Alaotsikko"] = edition.subtitle
         subtitle: Union[str, None] = data["subtitle"]
         if subtitle == "":
@@ -463,7 +463,7 @@ def update_edition(params: Any) -> ResponseType:
             edition.version = version
 
     # ISBN, not required
-    if "isbn" in data and data["isbn"] != edition.isbn:
+    if "isbn" in data and str_differ(data["isbn"], edition.isbn):
         old_values["ISBN"] = edition.isbn
         isbn: Union[str, None] = data["isbn"]
         if isbn == "" or isbn is None:
@@ -528,7 +528,8 @@ def update_edition(params: Any) -> ResponseType:
         edition.size = size
 
     # Print location, not required
-    if "printedin" in data and data["printedin"] != edition.printedin:
+    if ("printedin" in data and
+            str_differ(data["printedin"], edition.printedin)):
         old_values["Painopaikka"] = edition.printedin
         printedin: Union[str, None] = data["printedin"]
         if printedin == "":
@@ -586,7 +587,7 @@ def update_edition(params: Any) -> ResponseType:
         edition.coverimage = coverimage
 
     # Miscellanous notes, not required
-    if "misc" in data and data["misc"] != edition.misc:
+    if "misc" in data and str_differ(data["misc"], edition.misc):
         old_values["Muuta"] = edition.misc
         misc: Union[str, None] = data["misc"]
         if misc == "":
@@ -596,7 +597,7 @@ def update_edition(params: Any) -> ResponseType:
     # Holds string where data was originally extracted from. Also used for
     # source.
     if ("imported_string" in data
-            and data["imported_string"] != edition.imported_string):
+            and str_differ(data["imported_string"], edition.imported_string)):
         old_values["Lähde"] = edition.imported_string
         imported_string = data["imported_string"]
         if imported_string == "":
