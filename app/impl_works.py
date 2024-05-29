@@ -6,7 +6,7 @@ import bleach
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
-from app.impl_helpers import object_differ, str_differ
+from app.impl_helpers import objects_differ, str_differ
 from app.impl_logs import log_changes
 from app.route_helpers import new_session
 from app.impl import (ResponseType, SearchResult,
@@ -53,7 +53,7 @@ def _set_bookseries(
         Union[ResponseType, None]: The response type if there is an error,
                                    otherwise None.
     """
-    if object_differ(data['bookseries'], work.bookseries):
+    if objects_differ(data['bookseries'], work.bookseries):
         bs_id = None
         if old_values is not None:
             old_values['Kirjasarja'] = (work.bookseries.name

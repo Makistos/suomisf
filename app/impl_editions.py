@@ -5,7 +5,7 @@ from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
-from app.impl_helpers import object_differ, str_differ
+from app.impl_helpers import objects_differ, str_differ
 from app.impl_logs import log_changes
 from app.impl_publishers import add_publisher
 from app.isbn import check_isbn  # type: ignore
@@ -87,7 +87,7 @@ def _set_publisher(
         app.logger.error(f'Publisher missing for edition {edition.id}')
         return ResponseType('Kustantaja on pakollinen tieto',
                             HttpResponseCode.BAD_REQUEST.value)
-    if object_differ(data["publisher"], edition.publisher):
+    if objects_differ(data["publisher"], edition.publisher):
         if old_values is not None:
             old_values["Kustantaja"] = (edition.publisher.name
                                         if edition.publisher else '')

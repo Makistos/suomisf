@@ -13,7 +13,7 @@ def str_differ(str1: Optional[str], str2: Optional[str]) -> bool:
         str2 (str): The second string to compare.
 
     Returns:
-        bool: True if the strings match, False otherwise.
+        bool: False if the strings match, True otherwise.
     """
     if str1 is None:
         str1 = ''
@@ -24,7 +24,7 @@ def str_differ(str1: Optional[str], str2: Optional[str]) -> bool:
     return True
 
 
-def object_differ(
+def objects_differ(
         obj1: Optional[Dict[str, Any]], obj2: Any) -> bool:
     """
     Check if two objects match.
@@ -35,7 +35,7 @@ def object_differ(
         obj2 (Any): The second object to compare. This is a Python object.
 
     Returns:
-        bool: True if the objects match, False otherwise.
+        bool: False if the objects match, True otherwise.
     """
     if obj1 is None or obj1 == '':
         return obj2 is not None
