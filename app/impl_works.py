@@ -733,11 +733,9 @@ def work_add(params: Any) -> ResponseType:
 
     # Add tags (requires work id)
     if 'tags' in data:
-        for tag in data['tags']:
-            if 'id' in tag:
-                if tag['id'] != 0 and tag['id'] is not None:
-                    new_tag = WorkTag(work_id=work.id, tag_id=tag['id'])
-                    session.add(new_tag)
+        result = _set_tags(session, work, data['tags'], None)
+        if result:
+            return result
 
     # Add links (requires work id)
     if 'links' in data:
