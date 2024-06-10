@@ -57,7 +57,7 @@ def _create_new_contributors(session: Any, contributors: Any) -> List[Any]:
     person: Union[Person, None] = None
     for contrib in contributors:
         person = None
-        if 'id' not in contrib['person']:
+        if isinstance(contrib['person'], str) or 'id' not in contrib['person']:
             person = _create_new_person(session, contrib)
         else:
             person = session.query(Person)\
