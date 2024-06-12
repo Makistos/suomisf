@@ -462,13 +462,29 @@ def person_add(params: Any) -> ResponseType:
     person.image_src = data['image_src'] if 'image_src' in data else None
     person.dob = data['dob'] if 'dob' in data else None
     person.dod = data['dod'] if 'dod' in data else None
-    if 'nationality' in data and 'id' in data['nationality']:
+    if ('nationality' in data and data['nationality'] is not None
+            and 'id' in data['nationality']):
         person.nationality_id = data['nationality']['id']
     else:
         person.nationality_id = data['nationality_id'] \
             if 'nationality_id' in data else None
     person.other_names = data['other_names'] if 'other_names' in data else None
 
+    try:
+        session.add(person)
+        session.commit()
+    except SQLAlchemyError as exp:
+        app.logger.error('Exception in person_add: ' + str(exp))
+        return ResponseType('Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    if 'links' in data:
+        for link in data['links']:
+            pl = PersonLink(
+                person_id=person.id, link=link['link'],
+                description=link['description']
+            )
+            session.add(pl)
     try:
         session.add(person)
         session.commit()

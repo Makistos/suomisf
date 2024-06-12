@@ -12,8 +12,8 @@ from app.route_helpers import new_session
 from app.impl import (ResponseType, SearchResult,
                       SearchResultFields, searchscore, set_language, check_int,
                       get_join_changes)
-from app.orm_decl import (Edition, Genre, Part, Tag, Work, WorkType, WorkTag,
-                          WorkGenre, WorkLink, Bookseries, ShortStory,
+from app.orm_decl import (Edition, Genre, Part, Tag, Work, WorkType,
+                          WorkTag, WorkGenre, WorkLink, Bookseries, ShortStory,
                           Contributor)
 from app.model import (WorkBriefSchema, WorkTypeBriefSchema,
                        ShortBriefSchema)
@@ -524,8 +524,8 @@ def search_works_by_author(params: Dict[str, str]) -> ResponseType:
             .filter(Work.author_str.ilike(params['letter'] + '%'))\
             .order_by(Work.author_str).all()
     except SQLAlchemyError as exp:
-        app.logger.error('Exception in SearchWorksByAuthor: ' + str(exp))
-        return ResponseType(f'SearchWorksByAuthor: Tietokantavirhe. id={id}',
+        app.logger.error(exp)
+        return ResponseType('Tietokantavirhe',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
@@ -533,8 +533,8 @@ def search_works_by_author(params: Dict[str, str]) -> ResponseType:
         schema = BookIndexSchema(many=True)
         retval = schema.dump(works)
     except exceptions.MarshmallowError as exp:
-        app.logger.error('SearchWorksByAuthor schema error: ' + str(exp))
-        return ResponseType('SearchWorksByAuthor: Skeemavirhe.',
+        app.logger.error(exp)
+        return ResponseType('Skeemavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType(retval, HttpResponseCode.OK.value)
