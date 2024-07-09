@@ -252,7 +252,7 @@ def story_add(data: Any) -> ResponseType:
                             HttpResponseCode.BAD_REQUEST.value)
     story.title = data['title']
 
-    if 'orig_name' in data:
+    if 'orig_title' in data:
         story.orig_title = data['orig_title']
 
     if 'type' not in data:
