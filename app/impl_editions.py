@@ -152,7 +152,7 @@ def _set_pubseries(
             old_values["Kustantajan sarja"] = (edition.pubseries.name
                                                if edition.pubseries else '')
         if (data["pubseries"] != "" and data["pubseries"] is not None and
-                "id" not in data["pubseries"]):
+                isinstance(data["pubseries"], str)):
             # User added a new pubseries. Front returns this as a string
             # in the bookseries field so we need to create a new pubseries
             # to the # database first.

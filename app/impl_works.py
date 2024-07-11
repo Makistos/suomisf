@@ -59,7 +59,7 @@ def _set_bookseries(
             old_values['Kirjasarja'] = (work.bookseries.name
                                         if work.bookseries else '')
         if (data['bookseries'] != "" and data['bookseries'] is not None and
-                'id' not in data['bookseries']):
+                isinstance(data['bookseries'], str)):
             # User added a new bookseries. Front returns this as a string
             # in the bookseries field so we need to add this bookseries to
             # the database first.
