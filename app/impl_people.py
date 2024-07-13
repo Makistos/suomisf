@@ -902,20 +902,21 @@ def search_people(session: Any, searchwords: List[str]) -> SearchResult:
     found_people: Dict[int, SearchResultFields] = {}
 
     for searchword in searchwords:
+        lower_search = searchword.lower()
         people = \
             session.query(Person)\
-            .filter(Person.name.ilike('%' + searchword + '%') |
-                    Person.fullname.ilike('%' + searchword + '%') |
-                    Person.other_names.ilike('%' + searchword + '%') |
-                    Person.alt_name.ilike('%' + searchword + '%') |
-                    Person.bio.ilike('%' + searchword + '%')) \
+            .filter(Person.name.ilike('%' + lower_search + '%') |
+                    Person.fullname.ilike('%' + lower_search + '%') |
+                    Person.other_names.ilike('%' + lower_search + '%') |
+                    Person.alt_name.ilike('%' + lower_search + '%') |
+                    Person.bio.ilike('%' + lower_search + '%')) \
             .order_by(Person.name) \
             .all()
 
         for person in people:
             if person.id in found_people:
                 found_people[person.id]['score'] *= \
-                    searchscore('person', person, searchword)
+                    searchscore('person', person, lower_search)
             else:
                 description = ''
                 if person.nationality:
@@ -936,7 +937,7 @@ def search_people(session: Any, searchwords: List[str]) -> SearchResult:
                     'header': person.name,
                     'description': description,
                     'type': 'person',
-                    'score': searchscore('person', person, searchword)
+                    'score': searchscore('person', person, lower_search)
                 }
                 found_people[person.id] = item
         retval = [value for _, value in found_people.items()]

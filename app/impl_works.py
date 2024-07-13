@@ -342,19 +342,20 @@ def search_works(session: Any, searchwords: List[str]) -> SearchResult:
     found_works: Dict[int, SearchResultFields] = {}
 
     for searchword in searchwords:
+        lower_search = searchword.lower()
         works = session.query(Work)\
-            .filter(Work.title.ilike('%' + searchword + '%') |
-                    Work.subtitle.ilike('%' + searchword + '%') |
-                    Work.orig_title.ilike('%' + searchword + '%') |
-                    Work.misc.ilike('%' + searchword + '%') |
-                    Work.description.ilike('%' + searchword + '%'))\
+            .filter(Work.title.ilike('%' + lower_search + '%') |
+                    Work.subtitle.ilike('%' + lower_search + '%') |
+                    Work.orig_title.ilike('%' + lower_search + '%') |
+                    Work.misc.ilike('%' + lower_search + '%') |
+                    Work.description.ilike('%' + lower_search + '%'))\
             .order_by(Work.title)\
             .all()
 
         for work in works:
             if work.id in found_works:
                 found_works[work.id]['score'] *= searchscore(
-                    'work', work, searchword)
+                    'work', work, lower_search)
             else:
                 description = (work.description if work.description else '')
 
@@ -364,7 +365,7 @@ def search_works(session: Any, searchwords: List[str]) -> SearchResult:
                     'header': work.title,
                     'description': description,
                     'type': 'work',
-                    'score': searchscore('work', work, searchword)
+                    'score': searchscore('work', work, lower_search)
                 }
                 found_works[work.id] = item
         retval = [value for _, value in found_works.items()]
