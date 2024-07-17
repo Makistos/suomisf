@@ -245,16 +245,16 @@ def create_edition(params: Any) -> ResponseType:
     edition.pubyear = pubyear
     if "editionnum" in data:
         editionnum = check_int(data["editionnum"])
-        if not editionnum:
-            app.logger.error(
-                'create_edition: Invalid edition number. edition '
-                f'number={data["editionnum"]}'
-            )
-            return ResponseType(
-                'Painosnumero on virheellinen. '
-                f'Painosnumero={data["editionnum"]}',
-                HttpResponseCode.BAD_REQUEST.value
-            )
+        # if not editionnum:
+        #     app.logger.error(
+        #         'create_edition: Invalid edition number. edition '
+        #         f'number={data["editionnum"]}'
+        #     )
+        #     return ResponseType(
+        #         'Painosnumero on virheellinen. '
+        #         f'Painosnumero={data["editionnum"]}',
+        #         HttpResponseCode.BAD_REQUEST.value
+        #     )
         edition.editionnum = editionnum
     if "version" in data:
         version = check_int(data["version"])
@@ -433,19 +433,13 @@ def update_edition(params: Any) -> ResponseType:
         if result:
             return result
 
-    # Edition number, required field
-    if "editionnum" in data and data["editionnum"] != edition.editionnum:
-        editionnum = check_int(data["editionnum"])
-        if editionnum is None:
-            app.logger.error("update_edition: Invalid editionnum.")
-            return ResponseType("Virheellinen painosnumero.",
-                                HttpResponseCode.BAD_REQUEST.value)
-        old_values["Painosnro"] = edition.editionnum
-        edition.editionnum = editionnum
-    elif data["editionnum"] is None:
-        app.logger.error("update_edition: Editionnum is empty.")
-        return ResponseType("Painosnumero ei voi olla tyhjä.",
-                            HttpResponseCode.BAD_REQUEST.value)
+    editionnum = check_int(data["editionnum"])
+    # if editionnum is None:
+    #     app.logger.error("update_edition: Invalid editionnum.")
+    #     return ResponseType("Virheellinen painosnumero.",
+    #                         HttpResponseCode.BAD_REQUEST.value)
+    old_values["Painosnro"] = edition.editionnum
+    edition.editionnum = editionnum
 
     # Version (laitos), not required
     if "version" in data:
