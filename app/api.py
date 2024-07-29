@@ -22,7 +22,8 @@ from app.impl_awards import (get_awards_for_work,
 from app.impl_bookseries import (list_bookseries, get_bookseries,
                                  bookseries_create, bookseries_update,
                                  bookseries_delete, filter_bookseries)
-from app.impl_editions import (get_bindings, create_edition, update_edition,
+from app.impl_editions import (get_bindings, create_edition, get_edition,
+                               update_edition,
                                edition_delete, edition_image_upload,
                                edition_image_delete, edition_shorts,
                                get_latest_editions)
@@ -693,6 +694,37 @@ def api_filtercountries(pattern: str) -> Response:
 
 ###
 # Edition related functions
+
+
+@app.route('/api/editions/<editionid>', methods=['get'])
+def api_getedition(editionid: str) -> Response:
+    """
+    Get an edition by its ID.
+
+    Args:
+        editionId (str): The ID of the edition.
+
+    Returns:
+        Response: The response object containing the edition data.
+
+    Raises:
+        TypeError: If the edition ID is not a valid integer.
+        ValueError: If the edition ID is not a valid integer.
+
+    Example:
+        >>> api_GetEdition('123')
+        <Response [200]>
+    """
+    try:
+        int_id = int(editionid)
+    except (TypeError, ValueError):
+        app.logger.error(f'api_getedition: Invalid id {editionid}.')
+        response = ResponseType(
+           f'api_getedition: Virheellinen tunniste {editionid}.',
+           status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+
+    return make_api_response(get_edition(int_id))
 
 
 @app.route('/api/editions', methods=['post', 'put'])

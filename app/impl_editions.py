@@ -31,7 +31,8 @@ from app.impl_contributors import (
     get_work_contributors,
 )
 from app.route_helpers import new_session
-from app.model import BindingBriefSchema, ShortBriefSchema, EditionBriefSchema
+from app.model import (BindingBriefSchema, EditionSchema, ShortBriefSchema,
+        EditionBriefSchema, EditionSchema)
 from app.impl import ResponseType, check_int
 from app.impl_pubseries import add_pubseries
 from app.types import ContributorTarget, HttpResponseCode
@@ -178,6 +179,27 @@ def _set_pubseries(
                                         HttpResponseCode.BAD_REQUEST.value)
         edition.pubseries_id = ps_id
     return None
+
+
+def get_edition(edition_id: int) -> Any:
+    """
+    Gets an edition from the database.
+
+    Args:
+        edition_id (int): The ID of the edition to be retrieved.
+
+    Returns:
+        Any: The retrieved edition or None if not found.
+    """
+    session = new_session()
+    edition = session.query(Edition).filter(Edition.id == edition_id).first()
+    if not edition:
+        app.logger.error("Edition not found. id={edition_id}")
+        return ResponseType("Painosta ei löydy.",
+                            HttpResponseCode.BAD_REQUEST.value)
+    schema = EditionSchema()
+    retval = schema.dump(edition)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 # Save new edition to database. Params requires work_id parameter.
