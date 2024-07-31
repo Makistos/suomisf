@@ -32,7 +32,7 @@ from app.impl_contributors import (
 )
 from app.route_helpers import new_session
 from app.model import (BindingBriefSchema, EditionSchema, ShortBriefSchema,
-        EditionBriefSchema, EditionSchema)
+                       EditionBriefSchema)
 from app.impl import ResponseType, check_int
 from app.impl_pubseries import add_pubseries
 from app.types import ContributorTarget, HttpResponseCode
