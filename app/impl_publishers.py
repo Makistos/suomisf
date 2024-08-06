@@ -150,7 +150,7 @@ def list_publishers() -> ResponseType:
     session = new_session()
 
     try:
-        publishers = session.query(Publisher).all()
+        publishers = session.query(Publisher).order_by(Publisher.name).all()
     except SQLAlchemyError as exp:
         app.logger.error(exp)
         return ResponseType(f'Tietokantavirhe. id={id}',
