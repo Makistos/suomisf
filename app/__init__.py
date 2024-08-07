@@ -17,6 +17,9 @@ from flask_jwt_extended import JWTManager
 #from flask_wtf.csrf import CSRFProtect
 
 app = Flask(__name__)
+config_name = os.getenv('FLASK_ENV', 'development')
+if 'ENV' not in app.config:
+    app.config['ENV'] = config_name
 if os.environ.get('TESTING'):
     app.config.from_object("config.TestingConfig")
 elif app.config['ENV'] == "production":
