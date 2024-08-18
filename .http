@@ -42,7 +42,7 @@ GET https://www.sf-bibliografia.fi:5000/api/people/2820 HTTP/1.1
 # 3501, 3507, 4167, 3562, 3420 / avg: 3631 / length: 450411
 # 1492, 1354, 1172, 1354, 1287 / avg: 1331 / length: 495520
 # Marshmallow updated
-# 1796, 1471, 1410, 1549, 1424 / avg: / length: 911615
+# 1858, 1631, 1538, 1531, 1566 / avg: / length: 911615
 
 ### King
 GET https://www.sf-bibliografia.fi:5000/api/people/2286 HTTP/1.1
@@ -51,7 +51,6 @@ GET https://www.sf-bibliografia.fi:5000/api/people/2286 HTTP/1.1
 # 4890, 5039, 5310, 4766, 4282 / avg: 4857 / length: 630262
 # 2430, 2665, 2544, 2719, 2461 / avg: 2563 / length: 870635
 # Marshmallow updated
-# 2527, 2254, 2299, 2226, 2293 / avg: / length: 1254884
 
 ### Asimov
 GET https://www.sf-bibliografia.fi/api/people/2687 HTTP/1.1
@@ -59,6 +58,7 @@ GET https://www.sf-bibliografia.fi/api/people/2687 HTTP/1.1
 # 1016, 920, 910, 972, 906 / avg: 945 / length: 110548
 # 1109, 910, 966, 998, 1148 / avg: 1026 / length: 111250
 # 709, 681, 650, 734, 647 / avg: 684 / length: 165563
+# Marshmallow updated
 
 ### Suntila
 GET https://www.sf-bibliografia.fi:5000/api/people/610 HTTP/1.1
@@ -66,6 +66,7 @@ GET https://www.sf-bibliografia.fi:5000/api/people/610 HTTP/1.1
 # 5302, 5524, 5387, 5421, 6007 / avg: 5528 / length: 699522
 # 6183, 5950, 6138, 5391, 4977 / avg: 5727 / length: 702184
 # 2770, 2277, 2324, 2296, 2334 / avg: 2400 / length: 725924
+# Marshmallow updated
 
 ###
 GET http://localhost:5000/api/people/2820 HTTP/1.1
@@ -79,11 +80,13 @@ GET http://localhost:5000/api/people/1360 HTTP/1.1
 GET https://www.sf-bibliografia.fi:5000/api/worksbyinitial/b HTTP/1.1
 # 6302, 3741, 3935, 3350, 3450 / avg: 4155  / length: 1400941
 # 2212, 2294, 2214, 2234, 2363 / avg: 2263 / length: 537237
+# Marshmallow updated
 
 ###
 GET https://www.sf-bibliografia.fi:5000/api/worksbyinitial/s HTTP/1.1
 # 10377, 10849, 9561, 10740, 11235 / avg: 10352 / length: 3786286
 # 6608, 3942, 4108, 4077, 4092 / avg: 4565 / length: 934599
+# Marshmallow updated
 
 ###
 GET http://localhost:5000/api/worksbyinitial/b HTTP/1.1
@@ -151,4 +154,3 @@ GET https://www.sf-bibliografia.fi:5000/api/publishers/387 HTTP/1.1
 # 21367, 20038, 20146 /length: 13173845
 # 5106, 4207, 4038/ length: 2715761
 # Marshmallow updated:
-# 5132, 4396, 4196, 4168, 4178 / avg: / length: 2826900
