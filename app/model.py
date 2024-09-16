@@ -2,12 +2,12 @@
 """ SQLAlchemy models not fitting into other model_ files. """
 from marshmallow import Schema, fields
 from app import ma
-from app.orm_decl import (Article, Award, AwardCategory, Awarded, BindingType,
+from app.orm_decl import (Article, Award, AwardCategory, Awarded, BindingType, BookCondition,
                           Bookseries, Contributor, ContributorRole, Country,
                           Edition, EditionImage, Genre, Issue, Language, Log,
                           Magazine, Person, PersonLink, PublicationSize,
                           Publisher, PublisherLink, Pubseries, ShortStory, Tag,
-                          TagType,
+                          TagType, UserBook,
                           Work, StoryType, WorkLink, Format, WorkType)
 
 # Brief schemas should not include any relationships to other
@@ -277,6 +277,20 @@ class EditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     contributions = ma.List(fields.Nested(WorkContributorSchema))
     images = ma.List(fields.Nested(EditionImageBriefSchema))
 
+class BookConditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Book condition schema. """
+    class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
+        model = BookCondition
+
+class UserBookSchema(ma.SQLAlchemyAutoSchema):
+    """ User book schema. """
+    class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
+        model = UserBook
+    book = fields.Nested(EditionBriefSchema)
+    user = fields.Nested(UserSchema)
+    condition = fields.Nested(BookConditionSchema)
 
 class MagazineBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     """ Magazine schema with no relationships. """

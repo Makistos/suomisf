@@ -432,6 +432,7 @@ class Edition(Base):
         backref=backref('edition_image_assoc'),
         uselist=True,
         viewonly=True)
+    owners = relationship('User', secondary='userbook', viewonly=True)
 
     @property
     def name(self) -> str:
@@ -1290,12 +1291,14 @@ class UserBook(Base):
                         primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False,
                      primary_key=True)
-    condition = Column(Integer, ForeignKey('bookcondition.id'))
+    condition_id = Column(Integer, ForeignKey('bookcondition.id'))
     description = Column(String(100))
     price = Column(Integer)
+    added = Column(DateTime, default=datetime.datetime.now(), nullable=True)
     book = relationship("Edition", backref=backref(
         "edition3_assoc"), viewonly=True)
     user = relationship("User", backref=backref("user2_assoc"), viewonly=True)
+    condition = relationship("BookCondition", backref=backref("bookcondition_assoc"), viewonly=True)
 
 
 class UserBookseries(Base):

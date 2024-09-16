@@ -10,8 +10,10 @@ from app.impl_logs import log_changes
 from app.impl_publishers import add_publisher
 from app.isbn import check_isbn  # type: ignore
 from app.orm_decl import (
+    BookCondition,
     Edition,
     Part,
+    User,
     Work,
     BindingType,
     Format,
@@ -23,6 +25,7 @@ from app.orm_decl import (
     EditionPrice,
     ShortStory,
     Log,
+    UserBook
 )
 from app.impl_contributors import (
     contributors_have_changed,
@@ -32,7 +35,7 @@ from app.impl_contributors import (
 )
 from app.route_helpers import new_session
 from app.model import (BindingBriefSchema, EditionSchema, ShortBriefSchema,
-                       EditionBriefSchema)
+                       EditionBriefSchema, UserBookSchema)
 from app.impl import ResponseType, check_int
 from app.impl_pubseries import add_pubseries
 from app.types import ContributorTarget, HttpResponseCode
@@ -975,3 +978,180 @@ def get_latest_editions(count: int) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def editionowner_get(editionid: int, userid: int) -> ResponseType:
+    """
+    Get the owner of an edition.
+    """
+    session = new_session()
+    try:
+        edition = session.query(UserBook)\
+            .filter(UserBook.edition_id == editionid)\
+            .filter(UserBook.user_id == userid)\
+            .first()
+    except SQLAlchemyError as exp:
+        app.logger.error(f"editionowner_get: {str(exp)}")
+    try:
+        schema = UserBookSchema()
+        retval = schema.dump(edition)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f"editionowner_get: {str(exp)}")
+        return ResponseType("editionowner_get: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def editionowner_add(params: dict) -> ResponseType:
+    """
+    Add or update the owner of an edition.
+    """
+
+    # Check parameters
+    try:
+        editionid = check_int(params["editionid"])
+        userid = check_int(params["userid"])
+        condition = check_int(params["condition"])
+    except:
+        return ResponseType("Invalid parameters.",
+                            HttpResponseCode.BAD_REQUEST.value)
+    if not editionid or not userid or not condition:
+        return ResponseType("Invalid parameters.",
+                            HttpResponseCode.BAD_REQUEST.value)
+    if (condition < 1 or condition > 5):
+        return ResponseType("Invalid parameters.",
+                            HttpResponseCode.BAD_REQUEST.value)
+
+    session = new_session()
+    try:
+        userbook = session.query(UserBook)\
+            .filter(UserBook.edition_id == editionid)\
+            .filter(UserBook.user_id == userid)\
+            .first()
+    except SQLAlchemyError as exp:
+        app.logger.error(f"editionowner_add: {str(exp)}")
+
+    if not userbook:
+        app.logger.error(f"editionowner_add: Userbook not found. id={editionid}")
+        return ResponseType("editionowner_add: Omistajatietoa ei käydy.",
+                            HttpResponseCode.BAD_REQUEST.value)
+
+    try:
+        userbook.condition_id = condition
+        if 'description' in params:
+            userbook.description = params['description']
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f"editionowner_add: {str(exp)}")
+        return ResponseType("editionowner_add: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(None, HttpResponseCode.OK.value)
+
+
+def editionowner_update(params: dict) -> ResponseType:
+    """
+    Add or update the owner of an edition.
+    """
+    # Check parameters
+    try:
+        editionid = check_int(params["edition_id"])
+        userid = check_int(params["user_id"])
+    except:
+        return ResponseType("Invalid parameters.",
+                            HttpResponseCode.BAD_REQUEST.value)
+
+    if not editionid or not userid:
+        return ResponseType("Invalid parameters.",
+                            HttpResponseCode.BAD_REQUEST.value)
+
+    session = new_session()
+    try:
+        userbook = session.query(UserBook)\
+            .filter(UserBook.edition_id == editionid)\
+            .filter(UserBook.user_id == userid)\
+            .first()
+    except SQLAlchemyError as exp:
+        app.logger.error(f"editionowner_update: {str(exp)}")
+        return ResponseType("editionowner_update: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    if not userbook:
+        userbook = UserBook()
+        userbook.edition_id = editionid
+        userbook.user_id = userid
+        session.add(userbook)
+
+    if 'condition' in params:
+        condition = check_int(params["condition"]["value"])
+        if (condition < 1 or condition > 5):
+            app.logger.error(f"editionowner_update: Invalid condition. {condition}")
+            return ResponseType("Invalid parameters.",
+                                HttpResponseCode.BAD_REQUEST.value)
+        cond = session.query(BookCondition)\
+            .filter(BookCondition.value == condition)\
+            .first()
+        if (cond):
+            userbook.condition_id = cond.id
+    if 'description' in params:
+        userbook.description = params['description']
+
+    try:
+        session.commit()
+    except SQLAlchemyError as exp:
+        app.logger.error(f"editionowner_update: {str(exp)}")
+        session.rollback()
+        return ResponseType("editionowner_update: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType("OK", HttpResponseCode.OK.value)
+
+
+def editionowner_list(editionid: int) -> ResponseType:
+    """
+    List the owners of an edition.
+    """
+    session = new_session()
+    try:
+        users = session.query(User)\
+            .join(UserBook)\
+            .filter(UserBook.edition_id == editionid)\
+            .filter(UserBook.user_id == User.id)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(f"editionowner_list: {str(exp)}")
+
+    try:
+        schema = User(many=True)
+        retval = schema.dump(users.owners)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f"editionowner_list: {str(exp)}")
+        return ResponseType("editionowner_list: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def editionowner_remove(editionid: int, userid: int) -> ResponseType:
+    """
+    Remove the owner of an edition.
+    """
+    session = new_session()
+    try:
+        userbook = session.query(UserBook)\
+            .filter(UserBook.edition_id == editionid)\
+            .filter(UserBook.user_id == userid)\
+            .first()
+        if userbook:
+            session.delete(userbook)
+            session.commit()
+
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f"editionowner_remove: {str(exp)}")
+        return ResponseType("editionowner_remove: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(None, HttpResponseCode.OK.value)

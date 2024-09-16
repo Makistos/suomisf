@@ -22,11 +22,13 @@ from app.impl_awards import (get_awards_for_work,
 from app.impl_bookseries import (list_bookseries, get_bookseries,
                                  bookseries_create, bookseries_update,
                                  bookseries_delete, filter_bookseries)
-from app.impl_editions import (get_bindings, create_edition, get_edition,
+from app.impl_editions import (editionowner_get, editionowner_list, get_bindings, create_edition, get_edition,
                                update_edition,
                                edition_delete, edition_image_upload,
                                edition_image_delete, edition_shorts,
-                               get_latest_editions)
+                               get_latest_editions,
+                               editionowner_add, editionowner_update,
+                               editionowner_remove)
 from app.impl_logs import get_edition_changes
 from app.impl_people import (search_people, filter_aliases,
                              get_author_first_letters,
@@ -819,6 +821,74 @@ def api_deleteeditionimage(editionid: str, imageid: str) -> Response:
     """
     retval = make_api_response(
         edition_image_delete(editionid, imageid))
+    return retval
+
+
+@app.route('/api/editions/<editionid>/owners', methods=['get'])
+def api_editionowners(editionid: str) -> Response:
+    """
+    Get the owners of an edition.
+
+    Args:
+        editionid (str): The ID of the edition.
+
+    Returns:
+        Response: The API response containing the owners of the edition.
+    """
+    return make_api_response(editionowner_list(editionid))
+
+
+@app.route('/api/editions/<editionid>/owner/<personid>', methods=['get'])
+def api_editionownerperson(editionid: str, personid: str) -> Response:
+    """
+    Get the owner info of an edition.
+
+    Args:
+        editionid (str): The ID of the edition.
+        personid (str): The ID of the person.
+
+    Returns:
+        Response: The API response containing the owner information.
+    """
+    return make_api_response(editionowner_get(editionid, personid))
+
+
+@app.route('/api/editions/<editionid>/owner/<personid>', methods=['delete'])
+@jwt_required()  # type: ignore
+def api_deleteowner(editionid: str, personid: str) -> Response:
+    """
+    Delete the owner of an edition.
+
+    Parameters:
+        editionid (str): The ID of the edition.
+        personid (str): The ID of the person.
+
+    Returns:
+        Response: The response object containing the result of the operation.
+    """
+    return make_api_response(editionowner_remove(editionid, personid))
+
+
+@app.route('/api/editions/owner', methods=['post', 'put'])
+@jwt_required()
+def api_addeditionowner() -> Response:
+    """
+    Add or update the owner of an edition.
+
+    Parameters:
+        editionid (str): The ID of the edition.
+        params (dict): A dictionary containing the owner information.
+
+    Returns:
+        Response: The response object containing the result of the operation.
+    """
+    params = request.data.decode('utf-8')
+    params = json.loads(params)
+    if request.method == 'POST':
+        retval = make_api_response(editionowner_add(params))
+    elif request.method == 'PUT':
+        retval = make_api_response(editionowner_update(params))
+
     return retval
 
 
