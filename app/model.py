@@ -276,6 +276,7 @@ class EditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     editors = ma.List(fields.Nested(PersonBriefSchema))
     contributions = ma.List(fields.Nested(WorkContributorSchema))
     images = ma.List(fields.Nested(EditionImageBriefSchema))
+    publisher = fields.Nested(lambda: PublisherSchema(only=('id', 'name')))
 
 class BookConditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     """ Book condition schema. """

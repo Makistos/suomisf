@@ -22,7 +22,7 @@ from app.impl_awards import (get_awards_for_work,
 from app.impl_bookseries import (list_bookseries, get_bookseries,
                                  bookseries_create, bookseries_update,
                                  bookseries_delete, filter_bookseries)
-from app.impl_editions import (editionowner_get, editionowner_list, get_bindings, create_edition, get_edition,
+from app.impl_editions import (editionowner_get, editionowner_getowned, editionowner_list, get_bindings, create_edition, get_edition,
                                update_edition,
                                edition_delete, edition_image_upload,
                                edition_image_delete, edition_shorts,
@@ -851,6 +851,20 @@ def api_editionownerperson(editionid: str, personid: str) -> Response:
         Response: The API response containing the owner information.
     """
     return make_api_response(editionowner_get(editionid, personid))
+
+
+@app.route('/api/editions/owned/<userid>', methods=['get'])
+def api_editionsowned(userid: str) -> Response:
+    """
+    Get the owner info of an edition.
+
+    Args:
+        userid (str): The ID of the person.
+
+    Returns:
+        Response: The API response containing the owner information.
+    """
+    return make_api_response(editionowner_getowned(userid))
 
 
 @app.route('/api/editions/<editionid>/owner/<personid>', methods=['delete'])

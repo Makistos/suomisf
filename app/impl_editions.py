@@ -1,9 +1,11 @@
 """ Editions implementation """
 from typing import Any, Dict, Optional, Union
 import os
+from flask import jsonify
 from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
 from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy import text
 from marshmallow import exceptions
 from app.impl_helpers import objects_differ, str_differ
 from app.impl_logs import log_changes
@@ -1002,6 +1004,67 @@ def editionowner_get(editionid: int, userid: int) -> ResponseType:
 
     return ResponseType(retval, HttpResponseCode.OK.value)
 
+def editionowner_getowned(userid: int) -> ResponseType:
+    """
+    Get books owned by user.
+    """
+    books = None
+    retval = []
+    session = new_session()
+    stmt = 'SELECT userbook.description, edition.id as edition_id, edition.title, edition.version, '\
+        'edition.editionnum, edition.pubyear, bookcondition.value,  '\
+        'work.author_str, publisher_id as publisher_id, publisher.name as publisher_name, '\
+        'work.id as work_id, '\
+        'bookcondition.name as condition_name '\
+        'FROM userbook '\
+        'JOIN edition on userbook.edition_id = edition.id '\
+        'JOIN bookcondition on userbook.condition_id = bookcondition.id '\
+        'JOIN part on edition.id = part.edition_id '\
+        'JOIN work on part.work_id = work.id '\
+        'LEFT JOIN publisher on edition.publisher_id = publisher.id '\
+        'AND userbook.user_id = ' + str(userid) + ' '\
+        'ORDER BY author_str, title, pubyear'
+
+    app.logger.error(stmt)
+    try:
+        books = session.execute(stmt).all()
+    except SQLAlchemyError as exp:
+        app.logger.error(f"editionowner_getowned: {str(exp)}")
+    try:
+
+        if books:
+            for book in books:
+                description = book[0]
+                edition_id = book[1]
+                title = book[2]
+                version = book[3]
+                editionnum = book[4]
+                pubyear = book[5]
+                value = book[6]
+                author_str = book[7]
+                publisher_id = book[8]
+                publisher_name = book[9]
+                work_id = book[10]
+                condition_name = book[11]
+                retval.append({'description': description,
+                                'edition_id': edition_id,
+                                'title': title,
+                                'version': version,
+                                'editionnum': editionnum,
+                                'pubyear': pubyear,
+                                'value': value,
+                                'author_str': author_str,
+                                'publisher_id': publisher_id,
+                                'publisher_name': publisher_name,
+                                'work_id': work_id,
+                                'condition_name': condition_name
+                                })
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f"editionowner_getowned: {str(exp)}")
+        return ResponseType("editionowner_getowned: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 def editionowner_add(params: dict) -> ResponseType:
     """
