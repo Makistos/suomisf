@@ -986,6 +986,7 @@ def editionowner_get(editionid: int, userid: int) -> ResponseType:
     """
     Get the owner of an edition.
     """
+    retval = []
     session = new_session()
     try:
         edition = session.query(UserBook)\
@@ -996,7 +997,8 @@ def editionowner_get(editionid: int, userid: int) -> ResponseType:
         app.logger.error(f"editionowner_get: {str(exp)}")
     try:
         schema = UserBookSchema()
-        retval = schema.dump(edition)
+        if edition:
+            retval = schema.dump(edition)
     except exceptions.MarshmallowError as exp:
         app.logger.error(f"editionowner_get: {str(exp)}")
         return ResponseType("editionowner_get: Tietokantavirhe.",
@@ -1019,7 +1021,7 @@ def editionowner_getowned(userid: int) -> ResponseType:
         'FROM userbook '\
         'JOIN edition on userbook.edition_id = edition.id '\
         'JOIN bookcondition on userbook.condition_id = bookcondition.id '\
-        'JOIN part on edition.id = part.edition_id '\
+        'JOIN part on edition.id = part.edition_id AND part.shortstory_id IS NULL '\
         'JOIN work on part.work_id = work.id '\
         'LEFT JOIN publisher on edition.publisher_id = publisher.id '\
         'AND userbook.user_id = ' + str(userid) + ' '\
