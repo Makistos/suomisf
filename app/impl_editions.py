@@ -1024,7 +1024,7 @@ def editionowner_getowned(userid: int) -> ResponseType:
         'JOIN part on edition.id = part.edition_id AND part.shortstory_id IS NULL '\
         'JOIN work on part.work_id = work.id '\
         'LEFT JOIN publisher on edition.publisher_id = publisher.id '\
-        'AND userbook.user_id = ' + str(userid) + ' '\
+        'WHERE userbook.user_id = ' + str(userid) + ' '\
         'ORDER BY author_str, title, pubyear'
 
     app.logger.error(stmt)
