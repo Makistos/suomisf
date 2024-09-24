@@ -273,6 +273,9 @@ def list_people(params: Dict[str, Any]) -> ResponseType:
                     raise APIError(f'Invalid filter field {field}',
                                    HttpResponseCode.METHOD_NOT_ALLOWED.value)
                 if filters['value']:
+                    if ((field == 'dob' or field == 'dod')
+                        and filters['value'] and len(filters['value']) < 4):
+                        filters['value'] = filters['value'].ljust(4, '0')
                     if field == 'nationality':
                         people = _filter_person_query(
                             Person, people, field, filters, Country)
