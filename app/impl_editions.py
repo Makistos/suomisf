@@ -390,7 +390,9 @@ def create_edition(params: Any) -> ResponseType:
     if "contributors" in data:
         contributors = get_work_contributors(session, part.work_id)
         for contrib in data["contributors"]:
-            contributors.append(contrib)
+            if ("person" in contrib and "id" in contrib["person"] and
+                contrib["person"]["id"] != 0):
+                contributors.append(contrib)
         update_edition_contributors(session, edition, contributors)
     try:
         session.commit()
