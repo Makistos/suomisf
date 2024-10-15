@@ -2,10 +2,11 @@
 from typing import Any, Dict
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
-from app.impl import ResponseType
+from app.impl import ResponseType, check_int
+from app.impl_logs import log_changes
 from app.route_helpers import new_session
-from app.orm_decl import (Issue, IssueTag, PublicationSize, Tag)
-from app.model import IssueSchema, TagSchema
+from app.orm_decl import (Issue, IssueContent, IssueEditor, IssueTag, PublicationSize, Tag)
+from app.model import IssueSchema, PublicationSizeBriefSchema, TagSchema
 
 from app import app
 from app.types import HttpResponseCode
@@ -48,8 +49,13 @@ def get_issue(issue_id: int) -> ResponseType:
 
     return ResponseType(retval, HttpResponseCode.OK.value)
 
+def editorsChanged(new_editors: any, old_editors: any) -> bool:
+    new_ids = sorted([x['id'] for x in new_editors])
+    old_ids = sorted([x.id for x in old_editors])
+    retval = new_ids != old_ids
+    return new_ids != old_ids
 
-def add_issue(params: Dict[str, Any]) -> ResponseType:
+def issue_add(params: Dict[str, Any]) -> ResponseType:
     """
     Adds a new issue to the database.
 
@@ -65,7 +71,7 @@ def add_issue(params: Dict[str, Any]) -> ResponseType:
                                      issue object.
     """
     session = new_session()
-    issue = params['data']
+    issue = params
 
     new_issue = Issue()
 
@@ -85,6 +91,8 @@ def add_issue(params: Dict[str, Any]) -> ResponseType:
     new_issue.number = issue['number'] if 'number' in issue else None
     new_issue.number_extra = issue['number_extra']\
         if 'number_extra' in issue else None
+    new_issue.cover_number = issue['cover_number']\
+        if 'cover_number' in issue else None
     new_issue.count = issue['count'] if 'count' in issue else None
     new_issue.year = issue['year'] if 'year' in issue else None
     new_issue.cover_number = issue['cover_number']\
@@ -94,9 +102,9 @@ def add_issue(params: Dict[str, Any]) -> ResponseType:
     new_issue.image_src = issue['image_src']\
         if 'image_src' in issue else None
     new_issue.pages = issue['pages'] if 'pages' in issue else None
-    if 'size_id' in issue:
+    if 'size' in issue and issue['size'] and 'id' in issue['size']:
         try:
-            size_id_int = int(issue['size_id'])
+            size_id_int = check_int(issue['size']['id'])
         except ValueError:
             app.logger.error('Invalid size_id.')
             return ResponseType('Julkaisukoko on virheellinen.',
@@ -111,7 +119,6 @@ def add_issue(params: Dict[str, Any]) -> ResponseType:
                                 HttpResponseCode.BAD_REQUEST.value)
 
         new_issue.size_id = size_id_int
-    new_issue.size_id = issue['size_id'] if 'size_id' in issue else None
     new_issue.link = issue['link'] if 'link' in issue else None
     new_issue.notes = issue['notes'] if 'notes' in issue else None
     new_issue.title = issue['title'] if 'title' in issue else None
@@ -119,8 +126,180 @@ def add_issue(params: Dict[str, Any]) -> ResponseType:
     session.add(new_issue)
     session.commit()
 
-    return ResponseType(str(new_issue.id), HttpResponseCode.OK.value)
+    if 'editors' in issue:
+        for editor in issue['editors']:
+            new_editor = IssueEditor()
+            new_editor.issue_id = new_issue.id
+            new_editor.person_id = editor['id']
+            session.add(new_editor)
 
+    log_changes(session, obj=new_issue, action='Uusi')
+    session.commit()
+
+    return ResponseType(str(new_issue.id), HttpResponseCode.CREATED.value)
+
+
+def issue_update(params: Dict[str, Any]) -> ResponseType:
+    """
+    Update an existing issue with new values.
+
+    This function takes a request with a single parameter 'data',
+    which is a dictionary containing the new values for the issue.
+    The keys in 'data' are the column names of the Issue table.
+
+    The function returns a ResponseType object. If the update succeeds,
+    the object has a status code of 200 and a message of 'ok'. If the
+    update fails, the object has a status code of 400 or 500 and a
+    message describing the error.
+
+    The function logs the changes made to the issue in the log table.
+    """
+    retval = ResponseType('ok', HttpResponseCode.OK.value)
+    session = new_session()
+    old_values: Dict[str, Any] = {}
+    data = params
+
+    issue_id = check_int(data['id'],
+                        zeros_allowed=False,
+                        negative_values=False)
+
+    if issue_id is None:
+        app.logger.error('issue_update: Invalid id.')
+        return ResponseType('issue_update: Virheellinen id.',
+                            HttpResponseCode.BAD_REQUEST.value)
+
+    try:
+        issue = session.query(Issue).filter(Issue.id == issue_id).first()
+    except SQLAlchemyError as exp:
+        app.logger.error(str(exp))
+        return ResponseType(f'Tietokantavirhe. id={issue_id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    if not issue:
+        app.logger.error('issue_update: Issue not found.')
+        return ResponseType('issue_update: Tietuea ei loydy.',
+                            HttpResponseCode.BAD_REQUEST.value)
+
+    if 'number' in data and data['number'] != issue.number:
+
+        old_values['number'] = issue.number
+        issue.number = data['number']
+
+    if 'number_extra' in data and data['number_extra'] != issue.number_extra:
+        old_values['number_extra'] = issue.number_extra
+        issue.number_extra = data['number_extra']
+
+    if 'cover_numer' in data and data['cover_number'] != issue.cover_number:
+        old_values['cover_number'] = issue.cover_number
+        issue.cover_number = data['cover_number']
+
+    if 'count' in data and data['count'] != issue.count:
+        old_values['count'] = issue.count
+        issue.count = data['count']
+
+    if 'year' in data and data['year'] != issue.year:
+        old_values['year'] = issue.year
+        issue.year = data['year']
+
+    if 'notes' in data and data['notes'] != issue.notes:
+        old_values['notes'] = issue.notes
+        issue.notes = data['notes']
+
+    if 'title' in data and data['title'] != issue.title:
+        old_values['title'] = issue.title
+        issue.title = data['title']
+
+    if 'cover_number' in data and data['cover_number'] != issue.cover_number:
+        old_values['cover_number'] = issue.cover_number
+        issue.cover_number = data['cover_number']
+
+    if 'link' in data and data['link'] != issue.link:
+        old_values['link'] = issue.link
+        issue.link = data['link']
+
+    if ('size' in data and data['size'] and 'id' in data['size'] and data['size']['id'] != issue.size_id
+        or ('size' not in data and issue.size_id is not None)):
+        size_id = check_int(data['size']['id'], zeros_allowed=False,
+                            negative_values=False)
+        old_values['size'] = issue.size.name if issue.size else ''
+        issue.size_id = size_id
+
+    if 'image_attr' in data and data['image_attr'] != issue.image_attr:
+        old_values['image_attr'] = issue.image_attr
+        issue.image_attr = data['image_attr']
+
+    if 'image_src' in data and data['image_src'] != issue.image_src:
+        old_values['image_src'] = issue.image_src
+        issue.image_src = data['image_src']
+
+    if 'pages' in data and data['pages'] != issue.pages:
+        old_values['pages'] = issue.pages
+        issue.pages = data['pages']
+
+    if 'editors' in data and editorsChanged(data['editors'], issue.editors):
+        old_editors = '& '.join([e.name for e in issue.editors])
+        old_values['editors'] = old_editors
+        for editor in issue.editors:
+            e = session.query(IssueEditor)\
+                .filter(IssueEditor.issue_id==issue.id, IssueEditor.person_id==editor.id)\
+                .first()
+            session.delete(e)
+        for editor in data['editors']:
+            new_editor = IssueEditor()
+            new_editor.issue_id = issue_id
+            new_editor.person_id = editor['id']
+            session.add(new_editor)
+    try:
+        session.add(issue)
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f'{exp}')
+        return ResponseType(f'Tietokantavirhe. id={issue_id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    if len(old_values) > 0:
+        log_changes(session, obj=issue, old_values=old_values)
+        session.commit()
+
+    return ResponseType(str(issue.id), HttpResponseCode.OK.value)
+
+def issue_delete(issue_id: int) -> ResponseType:
+    """
+    Deletes an issue.
+
+    Args:
+        id (int): The ID of the issue.
+
+    Returns:
+        ResponseType: The response object containing the result of the
+                      operation.
+    """
+    session = new_session()
+    try:
+        issue_editors = session.query(IssueEditor)\
+            .filter(IssueEditor.issue_id == issue_id).all()
+        for editor in issue_editors:
+            session.delete(editor)
+
+        issue_content = session.query(IssueContent)\
+            .filter(IssueContent.issue_id == issue_id).all()
+        for content in issue_content:
+            session.delete(content)
+
+        issue_tags = session.query(IssueTag)\
+            .filter(IssueTag.issue_id == issue_id).all()
+        for tag in issue_tags:
+            session.delete(tag)
+
+        issue = session.query(Issue).filter(Issue.id == issue_id).first()
+        session.delete(issue)
+        session.commit()
+    except SQLAlchemyError as exp:
+        app.logger.error({exp})
+        return ResponseType(f'Tietokantavirhe. id={issue_id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType('ok', HttpResponseCode.OK.value)
 
 def get_issue_tags(issue_id: int) -> ResponseType:
     """
@@ -233,3 +412,17 @@ def issue_tag_remove(issue_id: int, tag_id: int) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType('', HttpResponseCode.OK.value)
+
+def publication_sizes() -> ResponseType:
+    """
+    Retrieves a list of all publication sizes.
+
+    Returns:
+        ResponseType: The response type object containing the list of publication sizes.
+    """
+    session = new_session()
+    sizes = session.query(PublicationSize).all()
+
+    schema = PublicationSizeBriefSchema(many=True)
+    retval = schema.dump(sizes)
+    return ResponseType(retval, HttpResponseCode.OK.value)

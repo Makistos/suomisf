@@ -298,7 +298,7 @@ def create_edition(params: Any) -> ResponseType:
         if isbn not in [None, ""]:
             if not check_isbn(data["isbn"]):
                 app.logger.error(
-                    'create_edition: Invalid ISBN. '
+                    'Invalid ISBN. '
                     f'ISBN={isbn}'
                 )
                 return ResponseType('Virheellinen ISBN.',
@@ -369,8 +369,8 @@ def create_edition(params: Any) -> ResponseType:
         session.commit()
     except SQLAlchemyError as e:
         session.rollback()
-        app.logger.error(f"create_edition: {e}")
-        return ResponseType("create_edition: Tietokantavirhe.",
+        app.logger.error(f"{e}")
+        return ResponseType("Tietokantavirhe.",
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     # Create Part. This requires edition to exist.
@@ -382,8 +382,8 @@ def create_edition(params: Any) -> ResponseType:
         session.commit()
     except SQLAlchemyError as e:
         session.rollback()
-        app.logger.error(f"create_edition creating part: {e}")
-        return ResponseType("create_edition: Tietokantavirhe.",
+        app.logger.error(f"{e}")
+        return ResponseType("Tietokantavirhe.",
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     # Contributors require a part.
@@ -398,9 +398,8 @@ def create_edition(params: Any) -> ResponseType:
         session.commit()
     except SQLAlchemyError as e:
         session.rollback()
-        app.logger.error('create_edition updating contributors: '
-                         f'{e}')
-        return ResponseType("create_edition: Tietokantavirhe.",
+        app.logger.error({e})
+        return ResponseType("Tietokantavirhe.",
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     log_changes(session, obj=edition, action="Uusi")
