@@ -128,7 +128,8 @@ def _remove_duplicates_and_empty(contributors: List[Any]) -> List[Any]:
     retval: List[Any] = []
     for contrib in contributors:
         found = False
-        if 'id' not in contrib['person']:
+        if not isinstance(contrib['person'], dict):
+        #if 'id' not in contrib['person']:
             # User added new person
             found = True
             retval.append(contrib)
