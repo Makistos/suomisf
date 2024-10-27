@@ -997,20 +997,21 @@ def editionowner_getowned(userid: int) -> ResponseType:
     retval = []
     session = new_session()
     stmt = 'SELECT userbook.description, edition.id as edition_id, '
-#    'edition.title as edition.title, edition.version, '\
-#    'edition.editionnum, edition.pubyear, bookcondition.value,  '\
-#    'work.author_str, publisher_id as publisher_id, '
-#    'publisher.name as publisher_name, '\
-#    'work.id as work_id, '\
-#    'bookcondition.name as condition_name '\
-#    'FROM userbook '\
-#    'JOIN edition on userbook.edition_id = edition.id '\
-#    'JOIN bookcondition on userbook.condition_id = bookcondition.id '\
-#    'JOIN part on edition.id = part.edition_id AND part.shortstory_id IS NULL '\
-#    'JOIN work on part.work_id = work.id '\
-#    'LEFT JOIN publisher on edition.publisher_id = publisher.id '\
-#    'WHERE userbook.user_id = ' + str(userid) + ' '\
-#    'ORDER BY author_str, title, pubyear'
+    stmt += 'edition.title, edition.version, '
+    stmt += 'edition.editionnum, edition.pubyear, bookcondition.value, '
+    stmt += 'work.author_str, publisher_id as publisher_id, '
+    stmt += 'publisher.name as publisher_name, '
+    stmt += 'work.id as work_id, '
+    stmt += 'bookcondition.name as condition_name '
+    stmt += 'FROM userbook '
+    stmt += 'JOIN edition on userbook.edition_id = edition.id '
+    stmt += 'JOIN bookcondition on userbook.condition_id = bookcondition.id '
+    stmt += 'JOIN part on edition.id = part.edition_id '
+    stmt += 'AND part.shortstory_id IS NULL '
+    stmt += 'JOIN work on part.work_id = work.id '
+    stmt += 'LEFT JOIN publisher on edition.publisher_id = publisher.id '
+    stmt += 'WHERE userbook.user_id = ' + str(userid) + ' '
+    stmt += 'ORDER BY author_str, title, pubyear'
 
     app.logger.error(stmt)
     try:
@@ -1034,18 +1035,18 @@ def editionowner_getowned(userid: int) -> ResponseType:
                 work_id = book[10]
                 condition_name = book[11]
                 retval.append({'description': description,
-                                'edition_id': edition_id,
-                                'title': title,
-                                'version': version,
-                                'editionnum': editionnum,
-                                'pubyear': pubyear,
-                                'value': value,
-                                'author_str': author_str,
-                                'publisher_id': publisher_id,
-                                'publisher_name': publisher_name,
-                                'work_id': work_id,
-                                'condition_name': condition_name
-                                })
+                               'edition_id': edition_id,
+                               'title': title,
+                               'version': version,
+                               'editionnum': editionnum,
+                               'pubyear': pubyear,
+                               'value': value,
+                               'author_str': author_str,
+                               'publisher_id': publisher_id,
+                               'publisher_name': publisher_name,
+                               'work_id': work_id,
+                               'condition_name': condition_name
+                               })
     except exceptions.MarshmallowError as exp:
         app.logger.error(f"editionowner_getowned: {str(exp)}")
         return ResponseType("editionowner_getowned: Tietokantavirhe.",
