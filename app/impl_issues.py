@@ -1,11 +1,16 @@
 """ Issue related functions. """
-from typing import Any, Dict
+from cgi import FieldStorage
+import os
+from typing import Any, Dict, Union
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
+from werkzeug.utils import secure_filename
+from app.api_helpers import allowed_image
 from app.impl import ResponseType, check_int
 from app.impl_logs import log_changes
 from app.route_helpers import new_session
-from app.orm_decl import (Issue, IssueContent, IssueEditor, IssueTag, PublicationSize, Tag)
+from app.orm_decl import (Issue, IssueContent, IssueEditor, IssueTag,
+                          PublicationSize, Tag)
 from app.model import IssueSchema, PublicationSizeBriefSchema, TagSchema
 
 from app import app
@@ -49,11 +54,25 @@ def get_issue(issue_id: int) -> ResponseType:
 
     return ResponseType(retval, HttpResponseCode.OK.value)
 
-def editorsChanged(new_editors: any, old_editors: any) -> bool:
+
+def editors_changed(new_editors: any, old_editors: any) -> bool:
+    """
+    Compares two sets of editors (new_editors and old_editors) to determine if
+    they are different.
+
+    Args:
+        new_editors (any): The new set of editors.
+        old_editors (any): The old set of editors.
+
+    Returns:
+        bool: True if the sets are different, False otherwise.
+
+    """
     new_ids = sorted([x['id'] for x in new_editors])
     old_ids = sorted([x.id for x in old_editors])
-    retval = new_ids != old_ids
+    # retval = new_ids != old_ids
     return new_ids != old_ids
+
 
 def issue_add(params: Dict[str, Any]) -> ResponseType:
     """
@@ -154,14 +173,14 @@ def issue_update(params: Dict[str, Any]) -> ResponseType:
 
     The function logs the changes made to the issue in the log table.
     """
-    retval = ResponseType('ok', HttpResponseCode.OK.value)
+    # retval = ResponseType('ok', HttpResponseCode.OK.value)
     session = new_session()
     old_values: Dict[str, Any] = {}
     data = params
 
     issue_id = check_int(data['id'],
-                        zeros_allowed=False,
-                        negative_values=False)
+                         zeros_allowed=False,
+                         negative_values=False)
 
     if issue_id is None:
         app.logger.error('issue_update: Invalid id.')
@@ -216,8 +235,9 @@ def issue_update(params: Dict[str, Any]) -> ResponseType:
         old_values['link'] = issue.link
         issue.link = data['link']
 
-    if ('size' in data and data['size'] and 'id' in data['size'] and data['size']['id'] != issue.size_id
-        or ('size' not in data and issue.size_id is not None)):
+    if ('size' in data and data['size'] and 'id' in data['size'] and
+        data['size']['id'] != issue.size_id or
+            ('size' not in data and issue.size_id is not None)):
         size_id = check_int(data['size']['id'], zeros_allowed=False,
                             negative_values=False)
         old_values['size'] = issue.size.name if issue.size else ''
@@ -235,12 +255,13 @@ def issue_update(params: Dict[str, Any]) -> ResponseType:
         old_values['pages'] = issue.pages
         issue.pages = data['pages']
 
-    if 'editors' in data and editorsChanged(data['editors'], issue.editors):
+    if 'editors' in data and editors_changed(data['editors'], issue.editors):
         old_editors = '& '.join([e.name for e in issue.editors])
         old_values['editors'] = old_editors
         for editor in issue.editors:
             e = session.query(IssueEditor)\
-                .filter(IssueEditor.issue_id==issue.id, IssueEditor.person_id==editor.id)\
+                .filter(IssueEditor.issue_id == issue.id,
+                        IssueEditor.person_id == editor.id)\
                 .first()
             session.delete(e)
         for editor in data['editors']:
@@ -262,6 +283,7 @@ def issue_update(params: Dict[str, Any]) -> ResponseType:
         session.commit()
 
     return ResponseType(str(issue.id), HttpResponseCode.OK.value)
+
 
 def issue_delete(issue_id: int) -> ResponseType:
     """
@@ -300,6 +322,7 @@ def issue_delete(issue_id: int) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType('ok', HttpResponseCode.OK.value)
+
 
 def get_issue_tags(issue_id: int) -> ResponseType:
     """
@@ -413,12 +436,14 @@ def issue_tag_remove(issue_id: int, tag_id: int) -> ResponseType:
 
     return ResponseType('', HttpResponseCode.OK.value)
 
+
 def publication_sizes() -> ResponseType:
     """
     Retrieves a list of all publication sizes.
 
     Returns:
-        ResponseType: The response type object containing the list of publication sizes.
+        ResponseType: The response type object containing the list of
+        publication sizes.
     """
     session = new_session()
     sizes = session.query(PublicationSize).all()
@@ -426,3 +451,86 @@ def publication_sizes() -> ResponseType:
     schema = PublicationSizeBriefSchema(many=True)
     retval = schema.dump(sizes)
     return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def issue_image_add(issue_id: int, image: FieldStorage) -> ResponseType:
+    """
+    Uploads an image for a specific issue.
+
+    Args:
+        id (int): The ID of the issue.
+        file (FileStorage): The image file.
+
+    Returns:
+        ResponseType: The response object containing the result of the image
+                      upload.
+    """
+    old_values: Dict[str, Union[str, None]] = {}
+    session = new_session()
+    issue = session.query(Issue).filter(Issue.id == issue_id).first()
+    if not issue:
+        app.logger.error(f'Issue not found. Id = {issue_id}.')
+        return ResponseType('Numeroa ei käytynyt',
+                            HttpResponseCode.BAD_REQUEST.value)
+
+    image_name = image.filename
+    if not image_name or image_name == "":
+        app.logger.error('Kuvan nimi puuttuu.')
+        return ResponseType('Kuvan nimi puuttuu',
+                            HttpResponseCode.BAD_REQUEST.value)
+
+    if not allowed_image(image_name):
+        app.logger.error('Virheellinen kuvan tyyppi.')
+        return ResponseType('Virheellinen kuvan tyyppi',
+                            HttpResponseCode.BAD_REQUEST.value)
+
+    try:
+        filename = secure_filename(image_name)
+        file_loc = os.path.join(app.config["MAGAZINECOVER_SAVELOC"], filename)
+        image.save(file_loc)
+    except IOError as exp:
+        app.logger.error(f'{exp}')
+        return ResponseType('Tiedoston tallennus epäonnistui',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    issue.image_src = app.config['MAGAZINECOVER_DIR'] + filename
+    try:
+        session.add(issue)
+        session.commit()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'{exp}')
+        return ResponseType(f'Tietokantavirhe. id={issue_id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    log_changes(session=session,
+                obj=issue,
+                action='Päivitys',
+                old_values=old_values)
+    session.commit()
+    return ResponseType('OK', HttpResponseCode.OK.value)
+
+
+def issue_image_delete(issue_id: int) -> ResponseType:
+    """
+    Deletes an issue image.
+
+    Args:
+        id (int): The ID of the issue.
+
+    Returns:
+        ResponseType: The response object containing the result of the
+                      operation.
+    """
+    session = new_session()
+
+    try:
+        issue = session.query(Issue).filter(Issue.id == issue_id).first()
+        issue.image_src = None
+        session.add(issue)
+        session.commit()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'{exp}')
+        return ResponseType(f'Tietokantavirhe. id={issue_id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType('ok', HttpResponseCode.OK.value)

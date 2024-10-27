@@ -1,5 +1,6 @@
 
 import json
+from typing import Optional
 from flask import Response
 from app.impl import ResponseType
 
@@ -43,3 +44,21 @@ def make_api_response(response: ResponseType) -> Response:
     return Response(response=json.dumps(response.response),
                     status=response.status,
                     mimetype=DEFAULT_MIMETYPE)
+
+def allowed_image(filename: Optional[str]) -> bool:
+    """
+    Check if the given filename is an allowed image.
+
+    Args:
+        filename (Optional[str]): The name of the file to check.
+
+    Returns:
+        bool: True if the file is an allowed image, False otherwise.
+    """
+    if not filename:
+        return False
+    if "." not in filename:
+        return False
+
+    ext = filename.rsplit(".", 10)[1]
+    return ext.upper() in ["jpg", "JPG"]

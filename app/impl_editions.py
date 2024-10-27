@@ -1,12 +1,11 @@
 """ Editions implementation """
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, Union
 import os
-from flask import jsonify
 from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
 from sqlalchemy.exc import SQLAlchemyError
-from sqlalchemy import text
 from marshmallow import exceptions
+from app.api_helpers import allowed_image
 from app.impl_helpers import objects_differ, str_differ
 from app.impl_logs import log_changes
 from app.impl_publishers import add_publisher
@@ -391,7 +390,7 @@ def create_edition(params: Any) -> ResponseType:
         contributors = get_work_contributors(session, part.work_id)
         for contrib in data["contributors"]:
             if ("person" in contrib and "id" in contrib["person"] and
-                contrib["person"]["id"] != 0):
+                    contrib["person"]["id"] != 0):
                 contributors.append(contrib)
         update_edition_contributors(session, edition, contributors)
     try:
@@ -786,25 +785,6 @@ def edition_delete(edition_id: str) -> ResponseType:
     return ResponseType("Poisto onnistui.", HttpResponseCode.OK.value)
 
 
-def allowed_image(filename: Optional[str]) -> bool:
-    """
-    Check if the given filename is an allowed image.
-
-    Args:
-        filename (Optional[str]): The name of the file to check.
-
-    Returns:
-        bool: True if the file is an allowed image, False otherwise.
-    """
-    if not filename:
-        return False
-    if "." not in filename:
-        return False
-
-    ext = filename.rsplit(".", 10)[1]
-    return ext.upper() in ["jpg", "JPG"]
-
-
 def edition_image_upload(editionid: str, image: FileStorage) -> ResponseType:
     """
     Uploads an image for a specific edition.
@@ -865,6 +845,7 @@ def edition_image_upload(editionid: str, image: FileStorage) -> ResponseType:
                 obj=edition,
                 action="Päivitys",
                 old_values=old_values)
+    session.commit()
     return ResponseType("Kuvan lisäys onnistui.", HttpResponseCode.OK.value)
 
 
@@ -1007,6 +988,7 @@ def editionowner_get(editionid: int, userid: int) -> ResponseType:
 
     return ResponseType(retval, HttpResponseCode.OK.value)
 
+
 def editionowner_getowned(userid: int) -> ResponseType:
     """
     Get books owned by user.
@@ -1014,19 +996,21 @@ def editionowner_getowned(userid: int) -> ResponseType:
     books = None
     retval = []
     session = new_session()
-    stmt = 'SELECT userbook.description, edition.id as edition_id, edition.title, edition.version, '\
-        'edition.editionnum, edition.pubyear, bookcondition.value,  '\
-        'work.author_str, publisher_id as publisher_id, publisher.name as publisher_name, '\
-        'work.id as work_id, '\
-        'bookcondition.name as condition_name '\
-        'FROM userbook '\
-        'JOIN edition on userbook.edition_id = edition.id '\
-        'JOIN bookcondition on userbook.condition_id = bookcondition.id '\
-        'JOIN part on edition.id = part.edition_id AND part.shortstory_id IS NULL '\
-        'JOIN work on part.work_id = work.id '\
-        'LEFT JOIN publisher on edition.publisher_id = publisher.id '\
-        'WHERE userbook.user_id = ' + str(userid) + ' '\
-        'ORDER BY author_str, title, pubyear'
+    stmt = 'SELECT userbook.description, edition.id as edition_id, '
+#    'edition.title as edition.title, edition.version, '\
+#    'edition.editionnum, edition.pubyear, bookcondition.value,  '\
+#    'work.author_str, publisher_id as publisher_id, '
+#    'publisher.name as publisher_name, '\
+#    'work.id as work_id, '\
+#    'bookcondition.name as condition_name '\
+#    'FROM userbook '\
+#    'JOIN edition on userbook.edition_id = edition.id '\
+#    'JOIN bookcondition on userbook.condition_id = bookcondition.id '\
+#    'JOIN part on edition.id = part.edition_id AND part.shortstory_id IS NULL '\
+#    'JOIN work on part.work_id = work.id '\
+#    'LEFT JOIN publisher on edition.publisher_id = publisher.id '\
+#    'WHERE userbook.user_id = ' + str(userid) + ' '\
+#    'ORDER BY author_str, title, pubyear'
 
     app.logger.error(stmt)
     try:
@@ -1079,7 +1063,7 @@ def editionowner_add(params: dict) -> ResponseType:
         editionid = check_int(params["editionid"])
         userid = check_int(params["userid"])
         condition = check_int(params["condition"])
-    except:
+    except (ValueError, TypeError):
         return ResponseType("Invalid parameters.",
                             HttpResponseCode.BAD_REQUEST.value)
     if not editionid or not userid or not condition:
@@ -1125,7 +1109,7 @@ def editionowner_update(params: dict) -> ResponseType:
     try:
         editionid = check_int(params["edition_id"])
         userid = check_int(params["user_id"])
-    except:
+    except (ValueError, TypeError):
         return ResponseType("Invalid parameters.",
                             HttpResponseCode.BAD_REQUEST.value)
 

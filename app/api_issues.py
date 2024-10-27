@@ -6,7 +6,9 @@ from flask.wrappers import Response
 from flask import request
 
 from app.api_helpers import make_api_response
-from app.impl_issues import (get_issue, get_issue_tags, issue_add, issue_delete, issue_tag_add,
+from app.impl_issues import (get_issue, get_issue_tags, issue_add,
+                             issue_delete, issue_image_add, issue_image_delete,
+                             issue_tag_add,
                              issue_tag_remove, issue_update, publication_sizes)
 from app.api_jwt import jwt_admin_required
 from app.types import HttpResponseCode
@@ -41,6 +43,22 @@ def api_getissueformagazine(issueid: str) -> Response:
 @app.route('/api/issues', methods=['post', 'put'])
 @jwt_admin_required()  # type: ignore
 def api_createupdateissue() -> Response:
+    """
+    Create or update an issue in the API.
+
+    This function is responsible for handling the '/api/issues' endpoint with
+    both 'POST' and 'PUT' methods. It expects a JSON payload containing the
+    issue data.
+
+    Parameters:
+        None
+
+    Returns:
+        Response: The API response containing the result of the operation.
+
+    Raises:
+        None
+    """
     try:
         params = json.loads(request.data.decode('utf-8'))
     except (TypeError, ValueError):
@@ -151,3 +169,45 @@ def api_getissuesizes() -> Response:
     Get the issue sizes.
     """
     return make_api_response(publication_sizes())
+
+
+@app.route('/api/issues/<issueid>/covers', methods=['post'])
+@jwt_admin_required()  # type: ignore
+def api_uploadissueimage(issueid: int) -> Response:
+    """
+    Uploads an image for a specific issue.
+
+    Args:
+        id (int): The ID of the issue.
+
+    Returns:
+        Response: The response object containing the result of the image
+                  upload.
+    """
+    try:
+        file = request.files['file']
+    except KeyError:
+        app.logger.error('File not found.')
+        response = ResponseType('Tiedosto puuttuu',
+                                status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+
+    return make_api_response(issue_image_add(issueid, file))
+
+
+@app.route('/api/issues/<issueid>/covers', methods=['delete'])
+@jwt_admin_required()  # type: ignore
+def api_deleteissueimage(issueid: int) -> Response:
+    """
+    API endpoint for deleting an issue image.
+
+    Args:
+        id (int): The ID of the issue.
+
+    Returns:
+        Response: The API response.
+
+    Raises:
+        None
+    """
+    return make_api_response(issue_image_delete(issueid))

@@ -22,7 +22,8 @@ from app.impl_awards import (get_awards_for_work,
 from app.impl_bookseries import (list_bookseries, get_bookseries,
                                  bookseries_create, bookseries_update,
                                  bookseries_delete, filter_bookseries)
-from app.impl_editions import (editionowner_get, editionowner_getowned, editionowner_list, get_bindings, create_edition, get_edition,
+from app.impl_editions import (editionowner_get, editionowner_getowned,
+                               editionowner_list, get_bindings, create_edition, get_edition,
                                update_edition,
                                edition_delete, edition_image_upload,
                                edition_image_delete, edition_shorts,
@@ -782,7 +783,7 @@ def api_uploadeditionimage(editionid: str) -> Response:
     try:
         file = request.files['file']
     except KeyError:
-        app.logger.error('api_uploadEditionImage: File not found.')
+        app.logger.error('File not found.')
         response = ResponseType('Tiedosto puuttuu',
                                 status=HttpResponseCode.BAD_REQUEST.value)
         return make_api_response(response)
