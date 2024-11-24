@@ -42,7 +42,7 @@ def _set_language(
     """
     if 'lang' not in data:
         return None
-    if 'id' not in data['lang']:
+    if not data['lang'] or 'id' not in data['lang']:
         lang_id = None
         name = data['lang'] if data['lang'] != '' else None
     else:

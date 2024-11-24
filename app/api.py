@@ -23,7 +23,8 @@ from app.impl_bookseries import (list_bookseries, get_bookseries,
                                  bookseries_create, bookseries_update,
                                  bookseries_delete, filter_bookseries)
 from app.impl_editions import (editionowner_get, editionowner_getowned,
-                               editionowner_list, get_bindings, create_edition, get_edition,
+                               editionowner_list, get_bindings, create_edition,
+                               get_edition,
                                update_edition,
                                edition_delete, edition_image_upload,
                                edition_image_delete, edition_shorts,
@@ -421,10 +422,17 @@ def api_tagtoarticle(articleid: int, tagid: int) -> Response:
     Returns:
         Response: The API response containing the result of the operation.
     """
+    func = None
     if request.method == 'PUT':
         func = article_tag_add
     elif request.method == 'DELETE':
         func = article_tag_remove
+    else:
+        app.logger.error(
+            f'api_tagtoarticle: Invalid method {request.method}.')
+        response = ResponseType('Virheellinen metodin kutsu',
+                                status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
 
     try:
         int_id = int(articleid)
@@ -550,6 +558,13 @@ def api_bookseriescreateupdate() -> Response:
         retval = make_api_response(bookseries_create(params))
     elif request.method == 'PUT':
         retval = make_api_response(bookseries_update(params))
+    else:
+        app.logger.error(
+            f'api_bookseriescreateupdate: Invalid method {request.method}.')
+        response = ResponseType(
+            'api_bookseriescreateupdate: Virheellinen metodin kutsu.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
 
     return retval
 
@@ -748,6 +763,13 @@ def api_editioncreateupdate() -> Response:
         retval = make_api_response(create_edition(params))
     elif request.method == 'PUT':
         retval = make_api_response(update_edition(params))
+    else:
+        app.logger.error(
+            f'api_editioncreateupdate: Invalid method {request.method}.')
+        response = ResponseType(
+            'api_editioncreateupdate: Virheellinen metodin kutsu.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
 
     return retval
 
@@ -903,6 +925,13 @@ def api_addeditionowner() -> Response:
         retval = make_api_response(editionowner_add(params))
     elif request.method == 'PUT':
         retval = make_api_response(editionowner_update(params))
+    else:
+        app.logger.error(
+            f'api_editioncreateupdate: Invalid method {request.method}.')
+        response = ResponseType(
+            'api_editioncreateupdate: Virheellinen metodin kutsu.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
 
     return retval
 
@@ -1158,6 +1187,13 @@ def api_shortcreateupdate() -> Response:
         retval = make_api_response(story_add(params))
     elif request.method == 'PUT':
         retval = make_api_response(story_updated(params))
+    else:
+        app.logger.error(
+            f'api_shortcreateupdate: Invalid method {request.method}.')
+        response = ResponseType(
+            'api_shortcreateupdate: Virheellinen metodin kutsu.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
 
     return retval
 
@@ -1266,10 +1302,18 @@ def api_tagtostory(storyid: int, tagid: int) -> Response:
         TypeError: If the ID or tag ID is not an integer.
         ValueError: If the ID or tag ID is not a valid integer.
     """
+    func = None
     if request.method == 'PUT':
         func = story_tag_add
     elif request.method == 'DELETE':
         func = story_tag_remove
+    else:
+        app.logger.error(
+            f'api_tagtostory: Invalid request method {request.method}.')
+        response = ResponseType(
+            f'api_tagtostory: Virheellinen pyyntömetodi {request.method}.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
 
     try:
         int_id = int(storyid)
@@ -1711,7 +1755,13 @@ def api_workcreateupdate() -> Response:
         retval = make_api_response(work_add(params))
     elif request.method == 'PUT':
         retval = make_api_response(work_update(params))
-
+    else:
+        app.logger.error(
+            f'api_workcreateupdate: Invalid method {request.method}.')
+        response = ResponseType(
+            'api_workcreateupdate: Virheellinen metodin kutsu.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
     return retval
 
 
@@ -1839,10 +1889,18 @@ def api_tagtowork(workid: int, tagid: int) -> Response:
     Returns:
         Response: The API response containing the result of the operation.
     """
+    func = None
     if request.method == 'PUT':
         func = work_tag_add
     elif request.method == 'DELETE':
         func = work_tag_remove
+    else:
+        app.logger.error(
+            f'api_tagtowork: Invalid request method {request.method}.')
+        response = ResponseType(
+            f'api_tagtowork: Virheellinen pyyntömetodi {request.method}.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
 
     try:
         work_id = int(workid)

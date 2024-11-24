@@ -346,11 +346,13 @@ def role_get(target: str) -> ResponseType:
     role_ids: List[int] = []
 
     if target in ['work', 'edition']:
-        # Work has author and editor, edition has everything else
-        role_ids = [ContributorType.AUTHOR.value, ContributorType.EDITOR.value]
+        # Work has author, editor and subject, edition has everything else
+        role_ids = [ContributorType.AUTHOR.value, ContributorType.EDITOR.value,
+                    ContributorType.SUBJECT.value,]
     elif target == 'short':
         role_ids = [ContributorType.AUTHOR.value,
-                    ContributorType.TRANSLATOR.value]
+                    ContributorType.TRANSLATOR.value,
+                    ContributorType.SUBJECT.value]
     else:
         app.logger.error(f'role_get: Unknown target: {target}')
         return ResponseType(f'role_get: Tuntematon kohde {target}.',

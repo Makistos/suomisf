@@ -45,6 +45,7 @@ def make_api_response(response: ResponseType) -> Response:
                     status=response.status,
                     mimetype=DEFAULT_MIMETYPE)
 
+
 def allowed_image(filename: Optional[str]) -> bool:
     """
     Check if the given filename is an allowed image.

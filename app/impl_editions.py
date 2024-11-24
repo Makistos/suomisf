@@ -1013,7 +1013,6 @@ def editionowner_getowned(userid: int) -> ResponseType:
     stmt += 'WHERE userbook.user_id = ' + str(userid) + ' '
     stmt += 'ORDER BY author_str, title, pubyear'
 
-    app.logger.error(stmt)
     try:
         books = session.execute(stmt).all()
     except SQLAlchemyError as exp:
@@ -1054,6 +1053,7 @@ def editionowner_getowned(userid: int) -> ResponseType:
 
     return ResponseType(retval, HttpResponseCode.OK.value)
 
+
 def editionowner_add(params: dict) -> ResponseType:
     """
     Add or update the owner of an edition.
@@ -1084,7 +1084,8 @@ def editionowner_add(params: dict) -> ResponseType:
         app.logger.error(f"editionowner_add: {str(exp)}")
 
     if not userbook:
-        app.logger.error(f"editionowner_add: Userbook not found. id={editionid}")
+        app.logger.error(
+            f"editionowner_add: Userbook not found. id={editionid}")
         return ResponseType("editionowner_add: Omistajatietoa ei käydy.",
                             HttpResponseCode.BAD_REQUEST.value)
 
@@ -1138,7 +1139,8 @@ def editionowner_update(params: dict) -> ResponseType:
     if 'condition' in params:
         condition = check_int(params["condition"]["value"])
         if (condition < 1 or condition > 5):
-            app.logger.error(f"editionowner_update: Invalid condition. {condition}")
+            app.logger.error(
+                f"editionowner_update: Invalid condition. {condition}")
             return ResponseType("Invalid parameters.",
                                 HttpResponseCode.BAD_REQUEST.value)
         cond = session.query(BookCondition)\

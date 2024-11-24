@@ -1298,7 +1298,9 @@ class UserBook(Base):
     book = relationship("Edition", backref=backref(
         "edition3_assoc"), viewonly=True)
     user = relationship("User", backref=backref("user2_assoc"), viewonly=True)
-    condition = relationship("BookCondition", backref=backref("bookcondition_assoc"), viewonly=True)
+    condition = relationship("BookCondition",
+                             backref=backref("bookcondition_assoc"),
+                             viewonly=True)
 
 
 class UserBookseries(Base):
