@@ -7,7 +7,10 @@ from flask import request
 
 from app.api_helpers import make_api_response
 from app.impl_issues import (get_issue, get_issue_tags, issue_add,
+                             issue_articles_get, issue_articles_save,
                              issue_delete, issue_image_add, issue_image_delete,
+                             issue_shorts_get,
+                             issue_shorts_save,
                              issue_tag_add,
                              issue_tag_remove, issue_update, publication_sizes)
 from app.api_jwt import jwt_admin_required
@@ -103,6 +106,78 @@ def api_deleteissue(issueid: int) -> Response:
     return make_api_response(issue_delete(int_id))
 
 
+@app.route('/api/issues/<issueid>/shorts', methods=['get'])
+def api_getissueshorts(issueid: int) -> Response:
+    """
+    Get the issue for a short story.
+
+    Args:
+        issueId (int): The ID of the issue.
+
+    Returns:
+        Response: The response object containing the issue data.
+    """
+    return make_api_response(issue_shorts_get(issueid))
+
+
+@app.route('/api/issues/shorts', methods=['put'])
+@jwt_admin_required()  # type: ignore
+def api_addissueshorts() -> Response:
+    """
+    Add issues to a short story.
+
+    This function is an API endpoint that handles 'PUT' requests to
+    '/api/issues/shorts'. It requires admin authentication using JWT.
+
+    Parameters:
+        None
+
+    Returns:
+        Response: The response object containing the result of the API call.
+
+    Raises:
+        None
+    """
+    params = json.loads(request.data.decode('utf-8'))
+    return make_api_response(issue_shorts_save(params))
+
+
+@app.route('/api/issues/<issueid>/articles', methods=['get'])
+def api_getissuearticles(issueid: int) -> Response:
+    """
+    Get the issue for an article.
+
+    Args:
+        issueId (int): The ID of the issue.
+
+    Returns:
+        Response: The response object containing the issue data.
+    """
+    return make_api_response(issue_articles_get(issueid))
+
+
+@app.route('/api/issues/articles', methods=['put'])
+@jwt_admin_required()  # type: ignore
+def api_addissuearticles() -> Response:
+    """
+    Add issues to an article.
+
+    This function is an API endpoint that handles 'PUT' requests to
+    '/api/issues/articles'. It requires admin authentication using JWT.
+
+    Parameters:
+        None
+
+    Returns:
+        Response: The response object containing the result of the API call.
+
+    Raises:
+        None
+    """
+    params = json.loads(request.data.decode('utf-8'))
+    return make_api_response(issue_articles_save(params))
+
+
 @ app.route('/api/issues/<issueid>/tags', methods=['get'])
 def api_getissuetags(issue_id: str) -> Response:
     """
@@ -143,10 +218,18 @@ def api_tagtoissue(issueid: int, tagid: int) -> Response:
     Raises:
         None
     """
+    func = None
     if request.method == 'PUT':
         func = issue_tag_add
     elif request.method == 'DELETE':
         func = issue_tag_remove
+    else:
+        app.logger.error(
+            f'api_tagtoissue: Invalid request method {request.method}.')
+        response = ResponseType(
+            f'api_tagtoissue: Virheellinen pyyntömetodi {request.method}.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
 
     try:
         issue_id = int(issueid)

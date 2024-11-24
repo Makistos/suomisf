@@ -9,9 +9,11 @@ from app.api_helpers import allowed_image
 from app.impl import ResponseType, check_int
 from app.impl_logs import log_changes
 from app.route_helpers import new_session
-from app.orm_decl import (Issue, IssueContent, IssueEditor, IssueTag,
-                          PublicationSize, Tag)
-from app.model import IssueSchema, PublicationSizeBriefSchema, TagSchema
+from app.orm_decl import (Article, Issue, IssueContent, IssueEditor, IssueTag,
+                          PublicationSize, ShortStory, Tag)
+from app.model import (ArticleBriefSchema, IssueSchema,
+                       PublicationSizeBriefSchema,
+                       ShortBriefestSchema, TagSchema)
 
 from app import app
 from app.types import HttpResponseCode
@@ -321,6 +323,157 @@ def issue_delete(issue_id: int) -> ResponseType:
         return ResponseType(f'Tietokantavirhe. id={issue_id}',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
+    return ResponseType('ok', HttpResponseCode.OK.value)
+
+
+def issue_shorts_get(issue_id: int) -> ResponseType:
+    """ Returns a list of short stories associated with an issue.
+
+    Args:
+        id (int): The ID of the issue.
+
+    Returns:
+        ResponseType: The response object containing the list of short
+                      stories.
+    """
+    session = new_session()
+    try:
+        stories = session.query(ShortStory)\
+            .join(IssueContent, ShortStory.id == IssueContent.shortstory_id)\
+            .filter(IssueContent.issue_id == issue_id)\
+            .filter(IssueContent.shortstory_id.isnot(None))\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'{exp}')
+        return ResponseType(f'Tietokantavirhe. id={issue_id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    try:
+        schema = ShortBriefestSchema(many=True)
+        retval = schema.dump(stories)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'schema error: {exp}')
+        return ResponseType('Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def issue_shorts_save(params: Any) -> ResponseType:
+    """
+    Deletes all short stories associated with an issue and adds new ones.
+
+    Args:
+        params (dict): A dictionary containing the parameters for saving the
+                      short stories.
+            It should have the following keys:
+            - 'issue_id': The ID of the issue.
+            - 'shorts': A list of dictionaries, each containing the parameters
+                       for a short story.
+                       Each dictionary should have the following key:
+                       - 'id': The ID of the short story.
+
+    Returns:
+        ResponseType: The response object containing the result of the
+                      operation.
+    """
+    session = new_session()
+    try:
+        old_stories_list = session.query(IssueContent)\
+            .filter(IssueContent.issue_id == params['issue_id'])\
+            .filter(IssueContent.shortstory_id.isnot(None))\
+            .all()
+
+        for story in old_stories_list:
+            session.delete(story)
+        session.flush()
+
+        for story in params['shorts']:
+            content = IssueContent()
+            content.issue_id = params['issue_id']
+            content.shortstory_id = story
+            session.add(content)
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f'{exp}')
+        return ResponseType(f'Tietokantavirhe. id={params["issue_id"]}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    return ResponseType('ok', HttpResponseCode.OK.value)
+
+
+def issue_articles_get(issue_id: int) -> ResponseType:
+    """ Returns a list of articles associated with an issue.
+
+    Args:
+        id (int): The ID of the issue.
+
+    Returns:
+        ResponseType: The response object containing the list of articles.
+    """
+    session = new_session()
+    try:
+        articles = session.query(Article)\
+            .join(IssueContent, Article.id == IssueContent.article_id)\
+            .filter(IssueContent.issue_id == issue_id)\
+            .filter(IssueContent.article_id.isnot(None))\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'{exp}')
+        return ResponseType(f'Tietokantavirhe. id={issue_id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    try:
+        schema = ArticleBriefSchema(many=True)
+        retval = schema.dump(articles)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'schema error: {exp}')
+        return ResponseType('Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def issue_articles_save(params: Any) -> ResponseType:
+    """
+    Deletes all articles associated with an issue and adds new ones.
+
+    Args:
+        params (dict): A dictionary containing the parameters for saving the
+                      articles.
+            It should have the following keys:
+            - 'issue_id': The ID of the issue.
+            - 'articles': A list of dictionaries, each containing the
+                          parameters for an article.
+                          Each dictionary should have the following key:
+                          - 'id': The ID of the article.
+
+    Returns:
+        ResponseType: The response object containing the result of the
+                      operation.
+    """
+    session = new_session()
+    try:
+        old_articles_list = session.query(IssueContent)\
+            .filter(IssueContent.issue_id == params['issue_id'])\
+            .filter(IssueContent.article_id.isnot(None))\
+            .all()
+
+        for article in old_articles_list:
+            session.delete(article)
+        session.flush()
+
+        for article in params['articles']:
+            content = IssueContent()
+            content.issue_id = params['issue_id']
+            content.article_id = article
+            session.add(content)
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f'{exp}')
+        return ResponseType(f'Tietokantavirhe. id={params["issue_id"]}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     return ResponseType('ok', HttpResponseCode.OK.value)
 
 

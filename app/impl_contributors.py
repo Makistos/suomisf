@@ -86,21 +86,25 @@ def _update_part_contributors(
         session.query(Contributor).filter(
             Contributor.part_id == part_id)\
             .filter(or_(Contributor.role_id == ContributorType.AUTHOR.value,
-                        Contributor.role_id == ContributorType.EDITOR.value))\
+                        Contributor.role_id == ContributorType.EDITOR.value,
+                        Contributor.role_id == ContributorType.SUBJECT.value))\
             .delete()
     elif item_type == ContributorTarget.EDITION:
         session.query(Contributor).filter(
             Contributor.part_id == part_id)\
-            .filter(or_(Contributor.role_id != ContributorType.AUTHOR.value,
-                        Contributor.role_id != ContributorType.EDITOR.value))\
+            .filter(and_
+                    (Contributor.role_id != ContributorType.AUTHOR.value,
+                     Contributor.role_id != ContributorType.EDITOR.value,
+                     Contributor.role_id != ContributorType.SUBJECT.value))\
             .delete()
     elif item_type == ContributorTarget.SHORT:
-        session.query(Contributor).filter(
+        tmp = session.query(Contributor).filter(
             Contributor.part_id == part_id)\
-            .filter(or_(
-                Contributor.role_id == ContributorType.AUTHOR.value,
-                Contributor.role_id == ContributorType.TRANSLATOR.value))\
-            .delete()
+            .join(Part)\
+            .filter(Part.shortstory_id.isnot(None))\
+            .all()
+        for contrib in tmp:
+            session.delete(contrib)
     else:
         app.logger.eror(f'Unknown contributor type: {item_type.value}')
         raise ValueError(f'Unknown contributor type: {item_type.value}')
@@ -129,7 +133,6 @@ def _remove_duplicates_and_empty(contributors: List[Any]) -> List[Any]:
     for contrib in contributors:
         found = False
         if not isinstance(contrib['person'], dict):
-        #if 'id' not in contrib['person']:
             # User added new person
             found = True
             retval.append(contrib)
