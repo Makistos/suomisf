@@ -875,8 +875,11 @@ class Person(Base):
         "ShortStory",
         secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
         primaryjoin='and_(Person.id == Contributor.person_id,\
-                     Contributor.part_id == Part.id, Contributor.role_id == 1,\
+                     Contributor.part_id == Part.id,\
                      Part.shortstory_id == ShortStory.id)',
+        # primaryjoin='and_(Person.id == Contributor.person_id,\
+        #              Contributor.part_id == Part.id, Contributor.role_id == 1,\
+        #              Part.shortstory_id == ShortStory.id)',
         uselist=True, viewonly=True)
     # Author.part_id == Part.id, Part.work_id == Work.id,\
     # edits = relationship("Edition", secondary='editor', viewonly=True)
