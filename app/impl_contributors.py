@@ -231,7 +231,7 @@ def update_edition_contributors(
     retval = False
     parts = session.query(Part)\
         .filter(Part.edition_id == edition.id)\
-        .filter(Part.shortstory_id is not None)\
+        .filter(Part.shortstory_id.is_(None))\
         .all()
     # Create new contributors if needed
     contributors = _create_new_contributors(session, contributors)
@@ -281,7 +281,7 @@ def update_work_contributors(
     retval = False
     parts = session.query(Part)\
         .filter(Part.work_id == work_id)\
-        .filter(Part.shortstory_id is not None)\
+        .filter(Part.shortstory_id.is_(None)) \
         .all()
     # Create new contributors if needed
     contributors = _create_new_contributors(session, contributors)
