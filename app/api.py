@@ -2022,6 +2022,7 @@ def api_editionwishlist(editionid: str) -> Response:
     return make_api_response(editionwishlist_get(editionid))
 
 
+@jwt_required()  # type: ignore
 @app.route('/api/editions/<editionid>/wishlist/<userid>', methods=['put'])
 def api_editionwishlist_add(editionid: str, userid: str) -> Response:
     """
@@ -2037,6 +2038,7 @@ def api_editionwishlist_add(editionid: str, userid: str) -> Response:
     return make_api_response(editionwishlist_add(editionid, userid))
 
 
+@jwt_required()  # type: ignore
 @app.route('/api/editions/<editionid>/wishlist/<userid>', methods=['delete'])
 def api_editionwishlist_remove(editionid: str, userid: str) -> Response:
     """
@@ -2067,3 +2069,17 @@ def api_editionwishlist_user_status(editionid: str, userid: str) -> Response:
     edition is in the users wishlist.
     """
     return editionwishlist_user(editionid, userid)
+
+
+@app.route('/api/editions/wishlist/<userid>', methods=['get'])
+def api_editionwishlist_user_list(userid: str) -> Response:
+    """
+    Gets the wishlist for a specific user.
+
+    Args:
+        userid (str): The ID of the user.
+
+    Returns:
+        Response: The API response containing the wishlist for the user.
+    """
+    return make_api_response(editionowner_getowned(userid, True))

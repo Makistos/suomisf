@@ -226,20 +226,33 @@ def user_genres(user_id: int) -> ResponseType:
     """
     session = new_session()
     try:
-        genres = session.query(Genre.name, Genre.abbr, func.count(Genre.id))\
-            .join(WorkGenre)\
-            .filter(WorkGenre.work_id == Work.id)\
-            .join(Work)\
-            .filter(Work.id == WorkGenre.work_id)\
-            .join(Part)\
-            .filter(Part.work_id == Work.id)\
-            .join(Edition)\
-            .filter(Edition.id == Part.edition_id)\
-            .join(UserBook)\
-            .filter(UserBook.user_id == user_id)\
-            .filter(UserBook.edition_id == Edition.id)\
-            .group_by(Genre.id)\
-            .all()
+        # genres = session.query(Genre.name, Genre.abbr, Genre.id,
+        #                        func.count(Genre.id).label("count"))\
+        #     .join(WorkGenre)\
+        #     .filter(WorkGenre.work_id == Work.id)\
+        #     .join(Work)\
+        #     .filter(Work.id == WorkGenre.work_id)\
+        #     .join(Part)\
+        #     .filter(Part.work_id == Work.id)\
+        #     .join(Edition)\
+        #     .filter(Edition.id == Part.edition_id)\
+        #     .join(UserBook)\
+        #     .filter(UserBook.user_id == user_id)\
+        #     .filter(UserBook.edition_id == Edition.id)\
+        #     .group_by(Genre.id)\
+        #     .all()
+        stmt = 'SELECT genre.name, genre.abbr, genre.id, '
+        stmt += 'count(work.id) as count '
+        stmt += 'FROM genre '
+        stmt += 'INNER JOIN workgenre ON workgenre.genre_id = genre.id '
+        stmt += 'INNER JOIN work ON work.id = workgenre.work_id '
+        stmt += 'INNER JOIN part ON part.work_id = work.id '
+        stmt += 'and part.shortstory_id is null '
+        stmt += 'INNER JOIN edition ON edition.id = part.edition_id '
+        stmt += 'INNER JOIN userbook ON userbook.edition_id = edition.id '
+        stmt += f'WHERE userbook.user_id = {user_id} '
+        stmt += 'GROUP BY genre.id, genre.name, genre.abbr'
+        genres = session.execute(stmt).all()
     except SQLAlchemyError as exp:
         app.logger.error(f"user_genres: {str(exp)}")
         return ResponseType("user_genres: Tietokantavirhe.",
@@ -248,8 +261,8 @@ def user_genres(user_id: int) -> ResponseType:
     if genres:
         for genre in genres:
             retval.append({'count': int(genre['count']),
-                           'id': int(genre['id']),
                            'abbr': str(genre['abbr']),
+                           'id': int(genre['id']),
                            'name': str(genre['name'])})
 
     return ResponseType(retval, HttpResponseCode.OK.value)
