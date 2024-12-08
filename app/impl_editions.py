@@ -1,4 +1,5 @@
 """ Editions implementation """
+import json
 from typing import Any, Dict, Union
 import os
 from werkzeug.datastructures import FileStorage
@@ -974,6 +975,8 @@ def editionowner_get(editionid: int, userid: int) -> ResponseType:
         edition = session.query(UserBook)\
             .filter(UserBook.edition_id == editionid)\
             .filter(UserBook.user_id == userid)\
+            .filter(UserBook.condition_id > 0)\
+            .filter(UserBook.condition_id < 6)\
             .first()
     except SQLAlchemyError as exp:
         app.logger.error(f"editionowner_get: {str(exp)}")
@@ -989,7 +992,7 @@ def editionowner_get(editionid: int, userid: int) -> ResponseType:
     return ResponseType(retval, HttpResponseCode.OK.value)
 
 
-def editionowner_getowned(userid: int) -> ResponseType:
+def editionowner_getowned(userid: int, wishlist: bool = False) -> ResponseType:
     """
     Get books owned by user.
     """
@@ -1011,6 +1014,10 @@ def editionowner_getowned(userid: int) -> ResponseType:
     stmt += 'JOIN work on part.work_id = work.id '
     stmt += 'LEFT JOIN publisher on edition.publisher_id = publisher.id '
     stmt += 'WHERE userbook.user_id = ' + str(userid) + ' '
+    if (wishlist is False):
+        stmt += 'and userbook.condition_id > 0 and userbook.condition_id <= 5 '
+    else:
+        stmt += 'and userbook.condition_id = 6 '
     stmt += 'ORDER BY author_str, title, pubyear'
 
     try:
@@ -1079,6 +1086,8 @@ def editionowner_add(params: dict) -> ResponseType:
         userbook = session.query(UserBook)\
             .filter(UserBook.edition_id == editionid)\
             .filter(UserBook.user_id == userid)\
+            .filter(UserBook.condition_id > 0)\
+            .filter(UserBook.condition_id <= 5)\
             .first()
     except SQLAlchemyError as exp:
         app.logger.error(f"editionowner_add: {str(exp)}")
@@ -1124,6 +1133,8 @@ def editionowner_update(params: dict) -> ResponseType:
         userbook = session.query(UserBook)\
             .filter(UserBook.edition_id == editionid)\
             .filter(UserBook.user_id == userid)\
+            .filter(UserBook.condition_id > 0)\
+            .filter(UserBook.condition_id <= 5)\
             .first()
     except SQLAlchemyError as exp:
         app.logger.error(f"editionowner_update: {str(exp)}")
@@ -1172,6 +1183,8 @@ def editionowner_list(editionid: int) -> ResponseType:
             .join(UserBook)\
             .filter(UserBook.edition_id == editionid)\
             .filter(UserBook.user_id == User.id)\
+            .filter(UserBook.condition_id > 0)\
+            .filter(UserBook.condition_id <= 5)\
             .all()
     except SQLAlchemyError as exp:
         app.logger.error(f"editionowner_list: {str(exp)}")
@@ -1196,6 +1209,8 @@ def editionowner_remove(editionid: int, userid: int) -> ResponseType:
         userbook = session.query(UserBook)\
             .filter(UserBook.edition_id == editionid)\
             .filter(UserBook.user_id == userid)\
+            .filter(UserBook.condition_id > 0)\
+            .filter(UserBook.condition_id <= 5)\
             .first()
         if userbook:
             session.delete(userbook)
@@ -1208,3 +1223,132 @@ def editionowner_remove(editionid: int, userid: int) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType(None, HttpResponseCode.OK.value)
+
+
+def editionwishlist_get(editionid: int) -> ResponseType:
+    """
+    Get the wishlist owners of an edition.
+
+    Args:
+        editionid (int): The ID of the edition.
+
+    Returns:
+        ResponseType: The API response containing the owners of the edition.
+    """
+    session = new_session()
+    try:
+        userbooks = session.query(UserBook)\
+            .filter(UserBook.edition_id == editionid)\
+            .filter(UserBook.condition == 6)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(f"editionwishlist_get: {str(exp)}")
+        return ResponseType("editionwishlist_get: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    try:
+        schema = UserBook(many=True)
+        retval = schema.dump(userbooks)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f"editionwishlist_get: {str(exp)}")
+        return ResponseType("editionwishlist_get: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def editionwishlist_add(editionid: int, userid: int) -> ResponseType:
+    """
+    Add a book to the user's wishlist.
+
+    Args:
+        editionid (int): The ID of the book edition.
+        userid (int): The ID of the user.
+
+    Returns:
+        ResponseType: A response containing the result of the operation.
+    """
+    session = new_session()
+    ub = session.query(UserBook)\
+        .filter(UserBook.edition_id == editionid)\
+        .filter(UserBook.user_id == userid)\
+        .filter(UserBook.condition_id == 6)\
+        .first()
+
+    if ub:
+        return ResponseType(None, HttpResponseCode.OK.value)
+
+    try:
+        userbook = UserBook(edition_id=editionid,
+                            user_id=userid,
+                            condition_id=6)
+        session.add(userbook)
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f"editionwishlist_add: {str(exp)}")
+        return ResponseType("editionwishlist_add: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(None, HttpResponseCode.OK.value)
+
+
+def editionwishlist_remove(editionid: int, userid: int) -> ResponseType:
+    """
+    Remove user from edition's wishlist.
+
+    Args:
+    editionid (int): Id of the edition.
+    userid (int): Id of the user.
+
+    Returns:
+    ResponseType: Result of the operation.
+    """
+    session = new_session()
+    try:
+        userbook = session.query(UserBook)\
+            .filter(UserBook.edition_id == editionid)\
+            .filter(UserBook.user_id == userid)\
+            .filter(UserBook.condition_id == 6)\
+            .first()
+        if userbook:
+            session.delete(userbook)
+            session.commit()
+
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f"editionwishlist_remove: {str(exp)}")
+        return ResponseType("editionwishlist_remove: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(None, HttpResponseCode.OK.value)
+
+
+def editionwishlist_user(editionid: int, userid: int) -> ResponseType:
+    """
+    Checks if given user (userid) has given edition (editionid) in their
+    wishlist.
+
+    Args:
+    editionid (int): The id of the edition.
+    userid (int): The id of the user.
+
+    Returns:
+    ResponseType: A JSON response containing a boolean value indicating if the
+    edition is in the users wishlist.
+    """
+    session = new_session()
+    try:
+        ub = session.query(UserBook)\
+            .filter(UserBook.edition_id == editionid)\
+            .filter(UserBook.user_id == userid)\
+            .filter(UserBook.condition_id == 6)\
+            .first()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f"editionwishlist_user: {str(exp)}")
+        return ResponseType("editionwishlist_user: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    retval = json.dumps({'wishlisted': ub is not None})
+    return ResponseType(retval, HttpResponseCode.OK.value)

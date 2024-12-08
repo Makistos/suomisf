@@ -23,7 +23,10 @@ from app.impl_bookseries import (list_bookseries, get_bookseries,
                                  bookseries_create, bookseries_update,
                                  bookseries_delete, filter_bookseries)
 from app.impl_editions import (editionowner_get, editionowner_getowned,
-                               editionowner_list, get_bindings, create_edition,
+                               editionowner_list, editionwishlist_add,
+                               editionwishlist_get, editionwishlist_remove,
+                               editionwishlist_user, get_bindings,
+                               create_edition,
                                get_edition,
                                update_edition,
                                edition_delete, edition_image_upload,
@@ -887,7 +890,7 @@ def api_editionsowned(userid: str) -> Response:
     Returns:
         Response: The API response containing the owner information.
     """
-    return make_api_response(editionowner_getowned(userid))
+    return make_api_response(editionowner_getowned(userid, False))
 
 
 @app.route('/api/editions/<editionid>/owner/<personid>', methods=['delete'])
@@ -2003,3 +2006,64 @@ def firstlettervector(target: str) -> Tuple[str, int]:
     retval = get_author_first_letters(target)
 
     return retval
+
+
+@app.route('/api/editions/<editionid>/wishlist', methods=['get'])
+def api_editionwishlist(editionid: str) -> Response:
+    """
+    Get the wishlist for a specific edition.
+
+    Args:
+        editionid (str): The ID of the edition.
+
+    Returns:
+        Response: The API response containing the wishlist for the edition.
+    """
+    return make_api_response(editionwishlist_get(editionid))
+
+
+@app.route('/api/editions/<editionid>/wishlist/<userid>', methods=['put'])
+def api_editionwishlist_add(editionid: str, userid: str) -> Response:
+    """
+    Add an edition to a user's wishlist.
+
+    Args:
+        editionid (str): The ID of the edition.
+        userid (str): The ID of the user.
+
+    Returns:
+        Response: The API response containing the result of the operation.
+    """
+    return make_api_response(editionwishlist_add(editionid, userid))
+
+
+@app.route('/api/editions/<editionid>/wishlist/<userid>', methods=['delete'])
+def api_editionwishlist_remove(editionid: str, userid: str) -> Response:
+    """
+    Remove an edition from a user's wishlist.
+
+    Args:
+        editionid (str): The ID of the edition.
+        userid (str): The ID of the user.
+
+    Returns:
+        Response: The API response containing the result of the operation.
+    """
+    return make_api_response(editionwishlist_remove(editionid, userid))
+
+
+@app.route('/api/editions/<editionid>/wishlist/<userid>', methods=['get'])
+def api_editionwishlist_user_status(editionid: str, userid: str) -> Response:
+    """
+    Checks if given user (userid) has given edition (editionid) in their
+    wishlist.
+
+    Args:
+    editionid (str): The id of the edition.
+    userid (str): The id of the user.
+
+    Returns:
+    Response: A JSON response containing a boolean value indicating if the
+    edition is in the users wishlist.
+    """
+    return editionwishlist_user(editionid, userid)

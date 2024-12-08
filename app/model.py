@@ -178,6 +178,12 @@ class LinkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         """ Metadata for SQLAlchemyAutoSchema. """
         model = PersonLink
 
+# class PersonBriefestSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+#     """ Minimal person schema. """
+#     class Meta:
+#         """ Metadata for SQLAlchemyAutoSchema. """
+#         model = Person
+
 
 class PersonBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     """ Person schema with no relationships. """
@@ -256,6 +262,8 @@ class EditionBriefestSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     images = ma.List(fields.Nested(EditionImageBriefSchema))
     # work = fields.Pluck(WorkBriefestSchema, 'id')
     work = ma.List(fields.Nested(WorkBriefestSchema))
+    owners = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
+    wishlisted = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
 
 
 class EditionImageSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -278,6 +286,8 @@ class EditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     contributions = ma.List(fields.Nested(WorkContributorSchema))
     images = ma.List(fields.Nested(EditionImageBriefSchema))
     publisher = fields.Nested(lambda: PublisherSchema(only=('id', 'name')))
+    owners = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
+    wishlisted = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
 
 
 class BookConditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -463,6 +473,8 @@ class EditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     format = fields.Nested(FormatBriefSchema)
     editors = ma.List(fields.Nested(PersonBriefSchema))
     contributions = ma.List(fields.Nested(ContributorSchema))
+    owners = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
+    wishlisted = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
 
 
 class WorkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore

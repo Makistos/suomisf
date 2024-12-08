@@ -378,11 +378,11 @@ def get_person(person_id: int) -> ResponseType:
                 person.edit_contributions = person.edits
                 person.editions = person.editions + alias.editions
                 person.stories = person.stories + alias.stories
-                person.appears_in = person.appears_in + alias.appears_in
-                person.articles = person.articles + alias.articles
+                # person.appears_in = person.appears_in + alias.appears_in
+                # person.articles = person.articles + alias.articles
                 person.links = person.links + alias.links
-                person.magazine_stories = person.magazine_stories + \
-                    alias.magazine_stories
+                # person.magazine_stories = person.magazine_stories + \
+                #    alias.magazine_stories
                 person.roles = person.roles + alias.roles
 
     except SQLAlchemyError as exp:

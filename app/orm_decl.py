@@ -432,7 +432,20 @@ class Edition(Base):
         backref=backref('edition_image_assoc'),
         uselist=True,
         viewonly=True)
-    owners = relationship('User', secondary='userbook', viewonly=True)
+    owners = relationship('User',
+                          primaryjoin='and_(UserBook.condition_id > 0, \
+                          UserBook.condition_id < 6, \
+                          UserBook.edition_id == Edition.id)',
+                          secondary='userbook',
+                          viewonly=True)
+    # owners = relationship('User', secondary='userbook', viewonly=True)
+    wishlisted = relationship('User',
+                              primaryjoin='and_( \
+                              UserBook.edition_id == Edition.id, \
+                              UserBook.condition_id == 6)',
+                              secondary='userbook',
+                              viewonly=True)
+    # viewonly=True)
 
     @property
     def name(self) -> str:
@@ -914,23 +927,23 @@ class Person(Base):
         uselist=True, viewonly=True)
     chief_editor = relationship(
         'Issue', secondary='issueeditor', uselist=True, viewonly=True)
-    articles = relationship('Article', secondary='articleauthor',
-                            uselist=True, viewonly=True)
-    magazine_stories = relationship(
-        'ShortStory',
-        secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
-        primaryjoin='and_(Person.id == Contributor.person_id, \
-                     Contributor.role_id == 1, \
-                     IssueContent.shortstory_id == Part.shortstory_id)',
-        uselist=True, viewonly=True)
-    translated_stories = relationship(
-        'ShortStory',
-        secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
-        primaryjoin="and_(Person.id == Contributor.person_id, \
-        Contributor.role_id == 2, Part.shortstory_id is not None)",
-        uselist=True, viewonly=True)
-    appears_in = relationship('Article', secondary='articleperson',
-                              uselist=True, viewonly=True)
+    # articles = relationship('Article', secondary='articleauthor',
+    #                         uselist=True, viewonly=True)
+    # magazine_stories = relationship(
+    #     'ShortStory',
+    #     secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
+    #     primaryjoin='and_(Person.id == Contributor.person_id, \
+    #                  Contributor.role_id == 1, \
+    #                  IssueContent.shortstory_id == Part.shortstory_id)',
+    #     uselist=True, viewonly=True)
+    # translated_stories = relationship(
+    #     'ShortStory',
+    #     secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
+    #     primaryjoin="and_(Person.id == Contributor.person_id, \
+    #     Contributor.role_id == 2, Part.shortstory_id is not None)",
+    #     uselist=True, viewonly=True)
+    # appears_in = relationship('Article', secondary='articleperson',
+    #                           uselist=True, viewonly=True)
     tags = relationship('Tag', secondary='persontag',
                         uselist=True, viewonly=True)
     languages = relationship(
@@ -1230,6 +1243,7 @@ class User(UserMixin, Base):
     is_admin = Column(Boolean, default=False)
     language = Column(Integer, ForeignKey('language.id'))
     books = relationship("Edition", secondary="userbook", viewonly=True)
+    # wishlist = relationship("Edition", secondary="userwishlist", viewonly=True)
 
     def set_password(self, password: str) -> None:
         """
@@ -1304,6 +1318,19 @@ class UserBook(Base):
     condition = relationship("BookCondition",
                              backref=backref("bookcondition_assoc"),
                              viewonly=True)
+
+
+# class UserWishlist(Base):
+#     """ User wishlist. """
+#     __tablename__ = 'userwishlist'
+#     edition_id = Column(Integer, ForeignKey('edition.id'), nullable=False,
+#                         primary_key=True)
+#     user_id = Column(Integer, ForeignKey('user.id'), nullable=False,
+#                      primary_key=True)
+#     added = Column(DateTime, default=datetime.datetime.now(), nullable=True)
+#     book = relationship("Edition", backref=backref(
+#         "edition4_assoc"), viewonly=True)
+#     user = relationship("User", backref=backref("user5_assoc"), viewonly=True)
 
 
 class UserBookseries(Base):

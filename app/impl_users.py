@@ -5,10 +5,12 @@ from flask.wrappers import Response
 from flask import make_response, jsonify
 from flask_jwt_extended import (create_access_token, create_refresh_token,
                                 get_jwt_identity)
+from sqlalchemy import func
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.route_helpers import new_session
-from app.orm_decl import (User)
+from app.orm_decl import (Edition, Genre, Part, User, UserBook, Work,
+                          WorkGenre)
 from app.model import (UserSchema)
 from app.impl import ResponseType
 from app.types import (HttpResponseCode)
@@ -207,4 +209,47 @@ def list_users() -> ResponseType:
         app.logger.error('ListUsers schema error: ' + str(exp))
         return ResponseType('ListUsers: Skeemavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def user_genres(user_id: int) -> ResponseType:
+    """
+    Retrieves the genre counts associated with the specified user.
+
+    Parameters:
+        user_id (int): The ID of the user whose genres to retrieve.
+
+    Returns:
+        ResponseType: The response object containing the list of genres if
+                      successful, or an error message and status code if an
+                      error occurs.
+    """
+    session = new_session()
+    try:
+        genres = session.query(Genre.name, Genre.abbr, func.count(Genre.id))\
+            .join(WorkGenre)\
+            .filter(WorkGenre.work_id == Work.id)\
+            .join(Work)\
+            .filter(Work.id == WorkGenre.work_id)\
+            .join(Part)\
+            .filter(Part.work_id == Work.id)\
+            .join(Edition)\
+            .filter(Edition.id == Part.edition_id)\
+            .join(UserBook)\
+            .filter(UserBook.user_id == user_id)\
+            .filter(UserBook.edition_id == Edition.id)\
+            .group_by(Genre.id)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(f"user_genres: {str(exp)}")
+        return ResponseType("user_genres: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    retval = []
+    if genres:
+        for genre in genres:
+            retval.append({'count': int(genre['count']),
+                           'id': int(genre['id']),
+                           'abbr': str(genre['abbr']),
+                           'name': str(genre['name'])})
+
     return ResponseType(retval, HttpResponseCode.OK.value)

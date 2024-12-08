@@ -4,6 +4,7 @@ from marshmallow import fields
 from app import ma
 from app.model import (ContributorSchema, EditionImageBriefSchema,
                        GenreBriefSchema, MagazineBriefSchema,
+                       PersonBriefSchema,
                        PublisherLinkSchema, PubseriesSchema)
 from app.orm_decl import Edition, Publisher, Work
 
@@ -26,6 +27,8 @@ class EditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     pubseries = fields.Nested(PubseriesSchema(
         only=('id', 'name')))
     images = ma.List(fields.Nested(EditionImageBriefSchema))
+    owners = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
+    wishlisted = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
 
 
 class PublisherPageSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
