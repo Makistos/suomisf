@@ -4,7 +4,8 @@ from marshmallow import fields
 from app import ma
 from app.orm_decl import (Person, Edition, Contributor, Article, Awarded,
                           ShortStory)
-from .model import (PersonLinkBriefSchema, WorkBriefSchema, ShortBriefSchema,
+from .model import (PersonBriefSchema, PersonLinkBriefSchema, WorkBriefSchema,
+                    ShortBriefSchema,
                     PublisherBriefSchema, EditionImageBriefSchema,
                     ContributorRoleSchema, IssueBriefSchema,
                     TagBriefSchema, AwardBriefSchema, AwardCategorySchema,
@@ -95,6 +96,8 @@ class PersonPageEditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     # format = fields.Nested(FormatBriefSchema)
     # editors = ma.List(fields.Nested(PersonPageBriefSchema))
     contributions = ma.List(fields.Nested(PersonPageContributorSchema))
+    owners = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
+    wishlisted = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
 
 
 class AwardedSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
