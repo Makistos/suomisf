@@ -4,7 +4,8 @@ from marshmallow import fields
 from app import ma
 from app.orm_decl import (Person, Edition, Contributor, Article, Awarded,
                           ShortStory)
-from .model import (PersonBriefSchema, PersonLinkBriefSchema, WorkBriefSchema,
+from .model import (LanguageSchema, PersonBriefSchema, PersonLinkBriefSchema,
+                    WorkBriefSchema,
                     ShortBriefSchema,
                     PublisherBriefSchema, EditionImageBriefSchema,
                     ContributorRoleSchema, IssueBriefSchema,
@@ -76,6 +77,7 @@ class PersonPageEditionWorkSchema(ma.SQLAlchemySchema):  # type: ignore
     tags = ma.List(fields.Nested(TagBriefSchema))
     contributions = ma.List(fields.Nested(lambda: WorkContributorSchema(
         only=['description', 'person', 'role'])))
+    language_name = fields.Nested(LanguageSchema)
 
 
 class PersonPageEditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -90,7 +92,7 @@ class PersonPageEditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     pubseries = fields.Nested(PersonPagePubseriesSchema)
     work = ma.List(fields.Nested(lambda: PersonPageEditionWorkSchema(
         only=['id', 'title', 'orig_title', 'pubyear', 'editions', 'genres',
-              'bookseries', 'tags', 'contributions'])))
+              'bookseries', 'tags', 'contributions', 'language_name'])))
     # images = ma.List(fields.Nested(EditionImageBriefSchema))
     # binding = fields.Nested(BindingBriefSchema)
     # format = fields.Nested(FormatBriefSchema)
@@ -129,7 +131,7 @@ class PersonPageShortBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     genres = ma.List(fields.Nested(GenreBriefSchema))
     contributors = ma.List(fields.Nested(PersonPageContributorSchema))
     tags = ma.List(fields.Nested(TagBriefSchema))
-    language = fields.Nested(CountryBriefSchema)
+    language_name = fields.Nested(CountryBriefSchema)
 
 
 class PersonPageWorkBriefSchema(ma.SQLAlchemySchema):  # type: ignore
@@ -146,6 +148,7 @@ class PersonPageWorkBriefSchema(ma.SQLAlchemySchema):  # type: ignore
         lambda: BookseriesBriefSchema(exclude=['works']))
     bookseriesnum = fields.String()
     tags = ma.List(fields.Nested(TagBriefSchema))
+    language_name = fields.Nested(LanguageSchema)
 
 
 class PersonSchema(ma.SQLAlchemyAutoSchema):  # type: ignore

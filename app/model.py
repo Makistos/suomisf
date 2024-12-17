@@ -226,6 +226,7 @@ class WorkEditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     contributions = ma.List(fields.Nested(WorkContributorSchema))
     images = ma.List(fields.Nested(EditionImageBriefSchema))
     publisher = fields.Nested(lambda: PublisherSchema(only=('id', 'name')))
+    Language = fields.Nested(lambda: LanguageSchema(only=('id', 'name')))
 
 
 class WorkTypeBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -252,6 +253,7 @@ class WorkBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     genres = ma.List(fields.Nested(GenreBriefSchema))
     bookseries = fields.Nested(BookseriesBriefSchema)
     tags = ma.List(fields.Nested(TagBriefSchema))
+    language = fields.Nested(LanguageSchema)
 
 
 class EditionBriefestSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -486,7 +488,7 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     genres = ma.List(fields.Nested(GenreBriefSchema))
     bookseries = fields.Nested(BookseriesBriefSchema)
     tags = ma.List(fields.Nested(TagBriefSchema))
-    language_name = fields.Nested(CountryBriefSchema)
+    language_name = fields.Nested(LanguageSchema)
     authors = ma.List(fields.Nested(PersonBriefSchema))
     links = ma.List(fields.Nested(WorkLinkBriefSchema))
     stories = ma.List(fields.Nested(ShortBriefSchema))

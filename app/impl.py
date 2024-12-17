@@ -466,32 +466,38 @@ def set_language(
     Returns:
         Union[ResponseType, None]: The response type or None.
     """
-    if ((data['language'] and data['language']['id'] != item.language)
-            or (data['language'] is None and item.language is not None)):
+    if isinstance(data['language'], str) or 'id' not in data['language']:
+        # User added a new language. Front returns this as a string
+        # in the language field so we need to add this language to
+        # the database first.
+        lang_id = add_language(data['language'])
+    # if ((data['language'] and data['language']['id'] != item.language)
+    #         or (data['language'] is None and item.language is not None)):
+    else:
         lang_id = None
         if old_values is not None:
             if item.language_name:
                 old_values['Kieli'] = item.language_name.name
             else:
                 old_values['Kieli'] = None
-        if data['language'] and 'id' not in data['language']:
-            # User added a new language. Front returns this as a string
-            # in the language field so we need to add this language to
-            # the database first.
-            lang_id = add_language(data['language'])
-        else:
-            lang_id = check_int(data['language']['id']) if data['language'] \
-                else None
-            if lang_id is not None:
-                lang = session.query(Language)\
-                    .filter(Language.id == lang_id)\
-                    .first()
-                if not lang:
-                    app.logger.error('SetLanguage: Language not found. Id = %s'
-                                     ', {lang_id')
-                    return ResponseType('Kieltä ei löydy',
-                                        status=HttpResponseCode.BAD_REQUEST)
-        item.language = lang_id
+        # if data['language'] and 'id' not in data['language']:
+        #     # User added a new language. Front returns this as a string
+        #     # in the language field so we need to add this language to
+        #     # the database first.
+        #     lang_id = add_language(data['language'])
+        # else:
+        lang_id = check_int(data['language']['id']) if data['language'] \
+            else None
+        if lang_id is not None:
+            lang = session.query(Language)\
+                .filter(Language.id == lang_id)\
+                .first()
+            if not lang:
+                app.logger.error('SetLanguage: Language not found. Id = %s'
+                                    ', {lang_id')
+                return ResponseType('Kieltä ei löydy',
+                                    status=HttpResponseCode.BAD_REQUEST)
+    item.language = lang_id
     return None
 
 

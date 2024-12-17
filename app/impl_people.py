@@ -115,9 +115,10 @@ def _set_nationality(
                 old_values['Kansallisuus'] = person.nationality.name
             else:
                 old_values['Kansallisuus'] = ''
-        if 'id' not in data['nationality'] and data['nationality'] != '':
+        if (isinstance(data['nationality'], str) or
+            ('id' not in data['nationality'] and data['nationality'] != '')):
             # Add new nationality to db
-            nat_id = AddCountry(data['nationality'])
+            nat_id = AddCountry(session, data['nationality'])
         elif data['nationality'] == '':
             nat_id = None
         else:
