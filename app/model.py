@@ -8,7 +8,7 @@ from app.orm_decl import (Article, Award, AwardCategory, Awarded, BindingType,
                           Edition, EditionImage, Genre, Issue, Language, Log,
                           Magazine, Person, PersonLink, PublicationSize,
                           Publisher, PublisherLink, Pubseries, ShortStory, Tag,
-                          TagType, UserBook,
+                          TagType, UserBook, MagazineType,
                           Work, StoryType, WorkLink, Format, WorkType)
 
 # Brief schemas should not include any relationships to other
@@ -27,6 +27,13 @@ class TagTypeSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = TagType
+
+
+class MagazineTypeSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Magazine type schema. """
+    class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
+        model = MagazineType
 
 
 class WorkBriefestSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -314,6 +321,8 @@ class MagazineBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Magazine
+    type_id = fields.Int()
+    type = fields.Nested(MagazineTypeSchema)
 
 
 class IssueBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -552,7 +561,7 @@ class IssueSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Issue
         include_fk = True
-    magazine = ma.auto_field()
+    # magazine = ma.auto_field()
     editors = ma.List(fields.Nested(PersonBriefSchema))
     size = fields.Nested(PublicationSizeBriefSchema)
     articles = ma.List(fields.Nested(ArticleBriefSchema()))
@@ -568,6 +577,7 @@ class MagazineSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         include_fk = True
     issues = ma.auto_field()  # ma.List(fields.Nested(IssueSchema))
     publisher = fields.Nested(PublisherBriefSchema)
+    type = fields.Nested(MagazineTypeSchema)
 
 
 class TagSchema(ma.SQLAlchemyAutoSchema):  # type: ignore

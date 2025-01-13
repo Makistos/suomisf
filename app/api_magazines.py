@@ -6,7 +6,7 @@ from typing import Tuple
 from flask import Response, request
 from app.api_helpers import make_api_response
 from app.impl import ResponseType
-from app.impl_magazines import (add_magazine, delete_magazine, list_magazines,
+from app.impl_magazines import (add_magazine, delete_magazine, get_magazine_types, list_magazines,
                                 get_magazine, update_magazine)
 from app.types import HttpResponseCode
 from app.api_jwt import jwt_admin_required
@@ -90,6 +90,7 @@ def api_magazinecreateupdate() -> Response:
     - update_magazine_invalid_type: Type is not 0 or 1
     - update_magazine_type_not_number: Type is not a number
     """
+    retval = Response()
 
     try:
         params = json.loads(request.data.decode('utf-8'))
@@ -177,3 +178,17 @@ def api_getmagazinetags(magazineid: str) -> Tuple[str, int]:
 
     return ("", 0)
     # return GetMagazineTags(options)
+
+
+@app.route('/api/magazinetypes', methods=['get'])
+def api_getmagazinetypes() -> Response:
+    """
+    Get the magazine types.
+
+    Returns:
+        Response: The response object containing the magazine types.
+
+    Tests:
+        get_magazine_types: Get magazine types
+    """
+    return make_api_response(get_magazine_types())

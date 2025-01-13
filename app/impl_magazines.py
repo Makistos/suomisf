@@ -1,15 +1,111 @@
 """ Magazine related functions. """
-from typing import Any, Dict
+import html
+from typing import Any, Dict, Union
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
+from app.impl_helpers import str_differ
 from app.impl_logs import log_changes
+from app.impl_tags import tags_have_changed
 from app.route_helpers import new_session
-from app.orm_decl import (Magazine, Publisher)
-from app.model import (MagazineSchema)
+from app.orm_decl import (Magazine, MagazineTag, MagazineType, Publisher, Tag, WorkTag)
+from app.model import (MagazineSchema, MagazineTypeSchema)
 from app.impl import ResponseType
 from app.model import MagazineBriefSchema
 from app import app
 from app.types import HttpResponseCode
+
+
+def _set_description(
+        magazine: Magazine,
+        data: Any,
+        old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+    """
+    Set the description of a magazine.
+
+    Args:
+        magazine (Magazine): The work object to set the description for.
+        data (Any): The data containing the new description.
+        old_values (Union[Dict[str, Any], None]): The old values of the
+        magazine, if available.
+
+    Returns:
+        Union[ResponseType, None]: The response type if there was an error,
+                                   otherwise None.
+    """
+    try:
+        if data['description']:
+            html_text = html.unescape(data['description'])
+        else:
+            html_text = ''
+    except (TypeError) as exp:
+        app.logger.error('WorkSave: Failed to unescape html: ' +
+                         data["description"] + '.' + str(exp))
+        return ResponseType('Kuvauksen html-muotoilu epäonnistui',
+                            HttpResponseCode.BAD_REQUEST.value)
+    if str_differ(html_text, magazine.description):
+        if old_values is not None:
+            old_values['Kuvaus'] = (magazine.description[0:200]
+                                    if magazine.description else '')
+        magazine.description = html_text
+    return None
+
+
+def _set_tags(
+        session: Any, magazine: Magazine, tags: Any,
+        old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
+    """
+    Sets the tags for a given work.
+
+    Args:
+        session (Any): The session object for the database connection.
+        work (Work): The work object to set the tags for.
+        data (Any): The data object containing the tags information.
+        old_values (Union[Dict[str, Any], None]): The old values of the work
+        object.
+
+    Returns:
+        Union[ResponseType, None]: The response type if there is an error,
+                                   otherwise None.
+    """
+    if tags_have_changed(magazine.tags, tags):
+        # Check if we need to create new tags
+        try:
+            for tag in tags:
+                if tag['id'] == 0:
+                    already_exists = session.query(Tag)\
+                        .filter(Tag.name == tag['name'])\
+                        .first()
+                    if not already_exists:
+                        new_tag = Tag(name=tag['name'], type_id=1)
+                        session.add(new_tag)
+                        session.flush()
+                        tag['id'] = new_tag.id
+                    else:
+                        tag['id'] = already_exists.id
+        except SQLAlchemyError as exp:
+            app.logger.error(f'{exp}')
+            return ResponseType('Uusia asiasanoja ei saatu talletettua.',
+                                HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+        existing_tags = session.query(MagazineTag)\
+            .filter(MagazineTag.work_id == magazine.id)\
+            .all()
+        # (to_add, to_remove) = get_join_changes(
+        #     [x.tag_id for x in existing_tags],
+        #     [x['id'] for x in data['tags']])
+        if len(existing_tags) > 0:
+            for tag in existing_tags:
+                session.delete(tag)
+        for tag in tags:
+            st = MagazineTag(tag_id=tag['id'], magazine_id=magazine.id)
+            session.add(st)
+        old_tags = session.query(Tag.name)\
+            .filter(Tag.id.in_([x.tag_id for x in existing_tags]))\
+            .all()
+        if old_values is not None:
+            old_values['Asiasanat'] = ','.join([str(x[0]) for x in old_tags])
+
+    return None
 
 
 def get_magazine(magazine_id: int) -> ResponseType:
@@ -103,14 +199,16 @@ def add_magazine(params: Dict[str, Any]) -> ResponseType:
         return ResponseType('Name missing.',
                             HttpResponseCode.BAD_REQUEST.value)
     new_magazine.name = magazine['name']
-    if 'publisher_id' in magazine:
+    if ('publisher' in magazine and
+            magazine['publisher'] is not None and
+            'id' in magazine['publisher']):
         try:
-            pub_id = int(magazine['publisher_id'])
+            pub_id = int(magazine['publisher']['id'])
         except (ValueError, TypeError):
             app.logger.error(
-                f'Invalid publisher id: {magazine["publisher_id"]}.')
+                f'Invalid publisher id: {magazine["publisher"]["id"]}.')
             return ResponseType('Virheellinen kustantajan id: '
-                                f'{magazine["publisher_id"]} .',
+                                f'{magazine["publisher"]["id"]} .',
                                 HttpResponseCode.BAD_REQUEST.value)
         try:
             publisher = session.query(Publisher)\
@@ -120,9 +218,7 @@ def add_magazine(params: Dict[str, Any]) -> ResponseType:
             app.logger.error(exp)
             return ResponseType('Tietokantavirhe.',
                                 HttpResponseCode.INTERNAL_SERVER_ERROR.value)
-        if publisher:
-            magazine.publisher_id = magazine['publisher_id']
-        else:
+        if not publisher:
             app.logger.error(f'Publisher {pub_id} not found.')
             return ResponseType(f'Kustantajaa {pub_id} ei loydy.',
                                 HttpResponseCode.BAD_REQUEST.value)
@@ -133,19 +229,13 @@ def add_magazine(params: Dict[str, Any]) -> ResponseType:
     new_magazine.issn = magazine['issn'] if 'issn' in magazine else None
     if 'type' in magazine:
         try:
-            type_int = int(magazine['type'])
+            type_int = int(magazine['type']['id'])
         except (ValueError, TypeError):
             app.logger.error(f'Invalid type: {magazine["type"]}.')
             return ResponseType('Virheellinen tyyppi: '
                                 f'{magazine["type"]} .',
                                 HttpResponseCode.BAD_REQUEST.value)
-        if type_int < 0 or type_int > 1:
-            app.logger.error('Type must be 0 or 1: '
-                             f'{magazine["type"]}.')
-            return ResponseType('Tyyppi on virheellinen: '
-                                f'{magazine["type"]}.',
-                                HttpResponseCode.BAD_REQUEST.value)
-        new_magazine.type = type_int
+        new_magazine.type_id = type_int
 
     try:
         session.add(new_magazine)
@@ -197,12 +287,13 @@ def update_magazine(params: Dict[str, Any]) -> ResponseType:
         return ResponseType('Tietokantavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    if 'name' in magazine_data:
+    if 'name' in magazine_data and magazine_data['name'] != magazine.name:
         old_values['name'] = magazine.name
         magazine.name = magazine_data['name']
-    if 'publisher_id' in magazine_data:
+    if 'publisher' in magazine_data and \
+            magazine_data['publisher']['id'] != magazine.publisher_id:
         try:
-            pub_id = int(magazine_data['publisher_id'])
+            pub_id = int(magazine_data['publisher']['id'])
         except ValueError:
             app.logger.error('Publisher id must be integer: '
                              f'{magazine_data["publisher_id"]}.')
@@ -218,34 +309,39 @@ def update_magazine(params: Dict[str, Any]) -> ResponseType:
             return ResponseType('Tietokantavirhe.',
                                 HttpResponseCode.INTERNAL_SERVER_ERROR.value)
         if publisher:
-            magazine.publisher_id = magazine_data['publisher_id']
+            magazine.publisher_id = magazine_data['publisher']['id']
             old_values['publisher'] = publisher.name
         else:
             app.logger.error(f'Publisher {pub_id} not found.')
             return ResponseType(f'Kustantajaa {pub_id} ei loydy.',
                                 HttpResponseCode.BAD_REQUEST.value)
     if 'description' in magazine_data:
-        magazine.description = magazine_data['description']
-    if 'link' in magazine_data:
+        result = _set_description(magazine, magazine_data,  old_values)
+        if result:
+            return result
+    if 'link' in magazine_data and str_differ(magazine_data['link'],
+                                              magazine.link):
         magazine.link = magazine_data['link']
-    if 'issn' in magazine_data:
+    if 'issn' in magazine_data and str_differ(magazine_data['issn'],
+                                              magazine.issn):
         magazine.issn = magazine_data['issn']
-    if 'type' in magazine_data:
+    if 'type' in magazine_data and \
+            magazine_data['type']['id'] != magazine.type_id:
         try:
-            type_int = int(magazine_data['type'])
+            type_int = int(magazine_data['type']['id'])
         except ValueError:
             app.logger.error('Type must be integer: '
                              f'{magazine_data["type"]}.')
             return ResponseType('Tyyppi on virheellinen: '
                                 f'{magazine_data["type"]}.',
                                 HttpResponseCode.BAD_REQUEST.value)
-        if type_int < 0 or type_int > 1:
-            app.logger.error('Type must be 0 or 1: '
-                             f'{magazine_data["type"]}.')
-            return ResponseType('Tyyppi on virheellinen: '
-                                f'{magazine_data["type"]}.',
-                                HttpResponseCode.BAD_REQUEST.value)
-        magazine.type = magazine_data['type']
+        magazine.type_id = type_int
+
+    if 'tags' in magazine_data:
+        result = _set_tags(session, magazine, magazine_data['tags'],
+                           old_values)
+        if result:
+            return result
 
     try:
         session.commit()
@@ -285,3 +381,29 @@ def delete_magazine(magazine_id: int) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType('OK', HttpResponseCode.OK.value)
+
+
+def get_magazine_types() -> ResponseType:
+    """
+    Retrieves a list of magazine types.
+
+    Returns:
+        ResponseType: The response containing the list of magazine types.
+    """
+
+    session = new_session()
+    try:
+        types = session.query(MagazineType).all()
+    except SQLAlchemyError as exp:
+        app.logger.error(exp)
+        return ResponseType('Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    try:
+        schema = MagazineTypeSchema(many=True)
+        retval = schema.dump(types)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'Schema error: {exp}')
+        return ResponseType('Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    return ResponseType(retval, HttpResponseCode.OK.value)

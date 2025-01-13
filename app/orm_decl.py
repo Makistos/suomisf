@@ -752,6 +752,7 @@ class Magazine(Base):
     description = Column(Text())
     link = Column(String(200))
     issn = Column(String(30))
+    type_id = Column(Integer, ForeignKey('magazinetype.id'))
     tags = relationship('Tag', secondary='magazinetag', uselist=True)
     issues = relationship(
         'Issue',
@@ -760,7 +761,7 @@ class Magazine(Base):
         Issue.number_extra')
     publisher = relationship('Publisher', uselist=False)
     # Type of magazine. 0 = fanzine, 1 = other.
-    type = Column(Integer, nullable=False)
+    type = relationship('MagazineType', uselist=False, viewonly=True)
 
 
 class MagazineTag(Base):
@@ -770,6 +771,13 @@ class MagazineTag(Base):
                          nullable=False, primary_key=True)
     tag_id = Column(Integer, ForeignKey('tag.id'), nullable=False,
                     primary_key=True)
+
+
+class MagazineType(Base):
+    """ Magazine type table. """
+    __tablename__ = 'magazinetype'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50), nullable=False)
 
 
 class Part(Base):

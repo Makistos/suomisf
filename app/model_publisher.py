@@ -40,4 +40,4 @@ class PublisherPageSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     series = ma.List(fields.Nested(PubseriesSchema(only=('id', 'name'))))
     links = ma.List(fields.Nested(PublisherLinkSchema))
     magazines = ma.List(fields.Nested(MagazineBriefSchema(
-        only=('id', 'name', 'type'))))
+        only=('id', 'name', 'type_id'))))
