@@ -24,6 +24,7 @@ class EditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         """ Meta class. """
         model = Edition
     work = ma.List(fields.Nested(WorkSchema))
+    publisher = fields.Nested('PublisherSchema', only=('id', 'name'))
     pubseries = fields.Nested(PubseriesSchema(
         only=('id', 'name')))
     images = ma.List(fields.Nested(EditionImageBriefSchema))

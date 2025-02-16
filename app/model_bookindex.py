@@ -3,6 +3,7 @@
 from marshmallow import fields
 
 from app import ma
+from app.model import PersonBriefSchema
 from app.orm_decl import (Bookseries, Contributor, ContributorRole, Edition,
                           EditionImage, Genre, Person,
                           Publisher, Pubseries, Tag,
@@ -129,6 +130,8 @@ class WorkEditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     work = ma.List(fields.Nested(
         lambda: BookIndexEditionWorkSchema(
             only=('id', 'title', 'orig_title'))))
+    owners = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
+    wishlisted = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
 
 
 class BookIndexSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -148,7 +151,8 @@ class BookIndexSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
                       only=['id', 'title', 'pubyear', 'publisher',
                             'contributions', 'images', 'version',
                             'pubseries',
-                            'pubseriesnum', 'editionnum', 'work']))
+                            'pubseriesnum', 'editionnum', 'work',
+                            'owners', 'wishlisted']))
     # authors = ma.List(fields.Nested(BookIndexPersonSchema))
     genres = ma.List(fields.Nested(BookIndexGenreSchema))
     bookseries = fields.Nested(BookIndexBookseriesSchema)

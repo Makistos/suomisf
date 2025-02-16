@@ -234,6 +234,8 @@ class WorkEditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     images = ma.List(fields.Nested(EditionImageBriefSchema))
     publisher = fields.Nested(lambda: PublisherSchema(only=('id', 'name')))
     Language = fields.Nested(lambda: LanguageSchema(only=('id', 'name')))
+    owners = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
+    wishlisted = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
 
 
 class WorkTypeBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -297,6 +299,7 @@ class EditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     publisher = fields.Nested(lambda: PublisherSchema(only=('id', 'name')))
     owners = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
     wishlisted = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
+    binding = fields.Nested(BindingBriefSchema)
 
 
 class BookConditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore

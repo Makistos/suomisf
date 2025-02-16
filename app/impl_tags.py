@@ -100,6 +100,82 @@ def tag_list() -> ResponseType:
     return ResponseType(retval, HttpResponseCode.OK.value)
 
 
+def tag_list_quick() -> ResponseType:
+    """
+    Retrieve a list of tags along with their associated counts and types.
+
+    Executes a SQL query to fetch tags from the database, including their
+    associated counts from the `worktag`, `articletag`, and `storytag` tables,
+    as well as their type information from the `tagtype` table. The results
+    are ordered by tag name.
+
+    Returns:
+        ResponseType: A response object containing a list of tags with their
+        details or an error message in case of a database error.
+
+    Raises:
+        SQLAlchemyError: If there is an error executing the SQL query.
+
+    Example response:
+        [
+            {
+                'id': 1,
+                'name': 'example_tag',
+                'workcount': 10,
+                'articlecount': 5,
+                'storycount': 2,
+                    'id': 1,
+                    'name': 'example_type'
+            },
+            ...
+        ]
+    """
+    session = new_session()
+
+    tags = None
+    retval = []
+
+    stmt = """
+SELECT
+    tag.id,
+    tag.name,
+    COALESCE(tagtype.id, 0) AS typeid,
+    COALESCE(tagtype.name, 'Unknown') AS typename,
+
+    -- Count actual occurrences in each table separately
+    (SELECT COUNT(*) FROM worktag WHERE worktag.tag_id = tag.id) AS workcount,
+    (SELECT COUNT(*) FROM articletag WHERE articletag.tag_id = tag.id)
+    AS articlecount,
+    (SELECT COUNT(*) FROM storytag WHERE storytag.tag_id = tag.id)
+    AS storycount
+
+FROM tag
+LEFT JOIN tagtype ON tag.type_id = tagtype.id
+ORDER BY tag.name;
+"""
+    try:
+        tags = session.execute(stmt).all()
+    except SQLAlchemyError as exp:
+        app.logger.error('Exception in TagListFast: ' + str(exp))
+        return ResponseType('TagListFast: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    if tags:
+        for tag in tags:
+            retval.append({
+                'id': tag.id,
+                'name': tag.name,
+                'workcount': tag.workcount,
+                'articlecount': tag.articlecount,
+                'storycount': tag.storycount,
+                'type': {
+                    'id': tag.typeid,
+                    'name': tag.typename
+                }
+            })
+    return ResponseType(retval, HttpResponseCode.OK.value)
+
+
 def tag_info(tag_id: int) -> ResponseType:
     """
     Retrieves information about a tag based on its ID.

@@ -42,7 +42,7 @@ from app.impl_shorts import (search_shorts, story_add, story_updated,
                              story_delete, get_short, get_short_types,
                              story_tag_add, story_tag_remove,
                              get_latest_shorts)
-from app.impl_tags import (tag_list, tag_search, tag_create, tag_info,
+from app.impl_tags import (tag_list, tag_list_quick, tag_search, tag_create, tag_info,
                            tag_update, tag_filter, tag_merge, tag_delete,
                            tag_types)
 from app.impl_users import (login_user, refresh_token, list_users, get_user)
@@ -971,7 +971,7 @@ def api_filterlinknames(pattern: str) -> Response:
 # Genre related functions
 
 
-@ app.route('/api/genres', methods=['get'])
+@app.route('/api/genres', methods=['get'])
 def genres() -> Response:
     """
     Returns a list of all of the genres in the system in the order
@@ -1336,7 +1336,7 @@ def api_tagtostory(storyid: int, tagid: int) -> Response:
 ###
 # User related functions
 
-@ app.route('/api/users', methods=['get'])
+@app.route('/api/users', methods=['get'])
 def api_listusers() -> Response:
     """
     This function is an API endpoint that returns a list of users. It is
@@ -1351,7 +1351,7 @@ def api_listusers() -> Response:
     return make_api_response(list_users())
 
 
-@ app.route('/api/users/<userid>', methods=['get'])
+@app.route('/api/users/<userid>', methods=['get'])
 def api_getuser(userid: str) -> Response:
     """
     Get a user by their ID.
@@ -1377,7 +1377,7 @@ def api_getuser(userid: str) -> Response:
 ###
 # Tag related functions
 
-@ app.route('/api/tags', methods=['get'])
+@app.route('/api/tags', methods=['get'])
 def api_tags() -> Response:
     """
     Handles the GET request to '/api/tags' endpoint.
@@ -1399,8 +1399,19 @@ def api_tags() -> Response:
     return make_api_response(tag_list())
 
 
-@ app.route('/api/tags', methods=['post'])
-@ jwt_admin_required()  # type: ignore
+@app.route('/api/tagsquick', methods=['get'])
+def api_tagsquick() -> Response:
+    """
+    Get tags for quick search.
+
+    Returns:
+        Response: The response object containing the tags.
+    """
+    return make_api_response(tag_list_quick())
+
+
+@app.route('/api/tags', methods=['post'])
+@jwt_admin_required()  # type: ignore
 def api_tagcreate() -> Response:
     """
     Create a new tag.
@@ -1414,7 +1425,7 @@ def api_tagcreate() -> Response:
     return make_api_response(retval)
 
 
-@ app.route('/api/tags/<tag_id>', methods=['get'])
+@app.route('/api/tags/<tag_id>', methods=['get'])
 def api_tag(tag_id: str) -> Response:
     """
     Retrieves information about a tag with the specified ID.
@@ -1436,8 +1447,8 @@ def api_tag(tag_id: str) -> Response:
     return make_api_response(tag_info(int_id))
 
 
-@ app.route('/api/tags', methods=['put'])
-@ jwt_admin_required()  # type: ignore
+@app.route('/api/tags', methods=['put'])
+@jwt_admin_required()  # type: ignore
 def api_tagupdate() -> Response:
     """
     Rename given tag. Cannot be named to an existing tag. tagMerge is used
