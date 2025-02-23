@@ -96,6 +96,43 @@ def login_user(options: Dict[str, str]) -> Response:
     return resp
 
 
+def register_user(options: Dict[str, str]) -> Response:
+    """
+    Registers a new user with the provided options.
+
+    Args:
+        options (Dict[str, str]): A dictionary containing the user's
+                                    registration options.
+                - 'username' (str): The username of the user.
+                - 'password' (str): The password of the user.
+    Returns:
+        Response: The response containing the token for the registered user.
+    """
+    session = new_session()
+    name = options['username']
+    password = options['password']
+
+    user = session.query(User).filter(User.name == name).first()
+    if user:
+        return make_response(
+            json.dumps({'msg': 'Käyttäjä on jo olemassa'}),
+            HttpResponseCode.UNAUTHORIZED.value)
+
+    user = User(name=name)
+    user.set_password(password)
+    try:
+        session.add(user)
+        session.commit()
+    except SQLAlchemyError as exp:
+        app.logger.error('RegisterUser: ' + str(exp))
+        return make_response(
+            json.dumps({'msg': 'Tietokantavirhe'}),
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    resp = create_token(user, password)
+    return resp
+
+
 def refresh_token(options: Dict[str, str]) -> Response:
     """
     Refreshes the access token and returns a response.

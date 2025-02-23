@@ -42,10 +42,12 @@ from app.impl_shorts import (search_shorts, story_add, story_updated,
                              story_delete, get_short, get_short_types,
                              story_tag_add, story_tag_remove,
                              get_latest_shorts)
-from app.impl_tags import (tag_list, tag_list_quick, tag_search, tag_create, tag_info,
+from app.impl_tags import (tag_list, tag_list_quick, tag_search, tag_create,
+                           tag_info,
                            tag_update, tag_filter, tag_merge, tag_delete,
                            tag_types)
-from app.impl_users import (login_user, refresh_token, list_users, get_user)
+from app.impl_users import (login_user, refresh_token, list_users, get_user,
+                            register_user)
 from app.impl_works import (search_works, get_work, work_add, work_update,
                             work_delete, get_work_shorts, worktype_get_all,
                             work_tag_add, work_tag_remove,
@@ -199,6 +201,17 @@ def api_login() -> Response:
                            HttpResponseCode.UNAUTHORIZED.value)
         return make_api_error(err)
     retval = login_user(options)
+    return retval
+
+
+@app.route('/api/register', methods=['post'])
+def api_register() -> Response:
+    options = login_options(request)
+    if not options:
+        err = ResponseType('Virheellinen rekisteröinti',
+                           HttpResponseCode.UNAUTHORIZED.value)
+        return make_api_error(err)
+    retval = register_user(options)
     return retval
 
 

@@ -1,24 +1,26 @@
 from re import M
 import bleach
 import time
-from flask import render_template, request, flash, redirect, url_for,\
+from flask import render_template, request, flash, redirect, url_for, \
     make_response, jsonify, Response
 from flask_login import current_user, login_user, logout_user
 from sqlalchemy.util.langhelpers import format_argspec_plus
 from app import app
 from app.orm_decl import (ArticleAuthor, Person, Work,
-                          Edition, Pubseries, Bookseries, User, UserBook, ShortStory, UserPubseries,
+                          Edition, Pubseries, Bookseries, User, UserBook,
+                          ShortStory, UserPubseries,
                           Genre, WorkGenre, Tag, Award, Awarded,
-                          Magazine, Issue, PublicationSize, Publisher, Part, ArticleTag,
-                          Language, Country, Article, Contributor, Log, EditionImage)
-from sqlalchemy import func, text, or_
+                          Magazine, Issue, PublicationSize, Publisher, Part,
+                          ArticleTag,
+                          Language, Country, Article, Contributor, Log,
+                          EditionImage)
+from sqlalchemy import func, text
 from sqlalchemy.orm import sessionmaker
 from app.forms import (LoginForm, RegistrationForm,
                        UserForm,
                        SearchForm, SearchBooksForm, SearchStoryForm)
 from .route_helpers import *
 # from app.forms import BookForm
-from flask_sqlalchemy import get_debug_queries
 import json
 import logging
 import pprint
@@ -27,6 +29,7 @@ from typing import Dict, List, Any, Tuple
 import datetime
 import random
 from math import floor
+from app.route_helpers import new_session
 
 
 @app.route('/')
@@ -199,7 +202,7 @@ def shortstoryindex() -> Any:
 # User related routes
 
 
-@ app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -213,13 +216,13 @@ def login():
     return redirect('/index')
 
 
-@ app.route('/logout')
+@app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
 
-@ app.route('/register', methods=['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
