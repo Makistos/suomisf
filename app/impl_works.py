@@ -1196,7 +1196,8 @@ def save_work_shorts(params: Any) -> ResponseType:
                 if (contrib.person_id == contrib2["person_id"] and
                         contrib.role_id == contrib2["role_id"]):
                     found = True
-            if not found:
+            # Save contributor info if it's author or translator
+            if (not found and contrib.role_id == 1 or contrib.role_id == 2):
                 old_contributors[story.id].append({
                     "person_id": contrib.person_id,
                     "role_id": contrib.role_id,

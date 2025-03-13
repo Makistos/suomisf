@@ -314,7 +314,7 @@ def frontpagestats() -> Response:
 
 ###
 # Generic search functions
-@ app.route('/api/search/<pattern>', methods=['get', 'post'])
+@app.route('/api/search/<pattern>', methods=['get', 'post'])
 def api_search(pattern: str) -> Tuple[str, int]:
     """
     Searches for a pattern in the API and returns the results.
@@ -369,7 +369,7 @@ def api_filteralias(personid: str) -> Response:
 ###
 # Article related functions
 
-@ app.route('/api/articles/<articleid>', methods=['get'])
+@app.route('/api/articles/<articleid>', methods=['get'])
 def api_getarticle(articleid: str) -> Response:
     """
     Retrieves an article from the API based on the provided article ID.
@@ -520,7 +520,7 @@ def api_bindings() -> Response:
 ###
 # Bookseries related functions
 
-@ app.route('/api/bookseries', methods=['get'])
+@app.route('/api/bookseries', methods=['get'])
 def api_listbookseries() -> Response:
     """
     This function is a route handler for the '/api/bookseries' endpoint. It
@@ -601,7 +601,7 @@ def api_bookseriesdelete(bookseriesid: str) -> Response:
     return make_api_response(bookseries_delete(bookseriesid))
 
 
-@ app.route('/api/bookseries/<bookseriesid>', methods=['get'])
+@app.route('/api/bookseries/<bookseriesid>', methods=['get'])
 def api_getbookseries(bookseriesid: str) -> Response:
     """
     Get a book series by its ID.
@@ -660,7 +660,7 @@ def api_filterbookseries(pattern: str) -> Response:
 ###
 # Change related functions
 
-@ app.route('/api/changes', methods=['get'])
+@app.route('/api/changes', methods=['get'])
 def api_changes() -> Response:
     """
     Get changes done to the data from the Log table.
@@ -695,7 +695,7 @@ def api_changes() -> Response:
 ###
 # Country related functions
 
-@ app.route('/api/countries', methods=['get'])
+@app.route('/api/countries', methods=['get'])
 def countries() -> Response:
     """
     Returns a list of all of the countries in the system ordered by name.
@@ -1240,7 +1240,7 @@ def api_shortdelete(shortid: int) -> Response:
     return make_api_response(retval)
 
 
-@ app.route('/api/shorts/<shortid>', methods=['get'])
+@app.route('/api/shorts/<shortid>', methods=['get'])
 def api_getshort(shortid: str) -> Response:
     """
     Retrieves a short by its ID.
@@ -1263,7 +1263,7 @@ def api_getshort(shortid: str) -> Response:
     return make_api_response(get_short(int_id))
 
 
-@ app.route('/api/searchshorts', methods=['post'])
+@app.route('/api/searchshorts', methods=['post'])
 def api_searchshorts() -> Response:
     """
     A function that handles the '/api/searchshorts' endpoint for the API.
@@ -1517,8 +1517,8 @@ def api_filtertags(pattern: str) -> Response:
     return make_api_response(retval)
 
 
-@ app.route('/api/tags/<source_id>/merge/<target_id>', methods=['post'])
-@ jwt_admin_required()  # type: ignore
+@app.route('/api/tags/<source_id>/merge/<target_id>', methods=['post'])
+@jwt_admin_required()  # type: ignore
 def api_tagmerge(source_id: int, target_id: int) -> Response:
     """
     Merge items of two tags into one and delete the obsolete tag.
@@ -1549,8 +1549,8 @@ def api_tagmerge(source_id: int, target_id: int) -> Response:
     return make_api_response(retval)
 
 
-@ app.route('/api/tags/<tagid>', methods=['delete'])
-@ jwt_admin_required()  # type: ignore
+@app.route('/api/tags/<tagid>', methods=['delete'])
+@jwt_admin_required()  # type: ignore
 def api_tagdelete(tagid: int) -> Response:
     """
     Delete selected tag. Tag is only deleted if it isn't used anywhere.
@@ -1619,7 +1619,7 @@ def api_tagtypes() -> Response:
 #     return make_api_response(retval)
 
 
-@ app.route('/api/works/<workid>', methods=['get'])
+@app.route('/api/works/<workid>', methods=['get'])
 def api_getwork(workid: str) -> Response:
     """
     @api {get} /api/works/:id Get work
@@ -1944,7 +1944,7 @@ def api_tagtowork(workid: int, tagid: int) -> Response:
     return make_api_response(retval)
 
 
-@ app.route('/api/worksbyinitial/<letter>', methods=['get'])
+@app.route('/api/worksbyinitial/<letter>', methods=['get'])
 def api_searchworksbyinitial(letter: str) -> Response:
     """
     Searches for works by author initial.
@@ -1961,7 +1961,7 @@ def api_searchworksbyinitial(letter: str) -> Response:
     return make_api_response(retval)
 
 
-@ app.route('/api/searchworks', methods=['post'])
+@app.route('/api/searchworks', methods=['post'])
 def api_searchworks() -> Response:
     """
     A function that handles the '/api/searchworks' endpoint.
@@ -2005,7 +2005,7 @@ def api_searchworks() -> Response:
 ###
 # Misc functions
 
-@ app.route('/api/firstlettervector/<target>', methods=['get'])
+@app.route('/api/firstlettervector/<target>', methods=['get'])
 def firstlettervector(target: str) -> Tuple[str, int]:
     """Get first letters for for target type.
 

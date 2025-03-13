@@ -5,12 +5,10 @@ from flask.wrappers import Response
 from flask import make_response, jsonify
 from flask_jwt_extended import (create_access_token, create_refresh_token,
                                 get_jwt_identity)
-from sqlalchemy import func
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.route_helpers import new_session
-from app.orm_decl import (Edition, Genre, Part, User, UserBook, Work,
-                          WorkGenre)
+from app.orm_decl import (User)
 from app.model import (UserSchema)
 from app.impl import ResponseType
 from app.types import (HttpResponseCode)

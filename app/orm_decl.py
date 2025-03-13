@@ -898,9 +898,6 @@ class Person(Base):
         primaryjoin='and_(Person.id == Contributor.person_id,\
                      Contributor.part_id == Part.id,\
                      Part.shortstory_id == ShortStory.id)',
-        # primaryjoin='and_(Person.id == Contributor.person_id,\
-        #              Contributor.part_id == Part.id, Contributor.role_id == 1,\
-        #              Part.shortstory_id == ShortStory.id)',
         uselist=True, viewonly=True)
     # Author.part_id == Part.id, Part.work_id == Work.id,\
     # edits = relationship("Edition", secondary='editor', viewonly=True)
@@ -1251,7 +1248,6 @@ class User(UserMixin, Base):
     is_admin = Column(Boolean, default=False)
     language = Column(Integer, ForeignKey('language.id'))
     books = relationship("Edition", secondary="userbook", viewonly=True)
-    # wishlist = relationship("Edition", secondary="userwishlist", viewonly=True)
 
     def set_password(self, password: str) -> None:
         """
@@ -1326,19 +1322,6 @@ class UserBook(Base):
     condition = relationship("BookCondition",
                              backref=backref("bookcondition_assoc"),
                              viewonly=True)
-
-
-# class UserWishlist(Base):
-#     """ User wishlist. """
-#     __tablename__ = 'userwishlist'
-#     edition_id = Column(Integer, ForeignKey('edition.id'), nullable=False,
-#                         primary_key=True)
-#     user_id = Column(Integer, ForeignKey('user.id'), nullable=False,
-#                      primary_key=True)
-#     added = Column(DateTime, default=datetime.datetime.now(), nullable=True)
-#     book = relationship("Edition", backref=backref(
-#         "edition4_assoc"), viewonly=True)
-#     user = relationship("User", backref=backref("user5_assoc"), viewonly=True)
 
 
 class UserBookseries(Base):
@@ -1586,7 +1569,7 @@ personworks_table = Table('personworks', Base.metadata,
                                  primary_key=True))
 
 
-@ login.user_loader
+@login.user_loader
 def load_user(user_id: Any) -> Any:
     """
     Load a user from the database based on the given ID.
