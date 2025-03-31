@@ -307,6 +307,7 @@ def tag_update(params: Any) -> ResponseType:
     tag_id = params['id']
     name = params['name']
     type_id = params['type']['id']
+    description = params['description']
 
     try:
         tag = session.query(Tag).filter(Tag.id == tag_id).first()
@@ -330,6 +331,7 @@ def tag_update(params: Any) -> ResponseType:
 
     tag.name = name
     tag.type_id = type_id
+    tag.description = description
     session.add(tag)
     session.commit()
 

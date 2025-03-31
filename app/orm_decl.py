@@ -1217,6 +1217,7 @@ class Tag(Base):
     __tablename__ = 'tag'
     id = Column(Integer, primary_key=True)
     name = Column(String(100), nullable=False, index=True)
+    description = Column(Text())
     # type = Column(String(100))
     type_id = Column(Integer, ForeignKey('tagtype.id'))
     type = relationship('TagType', uselist=False, viewonly=True)
