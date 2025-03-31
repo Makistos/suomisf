@@ -266,7 +266,7 @@ def api_personarticles(person_id: str) -> Response:
     return make_api_response(get_person_articles(int_id))
 
 
-@app.route('/api/people/<person_id>/awards', methods=['get'])
+@app.route('/api/people/<person_id>/awarded', methods=['get'])
 def api_personawards(person_id: str) -> Response:
     """
     Retrieves a list of awards for a specific person.

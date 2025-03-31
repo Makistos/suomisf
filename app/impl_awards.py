@@ -8,8 +8,9 @@ from marshmallow import exceptions
 
 from app.route_helpers import new_session
 from app.impl import ResponseType
-from app.model import AwardBriefSchema, AwardSchema, AwardedSchema
-from app.orm_decl import Award, Awarded, Contributor, Part, ShortStory, Work
+from app.model import AwardBriefSchema, AwardCategorySchema, AwardSchema, AwardedSchema
+from app.orm_decl import (Award, AwardCategories, AwardCategory, Awarded,
+                          Contributor, Part, ShortStory, Work)
 from app.types import HttpResponseCode
 
 from app import app
@@ -68,6 +69,39 @@ def get_award(award_id: int) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType(retval, HttpResponseCode.OK)
+
+
+def get_awards_by_filter(filter: str) -> ResponseType:
+    """
+    Get all awards that match a given filter.
+
+    Args:
+        filter (str): The filter to apply to the awards.
+
+    Returns:
+        ResponseType: The list of awards that match the given filter.
+    """
+    session = new_session()
+
+    try:
+        awards = session.query(Award)\
+            .filter(Award.name.ilike(f'%{filter}%'))\
+            .order_by(Award.name)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'Db error: {exp}.')
+        return ResponseType(f'get_awards_by_filter: Tietokantavirhe. {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    try:
+        schema = AwardBriefSchema(many=True)
+        retval = schema.dump(awards)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'Schema error: {exp}.')
+        return ResponseType(f'get_awards_by_filter: Skeemavirhe. {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def get_awards_for_work(work_id: int) -> ResponseType:
@@ -130,6 +164,7 @@ def get_person_awards(person_id: int) -> ResponseType:
             .join(Contributor, Contributor.part_id == Part.id)\
             .filter(Contributor.person_id == person_id)\
             .distinct()\
+            .order_by(Awarded.year)\
             .all()
 
         short_awards = session.query(Awarded)\
@@ -139,6 +174,7 @@ def get_person_awards(person_id: int) -> ResponseType:
             .join(Contributor, Contributor.part_id == Part.id)\
             .filter(Contributor.person_id == person_id)\
             .distinct()\
+            .order_by(Awarded.year)\
             .all()
     except SQLAlchemyError as exp:
         app.logger.error(f'Db error: {exp}.')
@@ -185,6 +221,125 @@ def get_story_awards(story_id: int) -> ResponseType:
     except exceptions.MarshmallowError as exp:
         app.logger.error('Schema error: {exp}.')
         return ResponseType(f'get_story_awards: Skeemavirhe. {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def get_categories_for_award(award_id: int) -> ResponseType:
+    """
+    Get the categories for a specific award.
+
+    Args:
+        award_id (int): The ID of the award.
+
+    Returns:
+        ResponseType: The list of categories for the award.
+    """
+    session = new_session()
+
+    try:
+        categories = session.query(AwardCategory)\
+            .join(AwardCategories)\
+            .filter(AwardCategory.id == AwardCategories.award_id)\
+            .filter(AwardCategories.award_id == award_id)\
+            .first()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'Db error: {exp}.')
+        return ResponseType(
+            f'get_categories_for_award: Tietokantavirhe. {exp}.',
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    try:
+        schema = AwardSchema()
+        retval = schema.dump(categories)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'Schema error: {exp}.')
+        return ResponseType(f'get_categories_for_award: Skeemavirhe. {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def get_categories_for_type(type: str) -> ResponseType:
+    session = new_session()
+
+    if type == 'person':
+        type = 0
+    elif type == 'work':
+        type = 1
+    elif type == 'story':
+        type = 2
+    else:
+        app.logger.error('get_categories_for_type: Unknown award type: '
+                         f'{type}.')
+        return ResponseType('get_categories_for_type: Virheellinen '
+                            f'palkintotyyppi: {type}.',
+                            HttpResponseCode.BAD_REQUEST.value)
+
+    try:
+        categories = session.query(AwardCategory)\
+            .filter(AwardCategory.type == type)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'Db error: {exp}.')
+        return ResponseType(f'get_categories_for_type: Tietokantavirhe. {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    try:
+        schema = AwardCategorySchema(many=True)
+        retval = schema.dump(categories)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'Schema error: {exp}.')
+        return ResponseType(f'get_categories_for_type: Skeemavirhe. {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def get_awards_for_type(award_type: str) -> ResponseType:
+    """
+    Get the awards for a specific type of object.
+
+    Args:
+        award_type (str): The type of object to get the awards for.
+        id (int): The ID of the object.
+
+    Returns:
+        ResponseType: The list of awards for the object.
+    """
+    session = new_session()
+
+    award_type = 0
+
+    if award_type == 'person':
+        award_type = 0
+    elif award_type == 'work':
+        award_type = 1
+    elif award_type == 'story':
+        award_type = 2
+    else:
+        app.logger.error('get_awards_for_type: Unknown award type: '
+                         f'{award_type}.')
+        return ResponseType('get_awards_for_type: Virheellinen '
+                            f'palkintotyyppi: {award_type}.',
+                            HttpResponseCode.BAD_REQUEST.value)
+    try:
+        awards = session.query(Award)\
+            .join(AwardCategories)\
+            .filter(Award.id == AwardCategories.award_id)\
+            .join(AwardCategory)\
+            .filter(AwardCategories.category_id == AwardCategory.id)\
+            .filter(AwardCategory.type == award_type)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'Db error: {exp}.')
+        return ResponseType(f'get_awards_for_type: Tietokantavirhe. {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    try:
+        schema = AwardedSchema(many=True)
+        retval = schema.dump(awards)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'Schema error: {exp}.')
+        return ResponseType(f'get_awards_for_type: Skeemavirhe. {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     return ResponseType(retval, HttpResponseCode.OK.value)
 
@@ -269,6 +424,128 @@ def update_awarded(params: Any) -> ResponseType:
         session.rollback()
         app.logger.error(exp)
         return ResponseType(f'update_awarded: Tietokantavirhe. {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType('OK', HttpResponseCode.OK.value)
+
+
+def save_work_awards(params: any) -> ResponseType:
+    """
+    Save the awards for a work.
+
+    Args:
+        params (any): The parameters for the operation.
+
+    Returns:
+        ResponseType: The response type indicating the status of the operation.
+    """
+    session = new_session()
+    work_id = params['work_id']
+    awards = params['awards']
+    try:
+        old_awards = session.query(Awarded)\
+            .filter(Awarded.work_id == work_id)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(exp)
+        return ResponseType(f'save_work_awards: Tietokantavirhe. {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    # Check if there are any changes
+    changed = False
+    if len(old_awards) != len(awards):
+        changed = True
+    else:
+        for idx, old_award in enumerate(old_awards):
+            if (old_award.year != awards[idx]['year'] or
+                    old_award.category_id != awards[idx]['category_id'] or
+                    old_award.award_id != awards[idx]['award_id'] or
+                    old_award.person_id != awards[idx]['person_id'] or
+                    old_award.work_id != awards[idx]['work_id'] or
+                    old_award.story_id != awards[idx]['story_id']):
+                changed = True
+                break
+    if not changed:
+        # Nothing changed, skip rest
+        return ResponseType('OK', HttpResponseCode.OK.value)
+
+    # Save changes
+    try:
+        for award in old_awards:
+            session.delete(award)
+        for award in awards:
+            new = Awarded()
+            new.year = award['year']
+            new.award_id = award['award_id']
+            new.category_id = award['category_id']
+            new.work_id = award['work_id']
+            session.add(new)
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(exp)
+        return ResponseType(f'save_work_awards: Tietokantavirhe. {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType('OK', HttpResponseCode.OK.value)
+
+
+def save_person_awards(params: any) -> ResponseType:
+    """
+    Save the awards for a person.
+
+    Args:
+        params (any): The parameters for the operation.
+
+    Returns:
+        ResponseType: The response type indicating the status of the operation.
+    """
+    session = new_session()
+    person_id = params['person_id']
+    awards = params['awards']
+    try:
+        old_awards = session.query(Awarded)\
+            .filter(Awarded.person_id == person_id)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(exp)
+        return ResponseType(f'save_person_awards: Tietokantavirhe. {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    # Check if there are any changes
+    changed = False
+    if len(old_awards) != len(awards):
+        changed = True
+    else:
+        for idx, old_award in enumerate(old_awards):
+            if (old_award.year != awards[idx]['year'] or
+                    old_award.category_id != awards[idx]['category_id'] or
+                    old_award.award_id != awards[idx]['award_id'] or
+                    old_award.person_id != awards[idx]['person_id'] or
+                    old_award.work_id != awards[idx]['work_id'] or
+                    old_award.story_id != awards[idx]['story_id']):
+                changed = True
+                break
+    if not changed:
+        # Nothing changed, skip rest
+        return ResponseType('OK', HttpResponseCode.OK.value)
+
+    # Save changes
+    try:
+        for award in old_awards:
+            session.delete(award)
+        for award in awards:
+            new = Awarded()
+            new.year = award['year']
+            new.award_id = award['award_id']
+            new.category_id = award['category_id']
+            new.person_id = award['person_id']
+            session.add(new)
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(exp)
+        return ResponseType(f'save_person_awards: Tietokantavirhe. {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType('OK', HttpResponseCode.OK.value)
