@@ -261,7 +261,7 @@ class WorkBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     authors = ma.List(fields.Nested(PersonBriefSchema))
     genres = ma.List(fields.Nested(GenreBriefSchema))
     bookseries = fields.Nested(BookseriesBriefSchema)
-    tags = ma.List(fields.Nested(TagBriefSchema))
+    tags = ma.List(fields.Nested(TagBriefSchema), only=("id", "name"))
     language = fields.Nested(LanguageSchema)
 
 
@@ -548,7 +548,7 @@ class ShortSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         model = ShortStory
     authors = ma.List(fields.Nested(PersonBriefSchema))
     translators = ma.List(fields.Nested(PersonBriefSchema))
-    tags = ma.List(fields.Nested(TagBriefSchema))
+    tags = ma.List(fields.Nested(TagBriefSchema), only=("id", "name"))
     issues = ma.List(fields.Nested(IssueBriefSchema))
     works = ma.List(fields.Nested(WorkBriefSchema))
     editions = ma.List(fields.Nested(EditionBriefSchema))
@@ -589,9 +589,9 @@ class TagSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Tag
 
-    works = ma.List(fields.Nested(WorkBriefSchema))
+    works = ma.List(fields.Nested(WorkBriefSchema, exclude=("tags",)))
     articles = ma.List(fields.Nested(ArticleBriefSchema))
     stories = ma.List(fields.Nested(ShortBriefSchema))
-    magazines = ma.List(fields.Nested(MagazineBriefSchema))
-    people = ma.List(fields.Nested(PersonBriefSchema))
+    magazines = ma.List(fields.Nested(MagazineBriefSchema, exclude=("tags",)))
+    people = ma.List(fields.Nested(PersonBriefSchema, exclude=("tags",)))
     type = fields.Nested(TagTypeSchema)

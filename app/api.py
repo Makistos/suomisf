@@ -43,7 +43,7 @@ from app.impl_shorts import (search_shorts, story_add, story_updated,
                              story_tag_add, story_tag_remove,
                              get_latest_shorts)
 from app.impl_tags import (tag_list, tag_list_quick, tag_search, tag_create,
-                           tag_info,
+                           tag_info, tag_forminfo,
                            tag_update, tag_filter, tag_merge, tag_delete,
                            tag_types)
 from app.impl_users import (login_user, refresh_token, list_users, get_user,
@@ -1458,6 +1458,28 @@ def api_tag(tag_id: str) -> Response:
         return make_api_response(response)
 
     return make_api_response(tag_info(int_id))
+
+
+@app.route('/api/tags/form/<tag_id>', methods=['get'])
+def api_tagform(tag_id: str) -> Response:
+    """
+    Retrieves the form for a tag with the specified ID.
+
+    Parameters:
+        tag_id (str): The ID of the tag to retrieve the form for.
+
+    Returns:
+        Response: The API response containing the tag form.
+    """
+    try:
+        int_id = int(tag_id)
+    except (TypeError, ValueError):
+        app.logger.error(f'api_tagform: Invalid id {tag_id}.')
+        response = ResponseType('Virheellinen tunniste',
+                                status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+
+    return make_api_response(tag_forminfo(int_id))
 
 
 @app.route('/api/tags', methods=['put'])

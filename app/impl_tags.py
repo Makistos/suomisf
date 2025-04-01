@@ -211,6 +211,40 @@ def tag_info(tag_id: int) -> ResponseType:
     return ResponseType(retval, 200)
 
 
+def tag_forminfo(tag_id: int) -> ResponseType:
+    """
+    Retrieves information about a tag based on its ID for form purposes.
+
+    Args:
+        tag_id (int): The ID of the tag.
+
+    Returns:
+        ResponseType: An object containing the tag information for form
+                       purposes.
+    Raises:
+        SQLAlchemyError: If there is an error in querying the database.
+        exceptions.MarshmallowError: If there is an error in the schema.
+    """
+    session = new_session()
+
+    try:
+        tag = session.query(Tag).filter(Tag.id == tag_id).first()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'Exception in TagFormInfo (id: {tag_id}): ' + str(exp))
+        return ResponseType('TagFormInfo: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    try:
+        schema = TagSchema(only=('id', 'name', 'description', 'type'))
+        retval = schema.dump(tag)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'TagFormInfo schema error (id: {tag_id}): ' + str(exp))
+        return ResponseType('TagFormInfo: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(retval, 200)
+
+
 def tag_search(query: str) -> ResponseType:
     """
     Searches for tags based on a given query string.
