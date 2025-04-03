@@ -4,6 +4,7 @@ from flask import Response
 from app.api_helpers import make_api_response
 from app.impl import ResponseType
 from app.impl_changes import change_delete, get_work_changes
+from app.impl_people import get_person_changes
 from app.types import HttpResponseCode
 from app.api_jwt import jwt_admin_required
 
@@ -30,6 +31,28 @@ def api_workchanges(workid: int) -> Response:
         return make_api_response(response)
 
     return make_api_response(get_work_changes(work_id))
+
+
+@app.route('/api/person/<personid>/changes', methods=['get'])
+def api_personchanges(personid: int) -> Response:
+    """
+    Get changes for a person.
+
+    Args:
+        personid (int): The ID of the person.
+
+    Returns:
+        Response: The API response containing the changes.
+    """
+    try:
+        person_id = int(personid)
+    except (TypeError, ValueError):
+        app.logger.error(f'Invalid id {personid}.')
+        response = ResponseType(f'Virheellinen tunniste: {personid}.',
+                                HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+
+    return make_api_response(get_person_changes(person_id))
 
 
 @app.route('/api/changes/<changeid>', methods=['delete'])

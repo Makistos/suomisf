@@ -147,6 +147,8 @@ def log_changes(session: Any, obj: Any, name_field: str = "name",
     user_id = int(jwt_id)
     if action in ['Päivitys', 'Poisto']:
         for field, value in old_values.items():
+            if isinstance(value, str):
+                value = value[:499]
             log = Log(table_name=tbl_name,
                       field_name=field,
                       table_id=obj.id,

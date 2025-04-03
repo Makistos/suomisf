@@ -9,10 +9,10 @@ from marshmallow import exceptions
 from app.impl_logs import log_changes
 
 from app.route_helpers import new_session
-from app.model import (ArticleSchema, IssueSchema, PersonBriefSchema)
+from app.model import (ArticleSchema, IssueSchema, LogSchema, PersonBriefSchema)
 from app.model_person import (PersonSchema)
 from app.model import (ShortBriefestSchema)
-from app.orm_decl import (Alias, Article, Country, ContributorRole, Issue,
+from app.orm_decl import (Alias, Article, Country, ContributorRole, Issue, Log,
                           Work,
                           Contributor,
                           PersonLink, Awarded, PersonLanguage, PersonTag,
@@ -381,7 +381,7 @@ def get_person(person_id: int) -> ResponseType:
                 person.stories = person.stories + alias.stories
                 # person.appears_in = person.appears_in + alias.appears_in
                 # person.articles = person.articles + alias.articles
-                person.links = person.links + alias.links
+                person.links = person.links
                 # person.magazine_stories = person.magazine_stories + \
                 #    alias.magazine_stories
                 person.roles = person.roles + alias.roles
@@ -1083,5 +1083,41 @@ def person_chiefeditor(person_id: int) -> ResponseType:
         app.logger.error('Schema error: ' + str(exp))
         return ResponseType('Skeemavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def get_person_changes(personid: int) -> ResponseType:
+    """
+    Retrieves the changes made to the work and its editions with the given ID.
+
+    Args:
+        workid: The ID of the work to retrieve changes for.
+
+    Returns:
+        ResponseType: The response object containing the list of changes.
+    """
+    session = new_session()
+
+    try:
+        changes = session.query(Log)\
+            .filter(Log.table_id == personid,
+                    Log.table_name == 'Henkilö')\
+            .order_by(Log.id.desc())\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'Db error: {exp}.')
+        return ResponseType('get_work_changes: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    try:
+        schema = LogSchema(many=True)
+        retval = schema.dump(changes)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'Schema error: {exp}.')
+        return ResponseType(f'Skeemavirhe: {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    session.close()
 
     return ResponseType(retval, HttpResponseCode.OK.value)
