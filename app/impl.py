@@ -466,26 +466,23 @@ def set_language(
     Returns:
         Union[ResponseType, None]: The response type or None.
     """
-    if isinstance(data['language'], str) or 'id' not in data['language']:
+    lang_id: Union[int, None] = None
+
+    if old_values is not None:
+        if item.language_name:
+            old_values['Kieli'] = item.language_name.name
+        else:
+            old_values['Kieli'] = None
+
+    if not data['language'] or data['language'] is None:
+        lang_id = None
+    elif isinstance(data['language'], str) or 'id' not in data['language']:
         # User added a new language. Front returns this as a string
         # in the language field so we need to add this language to
         # the database first.
         lang_id = add_language(data['language'])
-    # if ((data['language'] and data['language']['id'] != item.language)
-    #         or (data['language'] is None and item.language is not None)):
     else:
         lang_id = None
-        if old_values is not None:
-            if item.language_name:
-                old_values['Kieli'] = item.language_name.name
-            else:
-                old_values['Kieli'] = None
-        # if data['language'] and 'id' not in data['language']:
-        #     # User added a new language. Front returns this as a string
-        #     # in the language field so we need to add this language to
-        #     # the database first.
-        #     lang_id = add_language(data['language'])
-        # else:
         lang_id = check_int(data['language']['id']) if data['language'] \
             else None
         if lang_id is not None:
