@@ -1221,14 +1221,16 @@ def save_work_shorts(params: Any) -> ResponseType:
         if contribs:
             for contrib in contribs:
                 if short not in new_contributors:
-                    new_contributors[short] = [
-                        {
-                            "person_id": contrib.person_id,
-                            "role_id": contrib.role_id,
-                            "real_person_id": contrib.real_person_id,
-                            "description": contrib.description
-                        }
-                    ]
+                    new_contributors[short] = []
+
+                new_contributors[short].append([
+                    {
+                        "person_id": contrib.person_id,
+                        "role_id": contrib.role_id,
+                        "real_person_id": contrib.real_person_id,
+                        "description": contrib.description
+                    }
+                ])
 
     # Delete old parts
     old_parts = session.query(Part)\
@@ -1269,10 +1271,10 @@ def save_work_shorts(params: Any) -> ResponseType:
             for contrib in new_contributors[part.shortstory_id]:
                 new_contrib = Contributor(
                     part_id=part.id,
-                    person_id=contrib['person_id'],
-                    role_id=contrib['role_id'],
-                    real_person_id=contrib['real_person_id'],
-                    description=contrib['description']
+                    person_id=contrib[0]['person_id'],
+                    role_id=contrib[0]['role_id'],
+                    real_person_id=contrib[0]['real_person_id'],
+                    description=contrib[0]['description']
                 )
                 session.add(new_contrib)
             # This story has a part
