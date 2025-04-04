@@ -1242,12 +1242,12 @@ def save_work_shorts(params: Any) -> ResponseType:
         for contrib in contribs:
             session.delete(contrib)
 
-    session.commit()
+    session.flush()
 
     for part in old_parts:
         session.delete(part)
 
-    session.commit()
+    session.flush()
 
     for short in new_shorts_list:
         retval = save_short_to_work(session, work_id, short)
@@ -1287,7 +1287,7 @@ def save_work_shorts(params: Any) -> ResponseType:
             f'Tekijätietoja ei saatu tallennettua: {exp}',
             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    session.commit()
+    session.flush()
 
     # Save contributor info for shorts that are not in any work anymore.
     # old_contributors should only contain shorts that are not in the work
@@ -1313,7 +1313,7 @@ def save_work_shorts(params: Any) -> ResponseType:
             f'Tekijätietoja ei saatu tallennettua: {exp}',
             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    session.commit()
+    session.flush()
 
     # Then add contributors to these homeless stories:
     try:
