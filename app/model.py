@@ -262,7 +262,7 @@ class WorkBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     genres = ma.List(fields.Nested(GenreBriefSchema))
     bookseries = fields.Nested(BookseriesBriefSchema)
     tags = ma.List(fields.Nested(TagBriefSchema), only=("id", "name"))
-    language = fields.Nested(LanguageSchema)
+    language_name = fields.Nested(LanguageSchema)
 
 
 class EditionBriefestSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
