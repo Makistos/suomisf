@@ -9,7 +9,8 @@ from marshmallow import exceptions
 from app.impl_logs import log_changes
 
 from app.route_helpers import new_session
-from app.model import (ArticleSchema, IssueSchema, LogSchema, PersonBriefSchema)
+from app.model import (ArticleSchema, IssueSchema, LogSchema,
+                       PersonBriefSchema)
 from app.model_person import (PersonSchema)
 from app.model import (ShortBriefestSchema)
 from app.orm_decl import (Alias, Article, Country, ContributorRole, Issue, Log,
