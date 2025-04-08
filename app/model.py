@@ -578,7 +578,10 @@ class MagazineSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Magazine
         include_fk = True
-    issues = ma.auto_field()  # ma.List(fields.Nested(IssueSchema))
+    # issues = ma.auto_field()  # ma.List(fields.Nested(IssueSchema))
+    issues = ma.List(fields.Nested(IssueBriefSchema),
+                     only=("id", "number", "number_extra", "count", "year",
+                           "cover_number"))
     publisher = fields.Nested(PublisherBriefSchema)
     type = fields.Nested(MagazineTypeSchema)
 

@@ -7,7 +7,7 @@ from app.impl_helpers import str_differ
 from app.impl_logs import log_changes
 from app.impl_tags import tags_have_changed
 from app.route_helpers import new_session
-from app.orm_decl import (Magazine, MagazineTag, MagazineType, Publisher, Tag, WorkTag)
+from app.orm_decl import (Magazine, MagazineTag, MagazineType, Publisher, Tag)
 from app.model import (MagazineSchema, MagazineTypeSchema)
 from app.impl import ResponseType
 from app.model import MagazineBriefSchema

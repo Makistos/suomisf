@@ -178,7 +178,7 @@ def api_addissuearticles() -> Response:
     return make_api_response(issue_articles_save(params))
 
 
-@ app.route('/api/issues/<issueid>/tags', methods=['get'])
+@app.route('/api/issues/<issueid>/tags', methods=['get'])
 def api_getissuetags(issue_id: str) -> Response:
     """
     Get the tags associated with a specific issue.
