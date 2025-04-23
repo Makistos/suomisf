@@ -556,6 +556,7 @@ class ShortSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     type = fields.Nested(StoryTypeSchema)
     contributors = ma.List(fields.Nested(ContributorSchema))
     lang = fields.Nested(LanguageSchema)
+    awards = ma.List(fields.Nested(AwardedSchema))
 
 
 class IssueSchema(ma.SQLAlchemyAutoSchema):  # type: ignore

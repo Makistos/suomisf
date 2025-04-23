@@ -1155,6 +1155,7 @@ class ShortStory(Base):
         'Contributor', secondary='part', uselist=True, viewonly=True)
     lang = relationship(
         'Language', viewonly=True)
+    awards = relationship('Awarded', uselist=True, viewonly=True)
     _author_str: str = ''
 
     @hybrid_property

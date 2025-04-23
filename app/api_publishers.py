@@ -54,7 +54,7 @@ def api_publishercreateupdate() -> Response:
     return retval
 
 
-@ app.route('/api/publishers', methods=['get'])
+@app.route('/api/publishers', methods=['get'])
 def api_listpublishers() -> Response:
     """
     This function is a route handler for the '/api/publishers' endpoint. It
@@ -101,7 +101,7 @@ def api_deletepublisher(publisherid: str) -> Response:
     return make_api_response(publisher_delete(int_id))
 
 
-@ app.route('/api/publishers/<publisherid>', methods=['get'])
+@app.route('/api/publishers/<publisherid>', methods=['get'])
 def api_getpublisher(publisherid: str) -> Response:
     """
     Retrieves a publisher from the API based on the provided publisher ID.

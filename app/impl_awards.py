@@ -8,7 +8,8 @@ from marshmallow import exceptions
 
 from app.route_helpers import new_session
 from app.impl import ResponseType
-from app.model import AwardBriefSchema, AwardCategorySchema, AwardSchema, AwardedSchema
+from app.model import (AwardBriefSchema, AwardCategorySchema, AwardSchema,
+                       AwardedSchema)
 from app.orm_decl import (Award, AwardCategories, AwardCategory, Awarded,
                           Contributor, Part, ShortStory, Work)
 from app.types import HttpResponseCode
@@ -193,7 +194,7 @@ def get_person_awards(person_id: int) -> ResponseType:
     return ResponseType(retval, HttpResponseCode.OK.value)
 
 
-def get_story_awards(story_id: int) -> ResponseType:
+def get_awards_for_short(story_id: int) -> ResponseType:
     """
     Get the awards for a specific story.
 
@@ -281,8 +282,9 @@ def get_categories_for_type(type: str) -> ResponseType:
             .all()
     except SQLAlchemyError as exp:
         app.logger.error(f'Db error: {exp}.')
-        return ResponseType(f'get_categories_for_type: Tietokantavirhe. {exp}.',
-                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+        return ResponseType(
+            f'get_categories_for_type: Tietokantavirhe. {exp}.',
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         schema = AwardCategorySchema(many=True)
@@ -548,4 +550,143 @@ def save_person_awards(params: any) -> ResponseType:
         return ResponseType(f'save_person_awards: Tietokantavirhe. {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
+    return ResponseType('OK', HttpResponseCode.OK.value)
+
+
+def save_awarded(params: any):
+    session = new_session()
+    awards = params["awards"]
+    itemId = params['id']
+    typeId = params['type']
+
+    if typeId == 0:
+        itemType = 'person'
+    elif typeId == 1:
+        itemType = 'work'
+    elif typeId:
+        itemType = 'story'
+    else:
+        app.logger.error('save_awarded: Unknown item type.')
+        return ResponseType('save_awarded: Tuntematon palkintotyyppi.',
+                            HttpResponseCode.BAD_REQUEST.value)
+
+    try:
+        for award in awards:
+            # Check if award field is a string, if it is, create a new award
+            if isinstance(award['award'], str):
+                # Save the award name to the database
+                new_award = Award()
+                new_award.name = award['award']
+                new_award.domestic = False
+
+                session.add(new_award)
+                session.flush()
+                # Select categories for this award
+                categories = session.query(AwardCategory)\
+                    .filter(AwardCategory.type == itemId)\
+                    .all()
+                for category in categories:
+                    new_category = AwardCategories()
+                    new_category.award_id = new_award.id
+                    new_category.category_id = category.id
+                    session.add(new_category)
+                session.flush()
+                award['award'] = {'id': new_award.id, 'name': new_award.name}
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f'save_awarded: Tietokantavirhe. {exp}.')
+        return ResponseType(f'Tietokantavirhe. {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    except KeyError as exp:
+        app.logger.error(f'save_awarded: KeyError. {exp}.')
+        return ResponseType({exp},
+                            HttpResponseCode.BAD_REQUEST.value)
+
+    # Check if award was removed
+    try:
+        # Find awards that are not in the new data and that belong to this
+        # person, work or story
+        ids = [x['id'] for x in awards]
+        # Delete awards that are not in the new data
+        # and that belong to this person, work or story
+        query = session.query(Awarded)
+        if itemType == 'person':
+            query = query.filter(Awarded.person_id == itemId)
+        elif itemType == 'work':
+            query = query.filter(Awarded.work_id == itemId)
+        elif itemType == 'story':
+            query = query.filter(Awarded.story_id == itemId)
+        else:
+            app.logger.error('save_awarded: Unknown item type.')
+            return ResponseType('Tuntematon palkintotyyppi.',
+                                HttpResponseCode.BAD_REQUEST.value)
+        if len(ids) > 0:
+            query = query.filter(Awarded.id.notin_(ids))
+        query = query.delete()
+        session.flush()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f'save_awarded: Tietokantavirhe. {exp}.')
+        return ResponseType(f'Tietokantavirhe. {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    except KeyError as exp:
+        app.logger.error(f'save_awarded: KeyError. {exp}.')
+        return ResponseType({exp},
+                            HttpResponseCode.BAD_REQUEST.value)
+    except AttributeError as exp:
+        app.logger.error(f'save_awarded: AttributeError. {exp}.')
+        return ResponseType(f'AttributeError. {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    try:
+        for award in awards:
+            # Add new awards
+            if award['id'] == 0:
+                new = Awarded()
+                new.year = award['year']
+                new.award_id = award['award']['id']
+                new.category_id = award['category']['id']
+                if itemType == 'person':
+                    new.person_id = award['person']['id']
+                elif itemType == 'work':
+                    new.work_id = award['work']['id']
+                elif itemType == 'story':
+                    new.story_id = award['story']['id']
+                session.add(new)
+            else:
+                # Update existing awards
+                existing = session.query(Awarded)\
+                    .filter(Awarded.id == award['id'])\
+                    .first()
+                if existing is None:
+                    app.logger.error(
+                        f'save_awarded: Award not found: {award["id"]}.')
+                    return ResponseType('Palkintoa ei löydy.',
+                                        HttpResponseCode.BAD_REQUEST.value)
+                existing.year = award['year']
+                existing.award_id = award['award']['id']
+                existing.category_id = award['category']['id']
+                if itemType == 'person':
+                    existing.person_id = award['person']['id']
+                elif itemType == 'work':
+                    existing.work_id = award['work']['id']
+                elif itemType == 'story':
+                    existing.story_id = award['story']['id']
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f'save_awarded: Tietokantavirhe. {exp}.')
+        return ResponseType(f'Tietokantavirhe. {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    except KeyError as exp:
+        app.logger.error(f'save_awarded: KeyError. {exp}.')
+        return ResponseType({exp},
+                            HttpResponseCode.BAD_REQUEST.value)
+
+    try:
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f'save_awarded: Tietokantavirhe. {exp}.')
+        return ResponseType(f'save_awarded: Tietokantavirhe. {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     return ResponseType('OK', HttpResponseCode.OK.value)
