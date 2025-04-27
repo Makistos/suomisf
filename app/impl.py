@@ -150,6 +150,13 @@ def searchscore(table: str, item: Any, word: str) -> IntEnum:
                     return retval + SearchScores.STARTS_WITH
         else:
             return SearchScores.PERSON_OTHER
+    if table == 'story':
+        if word in item.title.lower():
+            retval = SearchScores.STORY_NAME
+            if item.title.lower().startswith(word):
+                return retval + SearchScores.STARTS_WITH
+        else:
+            return SearchScores.STORY_OTHER
     return retval
 
 
