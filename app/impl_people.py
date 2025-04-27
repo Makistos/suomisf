@@ -153,8 +153,6 @@ def filter_people(query: str) -> ResponseType:
         people = session.query(Person)\
             .filter(Person.name.ilike(query + '%'))\
             .order_by(Person.name)\
-            .join(Contributor)\
-            .filter(Person.id.in_(Contributor.person_id))\
             .all()
     except SQLAlchemyError as exp:
         app.logger.error(
