@@ -1241,15 +1241,22 @@ def save_work_shorts(params: Any) -> ResponseType:
             for contrib in contribs:
                 if short not in new_contributors:
                     new_contributors[short] = []
-
-                new_contributors[short].append([
-                    {
-                        "person_id": contrib.person_id,
-                        "role_id": contrib.role_id,
-                        "real_person_id": contrib.real_person_id,
-                        "description": contrib.description
-                    }
-                ])
+                # Check if this contributor already exists for this short
+                duplicate = False
+                for existing_contrib in new_contributors[short]:
+                    if (existing_contrib[0]['person_id'] == contrib.person_id and
+                        existing_contrib[0]['role_id'] == contrib.role_id):
+                        duplicate = True
+                        break
+                if not duplicate:
+                    new_contributors[short].append([
+                        {
+                            "person_id": contrib.person_id,
+                            "role_id": contrib.role_id,
+                            "real_person_id": contrib.real_person_id,
+                            "description": contrib.description
+                        }
+                    ])
 
     # Delete old parts
     old_parts = session.query(Part)\
