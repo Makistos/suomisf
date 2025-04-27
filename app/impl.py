@@ -35,6 +35,7 @@ class SearchResultFields(TypedDict):
     img: str
     header: str
     description: str
+    author: str
     type: str
     score: int
 
@@ -61,6 +62,7 @@ class SearchScores(IntEnum):
     ARTICLE_OTHER = 7
     PUBLISHER_NAME = 16
     PUBLISHER_OTHER = 6
+    STARTS_WITH = 10
     NONE = 0
 
 
@@ -126,18 +128,26 @@ def searchscore(table: str, item: Any, word: str) -> IntEnum:
 
     if table == 'work':
         if word in item.title.lower():
-            return SearchScores.WORK_TITLE
+            retval = SearchScores.WORK_TITLE
+            if item.title.lower().startswith(word):
+                return retval + SearchScores.STARTS_WITH
         return SearchScores.WORK_OTHER
     if table == 'person':
         if item.fullname:
             if word in item.fullname.lower():
-                return SearchScores.PERSON_NAME
+                retval = SearchScores.PERSON_NAME
+                if item.fullname.lower().startswith(word):
+                    return retval + SearchScores.STARTS_WITH
         if item.name:
             if word in item.name.lower():
-                return SearchScores.PERSON_NAME
+                retval = SearchScores.PERSON_NAME
+                if item.name.lower().startswith(word):
+                    return retval + SearchScores.STARTS_WITH
         if item.alt_name.lower():
             if word in item.alt_name:
-                return SearchScores.PERSON_NAME
+                retval = SearchScores.PERSON_NAME
+                if item.alt_name.lower().startswith(word):
+                    return retval + SearchScores.STARTS_WITH
         else:
             return SearchScores.PERSON_OTHER
     return retval

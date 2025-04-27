@@ -342,15 +342,26 @@ def search_works(session: Any, searchwords: List[str]) -> SearchResult:
     found_works: Dict[int, SearchResultFields] = {}
 
     for searchword in searchwords:
-        lower_search = searchword.lower()
-        works = session.query(Work)\
-            .filter(Work.title.ilike('%' + lower_search + '%') |
-                    Work.subtitle.ilike('%' + lower_search + '%') |
-                    Work.orig_title.ilike('%' + lower_search + '%') |
-                    Work.misc.ilike('%' + lower_search + '%') |
-                    Work.description.ilike('%' + lower_search + '%'))\
-            .order_by(Work.title)\
-            .all()
+        lower_search = bleach.clean(searchword).lower()
+        try:
+            works = session.query(Work)\
+                .filter(Work.title.ilike('%' + lower_search + '%') |
+                        Work.subtitle.ilike('%' + lower_search + '%') |
+                        Work.orig_title.ilike('%' + lower_search + '%') |
+                        Work.misc.ilike('%' + lower_search + '%') |
+                        Work.description.ilike('%' + lower_search + '%'))\
+                .join(Part)\
+                .filter(Part.work_id == Work.id)\
+                .join(Edition)\
+                .filter(Edition.id == Part.edition_id)\
+                .filter(Edition.title.ilike('%' + lower_search + '%') |
+                        Edition.subtitle.ilike('%' + lower_search + '%'))\
+                .order_by(Work.title)\
+                .all()
+        except SQLAlchemyError as exp:
+            app.logger.error('Exception in SearchWorks: ' + str(exp))
+            return ResponseType(f'Tietokantavirhe. id={id}',
+                                HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
         for work in works:
             if work.id in found_works:
@@ -358,12 +369,20 @@ def search_works(session: Any, searchwords: List[str]) -> SearchResult:
                     'work', work, lower_search)
             else:
                 description = (work.description if work.description else '')
+                if lower_search in description.lower():
+                    start = description.lower().index(lower_search)
+                    description = (
+                        description[:start] + '<b>' +
+                        description[start:start + len(lower_search)] +
+                        '</b>' + description[start + len(lower_search):]
+                        )
 
                 item: SearchResultFields = {
                     'id': work.id,
                     'img': '',
                     'header': work.title,
                     'description': description,
+                    'author': work.author_str,
                     'type': 'work',
                     'score': searchscore('work', work, lower_search)
                 }

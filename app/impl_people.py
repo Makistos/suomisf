@@ -153,6 +153,8 @@ def filter_people(query: str) -> ResponseType:
         people = session.query(Person)\
             .filter(Person.name.ilike(query + '%'))\
             .order_by(Person.name)\
+            .join(Contributor)\
+            .filter(Person.id.in_(Contributor.person_id))\
             .all()
     except SQLAlchemyError as exp:
         app.logger.error(
@@ -267,7 +269,9 @@ def list_people(params: Dict[str, Any]) -> ResponseType:
     d: Dict[str, Union[int, List[str]]] = {}
     session = new_session()
     try:
-        people = session.query(Person)
+        people = session.query(Person)\
+            .join(Contributor)\
+            .filter(Person.id.in_(Contributor.person_id))
         # Filter
         for field, filters in params.items():
             if isinstance(filters, dict):
@@ -915,7 +919,11 @@ def search_people(session: Any, searchwords: List[str]) -> SearchResult:
                     Person.other_names.ilike('%' + lower_search + '%') |
                     Person.alt_name.ilike('%' + lower_search + '%') |
                     Person.bio.ilike('%' + lower_search + '%')) \
+            .join(Contributor,
+                  or_(Person.id == Contributor.person_id,
+                      Person.id == Contributor.real_person_id))\
             .order_by(Person.name) \
+            .distinct()\
             .all()
 
         for person in people:
@@ -936,6 +944,17 @@ def search_people(session: Any, searchwords: List[str]) -> SearchResult:
                     description += str(person.dod)
                 if person.dob or person.dod:
                     description += ')'
+                if len(description) > 0:
+                    description += '<br />'
+                if person.bio:
+                    description += person.bio
+                if lower_search in description.lower():
+                    start = description.lower().index(lower_search)
+                    description = (
+                        description[:start] + '<b>' +
+                        description[start:start + len(lower_search)] +
+                        '</b>' + description[start + len(lower_search):]
+                        )
                 item: SearchResultFields = {
                     'id': person.id,
                     'img': '',
@@ -945,6 +964,7 @@ def search_people(session: Any, searchwords: List[str]) -> SearchResult:
                     'score': searchscore('person', person, lower_search)
                 }
                 found_people[person.id] = item
+
         retval = [value for _, value in found_people.items()]
 
     return retval

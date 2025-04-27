@@ -38,7 +38,7 @@ from app.impl_logs import get_edition_changes
 from app.impl_people import (search_people, filter_aliases,
                              get_author_first_letters,
                              get_latest_people)
-from app.impl_shorts import (search_shorts, story_add, story_updated,
+from app.impl_shorts import (search_shorts, search_stories, story_add, story_updated,
                              story_delete, get_short, get_short_types,
                              story_tag_add, story_tag_remove,
                              get_latest_shorts)
@@ -336,8 +336,9 @@ def api_search(pattern: str) -> Tuple[str, int]:
     session = new_session()
     results = search_works(session, words)
     results += search_people(session, words)
+    results += search_stories(session, words)
     results = sorted(results, key=lambda d: d['score'], reverse=True)
-    return json.dumps(results), retcode
+    return json.dumps(results[0:50]), retcode
 
 
 ###

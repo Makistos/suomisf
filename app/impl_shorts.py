@@ -1,12 +1,12 @@
 """ Functions related to short stories. """
-from typing import Dict, Any, Union
+from typing import Dict, Any, List, Union
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 import bleach
 
-from app.impl import (ResponseType, check_int, get_join_changes,
-                      add_language)
+from app.impl import (ResponseType, SearchResult, SearchResultFields, check_int, get_join_changes,
+                      add_language, searchscore)
 from app.impl_logs import log_changes
 from app.route_helpers import new_session
 from app.orm_decl import (ShortStory, StoryTag, StoryType, StoryGenre,
@@ -154,6 +154,40 @@ def get_short(short_id: int) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def search_stories(session: Any, searchwords: List[str]) -> ResponseType:
+    retval: SearchResult = []
+    found_stories: Dict[int, SearchResultFields] = {}
+
+    for searchword in searchwords:
+        lower_search = bleach.clean(searchword).lower()
+        try:
+            stories = session.query(ShortStory)\
+                .filter(ShortStory.title.ilike(f'%{searchword}%'))\
+                .all()
+        except SQLAlchemyError as exp:
+            app.logger.error(f'Exception in SearchStories: {exp}')
+            return ResponseType(
+                f'Tietokantavirhe. id={id}: {exp}.',
+                HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+        for story in stories:
+            if story.id in found_stories:
+                found_stories[story]['score'] *= \
+                    searchscore('story', story, lower_search)
+            else:
+                item: SearchResultFields = {
+                    'id': story.id,
+                    'header': story.title,
+                    'author': ', '.join([a.name for a in story.authors]),
+                    'type': 'story',
+                    'score': searchscore('story', story, lower_search)
+                }
+            found_stories[story.id] = item
+        retval = [value for _, value in found_stories.items()]
+
+    return retval
 
 
 def search_shorts(params: Dict[str, str]) -> ResponseType:
