@@ -5,7 +5,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 import bleach
 
-from app.impl import (ResponseType, SearchResult, SearchResultFields, check_int, get_join_changes,
+from app.impl import (ResponseType, SearchResult, SearchResultFields,
+                      check_int, get_join_changes,
                       add_language, searchscore)
 from app.impl_logs import log_changes
 from app.route_helpers import new_session

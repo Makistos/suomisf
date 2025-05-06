@@ -38,7 +38,8 @@ from app.impl_logs import get_edition_changes
 from app.impl_people import (search_people, filter_aliases,
                              get_author_first_letters,
                              get_latest_people)
-from app.impl_shorts import (search_shorts, search_stories, story_add, story_updated,
+from app.impl_shorts import (search_shorts, search_stories, story_add,
+                             story_updated,
                              story_delete, get_short, get_short_types,
                              story_tag_add, story_tag_remove,
                              get_latest_shorts)

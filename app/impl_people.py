@@ -912,14 +912,14 @@ def search_people(session: Any, searchwords: List[str]) -> SearchResult:
         lower_search = searchword.lower()
         people = \
             session.query(Person)\
+            .join(Contributor,
+                  or_(Person.id == Contributor.person_id,
+                      Person.id == Contributor.real_person_id))\
             .filter(Person.name.ilike('%' + lower_search + '%') |
                     Person.fullname.ilike('%' + lower_search + '%') |
                     Person.other_names.ilike('%' + lower_search + '%') |
                     Person.alt_name.ilike('%' + lower_search + '%') |
                     Person.bio.ilike('%' + lower_search + '%')) \
-            .join(Contributor,
-                  or_(Person.id == Contributor.person_id,
-                      Person.id == Contributor.real_person_id))\
             .order_by(Person.name) \
             .distinct()\
             .all()
