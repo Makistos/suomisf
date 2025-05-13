@@ -202,7 +202,8 @@ def update_short_contributors(
     parts = session.query(Part).filter(Part.shortstory_id == short_id).all()
     short_contributors =\
         [x for x in contributors
-         if x['role']['id'] == 1 or x['role']['id'] == 2 or x['role']['id'] == 6]
+         if x['role']['id'] == 1 or x['role']['id'] == 2
+            or x['role']['id'] == 6]
     contributors = _create_new_contributors(session, short_contributors)
     for part in parts:
         _update_part_contributors(session, part.id, short_contributors,

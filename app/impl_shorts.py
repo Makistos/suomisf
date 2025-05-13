@@ -1,6 +1,6 @@
 """ Functions related to short stories. """
 from typing import Dict, Any, List, Union
-from sqlalchemy import text
+from sqlalchemy import or_
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 import bleach
@@ -10,9 +10,10 @@ from app.impl import (ResponseType, SearchResult, SearchResultFields,
                       add_language, searchscore)
 from app.impl_logs import log_changes
 from app.route_helpers import new_session
-from app.orm_decl import (ShortStory, StoryTag, StoryType, StoryGenre,
+from app.orm_decl import (Issue, Magazine, ShortStory, StoryTag, StoryType,
+                          StoryGenre,
                           Language, Part, Edition, Awarded, IssueContent,
-                          Contributor)
+                          Contributor, Person)
 from app.model_shortsearch import ShortSchemaForSearch
 from app.model import ShortSchema, StoryTypeSchema, ShortBriefSchema
 from app.impl_contributors import (update_short_contributors,
@@ -196,71 +197,107 @@ def search_shorts(params: Dict[str, str]) -> ResponseType:
     Searches for short stories based on the given parameters.
 
     Args:
-        params (Dict[str, str]): A dictionary containing the search parameters.
+        params (Dict[str, str]): A dictionary containing the search parameters:
+            - author: Author name or alternate name
+            - title: Story title
+            - orig_name: Original story title
+            - pubyear_first: Earliest publication year
+            - pubyear_last: Latest publication year
 
     Returns:
         ResponseType: The response object containing the search results.
     """
     session = new_session()
 
-    stmt = 'SELECT DISTINCT shortstory.* FROM shortstory '
-    if 'author' in params:
+    # Start with base query
+    query = session.query(ShortStory).distinct()
+
+    # Add author filter if specified
+    if 'author' in params and params['author']:
         author = bleach.clean(params['author'])
-        stmt += 'INNER JOIN part on part.shortstory_id = shortstory.id '
-        stmt += 'INNER JOIN contributor on contributor.part_id = part.id '
-        stmt += 'INNER JOIN person on person.id = contributor.person_id '
-        stmt += 'AND (lower(person.name) like lower("' + author + \
-            '%") OR lower(person.alt_name) like lower("' + author + '%")) '
-    if ('title' in params or 'orig_name' in params
-            or 'pubyear_first' in params or 'pubyear_last' in params):
-        stmt += " WHERE 1=1 "
-        if 'title' in params and params['title'] != '':
-            title = bleach.clean(params['title'])
-            stmt += 'AND lower(shortstory.title) like lower("%' + \
-                title + '%") '
-        if 'orig_name' in params and params['orig_name'] != '':
-            orig_name = bleach.clean(params['orig_name'])
-            stmt += 'AND lower(shortstory.orig_name) like lower("%' + \
-                orig_name + '%") '
-        if 'pubyear_first' in params and params['pubyear_first'] != '':
-            pubyear_first = bleach.clean(params['pubyear_first'])
-            try:
-                # Test that value is actually an integer, we still need to use
-                # the string version in the query.
-                # pylint: disable-next=unused-variable
-                test_value = int(pubyear_first)
-                stmt += 'AND shortstory.pubyear >= ' + pubyear_first + ' '
-            except (TypeError) as exp:
-                app.logger.error(f'Failed to convert pubyear_first: {exp}')
-        if 'pubyear_last' in params and params['pubyear_last'] != '':
-            pubyear_last = bleach.clean(params['pubyear_last'])
-            try:
-                test_value = int(pubyear_last)  # noqa: F841
-                stmt += 'AND shortstory.pubyear <= ' + pubyear_last + ' '
-            except (TypeError) as exp:
-                app.logger.error(f'Failed to convert pubyear_first: {exp}')
+        query = query.join(Part, ShortStory.id == Part.shortstory_id)\
+            .join(Contributor, Part.id == Contributor.part_id)\
+            .join(Person, or_(
+                Person.id == Contributor.person_id,
+                Person.id == Contributor.real_person_id
+            ))\
+            .filter(
+                or_(
+                    Person.name.ilike(f'%{author}%'),
+                    Person.alt_name.ilike(f'%{author}%')
+                )
+            )
 
-    stmt += 'ORDER BY shortstory.title'
+    # Add title filter
+    if 'title' in params and params['title']:
+        title = bleach.clean(params['title'])
+        query = query.filter(ShortStory.title.ilike(f'%{title}%'))
 
-    # print(stmt)
+    # Add original title filter
+    if 'orig_name' in params and params['orig_name']:
+        orig_name = bleach.clean(params['orig_name'])
+        query = query.filter(ShortStory.orig_name.ilike(f'%{orig_name}%'))
+
+    # Add publication year range filters
     try:
-        shorts = session.query(ShortStory)\
-            .from_statement(text(stmt))\
-            .all()
+        if 'pubyear_first' in params and params['pubyear_first']:
+            year_first = int(bleach.clean(params['pubyear_first']))
+            query = query.filter(ShortStory.pubyear >= year_first)
+
+        if 'pubyear_last' in params and params['pubyear_last']:
+            year_last = int(bleach.clean(params['pubyear_last']))
+            query = query.filter(ShortStory.pubyear <= year_last)
+    except ValueError as exp:
+        app.logger.error(f'Invalid year format in search_shorts: {exp}')
+        return ResponseType(
+            'Virheellinen vuosiluku',
+            HttpResponseCode.BAD_REQUEST.value
+        )
+
+    if 'type' in params and params['type']:
+        typ = check_int(params['type'])
+        if typ is None:
+            app.logger.error(
+                f'Invalid type in search_shorts: {params["type"]}')
+            return ResponseType(
+                'Virheellinen tyyppi',
+                HttpResponseCode.BAD_REQUEST.value
+            )
+        query = query.filter(ShortStory.story_type == typ)
+
+    if 'magazine' in params and params['magazine']:
+        magazine = params['magazine']
+        query = query.join(IssueContent, ShortStory.id ==
+                           IssueContent.shortstory_id)\
+            .join(Issue, Issue.id == IssueContent.issue_id)\
+            .join(Magazine, Magazine.id == Issue.magazine_id)\
+            .filter(Magazine.id == magazine)
+
+    if 'awarded' in params and params['awarded'] and params['awarded'] != '0':
+        query = query.join(Awarded, ShortStory.id == Awarded.story_id)
+
+    # Add ordering
+    query = query.order_by(ShortStory.title)
+
+    try:
+        shorts = query.all()
     except SQLAlchemyError as exp:
-        app.logger.error('Exception in SearchShorts: ' + str(exp))
-        return ResponseType(f'SearchShorts: Tietokantavirhe. id={id}',
-                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+        app.logger.error(f'Database error in search_shorts: {exp}')
+        return ResponseType(
+            f'Tietokantavirhe: {exp}',
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value
+        )
 
     try:
         schema = ShortSchemaForSearch(many=True)
-        retval = schema.dump(shorts)
+        result = schema.dump(shorts)
+        return ResponseType(result, HttpResponseCode.OK.value)
     except exceptions.MarshmallowError as exp:
-        app.logger.error('SearchShorts schema error: ' + str(exp))
-        return ResponseType('SearchShorts: Skeemavirhe.',
-                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
-
-    return ResponseType(retval, HttpResponseCode.OK.value)
+        app.logger.error(f'Schema error in search_shorts: {exp}')
+        return ResponseType(
+            f'Skeemavirhe: {exp}',
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value
+        )
 
 
 def story_add(data: Any) -> ResponseType:
