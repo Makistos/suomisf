@@ -268,8 +268,9 @@ def list_people(params: Dict[str, Any]) -> ResponseType:
     session = new_session()
     try:
         people = session.query(Person)\
-            .join(Contributor)\
-            .filter(Person.id.in_(Contributor.person_id))
+            .join(Contributor,
+                  or_(Contributor.person_id == Person.id,
+                      Contributor.real_person_id == Person.id))
         # Filter
         for field, filters in params.items():
             if isinstance(filters, dict):
