@@ -679,7 +679,8 @@ def get_frontpage_data() -> ResponseType:
     retval['works'] = work_count
     edition_count = session.query(Edition.id).count()
     retval['editions'] = edition_count
-    shorts_count = session.query(ShortStory.id).count()
+    shorts_count = session.query(ShortStory.id)\
+        .filter(ShortStory.story_type.in_((1, 2, 3))).count()
     retval['shorts'] = shorts_count
     magazine_count = session.query(Magazine.id).count()
     retval['magazines'] = magazine_count
