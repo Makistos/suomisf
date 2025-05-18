@@ -3,7 +3,7 @@
 from marshmallow import fields
 
 from app import ma
-from app.model import PersonBriefSchema
+from app.model import (LanguageSchema, PersonBriefSchema, WorkTypeBriefSchema)
 from app.orm_decl import (Bookseries, Contributor, ContributorRole, Edition,
                           EditionImage, Genre, Person,
                           Publisher, Pubseries, Tag,
@@ -157,3 +157,5 @@ class BookIndexSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     genres = ma.List(fields.Nested(BookIndexGenreSchema))
     bookseries = fields.Nested(BookIndexBookseriesSchema)
     tags = ma.List(fields.Nested(BookIndexTagSchema))
+    language_name = fields.Nested(LanguageSchema)
+    type = fields.Number()

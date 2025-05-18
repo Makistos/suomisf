@@ -149,6 +149,7 @@ class PersonPageWorkBriefSchema(ma.SQLAlchemySchema):  # type: ignore
     bookseriesnum = fields.String()
     tags = ma.List(fields.Nested(TagBriefSchema))
     language_name = fields.Nested(LanguageSchema)
+    type = fields.Number()
 
 
 class PersonSchema(ma.SQLAlchemyAutoSchema):  # type: ignore

@@ -263,6 +263,7 @@ class WorkBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     bookseries = fields.Nested(BookseriesBriefSchema, exclude=("works",))
     tags = ma.List(fields.Nested(TagBriefSchema), only=("id", "name"))
     language_name = fields.Nested(LanguageSchema)
+    type = fields.Number()
 
 
 class EditionBriefestSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -507,7 +508,7 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     translators = ma.List(fields.Nested(PersonBriefSchema))
     awards = ma.List(fields.Nested(AwardedSchema))
     contributions = ma.List(fields.Nested(ContributorSchema))
-    work_type = fields.Nested(WorkTypeBriefSchema)
+    type = fields.Number()
 
 
 class ArticleSchema(ma.SQLAlchemyAutoSchema):  # type: ignore

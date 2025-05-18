@@ -3,7 +3,7 @@
 from marshmallow import fields
 from app import ma
 from app.model import (ContributorSchema, EditionImageBriefSchema,
-                       GenreBriefSchema, MagazineBriefSchema,
+                       GenreBriefSchema, LanguageSchema, MagazineBriefSchema,
                        PersonBriefSchema,
                        PublisherLinkSchema, PubseriesSchema)
 from app.orm_decl import Edition, Publisher, Work
@@ -16,6 +16,8 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         model = Work
     contributions = ma.List(fields.Nested(ContributorSchema()))
     genres = ma.List(fields.Nested(GenreBriefSchema))
+    language_name = fields.Nested(LanguageSchema)
+    type = fields.Number()
 
 
 class EditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
