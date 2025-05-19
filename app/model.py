@@ -509,6 +509,7 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     awards = ma.List(fields.Nested(AwardedSchema))
     contributions = ma.List(fields.Nested(ContributorSchema))
     type = fields.Number()
+    work_type = fields.Nested(WorkTypeBriefSchema)
 
 
 class ArticleSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
