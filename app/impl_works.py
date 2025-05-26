@@ -3,8 +3,9 @@
 import html
 from typing import Dict, List, Any, Union
 import bleach
-from sqlalchemy import text
+from sqlalchemy import text, or_, and_, func
 from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.orm import aliased
 from marshmallow import exceptions
 from app.impl_helpers import objects_differ, str_differ
 from app.impl_logs import log_changes
@@ -14,7 +15,7 @@ from app.impl import (ResponseType, SearchResult,
                       get_join_changes)
 from app.orm_decl import (Edition, Genre, Part, Tag, Work, WorkType,
                           WorkTag, WorkGenre, WorkLink, Bookseries, ShortStory,
-                          Contributor)
+                          Contributor, Person)
 from app.model import (WorkBriefSchema, WorkTypeBriefSchema,
                        ShortBriefSchema)
 from app.model_bookindex import (BookIndexSchema)
@@ -32,6 +33,7 @@ from app.impl_editions import delete_edition
 from app.impl_bookseries import add_bookseries
 from app.impl_shorts import save_short_to_work
 from app.types import ContributorTarget, HttpResponseCode
+from flask_sqlalchemy.record_queries import get_recorded_queries
 
 from app import app
 
@@ -397,128 +399,173 @@ def search_books(params: Dict[str, str]) -> ResponseType:
     Searches for books based on the given parameters.
 
     Args:
-        params (Dict[str, str]): A dictionary containing the search parameters.
+        params (Dict[str, str]): A dictionary containing the search parameters:
+            - author: Author name or alternate name
+            - title: Book title
+            - orig_name: Original title
+            - printyear_first: Earliest print year
+            - printyear_last: Latest print year
+            - genre: Genre ID
+            - nationality: Author nationality ID
+            - type: Work type ID
 
     Returns:
         ResponseType: An object representing the response of the search.
     """
     session = new_session()
-    joins: List[str] = []
 
-    stmt = 'SELECT DISTINCT work.* FROM work '
-    if 'author' in params and params['author'] != '':
-        author = bleach.clean(params['author'])
-        stmt += 'INNER JOIN part on part.work_id = work.id '
-        stmt += 'AND part.shortstory_id is null '
-        stmt += 'INNER JOIN contributor on contributor.part_id = part.id '
-        stmt += 'AND contributor.role_id = 1 '
-        stmt += 'INNER JOIN person on person.id = contributor.person_id '
-        stmt += 'AND (lower(person.name) like lower("' + author + \
-            '%") OR lower(person.alt_name) like lower("' + author + '%")) '
-        joins.append('part')
-        joins.append('contributor')
-        joins.append('person')
-    if 'printyear_first' in params and params['printyear_first'] != '':
-        if 'printyear_first' in params and params['printyear_first'] != '':
-            printyear_first = bleach.clean(params['printyear_first'])
-            try:
-                # pylint: disable-next=unused-variable
-                test_value = int(printyear_first)
-                if 'part' not in joins:
-                    stmt += 'INNER JOIN part on part.work_id = work.id '
-                    joins.append('part')
-                if 'edition' not in joins:
-                    stmt += 'INNER JOIN edition on edition.id '
-                    stmt += '= part.edition_id '
-                    joins.append('edition')
-                stmt += 'AND edition.pubyear >= ' + printyear_first + ' '
-            except TypeError:
-                app.logger.error('Failed to convert printyear_first')
-    if 'printyear_last' in params and params['printyear_last'] != '':
-        if 'printyear_last' in params and params['printyear_last'] != '':
-            printyear_last = bleach.clean(params['printyear_last'])
-            try:
-                test_value = int(printyear_last)
-                if 'part' not in joins:
-                    stmt += 'INNER JOIN part on part.work_id = work.id '
-                    joins.append('part')
-                if 'edition' not in joins:
-                    stmt += 'INNER JOIN edition on edition.id = '
-                    stmt += 'part.edition_id '
-                    joins.append('edition')
-                stmt += 'AND edition.pubyear <= ' + printyear_last + ' '
-            except (TypeError) as exp:
-                app.logger.error(f'Failed to convert printyear_last: {exp}')
-    if 'genre' in params and params['genre'] != '':
-        stmt += 'INNER JOIN workgenre on workgenre.work_id = work.id '
-        stmt += 'AND workgenre.genre_id = "' + str(params['genre']) + '" '
-    if 'nationality' in params and params['nationality'] != '':
-        if 'part' not in joins:
-            stmt += 'INNER JOIN part on part.work_id = work.id AND '
-            stmt += 'part.shortstory_id is null '
-            joins.append('part')
-        if 'contributor' not in joins:
-            stmt += 'INNER JOIN contributor on contributor.part_id = part.id '
-            stmt += 'AND contributor.role_id = 1 '
-            joins.append('contributor')
-        if 'person' not in joins:
-            stmt += 'INNER JOIN person on person.id = contributor.person_id '
-            joins.append('person')
-        stmt += 'AND person.nationality_id = "' + \
-            str(params['nationality']) + '" '
-    if ('title' in params or 'orig_name' in params
-        or 'pubyear_first' in params or 'pubyear_last' in params
-            or 'genre' in params or 'nationality' in params
-            or 'type' in params):
-        stmt += 'WHERE 1=1 '
-        if 'title' in params and params['title'] != '':
+    try:
+        # Start base query
+        query = session.query(Work).distinct()
+
+        # Add join conditions for filtering by multiple criteria
+        join_filters = []
+
+        # Add author filter
+        if 'author' in params and params['author']:
+            author = bleach.clean(params['author'])
+            query = query\
+                .join(Part, Work.id == Part.work_id)\
+                .join(Contributor, Part.id == Contributor.part_id)\
+                .join(Person,
+                    or_(
+                        Person.id == Contributor.person_id,
+                        Person.id == Contributor.real_person_id
+                    ))\
+                .filter(
+                    and_(
+                        Contributor.role_id == 1,
+                        Part.shortstory_id.is_(None),
+                        or_(
+                            Person.name.ilike(f'{author}%'),
+                            Person.alt_name.ilike(f'{author}%')
+                        )
+                    )
+                )
+
+        # Add print year filters with explicit join conditions for first editions
+        if any(key in params and params[key] for key in ['printyear_first', 'printyear_last']):
+            # Create subquery to get first editions
+            first_editions = session.query(
+                Part.work_id,
+                func.min(Edition.id).label('first_edition_id')
+            ).join(
+                Edition, Part.edition_id == Edition.id
+            ).group_by(Part.work_id).subquery()
+
+            # Join with first editions only
+            query = query.join(
+                first_editions, Work.id == first_editions.c.work_id
+            ).join(
+                Edition, Edition.id == first_editions.c.first_edition_id
+            )
+
+            if 'printyear_first' in params and params['printyear_first']:
+                try:
+                    year = int(bleach.clean(params['printyear_first']))
+                    query = query.filter(Edition.pubyear >= year)
+                except ValueError:
+                    app.logger.error('Failed to convert printyear_first')
+
+            if 'printyear_last' in params and params['printyear_last']:
+                try:
+                    year = int(bleach.clean(params['printyear_last']))
+                    query = query.filter(Edition.pubyear <= year)
+                except ValueError:
+                    app.logger.error('Failed to convert printyear_last')
+
+        # Add genre filter with explicit join
+        if 'genre' in params and params['genre']:
+            query = query.join(WorkGenre, Work.id == WorkGenre.work_id)\
+                .filter(WorkGenre.genre_id == int(params['genre']))
+
+        # Add nationality filter with explicit joins and alias
+        if 'nationality' in params and params['nationality']:
+            # Create alias for Part table to avoid ambiguous joins
+            part_alias = aliased(Part)
+            contrib_alias = aliased(Contributor)
+
+            # Join with aliases and explicit conditions
+            query = query.join(
+                part_alias, Work.id == part_alias.work_id
+            ).join(
+                contrib_alias,
+                and_(
+                    part_alias.id == contrib_alias.part_id,
+                    contrib_alias.role_id == 1,  # Author role
+                    part_alias.shortstory_id.is_(None)
+                )
+            ).join(
+                Person,
+                or_(
+                    Person.id == contrib_alias.person_id,
+                    Person.id == contrib_alias.real_person_id
+                )
+            ).filter(
+                Person.nationality_id == int(params['nationality'])
+            )
+
+        # Add title filters
+        if 'title' in params and params['title']:
             title = bleach.clean(params['title'])
-            stmt += 'AND (lower(work.title) like lower("' + title + '%") \
-                OR lower(work.title) like lower("% ' + title + '%")) '
-        if 'orig_name' in params and params['orig_name'] != '':
+            query = query.filter(
+                or_(
+                    Work.title.ilike(f'{title}%'),
+                    Work.title.ilike(f'% {title}%')
+                )
+            )
+
+        if 'orig_name' in params and params['orig_name']:
             orig_name = bleach.clean(params['orig_name'])
-            stmt += 'AND (lower(work.orig_title) like lower("'
-            stmt += orig_name + '%") \
-                OR lower(work.orig_title) like lower("% ' + orig_name + '%")) '
-        if 'pubyear_first' in params and params['pubyear_first'] != '':
-            pubyear_first = bleach.clean(params['pubyear_first'])
-            try:
-                # Test that value is actually an integer, we still need to use
-                # the string version in the query.
-                test_value = int(pubyear_first)
-                stmt += 'AND work.pubyear >= ' + pubyear_first + ' '
-            except (TypeError) as exp:
-                app.logger.error(f'Failed to convert pubyear_first: {exp}')
-        if 'pubyear_last' in params and params['pubyear_last'] != '':
-            pubyear_last = bleach.clean(params['pubyear_last'])
-            try:
-                test_value = int(pubyear_last)  # noqa: F841
-                stmt += 'AND work.pubyear <= ' + pubyear_last + ' '
-            except (TypeError) as exp:
-                app.logger.error(f'Failed to convert pubyear_first: {exp}')
-        if 'type' in params and params['type'] != '':
-            stmt += 'AND work.type = "' + str(params['type']) + '" '
-    stmt += ' ORDER BY work.author_str, work.title'
+            query = query.filter(
+                or_(
+                    Work.orig_title.ilike(f'{orig_name}%'),
+                    Work.orig_title.ilike(f'% {orig_name}%')
+                )
+            )
 
-    # app.logger.warn(stmt)
-    try:
-        works = session.query(Work)\
-            .from_statement(text(stmt))\
-            .all()
-    except SQLAlchemyError as exp:
-        app.logger.error('Exception in SearchBooks: ' + str(exp))
-        return ResponseType(f'SearchBooks: Tietokantavirhe. id={id}',
-                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+        # Add publication year filters
+        if 'pubyear_first' in params and params['pubyear_first']:
+            try:
+                year = int(bleach.clean(params['pubyear_first']))
+                query = query.filter(Work.pubyear >= year)
+            except ValueError:
+                app.logger.error('Failed to convert pubyear_first')
 
-    try:
+        if 'pubyear_last' in params and params['pubyear_last']:
+            try:
+                year = int(bleach.clean(params['pubyear_last']))
+                query = query.filter(Work.pubyear <= year)
+            except ValueError:
+                app.logger.error('Failed to convert pubyear_last')
+
+        # Add work type filter
+        if 'type' in params and params['type']:
+            query = query.filter(Work.type == int(params['type']))
+
+        # Add ordering
+        query = query.order_by(Work.author_str, Work.title)
+
+        # Execute query
+        works = query.all()
+
+        # Serialize results
         schema = WorkBriefSchema(many=True)
         retval = schema.dump(works)
-    except exceptions.MarshmallowError as exp:
-        app.logger.error('SearchBooks schema error: ' + str(exp))
-        return ResponseType('SearchBooks: Skeemavirhe.',
-                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+        return ResponseType(retval, HttpResponseCode.OK.value)
 
-    return ResponseType(retval, HttpResponseCode.OK.value)
+    except SQLAlchemyError as exp:
+        app.logger.error(f'Exception in search_books: {exp}')
+        return ResponseType(
+            f'Tietokantavirhe: {exp}',
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value
+        )
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'Schema error in search_books: {exp}')
+        return ResponseType(
+            f'Skeemavirhe: {exp}',
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value
+        )
 
 
 def search_works_by_author(params: Dict[str, str]) -> ResponseType:
@@ -547,7 +594,8 @@ def search_works_by_author(params: Dict[str, str]) -> ResponseType:
         app.logger.error(exp)
         return ResponseType('Tietokantavirhe',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
-
+    # queries = get_recorded_queries()
+    # app.logger.debug(queries)
     try:
         # schema = WorkBriefSchema(many=True)
         schema = BookIndexSchema(many=True)

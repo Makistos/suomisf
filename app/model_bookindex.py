@@ -17,11 +17,14 @@ class BookIndexPubseriesSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         model = Pubseries
 
 
-class BookIndexPersonSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+class BookIndexPersonSchema(ma.SQLAlchemySchema):  # type: ignore
     """ Person schema. """
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Person
+    id = fields.Int()
+    name = fields.String()
+    alt_name = fields.String()
 
 
 class BookIndexContributorRoleSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -31,11 +34,13 @@ class BookIndexContributorRoleSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         model = ContributorRole
 
 
-class BookIndexEditionImageSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+class BookIndexEditionImageSchema(ma.SQLAlchemySchema):  # type: ignore
     """ Edition image schema. """
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = EditionImage
+    id = fields.Int()
+    image_src = fields.String()
 
 
 class BookIndexGenreSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -74,10 +79,11 @@ class BookIndexWorkContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Contributor
-    person = fields.Nested(BookIndexPersonSchema(
-        only=('id', 'name', 'alt_name')))
+    person = fields.Nested(BookIndexPersonSchema())
+    # person = fields.Nested(BookIndexPersonSchema(
+    #     only=('id', 'name', 'alt_name')))
     role = fields.Nested(BookIndexContributorRoleSchema)
-    description = fields.String()
+    # description = fields.String()
     # real_person = fields.Nested(
     # lambda: BookIndexPersonSchema(only=('id', 'name')))
 
@@ -134,17 +140,19 @@ class WorkEditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     wishlisted = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
 
 
-class BookIndexSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+class BookIndexSchema(ma.SQLAlchemySchema):  # type: ignore
     """ Main schema for BookIndex page. """
 
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Work
 
-    # id = fields.Number()
-    # title = fields.String()
-    # orig_title = fields.String()
-    # author_str = fields.String()
+    id = fields.Number()
+    title = fields.String()
+    orig_title = fields.String()
+    author_str = fields.String()
+    pubyear = fields.Number()
+
     contributions = ma.List(fields.Nested(BookIndexWorkContributorSchema))
     editions = ma.List(
         fields.Nested(WorkEditionBriefSchema,
@@ -155,7 +163,7 @@ class BookIndexSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
                             'owners', 'wishlisted']))
     # authors = ma.List(fields.Nested(BookIndexPersonSchema))
     genres = ma.List(fields.Nested(BookIndexGenreSchema))
-    bookseries = fields.Nested(BookIndexBookseriesSchema)
-    tags = ma.List(fields.Nested(BookIndexTagSchema))
-    language_name = fields.Nested(LanguageSchema)
+    bookseries = fields.Nested(BookIndexBookseriesSchema, only=['id', 'name'])
+    # tags = ma.List(fields.Nested(BookIndexTagSchema, only=['id', 'name']))
     type = fields.Number()
+    language_name = fields.Nested(LanguageSchema, only=['id'])
