@@ -3,7 +3,7 @@
 from marshmallow import fields
 
 from app import ma
-from app.model import (LanguageSchema, PersonBriefSchema, WorkTypeBriefSchema)
+from app.model import (LanguageSchema, PersonBriefSchema)
 from app.orm_decl import (Bookseries, Contributor, ContributorRole, Edition,
                           EditionImage, Genre, Person,
                           Publisher, Pubseries, Tag,

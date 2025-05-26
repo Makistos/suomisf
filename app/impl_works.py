@@ -3,7 +3,7 @@
 import html
 from typing import Dict, List, Any, Union
 import bleach
-from sqlalchemy import text, or_, and_, func
+from sqlalchemy import or_, and_, func
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import aliased
 from marshmallow import exceptions
@@ -33,7 +33,6 @@ from app.impl_editions import delete_edition
 from app.impl_bookseries import add_bookseries
 from app.impl_shorts import save_short_to_work
 from app.types import ContributorTarget, HttpResponseCode
-from flask_sqlalchemy.record_queries import get_recorded_queries
 
 from app import app
 
@@ -418,9 +417,6 @@ def search_books(params: Dict[str, str]) -> ResponseType:
         # Start base query
         query = session.query(Work).distinct()
 
-        # Add join conditions for filtering by multiple criteria
-        join_filters = []
-
         # Add author filter
         if 'author' in params and params['author']:
             author = bleach.clean(params['author'])
@@ -428,10 +424,10 @@ def search_books(params: Dict[str, str]) -> ResponseType:
                 .join(Part, Work.id == Part.work_id)\
                 .join(Contributor, Part.id == Contributor.part_id)\
                 .join(Person,
-                    or_(
+                      or_(
                         Person.id == Contributor.person_id,
                         Person.id == Contributor.real_person_id
-                    ))\
+                      ))\
                 .filter(
                     and_(
                         Contributor.role_id == 1,
@@ -443,8 +439,10 @@ def search_books(params: Dict[str, str]) -> ResponseType:
                     )
                 )
 
-        # Add print year filters with explicit join conditions for first editions
-        if any(key in params and params[key] for key in ['printyear_first', 'printyear_last']):
+        # Add print year filters with explicit join conditions for first
+        # editions
+        if any(key in params and params[key] for key in
+               ['printyear_first', 'printyear_last']):
             # Create subquery to get first editions
             first_editions = session.query(
                 Part.work_id,
@@ -474,10 +472,26 @@ def search_books(params: Dict[str, str]) -> ResponseType:
                 except ValueError:
                     app.logger.error('Failed to convert printyear_last')
 
-        # Add genre filter with explicit join
+        # Add genre filter with explicit join to handle multiple genres
         if 'genre' in params and params['genre']:
-            query = query.join(WorkGenre, Work.id == WorkGenre.work_id)\
-                .filter(WorkGenre.genre_id == int(params['genre']))
+            try:
+                # Handle genre IDs that come as a list
+                genre_ids = params['genre'] \
+                    if isinstance(params['genre'], list) else [params['genre']]
+                # Clean and convert each ID to int
+                genre_ids = [int(bleach.clean(str(gid)))
+                             for gid in genre_ids if gid]
+
+                if genre_ids:
+                    query = query.join(WorkGenre, Work.id ==
+                                       WorkGenre.work_id)\
+                        .filter(WorkGenre.genre_id.in_(genre_ids))
+            except (ValueError, AttributeError) as exp:
+                app.logger.error(f'Failed to convert genre ids: {exp}')
+                return ResponseType(
+                    'Virheellinen genre-id',
+                    HttpResponseCode.BAD_REQUEST.value
+                )
 
         # Add nationality filter with explicit joins and alias
         if 'nationality' in params and params['nationality']:
@@ -1292,8 +1306,9 @@ def save_work_shorts(params: Any) -> ResponseType:
                 # Check if this contributor already exists for this short
                 duplicate = False
                 for existing_contrib in new_contributors[short]:
-                    if (existing_contrib[0]['person_id'] == contrib.person_id and
-                        existing_contrib[0]['role_id'] == contrib.role_id):
+                    if (existing_contrib[0]['person_id'] == contrib.person_id
+                            and existing_contrib[0]['role_id'] ==
+                            contrib.role_id):
                         duplicate = True
                         break
                 if not duplicate:

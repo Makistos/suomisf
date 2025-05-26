@@ -17,6 +17,7 @@ from sqlalchemy import create_engine
 import jwt
 from app import app, db_url, login, jwt_secret_key
 # from app.route_helpers import new_session
+# from flask_sqlalchemy.record_queries import get_recorded_queries
 
 Base = declarative_base()
 
@@ -24,6 +25,18 @@ Base = declarative_base()
 # load_dotenv(os.path.join(basedir, '.env'))
 
 # db_url = app.config['SQLALCHEMY_DATABASE_URI']
+
+
+# @app.after_request
+# def after_request(response):
+#     for query in get_recorded_queries():
+#         app.logger.debug(
+#             "SQL QUERY: %s\nParameters: %s\nDuration: %fs\nContext: %s\n\n" %
+#             (query.statement,
+#              query.parameters,
+#              query.duration,
+#              query.context))
+#     return response
 
 
 def generate_jwt_token(content: Dict[str, int]) -> List[str]:
@@ -894,10 +907,13 @@ class Person(Base):
     #   uselist=True, viewonly=True)
     stories = relationship(
         "ShortStory",
+        # secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
+        # primaryjoin='and_(Person.id == Contributor.person_id,\
+        #              Contributor.part_id == Part.id,\
+        #              Part.shortstory_id == ShortStory.id)',
         secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
-        primaryjoin='and_(Person.id == Contributor.person_id,\
-                     Contributor.part_id == Part.id,\
-                     Part.shortstory_id == ShortStory.id)',
+        primaryjoin='and_(Person.id == Contributor.person_id)',
+        secondaryjoin='Part.shortstory_id == ShortStory.id',
         uselist=True, viewonly=True)
     # Author.part_id == Part.id, Part.work_id == Work.id,\
     # edits = relationship("Edition", secondary='editor', viewonly=True)
@@ -1373,28 +1389,28 @@ class Work(Base):
     description = Column(Text())
     descr_attr = Column(String(200))
     imported_string = Column(String(500))
-    authors = relationship(
-        "Person",
-        secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
-        primaryjoin='and_(Person.id == Contributor.person_id,\
-                     Contributor.part_id == Part.id, Contributor.role_id == 1,\
-                     Part.work_id == Work.id,\
-                     Part.shortstory_id == None)',
-        uselist=True,
-        viewonly=True,
-        foreign_keys=[Contributor.part_id,
-                      Contributor.person_id,
-                      Contributor.role_id])
-    translators = relationship(
-        "Person",
-        secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
-        primaryjoin='and_(Person.id == Contributor.person_id,\
-                     Contributor.role_id == 2,\
-                     Contributor.part_id == Part.id, Part.work_id == Work.id)',
-        uselist=True, viewonly=True,
-        foreign_keys=[Contributor.person_id,
-                      Contributor.part_id,
-                      Contributor.role_id])
+    # authors = relationship(
+    #     "Person",
+    #     secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
+    #     primaryjoin='and_(Person.id == Contributor.person_id,\
+    #                  Contributor.part_id == Part.id, Contributor.role_id == 1,\
+    #                  Part.work_id == Work.id,\
+    #                  Part.shortstory_id == None)',
+    #     uselist=True,
+    #     viewonly=True,
+    #     foreign_keys=[Contributor.part_id,
+    #                   Contributor.person_id,
+    #                   Contributor.role_id])
+    # translators = relationship(
+    #     "Person",
+    #     secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
+    #     primaryjoin='and_(Person.id == Contributor.person_id,\
+    #                  Contributor.role_id == 2,\
+    #                  Contributor.part_id == Part.id, Part.work_id == Work.id)',
+    #     uselist=True, viewonly=True,
+    #     foreign_keys=[Contributor.person_id,
+    #                   Contributor.part_id,
+    #                   Contributor.role_id])
     parts = relationship('Part', backref=backref(
         'part', uselist=True), viewonly=True)
     bookseries = relationship("Bookseries", backref=backref('bookseries'),
@@ -1405,7 +1421,6 @@ class Work(Base):
                      Part.edition_id == Edition.id, \
                      Part.shortstory_id == None)',
         secondary='part', uselist=True,
-        lazy='dynamic',
         order_by='Edition.pubyear, Edition.version, Edition.editionnum',
         viewonly=True)
     contributions = relationship(
@@ -1588,7 +1603,7 @@ def load_user(user_id: Any) -> Any:
     return session.query(User).get(int(user_id))
 
 
-engine = create_engine(db_url, poolclass=NullPool)
+engine = create_engine(db_url, poolclass=NullPool, echo=False)
 # engine = create_engine(db_url, poolclass=NullPool, echo=True)
 
 Base.metadata.create_all(engine)
