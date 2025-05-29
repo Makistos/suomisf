@@ -1389,18 +1389,18 @@ class Work(Base):
     description = Column(Text())
     descr_attr = Column(String(200))
     imported_string = Column(String(500))
-    # authors = relationship(
-    #     "Person",
-    #     secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
-    #     primaryjoin='and_(Person.id == Contributor.person_id,\
-    #                  Contributor.part_id == Part.id, Contributor.role_id == 1,\
-    #                  Part.work_id == Work.id,\
-    #                  Part.shortstory_id == None)',
-    #     uselist=True,
-    #     viewonly=True,
-    #     foreign_keys=[Contributor.part_id,
-    #                   Contributor.person_id,
-    #                   Contributor.role_id])
+    authors = relationship(
+        "Person",
+        secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
+        primaryjoin='and_(Person.id == Contributor.person_id,\
+                     Contributor.part_id == Part.id, Contributor.role_id == 1,\
+                     Part.work_id == Work.id,\
+                     Part.shortstory_id == None)',
+        uselist=True,
+        viewonly=True,
+        foreign_keys=[Contributor.part_id,
+                      Contributor.person_id,
+                      Contributor.role_id])
     # translators = relationship(
     #     "Person",
     #     secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
