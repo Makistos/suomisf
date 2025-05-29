@@ -3,6 +3,7 @@ import logging
 import os
 from logging.handlers import RotatingFileHandler
 
+from dotenv import load_dotenv
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
@@ -15,6 +16,8 @@ from flask_jwt_extended import JWTManager
 # from flask_wtf.csrf import CSRFProtect
 
 app = Flask(__name__)
+basedir = os.path.abspath(os.path.dirname(__file__))
+load_dotenv('.env', override=True)
 config_name = os.getenv('FLASK_ENV', 'development')
 if 'ENV' not in app.config:
     app.config['ENV'] = config_name
