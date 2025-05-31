@@ -32,7 +32,7 @@ elif app.config['ENV'] == 'staging':
 else:
     app.config.from_object("config.DevConfig")
 # print(f'Db: {app.config["SQLALCHEMY_DATABASE_URI"]}')
-print(f'ENV is set to {app.config["ENV"]}.')
+# print(f'ENV is set to {app.config["ENV"]}.')
 # print(f"Config is {app.config}")
 db_url = app.config['SQLALCHEMY_DATABASE_URI']
 jwt_secret_key = app.config['JWT_SECRET_KEY']
