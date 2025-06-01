@@ -1,8 +1,10 @@
 """ API related functions for changes."""
-from flask import Response
+from typing import Any, Dict
+from flask import Response, request
 
+from app.api_errors import APIError
 from app.api_helpers import make_api_response
-from app.impl import ResponseType
+from app.impl import ResponseType, get_changes
 from app.impl_changes import change_delete, get_work_changes
 from app.impl_people import get_person_changes
 from app.types import HttpResponseCode
@@ -76,5 +78,37 @@ def api_change_delete(changeid: str) -> Response:
         return make_api_response(response)
 
     retval = change_delete(change_id)
+
+    return make_api_response(retval)
+
+
+@app.route('/api/changes', methods=['get'])
+def api_changes() -> Response:
+    """
+    Get changes done to the data from the Log table.
+
+    Parameters:
+        None
+
+    Returns:
+        A tuple containing the response string and the HTTP status code.
+    """
+    url_params = request.args.to_dict()
+
+    params: Dict[str, Any] = {}
+    for (param, value) in url_params.items():
+        # param, value = p.split('=')
+        if value in ('null', 'undefined'):
+            value = None
+        params[param] = value
+
+    try:
+        retval = get_changes(params)
+    except APIError as exp:
+        app.logger.error(f'Exception in api_changes: {exp}')
+        response = ResponseType(
+            'api_changes: poikkeus.',
+            status=HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+        return make_api_response(response)
 
     return make_api_response(retval)
