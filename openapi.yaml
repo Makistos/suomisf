@@ -1,0 +1,789 @@
+openapi: 3.0.3
+info:
+  title: SuomiSF API
+  description: API for the Finnish Science Fiction Bibliography (SuomiSF)
+  version: "0.1.0"
+  contact:
+    name: SuomiSF
+    url: http://www.sf-bibliografia.fi
+servers:
+  - url: http://www.sf-bibliografia.fi/api
+    description: Production server
+paths:
+  /login:
+    post:
+      tags:
+        - Authentication
+      summary: User login
+      description: Authenticate user and receive JWT tokens
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              required:
+                - username
+                - password
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  refresh_token:
+                    type: string
+                  user:
+                    type: string
+                  role:
+                    type: string
+                  id:
+                    type: integer
+        '401':
+          description: Invalid credentials
+  /register:
+    post:
+      tags:
+        - Authentication
+      summary: User registration
+      description: Register a new user account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              required:
+                - username
+                - password
+      responses:
+        '200':
+          description: Registration successful
+        '400':
+          description: Registration failed
+  /refresh:
+    post:
+      tags:
+        - Authentication
+      summary: Refresh access token
+      description: Refresh JWT access token using refresh token
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Token refreshed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  refresh_token:
+                    type: string
+                  user:
+                    type: string
+                  role:
+                    type: string
+                  id:
+                    type: integer
+        '401':
+          description: Invalid refresh token
+  /frontpagedata:
+    get:
+      tags:
+        - General
+      summary: Get front page data
+      description: Retrieve statistics and data for the front page
+      responses:
+        '200':
+          description: Front page data retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  works:
+                    type: integer
+                  editions:
+                    type: integer
+                  magazines:
+                    type: integer
+                  shorts:
+                    type: integer
+                  covers:
+                    type: integer
+                  latest:
+                    type: array
+                    items:
+                      type: object
+  /works:
+    get:
+      tags:
+        - Works
+      summary: List works
+      description: Get a list of works with optional filtering
+      responses:
+        '200':
+          description: Works retrieved successfully
+    post:
+      tags:
+        - Works
+      summary: Create work
+      description: Create a new work
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Work'
+      responses:
+        '200':
+          description: Work created successfully
+        '401':
+          description: Unauthorized
+    put:
+      tags:
+        - Works
+      summary: Update work
+      description: Update an existing work
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Work'
+      responses:
+        '200':
+          description: Work updated successfully
+        '401':
+          description: Unauthorized
+  /works/{workId}:
+    get:
+      tags:
+        - Works
+      summary: Get work by ID
+      description: Retrieve detailed information about a specific work
+      parameters:
+        - name: workId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Work retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Work'
+        '404':
+          description: Work not found
+    delete:
+      tags:
+        - Works
+      summary: Delete work
+      description: Delete a work by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: workId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Work deleted successfully
+        '401':
+          description: Unauthorized
+        '404':
+          description: Work not found
+  /works/{workId}/awards:
+    get:
+      tags:
+        - Works
+      summary: Get work awards
+      description: Get awards associated with a work
+      parameters:
+        - name: workId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Awards retrieved successfully
+  /people:
+    get:
+      tags:
+        - People
+      summary: List people
+      description: Get a list of people with optional filtering
+      responses:
+        '200':
+          description: People retrieved successfully
+    post:
+      tags:
+        - People
+      summary: Create person
+      description: Create a new person
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Person'
+      responses:
+        '200':
+          description: Person created successfully
+        '401':
+          description: Unauthorized
+    put:
+      tags:
+        - People
+      summary: Update person
+      description: Update an existing person
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Person'
+      responses:
+        '200':
+          description: Person updated successfully
+        '401':
+          description: Unauthorized
+  /people/{personId}:
+    get:
+      tags:
+        - People
+      summary: Get person by ID
+      description: Retrieve detailed information about a specific person
+      parameters:
+        - name: personId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Person retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+        '404':
+          description: Person not found
+    delete:
+      tags:
+        - People
+      summary: Delete person
+      description: Delete a person by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: personId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Person deleted successfully
+        '401':
+          description: Unauthorized
+        '404':
+          description: Person not found
+  /editions:
+    post:
+      tags:
+        - Editions
+      summary: Create edition
+      description: Create a new edition
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Edition'
+      responses:
+        '200':
+          description: Edition created successfully
+        '401':
+          description: Unauthorized
+    put:
+      tags:
+        - Editions
+      summary: Update edition
+      description: Update an existing edition
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Edition'
+      responses:
+        '200':
+          description: Edition updated successfully
+        '401':
+          description: Unauthorized
+  /editions/{editionId}:
+    get:
+      tags:
+        - Editions
+      summary: Get edition by ID
+      description: Retrieve detailed information about a specific edition
+      parameters:
+        - name: editionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Edition retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Edition'
+        '404':
+          description: Edition not found
+    delete:
+      tags:
+        - Editions
+      summary: Delete edition
+      description: Delete an edition by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: editionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Edition deleted successfully
+        '401':
+          description: Unauthorized
+        '404':
+          description: Edition not found
+  /shorts:
+    get:
+      tags:
+        - Short Stories
+      summary: List short stories
+      description: Get a list of short stories with optional filtering
+      responses:
+        '200':
+          description: Short stories retrieved successfully
+    post:
+      tags:
+        - Short Stories
+      summary: Create short story
+      description: Create a new short story
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShortStory'
+      responses:
+        '200':
+          description: Short story created successfully
+        '401':
+          description: Unauthorized
+    put:
+      tags:
+        - Short Stories
+      summary: Update short story
+      description: Update an existing short story
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShortStory'
+      responses:
+        '200':
+          description: Short story updated successfully
+        '401':
+          description: Unauthorized
+  /shorts/{shortId}:
+    get:
+      tags:
+        - Short Stories
+      summary: Get short story by ID
+      description: Retrieve detailed information about a specific short story
+      parameters:
+        - name: shortId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Short story retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShortStory'
+        '404':
+          description: Short story not found
+    delete:
+      tags:
+        - Short Stories
+      summary: Delete short story
+      description: Delete a short story by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: shortId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Short story deleted successfully
+        '401':
+          description: Unauthorized
+        '404':
+          description: Short story not found
+  /tags:
+    get:
+      tags:
+        - Tags
+      summary: List tags
+      description: Get a list of all tags
+      responses:
+        '200':
+          description: Tags retrieved successfully
+    post:
+      tags:
+        - Tags
+      summary: Create tag
+      description: Create a new tag
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tag'
+      responses:
+        '200':
+          description: Tag created successfully
+        '401':
+          description: Unauthorized
+    put:
+      tags:
+        - Tags
+      summary: Update tag
+      description: Update an existing tag
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tag'
+      responses:
+        '200':
+          description: Tag updated successfully
+        '401':
+          description: Unauthorized
+  /tags/{tagId}:
+    get:
+      tags:
+        - Tags
+      summary: Get tag by ID
+      description: Retrieve detailed information about a specific tag
+      parameters:
+        - name: tagId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tag retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        '404':
+          description: Tag not found
+    delete:
+      tags:
+        - Tags
+      summary: Delete tag
+      description: Delete a tag by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: tagId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tag deleted successfully
+        '401':
+          description: Unauthorized
+        '404':
+          description: Tag not found
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Work:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        orig_title:
+          type: string
+        pubyear:
+          type: integer
+        work_type:
+          type: object
+        author_str:
+          type: string
+        misc:
+          type: string
+        bookseriesorder:
+          type: integer
+        bookseriesnum:
+          type: string
+        subtitle:
+          type: string
+        language_name:
+          type: string
+        imported_string:
+          type: string
+        descr_attr:
+          type: string
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/Genre'
+        contributions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contribution'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+        awards:
+          type: array
+          items:
+            $ref: '#/components/schemas/Award'
+        editions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Edition'
+        bookseries:
+          $ref: '#/components/schemas/Bookseries'
+    Person:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        alt_name:
+          type: string
+        other_names:
+          type: string
+        fullname:
+          type: string
+        biography:
+          type: string
+        nationality_id:
+          type: integer
+        dob:
+          type: string
+          format: date
+        dod:
+          type: string
+          format: date
+        image_src:
+          type: string
+        imported_string:
+          type: string
+    Edition:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        subtitle:
+          type: string
+        pubyear:
+          type: integer
+        editionnum:
+          type: integer
+        isbn:
+          type: string
+        pages:
+          type: integer
+        size:
+          type: string
+        misc:
+          type: string
+        dustcover:
+          type: integer
+        coverimage:
+          type: integer
+        version:
+          type: string
+        format:
+          $ref: '#/components/schemas/Format'
+        images:
+          type: array
+          items:
+            type: object
+        contributions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contribution'
+    ShortStory:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        orig_title:
+          type: string
+        pubyear:
+          type: integer
+        language:
+          type: string
+        author_str:
+          type: string
+        story_type:
+          type: object
+    Tag:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        tag_type:
+          type: string
+    Genre:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        abbr:
+          type: string
+    Contribution:
+      type: object
+      properties:
+        person:
+          $ref: '#/components/schemas/Person'
+        role:
+          $ref: '#/components/schemas/Role'
+        description:
+          type: string
+        real_person:
+          $ref: '#/components/schemas/Person'
+    Role:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    Award:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        year:
+          type: integer
+    Link:
+      type: object
+      properties:
+        id:
+          type: integer
+        url:
+          type: string
+        description:
+          type: string
+    Format:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    Bookseries:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        orig_name:
+          type: string
+        important:
+          type: boolean
