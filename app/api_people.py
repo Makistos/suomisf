@@ -9,7 +9,8 @@ from app.api_errors import APIError
 from app.api_helpers import make_api_response
 
 from app.impl import ResponseType
-from app.impl_people import (filter_people, get_person_articles, list_people,
+from app.impl_people import (filter_people, get_latest_people,
+                             get_person_articles, list_people,
                              person_add,
                              person_chiefeditor,
                              person_update, get_person, person_delete,
@@ -180,7 +181,7 @@ def api_getpeople() -> Response:
     return make_api_response(retval)
 
 
-@ app.route('/api/people/<person_id>', methods=['get'], strict_slashes=False)
+@app.route('/api/people/<person_id>', methods=['get'], strict_slashes=False)
 def api_getperson(person_id: str) -> Response:
     """
     Retrieves a person's information based on the provided person ID.
@@ -393,3 +394,28 @@ def api_filterpeople(pattern: str) -> Response:
         return make_api_response(response)
     retval = filter_people(pattern)
     return make_api_response(retval)
+
+
+@app.route('/api/latest/people/<count>', methods=['get'])
+def api_latestpeople(count: int) -> Response:
+    """
+    Get the latest people.
+
+    Args:
+        count (int): The number of people to return.
+
+    Returns:
+        Response: The response object containing the list of latest people.
+
+    Raises:
+        ValueError: If the count is not an integer.
+    """
+    try:
+        count = int(count)
+    except (ValueError, TypeError):
+        app.logger.error(f'api_latestpeople: Invalid count {count}.')
+        response = ResponseType(
+            f'api_latestpeople: Virheellinen maara {count}.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+    return make_api_response(get_latest_people(count))

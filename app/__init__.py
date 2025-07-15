@@ -11,9 +11,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
-# from flask import Blueprint
-
-# from flask_wtf.csrf import CSRFProtect
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -32,7 +29,7 @@ elif app.config['ENV'] == 'staging':
 else:
     app.config.from_object("config.DevConfig")
 # print(f'Db: {app.config["SQLALCHEMY_DATABASE_URI"]}')
-print(f'ENV is set to {app.config["ENV"]}.')
+# print(f'ENV is set to {app.config["ENV"]}.')
 # print(f"Config is {app.config}")
 db_url = app.config['SQLALCHEMY_DATABASE_URI']
 jwt_secret_key = app.config['JWT_SECRET_KEY']
@@ -53,12 +50,15 @@ app.jinja_env.trim_blocks = True
 # csrf = CSRFProtect(app)
 WTF_CSRF_CHECK_DEFAULT = False
 
-from app import (routes, routes_article, routes_books,
-                 routes_editions, routes_issue, routes_magazine, routes_person,
-                 routes_publisher, routes_series, routes_stories,
-                 routes_works, api, api_issues, api_magazines, api_people,
-                 api_publishers, api_pubseries, api_changes, api_users,
-                 api_awards)
+from app import (api, api_articles, api_awards,  # noqa
+                 api_bookseries,
+                 api_changes, api_countries, api_issues, api_magazines,
+                 api_editions,
+                 api_people, api_publishers, api_pubseries,
+                 api_roles,
+                 api_shorts, api_tags,
+                 api_users,
+                 api_wishlist, api_works)
 
 # This has to be here, not at the top of application or it won't start!
 # toolbar = DebugToolbarExtension(app)
@@ -68,7 +68,8 @@ from app import (routes, routes_article, routes_books,
 
 if not app.debug and not app.testing:
     if app.config['LOG_TO_STDOUT']:
-        FORMAT = "%(levelname)5s in %(module)s:%(funcName)s():%(lineno)s -> %(message)s"
+        FORMAT = "%(levelname)5s in %(module)s:%(funcName)s():%(lineno)s -> " \
+                 "%(message)s"
         stream_handler = logging.StreamHandler()
         stream_handler.setLevel(logging.INFO)
         # app.logger.addHandler(stream_handler)
@@ -81,12 +82,14 @@ if not app.debug and not app.testing:
             '%(asctime)s %(levelname)s: %(message)s '
             '[in %(pathname)s:%(lineno)d]'))
         file_handler.setLevel(logging.DEBUG)
-    FORMAT = "[%(asctime)]%(levelname)5s in %(module)s:%(funcName)s():%(lineno)s -> %(message)s"
+    FORMAT = "[%(asctime)]%(levelname)5s in %(module)s:%(funcName)s():" \
+             "%(lineno)s -> %(message)s"
     logging.basicConfig()
 
     # app.logger.addHandler(file_handler)
 else:
-    FORMAT = "%(levelname)5s in %(module)s:%(funcName)s():%(lineno)s -> %(message)s"
+    FORMAT = "%(levelname)5s in %(module)s:%(funcName)s():%(lineno)s -> " \
+             "%(message)s"
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
     logging.basicConfig(format=FORMAT)

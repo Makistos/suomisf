@@ -1,15 +1,46 @@
 import json
 from flask import Response, request
 from app.api_helpers import make_api_response
-from app.impl_awards import (get_awards_by_filter, get_awards_for_short,
+from app.impl_awards import (get_award, get_awards_by_filter,
+                             get_awards_for_short,
                              get_awards_for_type,
                              get_awards_for_work, get_categories_for_award,
                              get_categories_for_type,
-                             get_person_awards, save_awarded,
+                             get_person_awards, list_awards, save_awarded,
                              save_person_awards, save_work_awards)
 from app.api_jwt import jwt_admin_required
 
 from app import app
+
+
+@app.route('/api/awards', methods=['get'])
+def api_listawards() -> Response:
+    """
+    This function is a route handler for the '/api/awards' endpoint. It
+    accepts GET requests and returns a Response object.
+
+    Parameters:
+        None
+
+    Returns:
+        Response: The response object containing the list of awards.
+    """
+    return make_api_response(list_awards())
+
+
+@app.route('/api/awards/<award_id>', methods=['get'])
+def api_getaward(award_id: int) -> Response:
+    """
+    This function is a route handler for the '/api/awards/<award_id>' endpoint.
+    It accepts GET requests and returns a Response object.
+
+    Parameters:
+        award_id (int): The ID of the award to retrieve.
+
+    Returns:
+        Response: The response object containing the award data.
+    """
+    return make_api_response(get_award(award_id))
 
 
 @app.route('/api/works/<int:work_id>/awarded', methods=['GET'])

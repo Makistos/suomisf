@@ -1,0 +1,1160 @@
+{
+  "total_routes": 122,
+  "files_processed": 22,
+  "categories": {
+    "login": 1,
+    "register": 1,
+    "refresh": 1,
+    "frontpagedata": 1,
+    "search": 1,
+    "filter": 9,
+    "bindings": 1,
+    "genres": 1,
+    "latest": 5,
+    "firstlettervector": 1,
+    "articles": 3,
+    "awards": 8,
+    "works": 7,
+    "people": 7,
+    "shorts": 4,
+    "awarded": 1,
+    "bookseries": 4,
+    "work": 2,
+    "person": 2,
+    "changes": 2,
+    "countries": 1,
+    "editions": 17,
+    "issues": 11,
+    "issue": 1,
+    "magazines": 2,
+    "magazinetypes": 1,
+    "publishers": 4,
+    "pubseries": 3,
+    "roles": 2,
+    "searchshorts": 1,
+    "shorttypes": 1,
+    "story": 1,
+    "tags": 8,
+    "tagsquick": 1,
+    "users": 3,
+    "worktypes": 1,
+    "worksbyinitial": 1,
+    "searchworks": 1
+  },
+  "routes": [
+    {
+      "path": "/api/login",
+      "methods": [
+        "POST"
+      ],
+      "function": "api_login",
+      "docstring": "\"\"\"\n    @api {post} /api/login Login\n    @apiName Login\n    @apiGroup User\n    @apiPermission none\n    @apiDescription Log in the user. The user must be registered in the system.\n    @apiBody {String} username Username\n    @apiBody {String} password Password\n    @apiSuccess {String} access_token Access token\n    @apiSuccess {String} refresh_token Refresh token\n    @apiSuccess {String} user Username\n    @apiSuccess {String} role User role\n    @apiSuccess {String} id User id\n    @apiSuccessExample {json} Success-Response:\n        HTTP/1.1 200 OK\n        {\n        \"access_token\": <access_token>,\n        \"refresh_token\": <refresh_token>,\n        \"user\": \"exampleuser\",\n        \"role\": \"user\",\n        \"id\": 1\n        }\n    @apiError (Error 401) {String} message Error message\n    @apiErrorExample {json} Error-Response:\n        HTTP/1.1 401 Unauthorized\n        {\n        \"code\": 401,\n        \"message\": \"Kirjautuminen ei onnistunut\"\n        }\n\n    \"\"\"",
+      "file": "api.py"
+    },
+    {
+      "path": "/api/register",
+      "methods": [
+        "POST"
+      ],
+      "function": "api_register",
+      "docstring": "\"\"\"\n    @api {post} /api/refresh Refresh token\n    @apiName Refresh Token\n    @apiGroup User\n    @apiPermission user\n    @apiDescription Refresh the access token.\n    @apiHeader {String} Authorization Bearer token\n    @apiSuccess {String} access_token Access token\n    @apiSuccess {String} refresh_token Refresh token\n    @apiSuccess {String} user Username\n    @apiSuccess {String} role User role\n    @apiSuccess {String} id User id\n    @apiSuccessExample {json} Success-Response:\n        HTTP/1.1 200 OK\n        {\n        \"access_token\": <access_token>,\n        \"refresh_token\": <refresh_token>,\n        \"user\": \"exampleuser\",\n        \"role\": \"user\",\n        \"id\": 1\n        }\n    @apiError (Error 401) {String} message Error message\n    @apiErrorExample {json} Error-Response:\n        HTTP/1.1 401 Unauthorized\n        {\n        \"code\": 401,\n        \"message\": \"Kirjautuminen ei onnistunut\"\n        }\n    \"\"\"",
+      "file": "api.py"
+    },
+    {
+      "path": "/api/refresh",
+      "methods": [
+        "POST"
+      ],
+      "function": "api_refresh",
+      "docstring": "\"\"\"\n    @api {post} /api/refresh Refresh token\n    @apiName Refresh Token\n    @apiGroup User\n    @apiPermission user\n    @apiDescription Refresh the access token.\n    @apiHeader {String} Authorization Bearer token\n    @apiSuccess {String} access_token Access token\n    @apiSuccess {String} refresh_token Refresh token\n    @apiSuccess {String} user Username\n    @apiSuccess {String} role User role\n    @apiSuccess {String} id User id\n    @apiSuccessExample {json} Success-Response:\n        HTTP/1.1 200 OK\n        {\n        \"access_token\": <access_token>,\n        \"refresh_token\": <refresh_token>,\n        \"user\": \"exampleuser\",\n        \"role\": \"user\",\n        \"id\": 1\n        }\n    @apiError (Error 401) {String} message Error message\n    @apiErrorExample {json} Error-Response:\n        HTTP/1.1 401 Unauthorized\n        {\n        \"code\": 401,\n        \"message\": \"Kirjautuminen ei onnistunut\"\n        }\n    \"\"\"",
+      "file": "api.py"
+    },
+    {
+      "path": "/api/frontpagedata",
+      "methods": [
+        "GET"
+      ],
+      "function": "frontpagestats",
+      "docstring": "\"\"\"\n    @api {get} /api/frontpagedata Front page data\n    @apiName Front page data\n    @apiGroup Front page\n    @apiPermission none\n    @apiDescription Get data for the front page. This includes various\n    statistics and the latest additions to the database.\n    @apiSuccess {Number} works Number of works in the database\n    @apiSuccess {Number} editions Number of editions in the database\n    @apiSuccess {Number} magazines Number of magazines in the database\n    @apiSuccess {Number} shorts Number of short stories in the database\n    @apiSuccess {Number} covers Number of covers in the database\n    @apiSuccess {Edition[]} latest Latest additions to the database (4)\n    @apiSuccessExample {json} Success-Response:\n        HTTP/1.1 200 OK\n        {\n        \"response\": [\n            {\n            \"works\": 1000,\n            \"editions\": 2000,\n            \"magazines\": 3000,\n            \"shorts\": 4000,\n            \"magazines\": 50,\n            \"covers\": 1500,\n            \"latest\": [\n                {\n                    }\n                ]\n            }\n        ]\n        }\n    @apiError (Error 400) {String} message Error message\n    @apiErrorExample {json} Error-Response:\n        HTTP/1.1 400 Bad request\n        {\n        \"code\": 400,\n        \"message\": \"GetFrontpageData: Tietokantavirhe.\"\n        }\n    \"\"\"",
+      "file": "api.py"
+    },
+    {
+      "path": "/api/search/<pattern>",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "function": "api_search",
+      "docstring": "\"\"\"\n    Searches for a pattern in the API and returns the results.\n\n    Args:\n        pattern (str): The pattern to search for.\n\n    Returns:\n        Tuple[str, int]: A tuple containing the search results as a JSON string\n                         and the HTTP status code.\n    \"\"\"",
+      "file": "api.py"
+    },
+    {
+      "path": "/api/filter/alias/<id>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_filteralias",
+      "docstring": "\"\"\"\n    This function is a Flask route that handles GET requests to the\n    '/api/filter/alias/<id>' endpoint. It takes a string parameter 'personid'\n    which represents the id of the person. The function tries to convert the\n    'personid' to an integer. If the conversion fails, it logs an error message\n    and returns a Response object with a 400 status code and an error message.\n    If the conversion is successful, the function calls the 'filter_aliases'\n    function with the converted 'personid' and returns the result as a Response\n    object. The function returns the Response object.\n    \"\"\"",
+      "file": "api.py"
+    },
+    {
+      "path": "/api/bindings",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_bindings",
+      "docstring": "\"\"\"\n    This function is a route handler for the '/api/bindings' endpoint. It\n    accepts GET requests and returns a Response object.\n\n    Parameters:\n        None\n\n    Returns:\n        Response: The response object containing the result of the API call.\n    \"\"\"",
+      "file": "api.py"
+    },
+    {
+      "path": "/api/filter/linknames/<pattern>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_filterlinknames",
+      "docstring": "\"\"\"\n    This function is a Flask route that handles GET requests to the\n    '/api/filter/linknames/<pattern>' endpoint. It takes a single parameter\n    'pattern' of type string. The function cleans the 'pattern' using the\n    'bleach' library and then calls the 'filter_link_names' function\n    with the cleaned 'pattern' as an argument. The return type of this function\n    is 'Response'.\n    \"\"\"",
+      "file": "api.py"
+    },
+    {
+      "path": "/api/genres",
+      "methods": [
+        "GET"
+      ],
+      "function": "genres",
+      "docstring": "\"\"\"\n    Returns a list of all of the genres in the system in the order\n    they are in the database (i.e. by id).\n    \"\"\"",
+      "file": "api.py"
+    },
+    {
+      "path": "/api/filter/languages/<pattern>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_filterlanguages",
+      "docstring": "\"\"\"\n    Filter languages based on a given pattern.\n\n    Args:\n        pattern (str): The pattern to filter languages.\n\n    Returns:\n        Response: The response object containing the filtered languages.\n\n    Raises:\n        None\n    \"\"\"",
+      "file": "api.py"
+    },
+    {
+      "path": "/api/latest/covers/<count>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_latestcovers",
+      "docstring": "\"\"\"\n    Get the latest covers.\n\n    Args:\n        count (int): The number of covers to return.\n\n    Returns:\n        Response: The response object containing the list of latest covers.\n\n    Raises:\n        ValueError: If the count is not an integer.\n    \"\"\"",
+      "file": "api.py"
+    },
+    {
+      "path": "/api/firstlettervector/<target>",
+      "methods": [
+        "GET"
+      ],
+      "function": "firstlettervector",
+      "docstring": "\"\"\"Get first letters for for target type.\n\n    This function is used internally by the UI to create\n    links to various pages, e.g. a list for choosing books\n    based on the first letter of the author.\n\n    Parameters\n    ----------\n    target: str\n        Either \"works\" or \"stories\".\n\n    Returns\n    -------\n    List[str, int]\n        str is the return value in JSON. int is http return code.\n        Str contains a dictionary where each item's key is a letter and\n        value is the count of items (e.g. works).\n\n    \"\"\"",
+      "file": "api.py"
+    },
+    {
+      "path": "/api/articles/<articleid>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_getarticle",
+      "docstring": "\"\"\"\n    Retrieves an article from the API based on the provided article ID.\n\n    Parameters:\n        articleId (str): The ID of the article to retrieve.\n\n    Returns:\n        Response: The response object containing the article data.\n\n    Raises:\n        ValueError: If the provided article ID is invalid.\n\n    Example:\n        api_getarticle('123')\n    \"\"\"",
+      "file": "api_articles.py"
+    },
+    {
+      "path": "/api/articles/<articleid>/tags",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_getarticletags",
+      "docstring": "\"\"\"\n    Get the tags associated with a specific article.\n\n    Parameters:\n        articleId (int): The ID of the article.\n\n    Returns:\n        Response: The response object containing the tags associated with the\n                  article.\n    \"\"\"",
+      "file": "api_articles.py"
+    },
+    {
+      "path": "/api/articles/<articleid>/tags/<tagid>",
+      "methods": [
+        "PUT",
+        "DELETE"
+      ],
+      "function": "api_tagtoarticle",
+      "docstring": "\"\"\"\n    API endpoint for adding or removing a tag from an article.\n\n    Args:\n        id (int): The ID of the article.\n        tagid (int): The ID of the tag.\n\n    Returns:\n        Response: The API response containing the result of the operation.\n    \"\"\"",
+      "file": "api_articles.py"
+    },
+    {
+      "path": "/api/awards",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_listawards",
+      "docstring": "\"\"\"\n    This function is a route handler for the '/api/awards' endpoint. It\n    accepts GET requests and returns a Response object.\n\n    Parameters:\n        None\n\n    Returns:\n        Response: The response object containing the list of awards.\n    \"\"\"",
+      "file": "api_awards.py"
+    },
+    {
+      "path": "/api/awards/<award_id>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_getaward",
+      "docstring": "\"\"\"\n    This function is a route handler for the '/api/awards/<award_id>' endpoint.\n    It accepts GET requests and returns a Response object.\n\n    Parameters:\n        award_id (int): The ID of the award to retrieve.\n\n    Returns:\n        Response: The response object containing the award data.\n    \"\"\"",
+      "file": "api_awards.py"
+    },
+    {
+      "path": "/api/works/<int:work_id>/awarded",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_get_work_awards",
+      "docstring": "\"\"\"\n    Get all awards for a given work.\n\n    Args:\n        work_id (int): The ID of the work to get the awards for.\n\n    Returns:\n        Response: The response object containing the awards for the given work.\n    \"\"\"",
+      "file": "api_awards.py"
+    },
+    {
+      "path": "/api/people/<int:person_id>/awarded",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_get_awards_for_person",
+      "docstring": "\"\"\"\n    Get all awards for a given person.\n\n    Args:\n        person_id (int): The ID of the person to get the awards for.\n\n    Returns:\n        Response: The response object containing the awards for the given\n        person.\n    \"\"\"",
+      "file": "api_awards.py"
+    },
+    {
+      "path": "/api/shorts/<int:short_id>/awarded",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_get_awards_for_short",
+      "docstring": "\"\"\"\n    Get all awards for a given short.\n\n    Args:\n        short_id (int): The ID of the short to get the awards for.\n\n    Returns:\n        Response: The response object containing the awards for the given\n        short.\n    \"\"\"",
+      "file": "api_awards.py"
+    },
+    {
+      "path": "/api/awards/works/awards",
+      "methods": [
+        "PUT"
+      ],
+      "function": "api_add_awards_to_work",
+      "docstring": "\"\"\"\n    Add awards to a work.\n\n    Args:\n        work_id (int): The ID of the work to add the awards to.\n\n    Returns:\n        Response: The response object containing the status of the request.\n    \"\"\"",
+      "file": "api_awards.py"
+    },
+    {
+      "path": "/api/awards/people/awards",
+      "methods": [
+        "PUT"
+      ],
+      "function": "api_add_awards_to_person",
+      "docstring": "\"\"\"\n    Add awards to a person.\n\n    Args:\n        person_id (int): The ID of the person to add the awards to.\n\n    Returns:\n        Response: The response object containing the status of the request.\n    \"\"\"",
+      "file": "api_awards.py"
+    },
+    {
+      "path": "/api/awards/type/<string:award_type>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_get_awards_by_type",
+      "docstring": "\"\"\"\n    Get all awards of a given type.\n\n    Args:\n        award_type (str): The type of award to get.\n\n    Returns:\n        Response: The response object containing the awards of the given type.\n    \"\"\"",
+      "file": "api_awards.py"
+    },
+    {
+      "path": "/api/awards/categories/<string:award_type>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_get_all_award_categories",
+      "docstring": "\"\"\"\n    Get all award categories.\n\n    Returns:\n        Response: The response object containing all award categories.\n    \"\"\"",
+      "file": "api_awards.py"
+    },
+    {
+      "path": "/api/awards/categories/<award_id>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_get_award_categories",
+      "docstring": "\"\"\"\n    Get all categories for a given award.\n\n    Args:\n        award_id (int): The ID of the award to get the categories for.\n\n    Returns:\n        Response: The response object containing the categories for the given\n        award.\n    \"\"\"",
+      "file": "api_awards.py"
+    },
+    {
+      "path": "/api/awards/filter/<string:filter>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_get_awards_by_filter",
+      "docstring": "\"\"\"\n    Get all awards that match a given filter.\n\n    Args:\n        filter (str): The filter to apply to the awards.\n\n    Returns:\n        Response: The response object containing the awards that match the\n        given filter.\n    \"\"\"",
+      "file": "api_awards.py"
+    },
+    {
+      "path": "/api/awarded",
+      "methods": [
+        "POST"
+      ],
+      "function": "api_awarded",
+      "docstring": "\"\"\"\n    Get all awards that match a given filter.\n\n    Args:\n        filter (str): The filter to apply to the awards.\n\n    Returns:\n        Response: The response object containing the awards that match the\n        given filter.\n    \"\"\"",
+      "file": "api_awards.py"
+    },
+    {
+      "path": "/api/bookseries",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_listbookseries",
+      "docstring": "\"\"\"\n    This function is a route handler for the '/api/bookseries' endpoint. It\n    accepts GET requests and returns a Response object.\n\n    Parameters:\n        None\n\n    Returns:\n        Response: The response object containing the list of book series.\n    \"\"\"",
+      "file": "api_bookseries.py"
+    },
+    {
+      "path": "/api/bookseries",
+      "methods": [
+        "POST",
+        "PUT"
+      ],
+      "function": "api_bookseriescreateupdate",
+      "docstring": "\"\"\"\n    Create or update a book series.\n\n    This function is responsible for handling the '/api/bookseries' endpoint\n    with both 'POST' and 'PUT' methods. It expects a JSON payload containing\n    the book series data.\n\n    Parameters:\n        None\n\n    Returns:\n        Response: The API response containing the result of the operation.\n\n    Raises:\n        None\n    \"\"\"",
+      "file": "api_bookseries.py"
+    },
+    {
+      "path": "/api/bookseries/<bookseriesid>",
+      "methods": [
+        "DELETE"
+      ],
+      "function": "api_bookseriesdelete",
+      "docstring": "\"\"\"\n    Delete a book series by its ID.\n\n    Args:\n        bookseriesId (str): The ID of the book series to be deleted.\n\n    Returns:\n        Response: The API response indicating the success or failure of the\n                  deletion.\n    \"\"\"",
+      "file": "api_bookseries.py"
+    },
+    {
+      "path": "/api/bookseries/<bookseriesid>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_getbookseries",
+      "docstring": "\"\"\"\n    Get a book series by its ID.\n\n    Args:\n        bookseriesId (str): The ID of the book series.\n\n    Returns:\n        Response: The response object containing the book series data.\n\n    Raises:\n        TypeError: If the book series ID is not a valid integer.\n        ValueError: If the book series ID is not a valid integer.\n\n    Example:\n        >>> api_GetBookseries('123')\n        <Response [200]>\n    \"\"\"",
+      "file": "api_bookseries.py"
+    },
+    {
+      "path": "/api/filter/bookseries/<pattern>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_filterbookseries",
+      "docstring": "\"\"\"\n    Filters book series based on a given pattern.\n\n    Args:\n        pattern (str): The pattern to filter the book series.\n\n    Returns:\n        Response: The response object containing the filtered book series.\n\n    Raises:\n        None\n    \"\"\"",
+      "file": "api_bookseries.py"
+    },
+    {
+      "path": "/api/work/<workid>/changes",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_workchanges",
+      "docstring": "\"\"\"\n    Get changes for a work.\n\n    Args:\n        workid (int): The ID of the work.\n\n    Returns:\n        Response: The API response containing the changes.\n    \"\"\"",
+      "file": "api_changes.py"
+    },
+    {
+      "path": "/api/person/<personid>/changes",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_personchanges",
+      "docstring": "\"\"\"\n    Get changes for a person.\n\n    Args:\n        personid (int): The ID of the person.\n\n    Returns:\n        Response: The API response containing the changes.\n    \"\"\"",
+      "file": "api_changes.py"
+    },
+    {
+      "path": "/api/changes/<changeid>",
+      "methods": [
+        "DELETE"
+      ],
+      "function": "api_change_delete",
+      "docstring": "\"\"\"\n    Delete a change.\n\n    Args:\n        changeid (int): The ID of the change to be deleted.\n\n    Returns:\n        Response: The API response containing the result of the deletion.\n    \"\"\"",
+      "file": "api_changes.py"
+    },
+    {
+      "path": "/api/changes",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_changes",
+      "docstring": "\"\"\"\n    Get changes done to the data from the Log table.\n\n    Parameters:\n        None\n\n    Returns:\n        A tuple containing the response string and the HTTP status code.\n    \"\"\"",
+      "file": "api_changes.py"
+    },
+    {
+      "path": "/api/countries",
+      "methods": [
+        "GET"
+      ],
+      "function": "countries",
+      "docstring": "\"\"\"\n    Returns a list of all of the countries in the system ordered by name.\n    \"\"\"",
+      "file": "api_countries.py"
+    },
+    {
+      "path": "/api/filter/countries/<pattern>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_filtercountries",
+      "docstring": "\"\"\"\n    Filter countries based on a given pattern.\n\n    Args:\n        pattern (str): The pattern to filter the countries.\n\n    Returns:\n        Response: The response object containing the filtered countries.\n\n    Raises:\n        None\n    \"\"\"",
+      "file": "api_countries.py"
+    },
+    {
+      "path": "/api/editions/<editionid>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_getedition",
+      "docstring": "\"\"\"\n    Get an edition by its ID.\n\n    Args:\n        editionId (str): The ID of the edition.\n\n    Returns:\n        Response: The response object containing the edition data.\n\n    Raises:\n        TypeError: If the edition ID is not a valid integer.\n        ValueError: If the edition ID is not a valid integer.\n\n    Example:\n        >>> api_GetEdition('123')\n        <Response [200]>\n    \"\"\"",
+      "file": "api_editions.py"
+    },
+    {
+      "path": "/api/editions",
+      "methods": [
+        "POST",
+        "PUT"
+      ],
+      "function": "api_editioncreateupdate",
+      "docstring": "\"\"\"\n    Create or update an edition using the provided API endpoint.\n\n    Parameters:\n        None\n\n    Returns:\n        Response: The response object containing the result of the API request.\n    \"\"\"",
+      "file": "api_editions.py"
+    },
+    {
+      "path": "/api/editions/<editionid>",
+      "methods": [
+        "DELETE"
+      ],
+      "function": "api_editiondelete",
+      "docstring": "\"\"\"\n    Delete an edition.\n\n    Parameters:\n        editionId (str): The ID of the edition to be deleted.\n\n    Returns:\n        Response: The API response.\n    \"\"\"",
+      "file": "api_editions.py"
+    },
+    {
+      "path": "/api/editions/<editionid>/images",
+      "methods": [
+        "POST"
+      ],
+      "function": "api_uploadeditionimage",
+      "docstring": "\"\"\"\n    Uploads an image for a specific edition.\n\n    Args:\n        id (str): The ID of the edition.\n\n    Returns:\n        Response: The response object containing the result of the image\n                  upload.\n    \"\"\"",
+      "file": "api_editions.py"
+    },
+    {
+      "path": "/api/editions/<edition_id>/changes",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_editionchanges",
+      "docstring": "\"\"\"\n    Get changes for an edition.\n\n    Args:\n        edition_id (int): The ID of the edition.\n\n    Returns:\n        Response: The API response containing the changes.\n    \"\"\"",
+      "file": "api_editions.py"
+    },
+    {
+      "path": "/api/editions/<editionid>/images/<imageid>",
+      "methods": [
+        "DELETE"
+      ],
+      "function": "api_deleteeditionimage",
+      "docstring": "\"\"\"\n    Delete an edition image.\n\n    Args:\n        id (str): The ID of the edition.\n        imageid (str): The ID of the image.\n\n    Returns:\n        Response: The response object containing the result of the deletion.\n    \"\"\"",
+      "file": "api_editions.py"
+    },
+    {
+      "path": "/api/editions/<editionid>/owners",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_editionowners",
+      "docstring": "\"\"\"\n    Get the owners of an edition.\n\n    Args:\n        editionid (str): The ID of the edition.\n\n    Returns:\n        Response: The API response containing the owners of the edition.\n    \"\"\"",
+      "file": "api_editions.py"
+    },
+    {
+      "path": "/api/editions/<editionid>/owner/<personid>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_editionownerperson",
+      "docstring": "\"\"\"\n    Get the owner info of an edition.\n\n    Args:\n        editionid (str): The ID of the edition.\n        personid (str): The ID of the person.\n\n    Returns:\n        Response: The API response containing the owner information.\n    \"\"\"",
+      "file": "api_editions.py"
+    },
+    {
+      "path": "/api/editions/owned/<userid>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_editionsowned",
+      "docstring": "\"\"\"\n    Get the owner info of an edition.\n\n    Args:\n        userid (str): The ID of the person.\n\n    Returns:\n        Response: The API response containing the owner information.\n    \"\"\"",
+      "file": "api_editions.py"
+    },
+    {
+      "path": "/api/editions/<editionid>/owner/<personid>",
+      "methods": [
+        "DELETE"
+      ],
+      "function": "api_deleteowner",
+      "docstring": "\"\"\"\n    Delete the owner of an edition.\n\n    Parameters:\n        editionid (str): The ID of the edition.\n        personid (str): The ID of the person.\n\n    Returns:\n        Response: The response object containing the result of the operation.\n    \"\"\"",
+      "file": "api_editions.py"
+    },
+    {
+      "path": "/api/editions/owner",
+      "methods": [
+        "POST",
+        "PUT"
+      ],
+      "function": "api_addeditionowner",
+      "docstring": "\"\"\"\n    Add or update the owner of an edition.\n\n    Parameters:\n        editionid (str): The ID of the edition.\n        params (dict): A dictionary containing the owner information.\n\n    Returns:\n        Response: The response object containing the result of the operation.\n    \"\"\"",
+      "file": "api_editions.py"
+    },
+    {
+      "path": "/api/editions/<editionid>/shorts",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_editionshorts",
+      "docstring": "\"\"\"\n    Get the shorts for a specific edition.\n\n    Args:\n        editionid (str): The ID of the edition.\n\n    Returns:\n        Response: The API response containing the shorts for the edition.\n    \"\"\"",
+      "file": "api_editions.py"
+    },
+    {
+      "path": "/api/latest/editions/<count>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_latesteditions",
+      "docstring": "\"\"\"\n    Get the latest editions.\n\n    Args:\n        count (int): The number of editions to return.\n\n    Returns:\n        Response: The response object containing the list of latest editions.\n\n    Raises:\n        ValueError: If the count is not an integer.\n    \"\"\"",
+      "file": "api_editions.py"
+    },
+    {
+      "path": "/api/issues/<issueid>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_getissueformagazine",
+      "docstring": "\"\"\"\n    Get the issue for a magazine.\n\n    Args:\n        issueId (str): The ID of the issue.\n\n    Returns:\n        Response: The response object containing the issue data.\n    \"\"\"",
+      "file": "api_issues.py"
+    },
+    {
+      "path": "/api/issues",
+      "methods": [
+        "POST",
+        "PUT"
+      ],
+      "function": "api_createupdateissue",
+      "docstring": "\"\"\"\n    Create or update an issue in the API.\n\n    This function is responsible for handling the '/api/issues' endpoint with\n    both 'POST' and 'PUT' methods. It expects a JSON payload containing the\n    issue data.\n\n    Parameters:\n        None\n\n    Returns:\n        Response: The API response containing the result of the operation.\n\n    Raises:\n        None\n    \"\"\"",
+      "file": "api_issues.py"
+    },
+    {
+      "path": "/api/issues/<issueid>",
+      "methods": [
+        "DELETE"
+      ],
+      "function": "api_deleteissue",
+      "docstring": "\"\"\"\n    API endpoint for deleting an issue.\n\n    Args:\n        id (int): The ID of the issue.\n\n    Returns:\n        Response: The API response.\n\n    Raises:\n        None\n    \"\"\"",
+      "file": "api_issues.py"
+    },
+    {
+      "path": "/api/issues/<issueid>/shorts",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_getissueshorts",
+      "docstring": "\"\"\"\n    Get the issue for a short story.\n\n    Args:\n        issueId (int): The ID of the issue.\n\n    Returns:\n        Response: The response object containing the issue data.\n    \"\"\"",
+      "file": "api_issues.py"
+    },
+    {
+      "path": "/api/issues/shorts",
+      "methods": [
+        "PUT"
+      ],
+      "function": "api_addissueshorts",
+      "docstring": "\"\"\"\n    Add issues to a short story.\n\n    This function is an API endpoint that handles 'PUT' requests to\n    '/api/issues/shorts'. It requires admin authentication using JWT.\n\n    Parameters:\n        None\n\n    Returns:\n        Response: The response object containing the result of the API call.\n\n    Raises:\n        None\n    \"\"\"",
+      "file": "api_issues.py"
+    },
+    {
+      "path": "/api/issues/<issueid>/articles",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_getissuearticles",
+      "docstring": "\"\"\"\n    Get the issue for an article.\n\n    Args:\n        issueId (int): The ID of the issue.\n\n    Returns:\n        Response: The response object containing the issue data.\n    \"\"\"",
+      "file": "api_issues.py"
+    },
+    {
+      "path": "/api/issues/articles",
+      "methods": [
+        "PUT"
+      ],
+      "function": "api_addissuearticles",
+      "docstring": "\"\"\"\n    Add issues to an article.\n\n    This function is an API endpoint that handles 'PUT' requests to\n    '/api/issues/articles'. It requires admin authentication using JWT.\n\n    Parameters:\n        None\n\n    Returns:\n        Response: The response object containing the result of the API call.\n\n    Raises:\n        None\n    \"\"\"",
+      "file": "api_issues.py"
+    },
+    {
+      "path": "/api/issues/<issueid>/tags",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_getissuetags",
+      "docstring": "\"\"\"\n    Get the tags associated with a specific issue.\n\n    Parameters:\n        issueId (str): The ID of the issue.\n\n    Returns:\n        Response: The response containing the tags associated with the issue.\n    \"\"\"",
+      "file": "api_issues.py"
+    },
+    {
+      "path": "/api/issue/<issueid>/tags/<tagid>",
+      "methods": [
+        "PUT",
+        "DELETE"
+      ],
+      "function": "api_tagtoissue",
+      "docstring": "\"\"\"\n    API endpoint for adding or removing a tag from an issue.\n\n    Args:\n        id (int): The ID of the issue.\n        tagid (int): The ID of the tag.\n\n    Returns:\n        Response: The API response.\n\n    Raises:\n        None\n    \"\"\"",
+      "file": "api_issues.py"
+    },
+    {
+      "path": "/api/issues/sizes",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_getissuesizes",
+      "docstring": "\"\"\"\n    Get the issue sizes.\n    \"\"\"",
+      "file": "api_issues.py"
+    },
+    {
+      "path": "/api/issues/<issueid>/covers",
+      "methods": [
+        "POST"
+      ],
+      "function": "api_uploadissueimage",
+      "docstring": "\"\"\"\n    Uploads an image for a specific issue.\n\n    Args:\n        id (int): The ID of the issue.\n\n    Returns:\n        Response: The response object containing the result of the image\n                  upload.\n    \"\"\"",
+      "file": "api_issues.py"
+    },
+    {
+      "path": "/api/issues/<issueid>/covers",
+      "methods": [
+        "DELETE"
+      ],
+      "function": "api_deleteissueimage",
+      "docstring": "\"\"\"\n    API endpoint for deleting an issue image.\n\n    Args:\n        id (int): The ID of the issue.\n\n    Returns:\n        Response: The API response.\n\n    Raises:\n        None\n    \"\"\"",
+      "file": "api_issues.py"
+    },
+    {
+      "path": "/api/magazines",
+      "methods": [
+        "POST",
+        "PUT"
+      ],
+      "function": "api_magazinecreateupdate",
+      "docstring": "\"\"\"\n    Create or update a magazine.\n\n    This function is responsible for handling the '/api/magazines' endpoint\n    requests with both 'POST' and 'PUT' methods. It expects the request data\n    to be in JSON format and performs input validation using the `bleach`\n    library.\n\n    Parameters:\n    - None\n\n    Returns:\n    - A `Response` object representing the API response.\n\n    Raises:\n    - None\n\n    Tests:\n    - create_magazine: Create new magazine\n    - update_magazine: Update existing magazine\n    - update_magazine_invalid_type: Type is not 0 or 1\n    - update_magazine_type_not_number: Type is not a number\n    \"\"\"",
+      "file": "api_magazines.py"
+    },
+    {
+      "path": "/api/magazines/<magazineid>",
+      "methods": [
+        "DELETE"
+      ],
+      "function": "api_deletemagazine",
+      "docstring": "\"\"\"\n    Delete a magazine.\n\n    Args:\n        magazineId (str): The ID of the magazine.\n\n    Returns:\n        Tuple[str, int]: A tuple containing an empty string and an integer\n        value.\n\n    Raises:\n        ValueError: If the magazine ID is invalid.\n\n    Tests:\n        delete_magazine: Delete existing magazine\n        delete_magazine_unknown_id: Try id not existing in db\n        delete_magazine_invalid_id: Try id which is not a number\n    \"\"\"",
+      "file": "api_magazines.py"
+    },
+    {
+      "path": "/api/magazinetypes",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_getmagazinetypes",
+      "docstring": "\"\"\"\n    Get the magazine types.\n\n    Returns:\n        Response: The response object containing the magazine types.\n\n    Tests:\n        get_magazine_types: Get magazine types\n    \"\"\"",
+      "file": "api_magazines.py"
+    },
+    {
+      "path": "/api/people/",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_getpeople",
+      "docstring": "\"\"\"\n    This function receives parameters in the form of\n    first=50&...filters_name_operator=1&filters_name_constraints_value=null..\n    I.e. the original dictionary has been translated into variables. The\n    Javascript dictionary looks like this:\n    {\n        first: 0,\n        rows: 50,\n        page: 0,\n        sortField: \"name\",\n        sortOrder: 1,\n        multiSortMeta: null,\n        filters: {\n            global: { value: null, matchMode: FilterMatchMode.CONTAINS },\n            name: { operator: FilterOperator.AND,\n                    constraints: [\n                      { value: null,\n                        matchMode: FilterMatchMode.STARTS_WITH\n                      }\n                    ]\n                  },\n            dob: { operator: FilterOperator.AND,\n                   constraints: [\n                     { value: null,\n                       matchMode: FilterMatchMode.EQUALS\n                     }\n                   ]\n                  },\n            dod: { operator: FilterOperator.AND,\n                   constraints: [\n                      { value: null,\n                        matchMode: FilterMatchMode.EQUALS\n                      }\n                   ]\n                 },\n            nationality: { value: null, matchMode: FilterMatchMode.EQUALS },\n            work_count: { value: null, matchMode: FilterMatchMode.EQUALS },\n            story_count: { value: null, matchMode: FilterMatchMode.EQUALS },\n            roles: { value: null, matchMode: FilterMatchMode.EQUALS }\n        }\n    }\n    This function will translate the parameter list back to a similar Python\n    dict.\n    Those constants in the list are explained in the implementation function,\n    but they are simple self-explaining strings.\n    \"\"\"",
+      "file": "api_people.py"
+    },
+    {
+      "path": "/api/people/<person_id>",
+      "methods": [
+        "DELETE"
+      ],
+      "function": "api_deleteperson",
+      "docstring": "\"\"\"\n    Delete a person from the API.\n\n    Args:\n        person_id (str): The ID of the person to be deleted.\n\n    Returns:\n        Response: The response object containing the result of the deletion.\n\n    Tests:\n        delete_author: Delete an existing person\n        delete_editor: Delete an existing person\n        delete_translator: Delete an existing person\n        delete_person_bad_id: Try id which is not a number\n        delete_person_unknown_id: Try id not existing in db\n        delete_person_not_authorized: Try to delete without authorization\n    \"\"\"",
+      "file": "api_people.py"
+    },
+    {
+      "path": "/api/people/<person_id>/articles",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_personarticles",
+      "docstring": "\"\"\"\n    Retrieves a list of articles for a specific person.\n\n    Args:\n        person_id (str): The ID of the person.\n\n    Returns:\n        Response: The response object containing the list of articles.\n    \"\"\"",
+      "file": "api_people.py"
+    },
+    {
+      "path": "/api/people/<person_id>/awarded",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_personawards",
+      "docstring": "\"\"\"\n    Retrieves a list of awards for a specific person.\n\n    Args:\n        person_id (str): The ID of the person.\n\n    Returns:\n        Response: The response object containing the list of awards.\n    \"\"\"",
+      "file": "api_people.py"
+    },
+    {
+      "path": "/api/people/<personid>/chiefeditor",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_chiefeditor",
+      "docstring": "\"\"\"\n    Retrieves issues person is editor in chief.\n\n    Args:\n        id (int): The ID of the person.\n\n    Returns:\n        Response: The response object containing the issues.\n    \"\"\"",
+      "file": "api_people.py"
+    },
+    {
+      "path": "/api/people/<personid>/shorts",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_listshorts",
+      "docstring": "\"\"\"\n    Retrieves a list of shorts for a specific person.\n\n    Args:\n        id (int): The ID of the person.\n\n    Returns:\n        Response: The response object containing the list of shorts.\n    \"\"\"",
+      "file": "api_people.py"
+    },
+    {
+      "path": "/api/person/<personid>/tags/<tagid>",
+      "methods": [
+        "PUT",
+        "DELETE"
+      ],
+      "function": "api_tagtoperson",
+      "docstring": "\"\"\"\n    Handles the API endpoint for adding or removing a tag from a person.\n\n    Args:\n        id (int): The ID of the person.\n        tagid (int): The ID of the tag.\n\n    Returns:\n        Response: The API response.\n\n    Raises:\n        None\n    \"\"\"",
+      "file": "api_people.py"
+    },
+    {
+      "path": "/api/filter/people/<pattern>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_filterpeople",
+      "docstring": "\"\"\"\n    Filter people list.\n\n    Pattern has to be at least three characters long. Matching is done\n    from start of the name field.\n\n    Parameters\n    ----------\n    pattern: str\n        Pattern to search for.\n\n    Returns\n    -------\n\n    \"\"\"",
+      "file": "api_people.py"
+    },
+    {
+      "path": "/api/latest/people/<count>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_latestpeople",
+      "docstring": "\"\"\"\n    Get the latest people.\n\n    Args:\n        count (int): The number of people to return.\n\n    Returns:\n        Response: The response object containing the list of latest people.\n\n    Raises:\n        ValueError: If the count is not an integer.\n    \"\"\"",
+      "file": "api_people.py"
+    },
+    {
+      "path": "/api/publishers",
+      "methods": [
+        "POST",
+        "PUT"
+      ],
+      "function": "api_publishercreateupdate",
+      "docstring": "\"\"\"\n    Create or update a publisher.\n\n    This function is responsible for handling the '/api/publishers/' endpoint\n    requests with both 'POST' and 'PUT' methods. It expects the request data to\n    be in JSON format and performs input validation using the `bleach` library.\n\n    Parameters:\n    - None\n\n    Returns:\n    - A `Response` object representing the API response.\n\n    Raises:\n    - None\n\n    Tests:\n        publisher_create: Create a new publisher\n        publisher_similar_name: Create a new publisher with same name as\n                                an existing publisher\n        publisher_similar_fullname: Create a new publisher with same fullname\n                                    as an existing publisher\n        publisher_missing_name: Create a new publisher with missing name\n        publisher_update: Update an existing publisher\n        publisher_update_missing_id: Update a publisher with missing ID\n    \"\"\"",
+      "file": "api_publishers.py"
+    },
+    {
+      "path": "/api/publishers",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_listpublishers",
+      "docstring": "\"\"\"\n    This function is a route handler for the '/api/publishers' endpoint. It\n    accepts GET requests and returns a tuple containing the response data and\n    the HTTP status code.\n\n    Parameters:\n        None\n\n    Returns:\n        A tuple containing the response data and the HTTP status code.\n\n    Tests:\n        publisher_list_all: Get all publishers\n    \"\"\"",
+      "file": "api_publishers.py"
+    },
+    {
+      "path": "/api/publishers/<publisherid>",
+      "methods": [
+        "DELETE"
+      ],
+      "function": "api_deletepublisher",
+      "docstring": "\"\"\"\n    Delete a publisher.\n\n    Parameters:\n        publisherId (str): The ID of the publisher to be deleted.\n\n    Returns:\n        Response: The API response.\n\n    Tests:\n        publisher_delete: Delete an existing publisher\n        publisher_invalid_id: Try to delete a publisher with invalid id\n    \"\"\"",
+      "file": "api_publishers.py"
+    },
+    {
+      "path": "/api/publishers/<publisherid>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_getpublisher",
+      "docstring": "\"\"\"\n    Retrieves a publisher from the API based on the provided publisher ID.\n\n    Parameters:\n        publisherid (str): The ID of the publisher to retrieve.\n\n    Returns:\n        ResponseType: The response object containing the publisher data or an\n        error message.\n\n    Tests:\n        publisher_get: Get an existing publisher\n        publisher_invalid_id: Try to get a publisher with invalid id\n    \"\"\"",
+      "file": "api_publishers.py"
+    },
+    {
+      "path": "/api/filter/publishers/<pattern>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_filterpublishers",
+      "docstring": "\"\"\"\n    Filter publishers based on a given pattern.\n\n    Args:\n        pattern (str): The pattern to filter publishers.\n\n    Returns:\n        Response: The response containing the filtered publishers.\n\n    Raises:\n        None\n    \"\"\"",
+      "file": "api_publishers.py"
+    },
+    {
+      "path": "/api/pubseries",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_listpubseries",
+      "docstring": "\"\"\"\n    This function is a route handler for the '/api/pubseries' endpoint. It\n    accepts GET requests and returns a tuple containing a string and an\n    integer. The string is the response body, and the integer is the HTTP\n    status code.\n\n    Parameters:\n    - None\n\n    Returns:\n    - A tuple containing a string and an integer.\n    \"\"\"",
+      "file": "api_pubseries.py"
+    },
+    {
+      "path": "/api/filter/pubseries/<pattern>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_filterpubseries",
+      "docstring": "\"\"\"\n    This function is a Flask route that filters publications based on a given\n    pattern. It takes a string parameter `pattern` which is used to filter the\n    publications. The function returns a Flask Response object.\n    \"\"\"",
+      "file": "api_pubseries.py"
+    },
+    {
+      "path": "/api/pubseries",
+      "methods": [
+        "PUT",
+        "POST"
+      ],
+      "function": "api_createupdatepubseries",
+      "docstring": "\"\"\"\n    This function is a route handler for the '/api/pubseries' endpoint. It\n    accepts PUT and POST requests and returns a tuple containing a string and\n    an integer. The string is the response body, and the integer is the HTTP\n    status code.\n\n    Parameters:\n    - None\n\n    Returns:\n    - A tuple containing a string and a Http response code.\n    \"\"\"",
+      "file": "api_pubseries.py"
+    },
+    {
+      "path": "/api/pubseries/<pubseriesid>",
+      "methods": [
+        "DELETE"
+      ],
+      "function": "api_deletepubseries",
+      "docstring": "\"\"\"\n    This function is a route handler for the '/api/pubseries/<pubseriesid>'\n    endpoint. It accepts DELETE requests and returns a tuple containing a\n    string and an integer. The string is the response body, and the integer is\n    the HTTP status code.\n\n    Parameters:\n    - None\n\n    Returns:\n    - A tuple containing a string and an integer.\n    \"\"\"",
+      "file": "api_pubseries.py"
+    },
+    {
+      "path": "/api/roles/",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_roles",
+      "docstring": "\"\"\"\n    Returns a list of contributor roles in the system in the order they are\n    in the database (i.e. by id).\n    \"\"\"",
+      "file": "api_roles.py"
+    },
+    {
+      "path": "/api/roles/<target>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_role",
+      "docstring": "\"\"\"\n    Return a list of roles for a given target.\n\n    Parameters:\n        target (str): Target to request roles for, either 'work', 'short'\n                      or 'edition'.\n\n    Returns:\n        Response: Requested roles.\n    \"\"\"",
+      "file": "api_roles.py"
+    },
+    {
+      "path": "/api/shorts",
+      "methods": [
+        "POST",
+        "PUT"
+      ],
+      "function": "api_shortcreateupdate",
+      "docstring": "\"\"\"\n    Create or update a short story.\n\n    This function is an API endpoint that handles both POST and PUT requests to\n    '/api/shorts'. It requires admin authentication using JWT.\n\n    Parameters:\n        None\n\n    Returns:\n        Response: The response object containing the result of the API call.\n\n    Raises:\n        None\n    \"\"\"",
+      "file": "api_shorts.py"
+    },
+    {
+      "path": "/api/shorts/<shortid>",
+      "methods": [
+        "DELETE"
+      ],
+      "function": "api_shortdelete",
+      "docstring": "\"\"\"\n    Delete a short by its ID.\n\n    Parameters:\n        id (int): The ID of the short to be deleted.\n\n    Returns:\n        Response: The response object containing the result of the deletion.\n    \"\"\"",
+      "file": "api_shorts.py"
+    },
+    {
+      "path": "/api/shorts/<shortid>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_getshort",
+      "docstring": "\"\"\"\n    Retrieves a short by its ID.\n\n    Args:\n        shortid (str): The ID of the short.\n\n    Returns:\n        Response: The response object containing the short.\n    \"\"\"",
+      "file": "api_shorts.py"
+    },
+    {
+      "path": "/api/searchshorts",
+      "methods": [
+        "POST"
+      ],
+      "function": "api_searchshorts",
+      "docstring": "\"\"\"\n    A function that handles the '/api/searchshorts' endpoint for the API.\n\n    This function is triggered when a POST request is made to the\n    '/api/searchshorts' endpoint. It expects a JSON payload in the request body\n    containing search parameters.\n\n    Parameters:\n        None\n\n    Returns:\n        Response: The response object containing the search results.\n\n    Raises:\n        None\n    \"\"\"",
+      "file": "api_shorts.py"
+    },
+    {
+      "path": "/api/shorttypes",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_shorttypes",
+      "docstring": "\"\"\"\n    Retrieves the short types from the API.\n\n    Returns:\n        Response: The API response containing the short types.\n    \"\"\"",
+      "file": "api_shorts.py"
+    },
+    {
+      "path": "/api/story/<storyid>/tags/<tagid>",
+      "methods": [
+        "PUT",
+        "DELETE"
+      ],
+      "function": "api_tagtostory",
+      "docstring": "\"\"\"\n    API endpoint for adding or removing a tag from a story.\n\n    Args:\n        id (int): The ID of the story.\n        tagid (int): The ID of the tag.\n\n    Returns:\n        Response: The API response.\n\n    Raises:\n        TypeError: If the ID or tag ID is not an integer.\n        ValueError: If the ID or tag ID is not a valid integer.\n    \"\"\"",
+      "file": "api_shorts.py"
+    },
+    {
+      "path": "/api/latest/shorts/<count>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_latestshorts",
+      "docstring": "\"\"\"\n    Get the latest shorts.\n\n    Args:\n        count (int): The number of shorts to return.\n\n    Returns:\n        Response: The response object containing the list of latest shorts.\n\n    Raises:\n        None\n    \"\"\"",
+      "file": "api_shorts.py"
+    },
+    {
+      "path": "/api/tags",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_tags",
+      "docstring": "\"\"\"\n    Handles the GET request to '/api/tags' endpoint.\n\n    Returns:\n        Response: The response object containing the tags.\n    \"\"\"",
+      "file": "api_tags.py"
+    },
+    {
+      "path": "/api/tagsquick",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_tagsquick",
+      "docstring": "\"\"\"\n    Get tags for quick search.\n\n    Returns:\n        Response: The response object containing the tags.\n    \"\"\"",
+      "file": "api_tags.py"
+    },
+    {
+      "path": "/api/tags",
+      "methods": [
+        "POST"
+      ],
+      "function": "api_tagcreate",
+      "docstring": "\"\"\"\n    Create a new tag.\n\n    \"\"\"",
+      "file": "api_tags.py"
+    },
+    {
+      "path": "/api/tags/<tag_id>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_tag",
+      "docstring": "\"\"\"\n    Retrieves information about a tag with the specified ID.\n\n    Parameters:\n        tag_id (str): The ID of the tag to retrieve information for.\n\n    Returns:\n        Response: The API response containing the tag information.\n    \"\"\"",
+      "file": "api_tags.py"
+    },
+    {
+      "path": "/api/tags/form/<tag_id>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_tagform",
+      "docstring": "\"\"\"\n    Retrieves the form for a tag with the specified ID.\n\n    Parameters:\n        tag_id (str): The ID of the tag to retrieve the form for.\n\n    Returns:\n        Response: The API response containing the tag form.\n    \"\"\"",
+      "file": "api_tags.py"
+    },
+    {
+      "path": "/api/tags",
+      "methods": [
+        "PUT"
+      ],
+      "function": "api_tagupdate",
+      "docstring": "\"\"\"\n    Rename given tag. Cannot be named to an existing tag. tagMerge is used\n    for combining tags.\n\n    Parameters\n    ----------\n    id : int\n        Id of tag to rename.\n    name: str\n        New name for tag.\n\n    Returns\n    -------\n    200 - Request succeeded.\n    400 - Bad Request. Either a tag by that name already exists of not tag\n          with given id found or parameters are faulty.\n    \"\"\"",
+      "file": "api_tags.py"
+    },
+    {
+      "path": "/api/filter/tags/<pattern>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_filtertags",
+      "docstring": "\"\"\"\n    Filter tags based on a given pattern.\n\n    Args:\n        pattern (str): The pattern to filter the tags.\n\n    Returns:\n        Response: The response object containing the filtered tags.\n\n    Raises:\n        None\n    \"\"\"",
+      "file": "api_tags.py"
+    },
+    {
+      "path": "/api/tags/<source_id>/merge/<target_id>",
+      "methods": [
+        "POST"
+      ],
+      "function": "api_tagmerge",
+      "docstring": "\"\"\"\n    Merge items of two tags into one and delete the obsolete tag.\n\n    Parameters\n    ----------\n    id: int\n        Id of tag to merge into.\n    id2: int\n        Id of tag to merge from.\n\n    Returns\n    -------\n    200 - Request succeeded\n    400 - Request failed because one of the ids was invalid.\n    \"\"\"",
+      "file": "api_tags.py"
+    },
+    {
+      "path": "/api/tags/<tagid>",
+      "methods": [
+        "DELETE"
+      ],
+      "function": "api_tagdelete",
+      "docstring": "\"\"\"\n    Delete selected tag. Tag is only deleted if it isn't used anywhere.\n\n    Parameters\n    ----------\n    id : int\n        Id of tag to delete.\n\n    Returns\n    -------\n    200 - Request succeeded\n    400 - Request failed. Either id was not a number or tag with given id was\n          not found.\n    \"\"\"",
+      "file": "api_tags.py"
+    },
+    {
+      "path": "/api/tags/types",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_tagtypes",
+      "docstring": "\"\"\"\n    Get all tag types.\n\n    Parameters\n    ----------\n    None\n\n    Returns\n    -------\n    200 - Request succeeded\n    400 - Request failed\n    \"\"\"",
+      "file": "api_tags.py"
+    },
+    {
+      "path": "/api/users",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_listusers",
+      "docstring": "\"\"\"\n    This function is an API endpoint that returns a list of users. It is\n    decorated with the `@app.route` decorator, which maps the URL `/api/users`\n    to this function. The function accepts GET requests and returns a tuple\n    containing a string and an integer. The string represents the response\n    body, and the integer represents the HTTP status code. The function calls\n    the `make_api_response` function, passing the result of the `list_users`\n    function as an argument.\n    \"\"\"",
+      "file": "api_users.py"
+    },
+    {
+      "path": "/api/users/<userid>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_getuser",
+      "docstring": "\"\"\"\n    Get a user by their ID.\n\n    Args:\n        userId (str): The ID of the user.\n\n    Returns:\n        Response: The response object containing the user information.\n    \"\"\"",
+      "file": "api_users.py"
+    },
+    {
+      "path": "/api/users/<userid>/stats/genres",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_userstatsgenres",
+      "docstring": "\"\"\"\n    Retrieves the genre counts associated with the specified user.\n\n    Parameters:\n        userid (str): The ID of the user whose genres to retrieve.\n\n    Returns:\n        Response: The response object containing the list of genres if\n                  successful, or an error message and status code if an\n                  error occurs.\n    \"\"\"",
+      "file": "api_users.py"
+    },
+    {
+      "path": "/api/editions/<editionid>/wishlist",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_editionwishlist",
+      "docstring": "\"\"\"\n    Get the wishlist for a specific edition.\n\n    Args:\n        editionid (str): The ID of the edition.\n\n    Returns:\n        Response: The API response containing the wishlist for the edition.\n    \"\"\"",
+      "file": "api_wishlist.py"
+    },
+    {
+      "path": "/api/editions/<editionid>/wishlist/<userid>",
+      "methods": [
+        "PUT"
+      ],
+      "function": "api_editionwishlist_add",
+      "docstring": "\"\"\"\n    Add an edition to a user's wishlist.\n\n    Args:\n        editionid (str): The ID of the edition.\n        userid (str): The ID of the user.\n\n    Returns:\n        Response: The API response containing the result of the operation.\n    \"\"\"",
+      "file": "api_wishlist.py"
+    },
+    {
+      "path": "/api/editions/<editionid>/wishlist/<userid>",
+      "methods": [
+        "DELETE"
+      ],
+      "function": "api_editionwishlist_remove",
+      "docstring": "\"\"\"\n    Remove an edition from a user's wishlist.\n\n    Args:\n        editionid (str): The ID of the edition.\n        userid (str): The ID of the user.\n\n    Returns:\n        Response: The API response containing the result of the operation.\n    \"\"\"",
+      "file": "api_wishlist.py"
+    },
+    {
+      "path": "/api/editions/<editionid>/wishlist/<userid>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_editionwishlist_user_status",
+      "docstring": "\"\"\"\n    Checks if given user (userid) has given edition (editionid) in their\n    wishlist.\n\n    Args:\n    editionid (str): The id of the edition.\n    userid (str): The id of the user.\n\n    Returns:\n    Response: A JSON response containing a boolean value indicating if the\n    edition is in the users wishlist.\n    \"\"\"",
+      "file": "api_wishlist.py"
+    },
+    {
+      "path": "/api/editions/wishlist/<userid>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_editionwishlist_user_list",
+      "docstring": "\"\"\"\n    Gets the wishlist for a specific user.\n\n    Args:\n        userid (str): The ID of the user.\n\n    Returns:\n        Response: The API response containing the wishlist for the user.\n    \"\"\"",
+      "file": "api_wishlist.py"
+    },
+    {
+      "path": "/api/works/<workid>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_getwork",
+      "docstring": "\"\"\"\n    @api {get} /api/works/:id Get work\n    @apiName Get Work\n    @apiGroup Work\n    @apiDescription Get work by id.\n    @apiParam {Number} id of Work.\n    @apiSuccess {ResponseType} work Work object.\n    @apiSuccessExample {json} Success-Response:\n        HTTP/1.1 200 OK\n        {\n            \"response\":\n                {\n                \"misc\": \"\",\n                \"work_type\": {\n                    \"id\": 1,\n                    \"name\": \"Romaani\"\n                },\n                \"title\": \"Kivineitsyt\",\n                \"id\": 1,\n                \"bookseriesorder\": 0,\n                \"links\": [],\n                \"bookseries\": null,\n                \"tags\": [],\n                \"genres\": [\n                    {\n                    \"abbr\": \"F\",\n                    \"id\": 1,\n                    \"name\": \"Fantasia\"\n                    }\n                ],\n                \"contributions\": [\n                    {\n                    \"real_person\": null,\n                    \"description\": null,\n                    \"role\": {\n                        \"id\": 1,\n                        \"name\": \"Kirjoittaja\"\n                    },\n                    \"person\": {\n                        \"id\": 1,\n                        \"alt_name\": \"Barry Unsworth\",\n                        \"name\": \"Unsworth, Barry\"\n                    }\n                    }\n                ],\n                \"language_name\": null,\n                \"bookseriesnum\": \"\",\n                \"awards\": [],\n                \"subtitle\": \"\",\n                \"descr_attr\": null,\n                \"imported_string\": \"\\n<b>Kivineitsyt</b>. (Stone Virgin, 1985).\n                                    Suom Aira Buffa. WSOY 1986. [F].\",\n                \"author_str\": \"Unsworth, Barry\",\n                \"pubyear\": 1985,\n                \"orig_title\": \"Stone Virgin\",\n                \"editions\": [\n                    {\n                    \"size\": null,\n                    \"misc\": \"\",\n                    \"title\": \"Kivineitsyt\",\n                    \"id\": 1,\n                    \"dustcover\": 1,\n                    \"format\": {\n                        \"id\": 1,\n                        \"name\": \"Paperi\"\n                    },\n                    \"version\": null,\n                    \"images\": [],\n                    \"coverimage\": 1,\n                    \"isbn\": \"\",\n                    \"contributions\": [\n                        {\n                        \"real_person\": null,\n                        \"description\": null,\n                        \"role\": {\n                            \"id\": 2,\n                            \"name\": \"Kääntäjä\"\n                        },\n                        \"person\": {\n                            \"id\": 2,\n                            \"alt_name\": \"Aira Buffa\",\n                            \"name\": \"Buffa, Aira\"\n                        }\n                        }\n                    ],\n                    \"pages\": null,\n                    \"subtitle\": \"\",\n                    \"binding\": {\n                        \"id\": 1,\n                        \"name\": \"Ei tietoa/muu\"\n                    },\n                    \"pubseries\": null,\n                    \"publisher\": {\n                        \"image_attr\": null,\n                        \"name\": \"WSOY\",\n                        \"id\": 387,\n                        \"fullname\": \"Werner Söderström Oy\",\n                        \"image_src\": null\n                    },\n                    \"imported_string\": \"\\n<b>Kivineitsyt</b>. (Stone Virgin,\n                                        1985). Suom Aira Buffa. WSOY 1986.\n                                        [F].\",\n                    \"editionnum\": 1,\n                    \"printedin\": null,\n                    \"pubyear\": 1986,\n                    \"pubseriesnum\": null\n                    }\n                ],\n                \"description\": null,\n                \"stories\": []\n                },\n            \"status\": 200\n        }\n    @apiErrorExample {json} Error-Response:\n        HTTP/1.1 400 Bad Request\n        {\n            \"response\": \"GetWork: Tietokantavirhe\",\n            \"status\": 400\n        }\n    \"\"\"",
+      "file": "api_works.py"
+    },
+    {
+      "path": "/api/works",
+      "methods": [
+        "POST",
+        "PUT"
+      ],
+      "function": "api_workcreateupdate",
+      "docstring": "\"\"\"\n    Create or update a work in the API.\n\n    This function handles the '/api/works' endpoint and supports both POST and\n    PUT methods. The function expects a JSON payload in the request data.\n\n    Parameters:\n        None\n\n    Returns:\n        Response: The response object containing the result of the API call.\n\n    Raises:\n        None\n    \"\"\"",
+      "file": "api_works.py"
+    },
+    {
+      "path": "/api/latest/works/<count>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_latestworks",
+      "docstring": "\"\"\"\n    Get the latest works.\n\n    Args:\n        count (int): The number of works to return.\n\n    Returns:\n        Response: The response object containing the list of latest works.\n\n    Raises:\n        ValueError: If the count is not an integer.\n    \"\"\"",
+      "file": "api_works.py"
+    },
+    {
+      "path": "/api/works/<workid>/awards",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_workawards",
+      "docstring": "\"\"\"\n    @api {get} /api/works/awards/:id Get work awards\n    @apiName Get Work Awards\n    @apiGroup Work\n    @apiDescription Get awards for a work.\n    @apiParam {Number} id of Work.\n    @apiSuccess {ResponseType} awards Array of awards.\n    @apiSuccessExample {json} Success-Response:\n    \"\"\"",
+      "file": "api_works.py"
+    },
+    {
+      "path": "/api/works/<workid>",
+      "methods": [
+        "DELETE"
+      ],
+      "function": "api_workdelete",
+      "docstring": "\"\"\"\n    @api {delete} /api/works/:id Delete work\n    @apiName Delete Work\n    @apiGroup Work\n    @apiDescription Delete work by id.\n    @apiParam {Number} id of Work.\n    @apiSuccess {ResponseType} work Work object.\n    @apiSuccessExample {json} Success-Response:\n        HTTP/1.1 200 OK\n        {\n            \"response\": \"WorkDelete: Teos poistettu\",\n            \"status\": 200\n        }\n    @apiErrorExample {json} Error-Response:\n        HTTP/1.1 400 Bad Request\n        {\n            \"response\": \"WorkDelete: Tietokantavirhe\",\n            \"status\": 400\n        }\n    \"\"\"",
+      "file": "api_works.py"
+    },
+    {
+      "path": "/api/works/shorts/<workid>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_workshorts",
+      "docstring": "\"\"\" Get shorts in a collection. \"\"\"\n    try:\n        int_id = int(workid)\n    except (TypeError, ValueError):\n        app.logger.error(f'api_WorkShorts: Invalid id {workid}.')\n        response = ResponseType(f'Virheellinen tunniste: {workid}.',\n                                HttpResponseCode.BAD_REQUEST.value)\n        return make_api_response(response)\n    return make_api_response(get_work_shorts(int_id))\n\n\n@app.route('/api/works/shorts', methods=['put', 'post'])\ndef api_workshorts_save() -> Response:\n    \"\"\" Save shorts in a collection. \"\"\"",
+      "file": "api_works.py"
+    },
+    {
+      "path": "/api/works/shorts",
+      "methods": [
+        "PUT",
+        "POST"
+      ],
+      "function": "api_workshorts_save",
+      "docstring": "\"\"\" Save shorts in a collection. \"\"\"\n    params = request.data.decode('utf-8')\n    params = json.loads(params)\n    return make_api_response(save_work_shorts(params))\n\n\n@app.route('/api/worktypes', methods=['get'])\ndef api_worktypes() -> Response:\n    \"\"\"",
+      "file": "api_works.py"
+    },
+    {
+      "path": "/api/worktypes",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_worktypes",
+      "docstring": "\"\"\"\n    @api {get} /api/worktypes Get all work types\n    @apiName Get WorkTypes\n    @apiGroup Work\n    @apiDescription Get all work types in the system.\n    @apiSuccess {ResponseType} worktypes List of work types.\n    @apiSuccessExample {json} Success-Response:\n        HTTP/1.1 200 OK\n        {\n            \"response\": [\n                {\n                    \"id\": 1,\n                    \"name\": \"Romaani\"\n                },\n                {\n                    \"id\": 2,\n                    \"name\": \"Kokoelma\"\n                },\n                ...\n            ],\n            \"status\": 200\n        }\n    @apiErrorExample {json} Error-Response:\n        HTTP/1.1 400 Bad Request\n        {\n            \"response\": \"WorkTypeGetAll: Tietokantavirhe\",\n            \"status\": 400\n        }\n    \"\"\"",
+      "file": "api_works.py"
+    },
+    {
+      "path": "/api/work/<workid>/tags/<tagid>",
+      "methods": [
+        "PUT",
+        "DELETE"
+      ],
+      "function": "api_tagtowork",
+      "docstring": "\"\"\"\n    Endpoint for adding or removing a tag from a work item.\n\n    Args:\n        id (int): The ID of the work item.\n        tagid (int): The ID of the tag to be added or removed.\n\n    Returns:\n        Response: The API response containing the result of the operation.\n    \"\"\"",
+      "file": "api_works.py"
+    },
+    {
+      "path": "/api/worksbyinitial/<letter>",
+      "methods": [
+        "GET"
+      ],
+      "function": "api_searchworksbyinitial",
+      "docstring": "\"\"\"\n    Searches for works by author initial.\n\n    Args:\n        letter (str): The author initial to search for.\n\n    Returns:\n        Response: The API response containing the search results.\n    \"\"\"",
+      "file": "api_works.py"
+    },
+    {
+      "path": "/api/searchworks",
+      "methods": [
+        "POST"
+      ],
+      "function": "api_searchworks",
+      "docstring": "\"\"\"\n    A function that handles the '/api/searchworks' endpoint.\n\n    Parameters:\n    - None\n\n    Returns:\n    - Response: The API response containing the search results.\n\n    Description:\n    - This function is responsible for handling the '/api/searchworks'\n      endpoint, which is used to search for works.\n    - It expects a POST request with JSON data containing the search\n      parameters.\n    - The function retrieves the search parameters from the request data and\n      passes them to the 'search_books' function.\n    - The 'search_books' function performs the actual search and returns the\n      search results.\n    - Finally, the function creates an API response using the\n      'make_api_response' function and returns it.\n\n    Note:\n    - This function assumes that the 'search_books' and 'make_api_response'\n      functions are defined elsewhere in the codebase.\n    \"\"\"",
+      "file": "api_works.py"
+    }
+  ]
+}
