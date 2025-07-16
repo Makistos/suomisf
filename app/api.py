@@ -13,11 +13,9 @@ from app.impl import (ResponseType, get_frontpage_data, SearchResult,
                       get_latest_covers)
 from app.api_errors import APIError
 from app.impl_editions import get_bindings
-from app.impl_people import (search_people, filter_aliases,
+from app.impl_people import (filter_aliases,
                              get_author_first_letters)
-from app.impl_shorts import search_stories
 from app.impl_users import (login_user, refresh_token, register_user)
-from app.impl_works import search_works
 from app.route_helpers import new_session
 from app.types import HttpResponseCode
 from app import app
@@ -293,20 +291,106 @@ def api_search(pattern: str) -> Tuple[str, int]:
     retcode = 200
     results: SearchResult = []
 
-    # searchword = request.args.get('search', '')
     pattern = bleach.clean(pattern)
-    words = pattern.split(' ')
 
     session = new_session()
-    results = search_works(session, words)
-    results += search_people(session, words)
-    results += search_stories(session, words)
-    results = sorted(results, key=lambda d: d['score'], reverse=True)
+    results = search_with_fts(session, pattern)
     return json.dumps(results[0:50]), retcode
 
 
+def search_with_fts(session: Any, search_term: str) -> SearchResult:
+    """
+    Search using PostgreSQL full-text search across multiple tables.
+
+    Args:
+        session: Database session
+        search_term (str): The search term to query
+
+    Returns:
+        SearchResult: List of search results with consistent format
+    """
+    from sqlalchemy import text
+
+    query = text("""
+    WITH query AS (
+      SELECT plainto_tsquery('voikko', :search_term) AS q
+    )
+
+    SELECT
+      w.id,
+      w.title,
+      w.description AS desc,
+      'work' AS table,
+      ts_rank(w.fts, q.q) AS rank,
+      1 AS table_order
+    FROM work w, query q
+    WHERE w.fts @@ q.q
+
+    UNION ALL
+
+    SELECT
+      e.id,
+      e.title,
+      '' AS desc,
+      'edition' AS table,
+      ts_rank(e.fts, q.q) AS rank,
+      2 AS table_order
+    FROM edition e, query q
+    WHERE e.fts @@ q.q
+
+    UNION ALL
+
+    SELECT
+      p.id,
+      p.name AS title,
+      p.bio AS desc,
+      'person' AS table,
+      ts_rank(p.fts, q.q) AS rank,
+      3 AS table_order
+    FROM person p, query q
+    WHERE p.fts @@ q.q
+
+    UNION ALL
+
+    SELECT
+      s.id,
+      s.title,
+      '' AS desc,
+      'shortstory' AS table,
+      ts_rank(s.fts, q.q) AS rank,
+      4 AS table_order
+    FROM shortstory s, query q
+    WHERE s.fts @@ q.q
+
+    ORDER BY table_order, rank DESC;
+    """)
+
+    try:
+        result = session.execute(query, {'search_term': search_term})
+        rows = result.fetchall()
+
+        # Convert to the expected format matching current SearchResult
+        formatted_results = []
+        for row in rows:
+            formatted_results.append({
+                'id': row[0],
+                'img': '',
+                'header': row[1],
+                'description': row[2] or '',
+                'type': row[3],
+                'score': float(row[4])  # rank converted to score for
+                                        # consistency
+            })
+
+        return formatted_results
+
+    except Exception as e:
+        app.logger.error(f'search_with_fts: Database error: {e}')
+        return []
+
 ###
 # Alias related functions
+
 
 @app.route('/api/filter/alias/<id>', methods=['get'])
 def api_filteralias(personid: str) -> Response:
