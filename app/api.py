@@ -322,7 +322,8 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
       w.description AS desc,
       'work' AS table,
       ts_rank(w.fts, q.q) AS rank,
-      1 AS table_order
+      1 AS table_order,
+      (ts_rank(w.fts, q.q) * 10.0 + (12 - 1)) AS combined_score
     FROM work w, query q
     WHERE w.fts @@ q.q
 
@@ -334,7 +335,8 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
       '' AS desc,
       'edition' AS table,
       ts_rank(e.fts, q.q) AS rank,
-      2 AS table_order
+      2 AS table_order,
+      (ts_rank(e.fts, q.q) * 10.0 + (12 - 2)) AS combined_score
     FROM edition e, query q
     WHERE e.fts @@ q.q
 
@@ -346,7 +348,8 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
       p.bio AS desc,
       'person' AS table,
       ts_rank(p.fts, q.q) AS rank,
-      3 AS table_order
+      3 AS table_order,
+      (ts_rank(p.fts, q.q) * 10.0 + (12 - 3)) AS combined_score
     FROM person p, query q
     WHERE p.fts @@ q.q
 
@@ -358,11 +361,103 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
       '' AS desc,
       'shortstory' AS table,
       ts_rank(s.fts, q.q) AS rank,
-      4 AS table_order
+      4 AS table_order,
+      (ts_rank(s.fts, q.q) * 10.0 + (12 - 4)) AS combined_score
     FROM shortstory s, query q
     WHERE s.fts @@ q.q
 
-    ORDER BY table_order, rank DESC;
+    UNION ALL
+
+    SELECT
+      t.id,
+      t.name AS title,
+      t.description AS desc,
+      'tag' AS table,
+      ts_rank(t.fts, q.q) AS rank,
+      5 AS table_order,
+      (ts_rank(t.fts, q.q) * 10.0 + (12 - 5)) AS combined_score
+    FROM tag t, query q
+    WHERE t.fts @@ q.q
+
+    UNION ALL
+
+    SELECT
+      bs.id,
+      bs.name AS title,
+      '' AS desc,
+      'bookseries' AS table,
+      ts_rank(bs.fts, q.q) AS rank,
+      6 AS table_order,
+      (ts_rank(bs.fts, q.q) * 10.0 + (12 - 6)) AS combined_score
+    FROM bookseries bs, query q
+    WHERE bs.fts @@ q.q
+
+    UNION ALL
+
+    SELECT
+      ps.id,
+      ps.name AS title,
+      '' AS desc,
+      'pubseries' AS table,
+      ts_rank(ps.fts, q.q) AS rank,
+      7 AS table_order,
+      (ts_rank(ps.fts, q.q) * 10.0 + (12 - 7)) AS combined_score
+    FROM pubseries ps, query q
+    WHERE ps.fts @@ q.q
+
+    UNION ALL
+
+    SELECT
+      pub.id,
+      pub.name AS title,
+      pub.description AS desc,
+      'publisher' AS table,
+      ts_rank(pub.fts, q.q) AS rank,
+      8 AS table_order,
+      (ts_rank(pub.fts, q.q) * 10.0 + (12 - 8)) AS combined_score
+    FROM publisher pub, query q
+    WHERE pub.fts @@ q.q
+
+    UNION ALL
+
+    SELECT
+      m.id,
+      m.name AS title,
+      m.description AS desc,
+      'magazine' AS table,
+      ts_rank(m.fts, q.q) AS rank,
+      9 AS table_order,
+      (ts_rank(m.fts, q.q) * 10.0 + (12 - 9)) AS combined_score
+    FROM magazine m, query q
+    WHERE m.fts @@ q.q
+
+    UNION ALL
+
+    SELECT
+      i.id,
+      i.title,
+      i.notes AS desc,
+      'issue' AS table,
+      ts_rank(i.fts, q.q) AS rank,
+      10 AS table_order,
+      (ts_rank(i.fts, q.q) * 10.0 + (12 - 10)) AS combined_score
+    FROM issue i, query q
+    WHERE i.fts @@ q.q
+
+    UNION ALL
+
+    SELECT
+      a.id,
+      a.name AS title,
+      a.description AS desc,
+      'award' AS table,
+      ts_rank(a.fts, q.q) AS rank,
+      11 AS table_order,
+      (ts_rank(a.fts, q.q) * 10.0 + (12 - 11)) AS combined_score
+    FROM award a, query q
+    WHERE a.fts @@ q.q
+
+    ORDER BY combined_score DESC;
     """)
 
     try:
@@ -378,8 +473,7 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
                 'header': row[1],
                 'description': row[2] or '',
                 'type': row[3],
-                'score': float(row[4])  # rank converted to score for
-                                        # consistency
+                'score': float(row[6])  # Use combined_score for consistency
             })
 
         return formatted_results
