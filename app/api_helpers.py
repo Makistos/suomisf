@@ -1,9 +1,10 @@
-
 import json
 from typing import Optional
 from flask import Response
 from app.impl import ResponseType
+from app.types import HttpResponseCode
 
+from app import app
 
 DEFAULT_MIMETYPE = 'application/json'  # Data is always returned as JSON
 
@@ -63,3 +64,32 @@ def allowed_image(filename: Optional[str]) -> bool:
 
     ext = filename.rsplit(".", 10)[1]
     return ext.upper() in ["jpg", "JPG"]
+
+
+def validate_positive_integer_id(value: str, field_name: str):
+    """
+    Validate that a string represents a positive integer.
+
+    Returns:
+        tuple: (parsed_int, error_response) - one will be None
+    """
+    if not value:
+        error_msg = f'api_deleteowner: Virheellinen {field_name}.'
+        app.logger.error(error_msg)
+        return None, ResponseType(error_msg,
+                                  status=HttpResponseCode.BAD_REQUEST.value)
+
+    if not value.isdigit():
+        error_msg = f'api_deleteowner: Virheellinen {field_name} {value}.'
+        app.logger.error(error_msg)
+        return None, ResponseType(error_msg,
+                                  status=HttpResponseCode.BAD_REQUEST.value)
+
+    parsed_value = int(value)
+    if parsed_value < 1:
+        error_msg = f'api_deleteowner: Virheellinen {field_name} {value}.'
+        app.logger.error(error_msg)
+        return None, ResponseType(error_msg,
+                                  status=HttpResponseCode.BAD_REQUEST.value)
+
+    return parsed_value, None
