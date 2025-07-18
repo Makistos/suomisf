@@ -18,6 +18,7 @@ from app.impl_editions import (
 from app import app
 from app.impl_logs import get_edition_changes
 from app.types import HttpResponseCode
+from app.api_helpers import validate_positive_integer_id
 
 
 @app.route('/api/editions/<editionid>', methods=['get'])
@@ -164,7 +165,18 @@ def api_editionowners(editionid: str) -> Response:
     Returns:
         Response: The API response containing the owners of the edition.
     """
-    return make_api_response(editionowner_list(editionid))
+    (ed_id, err) = validate_positive_integer_id(editionid, "painosid")
+
+    if err:
+        app.logger.error(f'api_editionowners: {err.response}')
+        return make_api_response(err)
+    elif ed_id is None:
+        app.logger.error('api_editionowners: Invalid editionid.')
+        response = ResponseType(
+            'api_editionowners: Virheellinen painosid.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+    return make_api_response(editionowner_list(ed_id))
 
 
 @app.route('/api/editions/<editionid>/owner/<personid>', methods=['get'])
@@ -179,7 +191,26 @@ def api_editionownerperson(editionid: str, personid: str) -> Response:
     Returns:
         Response: The API response containing the owner information.
     """
-    return make_api_response(editionowner_get(editionid, personid))
+    # personid is valid, proceed to get the owner info
+    (person_id, err) = validate_positive_integer_id(personid, "henkiloid")
+    (ed_id, err2) = validate_positive_integer_id(editionid, "painosid")
+    if err:
+        app.logger.error(f'api_editionownerperson: {err.response}')
+        return make_api_response(err)
+    if err2:
+        app.logger.error(f'api_editionownerperson: {err2.response}')
+        return make_api_response(err2)
+    elif person_id is None or ed_id is None:
+        app.logger.error('api_editionownerperson: '
+                         'Invalid editionid or personid.')
+        response = ResponseType(
+            'api_editionownerperson: Virheellinen painosid tai henkilotunnus.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+    app.logger.info(f'api_editionownerperson: Getting owner {personid} '
+                    f'for edition {editionid}.')
+    # Call the function to get the owner info
+    return make_api_response(editionowner_get(ed_id, person_id))
 
 
 @app.route('/api/editions/owned/<userid>', methods=['get'])
@@ -193,7 +224,17 @@ def api_editionsowned(userid: str) -> Response:
     Returns:
         Response: The API response containing the owner information.
     """
-    return make_api_response(editionowner_getowned(userid, False))
+    (uid, err) = validate_positive_integer_id(userid, "kayttajatunnus")
+    if err:
+        app.logger.error(f'api_editionsowned: {err.response}')
+        return make_api_response(err)
+    elif uid is None:
+        app.logger.error('api_editionsowned: Invalid userid.')
+        response = ResponseType(
+            'api_editionsowned: Virheellinen kayttajatunnus.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+    return make_api_response(editionowner_getowned(uid, False))
 
 
 @app.route('/api/editions/<editionid>/owner/<personid>', methods=['delete'])
@@ -209,7 +250,23 @@ def api_deleteowner(editionid: str, personid: str) -> Response:
     Returns:
         Response: The response object containing the result of the operation.
     """
-    return make_api_response(editionowner_remove(editionid, personid))
+    (ed_id, err) = validate_positive_integer_id(editionid, "painosid")
+    (person_id, err2) = validate_positive_integer_id(personid, "henkiloid")
+    if err:
+        app.logger.error(f'api_deleteowner: {err.response}')
+        return make_api_response(err)
+    if err2:
+        app.logger.error(f'api_deleteowner: {err2.response}')
+        return make_api_response(err2)
+    elif person_id is None or ed_id is None:
+        app.logger.error('api_deleteowner: '
+                         'Invalid editionid or personid.')
+        response = ResponseType(
+            'api_deleteowner: Virheellinen painosid tai henkilotunnus.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+    # Call the function to remove the owner
+    return make_api_response(editionowner_remove(ed_id, person_id))
 
 
 @app.route('/api/editions/owner', methods=['post', 'put'])

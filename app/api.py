@@ -638,3 +638,33 @@ def firstlettervector(target: str) -> Tuple[str, int]:
     retval = get_author_first_letters(target)
 
     return retval
+
+
+###
+# Edition related functions
+
+@app.route('/api/editions/<edition_id>/work', methods=['get'])
+def api_edition_work(edition_id: str) -> Response:
+    """
+    Get the work ID for a given edition ID.
+
+    Args:
+        edition_id (str): The ID of the edition.
+
+    Returns:
+        Response: The response object containing the work ID.
+
+    Raises:
+        ValueError: If the edition_id is not a valid integer.
+    """
+    try:
+        int_edition_id = int(edition_id)
+    except (ValueError, TypeError):
+        app.logger.error('api_edition_work: Invalid edition id %s.',
+                         edition_id)
+        response = ResponseType(f'Virheellinen painos tunniste: {edition_id}.',
+                                HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+
+    from app.impl_editions import get_edition_work
+    return make_api_response(get_edition_work(int_edition_id))
