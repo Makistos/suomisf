@@ -1149,7 +1149,7 @@ def editionowner_update(params: dict) -> ResponseType:
 
     if 'condition' in params:
         condition = check_int(params["condition"]["value"])
-        if (condition < 1 or condition > 5):
+        if (not condition or condition < 1 or condition > 5):
             app.logger.error(
                 f"editionowner_update: Invalid condition. {condition}")
             return ResponseType("Invalid parameters.",
@@ -1190,7 +1190,7 @@ def editionowner_list(editionid: int) -> ResponseType:
         app.logger.error(f"editionowner_list: {str(exp)}")
 
     try:
-        schema = User(many=True)
+        schema = User(many=True)  # type: ignore
         retval = schema.dump(users.owners)
     except exceptions.MarshmallowError as exp:
         app.logger.error(f"editionowner_list: {str(exp)}")
@@ -1352,3 +1352,44 @@ def editionwishlist_user(editionid: int, userid: int) -> ResponseType:
 
     retval = json.dumps({'wishlisted': ub is not None})
     return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def get_edition_work(edition_id: int) -> ResponseType:
+    """
+    Get the work ID for a given edition ID.
+
+    Args:
+        edition_id (int): The ID of the edition.
+
+    Returns:
+        ResponseType: Response containing the work ID or error message.
+    """
+
+    session = new_session()
+
+    try:
+        edition = session.query(Edition).filter(Edition.id == edition_id)\
+            .first()
+
+        if not edition:
+            return ResponseType(
+                f'Painosta ei löytynyt tunnuksella: {edition_id}',
+                status=HttpResponseCode.NOT_FOUND.value
+            )
+
+        if not edition.work[0].id:
+            return ResponseType(
+                f'Painoksella {edition_id} ei ole liitettyä teosta',
+                status=HttpResponseCode.NOT_FOUND.value
+            )
+
+        return ResponseType(edition.work[0].id, HttpResponseCode.OK.value)
+
+    except Exception as e:
+        app.logger.error(f'get_edition_work: Database error: {e}')
+        return ResponseType(
+            'Tietokantavirhe haettaessa teosta.',
+            status=HttpResponseCode.INTERNAL_SERVER_ERROR.value
+        )
+    finally:
+        session.close()
