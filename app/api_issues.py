@@ -13,6 +13,8 @@ from app.impl_issues import (get_issue, get_issue_tags, issue_add,
                              issue_shorts_save,
                              issue_tag_add,
                              issue_tag_remove, issue_update, publication_sizes)
+from app.impl_contributors import (get_issue_contributors,
+                                   update_issue_contributors)
 from app.api_jwt import jwt_admin_required
 from app.types import HttpResponseCode
 from app.impl import ResponseType
@@ -294,3 +296,78 @@ def api_deleteissueimage(issueid: int) -> Response:
         None
     """
     return make_api_response(issue_image_delete(issueid))
+
+
+@app.route('/api/issues/<issueid>/contributors', methods=['get'])
+def api_getissuecontributors(issueid: str) -> Response:
+    """
+    Get the contributors for an issue.
+
+    Args:
+        issueid (str): The ID of the issue.
+
+    Returns:
+        Response: The response object containing the issue contributors data.
+    """
+    try:
+        int_id = int(issueid)
+    except (TypeError, ValueError):
+        app.logger.error(f'api_getissuecontributors: Invalid id {issueid}.')
+        response = ResponseType(
+            f'api_getissuecontributors: Virheellinen tunniste {issueid}.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+
+    from app.route_helpers import new_session
+    session = new_session()
+    try:
+        return make_api_response(get_issue_contributors(session, int_id))
+    finally:
+        session.close()
+
+
+@app.route('/api/issues/<issueid>/contributors', methods=['post', 'put'])
+@jwt_admin_required()  # type: ignore
+def api_updateissuecontributors(issueid: str) -> Response:
+    """
+    Update the contributors for an issue.
+
+    Args:
+        issueid (str): The ID of the issue.
+
+    Returns:
+        Response: The response object containing the result of the operation.
+    """
+    try:
+        int_id = int(issueid)
+    except (TypeError, ValueError):
+        app.logger.error(f'api_updateissuecontributors: Invalid id {issueid}.')
+        response = ResponseType(
+            f'api_updateissuecontributors: Virheellinen tunniste {issueid}.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+
+    try:
+        params = json.loads(request.data.decode('utf-8'))
+    except (TypeError, ValueError):
+        app.logger.error('api_updateissuecontributors: Invalid JSON.')
+        response = ResponseType(
+            'Virheelliset parametrit.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+
+    from app.route_helpers import new_session
+    session = new_session()
+    try:
+        success = update_issue_contributors(session, int_id, params)
+        if success:
+            response = ResponseType(
+                'Kontribuuttorien päivitys onnistui.',
+                status=HttpResponseCode.OK.value)
+        else:
+            response = ResponseType(
+                'Kontribuuttorien päivitys epäonnistui.',
+                status=HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+        return make_api_response(response)
+    finally:
+        session.close()

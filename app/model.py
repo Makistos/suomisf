@@ -573,6 +573,7 @@ class IssueSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     articles = ma.List(fields.Nested(ArticleBriefSchema()))
     stories = ma.List(fields.Nested(ShortBriefSchema()))
     magazine = fields.Nested(MagazineBriefSchema)
+    contributors = ma.List(fields.Nested(ContributorSchema))
 
 
 class MagazineSchema(ma.SQLAlchemyAutoSchema):  # type: ignore

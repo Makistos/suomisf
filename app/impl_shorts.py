@@ -5,7 +5,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 import bleach
 
-from app.impl import (ResponseType, SearchResult, SearchResultFields,
+from app.impl import (EmptySearchResult, ResponseType, SearchResult,
+                      SearchResultFields,
                       check_int, get_join_changes,
                       add_language, searchscore)
 from app.impl_logs import log_changes
@@ -158,7 +159,7 @@ def get_short(short_id: int) -> ResponseType:
     return ResponseType(retval, HttpResponseCode.OK.value)
 
 
-def search_stories(session: Any, searchwords: List[str]) -> ResponseType:
+def search_stories(session: Any, searchwords: List[str]) -> SearchResult:
     retval: SearchResult = []
     found_stories: Dict[int, SearchResultFields] = {}
 
@@ -170,11 +171,9 @@ def search_stories(session: Any, searchwords: List[str]) -> ResponseType:
                 .all()
         except SQLAlchemyError as exp:
             app.logger.error(f'Exception in SearchStories: {exp}')
-            return ResponseType(
-                f'Tietokantavirhe. id={id}: {exp}.',
-                HttpResponseCode.INTERNAL_SERVER_ERROR.value)
-
+            return []
         for story in stories:
+            item: SearchResultFields = EmptySearchResult
             if story.id in found_stories:
                 found_stories[story]['score'] *= \
                     searchscore('story', story, lower_search)
@@ -183,10 +182,13 @@ def search_stories(session: Any, searchwords: List[str]) -> ResponseType:
                     'id': story.id,
                     'header': story.title,
                     'author': ', '.join([a.name for a in story.authors]),
+                    'img': '',
                     'type': 'story',
-                    'score': searchscore('story', story, lower_search)
+                    'score': searchscore('story', story, lower_search),
+                    'description': ''
                 }
-            found_stories[story.id] = item
+            if item['id'] != '':
+                found_stories[story.id] = item
         retval = [value for _, value in found_stories.items()]
 
     return retval

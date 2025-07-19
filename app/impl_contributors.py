@@ -3,7 +3,7 @@ from typing import Any, Dict, Union, List
 from sqlalchemy import and_, or_
 from sqlalchemy.exc import SQLAlchemyError
 
-from app.orm_decl import (Part, Contributor, Edition)
+from app.orm_decl import (Part, Contributor, Edition, IssueContributor)
 from app.impl import check_int
 from app import app
 from app.orm_decl import Person
@@ -389,6 +389,44 @@ def get_work_contributors(session: Any, work_id: int) -> Any:
     return retval
 
 
+def get_issue_contributors(session: Any, issue_id: int) -> List[Dict[Any, Any]]:
+    """
+    Returns a list of dictionaries representing the contributors of an issue.
+
+    Args:
+        session: The database session.
+        issue_id: The ID of the issue to get the contributors of.
+
+    Returns:
+        A list of dictionaries representing the contributors of the issue.
+        Each dictionary should have the following keys:
+        - 'person': A dictionary representing the person who contributed.
+            This dictionary should have the following keys:
+            - 'id': The ID of the person in the database.
+            - 'name': The name of the person.
+        - 'role': A dictionary representing the role of the contributor.
+            This dictionary should have the following keys:
+            - 'id': The ID of the role in the database.
+            - 'name': The name of the role.
+        - 'description': A string describing the contribution.
+    """
+    contributors = session.query(IssueContributor)\
+        .filter(IssueContributor.issue_id == issue_id)\
+        .all()
+
+    retval: List[Dict[Any, Any]] = []
+
+    for contrib in contributors:
+        c = {'person': {'id': contrib.person_id,
+                        'name': contrib.person.name},
+             'role': {'id': contrib.role_id,
+                      'name': contrib.role.name},
+             'description': contrib.description}
+        retval.append(c)
+
+    return retval
+
+
 def has_contribution_role(contributors: List[Any], role_id: int) -> bool:
     """
     Returns a boolean indicating whether or not the given list of contributors
@@ -406,3 +444,79 @@ def has_contribution_role(contributors: List[Any], role_id: int) -> bool:
         if contrib['role']['id'] == role_id:
             return True
     return False
+
+
+def update_issue_contributors(
+        session: Any,
+        issue_id: int,
+        contributors: Any) -> bool:
+    """
+    Updates the contributors for the given issue in the database.
+
+    Args:
+        session: A database session object.
+        issue_id: The ID of the issue to update.
+        contributors: A list of dictionaries representing the new contributors.
+            Each dictionary should have the following keys:
+            - 'person': A dictionary representing the person who contributed.
+                This dictionary should have the following keys:
+                - 'id': The ID of the person in the database.
+            - 'role': A dictionary representing the role of the contributor.
+                This dictionary should have the following keys:
+                - 'id': The ID of the role in the database.
+            - 'description': A string describing the contribution.
+
+    Returns:
+        bool: True if contributors were updated or no changes were made, False
+              otherwise.
+    """
+    retval = False
+
+    try:
+        # Get current contributors for comparison
+        current_contributors = session.query(IssueContributor)\
+            .filter(IssueContributor.issue_id == issue_id)\
+            .all()
+
+        # Check if contributors have changed
+        if not contributors_have_changed(current_contributors, contributors):
+            return True
+
+        # Remove existing contributors for this issue
+        session.query(IssueContributor)\
+            .filter(IssueContributor.issue_id == issue_id)\
+            .delete()
+
+        # Create new contributors if needed
+        contributors = _create_new_contributors(session, contributors)
+
+        # Add the new contributors
+        for contrib in contributors:
+            person_id = contrib['person']['id']
+            if 'role' in contrib and 'id' in contrib['role']:
+                role_id = check_int(contrib['role']['id'],
+                                    negative_values=False, zeros_allowed=False)
+            else:
+                role_id = None
+                app.logger.error('Missing or invalid role id.')
+                continue
+            if 'description' in contrib:
+                description = contrib['description']
+            else:
+                description = None
+
+            new_contributor = IssueContributor(
+                issue_id=issue_id,
+                person_id=person_id,
+                role_id=role_id,
+                description=description)
+            session.add(new_contributor)
+
+        retval = True
+
+    except SQLAlchemyError as exp:
+        app.logger.error('update_issue_contributors: ' + str(exp))
+        session.rollback()
+        retval = False
+
+    return retval

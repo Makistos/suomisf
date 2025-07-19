@@ -1,6 +1,6 @@
 # pylint: disable=too-many-lines
 """ Database models"""
-from typing import Any, List, Union, Dict
+from typing import Any, List, Optional, Union, Dict
 import datetime
 import html
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -659,6 +659,8 @@ class Issue(Base):
         'Person', secondary='issueeditor', uselist=True, viewonly=True)
     size = relationship('PublicationSize', uselist=False, viewonly=True)
     magazine = relationship('Magazine', uselist=False, viewonly=True)
+    contributors = relationship('IssueContributor', backref='issue',
+                                uselist=True, viewonly=True)
 
     @hybrid_property
     def issue_order(self, other):
@@ -714,6 +716,20 @@ class IssueContent(Base):
     issue_id = Column(Integer, ForeignKey('issue.id'), nullable=False)
     article_id = Column(Integer, ForeignKey('article.id'))
     shortstory_id = Column(Integer, ForeignKey('shortstory.id'))
+
+
+class IssueContributor(Base):
+    """ Issue contributors table. """
+    __tablename__ = 'issuecontributor'
+    issue_id = Column(Integer, ForeignKey('issue.id'),
+                      nullable=False, primary_key=True)
+    person_id = Column(Integer, ForeignKey('person.id'),
+                       nullable=False, primary_key=True)
+    role_id = Column(Integer, ForeignKey('contributorrole.id'),
+                     nullable=False, primary_key=True)
+    description = Column(String(50))
+    person = relationship('Person', uselist=False, viewonly=True)
+    role = relationship('ContributorRole', uselist=False, viewonly=True)
 
 
 class IssueEditor(Base):

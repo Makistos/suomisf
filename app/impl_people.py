@@ -956,6 +956,7 @@ def search_people(session: Any, searchwords: List[str]) -> SearchResult:
                         )
                 item: SearchResultFields = {
                     'id': person.id,
+                    'author': '',
                     'img': '',
                     'header': person.name,
                     'description': description,

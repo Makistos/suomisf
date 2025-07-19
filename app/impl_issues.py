@@ -7,6 +7,7 @@ from marshmallow import exceptions
 from werkzeug.utils import secure_filename
 from app.api_helpers import allowed_image
 from app.impl import ResponseType, check_int
+from app.impl_contributors import update_issue_contributors
 from app.impl_logs import log_changes
 from app.route_helpers import new_session
 from app.orm_decl import (Article, Issue, IssueContent, IssueEditor, IssueTag,
@@ -57,7 +58,7 @@ def get_issue(issue_id: int) -> ResponseType:
     return ResponseType(retval, HttpResponseCode.OK.value)
 
 
-def editors_changed(new_editors: any, old_editors: any) -> bool:
+def editors_changed(new_editors: Any, old_editors: Any) -> bool:
     """
     Compares two sets of editors (new_editors and old_editors) to determine if
     they are different.
@@ -147,12 +148,14 @@ def issue_add(params: Dict[str, Any]) -> ResponseType:
     session.add(new_issue)
     session.commit()
 
-    if 'editors' in issue:
-        for editor in issue['editors']:
-            new_editor = IssueEditor()
-            new_editor.issue_id = new_issue.id
-            new_editor.person_id = editor['id']
-            session.add(new_editor)
+    if 'contributors' in issue:
+        contributors_result = update_issue_contributors(session,
+                                                        new_issue.id,
+                                                        issue['contributors'])
+        if contributors_result.status != HttpResponseCode.OK.value:
+            session.rollback()
+            return ResponseType('NOK',
+                                HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     log_changes(session, obj=new_issue, action='Uusi')
     session.commit()
@@ -257,20 +260,6 @@ def issue_update(params: Dict[str, Any]) -> ResponseType:
         old_values['pages'] = issue.pages
         issue.pages = data['pages']
 
-    if 'editors' in data and editors_changed(data['editors'], issue.editors):
-        old_editors = '& '.join([e.name for e in issue.editors])
-        old_values['editors'] = old_editors
-        for editor in issue.editors:
-            e = session.query(IssueEditor)\
-                .filter(IssueEditor.issue_id == issue.id,
-                        IssueEditor.person_id == editor.id)\
-                .first()
-            session.delete(e)
-        for editor in data['editors']:
-            new_editor = IssueEditor()
-            new_editor.issue_id = issue_id
-            new_editor.person_id = editor['id']
-            session.add(new_editor)
     try:
         session.add(issue)
         session.commit()
@@ -284,6 +273,15 @@ def issue_update(params: Dict[str, Any]) -> ResponseType:
         log_changes(session, obj=issue, old_values=old_values)
         session.commit()
 
+    # Handle contributors separately
+    if 'contributors' in data:
+        contributors_result = update_issue_contributors(session, issue_id,
+                                                        data['contributors'])
+        if not contributors_result:
+            return ResponseType('NOK',
+                                HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    session.commit()
     return ResponseType(str(issue.id), HttpResponseCode.OK.value)
 
 

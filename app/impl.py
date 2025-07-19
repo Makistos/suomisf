@@ -43,6 +43,15 @@ class SearchResultFields(TypedDict):
 SearchResult = List[SearchResultFields]
 SearchResults = Dict[str, SearchResult]
 
+EmptySearchResult: SearchResultFields = {
+    'id': '',
+    'img': '',
+    'header': '',
+    'description': '',
+    'author': '',
+    'type': '',
+    'score': 0
+}
 
 #######
 # General stuff
@@ -365,11 +374,14 @@ def role_get(target: str) -> ResponseType:
     if target in ['work', 'edition']:
         # Work has author, editor and subject, edition has everything else
         role_ids = [ContributorType.AUTHOR.value, ContributorType.EDITOR.value,
-                    ContributorType.SUBJECT.value,]
+                    ContributorType.SUBJECT.value]
     elif target == 'short':
         role_ids = [ContributorType.AUTHOR.value,
                     ContributorType.TRANSLATOR.value,
                     ContributorType.SUBJECT.value]
+    elif target == 'issue':
+        role_ids = [ContributorType.EDITOR_IN_CHIEF.value,
+                    ContributorType.COVER_ARTIST.value]
     else:
         app.logger.error(f'role_get: Unknown target: {target}')
         return ResponseType(f'role_get: Tuntematon kohde {target}.',

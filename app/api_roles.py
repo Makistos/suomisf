@@ -22,8 +22,8 @@ def api_role(target: str) -> Response:
     Return a list of roles for a given target.
 
     Parameters:
-        target (str): Target to request roles for, either 'work', 'short'
-                      or 'edition'.
+        target (str): Target to request roles for, either 'work', 'short',
+                      'edition' or 'issue.
 
     Returns:
         Response: Requested roles.

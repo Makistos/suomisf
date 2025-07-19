@@ -116,7 +116,7 @@ def register_user(options: Dict[str, str]) -> Response:
             json.dumps({'msg': 'Käyttäjä on jo olemassa'}),
             HttpResponseCode.UNAUTHORIZED.value)
 
-    user = User(name=name)
+    user = User(name=name)  # type: ignore
     user.set_password(password)
     try:
         session.add(user)

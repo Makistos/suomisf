@@ -36,6 +36,7 @@ class ContributorType(IntEnum):
     COVER_ARTIST = 4
     ILLUSTRATOR = 5
     SUBJECT = 6
+    EDITOR_IN_CHIEF = 7
 
 
 class HttpResponseCode(IntEnum):

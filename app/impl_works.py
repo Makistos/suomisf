@@ -361,8 +361,7 @@ def search_works(session: Any, searchwords: List[str]) -> SearchResult:
                 .all()
         except SQLAlchemyError as exp:
             app.logger.error('Exception in SearchWorks: ' + str(exp))
-            return ResponseType(f'Tietokantavirhe. id={id}',
-                                HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+            return []
 
         for work in works:
             if work.id in found_works:
