@@ -10,7 +10,7 @@ from app.api_helpers import make_api_response
 
 from app.impl import ResponseType
 from app.impl_people import (filter_people, get_latest_people,
-                             get_person_articles, list_people,
+                             get_person_articles, get_person_issue_contributions, list_people,
                              person_add,
                              person_chiefeditor,
                              person_update, get_person, person_delete,
@@ -419,3 +419,26 @@ def api_latestpeople(count: int) -> Response:
             status=HttpResponseCode.BAD_REQUEST.value)
         return make_api_response(response)
     return make_api_response(get_latest_people(count))
+
+
+@app.route('/api/people/<person_id>/issue-contributions', methods=['get'])
+def api_issue_contributors(person_id: str) -> Response:
+    """
+    Retrieves issue contributors for a specific person.
+
+    Args:
+        person_id (str): The ID of the person.
+
+    Returns:
+        Response: The response object containing the issue contributors.
+    """
+    try:
+        int_id = int(person_id)
+    except (TypeError, ValueError):
+        app.logger.error(f'Invalid id {person_id}.')
+        response = ResponseType(
+            f'Virheellinen tunniste {person_id}.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+
+    return make_api_response(get_person_issue_contributions(int_id))

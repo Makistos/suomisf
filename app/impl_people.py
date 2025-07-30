@@ -13,7 +13,7 @@ from app.model import (ArticleSchema, IssueSchema, LogSchema,
                        PersonBriefSchema)
 from app.model_person import (PersonSchema)
 from app.model import (ShortBriefestSchema)
-from app.orm_decl import (Alias, Article, Country, ContributorRole, Issue, Log,
+from app.orm_decl import (Alias, Article, Country, ContributorRole, Issue, IssueContributor, Log,
                           Work,
                           Contributor,
                           PersonLink, Awarded, PersonLanguage, PersonTag,
@@ -1140,5 +1140,43 @@ def get_person_changes(personid: int) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     session.close()
+
+    return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def get_person_issue_contributions(person_id: int) -> ResponseType:
+    """
+    Retrieves the contributions of a person to issues.
+
+    Args:
+        person_id (int): The ID of the person.
+
+    Returns:
+        ResponseType: The response object containing the contributions in JSON
+                      format.
+    """
+    session = new_session()
+
+    try:
+        contributions = session.query(Issue)\
+            .join(IssueContributor)\
+            .filter(IssueContributor.person_id == person_id,
+                    IssueContributor.issue_id == Issue.id)\
+            .distinct()\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'get_person_issue_contributions exception: {exp}.')
+        return ResponseType(f'get_person_issue_contributions tietokantavirhe: \
+                            {exp}.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    try:
+        schema = IssueSchema(many=True)
+        retval = schema.dump(contributions)
+        app.logger.info(f'get_person_issue_contributions success: {retval}.')
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'get_person_issue_contributions schema error: {exp}.')
+        return ResponseType(f'get_person_issue_contributions skeemavirhe: {exp}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType(retval, HttpResponseCode.OK.value)
