@@ -24,6 +24,9 @@ dependencies = [
     "jsonschema>=4.23.0",
     "isbnlib>=3.10.14",
     "gunicorn>=22.0.0",
+    "sqlalchemy-stubs>=0.4",
+    "psycopg2>=2.9.10",
+    "psycopg2-binary>=2.9.10",
 ]
 requires-python = "==3.8.*"
 readme = "README.md"

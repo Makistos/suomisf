@@ -820,17 +820,9 @@ def edition_image_upload(editionid: str, image: FileStorage) -> ResponseType:
     image.save(os.path.join(app.config["BOOKCOVER_SAVELOC"], filename))
 
     session = new_session()
-    edition_image = session.query(EditionImage)\
-        .filter(EditionImage.edition_id == int_id)\
-        .first()
     file_loc = app.config["BOOKCOVER_DIR"] + filename
-    if edition_image is None:
-        # type: ignore
-        edition_image = EditionImage(edition_id=int_id, image_src=file_loc)
-        old_values["Kansikuva"] = None
-    else:
-        old_values["Kansikuva"] = edition_image.image_src
-        edition_image.image_src = file_loc
+    edition_image = EditionImage(edition_id=int_id, image_src=file_loc)
+    old_values["Kansikuva"] = f"Lisätty: {edition_image.image_src}"
     try:
         session.add(edition_image)
         session.commit()
@@ -870,7 +862,7 @@ def edition_image_delete(editionid: str, imageid: str) -> ResponseType:
 
     edition = session.query(Edition).filter(Edition.id == int_id).first()
     edition_image = session.query(EditionImage)\
-        .filter(EditionImage.edition_id == int_id)\
+        .filter(EditionImage.id == image_id)\
         .first()
     if edition_image is None:
         return ResponseType("edition_image_delete: Kuvaa ei löydy.",
