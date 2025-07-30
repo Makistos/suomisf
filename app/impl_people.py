@@ -474,7 +474,7 @@ def person_add(params: Any) -> ResponseType:
             and 'id' in data['nationality']):
         person.nationality_id = data['nationality']['id']
     else:
-        person.nationality_id = data['nationality_id'] \
+        person.nationality_id = data['nationality_id['] \
             if 'nationality_id' in data else None
     person.other_names = data['other_names'] if 'other_names' in data else None
 
@@ -1171,9 +1171,11 @@ def get_person_issue_contributions(person_id: int) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
-        schema = IssueSchema(many=True)
+        from app.model import IssueContributionSchema
+        schema = IssueContributionSchema(many=True)
         retval = schema.dump(contributions)
-        app.logger.info(f'get_person_issue_contributions success: {retval}.')
+        app.logger.info(
+            f'get_person_issue_contributions: {retval}')
     except exceptions.MarshmallowError as exp:
         app.logger.error(f'get_person_issue_contributions schema error: {exp}.')
         return ResponseType(f'get_person_issue_contributions skeemavirhe: {exp}',

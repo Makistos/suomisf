@@ -602,3 +602,37 @@ class TagSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     magazines = ma.List(fields.Nested(MagazineBriefSchema))
     people = ma.List(fields.Nested(PersonBriefSchema))
     type = fields.Nested(TagTypeSchema)
+
+
+class IssueContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Issue contributor schema for person contributions. """
+    class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
+        model = Contributor
+    person = fields.Nested(PersonBriefSchema(only=('id', 'name', 'alt_name')))
+    role = fields.Nested(ContributorRoleSchema)
+    description = fields.String()
+    real_person = fields.Nested(PersonBriefSchema(
+        only=('id', 'name', 'alt_name')))
+
+
+class MagazineSimpleSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Magazine schema with only id and name. """
+    class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
+        model = Magazine
+        fields = ('id', 'name')
+
+
+class IssueContributionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Issue schema for person contributions with minimal fields. """
+    class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
+        model = Issue
+        fields = ('id', 'type', 'number', 'number_extra', 'count', 'year',
+                  'cover_number', 'image_src', 'pages', 'size', 'link',
+                  'notes', 'title', 'contributors', 'magazine')
+
+    contributors = ma.List(fields.Nested(IssueContributorSchema))
+    magazine = fields.Nested(MagazineSimpleSchema)
+    size = fields.Nested(PublicationSizeBriefSchema)
