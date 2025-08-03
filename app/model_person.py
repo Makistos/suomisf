@@ -19,6 +19,7 @@ class PersonPageBriefSchema(ma.SQLAlchemySchema):  # type: ignore
     id = fields.Number()
     name = fields.String()
     alt_name = fields.String()
+    fullname = fields.String(allow_none=True)
 
 
 class PersonPagePubseriesSchema(ma.SQLAlchemySchema):  # type: ignore
@@ -33,10 +34,14 @@ class PersonPageContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Contributor
+    id = fields.Int()
     person = fields.Nested(PersonPageBriefSchema)
     role = fields.Nested(ContributorRoleSchema)
-    description = fields.String()
+    description = fields.String(allow_none=True)
     real_person = fields.Nested(PersonPageBriefSchema)
+    work_id = fields.Int(allow_none=True)
+    edition_id = fields.Int(allow_none=True)
+    story_id = fields.Int(allow_none=True)
 
 
 class PersonPageArticleSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -58,6 +63,8 @@ class PersonPageEditionBriefSchema(ma.SQLAlchemySchema):  # type: ignore
     """ Edition schema with just id, title and work relationship. """
     id = fields.Int()
     title = fields.String()
+    pubyear = fields.Int(allow_none=True)  # Added missing field
+    publisher = fields.Nested(PublisherBriefSchema, allow_none=True)  # Added missing field
     work = fields.Nested(lambda: WorkBriefSchema(only=['id', 'title',
                                                        'orig_title']))
 
@@ -85,18 +92,16 @@ class PersonPageEditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Edition
-
-    publisher = fields.Nested(PublisherBriefSchema, only=('id', 'name'))
+    id = fields.Int()
+    title = fields.String(allow_none=True)
+    pubyear = fields.Int(allow_none=True)
+    publisher = fields.Nested(PublisherBriefSchema, only=('id', 'name'),
+                              allow_none=True)
     images = ma.List(fields.Nested(EditionImageBriefSchema))
-    # translators = ma.List(fields.Nested(PersonPageBriefSchema))
     pubseries = fields.Nested(PersonPagePubseriesSchema)
     work = ma.List(fields.Nested(lambda: PersonPageEditionWorkSchema(
         only=['id', 'title', 'orig_title', 'pubyear', 'editions', 'genres',
               'bookseries', 'tags', 'contributions', 'language_name'])))
-    # images = ma.List(fields.Nested(EditionImageBriefSchema))
-    # binding = fields.Nested(BindingBriefSchema)
-    # format = fields.Nested(FormatBriefSchema)
-    # editors = ma.List(fields.Nested(PersonPageBriefSchema))
     contributions = ma.List(fields.Nested(PersonPageContributorSchema))
     owners = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
     wishlisted = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
@@ -107,9 +112,14 @@ class AwardedSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Awarded
+    id = fields.Int()
+    person_id = fields.Int()
+    award_id = fields.Int()
+    year = fields.Int()
+    work_id = fields.Int(allow_none=True)
     award = fields.Nested(AwardBriefSchema)
     person = fields.Nested(PersonPageBriefSchema)
-    work = fields.Nested(WorkBriefSchema)
+    work = fields.Nested(WorkBriefSchema, allow_none=True)
     category = fields.Nested(AwardCategorySchema)
     story = fields.Nested(ShortBriefSchema)
 
@@ -119,11 +129,8 @@ class PersonPageShortBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = ShortStory
-    # id = fields.Int()
-    # title = fields.String()
-    # orig_title = fields.String()
-    # pubyear = fields.Int()
-    # authors = ma.List(fields.Nested(PersonBriefSchema))
+    id = fields.Int()
+    title = fields.String()
     type = fields.Nested(StoryTypeSchema)
     issues = ma.List(fields.Nested(lambda: IssueBriefSchema(
         only=['id', 'cover_number', 'magazine', 'year', 'number'])))
@@ -136,17 +143,17 @@ class PersonPageShortBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 
 class PersonPageWorkBriefSchema(ma.SQLAlchemySchema):  # type: ignore
     """ Work schema, brief version. """
-    id = fields.Number()
+    id = fields.Int()
     title = fields.String()
-    orig_title = fields.String()
+    orig_title = fields.String(allow_none=True)
     author_str = fields.String()
-    pubyear = fields.Number()
+    pubyear = fields.Int(allow_none=True)
+    bookseriesnum = fields.String(allow_none=True)
     contributions = ma.List(fields.Nested(WorkContributorSchema))
     editions = ma.List(fields.Nested(PersonPageEditionSchema))
     genres = ma.List(fields.Nested(GenreBriefSchema))
     bookseries = fields.Nested(
-        lambda: BookseriesBriefSchema(exclude=['works']))
-    bookseriesnum = fields.String()
+        lambda: BookseriesBriefSchema(exclude=['works']), allow_none=True)
     tags = ma.List(fields.Nested(TagBriefSchema))
     language_name = fields.Nested(LanguageSchema)
     type = fields.Number()
@@ -157,14 +164,25 @@ class PersonSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Person
+    # Core fields with proper null handling
+    id = fields.Int()
+    name = fields.String()
+    alt_name = fields.String(allow_none=True)
+    fullname = fields.String(allow_none=True)
+    other_names = fields.String(allow_none=True)
+    dob = fields.Int(allow_none=True)
+    dod = fields.Int(allow_none=True)
+    bio = fields.String(allow_none=True)
+    bio_src = fields.String(allow_none=True)
+
+    # Relationships
+    nationality = fields.Nested(CountryBriefSchema, allow_none=True)
     real_names = ma.List(fields.Nested(PersonPageBriefSchema))
     aliases = ma.List(fields.Nested(PersonPageBriefSchema))
     links = ma.List(fields.Nested(PersonLinkBriefSchema))
     works = ma.List(fields.Nested(PersonPageWorkBriefSchema))
-    # work_contributions = ma.List(fields.Nested(PersonPageWorkBriefSchema))
     stories = ma.List(fields.Nested(PersonPageShortBriefSchema))
     edits = ma.List(fields.Nested(PersonPageEditionSchema))
-    # translations = ma.List(fields.Nested(PersonPageEditionSchema))
     editions = ma.List(fields.Nested(PersonPageEditionSchema))
     chief_editor = ma.List(fields.Nested(IssueBriefSchema))
     articles = ma.List(fields.Nested(PersonPageArticleSchema))
@@ -172,5 +190,5 @@ class PersonSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     translated_stories = ma.List(fields.Nested(ShortBriefSchema))
     appears_in = ma.List(fields.Nested(PersonPageArticleSchema))
     personal_awards = ma.List(fields.Nested(AwardBriefSchema))
-    nationality = fields.Nested(CountryBriefSchema)
     awarded = ma.List(fields.Nested(AwardedSchema))
+    real_names = ma.List(fields.Nested(PersonPageBriefSchema))
