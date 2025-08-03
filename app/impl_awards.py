@@ -164,6 +164,7 @@ def get_person_awards(person_id: int) -> ResponseType:
             .join(Part, Part.work_id == Work.id)\
             .join(Contributor, Contributor.part_id == Part.id)\
             .filter(Contributor.person_id == person_id)\
+            .filter(Contributor.role_id == 1)\
             .distinct()\
             .order_by(Awarded.year)\
             .all()
@@ -174,6 +175,7 @@ def get_person_awards(person_id: int) -> ResponseType:
             .join(Part, Part.shortstory_id == ShortStory.id)\
             .join(Contributor, Contributor.part_id == Part.id)\
             .filter(Contributor.person_id == person_id)\
+            .filter(Contributor.role_id == 1)\
             .distinct()\
             .order_by(Awarded.year)\
             .all()
