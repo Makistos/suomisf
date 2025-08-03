@@ -100,7 +100,7 @@ class PersonPageEditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     images = ma.List(fields.Nested(EditionImageBriefSchema))
     pubseries = fields.Nested(PersonPagePubseriesSchema)
     work = ma.List(fields.Nested(lambda: PersonPageEditionWorkSchema(
-        only=['id', 'title', 'orig_title', 'pubyear', 'editions', 'genres',
+        only=['id', 'title', 'author_str', 'orig_title', 'pubyear', 'editions', 'genres',
               'bookseries', 'tags', 'contributions', 'language_name'])))
     contributions = ma.List(fields.Nested(PersonPageContributorSchema))
     owners = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
