@@ -457,7 +457,7 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
     FROM award a, query q
     WHERE a.fts @@ q.q
 
-    ORDER BY combined_score DESC;
+    ORDER BY combined_score DESC, title;
     """)
 
     try:
