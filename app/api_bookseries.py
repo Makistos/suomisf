@@ -67,14 +67,14 @@ def api_bookseriescreateupdate() -> Response:
             'api_bookseriescreateupdate: Virheelliset parametrit.',
             status=HttpResponseCode.BAD_REQUEST.value)
         return make_api_response(response)
-    try:
-        validate(instance=params, schema=BookseriesSchema)
-    except jsonschema.exceptions.ValidationError:
-        app.logger.error('api_bookseriescreateupdate: Invalid JSON.')
-        response = ResponseType(
-            'api_bookseriescreateupdate: Virheelliset parametrit.',
-            status=HttpResponseCode.BAD_REQUEST.value)
-        return make_api_response(response)
+    # try:
+    #     validate(instance=params, schema=BookseriesSchema)
+    # except jsonschema.exceptions.ValidationError:
+    #     app.logger.error('api_bookseriescreateupdate: Invalid JSON.')
+    #     response = ResponseType(
+    #         'api_bookseriescreateupdate: Virheelliset parametrit.',
+    #         status=HttpResponseCode.BAD_REQUEST.value)
+    #     return make_api_response(response)
     if request.method == 'POST':
         retval = make_api_response(bookseries_create(params))
     elif request.method == 'PUT':
