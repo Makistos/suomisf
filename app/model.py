@@ -320,6 +320,13 @@ class UserBookSchema(ma.SQLAlchemyAutoSchema):
     condition = fields.Nested(BookConditionSchema)
 
 
+class IssueSchemaWOMagazine(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Issue schema without magazine relationship. """
+    class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
+        model = Issue
+
+
 class MagazineBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     """ Magazine schema with no relationships. """
     class Meta:
@@ -327,6 +334,8 @@ class MagazineBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         model = Magazine
     type_id = fields.Int()
     type = fields.Nested(MagazineTypeSchema)
+    issues = ma.List(fields.Nested(IssueSchemaWOMagazine
+                     (only=("id", "year"))))
 
 
 class IssueBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
