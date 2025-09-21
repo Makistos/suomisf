@@ -309,11 +309,13 @@ class Bookseries(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False, index=True)
     orig_name = Column(String(250))
+    description = Column(Text())
     important = Column(Boolean, default=False)
     image_src = Column(String(100))
     image_attr = Column(String(100))  # Source website name
     works = relationship("Work", backref=backref('work'), uselist=True,
                          order_by='Work.bookseriesorder', viewonly=True)
+    links = relationship("BookseriesLink", uselist=True, viewonly=True)
 
 
 class BookseriesLink(Base):
@@ -1117,6 +1119,7 @@ class Pubseries(Base):
     __tablename__ = 'pubseries'
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
+    description = Column(Text())
     publisher_id = Column(Integer, ForeignKey('publisher.id'), nullable=False)
     important = Column(Boolean, default=False)
     image_src = Column(String(100))
@@ -1131,6 +1134,7 @@ class Pubseries(Base):
         uselist=True,
         order_by='Edition.pubseriesnum',
         viewonly=True)
+    links = relationship("PubseriesLink", uselist=True, viewonly=True)
 
 
 class PubseriesLink(Base):

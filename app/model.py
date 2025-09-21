@@ -3,12 +3,12 @@
 from marshmallow import Schema, fields
 from app import ma
 from app.orm_decl import (Article, Award, AwardCategory, Awarded, BindingType,
-                          BookCondition,
+                          BookCondition, BookseriesLink,
                           Bookseries, Contributor, ContributorRole, Country,
                           Edition, EditionImage, Genre, Issue, Language, Log,
                           Magazine, Person, PersonLink, PublicationSize,
                           Publisher, PublisherLink, Pubseries, ShortStory, Tag,
-                          TagType, UserBook, MagazineType,
+                          TagType, UserBook, MagazineType, PubseriesLink,
                           Work, StoryType, WorkLink, Format, WorkType)
 
 # Brief schemas should not include any relationships to other
@@ -462,12 +462,27 @@ class AwardSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     winners = ma.List(fields.Nested(AwardedSchema))
 
 
+class BookseriesLinkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Book series link schema. """
+    class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
+        model = BookseriesLink
+
+
 class BookseriesSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     """ Book series schema. """
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Bookseries
     works = ma.List(fields.Nested(WorkBriefSchema))
+    links = ma.List(fields.Nested(lambda: BookseriesLinkSchema))
+
+
+class PubseriesLinkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Publisher series link schema. """
+    class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
+        model = PubseriesLink
 
 
 class PubseriesSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -480,7 +495,7 @@ class PubseriesSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         only=('id', 'name', 'fullname')
     ))
     editions = ma.List(fields.Nested(EditionBriefSchema))
-
+    links = ma.List(fields.Nested(PubseriesLinkSchema))
 
 class EditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     """ Edition schema. """

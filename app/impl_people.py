@@ -1174,8 +1174,6 @@ def get_person_issue_contributions(person_id: int) -> ResponseType:
         from app.model import IssueContributionSchema
         schema = IssueContributionSchema(many=True)
         retval = schema.dump(contributions)
-        app.logger.info(
-            f'get_person_issue_contributions: {retval}')
     except exceptions.MarshmallowError as exp:
         app.logger.error(f'get_person_issue_contributions schema error: {exp}.')
         return ResponseType(f'get_person_issue_contributions skeemavirhe: {exp}',

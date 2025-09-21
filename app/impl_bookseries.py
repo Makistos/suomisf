@@ -2,11 +2,12 @@
 from typing import Any, Union
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
+from app.impl_links import links_have_changed
 from app.impl_logs import log_changes
 
-from app.orm_decl import (Bookseries, Work)
+from app.orm_decl import (Bookseries, BookseriesLink, Work)
 from app.model import (BookseriesSchema, BookseriesBriefSchema)
-from app.route_helpers import new_session
+from app.route_helpers import get_join_changes, new_session
 from app.impl import ResponseType, check_int
 from app import app
 from app.types import HttpResponseCode
@@ -162,6 +163,23 @@ def bookseries_create(params: Any) -> ResponseType:
         return ResponseType('BookseriesCreate: Tietokantavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
+    if 'links' in data:
+        new_links = [x for x in data['links'] if x['link'] != '']
+        for link in new_links:
+            if link['link'] != '':
+                new_link = BookseriesLink(bookseries_id=bookseries.id,
+                                          link=link['link'],
+                                          description=link['description'])
+                session.add(new_link)
+        try:
+            session.commit()
+        except SQLAlchemyError as exp:
+            session.rollback()
+            app.logger.error('Exception in BookseriesCreate (links): '
+                             + str(exp))
+            return ResponseType('Tietokantavirhe.',
+                                HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
     log_changes(session, obj=bookseries, action='Uusi')
 
     return ResponseType(str(bookseries.id), HttpResponseCode.CREATED.value)
@@ -228,6 +246,14 @@ def bookseries_update(params: Any) -> ResponseType:
             else:
                 bookseries.orig_name = data['orig_name']
 
+    if 'description' in data:
+        if data['description'] != bookseries.description:
+            old_values['Kuvaus'] = bookseries.description
+            if data['description'] == '':
+                bookseries.description = None
+            else:
+                bookseries.description = data['description']
+
     if 'important' in data:
         if data['important'] != bookseries.important:
             old_values['Tärkeä'] = bookseries.important
@@ -241,6 +267,34 @@ def bookseries_update(params: Any) -> ResponseType:
         return ResponseType('BookseriesUpdate: Tietokantavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
+    if 'links' in data:
+        new_links = [x for x in data['links'] if x['link'] != '']
+        if links_have_changed(bookseries.links, new_links):
+            existig_links = session.query(BookseriesLink)\
+                .filter(BookseriesLink.bookseries_id == bookseries.id).all()
+            (to_add, to_remove) = get_join_changes(
+                [x.link for x in existig_links],
+                [x['link'] for x in data['links']])
+            for link in existig_links:
+                session.delete(link)
+            # Add new links
+            for link in new_links:
+                if link['link'] != '':
+                    new_link = BookseriesLink(bookseries_id=bookseries_id,
+                                              link=link['link'],
+                                              description=link['description'])
+                    session.add(new_link)
+            old_values['Linkit'] = '-'.join([str(x) for x in to_add])
+            old_values['Linkit'] += '+'.join([str(x) for x in to_remove])
+            try:
+                session.commit()
+            except SQLAlchemyError as exp:
+                session.rollback()
+                app.logger.error('Exception in BookseriesUpdate (links): '
+                                 + str(exp))
+                return ResponseType(
+                    'BookseriesUpdate: Tietokantavirhe.',
+                    HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     log_id = log_changes(session,
                          obj=bookseries,
                          old_values=old_values,
