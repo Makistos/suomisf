@@ -3,11 +3,15 @@ from typing import Any, Union
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.route_helpers import new_session
-from app.orm_decl import Publisher, Pubseries
+from app.orm_decl import Pubseries
 from app.model import (PubseriesSchema, PubseriesBriefSchema)
-from app.impl import ResponseType
+from app.impl import ResponseType, check_int
 from app import app
 from app.types import HttpResponseCode
+from app.impl_links import links_have_changed
+from app.impl_logs import log_changes
+from app.route_helpers import get_join_changes
+from app.orm_decl import PubseriesLink
 
 
 def filter_pubseries(query: str) -> ResponseType:
@@ -116,154 +120,172 @@ def list_pubseries() -> ResponseType:
 
 def pubseries_create(params: Any) -> ResponseType:
     """
-    Creates a new pubseries based on the provided parameters.
+    Creates a new publication series with the given parameters.
 
     Args:
-        params (Any): The input parameters for creating the pubseries.
+        params (Any): The parameters for creating the publication series.
 
     Returns:
-        ResponseType: The response type containing the result of the operation.
+        ResponseType: The response containing the ID of the created publication
+                      series or an error message.
+
+    Raises:
+        SQLAlchemyError: If there is an error during the database transaction.
     """
     session = new_session()
     data = params['data']
-    pubseries = Pubseries()
-    if 'name' in data:
-        pubseries.name = data['name']
-    else:
-        app.logger.error('Pubseries name is required')
-        return ResponseType('Sarjan nimi on pakollinen tieto',
+
+    if 'name' not in data:
+        app.logger.error('PubseriesCreate: Name is missing.')
+        return ResponseType('PubseriesCreate: Nimi puuttuu.',
                             HttpResponseCode.BAD_REQUEST.value)
+
     ps = session.query(Pubseries)\
-        .filter(Pubseries.name == pubseries.name)\
-        .first()
+        .filter(Pubseries.name == data['name']).first()
     if ps:
-        app.logger.error(f'Pubseries already exists: {pubseries.name}')
-        return ResponseType(f'Sarja on jo olemassa: {pubseries.name}',
+        app.logger.error('PubseriesCreate: Name already exists.')
+        return ResponseType('PubseriesCreate: Nimi on jo olemassa.',
                             HttpResponseCode.BAD_REQUEST.value)
 
-    if 'publisher_id' in data:
-        pubseries.publisher_id = data['publisher_id']
-    else:
-        app.logger.error('Pubseries requires a publisher')
-        return ResponseType('Kustantaja on pakollinen tieto',
-                            HttpResponseCode.BAD_REQUEST.value)
+    pubseries = Pubseries()
+    pubseries.name = data['name']
 
-    publisher = session.query(Publisher)\
-        .filter(Publisher.id == pubseries.publisher_id)\
-        .first()
-
-    if publisher is None:
-        app.logger.error(f'Publisher does not exist: {pubseries.publisher_id}')
-        return ResponseType('Kustantajaa ei ole olemassa: '
-                            f'{pubseries.publisher_id}',
-                            HttpResponseCode.BAD_REQUEST.value)
-
-    pubseries.important = data['important'] if 'important' in data else False
-    pubseries.image_attr = data['image_attr'] if 'image_attr' in data else None
-    pubseries.image_src = data['image_src'] if 'image_src' in data else None
+    if 'description' in data:
+        if data['description'] == '':
+            description = None
+        else:
+            description = data['description']
+        pubseries.description = description
 
     try:
         session.add(pubseries)
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()
-        app.logger.error(exp)
-        return ResponseType('Tietokantavirhe',
+        app.logger.error('Exception in PubseriesCreate: ' + str(exp))
+        return ResponseType('PubseriesCreate: Tietokantavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    if 'links' in data:
+        new_links = [x for x in data['links'] if x['link'] != '']
+        for link in new_links:
+            if link['link'] != '':
+                new_link = PubseriesLink(pubseries_id=pubseries.id,
+                                         link=link['link'],
+                                         description=link['description'])
+                session.add(new_link)
+        try:
+            session.commit()
+        except SQLAlchemyError as exp:
+            session.rollback()
+            app.logger.error('Exception in PubseriesCreate (links): '
+                             + str(exp))
+            return ResponseType('Tietokantavirhe.',
+                                HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    log_changes(session, obj=pubseries, action='Uusi')
 
     return ResponseType(str(pubseries.id), HttpResponseCode.CREATED.value)
 
 
 def pubseries_update(params: Any) -> ResponseType:
     """
-    Updates a pubseries in the database based on the provided parameters.
+    Updates a publication series with the given parameters.
 
     Args:
-        params (Any): The input parameters for updating the pubseries.
+        params (Any): The parameters for the update.
 
     Returns:
-        ResponseType: The response type containing the result of the operation.
+        ResponseType: The response indicating the success or failure of the
+                      update.
     """
     session = new_session()
     data = params['data']
-    if 'id' not in data:
-        app.logger.error('Pubseries ID is required')
-        return ResponseType('Sarjan ID on pakollinen tieto',
+    old_values = {}
+
+    pubseries_id = check_int(data['id'],
+                             negative_values=False,
+                             zeros_allowed=False)
+    if pubseries_id is None:
+        app.logger.error('PubseriesUpdate: Invalid id.')
+        return ResponseType('PubseriesUpdate: Virheellinen id.',
                             HttpResponseCode.BAD_REQUEST.value)
 
-    try:
-        pubseries_id = int(data['id'])
-    except (TypeError, ValueError):
-        app.logger.error(f'Invalid id {data["id"]}.')
-        return ResponseType(
-            f'Virheellinen tunniste {data["id"]}.',
-            HttpResponseCode.BAD_REQUEST.value)
-
     pubseries = session.query(Pubseries)\
-        .filter(Pubseries.id == pubseries_id)\
-        .first()
-    if pubseries is None:
-        return ResponseType(f'Sarjaa ei löydy: {pubseries_id}',
+        .filter(Pubseries.id == pubseries_id).first()
+    if not pubseries:
+        app.logger.error('PubseriesUpdate: Unknown pubseries id.')
+        return ResponseType('PubseriesUpdate: Tuntematon id.',
                             HttpResponseCode.BAD_REQUEST.value)
 
     if 'name' in data:
-        pubseries.name = data['name']
-    else:
-        app.logger.error('Pubseries name is required')
-        return ResponseType('Sarjan nimi on pakollinen tieto',
-                            HttpResponseCode.BAD_REQUEST.value)
+        if data['name'] == '':
+            app.logger.error('PubseriesUpdate: Name cannot be empty.')
+            return ResponseType('PubseriesUpdate: Nimi ei voi olla tyhjä.',
+                                HttpResponseCode.BAD_REQUEST.value)
+        ps = session.query(Pubseries).filter(Pubseries.name == data['name'])\
+            .filter(Pubseries.id != pubseries_id)\
+            .first()
+        if ps:
+            app.logger.error('PubseriesUpdate: Name already exists.')
+            return ResponseType('PubseriesUpdate: Nimi on jo olemassa.',
+                                HttpResponseCode.BAD_REQUEST.value)
+        if data['name'] != pubseries.name:
+            old_values['Nimi'] = pubseries.name
+            pubseries.name = data['name']
 
-    if 'publisher_id' in data:
-        pub_id = data['publisher_id']
-        try:
-            publisher_id = int(pub_id)
-        except (TypeError, ValueError):
-            app.logger.error(f'Invalid publisher id {pub_id}.')
-            return ResponseType(
-                f'Virheellinen kustantajan tunniste {pub_id}.',
-                HttpResponseCode.BAD_REQUEST.value)
-    elif 'publisher' not in data:
-        app.logger.error('Pubseries requires a publisher')
-        return ResponseType('Kustantaja on pakollinen tieto',
-                            HttpResponseCode.BAD_REQUEST.value)
-    elif 'id' not in data['publisher']:
-        app.logger.error('Publisher ID is required')
-        return ResponseType('Kustantajan tunniste on pakollinen tieto',
-                            HttpResponseCode.BAD_REQUEST.value)
-    else:
-        pub_id = data['publisher']['id']
-        try:
-            publisher_id = int(pub_id)
-        except (TypeError, ValueError):
-            app.logger.error(f'Invalid publisher id {pub_id}.')
-            return ResponseType(
-                f'Virheellinen kustantajan tunniste {pub_id}.',
-                HttpResponseCode.BAD_REQUEST.value)
-
-    publisher = session.query(Publisher)\
-        .filter(Publisher.id == publisher_id)\
-        .first()
-    if publisher is None:
-        app.logger.error(f'Publisher not found: {publisher_id}')
-        return ResponseType(f'Kustantajaa ei löydy: {publisher_id}',
-                            HttpResponseCode.BAD_REQUEST.value)
-    pubseries.publisher_id = publisher_id
-
-    if 'important' in data:
-        pubseries.important = data['important']
-    if 'image_attr' in data:
-        pubseries.image_attr = data['image_attr']
-    if 'image_src' in data:
-        pubseries.image_src = data['image_src']
+    if 'description' in data:
+        if data['description'] != pubseries.description:
+            old_values['Kuvaus'] = pubseries.description
+            if data['description'] == '':
+                pubseries.description = None
+            else:
+                pubseries.description = data['description']
 
     try:
-        session.add(pubseries)
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()
-        app.logger.error(exp)
-        return ResponseType('Tietokantavirhe',
+        app.logger.error('Exception in PubseriesUpdate: ' + str(exp))
+        return ResponseType('PubseriesUpdate: Tietokantavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    if 'links' in data:
+        new_links = [x for x in data['links'] if x['link'] != '']
+        if links_have_changed(pubseries.links, new_links):
+            existing_links = session.query(PubseriesLink)\
+                .filter(PubseriesLink.pubseries_id == pubseries.id).all()
+            (to_add, to_remove) = get_join_changes(
+                [x.link for x in existing_links],
+                [x['link'] for x in data['links']])
+            for link in existing_links:
+                session.delete(link)
+            # Add new links
+            for link in new_links:
+                if link['link'] != '':
+                    new_link = PubseriesLink(pubseries_id=pubseries_id,
+                                             link=link['link'],
+                                             description=link['description'])
+                    session.add(new_link)
+            old_values['Linkit'] = '-'.join([str(x) for x in to_add])
+            old_values['Linkit'] += '+'.join([str(x) for x in to_remove])
+            try:
+                session.commit()
+            except SQLAlchemyError as exp:
+                session.rollback()
+                app.logger.error('Exception in PubseriesUpdate (links): '
+                                 + str(exp))
+                return ResponseType(
+                    'PubseriesUpdate: Tietokantavirhe.',
+                    HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    log_id = log_changes(session,
+                         obj=pubseries,
+                         old_values=old_values,
+                         action='Päivitys')
+
+    if log_id == 0:
+        app.logger.error('PubseriesUpdate: Failed to log changes.')
 
     return ResponseType('OK', HttpResponseCode.OK.value)
 

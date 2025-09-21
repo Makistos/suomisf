@@ -497,6 +497,7 @@ class PubseriesSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     editions = ma.List(fields.Nested(EditionBriefSchema))
     links = ma.List(fields.Nested(PubseriesLinkSchema))
 
+
 class EditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     """ Edition schema. """
     class Meta:
