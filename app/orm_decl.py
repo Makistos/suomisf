@@ -316,6 +316,12 @@ class Bookseries(Base):
     works = relationship("Work", backref=backref('work'), uselist=True,
                          order_by='Work.bookseriesorder', viewonly=True)
     links = relationship("BookseriesLink", uselist=True, viewonly=True)
+    parent_id = Column(Integer, ForeignKey('bookseries.id'))
+    partof = relationship("Bookseries",
+                          remote_side=[id],
+                          back_populates="subseries")
+    subseries = relationship("Bookseries",
+                             back_populates="partof")
 
 
 class BookseriesLink(Base):

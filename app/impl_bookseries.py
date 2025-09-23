@@ -154,6 +154,20 @@ def bookseries_create(params: Any) -> ResponseType:
             important = True
         bookseries.important = important
 
+    if 'description' in data:
+        if data['description'] == '':
+            description = None
+        else:
+            description = data['description']
+        bookseries.description = description
+
+    if ('partof' in data and data['partof'] is not None and
+            'id' in data['partof']):
+        partof_id = check_int(data['partof']['id'],
+                              negative_values=False,
+                              zeros_allowed=False)
+        bookseries.parent_id = partof_id
+
     try:
         session.add(bookseries)
         session.commit()
@@ -258,6 +272,13 @@ def bookseries_update(params: Any) -> ResponseType:
         if data['important'] != bookseries.important:
             old_values['Tärkeä'] = bookseries.important
             bookseries.important = data['important']
+
+    if ('partof' in data and data['partof'] is not None and
+            'id' in data['partof']):
+        partof_id = check_int(data['partof']['id'],
+                              negative_values=False,
+                              zeros_allowed=False)
+        bookseries.parent_id = partof_id
 
     try:
         session.commit()

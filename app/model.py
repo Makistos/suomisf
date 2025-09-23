@@ -476,6 +476,10 @@ class BookseriesSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         model = Bookseries
     works = ma.List(fields.Nested(WorkBriefSchema))
     links = ma.List(fields.Nested(lambda: BookseriesLinkSchema))
+    partof = fields.Nested(lambda: BookseriesBriefSchema(
+        only=('id', 'name')))
+    subseries = ma.List(fields.Nested(lambda: BookseriesBriefSchema(
+        only=('id', 'name'))))
 
 
 class PubseriesLinkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
