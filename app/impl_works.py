@@ -3,7 +3,7 @@
 import html
 from typing import Dict, List, Any, Union
 import bleach
-from sqlalchemy import or_, and_, func
+from sqlalchemy import or_, and_, func, text
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import aliased
 from marshmallow import exceptions
@@ -1455,3 +1455,41 @@ def get_latest_works(count: int) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def get_random_incomplete_work() -> ResponseType:
+    """
+    Get a random work that doesn't have description, links, and tags.
+
+    Returns:
+        ResponseType: Response containing a random incomplete work or error
+                      message.
+    """
+    try:
+        # SQL query to find works without description, links, and tags
+        query = """
+        SELECT w.id
+        FROM work w
+        LEFT JOIN worklink wl ON w.id = wl.work_id
+        LEFT JOIN worktag wt ON w.id = wt.work_id
+        WHERE (w.description IS NULL OR w.description = '')
+        AND wl.work_id IS NULL
+        AND wt.work_id IS NULL
+        ORDER BY RANDOM()
+        LIMIT 1
+        """
+        session = new_session()
+
+        result = session.execute(text(query)).fetchone()
+
+        if not result:
+            return ResponseType("No incomplete works found",
+                                HttpResponseCode.NOT_FOUND.value)
+
+        work_id = result[0]
+        return get_work(work_id)
+
+    except Exception as e:
+        app.logger.error(f'get_random_incomplete_work: Database error: {e}')
+        return ResponseType("Database error occurred",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)

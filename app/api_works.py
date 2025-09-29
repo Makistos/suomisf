@@ -417,3 +417,43 @@ def api_searchworks() -> Response:
     retval = search_books(params)
 
     return make_api_response(retval)
+
+
+@app.route('/api/works/random/incomplete', methods=['get'])
+def api_random_incomplete_work() -> Response:
+    """
+    @api {get} /api/works/random/incomplete Get random incomplete work
+    @apiName Get Random Incomplete Work
+    @apiGroup Work
+    @apiDescription Get a random work that lacks description, links, and tags.
+    @apiSuccess {ResponseType} work Work object without description, links,
+                                    and tags.
+    @apiSuccessExample {json} Success-Response:
+        HTTP/1.1 200 OK
+        {
+            "response": {
+                "id": 123,
+                "title": "Some Title",
+                "orig_title": "Original Title",
+                "pubyear": 1985,
+                "work_type": {
+                    "id": 1,
+                    "name": "Romaani"
+                },
+                "description": null,
+                "links": [],
+                "tags": [],
+                ...
+            },
+            "status": 200
+        }
+    @apiErrorExample {json} Error-Response:
+        HTTP/1.1 404 Not Found
+        {
+            "response": "No incomplete works found",
+            "status": 404
+        }
+    """
+    from app.impl_works import get_random_incomplete_work
+
+    return make_api_response(get_random_incomplete_work())
