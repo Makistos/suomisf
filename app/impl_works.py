@@ -1204,8 +1204,7 @@ def save_work_shorts(params: Any) -> ResponseType:
     This function is way too complex thanks to the less-than-perfect database
     model. The only way to store contributors to a story is through the part
     table. If a story is not connected to any work then we need to create an
-    "empty" part which does not reference any works (or editions for that
-    matter).
+    "empty" part which does not reference any works (or editions for that matter).
 
     In this case it is possible that a story is removed from the only work they
     are attached to so we need to make sure these stories have an empty part.
@@ -1561,9 +1560,23 @@ def get_random_incomplete_works(params: Dict[str, Any]) -> ResponseType:
                     AND p.shortstory_id IS NOT NULL
                 ))""")
 
-        # Edition-level conditions
+        # Edition-level conditions (except image which needs special handling)
         edition_fields = set(missing_fields) & valid_edition_fields
         edition_conditions = []
+
+        # Handle image field separately
+        if 'image' in edition_fields:
+            # Check if work has NO images for ANY editions
+            conditions.append("""NOT EXISTS (
+                SELECT 1 FROM part p2
+                JOIN edition e2 ON p2.edition_id = e2.id
+                JOIN editionimage ei ON e2.id = ei.edition_id
+                WHERE p2.work_id = w.id
+                AND p2.shortstory_id IS NULL
+            )""")
+            edition_fields.remove('image')  # Remove from edition_fields to avoid duplicate processing
+
+        # Handle other edition fields
         for field in edition_fields:
             if field == 'page_count':
                 edition_conditions.append("e.pages IS NULL")
@@ -1572,9 +1585,6 @@ def get_random_incomplete_works(params: Dict[str, Any]) -> ResponseType:
             elif field == 'binding':
                 edition_conditions.append(
                     "(e.binding_id IS NULL OR e.binding_id = 0)")
-            elif field == 'image':
-                edition_conditions.append(
-                    "(e.coverimage IS NULL OR e.coverimage = 0)")
 
         # Build the query
         if not missing_fields:
