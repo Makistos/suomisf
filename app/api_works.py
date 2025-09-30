@@ -419,41 +419,68 @@ def api_searchworks() -> Response:
     return make_api_response(retval)
 
 
-@app.route('/api/works/random/incomplete', methods=['get'])
+@app.route('/api/works/random/incomplete', methods=['post'])
 def api_random_incomplete_work() -> Response:
     """
-    @api {get} /api/works/random/incomplete Get random incomplete work
-    @apiName Get Random Incomplete Work
+    @api {post} /api/works/random/incomplete Get random incomplete works
+    @apiName Get Random Incomplete Works
     @apiGroup Work
-    @apiDescription Get a random work that lacks description, links, and tags.
-    @apiSuccess {ResponseType} work Work object without description, links,
-                                    and tags.
+    @apiDescription Get random works that lack specified data fields.
+    @apiParam {Number} [count=1] Number of works to return (1-100).
+    @apiParam {String[]} [missing_fields] Array of fields to check for missing
+                                          data.
+    @apiParamExample {json} Request-Example:
+        {
+            "count": 5,
+            "missing_fields": ["description", "tags", "genres", "stories",
+                               "page_count"]
+        }
+    @apiParamExample {json} Available Fields:
+        Work fields: ["description", "links", "tags", "genres", "language",
+                      "stories"]
+        Edition fields: ["page_count", "size", "binding", "image"]
+        Note: "stories" field only applies to collections (work type 2)
+    @apiSuccess {ResponseType} works Array of work objects missing specified
+                                     data.
     @apiSuccessExample {json} Success-Response:
         HTTP/1.1 200 OK
         {
-            "response": {
-                "id": 123,
-                "title": "Some Title",
-                "orig_title": "Original Title",
-                "pubyear": 1985,
-                "work_type": {
-                    "id": 1,
-                    "name": "Romaani"
-                },
-                "description": null,
-                "links": [],
-                "tags": [],
-                ...
-            },
+            "response": [
+                {
+                    "id": 123,
+                    "title": "Some Collection",
+                    "work_type": {"id": 2, "name": "Kokoelma"},
+                    "description": null,
+                    "tags": [],
+                    "stories": [],
+                    "editions": [
+                        {
+                            "id": 456,
+                            "pages": null,
+                            ...
+                        }
+                    ],
+                    ...
+                }
+            ],
             "status": 200
         }
     @apiErrorExample {json} Error-Response:
-        HTTP/1.1 404 Not Found
+        HTTP/1.1 400 Bad Request
         {
-            "response": "No incomplete works found",
-            "status": 404
+            "response": "Invalid count: must be between 1 and 100",
+            "status": 400
         }
     """
-    from app.impl_works import get_random_incomplete_work
+    params = request.data.decode('utf-8')
+    try:
+        params = json.loads(params) if params else {}
+    except json.decoder.JSONDecodeError as exp:
+        app.logger.error(f'Invalid JSON: {exp}.')
+        response = ResponseType(f'Virheellinen JSON: {exp}.',
+                                HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
 
-    return make_api_response(get_random_incomplete_work())
+    from app.impl_works import get_random_incomplete_works
+
+    return make_api_response(get_random_incomplete_works(params))

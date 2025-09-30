@@ -1493,3 +1493,163 @@ def get_random_incomplete_work() -> ResponseType:
         app.logger.error(f'get_random_incomplete_work: Database error: {e}')
         return ResponseType("Database error occurred",
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+
+def get_random_incomplete_works(params: Dict[str, Any]) -> ResponseType:
+    """
+    Get random works that are missing specified data fields.
+
+    Args:
+        params (dict): Parameters containing:
+            - count (int, optional): Number of works to return
+                                     (1-100, default: 1)
+            - missing_fields (list, optional): Fields to check for missing data
+
+    Returns:
+        ResponseType: Response containing random incomplete works or error
+                      message.
+    """
+    session = new_session()
+    try:
+        # Validate and extract parameters
+        count = params.get('count', 1)
+        missing_fields = params.get('missing_fields', [])
+
+        # Validate count
+        if not isinstance(count, int) or count < 1 or count > 100:
+            return ResponseType("Invalid count: must be between 1 and 100",
+                                HttpResponseCode.BAD_REQUEST.value)
+
+        # Validate missing_fields
+        valid_work_fields = {'description', 'links', 'tags', 'genres',
+                             'language', 'stories'}
+        valid_edition_fields = {'page_count', 'size', 'binding', 'image'}
+        valid_fields = valid_work_fields | valid_edition_fields
+
+        if missing_fields and not isinstance(missing_fields, list):
+            return ResponseType("missing_fields must be an array",
+                                HttpResponseCode.BAD_REQUEST.value)
+
+        invalid_fields = set(missing_fields) - valid_fields
+        if invalid_fields:
+            return ResponseType(f"Invalid fields: {list(invalid_fields)}. "
+                                f"Valid fields: {sorted(list(valid_fields))}",
+                                HttpResponseCode.BAD_REQUEST.value)
+
+        # Build the WHERE conditions
+        conditions = []
+
+        # Work-level conditions
+        work_fields = set(missing_fields) & valid_work_fields
+        for field in work_fields:
+            if field == 'description':
+                conditions.append(
+                    "(w.description IS NULL OR w.description = '')")
+            elif field == 'links':
+                conditions.append("wl.work_id IS NULL")
+            elif field == 'tags':
+                conditions.append("wt.work_id IS NULL")
+            elif field == 'genres':
+                conditions.append("wg.work_id IS NULL")
+            elif field == 'language':
+                conditions.append("w.language IS NULL")
+            elif field == 'stories':
+                # Check if collection (type 2) is missing short stories
+                conditions.append("""(w.type = 2 AND NOT EXISTS (
+                    SELECT 1 FROM part p
+                    WHERE p.work_id = w.id
+                    AND p.shortstory_id IS NOT NULL
+                ))""")
+
+        # Edition-level conditions
+        edition_fields = set(missing_fields) & valid_edition_fields
+        edition_conditions = []
+        for field in edition_fields:
+            if field == 'page_count':
+                edition_conditions.append("e.pages IS NULL")
+            elif field == 'size':
+                edition_conditions.append("(e.size IS NULL OR e.size = 0)")
+            elif field == 'binding':
+                edition_conditions.append(
+                    "(e.binding_id IS NULL OR e.binding_id = 0)")
+            elif field == 'image':
+                edition_conditions.append(
+                    "(e.coverimage IS NULL OR e.coverimage = 0)")
+
+        # Build the query
+        if not missing_fields:
+            # No filters specified, return any random works
+            query = """
+            SELECT DISTINCT w.id
+            FROM work w
+            ORDER BY RANDOM()
+            LIMIT :count
+            """
+            work_ids = session.execute(
+                text(query), {'count': count}).fetchall()
+        else:
+            # Build query with conditions
+            joins = []
+            if 'links' in work_fields:
+                joins.append("LEFT JOIN worklink wl ON w.id = wl.work_id")
+            if 'tags' in work_fields:
+                joins.append("LEFT JOIN worktag wt ON w.id = wt.work_id")
+            if 'genres' in work_fields:
+                joins.append("LEFT JOIN workgenre wg ON w.id = wg.work_id")
+
+            if edition_conditions:
+                joins.append(
+                    "LEFT JOIN part p ON w.id = p.work_id AND p.shortstory_id \
+                     IS NULL")
+                joins.append("LEFT JOIN edition e ON p.edition_id = e.id")
+                # For edition conditions, we want works where ANY edition is
+                # missing data
+                edition_subquery = f"""
+                w.id IN (
+                    SELECT DISTINCT p2.work_id
+                    FROM part p2
+                    JOIN edition e2 ON p2.edition_id = e2.id
+                    WHERE p2.work_id = w.id
+                    AND p2.shortstory_id IS NULL
+                    AND ({' OR '.join(edition_conditions)})
+                )
+                """
+                conditions.append(edition_subquery)
+
+            join_clause = ' '.join(joins) if joins else ''
+            where_clause = ' AND '.join(conditions) if conditions else '1=1'
+
+            query = f"""
+            SELECT w.id
+            FROM work w
+            {join_clause}
+            WHERE {where_clause}
+            ORDER BY RANDOM()
+            LIMIT :count
+            """
+
+            work_ids = session.execute(
+                text(query), {'count': count}).fetchall()
+
+        if not work_ids:
+            return ResponseType("No works found matching the criteria",
+                                HttpResponseCode.NOT_FOUND.value)
+
+        # Get full work objects
+        works = []
+        for work_id_tuple in work_ids:
+            work_id = work_id_tuple[0]
+            work_response = get_work(work_id)
+            if work_response.status == HttpResponseCode.OK.value:
+                works.append(work_response.response)
+
+        if not works:
+            return ResponseType("No works could be retrieved",
+                                HttpResponseCode.NOT_FOUND.value)
+
+        return ResponseType(works, HttpResponseCode.OK.value)
+
+    except Exception as e:
+        app.logger.error(f'get_random_incomplete_works: Database error: {e}')
+        return ResponseType("Database error occurred",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
