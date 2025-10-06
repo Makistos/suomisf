@@ -356,6 +356,12 @@ def create_edition(params: Any) -> ResponseType:
             # Default value
             edition.coverimage = 1
 
+    if "printedin" in data:
+        printedin: Union[str, None] = data["printedin"]
+        if printedin == "":
+            printedin = None
+        edition.printedin = printedin
+
     if "misc" in data:
         edition.misc = data["misc"]
     if "imported_string" in data:
