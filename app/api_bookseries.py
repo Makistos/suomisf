@@ -9,7 +9,6 @@ This module is part of the application's API and is used to interact with
 the book series data in a structured manner.
 """
 
-from jsonschema import validate
 from app import app
 from app.api_jwt import jwt_admin_required
 from app.api_helpers import make_api_response
@@ -17,10 +16,8 @@ from app.impl import ResponseType
 from app.impl_bookseries import (list_bookseries, bookseries_create,
                                  bookseries_update, bookseries_delete,
                                  get_bookseries, filter_bookseries)
-from app.model import BookseriesSchema
 from app.types import HttpResponseCode
 import json
-import jsonschema
 import bleach
 from flask import Response, request
 

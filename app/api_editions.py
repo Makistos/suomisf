@@ -8,7 +8,7 @@ from app.api_helpers import make_api_response
 from app.api_jwt import jwt_admin_required
 from app.impl import ResponseType
 from app.impl_editions import (
-    create_edition, edition_delete, edition_image_upload, edition_image_delete,
+    copy_edition, create_edition, edition_delete, edition_image_upload, edition_image_delete,
     edition_shorts,
     editionowner_list, editionowner_get, editionowner_getowned,
     editionowner_remove, editionowner_add, editionowner_update, get_edition,
@@ -94,6 +94,29 @@ def api_editiondelete(editionid: str) -> Response:
         Response: The API response.
     """
     return make_api_response(edition_delete(editionid))
+
+
+@app.route('/api/editions/<editionid>/copy', methods=['post'])
+@jwt_admin_required()  # type: ignore
+def api_copyedition(editionid: str) -> Response:
+    """
+    Copy an edition.
+
+    Parameters:
+        editionId (str): The ID of the edition to be copied.
+
+    Returns:
+        Response: The API response.
+    """
+    try:
+        edition_id = int(editionid)
+    except (TypeError, ValueError):
+        app.logger.error(f'api_copyedition: Invalid id {editionid}.')
+        response = ResponseType(
+           f'Virheellinen tunniste {editionid}.',
+           status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+    return make_api_response(copy_edition(edition_id))
 
 
 @app.route('/api/editions/<editionid>/images', methods=['post'])

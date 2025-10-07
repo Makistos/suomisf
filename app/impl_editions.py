@@ -1391,3 +1391,120 @@ def get_edition_work(edition_id: int) -> ResponseType:
         )
     finally:
         session.close()
+
+
+def copy_edition(edition_id: int) -> ResponseType:
+    """
+    Creates a copy of an existing edition with all related data except owners and wishlist.
+
+    Args:
+        edition_id (int): The ID of the edition to copy
+
+    Returns:
+        int: The ID of the newly created edition
+
+    Raises:
+        ValueError: If the edition with the given ID is not found
+    """
+    session = new_session()
+
+    try:
+        # Get the original edition
+        original_edition = session.query(Edition).get(edition_id)
+        if not original_edition:
+            raise ValueError(f"Edition with ID {edition_id} not found")
+
+        # Create a new edition with copied fields
+        new_edition = Edition(
+            title=original_edition.title,
+            subtitle=original_edition.subtitle,
+            pubyear=original_edition.pubyear,
+            publisher_id=original_edition.publisher_id,
+            editionnum=original_edition.editionnum,
+            version=original_edition.version,
+            isbn=original_edition.isbn,
+            printedin=original_edition.printedin,
+            pubseries_id=original_edition.pubseries_id,
+            pubseriesnum=original_edition.pubseriesnum,
+            coll_info=original_edition.coll_info,
+            pages=original_edition.pages,
+            binding_id=original_edition.binding_id,
+            format_id=original_edition.format_id,
+            size=original_edition.size,
+            dustcover=original_edition.dustcover,
+            coverimage=original_edition.coverimage,
+            misc=original_edition.misc,
+            imported_string=original_edition.imported_string,
+            verified=original_edition.verified
+        )
+
+        session.add(new_edition)
+        session.flush()  # Get the new edition ID
+
+        # Create new parts based on original parts
+        for original_part in original_edition.parts:
+            new_part = Part(
+                edition_id=new_edition.id,
+                work_id=original_part.work_id,
+                shortstory_id=original_part.shortstory_id,
+                order_num=original_part.order_num,
+                title=original_part.title
+            )
+            session.add(new_part)
+            session.flush()  # Get the new part ID
+
+            # Copy contributors for this part
+            contributors = session.query(Contributor).filter_by(part_id=original_part.id).all()
+            for original_contributor in contributors:
+                new_contributor = Contributor(
+                    part_id=new_part.id,
+                    person_id=original_contributor.person_id,
+                    role_id=original_contributor.role_id,
+                    real_person_id=original_contributor.real_person_id,
+                    description=original_contributor.description
+                )
+                session.add(new_contributor)
+
+        # Copy edition images
+        for original_image in original_edition.images:
+            new_image = EditionImage(
+                edition_id=new_edition.id,
+                image_src=original_image.image_src,
+                image_attr=original_image.image_attr
+            )
+            session.add(new_image)
+
+        # Copy edition links
+        edition_links = session.query(EditionLink).filter_by(edition_id=edition_id).all()
+        for original_link in edition_links:
+            new_link = EditionLink(
+                edition_id=new_edition.id,
+                link=original_link.link,
+                description=original_link.description
+            )
+            session.add(new_link)
+
+        # Copy edition prices
+        edition_prices = session.query(EditionPrice).filter_by(edition_id=edition_id).all()
+        for original_price in edition_prices:
+            new_price = EditionPrice(
+                edition_id=new_edition.id,
+                date=original_price.date,
+                condition_id=original_price.condition_id,
+                price=original_price.price
+            )
+            session.add(new_price)
+
+        session.commit()
+        return ResponseType(new_edition.id,
+                            HttpResponseCode.OK.value)
+
+    except Exception as e:
+        session.rollback()
+        app.logger.error(f'copy_edition: {e}')
+        return ResponseType(
+            'Tietokantavirhe kopioitaessa painosta.',
+            status=HttpResponseCode.INTERNAL_SERVER_ERROR.value
+        )
+    finally:
+        session.close()
