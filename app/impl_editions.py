@@ -93,6 +93,24 @@ def _set_publisher(
         app.logger.error(f'Publisher missing for edition {edition.id}')
         return ResponseType('Kustantaja on pakollinen tieto',
                             HttpResponseCode.BAD_REQUEST.value)
+
+    if isinstance(data["publisher"], str):
+        # User added a new publisher. Front returns this as a string
+        # with the name of the new publisher
+        pub_id = add_publisher(session, data["publisher"])
+        if not pub_id:
+            app.logger.error(
+                f'Internal error creating publisher for {edition.id}')
+            return ResponseType(
+                'Uuden kustantajan luominen ei onnistunut: '
+                f'{data["publisher"]}',
+                HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+        if old_values is not None:
+            old_values["Kustantaja"] = (edition.publisher.name
+                                        if edition.publisher else '')
+        edition.publisher_id = pub_id
+        return None
+
     if objects_differ(data["publisher"], edition.publisher):
         if old_values is not None:
             old_values["Kustantaja"] = (edition.publisher.name
