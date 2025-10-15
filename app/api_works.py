@@ -9,9 +9,9 @@ from app.api_jwt import jwt_admin_required
 from app.api_helpers import make_api_response
 from app.impl import ResponseType
 from app.impl_awards import get_awards_for_work
-from app.impl_works import (get_latest_works, get_work, get_work_shorts,
+from app.impl_works import (get_author_works, get_latest_works, get_work, get_work_shorts, save_omnibus,
                             save_work_shorts,
-                            search_books, search_works_by_author, work_add,
+                            search_books, search_works_by_authorstr, work_add,
                             work_delete, work_tag_add, work_tag_remove,
                             work_update, worktype_get_all)
 from app.types import HttpResponseCode
@@ -382,7 +382,29 @@ def api_searchworksbyinitial(letter: str) -> Response:
     """
     params = {}
     params['letter'] = letter
-    retval = search_works_by_author(params)
+    retval = search_works_by_authorstr(params)
+    return make_api_response(retval)
+
+
+@app.route('/api/worksbyauthor/<authorid>', methods=['get'])
+def api_searchworksbyauthor(authorid: str) -> Response:
+    """
+    Searches for works by author ID.
+
+    Args:
+        authorid (str): The ID of the author to search for.
+    Returns:
+        Response: The API response containing the search results.
+    """
+    try:
+        int_id = int(authorid)
+    except (TypeError, ValueError):
+        app.logger.error(f'api_searchworksbyauthor: Invalid id {authorid}.')
+        response = ResponseType(f'Virheellinen tunniste: {authorid}.',
+                                HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+
+    retval = get_author_works(int_id)
     return make_api_response(retval)
 
 
@@ -484,3 +506,27 @@ def api_random_incomplete_work() -> Response:
     from app.impl_works import get_random_incomplete_works
 
     return make_api_response(get_random_incomplete_works(params))
+
+
+@app.route('/api/works/omnibus', methods=['post'])
+@jwt_admin_required()  # type: ignore
+def api_create_omnibus() -> Response:
+    """
+    Create omnibus entry linking works together.
+
+    Expects JSON payload with 'omnibus_id', 'work_id', and optional
+    'explanation'.
+
+    Returns:
+        Response: API response indicating success or failure.
+    """
+    params = request.data.decode('utf-8')
+    try:
+        params = json.loads(params)
+    except json.decoder.JSONDecodeError as exp:
+        app.logger.error(f'Invalid JSON: {exp}.')
+        response = ResponseType(f'Virheellinen JSON: {exp}.',
+                                HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+
+    return make_api_response(save_omnibus(params))

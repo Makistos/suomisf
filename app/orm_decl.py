@@ -817,6 +817,16 @@ class MagazineType(Base):
     name = Column(String(50), nullable=False)
 
 
+class Omnibus(Base):
+    """ Omnibus table. Can be used to link works together."""
+    __tablename__ = 'omnibus'
+    omnibus_id = Column(Integer, ForeignKey('work.id'),
+                        nullable=False, primary_key=True)
+    work_id = Column(Integer, ForeignKey('work.id'),
+                     nullable=False, primary_key=True)
+    explanation = Column(Text())
+
+
 class Part(Base):
     ''' Part is most often representing a short story. So a collection
         consists of a number of parts, each representing one story.
@@ -1467,6 +1477,14 @@ class Work(Base):
                              uselist=False)
     links = relationship("WorkLink", uselist=True, viewonly=True)
     awards = relationship('Awarded', uselist=True, viewonly=True)
+    part_of = relationship('Work', secondary='omnibus',
+                           primaryjoin=id == Omnibus.work_id,
+                           secondaryjoin=id == Omnibus.omnibus_id,
+                           uselist=True, viewonly=True)
+    consists_of = relationship('Work', secondary='omnibus',
+                               primaryjoin=id == Omnibus.omnibus_id,
+                               secondaryjoin=id == Omnibus.work_id,
+                               uselist=True, viewonly=True)
     author_str = Column(String(500))
 
     @property

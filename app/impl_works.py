@@ -13,7 +13,7 @@ from app.route_helpers import new_session
 from app.impl import (ResponseType, SearchResult,
                       SearchResultFields, searchscore, set_language, check_int,
                       get_join_changes)
-from app.orm_decl import (Edition, Genre, Part, Tag, Work, WorkType,
+from app.orm_decl import (Edition, Genre, Omnibus, Part, Tag, Work, WorkType,
                           WorkTag, WorkGenre, WorkLink, Bookseries, ShortStory,
                           Contributor, Person)
 from app.model import (WorkBriefSchema, WorkTypeBriefSchema,
@@ -581,7 +581,7 @@ def search_books(params: Dict[str, str]) -> ResponseType:
         )
 
 
-def search_works_by_author(params: Dict[str, str]) -> ResponseType:
+def search_works_by_authorstr(params: Dict[str, str]) -> ResponseType:
     """
     Search for works by author.
 
@@ -616,6 +616,51 @@ def search_works_by_author(params: Dict[str, str]) -> ResponseType:
     except exceptions.MarshmallowError as exp:
         app.logger.error(exp)
         return ResponseType('Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def get_author_works(author_id: int) -> ResponseType:
+    """
+    Retrieves works associated with a specific author.
+
+    Args:
+        author_id (int): The ID of the author whose works are to be retrieved.
+
+    Returns:
+        ResponseType: The response containing the author's works or an error
+                      message if the operation fails.
+    """
+    session = new_session()
+
+    try:
+        works = session.query(Work).distinct()\
+            .join(Part, Work.id == Part.work_id)\
+            .join(Contributor, Part.id == Contributor.part_id)\
+            .filter(
+                and_(
+                    Contributor.role_id == 1,
+                    Part.shortstory_id.is_(None),
+                    or_(
+                        Contributor.person_id == author_id,
+                        Contributor.real_person_id == author_id
+                    )
+                )
+            )\
+            .order_by(Work.author_str, Work.title).all()
+    except SQLAlchemyError as exp:
+        app.logger.error('Exception in GetAuthorWorks: ' + str(exp))
+        return ResponseType(f'GetAuthorWorks: Tietokantavirhe. \
+                            author_id={author_id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    try:
+        schema = WorkBriefSchema(many=True)
+        retval = schema.dump(works)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error('GetAuthorWorks schema error: ' + str(exp))
+        return ResponseType('GetAuthorWorks: Skeemavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType(retval, HttpResponseCode.OK.value)
@@ -1663,3 +1708,61 @@ def get_random_incomplete_works(params: Dict[str, Any]) -> ResponseType:
         app.logger.error(f'get_random_incomplete_works: Database error: {e}')
         return ResponseType("Database error occurred",
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+
+def save_omnibus(params: Any) -> ResponseType:
+    """
+    Saves an omnibus edition containing multiple works.
+
+    Args:
+        params (Any): A dictionary containing the parameters for saving the
+                      omnibus edition.
+
+    Returns:
+        ResponseType: The response object indicating the success or failure of
+                      the operation.
+    """
+    session = new_session()
+    data = params
+
+    if 'omnibus' not in data:
+        return ResponseType('Puuttuva kokoomateos',
+                            HttpResponseCode.BAD_REQUEST.value)
+    if 'works' not in data:
+        return ResponseType('Teokset puuttuvat',
+                            HttpResponseCode.BAD_REQUEST.value)
+
+    omnibus_id = check_int(data['omnibus'])
+    if not omnibus_id or omnibus_id <= 0:
+        return ResponseType('Virheellinen kokoomateos',
+                            HttpResponseCode.BAD_REQUEST.value)
+    work_ids = [check_int(x) for x in data['works']]
+    if omnibus_id in work_ids:
+        return ResponseType('Kokoomateos ei voi sisältää itseään',
+                            HttpResponseCode.BAD_REQUEST.value)
+    if len(work_ids) == 0:
+        return ResponseType('Teoksia ei ole valittu',
+                            HttpResponseCode.BAD_REQUEST.value)
+    work_ids = list(set(work_ids))  # Remove duplicates
+    if len(work_ids) > 50:
+        return ResponseType('Enintään 50 teosta kerrallaan',
+                            HttpResponseCode.BAD_REQUEST.value)
+    for wid in work_ids:
+        if not wid or wid <= 0:
+            return ResponseType('Virheellinen teos',
+                                HttpResponseCode.BAD_REQUEST.value)
+    try:
+        # Start by removing existing omnibus parts
+        session.query(Omnibus)\
+            .filter(Omnibus.omnibus_id == omnibus_id).delete()
+        for wid in work_ids:
+            ob = Omnibus(omnibus_id=omnibus_id, work_id=wid)
+            session.add(ob)
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error({exp})
+        return ResponseType('save_omnibus: Tietokantavirhe',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType('OK', HttpResponseCode.OK.value)

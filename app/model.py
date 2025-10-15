@@ -539,6 +539,12 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     contributions = ma.List(fields.Nested(ContributorSchema))
     type = fields.Number()
     work_type = fields.Nested(WorkTypeBriefSchema)
+    part_of = ma.List(fields.Nested(WorkBriefSchema,
+                                    only=("id", "author_str", "title",
+                                          "orig_title", "pubyear")))
+    consists_of = ma.List(fields.Nested(WorkBriefSchema,
+                                        only=("id", "author_str", "title",
+                                              "orig_title", "pubyear")))
 
 
 class ArticleSchema(ma.SQLAlchemyAutoSchema):  # type: ignore

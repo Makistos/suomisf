@@ -13,7 +13,8 @@ from app.model import (ArticleSchema, IssueSchema, LogSchema,
                        PersonBriefSchema)
 from app.model_person import (PersonSchema)
 from app.model import (ShortBriefestSchema)
-from app.orm_decl import (Alias, Article, Country, ContributorRole, Issue, IssueContributor, Log,
+from app.orm_decl import (Alias, Article, Country, ContributorRole, Issue,
+                          IssueContributor, Log,
                           Work,
                           Contributor,
                           PersonLink, Awarded, PersonLanguage, PersonTag,
