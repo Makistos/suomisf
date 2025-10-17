@@ -508,6 +508,20 @@ def api_random_incomplete_work() -> Response:
     return make_api_response(get_random_incomplete_works(params))
 
 
+@app.route('/api/works/<workid>/omnibus', methods=['get'])
+def api_get_omnibus(workid: int) -> Response:
+    """
+    Get omnibus entries linking works together.
+
+    Expects query parameters 'omnibus_id' or 'work_id'.
+
+    Returns:
+        Response: API response containing omnibus entries.
+    """
+    from app.impl_works import get_omnibus
+    return make_api_response(get_omnibus(workid))
+
+
 @app.route('/api/works/omnibus', methods=['post'])
 @jwt_admin_required()  # type: ignore
 def api_create_omnibus() -> Response:

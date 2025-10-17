@@ -6,7 +6,7 @@ from app.orm_decl import (Article, Award, AwardCategory, Awarded, BindingType,
                           BookCondition, BookseriesLink,
                           Bookseries, Contributor, ContributorRole, Country,
                           Edition, EditionImage, Genre, Issue, Language, Log,
-                          Magazine, Person, PersonLink, PublicationSize,
+                          Magazine, Omnibus, Person, PersonLink, PublicationSize,
                           Publisher, PublisherLink, Pubseries, ShortStory, Tag,
                           TagType, UserBook, MagazineType, PubseriesLink,
                           Work, StoryType, WorkLink, Format, WorkType)
@@ -359,6 +359,19 @@ class ContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
                                         'alt_name')))
 
 
+class OmnibusSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Omnibus schema. """
+    class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
+        model = Omnibus
+    omnibus = fields.Nested(WorkBriefSchema(
+        only=('id', 'title', 'author_str', 'orig_title', 'pubyear')))
+    work = fields.Nested(WorkBriefSchema(
+        only=('id', 'title', 'author_str', 'orig_title', 'pubyear')))
+    explanation = fields.String()
+    order_num = fields.Int()
+
+
 class ShortBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     """ Short story schema. """
     class Meta:
@@ -539,12 +552,12 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     contributions = ma.List(fields.Nested(ContributorSchema))
     type = fields.Number()
     work_type = fields.Nested(WorkTypeBriefSchema)
-    part_of = ma.List(fields.Nested(WorkBriefSchema,
-                                    only=("id", "author_str", "title",
-                                          "orig_title", "pubyear")))
-    consists_of = ma.List(fields.Nested(WorkBriefSchema,
-                                        only=("id", "author_str", "title",
-                                              "orig_title", "pubyear")))
+    part_of = ma.List(fields.Nested(OmnibusSchema))
+    consists_of = ma.List(fields.Nested(OmnibusSchema))
+    # part_of = ma.List(fields.Nested(WorkBriefSchema(
+    #     only=('id', 'title', 'author_str', 'orig_title', 'pubyear'))))
+    # consists_of = ma.List(fields.Nested(WorkBriefSchema(
+    #     only=('id', 'title', 'author_str', 'orig_title', 'pubyear'))))
 
 
 class ArticleSchema(ma.SQLAlchemyAutoSchema):  # type: ignore

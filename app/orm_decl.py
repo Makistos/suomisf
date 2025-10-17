@@ -825,6 +825,11 @@ class Omnibus(Base):
     work_id = Column(Integer, ForeignKey('work.id'),
                      nullable=False, primary_key=True)
     explanation = Column(Text())
+    order_num = Column(Integer, nullable=False)
+    omnibus = relationship('Work', foreign_keys=[omnibus_id],
+                           uselist=False, viewonly=True)
+    work = relationship('Work', foreign_keys=[work_id],
+                        uselist=False, viewonly=True)
 
 
 class Part(Base):
@@ -1477,14 +1482,15 @@ class Work(Base):
                              uselist=False)
     links = relationship("WorkLink", uselist=True, viewonly=True)
     awards = relationship('Awarded', uselist=True, viewonly=True)
-    part_of = relationship('Work', secondary='omnibus',
+    part_of = relationship('Omnibus',
                            primaryjoin=id == Omnibus.work_id,
-                           secondaryjoin=id == Omnibus.omnibus_id,
+                           # secondaryjoin=id == Omnibus.omnibus_id,
                            uselist=True, viewonly=True)
-    consists_of = relationship('Work', secondary='omnibus',
+    consists_of = relationship('Omnibus',
                                primaryjoin=id == Omnibus.omnibus_id,
-                               secondaryjoin=id == Omnibus.work_id,
+                               order_by='Omnibus.order_num',
                                uselist=True, viewonly=True)
+
     author_str = Column(String(500))
 
     @property
