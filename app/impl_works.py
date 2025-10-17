@@ -16,7 +16,7 @@ from app.impl import (ResponseType, SearchResult,
 from app.orm_decl import (Edition, Genre, Omnibus, Part, Tag, Work, WorkType,
                           WorkTag, WorkGenre, WorkLink, Bookseries, ShortStory,
                           Contributor, Person)
-from app.model import (WorkBriefSchema, WorkTypeBriefSchema,
+from app.model import (OmnibusSchema, WorkBriefSchema, WorkTypeBriefSchema,
                        ShortBriefSchema)
 from app.model_bookindex import (BookIndexSchema)
 from app.model import WorkSchema
@@ -1710,6 +1710,39 @@ def get_random_incomplete_works(params: Dict[str, Any]) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
 
+def get_omnibus(omnibus_id: int) -> ResponseType:
+    """
+    Retrieves the omnibus edition containing multiple works.
+
+    Args:
+        omnibus_id (int): The ID of the omnibus edition.
+
+    Returns:
+        ResponseType: The response object containing the omnibus edition
+                      details.
+    """
+    session = new_session()
+    try:
+        omnibus_parts = session.query(Omnibus)\
+            .filter(Omnibus.omnibus_id == omnibus_id)\
+            .order_by(Omnibus.order_num)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(exp)
+        return ResponseType('get_omnibus: Tietokantavirhe',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    try:
+        schema = OmnibusSchema(many=True)
+        retval = schema.dump(omnibus_parts)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'Exception in get_omnibus(): {str(exp)}')
+        return ResponseType('get_omnibus: Serialisointivirhe',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(retval, HttpResponseCode.OK.value)
+
+
 def save_omnibus(params: Any) -> ResponseType:
     """
     Saves an omnibus edition containing multiple works.
@@ -1736,27 +1769,31 @@ def save_omnibus(params: Any) -> ResponseType:
     if not omnibus_id or omnibus_id <= 0:
         return ResponseType('Virheellinen kokoomateos',
                             HttpResponseCode.BAD_REQUEST.value)
-    work_ids = [check_int(x) for x in data['works']]
-    if omnibus_id in work_ids:
+    work_ids = [{'id': check_int(x['id']),
+                 'explanation': x.get('explanation') or None}
+                for x in data['works']]
+    if omnibus_id in [x['id'] for x in work_ids]:
         return ResponseType('Kokoomateos ei voi sisältää itseään',
                             HttpResponseCode.BAD_REQUEST.value)
     if len(work_ids) == 0:
         return ResponseType('Teoksia ei ole valittu',
                             HttpResponseCode.BAD_REQUEST.value)
-    work_ids = list(set(work_ids))  # Remove duplicates
     if len(work_ids) > 50:
         return ResponseType('Enintään 50 teosta kerrallaan',
                             HttpResponseCode.BAD_REQUEST.value)
     for wid in work_ids:
-        if not wid or wid <= 0:
+        if not wid or wid['id'] <= 0:
             return ResponseType('Virheellinen teos',
                                 HttpResponseCode.BAD_REQUEST.value)
     try:
         # Start by removing existing omnibus parts
         session.query(Omnibus)\
             .filter(Omnibus.omnibus_id == omnibus_id).delete()
-        for wid in work_ids:
-            ob = Omnibus(omnibus_id=omnibus_id, work_id=wid)
+        for idx, wid in enumerate(work_ids):
+            ob = Omnibus(omnibus_id=omnibus_id,
+                         work_id=wid['id'],
+                         explanation=wid.get('explanation') or None,
+                         order_num=idx+1)
             session.add(ob)
         session.commit()
     except SQLAlchemyError as exp:
