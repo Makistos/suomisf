@@ -6,7 +6,8 @@ from app.orm_decl import (Article, Award, AwardCategory, Awarded, BindingType,
                           BookCondition, BookseriesLink,
                           Bookseries, Contributor, ContributorRole, Country,
                           Edition, EditionImage, Genre, Issue, Language, Log,
-                          Magazine, Omnibus, Person, PersonLink, PublicationSize,
+                          Magazine, Omnibus, Person, PersonLink,
+                          PublicationSize,
                           Publisher, PublisherLink, Pubseries, ShortStory, Tag,
                           TagType, UserBook, MagazineType, PubseriesLink,
                           Work, StoryType, WorkLink, Format, WorkType)
@@ -367,7 +368,8 @@ class OmnibusSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     omnibus = fields.Nested(WorkBriefSchema(
         only=('id', 'title', 'author_str', 'orig_title', 'pubyear')))
     work = fields.Nested(WorkBriefSchema(
-        only=('id', 'title', 'author_str', 'orig_title', 'pubyear')))
+        only=('id', 'title', 'author_str', 'orig_title', 'pubyear',
+              'language_name')))
     explanation = fields.String()
     order_num = fields.Int()
 
