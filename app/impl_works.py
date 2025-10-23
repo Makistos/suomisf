@@ -1726,6 +1726,7 @@ def get_omnibus(omnibus_id: int) -> ResponseType:
         omnibus_parts = session.query(Omnibus)\
             .filter(Omnibus.omnibus_id == omnibus_id)\
             .order_by(Omnibus.order_num)\
+            .distinct()\
             .all()
     except SQLAlchemyError as exp:
         app.logger.error(exp)
@@ -1775,9 +1776,9 @@ def save_omnibus(params: Any) -> ResponseType:
     if omnibus_id in [x['id'] for x in work_ids]:
         return ResponseType('Kokoomateos ei voi sisältää itseään',
                             HttpResponseCode.BAD_REQUEST.value)
-    if len(work_ids) == 0:
-        return ResponseType('Teoksia ei ole valittu',
-                            HttpResponseCode.BAD_REQUEST.value)
+    # if len(work_ids) == 0:
+    #     return ResponseType('Teoksia ei ole valittu',
+    #                         HttpResponseCode.BAD_REQUEST.value)
     if len(work_ids) > 50:
         return ResponseType('Enintään 50 teosta kerrallaan',
                             HttpResponseCode.BAD_REQUEST.value)
