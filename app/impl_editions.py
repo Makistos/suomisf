@@ -932,6 +932,7 @@ def edition_shorts(edition_id: str) -> ResponseType:
             .filter(Part.edition_id == edition_id)\
             .filter(Part.shortstory_id == ShortStory.id)\
             .distinct()\
+            .order_by(Part.order_num)\
             .all()
     except SQLAlchemyError as exp:
         app.logger.error(f'edition_shorts(): {str(exp)}')

@@ -1232,9 +1232,10 @@ def get_work_shorts(work_id: int) -> ResponseType:
             .filter(Part.work_id == work_id)\
             .filter(Part.shortstory_id == ShortStory.id)\
             .distinct()\
+            .order_by(Part.order_num)\
             .all()
     except SQLAlchemyError as exp:
-        app.logger.error(f'Exception in WorkShorts(): {str(exp)}')
+        app.logger.error({exp})
         return ResponseType('WorkShorts: Tietokantavirhe',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     schema = ShortBriefSchema(many=True)
@@ -1383,8 +1384,10 @@ def save_work_shorts(params: Any) -> ResponseType:
 
     session.flush()
 
+    order_num = 1
     for short in new_shorts_list:
-        retval = save_short_to_work(session, work_id, short)
+        retval = save_short_to_work(session, work_id, short, order_num)
+        order_num += 1
         if not retval:
             session.rollback()
             app.logger.error(

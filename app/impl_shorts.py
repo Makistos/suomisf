@@ -719,7 +719,7 @@ def story_tag_remove(short_id: int, tag_id: int) -> ResponseType:
 
 
 def save_short_to_edition(
-        session: Any, edition_id: int, short_id: int) -> bool:
+        session: Any, edition_id: int, short_id: int, order_num: int) -> bool:
     """
     Save a short to an edition.
 
@@ -739,7 +739,7 @@ def save_short_to_edition(
             .filter(Part.edition_id == edition_id)\
             .first()
         short_part = Part(work_id=part.work_id, edition_id=edition_id,
-                          shortstory_id=short_id)
+                          shortstory_id=short_id, order_num=order_num)
         session.add(short_part)
     except SQLAlchemyError as exp:
         app.logger.error(f'Exception in save_short_to_edition: {exp}')
@@ -747,7 +747,8 @@ def save_short_to_edition(
     return True
 
 
-def save_short_to_work(session: Any, work_id: int, short_id: int) -> bool:
+def save_short_to_work(session: Any, work_id: int, short_id: int,
+                       order_num: int) -> bool:
     """
     Saves a short to a work in the database.
 
@@ -769,7 +770,10 @@ def save_short_to_work(session: Any, work_id: int, short_id: int) -> bool:
             .filter(Part.shortstory_id.is_(None))\
             .all()
         for edition in editions:
-            retval = save_short_to_edition(session, edition.id, short_id)
+            retval = save_short_to_edition(session,
+                                           edition.id,
+                                           short_id,
+                                           order_num)
             if not retval:
                 return False
     except SQLAlchemyError as exp:

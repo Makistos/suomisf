@@ -8,7 +8,8 @@ from app.api_helpers import make_api_response
 from app.api_jwt import jwt_admin_required
 from app.impl import ResponseType
 from app.impl_editions import (
-    copy_edition, create_edition, edition_delete, edition_image_upload, edition_image_delete,
+    copy_edition, create_edition, edition_delete, edition_image_upload,
+    edition_image_delete,
     edition_shorts,
     editionowner_list, editionowner_get, editionowner_getowned,
     editionowner_remove, editionowner_add, editionowner_update, get_edition,
