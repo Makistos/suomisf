@@ -1250,7 +1250,8 @@ def save_work_shorts(params: Any) -> ResponseType:
     This function is way too complex thanks to the less-than-perfect database
     model. The only way to store contributors to a story is through the part
     table. If a story is not connected to any work then we need to create an
-    "empty" part which does not reference any works (or editions for that matter).
+    "empty" part which does not reference any works (or editions for that
+    matter).
 
     In this case it is possible that a story is removed from the only work they
     are attached to so we need to make sure these stories have an empty part.
@@ -1308,6 +1309,9 @@ def save_work_shorts(params: Any) -> ResponseType:
                 .join(Part)\
                 .filter(Part.shortstory_id == story.id)\
                 .filter(Part.id == Contributor.part_id)\
+                .filter(Part.work_id == work_id)\
+                .filter(Part.shortstory_id.isnot(None))\
+                .distinct()\
                 .all()
         except SQLAlchemyError as exp:
             app.logger.error(f'save_work_shorts(): ({work_id}) {str(exp)}')
@@ -1333,11 +1337,16 @@ def save_work_shorts(params: Any) -> ResponseType:
 
     # Find contributors for new stories
     for short in new_shorts_list:
+        if short == 417:
+            app.logger.debug(
+                f'save_work_shorts(): Processing short 417 for work {work_id}'
+            )
         try:
             contribs = session.query(Contributor)\
                 .join(Part)\
                 .filter(Part.shortstory_id == short)\
                 .filter(Part.id == Contributor.part_id)\
+                .distinct()\
                 .all()
         except SQLAlchemyError as exp:
             app.logger.error(f'save_work_shorts(): ({work_id}) {str(exp)}')
