@@ -812,3 +812,94 @@ def get_latest_shorts(count: int) -> ResponseType:
                             status=HttpResponseCode.INTERNAL_SERVER_ERROR)
 
     return ResponseType(retval, status=HttpResponseCode.OK.value)
+
+
+def get_similar_shorts(short_id: int) -> ResponseType:
+    """
+    Gets all short stories that have the same authors and original title
+    as the given short story.
+
+    Args:
+        short_id (int): The ID of the short story to find similar stories for.
+
+    Returns:
+        ResponseType: The response containing the similar stories in
+        ShortBriefSchema format.
+    """
+    session = new_session()
+
+    try:
+        # Get the reference story
+        ref_story = session.query(ShortStory)\
+            .filter(ShortStory.id == short_id)\
+            .first()
+
+        if not ref_story:
+            app.logger.error('get_similar_shorts: Story not found. Id = " \
+                             f"{short_id}.')
+            return ResponseType(
+                f'Novellia ei löydy. id={short_id}.',
+                HttpResponseCode.NOT_FOUND.value
+            )
+
+        # If no original title, return empty result
+        if not ref_story.orig_title or ref_story.orig_title.strip() == '':
+            return ResponseType([], HttpResponseCode.OK.value)
+
+        # Get author IDs for the reference story
+        ref_author_ids = session.query(Contributor.person_id)\
+            .join(Part)\
+            .filter(Part.id == Contributor.part_id)\
+            .filter(Part.shortstory_id == short_id)\
+            .filter(Contributor.role_id == 1)\
+            .distinct()\
+            .all()
+
+        ref_author_ids = [author_id[0] for author_id in ref_author_ids
+                          if author_id[0] is not None]
+
+        if not ref_author_ids:
+            return ResponseType([], HttpResponseCode.OK.value)
+
+        # Find stories with same original title
+        similar_stories = session.query(ShortStory)\
+            .filter(ShortStory.orig_title == ref_story.orig_title)\
+            .filter(ShortStory.id != short_id)\
+            .all()
+
+        # Filter stories that have the same authors
+        matching_stories = []
+        for story in similar_stories:
+            story_author_ids = session.query(Contributor.person_id)\
+                .join(Part)\
+                .filter(Part.id == Contributor.part_id)\
+                .filter(Part.shortstory_id == story.id)\
+                .filter(Contributor.role_id == 1)\
+                .distinct()\
+                .all()
+
+            story_author_ids = [author_id[0] for author_id in story_author_ids
+                                if author_id[0] is not None]
+
+            # Check if author sets match
+            if set(ref_author_ids) == set(story_author_ids):
+                matching_stories.append(story)
+
+    except SQLAlchemyError as exp:
+        app.logger.error({exp})
+        return ResponseType(
+            f'Tietokantavirhe: {exp}',
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value
+        )
+
+    try:
+        schema = ShortBriefSchema(many=True)
+        retval = schema.dump(matching_stories)
+        return ResponseType(retval, HttpResponseCode.OK.value)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error({exp})
+        return ResponseType(
+            f'Skeemavirhe: {exp}',
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value
+        )
+    return None

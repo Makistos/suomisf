@@ -10,7 +10,7 @@ from app.types import HttpResponseCode
 
 from app import app
 from app.impl import ResponseType
-from app.impl_shorts import (get_latest_shorts, story_tag_add,
+from app.impl_shorts import (get_latest_shorts, get_similar_shorts, story_tag_add,
                              story_tag_remove, story_updated,
                              story_add, story_delete, get_short, search_shorts,
                              get_short_types)
@@ -207,3 +207,20 @@ def api_latestshorts(count: int) -> Response:
         return make_api_response(response)
 
     return make_api_response(get_latest_shorts(count))
+
+
+@app.route('/api/shorts/<shortid>/similar', methods=['get'])
+def api_get_similar_shorts(shortid: int) -> Response:
+    """
+    Get similar shorts based on the provided short ID.
+
+    Args:
+        shortid (int): The ID of the short story.
+
+    Returns:
+        Response: The response object containing the list of similar shorts.
+
+    Raises:
+        None
+    """
+    return make_api_response(get_similar_shorts(shortid))
