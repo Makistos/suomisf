@@ -9,7 +9,8 @@ from app.api_jwt import jwt_admin_required
 from app.api_helpers import make_api_response
 from app.impl import ResponseType
 from app.impl_awards import get_awards_for_work
-from app.impl_works import (get_author_works, get_latest_works, get_omnibus, get_work, get_work_shorts, save_omnibus,
+from app.impl_works import (get_author_works, get_latest_works, get_omnibus,
+                            get_work, get_work_shorts, save_omnibus,
                             save_work_shorts,
                             search_books, search_works_by_authorstr, work_add,
                             work_delete, work_tag_add, work_tag_remove,

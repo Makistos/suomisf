@@ -1631,7 +1631,8 @@ def get_random_incomplete_works(params: Dict[str, Any]) -> ResponseType:
                 WHERE p2.work_id = w.id
                 AND p2.shortstory_id IS NULL
             )""")
-            edition_fields.remove('image')  # Remove from edition_fields to avoid duplicate processing
+            # Remove from edition_fields to avoid duplicate processing
+            edition_fields.remove('image')
 
         # Handle other edition fields
         for field in edition_fields:
