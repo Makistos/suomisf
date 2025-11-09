@@ -55,11 +55,11 @@ def get_issue(issue_id: int) -> ResponseType:
     try:
         schema = IssueSchema()
         retval = schema.dump(issue)
-        
+
         # Find previous and next issues based on count field
         prev_issue = None
         next_issue = None
-        
+
         if issue.count is not None:
             # Find previous issue (highest count less than current)
             prev_issue = session.query(Issue)\
@@ -68,7 +68,7 @@ def get_issue(issue_id: int) -> ResponseType:
                 .filter(Issue.count.isnot(None))\
                 .order_by(Issue.count.desc())\
                 .first()
-            
+
             # Find next issue (lowest count greater than current)
             next_issue = session.query(Issue)\
                 .filter(Issue.magazine_id == issue.magazine_id)\
@@ -76,11 +76,11 @@ def get_issue(issue_id: int) -> ResponseType:
                 .filter(Issue.count.isnot(None))\
                 .order_by(Issue.count.asc())\
                 .first()
-        
+
         # Add prev and next to return value
         retval['prev'] = prev_issue.id if prev_issue else None
         retval['next'] = next_issue.id if next_issue else None
-        
+
     except SQLAlchemyError as exp:
         app.logger.error('get_issue navigation query error: ' + str(exp))
         return ResponseType('get_issue: Tietokantavirhe navigoinnissa.',

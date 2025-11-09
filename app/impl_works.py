@@ -1448,6 +1448,7 @@ def save_work_shorts(params: Any) -> ResponseType:
             if len(parts) == 0:
                 part = Part(shortstory_id=short)
                 session.add(part)
+                session.flush()
                 new_part_ids.append((part.id, short))
     except SQLAlchemyError as exp:
         session.rollback()
