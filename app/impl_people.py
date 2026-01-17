@@ -494,6 +494,16 @@ def person_add(params: Any) -> ResponseType:
                 description=link['description']
             )
             session.add(pl)
+
+    if 'aliases' in data:
+        for alias_data in data['aliases']:
+            alias_id = check_int(alias_data['id'],
+                                 zeros_allowed=False,
+                                 negative_values=False)
+            if alias_id is not None:
+                alias = Alias(realname=person.id, alias=alias_id)
+                session.add(alias)
+
     try:
         session.add(person)
         session.commit()
@@ -671,6 +681,59 @@ def person_update(params: Any) -> ResponseType:
             old_values['Linkit'] = ' -'.join([str(x) for x in to_add])
             old_values['Linkit'] = ' +' + \
                 ' -'.join([str(x) for x in to_remove])
+
+    if 'aliases' in data:
+        existing_aliases = session.query(Alias).filter(
+            Alias.realname == person_id).all()
+        existing_alias_ids = [x.alias for x in existing_aliases]
+
+        new_aliases = data['aliases'] if data['aliases'] else []
+        new_alias_ids = []
+        for alias_data in new_aliases:
+            alias_id = check_int(alias_data.get('id'),
+                                 zeros_allowed=False,
+                                 negative_values=False)
+            if alias_id is not None:
+                new_alias_ids.append(alias_id)
+
+        (to_add, to_remove) = get_join_changes(
+            existing_alias_ids, new_alias_ids)
+
+        if to_add or to_remove:
+            # Remove aliases that are no longer in the list
+            for alias_id in to_remove:
+                alias_to_remove = session.query(Alias).filter(
+                    Alias.realname == person_id,
+                    Alias.alias == alias_id).first()
+                if alias_to_remove:
+                    session.delete(alias_to_remove)
+
+            # Add new aliases
+            for alias_id in to_add:
+                new_alias = Alias(realname=person_id, alias=alias_id)
+                session.add(new_alias)
+
+            # Log the changes
+            added_names = []
+            removed_names = []
+            for alias_id in to_add:
+                alias_person = session.query(Person).filter(
+                    Person.id == alias_id).first()
+                if alias_person:
+                    added_names.append(alias_person.name)
+            for alias_id in to_remove:
+                alias_person = session.query(Person).filter(
+                    Person.id == alias_id).first()
+                if alias_person:
+                    removed_names.append(alias_person.name)
+
+            changes = []
+            if added_names:
+                changes.append('+' + ', '.join(added_names))
+            if removed_names:
+                changes.append('-' + ', '.join(removed_names))
+            if changes:
+                old_values['Aliakset'] = ' '.join(changes)
 
     if len(old_values) == 0:
         # Nothing has changed
