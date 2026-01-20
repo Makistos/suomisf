@@ -11,7 +11,7 @@ from .model import (LanguageSchema, PersonBriefSchema, PersonLinkBriefSchema,
                     ContributorRoleSchema, IssueBriefSchema,
                     TagBriefSchema, AwardBriefSchema, AwardCategorySchema,
                     CountryBriefSchema, StoryTypeSchema, GenreBriefSchema,
-                    BookseriesBriefSchema, WorkContributorSchema)
+                    BookseriesBriefSchema, WorkContributorSchema, WorkTypeBriefSchema)
 
 
 class PersonPageBriefSchema(ma.SQLAlchemySchema):  # type: ignore
@@ -85,6 +85,7 @@ class PersonPageEditionWorkSchema(ma.SQLAlchemySchema):  # type: ignore
     contributions = ma.List(fields.Nested(lambda: WorkContributorSchema(
         only=['description', 'person', 'role'])))
     language_name = fields.Nested(LanguageSchema)
+    work_type = fields.Nested(WorkTypeBriefSchema)
 
 
 class PersonPageEditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -100,8 +101,9 @@ class PersonPageEditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     images = ma.List(fields.Nested(EditionImageBriefSchema))
     pubseries = fields.Nested(PersonPagePubseriesSchema)
     work = ma.List(fields.Nested(lambda: PersonPageEditionWorkSchema(
-        only=['id', 'title', 'author_str', 'orig_title', 'pubyear', 'editions', 'genres',
-              'bookseries', 'tags', 'contributions', 'language_name'])))
+        only=['id', 'title', 'author_str', 'orig_title', 'pubyear',
+              'editions', 'genres', 'bookseries', 'tags',
+              'contributions', 'language_name', 'work_type'])))
     contributions = ma.List(fields.Nested(PersonPageContributorSchema))
     owners = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
     wishlisted = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
@@ -157,6 +159,7 @@ class PersonPageWorkBriefSchema(ma.SQLAlchemySchema):  # type: ignore
     tags = ma.List(fields.Nested(TagBriefSchema))
     language_name = fields.Nested(LanguageSchema)
     type = fields.Number()
+    work_type = fields.Nested(WorkTypeBriefSchema)
 
 
 class PersonSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
