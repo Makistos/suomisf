@@ -9,6 +9,7 @@ from app.impl import (EmptySearchResult, ResponseType, SearchResult,
                       SearchResultFields,
                       check_int, get_join_changes,
                       add_language, searchscore)
+from app.impl_helpers import str_differ
 from app.impl_logs import log_changes
 from app.route_helpers import new_session
 from app.orm_decl import (Issue, Magazine, ShortStory, StoryTag, StoryType,
@@ -148,6 +149,20 @@ def get_short(short_id: int) -> ResponseType:
             f'get_short: Tietokantavirhe. id={short_id}: {exp}.',
             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
+    contributions: List[Any] = []
+    for contributor in short.contributors:
+        already_added = False
+        for contribution in contributions:
+            if (contribution.person_id == contributor.person_id and
+                contribution.role_id == contributor.role_id and
+                contribution.real_person_id == contributor.real_person_id
+                and not str_differ(contribution.description,
+                                   contributor.description)):
+                already_added = True
+        if not already_added:
+            contributions.append(contributor)
+    contributions.sort(key=lambda x: x.role.id)
+    short.contributions = contributions
     try:
         schema = ShortSchema()
         retval = schema.dump(short)

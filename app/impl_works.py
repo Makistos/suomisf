@@ -236,7 +236,7 @@ def create_author_str(authors: List[Any], editions: List[Any]) -> str:
     return retval
 
 
-def _similar_description(
+def similar_description(
         descr1: Union[str, None], descr2: Union[str, None]) -> bool:
     """
     Check if two descriptions are similar. Empty string and None values are
@@ -255,6 +255,7 @@ def _similar_description(
         descr2 = None
 
     return descr1 == descr2
+
 
 
 def get_work(work_id: int) -> ResponseType:
@@ -289,11 +290,12 @@ def get_work(work_id: int) -> ResponseType:
                 if (contribution.person_id == contributor.person_id and
                     contribution.role_id == contributor.role_id and
                     contribution.real_person_id == contributor.real_person_id
-                    and _similar_description(contribution.description,
-                                             contributor.description)):
+                    and not str_differ(contribution.description,
+                                       contributor.description)):
                     already_added = True
             if not already_added:
                 contributions.append(contributor)
+        contributions.sort(key=lambda x: x.role.id)
         work.contributions = contributions
         contributions = []
         for short in work.stories:
@@ -304,7 +306,7 @@ def get_work(work_id: int) -> ResponseType:
                         contribution.role_id == contributor.role_id and
                         contribution.real_person_id ==
                         contributor.real_person_id and
-                        _similar_description(contribution.description,
+                        similar_description(contribution.description,
                                              contributor.description)):
                         already_added = True
                 if not already_added:
