@@ -1468,7 +1468,7 @@ class Work(Base):
         'Contributor',
         secondary='part',
         primaryjoin='and_(Part.work_id == Work.id, Part.shortstory_id == None,\
-                     Contributor.role_id.in_([1,3]))',
+                     Contributor.role_id.in_([1,3,6]))',
         viewonly=True, uselist=True)
     genres = relationship("Genre", secondary='workgenre',
                           uselist=True, viewonly=True)
