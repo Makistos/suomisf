@@ -14,7 +14,7 @@ from app.impl_works import (get_author_works, get_latest_works, get_omnibus,
                             save_work_shorts,
                             search_books, search_works_by_authorstr, work_add,
                             work_delete, work_tag_add, work_tag_remove,
-                            work_update, worktype_get_all)
+                            work_update, works_by_type, worktype_get_all)
 from app.types import HttpResponseCode
 
 from app import app
@@ -292,6 +292,19 @@ def api_workshorts_save() -> Response:
     params = request.data.decode('utf-8')
     params = json.loads(params)
     return make_api_response(save_work_shorts(params))
+
+
+@app.route('/api/works/bytype/<worktype>', methods=['get'])
+def api_works_bytype(worktype: int) -> Response:
+    try:
+        wt = int(worktype)
+    except (TypeError, ValueError) as exp:
+        app.logger.error(exp)
+        response = ResponseType('Virheellinen tunniste',
+                                status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+
+    return make_api_response(works_by_type(wt))
 
 
 @app.route('/api/worktypes', methods=['get'])

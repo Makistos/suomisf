@@ -257,7 +257,6 @@ def similar_description(
     return descr1 == descr2
 
 
-
 def get_work(work_id: int) -> ResponseType:
     """
     Retrieves a specific work from the database based on the provided work ID.
@@ -307,7 +306,7 @@ def get_work(work_id: int) -> ResponseType:
                         contribution.real_person_id ==
                         contributor.real_person_id and
                         similar_description(contribution.description,
-                                             contributor.description)):
+                                            contributor.description)):
                         already_added = True
                 if not already_added:
                     contributions.append(contributor)
@@ -663,6 +662,31 @@ def get_author_works(author_id: int) -> ResponseType:
     except exceptions.MarshmallowError as exp:
         app.logger.error('GetAuthorWorks schema error: ' + str(exp))
         return ResponseType('GetAuthorWorks: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def works_by_type(work_type: int) -> ResponseType:
+    """
+    Get all works by type.
+    """
+
+    session = new_session()
+    works = []
+
+    try:
+        works = session.query(Work).filter(
+            Work.type == work_type).all()
+    except SQLAlchemyError as exp:
+        app.logger.error(exp)
+
+    try:
+        schema = BookIndexSchema(many=True)
+        retval = schema.dump(works)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(exp)
+        return ResponseType('Skeemavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType(retval, HttpResponseCode.OK.value)
