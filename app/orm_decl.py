@@ -908,7 +908,7 @@ class Person(Base):
                             Part.id == Contributor.part_id)',
                          primaryjoin='and_(Person.id == Contributor.person_id,\
                             Contributor.part_id == Part.id,\
-                            Contributor.role_id == 1,\
+                            Contributor.role_id.in_([1,3,6]),\
                             Part.work_id == Work.id,\
                             Part.shortstory_id == None)',
                          order_by='Work.title',
