@@ -13,6 +13,14 @@ from app.types import HttpResponseCode
 from app import app
 
 
+def _log_query(name: str, query: Any) -> None:
+    """Log the SQL query for debugging purposes."""
+    try:
+        app.logger.debug(f'{name}: {str(query)}')
+    except Exception as exp:
+        app.logger.debug(f'{name}: Could not log query: {exp}')
+
+
 def stats_genrecounts() -> ResponseType:
     """
     Get work counts for each genre.
@@ -28,9 +36,10 @@ def stats_genrecounts() -> ResponseType:
         genre_counts: Dict[str, int] = {}
 
         for genre in genres:
-            count = session.query(WorkGenre)\
-                .filter(WorkGenre.genre_id == genre.id)\
-                .count()
+            query = session.query(WorkGenre)\
+                .filter(WorkGenre.genre_id == genre.id)
+            _log_query(f'stats_genrecounts ({genre.abbr})', query)
+            count = query.count()
             genre_counts[genre.abbr] = count
 
     except SQLAlchemyError as exp:
@@ -76,7 +85,7 @@ def stats_authorcounts(author_count: int = 10) -> ResponseType:
 
         # Get all authors with their work counts
         # Authors are those with role_id = 1 (author) in Contributor table
-        author_counts = session.query(
+        author_query = session.query(
             Person.id,
             Person.name,
             Person.alt_name,
@@ -94,7 +103,9 @@ def stats_authorcounts(author_count: int = 10) -> ResponseType:
             Person.id
         ).order_by(
             desc('work_count')
-        ).all()
+        )
+        _log_query('stats_authorcounts (main)', author_query)
+        author_counts = author_query.all()
 
         result: List[Dict[str, Any]] = []
         other_genres: Dict[str, int] = {g.abbr: 0 for g in genres}
@@ -102,7 +113,7 @@ def stats_authorcounts(author_count: int = 10) -> ResponseType:
 
         for idx, author_data in enumerate(author_counts):
             # Get genre breakdown for this author
-            author_genres = session.query(
+            genre_query = session.query(
                 Genre.id,
                 func.count(func.distinct(Work.id)).label('count')
             ).join(
@@ -119,7 +130,10 @@ def stats_authorcounts(author_count: int = 10) -> ResponseType:
                 Part.shortstory_id.is_(None)
             ).group_by(
                 Genre.id
-            ).all()
+            )
+            if idx == 0:  # Only log for first author to avoid spam
+                _log_query('stats_authorcounts (genre breakdown)', genre_query)
+            author_genres = genre_query.all()
 
             genre_dict = {genre_abbrs[ag.id]: ag.count for ag in author_genres}
 
@@ -188,7 +202,7 @@ def stats_publishercounts(pub_count: int = 10) -> ResponseType:
         genre_abbrs = {g.id: g.abbr for g in genres}
 
         # Get all publishers with their edition counts
-        publisher_counts = session.query(
+        publisher_query = session.query(
             Publisher.id,
             Publisher.name,
             Publisher.fullname,
@@ -199,7 +213,9 @@ def stats_publishercounts(pub_count: int = 10) -> ResponseType:
             Publisher.id
         ).order_by(
             desc('edition_count')
-        ).all()
+        )
+        _log_query('stats_publishercounts (main)', publisher_query)
+        publisher_counts = publisher_query.all()
 
         result: List[Dict[str, Any]] = []
         other_genres: Dict[str, int] = {g.abbr: 0 for g in genres}
@@ -207,7 +223,7 @@ def stats_publishercounts(pub_count: int = 10) -> ResponseType:
 
         for idx, pub_data in enumerate(publisher_counts):
             # Get genre breakdown for this publisher
-            pub_genres = session.query(
+            genre_query = session.query(
                 Genre.id,
                 func.count(func.distinct(Edition.id)).label('count')
             ).join(
@@ -223,7 +239,10 @@ def stats_publishercounts(pub_count: int = 10) -> ResponseType:
                 Part.shortstory_id.is_(None)
             ).group_by(
                 Genre.id
-            ).all()
+            )
+            if idx == 0:  # Only log for first publisher to avoid spam
+                _log_query('stats_publishercounts (genre breakdown)', genre_query)
+            pub_genres = genre_query.all()
 
             genre_dict = {genre_abbrs[pg.id]: pg.count for pg in pub_genres}
 
@@ -283,7 +302,7 @@ def stats_worksbyyear() -> ResponseType:
 
     try:
         # Get first editions (editionnum = 1 or version = 1) by year and language
-        results = session.query(
+        query = session.query(
             Edition.pubyear,
             func.count(Edition.id).label('count'),
             Language.id.label('language_id'),
@@ -296,14 +315,17 @@ def stats_worksbyyear() -> ResponseType:
             Language, Language.id == Work.language
         ).filter(
             Part.shortstory_id.is_(None),
-            Edition.editionnum.in_([None, 1])  # First editions
+            Edition.editionnum.in_([None, 1]),  # First editions
+            Edition.version.in_([None, 1])      # First version
         ).group_by(
             Edition.pubyear,
             Language.id
         ).order_by(
             Edition.pubyear,
             Language.name
-        ).all()
+        )
+        _log_query('stats_worksbyyear', query)
+        results = query.all()
 
         result = [
             {
@@ -349,7 +371,7 @@ def stats_origworksbyyear() -> ResponseType:
     session = new_session()
 
     try:
-        results = session.query(
+        query = session.query(
             Work.pubyear,
             func.count(Work.id).label('count'),
             Language.id.label('language_id'),
@@ -365,7 +387,9 @@ def stats_origworksbyyear() -> ResponseType:
         ).order_by(
             Work.pubyear,
             Language.name
-        ).all()
+        )
+        _log_query('stats_origworksbyyear', query)
+        results = query.all()
 
         result = [
             {
@@ -413,12 +437,15 @@ def stats_misc() -> ResponseType:
 
     try:
         # Get total pages from first editions
-        page_result = session.query(
+        page_query = session.query(
             func.sum(Edition.pages)
         ).filter(
             Edition.editionnum.in_([None, 1]),
+            Edition.version.in_([None, 1]),
             Edition.pages.isnot(None)
-        ).scalar()
+        )
+        _log_query('stats_misc (total_pages)', page_query)
+        page_result = page_query.scalar()
 
         total_pages = int(page_result) if page_result else 0
 
@@ -437,18 +464,29 @@ def stats_misc() -> ResponseType:
                          if 'pehmeäkantinen' in name or 'nidottu' in name or
                          'paperback' in name or 'soft' in name or 'pokkari' in name]
 
-        hardback_count = session.query(func.count(Edition.id)).filter(
+        hardback_query = session.query(func.count(Edition.id)).filter(
             Edition.editionnum.in_([None, 1]),
+            Edition.version.in_([None, 1]),
             Edition.binding_id.in_(hardback_ids) if hardback_ids else False
-        ).scalar() or 0
+        )
+        _log_query('stats_misc (hardback_count)', hardback_query)
+        hardback_count = hardback_query.scalar() or 0
 
-        paperback_count = session.query(func.count(Edition.id)).filter(
+        paperback_query = session.query(func.count(Edition.id)).filter(
             Edition.editionnum.in_([None, 1]),
+            Edition.version.in_([None, 1]),
             Edition.binding_id.in_(paperback_ids) if paperback_ids else False
-        ).scalar() or 0
+        )
+        _log_query('stats_misc (paperback_count)', paperback_query)
+        paperback_count = paperback_query.scalar() or 0
 
-        total_editions = session.query(func.count(Edition.id)).scalar() or 0
-        total_works = session.query(func.count(Work.id)).scalar() or 0
+        editions_query = session.query(func.count(Edition.id))
+        _log_query('stats_misc (total_editions)', editions_query)
+        total_editions = editions_query.scalar() or 0
+
+        works_query = session.query(func.count(Work.id))
+        _log_query('stats_misc (total_works)', works_query)
+        total_works = works_query.scalar() or 0
 
         result = {
             'total_pages': total_pages,
@@ -488,7 +526,7 @@ def stats_issuesperyear() -> ResponseType:
     session = new_session()
 
     try:
-        results = session.query(
+        query = session.query(
             Issue.year,
             func.count(Issue.id).label('count')
         ).filter(
@@ -497,7 +535,9 @@ def stats_issuesperyear() -> ResponseType:
             Issue.year
         ).order_by(
             Issue.year
-        ).all()
+        )
+        _log_query('stats_issuesperyear', query)
+        results = query.all()
 
         result = [
             {'year': r.year, 'count': r.count}
