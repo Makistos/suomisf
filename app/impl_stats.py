@@ -1,6 +1,6 @@
 """Functions related to statistics."""
 from typing import Any, Dict, List
-from sqlalchemy import func, desc
+from sqlalchemy import and_, func, desc, or_
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.impl import ResponseType
@@ -14,11 +14,21 @@ from app import app
 
 
 def _log_query(name: str, query: Any) -> None:
-    """Log the SQL query for debugging purposes."""
+    """Log the SQL query for debugging purposes with parameter values inline."""
     try:
-        app.logger.debug(f'{name}: {str(query)}')
+        if hasattr(query, 'statement'):
+            from sqlalchemy.dialects import mysql
+            compiled = query.statement.compile(
+                dialect=mysql.dialect(),
+                compile_kwargs={"literal_binds": True}
+            )
+            app.logger.info(f'{name}: {str(compiled)}')
+        else:
+            app.logger.info(f'{name}: {str(query)}')
     except Exception as exp:
-        app.logger.debug(f'{name}: Could not log query: {exp}')
+        # Fallback to basic string representation if literal_binds fails
+        app.logger.info(f'{name}: {str(query)}')
+        app.logger.error(f'{name}: Could not compile with literal_binds: {exp}')
 
 
 def stats_genrecounts() -> ResponseType:
@@ -241,7 +251,8 @@ def stats_publishercounts(pub_count: int = 10) -> ResponseType:
                 Genre.id
             )
             if idx == 0:  # Only log for first publisher to avoid spam
-                _log_query('stats_publishercounts (genre breakdown)', genre_query)
+                _log_query('stats_publishercounts (genre breakdown)',
+                           genre_query)
             pub_genres = genre_query.all()
 
             genre_dict = {genre_abbrs[pg.id]: pg.count for pg in pub_genres}
@@ -308,15 +319,15 @@ def stats_worksbyyear() -> ResponseType:
             Language.id.label('language_id'),
             Language.name.label('language_name')
         ).outerjoin(
-            Part, Part.edition_id == Edition.id
+            Part, and_(Part.edition_id == Edition.id,
+                       Part.shortstory_id.is_(None))
         ).outerjoin(
             Work, Work.id == Part.work_id
         ).outerjoin(
             Language, Language.id == Work.language
         ).filter(
-            Part.shortstory_id.is_(None),
-            Edition.editionnum.in_([None, 1]),  # First editions
-            Edition.version.in_([None, 1])      # First version
+            or_(Edition.editionnum == 1, Edition.editionnum.is_(None)),  # First editions
+            or_(Edition.version == 1, Edition.version.is_(None))      # First version
         ).group_by(
             Edition.pubyear,
             Language.id
