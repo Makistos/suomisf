@@ -17,7 +17,8 @@ from app.impl_stats import (
     stats_worksbyyear,
     stats_origworksbyyear,
     stats_misc,
-    stats_issuesperyear
+    stats_issuesperyear,
+    stats_nationalitycounts
 )
 from app import app
 
@@ -72,11 +73,16 @@ def api_stats_authorcounts() -> Response:
     Query Parameters:
         count (int, optional): Number of top authors to return. Default: 10.
                                Must be a positive integer.
+        genre (string, optional): Genre abbreviation to filter by (e.g., "SF",
+                                  "F", "K"). When set, returns authors sorted
+                                  by their work count in that specific genre.
 
     Returns:
         200 OK: JSON array of author objects sorted by total work count
-                (descending). The last item is always "Muut" (Others)
-                containing aggregated counts for all authors not in top list.
+                (descending), or by work count in specified genre if the
+                genre parameter is provided. The last item is always "Muut"
+                (Others) containing aggregated counts for all authors not
+                in top list.
 
         Response Schema:
         [
@@ -84,6 +90,7 @@ def api_stats_authorcounts() -> Response:
                 "id": <int|null>,      // Person ID, null for "Muut"
                 "name": <string>,      // Author name (Last, First format)
                 "alt_name": <string|null>,  // Display name (First Last format)
+                "nationality": <string|null>,  // Author's nationality/country
                 "genres": {
                     "<genre_abbr>": <count>,  // Work count per genre
                     ...
@@ -95,6 +102,7 @@ def api_stats_authorcounts() -> Response:
 
         Example Request:
         GET /api/stats/authorcounts?count=5
+        GET /api/stats/authorcounts?count=5&genre=SF
 
         Example Response:
         [
@@ -102,6 +110,7 @@ def api_stats_authorcounts() -> Response:
                 "id": 123,
                 "name": "Asimov, Isaac",
                 "alt_name": "Isaac Asimov",
+                "nationality": "Yhdysvallat",
                 "genres": {"SF": 50, "F": 5},
                 "total": 55
             },
@@ -109,6 +118,7 @@ def api_stats_authorcounts() -> Response:
                 "id": 456,
                 "name": "Clarke, Arthur C.",
                 "alt_name": "Arthur C. Clarke",
+                "nationality": "Iso-Britannia",
                 "genres": {"SF": 45},
                 "total": 45
             },
@@ -117,17 +127,20 @@ def api_stats_authorcounts() -> Response:
                 "id": null,
                 "name": "Muut",
                 "alt_name": null,
+                "nationality": null,
                 "genres": {"SF": 1000, "F": 500, "K": 200},
                 "total": 1700
             }
         ]
 
+        400 Bad Request: Invalid genre abbreviation provided.
         500 Internal Server Error: Database error occurred.
     """
     author_count = request.args.get('count', default=10, type=int)
     if author_count < 1:
         author_count = 10
-    return make_api_response(stats_authorcounts(author_count))
+    genre = request.args.get('genre', default=None, type=str)
+    return make_api_response(stats_authorcounts(author_count, genre))
 
 
 @app.route('/api/stats/publishercounts', methods=['GET'])
@@ -370,3 +383,45 @@ def api_stats_issuesperyear() -> Response:
         500 Internal Server Error: Database error occurred.
     """
     return make_api_response(stats_issuesperyear())
+
+
+@app.route('/api/stats/nationalitycounts', methods=['GET'])
+def api_stats_nationalitycounts() -> Response:
+    """
+    Get work counts grouped by author nationality.
+
+    Endpoint: GET /api/stats/nationalitycounts
+
+    Parameters: None
+
+    Returns:
+        200 OK: JSON array of nationality statistics sorted by work count
+                (descending).
+
+        Response Schema:
+        [
+            {
+                "nationality_id": <int|null>,  // Country ID, null for unknown
+                "nationality": <string|null>,  // Country name, null for unknown
+                "count": <int>                 // Number of works
+            },
+            ...
+        ]
+
+        Example Response:
+        [
+            {"nationality_id": 1, "nationality": "Yhdysvallat", "count": 500},
+            {"nationality_id": 2, "nationality": "Iso-Britannia", "count": 300},
+            {"nationality_id": 3, "nationality": "Suomi", "count": 150},
+            {"nationality_id": null, "nationality": null, "count": 50}
+        ]
+
+        Use Case:
+        - Analyze the distribution of works by author nationality
+        - Create visualizations showing which countries' authors are most
+          represented in the database
+        - Compare domestic vs. foreign author representation
+
+        500 Internal Server Error: Database error occurred.
+    """
+    return make_api_response(stats_nationalitycounts())

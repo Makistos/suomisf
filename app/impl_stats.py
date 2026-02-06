@@ -1,5 +1,5 @@
 """Functions related to statistics."""
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 from sqlalchemy import and_, func, desc, or_
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -7,7 +7,7 @@ from app.impl import ResponseType
 from app.route_helpers import new_session
 from app.orm_decl import (
     Genre, Work, WorkGenre, Edition, Part, Publisher,
-    Person, Contributor, Issue, Language, BindingType
+    Person, Contributor, Issue, Language, BindingType, Country
 )
 from app.types import HttpResponseCode
 from app import app
@@ -60,18 +60,23 @@ def stats_genrecounts() -> ResponseType:
     return ResponseType(genre_counts, HttpResponseCode.OK.value)
 
 
-def stats_authorcounts(author_count: int = 10) -> ResponseType:
+def stats_authorcounts(author_count: int = 10,
+                       genre: Optional[str] = None) -> ResponseType:
     """
     Get the most productive authors with their work counts per genre.
 
     Args:
         author_count: Number of top authors to return. Default is 10.
+        genre: Optional genre abbreviation (e.g., "SF", "F") to filter by.
+               When set, returns authors with most works in that genre,
+               sorted by their work count in that genre.
 
     Returns:
         ResponseType: List of dicts, each containing:
             - id: Person ID (int or None for "Muut")
             - name: Author name (str)
             - alt_name: Alternative name (str or None)
+            - nationality: Author's nationality/country (str or None)
             - genres: Dict with genre abbreviations as keys and work counts as values
             - total: Total work count for this author
 
@@ -81,10 +86,10 @@ def stats_authorcounts(author_count: int = 10) -> ResponseType:
         Example:
         [
             {"id": 1, "name": "Asimov, Isaac", "alt_name": "Isaac Asimov",
-             "genres": {"SF": 50, "F": 5}, "total": 55},
+             "nationality": "Yhdysvallat", "genres": {"SF": 50, "F": 5}, "total": 55},
             ...
             {"id": null, "name": "Muut", "alt_name": null,
-             "genres": {"SF": 1000, "F": 500}, "total": 1500}
+             "nationality": null, "genres": {"SF": 1000, "F": 500}, "total": 1500}
         ]
     """
     session = new_session()
@@ -92,6 +97,15 @@ def stats_authorcounts(author_count: int = 10) -> ResponseType:
     try:
         genres = session.query(Genre).all()
         genre_abbrs = {g.id: g.abbr for g in genres}
+        genre_ids = {g.abbr: g.id for g in genres}
+
+        # Validate genre parameter if provided
+        filter_genre_id = None
+        if genre:
+            filter_genre_id = genre_ids.get(genre)
+            if filter_genre_id is None:
+                return ResponseType(f'Tuntematon genre: {genre}',
+                                    HttpResponseCode.BAD_REQUEST.value)
 
         # Get all authors with their work counts
         # Authors are those with role_id = 1 (author) in Contributor table
@@ -99,6 +113,7 @@ def stats_authorcounts(author_count: int = 10) -> ResponseType:
             Person.id,
             Person.name,
             Person.alt_name,
+            Person.nationality_id,
             func.count(func.distinct(Work.id)).label('work_count')
         ).join(
             Contributor, Contributor.person_id == Person.id
@@ -106,7 +121,17 @@ def stats_authorcounts(author_count: int = 10) -> ResponseType:
             Part, Part.id == Contributor.part_id
         ).join(
             Work, Work.id == Part.work_id
-        ).filter(
+        )
+
+        # Add genre filter if specified
+        if filter_genre_id:
+            author_query = author_query.join(
+                WorkGenre, WorkGenre.work_id == Work.id
+            ).filter(
+                WorkGenre.genre_id == filter_genre_id
+            )
+
+        author_query = author_query.filter(
             Contributor.role_id == 1,  # Author role
             Part.shortstory_id.is_(None)  # Only works, not short stories
         ).group_by(
@@ -116,6 +141,9 @@ def stats_authorcounts(author_count: int = 10) -> ResponseType:
         )
         _log_query('stats_authorcounts (main)', author_query)
         author_counts = author_query.all()
+
+        # Get country names for lookup
+        countries = {c.id: c.name for c in session.query(Country).all()}
 
         result: List[Dict[str, Any]] = []
         other_genres: Dict[str, int] = {g.abbr: 0 for g in genres}
@@ -152,6 +180,7 @@ def stats_authorcounts(author_count: int = 10) -> ResponseType:
                     'id': author_data.id,
                     'name': author_data.name,
                     'alt_name': author_data.alt_name,
+                    'nationality': countries.get(author_data.nationality_id),
                     'genres': genre_dict,
                     'total': author_data.work_count
                 })
@@ -166,6 +195,7 @@ def stats_authorcounts(author_count: int = 10) -> ResponseType:
             'id': None,
             'name': 'Muut',
             'alt_name': None,
+            'nationality': None,
             'genres': other_genres,
             'total': other_total
         })
@@ -557,6 +587,72 @@ def stats_issuesperyear() -> ResponseType:
 
     except SQLAlchemyError as exp:
         app.logger.error(f'stats_issuesperyear: Database error: {exp}')
+        return ResponseType('Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+def stats_nationalitycounts() -> ResponseType:
+    """
+    Get work counts grouped by author nationality.
+
+    Returns:
+        ResponseType: List of dicts, each containing:
+            - nationality_id: Country ID (int or None for unknown)
+            - nationality: Country name (str or None for unknown)
+            - count: Number of works by authors of this nationality (int)
+
+        Sorted by count descending.
+
+        Example:
+        [
+            {"nationality_id": 1, "nationality": "Yhdysvallat", "count": 500},
+            {"nationality_id": 2, "nationality": "Iso-Britannia", "count": 300},
+            {"nationality_id": null, "nationality": null, "count": 50},
+            ...
+        ]
+    """
+    session = new_session()
+
+    try:
+        query = session.query(
+            Country.id.label('nationality_id'),
+            Country.name.label('nationality'),
+            func.count(func.distinct(Work.id)).label('count')
+        ).select_from(
+            Person
+        ).outerjoin(
+            Country, Country.id == Person.nationality_id
+        ).join(
+            Contributor, Contributor.person_id == Person.id
+        ).join(
+            Part, Part.id == Contributor.part_id
+        ).join(
+            Work, Work.id == Part.work_id
+        ).filter(
+            Contributor.role_id == 1,  # Author role
+            Part.shortstory_id.is_(None)  # Only works, not short stories
+        ).group_by(
+            Country.id,
+            Country.name
+        ).order_by(
+            desc('count')
+        )
+        _log_query('stats_nationalitycounts', query)
+        results = query.all()
+
+        result = [
+            {
+                'nationality_id': r.nationality_id,
+                'nationality': r.nationality,
+                'count': r.count
+            }
+            for r in results
+        ]
+
+    except SQLAlchemyError as exp:
+        app.logger.error(f'stats_nationalitycounts: Database error: {exp}')
         return ResponseType('Tietokantavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
