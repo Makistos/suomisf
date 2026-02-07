@@ -60,28 +60,31 @@ def stats_genrecounts() -> ResponseType:
     return ResponseType(genre_counts, HttpResponseCode.OK.value)
 
 
-def stats_authorcounts(author_count: int = 10,
-                       genre: Optional[str] = None) -> ResponseType:
+def stats_personcounts(count: int = 10,
+                       genre: Optional[str] = None,
+                       role_id: int = 1) -> ResponseType:
     """
-    Get the most productive authors with their work counts per genre.
+    Get the most productive persons with their work counts per genre.
 
     Args:
-        author_count: Number of top authors to return. Default is 10.
+        count: Number of top persons to return. Default is 10.
         genre: Optional genre abbreviation (e.g., "SF", "F") to filter by.
-               When set, returns authors with most works in that genre,
+               When set, returns persons with most works in that genre,
                sorted by their work count in that genre.
+        role_id: Role ID to filter by. Default is 1 (author).
+                 Common values: 1 = author, 2 = translator, 3 = editor, etc.
 
     Returns:
         ResponseType: List of dicts, each containing:
             - id: Person ID (int or None for "Muut")
-            - name: Author name (str)
+            - name: Person name (str)
             - alt_name: Alternative name (str or None)
-            - nationality: Author's nationality/country (str or None)
+            - nationality: Person's nationality/country (str or None)
             - genres: Dict with genre abbreviations as keys and work counts as values
-            - total: Total work count for this author
+            - total: Total work count for this person
 
         The last item is always "Muut" (Others) containing aggregated
-        counts for all authors not in the top list.
+        counts for all persons not in the top list.
 
         Example:
         [
@@ -132,7 +135,7 @@ def stats_authorcounts(author_count: int = 10,
             )
 
         author_query = author_query.filter(
-            Contributor.role_id == 1,  # Author role
+            Contributor.role_id == role_id,
             Part.shortstory_id.is_(None)  # Only works, not short stories
         ).group_by(
             Person.id
@@ -164,7 +167,7 @@ def stats_authorcounts(author_count: int = 10,
                 Contributor, Contributor.part_id == Part.id
             ).filter(
                 Contributor.person_id == author_data.id,
-                Contributor.role_id == 1,
+                Contributor.role_id == role_id,
                 Part.shortstory_id.is_(None)
             ).group_by(
                 Genre.id
@@ -175,7 +178,7 @@ def stats_authorcounts(author_count: int = 10,
 
             genre_dict = {genre_abbrs[ag.id]: ag.count for ag in author_genres}
 
-            if idx < author_count:
+            if idx < count:
                 result.append({
                     'id': author_data.id,
                     'name': author_data.name,

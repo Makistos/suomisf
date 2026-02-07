@@ -12,7 +12,7 @@ from flask.wrappers import Response
 from app.api_helpers import make_api_response
 from app.impl_stats import (
     stats_genrecounts,
-    stats_authorcounts,
+    stats_personcounts,
     stats_publishercounts,
     stats_worksbyyear,
     stats_origworksbyyear,
@@ -63,34 +63,37 @@ def api_stats_genrecounts() -> Response:
     return make_api_response(stats_genrecounts())
 
 
-@app.route('/api/stats/authorcounts', methods=['GET'])
-def api_stats_authorcounts() -> Response:
+@app.route('/api/stats/personcounts', methods=['GET'])
+def api_stats_personcounts() -> Response:
     """
-    Get the most productive authors with their work counts per genre.
+    Get the most productive persons by role with their work counts per genre.
 
-    Endpoint: GET /api/stats/authorcounts
+    Endpoint: GET /api/stats/personcounts
 
     Query Parameters:
-        count (int, optional): Number of top authors to return. Default: 10.
+        count (int, optional): Number of top persons to return. Default: 10.
                                Must be a positive integer.
         genre (string, optional): Genre abbreviation to filter by (e.g., "SF",
-                                  "F", "K"). When set, returns authors sorted
+                                  "F", "K"). When set, returns persons sorted
                                   by their work count in that specific genre.
+        role (int, optional): Role ID to filter by. Default: 1 (author).
+                              Common values: 1 = author, 2 = translator,
+                              3 = editor, etc.
 
     Returns:
-        200 OK: JSON array of author objects sorted by total work count
+        200 OK: JSON array of person objects sorted by total work count
                 (descending), or by work count in specified genre if the
                 genre parameter is provided. The last item is always "Muut"
-                (Others) containing aggregated counts for all authors not
+                (Others) containing aggregated counts for all persons not
                 in top list.
 
         Response Schema:
         [
             {
                 "id": <int|null>,      // Person ID, null for "Muut"
-                "name": <string>,      // Author name (Last, First format)
+                "name": <string>,      // Person name (Last, First format)
                 "alt_name": <string|null>,  // Display name (First Last format)
-                "nationality": <string|null>,  // Author's nationality/country
+                "nationality": <string|null>,  // Person's nationality/country
                 "genres": {
                     "<genre_abbr>": <count>,  // Work count per genre
                     ...
@@ -101,8 +104,9 @@ def api_stats_authorcounts() -> Response:
         ]
 
         Example Request:
-        GET /api/stats/authorcounts?count=5
-        GET /api/stats/authorcounts?count=5&genre=SF
+        GET /api/stats/personcounts?count=5
+        GET /api/stats/personcounts?count=5&genre=SF
+        GET /api/stats/personcounts?count=5&role=2
 
         Example Response:
         [
@@ -136,11 +140,12 @@ def api_stats_authorcounts() -> Response:
         400 Bad Request: Invalid genre abbreviation provided.
         500 Internal Server Error: Database error occurred.
     """
-    author_count = request.args.get('count', default=10, type=int)
-    if author_count < 1:
-        author_count = 10
+    count = request.args.get('count', default=10, type=int)
+    if count < 1:
+        count = 10
     genre = request.args.get('genre', default=None, type=str)
-    return make_api_response(stats_authorcounts(author_count, genre))
+    role_id = request.args.get('role', default=1, type=int)
+    return make_api_response(stats_personcounts(count, genre, role_id))
 
 
 @app.route('/api/stats/publishercounts', methods=['GET'])
