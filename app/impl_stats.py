@@ -595,13 +595,17 @@ def stats_issuesperyear() -> ResponseType:
 
 def stats_nationalitycounts() -> ResponseType:
     """
-    Get work counts grouped by author nationality.
+    Get author counts grouped by nationality.
+
+    Only includes persons who have at least one work as an author
+    (role_id = 1 in Contributor table, pointing to a Part with
+    shortstory_id = NULL).
 
     Returns:
         ResponseType: List of dicts, each containing:
             - nationality_id: Country ID (int or None for unknown)
             - nationality: Country name (str or None for unknown)
-            - count: Number of works by authors of this nationality (int)
+            - count: Number of authors with this nationality (int)
 
         Sorted by count descending.
 
@@ -619,17 +623,15 @@ def stats_nationalitycounts() -> ResponseType:
         query = session.query(
             Country.id.label('nationality_id'),
             Country.name.label('nationality'),
-            func.count(func.distinct(Work.id)).label('count')
+            func.count(func.distinct(Person.id)).label('count')
         ).select_from(
             Person
-        ).outerjoin(
-            Country, Country.id == Person.nationality_id
         ).join(
             Contributor, Contributor.person_id == Person.id
         ).join(
             Part, Part.id == Contributor.part_id
-        ).join(
-            Work, Work.id == Part.work_id
+        ).outerjoin(
+            Country, Country.id == Person.nationality_id
         ).filter(
             Contributor.role_id == 1,  # Author role
             Part.shortstory_id.is_(None)  # Only works, not short stories
