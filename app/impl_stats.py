@@ -793,46 +793,57 @@ def stats_issuesperyear() -> ResponseType:
 
 def stats_nationalitycounts() -> ResponseType:
     """
-    Get author counts grouped by nationality.
+    Get person counts grouped by nationality, with genre and role breakdown.
 
-    Only includes persons who have at least one work as an author
-    (role_id = 1 in Contributor table, pointing to a Part with
-    shortstory_id = NULL).
+    Only includes persons who have at least one work in any role
+    (in Contributor table, pointing to a Part with shortstory_id = NULL).
 
     Returns:
         ResponseType: List of dicts, each containing:
             - nationality_id: Country ID (int or None for unknown)
             - nationality: Country name (str or None for unknown)
-            - count: Number of authors with this nationality (int)
+            - genres: Dict with genre abbreviations as keys, each containing
+                      a dict of role names to person counts
+            - count: Total person count for this nationality (int)
 
         Sorted by count descending.
 
         Example:
         [
-            {"nationality_id": 1, "nationality": "Yhdysvallat", "count": 500},
-            {"nationality_id": 2, "nationality": "Iso-Britannia", "count": 300},
-            {"nationality_id": null, "nationality": null, "count": 50},
+            {"nationality_id": 1, "nationality": "Yhdysvallat",
+             "genres": {"SF": {"kirjoittaja": 150, "kääntäjä": 30},
+                        "F": {"kirjoittaja": 40, "kääntäjä": 10}},
+             "count": 200},
+            {"nationality_id": 2, "nationality": "Iso-Britannia",
+             "genres": {"SF": {"kirjoittaja": 100, "kääntäjä": 20}},
+             "count": 120},
             ...
         ]
     """
     session = new_session()
 
     try:
+        # Subquery to check if person has at least one work contribution
+        has_work = session.query(Contributor.person_id).join(
+            Part, and_(
+                Part.id == Contributor.part_id,
+                Part.shortstory_id.is_(None)
+            )
+        ).filter(
+            Contributor.person_id == Person.id
+        ).exists()
+
+        # Main query to get person counts per nationality (each person counted once)
         query = session.query(
             Country.id.label('nationality_id'),
             Country.name.label('nationality'),
-            func.count(func.distinct(Person.id)).label('count')
+            func.count(Person.id).label('count')
         ).select_from(
             Person
-        ).join(
-            Contributor, Contributor.person_id == Person.id
-        ).join(
-            Part, Part.id == Contributor.part_id
         ).outerjoin(
             Country, Country.id == Person.nationality_id
         ).filter(
-            Contributor.role_id == 1,  # Author role
-            Part.shortstory_id.is_(None)  # Only works, not short stories
+            has_work
         ).group_by(
             Country.id,
             Country.name
@@ -842,14 +853,60 @@ def stats_nationalitycounts() -> ResponseType:
         _log_query('stats_nationalitycounts', query)
         results = query.all()
 
-        result = [
-            {
+        result = []
+        for r in results:
+            # Get genre + role breakdown for this nationality (person counts)
+            genre_query = session.query(
+                Genre.id.label('genre_id'),
+                Genre.abbr.label('genre_abbr'),
+                ContributorRole.id.label('role_id'),
+                ContributorRole.name.label('role_name'),
+                func.count(func.distinct(Person.id)).label('count')
+            ).select_from(
+                Person
+            ).join(
+                Contributor, Contributor.person_id == Person.id
+            ).join(
+                Part, and_(
+                    Part.id == Contributor.part_id,
+                    Part.shortstory_id.is_(None)
+                )
+            ).join(
+                Work, Work.id == Part.work_id
+            ).join(
+                WorkGenre, WorkGenre.work_id == Work.id
+            ).join(
+                Genre, Genre.id == WorkGenre.genre_id
+            ).join(
+                ContributorRole, ContributorRole.id == Contributor.role_id
+            )
+
+            if r.nationality_id is not None:
+                genre_query = genre_query.filter(
+                    Person.nationality_id == r.nationality_id
+                )
+            else:
+                genre_query = genre_query.filter(
+                    Person.nationality_id.is_(None)
+                )
+
+            genre_query = genre_query.group_by(Genre.id, ContributorRole.id)
+            genre_results = genre_query.all()
+
+            # Build nested dict: {genre_abbr: {role_name: count}}
+            genre_dict: Dict[str, Dict[str, int]] = {}
+            for gr in genre_results:
+                if gr.genre_abbr and gr.role_name:
+                    if gr.genre_abbr not in genre_dict:
+                        genre_dict[gr.genre_abbr] = {}
+                    genre_dict[gr.genre_abbr][gr.role_name] = gr.count
+
+            result.append({
                 'nationality_id': r.nationality_id,
                 'nationality': r.nationality,
+                'genres': genre_dict,
                 'count': r.count
-            }
-            for r in results
-        ]
+            })
 
     except SQLAlchemyError as exp:
         app.logger.error(f'stats_nationalitycounts: Database error: {exp}')
@@ -871,41 +928,48 @@ def stats_storynationalitycounts() -> ResponseType:
         ResponseType: List of dicts, each containing:
             - nationality_id: Country ID (int or None for unknown)
             - nationality: Country name (str or None for unknown)
-            - count: Number of short stories by authors of this nationality (int)
+            - storytypes: Dict with story type names as keys, each containing
+                          a dict of role names to person counts
+            - count: Total persons for this nationality (int)
 
         Sorted by count descending.
 
         Example:
         [
-            {"nationality_id": 1, "nationality": "Yhdysvallat", "count": 500},
-            {"nationality_id": 2, "nationality": "Iso-Britannia", "count": 300},
-            {"nationality_id": null, "nationality": null, "count": 50},
+            {"nationality_id": 1, "nationality": "Yhdysvallat",
+             "storytypes": {"novelli": {"kirjoittaja": 100, "kääntäjä": 20},
+                            "kertomus": {"kirjoittaja": 50, "kääntäjä": 10}},
+             "count": 180},
+            {"nationality_id": 2, "nationality": "Iso-Britannia",
+             "storytypes": {"novelli": {"kirjoittaja": 80, "kääntäjä": 15}},
+             "count": 120},
             ...
         ]
     """
     session = new_session()
 
     try:
-        query = session.query(
-            Country.id.label('nationality_id'),
-            Country.name.label('nationality'),
-            func.count(func.distinct(ShortStory.id)).label('count')
-        ).select_from(
-            Person
-        ).join(
-            Contributor, and_(
-                Contributor.person_id == Person.id,
-                Contributor.role_id == 1  # Author role
-            )
-        ).join(
+        # Subquery to check if person has at least one short story contribution
+        has_story = session.query(Contributor.person_id).join(
             Part, and_(
                 Part.id == Contributor.part_id,
                 Part.shortstory_id.isnot(None)
             )
-        ).join(
-            ShortStory, ShortStory.id == Part.shortstory_id
+        ).filter(
+            Contributor.person_id == Person.id
+        ).exists()
+
+        # Main query to get person counts per nationality (each person counted once)
+        query = session.query(
+            Country.id.label('nationality_id'),
+            Country.name.label('nationality'),
+            func.count(Person.id).label('count')
+        ).select_from(
+            Person
         ).outerjoin(
             Country, Country.id == Person.nationality_id
+        ).filter(
+            has_story
         ).group_by(
             Country.id,
             Country.name
@@ -915,14 +979,61 @@ def stats_storynationalitycounts() -> ResponseType:
         _log_query('stats_storynationalitycounts', query)
         results = query.all()
 
-        result = [
-            {
+        result = []
+        for r in results:
+            # Get storytype + role breakdown for this nationality (person counts)
+            storytype_query = session.query(
+                StoryType.id.label('storytype_id'),
+                StoryType.name.label('storytype_name'),
+                ContributorRole.id.label('role_id'),
+                ContributorRole.name.label('role_name'),
+                func.count(func.distinct(Person.id)).label('count')
+            ).select_from(
+                Person
+            ).join(
+                Contributor, Contributor.person_id == Person.id
+            ).join(
+                ContributorRole, ContributorRole.id == Contributor.role_id
+            ).join(
+                Part, and_(
+                    Part.id == Contributor.part_id,
+                    Part.shortstory_id.isnot(None)
+                )
+            ).join(
+                ShortStory, ShortStory.id == Part.shortstory_id
+            ).join(
+                StoryType, StoryType.id == ShortStory.story_type
+            )
+
+            if r.nationality_id is not None:
+                storytype_query = storytype_query.filter(
+                    Person.nationality_id == r.nationality_id
+                )
+            else:
+                storytype_query = storytype_query.filter(
+                    Person.nationality_id.is_(None)
+                )
+
+            storytype_query = storytype_query.group_by(
+                StoryType.id,
+                ContributorRole.id
+            )
+            storytype_results = storytype_query.all()
+
+            # Build nested dict: {storytype_name: {role_name: count}}
+            storytype_dict: Dict[str, Dict[str, int]] = {}
+            for st in storytype_results:
+                if st.storytype_name and st.role_name:
+                    if st.storytype_name not in storytype_dict:
+                        storytype_dict[st.storytype_name] = {}
+                    storytype_dict[st.storytype_name][st.role_name] = st.count
+
+            result.append({
                 'nationality_id': r.nationality_id,
                 'nationality': r.nationality,
+                'storytypes': storytype_dict,
                 'count': r.count
-            }
-            for r in results
-        ]
+            })
 
     except SQLAlchemyError as exp:
         app.logger.error(f'stats_storynationalitycounts: Database error: {exp}')

@@ -479,14 +479,14 @@ def api_stats_issuesperyear() -> Response:
 @app.route('/api/stats/nationalitycounts', methods=['GET'])
 def api_stats_nationalitycounts() -> Response:
     """
-    Get work counts grouped by author nationality.
+    Get person counts grouped by nationality, with genre and role breakdown.
 
     Endpoint: GET /api/stats/nationalitycounts
 
     Parameters: None
 
     Returns:
-        200 OK: JSON array of nationality statistics sorted by work count
+        200 OK: JSON array of nationality statistics sorted by person count
                 (descending).
 
         Response Schema:
@@ -494,24 +494,53 @@ def api_stats_nationalitycounts() -> Response:
             {
                 "nationality_id": <int|null>,  // Country ID, null for unknown
                 "nationality": <string|null>,  // Country name, null for unknown
-                "count": <int>                 // Number of works
+                "genres": {
+                    "<genre_abbr>": {
+                        "<role_name>": <count>,  // Person count per role
+                        ...
+                    },
+                    ...
+                },
+                "count": <int>                 // Total person count
             },
             ...
         ]
 
+        Example Request:
+        GET /api/stats/nationalitycounts
+
         Example Response:
         [
-            {"nationality_id": 1, "nationality": "Yhdysvallat", "count": 500},
-            {"nationality_id": 2, "nationality": "Iso-Britannia", "count": 300},
-            {"nationality_id": 3, "nationality": "Suomi", "count": 150},
-            {"nationality_id": null, "nationality": null, "count": 50}
+            {
+                "nationality_id": 1,
+                "nationality": "Yhdysvallat",
+                "genres": {
+                    "SF": {"kirjoittaja": 150, "kääntäjä": 30},
+                    "F": {"kirjoittaja": 40, "kääntäjä": 10}
+                },
+                "count": 200
+            },
+            {
+                "nationality_id": 2,
+                "nationality": "Iso-Britannia",
+                "genres": {
+                    "SF": {"kirjoittaja": 100, "kääntäjä": 20}
+                },
+                "count": 120
+            },
+            {
+                "nationality_id": null,
+                "nationality": null,
+                "genres": {"SF": {"kirjoittaja": 15, "kääntäjä": 5}},
+                "count": 20
+            }
         ]
 
         Use Case:
-        - Analyze the distribution of works by author nationality
-        - Create visualizations showing which countries' authors are most
+        - Analyze the distribution of persons by nationality
+        - Filter by role within each genre (e.g., all who translated fantasy)
+        - Create visualizations showing which countries' contributors are most
           represented in the database
-        - Compare domestic vs. foreign author representation
 
         500 Internal Server Error: Database error occurred.
     """
@@ -521,14 +550,14 @@ def api_stats_nationalitycounts() -> Response:
 @app.route('/api/stats/storynationalitycounts', methods=['GET'])
 def api_stats_storynationalitycounts() -> Response:
     """
-    Get short story counts grouped by author nationality.
+    Get person counts (short story contributors) grouped by nationality.
 
     Endpoint: GET /api/stats/storynationalitycounts
 
     Parameters: None
 
     Returns:
-        200 OK: JSON array of nationality statistics sorted by short story
+        200 OK: JSON array of nationality statistics sorted by person
                 count (descending).
 
         Response Schema:
@@ -536,22 +565,49 @@ def api_stats_storynationalitycounts() -> Response:
             {
                 "nationality_id": <int|null>,  // Country ID, null for unknown
                 "nationality": <string|null>,  // Country name, null for unknown
-                "count": <int>                 // Number of short stories
+                "storytypes": {
+                    "<storytype_name>": {
+                        "<role_name>": <count>,  // Person count per role
+                        ...
+                    },
+                    ...
+                },
+                "count": <int>                 // Total persons
             },
             ...
         ]
 
         Example Response:
         [
-            {"nationality_id": 1, "nationality": "Yhdysvallat", "count": 500},
-            {"nationality_id": 2, "nationality": "Iso-Britannia", "count": 300},
-            {"nationality_id": 3, "nationality": "Suomi", "count": 150},
-            {"nationality_id": null, "nationality": null, "count": 50}
+            {
+                "nationality_id": 1,
+                "nationality": "Yhdysvallat",
+                "storytypes": {
+                    "novelli": {"kirjoittaja": 100, "kääntäjä": 20},
+                    "kertomus": {"kirjoittaja": 50, "kääntäjä": 10}
+                },
+                "count": 180
+            },
+            {
+                "nationality_id": 2,
+                "nationality": "Iso-Britannia",
+                "storytypes": {
+                    "novelli": {"kirjoittaja": 80, "kääntäjä": 15}
+                },
+                "count": 120
+            },
+            {
+                "nationality_id": null,
+                "nationality": null,
+                "storytypes": {"novelli": {"kirjoittaja": 10, "kääntäjä": 5}},
+                "count": 20
+            }
         ]
 
         Use Case:
-        - Analyze the distribution of short stories by author nationality
-        - Compare domestic vs. foreign author representation in short fiction
+        - Analyze the distribution of short story contributors by nationality
+        - Filter by story type and role (e.g., all who translated novellas)
+        - Compare domestic vs. foreign representation by story type
 
         500 Internal Server Error: Database error occurred.
     """
