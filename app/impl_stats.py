@@ -7,7 +7,8 @@ from app.impl import ResponseType
 from app.route_helpers import new_session
 from app.orm_decl import (
     Genre, Work, WorkGenre, Edition, Part, Publisher,
-    Person, Contributor, Issue, Language, BindingType, Country
+    Person, Contributor, ContributorRole, Issue, Language, BindingType, Country,
+    ShortStory, StoryType
 )
 from app.types import HttpResponseCode
 from app import app
@@ -80,7 +81,8 @@ def stats_personcounts(count: int = 10,
             - name: Person name (str)
             - alt_name: Alternative name (str or None)
             - nationality: Person's nationality/country (str or None)
-            - genres: Dict with genre abbreviations as keys and work counts as values
+            - genres: Dict with genre abbreviations as keys, each containing
+                      a dict of role names to counts
             - total: Total work count for this person
 
         The last item is always "Muut" (Others) containing aggregated
@@ -89,18 +91,22 @@ def stats_personcounts(count: int = 10,
         Example:
         [
             {"id": 1, "name": "Asimov, Isaac", "alt_name": "Isaac Asimov",
-             "nationality": "Yhdysvallat", "genres": {"SF": 50, "F": 5}, "total": 55},
+             "nationality": "Yhdysvallat",
+             "genres": {"SF": {"kirjoittaja": 50}, "F": {"kirjoittaja": 5}},
+             "total": 55},
             ...
             {"id": null, "name": "Muut", "alt_name": null,
-             "nationality": null, "genres": {"SF": 1000, "F": 500}, "total": 1500}
+             "nationality": null, "genres": {...}, "total": 1500}
         ]
     """
     session = new_session()
 
     try:
         genres = session.query(Genre).all()
-        genre_abbrs = {g.id: g.abbr for g in genres}
         genre_ids = {g.abbr: g.id for g in genres}
+
+        # Get all roles for lookup
+        roles = session.query(ContributorRole).all()
 
         # Validate genre parameter if provided
         filter_genre_id = None
@@ -142,20 +148,26 @@ def stats_personcounts(count: int = 10,
         ).order_by(
             desc('work_count')
         )
-        _log_query('stats_authorcounts (main)', author_query)
+        _log_query('stats_personcounts (main)', author_query)
         author_counts = author_query.all()
 
         # Get country names for lookup
         countries = {c.id: c.name for c in session.query(Country).all()}
 
         result: List[Dict[str, Any]] = []
-        other_genres: Dict[str, int] = {g.abbr: 0 for g in genres}
+        # Initialize other_genres as nested dict: {genre: {role: count}}
+        other_genres: Dict[str, Dict[str, int]] = {}
+        for g in genres:
+            other_genres[g.abbr] = {r.name: 0 for r in roles if r.name}
         other_total = 0
 
         for idx, author_data in enumerate(author_counts):
-            # Get genre breakdown for this author
+            # Get genre + role breakdown for this person
             genre_query = session.query(
-                Genre.id,
+                Genre.id.label('genre_id'),
+                Genre.abbr.label('genre_abbr'),
+                ContributorRole.id.label('role_id'),
+                ContributorRole.name.label('role_name'),
                 func.count(func.distinct(Work.id)).label('count')
             ).join(
                 WorkGenre, WorkGenre.genre_id == Genre.id
@@ -165,18 +177,26 @@ def stats_personcounts(count: int = 10,
                 Part, Part.work_id == Work.id
             ).join(
                 Contributor, Contributor.part_id == Part.id
+            ).join(
+                ContributorRole, ContributorRole.id == Contributor.role_id
             ).filter(
                 Contributor.person_id == author_data.id,
-                Contributor.role_id == role_id,
                 Part.shortstory_id.is_(None)
             ).group_by(
-                Genre.id
+                Genre.id,
+                ContributorRole.id
             )
             if idx == 0:  # Only log for first author to avoid spam
-                _log_query('stats_authorcounts (genre breakdown)', genre_query)
+                _log_query('stats_personcounts (genre breakdown)', genre_query)
             author_genres = genre_query.all()
 
-            genre_dict = {genre_abbrs[ag.id]: ag.count for ag in author_genres}
+            # Build nested dict: {genre_abbr: {role_name: count}}
+            genre_dict: Dict[str, Dict[str, int]] = {}
+            for ag in author_genres:
+                if ag.genre_abbr and ag.role_name:
+                    if ag.genre_abbr not in genre_dict:
+                        genre_dict[ag.genre_abbr] = {}
+                    genre_dict[ag.genre_abbr][ag.role_name] = ag.count
 
             if idx < count:
                 result.append({
@@ -189,8 +209,9 @@ def stats_personcounts(count: int = 10,
                 })
             else:
                 # Add to "others" aggregation
-                for genre_id, count in [(ag.id, ag.count) for ag in author_genres]:
-                    other_genres[genre_abbrs[genre_id]] += count
+                for ag in author_genres:
+                    if ag.genre_abbr and ag.role_name:
+                        other_genres[ag.genre_abbr][ag.role_name] += ag.count
                 other_total += author_data.work_count
 
         # Add "Muut" (Others) entry
@@ -205,6 +226,180 @@ def stats_personcounts(count: int = 10,
 
     except SQLAlchemyError as exp:
         app.logger.error(f'stats_authorcounts: Database error: {exp}')
+        return ResponseType('Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+def stats_storypersoncounts(count: int = 10,
+                            role_id: int = 1,
+                            storytype_id: Optional[int] = None) -> ResponseType:
+    """
+    Get the most productive persons with their short story counts.
+
+    Args:
+        count: Number of top persons to return. Default is 10.
+        role_id: Role ID to filter by. Default is 1 (author).
+                 Common values: 1 = author, 2 = translator, 3 = editor, etc.
+        storytype_id: Optional story type ID to filter by.
+                      When set, only counts stories of that type.
+
+    Returns:
+        ResponseType: List of dicts, each containing:
+            - id: Person ID (int or None for "Muut")
+            - name: Person name (str)
+            - alt_name: Alternative name (str or None)
+            - nationality: Person's nationality/country (str or None)
+            - storytypes: Dict with story type names as keys, each containing
+                          a dict of role names to counts
+            - total: Total short story count for this person
+
+        The last item is always "Muut" (Others) containing aggregated
+        counts for all persons not in the top list.
+
+        Example:
+        [
+            {"id": 1, "name": "Asimov, Isaac", "alt_name": "Isaac Asimov",
+             "nationality": "Yhdysvallat",
+             "storytypes": {"novelli": {"kirjoittaja": 30}, "kertomus": {"kirjoittaja": 25}},
+             "total": 55},
+            ...
+            {"id": null, "name": "Muut", "alt_name": null,
+             "nationality": null, "storytypes": {...}, "total": 1500}
+        ]
+    """
+    session = new_session()
+
+    try:
+        # Get all story types for lookup
+        storytypes = session.query(StoryType).all()
+        storytype_names = {st.id: st.name for st in storytypes}
+
+        # Get all roles for lookup
+        roles = session.query(ContributorRole).all()
+
+        # Validate storytype_id if provided
+        if storytype_id is not None and storytype_id not in storytype_names:
+            return ResponseType(f'Tuntematon tarinatyyppi: {storytype_id}',
+                                HttpResponseCode.BAD_REQUEST.value)
+
+        # Get all persons with their short story counts
+        person_query = session.query(
+            Person.id,
+            Person.name,
+            Person.alt_name,
+            Person.nationality_id,
+            func.count(func.distinct(ShortStory.id)).label('story_count')
+        ).join(
+            Contributor, and_(
+                Contributor.person_id == Person.id,
+                Contributor.role_id == role_id
+            )
+        ).join(
+            Part, and_(
+                Part.id == Contributor.part_id,
+                Part.shortstory_id.isnot(None)
+            )
+        ).join(
+            ShortStory, ShortStory.id == Part.shortstory_id
+        )
+
+        # Add storytype filter if specified
+        if storytype_id is not None:
+            person_query = person_query.filter(
+                ShortStory.story_type == storytype_id
+            )
+
+        person_query = person_query.group_by(
+            Person.id
+        ).order_by(
+            desc('story_count')
+        )
+        _log_query('stats_storypersoncounts (main)', person_query)
+        person_counts = person_query.all()
+
+        # Get country names for lookup
+        countries = {c.id: c.name for c in session.query(Country).all()}
+
+        result: List[Dict[str, Any]] = []
+        # Initialize other_storytypes as nested dict: {storytype: {role: count}}
+        other_storytypes: Dict[str, Dict[str, int]] = {}
+        for st in storytypes:
+            if st.name:
+                other_storytypes[st.name] = {r.name: 0 for r in roles if r.name}
+        other_total = 0
+
+        for idx, person_data in enumerate(person_counts):
+            # Get storytype + role breakdown for this person
+            storytype_query = session.query(
+                StoryType.id.label('storytype_id'),
+                StoryType.name.label('storytype_name'),
+                ContributorRole.id.label('role_id'),
+                ContributorRole.name.label('role_name'),
+                func.count(func.distinct(ShortStory.id)).label('count')
+            ).join(
+                ShortStory, ShortStory.story_type == StoryType.id
+            ).join(
+                Part, Part.shortstory_id == ShortStory.id
+            ).join(
+                Contributor, Contributor.part_id == Part.id
+            ).join(
+                ContributorRole, ContributorRole.id == Contributor.role_id
+            ).filter(
+                Contributor.person_id == person_data.id
+            )
+
+            if storytype_id is not None:
+                storytype_query = storytype_query.filter(
+                    ShortStory.story_type == storytype_id
+                )
+
+            storytype_query = storytype_query.group_by(
+                StoryType.id,
+                ContributorRole.id
+            )
+            if idx == 0:  # Only log for first person to avoid spam
+                _log_query('stats_storypersoncounts (storytype breakdown)',
+                           storytype_query)
+            person_storytypes = storytype_query.all()
+
+            # Build nested dict: {storytype_name: {role_name: count}}
+            storytype_dict: Dict[str, Dict[str, int]] = {}
+            for st in person_storytypes:
+                if st.storytype_name and st.role_name:
+                    if st.storytype_name not in storytype_dict:
+                        storytype_dict[st.storytype_name] = {}
+                    storytype_dict[st.storytype_name][st.role_name] = st.count
+
+            if idx < count:
+                result.append({
+                    'id': person_data.id,
+                    'name': person_data.name,
+                    'alt_name': person_data.alt_name,
+                    'nationality': countries.get(person_data.nationality_id),
+                    'storytypes': storytype_dict,
+                    'total': person_data.story_count
+                })
+            else:
+                # Add to "others" aggregation
+                for st in person_storytypes:
+                    if st.storytype_name and st.role_name:
+                        other_storytypes[st.storytype_name][st.role_name] += st.count
+                other_total += person_data.story_count
+
+        # Add "Muut" (Others) entry
+        result.append({
+            'id': None,
+            'name': 'Muut',
+            'alt_name': None,
+            'nationality': None,
+            'storytypes': other_storytypes,
+            'total': other_total
+        })
+
+    except SQLAlchemyError as exp:
+        app.logger.error(f'stats_storypersoncounts: Database error: {exp}')
         return ResponseType('Tietokantavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
@@ -658,6 +853,79 @@ def stats_nationalitycounts() -> ResponseType:
 
     except SQLAlchemyError as exp:
         app.logger.error(f'stats_nationalitycounts: Database error: {exp}')
+        return ResponseType('Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+def stats_storynationalitycounts() -> ResponseType:
+    """
+    Get short story counts grouped by author nationality.
+
+    Only includes persons who have at least one short story as an author
+    (role_id = 1 in Contributor table, pointing to a Part with
+    shortstory_id != NULL).
+
+    Returns:
+        ResponseType: List of dicts, each containing:
+            - nationality_id: Country ID (int or None for unknown)
+            - nationality: Country name (str or None for unknown)
+            - count: Number of short stories by authors of this nationality (int)
+
+        Sorted by count descending.
+
+        Example:
+        [
+            {"nationality_id": 1, "nationality": "Yhdysvallat", "count": 500},
+            {"nationality_id": 2, "nationality": "Iso-Britannia", "count": 300},
+            {"nationality_id": null, "nationality": null, "count": 50},
+            ...
+        ]
+    """
+    session = new_session()
+
+    try:
+        query = session.query(
+            Country.id.label('nationality_id'),
+            Country.name.label('nationality'),
+            func.count(func.distinct(ShortStory.id)).label('count')
+        ).select_from(
+            Person
+        ).join(
+            Contributor, and_(
+                Contributor.person_id == Person.id,
+                Contributor.role_id == 1  # Author role
+            )
+        ).join(
+            Part, and_(
+                Part.id == Contributor.part_id,
+                Part.shortstory_id.isnot(None)
+            )
+        ).join(
+            ShortStory, ShortStory.id == Part.shortstory_id
+        ).outerjoin(
+            Country, Country.id == Person.nationality_id
+        ).group_by(
+            Country.id,
+            Country.name
+        ).order_by(
+            desc('count')
+        )
+        _log_query('stats_storynationalitycounts', query)
+        results = query.all()
+
+        result = [
+            {
+                'nationality_id': r.nationality_id,
+                'nationality': r.nationality,
+                'count': r.count
+            }
+            for r in results
+        ]
+
+    except SQLAlchemyError as exp:
+        app.logger.error(f'stats_storynationalitycounts: Database error: {exp}')
         return ResponseType('Tietokantavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 

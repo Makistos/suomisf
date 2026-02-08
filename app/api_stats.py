@@ -13,12 +13,14 @@ from app.api_helpers import make_api_response
 from app.impl_stats import (
     stats_genrecounts,
     stats_personcounts,
+    stats_storypersoncounts,
     stats_publishercounts,
     stats_worksbyyear,
     stats_origworksbyyear,
     stats_misc,
     stats_issuesperyear,
-    stats_nationalitycounts
+    stats_nationalitycounts,
+    stats_storynationalitycounts
 )
 from app import app
 
@@ -95,10 +97,13 @@ def api_stats_personcounts() -> Response:
                 "alt_name": <string|null>,  // Display name (First Last format)
                 "nationality": <string|null>,  // Person's nationality/country
                 "genres": {
-                    "<genre_abbr>": <count>,  // Work count per genre
+                    "<genre_abbr>": {
+                        "<role_name>": <count>,  // Work count per role
+                        ...
+                    },
                     ...
                 },
-                "total": <int>         // Total work count
+                "total": <int>         // Total work count (for filtered role)
             },
             ...
         ]
@@ -115,16 +120,11 @@ def api_stats_personcounts() -> Response:
                 "name": "Asimov, Isaac",
                 "alt_name": "Isaac Asimov",
                 "nationality": "Yhdysvallat",
-                "genres": {"SF": 50, "F": 5},
+                "genres": {
+                    "SF": {"kirjoittaja": 45, "kääntäjä": 5},
+                    "F": {"kirjoittaja": 5}
+                },
                 "total": 55
-            },
-            {
-                "id": 456,
-                "name": "Clarke, Arthur C.",
-                "alt_name": "Arthur C. Clarke",
-                "nationality": "Iso-Britannia",
-                "genres": {"SF": 45},
-                "total": 45
             },
             ...
             {
@@ -132,7 +132,10 @@ def api_stats_personcounts() -> Response:
                 "name": "Muut",
                 "alt_name": null,
                 "nationality": null,
-                "genres": {"SF": 1000, "F": 500, "K": 200},
+                "genres": {
+                    "SF": {"kirjoittaja": 1000, "kääntäjä": 500},
+                    "F": {"kirjoittaja": 400, "kääntäjä": 100}
+                },
                 "total": 1700
             }
         ]
@@ -146,6 +149,89 @@ def api_stats_personcounts() -> Response:
     genre = request.args.get('genre', default=None, type=str)
     role_id = request.args.get('role', default=1, type=int)
     return make_api_response(stats_personcounts(count, genre, role_id))
+
+
+@app.route('/api/stats/storypersoncounts', methods=['GET'])
+def api_stats_storypersoncounts() -> Response:
+    """
+    Get the most productive persons by role with their short story counts.
+
+    Endpoint: GET /api/stats/storypersoncounts
+
+    Query Parameters:
+        count (int, optional): Number of top persons to return. Default: 10.
+                               Must be a positive integer.
+        role (int, optional): Role ID to filter by. Default: 1 (author).
+                              Common values: 1 = author, 2 = translator,
+                              3 = editor, etc.
+        storytype (int, optional): Story type ID to filter by.
+                                   When set, only counts stories of that type.
+
+    Returns:
+        200 OK: JSON array of person objects sorted by total short story count
+                (descending). The last item is always "Muut" (Others)
+                containing aggregated counts for all persons not in top list.
+
+        Response Schema:
+        [
+            {
+                "id": <int|null>,      // Person ID, null for "Muut"
+                "name": <string>,      // Person name (Last, First format)
+                "alt_name": <string|null>,  // Display name (First Last format)
+                "nationality": <string|null>,  // Person's nationality/country
+                "storytypes": {
+                    "<storytype_name>": {
+                        "<role_name>": <count>,  // Story count per role
+                        ...
+                    },
+                    ...
+                },
+                "total": <int>         // Total short story count (for filtered role)
+            },
+            ...
+        ]
+
+        Example Request:
+        GET /api/stats/storypersoncounts?count=5
+        GET /api/stats/storypersoncounts?count=5&role=2
+        GET /api/stats/storypersoncounts?count=5&storytype=1
+
+        Example Response:
+        [
+            {
+                "id": 123,
+                "name": "Asimov, Isaac",
+                "alt_name": "Isaac Asimov",
+                "nationality": "Yhdysvallat",
+                "storytypes": {
+                    "novelli": {"kirjoittaja": 80, "kääntäjä": 20},
+                    "kertomus": {"kirjoittaja": 50, "kääntäjä": 10}
+                },
+                "total": 160
+            },
+            ...
+            {
+                "id": null,
+                "name": "Muut",
+                "alt_name": null,
+                "nationality": null,
+                "storytypes": {
+                    "novelli": {"kirjoittaja": 2000, "kääntäjä": 1000},
+                    "kertomus": {"kirjoittaja": 1500, "kääntäjä": 500}
+                },
+                "total": 5000
+            }
+        ]
+
+        400 Bad Request: Invalid storytype ID provided.
+        500 Internal Server Error: Database error occurred.
+    """
+    count = request.args.get('count', default=10, type=int)
+    if count < 1:
+        count = 10
+    role_id = request.args.get('role', default=1, type=int)
+    storytype_id = request.args.get('storytype', default=None, type=int)
+    return make_api_response(stats_storypersoncounts(count, role_id, storytype_id))
 
 
 @app.route('/api/stats/publishercounts', methods=['GET'])
@@ -430,3 +516,43 @@ def api_stats_nationalitycounts() -> Response:
         500 Internal Server Error: Database error occurred.
     """
     return make_api_response(stats_nationalitycounts())
+
+
+@app.route('/api/stats/storynationalitycounts', methods=['GET'])
+def api_stats_storynationalitycounts() -> Response:
+    """
+    Get short story counts grouped by author nationality.
+
+    Endpoint: GET /api/stats/storynationalitycounts
+
+    Parameters: None
+
+    Returns:
+        200 OK: JSON array of nationality statistics sorted by short story
+                count (descending).
+
+        Response Schema:
+        [
+            {
+                "nationality_id": <int|null>,  // Country ID, null for unknown
+                "nationality": <string|null>,  // Country name, null for unknown
+                "count": <int>                 // Number of short stories
+            },
+            ...
+        ]
+
+        Example Response:
+        [
+            {"nationality_id": 1, "nationality": "Yhdysvallat", "count": 500},
+            {"nationality_id": 2, "nationality": "Iso-Britannia", "count": 300},
+            {"nationality_id": 3, "nationality": "Suomi", "count": 150},
+            {"nationality_id": null, "nationality": null, "count": 50}
+        ]
+
+        Use Case:
+        - Analyze the distribution of short stories by author nationality
+        - Compare domestic vs. foreign author representation in short fiction
+
+        500 Internal Server Error: Database error occurred.
+    """
+    return make_api_response(stats_storynationalitycounts())
