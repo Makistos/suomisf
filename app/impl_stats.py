@@ -1041,3 +1041,79 @@ def stats_storynationalitycounts() -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType(result, HttpResponseCode.OK.value)
+
+
+def stats_storiesbyyear() -> ResponseType:
+    """
+    Get count of short stories by original publication year, grouped by story type
+    and language.
+
+    Returns:
+        ResponseType: List of dicts, each containing:
+            - year: Original publication year (int)
+            - count: Number of short stories published that year (int)
+            - storytype_id: Story type ID (int or None)
+            - storytype_name: Story type name (str or None)
+            - language_id: Original language ID (int or None)
+            - language_name: Original language name (str or None)
+
+        Sorted by year ascending, then by story type name, then by language name.
+
+        Example:
+        [
+            {"year": 1950, "count": 10, "storytype_id": 1, "storytype_name": "novelli",
+             "language_id": 2, "language_name": "englanti"},
+            {"year": 1950, "count": 5, "storytype_id": 1, "storytype_name": "novelli",
+             "language_id": 1, "language_name": "suomi"},
+            {"year": 1951, "count": 15, "storytype_id": 1, "storytype_name": "novelli",
+             "language_id": 2, "language_name": "englanti"},
+            ...
+        ]
+    """
+    session = new_session()
+
+    try:
+        query = session.query(
+            ShortStory.pubyear,
+            func.count(ShortStory.id).label('count'),
+            StoryType.id.label('storytype_id'),
+            StoryType.name.label('storytype_name'),
+            Language.id.label('language_id'),
+            Language.name.label('language_name')
+        ).outerjoin(
+            StoryType, StoryType.id == ShortStory.story_type
+        ).outerjoin(
+            Language, Language.id == ShortStory.language
+        ).filter(
+            ShortStory.pubyear.isnot(None),
+            ShortStory.pubyear > 0
+        ).group_by(
+            ShortStory.pubyear,
+            StoryType.id,
+            Language.id
+        ).order_by(
+            ShortStory.pubyear,
+            StoryType.name,
+            Language.name
+        )
+        _log_query('stats_storiesbyyear', query)
+        results = query.all()
+
+        result = [
+            {
+                'year': r.pubyear,
+                'count': r.count,
+                'storytype_id': r.storytype_id,
+                'storytype_name': r.storytype_name,
+                'language_id': r.language_id,
+                'language_name': r.language_name
+            }
+            for r in results
+        ]
+
+    except SQLAlchemyError as exp:
+        app.logger.error(f'stats_storiesbyyear: Database error: {exp}')
+        return ResponseType('Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(result, HttpResponseCode.OK.value)

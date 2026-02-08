@@ -17,6 +17,7 @@ from app.impl_stats import (
     stats_publishercounts,
     stats_worksbyyear,
     stats_origworksbyyear,
+    stats_storiesbyyear,
     stats_misc,
     stats_issuesperyear,
     stats_nationalitycounts,
@@ -612,3 +613,67 @@ def api_stats_storynationalitycounts() -> Response:
         500 Internal Server Error: Database error occurred.
     """
     return make_api_response(stats_storynationalitycounts())
+
+
+@app.route('/api/stats/storiesbyyear', methods=['GET'])
+def api_stats_storiesbyyear() -> Response:
+    """
+    Get count of short stories by original publication year.
+
+    Endpoint: GET /api/stats/storiesbyyear
+
+    Parameters: None
+
+    Returns:
+        200 OK: JSON array of year statistics sorted by year (ascending),
+                then by story type, then by language.
+
+        Response Schema:
+        [
+            {
+                "year": <int>,                    // Original publication year
+                "count": <int>,                   // Number of short stories
+                "storytype_id": <int|null>,       // Story type ID
+                "storytype_name": <string|null>,  // Story type name
+                "language_id": <int|null>,        // Original language ID
+                "language_name": <string|null>    // Original language name
+            },
+            ...
+        ]
+
+        Example Response:
+        [
+            {
+                "year": 1950,
+                "count": 10,
+                "storytype_id": 1,
+                "storytype_name": "novelli",
+                "language_id": 2,
+                "language_name": "englanti"
+            },
+            {
+                "year": 1950,
+                "count": 5,
+                "storytype_id": 1,
+                "storytype_name": "novelli",
+                "language_id": 1,
+                "language_name": "suomi"
+            },
+            {
+                "year": 1951,
+                "count": 15,
+                "storytype_id": 2,
+                "storytype_name": "kertomus",
+                "language_id": 2,
+                "language_name": "englanti"
+            }
+        ]
+
+        Use Case:
+        - Visualize short story publication trends over time
+        - Compare story types by year
+        - Analyze domestic vs. translated short fiction by year
+
+        500 Internal Server Error: Database error occurred.
+    """
+    return make_api_response(stats_storiesbyyear())
