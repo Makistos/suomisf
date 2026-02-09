@@ -2,6 +2,7 @@
 from typing import Any, Dict, List, Optional
 from sqlalchemy import and_, func, desc, or_
 from sqlalchemy.exc import SQLAlchemyError
+from marshmallow import exceptions
 
 from app.impl import ResponseType
 from app.route_helpers import new_session
@@ -10,6 +11,7 @@ from app.orm_decl import (
     Person, Contributor, ContributorRole, Issue, Language, BindingType, Country,
     ShortStory, StoryType
 )
+from app.model import ShortBriefSchema, WorkBriefSchema
 from app.types import HttpResponseCode
 from app import app
 
@@ -1037,6 +1039,193 @@ def stats_storynationalitycounts() -> ResponseType:
 
     except SQLAlchemyError as exp:
         app.logger.error(f'stats_storynationalitycounts: Database error: {exp}')
+        return ResponseType('Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+def stats_filterstories(storytype_id: Optional[int] = None,
+                        language_id: Optional[int] = None,
+                        pubyear_min: Optional[int] = None,
+                        pubyear_max: Optional[int] = None) -> ResponseType:
+    """
+    Get short stories matching the given filters.
+
+    Args:
+        storytype_id: Optional story type ID to filter by.
+        language_id: Optional language ID to filter by.
+        pubyear_min: Optional minimum publication year (inclusive).
+        pubyear_max: Optional maximum publication year (inclusive).
+
+    Returns:
+        ResponseType: List of short stories in ShortBriefestSchema format.
+            Each item contains:
+            - id: Short story ID (int)
+            - title: Short story title (str)
+            - orig_title: Original title (str or None)
+            - pubyear: Publication year (int or None)
+            - type: Story type object with id and name
+            - lang: Language object with id and name
+            - contributors: List of contributor objects
+
+        Sorted by title ascending.
+
+        Example:
+        [
+            {
+                "id": 123,
+                "title": "Tarinan nimi",
+                "orig_title": "Original Title",
+                "pubyear": 1950,
+                "type": {"id": 1, "name": "novelli"},
+                "lang": {"id": 2, "name": "englanti"},
+                "contributors": [{"person": {...}, "role": {...}}]
+            },
+            ...
+        ]
+    """
+    session = new_session()
+
+    try:
+        query = session.query(ShortStory)
+
+        if storytype_id is not None:
+            query = query.filter(ShortStory.story_type == storytype_id)
+
+        if language_id is not None:
+            query = query.filter(ShortStory.language == language_id)
+
+        if pubyear_min is not None:
+            query = query.filter(ShortStory.pubyear >= pubyear_min)
+
+        if pubyear_max is not None:
+            query = query.filter(ShortStory.pubyear <= pubyear_max)
+
+        query = query.order_by(ShortStory.title)
+        _log_query('stats_filterstories', query)
+        stories = query.all()
+
+        schema = ShortBriefSchema(many=True)
+        result = schema.dump(stories)
+
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'stats_filterstories: Serialization error: {exp}')
+        return ResponseType('Serialisointivirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    except SQLAlchemyError as exp:
+        app.logger.error(f'stats_filterstories: Database error: {exp}')
+        return ResponseType('Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+def stats_filterworks(language_id: Optional[int] = None,
+                      orig_year_min: Optional[int] = None,
+                      orig_year_max: Optional[int] = None,
+                      edition_year_min: Optional[int] = None,
+                      edition_year_max: Optional[int] = None) -> ResponseType:
+    """
+    Get works matching the given filters.
+
+    Note: orig_year and edition_year filters are mutually exclusive.
+    If both are provided, orig_year takes precedence.
+
+    Args:
+        language_id: Optional language ID to filter by.
+        orig_year_min: Optional minimum original publication year (inclusive).
+        orig_year_max: Optional maximum original publication year (inclusive).
+        edition_year_min: Optional minimum first edition year (inclusive).
+        edition_year_max: Optional maximum first edition year (inclusive).
+
+    Returns:
+        ResponseType: List of works in WorkBriefSchema format.
+            Each item contains:
+            - id: Work ID (int)
+            - title: Work title (str)
+            - orig_title: Original title (str or None)
+            - author_str: Author string (str or None)
+            - pubyear: Original publication year (int or None)
+            - contributions: List of contributor objects
+            - editions: List of edition objects
+            - genres: List of genre objects
+            - language_name: Language object
+
+        Sorted by title ascending.
+
+        Example:
+        [
+            {
+                "id": 123,
+                "title": "Teoksen nimi",
+                "orig_title": "Original Title",
+                "author_str": "Asimov, Isaac",
+                "contributions": [...],
+                "editions": [...],
+                "genres": [{"id": 1, "abbr": "SF", "name": "Science Fiction"}],
+                "language_name": {"id": 2, "name": "englanti"}
+            },
+            ...
+        ]
+    """
+    session = new_session()
+
+    try:
+        # Determine if we're filtering by orig_year or edition_year
+        use_orig_year = orig_year_min is not None or orig_year_max is not None
+
+        if use_orig_year:
+            # Filter by original publication year (Work.pubyear)
+            query = session.query(Work)
+
+            if language_id is not None:
+                query = query.filter(Work.language == language_id)
+
+            if orig_year_min is not None:
+                query = query.filter(Work.pubyear >= orig_year_min)
+
+            if orig_year_max is not None:
+                query = query.filter(Work.pubyear <= orig_year_max)
+
+            query = query.order_by(Work.title)
+        else:
+            # Filter by first edition year (Edition.pubyear where editionnum=1)
+            query = session.query(Work).join(
+                Part, and_(
+                    Part.work_id == Work.id,
+                    Part.shortstory_id.is_(None)
+                )
+            ).join(
+                Edition, Edition.id == Part.edition_id
+            ).filter(
+                or_(Edition.editionnum == 1, Edition.editionnum.is_(None)),
+                or_(Edition.version == 1, Edition.version.is_(None))
+            )
+
+            if language_id is not None:
+                query = query.filter(Work.language == language_id)
+
+            if edition_year_min is not None:
+                query = query.filter(Edition.pubyear >= edition_year_min)
+
+            if edition_year_max is not None:
+                query = query.filter(Edition.pubyear <= edition_year_max)
+
+            query = query.distinct().order_by(Work.title)
+
+        _log_query('stats_filterworks', query)
+        works = query.all()
+
+        schema = WorkBriefSchema(many=True)
+        result = schema.dump(works)
+
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'stats_filterworks: Serialization error: {exp}')
+        return ResponseType('Serialisointivirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    except SQLAlchemyError as exp:
+        app.logger.error(f'stats_filterworks: Database error: {exp}')
         return ResponseType('Tietokantavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 

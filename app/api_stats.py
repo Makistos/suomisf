@@ -18,6 +18,8 @@ from app.impl_stats import (
     stats_worksbyyear,
     stats_origworksbyyear,
     stats_storiesbyyear,
+    stats_filterstories,
+    stats_filterworks,
     stats_misc,
     stats_issuesperyear,
     stats_nationalitycounts,
@@ -613,6 +615,210 @@ def api_stats_storynationalitycounts() -> Response:
         500 Internal Server Error: Database error occurred.
     """
     return make_api_response(stats_storynationalitycounts())
+
+
+@app.route('/api/stats/filterstories', methods=['GET'])
+def api_stats_filterstories() -> Response:
+    """
+    Get short stories matching the given filters.
+
+    Endpoint: GET /api/stats/filterstories
+
+    Query Parameters:
+        storytype (int, optional): Story type ID to filter by.
+                                   Use /api/shorttypes to get available types.
+        language (int, optional): Language ID to filter by.
+                                  Use /api/languages to get available languages.
+        pubyear_min (int, optional): Minimum publication year (inclusive).
+        pubyear_max (int, optional): Maximum publication year (inclusive).
+                                     Can be used with pubyear_min for ranges.
+
+    Returns:
+        200 OK: JSON array of short story objects in ShortBriefestSchema format,
+                sorted by title (ascending).
+
+        Response Schema:
+        [
+            {
+                "id": <int>,                // Short story ID
+                "title": <string>,          // Finnish title
+                "orig_title": <string|null>,// Original title
+                "pubyear": <int|null>,      // Original publication year
+                "type": {                   // Story type object
+                    "id": <int>,
+                    "name": <string>
+                },
+                "lang": {                   // Language object
+                    "id": <int>,
+                    "name": <string>
+                },
+                "contributors": [           // List of contributors
+                    {
+                        "person": {
+                            "id": <int>,
+                            "name": <string>,
+                            "alt_name": <string|null>
+                        },
+                        "role": {
+                            "id": <int>,
+                            "name": <string>
+                        }
+                    },
+                    ...
+                ]
+            },
+            ...
+        ]
+
+        Example Requests:
+        GET /api/stats/filterstories?storytype=1
+        GET /api/stats/filterstories?language=2&pubyear_min=1950&pubyear_max=1960
+        GET /api/stats/filterstories?storytype=1&language=1
+
+        Example Response:
+        [
+            {
+                "id": 123,
+                "title": "Avaruuden valloittajat",
+                "orig_title": "Space Conquerors",
+                "pubyear": 1955,
+                "type": {"id": 1, "name": "novelli"},
+                "lang": {"id": 2, "name": "englanti"},
+                "contributors": [
+                    {
+                        "person": {"id": 456, "name": "Asimov, Isaac", "alt_name": "Isaac Asimov"},
+                        "role": {"id": 1, "name": "kirjoittaja"}
+                    }
+                ]
+            }
+        ]
+
+        Use Case:
+        - Browse short stories by type (novellas, tales, poems, etc.)
+        - Find stories from a specific language or time period
+        - Build filtered views for short story statistics pages
+
+        500 Internal Server Error: Database or serialization error occurred.
+    """
+    storytype_id = request.args.get('storytype', default=None, type=int)
+    language_id = request.args.get('language', default=None, type=int)
+    pubyear_min = request.args.get('pubyear_min', default=None, type=int)
+    pubyear_max = request.args.get('pubyear_max', default=None, type=int)
+    return make_api_response(stats_filterstories(
+        storytype_id, language_id, pubyear_min, pubyear_max))
+
+
+@app.route('/api/stats/filterworks', methods=['GET'])
+def api_stats_filterworks() -> Response:
+    """
+    Get works matching the given filters.
+
+    Endpoint: GET /api/stats/filterworks
+
+    Query Parameters:
+        language (int, optional): Language ID to filter by.
+                                  Use /api/languages to get available languages.
+        orig_year_min (int, optional): Minimum original publication year (inclusive).
+        orig_year_max (int, optional): Maximum original publication year (inclusive).
+        edition_year_min (int, optional): Minimum first Finnish edition year (inclusive).
+        edition_year_max (int, optional): Maximum first Finnish edition year (inclusive).
+
+    Note: orig_year and edition_year filters are mutually exclusive.
+          If both are provided, orig_year takes precedence.
+
+    Returns:
+        200 OK: JSON array of work objects in WorkBriefSchema format,
+                sorted by title (ascending).
+
+        Response Schema:
+        [
+            {
+                "id": <int>,                 // Work ID
+                "title": <string>,           // Finnish title
+                "orig_title": <string|null>, // Original title
+                "author_str": <string|null>, // Author string
+                "pubyear": <int|null>,       // Original publication year
+                "contributions": [           // List of contributors
+                    {
+                        "person": {
+                            "id": <int>,
+                            "name": <string>,
+                            "alt_name": <string|null>
+                        },
+                        "role": {
+                            "id": <int>,
+                            "name": <string>
+                        }
+                    },
+                    ...
+                ],
+                "editions": [                // List of editions
+                    {
+                        "id": <int>,
+                        "title": <string>,
+                        "pubyear": <int|null>
+                    },
+                    ...
+                ],
+                "genres": [                  // List of genres
+                    {
+                        "id": <int>,
+                        "abbr": <string>,
+                        "name": <string>
+                    },
+                    ...
+                ],
+                "language_name": {           // Language object
+                    "id": <int>,
+                    "name": <string>
+                }
+            },
+            ...
+        ]
+
+        Example Requests:
+        GET /api/stats/filterworks?language=2
+        GET /api/stats/filterworks?orig_year_min=1950&orig_year_max=1960
+        GET /api/stats/filterworks?edition_year_min=1980&edition_year_max=1989
+        GET /api/stats/filterworks?language=1&orig_year_min=1900
+
+        Example Response:
+        [
+            {
+                "id": 123,
+                "title": "Säätiö",
+                "orig_title": "Foundation",
+                "author_str": "Asimov, Isaac",
+                "pubyear": 1951,
+                "contributions": [
+                    {
+                        "person": {"id": 456, "name": "Asimov, Isaac", "alt_name": "Isaac Asimov"},
+                        "role": {"id": 1, "name": "kirjoittaja"}
+                    }
+                ],
+                "editions": [
+                    {"id": 789, "title": "Säätiö", "pubyear": 1975}
+                ],
+                "genres": [{"id": 1, "abbr": "SF", "name": "Science Fiction"}],
+                "language_name": {"id": 2, "name": "englanti"}
+            }
+        ]
+
+        Use Case:
+        - Browse works by original language
+        - Find works from a specific time period (original publication)
+        - Find works first published in Finland during a specific period
+        - Build filtered views for work statistics pages
+
+        500 Internal Server Error: Database or serialization error occurred.
+    """
+    language_id = request.args.get('language', default=None, type=int)
+    orig_year_min = request.args.get('orig_year_min', default=None, type=int)
+    orig_year_max = request.args.get('orig_year_max', default=None, type=int)
+    edition_year_min = request.args.get('edition_year_min', default=None, type=int)
+    edition_year_max = request.args.get('edition_year_max', default=None, type=int)
+    return make_api_response(stats_filterworks(
+        language_id, orig_year_min, orig_year_max, edition_year_min, edition_year_max))
 
 
 @app.route('/api/stats/storiesbyyear', methods=['GET'])

@@ -1,7 +1,9 @@
-###
-# Story related functions
+"""
+Short story API endpoints.
 
-
+This module provides endpoints for managing short stories including
+creation, updates, deletion, search, and related metadata like story types.
+"""
 import json
 from flask import Response, request
 from app.api_helpers import make_api_response
@@ -130,10 +132,47 @@ def api_searchshorts() -> Response:
 @app.route('/api/shorttypes', methods=['get'])
 def api_shorttypes() -> Response:
     """
-    Retrieves the short types from the API.
+    Get all short story types.
+
+    Endpoint: GET /api/shorttypes
+
+    Parameters: None
 
     Returns:
-        Response: The API response containing the short types.
+        200 OK: JSON array of story type objects sorted by ID.
+
+        Response Schema:
+        [
+            {
+                "id": <int>,       // Story type ID
+                "name": <string>   // Story type name (Finnish)
+            },
+            ...
+        ]
+
+        Example Response:
+        [
+            {"id": 1, "name": "novelli"},
+            {"id": 2, "name": "kertomus"},
+            {"id": 3, "name": "romaaniote"},
+            {"id": 4, "name": "runo"},
+            {"id": 5, "name": "sarjakuva"},
+            ...
+        ]
+
+        Common Story Types:
+        - novelli: Short story / novella
+        - kertomus: Tale / narrative
+        - romaaniote: Novel excerpt
+        - runo: Poem
+        - sarjakuva: Comic
+
+        Use Case:
+        - Populate story type dropdowns in forms
+        - Map story type IDs to names in statistics displays
+        - Filter short stories by type
+
+        500 Internal Server Error: Database error occurred.
     """
     return make_api_response(get_short_types())
 
