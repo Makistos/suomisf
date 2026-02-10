@@ -634,7 +634,7 @@ def api_stats_filterstories() -> Response:
                                      Can be used with pubyear_min for ranges.
 
     Returns:
-        200 OK: JSON array of short story objects in ShortBriefestSchema format,
+        200 OK: JSON array of short story objects in ShortBriefSchema format,
                 sorted by title (ascending).
 
         Response Schema:
@@ -652,6 +652,14 @@ def api_stats_filterstories() -> Response:
                     "id": <int>,
                     "name": <string>
                 },
+                "authors": [                // List of authors
+                    {
+                        "id": <int>,
+                        "name": <string>,
+                        "alt_name": <string|null>
+                    },
+                    ...
+                ],
                 "contributors": [           // List of contributors
                     {
                         "person": {
@@ -663,6 +671,29 @@ def api_stats_filterstories() -> Response:
                             "id": <int>,
                             "name": <string>
                         }
+                    },
+                    ...
+                ],
+                "issues": [                 // List of magazine issues
+                    {
+                        "id": <int>,
+                        "cover_number": <string|null>
+                    },
+                    ...
+                ],
+                "editions": [               // List of editions
+                    {
+                        "id": <int>,
+                        "title": <string>,
+                        "pubyear": <int|null>
+                    },
+                    ...
+                ],
+                "genres": [                 // List of genres
+                    {
+                        "id": <int>,
+                        "abbr": <string>,
+                        "name": <string>
                     },
                     ...
                 ]
@@ -684,12 +715,16 @@ def api_stats_filterstories() -> Response:
                 "pubyear": 1955,
                 "type": {"id": 1, "name": "novelli"},
                 "lang": {"id": 2, "name": "englanti"},
+                "authors": [{"id": 456, "name": "Asimov, Isaac", "alt_name": "Isaac Asimov"}],
                 "contributors": [
                     {
                         "person": {"id": 456, "name": "Asimov, Isaac", "alt_name": "Isaac Asimov"},
                         "role": {"id": 1, "name": "kirjoittaja"}
                     }
-                ]
+                ],
+                "issues": [],
+                "editions": [{"id": 789, "title": "Kokoelma", "pubyear": 1960}],
+                "genres": [{"id": 1, "abbr": "SF", "name": "Science Fiction"}]
             }
         ]
 

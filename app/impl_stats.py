@@ -1059,7 +1059,7 @@ def stats_filterstories(storytype_id: Optional[int] = None,
         pubyear_max: Optional maximum publication year (inclusive).
 
     Returns:
-        ResponseType: List of short stories in ShortBriefestSchema format.
+        ResponseType: List of short stories in ShortBriefSchema format.
             Each item contains:
             - id: Short story ID (int)
             - title: Short story title (str)
@@ -1067,7 +1067,11 @@ def stats_filterstories(storytype_id: Optional[int] = None,
             - pubyear: Publication year (int or None)
             - type: Story type object with id and name
             - lang: Language object with id and name
+            - authors: List of author objects
             - contributors: List of contributor objects
+            - issues: List of magazine issue objects
+            - editions: List of edition objects
+            - genres: List of genre objects
 
         Sorted by title ascending.
 
@@ -1080,7 +1084,11 @@ def stats_filterstories(storytype_id: Optional[int] = None,
                 "pubyear": 1950,
                 "type": {"id": 1, "name": "novelli"},
                 "lang": {"id": 2, "name": "englanti"},
-                "contributors": [{"person": {...}, "role": {...}}]
+                "authors": [{"id": 456, "name": "Asimov, Isaac"}],
+                "contributors": [{"person": {...}, "role": {...}}],
+                "issues": [...],
+                "editions": [...],
+                "genres": [{"id": 1, "abbr": "SF"}]
             },
             ...
         ]
