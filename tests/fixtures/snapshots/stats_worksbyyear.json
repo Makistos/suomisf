@@ -1,0 +1,4594 @@
+{
+  "metadata": {
+    "generated_at": "2026-02-10T21:41:46.375456+00:00",
+    "generator": "update_snapshots.py",
+    "total_endpoints": 37,
+    "endpoint": "/api/stats/worksbyyear",
+    "method": "GET",
+    "status_code": 200
+  },
+  "response": {
+    "status_code": 200,
+    "data": [
+      {
+        "year": 5,
+        "count": 1,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1842,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1856,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1867,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1869,
+        "count": 1,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1873,
+        "count": 1,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1876,
+        "count": 1,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1877,
+        "count": 1,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1878,
+        "count": 1,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1879,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1880,
+        "count": 1,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1882,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1883,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1884,
+        "count": 1,
+        "language_id": 33,
+        "language_name": "latina"
+      },
+      {
+        "year": 1884,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1887,
+        "count": 1,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1888,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1889,
+        "count": 1,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1889,
+        "count": 1,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1891,
+        "count": 1,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1891,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1892,
+        "count": 1,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1895,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1896,
+        "count": 1,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1896,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1897,
+        "count": 2,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1897,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1897,
+        "count": 1,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1898,
+        "count": 1,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1899,
+        "count": 2,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1900,
+        "count": 3,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1901,
+        "count": 2,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1902,
+        "count": 1,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1902,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1903,
+        "count": 3,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1903,
+        "count": 2,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1904,
+        "count": 2,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1904,
+        "count": 2,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1904,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1905,
+        "count": 1,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1905,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1906,
+        "count": 5,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1906,
+        "count": 2,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1906,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1906,
+        "count": 2,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1907,
+        "count": 10,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1907,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1907,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1908,
+        "count": 5,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1908,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1908,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1909,
+        "count": 4,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1910,
+        "count": 4,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1910,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1910,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1910,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1910,
+        "count": 1,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1911,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1911,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1912,
+        "count": 2,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1912,
+        "count": 2,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1913,
+        "count": 1,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1913,
+        "count": 1,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1913,
+        "count": 1,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1914,
+        "count": 1,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1914,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1914,
+        "count": 1,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1914,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1915,
+        "count": 3,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1915,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1915,
+        "count": 2,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1916,
+        "count": 2,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1916,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1916,
+        "count": 2,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1917,
+        "count": 4,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1917,
+        "count": 2,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1917,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1917,
+        "count": 2,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1917,
+        "count": 1,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1918,
+        "count": 1,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1918,
+        "count": 1,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 1918,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1918,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1918,
+        "count": 5,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1918,
+        "count": 1,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1919,
+        "count": 1,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1919,
+        "count": 2,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1920,
+        "count": 3,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1920,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1920,
+        "count": 2,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1920,
+        "count": 1,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1921,
+        "count": 3,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1921,
+        "count": 1,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 1921,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1921,
+        "count": 1,
+        "language_id": 26,
+        "language_name": "saksa/englanti/ruotsi/suomi"
+      },
+      {
+        "year": 1921,
+        "count": 2,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1922,
+        "count": 16,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1922,
+        "count": 1,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 1922,
+        "count": 4,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1922,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1922,
+        "count": 2,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1923,
+        "count": 14,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1923,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1923,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1923,
+        "count": 2,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1923,
+        "count": 2,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1924,
+        "count": 13,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1924,
+        "count": 1,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1924,
+        "count": 1,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 1924,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1924,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1924,
+        "count": 2,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1925,
+        "count": 17,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1925,
+        "count": 1,
+        "language_id": 27,
+        "language_name": "englanti/saksa/ruotsi/suomi"
+      },
+      {
+        "year": 1925,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1925,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1925,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1925,
+        "count": 1,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1926,
+        "count": 6,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1926,
+        "count": 3,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1926,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1926,
+        "count": 7,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1927,
+        "count": 6,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1927,
+        "count": 4,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1927,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1927,
+        "count": 1,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1928,
+        "count": 5,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1928,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1928,
+        "count": 3,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1928,
+        "count": 4,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1928,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1929,
+        "count": 4,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1929,
+        "count": 2,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1929,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1929,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1929,
+        "count": 2,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1930,
+        "count": 3,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1930,
+        "count": 4,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1931,
+        "count": 3,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1931,
+        "count": 1,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 1931,
+        "count": 2,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1932,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1933,
+        "count": 1,
+        "language_id": 52,
+        "language_name": "kreikka"
+      },
+      {
+        "year": 1933,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1933,
+        "count": 1,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1934,
+        "count": 1,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1934,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1934,
+        "count": 2,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1935,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1935,
+        "count": 1,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1935,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1936,
+        "count": 4,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1936,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1936,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1936,
+        "count": 1,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1936,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1937,
+        "count": 1,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1937,
+        "count": 1,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 1937,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1937,
+        "count": 1,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1938,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1938,
+        "count": 1,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1938,
+        "count": 1,
+        "language_id": 48,
+        "language_name": "Tšekki"
+      },
+      {
+        "year": 1939,
+        "count": 2,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1939,
+        "count": 1,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1940,
+        "count": 3,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1940,
+        "count": 3,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1941,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1941,
+        "count": 3,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1942,
+        "count": 2,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1942,
+        "count": 2,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1943,
+        "count": 3,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1943,
+        "count": 1,
+        "language_id": 6,
+        "language_name": "unkari"
+      },
+      {
+        "year": 1944,
+        "count": 2,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1944,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1944,
+        "count": 4,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1944,
+        "count": 1,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1944,
+        "count": 1,
+        "language_id": 48,
+        "language_name": "Tšekki"
+      },
+      {
+        "year": 1945,
+        "count": 3,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1945,
+        "count": 4,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1945,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1946,
+        "count": 4,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1946,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1946,
+        "count": 3,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1946,
+        "count": 6,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1946,
+        "count": 1,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1947,
+        "count": 4,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1947,
+        "count": 2,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1947,
+        "count": 2,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1947,
+        "count": 16,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1948,
+        "count": 5,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1948,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1948,
+        "count": 13,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1949,
+        "count": 3,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1949,
+        "count": 5,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1950,
+        "count": 4,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1950,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1950,
+        "count": 5,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1951,
+        "count": 5,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1951,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1951,
+        "count": 1,
+        "language_id": 50,
+        "language_name": "romania"
+      },
+      {
+        "year": 1951,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1951,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1951,
+        "count": 5,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1951,
+        "count": 2,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1952,
+        "count": 3,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1952,
+        "count": 1,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 1952,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1952,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1952,
+        "count": 1,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1953,
+        "count": 5,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1953,
+        "count": 2,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1953,
+        "count": 1,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1954,
+        "count": 10,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1954,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1954,
+        "count": 3,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1954,
+        "count": 5,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1955,
+        "count": 3,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1955,
+        "count": 2,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1955,
+        "count": 6,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1956,
+        "count": 2,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1956,
+        "count": 2,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1956,
+        "count": 3,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1956,
+        "count": 3,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1956,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1957,
+        "count": 4,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1957,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1957,
+        "count": 5,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1957,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1958,
+        "count": 12,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1958,
+        "count": 2,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1958,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1958,
+        "count": 4,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1958,
+        "count": 2,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1959,
+        "count": 3,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1959,
+        "count": 2,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1959,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1959,
+        "count": 8,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1959,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1960,
+        "count": 7,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1960,
+        "count": 1,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1960,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1960,
+        "count": 2,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1960,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1960,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1960,
+        "count": 6,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1960,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1961,
+        "count": 7,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1961,
+        "count": 3,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1961,
+        "count": 2,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1962,
+        "count": 8,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1962,
+        "count": 1,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1962,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1962,
+        "count": 3,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1962,
+        "count": 2,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1962,
+        "count": 1,
+        "language_id": 40,
+        "language_name": "viro"
+      },
+      {
+        "year": 1963,
+        "count": 7,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1963,
+        "count": 2,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1963,
+        "count": 6,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1963,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1964,
+        "count": 7,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1964,
+        "count": 1,
+        "language_id": 24,
+        "language_name": "englanti/saksa/venäjä/ranska"
+      },
+      {
+        "year": 1964,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1964,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1964,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1964,
+        "count": 3,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1964,
+        "count": 1,
+        "language_id": 40,
+        "language_name": "viro"
+      },
+      {
+        "year": 1964,
+        "count": 1,
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1965,
+        "count": 3,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1965,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1965,
+        "count": 3,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1965,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1965,
+        "count": 1,
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1966,
+        "count": 12,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1966,
+        "count": 1,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1966,
+        "count": 1,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1967,
+        "count": 5,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1967,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1967,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1967,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1968,
+        "count": 4,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1968,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1968,
+        "count": 3,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1968,
+        "count": 2,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1968,
+        "count": 2,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1969,
+        "count": 5,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1969,
+        "count": 1,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1969,
+        "count": 1,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1969,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1969,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1969,
+        "count": 4,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1969,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1970,
+        "count": 10,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1970,
+        "count": 1,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1970,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1970,
+        "count": 3,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1970,
+        "count": 3,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1971,
+        "count": 8,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1971,
+        "count": 1,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1971,
+        "count": 1,
+        "language_id": 36,
+        "language_name": "hollanti"
+      },
+      {
+        "year": 1971,
+        "count": 1,
+        "language_id": 33,
+        "language_name": "latina"
+      },
+      {
+        "year": 1971,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1971,
+        "count": 1,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1972,
+        "count": 14,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1972,
+        "count": 2,
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 1972,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1972,
+        "count": 4,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1972,
+        "count": 3,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1972,
+        "count": 7,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1972,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1973,
+        "count": 16,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1973,
+        "count": 2,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1973,
+        "count": 3,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1973,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1973,
+        "count": 1,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1974,
+        "count": 15,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1974,
+        "count": 1,
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 1974,
+        "count": 4,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1974,
+        "count": 2,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1974,
+        "count": 2,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1975,
+        "count": 18,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1975,
+        "count": 1,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1975,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1975,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1975,
+        "count": 17,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1975,
+        "count": 4,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1975,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1976,
+        "count": 19,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1976,
+        "count": 1,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1976,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1976,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1976,
+        "count": 5,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1977,
+        "count": 26,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1977,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1977,
+        "count": 2,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1977,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1977,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1977,
+        "count": 5,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1978,
+        "count": 29,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1978,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1978,
+        "count": 2,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1978,
+        "count": 3,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1978,
+        "count": 6,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1978,
+        "count": 1,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1978,
+        "count": 1,
+        "language_id": 6,
+        "language_name": "unkari"
+      },
+      {
+        "year": 1979,
+        "count": 28,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1979,
+        "count": 1,
+        "language_id": 36,
+        "language_name": "hollanti"
+      },
+      {
+        "year": 1979,
+        "count": 1,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1979,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1979,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1979,
+        "count": 4,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1979,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1980,
+        "count": 32,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1980,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1980,
+        "count": 5,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1980,
+        "count": 8,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1980,
+        "count": 1,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1980,
+        "count": 2,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1981,
+        "count": 30,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1981,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1981,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1981,
+        "count": 5,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1981,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1981,
+        "count": 1,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1981,
+        "count": 4,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1982,
+        "count": 34,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1982,
+        "count": 1,
+        "language_id": 52,
+        "language_name": "kreikka"
+      },
+      {
+        "year": 1982,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1982,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1982,
+        "count": 4,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1982,
+        "count": 6,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1982,
+        "count": 1,
+        "language_id": 48,
+        "language_name": "Tšekki"
+      },
+      {
+        "year": 1982,
+        "count": 1,
+        "language_id": 6,
+        "language_name": "unkari"
+      },
+      {
+        "year": 1982,
+        "count": 2,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1983,
+        "count": 32,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1983,
+        "count": 1,
+        "language_id": 36,
+        "language_name": "hollanti"
+      },
+      {
+        "year": 1983,
+        "count": 1,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1983,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1983,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1983,
+        "count": 4,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1983,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1983,
+        "count": 10,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1983,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1984,
+        "count": 24,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1984,
+        "count": 1,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 1984,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1984,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1984,
+        "count": 11,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1984,
+        "count": 3,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1985,
+        "count": 30,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1985,
+        "count": 1,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1985,
+        "count": 2,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1985,
+        "count": 2,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1985,
+        "count": 3,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1985,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1985,
+        "count": 7,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1985,
+        "count": 1,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1986,
+        "count": 42,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1986,
+        "count": 1,
+        "language_id": 35,
+        "language_name": "portugali"
+      },
+      {
+        "year": 1986,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1986,
+        "count": 5,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1986,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1987,
+        "count": 36,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1987,
+        "count": 3,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1987,
+        "count": 3,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1987,
+        "count": 5,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1987,
+        "count": 17,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1987,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1988,
+        "count": 48,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1988,
+        "count": 4,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1988,
+        "count": 3,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1988,
+        "count": 10,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1988,
+        "count": 2,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1989,
+        "count": 54,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1989,
+        "count": 1,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1989,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1989,
+        "count": 2,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1989,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1989,
+        "count": 3,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1989,
+        "count": 8,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1989,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1990,
+        "count": 65,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1990,
+        "count": 1,
+        "language_id": 36,
+        "language_name": "hollanti"
+      },
+      {
+        "year": 1990,
+        "count": 1,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1990,
+        "count": 2,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1990,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1990,
+        "count": 17,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1990,
+        "count": 2,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1991,
+        "count": 55,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1991,
+        "count": 1,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1991,
+        "count": 2,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 1991,
+        "count": 2,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1991,
+        "count": 4,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1991,
+        "count": 7,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1991,
+        "count": 2,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1991,
+        "count": 1,
+        "language_id": 40,
+        "language_name": "viro"
+      },
+      {
+        "year": 1992,
+        "count": 59,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1992,
+        "count": 1,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1992,
+        "count": 4,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1992,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1992,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1992,
+        "count": 16,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1992,
+        "count": 2,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1993,
+        "count": 76,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1993,
+        "count": 1,
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 1993,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1993,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1993,
+        "count": 17,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1993,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1994,
+        "count": 1,
+        "language_id": 49,
+        "language_name": "baski"
+      },
+      {
+        "year": 1994,
+        "count": 48,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1994,
+        "count": 1,
+        "language_id": 28,
+        "language_name": "islanti"
+      },
+      {
+        "year": 1994,
+        "count": 1,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1994,
+        "count": 1,
+        "language_id": 35,
+        "language_name": "portugali"
+      },
+      {
+        "year": 1994,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1994,
+        "count": 4,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1994,
+        "count": 4,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1994,
+        "count": 18,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1994,
+        "count": 1,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1995,
+        "count": 47,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1995,
+        "count": 2,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1995,
+        "count": 1,
+        "language_id": 28,
+        "language_name": "islanti"
+      },
+      {
+        "year": 1995,
+        "count": 1,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1995,
+        "count": 1,
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 1995,
+        "count": 1,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 1995,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1995,
+        "count": 15,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1995,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1995,
+        "count": 16,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1996,
+        "count": 46,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1996,
+        "count": 1,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1996,
+        "count": 1,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 1996,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1996,
+        "count": 14,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1996,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1996,
+        "count": 23,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1996,
+        "count": 1,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1997,
+        "count": 64,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1997,
+        "count": 1,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1997,
+        "count": 1,
+        "language_id": 35,
+        "language_name": "portugali"
+      },
+      {
+        "year": 1997,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1997,
+        "count": 12,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1997,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1997,
+        "count": 17,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1997,
+        "count": 1,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1998,
+        "count": 57,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1998,
+        "count": 1,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1998,
+        "count": 1,
+        "language_id": 35,
+        "language_name": "portugali"
+      },
+      {
+        "year": 1998,
+        "count": 10,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1998,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1998,
+        "count": 17,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1998,
+        "count": 1,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1999,
+        "count": 52,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1999,
+        "count": 10,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1999,
+        "count": 3,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1999,
+        "count": 14,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1999,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 2000,
+        "count": 77,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2000,
+        "count": 1,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 2000,
+        "count": 2,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2000,
+        "count": 3,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2000,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2000,
+        "count": 24,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2000,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 2001,
+        "count": 81,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2001,
+        "count": 2,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2001,
+        "count": 1,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 2001,
+        "count": 1,
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 2001,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2001,
+        "count": 2,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2001,
+        "count": 9,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2001,
+        "count": 18,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2002,
+        "count": 91,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2002,
+        "count": 3,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2002,
+        "count": 1,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 2002,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2002,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2002,
+        "count": 3,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2002,
+        "count": 15,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2002,
+        "count": 2,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 2003,
+        "count": 91,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2003,
+        "count": 2,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2003,
+        "count": 1,
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 2003,
+        "count": 1,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 2003,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 2003,
+        "count": 3,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2003,
+        "count": 3,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2003,
+        "count": 20,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2003,
+        "count": 3,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 2003,
+        "count": 2,
+        "language_id": 40,
+        "language_name": "viro"
+      },
+      {
+        "year": 2004,
+        "count": 92,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2004,
+        "count": 2,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2004,
+        "count": 1,
+        "language_id": 36,
+        "language_name": "hollanti"
+      },
+      {
+        "year": 2004,
+        "count": 1,
+        "language_id": 28,
+        "language_name": "islanti"
+      },
+      {
+        "year": 2004,
+        "count": 1,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 2004,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 2004,
+        "count": 5,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2004,
+        "count": 3,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2004,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2004,
+        "count": 35,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2004,
+        "count": 3,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 2005,
+        "count": 99,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2005,
+        "count": 2,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2005,
+        "count": 2,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 2005,
+        "count": 2,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 2005,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2005,
+        "count": 2,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2005,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2005,
+        "count": 28,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2005,
+        "count": 7,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 2006,
+        "count": 108,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2006,
+        "count": 1,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2006,
+        "count": 2,
+        "language_id": 28,
+        "language_name": "islanti"
+      },
+      {
+        "year": 2006,
+        "count": 1,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 2006,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 2006,
+        "count": 5,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2006,
+        "count": 4,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2006,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2006,
+        "count": 26,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2006,
+        "count": 6,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 2007,
+        "count": 95,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2007,
+        "count": 2,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2007,
+        "count": 7,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2007,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2007,
+        "count": 35,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2007,
+        "count": 7,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 2008,
+        "count": 93,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2008,
+        "count": 1,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2008,
+        "count": 2,
+        "language_id": 28,
+        "language_name": "islanti"
+      },
+      {
+        "year": 2008,
+        "count": 1,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 2008,
+        "count": 1,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 2008,
+        "count": 1,
+        "language_id": 35,
+        "language_name": "portugali"
+      },
+      {
+        "year": 2008,
+        "count": 3,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 2008,
+        "count": 2,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2008,
+        "count": 3,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2008,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2008,
+        "count": 31,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2008,
+        "count": 4,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 2008,
+        "count": 1,
+        "language_id": 6,
+        "language_name": "unkari"
+      },
+      {
+        "year": 2008,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 2009,
+        "count": 85,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2009,
+        "count": 2,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2009,
+        "count": 1,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 2009,
+        "count": 1,
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 2009,
+        "count": 1,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 2009,
+        "count": 2,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2009,
+        "count": 3,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2009,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2009,
+        "count": 39,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2009,
+        "count": 2,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 2009,
+        "count": 1,
+        "language_id": 48,
+        "language_name": "Tšekki"
+      },
+      {
+        "year": 2009,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 2009,
+        "count": 1,
+        "language_id": 40,
+        "language_name": "viro"
+      },
+      {
+        "year": 2010,
+        "count": 99,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2010,
+        "count": 3,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2010,
+        "count": 1,
+        "language_id": 28,
+        "language_name": "islanti"
+      },
+      {
+        "year": 2010,
+        "count": 1,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 2010,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 2010,
+        "count": 3,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2010,
+        "count": 4,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2010,
+        "count": 4,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2010,
+        "count": 40,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2010,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 2011,
+        "count": 133,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2011,
+        "count": 2,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2011,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 2011,
+        "count": 2,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2011,
+        "count": 7,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2011,
+        "count": 6,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2011,
+        "count": 57,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2011,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 2011,
+        "count": 1,
+        "language_id": 40,
+        "language_name": "viro"
+      },
+      {
+        "year": 2012,
+        "count": 100,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2012,
+        "count": 3,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2012,
+        "count": 1,
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 2012,
+        "count": 2,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 2012,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 2012,
+        "count": 8,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2012,
+        "count": 4,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2012,
+        "count": 60,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2012,
+        "count": 2,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 2013,
+        "count": 1,
+        "language_id": 31,
+        "language_name": "arabia"
+      },
+      {
+        "year": 2013,
+        "count": 102,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2013,
+        "count": 1,
+        "language_id": 28,
+        "language_name": "islanti"
+      },
+      {
+        "year": 2013,
+        "count": 3,
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 2013,
+        "count": 2,
+        "language_id": 32,
+        "language_name": "kiina"
+      },
+      {
+        "year": 2013,
+        "count": 1,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 2013,
+        "count": 2,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 2013,
+        "count": 5,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2013,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2013,
+        "count": 76,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2013,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 2014,
+        "count": 84,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2014,
+        "count": 1,
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 2014,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 2014,
+        "count": 2,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2014,
+        "count": 5,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2014,
+        "count": 4,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2014,
+        "count": 64,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2014,
+        "count": 2,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 2014,
+        "count": 5,
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2015,
+        "count": 80,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2015,
+        "count": 1,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2015,
+        "count": 1,
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 2015,
+        "count": 2,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 2015,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 2015,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2015,
+        "count": 5,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2015,
+        "count": 4,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2015,
+        "count": 71,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2015,
+        "count": 1,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 2015,
+        "count": 3,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 2016,
+        "count": 83,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2016,
+        "count": 1,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2016,
+        "count": 1,
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 2016,
+        "count": 4,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 2016,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 2016,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2016,
+        "count": 4,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2016,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2016,
+        "count": 85,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2016,
+        "count": 2,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 2017,
+        "count": 62,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2017,
+        "count": 1,
+        "language_id": 43,
+        "language_name": "englanti/saksa/suomi"
+      },
+      {
+        "year": 2017,
+        "count": 1,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2017,
+        "count": 1,
+        "language_id": 28,
+        "language_name": "islanti"
+      },
+      {
+        "year": 2017,
+        "count": 2,
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 2017,
+        "count": 3,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 2017,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 2017,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2017,
+        "count": 9,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2017,
+        "count": 101,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2017,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 2018,
+        "count": 71,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2018,
+        "count": 1,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2018,
+        "count": 1,
+        "language_id": 32,
+        "language_name": "kiina"
+      },
+      {
+        "year": 2018,
+        "count": 1,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 2018,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 2018,
+        "count": 11,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2018,
+        "count": 117,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2019,
+        "count": 79,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2019,
+        "count": 1,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2019,
+        "count": 1,
+        "language_id": 28,
+        "language_name": "islanti"
+      },
+      {
+        "year": 2019,
+        "count": 2,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 2019,
+        "count": 1,
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 2019,
+        "count": 1,
+        "language_id": 32,
+        "language_name": "kiina"
+      },
+      {
+        "year": 2019,
+        "count": 4,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 2019,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 2019,
+        "count": 7,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2019,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2019,
+        "count": 110,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2019,
+        "count": 2,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 2020,
+        "count": 78,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2020,
+        "count": 3,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 2020,
+        "count": 1,
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 2020,
+        "count": 1,
+        "language_id": 32,
+        "language_name": "kiina"
+      },
+      {
+        "year": 2020,
+        "count": 3,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 2020,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 2020,
+        "count": 13,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2020,
+        "count": 114,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2020,
+        "count": 1,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 2020,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 2021,
+        "count": 88,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2021,
+        "count": 1,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2021,
+        "count": 1,
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 2021,
+        "count": 3,
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 2021,
+        "count": 3,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 2021,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 2021,
+        "count": 2,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2021,
+        "count": 10,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2021,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2021,
+        "count": 103,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2021,
+        "count": 1,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 2022,
+        "count": 72,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2022,
+        "count": 1,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2022,
+        "count": 2,
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 2022,
+        "count": 1,
+        "language_id": 32,
+        "language_name": "kiina"
+      },
+      {
+        "year": 2022,
+        "count": 10,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2022,
+        "count": 1,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2022,
+        "count": 114,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2022,
+        "count": 3,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 2023,
+        "count": 83,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2023,
+        "count": 1,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2023,
+        "count": 1,
+        "language_id": 28,
+        "language_name": "islanti"
+      },
+      {
+        "year": 2023,
+        "count": 1,
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 2023,
+        "count": 1,
+        "language_id": 32,
+        "language_name": "kiina"
+      },
+      {
+        "year": 2023,
+        "count": 3,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 2023,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 2023,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2023,
+        "count": 7,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2023,
+        "count": 3,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2023,
+        "count": 113,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2023,
+        "count": 2,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 2023,
+        "count": 2,
+        "language_id": 40,
+        "language_name": "viro"
+      },
+      {
+        "year": 2023,
+        "count": 2,
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2024,
+        "count": 74,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2024,
+        "count": 3,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2024,
+        "count": 4,
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 2024,
+        "count": 1,
+        "language_id": 32,
+        "language_name": "kiina"
+      },
+      {
+        "year": 2024,
+        "count": 3,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 2024,
+        "count": 2,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 2024,
+        "count": 4,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2024,
+        "count": 8,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2024,
+        "count": 2,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2024,
+        "count": 114,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2024,
+        "count": 3,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 2024,
+        "count": 2,
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 2025,
+        "count": 75,
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2025,
+        "count": 1,
+        "language_id": 42,
+        "language_name": "englanti/suomi"
+      },
+      {
+        "year": 2025,
+        "count": 3,
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2025,
+        "count": 3,
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 2025,
+        "count": 2,
+        "language_id": 32,
+        "language_name": "kiina"
+      },
+      {
+        "year": 2025,
+        "count": 2,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 2025,
+        "count": 1,
+        "language_id": 35,
+        "language_name": "portugali"
+      },
+      {
+        "year": 2025,
+        "count": 1,
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 2025,
+        "count": 2,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2025,
+        "count": 5,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2025,
+        "count": 4,
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2025,
+        "count": 106,
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2025,
+        "count": 2,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 2025,
+        "count": 1,
+        "language_id": 53,
+        "language_name": "tsekki"
+      },
+      {
+        "year": 2025,
+        "count": 1,
+        "language_id": 40,
+        "language_name": "viro"
+      },
+      {
+        "year": 2026,
+        "count": 1,
+        "language_id": 1,
+        "language_name": "englanti"
+      }
+    ],
+    "error": null
+  }
+}

@@ -1,0 +1,1647 @@
+{
+  "metadata": {
+    "generated_at": "2026-02-10T21:41:46.375456+00:00",
+    "generator": "update_snapshots.py",
+    "total_endpoints": 37,
+    "endpoint": "/api/latest/shorts/5",
+    "method": "GET",
+    "status_code": 200
+  },
+  "response": {
+    "status_code": 200,
+    "data": [
+      {
+        "authors": [
+          {
+            "id": 3827.0,
+            "name": "Savolainen, Matti",
+            "alt_name": "Matti Savolainen",
+            "fullname": "",
+            "image_src": null,
+            "dob": 1949.0,
+            "dod": 2012.0,
+            "roles": [
+              "Esiintyy",
+              "Kirjoittaja",
+              "Toimittaja",
+              "Kääntäjä"
+            ],
+            "nationality": {
+              "id": 4,
+              "name": "Suomi"
+            },
+            "workcount": 2.0,
+            "storycount": 12,
+            "other_names": null,
+            "first_name": "Matti",
+            "last_name": "Savolainen",
+            "image_attr": "",
+            "bio": null,
+            "bio_src": "",
+            "imported_string": null
+          }
+        ],
+        "type": {
+          "id": 7,
+          "name": "Artikkeli"
+        },
+        "issues": [],
+        "editions": [
+          {
+            "work": [
+              {
+                "id": 6802.0,
+                "title": "Tieteiskirjallisuuden maailmoita",
+                "orig_title": "",
+                "author_str": "Savolainen, Matti (toim.)",
+                "contributions": [
+                  {
+                    "person": {
+                      "id": 3827.0,
+                      "name": "Savolainen, Matti",
+                      "alt_name": "Matti Savolainen"
+                    },
+                    "role": {
+                      "id": 3,
+                      "name": "Toimittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  }
+                ],
+                "editions": [
+                  {
+                    "editors": [
+                      {
+                        "id": 3827.0,
+                        "name": "Savolainen, Matti",
+                        "alt_name": "Matti Savolainen",
+                        "fullname": "",
+                        "image_src": null,
+                        "dob": 1949.0,
+                        "dod": 2012.0,
+                        "roles": [
+                          "Esiintyy",
+                          "Kirjoittaja",
+                          "Toimittaja",
+                          "Kääntäjä"
+                        ],
+                        "nationality": {
+                          "id": 4,
+                          "name": "Suomi"
+                        },
+                        "workcount": 2.0,
+                        "storycount": 12,
+                        "other_names": null,
+                        "first_name": "Matti",
+                        "last_name": "Savolainen",
+                        "image_attr": "",
+                        "bio": null,
+                        "bio_src": "",
+                        "imported_string": null
+                      }
+                    ],
+                    "translators": [
+                      {
+                        "id": 3827.0,
+                        "name": "Savolainen, Matti",
+                        "alt_name": "Matti Savolainen",
+                        "fullname": "",
+                        "image_src": null,
+                        "dob": 1949.0,
+                        "dod": 2012.0,
+                        "roles": [
+                          "Esiintyy",
+                          "Kirjoittaja",
+                          "Toimittaja",
+                          "Kääntäjä"
+                        ],
+                        "nationality": {
+                          "id": 4,
+                          "name": "Suomi"
+                        },
+                        "workcount": 2.0,
+                        "storycount": 12,
+                        "other_names": null,
+                        "first_name": "Matti",
+                        "last_name": "Savolainen",
+                        "image_attr": "",
+                        "bio": null,
+                        "bio_src": "",
+                        "imported_string": null
+                      }
+                    ],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 7574.0,
+                          "name": "Brola, Tarja",
+                          "alt_name": "Tarja Brola"
+                        },
+                        "role": {
+                          "id": 4,
+                          "name": "Kansikuva"
+                        },
+                        "description": "Kansi",
+                        "real_person": null
+                      }
+                    ],
+                    "images": [
+                      {
+                        "id": 9241,
+                        "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
+                        "image_attr": null
+                      }
+                    ],
+                    "publisher": {
+                      "id": 493,
+                      "name": "Kirjastopalvelu"
+                    },
+                    "owners": [],
+                    "wishlisted": [],
+                    "id": 9728,
+                    "title": "Tieteiskirjallisuuden maailmoita",
+                    "subtitle": "",
+                    "pubyear": 1987,
+                    "editionnum": 1,
+                    "version": 1,
+                    "isbn": "951-692-185-X",
+                    "printedin": null,
+                    "pubseriesnum": null,
+                    "coll_info": null,
+                    "pages": 205,
+                    "size": 21,
+                    "dustcover": 1,
+                    "coverimage": 1,
+                    "misc": null,
+                    "imported_string": null,
+                    "verified": false
+                  }
+                ],
+                "genres": [
+                  {
+                    "id": 5,
+                    "name": "Science Fiction",
+                    "abbr": "SF"
+                  }
+                ],
+                "bookseries": null,
+                "tags": [],
+                "language_name": {
+                  "id": 7,
+                  "name": "suomi"
+                },
+                "type": 4.0,
+                "subtitle": "",
+                "pubyear": 1987,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": null,
+                "descr_attr": "",
+                "imported_string": null
+              }
+            ],
+            "editors": [
+              {
+                "id": 3827.0,
+                "name": "Savolainen, Matti",
+                "alt_name": "Matti Savolainen",
+                "fullname": "",
+                "image_src": null,
+                "dob": 1949.0,
+                "dod": 2012.0,
+                "roles": [
+                  "Esiintyy",
+                  "Kirjoittaja",
+                  "Toimittaja",
+                  "Kääntäjä"
+                ],
+                "nationality": {
+                  "id": 4,
+                  "name": "Suomi"
+                },
+                "workcount": 2.0,
+                "storycount": 12,
+                "other_names": null,
+                "first_name": "Matti",
+                "last_name": "Savolainen",
+                "image_attr": "",
+                "bio": null,
+                "bio_src": "",
+                "imported_string": null
+              }
+            ],
+            "contributions": [
+              {
+                "person": {
+                  "id": 7574.0,
+                  "name": "Brola, Tarja",
+                  "alt_name": "Tarja Brola"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Kansi",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "id": 9241,
+                "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 493,
+              "name": "Kirjastopalvelu"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "binding": {
+              "id": 2,
+              "name": "Nidottu"
+            },
+            "id": 9728,
+            "title": "Tieteiskirjallisuuden maailmoita",
+            "subtitle": "",
+            "pubyear": 1987,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "951-692-185-X",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 205,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [
+          {
+            "id": 5,
+            "name": "Science Fiction",
+            "abbr": "SF"
+          }
+        ],
+        "contributors": [
+          {
+            "person": {
+              "id": 3827.0,
+              "name": "Savolainen, Matti",
+              "alt_name": "Matti Savolainen"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 3827.0,
+              "name": "Savolainen, Matti",
+              "alt_name": "Matti Savolainen"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "id": 15143,
+        "title": "Tieteen tulevaisuudesta ja tieteen tekemisen ehdoista tieteiskirjallisuudessa",
+        "orig_title": "",
+        "pubyear": 1985
+      },
+      {
+        "authors": [
+          {
+            "id": 200.0,
+            "name": "Nyman, Jukka",
+            "alt_name": "Jukka Nyman",
+            "fullname": "",
+            "image_src": null,
+            "dob": null,
+            "dod": null,
+            "roles": [
+              "Kääntäjä",
+              "Kirjoittaja"
+            ],
+            "nationality": {
+              "id": 4,
+              "name": "Suomi"
+            },
+            "workcount": 0.0,
+            "storycount": 86,
+            "other_names": null,
+            "first_name": "Jukka",
+            "last_name": "Nyman",
+            "image_attr": "",
+            "bio": null,
+            "bio_src": "",
+            "imported_string": "\n\n<b>Kaaoksen käsi</b>. Kuolemanportti 5. (The Hand of Chaos. The Death Gate Cycle, volume 5, 1993). Suom Jukka Nyman. Otava 1999. [F]."
+          }
+        ],
+        "type": {
+          "id": 7,
+          "name": "Artikkeli"
+        },
+        "issues": [],
+        "editions": [
+          {
+            "work": [
+              {
+                "id": 6802.0,
+                "title": "Tieteiskirjallisuuden maailmoita",
+                "orig_title": "",
+                "author_str": "Savolainen, Matti (toim.)",
+                "contributions": [
+                  {
+                    "person": {
+                      "id": 3827.0,
+                      "name": "Savolainen, Matti",
+                      "alt_name": "Matti Savolainen"
+                    },
+                    "role": {
+                      "id": 3,
+                      "name": "Toimittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  }
+                ],
+                "editions": [
+                  {
+                    "editors": [
+                      {
+                        "id": 3827.0,
+                        "name": "Savolainen, Matti",
+                        "alt_name": "Matti Savolainen",
+                        "fullname": "",
+                        "image_src": null,
+                        "dob": 1949.0,
+                        "dod": 2012.0,
+                        "roles": [
+                          "Esiintyy",
+                          "Kirjoittaja",
+                          "Toimittaja",
+                          "Kääntäjä"
+                        ],
+                        "nationality": {
+                          "id": 4,
+                          "name": "Suomi"
+                        },
+                        "workcount": 2.0,
+                        "storycount": 12,
+                        "other_names": null,
+                        "first_name": "Matti",
+                        "last_name": "Savolainen",
+                        "image_attr": "",
+                        "bio": null,
+                        "bio_src": "",
+                        "imported_string": null
+                      }
+                    ],
+                    "translators": [
+                      {
+                        "id": 3827.0,
+                        "name": "Savolainen, Matti",
+                        "alt_name": "Matti Savolainen",
+                        "fullname": "",
+                        "image_src": null,
+                        "dob": 1949.0,
+                        "dod": 2012.0,
+                        "roles": [
+                          "Esiintyy",
+                          "Kirjoittaja",
+                          "Toimittaja",
+                          "Kääntäjä"
+                        ],
+                        "nationality": {
+                          "id": 4,
+                          "name": "Suomi"
+                        },
+                        "workcount": 2.0,
+                        "storycount": 12,
+                        "other_names": null,
+                        "first_name": "Matti",
+                        "last_name": "Savolainen",
+                        "image_attr": "",
+                        "bio": null,
+                        "bio_src": "",
+                        "imported_string": null
+                      }
+                    ],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 7574.0,
+                          "name": "Brola, Tarja",
+                          "alt_name": "Tarja Brola"
+                        },
+                        "role": {
+                          "id": 4,
+                          "name": "Kansikuva"
+                        },
+                        "description": "Kansi",
+                        "real_person": null
+                      }
+                    ],
+                    "images": [
+                      {
+                        "id": 9241,
+                        "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
+                        "image_attr": null
+                      }
+                    ],
+                    "publisher": {
+                      "id": 493,
+                      "name": "Kirjastopalvelu"
+                    },
+                    "owners": [],
+                    "wishlisted": [],
+                    "id": 9728,
+                    "title": "Tieteiskirjallisuuden maailmoita",
+                    "subtitle": "",
+                    "pubyear": 1987,
+                    "editionnum": 1,
+                    "version": 1,
+                    "isbn": "951-692-185-X",
+                    "printedin": null,
+                    "pubseriesnum": null,
+                    "coll_info": null,
+                    "pages": 205,
+                    "size": 21,
+                    "dustcover": 1,
+                    "coverimage": 1,
+                    "misc": null,
+                    "imported_string": null,
+                    "verified": false
+                  }
+                ],
+                "genres": [
+                  {
+                    "id": 5,
+                    "name": "Science Fiction",
+                    "abbr": "SF"
+                  }
+                ],
+                "bookseries": null,
+                "tags": [],
+                "language_name": {
+                  "id": 7,
+                  "name": "suomi"
+                },
+                "type": 4.0,
+                "subtitle": "",
+                "pubyear": 1987,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": null,
+                "descr_attr": "",
+                "imported_string": null
+              }
+            ],
+            "editors": [
+              {
+                "id": 3827.0,
+                "name": "Savolainen, Matti",
+                "alt_name": "Matti Savolainen",
+                "fullname": "",
+                "image_src": null,
+                "dob": 1949.0,
+                "dod": 2012.0,
+                "roles": [
+                  "Esiintyy",
+                  "Kirjoittaja",
+                  "Toimittaja",
+                  "Kääntäjä"
+                ],
+                "nationality": {
+                  "id": 4,
+                  "name": "Suomi"
+                },
+                "workcount": 2.0,
+                "storycount": 12,
+                "other_names": null,
+                "first_name": "Matti",
+                "last_name": "Savolainen",
+                "image_attr": "",
+                "bio": null,
+                "bio_src": "",
+                "imported_string": null
+              }
+            ],
+            "contributions": [
+              {
+                "person": {
+                  "id": 7574.0,
+                  "name": "Brola, Tarja",
+                  "alt_name": "Tarja Brola"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Kansi",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "id": 9241,
+                "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 493,
+              "name": "Kirjastopalvelu"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "binding": {
+              "id": 2,
+              "name": "Nidottu"
+            },
+            "id": 9728,
+            "title": "Tieteiskirjallisuuden maailmoita",
+            "subtitle": "",
+            "pubyear": 1987,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "951-692-185-X",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 205,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [
+          {
+            "id": 5,
+            "name": "Science Fiction",
+            "abbr": "SF"
+          }
+        ],
+        "contributors": [
+          {
+            "person": {
+              "id": 200.0,
+              "name": "Nyman, Jukka",
+              "alt_name": "Jukka Nyman"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 200.0,
+              "name": "Nyman, Jukka",
+              "alt_name": "Jukka Nyman"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "id": 15142,
+        "title": "Järjen vallasta myyttien rinnakkaiseloon – uskonto science fictionissa",
+        "orig_title": "",
+        "pubyear": 1987
+      },
+      {
+        "authors": [
+          {
+            "id": 368.0,
+            "name": "Sinisalo, Johanna",
+            "alt_name": "Johanna Sinisalo",
+            "fullname": "Aila Johanna Sinisalo",
+            "image_src": null,
+            "dob": 1958.0,
+            "dod": null,
+            "roles": [
+              "Kirjoittaja",
+              "Toimittaja",
+              "Esiintyy",
+              "Kääntäjä"
+            ],
+            "nationality": {
+              "id": 4,
+              "name": "Suomi"
+            },
+            "workcount": 15.0,
+            "storycount": 127,
+            "other_names": null,
+            "first_name": "Johanna",
+            "last_name": "Sinisalo",
+            "image_attr": "",
+            "bio": null,
+            "bio_src": "",
+            "imported_string": null
+          }
+        ],
+        "type": {
+          "id": 7,
+          "name": "Artikkeli"
+        },
+        "issues": [],
+        "editions": [
+          {
+            "work": [
+              {
+                "id": 6802.0,
+                "title": "Tieteiskirjallisuuden maailmoita",
+                "orig_title": "",
+                "author_str": "Savolainen, Matti (toim.)",
+                "contributions": [
+                  {
+                    "person": {
+                      "id": 3827.0,
+                      "name": "Savolainen, Matti",
+                      "alt_name": "Matti Savolainen"
+                    },
+                    "role": {
+                      "id": 3,
+                      "name": "Toimittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  }
+                ],
+                "editions": [
+                  {
+                    "editors": [
+                      {
+                        "id": 3827.0,
+                        "name": "Savolainen, Matti",
+                        "alt_name": "Matti Savolainen",
+                        "fullname": "",
+                        "image_src": null,
+                        "dob": 1949.0,
+                        "dod": 2012.0,
+                        "roles": [
+                          "Esiintyy",
+                          "Kirjoittaja",
+                          "Toimittaja",
+                          "Kääntäjä"
+                        ],
+                        "nationality": {
+                          "id": 4,
+                          "name": "Suomi"
+                        },
+                        "workcount": 2.0,
+                        "storycount": 12,
+                        "other_names": null,
+                        "first_name": "Matti",
+                        "last_name": "Savolainen",
+                        "image_attr": "",
+                        "bio": null,
+                        "bio_src": "",
+                        "imported_string": null
+                      }
+                    ],
+                    "translators": [
+                      {
+                        "id": 3827.0,
+                        "name": "Savolainen, Matti",
+                        "alt_name": "Matti Savolainen",
+                        "fullname": "",
+                        "image_src": null,
+                        "dob": 1949.0,
+                        "dod": 2012.0,
+                        "roles": [
+                          "Esiintyy",
+                          "Kirjoittaja",
+                          "Toimittaja",
+                          "Kääntäjä"
+                        ],
+                        "nationality": {
+                          "id": 4,
+                          "name": "Suomi"
+                        },
+                        "workcount": 2.0,
+                        "storycount": 12,
+                        "other_names": null,
+                        "first_name": "Matti",
+                        "last_name": "Savolainen",
+                        "image_attr": "",
+                        "bio": null,
+                        "bio_src": "",
+                        "imported_string": null
+                      }
+                    ],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 7574.0,
+                          "name": "Brola, Tarja",
+                          "alt_name": "Tarja Brola"
+                        },
+                        "role": {
+                          "id": 4,
+                          "name": "Kansikuva"
+                        },
+                        "description": "Kansi",
+                        "real_person": null
+                      }
+                    ],
+                    "images": [
+                      {
+                        "id": 9241,
+                        "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
+                        "image_attr": null
+                      }
+                    ],
+                    "publisher": {
+                      "id": 493,
+                      "name": "Kirjastopalvelu"
+                    },
+                    "owners": [],
+                    "wishlisted": [],
+                    "id": 9728,
+                    "title": "Tieteiskirjallisuuden maailmoita",
+                    "subtitle": "",
+                    "pubyear": 1987,
+                    "editionnum": 1,
+                    "version": 1,
+                    "isbn": "951-692-185-X",
+                    "printedin": null,
+                    "pubseriesnum": null,
+                    "coll_info": null,
+                    "pages": 205,
+                    "size": 21,
+                    "dustcover": 1,
+                    "coverimage": 1,
+                    "misc": null,
+                    "imported_string": null,
+                    "verified": false
+                  }
+                ],
+                "genres": [
+                  {
+                    "id": 5,
+                    "name": "Science Fiction",
+                    "abbr": "SF"
+                  }
+                ],
+                "bookseries": null,
+                "tags": [],
+                "language_name": {
+                  "id": 7,
+                  "name": "suomi"
+                },
+                "type": 4.0,
+                "subtitle": "",
+                "pubyear": 1987,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": null,
+                "descr_attr": "",
+                "imported_string": null
+              }
+            ],
+            "editors": [
+              {
+                "id": 3827.0,
+                "name": "Savolainen, Matti",
+                "alt_name": "Matti Savolainen",
+                "fullname": "",
+                "image_src": null,
+                "dob": 1949.0,
+                "dod": 2012.0,
+                "roles": [
+                  "Esiintyy",
+                  "Kirjoittaja",
+                  "Toimittaja",
+                  "Kääntäjä"
+                ],
+                "nationality": {
+                  "id": 4,
+                  "name": "Suomi"
+                },
+                "workcount": 2.0,
+                "storycount": 12,
+                "other_names": null,
+                "first_name": "Matti",
+                "last_name": "Savolainen",
+                "image_attr": "",
+                "bio": null,
+                "bio_src": "",
+                "imported_string": null
+              }
+            ],
+            "contributions": [
+              {
+                "person": {
+                  "id": 7574.0,
+                  "name": "Brola, Tarja",
+                  "alt_name": "Tarja Brola"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Kansi",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "id": 9241,
+                "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 493,
+              "name": "Kirjastopalvelu"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "binding": {
+              "id": 2,
+              "name": "Nidottu"
+            },
+            "id": 9728,
+            "title": "Tieteiskirjallisuuden maailmoita",
+            "subtitle": "",
+            "pubyear": 1987,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "951-692-185-X",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 205,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [
+          {
+            "id": 5,
+            "name": "Science Fiction",
+            "abbr": "SF"
+          }
+        ],
+        "contributors": [
+          {
+            "person": {
+              "id": 368.0,
+              "name": "Sinisalo, Johanna",
+              "alt_name": "Johanna Sinisalo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 368.0,
+              "name": "Sinisalo, Johanna",
+              "alt_name": "Johanna Sinisalo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "id": 15141,
+        "title": "Kahvinkeittoa ja kirkumista – naiskuva angloamerikkalaisessa tieteiskirjallisuudessa",
+        "orig_title": "",
+        "pubyear": 1987
+      },
+      {
+        "authors": [
+          {
+            "id": 7620.0,
+            "name": "Laurinolli, Tuire",
+            "alt_name": "Tuire Laurinolli",
+            "fullname": "",
+            "image_src": null,
+            "dob": null,
+            "dod": null,
+            "roles": [
+              "Kirjoittaja"
+            ],
+            "nationality": {
+              "id": 4,
+              "name": "Suomi"
+            },
+            "workcount": 0.0,
+            "storycount": 1,
+            "other_names": "",
+            "first_name": null,
+            "last_name": null,
+            "image_attr": null,
+            "bio": "",
+            "bio_src": "",
+            "imported_string": null
+          }
+        ],
+        "type": {
+          "id": 7,
+          "name": "Artikkeli"
+        },
+        "issues": [],
+        "editions": [
+          {
+            "work": [
+              {
+                "id": 6802.0,
+                "title": "Tieteiskirjallisuuden maailmoita",
+                "orig_title": "",
+                "author_str": "Savolainen, Matti (toim.)",
+                "contributions": [
+                  {
+                    "person": {
+                      "id": 3827.0,
+                      "name": "Savolainen, Matti",
+                      "alt_name": "Matti Savolainen"
+                    },
+                    "role": {
+                      "id": 3,
+                      "name": "Toimittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  }
+                ],
+                "editions": [
+                  {
+                    "editors": [
+                      {
+                        "id": 3827.0,
+                        "name": "Savolainen, Matti",
+                        "alt_name": "Matti Savolainen",
+                        "fullname": "",
+                        "image_src": null,
+                        "dob": 1949.0,
+                        "dod": 2012.0,
+                        "roles": [
+                          "Esiintyy",
+                          "Kirjoittaja",
+                          "Toimittaja",
+                          "Kääntäjä"
+                        ],
+                        "nationality": {
+                          "id": 4,
+                          "name": "Suomi"
+                        },
+                        "workcount": 2.0,
+                        "storycount": 12,
+                        "other_names": null,
+                        "first_name": "Matti",
+                        "last_name": "Savolainen",
+                        "image_attr": "",
+                        "bio": null,
+                        "bio_src": "",
+                        "imported_string": null
+                      }
+                    ],
+                    "translators": [
+                      {
+                        "id": 3827.0,
+                        "name": "Savolainen, Matti",
+                        "alt_name": "Matti Savolainen",
+                        "fullname": "",
+                        "image_src": null,
+                        "dob": 1949.0,
+                        "dod": 2012.0,
+                        "roles": [
+                          "Esiintyy",
+                          "Kirjoittaja",
+                          "Toimittaja",
+                          "Kääntäjä"
+                        ],
+                        "nationality": {
+                          "id": 4,
+                          "name": "Suomi"
+                        },
+                        "workcount": 2.0,
+                        "storycount": 12,
+                        "other_names": null,
+                        "first_name": "Matti",
+                        "last_name": "Savolainen",
+                        "image_attr": "",
+                        "bio": null,
+                        "bio_src": "",
+                        "imported_string": null
+                      }
+                    ],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 7574.0,
+                          "name": "Brola, Tarja",
+                          "alt_name": "Tarja Brola"
+                        },
+                        "role": {
+                          "id": 4,
+                          "name": "Kansikuva"
+                        },
+                        "description": "Kansi",
+                        "real_person": null
+                      }
+                    ],
+                    "images": [
+                      {
+                        "id": 9241,
+                        "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
+                        "image_attr": null
+                      }
+                    ],
+                    "publisher": {
+                      "id": 493,
+                      "name": "Kirjastopalvelu"
+                    },
+                    "owners": [],
+                    "wishlisted": [],
+                    "id": 9728,
+                    "title": "Tieteiskirjallisuuden maailmoita",
+                    "subtitle": "",
+                    "pubyear": 1987,
+                    "editionnum": 1,
+                    "version": 1,
+                    "isbn": "951-692-185-X",
+                    "printedin": null,
+                    "pubseriesnum": null,
+                    "coll_info": null,
+                    "pages": 205,
+                    "size": 21,
+                    "dustcover": 1,
+                    "coverimage": 1,
+                    "misc": null,
+                    "imported_string": null,
+                    "verified": false
+                  }
+                ],
+                "genres": [
+                  {
+                    "id": 5,
+                    "name": "Science Fiction",
+                    "abbr": "SF"
+                  }
+                ],
+                "bookseries": null,
+                "tags": [],
+                "language_name": {
+                  "id": 7,
+                  "name": "suomi"
+                },
+                "type": 4.0,
+                "subtitle": "",
+                "pubyear": 1987,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": null,
+                "descr_attr": "",
+                "imported_string": null
+              }
+            ],
+            "editors": [
+              {
+                "id": 3827.0,
+                "name": "Savolainen, Matti",
+                "alt_name": "Matti Savolainen",
+                "fullname": "",
+                "image_src": null,
+                "dob": 1949.0,
+                "dod": 2012.0,
+                "roles": [
+                  "Esiintyy",
+                  "Kirjoittaja",
+                  "Toimittaja",
+                  "Kääntäjä"
+                ],
+                "nationality": {
+                  "id": 4,
+                  "name": "Suomi"
+                },
+                "workcount": 2.0,
+                "storycount": 12,
+                "other_names": null,
+                "first_name": "Matti",
+                "last_name": "Savolainen",
+                "image_attr": "",
+                "bio": null,
+                "bio_src": "",
+                "imported_string": null
+              }
+            ],
+            "contributions": [
+              {
+                "person": {
+                  "id": 7574.0,
+                  "name": "Brola, Tarja",
+                  "alt_name": "Tarja Brola"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Kansi",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "id": 9241,
+                "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 493,
+              "name": "Kirjastopalvelu"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "binding": {
+              "id": 2,
+              "name": "Nidottu"
+            },
+            "id": 9728,
+            "title": "Tieteiskirjallisuuden maailmoita",
+            "subtitle": "",
+            "pubyear": 1987,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "951-692-185-X",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 205,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [
+          {
+            "id": 5,
+            "name": "Science Fiction",
+            "abbr": "SF"
+          }
+        ],
+        "contributors": [
+          {
+            "person": {
+              "id": 7620.0,
+              "name": "Laurinolli, Tuire",
+              "alt_name": "Tuire Laurinolli"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 551.0,
+              "name": "Russ, Joanna",
+              "alt_name": "Joanna Russ"
+            },
+            "role": {
+              "id": 6,
+              "name": "Esiintyy"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 551.0,
+              "name": "Russ, Joanna",
+              "alt_name": "Joanna Russ"
+            },
+            "role": {
+              "id": 6,
+              "name": "Esiintyy"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 7620.0,
+              "name": "Laurinolli, Tuire",
+              "alt_name": "Tuire Laurinolli"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "id": 15140,
+        "title": "Joanna Russ – kuvien särkijä",
+        "orig_title": "",
+        "pubyear": 1987
+      },
+      {
+        "authors": [
+          {
+            "id": 3921.0,
+            "name": "Rantalaiho, Liisa",
+            "alt_name": "Liisa Rantalaiho",
+            "fullname": "",
+            "image_src": null,
+            "dob": 1933.0,
+            "dod": null,
+            "roles": [
+              "Kirjoittaja",
+              "Kääntäjä",
+              "Esiintyy"
+            ],
+            "nationality": {
+              "id": 4,
+              "name": "Suomi"
+            },
+            "workcount": 0.0,
+            "storycount": 55,
+            "other_names": null,
+            "first_name": "Liisa",
+            "last_name": "Rantalaiho",
+            "image_attr": "",
+            "bio": null,
+            "bio_src": "",
+            "imported_string": null
+          }
+        ],
+        "type": {
+          "id": 7,
+          "name": "Artikkeli"
+        },
+        "issues": [],
+        "editions": [
+          {
+            "work": [
+              {
+                "id": 6802.0,
+                "title": "Tieteiskirjallisuuden maailmoita",
+                "orig_title": "",
+                "author_str": "Savolainen, Matti (toim.)",
+                "contributions": [
+                  {
+                    "person": {
+                      "id": 3827.0,
+                      "name": "Savolainen, Matti",
+                      "alt_name": "Matti Savolainen"
+                    },
+                    "role": {
+                      "id": 3,
+                      "name": "Toimittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  }
+                ],
+                "editions": [
+                  {
+                    "editors": [
+                      {
+                        "id": 3827.0,
+                        "name": "Savolainen, Matti",
+                        "alt_name": "Matti Savolainen",
+                        "fullname": "",
+                        "image_src": null,
+                        "dob": 1949.0,
+                        "dod": 2012.0,
+                        "roles": [
+                          "Esiintyy",
+                          "Kirjoittaja",
+                          "Toimittaja",
+                          "Kääntäjä"
+                        ],
+                        "nationality": {
+                          "id": 4,
+                          "name": "Suomi"
+                        },
+                        "workcount": 2.0,
+                        "storycount": 12,
+                        "other_names": null,
+                        "first_name": "Matti",
+                        "last_name": "Savolainen",
+                        "image_attr": "",
+                        "bio": null,
+                        "bio_src": "",
+                        "imported_string": null
+                      }
+                    ],
+                    "translators": [
+                      {
+                        "id": 3827.0,
+                        "name": "Savolainen, Matti",
+                        "alt_name": "Matti Savolainen",
+                        "fullname": "",
+                        "image_src": null,
+                        "dob": 1949.0,
+                        "dod": 2012.0,
+                        "roles": [
+                          "Esiintyy",
+                          "Kirjoittaja",
+                          "Toimittaja",
+                          "Kääntäjä"
+                        ],
+                        "nationality": {
+                          "id": 4,
+                          "name": "Suomi"
+                        },
+                        "workcount": 2.0,
+                        "storycount": 12,
+                        "other_names": null,
+                        "first_name": "Matti",
+                        "last_name": "Savolainen",
+                        "image_attr": "",
+                        "bio": null,
+                        "bio_src": "",
+                        "imported_string": null
+                      }
+                    ],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 7574.0,
+                          "name": "Brola, Tarja",
+                          "alt_name": "Tarja Brola"
+                        },
+                        "role": {
+                          "id": 4,
+                          "name": "Kansikuva"
+                        },
+                        "description": "Kansi",
+                        "real_person": null
+                      }
+                    ],
+                    "images": [
+                      {
+                        "id": 9241,
+                        "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
+                        "image_attr": null
+                      }
+                    ],
+                    "publisher": {
+                      "id": 493,
+                      "name": "Kirjastopalvelu"
+                    },
+                    "owners": [],
+                    "wishlisted": [],
+                    "id": 9728,
+                    "title": "Tieteiskirjallisuuden maailmoita",
+                    "subtitle": "",
+                    "pubyear": 1987,
+                    "editionnum": 1,
+                    "version": 1,
+                    "isbn": "951-692-185-X",
+                    "printedin": null,
+                    "pubseriesnum": null,
+                    "coll_info": null,
+                    "pages": 205,
+                    "size": 21,
+                    "dustcover": 1,
+                    "coverimage": 1,
+                    "misc": null,
+                    "imported_string": null,
+                    "verified": false
+                  }
+                ],
+                "genres": [
+                  {
+                    "id": 5,
+                    "name": "Science Fiction",
+                    "abbr": "SF"
+                  }
+                ],
+                "bookseries": null,
+                "tags": [],
+                "language_name": {
+                  "id": 7,
+                  "name": "suomi"
+                },
+                "type": 4.0,
+                "subtitle": "",
+                "pubyear": 1987,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": null,
+                "descr_attr": "",
+                "imported_string": null
+              }
+            ],
+            "editors": [
+              {
+                "id": 3827.0,
+                "name": "Savolainen, Matti",
+                "alt_name": "Matti Savolainen",
+                "fullname": "",
+                "image_src": null,
+                "dob": 1949.0,
+                "dod": 2012.0,
+                "roles": [
+                  "Esiintyy",
+                  "Kirjoittaja",
+                  "Toimittaja",
+                  "Kääntäjä"
+                ],
+                "nationality": {
+                  "id": 4,
+                  "name": "Suomi"
+                },
+                "workcount": 2.0,
+                "storycount": 12,
+                "other_names": null,
+                "first_name": "Matti",
+                "last_name": "Savolainen",
+                "image_attr": "",
+                "bio": null,
+                "bio_src": "",
+                "imported_string": null
+              }
+            ],
+            "contributions": [
+              {
+                "person": {
+                  "id": 7574.0,
+                  "name": "Brola, Tarja",
+                  "alt_name": "Tarja Brola"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Kansi",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "id": 9241,
+                "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 493,
+              "name": "Kirjastopalvelu"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "binding": {
+              "id": 2,
+              "name": "Nidottu"
+            },
+            "id": 9728,
+            "title": "Tieteiskirjallisuuden maailmoita",
+            "subtitle": "",
+            "pubyear": 1987,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "951-692-185-X",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 205,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [
+          {
+            "id": 5,
+            "name": "Science Fiction",
+            "abbr": "SF"
+          }
+        ],
+        "contributors": [
+          {
+            "person": {
+              "id": 3921.0,
+              "name": "Rantalaiho, Liisa",
+              "alt_name": "Liisa Rantalaiho"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 3104.0,
+              "name": "Delany, Samuel R.",
+              "alt_name": "Samuel R. Delany"
+            },
+            "role": {
+              "id": 6,
+              "name": "Esiintyy"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 3104.0,
+              "name": "Delany, Samuel R.",
+              "alt_name": "Samuel R. Delany"
+            },
+            "role": {
+              "id": 6,
+              "name": "Esiintyy"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 3921.0,
+              "name": "Rantalaiho, Liisa",
+              "alt_name": "Liisa Rantalaiho"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "id": 15139,
+        "title": "Samuel R. Delany: Todellisuutemme merkkejä Ei-koskaan -maassa",
+        "orig_title": "",
+        "pubyear": 1987
+      }
+    ],
+    "error": null
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "metadata": {
+    "generated_at": "2026-02-10T21:41:46.375456+00:00",
+    "generator": "update_snapshots.py",
+    "total_endpoints": 37
+  },
+  "results": {
+    "success": [
+      "frontpagedata",
+      "genres",
+      "countries",
+      "roles",
+      "bindings",
+      "worktypes",
+      "shorttypes",
+      "magazinetypes",
+      "latest_covers_5",
+      "latest_works_5",
+      "latest_editions_5",
+      "latest_people_5",
+      "latest_shorts_5",
+      "stats_genrecounts",
+      "stats_personcounts",
+      "stats_storypersoncounts",
+      "stats_publishercounts",
+      "stats_worksbyyear",
+      "stats_origworksbyyear",
+      "stats_storiesbyyear",
+      "stats_issuesperyear",
+      "stats_nationalitycounts",
+      "stats_storynationalitycounts",
+      "stats_misc",
+      "magazines",
+      "awards",
+      "tags",
+      "publishers",
+      "bookseries",
+      "pubseries",
+      "work_1",
+      "edition_1",
+      "person_1",
+      "short_1",
+      "filter_tags_sf"
+    ],
+    "skipped": [
+      [
+        "filter_people_a",
+        400
+      ],
+      [
+        "filter_publishers_a",
+        400
+      ]
+    ],
+    "failed": []
+  }
+}

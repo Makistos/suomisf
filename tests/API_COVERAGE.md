@@ -1,0 +1,319 @@
+# SuomiSF API Test Coverage Report
+
+**Last Updated:** 2026-02-10
+**Total Endpoints:** 158
+**Tested:** 68 (43%)
+**Pending:** 90 (57%)
+**Snapshot Tests:** 20 (data validation against golden database)
+
+---
+
+## Coverage Status Legend
+
+| Symbol | Meaning |
+|--------|---------|
+| :white_check_mark: | Test passing |
+| :x: | Test failing |
+| :hourglass_flowing_sand: | Test pending (not implemented) |
+| :construction: | Test in progress |
+
+---
+
+## Quick Summary
+
+| Category | Total | Passing | Failing | Pending |
+|----------|-------|---------|---------|---------|
+| Authentication | 3 | 0 | 0 | 3 |
+| Users | 3 | 0 | 0 | 3 |
+| Works | 19 | 2 | 0 | 17 |
+| Editions | 22 | 0 | 0 | 22 |
+| People | 15 | 0 | 0 | 15 |
+| Short Stories | 10 | 2 | 0 | 8 |
+| Magazines | 6 | 2 | 0 | 4 |
+| Issues | 6 | 0 | 0 | 6 |
+| Awards | 12 | 0 | 0 | 12 |
+| Tags | 10 | 0 | 0 | 10 |
+| Publishers | 6 | 0 | 0 | 6 |
+| Publication Series | 6 | 0 | 0 | 6 |
+| Book Series | 6 | 0 | 0 | 6 |
+| Statistics | 13 | 32 | 0 | 0 |
+| Search & Filter | 5 | 0 | 0 | 5 |
+| Miscellaneous | 12 | 36 | 0 | 0 |
+| Articles | 4 | 0 | 0 | 4 |
+| **TOTAL** | **158** | **68** | **0** | **90** |
+
+---
+
+## Detailed Endpoint Coverage
+
+### 1. Authentication (3 endpoints)
+
+| Status | Method | Endpoint | Auth | Test Function | Last Run |
+|--------|--------|----------|------|---------------|----------|
+| :hourglass_flowing_sand: | POST | `/api/login` | None | - | - |
+| :hourglass_flowing_sand: | POST | `/api/register` | None | - | - |
+| :hourglass_flowing_sand: | POST | `/api/refresh` | JWT | - | - |
+
+### 2. Users (3 endpoints)
+
+| Status | Method | Endpoint | Auth | Test Function | Last Run |
+|--------|--------|----------|------|---------------|----------|
+| :hourglass_flowing_sand: | GET | `/api/users` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/users/<userid>` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/users/<userid>/stats/genres` | None | - | - |
+
+### 3. Works (19 endpoints)
+
+| Status | Method | Endpoint | Auth | Test Function | Last Run |
+|--------|--------|----------|------|---------------|----------|
+| :hourglass_flowing_sand: | GET | `/api/works/<workid>` | None | - | - |
+| :hourglass_flowing_sand: | POST | `/api/works` | Admin | - | - |
+| :hourglass_flowing_sand: | PUT | `/api/works` | Admin | - | - |
+| :hourglass_flowing_sand: | DELETE | `/api/works/<workid>` | Admin | - | - |
+| :hourglass_flowing_sand: | GET | `/api/latest/works/<count>` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/works/<workid>/awards` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/works/<workid>/omnibus` | None | - | - |
+| :hourglass_flowing_sand: | POST | `/api/works/omnibus` | Admin | - | - |
+| :hourglass_flowing_sand: | GET | `/api/works/shorts/<workid>` | None | - | - |
+| :hourglass_flowing_sand: | POST | `/api/works/shorts` | Admin | - | - |
+| :hourglass_flowing_sand: | PUT | `/api/works/shorts` | Admin | - | - |
+| :hourglass_flowing_sand: | GET | `/api/worksbyinitial/<letter>` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/worksbyauthor/<authorid>` | None | - | - |
+| :hourglass_flowing_sand: | POST | `/api/searchworks` | None | - | - |
+| :hourglass_flowing_sand: | POST | `/api/works/random/incomplete` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/works/bytype/<worktype>` | None | - | - |
+| :hourglass_flowing_sand: | PUT | `/api/work/<workid>/tags/<tagid>` | Admin | - | - |
+| :hourglass_flowing_sand: | DELETE | `/api/work/<workid>/tags/<tagid>` | Admin | - | - |
+| :white_check_mark: | GET | `/api/worktypes` | None | `test_misc.py::TestWorkTypes` | 2026-02-10 |
+
+### 4. Editions (22 endpoints)
+
+| Status | Method | Endpoint | Auth | Test Function | Last Run |
+|--------|--------|----------|------|---------------|----------|
+| :hourglass_flowing_sand: | GET | `/api/editions/<editionid>` | None | - | - |
+| :hourglass_flowing_sand: | POST | `/api/editions` | Admin | - | - |
+| :hourglass_flowing_sand: | PUT | `/api/editions` | Admin | - | - |
+| :hourglass_flowing_sand: | DELETE | `/api/editions/<editionid>` | Admin | - | - |
+| :hourglass_flowing_sand: | POST | `/api/editions/<editionid>/copy` | Admin | - | - |
+| :hourglass_flowing_sand: | POST | `/api/editions/<editionid>/images` | Admin | - | - |
+| :hourglass_flowing_sand: | DELETE | `/api/editions/<editionid>/images/<imageid>` | Admin | - | - |
+| :hourglass_flowing_sand: | GET | `/api/editions/<edition_id>/changes` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/editions/<editionid>/owners` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/editions/<editionid>/owner/<personid>` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/editions/owned/<userid>` | None | - | - |
+| :hourglass_flowing_sand: | DELETE | `/api/editions/<editionid>/owner/<personid>` | JWT | - | - |
+| :hourglass_flowing_sand: | POST | `/api/editions/owner` | JWT | - | - |
+| :hourglass_flowing_sand: | PUT | `/api/editions/owner` | JWT | - | - |
+| :hourglass_flowing_sand: | GET | `/api/editions/<editionid>/shorts` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/latest/editions/<count>` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/editions/<edition_id>/work` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/editions/<editionid>/wishlist` | None | - | - |
+| :hourglass_flowing_sand: | PUT | `/api/editions/<editionid>/wishlist/<userid>` | JWT | - | - |
+| :hourglass_flowing_sand: | DELETE | `/api/editions/<editionid>/wishlist/<userid>` | JWT | - | - |
+| :hourglass_flowing_sand: | GET | `/api/editions/<editionid>/wishlist/<userid>` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/editions/wishlist/<userid>` | None | - | - |
+
+### 5. People (15 endpoints)
+
+| Status | Method | Endpoint | Auth | Test Function | Last Run |
+|--------|--------|----------|------|---------------|----------|
+| :hourglass_flowing_sand: | GET | `/api/people/` | None | - | - |
+| :hourglass_flowing_sand: | POST | `/api/people` | Admin | - | - |
+| :hourglass_flowing_sand: | PUT | `/api/people` | Admin | - | - |
+| :hourglass_flowing_sand: | GET | `/api/people/<person_id>` | None | - | - |
+| :hourglass_flowing_sand: | DELETE | `/api/people/<person_id>` | Admin | - | - |
+| :hourglass_flowing_sand: | GET | `/api/people/<person_id>/articles` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/people/<person_id>/awarded` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/people/<personid>/chiefeditor` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/people/<personid>/shorts` | None | - | - |
+| :hourglass_flowing_sand: | PUT | `/api/person/<personid>/tags/<tagid>` | Admin | - | - |
+| :hourglass_flowing_sand: | DELETE | `/api/person/<personid>/tags/<tagid>` | Admin | - | - |
+| :hourglass_flowing_sand: | GET | `/api/filter/people/<pattern>` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/latest/people/<count>` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/people/<person_id>/issue-contributions` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/filter/alias/<id>` | None | - | - |
+
+### 6. Short Stories (10 endpoints)
+
+| Status | Method | Endpoint | Auth | Test Function | Last Run |
+|--------|--------|----------|------|---------------|----------|
+| :hourglass_flowing_sand: | GET | `/api/shorts/<shortid>` | None | - | - |
+| :hourglass_flowing_sand: | POST | `/api/shorts` | Admin | - | - |
+| :hourglass_flowing_sand: | PUT | `/api/shorts` | Admin | - | - |
+| :hourglass_flowing_sand: | DELETE | `/api/shorts/<shortid>` | Admin | - | - |
+| :hourglass_flowing_sand: | POST | `/api/searchshorts` | None | - | - |
+| :white_check_mark: | GET | `/api/shorttypes` | None | `test_misc.py::TestShortTypes` | 2026-02-10 |
+| :hourglass_flowing_sand: | PUT | `/api/story/<storyid>/tags/<tagid>` | Admin | - | - |
+| :hourglass_flowing_sand: | DELETE | `/api/story/<storyid>/tags/<tagid>` | Admin | - | - |
+| :hourglass_flowing_sand: | GET | `/api/latest/shorts/<count>` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/shorts/<shortid>/similar` | None | - | - |
+
+### 7. Magazines (6 endpoints)
+
+| Status | Method | Endpoint | Auth | Test Function | Last Run |
+|--------|--------|----------|------|---------------|----------|
+| :hourglass_flowing_sand: | GET | `/api/magazines` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/magazines/<magazineid>` | None | - | - |
+| :hourglass_flowing_sand: | POST | `/api/magazines` | Admin | - | - |
+| :hourglass_flowing_sand: | PUT | `/api/magazines` | Admin | - | - |
+| :hourglass_flowing_sand: | DELETE | `/api/magazines/<magazineid>` | Admin | - | - |
+| :white_check_mark: | GET | `/api/magazinetypes` | None | `test_misc.py::TestMagazineTypes` | 2026-02-10 |
+
+### 8. Issues (6 endpoints)
+
+| Status | Method | Endpoint | Auth | Test Function | Last Run |
+|--------|--------|----------|------|---------------|----------|
+| :hourglass_flowing_sand: | GET | `/api/issues/<issueid>` | None | - | - |
+| :hourglass_flowing_sand: | POST | `/api/issues` | Admin | - | - |
+| :hourglass_flowing_sand: | PUT | `/api/issues` | Admin | - | - |
+| :hourglass_flowing_sand: | GET | `/api/issues/<issueid>/articles` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/issues/<issueid>/shorts` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/issues/<issueid>/contributors` | None | - | - |
+
+### 9. Awards (12 endpoints)
+
+| Status | Method | Endpoint | Auth | Test Function | Last Run |
+|--------|--------|----------|------|---------------|----------|
+| :hourglass_flowing_sand: | GET | `/api/awards` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/awards/<award_id>` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/works/<work_id>/awarded` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/people/<person_id>/awarded` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/shorts/<short_id>/awarded` | None | - | - |
+| :hourglass_flowing_sand: | PUT | `/api/awards/works/awards` | Admin | - | - |
+| :hourglass_flowing_sand: | PUT | `/api/awards/people/awards` | Admin | - | - |
+| :hourglass_flowing_sand: | GET | `/api/awards/type/<award_type>` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/awards/categories/<award_type>` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/awards/categories/<award_id>` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/awards/filter/<filter>` | None | - | - |
+| :hourglass_flowing_sand: | POST | `/api/awarded` | Admin | - | - |
+
+### 10. Tags (10 endpoints)
+
+| Status | Method | Endpoint | Auth | Test Function | Last Run |
+|--------|--------|----------|------|---------------|----------|
+| :hourglass_flowing_sand: | GET | `/api/tags` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/tagsquick` | None | - | - |
+| :hourglass_flowing_sand: | POST | `/api/tags` | Admin | - | - |
+| :hourglass_flowing_sand: | GET | `/api/tags/<tag_id>` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/tags/form/<tag_id>` | None | - | - |
+| :hourglass_flowing_sand: | PUT | `/api/tags` | Admin | - | - |
+| :hourglass_flowing_sand: | GET | `/api/filter/tags/<pattern>` | None | - | - |
+| :hourglass_flowing_sand: | POST | `/api/tags/<source_id>/merge/<target_id>` | Admin | - | - |
+| :hourglass_flowing_sand: | DELETE | `/api/tags/<tagid>` | Admin | - | - |
+| :hourglass_flowing_sand: | GET | `/api/tags/types` | None | - | - |
+
+### 11. Publishers (6 endpoints)
+
+| Status | Method | Endpoint | Auth | Test Function | Last Run |
+|--------|--------|----------|------|---------------|----------|
+| :hourglass_flowing_sand: | GET | `/api/publishers` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/publishers/<publisherid>` | None | - | - |
+| :hourglass_flowing_sand: | POST | `/api/publishers` | Admin | - | - |
+| :hourglass_flowing_sand: | PUT | `/api/publishers` | Admin | - | - |
+| :hourglass_flowing_sand: | DELETE | `/api/publishers/<publisherid>` | Admin | - | - |
+| :hourglass_flowing_sand: | GET | `/api/filter/publishers/<pattern>` | None | - | - |
+
+### 12. Publication Series (6 endpoints)
+
+| Status | Method | Endpoint | Auth | Test Function | Last Run |
+|--------|--------|----------|------|---------------|----------|
+| :hourglass_flowing_sand: | GET | `/api/pubseries` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/pubseries/<pubseriesid>` | None | - | - |
+| :hourglass_flowing_sand: | POST | `/api/pubseries` | Admin | - | - |
+| :hourglass_flowing_sand: | PUT | `/api/pubseries` | Admin | - | - |
+| :hourglass_flowing_sand: | DELETE | `/api/pubseries/<pubseriesid>` | Admin | - | - |
+| :hourglass_flowing_sand: | GET | `/api/filter/pubseries/<pattern>` | None | - | - |
+
+### 13. Book Series (6 endpoints)
+
+| Status | Method | Endpoint | Auth | Test Function | Last Run |
+|--------|--------|----------|------|---------------|----------|
+| :hourglass_flowing_sand: | GET | `/api/bookseries` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/bookseries/<bookseriesid>` | None | - | - |
+| :hourglass_flowing_sand: | POST | `/api/bookseries` | Admin | - | - |
+| :hourglass_flowing_sand: | PUT | `/api/bookseries` | Admin | - | - |
+| :hourglass_flowing_sand: | DELETE | `/api/bookseries/<bookseriesid>` | Admin | - | - |
+| :hourglass_flowing_sand: | GET | `/api/filter/bookseries/<pattern>` | None | - | - |
+
+### 14. Statistics (13 endpoints)
+
+| Status | Method | Endpoint | Auth | Test Function | Last Run |
+|--------|--------|----------|------|---------------|----------|
+| :white_check_mark: | GET | `/api/stats/genrecounts` | None | `test_stats.py::TestGenreCounts` | 2026-02-10 |
+| :white_check_mark: | GET | `/api/stats/personcounts` | None | `test_stats.py::TestPersonCounts` | 2026-02-10 |
+| :white_check_mark: | GET | `/api/stats/storypersoncounts` | None | `test_stats.py::TestStoryPersonCounts` | 2026-02-10 |
+| :white_check_mark: | GET | `/api/stats/publishercounts` | None | `test_stats.py::TestPublisherCounts` | 2026-02-10 |
+| :white_check_mark: | GET | `/api/stats/worksbyyear` | None | `test_stats.py::TestWorksByYear` | 2026-02-10 |
+| :white_check_mark: | GET | `/api/stats/origworksbyyear` | None | `test_stats.py::TestOrigWorksByYear` | 2026-02-10 |
+| :white_check_mark: | GET | `/api/stats/storiesbyyear` | None | `test_stats.py::TestStoriesByYear` | 2026-02-10 |
+| :white_check_mark: | GET | `/api/stats/issuesperyear` | None | `test_stats.py::TestIssuesPerYear` | 2026-02-10 |
+| :white_check_mark: | GET | `/api/stats/nationalitycounts` | None | `test_stats.py::TestNationalityCounts` | 2026-02-10 |
+| :white_check_mark: | GET | `/api/stats/storynationalitycounts` | None | `test_stats.py::TestStoryNationalityCounts` | 2026-02-10 |
+| :white_check_mark: | POST | `/api/stats/filterstories` | None | `test_stats.py::TestFilterStories` | 2026-02-10 |
+| :white_check_mark: | POST | `/api/stats/filterworks` | None | `test_stats.py::TestFilterWorks` | 2026-02-10 |
+| :white_check_mark: | GET | `/api/stats/misc` | None | `test_stats.py::TestMiscStats` | 2026-02-10 |
+
+### 15. Search & Filter (5 endpoints)
+
+| Status | Method | Endpoint | Auth | Test Function | Last Run |
+|--------|--------|----------|------|---------------|----------|
+| :hourglass_flowing_sand: | GET | `/api/search/<pattern>` | None | - | - |
+| :hourglass_flowing_sand: | POST | `/api/search/<pattern>` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/filter/languages/<pattern>` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/filter/linknames/<pattern>` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/filter/countries/<pattern>` | None | - | - |
+
+### 16. Miscellaneous (12 endpoints)
+
+| Status | Method | Endpoint | Auth | Test Function | Last Run |
+|--------|--------|----------|------|---------------|----------|
+| :white_check_mark: | GET | `/api/frontpagedata` | None | `test_misc.py::TestFrontpageData` | 2026-02-10 |
+| :white_check_mark: | GET | `/api/genres` | None | `test_misc.py::TestGenres` | 2026-02-10 |
+| :white_check_mark: | GET | `/api/countries` | None | `test_misc.py::TestCountries` | 2026-02-10 |
+| :white_check_mark: | GET | `/api/roles/` | None | `test_misc.py::TestRoles` | 2026-02-10 |
+| :white_check_mark: | GET | `/api/roles/<target>` | None | `test_misc.py::TestRoles` | 2026-02-10 |
+| :white_check_mark: | GET | `/api/bindings` | None | `test_misc.py::TestBindings` | 2026-02-10 |
+| :white_check_mark: | GET | `/api/firstlettervector/<target>` | None | `test_misc.py::TestFirstLetterVector` | 2026-02-10 |
+| :white_check_mark: | GET | `/api/latest/covers/<count>` | None | `test_misc.py::TestLatestCovers` | 2026-02-10 |
+| :hourglass_flowing_sand: | GET | `/api/changes` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/work/<workid>/changes` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/person/<personid>/changes` | None | - | - |
+| :hourglass_flowing_sand: | DELETE | `/api/changes/<changeid>` | Admin | - | - |
+
+### 17. Articles (4 endpoints)
+
+| Status | Method | Endpoint | Auth | Test Function | Last Run |
+|--------|--------|----------|------|---------------|----------|
+| :hourglass_flowing_sand: | GET | `/api/articles/<articleid>` | None | - | - |
+| :hourglass_flowing_sand: | GET | `/api/articles/<articleid>/tags` | None | - | - |
+| :hourglass_flowing_sand: | PUT | `/api/articles/<articleid>/tags/<tagid>` | Admin | - | - |
+| :hourglass_flowing_sand: | DELETE | `/api/articles/<articleid>/tags/<tagid>` | Admin | - | - |
+
+---
+
+## Test History
+
+| Date | Git Hash | Total | Passed | Failed | Skipped | Duration |
+|------|----------|-------|--------|--------|---------|----------|
+| 2026-02-10 | 12dc962 | 68 | 68 | 0 | 0 | 15.99s |
+| 2026-02-10 | 12dc962 | 48 | 48 | 0 | 0 | 9.79s |
+
+---
+
+## Notes
+
+- This document is auto-updated by the test runner
+- Manual updates should be avoided
+- Run `pdm run pytest tests/` to execute all tests
+- Run `pdm run python tests/scripts/update_snapshots.py` to regenerate golden database snapshots
+- Run `python -m tests.benchmark.benchmark_runner` for performance benchmarks
+
+## Snapshot Testing
+
+Snapshot tests compare API responses against stored golden database responses. When the database schema or data changes:
+
+1. Update the golden database dump
+2. Run `pdm run python tests/scripts/update_snapshots.py` to capture new snapshots
+3. Run tests to validate the API returns expected data
+
+Snapshot files are stored in `tests/fixtures/snapshots/`

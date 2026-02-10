@@ -62,3 +62,18 @@ class StagingConfig(Config):
     PERSONIMG_SAVELOC = '/home/mep/src/suomisf/app/static/images/people/'
     MAGAZINECOVER_SAVELOC = \
         '/home/mep/src/suomisf/app/static/images/magazines/'
+
+
+class TestConfig(Config):
+    """ Testing configuration class for API tests."""
+    TESTING = True
+    DEBUG = False
+    SQLALCHEMY_ECHO = False
+    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
+        'postgresql://test_user:test_pass@localhost:5432/suomisf_test'
+    WTF_CSRF_ENABLED = False
+    SECRET_KEY = 'test-secret-key-not-for-production'
+    JWT_SECRET_KEY = 'test-jwt-secret-key'
+    BOOKCOVER_SAVELOC = '/tmp/suomisf_test/images/books/'
+    PERSONIMG_SAVELOC = '/tmp/suomisf_test/images/people/'
+    MAGAZINECOVER_SAVELOC = '/tmp/suomisf_test/images/magazines/'

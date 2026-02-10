@@ -1,0 +1,532 @@
+{
+  "metadata": {
+    "generated_at": "2026-02-10T21:41:46.375456+00:00",
+    "generator": "update_snapshots.py",
+    "total_endpoints": 37,
+    "endpoint": "/api/awards",
+    "method": "GET",
+    "status_code": 200
+  },
+  "response": {
+    "status_code": 200,
+    "data": [
+      {
+        "categories": [],
+        "id": 27,
+        "name": "Apollo",
+        "description": "Apollo myönnettiin parhaalle Ranskassa julkaistulle scifi-romaanille vuosina 1972-1990.",
+        "domestic": false
+      },
+      {
+        "categories": [
+          {
+            "id": 1,
+            "name": "Paras romaani",
+            "type": 1
+          }
+        ],
+        "id": 5,
+        "name": "Arthur C. Clarke -palkinto",
+        "description": "Arthur C. Clarke -palkinto on vuosittain jaettava brittiläinen tieteiskirjallisuuden palkinto.",
+        "domestic": false
+      },
+      {
+        "categories": [
+          {
+            "id": 9,
+            "name": "Paras novelli",
+            "type": 2
+          }
+        ],
+        "id": 13,
+        "name": "Atorox",
+        "description": "Turun Science Fiction Seura ry:n jakama Atorox on maamme vanhin tieteiskirjallisuuspalkinto. Se myönnetään vuosittain edellisen vuoden parhaalle ensimmäistä kertaa julkaistulle kotimaiselle suomen- tai ruotsinkieliselle tieteis- tai fantasianovellille.",
+        "domestic": true
+      },
+      {
+        "categories": [
+          {
+            "id": 1,
+            "name": "Paras romaani",
+            "type": 1
+          },
+          {
+            "id": 6,
+            "name": "Paras antologia",
+            "type": 1
+          },
+          {
+            "id": 9,
+            "name": "Paras novelli",
+            "type": 2
+          }
+        ],
+        "id": 20,
+        "name": "Bram Stoker Award",
+        "description": "Bram Stoker Award on Horror Writers Associationin (HWA) myöntämä Bram Stokerin mukaan nimetty kirjallisuuspalkinto, joka myönnetään englanninkieliselle kauhukirjallisuudelle. ",
+        "domestic": false
+      },
+      {
+        "categories": [],
+        "id": 26,
+        "name": "British Fantasy Award",
+        "description": "British Fantasy Award on British Fantasy Societyn (BFS) vuodesta 1976 myöntämä palkinto mm. fantasia- ja kauhukirjallisuudelle.",
+        "domestic": false
+      },
+      {
+        "categories": [
+          {
+            "id": 1,
+            "name": "Paras romaani",
+            "type": 1
+          },
+          {
+            "id": 9,
+            "name": "Paras novelli",
+            "type": 2
+          }
+        ],
+        "id": 6,
+        "name": "British Science Fiction Award",
+        "description": "British Science Fiction Award eli BSFA-palkinto on vuosittain myönnettävä kirjallisuuspalkinto tieteiskirjallisuudelle. Palkinto on myönnetty vuodesta 1970 lähtien.",
+        "domestic": false
+      },
+      {
+        "categories": [
+          {
+            "id": 1,
+            "name": "Paras romaani",
+            "type": 1
+          }
+        ],
+        "id": 10,
+        "name": "Campbell Memorial Award",
+        "description": "John W. Campbell Memorial Award for Best Science Fiction Novel myönnetään vuoden parhaasta science fiction-romaanista. Palkinnon myöntää Kansasin yliopiston Center for the Study of Science Fiction.",
+        "domestic": false
+      },
+      {
+        "categories": [
+          {
+            "id": 8,
+            "name": "Paras nuortenkirja",
+            "type": 1
+          }
+        ],
+        "id": 24,
+        "name": "Carnegie-mitali",
+        "description": "Carnegie-mitali (engl. Carnegie Medal) on Yhdistyneen kuningaskunnan vanhin lastenkirjallisuuspalkinto. Englantilaisen kirjastoseuran (Library Association) vuonna 1936 perustama ja skotlantilaissyntyisen Andrew Carnegien mukaan nimetty palkinto on jaettu ansiokkaille lasten- ja nuortenkirjoille vuosittain 1937 lähtien. Vuodesta 2002 lähtien palkinnon on myöntänyt CILIP (Chartered Institute of Library and Information Professionals).",
+        "domestic": false
+      },
+      {
+        "categories": [
+          {
+            "id": 12,
+            "name": "Elämäntyöpalkinto",
+            "type": 0
+          }
+        ],
+        "id": 1,
+        "name": "Damon Knight Memorial Grand Master Award",
+        "description": "Damon Knight Memorial Grand Master Award on Science Fiction and Fantasy Writers of America -järjestön (SFWA) jakama palkinto. Se jaetaan elämäntyöstä elossa olevalle tieteis- tai fantasiakirjailijalle. Ehdotuksen palkinnon saajasta tekee järjestön puheenjohtaja. Palkinto ei ole varsinaisesti Nebula-palkinto, mutta se luovutetaan samassa palkintogaalassa.",
+        "domestic": false
+      },
+      {
+        "categories": [
+          {
+            "id": 1,
+            "name": "Paras romaani",
+            "type": 1
+          }
+        ],
+        "id": 22,
+        "name": "Finlandia-palkinto",
+        "description": "Finlandia-palkinto on vuonna 1984 perustettu kirjallisuuspalkinto, jonka jakaa vuosittain Suomen Kirjasäätiö tunnustuksena ansiokkaan romaanin kirjoittajalle. Alun perin palkinto myönnettiin mille tahansa kaunokirjalliselle teokselle, mutta vuodesta 1993 sen on voinut saada vain romaani.",
+        "domestic": true
+      },
+      {
+        "categories": [],
+        "id": 29,
+        "name": "Goodreads Choice Awards",
+        "description": "Goodreads-sivuston käyttäjät valitsevat vuosittain suosikkinsa eri kategorioissa.",
+        "domestic": false
+      },
+      {
+        "categories": [
+          {
+            "id": 1,
+            "name": "Paras romaani",
+            "type": 1
+          },
+          {
+            "id": 9,
+            "name": "Paras novelli",
+            "type": 2
+          },
+          {
+            "id": 10,
+            "name": "Paras pienoisromaani",
+            "type": 1
+          },
+          {
+            "id": 11,
+            "name": "Paras pitkä novelli",
+            "type": 2
+          }
+        ],
+        "id": 2,
+        "name": "Hugo",
+        "description": "Hugo-palkinto on vuosittain jaettava tieteis- ja fantasiakirjallisuuden palkinto. Palkinto on nimetty Hugo Gernsbackin mukaan. Palkinnot jaetaan useissa eri luokissa. Palkinnon voittajat valitaan vuosittain World Science Fiction Convention -tapahtuman yhteydessä. Palkintojenjakoseremonia on WorldConin päätapahtuma ja sen jäsenet valitsevat sekä voittajan että ehdokkaat Hugo-palkinnon saajaksi. Hugo-palkintoja on jaettu vuodesta 1953 lähtien. ",
+        "domestic": false
+      },
+      {
+        "categories": [],
+        "id": 31,
+        "name": "Imaginaire",
+        "description": "Imaginaire myönnetään vuoden parhaille Ranskassa julkaistulle kirjoille ja novelleille.",
+        "domestic": false
+      },
+      {
+        "categories": [
+          {
+            "id": 12,
+            "name": "Elämäntyöpalkinto",
+            "type": 0
+          }
+        ],
+        "id": 18,
+        "name": "Kosmoskynä",
+        "description": "Suomen Tieteiskirjoittajat ry myöntää Kosmoskynä-palkinnon henkilölle, jonka on katsottu ansiokkaasti edistäneen suomalaista tieteiskirjallisuutta. ",
+        "domestic": true
+      },
+      {
+        "categories": [],
+        "id": 32,
+        "name": "Kurd Lasswitz",
+        "description": "Kurd Lasswitz -palkinto myönnetään parhaille Saksassa myönnetyille kirjoille ja novelleille.",
+        "domestic": false
+      },
+      {
+        "categories": [
+          {
+            "id": 1,
+            "name": "Paras romaani",
+            "type": 1
+          }
+        ],
+        "id": 15,
+        "name": "Kuvastaja",
+        "description": "Suomen Tolkien-seura Kontu ry jakaa vuosittain Kuvastaja-palkinnon edellisen vuoden parhaalle suomalaiselle fantasiakirjalle. Ensimmäisen kerran se jaettiin vuonna 2001.",
+        "domestic": true
+      },
+      {
+        "categories": [
+          {
+            "id": 1,
+            "name": "Paras romaani",
+            "type": 1
+          },
+          {
+            "id": 2,
+            "name": "Paras scifi-romaani",
+            "type": 1
+          },
+          {
+            "id": 3,
+            "name": "Paras fantasiaromaani",
+            "type": 1
+          },
+          {
+            "id": 4,
+            "name": "Paras kauhuromaani",
+            "type": 1
+          },
+          {
+            "id": 5,
+            "name": "Paras kokoelma",
+            "type": 1
+          },
+          {
+            "id": 6,
+            "name": "Paras antologia",
+            "type": 1
+          },
+          {
+            "id": 7,
+            "name": "Paras ensiromaani",
+            "type": 1
+          },
+          {
+            "id": 8,
+            "name": "Paras nuortenkirja",
+            "type": 1
+          },
+          {
+            "id": 9,
+            "name": "Paras novelli",
+            "type": 2
+          },
+          {
+            "id": 10,
+            "name": "Paras pienoisromaani",
+            "type": 1
+          },
+          {
+            "id": 11,
+            "name": "Paras pitkä novelli",
+            "type": 2
+          }
+        ],
+        "id": 4,
+        "name": "Locus",
+        "description": "Locus-palkinto on Locus-lehden myöntämä palkinto. Palkinnot jaetaan lehden lukijoiden kyselyn perusteella.",
+        "domestic": false
+      },
+      {
+        "categories": [
+          {
+            "id": 1,
+            "name": "Paras romaani",
+            "type": 1
+          },
+          {
+            "id": 8,
+            "name": "Paras nuortenkirja",
+            "type": 1
+          }
+        ],
+        "id": 21,
+        "name": "Mythopoeic",
+        "description": "Mythopoeic Society on jakanut fantasiaan ja myytteihin liittyviä kirjallisuus- ja kirjallisuuden tutkimuksen palkintoja vuodesta 1971 lähtien. Kirjallisuuspalkinto jaetaan erikseen sekä aikuisten fantasialle, että lasten ja nuorten fantasialle.",
+        "domestic": false
+      },
+      {
+        "categories": [
+          {
+            "id": 1,
+            "name": "Paras romaani",
+            "type": 1
+          },
+          {
+            "id": 9,
+            "name": "Paras novelli",
+            "type": 2
+          },
+          {
+            "id": 10,
+            "name": "Paras pienoisromaani",
+            "type": 1
+          },
+          {
+            "id": 11,
+            "name": "Paras pitkä novelli",
+            "type": 2
+          }
+        ],
+        "id": 3,
+        "name": "Nebula",
+        "description": "Nebula-palkinto on Science Fiction and Fantasy Writers of American (SFWA) vuosittain jakama palkinto parhaasta Yhdysvalloissa kahden edellisen vuoden aikana julkaistusta tieteis- tai fantasiakirjasta. Palkinto on läpinäkyvä palkki, jossa on kuvattuna kimaltava spiraalitähtisumu eli nebula. Palkintoon ei sisälly rahaa. Nebula-palkintoa pidetään Hugo-palkinnon ohella merkittävimpänä yhdysvaltalaisen tieteiskirjallisuuden palkintona.",
+        "domestic": false
+      },
+      {
+        "categories": [
+          {
+            "id": 12,
+            "name": "Elämäntyöpalkinto",
+            "type": 0
+          }
+        ],
+        "id": 25,
+        "name": "Nobelin kirjallisuuspalkinto",
+        "description": "Nobelin kirjallisuuspalkinto on yksi viidestä alkuperäisestä Nobel-palkinnosta ja se on maailman arvostetuin kirjallisuuspalkinto. Ruotsin akatemia on myöntänyt sen ansioituneille kirjailijoille vuodesta 1901 alkaen. Alfred Nobelin testamentin mukaan kirjallisuuspalkinnolla tulee palkita teoksia, joissa on \"ihanteellinen tendenssi\".",
+        "domestic": false
+      },
+      {
+        "categories": [
+          {
+            "id": 9,
+            "name": "Paras novelli",
+            "type": 2
+          }
+        ],
+        "id": 17,
+        "name": "Nova-novellikilpailu",
+        "description": "Nova on aloitteleville kirjoittajille suunnattu palautteellinen science fiction- ja fantasianovellien kirjoituskilpailu. Kilpailun tarkoituksena on auttaa osallistujia kehittymään kirjoittajina ja nostaa sf/f-kirjoittajakenttään uusia nimiä. Kisa on tarkoitettu kirjoittajille, jotka eivät ole vielä julkaisseet omaa kaunokirjallista teostaan (julkaisut antologiassa tai omakustanteet eivät ole este osallistumiselle).",
+        "domestic": true
+      },
+      {
+        "categories": [
+          {
+            "id": 1,
+            "name": "Paras romaani",
+            "type": 1
+          }
+        ],
+        "id": 11,
+        "name": "Philip K. Dick Award",
+        "description": "Philip K. Dick-palkinto myönnetään parhaalle alunperin pehmeäkantisena Yhdysvalloissa ilmestyneelle kirjalle. Palkinnon myöntää Philadelpia Science Fiction Society.",
+        "domestic": false
+      },
+      {
+        "categories": [
+          {
+            "id": 9,
+            "name": "Paras novelli",
+            "type": 2
+          }
+        ],
+        "id": 16,
+        "name": "Portin novellikilpailu",
+        "description": "Tampereen Science Fiction Seura ry:n jakama palkinto annetaan vuoden parhaalle kotimaiselle tieteis- tai fantasianovellille.",
+        "domestic": true
+      },
+      {
+        "categories": [],
+        "id": 33,
+        "name": "Premio Ignotus",
+        "description": "Premio Ignotus myönnetään parhaille edellisenä vuonna Espanjassa julkaistuille teoksille ja novelleille.",
+        "domestic": false
+      },
+      {
+        "categories": [],
+        "id": 30,
+        "name": "Retro Hugo",
+        "description": "Retro Hugo-palkinto myönnetään retrospektiivisesti parhaalle sf-romaanille sellaisina vuosina, kun Hugoja ei myönnetty.",
+        "domestic": false
+      },
+      {
+        "categories": [
+          {
+            "id": 1,
+            "name": "Paras romaani",
+            "type": 1
+          },
+          {
+            "id": 9,
+            "name": "Paras novelli",
+            "type": 2
+          },
+          {
+            "id": 12,
+            "name": "Elämäntyöpalkinto",
+            "type": 0
+          }
+        ],
+        "id": 7,
+        "name": "Sidewise",
+        "description": "Sidewise-palkinto vaihtoehtoiselle historialle on 1995 perustettu palkinto tunnustuksena vuoden parhaille vaihtoehtoisen historian teoksille.",
+        "domestic": false
+      },
+      {
+        "categories": [
+          {
+            "id": 12,
+            "name": "Elämäntyöpalkinto",
+            "type": 0
+          }
+        ],
+        "id": 9,
+        "name": "Skylark",
+        "description": "Edward E. Smith Memorial Award for Imaginative Fiction tai Skylark-palkinto myönnetään elämäntyöstä science fictionin parissa. Palkinnon myöntää NESFA.",
+        "domestic": false
+      },
+      {
+        "categories": [
+          {
+            "id": 1,
+            "name": "Paras romaani",
+            "type": 1
+          }
+        ],
+        "id": 14,
+        "name": "Tähtifantasia",
+        "description": "Helsingin Science Fiction Seura ry:n jakama palkinto annetaan edellisvuoden parhaalle Suomessa ilmestyneelle fantasiakirjalle.",
+        "domestic": true
+      },
+      {
+        "categories": [
+          {
+            "id": 1,
+            "name": "Paras romaani",
+            "type": 1
+          }
+        ],
+        "id": 8,
+        "name": "Tähtivaeltaja",
+        "description": "Tähtivaeltaja-palkinto on Tähtivaeltaja-lehteä julkaisevan Helsingin Science Fiction Seuran jakama palkinto vuoden parhaasta suomeksi ilmestyneestä tieteiskirjasta.",
+        "domestic": true
+      },
+      {
+        "categories": [
+          {
+            "id": 9,
+            "name": "Paras novelli",
+            "type": 2
+          }
+        ],
+        "id": 12,
+        "name": "Theodore Sturgeon Award",
+        "description": "Theodore Sturgeon-palkinto myönnetään vuoden parhaalle novellille. Palkinnon myöntää Kansasin yliopiston Center for the Study of Science Fiction.",
+        "domestic": false
+      },
+      {
+        "categories": [
+          {
+            "id": 8,
+            "name": "Paras nuortenkirja",
+            "type": 1
+          }
+        ],
+        "id": 23,
+        "name": "Topelius-palkinto",
+        "description": "Topelius-palkinto on suomalainen kirjallisuuspalkinto, jonka perusti vuonna 1946 Nuorten Kirja ry (nykyisin Suomen Nuorisokirjailijat ry). Palkinnon tarkoituksena on lisätä lasten- ja nuortenkirjojen arvostusta. Palkinto myönnetään vuosittain korkeatasoisesta nuortenkirjasta.",
+        "domestic": true
+      },
+      {
+        "categories": [],
+        "id": 34,
+        "name": "WHC Grand Master",
+        "description": "World Horror Convention Grand Master on vuodesta 1991 lähtien myönnetty elämäntyöpalkinto.",
+        "domestic": false
+      },
+      {
+        "categories": [
+          {
+            "id": 1,
+            "name": "Paras romaani",
+            "type": 1
+          },
+          {
+            "id": 5,
+            "name": "Paras kokoelma",
+            "type": 1
+          },
+          {
+            "id": 6,
+            "name": "Paras antologia",
+            "type": 1
+          },
+          {
+            "id": 9,
+            "name": "Paras novelli",
+            "type": 2
+          },
+          {
+            "id": 10,
+            "name": "Paras pienoisromaani",
+            "type": 1
+          },
+          {
+            "id": 12,
+            "name": "Elämäntyöpalkinto",
+            "type": 0
+          }
+        ],
+        "id": 19,
+        "name": "World Fantasy Award",
+        "description": "World Fantasy Award on kirjallisuuspalkinto, joka jaetaan joka vuosi tunnustuksena huomattavasta aikaansaannoksesta fantasiakirjallisuuden alalla.",
+        "domestic": false
+      }
+    ],
+    "error": null
+  }
+}

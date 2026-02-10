@@ -1,0 +1,26 @@
+# Test Results (auto-generated, don't version)
+results/test_results.json
+results/history/
+
+# Benchmark Results (keep best_results.json, ignore run results)
+benchmark/results/
+
+# Golden database (large file, version separately)
+fixtures/golden_db.sql
+
+# Coverage reports
+htmlcov/
+.coverage
+coverage.xml
+
+# Pytest cache
+.pytest_cache/
+__pycache__/
+*.pyc
+
+# IDE
+.idea/
+.vscode/
+
+# Local test config
+.env.test

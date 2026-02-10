@@ -1,0 +1,307 @@
+{
+  "metadata": {
+    "generated_at": "2026-02-10T21:41:46.375456+00:00",
+    "generator": "update_snapshots.py",
+    "total_endpoints": 37,
+    "endpoint": "/api/people/1",
+    "method": "GET",
+    "status_code": 200
+  },
+  "response": {
+    "status_code": 200,
+    "data": {
+      "id": 1,
+      "name": "Unsworth, Barry",
+      "alt_name": "Barry Unsworth",
+      "fullname": "Barry Forster Unsworth",
+      "other_names": null,
+      "dob": 1930,
+      "dod": 2012,
+      "bio": null,
+      "bio_src": "",
+      "nationality": {
+        "id": 1,
+        "name": "Iso-Britannia"
+      },
+      "real_names": [],
+      "aliases": [],
+      "links": [
+        {
+          "id": 15698,
+          "link": "https://en.wikipedia.org/wiki/Barry_Unsworth",
+          "description": "Wikipedia"
+        },
+        {
+          "id": 15699,
+          "link": "http://www.isfdb.org/cgi-bin/ea.cgi?19725",
+          "description": "isfdb.org"
+        },
+        {
+          "id": 15700,
+          "link": "https://www.risingshadow.fi/library/author/926-barry-unsworth",
+          "description": "Risingshadow"
+        },
+        {
+          "id": 15701,
+          "link": "https://www.goodreads.com/author/show/3101.Barry_Unsworth",
+          "description": "Goodreads"
+        },
+        {
+          "id": 15702,
+          "link": "https://www.librarything.com/author/unsworthbarry",
+          "description": "Librarything"
+        }
+      ],
+      "works": [
+        {
+          "id": 1,
+          "title": "Kivineitsyt",
+          "orig_title": "Stone Virgin",
+          "author_str": "Unsworth, Barry",
+          "pubyear": 1985,
+          "bookseriesnum": "",
+          "contributions": [
+            {
+              "person": {
+                "id": 1.0,
+                "name": "Unsworth, Barry",
+                "alt_name": "Barry Unsworth"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": null,
+              "real_person": null
+            }
+          ],
+          "editions": [
+            {
+              "id": 1,
+              "title": "Kivineitsyt",
+              "pubyear": 1986,
+              "publisher": {
+                "id": 387,
+                "name": "WSOY"
+              },
+              "images": [
+                {
+                  "id": 8002,
+                  "image_src": "/static/images/books/Unsworth_Barry_Kivineitsyt_1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "pubseries": null,
+              "work": [
+                {
+                  "id": 1,
+                  "title": "Kivineitsyt",
+                  "author_str": "Unsworth, Barry",
+                  "orig_title": "Stone Virgin",
+                  "pubyear": 1985,
+                  "editions": [
+                    {
+                      "id": 1,
+                      "title": "Kivineitsyt",
+                      "work": {}
+                    }
+                  ],
+                  "genres": [
+                    {
+                      "id": 1,
+                      "name": "Fantasia",
+                      "abbr": "F"
+                    }
+                  ],
+                  "bookseries": null,
+                  "tags": [],
+                  "contributions": [
+                    {
+                      "description": null,
+                      "person": {
+                        "id": 1.0,
+                        "name": "Unsworth, Barry",
+                        "alt_name": "Barry Unsworth"
+                      },
+                      "role": {
+                        "id": 1,
+                        "name": "Kirjoittaja"
+                      }
+                    }
+                  ],
+                  "language_name": {
+                    "id": 1,
+                    "name": "englanti"
+                  },
+                  "work_type": {
+                    "id": 1,
+                    "name": "Romaani"
+                  }
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 2.0,
+                    "name": "Buffa, Aira",
+                    "alt_name": "Aira Buffa",
+                    "fullname": ""
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "owners": [],
+              "wishlisted": [],
+              "subtitle": "",
+              "editionnum": 1,
+              "version": null,
+              "isbn": "951-0-13801-0",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 390,
+              "size": 21,
+              "dustcover": 3,
+              "coverimage": 1,
+              "misc": "",
+              "imported_string": "\n<b>Kivineitsyt</b>. (Stone Virgin, 1985). Suom Aira Buffa. WSOY 1986. [F].",
+              "verified": false
+            }
+          ],
+          "genres": [
+            {
+              "id": 1,
+              "name": "Fantasia",
+              "abbr": "F"
+            }
+          ],
+          "bookseries": null,
+          "tags": [],
+          "language_name": {
+            "id": 1,
+            "name": "englanti"
+          },
+          "type": 1.0,
+          "work_type": {
+            "id": 1,
+            "name": "Romaani"
+          }
+        }
+      ],
+      "stories": [],
+      "edits": [],
+      "editions": [
+        {
+          "id": 1,
+          "title": "Kivineitsyt",
+          "pubyear": 1986,
+          "publisher": {
+            "id": 387,
+            "name": "WSOY"
+          },
+          "images": [
+            {
+              "id": 8002,
+              "image_src": "/static/images/books/Unsworth_Barry_Kivineitsyt_1p.jpg",
+              "image_attr": null
+            }
+          ],
+          "pubseries": null,
+          "work": [
+            {
+              "id": 1,
+              "title": "Kivineitsyt",
+              "author_str": "Unsworth, Barry",
+              "orig_title": "Stone Virgin",
+              "pubyear": 1985,
+              "editions": [
+                {
+                  "id": 1,
+                  "title": "Kivineitsyt",
+                  "work": {}
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "contributions": [
+                {
+                  "description": null,
+                  "person": {
+                    "id": 1.0,
+                    "name": "Unsworth, Barry",
+                    "alt_name": "Barry Unsworth"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  }
+                }
+              ],
+              "language_name": {
+                "id": 1,
+                "name": "englanti"
+              },
+              "work_type": {
+                "id": 1,
+                "name": "Romaani"
+              }
+            }
+          ],
+          "contributions": [
+            {
+              "person": {
+                "id": 2.0,
+                "name": "Buffa, Aira",
+                "alt_name": "Aira Buffa",
+                "fullname": ""
+              },
+              "role": {
+                "id": 2,
+                "name": "Kääntäjä"
+              },
+              "description": null,
+              "real_person": null
+            }
+          ],
+          "owners": [],
+          "wishlisted": [],
+          "subtitle": "",
+          "editionnum": 1,
+          "version": null,
+          "isbn": "951-0-13801-0",
+          "printedin": null,
+          "pubseriesnum": null,
+          "coll_info": "",
+          "pages": 390,
+          "size": 21,
+          "dustcover": 3,
+          "coverimage": 1,
+          "misc": "",
+          "imported_string": "\n<b>Kivineitsyt</b>. (Stone Virgin, 1985). Suom Aira Buffa. WSOY 1986. [F].",
+          "verified": false
+        }
+      ],
+      "chief_editor": [],
+      "personal_awards": [],
+      "awarded": [],
+      "first_name": "Barry (Forster)",
+      "last_name": "Unsworth",
+      "image_src": null,
+      "image_attr": "",
+      "imported_string": null
+    },
+    "error": null
+  }
+}

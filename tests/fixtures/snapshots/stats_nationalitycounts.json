@@ -1,0 +1,1497 @@
+{
+  "metadata": {
+    "generated_at": "2026-02-10T21:41:46.375456+00:00",
+    "generator": "update_snapshots.py",
+    "total_endpoints": 37,
+    "endpoint": "/api/stats/nationalitycounts",
+    "method": "GET",
+    "status_code": 200
+  },
+  "response": {
+    "status_code": 200,
+    "data": [
+      {
+        "nationality_id": 4,
+        "nationality": "Suomi",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 334,
+            "Kääntäjä": 509,
+            "Toimittaja": 92,
+            "Kansikuva": 249,
+            "Kuvittaja": 54
+          },
+          "K": {
+            "Kirjoittaja": 104,
+            "Kääntäjä": 247,
+            "Toimittaja": 65,
+            "Kansikuva": 136,
+            "Kuvittaja": 23,
+            "Esiintyy": 2
+          },
+          "Paleof": {
+            "Kirjoittaja": 7,
+            "Kääntäjä": 29,
+            "Kansikuva": 15,
+            "Kuvittaja": 1
+          },
+          "PF": {
+            "Kirjoittaja": 23,
+            "Kääntäjä": 64,
+            "Kansikuva": 27
+          },
+          "SF": {
+            "Kirjoittaja": 317,
+            "Kääntäjä": 474,
+            "Toimittaja": 91,
+            "Kansikuva": 281,
+            "Kuvittaja": 27
+          },
+          "VEH": {
+            "Kirjoittaja": 24,
+            "Kääntäjä": 27,
+            "Toimittaja": 2,
+            "Kansikuva": 30,
+            "Kuvittaja": 1
+          },
+          "Utopia": {
+            "Kirjoittaja": 1,
+            "Kääntäjä": 8,
+            "Toimittaja": 1,
+            "Kansikuva": 1
+          },
+          "nF": {
+            "Kirjoittaja": 160,
+            "Kääntäjä": 220,
+            "Toimittaja": 2,
+            "Kansikuva": 137,
+            "Kuvittaja": 42
+          },
+          "nSF": {
+            "Kirjoittaja": 82,
+            "Kääntäjä": 104,
+            "Kansikuva": 68,
+            "Kuvittaja": 18
+          },
+          "nK": {
+            "Kirjoittaja": 19,
+            "Kääntäjä": 37,
+            "Toimittaja": 3,
+            "Kansikuva": 18,
+            "Kuvittaja": 7
+          },
+          "lSF": {
+            "Kirjoittaja": 12,
+            "Kääntäjä": 3,
+            "Kansikuva": 12,
+            "Kuvittaja": 9
+          },
+          "satu": {
+            "Kirjoittaja": 2,
+            "Kääntäjä": 2,
+            "Toimittaja": 1,
+            "Kansikuva": 2,
+            "Kuvittaja": 2
+          },
+          "eiSF": {
+            "Kirjoittaja": 6,
+            "Kääntäjä": 33,
+            "Toimittaja": 1,
+            "Kansikuva": 18
+          },
+          "rajatap": {
+            "Kirjoittaja": 21,
+            "Kääntäjä": 82,
+            "Kansikuva": 31,
+            "Kuvittaja": 3
+          },
+          "lasten kuvakirja": {
+            "Kirjoittaja": 1,
+            "Kääntäjä": 7,
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "kok": {
+            "Kirjoittaja": 114,
+            "Kääntäjä": 236,
+            "Toimittaja": 138,
+            "Kansikuva": 166,
+            "Kuvittaja": 49
+          },
+          "lF": {
+            "Kirjoittaja": 71,
+            "Kääntäjä": 91,
+            "Kansikuva": 84,
+            "Kuvittaja": 60
+          },
+          "R": {
+            "Kirjoittaja": 10,
+            "Kääntäjä": 10,
+            "Toimittaja": 5,
+            "Kansikuva": 15,
+            "Kuvittaja": 6
+          }
+        },
+        "count": 2574
+      },
+      {
+        "nationality_id": 3,
+        "nationality": "Yhdysvallat",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 200,
+            "Toimittaja": 4,
+            "Kansikuva": 64,
+            "Kuvittaja": 14,
+            "Esiintyy": 1
+          },
+          "K": {
+            "Kirjoittaja": 83,
+            "Toimittaja": 14,
+            "Kansikuva": 9,
+            "Kuvittaja": 5
+          },
+          "Paleof": {
+            "Kirjoittaja": 7,
+            "Kansikuva": 2
+          },
+          "PF": {
+            "Kirjoittaja": 30,
+            "Kansikuva": 3
+          },
+          "SF": {
+            "Kirjoittaja": 234,
+            "Toimittaja": 6,
+            "Kansikuva": 50,
+            "Kuvittaja": 12
+          },
+          "VEH": {
+            "Kirjoittaja": 12,
+            "Toimittaja": 1,
+            "Kansikuva": 3
+          },
+          "Utopia": {
+            "Kirjoittaja": 3
+          },
+          "nF": {
+            "Kirjoittaja": 94,
+            "Kansikuva": 38,
+            "Kuvittaja": 22
+          },
+          "nSF": {
+            "Kirjoittaja": 48,
+            "Kansikuva": 12,
+            "Kuvittaja": 4
+          },
+          "nK": {
+            "Kirjoittaja": 10,
+            "Kansikuva": 1
+          },
+          "lSF": {
+            "Kirjoittaja": 1
+          },
+          "eiSF": {
+            "Kirjoittaja": 14,
+            "Toimittaja": 1,
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "rajatap": {
+            "Kirjoittaja": 20,
+            "Kansikuva": 1
+          },
+          "lasten kuvakirja": {
+            "Kirjoittaja": 2
+          },
+          "kok": {
+            "Kirjoittaja": 47,
+            "Toimittaja": 22,
+            "Kansikuva": 3,
+            "Kuvittaja": 2
+          },
+          "lF": {
+            "Kirjoittaja": 24,
+            "Toimittaja": 1,
+            "Kansikuva": 10,
+            "Kuvittaja": 10
+          },
+          "R": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 812
+      },
+      {
+        "nationality_id": 1,
+        "nationality": "Iso-Britannia",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 140,
+            "Toimittaja": 2,
+            "Kansikuva": 40,
+            "Kuvittaja": 15,
+            "Esiintyy": 1
+          },
+          "K": {
+            "Kirjoittaja": 47,
+            "Toimittaja": 3,
+            "Kansikuva": 3,
+            "Kuvittaja": 1
+          },
+          "Paleof": {
+            "Kirjoittaja": 3,
+            "Kansikuva": 3
+          },
+          "PF": {
+            "Kirjoittaja": 16,
+            "Kansikuva": 1
+          },
+          "SF": {
+            "Kirjoittaja": 118,
+            "Toimittaja": 1,
+            "Kansikuva": 17,
+            "Kuvittaja": 4
+          },
+          "VEH": {
+            "Kirjoittaja": 7,
+            "Kansikuva": 3,
+            "Kuvittaja": 1
+          },
+          "Utopia": {
+            "Kirjoittaja": 6,
+            "Kansikuva": 1
+          },
+          "nF": {
+            "Kirjoittaja": 96,
+            "Kansikuva": 56,
+            "Kuvittaja": 42
+          },
+          "nSF": {
+            "Kirjoittaja": 19,
+            "Kansikuva": 8,
+            "Kuvittaja": 4
+          },
+          "nK": {
+            "Kirjoittaja": 9,
+            "Toimittaja": 1,
+            "Kuvittaja": 5
+          },
+          "lSF": {
+            "Kirjoittaja": 2,
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "satu": {
+            "Kirjoittaja": 3,
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "eiSF": {
+            "Kirjoittaja": 3,
+            "Toimittaja": 1,
+            "Kansikuva": 1,
+            "Kuvittaja": 2
+          },
+          "rajatap": {
+            "Kirjoittaja": 20,
+            "Kansikuva": 3,
+            "Kuvittaja": 2
+          },
+          "lasten kuvakirja": {
+            "Kirjoittaja": 2,
+            "Kansikuva": 3,
+            "Kuvittaja": 3
+          },
+          "kok": {
+            "Kirjoittaja": 27,
+            "Toimittaja": 3,
+            "Kansikuva": 6,
+            "Kuvittaja": 1
+          },
+          "lF": {
+            "Kirjoittaja": 31,
+            "Toimittaja": 2,
+            "Kansikuva": 28,
+            "Kuvittaja": 27
+          },
+          "R": {
+            "Kirjoittaja": 2,
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          }
+        },
+        "count": 545
+      },
+      {
+        "nationality_id": null,
+        "nationality": null,
+        "genres": {
+          "F": {
+            "Kirjoittaja": 11,
+            "Kääntäjä": 1,
+            "Kansikuva": 30,
+            "Kuvittaja": 8,
+            "Esiintyy": 1
+          },
+          "K": {
+            "Kirjoittaja": 3,
+            "Kääntäjä": 2,
+            "Toimittaja": 1,
+            "Kansikuva": 7,
+            "Kuvittaja": 2
+          },
+          "Paleof": {
+            "Kansikuva": 2
+          },
+          "PF": {
+            "Kirjoittaja": 2,
+            "Kääntäjä": 1,
+            "Kansikuva": 1
+          },
+          "SF": {
+            "Kirjoittaja": 8,
+            "Kääntäjä": 4,
+            "Toimittaja": 1,
+            "Kansikuva": 30,
+            "Kuvittaja": 4
+          },
+          "VEH": {
+            "Kirjoittaja": 1,
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "nF": {
+            "Kirjoittaja": 6,
+            "Kansikuva": 26,
+            "Kuvittaja": 10
+          },
+          "nSF": {
+            "Kirjoittaja": 2,
+            "Kansikuva": 8,
+            "Kuvittaja": 2
+          },
+          "nK": {
+            "Kirjoittaja": 1,
+            "Kansikuva": 3,
+            "Kuvittaja": 10
+          },
+          "lSF": {
+            "Kirjoittaja": 1
+          },
+          "rajatap": {
+            "Kirjoittaja": 3
+          },
+          "kok": {
+            "Kirjoittaja": 4,
+            "Kääntäjä": 1,
+            "Toimittaja": 2,
+            "Kansikuva": 7
+          },
+          "lF": {
+            "Kirjoittaja": 2,
+            "Toimittaja": 1,
+            "Kansikuva": 4,
+            "Kuvittaja": 3
+          },
+          "R": {
+            "Kansikuva": 1
+          }
+        },
+        "count": 158
+      },
+      {
+        "nationality_id": 5,
+        "nationality": "Ruotsi",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 19,
+            "Kansikuva": 2,
+            "Esiintyy": 1
+          },
+          "K": {
+            "Kirjoittaja": 13,
+            "Kansikuva": 2,
+            "Kuvittaja": 1
+          },
+          "Paleof": {
+            "Kirjoittaja": 1
+          },
+          "PF": {
+            "Kirjoittaja": 1
+          },
+          "SF": {
+            "Kirjoittaja": 17,
+            "Kansikuva": 1,
+            "Kuvittaja": 2
+          },
+          "VEH": {
+            "Kirjoittaja": 2,
+            "Kuvittaja": 2
+          },
+          "nF": {
+            "Kirjoittaja": 27,
+            "Kansikuva": 14,
+            "Kuvittaja": 12
+          },
+          "nSF": {
+            "Kirjoittaja": 12,
+            "Kansikuva": 2,
+            "Kuvittaja": 2
+          },
+          "nK": {
+            "Kirjoittaja": 3,
+            "Kansikuva": 3,
+            "Kuvittaja": 2
+          },
+          "satu": {
+            "Kirjoittaja": 1
+          },
+          "rajatap": {
+            "Kirjoittaja": 3
+          },
+          "lasten kuvakirja": {
+            "Kuvittaja": 1
+          },
+          "kok": {
+            "Kirjoittaja": 7,
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "lF": {
+            "Kirjoittaja": 4,
+            "Kansikuva": 5,
+            "Kuvittaja": 5
+          },
+          "R": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 106
+      },
+      {
+        "nationality_id": 11,
+        "nationality": "Saksa",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 22,
+            "Kansikuva": 2,
+            "Kuvittaja": 1,
+            "Esiintyy": 2
+          },
+          "K": {
+            "Kirjoittaja": 3,
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "SF": {
+            "Kirjoittaja": 22,
+            "Kansikuva": 2
+          },
+          "nF": {
+            "Kirjoittaja": 17,
+            "Kansikuva": 13,
+            "Kuvittaja": 13
+          },
+          "nSF": {
+            "Kirjoittaja": 3,
+            "Kuvittaja": 1
+          },
+          "satu": {
+            "Kirjoittaja": 2
+          },
+          "rajatap": {
+            "Kirjoittaja": 6,
+            "Kansikuva": 1
+          },
+          "kok": {
+            "Kirjoittaja": 2,
+            "Kuvittaja": 1
+          },
+          "lF": {
+            "Kirjoittaja": 5,
+            "Kansikuva": 5,
+            "Kuvittaja": 5
+          }
+        },
+        "count": 90
+      },
+      {
+        "nationality_id": 8,
+        "nationality": "Ranska",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 19,
+            "Kansikuva": 5,
+            "Kuvittaja": 3,
+            "Esiintyy": 4
+          },
+          "K": {
+            "Kirjoittaja": 4,
+            "Kansikuva": 2,
+            "Kuvittaja": 2
+          },
+          "Paleof": {
+            "Kirjoittaja": 1
+          },
+          "PF": {
+            "Kirjoittaja": 2
+          },
+          "SF": {
+            "Kirjoittaja": 22,
+            "Kansikuva": 3,
+            "Kuvittaja": 3
+          },
+          "nF": {
+            "Kirjoittaja": 3,
+            "Kansikuva": 3,
+            "Kuvittaja": 2
+          },
+          "nSF": {
+            "Kirjoittaja": 4,
+            "Kansikuva": 1
+          },
+          "nK": {
+            "Kirjoittaja": 2,
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "lSF": {
+            "Kirjoittaja": 1
+          },
+          "eiSF": {
+            "Kirjoittaja": 1,
+            "Kuvittaja": 1
+          },
+          "rajatap": {
+            "Kirjoittaja": 4,
+            "Kuvittaja": 1
+          },
+          "lasten kuvakirja": {
+            "Kirjoittaja": 1
+          },
+          "kok": {
+            "Kirjoittaja": 4,
+            "Kansikuva": 2
+          },
+          "lF": {
+            "Kirjoittaja": 2
+          },
+          "R": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 74
+      },
+      {
+        "nationality_id": 31,
+        "nationality": "Tanska",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 12,
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "K": {
+            "Kirjoittaja": 1
+          },
+          "Paleof": {
+            "Kirjoittaja": 1
+          },
+          "SF": {
+            "Kirjoittaja": 10,
+            "Kuvittaja": 1
+          },
+          "VEH": {
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "Utopia": {
+            "Kirjoittaja": 1
+          },
+          "nF": {
+            "Kirjoittaja": 11,
+            "Kansikuva": 4,
+            "Kuvittaja": 3
+          },
+          "nSF": {
+            "Kirjoittaja": 3,
+            "Kansikuva": 2,
+            "Kuvittaja": 2
+          },
+          "rajatap": {
+            "Kirjoittaja": 2
+          },
+          "kok": {
+            "Kirjoittaja": 4
+          }
+        },
+        "count": 41
+      },
+      {
+        "nationality_id": 12,
+        "nationality": "Kanada",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 13,
+            "Kansikuva": 4,
+            "Kuvittaja": 3
+          },
+          "K": {
+            "Kirjoittaja": 1
+          },
+          "Paleof": {
+            "Kirjoittaja": 1
+          },
+          "SF": {
+            "Kirjoittaja": 9,
+            "Kansikuva": 1
+          },
+          "VEH": {
+            "Kirjoittaja": 2
+          },
+          "nF": {
+            "Kirjoittaja": 7,
+            "Kansikuva": 4,
+            "Kuvittaja": 4
+          },
+          "nSF": {
+            "Kirjoittaja": 2
+          },
+          "rajatap": {
+            "Kirjoittaja": 3
+          },
+          "kok": {
+            "Kirjoittaja": 2
+          },
+          "lF": {
+            "Kansikuva": 1
+          }
+        },
+        "count": 40
+      },
+      {
+        "nationality_id": 7,
+        "nationality": "Neuvostoliitto",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 10
+          },
+          "Paleof": {
+            "Kirjoittaja": 2,
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "PF": {
+            "Kirjoittaja": 2
+          },
+          "SF": {
+            "Kirjoittaja": 14,
+            "Kääntäjä": 6,
+            "Toimittaja": 1,
+            "Kuvittaja": 3
+          },
+          "nF": {
+            "Kirjoittaja": 1,
+            "Kääntäjä": 1
+          },
+          "nSF": {
+            "Kirjoittaja": 3,
+            "Kääntäjä": 1
+          },
+          "rajatap": {
+            "Kirjoittaja": 2
+          },
+          "kok": {
+            "Kirjoittaja": 5,
+            "Kääntäjä": 4,
+            "Kuvittaja": 1
+          }
+        },
+        "count": 39
+      },
+      {
+        "nationality_id": 14,
+        "nationality": "Australia",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 7,
+            "Kansikuva": 4,
+            "Kuvittaja": 1
+          },
+          "PF": {
+            "Kirjoittaja": 1
+          },
+          "SF": {
+            "Kirjoittaja": 4
+          },
+          "nF": {
+            "Kirjoittaja": 8,
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "nSF": {
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "nK": {
+            "Kirjoittaja": 1,
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "kok": {
+            "Kirjoittaja": 1,
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "lF": {
+            "Kirjoittaja": 3,
+            "Kansikuva": 3,
+            "Kuvittaja": 4
+          }
+        },
+        "count": 32
+      },
+      {
+        "nationality_id": 19,
+        "nationality": "Norja",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 4,
+            "Kansikuva": 2
+          },
+          "K": {
+            "Kirjoittaja": 1
+          },
+          "SF": {
+            "Kirjoittaja": 6,
+            "Kansikuva": 1
+          },
+          "nF": {
+            "Kirjoittaja": 7,
+            "Kansikuva": 1
+          },
+          "nSF": {
+            "Kirjoittaja": 3,
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "nK": {
+            "Kirjoittaja": 1
+          },
+          "kok": {
+            "Kirjoittaja": 1,
+            "Kansikuva": 1
+          },
+          "lF": {
+            "Kirjoittaja": 2,
+            "Kansikuva": 2,
+            "Kuvittaja": 2
+          }
+        },
+        "count": 24
+      },
+      {
+        "nationality_id": 37,
+        "nationality": "Italia",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 7,
+            "Kansikuva": 3,
+            "Esiintyy": 1
+          },
+          "SF": {
+            "Kirjoittaja": 4,
+            "Kuvittaja": 1
+          },
+          "nF": {
+            "Kirjoittaja": 2,
+            "Kansikuva": 5,
+            "Kuvittaja": 5
+          },
+          "eiSF": {
+            "Kirjoittaja": 1
+          },
+          "kok": {
+            "Kirjoittaja": 2
+          },
+          "lF": {
+            "Kirjoittaja": 1,
+            "Kansikuva": 2,
+            "Kuvittaja": 2
+          }
+        },
+        "count": 22
+      },
+      {
+        "nationality_id": 10,
+        "nationality": "Venäjä",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 5,
+            "Kansikuva": 2,
+            "Kuvittaja": 1,
+            "Esiintyy": 1
+          },
+          "K": {
+            "Kirjoittaja": 2,
+            "Kansikuva": 1
+          },
+          "SF": {
+            "Kirjoittaja": 9,
+            "Kansikuva": 2
+          },
+          "nSF": {
+            "Kuvittaja": 1
+          },
+          "kok": {
+            "Kirjoittaja": 2,
+            "Kansikuva": 1
+          }
+        },
+        "count": 18
+      },
+      {
+        "nationality_id": 15,
+        "nationality": "Espanja",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 5,
+            "Kansikuva": 3,
+            "Kuvittaja": 1
+          },
+          "K": {
+            "Kirjoittaja": 1,
+            "Kuvittaja": 1
+          },
+          "SF": {
+            "Kirjoittaja": 2
+          },
+          "nF": {
+            "Kirjoittaja": 1,
+            "Kansikuva": 3,
+            "Kuvittaja": 3
+          },
+          "nK": {
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "rajatap": {
+            "Kirjoittaja": 1
+          },
+          "kok": {
+            "Kirjoittaja": 1
+          },
+          "lF": {
+            "Kansikuva": 1
+          }
+        },
+        "count": 18
+      },
+      {
+        "nationality_id": 38,
+        "nationality": "Japani",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 8,
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "SF": {
+            "Kirjoittaja": 3,
+            "Kansikuva": 1
+          },
+          "rajatap": {
+            "Kirjoittaja": 2
+          },
+          "kok": {
+            "Kirjoittaja": 2,
+            "Kuvittaja": 1
+          },
+          "lF": {
+            "Kirjoittaja": 1,
+            "Kansikuva": 1,
+            "Kuvittaja": 2
+          }
+        },
+        "count": 17
+      },
+      {
+        "nationality_id": 27,
+        "nationality": "Irlanti",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 3,
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "K": {
+            "Kirjoittaja": 1
+          },
+          "SF": {
+            "Kirjoittaja": 3
+          },
+          "nF": {
+            "Kirjoittaja": 8
+          },
+          "nSF": {
+            "Kirjoittaja": 2
+          },
+          "kok": {
+            "Kirjoittaja": 2
+          },
+          "lF": {
+            "Kirjoittaja": 2
+          }
+        },
+        "count": 16
+      },
+      {
+        "nationality_id": 16,
+        "nationality": "Puola",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 6,
+            "Kansikuva": 3,
+            "Kuvittaja": 1,
+            "Esiintyy": 1
+          },
+          "PF": {
+            "Kirjoittaja": 1
+          },
+          "SF": {
+            "Kirjoittaja": 3,
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "nF": {
+            "Kirjoittaja": 3
+          },
+          "nSF": {
+            "Kirjoittaja": 1
+          },
+          "kok": {
+            "Kirjoittaja": 3,
+            "Kansikuva": 2,
+            "Kuvittaja": 1
+          }
+        },
+        "count": 13
+      },
+      {
+        "nationality_id": 2,
+        "nationality": "Viro",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 7,
+            "Kansikuva": 4,
+            "Kuvittaja": 1
+          },
+          "K": {
+            "Kansikuva": 1
+          },
+          "SF": {
+            "Kirjoittaja": 2,
+            "Kansikuva": 2
+          },
+          "Utopia": {
+            "Kansikuva": 1
+          },
+          "kok": {
+            "Kirjoittaja": 2,
+            "Kansikuva": 2,
+            "Kuvittaja": 1
+          },
+          "R": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 13
+      },
+      {
+        "nationality_id": 51,
+        "nationality": "Alankomaat",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 1,
+            "Kansikuva": 2
+          },
+          "nF": {
+            "Kirjoittaja": 2,
+            "Kansikuva": 2,
+            "Kuvittaja": 1
+          },
+          "nSF": {
+            "Kirjoittaja": 1
+          },
+          "SF": {
+            "Kansikuva": 2,
+            "Kuvittaja": 1
+          },
+          "K": {
+            "Kuvittaja": 1
+          },
+          "kok": {
+            "Kuvittaja": 1
+          }
+        },
+        "count": 11
+      },
+      {
+        "nationality_id": 13,
+        "nationality": "Itävalta",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 5
+          },
+          "K": {
+            "Kirjoittaja": 1
+          },
+          "SF": {
+            "Kirjoittaja": 2
+          },
+          "nF": {
+            "Kirjoittaja": 2,
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "nSF": {
+            "Kirjoittaja": 1
+          },
+          "rajatap": {
+            "Kirjoittaja": 2
+          },
+          "lF": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 11
+      },
+      {
+        "nationality_id": 26,
+        "nationality": "Argentiina",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 7,
+            "Kansikuva": 1
+          },
+          "K": {
+            "Kirjoittaja": 3
+          },
+          "SF": {
+            "Kirjoittaja": 1
+          },
+          "kok": {
+            "Kirjoittaja": 2
+          }
+        },
+        "count": 11
+      },
+      {
+        "nationality_id": 28,
+        "nationality": "Islanti",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 3
+          },
+          "SF": {
+            "Kirjoittaja": 1
+          },
+          "nF": {
+            "Kirjoittaja": 2,
+            "Kansikuva": 1
+          },
+          "lSF": {
+            "Kirjoittaja": 1,
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "lF": {
+            "Kirjoittaja": 1
+          },
+          "R": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 8
+      },
+      {
+        "nationality_id": 24,
+        "nationality": "Portugali",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 1,
+            "Kansikuva": 1
+          },
+          "SF": {
+            "Toimittaja": 4,
+            "Kansikuva": 1
+          },
+          "VEH": {
+            "Toimittaja": 3,
+            "Kansikuva": 1
+          }
+        },
+        "count": 7
+      },
+      {
+        "nationality_id": 36,
+        "nationality": "Kiina",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 1
+          },
+          "SF": {
+            "Kirjoittaja": 4,
+            "Kansikuva": 2
+          },
+          "VEH": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 7
+      },
+      {
+        "nationality_id": 35,
+        "nationality": "Uusi-Seelanti",
+        "genres": {
+          "SF": {
+            "Kirjoittaja": 3
+          },
+          "nF": {
+            "Kirjoittaja": 1,
+            "Kuvittaja": 1
+          },
+          "nSF": {
+            "Kirjoittaja": 1
+          },
+          "rajatap": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 6
+      },
+      {
+        "nationality_id": 20,
+        "nationality": "Meksiko",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 3,
+            "Kuvittaja": 1
+          },
+          "K": {
+            "Kirjoittaja": 1
+          },
+          "PF": {
+            "Kirjoittaja": 1
+          },
+          "SF": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 5
+      },
+      {
+        "nationality_id": 50,
+        "nationality": "Sveitsi",
+        "genres": {
+          "F": {
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "K": {
+            "Kansikuva": 1
+          },
+          "SF": {
+            "Kirjoittaja": 1
+          },
+          "lF": {
+            "Kuvittaja": 1
+          }
+        },
+        "count": 5
+      },
+      {
+        "nationality_id": 42,
+        "nationality": "Kolumbia",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 2,
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "kok": {
+            "Kirjoittaja": 1
+          },
+          "lF": {
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          }
+        },
+        "count": 5
+      },
+      {
+        "nationality_id": 9,
+        "nationality": "Belgia",
+        "genres": {
+          "Paleof": {
+            "Kirjoittaja": 1
+          },
+          "SF": {
+            "Kirjoittaja": 2
+          },
+          "nSF": {
+            "Kirjoittaja": 1
+          },
+          "lF": {
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          }
+        },
+        "count": 4
+      },
+      {
+        "nationality_id": 34,
+        "nationality": "Unkari",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 4
+          }
+        },
+        "count": 4
+      },
+      {
+        "nationality_id": 25,
+        "nationality": "Etelä-Afrikka",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 3
+          },
+          "PF": {
+            "Kirjoittaja": 1
+          },
+          "SF": {
+            "Kirjoittaja": 2
+          }
+        },
+        "count": 3
+      },
+      {
+        "nationality_id": 44,
+        "nationality": "Tsekki",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 1,
+            "Kansikuva": 1,
+            "Kuvittaja": 1
+          },
+          "VEH": {
+            "Kirjoittaja": 1
+          },
+          "kok": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 3
+      },
+      {
+        "nationality_id": 48,
+        "nationality": "Brasilia",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 1
+          },
+          "nSF": {
+            "Kansikuva": 1
+          }
+        },
+        "count": 2
+      },
+      {
+        "nationality_id": 49,
+        "nationality": "Kuuba",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 1
+          },
+          "nF": {
+            "Kansikuva": 1
+          }
+        },
+        "count": 2
+      },
+      {
+        "nationality_id": 47,
+        "nationality": "Chile",
+        "genres": {
+          "nF": {
+            "Kirjoittaja": 1
+          },
+          "nSF": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 2
+      },
+      {
+        "nationality_id": 6,
+        "nationality": "Hollanti",
+        "genres": {
+          "SF": {
+            "Kirjoittaja": 1
+          },
+          "nSF": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 2
+      },
+      {
+        "nationality_id": 33,
+        "nationality": "Nigeria",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 1
+          },
+          "nF": {
+            "Kansikuva": 1
+          }
+        },
+        "count": 2
+      },
+      {
+        "nationality_id": 67,
+        "nationality": "Kroatia",
+        "genres": {
+          "lF": {
+            "Kansikuva": 1,
+            "Kuvittaja": 2
+          }
+        },
+        "count": 2
+      },
+      {
+        "nationality_id": 23,
+        "nationality": "Tsekkoslovakia",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 1
+          },
+          "SF": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 2
+      },
+      {
+        "nationality_id": 21,
+        "nationality": "Intia",
+        "genres": {
+          "nF": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 1
+      },
+      {
+        "nationality_id": 65,
+        "nationality": "Israel",
+        "genres": {
+          "F": {
+            "Kansikuva": 1
+          },
+          "SF": {
+            "Kansikuva": 1
+          }
+        },
+        "count": 1
+      },
+      {
+        "nationality_id": 43,
+        "nationality": "Romania",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 1
+          },
+          "rajatap": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 1
+      },
+      {
+        "nationality_id": 58,
+        "nationality": "Taiwan",
+        "genres": {
+          "SF": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 1
+      },
+      {
+        "nationality_id": 40,
+        "nationality": "Georgia",
+        "genres": {
+          "SF": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 1
+      },
+      {
+        "nationality_id": 39,
+        "nationality": "Kenia",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 1
+      },
+      {
+        "nationality_id": 41,
+        "nationality": "Kreikka",
+        "genres": {
+          "SF": {
+            "Kirjoittaja": 1
+          },
+          "rajatap": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 1
+      },
+      {
+        "nationality_id": 32,
+        "nationality": "Egypti",
+        "genres": {
+          "SF": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 1
+      },
+      {
+        "nationality_id": 66,
+        "nationality": "Malesia",
+        "genres": {
+          "nF": {
+            "Kansikuva": 1
+          }
+        },
+        "count": 1
+      },
+      {
+        "nationality_id": 29,
+        "nationality": "Zimbabwe",
+        "genres": {
+          "nF": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 1
+      }
+    ],
+    "error": null
+  }
+}

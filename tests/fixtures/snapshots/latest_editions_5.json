@@ -1,0 +1,2629 @@
+{
+  "metadata": {
+    "generated_at": "2026-02-10T21:41:46.375456+00:00",
+    "generator": "update_snapshots.py",
+    "total_endpoints": 37,
+    "endpoint": "/api/latest/editions/5",
+    "method": "GET",
+    "status_code": 200
+  },
+  "response": {
+    "status_code": 200,
+    "data": [
+      {
+        "work": [
+          {
+            "id": 6805.0,
+            "title": "Romuluinen robotti",
+            "orig_title": "",
+            "author_str": "Bengtsson, Niklas",
+            "contributions": [
+              {
+                "person": {
+                  "id": 4473.0,
+                  "name": "Bengtsson, Niklas",
+                  "alt_name": "Niklas Bengtsson"
+                },
+                "role": {
+                  "id": 1,
+                  "name": "Kirjoittaja"
+                },
+                "description": "",
+                "real_person": null
+              }
+            ],
+            "editions": [
+              {
+                "editors": [],
+                "translators": [],
+                "contributions": [
+                  {
+                    "person": {
+                      "id": 7625.0,
+                      "name": "Luoto, Anne",
+                      "alt_name": "Anne Luoto"
+                    },
+                    "role": {
+                      "id": 4,
+                      "name": "Kansikuva"
+                    },
+                    "description": "Kansi",
+                    "real_person": null
+                  }
+                ],
+                "images": [
+                  {
+                    "id": 9244,
+                    "image_src": "/static/images/books/Bengtsson_Niklas_Romuluinenrobotti_1p.jpg",
+                    "image_attr": null
+                  }
+                ],
+                "publisher": {
+                  "id": 492,
+                  "name": "BTJ Kirjastopalvelu"
+                },
+                "owners": [],
+                "wishlisted": [],
+                "id": 9731,
+                "title": "Romuluinen robotti",
+                "subtitle": "tieteiskirjallisuuden bibliografia 1990-2000 ja robotin historiaa",
+                "pubyear": 2001,
+                "editionnum": 1,
+                "version": 1,
+                "isbn": "951-692-492-1",
+                "printedin": null,
+                "pubseriesnum": null,
+                "coll_info": null,
+                "pages": 100,
+                "size": 21,
+                "dustcover": 1,
+                "coverimage": 1,
+                "misc": null,
+                "imported_string": null,
+                "verified": false
+              }
+            ],
+            "genres": [
+              {
+                "id": 5,
+                "name": "Science Fiction",
+                "abbr": "SF"
+              }
+            ],
+            "bookseries": null,
+            "tags": [
+              {
+                "type": {
+                  "id": 1,
+                  "name": "Aihe"
+                },
+                "works": [
+                  {
+                    "id": 6786
+                  },
+                  {
+                    "id": 6793
+                  },
+                  {
+                    "id": 6804
+                  },
+                  {
+                    "id": 6805
+                  }
+                ],
+                "articles": [
+                  {
+                    "id": 25
+                  },
+                  {
+                    "id": 103
+                  },
+                  {
+                    "id": 132
+                  },
+                  {
+                    "id": 1335
+                  },
+                  {
+                    "id": 1337
+                  },
+                  {
+                    "id": 1338
+                  },
+                  {
+                    "id": 1345
+                  },
+                  {
+                    "id": 1355
+                  },
+                  {
+                    "id": 1361
+                  },
+                  {
+                    "id": 1369
+                  },
+                  {
+                    "id": 1376
+                  },
+                  {
+                    "id": 1390
+                  },
+                  {
+                    "id": 1391
+                  },
+                  {
+                    "id": 1400
+                  },
+                  {
+                    "id": 1401
+                  },
+                  {
+                    "id": 1407
+                  },
+                  {
+                    "id": 1419
+                  },
+                  {
+                    "id": 1429
+                  },
+                  {
+                    "id": 1439
+                  },
+                  {
+                    "id": 1442
+                  },
+                  {
+                    "id": 1448
+                  },
+                  {
+                    "id": 1456
+                  },
+                  {
+                    "id": 1459
+                  },
+                  {
+                    "id": 1468
+                  },
+                  {
+                    "id": 1482
+                  },
+                  {
+                    "id": 1490
+                  },
+                  {
+                    "id": 1491
+                  },
+                  {
+                    "id": 1497
+                  },
+                  {
+                    "id": 1498
+                  },
+                  {
+                    "id": 1510
+                  },
+                  {
+                    "id": 1511
+                  },
+                  {
+                    "id": 1552
+                  },
+                  {
+                    "id": 1557
+                  },
+                  {
+                    "id": 1564
+                  },
+                  {
+                    "id": 1577
+                  },
+                  {
+                    "id": 1594
+                  },
+                  {
+                    "id": 1600
+                  },
+                  {
+                    "id": 1760
+                  },
+                  {
+                    "id": 1776
+                  },
+                  {
+                    "id": 1874
+                  },
+                  {
+                    "id": 1903
+                  },
+                  {
+                    "id": 1941
+                  },
+                  {
+                    "id": 1961
+                  },
+                  {
+                    "id": 1965
+                  },
+                  {
+                    "id": 2455
+                  },
+                  {
+                    "id": 2485
+                  },
+                  {
+                    "id": 2504
+                  },
+                  {
+                    "id": 2542
+                  },
+                  {
+                    "id": 2579
+                  },
+                  {
+                    "id": 2589
+                  },
+                  {
+                    "id": 2598
+                  },
+                  {
+                    "id": 2599
+                  },
+                  {
+                    "id": 2616
+                  },
+                  {
+                    "id": 2625
+                  },
+                  {
+                    "id": 2643
+                  },
+                  {
+                    "id": 2644
+                  },
+                  {
+                    "id": 2652
+                  },
+                  {
+                    "id": 2890
+                  },
+                  {
+                    "id": 3109
+                  },
+                  {
+                    "id": 3129
+                  },
+                  {
+                    "id": 3144
+                  },
+                  {
+                    "id": 3156
+                  },
+                  {
+                    "id": 3171
+                  },
+                  {
+                    "id": 3179
+                  },
+                  {
+                    "id": 3185
+                  },
+                  {
+                    "id": 3193
+                  },
+                  {
+                    "id": 3212
+                  }
+                ],
+                "stories": [
+                  {
+                    "id": 15049
+                  },
+                  {
+                    "id": 15052
+                  },
+                  {
+                    "id": 15063
+                  },
+                  {
+                    "id": 8886
+                  },
+                  {
+                    "id": 9006
+                  },
+                  {
+                    "id": 8964
+                  },
+                  {
+                    "id": 8993
+                  },
+                  {
+                    "id": 9240
+                  },
+                  {
+                    "id": 9364
+                  },
+                  {
+                    "id": 10196
+                  },
+                  {
+                    "id": 10198
+                  },
+                  {
+                    "id": 10199
+                  },
+                  {
+                    "id": 10206
+                  },
+                  {
+                    "id": 10216
+                  },
+                  {
+                    "id": 10222
+                  },
+                  {
+                    "id": 10230
+                  },
+                  {
+                    "id": 10237
+                  },
+                  {
+                    "id": 10251
+                  },
+                  {
+                    "id": 10252
+                  },
+                  {
+                    "id": 10261
+                  },
+                  {
+                    "id": 10262
+                  },
+                  {
+                    "id": 10268
+                  },
+                  {
+                    "id": 10280
+                  },
+                  {
+                    "id": 10290
+                  },
+                  {
+                    "id": 10343
+                  },
+                  {
+                    "id": 10300
+                  },
+                  {
+                    "id": 10303
+                  },
+                  {
+                    "id": 10309
+                  },
+                  {
+                    "id": 10317
+                  },
+                  {
+                    "id": 10320
+                  },
+                  {
+                    "id": 10329
+                  },
+                  {
+                    "id": 10351
+                  },
+                  {
+                    "id": 10352
+                  },
+                  {
+                    "id": 10358
+                  },
+                  {
+                    "id": 10359
+                  },
+                  {
+                    "id": 10371
+                  },
+                  {
+                    "id": 10372
+                  },
+                  {
+                    "id": 10413
+                  },
+                  {
+                    "id": 10418
+                  },
+                  {
+                    "id": 10425
+                  },
+                  {
+                    "id": 10438
+                  },
+                  {
+                    "id": 10455
+                  },
+                  {
+                    "id": 10461
+                  },
+                  {
+                    "id": 10621
+                  },
+                  {
+                    "id": 10637
+                  },
+                  {
+                    "id": 10764
+                  },
+                  {
+                    "id": 10802
+                  },
+                  {
+                    "id": 10822
+                  },
+                  {
+                    "id": 10826
+                  },
+                  {
+                    "id": 11316
+                  },
+                  {
+                    "id": 11346
+                  },
+                  {
+                    "id": 11365
+                  },
+                  {
+                    "id": 11403
+                  },
+                  {
+                    "id": 11450
+                  },
+                  {
+                    "id": 11459
+                  },
+                  {
+                    "id": 11460
+                  },
+                  {
+                    "id": 11440
+                  },
+                  {
+                    "id": 11477
+                  },
+                  {
+                    "id": 11486
+                  },
+                  {
+                    "id": 11504
+                  },
+                  {
+                    "id": 11505
+                  },
+                  {
+                    "id": 11513
+                  },
+                  {
+                    "id": 11970
+                  },
+                  {
+                    "id": 11990
+                  },
+                  {
+                    "id": 12005
+                  },
+                  {
+                    "id": 12032
+                  },
+                  {
+                    "id": 12040
+                  },
+                  {
+                    "id": 12046
+                  },
+                  {
+                    "id": 12017
+                  },
+                  {
+                    "id": 12054
+                  },
+                  {
+                    "id": 12073
+                  },
+                  {
+                    "id": 12311
+                  },
+                  {
+                    "id": 12323
+                  },
+                  {
+                    "id": 12328
+                  },
+                  {
+                    "id": 12436
+                  },
+                  {
+                    "id": 12437
+                  },
+                  {
+                    "id": 12440
+                  },
+                  {
+                    "id": 12445
+                  },
+                  {
+                    "id": 12448
+                  },
+                  {
+                    "id": 12526
+                  },
+                  {
+                    "id": 11751
+                  },
+                  {
+                    "id": 14747
+                  },
+                  {
+                    "id": 10735
+                  },
+                  {
+                    "id": 13757
+                  },
+                  {
+                    "id": 15018
+                  },
+                  {
+                    "id": 15008
+                  },
+                  {
+                    "id": 15010
+                  },
+                  {
+                    "id": 15011
+                  },
+                  {
+                    "id": 15013
+                  },
+                  {
+                    "id": 15030
+                  },
+                  {
+                    "id": 15031
+                  },
+                  {
+                    "id": 15032
+                  },
+                  {
+                    "id": 15033
+                  },
+                  {
+                    "id": 15034
+                  },
+                  {
+                    "id": 15035
+                  },
+                  {
+                    "id": 15037
+                  },
+                  {
+                    "id": 15038
+                  },
+                  {
+                    "id": 15039
+                  },
+                  {
+                    "id": 15040
+                  },
+                  {
+                    "id": 15041
+                  },
+                  {
+                    "id": 15042
+                  },
+                  {
+                    "id": 15044
+                  },
+                  {
+                    "id": 15068
+                  },
+                  {
+                    "id": 15069
+                  },
+                  {
+                    "id": 15036
+                  },
+                  {
+                    "id": 15043
+                  },
+                  {
+                    "id": 15045
+                  },
+                  {
+                    "id": 15046
+                  },
+                  {
+                    "id": 15047
+                  },
+                  {
+                    "id": 15048
+                  },
+                  {
+                    "id": 15050
+                  },
+                  {
+                    "id": 15051
+                  },
+                  {
+                    "id": 15053
+                  },
+                  {
+                    "id": 15054
+                  },
+                  {
+                    "id": 15055
+                  },
+                  {
+                    "id": 15056
+                  },
+                  {
+                    "id": 15057
+                  },
+                  {
+                    "id": 15058
+                  },
+                  {
+                    "id": 15059
+                  },
+                  {
+                    "id": 15060
+                  },
+                  {
+                    "id": 15061
+                  },
+                  {
+                    "id": 15062
+                  },
+                  {
+                    "id": 15066
+                  },
+                  {
+                    "id": 15067
+                  },
+                  {
+                    "id": 15072
+                  },
+                  {
+                    "id": 15073
+                  },
+                  {
+                    "id": 15074
+                  },
+                  {
+                    "id": 15075
+                  },
+                  {
+                    "id": 15076
+                  },
+                  {
+                    "id": 15077
+                  },
+                  {
+                    "id": 15078
+                  },
+                  {
+                    "id": 15079
+                  },
+                  {
+                    "id": 15080
+                  },
+                  {
+                    "id": 15081
+                  },
+                  {
+                    "id": 15082
+                  },
+                  {
+                    "id": 15083
+                  },
+                  {
+                    "id": 15084
+                  },
+                  {
+                    "id": 15085
+                  },
+                  {
+                    "id": 15086
+                  },
+                  {
+                    "id": 15087
+                  },
+                  {
+                    "id": 15088
+                  },
+                  {
+                    "id": 15089
+                  },
+                  {
+                    "id": 15090
+                  },
+                  {
+                    "id": 15091
+                  },
+                  {
+                    "id": 15092
+                  },
+                  {
+                    "id": 15093
+                  },
+                  {
+                    "id": 15094
+                  },
+                  {
+                    "id": 15095
+                  },
+                  {
+                    "id": 15096
+                  },
+                  {
+                    "id": 15097
+                  },
+                  {
+                    "id": 15098
+                  },
+                  {
+                    "id": 15099
+                  },
+                  {
+                    "id": 15100
+                  },
+                  {
+                    "id": 15101
+                  },
+                  {
+                    "id": 15102
+                  },
+                  {
+                    "id": 15103
+                  },
+                  {
+                    "id": 15104
+                  },
+                  {
+                    "id": 15105
+                  },
+                  {
+                    "id": 15106
+                  },
+                  {
+                    "id": 15107
+                  },
+                  {
+                    "id": 15108
+                  },
+                  {
+                    "id": 15109
+                  },
+                  {
+                    "id": 15110
+                  },
+                  {
+                    "id": 15111
+                  },
+                  {
+                    "id": 15112
+                  },
+                  {
+                    "id": 15113
+                  }
+                ],
+                "id": 21,
+                "name": "bibliografia",
+                "description": null
+              },
+              {
+                "type": {
+                  "id": 4,
+                  "name": "Toimija"
+                },
+                "works": [
+                  {
+                    "id": 554
+                  },
+                  {
+                    "id": 563
+                  },
+                  {
+                    "id": 567
+                  },
+                  {
+                    "id": 570
+                  },
+                  {
+                    "id": 737
+                  },
+                  {
+                    "id": 738
+                  },
+                  {
+                    "id": 1031
+                  },
+                  {
+                    "id": 1104
+                  },
+                  {
+                    "id": 1105
+                  },
+                  {
+                    "id": 1149
+                  },
+                  {
+                    "id": 1460
+                  },
+                  {
+                    "id": 1691
+                  },
+                  {
+                    "id": 1693
+                  },
+                  {
+                    "id": 1936
+                  },
+                  {
+                    "id": 1937
+                  },
+                  {
+                    "id": 1938
+                  },
+                  {
+                    "id": 1953
+                  },
+                  {
+                    "id": 2071
+                  },
+                  {
+                    "id": 2073
+                  },
+                  {
+                    "id": 2074
+                  },
+                  {
+                    "id": 2075
+                  },
+                  {
+                    "id": 2076
+                  },
+                  {
+                    "id": 2077
+                  },
+                  {
+                    "id": 2634
+                  },
+                  {
+                    "id": 3098
+                  },
+                  {
+                    "id": 3473
+                  },
+                  {
+                    "id": 4089
+                  },
+                  {
+                    "id": 4195
+                  },
+                  {
+                    "id": 4467
+                  },
+                  {
+                    "id": 4468
+                  },
+                  {
+                    "id": 4474
+                  },
+                  {
+                    "id": 4475
+                  },
+                  {
+                    "id": 4478
+                  },
+                  {
+                    "id": 4481
+                  },
+                  {
+                    "id": 4485
+                  },
+                  {
+                    "id": 4547
+                  },
+                  {
+                    "id": 4548
+                  },
+                  {
+                    "id": 4549
+                  },
+                  {
+                    "id": 4550
+                  },
+                  {
+                    "id": 4755
+                  },
+                  {
+                    "id": 4838
+                  },
+                  {
+                    "id": 4960
+                  },
+                  {
+                    "id": 4989
+                  },
+                  {
+                    "id": 5214
+                  },
+                  {
+                    "id": 5415
+                  },
+                  {
+                    "id": 5517
+                  },
+                  {
+                    "id": 5706
+                  },
+                  {
+                    "id": 5719
+                  },
+                  {
+                    "id": 5884
+                  },
+                  {
+                    "id": 5938
+                  },
+                  {
+                    "id": 6136
+                  },
+                  {
+                    "id": 6167
+                  },
+                  {
+                    "id": 5674
+                  },
+                  {
+                    "id": 1879
+                  },
+                  {
+                    "id": 6805
+                  }
+                ],
+                "articles": [],
+                "stories": [],
+                "id": 415,
+                "name": "robotit",
+                "description": null
+              }
+            ],
+            "language_name": {
+              "id": 7,
+              "name": "suomi"
+            },
+            "type": 4.0,
+            "subtitle": "tieteiskirjallisuuden bibliografia 1990-2000 ja robotin historiaa",
+            "pubyear": 2001,
+            "bookseriesnum": "",
+            "bookseriesorder": null,
+            "misc": "",
+            "description": "<p>Romuluinen robotti käsittelee mm. tieteiskirjallisuuden keskeistä hahmoa – robottia – sen historiaa ja esihistoriaa sekä tieteiskirjallisuuden määritelmien ja alalajien moninaisuutta. Teos auttaa tieteiskirjallisuudesta innostuneita löytämään uusia kiinnostavia kirjoja.</p><p>Bibliografia koostuu vuosina 1990–2000 ilmestyneistä tietokirjoista, jotka on julkaissut kustantajien koko kirjo pienkustantajista lähtien. Kirjat on ryhmitelty lasten ja nuorten scifiin sekä aikuisten tieteiskirjallisuuteen.</p><p>Sisällys:</p><p>Robotin juuret – John Sladekin Virheisku ja Frankensteinin hirviö</p><p>Robottien historiaa ja esihistoriaa</p><p>Frankensteinin hirviö</p><p>Välitilahirviöt ja niiden luojat</p><p>Gabbalistinen golem ja sen jälkeläise</p><p>Luojan ja luodun rajojen rikkomine</p><p>Aktiiviset ja itsenäiset olennot</p><p>Kuoleeko luoja vai luotu?</p><p>Bibliografia:</p><p>- Lapsille ja nuorille</p><p>- Aikuisille</p><p>- Tekijähakemisto</p><p>- Teoshakemisto</p>",
+            "descr_attr": "",
+            "imported_string": null
+          }
+        ],
+        "editors": [],
+        "contributions": [
+          {
+            "person": {
+              "id": 7625.0,
+              "name": "Luoto, Anne",
+              "alt_name": "Anne Luoto"
+            },
+            "role": {
+              "id": 4,
+              "name": "Kansikuva"
+            },
+            "description": "Kansi",
+            "real_person": null
+          }
+        ],
+        "images": [
+          {
+            "id": 9244,
+            "image_src": "/static/images/books/Bengtsson_Niklas_Romuluinenrobotti_1p.jpg",
+            "image_attr": null
+          }
+        ],
+        "publisher": {
+          "id": 492,
+          "name": "BTJ Kirjastopalvelu"
+        },
+        "owners": [],
+        "wishlisted": [],
+        "binding": {
+          "id": 2,
+          "name": "Nidottu"
+        },
+        "id": 9731,
+        "title": "Romuluinen robotti",
+        "subtitle": "tieteiskirjallisuuden bibliografia 1990-2000 ja robotin historiaa",
+        "pubyear": 2001,
+        "editionnum": 1,
+        "version": 1,
+        "isbn": "951-692-492-1",
+        "printedin": null,
+        "pubseriesnum": null,
+        "coll_info": null,
+        "pages": 100,
+        "size": 21,
+        "dustcover": 1,
+        "coverimage": 1,
+        "misc": null,
+        "imported_string": null,
+        "verified": false
+      },
+      {
+        "work": [
+          {
+            "id": 6804.0,
+            "title": "Mielikuvituksen rajaton riemu",
+            "orig_title": "",
+            "author_str": "Bengtsson, Niklas",
+            "contributions": [
+              {
+                "person": {
+                  "id": 4473.0,
+                  "name": "Bengtsson, Niklas",
+                  "alt_name": "Niklas Bengtsson"
+                },
+                "role": {
+                  "id": 1,
+                  "name": "Kirjoittaja"
+                },
+                "description": "",
+                "real_person": null
+              }
+            ],
+            "editions": [
+              {
+                "editors": [],
+                "translators": [],
+                "contributions": [
+                  {
+                    "person": {
+                      "id": 5455.0,
+                      "name": "Juopperi, Ilkka",
+                      "alt_name": "Ilkka Juopperi"
+                    },
+                    "role": {
+                      "id": 4,
+                      "name": "Kansikuva"
+                    },
+                    "description": "",
+                    "real_person": null
+                  }
+                ],
+                "images": [
+                  {
+                    "id": 9243,
+                    "image_src": "/static/images/books/Bengtsson_Niklas_Mielikuvituksenrajatonriemu_1p.jpg",
+                    "image_attr": null
+                  }
+                ],
+                "publisher": {
+                  "id": 492,
+                  "name": "BTJ Kirjastopalvelu"
+                },
+                "owners": [],
+                "wishlisted": [],
+                "id": 9730,
+                "title": "Mielikuvituksen rajaton riemu",
+                "subtitle": "bibliografia ja johdatus fantasiakirjallisuuteen",
+                "pubyear": 2000,
+                "editionnum": 1,
+                "version": 1,
+                "isbn": "951-692-477-8",
+                "printedin": null,
+                "pubseriesnum": null,
+                "coll_info": null,
+                "pages": 129,
+                "size": 21,
+                "dustcover": 1,
+                "coverimage": 1,
+                "misc": null,
+                "imported_string": null,
+                "verified": false
+              }
+            ],
+            "genres": [
+              {
+                "id": 1,
+                "name": "Fantasia",
+                "abbr": "F"
+              }
+            ],
+            "bookseries": null,
+            "tags": [
+              {
+                "type": {
+                  "id": 1,
+                  "name": "Aihe"
+                },
+                "works": [
+                  {
+                    "id": 6786
+                  },
+                  {
+                    "id": 6793
+                  },
+                  {
+                    "id": 6804
+                  },
+                  {
+                    "id": 6805
+                  }
+                ],
+                "articles": [
+                  {
+                    "id": 25
+                  },
+                  {
+                    "id": 103
+                  },
+                  {
+                    "id": 132
+                  },
+                  {
+                    "id": 1335
+                  },
+                  {
+                    "id": 1337
+                  },
+                  {
+                    "id": 1338
+                  },
+                  {
+                    "id": 1345
+                  },
+                  {
+                    "id": 1355
+                  },
+                  {
+                    "id": 1361
+                  },
+                  {
+                    "id": 1369
+                  },
+                  {
+                    "id": 1376
+                  },
+                  {
+                    "id": 1390
+                  },
+                  {
+                    "id": 1391
+                  },
+                  {
+                    "id": 1400
+                  },
+                  {
+                    "id": 1401
+                  },
+                  {
+                    "id": 1407
+                  },
+                  {
+                    "id": 1419
+                  },
+                  {
+                    "id": 1429
+                  },
+                  {
+                    "id": 1439
+                  },
+                  {
+                    "id": 1442
+                  },
+                  {
+                    "id": 1448
+                  },
+                  {
+                    "id": 1456
+                  },
+                  {
+                    "id": 1459
+                  },
+                  {
+                    "id": 1468
+                  },
+                  {
+                    "id": 1482
+                  },
+                  {
+                    "id": 1490
+                  },
+                  {
+                    "id": 1491
+                  },
+                  {
+                    "id": 1497
+                  },
+                  {
+                    "id": 1498
+                  },
+                  {
+                    "id": 1510
+                  },
+                  {
+                    "id": 1511
+                  },
+                  {
+                    "id": 1552
+                  },
+                  {
+                    "id": 1557
+                  },
+                  {
+                    "id": 1564
+                  },
+                  {
+                    "id": 1577
+                  },
+                  {
+                    "id": 1594
+                  },
+                  {
+                    "id": 1600
+                  },
+                  {
+                    "id": 1760
+                  },
+                  {
+                    "id": 1776
+                  },
+                  {
+                    "id": 1874
+                  },
+                  {
+                    "id": 1903
+                  },
+                  {
+                    "id": 1941
+                  },
+                  {
+                    "id": 1961
+                  },
+                  {
+                    "id": 1965
+                  },
+                  {
+                    "id": 2455
+                  },
+                  {
+                    "id": 2485
+                  },
+                  {
+                    "id": 2504
+                  },
+                  {
+                    "id": 2542
+                  },
+                  {
+                    "id": 2579
+                  },
+                  {
+                    "id": 2589
+                  },
+                  {
+                    "id": 2598
+                  },
+                  {
+                    "id": 2599
+                  },
+                  {
+                    "id": 2616
+                  },
+                  {
+                    "id": 2625
+                  },
+                  {
+                    "id": 2643
+                  },
+                  {
+                    "id": 2644
+                  },
+                  {
+                    "id": 2652
+                  },
+                  {
+                    "id": 2890
+                  },
+                  {
+                    "id": 3109
+                  },
+                  {
+                    "id": 3129
+                  },
+                  {
+                    "id": 3144
+                  },
+                  {
+                    "id": 3156
+                  },
+                  {
+                    "id": 3171
+                  },
+                  {
+                    "id": 3179
+                  },
+                  {
+                    "id": 3185
+                  },
+                  {
+                    "id": 3193
+                  },
+                  {
+                    "id": 3212
+                  }
+                ],
+                "stories": [
+                  {
+                    "id": 15049
+                  },
+                  {
+                    "id": 15052
+                  },
+                  {
+                    "id": 15063
+                  },
+                  {
+                    "id": 8886
+                  },
+                  {
+                    "id": 9006
+                  },
+                  {
+                    "id": 8964
+                  },
+                  {
+                    "id": 8993
+                  },
+                  {
+                    "id": 9240
+                  },
+                  {
+                    "id": 9364
+                  },
+                  {
+                    "id": 10196
+                  },
+                  {
+                    "id": 10198
+                  },
+                  {
+                    "id": 10199
+                  },
+                  {
+                    "id": 10206
+                  },
+                  {
+                    "id": 10216
+                  },
+                  {
+                    "id": 10222
+                  },
+                  {
+                    "id": 10230
+                  },
+                  {
+                    "id": 10237
+                  },
+                  {
+                    "id": 10251
+                  },
+                  {
+                    "id": 10252
+                  },
+                  {
+                    "id": 10261
+                  },
+                  {
+                    "id": 10262
+                  },
+                  {
+                    "id": 10268
+                  },
+                  {
+                    "id": 10280
+                  },
+                  {
+                    "id": 10290
+                  },
+                  {
+                    "id": 10343
+                  },
+                  {
+                    "id": 10300
+                  },
+                  {
+                    "id": 10303
+                  },
+                  {
+                    "id": 10309
+                  },
+                  {
+                    "id": 10317
+                  },
+                  {
+                    "id": 10320
+                  },
+                  {
+                    "id": 10329
+                  },
+                  {
+                    "id": 10351
+                  },
+                  {
+                    "id": 10352
+                  },
+                  {
+                    "id": 10358
+                  },
+                  {
+                    "id": 10359
+                  },
+                  {
+                    "id": 10371
+                  },
+                  {
+                    "id": 10372
+                  },
+                  {
+                    "id": 10413
+                  },
+                  {
+                    "id": 10418
+                  },
+                  {
+                    "id": 10425
+                  },
+                  {
+                    "id": 10438
+                  },
+                  {
+                    "id": 10455
+                  },
+                  {
+                    "id": 10461
+                  },
+                  {
+                    "id": 10621
+                  },
+                  {
+                    "id": 10637
+                  },
+                  {
+                    "id": 10764
+                  },
+                  {
+                    "id": 10802
+                  },
+                  {
+                    "id": 10822
+                  },
+                  {
+                    "id": 10826
+                  },
+                  {
+                    "id": 11316
+                  },
+                  {
+                    "id": 11346
+                  },
+                  {
+                    "id": 11365
+                  },
+                  {
+                    "id": 11403
+                  },
+                  {
+                    "id": 11450
+                  },
+                  {
+                    "id": 11459
+                  },
+                  {
+                    "id": 11460
+                  },
+                  {
+                    "id": 11440
+                  },
+                  {
+                    "id": 11477
+                  },
+                  {
+                    "id": 11486
+                  },
+                  {
+                    "id": 11504
+                  },
+                  {
+                    "id": 11505
+                  },
+                  {
+                    "id": 11513
+                  },
+                  {
+                    "id": 11970
+                  },
+                  {
+                    "id": 11990
+                  },
+                  {
+                    "id": 12005
+                  },
+                  {
+                    "id": 12032
+                  },
+                  {
+                    "id": 12040
+                  },
+                  {
+                    "id": 12046
+                  },
+                  {
+                    "id": 12017
+                  },
+                  {
+                    "id": 12054
+                  },
+                  {
+                    "id": 12073
+                  },
+                  {
+                    "id": 12311
+                  },
+                  {
+                    "id": 12323
+                  },
+                  {
+                    "id": 12328
+                  },
+                  {
+                    "id": 12436
+                  },
+                  {
+                    "id": 12437
+                  },
+                  {
+                    "id": 12440
+                  },
+                  {
+                    "id": 12445
+                  },
+                  {
+                    "id": 12448
+                  },
+                  {
+                    "id": 12526
+                  },
+                  {
+                    "id": 11751
+                  },
+                  {
+                    "id": 14747
+                  },
+                  {
+                    "id": 10735
+                  },
+                  {
+                    "id": 13757
+                  },
+                  {
+                    "id": 15018
+                  },
+                  {
+                    "id": 15008
+                  },
+                  {
+                    "id": 15010
+                  },
+                  {
+                    "id": 15011
+                  },
+                  {
+                    "id": 15013
+                  },
+                  {
+                    "id": 15030
+                  },
+                  {
+                    "id": 15031
+                  },
+                  {
+                    "id": 15032
+                  },
+                  {
+                    "id": 15033
+                  },
+                  {
+                    "id": 15034
+                  },
+                  {
+                    "id": 15035
+                  },
+                  {
+                    "id": 15037
+                  },
+                  {
+                    "id": 15038
+                  },
+                  {
+                    "id": 15039
+                  },
+                  {
+                    "id": 15040
+                  },
+                  {
+                    "id": 15041
+                  },
+                  {
+                    "id": 15042
+                  },
+                  {
+                    "id": 15044
+                  },
+                  {
+                    "id": 15068
+                  },
+                  {
+                    "id": 15069
+                  },
+                  {
+                    "id": 15036
+                  },
+                  {
+                    "id": 15043
+                  },
+                  {
+                    "id": 15045
+                  },
+                  {
+                    "id": 15046
+                  },
+                  {
+                    "id": 15047
+                  },
+                  {
+                    "id": 15048
+                  },
+                  {
+                    "id": 15050
+                  },
+                  {
+                    "id": 15051
+                  },
+                  {
+                    "id": 15053
+                  },
+                  {
+                    "id": 15054
+                  },
+                  {
+                    "id": 15055
+                  },
+                  {
+                    "id": 15056
+                  },
+                  {
+                    "id": 15057
+                  },
+                  {
+                    "id": 15058
+                  },
+                  {
+                    "id": 15059
+                  },
+                  {
+                    "id": 15060
+                  },
+                  {
+                    "id": 15061
+                  },
+                  {
+                    "id": 15062
+                  },
+                  {
+                    "id": 15066
+                  },
+                  {
+                    "id": 15067
+                  },
+                  {
+                    "id": 15072
+                  },
+                  {
+                    "id": 15073
+                  },
+                  {
+                    "id": 15074
+                  },
+                  {
+                    "id": 15075
+                  },
+                  {
+                    "id": 15076
+                  },
+                  {
+                    "id": 15077
+                  },
+                  {
+                    "id": 15078
+                  },
+                  {
+                    "id": 15079
+                  },
+                  {
+                    "id": 15080
+                  },
+                  {
+                    "id": 15081
+                  },
+                  {
+                    "id": 15082
+                  },
+                  {
+                    "id": 15083
+                  },
+                  {
+                    "id": 15084
+                  },
+                  {
+                    "id": 15085
+                  },
+                  {
+                    "id": 15086
+                  },
+                  {
+                    "id": 15087
+                  },
+                  {
+                    "id": 15088
+                  },
+                  {
+                    "id": 15089
+                  },
+                  {
+                    "id": 15090
+                  },
+                  {
+                    "id": 15091
+                  },
+                  {
+                    "id": 15092
+                  },
+                  {
+                    "id": 15093
+                  },
+                  {
+                    "id": 15094
+                  },
+                  {
+                    "id": 15095
+                  },
+                  {
+                    "id": 15096
+                  },
+                  {
+                    "id": 15097
+                  },
+                  {
+                    "id": 15098
+                  },
+                  {
+                    "id": 15099
+                  },
+                  {
+                    "id": 15100
+                  },
+                  {
+                    "id": 15101
+                  },
+                  {
+                    "id": 15102
+                  },
+                  {
+                    "id": 15103
+                  },
+                  {
+                    "id": 15104
+                  },
+                  {
+                    "id": 15105
+                  },
+                  {
+                    "id": 15106
+                  },
+                  {
+                    "id": 15107
+                  },
+                  {
+                    "id": 15108
+                  },
+                  {
+                    "id": 15109
+                  },
+                  {
+                    "id": 15110
+                  },
+                  {
+                    "id": 15111
+                  },
+                  {
+                    "id": 15112
+                  },
+                  {
+                    "id": 15113
+                  }
+                ],
+                "id": 21,
+                "name": "bibliografia",
+                "description": null
+              }
+            ],
+            "language_name": {
+              "id": 7,
+              "name": "suomi"
+            },
+            "type": 4.0,
+            "subtitle": "bibliografia ja johdatus fantasiakirjallisuuteen",
+            "pubyear": 2000,
+            "bookseriesnum": "",
+            "bookseriesorder": null,
+            "misc": "",
+            "description": "<p>Mielikuvituksen rajaton riemu: Bibliografia ja johdatus fantasiakirjallisuuteen -teos esittelee fantasiakirjallisuuden historiaa, luonnetta ja moninaisuutta. Bibliografiassa painottuvat 1990-luvulla julkaistut teokset, mutta mukana on myös vanhempia, alan lukijoita kiinnostavia kirjoja. Fantasia on hahmotettu väljänä käsitteenä eli luettelon teoksia yhdistävät yliluonnolliset tapahtumat. Teoksen lopussa on lyhyehkö luettelo saagoista, eepoksista ja ritariromaaneista, jotka maailmankuvansa takia ovat samantapaisia kuin monet fantasiakirjat.</p><p>Sukella mielikuvituksen äärettömyyteen!</p><p>Sisällys:</p><p>Saatteeksi</p><p>Fantasiakirjallisuuden historiaa</p><p>Fantasiakirjallisuuden terminologiasta</p><p>Satu- ja fantasiakirjallisuuden välittyminen Suomeen</p><p>Korkea ja matala fantasia</p><p>Kelttiläinen maailma</p><p>Graalin malja ja kristillisyys</p><p>Itämaiset vaikutteet</p><p>Hyvän mielikuvitusmaailmat</p><p>Fantasiakirjallisuuden alalajeja</p><p>Fantasiakirjallisuus ja science fiction</p><p>Scifin ja fantasiakirjallisuuden kytkennät ajan henkeen</p><p>Bibliografia:</p><p>- Kustantajien lyhenteet</p><p>- Satufantasiaa lapsille</p><p>- Nuorten fantasiaa</p><p>- Aikuisten fantasiaa</p><p>- Saagoja</p><p>- Eepoksia ja ritariromaaneja</p><p>- Tekijähakemisto</p><p>- Teoshakemisto</p>",
+            "descr_attr": "",
+            "imported_string": null
+          }
+        ],
+        "editors": [],
+        "contributions": [
+          {
+            "person": {
+              "id": 5455.0,
+              "name": "Juopperi, Ilkka",
+              "alt_name": "Ilkka Juopperi"
+            },
+            "role": {
+              "id": 4,
+              "name": "Kansikuva"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "images": [
+          {
+            "id": 9243,
+            "image_src": "/static/images/books/Bengtsson_Niklas_Mielikuvituksenrajatonriemu_1p.jpg",
+            "image_attr": null
+          }
+        ],
+        "publisher": {
+          "id": 492,
+          "name": "BTJ Kirjastopalvelu"
+        },
+        "owners": [],
+        "wishlisted": [],
+        "binding": {
+          "id": 2,
+          "name": "Nidottu"
+        },
+        "id": 9730,
+        "title": "Mielikuvituksen rajaton riemu",
+        "subtitle": "bibliografia ja johdatus fantasiakirjallisuuteen",
+        "pubyear": 2000,
+        "editionnum": 1,
+        "version": 1,
+        "isbn": "951-692-477-8",
+        "printedin": null,
+        "pubseriesnum": null,
+        "coll_info": null,
+        "pages": 129,
+        "size": 21,
+        "dustcover": 1,
+        "coverimage": 1,
+        "misc": null,
+        "imported_string": null,
+        "verified": false
+      },
+      {
+        "work": [
+          {
+            "id": 6803.0,
+            "title": "Koneihminen",
+            "orig_title": "",
+            "author_str": "Mäyrä, Frans & Mikkonen, Kai & Siivonen, Timo (toim.)",
+            "contributions": [
+              {
+                "person": {
+                  "id": 4091.0,
+                  "name": "Mäyrä, Frans",
+                  "alt_name": "Frans Mäyrä"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 7622.0,
+                  "name": "Mikkonen, Kai",
+                  "alt_name": "Kai Mikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 7623.0,
+                  "name": "Siivonen, Timo",
+                  "alt_name": "Timo Siivonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": "",
+                "real_person": null
+              }
+            ],
+            "editions": [
+              {
+                "editors": [
+                  {
+                    "id": 4091.0,
+                    "name": "Mäyrä, Frans",
+                    "alt_name": "Frans Mäyrä",
+                    "fullname": "Frans Ilkka Olavi Mäyrä",
+                    "image_src": null,
+                    "dob": 1966.0,
+                    "dod": null,
+                    "roles": [
+                      "Kirjoittaja",
+                      "Esiintyy",
+                      "Toimittaja"
+                    ],
+                    "nationality": {
+                      "id": 4,
+                      "name": "Suomi"
+                    },
+                    "workcount": 1.0,
+                    "storycount": 11,
+                    "other_names": null,
+                    "first_name": "Frans",
+                    "last_name": "Mäyrä",
+                    "image_attr": "",
+                    "bio": null,
+                    "bio_src": "",
+                    "imported_string": null
+                  },
+                  {
+                    "id": 7622.0,
+                    "name": "Mikkonen, Kai",
+                    "alt_name": "Kai Mikkonen",
+                    "fullname": "Kai Henrik Mikkonen",
+                    "image_src": null,
+                    "dob": 1965.0,
+                    "dod": null,
+                    "roles": [
+                      "Toimittaja"
+                    ],
+                    "nationality": {
+                      "id": 4,
+                      "name": "Suomi"
+                    },
+                    "workcount": 1.0,
+                    "storycount": 0,
+                    "other_names": "",
+                    "first_name": null,
+                    "last_name": null,
+                    "image_attr": null,
+                    "bio": "",
+                    "bio_src": "",
+                    "imported_string": null
+                  },
+                  {
+                    "id": 7623.0,
+                    "name": "Siivonen, Timo",
+                    "alt_name": "Timo Siivonen",
+                    "fullname": "",
+                    "image_src": null,
+                    "dob": null,
+                    "dod": null,
+                    "roles": [
+                      "Toimittaja"
+                    ],
+                    "nationality": {
+                      "id": 4,
+                      "name": "Suomi"
+                    },
+                    "workcount": 1.0,
+                    "storycount": 0,
+                    "other_names": "",
+                    "first_name": null,
+                    "last_name": null,
+                    "image_attr": null,
+                    "bio": "",
+                    "bio_src": "",
+                    "imported_string": null
+                  }
+                ],
+                "translators": [],
+                "contributions": [
+                  {
+                    "person": {
+                      "id": 7624.0,
+                      "name": "Myllykoski, Jari",
+                      "alt_name": "Jari Myllykoski"
+                    },
+                    "role": {
+                      "id": 4,
+                      "name": "Kansikuva"
+                    },
+                    "description": "Kansi",
+                    "real_person": null
+                  }
+                ],
+                "images": [
+                  {
+                    "id": 9242,
+                    "image_src": "/static/images/books/Mikkonen_Mayra_Siivonen_Koneihminen_1p.jpg",
+                    "image_attr": null
+                  }
+                ],
+                "publisher": {
+                  "id": 21,
+                  "name": "Atena"
+                },
+                "owners": [],
+                "wishlisted": [],
+                "id": 9729,
+                "title": "Koneihminen",
+                "subtitle": "kirjoituksia kulttuurista ja fiktiosta koneen aikakaudella",
+                "pubyear": 1997,
+                "editionnum": 1,
+                "version": 1,
+                "isbn": "951-796-058-1",
+                "printedin": null,
+                "pubseriesnum": null,
+                "coll_info": null,
+                "pages": 301,
+                "size": 21,
+                "dustcover": 1,
+                "coverimage": 1,
+                "misc": "Kuvitettu.",
+                "imported_string": null,
+                "verified": false
+              }
+            ],
+            "genres": [
+              {
+                "id": 5,
+                "name": "Science Fiction",
+                "abbr": "SF"
+              }
+            ],
+            "bookseries": null,
+            "tags": [],
+            "language_name": {
+              "id": 7,
+              "name": "suomi"
+            },
+            "type": 4.0,
+            "subtitle": "kirjoituksia kulttuurista ja fiktiosta koneen aikakaudella",
+            "pubyear": 1997,
+            "bookseriesnum": "",
+            "bookseriesorder": null,
+            "misc": "",
+            "description": "<p>”Laajat materiaaliset muutokset, joita kone on tuottanut fyysiseen ympäristöömme, ovat pitkällä tähtäimellä ehkä vähemmän tärkeitä kuin sen henkiset vaikutukset kulttuurillemme.” – Lewis Mumford</p><p>Koneihminen-antologia tarjoaa lukijalle syväluotauksia ihmisen ja koneen suhteeseen. Se tarttuu tämän suhteen kulttuurihistoriaan ja osoittaa sen ulottuvan muinaisuuteen. Toisaalta antologia erittelee koneihmisyyden nykypäivää ja tutustuttaa lukijan joukkoon keskeisimpiä teorioita ja fiktioita, joilla konesuhdettamme on analysoitu ja dramatisoitu. Perinteisen koneen ja ihmisen jyrkän vastakkainasettelun sijaan tässä kirjoituskokoelmassa kulttuuriamme lähestytään moniulotteisena kokonaisuutena, jossa konetta on mahdotonta selvärajaisesti erottaa ihmisestä.</p><p>Moniääninen ja monisärmäinen Koneihminen kartoittaa haaveita ja pelkoja, vuorovaikutusta ja jännitteitä teknologian ja kulttuurin, menneisyyden ja nykyisyyden, faktan ja fiktion rajoilla. Sen kirjoittajina on useiden eri alojen tutkijoita ja asiantuntijoita.</p><p><br></p>",
+            "descr_attr": "Takakansi",
+            "imported_string": null
+          }
+        ],
+        "editors": [
+          {
+            "id": 4091.0,
+            "name": "Mäyrä, Frans",
+            "alt_name": "Frans Mäyrä",
+            "fullname": "Frans Ilkka Olavi Mäyrä",
+            "image_src": null,
+            "dob": 1966.0,
+            "dod": null,
+            "roles": [
+              "Kirjoittaja",
+              "Esiintyy",
+              "Toimittaja"
+            ],
+            "nationality": {
+              "id": 4,
+              "name": "Suomi"
+            },
+            "workcount": 1.0,
+            "storycount": 11,
+            "other_names": null,
+            "first_name": "Frans",
+            "last_name": "Mäyrä",
+            "image_attr": "",
+            "bio": null,
+            "bio_src": "",
+            "imported_string": null
+          },
+          {
+            "id": 7622.0,
+            "name": "Mikkonen, Kai",
+            "alt_name": "Kai Mikkonen",
+            "fullname": "Kai Henrik Mikkonen",
+            "image_src": null,
+            "dob": 1965.0,
+            "dod": null,
+            "roles": [
+              "Toimittaja"
+            ],
+            "nationality": {
+              "id": 4,
+              "name": "Suomi"
+            },
+            "workcount": 1.0,
+            "storycount": 0,
+            "other_names": "",
+            "first_name": null,
+            "last_name": null,
+            "image_attr": null,
+            "bio": "",
+            "bio_src": "",
+            "imported_string": null
+          },
+          {
+            "id": 7623.0,
+            "name": "Siivonen, Timo",
+            "alt_name": "Timo Siivonen",
+            "fullname": "",
+            "image_src": null,
+            "dob": null,
+            "dod": null,
+            "roles": [
+              "Toimittaja"
+            ],
+            "nationality": {
+              "id": 4,
+              "name": "Suomi"
+            },
+            "workcount": 1.0,
+            "storycount": 0,
+            "other_names": "",
+            "first_name": null,
+            "last_name": null,
+            "image_attr": null,
+            "bio": "",
+            "bio_src": "",
+            "imported_string": null
+          }
+        ],
+        "contributions": [
+          {
+            "person": {
+              "id": 7624.0,
+              "name": "Myllykoski, Jari",
+              "alt_name": "Jari Myllykoski"
+            },
+            "role": {
+              "id": 4,
+              "name": "Kansikuva"
+            },
+            "description": "Kansi",
+            "real_person": null
+          }
+        ],
+        "images": [
+          {
+            "id": 9242,
+            "image_src": "/static/images/books/Mikkonen_Mayra_Siivonen_Koneihminen_1p.jpg",
+            "image_attr": null
+          }
+        ],
+        "publisher": {
+          "id": 21,
+          "name": "Atena"
+        },
+        "owners": [],
+        "wishlisted": [],
+        "binding": {
+          "id": 2,
+          "name": "Nidottu"
+        },
+        "id": 9729,
+        "title": "Koneihminen",
+        "subtitle": "kirjoituksia kulttuurista ja fiktiosta koneen aikakaudella",
+        "pubyear": 1997,
+        "editionnum": 1,
+        "version": 1,
+        "isbn": "951-796-058-1",
+        "printedin": null,
+        "pubseriesnum": null,
+        "coll_info": null,
+        "pages": 301,
+        "size": 21,
+        "dustcover": 1,
+        "coverimage": 1,
+        "misc": "Kuvitettu.",
+        "imported_string": null,
+        "verified": false
+      },
+      {
+        "work": [
+          {
+            "id": 6802.0,
+            "title": "Tieteiskirjallisuuden maailmoita",
+            "orig_title": "",
+            "author_str": "Savolainen, Matti (toim.)",
+            "contributions": [
+              {
+                "person": {
+                  "id": 3827.0,
+                  "name": "Savolainen, Matti",
+                  "alt_name": "Matti Savolainen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": "",
+                "real_person": null
+              }
+            ],
+            "editions": [
+              {
+                "editors": [
+                  {
+                    "id": 3827.0,
+                    "name": "Savolainen, Matti",
+                    "alt_name": "Matti Savolainen",
+                    "fullname": "",
+                    "image_src": null,
+                    "dob": 1949.0,
+                    "dod": 2012.0,
+                    "roles": [
+                      "Esiintyy",
+                      "Kirjoittaja",
+                      "Toimittaja",
+                      "Kääntäjä"
+                    ],
+                    "nationality": {
+                      "id": 4,
+                      "name": "Suomi"
+                    },
+                    "workcount": 2.0,
+                    "storycount": 12,
+                    "other_names": null,
+                    "first_name": "Matti",
+                    "last_name": "Savolainen",
+                    "image_attr": "",
+                    "bio": null,
+                    "bio_src": "",
+                    "imported_string": null
+                  }
+                ],
+                "translators": [
+                  {
+                    "id": 3827.0,
+                    "name": "Savolainen, Matti",
+                    "alt_name": "Matti Savolainen",
+                    "fullname": "",
+                    "image_src": null,
+                    "dob": 1949.0,
+                    "dod": 2012.0,
+                    "roles": [
+                      "Esiintyy",
+                      "Kirjoittaja",
+                      "Toimittaja",
+                      "Kääntäjä"
+                    ],
+                    "nationality": {
+                      "id": 4,
+                      "name": "Suomi"
+                    },
+                    "workcount": 2.0,
+                    "storycount": 12,
+                    "other_names": null,
+                    "first_name": "Matti",
+                    "last_name": "Savolainen",
+                    "image_attr": "",
+                    "bio": null,
+                    "bio_src": "",
+                    "imported_string": null
+                  }
+                ],
+                "contributions": [
+                  {
+                    "person": {
+                      "id": 7574.0,
+                      "name": "Brola, Tarja",
+                      "alt_name": "Tarja Brola"
+                    },
+                    "role": {
+                      "id": 4,
+                      "name": "Kansikuva"
+                    },
+                    "description": "Kansi",
+                    "real_person": null
+                  }
+                ],
+                "images": [
+                  {
+                    "id": 9241,
+                    "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
+                    "image_attr": null
+                  }
+                ],
+                "publisher": {
+                  "id": 493,
+                  "name": "Kirjastopalvelu"
+                },
+                "owners": [],
+                "wishlisted": [],
+                "id": 9728,
+                "title": "Tieteiskirjallisuuden maailmoita",
+                "subtitle": "",
+                "pubyear": 1987,
+                "editionnum": 1,
+                "version": 1,
+                "isbn": "951-692-185-X",
+                "printedin": null,
+                "pubseriesnum": null,
+                "coll_info": null,
+                "pages": 205,
+                "size": 21,
+                "dustcover": 1,
+                "coverimage": 1,
+                "misc": null,
+                "imported_string": null,
+                "verified": false
+              }
+            ],
+            "genres": [
+              {
+                "id": 5,
+                "name": "Science Fiction",
+                "abbr": "SF"
+              }
+            ],
+            "bookseries": null,
+            "tags": [],
+            "language_name": {
+              "id": 7,
+              "name": "suomi"
+            },
+            "type": 4.0,
+            "subtitle": "",
+            "pubyear": 1987,
+            "bookseriesnum": "",
+            "bookseriesorder": null,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null
+          }
+        ],
+        "editors": [
+          {
+            "id": 3827.0,
+            "name": "Savolainen, Matti",
+            "alt_name": "Matti Savolainen",
+            "fullname": "",
+            "image_src": null,
+            "dob": 1949.0,
+            "dod": 2012.0,
+            "roles": [
+              "Esiintyy",
+              "Kirjoittaja",
+              "Toimittaja",
+              "Kääntäjä"
+            ],
+            "nationality": {
+              "id": 4,
+              "name": "Suomi"
+            },
+            "workcount": 2.0,
+            "storycount": 12,
+            "other_names": null,
+            "first_name": "Matti",
+            "last_name": "Savolainen",
+            "image_attr": "",
+            "bio": null,
+            "bio_src": "",
+            "imported_string": null
+          }
+        ],
+        "contributions": [
+          {
+            "person": {
+              "id": 7574.0,
+              "name": "Brola, Tarja",
+              "alt_name": "Tarja Brola"
+            },
+            "role": {
+              "id": 4,
+              "name": "Kansikuva"
+            },
+            "description": "Kansi",
+            "real_person": null
+          }
+        ],
+        "images": [
+          {
+            "id": 9241,
+            "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
+            "image_attr": null
+          }
+        ],
+        "publisher": {
+          "id": 493,
+          "name": "Kirjastopalvelu"
+        },
+        "owners": [],
+        "wishlisted": [],
+        "binding": {
+          "id": 2,
+          "name": "Nidottu"
+        },
+        "id": 9728,
+        "title": "Tieteiskirjallisuuden maailmoita",
+        "subtitle": "",
+        "pubyear": 1987,
+        "editionnum": 1,
+        "version": 1,
+        "isbn": "951-692-185-X",
+        "printedin": null,
+        "pubseriesnum": null,
+        "coll_info": null,
+        "pages": 205,
+        "size": 21,
+        "dustcover": 1,
+        "coverimage": 1,
+        "misc": null,
+        "imported_string": null,
+        "verified": false
+      },
+      {
+        "work": [
+          {
+            "id": 6801.0,
+            "title": "Muissa maailmoissa",
+            "orig_title": "",
+            "author_str": "Siukonen, Jyrki",
+            "contributions": [
+              {
+                "person": {
+                  "id": 159.0,
+                  "name": "Siukonen, Jyrki",
+                  "alt_name": "Jyrki Siukonen"
+                },
+                "role": {
+                  "id": 1,
+                  "name": "Kirjoittaja"
+                },
+                "description": "",
+                "real_person": null
+              }
+            ],
+            "editions": [
+              {
+                "editors": [],
+                "translators": [],
+                "contributions": [],
+                "images": [
+                  {
+                    "id": 9240,
+                    "image_src": "/static/images/books/Siukonen_Jyrki_Muissamaailmoissa_1p.jpg",
+                    "image_attr": null
+                  }
+                ],
+                "publisher": {
+                  "id": 72,
+                  "name": "Gaudeamus"
+                },
+                "owners": [],
+                "wishlisted": [],
+                "id": 9727,
+                "title": "Muissa maailmoissa",
+                "subtitle": "maapallon ulkopuolisten olentojen kulttuurihistoriaa",
+                "pubyear": 2003,
+                "editionnum": 1,
+                "version": 1,
+                "isbn": "951-662-883-4",
+                "printedin": null,
+                "pubseriesnum": null,
+                "coll_info": null,
+                "pages": 194,
+                "size": 21,
+                "dustcover": 1,
+                "coverimage": 1,
+                "misc": "Kuvitettu.",
+                "imported_string": null,
+                "verified": false
+              }
+            ],
+            "genres": [
+              {
+                "id": 1,
+                "name": "Fantasia",
+                "abbr": "F"
+              }
+            ],
+            "bookseries": null,
+            "tags": [],
+            "language_name": {
+              "id": 7,
+              "name": "suomi"
+            },
+            "type": 4.0,
+            "subtitle": "maapallon ulkopuolisten olentojen kulttuurihistoriaa",
+            "pubyear": 2003,
+            "bookseriesnum": "",
+            "bookseriesorder": null,
+            "misc": "",
+            "description": "<p>Muissa maailmoissa on läpileikkaus maapallon ulkopuolisen elämän historiasta. Samalla se on tutkimusmatka ihmisen omaan mielikuvitukseen, sillä voimme lukea avaruuden asukkaiden kuvauksia ainoastaan maapallolla kirjoitetuista kirjoista.</p><p>Teos esittelee länsimaisten filosofien ja tiedemiesten ajatuksia antiikista 1700-luvun lopulle, Cicerosta Immanuel Kantiin. Se avaa kulttuurihistoriallisen panoraaman, jonka humoristisissa yksityiskohdissa käy ilmi inhimillisen ajattelun rajallisuus – on vaikea kuvitella jotakin inhimillisestä elämänmuodosta täysin poikkeavaa.</p><p>”Kaukomaiden tavaroita ja mausteita tapaa jo nyt olla liian runsaasti ja niitä jää käsiin; ajatelkaa, jos meille aletaan tuoda siirtomaatavaroita planeetoilta!” – Filosofian kandidaatti Pehr Högström vuonna 1741.</p><p><br></p><p>Sisällys:</p><p>Johdanto</p><p>1. Kaksi kertomisen tapaa: Cicero ja Plutarkhos</p><p>2. Maailmankaikkeus täynnä elämää: Cusanus</p><p>3. Henkien matkassa Kuuhun: Kepler</p><p>4. Kiertokäynnillä aurinkokunnassa: Kircher</p><p>5. Keskusteluja puutarhassa: Fontenelle</p><p>6. Asiaa järkevästi tarkastellen: Huygens</p><p>7. Väliaikamusiikkia eli vieras Siriuksesta: Voltaire, Mikromegas (1752)</p><p>8. Filosofisia pohdintoja: Locke, Leibnitz ja Kant</p><p>9. Kuullun ja nähdyn perusteella: Swedenborg</p><p>10. Epilogi: taloja avaruudessa</p><p>Viitteet</p><p>Kirjallisuus</p><p><br></p>",
+            "descr_attr": "",
+            "imported_string": null
+          }
+        ],
+        "editors": [],
+        "contributions": [],
+        "images": [
+          {
+            "id": 9240,
+            "image_src": "/static/images/books/Siukonen_Jyrki_Muissamaailmoissa_1p.jpg",
+            "image_attr": null
+          }
+        ],
+        "publisher": {
+          "id": 72,
+          "name": "Gaudeamus"
+        },
+        "owners": [],
+        "wishlisted": [],
+        "binding": {
+          "id": 2,
+          "name": "Nidottu"
+        },
+        "id": 9727,
+        "title": "Muissa maailmoissa",
+        "subtitle": "maapallon ulkopuolisten olentojen kulttuurihistoriaa",
+        "pubyear": 2003,
+        "editionnum": 1,
+        "version": 1,
+        "isbn": "951-662-883-4",
+        "printedin": null,
+        "pubseriesnum": null,
+        "coll_info": null,
+        "pages": 194,
+        "size": 21,
+        "dustcover": 1,
+        "coverimage": 1,
+        "misc": "Kuvitettu.",
+        "imported_string": null,
+        "verified": false
+      }
+    ],
+    "error": null
+  }
+}

@@ -1,0 +1,224 @@
+{
+  "metadata": {
+    "generated_at": "2026-02-10T21:41:46.375456+00:00",
+    "generator": "update_snapshots.py",
+    "total_endpoints": 37,
+    "endpoint": "/api/editions/1",
+    "method": "GET",
+    "status_code": 200
+  },
+  "response": {
+    "status_code": 200,
+    "data": {
+      "publisher": {
+        "id": 387,
+        "name": "WSOY",
+        "fullname": "Werner Söderström Oy",
+        "description": "",
+        "image_src": null,
+        "image_attr": null
+      },
+      "images": [
+        {
+          "id": 8002,
+          "image_src": "/static/images/books/Unsworth_Barry_Kivineitsyt_1p.jpg",
+          "image_attr": null
+        }
+      ],
+      "translators": [
+        {
+          "id": 2.0,
+          "name": "Buffa, Aira",
+          "alt_name": "Aira Buffa",
+          "fullname": "",
+          "image_src": null,
+          "dob": null,
+          "dod": null,
+          "roles": [
+            "Kääntäjä"
+          ],
+          "nationality": {
+            "id": 4,
+            "name": "Suomi"
+          },
+          "workcount": 0.0,
+          "storycount": 0,
+          "other_names": "",
+          "first_name": "Aira",
+          "last_name": "Buffa",
+          "image_attr": "",
+          "bio": "",
+          "bio_src": "",
+          "imported_string": "\n<b>Kivineitsyt</b>. (Stone Virgin, 1985). Suom Aira Buffa. WSOY 1986. [F]."
+        }
+      ],
+      "pubseries": null,
+      "work": [
+        {
+          "id": 1.0,
+          "title": "Kivineitsyt",
+          "orig_title": "Stone Virgin",
+          "author_str": "Unsworth, Barry",
+          "contributions": [
+            {
+              "person": {
+                "id": 1.0,
+                "name": "Unsworth, Barry",
+                "alt_name": "Barry Unsworth"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": null,
+              "real_person": null
+            }
+          ],
+          "editions": [
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 2.0,
+                  "name": "Buffa, Aira",
+                  "alt_name": "Aira Buffa",
+                  "fullname": "",
+                  "image_src": null,
+                  "dob": null,
+                  "dod": null,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 0,
+                  "other_names": "",
+                  "first_name": "Aira",
+                  "last_name": "Buffa",
+                  "image_attr": "",
+                  "bio": "",
+                  "bio_src": "",
+                  "imported_string": "\n<b>Kivineitsyt</b>. (Stone Virgin, 1985). Suom Aira Buffa. WSOY 1986. [F]."
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 2.0,
+                    "name": "Buffa, Aira",
+                    "alt_name": "Aira Buffa"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "id": 8002,
+                  "image_src": "/static/images/books/Unsworth_Barry_Kivineitsyt_1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 387,
+                "name": "WSOY"
+              },
+              "owners": [],
+              "wishlisted": [],
+              "id": 1,
+              "title": "Kivineitsyt",
+              "subtitle": "",
+              "pubyear": 1986,
+              "editionnum": 1,
+              "version": null,
+              "isbn": "951-0-13801-0",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 390,
+              "size": 21,
+              "dustcover": 3,
+              "coverimage": 1,
+              "misc": "",
+              "imported_string": "\n<b>Kivineitsyt</b>. (Stone Virgin, 1985). Suom Aira Buffa. WSOY 1986. [F].",
+              "verified": false
+            }
+          ],
+          "genres": [
+            {
+              "id": 1,
+              "name": "Fantasia",
+              "abbr": "F"
+            }
+          ],
+          "bookseries": null,
+          "tags": [],
+          "language_name": {
+            "id": 1,
+            "name": "englanti"
+          },
+          "type": 1.0,
+          "subtitle": "",
+          "pubyear": 1985,
+          "bookseriesnum": "",
+          "bookseriesorder": 0,
+          "misc": "",
+          "description": null,
+          "descr_attr": null,
+          "imported_string": "\n<b>Kivineitsyt</b>. (Stone Virgin, 1985). Suom Aira Buffa. WSOY 1986. [F]."
+        }
+      ],
+      "binding": {
+        "id": 3,
+        "name": "Sidottu"
+      },
+      "format": {
+        "id": 1,
+        "name": "Paperi"
+      },
+      "editors": [],
+      "contributions": [
+        {
+          "person": {
+            "id": 2.0,
+            "name": "Buffa, Aira",
+            "alt_name": "Aira Buffa"
+          },
+          "role": {
+            "id": 2,
+            "name": "Kääntäjä"
+          },
+          "description": null,
+          "real_person": null
+        }
+      ],
+      "owners": [],
+      "wishlisted": [],
+      "id": 1,
+      "title": "Kivineitsyt",
+      "subtitle": "",
+      "pubyear": 1986,
+      "editionnum": 1,
+      "version": null,
+      "isbn": "951-0-13801-0",
+      "printedin": null,
+      "pubseriesnum": null,
+      "coll_info": "",
+      "pages": 390,
+      "size": 21,
+      "dustcover": 3,
+      "coverimage": 1,
+      "misc": "",
+      "imported_string": "\n<b>Kivineitsyt</b>. (Stone Virgin, 1985). Suom Aira Buffa. WSOY 1986. [F].",
+      "verified": false
+    },
+    "error": null
+  }
+}

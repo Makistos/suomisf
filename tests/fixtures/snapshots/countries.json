@@ -1,0 +1,248 @@
+{
+  "metadata": {
+    "generated_at": "2026-02-10T21:41:46.375456+00:00",
+    "generator": "update_snapshots.py",
+    "total_endpoints": 37,
+    "endpoint": "/api/countries",
+    "method": "GET",
+    "status_code": 200
+  },
+  "response": {
+    "status_code": 200,
+    "data": [
+      {
+        "id": 51,
+        "name": "Alankomaat"
+      },
+      {
+        "id": 26,
+        "name": "Argentiina"
+      },
+      {
+        "id": 14,
+        "name": "Australia"
+      },
+      {
+        "id": 9,
+        "name": "Belgia"
+      },
+      {
+        "id": 48,
+        "name": "Brasilia"
+      },
+      {
+        "id": 47,
+        "name": "Chile"
+      },
+      {
+        "id": 32,
+        "name": "Egypti"
+      },
+      {
+        "id": 15,
+        "name": "Espanja"
+      },
+      {
+        "id": 25,
+        "name": "Etelä-Afrikka"
+      },
+      {
+        "id": 40,
+        "name": "Georgia"
+      },
+      {
+        "id": 6,
+        "name": "Hollanti"
+      },
+      {
+        "id": 56,
+        "name": "Indonesia"
+      },
+      {
+        "id": 21,
+        "name": "Intia"
+      },
+      {
+        "id": 45,
+        "name": "Iran"
+      },
+      {
+        "id": 27,
+        "name": "Irlanti"
+      },
+      {
+        "id": 28,
+        "name": "Islanti"
+      },
+      {
+        "id": 1,
+        "name": "Iso-Britannia"
+      },
+      {
+        "id": 65,
+        "name": "Israel"
+      },
+      {
+        "id": 37,
+        "name": "Italia"
+      },
+      {
+        "id": 13,
+        "name": "Itävalta"
+      },
+      {
+        "id": 38,
+        "name": "Japani"
+      },
+      {
+        "id": 12,
+        "name": "Kanada"
+      },
+      {
+        "id": 39,
+        "name": "Kenia"
+      },
+      {
+        "id": 36,
+        "name": "Kiina"
+      },
+      {
+        "id": 42,
+        "name": "Kolumbia"
+      },
+      {
+        "id": 41,
+        "name": "Kreikka"
+      },
+      {
+        "id": 67,
+        "name": "Kroatia"
+      },
+      {
+        "id": 49,
+        "name": "Kuuba"
+      },
+      {
+        "id": 53,
+        "name": "Latvia"
+      },
+      {
+        "id": 22,
+        "name": "Libanon"
+      },
+      {
+        "id": 66,
+        "name": "Malesia"
+      },
+      {
+        "id": 20,
+        "name": "Meksiko"
+      },
+      {
+        "id": 7,
+        "name": "Neuvostoliitto"
+      },
+      {
+        "id": 33,
+        "name": "Nigeria"
+      },
+      {
+        "id": 19,
+        "name": "Norja"
+      },
+      {
+        "id": 24,
+        "name": "Portugali"
+      },
+      {
+        "id": 16,
+        "name": "Puola"
+      },
+      {
+        "id": 8,
+        "name": "Ranska"
+      },
+      {
+        "id": 43,
+        "name": "Romania"
+      },
+      {
+        "id": 5,
+        "name": "Ruotsi"
+      },
+      {
+        "id": 11,
+        "name": "Saksa"
+      },
+      {
+        "id": 64,
+        "name": "Serbia"
+      },
+      {
+        "id": 52,
+        "name": "Singapore"
+      },
+      {
+        "id": 4,
+        "name": "Suomi"
+      },
+      {
+        "id": 50,
+        "name": "Sveitsi"
+      },
+      {
+        "id": 58,
+        "name": "Taiwan"
+      },
+      {
+        "id": 31,
+        "name": "Tanska"
+      },
+      {
+        "id": 44,
+        "name": "Tsekki"
+      },
+      {
+        "id": 23,
+        "name": "Tsekkoslovakia"
+      },
+      {
+        "id": 60,
+        "name": "Turkki"
+      },
+      {
+        "id": 34,
+        "name": "Unkari"
+      },
+      {
+        "id": 54,
+        "name": "Uruguay"
+      },
+      {
+        "id": 35,
+        "name": "Uusi-Seelanti"
+      },
+      {
+        "id": 10,
+        "name": "Venäjä"
+      },
+      {
+        "id": 30,
+        "name": "Venezuela"
+      },
+      {
+        "id": 2,
+        "name": "Viro"
+      },
+      {
+        "id": 3,
+        "name": "Yhdysvallat"
+      },
+      {
+        "id": 29,
+        "name": "Zimbabwe"
+      }
+    ],
+    "error": null
+  }
+}

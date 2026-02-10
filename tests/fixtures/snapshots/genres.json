@@ -1,0 +1,106 @@
+{
+  "metadata": {
+    "generated_at": "2026-02-10T21:41:46.375456+00:00",
+    "generator": "update_snapshots.py",
+    "total_endpoints": 37,
+    "endpoint": "/api/genres",
+    "method": "GET",
+    "status_code": 200
+  },
+  "response": {
+    "status_code": 200,
+    "data": [
+      {
+        "id": 1,
+        "name": "Fantasia",
+        "abbr": "F"
+      },
+      {
+        "id": 2,
+        "name": "Kauhu",
+        "abbr": "K"
+      },
+      {
+        "id": 3,
+        "name": "Paleofiktio",
+        "abbr": "Paleof"
+      },
+      {
+        "id": 4,
+        "name": "Poliittinen fiktio",
+        "abbr": "PF"
+      },
+      {
+        "id": 5,
+        "name": "Science Fiction",
+        "abbr": "SF"
+      },
+      {
+        "id": 6,
+        "name": "Vaihtoehtohistoria",
+        "abbr": "VEH"
+      },
+      {
+        "id": 7,
+        "name": "Utopia",
+        "abbr": "Utopia"
+      },
+      {
+        "id": 8,
+        "name": "Nuorten fantasia",
+        "abbr": "nF"
+      },
+      {
+        "id": 9,
+        "name": "Nuorten Science Fiction",
+        "abbr": "nSF"
+      },
+      {
+        "id": 10,
+        "name": "Nuorten kauhu",
+        "abbr": "nK"
+      },
+      {
+        "id": 11,
+        "name": "Lasten Science Fiction",
+        "abbr": "lSF"
+      },
+      {
+        "id": 12,
+        "name": "Satu",
+        "abbr": "satu"
+      },
+      {
+        "id": 13,
+        "name": "Ei SpeFiä",
+        "abbr": "eiSF"
+      },
+      {
+        "id": 14,
+        "name": "rajatapaus",
+        "abbr": "rajatap"
+      },
+      {
+        "id": 15,
+        "name": "Lasten kuvakirja",
+        "abbr": "lasten kuvakirja"
+      },
+      {
+        "id": 16,
+        "name": "Kokoelma",
+        "abbr": "kok"
+      },
+      {
+        "id": 17,
+        "name": "Lasten fantasia",
+        "abbr": "lF"
+      },
+      {
+        "id": 18,
+        "name": "Runous",
+        "abbr": "R"
+      }
+    ],
+    "error": null
+  }
+}

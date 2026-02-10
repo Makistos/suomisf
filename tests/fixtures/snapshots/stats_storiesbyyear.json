@@ -1,0 +1,7880 @@
+{
+  "metadata": {
+    "generated_at": "2026-02-10T21:41:46.375456+00:00",
+    "generator": "update_snapshots.py",
+    "total_endpoints": 37,
+    "endpoint": "/api/stats/storiesbyyear",
+    "method": "GET",
+    "status_code": 200
+  },
+  "response": {
+    "status_code": 200,
+    "data": [
+      {
+        "year": 203,
+        "count": 1,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1200,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1553,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1602,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1605,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1624,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 33,
+        "language_name": "latina"
+      },
+      {
+        "year": 1706,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1727,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1752,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1794,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1796,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1797,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1803,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1805,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1809,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1810,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1811,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1812,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1815,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1816,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1817,
+        "count": 9,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1818,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1818,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1819,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1819,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1819,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1819,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1824,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1825,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1827,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1828,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1829,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1830,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1830,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1830,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1831,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1831,
+        "count": 5,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1832,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1832,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1832,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1833,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1833,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1833,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1834,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1834,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1834,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1835,
+        "count": 10,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1835,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1835,
+        "count": 5,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1836,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1836,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1836,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1837,
+        "count": 5,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1837,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1838,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1838,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1839,
+        "count": 13,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1839,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1839,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1840,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1840,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1840,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1841,
+        "count": 5,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1841,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1841,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1841,
+        "count": 6,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1842,
+        "count": 8,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1842,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1842,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1842,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1843,
+        "count": 9,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1843,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1843,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1843,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1843,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1844,
+        "count": 14,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1844,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1844,
+        "count": 8,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1844,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1845,
+        "count": 8,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1845,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1845,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1845,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1845,
+        "count": 5,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1845,
+        "count": 2,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1846,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1846,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1846,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1847,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1847,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1848,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1848,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1849,
+        "count": 7,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1849,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1850,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1850,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1851,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1852,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1852,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1853,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1853,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1855,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1856,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1857,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1859,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1859,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1860,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1860,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1861,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1863,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1864,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1864,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1864,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1864,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1864,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1865,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1865,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1866,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1866,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1866,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1869,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1870,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1870,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 1871,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1871,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 53,
+        "language_name": "tsekki"
+      },
+      {
+        "year": 1872,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1873,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1875,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1875,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1876,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1876,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1877,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1877,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1878,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1879,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1880,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1880,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1880,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1881,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1881,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1881,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1882,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1882,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1883,
+        "count": 5,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1883,
+        "count": 6,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1883,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1883,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1883,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1884,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1884,
+        "count": 6,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1885,
+        "count": 14,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1885,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1885,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 53,
+        "language_name": "tsekki"
+      },
+      {
+        "year": 1885,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1885,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1886,
+        "count": 9,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1886,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1886,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1886,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1886,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1887,
+        "count": 9,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1887,
+        "count": 8,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1887,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1887,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1888,
+        "count": 14,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1888,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1888,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1889,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1889,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1889,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1890,
+        "count": 9,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1890,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1890,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1890,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1891,
+        "count": 20,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1891,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1891,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1892,
+        "count": 9,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1892,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1892,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1892,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1893,
+        "count": 15,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1894,
+        "count": 21,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1894,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1894,
+        "count": 8,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1895,
+        "count": 31,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1895,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1895,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1895,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1896,
+        "count": 32,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1896,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1896,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1897,
+        "count": 14,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1897,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1898,
+        "count": 18,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1898,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1898,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1899,
+        "count": 13,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1899,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1899,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1899,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1899,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1900,
+        "count": 12,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1900,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1900,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1900,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1901,
+        "count": 7,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1901,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1901,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1902,
+        "count": 12,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1902,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1902,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1902,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1903,
+        "count": 14,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1903,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1903,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1904,
+        "count": 47,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1904,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1905,
+        "count": 5,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1905,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1905,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1905,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1906,
+        "count": 12,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1906,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1906,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1906,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1907,
+        "count": 11,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1907,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1907,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1907,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1908,
+        "count": 12,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1908,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1908,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1908,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1908,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1908,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1909,
+        "count": 6,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1909,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1909,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1910,
+        "count": 16,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1910,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 1910,
+        "count": 5,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1910,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1910,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1911,
+        "count": 23,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1911,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1911,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1911,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1912,
+        "count": 10,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1912,
+        "count": 7,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1912,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1913,
+        "count": 9,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1913,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1913,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1913,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1914,
+        "count": 23,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1914,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1914,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1915,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1915,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1915,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1915,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1915,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1916,
+        "count": 8,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1916,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1916,
+        "count": 10,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1916,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 40,
+        "language_name": "viro"
+      },
+      {
+        "year": 1916,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1916,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1917,
+        "count": 10,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1917,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1917,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1917,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1918,
+        "count": 5,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1918,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1918,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1918,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1919,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1919,
+        "count": 16,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1919,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1919,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1920,
+        "count": 9,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1920,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1920,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1920,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1920,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 40,
+        "language_name": "viro"
+      },
+      {
+        "year": 1920,
+        "count": 3,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1921,
+        "count": 10,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1921,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 1921,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1921,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1921,
+        "count": 6,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1922,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1922,
+        "count": 16,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1922,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1922,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1922,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1922,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1923,
+        "count": 16,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1923,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1923,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1924,
+        "count": 20,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1924,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 1924,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1924,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1924,
+        "count": 3,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1925,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1925,
+        "count": 16,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1925,
+        "count": 5,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1925,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1926,
+        "count": 21,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1926,
+        "count": 12,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1926,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1927,
+        "count": 17,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1927,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1927,
+        "count": 5,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1927,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1927,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1928,
+        "count": 17,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1928,
+        "count": 10,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1928,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1928,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1929,
+        "count": 16,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1929,
+        "count": 5,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1929,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 53,
+        "language_name": "tsekki"
+      },
+      {
+        "year": 1929,
+        "count": 2,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1930,
+        "count": 15,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1930,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1930,
+        "count": 7,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1930,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1930,
+        "count": 3,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1930,
+        "count": 2,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1931,
+        "count": 16,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1931,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1931,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1931,
+        "count": 2,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1932,
+        "count": 22,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1933,
+        "count": 34,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1934,
+        "count": 28,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1934,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 1934,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1934,
+        "count": 7,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1934,
+        "count": 16,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1934,
+        "count": 2,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1935,
+        "count": 26,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1935,
+        "count": 1,
+        "storytype_id": 3,
+        "storytype_name": "Pienoisromaani",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1935,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1936,
+        "count": 23,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1936,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1936,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1936,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1936,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1937,
+        "count": 13,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1937,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1937,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1937,
+        "count": 16,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1938,
+        "count": 21,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1938,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1938,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1938,
+        "count": 1,
+        "storytype_id": 3,
+        "storytype_name": "Pienoisromaani",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1938,
+        "count": 2,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1939,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1939,
+        "count": 13,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1939,
+        "count": 8,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1939,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1940,
+        "count": 16,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1940,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1940,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1940,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1940,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1941,
+        "count": 9,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1941,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1942,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1942,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1942,
+        "count": 11,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1942,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1943,
+        "count": 8,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1944,
+        "count": 14,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1944,
+        "count": 5,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1944,
+        "count": 13,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1945,
+        "count": 11,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1945,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1946,
+        "count": 21,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1946,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1947,
+        "count": 21,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1947,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1947,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1947,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1948,
+        "count": 28,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1948,
+        "count": 6,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1948,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1949,
+        "count": 23,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1949,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1949,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1950,
+        "count": 38,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1950,
+        "count": 1,
+        "storytype_id": 3,
+        "storytype_name": "Pienoisromaani",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1951,
+        "count": 29,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1951,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1952,
+        "count": 23,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1952,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1953,
+        "count": 39,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1953,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1953,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1953,
+        "count": 6,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1953,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1954,
+        "count": 11,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1954,
+        "count": 6,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1954,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1954,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1954,
+        "count": 6,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1955,
+        "count": 10,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1955,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1955,
+        "count": 5,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1955,
+        "count": 5,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1955,
+        "count": 1,
+        "storytype_id": 3,
+        "storytype_name": "Pienoisromaani",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1956,
+        "count": 16,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1956,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 1956,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1956,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1957,
+        "count": 10,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1957,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1957,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1957,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 40,
+        "language_name": "viro"
+      },
+      {
+        "year": 1957,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1958,
+        "count": 14,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1958,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1958,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1958,
+        "count": 30,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1959,
+        "count": 14,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1959,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1959,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1959,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1959,
+        "count": 6,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1960,
+        "count": 6,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1960,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1960,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1960,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1961,
+        "count": 10,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1961,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1961,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1961,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1961,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1961,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1962,
+        "count": 26,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1962,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1962,
+        "count": 9,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1962,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1962,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1962,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1962,
+        "count": 5,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1963,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1963,
+        "count": 14,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1963,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1963,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1963,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1963,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1964,
+        "count": 17,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1964,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 54,
+        "language_name": "esperanto"
+      },
+      {
+        "year": 1964,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1964,
+        "count": 19,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1964,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 53,
+        "language_name": "tsekki"
+      },
+      {
+        "year": 1964,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1964,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1965,
+        "count": 6,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1965,
+        "count": 9,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1965,
+        "count": 12,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1965,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1965,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1965,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1966,
+        "count": 11,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1966,
+        "count": 8,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1966,
+        "count": 15,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1966,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1966,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1966,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1966,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1967,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1967,
+        "count": 26,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1967,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1967,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 1967,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1968,
+        "count": 21,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1968,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1968,
+        "count": 8,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1968,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1968,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1969,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1969,
+        "count": 21,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1969,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1969,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1969,
+        "count": 1,
+        "storytype_id": 3,
+        "storytype_name": "Pienoisromaani",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1970,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1970,
+        "count": 18,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1970,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1970,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 1970,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1970,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1970,
+        "count": 9,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1970,
+        "count": 1,
+        "storytype_id": 3,
+        "storytype_name": "Pienoisromaani",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1970,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1971,
+        "count": 10,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1971,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1971,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1971,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1971,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1971,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 6,
+        "language_name": "unkari"
+      },
+      {
+        "year": 1971,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1971,
+        "count": 1,
+        "storytype_id": 3,
+        "storytype_name": "Pienoisromaani",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1971,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1972,
+        "count": 19,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1972,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1972,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1972,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1972,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 6,
+        "language_name": "unkari"
+      },
+      {
+        "year": 1972,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1973,
+        "count": 18,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1973,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1973,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1973,
+        "count": 1,
+        "storytype_id": 3,
+        "storytype_name": "Pienoisromaani",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1974,
+        "count": 27,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1974,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1974,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1974,
+        "count": 5,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1975,
+        "count": 2,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1975,
+        "count": 24,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1975,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1975,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1975,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1975,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1975,
+        "count": 13,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1975,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1976,
+        "count": 1,
+        "storytype_id": 8,
+        "storytype_name": "Esipuhe",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1976,
+        "count": 25,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1976,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1976,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1976,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1976,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1977,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1977,
+        "count": 3,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1977,
+        "count": 18,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1977,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1977,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1978,
+        "count": 10,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1978,
+        "count": 20,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1978,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 1978,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1978,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1978,
+        "count": 1,
+        "storytype_id": 3,
+        "storytype_name": "Pienoisromaani",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1978,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1979,
+        "count": 7,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1979,
+        "count": 44,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1979,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1979,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1979,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1979,
+        "count": 1,
+        "storytype_id": 3,
+        "storytype_name": "Pienoisromaani",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1980,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1980,
+        "count": 4,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1980,
+        "count": 33,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1980,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 50,
+        "language_name": "romania"
+      },
+      {
+        "year": 1980,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1981,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1981,
+        "count": 18,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1981,
+        "count": 41,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1981,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1981,
+        "count": 7,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1981,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1981,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1981,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1982,
+        "count": 62,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1982,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1982,
+        "count": 45,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1982,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1982,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1982,
+        "count": 51,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1982,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1982,
+        "count": 1,
+        "storytype_id": 3,
+        "storytype_name": "Pienoisromaani",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1982,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1983,
+        "count": 7,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1983,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1983,
+        "count": 50,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1983,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1983,
+        "count": 14,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1983,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 54,
+        "language_name": "esperanto"
+      },
+      {
+        "year": 1983,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1983,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 1983,
+        "count": 38,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1983,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1983,
+        "count": 5,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1983,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1983,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1984,
+        "count": 3,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1984,
+        "count": 53,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1984,
+        "count": 40,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1984,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 54,
+        "language_name": "esperanto"
+      },
+      {
+        "year": 1984,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1984,
+        "count": 53,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1984,
+        "count": 7,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1984,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1985,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1985,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 1985,
+        "count": 67,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1985,
+        "count": 41,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1985,
+        "count": 35,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1985,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 6,
+        "language_name": "unkari"
+      },
+      {
+        "year": 1985,
+        "count": 6,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1985,
+        "count": 2,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1985,
+        "count": 2,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1986,
+        "count": 4,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1986,
+        "count": 65,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1986,
+        "count": 19,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1986,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 54,
+        "language_name": "esperanto"
+      },
+      {
+        "year": 1986,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1986,
+        "count": 82,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1986,
+        "count": 6,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1986,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1986,
+        "count": 9,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1987,
+        "count": 3,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1987,
+        "count": 72,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1987,
+        "count": 54,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1987,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1987,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1987,
+        "count": 68,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1987,
+        "count": 6,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1987,
+        "count": 1,
+        "storytype_id": 3,
+        "storytype_name": "Pienoisromaani",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1987,
+        "count": 2,
+        "storytype_id": 3,
+        "storytype_name": "Pienoisromaani",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1987,
+        "count": 2,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1988,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1988,
+        "count": 91,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1988,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1988,
+        "count": 45,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1988,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 36,
+        "language_name": "hollanti"
+      },
+      {
+        "year": 1988,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1988,
+        "count": 57,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1988,
+        "count": 13,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1988,
+        "count": 2,
+        "storytype_id": 3,
+        "storytype_name": "Pienoisromaani",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1988,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1988,
+        "count": 2,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1989,
+        "count": 12,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1989,
+        "count": 87,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1989,
+        "count": 2,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1989,
+        "count": 53,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1989,
+        "count": 7,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1989,
+        "count": 43,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1989,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1989,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1989,
+        "count": 1,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1989,
+        "count": 11,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1989,
+        "count": 1,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1989,
+        "count": 2,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1989,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1990,
+        "count": 16,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1990,
+        "count": 97,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1990,
+        "count": 3,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1990,
+        "count": 57,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1990,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1990,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1990,
+        "count": 66,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1990,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1990,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1990,
+        "count": 15,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1990,
+        "count": 4,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1991,
+        "count": 7,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1991,
+        "count": 151,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1991,
+        "count": 79,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1991,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1991,
+        "count": 104,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1991,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1991,
+        "count": 1,
+        "storytype_id": 3,
+        "storytype_name": "Pienoisromaani",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1991,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1991,
+        "count": 14,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1991,
+        "count": 2,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1992,
+        "count": 3,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1992,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1992,
+        "count": 165,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1992,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1992,
+        "count": 46,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1992,
+        "count": 116,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1992,
+        "count": 32,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1992,
+        "count": 23,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1992,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1992,
+        "count": 3,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1992,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1993,
+        "count": 7,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1993,
+        "count": 160,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1993,
+        "count": 19,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1993,
+        "count": 68,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1993,
+        "count": 15,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 1993,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1993,
+        "count": 8,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1994,
+        "count": 4,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1994,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 1994,
+        "count": 177,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1994,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1994,
+        "count": 21,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1994,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1994,
+        "count": 75,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1994,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1994,
+        "count": 2,
+        "storytype_id": 3,
+        "storytype_name": "Pienoisromaani",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1994,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1994,
+        "count": 6,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1994,
+        "count": 5,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1995,
+        "count": 8,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1995,
+        "count": 156,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1995,
+        "count": 2,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1995,
+        "count": 16,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1995,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1995,
+        "count": 42,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1995,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1995,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1995,
+        "count": 11,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1995,
+        "count": 1,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1995,
+        "count": 2,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1995,
+        "count": 4,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1996,
+        "count": 4,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1996,
+        "count": 113,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1996,
+        "count": 30,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1996,
+        "count": 80,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1996,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1996,
+        "count": 2,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1996,
+        "count": 3,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1996,
+        "count": 3,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1997,
+        "count": 156,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1997,
+        "count": 2,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1997,
+        "count": 1,
+        "storytype_id": 9,
+        "storytype_name": "Jälkisanat",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1997,
+        "count": 14,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1997,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 1997,
+        "count": 32,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1997,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1997,
+        "count": 5,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1997,
+        "count": 5,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1998,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1998,
+        "count": 137,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1998,
+        "count": 1,
+        "storytype_id": 6,
+        "storytype_name": "Filk-laulu",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1998,
+        "count": 9,
+        "storytype_id": 6,
+        "storytype_name": "Filk-laulu",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1998,
+        "count": 18,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1998,
+        "count": 46,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1998,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1998,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1998,
+        "count": 4,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1998,
+        "count": 5,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1999,
+        "count": 98,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1999,
+        "count": 1,
+        "storytype_id": 9,
+        "storytype_name": "Jälkisanat",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1999,
+        "count": 25,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1999,
+        "count": 93,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1999,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 1999,
+        "count": 1,
+        "storytype_id": 3,
+        "storytype_name": "Pienoisromaani",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 1999,
+        "count": 9,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 1999,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2000,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2000,
+        "count": 121,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2000,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2000,
+        "count": 2,
+        "storytype_id": 6,
+        "storytype_name": "Filk-laulu",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2000,
+        "count": 14,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2000,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2000,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2000,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2000,
+        "count": 61,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2000,
+        "count": 2,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2000,
+        "count": 13,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2001,
+        "count": 2,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2001,
+        "count": 137,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2001,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2001,
+        "count": 1,
+        "storytype_id": 6,
+        "storytype_name": "Filk-laulu",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2001,
+        "count": 35,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2001,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2001,
+        "count": 92,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2001,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2001,
+        "count": 1,
+        "storytype_id": 3,
+        "storytype_name": "Pienoisromaani",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2001,
+        "count": 2,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2001,
+        "count": 2,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2001,
+        "count": 5,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2002,
+        "count": 96,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2002,
+        "count": 1,
+        "storytype_id": 8,
+        "storytype_name": "Esipuhe",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2002,
+        "count": 101,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2002,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 36,
+        "language_name": "hollanti"
+      },
+      {
+        "year": 2002,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 2002,
+        "count": 68,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2002,
+        "count": 4,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2002,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2003,
+        "count": 8,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2003,
+        "count": 110,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2003,
+        "count": 48,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2003,
+        "count": 49,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2003,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2003,
+        "count": 2,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2003,
+        "count": 6,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2004,
+        "count": 3,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2004,
+        "count": 210,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2004,
+        "count": 2,
+        "storytype_id": 8,
+        "storytype_name": "Esipuhe",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2004,
+        "count": 16,
+        "storytype_id": 6,
+        "storytype_name": "Filk-laulu",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2004,
+        "count": 17,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2004,
+        "count": 21,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2004,
+        "count": 77,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2004,
+        "count": 5,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2004,
+        "count": 1,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2004,
+        "count": 3,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2005,
+        "count": 5,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2005,
+        "count": 121,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2005,
+        "count": 41,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2005,
+        "count": 92,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2005,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 6,
+        "language_name": "unkari"
+      },
+      {
+        "year": 2005,
+        "count": 11,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2005,
+        "count": 1,
+        "storytype_id": 3,
+        "storytype_name": "Pienoisromaani",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2005,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2005,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2006,
+        "count": 98,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2006,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2006,
+        "count": 1,
+        "storytype_id": 6,
+        "storytype_name": "Filk-laulu",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2006,
+        "count": 10,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2006,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 2006,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2006,
+        "count": 77,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2006,
+        "count": 12,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2006,
+        "count": 2,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2006,
+        "count": 6,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2007,
+        "count": 4,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2007,
+        "count": 81,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2007,
+        "count": 21,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2007,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2007,
+        "count": 85,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2007,
+        "count": 14,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2007,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2008,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2008,
+        "count": 123,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2008,
+        "count": 30,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2008,
+        "count": 79,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2008,
+        "count": 10,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2008,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2008,
+        "count": 1,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2008,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2009,
+        "count": 3,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2009,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2009,
+        "count": 96,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2009,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2009,
+        "count": 1,
+        "storytype_id": 6,
+        "storytype_name": "Filk-laulu",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2009,
+        "count": 25,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2009,
+        "count": 12,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2009,
+        "count": 9,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2009,
+        "count": 105,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2009,
+        "count": 10,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2009,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2009,
+        "count": 4,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2009,
+        "count": 4,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2010,
+        "count": 3,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2010,
+        "count": 58,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2010,
+        "count": 1,
+        "storytype_id": 6,
+        "storytype_name": "Filk-laulu",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2010,
+        "count": 7,
+        "storytype_id": 6,
+        "storytype_name": "Filk-laulu",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2010,
+        "count": 28,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2010,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 32,
+        "language_name": "kiina"
+      },
+      {
+        "year": 2010,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2010,
+        "count": 124,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2010,
+        "count": 5,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2010,
+        "count": 2,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2010,
+        "count": 4,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2010,
+        "count": 27,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2010,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2011,
+        "count": 5,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2011,
+        "count": 64,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2011,
+        "count": 3,
+        "storytype_id": 6,
+        "storytype_name": "Filk-laulu",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2011,
+        "count": 21,
+        "storytype_id": 6,
+        "storytype_name": "Filk-laulu",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2011,
+        "count": 9,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2011,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2011,
+        "count": 112,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2011,
+        "count": 6,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2011,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2011,
+        "count": 6,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2012,
+        "count": 70,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2012,
+        "count": 33,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2012,
+        "count": 181,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2012,
+        "count": 11,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2012,
+        "count": 16,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2012,
+        "count": 1,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2012,
+        "count": 6,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2013,
+        "count": 2,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2013,
+        "count": 73,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2013,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2013,
+        "count": 1,
+        "storytype_id": 6,
+        "storytype_name": "Filk-laulu",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2013,
+        "count": 10,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2013,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 13,
+        "language_name": "puola"
+      },
+      {
+        "year": 2013,
+        "count": 286,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2013,
+        "count": 9,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2013,
+        "count": 122,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2013,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2014,
+        "count": 52,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2014,
+        "count": 13,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2014,
+        "count": 194,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2014,
+        "count": 29,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2014,
+        "count": 121,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2015,
+        "count": 2,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2015,
+        "count": 66,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2015,
+        "count": 12,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2015,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 32,
+        "language_name": "kiina"
+      },
+      {
+        "year": 2015,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2015,
+        "count": 146,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2015,
+        "count": 13,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2015,
+        "count": 1,
+        "storytype_id": 2,
+        "storytype_name": "Pitkä novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2015,
+        "count": 18,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2015,
+        "count": 107,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2015,
+        "count": 11,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2016,
+        "count": 68,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2016,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2016,
+        "count": 1,
+        "storytype_id": 6,
+        "storytype_name": "Filk-laulu",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2016,
+        "count": 10,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2016,
+        "count": 172,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2016,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 9,
+        "language_name": "venäjä"
+      },
+      {
+        "year": 2016,
+        "count": 5,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2016,
+        "count": 1,
+        "storytype_id": 3,
+        "storytype_name": "Pienoisromaani",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2016,
+        "count": 28,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2016,
+        "count": 2,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2017,
+        "count": 5,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2017,
+        "count": 65,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2017,
+        "count": 7,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2017,
+        "count": 219,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2017,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2017,
+        "count": 122,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2017,
+        "count": 1,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2018,
+        "count": 59,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2018,
+        "count": 21,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2018,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 2018,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 35,
+        "language_name": "portugali"
+      },
+      {
+        "year": 2018,
+        "count": 238,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2018,
+        "count": 5,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 2018,
+        "count": 9,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2018,
+        "count": 13,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2018,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2019,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2019,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 2019,
+        "count": 63,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2019,
+        "count": 3,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2019,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 2019,
+        "count": 8,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 35,
+        "language_name": "portugali"
+      },
+      {
+        "year": 2019,
+        "count": 175,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2019,
+        "count": 6,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2019,
+        "count": 2,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2019,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2020,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2020,
+        "count": 44,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2020,
+        "count": 12,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2020,
+        "count": 2,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 5,
+        "language_name": "japani"
+      },
+      {
+        "year": 2020,
+        "count": 149,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2020,
+        "count": 7,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2020,
+        "count": 13,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2020,
+        "count": 91,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2020,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2021,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2021,
+        "count": 45,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2021,
+        "count": 6,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2021,
+        "count": 5,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 2021,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 14,
+        "language_name": "saksa"
+      },
+      {
+        "year": 2021,
+        "count": 138,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2021,
+        "count": 25,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2021,
+        "count": 20,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2021,
+        "count": 3,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2021,
+        "count": 1,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2022,
+        "count": 40,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2022,
+        "count": 7,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2022,
+        "count": 10,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2022,
+        "count": 129,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2022,
+        "count": 10,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2022,
+        "count": 11,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2022,
+        "count": 3,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2023,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2023,
+        "count": 53,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2023,
+        "count": 1,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2023,
+        "count": 10,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2023,
+        "count": 214,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2023,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": null,
+        "language_name": null
+      },
+      {
+        "year": 2023,
+        "count": 36,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2023,
+        "count": 5,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2024,
+        "count": 2,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2024,
+        "count": 51,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2024,
+        "count": 1,
+        "storytype_id": 9,
+        "storytype_name": "Jälkisanat",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2024,
+        "count": 1,
+        "storytype_id": 9,
+        "storytype_name": "Jälkisanat",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2024,
+        "count": 6,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2024,
+        "count": 25,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 15,
+        "language_name": "espanja"
+      },
+      {
+        "year": 2024,
+        "count": 123,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2024,
+        "count": 42,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2024,
+        "count": 2,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2025,
+        "count": 32,
+        "storytype_id": 7,
+        "storytype_name": "Artikkeli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2025,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 1,
+        "language_name": "englanti"
+      },
+      {
+        "year": 2025,
+        "count": 72,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2025,
+        "count": 23,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2025,
+        "count": 6,
+        "storytype_id": 4,
+        "storytype_name": "Runo",
+        "language_id": 7,
+        "language_name": "suomi"
+      }
+    ],
+    "error": null
+  }
+}

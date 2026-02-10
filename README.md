@@ -124,3 +124,115 @@ GET /api/person/{personid}
 Requires authentication.
 
 GET /api/collection
+
+## Testing
+
+The project includes a comprehensive API test suite with snapshot-based testing for data validation.
+
+### Prerequisites
+
+Install development dependencies:
+
+```bash
+pdm install -d
+```
+
+### Running Tests
+
+Run all tests:
+
+```bash
+pdm run pytest tests/
+```
+
+Run tests with verbose output:
+
+```bash
+pdm run pytest tests/ -v
+```
+
+Run specific test file:
+
+```bash
+pdm run pytest tests/api/test_stats.py -v
+```
+
+### Snapshot Testing
+
+Snapshot tests compare API responses against stored "golden" responses from the database. This ensures API behavior remains consistent after code changes.
+
+**Generating/Updating Snapshots:**
+
+After database schema or data changes, regenerate the snapshots:
+
+```bash
+pdm run python tests/scripts/update_snapshots.py
+```
+
+This captures responses from all configured endpoints and stores them in `tests/fixtures/snapshots/`.
+
+**Listing Endpoints:**
+
+To see which endpoints are configured for snapshot testing:
+
+```bash
+pdm run python tests/scripts/update_snapshots.py --list
+```
+
+### Golden Database
+
+The test suite uses a golden database dump for consistent test data.
+
+**Creating a Golden Database Dump:**
+
+```bash
+bash tests/scripts/create_golden_db.sh
+```
+
+This creates a dump at `tests/fixtures/golden_db.sql`.
+
+**Restoring the Test Database:**
+
+```bash
+bash tests/scripts/restore_test_db.sh
+```
+
+### Performance Benchmarking
+
+Run API performance benchmarks:
+
+```bash
+pdm run python -m tests.benchmark.benchmark_runner
+```
+
+Benchmark results are stored in `tests/benchmark/results/` with git hash tracking.
+
+### API Coverage Report
+
+The test coverage status is tracked in `tests/API_COVERAGE.md`, which includes:
+
+- Status of all 158 API endpoints
+- Test history with git hashes
+- Pass/fail statistics
+
+### Test Directory Structure
+
+```
+tests/
+├── api/                    # API endpoint tests
+│   ├── test_misc.py       # Miscellaneous endpoints
+│   ├── test_stats.py      # Statistics endpoints
+│   └── base_test.py       # Base test class
+├── fixtures/
+│   ├── snapshots/         # API response snapshots
+│   └── golden_db.sql      # Golden database dump
+├── scripts/
+│   ├── update_snapshots.py    # Snapshot generator
+│   ├── create_golden_db.sh    # DB dump script
+│   └── restore_test_db.sh     # DB restore script
+├── benchmark/
+│   └── benchmark_runner.py    # Performance benchmarks
+├── results/               # Test run results
+├── conftest.py           # Pytest fixtures
+└── API_COVERAGE.md       # Coverage tracking
+```

@@ -1,0 +1,314 @@
+{
+  "metadata": {
+    "generated_at": "2026-02-10T21:41:46.375456+00:00",
+    "generator": "update_snapshots.py",
+    "total_endpoints": 37,
+    "endpoint": "/api/stats/storypersoncounts",
+    "method": "GET",
+    "status_code": 200
+  },
+  "response": {
+    "status_code": 200,
+    "data": [
+      {
+        "id": 1827,
+        "name": "Jerrman, Toni",
+        "alt_name": "Toni Jerrman",
+        "nationality": "Suomi",
+        "storytypes": {
+          "Novelli": {
+            "Kirjoittaja": 19,
+            "Kääntäjä": 14
+          },
+          "Runo": {
+            "Kirjoittaja": 1
+          },
+          "Artikkeli": {
+            "Kirjoittaja": 392,
+            "Kääntäjä": 4,
+            "Esiintyy": 7
+          },
+          "Esipuhe": {
+            "Kirjoittaja": 2
+          }
+        },
+        "total": 414
+      },
+      {
+        "id": 610,
+        "name": "Suntila, Shimo",
+        "alt_name": "Shimo Suntila",
+        "nationality": "Suomi",
+        "storytypes": {
+          "Novelli": {
+            "Kirjoittaja": 65,
+            "Kääntäjä": 1
+          },
+          "Raapale": {
+            "Kirjoittaja": 274
+          },
+          "Artikkeli": {
+            "Kirjoittaja": 51,
+            "Esiintyy": 8
+          }
+        },
+        "total": 390
+      },
+      {
+        "id": 3329,
+        "name": "anonyymi",
+        "alt_name": "anonyymi",
+        "nationality": null,
+        "storytypes": {
+          "Novelli": {
+            "Kirjoittaja": 43
+          },
+          "Runo": {
+            "Kirjoittaja": 2
+          },
+          "Raapale": {
+            "Kirjoittaja": 2
+          },
+          "Filk-laulu": {
+            "Kirjoittaja": 1
+          },
+          "Artikkeli": {
+            "Kirjoittaja": 296
+          }
+        },
+        "total": 344
+      },
+      {
+        "id": 781,
+        "name": "Soikkeli, M. G.",
+        "alt_name": "M. G. Soikkeli",
+        "nationality": "Suomi",
+        "storytypes": {
+          "Novelli": {
+            "Kirjoittaja": 115
+          },
+          "Artikkeli": {
+            "Kirjoittaja": 98,
+            "Esiintyy": 7
+          }
+        },
+        "total": 213
+      },
+      {
+        "id": 2370,
+        "name": "Leinonen, Anne",
+        "alt_name": "Anne Leinonen",
+        "nationality": "Suomi",
+        "storytypes": {
+          "Novelli": {
+            "Kirjoittaja": 76
+          },
+          "Raapale": {
+            "Kirjoittaja": 3
+          },
+          "Filk-laulu": {
+            "Kirjoittaja": 1
+          },
+          "Artikkeli": {
+            "Kirjoittaja": 91,
+            "Esiintyy": 9
+          }
+        },
+        "total": 171
+      },
+      {
+        "id": 2065,
+        "name": "Hurtta, Boris",
+        "alt_name": "Boris Hurtta",
+        "nationality": "Suomi",
+        "storytypes": {
+          "Novelli": {
+            "Kirjoittaja": 91
+          },
+          "Runo": {
+            "Kirjoittaja": 5
+          },
+          "Raapale": {
+            "Kirjoittaja": 8
+          },
+          "Artikkeli": {
+            "Kirjoittaja": 52,
+            "Esiintyy": 14
+          },
+          "Jälkisanat": {
+            "Kirjoittaja": 1
+          }
+        },
+        "total": 157
+      },
+      {
+        "id": 2820,
+        "name": "Bradbury, Ray",
+        "alt_name": "Ray Bradbury",
+        "nationality": "Yhdysvallat",
+        "storytypes": {
+          "Novelli": {
+            "Kirjoittaja": 145
+          },
+          "Artikkeli": {
+            "Esiintyy": 4
+          }
+        },
+        "total": 145
+      },
+      {
+        "id": 2286,
+        "name": "King, Stephen",
+        "alt_name": "Stephen King",
+        "nationality": "Yhdysvallat",
+        "storytypes": {
+          "Novelli": {
+            "Kirjoittaja": 132
+          },
+          "Runo": {
+            "Kirjoittaja": 3
+          },
+          "Artikkeli": {
+            "Kirjoittaja": 2,
+            "Esiintyy": 13
+          },
+          "Esipuhe": {
+            "Kirjoittaja": 1
+          },
+          "Jälkisanat": {
+            "Kirjoittaja": 1
+          }
+        },
+        "total": 139
+      },
+      {
+        "id": 2538,
+        "name": "Lovecraft, H. P.",
+        "alt_name": "H. P. Lovecraft",
+        "nationality": "Yhdysvallat",
+        "storytypes": {
+          "Novelli": {
+            "Kirjoittaja": 123
+          },
+          "Runo": {
+            "Kirjoittaja": 12
+          },
+          "Artikkeli": {
+            "Kirjoittaja": 3,
+            "Esiintyy": 23
+          }
+        },
+        "total": 138
+      },
+      {
+        "id": 1531,
+        "name": "Poe, Edgar Allan",
+        "alt_name": "Edgar Allan Poe",
+        "nationality": "Yhdysvallat",
+        "storytypes": {
+          "Novelli": {
+            "Kirjoittaja": 128
+          },
+          "Runo": {
+            "Kirjoittaja": 2
+          },
+          "Artikkeli": {
+            "Esiintyy": 6
+          }
+        },
+        "total": 130
+      },
+      {
+        "id": null,
+        "name": "Muut",
+        "alt_name": null,
+        "nationality": null,
+        "storytypes": {
+          "Novelli": {
+            "Kirjoittaja": 8372,
+            "Kääntäjä": 1229,
+            "Toimittaja": 0,
+            "Kansikuva": 0,
+            "Kuvittaja": 0,
+            "Esiintyy": 0,
+            "Päätoimittaja": 0
+          },
+          "Pitkä novelli": {
+            "Kirjoittaja": 37,
+            "Kääntäjä": 25,
+            "Toimittaja": 0,
+            "Kansikuva": 0,
+            "Kuvittaja": 0,
+            "Esiintyy": 0,
+            "Päätoimittaja": 0
+          },
+          "Pienoisromaani": {
+            "Kirjoittaja": 24,
+            "Kääntäjä": 7,
+            "Toimittaja": 0,
+            "Kansikuva": 0,
+            "Kuvittaja": 0,
+            "Esiintyy": 0,
+            "Päätoimittaja": 0
+          },
+          "Runo": {
+            "Kirjoittaja": 172,
+            "Kääntäjä": 9,
+            "Toimittaja": 0,
+            "Kansikuva": 0,
+            "Kuvittaja": 0,
+            "Esiintyy": 0,
+            "Päätoimittaja": 0
+          },
+          "Raapale": {
+            "Kirjoittaja": 656,
+            "Kääntäjä": 0,
+            "Toimittaja": 0,
+            "Kansikuva": 0,
+            "Kuvittaja": 0,
+            "Esiintyy": 0,
+            "Päätoimittaja": 0
+          },
+          "Filk-laulu": {
+            "Kirjoittaja": 77,
+            "Kääntäjä": 0,
+            "Toimittaja": 0,
+            "Kansikuva": 0,
+            "Kuvittaja": 0,
+            "Esiintyy": 3,
+            "Päätoimittaja": 0
+          },
+          "Artikkeli": {
+            "Kirjoittaja": 4171,
+            "Kääntäjä": 53,
+            "Toimittaja": 0,
+            "Kansikuva": 0,
+            "Kuvittaja": 0,
+            "Esiintyy": 1169,
+            "Päätoimittaja": 0
+          },
+          "Esipuhe": {
+            "Kirjoittaja": 3,
+            "Kääntäjä": 0,
+            "Toimittaja": 0,
+            "Kansikuva": 0,
+            "Kuvittaja": 0,
+            "Esiintyy": 0,
+            "Päätoimittaja": 0
+          },
+          "Jälkisanat": {
+            "Kirjoittaja": 2,
+            "Kääntäjä": 0,
+            "Toimittaja": 0,
+            "Kansikuva": 0,
+            "Kuvittaja": 0,
+            "Esiintyy": 1,
+            "Päätoimittaja": 0
+          }
+        },
+        "total": 13514
+      }
+    ],
+    "error": null
+  }
+}

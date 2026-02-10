@@ -1,0 +1,2 @@
+# Placeholder to keep fixtures directory in git
+# golden_db.sql should be created using scripts/create_golden_db.sh

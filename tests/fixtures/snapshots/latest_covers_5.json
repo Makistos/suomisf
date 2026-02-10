@@ -1,0 +1,261 @@
+{
+  "metadata": {
+    "generated_at": "2026-02-10T21:41:46.375456+00:00",
+    "generator": "update_snapshots.py",
+    "total_endpoints": 37,
+    "endpoint": "/api/latest/covers/5",
+    "method": "GET",
+    "status_code": 200
+  },
+  "response": {
+    "status_code": 200,
+    "data": [
+      {
+        "edition": {
+          "images": [
+            {
+              "id": 9244,
+              "image_src": "/static/images/books/Bengtsson_Niklas_Romuluinenrobotti_1p.jpg",
+              "image_attr": null
+            }
+          ],
+          "work": [
+            {
+              "id": 6805,
+              "title": "Romuluinen robotti",
+              "subtitle": "tieteiskirjallisuuden bibliografia 1990-2000 ja robotin historiaa",
+              "orig_title": "",
+              "pubyear": 2001,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p>Romuluinen robotti käsittelee mm. tieteiskirjallisuuden keskeistä hahmoa – robottia – sen historiaa ja esihistoriaa sekä tieteiskirjallisuuden määritelmien ja alalajien moninaisuutta. Teos auttaa tieteiskirjallisuudesta innostuneita löytämään uusia kiinnostavia kirjoja.</p><p>Bibliografia koostuu vuosina 1990–2000 ilmestyneistä tietokirjoista, jotka on julkaissut kustantajien koko kirjo pienkustantajista lähtien. Kirjat on ryhmitelty lasten ja nuorten scifiin sekä aikuisten tieteiskirjallisuuteen.</p><p>Sisällys:</p><p>Robotin juuret – John Sladekin Virheisku ja Frankensteinin hirviö</p><p>Robottien historiaa ja esihistoriaa</p><p>Frankensteinin hirviö</p><p>Välitilahirviöt ja niiden luojat</p><p>Gabbalistinen golem ja sen jälkeläise</p><p>Luojan ja luodun rajojen rikkomine</p><p>Aktiiviset ja itsenäiset olennot</p><p>Kuoleeko luoja vai luotu?</p><p>Bibliografia:</p><p>- Lapsille ja nuorille</p><p>- Aikuisille</p><p>- Tekijähakemisto</p><p>- Teoshakemisto</p>",
+              "descr_attr": "",
+              "imported_string": null,
+              "author_str": "Bengtsson, Niklas"
+            }
+          ],
+          "owners": [],
+          "wishlisted": [],
+          "id": 9731,
+          "title": "Romuluinen robotti",
+          "subtitle": "tieteiskirjallisuuden bibliografia 1990-2000 ja robotin historiaa",
+          "pubyear": 2001,
+          "editionnum": 1,
+          "version": 1,
+          "isbn": "951-692-492-1",
+          "printedin": null,
+          "pubseriesnum": null,
+          "coll_info": null,
+          "pages": 100,
+          "size": 21,
+          "dustcover": 1,
+          "coverimage": 1,
+          "misc": null,
+          "imported_string": null,
+          "verified": false
+        },
+        "id": 9244,
+        "image_src": "/static/images/books/Bengtsson_Niklas_Romuluinenrobotti_1p.jpg",
+        "image_attr": null
+      },
+      {
+        "edition": {
+          "images": [
+            {
+              "id": 9243,
+              "image_src": "/static/images/books/Bengtsson_Niklas_Mielikuvituksenrajatonriemu_1p.jpg",
+              "image_attr": null
+            }
+          ],
+          "work": [
+            {
+              "id": 6804,
+              "title": "Mielikuvituksen rajaton riemu",
+              "subtitle": "bibliografia ja johdatus fantasiakirjallisuuteen",
+              "orig_title": "",
+              "pubyear": 2000,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p>Mielikuvituksen rajaton riemu: Bibliografia ja johdatus fantasiakirjallisuuteen -teos esittelee fantasiakirjallisuuden historiaa, luonnetta ja moninaisuutta. Bibliografiassa painottuvat 1990-luvulla julkaistut teokset, mutta mukana on myös vanhempia, alan lukijoita kiinnostavia kirjoja. Fantasia on hahmotettu väljänä käsitteenä eli luettelon teoksia yhdistävät yliluonnolliset tapahtumat. Teoksen lopussa on lyhyehkö luettelo saagoista, eepoksista ja ritariromaaneista, jotka maailmankuvansa takia ovat samantapaisia kuin monet fantasiakirjat.</p><p>Sukella mielikuvituksen äärettömyyteen!</p><p>Sisällys:</p><p>Saatteeksi</p><p>Fantasiakirjallisuuden historiaa</p><p>Fantasiakirjallisuuden terminologiasta</p><p>Satu- ja fantasiakirjallisuuden välittyminen Suomeen</p><p>Korkea ja matala fantasia</p><p>Kelttiläinen maailma</p><p>Graalin malja ja kristillisyys</p><p>Itämaiset vaikutteet</p><p>Hyvän mielikuvitusmaailmat</p><p>Fantasiakirjallisuuden alalajeja</p><p>Fantasiakirjallisuus ja science fiction</p><p>Scifin ja fantasiakirjallisuuden kytkennät ajan henkeen</p><p>Bibliografia:</p><p>- Kustantajien lyhenteet</p><p>- Satufantasiaa lapsille</p><p>- Nuorten fantasiaa</p><p>- Aikuisten fantasiaa</p><p>- Saagoja</p><p>- Eepoksia ja ritariromaaneja</p><p>- Tekijähakemisto</p><p>- Teoshakemisto</p>",
+              "descr_attr": "",
+              "imported_string": null,
+              "author_str": "Bengtsson, Niklas"
+            }
+          ],
+          "owners": [],
+          "wishlisted": [],
+          "id": 9730,
+          "title": "Mielikuvituksen rajaton riemu",
+          "subtitle": "bibliografia ja johdatus fantasiakirjallisuuteen",
+          "pubyear": 2000,
+          "editionnum": 1,
+          "version": 1,
+          "isbn": "951-692-477-8",
+          "printedin": null,
+          "pubseriesnum": null,
+          "coll_info": null,
+          "pages": 129,
+          "size": 21,
+          "dustcover": 1,
+          "coverimage": 1,
+          "misc": null,
+          "imported_string": null,
+          "verified": false
+        },
+        "id": 9243,
+        "image_src": "/static/images/books/Bengtsson_Niklas_Mielikuvituksenrajatonriemu_1p.jpg",
+        "image_attr": null
+      },
+      {
+        "edition": {
+          "images": [
+            {
+              "id": 9242,
+              "image_src": "/static/images/books/Mikkonen_Mayra_Siivonen_Koneihminen_1p.jpg",
+              "image_attr": null
+            }
+          ],
+          "work": [
+            {
+              "id": 6803,
+              "title": "Koneihminen",
+              "subtitle": "kirjoituksia kulttuurista ja fiktiosta koneen aikakaudella",
+              "orig_title": "",
+              "pubyear": 1997,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p>”Laajat materiaaliset muutokset, joita kone on tuottanut fyysiseen ympäristöömme, ovat pitkällä tähtäimellä ehkä vähemmän tärkeitä kuin sen henkiset vaikutukset kulttuurillemme.” – Lewis Mumford</p><p>Koneihminen-antologia tarjoaa lukijalle syväluotauksia ihmisen ja koneen suhteeseen. Se tarttuu tämän suhteen kulttuurihistoriaan ja osoittaa sen ulottuvan muinaisuuteen. Toisaalta antologia erittelee koneihmisyyden nykypäivää ja tutustuttaa lukijan joukkoon keskeisimpiä teorioita ja fiktioita, joilla konesuhdettamme on analysoitu ja dramatisoitu. Perinteisen koneen ja ihmisen jyrkän vastakkainasettelun sijaan tässä kirjoituskokoelmassa kulttuuriamme lähestytään moniulotteisena kokonaisuutena, jossa konetta on mahdotonta selvärajaisesti erottaa ihmisestä.</p><p>Moniääninen ja monisärmäinen Koneihminen kartoittaa haaveita ja pelkoja, vuorovaikutusta ja jännitteitä teknologian ja kulttuurin, menneisyyden ja nykyisyyden, faktan ja fiktion rajoilla. Sen kirjoittajina on useiden eri alojen tutkijoita ja asiantuntijoita.</p><p><br></p>",
+              "descr_attr": "Takakansi",
+              "imported_string": null,
+              "author_str": "Mäyrä, Frans & Mikkonen, Kai & Siivonen, Timo (toim.)"
+            }
+          ],
+          "owners": [],
+          "wishlisted": [],
+          "id": 9729,
+          "title": "Koneihminen",
+          "subtitle": "kirjoituksia kulttuurista ja fiktiosta koneen aikakaudella",
+          "pubyear": 1997,
+          "editionnum": 1,
+          "version": 1,
+          "isbn": "951-796-058-1",
+          "printedin": null,
+          "pubseriesnum": null,
+          "coll_info": null,
+          "pages": 301,
+          "size": 21,
+          "dustcover": 1,
+          "coverimage": 1,
+          "misc": "Kuvitettu.",
+          "imported_string": null,
+          "verified": false
+        },
+        "id": 9242,
+        "image_src": "/static/images/books/Mikkonen_Mayra_Siivonen_Koneihminen_1p.jpg",
+        "image_attr": null
+      },
+      {
+        "edition": {
+          "images": [
+            {
+              "id": 9241,
+              "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
+              "image_attr": null
+            }
+          ],
+          "work": [
+            {
+              "id": 6802,
+              "title": "Tieteiskirjallisuuden maailmoita",
+              "subtitle": "",
+              "orig_title": "",
+              "pubyear": 1987,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": null,
+              "descr_attr": "",
+              "imported_string": null,
+              "author_str": "Savolainen, Matti (toim.)"
+            }
+          ],
+          "owners": [],
+          "wishlisted": [],
+          "id": 9728,
+          "title": "Tieteiskirjallisuuden maailmoita",
+          "subtitle": "",
+          "pubyear": 1987,
+          "editionnum": 1,
+          "version": 1,
+          "isbn": "951-692-185-X",
+          "printedin": null,
+          "pubseriesnum": null,
+          "coll_info": null,
+          "pages": 205,
+          "size": 21,
+          "dustcover": 1,
+          "coverimage": 1,
+          "misc": null,
+          "imported_string": null,
+          "verified": false
+        },
+        "id": 9241,
+        "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
+        "image_attr": null
+      },
+      {
+        "edition": {
+          "images": [
+            {
+              "id": 9240,
+              "image_src": "/static/images/books/Siukonen_Jyrki_Muissamaailmoissa_1p.jpg",
+              "image_attr": null
+            }
+          ],
+          "work": [
+            {
+              "id": 6801,
+              "title": "Muissa maailmoissa",
+              "subtitle": "maapallon ulkopuolisten olentojen kulttuurihistoriaa",
+              "orig_title": "",
+              "pubyear": 2003,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p>Muissa maailmoissa on läpileikkaus maapallon ulkopuolisen elämän historiasta. Samalla se on tutkimusmatka ihmisen omaan mielikuvitukseen, sillä voimme lukea avaruuden asukkaiden kuvauksia ainoastaan maapallolla kirjoitetuista kirjoista.</p><p>Teos esittelee länsimaisten filosofien ja tiedemiesten ajatuksia antiikista 1700-luvun lopulle, Cicerosta Immanuel Kantiin. Se avaa kulttuurihistoriallisen panoraaman, jonka humoristisissa yksityiskohdissa käy ilmi inhimillisen ajattelun rajallisuus – on vaikea kuvitella jotakin inhimillisestä elämänmuodosta täysin poikkeavaa.</p><p>”Kaukomaiden tavaroita ja mausteita tapaa jo nyt olla liian runsaasti ja niitä jää käsiin; ajatelkaa, jos meille aletaan tuoda siirtomaatavaroita planeetoilta!” – Filosofian kandidaatti Pehr Högström vuonna 1741.</p><p><br></p><p>Sisällys:</p><p>Johdanto</p><p>1. Kaksi kertomisen tapaa: Cicero ja Plutarkhos</p><p>2. Maailmankaikkeus täynnä elämää: Cusanus</p><p>3. Henkien matkassa Kuuhun: Kepler</p><p>4. Kiertokäynnillä aurinkokunnassa: Kircher</p><p>5. Keskusteluja puutarhassa: Fontenelle</p><p>6. Asiaa järkevästi tarkastellen: Huygens</p><p>7. Väliaikamusiikkia eli vieras Siriuksesta: Voltaire, Mikromegas (1752)</p><p>8. Filosofisia pohdintoja: Locke, Leibnitz ja Kant</p><p>9. Kuullun ja nähdyn perusteella: Swedenborg</p><p>10. Epilogi: taloja avaruudessa</p><p>Viitteet</p><p>Kirjallisuus</p><p><br></p>",
+              "descr_attr": "",
+              "imported_string": null,
+              "author_str": "Siukonen, Jyrki"
+            }
+          ],
+          "owners": [],
+          "wishlisted": [],
+          "id": 9727,
+          "title": "Muissa maailmoissa",
+          "subtitle": "maapallon ulkopuolisten olentojen kulttuurihistoriaa",
+          "pubyear": 2003,
+          "editionnum": 1,
+          "version": 1,
+          "isbn": "951-662-883-4",
+          "printedin": null,
+          "pubseriesnum": null,
+          "coll_info": null,
+          "pages": 194,
+          "size": 21,
+          "dustcover": 1,
+          "coverimage": 1,
+          "misc": "Kuvitettu.",
+          "imported_string": null,
+          "verified": false
+        },
+        "id": 9240,
+        "image_src": "/static/images/books/Siukonen_Jyrki_Muissamaailmoissa_1p.jpg",
+        "image_attr": null
+      }
+    ],
+    "error": null
+  }
+}

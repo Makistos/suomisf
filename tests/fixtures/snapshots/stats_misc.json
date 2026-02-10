@@ -1,0 +1,22 @@
+{
+  "metadata": {
+    "generated_at": "2026-02-10T21:41:46.375456+00:00",
+    "generator": "update_snapshots.py",
+    "total_endpoints": 37,
+    "endpoint": "/api/stats/misc",
+    "method": "GET",
+    "status_code": 200
+  },
+  "response": {
+    "status_code": 200,
+    "data": {
+      "total_pages": 267518,
+      "stack_height_meters": 40.13,
+      "hardback_count": 660,
+      "paperback_count": 238,
+      "total_editions": 9643,
+      "total_works": 6761
+    },
+    "error": null
+  }
+}
