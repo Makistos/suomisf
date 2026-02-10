@@ -1,7 +1,0 @@
-{% if edition.work.authors -%}
-    Toim 
-    {%- if edition.editors|length == 1 %} {{ edition.editors[0].alt_name }}.{% endif -%}
-    {% if edition.editors|length == 2 %} {{ edition.editors[0].alt_name }} ja {{ edition.editors[1].alt_name }}.{% endif %}
-    {% if edition.editors|length > 2 %} {% for editor in edition.editors[:-2] %}{{ editor.alt_name }}, {% endfor -%}
-            {{ edition.editors[-2].alt_name }} ja {{ edition.editors[-1].alt_name }}.{% endif %}
-{% endif %}
