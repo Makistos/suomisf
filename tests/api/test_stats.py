@@ -4,7 +4,6 @@ SuomiSF API Statistics Endpoint Tests
 Tests for /api/stats/* endpoints with snapshot comparison.
 """
 
-import pytest
 from .base_test import BaseAPITest
 
 
@@ -24,11 +23,13 @@ class TestGenreCounts(BaseAPITest):
         assert response.json is not None
         assert len(response.json) > 0
 
-    def test_get_genrecounts_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_genrecounts_matches_snapshot(self, api_client,
+                                              snapshot_manager):
         """GET /api/stats/genrecounts should match snapshot data."""
         response = api_client.get('/api/stats/genrecounts')
         response.assert_success()
-        snapshot_manager.assert_matches_snapshot('stats_genrecounts', response.json)
+        snapshot_manager.assert_matches_snapshot('stats_genrecounts',
+                                                 response.json)
 
 
 class TestPersonCounts(BaseAPITest):
@@ -44,11 +45,13 @@ class TestPersonCounts(BaseAPITest):
         response = api_client.get('/api/stats/personcounts')
         response.assert_success().assert_data_is_list()
 
-    def test_get_personcounts_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_personcounts_matches_snapshot(self, api_client,
+                                               snapshot_manager):
         """GET /api/stats/personcounts should match snapshot data."""
         response = api_client.get('/api/stats/personcounts')
         response.assert_success()
-        snapshot_manager.assert_matches_snapshot('stats_personcounts', response.json)
+        snapshot_manager.assert_matches_snapshot('stats_personcounts',
+                                                 response.json)
 
 
 class TestStoryPersonCounts(BaseAPITest):
@@ -59,11 +62,13 @@ class TestStoryPersonCounts(BaseAPITest):
         response = api_client.get('/api/stats/storypersoncounts')
         response.assert_status(200)
 
-    def test_get_storypersoncounts_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_storypersoncounts_matches_snapshot(self, api_client,
+                                                    snapshot_manager):
         """GET /api/stats/storypersoncounts should match snapshot data."""
         response = api_client.get('/api/stats/storypersoncounts')
         response.assert_success()
-        snapshot_manager.assert_matches_snapshot('stats_storypersoncounts', response.json)
+        snapshot_manager.assert_matches_snapshot('stats_storypersoncounts',
+                                                 response.json)
 
 
 class TestPublisherCounts(BaseAPITest):
@@ -79,11 +84,13 @@ class TestPublisherCounts(BaseAPITest):
         response = api_client.get('/api/stats/publishercounts')
         response.assert_success().assert_data_is_list()
 
-    def test_get_publishercounts_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_publishercounts_matches_snapshot(self, api_client,
+                                                  snapshot_manager):
         """GET /api/stats/publishercounts should match snapshot data."""
         response = api_client.get('/api/stats/publishercounts')
         response.assert_success()
-        snapshot_manager.assert_matches_snapshot('stats_publishercounts', response.json)
+        snapshot_manager.assert_matches_snapshot('stats_publishercounts',
+                                                 response.json)
 
 
 class TestWorksByYear(BaseAPITest):
@@ -108,14 +115,17 @@ class TestWorksByYear(BaseAPITest):
         if data and len(data) > 0:
             entry = data[0]
             # Check for common year statistics fields
-            assert 'year' in entry or 'count' in entry or isinstance(entry, (int, list)), \
+            assert 'year' in entry or 'count' in entry or \
+                isinstance(entry, (int, list)), \
                 f"Unexpected entry format: {entry}"
 
-    def test_get_worksbyyear_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_worksbyyear_matches_snapshot(self, api_client,
+                                              snapshot_manager):
         """GET /api/stats/worksbyyear should match snapshot data."""
         response = api_client.get('/api/stats/worksbyyear')
         response.assert_success()
-        snapshot_manager.assert_matches_snapshot('stats_worksbyyear', response.json)
+        snapshot_manager.assert_matches_snapshot('stats_worksbyyear',
+                                                 response.json)
 
 
 class TestOrigWorksByYear(BaseAPITest):
@@ -126,11 +136,13 @@ class TestOrigWorksByYear(BaseAPITest):
         response = api_client.get('/api/stats/origworksbyyear')
         response.assert_status(200)
 
-    def test_get_origworksbyyear_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_origworksbyyear_matches_snapshot(self, api_client,
+                                                  snapshot_manager):
         """GET /api/stats/origworksbyyear should match snapshot data."""
         response = api_client.get('/api/stats/origworksbyyear')
         response.assert_success()
-        snapshot_manager.assert_matches_snapshot('stats_origworksbyyear', response.json)
+        snapshot_manager.assert_matches_snapshot('stats_origworksbyyear',
+                                                 response.json)
 
 
 class TestStoriesByYear(BaseAPITest):
@@ -141,11 +153,13 @@ class TestStoriesByYear(BaseAPITest):
         response = api_client.get('/api/stats/storiesbyyear')
         response.assert_status(200)
 
-    def test_get_storiesbyyear_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_storiesbyyear_matches_snapshot(self, api_client,
+                                                snapshot_manager):
         """GET /api/stats/storiesbyyear should match snapshot data."""
         response = api_client.get('/api/stats/storiesbyyear')
         response.assert_success()
-        snapshot_manager.assert_matches_snapshot('stats_storiesbyyear', response.json)
+        snapshot_manager.assert_matches_snapshot('stats_storiesbyyear',
+                                                 response.json)
 
 
 class TestIssuesPerYear(BaseAPITest):
@@ -156,11 +170,13 @@ class TestIssuesPerYear(BaseAPITest):
         response = api_client.get('/api/stats/issuesperyear')
         response.assert_status(200)
 
-    def test_get_issuesperyear_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_issuesperyear_matches_snapshot(self, api_client,
+                                                snapshot_manager):
         """GET /api/stats/issuesperyear should match snapshot data."""
         response = api_client.get('/api/stats/issuesperyear')
         response.assert_success()
-        snapshot_manager.assert_matches_snapshot('stats_issuesperyear', response.json)
+        snapshot_manager.assert_matches_snapshot('stats_issuesperyear',
+                                                 response.json)
 
 
 class TestNationalityCounts(BaseAPITest):
@@ -176,11 +192,13 @@ class TestNationalityCounts(BaseAPITest):
         response = api_client.get('/api/stats/nationalitycounts')
         response.assert_success().assert_data_is_list()
 
-    def test_get_nationalitycounts_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_nationalitycounts_matches_snapshot(self, api_client,
+                                                    snapshot_manager):
         """GET /api/stats/nationalitycounts should match snapshot data."""
         response = api_client.get('/api/stats/nationalitycounts')
         response.assert_success()
-        snapshot_manager.assert_matches_snapshot('stats_nationalitycounts', response.json)
+        snapshot_manager.assert_matches_snapshot('stats_nationalitycounts',
+                                                 response.json)
 
 
 class TestStoryNationalityCounts(BaseAPITest):
@@ -191,11 +209,13 @@ class TestStoryNationalityCounts(BaseAPITest):
         response = api_client.get('/api/stats/storynationalitycounts')
         response.assert_status(200)
 
-    def test_get_storynationalitycounts_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_storynationalitycounts_matches_snapshot(self, api_client,
+                                                         snapshot_manager):
         """GET /api/stats/storynationalitycounts should match snapshot data."""
         response = api_client.get('/api/stats/storynationalitycounts')
         response.assert_success()
-        snapshot_manager.assert_matches_snapshot('stats_storynationalitycounts', response.json)
+        snapshot_manager.assert_matches_snapshot(
+            'stats_storynationalitycounts', response.json)
 
 
 class TestFilterStories(BaseAPITest):
@@ -238,9 +258,11 @@ class TestMiscStats(BaseAPITest):
         response.assert_success()
         # Returns data directly without 'response' wrapper
         assert response.json is not None
-        assert 'total_works' in response.json or 'total_editions' in response.json
+        assert 'total_works' in response.json or \
+            'total_editions' in response.json
 
-    def test_get_misc_stats_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_misc_stats_matches_snapshot(self, api_client,
+                                             snapshot_manager):
         """GET /api/stats/misc should match snapshot data."""
         response = api_client.get('/api/stats/misc')
         response.assert_success()

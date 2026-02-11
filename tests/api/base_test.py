@@ -55,21 +55,26 @@ class BaseAPITest:
 
         return response
 
-    def assert_dict_response(self, data: Dict, required_keys: List[str] = None) -> Dict:
-        """Assert response contains a dict and optionally check required keys."""
+    def assert_dict_response(self, data: Dict,
+                             required_keys: List[str] = []) -> Dict:
+        """
+        Assert response contains a dict and optionally check required keys.
+        """
         self.assert_response_format(data)
         response = data.get('response', {})
         assert isinstance(response, dict), \
             f"Expected dict response, got {type(response)}"
 
-        if required_keys:
+        if len(required_keys) > 0:
             for key in required_keys:
                 assert key in response, \
-                    f"Response missing required key '{key}'. Keys: {list(response.keys())}"
+                    f"Response missing required key '{key}'. \
+                        Keys: {list(response.keys())}"
 
         return response
 
-    def assert_error_response(self, data: Dict, expected_msg: Optional[str] = None) -> str:
+    def assert_error_response(self, data: Dict,
+                              expected_msg: Optional[str] = None) -> str:
         """Assert response is an error and return message."""
         assert 'msg' in data, f"Error response missing 'msg' key: {data}"
         if expected_msg:
@@ -79,7 +84,8 @@ class BaseAPITest:
 
     def assert_valid_id(self, value: Any, name: str = "id") -> int:
         """Assert value is a valid positive integer ID."""
-        assert isinstance(value, int), f"{name} should be int, got {type(value)}"
+        assert isinstance(value, int), \
+            f"{name} should be int, got {type(value)}"
         assert value > 0, f"{name} should be positive, got {value}"
         return value
 

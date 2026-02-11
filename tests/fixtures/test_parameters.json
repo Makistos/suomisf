@@ -1,0 +1,314 @@
+{
+  "_description": "Test parameters for API endpoints. Add multiple parameter sets per endpoint for comprehensive testing.",
+  "_usage": "Edit this file to add IDs from your database. Run update_snapshots.py after editing.",
+
+  "works": {
+    "endpoint": "/api/works/{id}",
+    "description": "Work details by ID",
+    "parameters": [
+      {"id": 1, "note": "First work in database"},
+      {"id": null, "note": "Add another work ID here"},
+      {"id": null, "note": "Add another work ID here"}
+    ]
+  },
+
+  "editions": {
+    "endpoint": "/api/editions/{id}",
+    "description": "Edition details by ID",
+    "parameters": [
+      {"id": 1, "note": "First edition"},
+      {"id": null, "note": "Edition with multiple parts"},
+      {"id": null, "note": "Edition with cover image"}
+    ]
+  },
+
+  "people": {
+    "endpoint": "/api/people/{id}",
+    "description": "Person details by ID",
+    "parameters": [
+      {"id": 1, "note": "First person"},
+      {"id": null, "note": "Author with many works"},
+      {"id": null, "note": "Translator"}
+    ]
+  },
+
+  "shorts": {
+    "endpoint": "/api/shorts/{id}",
+    "description": "Short story details by ID",
+    "parameters": [
+      {"id": 1, "note": "First short story"},
+      {"id": null, "note": "Short story with awards"},
+      {"id": null, "note": "Short story in anthology"}
+    ]
+  },
+
+  "magazines": {
+    "endpoint": "/api/magazines/{id}",
+    "description": "Magazine details by ID",
+    "parameters": [
+      {"id": null, "note": "Active magazine"},
+      {"id": null, "note": "Discontinued magazine"}
+    ]
+  },
+
+  "issues": {
+    "endpoint": "/api/issues/{id}",
+    "description": "Magazine issue details by ID",
+    "parameters": [
+      {"id": null, "note": "Issue with many stories"},
+      {"id": null, "note": "Recent issue"}
+    ]
+  },
+
+  "awards": {
+    "endpoint": "/api/awards/{id}",
+    "description": "Award details by ID",
+    "parameters": [
+      {"id": null, "note": "Major award (e.g., Hugo)"},
+      {"id": null, "note": "Finnish award"}
+    ]
+  },
+
+  "tags": {
+    "endpoint": "/api/tags/{id}",
+    "description": "Tag details by ID",
+    "parameters": [
+      {"id": null, "note": "Popular tag"},
+      {"id": null, "note": "Genre tag"}
+    ]
+  },
+
+  "publishers": {
+    "endpoint": "/api/publishers/{id}",
+    "description": "Publisher details by ID",
+    "parameters": [
+      {"id": null, "note": "Major publisher"},
+      {"id": null, "note": "Small press"}
+    ]
+  },
+
+  "bookseries": {
+    "endpoint": "/api/bookseries/{id}",
+    "description": "Book series details by ID",
+    "parameters": [
+      {"id": null, "note": "Long-running series"},
+      {"id": null, "note": "Completed series"}
+    ]
+  },
+
+  "pubseries": {
+    "endpoint": "/api/pubseries/{id}",
+    "description": "Publication series details by ID",
+    "parameters": [
+      {"id": null, "note": "Active pub series"},
+      {"id": null, "note": "Historical pub series"}
+    ]
+  },
+
+  "articles": {
+    "endpoint": "/api/articles/{id}",
+    "description": "Article details by ID",
+    "parameters": [
+      {"id": null, "note": "Review article"},
+      {"id": null, "note": "Interview"}
+    ]
+  },
+
+  "filter_people": {
+    "endpoint": "/api/filter/people/{pattern}",
+    "description": "Filter people by name pattern (min 2 chars)",
+    "parameters": [
+      {"pattern": "Asi", "note": "Asimov"},
+      {"pattern": "Lem", "note": "Lem"},
+      {"pattern": null, "note": "Add Finnish author pattern"}
+    ]
+  },
+
+  "filter_tags": {
+    "endpoint": "/api/filter/tags/{pattern}",
+    "description": "Filter tags by pattern",
+    "parameters": [
+      {"pattern": "sf", "note": "Science fiction"},
+      {"pattern": "fan", "note": "Fantasy related"}
+    ]
+  },
+
+  "filter_publishers": {
+    "endpoint": "/api/filter/publishers/{pattern}",
+    "description": "Filter publishers by pattern (min 2 chars)",
+    "parameters": [
+      {"pattern": "Tam", "note": "Tammi"},
+      {"pattern": "WSO", "note": "WSOY"}
+    ]
+  },
+
+  "filter_bookseries": {
+    "endpoint": "/api/filter/bookseries/{pattern}",
+    "description": "Filter book series by pattern",
+    "parameters": [
+      {"pattern": null, "note": "Add series pattern"}
+    ]
+  },
+
+  "filter_pubseries": {
+    "endpoint": "/api/filter/pubseries/{pattern}",
+    "description": "Filter publication series by pattern",
+    "parameters": [
+      {"pattern": null, "note": "Add pub series pattern"}
+    ]
+  },
+
+  "worksbyinitial": {
+    "endpoint": "/api/worksbyinitial/{letter}",
+    "description": "Works starting with letter",
+    "parameters": [
+      {"letter": "A", "note": "Common starting letter"},
+      {"letter": "Z", "note": "Uncommon letter"}
+    ]
+  },
+
+  "worksbyauthor": {
+    "endpoint": "/api/worksbyauthor/{authorid}",
+    "description": "Works by author ID",
+    "parameters": [
+      {"authorid": null, "note": "Prolific author"},
+      {"authorid": null, "note": "Author with few works"}
+    ]
+  },
+
+  "latest_works": {
+    "endpoint": "/api/latest/works/{count}",
+    "description": "Latest N works",
+    "parameters": [
+      {"count": 5, "note": "Small batch"},
+      {"count": 10, "note": "Medium batch"},
+      {"count": 50, "note": "Large batch"}
+    ]
+  },
+
+  "latest_editions": {
+    "endpoint": "/api/latest/editions/{count}",
+    "description": "Latest N editions",
+    "parameters": [
+      {"count": 5, "note": "Small batch"},
+      {"count": 10, "note": "Medium batch"}
+    ]
+  },
+
+  "latest_people": {
+    "endpoint": "/api/latest/people/{count}",
+    "description": "Latest N people added",
+    "parameters": [
+      {"count": 5, "note": "Small batch"},
+      {"count": 10, "note": "Medium batch"}
+    ]
+  },
+
+  "latest_shorts": {
+    "endpoint": "/api/latest/shorts/{count}",
+    "description": "Latest N short stories",
+    "parameters": [
+      {"count": 5, "note": "Small batch"},
+      {"count": 10, "note": "Medium batch"}
+    ]
+  },
+
+  "latest_covers": {
+    "endpoint": "/api/latest/covers/{count}",
+    "description": "Latest N covers",
+    "parameters": [
+      {"count": 5, "note": "Small batch"},
+      {"count": 10, "note": "Medium batch"}
+    ]
+  },
+
+  "work_awards": {
+    "endpoint": "/api/works/{workid}/awards",
+    "description": "Awards for a work",
+    "parameters": [
+      {"workid": null, "note": "Award-winning work"}
+    ]
+  },
+
+  "person_shorts": {
+    "endpoint": "/api/people/{personid}/shorts",
+    "description": "Short stories by person",
+    "parameters": [
+      {"personid": null, "note": "Short story author"}
+    ]
+  },
+
+  "person_awarded": {
+    "endpoint": "/api/people/{personid}/awarded",
+    "description": "Awards received by person",
+    "parameters": [
+      {"personid": null, "note": "Award-winning author"}
+    ]
+  },
+
+  "edition_shorts": {
+    "endpoint": "/api/editions/{editionid}/shorts",
+    "description": "Short stories in edition (anthology)",
+    "parameters": [
+      {"editionid": null, "note": "Anthology edition"}
+    ]
+  },
+
+  "issue_shorts": {
+    "endpoint": "/api/issues/{issueid}/shorts",
+    "description": "Short stories in magazine issue",
+    "parameters": [
+      {"issueid": null, "note": "Issue with stories"}
+    ]
+  },
+
+  "issue_articles": {
+    "endpoint": "/api/issues/{issueid}/articles",
+    "description": "Articles in magazine issue",
+    "parameters": [
+      {"issueid": null, "note": "Issue with articles"}
+    ]
+  },
+
+  "search_works": {
+    "endpoint": "/api/searchworks",
+    "method": "POST",
+    "description": "Search works with filters",
+    "parameters": [
+      {"data": {"title": "Dyyni"}, "note": "Search by title"},
+      {"data": {"author": "Asimov"}, "note": "Search by author name"},
+      {"data": {"year": 2000}, "note": "Search by year"}
+    ]
+  },
+
+  "search_shorts": {
+    "endpoint": "/api/searchshorts",
+    "method": "POST",
+    "description": "Search short stories with filters",
+    "parameters": [
+      {"data": {"title": null}, "note": "Search by title"},
+      {"data": {"author": null}, "note": "Search by author"}
+    ]
+  },
+
+  "filter_stories": {
+    "endpoint": "/api/stats/filterstories",
+    "method": "POST",
+    "description": "Filter stories with criteria",
+    "parameters": [
+      {"data": {"year": 2000}, "note": "Filter by year"},
+      {"data": {"genre_id": 5}, "note": "Filter by genre (SF=5)"},
+      {"data": {"nationality_id": null}, "note": "Filter by nationality"}
+    ]
+  },
+
+  "filter_works": {
+    "endpoint": "/api/stats/filterworks",
+    "method": "POST",
+    "description": "Filter works with criteria",
+    "parameters": [
+      {"data": {"year": 2000}, "note": "Filter by year"},
+      {"data": {"genre_id": 5}, "note": "Filter by genre"}
+    ]
+  }
+}

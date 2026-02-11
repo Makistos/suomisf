@@ -49,3 +49,10 @@ dev = [
     "factory-boy>=3.3.3",
     "freezegun>=1.5.5",
 ]
+
+[tool.pyright]
+# Relax type checking for test files (pytest fixtures have dynamic types)
+reportUnknownParameterType = "none"
+reportUnknownMemberType = "none"
+reportMissingParameterType = "none"
+reportUnknownArgumentType = "none"

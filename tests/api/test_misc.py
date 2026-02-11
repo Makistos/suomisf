@@ -1,10 +1,13 @@
 """
 SuomiSF API Miscellaneous Endpoint Tests
 
-Tests for general/miscellaneous endpoints like frontpagedata, genres, countries, etc.
+Tests for general/miscellaneous endpoints like frontpagedata, genres,
+countries, etc.
+
+Note: Pytest fixtures (api_client, snapshot_manager) are injected at runtime.
+Type checkers may show "unknown type" warnings - these are expected.
 """
 
-import pytest
 from .base_test import BaseAPITest
 
 
@@ -39,11 +42,13 @@ class TestFrontpageData(BaseAPITest):
                 assert isinstance(data[key], (int, list, dict)), \
                     f"'{key}' should be int, list, or dict"
 
-    def test_get_frontpagedata_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_frontpagedata_matches_snapshot(self, api_client,
+                                                snapshot_manager):
         """GET /api/frontpagedata should match snapshot data."""
         response = api_client.get('/api/frontpagedata')
         response.assert_success()
-        snapshot_manager.assert_matches_snapshot('frontpagedata', response.json)
+        snapshot_manager.assert_matches_snapshot('frontpagedata',
+                                                 response.json)
 
 
 class TestGenres(BaseAPITest):
@@ -100,7 +105,8 @@ class TestCountries(BaseAPITest):
         response = api_client.get('/api/countries')
         response.assert_success().assert_data_min_length(1)
 
-    def test_get_countries_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_countries_matches_snapshot(self, api_client,
+                                            snapshot_manager):
         """GET /api/countries should match snapshot data."""
         response = api_client.get('/api/countries')
         response.assert_success()
@@ -171,7 +177,8 @@ class TestWorkTypes(BaseAPITest):
         response = api_client.get('/api/worktypes')
         response.assert_success().assert_data_is_list()
 
-    def test_get_worktypes_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_worktypes_matches_snapshot(self, api_client,
+                                            snapshot_manager):
         """GET /api/worktypes should match snapshot data."""
         response = api_client.get('/api/worktypes')
         response.assert_success()
@@ -191,7 +198,8 @@ class TestShortTypes(BaseAPITest):
         response = api_client.get('/api/shorttypes')
         response.assert_success().assert_data_is_list()
 
-    def test_get_shorttypes_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_shorttypes_matches_snapshot(self, api_client,
+                                             snapshot_manager):
         """GET /api/shorttypes should match snapshot data."""
         response = api_client.get('/api/shorttypes')
         response.assert_success()
@@ -211,11 +219,13 @@ class TestMagazineTypes(BaseAPITest):
         response = api_client.get('/api/magazinetypes')
         response.assert_success().assert_data_is_list()
 
-    def test_get_magazinetypes_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_magazinetypes_matches_snapshot(self, api_client,
+                                                snapshot_manager):
         """GET /api/magazinetypes should match snapshot data."""
         response = api_client.get('/api/magazinetypes')
         response.assert_success()
-        snapshot_manager.assert_matches_snapshot('magazinetypes', response.json)
+        snapshot_manager.assert_matches_snapshot('magazinetypes',
+                                                 response.json)
 
 
 class TestFirstLetterVector(BaseAPITest):
@@ -252,10 +262,13 @@ class TestLatestCovers(BaseAPITest):
         response.assert_success()
 
         covers = response.data
-        assert len(covers) <= 3, f"Expected at most 3 covers, got {len(covers)}"
+        assert len(covers) <= 3, \
+            f"Expected at most 3 covers, got {len(covers)}"
 
-    def test_get_latest_covers_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_latest_covers_matches_snapshot(self, api_client,
+                                                snapshot_manager):
         """GET /api/latest/covers/5 should match snapshot data."""
         response = api_client.get('/api/latest/covers/5')
         response.assert_success()
-        snapshot_manager.assert_matches_snapshot('latest_covers_5', response.json)
+        snapshot_manager.assert_matches_snapshot('latest_covers_5',
+                                                 response.json)
