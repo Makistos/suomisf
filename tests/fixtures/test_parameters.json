@@ -298,12 +298,12 @@
     "description": "Works by author ID",
     "parameters": [
       {
-        "authorid": null,
-        "note": "Prolific author"
+        "authorid": 2687,
+        "note": "Isaac Asimov"
       },
       {
-        "authorid": null,
-        "note": "Author with few works"
+        "authorid": 3016,
+        "note": "E.T.A Hoffmann"
       }
     ]
   },
@@ -386,8 +386,8 @@
     "description": "Awards for a work",
     "parameters": [
       {
-        "workid": null,
-        "note": "Award-winning work"
+        "workid": 1125,
+        "note": "Ennen päivänlaskua ei voi"
       }
     ]
   },
@@ -396,8 +396,8 @@
     "description": "Short stories by person",
     "parameters": [
       {
-        "personid": null,
-        "note": "Short story author"
+        "personid": 730,
+        "note": "Robert Silverberg"
       }
     ]
   },
@@ -406,8 +406,8 @@
     "description": "Awards received by person",
     "parameters": [
       {
-        "personid": null,
-        "note": "Award-winning author"
+        "personid": 1943,
+        "note": "Robert Heinlein"
       }
     ]
   },
@@ -416,8 +416,8 @@
     "description": "Short stories in edition (anthology)",
     "parameters": [
       {
-        "editionid": null,
-        "note": "Anthology edition"
+        "editionid": 4558,
+        "note": "Maameren tarinoita"
       }
     ]
   },
@@ -426,8 +426,8 @@
     "description": "Short stories in magazine issue",
     "parameters": [
       {
-        "issueid": null,
-        "note": "Issue with stories"
+        "issueid": 92,
+        "note": "Alienisti 1/2017"
       }
     ]
   },
@@ -436,8 +436,8 @@
     "description": "Articles in magazine issue",
     "parameters": [
       {
-        "issueid": null,
-        "note": "Issue with articles"
+        "issueid": 27,
+        "note": "Aikakone 3/1988"
       }
     ]
   },
