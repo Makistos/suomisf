@@ -1,0 +1,117 @@
+{
+  "metadata": {
+    "generated_at": "2026-02-12T19:27:58.689747+00:00",
+    "generator": "update_snapshots.py",
+    "total_endpoints": 37,
+    "endpoint": "/api/filter/people/Asi",
+    "method": "GET",
+    "status_code": 200
+  },
+  "response": {
+    "status_code": 200,
+    "data": [
+      {
+        "id": 5925.0,
+        "name": "Asikainen, Karri",
+        "alt_name": "Karri Asikainen",
+        "fullname": "",
+        "image_src": null,
+        "dob": null,
+        "dod": null,
+        "roles": [
+          "Kansikuva"
+        ],
+        "nationality": {
+          "id": 4,
+          "name": "Suomi"
+        },
+        "workcount": 0.0,
+        "storycount": 0,
+        "other_names": null,
+        "first_name": "",
+        "last_name": "",
+        "image_attr": "",
+        "bio": null,
+        "bio_src": "",
+        "imported_string": null
+      },
+      {
+        "id": 3663.0,
+        "name": "Asikainen, Sanna-Liisa",
+        "alt_name": "Sanna-Liisa Asikainen",
+        "fullname": "",
+        "image_src": null,
+        "dob": null,
+        "dod": null,
+        "roles": [
+          "Kirjoittaja"
+        ],
+        "nationality": {
+          "id": 4,
+          "name": "Suomi"
+        },
+        "workcount": 0.0,
+        "storycount": 4,
+        "other_names": null,
+        "first_name": "Sanna-Liisa",
+        "last_name": "Asikainen",
+        "image_attr": "",
+        "bio": null,
+        "bio_src": "",
+        "imported_string": null
+      },
+      {
+        "id": 2687.0,
+        "name": "Asimov, Isaac",
+        "alt_name": "Isaac Asimov",
+        "fullname": "",
+        "image_src": "http://www.isfdb.org/wiki/images/4/47/Isaac_Asimov_on_Throne.png",
+        "dob": 1920.0,
+        "dod": 1992.0,
+        "roles": [
+          "Kirjoittaja",
+          "Esiintyy"
+        ],
+        "nationality": {
+          "id": 3,
+          "name": "Yhdysvallat"
+        },
+        "workcount": 19.0,
+        "storycount": 26,
+        "other_names": null,
+        "first_name": "Isaac",
+        "last_name": "Asimov",
+        "image_attr": "",
+        "bio": "<p>Isaac Asimov oli venäläissyntyinen yhdysvaltalainen tieteiskirjailija, esseisti ja biokemisti, jota pidetään yhtenä science fictionin suurista nimistä. Hänet tunnetaan erityisesti <em>Säätiö</em>-sarjasta ja <em>Robotti</em>-tarinoistaan, joissa hän esitteli kuuluisat robotiikan kolme lakia. Asimovin scifi oli usein älyllistä, järjestelmällistä ja loogisesti rakennettua, keskittyen yhteiskuntien kehitykseen, teknologian vaikutuksiin ja moraalisiin ongelmiin.</p><p>Hänen tyyliinsä kuului selkeä kieli, vahvat ideat ja kiinnostus suureen mittakaavaan – historian ja tulevaisuuden syklit, tiedon merkitys ja ihmisyhteisöjen dynamiikka olivat toistuvia teemoja. Asimov oli myös erittäin tuottelias tietokirjailija, ja hän kirjoitti aiheista aina tähtitieteestä kirjallisuuteen. Hänen työnsä edisti science fictionin asemaa vakavasti otettavana kirjallisuuden lajina ja innoitti lukijoita tiedon ja järjen maailmaan.</p>",
+        "bio_src": "ChatGPT",
+        "imported_string": null
+      },
+      {
+        "id": 2691.0,
+        "name": "Asimov, Janet",
+        "alt_name": "Janet Asimov",
+        "fullname": "",
+        "image_src": null,
+        "dob": 1926.0,
+        "dod": 2019.0,
+        "roles": [
+          "Kirjoittaja"
+        ],
+        "nationality": {
+          "id": 3,
+          "name": "Yhdysvallat"
+        },
+        "workcount": 1.0,
+        "storycount": 0,
+        "other_names": "",
+        "first_name": "Janet",
+        "last_name": "Asimov",
+        "image_attr": "",
+        "bio": "",
+        "bio_src": "",
+        "imported_string": null
+      }
+    ],
+    "error": null
+  }
+}

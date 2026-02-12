@@ -73,10 +73,10 @@ ENDPOINTS_TO_SNAPSHOT: List[tuple] = [
     ('GET', '/api/people/1', None, 'person_1'),
     ('GET', '/api/shorts/1', None, 'short_1'),
 
-    # Filters
-    ('GET', '/api/filter/people/a', None, 'filter_people_a'),
-    ('GET', '/api/filter/tags/sf', None, 'filter_tags_sf'),
-    ('GET', '/api/filter/publishers/a', None, 'filter_publishers_a'),
+    # Filters (patterns must be at least 2 chars)
+    ('GET', '/api/filter/people/Asi', None, 'filter_people_Asi'),
+    ('GET', '/api/filter/tags/sci', None, 'filter_tags_sci'),
+    ('GET', '/api/filter/publishers/Tam', None, 'filter_publishers_Tam'),
 ]
 
 

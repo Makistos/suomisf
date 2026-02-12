@@ -1,0 +1,40 @@
+{
+  "metadata": {
+    "generated_at": "2026-02-12T19:27:58.689747+00:00",
+    "generator": "update_snapshots.py",
+    "total_endpoints": 37,
+    "endpoint": "/api/filter/publishers/Tam",
+    "method": "GET",
+    "status_code": 200
+  },
+  "response": {
+    "status_code": 200,
+    "data": [
+      {
+        "id": 318,
+        "name": "Tammi",
+        "fullname": "Tammi",
+        "description": "",
+        "image_src": null,
+        "image_attr": null
+      },
+      {
+        "id": 319,
+        "name": "Tampereen Science Fiction Seura ry",
+        "fullname": "Tampereen Science Fiction Seura ry",
+        "description": null,
+        "image_src": null,
+        "image_attr": null
+      },
+      {
+        "id": 320,
+        "name": "Tampereen Sentraalikirjapaino",
+        "fullname": "Tampereen Ssentraalikirjapaino Oy",
+        "description": null,
+        "image_src": null,
+        "image_attr": null
+      }
+    ],
+    "error": null
+  }
+}
