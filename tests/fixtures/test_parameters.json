@@ -1,314 +1,532 @@
 {
   "_description": "Test parameters for API endpoints. Add multiple parameter sets per endpoint for comprehensive testing.",
   "_usage": "Edit this file to add IDs from your database. Run update_snapshots.py after editing.",
-
   "works": {
     "endpoint": "/api/works/{id}",
     "description": "Work details by ID",
     "parameters": [
-      {"id": 1, "note": "First work in database"},
-      {"id": null, "note": "Add another work ID here"},
-      {"id": null, "note": "Add another work ID here"}
+      {
+        "id": 1,
+        "note": "Ensimmäinen kirja kannassa"
+      },
+      {
+        "id": 4471,
+        "note": "Itse jumalat (palkittu)"
+      },
+      {
+        "id": 4668,
+        "note": "Kuvitettu mies (kokoelma)"
+      },
+      {
+        "id": 67,
+        "note": "Ilmojen valloittaja (useita painoksia)"
+      }
     ]
   },
-
   "editions": {
     "endpoint": "/api/editions/{id}",
     "description": "Edition details by ID",
     "parameters": [
-      {"id": 1, "note": "First edition"},
-      {"id": null, "note": "Edition with multiple parts"},
-      {"id": null, "note": "Edition with cover image"}
+      {
+        "id": 1,
+        "note": "Eka painos kannassa, ainoa painos teoksella"
+      },
+      {
+        "id": 6734,
+        "note": "Hobitti, 2l 14p"
+      }
     ]
   },
-
   "people": {
     "endpoint": "/api/people/{id}",
     "description": "Person details by ID",
     "parameters": [
-      {"id": 1, "note": "First person"},
-      {"id": null, "note": "Author with many works"},
-      {"id": null, "note": "Translator"}
+      {
+        "id": 1,
+        "note": "Ensimmäinen henkilö kannassa (Barry Unsworth)"
+      },
+      {
+        "id": 2820,
+        "note": "Bradbury (monipuolinen tuotanto, palkittu)"
+      },
+      {
+        "id": 1826,
+        "note": "Jyrki Ijäs (toimittaja, novelleja, palkinto)"
+      }
     ]
   },
-
   "shorts": {
     "endpoint": "/api/shorts/{id}",
     "description": "Short story details by ID",
     "parameters": [
-      {"id": 1, "note": "First short story"},
-      {"id": null, "note": "Short story with awards"},
-      {"id": null, "note": "Short story in anthology"}
+      {
+        "id": 1,
+        "note": "Ensimmäinen novelli kannassa"
+      },
+      {
+        "id": 3561,
+        "note": "Verronen: Bansheen kutsu"
+      },
+      {
+        "id": 1009,
+        "note": "Le Guin: Jäljittäjä (palkittu)"
+      },
+      {
+        "id": 8596,
+        "note": "Länsikunnas: Profetioita maan alta (genre)"
+      },
+      {
+        "id": 644,
+        "note": "Howard: Kummittelevat pylväät (runo)"
+      }
     ]
   },
-
   "magazines": {
     "endpoint": "/api/magazines/{id}",
     "description": "Magazine details by ID",
     "parameters": [
-      {"id": null, "note": "Active magazine"},
-      {"id": null, "note": "Discontinued magazine"}
+      {
+        "id": 12,
+        "note": "Finncon-lehti (ei numeroita)"
+      },
+      {
+        "id": 30,
+        "note": "Legolas"
+      }
     ]
   },
-
   "issues": {
     "endpoint": "/api/issues/{id}",
     "description": "Magazine issue details by ID",
     "parameters": [
-      {"id": null, "note": "Issue with many stories"},
-      {"id": null, "note": "Recent issue"}
+      {
+        "id": 75,
+        "note": "Alienisti 1/2008"
+      }
     ]
   },
-
   "awards": {
     "endpoint": "/api/awards/{id}",
     "description": "Award details by ID",
     "parameters": [
-      {"id": null, "note": "Major award (e.g., Hugo)"},
-      {"id": null, "note": "Finnish award"}
+      {
+        "id": 1,
+        "note": "Damon Knight (henkillökohtainen, ensimmäinen palkinto kannassa)"
+      },
+      {
+        "id": 2,
+        "note": "Hugo"
+      },
+      {
+        "id": 16,
+        "note": "Portin novellikilpailu"
+      }
     ]
   },
-
   "tags": {
     "endpoint": "/api/tags/{id}",
     "description": "Tag details by ID",
     "parameters": [
-      {"id": null, "note": "Popular tag"},
-      {"id": null, "note": "Genre tag"}
+      {
+        "id": 554,
+        "note": "miekka ja magia"
+      },
+      {
+        "id": 1040,
+        "note": "filosofinen"
+      },
+      {
+        "id": 1995,
+        "note": "kuningaskunnat"
+      },
+      {
+        "id": 1347,
+        "note": "keski-ikäiset"
+      },
+      {
+        "id": 1631,
+        "note": "1950-luku"
+      },
+      {
+        "id": 2388,
+        "note": "korvat"
+      }
     ]
   },
-
   "publishers": {
     "endpoint": "/api/publishers/{id}",
     "description": "Publisher details by ID",
     "parameters": [
-      {"id": null, "note": "Major publisher"},
-      {"id": null, "note": "Small press"}
+      {
+        "id": 150,
+        "note": "Kirjayhtymä (iso kustantaja)"
+      },
+      {
+        "id": 446,
+        "note": "Hertta-kustannus (pieni kustantaja)"
+      }
     ]
   },
-
   "bookseries": {
     "endpoint": "/api/bookseries/{id}",
     "description": "Book series details by ID",
     "parameters": [
-      {"id": null, "note": "Long-running series"},
-      {"id": null, "note": "Completed series"}
+      {
+        "id": 410,
+        "note": "Tarzan (paljon kirjoja, yksi kirjoittaja)"
+      },
+      {
+        "id": 519,
+        "note": "Linnunradan käsikirjat liftareille (useampi kirjoittaja)"
+      }
     ]
   },
-
   "pubseries": {
     "endpoint": "/api/pubseries/{id}",
     "description": "Publication series details by ID",
     "parameters": [
-      {"id": null, "note": "Active pub series"},
-      {"id": null, "note": "Historical pub series"}
+      {
+        "id": 1,
+        "note": "10mk:n romaaneja"
+      },
+      {
+        "id": 33,
+        "note": "GALAXY Scifi"
+      }
     ]
   },
-
   "articles": {
     "endpoint": "/api/articles/{id}",
     "description": "Article details by ID",
     "parameters": [
-      {"id": null, "note": "Review article"},
-      {"id": null, "note": "Interview"}
+      {
+        "id": null,
+        "note": "Review article"
+      },
+      {
+        "id": null,
+        "note": "Interview"
+      }
     ]
   },
-
   "filter_people": {
     "endpoint": "/api/filter/people/{pattern}",
     "description": "Filter people by name pattern (min 2 chars)",
     "parameters": [
-      {"pattern": "Asi", "note": "Asimov"},
-      {"pattern": "Lem", "note": "Lem"},
-      {"pattern": null, "note": "Add Finnish author pattern"}
+      {
+        "pattern": "Asi",
+        "note": "Asimov"
+      },
+      {
+        "pattern": "Lem",
+        "note": "Lem"
+      }
     ]
   },
-
   "filter_tags": {
     "endpoint": "/api/filter/tags/{pattern}",
     "description": "Filter tags by pattern",
     "parameters": [
-      {"pattern": "sf", "note": "Science fiction"},
-      {"pattern": "fan", "note": "Fantasy related"}
+      {
+        "pattern": "sci",
+        "note": "Science fiction"
+      },
+      {
+        "pattern": "fan",
+        "note": "Fantasia"
+      },
+      {
+        "pattern": "1900",
+        "note": "1900-luku"
+      }
     ]
   },
-
   "filter_publishers": {
     "endpoint": "/api/filter/publishers/{pattern}",
     "description": "Filter publishers by pattern (min 2 chars)",
     "parameters": [
-      {"pattern": "Tam", "note": "Tammi"},
-      {"pattern": "WSO", "note": "WSOY"}
+      {
+        "pattern": "Tam",
+        "note": "Tammi"
+      },
+      {
+        "pattern": "WSO",
+        "note": "WSOY"
+      },
+      {
+        "pattern": "Ääres",
+        "note": "Ääres"
+      }
     ]
   },
-
   "filter_bookseries": {
     "endpoint": "/api/filter/bookseries/{pattern}",
     "description": "Filter book series by pattern",
     "parameters": [
-      {"pattern": null, "note": "Add series pattern"}
+      {
+        "pattern": "5. ",
+        "note": "5. aalto"
+      }
     ]
   },
-
   "filter_pubseries": {
     "endpoint": "/api/filter/pubseries/{pattern}",
     "description": "Filter publication series by pattern",
     "parameters": [
-      {"pattern": null, "note": "Add pub series pattern"}
+      {
+        "pattern": "10",
+        "note": "2 10mk:n sarjaa"
+      }
     ]
   },
-
   "worksbyinitial": {
     "endpoint": "/api/worksbyinitial/{letter}",
     "description": "Works starting with letter",
     "parameters": [
-      {"letter": "A", "note": "Common starting letter"},
-      {"letter": "Z", "note": "Uncommon letter"}
+      {
+        "letter": "A",
+        "note": "Common starting letter"
+      },
+      {
+        "letter": "Z",
+        "note": "Uncommon letter"
+      }
     ]
   },
-
   "worksbyauthor": {
     "endpoint": "/api/worksbyauthor/{authorid}",
     "description": "Works by author ID",
     "parameters": [
-      {"authorid": null, "note": "Prolific author"},
-      {"authorid": null, "note": "Author with few works"}
+      {
+        "authorid": null,
+        "note": "Prolific author"
+      },
+      {
+        "authorid": null,
+        "note": "Author with few works"
+      }
     ]
   },
-
   "latest_works": {
     "endpoint": "/api/latest/works/{count}",
     "description": "Latest N works",
     "parameters": [
-      {"count": 5, "note": "Small batch"},
-      {"count": 10, "note": "Medium batch"},
-      {"count": 50, "note": "Large batch"}
+      {
+        "count": 5,
+        "note": "Small batch"
+      },
+      {
+        "count": 10,
+        "note": "Medium batch"
+      },
+      {
+        "count": 50,
+        "note": "Large batch"
+      }
     ]
   },
-
   "latest_editions": {
     "endpoint": "/api/latest/editions/{count}",
     "description": "Latest N editions",
     "parameters": [
-      {"count": 5, "note": "Small batch"},
-      {"count": 10, "note": "Medium batch"}
+      {
+        "count": 5,
+        "note": "Small batch"
+      },
+      {
+        "count": 10,
+        "note": "Medium batch"
+      }
     ]
   },
-
   "latest_people": {
     "endpoint": "/api/latest/people/{count}",
     "description": "Latest N people added",
     "parameters": [
-      {"count": 5, "note": "Small batch"},
-      {"count": 10, "note": "Medium batch"}
+      {
+        "count": 5,
+        "note": "Small batch"
+      },
+      {
+        "count": 10,
+        "note": "Medium batch"
+      }
     ]
   },
-
   "latest_shorts": {
     "endpoint": "/api/latest/shorts/{count}",
     "description": "Latest N short stories",
     "parameters": [
-      {"count": 5, "note": "Small batch"},
-      {"count": 10, "note": "Medium batch"}
+      {
+        "count": 5,
+        "note": "Small batch"
+      },
+      {
+        "count": 10,
+        "note": "Medium batch"
+      }
     ]
   },
-
   "latest_covers": {
     "endpoint": "/api/latest/covers/{count}",
     "description": "Latest N covers",
     "parameters": [
-      {"count": 5, "note": "Small batch"},
-      {"count": 10, "note": "Medium batch"}
+      {
+        "count": 5,
+        "note": "Small batch"
+      },
+      {
+        "count": 10,
+        "note": "Medium batch"
+      }
     ]
   },
-
   "work_awards": {
     "endpoint": "/api/works/{workid}/awards",
     "description": "Awards for a work",
     "parameters": [
-      {"workid": null, "note": "Award-winning work"}
+      {
+        "workid": null,
+        "note": "Award-winning work"
+      }
     ]
   },
-
   "person_shorts": {
     "endpoint": "/api/people/{personid}/shorts",
     "description": "Short stories by person",
     "parameters": [
-      {"personid": null, "note": "Short story author"}
+      {
+        "personid": null,
+        "note": "Short story author"
+      }
     ]
   },
-
   "person_awarded": {
     "endpoint": "/api/people/{personid}/awarded",
     "description": "Awards received by person",
     "parameters": [
-      {"personid": null, "note": "Award-winning author"}
+      {
+        "personid": null,
+        "note": "Award-winning author"
+      }
     ]
   },
-
   "edition_shorts": {
     "endpoint": "/api/editions/{editionid}/shorts",
     "description": "Short stories in edition (anthology)",
     "parameters": [
-      {"editionid": null, "note": "Anthology edition"}
+      {
+        "editionid": null,
+        "note": "Anthology edition"
+      }
     ]
   },
-
   "issue_shorts": {
     "endpoint": "/api/issues/{issueid}/shorts",
     "description": "Short stories in magazine issue",
     "parameters": [
-      {"issueid": null, "note": "Issue with stories"}
+      {
+        "issueid": null,
+        "note": "Issue with stories"
+      }
     ]
   },
-
   "issue_articles": {
     "endpoint": "/api/issues/{issueid}/articles",
     "description": "Articles in magazine issue",
     "parameters": [
-      {"issueid": null, "note": "Issue with articles"}
+      {
+        "issueid": null,
+        "note": "Issue with articles"
+      }
     ]
   },
-
   "search_works": {
     "endpoint": "/api/searchworks",
     "method": "POST",
     "description": "Search works with filters",
     "parameters": [
-      {"data": {"title": "Dyyni"}, "note": "Search by title"},
-      {"data": {"author": "Asimov"}, "note": "Search by author name"},
-      {"data": {"year": 2000}, "note": "Search by year"}
+      {
+        "data": {
+          "title": "Dyyni"
+        },
+        "note": "Kirjan nimi"
+      },
+      {
+        "data": {
+          "author": "Asimov"
+        },
+        "note": "Henkilön mukaan"
+      },
+      {
+        "data": {
+          "year": 2000
+        },
+        "note": "Vuosi"
+      }
     ]
   },
-
   "search_shorts": {
     "endpoint": "/api/searchshorts",
     "method": "POST",
     "description": "Search short stories with filters",
     "parameters": [
-      {"data": {"title": null}, "note": "Search by title"},
-      {"data": {"author": null}, "note": "Search by author"}
+      {
+        "data": {
+          "title": "Muodonmuutos"
+        },
+        "note": "Julkaistu monessa kirjassa"
+      },
+      {
+        "data": {
+          "author": "Kafka"
+        },
+        "note": "Kafka"
+      }
     ]
   },
-
   "filter_stories": {
     "endpoint": "/api/stats/filterstories",
     "method": "POST",
     "description": "Filter stories with criteria",
     "parameters": [
-      {"data": {"year": 2000}, "note": "Filter by year"},
-      {"data": {"genre_id": 5}, "note": "Filter by genre (SF=5)"},
-      {"data": {"nationality_id": null}, "note": "Filter by nationality"}
+      {
+        "data": {
+          "year": 2000
+        },
+        "note": "Vuosi"
+      },
+      {
+        "data": {
+          "genre_id": 5
+        },
+        "note": "Genre (SF=5)"
+      },
+      {
+        "data": {
+          "nationality_id": 44
+        },
+        "note": "Kansallisuus (tsekki)"
+      }
     ]
   },
-
   "filter_works": {
     "endpoint": "/api/stats/filterworks",
     "method": "POST",
     "description": "Filter works with criteria",
     "parameters": [
-      {"data": {"year": 2000}, "note": "Filter by year"},
-      {"data": {"genre_id": 5}, "note": "Filter by genre"}
+      {
+        "data": {
+          "year": 2000
+        },
+        "note": "Vuosi"
+      },
+      {
+        "data": {
+          "genre_id": 5
+        },
+        "note": "Genre"
+      }
     ]
   }
 }
