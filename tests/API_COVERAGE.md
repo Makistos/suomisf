@@ -1,9 +1,9 @@
 # SuomiSF API Test Coverage Report
 
-**Last Updated:** 2026-02-10
+**Last Updated:** 2026-02-13
 **Total Endpoints:** 158
-**Tested:** 68 (43%)
-**Pending:** 90 (57%)
+**Tested:** 238 tests (covering ~75% of endpoints)
+**Pending:** ~40 endpoints (complex write operations)
 **Snapshot Tests:** 20 (data validation against golden database)
 
 ---
@@ -21,26 +21,26 @@
 
 ## Quick Summary
 
-| Category | Total | Passing | Failing | Pending |
-|----------|-------|---------|---------|---------|
-| Authentication | 3 | 0 | 0 | 3 |
-| Users | 3 | 0 | 0 | 3 |
-| Works | 19 | 2 | 0 | 17 |
-| Editions | 22 | 0 | 0 | 22 |
-| People | 15 | 0 | 0 | 15 |
-| Short Stories | 10 | 2 | 0 | 8 |
-| Magazines | 6 | 2 | 0 | 4 |
-| Issues | 6 | 0 | 0 | 6 |
-| Awards | 12 | 0 | 0 | 12 |
-| Tags | 10 | 0 | 0 | 10 |
-| Publishers | 6 | 0 | 0 | 6 |
-| Publication Series | 6 | 0 | 0 | 6 |
-| Book Series | 6 | 0 | 0 | 6 |
-| Statistics | 13 | 32 | 0 | 0 |
-| Search & Filter | 5 | 0 | 0 | 5 |
-| Miscellaneous | 12 | 36 | 0 | 0 |
-| Articles | 4 | 0 | 0 | 4 |
-| **TOTAL** | **158** | **68** | **0** | **90** |
+| Category | Endpoints | Tests | Notes |
+|----------|-----------|-------|-------|
+| Authentication | 3 | 33 | Login, auth checks, write operation auth |
+| Users | 3 | 0 | Pending |
+| Works | 19 | 18 | Entity, related, auth tests |
+| Editions | 22 | 12 | Entity, related, auth tests |
+| People | 15 | 16 | Entity, filter, related tests |
+| Short Stories | 10 | 15 | Entity, search, auth tests (1 xfail) |
+| Magazines | 6 | 8 | Entity, auth tests |
+| Issues | 6 | 8 | Entity, related tests |
+| Awards | 12 | 6 | Entity tests |
+| Tags | 10 | 18 | Entity, filter, auth tests |
+| Publishers | 6 | 10 | Entity, filter, auth tests |
+| Publication Series | 6 | 8 | Entity, filter, auth tests |
+| Book Series | 6 | 8 | Entity, filter, auth tests |
+| Statistics | 13 | 32 | Full coverage |
+| Search & Filter | 5 | 10 | Works/Shorts search |
+| Miscellaneous | 12 | 36 | Full coverage |
+| Articles | 4 | 0 | Endpoint deprecated |
+| **TOTAL** | **158** | **238** | **1 xfail (known bug)** |
 
 ---
 
@@ -293,10 +293,11 @@
 
 ## Test History
 
-| Date | Git Hash | Total | Passed | Failed | Skipped | Duration |
-|------|----------|-------|--------|--------|---------|----------|
-| 2026-02-10 | 12dc962 | 68 | 68 | 0 | 0 | 15.99s |
-| 2026-02-10 | 12dc962 | 48 | 48 | 0 | 0 | 9.79s |
+| Date | Git Hash | Total | Passed | Failed | xFail | Duration |
+|------|----------|-------|--------|--------|-------|----------|
+| 2026-02-13 | 38bfbe1 | 239 | 238 | 0 | 1 | 124s |
+| 2026-02-10 | 12dc962 | 68 | 68 | 0 | 0 | 16s |
+| 2026-02-10 | 12dc962 | 48 | 48 | 0 | 0 | 10s |
 
 ---
 
