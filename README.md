@@ -248,7 +248,7 @@ tests/
 │   └── test_misc.py            # Miscellaneous endpoints (36 tests)
 ├── fixtures/
 │   ├── snapshots/              # API response snapshots (~35 files)
-│   ├── test_params.json        # Parameterized test data
+│   ├── test_parameters.json    # Parameterized test data
 │   └── golden_db.sql           # Golden database dump
 ├── scripts/
 │   ├── setup_test_db.py        # Test database setup (create, clone, users)
