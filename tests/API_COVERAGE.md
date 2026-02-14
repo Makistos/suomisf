@@ -50,7 +50,7 @@
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :hourglass_flowing_sand: | POST | `/api/login` | None | - | - |
+| :white_check_mark: | POST | `/api/login` | None | `test_auth.py::TestAuthentication` | 2026-02-14 |
 | :hourglass_flowing_sand: | POST | `/api/register` | None | - | - |
 | :hourglass_flowing_sand: | POST | `/api/refresh` | JWT | - | - |
 
@@ -66,34 +66,34 @@
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :hourglass_flowing_sand: | GET | `/api/works/<workid>` | None | - | - |
-| :hourglass_flowing_sand: | POST | `/api/works` | Admin | - | - |
-| :hourglass_flowing_sand: | PUT | `/api/works` | Admin | - | - |
-| :hourglass_flowing_sand: | DELETE | `/api/works/<workid>` | Admin | - | - |
-| :hourglass_flowing_sand: | GET | `/api/latest/works/<count>` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/works/<workid>/awards` | None | - | - |
+| :white_check_mark: | GET | `/api/works/<workid>` | None | `test_entities.py::TestWorks` | 2026-02-14 |
+| :white_check_mark: | POST | `/api/works` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
+| :white_check_mark: | PUT | `/api/works` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
+| :white_check_mark: | DELETE | `/api/works/<workid>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/latest/works/<count>` | None | `test_related.py::TestLatestWorks` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/works/<workid>/awards` | None | `test_related.py::TestWorkAwards` | 2026-02-14 |
 | :hourglass_flowing_sand: | GET | `/api/works/<workid>/omnibus` | None | - | - |
 | :hourglass_flowing_sand: | POST | `/api/works/omnibus` | Admin | - | - |
 | :hourglass_flowing_sand: | GET | `/api/works/shorts/<workid>` | None | - | - |
 | :hourglass_flowing_sand: | POST | `/api/works/shorts` | Admin | - | - |
 | :hourglass_flowing_sand: | PUT | `/api/works/shorts` | Admin | - | - |
-| :hourglass_flowing_sand: | GET | `/api/worksbyinitial/<letter>` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/worksbyauthor/<authorid>` | None | - | - |
-| :hourglass_flowing_sand: | POST | `/api/searchworks` | None | - | - |
+| :white_check_mark: | GET | `/api/worksbyinitial/<letter>` | None | `test_filters.py::TestWorksByInitial` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/worksbyauthor/<authorid>` | None | `test_related.py::TestWorksByAuthor` | 2026-02-14 |
+| :white_check_mark: | POST | `/api/searchworks` | None | `test_filters.py::TestSearchWorks` | 2026-02-14 |
 | :hourglass_flowing_sand: | POST | `/api/works/random/incomplete` | None | - | - |
 | :hourglass_flowing_sand: | GET | `/api/works/bytype/<worktype>` | None | - | - |
 | :hourglass_flowing_sand: | PUT | `/api/work/<workid>/tags/<tagid>` | Admin | - | - |
 | :hourglass_flowing_sand: | DELETE | `/api/work/<workid>/tags/<tagid>` | Admin | - | - |
-| :white_check_mark: | GET | `/api/worktypes` | None | `test_misc.py::TestWorkTypes` | 2026-02-10 |
+| :white_check_mark: | GET | `/api/worktypes` | None | `test_misc.py::TestWorkTypes` | 2026-02-14 |
 
 ### 4. Editions (22 endpoints)
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :hourglass_flowing_sand: | GET | `/api/editions/<editionid>` | None | - | - |
-| :hourglass_flowing_sand: | POST | `/api/editions` | Admin | - | - |
-| :hourglass_flowing_sand: | PUT | `/api/editions` | Admin | - | - |
-| :hourglass_flowing_sand: | DELETE | `/api/editions/<editionid>` | Admin | - | - |
+| :white_check_mark: | GET | `/api/editions/<editionid>` | None | `test_entities.py::TestEditions` | 2026-02-14 |
+| :white_check_mark: | POST | `/api/editions` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
+| :white_check_mark: | PUT | `/api/editions` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
+| :white_check_mark: | DELETE | `/api/editions/<editionid>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
 | :hourglass_flowing_sand: | POST | `/api/editions/<editionid>/copy` | Admin | - | - |
 | :hourglass_flowing_sand: | POST | `/api/editions/<editionid>/images` | Admin | - | - |
 | :hourglass_flowing_sand: | DELETE | `/api/editions/<editionid>/images/<imageid>` | Admin | - | - |
@@ -102,10 +102,10 @@
 | :hourglass_flowing_sand: | GET | `/api/editions/<editionid>/owner/<personid>` | None | - | - |
 | :hourglass_flowing_sand: | GET | `/api/editions/owned/<userid>` | None | - | - |
 | :hourglass_flowing_sand: | DELETE | `/api/editions/<editionid>/owner/<personid>` | JWT | - | - |
-| :hourglass_flowing_sand: | POST | `/api/editions/owner` | JWT | - | - |
+| :white_check_mark: | POST | `/api/editions/owner` | JWT | `test_auth.py::TestCollectionRequiresAuth` | 2026-02-14 |
 | :hourglass_flowing_sand: | PUT | `/api/editions/owner` | JWT | - | - |
-| :hourglass_flowing_sand: | GET | `/api/editions/<editionid>/shorts` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/latest/editions/<count>` | None | - | - |
+| :white_check_mark: | GET | `/api/editions/<editionid>/shorts` | None | `test_related.py::TestEditionShorts` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/latest/editions/<count>` | None | `test_related.py::TestLatestEditions` | 2026-02-14 |
 | :hourglass_flowing_sand: | GET | `/api/editions/<edition_id>/work` | None | - | - |
 | :hourglass_flowing_sand: | GET | `/api/editions/<editionid>/wishlist` | None | - | - |
 | :hourglass_flowing_sand: | PUT | `/api/editions/<editionid>/wishlist/<userid>` | JWT | - | - |
@@ -118,18 +118,18 @@
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
 | :hourglass_flowing_sand: | GET | `/api/people/` | None | - | - |
-| :hourglass_flowing_sand: | POST | `/api/people` | Admin | - | - |
-| :hourglass_flowing_sand: | PUT | `/api/people` | Admin | - | - |
-| :hourglass_flowing_sand: | GET | `/api/people/<person_id>` | None | - | - |
-| :hourglass_flowing_sand: | DELETE | `/api/people/<person_id>` | Admin | - | - |
+| :white_check_mark: | POST | `/api/people` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
+| :white_check_mark: | PUT | `/api/people` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/people/<person_id>` | None | `test_entities.py::TestPeople` | 2026-02-14 |
+| :white_check_mark: | DELETE | `/api/people/<person_id>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
 | :hourglass_flowing_sand: | GET | `/api/people/<person_id>/articles` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/people/<person_id>/awarded` | None | - | - |
+| :white_check_mark: | GET | `/api/people/<person_id>/awarded` | None | `test_related.py::TestPersonAwarded` | 2026-02-14 |
 | :hourglass_flowing_sand: | GET | `/api/people/<personid>/chiefeditor` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/people/<personid>/shorts` | None | - | - |
+| :white_check_mark: | GET | `/api/people/<personid>/shorts` | None | `test_related.py::TestPersonShorts` | 2026-02-14 |
 | :hourglass_flowing_sand: | PUT | `/api/person/<personid>/tags/<tagid>` | Admin | - | - |
 | :hourglass_flowing_sand: | DELETE | `/api/person/<personid>/tags/<tagid>` | Admin | - | - |
-| :hourglass_flowing_sand: | GET | `/api/filter/people/<pattern>` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/latest/people/<count>` | None | - | - |
+| :white_check_mark: | GET | `/api/filter/people/<pattern>` | None | `test_filters.py::TestFilterPeople` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/latest/people/<count>` | None | `test_related.py::TestLatestPeople` | 2026-02-14 |
 | :hourglass_flowing_sand: | GET | `/api/people/<person_id>/issue-contributions` | None | - | - |
 | :hourglass_flowing_sand: | GET | `/api/filter/alias/<id>` | None | - | - |
 
@@ -137,47 +137,47 @@
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :hourglass_flowing_sand: | GET | `/api/shorts/<shortid>` | None | - | - |
-| :hourglass_flowing_sand: | POST | `/api/shorts` | Admin | - | - |
-| :hourglass_flowing_sand: | PUT | `/api/shorts` | Admin | - | - |
-| :hourglass_flowing_sand: | DELETE | `/api/shorts/<shortid>` | Admin | - | - |
-| :hourglass_flowing_sand: | POST | `/api/searchshorts` | None | - | - |
-| :white_check_mark: | GET | `/api/shorttypes` | None | `test_misc.py::TestShortTypes` | 2026-02-10 |
+| :white_check_mark: | GET | `/api/shorts/<shortid>` | None | `test_entities.py::TestShorts` | 2026-02-14 |
+| :white_check_mark: | POST | `/api/shorts` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
+| :white_check_mark: | PUT | `/api/shorts` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
+| :white_check_mark: | DELETE | `/api/shorts/<shortid>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
+| :white_check_mark: | POST | `/api/searchshorts` | None | `test_filters.py::TestSearchShorts` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/shorttypes` | None | `test_misc.py::TestShortTypes` | 2026-02-14 |
 | :hourglass_flowing_sand: | PUT | `/api/story/<storyid>/tags/<tagid>` | Admin | - | - |
 | :hourglass_flowing_sand: | DELETE | `/api/story/<storyid>/tags/<tagid>` | Admin | - | - |
-| :hourglass_flowing_sand: | GET | `/api/latest/shorts/<count>` | None | - | - |
+| :white_check_mark: | GET | `/api/latest/shorts/<count>` | None | `test_related.py::TestLatestShorts` | 2026-02-14 |
 | :hourglass_flowing_sand: | GET | `/api/shorts/<shortid>/similar` | None | - | - |
 
 ### 7. Magazines (6 endpoints)
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :hourglass_flowing_sand: | GET | `/api/magazines` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/magazines/<magazineid>` | None | - | - |
-| :hourglass_flowing_sand: | POST | `/api/magazines` | Admin | - | - |
+| :white_check_mark: | GET | `/api/magazines` | None | `test_entities.py::TestMagazines` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/magazines/<magazineid>` | None | `test_entities.py::TestMagazines` | 2026-02-14 |
+| :white_check_mark: | POST | `/api/magazines` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
 | :hourglass_flowing_sand: | PUT | `/api/magazines` | Admin | - | - |
-| :hourglass_flowing_sand: | DELETE | `/api/magazines/<magazineid>` | Admin | - | - |
-| :white_check_mark: | GET | `/api/magazinetypes` | None | `test_misc.py::TestMagazineTypes` | 2026-02-10 |
+| :white_check_mark: | DELETE | `/api/magazines/<magazineid>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/magazinetypes` | None | `test_misc.py::TestMagazineTypes` | 2026-02-14 |
 
 ### 8. Issues (6 endpoints)
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :hourglass_flowing_sand: | GET | `/api/issues/<issueid>` | None | - | - |
-| :hourglass_flowing_sand: | POST | `/api/issues` | Admin | - | - |
+| :white_check_mark: | GET | `/api/issues/<issueid>` | None | `test_entities.py::TestIssues` | 2026-02-14 |
+| :white_check_mark: | POST | `/api/issues` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
 | :hourglass_flowing_sand: | PUT | `/api/issues` | Admin | - | - |
-| :hourglass_flowing_sand: | GET | `/api/issues/<issueid>/articles` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/issues/<issueid>/shorts` | None | - | - |
+| :white_check_mark: | GET | `/api/issues/<issueid>/articles` | None | `test_related.py::TestIssueArticles` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/issues/<issueid>/shorts` | None | `test_related.py::TestIssueShorts` | 2026-02-14 |
 | :hourglass_flowing_sand: | GET | `/api/issues/<issueid>/contributors` | None | - | - |
 
 ### 9. Awards (12 endpoints)
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :hourglass_flowing_sand: | GET | `/api/awards` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/awards/<award_id>` | None | - | - |
+| :white_check_mark: | GET | `/api/awards` | None | `test_entities.py::TestAwards` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/awards/<award_id>` | None | `test_entities.py::TestAwards` | 2026-02-14 |
 | :hourglass_flowing_sand: | GET | `/api/works/<work_id>/awarded` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/people/<person_id>/awarded` | None | - | - |
+| :white_check_mark: | GET | `/api/people/<person_id>/awarded` | None | `test_related.py::TestPersonAwarded` | 2026-02-14 |
 | :hourglass_flowing_sand: | GET | `/api/shorts/<short_id>/awarded` | None | - | - |
 | :hourglass_flowing_sand: | PUT | `/api/awards/works/awards` | Admin | - | - |
 | :hourglass_flowing_sand: | PUT | `/api/awards/people/awards` | Admin | - | - |
@@ -191,67 +191,67 @@
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :hourglass_flowing_sand: | GET | `/api/tags` | None | - | - |
+| :white_check_mark: | GET | `/api/tags` | None | `test_entities.py::TestTags` | 2026-02-14 |
 | :hourglass_flowing_sand: | GET | `/api/tagsquick` | None | - | - |
-| :hourglass_flowing_sand: | POST | `/api/tags` | Admin | - | - |
-| :hourglass_flowing_sand: | GET | `/api/tags/<tag_id>` | None | - | - |
+| :white_check_mark: | POST | `/api/tags` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/tags/<tag_id>` | None | `test_entities.py::TestTags` | 2026-02-14 |
 | :hourglass_flowing_sand: | GET | `/api/tags/form/<tag_id>` | None | - | - |
-| :hourglass_flowing_sand: | PUT | `/api/tags` | Admin | - | - |
-| :hourglass_flowing_sand: | GET | `/api/filter/tags/<pattern>` | None | - | - |
+| :white_check_mark: | PUT | `/api/tags` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/filter/tags/<pattern>` | None | `test_filters.py::TestFilterTags` | 2026-02-14 |
 | :hourglass_flowing_sand: | POST | `/api/tags/<source_id>/merge/<target_id>` | Admin | - | - |
-| :hourglass_flowing_sand: | DELETE | `/api/tags/<tagid>` | Admin | - | - |
+| :white_check_mark: | DELETE | `/api/tags/<tagid>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
 | :hourglass_flowing_sand: | GET | `/api/tags/types` | None | - | - |
 
 ### 11. Publishers (6 endpoints)
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :hourglass_flowing_sand: | GET | `/api/publishers` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/publishers/<publisherid>` | None | - | - |
-| :hourglass_flowing_sand: | POST | `/api/publishers` | Admin | - | - |
+| :white_check_mark: | GET | `/api/publishers` | None | `test_entities.py::TestPublishers` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/publishers/<publisherid>` | None | `test_entities.py::TestPublishers` | 2026-02-14 |
+| :white_check_mark: | POST | `/api/publishers` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
 | :hourglass_flowing_sand: | PUT | `/api/publishers` | Admin | - | - |
-| :hourglass_flowing_sand: | DELETE | `/api/publishers/<publisherid>` | Admin | - | - |
-| :hourglass_flowing_sand: | GET | `/api/filter/publishers/<pattern>` | None | - | - |
+| :white_check_mark: | DELETE | `/api/publishers/<publisherid>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/filter/publishers/<pattern>` | None | `test_filters.py::TestFilterPublishers` | 2026-02-14 |
 
 ### 12. Publication Series (6 endpoints)
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :hourglass_flowing_sand: | GET | `/api/pubseries` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/pubseries/<pubseriesid>` | None | - | - |
-| :hourglass_flowing_sand: | POST | `/api/pubseries` | Admin | - | - |
+| :white_check_mark: | GET | `/api/pubseries` | None | `test_entities.py::TestPubSeries` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/pubseries/<pubseriesid>` | None | `test_entities.py::TestPubSeries` | 2026-02-14 |
+| :white_check_mark: | POST | `/api/pubseries` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
 | :hourglass_flowing_sand: | PUT | `/api/pubseries` | Admin | - | - |
-| :hourglass_flowing_sand: | DELETE | `/api/pubseries/<pubseriesid>` | Admin | - | - |
-| :hourglass_flowing_sand: | GET | `/api/filter/pubseries/<pattern>` | None | - | - |
+| :white_check_mark: | DELETE | `/api/pubseries/<pubseriesid>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/filter/pubseries/<pattern>` | None | `test_filters.py::TestFilterPubSeries` | 2026-02-14 |
 
 ### 13. Book Series (6 endpoints)
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :hourglass_flowing_sand: | GET | `/api/bookseries` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/bookseries/<bookseriesid>` | None | - | - |
-| :hourglass_flowing_sand: | POST | `/api/bookseries` | Admin | - | - |
+| :white_check_mark: | GET | `/api/bookseries` | None | `test_entities.py::TestBookSeries` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/bookseries/<bookseriesid>` | None | `test_entities.py::TestBookSeries` | 2026-02-14 |
+| :white_check_mark: | POST | `/api/bookseries` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
 | :hourglass_flowing_sand: | PUT | `/api/bookseries` | Admin | - | - |
-| :hourglass_flowing_sand: | DELETE | `/api/bookseries/<bookseriesid>` | Admin | - | - |
-| :hourglass_flowing_sand: | GET | `/api/filter/bookseries/<pattern>` | None | - | - |
+| :white_check_mark: | DELETE | `/api/bookseries/<bookseriesid>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/filter/bookseries/<pattern>` | None | `test_filters.py::TestFilterBookSeries` | 2026-02-14 |
 
 ### 14. Statistics (13 endpoints)
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :white_check_mark: | GET | `/api/stats/genrecounts` | None | `test_stats.py::TestGenreCounts` | 2026-02-10 |
-| :white_check_mark: | GET | `/api/stats/personcounts` | None | `test_stats.py::TestPersonCounts` | 2026-02-10 |
-| :white_check_mark: | GET | `/api/stats/storypersoncounts` | None | `test_stats.py::TestStoryPersonCounts` | 2026-02-10 |
-| :white_check_mark: | GET | `/api/stats/publishercounts` | None | `test_stats.py::TestPublisherCounts` | 2026-02-10 |
-| :white_check_mark: | GET | `/api/stats/worksbyyear` | None | `test_stats.py::TestWorksByYear` | 2026-02-10 |
-| :white_check_mark: | GET | `/api/stats/origworksbyyear` | None | `test_stats.py::TestOrigWorksByYear` | 2026-02-10 |
-| :white_check_mark: | GET | `/api/stats/storiesbyyear` | None | `test_stats.py::TestStoriesByYear` | 2026-02-10 |
-| :white_check_mark: | GET | `/api/stats/issuesperyear` | None | `test_stats.py::TestIssuesPerYear` | 2026-02-10 |
-| :white_check_mark: | GET | `/api/stats/nationalitycounts` | None | `test_stats.py::TestNationalityCounts` | 2026-02-10 |
-| :white_check_mark: | GET | `/api/stats/storynationalitycounts` | None | `test_stats.py::TestStoryNationalityCounts` | 2026-02-10 |
-| :white_check_mark: | POST | `/api/stats/filterstories` | None | `test_stats.py::TestFilterStories` | 2026-02-10 |
-| :white_check_mark: | POST | `/api/stats/filterworks` | None | `test_stats.py::TestFilterWorks` | 2026-02-10 |
-| :white_check_mark: | GET | `/api/stats/misc` | None | `test_stats.py::TestMiscStats` | 2026-02-10 |
+| :white_check_mark: | GET | `/api/stats/genrecounts` | None | `test_stats.py::TestGenreCounts` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/stats/personcounts` | None | `test_stats.py::TestPersonCounts` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/stats/storypersoncounts` | None | `test_stats.py::TestStoryPersonCounts` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/stats/publishercounts` | None | `test_stats.py::TestPublisherCounts` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/stats/worksbyyear` | None | `test_stats.py::TestWorksByYear` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/stats/origworksbyyear` | None | `test_stats.py::TestOrigWorksByYear` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/stats/storiesbyyear` | None | `test_stats.py::TestStoriesByYear` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/stats/issuesperyear` | None | `test_stats.py::TestIssuesPerYear` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/stats/nationalitycounts` | None | `test_stats.py::TestNationalityCounts` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/stats/storynationalitycounts` | None | `test_stats.py::TestStoryNationalityCounts` | 2026-02-14 |
+| :white_check_mark: | POST | `/api/stats/filterstories` | None | `test_stats.py::TestFilterStories` | 2026-02-14 |
+| :white_check_mark: | POST | `/api/stats/filterworks` | None | `test_stats.py::TestFilterWorks` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/stats/misc` | None | `test_stats.py::TestMiscStats` | 2026-02-14 |
 
 ### 15. Search & Filter (5 endpoints)
 
@@ -267,14 +267,14 @@
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :white_check_mark: | GET | `/api/frontpagedata` | None | `test_misc.py::TestFrontpageData` | 2026-02-10 |
-| :white_check_mark: | GET | `/api/genres` | None | `test_misc.py::TestGenres` | 2026-02-10 |
-| :white_check_mark: | GET | `/api/countries` | None | `test_misc.py::TestCountries` | 2026-02-10 |
-| :white_check_mark: | GET | `/api/roles/` | None | `test_misc.py::TestRoles` | 2026-02-10 |
-| :white_check_mark: | GET | `/api/roles/<target>` | None | `test_misc.py::TestRoles` | 2026-02-10 |
-| :white_check_mark: | GET | `/api/bindings` | None | `test_misc.py::TestBindings` | 2026-02-10 |
-| :white_check_mark: | GET | `/api/firstlettervector/<target>` | None | `test_misc.py::TestFirstLetterVector` | 2026-02-10 |
-| :white_check_mark: | GET | `/api/latest/covers/<count>` | None | `test_misc.py::TestLatestCovers` | 2026-02-10 |
+| :white_check_mark: | GET | `/api/frontpagedata` | None | `test_misc.py::TestFrontpageData` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/genres` | None | `test_misc.py::TestGenres` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/countries` | None | `test_misc.py::TestCountries` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/roles/` | None | `test_misc.py::TestRoles` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/roles/<target>` | None | `test_misc.py::TestRoles` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/bindings` | None | `test_misc.py::TestBindings` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/firstlettervector/<target>` | None | `test_misc.py::TestFirstLetterVector` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/latest/covers/<count>` | None | `test_misc.py::TestLatestCovers` | 2026-02-14 |
 | :hourglass_flowing_sand: | GET | `/api/changes` | None | - | - |
 | :hourglass_flowing_sand: | GET | `/api/work/<workid>/changes` | None | - | - |
 | :hourglass_flowing_sand: | GET | `/api/person/<personid>/changes` | None | - | - |
@@ -297,8 +297,8 @@
 |------|----------|-------|--------|--------|-------|----------|
 | 2026-02-14 | pending | 249 | 248 | 0 | 1 | - |
 | 2026-02-13 | 38bfbe1 | 239 | 238 | 0 | 1 | 124s |
-| 2026-02-10 | 12dc962 | 68 | 68 | 0 | 0 | 16s |
-| 2026-02-10 | 12dc962 | 48 | 48 | 0 | 0 | 10s |
+| 2026-02-14 | 12dc962 | 68 | 68 | 0 | 0 | 16s |
+| 2026-02-14 | 12dc962 | 48 | 48 | 0 | 0 | 10s |
 
 ---
 
