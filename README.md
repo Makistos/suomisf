@@ -127,7 +127,7 @@ GET /api/collection
 
 ## Testing
 
-The project includes a comprehensive API test suite with snapshot-based testing for data validation.
+The project includes a comprehensive API test suite with 238 tests covering 158 endpoints.
 
 ### Prerequisites
 
@@ -136,6 +136,25 @@ Install development dependencies:
 ```bash
 pdm install -d
 ```
+
+### Test Database Setup
+
+Create a dedicated test database with cloned data from the main database:
+
+```bash
+pdm run python tests/scripts/setup_test_db.py --clone
+```
+
+Options:
+- `--clone` - Clone data from main database (recommended for first setup)
+- `--users-only` - Only create test users (skip database creation)
+
+This script:
+1. Fixes PostgreSQL collation version mismatches
+2. Creates the `suomisf_test` database
+3. Clones data from the main database
+4. Sets up the correct schema search path
+5. Creates test users (regular and admin)
 
 ### Running Tests
 
@@ -219,20 +238,26 @@ The test coverage status is tracked in `tests/API_COVERAGE.md`, which includes:
 
 ```
 tests/
-├── api/                    # API endpoint tests
-│   ├── test_misc.py       # Miscellaneous endpoints
-│   ├── test_stats.py      # Statistics endpoints
-│   └── base_test.py       # Base test class
+├── api/                        # API endpoint tests
+│   ├── base_test.py            # Base test class with helpers
+│   ├── test_auth.py            # Authentication & authorization (33 tests)
+│   ├── test_entities.py        # Entity CRUD endpoints
+│   ├── test_filters.py         # Filter and search endpoints
+│   ├── test_related.py         # Nested/related endpoints
+│   ├── test_stats.py           # Statistics endpoints (32 tests)
+│   └── test_misc.py            # Miscellaneous endpoints (36 tests)
 ├── fixtures/
-│   ├── snapshots/         # API response snapshots
-│   └── golden_db.sql      # Golden database dump
+│   ├── snapshots/              # API response snapshots (~35 files)
+│   ├── test_params.json        # Parameterized test data
+│   └── golden_db.sql           # Golden database dump
 ├── scripts/
-│   ├── update_snapshots.py    # Snapshot generator
-│   ├── create_golden_db.sh    # DB dump script
-│   └── restore_test_db.sh     # DB restore script
+│   ├── setup_test_db.py        # Test database setup (create, clone, users)
+│   ├── update_snapshots.py     # Snapshot generator
+│   ├── create_golden_db.sh     # DB dump script
+│   └── restore_test_db.sh      # DB restore script
 ├── benchmark/
-│   └── benchmark_runner.py    # Performance benchmarks
-├── results/               # Test run results
-├── conftest.py           # Pytest fixtures
-└── API_COVERAGE.md       # Coverage tracking
+│   └── benchmark_runner.py     # Performance benchmarks
+├── results/                    # Test run results
+├── conftest.py                 # Pytest fixtures
+└── API_COVERAGE.md             # Coverage tracking (238 tests, 158 endpoints)
 ```
