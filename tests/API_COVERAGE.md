@@ -1,10 +1,10 @@
 # SuomiSF API Test Coverage Report
 
-**Last Updated:** 2026-02-13
+**Last Updated:** 2026-02-14
 **Total Endpoints:** 158
-**Tested:** 238 tests (covering ~75% of endpoints)
+**Tested:** 248 tests (covering ~75% of endpoints)
 **Pending:** ~40 endpoints (complex write operations)
-**Snapshot Tests:** 20 (data validation against golden database)
+**Snapshot Tests:** 30 (data validation against golden database)
 
 ---
 
@@ -40,7 +40,7 @@
 | Search & Filter | 5 | 10 | Works/Shorts search |
 | Miscellaneous | 12 | 36 | Full coverage |
 | Articles | 4 | 0 | Endpoint deprecated |
-| **TOTAL** | **158** | **238** | **1 xfail (known bug)** |
+| **TOTAL** | **158** | **248** | **1 xfail (known bug)** |
 
 ---
 
@@ -295,6 +295,7 @@
 
 | Date | Git Hash | Total | Passed | Failed | xFail | Duration |
 |------|----------|-------|--------|--------|-------|----------|
+| 2026-02-14 | pending | 249 | 248 | 0 | 1 | - |
 | 2026-02-13 | 38bfbe1 | 239 | 238 | 0 | 1 | 124s |
 | 2026-02-10 | 12dc962 | 68 | 68 | 0 | 0 | 16s |
 | 2026-02-10 | 12dc962 | 48 | 48 | 0 | 0 | 10s |
