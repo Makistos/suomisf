@@ -69,6 +69,12 @@ class TestWorks(BaseAPITest):
         assert 'id' in data, "Work should have 'id' field"
         assert data['id'] == work_id
 
+    def test_get_work_matches_snapshot(self, api_client, snapshot_manager):
+        """GET /api/works/1 should match stored snapshot."""
+        response = api_client.get('/api/works/1')
+        response.assert_success()
+        snapshot_manager.assert_matches_snapshot('work_1', response.json)
+
     def test_get_work_not_found(self, api_client):
         """GET /api/works/{id} should return 404 for invalid ID."""
         response = api_client.get('/api/works/999999999')
@@ -96,6 +102,12 @@ class TestEditions(BaseAPITest):
         data = response.data
         assert 'id' in data, "Edition should have 'id' field"
         assert data['id'] == edition_id
+
+    def test_get_edition_matches_snapshot(self, api_client, snapshot_manager):
+        """GET /api/editions/1 should match stored snapshot."""
+        response = api_client.get('/api/editions/1')
+        response.assert_success()
+        snapshot_manager.assert_matches_snapshot('edition_1', response.json)
 
     def test_get_edition_not_found(self, api_client):
         """GET /api/editions/{id} should return error for invalid ID."""
@@ -125,6 +137,12 @@ class TestPeople(BaseAPITest):
         assert 'id' in data, "Person should have 'id' field"
         assert data['id'] == person_id
 
+    def test_get_person_matches_snapshot(self, api_client, snapshot_manager):
+        """GET /api/people/1 should match stored snapshot."""
+        response = api_client.get('/api/people/1')
+        response.assert_success()
+        snapshot_manager.assert_matches_snapshot('person_1', response.json)
+
     def test_get_person_not_found(self, api_client):
         """GET /api/people/{id} should return error for invalid ID."""
         response = api_client.get('/api/people/999999999')
@@ -152,6 +170,12 @@ class TestShorts(BaseAPITest):
         data = response.data
         assert 'id' in data, "Short should have 'id' field"
         assert data['id'] == short_id
+
+    def test_get_short_matches_snapshot(self, api_client, snapshot_manager):
+        """GET /api/shorts/1 should match stored snapshot."""
+        response = api_client.get('/api/shorts/1')
+        response.assert_success()
+        snapshot_manager.assert_matches_snapshot('short_1', response.json)
 
     @pytest.mark.xfail(reason="API bug: crashes on non-existent short ID")
     def test_get_short_not_found(self, api_client):
@@ -182,6 +206,12 @@ class TestMagazines(BaseAPITest):
         data = response.data
         assert 'id' in data, "Magazine should have 'id' field"
         assert data['id'] == magazine_id
+
+    def test_get_magazines_list_matches_snapshot(self, api_client, snapshot_manager):
+        """GET /api/magazines should match stored snapshot."""
+        response = api_client.get('/api/magazines')
+        response.assert_success()
+        snapshot_manager.assert_matches_snapshot('magazines', response.json)
 
 
 # ---------------------------------------------------------------------------
@@ -229,6 +259,12 @@ class TestAwards(BaseAPITest):
         assert 'id' in data, "Award should have 'id' field"
         assert data['id'] == award_id
 
+    def test_get_awards_list_matches_snapshot(self, api_client, snapshot_manager):
+        """GET /api/awards should match stored snapshot."""
+        response = api_client.get('/api/awards')
+        response.assert_success()
+        snapshot_manager.assert_matches_snapshot('awards', response.json)
+
 
 # ---------------------------------------------------------------------------
 # Tags
@@ -251,6 +287,12 @@ class TestTags(BaseAPITest):
         data = response.data
         assert 'id' in data, "Tag should have 'id' field"
         assert data['id'] == tag_id
+
+    def test_get_tags_list_matches_snapshot(self, api_client, snapshot_manager):
+        """GET /api/tags should match stored snapshot."""
+        response = api_client.get('/api/tags')
+        response.assert_success()
+        snapshot_manager.assert_matches_snapshot('tags', response.json)
 
 
 # ---------------------------------------------------------------------------
@@ -275,6 +317,12 @@ class TestPublishers(BaseAPITest):
         assert 'id' in data, "Publisher should have 'id' field"
         assert data['id'] == publisher_id
 
+    def test_get_publishers_list_matches_snapshot(self, api_client, snapshot_manager):
+        """GET /api/publishers should match stored snapshot."""
+        response = api_client.get('/api/publishers')
+        response.assert_success()
+        snapshot_manager.assert_matches_snapshot('publishers', response.json)
+
 
 # ---------------------------------------------------------------------------
 # Book Series
@@ -298,6 +346,12 @@ class TestBookSeries(BaseAPITest):
         assert 'id' in data, "BookSeries should have 'id' field"
         assert data['id'] == bookseries_id
 
+    def test_get_bookseries_list_matches_snapshot(self, api_client, snapshot_manager):
+        """GET /api/bookseries should match stored snapshot."""
+        response = api_client.get('/api/bookseries')
+        response.assert_success()
+        snapshot_manager.assert_matches_snapshot('bookseries', response.json)
+
 
 # ---------------------------------------------------------------------------
 # Publication Series
@@ -320,3 +374,9 @@ class TestPubSeries(BaseAPITest):
         data = response.data
         assert 'id' in data, "PubSeries should have 'id' field"
         assert data['id'] == pubseries_id
+
+    def test_get_pubseries_list_matches_snapshot(self, api_client, snapshot_manager):
+        """GET /api/pubseries should match stored snapshot."""
+        response = api_client.get('/api/pubseries')
+        response.assert_success()
+        snapshot_manager.assert_matches_snapshot('pubseries', response.json)
