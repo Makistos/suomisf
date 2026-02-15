@@ -33,7 +33,7 @@ what they test, their parameter values, and expected behaviors.
 | test_stats.py | Statistics endpoints | 32 |
 | test_misc.py | Miscellaneous endpoints | 36 |
 | test_works.py | Work lifecycle CRUD | 9 |
-| test_editions.py | Edition lifecycle CRUD | 9 |
+| test_editions.py | Edition lifecycle CRUD | 12 |
 
 ---
 
@@ -656,6 +656,30 @@ get_work_editions(admin_client, work_id)
 |------|-------------|
 | `test_delete_edition_without_auth_fails` | No auth returns 401/403/404/405 |
 | `test_delete_nonexistent_edition` | Invalid ID returns 400/404/500 |
+
+### TestEditionsCopy
+
+| Test | Description |
+|------|-------------|
+| `test_copy_edition_and_verify_fields` | Copy edition 86 and verify all fields |
+| `test_copy_edition_without_auth_fails` | No auth returns 401/403/422 |
+| `test_copy_nonexistent_edition_fails` | Invalid ID returns 400/404/500 |
+
+**Copy Lifecycle Steps:**
+1. Get edition 86 to capture original values
+2. Copy edition via POST /api/editions/86/copy
+3. Verify all fields were copied correctly:
+   - Basic fields: title, subtitle, pubyear, editionnum, version, isbn,
+     printedin, pubseriesnum, coll_info, pages, size, dustcover,
+     coverimage, misc
+   - Related entities: publisher, pubseries, binding, format
+   - Work associations (via parts)
+   - Contributions
+4. Delete the copy to clean up
+
+**Parameter Values:**
+- Source edition ID: 86
+- Expected response: New edition ID (different from source)
 
 ---
 

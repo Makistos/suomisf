@@ -455,3 +455,168 @@ class TestEditionsDelete(BaseAPITest):
         """DELETE /api/editions/{id} should handle nonexistent edition."""
         response = admin_client.delete('/api/editions/999999999')
         assert response.status_code in [400, 404, 500]
+
+
+class TestEditionsCopy(BaseAPITest):
+    """Tests for copying editions."""
+
+    def test_copy_edition_and_verify_fields(self, admin_client):
+        """
+        POST /api/editions/86/copy should create an exact copy.
+
+        This test:
+        1. Gets edition 86 to capture original values
+        2. Copies the edition via the API
+        3. Verifies all fields were copied correctly
+        4. Verifies work association was copied
+        5. Deletes the copy to clean up
+        """
+        source_edition_id = 86
+
+        # ---------------------------------------------------------
+        # Step 1: Get the original edition
+        # ---------------------------------------------------------
+        original_resp = admin_client.get(f'/api/editions/{source_edition_id}')
+        original_resp.assert_success()
+        original = original_resp.data
+
+        # ---------------------------------------------------------
+        # Step 2: Copy the edition
+        # ---------------------------------------------------------
+        copy_resp = admin_client.post(
+            f'/api/editions/{source_edition_id}/copy'
+        )
+
+        assert copy_resp.status_code == 200, (
+            f"Failed to copy edition. Status: {copy_resp.status_code}. "
+            f"Response: {copy_resp.json}"
+        )
+
+        # Copy endpoint returns ID in 'response' key
+        json_data = copy_resp.json
+        if isinstance(json_data, dict):
+            copied_edition_id = int(json_data.get('response', json_data))
+        else:
+            copied_edition_id = int(json_data)
+        assert copied_edition_id > 0, "Should return valid edition ID"
+        assert copied_edition_id != source_edition_id, (
+            "Copied edition should have different ID"
+        )
+
+        try:
+            # ---------------------------------------------------------
+            # Step 3: Get the copied edition and verify fields
+            # ---------------------------------------------------------
+            copied_resp = admin_client.get(f'/api/editions/{copied_edition_id}')
+            copied_resp.assert_success()
+            copied = copied_resp.data
+
+            # Verify basic edition fields
+            fields_to_compare = [
+                'title', 'subtitle', 'pubyear', 'editionnum', 'version',
+                'isbn', 'printedin', 'pubseriesnum', 'coll_info', 'pages',
+                'size', 'dustcover', 'coverimage', 'misc'
+            ]
+
+            for field in fields_to_compare:
+                assert copied.get(field) == original.get(field), (
+                    f"Field '{field}' mismatch. "
+                    f"Original: {original.get(field)}, "
+                    f"Copied: {copied.get(field)}"
+                )
+
+            # Verify publisher was copied
+            if original.get('publisher'):
+                assert copied.get('publisher') is not None, (
+                    "Publisher should be copied"
+                )
+                assert (
+                    copied['publisher']['id'] == original['publisher']['id']
+                ), "Publisher ID should match"
+
+            # Verify pubseries was copied
+            if original.get('pubseries'):
+                assert copied.get('pubseries') is not None, (
+                    "Pubseries should be copied"
+                )
+                assert (
+                    copied['pubseries']['id'] == original['pubseries']['id']
+                ), "Pubseries ID should match"
+
+            # Verify binding was copied
+            if original.get('binding'):
+                assert copied.get('binding') is not None, (
+                    "Binding should be copied"
+                )
+                assert (
+                    copied['binding']['id'] == original['binding']['id']
+                ), "Binding ID should match"
+
+            # Verify format was copied
+            if original.get('format'):
+                assert copied.get('format') is not None, (
+                    "Format should be copied"
+                )
+                assert (
+                    copied['format']['id'] == original['format']['id']
+                ), "Format ID should match"
+
+            # ---------------------------------------------------------
+            # Step 4: Verify work association was copied
+            # ---------------------------------------------------------
+            original_works = original.get('work', [])
+            copied_works = copied.get('work', [])
+
+            assert len(copied_works) == len(original_works), (
+                f"Work count mismatch. "
+                f"Original: {len(original_works)}, Copied: {len(copied_works)}"
+            )
+
+            if original_works:
+                # Verify the work IDs match (copy links to same works)
+                original_work_ids = sorted([w['id'] for w in original_works])
+                copied_work_ids = sorted([w['id'] for w in copied_works])
+                assert original_work_ids == copied_work_ids, (
+                    f"Work IDs mismatch. "
+                    f"Original: {original_work_ids}, Copied: {copied_work_ids}"
+                )
+
+            # Verify contributions were copied
+            original_contribs = original.get('contributions', [])
+            copied_contribs = copied.get('contributions', [])
+
+            assert len(copied_contribs) == len(original_contribs), (
+                f"Contributions count mismatch. "
+                f"Original: {len(original_contribs)}, "
+                f"Copied: {len(copied_contribs)}"
+            )
+
+        finally:
+            # ---------------------------------------------------------
+            # Step 5: Delete the copy to clean up
+            # ---------------------------------------------------------
+            delete_resp = admin_client.delete(
+                f'/api/editions/{copied_edition_id}'
+            )
+            assert delete_resp.status_code == 200, (
+                f"Failed to delete copied edition. "
+                f"Status: {delete_resp.status_code}"
+            )
+
+            # Verify deletion
+            verify_resp = admin_client.get(
+                f'/api/editions/{copied_edition_id}'
+            )
+            assert verify_resp.status_code in [400, 404], (
+                "Deleted edition should not be retrievable"
+            )
+
+    def test_copy_edition_without_auth_fails(self, api_client):
+        """POST /api/editions/{id}/copy should require authentication."""
+        response = api_client.post('/api/editions/86/copy')
+        assert response.status_code in [401, 403, 422]
+
+    def test_copy_nonexistent_edition_fails(self, admin_client):
+        """POST /api/editions/{id}/copy should fail for invalid ID."""
+        response = admin_client.post('/api/editions/999999999/copy')
+        assert response.status_code in [400, 404, 500]
