@@ -21,6 +21,7 @@ what they test, their parameter values, and expected behaviors.
 10. [Editions CRUD Tests (test_editions.py)](#editions-crud-tests)
 11. [Work Shorts Tests (test_work_shorts.py)](#work-shorts-tests)
 12. [Edition Shorts Tests (test_edition_shorts.py)](#edition-shorts-tests)
+13. [Person Shorts Tests (test_person_shorts.py)](#person-shorts-tests)
 
 ---
 
@@ -38,6 +39,7 @@ what they test, their parameter values, and expected behaviors.
 | test_editions.py | Edition lifecycle CRUD | 12 |
 | test_work_shorts.py | Work shorts (omnibus) endpoint | 4 |
 | test_edition_shorts.py | Edition-short relationships | 10 |
+| test_person_shorts.py | Person-short relationships | 8 |
 
 ---
 
@@ -770,6 +772,39 @@ responses remain unchanged after migration 001 (ShortStory refactoring).
 | `test_short_response_format` | Verify editions list format |
 
 **Purpose:** Ensure API clients don't break after schema migration.
+
+---
+
+## Person Shorts Tests
+
+**File:** `tests/api/test_person_shorts.py`
+
+Tests for person-to-shortstory relationships via `/api/people/{id}/shorts`.
+
+### TestPersonShorts
+
+| Test | Description |
+|------|-------------|
+| `test_person_shorts_count_and_ids` | Person 3238 has 44 shorts |
+| `test_person_shorts_has_required_fields` | id, title, contributors present |
+| `test_person_shorts_contributor_structure` | Contributor has person/role |
+| `test_person_shorts_includes_person_as_contributor` | Person in contributors |
+| `test_person_shorts_nonexistent_person` | Handle invalid person ID |
+| `test_person_without_shorts` | Person without shorts returns list |
+
+**Snapshot:** `person_shorts_3238.json`
+- Person 3238: Elo, Eija (Finnish SF author)
+- Expected count: 44 short stories
+- Verifies IDs, titles, contributors match
+
+### TestPersonShortsBackwardCompat
+
+| Test | Description |
+|------|-------------|
+| `test_person_shorts_response_format` | Response structure valid |
+| `test_person_shorts_contributor_roles` | Role assignments preserved |
+
+**Purpose:** Ensure contributor relationships preserved after migration.
 
 ---
 
