@@ -785,6 +785,31 @@ def edition_delete(edition_id: str) -> ResponseType:
         return ResponseType("edition_delete: Painosta ei löydy.",
                             HttpResponseCode.BAD_REQUEST.value)
 
+    # Check if this is the last edition for the work
+    # Edition -> Part -> Work, so we need to query through Part
+    work_ids = session.query(Part.work_id)\
+        .filter(Part.edition_id == int_id)\
+        .filter(Part.work_id.isnot(None))\
+        .distinct()\
+        .all()
+    work_ids = [w[0] for w in work_ids]
+
+    if work_ids:
+        # Count all editions that belong to any of these works
+        edition_count = session.query(Edition.id)\
+            .join(Part, Part.edition_id == Edition.id)\
+            .filter(Part.work_id.in_(work_ids))\
+            .distinct()\
+            .count()
+        if edition_count <= 1:
+            app.logger.error(
+                f"edition_delete: Cannot delete last edition. "
+                f"work_ids={work_ids}"
+            )
+            return ResponseType(
+                "Teoksen viimeistä painosta ei voi poistaa.",
+                HttpResponseCode.BAD_REQUEST.value)
+
     if not edition.version:
         version = "1"
     else:
