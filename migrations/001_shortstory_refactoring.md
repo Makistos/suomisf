@@ -1,10 +1,12 @@
-# Schema Migration Test Plan: ShortStory Refactoring
+# Migration 001: ShortStory Refactoring
 
 This document outlines the tests required for migrating ShortStory from the
 current Part-based model to a direct Edition relationship with dedicated
 StoryContributors table.
 
+**Migration ID:** 001
 **Created:** 2026-02-15
+**Status:** Planning
 
 ---
 
