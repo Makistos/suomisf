@@ -1,0 +1,36 @@
+{
+  "endpoint": "/api/shorts/1805",
+  "method": "GET",
+  "description": "Short story with editions for backward compat test",
+  "response": {
+    "status_code": 200,
+    "data": {
+      "id": 1805,
+      "title": "Napoleonin vaihtoviikot",
+      "orig_title": "Napoleonin vaihtoviikot",
+      "pubyear": 1983,
+      "editions": [
+        {
+          "id": 2820,
+          "title": "Aukkoja ajassa",
+          "pubyear": 2013
+        },
+        {
+          "id": 1585,
+          "title": "Atoroxin perilliset",
+          "pubyear": 1988
+        }
+      ],
+      "authors": [
+        {
+          "id": 3238,
+          "name": "Elo, Eija"
+        }
+      ],
+      "type": {
+        "id": 1,
+        "name": "Novelli"
+      }
+    }
+  }
+}

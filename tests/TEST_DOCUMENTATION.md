@@ -20,6 +20,7 @@ what they test, their parameter values, and expected behaviors.
 9. [Works CRUD Tests (test_works.py)](#works-crud-tests)
 10. [Editions CRUD Tests (test_editions.py)](#editions-crud-tests)
 11. [Work Shorts Tests (test_work_shorts.py)](#work-shorts-tests)
+12. [Edition Shorts Tests (test_edition_shorts.py)](#edition-shorts-tests)
 
 ---
 
@@ -36,6 +37,7 @@ what they test, their parameter values, and expected behaviors.
 | test_works.py | Work lifecycle CRUD | 9 |
 | test_editions.py | Edition lifecycle CRUD | 12 |
 | test_work_shorts.py | Work shorts (omnibus) endpoint | 4 |
+| test_edition_shorts.py | Edition-short relationships | 10 |
 
 ---
 
@@ -723,6 +725,51 @@ Uses snapshot: `work_shorts_1378.json`
 | 3202 | Hanna | Sinisalo, Johanna | 1988 |
 | 3449 | Suklaalaput | Sinisalo, Johanna | 1985 |
 | 3451 | Perhosen lento | Tervonen, Ari | 1988 |
+
+---
+
+## Edition Shorts Tests
+
+**File:** `tests/api/test_edition_shorts.py`
+
+Tests for edition-to-shortstory relationships. These tests ensure API
+responses remain unchanged after migration 001 (ShortStory refactoring).
+
+### TestEditionShorts
+
+| Test | Description |
+|------|-------------|
+| `test_edition_shorts_count_and_ids` | Verify 22 shorts in edition 1585 |
+| `test_edition_shorts_has_required_fields` | Verify id, title, authors |
+| `test_edition_shorts_author_fields` | Verify author id and name |
+| `test_edition_without_shorts` | Edition 86 returns empty list |
+| `test_edition_shorts_nonexistent_edition` | Handle invalid edition ID |
+
+**Snapshot:** `edition_shorts_1585.json`
+- Edition 1585: "Atoroxin perilliset" (1988)
+- Expected count: 22 short stories
+- Verifies IDs, titles, authors match snapshot
+
+### TestShortEditions
+
+| Test | Description |
+|------|-------------|
+| `test_short_has_editions` | Short 1805 has editions list |
+| `test_short_editions_have_required_fields` | Editions have id, title |
+| `test_short_authors_preserved` | Author IDs match snapshot |
+
+**Snapshot:** `short_1805.json`
+- Short 1805: "Napoleonin vaihtoviikot" by Elo, Eija (1983)
+- Editions: 1585 (1988), 2820 (2013)
+
+### TestEditionShortsBackwardCompat
+
+| Test | Description |
+|------|-------------|
+| `test_edition_shorts_response_format` | Verify response structure |
+| `test_short_response_format` | Verify editions list format |
+
+**Purpose:** Ensure API clients don't break after schema migration.
 
 ---
 
