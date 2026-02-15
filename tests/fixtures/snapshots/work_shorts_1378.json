@@ -1,0 +1,374 @@
+{
+  "endpoint": "/api/works/shorts/1378",
+  "method": "GET",
+  "description": "Short stories in omnibus work 1378",
+  "response": {
+    "status_code": 200,
+    "data": [
+      {
+        "id": 1805,
+        "title": "Napoleonin vaihtoviikot",
+        "orig_title": "Napoleonin vaihtoviikot",
+        "pubyear": 1983,
+        "authors": [
+          {
+            "id": 3238,
+            "name": "Elo, Eija"
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        }
+      },
+      {
+        "id": 2965,
+        "title": "Ran palvelija",
+        "orig_title": "Ran palvelija",
+        "pubyear": 1986,
+        "authors": [
+          {
+            "id": 1408,
+            "name": "Oja, Heikki"
+          },
+          {
+            "id": 3299,
+            "name": "Ranta, Matias "
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        }
+      },
+      {
+        "id": 2966,
+        "title": "Syrjäinen maailma",
+        "orig_title": "Syrjäinen maailma",
+        "pubyear": 1987,
+        "authors": [
+          {
+            "id": 1408,
+            "name": "Oja, Heikki"
+          },
+          {
+            "id": 3299,
+            "name": "Ranta, Matias "
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        }
+      },
+      {
+        "id": 2967,
+        "title": "Tulppaanikukkula",
+        "orig_title": "Tulppaanikukkula",
+        "pubyear": 1988,
+        "authors": [
+          {
+            "id": 1408,
+            "name": "Oja, Heikki"
+          },
+          {
+            "id": 3300,
+            "name": "Ranta, Matilda "
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        }
+      },
+      {
+        "id": 3202,
+        "title": "Hanna",
+        "orig_title": "Hanna",
+        "pubyear": 1988,
+        "authors": [
+          {
+            "id": 368,
+            "name": "Sinisalo, Johanna"
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        }
+      },
+      {
+        "id": 3440,
+        "title": "Tuli ilta ja tuli yö",
+        "orig_title": "Tuli ilta ja tuli yö",
+        "pubyear": 1987,
+        "authors": [
+          {
+            "id": 3244,
+            "name": "Hiltunen, Pekka"
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        }
+      },
+      {
+        "id": 3441,
+        "title": "Lokakuun lemmikki",
+        "orig_title": "Lokakuun lemmikki",
+        "pubyear": 1988,
+        "authors": [
+          {
+            "id": 3249,
+            "name": "Junttila, Yrjö"
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        }
+      },
+      {
+        "id": 3442,
+        "title": "Mitä sinä olisit tehnyt...",
+        "orig_title": "Mitä sinä olisit tehnyt...",
+        "pubyear": 1987,
+        "authors": [
+          {
+            "id": 2386,
+            "name": "Kärkkäinen, Tero"
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        }
+      },
+      {
+        "id": 3443,
+        "title": "Tarkastaja",
+        "orig_title": "Tarkastaja",
+        "pubyear": 1987,
+        "authors": [
+          {
+            "id": 2386,
+            "name": "Kärkkäinen, Tero"
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        }
+      },
+      {
+        "id": 3444,
+        "title": "Johanneksesta Johannekseen",
+        "orig_title": "Johanneksesta Johannekseen",
+        "pubyear": 1988,
+        "authors": [
+          {
+            "id": 2340,
+            "name": "Markkanen, Olavi"
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        }
+      },
+      {
+        "id": 3445,
+        "title": "Pyörä",
+        "orig_title": "Pyörä",
+        "pubyear": 1987,
+        "authors": [
+          {
+            "id": 2340,
+            "name": "Markkanen, Olavi"
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        }
+      },
+      {
+        "id": 3446,
+        "title": "Marsiin",
+        "orig_title": "Marsiin",
+        "pubyear": 1988,
+        "authors": [
+          {
+            "id": 3332,
+            "name": "Martikainen, Vuokko"
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        }
+      },
+      {
+        "id": 3447,
+        "title": "Roskakuskit",
+        "orig_title": "Roskakuskit",
+        "pubyear": 1988,
+        "authors": [
+          {
+            "id": 3291,
+            "name": "Pasanen, Sirpa"
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        }
+      },
+      {
+        "id": 3448,
+        "title": "Ollin oppivuodet Aapelin alkuasetelmat",
+        "orig_title": "Ollin oppivuodet Aapelin alkuasetelmat",
+        "pubyear": 1986,
+        "authors": [
+          {
+            "id": 637,
+            "name": "Saneri, Kimmo"
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        }
+      },
+      {
+        "id": 3449,
+        "title": "Suklaalaput",
+        "orig_title": "Suklaalaput",
+        "pubyear": 1985,
+        "authors": [
+          {
+            "id": 368,
+            "name": "Sinisalo, Johanna"
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        }
+      },
+      {
+        "id": 3450,
+        "title": "Yövesi",
+        "orig_title": "Yövesi",
+        "pubyear": 1988,
+        "authors": [
+          {
+            "id": 368,
+            "name": "Sinisalo, Johanna"
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        }
+      },
+      {
+        "id": 3451,
+        "title": "Perhosen lento",
+        "orig_title": "Perhosen lento",
+        "pubyear": 1988,
+        "authors": [
+          {
+            "id": 3313,
+            "name": "Tervonen, Ari"
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        }
+      },
+      {
+        "id": 3452,
+        "title": "Perinne",
+        "orig_title": "Perinne",
+        "pubyear": 1984,
+        "authors": [
+          {
+            "id": 103,
+            "name": "Virtanen, Pekka"
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        }
+      },
+      {
+        "id": 4504,
+        "title": "Jumalten vuori",
+        "orig_title": "Jumalten vuori",
+        "pubyear": 1982,
+        "authors": [
+          {
+            "id": 3751,
+            "name": "Oikarinen, Antti"
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        }
+      },
+      {
+        "id": 4544,
+        "title": "Viimeinen lähtö",
+        "orig_title": "Viimeinen lähtö",
+        "pubyear": 1986,
+        "authors": [
+          {
+            "id": 3750,
+            "name": "Närhi, Harri"
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        }
+      },
+      {
+        "id": 4546,
+        "title": "Tulipiiri",
+        "orig_title": "Tulipiiri",
+        "pubyear": 1986,
+        "authors": [
+          {
+            "id": 3810,
+            "name": "Väre, Matti"
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        }
+      },
+      {
+        "id": 7150,
+        "title": "Syksy",
+        "orig_title": "Syksy",
+        "pubyear": 1988,
+        "authors": [
+          {
+            "id": 3669,
+            "name": "Gartz, Juho"
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        }
+      }
+    ]
+  }
+}

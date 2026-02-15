@@ -19,6 +19,7 @@ what they test, their parameter values, and expected behaviors.
 8. [Miscellaneous Tests (test_misc.py)](#miscellaneous-tests)
 9. [Works CRUD Tests (test_works.py)](#works-crud-tests)
 10. [Editions CRUD Tests (test_editions.py)](#editions-crud-tests)
+11. [Work Shorts Tests (test_work_shorts.py)](#work-shorts-tests)
 
 ---
 
@@ -34,6 +35,7 @@ what they test, their parameter values, and expected behaviors.
 | test_misc.py | Miscellaneous endpoints | 36 |
 | test_works.py | Work lifecycle CRUD | 9 |
 | test_editions.py | Edition lifecycle CRUD | 12 |
+| test_work_shorts.py | Work shorts (omnibus) endpoint | 4 |
 
 ---
 
@@ -680,6 +682,47 @@ get_work_editions(admin_client, work_id)
 **Parameter Values:**
 - Source edition ID: 86
 - Expected response: New edition ID (different from source)
+
+---
+
+## Work Shorts Tests
+
+**File:** `tests/api/test_work_shorts.py`
+
+Tests for the `/api/works/shorts/<workid>` endpoint that retrieves short
+stories contained in an omnibus or anthology work.
+
+### TestWorkShorts
+
+| Test | Description |
+|------|-------------|
+| `test_get_work_shorts_omnibus_1378` | Verify 22 shorts with correct data |
+| `test_get_work_shorts_has_required_fields` | Verify required fields present |
+| `test_get_work_shorts_nonexistent_work` | Handle nonexistent work ID |
+| `test_get_work_shorts_work_without_shorts` | Work without shorts returns list |
+
+**Snapshot Test Details (test_get_work_shorts_omnibus_1378):**
+
+Uses snapshot: `work_shorts_1378.json`
+
+- Work ID: 1378 (Finnish SF omnibus)
+- Expected count: 22 short stories
+- Verifies for each short:
+  - ID matches snapshot
+  - Title matches snapshot
+  - Original title matches snapshot
+  - Publication year matches snapshot
+  - Story type (id and name) matches snapshot
+  - Author IDs and names match snapshot
+
+**Sample Short Stories in Work 1378:**
+| ID | Title | Author(s) | Year |
+|----|-------|-----------|------|
+| 1805 | Napoleonin vaihtoviikot | Elo, Eija | 1983 |
+| 2965 | Ran palvelija | Oja, Heikki; Ranta, Matias | 1986 |
+| 3202 | Hanna | Sinisalo, Johanna | 1988 |
+| 3449 | Suklaalaput | Sinisalo, Johanna | 1985 |
+| 3451 | Perhosen lento | Tervonen, Ari | 1988 |
 
 ---
 
