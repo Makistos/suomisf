@@ -311,9 +311,10 @@ class APITestClient:
 
         if response.status_code == 200:
             data = response.get_json()
-            if data and 'response' in data:
-                self.access_token = data['response'].get('access_token')
-                self.refresh_token = data['response'].get('refresh_token')
+            if data:
+                # Login endpoint returns tokens directly, not wrapped in 'response'
+                self.access_token = data.get('access_token')
+                self.refresh_token = data.get('refresh_token')
                 return self.access_token
         return None
 
