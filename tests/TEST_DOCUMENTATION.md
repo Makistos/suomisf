@@ -22,6 +22,7 @@ what they test, their parameter values, and expected behaviors.
 11. [Work Shorts Tests (test_work_shorts.py)](#work-shorts-tests)
 12. [Edition Shorts Tests (test_edition_shorts.py)](#edition-shorts-tests)
 13. [Person Shorts Tests (test_person_shorts.py)](#person-shorts-tests)
+14. [Person Tests (test_persons.py)](#person-tests)
 
 ---
 
@@ -40,6 +41,7 @@ what they test, their parameter values, and expected behaviors.
 | test_work_shorts.py | Work shorts (omnibus) endpoint | 4 |
 | test_edition_shorts.py | Edition-short relationships | 10 |
 | test_person_shorts.py | Person-short relationships | 8 |
+| test_persons.py | Person endpoints (list, CRUD, related) | 26 |
 
 ---
 
@@ -805,6 +807,101 @@ Tests for person-to-shortstory relationships via `/api/people/{id}/shorts`.
 | `test_person_shorts_contributor_roles` | Role assignments preserved |
 
 **Purpose:** Ensure contributor relationships preserved after migration.
+
+---
+
+## Person Tests
+
+**File:** `tests/api/test_persons.py`
+
+Tests for person-related endpoints not covered by other test files.
+Includes list, articles, chiefeditor, issue-contributions, tags, and CRUD.
+
+### TestPersonList
+
+| Test | Description |
+|------|-------------|
+| `test_list_people_returns_200` | GET /api/people/ returns 200 |
+| `test_list_people_returns_paginated_data` | Response has pagination fields |
+| `test_list_people_with_sort` | Sorting parameters work |
+| `test_list_people_with_rows_limit` | Row limit returns data |
+
+### TestPersonChiefEditor
+
+| Test | Description |
+|------|-------------|
+| `test_chiefeditor_returns_200` | GET /api/people/{id}/chiefeditor returns 200 |
+| `test_chiefeditor_returns_issue_data` | Returns issue info for chief editor |
+| `test_chiefeditor_nonexistent_person` | Handle invalid person ID |
+| `test_chiefeditor_person_without_issues` | Handle person not chief editor |
+
+**Test Data:**
+- Person 900: Nikkonen, Raimo (chief editor for 172 issues)
+
+### TestPersonIssueContributions
+
+| Test | Description |
+|------|-------------|
+| `test_issue_contributions_returns_200` | GET returns 200 |
+| `test_issue_contributions_returns_list` | Returns list format |
+| `test_issue_contributions_has_fields` | Contributions have expected fields |
+| `test_issue_contributions_nonexistent_person` | Handle invalid ID |
+| `test_issue_contributions_person_without_contribs` | Handle no contributions |
+
+**Test Data:**
+- Person 8: Selkala, Ulla (167 issue contributions)
+
+### TestPersonArticles
+
+| Test | Description |
+|------|-------------|
+| `test_articles_returns_200` | GET /api/people/{id}/articles returns 200 |
+| `test_articles_returns_list` | Returns list format |
+| `test_articles_nonexistent_person` | Handle invalid person ID |
+
+### TestPersonTags
+
+| Test | Description |
+|------|-------------|
+| `test_add_tag_requires_auth` | PUT /api/person/{id}/tags/{tagid} requires auth |
+| `test_remove_tag_requires_auth` | DELETE requires authentication |
+| `test_add_tag_invalid_ids` | Invalid IDs return error |
+| `test_remove_tag_invalid_ids` | Invalid IDs return error |
+
+### TestPersonCRUD
+
+| Test | Description |
+|------|-------------|
+| `test_create_person` | POST /api/people creates person |
+| `test_create_person_without_auth_fails` | No auth returns 401/403/422 |
+| `test_update_person_without_auth_fails` | No auth returns 401/403/422 |
+| `test_delete_person_without_auth_fails` | No auth returns 401/403/404/405 |
+| `test_delete_nonexistent_person` | Invalid ID returns error |
+
+**Person Create Format:**
+```json
+{
+  "data": {
+    "name": "Last, First",
+    "first_name": "First",
+    "last_name": "Last",
+    "dob": 1990,
+    "nationality": {"id": 1}
+  }
+}
+```
+
+### TestPersonCRUDLifecycle
+
+| Test | Description |
+|------|-------------|
+| `test_person_lifecycle` | Create -> update -> delete cycle |
+
+**Lifecycle Steps:**
+1. Create person with POST /api/people
+2. Verify person exists with GET /api/people/{id}
+3. Update person with PUT /api/people
+4. Delete person with DELETE /api/people/{id}
 
 ---
 

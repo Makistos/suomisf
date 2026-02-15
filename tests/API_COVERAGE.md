@@ -117,20 +117,20 @@
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :hourglass_flowing_sand: | GET | `/api/people/` | None | - | - |
-| :white_check_mark: | POST | `/api/people` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
-| :white_check_mark: | PUT | `/api/people` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/people/` | None | `test_persons.py::TestPersonList` | 2026-02-15 |
+| :white_check_mark: | POST | `/api/people` | Admin | `test_persons.py::TestPersonCRUD` | 2026-02-15 |
+| :white_check_mark: | PUT | `/api/people` | Admin | `test_persons.py::TestPersonCRUD` | 2026-02-15 |
 | :white_check_mark: | GET | `/api/people/<person_id>` | None | `test_entities.py::TestPeople` | 2026-02-14 |
-| :white_check_mark: | DELETE | `/api/people/<person_id>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
-| :hourglass_flowing_sand: | GET | `/api/people/<person_id>/articles` | None | - | - |
+| :white_check_mark: | DELETE | `/api/people/<person_id>` | Admin | `test_persons.py::TestPersonCRUD` | 2026-02-15 |
+| :white_check_mark: | GET | `/api/people/<person_id>/articles` | None | `test_persons.py::TestPersonArticles` | 2026-02-15 |
 | :white_check_mark: | GET | `/api/people/<person_id>/awarded` | None | `test_related.py::TestPersonAwarded` | 2026-02-14 |
-| :hourglass_flowing_sand: | GET | `/api/people/<personid>/chiefeditor` | None | - | - |
-| :white_check_mark: | GET | `/api/people/<personid>/shorts` | None | `test_related.py::TestPersonShorts` | 2026-02-14 |
-| :hourglass_flowing_sand: | PUT | `/api/person/<personid>/tags/<tagid>` | Admin | - | - |
-| :hourglass_flowing_sand: | DELETE | `/api/person/<personid>/tags/<tagid>` | Admin | - | - |
+| :white_check_mark: | GET | `/api/people/<personid>/chiefeditor` | None | `test_persons.py::TestPersonChiefEditor` | 2026-02-15 |
+| :white_check_mark: | GET | `/api/people/<personid>/shorts` | None | `test_person_shorts.py::TestPersonShorts` | 2026-02-15 |
+| :white_check_mark: | PUT | `/api/person/<personid>/tags/<tagid>` | Admin | `test_persons.py::TestPersonTags` | 2026-02-15 |
+| :white_check_mark: | DELETE | `/api/person/<personid>/tags/<tagid>` | Admin | `test_persons.py::TestPersonTags` | 2026-02-15 |
 | :white_check_mark: | GET | `/api/filter/people/<pattern>` | None | `test_filters.py::TestFilterPeople` | 2026-02-14 |
 | :white_check_mark: | GET | `/api/latest/people/<count>` | None | `test_related.py::TestLatestPeople` | 2026-02-14 |
-| :hourglass_flowing_sand: | GET | `/api/people/<person_id>/issue-contributions` | None | - | - |
+| :white_check_mark: | GET | `/api/people/<person_id>/issue-contributions` | None | `test_persons.py::TestPersonIssueContributions` | 2026-02-15 |
 | :hourglass_flowing_sand: | GET | `/api/filter/alias/<id>` | None | - | - |
 
 ### 6. Short Stories (10 endpoints)
