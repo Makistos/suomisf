@@ -137,16 +137,16 @@
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :white_check_mark: | GET | `/api/shorts/<shortid>` | None | `test_entities.py::TestShorts` | 2026-02-14 |
-| :white_check_mark: | POST | `/api/shorts` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
-| :white_check_mark: | PUT | `/api/shorts` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
-| :white_check_mark: | DELETE | `/api/shorts/<shortid>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
-| :white_check_mark: | POST | `/api/searchshorts` | None | `test_filters.py::TestSearchShorts` | 2026-02-14 |
-| :white_check_mark: | GET | `/api/shorttypes` | None | `test_misc.py::TestShortTypes` | 2026-02-14 |
-| :hourglass_flowing_sand: | PUT | `/api/story/<storyid>/tags/<tagid>` | Admin | - | - |
-| :hourglass_flowing_sand: | DELETE | `/api/story/<storyid>/tags/<tagid>` | Admin | - | - |
-| :white_check_mark: | GET | `/api/latest/shorts/<count>` | None | `test_related.py::TestLatestShorts` | 2026-02-14 |
-| :hourglass_flowing_sand: | GET | `/api/shorts/<shortid>/similar` | None | - | - |
+| :white_check_mark: | GET | `/api/shorts/<shortid>` | None | `test_shorts.py::TestShortCRUD` | 2026-02-15 |
+| :white_check_mark: | POST | `/api/shorts` | Admin | `test_shorts.py::TestShortCRUD` | 2026-02-15 |
+| :white_check_mark: | PUT | `/api/shorts` | Admin | `test_shorts.py::TestShortCRUD` | 2026-02-15 |
+| :white_check_mark: | DELETE | `/api/shorts/<shortid>` | Admin | `test_shorts.py::TestShortCRUD` | 2026-02-15 |
+| :white_check_mark: | POST | `/api/searchshorts` | None | `test_shorts.py::TestSearchShorts` | 2026-02-15 |
+| :white_check_mark: | GET | `/api/shorttypes` | None | `test_shorts.py::TestShortTypes` | 2026-02-15 |
+| :white_check_mark: | PUT | `/api/story/<storyid>/tags/<tagid>` | Admin | `test_shorts.py::TestStoryTags` | 2026-02-15 |
+| :white_check_mark: | DELETE | `/api/story/<storyid>/tags/<tagid>` | Admin | `test_shorts.py::TestStoryTags` | 2026-02-15 |
+| :white_check_mark: | GET | `/api/latest/shorts/<count>` | None | `test_shorts.py::TestLatestShorts` | 2026-02-15 |
+| :white_check_mark: | GET | `/api/shorts/<shortid>/similar` | None | `test_shorts.py::TestSimilarShorts` | 2026-02-15 |
 
 ### 7. Magazines (6 endpoints)
 
@@ -178,7 +178,7 @@
 | :white_check_mark: | GET | `/api/awards/<award_id>` | None | `test_entities.py::TestAwards` | 2026-02-14 |
 | :hourglass_flowing_sand: | GET | `/api/works/<work_id>/awarded` | None | - | - |
 | :white_check_mark: | GET | `/api/people/<person_id>/awarded` | None | `test_related.py::TestPersonAwarded` | 2026-02-14 |
-| :hourglass_flowing_sand: | GET | `/api/shorts/<short_id>/awarded` | None | - | - |
+| :white_check_mark: | GET | `/api/shorts/<short_id>/awarded` | None | `test_shorts.py::TestShortAwarded` | 2026-02-15 |
 | :hourglass_flowing_sand: | PUT | `/api/awards/works/awards` | Admin | - | - |
 | :hourglass_flowing_sand: | PUT | `/api/awards/people/awards` | Admin | - | - |
 | :hourglass_flowing_sand: | GET | `/api/awards/type/<award_type>` | None | - | - |

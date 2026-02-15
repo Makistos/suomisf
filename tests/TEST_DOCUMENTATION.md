@@ -23,6 +23,7 @@ what they test, their parameter values, and expected behaviors.
 12. [Edition Shorts Tests (test_edition_shorts.py)](#edition-shorts-tests)
 13. [Person Shorts Tests (test_person_shorts.py)](#person-shorts-tests)
 14. [Person Tests (test_persons.py)](#person-tests)
+15. [Short Story Tests (test_shorts.py)](#short-story-tests)
 
 ---
 
@@ -42,6 +43,7 @@ what they test, their parameter values, and expected behaviors.
 | test_edition_shorts.py | Edition-short relationships | 10 |
 | test_person_shorts.py | Person-short relationships | 8 |
 | test_persons.py | Person endpoints (list, CRUD, related) | 26 |
+| test_shorts.py | Short story endpoints (types, CRUD, related) | 34 |
 
 ---
 
@@ -902,6 +904,92 @@ Includes list, articles, chiefeditor, issue-contributions, tags, and CRUD.
 2. Verify person exists with GET /api/people/{id}
 3. Update person with PUT /api/people
 4. Delete person with DELETE /api/people/{id}
+
+---
+
+## Short Story Tests
+
+**File:** `tests/api/test_shorts.py`
+
+Tests for short story endpoints not covered by other test files.
+Includes story types, tags, latest, similar, awarded, and CRUD.
+
+### TestShortTypes
+
+| Test | Description |
+|------|-------------|
+| `test_shorttypes_returns_200` | GET /api/shorttypes returns 200 |
+| `test_shorttypes_returns_list` | Returns list format |
+| `test_shorttypes_has_expected_count` | Returns 9 story types |
+| `test_shorttypes_has_required_fields` | Types have id and name |
+| `test_shorttypes_includes_novelli` | Includes 'Novelli' type |
+
+### TestLatestShorts
+
+| Test | Description |
+|------|-------------|
+| `test_latest_shorts_returns_200` | GET /api/latest/shorts/{count} returns 200 |
+| `test_latest_shorts_returns_list` | Returns list format |
+| `test_latest_shorts_respects_count` | Respects count limit |
+| `test_latest_shorts_has_required_fields` | Shorts have id and title |
+| `test_latest_shorts_invalid_count` | Invalid count returns error |
+
+### TestSimilarShorts
+
+| Test | Description |
+|------|-------------|
+| `test_similar_shorts_returns_200` | GET /api/shorts/{id}/similar returns 200 |
+| `test_similar_shorts_returns_list` | Returns list format |
+| `test_similar_shorts_nonexistent` | Handle nonexistent short |
+
+### TestShortAwarded
+
+| Test | Description |
+|------|-------------|
+| `test_short_awarded_returns_200` | GET /api/shorts/{id}/awarded returns 200 |
+| `test_short_awarded_returns_list` | Returns list format |
+| `test_short_awarded_has_awards` | Short 4918 has awards |
+| `test_short_awarded_has_fields` | Awards have expected fields |
+| `test_short_awarded_nonexistent` | Handle nonexistent short |
+| `test_short_without_awards` | Handle short without awards |
+
+**Test Data:**
+- Short 4918: "Taivaan ja helvetin avoliitto" (3 awards)
+
+### TestStoryTags
+
+| Test | Description |
+|------|-------------|
+| `test_add_tag_requires_auth` | PUT /api/story/{id}/tags/{tagid} requires auth |
+| `test_remove_tag_requires_auth` | DELETE requires authentication |
+| `test_add_tag_invalid_ids` | Invalid IDs return error |
+| `test_remove_tag_invalid_ids` | Invalid IDs return error |
+
+### TestShortCRUD
+
+| Test | Description |
+|------|-------------|
+| `test_create_short_requires_auth` | POST /api/shorts requires auth |
+| `test_update_short_requires_auth` | PUT /api/shorts requires auth |
+| `test_delete_short_requires_auth` | DELETE requires auth |
+| `test_delete_nonexistent_short` | Invalid ID returns error |
+| `test_get_short_returns_200` | GET /api/shorts/{id} returns 200 |
+| `test_get_short_has_fields` | Short has id and title |
+| `test_get_nonexistent_short` | Handle nonexistent short |
+
+### TestShortCRUDLifecycle
+
+| Test | Description |
+|------|-------------|
+| `test_short_lifecycle` | Create -> update -> delete cycle |
+
+### TestSearchShorts
+
+| Test | Description |
+|------|-------------|
+| `test_search_shorts_returns_200` | POST /api/searchshorts returns 200 |
+| `test_search_shorts_returns_data` | Returns search results |
+| `test_search_shorts_empty_query` | Handle empty query |
 
 ---
 
