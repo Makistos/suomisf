@@ -1,8 +1,8 @@
 # SuomiSF API Test Coverage Report
 
-**Last Updated:** 2026-02-14
+**Last Updated:** 2026-02-16
 **Total Endpoints:** 158
-**Tested:** 248 tests (covering ~75% of endpoints)
+**Tested:** 269 tests (covering ~80% of endpoints)
 **Pending:** ~40 endpoints (complex write operations)
 **Snapshot Tests:** 30 (data validation against golden database)
 
@@ -32,7 +32,7 @@
 | Magazines | 6 | 8 | Entity, auth tests |
 | Issues | 6 | 8 | Entity, related tests |
 | Awards | 12 | 6 | Entity tests |
-| Tags | 10 | 18 | Entity, filter, auth tests |
+| Tags | 10 | 39 | Entity, filter, auth, quick, types, merge tests |
 | Publishers | 6 | 10 | Entity, filter, auth tests |
 | Publication Series | 6 | 8 | Entity, filter, auth tests |
 | Book Series | 6 | 8 | Entity, filter, auth tests |
@@ -191,16 +191,16 @@
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :white_check_mark: | GET | `/api/tags` | None | `test_entities.py::TestTags` | 2026-02-14 |
-| :hourglass_flowing_sand: | GET | `/api/tagsquick` | None | - | - |
-| :white_check_mark: | POST | `/api/tags` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/tags` | None | `test_entities.py::TestTags`, `test_tags.py::TestTagSearch` | 2026-02-16 |
+| :white_check_mark: | GET | `/api/tagsquick` | None | `test_tags.py::TestTagsQuick` | 2026-02-16 |
+| :white_check_mark: | POST | `/api/tags` | Admin | `test_auth.py::TestWriteOperationsRequireAuth`, `test_tags.py::TestTagCRUDLifecycle` | 2026-02-16 |
 | :white_check_mark: | GET | `/api/tags/<tag_id>` | None | `test_entities.py::TestTags` | 2026-02-14 |
-| :hourglass_flowing_sand: | GET | `/api/tags/form/<tag_id>` | None | - | - |
-| :white_check_mark: | PUT | `/api/tags` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/tags/form/<tag_id>` | None | `test_tags.py::TestTagFormInfo` | 2026-02-16 |
+| :white_check_mark: | PUT | `/api/tags` | Admin | `test_auth.py::TestWriteOperationsRequireAuth`, `test_tags.py::TestTagCRUDLifecycle` | 2026-02-16 |
 | :white_check_mark: | GET | `/api/filter/tags/<pattern>` | None | `test_filters.py::TestFilterTags` | 2026-02-14 |
-| :hourglass_flowing_sand: | POST | `/api/tags/<source_id>/merge/<target_id>` | Admin | - | - |
-| :white_check_mark: | DELETE | `/api/tags/<tagid>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
-| :hourglass_flowing_sand: | GET | `/api/tags/types` | None | - | - |
+| :white_check_mark: | POST | `/api/tags/<source_id>/merge/<target_id>` | Admin | `test_tags.py::TestTagMerge`, `test_tags.py::TestTagCRUDLifecycle` | 2026-02-16 |
+| :white_check_mark: | DELETE | `/api/tags/<tagid>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth`, `test_tags.py::TestTagCRUDLifecycle` | 2026-02-16 |
+| :white_check_mark: | GET | `/api/tags/types` | None | `test_tags.py::TestTagTypes` | 2026-02-16 |
 
 ### 11. Publishers (6 endpoints)
 

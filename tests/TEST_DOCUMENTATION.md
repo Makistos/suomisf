@@ -3,7 +3,7 @@
 This document provides detailed descriptions of all API tests, including
 what they test, their parameter values, and expected behaviors.
 
-**Last Updated:** 2026-02-15
+**Last Updated:** 2026-02-16
 
 ---
 
@@ -25,6 +25,7 @@ what they test, their parameter values, and expected behaviors.
 14. [Person Tests (test_persons.py)](#person-tests)
 15. [Short Story Tests (test_shorts.py)](#short-story-tests)
 16. [Award Tests (test_awards.py)](#award-tests)
+17. [Tag Tests (test_tags.py)](#tag-tests)
 
 ---
 
@@ -46,6 +47,7 @@ what they test, their parameter values, and expected behaviors.
 | test_persons.py | Person endpoints (list, CRUD, related) | 26 |
 | test_shorts.py | Short story endpoints (types, CRUD, related) | 34 |
 | test_awards.py | Award endpoints (types, categories, filter) | 29 |
+| test_tags.py | Tag endpoints (quick, types, form, merge) | 21 |
 
 ---
 
@@ -1072,6 +1074,75 @@ Includes award types, categories, filter, work awards, and admin endpoints.
 | `test_save_awarded_with_auth` | POST /api/awarded with auth |
 
 **Note:** Some endpoints have decorator order issues that may bypass auth.
+
+---
+
+## Tag Tests
+
+**File:** `tests/api/test_tags.py`
+
+Tests for tag-related endpoints not covered by other test files.
+Includes tags quick, form info, merge, types, search, and CRUD lifecycle.
+
+### TestTagsQuick
+
+| Test | Description |
+|------|-------------|
+| `test_tagsquick_returns_200` | GET /api/tagsquick returns 200 |
+| `test_tagsquick_returns_list` | Returns list format |
+| `test_tagsquick_has_required_fields` | Tags have id and name |
+| `test_tagsquick_has_counts` | Tags have usage counts (workcount, etc.) |
+
+### TestTagFormInfo
+
+| Test | Description |
+|------|-------------|
+| `test_tag_form_returns_200` | GET /api/tags/form/{id} returns 200 |
+| `test_tag_form_returns_data` | Returns tag data |
+| `test_tag_form_nonexistent` | Handle nonexistent tag |
+| `test_tag_form_invalid_id` | Invalid ID returns 400 |
+
+### TestTagTypes
+
+| Test | Description |
+|------|-------------|
+| `test_tag_types_returns_200` | GET /api/tags/types returns 200 |
+| `test_tag_types_returns_list` | Returns list format |
+| `test_tag_types_has_required_fields` | Types have id and name |
+
+### TestTagMerge
+
+| Test | Description |
+|------|-------------|
+| `test_merge_requires_auth` | POST /api/tags/{source}/merge/{target} requires auth |
+| `test_merge_invalid_source_id` | Invalid source ID returns 400 |
+| `test_merge_invalid_target_id` | Invalid target ID returns 400 |
+| `test_merge_nonexistent_tags` | Handle nonexistent tags |
+
+### TestTagCRUDLifecycle
+
+| Test | Description |
+|------|-------------|
+| `test_tag_lifecycle` | Create -> update -> delete cycle |
+| `test_tag_merge_lifecycle` | Create two tags and merge |
+
+**Tag Create Format:**
+```json
+{
+  "data": {
+    "name": "Tag Name"
+  }
+}
+```
+
+### TestTagSearch
+
+| Test | Description |
+|------|-------------|
+| `test_tag_search_returns_200` | GET /api/tags?search={pattern} returns 200 |
+| `test_tag_search_returns_list` | Returns list format |
+| `test_tag_search_no_results` | Nonexistent pattern returns empty |
+| `test_tag_search_invalid_param` | Invalid param returns 400 |
 
 ---
 
