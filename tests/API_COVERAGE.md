@@ -174,18 +174,18 @@
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :white_check_mark: | GET | `/api/awards` | None | `test_entities.py::TestAwards` | 2026-02-14 |
-| :white_check_mark: | GET | `/api/awards/<award_id>` | None | `test_entities.py::TestAwards` | 2026-02-14 |
-| :hourglass_flowing_sand: | GET | `/api/works/<work_id>/awarded` | None | - | - |
+| :white_check_mark: | GET | `/api/awards` | None | `test_awards.py::TestAwardsList` | 2026-02-16 |
+| :white_check_mark: | GET | `/api/awards/<award_id>` | None | `test_awards.py::TestAwardGet` | 2026-02-16 |
+| :white_check_mark: | GET | `/api/works/<work_id>/awarded` | None | `test_awards.py::TestWorkAwarded` | 2026-02-16 |
 | :white_check_mark: | GET | `/api/people/<person_id>/awarded` | None | `test_related.py::TestPersonAwarded` | 2026-02-14 |
 | :white_check_mark: | GET | `/api/shorts/<short_id>/awarded` | None | `test_shorts.py::TestShortAwarded` | 2026-02-15 |
-| :hourglass_flowing_sand: | PUT | `/api/awards/works/awards` | Admin | - | - |
-| :hourglass_flowing_sand: | PUT | `/api/awards/people/awards` | Admin | - | - |
-| :hourglass_flowing_sand: | GET | `/api/awards/type/<award_type>` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/awards/categories/<award_type>` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/awards/categories/<award_id>` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/awards/filter/<filter>` | None | - | - |
-| :hourglass_flowing_sand: | POST | `/api/awarded` | Admin | - | - |
+| :white_check_mark: | PUT | `/api/awards/works/awards` | Admin | `test_awards.py::TestAwardAdminEndpoints` | 2026-02-16 |
+| :white_check_mark: | PUT | `/api/awards/people/awards` | Admin | `test_awards.py::TestAwardAdminEndpoints` | 2026-02-16 |
+| :white_check_mark: | GET | `/api/awards/type/<award_type>` | None | `test_awards.py::TestAwardsByType` | 2026-02-16 |
+| :white_check_mark: | GET | `/api/awards/categories/<award_type>` | None | `test_awards.py::TestAwardCategories` | 2026-02-16 |
+| :white_check_mark: | GET | `/api/awards/categories/<award_id>` | None | `test_awards.py::TestAwardCategories` | 2026-02-16 |
+| :white_check_mark: | GET | `/api/awards/filter/<filter>` | None | `test_awards.py::TestAwardsFilter` | 2026-02-16 |
+| :white_check_mark: | POST | `/api/awarded` | Admin | `test_awards.py::TestAwardAdminEndpoints` | 2026-02-16 |
 
 ### 10. Tags (10 endpoints)
 

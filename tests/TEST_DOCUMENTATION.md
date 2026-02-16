@@ -24,6 +24,7 @@ what they test, their parameter values, and expected behaviors.
 13. [Person Shorts Tests (test_person_shorts.py)](#person-shorts-tests)
 14. [Person Tests (test_persons.py)](#person-tests)
 15. [Short Story Tests (test_shorts.py)](#short-story-tests)
+16. [Award Tests (test_awards.py)](#award-tests)
 
 ---
 
@@ -44,6 +45,7 @@ what they test, their parameter values, and expected behaviors.
 | test_person_shorts.py | Person-short relationships | 8 |
 | test_persons.py | Person endpoints (list, CRUD, related) | 26 |
 | test_shorts.py | Short story endpoints (types, CRUD, related) | 34 |
+| test_awards.py | Award endpoints (types, categories, filter) | 29 |
 
 ---
 
@@ -990,6 +992,86 @@ Includes story types, tags, latest, similar, awarded, and CRUD.
 | `test_search_shorts_returns_200` | POST /api/searchshorts returns 200 |
 | `test_search_shorts_returns_data` | Returns search results |
 | `test_search_shorts_empty_query` | Handle empty query |
+
+---
+
+## Award Tests
+
+**File:** `tests/api/test_awards.py`
+
+Tests for award-related endpoints not covered by other test files.
+Includes award types, categories, filter, work awards, and admin endpoints.
+
+### TestAwardsList
+
+| Test | Description |
+|------|-------------|
+| `test_list_awards_returns_200` | GET /api/awards returns 200 |
+| `test_list_awards_returns_list` | Returns list format |
+| `test_list_awards_has_required_fields` | Awards have id and name |
+| `test_list_awards_includes_hugo` | Includes Hugo award |
+
+### TestAwardGet
+
+| Test | Description |
+|------|-------------|
+| `test_get_award_returns_200` | GET /api/awards/{id} returns 200 |
+| `test_get_award_has_fields` | Award has id and name |
+| `test_get_award_nonexistent` | Handle nonexistent award |
+
+**Test Data:**
+- Award 2: "Hugo" award
+
+### TestAwardsByType
+
+| Test | Description |
+|------|-------------|
+| `test_awards_by_type_person` | GET /api/awards/type/person |
+| `test_awards_by_type_work` | GET /api/awards/type/work |
+| `test_awards_by_type_story` | GET /api/awards/type/story |
+| `test_awards_by_type_invalid` | Invalid type returns 400 |
+
+**Note:** Valid types are: person, work, story
+
+### TestAwardCategories
+
+| Test | Description |
+|------|-------------|
+| `test_categories_for_type_person` | GET /api/awards/categories/person |
+| `test_categories_for_type_work` | GET /api/awards/categories/work |
+| `test_categories_for_type_story` | GET /api/awards/categories/story |
+| `test_categories_for_type_invalid` | Invalid type returns 400 |
+| `test_categories_numeric_id` | Numeric ID treated as type |
+
+### TestAwardsFilter
+
+| Test | Description |
+|------|-------------|
+| `test_filter_awards_returns_200` | GET /api/awards/filter/{filter} |
+| `test_filter_awards_returns_list` | Returns list format |
+| `test_filter_awards_finds_matches` | Finds matching awards |
+| `test_filter_awards_empty` | Nonexistent filter returns empty |
+
+### TestWorkAwarded
+
+| Test | Description |
+|------|-------------|
+| `test_work_awarded_returns_200` | GET /api/works/{id}/awarded |
+| `test_work_awarded_returns_list` | Returns list format |
+| `test_work_awarded_returns_data` | Returns data structure |
+| `test_work_awarded_nonexistent` | Handle nonexistent work |
+| `test_work_without_awards` | Handle work without awards |
+
+### TestAwardAdminEndpoints
+
+| Test | Description |
+|------|-------------|
+| `test_add_work_awards_with_auth` | PUT /api/awards/works/awards |
+| `test_add_person_awards_with_auth` | PUT /api/awards/people/awards |
+| `test_save_awarded_processes_request` | POST /api/awarded |
+| `test_save_awarded_with_auth` | POST /api/awarded with auth |
+
+**Note:** Some endpoints have decorator order issues that may bypass auth.
 
 ---
 
