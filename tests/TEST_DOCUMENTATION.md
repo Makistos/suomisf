@@ -26,6 +26,7 @@ what they test, their parameter values, and expected behaviors.
 15. [Short Story Tests (test_shorts.py)](#short-story-tests)
 16. [Award Tests (test_awards.py)](#award-tests)
 17. [Tag Tests (test_tags.py)](#tag-tests)
+18. [Work Extra Tests (test_works_extra.py)](#work-extra-tests)
 
 ---
 
@@ -48,6 +49,7 @@ what they test, their parameter values, and expected behaviors.
 | test_shorts.py | Short story endpoints (types, CRUD, related) | 34 |
 | test_awards.py | Award endpoints (types, categories, filter) | 29 |
 | test_tags.py | Tag endpoints (quick, types, form, merge) | 21 |
+| test_works_extra.py | Work endpoints (omnibus, tags, types, incomplete) | 27 |
 
 ---
 
@@ -1143,6 +1145,75 @@ Includes tags quick, form info, merge, types, search, and CRUD lifecycle.
 | `test_tag_search_returns_list` | Returns list format |
 | `test_tag_search_no_results` | Nonexistent pattern returns empty |
 | `test_tag_search_invalid_param` | Invalid param returns 400 |
+
+---
+
+## Work Extra Tests
+
+**File:** `tests/api/test_works_extra.py`
+
+Tests for work-related endpoints not covered by other test files.
+Includes omnibus, work types, work tags, random incomplete, and shorts save.
+
+### TestWorksByType
+
+| Test | Description |
+|------|-------------|
+| `test_works_bytype_novel_returns_200` | GET /api/works/bytype/1 returns 200 |
+| `test_works_bytype_returns_list` | Returns list format |
+| `test_works_bytype_collection` | GET /api/works/bytype/2 returns collections |
+| `test_works_bytype_has_fields` | Works have id and title |
+| `test_works_bytype_invalid_type` | Invalid type returns 400 |
+| `test_works_bytype_nonexistent_type` | Nonexistent type handles gracefully |
+
+### TestWorkOmnibus
+
+| Test | Description |
+|------|-------------|
+| `test_get_omnibus_returns_200` | GET /api/works/{id}/omnibus returns 200 |
+| `test_get_omnibus_returns_data` | Returns data structure |
+| `test_get_omnibus_nonexistent_work` | Handle nonexistent work |
+| `test_create_omnibus_requires_auth` | POST /api/works/omnibus requires auth |
+| `test_create_omnibus_with_auth` | POST with auth processes request |
+| `test_create_omnibus_missing_fields` | Missing fields returns error |
+
+### TestWorkTags
+
+| Test | Description |
+|------|-------------|
+| `test_add_tag_requires_auth` | PUT /api/work/{id}/tags/{tagid} requires auth |
+| `test_remove_tag_requires_auth` | DELETE requires authentication |
+| `test_add_tag_invalid_work_id` | Invalid work ID returns 400 |
+| `test_add_tag_invalid_tag_id` | Invalid tag ID returns 400 |
+| `test_remove_tag_invalid_ids` | Invalid IDs return 400 |
+| `test_add_tag_nonexistent_work` | Nonexistent work handles gracefully |
+| `test_add_tag_nonexistent_tag` | Nonexistent tag handles gracefully |
+
+### TestRandomIncompleteWorks
+
+| Test | Description |
+|------|-------------|
+| `test_random_incomplete_processes_request` | POST processes request |
+| `test_random_incomplete_with_count` | Count parameter works |
+| `test_random_incomplete_with_missing_fields` | missing_fields filter works |
+| `test_random_incomplete_invalid_count` | Invalid count handles gracefully |
+
+**Note:** This endpoint has a database bug (DISTINCT + ORDER BY RANDOM())
+that causes 500 errors in some cases.
+
+### TestWorkShortsSave
+
+| Test | Description |
+|------|-------------|
+| `test_save_work_shorts_post` | POST /api/works/shorts processes request |
+| `test_save_work_shorts_put` | PUT /api/works/shorts processes request |
+| `test_save_work_shorts_invalid_work` | Invalid work_id handles gracefully |
+
+### TestWorkTagsLifecycle
+
+| Test | Description |
+|------|-------------|
+| `test_work_tag_add_remove_cycle` | Add tag -> verify -> remove tag cycle |
 
 ---
 

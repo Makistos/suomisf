@@ -2,7 +2,7 @@
 
 **Last Updated:** 2026-02-16
 **Total Endpoints:** 158
-**Tested:** 269 tests (covering ~80% of endpoints)
+**Tested:** 296 tests (covering ~85% of endpoints)
 **Pending:** ~40 endpoints (complex write operations)
 **Snapshot Tests:** 30 (data validation against golden database)
 
@@ -25,7 +25,7 @@
 |----------|-----------|-------|-------|
 | Authentication | 3 | 33 | Login, auth checks, write operation auth |
 | Users | 3 | 0 | Pending |
-| Works | 19 | 18 | Entity, related, auth tests |
+| Works | 19 | 45 | Entity, related, auth, omnibus, tags, types tests |
 | Editions | 22 | 12 | Entity, related, auth tests |
 | People | 15 | 16 | Entity, filter, related tests |
 | Short Stories | 10 | 15 | Entity, search, auth tests (1 xfail) |
@@ -72,18 +72,18 @@
 | :white_check_mark: | DELETE | `/api/works/<workid>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
 | :white_check_mark: | GET | `/api/latest/works/<count>` | None | `test_related.py::TestLatestWorks` | 2026-02-14 |
 | :white_check_mark: | GET | `/api/works/<workid>/awards` | None | `test_related.py::TestWorkAwards` | 2026-02-14 |
-| :hourglass_flowing_sand: | GET | `/api/works/<workid>/omnibus` | None | - | - |
-| :hourglass_flowing_sand: | POST | `/api/works/omnibus` | Admin | - | - |
-| :hourglass_flowing_sand: | GET | `/api/works/shorts/<workid>` | None | - | - |
-| :hourglass_flowing_sand: | POST | `/api/works/shorts` | Admin | - | - |
-| :hourglass_flowing_sand: | PUT | `/api/works/shorts` | Admin | - | - |
+| :white_check_mark: | GET | `/api/works/<workid>/omnibus` | None | `test_works_extra.py::TestWorkOmnibus` | 2026-02-16 |
+| :white_check_mark: | POST | `/api/works/omnibus` | Admin | `test_works_extra.py::TestWorkOmnibus` | 2026-02-16 |
+| :white_check_mark: | GET | `/api/works/shorts/<workid>` | None | `test_work_shorts.py::TestWorkShorts` | 2026-02-14 |
+| :white_check_mark: | POST | `/api/works/shorts` | None | `test_works_extra.py::TestWorkShortsSave` | 2026-02-16 |
+| :white_check_mark: | PUT | `/api/works/shorts` | None | `test_works_extra.py::TestWorkShortsSave` | 2026-02-16 |
 | :white_check_mark: | GET | `/api/worksbyinitial/<letter>` | None | `test_filters.py::TestWorksByInitial` | 2026-02-14 |
 | :white_check_mark: | GET | `/api/worksbyauthor/<authorid>` | None | `test_related.py::TestWorksByAuthor` | 2026-02-14 |
 | :white_check_mark: | POST | `/api/searchworks` | None | `test_filters.py::TestSearchWorks` | 2026-02-14 |
-| :hourglass_flowing_sand: | POST | `/api/works/random/incomplete` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/works/bytype/<worktype>` | None | - | - |
-| :hourglass_flowing_sand: | PUT | `/api/work/<workid>/tags/<tagid>` | Admin | - | - |
-| :hourglass_flowing_sand: | DELETE | `/api/work/<workid>/tags/<tagid>` | Admin | - | - |
+| :white_check_mark: | POST | `/api/works/random/incomplete` | None | `test_works_extra.py::TestRandomIncompleteWorks` | 2026-02-16 |
+| :white_check_mark: | GET | `/api/works/bytype/<worktype>` | None | `test_works_extra.py::TestWorksByType` | 2026-02-16 |
+| :white_check_mark: | PUT | `/api/work/<workid>/tags/<tagid>` | Admin | `test_works_extra.py::TestWorkTags` | 2026-02-16 |
+| :white_check_mark: | DELETE | `/api/work/<workid>/tags/<tagid>` | Admin | `test_works_extra.py::TestWorkTags` | 2026-02-16 |
 | :white_check_mark: | GET | `/api/worktypes` | None | `test_misc.py::TestWorkTypes` | 2026-02-14 |
 
 ### 4. Editions (22 endpoints)
