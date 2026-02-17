@@ -134,7 +134,6 @@ class TestMagazineUpdate(BaseAPITest):
         # May return 200 or validation error
         assert response.status_code in [200, 400, 500]
 
-    @pytest.mark.xfail(reason="Backend crashes on missing 'id' in data")
     def test_update_magazine_missing_data(self, admin_client):
         """PUT /api/magazines with missing data returns error."""
         response = admin_client.put('/api/magazines', data={'data': {}})
@@ -233,7 +232,6 @@ class TestIssueUpdate(BaseAPITest):
         # May return 200 or validation error
         assert response.status_code in [200, 400, 500]
 
-    @pytest.mark.xfail(reason="Backend crashes on missing 'id' in data")
     def test_update_issue_missing_id(self, admin_client):
         """PUT /api/issues with missing id returns error."""
         response = admin_client.put('/api/issues', data={'size': {'id': 1}})

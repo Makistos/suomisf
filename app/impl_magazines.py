@@ -266,13 +266,24 @@ def update_magazine(params: Dict[str, Any]) -> ResponseType:
         exceptions.MarshmallowError: If there is an error serializing the
                                      magazine object.
     """
+    if 'data' not in params:
+        app.logger.error('update_magazine: Missing data field.')
+        return ResponseType('Puuttuva data-kenttä.',
+                            HttpResponseCode.BAD_REQUEST.value)
+
+    magazine_data = params['data']
+
+    if 'id' not in magazine_data:
+        app.logger.error('update_magazine: Missing id field.')
+        return ResponseType('Puuttuva id-kenttä.',
+                            HttpResponseCode.BAD_REQUEST.value)
+
     session = new_session()
     old_values = {}
-    magazine_data = params['data']
 
     try:
         magazine_id = int(magazine_data['id'])
-    except ValueError:
+    except (ValueError, TypeError):
         app.logger.error('Magazine id must be integer: '
                          f'{magazine_data["id"]}.')
         return ResponseType('Magazine id on virheellinen: '

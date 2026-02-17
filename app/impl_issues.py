@@ -218,6 +218,11 @@ def issue_update(params: Dict[str, Any]) -> ResponseType:
     old_values: Dict[str, Any] = {}
     data = params
 
+    if 'id' not in data:
+        app.logger.error('issue_update: Missing id field.')
+        return ResponseType('Puuttuva id-kenttä.',
+                            HttpResponseCode.BAD_REQUEST.value)
+
     issue_id = check_int(data['id'],
                          zeros_allowed=False,
                          negative_values=False)
