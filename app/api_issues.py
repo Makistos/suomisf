@@ -181,23 +181,23 @@ def api_addissuearticles() -> Response:
 
 
 @app.route('/api/issues/<issueid>/tags', methods=['get'])
-def api_getissuetags(issue_id: str) -> Response:
+def api_getissuetags(issueid: str) -> Response:
     """
     Get the tags associated with a specific issue.
 
     Parameters:
-        issueId (str): The ID of the issue.
+        issueid (str): The ID of the issue.
 
     Returns:
         Response: The response containing the tags associated with the issue.
     """
 
     try:
-        int_id = int(issue_id)
+        int_id = int(issueid)
     except (ValueError, TypeError):
-        app.logger.error(f'api_getissuetags: Invalid id {issue_id}.')
+        app.logger.error(f'api_getissuetags: Invalid id {issueid}.')
         response = ResponseType(
-            f'api_getissuetags: Virheellinen tunniste {issue_id}.',
+            f'api_getissuetags: Virheellinen tunniste {issueid}.',
             status=HttpResponseCode.BAD_REQUEST.value)
         return make_api_response(response)
 

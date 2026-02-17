@@ -288,19 +288,13 @@ class TestIssueContributors(BaseAPITest):
 
 
 class TestIssueTags(BaseAPITest):
-    """Tests for /api/issues/{id}/tags endpoints.
+    """Tests for /api/issues/{id}/tags endpoints."""
 
-    Note: The GET endpoint has a bug - parameter name mismatch (issue_id vs
-    issueid in URL). This causes TypeError. Tests document this behavior.
-    """
-
-    @pytest.mark.xfail(reason="Backend bug: parameter name mismatch")
     def test_issue_tags_get_returns_200(self, api_client):
         """GET /api/issues/{id}/tags should return 200."""
         response = api_client.get(f'/api/issues/{BASIC_ISSUE_ID}/tags')
         response.assert_success()
 
-    @pytest.mark.xfail(reason="Backend bug: parameter name mismatch")
     def test_issue_tags_get_returns_data(self, api_client):
         """GET /api/issues/{id}/tags returns data structure."""
         response = api_client.get(f'/api/issues/{BASIC_ISSUE_ID}/tags')
@@ -310,7 +304,6 @@ class TestIssueTags(BaseAPITest):
         if data is not None:
             assert isinstance(data, (list, dict))
 
-    @pytest.mark.xfail(reason="Backend bug: parameter name mismatch")
     def test_issue_tags_get_invalid_id(self, api_client):
         """GET /api/issues/{invalid}/tags returns 400."""
         response = api_client.get('/api/issues/invalid/tags')

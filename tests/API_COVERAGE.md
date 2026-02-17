@@ -30,7 +30,7 @@
 | People | 15 | 16 | Entity, filter, related tests |
 | Short Stories | 10 | 15 | Entity, search, auth tests (1 xfail) |
 | Magazines | 6 | 13 | Entity, auth, update tests (1 xfail) |
-| Issues | 15 | 28 | Entity, auth, contributors, tags, covers tests (5 xfail) |
+| Issues | 15 | 28 | Entity, auth, contributors, tags, covers tests (2 xfail) |
 | Awards | 12 | 6 | Entity tests |
 | Tags | 10 | 39 | Entity, filter, auth, quick, types, merge tests |
 | Publishers | 6 | 14 | Entity, filter, auth, update tests |
@@ -40,7 +40,7 @@
 | Search & Filter | 5 | 10 | Works/Shorts search |
 | Miscellaneous | 12 | 36 | Full coverage |
 | Articles | 4 | 0 | Endpoint deprecated |
-| **TOTAL** | **167** | **357** | **11 xfails (known bugs)** |
+| **TOTAL** | **167** | **357** | **8 xfails (known bugs)** |
 
 ---
 
