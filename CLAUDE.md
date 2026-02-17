@@ -1,5 +1,8 @@
 Always use line widths less or equal to 79 characters.
 
+If changing or adding an API function always add tests and update documentation
+both for API and tests and document the API.
+
 ## Testing Documentation
 
 When adding or modifying API tests, always update the following files:

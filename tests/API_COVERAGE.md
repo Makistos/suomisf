@@ -2,8 +2,8 @@
 
 **Last Updated:** 2026-02-17
 **Total Endpoints:** 167
-**Tested:** 314 tests (covering ~95% of endpoints)
-**Pending:** ~15 endpoints (complex write operations)
+**Tested:** 357 tests (covering ~98% of endpoints)
+**Pending:** ~10 endpoints (complex write operations)
 **Snapshot Tests:** 30 (data validation against golden database)
 
 ---
@@ -33,14 +33,14 @@
 | Issues | 15 | 28 | Entity, auth, contributors, tags, covers tests (5 xfail) |
 | Awards | 12 | 6 | Entity tests |
 | Tags | 10 | 39 | Entity, filter, auth, quick, types, merge tests |
-| Publishers | 6 | 10 | Entity, filter, auth tests |
-| Publication Series | 6 | 8 | Entity, filter, auth tests |
-| Book Series | 6 | 8 | Entity, filter, auth tests |
+| Publishers | 6 | 14 | Entity, filter, auth, update tests |
+| Publication Series | 6 | 12 | Entity, filter, auth, update tests |
+| Book Series | 6 | 17 | Entity, filter, auth, update tests |
 | Statistics | 13 | 32 | Full coverage |
 | Search & Filter | 5 | 10 | Works/Shorts search |
 | Miscellaneous | 12 | 36 | Full coverage |
 | Articles | 4 | 0 | Endpoint deprecated |
-| **TOTAL** | **167** | **314** | **11 xfails (known bugs)** |
+| **TOTAL** | **167** | **357** | **11 xfails (known bugs)** |
 
 ---
 
@@ -217,34 +217,34 @@
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :white_check_mark: | GET | `/api/publishers` | None | `test_entities.py::TestPublishers` | 2026-02-14 |
-| :white_check_mark: | GET | `/api/publishers/<publisherid>` | None | `test_entities.py::TestPublishers` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/publishers` | None | `test_series_publishers.py::TestPublisherList` | 2026-02-17 |
+| :white_check_mark: | GET | `/api/publishers/<publisherid>` | None | `test_series_publishers.py::TestPublisherGet` | 2026-02-17 |
 | :white_check_mark: | POST | `/api/publishers` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
-| :hourglass_flowing_sand: | PUT | `/api/publishers` | Admin | - | - |
+| :white_check_mark: | PUT | `/api/publishers` | Admin | `test_series_publishers.py::TestPublisherUpdate` | 2026-02-17 |
 | :white_check_mark: | DELETE | `/api/publishers/<publisherid>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
-| :white_check_mark: | GET | `/api/filter/publishers/<pattern>` | None | `test_filters.py::TestFilterPublishers` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/filter/publishers/<pattern>` | None | `test_series_publishers.py::TestPublisherFilter` | 2026-02-17 |
 
 ### 12. Publication Series (6 endpoints)
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :white_check_mark: | GET | `/api/pubseries` | None | `test_entities.py::TestPubSeries` | 2026-02-14 |
-| :white_check_mark: | GET | `/api/pubseries/<pubseriesid>` | None | `test_entities.py::TestPubSeries` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/pubseries` | None | `test_series_publishers.py::TestPubSeriesList` | 2026-02-17 |
+| :white_check_mark: | GET | `/api/pubseries/<pubseriesid>` | None | `test_series_publishers.py::TestPubSeriesGet` | 2026-02-17 |
 | :white_check_mark: | POST | `/api/pubseries` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
-| :hourglass_flowing_sand: | PUT | `/api/pubseries` | Admin | - | - |
+| :white_check_mark: | PUT | `/api/pubseries` | Admin | `test_series_publishers.py::TestPubSeriesUpdate` | 2026-02-17 |
 | :white_check_mark: | DELETE | `/api/pubseries/<pubseriesid>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
-| :white_check_mark: | GET | `/api/filter/pubseries/<pattern>` | None | `test_filters.py::TestFilterPubSeries` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/filter/pubseries/<pattern>` | None | `test_series_publishers.py::TestPubSeriesFilter` | 2026-02-17 |
 
 ### 13. Book Series (6 endpoints)
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :white_check_mark: | GET | `/api/bookseries` | None | `test_entities.py::TestBookSeries` | 2026-02-14 |
-| :white_check_mark: | GET | `/api/bookseries/<bookseriesid>` | None | `test_entities.py::TestBookSeries` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/bookseries` | None | `test_series_publishers.py::TestBookSeriesList` | 2026-02-17 |
+| :white_check_mark: | GET | `/api/bookseries/<bookseriesid>` | None | `test_series_publishers.py::TestBookSeriesGet` | 2026-02-17 |
 | :white_check_mark: | POST | `/api/bookseries` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
-| :hourglass_flowing_sand: | PUT | `/api/bookseries` | Admin | - | - |
+| :white_check_mark: | PUT | `/api/bookseries` | Admin | `test_series_publishers.py::TestBookSeriesUpdate` | 2026-02-17 |
 | :white_check_mark: | DELETE | `/api/bookseries/<bookseriesid>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
-| :white_check_mark: | GET | `/api/filter/bookseries/<pattern>` | None | `test_filters.py::TestFilterBookSeries` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/filter/bookseries/<pattern>` | None | `test_series_publishers.py::TestBookSeriesFilter` | 2026-02-17 |
 
 ### 14. Statistics (13 endpoints)
 

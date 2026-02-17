@@ -29,6 +29,7 @@ what they test, their parameter values, and expected behaviors.
 18. [Work Extra Tests (test_works_extra.py)](#work-extra-tests)
 19. [Edition Extra Tests (test_editions_extra.py)](#edition-extra-tests)
 20. [Magazine & Issue Tests (test_magazines_issues.py)](#magazine--issue-tests)
+21. [Publisher & Series Tests (test_series_publishers.py)](#publisher--series-tests)
 
 ---
 
@@ -54,6 +55,7 @@ what they test, their parameter values, and expected behaviors.
 | test_works_extra.py | Work endpoints (omnibus, tags, types, incomplete) | 27 |
 | test_editions_extra.py | Edition endpoints (changes, owners, wishlist, images) | 34 |
 | test_magazines_issues.py | Magazine & Issue endpoints (CRUD, tags, contributors) | 42 |
+| test_series_publishers.py | Publisher, PubSeries, BookSeries endpoints | 43 |
 
 ---
 
@@ -1417,6 +1419,129 @@ tags, contributors, covers, and sizes.
 | `test_upload_cover_requires_file` | POST requires file data |
 | `test_delete_cover_requires_auth` | DELETE requires auth |
 | `test_delete_cover_with_auth` | DELETE with auth processes |
+
+---
+
+## Publisher & Series Tests
+
+**File:** `tests/api/test_series_publishers.py`
+
+Tests for publisher, publication series, and book series endpoints
+including list, get, update, and filter operations.
+
+### Test Data
+
+```python
+BASIC_PUBLISHER_ID = 150      # Kirjayhtymä (large publisher)
+SMALL_PUBLISHER_ID = 446      # Hertta-kustannus (small publisher)
+BASIC_PUBSERIES_ID = 1        # "10mk:n romaaneja"
+SCIFI_PUBSERIES_ID = 33       # "GALAXY Scifi"
+BASIC_BOOKSERIES_ID = 410     # "Tarzan" (many books, one author)
+MULTI_AUTHOR_BOOKSERIES_ID = 519  # "Linnunradan käsikirjat liftareille"
+```
+
+### TestPublisherList
+
+| Test | Description |
+|------|-------------|
+| `test_publishers_list_returns_200` | GET /api/publishers returns 200 |
+| `test_publishers_list_returns_list` | Returns list format |
+| `test_publishers_list_has_required_fields` | Publishers have id and name |
+
+### TestPublisherGet
+
+| Test | Description |
+|------|-------------|
+| `test_publisher_get_returns_200` | GET /api/publishers/{id} returns 200 |
+| `test_publisher_get_has_fields` | Publisher has required fields |
+| `test_publisher_get_nonexistent` | Handle nonexistent publisher |
+| `test_publisher_get_invalid_id` | Invalid ID returns 400 |
+
+### TestPublisherUpdate
+
+| Test | Description |
+|------|-------------|
+| `test_update_publisher_requires_auth` | PUT requires authentication |
+| `test_update_publisher_with_auth` | PUT with auth processes request |
+| `test_update_publisher_small` | Update small publisher |
+
+### TestPublisherFilter
+
+| Test | Description |
+|------|-------------|
+| `test_filter_publishers_returns_200` | GET /api/filter/publishers/{pattern} |
+| `test_filter_publishers_returns_list` | Returns list format |
+| `test_filter_publishers_short_pattern` | Short pattern returns 400 |
+| `test_filter_publishers_no_results` | No matches returns empty list |
+
+### TestPubSeriesList
+
+| Test | Description |
+|------|-------------|
+| `test_pubseries_list_returns_200` | GET /api/pubseries returns 200 |
+| `test_pubseries_list_returns_list` | Returns list format |
+| `test_pubseries_list_has_required_fields` | PubSeries have id and name |
+
+### TestPubSeriesGet
+
+| Test | Description |
+|------|-------------|
+| `test_pubseries_get_returns_200` | GET /api/pubseries/{id} returns 200 |
+| `test_pubseries_get_has_fields` | PubSeries has required fields |
+| `test_pubseries_get_nonexistent` | Handle nonexistent pubseries |
+| `test_pubseries_get_invalid_id` | Invalid ID returns 400 |
+
+### TestPubSeriesUpdate
+
+| Test | Description |
+|------|-------------|
+| `test_update_pubseries_requires_auth` | PUT requires authentication |
+| `test_update_pubseries_with_auth` | PUT with auth processes request |
+| `test_update_pubseries_scifi` | Update sci-fi series |
+
+### TestPubSeriesFilter
+
+| Test | Description |
+|------|-------------|
+| `test_filter_pubseries_returns_200` | GET /api/filter/pubseries/{pattern} |
+| `test_filter_pubseries_returns_list` | Returns list format |
+| `test_filter_pubseries_short_pattern` | Short pattern returns 400 |
+| `test_filter_pubseries_no_results` | No matches returns empty list |
+
+### TestBookSeriesList
+
+| Test | Description |
+|------|-------------|
+| `test_bookseries_list_returns_200` | GET /api/bookseries returns 200 |
+| `test_bookseries_list_returns_list` | Returns list format |
+| `test_bookseries_list_has_required_fields` | BookSeries have id and name |
+
+### TestBookSeriesGet
+
+| Test | Description |
+|------|-------------|
+| `test_bookseries_get_returns_200` | GET /api/bookseries/{id} returns 200 |
+| `test_bookseries_get_has_fields` | BookSeries has required fields |
+| `test_bookseries_get_multi_author` | Multi-author series returns 200 |
+| `test_bookseries_get_nonexistent` | Handle nonexistent bookseries |
+| `test_bookseries_get_invalid_id` | Invalid ID returns 400 |
+
+### TestBookSeriesUpdate
+
+| Test | Description |
+|------|-------------|
+| `test_update_bookseries_requires_auth` | PUT requires authentication |
+| `test_update_bookseries_with_auth` | PUT with auth processes request |
+| `test_update_bookseries_multi_author` | Update multi-author series |
+
+### TestBookSeriesFilter
+
+| Test | Description |
+|------|-------------|
+| `test_filter_bookseries_returns_200` | GET /api/filter/bookseries/{pattern} |
+| `test_filter_bookseries_returns_list` | Returns list format |
+| `test_filter_bookseries_short_pattern` | Short pattern returns 400 |
+| `test_filter_bookseries_no_results` | No matches returns empty list |
 
 ---
 
