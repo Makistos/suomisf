@@ -149,6 +149,12 @@ def get_short(short_id: int) -> ResponseType:
             f'get_short: Tietokantavirhe. id={short_id}: {exp}.',
             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
+    if not short:
+        app.logger.error(f'get_short: Short story not found. id={short_id}.')
+        return ResponseType(
+            f'Novellia ei löydy. id={short_id}.',
+            HttpResponseCode.NOT_FOUND.value)
+
     contributions: List[Any] = []
     for contributor in short.contributors:
         already_added = False

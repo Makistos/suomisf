@@ -38,33 +38,11 @@ Remove or fix the `many=True` argument when instantiating the User schema. Marsh
 
 ---
 
-## Issue 2: Short story GET endpoint crashes on non-existent ID
+## ~~Issue 2: Short story GET endpoint crashes on non-existent ID~~ FIXED
 
-**Labels:** bug
+**Status:** Fixed in commits fixing GitHub issue #65
 
-### Description
-
-The `GET /api/shorts/{id}` endpoint crashes when given a non-existent short story ID instead of returning a 404 error.
-
-### Expected Behavior
-
-Should return HTTP 404 with an error message like "Short story not found".
-
-### Actual Behavior
-
-The API crashes with an unhandled exception.
-
-### Affected Endpoint
-
-- `GET /api/shorts/{shortid}`
-
-### Failing Tests
-
-- `tests/api/test_entities.py::TestShorts::test_get_short_not_found`
-
-### Suggested Fix
-
-Add a null check after querying for the short story and return a 404 response if not found.
+Added null check after querying for the short story in `impl_shorts.py`. Now returns 404 with Finnish error message "Novellia ei löydy" when short story is not found.
 
 ---
 
@@ -131,8 +109,8 @@ The parameter name was changed from `issue_id` to `issueid` to match the route d
 | Issue | Endpoints | Tests Affected | Status |
 |-------|-----------|----------------|--------|
 | User schema 'many' keyword | GET /api/editions/{id}/owners | 2 | Open |
-| Short story crash on not found | GET /api/shorts/{id} | 1 | Open |
+| ~~Short story crash on not found~~ | GET /api/shorts/{id} | 1 | **Fixed** |
 | ~~Missing 'id' validation~~ | PUT /api/magazines, PUT /api/issues | 2 | **Fixed** |
 | Contributors returns list | GET /api/issues/{id}/contributors | 3 | Open |
 | ~~Parameter name mismatch~~ | GET /api/issues/{id}/tags | 3 | **Fixed** |
-| **Total Open** | | **6** | |
+| **Total Open** | | **5** | |

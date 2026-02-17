@@ -28,7 +28,7 @@
 | Works | 19 | 45 | Entity, related, auth, omnibus, tags, types tests |
 | Editions | 22 | 46 | Entity, related, auth, wishlist, images tests (2 xfail) |
 | People | 15 | 16 | Entity, filter, related tests |
-| Short Stories | 10 | 15 | Entity, search, auth tests (1 xfail) |
+| Short Stories | 10 | 15 | Entity, search, auth tests |
 | Magazines | 6 | 13 | Entity, auth, update tests |
 | Issues | 15 | 28 | Entity, auth, contributors, tags, covers tests (3 xfail) |
 | Awards | 12 | 6 | Entity tests |
@@ -40,7 +40,7 @@
 | Search & Filter | 5 | 10 | Works/Shorts search |
 | Miscellaneous | 12 | 36 | Full coverage |
 | Articles | 4 | 0 | Endpoint deprecated |
-| **TOTAL** | **167** | **357** | **6 xfails (known bugs)** |
+| **TOTAL** | **167** | **357** | **5 xfails (known bugs)** |
 
 ---
 

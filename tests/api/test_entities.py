@@ -177,12 +177,10 @@ class TestShorts(BaseAPITest):
         response.assert_success()
         snapshot_manager.assert_matches_snapshot('short_1', response.json)
 
-    @pytest.mark.xfail(reason="API bug: crashes on non-existent short ID")
     def test_get_short_not_found(self, api_client):
-        """GET /api/shorts/{id} should return error for invalid ID."""
+        """GET /api/shorts/{id} should return 404 for non-existent ID."""
         response = api_client.get('/api/shorts/999999999')
-        # API should return 400 or 404, but currently crashes
-        assert response.status_code in [400, 404]
+        assert response.status_code == 404
 
 
 # ---------------------------------------------------------------------------
