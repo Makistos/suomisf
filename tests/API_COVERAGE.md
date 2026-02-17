@@ -1,9 +1,9 @@
 # SuomiSF API Test Coverage Report
 
 **Last Updated:** 2026-02-17
-**Total Endpoints:** 158
-**Tested:** 282 tests (covering ~90% of endpoints)
-**Pending:** ~25 endpoints (complex write operations)
+**Total Endpoints:** 167
+**Tested:** 314 tests (covering ~95% of endpoints)
+**Pending:** ~15 endpoints (complex write operations)
 **Snapshot Tests:** 30 (data validation against golden database)
 
 ---
@@ -29,8 +29,8 @@
 | Editions | 22 | 46 | Entity, related, auth, wishlist, images tests (2 xfail) |
 | People | 15 | 16 | Entity, filter, related tests |
 | Short Stories | 10 | 15 | Entity, search, auth tests (1 xfail) |
-| Magazines | 6 | 8 | Entity, auth tests |
-| Issues | 6 | 8 | Entity, related tests |
+| Magazines | 6 | 13 | Entity, auth, update tests (1 xfail) |
+| Issues | 15 | 28 | Entity, auth, contributors, tags, covers tests (5 xfail) |
 | Awards | 12 | 6 | Entity tests |
 | Tags | 10 | 39 | Entity, filter, auth, quick, types, merge tests |
 | Publishers | 6 | 10 | Entity, filter, auth tests |
@@ -40,7 +40,7 @@
 | Search & Filter | 5 | 10 | Works/Shorts search |
 | Miscellaneous | 12 | 36 | Full coverage |
 | Articles | 4 | 0 | Endpoint deprecated |
-| **TOTAL** | **158** | **282** | **3 xfails (known bugs)** |
+| **TOTAL** | **167** | **314** | **11 xfails (known bugs)** |
 
 ---
 
@@ -154,23 +154,32 @@
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :white_check_mark: | GET | `/api/magazines` | None | `test_entities.py::TestMagazines` | 2026-02-14 |
-| :white_check_mark: | GET | `/api/magazines/<magazineid>` | None | `test_entities.py::TestMagazines` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/magazines` | None | `test_magazines_issues.py::TestMagazineList` | 2026-02-17 |
+| :white_check_mark: | GET | `/api/magazines/<magazineid>` | None | `test_magazines_issues.py::TestMagazineGet` | 2026-02-17 |
 | :white_check_mark: | POST | `/api/magazines` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
-| :hourglass_flowing_sand: | PUT | `/api/magazines` | Admin | - | - |
+| :white_check_mark: | PUT | `/api/magazines` | Admin | `test_magazines_issues.py::TestMagazineUpdate` | 2026-02-17 |
 | :white_check_mark: | DELETE | `/api/magazines/<magazineid>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
 | :white_check_mark: | GET | `/api/magazinetypes` | None | `test_misc.py::TestMagazineTypes` | 2026-02-14 |
 
-### 8. Issues (6 endpoints)
+### 8. Issues (12 endpoints)
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :white_check_mark: | GET | `/api/issues/<issueid>` | None | `test_entities.py::TestIssues` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/issues/<issueid>` | None | `test_magazines_issues.py::TestIssueGet` | 2026-02-17 |
 | :white_check_mark: | POST | `/api/issues` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
-| :hourglass_flowing_sand: | PUT | `/api/issues` | Admin | - | - |
+| :white_check_mark: | PUT | `/api/issues` | Admin | `test_magazines_issues.py::TestIssueUpdate` | 2026-02-17 |
 | :white_check_mark: | GET | `/api/issues/<issueid>/articles` | None | `test_related.py::TestIssueArticles` | 2026-02-14 |
 | :white_check_mark: | GET | `/api/issues/<issueid>/shorts` | None | `test_related.py::TestIssueShorts` | 2026-02-14 |
-| :hourglass_flowing_sand: | GET | `/api/issues/<issueid>/contributors` | None | - | - |
+| :warning: | GET | `/api/issues/<issueid>/contributors` | None | `test_magazines_issues.py::TestIssueContributors` (xfail) | 2026-02-17 |
+| :white_check_mark: | POST | `/api/issues/<issueid>/contributors` | Admin | `test_magazines_issues.py::TestIssueContributors` | 2026-02-17 |
+| :warning: | GET | `/api/issues/<issueid>/tags` | None | `test_magazines_issues.py::TestIssueTags` (xfail) | 2026-02-17 |
+| :white_check_mark: | PUT | `/api/issue/<issueid>/tags/<tagid>` | Admin | `test_magazines_issues.py::TestIssueTags` | 2026-02-17 |
+| :white_check_mark: | DELETE | `/api/issue/<issueid>/tags/<tagid>` | Admin | `test_magazines_issues.py::TestIssueTags` | 2026-02-17 |
+| :white_check_mark: | GET | `/api/issues/sizes` | None | `test_magazines_issues.py::TestIssueSizes` | 2026-02-17 |
+| :white_check_mark: | POST | `/api/issues/<issueid>/covers` | Admin | `test_magazines_issues.py::TestIssueCovers` | 2026-02-17 |
+| :white_check_mark: | DELETE | `/api/issues/<issueid>/covers` | Admin | `test_magazines_issues.py::TestIssueCovers` | 2026-02-17 |
+| :white_check_mark: | PUT | `/api/issues/shorts` | Admin | `test_magazines_issues.py::TestIssueShorts` | 2026-02-17 |
+| :white_check_mark: | PUT | `/api/issues/articles` | Admin | `test_magazines_issues.py::TestIssueArticles` | 2026-02-17 |
 
 ### 9. Awards (12 endpoints)
 

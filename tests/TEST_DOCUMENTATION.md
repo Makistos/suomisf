@@ -28,6 +28,7 @@ what they test, their parameter values, and expected behaviors.
 17. [Tag Tests (test_tags.py)](#tag-tests)
 18. [Work Extra Tests (test_works_extra.py)](#work-extra-tests)
 19. [Edition Extra Tests (test_editions_extra.py)](#edition-extra-tests)
+20. [Magazine & Issue Tests (test_magazines_issues.py)](#magazine--issue-tests)
 
 ---
 
@@ -52,6 +53,7 @@ what they test, their parameter values, and expected behaviors.
 | test_tags.py | Tag endpoints (quick, types, form, merge) | 21 |
 | test_works_extra.py | Work endpoints (omnibus, tags, types, incomplete) | 27 |
 | test_editions_extra.py | Edition endpoints (changes, owners, wishlist, images) | 34 |
+| test_magazines_issues.py | Magazine & Issue endpoints (CRUD, tags, contributors) | 42 |
 
 ---
 
@@ -1307,6 +1309,114 @@ Includes changes, work, owners, wishlist, and images.
 | `test_upload_image_requires_file` | POST requires file data |
 | `test_delete_image_requires_auth` | DELETE requires authentication |
 | `test_delete_image_nonexistent` | Handle nonexistent image |
+
+---
+
+## Magazine & Issue Tests
+
+**File:** `tests/api/test_magazines_issues.py`
+
+Tests for magazine and issue endpoints including CRUD operations,
+tags, contributors, covers, and sizes.
+
+### TestMagazineList
+
+| Test | Description |
+|------|-------------|
+| `test_magazines_list_returns_200` | GET /api/magazines returns 200 |
+| `test_magazines_list_returns_list` | Returns list format |
+| `test_magazines_list_has_required_fields` | Magazines have id and name |
+
+### TestMagazineGet
+
+| Test | Description |
+|------|-------------|
+| `test_magazine_get_returns_200` | GET /api/magazines/{id} returns 200 |
+| `test_magazine_get_has_fields` | Magazine has required fields |
+| `test_magazine_get_nonexistent` | Handle nonexistent magazine |
+| `test_magazine_get_invalid_id` | Invalid ID returns 400 |
+
+### TestMagazineUpdate
+
+| Test | Description |
+|------|-------------|
+| `test_update_magazine_requires_auth` | PUT requires authentication |
+| `test_update_magazine_with_auth` | PUT with auth processes request |
+| `test_update_magazine_missing_data` | Missing data returns error (xfail) |
+
+### TestIssueGet
+
+| Test | Description |
+|------|-------------|
+| `test_issue_get_returns_200` | GET /api/issues/{id} returns 200 |
+| `test_issue_get_has_fields` | Issue has required fields |
+| `test_issue_get_nonexistent` | Handle nonexistent issue |
+| `test_issue_get_invalid_id` | Invalid ID returns 400 |
+
+### TestIssueUpdate
+
+| Test | Description |
+|------|-------------|
+| `test_update_issue_requires_auth` | PUT requires authentication |
+| `test_update_issue_with_auth` | PUT with auth processes request |
+| `test_update_issue_missing_id` | Missing ID returns error (xfail) |
+
+### TestIssueContributors
+
+| Test | Description |
+|------|-------------|
+| `test_contributors_get_returns_200` | GET returns 200 (xfail) |
+| `test_contributors_get_returns_data` | Returns data (xfail) |
+| `test_contributors_get_nonexistent` | Handle nonexistent (xfail) |
+| `test_contributors_get_invalid_id` | Invalid ID returns 400 |
+| `test_contributors_update_requires_auth` | POST requires auth |
+| `test_contributors_update_with_auth` | POST with auth processes |
+
+**Note:** GET endpoint has backend bug (returns list instead of Response).
+
+### TestIssueTags
+
+| Test | Description |
+|------|-------------|
+| `test_issue_tags_get_returns_200` | GET returns 200 (xfail) |
+| `test_issue_tags_get_returns_data` | Returns data (xfail) |
+| `test_issue_tags_get_invalid_id` | Invalid ID returns 400 (xfail) |
+| `test_add_tag_requires_auth` | PUT requires auth |
+| `test_remove_tag_requires_auth` | DELETE requires auth |
+| `test_add_tag_with_auth` | PUT with auth processes |
+| `test_add_tag_invalid_ids` | Invalid IDs return 400 |
+
+**Note:** GET endpoint has backend bug (parameter name mismatch).
+
+### TestIssueShorts
+
+| Test | Description |
+|------|-------------|
+| `test_save_issue_shorts_requires_auth` | PUT requires auth |
+| `test_save_issue_shorts_with_auth` | PUT with auth processes |
+
+### TestIssueArticles
+
+| Test | Description |
+|------|-------------|
+| `test_save_issue_articles_requires_auth` | PUT requires auth |
+| `test_save_issue_articles_with_auth` | PUT with auth processes |
+
+### TestIssueSizes
+
+| Test | Description |
+|------|-------------|
+| `test_issue_sizes_returns_200` | GET /api/issues/sizes returns 200 |
+| `test_issue_sizes_returns_list` | Returns list format |
+
+### TestIssueCovers
+
+| Test | Description |
+|------|-------------|
+| `test_upload_cover_requires_auth` | POST requires auth |
+| `test_upload_cover_requires_file` | POST requires file data |
+| `test_delete_cover_requires_auth` | DELETE requires auth |
+| `test_delete_cover_with_auth` | DELETE with auth processes |
 
 ---
 
