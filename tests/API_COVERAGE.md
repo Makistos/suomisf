@@ -1,9 +1,9 @@
 # SuomiSF API Test Coverage Report
 
-**Last Updated:** 2026-02-16
+**Last Updated:** 2026-02-17
 **Total Endpoints:** 158
-**Tested:** 296 tests (covering ~85% of endpoints)
-**Pending:** ~40 endpoints (complex write operations)
+**Tested:** 282 tests (covering ~90% of endpoints)
+**Pending:** ~25 endpoints (complex write operations)
 **Snapshot Tests:** 30 (data validation against golden database)
 
 ---
@@ -26,7 +26,7 @@
 | Authentication | 3 | 33 | Login, auth checks, write operation auth |
 | Users | 3 | 0 | Pending |
 | Works | 19 | 45 | Entity, related, auth, omnibus, tags, types tests |
-| Editions | 22 | 12 | Entity, related, auth tests |
+| Editions | 22 | 46 | Entity, related, auth, wishlist, images tests (2 xfail) |
 | People | 15 | 16 | Entity, filter, related tests |
 | Short Stories | 10 | 15 | Entity, search, auth tests (1 xfail) |
 | Magazines | 6 | 8 | Entity, auth tests |
@@ -40,7 +40,7 @@
 | Search & Filter | 5 | 10 | Works/Shorts search |
 | Miscellaneous | 12 | 36 | Full coverage |
 | Articles | 4 | 0 | Endpoint deprecated |
-| **TOTAL** | **158** | **248** | **1 xfail (known bug)** |
+| **TOTAL** | **158** | **282** | **3 xfails (known bugs)** |
 
 ---
 
@@ -94,24 +94,26 @@
 | :white_check_mark: | POST | `/api/editions` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
 | :white_check_mark: | PUT | `/api/editions` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
 | :white_check_mark: | DELETE | `/api/editions/<editionid>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
-| :hourglass_flowing_sand: | POST | `/api/editions/<editionid>/copy` | Admin | - | - |
-| :hourglass_flowing_sand: | POST | `/api/editions/<editionid>/images` | Admin | - | - |
-| :hourglass_flowing_sand: | DELETE | `/api/editions/<editionid>/images/<imageid>` | Admin | - | - |
-| :hourglass_flowing_sand: | GET | `/api/editions/<edition_id>/changes` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/editions/<editionid>/owners` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/editions/<editionid>/owner/<personid>` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/editions/owned/<userid>` | None | - | - |
-| :hourglass_flowing_sand: | DELETE | `/api/editions/<editionid>/owner/<personid>` | JWT | - | - |
+| :white_check_mark: | POST | `/api/editions/<editionid>/copy` | Admin | `test_editions.py::TestEditionCopy` | 2026-02-14 |
+| :white_check_mark: | POST | `/api/editions/<editionid>/images` | Admin | `test_editions_extra.py::TestEditionImages` | 2026-02-17 |
+| :white_check_mark: | DELETE | `/api/editions/<editionid>/images/<imageid>` | Admin | `test_editions_extra.py::TestEditionImages` | 2026-02-17 |
+| :white_check_mark: | GET | `/api/editions/<edition_id>/changes` | None | `test_editions_extra.py::TestEditionChanges` | 2026-02-17 |
+| :warning: | GET | `/api/editions/<editionid>/owners` | None | `test_editions_extra.py::TestEditionOwners` (xfail) | 2026-02-17 |
+| :white_check_mark: | GET | `/api/editions/<editionid>/owner/<personid>` | None | `test_editions_extra.py::TestEditionOwners` | 2026-02-17 |
+| :white_check_mark: | GET | `/api/editions/owned/<userid>` | None | `test_editions_extra.py::TestEditionsOwned` | 2026-02-17 |
+| :white_check_mark: | DELETE | `/api/editions/<editionid>/owner/<personid>` | JWT | `test_editions_extra.py::TestEditionOwnerModify` | 2026-02-17 |
 | :white_check_mark: | POST | `/api/editions/owner` | JWT | `test_auth.py::TestCollectionRequiresAuth` | 2026-02-14 |
-| :hourglass_flowing_sand: | PUT | `/api/editions/owner` | JWT | - | - |
+| :white_check_mark: | PUT | `/api/editions/owner` | JWT | `test_editions_extra.py::TestEditionOwnerModify` | 2026-02-17 |
 | :white_check_mark: | GET | `/api/editions/<editionid>/shorts` | None | `test_related.py::TestEditionShorts` | 2026-02-14 |
 | :white_check_mark: | GET | `/api/latest/editions/<count>` | None | `test_related.py::TestLatestEditions` | 2026-02-14 |
-| :hourglass_flowing_sand: | GET | `/api/editions/<edition_id>/work` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/editions/<editionid>/wishlist` | None | - | - |
-| :hourglass_flowing_sand: | PUT | `/api/editions/<editionid>/wishlist/<userid>` | JWT | - | - |
-| :hourglass_flowing_sand: | DELETE | `/api/editions/<editionid>/wishlist/<userid>` | JWT | - | - |
-| :hourglass_flowing_sand: | GET | `/api/editions/<editionid>/wishlist/<userid>` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/editions/wishlist/<userid>` | None | - | - |
+| :white_check_mark: | GET | `/api/editions/<edition_id>/work` | None | `test_editions_extra.py::TestEditionWork` | 2026-02-17 |
+| :white_check_mark: | GET | `/api/editions/<editionid>/wishlist` | None | `test_editions_extra.py::TestEditionWishlist` | 2026-02-17 |
+| :white_check_mark: | PUT | `/api/editions/<editionid>/wishlist/<userid>` | None* | `test_editions_extra.py::TestEditionWishlistModify` | 2026-02-17 |
+| :white_check_mark: | DELETE | `/api/editions/<editionid>/wishlist/<userid>` | None* | `test_editions_extra.py::TestEditionWishlistModify` | 2026-02-17 |
+| :white_check_mark: | GET | `/api/editions/<editionid>/wishlist/<userid>` | None | `test_editions_extra.py::TestEditionWishlist` | 2026-02-17 |
+| :white_check_mark: | GET | `/api/editions/wishlist/<userid>` | None | `test_editions_extra.py::TestEditionWishlist` | 2026-02-17 |
+
+*Note: Wishlist PUT/DELETE endpoints are missing auth decorators (security issue).
 
 ### 5. People (15 endpoints)
 

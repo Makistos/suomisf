@@ -3,7 +3,7 @@
 This document provides detailed descriptions of all API tests, including
 what they test, their parameter values, and expected behaviors.
 
-**Last Updated:** 2026-02-16
+**Last Updated:** 2026-02-17
 
 ---
 
@@ -27,6 +27,7 @@ what they test, their parameter values, and expected behaviors.
 16. [Award Tests (test_awards.py)](#award-tests)
 17. [Tag Tests (test_tags.py)](#tag-tests)
 18. [Work Extra Tests (test_works_extra.py)](#work-extra-tests)
+19. [Edition Extra Tests (test_editions_extra.py)](#edition-extra-tests)
 
 ---
 
@@ -50,6 +51,7 @@ what they test, their parameter values, and expected behaviors.
 | test_awards.py | Award endpoints (types, categories, filter) | 29 |
 | test_tags.py | Tag endpoints (quick, types, form, merge) | 21 |
 | test_works_extra.py | Work endpoints (omnibus, tags, types, incomplete) | 27 |
+| test_editions_extra.py | Edition endpoints (changes, owners, wishlist, images) | 34 |
 
 ---
 
@@ -1214,6 +1216,97 @@ that causes 500 errors in some cases.
 | Test | Description |
 |------|-------------|
 | `test_work_tag_add_remove_cycle` | Add tag -> verify -> remove tag cycle |
+
+---
+
+## Edition Extra Tests
+
+**File:** `tests/api/test_editions_extra.py`
+
+Tests for edition-related endpoints not covered by other test files.
+Includes changes, work, owners, wishlist, and images.
+
+### TestEditionChanges
+
+| Test | Description |
+|------|-------------|
+| `test_edition_changes_returns_200` | GET /api/editions/{id}/changes returns 200 |
+| `test_edition_changes_returns_data` | Returns data structure |
+| `test_edition_changes_nonexistent` | Handle nonexistent edition |
+
+### TestEditionWork
+
+| Test | Description |
+|------|-------------|
+| `test_edition_work_returns_200` | GET /api/editions/{id}/work returns 200 |
+| `test_edition_work_returns_work_id` | Returns work ID or dict |
+| `test_edition_work_nonexistent` | Handle nonexistent edition |
+
+### TestEditionOwners
+
+| Test | Description |
+|------|-------------|
+| `test_edition_owners_processes_request` | GET /api/editions/{id}/owners (xfail) |
+| `test_edition_owners_nonexistent` | Handle nonexistent edition (xfail) |
+| `test_edition_owners_invalid_id` | Invalid ID returns 400 |
+| `test_edition_owner_person_returns_200` | GET /api/editions/{id}/owner/{pid} |
+| `test_edition_owner_person_invalid_ids` | Invalid IDs return 400 |
+
+**Note:** The `/api/editions/{id}/owners` endpoint has a schema bug
+(`many` is invalid keyword for User) causing errors.
+
+### TestEditionsOwned
+
+| Test | Description |
+|------|-------------|
+| `test_editions_owned_returns_200` | GET /api/editions/owned/{userid} returns 200 |
+| `test_editions_owned_returns_list` | Returns list format |
+| `test_editions_owned_nonexistent_user` | Handle nonexistent user |
+| `test_editions_owned_invalid_id` | Invalid ID returns 400 |
+
+### TestEditionOwnerModify
+
+| Test | Description |
+|------|-------------|
+| `test_delete_owner_requires_auth` | DELETE requires authentication |
+| `test_delete_owner_invalid_ids` | Invalid IDs return 400 |
+| `test_delete_owner_nonexistent` | Handle nonexistent owner |
+| `test_update_owner_requires_auth` | PUT requires authentication |
+| `test_update_owner_with_auth` | PUT with auth processes request |
+
+### TestEditionWishlist
+
+| Test | Description |
+|------|-------------|
+| `test_wishlist_processes_request` | GET /api/editions/{id}/wishlist |
+| `test_wishlist_nonexistent_edition` | Handle nonexistent edition |
+| `test_user_wishlist_returns_200` | GET /api/editions/wishlist/{userid} |
+| `test_user_wishlist_returns_list` | Returns list format |
+| `test_user_wishlist_check_returns_200` | GET /api/editions/{id}/wishlist/{uid} |
+| `test_user_wishlist_check_returns_data` | Returns data |
+
+**Note:** The `/api/editions/{id}/wishlist` endpoint has a SQLAlchemy bug
+(relationship comparison issue) causing 500 errors.
+
+### TestEditionWishlistModify
+
+| Test | Description |
+|------|-------------|
+| `test_add_to_wishlist_processes_request` | PUT processes request |
+| `test_remove_from_wishlist_processes_request` | DELETE processes request |
+| `test_add_to_wishlist_with_auth` | PUT with auth processes |
+| `test_remove_from_wishlist_with_auth` | DELETE with auth processes |
+
+**Security Note:** Wishlist PUT/DELETE endpoints are missing auth decorators.
+
+### TestEditionImages
+
+| Test | Description |
+|------|-------------|
+| `test_upload_image_requires_auth` | POST requires authentication |
+| `test_upload_image_requires_file` | POST requires file data |
+| `test_delete_image_requires_auth` | DELETE requires authentication |
+| `test_delete_image_nonexistent` | Handle nonexistent image |
 
 ---
 
