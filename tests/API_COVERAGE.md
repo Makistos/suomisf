@@ -24,7 +24,7 @@
 | Category | Endpoints | Tests | Notes |
 |----------|-----------|-------|-------|
 | Authentication | 3 | 33 | Login, auth checks, write operation auth |
-| Users | 3 | 0 | Pending |
+| Users | 3 | 13 | Entity, stats/genres tests |
 | Works | 19 | 45 | Entity, related, auth, omnibus, tags, types tests |
 | Editions | 22 | 46 | Entity, related, auth, wishlist, images tests (2 xfail) |
 | People | 15 | 16 | Entity, filter, related tests |
@@ -40,7 +40,7 @@
 | Search & Filter | 5 | 10 | Works/Shorts search |
 | Miscellaneous | 12 | 36 | Full coverage |
 | Articles | 4 | 0 | Endpoint deprecated |
-| **TOTAL** | **167** | **357** | **5 xfails (known bugs)** |
+| **TOTAL** | **167** | **370** | **5 xfails (known bugs)** |
 
 ---
 
@@ -58,9 +58,9 @@
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :hourglass_flowing_sand: | GET | `/api/users` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/users/<userid>` | None | - | - |
-| :hourglass_flowing_sand: | GET | `/api/users/<userid>/stats/genres` | None | - | - |
+| :white_check_mark: | GET | `/api/users` | None | `test_users.py::TestUserList` | 2026-02-18 |
+| :white_check_mark: | GET | `/api/users/<userid>` | None | `test_users.py::TestUserGet` | 2026-02-18 |
+| :white_check_mark: | GET | `/api/users/<userid>/stats/genres` | None | `test_users.py::TestUserStatsGenres` | 2026-02-18 |
 
 ### 3. Works (19 endpoints)
 

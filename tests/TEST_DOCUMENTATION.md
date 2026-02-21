@@ -30,6 +30,7 @@ what they test, their parameter values, and expected behaviors.
 19. [Edition Extra Tests (test_editions_extra.py)](#edition-extra-tests)
 20. [Magazine & Issue Tests (test_magazines_issues.py)](#magazine--issue-tests)
 21. [Publisher & Series Tests (test_series_publishers.py)](#publisher--series-tests)
+22. [User Tests (test_users.py)](#user-tests)
 
 ---
 
@@ -56,6 +57,7 @@ what they test, their parameter values, and expected behaviors.
 | test_editions_extra.py | Edition endpoints (changes, owners, wishlist, images) | 34 |
 | test_magazines_issues.py | Magazine & Issue endpoints (CRUD, tags, contributors) | 42 |
 | test_series_publishers.py | Publisher, PubSeries, BookSeries endpoints | 43 |
+| test_users.py | User endpoints (list, get, stats/genres) | 13 |
 
 ---
 
@@ -1580,3 +1582,54 @@ pdm run pytest tests/api/test_works.py::TestWorksCRUD -v
 # Run with coverage
 pdm run pytest tests/api/ --cov=app --cov-report=html
 ```
+
+---
+
+## User Tests
+
+### File: `test_users.py` (13 tests)
+
+Tests for user-related endpoints: listing, retrieval,
+and stats/genres.
+
+#### Fixtures
+
+| Fixture | Scope | Description |
+|---------|-------|-------------|
+| `admin_client` | function | Logged-in admin API client |
+| `valid_user_id` | function | First user ID from GET /api/users |
+
+#### TestUserList (3 tests)
+
+Tests for `GET /api/users`.
+
+| Test | Description | Assertions |
+|------|-------------|------------|
+| `test_users_list_returns_200` | Endpoint returns 200 | Status 200 |
+| `test_users_list_returns_list` | Response is a list | isinstance(data, list) |
+| `test_users_list_has_required_fields` | Users have id, name | 'id' in user, 'name' in user |
+
+#### TestUserGet (4 tests)
+
+Tests for `GET /api/users/{id}`.
+
+| Test | Parameters | Assertions |
+|------|------------|------------|
+| `test_user_get_returns_200` | valid_user_id | Status 200 |
+| `test_user_get_has_fields` | valid_user_id | 'id' and 'name' in response |
+| `test_user_get_nonexistent` | id=999999999 | Status 500 |
+| `test_user_get_invalid_id` | id="invalid" | Status 400 |
+
+#### TestUserStatsGenres (6 tests)
+
+Tests for `GET /api/users/{id}/stats/genres`.
+Returns genre counts for books owned by the user.
+
+| Test | Parameters | Assertions |
+|------|------------|------------|
+| `test_user_genres_returns_200` | valid_user_id | Status 200 |
+| `test_user_genres_returns_list` | valid_user_id | isinstance(data, list) |
+| `test_user_genres_item_has_fields` | valid_user_id | id, name, abbr, count in genre |
+| `test_user_genres_count_is_positive` | valid_user_id | count is int, count > 0 |
+| `test_user_genres_nonexistent_user` | id=999999999 | Status 200, empty list |
+| `test_user_genres_invalid_id` | id="invalid" | Status 500 |
