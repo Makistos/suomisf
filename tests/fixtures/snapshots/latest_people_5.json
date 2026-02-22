@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-22T12:54:59.652358+00:00",
+    "generated_at": "2026-02-22T18:43:48.222274+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 37,
     "endpoint": "/api/latest/people/5",
@@ -10,6 +10,52 @@
   "response": {
     "status_code": 200,
     "data": [
+      {
+        "id": 7754.0,
+        "name": "Lifecycle, Test",
+        "alt_name": "Lifecycle, Test",
+        "fullname": "Lifecycle, Test",
+        "image_src": null,
+        "dob": 1985.0,
+        "dod": null,
+        "roles": [],
+        "nationality": {
+          "id": 1,
+          "name": "Iso-Britannia"
+        },
+        "workcount": 0.0,
+        "storycount": 0,
+        "other_names": null,
+        "first_name": "Test",
+        "last_name": "Lifecycle",
+        "image_attr": null,
+        "bio": null,
+        "bio_src": null,
+        "imported_string": null
+      },
+      {
+        "id": 7753.0,
+        "name": "Testiperson, API",
+        "alt_name": "Testiperson, API",
+        "fullname": "Testiperson, API",
+        "image_src": null,
+        "dob": 1990.0,
+        "dod": null,
+        "roles": [],
+        "nationality": {
+          "id": 1,
+          "name": "Iso-Britannia"
+        },
+        "workcount": 0.0,
+        "storycount": 0,
+        "other_names": null,
+        "first_name": "API",
+        "last_name": "Testiperson",
+        "image_attr": null,
+        "bio": null,
+        "bio_src": null,
+        "imported_string": null
+      },
       {
         "id": 7752.0,
         "name": "Vuolio, Hannu",
@@ -76,56 +122,6 @@
           "name": "Suomi"
         },
         "workcount": 3.0,
-        "storycount": 0,
-        "other_names": "",
-        "first_name": null,
-        "last_name": null,
-        "image_attr": null,
-        "bio": "",
-        "bio_src": "",
-        "imported_string": null
-      },
-      {
-        "id": 7749.0,
-        "name": "Lepola, Sonja",
-        "alt_name": "Sonja, Lepola",
-        "fullname": "",
-        "image_src": null,
-        "dob": null,
-        "dod": null,
-        "roles": [
-          "Kirjoittaja"
-        ],
-        "nationality": {
-          "id": 4,
-          "name": "Suomi"
-        },
-        "workcount": 1.0,
-        "storycount": 0,
-        "other_names": "",
-        "first_name": null,
-        "last_name": null,
-        "image_attr": null,
-        "bio": "",
-        "bio_src": "",
-        "imported_string": null
-      },
-      {
-        "id": 7748.0,
-        "name": "Luhtakorpi, Norma",
-        "alt_name": "Norma Luhtakorpi",
-        "fullname": "",
-        "image_src": null,
-        "dob": null,
-        "dod": null,
-        "roles": [
-          "Kirjoittaja"
-        ],
-        "nationality": {
-          "id": 4,
-          "name": "Suomi"
-        },
-        "workcount": 1.0,
         "storycount": 0,
         "other_names": "",
         "first_name": null,

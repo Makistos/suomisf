@@ -1,3 +1,143 @@
 {
-  "_comment": "Best performance results for each endpoint. Auto-updated by benchmark_runner.py"
+  "_comment": "Best performance results for each endpoint. Auto-updated by benchmark_runner.py",
+  "GET /api/frontpagedata": {
+    "best_avg_ms": 97.55,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/genres": {
+    "best_avg_ms": 8.71,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/countries": {
+    "best_avg_ms": 8.57,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/roles/": {
+    "best_avg_ms": 8.43,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/latest/works/10": {
+    "best_avg_ms": 54.92,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/latest/editions/10": {
+    "best_avg_ms": 69.34,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/latest/people/10": {
+    "best_avg_ms": 26.13,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/latest/shorts/10": {
+    "best_avg_ms": 56.18,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/latest/covers/10": {
+    "best_avg_ms": 26.55,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/stats/genrecounts": {
+    "best_avg_ms": 17.82,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/stats/personcounts": {
+    "best_avg_ms": 2547.43,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/stats/publishercounts": {
+    "best_avg_ms": 394.34,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/stats/worksbyyear": {
+    "best_avg_ms": 19.75,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/stats/nationalitycounts": {
+    "best_avg_ms": 173.04,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/stats/misc": {
+    "best_avg_ms": 15.66,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/filter/people/aa": {
+    "best_avg_ms": 48.14,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/filter/tags/sf": {
+    "best_avg_ms": 10.34,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/filter/publishers/aa": {
+    "best_avg_ms": 9.09,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/magazines": {
+    "best_avg_ms": 34.79,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/awards": {
+    "best_avg_ms": 18.79,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/tags": {
+    "best_avg_ms": 3101.82,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/publishers": {
+    "best_avg_ms": 281.59,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/bookseries": {
+    "best_avg_ms": 290.29,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/pubseries": {
+    "best_avg_ms": 2540.55,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/worktypes": {
+    "best_avg_ms": 9.14,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/shorttypes": {
+    "best_avg_ms": 8.29,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/magazinetypes": {
+    "best_avg_ms": 8.48,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  },
+  "GET /api/bindings": {
+    "best_avg_ms": 8.03,
+    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
+    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+  }
 }

@@ -41,19 +41,19 @@ ShortStory authors -> Part -> Contributor (part_id)
 
 ```
 ShortStory <-> Edition (via new edition_shortstory junction table)
-ShortStory -> StoryContributors (new dedicated table)
+ShortStory -> StoryContributor (new dedicated table)
 ```
 
 **New tables:**
-- `edition_shortstory`: Junction table (edition_id, shortstory_id, order_num)
-- `story_contributor`: Dedicated contributors (shortstory_id, person_id,
+- `EditionStory`: Junction table (edition_id, shortstory_id, order_num)
+- `StoryContributor`: Dedicated contributors (shortstory_id, person_id,
   role_id, real_person_id, description)
 
 ---
 
 ## New Junction Table Tests
 
-### Table: `edition_shortstory`
+### Table: `EditionStory`
 
 | Test | Description | Endpoint |
 |------|-------------|----------|
@@ -89,7 +89,7 @@ def test_add_short_to_edition(admin_client, existing_edition_id,
 
 ## StoryContributors Table Tests
 
-### Table: `story_contributor`
+### Table: `StoryContributor`
 
 | Test | Description |
 |------|-------------|
@@ -109,7 +109,7 @@ def test_add_short_to_edition(admin_client, existing_edition_id,
 |----|--------------|---------|
 | 1 | Kirjoittaja | Author |
 | 2 | Kääntäjä | Translator |
-| 6 | Kuvittaja | Illustrator |
+| 6 | Esiintyy | Appears In |
 
 ### Test Implementation Notes
 
@@ -302,8 +302,8 @@ def test_short_response_matches_snapshot(api_client, snapshot_manager):
 
 ### Phase 1: New Tables + Tests (Week 1)
 
-1. Create `edition_shortstory` junction table
-2. Create `story_contributor` table
+1. Create `EditionStory` junction table
+2. Create `StoryContributor` table
 3. Write unit tests for new tables
 4. Add ORM models to `orm_decl.py`
 

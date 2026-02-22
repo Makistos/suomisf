@@ -3,7 +3,7 @@
 This document provides detailed descriptions of all API tests, including
 what they test, their parameter values, and expected behaviors.
 
-**Last Updated:** 2026-02-17
+**Last Updated:** 2026-02-22
 
 ---
 
@@ -718,17 +718,17 @@ stories contained in an omnibus or anthology work.
 
 | Test | Description |
 |------|-------------|
-| `test_get_work_shorts_omnibus_1378` | Verify 22 shorts with correct data |
+| `test_get_work_shorts_omnibus_27` | Verify 12 shorts with correct data |
 | `test_get_work_shorts_has_required_fields` | Verify required fields present |
 | `test_get_work_shorts_nonexistent_work` | Handle nonexistent work ID |
 | `test_get_work_shorts_work_without_shorts` | Work without shorts returns list |
 
-**Snapshot Test Details (test_get_work_shorts_omnibus_1378):**
+**Snapshot Test Details (test_get_work_shorts_omnibus_27):**
 
-Uses snapshot: `work_shorts_1378.json`
+Uses snapshot: `work_shorts_27.json`
 
-- Work ID: 1378 (Finnish SF omnibus)
-- Expected count: 22 short stories
+- Work ID: 27 ("Yön ja päivän tarinoita")
+- Expected count: 12 short stories
 - Verifies for each short:
   - ID matches snapshot
   - Title matches snapshot
@@ -736,15 +736,6 @@ Uses snapshot: `work_shorts_1378.json`
   - Publication year matches snapshot
   - Story type (id and name) matches snapshot
   - Author IDs and names match snapshot
-
-**Sample Short Stories in Work 1378:**
-| ID | Title | Author(s) | Year |
-|----|-------|-----------|------|
-| 1805 | Napoleonin vaihtoviikot | Elo, Eija | 1983 |
-| 2965 | Ran palvelija | Oja, Heikki; Ranta, Matias | 1986 |
-| 3202 | Hanna | Sinisalo, Johanna | 1988 |
-| 3449 | Suklaalaput | Sinisalo, Johanna | 1985 |
-| 3451 | Perhosen lento | Tervonen, Ari | 1988 |
 
 ---
 
@@ -759,28 +750,28 @@ responses remain unchanged after migration 001 (ShortStory refactoring).
 
 | Test | Description |
 |------|-------------|
-| `test_edition_shorts_count_and_ids` | Verify 22 shorts in edition 1585 |
+| `test_edition_shorts_count_and_ids` | Verify 12 shorts in edition 28 |
 | `test_edition_shorts_has_required_fields` | Verify id, title, authors |
 | `test_edition_shorts_author_fields` | Verify author id and name |
 | `test_edition_without_shorts` | Edition 86 returns empty list |
 | `test_edition_shorts_nonexistent_edition` | Handle invalid edition ID |
 
-**Snapshot:** `edition_shorts_1585.json`
-- Edition 1585: "Atoroxin perilliset" (1988)
-- Expected count: 22 short stories
+**Snapshot:** `edition_shorts_28.json`
+- Edition 28: "Yön ja päivän tarinoita" (2019)
+- Expected count: 12 short stories
 - Verifies IDs, titles, authors match snapshot
 
 ### TestShortEditions
 
 | Test | Description |
 |------|-------------|
-| `test_short_has_editions` | Short 1805 has editions list |
+| `test_short_has_editions` | Short 406 has editions list |
 | `test_short_editions_have_required_fields` | Editions have id, title |
 | `test_short_authors_preserved` | Author IDs match snapshot |
 
-**Snapshot:** `short_1805.json`
-- Short 1805: "Napoleonin vaihtoviikot" by Elo, Eija (1983)
-- Editions: 1585 (1988), 2820 (2013)
+**Snapshot:** `short_406.json`
+- Short 406: "William Wilson" (multi-edition short)
+- Has at least 2 editions
 
 ### TestEditionShortsBackwardCompat
 
@@ -789,7 +780,8 @@ responses remain unchanged after migration 001 (ShortStory refactoring).
 | `test_edition_shorts_response_format` | Verify response structure |
 | `test_short_response_format` | Verify editions list format |
 
-**Purpose:** Ensure API clients don't break after schema migration.
+**Purpose:** Ensure API clients don't break after schema
+migration.
 
 ---
 
