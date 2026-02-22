@@ -3,7 +3,8 @@ Always use line widths less or equal to 79 characters.
 If changing or adding an API function always add tests and update documentation
 both for API and tests and document the API.
 
-Do not change any API output without explicitly told so.
+Always recreate test database and add test user before running tests.
+Never run tests against or modify the main database.
 
 ## Testing Documentation
 

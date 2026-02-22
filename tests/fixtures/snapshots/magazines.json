@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-12T19:29:02.576341+00:00",
+    "generated_at": "2026-02-22T12:54:59.652358+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 37,
     "endpoint": "/api/magazines",
@@ -1054,6 +1054,10 @@
             "year": 1987
           },
           {
+            "id": 1107,
+            "year": 1987
+          },
+          {
             "id": 175,
             "year": 1988
           },
@@ -1133,19 +1137,6 @@
         ],
         "id": 23,
         "name": "Kalaksikukko",
-        "description": null,
-        "link": null,
-        "issn": null
-      },
-      {
-        "type_id": 1,
-        "type": {
-          "id": 1,
-          "name": "Fanzine"
-        },
-        "issues": [],
-        "id": 25,
-        "name": "Kosmospenaali",
         "description": null,
         "link": null,
         "issn": null
@@ -5167,6 +5158,124 @@
         "description": "<p>Ensimmäiset neljä numeroa (1/1984 - 2/1985) ilmestyivät Jäsentiedote-nimellä, viidennestä numerosta (3/1985) lehti alkoi imestyä Kosmoskynä-nimisenä.</p>",
         "link": null,
         "issn": null
+      },
+      {
+        "type_id": 1,
+        "type": {
+          "id": 1,
+          "name": "Fanzine"
+        },
+        "issues": [
+          {
+            "id": 1110,
+            "year": 2004
+          },
+          {
+            "id": 1111,
+            "year": 2004
+          },
+          {
+            "id": 1112,
+            "year": 2005
+          },
+          {
+            "id": 1113,
+            "year": 2005
+          },
+          {
+            "id": 1114,
+            "year": 2006
+          },
+          {
+            "id": 1115,
+            "year": 2007
+          },
+          {
+            "id": 1116,
+            "year": 2007
+          },
+          {
+            "id": 1117,
+            "year": 2008
+          },
+          {
+            "id": 1118,
+            "year": 2009
+          },
+          {
+            "id": 1119,
+            "year": 2009
+          },
+          {
+            "id": 1120,
+            "year": 2010
+          },
+          {
+            "id": 1121,
+            "year": 2010
+          },
+          {
+            "id": 1122,
+            "year": 2011
+          },
+          {
+            "id": 1123,
+            "year": 2011
+          },
+          {
+            "id": 1124,
+            "year": 2012
+          },
+          {
+            "id": 1125,
+            "year": 2012
+          },
+          {
+            "id": 1126,
+            "year": 2014
+          }
+        ],
+        "id": 25,
+        "name": "Kosmospenaali",
+        "description": null,
+        "link": "https://www.illusionisti.net/BitteinSaaret/STk_tampere.htm",
+        "issn": null
+      },
+      {
+        "type_id": 1,
+        "type": {
+          "id": 1,
+          "name": "Fanzine"
+        },
+        "issues": [
+          {
+            "id": 1108,
+            "year": 2007
+          }
+        ],
+        "id": 59,
+        "name": "Vinka",
+        "description": "<p>Iskee kuin häkämyrkytys</p><p>Armon vuonna 2007 julkaistu erikoisnumero Vinkonin kunniaksi.</p>",
+        "link": "",
+        "issn": ""
+      },
+      {
+        "type_id": 1,
+        "type": {
+          "id": 1,
+          "name": "Fanzine"
+        },
+        "issues": [
+          {
+            "id": 1127,
+            "year": 2018
+          }
+        ],
+        "id": 60,
+        "name": "Pimeä galaksi",
+        "description": "",
+        "link": "",
+        "issn": ""
       }
     ],
     "error": null

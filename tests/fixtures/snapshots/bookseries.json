@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-12T19:29:02.576341+00:00",
+    "generated_at": "2026-02-22T12:54:59.652358+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 37,
     "endpoint": "/api/bookseries",
@@ -35206,6 +35206,20 @@
             "descr_attr": "",
             "imported_string": null,
             "author_str": "Knausgård, Karl Ove"
+          },
+          {
+            "id": 6889,
+            "title": "Yökoulu",
+            "subtitle": "",
+            "orig_title": "Nattskolen",
+            "pubyear": 2023,
+            "bookseriesnum": "4",
+            "bookseriesorder": 4,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Knausgård, Karl Ove"
           }
         ],
         "id": 547,
@@ -39099,6 +39113,20 @@
             "author_str": "Wells, Martha"
           },
           {
+            "id": 6882,
+            "title": "Pakoileva yhteys",
+            "subtitle": "",
+            "orig_title": "Fugitive telemetry",
+            "pubyear": 2021,
+            "bookseriesnum": "5",
+            "bookseriesorder": 5,
+            "misc": "",
+            "description": "<p><em>Pakoileva yhteys</em> on julkaisujärjestyksessä kuudes Murhabotti-kirja, mutta sarjan sisäisessä kronologiassa viides. Suomalainen kustantamo luokitteli kirjan <em>Murhabotin päiväkirjojen</em> viidenneksi osaksi.</p><p>Murhabotti majailee tohtori Mensahin kotiplaneetalla, rauhallisessa ja edistysmielisessä Preservationissa. Onkin järkytys kaikille, kun Preservationin aseman ostoskeskuksesta löytyy murhattu ihminen.</p><p>Aseman turvapalvelu ottaa tutkinnan hoitaakseen, mutta se on tottunut selvittämään lähinnä kadonneen rahdin jälkiä. Murhabotilla sen sijaan on paljonkin kokemusta murhista.</p><p>Tohtori Mensahin lievällä painostuksella (vastahakoinen) Murhabotti joutuu avustamaan (vastahakoista) turvapalvelua murhatutkinnassa.</p><p><em>Pakoileva yhteys</em> on murhamysteeri ja suljetun avaruusaseman arvoitus, joka sijoittuu sarjan aikajanalla <em>Taktisen vetäytymisen</em> jälkeen. Martha Wellsin moninkertaisesti palkittu scifisarja ja sen hapan nimihahmo ovat viihdyttäneet lukijoita ympäri maailman. Kirjoihin perustuva <em>Murderbot</em>-sarja on katsottavissa AppleTV+-suoratoistopalvelussa.</p>",
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Wells, Martha"
+          },
+          {
             "id": 6698,
             "title": "Murhabotin päiväkirjat. 1-2",
             "subtitle": "",
@@ -42193,6 +42221,20 @@
             "descr_attr": "",
             "imported_string": null,
             "author_str": "Balle, Solvej"
+          },
+          {
+            "id": 6895,
+            "title": "Tilavuuden laskemisesta IV",
+            "subtitle": "",
+            "orig_title": "Om udregning af rumfang IV",
+            "pubyear": 2022,
+            "bookseriesnum": "4",
+            "bookseriesorder": 4,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Balle, Solvej"
           }
         ],
         "id": 675,
@@ -44532,6 +44574,20 @@
             "misc": "",
             "description": "<p>Eräänä yönä syksyn lähestyessä on täysikuu, ja Muumilaakso on äänetön. Kaikki, jotka asuvat tai yöpyvät muumiperheen talossa, ovat aikeissa mennä nukkumaan. Kukaan ei kuitenkaan sammuta lamppuaan – ilmassa on jotain salaperäistä. Sitten alkaa kuulua outoja ääniä, huonekaluja särkyy, perunat leviävät ympäri kellaria, ja talossa leijuu rikinkatkuinen haju. Levottomuus valtaa asukkaat, jopa esi-isä tulee esiin kaakeliuunin takaa. Lopulta käy ilmi, että outo vieras liittyy Muumipapan värikkääseen menneisyyteen.</p><p>Kirjan tapahtumat sijoittuvat Tuulikki Pietilän ja Pentti Eistolan rakentamaan aitoon Muumitaloon. Muumiperheen hahmot on muotoillut Hans Klinge, talon muut asukkaat Tuulikki Pietilä – ja Tove Jansson on ollut mukana kaikessa. Valokuvat on ottanut Per Olov Jansson.</p>",
             "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Jansson, Tove"
+          },
+          {
+            "id": 6876,
+            "title": "Tarinoita muumilaaksosta",
+            "subtitle": "",
+            "orig_title": "",
+            "pubyear": 2003,
+            "bookseriesnum": "",
+            "bookseriesorder": null,
+            "misc": "",
+            "description": "<p>Muumilaaksossa seikkailevat kaikki Tove Janssonin rakkaat hahmot: Muumipeikko, Muumimamma, Muumipappa, Niiskuneiti, Nipsu, Mymmeli, Vilijonkka, Nuuskamuikkunen ja Pikku Myy. Muumit joutuvat erilaisiin seikkailuihin mutta säilyttävät aina muumimaisen elämänasenteensa. Kaikenikäiset ihmiset löytävät Janssonin tarinoista jotain tuttua, jotain elämän mittaista ja jotain arvaamatonta.</p><p><br></p>",
+            "descr_attr": "Takakansi",
             "imported_string": null,
             "author_str": "Jansson, Tove"
           }
@@ -49109,6 +49165,20 @@
             "descr_attr": "",
             "imported_string": null,
             "author_str": "Hunter, Erin"
+          },
+          {
+            "id": 6899,
+            "title": "Varjo",
+            "subtitle": "",
+            "orig_title": "Shadow",
+            "pubyear": 2023,
+            "bookseriesnum": "3",
+            "bookseriesorder": 3,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Hunter, Erin"
           }
         ],
         "id": 755,
@@ -51118,6 +51188,430 @@
         ],
         "id": 827,
         "name": "Tähtien meri",
+        "orig_name": null,
+        "description": null,
+        "important": false,
+        "image_src": null,
+        "image_attr": null
+      },
+      {
+        "works": [
+          {
+            "id": 6853,
+            "title": "Myrtti ja noitatukka",
+            "subtitle": "",
+            "orig_title": "",
+            "pubyear": 2021,
+            "bookseriesnum": "1",
+            "bookseriesorder": 1,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Mursu, Ursula"
+          },
+          {
+            "id": 6854,
+            "title": "Myrtti ja kudelmataika",
+            "subtitle": "",
+            "orig_title": "",
+            "pubyear": 2022,
+            "bookseriesnum": "2",
+            "bookseriesorder": 2,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Mursu, Ursula"
+          },
+          {
+            "id": 6855,
+            "title": "Myrtti ja nuuskiva kinuski",
+            "subtitle": "",
+            "orig_title": "",
+            "pubyear": 2023,
+            "bookseriesnum": "3",
+            "bookseriesorder": 3,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Mursu, Ursula"
+          }
+        ],
+        "id": 828,
+        "name": "Kuuilma",
+        "orig_name": null,
+        "description": null,
+        "important": false,
+        "image_src": null,
+        "image_attr": null
+      },
+      {
+        "works": [
+          {
+            "id": 6859,
+            "title": "Septimus Agoriuksen matkapäiväkirja",
+            "subtitle": "",
+            "orig_title": "The Lost Journals of the Great Wizard, Septimus Agorius",
+            "pubyear": 2002,
+            "bookseriesnum": "1",
+            "bookseriesorder": 1,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Sanders, Malcolm"
+          },
+          {
+            "id": 6860,
+            "title": "Tulilabyrintti",
+            "subtitle": "",
+            "orig_title": "Labyrinth of Fire",
+            "pubyear": 2011,
+            "bookseriesnum": "2",
+            "bookseriesorder": 2,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Hawcock, Claire"
+          }
+        ],
+        "id": 829,
+        "name": "Lohikäärmekronikka",
+        "orig_name": null,
+        "description": null,
+        "important": false,
+        "image_src": null,
+        "image_attr": null
+      },
+      {
+        "works": [
+          {
+            "id": 6868,
+            "title": "Jumalia ja sankareita",
+            "subtitle": "Maailman taruaarteet, Kreikka",
+            "orig_title": "Gods, Men and Monsters from the Greek Myths",
+            "pubyear": 1977,
+            "bookseriesnum": "1",
+            "bookseriesorder": 1,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Gibson, Michael"
+          },
+          {
+            "id": 6869,
+            "title": "Intiaanisotureita ja henkiolentoja",
+            "subtitle": "Maailman taruaarteet, Keski- ja Etelä-Amerikka",
+            "orig_title": "Warriors, Gods and Spirits from Central and South American Mythology",
+            "pubyear": 1983,
+            "bookseriesnum": "2",
+            "bookseriesorder": 2,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Gifford, Douglas"
+          },
+          {
+            "id": 6870,
+            "title": "Ihmeseppiä ja tsaarinpoikia",
+            "subtitle": "Maailman taruaarteet, Venäjä",
+            "orig_title": "Heroes, Monsters and Other Worlds from Russian Mythology",
+            "pubyear": 1985,
+            "bookseriesnum": "3",
+            "bookseriesorder": 3,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Warner, Elizabeth"
+          },
+          {
+            "id": 6871,
+            "title": "Lohikäärmeitä ja kuolemattomia",
+            "subtitle": "Maailman taruaarteet, Kiina",
+            "orig_title": "Dragons, Gods & Spirits from Chinese Mythology",
+            "pubyear": 1980,
+            "bookseriesnum": "4",
+            "bookseriesorder": 4,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Sanders, Tao Tao Liu"
+          },
+          {
+            "id": 6872,
+            "title": "Poppamiehiä ja karhukansaa",
+            "subtitle": "Maailman taruaarteet, Pohjois-Amerikka",
+            "orig_title": "Spirits, Heroes and Hunters from North American Indian Mythology",
+            "pubyear": 1981,
+            "bookseriesnum": "5",
+            "bookseriesorder": 5,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Wood, Marion"
+          },
+          {
+            "id": 6873,
+            "title": "Kadonneita kaupunkeja ja kauniita prinsessoja",
+            "subtitle": "Maailman taruaarteet, Arabia",
+            "orig_title": "Fabled Cities, Princes & Jinn from Arab Myths and Legends",
+            "pubyear": 1985,
+            "bookseriesnum": "6",
+            "bookseriesorder": 6,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Al-Saleh, Khairat"
+          },
+          {
+            "id": 6874,
+            "title": "Keisareita ja taikavoimia",
+            "subtitle": "Maailman taruaarteet, Rooma",
+            "orig_title": "Heroes, Gods & Emperors from Roman Mythology",
+            "pubyear": 1983,
+            "bookseriesnum": "7",
+            "bookseriesorder": 7,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Usher, Kerry"
+          },
+          {
+            "id": 6875,
+            "title": "Taikaeläimiä ja pahoja henkiä",
+            "subtitle": "Maailman taruaarteet, Afrikka",
+            "orig_title": "Kings, Gods & Spirits from African Mythology",
+            "pubyear": 1986,
+            "bookseriesnum": "8",
+            "bookseriesorder": 8,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Knappert, Jan"
+          }
+        ],
+        "id": 830,
+        "name": "Maailman taruaarteet",
+        "orig_name": null,
+        "description": null,
+        "important": false,
+        "image_src": null,
+        "image_attr": null
+      },
+      {
+        "works": [
+          {
+            "id": 6883,
+            "title": "Kuolema ei katso aikaa",
+            "subtitle": "",
+            "orig_title": "The Frozen People",
+            "pubyear": 2025,
+            "bookseriesnum": "1",
+            "bookseriesorder": 1,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Griffiths, Elly"
+          }
+        ],
+        "id": 831,
+        "name": "Ali Dawson",
+        "orig_name": null,
+        "description": null,
+        "important": false,
+        "image_src": null,
+        "image_attr": null
+      },
+      {
+        "works": [
+          {
+            "id": 6885,
+            "title": "Ikiliekin kipinä",
+            "subtitle": "",
+            "orig_title": "Spark of the Everflame",
+            "pubyear": 2023,
+            "bookseriesnum": "1",
+            "bookseriesorder": 1,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Cole, Penn"
+          }
+        ],
+        "id": 832,
+        "name": "Emarionin saaga",
+        "orig_name": "The Kindred's Curse Saga",
+        "description": null,
+        "important": false,
+        "image_src": null,
+        "image_attr": null
+      },
+      {
+        "works": [
+          {
+            "id": 1366,
+            "title": "Vihreän planeetan kutsu",
+            "subtitle": "",
+            "orig_title": "Vihreän planeetan kutsu",
+            "pubyear": 1993,
+            "bookseriesnum": "1",
+            "bookseriesorder": 1,
+            "misc": "",
+            "description": "<p>Rakkautta luonnossa!</p>\r\n\r\n<p>Mystinen, romantiikkaa ja jännitystä pursuava esikoisromaani Palonis-planeetalta, 19 valovuoden päästä!</p>\r\n\r\n<p>Tämä kirja ei jätä ketään kylmäksi. Tapahtumat etenevät luonnon ehdoilla lämpimän koskettavina.</p>\r\n\r\n<p>Teos on syntynyt kolmesta unesta, jotka muodostavat sen teeman. Erilainen, kiehtova lukukokemus, joka antaa siivet lukijan omalle mielikuvitukselle.</p>",
+            "descr_attr": null,
+            "imported_string": "",
+            "author_str": "Suikkari, Raimo"
+          },
+          {
+            "id": 6896,
+            "title": "Seikkailu mustan aukon takana",
+            "subtitle": "",
+            "orig_title": "",
+            "pubyear": 2023,
+            "bookseriesnum": "2",
+            "bookseriesorder": 2,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Suikkari, Raimo"
+          },
+          {
+            "id": 6897,
+            "title": "Matka Siniselle ja Valkoiselle planeetalle",
+            "subtitle": "",
+            "orig_title": "",
+            "pubyear": 2023,
+            "bookseriesnum": "3",
+            "bookseriesorder": 3,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Suikkari, Raimo"
+          }
+        ],
+        "id": 833,
+        "name": "Vihreän planeetan kutsu",
+        "orig_name": null,
+        "description": null,
+        "important": false,
+        "image_src": null,
+        "image_attr": null
+      },
+      {
+        "works": [
+          {
+            "id": 6902,
+            "title": "Titaanien aika",
+            "subtitle": "ensimmäinen kirja",
+            "orig_title": "",
+            "pubyear": 2022,
+            "bookseriesnum": "1",
+            "bookseriesorder": 1,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Kullberg, Anssi"
+          },
+          {
+            "id": 6903,
+            "title": "Elysion",
+            "subtitle": "Titaanien ajan toinen kirja",
+            "orig_title": "",
+            "pubyear": 2022,
+            "bookseriesnum": "2",
+            "bookseriesorder": 2,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Kullberg, Anssi"
+          },
+          {
+            "id": 6908,
+            "title": "Sangriala",
+            "subtitle": "Titaanien ajan kolmas kirja",
+            "orig_title": "",
+            "pubyear": 2023,
+            "bookseriesnum": "3",
+            "bookseriesorder": 3,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Kullberg, Anssi"
+          }
+        ],
+        "id": 834,
+        "name": "Titaanien aika",
+        "orig_name": null,
+        "description": null,
+        "important": false,
+        "image_src": null,
+        "image_attr": null
+      },
+      {
+        "works": [
+          {
+            "id": 6904,
+            "title": "Pako pyhälle planeetalle",
+            "subtitle": "",
+            "orig_title": "",
+            "pubyear": 2021,
+            "bookseriesnum": "1",
+            "bookseriesorder": 1,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Rask, Juhana"
+          },
+          {
+            "id": 6905,
+            "title": "Alaspäinpuu",
+            "subtitle": "",
+            "orig_title": "",
+            "pubyear": 2022,
+            "bookseriesnum": "2",
+            "bookseriesorder": 2,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Rask, Juhana"
+          },
+          {
+            "id": 6906,
+            "title": "Daalia ja Theseus",
+            "subtitle": "",
+            "orig_title": "",
+            "pubyear": 2023,
+            "bookseriesnum": "3",
+            "bookseriesorder": 3,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Rask, Juhana"
+          }
+        ],
+        "id": 835,
+        "name": "SCIFI etsivätoimistotrilogia",
         "orig_name": null,
         "description": null,
         "important": false,

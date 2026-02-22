@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-12T19:29:02.576341+00:00",
+    "generated_at": "2026-02-22T12:54:59.652358+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 37,
     "endpoint": "/api/pubseries",
@@ -3184,6 +3184,50 @@
             "coverimage": 1,
             "misc": "",
             "imported_string": "3.painos: Atschi!-pokkari. Schildts 2012.",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "id": 9333,
+                "image_src": "/static/images/books/Westin_Boel_Tovejanssonsanatkuvatelama_4p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": [
+              {
+                "id": 6864,
+                "title": "Tove Jansson : sanat, kuvat, elämä",
+                "subtitle": "",
+                "orig_title": "Tove Jansson: Ord, bild, liv",
+                "pubyear": 2007,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": null,
+                "descr_attr": "",
+                "imported_string": null,
+                "author_str": "Westin, Boel"
+              }
+            ],
+            "owners": [],
+            "wishlisted": [],
+            "id": 9809,
+            "title": "Tove Jansson : sanat, kuvat, elämä",
+            "subtitle": "",
+            "pubyear": 2013,
+            "editionnum": 4,
+            "version": 1,
+            "isbn": "978-951-52-3352-3",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 511,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "Kuvitettu.",
+            "imported_string": null,
             "verified": false
           }
         ],
@@ -50351,6 +50395,50 @@
           {
             "images": [
               {
+                "id": 9301,
+                "image_src": "/static/images/books/Brink_Aira_Memmoinarvat_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": [
+              {
+                "id": 6852,
+                "title": "Memmoin arvat",
+                "subtitle": "",
+                "orig_title": "",
+                "pubyear": 1952,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": null,
+                "descr_attr": "",
+                "imported_string": null,
+                "author_str": "Brink, Aira"
+              }
+            ],
+            "owners": [],
+            "wishlisted": [],
+            "id": 9787,
+            "title": "Memmoin arvat",
+            "subtitle": "",
+            "pubyear": 1952,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": null,
+            "printedin": null,
+            "pubseriesnum": 11,
+            "coll_info": null,
+            "pages": 265,
+            "size": null,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          },
+          {
+            "images": [
+              {
                 "id": 6994,
                 "image_src": "/static/images/books/Bang-Hansen_Odd_Portaathalkiaikojen_1p.jpg",
                 "image_attr": null
@@ -80582,6 +80670,50 @@
             "misc": "",
             "imported_string": "",
             "verified": true
+          },
+          {
+            "images": [
+              {
+                "id": 9256,
+                "image_src": "/static/images/books/Carpenter_Humphrey_JRRTolkien_3p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": [
+              {
+                "id": 6815,
+                "title": "J. R. R. Tolkien",
+                "subtitle": "elämäkerta",
+                "orig_title": "J. R. R. Tolkien: A Biography",
+                "pubyear": 1977,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": "<p>J. R. R. Tolkien loi kirjoissaa <em>Hobitti</em>, <em>Taru sormusten herrasta</em> ja <em>Silmarillion</em> omintakeisen mytologian, jota kansoittavat örkit, velhot ja entit. Kun Humphrey Carpenter kirjoitti Tolkienin kiitettyä elämäkertaa, hän sai käyttää vapaasti tämän kirjeitä ja päiväkirjoja. Niistä kävi ilmi, että Tolkien suhtautui fantasioihinsa kuin todella tapahtuneeseen historiaan.</p><p>J. R. R. Tolkien syntyi Etelä-Afrikassa, muutti sitten Englantiin mutta jäi pian orvoksi. Hän kasvoi katolisen papin holhouksessa, koki kielletyn rakkauden ja taisteli ensimmäisen maailmansodan juoksuhaudoissa. Englannin kielen professorina Oxfordissa Tolkien kuului tiiviiseen kirjailijapiiriin ja solmi läheisen ystävyyssuhteen toisen fantasian mestarin, C. S. Lewisin kanssa. Tolkien tutki muinaisia kieleiä ja ihastui erityisesti suomen kieleen ja <em>Kalevalaan</em>. Hän sepitti haltiakielen, ja Keski-Maan ihmeellinen tarumaailma alkoi hahmottua...</p>",
+                "descr_attr": "Takakansi",
+                "imported_string": null,
+                "author_str": "Carpenter, Humphrey"
+              }
+            ],
+            "owners": [],
+            "wishlisted": [],
+            "id": 9743,
+            "title": "Tolkien : elämäkerta",
+            "subtitle": null,
+            "pubyear": 2002,
+            "editionnum": 3,
+            "version": 1,
+            "isbn": "952-459-222-3",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 343,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": false
           }
         ],
         "id": 238,
@@ -97067,10 +97199,328 @@
             "misc": "Kuvitettu.",
             "imported_string": null,
             "verified": false
+          },
+          {
+            "images": [
+              {
+                "id": 9247,
+                "image_src": "/static/images/books/Korpua_Hirsjarvi_Kovala_Valisalo_Fantasia_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": [
+              {
+                "id": 6808,
+                "title": "Fantasia",
+                "subtitle": "lajit, ilmiö ja yhteiskunta",
+                "orig_title": "",
+                "pubyear": 2021,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": "<p>Fantasia. Lajit, ilmiö ja yhteiskunta on ensimmäinen laaja suomenkielinen fantasiakirjallisuuden historiaa, alalajeja ja nykytrendejä käsittelevä oppi- ja tietokirja. Teos esittelee lajihistoriaa tyypillisten aiheiden ja klassikkoteosten avulla, mutta myös fantasian vuorovaikutusta muiden lajien ja lajeihin ja taiteiden kanssa sekä fantasian kulttuurisia merkityksiä.</p><p>Kirja tarjoaa vastauksia sellaisiin perustavanlaatuisiin kysymyksiin kuin ”mitä fantasia on”, ”millainen on fantasian traditio”, ”mitä ovat fantasian erilaiset kulttuurit”, ”miksi fantasiaa luetaan” ja ”miksi ja kuinka fantasiaa tutkitaan”. Miten fantasia tai fantastinen eli mielikuvituksellinen on noussut niin merkittävään asemaan alati teknistyvässä ja kylmien arvojen hallitsemassa maailmassamme? Tarjoaako fantasia suurten massojen toivomaa eskapismia eli todellisuuspakoa, joka juurikin etäännyttää tästä kylmästä reaalimaailmastamme? Onko fantasia kenties viimeinen vaihtoehto, jonka avulla yritetään paeta raskasta todellisuuttamme, vai onko se päinvastoin keino käsitellä keskeisiä yhteiskunnallisia ja eettisiä kysymyksiä tai perustavia identiteettiongelmia ja toiseuden haasteita? Teos osoittaa, että se on näitä kaikkia ja paljon muutakin.</p><p><br></p><p>Sisällys:</p><p>I Fantasian historia</p><p>II Fantasian alalajien ja ilmiöiden kirjo</p><p>III Fantasian yleisöt ja yhteiskunta</p><p>IV Lähestymistapoja fantasian tutkimukseen</p><p>Indeksi</p><p>Summary</p><p>Kirjoittajat</p><p><br></p>",
+                "descr_attr": "",
+                "imported_string": null,
+                "author_str": "Hirsjärvi, Irma & Korpua, Jyrki & Kovala, Urpo & Välisalo, Tanja (toim.)"
+              }
+            ],
+            "owners": [],
+            "wishlisted": [],
+            "id": 9734,
+            "title": "Fantasia",
+            "subtitle": "lajit, ilmiö ja yhteiskunta",
+            "pubyear": 2021,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-951-39-8698-8",
+            "printedin": null,
+            "pubseriesnum": 130,
+            "coll_info": null,
+            "pages": 539,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
           }
         ],
         "id": 298,
         "name": "Nykykulttuurin tutkimuskeskuksen julkaisuja",
+        "description": null,
+        "important": false,
+        "image_src": null,
+        "image_attr": null
+      },
+      {
+        "publisher": {
+          "id": 502,
+          "name": "Epic Ermine",
+          "fullname": "Epic Ermine",
+          "description": null,
+          "image_src": null,
+          "image_attr": null
+        },
+        "editions": [
+          {
+            "images": [
+              {
+                "id": 9298,
+                "image_src": "/static/images/books/Jackson_Livingstone_Varjovuorenvaltias_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": [
+              {
+                "id": 3281,
+                "title": "Velhovuoren aarre",
+                "subtitle": "",
+                "orig_title": "The Warlock of Firetop Mountain",
+                "pubyear": 1982,
+                "bookseriesnum": "1",
+                "bookseriesorder": 1,
+                "misc": "",
+                "description": null,
+                "descr_attr": null,
+                "imported_string": "",
+                "author_str": "Jackson, Steve & Livingstone, Ian"
+              }
+            ],
+            "owners": [],
+            "wishlisted": [],
+            "id": 9784,
+            "title": "Varjovuoren valtias",
+            "subtitle": "",
+            "pubyear": 2025,
+            "editionnum": 1,
+            "version": 2,
+            "isbn": "978-952-69727-8-7",
+            "printedin": null,
+            "pubseriesnum": 1,
+            "coll_info": "",
+            "pages": 216,
+            "size": 20,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "id": 9299,
+                "image_src": "/static/images/books/Livingstone_Ian_Tuhontyrmat_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": [
+              {
+                "id": 6850,
+                "title": "Tuhon tyrmät",
+                "subtitle": "",
+                "orig_title": "Deathtrap Dungeon",
+                "pubyear": 1984,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": null,
+                "descr_attr": "",
+                "imported_string": null,
+                "author_str": "Livingstone, Ian"
+              }
+            ],
+            "owners": [],
+            "wishlisted": [],
+            "id": 9785,
+            "title": "Tuhon tyrmät",
+            "subtitle": "",
+            "pubyear": 2025,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-69727-9-4",
+            "printedin": null,
+            "pubseriesnum": 2,
+            "coll_info": null,
+            "pages": 2016,
+            "size": 20,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "id": 9300,
+                "image_src": "/static/images/books/Livingstone_Ian_Paluuvarjovuorelle_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": [
+              {
+                "id": 6851,
+                "title": "Paluu Varjovuorelle",
+                "subtitle": "",
+                "orig_title": "Return to Firetop Mountain",
+                "pubyear": 1992,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": null,
+                "descr_attr": "",
+                "imported_string": null,
+                "author_str": "Livingstone, Ian"
+              }
+            ],
+            "owners": [],
+            "wishlisted": [],
+            "id": 9786,
+            "title": "Paluu Varjovuorelle",
+            "subtitle": "",
+            "pubyear": 2025,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-65721-0-9",
+            "printedin": null,
+            "pubseriesnum": 3,
+            "coll_info": null,
+            "pages": 216,
+            "size": 20,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "id": 300,
+        "name": "Fighting Fantasy",
+        "description": null,
+        "important": false,
+        "image_src": null,
+        "image_attr": null
+      },
+      {
+        "publisher": {
+          "id": 127,
+          "name": "Kansankulttuuri",
+          "fullname": "Kansankulttuuri",
+          "description": null,
+          "image_src": null,
+          "image_attr": null
+        },
+        "editions": [
+          {
+            "images": [
+              {
+                "id": 9302,
+                "image_src": "/static/images/books/Brink_Aira_Memmoinarvat_2l1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": [
+              {
+                "id": 6852,
+                "title": "Memmoin arvat",
+                "subtitle": "",
+                "orig_title": "",
+                "pubyear": 1952,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": null,
+                "descr_attr": "",
+                "imported_string": null,
+                "author_str": "Brink, Aira"
+              }
+            ],
+            "owners": [],
+            "wishlisted": [],
+            "id": 9788,
+            "title": "Memmoin arvat",
+            "subtitle": "",
+            "pubyear": 1980,
+            "editionnum": 1,
+            "version": 2,
+            "isbn": "951-615-279-1",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 268,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": "",
+            "imported_string": "",
+            "verified": false
+          }
+        ],
+        "id": 301,
+        "name": "Kansankulttuurin nuorten kirjasto",
+        "description": null,
+        "important": false,
+        "image_src": null,
+        "image_attr": null
+      },
+      {
+        "publisher": {
+          "id": 494,
+          "name": "Jyväskylän yliopisto",
+          "fullname": "Jyväskylän yliopisto",
+          "description": null,
+          "image_src": null,
+          "image_attr": null
+        },
+        "editions": [
+          {
+            "images": [
+              {
+                "id": 9324,
+                "image_src": "/static/images/books/Hirsjarvi_Irma_Kasvatuksentulevaisuudenkuvattieteiskirjallisuudessa_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": [
+              {
+                "id": 6857,
+                "title": "Kasvatuksen tulevaisuudenkuvat tieteiskirjallisuudessa",
+                "subtitle": "koulutus- ja tietoyhteiskunta -tutkimuksen osaraportti",
+                "orig_title": "",
+                "pubyear": 1986,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": null,
+                "descr_attr": "",
+                "imported_string": null,
+                "author_str": "Hirsjärvi, Irma & Hirsjärvi, Sirkka"
+              }
+            ],
+            "owners": [],
+            "wishlisted": [],
+            "id": 9801,
+            "title": "Kasvatuksen tulevaisuudenkuvat tieteiskirjallisuudessa",
+            "subtitle": "koulutus- ja tietoyhteiskunta -tutkimuksen osaraportti",
+            "pubyear": 1986,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "951-679-563-3",
+            "printedin": null,
+            "pubseriesnum": 2,
+            "coll_info": null,
+            "pages": 131,
+            "size": 25,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "Kuvitettu.",
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "id": 302,
+        "name": "Kasvatustieteiden tutkimuslaitoksen julkaisusarja, B, Teoriaa ja käytäntöä",
         "description": null,
         "important": false,
         "image_src": null,

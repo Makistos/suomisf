@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-12T19:29:02.576341+00:00",
+    "generated_at": "2026-02-22T12:54:59.652358+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 37,
     "endpoint": "/api/latest/people/5",
@@ -11,21 +11,21 @@
     "status_code": 200,
     "data": [
       {
-        "id": 7625.0,
-        "name": "Luoto, Anne",
-        "alt_name": "Anne Luoto",
+        "id": 7752.0,
+        "name": "Vuolio, Hannu",
+        "alt_name": "Hannu Vuolio",
         "fullname": "",
         "image_src": null,
         "dob": null,
         "dod": null,
         "roles": [
-          "Kansikuva"
+          "Kirjoittaja"
         ],
         "nationality": {
           "id": 4,
           "name": "Suomi"
         },
-        "workcount": 0.0,
+        "workcount": 3.0,
         "storycount": 0,
         "other_names": "",
         "first_name": null,
@@ -36,21 +36,21 @@
         "imported_string": null
       },
       {
-        "id": 7624.0,
-        "name": "Myllykoski, Jari",
-        "alt_name": "Jari Myllykoski",
+        "id": 7751.0,
+        "name": "Rask, Juhana",
+        "alt_name": "Juhana Rask",
         "fullname": "",
         "image_src": null,
         "dob": null,
         "dod": null,
         "roles": [
-          "Kansikuva"
+          "Kirjoittaja"
         ],
         "nationality": {
           "id": 4,
           "name": "Suomi"
         },
-        "workcount": 0.0,
+        "workcount": 4.0,
         "storycount": 0,
         "other_names": "",
         "first_name": null,
@@ -61,15 +61,40 @@
         "imported_string": null
       },
       {
-        "id": 7623.0,
-        "name": "Siivonen, Timo",
-        "alt_name": "Timo Siivonen",
+        "id": 7750.0,
+        "name": "Kullberg, Anssi",
+        "alt_name": "Anssi Kullberg",
         "fullname": "",
         "image_src": null,
         "dob": null,
         "dod": null,
         "roles": [
-          "Toimittaja"
+          "Kirjoittaja"
+        ],
+        "nationality": {
+          "id": 4,
+          "name": "Suomi"
+        },
+        "workcount": 3.0,
+        "storycount": 0,
+        "other_names": "",
+        "first_name": null,
+        "last_name": null,
+        "image_attr": null,
+        "bio": "",
+        "bio_src": "",
+        "imported_string": null
+      },
+      {
+        "id": 7749.0,
+        "name": "Lepola, Sonja",
+        "alt_name": "Sonja, Lepola",
+        "fullname": "",
+        "image_src": null,
+        "dob": null,
+        "dod": null,
+        "roles": [
+          "Kirjoittaja"
         ],
         "nationality": {
           "id": 4,
@@ -86,15 +111,15 @@
         "imported_string": null
       },
       {
-        "id": 7622.0,
-        "name": "Mikkonen, Kai",
-        "alt_name": "Kai Mikkonen",
-        "fullname": "Kai Henrik Mikkonen",
+        "id": 7748.0,
+        "name": "Luhtakorpi, Norma",
+        "alt_name": "Norma Luhtakorpi",
+        "fullname": "",
         "image_src": null,
-        "dob": 1965.0,
+        "dob": null,
         "dod": null,
         "roles": [
-          "Toimittaja"
+          "Kirjoittaja"
         ],
         "nationality": {
           "id": 4,
@@ -102,31 +127,6 @@
         },
         "workcount": 1.0,
         "storycount": 0,
-        "other_names": "",
-        "first_name": null,
-        "last_name": null,
-        "image_attr": null,
-        "bio": "",
-        "bio_src": "",
-        "imported_string": null
-      },
-      {
-        "id": 7621.0,
-        "name": "Bogdanov, Aleksandr",
-        "alt_name": "Aleksandr Bogdanov",
-        "fullname": "",
-        "image_src": null,
-        "dob": 1873.0,
-        "dod": 1928.0,
-        "roles": [
-          "Esiintyy"
-        ],
-        "nationality": {
-          "id": 10,
-          "name": "Venäjä"
-        },
-        "workcount": 0.0,
-        "storycount": 1,
         "other_names": "",
         "first_name": null,
         "last_name": null,

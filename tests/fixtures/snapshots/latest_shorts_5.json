@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-12T19:29:02.576341+00:00",
+    "generated_at": "2026-02-22T12:54:59.652358+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 37,
     "endpoint": "/api/latest/shorts/5",
@@ -13,644 +13,12 @@
       {
         "authors": [
           {
-            "id": 3827.0,
-            "name": "Savolainen, Matti",
-            "alt_name": "Matti Savolainen",
+            "id": 781.0,
+            "name": "Soikkeli, M. G.",
+            "alt_name": "M. G. Soikkeli",
             "fullname": "",
             "image_src": null,
-            "dob": 1949.0,
-            "dod": 2012.0,
-            "roles": [
-              "Esiintyy",
-              "Kirjoittaja",
-              "Toimittaja",
-              "Kääntäjä"
-            ],
-            "nationality": {
-              "id": 4,
-              "name": "Suomi"
-            },
-            "workcount": 2.0,
-            "storycount": 12,
-            "other_names": null,
-            "first_name": "Matti",
-            "last_name": "Savolainen",
-            "image_attr": "",
-            "bio": null,
-            "bio_src": "",
-            "imported_string": null
-          }
-        ],
-        "type": {
-          "id": 7,
-          "name": "Artikkeli"
-        },
-        "issues": [],
-        "editions": [
-          {
-            "work": [
-              {
-                "id": 6802.0,
-                "title": "Tieteiskirjallisuuden maailmoita",
-                "orig_title": "",
-                "author_str": "Savolainen, Matti (toim.)",
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 3827.0,
-                      "name": "Savolainen, Matti",
-                      "alt_name": "Matti Savolainen"
-                    },
-                    "role": {
-                      "id": 3,
-                      "name": "Toimittaja"
-                    },
-                    "description": "",
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [
-                      {
-                        "id": 3827.0,
-                        "name": "Savolainen, Matti",
-                        "alt_name": "Matti Savolainen",
-                        "fullname": "",
-                        "image_src": null,
-                        "dob": 1949.0,
-                        "dod": 2012.0,
-                        "roles": [
-                          "Esiintyy",
-                          "Kirjoittaja",
-                          "Toimittaja",
-                          "Kääntäjä"
-                        ],
-                        "nationality": {
-                          "id": 4,
-                          "name": "Suomi"
-                        },
-                        "workcount": 2.0,
-                        "storycount": 12,
-                        "other_names": null,
-                        "first_name": "Matti",
-                        "last_name": "Savolainen",
-                        "image_attr": "",
-                        "bio": null,
-                        "bio_src": "",
-                        "imported_string": null
-                      }
-                    ],
-                    "translators": [
-                      {
-                        "id": 3827.0,
-                        "name": "Savolainen, Matti",
-                        "alt_name": "Matti Savolainen",
-                        "fullname": "",
-                        "image_src": null,
-                        "dob": 1949.0,
-                        "dod": 2012.0,
-                        "roles": [
-                          "Esiintyy",
-                          "Kirjoittaja",
-                          "Toimittaja",
-                          "Kääntäjä"
-                        ],
-                        "nationality": {
-                          "id": 4,
-                          "name": "Suomi"
-                        },
-                        "workcount": 2.0,
-                        "storycount": 12,
-                        "other_names": null,
-                        "first_name": "Matti",
-                        "last_name": "Savolainen",
-                        "image_attr": "",
-                        "bio": null,
-                        "bio_src": "",
-                        "imported_string": null
-                      }
-                    ],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 7574.0,
-                          "name": "Brola, Tarja",
-                          "alt_name": "Tarja Brola"
-                        },
-                        "role": {
-                          "id": 4,
-                          "name": "Kansikuva"
-                        },
-                        "description": "Kansi",
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 9241,
-                        "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 493,
-                      "name": "Kirjastopalvelu"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 9728,
-                    "title": "Tieteiskirjallisuuden maailmoita",
-                    "subtitle": "",
-                    "pubyear": 1987,
-                    "editionnum": 1,
-                    "version": 1,
-                    "isbn": "951-692-185-X",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": null,
-                    "pages": 205,
-                    "size": 21,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": null,
-                    "imported_string": null,
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 5,
-                    "name": "Science Fiction",
-                    "abbr": "SF"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
-                },
-                "type": 4.0,
-                "subtitle": "",
-                "pubyear": 1987,
-                "bookseriesnum": "",
-                "bookseriesorder": null,
-                "misc": "",
-                "description": null,
-                "descr_attr": "",
-                "imported_string": null
-              }
-            ],
-            "editors": [
-              {
-                "id": 3827.0,
-                "name": "Savolainen, Matti",
-                "alt_name": "Matti Savolainen",
-                "fullname": "",
-                "image_src": null,
-                "dob": 1949.0,
-                "dod": 2012.0,
-                "roles": [
-                  "Esiintyy",
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kääntäjä"
-                ],
-                "nationality": {
-                  "id": 4,
-                  "name": "Suomi"
-                },
-                "workcount": 2.0,
-                "storycount": 12,
-                "other_names": null,
-                "first_name": "Matti",
-                "last_name": "Savolainen",
-                "image_attr": "",
-                "bio": null,
-                "bio_src": "",
-                "imported_string": null
-              }
-            ],
-            "contributions": [
-              {
-                "person": {
-                  "id": 7574.0,
-                  "name": "Brola, Tarja",
-                  "alt_name": "Tarja Brola"
-                },
-                "role": {
-                  "id": 4,
-                  "name": "Kansikuva"
-                },
-                "description": "Kansi",
-                "real_person": null
-              }
-            ],
-            "images": [
-              {
-                "id": 9241,
-                "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "publisher": {
-              "id": 493,
-              "name": "Kirjastopalvelu"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "binding": {
-              "id": 2,
-              "name": "Nidottu"
-            },
-            "id": 9728,
-            "title": "Tieteiskirjallisuuden maailmoita",
-            "subtitle": "",
-            "pubyear": 1987,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "951-692-185-X",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 205,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": null,
-            "verified": false
-          }
-        ],
-        "genres": [
-          {
-            "id": 5,
-            "name": "Science Fiction",
-            "abbr": "SF"
-          }
-        ],
-        "contributors": [
-          {
-            "person": {
-              "id": 3827.0,
-              "name": "Savolainen, Matti",
-              "alt_name": "Matti Savolainen"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 3827.0,
-              "name": "Savolainen, Matti",
-              "alt_name": "Matti Savolainen"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "lang": {
-          "id": 7,
-          "name": "suomi"
-        },
-        "id": 15143,
-        "title": "Tieteen tulevaisuudesta ja tieteen tekemisen ehdoista tieteiskirjallisuudessa",
-        "orig_title": "",
-        "pubyear": 1985
-      },
-      {
-        "authors": [
-          {
-            "id": 200.0,
-            "name": "Nyman, Jukka",
-            "alt_name": "Jukka Nyman",
-            "fullname": "",
-            "image_src": null,
-            "dob": null,
-            "dod": null,
-            "roles": [
-              "Kääntäjä",
-              "Kirjoittaja"
-            ],
-            "nationality": {
-              "id": 4,
-              "name": "Suomi"
-            },
-            "workcount": 0.0,
-            "storycount": 86,
-            "other_names": null,
-            "first_name": "Jukka",
-            "last_name": "Nyman",
-            "image_attr": "",
-            "bio": null,
-            "bio_src": "",
-            "imported_string": "\n\n<b>Kaaoksen käsi</b>. Kuolemanportti 5. (The Hand of Chaos. The Death Gate Cycle, volume 5, 1993). Suom Jukka Nyman. Otava 1999. [F]."
-          }
-        ],
-        "type": {
-          "id": 7,
-          "name": "Artikkeli"
-        },
-        "issues": [],
-        "editions": [
-          {
-            "work": [
-              {
-                "id": 6802.0,
-                "title": "Tieteiskirjallisuuden maailmoita",
-                "orig_title": "",
-                "author_str": "Savolainen, Matti (toim.)",
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 3827.0,
-                      "name": "Savolainen, Matti",
-                      "alt_name": "Matti Savolainen"
-                    },
-                    "role": {
-                      "id": 3,
-                      "name": "Toimittaja"
-                    },
-                    "description": "",
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [
-                      {
-                        "id": 3827.0,
-                        "name": "Savolainen, Matti",
-                        "alt_name": "Matti Savolainen",
-                        "fullname": "",
-                        "image_src": null,
-                        "dob": 1949.0,
-                        "dod": 2012.0,
-                        "roles": [
-                          "Esiintyy",
-                          "Kirjoittaja",
-                          "Toimittaja",
-                          "Kääntäjä"
-                        ],
-                        "nationality": {
-                          "id": 4,
-                          "name": "Suomi"
-                        },
-                        "workcount": 2.0,
-                        "storycount": 12,
-                        "other_names": null,
-                        "first_name": "Matti",
-                        "last_name": "Savolainen",
-                        "image_attr": "",
-                        "bio": null,
-                        "bio_src": "",
-                        "imported_string": null
-                      }
-                    ],
-                    "translators": [
-                      {
-                        "id": 3827.0,
-                        "name": "Savolainen, Matti",
-                        "alt_name": "Matti Savolainen",
-                        "fullname": "",
-                        "image_src": null,
-                        "dob": 1949.0,
-                        "dod": 2012.0,
-                        "roles": [
-                          "Esiintyy",
-                          "Kirjoittaja",
-                          "Toimittaja",
-                          "Kääntäjä"
-                        ],
-                        "nationality": {
-                          "id": 4,
-                          "name": "Suomi"
-                        },
-                        "workcount": 2.0,
-                        "storycount": 12,
-                        "other_names": null,
-                        "first_name": "Matti",
-                        "last_name": "Savolainen",
-                        "image_attr": "",
-                        "bio": null,
-                        "bio_src": "",
-                        "imported_string": null
-                      }
-                    ],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 7574.0,
-                          "name": "Brola, Tarja",
-                          "alt_name": "Tarja Brola"
-                        },
-                        "role": {
-                          "id": 4,
-                          "name": "Kansikuva"
-                        },
-                        "description": "Kansi",
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 9241,
-                        "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 493,
-                      "name": "Kirjastopalvelu"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 9728,
-                    "title": "Tieteiskirjallisuuden maailmoita",
-                    "subtitle": "",
-                    "pubyear": 1987,
-                    "editionnum": 1,
-                    "version": 1,
-                    "isbn": "951-692-185-X",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": null,
-                    "pages": 205,
-                    "size": 21,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": null,
-                    "imported_string": null,
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 5,
-                    "name": "Science Fiction",
-                    "abbr": "SF"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
-                },
-                "type": 4.0,
-                "subtitle": "",
-                "pubyear": 1987,
-                "bookseriesnum": "",
-                "bookseriesorder": null,
-                "misc": "",
-                "description": null,
-                "descr_attr": "",
-                "imported_string": null
-              }
-            ],
-            "editors": [
-              {
-                "id": 3827.0,
-                "name": "Savolainen, Matti",
-                "alt_name": "Matti Savolainen",
-                "fullname": "",
-                "image_src": null,
-                "dob": 1949.0,
-                "dod": 2012.0,
-                "roles": [
-                  "Esiintyy",
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kääntäjä"
-                ],
-                "nationality": {
-                  "id": 4,
-                  "name": "Suomi"
-                },
-                "workcount": 2.0,
-                "storycount": 12,
-                "other_names": null,
-                "first_name": "Matti",
-                "last_name": "Savolainen",
-                "image_attr": "",
-                "bio": null,
-                "bio_src": "",
-                "imported_string": null
-              }
-            ],
-            "contributions": [
-              {
-                "person": {
-                  "id": 7574.0,
-                  "name": "Brola, Tarja",
-                  "alt_name": "Tarja Brola"
-                },
-                "role": {
-                  "id": 4,
-                  "name": "Kansikuva"
-                },
-                "description": "Kansi",
-                "real_person": null
-              }
-            ],
-            "images": [
-              {
-                "id": 9241,
-                "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "publisher": {
-              "id": 493,
-              "name": "Kirjastopalvelu"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "binding": {
-              "id": 2,
-              "name": "Nidottu"
-            },
-            "id": 9728,
-            "title": "Tieteiskirjallisuuden maailmoita",
-            "subtitle": "",
-            "pubyear": 1987,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "951-692-185-X",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 205,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": null,
-            "verified": false
-          }
-        ],
-        "genres": [
-          {
-            "id": 5,
-            "name": "Science Fiction",
-            "abbr": "SF"
-          }
-        ],
-        "contributors": [
-          {
-            "person": {
-              "id": 200.0,
-              "name": "Nyman, Jukka",
-              "alt_name": "Jukka Nyman"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 200.0,
-              "name": "Nyman, Jukka",
-              "alt_name": "Jukka Nyman"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "lang": {
-          "id": 7,
-          "name": "suomi"
-        },
-        "id": 15142,
-        "title": "Järjen vallasta myyttien rinnakkaiseloon – uskonto science fictionissa",
-        "orig_title": "",
-        "pubyear": 1987
-      },
-      {
-        "authors": [
-          {
-            "id": 368.0,
-            "name": "Sinisalo, Johanna",
-            "alt_name": "Johanna Sinisalo",
-            "fullname": "Aila Johanna Sinisalo",
-            "image_src": null,
-            "dob": 1958.0,
+            "dob": 1963.0,
             "dod": null,
             "roles": [
               "Kirjoittaja",
@@ -662,354 +30,40 @@
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 15.0,
-            "storycount": 127,
-            "other_names": null,
-            "first_name": "Johanna",
-            "last_name": "Sinisalo",
-            "image_attr": "",
-            "bio": null,
-            "bio_src": "",
-            "imported_string": null
-          }
-        ],
-        "type": {
-          "id": 7,
-          "name": "Artikkeli"
-        },
-        "issues": [],
-        "editions": [
-          {
-            "work": [
-              {
-                "id": 6802.0,
-                "title": "Tieteiskirjallisuuden maailmoita",
-                "orig_title": "",
-                "author_str": "Savolainen, Matti (toim.)",
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 3827.0,
-                      "name": "Savolainen, Matti",
-                      "alt_name": "Matti Savolainen"
-                    },
-                    "role": {
-                      "id": 3,
-                      "name": "Toimittaja"
-                    },
-                    "description": "",
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [
-                      {
-                        "id": 3827.0,
-                        "name": "Savolainen, Matti",
-                        "alt_name": "Matti Savolainen",
-                        "fullname": "",
-                        "image_src": null,
-                        "dob": 1949.0,
-                        "dod": 2012.0,
-                        "roles": [
-                          "Esiintyy",
-                          "Kirjoittaja",
-                          "Toimittaja",
-                          "Kääntäjä"
-                        ],
-                        "nationality": {
-                          "id": 4,
-                          "name": "Suomi"
-                        },
-                        "workcount": 2.0,
-                        "storycount": 12,
-                        "other_names": null,
-                        "first_name": "Matti",
-                        "last_name": "Savolainen",
-                        "image_attr": "",
-                        "bio": null,
-                        "bio_src": "",
-                        "imported_string": null
-                      }
-                    ],
-                    "translators": [
-                      {
-                        "id": 3827.0,
-                        "name": "Savolainen, Matti",
-                        "alt_name": "Matti Savolainen",
-                        "fullname": "",
-                        "image_src": null,
-                        "dob": 1949.0,
-                        "dod": 2012.0,
-                        "roles": [
-                          "Esiintyy",
-                          "Kirjoittaja",
-                          "Toimittaja",
-                          "Kääntäjä"
-                        ],
-                        "nationality": {
-                          "id": 4,
-                          "name": "Suomi"
-                        },
-                        "workcount": 2.0,
-                        "storycount": 12,
-                        "other_names": null,
-                        "first_name": "Matti",
-                        "last_name": "Savolainen",
-                        "image_attr": "",
-                        "bio": null,
-                        "bio_src": "",
-                        "imported_string": null
-                      }
-                    ],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 7574.0,
-                          "name": "Brola, Tarja",
-                          "alt_name": "Tarja Brola"
-                        },
-                        "role": {
-                          "id": 4,
-                          "name": "Kansikuva"
-                        },
-                        "description": "Kansi",
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 9241,
-                        "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 493,
-                      "name": "Kirjastopalvelu"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 9728,
-                    "title": "Tieteiskirjallisuuden maailmoita",
-                    "subtitle": "",
-                    "pubyear": 1987,
-                    "editionnum": 1,
-                    "version": 1,
-                    "isbn": "951-692-185-X",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": null,
-                    "pages": 205,
-                    "size": 21,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": null,
-                    "imported_string": null,
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 5,
-                    "name": "Science Fiction",
-                    "abbr": "SF"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
-                },
-                "type": 4.0,
-                "subtitle": "",
-                "pubyear": 1987,
-                "bookseriesnum": "",
-                "bookseriesorder": null,
-                "misc": "",
-                "description": null,
-                "descr_attr": "",
-                "imported_string": null
-              }
-            ],
-            "editors": [
-              {
-                "id": 3827.0,
-                "name": "Savolainen, Matti",
-                "alt_name": "Matti Savolainen",
-                "fullname": "",
-                "image_src": null,
-                "dob": 1949.0,
-                "dod": 2012.0,
-                "roles": [
-                  "Esiintyy",
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kääntäjä"
-                ],
-                "nationality": {
-                  "id": 4,
-                  "name": "Suomi"
-                },
-                "workcount": 2.0,
-                "storycount": 12,
-                "other_names": null,
-                "first_name": "Matti",
-                "last_name": "Savolainen",
-                "image_attr": "",
-                "bio": null,
-                "bio_src": "",
-                "imported_string": null
-              }
-            ],
-            "contributions": [
-              {
-                "person": {
-                  "id": 7574.0,
-                  "name": "Brola, Tarja",
-                  "alt_name": "Tarja Brola"
-                },
-                "role": {
-                  "id": 4,
-                  "name": "Kansikuva"
-                },
-                "description": "Kansi",
-                "real_person": null
-              }
-            ],
-            "images": [
-              {
-                "id": 9241,
-                "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "publisher": {
-              "id": 493,
-              "name": "Kirjastopalvelu"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "binding": {
-              "id": 2,
-              "name": "Nidottu"
-            },
-            "id": 9728,
-            "title": "Tieteiskirjallisuuden maailmoita",
-            "subtitle": "",
-            "pubyear": 1987,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "951-692-185-X",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 205,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": null,
-            "verified": false
-          }
-        ],
-        "genres": [
-          {
-            "id": 5,
-            "name": "Science Fiction",
-            "abbr": "SF"
-          }
-        ],
-        "contributors": [
-          {
-            "person": {
-              "id": 368.0,
-              "name": "Sinisalo, Johanna",
-              "alt_name": "Johanna Sinisalo"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 368.0,
-              "name": "Sinisalo, Johanna",
-              "alt_name": "Johanna Sinisalo"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "lang": {
-          "id": 7,
-          "name": "suomi"
-        },
-        "id": 15141,
-        "title": "Kahvinkeittoa ja kirkumista – naiskuva angloamerikkalaisessa tieteiskirjallisuudessa",
-        "orig_title": "",
-        "pubyear": 1987
-      },
-      {
-        "authors": [
-          {
-            "id": 7620.0,
-            "name": "Laurinolli, Tuire",
-            "alt_name": "Tuire Laurinolli",
-            "fullname": "",
-            "image_src": null,
-            "dob": null,
-            "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
-            "nationality": {
-              "id": 4,
-              "name": "Suomi"
-            },
-            "workcount": 0.0,
-            "storycount": 1,
+            "workcount": 9.0,
+            "storycount": 246,
             "other_names": "",
-            "first_name": null,
-            "last_name": null,
-            "image_attr": null,
+            "first_name": "M.G.",
+            "last_name": "Soikkeli",
+            "image_attr": "",
             "bio": "",
             "bio_src": "",
             "imported_string": null
           }
         ],
         "type": {
-          "id": 7,
-          "name": "Artikkeli"
+          "id": 1,
+          "name": "Novelli"
         },
         "issues": [],
         "editions": [
           {
             "work": [
               {
-                "id": 6802.0,
-                "title": "Tieteiskirjallisuuden maailmoita",
+                "id": 6900.0,
+                "title": "Mies joka ampui Joshua Nasaretilaisen",
                 "orig_title": "",
-                "author_str": "Savolainen, Matti (toim.)",
+                "author_str": "Soikkeli, M. G.",
                 "contributions": [
                   {
                     "person": {
-                      "id": 3827.0,
-                      "name": "Savolainen, Matti",
-                      "alt_name": "Matti Savolainen"
+                      "id": 781.0,
+                      "name": "Soikkeli, M. G.",
+                      "alt_name": "M. G. Soikkeli"
                     },
                     "role": {
-                      "id": 3,
-                      "name": "Toimittaja"
+                      "id": 1,
+                      "name": "Kirjoittaja"
                     },
                     "description": "",
                     "real_person": null
@@ -1017,106 +71,34 @@
                 ],
                 "editions": [
                   {
-                    "editors": [
-                      {
-                        "id": 3827.0,
-                        "name": "Savolainen, Matti",
-                        "alt_name": "Matti Savolainen",
-                        "fullname": "",
-                        "image_src": null,
-                        "dob": 1949.0,
-                        "dod": 2012.0,
-                        "roles": [
-                          "Esiintyy",
-                          "Kirjoittaja",
-                          "Toimittaja",
-                          "Kääntäjä"
-                        ],
-                        "nationality": {
-                          "id": 4,
-                          "name": "Suomi"
-                        },
-                        "workcount": 2.0,
-                        "storycount": 12,
-                        "other_names": null,
-                        "first_name": "Matti",
-                        "last_name": "Savolainen",
-                        "image_attr": "",
-                        "bio": null,
-                        "bio_src": "",
-                        "imported_string": null
-                      }
-                    ],
-                    "translators": [
-                      {
-                        "id": 3827.0,
-                        "name": "Savolainen, Matti",
-                        "alt_name": "Matti Savolainen",
-                        "fullname": "",
-                        "image_src": null,
-                        "dob": 1949.0,
-                        "dod": 2012.0,
-                        "roles": [
-                          "Esiintyy",
-                          "Kirjoittaja",
-                          "Toimittaja",
-                          "Kääntäjä"
-                        ],
-                        "nationality": {
-                          "id": 4,
-                          "name": "Suomi"
-                        },
-                        "workcount": 2.0,
-                        "storycount": 12,
-                        "other_names": null,
-                        "first_name": "Matti",
-                        "last_name": "Savolainen",
-                        "image_attr": "",
-                        "bio": null,
-                        "bio_src": "",
-                        "imported_string": null
-                      }
-                    ],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 7574.0,
-                          "name": "Brola, Tarja",
-                          "alt_name": "Tarja Brola"
-                        },
-                        "role": {
-                          "id": 4,
-                          "name": "Kansikuva"
-                        },
-                        "description": "Kansi",
-                        "real_person": null
-                      }
-                    ],
+                    "editors": [],
+                    "translators": [],
+                    "contributions": [],
                     "images": [
                       {
-                        "id": 9241,
-                        "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
+                        "id": 9372,
+                        "image_src": "/static/images/books/Soikkeli_MG_Miesjokaampuijoshuanasaretilaisen_1p.jpg",
                         "image_attr": null
                       }
                     ],
                     "publisher": {
-                      "id": 493,
-                      "name": "Kirjastopalvelu"
+                      "id": 169,
+                      "name": "Helmivyö"
                     },
                     "owners": [],
                     "wishlisted": [],
-                    "id": 9728,
-                    "title": "Tieteiskirjallisuuden maailmoita",
-                    "subtitle": "",
-                    "pubyear": 1987,
+                    "id": 9846,
+                    "title": "Mies joka ampui Joshua Nasaretilaisen",
+                    "subtitle": "ja muita messiaanisia tarinoita",
+                    "pubyear": 2026,
                     "editionnum": 1,
                     "version": 1,
-                    "isbn": "951-692-185-X",
+                    "isbn": "978-952-7469-80-4",
                     "printedin": null,
                     "pubseriesnum": null,
                     "coll_info": null,
-                    "pages": 205,
-                    "size": 21,
+                    "pages": 144,
+                    "size": 19,
                     "dustcover": 1,
                     "coverimage": 1,
                     "misc": null,
@@ -1125,6 +107,16 @@
                   }
                 ],
                 "genres": [
+                  {
+                    "id": 1,
+                    "name": "Fantasia",
+                    "abbr": "F"
+                  },
+                  {
+                    "id": 2,
+                    "name": "Kauhu",
+                    "abbr": "K"
+                  },
                   {
                     "id": 5,
                     "name": "Science Fiction",
@@ -1137,9 +129,9 @@
                   "id": 7,
                   "name": "suomi"
                 },
-                "type": 4.0,
-                "subtitle": "",
-                "pubyear": 1987,
+                "type": 2.0,
+                "subtitle": "ja muita messiaanisia tarinoita",
+                "pubyear": 2026,
                 "bookseriesnum": "",
                 "bookseriesorder": null,
                 "misc": "",
@@ -1148,61 +140,18 @@
                 "imported_string": null
               }
             ],
-            "editors": [
-              {
-                "id": 3827.0,
-                "name": "Savolainen, Matti",
-                "alt_name": "Matti Savolainen",
-                "fullname": "",
-                "image_src": null,
-                "dob": 1949.0,
-                "dod": 2012.0,
-                "roles": [
-                  "Esiintyy",
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kääntäjä"
-                ],
-                "nationality": {
-                  "id": 4,
-                  "name": "Suomi"
-                },
-                "workcount": 2.0,
-                "storycount": 12,
-                "other_names": null,
-                "first_name": "Matti",
-                "last_name": "Savolainen",
-                "image_attr": "",
-                "bio": null,
-                "bio_src": "",
-                "imported_string": null
-              }
-            ],
-            "contributions": [
-              {
-                "person": {
-                  "id": 7574.0,
-                  "name": "Brola, Tarja",
-                  "alt_name": "Tarja Brola"
-                },
-                "role": {
-                  "id": 4,
-                  "name": "Kansikuva"
-                },
-                "description": "Kansi",
-                "real_person": null
-              }
-            ],
+            "editors": [],
+            "contributions": [],
             "images": [
               {
-                "id": 9241,
-                "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
+                "id": 9372,
+                "image_src": "/static/images/books/Soikkeli_MG_Miesjokaampuijoshuanasaretilaisen_1p.jpg",
                 "image_attr": null
               }
             ],
             "publisher": {
-              "id": 493,
-              "name": "Kirjastopalvelu"
+              "id": 169,
+              "name": "Helmivyö"
             },
             "owners": [],
             "wishlisted": [],
@@ -1210,18 +159,18 @@
               "id": 2,
               "name": "Nidottu"
             },
-            "id": 9728,
-            "title": "Tieteiskirjallisuuden maailmoita",
-            "subtitle": "",
-            "pubyear": 1987,
+            "id": 9846,
+            "title": "Mies joka ampui Joshua Nasaretilaisen",
+            "subtitle": "ja muita messiaanisia tarinoita",
+            "pubyear": 2026,
             "editionnum": 1,
             "version": 1,
-            "isbn": "951-692-185-X",
+            "isbn": "978-952-7469-80-4",
             "printedin": null,
             "pubseriesnum": null,
             "coll_info": null,
-            "pages": 205,
-            "size": 21,
+            "pages": 144,
+            "size": 19,
             "dustcover": 1,
             "coverimage": 1,
             "misc": null,
@@ -1229,19 +178,13 @@
             "verified": false
           }
         ],
-        "genres": [
-          {
-            "id": 5,
-            "name": "Science Fiction",
-            "abbr": "SF"
-          }
-        ],
+        "genres": [],
         "contributors": [
           {
             "person": {
-              "id": 7620.0,
-              "name": "Laurinolli, Tuire",
-              "alt_name": "Tuire Laurinolli"
+              "id": 781.0,
+              "name": "Soikkeli, M. G.",
+              "alt_name": "M. G. Soikkeli"
             },
             "role": {
               "id": 1,
@@ -1252,35 +195,9 @@
           },
           {
             "person": {
-              "id": 551.0,
-              "name": "Russ, Joanna",
-              "alt_name": "Joanna Russ"
-            },
-            "role": {
-              "id": 6,
-              "name": "Esiintyy"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 551.0,
-              "name": "Russ, Joanna",
-              "alt_name": "Joanna Russ"
-            },
-            "role": {
-              "id": 6,
-              "name": "Esiintyy"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 7620.0,
-              "name": "Laurinolli, Tuire",
-              "alt_name": "Tuire Laurinolli"
+              "id": 781.0,
+              "name": "Soikkeli, M. G.",
+              "alt_name": "M. G. Soikkeli"
             },
             "role": {
               "id": 1,
@@ -1294,64 +211,65 @@
           "id": 7,
           "name": "suomi"
         },
-        "id": 15140,
-        "title": "Joanna Russ – kuvien särkijä",
+        "id": 15356,
+        "title": "Lukijamatka",
         "orig_title": "",
-        "pubyear": 1987
+        "pubyear": 2026
       },
       {
         "authors": [
           {
-            "id": 3921.0,
-            "name": "Rantalaiho, Liisa",
-            "alt_name": "Liisa Rantalaiho",
+            "id": 781.0,
+            "name": "Soikkeli, M. G.",
+            "alt_name": "M. G. Soikkeli",
             "fullname": "",
             "image_src": null,
-            "dob": 1933.0,
+            "dob": 1963.0,
             "dod": null,
             "roles": [
               "Kirjoittaja",
-              "Kääntäjä",
-              "Esiintyy"
+              "Toimittaja",
+              "Esiintyy",
+              "Kääntäjä"
             ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 0.0,
-            "storycount": 55,
-            "other_names": null,
-            "first_name": "Liisa",
-            "last_name": "Rantalaiho",
+            "workcount": 9.0,
+            "storycount": 246,
+            "other_names": "",
+            "first_name": "M.G.",
+            "last_name": "Soikkeli",
             "image_attr": "",
-            "bio": null,
+            "bio": "",
             "bio_src": "",
             "imported_string": null
           }
         ],
         "type": {
-          "id": 7,
-          "name": "Artikkeli"
+          "id": 1,
+          "name": "Novelli"
         },
         "issues": [],
         "editions": [
           {
             "work": [
               {
-                "id": 6802.0,
-                "title": "Tieteiskirjallisuuden maailmoita",
+                "id": 6900.0,
+                "title": "Mies joka ampui Joshua Nasaretilaisen",
                 "orig_title": "",
-                "author_str": "Savolainen, Matti (toim.)",
+                "author_str": "Soikkeli, M. G.",
                 "contributions": [
                   {
                     "person": {
-                      "id": 3827.0,
-                      "name": "Savolainen, Matti",
-                      "alt_name": "Matti Savolainen"
+                      "id": 781.0,
+                      "name": "Soikkeli, M. G.",
+                      "alt_name": "M. G. Soikkeli"
                     },
                     "role": {
-                      "id": 3,
-                      "name": "Toimittaja"
+                      "id": 1,
+                      "name": "Kirjoittaja"
                     },
                     "description": "",
                     "real_person": null
@@ -1359,106 +277,34 @@
                 ],
                 "editions": [
                   {
-                    "editors": [
-                      {
-                        "id": 3827.0,
-                        "name": "Savolainen, Matti",
-                        "alt_name": "Matti Savolainen",
-                        "fullname": "",
-                        "image_src": null,
-                        "dob": 1949.0,
-                        "dod": 2012.0,
-                        "roles": [
-                          "Esiintyy",
-                          "Kirjoittaja",
-                          "Toimittaja",
-                          "Kääntäjä"
-                        ],
-                        "nationality": {
-                          "id": 4,
-                          "name": "Suomi"
-                        },
-                        "workcount": 2.0,
-                        "storycount": 12,
-                        "other_names": null,
-                        "first_name": "Matti",
-                        "last_name": "Savolainen",
-                        "image_attr": "",
-                        "bio": null,
-                        "bio_src": "",
-                        "imported_string": null
-                      }
-                    ],
-                    "translators": [
-                      {
-                        "id": 3827.0,
-                        "name": "Savolainen, Matti",
-                        "alt_name": "Matti Savolainen",
-                        "fullname": "",
-                        "image_src": null,
-                        "dob": 1949.0,
-                        "dod": 2012.0,
-                        "roles": [
-                          "Esiintyy",
-                          "Kirjoittaja",
-                          "Toimittaja",
-                          "Kääntäjä"
-                        ],
-                        "nationality": {
-                          "id": 4,
-                          "name": "Suomi"
-                        },
-                        "workcount": 2.0,
-                        "storycount": 12,
-                        "other_names": null,
-                        "first_name": "Matti",
-                        "last_name": "Savolainen",
-                        "image_attr": "",
-                        "bio": null,
-                        "bio_src": "",
-                        "imported_string": null
-                      }
-                    ],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 7574.0,
-                          "name": "Brola, Tarja",
-                          "alt_name": "Tarja Brola"
-                        },
-                        "role": {
-                          "id": 4,
-                          "name": "Kansikuva"
-                        },
-                        "description": "Kansi",
-                        "real_person": null
-                      }
-                    ],
+                    "editors": [],
+                    "translators": [],
+                    "contributions": [],
                     "images": [
                       {
-                        "id": 9241,
-                        "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
+                        "id": 9372,
+                        "image_src": "/static/images/books/Soikkeli_MG_Miesjokaampuijoshuanasaretilaisen_1p.jpg",
                         "image_attr": null
                       }
                     ],
                     "publisher": {
-                      "id": 493,
-                      "name": "Kirjastopalvelu"
+                      "id": 169,
+                      "name": "Helmivyö"
                     },
                     "owners": [],
                     "wishlisted": [],
-                    "id": 9728,
-                    "title": "Tieteiskirjallisuuden maailmoita",
-                    "subtitle": "",
-                    "pubyear": 1987,
+                    "id": 9846,
+                    "title": "Mies joka ampui Joshua Nasaretilaisen",
+                    "subtitle": "ja muita messiaanisia tarinoita",
+                    "pubyear": 2026,
                     "editionnum": 1,
                     "version": 1,
-                    "isbn": "951-692-185-X",
+                    "isbn": "978-952-7469-80-4",
                     "printedin": null,
                     "pubseriesnum": null,
                     "coll_info": null,
-                    "pages": 205,
-                    "size": 21,
+                    "pages": 144,
+                    "size": 19,
                     "dustcover": 1,
                     "coverimage": 1,
                     "misc": null,
@@ -1467,6 +313,16 @@
                   }
                 ],
                 "genres": [
+                  {
+                    "id": 1,
+                    "name": "Fantasia",
+                    "abbr": "F"
+                  },
+                  {
+                    "id": 2,
+                    "name": "Kauhu",
+                    "abbr": "K"
+                  },
                   {
                     "id": 5,
                     "name": "Science Fiction",
@@ -1479,9 +335,9 @@
                   "id": 7,
                   "name": "suomi"
                 },
-                "type": 4.0,
-                "subtitle": "",
-                "pubyear": 1987,
+                "type": 2.0,
+                "subtitle": "ja muita messiaanisia tarinoita",
+                "pubyear": 2026,
                 "bookseriesnum": "",
                 "bookseriesorder": null,
                 "misc": "",
@@ -1490,61 +346,18 @@
                 "imported_string": null
               }
             ],
-            "editors": [
-              {
-                "id": 3827.0,
-                "name": "Savolainen, Matti",
-                "alt_name": "Matti Savolainen",
-                "fullname": "",
-                "image_src": null,
-                "dob": 1949.0,
-                "dod": 2012.0,
-                "roles": [
-                  "Esiintyy",
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kääntäjä"
-                ],
-                "nationality": {
-                  "id": 4,
-                  "name": "Suomi"
-                },
-                "workcount": 2.0,
-                "storycount": 12,
-                "other_names": null,
-                "first_name": "Matti",
-                "last_name": "Savolainen",
-                "image_attr": "",
-                "bio": null,
-                "bio_src": "",
-                "imported_string": null
-              }
-            ],
-            "contributions": [
-              {
-                "person": {
-                  "id": 7574.0,
-                  "name": "Brola, Tarja",
-                  "alt_name": "Tarja Brola"
-                },
-                "role": {
-                  "id": 4,
-                  "name": "Kansikuva"
-                },
-                "description": "Kansi",
-                "real_person": null
-              }
-            ],
+            "editors": [],
+            "contributions": [],
             "images": [
               {
-                "id": 9241,
-                "image_src": "/static/images/books/Savolainen_Matti_Tieteiskirjallisuudenmaailmoita_1p.jpg",
+                "id": 9372,
+                "image_src": "/static/images/books/Soikkeli_MG_Miesjokaampuijoshuanasaretilaisen_1p.jpg",
                 "image_attr": null
               }
             ],
             "publisher": {
-              "id": 493,
-              "name": "Kirjastopalvelu"
+              "id": 169,
+              "name": "Helmivyö"
             },
             "owners": [],
             "wishlisted": [],
@@ -1552,18 +365,18 @@
               "id": 2,
               "name": "Nidottu"
             },
-            "id": 9728,
-            "title": "Tieteiskirjallisuuden maailmoita",
-            "subtitle": "",
-            "pubyear": 1987,
+            "id": 9846,
+            "title": "Mies joka ampui Joshua Nasaretilaisen",
+            "subtitle": "ja muita messiaanisia tarinoita",
+            "pubyear": 2026,
             "editionnum": 1,
             "version": 1,
-            "isbn": "951-692-185-X",
+            "isbn": "978-952-7469-80-4",
             "printedin": null,
             "pubseriesnum": null,
             "coll_info": null,
-            "pages": 205,
-            "size": 21,
+            "pages": 144,
+            "size": 19,
             "dustcover": 1,
             "coverimage": 1,
             "misc": null,
@@ -1571,19 +384,13 @@
             "verified": false
           }
         ],
-        "genres": [
-          {
-            "id": 5,
-            "name": "Science Fiction",
-            "abbr": "SF"
-          }
-        ],
+        "genres": [],
         "contributors": [
           {
             "person": {
-              "id": 3921.0,
-              "name": "Rantalaiho, Liisa",
-              "alt_name": "Liisa Rantalaiho"
+              "id": 781.0,
+              "name": "Soikkeli, M. G.",
+              "alt_name": "M. G. Soikkeli"
             },
             "role": {
               "id": 1,
@@ -1594,35 +401,9 @@
           },
           {
             "person": {
-              "id": 3104.0,
-              "name": "Delany, Samuel R.",
-              "alt_name": "Samuel R. Delany"
-            },
-            "role": {
-              "id": 6,
-              "name": "Esiintyy"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 3104.0,
-              "name": "Delany, Samuel R.",
-              "alt_name": "Samuel R. Delany"
-            },
-            "role": {
-              "id": 6,
-              "name": "Esiintyy"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 3921.0,
-              "name": "Rantalaiho, Liisa",
-              "alt_name": "Liisa Rantalaiho"
+              "id": 781.0,
+              "name": "Soikkeli, M. G.",
+              "alt_name": "M. G. Soikkeli"
             },
             "role": {
               "id": 1,
@@ -1636,10 +417,628 @@
           "id": 7,
           "name": "suomi"
         },
-        "id": 15139,
-        "title": "Samuel R. Delany: Todellisuutemme merkkejä Ei-koskaan -maassa",
+        "id": 15355,
+        "title": "Uusi Uljanov",
         "orig_title": "",
-        "pubyear": 1987
+        "pubyear": 2026
+      },
+      {
+        "authors": [
+          {
+            "id": 781.0,
+            "name": "Soikkeli, M. G.",
+            "alt_name": "M. G. Soikkeli",
+            "fullname": "",
+            "image_src": null,
+            "dob": 1963.0,
+            "dod": null,
+            "roles": [
+              "Kirjoittaja",
+              "Toimittaja",
+              "Esiintyy",
+              "Kääntäjä"
+            ],
+            "nationality": {
+              "id": 4,
+              "name": "Suomi"
+            },
+            "workcount": 9.0,
+            "storycount": 246,
+            "other_names": "",
+            "first_name": "M.G.",
+            "last_name": "Soikkeli",
+            "image_attr": "",
+            "bio": "",
+            "bio_src": "",
+            "imported_string": null
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        },
+        "issues": [],
+        "editions": [
+          {
+            "work": [
+              {
+                "id": 6900.0,
+                "title": "Mies joka ampui Joshua Nasaretilaisen",
+                "orig_title": "",
+                "author_str": "Soikkeli, M. G.",
+                "contributions": [
+                  {
+                    "person": {
+                      "id": 781.0,
+                      "name": "Soikkeli, M. G.",
+                      "alt_name": "M. G. Soikkeli"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  }
+                ],
+                "editions": [
+                  {
+                    "editors": [],
+                    "translators": [],
+                    "contributions": [],
+                    "images": [
+                      {
+                        "id": 9372,
+                        "image_src": "/static/images/books/Soikkeli_MG_Miesjokaampuijoshuanasaretilaisen_1p.jpg",
+                        "image_attr": null
+                      }
+                    ],
+                    "publisher": {
+                      "id": 169,
+                      "name": "Helmivyö"
+                    },
+                    "owners": [],
+                    "wishlisted": [],
+                    "id": 9846,
+                    "title": "Mies joka ampui Joshua Nasaretilaisen",
+                    "subtitle": "ja muita messiaanisia tarinoita",
+                    "pubyear": 2026,
+                    "editionnum": 1,
+                    "version": 1,
+                    "isbn": "978-952-7469-80-4",
+                    "printedin": null,
+                    "pubseriesnum": null,
+                    "coll_info": null,
+                    "pages": 144,
+                    "size": 19,
+                    "dustcover": 1,
+                    "coverimage": 1,
+                    "misc": null,
+                    "imported_string": null,
+                    "verified": false
+                  }
+                ],
+                "genres": [
+                  {
+                    "id": 1,
+                    "name": "Fantasia",
+                    "abbr": "F"
+                  },
+                  {
+                    "id": 2,
+                    "name": "Kauhu",
+                    "abbr": "K"
+                  },
+                  {
+                    "id": 5,
+                    "name": "Science Fiction",
+                    "abbr": "SF"
+                  }
+                ],
+                "bookseries": null,
+                "tags": [],
+                "language_name": {
+                  "id": 7,
+                  "name": "suomi"
+                },
+                "type": 2.0,
+                "subtitle": "ja muita messiaanisia tarinoita",
+                "pubyear": 2026,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": null,
+                "descr_attr": "",
+                "imported_string": null
+              }
+            ],
+            "editors": [],
+            "contributions": [],
+            "images": [
+              {
+                "id": 9372,
+                "image_src": "/static/images/books/Soikkeli_MG_Miesjokaampuijoshuanasaretilaisen_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 169,
+              "name": "Helmivyö"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "binding": {
+              "id": 2,
+              "name": "Nidottu"
+            },
+            "id": 9846,
+            "title": "Mies joka ampui Joshua Nasaretilaisen",
+            "subtitle": "ja muita messiaanisia tarinoita",
+            "pubyear": 2026,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-7469-80-4",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 144,
+            "size": 19,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [],
+        "contributors": [
+          {
+            "person": {
+              "id": 781.0,
+              "name": "Soikkeli, M. G.",
+              "alt_name": "M. G. Soikkeli"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 781.0,
+              "name": "Soikkeli, M. G.",
+              "alt_name": "M. G. Soikkeli"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "id": 15354,
+        "title": "Kilimanjaron joulu",
+        "orig_title": "",
+        "pubyear": 2026
+      },
+      {
+        "authors": [
+          {
+            "id": 781.0,
+            "name": "Soikkeli, M. G.",
+            "alt_name": "M. G. Soikkeli",
+            "fullname": "",
+            "image_src": null,
+            "dob": 1963.0,
+            "dod": null,
+            "roles": [
+              "Kirjoittaja",
+              "Toimittaja",
+              "Esiintyy",
+              "Kääntäjä"
+            ],
+            "nationality": {
+              "id": 4,
+              "name": "Suomi"
+            },
+            "workcount": 9.0,
+            "storycount": 246,
+            "other_names": "",
+            "first_name": "M.G.",
+            "last_name": "Soikkeli",
+            "image_attr": "",
+            "bio": "",
+            "bio_src": "",
+            "imported_string": null
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        },
+        "issues": [],
+        "editions": [
+          {
+            "work": [
+              {
+                "id": 6900.0,
+                "title": "Mies joka ampui Joshua Nasaretilaisen",
+                "orig_title": "",
+                "author_str": "Soikkeli, M. G.",
+                "contributions": [
+                  {
+                    "person": {
+                      "id": 781.0,
+                      "name": "Soikkeli, M. G.",
+                      "alt_name": "M. G. Soikkeli"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  }
+                ],
+                "editions": [
+                  {
+                    "editors": [],
+                    "translators": [],
+                    "contributions": [],
+                    "images": [
+                      {
+                        "id": 9372,
+                        "image_src": "/static/images/books/Soikkeli_MG_Miesjokaampuijoshuanasaretilaisen_1p.jpg",
+                        "image_attr": null
+                      }
+                    ],
+                    "publisher": {
+                      "id": 169,
+                      "name": "Helmivyö"
+                    },
+                    "owners": [],
+                    "wishlisted": [],
+                    "id": 9846,
+                    "title": "Mies joka ampui Joshua Nasaretilaisen",
+                    "subtitle": "ja muita messiaanisia tarinoita",
+                    "pubyear": 2026,
+                    "editionnum": 1,
+                    "version": 1,
+                    "isbn": "978-952-7469-80-4",
+                    "printedin": null,
+                    "pubseriesnum": null,
+                    "coll_info": null,
+                    "pages": 144,
+                    "size": 19,
+                    "dustcover": 1,
+                    "coverimage": 1,
+                    "misc": null,
+                    "imported_string": null,
+                    "verified": false
+                  }
+                ],
+                "genres": [
+                  {
+                    "id": 1,
+                    "name": "Fantasia",
+                    "abbr": "F"
+                  },
+                  {
+                    "id": 2,
+                    "name": "Kauhu",
+                    "abbr": "K"
+                  },
+                  {
+                    "id": 5,
+                    "name": "Science Fiction",
+                    "abbr": "SF"
+                  }
+                ],
+                "bookseries": null,
+                "tags": [],
+                "language_name": {
+                  "id": 7,
+                  "name": "suomi"
+                },
+                "type": 2.0,
+                "subtitle": "ja muita messiaanisia tarinoita",
+                "pubyear": 2026,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": null,
+                "descr_attr": "",
+                "imported_string": null
+              }
+            ],
+            "editors": [],
+            "contributions": [],
+            "images": [
+              {
+                "id": 9372,
+                "image_src": "/static/images/books/Soikkeli_MG_Miesjokaampuijoshuanasaretilaisen_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 169,
+              "name": "Helmivyö"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "binding": {
+              "id": 2,
+              "name": "Nidottu"
+            },
+            "id": 9846,
+            "title": "Mies joka ampui Joshua Nasaretilaisen",
+            "subtitle": "ja muita messiaanisia tarinoita",
+            "pubyear": 2026,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-7469-80-4",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 144,
+            "size": 19,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [],
+        "contributors": [
+          {
+            "person": {
+              "id": 781.0,
+              "name": "Soikkeli, M. G.",
+              "alt_name": "M. G. Soikkeli"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 781.0,
+              "name": "Soikkeli, M. G.",
+              "alt_name": "M. G. Soikkeli"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "id": 15353,
+        "title": "Hissimusiikki ei kuole koskaan",
+        "orig_title": "",
+        "pubyear": 2026
+      },
+      {
+        "authors": [
+          {
+            "id": 781.0,
+            "name": "Soikkeli, M. G.",
+            "alt_name": "M. G. Soikkeli",
+            "fullname": "",
+            "image_src": null,
+            "dob": 1963.0,
+            "dod": null,
+            "roles": [
+              "Kirjoittaja",
+              "Toimittaja",
+              "Esiintyy",
+              "Kääntäjä"
+            ],
+            "nationality": {
+              "id": 4,
+              "name": "Suomi"
+            },
+            "workcount": 9.0,
+            "storycount": 246,
+            "other_names": "",
+            "first_name": "M.G.",
+            "last_name": "Soikkeli",
+            "image_attr": "",
+            "bio": "",
+            "bio_src": "",
+            "imported_string": null
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        },
+        "issues": [],
+        "editions": [
+          {
+            "work": [
+              {
+                "id": 6900.0,
+                "title": "Mies joka ampui Joshua Nasaretilaisen",
+                "orig_title": "",
+                "author_str": "Soikkeli, M. G.",
+                "contributions": [
+                  {
+                    "person": {
+                      "id": 781.0,
+                      "name": "Soikkeli, M. G.",
+                      "alt_name": "M. G. Soikkeli"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  }
+                ],
+                "editions": [
+                  {
+                    "editors": [],
+                    "translators": [],
+                    "contributions": [],
+                    "images": [
+                      {
+                        "id": 9372,
+                        "image_src": "/static/images/books/Soikkeli_MG_Miesjokaampuijoshuanasaretilaisen_1p.jpg",
+                        "image_attr": null
+                      }
+                    ],
+                    "publisher": {
+                      "id": 169,
+                      "name": "Helmivyö"
+                    },
+                    "owners": [],
+                    "wishlisted": [],
+                    "id": 9846,
+                    "title": "Mies joka ampui Joshua Nasaretilaisen",
+                    "subtitle": "ja muita messiaanisia tarinoita",
+                    "pubyear": 2026,
+                    "editionnum": 1,
+                    "version": 1,
+                    "isbn": "978-952-7469-80-4",
+                    "printedin": null,
+                    "pubseriesnum": null,
+                    "coll_info": null,
+                    "pages": 144,
+                    "size": 19,
+                    "dustcover": 1,
+                    "coverimage": 1,
+                    "misc": null,
+                    "imported_string": null,
+                    "verified": false
+                  }
+                ],
+                "genres": [
+                  {
+                    "id": 1,
+                    "name": "Fantasia",
+                    "abbr": "F"
+                  },
+                  {
+                    "id": 2,
+                    "name": "Kauhu",
+                    "abbr": "K"
+                  },
+                  {
+                    "id": 5,
+                    "name": "Science Fiction",
+                    "abbr": "SF"
+                  }
+                ],
+                "bookseries": null,
+                "tags": [],
+                "language_name": {
+                  "id": 7,
+                  "name": "suomi"
+                },
+                "type": 2.0,
+                "subtitle": "ja muita messiaanisia tarinoita",
+                "pubyear": 2026,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": null,
+                "descr_attr": "",
+                "imported_string": null
+              }
+            ],
+            "editors": [],
+            "contributions": [],
+            "images": [
+              {
+                "id": 9372,
+                "image_src": "/static/images/books/Soikkeli_MG_Miesjokaampuijoshuanasaretilaisen_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 169,
+              "name": "Helmivyö"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "binding": {
+              "id": 2,
+              "name": "Nidottu"
+            },
+            "id": 9846,
+            "title": "Mies joka ampui Joshua Nasaretilaisen",
+            "subtitle": "ja muita messiaanisia tarinoita",
+            "pubyear": 2026,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-7469-80-4",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 144,
+            "size": 19,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [],
+        "contributors": [
+          {
+            "person": {
+              "id": 781.0,
+              "name": "Soikkeli, M. G.",
+              "alt_name": "M. G. Soikkeli"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 781.0,
+              "name": "Soikkeli, M. G.",
+              "alt_name": "M. G. Soikkeli"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "id": 15352,
+        "title": "Byrokrathos manalassa",
+        "orig_title": "",
+        "pubyear": 2026
       }
     ],
     "error": null

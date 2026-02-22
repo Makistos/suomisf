@@ -31,8 +31,8 @@ def admin_client(api_client):
 # Work 1 is a basic novel (type 1 = Romaani)
 BASIC_WORK_ID = 1
 
-# Work 1378 is an omnibus/collection with shorts
-COLLECTION_WORK_ID = 1378
+# Work 27 is "Yön ja päivän tarinoita", a collection with shorts
+COLLECTION_WORK_ID = 27
 
 # Work type 1 = Romaani (novel)
 WORK_TYPE_NOVEL = 1

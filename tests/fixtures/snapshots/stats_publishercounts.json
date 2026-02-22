@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-12T19:29:02.576341+00:00",
+    "generated_at": "2026-02-22T12:54:59.652358+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 37,
     "endpoint": "/api/stats/publishercounts",
@@ -15,72 +15,72 @@
         "name": "WSOY",
         "fullname": "Werner Söderström Oy",
         "genres": {
-          "F": 481,
+          "F": 500,
           "K": 91,
           "Paleof": 41,
           "PF": 45,
           "SF": 395,
           "VEH": 16,
           "Utopia": 5,
-          "nF": 452,
+          "nF": 453,
           "nSF": 185,
           "nK": 63,
           "lSF": 4,
           "satu": 1,
-          "eiSF": 12,
+          "eiSF": 15,
           "rajatap": 53,
           "lasten kuvakirja": 42,
           "kok": 123,
-          "lF": 386,
+          "lF": 387,
           "R": 8
         },
-        "total": 2100
+        "total": 2124
       },
       {
         "id": 318,
         "name": "Tammi",
         "fullname": "Tammi",
         "genres": {
-          "F": 209,
-          "K": 159,
+          "F": 211,
+          "K": 160,
           "Paleof": 4,
           "PF": 12,
-          "SF": 227,
+          "SF": 228,
           "VEH": 8,
-          "nF": 309,
-          "nSF": 59,
+          "nF": 311,
+          "nSF": 60,
           "nK": 10,
           "lSF": 17,
-          "eiSF": 34,
+          "eiSF": 35,
           "rajatap": 21,
           "kok": 60,
-          "lF": 63
+          "lF": 64
         },
-        "total": 1089
+        "total": 1098
       },
       {
         "id": 227,
         "name": "Otava",
         "fullname": "Otava",
         "genres": {
-          "F": 308,
-          "K": 39,
+          "F": 313,
+          "K": 40,
           "Paleof": 3,
           "PF": 28,
           "SF": 176,
           "VEH": 10,
-          "nF": 270,
+          "nF": 271,
           "nSF": 76,
           "nK": 34,
           "lSF": 1,
           "satu": 2,
           "eiSF": 1,
           "rajatap": 32,
-          "kok": 54,
+          "kok": 55,
           "lF": 83,
           "R": 1
         },
-        "total": 993
+        "total": 999
       },
       {
         "id": 133,
@@ -109,7 +109,7 @@
         "name": "Gummerus",
         "fullname": "Gummerus Oy",
         "genres": {
-          "F": 220,
+          "F": 228,
           "K": 82,
           "Paleof": 1,
           "PF": 14,
@@ -123,7 +123,7 @@
           "kok": 25,
           "lF": 28
         },
-        "total": 577
+        "total": 585
       },
       {
         "id": 110,
@@ -146,49 +146,48 @@
         "name": "LIKE",
         "fullname": "Like Kustannus Oy",
         "genres": {
-          "F": 60,
+          "F": 61,
           "K": 44,
           "Paleof": 4,
-          "SF": 179,
+          "SF": 180,
           "VEH": 3,
           "nF": 1,
           "nSF": 1,
           "rajatap": 1,
           "kok": 8
         },
-        "total": 282
+        "total": 284
       },
       {
         "id": 39,
         "name": "Books on Demand",
         "fullname": "Books on Demand",
         "genres": {
-          "F": 98,
-          "K": 15,
-          "SF": 56,
+          "F": 101,
+          "K": 16,
+          "SF": 65,
           "VEH": 1,
           "nF": 48,
           "nSF": 3,
           "lSF": 2,
           "kok": 9
         },
-        "total": 221
+        "total": 234
       },
       {
-        "id": 38,
-        "name": "Book Studio",
-        "fullname": "Book Studio Oy",
+        "id": 19,
+        "name": "Art House",
+        "fullname": "Art House Oy",
         "genres": {
-          "F": 16,
-          "K": 90,
-          "Paleof": 6,
-          "PF": 1,
-          "SF": 33,
-          "VEH": 1,
+          "F": 7,
+          "K": 4,
+          "SF": 3,
+          "nF": 117,
           "nSF": 1,
-          "eiSF": 2,
-          "rajatap": 2,
-          "kok": 37
+          "eiSF": 1,
+          "rajatap": 3,
+          "kok": 7,
+          "lF": 17
         },
         "total": 147
       },
@@ -215,26 +214,26 @@
         "name": "Muut",
         "fullname": null,
         "genres": {
-          "F": 1015,
-          "K": 368,
-          "Paleof": 21,
-          "PF": 38,
-          "SF": 961,
-          "VEH": 40,
-          "Utopia": 19,
-          "nF": 466,
-          "nSF": 89,
+          "F": 1048,
+          "K": 468,
+          "Paleof": 27,
+          "PF": 39,
+          "SF": 1014,
+          "VEH": 41,
+          "Utopia": 21,
+          "nF": 353,
+          "nSF": 91,
           "nK": 77,
           "lSF": 10,
           "satu": 1,
-          "rajatap": 58,
+          "rajatap": 57,
           "lasten kuvakirja": 9,
-          "kok": 432,
-          "lF": 163,
+          "kok": 463,
+          "lF": 153,
           "R": 24,
-          "eiSF": 35
+          "eiSF": 38
         },
-        "total": 3117
+        "total": 3181
       }
     ],
     "error": null

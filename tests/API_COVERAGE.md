@@ -1,10 +1,10 @@
 # SuomiSF API Test Coverage Report
 
-**Last Updated:** 2026-02-17
+**Last Updated:** 2026-02-22
 **Total Endpoints:** 167
-**Tested:** 357 tests (covering ~98% of endpoints)
+**Tested:** 550 tests (covering ~98% of endpoints)
 **Pending:** ~10 endpoints (complex write operations)
-**Snapshot Tests:** 30 (data validation against golden database)
+**Snapshot Tests:** 40 (data validation against golden database)
 
 ---
 

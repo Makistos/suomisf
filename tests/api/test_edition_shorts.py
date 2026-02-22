@@ -37,35 +37,42 @@ class TestEditionShorts(BaseAPITest):
     returns consistent data before and after schema migration.
     """
 
-    def test_edition_shorts_count_and_ids(self, api_client, snapshot_manager):
+    def test_edition_shorts_count_and_ids(
+            self, api_client, snapshot_manager):
         """
-        GET /api/editions/1585/shorts should return exactly 22 shorts.
-
-        Edition 1585 is "Atoroxin perilliset" (1988), an omnibus
-        containing Finnish SF short stories.
+        Edition 28 "Yön ja päivän tarinoita"
+        (2019) should return 12 shorts.
 
         This test verifies:
-        1. Correct count of shorts (22)
+        1. Correct count of shorts (12)
         2. All short IDs match snapshot
         3. All titles match snapshot
         4. All authors match snapshot
         """
-        edition_id = 1585
-        expected_count = 22
+        edition_id = 28
+        expected_count = 12
 
         # Get shorts for edition
-        response = api_client.get(f'/api/editions/{edition_id}/shorts')
+        response = api_client.get(
+            f'/api/editions/{edition_id}/shorts'
+        )
         response.assert_success()
 
         shorts = response.data
-        assert isinstance(shorts, list), "Response should be a list"
+        assert isinstance(shorts, list), (
+            "Response should be a list"
+        )
         assert len(shorts) == expected_count, (
-            f"Expected {expected_count} shorts, got {len(shorts)}"
+            f"Expected {expected_count} shorts,"
+            f" got {len(shorts)}"
         )
 
         # Load and compare against snapshot
-        snapshot = snapshot_manager.load_snapshot('edition_shorts_1585')
-        assert snapshot is not None, "Snapshot edition_shorts_1585 not found"
+        snapshot = snapshot_manager.load_snapshot(
+            'edition_shorts_28'
+        )
+        assert snapshot is not None, \
+            "Snapshot edition_shorts_28 not found"
 
         expected_shorts = snapshot['response']['data']
         actual_by_id = {s['id']: s for s in shorts}
@@ -97,7 +104,7 @@ class TestEditionShorts(BaseAPITest):
         """
         Each short in /api/editions/{id}/shorts should have required fields.
         """
-        response = api_client.get('/api/editions/1585/shorts')
+        response = api_client.get('/api/editions/28/shorts')
         response.assert_success()
 
         shorts = response.data
@@ -115,7 +122,7 @@ class TestEditionShorts(BaseAPITest):
         """
         Authors in edition shorts should have id and name fields.
         """
-        response = api_client.get('/api/editions/1585/shorts')
+        response = api_client.get('/api/editions/28/shorts')
         response.assert_success()
 
         for short in response.data:
@@ -163,15 +170,15 @@ class TestShortEditions(BaseAPITest):
 
     def test_short_has_editions(self, api_client, snapshot_manager):
         """
-        GET /api/shorts/1805 should include editions list.
+        GET /api/shorts/406 should include editions list.
 
-        Short 1805 "Napoleonin vaihtoviikot" appears in multiple editions:
-        - Edition 1585: "Atoroxin perilliset" (1988)
-        - Edition 2820: "Aukkoja ajassa" (2013)
+        Short 406 "William Wilson" appears in multiple editions
+        (10 editions total).
 
-        This test verifies the editions list is preserved after migration.
+        This test verifies the editions list is preserved
+        after migration.
         """
-        short_id = 1805
+        short_id = 406
 
         response = api_client.get(f'/api/shorts/{short_id}')
         response.assert_success()
@@ -182,11 +189,12 @@ class TestShortEditions(BaseAPITest):
         editions = short['editions']
         assert isinstance(editions, list), "Editions should be a list"
         assert len(editions) >= 2, (
-            f"Short 1805 should have at least 2 editions, got {len(editions)}"
+            f"Short 406 should have at least 2 editions,"
+            f" got {len(editions)}"
         )
 
         # Load snapshot and verify editions match
-        snapshot = snapshot_manager.load_snapshot('short_1805')
+        snapshot = snapshot_manager.load_snapshot('short_406')
         assert snapshot is not None, "Snapshot short_1805 not found"
 
         expected_editions = snapshot['response']['data']['editions']
@@ -212,7 +220,7 @@ class TestShortEditions(BaseAPITest):
         """
         Editions in short response should have id, title, pubyear.
         """
-        response = api_client.get('/api/shorts/1805')
+        response = api_client.get('/api/shorts/406')
         response.assert_success()
 
         editions = response.data.get('editions', [])
@@ -226,13 +234,13 @@ class TestShortEditions(BaseAPITest):
         """
         Short story authors should be preserved after migration.
         """
-        response = api_client.get('/api/shorts/1805')
+        response = api_client.get('/api/shorts/406')
         response.assert_success()
 
         short = response.data
         authors = short.get('authors', [])
 
-        snapshot = snapshot_manager.load_snapshot('short_1805')
+        snapshot = snapshot_manager.load_snapshot('short_406')
         expected_authors = snapshot['response']['data']['authors']
 
         expected_ids = {a['id'] for a in expected_authors}
@@ -258,7 +266,7 @@ class TestEditionShortsBackwardCompat(BaseAPITest):
         Response is a list of shorts (may or may not be wrapped in 'response').
         Each short should have consistent field types.
         """
-        response = api_client.get('/api/editions/1585/shorts')
+        response = api_client.get('/api/editions/28/shorts')
         response.assert_success()
 
         # Verify response is not None
@@ -274,7 +282,8 @@ class TestEditionShortsBackwardCompat(BaseAPITest):
             assert isinstance(short['title'], str), "title should be str"
 
             if 'pubyear' in short and short['pubyear'] is not None:
-                assert isinstance(short['pubyear'], int), "pubyear should be int"
+                assert isinstance(short['pubyear'], int), \
+                    "pubyear should be int"
 
             assert isinstance(short.get('authors', []), list), (
                 "authors should be list"
@@ -286,7 +295,7 @@ class TestEditionShortsBackwardCompat(BaseAPITest):
 
         Editions list should have consistent format.
         """
-        response = api_client.get('/api/shorts/1805')
+        response = api_client.get('/api/shorts/406')
         response.assert_success()
 
         short = response.data

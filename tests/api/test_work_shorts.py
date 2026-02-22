@@ -31,19 +31,20 @@ def admin_client(api_client):
 class TestWorkShorts(BaseAPITest):
     """Tests for retrieving short stories from omnibus works."""
 
-    def test_get_work_shorts_omnibus_1378(self, api_client, snapshot_manager):
+    def test_get_work_shorts_omnibus_27(
+            self, api_client, snapshot_manager):
         """
-        GET /api/works/shorts/1378 should return 22 short stories.
+        Work 27 "Yön ja päivän tarinoita"
+        should return 12 short stories.
 
-        Work 1378 is an omnibus containing Finnish SF short stories.
         This test verifies:
-        1. Correct number of shorts (22)
+        1. Correct number of shorts (12)
         2. Each short has expected fields
         3. Short IDs and titles match snapshot
         4. Authors are correctly associated
         """
-        work_id = 1378
-        expected_count = 22
+        work_id = 27
+        expected_count = 12
 
         # ---------------------------------------------------------
         # Step 1: Get shorts for the work
@@ -64,8 +65,9 @@ class TestWorkShorts(BaseAPITest):
         # ---------------------------------------------------------
         # Step 3: Load snapshot and compare
         # ---------------------------------------------------------
-        snapshot = snapshot_manager.load_snapshot('work_shorts_1378')
-        assert snapshot is not None, "Snapshot work_shorts_1378 not found"
+        snapshot = snapshot_manager.load_snapshot('work_shorts_27')
+        assert snapshot is not None, \
+            "Snapshot work_shorts_27 not found"
 
         expected_shorts = snapshot['response']['data']
         assert len(expected_shorts) == expected_count, (
@@ -140,7 +142,8 @@ class TestWorkShorts(BaseAPITest):
 
             # Verify author names match
             for aid in expected_author_ids:
-                assert actual_author_names[aid] == expected_author_names[aid], (
+                assert (actual_author_names[aid]
+                        == expected_author_names[aid]), (
                     f"Short {short_id}: author {aid} name mismatch. "
                     f"Expected '{expected_author_names[aid]}', "
                     f"got '{actual_author_names[aid]}'"
@@ -150,7 +153,7 @@ class TestWorkShorts(BaseAPITest):
         """
         GET /api/works/shorts/{id} should return shorts with required fields.
         """
-        response = api_client.get('/api/works/shorts/1378')
+        response = api_client.get('/api/works/shorts/27')
         response.assert_success()
 
         shorts = response.data

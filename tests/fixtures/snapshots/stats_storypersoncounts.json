@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-12T19:29:02.576341+00:00",
+    "generated_at": "2026-02-22T12:54:59.652358+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 37,
     "endpoint": "/api/stats/storypersoncounts",
@@ -24,7 +24,7 @@
             "Kirjoittaja": 1
           },
           "Artikkeli": {
-            "Kirjoittaja": 392,
+            "Kirjoittaja": 393,
             "Kääntäjä": 4,
             "Esiintyy": 7
           },
@@ -32,7 +32,7 @@
             "Kirjoittaja": 2
           }
         },
-        "total": 414
+        "total": 415
       },
       {
         "id": 610,
@@ -48,11 +48,11 @@
             "Kirjoittaja": 274
           },
           "Artikkeli": {
-            "Kirjoittaja": 51,
+            "Kirjoittaja": 53,
             "Esiintyy": 8
           }
         },
-        "total": 390
+        "total": 392
       },
       {
         "id": 3329,
@@ -73,10 +73,10 @@
             "Kirjoittaja": 1
           },
           "Artikkeli": {
-            "Kirjoittaja": 296
+            "Kirjoittaja": 302
           }
         },
-        "total": 344
+        "total": 350
       },
       {
         "id": 781,
@@ -85,14 +85,18 @@
         "nationality": "Suomi",
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 115
+            "Kirjoittaja": 134
+          },
+          "Runo": {
+            "Kääntäjä": 2
           },
           "Artikkeli": {
-            "Kirjoittaja": 98,
+            "Kirjoittaja": 101,
+            "Kääntäjä": 2,
             "Esiintyy": 7
           }
         },
-        "total": 213
+        "total": 235
       },
       {
         "id": 2370,
@@ -110,11 +114,11 @@
             "Kirjoittaja": 1
           },
           "Artikkeli": {
-            "Kirjoittaja": 91,
+            "Kirjoittaja": 99,
             "Esiintyy": 9
           }
         },
-        "total": 171
+        "total": 179
       },
       {
         "id": 2065,
@@ -132,14 +136,17 @@
             "Kirjoittaja": 8
           },
           "Artikkeli": {
-            "Kirjoittaja": 52,
-            "Esiintyy": 14
+            "Kirjoittaja": 59,
+            "Esiintyy": 15
+          },
+          "Esipuhe": {
+            "Esiintyy": 1
           },
           "Jälkisanat": {
             "Kirjoittaja": 1
           }
         },
-        "total": 157
+        "total": 164
       },
       {
         "id": 2820,
@@ -151,7 +158,7 @@
             "Kirjoittaja": 145
           },
           "Artikkeli": {
-            "Esiintyy": 4
+            "Esiintyy": 6
           }
         },
         "total": 145
@@ -195,7 +202,7 @@
           },
           "Artikkeli": {
             "Kirjoittaja": 3,
-            "Esiintyy": 23
+            "Esiintyy": 24
           }
         },
         "total": 138
@@ -213,7 +220,7 @@
             "Kirjoittaja": 2
           },
           "Artikkeli": {
-            "Esiintyy": 6
+            "Esiintyy": 8
           }
         },
         "total": 130
@@ -225,8 +232,8 @@
         "nationality": null,
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 8372,
-            "Kääntäjä": 1229,
+            "Kirjoittaja": 8393,
+            "Kääntäjä": 1231,
             "Toimittaja": 0,
             "Kansikuva": 0,
             "Kuvittaja": 0,
@@ -252,7 +259,7 @@
             "Päätoimittaja": 0
           },
           "Runo": {
-            "Kirjoittaja": 172,
+            "Kirjoittaja": 182,
             "Kääntäjä": 9,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -261,7 +268,7 @@
             "Päätoimittaja": 0
           },
           "Raapale": {
-            "Kirjoittaja": 656,
+            "Kirjoittaja": 657,
             "Kääntäjä": 0,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -270,7 +277,7 @@
             "Päätoimittaja": 0
           },
           "Filk-laulu": {
-            "Kirjoittaja": 77,
+            "Kirjoittaja": 78,
             "Kääntäjä": 0,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -279,16 +286,16 @@
             "Päätoimittaja": 0
           },
           "Artikkeli": {
-            "Kirjoittaja": 4171,
-            "Kääntäjä": 53,
+            "Kirjoittaja": 4320,
+            "Kääntäjä": 55,
             "Toimittaja": 0,
             "Kansikuva": 0,
             "Kuvittaja": 0,
-            "Esiintyy": 1169,
+            "Esiintyy": 1202,
             "Päätoimittaja": 0
           },
           "Esipuhe": {
-            "Kirjoittaja": 3,
+            "Kirjoittaja": 4,
             "Kääntäjä": 0,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -306,7 +313,7 @@
             "Päätoimittaja": 0
           }
         },
-        "total": 13514
+        "total": 13697
       }
     ],
     "error": null

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-12T19:29:02.576341+00:00",
+    "generated_at": "2026-02-22T12:54:59.652358+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 37,
     "endpoint": "/api/stats/storynationalitycounts",
@@ -26,24 +26,25 @@
             "Kääntäjä": 17
           },
           "Runo": {
-            "Kirjoittaja": 83,
-            "Kääntäjä": 15
+            "Kirjoittaja": 90,
+            "Kääntäjä": 16
           },
           "Raapale": {
-            "Kirjoittaja": 134
+            "Kirjoittaja": 135
           },
           "Filk-laulu": {
-            "Kirjoittaja": 26,
+            "Kirjoittaja": 27,
             "Esiintyy": 3
           },
           "Artikkeli": {
-            "Kirjoittaja": 742,
-            "Kääntäjä": 40,
-            "Esiintyy": 248
+            "Kirjoittaja": 773,
+            "Kääntäjä": 44,
+            "Esiintyy": 252
           },
           "Esipuhe": {
-            "Kirjoittaja": 2,
-            "Kääntäjä": 2
+            "Kirjoittaja": 3,
+            "Kääntäjä": 2,
+            "Esiintyy": 1
           },
           "Jälkisanat": {
             "Kirjoittaja": 3,
@@ -51,7 +52,7 @@
             "Esiintyy": 1
           }
         },
-        "count": 2103
+        "count": 2136
       },
       {
         "nationality_id": 3,
@@ -67,11 +68,11 @@
             "Kirjoittaja": 16
           },
           "Runo": {
-            "Kirjoittaja": 8
+            "Kirjoittaja": 9
           },
           "Artikkeli": {
-            "Kirjoittaja": 27,
-            "Esiintyy": 205
+            "Kirjoittaja": 29,
+            "Esiintyy": 212
           },
           "Esipuhe": {
             "Kirjoittaja": 1
@@ -80,7 +81,7 @@
             "Kirjoittaja": 1
           }
         },
-        "count": 543
+        "count": 550
       },
       {
         "nationality_id": 1,
@@ -96,20 +97,20 @@
             "Kirjoittaja": 3
           },
           "Runo": {
-            "Kirjoittaja": 4
+            "Kirjoittaja": 5
           },
           "Raapale": {
             "Kirjoittaja": 1
           },
           "Artikkeli": {
             "Kirjoittaja": 23,
-            "Esiintyy": 120
+            "Esiintyy": 125
           },
           "Esipuhe": {
             "Kirjoittaja": 1
           }
         },
-        "count": 260
+        "count": 264
       },
       {
         "nationality_id": null,
@@ -129,12 +130,12 @@
             "Kirjoittaja": 1
           },
           "Artikkeli": {
-            "Kirjoittaja": 28,
+            "Kirjoittaja": 29,
             "Kääntäjä": 1,
             "Esiintyy": 6
           }
         },
-        "count": 118
+        "count": 119
       },
       {
         "nationality_id": 5,
@@ -145,7 +146,7 @@
             "Kääntäjä": 1
           },
           "Artikkeli": {
-            "Kirjoittaja": 5,
+            "Kirjoittaja": 6,
             "Esiintyy": 10
           }
         },
@@ -162,11 +163,11 @@
             "Kirjoittaja": 3
           },
           "Artikkeli": {
-            "Kirjoittaja": 1,
-            "Esiintyy": 8
+            "Kirjoittaja": 2,
+            "Esiintyy": 9
           }
         },
-        "count": 29
+        "count": 31
       },
       {
         "nationality_id": 8,
@@ -311,6 +312,20 @@
         "count": 8
       },
       {
+        "nationality_id": 19,
+        "nationality": "Norja",
+        "storytypes": {
+          "Novelli": {
+            "Kirjoittaja": 3
+          },
+          "Artikkeli": {
+            "Kirjoittaja": 1,
+            "Esiintyy": 3
+          }
+        },
+        "count": 7
+      },
+      {
         "nationality_id": 15,
         "nationality": "Espanja",
         "storytypes": {
@@ -320,19 +335,6 @@
           "Artikkeli": {
             "Kirjoittaja": 1,
             "Esiintyy": 2
-          }
-        },
-        "count": 7
-      },
-      {
-        "nationality_id": 26,
-        "nationality": "Argentiina",
-        "storytypes": {
-          "Novelli": {
-            "Kirjoittaja": 5
-          },
-          "Artikkeli": {
-            "Esiintyy": 4
           }
         },
         "count": 7
@@ -351,14 +353,17 @@
         "count": 7
       },
       {
-        "nationality_id": 34,
-        "nationality": "Unkari",
+        "nationality_id": 26,
+        "nationality": "Argentiina",
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 6
+            "Kirjoittaja": 5
+          },
+          "Artikkeli": {
+            "Esiintyy": 4
           }
         },
-        "count": 6
+        "count": 7
       },
       {
         "nationality_id": 51,
@@ -375,29 +380,25 @@
         "count": 6
       },
       {
-        "nationality_id": 19,
-        "nationality": "Norja",
+        "nationality_id": 34,
+        "nationality": "Unkari",
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 3
-          },
-          "Artikkeli": {
-            "Kirjoittaja": 1,
-            "Esiintyy": 2
+            "Kirjoittaja": 6
           }
         },
         "count": 6
       },
       {
-        "nationality_id": 36,
-        "nationality": "Kiina",
+        "nationality_id": 2,
+        "nationality": "Viro",
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 4
+            "Kirjoittaja": 1
           },
           "Artikkeli": {
             "Kirjoittaja": 1,
-            "Esiintyy": 1
+            "Esiintyy": 2
           }
         },
         "count": 4
@@ -417,15 +418,15 @@
         "count": 4
       },
       {
-        "nationality_id": 2,
-        "nationality": "Viro",
+        "nationality_id": 36,
+        "nationality": "Kiina",
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 1
+            "Kirjoittaja": 4
           },
           "Artikkeli": {
             "Kirjoittaja": 1,
-            "Esiintyy": 2
+            "Esiintyy": 1
           }
         },
         "count": 4
