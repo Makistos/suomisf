@@ -73,10 +73,22 @@ ENDPOINTS_TO_SNAPSHOT: List[tuple] = [
     ('GET', '/api/people/1', None, 'person_1'),
     ('GET', '/api/shorts/1', None, 'short_1'),
 
+    # Test-specific entity snapshots
+    ('GET', '/api/shorts/406', None, 'short_406'),
+    ('GET', '/api/works/shorts/171', None,
+     'work_shorts_171'),
+    ('GET', '/api/editions/242/shorts', None,
+     'edition_shorts_242'),
+    ('GET', '/api/people/3238/shorts', None,
+     'person_shorts_3238'),
+
     # Filters (patterns must be at least 2 chars)
-    ('GET', '/api/filter/people/Asi', None, 'filter_people_Asi'),
-    ('GET', '/api/filter/tags/sci', None, 'filter_tags_sci'),
-    ('GET', '/api/filter/publishers/Tam', None, 'filter_publishers_Tam'),
+    ('GET', '/api/filter/people/Asi', None,
+     'filter_people_Asi'),
+    ('GET', '/api/filter/tags/sci', None,
+     'filter_tags_sci'),
+    ('GET', '/api/filter/publishers/Tam', None,
+     'filter_publishers_Tam'),
 ]
 
 

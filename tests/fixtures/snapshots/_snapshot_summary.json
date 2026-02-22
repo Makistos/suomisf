@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "generated_at": "2026-02-22T18:43:48.222274+00:00",
+    "generated_at": "2026-02-22T21:54:05.847922+00:00",
     "generator": "update_snapshots.py",
-    "total_endpoints": 37
+    "total_endpoints": 41
   },
   "results": {
     "success": [
@@ -40,6 +40,10 @@
       "edition_1",
       "person_1",
       "short_1",
+      "short_406",
+      "work_shorts_171",
+      "edition_shorts_242",
+      "person_shorts_3238",
       "filter_people_Asi",
       "filter_tags_sci",
       "filter_publishers_Tam"

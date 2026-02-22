@@ -1,875 +1,1448 @@
 {
-  "endpoint": "/api/people/3238/shorts",
-  "method": "GET",
-  "description": "Short stories by person 3238 (Elo, Eija)",
+  "metadata": {
+    "generated_at": "2026-02-22T21:54:05.847922+00:00",
+    "generator": "update_snapshots.py",
+    "total_endpoints": 41,
+    "endpoint": "/api/people/3238/shorts",
+    "method": "GET",
+    "status_code": 200
+  },
   "response": {
     "status_code": 200,
-    "count": 44,
     "data": [
       {
+        "contributors": [
+          {
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 1805,
         "title": "Napoleonin vaihtoviikot",
         "orig_title": "Napoleonin vaihtoviikot",
-        "pubyear": 1983,
+        "pubyear": 1983
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
-          },
-          {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
-          },
-          {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 1,
           "name": "Novelli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 3667,
         "title": "Ne palaavat",
         "orig_title": "Ne palaavat",
-        "pubyear": 1987,
+        "pubyear": 1987
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 1,
           "name": "Novelli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 3720,
         "title": "Krysanteemeja sakessa (ja hainlihaa)",
         "orig_title": "Krysanteemeja sakessa (ja hainlihaa)",
-        "pubyear": 1990,
-        "contributors": [
-          {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
-          }
-        ],
-        "type": {
-          "id": 1,
-          "name": "Novelli"
-        }
+        "pubyear": 1990
       },
       {
-        "id": 3731,
-        "title": "Uhraus",
-        "orig_title": "Uhraus",
-        "pubyear": 1991,
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 5,
           "name": "Raapale"
-        }
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "id": 3731,
+        "title": "Uhraus",
+        "orig_title": "Uhraus",
+        "pubyear": 1991
       },
       {
+        "contributors": [
+          {
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 3759,
         "title": "\"Tänä yönä ei ole vahtia Reinillä\"",
         "orig_title": "\"Tänä yönä ei ole vahtia Reinillä\"",
-        "pubyear": 1992,
+        "pubyear": 1992
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 1,
           "name": "Novelli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 3849,
         "title": "Lasipuut",
         "orig_title": "Lasipuut",
-        "pubyear": 1992,
+        "pubyear": 1992
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 1,
           "name": "Novelli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 4165,
         "title": "Zanzibarin kissat",
         "orig_title": "Zanzibarin kissat",
-        "pubyear": 1986,
+        "pubyear": 1986
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 1,
           "name": "Novelli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 4175,
         "title": "Iskelmähetki Barstowin planeetalla",
         "orig_title": "Iskelmähetki Barstowin planeetalla",
-        "pubyear": 1986,
+        "pubyear": 1986
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 1,
           "name": "Novelli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 4211,
         "title": "Muukalaiset, jotka eivät osanneet englantia",
         "orig_title": "Muukalaiset, jotka eivät osanneet englantia",
-        "pubyear": 1988,
+        "pubyear": 1988
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 1,
           "name": "Novelli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 4497,
         "title": "Instant-ihmiset",
         "orig_title": "Instant-ihmiset",
-        "pubyear": 1982,
+        "pubyear": 1982
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 1,
           "name": "Novelli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 4500,
         "title": "Sievä alkukantainen paikka",
         "orig_title": "Sievä alkukantainen paikka",
-        "pubyear": 1982,
+        "pubyear": 1982
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 1,
           "name": "Novelli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 4503,
         "title": "Mars-projekti",
         "orig_title": "Mars-projekti",
-        "pubyear": 1982,
+        "pubyear": 1982
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 1,
           "name": "Novelli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 4505,
         "title": "Sielulinnut, kuoleman linnut",
         "orig_title": "Sielulinnut, kuoleman linnut",
-        "pubyear": 1983,
+        "pubyear": 1983
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 1,
           "name": "Novelli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 5208,
         "title": "Tulevaisuuden työpaikka",
         "orig_title": "Tulevaisuuden työpaikka",
-        "pubyear": 1981,
+        "pubyear": 1981
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 1,
           "name": "Novelli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 5211,
         "title": "Tutun näköinen mies",
         "orig_title": "Tutun näköinen mies",
-        "pubyear": 1982,
+        "pubyear": 1982
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 1,
           "name": "Novelli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 5214,
         "title": "Help!",
         "orig_title": "Help!",
-        "pubyear": 1982,
+        "pubyear": 1982
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 1,
           "name": "Novelli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 5215,
         "title": "Ufotarina",
         "orig_title": "Ufotarina",
-        "pubyear": 1982,
+        "pubyear": 1982
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 1,
           "name": "Novelli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 5217,
         "title": "Kysykää - me vastaamme",
         "orig_title": "Kysykää - me vastaamme",
-        "pubyear": 1982,
+        "pubyear": 1982
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 1,
           "name": "Novelli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 5245,
         "title": "Talvikylmän järvet",
         "orig_title": "Talvikylmän järvet",
-        "pubyear": 1986,
+        "pubyear": 1986
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
-          "id": 1,
-          "name": "Novelli"
-        }
-      },
-      {
+          "id": 7,
+          "name": "Artikkeli"
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 8882,
         "title": "Kissa ulkoavaruudessa",
         "orig_title": null,
-        "pubyear": 1988,
+        "pubyear": 1988
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 7,
           "name": "Artikkeli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 8884,
         "title": "Scifi ja työsuojelu",
         "orig_title": null,
-        "pubyear": 1988,
+        "pubyear": 1988
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 7,
           "name": "Artikkeli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 8898,
         "title": "Amy hyvä Gorilla",
         "orig_title": null,
-        "pubyear": 1989,
+        "pubyear": 1989
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 7,
           "name": "Artikkeli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 8904,
         "title": "Virusten teleologiaa",
         "orig_title": null,
-        "pubyear": 1990,
+        "pubyear": 1990
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 7,
           "name": "Artikkeli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 8908,
         "title": "Alussa oli aa... (ja DNA)",
         "orig_title": null,
-        "pubyear": 1990,
+        "pubyear": 1990
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 7,
           "name": "Artikkeli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 8913,
         "title": "Mistä on pienet tytöt tehty",
         "orig_title": null,
-        "pubyear": 1990,
+        "pubyear": 1990
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 7,
           "name": "Artikkeli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 8917,
         "title": "Kevätsiivouksen aika",
         "orig_title": null,
-        "pubyear": 1991,
+        "pubyear": 1991
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 7,
           "name": "Artikkeli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 8922,
         "title": "Hallucigenia ja kehityksen tikkaat",
         "orig_title": null,
-        "pubyear": 1991,
+        "pubyear": 1991
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 7,
           "name": "Artikkeli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 8937,
         "title": "Mikä tappoi dinosaurukset",
         "orig_title": null,
-        "pubyear": 1991,
+        "pubyear": 1991
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 7,
           "name": "Artikkeli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 8939,
         "title": "Tappavat aaveet",
         "orig_title": null,
-        "pubyear": 1991,
+        "pubyear": 1991
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 7,
           "name": "Artikkeli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 8945,
         "title": "Viimeisen näyn kaamea tapaus ja muuta rikoksellista",
         "orig_title": null,
-        "pubyear": 1991,
+        "pubyear": 1991
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 7,
           "name": "Artikkeli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 8948,
         "title": "Syntymäpaikka ja -aika ja miten kiinnostuitte scifistä?",
         "orig_title": null,
-        "pubyear": 1992,
+        "pubyear": 1992
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 7,
           "name": "Artikkeli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 8949,
         "title": "Auringon lapset",
         "orig_title": null,
-        "pubyear": 1992,
+        "pubyear": 1992
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 7,
           "name": "Artikkeli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 8957,
         "title": "Veden lapset",
         "orig_title": null,
-        "pubyear": 1992,
+        "pubyear": 1992
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 7,
           "name": "Artikkeli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 8968,
         "title": "Väestöräjähdys aurinkokunnassa",
         "orig_title": null,
-        "pubyear": 1992,
+        "pubyear": 1992
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 7,
           "name": "Artikkeli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 8975,
         "title": "Mitä kaikki tietävät älykkyydestä",
         "orig_title": null,
-        "pubyear": 1993,
+        "pubyear": 1993
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 7,
           "name": "Artikkeli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 8982,
         "title": "Lovernios ja muut suoruumiit",
         "orig_title": null,
-        "pubyear": 1993,
+        "pubyear": 1993
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 7,
           "name": "Artikkeli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 8996,
         "title": "Mies kylmästä",
         "orig_title": null,
-        "pubyear": 1995,
+        "pubyear": 1995
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 7,
           "name": "Artikkeli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 9314,
         "title": "\"Vain kesyt linnut kaipaavat - villit lentävät",
         "orig_title": null,
-        "pubyear": 1997,
+        "pubyear": 1997
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 274.0,
+              "name": "Peltonen, Leena",
+              "alt_name": "Leena Peltonen"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 368.0,
+              "name": "Sinisalo, Johanna",
+              "alt_name": "Johanna Sinisalo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 570.0,
+              "name": "Sinkkonen, Marja",
+              "alt_name": "Marja Sinkkonen"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 3291.0,
+              "name": "Pasanen, Sirpa",
+              "alt_name": "Sirpa Pasanen"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 3735.0,
+              "name": "Meriranta, Anetta",
+              "alt_name": "Anetta Meriranta"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 4064.0,
+              "name": "Jaeger, Eeva",
+              "alt_name": "Eeva Jaeger"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 4070.0,
+              "name": "Gustafsson, Jaana",
+              "alt_name": "Jaana Gustafsson"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 4071.0,
+              "name": "Säilä, Terhi",
+              "alt_name": "Terhi Säilä"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 4072.0,
+              "name": "Wuorinen, Kaisa",
+              "alt_name": "Kaisa Wuorinen"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 7,
           "name": "Artikkeli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 9567,
         "title": "Munaiset jumalolennot sammakkoperspektiivistä",
         "orig_title": null,
-        "pubyear": 1989,
-        "contributors": [
-          {
-            "person_id": 274,
-            "person_name": "Peltonen, Leena",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
-          },
-          {
-            "person_id": 368,
-            "person_name": "Sinisalo, Johanna",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
-          },
-          {
-            "person_id": 570,
-            "person_name": "Sinkkonen, Marja",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
-          },
-          {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
-          },
-          {
-            "person_id": 3291,
-            "person_name": "Pasanen, Sirpa",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
-          },
-          {
-            "person_id": 3735,
-            "person_name": "Meriranta, Anetta",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
-          },
-          {
-            "person_id": 4064,
-            "person_name": "Jaeger, Eeva",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
-          },
-          {
-            "person_id": 4070,
-            "person_name": "Gustafsson, Jaana",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
-          },
-          {
-            "person_id": 4071,
-            "person_name": "Säilä, Terhi",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
-          },
-          {
-            "person_id": 4072,
-            "person_name": "Wuorinen, Kaisa",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
-          }
-        ],
-        "type": {
-          "id": 7,
-          "name": "Artikkeli"
-        }
+        "pubyear": 1989
       },
       {
-        "id": 12301,
-        "title": "Vieras Sagittariuksesta",
-        "orig_title": "Vieras Sagittariuksesta",
-        "pubyear": 1982,
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 1,
           "name": "Novelli"
-        }
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "id": 12301,
+        "title": "Vieras Sagittariuksesta",
+        "orig_title": "Vieras Sagittariuksesta",
+        "pubyear": 1982
       },
       {
+        "contributors": [
+          {
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "type": {
+          "id": 7,
+          "name": "Artikkeli"
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 12308,
         "title": "Lohikäärmeitä ja lumikuningattaria",
         "orig_title": "Lohikäärmeitä ja lumikuningattaria",
-        "pubyear": 1983,
+        "pubyear": 1983
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 7,
           "name": "Artikkeli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 12390,
         "title": "Mieli kuin viemäri",
         "orig_title": "Mieli kuin viemäri",
-        "pubyear": 1995,
+        "pubyear": 1995
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 7,
           "name": "Artikkeli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 12453,
         "title": "Le Guin sanoi sen kauniimmin - Science fiction kirjallisuutena",
         "orig_title": "Le Guin sanoi sen kauniimmin - Science fiction kirjallisuutena",
-        "pubyear": 1984,
+        "pubyear": 1984
+      },
+      {
         "contributors": [
           {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 7010.0,
+              "name": "Chalker, Jack L.",
+              "alt_name": "Jack L. Chalker"
+            },
+            "role": {
+              "id": 6,
+              "name": "Esiintyy"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "type": {
           "id": 7,
           "name": "Artikkeli"
-        }
-      },
-      {
+        },
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
         "id": 12734,
         "title": "Mr Carrolin sukupuolet",
         "orig_title": "Mr Carrolin sukupuolet",
-        "pubyear": 1993,
-        "contributors": [
-          {
-            "person_id": 3238,
-            "person_name": "Elo, Eija",
-            "role_id": 1,
-            "role_name": "Kirjoittaja"
-          },
-          {
-            "person_id": 7010,
-            "person_name": "Chalker, Jack L.",
-            "role_id": 6,
-            "role_name": "Esiintyy"
-          }
-        ],
-        "type": {
-          "id": 7,
-          "name": "Artikkeli"
-        }
+        "pubyear": 1993
       }
-    ]
+    ],
+    "error": null
   }
 }

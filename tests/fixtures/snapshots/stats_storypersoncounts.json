@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "generated_at": "2026-02-22T18:43:48.222274+00:00",
+    "generated_at": "2026-02-22T21:54:05.847922+00:00",
     "generator": "update_snapshots.py",
-    "total_endpoints": 37,
+    "total_endpoints": 41,
     "endpoint": "/api/stats/storypersoncounts",
     "method": "GET",
     "status_code": 200
@@ -232,7 +232,7 @@
         "nationality": null,
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 8393,
+            "Kirjoittaja": 8395,
             "Kääntäjä": 1231,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -259,7 +259,7 @@
             "Päätoimittaja": 0
           },
           "Runo": {
-            "Kirjoittaja": 182,
+            "Kirjoittaja": 184,
             "Kääntäjä": 9,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -268,7 +268,7 @@
             "Päätoimittaja": 0
           },
           "Raapale": {
-            "Kirjoittaja": 657,
+            "Kirjoittaja": 658,
             "Kääntäjä": 0,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -286,7 +286,7 @@
             "Päätoimittaja": 0
           },
           "Artikkeli": {
-            "Kirjoittaja": 4320,
+            "Kirjoittaja": 4321,
             "Kääntäjä": 55,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -313,7 +313,7 @@
             "Päätoimittaja": 0
           }
         },
-        "total": 13697
+        "total": 13703
       }
     ],
     "error": null

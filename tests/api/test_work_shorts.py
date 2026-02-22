@@ -31,11 +31,10 @@ def admin_client(api_client):
 class TestWorkShorts(BaseAPITest):
     """Tests for retrieving short stories from omnibus works."""
 
-    def test_get_work_shorts_omnibus_27(
+    def test_get_work_shorts_omnibus_171(
             self, api_client, snapshot_manager):
         """
-        Work 27 "Yön ja päivän tarinoita"
-        should return 12 short stories.
+        Work 171 "Välitiloja" should return 12 shorts.
 
         This test verifies:
         1. Correct number of shorts (12)
@@ -43,7 +42,7 @@ class TestWorkShorts(BaseAPITest):
         3. Short IDs and titles match snapshot
         4. Authors are correctly associated
         """
-        work_id = 27
+        work_id = 171
         expected_count = 12
 
         # ---------------------------------------------------------
@@ -65,9 +64,9 @@ class TestWorkShorts(BaseAPITest):
         # ---------------------------------------------------------
         # Step 3: Load snapshot and compare
         # ---------------------------------------------------------
-        snapshot = snapshot_manager.load_snapshot('work_shorts_27')
+        snapshot = snapshot_manager.load_snapshot('work_shorts_171')
         assert snapshot is not None, \
-            "Snapshot work_shorts_27 not found"
+            "Snapshot work_shorts_171 not found"
 
         expected_shorts = snapshot['response']['data']
         assert len(expected_shorts) == expected_count, (
@@ -153,7 +152,7 @@ class TestWorkShorts(BaseAPITest):
         """
         GET /api/works/shorts/{id} should return shorts with required fields.
         """
-        response = api_client.get('/api/works/shorts/27')
+        response = api_client.get('/api/works/shorts/171')
         response.assert_success()
 
         shorts = response.data

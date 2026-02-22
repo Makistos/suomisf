@@ -224,6 +224,8 @@ shorts = session.query(ShortStory)\
 | `/api/stats/nationalitycounts` | Join to Person via Contributor | Join via StoryContributor |
 | `/api/stats/storypersoncounts` | Join to Person via Contributor | Join via StoryContributor |
 | `/api/stats/storiesbyyear` | Uses ShortStory directly | No change needed |
+| `/api/stats/filterstories` | Uses ShortStory.story_type | No change needed |
+| `/api/stats/storynationalitycounts` | Join via Contributor | Join via StoryContributor |
 
 ---
 
@@ -280,7 +282,7 @@ def test_migration_preserves_editions(app, db_session):
 
 Use existing snapshots to verify responses don't change:
 - `short_1.json` - Single short story response
-- `work_shorts_1378.json` - Work shorts response (22 shorts)
+- `work_shorts_171.json` - Work shorts response
 - `edition_1.json` - Edition response (verify stories field)
 
 ```python
@@ -295,6 +297,67 @@ def test_short_response_matches_snapshot(api_client, snapshot_manager):
     for field in expected_fields:
         assert field in response.data, f"Missing field: {field}"
 ```
+
+---
+
+## Story Type Considerations
+
+### StoryType Table
+
+The `storytype` table must be preserved as-is during migration.
+It contains 9 types used across the system:
+
+| ID | Name | Count |
+|----|------|-------|
+| 1 | Novelli | ~9225 |
+| 2 | Pitkä novelli | ~37 |
+| 3 | Pienoisromaani | ~23 |
+| 4 | Runo | ~207 |
+| 5 | Raapale | ~940 |
+| 6 | Filk-laulu | ~66 |
+| 7 | Artikkeli | ~4811 |
+| 8 | Esipuhe | ~5 |
+| 9 | Jälkisanat | ~4 |
+
+### Story Type in API Responses
+
+The `ShortStory.story_type` FK to `storytype.id` is serialized
+as a nested object `{"id": int, "name": str}` via
+`StoryTypeSchema`. This field must remain unchanged after
+migration.
+
+### Endpoints Using Story Type
+
+| Endpoint | Usage |
+|----------|-------|
+| `GET /api/shorts/{id}` | Returns type field in response |
+| `POST /api/shorts` | Accepts type.id to set story type |
+| `PUT /api/shorts` | Can change story type |
+| `POST /api/searchshorts` | Filters by story_type |
+| `GET /api/stats/filterstories` | `?storytype=N` filter |
+| `GET /api/stats/storypersoncounts` | `?storytype=N` filter |
+| `GET /api/stats/storiesbyyear` | Groups by storytype_id/name |
+
+### Migration Tests for Story Types
+
+Tests added in `test_shorts.py` and `test_stats.py` verify:
+
+1. **Type field integrity** - All 9 types accessible via API
+2. **CRUD with types** - Create/update shorts with different
+   types preserves the type correctly
+3. **Search by type** - `searchshorts` with type filter works
+4. **Stats filtering** - `filterstories`, `storypersoncounts`,
+   and `storiesbyyear` correctly handle type filters
+5. **Type validation** - Invalid type IDs are rejected
+
+### Key Implementation Notes
+
+- `story_type` FK lives directly on `shortstory` table (not
+  on `Part`), so migration does NOT affect type assignment
+- Default type is ID 1 ("Novelli") when not specified
+- `check_story_type()` in `impl_shorts.py` validates type
+  existence and returns 400 with "Tuntematon tarinatyyppi"
+  for invalid IDs
 
 ---
 

@@ -42,7 +42,7 @@ what they test, their parameter values, and expected behaviors.
 | test_entities.py | Entity CRUD read operations | 38 |
 | test_filters.py | Filter & search endpoints | 22 |
 | test_related.py | Related/nested data endpoints | 30 |
-| test_stats.py | Statistics endpoints | 32 |
+| test_stats.py | Statistics endpoints | 44 |
 | test_misc.py | Miscellaneous endpoints | 36 |
 | test_works.py | Work lifecycle CRUD | 9 |
 | test_editions.py | Edition lifecycle CRUD | 12 |
@@ -50,7 +50,7 @@ what they test, their parameter values, and expected behaviors.
 | test_edition_shorts.py | Edition-short relationships | 10 |
 | test_person_shorts.py | Person-short relationships | 8 |
 | test_persons.py | Person endpoints (list, CRUD, related) | 26 |
-| test_shorts.py | Short story endpoints (types, CRUD, related) | 34 |
+| test_shorts.py | Short story endpoints (types, CRUD, related) | 54 |
 | test_awards.py | Award endpoints (types, categories, filter) | 29 |
 | test_tags.py | Tag endpoints (quick, types, form, merge) | 21 |
 | test_works_extra.py | Work endpoints (omnibus, tags, types, incomplete) | 27 |
@@ -66,6 +66,8 @@ what they test, their parameter values, and expected behaviors.
 ### Configuration Files
 
 - **conftest.py**: Pytest fixtures and configuration
+  - `setup_test_database`: Auto-recreates test DB, creates
+    users, and updates snapshots (session-scoped, autouse)
   - `api_client`: Flask test client wrapper with auth support
   - `snapshot_manager`: Manages snapshot comparisons
   - `app`, `client`, `db_session`: Flask app fixtures
@@ -502,7 +504,9 @@ All stats endpoints return data and are compared against snapshots.
 | TestIssuesPerYear | /api/stats/issuesperyear | 200, snapshot |
 | TestNationalityCounts | /api/stats/nationalitycounts | 200, list, snapshot |
 | TestStoryNationalityCounts | /api/stats/storynationalitycounts | 200, snapshot |
-| TestFilterStories | POST /api/stats/filterstories | empty, year filter |
+| TestFilterStories | GET /api/stats/filterstories | no params, by type, year range, combined |
+| TestStoryPersonCountsByType | GET /api/stats/storypersoncounts | type filter (novelli, artikkeli, invalid) |
+| TestStoriesByYearTypes | GET /api/stats/storiesbyyear | type fields, multiple types, valid names |
 | TestFilterWorks | POST /api/stats/filterworks | empty filter |
 | TestMiscStats | /api/stats/misc | 200, has data, snapshot |
 
@@ -718,16 +722,16 @@ stories contained in an omnibus or anthology work.
 
 | Test | Description |
 |------|-------------|
-| `test_get_work_shorts_omnibus_27` | Verify 12 shorts with correct data |
+| `test_get_work_shorts_omnibus_171` | Verify 12 shorts with correct data |
 | `test_get_work_shorts_has_required_fields` | Verify required fields present |
 | `test_get_work_shorts_nonexistent_work` | Handle nonexistent work ID |
 | `test_get_work_shorts_work_without_shorts` | Work without shorts returns list |
 
-**Snapshot Test Details (test_get_work_shorts_omnibus_27):**
+**Snapshot Test Details (test_get_work_shorts_omnibus_171):**
 
-Uses snapshot: `work_shorts_27.json`
+Uses snapshot: `work_shorts_171.json`
 
-- Work ID: 27 ("Yön ja päivän tarinoita")
+- Work ID: 171 ("Välitiloja")
 - Expected count: 12 short stories
 - Verifies for each short:
   - ID matches snapshot
@@ -750,14 +754,14 @@ responses remain unchanged after migration 001 (ShortStory refactoring).
 
 | Test | Description |
 |------|-------------|
-| `test_edition_shorts_count_and_ids` | Verify 12 shorts in edition 28 |
+| `test_edition_shorts_count_and_ids` | Verify 12 shorts in edition 242 |
 | `test_edition_shorts_has_required_fields` | Verify id, title, authors |
 | `test_edition_shorts_author_fields` | Verify author id and name |
 | `test_edition_without_shorts` | Edition 86 returns empty list |
 | `test_edition_shorts_nonexistent_edition` | Handle invalid edition ID |
 
-**Snapshot:** `edition_shorts_28.json`
-- Edition 28: "Yön ja päivän tarinoita" (2019)
+**Snapshot:** `edition_shorts_242.json`
+- Edition 242: "Välitiloja" (2020)
 - Expected count: 12 short stories
 - Verifies IDs, titles, authors match snapshot
 
@@ -988,6 +992,66 @@ Includes story types, tags, latest, similar, awarded, and CRUD.
 | Test | Description |
 |------|-------------|
 | `test_short_lifecycle` | Create -> update -> delete cycle |
+
+### TestShortTypeNames
+
+Verifies all 9 story types are returned by the API.
+
+| Test | Description |
+|------|-------------|
+| `test_all_type_names_match` | All 9 types match expected names |
+| `test_type_ids_sequential` | Type IDs are 1-9 sequential |
+
+**Expected Types:**
+- 1: Novelli, 2: Pitkä novelli, 3: Pienoisromaani,
+  4: Runo, 5: Raapale, 6: Filk-laulu,
+  7: Artikkeli, 8: Esipuhe, 9: Jälkisanat
+
+### TestShortStoryTypeField
+
+Verifies type field for specific shorts of different types.
+
+| Test | Description |
+|------|-------------|
+| `test_novelli_type` | Short 11 has type Novelli (1) |
+| `test_pitka_novelli_type` | Short 83 has Pitkä novelli (2) |
+| `test_pienoisromaani_type` | Short 46 has Pienoisromaani (3) |
+| `test_runo_type` | Short 17 has Runo (4) |
+| `test_raapale_type` | Short 14024 has Raapale (5) |
+| `test_artikkeli_type` | Short 19 has Artikkeli (7) |
+| `test_type_field_structure` | Type has id and name keys |
+
+### TestSearchShortsByType
+
+Tests search filtering by story type.
+
+| Test | Description |
+|------|-------------|
+| `test_search_by_novelli_type` | Filter type=1 returns novellit |
+| `test_search_by_runo_type` | Filter type=4 returns runot |
+| `test_search_by_artikkeli_type` | Filter type=7 returns artikkelit |
+| `test_search_invalid_type` | Type=999 returns empty results |
+| `test_search_nonexistent_type` | Type=0 returns empty results |
+
+### TestShortCRUDWithTypes
+
+Tests CRUD operations with story types (requires auth).
+
+| Test | Description |
+|------|-------------|
+| `test_create_short_default_type` | Create without type defaults to Novelli |
+| `test_create_short_with_runo_type` | Create with type=4 sets Runo |
+| `test_create_short_with_artikkeli_type` | Create with type=7 sets Artikkeli |
+| `test_create_short_invalid_type` | Create with type=999 fails |
+| `test_update_short_changes_type` | Update changes type from Novelli to Runo |
+| `test_update_short_preserves_type` | Update without type field preserves existing type |
+
+**Helper Method:**
+```python
+_short_create_data(title, type_id=None) -> dict
+```
+Creates short story payload with required fields
+(title, contributors, genres, tags).
 
 ### TestSearchShorts
 
@@ -1562,8 +1626,11 @@ When adding or modifying tests, update these files:
 ## Running Tests
 
 ```bash
-# Run all API tests
+# Run all API tests (auto-recreates test DB + snapshots)
 pdm run pytest tests/api/ -v
+
+# Skip DB setup for faster iteration
+pdm run pytest tests/api/ -v --skip-db-setup
 
 # Run specific test file
 pdm run pytest tests/api/test_works.py -v
@@ -1574,6 +1641,11 @@ pdm run pytest tests/api/test_works.py::TestWorksCRUD -v
 # Run with coverage
 pdm run pytest tests/api/ --cov=app --cov-report=html
 ```
+
+**Note:** The test runner automatically clones the main database
+to the test database, creates test users, and regenerates
+snapshots before running tests. Use `--skip-db-setup` to skip
+this when iterating on tests (faster, but snapshots may drift).
 
 ---
 

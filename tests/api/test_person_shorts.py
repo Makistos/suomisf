@@ -208,8 +208,15 @@ class TestPersonShortsBackwardCompat(BaseAPITest):
 
             expected_roles = {}
             for c in expected.get('contributors', []):
-                role_id = c['role_id']
-                expected_roles[role_id] = expected_roles.get(role_id, 0) + 1
+                if 'role_id' in c:
+                    rid = c['role_id']
+                elif 'role' in c and c['role']:
+                    rid = c['role']['id']
+                else:
+                    continue
+                expected_roles[rid] = (
+                    expected_roles.get(rid, 0) + 1
+                )
 
             # At minimum, author role should be present
             assert 1 in actual_roles or 1 in expected_roles, (

@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "generated_at": "2026-02-22T18:43:48.222274+00:00",
+    "generated_at": "2026-02-22T21:54:05.847922+00:00",
     "generator": "update_snapshots.py",
-    "total_endpoints": 37,
+    "total_endpoints": 41,
     "endpoint": "/api/stats/storynationalitycounts",
     "method": "GET",
     "status_code": 200
@@ -88,7 +88,7 @@
         "nationality": "Iso-Britannia",
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 203
+            "Kirjoittaja": 204
           },
           "Pitkä novelli": {
             "Kirjoittaja": 2
@@ -97,20 +97,20 @@
             "Kirjoittaja": 3
           },
           "Runo": {
-            "Kirjoittaja": 5
+            "Kirjoittaja": 6
           },
           "Raapale": {
-            "Kirjoittaja": 1
+            "Kirjoittaja": 2
           },
           "Artikkeli": {
-            "Kirjoittaja": 23,
+            "Kirjoittaja": 24,
             "Esiintyy": 125
           },
           "Esipuhe": {
             "Kirjoittaja": 1
           }
         },
-        "count": 264
+        "count": 265
       },
       {
         "nationality_id": null,

@@ -40,8 +40,8 @@ class TestEditionShorts(BaseAPITest):
     def test_edition_shorts_count_and_ids(
             self, api_client, snapshot_manager):
         """
-        Edition 28 "Yön ja päivän tarinoita"
-        (2019) should return 12 shorts.
+        Edition 242 "Välitiloja" (2020)
+        should return 12 shorts.
 
         This test verifies:
         1. Correct count of shorts (12)
@@ -49,7 +49,7 @@ class TestEditionShorts(BaseAPITest):
         3. All titles match snapshot
         4. All authors match snapshot
         """
-        edition_id = 28
+        edition_id = 242
         expected_count = 12
 
         # Get shorts for edition
@@ -69,10 +69,10 @@ class TestEditionShorts(BaseAPITest):
 
         # Load and compare against snapshot
         snapshot = snapshot_manager.load_snapshot(
-            'edition_shorts_28'
+            'edition_shorts_242'
         )
         assert snapshot is not None, \
-            "Snapshot edition_shorts_28 not found"
+            "Snapshot edition_shorts_242 not found"
 
         expected_shorts = snapshot['response']['data']
         actual_by_id = {s['id']: s for s in shorts}
@@ -104,7 +104,7 @@ class TestEditionShorts(BaseAPITest):
         """
         Each short in /api/editions/{id}/shorts should have required fields.
         """
-        response = api_client.get('/api/editions/28/shorts')
+        response = api_client.get('/api/editions/242/shorts')
         response.assert_success()
 
         shorts = response.data
@@ -122,7 +122,7 @@ class TestEditionShorts(BaseAPITest):
         """
         Authors in edition shorts should have id and name fields.
         """
-        response = api_client.get('/api/editions/28/shorts')
+        response = api_client.get('/api/editions/242/shorts')
         response.assert_success()
 
         for short in response.data:
@@ -266,7 +266,7 @@ class TestEditionShortsBackwardCompat(BaseAPITest):
         Response is a list of shorts (may or may not be wrapped in 'response').
         Each short should have consistent field types.
         """
-        response = api_client.get('/api/editions/28/shorts')
+        response = api_client.get('/api/editions/242/shorts')
         response.assert_success()
 
         # Verify response is not None

@@ -2,27 +2,47 @@
 SuomiSF API Test Configuration
 
 Pytest fixtures and configuration for comprehensive API testing.
+Automatically recreates the test database from the main database,
+creates test users, and updates snapshots before running tests.
+
+Use --skip-db-setup to skip database recreation when iterating.
 """
 
 import os
 import json
 import subprocess
+import time
 from datetime import datetime, timezone
 from typing import Dict, Any, Optional
 
-# Don't set TESTING - use dev config which has correct PostgreSQL URL
-# os.environ['TESTING'] = '1'
-
 # Add project root to path
 import sys
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(
+    0,
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+)
 
 import pytest
 
 
-# ---------------------------------------------------------------------------
+# -------------------------------------------------------------------
+# Database configuration
+# -------------------------------------------------------------------
+
+DB_USER = 'mep'
+MAIN_DB_NAME = 'suomisf'
+TEST_DB_NAME = 'suomisf_test'
+TEST_DB_URL = (
+    f'postgresql+psycopg2://{DB_USER}@127.0.0.1/{TEST_DB_NAME}'
+)
+
+# Ensure the app uses the test database
+os.environ['DATABASE_URL'] = TEST_DB_URL
+
+
+# -------------------------------------------------------------------
 # Configuration
-# ---------------------------------------------------------------------------
+# -------------------------------------------------------------------
 
 class TestConfig:
     """Test configuration settings."""
@@ -30,31 +50,166 @@ class TestConfig:
     # Database
     TEST_DATABASE_URL = os.environ.get(
         'TEST_DATABASE_URL',
-        'postgresql://test_user:test_pass@localhost:5432/suomisf_test'
+        f'postgresql://{DB_USER}@localhost:5432/{TEST_DB_NAME}'
     )
     GOLDEN_DB_PATH = os.path.join(
         os.path.dirname(__file__), 'fixtures', 'golden_db.sql'
     )
 
     # API
-    BASE_URL = os.environ.get('TEST_API_URL', 'http://localhost:5000/api')
+    BASE_URL = os.environ.get(
+        'TEST_API_URL', 'http://localhost:5000/api'
+    )
 
     # Auth
-    ADMIN_USERNAME = os.environ.get('TEST_ADMIN_USERNAME', 'testadmin')
-    ADMIN_PASSWORD = os.environ.get('TEST_ADMIN_PASSWORD', 'testpass123')
-    USER_USERNAME = os.environ.get('TEST_USER_USERNAME', 'testuser')
-    USER_PASSWORD = os.environ.get('TEST_USER_PASSWORD', 'userpass123')
+    ADMIN_USERNAME = os.environ.get(
+        'TEST_ADMIN_USERNAME', 'testadmin'
+    )
+    ADMIN_PASSWORD = os.environ.get(
+        'TEST_ADMIN_PASSWORD', 'testpass123'
+    )
+    USER_USERNAME = os.environ.get(
+        'TEST_USER_USERNAME', 'testuser'
+    )
+    USER_PASSWORD = os.environ.get(
+        'TEST_USER_PASSWORD', 'userpass123'
+    )
 
     # Results
-    RESULTS_DIR = os.path.join(os.path.dirname(__file__), 'results')
+    RESULTS_DIR = os.path.join(
+        os.path.dirname(__file__), 'results'
+    )
 
     # Timeouts
     REQUEST_TIMEOUT = 30  # seconds
 
 
-# ---------------------------------------------------------------------------
+# -------------------------------------------------------------------
+# Database setup helpers
+# -------------------------------------------------------------------
+
+def clone_test_database():
+    """Clone main DB schema to test DB using pg_dump | psql.
+
+    Drops the suomisf schema in the test database and restores
+    it from the main database. Runs as the mep user (no sudo).
+    """
+    print("\n[setup] Cloning database "
+          f"'{MAIN_DB_NAME}' -> '{TEST_DB_NAME}'...")
+    start = time.time()
+
+    # Drop existing schema
+    subprocess.run(
+        [
+            'psql', '-U', DB_USER, '-d', TEST_DB_NAME,
+            '-c', 'DROP SCHEMA IF EXISTS suomisf CASCADE;'
+        ],
+        capture_output=True, text=True, check=True
+    )
+
+    # Pipe pg_dump into psql for a clean restore
+    dump = subprocess.Popen(
+        ['pg_dump', '-U', DB_USER, '-n', 'suomisf',
+         MAIN_DB_NAME],
+        stdout=subprocess.PIPE
+    )
+    restore = subprocess.run(
+        ['psql', '-U', DB_USER, '-d', TEST_DB_NAME],
+        stdin=dump.stdout,
+        capture_output=True, text=True
+    )
+    dump.wait()
+
+    if dump.returncode != 0:
+        raise RuntimeError(
+            f"pg_dump failed (exit {dump.returncode})"
+        )
+    if restore.returncode != 0:
+        raise RuntimeError(
+            f"psql restore failed: {restore.stderr[:200]}"
+        )
+
+    elapsed = time.time() - start
+    print(f"[setup] Database cloned in {elapsed:.1f}s")
+
+
+def create_test_users():
+    """Create test users in the test database."""
+    print("[setup] Creating test users...")
+
+    from app import app as flask_app, db
+    from app.orm_decl import User
+
+    test_users = [
+        ('Test User', 'testpassword123', False),
+        ('Test Admin', 'testadminpass123', True),
+    ]
+
+    with flask_app.app_context():
+        for name, password, is_admin in test_users:
+            user = db.session.query(User).filter_by(
+                name=name
+            ).first()
+            if user:
+                print(f"[setup]   {name} exists "
+                      f"(id={user.id})")
+            else:
+                user = User()
+                user.name = name  # type: ignore
+                user.is_admin = is_admin  # type: ignore
+                user.set_password(password)
+                db.session.add(user)
+                db.session.commit()
+                print(f"[setup]   Created {name} "
+                      f"(id={user.id})")
+
+
+def update_snapshots():
+    """Regenerate API response snapshots."""
+    print("[setup] Updating snapshots...")
+    from tests.scripts.update_snapshots import (
+        generate_snapshots
+    )
+    results = generate_snapshots()
+    n_ok = len(results['success'])
+    n_fail = len(results['failed'])
+    print(f"[setup] Snapshots: {n_ok} OK, {n_fail} failed")
+
+
+# -------------------------------------------------------------------
+# Pytest CLI option
+# -------------------------------------------------------------------
+
+def pytest_addoption(parser):
+    """Add --skip-db-setup CLI option."""
+    parser.addoption(
+        '--skip-db-setup',
+        action='store_true',
+        default=False,
+        help='Skip database recreation and snapshot update'
+    )
+
+
+# -------------------------------------------------------------------
 # Session-scoped fixtures
-# ---------------------------------------------------------------------------
+# -------------------------------------------------------------------
+
+@pytest.fixture(scope='session', autouse=True)
+def setup_test_database(request):
+    """Recreate test DB, create users, update snapshots.
+
+    Runs automatically before all tests. Use --skip-db-setup
+    to skip when iterating on tests.
+    """
+    if request.config.getoption('--skip-db-setup'):
+        print("\n[setup] Skipping DB setup (--skip-db-setup)")
+        return
+
+    clone_test_database()
+    create_test_users()
+    update_snapshots()
+    print("[setup] Database setup complete\n")
+
 
 @pytest.fixture(scope='session')
 def test_config() -> TestConfig:
@@ -63,7 +218,7 @@ def test_config() -> TestConfig:
 
 
 @pytest.fixture(scope='session')
-def app():
+def app(setup_test_database):
     """Get the Flask application instance."""
     from app import app as flask_app
 
@@ -437,27 +592,9 @@ class APIResponse:
         return self
 
 
-# ---------------------------------------------------------------------------
-# Database fixtures
-# ---------------------------------------------------------------------------
-
-@pytest.fixture(scope='session')
-def reset_database(test_config):
-    """Reset database from golden dump (session scope)."""
-    golden_path = test_config.GOLDEN_DB_PATH
-
-    if os.path.exists(golden_path):
-        # Restore from golden dump
-        try:
-            subprocess.run(
-                ['psql', test_config.TEST_DATABASE_URL, '-f', golden_path],
-                check=True,
-                capture_output=True
-            )
-        except subprocess.CalledProcessError as e:
-            pytest.skip(f"Failed to restore golden database: {e}")
-    else:
-        pytest.skip(f"Golden database not found at {golden_path}")
+# -------------------------------------------------------------------
+# Database fixtures (legacy - replaced by setup_test_database)
+# -------------------------------------------------------------------
 
 
 # ---------------------------------------------------------------------------

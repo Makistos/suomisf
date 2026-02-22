@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "generated_at": "2026-02-22T18:43:48.222274+00:00",
+    "generated_at": "2026-02-22T21:54:05.847922+00:00",
     "generator": "update_snapshots.py",
-    "total_endpoints": 37,
+    "total_endpoints": 41,
     "endpoint": "/api/people/1",
     "method": "GET",
     "status_code": 200
@@ -193,7 +193,188 @@
           }
         }
       ],
-      "stories": [],
+      "stories": [
+        {
+          "id": 15371,
+          "title": "Test Default Type Short",
+          "type": {
+            "id": 1,
+            "name": "Novelli"
+          },
+          "issues": [],
+          "editions": [],
+          "genres": [],
+          "contributors": [
+            {
+              "person": {
+                "id": 1.0,
+                "name": "Unsworth, Barry",
+                "alt_name": "Barry Unsworth",
+                "fullname": "Barry Forster Unsworth"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "tags": [],
+          "orig_title": null,
+          "pubyear": 2020
+        },
+        {
+          "id": 15372,
+          "title": "Test Runo Short",
+          "type": {
+            "id": 4,
+            "name": "Runo"
+          },
+          "issues": [],
+          "editions": [],
+          "genres": [],
+          "contributors": [
+            {
+              "person": {
+                "id": 1.0,
+                "name": "Unsworth, Barry",
+                "alt_name": "Barry Unsworth",
+                "fullname": "Barry Forster Unsworth"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "tags": [],
+          "orig_title": null,
+          "pubyear": 2020
+        },
+        {
+          "id": 15373,
+          "title": "Test Artikkeli Short",
+          "type": {
+            "id": 7,
+            "name": "Artikkeli"
+          },
+          "issues": [],
+          "editions": [],
+          "genres": [],
+          "contributors": [
+            {
+              "person": {
+                "id": 1.0,
+                "name": "Unsworth, Barry",
+                "alt_name": "Barry Unsworth",
+                "fullname": "Barry Forster Unsworth"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "tags": [],
+          "orig_title": null,
+          "pubyear": 2020
+        },
+        {
+          "id": 15374,
+          "title": "Test Type Change",
+          "type": {
+            "id": 1,
+            "name": "Novelli"
+          },
+          "issues": [],
+          "editions": [],
+          "genres": [],
+          "contributors": [
+            {
+              "person": {
+                "id": 1.0,
+                "name": "Unsworth, Barry",
+                "alt_name": "Barry Unsworth",
+                "fullname": "Barry Forster Unsworth"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "tags": [],
+          "orig_title": null,
+          "pubyear": 2020
+        },
+        {
+          "id": 15375,
+          "title": "Test Preserve Type",
+          "type": {
+            "id": 5,
+            "name": "Raapale"
+          },
+          "issues": [],
+          "editions": [],
+          "genres": [],
+          "contributors": [
+            {
+              "person": {
+                "id": 1.0,
+                "name": "Unsworth, Barry",
+                "alt_name": "Barry Unsworth",
+                "fullname": "Barry Forster Unsworth"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "tags": [],
+          "orig_title": null,
+          "pubyear": 2020
+        },
+        {
+          "id": 15376,
+          "title": "Test Short XYZ",
+          "type": {
+            "id": 4,
+            "name": "Runo"
+          },
+          "issues": [],
+          "editions": [],
+          "genres": [],
+          "contributors": [
+            {
+              "person": {
+                "id": 1.0,
+                "name": "Unsworth, Barry",
+                "alt_name": "Barry Unsworth",
+                "fullname": "Barry Forster Unsworth"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "tags": [],
+          "orig_title": null,
+          "pubyear": 2020
+        }
+      ],
       "edits": [],
       "editions": [
         {
