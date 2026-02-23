@@ -6,6 +6,8 @@ both for API and tests and document the API.
 Always recreate test database and add test user before running tests.
 Never run tests against or modify the main database.
 
+When doing database refactoring do not update the snapshots until finished.
+
 ## Testing Documentation
 
 When adding or modifying API tests, always update the following files:

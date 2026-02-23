@@ -12,7 +12,8 @@ from app.types import HttpResponseCode
 
 from app import app
 from app.impl import ResponseType
-from app.impl_shorts import (get_latest_shorts, get_similar_shorts, story_tag_add,
+from app.impl_shorts import (get_latest_shorts, get_similar_shorts,
+                             story_tag_add,
                              story_tag_remove, story_updated,
                              story_add, story_delete, get_short, search_shorts,
                              get_short_types)
