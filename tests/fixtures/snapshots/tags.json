@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-23T19:03:01.374107+00:00",
+    "generated_at": "2026-02-23T19:25:13.415187+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 41,
     "endpoint": "/api/tags",
@@ -93861,30 +93861,6 @@
         "stories": [],
         "id": 1543,
         "name": "testaus",
-        "description": null
-      },
-      {
-        "type": {
-          "id": 1,
-          "name": "Aihe"
-        },
-        "works": [],
-        "articles": [],
-        "stories": [],
-        "id": 2975,
-        "name": "Test Merge Source Tag",
-        "description": null
-      },
-      {
-        "type": {
-          "id": 1,
-          "name": "Aihe"
-        },
-        "works": [],
-        "articles": [],
-        "stories": [],
-        "id": 2974,
-        "name": "Test Tag API Lifecycle",
         "description": null
       },
       {

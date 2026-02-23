@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-23T19:03:01.374107+00:00",
+    "generated_at": "2026-02-23T19:25:13.415187+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 41,
     "endpoint": "/api/latest/people/5",
@@ -10,29 +10,6 @@
   "response": {
     "status_code": 200,
     "data": [
-      {
-        "id": 7769.0,
-        "name": "Lifecycle, Test",
-        "alt_name": "Lifecycle, Test",
-        "fullname": "Lifecycle, Test",
-        "image_src": null,
-        "dob": 1985.0,
-        "dod": null,
-        "roles": [],
-        "nationality": {
-          "id": 1,
-          "name": "Iso-Britannia"
-        },
-        "workcount": 0.0,
-        "storycount": 0,
-        "other_names": null,
-        "first_name": "Test",
-        "last_name": "Lifecycle",
-        "image_attr": null,
-        "bio": null,
-        "bio_src": null,
-        "imported_string": null
-      },
       {
         "id": 7768.0,
         "name": "Testiperson, API",
@@ -118,6 +95,31 @@
         "nationality": {
           "id": 2,
           "name": "Viro"
+        },
+        "workcount": 0.0,
+        "storycount": 0,
+        "other_names": "",
+        "first_name": null,
+        "last_name": null,
+        "image_attr": null,
+        "bio": "",
+        "bio_src": "",
+        "imported_string": null
+      },
+      {
+        "id": 7764.0,
+        "name": "Tuuliranta, Tomi",
+        "alt_name": "Tomi Tuuliranta",
+        "fullname": "",
+        "image_src": null,
+        "dob": null,
+        "dod": null,
+        "roles": [
+          "Kuvittaja"
+        ],
+        "nationality": {
+          "id": 4,
+          "name": "Suomi"
         },
         "workcount": 0.0,
         "storycount": 0,
