@@ -2,10 +2,11 @@
 SuomiSF API Test Configuration
 
 Pytest fixtures and configuration for comprehensive API testing.
-Automatically recreates the test database from the main database,
-creates test users, and updates snapshots before running tests.
+Automatically recreates the test database from the main database
+and creates test users before running tests.
 
 Use --skip-db-setup to skip database recreation when iterating.
+Use --update-snapshots to also regenerate API response snapshots.
 """
 
 import os
@@ -181,12 +182,18 @@ def update_snapshots():
 # -------------------------------------------------------------------
 
 def pytest_addoption(parser):
-    """Add --skip-db-setup CLI option."""
+    """Add --skip-db-setup and --update-snapshots options."""
     parser.addoption(
         '--skip-db-setup',
         action='store_true',
         default=False,
-        help='Skip database recreation and snapshot update'
+        help='Skip database recreation and user creation'
+    )
+    parser.addoption(
+        '--update-snapshots',
+        action='store_true',
+        default=False,
+        help='Regenerate API response snapshots'
     )
 
 
@@ -196,10 +203,11 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope='session', autouse=True)
 def setup_test_database(request):
-    """Recreate test DB, create users, update snapshots.
+    """Recreate test DB and create users before tests.
 
     Runs automatically before all tests. Use --skip-db-setup
-    to skip when iterating on tests.
+    to skip when iterating on tests. Use --update-snapshots
+    to also regenerate API response snapshots.
     """
     if request.config.getoption('--skip-db-setup'):
         print("\n[setup] Skipping DB setup (--skip-db-setup)")
@@ -207,7 +215,10 @@ def setup_test_database(request):
 
     clone_test_database()
     create_test_users()
-    update_snapshots()
+
+    if request.config.getoption('--update-snapshots'):
+        update_snapshots()
+
     print("[setup] Database setup complete\n")
 
 
