@@ -93,19 +93,13 @@ class TestEditionWork(BaseAPITest):
 
 
 class TestEditionOwners(BaseAPITest):
-    """Tests for edition owner endpoints.
+    """Tests for edition owner endpoints."""
 
-    Note: The /api/editions/{id}/owners endpoint has a schema bug
-    ('many' is an invalid keyword argument for User) causing errors.
-    """
-
-    @pytest.mark.xfail(reason="Backend bug: User schema has invalid 'many' arg")
     def test_edition_owners_processes_request(self, api_client):
         """GET /api/editions/{id}/owners processes request."""
         response = api_client.get(f'/api/editions/{BASIC_EDITION_ID}/owners')
         response.assert_success()
 
-    @pytest.mark.xfail(reason="Backend bug: User schema has invalid 'many' arg")
     def test_edition_owners_nonexistent(self, api_client):
         """GET /api/editions/{id}/owners for nonexistent edition."""
         response = api_client.get('/api/editions/999999999/owners')

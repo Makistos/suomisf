@@ -24,7 +24,7 @@ from app import app
 class ResponseType(NamedTuple):
     """ Response type.
     """
-    response: Union[str, Dict[str, Any]]
+    response: Union[str, Dict[str, Any], List[Any]]
     status: Union[int, HttpResponseCode]
 
 

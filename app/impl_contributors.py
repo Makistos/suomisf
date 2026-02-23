@@ -4,10 +4,10 @@ from sqlalchemy import and_, or_
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.orm_decl import (Part, Contributor, Edition, IssueContributor)
-from app.impl import check_int
+from app.impl import check_int, ResponseType
 from app import app
 from app.orm_decl import Person
-from app.types import ContributorType, ContributorTarget
+from app.types import ContributorType, ContributorTarget, HttpResponseCode
 
 
 def _create_new_person(session: Any, contrib: Any) -> Union[Person, None]:
@@ -389,26 +389,20 @@ def get_work_contributors(session: Any, work_id: int) -> Any:
     return retval
 
 
-def get_issue_contributors(session: Any, issue_id: int) -> List[Dict[Any, Any]]:
+def get_issue_contributors(
+        session: Any, issue_id: int) -> ResponseType:
     """
-    Returns a list of dictionaries representing the contributors of an issue.
+    Returns contributors of an issue as a ResponseType.
 
     Args:
         session: The database session.
         issue_id: The ID of the issue to get the contributors of.
 
     Returns:
-        A list of dictionaries representing the contributors of the issue.
-        Each dictionary should have the following keys:
-        - 'person': A dictionary representing the person who contributed.
-            This dictionary should have the following keys:
-            - 'id': The ID of the person in the database.
-            - 'name': The name of the person.
-        - 'role': A dictionary representing the role of the contributor.
-            This dictionary should have the following keys:
-            - 'id': The ID of the role in the database.
-            - 'name': The name of the role.
-        - 'description': A string describing the contribution.
+        ResponseType with a list of contributor dicts, each with:
+        - 'person': {'id': int, 'name': str}
+        - 'role': {'id': int, 'name': str}
+        - 'description': str
     """
     contributors = session.query(IssueContributor)\
         .filter(IssueContributor.issue_id == issue_id)\
@@ -424,7 +418,7 @@ def get_issue_contributors(session: Any, issue_id: int) -> List[Dict[Any, Any]]:
              'description': contrib.description}
         retval.append(c)
 
-    return retval
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def has_contribution_role(contributors: List[Any], role_id: int) -> bool:

@@ -240,27 +240,20 @@ class TestIssueUpdate(BaseAPITest):
 
 
 class TestIssueContributors(BaseAPITest):
-    """Tests for /api/issues/{id}/contributors endpoints.
+    """Tests for /api/issues/{id}/contributors endpoints."""
 
-    Note: The GET endpoint has a bug - it returns a raw list which crashes
-    make_api_response (AttributeError: 'list' has no attribute 'status').
-    """
-
-    @pytest.mark.xfail(reason="Backend bug: returns list instead of Response")
     def test_contributors_get_returns_200(self, api_client):
         """GET /api/issues/{id}/contributors should return 200."""
         url = f'/api/issues/{BASIC_ISSUE_ID}/contributors'
         response = api_client.get(url)
         response.assert_success()
 
-    @pytest.mark.xfail(reason="Backend bug: returns list instead of Response")
     def test_contributors_get_returns_data(self, api_client):
         """GET /api/issues/{id}/contributors returns data structure."""
         url = f'/api/issues/{BASIC_ISSUE_ID}/contributors'
         response = api_client.get(url)
         response.assert_success()
 
-    @pytest.mark.xfail(reason="Backend bug: returns list instead of Response")
     def test_contributors_get_nonexistent(self, api_client):
         """GET /api/issues/{nonexistent}/contributors handles gracefully."""
         response = api_client.get('/api/issues/999999999/contributors')

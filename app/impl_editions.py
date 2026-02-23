@@ -37,7 +37,7 @@ from app.impl_contributors import (
 )
 from app.route_helpers import new_session
 from app.model import (BindingBriefSchema, EditionSchema, ShortBriefSchema,
-                       EditionBriefSchema, UserBookSchema)
+                       EditionBriefSchema, UserBookSchema, UserSchema)
 from app.impl import ResponseType, check_int
 from app.impl_pubseries import add_pubseries
 from app.types import ContributorTarget, HttpResponseCode
@@ -1232,8 +1232,8 @@ def editionowner_list(editionid: int) -> ResponseType:
         app.logger.error(f"editionowner_list: {str(exp)}")
 
     try:
-        schema = User(many=True)  # type: ignore
-        retval = schema.dump(users.owners)
+        schema = UserSchema(many=True)  # type: ignore
+        retval = schema.dump(users)
     except exceptions.MarshmallowError as exp:
         app.logger.error(f"editionowner_list: {str(exp)}")
         return ResponseType("editionowner_list: Tietokantavirhe.",
