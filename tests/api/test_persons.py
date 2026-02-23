@@ -304,17 +304,15 @@ class TestPersonCRUDLifecycle(BaseAPITest):
 
         create_resp = admin_client.post('/api/people', data=create_data)
 
-        if create_resp.status_code != 200:
-            pytest.skip('Person creation not available')
+        assert create_resp.status_code == 201, (
+            f"Person creation failed:"
+            f" status {create_resp.status_code},"
+            f" response: {create_resp.json}"
+        )
 
-        # Extract created ID
-        data = create_resp.data
-        if isinstance(data, dict):
-            person_id = data.get('id') or data.get('response')
-        else:
-            person_id = data
-
-        assert person_id is not None, "Should return created person ID"
+        # person_add returns new ID as a string in the response
+        person_id = int(create_resp.json)
+        assert person_id > 0, "Should return created person ID"
 
         try:
             # Step 2: Verify person was created
@@ -337,16 +335,24 @@ class TestPersonCRUDLifecycle(BaseAPITest):
                 }
             }
 
-            update_resp = admin_client.put('/api/people', data=update_data)
-            # Update may succeed or fail based on implementation
-            if update_resp.status_code == 200:
-                # Verify update
-                get_resp2 = admin_client.get(f'/api/people/{person_id}')
-                get_resp2.assert_success()
-                assert get_resp2.data['dod'] == 2020
+            update_resp = admin_client.put(
+                '/api/people', data=update_data
+            )
+            assert update_resp.status_code == 200, (
+                f"Person update failed:"
+                f" status {update_resp.status_code},"
+                f" response: {update_resp.json}"
+            )
+            get_resp2 = admin_client.get(f'/api/people/{person_id}')
+            get_resp2.assert_success()
+            assert get_resp2.data['dod'] == 2020
 
         finally:
             # Step 4: Clean up - delete person
-            delete_resp = admin_client.delete(f'/api/people/{person_id}')
-            # Should succeed or return appropriate error
-            assert delete_resp.status_code in [200, 400, 404, 500]
+            delete_resp = admin_client.delete(
+                f'/api/people/{person_id}'
+            )
+            assert delete_resp.status_code == 200, (
+                f"Failed to delete person {person_id}:"
+                f" status {delete_resp.status_code}"
+            )

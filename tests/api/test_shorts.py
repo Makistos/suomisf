@@ -776,28 +776,29 @@ class TestShortCRUDLifecycle(BaseAPITest):
     def test_short_lifecycle(self, admin_client):
         """Complete short create -> update -> delete cycle."""
         # Step 1: Create short
+        # story_add requires: title, type, contributors, genres, tags
         create_data = {
             'data': {
                 'title': 'Test Short Story',
                 'orig_title': 'Test Short Story Original',
                 'pubyear': 2020,
-                'story_type': {'id': 1}
+                'type': {'id': 1},
+                'contributors': [],
+                'genres': [],
+                'tags': [],
             }
         }
 
         create_resp = admin_client.post('/api/shorts', data=create_data)
 
-        if create_resp.status_code not in [200, 201]:
-            pytest.skip('Short creation not available')
+        assert create_resp.status_code == 201, (
+            f"Short creation failed: status {create_resp.status_code},"
+            f" response: {create_resp.json}"
+        )
 
-        # Extract created ID
-        data = create_resp.data
-        if isinstance(data, dict):
-            short_id = data.get('id') or data.get('response')
-        else:
-            short_id = data
-
-        assert short_id is not None, "Should return created short ID"
+        # story_add returns the new ID as a JSON-encoded string
+        short_id = int(create_resp.json)
+        assert short_id > 0, "Should return created short ID"
 
         try:
             # Step 2: Verify short was created
@@ -814,21 +815,34 @@ class TestShortCRUDLifecycle(BaseAPITest):
                     'title': 'Updated Short Story',
                     'orig_title': 'Test Short Story Original',
                     'pubyear': 2021,
-                    'story_type': {'id': 1}
+                    'type': {'id': 1},
+                    'contributors': [],
+                    'genres': [],
+                    'tags': [],
                 }
             }
 
-            update_resp = admin_client.put('/api/shorts', data=update_data)
-            if update_resp.status_code == 200:
-                # Verify update
-                get_resp2 = admin_client.get(f'/api/shorts/{short_id}')
-                get_resp2.assert_success()
-                assert get_resp2.data['pubyear'] == 2021
+            update_resp = admin_client.put(
+                '/api/shorts', data=update_data
+            )
+            assert update_resp.status_code == 200, (
+                f"Short update failed: status"
+                f" {update_resp.status_code},"
+                f" response: {update_resp.json}"
+            )
+            get_resp2 = admin_client.get(f'/api/shorts/{short_id}')
+            get_resp2.assert_success()
+            assert get_resp2.data['pubyear'] == 2021
 
         finally:
             # Step 4: Clean up - delete short
-            delete_resp = admin_client.delete(f'/api/shorts/{short_id}')
-            assert delete_resp.status_code in [200, 400, 404, 500]
+            delete_resp = admin_client.delete(
+                f'/api/shorts/{short_id}'
+            )
+            assert delete_resp.status_code == 200, (
+                f"Failed to delete short {short_id}:"
+                f" status {delete_resp.status_code}"
+            )
 
 
 class TestSearchShorts(BaseAPITest):

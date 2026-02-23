@@ -184,16 +184,13 @@ class TestTagCRUDLifecycle(BaseAPITest):
 
         create_resp = admin_client.post('/api/tags', data=create_data)
 
-        if create_resp.status_code != 200:
-            pytest.skip('Tag creation not available')
+        assert create_resp.status_code == 201, (
+            f"Tag creation failed: status {create_resp.status_code},"
+            f" response: {create_resp.json}"
+        )
 
-        # Extract created ID
-        data = create_resp.data
-        if isinstance(data, dict):
-            tag_id = data.get('id') or data.get('response')
-        else:
-            tag_id = data
-
+        # tag_create returns {'id': <id>} wrapped in CREATED response
+        tag_id = create_resp.data['id']
         assert tag_id is not None, "Should return created tag ID"
 
         try:
@@ -205,25 +202,30 @@ class TestTagCRUDLifecycle(BaseAPITest):
             assert 'name' in tag
 
             # Step 3: Update tag
+            # tag_update expects flat params: id, name, type, description
             update_data = {
-                'data': {
-                    'id': tag_id,
-                    'name': 'Test Tag API Updated'
-                }
+                'id': tag_id,
+                'name': 'Test Tag API Updated',
+                'type': {'id': 1},
+                'description': ''
             }
 
             update_resp = admin_client.put('/api/tags', data=update_data)
-            if update_resp.status_code == 200:
-                # Verify update
-                get_resp2 = admin_client.get(f'/api/tags/{tag_id}')
-                get_resp2.assert_success()
-                assert 'Updated' in get_resp2.data.get('name', '')
+            assert update_resp.status_code == 200, (
+                f"Tag update failed: status {update_resp.status_code},"
+                f" response: {update_resp.json}"
+            )
+            get_resp2 = admin_client.get(f'/api/tags/{tag_id}')
+            get_resp2.assert_success()
+            assert 'Updated' in get_resp2.data.get('name', '')
 
         finally:
             # Step 4: Clean up - delete tag
             delete_resp = admin_client.delete(f'/api/tags/{tag_id}')
-            # Should succeed (tag not in use)
-            assert delete_resp.status_code in [200, 400, 404, 500]
+            assert delete_resp.status_code == 200, (
+                f"Failed to delete tag {tag_id}:"
+                f" status {delete_resp.status_code}"
+            )
 
     def test_tag_merge_lifecycle(self, admin_client):
         """Create two tags and merge them."""
@@ -236,14 +238,12 @@ class TestTagCRUDLifecycle(BaseAPITest):
 
         source_resp = admin_client.post('/api/tags', data=source_data)
 
-        if source_resp.status_code != 200:
-            pytest.skip('Tag creation not available')
-
-        source_data = source_resp.data
-        if isinstance(source_data, dict):
-            source_id = source_data.get('id') or source_data.get('response')
-        else:
-            source_id = source_data
+        assert source_resp.status_code == 201, (
+            f"Source tag creation failed:"
+            f" status {source_resp.status_code},"
+            f" response: {source_resp.json}"
+        )
+        source_id = source_resp.data['id']
 
         # Step 2: Create target tag
         target_data = {
@@ -254,29 +254,32 @@ class TestTagCRUDLifecycle(BaseAPITest):
 
         target_resp = admin_client.post('/api/tags', data=target_data)
 
-        if target_resp.status_code != 200:
-            # Clean up source tag
-            admin_client.delete(f'/api/tags/{source_id}')
-            pytest.skip('Tag creation not available')
-
-        target_data = target_resp.data
-        if isinstance(target_data, dict):
-            target_id = target_data.get('id') or target_data.get('response')
-        else:
-            target_id = target_data
+        assert target_resp.status_code == 201, (
+            f"Target tag creation failed:"
+            f" status {target_resp.status_code},"
+            f" response: {target_resp.json}"
+        )
+        target_id = target_resp.data['id']
 
         try:
             # Step 3: Merge source into target
             merge_resp = admin_client.post(
                 f'/api/tags/{target_id}/merge/{source_id}'
             )
-            # Merge may succeed or fail if tags have no items
-            assert merge_resp.status_code in [200, 400, 500]
+            assert merge_resp.status_code == 200, (
+                f"Tag merge failed: status {merge_resp.status_code},"
+                f" response: {merge_resp.json}"
+            )
 
         finally:
-            # Clean up both tags (source may be deleted by merge)
-            admin_client.delete(f'/api/tags/{source_id}')
-            admin_client.delete(f'/api/tags/{target_id}')
+            # Clean up target (source is deleted by merge)
+            delete_resp = admin_client.delete(
+                f'/api/tags/{target_id}'
+            )
+            assert delete_resp.status_code == 200, (
+                f"Failed to delete target tag {target_id}:"
+                f" status {delete_resp.status_code}"
+            )
 
 
 class TestTagSearch(BaseAPITest):
