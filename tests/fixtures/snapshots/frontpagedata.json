@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-22T21:54:05.847922+00:00",
+    "generated_at": "2026-02-23T19:03:01.374107+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 41,
     "endpoint": "/api/frontpagedata",
@@ -10,68 +10,68 @@
   "response": {
     "status_code": 200,
     "data": {
-      "works": 6867,
-      "editions": 9770,
-      "shorts": 9297,
+      "works": 6878,
+      "editions": 9787,
+      "shorts": 9287,
       "magazines": 57,
-      "covers": 9065,
+      "covers": 9082,
       "latest": [
         {
           "images": [
             {
-              "id": 9384,
-              "image_src": "/static/images/books/Martin_George_RR_Seitsemankuningaskunnanritari_2l1p.jpg",
+              "id": 9402,
+              "image_src": "/static/images/books/Latva_Otto_Yksisarvinen_1p.jpg",
               "image_attr": null
             }
           ],
           "work": [
             {
-              "id": 1649,
-              "title": "Seitsemän kuningaskunnan ritari",
+              "id": 6922,
+              "title": "Yksisarvinen maailman myyteissä ja tarinoissa",
               "subtitle": "",
-              "orig_title": "A Knight of the Seven Kingdoms",
-              "pubyear": 2015,
-              "bookseriesnum": null,
+              "orig_title": "",
+              "pubyear": 2026,
+              "bookseriesnum": "",
               "bookseriesorder": null,
               "misc": "",
               "description": null,
-              "descr_attr": null,
-              "imported_string": "\n\n<a href=\"novkok/mar-sk.htm\">\n<b>Seitsemän kuningaskunnan ritari</b></a>. Tulen ja jään laulu. (A Knight of the Seven Kingdoms, 2015). \nSuom Satu Hlinovsky. Kustannusosakeyhtiö Kirjava 2019. [F,kok].",
-              "author_str": "Martin, George R. R."
+              "descr_attr": "",
+              "imported_string": null,
+              "author_str": "Latva, Otto"
             }
           ],
           "owners": [],
           "wishlisted": [],
-          "id": 9858,
-          "title": "Seitsemän kuningaskunnan ritari",
+          "id": 9875,
+          "title": "Yksisarvinen maailman myyteissä ja tarinoissa",
           "subtitle": "",
-          "pubyear": 2025,
+          "pubyear": 2026,
           "editionnum": 1,
-          "version": 2,
-          "isbn": "978-951-1-49744-8",
+          "version": 1,
+          "isbn": "978-951-858-783-8",
           "printedin": null,
           "pubseriesnum": null,
-          "coll_info": "",
-          "pages": 317,
+          "coll_info": null,
+          "pages": 171,
           "size": 22,
           "dustcover": 1,
-          "coverimage": 3,
-          "misc": "Tarkistettu laitos Kustannusosakeyhtiö Kirjavan alun perin vuonna 2019 julkaisemasta suomennoksesta.",
-          "imported_string": "",
+          "coverimage": 1,
+          "misc": "16 numeroimatonta kuvasivua.",
+          "imported_string": null,
           "verified": false
         },
         {
           "images": [
             {
-              "id": 9383,
-              "image_src": "/static/images/books/Vuokio_Hannu_Neljatoivomusta_1p.jpg",
+              "id": 9401,
+              "image_src": "/static/images/books/Latva_Otto_Lohikaarmemyyteissajatarinoissa_1p.jpg",
               "image_attr": null
             }
           ],
           "work": [
             {
-              "id": 6911,
-              "title": "Neljä toivomusta",
+              "id": 6921,
+              "title": "Lohikäärme maailman myyteissä ja tarinoissa",
               "subtitle": "",
               "orig_title": "",
               "pubyear": 2024,
@@ -81,24 +81,68 @@
               "description": null,
               "descr_attr": "",
               "imported_string": null,
-              "author_str": "Vuolio, Hannu"
+              "author_str": "Latva, Otto"
             }
           ],
           "owners": [],
           "wishlisted": [],
-          "id": 9857,
-          "title": "Neljä toivomusta",
+          "id": 9874,
+          "title": "Lohikäärme maailman myyteissä ja tarinoissa",
           "subtitle": "",
           "pubyear": 2024,
           "editionnum": 1,
           "version": 1,
-          "isbn": "978-952-65104-2-2",
+          "isbn": "978-951-858-521-6",
           "printedin": null,
           "pubseriesnum": null,
           "coll_info": null,
-          "pages": 238,
-          "size": 19,
+          "pages": 151,
+          "size": 22,
           "dustcover": 1,
+          "coverimage": 1,
+          "misc": "16 numeroimatonta kuvasivua.",
+          "imported_string": null,
+          "verified": false
+        },
+        {
+          "images": [
+            {
+              "id": 9400,
+              "image_src": "/static/images/books/Latva_Otto_Merihirviot_1p.jpg",
+              "image_attr": null
+            }
+          ],
+          "work": [
+            {
+              "id": 6920,
+              "title": "Merihirviöt",
+              "subtitle": "merenneidosta mustekalaan",
+              "orig_title": "",
+              "pubyear": 2019,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": null,
+              "descr_attr": "",
+              "imported_string": null,
+              "author_str": "Latva, Otto"
+            }
+          ],
+          "owners": [],
+          "wishlisted": [],
+          "id": 9873,
+          "title": "Merihirviöt",
+          "subtitle": "merenneidosta mustekalaan",
+          "pubyear": 2019,
+          "editionnum": 1,
+          "version": 1,
+          "isbn": "978-952-9745-59-3",
+          "printedin": null,
+          "pubseriesnum": null,
+          "coll_info": null,
+          "pages": 230,
+          "size": 31,
+          "dustcover": 3,
           "coverimage": 1,
           "misc": null,
           "imported_string": null,
@@ -107,16 +151,16 @@
         {
           "images": [
             {
-              "id": 9382,
-              "image_src": "/static/images/books/Vuokio_Hannu_Katoamistemppu_1p.jpg",
+              "id": 9399,
+              "image_src": "/static/images/books/Kinnunen_Kalle_Vedenvartija_1p.jpg",
               "image_attr": null
             }
           ],
           "work": [
             {
-              "id": 6910,
-              "title": "Katoamistemppu",
-              "subtitle": "",
+              "id": 6919,
+              "title": "Veden vartija",
+              "subtitle": "Teemestarin kirjasta elokuvaksi",
               "orig_title": "",
               "pubyear": 2022,
               "bookseriesnum": "",
@@ -125,69 +169,25 @@
               "description": null,
               "descr_attr": "",
               "imported_string": null,
-              "author_str": "Vuolio, Hannu"
+              "author_str": "Kinnunen, Kalle"
             }
           ],
           "owners": [],
           "wishlisted": [],
-          "id": 9856,
-          "title": "Katoamistemppu",
-          "subtitle": "",
+          "id": 9872,
+          "title": "Veden vartija",
+          "subtitle": "Teemestarin kirjasta elokuvaksi",
           "pubyear": 2022,
           "editionnum": 1,
           "version": 1,
-          "isbn": "978-952-65104-0-8",
+          "isbn": "978-952-363-327-8",
           "printedin": null,
           "pubseriesnum": null,
           "coll_info": null,
-          "pages": 279,
-          "size": 19,
+          "pages": 248,
+          "size": 26,
           "dustcover": 1,
-          "coverimage": 1,
-          "misc": null,
-          "imported_string": null,
-          "verified": false
-        },
-        {
-          "images": [
-            {
-              "id": 9381,
-              "image_src": "/static/images/books/Vuokio_Hannu_Vieraitataragoniasta_1p.jpg",
-              "image_attr": null
-            }
-          ],
-          "work": [
-            {
-              "id": 6909,
-              "title": "Vieraita Taragoniasta",
-              "subtitle": "kosmisen navigaation sietämätön vaikeus",
-              "orig_title": "",
-              "pubyear": 2021,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": null,
-              "descr_attr": "",
-              "imported_string": null,
-              "author_str": "Vuolio, Hannu"
-            }
-          ],
-          "owners": [],
-          "wishlisted": [],
-          "id": 9855,
-          "title": "Vieraita Taragoniasta",
-          "subtitle": "kosmisen navigaation sietämätön vaikeus",
-          "pubyear": 2021,
-          "editionnum": 1,
-          "version": 1,
-          "isbn": "978-952-94-5571-3",
-          "printedin": null,
-          "pubseriesnum": null,
-          "coll_info": null,
-          "pages": 178,
-          "size": 19,
-          "dustcover": 1,
-          "coverimage": 1,
+          "coverimage": 3,
           "misc": null,
           "imported_string": null,
           "verified": false

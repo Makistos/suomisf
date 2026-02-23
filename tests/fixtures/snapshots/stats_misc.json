@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-22T21:54:05.847922+00:00",
+    "generated_at": "2026-02-23T19:03:01.374107+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 41,
     "endpoint": "/api/stats/misc",
@@ -10,12 +10,12 @@
   "response": {
     "status_code": 200,
     "data": {
-      "total_pages": 296292,
-      "stack_height_meters": 44.44,
-      "hardback_count": 712,
+      "total_pages": 297889,
+      "stack_height_meters": 44.68,
+      "hardback_count": 723,
       "paperback_count": 291,
-      "total_editions": 9770,
-      "total_works": 6867
+      "total_editions": 9787,
+      "total_works": 6878
     },
     "error": null
   }

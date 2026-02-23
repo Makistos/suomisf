@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-22T21:54:05.847922+00:00",
+    "generated_at": "2026-02-23T19:03:01.374107+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 41,
     "endpoint": "/api/latest/covers/5",
@@ -14,64 +14,64 @@
         "edition": {
           "images": [
             {
-              "id": 9384,
-              "image_src": "/static/images/books/Martin_George_RR_Seitsemankuningaskunnanritari_2l1p.jpg",
+              "id": 9402,
+              "image_src": "/static/images/books/Latva_Otto_Yksisarvinen_1p.jpg",
               "image_attr": null
             }
           ],
           "work": [
             {
-              "id": 1649,
-              "title": "Seitsemän kuningaskunnan ritari",
+              "id": 6922,
+              "title": "Yksisarvinen maailman myyteissä ja tarinoissa",
               "subtitle": "",
-              "orig_title": "A Knight of the Seven Kingdoms",
-              "pubyear": 2015,
-              "bookseriesnum": null,
+              "orig_title": "",
+              "pubyear": 2026,
+              "bookseriesnum": "",
               "bookseriesorder": null,
               "misc": "",
               "description": null,
-              "descr_attr": null,
-              "imported_string": "\n\n<a href=\"novkok/mar-sk.htm\">\n<b>Seitsemän kuningaskunnan ritari</b></a>. Tulen ja jään laulu. (A Knight of the Seven Kingdoms, 2015). \nSuom Satu Hlinovsky. Kustannusosakeyhtiö Kirjava 2019. [F,kok].",
-              "author_str": "Martin, George R. R."
+              "descr_attr": "",
+              "imported_string": null,
+              "author_str": "Latva, Otto"
             }
           ],
           "owners": [],
           "wishlisted": [],
-          "id": 9858,
-          "title": "Seitsemän kuningaskunnan ritari",
+          "id": 9875,
+          "title": "Yksisarvinen maailman myyteissä ja tarinoissa",
           "subtitle": "",
-          "pubyear": 2025,
+          "pubyear": 2026,
           "editionnum": 1,
-          "version": 2,
-          "isbn": "978-951-1-49744-8",
+          "version": 1,
+          "isbn": "978-951-858-783-8",
           "printedin": null,
           "pubseriesnum": null,
-          "coll_info": "",
-          "pages": 317,
+          "coll_info": null,
+          "pages": 171,
           "size": 22,
           "dustcover": 1,
-          "coverimage": 3,
-          "misc": "Tarkistettu laitos Kustannusosakeyhtiö Kirjavan alun perin vuonna 2019 julkaisemasta suomennoksesta.",
-          "imported_string": "",
+          "coverimage": 1,
+          "misc": "16 numeroimatonta kuvasivua.",
+          "imported_string": null,
           "verified": false
         },
-        "id": 9384,
-        "image_src": "/static/images/books/Martin_George_RR_Seitsemankuningaskunnanritari_2l1p.jpg",
+        "id": 9402,
+        "image_src": "/static/images/books/Latva_Otto_Yksisarvinen_1p.jpg",
         "image_attr": null
       },
       {
         "edition": {
           "images": [
             {
-              "id": 9383,
-              "image_src": "/static/images/books/Vuokio_Hannu_Neljatoivomusta_1p.jpg",
+              "id": 9401,
+              "image_src": "/static/images/books/Latva_Otto_Lohikaarmemyyteissajatarinoissa_1p.jpg",
               "image_attr": null
             }
           ],
           "work": [
             {
-              "id": 6911,
-              "title": "Neljä toivomusta",
+              "id": 6921,
+              "title": "Lohikäärme maailman myyteissä ja tarinoissa",
               "subtitle": "",
               "orig_title": "",
               "pubyear": 2024,
@@ -81,47 +81,96 @@
               "description": null,
               "descr_attr": "",
               "imported_string": null,
-              "author_str": "Vuolio, Hannu"
+              "author_str": "Latva, Otto"
             }
           ],
           "owners": [],
           "wishlisted": [],
-          "id": 9857,
-          "title": "Neljä toivomusta",
+          "id": 9874,
+          "title": "Lohikäärme maailman myyteissä ja tarinoissa",
           "subtitle": "",
           "pubyear": 2024,
           "editionnum": 1,
           "version": 1,
-          "isbn": "978-952-65104-2-2",
+          "isbn": "978-951-858-521-6",
           "printedin": null,
           "pubseriesnum": null,
           "coll_info": null,
-          "pages": 238,
-          "size": 19,
+          "pages": 151,
+          "size": 22,
           "dustcover": 1,
           "coverimage": 1,
-          "misc": null,
+          "misc": "16 numeroimatonta kuvasivua.",
           "imported_string": null,
           "verified": false
         },
-        "id": 9383,
-        "image_src": "/static/images/books/Vuokio_Hannu_Neljatoivomusta_1p.jpg",
+        "id": 9401,
+        "image_src": "/static/images/books/Latva_Otto_Lohikaarmemyyteissajatarinoissa_1p.jpg",
         "image_attr": null
       },
       {
         "edition": {
           "images": [
             {
-              "id": 9382,
-              "image_src": "/static/images/books/Vuokio_Hannu_Katoamistemppu_1p.jpg",
+              "id": 9400,
+              "image_src": "/static/images/books/Latva_Otto_Merihirviot_1p.jpg",
               "image_attr": null
             }
           ],
           "work": [
             {
-              "id": 6910,
-              "title": "Katoamistemppu",
-              "subtitle": "",
+              "id": 6920,
+              "title": "Merihirviöt",
+              "subtitle": "merenneidosta mustekalaan",
+              "orig_title": "",
+              "pubyear": 2019,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": null,
+              "descr_attr": "",
+              "imported_string": null,
+              "author_str": "Latva, Otto"
+            }
+          ],
+          "owners": [],
+          "wishlisted": [],
+          "id": 9873,
+          "title": "Merihirviöt",
+          "subtitle": "merenneidosta mustekalaan",
+          "pubyear": 2019,
+          "editionnum": 1,
+          "version": 1,
+          "isbn": "978-952-9745-59-3",
+          "printedin": null,
+          "pubseriesnum": null,
+          "coll_info": null,
+          "pages": 230,
+          "size": 31,
+          "dustcover": 3,
+          "coverimage": 1,
+          "misc": null,
+          "imported_string": null,
+          "verified": false
+        },
+        "id": 9400,
+        "image_src": "/static/images/books/Latva_Otto_Merihirviot_1p.jpg",
+        "image_attr": null
+      },
+      {
+        "edition": {
+          "images": [
+            {
+              "id": 9399,
+              "image_src": "/static/images/books/Kinnunen_Kalle_Vedenvartija_1p.jpg",
+              "image_attr": null
+            }
+          ],
+          "work": [
+            {
+              "id": 6919,
+              "title": "Veden vartija",
+              "subtitle": "Teemestarin kirjasta elokuvaksi",
               "orig_title": "",
               "pubyear": 2022,
               "bookseriesnum": "",
@@ -130,129 +179,80 @@
               "description": null,
               "descr_attr": "",
               "imported_string": null,
-              "author_str": "Vuolio, Hannu"
+              "author_str": "Kinnunen, Kalle"
             }
           ],
           "owners": [],
           "wishlisted": [],
-          "id": 9856,
-          "title": "Katoamistemppu",
-          "subtitle": "",
+          "id": 9872,
+          "title": "Veden vartija",
+          "subtitle": "Teemestarin kirjasta elokuvaksi",
           "pubyear": 2022,
           "editionnum": 1,
           "version": 1,
-          "isbn": "978-952-65104-0-8",
+          "isbn": "978-952-363-327-8",
           "printedin": null,
           "pubseriesnum": null,
           "coll_info": null,
-          "pages": 279,
-          "size": 19,
+          "pages": 248,
+          "size": 26,
           "dustcover": 1,
-          "coverimage": 1,
+          "coverimage": 3,
           "misc": null,
           "imported_string": null,
           "verified": false
         },
-        "id": 9382,
-        "image_src": "/static/images/books/Vuokio_Hannu_Katoamistemppu_1p.jpg",
+        "id": 9399,
+        "image_src": "/static/images/books/Kinnunen_Kalle_Vedenvartija_1p.jpg",
         "image_attr": null
       },
       {
         "edition": {
           "images": [
             {
-              "id": 9381,
-              "image_src": "/static/images/books/Vuokio_Hannu_Vieraitataragoniasta_1p.jpg",
+              "id": 9398,
+              "image_src": "/static/images/books/Itaranta_Emmi_Teemestarinkirja_2l1p.jpg",
               "image_attr": null
             }
           ],
           "work": [
             {
-              "id": 6909,
-              "title": "Vieraita Taragoniasta",
-              "subtitle": "kosmisen navigaation sietämätön vaikeus",
-              "orig_title": "",
-              "pubyear": 2021,
+              "id": 3272,
+              "title": "Teemestarin kirja",
+              "subtitle": "",
+              "orig_title": "Teemestarin kirja",
+              "pubyear": 2012,
               "bookseriesnum": "",
               "bookseriesorder": null,
               "misc": "",
-              "description": null,
-              "descr_attr": "",
-              "imported_string": null,
-              "author_str": "Vuolio, Hannu"
+              "description": "<p>Kalevi Jäntin palkinto 2012, Nuori Aleksis -palkinto 2013. Tähtivaeltaja-palkintoehdokas 2013, Philip K. Dick -palkintoehdokas 2014, Arthur C. Clarke -palkintoehdokas 2015, HelMet-kirjallisuuspalkinnon ehdokas 2015: yleisön suosikki.</p>\r\n\r\n<p>Maailmasta on loppumassa vesi. Suunnattoman katastrofin – ehkä ilmastonmuutoksen, ehkä jonkin muun – läpikäynyt ihmiskunta sinnittelee veden vähyyden ja sen säännöstelyä hallitsevan diktatuurin vallan alla. Vain kaatopaikoille hautautunut teknologia ja teemestarien sukupolvien ajan pitämät päiväkirjat muistuttavat entisistä ajoista.</p>\r\n\r\n<p>Noria on teemestarien sukua, ja pian on hänen vuoronsa ottaa vastaan täysivaltaisen teemestarin arvo – ja hänen edeltäjiensä tarkkaan varjelema salaisuus. Aikana, jona veden kätkeminen on rikoksista pahin, sotilasvallan katseet kiinnittyvät väistämättä teemestarin taloon...</p>\r\n\r\n<p>Emmi Itärannan esikoisromaani Teemestarin kirja on harvinaisen uskottava ja pelottava kuvaus mahdollisesta tulevaisuudestamme. Samalla Itärannan kieli on kuitenkin kuulasta, tarkkaa ja paisuttelematonta. Esikoiskirjailijalta todellinen taidonnäyte!</p>\r\n\r\n<p>Teemestarin kirja voitti 2010–2011 järjestetyn Teoksen suuren fantasia- ja scifi-kirjoituskilpailun, johon osallistui yli 350 käsikirjoitusta.</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Itäranta, Emmi"
             }
           ],
           "owners": [],
           "wishlisted": [],
-          "id": 9855,
-          "title": "Vieraita Taragoniasta",
-          "subtitle": "kosmisen navigaation sietämätön vaikeus",
-          "pubyear": 2021,
-          "editionnum": 1,
-          "version": 1,
-          "isbn": "978-952-94-5571-3",
+          "id": 9871,
+          "title": "Teemestarin kirja : veden vartija",
+          "subtitle": "",
+          "pubyear": 2022,
+          "editionnum": 11,
+          "version": 2,
+          "isbn": "978-952-304-317-6",
           "printedin": null,
           "pubseriesnum": null,
-          "coll_info": null,
-          "pages": 178,
-          "size": 19,
+          "coll_info": "",
+          "pages": 191,
+          "size": 20,
           "dustcover": 1,
           "coverimage": 1,
-          "misc": null,
-          "imported_string": null,
+          "misc": "Selkokielelle mukauttanut Riikka Tuohimetsä.",
+          "imported_string": "",
           "verified": false
         },
-        "id": 9381,
-        "image_src": "/static/images/books/Vuokio_Hannu_Vieraitataragoniasta_1p.jpg",
-        "image_attr": null
-      },
-      {
-        "edition": {
-          "images": [
-            {
-              "id": 9380,
-              "image_src": "/static/images/books/Kullberg_Anssi_Sangriala_1p.jpg",
-              "image_attr": null
-            }
-          ],
-          "work": [
-            {
-              "id": 6908,
-              "title": "Sangriala",
-              "subtitle": "Titaanien ajan kolmas kirja",
-              "orig_title": "",
-              "pubyear": 2023,
-              "bookseriesnum": "3",
-              "bookseriesorder": 3,
-              "misc": "",
-              "description": null,
-              "descr_attr": "",
-              "imported_string": null,
-              "author_str": "Kullberg, Anssi"
-            }
-          ],
-          "owners": [],
-          "wishlisted": [],
-          "id": 9854,
-          "title": "Sangriala",
-          "subtitle": "Titaanien ajan kolmas kirja",
-          "pubyear": 2023,
-          "editionnum": 1,
-          "version": 1,
-          "isbn": "978-952-80-6066-6",
-          "printedin": null,
-          "pubseriesnum": null,
-          "coll_info": null,
-          "pages": 660,
-          "size": 21,
-          "dustcover": 1,
-          "coverimage": 1,
-          "misc": null,
-          "imported_string": null,
-          "verified": false
-        },
-        "id": 9380,
-        "image_src": "/static/images/books/Kullberg_Anssi_Sangriala_1p.jpg",
+        "id": 9398,
+        "image_src": "/static/images/books/Itaranta_Emmi_Teemestarinkirja_2l1p.jpg",
         "image_attr": null
       }
     ],

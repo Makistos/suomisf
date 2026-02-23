@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-22T21:54:05.847922+00:00",
+    "generated_at": "2026-02-23T19:03:01.374107+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 41,
     "endpoint": "/api/latest/people/5",
@@ -11,7 +11,7 @@
     "status_code": 200,
     "data": [
       {
-        "id": 7754.0,
+        "id": 7769.0,
         "name": "Lifecycle, Test",
         "alt_name": "Lifecycle, Test",
         "fullname": "Lifecycle, Test",
@@ -34,7 +34,7 @@
         "imported_string": null
       },
       {
-        "id": 7753.0,
+        "id": 7768.0,
         "name": "Testiperson, API",
         "alt_name": "Testiperson, API",
         "fullname": "Testiperson, API",
@@ -57,12 +57,12 @@
         "imported_string": null
       },
       {
-        "id": 7752.0,
-        "name": "Vuolio, Hannu",
-        "alt_name": "Hannu Vuolio",
+        "id": 7767.0,
+        "name": "Latva, Otto",
+        "alt_name": "Otto Latva",
         "fullname": "",
         "image_src": null,
-        "dob": null,
+        "dob": 1985.0,
         "dod": null,
         "roles": [
           "Kirjoittaja"
@@ -82,21 +82,19 @@
         "imported_string": null
       },
       {
-        "id": 7751.0,
-        "name": "Rask, Juhana",
-        "alt_name": "Juhana Rask",
+        "id": 7766.0,
+        "name": "Saarela, Saara",
+        "alt_name": "Saara Saarela",
         "fullname": "",
         "image_src": null,
-        "dob": null,
+        "dob": 1971.0,
         "dod": null,
-        "roles": [
-          "Kirjoittaja"
-        ],
+        "roles": [],
         "nationality": {
           "id": 4,
           "name": "Suomi"
         },
-        "workcount": 4.0,
+        "workcount": 0.0,
         "storycount": 0,
         "other_names": "",
         "first_name": null,
@@ -107,21 +105,21 @@
         "imported_string": null
       },
       {
-        "id": 7750.0,
-        "name": "Kullberg, Anssi",
-        "alt_name": "Anssi Kullberg",
+        "id": 7765.0,
+        "name": "Urm, Gabriela",
+        "alt_name": "Gabriela Urm",
         "fullname": "",
         "image_src": null,
-        "dob": null,
+        "dob": 1980.0,
         "dod": null,
         "roles": [
-          "Kirjoittaja"
+          "Kuvittaja"
         ],
         "nationality": {
-          "id": 4,
-          "name": "Suomi"
+          "id": 2,
+          "name": "Viro"
         },
-        "workcount": 3.0,
+        "workcount": 0.0,
         "storycount": 0,
         "other_names": "",
         "first_name": null,

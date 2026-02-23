@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-22T21:54:05.847922+00:00",
+    "generated_at": "2026-02-23T19:03:01.374107+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 41,
     "endpoint": "/api/stats/worksbyyear",
@@ -2250,7 +2250,7 @@
       },
       {
         "year": 1983,
-        "count": 32,
+        "count": 33,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -3720,7 +3720,7 @@
       },
       {
         "year": 2012,
-        "count": 62,
+        "count": 63,
         "language_id": 7,
         "language_name": "suomi"
       },
@@ -4152,7 +4152,7 @@
       },
       {
         "year": 2019,
-        "count": 111,
+        "count": 113,
         "language_id": 7,
         "language_name": "suomi"
       },
@@ -4278,7 +4278,7 @@
       },
       {
         "year": 2021,
-        "count": 109,
+        "count": 110,
         "language_id": 7,
         "language_name": "suomi"
       },
@@ -4326,7 +4326,7 @@
       },
       {
         "year": 2022,
-        "count": 124,
+        "count": 127,
         "language_id": 7,
         "language_name": "suomi"
       },
@@ -4476,7 +4476,7 @@
       },
       {
         "year": 2024,
-        "count": 117,
+        "count": 119,
         "language_id": 7,
         "language_name": "suomi"
       },
@@ -4596,7 +4596,7 @@
       },
       {
         "year": 2026,
-        "count": 2,
+        "count": 3,
         "language_id": 7,
         "language_name": "suomi"
       },

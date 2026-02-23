@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-22T21:54:05.847922+00:00",
+    "generated_at": "2026-02-23T19:03:01.374107+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 41,
     "endpoint": "/api/bookseries",
@@ -51612,6 +51612,59 @@
         ],
         "id": 835,
         "name": "SCIFI etsivätoimistotrilogia",
+        "orig_name": null,
+        "description": null,
+        "important": false,
+        "image_src": null,
+        "image_attr": null
+      },
+      {
+        "works": [
+          {
+            "id": 6912,
+            "title": "Lauri Luu ja riivattu lukukoira",
+            "subtitle": "",
+            "orig_title": "",
+            "pubyear": 2021,
+            "bookseriesnum": "1",
+            "bookseriesorder": 1,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Hautala, Marko"
+          },
+          {
+            "id": 6913,
+            "title": "Lauri Luu ja kirjaston muumio",
+            "subtitle": "",
+            "orig_title": "",
+            "pubyear": 2022,
+            "bookseriesnum": "2",
+            "bookseriesorder": 2,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Hautala, Marko"
+          },
+          {
+            "id": 6914,
+            "title": "Lauri Luu ja vampyyrikreivi",
+            "subtitle": "",
+            "orig_title": "",
+            "pubyear": 2024,
+            "bookseriesnum": "3",
+            "bookseriesorder": 3,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Hautala, Marko"
+          }
+        ],
+        "id": 836,
+        "name": "Lauri Luu",
         "orig_name": null,
         "description": null,
         "important": false,

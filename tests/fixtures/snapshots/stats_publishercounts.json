@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-22T21:54:05.847922+00:00",
+    "generated_at": "2026-02-23T19:03:01.374107+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 41,
     "endpoint": "/api/stats/publishercounts",
@@ -42,7 +42,7 @@
         "fullname": "Tammi",
         "genres": {
           "F": 211,
-          "K": 160,
+          "K": 166,
           "Paleof": 4,
           "PF": 12,
           "SF": 228,
@@ -56,7 +56,7 @@
           "kok": 60,
           "lF": 64
         },
-        "total": 1098
+        "total": 1104
       },
       {
         "id": 227,
@@ -156,7 +156,7 @@
           "rajatap": 1,
           "kok": 8
         },
-        "total": 284
+        "total": 285
       },
       {
         "id": 39,
@@ -173,6 +173,24 @@
           "kok": 9
         },
         "total": 234
+      },
+      {
+        "id": 38,
+        "name": "Book Studio",
+        "fullname": "Book Studio Oy",
+        "genres": {
+          "F": 16,
+          "K": 90,
+          "Paleof": 6,
+          "PF": 1,
+          "SF": 33,
+          "VEH": 1,
+          "nSF": 1,
+          "eiSF": 2,
+          "rajatap": 2,
+          "kok": 37
+        },
+        "total": 147
       },
       {
         "id": 19,
@@ -192,48 +210,30 @@
         "total": 147
       },
       {
-        "id": 150,
-        "name": "Kirjayhtymä",
-        "fullname": "Kirjayhtymä",
-        "genres": {
-          "F": 32,
-          "K": 2,
-          "PF": 4,
-          "SF": 100,
-          "VEH": 2,
-          "nF": 2,
-          "nSF": 4,
-          "eiSF": 7,
-          "rajatap": 4,
-          "kok": 21
-        },
-        "total": 147
-      },
-      {
         "id": null,
         "name": "Muut",
         "fullname": null,
         "genres": {
-          "F": 1048,
-          "K": 468,
-          "Paleof": 27,
-          "PF": 39,
-          "SF": 1014,
-          "VEH": 41,
+          "F": 1067,
+          "K": 380,
+          "Paleof": 21,
+          "PF": 42,
+          "SF": 1083,
+          "VEH": 42,
           "Utopia": 21,
-          "nF": 353,
-          "nSF": 91,
+          "nF": 355,
+          "nSF": 94,
           "nK": 77,
           "lSF": 10,
           "satu": 1,
-          "rajatap": 57,
+          "rajatap": 59,
           "lasten kuvakirja": 9,
-          "kok": 463,
-          "lF": 153,
+          "kok": 447,
+          "lF": 157,
           "R": 24,
-          "eiSF": 38
+          "eiSF": 43
         },
-        "total": 3181
+        "total": 3191
       }
     ],
     "error": null

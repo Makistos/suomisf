@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-22T21:54:05.847922+00:00",
+    "generated_at": "2026-02-23T19:03:01.374107+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 41,
     "endpoint": "/api/stats/personcounts",
@@ -201,7 +201,7 @@
         "nationality": null,
         "genres": {
           "F": {
-            "Kirjoittaja": 1890,
+            "Kirjoittaja": 1893,
             "Kääntäjä": 62,
             "Toimittaja": 83,
             "Kansikuva": 126,
@@ -210,7 +210,7 @@
             "Päätoimittaja": 0
           },
           "K": {
-            "Kirjoittaja": 564,
+            "Kirjoittaja": 567,
             "Kääntäjä": 29,
             "Toimittaja": 64,
             "Kansikuva": 41,
@@ -237,12 +237,12 @@
             "Päätoimittaja": 0
           },
           "SF": {
-            "Kirjoittaja": 1683,
+            "Kirjoittaja": 1684,
             "Kääntäjä": 51,
             "Toimittaja": 73,
             "Kansikuva": 69,
             "Kuvittaja": 10,
-            "Esiintyy": 17,
+            "Esiintyy": 18,
             "Päätoimittaja": 0
           },
           "VEH": {
@@ -336,11 +336,11 @@
             "Päätoimittaja": 0
           },
           "lF": {
-            "Kirjoittaja": 420,
+            "Kirjoittaja": 424,
             "Kääntäjä": 31,
             "Toimittaja": 4,
-            "Kansikuva": 75,
-            "Kuvittaja": 81,
+            "Kansikuva": 76,
+            "Kuvittaja": 82,
             "Esiintyy": 0,
             "Päätoimittaja": 0
           },
@@ -363,7 +363,7 @@
             "Päätoimittaja": 0
           }
         },
-        "total": 6389
+        "total": 6407
       }
     ],
     "error": null
