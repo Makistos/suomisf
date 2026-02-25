@@ -19,7 +19,7 @@ from app.orm_decl import (Alias, Article, Country, ContributorRole, Issue,
                           Contributor,
                           PersonLink, Awarded, PersonLanguage, PersonTag,
                           IssueEditor, ArticlePerson, ArticleAuthor,
-                          ShortStory, Part, Person)
+                          ShortStory, StoryContributor, Person)
 from app.impl import (ResponseType, SearchResult, SearchResultFields,
                       searchscore, check_int, get_join_changes)
 from app.api_errors import APIError
@@ -1050,27 +1050,11 @@ def person_shorts(person_id: int) -> ResponseType:
 
     try:
         shorts = session.query(ShortStory)\
-            .join(Part)\
-            .filter(Part.shortstory_id == ShortStory.id)\
-            .join(Contributor)\
-            .filter(Contributor.part_id == Part.id, Contributor.role_id == 1,
-                    Contributor.person_id == person_id)\
+            .join(StoryContributor,
+                  StoryContributor.shortstory_id == ShortStory.id)\
+            .filter(StoryContributor.person_id == person_id)\
             .distinct()\
             .all()
-        # ashorts = session.query(ShortStory)\
-        #     .join(IssueContent)\
-        #     .filter(ShortStory.id == IssueContent.shortstory_id)\
-        #     .join(Part)\
-        #     .filter(IssueContent.shortstory_id == Part.id)\
-        #     .join(Contributor)\
-        #     .filter(Part.id == Contributor.part_id)\
-        #     .filter(Contributor.person_id == id)\
-        #     .filter(Contributor.role_id == 1)\
-        #     .distinct()\
-        #     .all()
-
-        # shorts = {...shorts, ...ashorts}
-
     except SQLAlchemyError as exp:
         app.logger.error(
             'Exception in PersonShorts(): ' + str(exp))

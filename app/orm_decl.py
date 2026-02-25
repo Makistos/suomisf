@@ -1,6 +1,6 @@
 # pylint: disable=too-many-lines
 """ Database models"""
-from typing import Any, List, Optional, Union, Dict
+from typing import Any, List, Union, Dict
 import datetime
 import html
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -351,6 +351,23 @@ class Contributor(Base):
     real_person = relationship('Person', foreign_keys=[real_person_id])
 
 
+class StoryContributor(Base):
+    """ Dedicated contributor table for short stories. """
+    __tablename__ = 'storycontributor'
+    __table_args__ = {'schema': 'suomisf'}
+    shortstory_id = Column(Integer, ForeignKey('shortstory.id'),
+                           nullable=False, primary_key=True)
+    person_id = Column(Integer, ForeignKey('person.id'),
+                       nullable=False, primary_key=True)
+    role_id = Column(Integer, ForeignKey('contributorrole.id'),
+                     nullable=False, primary_key=True)
+    real_person_id = Column(Integer, ForeignKey('person.id'))
+    description = Column(String(50))
+    person = relationship('Person', foreign_keys=[person_id])
+    role = relationship('ContributorRole', viewonly=True)
+    real_person = relationship('Person', foreign_keys=[real_person_id])
+
+
 class ContributorRole(Base):
     """ Contributor role table. """
     __tablename__ = 'contributorrole'
@@ -591,6 +608,17 @@ class Edition(Base):
             retval += '.'
         retval += '<br>'
         return retval
+
+
+class EditionShortStory(Base):
+    """ Junction table for Edition <-> ShortStory relationship. """
+    __tablename__ = 'editionshortstory'
+    __table_args__ = {'schema': 'suomisf'}
+    edition_id = Column(Integer, ForeignKey('edition.id'),
+                        nullable=False, primary_key=True)
+    shortstory_id = Column(Integer, ForeignKey('shortstory.id'),
+                           nullable=False, primary_key=True)
+    order_num = Column(Integer)
 
 
 class EditionImage(Base):
@@ -1182,34 +1210,54 @@ class ShortStory(Base):
                           uselist=True, viewonly=True)
     works = relationship('Work', secondary='part',
                          uselist=True, viewonly=True)
-    editions = relationship('Edition', secondary='part',
-                            uselist=True, viewonly=True)
+    editions = relationship(
+        'Edition', secondary='suomisf.editionshortstory',
+        uselist=True, viewonly=True)
     issues = relationship('Issue', secondary='issuecontent',
                           uselist=True, viewonly=True)
     tags = relationship('Tag', secondary='storytag',
                         uselist=True, viewonly=True)
     authors = relationship(
         "Person",
-        secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
-        primaryjoin='and_(Person.id == Contributor.person_id,\
-                     Contributor.role_id == 1, \
-                     Part.shortstory_id == ShortStory.id)',
-        uselist=True, order_by='Person.alt_name', viewonly=True,
-        foreign_keys=[Contributor.part_id,
-                      Contributor.person_id,
-                      Contributor.role_id])
+        secondary='suomisf.storycontributor',
+        primaryjoin=(
+            'and_(ShortStory.id == StoryContributor.shortstory_id,'
+            ' StoryContributor.role_id == 1)'
+        ),
+        secondaryjoin='Person.id == StoryContributor.person_id',
+        uselist=True,
+        order_by='Person.alt_name',
+        viewonly=True,
+        foreign_keys=(
+            '[StoryContributor.shortstory_id,'
+            ' StoryContributor.person_id,'
+            ' StoryContributor.role_id]'
+        ))
     translators = relationship(
         "Person",
-        secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
-        primaryjoin='and_(Person.id == Contributor.person_id,\
-        Contributor.role_id == 2, Part.shortstory_id == ShortStory.id)',
-        uselist=True, order_by='Person.alt_name', viewonly=True,
-        foreign_keys=[Contributor.part_id,
-                      Contributor.person_id,
-                      Contributor.role_id])
+        secondary='suomisf.storycontributor',
+        primaryjoin=(
+            'and_(ShortStory.id == StoryContributor.shortstory_id,'
+            ' StoryContributor.role_id == 2)'
+        ),
+        secondaryjoin='Person.id == StoryContributor.person_id',
+        uselist=True,
+        order_by='Person.alt_name',
+        viewonly=True,
+        foreign_keys=(
+            '[StoryContributor.shortstory_id,'
+            ' StoryContributor.person_id,'
+            ' StoryContributor.role_id]'
+        ))
     type = relationship('StoryType', uselist=False, viewonly=True)
     contributors = relationship(
-        'Contributor', secondary='part', uselist=True, viewonly=True)
+        'StoryContributor',
+        primaryjoin=(
+            'ShortStory.id == StoryContributor.shortstory_id'
+        ),
+        foreign_keys='[StoryContributor.shortstory_id]',
+        uselist=True,
+        viewonly=True)
     lang = relationship(
         'Language', viewonly=True)
     awards = relationship('Awarded', uselist=True, viewonly=True)
@@ -1444,10 +1492,12 @@ class Work(Base):
                       Contributor.role_id])
     # translators = relationship(
     #     "Person",
-    #     secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
+    #     secondary='join(Part, Contributor,
+    #                    Part.id == Contributor.part_id)',
     #     primaryjoin='and_(Person.id == Contributor.person_id,\
     #                  Contributor.role_id == 2,\
-    #                  Contributor.part_id == Part.id, Part.work_id == Work.id)',
+    #                  Contributor.part_id == Part.id,\
+    #                  Part.work_id == Work.id)',
     #     uselist=True, viewonly=True,
     #     foreign_keys=[Contributor.person_id,
     #                   Contributor.part_id,

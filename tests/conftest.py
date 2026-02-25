@@ -133,6 +133,33 @@ def clone_test_database():
     elapsed = time.time() - start
     print(f"[setup] Database cloned in {elapsed:.1f}s")
 
+    # Apply migration 001 (EditionShortStory, StoryContributor)
+    _apply_migration_001()
+
+
+MIGRATION_SQL = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    'migrations', '001_shortstory_migration.sql'
+)
+
+
+def _apply_migration_001():
+    """Apply migration 001 SQL to the test database."""
+    if not os.path.exists(MIGRATION_SQL):
+        print("[setup] Migration SQL not found, skipping")
+        return
+    print("[setup] Applying migration 001...")
+    result = subprocess.run(
+        ['psql', '-U', DB_USER, '-d', TEST_DB_NAME,
+         '-f', MIGRATION_SQL],
+        capture_output=True, text=True
+    )
+    if result.returncode != 0:
+        raise RuntimeError(
+            f"Migration 001 failed: {result.stderr[:400]}"
+        )
+    print("[setup] Migration 001 applied")
+
 
 def create_test_users():
     """Create test users in the test database."""
@@ -231,10 +258,41 @@ def test_config() -> TestConfig:
 @pytest.fixture(scope='session')
 def app(setup_test_database):
     """Get the Flask application instance."""
-    from app import app as flask_app
+    import sqlalchemy as sa
+    from app import app as flask_app, db
+    import app.route_helpers as route_helpers_module
+    import app.orm_decl as orm_decl_module
 
     flask_app.config['TESTING'] = True
     flask_app.config['WTF_CSRF_ENABLED'] = False
+
+    # app/__init__.py calls load_dotenv('.env', override=True)
+    # which replaces DATABASE_URL with the production URL.
+    # Derive the test URL from the production URL by replacing
+    # only the database name, preserving credentials.
+    prod_url = os.environ.get('DATABASE_URL', '')
+    if prod_url and MAIN_DB_NAME in prod_url:
+        actual_test_url = prod_url.replace(
+            f'/{MAIN_DB_NAME}', f'/{TEST_DB_NAME}', 1
+        )
+    else:
+        actual_test_url = TEST_DB_URL
+
+    flask_app.config['SQLALCHEMY_DATABASE_URI'] = actual_test_url
+
+    # Override db_url so new_session() and load_user() use
+    # the test database, not the production database.
+    route_helpers_module.db_url = actual_test_url
+    orm_decl_module.db_url = actual_test_url
+
+    # Replace Flask-SQLAlchemy's cached engine so db.session
+    # also uses the test database (engine is created at init_app
+    # time and is not updated by config changes afterward).
+    engines = db._app_engines.setdefault(flask_app, {})
+    for engine in engines.values():
+        engine.dispose()
+    engines.clear()
+    engines[None] = sa.create_engine(actual_test_url)
 
     yield flask_app
 

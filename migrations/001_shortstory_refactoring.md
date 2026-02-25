@@ -25,6 +25,14 @@ StoryContributors table.
 
 ## Schema Change Overview
 
+Changes are made to a test database created for this. All schema change SQL
+queries are saved to a migration script file. If for any reason process needs
+to restart, a new test database is created and migration script created so far
+is applied to it.
+
+Existing test snapshots must not be updated while refactoring is ongoing. All
+tests passing before starting refactoring must pass after refactoring is done.
+
 ### Current Model
 
 ```

@@ -1,8 +1,8 @@
 # SuomiSF API Test Coverage Report
 
-**Last Updated:** 2026-02-22
+**Last Updated:** 2026-02-25
 **Total Endpoints:** 167
-**Tested:** 580 tests (covering ~98% of endpoints)
+**Tested:** 589 tests (covering ~98% of endpoints)
 **Pending:** ~10 endpoints (complex write operations)
 **Snapshot Tests:** 40 (data validation against golden database)
 
@@ -66,7 +66,7 @@
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :white_check_mark: | GET | `/api/works/<workid>` | None | `test_entities.py::TestWorks` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/works/<workid>` | None | `test_entities.py::TestWorks`, `test_collections.py::TestWorkCollection` | 2026-02-25 |
 | :white_check_mark: | POST | `/api/works` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
 | :white_check_mark: | PUT | `/api/works` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
 | :white_check_mark: | DELETE | `/api/works/<workid>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
@@ -74,7 +74,7 @@
 | :white_check_mark: | GET | `/api/works/<workid>/awards` | None | `test_related.py::TestWorkAwards` | 2026-02-14 |
 | :white_check_mark: | GET | `/api/works/<workid>/omnibus` | None | `test_works_extra.py::TestWorkOmnibus` | 2026-02-16 |
 | :white_check_mark: | POST | `/api/works/omnibus` | Admin | `test_works_extra.py::TestWorkOmnibus` | 2026-02-16 |
-| :white_check_mark: | GET | `/api/works/shorts/<workid>` | None | `test_work_shorts.py::TestWorkShorts` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/works/shorts/<workid>` | None | `test_work_shorts.py::TestWorkShorts`, `test_collections.py::TestWorkShortsEndpointCollections` | 2026-02-25 |
 | :white_check_mark: | POST | `/api/works/shorts` | None | `test_works_extra.py::TestWorkShortsSave` | 2026-02-16 |
 | :white_check_mark: | PUT | `/api/works/shorts` | None | `test_works_extra.py::TestWorkShortsSave` | 2026-02-16 |
 | :white_check_mark: | GET | `/api/worksbyinitial/<letter>` | None | `test_filters.py::TestWorksByInitial` | 2026-02-14 |
@@ -104,7 +104,7 @@
 | :white_check_mark: | DELETE | `/api/editions/<editionid>/owner/<personid>` | JWT | `test_editions_extra.py::TestEditionOwnerModify` | 2026-02-17 |
 | :white_check_mark: | POST | `/api/editions/owner` | JWT | `test_auth.py::TestCollectionRequiresAuth` | 2026-02-14 |
 | :white_check_mark: | PUT | `/api/editions/owner` | JWT | `test_editions_extra.py::TestEditionOwnerModify` | 2026-02-17 |
-| :white_check_mark: | GET | `/api/editions/<editionid>/shorts` | None | `test_related.py::TestEditionShorts` | 2026-02-14 |
+| :white_check_mark: | GET | `/api/editions/<editionid>/shorts` | None | `test_edition_shorts.py::TestEditionShorts`, `test_collections.py::TestEditionShortsCollections` | 2026-02-25 |
 | :white_check_mark: | GET | `/api/latest/editions/<count>` | None | `test_related.py::TestLatestEditions` | 2026-02-14 |
 | :white_check_mark: | GET | `/api/editions/<edition_id>/work` | None | `test_editions_extra.py::TestEditionWork` | 2026-02-17 |
 | :white_check_mark: | GET | `/api/editions/<editionid>/wishlist` | None | `test_editions_extra.py::TestEditionWishlist` | 2026-02-17 |
@@ -127,7 +127,7 @@
 | :white_check_mark: | GET | `/api/people/<person_id>/articles` | None | `test_persons.py::TestPersonArticles` | 2026-02-15 |
 | :white_check_mark: | GET | `/api/people/<person_id>/awarded` | None | `test_related.py::TestPersonAwarded` | 2026-02-14 |
 | :white_check_mark: | GET | `/api/people/<personid>/chiefeditor` | None | `test_persons.py::TestPersonChiefEditor` | 2026-02-15 |
-| :white_check_mark: | GET | `/api/people/<personid>/shorts` | None | `test_person_shorts.py::TestPersonShorts` | 2026-02-15 |
+| :white_check_mark: | GET | `/api/people/<personid>/shorts` | None | `test_person_shorts.py::TestPersonShorts` | 2026-02-25 |
 | :white_check_mark: | PUT | `/api/person/<personid>/tags/<tagid>` | Admin | `test_persons.py::TestPersonTags` | 2026-02-15 |
 | :white_check_mark: | DELETE | `/api/person/<personid>/tags/<tagid>` | Admin | `test_persons.py::TestPersonTags` | 2026-02-15 |
 | :white_check_mark: | GET | `/api/filter/people/<pattern>` | None | `test_filters.py::TestFilterPeople` | 2026-02-14 |
@@ -165,7 +165,7 @@
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
-| :white_check_mark: | GET | `/api/issues/<issueid>` | None | `test_magazines_issues.py::TestIssueGet` | 2026-02-17 |
+| :white_check_mark: | GET | `/api/issues/<issueid>` | None | `test_magazines_issues.py::TestIssueGet`, `test_collections.py::TestIssueCollection` | 2026-02-25 |
 | :white_check_mark: | POST | `/api/issues` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
 | :white_check_mark: | PUT | `/api/issues` | Admin | `test_magazines_issues.py::TestIssueUpdate` | 2026-02-17 |
 | :white_check_mark: | GET | `/api/issues/<issueid>/articles` | None | `test_related.py::TestIssueArticles` | 2026-02-14 |

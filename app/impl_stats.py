@@ -8,8 +8,8 @@ from app.impl import ResponseType
 from app.route_helpers import new_session
 from app.orm_decl import (
     Genre, Work, WorkGenre, Edition, Part, Publisher,
-    Person, Contributor, ContributorRole, Issue, Language, BindingType, Country,
-    ShortStory, StoryType
+    Person, Contributor, ContributorRole, Issue, Language, BindingType,
+    Country, ShortStory, StoryContributor, StoryType
 )
 from app.model import ShortBriefSchema, WorkBriefSchema
 from app.types import HttpResponseCode
@@ -292,19 +292,17 @@ def stats_storypersoncounts(count: int = 10,
             Person.name,
             Person.alt_name,
             Person.nationality_id,
-            func.count(func.distinct(ShortStory.id)).label('story_count')
+            func.count(
+                func.distinct(ShortStory.id)
+            ).label('story_count')
         ).join(
-            Contributor, and_(
-                Contributor.person_id == Person.id,
-                Contributor.role_id == role_id
+            StoryContributor, and_(
+                StoryContributor.person_id == Person.id,
+                StoryContributor.role_id == role_id
             )
         ).join(
-            Part, and_(
-                Part.id == Contributor.part_id,
-                Part.shortstory_id.isnot(None)
-            )
-        ).join(
-            ShortStory, ShortStory.id == Part.shortstory_id
+            ShortStory,
+            ShortStory.id == StoryContributor.shortstory_id
         )
 
         # Add storytype filter if specified
@@ -339,17 +337,19 @@ def stats_storypersoncounts(count: int = 10,
                 StoryType.name.label('storytype_name'),
                 ContributorRole.id.label('role_id'),
                 ContributorRole.name.label('role_name'),
-                func.count(func.distinct(ShortStory.id)).label('count')
+                func.count(
+                    func.distinct(ShortStory.id)
+                ).label('count')
             ).join(
                 ShortStory, ShortStory.story_type == StoryType.id
             ).join(
-                Part, Part.shortstory_id == ShortStory.id
+                StoryContributor,
+                StoryContributor.shortstory_id == ShortStory.id
             ).join(
-                Contributor, Contributor.part_id == Part.id
-            ).join(
-                ContributorRole, ContributorRole.id == Contributor.role_id
+                ContributorRole,
+                ContributorRole.id == StoryContributor.role_id
             ).filter(
-                Contributor.person_id == person_data.id
+                StoryContributor.person_id == person_data.id
             )
 
             if storytype_id is not None:
@@ -951,14 +951,9 @@ def stats_storynationalitycounts() -> ResponseType:
     session = new_session()
 
     try:
-        # Subquery to check if person has at least one short story contribution
-        has_story = session.query(Contributor.person_id).join(
-            Part, and_(
-                Part.id == Contributor.part_id,
-                Part.shortstory_id.isnot(None)
-            )
-        ).filter(
-            Contributor.person_id == Person.id
+        # Subquery to check if person has at least one short story
+        has_story = session.query(StoryContributor.person_id).filter(
+            StoryContributor.person_id == Person.id
         ).exists()
 
         # Main query to get person counts per nationality (each person counted once)
@@ -989,20 +984,20 @@ def stats_storynationalitycounts() -> ResponseType:
                 StoryType.name.label('storytype_name'),
                 ContributorRole.id.label('role_id'),
                 ContributorRole.name.label('role_name'),
-                func.count(func.distinct(Person.id)).label('count')
+                func.count(
+                    func.distinct(Person.id)
+                ).label('count')
             ).select_from(
                 Person
             ).join(
-                Contributor, Contributor.person_id == Person.id
+                StoryContributor,
+                StoryContributor.person_id == Person.id
             ).join(
-                ContributorRole, ContributorRole.id == Contributor.role_id
+                ContributorRole,
+                ContributorRole.id == StoryContributor.role_id
             ).join(
-                Part, and_(
-                    Part.id == Contributor.part_id,
-                    Part.shortstory_id.isnot(None)
-                )
-            ).join(
-                ShortStory, ShortStory.id == Part.shortstory_id
+                ShortStory,
+                ShortStory.id == StoryContributor.shortstory_id
             ).join(
                 StoryType, StoryType.id == ShortStory.story_type
             )

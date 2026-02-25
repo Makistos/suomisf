@@ -15,6 +15,7 @@ from app.route_helpers import new_session
 from app.orm_decl import (Issue, Magazine, ShortStory, StoryTag, StoryType,
                           StoryGenre,
                           Language, Part, Edition, Awarded, IssueContent,
+                          EditionShortStory, StoryContributor,
                           Contributor, Person)
 from app.model_shortsearch import ShortSchemaForSearch
 from app.model import ShortSchema, StoryTypeSchema, ShortBriefSchema
@@ -238,18 +239,18 @@ def search_shorts(params: Dict[str, str]) -> ResponseType:
     # Add author filter if specified
     if 'author' in params and params['author']:
         author = bleach.clean(params['author'])
-        query = query.join(Part, ShortStory.id == Part.shortstory_id)\
-            .join(Contributor, Part.id == Contributor.part_id)\
-            .join(Person, or_(
-                Person.id == Contributor.person_id,
-                Person.id == Contributor.real_person_id
-            ))\
-            .filter(
-                or_(
-                    Person.name.ilike(f'%{author}%'),
-                    Person.alt_name.ilike(f'%{author}%')
-                )
+        query = query.join(
+            StoryContributor,
+            ShortStory.id == StoryContributor.shortstory_id
+        ).join(Person, or_(
+            Person.id == StoryContributor.person_id,
+            Person.id == StoryContributor.real_person_id
+        )).filter(
+            or_(
+                Person.name.ilike(f'%{author}%'),
+                Person.alt_name.ilike(f'%{author}%')
             )
+        )
 
     # Add title filter
     if 'title' in params and params['title']:
@@ -384,18 +385,7 @@ def story_add(data: Any) -> ResponseType:
         return ResponseType('Tekijä puuttuu.',
                             HttpResponseCode.BAD_REQUEST.value)
 
-    # Add new part (required for contributors)
-    part = Part(shortstory_id=story.id)
-    session.add(part)
-    try:
-        session.commit()
-    except SQLAlchemyError as exp:
-        session.rollback()
-        app.logger.error(f'Exception in story_add(): {exp}.')
-        return ResponseType(f'Tietokantavirhe: {exp}.',
-                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
-
-    # Add contributors
+    # Add contributors directly to StoryContributor
     update_short_contributors(session, story.id, data['contributors'])
 
     # Add genres
@@ -628,6 +618,15 @@ def story_delete(short_id: int) -> ResponseType:
     for tag in tags:
         session.delete(tag)
 
+    session.query(StoryContributor)\
+        .filter(StoryContributor.shortstory_id == short_id)\
+        .delete()
+
+    session.query(EditionShortStory)\
+        .filter(EditionShortStory.shortstory_id == short_id)\
+        .delete()
+
+    # Delete remaining Part-based contributors (for work links)
     contributors = session.query(Contributor)\
         .join(Part)\
         .filter(Part.id == Contributor.part_id)\
@@ -762,6 +761,11 @@ def save_short_to_edition(
         short_part = Part(work_id=part.work_id, edition_id=edition_id,
                           shortstory_id=short_id, order_num=order_num)
         session.add(short_part)
+        # Also record the edition-short link in the new junction table
+        ess = EditionShortStory(edition_id=edition_id,
+                                shortstory_id=short_id,
+                                order_num=order_num)
+        session.add(ess)
     except SQLAlchemyError as exp:
         app.logger.error(f'Exception in save_short_to_edition: {exp}')
         return False
@@ -868,11 +872,9 @@ def get_similar_shorts(short_id: int) -> ResponseType:
             return ResponseType([], HttpResponseCode.OK.value)
 
         # Get author IDs for the reference story
-        ref_author_ids = session.query(Contributor.person_id)\
-            .join(Part)\
-            .filter(Part.id == Contributor.part_id)\
-            .filter(Part.shortstory_id == short_id)\
-            .filter(Contributor.role_id == 1)\
+        ref_author_ids = session.query(StoryContributor.person_id)\
+            .filter(StoryContributor.shortstory_id == short_id)\
+            .filter(StoryContributor.role_id == 1)\
             .distinct()\
             .all()
 
@@ -891,11 +893,9 @@ def get_similar_shorts(short_id: int) -> ResponseType:
         # Filter stories that have the same authors
         matching_stories = []
         for story in similar_stories:
-            story_author_ids = session.query(Contributor.person_id)\
-                .join(Part)\
-                .filter(Part.id == Contributor.part_id)\
-                .filter(Part.shortstory_id == story.id)\
-                .filter(Contributor.role_id == 1)\
+            story_author_ids = session.query(StoryContributor.person_id)\
+                .filter(StoryContributor.shortstory_id == story.id)\
+                .filter(StoryContributor.role_id == 1)\
                 .distinct()\
                 .all()
 

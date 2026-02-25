@@ -1,0 +1,4791 @@
+{
+  "metadata": {
+    "endpoint": "/api/issues/92",
+    "method": "GET",
+    "status_code": 200,
+    "description": "Alienisti issue 92 (1/2017) - 16 stories, multiple authors",
+    "generated_at": "2026-02-25T19:34:47.085595+00:00",
+    "generator": "manual (production capture)"
+  },
+  "response": {
+    "status_code": 200,
+    "data": {
+      "editors": [
+        {
+          "id": 367.0,
+          "name": "Ranta, Lasse",
+          "alt_name": "Lasse Ranta",
+          "fullname": "",
+          "image_src": null,
+          "dob": 1986.0,
+          "dod": null,
+          "roles": [
+            "Kirjoittaja"
+          ],
+          "nationality": {
+            "id": 4,
+            "name": "Suomi"
+          },
+          "workcount": 2.0,
+          "storycount": 12,
+          "other_names": null,
+          "first_name": "Lasse",
+          "last_name": "Ranta",
+          "image_attr": "",
+          "bio": null,
+          "bio_src": "",
+          "imported_string": null
+        }
+      ],
+      "size": {
+        "id": 16,
+        "name": "B5",
+        "mm_width": 176,
+        "mm_height": 250
+      },
+      "articles": [],
+      "stories": [
+        {
+          "authors": [
+            {
+              "id": 3929.0,
+              "name": "Tuukkanen, Mari",
+              "alt_name": "Mari Tuukkanen",
+              "fullname": "",
+              "image_src": null,
+              "dob": null,
+              "dod": null,
+              "roles": [
+                "Kirjoittaja"
+              ],
+              "nationality": {
+                "id": 4,
+                "name": "Suomi"
+              },
+              "workcount": 0.0,
+              "storycount": 5,
+              "other_names": null,
+              "first_name": "Mari",
+              "last_name": "Tuukkanen",
+              "image_attr": "",
+              "bio": null,
+              "bio_src": "",
+              "imported_string": null
+            }
+          ],
+          "type": {
+            "id": 7,
+            "name": "Artikkeli"
+          },
+          "issues": [
+            {
+              "magazine": {
+                "type_id": 1,
+                "type": {
+                  "id": 1,
+                  "name": "Fanzine"
+                },
+                "issues": [
+                  {
+                    "id": 56,
+                    "year": 1990
+                  },
+                  {
+                    "id": 57,
+                    "year": 1990
+                  },
+                  {
+                    "id": 58,
+                    "year": 1991
+                  },
+                  {
+                    "id": 59,
+                    "year": 1992
+                  },
+                  {
+                    "id": 60,
+                    "year": 1992
+                  },
+                  {
+                    "id": 61,
+                    "year": 1992
+                  },
+                  {
+                    "id": 62,
+                    "year": 1993
+                  },
+                  {
+                    "id": 63,
+                    "year": 1994
+                  },
+                  {
+                    "id": 64,
+                    "year": 1995
+                  },
+                  {
+                    "id": 65,
+                    "year": 1999
+                  },
+                  {
+                    "id": 66,
+                    "year": 2000
+                  },
+                  {
+                    "id": 67,
+                    "year": 2001
+                  },
+                  {
+                    "id": 68,
+                    "year": 2002
+                  },
+                  {
+                    "id": 69,
+                    "year": 2003
+                  },
+                  {
+                    "id": 70,
+                    "year": 2004
+                  },
+                  {
+                    "id": 71,
+                    "year": 2004
+                  },
+                  {
+                    "id": 72,
+                    "year": 2005
+                  },
+                  {
+                    "id": 73,
+                    "year": 2005
+                  },
+                  {
+                    "id": 74,
+                    "year": 2006
+                  },
+                  {
+                    "id": 75,
+                    "year": 2008
+                  },
+                  {
+                    "id": 76,
+                    "year": 2008
+                  },
+                  {
+                    "id": 77,
+                    "year": 2009
+                  },
+                  {
+                    "id": 78,
+                    "year": 2009
+                  },
+                  {
+                    "id": 79,
+                    "year": 2010
+                  },
+                  {
+                    "id": 80,
+                    "year": 2010
+                  },
+                  {
+                    "id": 81,
+                    "year": 2011
+                  },
+                  {
+                    "id": 82,
+                    "year": 2011
+                  },
+                  {
+                    "id": 83,
+                    "year": 2012
+                  },
+                  {
+                    "id": 84,
+                    "year": 2012
+                  },
+                  {
+                    "id": 85,
+                    "year": 2013
+                  },
+                  {
+                    "id": 86,
+                    "year": 2013
+                  },
+                  {
+                    "id": 87,
+                    "year": 2014
+                  },
+                  {
+                    "id": 88,
+                    "year": 2014
+                  },
+                  {
+                    "id": 89,
+                    "year": 2015
+                  },
+                  {
+                    "id": 90,
+                    "year": 2016
+                  },
+                  {
+                    "id": 91,
+                    "year": 2016
+                  },
+                  {
+                    "id": 92,
+                    "year": 2017
+                  },
+                  {
+                    "id": 93,
+                    "year": 2018
+                  },
+                  {
+                    "id": 94,
+                    "year": 2019
+                  },
+                  {
+                    "id": 95,
+                    "year": 2019
+                  },
+                  {
+                    "id": 96,
+                    "year": 2020
+                  },
+                  {
+                    "id": 97,
+                    "year": 2020
+                  },
+                  {
+                    "id": 1071,
+                    "year": 2021
+                  },
+                  {
+                    "id": 1072,
+                    "year": 2022
+                  },
+                  {
+                    "id": 1073,
+                    "year": 2023
+                  },
+                  {
+                    "id": 1074,
+                    "year": 2024
+                  },
+                  {
+                    "id": 1075,
+                    "year": 2025
+                  }
+                ],
+                "id": 6,
+                "name": "Alienisti",
+                "description": "",
+                "link": "",
+                "issn": "1236-0449"
+              },
+              "id": 92,
+              "number": 1,
+              "number_extra": "",
+              "count": 37,
+              "year": 2017,
+              "cover_number": "1/2017",
+              "image_src": "/static/images/magazines/Alienisti_37.jpg",
+              "image_attr": null,
+              "pages": 36,
+              "link": "",
+              "notes": "<p>Taitto: Jussi Vainikainen.</p>",
+              "title": "Brave New world of #42"
+            }
+          ],
+          "editions": [],
+          "genres": [],
+          "contributors": [
+            {
+              "person": {
+                "id": 3929.0,
+                "name": "Tuukkanen, Mari",
+                "alt_name": "Mari Tuukkanen"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "lang": {
+            "id": 7,
+            "name": "suomi"
+          },
+          "id": 9131,
+          "title": "Kerrassaan kauhistuttava sunnuntai KauhuConissa",
+          "orig_title": null,
+          "pubyear": 2017
+        },
+        {
+          "authors": [
+            {
+              "id": 3976.0,
+              "name": "Kuskelin, Jari",
+              "alt_name": "Jari Kuskelin",
+              "fullname": "",
+              "image_src": null,
+              "dob": null,
+              "dod": null,
+              "roles": [
+                "Kirjoittaja"
+              ],
+              "nationality": {
+                "id": 4,
+                "name": "Suomi"
+              },
+              "workcount": 0.0,
+              "storycount": 4,
+              "other_names": null,
+              "first_name": "Jari",
+              "last_name": "Kuskelin",
+              "image_attr": "",
+              "bio": null,
+              "bio_src": "",
+              "imported_string": null
+            },
+            {
+              "id": 3889.0,
+              "name": "Vainikainen, Jussi",
+              "alt_name": "Jussi Vainikainen",
+              "fullname": "",
+              "image_src": null,
+              "dob": 1966.0,
+              "dod": null,
+              "roles": [
+                "Kirjoittaja",
+                "Kääntäjä"
+              ],
+              "nationality": {
+                "id": 4,
+                "name": "Suomi"
+              },
+              "workcount": 0.0,
+              "storycount": 28,
+              "other_names": null,
+              "first_name": "Jussi",
+              "last_name": "Vainikainen",
+              "image_attr": "",
+              "bio": null,
+              "bio_src": "",
+              "imported_string": null
+            }
+          ],
+          "type": {
+            "id": 7,
+            "name": "Artikkeli"
+          },
+          "issues": [
+            {
+              "magazine": {
+                "type_id": 1,
+                "type": {
+                  "id": 1,
+                  "name": "Fanzine"
+                },
+                "issues": [
+                  {
+                    "id": 56,
+                    "year": 1990
+                  },
+                  {
+                    "id": 57,
+                    "year": 1990
+                  },
+                  {
+                    "id": 58,
+                    "year": 1991
+                  },
+                  {
+                    "id": 59,
+                    "year": 1992
+                  },
+                  {
+                    "id": 60,
+                    "year": 1992
+                  },
+                  {
+                    "id": 61,
+                    "year": 1992
+                  },
+                  {
+                    "id": 62,
+                    "year": 1993
+                  },
+                  {
+                    "id": 63,
+                    "year": 1994
+                  },
+                  {
+                    "id": 64,
+                    "year": 1995
+                  },
+                  {
+                    "id": 65,
+                    "year": 1999
+                  },
+                  {
+                    "id": 66,
+                    "year": 2000
+                  },
+                  {
+                    "id": 67,
+                    "year": 2001
+                  },
+                  {
+                    "id": 68,
+                    "year": 2002
+                  },
+                  {
+                    "id": 69,
+                    "year": 2003
+                  },
+                  {
+                    "id": 70,
+                    "year": 2004
+                  },
+                  {
+                    "id": 71,
+                    "year": 2004
+                  },
+                  {
+                    "id": 72,
+                    "year": 2005
+                  },
+                  {
+                    "id": 73,
+                    "year": 2005
+                  },
+                  {
+                    "id": 74,
+                    "year": 2006
+                  },
+                  {
+                    "id": 75,
+                    "year": 2008
+                  },
+                  {
+                    "id": 76,
+                    "year": 2008
+                  },
+                  {
+                    "id": 77,
+                    "year": 2009
+                  },
+                  {
+                    "id": 78,
+                    "year": 2009
+                  },
+                  {
+                    "id": 79,
+                    "year": 2010
+                  },
+                  {
+                    "id": 80,
+                    "year": 2010
+                  },
+                  {
+                    "id": 81,
+                    "year": 2011
+                  },
+                  {
+                    "id": 82,
+                    "year": 2011
+                  },
+                  {
+                    "id": 83,
+                    "year": 2012
+                  },
+                  {
+                    "id": 84,
+                    "year": 2012
+                  },
+                  {
+                    "id": 85,
+                    "year": 2013
+                  },
+                  {
+                    "id": 86,
+                    "year": 2013
+                  },
+                  {
+                    "id": 87,
+                    "year": 2014
+                  },
+                  {
+                    "id": 88,
+                    "year": 2014
+                  },
+                  {
+                    "id": 89,
+                    "year": 2015
+                  },
+                  {
+                    "id": 90,
+                    "year": 2016
+                  },
+                  {
+                    "id": 91,
+                    "year": 2016
+                  },
+                  {
+                    "id": 92,
+                    "year": 2017
+                  },
+                  {
+                    "id": 93,
+                    "year": 2018
+                  },
+                  {
+                    "id": 94,
+                    "year": 2019
+                  },
+                  {
+                    "id": 95,
+                    "year": 2019
+                  },
+                  {
+                    "id": 96,
+                    "year": 2020
+                  },
+                  {
+                    "id": 97,
+                    "year": 2020
+                  },
+                  {
+                    "id": 1071,
+                    "year": 2021
+                  },
+                  {
+                    "id": 1072,
+                    "year": 2022
+                  },
+                  {
+                    "id": 1073,
+                    "year": 2023
+                  },
+                  {
+                    "id": 1074,
+                    "year": 2024
+                  },
+                  {
+                    "id": 1075,
+                    "year": 2025
+                  }
+                ],
+                "id": 6,
+                "name": "Alienisti",
+                "description": "",
+                "link": "",
+                "issn": "1236-0449"
+              },
+              "id": 92,
+              "number": 1,
+              "number_extra": "",
+              "count": 37,
+              "year": 2017,
+              "cover_number": "1/2017",
+              "image_src": "/static/images/magazines/Alienisti_37.jpg",
+              "image_attr": null,
+              "pages": 36,
+              "link": "",
+              "notes": "<p>Taitto: Jussi Vainikainen.</p>",
+              "title": "Brave New world of #42"
+            }
+          ],
+          "editions": [],
+          "genres": [],
+          "contributors": [
+            {
+              "person": {
+                "id": 3889.0,
+                "name": "Vainikainen, Jussi",
+                "alt_name": "Jussi Vainikainen"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            },
+            {
+              "person": {
+                "id": 3976.0,
+                "name": "Kuskelin, Jari",
+                "alt_name": "Jari Kuskelin"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "lang": {
+            "id": 7,
+            "name": "suomi"
+          },
+          "id": 9132,
+          "title": "Kuvakavalkadi Worldconista",
+          "orig_title": null,
+          "pubyear": 2017
+        },
+        {
+          "authors": [
+            {
+              "id": 367.0,
+              "name": "Ranta, Lasse",
+              "alt_name": "Lasse Ranta",
+              "fullname": "",
+              "image_src": null,
+              "dob": 1986.0,
+              "dod": null,
+              "roles": [
+                "Kirjoittaja"
+              ],
+              "nationality": {
+                "id": 4,
+                "name": "Suomi"
+              },
+              "workcount": 2.0,
+              "storycount": 12,
+              "other_names": null,
+              "first_name": "Lasse",
+              "last_name": "Ranta",
+              "image_attr": "",
+              "bio": null,
+              "bio_src": "",
+              "imported_string": null
+            }
+          ],
+          "type": {
+            "id": 7,
+            "name": "Artikkeli"
+          },
+          "issues": [
+            {
+              "magazine": {
+                "type_id": 1,
+                "type": {
+                  "id": 1,
+                  "name": "Fanzine"
+                },
+                "issues": [
+                  {
+                    "id": 56,
+                    "year": 1990
+                  },
+                  {
+                    "id": 57,
+                    "year": 1990
+                  },
+                  {
+                    "id": 58,
+                    "year": 1991
+                  },
+                  {
+                    "id": 59,
+                    "year": 1992
+                  },
+                  {
+                    "id": 60,
+                    "year": 1992
+                  },
+                  {
+                    "id": 61,
+                    "year": 1992
+                  },
+                  {
+                    "id": 62,
+                    "year": 1993
+                  },
+                  {
+                    "id": 63,
+                    "year": 1994
+                  },
+                  {
+                    "id": 64,
+                    "year": 1995
+                  },
+                  {
+                    "id": 65,
+                    "year": 1999
+                  },
+                  {
+                    "id": 66,
+                    "year": 2000
+                  },
+                  {
+                    "id": 67,
+                    "year": 2001
+                  },
+                  {
+                    "id": 68,
+                    "year": 2002
+                  },
+                  {
+                    "id": 69,
+                    "year": 2003
+                  },
+                  {
+                    "id": 70,
+                    "year": 2004
+                  },
+                  {
+                    "id": 71,
+                    "year": 2004
+                  },
+                  {
+                    "id": 72,
+                    "year": 2005
+                  },
+                  {
+                    "id": 73,
+                    "year": 2005
+                  },
+                  {
+                    "id": 74,
+                    "year": 2006
+                  },
+                  {
+                    "id": 75,
+                    "year": 2008
+                  },
+                  {
+                    "id": 76,
+                    "year": 2008
+                  },
+                  {
+                    "id": 77,
+                    "year": 2009
+                  },
+                  {
+                    "id": 78,
+                    "year": 2009
+                  },
+                  {
+                    "id": 79,
+                    "year": 2010
+                  },
+                  {
+                    "id": 80,
+                    "year": 2010
+                  },
+                  {
+                    "id": 81,
+                    "year": 2011
+                  },
+                  {
+                    "id": 82,
+                    "year": 2011
+                  },
+                  {
+                    "id": 83,
+                    "year": 2012
+                  },
+                  {
+                    "id": 84,
+                    "year": 2012
+                  },
+                  {
+                    "id": 85,
+                    "year": 2013
+                  },
+                  {
+                    "id": 86,
+                    "year": 2013
+                  },
+                  {
+                    "id": 87,
+                    "year": 2014
+                  },
+                  {
+                    "id": 88,
+                    "year": 2014
+                  },
+                  {
+                    "id": 89,
+                    "year": 2015
+                  },
+                  {
+                    "id": 90,
+                    "year": 2016
+                  },
+                  {
+                    "id": 91,
+                    "year": 2016
+                  },
+                  {
+                    "id": 92,
+                    "year": 2017
+                  },
+                  {
+                    "id": 93,
+                    "year": 2018
+                  },
+                  {
+                    "id": 94,
+                    "year": 2019
+                  },
+                  {
+                    "id": 95,
+                    "year": 2019
+                  },
+                  {
+                    "id": 96,
+                    "year": 2020
+                  },
+                  {
+                    "id": 97,
+                    "year": 2020
+                  },
+                  {
+                    "id": 1071,
+                    "year": 2021
+                  },
+                  {
+                    "id": 1072,
+                    "year": 2022
+                  },
+                  {
+                    "id": 1073,
+                    "year": 2023
+                  },
+                  {
+                    "id": 1074,
+                    "year": 2024
+                  },
+                  {
+                    "id": 1075,
+                    "year": 2025
+                  }
+                ],
+                "id": 6,
+                "name": "Alienisti",
+                "description": "",
+                "link": "",
+                "issn": "1236-0449"
+              },
+              "id": 92,
+              "number": 1,
+              "number_extra": "",
+              "count": 37,
+              "year": 2017,
+              "cover_number": "1/2017",
+              "image_src": "/static/images/magazines/Alienisti_37.jpg",
+              "image_attr": null,
+              "pages": 36,
+              "link": "",
+              "notes": "<p>Taitto: Jussi Vainikainen.</p>",
+              "title": "Brave New world of #42"
+            }
+          ],
+          "editions": [],
+          "genres": [],
+          "contributors": [
+            {
+              "person": {
+                "id": 367.0,
+                "name": "Ranta, Lasse",
+                "alt_name": "Lasse Ranta"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "lang": {
+            "id": 7,
+            "name": "suomi"
+          },
+          "id": 9133,
+          "title": "Unen ja hulluuden valtakunta - Worldcon 75 Helsinki 9.-13.8.2017",
+          "orig_title": null,
+          "pubyear": 2017
+        },
+        {
+          "authors": [
+            {
+              "id": 1862.0,
+              "name": "Kallio, Seppo",
+              "alt_name": "Seppo Kallio",
+              "fullname": "",
+              "image_src": null,
+              "dob": null,
+              "dod": null,
+              "roles": [
+                "Toimittaja",
+                "Kansikuva",
+                "Kirjoittaja",
+                "Esiintyy"
+              ],
+              "nationality": {
+                "id": 4,
+                "name": "Suomi"
+              },
+              "workcount": 2.0,
+              "storycount": 24,
+              "other_names": null,
+              "first_name": "Seppo",
+              "last_name": "Kallio",
+              "image_attr": "",
+              "bio": null,
+              "bio_src": "",
+              "imported_string": null
+            }
+          ],
+          "type": {
+            "id": 7,
+            "name": "Artikkeli"
+          },
+          "issues": [
+            {
+              "magazine": {
+                "type_id": 1,
+                "type": {
+                  "id": 1,
+                  "name": "Fanzine"
+                },
+                "issues": [
+                  {
+                    "id": 56,
+                    "year": 1990
+                  },
+                  {
+                    "id": 57,
+                    "year": 1990
+                  },
+                  {
+                    "id": 58,
+                    "year": 1991
+                  },
+                  {
+                    "id": 59,
+                    "year": 1992
+                  },
+                  {
+                    "id": 60,
+                    "year": 1992
+                  },
+                  {
+                    "id": 61,
+                    "year": 1992
+                  },
+                  {
+                    "id": 62,
+                    "year": 1993
+                  },
+                  {
+                    "id": 63,
+                    "year": 1994
+                  },
+                  {
+                    "id": 64,
+                    "year": 1995
+                  },
+                  {
+                    "id": 65,
+                    "year": 1999
+                  },
+                  {
+                    "id": 66,
+                    "year": 2000
+                  },
+                  {
+                    "id": 67,
+                    "year": 2001
+                  },
+                  {
+                    "id": 68,
+                    "year": 2002
+                  },
+                  {
+                    "id": 69,
+                    "year": 2003
+                  },
+                  {
+                    "id": 70,
+                    "year": 2004
+                  },
+                  {
+                    "id": 71,
+                    "year": 2004
+                  },
+                  {
+                    "id": 72,
+                    "year": 2005
+                  },
+                  {
+                    "id": 73,
+                    "year": 2005
+                  },
+                  {
+                    "id": 74,
+                    "year": 2006
+                  },
+                  {
+                    "id": 75,
+                    "year": 2008
+                  },
+                  {
+                    "id": 76,
+                    "year": 2008
+                  },
+                  {
+                    "id": 77,
+                    "year": 2009
+                  },
+                  {
+                    "id": 78,
+                    "year": 2009
+                  },
+                  {
+                    "id": 79,
+                    "year": 2010
+                  },
+                  {
+                    "id": 80,
+                    "year": 2010
+                  },
+                  {
+                    "id": 81,
+                    "year": 2011
+                  },
+                  {
+                    "id": 82,
+                    "year": 2011
+                  },
+                  {
+                    "id": 83,
+                    "year": 2012
+                  },
+                  {
+                    "id": 84,
+                    "year": 2012
+                  },
+                  {
+                    "id": 85,
+                    "year": 2013
+                  },
+                  {
+                    "id": 86,
+                    "year": 2013
+                  },
+                  {
+                    "id": 87,
+                    "year": 2014
+                  },
+                  {
+                    "id": 88,
+                    "year": 2014
+                  },
+                  {
+                    "id": 89,
+                    "year": 2015
+                  },
+                  {
+                    "id": 90,
+                    "year": 2016
+                  },
+                  {
+                    "id": 91,
+                    "year": 2016
+                  },
+                  {
+                    "id": 92,
+                    "year": 2017
+                  },
+                  {
+                    "id": 93,
+                    "year": 2018
+                  },
+                  {
+                    "id": 94,
+                    "year": 2019
+                  },
+                  {
+                    "id": 95,
+                    "year": 2019
+                  },
+                  {
+                    "id": 96,
+                    "year": 2020
+                  },
+                  {
+                    "id": 97,
+                    "year": 2020
+                  },
+                  {
+                    "id": 1071,
+                    "year": 2021
+                  },
+                  {
+                    "id": 1072,
+                    "year": 2022
+                  },
+                  {
+                    "id": 1073,
+                    "year": 2023
+                  },
+                  {
+                    "id": 1074,
+                    "year": 2024
+                  },
+                  {
+                    "id": 1075,
+                    "year": 2025
+                  }
+                ],
+                "id": 6,
+                "name": "Alienisti",
+                "description": "",
+                "link": "",
+                "issn": "1236-0449"
+              },
+              "id": 92,
+              "number": 1,
+              "number_extra": "",
+              "count": 37,
+              "year": 2017,
+              "cover_number": "1/2017",
+              "image_src": "/static/images/magazines/Alienisti_37.jpg",
+              "image_attr": null,
+              "pages": 36,
+              "link": "",
+              "notes": "<p>Taitto: Jussi Vainikainen.</p>",
+              "title": "Brave New world of #42"
+            }
+          ],
+          "editions": [],
+          "genres": [],
+          "contributors": [
+            {
+              "person": {
+                "id": 1862.0,
+                "name": "Kallio, Seppo",
+                "alt_name": "Seppo Kallio"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "lang": {
+            "id": 7,
+            "name": "suomi"
+          },
+          "id": 9134,
+          "title": "Worldcon 75 - kolonialismi ja orientalismi - kitkeryyttä paneeleissa",
+          "orig_title": null,
+          "pubyear": 2017
+        },
+        {
+          "authors": [
+            {
+              "id": 367.0,
+              "name": "Ranta, Lasse",
+              "alt_name": "Lasse Ranta",
+              "fullname": "",
+              "image_src": null,
+              "dob": 1986.0,
+              "dod": null,
+              "roles": [
+                "Kirjoittaja"
+              ],
+              "nationality": {
+                "id": 4,
+                "name": "Suomi"
+              },
+              "workcount": 2.0,
+              "storycount": 12,
+              "other_names": null,
+              "first_name": "Lasse",
+              "last_name": "Ranta",
+              "image_attr": "",
+              "bio": null,
+              "bio_src": "",
+              "imported_string": null
+            }
+          ],
+          "type": {
+            "id": 7,
+            "name": "Artikkeli"
+          },
+          "issues": [
+            {
+              "magazine": {
+                "type_id": 1,
+                "type": {
+                  "id": 1,
+                  "name": "Fanzine"
+                },
+                "issues": [
+                  {
+                    "id": 56,
+                    "year": 1990
+                  },
+                  {
+                    "id": 57,
+                    "year": 1990
+                  },
+                  {
+                    "id": 58,
+                    "year": 1991
+                  },
+                  {
+                    "id": 59,
+                    "year": 1992
+                  },
+                  {
+                    "id": 60,
+                    "year": 1992
+                  },
+                  {
+                    "id": 61,
+                    "year": 1992
+                  },
+                  {
+                    "id": 62,
+                    "year": 1993
+                  },
+                  {
+                    "id": 63,
+                    "year": 1994
+                  },
+                  {
+                    "id": 64,
+                    "year": 1995
+                  },
+                  {
+                    "id": 65,
+                    "year": 1999
+                  },
+                  {
+                    "id": 66,
+                    "year": 2000
+                  },
+                  {
+                    "id": 67,
+                    "year": 2001
+                  },
+                  {
+                    "id": 68,
+                    "year": 2002
+                  },
+                  {
+                    "id": 69,
+                    "year": 2003
+                  },
+                  {
+                    "id": 70,
+                    "year": 2004
+                  },
+                  {
+                    "id": 71,
+                    "year": 2004
+                  },
+                  {
+                    "id": 72,
+                    "year": 2005
+                  },
+                  {
+                    "id": 73,
+                    "year": 2005
+                  },
+                  {
+                    "id": 74,
+                    "year": 2006
+                  },
+                  {
+                    "id": 75,
+                    "year": 2008
+                  },
+                  {
+                    "id": 76,
+                    "year": 2008
+                  },
+                  {
+                    "id": 77,
+                    "year": 2009
+                  },
+                  {
+                    "id": 78,
+                    "year": 2009
+                  },
+                  {
+                    "id": 79,
+                    "year": 2010
+                  },
+                  {
+                    "id": 80,
+                    "year": 2010
+                  },
+                  {
+                    "id": 81,
+                    "year": 2011
+                  },
+                  {
+                    "id": 82,
+                    "year": 2011
+                  },
+                  {
+                    "id": 83,
+                    "year": 2012
+                  },
+                  {
+                    "id": 84,
+                    "year": 2012
+                  },
+                  {
+                    "id": 85,
+                    "year": 2013
+                  },
+                  {
+                    "id": 86,
+                    "year": 2013
+                  },
+                  {
+                    "id": 87,
+                    "year": 2014
+                  },
+                  {
+                    "id": 88,
+                    "year": 2014
+                  },
+                  {
+                    "id": 89,
+                    "year": 2015
+                  },
+                  {
+                    "id": 90,
+                    "year": 2016
+                  },
+                  {
+                    "id": 91,
+                    "year": 2016
+                  },
+                  {
+                    "id": 92,
+                    "year": 2017
+                  },
+                  {
+                    "id": 93,
+                    "year": 2018
+                  },
+                  {
+                    "id": 94,
+                    "year": 2019
+                  },
+                  {
+                    "id": 95,
+                    "year": 2019
+                  },
+                  {
+                    "id": 96,
+                    "year": 2020
+                  },
+                  {
+                    "id": 97,
+                    "year": 2020
+                  },
+                  {
+                    "id": 1071,
+                    "year": 2021
+                  },
+                  {
+                    "id": 1072,
+                    "year": 2022
+                  },
+                  {
+                    "id": 1073,
+                    "year": 2023
+                  },
+                  {
+                    "id": 1074,
+                    "year": 2024
+                  },
+                  {
+                    "id": 1075,
+                    "year": 2025
+                  }
+                ],
+                "id": 6,
+                "name": "Alienisti",
+                "description": "",
+                "link": "",
+                "issn": "1236-0449"
+              },
+              "id": 92,
+              "number": 1,
+              "number_extra": "",
+              "count": 37,
+              "year": 2017,
+              "cover_number": "1/2017",
+              "image_src": "/static/images/magazines/Alienisti_37.jpg",
+              "image_attr": null,
+              "pages": 36,
+              "link": "",
+              "notes": "<p>Taitto: Jussi Vainikainen.</p>",
+              "title": "Brave New world of #42"
+            }
+          ],
+          "editions": [],
+          "genres": [],
+          "contributors": [
+            {
+              "person": {
+                "id": 367.0,
+                "name": "Ranta, Lasse",
+                "alt_name": "Lasse Ranta"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            },
+            {
+              "person": {
+                "id": 7322.0,
+                "name": "Mélies, Georges",
+                "alt_name": "Georges Mélies"
+              },
+              "role": {
+                "id": 6,
+                "name": "Esiintyy"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "lang": {
+            "id": 7,
+            "name": "suomi"
+          },
+          "id": 9135,
+          "title": "Elämän magiasta - käsittelyssä kolme Georges Mélies'n elokuvaa",
+          "orig_title": null,
+          "pubyear": 2017
+        },
+        {
+          "authors": [
+            {
+              "id": 2613.0,
+              "name": "Ahonen, Marko",
+              "alt_name": "Marko Ahonen",
+              "fullname": "",
+              "image_src": null,
+              "dob": 1967.0,
+              "dod": null,
+              "roles": [
+                "Kirjoittaja",
+                "Esiintyy",
+                "Kääntäjä"
+              ],
+              "nationality": {
+                "id": 4,
+                "name": "Suomi"
+              },
+              "workcount": 2.0,
+              "storycount": 48,
+              "other_names": null,
+              "first_name": "Marko",
+              "last_name": "Ahonen",
+              "image_attr": "",
+              "bio": null,
+              "bio_src": "",
+              "imported_string": null
+            }
+          ],
+          "type": {
+            "id": 7,
+            "name": "Artikkeli"
+          },
+          "issues": [
+            {
+              "magazine": {
+                "type_id": 1,
+                "type": {
+                  "id": 1,
+                  "name": "Fanzine"
+                },
+                "issues": [
+                  {
+                    "id": 56,
+                    "year": 1990
+                  },
+                  {
+                    "id": 57,
+                    "year": 1990
+                  },
+                  {
+                    "id": 58,
+                    "year": 1991
+                  },
+                  {
+                    "id": 59,
+                    "year": 1992
+                  },
+                  {
+                    "id": 60,
+                    "year": 1992
+                  },
+                  {
+                    "id": 61,
+                    "year": 1992
+                  },
+                  {
+                    "id": 62,
+                    "year": 1993
+                  },
+                  {
+                    "id": 63,
+                    "year": 1994
+                  },
+                  {
+                    "id": 64,
+                    "year": 1995
+                  },
+                  {
+                    "id": 65,
+                    "year": 1999
+                  },
+                  {
+                    "id": 66,
+                    "year": 2000
+                  },
+                  {
+                    "id": 67,
+                    "year": 2001
+                  },
+                  {
+                    "id": 68,
+                    "year": 2002
+                  },
+                  {
+                    "id": 69,
+                    "year": 2003
+                  },
+                  {
+                    "id": 70,
+                    "year": 2004
+                  },
+                  {
+                    "id": 71,
+                    "year": 2004
+                  },
+                  {
+                    "id": 72,
+                    "year": 2005
+                  },
+                  {
+                    "id": 73,
+                    "year": 2005
+                  },
+                  {
+                    "id": 74,
+                    "year": 2006
+                  },
+                  {
+                    "id": 75,
+                    "year": 2008
+                  },
+                  {
+                    "id": 76,
+                    "year": 2008
+                  },
+                  {
+                    "id": 77,
+                    "year": 2009
+                  },
+                  {
+                    "id": 78,
+                    "year": 2009
+                  },
+                  {
+                    "id": 79,
+                    "year": 2010
+                  },
+                  {
+                    "id": 80,
+                    "year": 2010
+                  },
+                  {
+                    "id": 81,
+                    "year": 2011
+                  },
+                  {
+                    "id": 82,
+                    "year": 2011
+                  },
+                  {
+                    "id": 83,
+                    "year": 2012
+                  },
+                  {
+                    "id": 84,
+                    "year": 2012
+                  },
+                  {
+                    "id": 85,
+                    "year": 2013
+                  },
+                  {
+                    "id": 86,
+                    "year": 2013
+                  },
+                  {
+                    "id": 87,
+                    "year": 2014
+                  },
+                  {
+                    "id": 88,
+                    "year": 2014
+                  },
+                  {
+                    "id": 89,
+                    "year": 2015
+                  },
+                  {
+                    "id": 90,
+                    "year": 2016
+                  },
+                  {
+                    "id": 91,
+                    "year": 2016
+                  },
+                  {
+                    "id": 92,
+                    "year": 2017
+                  },
+                  {
+                    "id": 93,
+                    "year": 2018
+                  },
+                  {
+                    "id": 94,
+                    "year": 2019
+                  },
+                  {
+                    "id": 95,
+                    "year": 2019
+                  },
+                  {
+                    "id": 96,
+                    "year": 2020
+                  },
+                  {
+                    "id": 97,
+                    "year": 2020
+                  },
+                  {
+                    "id": 1071,
+                    "year": 2021
+                  },
+                  {
+                    "id": 1072,
+                    "year": 2022
+                  },
+                  {
+                    "id": 1073,
+                    "year": 2023
+                  },
+                  {
+                    "id": 1074,
+                    "year": 2024
+                  },
+                  {
+                    "id": 1075,
+                    "year": 2025
+                  }
+                ],
+                "id": 6,
+                "name": "Alienisti",
+                "description": "",
+                "link": "",
+                "issn": "1236-0449"
+              },
+              "id": 92,
+              "number": 1,
+              "number_extra": "",
+              "count": 37,
+              "year": 2017,
+              "cover_number": "1/2017",
+              "image_src": "/static/images/magazines/Alienisti_37.jpg",
+              "image_attr": null,
+              "pages": 36,
+              "link": "",
+              "notes": "<p>Taitto: Jussi Vainikainen.</p>",
+              "title": "Brave New world of #42"
+            }
+          ],
+          "editions": [],
+          "genres": [],
+          "contributors": [
+            {
+              "person": {
+                "id": 2613.0,
+                "name": "Ahonen, Marko",
+                "alt_name": "Marko Ahonen"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "lang": {
+            "id": 7,
+            "name": "suomi"
+          },
+          "id": 9136,
+          "title": "Last Border - Mika Kaurismäen syrjähyppy scifiin",
+          "orig_title": null,
+          "pubyear": 2017
+        },
+        {
+          "authors": [
+            {
+              "id": 367.0,
+              "name": "Ranta, Lasse",
+              "alt_name": "Lasse Ranta",
+              "fullname": "",
+              "image_src": null,
+              "dob": 1986.0,
+              "dod": null,
+              "roles": [
+                "Kirjoittaja"
+              ],
+              "nationality": {
+                "id": 4,
+                "name": "Suomi"
+              },
+              "workcount": 2.0,
+              "storycount": 12,
+              "other_names": null,
+              "first_name": "Lasse",
+              "last_name": "Ranta",
+              "image_attr": "",
+              "bio": null,
+              "bio_src": "",
+              "imported_string": null
+            }
+          ],
+          "type": {
+            "id": 7,
+            "name": "Artikkeli"
+          },
+          "issues": [
+            {
+              "magazine": {
+                "type_id": 1,
+                "type": {
+                  "id": 1,
+                  "name": "Fanzine"
+                },
+                "issues": [
+                  {
+                    "id": 56,
+                    "year": 1990
+                  },
+                  {
+                    "id": 57,
+                    "year": 1990
+                  },
+                  {
+                    "id": 58,
+                    "year": 1991
+                  },
+                  {
+                    "id": 59,
+                    "year": 1992
+                  },
+                  {
+                    "id": 60,
+                    "year": 1992
+                  },
+                  {
+                    "id": 61,
+                    "year": 1992
+                  },
+                  {
+                    "id": 62,
+                    "year": 1993
+                  },
+                  {
+                    "id": 63,
+                    "year": 1994
+                  },
+                  {
+                    "id": 64,
+                    "year": 1995
+                  },
+                  {
+                    "id": 65,
+                    "year": 1999
+                  },
+                  {
+                    "id": 66,
+                    "year": 2000
+                  },
+                  {
+                    "id": 67,
+                    "year": 2001
+                  },
+                  {
+                    "id": 68,
+                    "year": 2002
+                  },
+                  {
+                    "id": 69,
+                    "year": 2003
+                  },
+                  {
+                    "id": 70,
+                    "year": 2004
+                  },
+                  {
+                    "id": 71,
+                    "year": 2004
+                  },
+                  {
+                    "id": 72,
+                    "year": 2005
+                  },
+                  {
+                    "id": 73,
+                    "year": 2005
+                  },
+                  {
+                    "id": 74,
+                    "year": 2006
+                  },
+                  {
+                    "id": 75,
+                    "year": 2008
+                  },
+                  {
+                    "id": 76,
+                    "year": 2008
+                  },
+                  {
+                    "id": 77,
+                    "year": 2009
+                  },
+                  {
+                    "id": 78,
+                    "year": 2009
+                  },
+                  {
+                    "id": 79,
+                    "year": 2010
+                  },
+                  {
+                    "id": 80,
+                    "year": 2010
+                  },
+                  {
+                    "id": 81,
+                    "year": 2011
+                  },
+                  {
+                    "id": 82,
+                    "year": 2011
+                  },
+                  {
+                    "id": 83,
+                    "year": 2012
+                  },
+                  {
+                    "id": 84,
+                    "year": 2012
+                  },
+                  {
+                    "id": 85,
+                    "year": 2013
+                  },
+                  {
+                    "id": 86,
+                    "year": 2013
+                  },
+                  {
+                    "id": 87,
+                    "year": 2014
+                  },
+                  {
+                    "id": 88,
+                    "year": 2014
+                  },
+                  {
+                    "id": 89,
+                    "year": 2015
+                  },
+                  {
+                    "id": 90,
+                    "year": 2016
+                  },
+                  {
+                    "id": 91,
+                    "year": 2016
+                  },
+                  {
+                    "id": 92,
+                    "year": 2017
+                  },
+                  {
+                    "id": 93,
+                    "year": 2018
+                  },
+                  {
+                    "id": 94,
+                    "year": 2019
+                  },
+                  {
+                    "id": 95,
+                    "year": 2019
+                  },
+                  {
+                    "id": 96,
+                    "year": 2020
+                  },
+                  {
+                    "id": 97,
+                    "year": 2020
+                  },
+                  {
+                    "id": 1071,
+                    "year": 2021
+                  },
+                  {
+                    "id": 1072,
+                    "year": 2022
+                  },
+                  {
+                    "id": 1073,
+                    "year": 2023
+                  },
+                  {
+                    "id": 1074,
+                    "year": 2024
+                  },
+                  {
+                    "id": 1075,
+                    "year": 2025
+                  }
+                ],
+                "id": 6,
+                "name": "Alienisti",
+                "description": "",
+                "link": "",
+                "issn": "1236-0449"
+              },
+              "id": 92,
+              "number": 1,
+              "number_extra": "",
+              "count": 37,
+              "year": 2017,
+              "cover_number": "1/2017",
+              "image_src": "/static/images/magazines/Alienisti_37.jpg",
+              "image_attr": null,
+              "pages": 36,
+              "link": "",
+              "notes": "<p>Taitto: Jussi Vainikainen.</p>",
+              "title": "Brave New world of #42"
+            }
+          ],
+          "editions": [],
+          "genres": [],
+          "contributors": [
+            {
+              "person": {
+                "id": 367.0,
+                "name": "Ranta, Lasse",
+                "alt_name": "Lasse Ranta"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            },
+            {
+              "person": {
+                "id": 4826.0,
+                "name": "Wang, Regina Kanyu",
+                "alt_name": "Regina Kanyu Wang"
+              },
+              "role": {
+                "id": 6,
+                "name": "Esiintyy"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "lang": {
+            "id": 1,
+            "name": "englanti"
+          },
+          "id": 9137,
+          "title": "Interview with Regina Kanyu Wang",
+          "orig_title": null,
+          "pubyear": 2017
+        },
+        {
+          "authors": [
+            {
+              "id": 3660.0,
+              "name": "Arkko, Edith",
+              "alt_name": "Edith Arkko",
+              "fullname": "",
+              "image_src": null,
+              "dob": null,
+              "dod": null,
+              "roles": [
+                "Kirjoittaja",
+                "Toimittaja"
+              ],
+              "nationality": {
+                "id": 4,
+                "name": "Suomi"
+              },
+              "workcount": 1.0,
+              "storycount": 21,
+              "other_names": null,
+              "first_name": "Edith",
+              "last_name": "Arkko",
+              "image_attr": "",
+              "bio": null,
+              "bio_src": "",
+              "imported_string": null
+            }
+          ],
+          "type": {
+            "id": 1,
+            "name": "Novelli"
+          },
+          "issues": [
+            {
+              "magazine": {
+                "type_id": 1,
+                "type": {
+                  "id": 1,
+                  "name": "Fanzine"
+                },
+                "issues": [
+                  {
+                    "id": 56,
+                    "year": 1990
+                  },
+                  {
+                    "id": 57,
+                    "year": 1990
+                  },
+                  {
+                    "id": 58,
+                    "year": 1991
+                  },
+                  {
+                    "id": 59,
+                    "year": 1992
+                  },
+                  {
+                    "id": 60,
+                    "year": 1992
+                  },
+                  {
+                    "id": 61,
+                    "year": 1992
+                  },
+                  {
+                    "id": 62,
+                    "year": 1993
+                  },
+                  {
+                    "id": 63,
+                    "year": 1994
+                  },
+                  {
+                    "id": 64,
+                    "year": 1995
+                  },
+                  {
+                    "id": 65,
+                    "year": 1999
+                  },
+                  {
+                    "id": 66,
+                    "year": 2000
+                  },
+                  {
+                    "id": 67,
+                    "year": 2001
+                  },
+                  {
+                    "id": 68,
+                    "year": 2002
+                  },
+                  {
+                    "id": 69,
+                    "year": 2003
+                  },
+                  {
+                    "id": 70,
+                    "year": 2004
+                  },
+                  {
+                    "id": 71,
+                    "year": 2004
+                  },
+                  {
+                    "id": 72,
+                    "year": 2005
+                  },
+                  {
+                    "id": 73,
+                    "year": 2005
+                  },
+                  {
+                    "id": 74,
+                    "year": 2006
+                  },
+                  {
+                    "id": 75,
+                    "year": 2008
+                  },
+                  {
+                    "id": 76,
+                    "year": 2008
+                  },
+                  {
+                    "id": 77,
+                    "year": 2009
+                  },
+                  {
+                    "id": 78,
+                    "year": 2009
+                  },
+                  {
+                    "id": 79,
+                    "year": 2010
+                  },
+                  {
+                    "id": 80,
+                    "year": 2010
+                  },
+                  {
+                    "id": 81,
+                    "year": 2011
+                  },
+                  {
+                    "id": 82,
+                    "year": 2011
+                  },
+                  {
+                    "id": 83,
+                    "year": 2012
+                  },
+                  {
+                    "id": 84,
+                    "year": 2012
+                  },
+                  {
+                    "id": 85,
+                    "year": 2013
+                  },
+                  {
+                    "id": 86,
+                    "year": 2013
+                  },
+                  {
+                    "id": 87,
+                    "year": 2014
+                  },
+                  {
+                    "id": 88,
+                    "year": 2014
+                  },
+                  {
+                    "id": 89,
+                    "year": 2015
+                  },
+                  {
+                    "id": 90,
+                    "year": 2016
+                  },
+                  {
+                    "id": 91,
+                    "year": 2016
+                  },
+                  {
+                    "id": 92,
+                    "year": 2017
+                  },
+                  {
+                    "id": 93,
+                    "year": 2018
+                  },
+                  {
+                    "id": 94,
+                    "year": 2019
+                  },
+                  {
+                    "id": 95,
+                    "year": 2019
+                  },
+                  {
+                    "id": 96,
+                    "year": 2020
+                  },
+                  {
+                    "id": 97,
+                    "year": 2020
+                  },
+                  {
+                    "id": 1071,
+                    "year": 2021
+                  },
+                  {
+                    "id": 1072,
+                    "year": 2022
+                  },
+                  {
+                    "id": 1073,
+                    "year": 2023
+                  },
+                  {
+                    "id": 1074,
+                    "year": 2024
+                  },
+                  {
+                    "id": 1075,
+                    "year": 2025
+                  }
+                ],
+                "id": 6,
+                "name": "Alienisti",
+                "description": "",
+                "link": "",
+                "issn": "1236-0449"
+              },
+              "id": 92,
+              "number": 1,
+              "number_extra": "",
+              "count": 37,
+              "year": 2017,
+              "cover_number": "1/2017",
+              "image_src": "/static/images/magazines/Alienisti_37.jpg",
+              "image_attr": null,
+              "pages": 36,
+              "link": "",
+              "notes": "<p>Taitto: Jussi Vainikainen.</p>",
+              "title": "Brave New world of #42"
+            }
+          ],
+          "editions": [],
+          "genres": [],
+          "contributors": [
+            {
+              "person": {
+                "id": 3660.0,
+                "name": "Arkko, Edith",
+                "alt_name": "Edith Arkko"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "lang": {
+            "id": 7,
+            "name": "suomi"
+          },
+          "id": 4011,
+          "title": "Enkelierotiikkaa, osa 2",
+          "orig_title": "Enkelierotiikkaa, osa 2",
+          "pubyear": 2017
+        },
+        {
+          "authors": [
+            {
+              "id": 1988.0,
+              "name": "Hirsjärvi, Irma",
+              "alt_name": "Irma Hirsjärvi",
+              "fullname": "Irma Maria Hirsjärvi",
+              "image_src": null,
+              "dob": 1960.0,
+              "dod": null,
+              "roles": [
+                "Kirjoittaja",
+                "Kansikuva",
+                "Kääntäjä",
+                "Esiintyy",
+                "Toimittaja"
+              ],
+              "nationality": {
+                "id": 4,
+                "name": "Suomi"
+              },
+              "workcount": 7.0,
+              "storycount": 86,
+              "other_names": null,
+              "first_name": "Irma (Maria)",
+              "last_name": "Hirsjärvi",
+              "image_attr": "",
+              "bio": null,
+              "bio_src": "",
+              "imported_string": null
+            }
+          ],
+          "type": {
+            "id": 1,
+            "name": "Novelli"
+          },
+          "issues": [
+            {
+              "magazine": {
+                "type_id": 1,
+                "type": {
+                  "id": 1,
+                  "name": "Fanzine"
+                },
+                "issues": [
+                  {
+                    "id": 56,
+                    "year": 1990
+                  },
+                  {
+                    "id": 57,
+                    "year": 1990
+                  },
+                  {
+                    "id": 58,
+                    "year": 1991
+                  },
+                  {
+                    "id": 59,
+                    "year": 1992
+                  },
+                  {
+                    "id": 60,
+                    "year": 1992
+                  },
+                  {
+                    "id": 61,
+                    "year": 1992
+                  },
+                  {
+                    "id": 62,
+                    "year": 1993
+                  },
+                  {
+                    "id": 63,
+                    "year": 1994
+                  },
+                  {
+                    "id": 64,
+                    "year": 1995
+                  },
+                  {
+                    "id": 65,
+                    "year": 1999
+                  },
+                  {
+                    "id": 66,
+                    "year": 2000
+                  },
+                  {
+                    "id": 67,
+                    "year": 2001
+                  },
+                  {
+                    "id": 68,
+                    "year": 2002
+                  },
+                  {
+                    "id": 69,
+                    "year": 2003
+                  },
+                  {
+                    "id": 70,
+                    "year": 2004
+                  },
+                  {
+                    "id": 71,
+                    "year": 2004
+                  },
+                  {
+                    "id": 72,
+                    "year": 2005
+                  },
+                  {
+                    "id": 73,
+                    "year": 2005
+                  },
+                  {
+                    "id": 74,
+                    "year": 2006
+                  },
+                  {
+                    "id": 75,
+                    "year": 2008
+                  },
+                  {
+                    "id": 76,
+                    "year": 2008
+                  },
+                  {
+                    "id": 77,
+                    "year": 2009
+                  },
+                  {
+                    "id": 78,
+                    "year": 2009
+                  },
+                  {
+                    "id": 79,
+                    "year": 2010
+                  },
+                  {
+                    "id": 80,
+                    "year": 2010
+                  },
+                  {
+                    "id": 81,
+                    "year": 2011
+                  },
+                  {
+                    "id": 82,
+                    "year": 2011
+                  },
+                  {
+                    "id": 83,
+                    "year": 2012
+                  },
+                  {
+                    "id": 84,
+                    "year": 2012
+                  },
+                  {
+                    "id": 85,
+                    "year": 2013
+                  },
+                  {
+                    "id": 86,
+                    "year": 2013
+                  },
+                  {
+                    "id": 87,
+                    "year": 2014
+                  },
+                  {
+                    "id": 88,
+                    "year": 2014
+                  },
+                  {
+                    "id": 89,
+                    "year": 2015
+                  },
+                  {
+                    "id": 90,
+                    "year": 2016
+                  },
+                  {
+                    "id": 91,
+                    "year": 2016
+                  },
+                  {
+                    "id": 92,
+                    "year": 2017
+                  },
+                  {
+                    "id": 93,
+                    "year": 2018
+                  },
+                  {
+                    "id": 94,
+                    "year": 2019
+                  },
+                  {
+                    "id": 95,
+                    "year": 2019
+                  },
+                  {
+                    "id": 96,
+                    "year": 2020
+                  },
+                  {
+                    "id": 97,
+                    "year": 2020
+                  },
+                  {
+                    "id": 1071,
+                    "year": 2021
+                  },
+                  {
+                    "id": 1072,
+                    "year": 2022
+                  },
+                  {
+                    "id": 1073,
+                    "year": 2023
+                  },
+                  {
+                    "id": 1074,
+                    "year": 2024
+                  },
+                  {
+                    "id": 1075,
+                    "year": 2025
+                  }
+                ],
+                "id": 6,
+                "name": "Alienisti",
+                "description": "",
+                "link": "",
+                "issn": "1236-0449"
+              },
+              "id": 92,
+              "number": 1,
+              "number_extra": "",
+              "count": 37,
+              "year": 2017,
+              "cover_number": "1/2017",
+              "image_src": "/static/images/magazines/Alienisti_37.jpg",
+              "image_attr": null,
+              "pages": 36,
+              "link": "",
+              "notes": "<p>Taitto: Jussi Vainikainen.</p>",
+              "title": "Brave New world of #42"
+            }
+          ],
+          "editions": [],
+          "genres": [],
+          "contributors": [
+            {
+              "person": {
+                "id": 1988.0,
+                "name": "Hirsjärvi, Irma",
+                "alt_name": "Irma Hirsjärvi"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "lang": {
+            "id": 7,
+            "name": "suomi"
+          },
+          "id": 4012,
+          "title": "Pisara",
+          "orig_title": "Pisara",
+          "pubyear": 2017
+        },
+        {
+          "authors": [
+            {
+              "id": 1862.0,
+              "name": "Kallio, Seppo",
+              "alt_name": "Seppo Kallio",
+              "fullname": "",
+              "image_src": null,
+              "dob": null,
+              "dod": null,
+              "roles": [
+                "Toimittaja",
+                "Kansikuva",
+                "Kirjoittaja",
+                "Esiintyy"
+              ],
+              "nationality": {
+                "id": 4,
+                "name": "Suomi"
+              },
+              "workcount": 2.0,
+              "storycount": 24,
+              "other_names": null,
+              "first_name": "Seppo",
+              "last_name": "Kallio",
+              "image_attr": "",
+              "bio": null,
+              "bio_src": "",
+              "imported_string": null
+            }
+          ],
+          "type": {
+            "id": 1,
+            "name": "Novelli"
+          },
+          "issues": [
+            {
+              "magazine": {
+                "type_id": 1,
+                "type": {
+                  "id": 1,
+                  "name": "Fanzine"
+                },
+                "issues": [
+                  {
+                    "id": 56,
+                    "year": 1990
+                  },
+                  {
+                    "id": 57,
+                    "year": 1990
+                  },
+                  {
+                    "id": 58,
+                    "year": 1991
+                  },
+                  {
+                    "id": 59,
+                    "year": 1992
+                  },
+                  {
+                    "id": 60,
+                    "year": 1992
+                  },
+                  {
+                    "id": 61,
+                    "year": 1992
+                  },
+                  {
+                    "id": 62,
+                    "year": 1993
+                  },
+                  {
+                    "id": 63,
+                    "year": 1994
+                  },
+                  {
+                    "id": 64,
+                    "year": 1995
+                  },
+                  {
+                    "id": 65,
+                    "year": 1999
+                  },
+                  {
+                    "id": 66,
+                    "year": 2000
+                  },
+                  {
+                    "id": 67,
+                    "year": 2001
+                  },
+                  {
+                    "id": 68,
+                    "year": 2002
+                  },
+                  {
+                    "id": 69,
+                    "year": 2003
+                  },
+                  {
+                    "id": 70,
+                    "year": 2004
+                  },
+                  {
+                    "id": 71,
+                    "year": 2004
+                  },
+                  {
+                    "id": 72,
+                    "year": 2005
+                  },
+                  {
+                    "id": 73,
+                    "year": 2005
+                  },
+                  {
+                    "id": 74,
+                    "year": 2006
+                  },
+                  {
+                    "id": 75,
+                    "year": 2008
+                  },
+                  {
+                    "id": 76,
+                    "year": 2008
+                  },
+                  {
+                    "id": 77,
+                    "year": 2009
+                  },
+                  {
+                    "id": 78,
+                    "year": 2009
+                  },
+                  {
+                    "id": 79,
+                    "year": 2010
+                  },
+                  {
+                    "id": 80,
+                    "year": 2010
+                  },
+                  {
+                    "id": 81,
+                    "year": 2011
+                  },
+                  {
+                    "id": 82,
+                    "year": 2011
+                  },
+                  {
+                    "id": 83,
+                    "year": 2012
+                  },
+                  {
+                    "id": 84,
+                    "year": 2012
+                  },
+                  {
+                    "id": 85,
+                    "year": 2013
+                  },
+                  {
+                    "id": 86,
+                    "year": 2013
+                  },
+                  {
+                    "id": 87,
+                    "year": 2014
+                  },
+                  {
+                    "id": 88,
+                    "year": 2014
+                  },
+                  {
+                    "id": 89,
+                    "year": 2015
+                  },
+                  {
+                    "id": 90,
+                    "year": 2016
+                  },
+                  {
+                    "id": 91,
+                    "year": 2016
+                  },
+                  {
+                    "id": 92,
+                    "year": 2017
+                  },
+                  {
+                    "id": 93,
+                    "year": 2018
+                  },
+                  {
+                    "id": 94,
+                    "year": 2019
+                  },
+                  {
+                    "id": 95,
+                    "year": 2019
+                  },
+                  {
+                    "id": 96,
+                    "year": 2020
+                  },
+                  {
+                    "id": 97,
+                    "year": 2020
+                  },
+                  {
+                    "id": 1071,
+                    "year": 2021
+                  },
+                  {
+                    "id": 1072,
+                    "year": 2022
+                  },
+                  {
+                    "id": 1073,
+                    "year": 2023
+                  },
+                  {
+                    "id": 1074,
+                    "year": 2024
+                  },
+                  {
+                    "id": 1075,
+                    "year": 2025
+                  }
+                ],
+                "id": 6,
+                "name": "Alienisti",
+                "description": "",
+                "link": "",
+                "issn": "1236-0449"
+              },
+              "id": 92,
+              "number": 1,
+              "number_extra": "",
+              "count": 37,
+              "year": 2017,
+              "cover_number": "1/2017",
+              "image_src": "/static/images/magazines/Alienisti_37.jpg",
+              "image_attr": null,
+              "pages": 36,
+              "link": "",
+              "notes": "<p>Taitto: Jussi Vainikainen.</p>",
+              "title": "Brave New world of #42"
+            }
+          ],
+          "editions": [],
+          "genres": [],
+          "contributors": [
+            {
+              "person": {
+                "id": 1862.0,
+                "name": "Kallio, Seppo",
+                "alt_name": "Seppo Kallio"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "lang": {
+            "id": 7,
+            "name": "suomi"
+          },
+          "id": 4013,
+          "title": "Olen nähnyt neidon kylvyssä",
+          "orig_title": "Olen nähnyt neidon kylvyssä",
+          "pubyear": 2017
+        },
+        {
+          "authors": [
+            {
+              "id": 2203.0,
+              "name": "Kantola, Camilla",
+              "alt_name": "Camilla Kantola",
+              "fullname": "",
+              "image_src": null,
+              "dob": 1980.0,
+              "dod": null,
+              "roles": [
+                "Toimittaja",
+                "Kirjoittaja"
+              ],
+              "nationality": {
+                "id": 4,
+                "name": "Suomi"
+              },
+              "workcount": 3.0,
+              "storycount": 18,
+              "other_names": null,
+              "first_name": "Camilla",
+              "last_name": "Kantola",
+              "image_attr": "",
+              "bio": null,
+              "bio_src": "",
+              "imported_string": null
+            }
+          ],
+          "type": {
+            "id": 5,
+            "name": "Raapale"
+          },
+          "issues": [
+            {
+              "magazine": {
+                "type_id": 1,
+                "type": {
+                  "id": 1,
+                  "name": "Fanzine"
+                },
+                "issues": [
+                  {
+                    "id": 56,
+                    "year": 1990
+                  },
+                  {
+                    "id": 57,
+                    "year": 1990
+                  },
+                  {
+                    "id": 58,
+                    "year": 1991
+                  },
+                  {
+                    "id": 59,
+                    "year": 1992
+                  },
+                  {
+                    "id": 60,
+                    "year": 1992
+                  },
+                  {
+                    "id": 61,
+                    "year": 1992
+                  },
+                  {
+                    "id": 62,
+                    "year": 1993
+                  },
+                  {
+                    "id": 63,
+                    "year": 1994
+                  },
+                  {
+                    "id": 64,
+                    "year": 1995
+                  },
+                  {
+                    "id": 65,
+                    "year": 1999
+                  },
+                  {
+                    "id": 66,
+                    "year": 2000
+                  },
+                  {
+                    "id": 67,
+                    "year": 2001
+                  },
+                  {
+                    "id": 68,
+                    "year": 2002
+                  },
+                  {
+                    "id": 69,
+                    "year": 2003
+                  },
+                  {
+                    "id": 70,
+                    "year": 2004
+                  },
+                  {
+                    "id": 71,
+                    "year": 2004
+                  },
+                  {
+                    "id": 72,
+                    "year": 2005
+                  },
+                  {
+                    "id": 73,
+                    "year": 2005
+                  },
+                  {
+                    "id": 74,
+                    "year": 2006
+                  },
+                  {
+                    "id": 75,
+                    "year": 2008
+                  },
+                  {
+                    "id": 76,
+                    "year": 2008
+                  },
+                  {
+                    "id": 77,
+                    "year": 2009
+                  },
+                  {
+                    "id": 78,
+                    "year": 2009
+                  },
+                  {
+                    "id": 79,
+                    "year": 2010
+                  },
+                  {
+                    "id": 80,
+                    "year": 2010
+                  },
+                  {
+                    "id": 81,
+                    "year": 2011
+                  },
+                  {
+                    "id": 82,
+                    "year": 2011
+                  },
+                  {
+                    "id": 83,
+                    "year": 2012
+                  },
+                  {
+                    "id": 84,
+                    "year": 2012
+                  },
+                  {
+                    "id": 85,
+                    "year": 2013
+                  },
+                  {
+                    "id": 86,
+                    "year": 2013
+                  },
+                  {
+                    "id": 87,
+                    "year": 2014
+                  },
+                  {
+                    "id": 88,
+                    "year": 2014
+                  },
+                  {
+                    "id": 89,
+                    "year": 2015
+                  },
+                  {
+                    "id": 90,
+                    "year": 2016
+                  },
+                  {
+                    "id": 91,
+                    "year": 2016
+                  },
+                  {
+                    "id": 92,
+                    "year": 2017
+                  },
+                  {
+                    "id": 93,
+                    "year": 2018
+                  },
+                  {
+                    "id": 94,
+                    "year": 2019
+                  },
+                  {
+                    "id": 95,
+                    "year": 2019
+                  },
+                  {
+                    "id": 96,
+                    "year": 2020
+                  },
+                  {
+                    "id": 97,
+                    "year": 2020
+                  },
+                  {
+                    "id": 1071,
+                    "year": 2021
+                  },
+                  {
+                    "id": 1072,
+                    "year": 2022
+                  },
+                  {
+                    "id": 1073,
+                    "year": 2023
+                  },
+                  {
+                    "id": 1074,
+                    "year": 2024
+                  },
+                  {
+                    "id": 1075,
+                    "year": 2025
+                  }
+                ],
+                "id": 6,
+                "name": "Alienisti",
+                "description": "",
+                "link": "",
+                "issn": "1236-0449"
+              },
+              "id": 92,
+              "number": 1,
+              "number_extra": "",
+              "count": 37,
+              "year": 2017,
+              "cover_number": "1/2017",
+              "image_src": "/static/images/magazines/Alienisti_37.jpg",
+              "image_attr": null,
+              "pages": 36,
+              "link": "",
+              "notes": "<p>Taitto: Jussi Vainikainen.</p>",
+              "title": "Brave New world of #42"
+            }
+          ],
+          "editions": [],
+          "genres": [],
+          "contributors": [
+            {
+              "person": {
+                "id": 2203.0,
+                "name": "Kantola, Camilla",
+                "alt_name": "Camilla Kantola"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "lang": {
+            "id": 7,
+            "name": "suomi"
+          },
+          "id": 4014,
+          "title": "Minuutti",
+          "orig_title": "Minuutti",
+          "pubyear": 2017
+        },
+        {
+          "authors": [
+            {
+              "id": 3982.0,
+              "name": "Koski, Pasti",
+              "alt_name": "Pasti Koski",
+              "fullname": "",
+              "image_src": null,
+              "dob": null,
+              "dod": null,
+              "roles": [
+                "Kirjoittaja"
+              ],
+              "nationality": {
+                "id": 4,
+                "name": "Suomi"
+              },
+              "workcount": 0.0,
+              "storycount": 3,
+              "other_names": null,
+              "first_name": "Pasti",
+              "last_name": "Koski",
+              "image_attr": "",
+              "bio": null,
+              "bio_src": "",
+              "imported_string": null
+            }
+          ],
+          "type": {
+            "id": 5,
+            "name": "Raapale"
+          },
+          "issues": [
+            {
+              "magazine": {
+                "type_id": 1,
+                "type": {
+                  "id": 1,
+                  "name": "Fanzine"
+                },
+                "issues": [
+                  {
+                    "id": 56,
+                    "year": 1990
+                  },
+                  {
+                    "id": 57,
+                    "year": 1990
+                  },
+                  {
+                    "id": 58,
+                    "year": 1991
+                  },
+                  {
+                    "id": 59,
+                    "year": 1992
+                  },
+                  {
+                    "id": 60,
+                    "year": 1992
+                  },
+                  {
+                    "id": 61,
+                    "year": 1992
+                  },
+                  {
+                    "id": 62,
+                    "year": 1993
+                  },
+                  {
+                    "id": 63,
+                    "year": 1994
+                  },
+                  {
+                    "id": 64,
+                    "year": 1995
+                  },
+                  {
+                    "id": 65,
+                    "year": 1999
+                  },
+                  {
+                    "id": 66,
+                    "year": 2000
+                  },
+                  {
+                    "id": 67,
+                    "year": 2001
+                  },
+                  {
+                    "id": 68,
+                    "year": 2002
+                  },
+                  {
+                    "id": 69,
+                    "year": 2003
+                  },
+                  {
+                    "id": 70,
+                    "year": 2004
+                  },
+                  {
+                    "id": 71,
+                    "year": 2004
+                  },
+                  {
+                    "id": 72,
+                    "year": 2005
+                  },
+                  {
+                    "id": 73,
+                    "year": 2005
+                  },
+                  {
+                    "id": 74,
+                    "year": 2006
+                  },
+                  {
+                    "id": 75,
+                    "year": 2008
+                  },
+                  {
+                    "id": 76,
+                    "year": 2008
+                  },
+                  {
+                    "id": 77,
+                    "year": 2009
+                  },
+                  {
+                    "id": 78,
+                    "year": 2009
+                  },
+                  {
+                    "id": 79,
+                    "year": 2010
+                  },
+                  {
+                    "id": 80,
+                    "year": 2010
+                  },
+                  {
+                    "id": 81,
+                    "year": 2011
+                  },
+                  {
+                    "id": 82,
+                    "year": 2011
+                  },
+                  {
+                    "id": 83,
+                    "year": 2012
+                  },
+                  {
+                    "id": 84,
+                    "year": 2012
+                  },
+                  {
+                    "id": 85,
+                    "year": 2013
+                  },
+                  {
+                    "id": 86,
+                    "year": 2013
+                  },
+                  {
+                    "id": 87,
+                    "year": 2014
+                  },
+                  {
+                    "id": 88,
+                    "year": 2014
+                  },
+                  {
+                    "id": 89,
+                    "year": 2015
+                  },
+                  {
+                    "id": 90,
+                    "year": 2016
+                  },
+                  {
+                    "id": 91,
+                    "year": 2016
+                  },
+                  {
+                    "id": 92,
+                    "year": 2017
+                  },
+                  {
+                    "id": 93,
+                    "year": 2018
+                  },
+                  {
+                    "id": 94,
+                    "year": 2019
+                  },
+                  {
+                    "id": 95,
+                    "year": 2019
+                  },
+                  {
+                    "id": 96,
+                    "year": 2020
+                  },
+                  {
+                    "id": 97,
+                    "year": 2020
+                  },
+                  {
+                    "id": 1071,
+                    "year": 2021
+                  },
+                  {
+                    "id": 1072,
+                    "year": 2022
+                  },
+                  {
+                    "id": 1073,
+                    "year": 2023
+                  },
+                  {
+                    "id": 1074,
+                    "year": 2024
+                  },
+                  {
+                    "id": 1075,
+                    "year": 2025
+                  }
+                ],
+                "id": 6,
+                "name": "Alienisti",
+                "description": "",
+                "link": "",
+                "issn": "1236-0449"
+              },
+              "id": 92,
+              "number": 1,
+              "number_extra": "",
+              "count": 37,
+              "year": 2017,
+              "cover_number": "1/2017",
+              "image_src": "/static/images/magazines/Alienisti_37.jpg",
+              "image_attr": null,
+              "pages": 36,
+              "link": "",
+              "notes": "<p>Taitto: Jussi Vainikainen.</p>",
+              "title": "Brave New world of #42"
+            }
+          ],
+          "editions": [],
+          "genres": [],
+          "contributors": [
+            {
+              "person": {
+                "id": 3982.0,
+                "name": "Koski, Pasti",
+                "alt_name": "Pasti Koski"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "lang": {
+            "id": 7,
+            "name": "suomi"
+          },
+          "id": 4015,
+          "title": "Hullu tiedemies",
+          "orig_title": "Hullu tiedemies",
+          "pubyear": 2017
+        },
+        {
+          "authors": [
+            {
+              "id": 3982.0,
+              "name": "Koski, Pasti",
+              "alt_name": "Pasti Koski",
+              "fullname": "",
+              "image_src": null,
+              "dob": null,
+              "dod": null,
+              "roles": [
+                "Kirjoittaja"
+              ],
+              "nationality": {
+                "id": 4,
+                "name": "Suomi"
+              },
+              "workcount": 0.0,
+              "storycount": 3,
+              "other_names": null,
+              "first_name": "Pasti",
+              "last_name": "Koski",
+              "image_attr": "",
+              "bio": null,
+              "bio_src": "",
+              "imported_string": null
+            }
+          ],
+          "type": {
+            "id": 5,
+            "name": "Raapale"
+          },
+          "issues": [
+            {
+              "magazine": {
+                "type_id": 1,
+                "type": {
+                  "id": 1,
+                  "name": "Fanzine"
+                },
+                "issues": [
+                  {
+                    "id": 56,
+                    "year": 1990
+                  },
+                  {
+                    "id": 57,
+                    "year": 1990
+                  },
+                  {
+                    "id": 58,
+                    "year": 1991
+                  },
+                  {
+                    "id": 59,
+                    "year": 1992
+                  },
+                  {
+                    "id": 60,
+                    "year": 1992
+                  },
+                  {
+                    "id": 61,
+                    "year": 1992
+                  },
+                  {
+                    "id": 62,
+                    "year": 1993
+                  },
+                  {
+                    "id": 63,
+                    "year": 1994
+                  },
+                  {
+                    "id": 64,
+                    "year": 1995
+                  },
+                  {
+                    "id": 65,
+                    "year": 1999
+                  },
+                  {
+                    "id": 66,
+                    "year": 2000
+                  },
+                  {
+                    "id": 67,
+                    "year": 2001
+                  },
+                  {
+                    "id": 68,
+                    "year": 2002
+                  },
+                  {
+                    "id": 69,
+                    "year": 2003
+                  },
+                  {
+                    "id": 70,
+                    "year": 2004
+                  },
+                  {
+                    "id": 71,
+                    "year": 2004
+                  },
+                  {
+                    "id": 72,
+                    "year": 2005
+                  },
+                  {
+                    "id": 73,
+                    "year": 2005
+                  },
+                  {
+                    "id": 74,
+                    "year": 2006
+                  },
+                  {
+                    "id": 75,
+                    "year": 2008
+                  },
+                  {
+                    "id": 76,
+                    "year": 2008
+                  },
+                  {
+                    "id": 77,
+                    "year": 2009
+                  },
+                  {
+                    "id": 78,
+                    "year": 2009
+                  },
+                  {
+                    "id": 79,
+                    "year": 2010
+                  },
+                  {
+                    "id": 80,
+                    "year": 2010
+                  },
+                  {
+                    "id": 81,
+                    "year": 2011
+                  },
+                  {
+                    "id": 82,
+                    "year": 2011
+                  },
+                  {
+                    "id": 83,
+                    "year": 2012
+                  },
+                  {
+                    "id": 84,
+                    "year": 2012
+                  },
+                  {
+                    "id": 85,
+                    "year": 2013
+                  },
+                  {
+                    "id": 86,
+                    "year": 2013
+                  },
+                  {
+                    "id": 87,
+                    "year": 2014
+                  },
+                  {
+                    "id": 88,
+                    "year": 2014
+                  },
+                  {
+                    "id": 89,
+                    "year": 2015
+                  },
+                  {
+                    "id": 90,
+                    "year": 2016
+                  },
+                  {
+                    "id": 91,
+                    "year": 2016
+                  },
+                  {
+                    "id": 92,
+                    "year": 2017
+                  },
+                  {
+                    "id": 93,
+                    "year": 2018
+                  },
+                  {
+                    "id": 94,
+                    "year": 2019
+                  },
+                  {
+                    "id": 95,
+                    "year": 2019
+                  },
+                  {
+                    "id": 96,
+                    "year": 2020
+                  },
+                  {
+                    "id": 97,
+                    "year": 2020
+                  },
+                  {
+                    "id": 1071,
+                    "year": 2021
+                  },
+                  {
+                    "id": 1072,
+                    "year": 2022
+                  },
+                  {
+                    "id": 1073,
+                    "year": 2023
+                  },
+                  {
+                    "id": 1074,
+                    "year": 2024
+                  },
+                  {
+                    "id": 1075,
+                    "year": 2025
+                  }
+                ],
+                "id": 6,
+                "name": "Alienisti",
+                "description": "",
+                "link": "",
+                "issn": "1236-0449"
+              },
+              "id": 92,
+              "number": 1,
+              "number_extra": "",
+              "count": 37,
+              "year": 2017,
+              "cover_number": "1/2017",
+              "image_src": "/static/images/magazines/Alienisti_37.jpg",
+              "image_attr": null,
+              "pages": 36,
+              "link": "",
+              "notes": "<p>Taitto: Jussi Vainikainen.</p>",
+              "title": "Brave New world of #42"
+            }
+          ],
+          "editions": [],
+          "genres": [],
+          "contributors": [
+            {
+              "person": {
+                "id": 3982.0,
+                "name": "Koski, Pasti",
+                "alt_name": "Pasti Koski"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "lang": {
+            "id": 7,
+            "name": "suomi"
+          },
+          "id": 4016,
+          "title": "Keinolla millä hyvänsä",
+          "orig_title": "Keinolla millä hyvänsä",
+          "pubyear": 2017
+        },
+        {
+          "authors": [
+            {
+              "id": 3982.0,
+              "name": "Koski, Pasti",
+              "alt_name": "Pasti Koski",
+              "fullname": "",
+              "image_src": null,
+              "dob": null,
+              "dod": null,
+              "roles": [
+                "Kirjoittaja"
+              ],
+              "nationality": {
+                "id": 4,
+                "name": "Suomi"
+              },
+              "workcount": 0.0,
+              "storycount": 3,
+              "other_names": null,
+              "first_name": "Pasti",
+              "last_name": "Koski",
+              "image_attr": "",
+              "bio": null,
+              "bio_src": "",
+              "imported_string": null
+            }
+          ],
+          "type": {
+            "id": 5,
+            "name": "Raapale"
+          },
+          "issues": [
+            {
+              "magazine": {
+                "type_id": 1,
+                "type": {
+                  "id": 1,
+                  "name": "Fanzine"
+                },
+                "issues": [
+                  {
+                    "id": 56,
+                    "year": 1990
+                  },
+                  {
+                    "id": 57,
+                    "year": 1990
+                  },
+                  {
+                    "id": 58,
+                    "year": 1991
+                  },
+                  {
+                    "id": 59,
+                    "year": 1992
+                  },
+                  {
+                    "id": 60,
+                    "year": 1992
+                  },
+                  {
+                    "id": 61,
+                    "year": 1992
+                  },
+                  {
+                    "id": 62,
+                    "year": 1993
+                  },
+                  {
+                    "id": 63,
+                    "year": 1994
+                  },
+                  {
+                    "id": 64,
+                    "year": 1995
+                  },
+                  {
+                    "id": 65,
+                    "year": 1999
+                  },
+                  {
+                    "id": 66,
+                    "year": 2000
+                  },
+                  {
+                    "id": 67,
+                    "year": 2001
+                  },
+                  {
+                    "id": 68,
+                    "year": 2002
+                  },
+                  {
+                    "id": 69,
+                    "year": 2003
+                  },
+                  {
+                    "id": 70,
+                    "year": 2004
+                  },
+                  {
+                    "id": 71,
+                    "year": 2004
+                  },
+                  {
+                    "id": 72,
+                    "year": 2005
+                  },
+                  {
+                    "id": 73,
+                    "year": 2005
+                  },
+                  {
+                    "id": 74,
+                    "year": 2006
+                  },
+                  {
+                    "id": 75,
+                    "year": 2008
+                  },
+                  {
+                    "id": 76,
+                    "year": 2008
+                  },
+                  {
+                    "id": 77,
+                    "year": 2009
+                  },
+                  {
+                    "id": 78,
+                    "year": 2009
+                  },
+                  {
+                    "id": 79,
+                    "year": 2010
+                  },
+                  {
+                    "id": 80,
+                    "year": 2010
+                  },
+                  {
+                    "id": 81,
+                    "year": 2011
+                  },
+                  {
+                    "id": 82,
+                    "year": 2011
+                  },
+                  {
+                    "id": 83,
+                    "year": 2012
+                  },
+                  {
+                    "id": 84,
+                    "year": 2012
+                  },
+                  {
+                    "id": 85,
+                    "year": 2013
+                  },
+                  {
+                    "id": 86,
+                    "year": 2013
+                  },
+                  {
+                    "id": 87,
+                    "year": 2014
+                  },
+                  {
+                    "id": 88,
+                    "year": 2014
+                  },
+                  {
+                    "id": 89,
+                    "year": 2015
+                  },
+                  {
+                    "id": 90,
+                    "year": 2016
+                  },
+                  {
+                    "id": 91,
+                    "year": 2016
+                  },
+                  {
+                    "id": 92,
+                    "year": 2017
+                  },
+                  {
+                    "id": 93,
+                    "year": 2018
+                  },
+                  {
+                    "id": 94,
+                    "year": 2019
+                  },
+                  {
+                    "id": 95,
+                    "year": 2019
+                  },
+                  {
+                    "id": 96,
+                    "year": 2020
+                  },
+                  {
+                    "id": 97,
+                    "year": 2020
+                  },
+                  {
+                    "id": 1071,
+                    "year": 2021
+                  },
+                  {
+                    "id": 1072,
+                    "year": 2022
+                  },
+                  {
+                    "id": 1073,
+                    "year": 2023
+                  },
+                  {
+                    "id": 1074,
+                    "year": 2024
+                  },
+                  {
+                    "id": 1075,
+                    "year": 2025
+                  }
+                ],
+                "id": 6,
+                "name": "Alienisti",
+                "description": "",
+                "link": "",
+                "issn": "1236-0449"
+              },
+              "id": 92,
+              "number": 1,
+              "number_extra": "",
+              "count": 37,
+              "year": 2017,
+              "cover_number": "1/2017",
+              "image_src": "/static/images/magazines/Alienisti_37.jpg",
+              "image_attr": null,
+              "pages": 36,
+              "link": "",
+              "notes": "<p>Taitto: Jussi Vainikainen.</p>",
+              "title": "Brave New world of #42"
+            }
+          ],
+          "editions": [],
+          "genres": [],
+          "contributors": [
+            {
+              "person": {
+                "id": 3982.0,
+                "name": "Koski, Pasti",
+                "alt_name": "Pasti Koski"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "lang": {
+            "id": 7,
+            "name": "suomi"
+          },
+          "id": 4017,
+          "title": "Oranssi hirviö",
+          "orig_title": "Oranssi hirviö",
+          "pubyear": 2017
+        },
+        {
+          "authors": [
+            {
+              "id": 3983.0,
+              "name": "Kurki, Joanna",
+              "alt_name": "Joanna Kurki",
+              "fullname": "",
+              "image_src": null,
+              "dob": null,
+              "dod": null,
+              "roles": [
+                "Kirjoittaja"
+              ],
+              "nationality": {
+                "id": 4,
+                "name": "Suomi"
+              },
+              "workcount": 0.0,
+              "storycount": 2,
+              "other_names": null,
+              "first_name": "Joanna",
+              "last_name": "Kurki",
+              "image_attr": "",
+              "bio": null,
+              "bio_src": "",
+              "imported_string": null
+            }
+          ],
+          "type": {
+            "id": 5,
+            "name": "Raapale"
+          },
+          "issues": [
+            {
+              "magazine": {
+                "type_id": 1,
+                "type": {
+                  "id": 1,
+                  "name": "Fanzine"
+                },
+                "issues": [
+                  {
+                    "id": 56,
+                    "year": 1990
+                  },
+                  {
+                    "id": 57,
+                    "year": 1990
+                  },
+                  {
+                    "id": 58,
+                    "year": 1991
+                  },
+                  {
+                    "id": 59,
+                    "year": 1992
+                  },
+                  {
+                    "id": 60,
+                    "year": 1992
+                  },
+                  {
+                    "id": 61,
+                    "year": 1992
+                  },
+                  {
+                    "id": 62,
+                    "year": 1993
+                  },
+                  {
+                    "id": 63,
+                    "year": 1994
+                  },
+                  {
+                    "id": 64,
+                    "year": 1995
+                  },
+                  {
+                    "id": 65,
+                    "year": 1999
+                  },
+                  {
+                    "id": 66,
+                    "year": 2000
+                  },
+                  {
+                    "id": 67,
+                    "year": 2001
+                  },
+                  {
+                    "id": 68,
+                    "year": 2002
+                  },
+                  {
+                    "id": 69,
+                    "year": 2003
+                  },
+                  {
+                    "id": 70,
+                    "year": 2004
+                  },
+                  {
+                    "id": 71,
+                    "year": 2004
+                  },
+                  {
+                    "id": 72,
+                    "year": 2005
+                  },
+                  {
+                    "id": 73,
+                    "year": 2005
+                  },
+                  {
+                    "id": 74,
+                    "year": 2006
+                  },
+                  {
+                    "id": 75,
+                    "year": 2008
+                  },
+                  {
+                    "id": 76,
+                    "year": 2008
+                  },
+                  {
+                    "id": 77,
+                    "year": 2009
+                  },
+                  {
+                    "id": 78,
+                    "year": 2009
+                  },
+                  {
+                    "id": 79,
+                    "year": 2010
+                  },
+                  {
+                    "id": 80,
+                    "year": 2010
+                  },
+                  {
+                    "id": 81,
+                    "year": 2011
+                  },
+                  {
+                    "id": 82,
+                    "year": 2011
+                  },
+                  {
+                    "id": 83,
+                    "year": 2012
+                  },
+                  {
+                    "id": 84,
+                    "year": 2012
+                  },
+                  {
+                    "id": 85,
+                    "year": 2013
+                  },
+                  {
+                    "id": 86,
+                    "year": 2013
+                  },
+                  {
+                    "id": 87,
+                    "year": 2014
+                  },
+                  {
+                    "id": 88,
+                    "year": 2014
+                  },
+                  {
+                    "id": 89,
+                    "year": 2015
+                  },
+                  {
+                    "id": 90,
+                    "year": 2016
+                  },
+                  {
+                    "id": 91,
+                    "year": 2016
+                  },
+                  {
+                    "id": 92,
+                    "year": 2017
+                  },
+                  {
+                    "id": 93,
+                    "year": 2018
+                  },
+                  {
+                    "id": 94,
+                    "year": 2019
+                  },
+                  {
+                    "id": 95,
+                    "year": 2019
+                  },
+                  {
+                    "id": 96,
+                    "year": 2020
+                  },
+                  {
+                    "id": 97,
+                    "year": 2020
+                  },
+                  {
+                    "id": 1071,
+                    "year": 2021
+                  },
+                  {
+                    "id": 1072,
+                    "year": 2022
+                  },
+                  {
+                    "id": 1073,
+                    "year": 2023
+                  },
+                  {
+                    "id": 1074,
+                    "year": 2024
+                  },
+                  {
+                    "id": 1075,
+                    "year": 2025
+                  }
+                ],
+                "id": 6,
+                "name": "Alienisti",
+                "description": "",
+                "link": "",
+                "issn": "1236-0449"
+              },
+              "id": 92,
+              "number": 1,
+              "number_extra": "",
+              "count": 37,
+              "year": 2017,
+              "cover_number": "1/2017",
+              "image_src": "/static/images/magazines/Alienisti_37.jpg",
+              "image_attr": null,
+              "pages": 36,
+              "link": "",
+              "notes": "<p>Taitto: Jussi Vainikainen.</p>",
+              "title": "Brave New world of #42"
+            }
+          ],
+          "editions": [],
+          "genres": [],
+          "contributors": [
+            {
+              "person": {
+                "id": 3983.0,
+                "name": "Kurki, Joanna",
+                "alt_name": "Joanna Kurki"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "lang": {
+            "id": 7,
+            "name": "suomi"
+          },
+          "id": 4018,
+          "title": "Raapale, sadan sanan ihme",
+          "orig_title": "Raapale, sadan sanan ihme",
+          "pubyear": 2017
+        },
+        {
+          "authors": [
+            {
+              "id": 367.0,
+              "name": "Ranta, Lasse",
+              "alt_name": "Lasse Ranta",
+              "fullname": "",
+              "image_src": null,
+              "dob": 1986.0,
+              "dod": null,
+              "roles": [
+                "Kirjoittaja"
+              ],
+              "nationality": {
+                "id": 4,
+                "name": "Suomi"
+              },
+              "workcount": 2.0,
+              "storycount": 12,
+              "other_names": null,
+              "first_name": "Lasse",
+              "last_name": "Ranta",
+              "image_attr": "",
+              "bio": null,
+              "bio_src": "",
+              "imported_string": null
+            }
+          ],
+          "type": {
+            "id": 1,
+            "name": "Novelli"
+          },
+          "issues": [
+            {
+              "magazine": {
+                "type_id": 1,
+                "type": {
+                  "id": 1,
+                  "name": "Fanzine"
+                },
+                "issues": [
+                  {
+                    "id": 56,
+                    "year": 1990
+                  },
+                  {
+                    "id": 57,
+                    "year": 1990
+                  },
+                  {
+                    "id": 58,
+                    "year": 1991
+                  },
+                  {
+                    "id": 59,
+                    "year": 1992
+                  },
+                  {
+                    "id": 60,
+                    "year": 1992
+                  },
+                  {
+                    "id": 61,
+                    "year": 1992
+                  },
+                  {
+                    "id": 62,
+                    "year": 1993
+                  },
+                  {
+                    "id": 63,
+                    "year": 1994
+                  },
+                  {
+                    "id": 64,
+                    "year": 1995
+                  },
+                  {
+                    "id": 65,
+                    "year": 1999
+                  },
+                  {
+                    "id": 66,
+                    "year": 2000
+                  },
+                  {
+                    "id": 67,
+                    "year": 2001
+                  },
+                  {
+                    "id": 68,
+                    "year": 2002
+                  },
+                  {
+                    "id": 69,
+                    "year": 2003
+                  },
+                  {
+                    "id": 70,
+                    "year": 2004
+                  },
+                  {
+                    "id": 71,
+                    "year": 2004
+                  },
+                  {
+                    "id": 72,
+                    "year": 2005
+                  },
+                  {
+                    "id": 73,
+                    "year": 2005
+                  },
+                  {
+                    "id": 74,
+                    "year": 2006
+                  },
+                  {
+                    "id": 75,
+                    "year": 2008
+                  },
+                  {
+                    "id": 76,
+                    "year": 2008
+                  },
+                  {
+                    "id": 77,
+                    "year": 2009
+                  },
+                  {
+                    "id": 78,
+                    "year": 2009
+                  },
+                  {
+                    "id": 79,
+                    "year": 2010
+                  },
+                  {
+                    "id": 80,
+                    "year": 2010
+                  },
+                  {
+                    "id": 81,
+                    "year": 2011
+                  },
+                  {
+                    "id": 82,
+                    "year": 2011
+                  },
+                  {
+                    "id": 83,
+                    "year": 2012
+                  },
+                  {
+                    "id": 84,
+                    "year": 2012
+                  },
+                  {
+                    "id": 85,
+                    "year": 2013
+                  },
+                  {
+                    "id": 86,
+                    "year": 2013
+                  },
+                  {
+                    "id": 87,
+                    "year": 2014
+                  },
+                  {
+                    "id": 88,
+                    "year": 2014
+                  },
+                  {
+                    "id": 89,
+                    "year": 2015
+                  },
+                  {
+                    "id": 90,
+                    "year": 2016
+                  },
+                  {
+                    "id": 91,
+                    "year": 2016
+                  },
+                  {
+                    "id": 92,
+                    "year": 2017
+                  },
+                  {
+                    "id": 93,
+                    "year": 2018
+                  },
+                  {
+                    "id": 94,
+                    "year": 2019
+                  },
+                  {
+                    "id": 95,
+                    "year": 2019
+                  },
+                  {
+                    "id": 96,
+                    "year": 2020
+                  },
+                  {
+                    "id": 97,
+                    "year": 2020
+                  },
+                  {
+                    "id": 1071,
+                    "year": 2021
+                  },
+                  {
+                    "id": 1072,
+                    "year": 2022
+                  },
+                  {
+                    "id": 1073,
+                    "year": 2023
+                  },
+                  {
+                    "id": 1074,
+                    "year": 2024
+                  },
+                  {
+                    "id": 1075,
+                    "year": 2025
+                  }
+                ],
+                "id": 6,
+                "name": "Alienisti",
+                "description": "",
+                "link": "",
+                "issn": "1236-0449"
+              },
+              "id": 92,
+              "number": 1,
+              "number_extra": "",
+              "count": 37,
+              "year": 2017,
+              "cover_number": "1/2017",
+              "image_src": "/static/images/magazines/Alienisti_37.jpg",
+              "image_attr": null,
+              "pages": 36,
+              "link": "",
+              "notes": "<p>Taitto: Jussi Vainikainen.</p>",
+              "title": "Brave New world of #42"
+            }
+          ],
+          "editions": [],
+          "genres": [],
+          "contributors": [
+            {
+              "person": {
+                "id": 367.0,
+                "name": "Ranta, Lasse",
+                "alt_name": "Lasse Ranta"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "lang": {
+            "id": 7,
+            "name": "suomi"
+          },
+          "id": 4019,
+          "title": "Yövuoro 1",
+          "orig_title": "Yövuoro 1",
+          "pubyear": 2017
+        }
+      ],
+      "magazine": {
+        "type_id": 1,
+        "type": {
+          "id": 1,
+          "name": "Fanzine"
+        },
+        "issues": [
+          {
+            "id": 56,
+            "year": 1990
+          },
+          {
+            "id": 57,
+            "year": 1990
+          },
+          {
+            "id": 58,
+            "year": 1991
+          },
+          {
+            "id": 59,
+            "year": 1992
+          },
+          {
+            "id": 60,
+            "year": 1992
+          },
+          {
+            "id": 61,
+            "year": 1992
+          },
+          {
+            "id": 62,
+            "year": 1993
+          },
+          {
+            "id": 63,
+            "year": 1994
+          },
+          {
+            "id": 64,
+            "year": 1995
+          },
+          {
+            "id": 65,
+            "year": 1999
+          },
+          {
+            "id": 66,
+            "year": 2000
+          },
+          {
+            "id": 67,
+            "year": 2001
+          },
+          {
+            "id": 68,
+            "year": 2002
+          },
+          {
+            "id": 69,
+            "year": 2003
+          },
+          {
+            "id": 70,
+            "year": 2004
+          },
+          {
+            "id": 71,
+            "year": 2004
+          },
+          {
+            "id": 72,
+            "year": 2005
+          },
+          {
+            "id": 73,
+            "year": 2005
+          },
+          {
+            "id": 74,
+            "year": 2006
+          },
+          {
+            "id": 75,
+            "year": 2008
+          },
+          {
+            "id": 76,
+            "year": 2008
+          },
+          {
+            "id": 77,
+            "year": 2009
+          },
+          {
+            "id": 78,
+            "year": 2009
+          },
+          {
+            "id": 79,
+            "year": 2010
+          },
+          {
+            "id": 80,
+            "year": 2010
+          },
+          {
+            "id": 81,
+            "year": 2011
+          },
+          {
+            "id": 82,
+            "year": 2011
+          },
+          {
+            "id": 83,
+            "year": 2012
+          },
+          {
+            "id": 84,
+            "year": 2012
+          },
+          {
+            "id": 85,
+            "year": 2013
+          },
+          {
+            "id": 86,
+            "year": 2013
+          },
+          {
+            "id": 87,
+            "year": 2014
+          },
+          {
+            "id": 88,
+            "year": 2014
+          },
+          {
+            "id": 89,
+            "year": 2015
+          },
+          {
+            "id": 90,
+            "year": 2016
+          },
+          {
+            "id": 91,
+            "year": 2016
+          },
+          {
+            "id": 92,
+            "year": 2017
+          },
+          {
+            "id": 93,
+            "year": 2018
+          },
+          {
+            "id": 94,
+            "year": 2019
+          },
+          {
+            "id": 95,
+            "year": 2019
+          },
+          {
+            "id": 96,
+            "year": 2020
+          },
+          {
+            "id": 97,
+            "year": 2020
+          },
+          {
+            "id": 1071,
+            "year": 2021
+          },
+          {
+            "id": 1072,
+            "year": 2022
+          },
+          {
+            "id": 1073,
+            "year": 2023
+          },
+          {
+            "id": 1074,
+            "year": 2024
+          },
+          {
+            "id": 1075,
+            "year": 2025
+          }
+        ],
+        "id": 6,
+        "name": "Alienisti",
+        "description": "",
+        "link": "",
+        "issn": "1236-0449"
+      },
+      "contributors": [
+        {
+          "person": {
+            "id": 367.0,
+            "name": "Ranta, Lasse",
+            "alt_name": "Lasse Ranta"
+          },
+          "role": {
+            "id": 7,
+            "name": "Päätoimittaja"
+          },
+          "description": null
+        },
+        {
+          "person": {
+            "id": 1988.0,
+            "name": "Hirsjärvi, Irma",
+            "alt_name": "Irma Hirsjärvi"
+          },
+          "role": {
+            "id": 4,
+            "name": "Kansikuva"
+          },
+          "description": ""
+        }
+      ],
+      "id": 92,
+      "magazine_id": 6,
+      "number": 1,
+      "number_extra": "",
+      "count": 37,
+      "year": 2017,
+      "cover_number": "1/2017",
+      "image_src": "/static/images/magazines/Alienisti_37.jpg",
+      "image_attr": null,
+      "pages": 36,
+      "size_id": 16,
+      "link": "",
+      "notes": "<p>Taitto: Jussi Vainikainen.</p>",
+      "title": "Brave New world of #42",
+      "prev": 91,
+      "next": 93
+    },
+    "error": null
+  }
+}

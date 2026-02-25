@@ -3,7 +3,7 @@
 This document provides detailed descriptions of all API tests, including
 what they test, their parameter values, and expected behaviors.
 
-**Last Updated:** 2026-02-22
+**Last Updated:** 2026-02-25
 
 ---
 
@@ -68,6 +68,15 @@ what they test, their parameter values, and expected behaviors.
 - **conftest.py**: Pytest fixtures and configuration
   - `setup_test_database`: Auto-recreates test DB, creates
     users, and updates snapshots (session-scoped, autouse)
+  - `_apply_migration_001()`: Applies
+    `migrations/001_shortstory_migration.sql` to the test DB
+    after cloning (creates `editionshortstory` and
+    `storycontributor` tables, populates from Part data)
+  - `app` fixture: Patches `route_helpers.db_url` and
+    `orm_decl.db_url` to use the test DB URL, and replaces
+    Flask-SQLAlchemy's cached engine. This is required because
+    `app/__init__.py` calls `load_dotenv('.env', override=True)`
+    which overrides `DATABASE_URL` with the production URL.
   - `api_client`: Flask test client wrapper with auth support
   - `snapshot_manager`: Manages snapshot comparisons
   - `app`, `client`, `db_session`: Flask app fixtures
@@ -1697,3 +1706,65 @@ Returns genre counts for books owned by the user.
 | `test_user_genres_count_is_positive` | valid_user_id | count is int, count > 0 |
 | `test_user_genres_nonexistent_user` | id=999999999 | Status 200, empty list |
 | `test_user_genres_invalid_id` | id="invalid" | Status 500 |
+
+---
+
+## Collection Tests
+
+### File: `test_collections.py` (12 tests)
+
+Snapshot-based regression tests for anthology works and their
+short stories, and magazine issues with their stories.
+Each test verifies the API returns the correct set of stories —
+including full author information — after migration 001
+(EditionShortStory / StoryContributor).
+
+#### Snapshots Used
+
+| Snapshot | Endpoint | Description |
+|----------|----------|-------------|
+| `work_27.json` | GET /api/works/27 | Full work incl. stories field |
+| `work_shorts_27.json` | GET /api/works/shorts/27 | 12 shorts, 1 author |
+| `work_shorts_1378.json` | GET /api/works/shorts/1378 | 22 shorts, multi-author |
+| `edition_shorts_1585.json` | GET /api/editions/1585/shorts | 22 shorts, multi-author |
+| `issue_92.json` | GET /api/issues/92 | 16 stories, multi-author |
+
+#### TestWorkCollection (3 tests)
+
+Tests for `GET /api/works/{id}` stories field.
+
+| Test | Parameters | Assertions |
+|------|------------|------------|
+| `test_work_27_stories_match_snapshot` | work_id=27, snapshot=work_27 | 12 stories, IDs/titles/authors match |
+| `test_work_27_stories_have_required_fields` | work_id=27 | id, title, authors in every story |
+| `test_work_27_stories_author_fields` | work_id=27 | id and name in every author |
+
+#### TestWorkShortsEndpointCollections (2 tests)
+
+Tests for `GET /api/works/shorts/{id}`.
+
+| Test | Parameters | Assertions |
+|------|------------|------------|
+| `test_work_27_shorts_match_snapshot` | work_id=27, snapshot=work_shorts_27 | 12 shorts, authors match |
+| `test_work_1378_shorts_match_snapshot` | work_id=1378, snapshot=work_shorts_1378 | 22 shorts, authors match |
+
+#### TestEditionShortsCollections (3 tests)
+
+Tests for `GET /api/editions/{id}/shorts`.
+
+| Test | Parameters | Assertions |
+|------|------------|------------|
+| `test_edition_28_shorts_match_snapshot` | edition_id=28, snapshot=edition_shorts_28 | 12 shorts, authors match |
+| `test_edition_1585_shorts_match_snapshot` | edition_id=1585, snapshot=edition_shorts_1585 | 22 shorts, authors match |
+| `test_edition_1585_shorts_author_ids` | edition_id=1585 | short 3202 has author 368; short 1805 has author 3238 |
+
+#### TestIssueCollection (4 tests)
+
+Tests for `GET /api/issues/{id}` stories field.
+
+| Test | Parameters | Assertions |
+|------|------------|------------|
+| `test_issue_92_stories_match_snapshot` | issue_id=92, snapshot=issue_92 | 16 stories, IDs/titles/authors match |
+| `test_issue_92_stories_have_required_fields` | issue_id=92 | id, title, authors in every story |
+| `test_issue_92_multi_author_story` | issue_id=92 | story 9132 has authors 3976 (Kuskelin) and 3889 (Vainikainen) |
+| `test_issue_92_issue_metadata` | issue_id=92 | id=92, year=2017, number=1, editor 367 (Ranta) |

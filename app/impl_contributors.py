@@ -3,7 +3,9 @@ from typing import Any, Dict, Union, List
 from sqlalchemy import and_, or_
 from sqlalchemy.exc import SQLAlchemyError
 
-from app.orm_decl import (Part, Contributor, Edition, IssueContributor)
+from app.orm_decl import (
+    Part, Contributor, Edition, IssueContributor, StoryContributor
+)
 from app.impl import check_int, ResponseType
 from app import app
 from app.orm_decl import Person
@@ -189,7 +191,7 @@ def update_short_contributors(
         session: Any,
         short_id: int, contributors: Any) -> None:
     """
-    Update the short contributors for a given short ID.
+    Update the StoryContributor rows for a given short story ID.
 
     Args:
         session (Any): The session object for database operations.
@@ -199,15 +201,24 @@ def update_short_contributors(
     Returns:
         None: This function does not return anything.
     """
-    parts = session.query(Part).filter(Part.shortstory_id == short_id).all()
-    short_contributors =\
-        [x for x in contributors
-         if x['role']['id'] == 1 or x['role']['id'] == 2
-            or x['role']['id'] == 6]
-    contributors = _create_new_contributors(session, short_contributors)
-    for part in parts:
-        _update_part_contributors(session, part.id, short_contributors,
-                                  ContributorTarget.SHORT)
+    short_contributors = [
+        x for x in contributors
+        if x['role']['id'] in (1, 2, 6)
+    ]
+    short_contributors = _create_new_contributors(
+        session, short_contributors
+    )
+    session.query(StoryContributor)\
+        .filter(StoryContributor.shortstory_id == short_id)\
+        .delete()
+    session.flush()
+    for contrib in short_contributors:
+        sc = StoryContributor(
+            shortstory_id=short_id,
+            person_id=contrib['person']['id'],
+            role_id=contrib['role']['id'],
+            description=contrib.get('description'))
+        session.add(sc)
 
 
 def update_edition_contributors(

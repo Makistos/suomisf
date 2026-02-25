@@ -14,6 +14,7 @@ from app.isbn import check_isbn  # type: ignore
 from app.orm_decl import (
     BookCondition,
     Edition,
+    EditionShortStory,
     Part,
     User,
     Work,
@@ -953,11 +954,10 @@ def edition_shorts(edition_id: str) -> ResponseType:
     session = new_session()
     try:
         shorts = session.query(ShortStory)\
-            .join(Part)\
-            .filter(Part.edition_id == edition_id)\
-            .filter(Part.shortstory_id == ShortStory.id)\
-            .distinct()\
-            .order_by(Part.order_num)\
+            .join(EditionShortStory,
+                  EditionShortStory.shortstory_id == ShortStory.id)\
+            .filter(EditionShortStory.edition_id == edition_id)\
+            .order_by(EditionShortStory.order_num)\
             .all()
     except SQLAlchemyError as exp:
         app.logger.error(f'edition_shorts(): {str(exp)}')

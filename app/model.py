@@ -8,7 +8,8 @@ from app.orm_decl import (Article, Award, AwardCategory, Awarded, BindingType,
                           Edition, EditionImage, Genre, Issue, Language, Log,
                           Magazine, Omnibus, Person, PersonLink,
                           PublicationSize,
-                          Publisher, PublisherLink, Pubseries, ShortStory, Tag,
+                          Publisher, PublisherLink, Pubseries, ShortStory,
+                          StoryContributor, Tag,
                           TagType, UserBook, MagazineType, PubseriesLink,
                           Work, StoryType, WorkLink, Format, WorkType)
 
@@ -360,6 +361,18 @@ class ContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
                                         'alt_name')))
 
 
+class StoryContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ StoryContributor schema. """
+    class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
+        model = StoryContributor
+    person = fields.Nested(PersonBriefSchema(only=('id', 'name', 'alt_name')))
+    role = fields.Nested(ContributorRoleSchema)
+    description = fields.String()
+    real_person = fields.Nested(
+        lambda: PersonBriefSchema(only=('id', 'name', 'alt_name')))
+
+
 class OmnibusSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     """ Omnibus schema. """
     class Meta:
@@ -384,7 +397,7 @@ class ShortBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     issues = ma.List(fields.Nested(IssueBriefSchema))
     editions = ma.List(fields.Nested(EditionBriefSchema))
     genres = ma.List(fields.Nested(GenreBriefSchema))
-    contributors = ma.List(fields.Nested(ContributorSchema))
+    contributors = ma.List(fields.Nested(StoryContributorSchema))
     lang = fields.Nested(LanguageSchema)
 
 
@@ -393,7 +406,7 @@ class ShortBriefestSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = ShortStory
-    contributors = ma.List(fields.Nested(ContributorSchema))
+    contributors = ma.List(fields.Nested(StoryContributorSchema))
     type = fields.Nested(StoryTypeSchema)
     lang = fields.Nested(LanguageSchema)
 
@@ -606,7 +619,7 @@ class ShortSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     editions = ma.List(fields.Nested(EditionBriefSchema))
     genres = ma.List(fields.Nested(GenreBriefSchema))
     type = fields.Nested(StoryTypeSchema)
-    contributors = ma.List(fields.Nested(ContributorSchema))
+    contributors = ma.List(fields.Nested(StoryContributorSchema))
     lang = fields.Nested(LanguageSchema)
     awards = ma.List(fields.Nested(AwardedSchema))
 
