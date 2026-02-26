@@ -1509,6 +1509,17 @@ def copy_edition(edition_id: int) -> ResponseType:
                 )
                 session.add(new_contributor)
 
+        # Copy edition short story links
+        original_shorts = session.query(EditionShortStory)\
+            .filter_by(edition_id=edition_id).all()
+        for original_ess in original_shorts:
+            new_ess = EditionShortStory(
+                edition_id=new_edition.id,
+                shortstory_id=original_ess.shortstory_id,
+                order_num=original_ess.order_num
+            )
+            session.add(new_ess)
+
         # Copy edition images
         for original_image in original_edition.images:
             new_image = EditionImage(

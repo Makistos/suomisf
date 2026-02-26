@@ -11,7 +11,8 @@ from app.impl import ResponseType
 from app.model import (AwardBriefSchema, AwardCategorySchema, AwardSchema,
                        AwardedSchema)
 from app.orm_decl import (Award, AwardCategories, AwardCategory, Awarded,
-                          Contributor, Part, ShortStory, Work)
+                          Contributor, Part, ShortStory, StoryContributor,
+                          Work)
 from app.types import HttpResponseCode
 
 from app import app
@@ -170,12 +171,12 @@ def get_person_awards(person_id: int) -> ResponseType:
             .all()
 
         short_awards = session.query(Awarded)\
-            .join(ShortStory)\
-            .filter(Awarded.story_id == ShortStory.id)\
-            .join(Part, Part.shortstory_id == ShortStory.id)\
-            .join(Contributor, Contributor.part_id == Part.id)\
-            .filter(Contributor.person_id == person_id)\
-            .filter(Contributor.role_id == 1)\
+            .join(ShortStory,
+                  Awarded.story_id == ShortStory.id)\
+            .join(StoryContributor,
+                  StoryContributor.shortstory_id == ShortStory.id)\
+            .filter(StoryContributor.person_id == person_id)\
+            .filter(StoryContributor.role_id == 1)\
             .distinct()\
             .order_by(Awarded.year)\
             .all()

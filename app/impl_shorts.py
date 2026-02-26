@@ -14,7 +14,7 @@ from app.impl_logs import log_changes
 from app.route_helpers import new_session
 from app.orm_decl import (Issue, Magazine, ShortStory, StoryTag, StoryType,
                           StoryGenre,
-                          Language, Part, Edition, Awarded, IssueContent,
+                          Language, Part, Awarded, IssueContent,
                           EditionShortStory, StoryContributor,
                           Contributor, Person)
 from app.model_shortsearch import ShortSchemaForSearch
@@ -739,70 +739,27 @@ def story_tag_remove(short_id: int, tag_id: int) -> ResponseType:
 
 
 def save_short_to_edition(
-        session: Any, edition_id: int, short_id: int, order_num: int) -> bool:
+        session: Any, edition_id: int, short_id: int,
+        order_num: int) -> bool:
     """
-    Save a short to an edition.
+    Save a short story to an edition via EditionShortStory.
 
     Args:
-        session (Any): The session object used to interact with the database.
+        session (Any): The session object.
         edition_id (int): The ID of the edition.
-        short_id (int): The ID of the short.
+        short_id (int): The ID of the short story.
+        order_num (int): The position in the edition.
 
     Returns:
-        bool: True if the short is successfully saved to the edition, False
-              otherwise.
+        bool: True if saved successfully, False otherwise.
     """
-
     try:
-        # Get work id from part
-        part = session.query(Part)\
-            .filter(Part.edition_id == edition_id)\
-            .first()
-        short_part = Part(work_id=part.work_id, edition_id=edition_id,
-                          shortstory_id=short_id, order_num=order_num)
-        session.add(short_part)
-        # Also record the edition-short link in the new junction table
         ess = EditionShortStory(edition_id=edition_id,
                                 shortstory_id=short_id,
                                 order_num=order_num)
         session.add(ess)
     except SQLAlchemyError as exp:
         app.logger.error(f'Exception in save_short_to_edition: {exp}')
-        return False
-    return True
-
-
-def save_short_to_work(session: Any, work_id: int, short_id: int,
-                       order_num: int) -> bool:
-    """
-    Saves a short to a work in the database.
-
-    This will add the short to all work editions.
-
-    Args:
-        session (Any): The database session.
-        work_id (int): The ID of the work.
-        short_id (int): The ID of the short.
-
-    Returns:
-        bool: True if the short is saved successfully, False otherwise.
-    """
-    try:
-        editions = session.query(Edition)\
-            .join(Part)\
-            .filter(Part.edition_id == Edition.id)\
-            .filter(Part.work_id == work_id)\
-            .filter(Part.shortstory_id.is_(None))\
-            .all()
-        for edition in editions:
-            retval = save_short_to_edition(session,
-                                           edition.id,
-                                           short_id,
-                                           order_num)
-            if not retval:
-                return False
-    except SQLAlchemyError as exp:
-        app.logger.error(f'Exception in save_short_to_work: {exp}')
         return False
     return True
 

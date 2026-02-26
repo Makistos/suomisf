@@ -61,6 +61,26 @@ CREATE INDEX IF NOT EXISTS idx_storycontributor_short
 CREATE INDEX IF NOT EXISTS idx_storycontributor_person
     ON storycontributor(person_id);
 
+-- ---------------------------------------------------------------
+-- 3. View: work <-> shortstory
+-- Links Work to ShortStory via EditionShortStory + Part.
+-- Used as secondary for Work.stories and ShortStory.works ORM
+-- relationships after Part.shortstory_id is no longer reliable.
+-- ---------------------------------------------------------------
+
+CREATE OR REPLACE VIEW suomisf.work_shortstory AS
+SELECT DISTINCT
+    p.work_id,
+    ess.shortstory_id
+FROM suomisf.editionshortstory ess
+JOIN suomisf.part p ON p.edition_id = ess.edition_id
+WHERE p.work_id IS NOT NULL
+  AND p.shortstory_id IS NULL;
+
+-- ---------------------------------------------------------------
+-- 4. Populate StoryContributor
+-- ---------------------------------------------------------------
+
 -- Populate from existing Contributor rows that belong to
 -- Part rows that have a shortstory_id.
 INSERT INTO storycontributor

@@ -5,7 +5,7 @@ import datetime
 import html
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin  # type: ignore
-from sqlalchemy import (Column, ForeignKey, Integer,
+from sqlalchemy import (Column, ForeignKey, Integer, MetaData,
                         String, Boolean, Date, DateTime, Text, Table)
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.hybrid import hybrid_property
@@ -20,6 +20,17 @@ from app import app, db_url, login, jwt_secret_key
 # from flask_sqlalchemy.record_queries import get_recorded_queries
 
 Base = declarative_base()
+
+# View table: work <-> shortstory via EditionShortStory + Part.
+# Uses a separate MetaData so create_all() does not touch it.
+# The view suomisf.work_shortstory is created by migration SQL.
+_view_meta = MetaData()
+_work_shortstory_view = Table(
+    'work_shortstory',
+    _view_meta,
+    Column('work_id', Integer),
+    Column('shortstory_id', Integer),
+    schema='suomisf')
 
 # basedir = os.path.abspath(os.path.dirname(__file__))
 # load_dotenv(os.path.join(basedir, '.env'))
@@ -974,13 +985,16 @@ class Person(Base):
     #   uselist=True, viewonly=True)
     stories = relationship(
         "ShortStory",
-        # secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
-        # primaryjoin='and_(Person.id == Contributor.person_id,\
-        #              Contributor.part_id == Part.id,\
-        #              Part.shortstory_id == ShortStory.id)',
-        secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
-        primaryjoin='and_(Person.id == Contributor.person_id)',
-        secondaryjoin='Part.shortstory_id == ShortStory.id',
+        secondary='suomisf.storycontributor',
+        primaryjoin='Person.id == StoryContributor.person_id',
+        secondaryjoin=(
+            'ShortStory.id == StoryContributor.shortstory_id'
+        ),
+        foreign_keys=(
+            '[StoryContributor.person_id,'
+            ' StoryContributor.shortstory_id,'
+            ' StoryContributor.role_id]'
+        ),
         uselist=True, viewonly=True)
     # Author.part_id == Part.id, Part.work_id == Work.id,\
     # edits = relationship("Edition", secondary='editor', viewonly=True)
@@ -1204,12 +1218,19 @@ class ShortStory(Base):
     language = Column(Integer, ForeignKey('language.id'))
     pubyear = Column(Integer, index=True)
     story_type = Column(Integer, ForeignKey('storytype.id'))
-    parts = relationship('Part', backref=backref(
-        'part_assoc'), uselist=True, viewonly=True)
     genres = relationship('Genre', secondary='storygenre',
                           uselist=True, viewonly=True)
-    works = relationship('Work', secondary='part',
-                         uselist=True, viewonly=True)
+    works = relationship(
+        'Work',
+        secondary=_work_shortstory_view,
+        primaryjoin=lambda: (
+            ShortStory.id == _work_shortstory_view.c.shortstory_id
+        ),
+        secondaryjoin=lambda: (
+            Work.id == _work_shortstory_view.c.work_id
+        ),
+        uselist=True,
+        viewonly=True)
     editions = relationship(
         'Edition', secondary='suomisf.editionshortstory',
         uselist=True, viewonly=True)
@@ -1526,8 +1547,17 @@ class Work(Base):
                         uselist=True, viewonly=True)
     language_name = relationship(
         'Language', backref=backref('language'), uselist=False)
-    stories = relationship('ShortStory', secondary='part', uselist=True,
-                           viewonly=True)
+    stories = relationship(
+        'ShortStory',
+        secondary=_work_shortstory_view,
+        primaryjoin=lambda: (
+            Work.id == _work_shortstory_view.c.work_id
+        ),
+        secondaryjoin=lambda: (
+            ShortStory.id == _work_shortstory_view.c.shortstory_id
+        ),
+        uselist=True,
+        viewonly=True)
     work_type = relationship('WorkType', backref=backref('worktype'),
                              uselist=False)
     links = relationship("WorkLink", uselist=True, viewonly=True)

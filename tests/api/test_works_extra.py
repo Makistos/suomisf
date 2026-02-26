@@ -266,6 +266,62 @@ class TestWorkShortsSave(BaseAPITest):
         })
         assert response.status_code in [200, 400, 404, 500]
 
+    def test_save_work_shorts_roundtrip(
+            self, api_client, snapshot_manager):
+        """
+        POST /api/works/shorts replaces the short list and
+        GET /api/works/shorts/27 reflects the change.
+
+        Uses work 27 'Yön ja päivän tarinoita' (12 shorts).
+        Removes the last short, verifies, then restores the
+        original list and verifies again.
+        """
+        snapshot = snapshot_manager.load_snapshot('work_shorts_27')
+        assert snapshot is not None, \
+            "Snapshot work_shorts_27 not found"
+        original_ids = [
+            s['id'] for s in snapshot['response']['data']
+        ]
+        assert len(original_ids) > 1, \
+            "Snapshot must have at least 2 shorts"
+
+        # Remove the last short
+        reduced_ids = original_ids[:-1]
+        r = api_client.post('/api/works/shorts', data={
+            'work_id': COLLECTION_WORK_ID,
+            'shorts': reduced_ids
+        })
+        assert r.status_code == 200, (
+            f"Save reduced list failed: {r.status_code}"
+        )
+
+        # Verify the short was removed
+        got = api_client.get(
+            f'/api/works/shorts/{COLLECTION_WORK_ID}')
+        got.assert_success()
+        actual_ids = {int(s['id']) for s in got.data}
+        assert actual_ids == {int(i) for i in reduced_ids}, (
+            f"Expected {set(reduced_ids)}, got {actual_ids}"
+        )
+
+        # Restore original list
+        r2 = api_client.post('/api/works/shorts', data={
+            'work_id': COLLECTION_WORK_ID,
+            'shorts': original_ids
+        })
+        assert r2.status_code == 200, (
+            f"Restore failed: {r2.status_code}"
+        )
+
+        # Verify restoration
+        got2 = api_client.get(
+            f'/api/works/shorts/{COLLECTION_WORK_ID}')
+        got2.assert_success()
+        final_ids = {int(s['id']) for s in got2.data}
+        assert final_ids == {int(i) for i in original_ids}, (
+            f"Expected {set(original_ids)}, got {final_ids}"
+        )
+
 
 class TestWorkTagsLifecycle(BaseAPITest):
     """Full lifecycle test for work tags."""
