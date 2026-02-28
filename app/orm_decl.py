@@ -30,6 +30,7 @@ _work_shortstory_view = Table(
     _view_meta,
     Column('work_id', Integer),
     Column('shortstory_id', Integer),
+    Column('order_num', Integer),
     schema='suomisf')
 
 # basedir = os.path.abspath(os.path.dirname(__file__))
@@ -1556,6 +1557,7 @@ class Work(Base):
         secondaryjoin=lambda: (
             ShortStory.id == _work_shortstory_view.c.shortstory_id
         ),
+        order_by=lambda: _work_shortstory_view.c.order_num,
         uselist=True,
         viewonly=True)
     work_type = relationship('WorkType', backref=backref('worktype'),

@@ -69,13 +69,15 @@ CREATE INDEX IF NOT EXISTS idx_storycontributor_person
 -- ---------------------------------------------------------------
 
 CREATE OR REPLACE VIEW suomisf.work_shortstory AS
-SELECT DISTINCT
+SELECT
     p.work_id,
-    ess.shortstory_id
+    ess.shortstory_id,
+    MIN(ess.order_num) AS order_num
 FROM suomisf.editionshortstory ess
 JOIN suomisf.part p ON p.edition_id = ess.edition_id
 WHERE p.work_id IS NOT NULL
-  AND p.shortstory_id IS NULL;
+  AND p.shortstory_id IS NULL
+GROUP BY p.work_id, ess.shortstory_id;
 
 -- ---------------------------------------------------------------
 -- 4. Populate StoryContributor

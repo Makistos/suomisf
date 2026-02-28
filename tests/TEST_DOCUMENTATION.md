@@ -1281,6 +1281,8 @@ that causes 500 errors in some cases.
 | `test_save_work_shorts_post` | POST /api/works/shorts processes request |
 | `test_save_work_shorts_put` | PUT /api/works/shorts processes request |
 | `test_save_work_shorts_invalid_work` | Invalid work_id handles gracefully |
+| `test_save_work_shorts_roundtrip` | Remove last short and restore; verifies set equality via GET /api/works/shorts/27 |
+| `test_save_work_shorts_order` | Rotate order (last→first), verify both GET /api/works/shorts/27 and GET /api/works/27 return shorts in saved position order, then restore |
 
 ### TestWorkTagsLifecycle
 

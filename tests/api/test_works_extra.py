@@ -323,6 +323,94 @@ class TestWorkShortsSave(BaseAPITest):
         )
 
 
+    def test_save_work_shorts_order(
+            self, api_client, snapshot_manager):
+        """
+        POST /api/works/shorts persists order and both endpoints
+        return shorts in the saved order.
+
+        Uses work 27 (COLLECTION_WORK_ID, 12 shorts).
+        Rotates the list so the last short becomes first, then
+        verifies:
+          - GET /api/works/shorts/27 returns shorts in the new order
+          - GET /api/works/27  returns stories in the same order
+        Finally restores the original order.
+
+        This specifically tests the work_shortstory VIEW ordering fix:
+        Work.stories must be ordered by EditionShortStory.order_num.
+        """
+        snapshot = snapshot_manager.load_snapshot('work_shorts_27')
+        assert snapshot is not None, \
+            "Snapshot work_shorts_27 not found"
+        original_ids = [
+            int(s['id'])
+            for s in snapshot['response']['data']
+        ]
+        assert len(original_ids) >= 2, \
+            "Need at least 2 shorts to test reordering"
+
+        # Rotate: move the last short to the front
+        rotated_ids = [original_ids[-1]] + original_ids[:-1]
+        assert rotated_ids != original_ids, "Rotation must change order"
+
+        # Save with rotated order
+        r = api_client.post('/api/works/shorts', data={
+            'work_id': COLLECTION_WORK_ID,
+            'shorts': rotated_ids
+        })
+        assert r.status_code == 200, (
+            f"Save rotated order failed: {r.status_code}"
+        )
+
+        # --- Verify via GET /api/works/shorts/{id} ---
+        shorts_resp = api_client.get(
+            f'/api/works/shorts/{COLLECTION_WORK_ID}'
+        )
+        shorts_resp.assert_success()
+        returned_ids = [int(s['id']) for s in shorts_resp.data]
+        assert returned_ids == rotated_ids, (
+            f"edition_shorts order mismatch:\n"
+            f"  expected {rotated_ids}\n"
+            f"  got      {returned_ids}"
+        )
+
+        # --- Verify via GET /api/works/{id} stories field ---
+        work_resp = api_client.get(
+            f'/api/works/{COLLECTION_WORK_ID}'
+        )
+        work_resp.assert_success()
+        work_story_ids = [
+            int(s['id'])
+            for s in work_resp.data.get('stories', [])
+        ]
+        assert work_story_ids == rotated_ids, (
+            f"Work.stories order mismatch:\n"
+            f"  expected {rotated_ids}\n"
+            f"  got      {work_story_ids}"
+        )
+
+        # --- Restore original order ---
+        r2 = api_client.post('/api/works/shorts', data={
+            'work_id': COLLECTION_WORK_ID,
+            'shorts': original_ids
+        })
+        assert r2.status_code == 200, (
+            f"Restore original order failed: {r2.status_code}"
+        )
+
+        # Verify restoration (order, not just set)
+        final_resp = api_client.get(
+            f'/api/works/shorts/{COLLECTION_WORK_ID}'
+        )
+        final_resp.assert_success()
+        final_ids = [int(s['id']) for s in final_resp.data]
+        assert final_ids == original_ids, (
+            f"Restored order mismatch:\n"
+            f"  expected {original_ids}\n"
+            f"  got      {final_ids}"
+        )
+
+
 class TestWorkTagsLifecycle(BaseAPITest):
     """Full lifecycle test for work tags."""
 
