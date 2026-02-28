@@ -716,12 +716,19 @@ def result_collector():
 
 
 # ---------------------------------------------------------------------------
+# Per-test timing store  (populated by pytest_runtest_logreport)
+# ---------------------------------------------------------------------------
+
+# nodeid -> {'status': str, 'duration_ms': float}
+_test_timings: Dict[str, Any] = {}
+
+
+# ---------------------------------------------------------------------------
 # Hooks
 # ---------------------------------------------------------------------------
 
 def pytest_configure(config):
     """Pytest configuration hook."""
-    # Add custom markers
     config.addinivalue_line(
         "markers", "auth_required: mark test as requiring authentication"
     )
@@ -733,43 +740,73 @@ def pytest_configure(config):
     )
 
 
+def pytest_runtest_logreport(report):
+    """Capture per-test timing from the 'call' phase report.
+
+    pytest produces three report objects per test (setup / call /
+    teardown).  We record the 'call' duration, which is the time
+    spent inside the test function itself.  For skipped tests the
+    skip is recorded in 'setup', so we fall back to that phase.
+    """
+    if report.when == 'call':
+        _test_timings[report.nodeid] = {
+            'status': report.outcome,
+            'duration_ms': round(report.duration * 1000, 1),
+        }
+    elif report.when == 'setup' and report.outcome == 'skipped':
+        _test_timings[report.nodeid] = {
+            'status': 'skipped',
+            'duration_ms': round(report.duration * 1000, 1),
+        }
+
+
 def pytest_sessionfinish(session, exitstatus):
-    """Save test results after session."""
+    """Save per-test timings and summary stats after the session."""
     results_dir = os.path.join(os.path.dirname(__file__), 'results')
     os.makedirs(results_dir, exist_ok=True)
 
     timestamp = datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')
 
-    # Get git hash
     try:
-        result = subprocess.run(
+        git_result = subprocess.run(
             ['git', 'rev-parse', '--short', 'HEAD'],
-            capture_output=True,
-            text=True,
-            check=True
+            capture_output=True, text=True, check=True
         )
-        git_hash = result.stdout.strip()
+        git_hash = git_result.stdout.strip()
     except Exception:
         git_hash = 'unknown'
 
-    # Collect basic stats
-    stats = {
+    counts: Dict[str, int] = {'passed': 0, 'failed': 0, 'skipped': 0}
+    for entry in _test_timings.values():
+        status = entry['status']
+        if status in counts:
+            counts[status] += 1
+
+    total_ms = sum(e['duration_ms'] for e in _test_timings.values())
+
+    results = {
         'timestamp': datetime.now(timezone.utc).isoformat(),
         'git_hash': git_hash,
-        'exit_status': exitstatus,
-        'total_tests': session.testscollected,
-        'passed': getattr(session, '_passed_count', 0),
-        'failed': getattr(session, '_failed_count', 0),
-        'skipped': getattr(session, '_skipped_count', 0),
+        'exit_status': int(exitstatus),
+        'total_collected': session.testscollected,
+        'total_tests': len(_test_timings),
+        'passed': counts['passed'],
+        'failed': counts['failed'],
+        'skipped': counts['skipped'],
+        'total_duration_ms': round(total_ms, 1),
+        'tests': _test_timings,
     }
 
-    # Save to latest results
+    # Overwrite the rolling "latest" file
     latest_path = os.path.join(results_dir, 'test_results.json')
     with open(latest_path, 'w') as f:
-        json.dump(stats, f, indent=2)
+        json.dump(results, f, indent=2)
 
-    # Save to history
-    history_path = os.path.join(results_dir, 'history', f'results_{timestamp}.json')
-    os.makedirs(os.path.dirname(history_path), exist_ok=True)
+    # Archive a timestamped copy
+    history_dir = os.path.join(results_dir, 'history')
+    os.makedirs(history_dir, exist_ok=True)
+    history_path = os.path.join(
+        history_dir, f'results_{timestamp}_{git_hash}.json'
+    )
     with open(history_path, 'w') as f:
-        json.dump(stats, f, indent=2)
+        json.dump(results, f, indent=2)
