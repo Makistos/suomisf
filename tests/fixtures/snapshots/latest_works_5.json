@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "generated_at": "2026-02-23T19:25:13.415187+00:00",
+    "generated_at": "2026-02-28T15:57:27.046198+00:00",
     "generator": "update_snapshots.py",
-    "total_endpoints": 41,
+    "total_endpoints": 47,
     "endpoint": "/api/latest/works/5",
     "method": "GET",
     "status_code": 200
@@ -11,368 +11,29 @@
     "status_code": 200,
     "data": [
       {
-        "id": 6922.0,
-        "title": "Yksisarvinen maailman myyteissä ja tarinoissa",
-        "orig_title": "",
-        "author_str": "Latva, Otto",
+        "id": 6933.0,
+        "title": "The Witcher",
+        "orig_title": "Codex Le Sorceleur: L'Univers d'Andrzej Sapkowski illustré et décrypté",
+        "author_str": "Puysségur, Alain T.",
         "contributions": [
           {
             "person": {
-              "id": 7767.0,
-              "name": "Latva, Otto",
-              "alt_name": "Otto Latva"
+              "id": 639.0,
+              "name": "Sapkowski, Andrzej",
+              "alt_name": "Andrzej Sapkowski"
             },
             "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
+              "id": 6,
+              "name": "Esiintyy"
             },
             "description": "",
             "real_person": null
-          }
-        ],
-        "editions": [
-          {
-            "editors": [],
-            "translators": [],
-            "contributions": [],
-            "images": [
-              {
-                "id": 9402,
-                "image_src": "/static/images/books/Latva_Otto_Yksisarvinen_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "publisher": {
-              "id": 500,
-              "name": "SKS Kirjat"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 9875,
-            "title": "Yksisarvinen maailman myyteissä ja tarinoissa",
-            "subtitle": "",
-            "pubyear": 2026,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "978-951-858-783-8",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 171,
-            "size": 22,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "16 numeroimatonta kuvasivua.",
-            "imported_string": null,
-            "verified": false
-          }
-        ],
-        "genres": [
-          {
-            "id": 1,
-            "name": "Fantasia",
-            "abbr": "F"
-          }
-        ],
-        "bookseries": null,
-        "tags": [
-          {
-            "type": {
-              "id": 1,
-              "name": "Aihe"
-            },
-            "works": [
-              {
-                "id": 608
-              },
-              {
-                "id": 609
-              },
-              {
-                "id": 613
-              },
-              {
-                "id": 620
-              },
-              {
-                "id": 623
-              },
-              {
-                "id": 1099
-              },
-              {
-                "id": 1112
-              },
-              {
-                "id": 1124
-              },
-              {
-                "id": 1125
-              },
-              {
-                "id": 1439
-              },
-              {
-                "id": 1514
-              },
-              {
-                "id": 2240
-              },
-              {
-                "id": 2284
-              },
-              {
-                "id": 2285
-              },
-              {
-                "id": 2577
-              },
-              {
-                "id": 3030
-              },
-              {
-                "id": 3034
-              },
-              {
-                "id": 3035
-              },
-              {
-                "id": 3038
-              },
-              {
-                "id": 3412
-              },
-              {
-                "id": 5188
-              },
-              {
-                "id": 5970
-              },
-              {
-                "id": 6159
-              },
-              {
-                "id": 6160
-              },
-              {
-                "id": 6178
-              },
-              {
-                "id": 6328
-              },
-              {
-                "id": 6500
-              },
-              {
-                "id": 6639
-              },
-              {
-                "id": 5320
-              },
-              {
-                "id": 2159
-              },
-              {
-                "id": 6868
-              },
-              {
-                "id": 6869
-              },
-              {
-                "id": 6870
-              },
-              {
-                "id": 6871
-              },
-              {
-                "id": 6872
-              },
-              {
-                "id": 6873
-              },
-              {
-                "id": 6874
-              },
-              {
-                "id": 6875
-              },
-              {
-                "id": 6920
-              },
-              {
-                "id": 6921
-              },
-              {
-                "id": 6922
-              }
-            ],
-            "articles": [
-              {
-                "id": 54
-              },
-              {
-                "id": 116
-              },
-              {
-                "id": 117
-              },
-              {
-                "id": 1475
-              },
-              {
-                "id": 1476
-              },
-              {
-                "id": 1485
-              },
-              {
-                "id": 1499
-              },
-              {
-                "id": 1512
-              },
-              {
-                "id": 1532
-              },
-              {
-                "id": 1542
-              },
-              {
-                "id": 1546
-              },
-              {
-                "id": 1560
-              },
-              {
-                "id": 1927
-              }
-            ],
-            "stories": [
-              {
-                "id": 8915
-              },
-              {
-                "id": 8977
-              },
-              {
-                "id": 8978
-              },
-              {
-                "id": 10336
-              },
-              {
-                "id": 10337
-              },
-              {
-                "id": 10346
-              },
-              {
-                "id": 10360
-              },
-              {
-                "id": 10373
-              },
-              {
-                "id": 10393
-              },
-              {
-                "id": 10403
-              },
-              {
-                "id": 10407
-              },
-              {
-                "id": 10421
-              },
-              {
-                "id": 10788
-              },
-              {
-                "id": 12651
-              },
-              {
-                "id": 12720
-              },
-              {
-                "id": 12755
-              },
-              {
-                "id": 12775
-              },
-              {
-                "id": 12904
-              },
-              {
-                "id": 13062
-              },
-              {
-                "id": 10053
-              },
-              {
-                "id": 10139
-              },
-              {
-                "id": 13185
-              },
-              {
-                "id": 13813
-              },
-              {
-                "id": 15192
-              }
-            ],
-            "id": 39,
-            "name": "mytologia",
-            "description": null
           },
           {
-            "type": {
-              "id": 4,
-              "name": "Toimija"
-            },
-            "works": [
-              {
-                "id": 1868
-              },
-              {
-                "id": 4587
-              },
-              {
-                "id": 6922
-              }
-            ],
-            "articles": [],
-            "stories": [],
-            "id": 668,
-            "name": "yksisarviset",
-            "description": null
-          }
-        ],
-        "language_name": {
-          "id": 7,
-          "name": "suomi"
-        },
-        "type": 4.0,
-        "subtitle": "",
-        "pubyear": 2026,
-        "bookseriesnum": "",
-        "bookseriesorder": null,
-        "misc": "",
-        "description": null,
-        "descr_attr": "",
-        "imported_string": null
-      },
-      {
-        "id": 6921.0,
-        "title": "Lohikäärme maailman myyteissä ja tarinoissa",
-        "orig_title": "",
-        "author_str": "Latva, Otto",
-        "contributions": [
-          {
             "person": {
-              "id": 7767.0,
-              "name": "Latva, Otto",
-              "alt_name": "Otto Latva"
+              "id": 7780.0,
+              "name": "Puysségur, Alain T.",
+              "alt_name": "Alain T. Puysségur"
             },
             "role": {
               "id": 1,
@@ -385,36 +46,274 @@
         "editions": [
           {
             "editors": [],
-            "translators": [],
-            "contributions": [],
+            "translators": [
+              {
+                "id": 5251.0,
+                "name": "Tuomi-Giddings, Susanna",
+                "alt_name": "Susanna Tuomi-Giddings",
+                "fullname": "",
+                "image_src": null,
+                "dob": null,
+                "dod": null,
+                "roles": [
+                  "Kääntäjä"
+                ],
+                "nationality": {
+                  "id": 4,
+                  "name": "Suomi"
+                },
+                "workcount": 0.0,
+                "storycount": 0,
+                "other_names": null,
+                "first_name": "",
+                "last_name": "",
+                "image_attr": "",
+                "bio": null,
+                "bio_src": "",
+                "imported_string": null
+              }
+            ],
+            "contributions": [
+              {
+                "person": {
+                  "id": 639.0,
+                  "name": "Sapkowski, Andrzej",
+                  "alt_name": "Andrzej Sapkowski"
+                },
+                "role": {
+                  "id": 6,
+                  "name": "Esiintyy"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 5251.0,
+                  "name": "Tuomi-Giddings, Susanna",
+                  "alt_name": "Susanna Tuomi-Giddings"
+                },
+                "role": {
+                  "id": 2,
+                  "name": "Kääntäjä"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 7781.0,
+                  "name": "Bourgouin, Mikaël",
+                  "alt_name": "Mikaël Bourgouin"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              }
+            ],
             "images": [
               {
-                "id": 9401,
-                "image_src": "/static/images/books/Latva_Otto_Lohikaarmemyyteissajatarinoissa_1p.jpg",
+                "id": 9418,
+                "image_src": "/static/images/books/Puyssegur_Alain_T_Thewitcher_1p.jpg",
                 "image_attr": null
               }
             ],
             "publisher": {
-              "id": 500,
-              "name": "SKS Kirjat"
+              "id": 387,
+              "name": "WSOY"
             },
             "owners": [],
             "wishlisted": [],
-            "id": 9874,
-            "title": "Lohikäärme maailman myyteissä ja tarinoissa",
-            "subtitle": "",
-            "pubyear": 2024,
+            "id": 9887,
+            "title": "The Witcher",
+            "subtitle": "kuvitettu opas Andrzej Sapkowskin Noiturin maailmaan",
+            "pubyear": 2023,
             "editionnum": 1,
             "version": 1,
-            "isbn": "978-951-858-521-6",
+            "isbn": "978-951-0-49504-9",
             "printedin": null,
             "pubseriesnum": null,
             "coll_info": null,
             "pages": 151,
+            "size": 26,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [
+          {
+            "id": 1,
+            "name": "Fantasia",
+            "abbr": "F"
+          }
+        ],
+        "bookseries": null,
+        "tags": [],
+        "language_name": {
+          "id": 8,
+          "name": "ranska"
+        },
+        "type": 4.0,
+        "subtitle": "kuvitettu opas Andrzej Sapkowskin Noiturin maailmaan",
+        "pubyear": 2021,
+        "bookseriesnum": "",
+        "bookseriesorder": null,
+        "misc": "",
+        "description": null,
+        "descr_attr": "",
+        "imported_string": null
+      },
+      {
+        "id": 6932.0,
+        "title": "Kuka Harry Potter?",
+        "orig_title": "",
+        "author_str": "Kontio, Tomi & Ylimartimo, Sisko & Mulari, Heta & Oittinen, Riitta & Sinkkonen, Jari",
+        "contributions": [
+          {
+            "person": {
+              "id": 532.0,
+              "name": "Rowling, J. K.",
+              "alt_name": "J. K. Rowling"
+            },
+            "role": {
+              "id": 6,
+              "name": "Esiintyy"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 2335.0,
+              "name": "Kontio, Tomi",
+              "alt_name": "Tomi Kontio"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 4560.0,
+              "name": "Ylimartimo, Sisko",
+              "alt_name": "Sisko Ylimartimo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 4755.0,
+              "name": "Mulari, Heta",
+              "alt_name": "Heta Mulari"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 7777.0,
+              "name": "Oittinen, Riitta",
+              "alt_name": "Riitta Oittinen"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 7778.0,
+              "name": "Sinkkonen, Jari",
+              "alt_name": "Jari Sinkkonen"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "editions": [
+          {
+            "editors": [],
+            "translators": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 532.0,
+                  "name": "Rowling, J. K.",
+                  "alt_name": "J. K. Rowling"
+                },
+                "role": {
+                  "id": 6,
+                  "name": "Esiintyy"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 7779.0,
+                  "name": "Nikkanen, Jarkko",
+                  "alt_name": "Jarkko Nikkanen"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Kansi",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "id": 9417,
+                "image_src": "/static/images/books/Kontio_Mulari_Oittinen_Kukaharrypotter_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 204,
+              "name": "Minerva Kustannus"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 9886,
+            "title": "Kuka Harry Potter?",
+            "subtitle": "avain fantasian maailmaan",
+            "pubyear": 2008,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-492-117-6",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 160,
             "size": 22,
             "dustcover": 1,
-            "coverimage": 1,
-            "misc": "16 numeroimatonta kuvasivua.",
+            "coverimage": 3,
+            "misc": null,
             "imported_string": null,
             "verified": false
           }
@@ -430,350 +329,140 @@
         "tags": [
           {
             "type": {
-              "id": 1,
-              "name": "Aihe"
-            },
-            "works": [
-              {
-                "id": 608
-              },
-              {
-                "id": 609
-              },
-              {
-                "id": 613
-              },
-              {
-                "id": 620
-              },
-              {
-                "id": 623
-              },
-              {
-                "id": 1099
-              },
-              {
-                "id": 1112
-              },
-              {
-                "id": 1124
-              },
-              {
-                "id": 1125
-              },
-              {
-                "id": 1439
-              },
-              {
-                "id": 1514
-              },
-              {
-                "id": 2240
-              },
-              {
-                "id": 2284
-              },
-              {
-                "id": 2285
-              },
-              {
-                "id": 2577
-              },
-              {
-                "id": 3030
-              },
-              {
-                "id": 3034
-              },
-              {
-                "id": 3035
-              },
-              {
-                "id": 3038
-              },
-              {
-                "id": 3412
-              },
-              {
-                "id": 5188
-              },
-              {
-                "id": 5970
-              },
-              {
-                "id": 6159
-              },
-              {
-                "id": 6160
-              },
-              {
-                "id": 6178
-              },
-              {
-                "id": 6328
-              },
-              {
-                "id": 6500
-              },
-              {
-                "id": 6639
-              },
-              {
-                "id": 5320
-              },
-              {
-                "id": 2159
-              },
-              {
-                "id": 6868
-              },
-              {
-                "id": 6869
-              },
-              {
-                "id": 6870
-              },
-              {
-                "id": 6871
-              },
-              {
-                "id": 6872
-              },
-              {
-                "id": 6873
-              },
-              {
-                "id": 6874
-              },
-              {
-                "id": 6875
-              },
-              {
-                "id": 6920
-              },
-              {
-                "id": 6921
-              },
-              {
-                "id": 6922
-              }
-            ],
-            "articles": [
-              {
-                "id": 54
-              },
-              {
-                "id": 116
-              },
-              {
-                "id": 117
-              },
-              {
-                "id": 1475
-              },
-              {
-                "id": 1476
-              },
-              {
-                "id": 1485
-              },
-              {
-                "id": 1499
-              },
-              {
-                "id": 1512
-              },
-              {
-                "id": 1532
-              },
-              {
-                "id": 1542
-              },
-              {
-                "id": 1546
-              },
-              {
-                "id": 1560
-              },
-              {
-                "id": 1927
-              }
-            ],
-            "stories": [
-              {
-                "id": 8915
-              },
-              {
-                "id": 8977
-              },
-              {
-                "id": 8978
-              },
-              {
-                "id": 10336
-              },
-              {
-                "id": 10337
-              },
-              {
-                "id": 10346
-              },
-              {
-                "id": 10360
-              },
-              {
-                "id": 10373
-              },
-              {
-                "id": 10393
-              },
-              {
-                "id": 10403
-              },
-              {
-                "id": 10407
-              },
-              {
-                "id": 10421
-              },
-              {
-                "id": 10788
-              },
-              {
-                "id": 12651
-              },
-              {
-                "id": 12720
-              },
-              {
-                "id": 12755
-              },
-              {
-                "id": 12775
-              },
-              {
-                "id": 12904
-              },
-              {
-                "id": 13062
-              },
-              {
-                "id": 10053
-              },
-              {
-                "id": 10139
-              },
-              {
-                "id": 13185
-              },
-              {
-                "id": 13813
-              },
-              {
-                "id": 15192
-              }
-            ],
-            "id": 39,
-            "name": "mytologia",
-            "description": null
-          },
-          {
-            "type": {
               "id": 4,
               "name": "Toimija"
             },
             "works": [
               {
-                "id": 1076
+                "id": 6832
               },
               {
-                "id": 1505
+                "id": 6928
               },
               {
-                "id": 1643
+                "id": 6929
               },
               {
-                "id": 1681
-              },
-              {
-                "id": 1682
-              },
-              {
-                "id": 1683
-              },
-              {
-                "id": 2578
-              },
-              {
-                "id": 2651
-              },
-              {
-                "id": 2821
-              },
-              {
-                "id": 3675
-              },
-              {
-                "id": 3977
-              },
-              {
-                "id": 3990
-              },
-              {
-                "id": 5752
-              },
-              {
-                "id": 3008
-              },
-              {
-                "id": 3467
-              },
-              {
-                "id": 3465
-              },
-              {
-                "id": 3472
-              },
-              {
-                "id": 3466
-              },
-              {
-                "id": 3005
-              },
-              {
-                "id": 3006
-              },
-              {
-                "id": 6435
-              },
-              {
-                "id": 6921
+                "id": 6932
               }
             ],
             "articles": [
               {
-                "id": 1360
+                "id": 1228
               },
               {
-                "id": 1586
+                "id": 1234
+              },
+              {
+                "id": 1253
+              },
+              {
+                "id": 1276
+              },
+              {
+                "id": 2119
+              },
+              {
+                "id": 2203
+              },
+              {
+                "id": 2254
+              },
+              {
+                "id": 2255
+              },
+              {
+                "id": 2261
+              },
+              {
+                "id": 2262
+              },
+              {
+                "id": 2263
+              },
+              {
+                "id": 2264
+              },
+              {
+                "id": 2265
+              },
+              {
+                "id": 2330
               }
             ],
             "stories": [
               {
-                "id": 10221
+                "id": 10089
               },
               {
-                "id": 10447
+                "id": 10095
               },
               {
-                "id": 13894
+                "id": 10114
               },
               {
-                "id": 11035
+                "id": 10137
+              },
+              {
+                "id": 10980
+              },
+              {
+                "id": 11064
+              },
+              {
+                "id": 11115
+              },
+              {
+                "id": 11116
+              },
+              {
+                "id": 11122
+              },
+              {
+                "id": 11123
+              },
+              {
+                "id": 11124
+              },
+              {
+                "id": 11125
+              },
+              {
+                "id": 11126
+              },
+              {
+                "id": 11191
+              },
+              {
+                "id": 10130
+              },
+              {
+                "id": 15190
+              },
+              {
+                "id": 15304
+              },
+              {
+                "id": 15367
+              },
+              {
+                "id": 15368
+              },
+              {
+                "id": 15369
+              },
+              {
+                "id": 15370
+              },
+              {
+                "id": 15371
+              },
+              {
+                "id": 15372
               }
             ],
-            "id": 232,
-            "name": "lohikäärmeet",
+            "id": 224,
+            "name": "harry potter",
             "description": null
           }
         ],
@@ -782,8 +471,8 @@
           "name": "suomi"
         },
         "type": 4.0,
-        "subtitle": "",
-        "pubyear": 2024,
+        "subtitle": "avain fantasian maailmaan",
+        "pubyear": 2008,
         "bookseriesnum": "",
         "bookseriesorder": null,
         "misc": "",
@@ -792,16 +481,16 @@
         "imported_string": null
       },
       {
-        "id": 6920.0,
-        "title": "Merihirviöt",
-        "orig_title": "",
-        "author_str": "Latva, Otto",
+        "id": 6931.0,
+        "title": "Kirjoituksia Keski-Maasta",
+        "orig_title": "The Nature of Middle-earth",
+        "author_str": "Tolkien, J. R. R.",
         "contributions": [
           {
             "person": {
-              "id": 7767.0,
-              "name": "Latva, Otto",
-              "alt_name": "Otto Latva"
+              "id": 1011.0,
+              "name": "Tolkien, J. R. R.",
+              "alt_name": "J. R. R. Tolkien"
             },
             "role": {
               "id": 1,
@@ -809,38 +498,132 @@
             },
             "description": "",
             "real_person": null
+          },
+          {
+            "person": {
+              "id": 7776.0,
+              "name": "Hostetter, Carl F.",
+              "alt_name": "Carl F. Hostetter"
+            },
+            "role": {
+              "id": 3,
+              "name": "Toimittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "editions": [
           {
-            "editors": [],
-            "translators": [],
-            "contributions": [],
+            "editors": [
+              {
+                "id": 7776.0,
+                "name": "Hostetter, Carl F.",
+                "alt_name": "Carl F. Hostetter",
+                "fullname": "Carl Franklin Hostetter",
+                "image_src": null,
+                "dob": 1965.0,
+                "dod": null,
+                "roles": [
+                  "Toimittaja"
+                ],
+                "nationality": {
+                  "id": 3,
+                  "name": "Yhdysvallat"
+                },
+                "workcount": 1.0,
+                "storycount": 0,
+                "other_names": "",
+                "first_name": null,
+                "last_name": null,
+                "image_attr": null,
+                "bio": "",
+                "bio_src": "",
+                "imported_string": null
+              }
+            ],
+            "translators": [
+              {
+                "id": 488.0,
+                "name": "Kankaanpää, Jaakko",
+                "alt_name": "Jaakko Kankaanpää",
+                "fullname": "",
+                "image_src": null,
+                "dob": 1962.0,
+                "dod": null,
+                "roles": [
+                  "Kääntäjä",
+                  "Esiintyy",
+                  "Kirjoittaja"
+                ],
+                "nationality": {
+                  "id": 4,
+                  "name": "Suomi"
+                },
+                "workcount": 0.0,
+                "storycount": 25,
+                "other_names": null,
+                "first_name": "Jaakko",
+                "last_name": "Kankaanpää",
+                "image_attr": "",
+                "bio": null,
+                "bio_src": "",
+                "imported_string": "\n<b>Antarktika</b>. (Antarctica, 1998). Suom Jaakko Kankaanpää. Otava 2000. [SF]."
+              }
+            ],
+            "contributions": [
+              {
+                "person": {
+                  "id": 488.0,
+                  "name": "Kankaanpää, Jaakko",
+                  "alt_name": "Jaakko Kankaanpää"
+                },
+                "role": {
+                  "id": 2,
+                  "name": "Kääntäjä"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 5563.0,
+                  "name": "Nasmith, Ted",
+                  "alt_name": "Ted Nasmith"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Päällyksen kuva",
+                "real_person": null
+              }
+            ],
             "images": [
               {
-                "id": 9400,
-                "image_src": "/static/images/books/Latva_Otto_Merihirviot_1p.jpg",
+                "id": 9416,
+                "image_src": "/static/images/books/Tolkien_JRR_Kirjoituksiakeskimaasta_1p.jpg",
                 "image_attr": null
               }
             ],
             "publisher": {
-              "id": 507,
-              "name": "John Nurmisen Säätiö"
+              "id": 387,
+              "name": "WSOY"
             },
             "owners": [],
             "wishlisted": [],
-            "id": 9873,
-            "title": "Merihirviöt",
-            "subtitle": "merenneidosta mustekalaan",
-            "pubyear": 2019,
+            "id": 9885,
+            "title": "Kirjoituksia Keski-Maasta",
+            "subtitle": "tarujen maat, asukkaat ja metafysiikka",
+            "pubyear": 2022,
             "editionnum": 1,
             "version": 1,
-            "isbn": "978-952-9745-59-3",
+            "isbn": "978-951-0-48295-7",
             "printedin": null,
             "pubseriesnum": null,
             "coll_info": null,
-            "pages": 230,
-            "size": 31,
+            "pages": 516,
+            "size": 23,
             "dustcover": 3,
             "coverimage": 1,
             "misc": null,
@@ -864,281 +647,172 @@
             },
             "works": [
               {
-                "id": 608
+                "id": 6815
               },
               {
-                "id": 609
+                "id": 6820
               },
               {
-                "id": 613
+                "id": 6840
               },
               {
-                "id": 620
+                "id": 6842
               },
               {
-                "id": 623
+                "id": 6843
               },
               {
-                "id": 1099
+                "id": 6844
               },
               {
-                "id": 1112
+                "id": 6845
               },
               {
-                "id": 1124
+                "id": 6846
               },
               {
-                "id": 1125
+                "id": 6930
               },
               {
-                "id": 1439
-              },
-              {
-                "id": 1514
-              },
-              {
-                "id": 2240
-              },
-              {
-                "id": 2284
-              },
-              {
-                "id": 2285
-              },
-              {
-                "id": 2577
-              },
-              {
-                "id": 3030
-              },
-              {
-                "id": 3034
-              },
-              {
-                "id": 3035
-              },
-              {
-                "id": 3038
-              },
-              {
-                "id": 3412
-              },
-              {
-                "id": 5188
-              },
-              {
-                "id": 5970
-              },
-              {
-                "id": 6159
-              },
-              {
-                "id": 6160
-              },
-              {
-                "id": 6178
-              },
-              {
-                "id": 6328
-              },
-              {
-                "id": 6500
-              },
-              {
-                "id": 6639
-              },
-              {
-                "id": 5320
-              },
-              {
-                "id": 2159
-              },
-              {
-                "id": 6868
-              },
-              {
-                "id": 6869
-              },
-              {
-                "id": 6870
-              },
-              {
-                "id": 6871
-              },
-              {
-                "id": 6872
-              },
-              {
-                "id": 6873
-              },
-              {
-                "id": 6874
-              },
-              {
-                "id": 6875
-              },
-              {
-                "id": 6920
-              },
-              {
-                "id": 6921
-              },
-              {
-                "id": 6922
+                "id": 6931
               }
             ],
             "articles": [
               {
-                "id": 54
+                "id": 1936
               },
               {
-                "id": 116
+                "id": 1943
               },
               {
-                "id": 117
+                "id": 2183
               },
               {
-                "id": 1475
+                "id": 2185
               },
               {
-                "id": 1476
-              },
-              {
-                "id": 1485
-              },
-              {
-                "id": 1499
-              },
-              {
-                "id": 1512
-              },
-              {
-                "id": 1532
-              },
-              {
-                "id": 1542
-              },
-              {
-                "id": 1546
-              },
-              {
-                "id": 1560
-              },
-              {
-                "id": 1927
+                "id": 2431
               }
             ],
             "stories": [
               {
-                "id": 8915
+                "id": 10797
               },
               {
-                "id": 8977
+                "id": 10804
               },
               {
-                "id": 8978
+                "id": 11044
               },
               {
-                "id": 10336
+                "id": 11046
               },
               {
-                "id": 10337
+                "id": 11292
               },
               {
-                "id": 10346
+                "id": 12850
               },
               {
-                "id": 10360
+                "id": 10035
               },
               {
-                "id": 10373
+                "id": 13104
               },
               {
-                "id": 10393
+                "id": 13109
               },
               {
-                "id": 10403
+                "id": 13110
               },
               {
-                "id": 10407
+                "id": 13114
               },
               {
-                "id": 10421
+                "id": 10061
               },
               {
-                "id": 10788
+                "id": 10068
               },
               {
-                "id": 12651
+                "id": 10091
               },
               {
-                "id": 12720
+                "id": 10098
               },
               {
-                "id": 12755
+                "id": 13123
               },
               {
-                "id": 12775
+                "id": 10105
               },
               {
-                "id": 12904
+                "id": 10110
               },
               {
-                "id": 13062
+                "id": 10109
               },
               {
-                "id": 10053
+                "id": 13131
               },
               {
-                "id": 10139
+                "id": 13132
               },
               {
-                "id": 13185
+                "id": 13133
               },
               {
-                "id": 13813
+                "id": 10143
               },
               {
-                "id": 15192
+                "id": 13143
+              },
+              {
+                "id": 13147
+              },
+              {
+                "id": 13152
+              },
+              {
+                "id": 13186
+              },
+              {
+                "id": 10180
+              },
+              {
+                "id": 10181
+              },
+              {
+                "id": 13217
+              },
+              {
+                "id": 13219
+              },
+              {
+                "id": 13221
+              },
+              {
+                "id": 13222
+              },
+              {
+                "id": 13223
+              },
+              {
+                "id": 15188
               }
             ],
-            "id": 39,
-            "name": "mytologia",
-            "description": null
-          },
-          {
-            "type": {
-              "id": 4,
-              "name": "Toimija"
-            },
-            "works": [
-              {
-                "id": 1821
-              },
-              {
-                "id": 1441
-              },
-              {
-                "id": 1440
-              },
-              {
-                "id": 6920
-              }
-            ],
-            "articles": [],
-            "stories": [],
-            "id": 2644,
-            "name": "merihirviöt",
+            "id": 268,
+            "name": "tolkien",
             "description": null
           }
         ],
         "language_name": {
-          "id": 7,
-          "name": "suomi"
+          "id": 1,
+          "name": "englanti"
         },
         "type": 4.0,
-        "subtitle": "merenneidosta mustekalaan",
-        "pubyear": 2019,
+        "subtitle": "tarujen maat, asukkaat ja metafysiikka",
+        "pubyear": 2021,
         "bookseriesnum": "",
         "bookseriesorder": null,
         "misc": "",
@@ -1147,16 +821,16 @@
         "imported_string": null
       },
       {
-        "id": 6919.0,
-        "title": "Veden vartija",
-        "orig_title": "",
-        "author_str": "Kinnunen, Kalle",
+        "id": 6930.0,
+        "title": "J. R. R. Tolkienin maailmat",
+        "orig_title": "The Worlds of J. R. R. Tolkien: The Places That Inspired Middle-Earth",
+        "author_str": "Garth, John",
         "contributions": [
           {
             "person": {
-              "id": 2109.0,
-              "name": "Itäranta, Emmi",
-              "alt_name": "Emmi Itäranta"
+              "id": 1011.0,
+              "name": "Tolkien, J. R. R.",
+              "alt_name": "J. R. R. Tolkien"
             },
             "role": {
               "id": 6,
@@ -1167,9 +841,9 @@
           },
           {
             "person": {
-              "id": 4884.0,
-              "name": "Kinnunen, Kalle",
-              "alt_name": "Kalle Kinnunen"
+              "id": 7774.0,
+              "name": "Garth, John",
+              "alt_name": "John Garth"
             },
             "role": {
               "id": 1,
@@ -1182,13 +856,41 @@
         "editions": [
           {
             "editors": [],
-            "translators": [],
+            "translators": [
+              {
+                "id": 488.0,
+                "name": "Kankaanpää, Jaakko",
+                "alt_name": "Jaakko Kankaanpää",
+                "fullname": "",
+                "image_src": null,
+                "dob": 1962.0,
+                "dod": null,
+                "roles": [
+                  "Kääntäjä",
+                  "Esiintyy",
+                  "Kirjoittaja"
+                ],
+                "nationality": {
+                  "id": 4,
+                  "name": "Suomi"
+                },
+                "workcount": 0.0,
+                "storycount": 25,
+                "other_names": null,
+                "first_name": "Jaakko",
+                "last_name": "Kankaanpää",
+                "image_attr": "",
+                "bio": null,
+                "bio_src": "",
+                "imported_string": "\n<b>Antarktika</b>. (Antarctica, 1998). Suom Jaakko Kankaanpää. Otava 2000. [SF]."
+              }
+            ],
             "contributions": [
               {
                 "person": {
-                  "id": 2109.0,
-                  "name": "Itäranta, Emmi",
-                  "alt_name": "Emmi Itäranta"
+                  "id": 1011.0,
+                  "name": "Tolkien, J. R. R.",
+                  "alt_name": "J. R. R. Tolkien"
                 },
                 "role": {
                   "id": 6,
@@ -1199,43 +901,56 @@
               },
               {
                 "person": {
-                  "id": 7765.0,
-                  "name": "Urm, Gabriela",
-                  "alt_name": "Gabriela Urm"
+                  "id": 488.0,
+                  "name": "Kankaanpää, Jaakko",
+                  "alt_name": "Jaakko Kankaanpää"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 2,
+                  "name": "Kääntäjä"
                 },
-                "description": "Valokuvat",
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 7775.0,
+                  "name": "Snook, Flo",
+                  "alt_name": "Flo Snook"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "",
                 "real_person": null
               }
             ],
             "images": [
               {
-                "id": 9399,
-                "image_src": "/static/images/books/Kinnunen_Kalle_Vedenvartija_1p.jpg",
+                "id": 9415,
+                "image_src": "/static/images/books/Garth_John_JRRTolkieninmaailmat_1p.jpg",
                 "image_attr": null
               }
             ],
             "publisher": {
-              "id": 324,
-              "name": "Teos"
+              "id": 387,
+              "name": "WSOY"
             },
             "owners": [],
             "wishlisted": [],
-            "id": 9872,
-            "title": "Veden vartija",
-            "subtitle": "Teemestarin kirjasta elokuvaksi",
-            "pubyear": 2022,
+            "id": 9884,
+            "title": "J. R. R. Tolkienin maailmat",
+            "subtitle": "näin syntyi Keski-Maa",
+            "pubyear": 2021,
             "editionnum": 1,
             "version": 1,
-            "isbn": "978-952-363-327-8",
+            "isbn": "978-951-0-45697-2",
             "printedin": null,
             "pubseriesnum": null,
             "coll_info": null,
-            "pages": 248,
-            "size": 26,
+            "pages": 208,
+            "size": 27,
             "dustcover": 1,
             "coverimage": 3,
             "misc": null,
@@ -1245,9 +960,321 @@
         ],
         "genres": [
           {
-            "id": 5,
-            "name": "Science Fiction",
-            "abbr": "SF"
+            "id": 1,
+            "name": "Fantasia",
+            "abbr": "F"
+          }
+        ],
+        "bookseries": null,
+        "tags": [
+          {
+            "type": {
+              "id": 1,
+              "name": "Aihe"
+            },
+            "works": [
+              {
+                "id": 6815
+              },
+              {
+                "id": 6820
+              },
+              {
+                "id": 6840
+              },
+              {
+                "id": 6842
+              },
+              {
+                "id": 6843
+              },
+              {
+                "id": 6844
+              },
+              {
+                "id": 6845
+              },
+              {
+                "id": 6846
+              },
+              {
+                "id": 6930
+              },
+              {
+                "id": 6931
+              }
+            ],
+            "articles": [
+              {
+                "id": 1936
+              },
+              {
+                "id": 1943
+              },
+              {
+                "id": 2183
+              },
+              {
+                "id": 2185
+              },
+              {
+                "id": 2431
+              }
+            ],
+            "stories": [
+              {
+                "id": 10797
+              },
+              {
+                "id": 10804
+              },
+              {
+                "id": 11044
+              },
+              {
+                "id": 11046
+              },
+              {
+                "id": 11292
+              },
+              {
+                "id": 12850
+              },
+              {
+                "id": 10035
+              },
+              {
+                "id": 13104
+              },
+              {
+                "id": 13109
+              },
+              {
+                "id": 13110
+              },
+              {
+                "id": 13114
+              },
+              {
+                "id": 10061
+              },
+              {
+                "id": 10068
+              },
+              {
+                "id": 10091
+              },
+              {
+                "id": 10098
+              },
+              {
+                "id": 13123
+              },
+              {
+                "id": 10105
+              },
+              {
+                "id": 10110
+              },
+              {
+                "id": 10109
+              },
+              {
+                "id": 13131
+              },
+              {
+                "id": 13132
+              },
+              {
+                "id": 13133
+              },
+              {
+                "id": 10143
+              },
+              {
+                "id": 13143
+              },
+              {
+                "id": 13147
+              },
+              {
+                "id": 13152
+              },
+              {
+                "id": 13186
+              },
+              {
+                "id": 10180
+              },
+              {
+                "id": 10181
+              },
+              {
+                "id": 13217
+              },
+              {
+                "id": 13219
+              },
+              {
+                "id": 13221
+              },
+              {
+                "id": 13222
+              },
+              {
+                "id": 13223
+              },
+              {
+                "id": 15188
+              }
+            ],
+            "id": 268,
+            "name": "tolkien",
+            "description": null
+          }
+        ],
+        "language_name": {
+          "id": 1,
+          "name": "englanti"
+        },
+        "type": 4.0,
+        "subtitle": "näin syntyi Keski-Maa",
+        "pubyear": 2020,
+        "bookseriesnum": "",
+        "bookseriesorder": null,
+        "misc": "",
+        "description": null,
+        "descr_attr": "",
+        "imported_string": null
+      },
+      {
+        "id": 6929.0,
+        "title": "Harry Potter: Legenda",
+        "orig_title": "Harry Potter Page to Screen: The Complete Filmmaking",
+        "author_str": "McCabe, Bob",
+        "contributions": [
+          {
+            "person": {
+              "id": 532.0,
+              "name": "Rowling, J. K.",
+              "alt_name": "J. K. Rowling"
+            },
+            "role": {
+              "id": 6,
+              "name": "Esiintyy"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 7771.0,
+              "name": "McCabe, Bob",
+              "alt_name": "Bob McCabe"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "editions": [
+          {
+            "editors": [],
+            "translators": [
+              {
+                "id": 7773.0,
+                "name": "Rissanen, Irma",
+                "alt_name": "Irma Rissanen",
+                "fullname": "",
+                "image_src": null,
+                "dob": null,
+                "dod": null,
+                "roles": [
+                  "Kääntäjä"
+                ],
+                "nationality": {
+                  "id": 4,
+                  "name": "Suomi"
+                },
+                "workcount": 0.0,
+                "storycount": 0,
+                "other_names": "",
+                "first_name": null,
+                "last_name": null,
+                "image_attr": null,
+                "bio": "",
+                "bio_src": "",
+                "imported_string": null
+              }
+            ],
+            "contributions": [
+              {
+                "person": {
+                  "id": 532.0,
+                  "name": "Rowling, J. K.",
+                  "alt_name": "J. K. Rowling"
+                },
+                "role": {
+                  "id": 6,
+                  "name": "Esiintyy"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 7773.0,
+                  "name": "Rissanen, Irma",
+                  "alt_name": "Irma Rissanen"
+                },
+                "role": {
+                  "id": 2,
+                  "name": "Kääntäjä"
+                },
+                "description": "",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "id": 9414,
+                "image_src": "/static/images/books/McCabe_Bob_Harrypotterlegenda_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 408,
+              "name": "Readme.fi"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 9883,
+            "title": "Harry Potter: Legenda",
+            "subtitle": "Kirja Harry Potter -elokuvien tekijöiltä",
+            "pubyear": 2012,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-220-519-3",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 531,
+            "size": 33,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [
+          {
+            "id": 1,
+            "name": "Fantasia",
+            "abbr": "F"
           }
         ],
         "bookseries": null,
@@ -1275,6 +1302,9 @@
               },
               {
                 "id": 6919
+              },
+              {
+                "id": 6929
               }
             ],
             "articles": [
@@ -3561,122 +3591,153 @@
             "id": 47,
             "name": "elokuvat",
             "description": null
-          }
-        ],
-        "language_name": {
-          "id": 7,
-          "name": "suomi"
-        },
-        "type": 4.0,
-        "subtitle": "Teemestarin kirjasta elokuvaksi",
-        "pubyear": 2022,
-        "bookseriesnum": "",
-        "bookseriesorder": null,
-        "misc": "",
-        "description": null,
-        "descr_attr": "",
-        "imported_string": null
-      },
-      {
-        "id": 6918.0,
-        "title": "Kaamoksen kissa",
-        "orig_title": "",
-        "author_str": "Erkko, Rimma",
-        "contributions": [
+          },
           {
-            "person": {
-              "id": 3666.0,
-              "name": "Erkko, Rimma",
-              "alt_name": "Rimma Erkko"
+            "type": {
+              "id": 4,
+              "name": "Toimija"
             },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "editions": [
-          {
-            "editors": [],
-            "translators": [],
-            "contributions": [
+            "works": [
               {
-                "person": {
-                  "id": 3666.0,
-                  "name": "Erkko, Rimma",
-                  "alt_name": "Rimma Erkko"
-                },
-                "role": {
-                  "id": 4,
-                  "name": "Kansikuva"
-                },
-                "description": "",
-                "real_person": null
+                "id": 6832
               },
               {
-                "person": {
-                  "id": 3666.0,
-                  "name": "Erkko, Rimma",
-                  "alt_name": "Rimma Erkko"
-                },
-                "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
-                },
-                "description": "",
-                "real_person": null
-              }
-            ],
-            "images": [
+                "id": 6928
+              },
               {
-                "id": 9397,
-                "image_src": "/static/images/books/Erkko_Rimma_Joonatan_Kaamoksenkissa_1p.jpg",
-                "image_attr": null
+                "id": 6929
+              },
+              {
+                "id": 6932
               }
             ],
-            "publisher": {
-              "id": 217,
-              "name": "Nysalor-kustannus"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 9870,
-            "title": "Kaamoksen kissa",
-            "subtitle": "",
-            "pubyear": 2022,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "978-952-7275-93-1",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 36,
-            "size": 31,
-            "dustcover": 1,
-            "coverimage": 3,
-            "misc": null,
-            "imported_string": null,
-            "verified": false
+            "articles": [
+              {
+                "id": 1228
+              },
+              {
+                "id": 1234
+              },
+              {
+                "id": 1253
+              },
+              {
+                "id": 1276
+              },
+              {
+                "id": 2119
+              },
+              {
+                "id": 2203
+              },
+              {
+                "id": 2254
+              },
+              {
+                "id": 2255
+              },
+              {
+                "id": 2261
+              },
+              {
+                "id": 2262
+              },
+              {
+                "id": 2263
+              },
+              {
+                "id": 2264
+              },
+              {
+                "id": 2265
+              },
+              {
+                "id": 2330
+              }
+            ],
+            "stories": [
+              {
+                "id": 10089
+              },
+              {
+                "id": 10095
+              },
+              {
+                "id": 10114
+              },
+              {
+                "id": 10137
+              },
+              {
+                "id": 10980
+              },
+              {
+                "id": 11064
+              },
+              {
+                "id": 11115
+              },
+              {
+                "id": 11116
+              },
+              {
+                "id": 11122
+              },
+              {
+                "id": 11123
+              },
+              {
+                "id": 11124
+              },
+              {
+                "id": 11125
+              },
+              {
+                "id": 11126
+              },
+              {
+                "id": 11191
+              },
+              {
+                "id": 10130
+              },
+              {
+                "id": 15190
+              },
+              {
+                "id": 15304
+              },
+              {
+                "id": 15367
+              },
+              {
+                "id": 15368
+              },
+              {
+                "id": 15369
+              },
+              {
+                "id": 15370
+              },
+              {
+                "id": 15371
+              },
+              {
+                "id": 15372
+              }
+            ],
+            "id": 224,
+            "name": "harry potter",
+            "description": null
           }
         ],
-        "genres": [
-          {
-            "id": 17,
-            "name": "Lasten fantasia",
-            "abbr": "lF"
-          }
-        ],
-        "bookseries": null,
-        "tags": [],
         "language_name": {
-          "id": 7,
-          "name": "suomi"
+          "id": 1,
+          "name": "englanti"
         },
-        "type": 1.0,
-        "subtitle": "",
-        "pubyear": 2022,
+        "type": 4.0,
+        "subtitle": "Kirja Harry Potter -elokuvien tekijöiltä",
+        "pubyear": 2011,
         "bookseriesnum": "",
         "bookseriesorder": null,
         "misc": "",

@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "generated_at": "2026-02-23T19:25:13.415187+00:00",
+    "generated_at": "2026-02-28T15:57:27.046198+00:00",
     "generator": "update_snapshots.py",
-    "total_endpoints": 41
+    "total_endpoints": 47
   },
   "results": {
     "success": [
@@ -42,7 +42,13 @@
       "short_1",
       "short_406",
       "work_shorts_171",
+      "work_shorts_27",
+      "work_shorts_1378",
+      "work_27",
       "edition_shorts_242",
+      "edition_shorts_28",
+      "edition_shorts_1585",
+      "issue_92",
       "person_shorts_3238",
       "filter_people_Asi",
       "filter_tags_sci",

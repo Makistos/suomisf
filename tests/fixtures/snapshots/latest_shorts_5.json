@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "generated_at": "2026-02-23T19:25:13.415187+00:00",
+    "generated_at": "2026-02-28T15:57:27.046198+00:00",
     "generator": "update_snapshots.py",
-    "total_endpoints": 41,
+    "total_endpoints": 47,
     "endpoint": "/api/latest/shorts/5",
     "method": "GET",
     "status_code": 200
@@ -13,9 +13,9 @@
       {
         "authors": [
           {
-            "id": 3866.0,
-            "name": "Pietilä, Timo",
-            "alt_name": "Timo Pietilä",
+            "id": 4755.0,
+            "name": "Mulari, Heta",
+            "alt_name": "Heta Mulari",
             "fullname": "",
             "image_src": null,
             "dob": null,
@@ -27,11 +27,11 @@
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 0.0,
-            "storycount": 22,
+            "workcount": 1.0,
+            "storycount": 3,
             "other_names": null,
-            "first_name": "Timo",
-            "last_name": "Pietilä",
+            "first_name": "Heta",
+            "last_name": "Mulari",
             "image_attr": "",
             "bio": null,
             "bio_src": "",
@@ -42,748 +42,407 @@
           "id": 7,
           "name": "Artikkeli"
         },
-        "issues": [
+        "issues": [],
+        "editions": [
           {
-            "magazine": {
-              "type_id": 1,
-              "type": {
-                "id": 1,
-                "name": "Fanzine"
+            "work": [
+              {
+                "id": 6932.0,
+                "title": "Kuka Harry Potter?",
+                "orig_title": "",
+                "author_str": "Kontio, Tomi & Ylimartimo, Sisko & Mulari, Heta & Oittinen, Riitta & Sinkkonen, Jari",
+                "contributions": [
+                  {
+                    "person": {
+                      "id": 532.0,
+                      "name": "Rowling, J. K.",
+                      "alt_name": "J. K. Rowling"
+                    },
+                    "role": {
+                      "id": 6,
+                      "name": "Esiintyy"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 2335.0,
+                      "name": "Kontio, Tomi",
+                      "alt_name": "Tomi Kontio"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 4560.0,
+                      "name": "Ylimartimo, Sisko",
+                      "alt_name": "Sisko Ylimartimo"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 4755.0,
+                      "name": "Mulari, Heta",
+                      "alt_name": "Heta Mulari"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 7777.0,
+                      "name": "Oittinen, Riitta",
+                      "alt_name": "Riitta Oittinen"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 7778.0,
+                      "name": "Sinkkonen, Jari",
+                      "alt_name": "Jari Sinkkonen"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  }
+                ],
+                "editions": [
+                  {
+                    "editors": [],
+                    "translators": [],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 532.0,
+                          "name": "Rowling, J. K.",
+                          "alt_name": "J. K. Rowling"
+                        },
+                        "role": {
+                          "id": 6,
+                          "name": "Esiintyy"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 7779.0,
+                          "name": "Nikkanen, Jarkko",
+                          "alt_name": "Jarkko Nikkanen"
+                        },
+                        "role": {
+                          "id": 4,
+                          "name": "Kansikuva"
+                        },
+                        "description": "Kansi",
+                        "real_person": null
+                      }
+                    ],
+                    "images": [
+                      {
+                        "id": 9417,
+                        "image_src": "/static/images/books/Kontio_Mulari_Oittinen_Kukaharrypotter_1p.jpg",
+                        "image_attr": null
+                      }
+                    ],
+                    "publisher": {
+                      "id": 204,
+                      "name": "Minerva Kustannus"
+                    },
+                    "owners": [],
+                    "wishlisted": [],
+                    "id": 9886,
+                    "title": "Kuka Harry Potter?",
+                    "subtitle": "avain fantasian maailmaan",
+                    "pubyear": 2008,
+                    "editionnum": 1,
+                    "version": 1,
+                    "isbn": "978-952-492-117-6",
+                    "printedin": null,
+                    "pubseriesnum": null,
+                    "coll_info": null,
+                    "pages": 160,
+                    "size": 22,
+                    "dustcover": 1,
+                    "coverimage": 3,
+                    "misc": null,
+                    "imported_string": null,
+                    "verified": false
+                  }
+                ],
+                "genres": [
+                  {
+                    "id": 1,
+                    "name": "Fantasia",
+                    "abbr": "F"
+                  }
+                ],
+                "bookseries": null,
+                "tags": [
+                  {
+                    "type": {
+                      "id": 4,
+                      "name": "Toimija"
+                    },
+                    "works": [
+                      {
+                        "id": 6832
+                      },
+                      {
+                        "id": 6928
+                      },
+                      {
+                        "id": 6929
+                      },
+                      {
+                        "id": 6932
+                      }
+                    ],
+                    "articles": [
+                      {
+                        "id": 1228
+                      },
+                      {
+                        "id": 1234
+                      },
+                      {
+                        "id": 1253
+                      },
+                      {
+                        "id": 1276
+                      },
+                      {
+                        "id": 2119
+                      },
+                      {
+                        "id": 2203
+                      },
+                      {
+                        "id": 2254
+                      },
+                      {
+                        "id": 2255
+                      },
+                      {
+                        "id": 2261
+                      },
+                      {
+                        "id": 2262
+                      },
+                      {
+                        "id": 2263
+                      },
+                      {
+                        "id": 2264
+                      },
+                      {
+                        "id": 2265
+                      },
+                      {
+                        "id": 2330
+                      }
+                    ],
+                    "stories": [
+                      {
+                        "id": 10089
+                      },
+                      {
+                        "id": 10095
+                      },
+                      {
+                        "id": 10114
+                      },
+                      {
+                        "id": 10137
+                      },
+                      {
+                        "id": 10980
+                      },
+                      {
+                        "id": 11064
+                      },
+                      {
+                        "id": 11115
+                      },
+                      {
+                        "id": 11116
+                      },
+                      {
+                        "id": 11122
+                      },
+                      {
+                        "id": 11123
+                      },
+                      {
+                        "id": 11124
+                      },
+                      {
+                        "id": 11125
+                      },
+                      {
+                        "id": 11126
+                      },
+                      {
+                        "id": 11191
+                      },
+                      {
+                        "id": 10130
+                      },
+                      {
+                        "id": 15190
+                      },
+                      {
+                        "id": 15304
+                      },
+                      {
+                        "id": 15367
+                      },
+                      {
+                        "id": 15368
+                      },
+                      {
+                        "id": 15369
+                      },
+                      {
+                        "id": 15370
+                      },
+                      {
+                        "id": 15371
+                      },
+                      {
+                        "id": 15372
+                      }
+                    ],
+                    "id": 224,
+                    "name": "harry potter",
+                    "description": null
+                  }
+                ],
+                "language_name": {
+                  "id": 7,
+                  "name": "suomi"
+                },
+                "type": 4.0,
+                "subtitle": "avain fantasian maailmaan",
+                "pubyear": 2008,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": null,
+                "descr_attr": "",
+                "imported_string": null
+              }
+            ],
+            "editors": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 532.0,
+                  "name": "Rowling, J. K.",
+                  "alt_name": "J. K. Rowling"
+                },
+                "role": {
+                  "id": 6,
+                  "name": "Esiintyy"
+                },
+                "description": "",
+                "real_person": null
               },
-              "issues": [
-                {
-                  "id": 368,
-                  "year": 1982
-                },
-                {
-                  "id": 369,
-                  "year": 1982
-                },
-                {
-                  "id": 370,
-                  "year": 1982
-                },
-                {
-                  "id": 371,
-                  "year": 1982
-                },
-                {
-                  "id": 372,
-                  "year": 1983
-                },
-                {
-                  "id": 373,
-                  "year": 1983
-                },
-                {
-                  "id": 374,
-                  "year": 1983
-                },
-                {
-                  "id": 375,
-                  "year": 1983
-                },
-                {
-                  "id": 376,
-                  "year": 1984
-                },
-                {
-                  "id": 377,
-                  "year": 1984
-                },
-                {
-                  "id": 378,
-                  "year": 1984
-                },
-                {
-                  "id": 379,
-                  "year": 1984
-                },
-                {
-                  "id": 380,
-                  "year": 1985
-                },
-                {
-                  "id": 381,
-                  "year": 1985
-                },
-                {
-                  "id": 382,
-                  "year": 1985
-                },
-                {
-                  "id": 383,
-                  "year": 1985
-                },
-                {
-                  "id": 384,
-                  "year": 1986
-                },
-                {
-                  "id": 385,
-                  "year": 1986
-                },
-                {
-                  "id": 386,
-                  "year": 1986
-                },
-                {
-                  "id": 387,
-                  "year": 1986
-                },
-                {
-                  "id": 388,
-                  "year": 1987
-                },
-                {
-                  "id": 389,
-                  "year": 1987
-                },
-                {
-                  "id": 390,
-                  "year": 1987
-                },
-                {
-                  "id": 391,
-                  "year": 1987
-                },
-                {
-                  "id": 392,
-                  "year": 1988
-                },
-                {
-                  "id": 393,
-                  "year": 1988
-                },
-                {
-                  "id": 394,
-                  "year": 1988
-                },
-                {
-                  "id": 395,
-                  "year": 1988
-                },
-                {
-                  "id": 396,
-                  "year": 1989
-                },
-                {
-                  "id": 397,
-                  "year": 1989
-                },
-                {
-                  "id": 398,
-                  "year": 1989
-                },
-                {
-                  "id": 399,
-                  "year": 1989
-                },
-                {
-                  "id": 400,
-                  "year": 1990
-                },
-                {
-                  "id": 401,
-                  "year": 1990
-                },
-                {
-                  "id": 402,
-                  "year": 1990
-                },
-                {
-                  "id": 403,
-                  "year": 1990
-                },
-                {
-                  "id": 404,
-                  "year": 1991
-                },
-                {
-                  "id": 405,
-                  "year": 1991
-                },
-                {
-                  "id": 406,
-                  "year": 1991
-                },
-                {
-                  "id": 407,
-                  "year": 1991
-                },
-                {
-                  "id": 408,
-                  "year": 1992
-                },
-                {
-                  "id": 409,
-                  "year": 1992
-                },
-                {
-                  "id": 410,
-                  "year": 1992
-                },
-                {
-                  "id": 411,
-                  "year": 1992
-                },
-                {
-                  "id": 412,
-                  "year": 1993
-                },
-                {
-                  "id": 413,
-                  "year": 1993
-                },
-                {
-                  "id": 414,
-                  "year": 1993
-                },
-                {
-                  "id": 415,
-                  "year": 1993
-                },
-                {
-                  "id": 416,
-                  "year": 1994
-                },
-                {
-                  "id": 417,
-                  "year": 1994
-                },
-                {
-                  "id": 418,
-                  "year": 1994
-                },
-                {
-                  "id": 419,
-                  "year": 1994
-                },
-                {
-                  "id": 420,
-                  "year": 1995
-                },
-                {
-                  "id": 421,
-                  "year": 1995
-                },
-                {
-                  "id": 422,
-                  "year": 1995
-                },
-                {
-                  "id": 423,
-                  "year": 1995
-                },
-                {
-                  "id": 424,
-                  "year": 1996
-                },
-                {
-                  "id": 425,
-                  "year": 1996
-                },
-                {
-                  "id": 426,
-                  "year": 1996
-                },
-                {
-                  "id": 427,
-                  "year": 1996
-                },
-                {
-                  "id": 428,
-                  "year": 1997
-                },
-                {
-                  "id": 429,
-                  "year": 1997
-                },
-                {
-                  "id": 430,
-                  "year": 1997
-                },
-                {
-                  "id": 431,
-                  "year": 1997
-                },
-                {
-                  "id": 432,
-                  "year": 1998
-                },
-                {
-                  "id": 433,
-                  "year": 1998
-                },
-                {
-                  "id": 434,
-                  "year": 1998
-                },
-                {
-                  "id": 435,
-                  "year": 1998
-                },
-                {
-                  "id": 436,
-                  "year": 1999
-                },
-                {
-                  "id": 437,
-                  "year": 1999
-                },
-                {
-                  "id": 438,
-                  "year": 1999
-                },
-                {
-                  "id": 439,
-                  "year": 1999
-                },
-                {
-                  "id": 440,
-                  "year": 2000
-                },
-                {
-                  "id": 441,
-                  "year": 2000
-                },
-                {
-                  "id": 442,
-                  "year": 2000
-                },
-                {
-                  "id": 443,
-                  "year": 2000
-                },
-                {
-                  "id": 444,
-                  "year": 2001
-                },
-                {
-                  "id": 445,
-                  "year": 2001
-                },
-                {
-                  "id": 446,
-                  "year": 2001
-                },
-                {
-                  "id": 447,
-                  "year": 2001
-                },
-                {
-                  "id": 448,
-                  "year": 2002
-                },
-                {
-                  "id": 449,
-                  "year": 2002
-                },
-                {
-                  "id": 450,
-                  "year": 2002
-                },
-                {
-                  "id": 451,
-                  "year": 2002
-                },
-                {
-                  "id": 452,
-                  "year": 2003
-                },
-                {
-                  "id": 453,
-                  "year": 2003
-                },
-                {
-                  "id": 454,
-                  "year": 2003
-                },
-                {
-                  "id": 455,
-                  "year": 2003
-                },
-                {
-                  "id": 456,
-                  "year": 2004
-                },
-                {
-                  "id": 457,
-                  "year": 2004
-                },
-                {
-                  "id": 458,
-                  "year": 2004
-                },
-                {
-                  "id": 459,
-                  "year": 2004
-                },
-                {
-                  "id": 460,
-                  "year": 2005
-                },
-                {
-                  "id": 461,
-                  "year": 2005
-                },
-                {
-                  "id": 462,
-                  "year": 2005
-                },
-                {
-                  "id": 463,
-                  "year": 2005
-                },
-                {
-                  "id": 464,
-                  "year": 2006
-                },
-                {
-                  "id": 465,
-                  "year": 2006
-                },
-                {
-                  "id": 466,
-                  "year": 2006
-                },
-                {
-                  "id": 467,
-                  "year": 2006
-                },
-                {
-                  "id": 468,
-                  "year": 2007
-                },
-                {
-                  "id": 469,
-                  "year": 2007
-                },
-                {
-                  "id": 470,
-                  "year": 2007
-                },
-                {
-                  "id": 471,
-                  "year": 2007
-                },
-                {
-                  "id": 472,
-                  "year": 2008
-                },
-                {
-                  "id": 473,
-                  "year": 2008
-                },
-                {
-                  "id": 474,
-                  "year": 2008
-                },
-                {
-                  "id": 475,
-                  "year": 2008
-                },
-                {
-                  "id": 476,
-                  "year": 2009
-                },
-                {
-                  "id": 477,
-                  "year": 2009
-                },
-                {
-                  "id": 478,
-                  "year": 2009
-                },
-                {
-                  "id": 479,
-                  "year": 2009
-                },
-                {
-                  "id": 480,
-                  "year": 2010
-                },
-                {
-                  "id": 481,
-                  "year": 2010
-                },
-                {
-                  "id": 482,
-                  "year": 2010
-                },
-                {
-                  "id": 483,
-                  "year": 2010
-                },
-                {
-                  "id": 484,
-                  "year": 2011
-                },
-                {
-                  "id": 485,
-                  "year": 2011
-                },
-                {
-                  "id": 486,
-                  "year": 2011
-                },
-                {
-                  "id": 487,
-                  "year": 2011
-                },
-                {
-                  "id": 488,
-                  "year": 2012
-                },
-                {
-                  "id": 489,
-                  "year": 2012
-                },
-                {
-                  "id": 490,
-                  "year": 2012
-                },
-                {
-                  "id": 491,
-                  "year": 2012
-                },
-                {
-                  "id": 492,
-                  "year": 2013
-                },
-                {
-                  "id": 493,
-                  "year": 2013
-                },
-                {
-                  "id": 494,
-                  "year": 2013
-                },
-                {
-                  "id": 495,
-                  "year": 2013
-                },
-                {
-                  "id": 496,
-                  "year": 2014
-                },
-                {
-                  "id": 497,
-                  "year": 2014
-                },
-                {
-                  "id": 498,
-                  "year": 2014
-                },
-                {
-                  "id": 499,
-                  "year": 2014
-                },
-                {
-                  "id": 500,
-                  "year": 2015
-                },
-                {
-                  "id": 501,
-                  "year": 2015
-                },
-                {
-                  "id": 502,
-                  "year": 2015
-                },
-                {
-                  "id": 503,
-                  "year": 2015
-                },
-                {
-                  "id": 504,
-                  "year": 2016
-                },
-                {
-                  "id": 505,
-                  "year": 2016
-                },
-                {
-                  "id": 506,
-                  "year": 2016
-                },
-                {
-                  "id": 507,
-                  "year": 2016
-                },
-                {
-                  "id": 508,
-                  "year": 2017
-                },
-                {
-                  "id": 509,
-                  "year": 2017
-                },
-                {
-                  "id": 510,
-                  "year": 2017
-                },
-                {
-                  "id": 511,
-                  "year": 2017
-                },
-                {
-                  "id": 512,
-                  "year": 2018
-                },
-                {
-                  "id": 513,
-                  "year": 2018
-                },
-                {
-                  "id": 514,
-                  "year": 2018
-                },
-                {
-                  "id": 515,
-                  "year": 2018
-                },
-                {
-                  "id": 516,
-                  "year": 2019
-                },
-                {
-                  "id": 517,
-                  "year": 2019
-                },
-                {
-                  "id": 518,
-                  "year": 2019
-                },
-                {
-                  "id": 519,
-                  "year": 2019
-                },
-                {
-                  "id": 520,
-                  "year": 2020
-                },
-                {
-                  "id": 521,
-                  "year": 2020
-                },
-                {
-                  "id": 522,
-                  "year": 2020
-                },
-                {
-                  "id": 523,
-                  "year": 2020
-                },
-                {
-                  "id": 524,
-                  "year": 2021
-                },
-                {
-                  "id": 892,
-                  "year": 2021
-                },
-                {
-                  "id": 893,
-                  "year": 2021
-                },
-                {
-                  "id": 894,
-                  "year": 2021
-                },
-                {
-                  "id": 895,
-                  "year": 2022
-                },
-                {
-                  "id": 896,
-                  "year": 2022
-                },
-                {
-                  "id": 897,
-                  "year": 2022
-                },
-                {
-                  "id": 898,
-                  "year": 2022
-                },
-                {
-                  "id": 899,
-                  "year": 2023
-                },
-                {
-                  "id": 900,
-                  "year": 2023
-                },
-                {
-                  "id": 901,
-                  "year": 2023
-                },
-                {
-                  "id": 902,
-                  "year": 2023
-                },
-                {
-                  "id": 903,
-                  "year": 2024
-                },
-                {
-                  "id": 904,
-                  "year": 2024
-                },
-                {
-                  "id": 905,
-                  "year": 2024
-                },
-                {
-                  "id": 906,
-                  "year": 2024
-                },
-                {
-                  "id": 1095,
-                  "year": 2025
-                },
-                {
-                  "id": 1096,
-                  "year": 2025
-                },
-                {
-                  "id": 1097,
-                  "year": 2025
-                },
-                {
-                  "id": 1128,
-                  "year": 2025
-                }
-              ],
-              "id": 39,
-              "name": "Portti",
-              "description": null,
-              "link": "https://www.porttisci.fi/",
-              "issn": "0359-114X"
+              {
+                "person": {
+                  "id": 7779.0,
+                  "name": "Nikkanen, Jarkko",
+                  "alt_name": "Jarkko Nikkanen"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Kansi",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "id": 9417,
+                "image_src": "/static/images/books/Kontio_Mulari_Oittinen_Kukaharrypotter_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 204,
+              "name": "Minerva Kustannus"
             },
-            "id": 1128,
-            "number": 4,
-            "number_extra": "",
-            "count": 176,
-            "year": 2025,
-            "cover_number": "4/2025",
-            "image_src": "/static/images/magazines/Portti_2025_4.jpg",
-            "image_attr": null,
-            "pages": 108,
-            "link": "",
-            "notes": "",
-            "title": ""
+            "owners": [],
+            "wishlisted": [],
+            "binding": {
+              "id": 3,
+              "name": "Sidottu"
+            },
+            "id": 9886,
+            "title": "Kuka Harry Potter?",
+            "subtitle": "avain fantasian maailmaan",
+            "pubyear": 2008,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-492-117-6",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 160,
+            "size": 22,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
           }
         ],
-        "editions": [],
         "genres": [],
         "contributors": [
           {
             "person": {
-              "id": 3866.0,
-              "name": "Pietilä, Timo",
-              "alt_name": "Timo Pietilä"
+              "id": 532.0,
+              "name": "Rowling, J. K.",
+              "alt_name": "J. K. Rowling"
+            },
+            "role": {
+              "id": 6,
+              "name": "Esiintyy"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 4755.0,
+              "name": "Mulari, Heta",
+              "alt_name": "Heta Mulari"
             },
             "role": {
               "id": 1,
@@ -797,20 +456,20 @@
           "id": 7,
           "name": "suomi"
         },
-        "id": 15366,
-        "title": "Ajatuksia vuoden 2025 Hugo-ehdokkaista",
+        "id": 15372,
+        "title": "Kirjasta ilmiöksi",
         "orig_title": "",
-        "pubyear": 2025
+        "pubyear": 2008
       },
       {
         "authors": [
           {
-            "id": 7753.0,
-            "name": "Vilenius, Kalle",
-            "alt_name": "Kalle Vilenius",
-            "fullname": "",
+            "id": 7777.0,
+            "name": "Oittinen, Riitta",
+            "alt_name": "Riitta Oittinen",
+            "fullname": "Riitta Marianne Oittinen",
             "image_src": null,
-            "dob": null,
+            "dob": 1952.0,
             "dod": null,
             "roles": [
               "Kirjoittaja"
@@ -819,7 +478,7 @@
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 0.0,
+            "workcount": 1.0,
             "storycount": 1,
             "other_names": "",
             "first_name": null,
@@ -828,11 +487,424 @@
             "bio": "",
             "bio_src": "",
             "imported_string": null
-          },
+          }
+        ],
+        "type": {
+          "id": 7,
+          "name": "Artikkeli"
+        },
+        "issues": [],
+        "editions": [
           {
-            "id": 4586.0,
-            "name": "Kontturi, Katja",
-            "alt_name": "Katja Kontturi",
+            "work": [
+              {
+                "id": 6932.0,
+                "title": "Kuka Harry Potter?",
+                "orig_title": "",
+                "author_str": "Kontio, Tomi & Ylimartimo, Sisko & Mulari, Heta & Oittinen, Riitta & Sinkkonen, Jari",
+                "contributions": [
+                  {
+                    "person": {
+                      "id": 532.0,
+                      "name": "Rowling, J. K.",
+                      "alt_name": "J. K. Rowling"
+                    },
+                    "role": {
+                      "id": 6,
+                      "name": "Esiintyy"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 2335.0,
+                      "name": "Kontio, Tomi",
+                      "alt_name": "Tomi Kontio"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 4560.0,
+                      "name": "Ylimartimo, Sisko",
+                      "alt_name": "Sisko Ylimartimo"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 4755.0,
+                      "name": "Mulari, Heta",
+                      "alt_name": "Heta Mulari"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 7777.0,
+                      "name": "Oittinen, Riitta",
+                      "alt_name": "Riitta Oittinen"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 7778.0,
+                      "name": "Sinkkonen, Jari",
+                      "alt_name": "Jari Sinkkonen"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  }
+                ],
+                "editions": [
+                  {
+                    "editors": [],
+                    "translators": [],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 532.0,
+                          "name": "Rowling, J. K.",
+                          "alt_name": "J. K. Rowling"
+                        },
+                        "role": {
+                          "id": 6,
+                          "name": "Esiintyy"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 7779.0,
+                          "name": "Nikkanen, Jarkko",
+                          "alt_name": "Jarkko Nikkanen"
+                        },
+                        "role": {
+                          "id": 4,
+                          "name": "Kansikuva"
+                        },
+                        "description": "Kansi",
+                        "real_person": null
+                      }
+                    ],
+                    "images": [
+                      {
+                        "id": 9417,
+                        "image_src": "/static/images/books/Kontio_Mulari_Oittinen_Kukaharrypotter_1p.jpg",
+                        "image_attr": null
+                      }
+                    ],
+                    "publisher": {
+                      "id": 204,
+                      "name": "Minerva Kustannus"
+                    },
+                    "owners": [],
+                    "wishlisted": [],
+                    "id": 9886,
+                    "title": "Kuka Harry Potter?",
+                    "subtitle": "avain fantasian maailmaan",
+                    "pubyear": 2008,
+                    "editionnum": 1,
+                    "version": 1,
+                    "isbn": "978-952-492-117-6",
+                    "printedin": null,
+                    "pubseriesnum": null,
+                    "coll_info": null,
+                    "pages": 160,
+                    "size": 22,
+                    "dustcover": 1,
+                    "coverimage": 3,
+                    "misc": null,
+                    "imported_string": null,
+                    "verified": false
+                  }
+                ],
+                "genres": [
+                  {
+                    "id": 1,
+                    "name": "Fantasia",
+                    "abbr": "F"
+                  }
+                ],
+                "bookseries": null,
+                "tags": [
+                  {
+                    "type": {
+                      "id": 4,
+                      "name": "Toimija"
+                    },
+                    "works": [
+                      {
+                        "id": 6832
+                      },
+                      {
+                        "id": 6928
+                      },
+                      {
+                        "id": 6929
+                      },
+                      {
+                        "id": 6932
+                      }
+                    ],
+                    "articles": [
+                      {
+                        "id": 1228
+                      },
+                      {
+                        "id": 1234
+                      },
+                      {
+                        "id": 1253
+                      },
+                      {
+                        "id": 1276
+                      },
+                      {
+                        "id": 2119
+                      },
+                      {
+                        "id": 2203
+                      },
+                      {
+                        "id": 2254
+                      },
+                      {
+                        "id": 2255
+                      },
+                      {
+                        "id": 2261
+                      },
+                      {
+                        "id": 2262
+                      },
+                      {
+                        "id": 2263
+                      },
+                      {
+                        "id": 2264
+                      },
+                      {
+                        "id": 2265
+                      },
+                      {
+                        "id": 2330
+                      }
+                    ],
+                    "stories": [
+                      {
+                        "id": 10089
+                      },
+                      {
+                        "id": 10095
+                      },
+                      {
+                        "id": 10114
+                      },
+                      {
+                        "id": 10137
+                      },
+                      {
+                        "id": 10980
+                      },
+                      {
+                        "id": 11064
+                      },
+                      {
+                        "id": 11115
+                      },
+                      {
+                        "id": 11116
+                      },
+                      {
+                        "id": 11122
+                      },
+                      {
+                        "id": 11123
+                      },
+                      {
+                        "id": 11124
+                      },
+                      {
+                        "id": 11125
+                      },
+                      {
+                        "id": 11126
+                      },
+                      {
+                        "id": 11191
+                      },
+                      {
+                        "id": 10130
+                      },
+                      {
+                        "id": 15190
+                      },
+                      {
+                        "id": 15304
+                      },
+                      {
+                        "id": 15367
+                      },
+                      {
+                        "id": 15368
+                      },
+                      {
+                        "id": 15369
+                      },
+                      {
+                        "id": 15370
+                      },
+                      {
+                        "id": 15371
+                      },
+                      {
+                        "id": 15372
+                      }
+                    ],
+                    "id": 224,
+                    "name": "harry potter",
+                    "description": null
+                  }
+                ],
+                "language_name": {
+                  "id": 7,
+                  "name": "suomi"
+                },
+                "type": 4.0,
+                "subtitle": "avain fantasian maailmaan",
+                "pubyear": 2008,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": null,
+                "descr_attr": "",
+                "imported_string": null
+              }
+            ],
+            "editors": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 532.0,
+                  "name": "Rowling, J. K.",
+                  "alt_name": "J. K. Rowling"
+                },
+                "role": {
+                  "id": 6,
+                  "name": "Esiintyy"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 7779.0,
+                  "name": "Nikkanen, Jarkko",
+                  "alt_name": "Jarkko Nikkanen"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Kansi",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "id": 9417,
+                "image_src": "/static/images/books/Kontio_Mulari_Oittinen_Kukaharrypotter_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 204,
+              "name": "Minerva Kustannus"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "binding": {
+              "id": 3,
+              "name": "Sidottu"
+            },
+            "id": 9886,
+            "title": "Kuka Harry Potter?",
+            "subtitle": "avain fantasian maailmaan",
+            "pubyear": 2008,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-492-117-6",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 160,
+            "size": 22,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [],
+        "contributors": [
+          {
+            "person": {
+              "id": 7777.0,
+              "name": "Oittinen, Riitta",
+              "alt_name": "Riitta Oittinen"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "id": 15371,
+        "title": "Harry vai Harri?",
+        "orig_title": "",
+        "pubyear": 2008
+      },
+      {
+        "authors": [
+          {
+            "id": 4755.0,
+            "name": "Mulari, Heta",
+            "alt_name": "Heta Mulari",
             "fullname": "",
             "image_src": null,
             "dob": null,
@@ -844,23 +916,436 @@
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 0.0,
-            "storycount": 5,
+            "workcount": 1.0,
+            "storycount": 3,
             "other_names": null,
-            "first_name": "Katja",
-            "last_name": "Kontturi",
+            "first_name": "Heta",
+            "last_name": "Mulari",
             "image_attr": "",
             "bio": null,
             "bio_src": "",
             "imported_string": null
-          },
+          }
+        ],
+        "type": {
+          "id": 7,
+          "name": "Artikkeli"
+        },
+        "issues": [],
+        "editions": [
           {
-            "id": 3722.0,
-            "name": "Leijon, Maarit",
-            "alt_name": "Maarit Leijon",
+            "work": [
+              {
+                "id": 6932.0,
+                "title": "Kuka Harry Potter?",
+                "orig_title": "",
+                "author_str": "Kontio, Tomi & Ylimartimo, Sisko & Mulari, Heta & Oittinen, Riitta & Sinkkonen, Jari",
+                "contributions": [
+                  {
+                    "person": {
+                      "id": 532.0,
+                      "name": "Rowling, J. K.",
+                      "alt_name": "J. K. Rowling"
+                    },
+                    "role": {
+                      "id": 6,
+                      "name": "Esiintyy"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 2335.0,
+                      "name": "Kontio, Tomi",
+                      "alt_name": "Tomi Kontio"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 4560.0,
+                      "name": "Ylimartimo, Sisko",
+                      "alt_name": "Sisko Ylimartimo"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 4755.0,
+                      "name": "Mulari, Heta",
+                      "alt_name": "Heta Mulari"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 7777.0,
+                      "name": "Oittinen, Riitta",
+                      "alt_name": "Riitta Oittinen"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 7778.0,
+                      "name": "Sinkkonen, Jari",
+                      "alt_name": "Jari Sinkkonen"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  }
+                ],
+                "editions": [
+                  {
+                    "editors": [],
+                    "translators": [],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 532.0,
+                          "name": "Rowling, J. K.",
+                          "alt_name": "J. K. Rowling"
+                        },
+                        "role": {
+                          "id": 6,
+                          "name": "Esiintyy"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 7779.0,
+                          "name": "Nikkanen, Jarkko",
+                          "alt_name": "Jarkko Nikkanen"
+                        },
+                        "role": {
+                          "id": 4,
+                          "name": "Kansikuva"
+                        },
+                        "description": "Kansi",
+                        "real_person": null
+                      }
+                    ],
+                    "images": [
+                      {
+                        "id": 9417,
+                        "image_src": "/static/images/books/Kontio_Mulari_Oittinen_Kukaharrypotter_1p.jpg",
+                        "image_attr": null
+                      }
+                    ],
+                    "publisher": {
+                      "id": 204,
+                      "name": "Minerva Kustannus"
+                    },
+                    "owners": [],
+                    "wishlisted": [],
+                    "id": 9886,
+                    "title": "Kuka Harry Potter?",
+                    "subtitle": "avain fantasian maailmaan",
+                    "pubyear": 2008,
+                    "editionnum": 1,
+                    "version": 1,
+                    "isbn": "978-952-492-117-6",
+                    "printedin": null,
+                    "pubseriesnum": null,
+                    "coll_info": null,
+                    "pages": 160,
+                    "size": 22,
+                    "dustcover": 1,
+                    "coverimage": 3,
+                    "misc": null,
+                    "imported_string": null,
+                    "verified": false
+                  }
+                ],
+                "genres": [
+                  {
+                    "id": 1,
+                    "name": "Fantasia",
+                    "abbr": "F"
+                  }
+                ],
+                "bookseries": null,
+                "tags": [
+                  {
+                    "type": {
+                      "id": 4,
+                      "name": "Toimija"
+                    },
+                    "works": [
+                      {
+                        "id": 6832
+                      },
+                      {
+                        "id": 6928
+                      },
+                      {
+                        "id": 6929
+                      },
+                      {
+                        "id": 6932
+                      }
+                    ],
+                    "articles": [
+                      {
+                        "id": 1228
+                      },
+                      {
+                        "id": 1234
+                      },
+                      {
+                        "id": 1253
+                      },
+                      {
+                        "id": 1276
+                      },
+                      {
+                        "id": 2119
+                      },
+                      {
+                        "id": 2203
+                      },
+                      {
+                        "id": 2254
+                      },
+                      {
+                        "id": 2255
+                      },
+                      {
+                        "id": 2261
+                      },
+                      {
+                        "id": 2262
+                      },
+                      {
+                        "id": 2263
+                      },
+                      {
+                        "id": 2264
+                      },
+                      {
+                        "id": 2265
+                      },
+                      {
+                        "id": 2330
+                      }
+                    ],
+                    "stories": [
+                      {
+                        "id": 10089
+                      },
+                      {
+                        "id": 10095
+                      },
+                      {
+                        "id": 10114
+                      },
+                      {
+                        "id": 10137
+                      },
+                      {
+                        "id": 10980
+                      },
+                      {
+                        "id": 11064
+                      },
+                      {
+                        "id": 11115
+                      },
+                      {
+                        "id": 11116
+                      },
+                      {
+                        "id": 11122
+                      },
+                      {
+                        "id": 11123
+                      },
+                      {
+                        "id": 11124
+                      },
+                      {
+                        "id": 11125
+                      },
+                      {
+                        "id": 11126
+                      },
+                      {
+                        "id": 11191
+                      },
+                      {
+                        "id": 10130
+                      },
+                      {
+                        "id": 15190
+                      },
+                      {
+                        "id": 15304
+                      },
+                      {
+                        "id": 15367
+                      },
+                      {
+                        "id": 15368
+                      },
+                      {
+                        "id": 15369
+                      },
+                      {
+                        "id": 15370
+                      },
+                      {
+                        "id": 15371
+                      },
+                      {
+                        "id": 15372
+                      }
+                    ],
+                    "id": 224,
+                    "name": "harry potter",
+                    "description": null
+                  }
+                ],
+                "language_name": {
+                  "id": 7,
+                  "name": "suomi"
+                },
+                "type": 4.0,
+                "subtitle": "avain fantasian maailmaan",
+                "pubyear": 2008,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": null,
+                "descr_attr": "",
+                "imported_string": null
+              }
+            ],
+            "editors": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 532.0,
+                  "name": "Rowling, J. K.",
+                  "alt_name": "J. K. Rowling"
+                },
+                "role": {
+                  "id": 6,
+                  "name": "Esiintyy"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 7779.0,
+                  "name": "Nikkanen, Jarkko",
+                  "alt_name": "Jarkko Nikkanen"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Kansi",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "id": 9417,
+                "image_src": "/static/images/books/Kontio_Mulari_Oittinen_Kukaharrypotter_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 204,
+              "name": "Minerva Kustannus"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "binding": {
+              "id": 3,
+              "name": "Sidottu"
+            },
+            "id": 9886,
+            "title": "Kuka Harry Potter?",
+            "subtitle": "avain fantasian maailmaan",
+            "pubyear": 2008,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-492-117-6",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 160,
+            "size": 22,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [],
+        "contributors": [
+          {
+            "person": {
+              "id": 4755.0,
+              "name": "Mulari, Heta",
+              "alt_name": "Heta Mulari"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "id": 15370,
+        "title": "Tytöt Harryn maailmassa",
+        "orig_title": "",
+        "pubyear": 2008
+      },
+      {
+        "authors": [
+          {
+            "id": 7778.0,
+            "name": "Sinkkonen, Jari",
+            "alt_name": "Jari Sinkkonen",
             "fullname": "",
             "image_src": null,
-            "dob": 1981.0,
+            "dob": 1951.0,
             "dod": null,
             "roles": [
               "Kirjoittaja"
@@ -869,84 +1354,8 @@
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 0.0,
-            "storycount": 18,
-            "other_names": null,
-            "first_name": "Maarit",
-            "last_name": "Leijon",
-            "image_attr": "",
-            "bio": null,
-            "bio_src": "",
-            "imported_string": null
-          },
-          {
-            "id": 4636.0,
-            "name": "Tolonen, Tapani",
-            "alt_name": "Tapani Tolonen",
-            "fullname": "",
-            "image_src": null,
-            "dob": 1978.0,
-            "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
-            "nationality": {
-              "id": 4,
-              "name": "Suomi"
-            },
-            "workcount": 0.0,
-            "storycount": 6,
-            "other_names": null,
-            "first_name": "Tapani",
-            "last_name": "Tolonen",
-            "image_attr": "",
-            "bio": null,
-            "bio_src": "",
-            "imported_string": null
-          },
-          {
-            "id": 4630.0,
-            "name": "Kivi, Teemu",
-            "alt_name": "Teemu Kivi",
-            "fullname": "",
-            "image_src": null,
-            "dob": null,
-            "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
-            "nationality": {
-              "id": 4,
-              "name": "Suomi"
-            },
-            "workcount": 0.0,
-            "storycount": 7,
-            "other_names": null,
-            "first_name": "Teemu",
-            "last_name": "Kivi",
-            "image_attr": "",
-            "bio": null,
-            "bio_src": "",
-            "imported_string": null
-          },
-          {
-            "id": 7326.0,
-            "name": "Karonen, Toni",
-            "alt_name": "Toni Karonen",
-            "fullname": "",
-            "image_src": null,
-            "dob": null,
-            "dod": null,
-            "roles": [
-              "Esiintyy",
-              "Kirjoittaja"
-            ],
-            "nationality": {
-              "id": 4,
-              "name": "Suomi"
-            },
-            "workcount": 0.0,
-            "storycount": 2,
+            "workcount": 1.0,
+            "storycount": 1,
             "other_names": "",
             "first_name": null,
             "last_name": null,
@@ -954,29 +1363,440 @@
             "bio": "",
             "bio_src": "",
             "imported_string": null
-          },
+          }
+        ],
+        "type": {
+          "id": 7,
+          "name": "Artikkeli"
+        },
+        "issues": [],
+        "editions": [
           {
-            "id": 1863.0,
-            "name": "Lintunen, Venla",
-            "alt_name": "Venla Lintunen",
-            "fullname": "",
+            "work": [
+              {
+                "id": 6932.0,
+                "title": "Kuka Harry Potter?",
+                "orig_title": "",
+                "author_str": "Kontio, Tomi & Ylimartimo, Sisko & Mulari, Heta & Oittinen, Riitta & Sinkkonen, Jari",
+                "contributions": [
+                  {
+                    "person": {
+                      "id": 532.0,
+                      "name": "Rowling, J. K.",
+                      "alt_name": "J. K. Rowling"
+                    },
+                    "role": {
+                      "id": 6,
+                      "name": "Esiintyy"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 2335.0,
+                      "name": "Kontio, Tomi",
+                      "alt_name": "Tomi Kontio"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 4560.0,
+                      "name": "Ylimartimo, Sisko",
+                      "alt_name": "Sisko Ylimartimo"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 4755.0,
+                      "name": "Mulari, Heta",
+                      "alt_name": "Heta Mulari"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 7777.0,
+                      "name": "Oittinen, Riitta",
+                      "alt_name": "Riitta Oittinen"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 7778.0,
+                      "name": "Sinkkonen, Jari",
+                      "alt_name": "Jari Sinkkonen"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  }
+                ],
+                "editions": [
+                  {
+                    "editors": [],
+                    "translators": [],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 532.0,
+                          "name": "Rowling, J. K.",
+                          "alt_name": "J. K. Rowling"
+                        },
+                        "role": {
+                          "id": 6,
+                          "name": "Esiintyy"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 7779.0,
+                          "name": "Nikkanen, Jarkko",
+                          "alt_name": "Jarkko Nikkanen"
+                        },
+                        "role": {
+                          "id": 4,
+                          "name": "Kansikuva"
+                        },
+                        "description": "Kansi",
+                        "real_person": null
+                      }
+                    ],
+                    "images": [
+                      {
+                        "id": 9417,
+                        "image_src": "/static/images/books/Kontio_Mulari_Oittinen_Kukaharrypotter_1p.jpg",
+                        "image_attr": null
+                      }
+                    ],
+                    "publisher": {
+                      "id": 204,
+                      "name": "Minerva Kustannus"
+                    },
+                    "owners": [],
+                    "wishlisted": [],
+                    "id": 9886,
+                    "title": "Kuka Harry Potter?",
+                    "subtitle": "avain fantasian maailmaan",
+                    "pubyear": 2008,
+                    "editionnum": 1,
+                    "version": 1,
+                    "isbn": "978-952-492-117-6",
+                    "printedin": null,
+                    "pubseriesnum": null,
+                    "coll_info": null,
+                    "pages": 160,
+                    "size": 22,
+                    "dustcover": 1,
+                    "coverimage": 3,
+                    "misc": null,
+                    "imported_string": null,
+                    "verified": false
+                  }
+                ],
+                "genres": [
+                  {
+                    "id": 1,
+                    "name": "Fantasia",
+                    "abbr": "F"
+                  }
+                ],
+                "bookseries": null,
+                "tags": [
+                  {
+                    "type": {
+                      "id": 4,
+                      "name": "Toimija"
+                    },
+                    "works": [
+                      {
+                        "id": 6832
+                      },
+                      {
+                        "id": 6928
+                      },
+                      {
+                        "id": 6929
+                      },
+                      {
+                        "id": 6932
+                      }
+                    ],
+                    "articles": [
+                      {
+                        "id": 1228
+                      },
+                      {
+                        "id": 1234
+                      },
+                      {
+                        "id": 1253
+                      },
+                      {
+                        "id": 1276
+                      },
+                      {
+                        "id": 2119
+                      },
+                      {
+                        "id": 2203
+                      },
+                      {
+                        "id": 2254
+                      },
+                      {
+                        "id": 2255
+                      },
+                      {
+                        "id": 2261
+                      },
+                      {
+                        "id": 2262
+                      },
+                      {
+                        "id": 2263
+                      },
+                      {
+                        "id": 2264
+                      },
+                      {
+                        "id": 2265
+                      },
+                      {
+                        "id": 2330
+                      }
+                    ],
+                    "stories": [
+                      {
+                        "id": 10089
+                      },
+                      {
+                        "id": 10095
+                      },
+                      {
+                        "id": 10114
+                      },
+                      {
+                        "id": 10137
+                      },
+                      {
+                        "id": 10980
+                      },
+                      {
+                        "id": 11064
+                      },
+                      {
+                        "id": 11115
+                      },
+                      {
+                        "id": 11116
+                      },
+                      {
+                        "id": 11122
+                      },
+                      {
+                        "id": 11123
+                      },
+                      {
+                        "id": 11124
+                      },
+                      {
+                        "id": 11125
+                      },
+                      {
+                        "id": 11126
+                      },
+                      {
+                        "id": 11191
+                      },
+                      {
+                        "id": 10130
+                      },
+                      {
+                        "id": 15190
+                      },
+                      {
+                        "id": 15304
+                      },
+                      {
+                        "id": 15367
+                      },
+                      {
+                        "id": 15368
+                      },
+                      {
+                        "id": 15369
+                      },
+                      {
+                        "id": 15370
+                      },
+                      {
+                        "id": 15371
+                      },
+                      {
+                        "id": 15372
+                      }
+                    ],
+                    "id": 224,
+                    "name": "harry potter",
+                    "description": null
+                  }
+                ],
+                "language_name": {
+                  "id": 7,
+                  "name": "suomi"
+                },
+                "type": 4.0,
+                "subtitle": "avain fantasian maailmaan",
+                "pubyear": 2008,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": null,
+                "descr_attr": "",
+                "imported_string": null
+              }
+            ],
+            "editors": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 532.0,
+                  "name": "Rowling, J. K.",
+                  "alt_name": "J. K. Rowling"
+                },
+                "role": {
+                  "id": 6,
+                  "name": "Esiintyy"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 7779.0,
+                  "name": "Nikkanen, Jarkko",
+                  "alt_name": "Jarkko Nikkanen"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Kansi",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "id": 9417,
+                "image_src": "/static/images/books/Kontio_Mulari_Oittinen_Kukaharrypotter_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 204,
+              "name": "Minerva Kustannus"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "binding": {
+              "id": 3,
+              "name": "Sidottu"
+            },
+            "id": 9886,
+            "title": "Kuka Harry Potter?",
+            "subtitle": "avain fantasian maailmaan",
+            "pubyear": 2008,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-492-117-6",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 160,
+            "size": 22,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [],
+        "contributors": [
+          {
+            "person": {
+              "id": 7778.0,
+              "name": "Sinkkonen, Jari",
+              "alt_name": "Jari Sinkkonen"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "id": 15369,
+        "title": "Poika nimeltä Harry",
+        "orig_title": "",
+        "pubyear": 2008
+      },
+      {
+        "authors": [
+          {
+            "id": 2335.0,
+            "name": "Kontio, Tomi",
+            "alt_name": "Tomi Kontio",
+            "fullname": "Tomi Kalevi Kontio",
             "image_src": null,
-            "dob": 1990.0,
+            "dob": 1966.0,
             "dod": null,
             "roles": [
-              "Toimittaja",
-              "Kuvittaja",
               "Kirjoittaja"
             ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 5.0,
-            "storycount": 25,
+            "workcount": 6.0,
+            "storycount": 1,
             "other_names": null,
-            "first_name": "Venla",
-            "last_name": "Lintunen",
+            "first_name": "Tomi",
+            "last_name": "Kontio",
             "image_attr": "",
             "bio": null,
             "bio_src": "",
@@ -987,3208 +1807,394 @@
           "id": 7,
           "name": "Artikkeli"
         },
-        "issues": [
+        "issues": [],
+        "editions": [
           {
-            "magazine": {
-              "type_id": 1,
-              "type": {
-                "id": 1,
-                "name": "Fanzine"
-              },
-              "issues": [
-                {
-                  "id": 368,
-                  "year": 1982
-                },
-                {
-                  "id": 369,
-                  "year": 1982
-                },
-                {
-                  "id": 370,
-                  "year": 1982
-                },
-                {
-                  "id": 371,
-                  "year": 1982
-                },
-                {
-                  "id": 372,
-                  "year": 1983
-                },
-                {
-                  "id": 373,
-                  "year": 1983
-                },
-                {
-                  "id": 374,
-                  "year": 1983
-                },
-                {
-                  "id": 375,
-                  "year": 1983
-                },
-                {
-                  "id": 376,
-                  "year": 1984
-                },
-                {
-                  "id": 377,
-                  "year": 1984
-                },
-                {
-                  "id": 378,
-                  "year": 1984
-                },
-                {
-                  "id": 379,
-                  "year": 1984
-                },
-                {
-                  "id": 380,
-                  "year": 1985
-                },
-                {
-                  "id": 381,
-                  "year": 1985
-                },
-                {
-                  "id": 382,
-                  "year": 1985
-                },
-                {
-                  "id": 383,
-                  "year": 1985
-                },
-                {
-                  "id": 384,
-                  "year": 1986
-                },
-                {
-                  "id": 385,
-                  "year": 1986
-                },
-                {
-                  "id": 386,
-                  "year": 1986
-                },
-                {
-                  "id": 387,
-                  "year": 1986
-                },
-                {
-                  "id": 388,
-                  "year": 1987
-                },
-                {
-                  "id": 389,
-                  "year": 1987
-                },
-                {
-                  "id": 390,
-                  "year": 1987
-                },
-                {
-                  "id": 391,
-                  "year": 1987
-                },
-                {
-                  "id": 392,
-                  "year": 1988
-                },
-                {
-                  "id": 393,
-                  "year": 1988
-                },
-                {
-                  "id": 394,
-                  "year": 1988
-                },
-                {
-                  "id": 395,
-                  "year": 1988
-                },
-                {
-                  "id": 396,
-                  "year": 1989
-                },
-                {
-                  "id": 397,
-                  "year": 1989
-                },
-                {
-                  "id": 398,
-                  "year": 1989
-                },
-                {
-                  "id": 399,
-                  "year": 1989
-                },
-                {
-                  "id": 400,
-                  "year": 1990
-                },
-                {
-                  "id": 401,
-                  "year": 1990
-                },
-                {
-                  "id": 402,
-                  "year": 1990
-                },
-                {
-                  "id": 403,
-                  "year": 1990
-                },
-                {
-                  "id": 404,
-                  "year": 1991
-                },
-                {
-                  "id": 405,
-                  "year": 1991
-                },
-                {
-                  "id": 406,
-                  "year": 1991
-                },
-                {
-                  "id": 407,
-                  "year": 1991
-                },
-                {
-                  "id": 408,
-                  "year": 1992
-                },
-                {
-                  "id": 409,
-                  "year": 1992
-                },
-                {
-                  "id": 410,
-                  "year": 1992
-                },
-                {
-                  "id": 411,
-                  "year": 1992
-                },
-                {
-                  "id": 412,
-                  "year": 1993
-                },
-                {
-                  "id": 413,
-                  "year": 1993
-                },
-                {
-                  "id": 414,
-                  "year": 1993
-                },
-                {
-                  "id": 415,
-                  "year": 1993
-                },
-                {
-                  "id": 416,
-                  "year": 1994
-                },
-                {
-                  "id": 417,
-                  "year": 1994
-                },
-                {
-                  "id": 418,
-                  "year": 1994
-                },
-                {
-                  "id": 419,
-                  "year": 1994
-                },
-                {
-                  "id": 420,
-                  "year": 1995
-                },
-                {
-                  "id": 421,
-                  "year": 1995
-                },
-                {
-                  "id": 422,
-                  "year": 1995
-                },
-                {
-                  "id": 423,
-                  "year": 1995
-                },
-                {
-                  "id": 424,
-                  "year": 1996
-                },
-                {
-                  "id": 425,
-                  "year": 1996
-                },
-                {
-                  "id": 426,
-                  "year": 1996
-                },
-                {
-                  "id": 427,
-                  "year": 1996
-                },
-                {
-                  "id": 428,
-                  "year": 1997
-                },
-                {
-                  "id": 429,
-                  "year": 1997
-                },
-                {
-                  "id": 430,
-                  "year": 1997
-                },
-                {
-                  "id": 431,
-                  "year": 1997
-                },
-                {
-                  "id": 432,
-                  "year": 1998
-                },
-                {
-                  "id": 433,
-                  "year": 1998
-                },
-                {
-                  "id": 434,
-                  "year": 1998
-                },
-                {
-                  "id": 435,
-                  "year": 1998
-                },
-                {
-                  "id": 436,
-                  "year": 1999
-                },
-                {
-                  "id": 437,
-                  "year": 1999
-                },
-                {
-                  "id": 438,
-                  "year": 1999
-                },
-                {
-                  "id": 439,
-                  "year": 1999
-                },
-                {
-                  "id": 440,
-                  "year": 2000
-                },
-                {
-                  "id": 441,
-                  "year": 2000
-                },
-                {
-                  "id": 442,
-                  "year": 2000
-                },
-                {
-                  "id": 443,
-                  "year": 2000
-                },
-                {
-                  "id": 444,
-                  "year": 2001
-                },
-                {
-                  "id": 445,
-                  "year": 2001
-                },
-                {
-                  "id": 446,
-                  "year": 2001
-                },
-                {
-                  "id": 447,
-                  "year": 2001
-                },
-                {
-                  "id": 448,
-                  "year": 2002
-                },
-                {
-                  "id": 449,
-                  "year": 2002
-                },
-                {
-                  "id": 450,
-                  "year": 2002
-                },
-                {
-                  "id": 451,
-                  "year": 2002
-                },
-                {
-                  "id": 452,
-                  "year": 2003
-                },
-                {
-                  "id": 453,
-                  "year": 2003
-                },
-                {
-                  "id": 454,
-                  "year": 2003
-                },
-                {
-                  "id": 455,
-                  "year": 2003
-                },
-                {
-                  "id": 456,
-                  "year": 2004
-                },
-                {
-                  "id": 457,
-                  "year": 2004
-                },
-                {
-                  "id": 458,
-                  "year": 2004
-                },
-                {
-                  "id": 459,
-                  "year": 2004
-                },
-                {
-                  "id": 460,
-                  "year": 2005
-                },
-                {
-                  "id": 461,
-                  "year": 2005
-                },
-                {
-                  "id": 462,
-                  "year": 2005
-                },
-                {
-                  "id": 463,
-                  "year": 2005
-                },
-                {
-                  "id": 464,
-                  "year": 2006
-                },
-                {
-                  "id": 465,
-                  "year": 2006
-                },
-                {
-                  "id": 466,
-                  "year": 2006
-                },
-                {
-                  "id": 467,
-                  "year": 2006
-                },
-                {
-                  "id": 468,
-                  "year": 2007
-                },
-                {
-                  "id": 469,
-                  "year": 2007
-                },
-                {
-                  "id": 470,
-                  "year": 2007
-                },
-                {
-                  "id": 471,
-                  "year": 2007
-                },
-                {
-                  "id": 472,
-                  "year": 2008
-                },
-                {
-                  "id": 473,
-                  "year": 2008
-                },
-                {
-                  "id": 474,
-                  "year": 2008
-                },
-                {
-                  "id": 475,
-                  "year": 2008
-                },
-                {
-                  "id": 476,
-                  "year": 2009
-                },
-                {
-                  "id": 477,
-                  "year": 2009
-                },
-                {
-                  "id": 478,
-                  "year": 2009
-                },
-                {
-                  "id": 479,
-                  "year": 2009
-                },
-                {
-                  "id": 480,
-                  "year": 2010
-                },
-                {
-                  "id": 481,
-                  "year": 2010
-                },
-                {
-                  "id": 482,
-                  "year": 2010
-                },
-                {
-                  "id": 483,
-                  "year": 2010
-                },
-                {
-                  "id": 484,
-                  "year": 2011
-                },
-                {
-                  "id": 485,
-                  "year": 2011
-                },
-                {
-                  "id": 486,
-                  "year": 2011
-                },
-                {
-                  "id": 487,
-                  "year": 2011
-                },
-                {
-                  "id": 488,
-                  "year": 2012
-                },
-                {
-                  "id": 489,
-                  "year": 2012
-                },
-                {
-                  "id": 490,
-                  "year": 2012
-                },
-                {
-                  "id": 491,
-                  "year": 2012
-                },
-                {
-                  "id": 492,
-                  "year": 2013
-                },
-                {
-                  "id": 493,
-                  "year": 2013
-                },
-                {
-                  "id": 494,
-                  "year": 2013
-                },
-                {
-                  "id": 495,
-                  "year": 2013
-                },
-                {
-                  "id": 496,
-                  "year": 2014
-                },
-                {
-                  "id": 497,
-                  "year": 2014
-                },
-                {
-                  "id": 498,
-                  "year": 2014
-                },
-                {
-                  "id": 499,
-                  "year": 2014
-                },
-                {
-                  "id": 500,
-                  "year": 2015
-                },
-                {
-                  "id": 501,
-                  "year": 2015
-                },
-                {
-                  "id": 502,
-                  "year": 2015
-                },
-                {
-                  "id": 503,
-                  "year": 2015
-                },
-                {
-                  "id": 504,
-                  "year": 2016
-                },
-                {
-                  "id": 505,
-                  "year": 2016
-                },
-                {
-                  "id": 506,
-                  "year": 2016
-                },
-                {
-                  "id": 507,
-                  "year": 2016
-                },
-                {
-                  "id": 508,
-                  "year": 2017
-                },
-                {
-                  "id": 509,
-                  "year": 2017
-                },
-                {
-                  "id": 510,
-                  "year": 2017
-                },
-                {
-                  "id": 511,
-                  "year": 2017
-                },
-                {
-                  "id": 512,
-                  "year": 2018
-                },
-                {
-                  "id": 513,
-                  "year": 2018
-                },
-                {
-                  "id": 514,
-                  "year": 2018
-                },
-                {
-                  "id": 515,
-                  "year": 2018
-                },
-                {
-                  "id": 516,
-                  "year": 2019
-                },
-                {
-                  "id": 517,
-                  "year": 2019
-                },
-                {
-                  "id": 518,
-                  "year": 2019
-                },
-                {
-                  "id": 519,
-                  "year": 2019
-                },
-                {
-                  "id": 520,
-                  "year": 2020
-                },
-                {
-                  "id": 521,
-                  "year": 2020
-                },
-                {
-                  "id": 522,
-                  "year": 2020
-                },
-                {
-                  "id": 523,
-                  "year": 2020
-                },
-                {
-                  "id": 524,
-                  "year": 2021
-                },
-                {
-                  "id": 892,
-                  "year": 2021
-                },
-                {
-                  "id": 893,
-                  "year": 2021
-                },
-                {
-                  "id": 894,
-                  "year": 2021
-                },
-                {
-                  "id": 895,
-                  "year": 2022
-                },
-                {
-                  "id": 896,
-                  "year": 2022
-                },
-                {
-                  "id": 897,
-                  "year": 2022
-                },
-                {
-                  "id": 898,
-                  "year": 2022
-                },
-                {
-                  "id": 899,
-                  "year": 2023
-                },
-                {
-                  "id": 900,
-                  "year": 2023
-                },
-                {
-                  "id": 901,
-                  "year": 2023
-                },
-                {
-                  "id": 902,
-                  "year": 2023
-                },
-                {
-                  "id": 903,
-                  "year": 2024
-                },
-                {
-                  "id": 904,
-                  "year": 2024
-                },
-                {
-                  "id": 905,
-                  "year": 2024
-                },
-                {
-                  "id": 906,
-                  "year": 2024
-                },
-                {
-                  "id": 1095,
-                  "year": 2025
-                },
-                {
-                  "id": 1096,
-                  "year": 2025
-                },
-                {
-                  "id": 1097,
-                  "year": 2025
-                },
-                {
-                  "id": 1128,
-                  "year": 2025
-                }
-              ],
-              "id": 39,
-              "name": "Portti",
-              "description": null,
-              "link": "https://www.porttisci.fi/",
-              "issn": "0359-114X"
-            },
-            "id": 1128,
-            "number": 4,
-            "number_extra": "",
-            "count": 176,
-            "year": 2025,
-            "cover_number": "4/2025",
-            "image_src": "/static/images/magazines/Portti_2025_4.jpg",
-            "image_attr": null,
-            "pages": 108,
-            "link": "",
-            "notes": "",
-            "title": ""
-          }
-        ],
-        "editions": [],
-        "genres": [],
-        "contributors": [
-          {
-            "person": {
-              "id": 3722.0,
-              "name": "Leijon, Maarit",
-              "alt_name": "Maarit Leijon"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 4636.0,
-              "name": "Tolonen, Tapani",
-              "alt_name": "Tapani Tolonen"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 7753.0,
-              "name": "Vilenius, Kalle",
-              "alt_name": "Kalle Vilenius"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 7326.0,
-              "name": "Karonen, Toni",
-              "alt_name": "Toni Karonen"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 4630.0,
-              "name": "Kivi, Teemu",
-              "alt_name": "Teemu Kivi"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 4586.0,
-              "name": "Kontturi, Katja",
-              "alt_name": "Katja Kontturi"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 1863.0,
-              "name": "Lintunen, Venla",
-              "alt_name": "Venla Lintunen"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "lang": {
-          "id": 7,
-          "name": "suomi"
-        },
-        "id": 15365,
-        "title": "Kirjoittajat kertovat novelleistaan",
-        "orig_title": "",
-        "pubyear": 2025
-      },
-      {
-        "authors": [
-          {
-            "id": 3921.0,
-            "name": "Rantalaiho, Liisa",
-            "alt_name": "Liisa Rantalaiho",
-            "fullname": "",
-            "image_src": null,
-            "dob": 1933.0,
-            "dod": null,
-            "roles": [
-              "Kirjoittaja",
-              "Kääntäjä",
-              "Esiintyy"
+            "work": [
+              {
+                "id": 6932.0,
+                "title": "Kuka Harry Potter?",
+                "orig_title": "",
+                "author_str": "Kontio, Tomi & Ylimartimo, Sisko & Mulari, Heta & Oittinen, Riitta & Sinkkonen, Jari",
+                "contributions": [
+                  {
+                    "person": {
+                      "id": 532.0,
+                      "name": "Rowling, J. K.",
+                      "alt_name": "J. K. Rowling"
+                    },
+                    "role": {
+                      "id": 6,
+                      "name": "Esiintyy"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 2335.0,
+                      "name": "Kontio, Tomi",
+                      "alt_name": "Tomi Kontio"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 4560.0,
+                      "name": "Ylimartimo, Sisko",
+                      "alt_name": "Sisko Ylimartimo"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 4755.0,
+                      "name": "Mulari, Heta",
+                      "alt_name": "Heta Mulari"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 7777.0,
+                      "name": "Oittinen, Riitta",
+                      "alt_name": "Riitta Oittinen"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 7778.0,
+                      "name": "Sinkkonen, Jari",
+                      "alt_name": "Jari Sinkkonen"
+                    },
+                    "role": {
+                      "id": 1,
+                      "name": "Kirjoittaja"
+                    },
+                    "description": "",
+                    "real_person": null
+                  }
+                ],
+                "editions": [
+                  {
+                    "editors": [],
+                    "translators": [],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 532.0,
+                          "name": "Rowling, J. K.",
+                          "alt_name": "J. K. Rowling"
+                        },
+                        "role": {
+                          "id": 6,
+                          "name": "Esiintyy"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 7779.0,
+                          "name": "Nikkanen, Jarkko",
+                          "alt_name": "Jarkko Nikkanen"
+                        },
+                        "role": {
+                          "id": 4,
+                          "name": "Kansikuva"
+                        },
+                        "description": "Kansi",
+                        "real_person": null
+                      }
+                    ],
+                    "images": [
+                      {
+                        "id": 9417,
+                        "image_src": "/static/images/books/Kontio_Mulari_Oittinen_Kukaharrypotter_1p.jpg",
+                        "image_attr": null
+                      }
+                    ],
+                    "publisher": {
+                      "id": 204,
+                      "name": "Minerva Kustannus"
+                    },
+                    "owners": [],
+                    "wishlisted": [],
+                    "id": 9886,
+                    "title": "Kuka Harry Potter?",
+                    "subtitle": "avain fantasian maailmaan",
+                    "pubyear": 2008,
+                    "editionnum": 1,
+                    "version": 1,
+                    "isbn": "978-952-492-117-6",
+                    "printedin": null,
+                    "pubseriesnum": null,
+                    "coll_info": null,
+                    "pages": 160,
+                    "size": 22,
+                    "dustcover": 1,
+                    "coverimage": 3,
+                    "misc": null,
+                    "imported_string": null,
+                    "verified": false
+                  }
+                ],
+                "genres": [
+                  {
+                    "id": 1,
+                    "name": "Fantasia",
+                    "abbr": "F"
+                  }
+                ],
+                "bookseries": null,
+                "tags": [
+                  {
+                    "type": {
+                      "id": 4,
+                      "name": "Toimija"
+                    },
+                    "works": [
+                      {
+                        "id": 6832
+                      },
+                      {
+                        "id": 6928
+                      },
+                      {
+                        "id": 6929
+                      },
+                      {
+                        "id": 6932
+                      }
+                    ],
+                    "articles": [
+                      {
+                        "id": 1228
+                      },
+                      {
+                        "id": 1234
+                      },
+                      {
+                        "id": 1253
+                      },
+                      {
+                        "id": 1276
+                      },
+                      {
+                        "id": 2119
+                      },
+                      {
+                        "id": 2203
+                      },
+                      {
+                        "id": 2254
+                      },
+                      {
+                        "id": 2255
+                      },
+                      {
+                        "id": 2261
+                      },
+                      {
+                        "id": 2262
+                      },
+                      {
+                        "id": 2263
+                      },
+                      {
+                        "id": 2264
+                      },
+                      {
+                        "id": 2265
+                      },
+                      {
+                        "id": 2330
+                      }
+                    ],
+                    "stories": [
+                      {
+                        "id": 10089
+                      },
+                      {
+                        "id": 10095
+                      },
+                      {
+                        "id": 10114
+                      },
+                      {
+                        "id": 10137
+                      },
+                      {
+                        "id": 10980
+                      },
+                      {
+                        "id": 11064
+                      },
+                      {
+                        "id": 11115
+                      },
+                      {
+                        "id": 11116
+                      },
+                      {
+                        "id": 11122
+                      },
+                      {
+                        "id": 11123
+                      },
+                      {
+                        "id": 11124
+                      },
+                      {
+                        "id": 11125
+                      },
+                      {
+                        "id": 11126
+                      },
+                      {
+                        "id": 11191
+                      },
+                      {
+                        "id": 10130
+                      },
+                      {
+                        "id": 15190
+                      },
+                      {
+                        "id": 15304
+                      },
+                      {
+                        "id": 15367
+                      },
+                      {
+                        "id": 15368
+                      },
+                      {
+                        "id": 15369
+                      },
+                      {
+                        "id": 15370
+                      },
+                      {
+                        "id": 15371
+                      },
+                      {
+                        "id": 15372
+                      }
+                    ],
+                    "id": 224,
+                    "name": "harry potter",
+                    "description": null
+                  }
+                ],
+                "language_name": {
+                  "id": 7,
+                  "name": "suomi"
+                },
+                "type": 4.0,
+                "subtitle": "avain fantasian maailmaan",
+                "pubyear": 2008,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": null,
+                "descr_attr": "",
+                "imported_string": null
+              }
             ],
-            "nationality": {
-              "id": 4,
-              "name": "Suomi"
-            },
-            "workcount": 0.0,
-            "storycount": 58,
-            "other_names": null,
-            "first_name": "Liisa",
-            "last_name": "Rantalaiho",
-            "image_attr": "",
-            "bio": null,
-            "bio_src": "",
-            "imported_string": null
-          }
-        ],
-        "type": {
-          "id": 7,
-          "name": "Artikkeli"
-        },
-        "issues": [
-          {
-            "magazine": {
-              "type_id": 1,
-              "type": {
-                "id": 1,
-                "name": "Fanzine"
+            "editors": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 532.0,
+                  "name": "Rowling, J. K.",
+                  "alt_name": "J. K. Rowling"
+                },
+                "role": {
+                  "id": 6,
+                  "name": "Esiintyy"
+                },
+                "description": "",
+                "real_person": null
               },
-              "issues": [
-                {
-                  "id": 368,
-                  "year": 1982
-                },
-                {
-                  "id": 369,
-                  "year": 1982
-                },
-                {
-                  "id": 370,
-                  "year": 1982
-                },
-                {
-                  "id": 371,
-                  "year": 1982
-                },
-                {
-                  "id": 372,
-                  "year": 1983
-                },
-                {
-                  "id": 373,
-                  "year": 1983
-                },
-                {
-                  "id": 374,
-                  "year": 1983
-                },
-                {
-                  "id": 375,
-                  "year": 1983
-                },
-                {
-                  "id": 376,
-                  "year": 1984
-                },
-                {
-                  "id": 377,
-                  "year": 1984
-                },
-                {
-                  "id": 378,
-                  "year": 1984
-                },
-                {
-                  "id": 379,
-                  "year": 1984
-                },
-                {
-                  "id": 380,
-                  "year": 1985
-                },
-                {
-                  "id": 381,
-                  "year": 1985
-                },
-                {
-                  "id": 382,
-                  "year": 1985
-                },
-                {
-                  "id": 383,
-                  "year": 1985
-                },
-                {
-                  "id": 384,
-                  "year": 1986
-                },
-                {
-                  "id": 385,
-                  "year": 1986
-                },
-                {
-                  "id": 386,
-                  "year": 1986
-                },
-                {
-                  "id": 387,
-                  "year": 1986
-                },
-                {
-                  "id": 388,
-                  "year": 1987
-                },
-                {
-                  "id": 389,
-                  "year": 1987
-                },
-                {
-                  "id": 390,
-                  "year": 1987
-                },
-                {
-                  "id": 391,
-                  "year": 1987
-                },
-                {
-                  "id": 392,
-                  "year": 1988
-                },
-                {
-                  "id": 393,
-                  "year": 1988
-                },
-                {
-                  "id": 394,
-                  "year": 1988
-                },
-                {
-                  "id": 395,
-                  "year": 1988
-                },
-                {
-                  "id": 396,
-                  "year": 1989
-                },
-                {
-                  "id": 397,
-                  "year": 1989
-                },
-                {
-                  "id": 398,
-                  "year": 1989
-                },
-                {
-                  "id": 399,
-                  "year": 1989
-                },
-                {
-                  "id": 400,
-                  "year": 1990
-                },
-                {
-                  "id": 401,
-                  "year": 1990
-                },
-                {
-                  "id": 402,
-                  "year": 1990
-                },
-                {
-                  "id": 403,
-                  "year": 1990
-                },
-                {
-                  "id": 404,
-                  "year": 1991
-                },
-                {
-                  "id": 405,
-                  "year": 1991
-                },
-                {
-                  "id": 406,
-                  "year": 1991
-                },
-                {
-                  "id": 407,
-                  "year": 1991
-                },
-                {
-                  "id": 408,
-                  "year": 1992
-                },
-                {
-                  "id": 409,
-                  "year": 1992
-                },
-                {
-                  "id": 410,
-                  "year": 1992
-                },
-                {
-                  "id": 411,
-                  "year": 1992
-                },
-                {
-                  "id": 412,
-                  "year": 1993
-                },
-                {
-                  "id": 413,
-                  "year": 1993
-                },
-                {
-                  "id": 414,
-                  "year": 1993
-                },
-                {
-                  "id": 415,
-                  "year": 1993
-                },
-                {
-                  "id": 416,
-                  "year": 1994
-                },
-                {
-                  "id": 417,
-                  "year": 1994
-                },
-                {
-                  "id": 418,
-                  "year": 1994
-                },
-                {
-                  "id": 419,
-                  "year": 1994
-                },
-                {
-                  "id": 420,
-                  "year": 1995
-                },
-                {
-                  "id": 421,
-                  "year": 1995
-                },
-                {
-                  "id": 422,
-                  "year": 1995
-                },
-                {
-                  "id": 423,
-                  "year": 1995
-                },
-                {
-                  "id": 424,
-                  "year": 1996
-                },
-                {
-                  "id": 425,
-                  "year": 1996
-                },
-                {
-                  "id": 426,
-                  "year": 1996
-                },
-                {
-                  "id": 427,
-                  "year": 1996
-                },
-                {
-                  "id": 428,
-                  "year": 1997
-                },
-                {
-                  "id": 429,
-                  "year": 1997
-                },
-                {
-                  "id": 430,
-                  "year": 1997
-                },
-                {
-                  "id": 431,
-                  "year": 1997
-                },
-                {
-                  "id": 432,
-                  "year": 1998
-                },
-                {
-                  "id": 433,
-                  "year": 1998
-                },
-                {
-                  "id": 434,
-                  "year": 1998
-                },
-                {
-                  "id": 435,
-                  "year": 1998
-                },
-                {
-                  "id": 436,
-                  "year": 1999
-                },
-                {
-                  "id": 437,
-                  "year": 1999
-                },
-                {
-                  "id": 438,
-                  "year": 1999
-                },
-                {
-                  "id": 439,
-                  "year": 1999
-                },
-                {
-                  "id": 440,
-                  "year": 2000
-                },
-                {
-                  "id": 441,
-                  "year": 2000
-                },
-                {
-                  "id": 442,
-                  "year": 2000
-                },
-                {
-                  "id": 443,
-                  "year": 2000
-                },
-                {
-                  "id": 444,
-                  "year": 2001
-                },
-                {
-                  "id": 445,
-                  "year": 2001
-                },
-                {
-                  "id": 446,
-                  "year": 2001
-                },
-                {
-                  "id": 447,
-                  "year": 2001
-                },
-                {
-                  "id": 448,
-                  "year": 2002
-                },
-                {
-                  "id": 449,
-                  "year": 2002
-                },
-                {
-                  "id": 450,
-                  "year": 2002
-                },
-                {
-                  "id": 451,
-                  "year": 2002
-                },
-                {
-                  "id": 452,
-                  "year": 2003
-                },
-                {
-                  "id": 453,
-                  "year": 2003
-                },
-                {
-                  "id": 454,
-                  "year": 2003
-                },
-                {
-                  "id": 455,
-                  "year": 2003
-                },
-                {
-                  "id": 456,
-                  "year": 2004
-                },
-                {
-                  "id": 457,
-                  "year": 2004
-                },
-                {
-                  "id": 458,
-                  "year": 2004
-                },
-                {
-                  "id": 459,
-                  "year": 2004
-                },
-                {
-                  "id": 460,
-                  "year": 2005
-                },
-                {
-                  "id": 461,
-                  "year": 2005
-                },
-                {
-                  "id": 462,
-                  "year": 2005
-                },
-                {
-                  "id": 463,
-                  "year": 2005
-                },
-                {
-                  "id": 464,
-                  "year": 2006
-                },
-                {
-                  "id": 465,
-                  "year": 2006
-                },
-                {
-                  "id": 466,
-                  "year": 2006
-                },
-                {
-                  "id": 467,
-                  "year": 2006
-                },
-                {
-                  "id": 468,
-                  "year": 2007
-                },
-                {
-                  "id": 469,
-                  "year": 2007
-                },
-                {
-                  "id": 470,
-                  "year": 2007
-                },
-                {
-                  "id": 471,
-                  "year": 2007
-                },
-                {
-                  "id": 472,
-                  "year": 2008
-                },
-                {
-                  "id": 473,
-                  "year": 2008
-                },
-                {
-                  "id": 474,
-                  "year": 2008
-                },
-                {
-                  "id": 475,
-                  "year": 2008
-                },
-                {
-                  "id": 476,
-                  "year": 2009
-                },
-                {
-                  "id": 477,
-                  "year": 2009
-                },
-                {
-                  "id": 478,
-                  "year": 2009
-                },
-                {
-                  "id": 479,
-                  "year": 2009
-                },
-                {
-                  "id": 480,
-                  "year": 2010
-                },
-                {
-                  "id": 481,
-                  "year": 2010
-                },
-                {
-                  "id": 482,
-                  "year": 2010
-                },
-                {
-                  "id": 483,
-                  "year": 2010
-                },
-                {
-                  "id": 484,
-                  "year": 2011
-                },
-                {
-                  "id": 485,
-                  "year": 2011
-                },
-                {
-                  "id": 486,
-                  "year": 2011
-                },
-                {
-                  "id": 487,
-                  "year": 2011
-                },
-                {
-                  "id": 488,
-                  "year": 2012
-                },
-                {
-                  "id": 489,
-                  "year": 2012
-                },
-                {
-                  "id": 490,
-                  "year": 2012
-                },
-                {
-                  "id": 491,
-                  "year": 2012
-                },
-                {
-                  "id": 492,
-                  "year": 2013
-                },
-                {
-                  "id": 493,
-                  "year": 2013
-                },
-                {
-                  "id": 494,
-                  "year": 2013
-                },
-                {
-                  "id": 495,
-                  "year": 2013
-                },
-                {
-                  "id": 496,
-                  "year": 2014
-                },
-                {
-                  "id": 497,
-                  "year": 2014
-                },
-                {
-                  "id": 498,
-                  "year": 2014
-                },
-                {
-                  "id": 499,
-                  "year": 2014
-                },
-                {
-                  "id": 500,
-                  "year": 2015
-                },
-                {
-                  "id": 501,
-                  "year": 2015
-                },
-                {
-                  "id": 502,
-                  "year": 2015
-                },
-                {
-                  "id": 503,
-                  "year": 2015
-                },
-                {
-                  "id": 504,
-                  "year": 2016
-                },
-                {
-                  "id": 505,
-                  "year": 2016
-                },
-                {
-                  "id": 506,
-                  "year": 2016
-                },
-                {
-                  "id": 507,
-                  "year": 2016
-                },
-                {
-                  "id": 508,
-                  "year": 2017
-                },
-                {
-                  "id": 509,
-                  "year": 2017
-                },
-                {
-                  "id": 510,
-                  "year": 2017
-                },
-                {
-                  "id": 511,
-                  "year": 2017
-                },
-                {
-                  "id": 512,
-                  "year": 2018
-                },
-                {
-                  "id": 513,
-                  "year": 2018
-                },
-                {
-                  "id": 514,
-                  "year": 2018
-                },
-                {
-                  "id": 515,
-                  "year": 2018
-                },
-                {
-                  "id": 516,
-                  "year": 2019
-                },
-                {
-                  "id": 517,
-                  "year": 2019
-                },
-                {
-                  "id": 518,
-                  "year": 2019
-                },
-                {
-                  "id": 519,
-                  "year": 2019
-                },
-                {
-                  "id": 520,
-                  "year": 2020
-                },
-                {
-                  "id": 521,
-                  "year": 2020
-                },
-                {
-                  "id": 522,
-                  "year": 2020
-                },
-                {
-                  "id": 523,
-                  "year": 2020
-                },
-                {
-                  "id": 524,
-                  "year": 2021
-                },
-                {
-                  "id": 892,
-                  "year": 2021
-                },
-                {
-                  "id": 893,
-                  "year": 2021
-                },
-                {
-                  "id": 894,
-                  "year": 2021
-                },
-                {
-                  "id": 895,
-                  "year": 2022
-                },
-                {
-                  "id": 896,
-                  "year": 2022
-                },
-                {
-                  "id": 897,
-                  "year": 2022
-                },
-                {
-                  "id": 898,
-                  "year": 2022
-                },
-                {
-                  "id": 899,
-                  "year": 2023
-                },
-                {
-                  "id": 900,
-                  "year": 2023
-                },
-                {
-                  "id": 901,
-                  "year": 2023
-                },
-                {
-                  "id": 902,
-                  "year": 2023
-                },
-                {
-                  "id": 903,
-                  "year": 2024
-                },
-                {
-                  "id": 904,
-                  "year": 2024
-                },
-                {
-                  "id": 905,
-                  "year": 2024
-                },
-                {
-                  "id": 906,
-                  "year": 2024
-                },
-                {
-                  "id": 1095,
-                  "year": 2025
-                },
-                {
-                  "id": 1096,
-                  "year": 2025
-                },
-                {
-                  "id": 1097,
-                  "year": 2025
-                },
-                {
-                  "id": 1128,
-                  "year": 2025
-                }
-              ],
-              "id": 39,
-              "name": "Portti",
-              "description": null,
-              "link": "https://www.porttisci.fi/",
-              "issn": "0359-114X"
-            },
-            "id": 1128,
-            "number": 4,
-            "number_extra": "",
-            "count": 176,
-            "year": 2025,
-            "cover_number": "4/2025",
-            "image_src": "/static/images/magazines/Portti_2025_4.jpg",
-            "image_attr": null,
-            "pages": 108,
-            "link": "",
-            "notes": "",
-            "title": ""
-          }
-        ],
-        "editions": [],
-        "genres": [],
-        "contributors": [
-          {
-            "person": {
-              "id": 3921.0,
-              "name": "Rantalaiho, Liisa",
-              "alt_name": "Liisa Rantalaiho"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "lang": {
-          "id": 7,
-          "name": "suomi"
-        },
-        "id": 15364,
-        "title": "Kommentteja 2025 novellikilpailusta",
-        "orig_title": "",
-        "pubyear": 2025
-      },
-      {
-        "authors": [
-          {
-            "id": 1873.0,
-            "name": "Leppänen, Erkka",
-            "alt_name": "Erkka Leppänen",
-            "fullname": "",
-            "image_src": null,
-            "dob": 1968.0,
-            "dod": null,
-            "roles": [
-              "Toimittaja",
-              "Kirjoittaja",
-              "Kansikuva"
+              {
+                "person": {
+                  "id": 7779.0,
+                  "name": "Nikkanen, Jarkko",
+                  "alt_name": "Jarkko Nikkanen"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Kansi",
+                "real_person": null
+              }
             ],
-            "nationality": {
-              "id": 4,
-              "name": "Suomi"
-            },
-            "workcount": 11.0,
-            "storycount": 62,
-            "other_names": null,
-            "first_name": "Erkka",
-            "last_name": "Leppänen",
-            "image_attr": "",
-            "bio": null,
-            "bio_src": "",
-            "imported_string": null
-          }
-        ],
-        "type": {
-          "id": 7,
-          "name": "Artikkeli"
-        },
-        "issues": [
-          {
-            "magazine": {
-              "type_id": 1,
-              "type": {
-                "id": 1,
-                "name": "Fanzine"
-              },
-              "issues": [
-                {
-                  "id": 368,
-                  "year": 1982
-                },
-                {
-                  "id": 369,
-                  "year": 1982
-                },
-                {
-                  "id": 370,
-                  "year": 1982
-                },
-                {
-                  "id": 371,
-                  "year": 1982
-                },
-                {
-                  "id": 372,
-                  "year": 1983
-                },
-                {
-                  "id": 373,
-                  "year": 1983
-                },
-                {
-                  "id": 374,
-                  "year": 1983
-                },
-                {
-                  "id": 375,
-                  "year": 1983
-                },
-                {
-                  "id": 376,
-                  "year": 1984
-                },
-                {
-                  "id": 377,
-                  "year": 1984
-                },
-                {
-                  "id": 378,
-                  "year": 1984
-                },
-                {
-                  "id": 379,
-                  "year": 1984
-                },
-                {
-                  "id": 380,
-                  "year": 1985
-                },
-                {
-                  "id": 381,
-                  "year": 1985
-                },
-                {
-                  "id": 382,
-                  "year": 1985
-                },
-                {
-                  "id": 383,
-                  "year": 1985
-                },
-                {
-                  "id": 384,
-                  "year": 1986
-                },
-                {
-                  "id": 385,
-                  "year": 1986
-                },
-                {
-                  "id": 386,
-                  "year": 1986
-                },
-                {
-                  "id": 387,
-                  "year": 1986
-                },
-                {
-                  "id": 388,
-                  "year": 1987
-                },
-                {
-                  "id": 389,
-                  "year": 1987
-                },
-                {
-                  "id": 390,
-                  "year": 1987
-                },
-                {
-                  "id": 391,
-                  "year": 1987
-                },
-                {
-                  "id": 392,
-                  "year": 1988
-                },
-                {
-                  "id": 393,
-                  "year": 1988
-                },
-                {
-                  "id": 394,
-                  "year": 1988
-                },
-                {
-                  "id": 395,
-                  "year": 1988
-                },
-                {
-                  "id": 396,
-                  "year": 1989
-                },
-                {
-                  "id": 397,
-                  "year": 1989
-                },
-                {
-                  "id": 398,
-                  "year": 1989
-                },
-                {
-                  "id": 399,
-                  "year": 1989
-                },
-                {
-                  "id": 400,
-                  "year": 1990
-                },
-                {
-                  "id": 401,
-                  "year": 1990
-                },
-                {
-                  "id": 402,
-                  "year": 1990
-                },
-                {
-                  "id": 403,
-                  "year": 1990
-                },
-                {
-                  "id": 404,
-                  "year": 1991
-                },
-                {
-                  "id": 405,
-                  "year": 1991
-                },
-                {
-                  "id": 406,
-                  "year": 1991
-                },
-                {
-                  "id": 407,
-                  "year": 1991
-                },
-                {
-                  "id": 408,
-                  "year": 1992
-                },
-                {
-                  "id": 409,
-                  "year": 1992
-                },
-                {
-                  "id": 410,
-                  "year": 1992
-                },
-                {
-                  "id": 411,
-                  "year": 1992
-                },
-                {
-                  "id": 412,
-                  "year": 1993
-                },
-                {
-                  "id": 413,
-                  "year": 1993
-                },
-                {
-                  "id": 414,
-                  "year": 1993
-                },
-                {
-                  "id": 415,
-                  "year": 1993
-                },
-                {
-                  "id": 416,
-                  "year": 1994
-                },
-                {
-                  "id": 417,
-                  "year": 1994
-                },
-                {
-                  "id": 418,
-                  "year": 1994
-                },
-                {
-                  "id": 419,
-                  "year": 1994
-                },
-                {
-                  "id": 420,
-                  "year": 1995
-                },
-                {
-                  "id": 421,
-                  "year": 1995
-                },
-                {
-                  "id": 422,
-                  "year": 1995
-                },
-                {
-                  "id": 423,
-                  "year": 1995
-                },
-                {
-                  "id": 424,
-                  "year": 1996
-                },
-                {
-                  "id": 425,
-                  "year": 1996
-                },
-                {
-                  "id": 426,
-                  "year": 1996
-                },
-                {
-                  "id": 427,
-                  "year": 1996
-                },
-                {
-                  "id": 428,
-                  "year": 1997
-                },
-                {
-                  "id": 429,
-                  "year": 1997
-                },
-                {
-                  "id": 430,
-                  "year": 1997
-                },
-                {
-                  "id": 431,
-                  "year": 1997
-                },
-                {
-                  "id": 432,
-                  "year": 1998
-                },
-                {
-                  "id": 433,
-                  "year": 1998
-                },
-                {
-                  "id": 434,
-                  "year": 1998
-                },
-                {
-                  "id": 435,
-                  "year": 1998
-                },
-                {
-                  "id": 436,
-                  "year": 1999
-                },
-                {
-                  "id": 437,
-                  "year": 1999
-                },
-                {
-                  "id": 438,
-                  "year": 1999
-                },
-                {
-                  "id": 439,
-                  "year": 1999
-                },
-                {
-                  "id": 440,
-                  "year": 2000
-                },
-                {
-                  "id": 441,
-                  "year": 2000
-                },
-                {
-                  "id": 442,
-                  "year": 2000
-                },
-                {
-                  "id": 443,
-                  "year": 2000
-                },
-                {
-                  "id": 444,
-                  "year": 2001
-                },
-                {
-                  "id": 445,
-                  "year": 2001
-                },
-                {
-                  "id": 446,
-                  "year": 2001
-                },
-                {
-                  "id": 447,
-                  "year": 2001
-                },
-                {
-                  "id": 448,
-                  "year": 2002
-                },
-                {
-                  "id": 449,
-                  "year": 2002
-                },
-                {
-                  "id": 450,
-                  "year": 2002
-                },
-                {
-                  "id": 451,
-                  "year": 2002
-                },
-                {
-                  "id": 452,
-                  "year": 2003
-                },
-                {
-                  "id": 453,
-                  "year": 2003
-                },
-                {
-                  "id": 454,
-                  "year": 2003
-                },
-                {
-                  "id": 455,
-                  "year": 2003
-                },
-                {
-                  "id": 456,
-                  "year": 2004
-                },
-                {
-                  "id": 457,
-                  "year": 2004
-                },
-                {
-                  "id": 458,
-                  "year": 2004
-                },
-                {
-                  "id": 459,
-                  "year": 2004
-                },
-                {
-                  "id": 460,
-                  "year": 2005
-                },
-                {
-                  "id": 461,
-                  "year": 2005
-                },
-                {
-                  "id": 462,
-                  "year": 2005
-                },
-                {
-                  "id": 463,
-                  "year": 2005
-                },
-                {
-                  "id": 464,
-                  "year": 2006
-                },
-                {
-                  "id": 465,
-                  "year": 2006
-                },
-                {
-                  "id": 466,
-                  "year": 2006
-                },
-                {
-                  "id": 467,
-                  "year": 2006
-                },
-                {
-                  "id": 468,
-                  "year": 2007
-                },
-                {
-                  "id": 469,
-                  "year": 2007
-                },
-                {
-                  "id": 470,
-                  "year": 2007
-                },
-                {
-                  "id": 471,
-                  "year": 2007
-                },
-                {
-                  "id": 472,
-                  "year": 2008
-                },
-                {
-                  "id": 473,
-                  "year": 2008
-                },
-                {
-                  "id": 474,
-                  "year": 2008
-                },
-                {
-                  "id": 475,
-                  "year": 2008
-                },
-                {
-                  "id": 476,
-                  "year": 2009
-                },
-                {
-                  "id": 477,
-                  "year": 2009
-                },
-                {
-                  "id": 478,
-                  "year": 2009
-                },
-                {
-                  "id": 479,
-                  "year": 2009
-                },
-                {
-                  "id": 480,
-                  "year": 2010
-                },
-                {
-                  "id": 481,
-                  "year": 2010
-                },
-                {
-                  "id": 482,
-                  "year": 2010
-                },
-                {
-                  "id": 483,
-                  "year": 2010
-                },
-                {
-                  "id": 484,
-                  "year": 2011
-                },
-                {
-                  "id": 485,
-                  "year": 2011
-                },
-                {
-                  "id": 486,
-                  "year": 2011
-                },
-                {
-                  "id": 487,
-                  "year": 2011
-                },
-                {
-                  "id": 488,
-                  "year": 2012
-                },
-                {
-                  "id": 489,
-                  "year": 2012
-                },
-                {
-                  "id": 490,
-                  "year": 2012
-                },
-                {
-                  "id": 491,
-                  "year": 2012
-                },
-                {
-                  "id": 492,
-                  "year": 2013
-                },
-                {
-                  "id": 493,
-                  "year": 2013
-                },
-                {
-                  "id": 494,
-                  "year": 2013
-                },
-                {
-                  "id": 495,
-                  "year": 2013
-                },
-                {
-                  "id": 496,
-                  "year": 2014
-                },
-                {
-                  "id": 497,
-                  "year": 2014
-                },
-                {
-                  "id": 498,
-                  "year": 2014
-                },
-                {
-                  "id": 499,
-                  "year": 2014
-                },
-                {
-                  "id": 500,
-                  "year": 2015
-                },
-                {
-                  "id": 501,
-                  "year": 2015
-                },
-                {
-                  "id": 502,
-                  "year": 2015
-                },
-                {
-                  "id": 503,
-                  "year": 2015
-                },
-                {
-                  "id": 504,
-                  "year": 2016
-                },
-                {
-                  "id": 505,
-                  "year": 2016
-                },
-                {
-                  "id": 506,
-                  "year": 2016
-                },
-                {
-                  "id": 507,
-                  "year": 2016
-                },
-                {
-                  "id": 508,
-                  "year": 2017
-                },
-                {
-                  "id": 509,
-                  "year": 2017
-                },
-                {
-                  "id": 510,
-                  "year": 2017
-                },
-                {
-                  "id": 511,
-                  "year": 2017
-                },
-                {
-                  "id": 512,
-                  "year": 2018
-                },
-                {
-                  "id": 513,
-                  "year": 2018
-                },
-                {
-                  "id": 514,
-                  "year": 2018
-                },
-                {
-                  "id": 515,
-                  "year": 2018
-                },
-                {
-                  "id": 516,
-                  "year": 2019
-                },
-                {
-                  "id": 517,
-                  "year": 2019
-                },
-                {
-                  "id": 518,
-                  "year": 2019
-                },
-                {
-                  "id": 519,
-                  "year": 2019
-                },
-                {
-                  "id": 520,
-                  "year": 2020
-                },
-                {
-                  "id": 521,
-                  "year": 2020
-                },
-                {
-                  "id": 522,
-                  "year": 2020
-                },
-                {
-                  "id": 523,
-                  "year": 2020
-                },
-                {
-                  "id": 524,
-                  "year": 2021
-                },
-                {
-                  "id": 892,
-                  "year": 2021
-                },
-                {
-                  "id": 893,
-                  "year": 2021
-                },
-                {
-                  "id": 894,
-                  "year": 2021
-                },
-                {
-                  "id": 895,
-                  "year": 2022
-                },
-                {
-                  "id": 896,
-                  "year": 2022
-                },
-                {
-                  "id": 897,
-                  "year": 2022
-                },
-                {
-                  "id": 898,
-                  "year": 2022
-                },
-                {
-                  "id": 899,
-                  "year": 2023
-                },
-                {
-                  "id": 900,
-                  "year": 2023
-                },
-                {
-                  "id": 901,
-                  "year": 2023
-                },
-                {
-                  "id": 902,
-                  "year": 2023
-                },
-                {
-                  "id": 903,
-                  "year": 2024
-                },
-                {
-                  "id": 904,
-                  "year": 2024
-                },
-                {
-                  "id": 905,
-                  "year": 2024
-                },
-                {
-                  "id": 906,
-                  "year": 2024
-                },
-                {
-                  "id": 1095,
-                  "year": 2025
-                },
-                {
-                  "id": 1096,
-                  "year": 2025
-                },
-                {
-                  "id": 1097,
-                  "year": 2025
-                },
-                {
-                  "id": 1128,
-                  "year": 2025
-                }
-              ],
-              "id": 39,
-              "name": "Portti",
-              "description": null,
-              "link": "https://www.porttisci.fi/",
-              "issn": "0359-114X"
-            },
-            "id": 1128,
-            "number": 4,
-            "number_extra": "",
-            "count": 176,
-            "year": 2025,
-            "cover_number": "4/2025",
-            "image_src": "/static/images/magazines/Portti_2025_4.jpg",
-            "image_attr": null,
-            "pages": 108,
-            "link": "",
-            "notes": "",
-            "title": ""
-          }
-        ],
-        "editions": [],
-        "genres": [],
-        "contributors": [
-          {
-            "person": {
-              "id": 1873.0,
-              "name": "Leppänen, Erkka",
-              "alt_name": "Erkka Leppänen"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "lang": {
-          "id": 7,
-          "name": "suomi"
-        },
-        "id": 15363,
-        "title": "Tuomariston luonnehdintoja novelleista",
-        "orig_title": "",
-        "pubyear": 2025
-      },
-      {
-        "authors": [
-          {
-            "id": 900.0,
-            "name": "Nikkonen, Raimo",
-            "alt_name": "Raimo Nikkonen",
-            "fullname": "",
-            "image_src": null,
-            "dob": null,
-            "dod": null,
-            "roles": [
-              "Toimittaja",
-              "Kansikuva",
-              "Kirjoittaja"
+            "images": [
+              {
+                "id": 9417,
+                "image_src": "/static/images/books/Kontio_Mulari_Oittinen_Kukaharrypotter_1p.jpg",
+                "image_attr": null
+              }
             ],
-            "nationality": {
-              "id": 4,
-              "name": "Suomi"
+            "publisher": {
+              "id": 204,
+              "name": "Minerva Kustannus"
             },
-            "workcount": 2.0,
-            "storycount": 61,
-            "other_names": null,
-            "first_name": "Raimo",
-            "last_name": "Nikkonen",
-            "image_attr": "",
-            "bio": null,
-            "bio_src": "",
-            "imported_string": null
+            "owners": [],
+            "wishlisted": [],
+            "binding": {
+              "id": 3,
+              "name": "Sidottu"
+            },
+            "id": 9886,
+            "title": "Kuka Harry Potter?",
+            "subtitle": "avain fantasian maailmaan",
+            "pubyear": 2008,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-492-117-6",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 160,
+            "size": 22,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
           }
         ],
-        "type": {
-          "id": 7,
-          "name": "Artikkeli"
-        },
-        "issues": [
-          {
-            "magazine": {
-              "type_id": 1,
-              "type": {
-                "id": 1,
-                "name": "Fanzine"
-              },
-              "issues": [
-                {
-                  "id": 368,
-                  "year": 1982
-                },
-                {
-                  "id": 369,
-                  "year": 1982
-                },
-                {
-                  "id": 370,
-                  "year": 1982
-                },
-                {
-                  "id": 371,
-                  "year": 1982
-                },
-                {
-                  "id": 372,
-                  "year": 1983
-                },
-                {
-                  "id": 373,
-                  "year": 1983
-                },
-                {
-                  "id": 374,
-                  "year": 1983
-                },
-                {
-                  "id": 375,
-                  "year": 1983
-                },
-                {
-                  "id": 376,
-                  "year": 1984
-                },
-                {
-                  "id": 377,
-                  "year": 1984
-                },
-                {
-                  "id": 378,
-                  "year": 1984
-                },
-                {
-                  "id": 379,
-                  "year": 1984
-                },
-                {
-                  "id": 380,
-                  "year": 1985
-                },
-                {
-                  "id": 381,
-                  "year": 1985
-                },
-                {
-                  "id": 382,
-                  "year": 1985
-                },
-                {
-                  "id": 383,
-                  "year": 1985
-                },
-                {
-                  "id": 384,
-                  "year": 1986
-                },
-                {
-                  "id": 385,
-                  "year": 1986
-                },
-                {
-                  "id": 386,
-                  "year": 1986
-                },
-                {
-                  "id": 387,
-                  "year": 1986
-                },
-                {
-                  "id": 388,
-                  "year": 1987
-                },
-                {
-                  "id": 389,
-                  "year": 1987
-                },
-                {
-                  "id": 390,
-                  "year": 1987
-                },
-                {
-                  "id": 391,
-                  "year": 1987
-                },
-                {
-                  "id": 392,
-                  "year": 1988
-                },
-                {
-                  "id": 393,
-                  "year": 1988
-                },
-                {
-                  "id": 394,
-                  "year": 1988
-                },
-                {
-                  "id": 395,
-                  "year": 1988
-                },
-                {
-                  "id": 396,
-                  "year": 1989
-                },
-                {
-                  "id": 397,
-                  "year": 1989
-                },
-                {
-                  "id": 398,
-                  "year": 1989
-                },
-                {
-                  "id": 399,
-                  "year": 1989
-                },
-                {
-                  "id": 400,
-                  "year": 1990
-                },
-                {
-                  "id": 401,
-                  "year": 1990
-                },
-                {
-                  "id": 402,
-                  "year": 1990
-                },
-                {
-                  "id": 403,
-                  "year": 1990
-                },
-                {
-                  "id": 404,
-                  "year": 1991
-                },
-                {
-                  "id": 405,
-                  "year": 1991
-                },
-                {
-                  "id": 406,
-                  "year": 1991
-                },
-                {
-                  "id": 407,
-                  "year": 1991
-                },
-                {
-                  "id": 408,
-                  "year": 1992
-                },
-                {
-                  "id": 409,
-                  "year": 1992
-                },
-                {
-                  "id": 410,
-                  "year": 1992
-                },
-                {
-                  "id": 411,
-                  "year": 1992
-                },
-                {
-                  "id": 412,
-                  "year": 1993
-                },
-                {
-                  "id": 413,
-                  "year": 1993
-                },
-                {
-                  "id": 414,
-                  "year": 1993
-                },
-                {
-                  "id": 415,
-                  "year": 1993
-                },
-                {
-                  "id": 416,
-                  "year": 1994
-                },
-                {
-                  "id": 417,
-                  "year": 1994
-                },
-                {
-                  "id": 418,
-                  "year": 1994
-                },
-                {
-                  "id": 419,
-                  "year": 1994
-                },
-                {
-                  "id": 420,
-                  "year": 1995
-                },
-                {
-                  "id": 421,
-                  "year": 1995
-                },
-                {
-                  "id": 422,
-                  "year": 1995
-                },
-                {
-                  "id": 423,
-                  "year": 1995
-                },
-                {
-                  "id": 424,
-                  "year": 1996
-                },
-                {
-                  "id": 425,
-                  "year": 1996
-                },
-                {
-                  "id": 426,
-                  "year": 1996
-                },
-                {
-                  "id": 427,
-                  "year": 1996
-                },
-                {
-                  "id": 428,
-                  "year": 1997
-                },
-                {
-                  "id": 429,
-                  "year": 1997
-                },
-                {
-                  "id": 430,
-                  "year": 1997
-                },
-                {
-                  "id": 431,
-                  "year": 1997
-                },
-                {
-                  "id": 432,
-                  "year": 1998
-                },
-                {
-                  "id": 433,
-                  "year": 1998
-                },
-                {
-                  "id": 434,
-                  "year": 1998
-                },
-                {
-                  "id": 435,
-                  "year": 1998
-                },
-                {
-                  "id": 436,
-                  "year": 1999
-                },
-                {
-                  "id": 437,
-                  "year": 1999
-                },
-                {
-                  "id": 438,
-                  "year": 1999
-                },
-                {
-                  "id": 439,
-                  "year": 1999
-                },
-                {
-                  "id": 440,
-                  "year": 2000
-                },
-                {
-                  "id": 441,
-                  "year": 2000
-                },
-                {
-                  "id": 442,
-                  "year": 2000
-                },
-                {
-                  "id": 443,
-                  "year": 2000
-                },
-                {
-                  "id": 444,
-                  "year": 2001
-                },
-                {
-                  "id": 445,
-                  "year": 2001
-                },
-                {
-                  "id": 446,
-                  "year": 2001
-                },
-                {
-                  "id": 447,
-                  "year": 2001
-                },
-                {
-                  "id": 448,
-                  "year": 2002
-                },
-                {
-                  "id": 449,
-                  "year": 2002
-                },
-                {
-                  "id": 450,
-                  "year": 2002
-                },
-                {
-                  "id": 451,
-                  "year": 2002
-                },
-                {
-                  "id": 452,
-                  "year": 2003
-                },
-                {
-                  "id": 453,
-                  "year": 2003
-                },
-                {
-                  "id": 454,
-                  "year": 2003
-                },
-                {
-                  "id": 455,
-                  "year": 2003
-                },
-                {
-                  "id": 456,
-                  "year": 2004
-                },
-                {
-                  "id": 457,
-                  "year": 2004
-                },
-                {
-                  "id": 458,
-                  "year": 2004
-                },
-                {
-                  "id": 459,
-                  "year": 2004
-                },
-                {
-                  "id": 460,
-                  "year": 2005
-                },
-                {
-                  "id": 461,
-                  "year": 2005
-                },
-                {
-                  "id": 462,
-                  "year": 2005
-                },
-                {
-                  "id": 463,
-                  "year": 2005
-                },
-                {
-                  "id": 464,
-                  "year": 2006
-                },
-                {
-                  "id": 465,
-                  "year": 2006
-                },
-                {
-                  "id": 466,
-                  "year": 2006
-                },
-                {
-                  "id": 467,
-                  "year": 2006
-                },
-                {
-                  "id": 468,
-                  "year": 2007
-                },
-                {
-                  "id": 469,
-                  "year": 2007
-                },
-                {
-                  "id": 470,
-                  "year": 2007
-                },
-                {
-                  "id": 471,
-                  "year": 2007
-                },
-                {
-                  "id": 472,
-                  "year": 2008
-                },
-                {
-                  "id": 473,
-                  "year": 2008
-                },
-                {
-                  "id": 474,
-                  "year": 2008
-                },
-                {
-                  "id": 475,
-                  "year": 2008
-                },
-                {
-                  "id": 476,
-                  "year": 2009
-                },
-                {
-                  "id": 477,
-                  "year": 2009
-                },
-                {
-                  "id": 478,
-                  "year": 2009
-                },
-                {
-                  "id": 479,
-                  "year": 2009
-                },
-                {
-                  "id": 480,
-                  "year": 2010
-                },
-                {
-                  "id": 481,
-                  "year": 2010
-                },
-                {
-                  "id": 482,
-                  "year": 2010
-                },
-                {
-                  "id": 483,
-                  "year": 2010
-                },
-                {
-                  "id": 484,
-                  "year": 2011
-                },
-                {
-                  "id": 485,
-                  "year": 2011
-                },
-                {
-                  "id": 486,
-                  "year": 2011
-                },
-                {
-                  "id": 487,
-                  "year": 2011
-                },
-                {
-                  "id": 488,
-                  "year": 2012
-                },
-                {
-                  "id": 489,
-                  "year": 2012
-                },
-                {
-                  "id": 490,
-                  "year": 2012
-                },
-                {
-                  "id": 491,
-                  "year": 2012
-                },
-                {
-                  "id": 492,
-                  "year": 2013
-                },
-                {
-                  "id": 493,
-                  "year": 2013
-                },
-                {
-                  "id": 494,
-                  "year": 2013
-                },
-                {
-                  "id": 495,
-                  "year": 2013
-                },
-                {
-                  "id": 496,
-                  "year": 2014
-                },
-                {
-                  "id": 497,
-                  "year": 2014
-                },
-                {
-                  "id": 498,
-                  "year": 2014
-                },
-                {
-                  "id": 499,
-                  "year": 2014
-                },
-                {
-                  "id": 500,
-                  "year": 2015
-                },
-                {
-                  "id": 501,
-                  "year": 2015
-                },
-                {
-                  "id": 502,
-                  "year": 2015
-                },
-                {
-                  "id": 503,
-                  "year": 2015
-                },
-                {
-                  "id": 504,
-                  "year": 2016
-                },
-                {
-                  "id": 505,
-                  "year": 2016
-                },
-                {
-                  "id": 506,
-                  "year": 2016
-                },
-                {
-                  "id": 507,
-                  "year": 2016
-                },
-                {
-                  "id": 508,
-                  "year": 2017
-                },
-                {
-                  "id": 509,
-                  "year": 2017
-                },
-                {
-                  "id": 510,
-                  "year": 2017
-                },
-                {
-                  "id": 511,
-                  "year": 2017
-                },
-                {
-                  "id": 512,
-                  "year": 2018
-                },
-                {
-                  "id": 513,
-                  "year": 2018
-                },
-                {
-                  "id": 514,
-                  "year": 2018
-                },
-                {
-                  "id": 515,
-                  "year": 2018
-                },
-                {
-                  "id": 516,
-                  "year": 2019
-                },
-                {
-                  "id": 517,
-                  "year": 2019
-                },
-                {
-                  "id": 518,
-                  "year": 2019
-                },
-                {
-                  "id": 519,
-                  "year": 2019
-                },
-                {
-                  "id": 520,
-                  "year": 2020
-                },
-                {
-                  "id": 521,
-                  "year": 2020
-                },
-                {
-                  "id": 522,
-                  "year": 2020
-                },
-                {
-                  "id": 523,
-                  "year": 2020
-                },
-                {
-                  "id": 524,
-                  "year": 2021
-                },
-                {
-                  "id": 892,
-                  "year": 2021
-                },
-                {
-                  "id": 893,
-                  "year": 2021
-                },
-                {
-                  "id": 894,
-                  "year": 2021
-                },
-                {
-                  "id": 895,
-                  "year": 2022
-                },
-                {
-                  "id": 896,
-                  "year": 2022
-                },
-                {
-                  "id": 897,
-                  "year": 2022
-                },
-                {
-                  "id": 898,
-                  "year": 2022
-                },
-                {
-                  "id": 899,
-                  "year": 2023
-                },
-                {
-                  "id": 900,
-                  "year": 2023
-                },
-                {
-                  "id": 901,
-                  "year": 2023
-                },
-                {
-                  "id": 902,
-                  "year": 2023
-                },
-                {
-                  "id": 903,
-                  "year": 2024
-                },
-                {
-                  "id": 904,
-                  "year": 2024
-                },
-                {
-                  "id": 905,
-                  "year": 2024
-                },
-                {
-                  "id": 906,
-                  "year": 2024
-                },
-                {
-                  "id": 1095,
-                  "year": 2025
-                },
-                {
-                  "id": 1096,
-                  "year": 2025
-                },
-                {
-                  "id": 1097,
-                  "year": 2025
-                },
-                {
-                  "id": 1128,
-                  "year": 2025
-                }
-              ],
-              "id": 39,
-              "name": "Portti",
-              "description": null,
-              "link": "https://www.porttisci.fi/",
-              "issn": "0359-114X"
-            },
-            "id": 1128,
-            "number": 4,
-            "number_extra": "",
-            "count": 176,
-            "year": 2025,
-            "cover_number": "4/2025",
-            "image_src": "/static/images/magazines/Portti_2025_4.jpg",
-            "image_attr": null,
-            "pages": 108,
-            "link": "",
-            "notes": "",
-            "title": ""
-          }
-        ],
-        "editions": [],
         "genres": [],
         "contributors": [
           {
             "person": {
-              "id": 900.0,
-              "name": "Nikkonen, Raimo",
-              "alt_name": "Raimo Nikkonen"
+              "id": 2335.0,
+              "name": "Kontio, Tomi",
+              "alt_name": "Tomi Kontio"
             },
             "role": {
               "id": 1,
@@ -4202,10 +2208,10 @@
           "id": 7,
           "name": "suomi"
         },
-        "id": 15362,
-        "title": "Tieteis- ja fantasianovellien kirjoituskilpailu 2025:n tulokset",
+        "id": 15368,
+        "title": "Kuinka kirjoittaa fantasiaa?",
         "orig_title": "",
-        "pubyear": 2025
+        "pubyear": 2008
       }
     ],
     "error": null

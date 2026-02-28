@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "generated_at": "2026-02-23T19:25:13.415187+00:00",
+    "generated_at": "2026-02-28T15:57:27.046198+00:00",
     "generator": "update_snapshots.py",
-    "total_endpoints": 41,
+    "total_endpoints": 47,
     "endpoint": "/api/stats/nationalitycounts",
     "method": "GET",
     "status_code": 200
@@ -15,16 +15,16 @@
         "nationality": "Suomi",
         "genres": {
           "F": {
-            "Kirjoittaja": 349,
-            "Kääntäjä": 517,
+            "Kirjoittaja": 353,
+            "Kääntäjä": 519,
             "Toimittaja": 93,
-            "Kansikuva": 251,
-            "Kuvittaja": 56,
+            "Kansikuva": 254,
+            "Kuvittaja": 57,
             "Esiintyy": 1
           },
           "K": {
             "Kirjoittaja": 113,
-            "Kääntäjä": 249,
+            "Kääntäjä": 250,
             "Toimittaja": 68,
             "Kansikuva": 138,
             "Kuvittaja": 23,
@@ -42,11 +42,11 @@
             "Kansikuva": 27
           },
           "SF": {
-            "Kirjoittaja": 334,
+            "Kirjoittaja": 335,
             "Kääntäjä": 476,
             "Toimittaja": 93,
             "Kansikuva": 284,
-            "Kuvittaja": 28,
+            "Kuvittaja": 29,
             "Esiintyy": 2
           },
           "VEH": {
@@ -100,6 +100,7 @@
             "Kääntäjä": 37,
             "Toimittaja": 1,
             "Kansikuva": 18,
+            "Kuvittaja": 1,
             "Esiintyy": 1
           },
           "rajatap": {
@@ -122,10 +123,10 @@
             "Kuvittaja": 49
           },
           "lF": {
-            "Kirjoittaja": 76,
+            "Kirjoittaja": 77,
             "Kääntäjä": 93,
-            "Kansikuva": 88,
-            "Kuvittaja": 64
+            "Kansikuva": 89,
+            "Kuvittaja": 65
           },
           "R": {
             "Kirjoittaja": 10,
@@ -135,7 +136,7 @@
             "Kuvittaja": 6
           }
         },
-        "count": 2628
+        "count": 2638
       },
       {
         "nationality_id": 3,
@@ -143,7 +144,7 @@
         "genres": {
           "F": {
             "Kirjoittaja": 203,
-            "Toimittaja": 4,
+            "Toimittaja": 5,
             "Kansikuva": 64,
             "Kuvittaja": 14,
             "Esiintyy": 2
@@ -224,16 +225,16 @@
             "Kirjoittaja": 1
           }
         },
-        "count": 821
+        "count": 822
       },
       {
         "nationality_id": 1,
         "nationality": "Iso-Britannia",
         "genres": {
           "F": {
-            "Kirjoittaja": 152,
+            "Kirjoittaja": 154,
             "Toimittaja": 2,
-            "Kansikuva": 40,
+            "Kansikuva": 41,
             "Kuvittaja": 23,
             "Esiintyy": 4
           },
@@ -327,14 +328,14 @@
             "Kuvittaja": 1
           }
         },
-        "count": 565
+        "count": 568
       },
       {
         "nationality_id": null,
         "nationality": null,
         "genres": {
           "F": {
-            "Kirjoittaja": 13,
+            "Kirjoittaja": 14,
             "Kääntäjä": 1,
             "Kansikuva": 31,
             "Kuvittaja": 12,
@@ -407,7 +408,7 @@
             "Kansikuva": 1
           }
         },
-        "count": 170
+        "count": 171
       },
       {
         "nationality_id": 5,
@@ -536,8 +537,8 @@
         "nationality": "Ranska",
         "genres": {
           "F": {
-            "Kirjoittaja": 19,
-            "Kansikuva": 5,
+            "Kirjoittaja": 20,
+            "Kansikuva": 6,
             "Kuvittaja": 3,
             "Esiintyy": 4
           },
@@ -598,7 +599,7 @@
             "Kirjoittaja": 1
           }
         },
-        "count": 76
+        "count": 78
       },
       {
         "nationality_id": 31,
@@ -980,7 +981,7 @@
             "Kirjoittaja": 6,
             "Kansikuva": 3,
             "Kuvittaja": 1,
-            "Esiintyy": 1
+            "Esiintyy": 2
           },
           "PF": {
             "Kirjoittaja": 1

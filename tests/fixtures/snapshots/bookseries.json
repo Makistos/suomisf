@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "generated_at": "2026-02-23T19:25:13.415187+00:00",
+    "generated_at": "2026-02-28T15:57:27.046198+00:00",
     "generator": "update_snapshots.py",
-    "total_endpoints": 41,
+    "total_endpoints": 47,
     "endpoint": "/api/bookseries",
     "method": "GET",
     "status_code": 200
@@ -22370,6 +22370,20 @@
             "descr_attr": null,
             "imported_string": "",
             "author_str": "Hai, Magdalena"
+          },
+          {
+            "id": 6927,
+            "title": "Kuunkehä",
+            "subtitle": "",
+            "orig_title": "",
+            "pubyear": 2026,
+            "bookseriesnum": "3",
+            "bookseriesorder": 3,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Hai, Magdalena"
           }
         ],
         "id": 346,
@@ -26223,7 +26237,7 @@
           {
             "id": 4774,
             "title": "Tarzan Midianin maassa",
-            "subtitle": "",
+            "subtitle": "apinain Tarzanin uusia seikkailuja Midianin maassa",
             "orig_title": "Tarzan Triumphant",
             "pubyear": 1932,
             "bookseriesnum": "14",
@@ -26237,7 +26251,7 @@
           {
             "id": 4763,
             "title": "Tarzan ja kultainen kaupunki",
-            "subtitle": "",
+            "subtitle": "apinain Tarzanin uusia seikkailuja kultaisessa kaupungissa",
             "orig_title": "Tarzan and the City of Gold",
             "pubyear": 1933,
             "bookseriesnum": "15",
@@ -26265,7 +26279,7 @@
           {
             "id": 4765,
             "title": "Tarzan ja leopardimiehet",
-            "subtitle": "",
+            "subtitle": "apinain Tarzanin uusia seikkailuja leopardimiesten maassa",
             "orig_title": "Tarzan and the Leopard Men",
             "pubyear": 1935,
             "bookseriesnum": "17",
@@ -26279,7 +26293,7 @@
           {
             "id": 4771,
             "title": "Tarzan ja valkoiset villit",
-            "subtitle": "",
+            "subtitle": "seikkailukertomus villistä Afrikasta",
             "orig_title": "Tarzan's Quest",
             "pubyear": 1936,
             "bookseriesnum": "18",
@@ -26306,8 +26320,8 @@
           },
           {
             "id": 4760,
-            "title": "Tarzan ja amazonit",
-            "subtitle": "",
+            "title": "Tarzan ja amatsonit",
+            "subtitle": "apinain Tarzan villinaisten maassa",
             "orig_title": "Tarzan the Magnificent",
             "pubyear": 1939,
             "bookseriesnum": "20",
@@ -36556,6 +36570,20 @@
       {
         "works": [
           {
+            "id": 6436,
+            "title": "Kurssi kohti tuntematonta",
+            "subtitle": "",
+            "orig_title": "Clive Cussler's Dark Vector",
+            "pubyear": 2022,
+            "bookseriesnum": "",
+            "bookseriesorder": null,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Brown, Graham"
+          },
+          {
             "id": 5129,
             "title": "Nollapiste",
             "subtitle": "",
@@ -36610,20 +36638,6 @@
             "descr_attr": null,
             "imported_string": "",
             "author_str": "Cussler, Clive & Brown, Graham"
-          },
-          {
-            "id": 6436,
-            "title": "Kurssi kohti tuntematonta",
-            "subtitle": "",
-            "orig_title": "Clive Cussler's Dark Vector",
-            "pubyear": 2022,
-            "bookseriesnum": "",
-            "bookseriesorder": null,
-            "misc": "",
-            "description": null,
-            "descr_attr": "",
-            "imported_string": null,
-            "author_str": "Brown, Graham"
           }
         ],
         "id": 566,
@@ -47834,6 +47848,20 @@
             "pubyear": 2022,
             "bookseriesnum": "1",
             "bookseriesorder": 1,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Lindmo, Arne"
+          },
+          {
+            "id": 6926,
+            "title": "Helheimin kostaja",
+            "subtitle": "",
+            "orig_title": "Hevneren fra Helheim",
+            "pubyear": 2022,
+            "bookseriesnum": "2",
+            "bookseriesorder": 2,
             "misc": "",
             "description": null,
             "descr_attr": "",

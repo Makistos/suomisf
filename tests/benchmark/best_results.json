@@ -36,9 +36,9 @@
     "timestamp": "2026-02-22T18:53:10.855846+00:00"
   },
   "GET /api/latest/shorts/10": {
-    "best_avg_ms": 56.18,
-    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
-    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+    "best_avg_ms": 34.36,
+    "git_hash": "f72d772347e76d75ad7f8736fe1c4aa6f0d0986f",
+    "timestamp": "2026-02-28T11:37:26.232888+00:00"
   },
   "GET /api/latest/covers/10": {
     "best_avg_ms": 26.55,
@@ -66,9 +66,9 @@
     "timestamp": "2026-02-22T18:53:10.855846+00:00"
   },
   "GET /api/stats/nationalitycounts": {
-    "best_avg_ms": 173.04,
-    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
-    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+    "best_avg_ms": 172.73,
+    "git_hash": "f72d772347e76d75ad7f8736fe1c4aa6f0d0986f",
+    "timestamp": "2026-02-28T11:37:26.232888+00:00"
   },
   "GET /api/stats/misc": {
     "best_avg_ms": 15.66,
@@ -76,9 +76,9 @@
     "timestamp": "2026-02-22T18:53:10.855846+00:00"
   },
   "GET /api/filter/people/aa": {
-    "best_avg_ms": 48.14,
-    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
-    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+    "best_avg_ms": 46.02,
+    "git_hash": "f72d772347e76d75ad7f8736fe1c4aa6f0d0986f",
+    "timestamp": "2026-02-28T11:37:26.232888+00:00"
   },
   "GET /api/filter/tags/sf": {
     "best_avg_ms": 10.34,
@@ -121,9 +121,9 @@
     "timestamp": "2026-02-22T18:53:10.855846+00:00"
   },
   "GET /api/worktypes": {
-    "best_avg_ms": 9.14,
-    "git_hash": "b98744a2a31e299c22beec81b7a98200313fa7db",
-    "timestamp": "2026-02-22T18:53:10.855846+00:00"
+    "best_avg_ms": 8.58,
+    "git_hash": "f72d772347e76d75ad7f8736fe1c4aa6f0d0986f",
+    "timestamp": "2026-02-28T11:37:26.232888+00:00"
   },
   "GET /api/shorttypes": {
     "best_avg_ms": 8.29,

@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "generated_at": "2026-02-23T19:25:13.415187+00:00",
+    "generated_at": "2026-02-28T15:57:27.046198+00:00",
     "generator": "update_snapshots.py",
-    "total_endpoints": 41,
+    "total_endpoints": 47,
     "endpoint": "/api/stats/worksbyyear",
     "method": "GET",
     "status_code": 200
@@ -636,7 +636,7 @@
       },
       {
         "year": 1923,
-        "count": 2,
+        "count": 3,
         "language_id": 10,
         "language_name": "tanska"
       },
@@ -3126,7 +3126,7 @@
       },
       {
         "year": 2003,
-        "count": 91,
+        "count": 92,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -3462,7 +3462,7 @@
       },
       {
         "year": 2008,
-        "count": 32,
+        "count": 33,
         "language_id": 7,
         "language_name": "suomi"
       },
@@ -3678,7 +3678,7 @@
       },
       {
         "year": 2012,
-        "count": 102,
+        "count": 103,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -4224,7 +4224,7 @@
       },
       {
         "year": 2021,
-        "count": 88,
+        "count": 89,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -4290,7 +4290,7 @@
       },
       {
         "year": 2022,
-        "count": 72,
+        "count": 73,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -4380,7 +4380,7 @@
       },
       {
         "year": 2023,
-        "count": 1,
+        "count": 2,
         "language_id": 8,
         "language_name": "ranska"
       },
@@ -4590,13 +4590,19 @@
       },
       {
         "year": 2026,
-        "count": 1,
+        "count": 2,
         "language_id": 16,
         "language_name": "norja"
       },
       {
         "year": 2026,
-        "count": 3,
+        "count": 1,
+        "language_id": 19,
+        "language_name": "ruotsi"
+      },
+      {
+        "year": 2026,
+        "count": 6,
         "language_id": 7,
         "language_name": "suomi"
       },

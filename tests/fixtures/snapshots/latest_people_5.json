@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "generated_at": "2026-02-23T19:25:13.415187+00:00",
+    "generated_at": "2026-02-28T15:57:27.046198+00:00",
     "generator": "update_snapshots.py",
-    "total_endpoints": 41,
+    "total_endpoints": 47,
     "endpoint": "/api/latest/people/5",
     "method": "GET",
     "status_code": 200
@@ -11,35 +11,112 @@
     "status_code": 200,
     "data": [
       {
-        "id": 7768.0,
-        "name": "Testiperson, API",
-        "alt_name": "Testiperson, API",
-        "fullname": "Testiperson, API",
+        "id": 7782.0,
+        "name": "Nopsanen, Aarne",
+        "alt_name": "Aarne Nopsanen",
+        "fullname": "",
         "image_src": null,
-        "dob": 1990.0,
-        "dod": null,
-        "roles": [],
+        "dob": 1907.0,
+        "dod": 1990.0,
+        "roles": [
+          "Kansikuva"
+        ],
         "nationality": {
-          "id": 1,
-          "name": "Iso-Britannia"
+          "id": 4,
+          "name": "Suomi"
         },
         "workcount": 0.0,
         "storycount": 0,
-        "other_names": null,
-        "first_name": "API",
-        "last_name": "Testiperson",
+        "other_names": "",
+        "first_name": null,
+        "last_name": null,
         "image_attr": null,
-        "bio": null,
-        "bio_src": null,
+        "bio": "",
+        "bio_src": "",
         "imported_string": null
       },
       {
-        "id": 7767.0,
-        "name": "Latva, Otto",
-        "alt_name": "Otto Latva",
+        "id": 7781.0,
+        "name": "Bourgouin, Mikaël",
+        "alt_name": "Mikaël Bourgouin",
         "fullname": "",
         "image_src": null,
-        "dob": 1985.0,
+        "dob": 1982.0,
+        "dod": null,
+        "roles": [
+          "Kansikuva"
+        ],
+        "nationality": {
+          "id": 8,
+          "name": "Ranska"
+        },
+        "workcount": 0.0,
+        "storycount": 0,
+        "other_names": "",
+        "first_name": null,
+        "last_name": null,
+        "image_attr": null,
+        "bio": "",
+        "bio_src": "",
+        "imported_string": null
+      },
+      {
+        "id": 7780.0,
+        "name": "Puysségur, Alain T.",
+        "alt_name": "Alain T. Puysségur",
+        "fullname": "",
+        "image_src": null,
+        "dob": 1991.0,
+        "dod": null,
+        "roles": [
+          "Kirjoittaja"
+        ],
+        "nationality": {
+          "id": 8,
+          "name": "Ranska"
+        },
+        "workcount": 1.0,
+        "storycount": 0,
+        "other_names": "",
+        "first_name": null,
+        "last_name": null,
+        "image_attr": null,
+        "bio": "",
+        "bio_src": "",
+        "imported_string": null
+      },
+      {
+        "id": 7779.0,
+        "name": "Nikkanen, Jarkko",
+        "alt_name": "Jarkko Nikkanen",
+        "fullname": "",
+        "image_src": null,
+        "dob": null,
+        "dod": null,
+        "roles": [
+          "Kansikuva"
+        ],
+        "nationality": {
+          "id": 4,
+          "name": "Suomi"
+        },
+        "workcount": 0.0,
+        "storycount": 0,
+        "other_names": "",
+        "first_name": null,
+        "last_name": null,
+        "image_attr": null,
+        "bio": "",
+        "bio_src": "",
+        "imported_string": null
+      },
+      {
+        "id": 7778.0,
+        "name": "Sinkkonen, Jari",
+        "alt_name": "Jari Sinkkonen",
+        "fullname": "",
+        "image_src": null,
+        "dob": 1951.0,
         "dod": null,
         "roles": [
           "Kirjoittaja"
@@ -48,81 +125,8 @@
           "id": 4,
           "name": "Suomi"
         },
-        "workcount": 3.0,
-        "storycount": 0,
-        "other_names": "",
-        "first_name": null,
-        "last_name": null,
-        "image_attr": null,
-        "bio": "",
-        "bio_src": "",
-        "imported_string": null
-      },
-      {
-        "id": 7766.0,
-        "name": "Saarela, Saara",
-        "alt_name": "Saara Saarela",
-        "fullname": "",
-        "image_src": null,
-        "dob": 1971.0,
-        "dod": null,
-        "roles": [],
-        "nationality": {
-          "id": 4,
-          "name": "Suomi"
-        },
-        "workcount": 0.0,
-        "storycount": 0,
-        "other_names": "",
-        "first_name": null,
-        "last_name": null,
-        "image_attr": null,
-        "bio": "",
-        "bio_src": "",
-        "imported_string": null
-      },
-      {
-        "id": 7765.0,
-        "name": "Urm, Gabriela",
-        "alt_name": "Gabriela Urm",
-        "fullname": "",
-        "image_src": null,
-        "dob": 1980.0,
-        "dod": null,
-        "roles": [
-          "Kuvittaja"
-        ],
-        "nationality": {
-          "id": 2,
-          "name": "Viro"
-        },
-        "workcount": 0.0,
-        "storycount": 0,
-        "other_names": "",
-        "first_name": null,
-        "last_name": null,
-        "image_attr": null,
-        "bio": "",
-        "bio_src": "",
-        "imported_string": null
-      },
-      {
-        "id": 7764.0,
-        "name": "Tuuliranta, Tomi",
-        "alt_name": "Tomi Tuuliranta",
-        "fullname": "",
-        "image_src": null,
-        "dob": null,
-        "dod": null,
-        "roles": [
-          "Kuvittaja"
-        ],
-        "nationality": {
-          "id": 4,
-          "name": "Suomi"
-        },
-        "workcount": 0.0,
-        "storycount": 0,
+        "workcount": 1.0,
+        "storycount": 1,
         "other_names": "",
         "first_name": null,
         "last_name": null,

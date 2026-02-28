@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "generated_at": "2026-02-23T19:25:13.415187+00:00",
+    "generated_at": "2026-02-28T15:57:27.046198+00:00",
     "generator": "update_snapshots.py",
-    "total_endpoints": 41,
+    "total_endpoints": 47,
     "endpoint": "/api/stats/storynationalitycounts",
     "method": "GET",
     "status_code": 200
@@ -37,7 +37,7 @@
             "Esiintyy": 3
           },
           "Artikkeli": {
-            "Kirjoittaja": 778,
+            "Kirjoittaja": 781,
             "Kääntäjä": 44,
             "Esiintyy": 252
           },
@@ -52,7 +52,7 @@
             "Esiintyy": 1
           }
         },
-        "count": 2137
+        "count": 2140
       },
       {
         "nationality_id": 3,

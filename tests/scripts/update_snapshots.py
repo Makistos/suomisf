@@ -146,6 +146,39 @@ def generate_snapshots(endpoints: Optional[List[tuple]] = None) -> Dict[str, Any
     endpoints = endpoints or ENDPOINTS_TO_SNAPSHOT
 
     app.config['TESTING'] = True
+
+    # app/__init__.py calls load_dotenv('.env', override=True),
+    # which overwrites DATABASE_URL to the production DB.
+    # Mirror the conftest.py override: replace the DB name in
+    # the prod URL to get the test DB URL, then reconfigure all
+    # connection objects so requests hit suomisf_test (which has
+    # the migration applied) rather than the production DB.
+    import sqlalchemy as sa
+    import app.route_helpers as route_helpers_module
+    import app.orm_decl as orm_decl_module
+    from app import db as flask_db
+
+    _main_db = 'suomisf'
+    _test_db = 'suomisf_test'
+    prod_url = app.config.get('SQLALCHEMY_DATABASE_URI', '')
+    if f'/{_main_db}' in prod_url:
+        test_url = prod_url.replace(
+            f'/{_main_db}', f'/{_test_db}', 1
+        )
+    else:
+        # Already pointing at test DB or unknown URL
+        test_url = prod_url
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = test_url
+    route_helpers_module.db_url = test_url
+    orm_decl_module.db_url = test_url
+
+    engines = flask_db._app_engines.setdefault(app, {})
+    for engine in engines.values():
+        engine.dispose()
+    engines.clear()
+    engines[None] = sa.create_engine(test_url)
+
     client = app.test_client()
 
     metadata = {

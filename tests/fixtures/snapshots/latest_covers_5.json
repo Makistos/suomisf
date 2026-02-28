@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "generated_at": "2026-02-23T19:25:13.415187+00:00",
+    "generated_at": "2026-02-28T15:57:27.046198+00:00",
     "generator": "update_snapshots.py",
-    "total_endpoints": 41,
+    "total_endpoints": 47,
     "endpoint": "/api/latest/covers/5",
     "method": "GET",
     "status_code": 200
@@ -14,245 +14,245 @@
         "edition": {
           "images": [
             {
-              "id": 9402,
-              "image_src": "/static/images/books/Latva_Otto_Yksisarvinen_1p.jpg",
+              "id": 9444,
+              "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleopardimiehet_2l4p.jpg",
               "image_attr": null
             }
           ],
           "work": [
             {
-              "id": 6922,
-              "title": "Yksisarvinen maailman myyteissä ja tarinoissa",
-              "subtitle": "",
-              "orig_title": "",
-              "pubyear": 2026,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
+              "id": 4765,
+              "title": "Tarzan ja leopardimiehet",
+              "subtitle": "apinain Tarzanin uusia seikkailuja leopardimiesten maassa",
+              "orig_title": "Tarzan and the Leopard Men",
+              "pubyear": 1935,
+              "bookseriesnum": "17",
+              "bookseriesorder": 17,
               "misc": "",
-              "description": null,
-              "descr_attr": "",
-              "imported_string": null,
-              "author_str": "Latva, Otto"
-            }
-          ],
-          "owners": [],
-          "wishlisted": [],
-          "id": 9875,
-          "title": "Yksisarvinen maailman myyteissä ja tarinoissa",
-          "subtitle": "",
-          "pubyear": 2026,
-          "editionnum": 1,
-          "version": 1,
-          "isbn": "978-951-858-783-8",
-          "printedin": null,
-          "pubseriesnum": null,
-          "coll_info": null,
-          "pages": 171,
-          "size": 22,
-          "dustcover": 1,
-          "coverimage": 1,
-          "misc": "16 numeroimatonta kuvasivua.",
-          "imported_string": null,
-          "verified": false
-        },
-        "id": 9402,
-        "image_src": "/static/images/books/Latva_Otto_Yksisarvinen_1p.jpg",
-        "image_attr": null
-      },
-      {
-        "edition": {
-          "images": [
-            {
-              "id": 9401,
-              "image_src": "/static/images/books/Latva_Otto_Lohikaarmemyyteissajatarinoissa_1p.jpg",
-              "image_attr": null
-            }
-          ],
-          "work": [
-            {
-              "id": 6921,
-              "title": "Lohikäärme maailman myyteissä ja tarinoissa",
-              "subtitle": "",
-              "orig_title": "",
-              "pubyear": 2024,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": null,
-              "descr_attr": "",
-              "imported_string": null,
-              "author_str": "Latva, Otto"
-            }
-          ],
-          "owners": [],
-          "wishlisted": [],
-          "id": 9874,
-          "title": "Lohikäärme maailman myyteissä ja tarinoissa",
-          "subtitle": "",
-          "pubyear": 2024,
-          "editionnum": 1,
-          "version": 1,
-          "isbn": "978-951-858-521-6",
-          "printedin": null,
-          "pubseriesnum": null,
-          "coll_info": null,
-          "pages": 151,
-          "size": 22,
-          "dustcover": 1,
-          "coverimage": 1,
-          "misc": "16 numeroimatonta kuvasivua.",
-          "imported_string": null,
-          "verified": false
-        },
-        "id": 9401,
-        "image_src": "/static/images/books/Latva_Otto_Lohikaarmemyyteissajatarinoissa_1p.jpg",
-        "image_attr": null
-      },
-      {
-        "edition": {
-          "images": [
-            {
-              "id": 9400,
-              "image_src": "/static/images/books/Latva_Otto_Merihirviot_1p.jpg",
-              "image_attr": null
-            }
-          ],
-          "work": [
-            {
-              "id": 6920,
-              "title": "Merihirviöt",
-              "subtitle": "merenneidosta mustekalaan",
-              "orig_title": "",
-              "pubyear": 2019,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": null,
-              "descr_attr": "",
-              "imported_string": null,
-              "author_str": "Latva, Otto"
-            }
-          ],
-          "owners": [],
-          "wishlisted": [],
-          "id": 9873,
-          "title": "Merihirviöt",
-          "subtitle": "merenneidosta mustekalaan",
-          "pubyear": 2019,
-          "editionnum": 1,
-          "version": 1,
-          "isbn": "978-952-9745-59-3",
-          "printedin": null,
-          "pubseriesnum": null,
-          "coll_info": null,
-          "pages": 230,
-          "size": 31,
-          "dustcover": 3,
-          "coverimage": 1,
-          "misc": null,
-          "imported_string": null,
-          "verified": false
-        },
-        "id": 9400,
-        "image_src": "/static/images/books/Latva_Otto_Merihirviot_1p.jpg",
-        "image_attr": null
-      },
-      {
-        "edition": {
-          "images": [
-            {
-              "id": 9399,
-              "image_src": "/static/images/books/Kinnunen_Kalle_Vedenvartija_1p.jpg",
-              "image_attr": null
-            }
-          ],
-          "work": [
-            {
-              "id": 6919,
-              "title": "Veden vartija",
-              "subtitle": "Teemestarin kirjasta elokuvaksi",
-              "orig_title": "",
-              "pubyear": 2022,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": null,
-              "descr_attr": "",
-              "imported_string": null,
-              "author_str": "Kinnunen, Kalle"
-            }
-          ],
-          "owners": [],
-          "wishlisted": [],
-          "id": 9872,
-          "title": "Veden vartija",
-          "subtitle": "Teemestarin kirjasta elokuvaksi",
-          "pubyear": 2022,
-          "editionnum": 1,
-          "version": 1,
-          "isbn": "978-952-363-327-8",
-          "printedin": null,
-          "pubseriesnum": null,
-          "coll_info": null,
-          "pages": 248,
-          "size": 26,
-          "dustcover": 1,
-          "coverimage": 3,
-          "misc": null,
-          "imported_string": null,
-          "verified": false
-        },
-        "id": 9399,
-        "image_src": "/static/images/books/Kinnunen_Kalle_Vedenvartija_1p.jpg",
-        "image_attr": null
-      },
-      {
-        "edition": {
-          "images": [
-            {
-              "id": 9398,
-              "image_src": "/static/images/books/Itaranta_Emmi_Teemestarinkirja_2l1p.jpg",
-              "image_attr": null
-            }
-          ],
-          "work": [
-            {
-              "id": 3272,
-              "title": "Teemestarin kirja",
-              "subtitle": "",
-              "orig_title": "Teemestarin kirja",
-              "pubyear": 2012,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "<p>Kalevi Jäntin palkinto 2012, Nuori Aleksis -palkinto 2013. Tähtivaeltaja-palkintoehdokas 2013, Philip K. Dick -palkintoehdokas 2014, Arthur C. Clarke -palkintoehdokas 2015, HelMet-kirjallisuuspalkinnon ehdokas 2015: yleisön suosikki.</p>\r\n\r\n<p>Maailmasta on loppumassa vesi. Suunnattoman katastrofin – ehkä ilmastonmuutoksen, ehkä jonkin muun – läpikäynyt ihmiskunta sinnittelee veden vähyyden ja sen säännöstelyä hallitsevan diktatuurin vallan alla. Vain kaatopaikoille hautautunut teknologia ja teemestarien sukupolvien ajan pitämät päiväkirjat muistuttavat entisistä ajoista.</p>\r\n\r\n<p>Noria on teemestarien sukua, ja pian on hänen vuoronsa ottaa vastaan täysivaltaisen teemestarin arvo – ja hänen edeltäjiensä tarkkaan varjelema salaisuus. Aikana, jona veden kätkeminen on rikoksista pahin, sotilasvallan katseet kiinnittyvät väistämättä teemestarin taloon...</p>\r\n\r\n<p>Emmi Itärannan esikoisromaani Teemestarin kirja on harvinaisen uskottava ja pelottava kuvaus mahdollisesta tulevaisuudestamme. Samalla Itärannan kieli on kuitenkin kuulasta, tarkkaa ja paisuttelematonta. Esikoiskirjailijalta todellinen taidonnäyte!</p>\r\n\r\n<p>Teemestarin kirja voitti 2010–2011 järjestetyn Teoksen suuren fantasia- ja scifi-kirjoituskilpailun, johon osallistui yli 350 käsikirjoitusta.</p>",
+              "description": "",
               "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Itäranta, Emmi"
+              "imported_string": "\n\n<b>Tarzan ja leopardimiehet</b>. (Tarzan and the Leopard Men, 1935). Suom Marjatta Jokimäki. Karhu 1954. [eiSF].",
+              "author_str": "Burroughs, Edgar Rice"
             }
           ],
           "owners": [],
           "wishlisted": [],
-          "id": 9871,
-          "title": "Teemestarin kirja : veden vartija",
+          "id": 9896,
+          "title": "Tarzan ja leopardimiehet",
           "subtitle": "",
-          "pubyear": 2022,
-          "editionnum": 11,
+          "pubyear": 1988,
+          "editionnum": 4,
           "version": 2,
-          "isbn": "978-952-304-317-6",
+          "isbn": "",
           "printedin": null,
           "pubseriesnum": null,
           "coll_info": "",
-          "pages": 191,
+          "pages": 256,
+          "size": 21,
+          "dustcover": 1,
+          "coverimage": 3,
+          "misc": "",
+          "imported_string": "\n\n2.laitos: Kauppakirjapaino 1974.",
+          "verified": false
+        },
+        "id": 9444,
+        "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleopardimiehet_2l4p.jpg",
+        "image_attr": null
+      },
+      {
+        "edition": {
+          "images": [
+            {
+              "id": 9442,
+              "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleopardimiehet_2l1p.jpg",
+              "image_attr": null
+            }
+          ],
+          "work": [
+            {
+              "id": 4765,
+              "title": "Tarzan ja leopardimiehet",
+              "subtitle": "apinain Tarzanin uusia seikkailuja leopardimiesten maassa",
+              "orig_title": "Tarzan and the Leopard Men",
+              "pubyear": 1935,
+              "bookseriesnum": "17",
+              "bookseriesorder": 17,
+              "misc": "",
+              "description": "",
+              "descr_attr": null,
+              "imported_string": "\n\n<b>Tarzan ja leopardimiehet</b>. (Tarzan and the Leopard Men, 1935). Suom Marjatta Jokimäki. Karhu 1954. [eiSF].",
+              "author_str": "Burroughs, Edgar Rice"
+            }
+          ],
+          "owners": [],
+          "wishlisted": [],
+          "id": 5487,
+          "title": "Tarzan ja leopardimiehet",
+          "subtitle": "",
+          "pubyear": 1974,
+          "editionnum": 1,
+          "version": 2,
+          "isbn": "",
+          "printedin": null,
+          "pubseriesnum": null,
+          "coll_info": "",
+          "pages": 256,
+          "size": 21,
+          "dustcover": 1,
+          "coverimage": 3,
+          "misc": "",
+          "imported_string": "\n\n2.laitos: Kauppakirjapaino 1974.",
+          "verified": false
+        },
+        "id": 9442,
+        "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleopardimiehet_2l1p.jpg",
+        "image_attr": null
+      },
+      {
+        "edition": {
+          "images": [
+            {
+              "id": 9441,
+              "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleopardimiehet_1p.jpg",
+              "image_attr": null
+            }
+          ],
+          "work": [
+            {
+              "id": 4765,
+              "title": "Tarzan ja leopardimiehet",
+              "subtitle": "apinain Tarzanin uusia seikkailuja leopardimiesten maassa",
+              "orig_title": "Tarzan and the Leopard Men",
+              "pubyear": 1935,
+              "bookseriesnum": "17",
+              "bookseriesorder": 17,
+              "misc": "",
+              "description": "",
+              "descr_attr": null,
+              "imported_string": "\n\n<b>Tarzan ja leopardimiehet</b>. (Tarzan and the Leopard Men, 1935). Suom Marjatta Jokimäki. Karhu 1954. [eiSF].",
+              "author_str": "Burroughs, Edgar Rice"
+            }
+          ],
+          "owners": [],
+          "wishlisted": [],
+          "id": 5486,
+          "title": "Tarzan ja leopardimiehet",
+          "subtitle": "apinain Tarzanin uusia seikkailuja leopardimiesten maassa",
+          "pubyear": 1954,
+          "editionnum": 1,
+          "version": null,
+          "isbn": "",
+          "printedin": null,
+          "pubseriesnum": null,
+          "coll_info": "",
+          "pages": 190,
           "size": 20,
           "dustcover": 1,
           "coverimage": 1,
-          "misc": "Selkokielelle mukauttanut Riikka Tuohimetsä.",
-          "imported_string": "",
+          "misc": "",
+          "imported_string": "\n\n<b>Tarzan ja leopardimiehet</b>. (Tarzan and the Leopard Men, 1935). Suom Marjatta Jokimäki. Karhu 1954. [eiSF].",
           "verified": false
         },
-        "id": 9398,
-        "image_src": "/static/images/books/Itaranta_Emmi_Teemestarinkirja_2l1p.jpg",
+        "id": 9441,
+        "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleopardimiehet_1p.jpg",
+        "image_attr": null
+      },
+      {
+        "edition": {
+          "images": [
+            {
+              "id": 9440,
+              "image_src": "/static/images/books/Burroughs_Edgar_Rice_Urheatarzan_3l1p.jpg",
+              "image_attr": null
+            }
+          ],
+          "work": [
+            {
+              "id": 4774,
+              "title": "Tarzan Midianin maassa",
+              "subtitle": "apinain Tarzanin uusia seikkailuja Midianin maassa",
+              "orig_title": "Tarzan Triumphant",
+              "pubyear": 1932,
+              "bookseriesnum": "14",
+              "bookseriesorder": 14,
+              "misc": "",
+              "description": "",
+              "descr_attr": null,
+              "imported_string": "\n\n<b>Tarzan Midianin maassa</b>. (Tarzan Triumphant, 1932). Suom Marjatta Jokimäki. Karhu 1955. [F].",
+              "author_str": "Burroughs, Edgar Rice"
+            }
+          ],
+          "owners": [],
+          "wishlisted": [],
+          "id": 5506,
+          "title": "Urhea Tarzan",
+          "subtitle": "",
+          "pubyear": 1991,
+          "editionnum": 1,
+          "version": 3,
+          "isbn": "951-26-3626-3",
+          "printedin": null,
+          "pubseriesnum": null,
+          "coll_info": "",
+          "pages": 264,
+          "size": 21,
+          "dustcover": 1,
+          "coverimage": 3,
+          "misc": "",
+          "imported_string": "\n\n3.laitos: Kirjayhtymä 1991.",
+          "verified": false
+        },
+        "id": 9440,
+        "image_src": "/static/images/books/Burroughs_Edgar_Rice_Urheatarzan_3l1p.jpg",
+        "image_attr": null
+      },
+      {
+        "edition": {
+          "images": [
+            {
+              "id": 9439,
+              "image_src": "/static/images/books/Burroughs_Edgar_Rice_Urheatarzan_4l2p.jpg",
+              "image_attr": null
+            }
+          ],
+          "work": [
+            {
+              "id": 4774,
+              "title": "Tarzan Midianin maassa",
+              "subtitle": "apinain Tarzanin uusia seikkailuja Midianin maassa",
+              "orig_title": "Tarzan Triumphant",
+              "pubyear": 1932,
+              "bookseriesnum": "14",
+              "bookseriesorder": 14,
+              "misc": "",
+              "description": "",
+              "descr_attr": null,
+              "imported_string": "\n\n<b>Tarzan Midianin maassa</b>. (Tarzan Triumphant, 1932). Suom Marjatta Jokimäki. Karhu 1955. [F].",
+              "author_str": "Burroughs, Edgar Rice"
+            }
+          ],
+          "owners": [],
+          "wishlisted": [],
+          "id": 9895,
+          "title": "Urhea Tarzan",
+          "subtitle": "",
+          "pubyear": 1986,
+          "editionnum": 4,
+          "version": 2,
+          "isbn": "",
+          "printedin": null,
+          "pubseriesnum": null,
+          "coll_info": "",
+          "pages": 274,
+          "size": 21,
+          "dustcover": 1,
+          "coverimage": 3,
+          "misc": "",
+          "imported_string": "\n\n2.laitos: <b>Urhea Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1973.",
+          "verified": false
+        },
+        "id": 9439,
+        "image_src": "/static/images/books/Burroughs_Edgar_Rice_Urheatarzan_4l2p.jpg",
         "image_attr": null
       }
     ],

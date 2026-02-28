@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "generated_at": "2026-02-23T19:25:13.415187+00:00",
+    "generated_at": "2026-02-28T15:57:27.046198+00:00",
     "generator": "update_snapshots.py",
-    "total_endpoints": 41,
+    "total_endpoints": 47,
     "endpoint": "/api/shorts/1",
     "method": "GET",
     "status_code": 200
@@ -521,19 +521,6 @@
       "contributors": [
         {
           "person": {
-            "id": 2687.0,
-            "name": "Asimov, Isaac",
-            "alt_name": "Isaac Asimov"
-          },
-          "role": {
-            "id": 1,
-            "name": "Kirjoittaja"
-          },
-          "description": "",
-          "real_person": null
-        },
-        {
-          "person": {
             "id": 732.0,
             "name": "Kalvas, Reijo",
             "alt_name": "Reijo Kalvas"
@@ -541,6 +528,19 @@
           "role": {
             "id": 2,
             "name": "Kääntäjä"
+          },
+          "description": "",
+          "real_person": null
+        },
+        {
+          "person": {
+            "id": 2687.0,
+            "name": "Asimov, Isaac",
+            "alt_name": "Isaac Asimov"
+          },
+          "role": {
+            "id": 1,
+            "name": "Kirjoittaja"
           },
           "description": "",
           "real_person": null
@@ -874,19 +874,6 @@
             "contributors": [
               {
                 "person": {
-                  "id": 2687.0,
-                  "name": "Asimov, Isaac",
-                  "alt_name": "Isaac Asimov"
-                },
-                "role": {
-                  "id": 1,
-                  "name": "Kirjoittaja"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
                   "id": 732.0,
                   "name": "Kalvas, Reijo",
                   "alt_name": "Reijo Kalvas"
@@ -894,6 +881,19 @@
                 "role": {
                   "id": 2,
                   "name": "Kääntäjä"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 2687.0,
+                  "name": "Asimov, Isaac",
+                  "alt_name": "Isaac Asimov"
+                },
+                "role": {
+                  "id": 1,
+                  "name": "Kirjoittaja"
                 },
                 "description": "",
                 "real_person": null

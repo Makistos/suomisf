@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "generated_at": "2026-02-23T19:25:13.415187+00:00",
+    "generated_at": "2026-02-28T15:57:27.046198+00:00",
     "generator": "update_snapshots.py",
-    "total_endpoints": 41,
+    "total_endpoints": 47,
     "endpoint": "/api/people/3238/shorts",
     "method": "GET",
     "status_code": 200
@@ -12,32 +12,6 @@
     "data": [
       {
         "contributors": [
-          {
-            "person": {
-              "id": 3238.0,
-              "name": "Elo, Eija",
-              "alt_name": "Eija Elo"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 3238.0,
-              "name": "Elo, Eija",
-              "alt_name": "Eija Elo"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
           {
             "person": {
               "id": 3238.0,

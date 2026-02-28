@@ -1,11 +1,11 @@
 {
   "metadata": {
+    "generated_at": "2026-02-28T15:57:27.046198+00:00",
+    "generator": "update_snapshots.py",
+    "total_endpoints": 47,
     "endpoint": "/api/issues/92",
     "method": "GET",
-    "status_code": 200,
-    "description": "Alienisti issue 92 (1/2017) - 16 stories, multiple authors",
-    "generated_at": "2026-02-25T19:34:47.085595+00:00",
-    "generator": "manual (production capture)"
+    "status_code": 200
   },
   "response": {
     "status_code": 200,

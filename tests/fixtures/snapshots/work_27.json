@@ -1,11 +1,11 @@
 {
   "metadata": {
+    "generated_at": "2026-02-28T15:57:27.046198+00:00",
+    "generator": "update_snapshots.py",
+    "total_endpoints": 47,
     "endpoint": "/api/works/27",
     "method": "GET",
-    "status_code": 200,
-    "description": "Work 27 Yon ja paivan tarinoita - anthology with 12 short stories by Vainonen",
-    "generated_at": "2026-02-25T19:28:51.566346+00:00",
-    "generator": "manual (production capture)"
+    "status_code": 200
   },
   "response": {
     "status_code": 200,

@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "generated_at": "2026-02-23T19:25:13.415187+00:00",
+    "generated_at": "2026-02-28T15:57:27.046198+00:00",
     "generator": "update_snapshots.py",
-    "total_endpoints": 41,
+    "total_endpoints": 47,
     "endpoint": "/api/pubseries",
     "method": "GET",
     "status_code": 200
@@ -74477,50 +74477,6 @@
           {
             "images": [
               {
-                "id": 8826,
-                "image_src": "/static/images/books/Jansson_NakymatonLapsi_2011.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": [
-              {
-                "id": 3308,
-                "title": "Näkymätön lapsi ja muita kertomuksia",
-                "subtitle": "",
-                "orig_title": "Den osynliga barnet och andra berättelser",
-                "pubyear": 1962,
-                "bookseriesnum": "9",
-                "bookseriesorder": 9,
-                "misc": "",
-                "description": "<p>Muumilaaksossa tapahtuu taas kaikenlaista kummaa: Vilijonkka kokee lopultakin pyörremyrskyn, Nuuskamuikkusella on vaikeuksia kevätlaulun luomisessa, muumipappa päättää selvittää hattivattien salaisuuden, eläkkeellä oleva hemuli ryhtyy rakentamaan huvimajaa. Ja muuan lapsi muuttuu näkymättömäksi...</p>",
-                "descr_attr": null,
-                "imported_string": "\n\n<a href=\"novkok/jan-nl.htm\">\n<b>Näkymätön lapsi ja muita kertomuksia</b></a>. (Den osynliga barnet och andra berättelser, 1962). Suom Laila Järvinen. WSOY 1962. [nF,kok].",
-                "author_str": "Jansson, Tove"
-              }
-            ],
-            "owners": [],
-            "wishlisted": [],
-            "id": 9465,
-            "title": "Näkymätön lapsi ja muita kertomuksia",
-            "subtitle": "",
-            "pubyear": 2011,
-            "editionnum": null,
-            "version": null,
-            "isbn": "978-951-0-37855-7",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 145,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": false
-          },
-          {
-            "images": [
-              {
                 "id": 94,
                 "image_src": "/static/images/books/Asimov_Isaac_saatioveitsenteralla_2p.jpg",
                 "image_attr": null
@@ -75533,6 +75489,50 @@
             "coverimage": 1,
             "misc": "",
             "imported_string": "https://kansalliskirjasto.finna.fi/Record/fikka.4124547?sid=2999917389",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "id": 8826,
+                "image_src": "/static/images/books/Jansson_NakymatonLapsi_2011.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": [
+              {
+                "id": 3308,
+                "title": "Näkymätön lapsi ja muita kertomuksia",
+                "subtitle": "",
+                "orig_title": "Den osynliga barnet och andra berättelser",
+                "pubyear": 1962,
+                "bookseriesnum": "9",
+                "bookseriesorder": 9,
+                "misc": "",
+                "description": "<p>Muumilaaksossa tapahtuu taas kaikenlaista kummaa: Vilijonkka kokee lopultakin pyörremyrskyn, Nuuskamuikkusella on vaikeuksia kevätlaulun luomisessa, muumipappa päättää selvittää hattivattien salaisuuden, eläkkeellä oleva hemuli ryhtyy rakentamaan huvimajaa. Ja muuan lapsi muuttuu näkymättömäksi...</p>",
+                "descr_attr": null,
+                "imported_string": "\n\n<a href=\"novkok/jan-nl.htm\">\n<b>Näkymätön lapsi ja muita kertomuksia</b></a>. (Den osynliga barnet och andra berättelser, 1962). Suom Laila Järvinen. WSOY 1962. [nF,kok].",
+                "author_str": "Jansson, Tove"
+              }
+            ],
+            "owners": [],
+            "wishlisted": [],
+            "id": 9465,
+            "title": "Näkymätön lapsi ja muita kertomuksia",
+            "subtitle": "",
+            "pubyear": 2011,
+            "editionnum": null,
+            "version": null,
+            "isbn": "978-951-0-37855-7",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 145,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
             "verified": false
           },
           {
@@ -76552,55 +76552,6 @@
           {
             "images": [
               {
-                "id": 1893,
-                "image_src": "/static/images/books/Dahl_Roald_Alahuuli_2p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": [
-              {
-                "id": 5131,
-                "title": "Alahuuli",
-                "subtitle": "",
-                "orig_title": "Switch Bitch",
-                "pubyear": 1974,
-                "bookseriesnum": "",
-                "bookseriesorder": null,
-                "misc": "",
-                "description": "<p>Roald Dahlin kauhujuttujen ihailijoilla on edessään todellinen nautinto: hivelevän jännityksen mestari on kirjoittanut aikaihmisten opettavaisia satuja, hiotun humoristisia ja karmivan yllättäviä.</p><p>Valmistautukaa siis kohtaamaan: Oswald-eno, joka harrastaa skorpioneja ja kiihkeitä lemmenhetkiä pyramidien huipuilla, mutta jonka ei olisi koskaan pitänyt suostua ystävällisen arabin kutsuun… </p><p>Vic, joka kehittää ehdottoman varman vaimonvaihtosysteemin ja suuriluuloisuudessaan uskaltautuu esiintymään Jerrynä, elinvoimaisen Samathan aviomiehenä ja vuodekumppanina…</p><p>Anna, joka ei tajua ettei missään tapauksessa pidä ottaa yhteyttä entiseen heilaan, etenkin kun tämä sattuu olemaan lääkäri…</p><p>Oswald-eno vielä toistamiseen, koska hänen kemistiystävänsä keksii totaalisesti vastustamattoman parfyymin.</p>",
-                "descr_attr": null,
-                "imported_string": "",
-                "author_str": "Dahl, Roald"
-              }
-            ],
-            "owners": [
-              {
-                "id": 2.0,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 5941,
-            "title": "Alahuuli",
-            "subtitle": "",
-            "pubyear": 2003,
-            "editionnum": 1,
-            "version": 2,
-            "isbn": "952-459-304-1",
-            "printedin": "Viborg",
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 192,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "Kannen kuva: Arnold.",
-            "imported_string": "",
-            "verified": true
-          },
-          {
-            "images": [
-              {
                 "id": 1655,
                 "image_src": "/static/images/books/Sinisalo_Johanna_Ennenpaivanlaskuaeivoi_4p.jpg",
                 "image_attr": null
@@ -77080,6 +77031,55 @@
             "misc": "",
             "imported_string": "5.painos: Tammi 2007.",
             "verified": false
+          },
+          {
+            "images": [
+              {
+                "id": 1893,
+                "image_src": "/static/images/books/Dahl_Roald_Alahuuli_2p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": [
+              {
+                "id": 5131,
+                "title": "Alahuuli",
+                "subtitle": "",
+                "orig_title": "Switch Bitch",
+                "pubyear": 1974,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": "<p>Roald Dahlin kauhujuttujen ihailijoilla on edessään todellinen nautinto: hivelevän jännityksen mestari on kirjoittanut aikaihmisten opettavaisia satuja, hiotun humoristisia ja karmivan yllättäviä.</p><p>Valmistautukaa siis kohtaamaan: Oswald-eno, joka harrastaa skorpioneja ja kiihkeitä lemmenhetkiä pyramidien huipuilla, mutta jonka ei olisi koskaan pitänyt suostua ystävällisen arabin kutsuun… </p><p>Vic, joka kehittää ehdottoman varman vaimonvaihtosysteemin ja suuriluuloisuudessaan uskaltautuu esiintymään Jerrynä, elinvoimaisen Samathan aviomiehenä ja vuodekumppanina…</p><p>Anna, joka ei tajua ettei missään tapauksessa pidä ottaa yhteyttä entiseen heilaan, etenkin kun tämä sattuu olemaan lääkäri…</p><p>Oswald-eno vielä toistamiseen, koska hänen kemistiystävänsä keksii totaalisesti vastustamattoman parfyymin.</p>",
+                "descr_attr": null,
+                "imported_string": "",
+                "author_str": "Dahl, Roald"
+              }
+            ],
+            "owners": [
+              {
+                "id": 2.0,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "id": 5941,
+            "title": "Alahuuli",
+            "subtitle": "",
+            "pubyear": 2003,
+            "editionnum": 1,
+            "version": 2,
+            "isbn": "952-459-304-1",
+            "printedin": "Viborg",
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 192,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "Kannen kuva: Arnold.",
+            "imported_string": "",
+            "verified": true
           },
           {
             "images": [
@@ -78066,6 +78066,55 @@
           {
             "images": [
               {
+                "id": 1895,
+                "image_src": "/static/images/books/Dahl_Roald_Helpponakki_2p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": [
+              {
+                "id": 5133,
+                "title": "Helppo nakki ja muita kertomuksia",
+                "subtitle": "",
+                "orig_title": "Over to You, 1945, & Eight Further Tales of the Unexpected",
+                "pubyear": 1992,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "",
+                "description": "<p><em>Helppo nakki ja muita kertomuksia</em> sisältää kahdeksantoista jännittävää ja mustan huumorin sävyttämää novellia maailmankuululta tekijältä. Osa kokoelman novelleista perustuu Roald Dahlin omiin kokemuksiin sodanaikaisena hävittäjälentäjänä.</p><p>Dahl on tarinoissaan juuri niin velmu ja yllättävä kuin aikaisemmin ilmestyneissä novellikokoelmisssa <em>Rakkaani, kyyhkyläiseni</em> ja <em>Alahuuli</em>.</p>",
+                "descr_attr": null,
+                "imported_string": "",
+                "author_str": "Dahl, Roald"
+              }
+            ],
+            "owners": [
+              {
+                "id": 2.0,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "id": 5944,
+            "title": "Helppo nakki ja muita kertomuksia",
+            "subtitle": "",
+            "pubyear": 2006,
+            "editionnum": 1,
+            "version": 2,
+            "isbn": "952-459-670-9",
+            "printedin": "Juva",
+            "pubseriesnum": null,
+            "coll_info": "4/18",
+            "pages": 299,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": true
+          },
+          {
+            "images": [
+              {
                 "id": 1444,
                 "image_src": "/static/images/books/Cooper_Susan_PimeanouseeI-III_1p.jpg",
                 "image_attr": null
@@ -78150,55 +78199,6 @@
             "misc": "Yhteissidos sis. Kuningas Harmaa ja Hopeapuu.",
             "imported_string": "<b>Pimeä nousee IV-V</b>. Pimeä nousee 4-5. Yhteissidos sis. Kuningas Harmaa ja Hopeapuu. Suom Kristiina Rikman. WSOY 2009. [nF].",
             "verified": false
-          },
-          {
-            "images": [
-              {
-                "id": 1895,
-                "image_src": "/static/images/books/Dahl_Roald_Helpponakki_2p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": [
-              {
-                "id": 5133,
-                "title": "Helppo nakki ja muita kertomuksia",
-                "subtitle": "",
-                "orig_title": "Over to You, 1945, & Eight Further Tales of the Unexpected",
-                "pubyear": 1992,
-                "bookseriesnum": "",
-                "bookseriesorder": null,
-                "misc": "",
-                "description": "<p><em>Helppo nakki ja muita kertomuksia</em> sisältää kahdeksantoista jännittävää ja mustan huumorin sävyttämää novellia maailmankuululta tekijältä. Osa kokoelman novelleista perustuu Roald Dahlin omiin kokemuksiin sodanaikaisena hävittäjälentäjänä.</p><p>Dahl on tarinoissaan juuri niin velmu ja yllättävä kuin aikaisemmin ilmestyneissä novellikokoelmisssa <em>Rakkaani, kyyhkyläiseni</em> ja <em>Alahuuli</em>.</p>",
-                "descr_attr": null,
-                "imported_string": "",
-                "author_str": "Dahl, Roald"
-              }
-            ],
-            "owners": [
-              {
-                "id": 2.0,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 5944,
-            "title": "Helppo nakki ja muita kertomuksia",
-            "subtitle": "",
-            "pubyear": 2006,
-            "editionnum": 1,
-            "version": 2,
-            "isbn": "952-459-670-9",
-            "printedin": "Juva",
-            "pubseriesnum": null,
-            "coll_info": "4/18",
-            "pages": 299,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": true
           },
           {
             "images": [

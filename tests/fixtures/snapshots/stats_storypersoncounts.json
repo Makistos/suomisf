@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "generated_at": "2026-02-23T19:25:13.415187+00:00",
+    "generated_at": "2026-02-28T15:57:27.046198+00:00",
     "generator": "update_snapshots.py",
-    "total_endpoints": 41,
+    "total_endpoints": 47,
     "endpoint": "/api/stats/storypersoncounts",
     "method": "GET",
     "status_code": 200
@@ -286,12 +286,12 @@
             "Päätoimittaja": 0
           },
           "Artikkeli": {
-            "Kirjoittaja": 4333,
+            "Kirjoittaja": 4339,
             "Kääntäjä": 55,
             "Toimittaja": 0,
             "Kansikuva": 0,
             "Kuvittaja": 0,
-            "Esiintyy": 1204,
+            "Esiintyy": 1205,
             "Päätoimittaja": 0
           },
           "Esipuhe": {
@@ -313,7 +313,7 @@
             "Päätoimittaja": 0
           }
         },
-        "total": 13713
+        "total": 13719
       }
     ],
     "error": null

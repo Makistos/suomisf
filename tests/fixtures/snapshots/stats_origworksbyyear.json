@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "generated_at": "2026-02-23T19:25:13.415187+00:00",
+    "generated_at": "2026-02-28T15:57:27.046198+00:00",
     "generator": "update_snapshots.py",
-    "total_endpoints": 41,
+    "total_endpoints": 47,
     "endpoint": "/api/stats/origworksbyyear",
     "method": "GET",
     "status_code": 200
@@ -3798,7 +3798,7 @@
       },
       {
         "year": 2003,
-        "count": 81,
+        "count": 82,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -4146,7 +4146,7 @@
       },
       {
         "year": 2008,
-        "count": 32,
+        "count": 33,
         "language_id": 7,
         "language_name": "suomi"
       },
@@ -4254,7 +4254,7 @@
       },
       {
         "year": 2011,
-        "count": 80,
+        "count": 81,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -4734,7 +4734,7 @@
       },
       {
         "year": 2020,
-        "count": 65,
+        "count": 66,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -4794,7 +4794,7 @@
       },
       {
         "year": 2021,
-        "count": 55,
+        "count": 56,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -4824,7 +4824,7 @@
       },
       {
         "year": 2021,
-        "count": 1,
+        "count": 2,
         "language_id": 8,
         "language_name": "ranska"
       },
@@ -4872,7 +4872,7 @@
       },
       {
         "year": 2022,
-        "count": 3,
+        "count": 4,
         "language_id": 16,
         "language_name": "norja"
       },
@@ -5010,7 +5010,7 @@
       },
       {
         "year": 2025,
-        "count": 1,
+        "count": 2,
         "language_id": 19,
         "language_name": "ruotsi"
       },
@@ -5022,7 +5022,7 @@
       },
       {
         "year": 2026,
-        "count": 3,
+        "count": 6,
         "language_id": 7,
         "language_name": "suomi"
       }

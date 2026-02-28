@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "generated_at": "2026-02-23T19:25:13.415187+00:00",
+    "generated_at": "2026-02-28T15:57:27.046198+00:00",
     "generator": "update_snapshots.py",
-    "total_endpoints": 41,
+    "total_endpoints": 47,
     "endpoint": "/api/stats/publishercounts",
     "method": "GET",
     "status_code": 200
@@ -15,7 +15,7 @@
         "name": "WSOY",
         "fullname": "Werner Söderström Oy",
         "genres": {
-          "F": 500,
+          "F": 504,
           "K": 91,
           "Paleof": 41,
           "PF": 45,
@@ -34,7 +34,7 @@
           "lF": 387,
           "R": 8
         },
-        "total": 2124
+        "total": 2128
       },
       {
         "id": 318,
@@ -69,7 +69,7 @@
           "PF": 28,
           "SF": 176,
           "VEH": 10,
-          "nF": 271,
+          "nF": 272,
           "nSF": 76,
           "nK": 34,
           "lSF": 1,
@@ -77,10 +77,10 @@
           "eiSF": 1,
           "rajatap": 32,
           "kok": 55,
-          "lF": 83,
+          "lF": 84,
           "R": 1
         },
-        "total": 999
+        "total": 1001
       },
       {
         "id": 133,
@@ -100,9 +100,9 @@
           "eiSF": 8,
           "rajatap": 17,
           "kok": 14,
-          "lF": 23
+          "lF": 24
         },
-        "total": 602
+        "total": 603
       },
       {
         "id": 76,
@@ -147,7 +147,7 @@
         "fullname": "Like Kustannus Oy",
         "genres": {
           "F": 61,
-          "K": 44,
+          "K": 45,
           "Paleof": 4,
           "SF": 180,
           "VEH": 3,
@@ -156,7 +156,7 @@
           "rajatap": 1,
           "kok": 8
         },
-        "total": 285
+        "total": 286
       },
       {
         "id": 39,
@@ -193,19 +193,20 @@
         "total": 147
       },
       {
-        "id": 19,
-        "name": "Art House",
-        "fullname": "Art House Oy",
+        "id": 150,
+        "name": "Kirjayhtymä",
+        "fullname": "Kirjayhtymä",
         "genres": {
-          "F": 7,
-          "K": 4,
-          "SF": 3,
-          "nF": 117,
-          "nSF": 1,
-          "eiSF": 1,
-          "rajatap": 3,
-          "kok": 7,
-          "lF": 17
+          "F": 32,
+          "K": 2,
+          "PF": 4,
+          "SF": 100,
+          "VEH": 2,
+          "nF": 2,
+          "nSF": 4,
+          "eiSF": 7,
+          "rajatap": 4,
+          "kok": 21
         },
         "total": 147
       },
@@ -214,26 +215,26 @@
         "name": "Muut",
         "fullname": null,
         "genres": {
-          "F": 1067,
-          "K": 380,
+          "F": 1051,
+          "K": 382,
           "Paleof": 21,
-          "PF": 42,
-          "SF": 1083,
-          "VEH": 42,
+          "PF": 38,
+          "SF": 989,
+          "VEH": 40,
           "Utopia": 21,
-          "nF": 355,
-          "nSF": 94,
+          "nF": 470,
+          "nSF": 91,
           "nK": 77,
           "lSF": 10,
           "satu": 1,
-          "rajatap": 59,
+          "rajatap": 58,
           "lasten kuvakirja": 9,
-          "kok": 447,
-          "lF": 157,
+          "kok": 433,
+          "lF": 174,
           "R": 24,
-          "eiSF": 43
+          "eiSF": 38
         },
-        "total": 3191
+        "total": 3204
       }
     ],
     "error": null
