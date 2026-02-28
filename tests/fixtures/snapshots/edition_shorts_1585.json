@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-28T15:57:27.046198+00:00",
+    "generated_at": "2026-02-28T17:39:29.223810+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/editions/1585/shorts",
@@ -2551,9 +2551,9 @@
         "contributors": [
           {
             "person": {
-              "id": 1408.0,
-              "name": "Oja, Heikki",
-              "alt_name": "Heikki Oja"
+              "id": 3299.0,
+              "name": "Ranta, Matias ",
+              "alt_name": "Matias  Ranta"
             },
             "role": {
               "id": 1,
@@ -2564,9 +2564,9 @@
           },
           {
             "person": {
-              "id": 3299.0,
-              "name": "Ranta, Matias ",
-              "alt_name": "Matias  Ranta"
+              "id": 1408.0,
+              "name": "Oja, Heikki",
+              "alt_name": "Heikki Oja"
             },
             "role": {
               "id": 1,

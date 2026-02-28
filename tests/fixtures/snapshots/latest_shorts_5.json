@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-28T15:57:27.046198+00:00",
+    "generated_at": "2026-02-28T17:39:29.223810+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/shorts/5",
@@ -10,6 +10,341 @@
   "response": {
     "status_code": 200,
     "data": [
+      {
+        "authors": [
+          {
+            "id": 3889.0,
+            "name": "Vainikainen, Jussi",
+            "alt_name": "Jussi Vainikainen",
+            "fullname": "",
+            "image_src": null,
+            "dob": 1966.0,
+            "dod": null,
+            "roles": [
+              "Kirjoittaja",
+              "Kääntäjä"
+            ],
+            "nationality": {
+              "id": 4,
+              "name": "Suomi"
+            },
+            "workcount": 0.0,
+            "storycount": 29,
+            "other_names": null,
+            "first_name": "Jussi",
+            "last_name": "Vainikainen",
+            "image_attr": "",
+            "bio": null,
+            "bio_src": "",
+            "imported_string": null
+          }
+        ],
+        "type": {
+          "id": 3,
+          "name": "Pienoisromaani"
+        },
+        "issues": [],
+        "editions": [
+          {
+            "work": [
+              {
+                "id": 1962.0,
+                "title": "Keskiyön mato Ikaalisissa",
+                "orig_title": "Keskiyön mato Ikaalisissa",
+                "author_str": "Nikkonen, Raimo (toim.)",
+                "contributions": [
+                  {
+                    "person": {
+                      "id": 900.0,
+                      "name": "Nikkonen, Raimo",
+                      "alt_name": "Raimo Nikkonen"
+                    },
+                    "role": {
+                      "id": 3,
+                      "name": "Toimittaja"
+                    },
+                    "description": null,
+                    "real_person": null
+                  }
+                ],
+                "editions": [
+                  {
+                    "editors": [
+                      {
+                        "id": 900.0,
+                        "name": "Nikkonen, Raimo",
+                        "alt_name": "Raimo Nikkonen",
+                        "fullname": "",
+                        "image_src": null,
+                        "dob": null,
+                        "dod": null,
+                        "roles": [
+                          "Toimittaja",
+                          "Kansikuva",
+                          "Kirjoittaja"
+                        ],
+                        "nationality": {
+                          "id": 4,
+                          "name": "Suomi"
+                        },
+                        "workcount": 2.0,
+                        "storycount": 61,
+                        "other_names": null,
+                        "first_name": "Raimo",
+                        "last_name": "Nikkonen",
+                        "image_attr": "",
+                        "bio": null,
+                        "bio_src": "",
+                        "imported_string": null
+                      }
+                    ],
+                    "translators": [],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 5450.0,
+                          "name": "Lempiäinen, Vesa",
+                          "alt_name": "Vesa Lempiäinen"
+                        },
+                        "role": {
+                          "id": 4,
+                          "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 5452.0,
+                          "name": "Purontakanen, Reijo",
+                          "alt_name": "Reijo Purontakanen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
+                        },
+                        "description": "",
+                        "real_person": null
+                      }
+                    ],
+                    "images": [
+                      {
+                        "id": 148,
+                        "image_src": "/static/images/books/Keskiyon_mato_Ikaalisissa_1p.jpg",
+                        "image_attr": null
+                      }
+                    ],
+                    "publisher": {
+                      "id": 360,
+                      "name": "Ursa"
+                    },
+                    "owners": [
+                      {
+                        "id": 2.0,
+                        "name": "mep"
+                      }
+                    ],
+                    "wishlisted": [],
+                    "id": 2261,
+                    "title": "Keskiyön mato Ikaalisissa",
+                    "subtitle": "",
+                    "pubyear": 1991,
+                    "editionnum": 1,
+                    "version": null,
+                    "isbn": "951-9269-57-6",
+                    "printedin": "Jyväskylä",
+                    "pubseriesnum": 16,
+                    "coll_info": "",
+                    "pages": 271,
+                    "size": 18,
+                    "dustcover": 2,
+                    "coverimage": 1,
+                    "misc": null,
+                    "imported_string": "",
+                    "verified": true
+                  }
+                ],
+                "genres": [
+                  {
+                    "id": 1,
+                    "name": "Fantasia",
+                    "abbr": "F"
+                  },
+                  {
+                    "id": 2,
+                    "name": "Kauhu",
+                    "abbr": "K"
+                  },
+                  {
+                    "id": 5,
+                    "name": "Science Fiction",
+                    "abbr": "SF"
+                  },
+                  {
+                    "id": 16,
+                    "name": "Kokoelma",
+                    "abbr": "kok"
+                  }
+                ],
+                "bookseries": null,
+                "tags": [],
+                "language_name": {
+                  "id": 7,
+                  "name": "suomi"
+                },
+                "type": 2.0,
+                "subtitle": "Portin parhaita tieteisnovelleja",
+                "pubyear": 1991,
+                "bookseriesnum": "",
+                "bookseriesorder": null,
+                "misc": "Novellit on julkaistu aikaisemmin Portti-lehdessä vuosina 1983–1990.",
+                "description": "<p>Hyytävää kauhua Kyrösjärven Ruutinkarilla! Portti-lehden parhaista novelleista on koottu herkullinen sf-kokoelma. Palkitun niminovellin on kirjoittanut dosentti S. Albert Kivinen aitoon Lovecraft-henkeen.</p>",
+                "descr_attr": null,
+                "imported_string": ""
+              }
+            ],
+            "editors": [
+              {
+                "id": 900.0,
+                "name": "Nikkonen, Raimo",
+                "alt_name": "Raimo Nikkonen",
+                "fullname": "",
+                "image_src": null,
+                "dob": null,
+                "dod": null,
+                "roles": [
+                  "Toimittaja",
+                  "Kansikuva",
+                  "Kirjoittaja"
+                ],
+                "nationality": {
+                  "id": 4,
+                  "name": "Suomi"
+                },
+                "workcount": 2.0,
+                "storycount": 61,
+                "other_names": null,
+                "first_name": "Raimo",
+                "last_name": "Nikkonen",
+                "image_attr": "",
+                "bio": null,
+                "bio_src": "",
+                "imported_string": null
+              }
+            ],
+            "contributions": [
+              {
+                "person": {
+                  "id": 5450.0,
+                  "name": "Lempiäinen, Vesa",
+                  "alt_name": "Vesa Lempiäinen"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 5452.0,
+                  "name": "Purontakanen, Reijo",
+                  "alt_name": "Reijo Purontakanen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
+                },
+                "description": "",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "id": 148,
+                "image_src": "/static/images/books/Keskiyon_mato_Ikaalisissa_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 360,
+              "name": "Ursa"
+            },
+            "owners": [
+              {
+                "id": 2.0,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "binding": {
+              "id": 2,
+              "name": "Nidottu"
+            },
+            "id": 2261,
+            "title": "Keskiyön mato Ikaalisissa",
+            "subtitle": "",
+            "pubyear": 1991,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "951-9269-57-6",
+            "printedin": "Jyväskylä",
+            "pubseriesnum": 16,
+            "coll_info": "",
+            "pages": 271,
+            "size": 18,
+            "dustcover": 2,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": "",
+            "verified": true
+          }
+        ],
+        "genres": [
+          {
+            "id": 7,
+            "name": "Utopia",
+            "abbr": "Utopia"
+          }
+        ],
+        "contributors": [
+          {
+            "person": {
+              "id": 3889.0,
+              "name": "Vainikainen, Jussi",
+              "alt_name": "Jussi Vainikainen"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 3888.0,
+              "name": "Vainikainen, Johanna",
+              "alt_name": "Johanna Vainikainen"
+            },
+            "role": {
+              "id": 2,
+              "name": "Kääntäjä"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "id": 15373,
+        "title": "Testi",
+        "orig_title": "t",
+        "pubyear": 2000
+      },
       {
         "authors": [
           {
@@ -427,19 +762,6 @@
         "contributors": [
           {
             "person": {
-              "id": 532.0,
-              "name": "Rowling, J. K.",
-              "alt_name": "J. K. Rowling"
-            },
-            "role": {
-              "id": 6,
-              "name": "Esiintyy"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
               "id": 4755.0,
               "name": "Mulari, Heta",
               "alt_name": "Heta Mulari"
@@ -447,6 +769,19 @@
             "role": {
               "id": 1,
               "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 532.0,
+              "name": "Rowling, J. K.",
+              "alt_name": "J. K. Rowling"
+            },
+            "role": {
+              "id": 6,
+              "name": "Esiintyy"
             },
             "description": "",
             "real_person": null
@@ -1772,444 +2107,6 @@
         },
         "id": 15369,
         "title": "Poika nimeltä Harry",
-        "orig_title": "",
-        "pubyear": 2008
-      },
-      {
-        "authors": [
-          {
-            "id": 2335.0,
-            "name": "Kontio, Tomi",
-            "alt_name": "Tomi Kontio",
-            "fullname": "Tomi Kalevi Kontio",
-            "image_src": null,
-            "dob": 1966.0,
-            "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
-            "nationality": {
-              "id": 4,
-              "name": "Suomi"
-            },
-            "workcount": 6.0,
-            "storycount": 1,
-            "other_names": null,
-            "first_name": "Tomi",
-            "last_name": "Kontio",
-            "image_attr": "",
-            "bio": null,
-            "bio_src": "",
-            "imported_string": null
-          }
-        ],
-        "type": {
-          "id": 7,
-          "name": "Artikkeli"
-        },
-        "issues": [],
-        "editions": [
-          {
-            "work": [
-              {
-                "id": 6932.0,
-                "title": "Kuka Harry Potter?",
-                "orig_title": "",
-                "author_str": "Kontio, Tomi & Ylimartimo, Sisko & Mulari, Heta & Oittinen, Riitta & Sinkkonen, Jari",
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 532.0,
-                      "name": "Rowling, J. K.",
-                      "alt_name": "J. K. Rowling"
-                    },
-                    "role": {
-                      "id": 6,
-                      "name": "Esiintyy"
-                    },
-                    "description": "",
-                    "real_person": null
-                  },
-                  {
-                    "person": {
-                      "id": 2335.0,
-                      "name": "Kontio, Tomi",
-                      "alt_name": "Tomi Kontio"
-                    },
-                    "role": {
-                      "id": 1,
-                      "name": "Kirjoittaja"
-                    },
-                    "description": "",
-                    "real_person": null
-                  },
-                  {
-                    "person": {
-                      "id": 4560.0,
-                      "name": "Ylimartimo, Sisko",
-                      "alt_name": "Sisko Ylimartimo"
-                    },
-                    "role": {
-                      "id": 1,
-                      "name": "Kirjoittaja"
-                    },
-                    "description": "",
-                    "real_person": null
-                  },
-                  {
-                    "person": {
-                      "id": 4755.0,
-                      "name": "Mulari, Heta",
-                      "alt_name": "Heta Mulari"
-                    },
-                    "role": {
-                      "id": 1,
-                      "name": "Kirjoittaja"
-                    },
-                    "description": "",
-                    "real_person": null
-                  },
-                  {
-                    "person": {
-                      "id": 7777.0,
-                      "name": "Oittinen, Riitta",
-                      "alt_name": "Riitta Oittinen"
-                    },
-                    "role": {
-                      "id": 1,
-                      "name": "Kirjoittaja"
-                    },
-                    "description": "",
-                    "real_person": null
-                  },
-                  {
-                    "person": {
-                      "id": 7778.0,
-                      "name": "Sinkkonen, Jari",
-                      "alt_name": "Jari Sinkkonen"
-                    },
-                    "role": {
-                      "id": 1,
-                      "name": "Kirjoittaja"
-                    },
-                    "description": "",
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 532.0,
-                          "name": "Rowling, J. K.",
-                          "alt_name": "J. K. Rowling"
-                        },
-                        "role": {
-                          "id": 6,
-                          "name": "Esiintyy"
-                        },
-                        "description": "",
-                        "real_person": null
-                      },
-                      {
-                        "person": {
-                          "id": 7779.0,
-                          "name": "Nikkanen, Jarkko",
-                          "alt_name": "Jarkko Nikkanen"
-                        },
-                        "role": {
-                          "id": 4,
-                          "name": "Kansikuva"
-                        },
-                        "description": "Kansi",
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 9417,
-                        "image_src": "/static/images/books/Kontio_Mulari_Oittinen_Kukaharrypotter_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 204,
-                      "name": "Minerva Kustannus"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 9886,
-                    "title": "Kuka Harry Potter?",
-                    "subtitle": "avain fantasian maailmaan",
-                    "pubyear": 2008,
-                    "editionnum": 1,
-                    "version": 1,
-                    "isbn": "978-952-492-117-6",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": null,
-                    "pages": 160,
-                    "size": 22,
-                    "dustcover": 1,
-                    "coverimage": 3,
-                    "misc": null,
-                    "imported_string": null,
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [
-                  {
-                    "type": {
-                      "id": 4,
-                      "name": "Toimija"
-                    },
-                    "works": [
-                      {
-                        "id": 6832
-                      },
-                      {
-                        "id": 6928
-                      },
-                      {
-                        "id": 6929
-                      },
-                      {
-                        "id": 6932
-                      }
-                    ],
-                    "articles": [
-                      {
-                        "id": 1228
-                      },
-                      {
-                        "id": 1234
-                      },
-                      {
-                        "id": 1253
-                      },
-                      {
-                        "id": 1276
-                      },
-                      {
-                        "id": 2119
-                      },
-                      {
-                        "id": 2203
-                      },
-                      {
-                        "id": 2254
-                      },
-                      {
-                        "id": 2255
-                      },
-                      {
-                        "id": 2261
-                      },
-                      {
-                        "id": 2262
-                      },
-                      {
-                        "id": 2263
-                      },
-                      {
-                        "id": 2264
-                      },
-                      {
-                        "id": 2265
-                      },
-                      {
-                        "id": 2330
-                      }
-                    ],
-                    "stories": [
-                      {
-                        "id": 10089
-                      },
-                      {
-                        "id": 10095
-                      },
-                      {
-                        "id": 10114
-                      },
-                      {
-                        "id": 10137
-                      },
-                      {
-                        "id": 10980
-                      },
-                      {
-                        "id": 11064
-                      },
-                      {
-                        "id": 11115
-                      },
-                      {
-                        "id": 11116
-                      },
-                      {
-                        "id": 11122
-                      },
-                      {
-                        "id": 11123
-                      },
-                      {
-                        "id": 11124
-                      },
-                      {
-                        "id": 11125
-                      },
-                      {
-                        "id": 11126
-                      },
-                      {
-                        "id": 11191
-                      },
-                      {
-                        "id": 10130
-                      },
-                      {
-                        "id": 15190
-                      },
-                      {
-                        "id": 15304
-                      },
-                      {
-                        "id": 15367
-                      },
-                      {
-                        "id": 15368
-                      },
-                      {
-                        "id": 15369
-                      },
-                      {
-                        "id": 15370
-                      },
-                      {
-                        "id": 15371
-                      },
-                      {
-                        "id": 15372
-                      }
-                    ],
-                    "id": 224,
-                    "name": "harry potter",
-                    "description": null
-                  }
-                ],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
-                },
-                "type": 4.0,
-                "subtitle": "avain fantasian maailmaan",
-                "pubyear": 2008,
-                "bookseriesnum": "",
-                "bookseriesorder": null,
-                "misc": "",
-                "description": null,
-                "descr_attr": "",
-                "imported_string": null
-              }
-            ],
-            "editors": [],
-            "contributions": [
-              {
-                "person": {
-                  "id": 532.0,
-                  "name": "Rowling, J. K.",
-                  "alt_name": "J. K. Rowling"
-                },
-                "role": {
-                  "id": 6,
-                  "name": "Esiintyy"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 7779.0,
-                  "name": "Nikkanen, Jarkko",
-                  "alt_name": "Jarkko Nikkanen"
-                },
-                "role": {
-                  "id": 4,
-                  "name": "Kansikuva"
-                },
-                "description": "Kansi",
-                "real_person": null
-              }
-            ],
-            "images": [
-              {
-                "id": 9417,
-                "image_src": "/static/images/books/Kontio_Mulari_Oittinen_Kukaharrypotter_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "publisher": {
-              "id": 204,
-              "name": "Minerva Kustannus"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "binding": {
-              "id": 3,
-              "name": "Sidottu"
-            },
-            "id": 9886,
-            "title": "Kuka Harry Potter?",
-            "subtitle": "avain fantasian maailmaan",
-            "pubyear": 2008,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "978-952-492-117-6",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 160,
-            "size": 22,
-            "dustcover": 1,
-            "coverimage": 3,
-            "misc": null,
-            "imported_string": null,
-            "verified": false
-          }
-        ],
-        "genres": [],
-        "contributors": [
-          {
-            "person": {
-              "id": 2335.0,
-              "name": "Kontio, Tomi",
-              "alt_name": "Tomi Kontio"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "lang": {
-          "id": 7,
-          "name": "suomi"
-        },
-        "id": 15368,
-        "title": "Kuinka kirjoittaa fantasiaa?",
         "orig_title": "",
         "pubyear": 2008
       }

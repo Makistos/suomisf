@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-28T15:57:27.046198+00:00",
+    "generated_at": "2026-02-28T17:39:29.223810+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/people/5",
@@ -10,6 +10,29 @@
   "response": {
     "status_code": 200,
     "data": [
+      {
+        "id": 7783.0,
+        "name": "Testiperson, API",
+        "alt_name": "Testiperson, API",
+        "fullname": "Testiperson, API",
+        "image_src": null,
+        "dob": 1990.0,
+        "dod": null,
+        "roles": [],
+        "nationality": {
+          "id": 1,
+          "name": "Iso-Britannia"
+        },
+        "workcount": 0.0,
+        "storycount": 0,
+        "other_names": null,
+        "first_name": "API",
+        "last_name": "Testiperson",
+        "image_attr": null,
+        "bio": null,
+        "bio_src": null,
+        "imported_string": null
+      },
       {
         "id": 7782.0,
         "name": "Nopsanen, Aarne",
@@ -102,31 +125,6 @@
         },
         "workcount": 0.0,
         "storycount": 0,
-        "other_names": "",
-        "first_name": null,
-        "last_name": null,
-        "image_attr": null,
-        "bio": "",
-        "bio_src": "",
-        "imported_string": null
-      },
-      {
-        "id": 7778.0,
-        "name": "Sinkkonen, Jari",
-        "alt_name": "Jari Sinkkonen",
-        "fullname": "",
-        "image_src": null,
-        "dob": 1951.0,
-        "dod": null,
-        "roles": [
-          "Kirjoittaja"
-        ],
-        "nationality": {
-          "id": 4,
-          "name": "Suomi"
-        },
-        "workcount": 1.0,
-        "storycount": 1,
         "other_names": "",
         "first_name": null,
         "last_name": null,

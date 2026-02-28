@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-28T15:57:27.046198+00:00",
+    "generated_at": "2026-02-28T17:39:29.223810+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/issues/92",
@@ -365,7 +365,7 @@
                 "name": "Suomi"
               },
               "workcount": 0.0,
-              "storycount": 28,
+              "storycount": 29,
               "other_names": null,
               "first_name": "Jussi",
               "last_name": "Vainikainen",
@@ -2013,19 +2013,6 @@
           "contributors": [
             {
               "person": {
-                "id": 367.0,
-                "name": "Ranta, Lasse",
-                "alt_name": "Lasse Ranta"
-              },
-              "role": {
-                "id": 1,
-                "name": "Kirjoittaja"
-              },
-              "description": "",
-              "real_person": null
-            },
-            {
-              "person": {
                 "id": 4826.0,
                 "name": "Wang, Regina Kanyu",
                 "alt_name": "Regina Kanyu Wang"
@@ -2033,6 +2020,19 @@
               "role": {
                 "id": 6,
                 "name": "Esiintyy"
+              },
+              "description": "",
+              "real_person": null
+            },
+            {
+              "person": {
+                "id": 367.0,
+                "name": "Ranta, Lasse",
+                "alt_name": "Lasse Ranta"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
               },
               "description": "",
               "real_person": null

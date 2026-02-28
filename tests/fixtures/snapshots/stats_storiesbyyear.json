@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-28T15:57:27.046198+00:00",
+    "generated_at": "2026-02-28T17:39:29.223810+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/storiesbyyear",
@@ -6079,6 +6079,14 @@
         "count": 61,
         "storytype_id": 1,
         "storytype_name": "Novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2000,
+        "count": 1,
+        "storytype_id": 3,
+        "storytype_name": "Pienoisromaani",
         "language_id": 7,
         "language_name": "suomi"
       },

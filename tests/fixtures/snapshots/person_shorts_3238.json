@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-28T15:57:27.046198+00:00",
+    "generated_at": "2026-02-28T17:39:29.223810+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/people/3238/shorts",
@@ -1116,87 +1116,9 @@
         "contributors": [
           {
             "person": {
-              "id": 274.0,
-              "name": "Peltonen, Leena",
-              "alt_name": "Leena Peltonen"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 368.0,
-              "name": "Sinisalo, Johanna",
-              "alt_name": "Johanna Sinisalo"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 570.0,
-              "name": "Sinkkonen, Marja",
-              "alt_name": "Marja Sinkkonen"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 3238.0,
-              "name": "Elo, Eija",
-              "alt_name": "Eija Elo"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 3291.0,
-              "name": "Pasanen, Sirpa",
-              "alt_name": "Sirpa Pasanen"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
               "id": 3735.0,
               "name": "Meriranta, Anetta",
               "alt_name": "Anetta Meriranta"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 4064.0,
-              "name": "Jaeger, Eeva",
-              "alt_name": "Eeva Jaeger"
             },
             "role": {
               "id": 1,
@@ -1220,9 +1142,48 @@
           },
           {
             "person": {
-              "id": 4071.0,
-              "name": "Säilä, Terhi",
-              "alt_name": "Terhi Säilä"
+              "id": 4064.0,
+              "name": "Jaeger, Eeva",
+              "alt_name": "Eeva Jaeger"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 570.0,
+              "name": "Sinkkonen, Marja",
+              "alt_name": "Marja Sinkkonen"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 274.0,
+              "name": "Peltonen, Leena",
+              "alt_name": "Leena Peltonen"
             },
             "role": {
               "id": 1,
@@ -1236,6 +1197,45 @@
               "id": 4072.0,
               "name": "Wuorinen, Kaisa",
               "alt_name": "Kaisa Wuorinen"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 4071.0,
+              "name": "Säilä, Terhi",
+              "alt_name": "Terhi Säilä"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 3291.0,
+              "name": "Pasanen, Sirpa",
+              "alt_name": "Sirpa Pasanen"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 368.0,
+              "name": "Sinisalo, Johanna",
+              "alt_name": "Johanna Sinisalo"
             },
             "role": {
               "id": 1,
@@ -1378,19 +1378,6 @@
         "contributors": [
           {
             "person": {
-              "id": 3238.0,
-              "name": "Elo, Eija",
-              "alt_name": "Eija Elo"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
               "id": 7010.0,
               "name": "Chalker, Jack L.",
               "alt_name": "Jack L. Chalker"
@@ -1398,6 +1385,19 @@
             "role": {
               "id": 6,
               "name": "Esiintyy"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 3238.0,
+              "name": "Elo, Eija",
+              "alt_name": "Eija Elo"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
             },
             "description": "",
             "real_person": null

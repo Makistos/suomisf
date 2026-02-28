@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-28T15:57:27.046198+00:00",
+    "generated_at": "2026-02-28T17:39:29.223810+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/frontpagedata",
@@ -12,7 +12,7 @@
     "data": {
       "works": 6889,
       "editions": 9808,
-      "shorts": 9287,
+      "shorts": 9288,
       "magazines": 57,
       "covers": 9120,
       "latest": [
