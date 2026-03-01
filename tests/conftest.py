@@ -135,18 +135,26 @@ def clone_test_database():
 
     # Apply migration 001 (EditionShortStory, StoryContributor)
     _apply_migration_001()
+    # Apply migration 002 (EditionContributor)
+    _apply_migration_002()
 
 
-MIGRATION_SQL = os.path.join(
+MIGRATIONS_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-    'migrations', '001_shortstory_migration.sql'
+    'migrations'
+)
+
+MIGRATION_SQL = os.path.join(MIGRATIONS_DIR, '001_shortstory_migration.sql')
+
+MIGRATION_002_SQL = os.path.join(
+    MIGRATIONS_DIR, '002_edition_contributor_migration.sql'
 )
 
 
 def _apply_migration_001():
     """Apply migration 001 SQL to the test database."""
     if not os.path.exists(MIGRATION_SQL):
-        print("[setup] Migration SQL not found, skipping")
+        print("[setup] Migration 001 SQL not found, skipping")
         return
     print("[setup] Applying migration 001...")
     result = subprocess.run(
@@ -159,6 +167,24 @@ def _apply_migration_001():
             f"Migration 001 failed: {result.stderr[:400]}"
         )
     print("[setup] Migration 001 applied")
+
+
+def _apply_migration_002():
+    """Apply migration 002 SQL to the test database."""
+    if not os.path.exists(MIGRATION_002_SQL):
+        print("[setup] Migration 002 SQL not found, skipping")
+        return
+    print("[setup] Applying migration 002...")
+    result = subprocess.run(
+        ['psql', '-U', DB_USER, '-d', TEST_DB_NAME,
+         '-f', MIGRATION_002_SQL],
+        capture_output=True, text=True
+    )
+    if result.returncode != 0:
+        raise RuntimeError(
+            f"Migration 002 failed: {result.stderr[:400]}"
+        )
+    print("[setup] Migration 002 applied")
 
 
 def create_test_users():

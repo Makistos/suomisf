@@ -4,7 +4,8 @@ from sqlalchemy import and_, or_
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.orm_decl import (
-    Part, Contributor, Edition, IssueContributor, StoryContributor
+    Part, Contributor, Edition, EditionContributor,
+    IssueContributor, StoryContributor
 )
 from app.impl import check_int, ResponseType
 from app import app
@@ -221,63 +222,69 @@ def update_short_contributors(
         session.add(sc)
 
 
+_EDITION_ROLES = frozenset({
+    ContributorType.TRANSLATOR.value,
+    ContributorType.EDITOR.value,
+    ContributorType.COVER_ARTIST.value,
+    ContributorType.ILLUSTRATOR.value,
+    ContributorType.EDITOR_IN_CHIEF.value,
+})
+
+
 def update_edition_contributors(
         session: Any,
         edition: Edition, contributors: Any) -> bool:
     """
     Updates the contributors for the given edition in the database.
 
+    Writes to the EditionContributor table (suomisf schema) which
+    stores edition-specific roles directly on the edition, without
+    going through the Part table.
+
+    Edition roles handled: translator (2), editor (3), cover artist
+    (4), illustrator (5), chief editor (7). Authors (1) and subject
+    appearances (6) are work-level and remain in the Contributor
+    table via Part.
+
     Args:
         session: A database session object.
         edition: An Edition object representing the edition to update.
-        contributors: A list of dictionaries representing the new contributors.
-            Each dictionary should have the following keys:
-            - 'person': A dictionary representing the person who contributed.
-                This dictionary should have the following keys:
-                - 'id': The ID of the person in the database.
-            - 'role': A dictionary representing the role of the contributor.
-                This dictionary should have the following keys:
-                - 'id': The ID of the role in the database.
-            - 'description': A string describing the contribution.
+        contributors: A list of dicts, each with keys:
+            - 'person': dict with 'id' (person ID)
+            - 'role': dict with 'id' (role ID, must be in 2,3,4,5,7)
+            - 'description': optional string
 
     Returns:
-        None
+        bool: True if at least one contributor was added, else False.
     """
     retval = False
-    parts = session.query(Part)\
-        .filter(Part.edition_id == edition.id)\
-        .filter(Part.shortstory_id.is_(None))\
-        .all()
-    # Create new contributors if needed
     contributors = _create_new_contributors(session, contributors)
-    for part in parts:
-        # First delete contributors that are not author or editor
-        session.query(Contributor)\
-            .filter(Contributor.part_id == part.id)\
-            .filter(and_(Contributor.role_id != ContributorType.AUTHOR.value,
-                         Contributor.role_id != ContributorType.EDITOR.value))\
-            .delete()
-        # Then add the new contributors
-        for contrib in contributors:
-            person_id = contrib['person']['id']
-            if 'role' in contrib and 'id' in contrib['role']:
-                role_id = check_int(contrib['role']['id'],
-                                    negative_values=False, zeros_allowed=False)
-            else:
-                role_id = None
-                app.logger.error('Missing or invalid role id.')
-                continue
-            if 'description' in contrib:
-                description = contrib['description']
-            else:
-                description = None
-            new_contributor = Contributor(  # type: ignore
-                part_id=part.id,
-                person_id=person_id,
-                role_id=role_id,
-                description=description)
-            session.add(new_contributor)
-            retval = True
+    edition_contribs = [
+        c for c in contributors
+        if c['role']['id'] in _EDITION_ROLES
+    ]
+    session.query(EditionContributor)\
+        .filter(EditionContributor.edition_id == edition.id)\
+        .delete()
+    session.flush()
+    for contrib in edition_contribs:
+        if 'role' not in contrib or 'id' not in contrib['role']:
+            app.logger.error('update_edition_contributors: '
+                             'missing role id')
+            continue
+        role_id = check_int(contrib['role']['id'],
+                            negative_values=False,
+                            zeros_allowed=False)
+        if not role_id:
+            continue
+        description = contrib.get('description')
+        ec = EditionContributor(
+            edition_id=edition.id,
+            person_id=contrib['person']['id'],
+            role_id=role_id,
+            description=description)
+        session.add(ec)
+        retval = True
     return retval
 
 

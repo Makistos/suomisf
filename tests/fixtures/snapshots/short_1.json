@@ -1,12 +1,7 @@
 {
-  "metadata": {
-    "generated_at": "2026-02-28T17:39:29.223810+00:00",
-    "generator": "update_snapshots.py",
-    "total_endpoints": 47,
-    "endpoint": "/api/shorts/1",
-    "method": "GET",
-    "status_code": 200
-  },
+  "generated_at": "2026-03-01T00:00:00+00:00",
+  "endpoint": "/api/shorts/1",
+  "method": "GET",
   "response": {
     "status_code": 200,
     "data": {
@@ -157,6 +152,19 @@
                   "role": {
                     "id": 2,
                     "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 732.0,
+                    "name": "Kalvas, Reijo",
+                    "alt_name": "Reijo Kalvas"
+                  },
+                  "role": {
+                    "id": 3,
+                    "name": "Toimittaja"
                   },
                   "description": null,
                   "real_person": null
@@ -338,6 +346,19 @@
                     },
                     {
                       "person": {
+                        "id": 732.0,
+                        "name": "Kalvas, Reijo",
+                        "alt_name": "Reijo Kalvas"
+                      },
+                      "role": {
+                        "id": 3,
+                        "name": "Toimittaja"
+                      },
+                      "description": null,
+                      "real_person": null
+                    },
+                    {
+                      "person": {
                         "id": 6090.0,
                         "name": "Kröger, Antero",
                         "alt_name": "Antero Kröger"
@@ -454,6 +475,19 @@
               "role": {
                 "id": 2,
                 "name": "Kääntäjä"
+              },
+              "description": null,
+              "real_person": null
+            },
+            {
+              "person": {
+                "id": 732.0,
+                "name": "Kalvas, Reijo",
+                "alt_name": "Reijo Kalvas"
+              },
+              "role": {
+                "id": 3,
+                "name": "Toimittaja"
               },
               "description": null,
               "real_person": null
@@ -695,6 +729,19 @@
                           },
                           {
                             "person": {
+                              "id": 732.0,
+                              "name": "Kalvas, Reijo",
+                              "alt_name": "Reijo Kalvas"
+                            },
+                            "role": {
+                              "id": 3,
+                              "name": "Toimittaja"
+                            },
+                            "description": null,
+                            "real_person": null
+                          },
+                          {
+                            "person": {
                               "id": 6090.0,
                               "name": "Kröger, Antero",
                               "alt_name": "Antero Kröger"
@@ -817,6 +864,19 @@
                   },
                   {
                     "person": {
+                      "id": 732.0,
+                      "name": "Kalvas, Reijo",
+                      "alt_name": "Reijo Kalvas"
+                    },
+                    "role": {
+                      "id": 3,
+                      "name": "Toimittaja"
+                    },
+                    "description": null,
+                    "real_person": null
+                  },
+                  {
+                    "person": {
                       "id": 6090.0,
                       "name": "Kröger, Antero",
                       "alt_name": "Antero Kröger"
@@ -916,7 +976,6 @@
       "title": "Robottiunta",
       "orig_title": "Robot Dreams",
       "pubyear": 1986
-    },
-    "error": null
+    }
   }
 }

@@ -97,3 +97,13 @@ FROM contributor c
 JOIN part p ON p.id = c.part_id
 WHERE p.shortstory_id IS NOT NULL
 ON CONFLICT (shortstory_id, person_id, role_id) DO NOTHING;
+
+-- ---------------------------------------------------------------
+-- 5. Grant privileges to application user
+-- ---------------------------------------------------------------
+
+GRANT SELECT ON suomisf.work_shortstory TO mep;
+GRANT SELECT, INSERT, UPDATE, DELETE
+    ON suomisf.editionshortstory TO mep;
+GRANT SELECT, INSERT, UPDATE, DELETE
+    ON suomisf.storycontributor TO mep;

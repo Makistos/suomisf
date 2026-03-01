@@ -3,7 +3,7 @@
 This document provides detailed descriptions of all API tests, including
 what they test, their parameter values, and expected behaviors.
 
-**Last Updated:** 2026-02-25
+**Last Updated:** 2026-03-01
 
 ---
 
@@ -31,6 +31,7 @@ what they test, their parameter values, and expected behaviors.
 20. [Magazine & Issue Tests (test_magazines_issues.py)](#magazine--issue-tests)
 21. [Publisher & Series Tests (test_series_publishers.py)](#publisher--series-tests)
 22. [User Tests (test_users.py)](#user-tests)
+23. [Edition Contributor Tests (test_edition_contributors.py)](#edition-contributor-tests)
 
 ---
 
@@ -58,6 +59,7 @@ what they test, their parameter values, and expected behaviors.
 | test_magazines_issues.py | Magazine & Issue endpoints (CRUD, tags, contributors) | 42 |
 | test_series_publishers.py | Publisher, PubSeries, BookSeries endpoints | 43 |
 | test_users.py | User endpoints (list, get, stats/genres) | 13 |
+| test_edition_contributors.py | EditionContributor CRUD, migration integrity | 10 |
 
 ---
 
@@ -72,6 +74,10 @@ what they test, their parameter values, and expected behaviors.
     `migrations/001_shortstory_migration.sql` to the test DB
     after cloning (creates `editionshortstory` and
     `storycontributor` tables, populates from Part data)
+  - `_apply_migration_002()`: Applies
+    `migrations/002_edition_contributor_migration.sql` to the
+    test DB after cloning (creates `editioncontributor` table,
+    populates from Contributor+Part data for roles 2,3,4,5,7)
   - `app` fixture: Patches `route_helpers.db_url` and
     `orm_decl.db_url` to use the test DB URL, and replaces
     Flask-SQLAlchemy's cached engine. This is required because
@@ -1770,3 +1776,81 @@ Tests for `GET /api/issues/{id}` stories field.
 | `test_issue_92_stories_have_required_fields` | issue_id=92 | id, title, authors in every story |
 | `test_issue_92_multi_author_story` | issue_id=92 | story 9132 has authors 3976 (Kuskelin) and 3889 (Vainikainen) |
 | `test_issue_92_issue_metadata` | issue_id=92 | id=92, year=2017, number=1, editor 367 (Ranta) |
+
+---
+
+## Edition Contributor Tests
+
+**File:** `tests/api/test_edition_contributors.py`
+**Migration:** 002 (EditionContributor)
+
+Tests for the `suomisf.editioncontributor` table that stores
+edition-specific contributor roles (translator/2, editor/3,
+cover artist/4, illustrator/5, chief editor/7) directly on
+editions, without the Part table as an intermediary.
+
+**Fixtures:**
+- `admin_client`: API client logged in as admin
+- `existing_person_id`: First Person in DB used as contributor
+- `second_person_id`: Second Person in DB (different from first)
+- `test_work_and_edition`: Creates a work+edition, yields
+  `(work_id, edition_id)`, deletes work on teardown
+
+**Helper functions:**
+- `set_edition_contributors(client, edition_id, contributors)`:
+  PUT /api/editions with updated contributors list
+- `get_edition_contributions(client, edition_id)`:
+  GET /api/editions/{id} → contributions list
+- `get_edition_editors(client, edition_id)`:
+  GET /api/editions/{id} → editors list
+- `get_edition_translators(client, edition_id)`:
+  GET /api/editions/{id} → translators list
+
+### TestEditionContributorRoles (6 tests)
+
+Tests that each edition role is written to `editioncontributor`
+and returned correctly by the API.
+
+| Test | Parameters | Assertions |
+|------|-----------|------------|
+| `test_edition_contributor_translator` | role_id=2 | PUT 200; contributions has role_id=2 with correct person |
+| `test_edition_contributor_editor` | role_id=3 | PUT 200; editors list includes person |
+| `test_edition_contributor_cover_artist` | role_id=4 | PUT 200; contributions has role_id=4 |
+| `test_edition_contributor_illustrator` | role_id=5 | PUT 200; contributions has role_id=5 |
+| `test_edition_contributor_chief_editor` | role_id=7 | PUT 200; contributions has role_id=7 |
+| `test_edition_contributor_translator_in_translators` | role_id=2 | PUT 200; translators list includes person |
+
+### TestEditionContributorUpdate (2 tests)
+
+Tests that PUT replaces existing contributor rows and that the
+description field is persisted.
+
+| Test | Parameters | Assertions |
+|------|-----------|------------|
+| `test_edition_contributor_update_replaces` | First: existing_person translator; Second: second_person cover_artist | After second PUT: translator gone, cover_artist present |
+| `test_edition_contributor_description_stored` | role_id=5, description='cover only' | description field returned unchanged |
+
+### TestCopyEditionContributors (1 test)
+
+Tests that `copy_edition()` copies EditionContributor rows.
+
+| Test | Parameters | Assertions |
+|------|-----------|------------|
+| `test_copy_edition_copies_contributors` | Original with translator+cover_artist | Copied edition contributions include both roles |
+
+### TestAuthorNotInEditionContributor (1 test)
+
+Tests that authors (role 1) are not stored in EditionContributor.
+
+| Test | Parameters | Assertions |
+|------|-----------|------------|
+| `test_edition_author_not_in_editioncontributor` | edition from fixture | editioncontributor has 0 rows with role_id=1 for edition |
+
+### TestMigrationIntegrity (1 test)
+
+Verifies that the migration SQL populated EditionContributor
+correctly from the Contributor+Part data.
+
+| Test | Parameters | Assertions |
+|------|-----------|------------|
+| `test_migration_count_matches` | All editions in DB | ec_count >= distinct(edition_id, person_id, role_id) from source |

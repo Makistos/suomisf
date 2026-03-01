@@ -1,8 +1,8 @@
 # SuomiSF API Test Coverage Report
 
-**Last Updated:** 2026-02-25
+**Last Updated:** 2026-03-01
 **Total Endpoints:** 167
-**Tested:** 589 tests (covering ~98% of endpoints)
+**Tested:** 599 tests (covering ~98% of endpoints)
 **Pending:** ~10 endpoints (complex write operations)
 **Snapshot Tests:** 40 (data validation against golden database)
 
@@ -26,7 +26,7 @@
 | Authentication | 3 | 33 | Login, auth checks, write operation auth |
 | Users | 3 | 13 | Entity, stats/genres tests |
 | Works | 19 | 45 | Entity, related, auth, omnibus, tags, types tests |
-| Editions | 22 | 46 | Entity, related, auth, wishlist, images tests (2 xfail) |
+| Editions | 22 | 56 | Entity, related, auth, wishlist, images, contributors tests (2 xfail) |
 | People | 15 | 16 | Entity, filter, related tests |
 | Short Stories | 10 | 35 | Entity, search, auth, type field, CRUD with types |
 | Magazines | 6 | 13 | Entity, auth, update tests |
@@ -40,7 +40,7 @@
 | Search & Filter | 5 | 10 | Works/Shorts search |
 | Miscellaneous | 12 | 36 | Full coverage |
 | Articles | 4 | 0 | Endpoint deprecated |
-| **TOTAL** | **167** | **370** | **5 xfails (known bugs)** |
+| **TOTAL** | **167** | **380** | **5 xfails (known bugs)** |
 
 ---
 
@@ -92,9 +92,9 @@
 |--------|--------|----------|------|---------------|----------|
 | :white_check_mark: | GET | `/api/editions/<editionid>` | None | `test_entities.py::TestEditions` | 2026-02-14 |
 | :white_check_mark: | POST | `/api/editions` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
-| :white_check_mark: | PUT | `/api/editions` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
+| :white_check_mark: | PUT | `/api/editions` | Admin | `test_auth.py::TestWriteOperationsRequireAuth`, `test_edition_contributors.py::TestEditionContributorRoles`, `TestEditionContributorUpdate` | 2026-03-01 |
 | :white_check_mark: | DELETE | `/api/editions/<editionid>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
-| :white_check_mark: | POST | `/api/editions/<editionid>/copy` | Admin | `test_editions.py::TestEditionCopy` | 2026-02-14 |
+| :white_check_mark: | POST | `/api/editions/<editionid>/copy` | Admin | `test_editions.py::TestEditionCopy`, `test_edition_contributors.py::TestCopyEditionContributors` | 2026-03-01 |
 | :white_check_mark: | POST | `/api/editions/<editionid>/images` | Admin | `test_editions_extra.py::TestEditionImages` | 2026-02-17 |
 | :white_check_mark: | DELETE | `/api/editions/<editionid>/images/<imageid>` | Admin | `test_editions_extra.py::TestEditionImages` | 2026-02-17 |
 | :white_check_mark: | GET | `/api/editions/<edition_id>/changes` | None | `test_editions_extra.py::TestEditionChanges` | 2026-02-17 |

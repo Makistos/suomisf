@@ -5,7 +5,8 @@ from app import ma
 from app.orm_decl import (Article, Award, AwardCategory, Awarded, BindingType,
                           BookCondition, BookseriesLink,
                           Bookseries, Contributor, ContributorRole, Country,
-                          Edition, EditionImage, Genre, Issue, Language, Log,
+                          Edition, EditionContributor, EditionImage,
+                          Genre, Issue, Language, Log,
                           Magazine, Omnibus, Person, PersonLink,
                           PublicationSize,
                           Publisher, PublisherLink, Pubseries, ShortStory,
@@ -225,6 +226,19 @@ class WorkContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     real_person = fields.Nested(lambda: PersonBriefSchema(only=('id', 'name')))
 
 
+class EditionContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Edition contributor schema (roles 2,3,4,5,7). """
+    class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
+        model = EditionContributor
+        exclude = ('edition_id',)
+    person = fields.Nested(PersonBriefSchema(only=('id', 'name', 'alt_name')))
+    role = fields.Nested(ContributorRoleSchema)
+    description = fields.String()
+    real_person = fields.Nested(
+        lambda: PersonBriefSchema(only=('id', 'name')))
+
+
 class WorkEditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     """ Work edition schema. """
     class Meta:
@@ -232,7 +246,7 @@ class WorkEditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         model = Edition
     editors = ma.List(fields.Nested(PersonBriefSchema))
     translators = ma.List(fields.Nested(PersonBriefSchema))
-    contributions = ma.List(fields.Nested(WorkContributorSchema))
+    contributions = ma.List(fields.Nested(EditionContributorSchema))
     images = ma.List(fields.Nested(EditionImageBriefSchema))
     publisher = fields.Nested(lambda: PublisherSchema(only=('id', 'name')))
     Language = fields.Nested(lambda: LanguageSchema(only=('id', 'name')))
@@ -289,7 +303,7 @@ class EditionImageSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 
 
 class EditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
-    """ Edition schema with work, editors, contributions and  images
+    """ Edition schema with work, editors, contributions and images
     relationships.
     """
     class Meta:
@@ -297,7 +311,7 @@ class EditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         model = Edition
     work = ma.List(fields.Nested(WorkBriefSchema))
     editors = ma.List(fields.Nested(PersonBriefSchema))
-    contributions = ma.List(fields.Nested(WorkContributorSchema))
+    contributions = ma.List(fields.Nested(EditionContributorSchema))
     images = ma.List(fields.Nested(EditionImageBriefSchema))
     publisher = fields.Nested(lambda: PublisherSchema(only=('id', 'name')))
     owners = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
@@ -544,7 +558,7 @@ class EditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     binding = fields.Nested(BindingBriefSchema)
     format = fields.Nested(FormatBriefSchema)
     editors = ma.List(fields.Nested(PersonBriefSchema))
-    contributions = ma.List(fields.Nested(ContributorSchema))
+    contributions = ma.List(fields.Nested(EditionContributorSchema))
     owners = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
     wishlisted = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
 

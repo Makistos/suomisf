@@ -14,6 +14,7 @@ from app.isbn import check_isbn  # type: ignore
 from app.orm_decl import (
     BookCondition,
     Edition,
+    EditionContributor,
     EditionShortStory,
     Part,
     User,
@@ -752,6 +753,9 @@ def delete_edition(session: Any, edition_id: int) -> bool:  # noqa: C901
         session.query(EditionPrice).filter(
             EditionPrice.edition_id == edition_id
         ).delete()
+        session.query(EditionContributor).filter(
+            EditionContributor.edition_id == edition_id
+        ).delete()
         session.query(Edition).filter(Edition.id == edition_id).delete()
     except SQLAlchemyError as exp:
         app.logger.error("delete_edition: " + str(exp))
@@ -1485,7 +1489,11 @@ def copy_edition(edition_id: int) -> ResponseType:
         session.add(new_edition)
         session.flush()  # Get the new edition ID
 
-        # Create new parts based on original parts
+        # Create new parts based on original parts.
+        # Only work-level contributors (authors, role 1) are
+        # copied from Parts; edition contributors (roles 2,3,4,5,7)
+        # are now stored in EditionContributor and copied separately.
+        work_level_roles = {1, 6}
         for original_part in original_edition.parts:
             new_part = Part(
                 edition_id=new_edition.id,
@@ -1497,8 +1505,11 @@ def copy_edition(edition_id: int) -> ResponseType:
             session.add(new_part)
             session.flush()  # Get the new part ID
 
-            # Copy contributors for this part
-            contributors = session.query(Contributor).filter_by(part_id=original_part.id).all()
+            # Copy only work-level contributors from Part
+            contributors = session.query(Contributor)\
+                .filter_by(part_id=original_part.id)\
+                .filter(Contributor.role_id.in_(work_level_roles))\
+                .all()
             for original_contributor in contributors:
                 new_contributor = Contributor(
                     part_id=new_part.id,
@@ -1508,6 +1519,19 @@ def copy_edition(edition_id: int) -> ResponseType:
                     description=original_contributor.description
                 )
                 session.add(new_contributor)
+
+        # Copy edition contributors (roles 2,3,4,5,7)
+        original_ecs = session.query(EditionContributor)\
+            .filter_by(edition_id=edition_id).all()
+        for original_ec in original_ecs:
+            new_ec = EditionContributor(
+                edition_id=new_edition.id,
+                person_id=original_ec.person_id,
+                role_id=original_ec.role_id,
+                real_person_id=original_ec.real_person_id,
+                description=original_ec.description
+            )
+            session.add(new_ec)
 
         # Copy edition short story links
         original_shorts = session.query(EditionShortStory)\

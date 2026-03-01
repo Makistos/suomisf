@@ -363,6 +363,24 @@ class Contributor(Base):
     real_person = relationship('Person', foreign_keys=[real_person_id])
 
 
+class EditionContributor(Base):
+    """ Dedicated contributor table for editions. """
+    __tablename__ = 'editioncontributor'
+    __table_args__ = {'schema': 'suomisf'}
+    edition_id = Column(Integer, ForeignKey('edition.id'),
+                        nullable=False, primary_key=True)
+    person_id = Column(Integer, ForeignKey('person.id'),
+                       nullable=False, primary_key=True)
+    role_id = Column(Integer, ForeignKey('contributorrole.id'),
+                     nullable=False, primary_key=True)
+    real_person_id = Column(Integer, ForeignKey('person.id'))
+    description = Column(String(50))
+    person = relationship('Person', foreign_keys=[person_id])
+    role = relationship('ContributorRole', viewonly=True)
+    real_person = relationship(
+        'Person', foreign_keys=[real_person_id])
+
+
 class StoryContributor(Base):
     """ Dedicated contributor table for short stories. """
     __tablename__ = 'storycontributor'
@@ -427,36 +445,29 @@ class Edition(Base):
     verified = Column(Boolean, default=False)
     parts = relationship('Part', backref=backref('parts_lookup'),
                          uselist=True, viewonly=True)
-    # editors = relationship('Person', secondary='editor',
-    #                        uselist=True, viewonly=True)
     editors = relationship(
-        "Person",
-        secondary='join(Part, Contributor, Part.id == \
-         Contributor.part_id)',
-        primaryjoin='and_(Person.id == Contributor.person_id,\
-         Contributor.part_id == Part.id, Contributor.role_id == 3, \
-         Part.edition_id == Edition.id)',
-        uselist=True, viewonly=True,
-        foreign_keys=[Contributor.person_id,
-                      Contributor.part_id,
-                      Contributor.role_id])
+        'Person',
+        secondary='suomisf.editioncontributor',
+        primaryjoin='and_(Edition.id == '
+                    'foreign(EditionContributor.edition_id),'
+                    ' EditionContributor.role_id == 3)',
+        secondaryjoin='foreign(EditionContributor.person_id)'
+                      ' == Person.id',
+        uselist=True, viewonly=True)
     translators = relationship(
-        "Person",
-        secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
-        primaryjoin='and_(Person.id == Contributor.person_id,\
-         Contributor.part_id == Part.id, Contributor.role_id == 2, \
-         Part.edition_id == Edition.id)',
-        uselist=True, viewonly=True,
-        foreign_keys=[Contributor.person_id,
-                      Contributor.part_id,
-                      Contributor.role_id])
+        'Person',
+        secondary='suomisf.editioncontributor',
+        primaryjoin='and_(Edition.id == '
+                    'foreign(EditionContributor.edition_id),'
+                    ' EditionContributor.role_id == 2)',
+        secondaryjoin='foreign(EditionContributor.person_id)'
+                      ' == Person.id',
+        uselist=True, viewonly=True)
     work = relationship('Work', secondary='part', uselist=True, viewonly=True)
     contributions = relationship(
-        'Contributor',
-        secondary='part',
-        primaryjoin='and_(Part.edition_id == Edition.id, \
-            Part.shortstory_id == None, Contributor.role_id != 1, \
-            Contributor.role_id != 3)',
+        'EditionContributor',
+        primaryjoin='EditionContributor.edition_id == Edition.id',
+        foreign_keys='EditionContributor.edition_id',
         uselist=True, viewonly=True)
 
     # publisher = relationship("Publisher", backref=backref('publisher_lookup',

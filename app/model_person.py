@@ -40,7 +40,6 @@ class PersonPageContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     description = fields.String(allow_none=True)
     real_person = fields.Nested(PersonPageBriefSchema)
     work_id = fields.Int(allow_none=True)
-    edition_id = fields.Int(allow_none=True)
     story_id = fields.Int(allow_none=True)
 
 
