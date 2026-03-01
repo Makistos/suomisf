@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-28T17:39:29.223810+00:00",
+    "generated_at": "2026-03-01T19:29:52.232592+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/works/shorts/171",
@@ -97,7 +97,21 @@
                       }
                     ],
                     "translators": [],
-                    "contributions": [],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 128.0,
+                          "name": "Väisänen, Helena",
+                          "alt_name": "Helena Väisänen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      }
+                    ],
                     "images": [
                       {
                         "id": 2283,
@@ -187,7 +201,21 @@
                 "imported_string": null
               }
             ],
-            "contributions": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 128.0,
+                  "name": "Väisänen, Helena",
+                  "alt_name": "Helena Väisänen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              }
+            ],
             "images": [
               {
                 "id": 2283,
@@ -462,7 +490,21 @@
                       }
                     ],
                     "translators": [],
-                    "contributions": [],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 128.0,
+                          "name": "Väisänen, Helena",
+                          "alt_name": "Helena Väisänen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      }
+                    ],
                     "images": [
                       {
                         "id": 2283,
@@ -552,7 +594,21 @@
                 "imported_string": null
               }
             ],
-            "contributions": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 128.0,
+                  "name": "Väisänen, Helena",
+                  "alt_name": "Helena Väisänen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              }
+            ],
             "images": [
               {
                 "id": 2283,
@@ -701,7 +757,21 @@
                       }
                     ],
                     "translators": [],
-                    "contributions": [],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 128.0,
+                          "name": "Väisänen, Helena",
+                          "alt_name": "Helena Väisänen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      }
+                    ],
                     "images": [
                       {
                         "id": 2283,
@@ -791,7 +861,21 @@
                 "imported_string": null
               }
             ],
-            "contributions": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 128.0,
+                  "name": "Väisänen, Helena",
+                  "alt_name": "Helena Väisänen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              }
+            ],
             "images": [
               {
                 "id": 2283,
@@ -940,7 +1024,21 @@
                       }
                     ],
                     "translators": [],
-                    "contributions": [],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 128.0,
+                          "name": "Väisänen, Helena",
+                          "alt_name": "Helena Väisänen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      }
+                    ],
                     "images": [
                       {
                         "id": 2283,
@@ -1030,7 +1128,21 @@
                 "imported_string": null
               }
             ],
-            "contributions": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 128.0,
+                  "name": "Väisänen, Helena",
+                  "alt_name": "Helena Väisänen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              }
+            ],
             "images": [
               {
                 "id": 2283,
@@ -1179,7 +1291,21 @@
                       }
                     ],
                     "translators": [],
-                    "contributions": [],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 128.0,
+                          "name": "Väisänen, Helena",
+                          "alt_name": "Helena Väisänen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      }
+                    ],
                     "images": [
                       {
                         "id": 2283,
@@ -1269,7 +1395,21 @@
                 "imported_string": null
               }
             ],
-            "contributions": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 128.0,
+                  "name": "Väisänen, Helena",
+                  "alt_name": "Helena Väisänen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              }
+            ],
             "images": [
               {
                 "id": 2283,
@@ -1418,7 +1558,21 @@
                       }
                     ],
                     "translators": [],
-                    "contributions": [],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 128.0,
+                          "name": "Väisänen, Helena",
+                          "alt_name": "Helena Väisänen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      }
+                    ],
                     "images": [
                       {
                         "id": 2283,
@@ -1508,7 +1662,21 @@
                 "imported_string": null
               }
             ],
-            "contributions": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 128.0,
+                  "name": "Väisänen, Helena",
+                  "alt_name": "Helena Väisänen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              }
+            ],
             "images": [
               {
                 "id": 2283,
@@ -1657,7 +1825,21 @@
                       }
                     ],
                     "translators": [],
-                    "contributions": [],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 128.0,
+                          "name": "Väisänen, Helena",
+                          "alt_name": "Helena Väisänen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      }
+                    ],
                     "images": [
                       {
                         "id": 2283,
@@ -1747,7 +1929,21 @@
                 "imported_string": null
               }
             ],
-            "contributions": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 128.0,
+                  "name": "Väisänen, Helena",
+                  "alt_name": "Helena Väisänen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              }
+            ],
             "images": [
               {
                 "id": 2283,
@@ -1896,7 +2092,21 @@
                       }
                     ],
                     "translators": [],
-                    "contributions": [],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 128.0,
+                          "name": "Väisänen, Helena",
+                          "alt_name": "Helena Väisänen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      }
+                    ],
                     "images": [
                       {
                         "id": 2283,
@@ -1986,7 +2196,21 @@
                 "imported_string": null
               }
             ],
-            "contributions": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 128.0,
+                  "name": "Väisänen, Helena",
+                  "alt_name": "Helena Väisänen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              }
+            ],
             "images": [
               {
                 "id": 2283,
@@ -2138,7 +2362,21 @@
                       }
                     ],
                     "translators": [],
-                    "contributions": [],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 128.0,
+                          "name": "Väisänen, Helena",
+                          "alt_name": "Helena Väisänen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      }
+                    ],
                     "images": [
                       {
                         "id": 2283,
@@ -2228,7 +2466,21 @@
                 "imported_string": null
               }
             ],
-            "contributions": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 128.0,
+                  "name": "Väisänen, Helena",
+                  "alt_name": "Helena Väisänen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              }
+            ],
             "images": [
               {
                 "id": 2283,
@@ -2377,7 +2629,21 @@
                       }
                     ],
                     "translators": [],
-                    "contributions": [],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 128.0,
+                          "name": "Väisänen, Helena",
+                          "alt_name": "Helena Väisänen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      }
+                    ],
                     "images": [
                       {
                         "id": 2283,
@@ -2467,7 +2733,21 @@
                 "imported_string": null
               }
             ],
-            "contributions": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 128.0,
+                  "name": "Väisänen, Helena",
+                  "alt_name": "Helena Väisänen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              }
+            ],
             "images": [
               {
                 "id": 2283,
@@ -2619,7 +2899,21 @@
                       }
                     ],
                     "translators": [],
-                    "contributions": [],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 128.0,
+                          "name": "Väisänen, Helena",
+                          "alt_name": "Helena Väisänen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      }
+                    ],
                     "images": [
                       {
                         "id": 2283,
@@ -2709,7 +3003,21 @@
                 "imported_string": null
               }
             ],
-            "contributions": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 128.0,
+                  "name": "Väisänen, Helena",
+                  "alt_name": "Helena Väisänen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              }
+            ],
             "images": [
               {
                 "id": 2283,
@@ -2859,7 +3167,21 @@
                       }
                     ],
                     "translators": [],
-                    "contributions": [],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 128.0,
+                          "name": "Väisänen, Helena",
+                          "alt_name": "Helena Väisänen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      }
+                    ],
                     "images": [
                       {
                         "id": 2283,
@@ -2949,7 +3271,21 @@
                 "imported_string": null
               }
             ],
-            "contributions": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 128.0,
+                  "name": "Väisänen, Helena",
+                  "alt_name": "Helena Väisänen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              }
+            ],
             "images": [
               {
                 "id": 2283,

@@ -5,7 +5,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from app.orm_decl import (
     Part, Contributor, Edition, EditionContributor,
-    IssueContributor, StoryContributor
+    IssueContributor, StoryContributor, WorkContributor
 )
 from app.impl import check_int, ResponseType
 from app import app
@@ -230,6 +230,12 @@ _EDITION_ROLES = frozenset({
     ContributorType.EDITOR_IN_CHIEF.value,
 })
 
+_WORK_ROLES = frozenset({
+    ContributorType.AUTHOR.value,
+    ContributorType.EDITOR.value,
+    ContributorType.SUBJECT.value,
+})
+
 
 def update_edition_contributors(
         session: Any,
@@ -295,22 +301,52 @@ def update_work_contributors(
     """
     Updates the contributors of a work in the database.
 
+    Writes to the WorkContributor table (suomisf schema) which
+    stores work-specific roles directly on the work, without
+    going through the Part table.
+
+    Work roles handled: author (1), editor (3), subject/
+    appears-in (6).
+
     Args:
         session: The database session.
         work_id: The ID of the work to update.
-        contributors: The list of contributors to update the work with.
+        contributors: A list of dicts, each with keys:
+            - 'person': dict with 'id' (person ID)
+            - 'role': dict with 'id' (role ID, must be in 1,3,6)
+            - 'description': optional string
+
+    Returns:
+        bool: True if at least one contributor was added.
     """
     retval = False
-    parts = session.query(Part)\
-        .filter(Part.work_id == work_id)\
-        .filter(Part.shortstory_id.is_(None)) \
-        .all()
-    # Create new contributors if needed
     contributors = _create_new_contributors(session, contributors)
-    for part in parts:
-        _update_part_contributors(session, part.id, contributors,
-                                  ContributorTarget.WORK)
-
+    work_contribs = [
+        c for c in contributors
+        if c['role']['id'] in _WORK_ROLES
+    ]
+    session.query(WorkContributor)\
+        .filter(WorkContributor.work_id == work_id)\
+        .delete()
+    session.flush()
+    for contrib in work_contribs:
+        if 'role' not in contrib or 'id' not in contrib['role']:
+            app.logger.error('update_work_contributors: '
+                             'missing role id')
+            continue
+        role_id = check_int(contrib['role']['id'],
+                            negative_values=False,
+                            zeros_allowed=False)
+        if not role_id:
+            continue
+        description = contrib.get('description')
+        wc = WorkContributor(
+            work_id=work_id,
+            person_id=contrib['person']['id'],
+            role_id=role_id,
+            description=description)
+        session.add(wc)
+        retval = True
     return retval
 
 
@@ -352,58 +388,30 @@ def get_contributors_string(contributors: Any,
 
 def get_work_contributors(session: Any, work_id: int) -> Any:
     """
-    Returns a list of dictionaries representing the contributors of a work.
+    Returns a list of dictionaries representing the contributors
+    of a work.
 
     Args:
         session: The database session.
         work_id: The ID of the work to get the contributors of.
 
     Returns:
-        A list of dictionaries representing the contributors of the work.
-        Each dictionary should have the following keys:
-        - 'person': A dictionary representing the person who contributed.
-            This dictionary should have the following keys:
-            - 'id': The ID of the person in the database.
-            - 'name
-        - 'role': A dictionary representing the role of the contributor.
-            This dictionary should have the following keys:
-            - 'id': The ID of the role in the database.
-            - 'name'
-        - 'description': A string describing the contribution.
+        A list of dicts, each with keys:
+        - 'person': {'id': int, 'name': str}
+        - 'role': {'id': int, 'name': str}
+        - 'description': str
     """
-    contributors = session.query(Contributor)\
-        .join(Part)\
-        .filter(Contributor.part_id == Part.id)\
-        .filter(Part.work_id == work_id)\
-        .filter(Part.shortstory_id.is_(None))\
-        .filter(or_(Contributor.role_id == ContributorType.AUTHOR,
-                    Contributor.role_id == ContributorType.EDITOR))\
-        .distinct()\
+    contributors = session.query(WorkContributor)\
+        .filter(WorkContributor.work_id == work_id)\
         .all()
     retval: List[Dict[Any, Any]] = []
-    # Remove duplicates (distinct isn't enough as it does not combine people in
-    # different editions)
     for contrib in contributors:
-        found = False
-        for contrib2 in retval:
-            desc1 = contrib.description if contrib.description else ''
-            desc2 = contrib2['description'] if contrib2['description'] else ''
-            if (contrib.person_id == contrib2['person']['id'] and
-                    contrib.role_id == contrib2['role']['id'] and
-                    desc1 == desc2):
-                found = True
-            if (contrib.person_id == contrib2['person']['id'] and
-                    contrib.role_id == contrib2['role']['id'] and
-                    contrib.description == contrib2['description']):
-                found = True
-        if not found:
-            c = {'person': {'id': contrib.person_id,
-                            'name': contrib.person.name},
-                 'role': {'id': contrib.role_id,
-                          'name': contrib.role.name},
-                 'description': contrib.description}
-            retval.append(c)
-
+        c = {'person': {'id': contrib.person_id,
+                        'name': contrib.person.name},
+             'role': {'id': contrib.role_id,
+                      'name': contrib.role.name},
+             'description': contrib.description}
+        retval.append(c)
     return retval
 
 

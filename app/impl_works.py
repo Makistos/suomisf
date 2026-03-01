@@ -14,7 +14,8 @@ from app.impl import (ResponseType, SearchResult,
                       SearchResultFields, searchscore, set_language, check_int,
                       get_join_changes)
 from app.orm_decl import (Edition, EditionShortStory, Genre, Omnibus, Part,
-                          Tag, Work, WorkType, WorkTag, WorkGenre, WorkLink,
+                          Tag, Work, WorkContributor, WorkType, WorkTag,
+                          WorkGenre, WorkLink,
                           Bookseries, ShortStory, Contributor, Person)
 from app.model import (OmnibusSchema, WorkBriefSchema, WorkTypeBriefSchema,
                        ShortBriefSchema)
@@ -280,22 +281,9 @@ def get_work(work_id: int) -> ResponseType:
         return ResponseType('Teosta ei löytynyt. id={id}.',
                             HttpResponseCode.NOT_FOUND.value)
     try:
+        work.contributions = sorted(
+            work.contributions, key=lambda x: x.role.id)
         contributions: List[Any] = []
-        # Remove duplicates
-        for contributor in work.contributions:
-            already_added = False
-            for contribution in contributions:
-                if (contribution.person_id == contributor.person_id and
-                    contribution.role_id == contributor.role_id and
-                    contribution.real_person_id == contributor.real_person_id
-                    and not str_differ(contribution.description,
-                                       contributor.description)):
-                    already_added = True
-            if not already_added:
-                contributions.append(contributor)
-        contributions.sort(key=lambda x: x.role.id)
-        work.contributions = contributions
-        contributions = []
         for short in work.stories:
             for contributor in short.contributors:
                 already_added = False
@@ -1221,6 +1209,8 @@ def work_delete(work_id: int) -> ResponseType:
         session.query(WorkGenre).filter(WorkGenre.work_id == work_id).delete()
         session.query(WorkTag).filter(WorkTag.work_id == work_id).delete()
         session.query(WorkLink).filter(WorkLink.work_id == work_id).delete()
+        session.query(WorkContributor)\
+            .filter(WorkContributor.work_id == work_id).delete()
         session.query(Work).filter(Work.id == work_id).delete()
     except SQLAlchemyError as exp:
         session.rollback()

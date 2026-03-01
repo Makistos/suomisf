@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-28T17:39:29.223810+00:00",
+    "generated_at": "2026-03-01T19:29:52.232592+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/shorts/5",
@@ -79,9 +79,9 @@
                         "dob": null,
                         "dod": null,
                         "roles": [
+                          "Kirjoittaja",
                           "Toimittaja",
-                          "Kansikuva",
-                          "Kirjoittaja"
+                          "Kansikuva"
                         ],
                         "nationality": {
                           "id": 4,
@@ -111,6 +111,19 @@
                           "name": "Kansikuva"
                         },
                         "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -213,9 +226,9 @@
                 "dob": null,
                 "dod": null,
                 "roles": [
+                  "Kirjoittaja",
                   "Toimittaja",
-                  "Kansikuva",
-                  "Kirjoittaja"
+                  "Kansikuva"
                 ],
                 "nationality": {
                   "id": 4,
@@ -244,6 +257,19 @@
                   "name": "Kansikuva"
                 },
                 "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
                 "real_person": null
               },
               {
@@ -473,19 +499,6 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 532.0,
-                          "name": "Rowling, J. K.",
-                          "alt_name": "J. K. Rowling"
-                        },
-                        "role": {
-                          "id": 6,
-                          "name": "Esiintyy"
-                        },
-                        "description": "",
-                        "real_person": null
-                      },
-                      {
-                        "person": {
                           "id": 7779.0,
                           "name": "Nikkanen, Jarkko",
                           "alt_name": "Jarkko Nikkanen"
@@ -695,19 +708,6 @@
             ],
             "editors": [],
             "contributions": [
-              {
-                "person": {
-                  "id": 532.0,
-                  "name": "Rowling, J. K.",
-                  "alt_name": "J. K. Rowling"
-                },
-                "role": {
-                  "id": 6,
-                  "name": "Esiintyy"
-                },
-                "description": "",
-                "real_person": null
-              },
               {
                 "person": {
                   "id": 7779.0,
@@ -924,19 +924,6 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 532.0,
-                          "name": "Rowling, J. K.",
-                          "alt_name": "J. K. Rowling"
-                        },
-                        "role": {
-                          "id": 6,
-                          "name": "Esiintyy"
-                        },
-                        "description": "",
-                        "real_person": null
-                      },
-                      {
-                        "person": {
                           "id": 7779.0,
                           "name": "Nikkanen, Jarkko",
                           "alt_name": "Jarkko Nikkanen"
@@ -1146,19 +1133,6 @@
             ],
             "editors": [],
             "contributions": [
-              {
-                "person": {
-                  "id": 532.0,
-                  "name": "Rowling, J. K.",
-                  "alt_name": "J. K. Rowling"
-                },
-                "role": {
-                  "id": 6,
-                  "name": "Esiintyy"
-                },
-                "description": "",
-                "real_person": null
-              },
               {
                 "person": {
                   "id": 7779.0,
@@ -1362,19 +1336,6 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 532.0,
-                          "name": "Rowling, J. K.",
-                          "alt_name": "J. K. Rowling"
-                        },
-                        "role": {
-                          "id": 6,
-                          "name": "Esiintyy"
-                        },
-                        "description": "",
-                        "real_person": null
-                      },
-                      {
-                        "person": {
                           "id": 7779.0,
                           "name": "Nikkanen, Jarkko",
                           "alt_name": "Jarkko Nikkanen"
@@ -1584,19 +1545,6 @@
             ],
             "editors": [],
             "contributions": [
-              {
-                "person": {
-                  "id": 532.0,
-                  "name": "Rowling, J. K.",
-                  "alt_name": "J. K. Rowling"
-                },
-                "role": {
-                  "id": 6,
-                  "name": "Esiintyy"
-                },
-                "description": "",
-                "real_person": null
-              },
               {
                 "person": {
                   "id": 7779.0,
@@ -1800,19 +1748,6 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 532.0,
-                          "name": "Rowling, J. K.",
-                          "alt_name": "J. K. Rowling"
-                        },
-                        "role": {
-                          "id": 6,
-                          "name": "Esiintyy"
-                        },
-                        "description": "",
-                        "real_person": null
-                      },
-                      {
-                        "person": {
                           "id": 7779.0,
                           "name": "Nikkanen, Jarkko",
                           "alt_name": "Jarkko Nikkanen"
@@ -2022,19 +1957,6 @@
             ],
             "editors": [],
             "contributions": [
-              {
-                "person": {
-                  "id": 532.0,
-                  "name": "Rowling, J. K.",
-                  "alt_name": "J. K. Rowling"
-                },
-                "role": {
-                  "id": 6,
-                  "name": "Esiintyy"
-                },
-                "description": "",
-                "real_person": null
-              },
               {
                 "person": {
                   "id": 7779.0,

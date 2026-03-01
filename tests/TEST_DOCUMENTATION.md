@@ -32,6 +32,7 @@ what they test, their parameter values, and expected behaviors.
 21. [Publisher & Series Tests (test_series_publishers.py)](#publisher--series-tests)
 22. [User Tests (test_users.py)](#user-tests)
 23. [Edition Contributor Tests (test_edition_contributors.py)](#edition-contributor-tests)
+24. [Work Contributor Tests (test_work_contributors.py)](#work-contributor-tests)
 
 ---
 
@@ -60,6 +61,7 @@ what they test, their parameter values, and expected behaviors.
 | test_series_publishers.py | Publisher, PubSeries, BookSeries endpoints | 43 |
 | test_users.py | User endpoints (list, get, stats/genres) | 13 |
 | test_edition_contributors.py | EditionContributor CRUD, migration integrity | 10 |
+| test_work_contributors.py | WorkContributor CRUD, migration integrity | 9 |
 
 ---
 
@@ -1854,3 +1856,61 @@ correctly from the Contributor+Part data.
 | Test | Parameters | Assertions |
 |------|-----------|------------|
 | `test_migration_count_matches` | All editions in DB | ec_count >= distinct(edition_id, person_id, role_id) from source |
+
+---
+
+## Work Contributor Tests
+
+**File:** `tests/api/test_work_contributors.py`
+
+Tests for the `WorkContributor` table introduced by Migration 003.
+Work contributors (author/1, editor/3, appears-in/6) are now stored
+directly on the work, eliminating Part indirection and the duplicate
+deduplication workaround in `get_work()`.
+
+### TestWorkContributorRoles (4 tests)
+
+Tests that each work-specific role is stored in WorkContributor
+and returned in the contributions response.
+
+| Test | Parameters | Assertions |
+|------|-----------|------------|
+| `test_work_contributor_author` | role_id=1 | PUT 200; contributions has role_id=1 |
+| `test_work_contributor_editor` | role_id=3 | PUT 200; contributions has role_id=3 |
+| `test_work_contributor_subject` | role_id=6 | PUT 200; contributions has role_id=6 |
+| `test_work_contributor_in_response` | role_id=1 | contributions is list with person/role/description keys |
+
+### TestWorkContributorUpdate (2 tests)
+
+Tests that PUT replaces existing contributor rows and that the
+description field is persisted.
+
+| Test | Parameters | Assertions |
+|------|-----------|------------|
+| `test_work_contributor_update_replaces` | First: existing_person author; Second: second_person editor | After second PUT: author gone, editor present |
+| `test_work_contributor_description_stored` | role_id=6, description='biography chapter' | description field returned unchanged |
+
+### TestWorkContributorNoDuplicates (1 test)
+
+Tests that WorkContributor rows contain no duplicates.
+
+| Test | Parameters | Assertions |
+|------|-----------|------------|
+| `test_work_no_duplicate_contributors` | role_id=1, existing_person_id | exactly 1 author entry in contributions |
+
+### TestAuthorInWorkContributor (1 test)
+
+Verifies that work authors (role 1) are stored in WorkContributor.
+
+| Test | Parameters | Assertions |
+|------|-----------|------------|
+| `test_author_in_workcontributor` | work from fixture, role_id=1 | workcontributor has exactly 1 row with role_id=1 |
+
+### TestWorkMigrationIntegrity (1 test)
+
+Verifies that the migration SQL populated WorkContributor correctly
+from the Contributor+Part data.
+
+| Test | Parameters | Assertions |
+|------|-----------|------------|
+| `test_migration_count_matches` | All works in DB | wc_count >= distinct(work_id, person_id, role_id) from source |

@@ -137,6 +137,8 @@ def clone_test_database():
     _apply_migration_001()
     # Apply migration 002 (EditionContributor)
     _apply_migration_002()
+    # Apply migration 003 (WorkContributor)
+    _apply_migration_003()
 
 
 MIGRATIONS_DIR = os.path.join(
@@ -148,6 +150,10 @@ MIGRATION_SQL = os.path.join(MIGRATIONS_DIR, '001_shortstory_migration.sql')
 
 MIGRATION_002_SQL = os.path.join(
     MIGRATIONS_DIR, '002_edition_contributor_migration.sql'
+)
+
+MIGRATION_003_SQL = os.path.join(
+    MIGRATIONS_DIR, '003_work_contributor_migration.sql'
 )
 
 
@@ -185,6 +191,24 @@ def _apply_migration_002():
             f"Migration 002 failed: {result.stderr[:400]}"
         )
     print("[setup] Migration 002 applied")
+
+
+def _apply_migration_003():
+    """Apply migration 003 SQL to the test database."""
+    if not os.path.exists(MIGRATION_003_SQL):
+        print("[setup] Migration 003 SQL not found, skipping")
+        return
+    print("[setup] Applying migration 003...")
+    result = subprocess.run(
+        ['psql', '-U', DB_USER, '-d', TEST_DB_NAME,
+         '-f', MIGRATION_003_SQL],
+        capture_output=True, text=True
+    )
+    if result.returncode != 0:
+        raise RuntimeError(
+            f"Migration 003 failed: {result.stderr[:400]}"
+        )
+    print("[setup] Migration 003 applied")
 
 
 def create_test_users():

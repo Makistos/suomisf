@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-28T17:39:29.223810+00:00",
+    "generated_at": "2026-03-01T19:29:52.232592+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/shorts/406",
@@ -221,45 +221,6 @@
               "contributions": [
                 {
                   "person": {
-                    "id": 692.0,
-                    "name": "Jylhä, Yrjö",
-                    "alt_name": "Yrjö Jylhä"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 712.0,
-                    "name": "Lehtonen, Paavo",
-                    "alt_name": "Paavo Lehtonen"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 1533.0,
-                    "name": "Ahmavaara, Eero",
-                    "alt_name": "Eero Ahmavaara"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
                     "id": 1534.0,
                     "name": "Idman, Niilo",
                     "alt_name": "Niilo Idman"
@@ -286,6 +247,19 @@
                 },
                 {
                   "person": {
+                    "id": 712.0,
+                    "name": "Lehtonen, Paavo",
+                    "alt_name": "Paavo Lehtonen"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                },
+                {
+                  "person": {
                     "id": 6264.0,
                     "name": "Hahn, Albert jr.",
                     "alt_name": "Albert Hahn jr."
@@ -295,6 +269,32 @@
                     "name": "Kuvittaja"
                   },
                   "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 1533.0,
+                    "name": "Ahmavaara, Eero",
+                    "alt_name": "Eero Ahmavaara"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 692.0,
+                    "name": "Jylhä, Yrjö",
+                    "alt_name": "Yrjö Jylhä"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
                   "real_person": null
                 }
               ],
@@ -528,45 +528,6 @@
               },
               "description": null,
               "real_person": null
-            },
-            {
-              "person": {
-                "id": 1531.0,
-                "name": "Poe, Edgar Allan",
-                "alt_name": "Edgar Allan Poe"
-              },
-              "role": {
-                "id": 1,
-                "name": "Kirjoittaja"
-              },
-              "description": null,
-              "real_person": null
-            },
-            {
-              "person": {
-                "id": 1531.0,
-                "name": "Poe, Edgar Allan",
-                "alt_name": "Edgar Allan Poe"
-              },
-              "role": {
-                "id": 1,
-                "name": "Kirjoittaja"
-              },
-              "description": null,
-              "real_person": null
-            },
-            {
-              "person": {
-                "id": 1531.0,
-                "name": "Poe, Edgar Allan",
-                "alt_name": "Edgar Allan Poe"
-              },
-              "role": {
-                "id": 1,
-                "name": "Kirjoittaja"
-              },
-              "description": null,
-              "real_person": null
             }
           ],
           "editions": [
@@ -647,39 +608,14 @@
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
-                },
-                {
-                  "id": 692.0,
-                  "name": "Jylhä, Yrjö",
-                  "alt_name": "Yrjö Jylhä",
-                  "fullname": "Yrjö Olavi Jylhä",
-                  "image_src": null,
-                  "dob": 1903.0,
-                  "dod": 1956.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
-                  "nationality": {
-                    "id": 4,
-                    "name": "Suomi"
-                  },
-                  "workcount": 0.0,
-                  "storycount": 2,
-                  "other_names": null,
-                  "first_name": "Yrjö",
-                  "last_name": "Jylhä",
-                  "image_attr": "",
-                  "bio": null,
-                  "bio_src": "",
-                  "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
                 }
               ],
               "contributions": [
                 {
                   "person": {
-                    "id": 1533.0,
-                    "name": "Ahmavaara, Eero",
-                    "alt_name": "Eero Ahmavaara"
+                    "id": 1535.0,
+                    "name": "Kivimies, Yrjö",
+                    "alt_name": "Yrjö Kivimies"
                   },
                   "role": {
                     "id": 2,
@@ -703,9 +639,9 @@
                 },
                 {
                   "person": {
-                    "id": 1535.0,
-                    "name": "Kivimies, Yrjö",
-                    "alt_name": "Yrjö Kivimies"
+                    "id": 1533.0,
+                    "name": "Ahmavaara, Eero",
+                    "alt_name": "Eero Ahmavaara"
                   },
                   "role": {
                     "id": 2,
@@ -749,56 +685,6 @@
             {
               "editors": [],
               "translators": [
-                {
-                  "id": 1534.0,
-                  "name": "Idman, Niilo",
-                  "alt_name": "Niilo Idman",
-                  "fullname": "Nils Rudolf Idman",
-                  "image_src": null,
-                  "dob": 1889.0,
-                  "dod": 1977.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
-                  "nationality": {
-                    "id": 4,
-                    "name": "Suomi"
-                  },
-                  "workcount": 0.0,
-                  "storycount": 1,
-                  "other_names": null,
-                  "first_name": "Niilo",
-                  "last_name": "Idman",
-                  "image_attr": "",
-                  "bio": null,
-                  "bio_src": "",
-                  "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
-                },
-                {
-                  "id": 1535.0,
-                  "name": "Kivimies, Yrjö",
-                  "alt_name": "Yrjö Kivimies",
-                  "fullname": "Yrjö Armas Kivimies",
-                  "image_src": null,
-                  "dob": 1899.0,
-                  "dod": 1980.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
-                  "nationality": {
-                    "id": 4,
-                    "name": "Suomi"
-                  },
-                  "workcount": 0.0,
-                  "storycount": 41,
-                  "other_names": null,
-                  "first_name": "Yrjö",
-                  "last_name": "Kivimies",
-                  "image_attr": "",
-                  "bio": null,
-                  "bio_src": "",
-                  "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
-                },
                 {
                   "id": 692.0,
                   "name": "Jylhä, Yrjö",
@@ -848,14 +734,64 @@
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
+                },
+                {
+                  "id": 1534.0,
+                  "name": "Idman, Niilo",
+                  "alt_name": "Niilo Idman",
+                  "fullname": "Nils Rudolf Idman",
+                  "image_src": null,
+                  "dob": 1889.0,
+                  "dod": 1977.0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 1,
+                  "other_names": null,
+                  "first_name": "Niilo",
+                  "last_name": "Idman",
+                  "image_attr": "",
+                  "bio": null,
+                  "bio_src": "",
+                  "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
+                },
+                {
+                  "id": 1535.0,
+                  "name": "Kivimies, Yrjö",
+                  "alt_name": "Yrjö Kivimies",
+                  "fullname": "Yrjö Armas Kivimies",
+                  "image_src": null,
+                  "dob": 1899.0,
+                  "dod": 1980.0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 41,
+                  "other_names": null,
+                  "first_name": "Yrjö",
+                  "last_name": "Kivimies",
+                  "image_attr": "",
+                  "bio": null,
+                  "bio_src": "",
+                  "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                 }
               ],
               "contributions": [
                 {
                   "person": {
-                    "id": 692.0,
-                    "name": "Jylhä, Yrjö",
-                    "alt_name": "Yrjö Jylhä"
+                    "id": 1534.0,
+                    "name": "Idman, Niilo",
+                    "alt_name": "Niilo Idman"
                   },
                   "role": {
                     "id": 2,
@@ -879,9 +815,9 @@
                 },
                 {
                   "person": {
-                    "id": 1534.0,
-                    "name": "Idman, Niilo",
-                    "alt_name": "Niilo Idman"
+                    "id": 1535.0,
+                    "name": "Kivimies, Yrjö",
+                    "alt_name": "Yrjö Kivimies"
                   },
                   "role": {
                     "id": 2,
@@ -892,9 +828,9 @@
                 },
                 {
                   "person": {
-                    "id": 1535.0,
-                    "name": "Kivimies, Yrjö",
-                    "alt_name": "Yrjö Kivimies"
+                    "id": 692.0,
+                    "name": "Jylhä, Yrjö",
+                    "alt_name": "Yrjö Jylhä"
                   },
                   "role": {
                     "id": 2,
@@ -1042,19 +978,6 @@
               "contributions": [
                 {
                   "person": {
-                    "id": 692.0,
-                    "name": "Jylhä, Yrjö",
-                    "alt_name": "Yrjö Jylhä"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
                     "id": 1533.0,
                     "name": "Ahmavaara, Eero",
                     "alt_name": "Eero Ahmavaara"
@@ -1071,6 +994,19 @@
                     "id": 1534.0,
                     "name": "Idman, Niilo",
                     "alt_name": "Niilo Idman"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 692.0,
+                    "name": "Jylhä, Yrjö",
+                    "alt_name": "Yrjö Jylhä"
                   },
                   "role": {
                     "id": 2,
@@ -1128,6 +1064,31 @@
               "editors": [],
               "translators": [
                 {
+                  "id": 692.0,
+                  "name": "Jylhä, Yrjö",
+                  "alt_name": "Yrjö Jylhä",
+                  "fullname": "Yrjö Olavi Jylhä",
+                  "image_src": null,
+                  "dob": 1903.0,
+                  "dod": 1956.0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 2,
+                  "other_names": null,
+                  "first_name": "Yrjö",
+                  "last_name": "Jylhä",
+                  "image_attr": "",
+                  "bio": null,
+                  "bio_src": "",
+                  "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
+                },
+                {
                   "id": 1534.0,
                   "name": "Idman, Niilo",
                   "alt_name": "Niilo Idman",
@@ -1176,72 +1137,9 @@
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
-                },
-                {
-                  "id": 692.0,
-                  "name": "Jylhä, Yrjö",
-                  "alt_name": "Yrjö Jylhä",
-                  "fullname": "Yrjö Olavi Jylhä",
-                  "image_src": null,
-                  "dob": 1903.0,
-                  "dod": 1956.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
-                  "nationality": {
-                    "id": 4,
-                    "name": "Suomi"
-                  },
-                  "workcount": 0.0,
-                  "storycount": 2,
-                  "other_names": null,
-                  "first_name": "Yrjö",
-                  "last_name": "Jylhä",
-                  "image_attr": "",
-                  "bio": null,
-                  "bio_src": "",
-                  "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
-                },
-                {
-                  "id": 1533.0,
-                  "name": "Ahmavaara, Eero",
-                  "alt_name": "Eero Ahmavaara",
-                  "fullname": "",
-                  "image_src": null,
-                  "dob": 1915.0,
-                  "dod": 1961.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
-                  "nationality": {
-                    "id": 4,
-                    "name": "Suomi"
-                  },
-                  "workcount": 0.0,
-                  "storycount": 6,
-                  "other_names": null,
-                  "first_name": "Eero",
-                  "last_name": "Ahmavaara",
-                  "image_attr": "",
-                  "bio": null,
-                  "bio_src": "",
-                  "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                 }
               ],
               "contributions": [
-                {
-                  "person": {
-                    "id": 692.0,
-                    "name": "Jylhä, Yrjö",
-                    "alt_name": "Yrjö Jylhä"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
                 {
                   "person": {
                     "id": 1534.0,
@@ -1260,6 +1158,19 @@
                     "id": 1535.0,
                     "name": "Kivimies, Yrjö",
                     "alt_name": "Yrjö Kivimies"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 692.0,
+                    "name": "Jylhä, Yrjö",
+                    "alt_name": "Yrjö Jylhä"
                   },
                   "role": {
                     "id": 2,
@@ -1433,9 +1344,9 @@
               "contributions": [
                 {
                   "person": {
-                    "id": 692.0,
-                    "name": "Jylhä, Yrjö",
-                    "alt_name": "Yrjö Jylhä"
+                    "id": 1535.0,
+                    "name": "Kivimies, Yrjö",
+                    "alt_name": "Yrjö Kivimies"
                   },
                   "role": {
                     "id": 2,
@@ -1446,9 +1357,9 @@
                 },
                 {
                   "person": {
-                    "id": 1535.0,
-                    "name": "Kivimies, Yrjö",
-                    "alt_name": "Yrjö Kivimies"
+                    "id": 692.0,
+                    "name": "Jylhä, Yrjö",
+                    "alt_name": "Yrjö Jylhä"
                   },
                   "role": {
                     "id": 2,
@@ -1683,45 +1594,6 @@
               },
               "description": null,
               "real_person": null
-            },
-            {
-              "person": {
-                "id": 1531.0,
-                "name": "Poe, Edgar Allan",
-                "alt_name": "Edgar Allan Poe"
-              },
-              "role": {
-                "id": 1,
-                "name": "Kirjoittaja"
-              },
-              "description": null,
-              "real_person": null
-            },
-            {
-              "person": {
-                "id": 1531.0,
-                "name": "Poe, Edgar Allan",
-                "alt_name": "Edgar Allan Poe"
-              },
-              "role": {
-                "id": 1,
-                "name": "Kirjoittaja"
-              },
-              "description": null,
-              "real_person": null
-            },
-            {
-              "person": {
-                "id": 1531.0,
-                "name": "Poe, Edgar Allan",
-                "alt_name": "Edgar Allan Poe"
-              },
-              "role": {
-                "id": 1,
-                "name": "Kirjoittaja"
-              },
-              "description": null,
-              "real_person": null
             }
           ],
           "editions": [
@@ -1807,9 +1679,9 @@
               "contributions": [
                 {
                   "person": {
-                    "id": 1533.0,
-                    "name": "Ahmavaara, Eero",
-                    "alt_name": "Eero Ahmavaara"
+                    "id": 1535.0,
+                    "name": "Kivimies, Yrjö",
+                    "alt_name": "Yrjö Kivimies"
                   },
                   "role": {
                     "id": 2,
@@ -1833,9 +1705,9 @@
                 },
                 {
                   "person": {
-                    "id": 1535.0,
-                    "name": "Kivimies, Yrjö",
-                    "alt_name": "Yrjö Kivimies"
+                    "id": 1533.0,
+                    "name": "Ahmavaara, Eero",
+                    "alt_name": "Eero Ahmavaara"
                   },
                   "role": {
                     "id": 2,
@@ -1880,13 +1752,13 @@
               "editors": [],
               "translators": [
                 {
-                  "id": 1535.0,
-                  "name": "Kivimies, Yrjö",
-                  "alt_name": "Yrjö Kivimies",
-                  "fullname": "Yrjö Armas Kivimies",
+                  "id": 1533.0,
+                  "name": "Ahmavaara, Eero",
+                  "alt_name": "Eero Ahmavaara",
+                  "fullname": "",
                   "image_src": null,
-                  "dob": 1899.0,
-                  "dod": 1980.0,
+                  "dob": 1915.0,
+                  "dod": 1961.0,
                   "roles": [
                     "Kääntäjä"
                   ],
@@ -1895,10 +1767,10 @@
                     "name": "Suomi"
                   },
                   "workcount": 0.0,
-                  "storycount": 41,
+                  "storycount": 6,
                   "other_names": null,
-                  "first_name": "Yrjö",
-                  "last_name": "Kivimies",
+                  "first_name": "Eero",
+                  "last_name": "Ahmavaara",
                   "image_attr": "",
                   "bio": null,
                   "bio_src": "",
@@ -1930,13 +1802,13 @@
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                 },
                 {
-                  "id": 1533.0,
-                  "name": "Ahmavaara, Eero",
-                  "alt_name": "Eero Ahmavaara",
-                  "fullname": "",
+                  "id": 1535.0,
+                  "name": "Kivimies, Yrjö",
+                  "alt_name": "Yrjö Kivimies",
+                  "fullname": "Yrjö Armas Kivimies",
                   "image_src": null,
-                  "dob": 1915.0,
-                  "dod": 1961.0,
+                  "dob": 1899.0,
+                  "dod": 1980.0,
                   "roles": [
                     "Kääntäjä"
                   ],
@@ -1945,10 +1817,10 @@
                     "name": "Suomi"
                   },
                   "workcount": 0.0,
-                  "storycount": 6,
+                  "storycount": 41,
                   "other_names": null,
-                  "first_name": "Eero",
-                  "last_name": "Ahmavaara",
+                  "first_name": "Yrjö",
+                  "last_name": "Kivimies",
                   "image_attr": "",
                   "bio": null,
                   "bio_src": "",
@@ -1958,9 +1830,9 @@
               "contributions": [
                 {
                   "person": {
-                    "id": 1533.0,
-                    "name": "Ahmavaara, Eero",
-                    "alt_name": "Eero Ahmavaara"
+                    "id": 1535.0,
+                    "name": "Kivimies, Yrjö",
+                    "alt_name": "Yrjö Kivimies"
                   },
                   "role": {
                     "id": 2,
@@ -1984,9 +1856,9 @@
                 },
                 {
                   "person": {
-                    "id": 1535.0,
-                    "name": "Kivimies, Yrjö",
-                    "alt_name": "Yrjö Kivimies"
+                    "id": 1533.0,
+                    "name": "Ahmavaara, Eero",
+                    "alt_name": "Eero Ahmavaara"
                   },
                   "role": {
                     "id": 2,
@@ -2025,13 +1897,13 @@
               "editors": [],
               "translators": [
                 {
-                  "id": 1535.0,
-                  "name": "Kivimies, Yrjö",
-                  "alt_name": "Yrjö Kivimies",
-                  "fullname": "Yrjö Armas Kivimies",
+                  "id": 1533.0,
+                  "name": "Ahmavaara, Eero",
+                  "alt_name": "Eero Ahmavaara",
+                  "fullname": "",
                   "image_src": null,
-                  "dob": 1899.0,
-                  "dod": 1980.0,
+                  "dob": 1915.0,
+                  "dod": 1961.0,
                   "roles": [
                     "Kääntäjä"
                   ],
@@ -2040,10 +1912,10 @@
                     "name": "Suomi"
                   },
                   "workcount": 0.0,
-                  "storycount": 41,
+                  "storycount": 6,
                   "other_names": null,
-                  "first_name": "Yrjö",
-                  "last_name": "Kivimies",
+                  "first_name": "Eero",
+                  "last_name": "Ahmavaara",
                   "image_attr": "",
                   "bio": null,
                   "bio_src": "",
@@ -2075,13 +1947,13 @@
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                 },
                 {
-                  "id": 1533.0,
-                  "name": "Ahmavaara, Eero",
-                  "alt_name": "Eero Ahmavaara",
-                  "fullname": "",
+                  "id": 1535.0,
+                  "name": "Kivimies, Yrjö",
+                  "alt_name": "Yrjö Kivimies",
+                  "fullname": "Yrjö Armas Kivimies",
                   "image_src": null,
-                  "dob": 1915.0,
-                  "dod": 1961.0,
+                  "dob": 1899.0,
+                  "dod": 1980.0,
                   "roles": [
                     "Kääntäjä"
                   ],
@@ -2090,10 +1962,10 @@
                     "name": "Suomi"
                   },
                   "workcount": 0.0,
-                  "storycount": 6,
+                  "storycount": 41,
                   "other_names": null,
-                  "first_name": "Eero",
-                  "last_name": "Ahmavaara",
+                  "first_name": "Yrjö",
+                  "last_name": "Kivimies",
                   "image_attr": "",
                   "bio": null,
                   "bio_src": "",
@@ -2101,6 +1973,19 @@
                 }
               ],
               "contributions": [
+                {
+                  "person": {
+                    "id": 1535.0,
+                    "name": "Kivimies, Yrjö",
+                    "alt_name": "Yrjö Kivimies"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                },
                 {
                   "person": {
                     "id": 1533.0,
@@ -2119,19 +2004,6 @@
                     "id": 1534.0,
                     "name": "Idman, Niilo",
                     "alt_name": "Niilo Idman"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 1535.0,
-                    "name": "Kivimies, Yrjö",
-                    "alt_name": "Yrjö Kivimies"
                   },
                   "role": {
                     "id": 2,
@@ -2170,13 +2042,13 @@
               "editors": [],
               "translators": [
                 {
-                  "id": 1535.0,
-                  "name": "Kivimies, Yrjö",
-                  "alt_name": "Yrjö Kivimies",
-                  "fullname": "Yrjö Armas Kivimies",
+                  "id": 1533.0,
+                  "name": "Ahmavaara, Eero",
+                  "alt_name": "Eero Ahmavaara",
+                  "fullname": "",
                   "image_src": null,
-                  "dob": 1899.0,
-                  "dod": 1980.0,
+                  "dob": 1915.0,
+                  "dod": 1961.0,
                   "roles": [
                     "Kääntäjä"
                   ],
@@ -2185,10 +2057,10 @@
                     "name": "Suomi"
                   },
                   "workcount": 0.0,
-                  "storycount": 41,
+                  "storycount": 6,
                   "other_names": null,
-                  "first_name": "Yrjö",
-                  "last_name": "Kivimies",
+                  "first_name": "Eero",
+                  "last_name": "Ahmavaara",
                   "image_attr": "",
                   "bio": null,
                   "bio_src": "",
@@ -2220,13 +2092,13 @@
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                 },
                 {
-                  "id": 1533.0,
-                  "name": "Ahmavaara, Eero",
-                  "alt_name": "Eero Ahmavaara",
-                  "fullname": "",
+                  "id": 1535.0,
+                  "name": "Kivimies, Yrjö",
+                  "alt_name": "Yrjö Kivimies",
+                  "fullname": "Yrjö Armas Kivimies",
                   "image_src": null,
-                  "dob": 1915.0,
-                  "dod": 1961.0,
+                  "dob": 1899.0,
+                  "dod": 1980.0,
                   "roles": [
                     "Kääntäjä"
                   ],
@@ -2235,10 +2107,10 @@
                     "name": "Suomi"
                   },
                   "workcount": 0.0,
-                  "storycount": 6,
+                  "storycount": 41,
                   "other_names": null,
-                  "first_name": "Eero",
-                  "last_name": "Ahmavaara",
+                  "first_name": "Yrjö",
+                  "last_name": "Kivimies",
                   "image_attr": "",
                   "bio": null,
                   "bio_src": "",
@@ -2261,9 +2133,9 @@
                 },
                 {
                   "person": {
-                    "id": 1534.0,
-                    "name": "Idman, Niilo",
-                    "alt_name": "Niilo Idman"
+                    "id": 1535.0,
+                    "name": "Kivimies, Yrjö",
+                    "alt_name": "Yrjö Kivimies"
                   },
                   "role": {
                     "id": 2,
@@ -2274,9 +2146,9 @@
                 },
                 {
                   "person": {
-                    "id": 1535.0,
-                    "name": "Kivimies, Yrjö",
-                    "alt_name": "Yrjö Kivimies"
+                    "id": 1534.0,
+                    "name": "Idman, Niilo",
+                    "alt_name": "Niilo Idman"
                   },
                   "role": {
                     "id": 2,
@@ -2428,9 +2300,9 @@
                   "contributions": [
                     {
                       "person": {
-                        "id": 692.0,
-                        "name": "Jylhä, Yrjö",
-                        "alt_name": "Yrjö Jylhä"
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -2441,9 +2313,9 @@
                     },
                     {
                       "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
+                        "id": 692.0,
+                        "name": "Jylhä, Yrjö",
+                        "alt_name": "Yrjö Jylhä"
                       },
                       "role": {
                         "id": 2,
@@ -2665,9 +2537,9 @@
           "contributions": [
             {
               "person": {
-                "id": 692.0,
-                "name": "Jylhä, Yrjö",
-                "alt_name": "Yrjö Jylhä"
+                "id": 1535.0,
+                "name": "Kivimies, Yrjö",
+                "alt_name": "Yrjö Kivimies"
               },
               "role": {
                 "id": 2,
@@ -2678,9 +2550,9 @@
             },
             {
               "person": {
-                "id": 1535.0,
-                "name": "Kivimies, Yrjö",
-                "alt_name": "Yrjö Kivimies"
+                "id": 692.0,
+                "name": "Jylhä, Yrjö",
+                "alt_name": "Yrjö Jylhä"
               },
               "role": {
                 "id": 2,
@@ -2733,45 +2605,6 @@
               "orig_title": "Novelleja",
               "author_str": "Poe, Edgar Allan",
               "contributions": [
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
                 {
                   "person": {
                     "id": 1531.0,
@@ -2869,9 +2702,9 @@
                   "contributions": [
                     {
                       "person": {
-                        "id": 1533.0,
-                        "name": "Ahmavaara, Eero",
-                        "alt_name": "Eero Ahmavaara"
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -2895,9 +2728,9 @@
                     },
                     {
                       "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
+                        "id": 1533.0,
+                        "name": "Ahmavaara, Eero",
+                        "alt_name": "Eero Ahmavaara"
                       },
                       "role": {
                         "id": 2,
@@ -2942,13 +2775,13 @@
                   "editors": [],
                   "translators": [
                     {
-                      "id": 1535.0,
-                      "name": "Kivimies, Yrjö",
-                      "alt_name": "Yrjö Kivimies",
-                      "fullname": "Yrjö Armas Kivimies",
+                      "id": 1533.0,
+                      "name": "Ahmavaara, Eero",
+                      "alt_name": "Eero Ahmavaara",
+                      "fullname": "",
                       "image_src": null,
-                      "dob": 1899.0,
-                      "dod": 1980.0,
+                      "dob": 1915.0,
+                      "dod": 1961.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -2957,10 +2790,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 41,
+                      "storycount": 6,
                       "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Kivimies",
+                      "first_name": "Eero",
+                      "last_name": "Ahmavaara",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -2992,13 +2825,13 @@
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                     },
                     {
-                      "id": 1533.0,
-                      "name": "Ahmavaara, Eero",
-                      "alt_name": "Eero Ahmavaara",
-                      "fullname": "",
+                      "id": 1535.0,
+                      "name": "Kivimies, Yrjö",
+                      "alt_name": "Yrjö Kivimies",
+                      "fullname": "Yrjö Armas Kivimies",
                       "image_src": null,
-                      "dob": 1915.0,
-                      "dod": 1961.0,
+                      "dob": 1899.0,
+                      "dod": 1980.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -3007,10 +2840,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 6,
+                      "storycount": 41,
                       "other_names": null,
-                      "first_name": "Eero",
-                      "last_name": "Ahmavaara",
+                      "first_name": "Yrjö",
+                      "last_name": "Kivimies",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -3020,9 +2853,9 @@
                   "contributions": [
                     {
                       "person": {
-                        "id": 1533.0,
-                        "name": "Ahmavaara, Eero",
-                        "alt_name": "Eero Ahmavaara"
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -3046,9 +2879,9 @@
                     },
                     {
                       "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
+                        "id": 1533.0,
+                        "name": "Ahmavaara, Eero",
+                        "alt_name": "Eero Ahmavaara"
                       },
                       "role": {
                         "id": 2,
@@ -3087,13 +2920,13 @@
                   "editors": [],
                   "translators": [
                     {
-                      "id": 1535.0,
-                      "name": "Kivimies, Yrjö",
-                      "alt_name": "Yrjö Kivimies",
-                      "fullname": "Yrjö Armas Kivimies",
+                      "id": 1533.0,
+                      "name": "Ahmavaara, Eero",
+                      "alt_name": "Eero Ahmavaara",
+                      "fullname": "",
                       "image_src": null,
-                      "dob": 1899.0,
-                      "dod": 1980.0,
+                      "dob": 1915.0,
+                      "dod": 1961.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -3102,10 +2935,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 41,
+                      "storycount": 6,
                       "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Kivimies",
+                      "first_name": "Eero",
+                      "last_name": "Ahmavaara",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -3137,13 +2970,13 @@
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                     },
                     {
-                      "id": 1533.0,
-                      "name": "Ahmavaara, Eero",
-                      "alt_name": "Eero Ahmavaara",
-                      "fullname": "",
+                      "id": 1535.0,
+                      "name": "Kivimies, Yrjö",
+                      "alt_name": "Yrjö Kivimies",
+                      "fullname": "Yrjö Armas Kivimies",
                       "image_src": null,
-                      "dob": 1915.0,
-                      "dod": 1961.0,
+                      "dob": 1899.0,
+                      "dod": 1980.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -3152,10 +2985,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 6,
+                      "storycount": 41,
                       "other_names": null,
-                      "first_name": "Eero",
-                      "last_name": "Ahmavaara",
+                      "first_name": "Yrjö",
+                      "last_name": "Kivimies",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -3163,6 +2996,19 @@
                     }
                   ],
                   "contributions": [
+                    {
+                      "person": {
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": null,
+                      "real_person": null
+                    },
                     {
                       "person": {
                         "id": 1533.0,
@@ -3181,19 +3027,6 @@
                         "id": 1534.0,
                         "name": "Idman, Niilo",
                         "alt_name": "Niilo Idman"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -3232,13 +3065,13 @@
                   "editors": [],
                   "translators": [
                     {
-                      "id": 1535.0,
-                      "name": "Kivimies, Yrjö",
-                      "alt_name": "Yrjö Kivimies",
-                      "fullname": "Yrjö Armas Kivimies",
+                      "id": 1533.0,
+                      "name": "Ahmavaara, Eero",
+                      "alt_name": "Eero Ahmavaara",
+                      "fullname": "",
                       "image_src": null,
-                      "dob": 1899.0,
-                      "dod": 1980.0,
+                      "dob": 1915.0,
+                      "dod": 1961.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -3247,10 +3080,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 41,
+                      "storycount": 6,
                       "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Kivimies",
+                      "first_name": "Eero",
+                      "last_name": "Ahmavaara",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -3282,13 +3115,13 @@
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                     },
                     {
-                      "id": 1533.0,
-                      "name": "Ahmavaara, Eero",
-                      "alt_name": "Eero Ahmavaara",
-                      "fullname": "",
+                      "id": 1535.0,
+                      "name": "Kivimies, Yrjö",
+                      "alt_name": "Yrjö Kivimies",
+                      "fullname": "Yrjö Armas Kivimies",
                       "image_src": null,
-                      "dob": 1915.0,
-                      "dod": 1961.0,
+                      "dob": 1899.0,
+                      "dod": 1980.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -3297,10 +3130,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 6,
+                      "storycount": 41,
                       "other_names": null,
-                      "first_name": "Eero",
-                      "last_name": "Ahmavaara",
+                      "first_name": "Yrjö",
+                      "last_name": "Kivimies",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -3323,9 +3156,9 @@
                     },
                     {
                       "person": {
-                        "id": 1534.0,
-                        "name": "Idman, Niilo",
-                        "alt_name": "Niilo Idman"
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -3336,9 +3169,9 @@
                     },
                     {
                       "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
+                        "id": 1534.0,
+                        "name": "Idman, Niilo",
+                        "alt_name": "Niilo Idman"
                       },
                       "role": {
                         "id": 2,
@@ -3413,9 +3246,9 @@
           "contributions": [
             {
               "person": {
-                "id": 1533.0,
-                "name": "Ahmavaara, Eero",
-                "alt_name": "Eero Ahmavaara"
+                "id": 1535.0,
+                "name": "Kivimies, Yrjö",
+                "alt_name": "Yrjö Kivimies"
               },
               "role": {
                 "id": 2,
@@ -3439,9 +3272,9 @@
             },
             {
               "person": {
-                "id": 1535.0,
-                "name": "Kivimies, Yrjö",
-                "alt_name": "Yrjö Kivimies"
+                "id": 1533.0,
+                "name": "Ahmavaara, Eero",
+                "alt_name": "Eero Ahmavaara"
               },
               "role": {
                 "id": 2,
@@ -3494,45 +3327,6 @@
               "orig_title": "",
               "author_str": "Poe, Edgar Allan",
               "contributions": [
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
                 {
                   "person": {
                     "id": 1531.0,
@@ -3625,39 +3419,14 @@
                       "bio": null,
                       "bio_src": "",
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
-                    },
-                    {
-                      "id": 692.0,
-                      "name": "Jylhä, Yrjö",
-                      "alt_name": "Yrjö Jylhä",
-                      "fullname": "Yrjö Olavi Jylhä",
-                      "image_src": null,
-                      "dob": 1903.0,
-                      "dod": 1956.0,
-                      "roles": [
-                        "Kääntäjä"
-                      ],
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 0.0,
-                      "storycount": 2,
-                      "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Jylhä",
-                      "image_attr": "",
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
                     }
                   ],
                   "contributions": [
                     {
                       "person": {
-                        "id": 1533.0,
-                        "name": "Ahmavaara, Eero",
-                        "alt_name": "Eero Ahmavaara"
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -3681,9 +3450,9 @@
                     },
                     {
                       "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
+                        "id": 1533.0,
+                        "name": "Ahmavaara, Eero",
+                        "alt_name": "Eero Ahmavaara"
                       },
                       "role": {
                         "id": 2,
@@ -3727,56 +3496,6 @@
                 {
                   "editors": [],
                   "translators": [
-                    {
-                      "id": 1534.0,
-                      "name": "Idman, Niilo",
-                      "alt_name": "Niilo Idman",
-                      "fullname": "Nils Rudolf Idman",
-                      "image_src": null,
-                      "dob": 1889.0,
-                      "dod": 1977.0,
-                      "roles": [
-                        "Kääntäjä"
-                      ],
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 0.0,
-                      "storycount": 1,
-                      "other_names": null,
-                      "first_name": "Niilo",
-                      "last_name": "Idman",
-                      "image_attr": "",
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
-                    },
-                    {
-                      "id": 1535.0,
-                      "name": "Kivimies, Yrjö",
-                      "alt_name": "Yrjö Kivimies",
-                      "fullname": "Yrjö Armas Kivimies",
-                      "image_src": null,
-                      "dob": 1899.0,
-                      "dod": 1980.0,
-                      "roles": [
-                        "Kääntäjä"
-                      ],
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 0.0,
-                      "storycount": 41,
-                      "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Kivimies",
-                      "image_attr": "",
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
-                    },
                     {
                       "id": 692.0,
                       "name": "Jylhä, Yrjö",
@@ -3826,14 +3545,64 @@
                       "bio": null,
                       "bio_src": "",
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
+                    },
+                    {
+                      "id": 1534.0,
+                      "name": "Idman, Niilo",
+                      "alt_name": "Niilo Idman",
+                      "fullname": "Nils Rudolf Idman",
+                      "image_src": null,
+                      "dob": 1889.0,
+                      "dod": 1977.0,
+                      "roles": [
+                        "Kääntäjä"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 0.0,
+                      "storycount": 1,
+                      "other_names": null,
+                      "first_name": "Niilo",
+                      "last_name": "Idman",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
+                    },
+                    {
+                      "id": 1535.0,
+                      "name": "Kivimies, Yrjö",
+                      "alt_name": "Yrjö Kivimies",
+                      "fullname": "Yrjö Armas Kivimies",
+                      "image_src": null,
+                      "dob": 1899.0,
+                      "dod": 1980.0,
+                      "roles": [
+                        "Kääntäjä"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 0.0,
+                      "storycount": 41,
+                      "other_names": null,
+                      "first_name": "Yrjö",
+                      "last_name": "Kivimies",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                     }
                   ],
                   "contributions": [
                     {
                       "person": {
-                        "id": 692.0,
-                        "name": "Jylhä, Yrjö",
-                        "alt_name": "Yrjö Jylhä"
+                        "id": 1534.0,
+                        "name": "Idman, Niilo",
+                        "alt_name": "Niilo Idman"
                       },
                       "role": {
                         "id": 2,
@@ -3857,9 +3626,9 @@
                     },
                     {
                       "person": {
-                        "id": 1534.0,
-                        "name": "Idman, Niilo",
-                        "alt_name": "Niilo Idman"
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -3870,9 +3639,9 @@
                     },
                     {
                       "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
+                        "id": 692.0,
+                        "name": "Jylhä, Yrjö",
+                        "alt_name": "Yrjö Jylhä"
                       },
                       "role": {
                         "id": 2,
@@ -4020,19 +3789,6 @@
                   "contributions": [
                     {
                       "person": {
-                        "id": 692.0,
-                        "name": "Jylhä, Yrjö",
-                        "alt_name": "Yrjö Jylhä"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
-                    {
-                      "person": {
                         "id": 1533.0,
                         "name": "Ahmavaara, Eero",
                         "alt_name": "Eero Ahmavaara"
@@ -4049,6 +3805,19 @@
                         "id": 1534.0,
                         "name": "Idman, Niilo",
                         "alt_name": "Niilo Idman"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": null,
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 692.0,
+                        "name": "Jylhä, Yrjö",
+                        "alt_name": "Yrjö Jylhä"
                       },
                       "role": {
                         "id": 2,
@@ -4106,6 +3875,31 @@
                   "editors": [],
                   "translators": [
                     {
+                      "id": 692.0,
+                      "name": "Jylhä, Yrjö",
+                      "alt_name": "Yrjö Jylhä",
+                      "fullname": "Yrjö Olavi Jylhä",
+                      "image_src": null,
+                      "dob": 1903.0,
+                      "dod": 1956.0,
+                      "roles": [
+                        "Kääntäjä"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 0.0,
+                      "storycount": 2,
+                      "other_names": null,
+                      "first_name": "Yrjö",
+                      "last_name": "Jylhä",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
+                    },
+                    {
                       "id": 1534.0,
                       "name": "Idman, Niilo",
                       "alt_name": "Niilo Idman",
@@ -4154,72 +3948,9 @@
                       "bio": null,
                       "bio_src": "",
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
-                    },
-                    {
-                      "id": 692.0,
-                      "name": "Jylhä, Yrjö",
-                      "alt_name": "Yrjö Jylhä",
-                      "fullname": "Yrjö Olavi Jylhä",
-                      "image_src": null,
-                      "dob": 1903.0,
-                      "dod": 1956.0,
-                      "roles": [
-                        "Kääntäjä"
-                      ],
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 0.0,
-                      "storycount": 2,
-                      "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Jylhä",
-                      "image_attr": "",
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
-                    },
-                    {
-                      "id": 1533.0,
-                      "name": "Ahmavaara, Eero",
-                      "alt_name": "Eero Ahmavaara",
-                      "fullname": "",
-                      "image_src": null,
-                      "dob": 1915.0,
-                      "dod": 1961.0,
-                      "roles": [
-                        "Kääntäjä"
-                      ],
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 0.0,
-                      "storycount": 6,
-                      "other_names": null,
-                      "first_name": "Eero",
-                      "last_name": "Ahmavaara",
-                      "image_attr": "",
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                     }
                   ],
                   "contributions": [
-                    {
-                      "person": {
-                        "id": 692.0,
-                        "name": "Jylhä, Yrjö",
-                        "alt_name": "Yrjö Jylhä"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
                     {
                       "person": {
                         "id": 1534.0,
@@ -4238,6 +3969,19 @@
                         "id": 1535.0,
                         "name": "Kivimies, Yrjö",
                         "alt_name": "Yrjö Kivimies"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": null,
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 692.0,
+                        "name": "Jylhä, Yrjö",
+                        "alt_name": "Yrjö Jylhä"
                       },
                       "role": {
                         "id": 2,
@@ -4338,19 +4082,6 @@
           "contributions": [
             {
               "person": {
-                "id": 692.0,
-                "name": "Jylhä, Yrjö",
-                "alt_name": "Yrjö Jylhä"
-              },
-              "role": {
-                "id": 2,
-                "name": "Kääntäjä"
-              },
-              "description": null,
-              "real_person": null
-            },
-            {
-              "person": {
                 "id": 1534.0,
                 "name": "Idman, Niilo",
                 "alt_name": "Niilo Idman"
@@ -4367,6 +4098,19 @@
                 "id": 1535.0,
                 "name": "Kivimies, Yrjö",
                 "alt_name": "Yrjö Kivimies"
+              },
+              "role": {
+                "id": 2,
+                "name": "Kääntäjä"
+              },
+              "description": null,
+              "real_person": null
+            },
+            {
+              "person": {
+                "id": 692.0,
+                "name": "Jylhä, Yrjö",
+                "alt_name": "Yrjö Jylhä"
               },
               "role": {
                 "id": 2,
@@ -4457,45 +4201,6 @@
                   },
                   "description": null,
                   "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
                 }
               ],
               "editions": [
@@ -4576,39 +4281,14 @@
                       "bio": null,
                       "bio_src": "",
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
-                    },
-                    {
-                      "id": 692.0,
-                      "name": "Jylhä, Yrjö",
-                      "alt_name": "Yrjö Jylhä",
-                      "fullname": "Yrjö Olavi Jylhä",
-                      "image_src": null,
-                      "dob": 1903.0,
-                      "dod": 1956.0,
-                      "roles": [
-                        "Kääntäjä"
-                      ],
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 0.0,
-                      "storycount": 2,
-                      "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Jylhä",
-                      "image_attr": "",
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
                     }
                   ],
                   "contributions": [
                     {
                       "person": {
-                        "id": 1533.0,
-                        "name": "Ahmavaara, Eero",
-                        "alt_name": "Eero Ahmavaara"
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -4632,9 +4312,9 @@
                     },
                     {
                       "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
+                        "id": 1533.0,
+                        "name": "Ahmavaara, Eero",
+                        "alt_name": "Eero Ahmavaara"
                       },
                       "role": {
                         "id": 2,
@@ -4678,56 +4358,6 @@
                 {
                   "editors": [],
                   "translators": [
-                    {
-                      "id": 1534.0,
-                      "name": "Idman, Niilo",
-                      "alt_name": "Niilo Idman",
-                      "fullname": "Nils Rudolf Idman",
-                      "image_src": null,
-                      "dob": 1889.0,
-                      "dod": 1977.0,
-                      "roles": [
-                        "Kääntäjä"
-                      ],
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 0.0,
-                      "storycount": 1,
-                      "other_names": null,
-                      "first_name": "Niilo",
-                      "last_name": "Idman",
-                      "image_attr": "",
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
-                    },
-                    {
-                      "id": 1535.0,
-                      "name": "Kivimies, Yrjö",
-                      "alt_name": "Yrjö Kivimies",
-                      "fullname": "Yrjö Armas Kivimies",
-                      "image_src": null,
-                      "dob": 1899.0,
-                      "dod": 1980.0,
-                      "roles": [
-                        "Kääntäjä"
-                      ],
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 0.0,
-                      "storycount": 41,
-                      "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Kivimies",
-                      "image_attr": "",
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
-                    },
                     {
                       "id": 692.0,
                       "name": "Jylhä, Yrjö",
@@ -4777,14 +4407,64 @@
                       "bio": null,
                       "bio_src": "",
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
+                    },
+                    {
+                      "id": 1534.0,
+                      "name": "Idman, Niilo",
+                      "alt_name": "Niilo Idman",
+                      "fullname": "Nils Rudolf Idman",
+                      "image_src": null,
+                      "dob": 1889.0,
+                      "dod": 1977.0,
+                      "roles": [
+                        "Kääntäjä"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 0.0,
+                      "storycount": 1,
+                      "other_names": null,
+                      "first_name": "Niilo",
+                      "last_name": "Idman",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
+                    },
+                    {
+                      "id": 1535.0,
+                      "name": "Kivimies, Yrjö",
+                      "alt_name": "Yrjö Kivimies",
+                      "fullname": "Yrjö Armas Kivimies",
+                      "image_src": null,
+                      "dob": 1899.0,
+                      "dod": 1980.0,
+                      "roles": [
+                        "Kääntäjä"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 0.0,
+                      "storycount": 41,
+                      "other_names": null,
+                      "first_name": "Yrjö",
+                      "last_name": "Kivimies",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                     }
                   ],
                   "contributions": [
                     {
                       "person": {
-                        "id": 692.0,
-                        "name": "Jylhä, Yrjö",
-                        "alt_name": "Yrjö Jylhä"
+                        "id": 1534.0,
+                        "name": "Idman, Niilo",
+                        "alt_name": "Niilo Idman"
                       },
                       "role": {
                         "id": 2,
@@ -4808,9 +4488,9 @@
                     },
                     {
                       "person": {
-                        "id": 1534.0,
-                        "name": "Idman, Niilo",
-                        "alt_name": "Niilo Idman"
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -4821,9 +4501,9 @@
                     },
                     {
                       "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
+                        "id": 692.0,
+                        "name": "Jylhä, Yrjö",
+                        "alt_name": "Yrjö Jylhä"
                       },
                       "role": {
                         "id": 2,
@@ -4971,19 +4651,6 @@
                   "contributions": [
                     {
                       "person": {
-                        "id": 692.0,
-                        "name": "Jylhä, Yrjö",
-                        "alt_name": "Yrjö Jylhä"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
-                    {
-                      "person": {
                         "id": 1533.0,
                         "name": "Ahmavaara, Eero",
                         "alt_name": "Eero Ahmavaara"
@@ -5000,6 +4667,19 @@
                         "id": 1534.0,
                         "name": "Idman, Niilo",
                         "alt_name": "Niilo Idman"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": null,
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 692.0,
+                        "name": "Jylhä, Yrjö",
+                        "alt_name": "Yrjö Jylhä"
                       },
                       "role": {
                         "id": 2,
@@ -5057,6 +4737,31 @@
                   "editors": [],
                   "translators": [
                     {
+                      "id": 692.0,
+                      "name": "Jylhä, Yrjö",
+                      "alt_name": "Yrjö Jylhä",
+                      "fullname": "Yrjö Olavi Jylhä",
+                      "image_src": null,
+                      "dob": 1903.0,
+                      "dod": 1956.0,
+                      "roles": [
+                        "Kääntäjä"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 0.0,
+                      "storycount": 2,
+                      "other_names": null,
+                      "first_name": "Yrjö",
+                      "last_name": "Jylhä",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
+                    },
+                    {
                       "id": 1534.0,
                       "name": "Idman, Niilo",
                       "alt_name": "Niilo Idman",
@@ -5105,72 +4810,9 @@
                       "bio": null,
                       "bio_src": "",
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
-                    },
-                    {
-                      "id": 692.0,
-                      "name": "Jylhä, Yrjö",
-                      "alt_name": "Yrjö Jylhä",
-                      "fullname": "Yrjö Olavi Jylhä",
-                      "image_src": null,
-                      "dob": 1903.0,
-                      "dod": 1956.0,
-                      "roles": [
-                        "Kääntäjä"
-                      ],
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 0.0,
-                      "storycount": 2,
-                      "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Jylhä",
-                      "image_attr": "",
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
-                    },
-                    {
-                      "id": 1533.0,
-                      "name": "Ahmavaara, Eero",
-                      "alt_name": "Eero Ahmavaara",
-                      "fullname": "",
-                      "image_src": null,
-                      "dob": 1915.0,
-                      "dod": 1961.0,
-                      "roles": [
-                        "Kääntäjä"
-                      ],
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 0.0,
-                      "storycount": 6,
-                      "other_names": null,
-                      "first_name": "Eero",
-                      "last_name": "Ahmavaara",
-                      "image_attr": "",
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                     }
                   ],
                   "contributions": [
-                    {
-                      "person": {
-                        "id": 692.0,
-                        "name": "Jylhä, Yrjö",
-                        "alt_name": "Yrjö Jylhä"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
                     {
                       "person": {
                         "id": 1534.0,
@@ -5189,6 +4831,19 @@
                         "id": 1535.0,
                         "name": "Kivimies, Yrjö",
                         "alt_name": "Yrjö Kivimies"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": null,
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 692.0,
+                        "name": "Jylhä, Yrjö",
+                        "alt_name": "Yrjö Jylhä"
                       },
                       "role": {
                         "id": 2,
@@ -5289,9 +4944,9 @@
           "contributions": [
             {
               "person": {
-                "id": 1533.0,
-                "name": "Ahmavaara, Eero",
-                "alt_name": "Eero Ahmavaara"
+                "id": 1535.0,
+                "name": "Kivimies, Yrjö",
+                "alt_name": "Yrjö Kivimies"
               },
               "role": {
                 "id": 2,
@@ -5315,9 +4970,9 @@
             },
             {
               "person": {
-                "id": 1535.0,
-                "name": "Kivimies, Yrjö",
-                "alt_name": "Yrjö Kivimies"
+                "id": 1533.0,
+                "name": "Ahmavaara, Eero",
+                "alt_name": "Eero Ahmavaara"
               },
               "role": {
                 "id": 2,
@@ -5370,45 +5025,6 @@
               "orig_title": "Novelleja",
               "author_str": "Poe, Edgar Allan",
               "contributions": [
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
                 {
                   "person": {
                     "id": 1531.0,
@@ -5506,9 +5122,9 @@
                   "contributions": [
                     {
                       "person": {
-                        "id": 1533.0,
-                        "name": "Ahmavaara, Eero",
-                        "alt_name": "Eero Ahmavaara"
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -5532,9 +5148,9 @@
                     },
                     {
                       "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
+                        "id": 1533.0,
+                        "name": "Ahmavaara, Eero",
+                        "alt_name": "Eero Ahmavaara"
                       },
                       "role": {
                         "id": 2,
@@ -5579,13 +5195,13 @@
                   "editors": [],
                   "translators": [
                     {
-                      "id": 1535.0,
-                      "name": "Kivimies, Yrjö",
-                      "alt_name": "Yrjö Kivimies",
-                      "fullname": "Yrjö Armas Kivimies",
+                      "id": 1533.0,
+                      "name": "Ahmavaara, Eero",
+                      "alt_name": "Eero Ahmavaara",
+                      "fullname": "",
                       "image_src": null,
-                      "dob": 1899.0,
-                      "dod": 1980.0,
+                      "dob": 1915.0,
+                      "dod": 1961.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -5594,10 +5210,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 41,
+                      "storycount": 6,
                       "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Kivimies",
+                      "first_name": "Eero",
+                      "last_name": "Ahmavaara",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -5629,13 +5245,13 @@
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                     },
                     {
-                      "id": 1533.0,
-                      "name": "Ahmavaara, Eero",
-                      "alt_name": "Eero Ahmavaara",
-                      "fullname": "",
+                      "id": 1535.0,
+                      "name": "Kivimies, Yrjö",
+                      "alt_name": "Yrjö Kivimies",
+                      "fullname": "Yrjö Armas Kivimies",
                       "image_src": null,
-                      "dob": 1915.0,
-                      "dod": 1961.0,
+                      "dob": 1899.0,
+                      "dod": 1980.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -5644,10 +5260,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 6,
+                      "storycount": 41,
                       "other_names": null,
-                      "first_name": "Eero",
-                      "last_name": "Ahmavaara",
+                      "first_name": "Yrjö",
+                      "last_name": "Kivimies",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -5657,9 +5273,9 @@
                   "contributions": [
                     {
                       "person": {
-                        "id": 1533.0,
-                        "name": "Ahmavaara, Eero",
-                        "alt_name": "Eero Ahmavaara"
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -5683,9 +5299,9 @@
                     },
                     {
                       "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
+                        "id": 1533.0,
+                        "name": "Ahmavaara, Eero",
+                        "alt_name": "Eero Ahmavaara"
                       },
                       "role": {
                         "id": 2,
@@ -5724,13 +5340,13 @@
                   "editors": [],
                   "translators": [
                     {
-                      "id": 1535.0,
-                      "name": "Kivimies, Yrjö",
-                      "alt_name": "Yrjö Kivimies",
-                      "fullname": "Yrjö Armas Kivimies",
+                      "id": 1533.0,
+                      "name": "Ahmavaara, Eero",
+                      "alt_name": "Eero Ahmavaara",
+                      "fullname": "",
                       "image_src": null,
-                      "dob": 1899.0,
-                      "dod": 1980.0,
+                      "dob": 1915.0,
+                      "dod": 1961.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -5739,10 +5355,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 41,
+                      "storycount": 6,
                       "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Kivimies",
+                      "first_name": "Eero",
+                      "last_name": "Ahmavaara",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -5774,13 +5390,13 @@
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                     },
                     {
-                      "id": 1533.0,
-                      "name": "Ahmavaara, Eero",
-                      "alt_name": "Eero Ahmavaara",
-                      "fullname": "",
+                      "id": 1535.0,
+                      "name": "Kivimies, Yrjö",
+                      "alt_name": "Yrjö Kivimies",
+                      "fullname": "Yrjö Armas Kivimies",
                       "image_src": null,
-                      "dob": 1915.0,
-                      "dod": 1961.0,
+                      "dob": 1899.0,
+                      "dod": 1980.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -5789,10 +5405,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 6,
+                      "storycount": 41,
                       "other_names": null,
-                      "first_name": "Eero",
-                      "last_name": "Ahmavaara",
+                      "first_name": "Yrjö",
+                      "last_name": "Kivimies",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -5800,6 +5416,19 @@
                     }
                   ],
                   "contributions": [
+                    {
+                      "person": {
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": null,
+                      "real_person": null
+                    },
                     {
                       "person": {
                         "id": 1533.0,
@@ -5818,19 +5447,6 @@
                         "id": 1534.0,
                         "name": "Idman, Niilo",
                         "alt_name": "Niilo Idman"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -5869,13 +5485,13 @@
                   "editors": [],
                   "translators": [
                     {
-                      "id": 1535.0,
-                      "name": "Kivimies, Yrjö",
-                      "alt_name": "Yrjö Kivimies",
-                      "fullname": "Yrjö Armas Kivimies",
+                      "id": 1533.0,
+                      "name": "Ahmavaara, Eero",
+                      "alt_name": "Eero Ahmavaara",
+                      "fullname": "",
                       "image_src": null,
-                      "dob": 1899.0,
-                      "dod": 1980.0,
+                      "dob": 1915.0,
+                      "dod": 1961.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -5884,10 +5500,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 41,
+                      "storycount": 6,
                       "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Kivimies",
+                      "first_name": "Eero",
+                      "last_name": "Ahmavaara",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -5919,13 +5535,13 @@
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                     },
                     {
-                      "id": 1533.0,
-                      "name": "Ahmavaara, Eero",
-                      "alt_name": "Eero Ahmavaara",
-                      "fullname": "",
+                      "id": 1535.0,
+                      "name": "Kivimies, Yrjö",
+                      "alt_name": "Yrjö Kivimies",
+                      "fullname": "Yrjö Armas Kivimies",
                       "image_src": null,
-                      "dob": 1915.0,
-                      "dod": 1961.0,
+                      "dob": 1899.0,
+                      "dod": 1980.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -5934,10 +5550,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 6,
+                      "storycount": 41,
                       "other_names": null,
-                      "first_name": "Eero",
-                      "last_name": "Ahmavaara",
+                      "first_name": "Yrjö",
+                      "last_name": "Kivimies",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -5960,9 +5576,9 @@
                     },
                     {
                       "person": {
-                        "id": 1534.0,
-                        "name": "Idman, Niilo",
-                        "alt_name": "Niilo Idman"
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -5973,9 +5589,9 @@
                     },
                     {
                       "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
+                        "id": 1534.0,
+                        "name": "Idman, Niilo",
+                        "alt_name": "Niilo Idman"
                       },
                       "role": {
                         "id": 2,
@@ -6050,6 +5666,19 @@
           "contributions": [
             {
               "person": {
+                "id": 1535.0,
+                "name": "Kivimies, Yrjö",
+                "alt_name": "Yrjö Kivimies"
+              },
+              "role": {
+                "id": 2,
+                "name": "Kääntäjä"
+              },
+              "description": null,
+              "real_person": null
+            },
+            {
+              "person": {
                 "id": 1533.0,
                 "name": "Ahmavaara, Eero",
                 "alt_name": "Eero Ahmavaara"
@@ -6066,19 +5695,6 @@
                 "id": 1534.0,
                 "name": "Idman, Niilo",
                 "alt_name": "Niilo Idman"
-              },
-              "role": {
-                "id": 2,
-                "name": "Kääntäjä"
-              },
-              "description": null,
-              "real_person": null
-            },
-            {
-              "person": {
-                "id": 1535.0,
-                "name": "Kivimies, Yrjö",
-                "alt_name": "Yrjö Kivimies"
               },
               "role": {
                 "id": 2,
@@ -6125,45 +5741,6 @@
               "orig_title": "",
               "author_str": "Poe, Edgar Allan",
               "contributions": [
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
                 {
                   "person": {
                     "id": 1531.0,
@@ -6256,39 +5833,14 @@
                       "bio": null,
                       "bio_src": "",
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
-                    },
-                    {
-                      "id": 692.0,
-                      "name": "Jylhä, Yrjö",
-                      "alt_name": "Yrjö Jylhä",
-                      "fullname": "Yrjö Olavi Jylhä",
-                      "image_src": null,
-                      "dob": 1903.0,
-                      "dod": 1956.0,
-                      "roles": [
-                        "Kääntäjä"
-                      ],
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 0.0,
-                      "storycount": 2,
-                      "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Jylhä",
-                      "image_attr": "",
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
                     }
                   ],
                   "contributions": [
                     {
                       "person": {
-                        "id": 1533.0,
-                        "name": "Ahmavaara, Eero",
-                        "alt_name": "Eero Ahmavaara"
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -6312,9 +5864,9 @@
                     },
                     {
                       "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
+                        "id": 1533.0,
+                        "name": "Ahmavaara, Eero",
+                        "alt_name": "Eero Ahmavaara"
                       },
                       "role": {
                         "id": 2,
@@ -6358,56 +5910,6 @@
                 {
                   "editors": [],
                   "translators": [
-                    {
-                      "id": 1534.0,
-                      "name": "Idman, Niilo",
-                      "alt_name": "Niilo Idman",
-                      "fullname": "Nils Rudolf Idman",
-                      "image_src": null,
-                      "dob": 1889.0,
-                      "dod": 1977.0,
-                      "roles": [
-                        "Kääntäjä"
-                      ],
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 0.0,
-                      "storycount": 1,
-                      "other_names": null,
-                      "first_name": "Niilo",
-                      "last_name": "Idman",
-                      "image_attr": "",
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
-                    },
-                    {
-                      "id": 1535.0,
-                      "name": "Kivimies, Yrjö",
-                      "alt_name": "Yrjö Kivimies",
-                      "fullname": "Yrjö Armas Kivimies",
-                      "image_src": null,
-                      "dob": 1899.0,
-                      "dod": 1980.0,
-                      "roles": [
-                        "Kääntäjä"
-                      ],
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 0.0,
-                      "storycount": 41,
-                      "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Kivimies",
-                      "image_attr": "",
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
-                    },
                     {
                       "id": 692.0,
                       "name": "Jylhä, Yrjö",
@@ -6457,14 +5959,64 @@
                       "bio": null,
                       "bio_src": "",
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
+                    },
+                    {
+                      "id": 1534.0,
+                      "name": "Idman, Niilo",
+                      "alt_name": "Niilo Idman",
+                      "fullname": "Nils Rudolf Idman",
+                      "image_src": null,
+                      "dob": 1889.0,
+                      "dod": 1977.0,
+                      "roles": [
+                        "Kääntäjä"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 0.0,
+                      "storycount": 1,
+                      "other_names": null,
+                      "first_name": "Niilo",
+                      "last_name": "Idman",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
+                    },
+                    {
+                      "id": 1535.0,
+                      "name": "Kivimies, Yrjö",
+                      "alt_name": "Yrjö Kivimies",
+                      "fullname": "Yrjö Armas Kivimies",
+                      "image_src": null,
+                      "dob": 1899.0,
+                      "dod": 1980.0,
+                      "roles": [
+                        "Kääntäjä"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 0.0,
+                      "storycount": 41,
+                      "other_names": null,
+                      "first_name": "Yrjö",
+                      "last_name": "Kivimies",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                     }
                   ],
                   "contributions": [
                     {
                       "person": {
-                        "id": 692.0,
-                        "name": "Jylhä, Yrjö",
-                        "alt_name": "Yrjö Jylhä"
+                        "id": 1534.0,
+                        "name": "Idman, Niilo",
+                        "alt_name": "Niilo Idman"
                       },
                       "role": {
                         "id": 2,
@@ -6488,9 +6040,9 @@
                     },
                     {
                       "person": {
-                        "id": 1534.0,
-                        "name": "Idman, Niilo",
-                        "alt_name": "Niilo Idman"
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -6501,9 +6053,9 @@
                     },
                     {
                       "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
+                        "id": 692.0,
+                        "name": "Jylhä, Yrjö",
+                        "alt_name": "Yrjö Jylhä"
                       },
                       "role": {
                         "id": 2,
@@ -6651,19 +6203,6 @@
                   "contributions": [
                     {
                       "person": {
-                        "id": 692.0,
-                        "name": "Jylhä, Yrjö",
-                        "alt_name": "Yrjö Jylhä"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
-                    {
-                      "person": {
                         "id": 1533.0,
                         "name": "Ahmavaara, Eero",
                         "alt_name": "Eero Ahmavaara"
@@ -6680,6 +6219,19 @@
                         "id": 1534.0,
                         "name": "Idman, Niilo",
                         "alt_name": "Niilo Idman"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": null,
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 692.0,
+                        "name": "Jylhä, Yrjö",
+                        "alt_name": "Yrjö Jylhä"
                       },
                       "role": {
                         "id": 2,
@@ -6737,6 +6289,31 @@
                   "editors": [],
                   "translators": [
                     {
+                      "id": 692.0,
+                      "name": "Jylhä, Yrjö",
+                      "alt_name": "Yrjö Jylhä",
+                      "fullname": "Yrjö Olavi Jylhä",
+                      "image_src": null,
+                      "dob": 1903.0,
+                      "dod": 1956.0,
+                      "roles": [
+                        "Kääntäjä"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 0.0,
+                      "storycount": 2,
+                      "other_names": null,
+                      "first_name": "Yrjö",
+                      "last_name": "Jylhä",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
+                    },
+                    {
                       "id": 1534.0,
                       "name": "Idman, Niilo",
                       "alt_name": "Niilo Idman",
@@ -6785,72 +6362,9 @@
                       "bio": null,
                       "bio_src": "",
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
-                    },
-                    {
-                      "id": 692.0,
-                      "name": "Jylhä, Yrjö",
-                      "alt_name": "Yrjö Jylhä",
-                      "fullname": "Yrjö Olavi Jylhä",
-                      "image_src": null,
-                      "dob": 1903.0,
-                      "dod": 1956.0,
-                      "roles": [
-                        "Kääntäjä"
-                      ],
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 0.0,
-                      "storycount": 2,
-                      "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Jylhä",
-                      "image_attr": "",
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
-                    },
-                    {
-                      "id": 1533.0,
-                      "name": "Ahmavaara, Eero",
-                      "alt_name": "Eero Ahmavaara",
-                      "fullname": "",
-                      "image_src": null,
-                      "dob": 1915.0,
-                      "dod": 1961.0,
-                      "roles": [
-                        "Kääntäjä"
-                      ],
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 0.0,
-                      "storycount": 6,
-                      "other_names": null,
-                      "first_name": "Eero",
-                      "last_name": "Ahmavaara",
-                      "image_attr": "",
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                     }
                   ],
                   "contributions": [
-                    {
-                      "person": {
-                        "id": 692.0,
-                        "name": "Jylhä, Yrjö",
-                        "alt_name": "Yrjö Jylhä"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
                     {
                       "person": {
                         "id": 1534.0,
@@ -6869,6 +6383,19 @@
                         "id": 1535.0,
                         "name": "Kivimies, Yrjö",
                         "alt_name": "Yrjö Kivimies"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": null,
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 692.0,
+                        "name": "Jylhä, Yrjö",
+                        "alt_name": "Yrjö Jylhä"
                       },
                       "role": {
                         "id": 2,
@@ -6969,9 +6496,9 @@
           "contributions": [
             {
               "person": {
-                "id": 692.0,
-                "name": "Jylhä, Yrjö",
-                "alt_name": "Yrjö Jylhä"
+                "id": 1534.0,
+                "name": "Idman, Niilo",
+                "alt_name": "Niilo Idman"
               },
               "role": {
                 "id": 2,
@@ -6995,9 +6522,9 @@
             },
             {
               "person": {
-                "id": 1534.0,
-                "name": "Idman, Niilo",
-                "alt_name": "Niilo Idman"
+                "id": 1535.0,
+                "name": "Kivimies, Yrjö",
+                "alt_name": "Yrjö Kivimies"
               },
               "role": {
                 "id": 2,
@@ -7008,9 +6535,9 @@
             },
             {
               "person": {
-                "id": 1535.0,
-                "name": "Kivimies, Yrjö",
-                "alt_name": "Yrjö Kivimies"
+                "id": 692.0,
+                "name": "Jylhä, Yrjö",
+                "alt_name": "Yrjö Jylhä"
               },
               "role": {
                 "id": 2,
@@ -7210,45 +6737,6 @@
                   "contributions": [
                     {
                       "person": {
-                        "id": 692.0,
-                        "name": "Jylhä, Yrjö",
-                        "alt_name": "Yrjö Jylhä"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 712.0,
-                        "name": "Lehtonen, Paavo",
-                        "alt_name": "Paavo Lehtonen"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 1533.0,
-                        "name": "Ahmavaara, Eero",
-                        "alt_name": "Eero Ahmavaara"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
-                    {
-                      "person": {
                         "id": 1534.0,
                         "name": "Idman, Niilo",
                         "alt_name": "Niilo Idman"
@@ -7275,6 +6763,19 @@
                     },
                     {
                       "person": {
+                        "id": 712.0,
+                        "name": "Lehtonen, Paavo",
+                        "alt_name": "Paavo Lehtonen"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": null,
+                      "real_person": null
+                    },
+                    {
+                      "person": {
                         "id": 6264.0,
                         "name": "Hahn, Albert jr.",
                         "alt_name": "Albert Hahn jr."
@@ -7284,6 +6785,32 @@
                         "name": "Kuvittaja"
                       },
                       "description": "",
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 1533.0,
+                        "name": "Ahmavaara, Eero",
+                        "alt_name": "Eero Ahmavaara"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": null,
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 692.0,
+                        "name": "Jylhä, Yrjö",
+                        "alt_name": "Yrjö Jylhä"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": null,
                       "real_person": null
                     }
                   ],
@@ -7504,45 +7031,6 @@
           "contributions": [
             {
               "person": {
-                "id": 692.0,
-                "name": "Jylhä, Yrjö",
-                "alt_name": "Yrjö Jylhä"
-              },
-              "role": {
-                "id": 2,
-                "name": "Kääntäjä"
-              },
-              "description": null,
-              "real_person": null
-            },
-            {
-              "person": {
-                "id": 712.0,
-                "name": "Lehtonen, Paavo",
-                "alt_name": "Paavo Lehtonen"
-              },
-              "role": {
-                "id": 2,
-                "name": "Kääntäjä"
-              },
-              "description": null,
-              "real_person": null
-            },
-            {
-              "person": {
-                "id": 1533.0,
-                "name": "Ahmavaara, Eero",
-                "alt_name": "Eero Ahmavaara"
-              },
-              "role": {
-                "id": 2,
-                "name": "Kääntäjä"
-              },
-              "description": null,
-              "real_person": null
-            },
-            {
-              "person": {
                 "id": 1534.0,
                 "name": "Idman, Niilo",
                 "alt_name": "Niilo Idman"
@@ -7569,6 +7057,19 @@
             },
             {
               "person": {
+                "id": 712.0,
+                "name": "Lehtonen, Paavo",
+                "alt_name": "Paavo Lehtonen"
+              },
+              "role": {
+                "id": 2,
+                "name": "Kääntäjä"
+              },
+              "description": null,
+              "real_person": null
+            },
+            {
+              "person": {
                 "id": 6264.0,
                 "name": "Hahn, Albert jr.",
                 "alt_name": "Albert Hahn jr."
@@ -7578,6 +7079,32 @@
                 "name": "Kuvittaja"
               },
               "description": "",
+              "real_person": null
+            },
+            {
+              "person": {
+                "id": 1533.0,
+                "name": "Ahmavaara, Eero",
+                "alt_name": "Eero Ahmavaara"
+              },
+              "role": {
+                "id": 2,
+                "name": "Kääntäjä"
+              },
+              "description": null,
+              "real_person": null
+            },
+            {
+              "person": {
+                "id": 692.0,
+                "name": "Jylhä, Yrjö",
+                "alt_name": "Yrjö Jylhä"
+              },
+              "role": {
+                "id": 2,
+                "name": "Kääntäjä"
+              },
+              "description": null,
               "real_person": null
             }
           ],
@@ -7629,45 +7156,6 @@
               "orig_title": "",
               "author_str": "Poe, Edgar Allan",
               "contributions": [
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
                 {
                   "person": {
                     "id": 1531.0,
@@ -7760,39 +7248,14 @@
                       "bio": null,
                       "bio_src": "",
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
-                    },
-                    {
-                      "id": 692.0,
-                      "name": "Jylhä, Yrjö",
-                      "alt_name": "Yrjö Jylhä",
-                      "fullname": "Yrjö Olavi Jylhä",
-                      "image_src": null,
-                      "dob": 1903.0,
-                      "dod": 1956.0,
-                      "roles": [
-                        "Kääntäjä"
-                      ],
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 0.0,
-                      "storycount": 2,
-                      "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Jylhä",
-                      "image_attr": "",
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
                     }
                   ],
                   "contributions": [
                     {
                       "person": {
-                        "id": 1533.0,
-                        "name": "Ahmavaara, Eero",
-                        "alt_name": "Eero Ahmavaara"
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -7816,9 +7279,9 @@
                     },
                     {
                       "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
+                        "id": 1533.0,
+                        "name": "Ahmavaara, Eero",
+                        "alt_name": "Eero Ahmavaara"
                       },
                       "role": {
                         "id": 2,
@@ -7862,56 +7325,6 @@
                 {
                   "editors": [],
                   "translators": [
-                    {
-                      "id": 1534.0,
-                      "name": "Idman, Niilo",
-                      "alt_name": "Niilo Idman",
-                      "fullname": "Nils Rudolf Idman",
-                      "image_src": null,
-                      "dob": 1889.0,
-                      "dod": 1977.0,
-                      "roles": [
-                        "Kääntäjä"
-                      ],
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 0.0,
-                      "storycount": 1,
-                      "other_names": null,
-                      "first_name": "Niilo",
-                      "last_name": "Idman",
-                      "image_attr": "",
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
-                    },
-                    {
-                      "id": 1535.0,
-                      "name": "Kivimies, Yrjö",
-                      "alt_name": "Yrjö Kivimies",
-                      "fullname": "Yrjö Armas Kivimies",
-                      "image_src": null,
-                      "dob": 1899.0,
-                      "dod": 1980.0,
-                      "roles": [
-                        "Kääntäjä"
-                      ],
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 0.0,
-                      "storycount": 41,
-                      "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Kivimies",
-                      "image_attr": "",
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
-                    },
                     {
                       "id": 692.0,
                       "name": "Jylhä, Yrjö",
@@ -7961,14 +7374,64 @@
                       "bio": null,
                       "bio_src": "",
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
+                    },
+                    {
+                      "id": 1534.0,
+                      "name": "Idman, Niilo",
+                      "alt_name": "Niilo Idman",
+                      "fullname": "Nils Rudolf Idman",
+                      "image_src": null,
+                      "dob": 1889.0,
+                      "dod": 1977.0,
+                      "roles": [
+                        "Kääntäjä"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 0.0,
+                      "storycount": 1,
+                      "other_names": null,
+                      "first_name": "Niilo",
+                      "last_name": "Idman",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
+                    },
+                    {
+                      "id": 1535.0,
+                      "name": "Kivimies, Yrjö",
+                      "alt_name": "Yrjö Kivimies",
+                      "fullname": "Yrjö Armas Kivimies",
+                      "image_src": null,
+                      "dob": 1899.0,
+                      "dod": 1980.0,
+                      "roles": [
+                        "Kääntäjä"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 0.0,
+                      "storycount": 41,
+                      "other_names": null,
+                      "first_name": "Yrjö",
+                      "last_name": "Kivimies",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                     }
                   ],
                   "contributions": [
                     {
                       "person": {
-                        "id": 692.0,
-                        "name": "Jylhä, Yrjö",
-                        "alt_name": "Yrjö Jylhä"
+                        "id": 1534.0,
+                        "name": "Idman, Niilo",
+                        "alt_name": "Niilo Idman"
                       },
                       "role": {
                         "id": 2,
@@ -7992,9 +7455,9 @@
                     },
                     {
                       "person": {
-                        "id": 1534.0,
-                        "name": "Idman, Niilo",
-                        "alt_name": "Niilo Idman"
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -8005,9 +7468,9 @@
                     },
                     {
                       "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
+                        "id": 692.0,
+                        "name": "Jylhä, Yrjö",
+                        "alt_name": "Yrjö Jylhä"
                       },
                       "role": {
                         "id": 2,
@@ -8155,19 +7618,6 @@
                   "contributions": [
                     {
                       "person": {
-                        "id": 692.0,
-                        "name": "Jylhä, Yrjö",
-                        "alt_name": "Yrjö Jylhä"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
-                    {
-                      "person": {
                         "id": 1533.0,
                         "name": "Ahmavaara, Eero",
                         "alt_name": "Eero Ahmavaara"
@@ -8184,6 +7634,19 @@
                         "id": 1534.0,
                         "name": "Idman, Niilo",
                         "alt_name": "Niilo Idman"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": null,
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 692.0,
+                        "name": "Jylhä, Yrjö",
+                        "alt_name": "Yrjö Jylhä"
                       },
                       "role": {
                         "id": 2,
@@ -8241,6 +7704,31 @@
                   "editors": [],
                   "translators": [
                     {
+                      "id": 692.0,
+                      "name": "Jylhä, Yrjö",
+                      "alt_name": "Yrjö Jylhä",
+                      "fullname": "Yrjö Olavi Jylhä",
+                      "image_src": null,
+                      "dob": 1903.0,
+                      "dod": 1956.0,
+                      "roles": [
+                        "Kääntäjä"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 0.0,
+                      "storycount": 2,
+                      "other_names": null,
+                      "first_name": "Yrjö",
+                      "last_name": "Jylhä",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
+                    },
+                    {
                       "id": 1534.0,
                       "name": "Idman, Niilo",
                       "alt_name": "Niilo Idman",
@@ -8289,72 +7777,9 @@
                       "bio": null,
                       "bio_src": "",
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
-                    },
-                    {
-                      "id": 692.0,
-                      "name": "Jylhä, Yrjö",
-                      "alt_name": "Yrjö Jylhä",
-                      "fullname": "Yrjö Olavi Jylhä",
-                      "image_src": null,
-                      "dob": 1903.0,
-                      "dod": 1956.0,
-                      "roles": [
-                        "Kääntäjä"
-                      ],
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 0.0,
-                      "storycount": 2,
-                      "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Jylhä",
-                      "image_attr": "",
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
-                    },
-                    {
-                      "id": 1533.0,
-                      "name": "Ahmavaara, Eero",
-                      "alt_name": "Eero Ahmavaara",
-                      "fullname": "",
-                      "image_src": null,
-                      "dob": 1915.0,
-                      "dod": 1961.0,
-                      "roles": [
-                        "Kääntäjä"
-                      ],
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 0.0,
-                      "storycount": 6,
-                      "other_names": null,
-                      "first_name": "Eero",
-                      "last_name": "Ahmavaara",
-                      "image_attr": "",
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                     }
                   ],
                   "contributions": [
-                    {
-                      "person": {
-                        "id": 692.0,
-                        "name": "Jylhä, Yrjö",
-                        "alt_name": "Yrjö Jylhä"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
                     {
                       "person": {
                         "id": 1534.0,
@@ -8373,6 +7798,19 @@
                         "id": 1535.0,
                         "name": "Kivimies, Yrjö",
                         "alt_name": "Yrjö Kivimies"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": null,
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 692.0,
+                        "name": "Jylhä, Yrjö",
+                        "alt_name": "Yrjö Jylhä"
                       },
                       "role": {
                         "id": 2,
@@ -8473,19 +7911,6 @@
           "contributions": [
             {
               "person": {
-                "id": 692.0,
-                "name": "Jylhä, Yrjö",
-                "alt_name": "Yrjö Jylhä"
-              },
-              "role": {
-                "id": 2,
-                "name": "Kääntäjä"
-              },
-              "description": null,
-              "real_person": null
-            },
-            {
-              "person": {
                 "id": 1533.0,
                 "name": "Ahmavaara, Eero",
                 "alt_name": "Eero Ahmavaara"
@@ -8502,6 +7927,19 @@
                 "id": 1534.0,
                 "name": "Idman, Niilo",
                 "alt_name": "Niilo Idman"
+              },
+              "role": {
+                "id": 2,
+                "name": "Kääntäjä"
+              },
+              "description": null,
+              "real_person": null
+            },
+            {
+              "person": {
+                "id": 692.0,
+                "name": "Jylhä, Yrjö",
+                "alt_name": "Yrjö Jylhä"
               },
               "role": {
                 "id": 2,
@@ -8579,45 +8017,6 @@
                   },
                   "description": null,
                   "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
                 }
               ],
               "editions": [
@@ -8703,9 +8102,9 @@
                   "contributions": [
                     {
                       "person": {
-                        "id": 1533.0,
-                        "name": "Ahmavaara, Eero",
-                        "alt_name": "Eero Ahmavaara"
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -8729,9 +8128,9 @@
                     },
                     {
                       "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
+                        "id": 1533.0,
+                        "name": "Ahmavaara, Eero",
+                        "alt_name": "Eero Ahmavaara"
                       },
                       "role": {
                         "id": 2,
@@ -8776,13 +8175,13 @@
                   "editors": [],
                   "translators": [
                     {
-                      "id": 1535.0,
-                      "name": "Kivimies, Yrjö",
-                      "alt_name": "Yrjö Kivimies",
-                      "fullname": "Yrjö Armas Kivimies",
+                      "id": 1533.0,
+                      "name": "Ahmavaara, Eero",
+                      "alt_name": "Eero Ahmavaara",
+                      "fullname": "",
                       "image_src": null,
-                      "dob": 1899.0,
-                      "dod": 1980.0,
+                      "dob": 1915.0,
+                      "dod": 1961.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -8791,10 +8190,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 41,
+                      "storycount": 6,
                       "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Kivimies",
+                      "first_name": "Eero",
+                      "last_name": "Ahmavaara",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -8826,13 +8225,13 @@
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                     },
                     {
-                      "id": 1533.0,
-                      "name": "Ahmavaara, Eero",
-                      "alt_name": "Eero Ahmavaara",
-                      "fullname": "",
+                      "id": 1535.0,
+                      "name": "Kivimies, Yrjö",
+                      "alt_name": "Yrjö Kivimies",
+                      "fullname": "Yrjö Armas Kivimies",
                       "image_src": null,
-                      "dob": 1915.0,
-                      "dod": 1961.0,
+                      "dob": 1899.0,
+                      "dod": 1980.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -8841,10 +8240,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 6,
+                      "storycount": 41,
                       "other_names": null,
-                      "first_name": "Eero",
-                      "last_name": "Ahmavaara",
+                      "first_name": "Yrjö",
+                      "last_name": "Kivimies",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -8854,9 +8253,9 @@
                   "contributions": [
                     {
                       "person": {
-                        "id": 1533.0,
-                        "name": "Ahmavaara, Eero",
-                        "alt_name": "Eero Ahmavaara"
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -8880,9 +8279,9 @@
                     },
                     {
                       "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
+                        "id": 1533.0,
+                        "name": "Ahmavaara, Eero",
+                        "alt_name": "Eero Ahmavaara"
                       },
                       "role": {
                         "id": 2,
@@ -8921,13 +8320,13 @@
                   "editors": [],
                   "translators": [
                     {
-                      "id": 1535.0,
-                      "name": "Kivimies, Yrjö",
-                      "alt_name": "Yrjö Kivimies",
-                      "fullname": "Yrjö Armas Kivimies",
+                      "id": 1533.0,
+                      "name": "Ahmavaara, Eero",
+                      "alt_name": "Eero Ahmavaara",
+                      "fullname": "",
                       "image_src": null,
-                      "dob": 1899.0,
-                      "dod": 1980.0,
+                      "dob": 1915.0,
+                      "dod": 1961.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -8936,10 +8335,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 41,
+                      "storycount": 6,
                       "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Kivimies",
+                      "first_name": "Eero",
+                      "last_name": "Ahmavaara",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -8971,13 +8370,13 @@
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                     },
                     {
-                      "id": 1533.0,
-                      "name": "Ahmavaara, Eero",
-                      "alt_name": "Eero Ahmavaara",
-                      "fullname": "",
+                      "id": 1535.0,
+                      "name": "Kivimies, Yrjö",
+                      "alt_name": "Yrjö Kivimies",
+                      "fullname": "Yrjö Armas Kivimies",
                       "image_src": null,
-                      "dob": 1915.0,
-                      "dod": 1961.0,
+                      "dob": 1899.0,
+                      "dod": 1980.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -8986,10 +8385,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 6,
+                      "storycount": 41,
                       "other_names": null,
-                      "first_name": "Eero",
-                      "last_name": "Ahmavaara",
+                      "first_name": "Yrjö",
+                      "last_name": "Kivimies",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -8997,6 +8396,19 @@
                     }
                   ],
                   "contributions": [
+                    {
+                      "person": {
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": null,
+                      "real_person": null
+                    },
                     {
                       "person": {
                         "id": 1533.0,
@@ -9015,19 +8427,6 @@
                         "id": 1534.0,
                         "name": "Idman, Niilo",
                         "alt_name": "Niilo Idman"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -9066,13 +8465,13 @@
                   "editors": [],
                   "translators": [
                     {
-                      "id": 1535.0,
-                      "name": "Kivimies, Yrjö",
-                      "alt_name": "Yrjö Kivimies",
-                      "fullname": "Yrjö Armas Kivimies",
+                      "id": 1533.0,
+                      "name": "Ahmavaara, Eero",
+                      "alt_name": "Eero Ahmavaara",
+                      "fullname": "",
                       "image_src": null,
-                      "dob": 1899.0,
-                      "dod": 1980.0,
+                      "dob": 1915.0,
+                      "dod": 1961.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -9081,10 +8480,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 41,
+                      "storycount": 6,
                       "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Kivimies",
+                      "first_name": "Eero",
+                      "last_name": "Ahmavaara",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -9116,13 +8515,13 @@
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                     },
                     {
-                      "id": 1533.0,
-                      "name": "Ahmavaara, Eero",
-                      "alt_name": "Eero Ahmavaara",
-                      "fullname": "",
+                      "id": 1535.0,
+                      "name": "Kivimies, Yrjö",
+                      "alt_name": "Yrjö Kivimies",
+                      "fullname": "Yrjö Armas Kivimies",
                       "image_src": null,
-                      "dob": 1915.0,
-                      "dod": 1961.0,
+                      "dob": 1899.0,
+                      "dod": 1980.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -9131,10 +8530,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 6,
+                      "storycount": 41,
                       "other_names": null,
-                      "first_name": "Eero",
-                      "last_name": "Ahmavaara",
+                      "first_name": "Yrjö",
+                      "last_name": "Kivimies",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -9157,9 +8556,9 @@
                     },
                     {
                       "person": {
-                        "id": 1534.0,
-                        "name": "Idman, Niilo",
-                        "alt_name": "Niilo Idman"
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -9170,9 +8569,9 @@
                     },
                     {
                       "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
+                        "id": 1534.0,
+                        "name": "Idman, Niilo",
+                        "alt_name": "Niilo Idman"
                       },
                       "role": {
                         "id": 2,
@@ -9247,9 +8646,9 @@
           "contributions": [
             {
               "person": {
-                "id": 1533.0,
-                "name": "Ahmavaara, Eero",
-                "alt_name": "Eero Ahmavaara"
+                "id": 1535.0,
+                "name": "Kivimies, Yrjö",
+                "alt_name": "Yrjö Kivimies"
               },
               "role": {
                 "id": 2,
@@ -9273,9 +8672,9 @@
             },
             {
               "person": {
-                "id": 1535.0,
-                "name": "Kivimies, Yrjö",
-                "alt_name": "Yrjö Kivimies"
+                "id": 1533.0,
+                "name": "Ahmavaara, Eero",
+                "alt_name": "Eero Ahmavaara"
               },
               "role": {
                 "id": 2,
@@ -9334,45 +8733,6 @@
                   },
                   "description": null,
                   "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 1531.0,
-                    "name": "Poe, Edgar Allan",
-                    "alt_name": "Edgar Allan Poe"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": null,
-                  "real_person": null
                 }
               ],
               "editions": [
@@ -9458,9 +8818,9 @@
                   "contributions": [
                     {
                       "person": {
-                        "id": 1533.0,
-                        "name": "Ahmavaara, Eero",
-                        "alt_name": "Eero Ahmavaara"
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -9484,9 +8844,9 @@
                     },
                     {
                       "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
+                        "id": 1533.0,
+                        "name": "Ahmavaara, Eero",
+                        "alt_name": "Eero Ahmavaara"
                       },
                       "role": {
                         "id": 2,
@@ -9531,13 +8891,13 @@
                   "editors": [],
                   "translators": [
                     {
-                      "id": 1535.0,
-                      "name": "Kivimies, Yrjö",
-                      "alt_name": "Yrjö Kivimies",
-                      "fullname": "Yrjö Armas Kivimies",
+                      "id": 1533.0,
+                      "name": "Ahmavaara, Eero",
+                      "alt_name": "Eero Ahmavaara",
+                      "fullname": "",
                       "image_src": null,
-                      "dob": 1899.0,
-                      "dod": 1980.0,
+                      "dob": 1915.0,
+                      "dod": 1961.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -9546,10 +8906,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 41,
+                      "storycount": 6,
                       "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Kivimies",
+                      "first_name": "Eero",
+                      "last_name": "Ahmavaara",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -9581,13 +8941,13 @@
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                     },
                     {
-                      "id": 1533.0,
-                      "name": "Ahmavaara, Eero",
-                      "alt_name": "Eero Ahmavaara",
-                      "fullname": "",
+                      "id": 1535.0,
+                      "name": "Kivimies, Yrjö",
+                      "alt_name": "Yrjö Kivimies",
+                      "fullname": "Yrjö Armas Kivimies",
                       "image_src": null,
-                      "dob": 1915.0,
-                      "dod": 1961.0,
+                      "dob": 1899.0,
+                      "dod": 1980.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -9596,10 +8956,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 6,
+                      "storycount": 41,
                       "other_names": null,
-                      "first_name": "Eero",
-                      "last_name": "Ahmavaara",
+                      "first_name": "Yrjö",
+                      "last_name": "Kivimies",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -9609,9 +8969,9 @@
                   "contributions": [
                     {
                       "person": {
-                        "id": 1533.0,
-                        "name": "Ahmavaara, Eero",
-                        "alt_name": "Eero Ahmavaara"
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -9635,9 +8995,9 @@
                     },
                     {
                       "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
+                        "id": 1533.0,
+                        "name": "Ahmavaara, Eero",
+                        "alt_name": "Eero Ahmavaara"
                       },
                       "role": {
                         "id": 2,
@@ -9676,13 +9036,13 @@
                   "editors": [],
                   "translators": [
                     {
-                      "id": 1535.0,
-                      "name": "Kivimies, Yrjö",
-                      "alt_name": "Yrjö Kivimies",
-                      "fullname": "Yrjö Armas Kivimies",
+                      "id": 1533.0,
+                      "name": "Ahmavaara, Eero",
+                      "alt_name": "Eero Ahmavaara",
+                      "fullname": "",
                       "image_src": null,
-                      "dob": 1899.0,
-                      "dod": 1980.0,
+                      "dob": 1915.0,
+                      "dod": 1961.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -9691,10 +9051,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 41,
+                      "storycount": 6,
                       "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Kivimies",
+                      "first_name": "Eero",
+                      "last_name": "Ahmavaara",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -9726,13 +9086,13 @@
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                     },
                     {
-                      "id": 1533.0,
-                      "name": "Ahmavaara, Eero",
-                      "alt_name": "Eero Ahmavaara",
-                      "fullname": "",
+                      "id": 1535.0,
+                      "name": "Kivimies, Yrjö",
+                      "alt_name": "Yrjö Kivimies",
+                      "fullname": "Yrjö Armas Kivimies",
                       "image_src": null,
-                      "dob": 1915.0,
-                      "dod": 1961.0,
+                      "dob": 1899.0,
+                      "dod": 1980.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -9741,10 +9101,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 6,
+                      "storycount": 41,
                       "other_names": null,
-                      "first_name": "Eero",
-                      "last_name": "Ahmavaara",
+                      "first_name": "Yrjö",
+                      "last_name": "Kivimies",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -9752,6 +9112,19 @@
                     }
                   ],
                   "contributions": [
+                    {
+                      "person": {
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": null,
+                      "real_person": null
+                    },
                     {
                       "person": {
                         "id": 1533.0,
@@ -9770,19 +9143,6 @@
                         "id": 1534.0,
                         "name": "Idman, Niilo",
                         "alt_name": "Niilo Idman"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -9821,13 +9181,13 @@
                   "editors": [],
                   "translators": [
                     {
-                      "id": 1535.0,
-                      "name": "Kivimies, Yrjö",
-                      "alt_name": "Yrjö Kivimies",
-                      "fullname": "Yrjö Armas Kivimies",
+                      "id": 1533.0,
+                      "name": "Ahmavaara, Eero",
+                      "alt_name": "Eero Ahmavaara",
+                      "fullname": "",
                       "image_src": null,
-                      "dob": 1899.0,
-                      "dod": 1980.0,
+                      "dob": 1915.0,
+                      "dod": 1961.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -9836,10 +9196,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 41,
+                      "storycount": 6,
                       "other_names": null,
-                      "first_name": "Yrjö",
-                      "last_name": "Kivimies",
+                      "first_name": "Eero",
+                      "last_name": "Ahmavaara",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -9871,13 +9231,13 @@
                       "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
                     },
                     {
-                      "id": 1533.0,
-                      "name": "Ahmavaara, Eero",
-                      "alt_name": "Eero Ahmavaara",
-                      "fullname": "",
+                      "id": 1535.0,
+                      "name": "Kivimies, Yrjö",
+                      "alt_name": "Yrjö Kivimies",
+                      "fullname": "Yrjö Armas Kivimies",
                       "image_src": null,
-                      "dob": 1915.0,
-                      "dod": 1961.0,
+                      "dob": 1899.0,
+                      "dod": 1980.0,
                       "roles": [
                         "Kääntäjä"
                       ],
@@ -9886,10 +9246,10 @@
                         "name": "Suomi"
                       },
                       "workcount": 0.0,
-                      "storycount": 6,
+                      "storycount": 41,
                       "other_names": null,
-                      "first_name": "Eero",
-                      "last_name": "Ahmavaara",
+                      "first_name": "Yrjö",
+                      "last_name": "Kivimies",
                       "image_attr": "",
                       "bio": null,
                       "bio_src": "",
@@ -9912,9 +9272,9 @@
                     },
                     {
                       "person": {
-                        "id": 1534.0,
-                        "name": "Idman, Niilo",
-                        "alt_name": "Niilo Idman"
+                        "id": 1535.0,
+                        "name": "Kivimies, Yrjö",
+                        "alt_name": "Yrjö Kivimies"
                       },
                       "role": {
                         "id": 2,
@@ -9925,9 +9285,9 @@
                     },
                     {
                       "person": {
-                        "id": 1535.0,
-                        "name": "Kivimies, Yrjö",
-                        "alt_name": "Yrjö Kivimies"
+                        "id": 1534.0,
+                        "name": "Idman, Niilo",
+                        "alt_name": "Niilo Idman"
                       },
                       "role": {
                         "id": 2,
@@ -10015,9 +9375,9 @@
             },
             {
               "person": {
-                "id": 1534.0,
-                "name": "Idman, Niilo",
-                "alt_name": "Niilo Idman"
+                "id": 1535.0,
+                "name": "Kivimies, Yrjö",
+                "alt_name": "Yrjö Kivimies"
               },
               "role": {
                 "id": 2,
@@ -10028,9 +9388,9 @@
             },
             {
               "person": {
-                "id": 1535.0,
-                "name": "Kivimies, Yrjö",
-                "alt_name": "Yrjö Kivimies"
+                "id": 1534.0,
+                "name": "Idman, Niilo",
+                "alt_name": "Niilo Idman"
               },
               "role": {
                 "id": 2,

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-28T17:39:29.223810+00:00",
+    "generated_at": "2026-03-01T19:29:52.232592+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/works/shorts/1378",
@@ -266,15 +266,15 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 1143.0,
-                          "name": "Manninen, Pekka A.",
-                          "alt_name": "Pekka A. Manninen"
+                          "id": 274.0,
+                          "name": "Peltonen, Leena",
+                          "alt_name": "Leena Peltonen"
                         },
                         "role": {
-                          "id": 5,
-                          "name": "Kuvittaja"
+                          "id": 3,
+                          "name": "Toimittaja"
                         },
-                        "description": "",
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -286,6 +286,71 @@
                         "role": {
                           "id": 4,
                           "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 898.0,
+                          "name": "Supinen, Pekka",
+                          "alt_name": "Pekka Supinen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 899.0,
+                          "name": "Haarikko, Harri",
+                          "alt_name": "Harri Haarikko"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 901.0,
+                          "name": "Pilhjerta, Ritva-Liisa",
+                          "alt_name": "Ritva-Liisa Pilhjerta"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 1143.0,
+                          "name": "Manninen, Pekka A.",
+                          "alt_name": "Pekka A. Manninen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
                         },
                         "description": "",
                         "real_person": null
@@ -499,15 +564,15 @@
             "contributions": [
               {
                 "person": {
-                  "id": 1143.0,
-                  "name": "Manninen, Pekka A.",
-                  "alt_name": "Pekka A. Manninen"
+                  "id": 274.0,
+                  "name": "Peltonen, Leena",
+                  "alt_name": "Leena Peltonen"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 3,
+                  "name": "Toimittaja"
                 },
-                "description": "",
+                "description": null,
                 "real_person": null
               },
               {
@@ -519,6 +584,71 @@
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 898.0,
+                  "name": "Supinen, Pekka",
+                  "alt_name": "Pekka Supinen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 899.0,
+                  "name": "Haarikko, Harri",
+                  "alt_name": "Harri Haarikko"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 901.0,
+                  "name": "Pilhjerta, Ritva-Liisa",
+                  "alt_name": "Ritva-Liisa Pilhjerta"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 1143.0,
+                  "name": "Manninen, Pekka A.",
+                  "alt_name": "Pekka A. Manninen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -572,32 +702,6 @@
                 "orig_title": "Kädettömät kuninkaat ja muita häiritseviä tarinoita",
                 "author_str": "Sinisalo, Johanna",
                 "contributions": [
-                  {
-                    "person": {
-                      "id": 368.0,
-                      "name": "Sinisalo, Johanna",
-                      "alt_name": "Johanna Sinisalo"
-                    },
-                    "role": {
-                      "id": 1,
-                      "name": "Kirjoittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  },
-                  {
-                    "person": {
-                      "id": 368.0,
-                      "name": "Sinisalo, Johanna",
-                      "alt_name": "Johanna Sinisalo"
-                    },
-                    "role": {
-                      "id": 1,
-                      "name": "Kirjoittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  },
                   {
                     "person": {
                       "id": 368.0,
@@ -807,32 +911,6 @@
                 "orig_title": "Kädettömät kuninkaat ja muita häiritseviä tarinoita",
                 "author_str": "Sinisalo, Johanna",
                 "contributions": [
-                  {
-                    "person": {
-                      "id": 368.0,
-                      "name": "Sinisalo, Johanna",
-                      "alt_name": "Johanna Sinisalo"
-                    },
-                    "role": {
-                      "id": 1,
-                      "name": "Kirjoittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  },
-                  {
-                    "person": {
-                      "id": 368.0,
-                      "name": "Sinisalo, Johanna",
-                      "alt_name": "Johanna Sinisalo"
-                    },
-                    "role": {
-                      "id": 1,
-                      "name": "Kirjoittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  },
                   {
                     "person": {
                       "id": 368.0,
@@ -2248,15 +2326,15 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 1143.0,
-                          "name": "Manninen, Pekka A.",
-                          "alt_name": "Pekka A. Manninen"
+                          "id": 274.0,
+                          "name": "Peltonen, Leena",
+                          "alt_name": "Leena Peltonen"
                         },
                         "role": {
-                          "id": 5,
-                          "name": "Kuvittaja"
+                          "id": 3,
+                          "name": "Toimittaja"
                         },
-                        "description": "",
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -2268,6 +2346,71 @@
                         "role": {
                           "id": 4,
                           "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 898.0,
+                          "name": "Supinen, Pekka",
+                          "alt_name": "Pekka Supinen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 899.0,
+                          "name": "Haarikko, Harri",
+                          "alt_name": "Harri Haarikko"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 901.0,
+                          "name": "Pilhjerta, Ritva-Liisa",
+                          "alt_name": "Ritva-Liisa Pilhjerta"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 1143.0,
+                          "name": "Manninen, Pekka A.",
+                          "alt_name": "Pekka A. Manninen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
                         },
                         "description": "",
                         "real_person": null
@@ -2481,15 +2624,15 @@
             "contributions": [
               {
                 "person": {
-                  "id": 1143.0,
-                  "name": "Manninen, Pekka A.",
-                  "alt_name": "Pekka A. Manninen"
+                  "id": 274.0,
+                  "name": "Peltonen, Leena",
+                  "alt_name": "Leena Peltonen"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 3,
+                  "name": "Toimittaja"
                 },
-                "description": "",
+                "description": null,
                 "real_person": null
               },
               {
@@ -2501,6 +2644,71 @@
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 898.0,
+                  "name": "Supinen, Pekka",
+                  "alt_name": "Pekka Supinen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 899.0,
+                  "name": "Haarikko, Harri",
+                  "alt_name": "Harri Haarikko"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 901.0,
+                  "name": "Pilhjerta, Ritva-Liisa",
+                  "alt_name": "Ritva-Liisa Pilhjerta"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 1143.0,
+                  "name": "Manninen, Pekka A.",
+                  "alt_name": "Pekka A. Manninen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -2838,15 +3046,15 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 1143.0,
-                          "name": "Manninen, Pekka A.",
-                          "alt_name": "Pekka A. Manninen"
+                          "id": 274.0,
+                          "name": "Peltonen, Leena",
+                          "alt_name": "Leena Peltonen"
                         },
                         "role": {
-                          "id": 5,
-                          "name": "Kuvittaja"
+                          "id": 3,
+                          "name": "Toimittaja"
                         },
-                        "description": "",
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -2858,6 +3066,71 @@
                         "role": {
                           "id": 4,
                           "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 898.0,
+                          "name": "Supinen, Pekka",
+                          "alt_name": "Pekka Supinen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 899.0,
+                          "name": "Haarikko, Harri",
+                          "alt_name": "Harri Haarikko"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 901.0,
+                          "name": "Pilhjerta, Ritva-Liisa",
+                          "alt_name": "Ritva-Liisa Pilhjerta"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 1143.0,
+                          "name": "Manninen, Pekka A.",
+                          "alt_name": "Pekka A. Manninen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
                         },
                         "description": "",
                         "real_person": null
@@ -3071,15 +3344,15 @@
             "contributions": [
               {
                 "person": {
-                  "id": 1143.0,
-                  "name": "Manninen, Pekka A.",
-                  "alt_name": "Pekka A. Manninen"
+                  "id": 274.0,
+                  "name": "Peltonen, Leena",
+                  "alt_name": "Leena Peltonen"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 3,
+                  "name": "Toimittaja"
                 },
-                "description": "",
+                "description": null,
                 "real_person": null
               },
               {
@@ -3091,6 +3364,71 @@
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 898.0,
+                  "name": "Supinen, Pekka",
+                  "alt_name": "Pekka Supinen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 899.0,
+                  "name": "Haarikko, Harri",
+                  "alt_name": "Harri Haarikko"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 901.0,
+                  "name": "Pilhjerta, Ritva-Liisa",
+                  "alt_name": "Ritva-Liisa Pilhjerta"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 1143.0,
+                  "name": "Manninen, Pekka A.",
+                  "alt_name": "Pekka A. Manninen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -4148,15 +4486,15 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 1143.0,
-                          "name": "Manninen, Pekka A.",
-                          "alt_name": "Pekka A. Manninen"
+                          "id": 274.0,
+                          "name": "Peltonen, Leena",
+                          "alt_name": "Leena Peltonen"
                         },
                         "role": {
-                          "id": 5,
-                          "name": "Kuvittaja"
+                          "id": 3,
+                          "name": "Toimittaja"
                         },
-                        "description": "",
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -4168,6 +4506,71 @@
                         "role": {
                           "id": 4,
                           "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 898.0,
+                          "name": "Supinen, Pekka",
+                          "alt_name": "Pekka Supinen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 899.0,
+                          "name": "Haarikko, Harri",
+                          "alt_name": "Harri Haarikko"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 901.0,
+                          "name": "Pilhjerta, Ritva-Liisa",
+                          "alt_name": "Ritva-Liisa Pilhjerta"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 1143.0,
+                          "name": "Manninen, Pekka A.",
+                          "alt_name": "Pekka A. Manninen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
                         },
                         "description": "",
                         "real_person": null
@@ -4381,15 +4784,15 @@
             "contributions": [
               {
                 "person": {
-                  "id": 1143.0,
-                  "name": "Manninen, Pekka A.",
-                  "alt_name": "Pekka A. Manninen"
+                  "id": 274.0,
+                  "name": "Peltonen, Leena",
+                  "alt_name": "Leena Peltonen"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 3,
+                  "name": "Toimittaja"
                 },
-                "description": "",
+                "description": null,
                 "real_person": null
               },
               {
@@ -4401,6 +4804,71 @@
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 898.0,
+                  "name": "Supinen, Pekka",
+                  "alt_name": "Pekka Supinen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 899.0,
+                  "name": "Haarikko, Harri",
+                  "alt_name": "Harri Haarikko"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 901.0,
+                  "name": "Pilhjerta, Ritva-Liisa",
+                  "alt_name": "Ritva-Liisa Pilhjerta"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 1143.0,
+                  "name": "Manninen, Pekka A.",
+                  "alt_name": "Pekka A. Manninen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -5458,15 +5926,15 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 1143.0,
-                          "name": "Manninen, Pekka A.",
-                          "alt_name": "Pekka A. Manninen"
+                          "id": 274.0,
+                          "name": "Peltonen, Leena",
+                          "alt_name": "Leena Peltonen"
                         },
                         "role": {
-                          "id": 5,
-                          "name": "Kuvittaja"
+                          "id": 3,
+                          "name": "Toimittaja"
                         },
-                        "description": "",
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -5478,6 +5946,71 @@
                         "role": {
                           "id": 4,
                           "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 898.0,
+                          "name": "Supinen, Pekka",
+                          "alt_name": "Pekka Supinen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 899.0,
+                          "name": "Haarikko, Harri",
+                          "alt_name": "Harri Haarikko"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 901.0,
+                          "name": "Pilhjerta, Ritva-Liisa",
+                          "alt_name": "Ritva-Liisa Pilhjerta"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 1143.0,
+                          "name": "Manninen, Pekka A.",
+                          "alt_name": "Pekka A. Manninen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
                         },
                         "description": "",
                         "real_person": null
@@ -5691,15 +6224,15 @@
             "contributions": [
               {
                 "person": {
-                  "id": 1143.0,
-                  "name": "Manninen, Pekka A.",
-                  "alt_name": "Pekka A. Manninen"
+                  "id": 274.0,
+                  "name": "Peltonen, Leena",
+                  "alt_name": "Leena Peltonen"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 3,
+                  "name": "Toimittaja"
                 },
-                "description": "",
+                "description": null,
                 "real_person": null
               },
               {
@@ -5711,6 +6244,71 @@
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 898.0,
+                  "name": "Supinen, Pekka",
+                  "alt_name": "Pekka Supinen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 899.0,
+                  "name": "Haarikko, Harri",
+                  "alt_name": "Harri Haarikko"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 901.0,
+                  "name": "Pilhjerta, Ritva-Liisa",
+                  "alt_name": "Ritva-Liisa Pilhjerta"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 1143.0,
+                  "name": "Manninen, Pekka A.",
+                  "alt_name": "Pekka A. Manninen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -5811,6 +6409,19 @@
                     ],
                     "translators": [],
                     "contributions": [
+                      {
+                        "person": {
+                          "id": 1618.0,
+                          "name": "Erkki, Harri",
+                          "alt_name": "Harri Erkki"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
                       {
                         "person": {
                           "id": 4849.0,
@@ -5916,6 +6527,19 @@
               }
             ],
             "contributions": [
+              {
+                "person": {
+                  "id": 1618.0,
+                  "name": "Erkki, Harri",
+                  "alt_name": "Harri Erkki"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
               {
                 "person": {
                   "id": 4849.0,
@@ -6246,15 +6870,15 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 1143.0,
-                          "name": "Manninen, Pekka A.",
-                          "alt_name": "Pekka A. Manninen"
+                          "id": 274.0,
+                          "name": "Peltonen, Leena",
+                          "alt_name": "Leena Peltonen"
                         },
                         "role": {
-                          "id": 5,
-                          "name": "Kuvittaja"
+                          "id": 3,
+                          "name": "Toimittaja"
                         },
-                        "description": "",
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -6266,6 +6890,71 @@
                         "role": {
                           "id": 4,
                           "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 898.0,
+                          "name": "Supinen, Pekka",
+                          "alt_name": "Pekka Supinen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 899.0,
+                          "name": "Haarikko, Harri",
+                          "alt_name": "Harri Haarikko"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 901.0,
+                          "name": "Pilhjerta, Ritva-Liisa",
+                          "alt_name": "Ritva-Liisa Pilhjerta"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 1143.0,
+                          "name": "Manninen, Pekka A.",
+                          "alt_name": "Pekka A. Manninen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
                         },
                         "description": "",
                         "real_person": null
@@ -6479,15 +7168,15 @@
             "contributions": [
               {
                 "person": {
-                  "id": 1143.0,
-                  "name": "Manninen, Pekka A.",
-                  "alt_name": "Pekka A. Manninen"
+                  "id": 274.0,
+                  "name": "Peltonen, Leena",
+                  "alt_name": "Leena Peltonen"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 3,
+                  "name": "Toimittaja"
                 },
-                "description": "",
+                "description": null,
                 "real_person": null
               },
               {
@@ -6499,6 +7188,71 @@
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 898.0,
+                  "name": "Supinen, Pekka",
+                  "alt_name": "Pekka Supinen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 899.0,
+                  "name": "Haarikko, Harri",
+                  "alt_name": "Harri Haarikko"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 901.0,
+                  "name": "Pilhjerta, Ritva-Liisa",
+                  "alt_name": "Ritva-Liisa Pilhjerta"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 1143.0,
+                  "name": "Manninen, Pekka A.",
+                  "alt_name": "Pekka A. Manninen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -6823,15 +7577,15 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 1143.0,
-                          "name": "Manninen, Pekka A.",
-                          "alt_name": "Pekka A. Manninen"
+                          "id": 274.0,
+                          "name": "Peltonen, Leena",
+                          "alt_name": "Leena Peltonen"
                         },
                         "role": {
-                          "id": 5,
-                          "name": "Kuvittaja"
+                          "id": 3,
+                          "name": "Toimittaja"
                         },
-                        "description": "",
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -6843,6 +7597,71 @@
                         "role": {
                           "id": 4,
                           "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 898.0,
+                          "name": "Supinen, Pekka",
+                          "alt_name": "Pekka Supinen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 899.0,
+                          "name": "Haarikko, Harri",
+                          "alt_name": "Harri Haarikko"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 901.0,
+                          "name": "Pilhjerta, Ritva-Liisa",
+                          "alt_name": "Ritva-Liisa Pilhjerta"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 1143.0,
+                          "name": "Manninen, Pekka A.",
+                          "alt_name": "Pekka A. Manninen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
                         },
                         "description": "",
                         "real_person": null
@@ -7056,15 +7875,15 @@
             "contributions": [
               {
                 "person": {
-                  "id": 1143.0,
-                  "name": "Manninen, Pekka A.",
-                  "alt_name": "Pekka A. Manninen"
+                  "id": 274.0,
+                  "name": "Peltonen, Leena",
+                  "alt_name": "Leena Peltonen"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 3,
+                  "name": "Toimittaja"
                 },
-                "description": "",
+                "description": null,
                 "real_person": null
               },
               {
@@ -7076,6 +7895,71 @@
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 898.0,
+                  "name": "Supinen, Pekka",
+                  "alt_name": "Pekka Supinen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 899.0,
+                  "name": "Haarikko, Harri",
+                  "alt_name": "Harri Haarikko"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 901.0,
+                  "name": "Pilhjerta, Ritva-Liisa",
+                  "alt_name": "Ritva-Liisa Pilhjerta"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 1143.0,
+                  "name": "Manninen, Pekka A.",
+                  "alt_name": "Pekka A. Manninen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -7588,15 +8472,15 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 1143.0,
-                          "name": "Manninen, Pekka A.",
-                          "alt_name": "Pekka A. Manninen"
+                          "id": 274.0,
+                          "name": "Peltonen, Leena",
+                          "alt_name": "Leena Peltonen"
                         },
                         "role": {
-                          "id": 5,
-                          "name": "Kuvittaja"
+                          "id": 3,
+                          "name": "Toimittaja"
                         },
-                        "description": "",
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -7608,6 +8492,71 @@
                         "role": {
                           "id": 4,
                           "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 898.0,
+                          "name": "Supinen, Pekka",
+                          "alt_name": "Pekka Supinen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 899.0,
+                          "name": "Haarikko, Harri",
+                          "alt_name": "Harri Haarikko"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 901.0,
+                          "name": "Pilhjerta, Ritva-Liisa",
+                          "alt_name": "Ritva-Liisa Pilhjerta"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 1143.0,
+                          "name": "Manninen, Pekka A.",
+                          "alt_name": "Pekka A. Manninen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
                         },
                         "description": "",
                         "real_person": null
@@ -7821,15 +8770,15 @@
             "contributions": [
               {
                 "person": {
-                  "id": 1143.0,
-                  "name": "Manninen, Pekka A.",
-                  "alt_name": "Pekka A. Manninen"
+                  "id": 274.0,
+                  "name": "Peltonen, Leena",
+                  "alt_name": "Leena Peltonen"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 3,
+                  "name": "Toimittaja"
                 },
-                "description": "",
+                "description": null,
                 "real_person": null
               },
               {
@@ -7841,6 +8790,71 @@
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 898.0,
+                  "name": "Supinen, Pekka",
+                  "alt_name": "Pekka Supinen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 899.0,
+                  "name": "Haarikko, Harri",
+                  "alt_name": "Harri Haarikko"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 901.0,
+                  "name": "Pilhjerta, Ritva-Liisa",
+                  "alt_name": "Ritva-Liisa Pilhjerta"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 1143.0,
+                  "name": "Manninen, Pekka A.",
+                  "alt_name": "Pekka A. Manninen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -8911,15 +9925,15 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 1143.0,
-                          "name": "Manninen, Pekka A.",
-                          "alt_name": "Pekka A. Manninen"
+                          "id": 274.0,
+                          "name": "Peltonen, Leena",
+                          "alt_name": "Leena Peltonen"
                         },
                         "role": {
-                          "id": 5,
-                          "name": "Kuvittaja"
+                          "id": 3,
+                          "name": "Toimittaja"
                         },
-                        "description": "",
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -8931,6 +9945,71 @@
                         "role": {
                           "id": 4,
                           "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 898.0,
+                          "name": "Supinen, Pekka",
+                          "alt_name": "Pekka Supinen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 899.0,
+                          "name": "Haarikko, Harri",
+                          "alt_name": "Harri Haarikko"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 901.0,
+                          "name": "Pilhjerta, Ritva-Liisa",
+                          "alt_name": "Ritva-Liisa Pilhjerta"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 1143.0,
+                          "name": "Manninen, Pekka A.",
+                          "alt_name": "Pekka A. Manninen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
                         },
                         "description": "",
                         "real_person": null
@@ -9144,15 +10223,15 @@
             "contributions": [
               {
                 "person": {
-                  "id": 1143.0,
-                  "name": "Manninen, Pekka A.",
-                  "alt_name": "Pekka A. Manninen"
+                  "id": 274.0,
+                  "name": "Peltonen, Leena",
+                  "alt_name": "Leena Peltonen"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 3,
+                  "name": "Toimittaja"
                 },
-                "description": "",
+                "description": null,
                 "real_person": null
               },
               {
@@ -9164,6 +10243,71 @@
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 898.0,
+                  "name": "Supinen, Pekka",
+                  "alt_name": "Pekka Supinen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 899.0,
+                  "name": "Haarikko, Harri",
+                  "alt_name": "Harri Haarikko"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 901.0,
+                  "name": "Pilhjerta, Ritva-Liisa",
+                  "alt_name": "Ritva-Liisa Pilhjerta"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 1143.0,
+                  "name": "Manninen, Pekka A.",
+                  "alt_name": "Pekka A. Manninen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -10246,15 +11390,15 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 1143.0,
-                          "name": "Manninen, Pekka A.",
-                          "alt_name": "Pekka A. Manninen"
+                          "id": 274.0,
+                          "name": "Peltonen, Leena",
+                          "alt_name": "Leena Peltonen"
                         },
                         "role": {
-                          "id": 5,
-                          "name": "Kuvittaja"
+                          "id": 3,
+                          "name": "Toimittaja"
                         },
-                        "description": "",
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -10266,6 +11410,71 @@
                         "role": {
                           "id": 4,
                           "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 898.0,
+                          "name": "Supinen, Pekka",
+                          "alt_name": "Pekka Supinen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 899.0,
+                          "name": "Haarikko, Harri",
+                          "alt_name": "Harri Haarikko"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 901.0,
+                          "name": "Pilhjerta, Ritva-Liisa",
+                          "alt_name": "Ritva-Liisa Pilhjerta"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 1143.0,
+                          "name": "Manninen, Pekka A.",
+                          "alt_name": "Pekka A. Manninen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
                         },
                         "description": "",
                         "real_person": null
@@ -10479,15 +11688,15 @@
             "contributions": [
               {
                 "person": {
-                  "id": 1143.0,
-                  "name": "Manninen, Pekka A.",
-                  "alt_name": "Pekka A. Manninen"
+                  "id": 274.0,
+                  "name": "Peltonen, Leena",
+                  "alt_name": "Leena Peltonen"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 3,
+                  "name": "Toimittaja"
                 },
-                "description": "",
+                "description": null,
                 "real_person": null
               },
               {
@@ -10499,6 +11708,71 @@
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 898.0,
+                  "name": "Supinen, Pekka",
+                  "alt_name": "Pekka Supinen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 899.0,
+                  "name": "Haarikko, Harri",
+                  "alt_name": "Harri Haarikko"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 901.0,
+                  "name": "Pilhjerta, Ritva-Liisa",
+                  "alt_name": "Ritva-Liisa Pilhjerta"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 1143.0,
+                  "name": "Manninen, Pekka A.",
+                  "alt_name": "Pekka A. Manninen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -11701,15 +12975,15 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 1143.0,
-                          "name": "Manninen, Pekka A.",
-                          "alt_name": "Pekka A. Manninen"
+                          "id": 274.0,
+                          "name": "Peltonen, Leena",
+                          "alt_name": "Leena Peltonen"
                         },
                         "role": {
-                          "id": 5,
-                          "name": "Kuvittaja"
+                          "id": 3,
+                          "name": "Toimittaja"
                         },
-                        "description": "",
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -11721,6 +12995,71 @@
                         "role": {
                           "id": 4,
                           "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 898.0,
+                          "name": "Supinen, Pekka",
+                          "alt_name": "Pekka Supinen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 899.0,
+                          "name": "Haarikko, Harri",
+                          "alt_name": "Harri Haarikko"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 901.0,
+                          "name": "Pilhjerta, Ritva-Liisa",
+                          "alt_name": "Ritva-Liisa Pilhjerta"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 1143.0,
+                          "name": "Manninen, Pekka A.",
+                          "alt_name": "Pekka A. Manninen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
                         },
                         "description": "",
                         "real_person": null
@@ -11934,15 +13273,15 @@
             "contributions": [
               {
                 "person": {
-                  "id": 1143.0,
-                  "name": "Manninen, Pekka A.",
-                  "alt_name": "Pekka A. Manninen"
+                  "id": 274.0,
+                  "name": "Peltonen, Leena",
+                  "alt_name": "Leena Peltonen"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 3,
+                  "name": "Toimittaja"
                 },
-                "description": "",
+                "description": null,
                 "real_person": null
               },
               {
@@ -11954,6 +13293,71 @@
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 898.0,
+                  "name": "Supinen, Pekka",
+                  "alt_name": "Pekka Supinen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 899.0,
+                  "name": "Haarikko, Harri",
+                  "alt_name": "Harri Haarikko"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 901.0,
+                  "name": "Pilhjerta, Ritva-Liisa",
+                  "alt_name": "Ritva-Liisa Pilhjerta"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 1143.0,
+                  "name": "Manninen, Pekka A.",
+                  "alt_name": "Pekka A. Manninen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -13012,15 +14416,15 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 1143.0,
-                          "name": "Manninen, Pekka A.",
-                          "alt_name": "Pekka A. Manninen"
+                          "id": 274.0,
+                          "name": "Peltonen, Leena",
+                          "alt_name": "Leena Peltonen"
                         },
                         "role": {
-                          "id": 5,
-                          "name": "Kuvittaja"
+                          "id": 3,
+                          "name": "Toimittaja"
                         },
-                        "description": "",
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -13032,6 +14436,71 @@
                         "role": {
                           "id": 4,
                           "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 898.0,
+                          "name": "Supinen, Pekka",
+                          "alt_name": "Pekka Supinen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 899.0,
+                          "name": "Haarikko, Harri",
+                          "alt_name": "Harri Haarikko"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 901.0,
+                          "name": "Pilhjerta, Ritva-Liisa",
+                          "alt_name": "Ritva-Liisa Pilhjerta"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 1143.0,
+                          "name": "Manninen, Pekka A.",
+                          "alt_name": "Pekka A. Manninen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
                         },
                         "description": "",
                         "real_person": null
@@ -13245,15 +14714,15 @@
             "contributions": [
               {
                 "person": {
-                  "id": 1143.0,
-                  "name": "Manninen, Pekka A.",
-                  "alt_name": "Pekka A. Manninen"
+                  "id": 274.0,
+                  "name": "Peltonen, Leena",
+                  "alt_name": "Leena Peltonen"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 3,
+                  "name": "Toimittaja"
                 },
-                "description": "",
+                "description": null,
                 "real_person": null
               },
               {
@@ -13265,6 +14734,71 @@
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 898.0,
+                  "name": "Supinen, Pekka",
+                  "alt_name": "Pekka Supinen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 899.0,
+                  "name": "Haarikko, Harri",
+                  "alt_name": "Harri Haarikko"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 901.0,
+                  "name": "Pilhjerta, Ritva-Liisa",
+                  "alt_name": "Ritva-Liisa Pilhjerta"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 1143.0,
+                  "name": "Manninen, Pekka A.",
+                  "alt_name": "Pekka A. Manninen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -14322,15 +15856,15 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 1143.0,
-                          "name": "Manninen, Pekka A.",
-                          "alt_name": "Pekka A. Manninen"
+                          "id": 274.0,
+                          "name": "Peltonen, Leena",
+                          "alt_name": "Leena Peltonen"
                         },
                         "role": {
-                          "id": 5,
-                          "name": "Kuvittaja"
+                          "id": 3,
+                          "name": "Toimittaja"
                         },
-                        "description": "",
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -14342,6 +15876,71 @@
                         "role": {
                           "id": 4,
                           "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 898.0,
+                          "name": "Supinen, Pekka",
+                          "alt_name": "Pekka Supinen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 899.0,
+                          "name": "Haarikko, Harri",
+                          "alt_name": "Harri Haarikko"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 901.0,
+                          "name": "Pilhjerta, Ritva-Liisa",
+                          "alt_name": "Ritva-Liisa Pilhjerta"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 1143.0,
+                          "name": "Manninen, Pekka A.",
+                          "alt_name": "Pekka A. Manninen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
                         },
                         "description": "",
                         "real_person": null
@@ -14555,15 +16154,15 @@
             "contributions": [
               {
                 "person": {
-                  "id": 1143.0,
-                  "name": "Manninen, Pekka A.",
-                  "alt_name": "Pekka A. Manninen"
+                  "id": 274.0,
+                  "name": "Peltonen, Leena",
+                  "alt_name": "Leena Peltonen"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 3,
+                  "name": "Toimittaja"
                 },
-                "description": "",
+                "description": null,
                 "real_person": null
               },
               {
@@ -14575,6 +16174,71 @@
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 898.0,
+                  "name": "Supinen, Pekka",
+                  "alt_name": "Pekka Supinen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 899.0,
+                  "name": "Haarikko, Harri",
+                  "alt_name": "Harri Haarikko"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 901.0,
+                  "name": "Pilhjerta, Ritva-Liisa",
+                  "alt_name": "Ritva-Liisa Pilhjerta"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 1143.0,
+                  "name": "Manninen, Pekka A.",
+                  "alt_name": "Pekka A. Manninen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -14900,15 +16564,15 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 1143.0,
-                          "name": "Manninen, Pekka A.",
-                          "alt_name": "Pekka A. Manninen"
+                          "id": 274.0,
+                          "name": "Peltonen, Leena",
+                          "alt_name": "Leena Peltonen"
                         },
                         "role": {
-                          "id": 5,
-                          "name": "Kuvittaja"
+                          "id": 3,
+                          "name": "Toimittaja"
                         },
-                        "description": "",
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -14920,6 +16584,71 @@
                         "role": {
                           "id": 4,
                           "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 898.0,
+                          "name": "Supinen, Pekka",
+                          "alt_name": "Pekka Supinen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 899.0,
+                          "name": "Haarikko, Harri",
+                          "alt_name": "Harri Haarikko"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 901.0,
+                          "name": "Pilhjerta, Ritva-Liisa",
+                          "alt_name": "Ritva-Liisa Pilhjerta"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 1143.0,
+                          "name": "Manninen, Pekka A.",
+                          "alt_name": "Pekka A. Manninen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
                         },
                         "description": "",
                         "real_person": null
@@ -15133,15 +16862,15 @@
             "contributions": [
               {
                 "person": {
-                  "id": 1143.0,
-                  "name": "Manninen, Pekka A.",
-                  "alt_name": "Pekka A. Manninen"
+                  "id": 274.0,
+                  "name": "Peltonen, Leena",
+                  "alt_name": "Leena Peltonen"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 3,
+                  "name": "Toimittaja"
                 },
-                "description": "",
+                "description": null,
                 "real_person": null
               },
               {
@@ -15153,6 +16882,71 @@
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 898.0,
+                  "name": "Supinen, Pekka",
+                  "alt_name": "Pekka Supinen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 899.0,
+                  "name": "Haarikko, Harri",
+                  "alt_name": "Harri Haarikko"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 901.0,
+                  "name": "Pilhjerta, Ritva-Liisa",
+                  "alt_name": "Ritva-Liisa Pilhjerta"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 1143.0,
+                  "name": "Manninen, Pekka A.",
+                  "alt_name": "Pekka A. Manninen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -16212,15 +18006,15 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 1143.0,
-                          "name": "Manninen, Pekka A.",
-                          "alt_name": "Pekka A. Manninen"
+                          "id": 274.0,
+                          "name": "Peltonen, Leena",
+                          "alt_name": "Leena Peltonen"
                         },
                         "role": {
-                          "id": 5,
-                          "name": "Kuvittaja"
+                          "id": 3,
+                          "name": "Toimittaja"
                         },
-                        "description": "",
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -16232,6 +18026,71 @@
                         "role": {
                           "id": 4,
                           "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 898.0,
+                          "name": "Supinen, Pekka",
+                          "alt_name": "Pekka Supinen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 899.0,
+                          "name": "Haarikko, Harri",
+                          "alt_name": "Harri Haarikko"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 901.0,
+                          "name": "Pilhjerta, Ritva-Liisa",
+                          "alt_name": "Ritva-Liisa Pilhjerta"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 1143.0,
+                          "name": "Manninen, Pekka A.",
+                          "alt_name": "Pekka A. Manninen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
                         },
                         "description": "",
                         "real_person": null
@@ -16445,15 +18304,15 @@
             "contributions": [
               {
                 "person": {
-                  "id": 1143.0,
-                  "name": "Manninen, Pekka A.",
-                  "alt_name": "Pekka A. Manninen"
+                  "id": 274.0,
+                  "name": "Peltonen, Leena",
+                  "alt_name": "Leena Peltonen"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 3,
+                  "name": "Toimittaja"
                 },
-                "description": "",
+                "description": null,
                 "real_person": null
               },
               {
@@ -16465,6 +18324,71 @@
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 898.0,
+                  "name": "Supinen, Pekka",
+                  "alt_name": "Pekka Supinen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 899.0,
+                  "name": "Haarikko, Harri",
+                  "alt_name": "Harri Haarikko"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 901.0,
+                  "name": "Pilhjerta, Ritva-Liisa",
+                  "alt_name": "Ritva-Liisa Pilhjerta"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 1143.0,
+                  "name": "Manninen, Pekka A.",
+                  "alt_name": "Pekka A. Manninen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -16789,15 +18713,15 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 1143.0,
-                          "name": "Manninen, Pekka A.",
-                          "alt_name": "Pekka A. Manninen"
+                          "id": 274.0,
+                          "name": "Peltonen, Leena",
+                          "alt_name": "Leena Peltonen"
                         },
                         "role": {
-                          "id": 5,
-                          "name": "Kuvittaja"
+                          "id": 3,
+                          "name": "Toimittaja"
                         },
-                        "description": "",
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -16809,6 +18733,71 @@
                         "role": {
                           "id": 4,
                           "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 898.0,
+                          "name": "Supinen, Pekka",
+                          "alt_name": "Pekka Supinen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 899.0,
+                          "name": "Haarikko, Harri",
+                          "alt_name": "Harri Haarikko"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 901.0,
+                          "name": "Pilhjerta, Ritva-Liisa",
+                          "alt_name": "Ritva-Liisa Pilhjerta"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 1143.0,
+                          "name": "Manninen, Pekka A.",
+                          "alt_name": "Pekka A. Manninen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
                         },
                         "description": "",
                         "real_person": null
@@ -17022,15 +19011,15 @@
             "contributions": [
               {
                 "person": {
-                  "id": 1143.0,
-                  "name": "Manninen, Pekka A.",
-                  "alt_name": "Pekka A. Manninen"
+                  "id": 274.0,
+                  "name": "Peltonen, Leena",
+                  "alt_name": "Leena Peltonen"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 3,
+                  "name": "Toimittaja"
                 },
-                "description": "",
+                "description": null,
                 "real_person": null
               },
               {
@@ -17042,6 +19031,71 @@
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 898.0,
+                  "name": "Supinen, Pekka",
+                  "alt_name": "Pekka Supinen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 899.0,
+                  "name": "Haarikko, Harri",
+                  "alt_name": "Harri Haarikko"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 901.0,
+                  "name": "Pilhjerta, Ritva-Liisa",
+                  "alt_name": "Ritva-Liisa Pilhjerta"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 1143.0,
+                  "name": "Manninen, Pekka A.",
+                  "alt_name": "Pekka A. Manninen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -17598,15 +19652,15 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 1143.0,
-                          "name": "Manninen, Pekka A.",
-                          "alt_name": "Pekka A. Manninen"
+                          "id": 274.0,
+                          "name": "Peltonen, Leena",
+                          "alt_name": "Leena Peltonen"
                         },
                         "role": {
-                          "id": 5,
-                          "name": "Kuvittaja"
+                          "id": 3,
+                          "name": "Toimittaja"
                         },
-                        "description": "",
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -17618,6 +19672,71 @@
                         "role": {
                           "id": 4,
                           "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 898.0,
+                          "name": "Supinen, Pekka",
+                          "alt_name": "Pekka Supinen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 899.0,
+                          "name": "Haarikko, Harri",
+                          "alt_name": "Harri Haarikko"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 901.0,
+                          "name": "Pilhjerta, Ritva-Liisa",
+                          "alt_name": "Ritva-Liisa Pilhjerta"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 1143.0,
+                          "name": "Manninen, Pekka A.",
+                          "alt_name": "Pekka A. Manninen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
                         },
                         "description": "",
                         "real_person": null
@@ -17831,15 +19950,15 @@
             "contributions": [
               {
                 "person": {
-                  "id": 1143.0,
-                  "name": "Manninen, Pekka A.",
-                  "alt_name": "Pekka A. Manninen"
+                  "id": 274.0,
+                  "name": "Peltonen, Leena",
+                  "alt_name": "Leena Peltonen"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 3,
+                  "name": "Toimittaja"
                 },
-                "description": "",
+                "description": null,
                 "real_person": null
               },
               {
@@ -17851,6 +19970,71 @@
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 898.0,
+                  "name": "Supinen, Pekka",
+                  "alt_name": "Pekka Supinen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 899.0,
+                  "name": "Haarikko, Harri",
+                  "alt_name": "Harri Haarikko"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 901.0,
+                  "name": "Pilhjerta, Ritva-Liisa",
+                  "alt_name": "Ritva-Liisa Pilhjerta"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 1143.0,
+                  "name": "Manninen, Pekka A.",
+                  "alt_name": "Pekka A. Manninen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -18178,15 +20362,15 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 1143.0,
-                          "name": "Manninen, Pekka A.",
-                          "alt_name": "Pekka A. Manninen"
+                          "id": 274.0,
+                          "name": "Peltonen, Leena",
+                          "alt_name": "Leena Peltonen"
                         },
                         "role": {
-                          "id": 5,
-                          "name": "Kuvittaja"
+                          "id": 3,
+                          "name": "Toimittaja"
                         },
-                        "description": "",
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -18198,6 +20382,71 @@
                         "role": {
                           "id": 4,
                           "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 898.0,
+                          "name": "Supinen, Pekka",
+                          "alt_name": "Pekka Supinen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 899.0,
+                          "name": "Haarikko, Harri",
+                          "alt_name": "Harri Haarikko"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 901.0,
+                          "name": "Pilhjerta, Ritva-Liisa",
+                          "alt_name": "Ritva-Liisa Pilhjerta"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 1143.0,
+                          "name": "Manninen, Pekka A.",
+                          "alt_name": "Pekka A. Manninen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
                         },
                         "description": "",
                         "real_person": null
@@ -18411,15 +20660,15 @@
             "contributions": [
               {
                 "person": {
-                  "id": 1143.0,
-                  "name": "Manninen, Pekka A.",
-                  "alt_name": "Pekka A. Manninen"
+                  "id": 274.0,
+                  "name": "Peltonen, Leena",
+                  "alt_name": "Leena Peltonen"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 3,
+                  "name": "Toimittaja"
                 },
-                "description": "",
+                "description": null,
                 "real_person": null
               },
               {
@@ -18431,6 +20680,71 @@
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 898.0,
+                  "name": "Supinen, Pekka",
+                  "alt_name": "Pekka Supinen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 899.0,
+                  "name": "Haarikko, Harri",
+                  "alt_name": "Harri Haarikko"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 901.0,
+                  "name": "Pilhjerta, Ritva-Liisa",
+                  "alt_name": "Ritva-Liisa Pilhjerta"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 1143.0,
+                  "name": "Manninen, Pekka A.",
+                  "alt_name": "Pekka A. Manninen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -19488,15 +21802,15 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 1143.0,
-                          "name": "Manninen, Pekka A.",
-                          "alt_name": "Pekka A. Manninen"
+                          "id": 274.0,
+                          "name": "Peltonen, Leena",
+                          "alt_name": "Leena Peltonen"
                         },
                         "role": {
-                          "id": 5,
-                          "name": "Kuvittaja"
+                          "id": 3,
+                          "name": "Toimittaja"
                         },
-                        "description": "",
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -19508,6 +21822,71 @@
                         "role": {
                           "id": 4,
                           "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 898.0,
+                          "name": "Supinen, Pekka",
+                          "alt_name": "Pekka Supinen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 899.0,
+                          "name": "Haarikko, Harri",
+                          "alt_name": "Harri Haarikko"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 901.0,
+                          "name": "Pilhjerta, Ritva-Liisa",
+                          "alt_name": "Ritva-Liisa Pilhjerta"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 1143.0,
+                          "name": "Manninen, Pekka A.",
+                          "alt_name": "Pekka A. Manninen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
                         },
                         "description": "",
                         "real_person": null
@@ -19721,15 +22100,15 @@
             "contributions": [
               {
                 "person": {
-                  "id": 1143.0,
-                  "name": "Manninen, Pekka A.",
-                  "alt_name": "Pekka A. Manninen"
+                  "id": 274.0,
+                  "name": "Peltonen, Leena",
+                  "alt_name": "Leena Peltonen"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 3,
+                  "name": "Toimittaja"
                 },
-                "description": "",
+                "description": null,
                 "real_person": null
               },
               {
@@ -19741,6 +22120,71 @@
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 898.0,
+                  "name": "Supinen, Pekka",
+                  "alt_name": "Pekka Supinen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 899.0,
+                  "name": "Haarikko, Harri",
+                  "alt_name": "Harri Haarikko"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 901.0,
+                  "name": "Pilhjerta, Ritva-Liisa",
+                  "alt_name": "Ritva-Liisa Pilhjerta"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 1143.0,
+                  "name": "Manninen, Pekka A.",
+                  "alt_name": "Pekka A. Manninen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -19841,7 +22285,21 @@
                       }
                     ],
                     "translators": [],
-                    "contributions": [],
+                    "contributions": [
+                      {
+                        "person": {
+                          "id": 939.0,
+                          "name": "Nummelin, Juri",
+                          "alt_name": "Juri Nummelin"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      }
+                    ],
                     "images": [
                       {
                         "id": 3251,
@@ -19933,7 +22391,21 @@
                 "imported_string": "\n\n<b>Osiriksen sormus</b>. Kaksi aikamatkakertomusta. Sis. tarinat \"Viiden minuutin ikuisuus\" (1936) ja \"Osiriksen sormus\" (1934). Toim Juri Nummelin. M-kirjat 23. Turbator 2011. [F]."
               }
             ],
-            "contributions": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 939.0,
+                  "name": "Nummelin, Juri",
+                  "alt_name": "Juri Nummelin"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              }
+            ],
             "images": [
               {
                 "id": 3251,
@@ -20981,15 +23453,15 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 1143.0,
-                          "name": "Manninen, Pekka A.",
-                          "alt_name": "Pekka A. Manninen"
+                          "id": 274.0,
+                          "name": "Peltonen, Leena",
+                          "alt_name": "Leena Peltonen"
                         },
                         "role": {
-                          "id": 5,
-                          "name": "Kuvittaja"
+                          "id": 3,
+                          "name": "Toimittaja"
                         },
-                        "description": "",
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -21001,6 +23473,71 @@
                         "role": {
                           "id": 4,
                           "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 898.0,
+                          "name": "Supinen, Pekka",
+                          "alt_name": "Pekka Supinen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 899.0,
+                          "name": "Haarikko, Harri",
+                          "alt_name": "Harri Haarikko"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 901.0,
+                          "name": "Pilhjerta, Ritva-Liisa",
+                          "alt_name": "Ritva-Liisa Pilhjerta"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 1143.0,
+                          "name": "Manninen, Pekka A.",
+                          "alt_name": "Pekka A. Manninen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
                         },
                         "description": "",
                         "real_person": null
@@ -21214,15 +23751,15 @@
             "contributions": [
               {
                 "person": {
-                  "id": 1143.0,
-                  "name": "Manninen, Pekka A.",
-                  "alt_name": "Pekka A. Manninen"
+                  "id": 274.0,
+                  "name": "Peltonen, Leena",
+                  "alt_name": "Leena Peltonen"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 3,
+                  "name": "Toimittaja"
                 },
-                "description": "",
+                "description": null,
                 "real_person": null
               },
               {
@@ -21234,6 +23771,71 @@
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 898.0,
+                  "name": "Supinen, Pekka",
+                  "alt_name": "Pekka Supinen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 899.0,
+                  "name": "Haarikko, Harri",
+                  "alt_name": "Harri Haarikko"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 901.0,
+                  "name": "Pilhjerta, Ritva-Liisa",
+                  "alt_name": "Ritva-Liisa Pilhjerta"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 1143.0,
+                  "name": "Manninen, Pekka A.",
+                  "alt_name": "Pekka A. Manninen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -21558,15 +24160,15 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 1143.0,
-                          "name": "Manninen, Pekka A.",
-                          "alt_name": "Pekka A. Manninen"
+                          "id": 274.0,
+                          "name": "Peltonen, Leena",
+                          "alt_name": "Leena Peltonen"
                         },
                         "role": {
-                          "id": 5,
-                          "name": "Kuvittaja"
+                          "id": 3,
+                          "name": "Toimittaja"
                         },
-                        "description": "",
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -21578,6 +24180,71 @@
                         "role": {
                           "id": 4,
                           "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 898.0,
+                          "name": "Supinen, Pekka",
+                          "alt_name": "Pekka Supinen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 899.0,
+                          "name": "Haarikko, Harri",
+                          "alt_name": "Harri Haarikko"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 901.0,
+                          "name": "Pilhjerta, Ritva-Liisa",
+                          "alt_name": "Ritva-Liisa Pilhjerta"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 1143.0,
+                          "name": "Manninen, Pekka A.",
+                          "alt_name": "Pekka A. Manninen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
                         },
                         "description": "",
                         "real_person": null
@@ -21791,15 +24458,15 @@
             "contributions": [
               {
                 "person": {
-                  "id": 1143.0,
-                  "name": "Manninen, Pekka A.",
-                  "alt_name": "Pekka A. Manninen"
+                  "id": 274.0,
+                  "name": "Peltonen, Leena",
+                  "alt_name": "Leena Peltonen"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 3,
+                  "name": "Toimittaja"
                 },
-                "description": "",
+                "description": null,
                 "real_person": null
               },
               {
@@ -21811,6 +24478,71 @@
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 898.0,
+                  "name": "Supinen, Pekka",
+                  "alt_name": "Pekka Supinen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 899.0,
+                  "name": "Haarikko, Harri",
+                  "alt_name": "Harri Haarikko"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 901.0,
+                  "name": "Pilhjerta, Ritva-Liisa",
+                  "alt_name": "Ritva-Liisa Pilhjerta"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 1143.0,
+                  "name": "Manninen, Pekka A.",
+                  "alt_name": "Pekka A. Manninen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -22519,15 +25251,15 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 1143.0,
-                          "name": "Manninen, Pekka A.",
-                          "alt_name": "Pekka A. Manninen"
+                          "id": 274.0,
+                          "name": "Peltonen, Leena",
+                          "alt_name": "Leena Peltonen"
                         },
                         "role": {
-                          "id": 5,
-                          "name": "Kuvittaja"
+                          "id": 3,
+                          "name": "Toimittaja"
                         },
-                        "description": "",
+                        "description": null,
                         "real_person": null
                       },
                       {
@@ -22539,6 +25271,71 @@
                         "role": {
                           "id": 4,
                           "name": "Kansikuva"
+                        },
+                        "description": "",
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 898.0,
+                          "name": "Supinen, Pekka",
+                          "alt_name": "Pekka Supinen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 900.0,
+                          "name": "Nikkonen, Raimo",
+                          "alt_name": "Raimo Nikkonen"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 899.0,
+                          "name": "Haarikko, Harri",
+                          "alt_name": "Harri Haarikko"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 901.0,
+                          "name": "Pilhjerta, Ritva-Liisa",
+                          "alt_name": "Ritva-Liisa Pilhjerta"
+                        },
+                        "role": {
+                          "id": 3,
+                          "name": "Toimittaja"
+                        },
+                        "description": null,
+                        "real_person": null
+                      },
+                      {
+                        "person": {
+                          "id": 1143.0,
+                          "name": "Manninen, Pekka A.",
+                          "alt_name": "Pekka A. Manninen"
+                        },
+                        "role": {
+                          "id": 5,
+                          "name": "Kuvittaja"
                         },
                         "description": "",
                         "real_person": null
@@ -22752,15 +25549,15 @@
             "contributions": [
               {
                 "person": {
-                  "id": 1143.0,
-                  "name": "Manninen, Pekka A.",
-                  "alt_name": "Pekka A. Manninen"
+                  "id": 274.0,
+                  "name": "Peltonen, Leena",
+                  "alt_name": "Leena Peltonen"
                 },
                 "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 3,
+                  "name": "Toimittaja"
                 },
-                "description": "",
+                "description": null,
                 "real_person": null
               },
               {
@@ -22772,6 +25569,71 @@
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 898.0,
+                  "name": "Supinen, Pekka",
+                  "alt_name": "Pekka Supinen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 900.0,
+                  "name": "Nikkonen, Raimo",
+                  "alt_name": "Raimo Nikkonen"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 899.0,
+                  "name": "Haarikko, Harri",
+                  "alt_name": "Harri Haarikko"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 901.0,
+                  "name": "Pilhjerta, Ritva-Liisa",
+                  "alt_name": "Ritva-Liisa Pilhjerta"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 1143.0,
+                  "name": "Manninen, Pekka A.",
+                  "alt_name": "Pekka A. Manninen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null

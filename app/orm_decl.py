@@ -398,6 +398,24 @@ class StoryContributor(Base):
     real_person = relationship('Person', foreign_keys=[real_person_id])
 
 
+class WorkContributor(Base):
+    """ Dedicated contributor table for works. """
+    __tablename__ = 'workcontributor'
+    __table_args__ = {'schema': 'suomisf'}
+    work_id = Column(Integer, ForeignKey('work.id'),
+                     nullable=False, primary_key=True)
+    person_id = Column(Integer, ForeignKey('person.id'),
+                       nullable=False, primary_key=True)
+    role_id = Column(Integer, ForeignKey('contributorrole.id'),
+                     nullable=False, primary_key=True)
+    real_person_id = Column(Integer, ForeignKey('person.id'))
+    description = Column(String(50))
+    person = relationship('Person', foreign_keys=[person_id])
+    role = relationship('ContributorRole', viewonly=True)
+    real_person = relationship(
+        'Person', foreign_keys=[real_person_id])
+
+
 class ContributorRole(Base):
     """ Contributor role table. """
     __tablename__ = 'contributorrole'
@@ -954,24 +972,24 @@ class Person(Base):
                            secondaryjoin=id == Alias.alias,
                            uselist=True, viewonly=True)
     links = relationship("PersonLink", uselist=True, viewonly=True)
-    works = relationship("Work",
-                         secondary='join(Part, Contributor, \
-                            Part.id == Contributor.part_id)',
-                         primaryjoin='and_(Person.id == Contributor.person_id,\
-                            Contributor.part_id == Part.id,\
-                            Contributor.role_id.in_([1,3,6]),\
-                            Part.work_id == Work.id,\
-                            Part.shortstory_id == None)',
-                         order_by='Work.title',
-                         uselist=True, viewonly=True)
+    works = relationship(
+        'Work',
+        secondary='suomisf.workcontributor',
+        primaryjoin='Person.id == WorkContributor.person_id',
+        secondaryjoin='Work.id == WorkContributor.work_id',
+        foreign_keys='[WorkContributor.person_id,'
+                     ' WorkContributor.work_id,'
+                     ' WorkContributor.role_id]',
+        order_by='Work.title',
+        uselist=True, viewonly=True)
     work_contributions = relationship(
-        "Work",
-        secondary='join(Part, Contributor, \
-                   Part.id == Contributor.part_id)',
-        primaryjoin='and_(Person.id == Contributor.person_id,\
-                     Contributor.part_id == Part.id,\
-                     Part.work_id == Work.id,\
-                     Part.shortstory_id == None)',
+        'Work',
+        secondary='suomisf.workcontributor',
+        primaryjoin='Person.id == WorkContributor.person_id',
+        secondaryjoin='Work.id == WorkContributor.work_id',
+        foreign_keys='[WorkContributor.person_id,'
+                     ' WorkContributor.work_id,'
+                     ' WorkContributor.role_id]',
         order_by='Work.title',
         uselist=True, viewonly=True)
     # all_works = relationship("Work",
@@ -1512,17 +1530,15 @@ class Work(Base):
     descr_attr = Column(String(200))
     imported_string = Column(String(500))
     authors = relationship(
-        "Person",
-        secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
-        primaryjoin='and_(Person.id == Contributor.person_id,\
-                     Contributor.part_id == Part.id, Contributor.role_id == 1,\
-                     Part.work_id == Work.id,\
-                     Part.shortstory_id == None)',
-        uselist=True,
-        viewonly=True,
-        foreign_keys=[Contributor.part_id,
-                      Contributor.person_id,
-                      Contributor.role_id])
+        'Person',
+        secondary='suomisf.workcontributor',
+        primaryjoin='and_(Work.id == WorkContributor.work_id,'
+                    ' WorkContributor.role_id == 1)',
+        secondaryjoin='Person.id == WorkContributor.person_id',
+        foreign_keys='[WorkContributor.work_id,'
+                     ' WorkContributor.person_id,'
+                     ' WorkContributor.role_id]',
+        viewonly=True)
     # translators = relationship(
     #     "Person",
     #     secondary='join(Part, Contributor,
@@ -1548,10 +1564,9 @@ class Work(Base):
         order_by='Edition.pubyear, Edition.version, Edition.editionnum',
         viewonly=True)
     contributions = relationship(
-        'Contributor',
-        secondary='part',
-        primaryjoin='and_(Part.work_id == Work.id, Part.shortstory_id == None,\
-                     Contributor.role_id.in_([1,3,6]))',
+        'WorkContributor',
+        primaryjoin='WorkContributor.work_id == Work.id',
+        foreign_keys='WorkContributor.work_id',
         viewonly=True, uselist=True)
     genres = relationship("Genre", secondary='workgenre',
                           uselist=True, viewonly=True)

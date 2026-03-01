@@ -25,7 +25,7 @@
 |----------|-----------|-------|-------|
 | Authentication | 3 | 33 | Login, auth checks, write operation auth |
 | Users | 3 | 13 | Entity, stats/genres tests |
-| Works | 19 | 45 | Entity, related, auth, omnibus, tags, types tests |
+| Works | 19 | 54 | Entity, related, auth, omnibus, tags, types, contributor tests |
 | Editions | 22 | 56 | Entity, related, auth, wishlist, images, contributors tests (2 xfail) |
 | People | 15 | 16 | Entity, filter, related tests |
 | Short Stories | 10 | 35 | Entity, search, auth, type field, CRUD with types |
@@ -40,7 +40,7 @@
 | Search & Filter | 5 | 10 | Works/Shorts search |
 | Miscellaneous | 12 | 36 | Full coverage |
 | Articles | 4 | 0 | Endpoint deprecated |
-| **TOTAL** | **167** | **380** | **5 xfails (known bugs)** |
+| **TOTAL** | **167** | **389** | **5 xfails (known bugs)** |
 
 ---
 
@@ -67,9 +67,9 @@
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
 | :white_check_mark: | GET | `/api/works/<workid>` | None | `test_entities.py::TestWorks`, `test_collections.py::TestWorkCollection` | 2026-02-25 |
-| :white_check_mark: | POST | `/api/works` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
-| :white_check_mark: | PUT | `/api/works` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
-| :white_check_mark: | DELETE | `/api/works/<workid>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth` | 2026-02-14 |
+| :white_check_mark: | POST | `/api/works` | Admin | `test_auth.py::TestWriteOperationsRequireAuth`, `test_work_contributors.py` | 2026-03-01 |
+| :white_check_mark: | PUT | `/api/works` | Admin | `test_auth.py::TestWriteOperationsRequireAuth`, `test_work_contributors.py` | 2026-03-01 |
+| :white_check_mark: | DELETE | `/api/works/<workid>` | Admin | `test_auth.py::TestWriteOperationsRequireAuth`, `test_work_contributors.py` | 2026-03-01 |
 | :white_check_mark: | GET | `/api/latest/works/<count>` | None | `test_related.py::TestLatestWorks` | 2026-02-14 |
 | :white_check_mark: | GET | `/api/works/<workid>/awards` | None | `test_related.py::TestWorkAwards` | 2026-02-14 |
 | :white_check_mark: | GET | `/api/works/<workid>/omnibus` | None | `test_works_extra.py::TestWorkOmnibus` | 2026-02-16 |
@@ -306,6 +306,7 @@
 
 | Date | Git Hash | Total | Passed | Failed | xFail | Duration |
 |------|----------|-------|--------|--------|-------|----------|
+| 2026-03-01 | pending | 623 | 614 | 0 | 2 | 394s |
 | 2026-02-14 | pending | 249 | 248 | 0 | 1 | - |
 | 2026-02-13 | 38bfbe1 | 239 | 238 | 0 | 1 | 124s |
 | 2026-02-14 | 12dc962 | 68 | 68 | 0 | 0 | 16s |

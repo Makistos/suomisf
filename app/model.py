@@ -12,7 +12,8 @@ from app.orm_decl import (Article, Award, AwardCategory, Awarded, BindingType,
                           Publisher, PublisherLink, Pubseries, ShortStory,
                           StoryContributor, Tag,
                           TagType, UserBook, MagazineType, PubseriesLink,
-                          Work, StoryType, WorkLink, Format, WorkType)
+                          Work, WorkContributor, StoryType, WorkLink,
+                          Format, WorkType)
 
 # Brief schemas should not include any relationships to other
 # tables. These exists to get around the issue with Python that
@@ -216,14 +217,16 @@ class PersonBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 
 
 class WorkContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
-    """ Work contributor schema. """
+    """ Work contributor schema (roles 1, 3, 6). """
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
-        model = Contributor
+        model = WorkContributor
+        exclude = ('work_id',)
     person = fields.Nested(PersonBriefSchema(only=('id', 'name', 'alt_name')))
     role = fields.Nested(ContributorRoleSchema)
     description = fields.String()
-    real_person = fields.Nested(lambda: PersonBriefSchema(only=('id', 'name')))
+    real_person = fields.Nested(
+        lambda: PersonBriefSchema(only=('id', 'name')))
 
 
 class EditionContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -578,7 +581,7 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     stories = ma.List(fields.Nested(ShortBriefSchema))
     translators = ma.List(fields.Nested(PersonBriefSchema))
     awards = ma.List(fields.Nested(AwardedSchema))
-    contributions = ma.List(fields.Nested(ContributorSchema))
+    contributions = ma.List(fields.Nested(WorkContributorSchema))
     type = fields.Number()
     work_type = fields.Nested(WorkTypeBriefSchema)
     part_of = ma.List(fields.Nested(OmnibusSchema))

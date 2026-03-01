@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-02-28T17:39:29.223810+00:00",
+    "generated_at": "2026-03-01T19:29:52.232592+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/editions/5",
@@ -18,32 +18,6 @@
             "orig_title": "Tarzan and the Leopard Men",
             "author_str": "Burroughs, Edgar Rice",
             "contributions": [
-              {
-                "person": {
-                  "id": 2877.0,
-                  "name": "Burroughs, Edgar Rice",
-                  "alt_name": "Edgar Rice Burroughs"
-                },
-                "role": {
-                  "id": 1,
-                  "name": "Kirjoittaja"
-                },
-                "description": null,
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2877.0,
-                  "name": "Burroughs, Edgar Rice",
-                  "alt_name": "Edgar Rice Burroughs"
-                },
-                "role": {
-                  "id": 1,
-                  "name": "Kirjoittaja"
-                },
-                "description": null,
-                "real_person": null
-              },
               {
                 "person": {
                   "id": 2877.0,
@@ -91,19 +65,6 @@
                 "contributions": [
                   {
                     "person": {
-                      "id": 2881.0,
-                      "name": "Jokimäki, Marjatta",
-                      "alt_name": "Marjatta Jokimäki"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  },
-                  {
-                    "person": {
                       "id": 5608.0,
                       "name": "Hauhio, Ami",
                       "alt_name": "Ami Hauhio"
@@ -113,6 +74,19 @@
                       "name": "Kansikuva"
                     },
                     "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 2881.0,
+                      "name": "Jokimäki, Marjatta",
+                      "alt_name": "Marjatta Jokimäki"
+                    },
+                    "role": {
+                      "id": 2,
+                      "name": "Kääntäjä"
+                    },
+                    "description": null,
                     "real_person": null
                   }
                 ],
@@ -179,6 +153,19 @@
                 "contributions": [
                   {
                     "person": {
+                      "id": 5678.0,
+                      "name": "Liettyä, Esko",
+                      "alt_name": "Esko Liettyä"
+                    },
+                    "role": {
+                      "id": 4,
+                      "name": "Kansikuva"
+                    },
+                    "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
                       "id": 2882.0,
                       "name": "Tapio, Jaakko V.",
                       "alt_name": "Jaakko V. Tapio"
@@ -199,19 +186,6 @@
                     "role": {
                       "id": 5,
                       "name": "Kuvittaja"
-                    },
-                    "description": "",
-                    "real_person": null
-                  },
-                  {
-                    "person": {
-                      "id": 5678.0,
-                      "name": "Liettyä, Esko",
-                      "alt_name": "Esko Liettyä"
-                    },
-                    "role": {
-                      "id": 4,
-                      "name": "Kansikuva"
                     },
                     "description": "",
                     "real_person": null
@@ -280,19 +254,6 @@
                 "contributions": [
                   {
                     "person": {
-                      "id": 2882.0,
-                      "name": "Tapio, Jaakko V.",
-                      "alt_name": "Jaakko V. Tapio"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  },
-                  {
-                    "person": {
                       "id": 7769.0,
                       "name": "Lintula, Kalevi",
                       "alt_name": "Kalevi Lintula"
@@ -302,6 +263,19 @@
                       "name": "Kuvittaja"
                     },
                     "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 2882.0,
+                      "name": "Tapio, Jaakko V.",
+                      "alt_name": "Jaakko V. Tapio"
+                    },
+                    "role": {
+                      "id": 2,
+                      "name": "Kääntäjä"
+                    },
+                    "description": null,
                     "real_person": null
                   },
                   {
@@ -386,19 +360,6 @@
         "contributions": [
           {
             "person": {
-              "id": 2882.0,
-              "name": "Tapio, Jaakko V.",
-              "alt_name": "Jaakko V. Tapio"
-            },
-            "role": {
-              "id": 2,
-              "name": "Kääntäjä"
-            },
-            "description": null,
-            "real_person": null
-          },
-          {
-            "person": {
               "id": 7769.0,
               "name": "Lintula, Kalevi",
               "alt_name": "Kalevi Lintula"
@@ -408,6 +369,19 @@
               "name": "Kuvittaja"
             },
             "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 2882.0,
+              "name": "Tapio, Jaakko V.",
+              "alt_name": "Jaakko V. Tapio"
+            },
+            "role": {
+              "id": 2,
+              "name": "Kääntäjä"
+            },
+            "description": null,
             "real_person": null
           },
           {
@@ -467,45 +441,6 @@
             "orig_title": "Tarzan Triumphant",
             "author_str": "Burroughs, Edgar Rice",
             "contributions": [
-              {
-                "person": {
-                  "id": 2877.0,
-                  "name": "Burroughs, Edgar Rice",
-                  "alt_name": "Edgar Rice Burroughs"
-                },
-                "role": {
-                  "id": 1,
-                  "name": "Kirjoittaja"
-                },
-                "description": null,
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2877.0,
-                  "name": "Burroughs, Edgar Rice",
-                  "alt_name": "Edgar Rice Burroughs"
-                },
-                "role": {
-                  "id": 1,
-                  "name": "Kirjoittaja"
-                },
-                "description": null,
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2877.0,
-                  "name": "Burroughs, Edgar Rice",
-                  "alt_name": "Edgar Rice Burroughs"
-                },
-                "role": {
-                  "id": 1,
-                  "name": "Kirjoittaja"
-                },
-                "description": null,
-                "real_person": null
-              },
               {
                 "person": {
                   "id": 2877.0,
@@ -641,19 +576,6 @@
                 "contributions": [
                   {
                     "person": {
-                      "id": 2882.0,
-                      "name": "Tapio, Jaakko V.",
-                      "alt_name": "Jaakko V. Tapio"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  },
-                  {
-                    "person": {
                       "id": 7769.0,
                       "name": "Lintula, Kalevi",
                       "alt_name": "Kalevi Lintula"
@@ -663,6 +585,19 @@
                       "name": "Kuvittaja"
                     },
                     "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 2882.0,
+                      "name": "Tapio, Jaakko V.",
+                      "alt_name": "Jaakko V. Tapio"
+                    },
+                    "role": {
+                      "id": 2,
+                      "name": "Kääntäjä"
+                    },
+                    "description": null,
                     "real_person": null
                   }
                 ],
@@ -729,19 +664,6 @@
                 "contributions": [
                   {
                     "person": {
-                      "id": 2882.0,
-                      "name": "Tapio, Jaakko V.",
-                      "alt_name": "Jaakko V. Tapio"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  },
-                  {
-                    "person": {
                       "id": 7769.0,
                       "name": "Lintula, Kalevi",
                       "alt_name": "Kalevi Lintula"
@@ -751,6 +673,19 @@
                       "name": "Kuvittaja"
                     },
                     "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 2882.0,
+                      "name": "Tapio, Jaakko V.",
+                      "alt_name": "Jaakko V. Tapio"
+                    },
+                    "role": {
+                      "id": 2,
+                      "name": "Kääntäjä"
+                    },
+                    "description": null,
                     "real_person": null
                   }
                 ],
@@ -897,19 +832,6 @@
         "contributions": [
           {
             "person": {
-              "id": 2882.0,
-              "name": "Tapio, Jaakko V.",
-              "alt_name": "Jaakko V. Tapio"
-            },
-            "role": {
-              "id": 2,
-              "name": "Kääntäjä"
-            },
-            "description": null,
-            "real_person": null
-          },
-          {
-            "person": {
               "id": 7769.0,
               "name": "Lintula, Kalevi",
               "alt_name": "Kalevi Lintula"
@@ -919,6 +841,19 @@
               "name": "Kuvittaja"
             },
             "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 2882.0,
+              "name": "Tapio, Jaakko V.",
+              "alt_name": "Jaakko V. Tapio"
+            },
+            "role": {
+              "id": 2,
+              "name": "Kääntäjä"
+            },
+            "description": null,
             "real_person": null
           }
         ],
@@ -965,45 +900,6 @@
             "orig_title": "Tarzan and the City of Gold",
             "author_str": "Burroughs, Edgar Rice",
             "contributions": [
-              {
-                "person": {
-                  "id": 2877.0,
-                  "name": "Burroughs, Edgar Rice",
-                  "alt_name": "Edgar Rice Burroughs"
-                },
-                "role": {
-                  "id": 1,
-                  "name": "Kirjoittaja"
-                },
-                "description": null,
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2877.0,
-                  "name": "Burroughs, Edgar Rice",
-                  "alt_name": "Edgar Rice Burroughs"
-                },
-                "role": {
-                  "id": 1,
-                  "name": "Kirjoittaja"
-                },
-                "description": null,
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2877.0,
-                  "name": "Burroughs, Edgar Rice",
-                  "alt_name": "Edgar Rice Burroughs"
-                },
-                "role": {
-                  "id": 1,
-                  "name": "Kirjoittaja"
-                },
-                "description": null,
-                "real_person": null
-              },
               {
                 "person": {
                   "id": 2877.0,
@@ -1139,19 +1035,6 @@
                 "contributions": [
                   {
                     "person": {
-                      "id": 2882.0,
-                      "name": "Tapio, Jaakko V.",
-                      "alt_name": "Jaakko V. Tapio"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  },
-                  {
-                    "person": {
                       "id": 5678.0,
                       "name": "Liettyä, Esko",
                       "alt_name": "Esko Liettyä"
@@ -1174,6 +1057,19 @@
                       "name": "Kuvittaja"
                     },
                     "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 2882.0,
+                      "name": "Tapio, Jaakko V.",
+                      "alt_name": "Jaakko V. Tapio"
+                    },
+                    "role": {
+                      "id": 2,
+                      "name": "Kääntäjä"
+                    },
+                    "description": null,
                     "real_person": null
                   }
                 ],
@@ -1240,19 +1136,6 @@
                 "contributions": [
                   {
                     "person": {
-                      "id": 2882.0,
-                      "name": "Tapio, Jaakko V.",
-                      "alt_name": "Jaakko V. Tapio"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  },
-                  {
-                    "person": {
                       "id": 5678.0,
                       "name": "Liettyä, Esko",
                       "alt_name": "Esko Liettyä"
@@ -1262,6 +1145,19 @@
                       "name": "Kansikuva"
                     },
                     "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 2882.0,
+                      "name": "Tapio, Jaakko V.",
+                      "alt_name": "Jaakko V. Tapio"
+                    },
+                    "role": {
+                      "id": 2,
+                      "name": "Kääntäjä"
+                    },
+                    "description": null,
                     "real_person": null
                   },
                   {
@@ -1341,19 +1237,6 @@
                 "contributions": [
                   {
                     "person": {
-                      "id": 2882.0,
-                      "name": "Tapio, Jaakko V.",
-                      "alt_name": "Jaakko V. Tapio"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  },
-                  {
-                    "person": {
                       "id": 5678.0,
                       "name": "Liettyä, Esko",
                       "alt_name": "Esko Liettyä"
@@ -1363,6 +1246,19 @@
                       "name": "Kansikuva"
                     },
                     "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 2882.0,
+                      "name": "Tapio, Jaakko V.",
+                      "alt_name": "Jaakko V. Tapio"
+                    },
+                    "role": {
+                      "id": 2,
+                      "name": "Kääntäjä"
+                    },
+                    "description": null,
                     "real_person": null
                   }
                 ],
@@ -1434,19 +1330,6 @@
         "contributions": [
           {
             "person": {
-              "id": 2882.0,
-              "name": "Tapio, Jaakko V.",
-              "alt_name": "Jaakko V. Tapio"
-            },
-            "role": {
-              "id": 2,
-              "name": "Kääntäjä"
-            },
-            "description": null,
-            "real_person": null
-          },
-          {
-            "person": {
               "id": 5678.0,
               "name": "Liettyä, Esko",
               "alt_name": "Esko Liettyä"
@@ -1456,6 +1339,19 @@
               "name": "Kansikuva"
             },
             "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 2882.0,
+              "name": "Tapio, Jaakko V.",
+              "alt_name": "Jaakko V. Tapio"
+            },
+            "role": {
+              "id": 2,
+              "name": "Kääntäjä"
+            },
+            "description": null,
             "real_person": null
           },
           {
@@ -1527,45 +1423,6 @@
                 },
                 "description": null,
                 "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2877.0,
-                  "name": "Burroughs, Edgar Rice",
-                  "alt_name": "Edgar Rice Burroughs"
-                },
-                "role": {
-                  "id": 1,
-                  "name": "Kirjoittaja"
-                },
-                "description": null,
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2877.0,
-                  "name": "Burroughs, Edgar Rice",
-                  "alt_name": "Edgar Rice Burroughs"
-                },
-                "role": {
-                  "id": 1,
-                  "name": "Kirjoittaja"
-                },
-                "description": null,
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2877.0,
-                  "name": "Burroughs, Edgar Rice",
-                  "alt_name": "Edgar Rice Burroughs"
-                },
-                "role": {
-                  "id": 1,
-                  "name": "Kirjoittaja"
-                },
-                "description": null,
-                "real_person": null
               }
             ],
             "editions": [
@@ -1601,19 +1458,6 @@
                 "contributions": [
                   {
                     "person": {
-                      "id": 2884.0,
-                      "name": "Jokimäki, Heikki",
-                      "alt_name": "Heikki Jokimäki"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  },
-                  {
-                    "person": {
                       "id": 5608.0,
                       "name": "Hauhio, Ami",
                       "alt_name": "Ami Hauhio"
@@ -1623,6 +1467,19 @@
                       "name": "Kansikuva"
                     },
                     "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 2884.0,
+                      "name": "Jokimäki, Heikki",
+                      "alt_name": "Heikki Jokimäki"
+                    },
+                    "role": {
+                      "id": 2,
+                      "name": "Kääntäjä"
+                    },
+                    "description": null,
                     "real_person": null
                   }
                 ],
@@ -1689,19 +1546,6 @@
                 "contributions": [
                   {
                     "person": {
-                      "id": 2884.0,
-                      "name": "Jokimäki, Heikki",
-                      "alt_name": "Heikki Jokimäki"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  },
-                  {
-                    "person": {
                       "id": 5608.0,
                       "name": "Hauhio, Ami",
                       "alt_name": "Ami Hauhio"
@@ -1711,6 +1555,19 @@
                       "name": "Kansikuva"
                     },
                     "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 2884.0,
+                      "name": "Jokimäki, Heikki",
+                      "alt_name": "Heikki Jokimäki"
+                    },
+                    "role": {
+                      "id": 2,
+                      "name": "Kääntäjä"
+                    },
+                    "description": null,
                     "real_person": null
                   }
                 ],
@@ -1777,19 +1634,6 @@
                 "contributions": [
                   {
                     "person": {
-                      "id": 2884.0,
-                      "name": "Jokimäki, Heikki",
-                      "alt_name": "Heikki Jokimäki"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  },
-                  {
-                    "person": {
                       "id": 5608.0,
                       "name": "Hauhio, Ami",
                       "alt_name": "Ami Hauhio"
@@ -1799,6 +1643,19 @@
                       "name": "Kansikuva"
                     },
                     "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 2884.0,
+                      "name": "Jokimäki, Heikki",
+                      "alt_name": "Heikki Jokimäki"
+                    },
+                    "role": {
+                      "id": 2,
+                      "name": "Kääntäjä"
+                    },
+                    "description": null,
                     "real_person": null
                   }
                 ],
@@ -1865,19 +1722,6 @@
                 "contributions": [
                   {
                     "person": {
-                      "id": 2882.0,
-                      "name": "Tapio, Jaakko V.",
-                      "alt_name": "Jaakko V. Tapio"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  },
-                  {
-                    "person": {
                       "id": 7769.0,
                       "name": "Lintula, Kalevi",
                       "alt_name": "Kalevi Lintula"
@@ -1887,6 +1731,19 @@
                       "name": "Kuvittaja"
                     },
                     "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 2882.0,
+                      "name": "Tapio, Jaakko V.",
+                      "alt_name": "Jaakko V. Tapio"
+                    },
+                    "role": {
+                      "id": 2,
+                      "name": "Kääntäjä"
+                    },
+                    "description": null,
                     "real_person": null
                   }
                 ],
@@ -1958,19 +1815,6 @@
         "contributions": [
           {
             "person": {
-              "id": 2884.0,
-              "name": "Jokimäki, Heikki",
-              "alt_name": "Heikki Jokimäki"
-            },
-            "role": {
-              "id": 2,
-              "name": "Kääntäjä"
-            },
-            "description": null,
-            "real_person": null
-          },
-          {
-            "person": {
               "id": 5608.0,
               "name": "Hauhio, Ami",
               "alt_name": "Ami Hauhio"
@@ -1980,6 +1824,19 @@
               "name": "Kansikuva"
             },
             "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 2884.0,
+              "name": "Jokimäki, Heikki",
+              "alt_name": "Heikki Jokimäki"
+            },
+            "role": {
+              "id": 2,
+              "name": "Kääntäjä"
+            },
+            "description": null,
             "real_person": null
           }
         ],
@@ -2038,45 +1895,6 @@
                 },
                 "description": null,
                 "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2877.0,
-                  "name": "Burroughs, Edgar Rice",
-                  "alt_name": "Edgar Rice Burroughs"
-                },
-                "role": {
-                  "id": 1,
-                  "name": "Kirjoittaja"
-                },
-                "description": null,
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2877.0,
-                  "name": "Burroughs, Edgar Rice",
-                  "alt_name": "Edgar Rice Burroughs"
-                },
-                "role": {
-                  "id": 1,
-                  "name": "Kirjoittaja"
-                },
-                "description": null,
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2877.0,
-                  "name": "Burroughs, Edgar Rice",
-                  "alt_name": "Edgar Rice Burroughs"
-                },
-                "role": {
-                  "id": 1,
-                  "name": "Kirjoittaja"
-                },
-                "description": null,
-                "real_person": null
               }
             ],
             "editions": [
@@ -2112,19 +1930,6 @@
                 "contributions": [
                   {
                     "person": {
-                      "id": 2884.0,
-                      "name": "Jokimäki, Heikki",
-                      "alt_name": "Heikki Jokimäki"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  },
-                  {
-                    "person": {
                       "id": 5608.0,
                       "name": "Hauhio, Ami",
                       "alt_name": "Ami Hauhio"
@@ -2134,6 +1939,19 @@
                       "name": "Kansikuva"
                     },
                     "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 2884.0,
+                      "name": "Jokimäki, Heikki",
+                      "alt_name": "Heikki Jokimäki"
+                    },
+                    "role": {
+                      "id": 2,
+                      "name": "Kääntäjä"
+                    },
+                    "description": null,
                     "real_person": null
                   }
                 ],
@@ -2200,19 +2018,6 @@
                 "contributions": [
                   {
                     "person": {
-                      "id": 2884.0,
-                      "name": "Jokimäki, Heikki",
-                      "alt_name": "Heikki Jokimäki"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  },
-                  {
-                    "person": {
                       "id": 5608.0,
                       "name": "Hauhio, Ami",
                       "alt_name": "Ami Hauhio"
@@ -2222,6 +2027,19 @@
                       "name": "Kansikuva"
                     },
                     "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 2884.0,
+                      "name": "Jokimäki, Heikki",
+                      "alt_name": "Heikki Jokimäki"
+                    },
+                    "role": {
+                      "id": 2,
+                      "name": "Kääntäjä"
+                    },
+                    "description": null,
                     "real_person": null
                   }
                 ],
@@ -2288,19 +2106,6 @@
                 "contributions": [
                   {
                     "person": {
-                      "id": 2884.0,
-                      "name": "Jokimäki, Heikki",
-                      "alt_name": "Heikki Jokimäki"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  },
-                  {
-                    "person": {
                       "id": 5608.0,
                       "name": "Hauhio, Ami",
                       "alt_name": "Ami Hauhio"
@@ -2310,6 +2115,19 @@
                       "name": "Kansikuva"
                     },
                     "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 2884.0,
+                      "name": "Jokimäki, Heikki",
+                      "alt_name": "Heikki Jokimäki"
+                    },
+                    "role": {
+                      "id": 2,
+                      "name": "Kääntäjä"
+                    },
+                    "description": null,
                     "real_person": null
                   }
                 ],
@@ -2376,19 +2194,6 @@
                 "contributions": [
                   {
                     "person": {
-                      "id": 2882.0,
-                      "name": "Tapio, Jaakko V.",
-                      "alt_name": "Jaakko V. Tapio"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  },
-                  {
-                    "person": {
                       "id": 7769.0,
                       "name": "Lintula, Kalevi",
                       "alt_name": "Kalevi Lintula"
@@ -2398,6 +2203,19 @@
                       "name": "Kuvittaja"
                     },
                     "description": "",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 2882.0,
+                      "name": "Tapio, Jaakko V.",
+                      "alt_name": "Jaakko V. Tapio"
+                    },
+                    "role": {
+                      "id": 2,
+                      "name": "Kääntäjä"
+                    },
+                    "description": null,
                     "real_person": null
                   }
                 ],
@@ -2469,19 +2287,6 @@
         "contributions": [
           {
             "person": {
-              "id": 2884.0,
-              "name": "Jokimäki, Heikki",
-              "alt_name": "Heikki Jokimäki"
-            },
-            "role": {
-              "id": 2,
-              "name": "Kääntäjä"
-            },
-            "description": null,
-            "real_person": null
-          },
-          {
-            "person": {
               "id": 5608.0,
               "name": "Hauhio, Ami",
               "alt_name": "Ami Hauhio"
@@ -2491,6 +2296,19 @@
               "name": "Kansikuva"
             },
             "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 2884.0,
+              "name": "Jokimäki, Heikki",
+              "alt_name": "Heikki Jokimäki"
+            },
+            "role": {
+              "id": 2,
+              "name": "Kääntäjä"
+            },
+            "description": null,
             "real_person": null
           }
         ],

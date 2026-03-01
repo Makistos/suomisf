@@ -1,7 +1,12 @@
 {
-  "generated_at": "2026-03-01T00:00:00+00:00",
-  "endpoint": "/api/shorts/1",
-  "method": "GET",
+  "metadata": {
+    "generated_at": "2026-03-01T19:29:52.232592+00:00",
+    "generator": "update_snapshots.py",
+    "total_endpoints": 47,
+    "endpoint": "/api/shorts/1",
+    "method": "GET",
+    "status_code": 200
+  },
   "response": {
     "status_code": 200,
     "data": {
@@ -150,19 +155,6 @@
                     "alt_name": "Reijo Kalvas"
                   },
                   "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 732.0,
-                    "name": "Kalvas, Reijo",
-                    "alt_name": "Reijo Kalvas"
-                  },
-                  "role": {
                     "id": 3,
                     "name": "Toimittaja"
                   },
@@ -180,6 +172,19 @@
                     "name": "Kansikuva"
                   },
                   "description": "Kannen kuva",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 732.0,
+                    "name": "Kalvas, Reijo",
+                    "alt_name": "Reijo Kalvas"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
                   "real_person": null
                 }
               ],
@@ -338,19 +343,6 @@
                         "alt_name": "Reijo Kalvas"
                       },
                       "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 732.0,
-                        "name": "Kalvas, Reijo",
-                        "alt_name": "Reijo Kalvas"
-                      },
-                      "role": {
                         "id": 3,
                         "name": "Toimittaja"
                       },
@@ -368,6 +360,19 @@
                         "name": "Kansikuva"
                       },
                       "description": "Kannen kuva",
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 732.0,
+                        "name": "Kalvas, Reijo",
+                        "alt_name": "Reijo Kalvas"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": null,
                       "real_person": null
                     }
                   ],
@@ -473,19 +478,6 @@
                 "alt_name": "Reijo Kalvas"
               },
               "role": {
-                "id": 2,
-                "name": "Kääntäjä"
-              },
-              "description": null,
-              "real_person": null
-            },
-            {
-              "person": {
-                "id": 732.0,
-                "name": "Kalvas, Reijo",
-                "alt_name": "Reijo Kalvas"
-              },
-              "role": {
                 "id": 3,
                 "name": "Toimittaja"
               },
@@ -503,6 +495,19 @@
                 "name": "Kansikuva"
               },
               "description": "Kannen kuva",
+              "real_person": null
+            },
+            {
+              "person": {
+                "id": 732.0,
+                "name": "Kalvas, Reijo",
+                "alt_name": "Reijo Kalvas"
+              },
+              "role": {
+                "id": 2,
+                "name": "Kääntäjä"
+              },
+              "description": null,
               "real_person": null
             }
           ],
@@ -721,19 +726,6 @@
                               "alt_name": "Reijo Kalvas"
                             },
                             "role": {
-                              "id": 2,
-                              "name": "Kääntäjä"
-                            },
-                            "description": null,
-                            "real_person": null
-                          },
-                          {
-                            "person": {
-                              "id": 732.0,
-                              "name": "Kalvas, Reijo",
-                              "alt_name": "Reijo Kalvas"
-                            },
-                            "role": {
                               "id": 3,
                               "name": "Toimittaja"
                             },
@@ -751,6 +743,19 @@
                               "name": "Kansikuva"
                             },
                             "description": "Kannen kuva",
+                            "real_person": null
+                          },
+                          {
+                            "person": {
+                              "id": 732.0,
+                              "name": "Kalvas, Reijo",
+                              "alt_name": "Reijo Kalvas"
+                            },
+                            "role": {
+                              "id": 2,
+                              "name": "Kääntäjä"
+                            },
+                            "description": null,
                             "real_person": null
                           }
                         ],
@@ -856,19 +861,6 @@
                       "alt_name": "Reijo Kalvas"
                     },
                     "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  },
-                  {
-                    "person": {
-                      "id": 732.0,
-                      "name": "Kalvas, Reijo",
-                      "alt_name": "Reijo Kalvas"
-                    },
-                    "role": {
                       "id": 3,
                       "name": "Toimittaja"
                     },
@@ -886,6 +878,19 @@
                       "name": "Kansikuva"
                     },
                     "description": "Kannen kuva",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 732.0,
+                      "name": "Kalvas, Reijo",
+                      "alt_name": "Reijo Kalvas"
+                    },
+                    "role": {
+                      "id": 2,
+                      "name": "Kääntäjä"
+                    },
+                    "description": null,
                     "real_person": null
                   }
                 ],
@@ -976,6 +981,7 @@
       "title": "Robottiunta",
       "orig_title": "Robot Dreams",
       "pubyear": 1986
-    }
+    },
+    "error": null
   }
 }
