@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-02T15:55:51.776168+00:00",
+    "generated_at": "2026-03-02T23:02:16.622874+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/issuesperyear",

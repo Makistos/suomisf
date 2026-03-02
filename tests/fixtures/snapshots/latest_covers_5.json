@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-02T15:55:51.776168+00:00",
+    "generated_at": "2026-03-02T23:02:16.622874+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/covers/5",
@@ -14,235 +14,235 @@
         "edition": {
           "images": [
             {
-              "id": 9444,
-              "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleopardimiehet_2l4p.jpg",
+              "id": 9460,
+              "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjakadonnutvaltakunta_3l4p.jpg",
               "image_attr": null
             }
           ],
           "work": {
-            "id": 4765,
-            "title": "Tarzan ja leopardimiehet",
-            "subtitle": "apinain Tarzanin uusia seikkailuja leopardimiesten maassa",
-            "orig_title": "Tarzan and the Leopard Men",
-            "pubyear": 1935,
-            "bookseriesnum": "17",
-            "bookseriesorder": 17,
+            "id": 4775,
+            "title": "Tarzan taistelee jälleen",
+            "subtitle": "",
+            "orig_title": "Tarzan and the Lost Empire",
+            "pubyear": 1929,
+            "bookseriesnum": "12",
+            "bookseriesorder": 12,
             "misc": "",
             "description": "",
             "descr_attr": null,
-            "imported_string": "\n\n<b>Tarzan ja leopardimiehet</b>. (Tarzan and the Leopard Men, 1935). Suom Marjatta Jokimäki. Karhu 1954. [eiSF].",
+            "imported_string": "\n\n<b>Tarzan taistelee jälleen</b>. (Tarzan and the Lost Empire, 1929). Suom Werner Anttila. Kariston nuorisonkirjoja 117. Karisto 1942. [F].",
             "author_str": "Burroughs, Edgar Rice"
           },
           "owners": [],
           "wishlisted": [],
-          "id": 9896,
-          "title": "Tarzan ja leopardimiehet",
-          "subtitle": "",
-          "pubyear": 1988,
-          "editionnum": 4,
-          "version": 2,
-          "isbn": "",
-          "printedin": null,
-          "pubseriesnum": null,
-          "coll_info": "",
-          "pages": 256,
-          "size": 21,
-          "dustcover": 1,
-          "coverimage": 3,
-          "misc": "",
-          "imported_string": "\n\n2.laitos: Kauppakirjapaino 1974.",
-          "verified": false
-        },
-        "id": 9444,
-        "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleopardimiehet_2l4p.jpg",
-        "image_attr": null
-      },
-      {
-        "edition": {
-          "images": [
-            {
-              "id": 9442,
-              "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleopardimiehet_2l1p.jpg",
-              "image_attr": null
-            }
-          ],
-          "work": {
-            "id": 4765,
-            "title": "Tarzan ja leopardimiehet",
-            "subtitle": "apinain Tarzanin uusia seikkailuja leopardimiesten maassa",
-            "orig_title": "Tarzan and the Leopard Men",
-            "pubyear": 1935,
-            "bookseriesnum": "17",
-            "bookseriesorder": 17,
-            "misc": "",
-            "description": "",
-            "descr_attr": null,
-            "imported_string": "\n\n<b>Tarzan ja leopardimiehet</b>. (Tarzan and the Leopard Men, 1935). Suom Marjatta Jokimäki. Karhu 1954. [eiSF].",
-            "author_str": "Burroughs, Edgar Rice"
-          },
-          "owners": [],
-          "wishlisted": [],
-          "id": 5487,
-          "title": "Tarzan ja leopardimiehet",
-          "subtitle": "",
-          "pubyear": 1974,
-          "editionnum": 1,
-          "version": 2,
-          "isbn": "",
-          "printedin": null,
-          "pubseriesnum": null,
-          "coll_info": "",
-          "pages": 256,
-          "size": 21,
-          "dustcover": 1,
-          "coverimage": 3,
-          "misc": "",
-          "imported_string": "\n\n2.laitos: Kauppakirjapaino 1974.",
-          "verified": false
-        },
-        "id": 9442,
-        "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleopardimiehet_2l1p.jpg",
-        "image_attr": null
-      },
-      {
-        "edition": {
-          "images": [
-            {
-              "id": 9441,
-              "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleopardimiehet_1p.jpg",
-              "image_attr": null
-            }
-          ],
-          "work": {
-            "id": 4765,
-            "title": "Tarzan ja leopardimiehet",
-            "subtitle": "apinain Tarzanin uusia seikkailuja leopardimiesten maassa",
-            "orig_title": "Tarzan and the Leopard Men",
-            "pubyear": 1935,
-            "bookseriesnum": "17",
-            "bookseriesorder": 17,
-            "misc": "",
-            "description": "",
-            "descr_attr": null,
-            "imported_string": "\n\n<b>Tarzan ja leopardimiehet</b>. (Tarzan and the Leopard Men, 1935). Suom Marjatta Jokimäki. Karhu 1954. [eiSF].",
-            "author_str": "Burroughs, Edgar Rice"
-          },
-          "owners": [],
-          "wishlisted": [],
-          "id": 5486,
-          "title": "Tarzan ja leopardimiehet",
-          "subtitle": "apinain Tarzanin uusia seikkailuja leopardimiesten maassa",
-          "pubyear": 1954,
-          "editionnum": 1,
-          "version": null,
-          "isbn": "",
-          "printedin": null,
-          "pubseriesnum": null,
-          "coll_info": "",
-          "pages": 190,
-          "size": 20,
-          "dustcover": 1,
-          "coverimage": 1,
-          "misc": "",
-          "imported_string": "\n\n<b>Tarzan ja leopardimiehet</b>. (Tarzan and the Leopard Men, 1935). Suom Marjatta Jokimäki. Karhu 1954. [eiSF].",
-          "verified": false
-        },
-        "id": 9441,
-        "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleopardimiehet_1p.jpg",
-        "image_attr": null
-      },
-      {
-        "edition": {
-          "images": [
-            {
-              "id": 9440,
-              "image_src": "/static/images/books/Burroughs_Edgar_Rice_Urheatarzan_3l1p.jpg",
-              "image_attr": null
-            }
-          ],
-          "work": {
-            "id": 4774,
-            "title": "Tarzan Midianin maassa",
-            "subtitle": "apinain Tarzanin uusia seikkailuja Midianin maassa",
-            "orig_title": "Tarzan Triumphant",
-            "pubyear": 1932,
-            "bookseriesnum": "14",
-            "bookseriesorder": 14,
-            "misc": "",
-            "description": "",
-            "descr_attr": null,
-            "imported_string": "\n\n<b>Tarzan Midianin maassa</b>. (Tarzan Triumphant, 1932). Suom Marjatta Jokimäki. Karhu 1955. [F].",
-            "author_str": "Burroughs, Edgar Rice"
-          },
-          "owners": [],
-          "wishlisted": [],
-          "id": 5506,
-          "title": "Urhea Tarzan",
+          "id": 5510,
+          "title": "Tarzan taistelee jälleen",
           "subtitle": "",
           "pubyear": 1991,
           "editionnum": 1,
-          "version": 3,
-          "isbn": "951-26-3626-3",
+          "version": 4,
+          "isbn": "951-26-3624-7",
           "printedin": null,
           "pubseriesnum": null,
           "coll_info": "",
-          "pages": 264,
+          "pages": 228,
           "size": 21,
           "dustcover": 1,
           "coverimage": 3,
           "misc": "",
-          "imported_string": "\n\n3.laitos: Kirjayhtymä 1991.",
+          "imported_string": "\n\n4.laitos: Kirjayhtymä 1991.",
           "verified": false
         },
-        "id": 9440,
-        "image_src": "/static/images/books/Burroughs_Edgar_Rice_Urheatarzan_3l1p.jpg",
+        "id": 9460,
+        "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjakadonnutvaltakunta_3l4p.jpg",
         "image_attr": null
       },
       {
         "edition": {
           "images": [
             {
-              "id": 9439,
-              "image_src": "/static/images/books/Burroughs_Edgar_Rice_Urheatarzan_4l2p.jpg",
+              "id": 9459,
+              "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjakadonnutvaltakunta_3l1p.jpg",
               "image_attr": null
             }
           ],
           "work": {
-            "id": 4774,
-            "title": "Tarzan Midianin maassa",
-            "subtitle": "apinain Tarzanin uusia seikkailuja Midianin maassa",
-            "orig_title": "Tarzan Triumphant",
-            "pubyear": 1932,
-            "bookseriesnum": "14",
-            "bookseriesorder": 14,
+            "id": 4775,
+            "title": "Tarzan taistelee jälleen",
+            "subtitle": "",
+            "orig_title": "Tarzan and the Lost Empire",
+            "pubyear": 1929,
+            "bookseriesnum": "12",
+            "bookseriesorder": 12,
             "misc": "",
             "description": "",
             "descr_attr": null,
-            "imported_string": "\n\n<b>Tarzan Midianin maassa</b>. (Tarzan Triumphant, 1932). Suom Marjatta Jokimäki. Karhu 1955. [F].",
+            "imported_string": "\n\n<b>Tarzan taistelee jälleen</b>. (Tarzan and the Lost Empire, 1929). Suom Werner Anttila. Kariston nuorisonkirjoja 117. Karisto 1942. [F].",
             "author_str": "Burroughs, Edgar Rice"
           },
           "owners": [],
           "wishlisted": [],
-          "id": 9895,
-          "title": "Urhea Tarzan",
+          "id": 9903,
+          "title": "Tarzan ja kadonnut valtakunta",
           "subtitle": "",
-          "pubyear": 1986,
-          "editionnum": 4,
+          "pubyear": 1979,
+          "editionnum": 2,
+          "version": 3,
+          "isbn": "",
+          "printedin": null,
+          "pubseriesnum": null,
+          "coll_info": "",
+          "pages": 239,
+          "size": 21,
+          "dustcover": 1,
+          "coverimage": 3,
+          "misc": "",
+          "imported_string": "\n\n3.laitos: Suom Jaakko V. Tapio. Kauppakirjapaino 1972.",
+          "verified": false
+        },
+        "id": 9459,
+        "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjakadonnutvaltakunta_3l1p.jpg",
+        "image_attr": null
+      },
+      {
+        "edition": {
+          "images": [
+            {
+              "id": 9458,
+              "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjakadonnutvaltakunta_3l1p.jpg",
+              "image_attr": null
+            }
+          ],
+          "work": {
+            "id": 4775,
+            "title": "Tarzan taistelee jälleen",
+            "subtitle": "",
+            "orig_title": "Tarzan and the Lost Empire",
+            "pubyear": 1929,
+            "bookseriesnum": "12",
+            "bookseriesorder": 12,
+            "misc": "",
+            "description": "",
+            "descr_attr": null,
+            "imported_string": "\n\n<b>Tarzan taistelee jälleen</b>. (Tarzan and the Lost Empire, 1929). Suom Werner Anttila. Kariston nuorisonkirjoja 117. Karisto 1942. [F].",
+            "author_str": "Burroughs, Edgar Rice"
+          },
+          "owners": [],
+          "wishlisted": [],
+          "id": 5509,
+          "title": "Tarzan ja kadonnut valtakunta",
+          "subtitle": "",
+          "pubyear": 1972,
+          "editionnum": 1,
+          "version": 3,
+          "isbn": "",
+          "printedin": null,
+          "pubseriesnum": null,
+          "coll_info": "",
+          "pages": 239,
+          "size": 21,
+          "dustcover": 1,
+          "coverimage": 3,
+          "misc": "",
+          "imported_string": "\n\n3.laitos: Suom Jaakko V. Tapio. Kauppakirjapaino 1972.",
+          "verified": false
+        },
+        "id": 9458,
+        "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjakadonnutvaltakunta_3l1p.jpg",
+        "image_attr": null
+      },
+      {
+        "edition": {
+          "images": [
+            {
+              "id": 9456,
+              "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjakadonnutvaltakunta_1p.jpg",
+              "image_attr": null
+            }
+          ],
+          "work": {
+            "id": 4775,
+            "title": "Tarzan taistelee jälleen",
+            "subtitle": "",
+            "orig_title": "Tarzan and the Lost Empire",
+            "pubyear": 1929,
+            "bookseriesnum": "12",
+            "bookseriesorder": 12,
+            "misc": "",
+            "description": "",
+            "descr_attr": null,
+            "imported_string": "\n\n<b>Tarzan taistelee jälleen</b>. (Tarzan and the Lost Empire, 1929). Suom Werner Anttila. Kariston nuorisonkirjoja 117. Karisto 1942. [F].",
+            "author_str": "Burroughs, Edgar Rice"
+          },
+          "owners": [],
+          "wishlisted": [],
+          "id": 5508,
+          "title": "Tarzan ja kadonnut valtakunta",
+          "subtitle": "",
+          "pubyear": 1953,
+          "editionnum": 1,
           "version": 2,
           "isbn": "",
           "printedin": null,
           "pubseriesnum": null,
           "coll_info": "",
-          "pages": 274,
-          "size": 21,
+          "pages": 182,
+          "size": 19,
           "dustcover": 1,
-          "coverimage": 3,
+          "coverimage": 1,
           "misc": "",
-          "imported_string": "\n\n2.laitos: <b>Urhea Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1973.",
+          "imported_string": "\n\n2.laitos: <b>Tarzan ja kadonnut valtakunta</b>. Suom Marjatta Jokimäki. Karhu 1953.",
           "verified": false
         },
-        "id": 9439,
-        "image_src": "/static/images/books/Burroughs_Edgar_Rice_Urheatarzan_4l2p.jpg",
+        "id": 9456,
+        "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjakadonnutvaltakunta_1p.jpg",
+        "image_attr": null
+      },
+      {
+        "edition": {
+          "images": [
+            {
+              "id": 9455,
+              "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzantaisteleejalleen_1p.jpg",
+              "image_attr": null
+            }
+          ],
+          "work": {
+            "id": 4775,
+            "title": "Tarzan taistelee jälleen",
+            "subtitle": "",
+            "orig_title": "Tarzan and the Lost Empire",
+            "pubyear": 1929,
+            "bookseriesnum": "12",
+            "bookseriesorder": 12,
+            "misc": "",
+            "description": "",
+            "descr_attr": null,
+            "imported_string": "\n\n<b>Tarzan taistelee jälleen</b>. (Tarzan and the Lost Empire, 1929). Suom Werner Anttila. Kariston nuorisonkirjoja 117. Karisto 1942. [F].",
+            "author_str": "Burroughs, Edgar Rice"
+          },
+          "owners": [],
+          "wishlisted": [],
+          "id": 9902,
+          "title": "Tarzan taistelee jälleen",
+          "subtitle": "",
+          "pubyear": 1948,
+          "editionnum": 6,
+          "version": 1,
+          "isbn": "",
+          "printedin": null,
+          "pubseriesnum": 117,
+          "coll_info": "",
+          "pages": 251,
+          "size": null,
+          "dustcover": 1,
+          "coverimage": 1,
+          "misc": "",
+          "imported_string": "\n\n<b>Tarzan taistelee jälleen</b>. (Tarzan and the Lost Empire, 1929). Suom Werner Anttila. Kariston nuorisonkirjoja 117. Karisto 1942. [F].",
+          "verified": false
+        },
+        "id": 9455,
+        "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzantaisteleejalleen_1p.jpg",
         "image_attr": null
       }
     ],

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-02T15:55:51.776168+00:00",
+    "generated_at": "2026-03-02T23:02:16.622874+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/publishercounts",
@@ -15,7 +15,7 @@
         "name": "WSOY",
         "fullname": "Werner Söderström Oy",
         "genres": {
-          "F": 505,
+          "F": 504,
           "K": 91,
           "Paleof": 41,
           "PF": 45,
@@ -34,7 +34,7 @@
           "lF": 387,
           "R": 8
         },
-        "total": 2129
+        "total": 2128
       },
       {
         "id": 318,
@@ -87,7 +87,7 @@
         "name": "Karisto",
         "fullname": "Karisto Oy",
         "genres": {
-          "F": 320,
+          "F": 325,
           "K": 15,
           "Paleof": 2,
           "PF": 4,
@@ -102,7 +102,7 @@
           "kok": 14,
           "lF": 24
         },
-        "total": 603
+        "total": 608
       },
       {
         "id": 76,
@@ -215,7 +215,7 @@
         "name": "Muut",
         "fullname": null,
         "genres": {
-          "F": 1051,
+          "F": 1053,
           "K": 382,
           "Paleof": 21,
           "PF": 38,
@@ -234,7 +234,7 @@
           "R": 24,
           "eiSF": 38
         },
-        "total": 3204
+        "total": 3206
       }
     ],
     "error": null

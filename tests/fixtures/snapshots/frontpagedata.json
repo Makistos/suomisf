@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-02T15:55:51.776168+00:00",
+    "generated_at": "2026-03-02T23:02:16.622874+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/frontpagedata",
@@ -10,46 +10,94 @@
   "response": {
     "status_code": 200,
     "data": {
-      "works": 6890,
-      "editions": 9809,
-      "shorts": 9288,
+      "works": 6889,
+      "editions": 9815,
+      "shorts": 9287,
       "magazines": 57,
-      "covers": 9120,
+      "covers": 9134,
       "latest": [
         {
-          "images": [],
+          "images": [
+            {
+              "id": 9459,
+              "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjakadonnutvaltakunta_3l1p.jpg",
+              "image_attr": null
+            }
+          ],
           "work": {
-            "id": 6935,
-            "title": "testikirja",
+            "id": 4775,
+            "title": "Tarzan taistelee jälleen",
             "subtitle": "",
-            "orig_title": "",
-            "pubyear": 2000,
-            "bookseriesnum": "",
-            "bookseriesorder": null,
+            "orig_title": "Tarzan and the Lost Empire",
+            "pubyear": 1929,
+            "bookseriesnum": "12",
+            "bookseriesorder": 12,
             "misc": "",
-            "description": null,
-            "descr_attr": "",
-            "imported_string": null,
-            "author_str": "Vainikainen, Jussi"
+            "description": "",
+            "descr_attr": null,
+            "imported_string": "\n\n<b>Tarzan taistelee jälleen</b>. (Tarzan and the Lost Empire, 1929). Suom Werner Anttila. Kariston nuorisonkirjoja 117. Karisto 1942. [F].",
+            "author_str": "Burroughs, Edgar Rice"
           },
           "owners": [],
           "wishlisted": [],
-          "id": 9898,
-          "title": "testikirja",
+          "id": 9903,
+          "title": "Tarzan ja kadonnut valtakunta",
           "subtitle": "",
-          "pubyear": 2000,
-          "editionnum": 1,
-          "version": 1,
-          "isbn": null,
+          "pubyear": 1979,
+          "editionnum": 2,
+          "version": 3,
+          "isbn": "",
           "printedin": null,
           "pubseriesnum": null,
-          "coll_info": null,
-          "pages": null,
-          "size": null,
+          "coll_info": "",
+          "pages": 239,
+          "size": 21,
           "dustcover": 1,
-          "coverimage": 1,
-          "misc": null,
-          "imported_string": null,
+          "coverimage": 3,
+          "misc": "",
+          "imported_string": "\n\n3.laitos: Suom Jaakko V. Tapio. Kauppakirjapaino 1972.",
+          "verified": false
+        },
+        {
+          "images": [
+            {
+              "id": 9448,
+              "image_src": "/static/images/books/Burroughs_Edgar_Rice_Voittamatontarzan_2l4p.jpg",
+              "image_attr": null
+            }
+          ],
+          "work": {
+            "id": 4787,
+            "title": "Voittamaton Tarzan",
+            "subtitle": "apinain Tarzanin seikkailuja viidakossa",
+            "orig_title": "Tarzan the Invincible",
+            "pubyear": 1931,
+            "bookseriesnum": "13",
+            "bookseriesorder": 13,
+            "misc": "",
+            "description": "",
+            "descr_attr": null,
+            "imported_string": "\n\n<b>Voittamaton Tarzan</b>. (Tarzan the Invincible, 1931). Suom V. Anttila. Karhu 1950. [F].",
+            "author_str": "Burroughs, Edgar Rice"
+          },
+          "owners": [],
+          "wishlisted": [],
+          "id": 9897,
+          "title": "Voittamaton Tarzan",
+          "subtitle": "",
+          "pubyear": 1976,
+          "editionnum": 4,
+          "version": 2,
+          "isbn": "",
+          "printedin": null,
+          "pubseriesnum": null,
+          "coll_info": "",
+          "pages": 245,
+          "size": 21,
+          "dustcover": 1,
+          "coverimage": 3,
+          "misc": "",
+          "imported_string": "\n\n2.laitos: Suom Jaakko V. Tapio. Kauppakirjapaino 1972.",
           "verified": false
         },
         {
@@ -134,48 +182,6 @@
           "coverimage": 3,
           "misc": "",
           "imported_string": "\n\n2.laitos: <b>Urhea Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1973.",
-          "verified": false
-        },
-        {
-          "images": [
-            {
-              "id": 9434,
-              "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjakultakaupunki_2l2p.jpg",
-              "image_attr": null
-            }
-          ],
-          "work": {
-            "id": 4763,
-            "title": "Tarzan ja kultainen kaupunki",
-            "subtitle": "apinain Tarzanin uusia seikkailuja kultaisessa kaupungissa",
-            "orig_title": "Tarzan and the City of Gold",
-            "pubyear": 1933,
-            "bookseriesnum": "15",
-            "bookseriesorder": 15,
-            "misc": "",
-            "description": "",
-            "descr_attr": null,
-            "imported_string": "\n\n<b>Tarzan ja kultainen kaupunki</b>. (Tarzan and the City of Gold, 1933). Suom Marjatta Jokimäki. Karhu 1952. [F].",
-            "author_str": "Burroughs, Edgar Rice"
-          },
-          "owners": [],
-          "wishlisted": [],
-          "id": 9894,
-          "title": "Tarzan ja kultakaupunki",
-          "subtitle": "",
-          "pubyear": 1986,
-          "editionnum": 2,
-          "version": 2,
-          "isbn": "",
-          "printedin": null,
-          "pubseriesnum": null,
-          "coll_info": "",
-          "pages": 240,
-          "size": 21,
-          "dustcover": 1,
-          "coverimage": 3,
-          "misc": "",
-          "imported_string": "\n\n2.laitos: <b>Tarzan ja kultakaupunki</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1973.",
           "verified": false
         }
       ]

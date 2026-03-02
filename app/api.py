@@ -487,22 +487,17 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
 
 
 @app.route('/api/filter/alias/<id>', methods=['get'])
-def api_filteralias(personid: str) -> Response:
+def api_filteralias(id: str) -> Response:
     """
-    This function is a Flask route that handles GET requests to the
-    '/api/filter/alias/<id>' endpoint. It takes a string parameter 'personid'
-    which represents the id of the person. The function tries to convert the
-    'personid' to an integer. If the conversion fails, it logs an error message
-    and returns a Response object with a 400 status code and an error message.
-    If the conversion is successful, the function calls the 'filter_aliases'
-    function with the converted 'personid' and returns the result as a Response
-    object. The function returns the Response object.
+    Handle GET /api/filter/alias/<id>.
+
+    Returns the list of persons that are aliases of the given person.
     """
     try:
-        int_id = int(personid)
+        int_id = int(id)
     except (TypeError, ValueError):
-        app.logger.error('api_filteralias: Invalid id %s.', personid)
-        response = ResponseType(f'Virheellinen tunniste: {personid}.',
+        app.logger.error('api_filteralias: Invalid id %s.', id)
+        response = ResponseType(f'Virheellinen tunniste: {id}.',
                                 HttpResponseCode.BAD_REQUEST.value)
         return make_api_response(response)
 

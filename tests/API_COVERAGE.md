@@ -1,8 +1,8 @@
 # SuomiSF API Test Coverage Report
 
-**Last Updated:** 2026-03-02
+**Last Updated:** 2026-03-03
 **Total Endpoints:** 167
-**Tested:** 633 tests (covering ~98% of endpoints)
+**Tested:** 637 tests (covering ~98% of endpoints)
 **Pending:** ~10 endpoints (complex write operations)
 **Snapshot Tests:** 40 (data validation against golden database)
 
@@ -27,7 +27,7 @@
 | Users | 3 | 13 | Entity, stats/genres tests |
 | Works | 19 | 54 | Entity, related, auth, omnibus, tags, types, contributor tests |
 | Editions | 22 | 66 | Entity, related, auth, wishlist, images, contributors, work-link tests (2 xfail) |
-| People | 15 | 16 | Entity, filter, related tests |
+| People | 15 | 20 | Entity, filter, related, alias tests |
 | Short Stories | 10 | 35 | Entity, search, auth, type field, CRUD with types |
 | Magazines | 6 | 13 | Entity, auth, update tests |
 | Issues | 15 | 28 | Entity, auth, contributors, tags, covers tests (3 xfail) |
@@ -40,7 +40,7 @@
 | Search & Filter | 5 | 10 | Works/Shorts search |
 | Miscellaneous | 12 | 36 | Full coverage |
 | Articles | 4 | 0 | Endpoint deprecated |
-| **TOTAL** | **167** | **399** | **5 xfails (known bugs)** |
+| **TOTAL** | **167** | **403** | **5 xfails (known bugs)** |
 
 ---
 
@@ -133,7 +133,7 @@
 | :white_check_mark: | GET | `/api/filter/people/<pattern>` | None | `test_filters.py::TestFilterPeople` | 2026-02-14 |
 | :white_check_mark: | GET | `/api/latest/people/<count>` | None | `test_related.py::TestLatestPeople` | 2026-02-14 |
 | :white_check_mark: | GET | `/api/people/<person_id>/issue-contributions` | None | `test_persons.py::TestPersonIssueContributions` | 2026-02-15 |
-| :hourglass_flowing_sand: | GET | `/api/filter/alias/<id>` | None | - | - |
+| :white_check_mark: | GET | `/api/filter/alias/<id>` | None | `test_people_aliases.py::TestPeopleAliases` | 2026-03-03 |
 
 ### 6. Short Stories (10 endpoints)
 

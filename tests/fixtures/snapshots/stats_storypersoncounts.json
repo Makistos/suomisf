@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-02T15:55:51.776168+00:00",
+    "generated_at": "2026-03-02T23:02:16.622874+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/storypersoncounts",
@@ -250,8 +250,8 @@
             "Päätoimittaja": 0
           },
           "Pienoisromaani": {
-            "Kirjoittaja": 25,
-            "Kääntäjä": 8,
+            "Kirjoittaja": 24,
+            "Kääntäjä": 7,
             "Toimittaja": 0,
             "Kansikuva": 0,
             "Kuvittaja": 0,
@@ -313,7 +313,7 @@
             "Päätoimittaja": 0
           }
         },
-        "total": 13720
+        "total": 13719
       }
     ],
     "error": null

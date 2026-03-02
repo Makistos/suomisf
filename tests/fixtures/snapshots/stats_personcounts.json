@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-02T15:55:51.776168+00:00",
+    "generated_at": "2026-03-02T23:02:16.622874+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/personcounts",
@@ -201,7 +201,7 @@
         "nationality": null,
         "genres": {
           "F": {
-            "Kirjoittaja": 1904,
+            "Kirjoittaja": 1903,
             "Kääntäjä": 0,
             "Toimittaja": 83,
             "Kansikuva": 0,
@@ -363,7 +363,7 @@
             "Päätoimittaja": 0
           }
         },
-        "total": 6423
+        "total": 6422
       }
     ],
     "error": null

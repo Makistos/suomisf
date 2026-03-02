@@ -3,7 +3,7 @@
 This document provides detailed descriptions of all API tests, including
 what they test, their parameter values, and expected behaviors.
 
-**Last Updated:** 2026-03-02
+**Last Updated:** 2026-03-03
 
 ---
 
@@ -64,6 +64,7 @@ what they test, their parameter values, and expected behaviors.
 | test_edition_contributors.py | EditionContributor CRUD, migration integrity | 10 |
 | test_work_contributors.py | WorkContributor CRUD, migration integrity | 9 |
 | test_edition_work_link.py | Edition.work_id direct FK (Migration 004) | 10 |
+| test_people_aliases.py | Person alias linking, work merge, filter endpoint | 4 |
 
 ---
 
@@ -1989,3 +1990,30 @@ Verify `GET /api/works/{id}` editions list via direct FK.
 |------|-----------|------------|
 | `test_get_work_includes_editions_list` | work_id=1 | status 200; `editions` is non-empty list |
 | `test_work_editions_all_belong_to_work` | work_id=1 | all edition_ids in response have Edition.work_id == 1 in DB |
+
+---
+
+## People Alias Tests
+
+**File:** `tests/api/test_people_aliases.py`
+
+Tests for alias linking between persons: creating and linking alias
+persons, verifying that works attributed to an alias appear on the real
+person, and the `GET /api/filter/alias/<id>` endpoint.
+
+**Fixtures:** `admin_client` (logged-in admin)
+
+**Helpers:**
+- `create_test_person(admin_client, name)` — POST /api/people
+- `delete_test_person(admin_client, person_id)` — DELETE /api/people/{id}
+- `link_alias(admin_client, real_id, real_name, alias_ids)` — PUT
+  /api/people with `aliases` list
+
+### TestPeopleAliases (4 tests)
+
+| Test | Parameters | Assertions |
+|------|-----------|------------|
+| `test_alias_works_appear_on_real_person` | Create real+alias persons; link; add work to alias | GET real person; work_id present in `works` list |
+| `test_aliases_field_lists_alias_person` | Create real+alias persons; link | GET real person; alias_id present in `aliases` list |
+| `test_filter_alias_endpoint_returns_alias` | Create real+alias persons; link | GET /api/filter/alias/{real_id}; alias_id in returned list |
+| `test_unlink_alias_removes_from_aliases_field` | Create real+alias persons; link then unlink | GET real person; alias_id absent from `aliases` list |
