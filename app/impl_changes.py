@@ -5,7 +5,7 @@ from marshmallow import exceptions
 
 from app.model import LogSchema
 from app.impl import ResponseType
-from app.orm_decl import Edition, Log, Part
+from app.orm_decl import Edition, Log
 from app.route_helpers import new_session
 from app.types import HttpResponseCode
 
@@ -24,9 +24,9 @@ def get_work_changes(workid: int) -> ResponseType:
     """
     session = new_session()
 
-    editions = [x[0] for x in session.query(Edition.id)
-                .filter(Part.work_id == workid,
-                Part.edition_id == Edition.id)
+    editions = [x[0] for x in
+                session.query(Edition.id)
+                .filter(Edition.work_id == workid)
                 .all()]
     try:
         changes = session.query(Log)\

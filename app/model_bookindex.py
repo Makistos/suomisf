@@ -106,9 +106,9 @@ class BookIndexWorkEditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     images = ma.List(fields.Nested(BookIndexEditionImageSchema))
     publisher = fields.Nested(
         lambda: BookIndexPublisherSchema(only=('id', 'name')))
-    work = ma.List(fields.Nested(
+    work = fields.Nested(
         lambda: BookIndexEditionWorkSchema(
-            only=('id', 'title', 'orig_title'))))
+            only=('id', 'title', 'orig_title')))
 
 
 class BookIndexWorkTypeSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -133,9 +133,9 @@ class WorkEditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         lambda: BookIndexPublisherSchema(only=('id', 'name')))
     pubseries = fields.Nested(
         lambda: BookIndexPubseriesSchema(only=('id', 'name')))
-    work = ma.List(fields.Nested(
+    work = fields.Nested(
         lambda: BookIndexEditionWorkSchema(
-            only=('id', 'title', 'orig_title'))))
+            only=('id', 'title', 'orig_title')))
     owners = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
     wishlisted = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
 

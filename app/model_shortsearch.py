@@ -27,7 +27,7 @@ class ShortSearchEdition(ma.SQLAlchemyAutoSchema):  # type: ignore
         model = Edition
 
     images = ma.List(fields.Nested(EditionImageBriefSchema))
-    work = ma.List(fields.Nested(WorkBriefestSchema))
+    work = fields.Nested(WorkBriefestSchema)
 
 
 class ShortSearchWork(ma.SQLAlchemyAutoSchema):  # type: ignore

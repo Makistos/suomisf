@@ -291,8 +291,7 @@ class EditionBriefestSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Edition
     images = ma.List(fields.Nested(EditionImageBriefSchema))
-    # work = fields.Pluck(WorkBriefestSchema, 'id')
-    work = ma.List(fields.Nested(WorkBriefestSchema))
+    work = fields.Nested(WorkBriefestSchema)
     owners = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
     wishlisted = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
 
@@ -312,7 +311,7 @@ class EditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Edition
-    work = ma.List(fields.Nested(WorkBriefSchema))
+    work = fields.Nested(WorkBriefSchema)
     editors = ma.List(fields.Nested(PersonBriefSchema))
     contributions = ma.List(fields.Nested(EditionContributorSchema))
     images = ma.List(fields.Nested(EditionImageBriefSchema))
@@ -556,7 +555,7 @@ class EditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     images = ma.List(fields.Nested(EditionImageBriefSchema))
     translators = ma.List(fields.Nested(PersonBriefSchema))
     pubseries = fields.Nested(PubseriesBriefSchema)
-    work = ma.List(fields.Nested(WorkBriefSchema))
+    work = fields.Nested(WorkBriefSchema)
     images = ma.List(fields.Nested(EditionImageBriefSchema))
     binding = fields.Nested(BindingBriefSchema)
     format = fields.Nested(FormatBriefSchema)

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-01T19:29:52.232592+00:00",
+    "generated_at": "2026-03-01T22:06:20.175903+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/editions/5",
@@ -11,351 +11,349 @@
     "status_code": 200,
     "data": [
       {
-        "work": [
-          {
-            "id": 4765.0,
-            "title": "Tarzan ja leopardimiehet",
-            "orig_title": "Tarzan and the Leopard Men",
-            "author_str": "Burroughs, Edgar Rice",
-            "contributions": [
-              {
-                "person": {
-                  "id": 2877.0,
-                  "name": "Burroughs, Edgar Rice",
-                  "alt_name": "Edgar Rice Burroughs"
+        "work": {
+          "id": 4765.0,
+          "title": "Tarzan ja leopardimiehet",
+          "orig_title": "Tarzan and the Leopard Men",
+          "author_str": "Burroughs, Edgar Rice",
+          "contributions": [
+            {
+              "person": {
+                "id": 2877.0,
+                "name": "Burroughs, Edgar Rice",
+                "alt_name": "Edgar Rice Burroughs"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": null,
+              "real_person": null
+            }
+          ],
+          "editions": [
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 2881.0,
+                  "name": "Jokimäki, Marjatta",
+                  "alt_name": "Marjatta Jokimäki",
+                  "fullname": "",
+                  "image_src": null,
+                  "dob": null,
+                  "dod": null,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 0,
+                  "other_names": null,
+                  "first_name": "Marjatta",
+                  "last_name": "Jokimäki",
+                  "image_attr": "",
+                  "bio": null,
+                  "bio_src": "",
+                  "imported_string": "\n\n<b>Tarzan ja amazonit</b>. (Tarzan the Magnificent, 1939). Suom Marjatta Jokimäki. Karhu 1951. [F]."
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 5608.0,
+                    "name": "Hauhio, Ami",
+                    "alt_name": "Ami Hauhio"
+                  },
+                  "role": {
+                    "id": 4,
+                    "name": "Kansikuva"
+                  },
+                  "description": "",
+                  "real_person": null
                 },
-                "role": {
-                  "id": 1,
-                  "name": "Kirjoittaja"
-                },
-                "description": null,
-                "real_person": null
-              }
-            ],
-            "editions": [
-              {
-                "editors": [],
-                "translators": [
-                  {
+                {
+                  "person": {
                     "id": 2881.0,
                     "name": "Jokimäki, Marjatta",
-                    "alt_name": "Marjatta Jokimäki",
-                    "fullname": "",
-                    "image_src": null,
-                    "dob": null,
-                    "dod": null,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
-                    "nationality": {
-                      "id": 4,
-                      "name": "Suomi"
-                    },
-                    "workcount": 0.0,
-                    "storycount": 0,
-                    "other_names": null,
-                    "first_name": "Marjatta",
-                    "last_name": "Jokimäki",
-                    "image_attr": "",
-                    "bio": null,
-                    "bio_src": "",
-                    "imported_string": "\n\n<b>Tarzan ja amazonit</b>. (Tarzan the Magnificent, 1939). Suom Marjatta Jokimäki. Karhu 1951. [F]."
-                  }
-                ],
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 5608.0,
-                      "name": "Hauhio, Ami",
-                      "alt_name": "Ami Hauhio"
-                    },
-                    "role": {
-                      "id": 4,
-                      "name": "Kansikuva"
-                    },
-                    "description": "",
-                    "real_person": null
+                    "alt_name": "Marjatta Jokimäki"
                   },
-                  {
-                    "person": {
-                      "id": 2881.0,
-                      "name": "Jokimäki, Marjatta",
-                      "alt_name": "Marjatta Jokimäki"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "images": [
-                  {
-                    "id": 9441,
-                    "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleopardimiehet_1p.jpg",
-                    "image_attr": null
-                  }
-                ],
-                "publisher": {
-                  "id": 132,
-                  "name": "Karhu"
-                },
-                "owners": [],
-                "wishlisted": [],
-                "id": 5486,
-                "title": "Tarzan ja leopardimiehet",
-                "subtitle": "apinain Tarzanin uusia seikkailuja leopardimiesten maassa",
-                "pubyear": 1954,
-                "editionnum": 1,
-                "version": null,
-                "isbn": "",
-                "printedin": null,
-                "pubseriesnum": null,
-                "coll_info": "",
-                "pages": 190,
-                "size": 20,
-                "dustcover": 1,
-                "coverimage": 1,
-                "misc": "",
-                "imported_string": "\n\n<b>Tarzan ja leopardimiehet</b>. (Tarzan and the Leopard Men, 1935). Suom Marjatta Jokimäki. Karhu 1954. [eiSF].",
-                "verified": false
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "id": 9441,
+                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleopardimiehet_1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 132,
+                "name": "Karhu"
               },
-              {
-                "editors": [],
-                "translators": [
-                  {
+              "owners": [],
+              "wishlisted": [],
+              "id": 5486,
+              "title": "Tarzan ja leopardimiehet",
+              "subtitle": "apinain Tarzanin uusia seikkailuja leopardimiesten maassa",
+              "pubyear": 1954,
+              "editionnum": 1,
+              "version": null,
+              "isbn": "",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 190,
+              "size": 20,
+              "dustcover": 1,
+              "coverimage": 1,
+              "misc": "",
+              "imported_string": "\n\n<b>Tarzan ja leopardimiehet</b>. (Tarzan and the Leopard Men, 1935). Suom Marjatta Jokimäki. Karhu 1954. [eiSF].",
+              "verified": false
+            },
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 2882.0,
+                  "name": "Tapio, Jaakko V.",
+                  "alt_name": "Jaakko V. Tapio",
+                  "fullname": "",
+                  "image_src": null,
+                  "dob": null,
+                  "dod": null,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 0,
+                  "other_names": null,
+                  "first_name": "Jaakko V.",
+                  "last_name": "Tapio",
+                  "image_attr": "",
+                  "bio": null,
+                  "bio_src": "",
+                  "imported_string": "\n\n2.laitos: <b>Mahtava Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1976."
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 5678.0,
+                    "name": "Liettyä, Esko",
+                    "alt_name": "Esko Liettyä"
+                  },
+                  "role": {
+                    "id": 4,
+                    "name": "Kansikuva"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
                     "id": 2882.0,
                     "name": "Tapio, Jaakko V.",
-                    "alt_name": "Jaakko V. Tapio",
-                    "fullname": "",
-                    "image_src": null,
-                    "dob": null,
-                    "dod": null,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
-                    "nationality": {
-                      "id": 4,
-                      "name": "Suomi"
-                    },
-                    "workcount": 0.0,
-                    "storycount": 0,
-                    "other_names": null,
-                    "first_name": "Jaakko V.",
-                    "last_name": "Tapio",
-                    "image_attr": "",
-                    "bio": null,
-                    "bio_src": "",
-                    "imported_string": "\n\n2.laitos: <b>Mahtava Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1976."
-                  }
-                ],
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 5678.0,
-                      "name": "Liettyä, Esko",
-                      "alt_name": "Esko Liettyä"
-                    },
-                    "role": {
-                      "id": 4,
-                      "name": "Kansikuva"
-                    },
-                    "description": "",
-                    "real_person": null
+                    "alt_name": "Jaakko V. Tapio"
                   },
-                  {
-                    "person": {
-                      "id": 2882.0,
-                      "name": "Tapio, Jaakko V.",
-                      "alt_name": "Jaakko V. Tapio"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
                   },
-                  {
-                    "person": {
-                      "id": 7769.0,
-                      "name": "Lintula, Kalevi",
-                      "alt_name": "Kalevi Lintula"
-                    },
-                    "role": {
-                      "id": 5,
-                      "name": "Kuvittaja"
-                    },
-                    "description": "",
-                    "real_person": null
-                  }
-                ],
-                "images": [
-                  {
-                    "id": 9442,
-                    "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleopardimiehet_2l1p.jpg",
-                    "image_attr": null
-                  }
-                ],
-                "publisher": {
-                  "id": 137,
-                  "name": "Kauppakirjapaino"
+                  "description": null,
+                  "real_person": null
                 },
-                "owners": [],
-                "wishlisted": [],
-                "id": 5487,
-                "title": "Tarzan ja leopardimiehet",
-                "subtitle": "",
-                "pubyear": 1974,
-                "editionnum": 1,
-                "version": 2,
-                "isbn": "",
-                "printedin": null,
-                "pubseriesnum": null,
-                "coll_info": "",
-                "pages": 256,
-                "size": 21,
-                "dustcover": 1,
-                "coverimage": 3,
-                "misc": "",
-                "imported_string": "\n\n2.laitos: Kauppakirjapaino 1974.",
-                "verified": false
+                {
+                  "person": {
+                    "id": 7769.0,
+                    "name": "Lintula, Kalevi",
+                    "alt_name": "Kalevi Lintula"
+                  },
+                  "role": {
+                    "id": 5,
+                    "name": "Kuvittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "id": 9442,
+                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleopardimiehet_2l1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 137,
+                "name": "Kauppakirjapaino"
               },
-              {
-                "editors": [],
-                "translators": [
-                  {
+              "owners": [],
+              "wishlisted": [],
+              "id": 5487,
+              "title": "Tarzan ja leopardimiehet",
+              "subtitle": "",
+              "pubyear": 1974,
+              "editionnum": 1,
+              "version": 2,
+              "isbn": "",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 256,
+              "size": 21,
+              "dustcover": 1,
+              "coverimage": 3,
+              "misc": "",
+              "imported_string": "\n\n2.laitos: Kauppakirjapaino 1974.",
+              "verified": false
+            },
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 2882.0,
+                  "name": "Tapio, Jaakko V.",
+                  "alt_name": "Jaakko V. Tapio",
+                  "fullname": "",
+                  "image_src": null,
+                  "dob": null,
+                  "dod": null,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 0,
+                  "other_names": null,
+                  "first_name": "Jaakko V.",
+                  "last_name": "Tapio",
+                  "image_attr": "",
+                  "bio": null,
+                  "bio_src": "",
+                  "imported_string": "\n\n2.laitos: <b>Mahtava Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1976."
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 7769.0,
+                    "name": "Lintula, Kalevi",
+                    "alt_name": "Kalevi Lintula"
+                  },
+                  "role": {
+                    "id": 5,
+                    "name": "Kuvittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
                     "id": 2882.0,
                     "name": "Tapio, Jaakko V.",
-                    "alt_name": "Jaakko V. Tapio",
-                    "fullname": "",
-                    "image_src": null,
-                    "dob": null,
-                    "dod": null,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
-                    "nationality": {
-                      "id": 4,
-                      "name": "Suomi"
-                    },
-                    "workcount": 0.0,
-                    "storycount": 0,
-                    "other_names": null,
-                    "first_name": "Jaakko V.",
-                    "last_name": "Tapio",
-                    "image_attr": "",
-                    "bio": null,
-                    "bio_src": "",
-                    "imported_string": "\n\n2.laitos: <b>Mahtava Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1976."
-                  }
-                ],
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 7769.0,
-                      "name": "Lintula, Kalevi",
-                      "alt_name": "Kalevi Lintula"
-                    },
-                    "role": {
-                      "id": 5,
-                      "name": "Kuvittaja"
-                    },
-                    "description": "",
-                    "real_person": null
+                    "alt_name": "Jaakko V. Tapio"
                   },
-                  {
-                    "person": {
-                      "id": 2882.0,
-                      "name": "Tapio, Jaakko V.",
-                      "alt_name": "Jaakko V. Tapio"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
                   },
-                  {
-                    "person": {
-                      "id": 5678.0,
-                      "name": "Liettyä, Esko",
-                      "alt_name": "Esko Liettyä"
-                    },
-                    "role": {
-                      "id": 4,
-                      "name": "Kansikuva"
-                    },
-                    "description": "",
-                    "real_person": null
-                  }
-                ],
-                "images": [
-                  {
-                    "id": 9444,
-                    "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleopardimiehet_2l4p.jpg",
-                    "image_attr": null
-                  }
-                ],
-                "publisher": {
-                  "id": 137,
-                  "name": "Kauppakirjapaino"
+                  "description": null,
+                  "real_person": null
                 },
-                "owners": [],
-                "wishlisted": [],
-                "id": 9896,
-                "title": "Tarzan ja leopardimiehet",
-                "subtitle": "",
-                "pubyear": 1988,
-                "editionnum": 4,
-                "version": 2,
-                "isbn": "",
-                "printedin": null,
-                "pubseriesnum": null,
-                "coll_info": "",
-                "pages": 256,
-                "size": 21,
-                "dustcover": 1,
-                "coverimage": 3,
-                "misc": "",
-                "imported_string": "\n\n2.laitos: Kauppakirjapaino 1974.",
-                "verified": false
-              }
-            ],
-            "genres": [
-              {
-                "id": 13,
-                "name": "Ei SpeFiä",
-                "abbr": "eiSF"
-              }
-            ],
-            "bookseries": {
-              "id": 410,
-              "name": "Tarzan",
-              "orig_name": "Tarzan",
-              "description": null,
-              "important": false,
-              "image_src": null,
-              "image_attr": null
-            },
-            "tags": [],
-            "language_name": {
-              "id": 1,
-              "name": "englanti"
-            },
-            "type": 1.0,
-            "subtitle": "apinain Tarzanin uusia seikkailuja leopardimiesten maassa",
-            "pubyear": 1935,
-            "bookseriesnum": "17",
-            "bookseriesorder": 17,
-            "misc": "",
-            "description": "",
-            "descr_attr": null,
-            "imported_string": "\n\n<b>Tarzan ja leopardimiehet</b>. (Tarzan and the Leopard Men, 1935). Suom Marjatta Jokimäki. Karhu 1954. [eiSF]."
-          }
-        ],
+                {
+                  "person": {
+                    "id": 5678.0,
+                    "name": "Liettyä, Esko",
+                    "alt_name": "Esko Liettyä"
+                  },
+                  "role": {
+                    "id": 4,
+                    "name": "Kansikuva"
+                  },
+                  "description": "",
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "id": 9444,
+                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleopardimiehet_2l4p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 137,
+                "name": "Kauppakirjapaino"
+              },
+              "owners": [],
+              "wishlisted": [],
+              "id": 9896,
+              "title": "Tarzan ja leopardimiehet",
+              "subtitle": "",
+              "pubyear": 1988,
+              "editionnum": 4,
+              "version": 2,
+              "isbn": "",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 256,
+              "size": 21,
+              "dustcover": 1,
+              "coverimage": 3,
+              "misc": "",
+              "imported_string": "\n\n2.laitos: Kauppakirjapaino 1974.",
+              "verified": false
+            }
+          ],
+          "genres": [
+            {
+              "id": 13,
+              "name": "Ei SpeFiä",
+              "abbr": "eiSF"
+            }
+          ],
+          "bookseries": {
+            "id": 410,
+            "name": "Tarzan",
+            "orig_name": "Tarzan",
+            "description": null,
+            "important": false,
+            "image_src": null,
+            "image_attr": null
+          },
+          "tags": [],
+          "language_name": {
+            "id": 1,
+            "name": "englanti"
+          },
+          "type": 1.0,
+          "subtitle": "apinain Tarzanin uusia seikkailuja leopardimiesten maassa",
+          "pubyear": 1935,
+          "bookseriesnum": "17",
+          "bookseriesorder": 17,
+          "misc": "",
+          "description": "",
+          "descr_attr": null,
+          "imported_string": "\n\n<b>Tarzan ja leopardimiehet</b>. (Tarzan and the Leopard Men, 1935). Suom Marjatta Jokimäki. Karhu 1954. [eiSF]."
+        },
         "editors": [],
         "contributions": [
           {
@@ -434,400 +432,398 @@
         "verified": false
       },
       {
-        "work": [
-          {
-            "id": 4774.0,
-            "title": "Tarzan Midianin maassa",
-            "orig_title": "Tarzan Triumphant",
-            "author_str": "Burroughs, Edgar Rice",
-            "contributions": [
-              {
-                "person": {
-                  "id": 2877.0,
-                  "name": "Burroughs, Edgar Rice",
-                  "alt_name": "Edgar Rice Burroughs"
-                },
-                "role": {
-                  "id": 1,
-                  "name": "Kirjoittaja"
-                },
-                "description": null,
-                "real_person": null
-              }
-            ],
-            "editions": [
-              {
-                "editors": [],
-                "translators": [
-                  {
+        "work": {
+          "id": 4774.0,
+          "title": "Tarzan Midianin maassa",
+          "orig_title": "Tarzan Triumphant",
+          "author_str": "Burroughs, Edgar Rice",
+          "contributions": [
+            {
+              "person": {
+                "id": 2877.0,
+                "name": "Burroughs, Edgar Rice",
+                "alt_name": "Edgar Rice Burroughs"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": null,
+              "real_person": null
+            }
+          ],
+          "editions": [
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 2881.0,
+                  "name": "Jokimäki, Marjatta",
+                  "alt_name": "Marjatta Jokimäki",
+                  "fullname": "",
+                  "image_src": null,
+                  "dob": null,
+                  "dod": null,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 0,
+                  "other_names": null,
+                  "first_name": "Marjatta",
+                  "last_name": "Jokimäki",
+                  "image_attr": "",
+                  "bio": null,
+                  "bio_src": "",
+                  "imported_string": "\n\n<b>Tarzan ja amazonit</b>. (Tarzan the Magnificent, 1939). Suom Marjatta Jokimäki. Karhu 1951. [F]."
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
                     "id": 2881.0,
                     "name": "Jokimäki, Marjatta",
-                    "alt_name": "Marjatta Jokimäki",
-                    "fullname": "",
-                    "image_src": null,
-                    "dob": null,
-                    "dod": null,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
-                    "nationality": {
-                      "id": 4,
-                      "name": "Suomi"
-                    },
-                    "workcount": 0.0,
-                    "storycount": 0,
-                    "other_names": null,
-                    "first_name": "Marjatta",
-                    "last_name": "Jokimäki",
-                    "image_attr": "",
-                    "bio": null,
-                    "bio_src": "",
-                    "imported_string": "\n\n<b>Tarzan ja amazonit</b>. (Tarzan the Magnificent, 1939). Suom Marjatta Jokimäki. Karhu 1951. [F]."
-                  }
-                ],
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 2881.0,
-                      "name": "Jokimäki, Marjatta",
-                      "alt_name": "Marjatta Jokimäki"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
+                    "alt_name": "Marjatta Jokimäki"
                   },
-                  {
-                    "person": {
-                      "id": 7782.0,
-                      "name": "Nopsanen, Aarne",
-                      "alt_name": "Aarne Nopsanen"
-                    },
-                    "role": {
-                      "id": 4,
-                      "name": "Kansikuva"
-                    },
-                    "description": "",
-                    "real_person": null
-                  }
-                ],
-                "images": [
-                  {
-                    "id": 9436,
-                    "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanmidianinmaassa_1p.jpg",
-                    "image_attr": null
-                  }
-                ],
-                "publisher": {
-                  "id": 132,
-                  "name": "Karhu"
-                },
-                "owners": [],
-                "wishlisted": [],
-                "id": 5504,
-                "title": "Tarzan Midianin maassa",
-                "subtitle": "",
-                "pubyear": 1955,
-                "editionnum": 1,
-                "version": null,
-                "isbn": "",
-                "printedin": null,
-                "pubseriesnum": null,
-                "coll_info": "",
-                "pages": 208,
-                "size": null,
-                "dustcover": 1,
-                "coverimage": 1,
-                "misc": "",
-                "imported_string": "\n\n<b>Tarzan Midianin maassa</b>. (Tarzan Triumphant, 1932). Suom Marjatta Jokimäki. Karhu 1955. [F].",
-                "verified": false
-              },
-              {
-                "editors": [],
-                "translators": [
-                  {
-                    "id": 2882.0,
-                    "name": "Tapio, Jaakko V.",
-                    "alt_name": "Jaakko V. Tapio",
-                    "fullname": "",
-                    "image_src": null,
-                    "dob": null,
-                    "dod": null,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
-                    "nationality": {
-                      "id": 4,
-                      "name": "Suomi"
-                    },
-                    "workcount": 0.0,
-                    "storycount": 0,
-                    "other_names": null,
-                    "first_name": "Jaakko V.",
-                    "last_name": "Tapio",
-                    "image_attr": "",
-                    "bio": null,
-                    "bio_src": "",
-                    "imported_string": "\n\n2.laitos: <b>Mahtava Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1976."
-                  }
-                ],
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 7769.0,
-                      "name": "Lintula, Kalevi",
-                      "alt_name": "Kalevi Lintula"
-                    },
-                    "role": {
-                      "id": 5,
-                      "name": "Kuvittaja"
-                    },
-                    "description": "",
-                    "real_person": null
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
                   },
-                  {
-                    "person": {
-                      "id": 2882.0,
-                      "name": "Tapio, Jaakko V.",
-                      "alt_name": "Jaakko V. Tapio"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "images": [
-                  {
-                    "id": 9437,
-                    "image_src": "/static/images/books/Burroughs_Edgar_Rice_Urheatarzan_2l1p.jpg",
-                    "image_attr": null
-                  }
-                ],
-                "publisher": {
-                  "id": 137,
-                  "name": "Kauppakirjapaino"
+                  "description": null,
+                  "real_person": null
                 },
-                "owners": [],
-                "wishlisted": [],
-                "id": 5505,
-                "title": "Urhea Tarzan",
-                "subtitle": "",
-                "pubyear": 1973,
-                "editionnum": 1,
-                "version": 2,
-                "isbn": "",
-                "printedin": null,
-                "pubseriesnum": null,
-                "coll_info": "",
-                "pages": 274,
-                "size": 21,
-                "dustcover": 1,
-                "coverimage": 3,
-                "misc": "",
-                "imported_string": "\n\n2.laitos: <b>Urhea Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1973.",
-                "verified": false
-              },
-              {
-                "editors": [],
-                "translators": [
-                  {
-                    "id": 2882.0,
-                    "name": "Tapio, Jaakko V.",
-                    "alt_name": "Jaakko V. Tapio",
-                    "fullname": "",
-                    "image_src": null,
-                    "dob": null,
-                    "dod": null,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
-                    "nationality": {
-                      "id": 4,
-                      "name": "Suomi"
-                    },
-                    "workcount": 0.0,
-                    "storycount": 0,
-                    "other_names": null,
-                    "first_name": "Jaakko V.",
-                    "last_name": "Tapio",
-                    "image_attr": "",
-                    "bio": null,
-                    "bio_src": "",
-                    "imported_string": "\n\n2.laitos: <b>Mahtava Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1976."
-                  }
-                ],
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 7769.0,
-                      "name": "Lintula, Kalevi",
-                      "alt_name": "Kalevi Lintula"
-                    },
-                    "role": {
-                      "id": 5,
-                      "name": "Kuvittaja"
-                    },
-                    "description": "",
-                    "real_person": null
+                {
+                  "person": {
+                    "id": 7782.0,
+                    "name": "Nopsanen, Aarne",
+                    "alt_name": "Aarne Nopsanen"
                   },
-                  {
-                    "person": {
-                      "id": 2882.0,
-                      "name": "Tapio, Jaakko V.",
-                      "alt_name": "Jaakko V. Tapio"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "images": [
-                  {
-                    "id": 9439,
-                    "image_src": "/static/images/books/Burroughs_Edgar_Rice_Urheatarzan_4l2p.jpg",
-                    "image_attr": null
-                  }
-                ],
-                "publisher": {
-                  "id": 137,
-                  "name": "Kauppakirjapaino"
-                },
-                "owners": [],
-                "wishlisted": [],
-                "id": 9895,
-                "title": "Urhea Tarzan",
-                "subtitle": "",
-                "pubyear": 1986,
-                "editionnum": 4,
-                "version": 2,
-                "isbn": "",
-                "printedin": null,
-                "pubseriesnum": null,
-                "coll_info": "",
-                "pages": 274,
-                "size": 21,
-                "dustcover": 1,
-                "coverimage": 3,
-                "misc": "",
-                "imported_string": "\n\n2.laitos: <b>Urhea Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1973.",
-                "verified": false
+                  "role": {
+                    "id": 4,
+                    "name": "Kansikuva"
+                  },
+                  "description": "",
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "id": 9436,
+                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanmidianinmaassa_1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 132,
+                "name": "Karhu"
               },
-              {
-                "editors": [],
-                "translators": [
-                  {
-                    "id": 2882.0,
-                    "name": "Tapio, Jaakko V.",
-                    "alt_name": "Jaakko V. Tapio",
-                    "fullname": "",
-                    "image_src": null,
-                    "dob": null,
-                    "dod": null,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
-                    "nationality": {
-                      "id": 4,
-                      "name": "Suomi"
-                    },
-                    "workcount": 0.0,
-                    "storycount": 0,
-                    "other_names": null,
-                    "first_name": "Jaakko V.",
-                    "last_name": "Tapio",
-                    "image_attr": "",
-                    "bio": null,
-                    "bio_src": "",
-                    "imported_string": "\n\n2.laitos: <b>Mahtava Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1976."
-                  }
-                ],
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 2882.0,
-                      "name": "Tapio, Jaakko V.",
-                      "alt_name": "Jaakko V. Tapio"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "images": [
-                  {
-                    "id": 9440,
-                    "image_src": "/static/images/books/Burroughs_Edgar_Rice_Urheatarzan_3l1p.jpg",
-                    "image_attr": null
-                  }
-                ],
-                "publisher": {
-                  "id": 150,
-                  "name": "Kirjayhtymä"
-                },
-                "owners": [],
-                "wishlisted": [],
-                "id": 5506,
-                "title": "Urhea Tarzan",
-                "subtitle": "",
-                "pubyear": 1991,
-                "editionnum": 1,
-                "version": 3,
-                "isbn": "951-26-3626-3",
-                "printedin": null,
-                "pubseriesnum": null,
-                "coll_info": "",
-                "pages": 264,
-                "size": 21,
-                "dustcover": 1,
-                "coverimage": 3,
-                "misc": "",
-                "imported_string": "\n\n3.laitos: Kirjayhtymä 1991.",
-                "verified": false
-              }
-            ],
-            "genres": [
-              {
-                "id": 1,
-                "name": "Fantasia",
-                "abbr": "F"
-              }
-            ],
-            "bookseries": {
-              "id": 410,
-              "name": "Tarzan",
-              "orig_name": "Tarzan",
-              "description": null,
-              "important": false,
-              "image_src": null,
-              "image_attr": null
+              "owners": [],
+              "wishlisted": [],
+              "id": 5504,
+              "title": "Tarzan Midianin maassa",
+              "subtitle": "",
+              "pubyear": 1955,
+              "editionnum": 1,
+              "version": null,
+              "isbn": "",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 208,
+              "size": null,
+              "dustcover": 1,
+              "coverimage": 1,
+              "misc": "",
+              "imported_string": "\n\n<b>Tarzan Midianin maassa</b>. (Tarzan Triumphant, 1932). Suom Marjatta Jokimäki. Karhu 1955. [F].",
+              "verified": false
             },
-            "tags": [],
-            "language_name": {
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 2882.0,
+                  "name": "Tapio, Jaakko V.",
+                  "alt_name": "Jaakko V. Tapio",
+                  "fullname": "",
+                  "image_src": null,
+                  "dob": null,
+                  "dod": null,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 0,
+                  "other_names": null,
+                  "first_name": "Jaakko V.",
+                  "last_name": "Tapio",
+                  "image_attr": "",
+                  "bio": null,
+                  "bio_src": "",
+                  "imported_string": "\n\n2.laitos: <b>Mahtava Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1976."
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 7769.0,
+                    "name": "Lintula, Kalevi",
+                    "alt_name": "Kalevi Lintula"
+                  },
+                  "role": {
+                    "id": 5,
+                    "name": "Kuvittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 2882.0,
+                    "name": "Tapio, Jaakko V.",
+                    "alt_name": "Jaakko V. Tapio"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "id": 9437,
+                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Urheatarzan_2l1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 137,
+                "name": "Kauppakirjapaino"
+              },
+              "owners": [],
+              "wishlisted": [],
+              "id": 5505,
+              "title": "Urhea Tarzan",
+              "subtitle": "",
+              "pubyear": 1973,
+              "editionnum": 1,
+              "version": 2,
+              "isbn": "",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 274,
+              "size": 21,
+              "dustcover": 1,
+              "coverimage": 3,
+              "misc": "",
+              "imported_string": "\n\n2.laitos: <b>Urhea Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1973.",
+              "verified": false
+            },
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 2882.0,
+                  "name": "Tapio, Jaakko V.",
+                  "alt_name": "Jaakko V. Tapio",
+                  "fullname": "",
+                  "image_src": null,
+                  "dob": null,
+                  "dod": null,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 0,
+                  "other_names": null,
+                  "first_name": "Jaakko V.",
+                  "last_name": "Tapio",
+                  "image_attr": "",
+                  "bio": null,
+                  "bio_src": "",
+                  "imported_string": "\n\n2.laitos: <b>Mahtava Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1976."
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 7769.0,
+                    "name": "Lintula, Kalevi",
+                    "alt_name": "Kalevi Lintula"
+                  },
+                  "role": {
+                    "id": 5,
+                    "name": "Kuvittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 2882.0,
+                    "name": "Tapio, Jaakko V.",
+                    "alt_name": "Jaakko V. Tapio"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "id": 9439,
+                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Urheatarzan_4l2p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 137,
+                "name": "Kauppakirjapaino"
+              },
+              "owners": [],
+              "wishlisted": [],
+              "id": 9895,
+              "title": "Urhea Tarzan",
+              "subtitle": "",
+              "pubyear": 1986,
+              "editionnum": 4,
+              "version": 2,
+              "isbn": "",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 274,
+              "size": 21,
+              "dustcover": 1,
+              "coverimage": 3,
+              "misc": "",
+              "imported_string": "\n\n2.laitos: <b>Urhea Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1973.",
+              "verified": false
+            },
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 2882.0,
+                  "name": "Tapio, Jaakko V.",
+                  "alt_name": "Jaakko V. Tapio",
+                  "fullname": "",
+                  "image_src": null,
+                  "dob": null,
+                  "dod": null,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 0,
+                  "other_names": null,
+                  "first_name": "Jaakko V.",
+                  "last_name": "Tapio",
+                  "image_attr": "",
+                  "bio": null,
+                  "bio_src": "",
+                  "imported_string": "\n\n2.laitos: <b>Mahtava Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1976."
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 2882.0,
+                    "name": "Tapio, Jaakko V.",
+                    "alt_name": "Jaakko V. Tapio"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "id": 9440,
+                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Urheatarzan_3l1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 150,
+                "name": "Kirjayhtymä"
+              },
+              "owners": [],
+              "wishlisted": [],
+              "id": 5506,
+              "title": "Urhea Tarzan",
+              "subtitle": "",
+              "pubyear": 1991,
+              "editionnum": 1,
+              "version": 3,
+              "isbn": "951-26-3626-3",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 264,
+              "size": 21,
+              "dustcover": 1,
+              "coverimage": 3,
+              "misc": "",
+              "imported_string": "\n\n3.laitos: Kirjayhtymä 1991.",
+              "verified": false
+            }
+          ],
+          "genres": [
+            {
               "id": 1,
-              "name": "englanti"
-            },
-            "type": 1.0,
-            "subtitle": "apinain Tarzanin uusia seikkailuja Midianin maassa",
-            "pubyear": 1932,
-            "bookseriesnum": "14",
-            "bookseriesorder": 14,
-            "misc": "",
-            "description": "",
-            "descr_attr": null,
-            "imported_string": "\n\n<b>Tarzan Midianin maassa</b>. (Tarzan Triumphant, 1932). Suom Marjatta Jokimäki. Karhu 1955. [F]."
-          }
-        ],
+              "name": "Fantasia",
+              "abbr": "F"
+            }
+          ],
+          "bookseries": {
+            "id": 410,
+            "name": "Tarzan",
+            "orig_name": "Tarzan",
+            "description": null,
+            "important": false,
+            "image_src": null,
+            "image_attr": null
+          },
+          "tags": [],
+          "language_name": {
+            "id": 1,
+            "name": "englanti"
+          },
+          "type": 1.0,
+          "subtitle": "apinain Tarzanin uusia seikkailuja Midianin maassa",
+          "pubyear": 1932,
+          "bookseriesnum": "14",
+          "bookseriesorder": 14,
+          "misc": "",
+          "description": "",
+          "descr_attr": null,
+          "imported_string": "\n\n<b>Tarzan Midianin maassa</b>. (Tarzan Triumphant, 1932). Suom Marjatta Jokimäki. Karhu 1955. [F]."
+        },
         "editors": [],
         "contributions": [
           {
@@ -893,439 +889,437 @@
         "verified": false
       },
       {
-        "work": [
-          {
-            "id": 4763.0,
-            "title": "Tarzan ja kultainen kaupunki",
-            "orig_title": "Tarzan and the City of Gold",
-            "author_str": "Burroughs, Edgar Rice",
-            "contributions": [
-              {
-                "person": {
-                  "id": 2877.0,
-                  "name": "Burroughs, Edgar Rice",
-                  "alt_name": "Edgar Rice Burroughs"
-                },
-                "role": {
-                  "id": 1,
-                  "name": "Kirjoittaja"
-                },
-                "description": null,
-                "real_person": null
-              }
-            ],
-            "editions": [
-              {
-                "editors": [],
-                "translators": [
-                  {
+        "work": {
+          "id": 4763.0,
+          "title": "Tarzan ja kultainen kaupunki",
+          "orig_title": "Tarzan and the City of Gold",
+          "author_str": "Burroughs, Edgar Rice",
+          "contributions": [
+            {
+              "person": {
+                "id": 2877.0,
+                "name": "Burroughs, Edgar Rice",
+                "alt_name": "Edgar Rice Burroughs"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": null,
+              "real_person": null
+            }
+          ],
+          "editions": [
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 2881.0,
+                  "name": "Jokimäki, Marjatta",
+                  "alt_name": "Marjatta Jokimäki",
+                  "fullname": "",
+                  "image_src": null,
+                  "dob": null,
+                  "dod": null,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 0,
+                  "other_names": null,
+                  "first_name": "Marjatta",
+                  "last_name": "Jokimäki",
+                  "image_attr": "",
+                  "bio": null,
+                  "bio_src": "",
+                  "imported_string": "\n\n<b>Tarzan ja amazonit</b>. (Tarzan the Magnificent, 1939). Suom Marjatta Jokimäki. Karhu 1951. [F]."
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
                     "id": 2881.0,
                     "name": "Jokimäki, Marjatta",
-                    "alt_name": "Marjatta Jokimäki",
-                    "fullname": "",
-                    "image_src": null,
-                    "dob": null,
-                    "dod": null,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
-                    "nationality": {
-                      "id": 4,
-                      "name": "Suomi"
-                    },
-                    "workcount": 0.0,
-                    "storycount": 0,
-                    "other_names": null,
-                    "first_name": "Marjatta",
-                    "last_name": "Jokimäki",
-                    "image_attr": "",
-                    "bio": null,
-                    "bio_src": "",
-                    "imported_string": "\n\n<b>Tarzan ja amazonit</b>. (Tarzan the Magnificent, 1939). Suom Marjatta Jokimäki. Karhu 1951. [F]."
-                  }
-                ],
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 2881.0,
-                      "name": "Jokimäki, Marjatta",
-                      "alt_name": "Marjatta Jokimäki"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
+                    "alt_name": "Marjatta Jokimäki"
                   },
-                  {
-                    "person": {
-                      "id": 5608.0,
-                      "name": "Hauhio, Ami",
-                      "alt_name": "Ami Hauhio"
-                    },
-                    "role": {
-                      "id": 4,
-                      "name": "Kansikuva"
-                    },
-                    "description": "",
-                    "real_person": null
-                  }
-                ],
-                "images": [
-                  {
-                    "id": 4921,
-                    "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjakultainenkaupunki_1p.jpg",
-                    "image_attr": null
-                  }
-                ],
-                "publisher": {
-                  "id": 132,
-                  "name": "Karhu"
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
                 },
-                "owners": [],
-                "wishlisted": [],
-                "id": 5478,
-                "title": "Tarzan ja kultainen kaupunki",
-                "subtitle": "",
-                "pubyear": 1952,
-                "editionnum": 1,
-                "version": null,
-                "isbn": "",
-                "printedin": null,
-                "pubseriesnum": null,
-                "coll_info": "",
-                "pages": 181,
-                "size": 20,
-                "dustcover": 1,
-                "coverimage": 1,
-                "misc": "",
-                "imported_string": "\n\n<b>Tarzan ja kultainen kaupunki</b>. (Tarzan and the City of Gold, 1933). Suom Marjatta Jokimäki. Karhu 1952. [F].",
-                "verified": false
+                {
+                  "person": {
+                    "id": 5608.0,
+                    "name": "Hauhio, Ami",
+                    "alt_name": "Ami Hauhio"
+                  },
+                  "role": {
+                    "id": 4,
+                    "name": "Kansikuva"
+                  },
+                  "description": "",
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "id": 4921,
+                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjakultainenkaupunki_1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 132,
+                "name": "Karhu"
               },
-              {
-                "editors": [],
-                "translators": [
-                  {
-                    "id": 2882.0,
-                    "name": "Tapio, Jaakko V.",
-                    "alt_name": "Jaakko V. Tapio",
-                    "fullname": "",
-                    "image_src": null,
-                    "dob": null,
-                    "dod": null,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
-                    "nationality": {
-                      "id": 4,
-                      "name": "Suomi"
-                    },
-                    "workcount": 0.0,
-                    "storycount": 0,
-                    "other_names": null,
-                    "first_name": "Jaakko V.",
-                    "last_name": "Tapio",
-                    "image_attr": "",
-                    "bio": null,
-                    "bio_src": "",
-                    "imported_string": "\n\n2.laitos: <b>Mahtava Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1976."
-                  }
-                ],
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 5678.0,
-                      "name": "Liettyä, Esko",
-                      "alt_name": "Esko Liettyä"
-                    },
-                    "role": {
-                      "id": 4,
-                      "name": "Kansikuva"
-                    },
-                    "description": "",
-                    "real_person": null
-                  },
-                  {
-                    "person": {
-                      "id": 7769.0,
-                      "name": "Lintula, Kalevi",
-                      "alt_name": "Kalevi Lintula"
-                    },
-                    "role": {
-                      "id": 5,
-                      "name": "Kuvittaja"
-                    },
-                    "description": "",
-                    "real_person": null
-                  },
-                  {
-                    "person": {
-                      "id": 2882.0,
-                      "name": "Tapio, Jaakko V.",
-                      "alt_name": "Jaakko V. Tapio"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "images": [
-                  {
-                    "id": 9432,
-                    "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjakultakaupunki_2l1p.jpg",
-                    "image_attr": null
-                  }
-                ],
-                "publisher": {
-                  "id": 137,
-                  "name": "Kauppakirjapaino"
-                },
-                "owners": [],
-                "wishlisted": [],
-                "id": 5479,
-                "title": "Tarzan ja kultakaupunki",
-                "subtitle": "",
-                "pubyear": 1973,
-                "editionnum": 1,
-                "version": 2,
-                "isbn": "",
-                "printedin": null,
-                "pubseriesnum": null,
-                "coll_info": "",
-                "pages": 240,
-                "size": 21,
-                "dustcover": 1,
-                "coverimage": 3,
-                "misc": "",
-                "imported_string": "\n\n2.laitos: <b>Tarzan ja kultakaupunki</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1973.",
-                "verified": false
-              },
-              {
-                "editors": [],
-                "translators": [
-                  {
-                    "id": 2882.0,
-                    "name": "Tapio, Jaakko V.",
-                    "alt_name": "Jaakko V. Tapio",
-                    "fullname": "",
-                    "image_src": null,
-                    "dob": null,
-                    "dod": null,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
-                    "nationality": {
-                      "id": 4,
-                      "name": "Suomi"
-                    },
-                    "workcount": 0.0,
-                    "storycount": 0,
-                    "other_names": null,
-                    "first_name": "Jaakko V.",
-                    "last_name": "Tapio",
-                    "image_attr": "",
-                    "bio": null,
-                    "bio_src": "",
-                    "imported_string": "\n\n2.laitos: <b>Mahtava Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1976."
-                  }
-                ],
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 5678.0,
-                      "name": "Liettyä, Esko",
-                      "alt_name": "Esko Liettyä"
-                    },
-                    "role": {
-                      "id": 4,
-                      "name": "Kansikuva"
-                    },
-                    "description": "",
-                    "real_person": null
-                  },
-                  {
-                    "person": {
-                      "id": 2882.0,
-                      "name": "Tapio, Jaakko V.",
-                      "alt_name": "Jaakko V. Tapio"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  },
-                  {
-                    "person": {
-                      "id": 7769.0,
-                      "name": "Lintula, Kalevi",
-                      "alt_name": "Kalevi Lintula"
-                    },
-                    "role": {
-                      "id": 5,
-                      "name": "Kuvittaja"
-                    },
-                    "description": "",
-                    "real_person": null
-                  }
-                ],
-                "images": [
-                  {
-                    "id": 9434,
-                    "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjakultakaupunki_2l2p.jpg",
-                    "image_attr": null
-                  }
-                ],
-                "publisher": {
-                  "id": 137,
-                  "name": "Kauppakirjapaino"
-                },
-                "owners": [],
-                "wishlisted": [],
-                "id": 9894,
-                "title": "Tarzan ja kultakaupunki",
-                "subtitle": "",
-                "pubyear": 1986,
-                "editionnum": 2,
-                "version": 2,
-                "isbn": "",
-                "printedin": null,
-                "pubseriesnum": null,
-                "coll_info": "",
-                "pages": 240,
-                "size": 21,
-                "dustcover": 1,
-                "coverimage": 3,
-                "misc": "",
-                "imported_string": "\n\n2.laitos: <b>Tarzan ja kultakaupunki</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1973.",
-                "verified": false
-              },
-              {
-                "editors": [],
-                "translators": [
-                  {
-                    "id": 2882.0,
-                    "name": "Tapio, Jaakko V.",
-                    "alt_name": "Jaakko V. Tapio",
-                    "fullname": "",
-                    "image_src": null,
-                    "dob": null,
-                    "dod": null,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
-                    "nationality": {
-                      "id": 4,
-                      "name": "Suomi"
-                    },
-                    "workcount": 0.0,
-                    "storycount": 0,
-                    "other_names": null,
-                    "first_name": "Jaakko V.",
-                    "last_name": "Tapio",
-                    "image_attr": "",
-                    "bio": null,
-                    "bio_src": "",
-                    "imported_string": "\n\n2.laitos: <b>Mahtava Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1976."
-                  }
-                ],
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 5678.0,
-                      "name": "Liettyä, Esko",
-                      "alt_name": "Esko Liettyä"
-                    },
-                    "role": {
-                      "id": 4,
-                      "name": "Kansikuva"
-                    },
-                    "description": "",
-                    "real_person": null
-                  },
-                  {
-                    "person": {
-                      "id": 2882.0,
-                      "name": "Tapio, Jaakko V.",
-                      "alt_name": "Jaakko V. Tapio"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "images": [
-                  {
-                    "id": 9435,
-                    "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjakultakaupunki_3l1p.jpg",
-                    "image_attr": null
-                  }
-                ],
-                "publisher": {
-                  "id": 150,
-                  "name": "Kirjayhtymä"
-                },
-                "owners": [],
-                "wishlisted": [],
-                "id": 5480,
-                "title": "Tarzan ja kultakaupunki",
-                "subtitle": "",
-                "pubyear": 1991,
-                "editionnum": 1,
-                "version": 3,
-                "isbn": "951-26-3627-1",
-                "printedin": null,
-                "pubseriesnum": null,
-                "coll_info": "",
-                "pages": 231,
-                "size": 21,
-                "dustcover": 1,
-                "coverimage": 3,
-                "misc": "",
-                "imported_string": "\n\n3.laitos: Kirjayhtymä 1991.",
-                "verified": false
-              }
-            ],
-            "genres": [
-              {
-                "id": 1,
-                "name": "Fantasia",
-                "abbr": "F"
-              }
-            ],
-            "bookseries": {
-              "id": 410,
-              "name": "Tarzan",
-              "orig_name": "Tarzan",
-              "description": null,
-              "important": false,
-              "image_src": null,
-              "image_attr": null
+              "owners": [],
+              "wishlisted": [],
+              "id": 5478,
+              "title": "Tarzan ja kultainen kaupunki",
+              "subtitle": "",
+              "pubyear": 1952,
+              "editionnum": 1,
+              "version": null,
+              "isbn": "",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 181,
+              "size": 20,
+              "dustcover": 1,
+              "coverimage": 1,
+              "misc": "",
+              "imported_string": "\n\n<b>Tarzan ja kultainen kaupunki</b>. (Tarzan and the City of Gold, 1933). Suom Marjatta Jokimäki. Karhu 1952. [F].",
+              "verified": false
             },
-            "tags": [],
-            "language_name": {
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 2882.0,
+                  "name": "Tapio, Jaakko V.",
+                  "alt_name": "Jaakko V. Tapio",
+                  "fullname": "",
+                  "image_src": null,
+                  "dob": null,
+                  "dod": null,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 0,
+                  "other_names": null,
+                  "first_name": "Jaakko V.",
+                  "last_name": "Tapio",
+                  "image_attr": "",
+                  "bio": null,
+                  "bio_src": "",
+                  "imported_string": "\n\n2.laitos: <b>Mahtava Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1976."
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 5678.0,
+                    "name": "Liettyä, Esko",
+                    "alt_name": "Esko Liettyä"
+                  },
+                  "role": {
+                    "id": 4,
+                    "name": "Kansikuva"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 7769.0,
+                    "name": "Lintula, Kalevi",
+                    "alt_name": "Kalevi Lintula"
+                  },
+                  "role": {
+                    "id": 5,
+                    "name": "Kuvittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 2882.0,
+                    "name": "Tapio, Jaakko V.",
+                    "alt_name": "Jaakko V. Tapio"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "id": 9432,
+                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjakultakaupunki_2l1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 137,
+                "name": "Kauppakirjapaino"
+              },
+              "owners": [],
+              "wishlisted": [],
+              "id": 5479,
+              "title": "Tarzan ja kultakaupunki",
+              "subtitle": "",
+              "pubyear": 1973,
+              "editionnum": 1,
+              "version": 2,
+              "isbn": "",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 240,
+              "size": 21,
+              "dustcover": 1,
+              "coverimage": 3,
+              "misc": "",
+              "imported_string": "\n\n2.laitos: <b>Tarzan ja kultakaupunki</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1973.",
+              "verified": false
+            },
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 2882.0,
+                  "name": "Tapio, Jaakko V.",
+                  "alt_name": "Jaakko V. Tapio",
+                  "fullname": "",
+                  "image_src": null,
+                  "dob": null,
+                  "dod": null,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 0,
+                  "other_names": null,
+                  "first_name": "Jaakko V.",
+                  "last_name": "Tapio",
+                  "image_attr": "",
+                  "bio": null,
+                  "bio_src": "",
+                  "imported_string": "\n\n2.laitos: <b>Mahtava Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1976."
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 5678.0,
+                    "name": "Liettyä, Esko",
+                    "alt_name": "Esko Liettyä"
+                  },
+                  "role": {
+                    "id": 4,
+                    "name": "Kansikuva"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 2882.0,
+                    "name": "Tapio, Jaakko V.",
+                    "alt_name": "Jaakko V. Tapio"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 7769.0,
+                    "name": "Lintula, Kalevi",
+                    "alt_name": "Kalevi Lintula"
+                  },
+                  "role": {
+                    "id": 5,
+                    "name": "Kuvittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "id": 9434,
+                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjakultakaupunki_2l2p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 137,
+                "name": "Kauppakirjapaino"
+              },
+              "owners": [],
+              "wishlisted": [],
+              "id": 9894,
+              "title": "Tarzan ja kultakaupunki",
+              "subtitle": "",
+              "pubyear": 1986,
+              "editionnum": 2,
+              "version": 2,
+              "isbn": "",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 240,
+              "size": 21,
+              "dustcover": 1,
+              "coverimage": 3,
+              "misc": "",
+              "imported_string": "\n\n2.laitos: <b>Tarzan ja kultakaupunki</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1973.",
+              "verified": false
+            },
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 2882.0,
+                  "name": "Tapio, Jaakko V.",
+                  "alt_name": "Jaakko V. Tapio",
+                  "fullname": "",
+                  "image_src": null,
+                  "dob": null,
+                  "dod": null,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 0,
+                  "other_names": null,
+                  "first_name": "Jaakko V.",
+                  "last_name": "Tapio",
+                  "image_attr": "",
+                  "bio": null,
+                  "bio_src": "",
+                  "imported_string": "\n\n2.laitos: <b>Mahtava Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1976."
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 5678.0,
+                    "name": "Liettyä, Esko",
+                    "alt_name": "Esko Liettyä"
+                  },
+                  "role": {
+                    "id": 4,
+                    "name": "Kansikuva"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 2882.0,
+                    "name": "Tapio, Jaakko V.",
+                    "alt_name": "Jaakko V. Tapio"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "id": 9435,
+                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjakultakaupunki_3l1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 150,
+                "name": "Kirjayhtymä"
+              },
+              "owners": [],
+              "wishlisted": [],
+              "id": 5480,
+              "title": "Tarzan ja kultakaupunki",
+              "subtitle": "",
+              "pubyear": 1991,
+              "editionnum": 1,
+              "version": 3,
+              "isbn": "951-26-3627-1",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 231,
+              "size": 21,
+              "dustcover": 1,
+              "coverimage": 3,
+              "misc": "",
+              "imported_string": "\n\n3.laitos: Kirjayhtymä 1991.",
+              "verified": false
+            }
+          ],
+          "genres": [
+            {
               "id": 1,
-              "name": "englanti"
-            },
-            "type": 1.0,
-            "subtitle": "apinain Tarzanin uusia seikkailuja kultaisessa kaupungissa",
-            "pubyear": 1933,
-            "bookseriesnum": "15",
-            "bookseriesorder": 15,
-            "misc": "",
-            "description": "",
-            "descr_attr": null,
-            "imported_string": "\n\n<b>Tarzan ja kultainen kaupunki</b>. (Tarzan and the City of Gold, 1933). Suom Marjatta Jokimäki. Karhu 1952. [F]."
-          }
-        ],
+              "name": "Fantasia",
+              "abbr": "F"
+            }
+          ],
+          "bookseries": {
+            "id": 410,
+            "name": "Tarzan",
+            "orig_name": "Tarzan",
+            "description": null,
+            "important": false,
+            "image_src": null,
+            "image_attr": null
+          },
+          "tags": [],
+          "language_name": {
+            "id": 1,
+            "name": "englanti"
+          },
+          "type": 1.0,
+          "subtitle": "apinain Tarzanin uusia seikkailuja kultaisessa kaupungissa",
+          "pubyear": 1933,
+          "bookseriesnum": "15",
+          "bookseriesorder": 15,
+          "misc": "",
+          "description": "",
+          "descr_attr": null,
+          "imported_string": "\n\n<b>Tarzan ja kultainen kaupunki</b>. (Tarzan and the City of Gold, 1933). Suom Marjatta Jokimäki. Karhu 1952. [F]."
+        },
         "editors": [],
         "contributions": [
           {
@@ -1404,413 +1398,411 @@
         "verified": false
       },
       {
-        "work": [
-          {
-            "id": 4778.0,
-            "title": "Tarzanin kaksoisolento",
-            "orig_title": "Tarzan and the Lion Man",
-            "author_str": "Burroughs, Edgar Rice",
-            "contributions": [
-              {
-                "person": {
-                  "id": 2877.0,
-                  "name": "Burroughs, Edgar Rice",
-                  "alt_name": "Edgar Rice Burroughs"
+        "work": {
+          "id": 4778.0,
+          "title": "Tarzanin kaksoisolento",
+          "orig_title": "Tarzan and the Lion Man",
+          "author_str": "Burroughs, Edgar Rice",
+          "contributions": [
+            {
+              "person": {
+                "id": 2877.0,
+                "name": "Burroughs, Edgar Rice",
+                "alt_name": "Edgar Rice Burroughs"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": null,
+              "real_person": null
+            }
+          ],
+          "editions": [
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 2884.0,
+                  "name": "Jokimäki, Heikki",
+                  "alt_name": "Heikki Jokimäki",
+                  "fullname": "",
+                  "image_src": null,
+                  "dob": null,
+                  "dod": null,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 0,
+                  "other_names": null,
+                  "first_name": "Heikki",
+                  "last_name": "Jokimäki",
+                  "image_attr": "",
+                  "bio": null,
+                  "bio_src": "",
+                  "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF]."
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 5608.0,
+                    "name": "Hauhio, Ami",
+                    "alt_name": "Ami Hauhio"
+                  },
+                  "role": {
+                    "id": 4,
+                    "name": "Kansikuva"
+                  },
+                  "description": "",
+                  "real_person": null
                 },
-                "role": {
-                  "id": 1,
-                  "name": "Kirjoittaja"
-                },
-                "description": null,
-                "real_person": null
-              }
-            ],
-            "editions": [
-              {
-                "editors": [],
-                "translators": [
-                  {
+                {
+                  "person": {
                     "id": 2884.0,
                     "name": "Jokimäki, Heikki",
-                    "alt_name": "Heikki Jokimäki",
-                    "fullname": "",
-                    "image_src": null,
-                    "dob": null,
-                    "dod": null,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
-                    "nationality": {
-                      "id": 4,
-                      "name": "Suomi"
-                    },
-                    "workcount": 0.0,
-                    "storycount": 0,
-                    "other_names": null,
-                    "first_name": "Heikki",
-                    "last_name": "Jokimäki",
-                    "image_attr": "",
-                    "bio": null,
-                    "bio_src": "",
-                    "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF]."
-                  }
-                ],
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 5608.0,
-                      "name": "Hauhio, Ami",
-                      "alt_name": "Ami Hauhio"
-                    },
-                    "role": {
-                      "id": 4,
-                      "name": "Kansikuva"
-                    },
-                    "description": "",
-                    "real_person": null
+                    "alt_name": "Heikki Jokimäki"
                   },
-                  {
-                    "person": {
-                      "id": 2884.0,
-                      "name": "Jokimäki, Heikki",
-                      "alt_name": "Heikki Jokimäki"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "images": [
-                  {
-                    "id": 9428,
-                    "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzaninkaksoisolento_1p.jpg",
-                    "image_attr": null
-                  }
-                ],
-                "publisher": {
-                  "id": 132,
-                  "name": "Karhu"
-                },
-                "owners": [],
-                "wishlisted": [],
-                "id": 5515,
-                "title": "Tarzanin kaksoisolento",
-                "subtitle": "",
-                "pubyear": 1947,
-                "editionnum": 1,
-                "version": null,
-                "isbn": "",
-                "printedin": null,
-                "pubseriesnum": null,
-                "coll_info": "",
-                "pages": 243,
-                "size": 19,
-                "dustcover": 1,
-                "coverimage": 1,
-                "misc": "",
-                "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF].",
-                "verified": false
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "id": 9428,
+                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzaninkaksoisolento_1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 132,
+                "name": "Karhu"
               },
-              {
-                "editors": [],
-                "translators": [
-                  {
+              "owners": [],
+              "wishlisted": [],
+              "id": 5515,
+              "title": "Tarzanin kaksoisolento",
+              "subtitle": "",
+              "pubyear": 1947,
+              "editionnum": 1,
+              "version": null,
+              "isbn": "",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 243,
+              "size": 19,
+              "dustcover": 1,
+              "coverimage": 1,
+              "misc": "",
+              "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF].",
+              "verified": false
+            },
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 2884.0,
+                  "name": "Jokimäki, Heikki",
+                  "alt_name": "Heikki Jokimäki",
+                  "fullname": "",
+                  "image_src": null,
+                  "dob": null,
+                  "dod": null,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 0,
+                  "other_names": null,
+                  "first_name": "Heikki",
+                  "last_name": "Jokimäki",
+                  "image_attr": "",
+                  "bio": null,
+                  "bio_src": "",
+                  "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF]."
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 5608.0,
+                    "name": "Hauhio, Ami",
+                    "alt_name": "Ami Hauhio"
+                  },
+                  "role": {
+                    "id": 4,
+                    "name": "Kansikuva"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
                     "id": 2884.0,
                     "name": "Jokimäki, Heikki",
-                    "alt_name": "Heikki Jokimäki",
-                    "fullname": "",
-                    "image_src": null,
-                    "dob": null,
-                    "dod": null,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
-                    "nationality": {
-                      "id": 4,
-                      "name": "Suomi"
-                    },
-                    "workcount": 0.0,
-                    "storycount": 0,
-                    "other_names": null,
-                    "first_name": "Heikki",
-                    "last_name": "Jokimäki",
-                    "image_attr": "",
-                    "bio": null,
-                    "bio_src": "",
-                    "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF]."
-                  }
-                ],
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 5608.0,
-                      "name": "Hauhio, Ami",
-                      "alt_name": "Ami Hauhio"
-                    },
-                    "role": {
-                      "id": 4,
-                      "name": "Kansikuva"
-                    },
-                    "description": "",
-                    "real_person": null
+                    "alt_name": "Heikki Jokimäki"
                   },
-                  {
-                    "person": {
-                      "id": 2884.0,
-                      "name": "Jokimäki, Heikki",
-                      "alt_name": "Heikki Jokimäki"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "images": [
-                  {
-                    "id": 9429,
-                    "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzaninkaksoisolento_1p.jpg",
-                    "image_attr": null
-                  }
-                ],
-                "publisher": {
-                  "id": 132,
-                  "name": "Karhu"
-                },
-                "owners": [],
-                "wishlisted": [],
-                "id": 9892,
-                "title": "Tarzanin kaksoisolento",
-                "subtitle": "",
-                "pubyear": 1948,
-                "editionnum": 2,
-                "version": null,
-                "isbn": "",
-                "printedin": null,
-                "pubseriesnum": null,
-                "coll_info": "",
-                "pages": 243,
-                "size": 19,
-                "dustcover": 1,
-                "coverimage": 1,
-                "misc": "",
-                "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF].",
-                "verified": false
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "id": 9429,
+                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzaninkaksoisolento_1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 132,
+                "name": "Karhu"
               },
-              {
-                "editors": [],
-                "translators": [
-                  {
+              "owners": [],
+              "wishlisted": [],
+              "id": 9892,
+              "title": "Tarzanin kaksoisolento",
+              "subtitle": "",
+              "pubyear": 1948,
+              "editionnum": 2,
+              "version": null,
+              "isbn": "",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 243,
+              "size": 19,
+              "dustcover": 1,
+              "coverimage": 1,
+              "misc": "",
+              "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF].",
+              "verified": false
+            },
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 2884.0,
+                  "name": "Jokimäki, Heikki",
+                  "alt_name": "Heikki Jokimäki",
+                  "fullname": "",
+                  "image_src": null,
+                  "dob": null,
+                  "dod": null,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 0,
+                  "other_names": null,
+                  "first_name": "Heikki",
+                  "last_name": "Jokimäki",
+                  "image_attr": "",
+                  "bio": null,
+                  "bio_src": "",
+                  "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF]."
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 5608.0,
+                    "name": "Hauhio, Ami",
+                    "alt_name": "Ami Hauhio"
+                  },
+                  "role": {
+                    "id": 4,
+                    "name": "Kansikuva"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
                     "id": 2884.0,
                     "name": "Jokimäki, Heikki",
-                    "alt_name": "Heikki Jokimäki",
-                    "fullname": "",
-                    "image_src": null,
-                    "dob": null,
-                    "dod": null,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
-                    "nationality": {
-                      "id": 4,
-                      "name": "Suomi"
-                    },
-                    "workcount": 0.0,
-                    "storycount": 0,
-                    "other_names": null,
-                    "first_name": "Heikki",
-                    "last_name": "Jokimäki",
-                    "image_attr": "",
-                    "bio": null,
-                    "bio_src": "",
-                    "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF]."
-                  }
-                ],
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 5608.0,
-                      "name": "Hauhio, Ami",
-                      "alt_name": "Ami Hauhio"
-                    },
-                    "role": {
-                      "id": 4,
-                      "name": "Kansikuva"
-                    },
-                    "description": "",
-                    "real_person": null
+                    "alt_name": "Heikki Jokimäki"
                   },
-                  {
-                    "person": {
-                      "id": 2884.0,
-                      "name": "Jokimäki, Heikki",
-                      "alt_name": "Heikki Jokimäki"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "images": [
-                  {
-                    "id": 9430,
-                    "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzaninkaksoisolento_1p.jpg",
-                    "image_attr": null
-                  }
-                ],
-                "publisher": {
-                  "id": 132,
-                  "name": "Karhu"
-                },
-                "owners": [],
-                "wishlisted": [],
-                "id": 9893,
-                "title": "Tarzanin kaksoisolento",
-                "subtitle": "",
-                "pubyear": 1952,
-                "editionnum": 3,
-                "version": null,
-                "isbn": "",
-                "printedin": null,
-                "pubseriesnum": null,
-                "coll_info": "",
-                "pages": 208,
-                "size": 20,
-                "dustcover": 1,
-                "coverimage": 1,
-                "misc": "",
-                "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF].",
-                "verified": false
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "id": 9430,
+                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzaninkaksoisolento_1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 132,
+                "name": "Karhu"
               },
-              {
-                "editors": [],
-                "translators": [
-                  {
+              "owners": [],
+              "wishlisted": [],
+              "id": 9893,
+              "title": "Tarzanin kaksoisolento",
+              "subtitle": "",
+              "pubyear": 1952,
+              "editionnum": 3,
+              "version": null,
+              "isbn": "",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 208,
+              "size": 20,
+              "dustcover": 1,
+              "coverimage": 1,
+              "misc": "",
+              "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF].",
+              "verified": false
+            },
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 2882.0,
+                  "name": "Tapio, Jaakko V.",
+                  "alt_name": "Jaakko V. Tapio",
+                  "fullname": "",
+                  "image_src": null,
+                  "dob": null,
+                  "dod": null,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 0,
+                  "other_names": null,
+                  "first_name": "Jaakko V.",
+                  "last_name": "Tapio",
+                  "image_attr": "",
+                  "bio": null,
+                  "bio_src": "",
+                  "imported_string": "\n\n2.laitos: <b>Mahtava Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1976."
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 7769.0,
+                    "name": "Lintula, Kalevi",
+                    "alt_name": "Kalevi Lintula"
+                  },
+                  "role": {
+                    "id": 5,
+                    "name": "Kuvittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
                     "id": 2882.0,
                     "name": "Tapio, Jaakko V.",
-                    "alt_name": "Jaakko V. Tapio",
-                    "fullname": "",
-                    "image_src": null,
-                    "dob": null,
-                    "dod": null,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
-                    "nationality": {
-                      "id": 4,
-                      "name": "Suomi"
-                    },
-                    "workcount": 0.0,
-                    "storycount": 0,
-                    "other_names": null,
-                    "first_name": "Jaakko V.",
-                    "last_name": "Tapio",
-                    "image_attr": "",
-                    "bio": null,
-                    "bio_src": "",
-                    "imported_string": "\n\n2.laitos: <b>Mahtava Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1976."
-                  }
-                ],
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 7769.0,
-                      "name": "Lintula, Kalevi",
-                      "alt_name": "Kalevi Lintula"
-                    },
-                    "role": {
-                      "id": 5,
-                      "name": "Kuvittaja"
-                    },
-                    "description": "",
-                    "real_person": null
+                    "alt_name": "Jaakko V. Tapio"
                   },
-                  {
-                    "person": {
-                      "id": 2882.0,
-                      "name": "Tapio, Jaakko V.",
-                      "alt_name": "Jaakko V. Tapio"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "images": [
-                  {
-                    "id": 9431,
-                    "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleijonamies_1p.jpg",
-                    "image_attr": null
-                  }
-                ],
-                "publisher": {
-                  "id": 137,
-                  "name": "Kauppakirjapaino"
-                },
-                "owners": [],
-                "wishlisted": [],
-                "id": 5516,
-                "title": "Tarzan ja Leijonamies",
-                "subtitle": "",
-                "pubyear": 1974,
-                "editionnum": 1,
-                "version": 2,
-                "isbn": "",
-                "printedin": null,
-                "pubseriesnum": null,
-                "coll_info": "",
-                "pages": 275,
-                "size": 21,
-                "dustcover": 1,
-                "coverimage": 3,
-                "misc": "",
-                "imported_string": "\n\n2.laitos: <b>Tarzan ja Leijonamies</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1974.",
-                "verified": false
-              }
-            ],
-            "genres": [
-              {
-                "id": 5,
-                "name": "Science Fiction",
-                "abbr": "SF"
-              }
-            ],
-            "bookseries": {
-              "id": 410,
-              "name": "Tarzan",
-              "orig_name": "Tarzan",
-              "description": null,
-              "important": false,
-              "image_src": null,
-              "image_attr": null
-            },
-            "tags": [],
-            "language_name": {
-              "id": 1,
-              "name": "englanti"
-            },
-            "type": 1.0,
-            "subtitle": "",
-            "pubyear": 1934,
-            "bookseriesnum": "16",
-            "bookseriesorder": 16,
-            "misc": "",
-            "description": "",
-            "descr_attr": null,
-            "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF]."
-          }
-        ],
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "id": 9431,
+                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleijonamies_1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 137,
+                "name": "Kauppakirjapaino"
+              },
+              "owners": [],
+              "wishlisted": [],
+              "id": 5516,
+              "title": "Tarzan ja Leijonamies",
+              "subtitle": "",
+              "pubyear": 1974,
+              "editionnum": 1,
+              "version": 2,
+              "isbn": "",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 275,
+              "size": 21,
+              "dustcover": 1,
+              "coverimage": 3,
+              "misc": "",
+              "imported_string": "\n\n2.laitos: <b>Tarzan ja Leijonamies</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1974.",
+              "verified": false
+            }
+          ],
+          "genres": [
+            {
+              "id": 5,
+              "name": "Science Fiction",
+              "abbr": "SF"
+            }
+          ],
+          "bookseries": {
+            "id": 410,
+            "name": "Tarzan",
+            "orig_name": "Tarzan",
+            "description": null,
+            "important": false,
+            "image_src": null,
+            "image_attr": null
+          },
+          "tags": [],
+          "language_name": {
+            "id": 1,
+            "name": "englanti"
+          },
+          "type": 1.0,
+          "subtitle": "",
+          "pubyear": 1934,
+          "bookseriesnum": "16",
+          "bookseriesorder": 16,
+          "misc": "",
+          "description": "",
+          "descr_attr": null,
+          "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF]."
+        },
         "editors": [],
         "contributions": [
           {
@@ -1876,413 +1868,411 @@
         "verified": false
       },
       {
-        "work": [
-          {
-            "id": 4778.0,
-            "title": "Tarzanin kaksoisolento",
-            "orig_title": "Tarzan and the Lion Man",
-            "author_str": "Burroughs, Edgar Rice",
-            "contributions": [
-              {
-                "person": {
-                  "id": 2877.0,
-                  "name": "Burroughs, Edgar Rice",
-                  "alt_name": "Edgar Rice Burroughs"
+        "work": {
+          "id": 4778.0,
+          "title": "Tarzanin kaksoisolento",
+          "orig_title": "Tarzan and the Lion Man",
+          "author_str": "Burroughs, Edgar Rice",
+          "contributions": [
+            {
+              "person": {
+                "id": 2877.0,
+                "name": "Burroughs, Edgar Rice",
+                "alt_name": "Edgar Rice Burroughs"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": null,
+              "real_person": null
+            }
+          ],
+          "editions": [
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 2884.0,
+                  "name": "Jokimäki, Heikki",
+                  "alt_name": "Heikki Jokimäki",
+                  "fullname": "",
+                  "image_src": null,
+                  "dob": null,
+                  "dod": null,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 0,
+                  "other_names": null,
+                  "first_name": "Heikki",
+                  "last_name": "Jokimäki",
+                  "image_attr": "",
+                  "bio": null,
+                  "bio_src": "",
+                  "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF]."
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 5608.0,
+                    "name": "Hauhio, Ami",
+                    "alt_name": "Ami Hauhio"
+                  },
+                  "role": {
+                    "id": 4,
+                    "name": "Kansikuva"
+                  },
+                  "description": "",
+                  "real_person": null
                 },
-                "role": {
-                  "id": 1,
-                  "name": "Kirjoittaja"
-                },
-                "description": null,
-                "real_person": null
-              }
-            ],
-            "editions": [
-              {
-                "editors": [],
-                "translators": [
-                  {
+                {
+                  "person": {
                     "id": 2884.0,
                     "name": "Jokimäki, Heikki",
-                    "alt_name": "Heikki Jokimäki",
-                    "fullname": "",
-                    "image_src": null,
-                    "dob": null,
-                    "dod": null,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
-                    "nationality": {
-                      "id": 4,
-                      "name": "Suomi"
-                    },
-                    "workcount": 0.0,
-                    "storycount": 0,
-                    "other_names": null,
-                    "first_name": "Heikki",
-                    "last_name": "Jokimäki",
-                    "image_attr": "",
-                    "bio": null,
-                    "bio_src": "",
-                    "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF]."
-                  }
-                ],
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 5608.0,
-                      "name": "Hauhio, Ami",
-                      "alt_name": "Ami Hauhio"
-                    },
-                    "role": {
-                      "id": 4,
-                      "name": "Kansikuva"
-                    },
-                    "description": "",
-                    "real_person": null
+                    "alt_name": "Heikki Jokimäki"
                   },
-                  {
-                    "person": {
-                      "id": 2884.0,
-                      "name": "Jokimäki, Heikki",
-                      "alt_name": "Heikki Jokimäki"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "images": [
-                  {
-                    "id": 9428,
-                    "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzaninkaksoisolento_1p.jpg",
-                    "image_attr": null
-                  }
-                ],
-                "publisher": {
-                  "id": 132,
-                  "name": "Karhu"
-                },
-                "owners": [],
-                "wishlisted": [],
-                "id": 5515,
-                "title": "Tarzanin kaksoisolento",
-                "subtitle": "",
-                "pubyear": 1947,
-                "editionnum": 1,
-                "version": null,
-                "isbn": "",
-                "printedin": null,
-                "pubseriesnum": null,
-                "coll_info": "",
-                "pages": 243,
-                "size": 19,
-                "dustcover": 1,
-                "coverimage": 1,
-                "misc": "",
-                "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF].",
-                "verified": false
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "id": 9428,
+                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzaninkaksoisolento_1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 132,
+                "name": "Karhu"
               },
-              {
-                "editors": [],
-                "translators": [
-                  {
+              "owners": [],
+              "wishlisted": [],
+              "id": 5515,
+              "title": "Tarzanin kaksoisolento",
+              "subtitle": "",
+              "pubyear": 1947,
+              "editionnum": 1,
+              "version": null,
+              "isbn": "",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 243,
+              "size": 19,
+              "dustcover": 1,
+              "coverimage": 1,
+              "misc": "",
+              "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF].",
+              "verified": false
+            },
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 2884.0,
+                  "name": "Jokimäki, Heikki",
+                  "alt_name": "Heikki Jokimäki",
+                  "fullname": "",
+                  "image_src": null,
+                  "dob": null,
+                  "dod": null,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 0,
+                  "other_names": null,
+                  "first_name": "Heikki",
+                  "last_name": "Jokimäki",
+                  "image_attr": "",
+                  "bio": null,
+                  "bio_src": "",
+                  "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF]."
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 5608.0,
+                    "name": "Hauhio, Ami",
+                    "alt_name": "Ami Hauhio"
+                  },
+                  "role": {
+                    "id": 4,
+                    "name": "Kansikuva"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
                     "id": 2884.0,
                     "name": "Jokimäki, Heikki",
-                    "alt_name": "Heikki Jokimäki",
-                    "fullname": "",
-                    "image_src": null,
-                    "dob": null,
-                    "dod": null,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
-                    "nationality": {
-                      "id": 4,
-                      "name": "Suomi"
-                    },
-                    "workcount": 0.0,
-                    "storycount": 0,
-                    "other_names": null,
-                    "first_name": "Heikki",
-                    "last_name": "Jokimäki",
-                    "image_attr": "",
-                    "bio": null,
-                    "bio_src": "",
-                    "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF]."
-                  }
-                ],
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 5608.0,
-                      "name": "Hauhio, Ami",
-                      "alt_name": "Ami Hauhio"
-                    },
-                    "role": {
-                      "id": 4,
-                      "name": "Kansikuva"
-                    },
-                    "description": "",
-                    "real_person": null
+                    "alt_name": "Heikki Jokimäki"
                   },
-                  {
-                    "person": {
-                      "id": 2884.0,
-                      "name": "Jokimäki, Heikki",
-                      "alt_name": "Heikki Jokimäki"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "images": [
-                  {
-                    "id": 9429,
-                    "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzaninkaksoisolento_1p.jpg",
-                    "image_attr": null
-                  }
-                ],
-                "publisher": {
-                  "id": 132,
-                  "name": "Karhu"
-                },
-                "owners": [],
-                "wishlisted": [],
-                "id": 9892,
-                "title": "Tarzanin kaksoisolento",
-                "subtitle": "",
-                "pubyear": 1948,
-                "editionnum": 2,
-                "version": null,
-                "isbn": "",
-                "printedin": null,
-                "pubseriesnum": null,
-                "coll_info": "",
-                "pages": 243,
-                "size": 19,
-                "dustcover": 1,
-                "coverimage": 1,
-                "misc": "",
-                "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF].",
-                "verified": false
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "id": 9429,
+                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzaninkaksoisolento_1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 132,
+                "name": "Karhu"
               },
-              {
-                "editors": [],
-                "translators": [
-                  {
+              "owners": [],
+              "wishlisted": [],
+              "id": 9892,
+              "title": "Tarzanin kaksoisolento",
+              "subtitle": "",
+              "pubyear": 1948,
+              "editionnum": 2,
+              "version": null,
+              "isbn": "",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 243,
+              "size": 19,
+              "dustcover": 1,
+              "coverimage": 1,
+              "misc": "",
+              "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF].",
+              "verified": false
+            },
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 2884.0,
+                  "name": "Jokimäki, Heikki",
+                  "alt_name": "Heikki Jokimäki",
+                  "fullname": "",
+                  "image_src": null,
+                  "dob": null,
+                  "dod": null,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 0,
+                  "other_names": null,
+                  "first_name": "Heikki",
+                  "last_name": "Jokimäki",
+                  "image_attr": "",
+                  "bio": null,
+                  "bio_src": "",
+                  "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF]."
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 5608.0,
+                    "name": "Hauhio, Ami",
+                    "alt_name": "Ami Hauhio"
+                  },
+                  "role": {
+                    "id": 4,
+                    "name": "Kansikuva"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
                     "id": 2884.0,
                     "name": "Jokimäki, Heikki",
-                    "alt_name": "Heikki Jokimäki",
-                    "fullname": "",
-                    "image_src": null,
-                    "dob": null,
-                    "dod": null,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
-                    "nationality": {
-                      "id": 4,
-                      "name": "Suomi"
-                    },
-                    "workcount": 0.0,
-                    "storycount": 0,
-                    "other_names": null,
-                    "first_name": "Heikki",
-                    "last_name": "Jokimäki",
-                    "image_attr": "",
-                    "bio": null,
-                    "bio_src": "",
-                    "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF]."
-                  }
-                ],
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 5608.0,
-                      "name": "Hauhio, Ami",
-                      "alt_name": "Ami Hauhio"
-                    },
-                    "role": {
-                      "id": 4,
-                      "name": "Kansikuva"
-                    },
-                    "description": "",
-                    "real_person": null
+                    "alt_name": "Heikki Jokimäki"
                   },
-                  {
-                    "person": {
-                      "id": 2884.0,
-                      "name": "Jokimäki, Heikki",
-                      "alt_name": "Heikki Jokimäki"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "images": [
-                  {
-                    "id": 9430,
-                    "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzaninkaksoisolento_1p.jpg",
-                    "image_attr": null
-                  }
-                ],
-                "publisher": {
-                  "id": 132,
-                  "name": "Karhu"
-                },
-                "owners": [],
-                "wishlisted": [],
-                "id": 9893,
-                "title": "Tarzanin kaksoisolento",
-                "subtitle": "",
-                "pubyear": 1952,
-                "editionnum": 3,
-                "version": null,
-                "isbn": "",
-                "printedin": null,
-                "pubseriesnum": null,
-                "coll_info": "",
-                "pages": 208,
-                "size": 20,
-                "dustcover": 1,
-                "coverimage": 1,
-                "misc": "",
-                "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF].",
-                "verified": false
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "id": 9430,
+                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzaninkaksoisolento_1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 132,
+                "name": "Karhu"
               },
-              {
-                "editors": [],
-                "translators": [
-                  {
+              "owners": [],
+              "wishlisted": [],
+              "id": 9893,
+              "title": "Tarzanin kaksoisolento",
+              "subtitle": "",
+              "pubyear": 1952,
+              "editionnum": 3,
+              "version": null,
+              "isbn": "",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 208,
+              "size": 20,
+              "dustcover": 1,
+              "coverimage": 1,
+              "misc": "",
+              "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF].",
+              "verified": false
+            },
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 2882.0,
+                  "name": "Tapio, Jaakko V.",
+                  "alt_name": "Jaakko V. Tapio",
+                  "fullname": "",
+                  "image_src": null,
+                  "dob": null,
+                  "dod": null,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
+                  "nationality": {
+                    "id": 4,
+                    "name": "Suomi"
+                  },
+                  "workcount": 0.0,
+                  "storycount": 0,
+                  "other_names": null,
+                  "first_name": "Jaakko V.",
+                  "last_name": "Tapio",
+                  "image_attr": "",
+                  "bio": null,
+                  "bio_src": "",
+                  "imported_string": "\n\n2.laitos: <b>Mahtava Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1976."
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 7769.0,
+                    "name": "Lintula, Kalevi",
+                    "alt_name": "Kalevi Lintula"
+                  },
+                  "role": {
+                    "id": 5,
+                    "name": "Kuvittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
                     "id": 2882.0,
                     "name": "Tapio, Jaakko V.",
-                    "alt_name": "Jaakko V. Tapio",
-                    "fullname": "",
-                    "image_src": null,
-                    "dob": null,
-                    "dod": null,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
-                    "nationality": {
-                      "id": 4,
-                      "name": "Suomi"
-                    },
-                    "workcount": 0.0,
-                    "storycount": 0,
-                    "other_names": null,
-                    "first_name": "Jaakko V.",
-                    "last_name": "Tapio",
-                    "image_attr": "",
-                    "bio": null,
-                    "bio_src": "",
-                    "imported_string": "\n\n2.laitos: <b>Mahtava Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1976."
-                  }
-                ],
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 7769.0,
-                      "name": "Lintula, Kalevi",
-                      "alt_name": "Kalevi Lintula"
-                    },
-                    "role": {
-                      "id": 5,
-                      "name": "Kuvittaja"
-                    },
-                    "description": "",
-                    "real_person": null
+                    "alt_name": "Jaakko V. Tapio"
                   },
-                  {
-                    "person": {
-                      "id": 2882.0,
-                      "name": "Tapio, Jaakko V.",
-                      "alt_name": "Jaakko V. Tapio"
-                    },
-                    "role": {
-                      "id": 2,
-                      "name": "Kääntäjä"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "images": [
-                  {
-                    "id": 9431,
-                    "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleijonamies_1p.jpg",
-                    "image_attr": null
-                  }
-                ],
-                "publisher": {
-                  "id": 137,
-                  "name": "Kauppakirjapaino"
-                },
-                "owners": [],
-                "wishlisted": [],
-                "id": 5516,
-                "title": "Tarzan ja Leijonamies",
-                "subtitle": "",
-                "pubyear": 1974,
-                "editionnum": 1,
-                "version": 2,
-                "isbn": "",
-                "printedin": null,
-                "pubseriesnum": null,
-                "coll_info": "",
-                "pages": 275,
-                "size": 21,
-                "dustcover": 1,
-                "coverimage": 3,
-                "misc": "",
-                "imported_string": "\n\n2.laitos: <b>Tarzan ja Leijonamies</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1974.",
-                "verified": false
-              }
-            ],
-            "genres": [
-              {
-                "id": 5,
-                "name": "Science Fiction",
-                "abbr": "SF"
-              }
-            ],
-            "bookseries": {
-              "id": 410,
-              "name": "Tarzan",
-              "orig_name": "Tarzan",
-              "description": null,
-              "important": false,
-              "image_src": null,
-              "image_attr": null
-            },
-            "tags": [],
-            "language_name": {
-              "id": 1,
-              "name": "englanti"
-            },
-            "type": 1.0,
-            "subtitle": "",
-            "pubyear": 1934,
-            "bookseriesnum": "16",
-            "bookseriesorder": 16,
-            "misc": "",
-            "description": "",
-            "descr_attr": null,
-            "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF]."
-          }
-        ],
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "id": 9431,
+                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleijonamies_1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 137,
+                "name": "Kauppakirjapaino"
+              },
+              "owners": [],
+              "wishlisted": [],
+              "id": 5516,
+              "title": "Tarzan ja Leijonamies",
+              "subtitle": "",
+              "pubyear": 1974,
+              "editionnum": 1,
+              "version": 2,
+              "isbn": "",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 275,
+              "size": 21,
+              "dustcover": 1,
+              "coverimage": 3,
+              "misc": "",
+              "imported_string": "\n\n2.laitos: <b>Tarzan ja Leijonamies</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1974.",
+              "verified": false
+            }
+          ],
+          "genres": [
+            {
+              "id": 5,
+              "name": "Science Fiction",
+              "abbr": "SF"
+            }
+          ],
+          "bookseries": {
+            "id": 410,
+            "name": "Tarzan",
+            "orig_name": "Tarzan",
+            "description": null,
+            "important": false,
+            "image_src": null,
+            "image_attr": null
+          },
+          "tags": [],
+          "language_name": {
+            "id": 1,
+            "name": "englanti"
+          },
+          "type": 1.0,
+          "subtitle": "",
+          "pubyear": 1934,
+          "bookseriesnum": "16",
+          "bookseriesorder": 16,
+          "misc": "",
+          "description": "",
+          "descr_attr": null,
+          "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF]."
+        },
         "editors": [],
         "contributions": [
           {

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-01T19:29:52.232592+00:00",
+    "generated_at": "2026-03-01T22:06:20.175903+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/covers/5",
@@ -19,22 +19,20 @@
               "image_attr": null
             }
           ],
-          "work": [
-            {
-              "id": 4765,
-              "title": "Tarzan ja leopardimiehet",
-              "subtitle": "apinain Tarzanin uusia seikkailuja leopardimiesten maassa",
-              "orig_title": "Tarzan and the Leopard Men",
-              "pubyear": 1935,
-              "bookseriesnum": "17",
-              "bookseriesorder": 17,
-              "misc": "",
-              "description": "",
-              "descr_attr": null,
-              "imported_string": "\n\n<b>Tarzan ja leopardimiehet</b>. (Tarzan and the Leopard Men, 1935). Suom Marjatta Jokimäki. Karhu 1954. [eiSF].",
-              "author_str": "Burroughs, Edgar Rice"
-            }
-          ],
+          "work": {
+            "id": 4765,
+            "title": "Tarzan ja leopardimiehet",
+            "subtitle": "apinain Tarzanin uusia seikkailuja leopardimiesten maassa",
+            "orig_title": "Tarzan and the Leopard Men",
+            "pubyear": 1935,
+            "bookseriesnum": "17",
+            "bookseriesorder": 17,
+            "misc": "",
+            "description": "",
+            "descr_attr": null,
+            "imported_string": "\n\n<b>Tarzan ja leopardimiehet</b>. (Tarzan and the Leopard Men, 1935). Suom Marjatta Jokimäki. Karhu 1954. [eiSF].",
+            "author_str": "Burroughs, Edgar Rice"
+          },
           "owners": [],
           "wishlisted": [],
           "id": 9896,
@@ -68,22 +66,20 @@
               "image_attr": null
             }
           ],
-          "work": [
-            {
-              "id": 4765,
-              "title": "Tarzan ja leopardimiehet",
-              "subtitle": "apinain Tarzanin uusia seikkailuja leopardimiesten maassa",
-              "orig_title": "Tarzan and the Leopard Men",
-              "pubyear": 1935,
-              "bookseriesnum": "17",
-              "bookseriesorder": 17,
-              "misc": "",
-              "description": "",
-              "descr_attr": null,
-              "imported_string": "\n\n<b>Tarzan ja leopardimiehet</b>. (Tarzan and the Leopard Men, 1935). Suom Marjatta Jokimäki. Karhu 1954. [eiSF].",
-              "author_str": "Burroughs, Edgar Rice"
-            }
-          ],
+          "work": {
+            "id": 4765,
+            "title": "Tarzan ja leopardimiehet",
+            "subtitle": "apinain Tarzanin uusia seikkailuja leopardimiesten maassa",
+            "orig_title": "Tarzan and the Leopard Men",
+            "pubyear": 1935,
+            "bookseriesnum": "17",
+            "bookseriesorder": 17,
+            "misc": "",
+            "description": "",
+            "descr_attr": null,
+            "imported_string": "\n\n<b>Tarzan ja leopardimiehet</b>. (Tarzan and the Leopard Men, 1935). Suom Marjatta Jokimäki. Karhu 1954. [eiSF].",
+            "author_str": "Burroughs, Edgar Rice"
+          },
           "owners": [],
           "wishlisted": [],
           "id": 5487,
@@ -117,22 +113,20 @@
               "image_attr": null
             }
           ],
-          "work": [
-            {
-              "id": 4765,
-              "title": "Tarzan ja leopardimiehet",
-              "subtitle": "apinain Tarzanin uusia seikkailuja leopardimiesten maassa",
-              "orig_title": "Tarzan and the Leopard Men",
-              "pubyear": 1935,
-              "bookseriesnum": "17",
-              "bookseriesorder": 17,
-              "misc": "",
-              "description": "",
-              "descr_attr": null,
-              "imported_string": "\n\n<b>Tarzan ja leopardimiehet</b>. (Tarzan and the Leopard Men, 1935). Suom Marjatta Jokimäki. Karhu 1954. [eiSF].",
-              "author_str": "Burroughs, Edgar Rice"
-            }
-          ],
+          "work": {
+            "id": 4765,
+            "title": "Tarzan ja leopardimiehet",
+            "subtitle": "apinain Tarzanin uusia seikkailuja leopardimiesten maassa",
+            "orig_title": "Tarzan and the Leopard Men",
+            "pubyear": 1935,
+            "bookseriesnum": "17",
+            "bookseriesorder": 17,
+            "misc": "",
+            "description": "",
+            "descr_attr": null,
+            "imported_string": "\n\n<b>Tarzan ja leopardimiehet</b>. (Tarzan and the Leopard Men, 1935). Suom Marjatta Jokimäki. Karhu 1954. [eiSF].",
+            "author_str": "Burroughs, Edgar Rice"
+          },
           "owners": [],
           "wishlisted": [],
           "id": 5486,
@@ -166,22 +160,20 @@
               "image_attr": null
             }
           ],
-          "work": [
-            {
-              "id": 4774,
-              "title": "Tarzan Midianin maassa",
-              "subtitle": "apinain Tarzanin uusia seikkailuja Midianin maassa",
-              "orig_title": "Tarzan Triumphant",
-              "pubyear": 1932,
-              "bookseriesnum": "14",
-              "bookseriesorder": 14,
-              "misc": "",
-              "description": "",
-              "descr_attr": null,
-              "imported_string": "\n\n<b>Tarzan Midianin maassa</b>. (Tarzan Triumphant, 1932). Suom Marjatta Jokimäki. Karhu 1955. [F].",
-              "author_str": "Burroughs, Edgar Rice"
-            }
-          ],
+          "work": {
+            "id": 4774,
+            "title": "Tarzan Midianin maassa",
+            "subtitle": "apinain Tarzanin uusia seikkailuja Midianin maassa",
+            "orig_title": "Tarzan Triumphant",
+            "pubyear": 1932,
+            "bookseriesnum": "14",
+            "bookseriesorder": 14,
+            "misc": "",
+            "description": "",
+            "descr_attr": null,
+            "imported_string": "\n\n<b>Tarzan Midianin maassa</b>. (Tarzan Triumphant, 1932). Suom Marjatta Jokimäki. Karhu 1955. [F].",
+            "author_str": "Burroughs, Edgar Rice"
+          },
           "owners": [],
           "wishlisted": [],
           "id": 5506,
@@ -215,22 +207,20 @@
               "image_attr": null
             }
           ],
-          "work": [
-            {
-              "id": 4774,
-              "title": "Tarzan Midianin maassa",
-              "subtitle": "apinain Tarzanin uusia seikkailuja Midianin maassa",
-              "orig_title": "Tarzan Triumphant",
-              "pubyear": 1932,
-              "bookseriesnum": "14",
-              "bookseriesorder": 14,
-              "misc": "",
-              "description": "",
-              "descr_attr": null,
-              "imported_string": "\n\n<b>Tarzan Midianin maassa</b>. (Tarzan Triumphant, 1932). Suom Marjatta Jokimäki. Karhu 1955. [F].",
-              "author_str": "Burroughs, Edgar Rice"
-            }
-          ],
+          "work": {
+            "id": 4774,
+            "title": "Tarzan Midianin maassa",
+            "subtitle": "apinain Tarzanin uusia seikkailuja Midianin maassa",
+            "orig_title": "Tarzan Triumphant",
+            "pubyear": 1932,
+            "bookseriesnum": "14",
+            "bookseriesorder": 14,
+            "misc": "",
+            "description": "",
+            "descr_attr": null,
+            "imported_string": "\n\n<b>Tarzan Midianin maassa</b>. (Tarzan Triumphant, 1932). Suom Marjatta Jokimäki. Karhu 1955. [F].",
+            "author_str": "Burroughs, Edgar Rice"
+          },
           "owners": [],
           "wishlisted": [],
           "id": 9895,

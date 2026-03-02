@@ -471,12 +471,9 @@ def stats_publishercounts(pub_count: int = 10) -> ResponseType:
             ).join(
                 Work, Work.id == WorkGenre.work_id
             ).join(
-                Part, Part.work_id == Work.id
-            ).join(
-                Edition, Edition.id == Part.edition_id
+                Edition, Edition.work_id == Work.id
             ).filter(
-                Edition.publisher_id == pub_data.id,
-                Part.shortstory_id.is_(None)
+                Edition.publisher_id == pub_data.id
             ).group_by(
                 Genre.id
             )
@@ -549,10 +546,7 @@ def stats_worksbyyear() -> ResponseType:
             Language.id.label('language_id'),
             Language.name.label('language_name')
         ).outerjoin(
-            Part, and_(Part.edition_id == Edition.id,
-                       Part.shortstory_id.is_(None))
-        ).outerjoin(
-            Work, Work.id == Part.work_id
+            Work, Work.id == Edition.work_id
         ).outerjoin(
             Language, Language.id == Work.language
         ).filter(
@@ -1195,12 +1189,7 @@ def stats_filterworks(language_id: Optional[int] = None,
         else:
             # Filter by first edition year (Edition.pubyear where editionnum=1)
             query = session.query(Work).join(
-                Part, and_(
-                    Part.work_id == Work.id,
-                    Part.shortstory_id.is_(None)
-                )
-            ).join(
-                Edition, Edition.id == Part.edition_id
+                Edition, Edition.work_id == Work.id
             ).filter(
                 or_(Edition.editionnum == 1, Edition.editionnum.is_(None)),
                 or_(Edition.version == 1, Edition.version.is_(None))

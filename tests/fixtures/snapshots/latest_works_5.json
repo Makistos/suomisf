@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-01T19:29:52.232592+00:00",
+    "generated_at": "2026-03-01T22:06:20.175903+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/works/5",
@@ -18,19 +18,6 @@
         "contributions": [
           {
             "person": {
-              "id": 639.0,
-              "name": "Sapkowski, Andrzej",
-              "alt_name": "Andrzej Sapkowski"
-            },
-            "role": {
-              "id": 6,
-              "name": "Esiintyy"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
               "id": 7780.0,
               "name": "Puysségur, Alain T.",
               "alt_name": "Alain T. Puysségur"
@@ -38,6 +25,19 @@
             "role": {
               "id": 1,
               "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 639.0,
+              "name": "Sapkowski, Andrzej",
+              "alt_name": "Andrzej Sapkowski"
+            },
+            "role": {
+              "id": 6,
+              "name": "Esiintyy"
             },
             "description": "",
             "real_person": null
@@ -164,48 +164,9 @@
         "contributions": [
           {
             "person": {
-              "id": 532.0,
-              "name": "Rowling, J. K.",
-              "alt_name": "J. K. Rowling"
-            },
-            "role": {
-              "id": 6,
-              "name": "Esiintyy"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 2335.0,
-              "name": "Kontio, Tomi",
-              "alt_name": "Tomi Kontio"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 4560.0,
-              "name": "Ylimartimo, Sisko",
-              "alt_name": "Sisko Ylimartimo"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 4755.0,
-              "name": "Mulari, Heta",
-              "alt_name": "Heta Mulari"
+              "id": 7778.0,
+              "name": "Sinkkonen, Jari",
+              "alt_name": "Jari Sinkkonen"
             },
             "role": {
               "id": 1,
@@ -229,9 +190,48 @@
           },
           {
             "person": {
-              "id": 7778.0,
-              "name": "Sinkkonen, Jari",
-              "alt_name": "Jari Sinkkonen"
+              "id": 2335.0,
+              "name": "Kontio, Tomi",
+              "alt_name": "Tomi Kontio"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 4755.0,
+              "name": "Mulari, Heta",
+              "alt_name": "Heta Mulari"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 532.0,
+              "name": "Rowling, J. K.",
+              "alt_name": "J. K. Rowling"
+            },
+            "role": {
+              "id": 6,
+              "name": "Esiintyy"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 4560.0,
+              "name": "Ylimartimo, Sisko",
+              "alt_name": "Sisko Ylimartimo"
             },
             "role": {
               "id": 1,

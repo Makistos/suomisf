@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-01T19:29:52.232592+00:00",
+    "generated_at": "2026-03-01T22:06:20.175903+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/editions/28/shorts",
@@ -46,107 +46,105 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 27.0,
-                "title": "Yön ja päivän tarinoita",
-                "orig_title": "Yön ja päivän tarinoita",
-                "author_str": "Vainonen, Jyrki",
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 21.0,
-                      "name": "Vainonen, Jyrki",
-                      "alt_name": "Jyrki Vainonen"
-                    },
-                    "role": {
-                      "id": 1,
-                      "name": "Kirjoittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 5389.0,
-                          "name": "Lämsä, Perttu",
-                          "alt_name": "Perttu Lämsä"
-                        },
-                        "role": {
-                          "id": 4,
-                          "name": "Kansikuva"
-                        },
-                        "description": "Kansi",
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 3212,
-                        "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 24,
-                      "name": "Aula & Co"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 28,
-                    "title": "Yön ja päivän tarinoita",
-                    "subtitle": "",
-                    "pubyear": 2019,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7269-49-7",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 215,
-                    "size": 22,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": null,
-                    "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+            "work": {
+              "id": 27.0,
+              "title": "Yön ja päivän tarinoita",
+              "orig_title": "Yön ja päivän tarinoita",
+              "author_str": "Vainonen, Jyrki",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 21.0,
+                    "name": "Vainonen, Jyrki",
+                    "alt_name": "Jyrki Vainonen"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
+                        "id": 5389.0,
+                        "name": "Lämsä, Perttu",
+                        "alt_name": "Perttu Lämsä"
+                      },
+                      "role": {
+                        "id": 4,
+                        "name": "Kansikuva"
+                      },
+                      "description": "Kansi",
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 3212,
+                      "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 24,
+                    "name": "Aula & Co"
+                  },
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 28,
+                  "title": "Yön ja päivän tarinoita",
+                  "subtitle": "",
+                  "pubyear": 2019,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7269-49-7",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 215,
+                  "size": 22,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": null,
+                  "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2019,
-                "bookseriesnum": "",
-                "bookseriesorder": null,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": ""
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2019,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": ""
+            },
             "editors": [],
             "contributions": [
               {
@@ -260,107 +258,105 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 27.0,
-                "title": "Yön ja päivän tarinoita",
-                "orig_title": "Yön ja päivän tarinoita",
-                "author_str": "Vainonen, Jyrki",
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 21.0,
-                      "name": "Vainonen, Jyrki",
-                      "alt_name": "Jyrki Vainonen"
-                    },
-                    "role": {
-                      "id": 1,
-                      "name": "Kirjoittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 5389.0,
-                          "name": "Lämsä, Perttu",
-                          "alt_name": "Perttu Lämsä"
-                        },
-                        "role": {
-                          "id": 4,
-                          "name": "Kansikuva"
-                        },
-                        "description": "Kansi",
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 3212,
-                        "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 24,
-                      "name": "Aula & Co"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 28,
-                    "title": "Yön ja päivän tarinoita",
-                    "subtitle": "",
-                    "pubyear": 2019,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7269-49-7",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 215,
-                    "size": 22,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": null,
-                    "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+            "work": {
+              "id": 27.0,
+              "title": "Yön ja päivän tarinoita",
+              "orig_title": "Yön ja päivän tarinoita",
+              "author_str": "Vainonen, Jyrki",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 21.0,
+                    "name": "Vainonen, Jyrki",
+                    "alt_name": "Jyrki Vainonen"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
+                        "id": 5389.0,
+                        "name": "Lämsä, Perttu",
+                        "alt_name": "Perttu Lämsä"
+                      },
+                      "role": {
+                        "id": 4,
+                        "name": "Kansikuva"
+                      },
+                      "description": "Kansi",
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 3212,
+                      "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 24,
+                    "name": "Aula & Co"
+                  },
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 28,
+                  "title": "Yön ja päivän tarinoita",
+                  "subtitle": "",
+                  "pubyear": 2019,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7269-49-7",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 215,
+                  "size": 22,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": null,
+                  "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2019,
-                "bookseriesnum": "",
-                "bookseriesorder": null,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": ""
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2019,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": ""
+            },
             "editors": [],
             "contributions": [
               {
@@ -474,107 +470,105 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 27.0,
-                "title": "Yön ja päivän tarinoita",
-                "orig_title": "Yön ja päivän tarinoita",
-                "author_str": "Vainonen, Jyrki",
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 21.0,
-                      "name": "Vainonen, Jyrki",
-                      "alt_name": "Jyrki Vainonen"
-                    },
-                    "role": {
-                      "id": 1,
-                      "name": "Kirjoittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 5389.0,
-                          "name": "Lämsä, Perttu",
-                          "alt_name": "Perttu Lämsä"
-                        },
-                        "role": {
-                          "id": 4,
-                          "name": "Kansikuva"
-                        },
-                        "description": "Kansi",
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 3212,
-                        "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 24,
-                      "name": "Aula & Co"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 28,
-                    "title": "Yön ja päivän tarinoita",
-                    "subtitle": "",
-                    "pubyear": 2019,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7269-49-7",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 215,
-                    "size": 22,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": null,
-                    "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+            "work": {
+              "id": 27.0,
+              "title": "Yön ja päivän tarinoita",
+              "orig_title": "Yön ja päivän tarinoita",
+              "author_str": "Vainonen, Jyrki",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 21.0,
+                    "name": "Vainonen, Jyrki",
+                    "alt_name": "Jyrki Vainonen"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
+                        "id": 5389.0,
+                        "name": "Lämsä, Perttu",
+                        "alt_name": "Perttu Lämsä"
+                      },
+                      "role": {
+                        "id": 4,
+                        "name": "Kansikuva"
+                      },
+                      "description": "Kansi",
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 3212,
+                      "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 24,
+                    "name": "Aula & Co"
+                  },
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 28,
+                  "title": "Yön ja päivän tarinoita",
+                  "subtitle": "",
+                  "pubyear": 2019,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7269-49-7",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 215,
+                  "size": 22,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": null,
+                  "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2019,
-                "bookseriesnum": "",
-                "bookseriesorder": null,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": ""
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2019,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": ""
+            },
             "editors": [],
             "contributions": [
               {
@@ -688,107 +682,105 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 27.0,
-                "title": "Yön ja päivän tarinoita",
-                "orig_title": "Yön ja päivän tarinoita",
-                "author_str": "Vainonen, Jyrki",
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 21.0,
-                      "name": "Vainonen, Jyrki",
-                      "alt_name": "Jyrki Vainonen"
-                    },
-                    "role": {
-                      "id": 1,
-                      "name": "Kirjoittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 5389.0,
-                          "name": "Lämsä, Perttu",
-                          "alt_name": "Perttu Lämsä"
-                        },
-                        "role": {
-                          "id": 4,
-                          "name": "Kansikuva"
-                        },
-                        "description": "Kansi",
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 3212,
-                        "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 24,
-                      "name": "Aula & Co"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 28,
-                    "title": "Yön ja päivän tarinoita",
-                    "subtitle": "",
-                    "pubyear": 2019,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7269-49-7",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 215,
-                    "size": 22,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": null,
-                    "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+            "work": {
+              "id": 27.0,
+              "title": "Yön ja päivän tarinoita",
+              "orig_title": "Yön ja päivän tarinoita",
+              "author_str": "Vainonen, Jyrki",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 21.0,
+                    "name": "Vainonen, Jyrki",
+                    "alt_name": "Jyrki Vainonen"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
+                        "id": 5389.0,
+                        "name": "Lämsä, Perttu",
+                        "alt_name": "Perttu Lämsä"
+                      },
+                      "role": {
+                        "id": 4,
+                        "name": "Kansikuva"
+                      },
+                      "description": "Kansi",
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 3212,
+                      "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 24,
+                    "name": "Aula & Co"
+                  },
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 28,
+                  "title": "Yön ja päivän tarinoita",
+                  "subtitle": "",
+                  "pubyear": 2019,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7269-49-7",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 215,
+                  "size": 22,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": null,
+                  "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2019,
-                "bookseriesnum": "",
-                "bookseriesorder": null,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": ""
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2019,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": ""
+            },
             "editors": [],
             "contributions": [
               {
@@ -902,107 +894,105 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 27.0,
-                "title": "Yön ja päivän tarinoita",
-                "orig_title": "Yön ja päivän tarinoita",
-                "author_str": "Vainonen, Jyrki",
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 21.0,
-                      "name": "Vainonen, Jyrki",
-                      "alt_name": "Jyrki Vainonen"
-                    },
-                    "role": {
-                      "id": 1,
-                      "name": "Kirjoittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 5389.0,
-                          "name": "Lämsä, Perttu",
-                          "alt_name": "Perttu Lämsä"
-                        },
-                        "role": {
-                          "id": 4,
-                          "name": "Kansikuva"
-                        },
-                        "description": "Kansi",
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 3212,
-                        "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 24,
-                      "name": "Aula & Co"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 28,
-                    "title": "Yön ja päivän tarinoita",
-                    "subtitle": "",
-                    "pubyear": 2019,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7269-49-7",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 215,
-                    "size": 22,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": null,
-                    "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+            "work": {
+              "id": 27.0,
+              "title": "Yön ja päivän tarinoita",
+              "orig_title": "Yön ja päivän tarinoita",
+              "author_str": "Vainonen, Jyrki",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 21.0,
+                    "name": "Vainonen, Jyrki",
+                    "alt_name": "Jyrki Vainonen"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
+                        "id": 5389.0,
+                        "name": "Lämsä, Perttu",
+                        "alt_name": "Perttu Lämsä"
+                      },
+                      "role": {
+                        "id": 4,
+                        "name": "Kansikuva"
+                      },
+                      "description": "Kansi",
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 3212,
+                      "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 24,
+                    "name": "Aula & Co"
+                  },
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 28,
+                  "title": "Yön ja päivän tarinoita",
+                  "subtitle": "",
+                  "pubyear": 2019,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7269-49-7",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 215,
+                  "size": 22,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": null,
+                  "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2019,
-                "bookseriesnum": "",
-                "bookseriesorder": null,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": ""
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2019,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": ""
+            },
             "editors": [],
             "contributions": [
               {
@@ -1116,107 +1106,105 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 27.0,
-                "title": "Yön ja päivän tarinoita",
-                "orig_title": "Yön ja päivän tarinoita",
-                "author_str": "Vainonen, Jyrki",
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 21.0,
-                      "name": "Vainonen, Jyrki",
-                      "alt_name": "Jyrki Vainonen"
-                    },
-                    "role": {
-                      "id": 1,
-                      "name": "Kirjoittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 5389.0,
-                          "name": "Lämsä, Perttu",
-                          "alt_name": "Perttu Lämsä"
-                        },
-                        "role": {
-                          "id": 4,
-                          "name": "Kansikuva"
-                        },
-                        "description": "Kansi",
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 3212,
-                        "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 24,
-                      "name": "Aula & Co"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 28,
-                    "title": "Yön ja päivän tarinoita",
-                    "subtitle": "",
-                    "pubyear": 2019,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7269-49-7",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 215,
-                    "size": 22,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": null,
-                    "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+            "work": {
+              "id": 27.0,
+              "title": "Yön ja päivän tarinoita",
+              "orig_title": "Yön ja päivän tarinoita",
+              "author_str": "Vainonen, Jyrki",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 21.0,
+                    "name": "Vainonen, Jyrki",
+                    "alt_name": "Jyrki Vainonen"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
+                        "id": 5389.0,
+                        "name": "Lämsä, Perttu",
+                        "alt_name": "Perttu Lämsä"
+                      },
+                      "role": {
+                        "id": 4,
+                        "name": "Kansikuva"
+                      },
+                      "description": "Kansi",
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 3212,
+                      "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 24,
+                    "name": "Aula & Co"
+                  },
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 28,
+                  "title": "Yön ja päivän tarinoita",
+                  "subtitle": "",
+                  "pubyear": 2019,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7269-49-7",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 215,
+                  "size": 22,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": null,
+                  "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2019,
-                "bookseriesnum": "",
-                "bookseriesorder": null,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": ""
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2019,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": ""
+            },
             "editors": [],
             "contributions": [
               {
@@ -1330,107 +1318,105 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 27.0,
-                "title": "Yön ja päivän tarinoita",
-                "orig_title": "Yön ja päivän tarinoita",
-                "author_str": "Vainonen, Jyrki",
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 21.0,
-                      "name": "Vainonen, Jyrki",
-                      "alt_name": "Jyrki Vainonen"
-                    },
-                    "role": {
-                      "id": 1,
-                      "name": "Kirjoittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 5389.0,
-                          "name": "Lämsä, Perttu",
-                          "alt_name": "Perttu Lämsä"
-                        },
-                        "role": {
-                          "id": 4,
-                          "name": "Kansikuva"
-                        },
-                        "description": "Kansi",
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 3212,
-                        "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 24,
-                      "name": "Aula & Co"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 28,
-                    "title": "Yön ja päivän tarinoita",
-                    "subtitle": "",
-                    "pubyear": 2019,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7269-49-7",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 215,
-                    "size": 22,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": null,
-                    "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+            "work": {
+              "id": 27.0,
+              "title": "Yön ja päivän tarinoita",
+              "orig_title": "Yön ja päivän tarinoita",
+              "author_str": "Vainonen, Jyrki",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 21.0,
+                    "name": "Vainonen, Jyrki",
+                    "alt_name": "Jyrki Vainonen"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
+                        "id": 5389.0,
+                        "name": "Lämsä, Perttu",
+                        "alt_name": "Perttu Lämsä"
+                      },
+                      "role": {
+                        "id": 4,
+                        "name": "Kansikuva"
+                      },
+                      "description": "Kansi",
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 3212,
+                      "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 24,
+                    "name": "Aula & Co"
+                  },
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 28,
+                  "title": "Yön ja päivän tarinoita",
+                  "subtitle": "",
+                  "pubyear": 2019,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7269-49-7",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 215,
+                  "size": 22,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": null,
+                  "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2019,
-                "bookseriesnum": "",
-                "bookseriesorder": null,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": ""
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2019,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": ""
+            },
             "editors": [],
             "contributions": [
               {
@@ -1544,107 +1530,105 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 27.0,
-                "title": "Yön ja päivän tarinoita",
-                "orig_title": "Yön ja päivän tarinoita",
-                "author_str": "Vainonen, Jyrki",
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 21.0,
-                      "name": "Vainonen, Jyrki",
-                      "alt_name": "Jyrki Vainonen"
-                    },
-                    "role": {
-                      "id": 1,
-                      "name": "Kirjoittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 5389.0,
-                          "name": "Lämsä, Perttu",
-                          "alt_name": "Perttu Lämsä"
-                        },
-                        "role": {
-                          "id": 4,
-                          "name": "Kansikuva"
-                        },
-                        "description": "Kansi",
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 3212,
-                        "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 24,
-                      "name": "Aula & Co"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 28,
-                    "title": "Yön ja päivän tarinoita",
-                    "subtitle": "",
-                    "pubyear": 2019,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7269-49-7",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 215,
-                    "size": 22,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": null,
-                    "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+            "work": {
+              "id": 27.0,
+              "title": "Yön ja päivän tarinoita",
+              "orig_title": "Yön ja päivän tarinoita",
+              "author_str": "Vainonen, Jyrki",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 21.0,
+                    "name": "Vainonen, Jyrki",
+                    "alt_name": "Jyrki Vainonen"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
+                        "id": 5389.0,
+                        "name": "Lämsä, Perttu",
+                        "alt_name": "Perttu Lämsä"
+                      },
+                      "role": {
+                        "id": 4,
+                        "name": "Kansikuva"
+                      },
+                      "description": "Kansi",
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 3212,
+                      "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 24,
+                    "name": "Aula & Co"
+                  },
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 28,
+                  "title": "Yön ja päivän tarinoita",
+                  "subtitle": "",
+                  "pubyear": 2019,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7269-49-7",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 215,
+                  "size": 22,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": null,
+                  "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2019,
-                "bookseriesnum": "",
-                "bookseriesorder": null,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": ""
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2019,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": ""
+            },
             "editors": [],
             "contributions": [
               {
@@ -1758,107 +1742,105 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 27.0,
-                "title": "Yön ja päivän tarinoita",
-                "orig_title": "Yön ja päivän tarinoita",
-                "author_str": "Vainonen, Jyrki",
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 21.0,
-                      "name": "Vainonen, Jyrki",
-                      "alt_name": "Jyrki Vainonen"
-                    },
-                    "role": {
-                      "id": 1,
-                      "name": "Kirjoittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 5389.0,
-                          "name": "Lämsä, Perttu",
-                          "alt_name": "Perttu Lämsä"
-                        },
-                        "role": {
-                          "id": 4,
-                          "name": "Kansikuva"
-                        },
-                        "description": "Kansi",
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 3212,
-                        "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 24,
-                      "name": "Aula & Co"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 28,
-                    "title": "Yön ja päivän tarinoita",
-                    "subtitle": "",
-                    "pubyear": 2019,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7269-49-7",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 215,
-                    "size": 22,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": null,
-                    "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+            "work": {
+              "id": 27.0,
+              "title": "Yön ja päivän tarinoita",
+              "orig_title": "Yön ja päivän tarinoita",
+              "author_str": "Vainonen, Jyrki",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 21.0,
+                    "name": "Vainonen, Jyrki",
+                    "alt_name": "Jyrki Vainonen"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
+                        "id": 5389.0,
+                        "name": "Lämsä, Perttu",
+                        "alt_name": "Perttu Lämsä"
+                      },
+                      "role": {
+                        "id": 4,
+                        "name": "Kansikuva"
+                      },
+                      "description": "Kansi",
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 3212,
+                      "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 24,
+                    "name": "Aula & Co"
+                  },
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 28,
+                  "title": "Yön ja päivän tarinoita",
+                  "subtitle": "",
+                  "pubyear": 2019,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7269-49-7",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 215,
+                  "size": 22,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": null,
+                  "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2019,
-                "bookseriesnum": "",
-                "bookseriesorder": null,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": ""
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2019,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": ""
+            },
             "editors": [],
             "contributions": [
               {
@@ -1972,107 +1954,105 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 27.0,
-                "title": "Yön ja päivän tarinoita",
-                "orig_title": "Yön ja päivän tarinoita",
-                "author_str": "Vainonen, Jyrki",
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 21.0,
-                      "name": "Vainonen, Jyrki",
-                      "alt_name": "Jyrki Vainonen"
-                    },
-                    "role": {
-                      "id": 1,
-                      "name": "Kirjoittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 5389.0,
-                          "name": "Lämsä, Perttu",
-                          "alt_name": "Perttu Lämsä"
-                        },
-                        "role": {
-                          "id": 4,
-                          "name": "Kansikuva"
-                        },
-                        "description": "Kansi",
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 3212,
-                        "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 24,
-                      "name": "Aula & Co"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 28,
-                    "title": "Yön ja päivän tarinoita",
-                    "subtitle": "",
-                    "pubyear": 2019,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7269-49-7",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 215,
-                    "size": 22,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": null,
-                    "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+            "work": {
+              "id": 27.0,
+              "title": "Yön ja päivän tarinoita",
+              "orig_title": "Yön ja päivän tarinoita",
+              "author_str": "Vainonen, Jyrki",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 21.0,
+                    "name": "Vainonen, Jyrki",
+                    "alt_name": "Jyrki Vainonen"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
+                        "id": 5389.0,
+                        "name": "Lämsä, Perttu",
+                        "alt_name": "Perttu Lämsä"
+                      },
+                      "role": {
+                        "id": 4,
+                        "name": "Kansikuva"
+                      },
+                      "description": "Kansi",
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 3212,
+                      "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 24,
+                    "name": "Aula & Co"
+                  },
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 28,
+                  "title": "Yön ja päivän tarinoita",
+                  "subtitle": "",
+                  "pubyear": 2019,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7269-49-7",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 215,
+                  "size": 22,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": null,
+                  "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2019,
-                "bookseriesnum": "",
-                "bookseriesorder": null,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": ""
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2019,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": ""
+            },
             "editors": [],
             "contributions": [
               {
@@ -2186,107 +2166,105 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 27.0,
-                "title": "Yön ja päivän tarinoita",
-                "orig_title": "Yön ja päivän tarinoita",
-                "author_str": "Vainonen, Jyrki",
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 21.0,
-                      "name": "Vainonen, Jyrki",
-                      "alt_name": "Jyrki Vainonen"
-                    },
-                    "role": {
-                      "id": 1,
-                      "name": "Kirjoittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 5389.0,
-                          "name": "Lämsä, Perttu",
-                          "alt_name": "Perttu Lämsä"
-                        },
-                        "role": {
-                          "id": 4,
-                          "name": "Kansikuva"
-                        },
-                        "description": "Kansi",
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 3212,
-                        "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 24,
-                      "name": "Aula & Co"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 28,
-                    "title": "Yön ja päivän tarinoita",
-                    "subtitle": "",
-                    "pubyear": 2019,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7269-49-7",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 215,
-                    "size": 22,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": null,
-                    "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+            "work": {
+              "id": 27.0,
+              "title": "Yön ja päivän tarinoita",
+              "orig_title": "Yön ja päivän tarinoita",
+              "author_str": "Vainonen, Jyrki",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 21.0,
+                    "name": "Vainonen, Jyrki",
+                    "alt_name": "Jyrki Vainonen"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
+                        "id": 5389.0,
+                        "name": "Lämsä, Perttu",
+                        "alt_name": "Perttu Lämsä"
+                      },
+                      "role": {
+                        "id": 4,
+                        "name": "Kansikuva"
+                      },
+                      "description": "Kansi",
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 3212,
+                      "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 24,
+                    "name": "Aula & Co"
+                  },
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 28,
+                  "title": "Yön ja päivän tarinoita",
+                  "subtitle": "",
+                  "pubyear": 2019,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7269-49-7",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 215,
+                  "size": 22,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": null,
+                  "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2019,
-                "bookseriesnum": "",
-                "bookseriesorder": null,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": ""
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2019,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": ""
+            },
             "editors": [],
             "contributions": [
               {
@@ -2400,107 +2378,105 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 27.0,
-                "title": "Yön ja päivän tarinoita",
-                "orig_title": "Yön ja päivän tarinoita",
-                "author_str": "Vainonen, Jyrki",
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 21.0,
-                      "name": "Vainonen, Jyrki",
-                      "alt_name": "Jyrki Vainonen"
-                    },
-                    "role": {
-                      "id": 1,
-                      "name": "Kirjoittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 5389.0,
-                          "name": "Lämsä, Perttu",
-                          "alt_name": "Perttu Lämsä"
-                        },
-                        "role": {
-                          "id": 4,
-                          "name": "Kansikuva"
-                        },
-                        "description": "Kansi",
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 3212,
-                        "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 24,
-                      "name": "Aula & Co"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 28,
-                    "title": "Yön ja päivän tarinoita",
-                    "subtitle": "",
-                    "pubyear": 2019,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7269-49-7",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 215,
-                    "size": 22,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": null,
-                    "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+            "work": {
+              "id": 27.0,
+              "title": "Yön ja päivän tarinoita",
+              "orig_title": "Yön ja päivän tarinoita",
+              "author_str": "Vainonen, Jyrki",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 21.0,
+                    "name": "Vainonen, Jyrki",
+                    "alt_name": "Jyrki Vainonen"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
+                        "id": 5389.0,
+                        "name": "Lämsä, Perttu",
+                        "alt_name": "Perttu Lämsä"
+                      },
+                      "role": {
+                        "id": 4,
+                        "name": "Kansikuva"
+                      },
+                      "description": "Kansi",
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 3212,
+                      "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 24,
+                    "name": "Aula & Co"
+                  },
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 28,
+                  "title": "Yön ja päivän tarinoita",
+                  "subtitle": "",
+                  "pubyear": 2019,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7269-49-7",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 215,
+                  "size": 22,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": null,
+                  "imported_string": "<a href='\"novkok/vai-yp.htm\"'><b>Yön ja päivän tarinoita</b></a>. Aula &amp; Co 2019. [F,kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2019,
-                "bookseriesnum": "",
-                "bookseriesorder": null,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": ""
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2019,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": ""
+            },
             "editors": [],
             "contributions": [
               {

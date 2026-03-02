@@ -703,9 +703,9 @@ def get_frontpage_data() -> ResponseType:
     ids: List[int] = []
     for edition in latest:
         try:
-            if edition.work[0].id not in ids:
+            if edition.work and edition.work.id not in ids:
                 latest_list.append(edition)
-                ids.append(edition.work[0].id)
+                ids.append(edition.work.id)
             if len(latest_list) == 4:
                 break
         except IndexError as exp:

@@ -62,6 +62,7 @@ def create_first_edition(work: Work) -> Edition:
     retval.title = work.title
     retval.subtitle = work.subtitle
     retval.pubyear = work.pubyear or 0
+    retval.work_id = work.id
     retval.editionnum = 1
     retval.version = 1
     retval.binding_id = 1
@@ -390,6 +391,7 @@ def create_edition(params: Any) -> ResponseType:
     if "verified" in data:
         edition.verified = data["verified"]
 
+    edition.work_id = work_id
     try:
         session.add(edition)
         session.commit()
@@ -414,7 +416,7 @@ def create_edition(params: Any) -> ResponseType:
 
     # Contributors require a part.
     if "contributors" in data:
-        contributors = get_work_contributors(session, part.work_id)
+        contributors = get_work_contributors(session, edition.work_id)
         for contrib in data["contributors"]:
             if ("person" in contrib and "id" in contrib["person"] and
                     contrib["person"]["id"] != 0):
@@ -791,25 +793,16 @@ def edition_delete(edition_id: str) -> ResponseType:
                             HttpResponseCode.BAD_REQUEST.value)
 
     # Check if this is the last edition for the work
-    # Edition -> Part -> Work, so we need to query through Part
-    work_ids = session.query(Part.work_id)\
-        .filter(Part.edition_id == int_id)\
-        .filter(Part.work_id.isnot(None))\
-        .distinct()\
-        .all()
-    work_ids = [w[0] for w in work_ids]
+    work_id = edition.work_id if edition else None
 
-    if work_ids:
-        # Count all editions that belong to any of these works
+    if work_id:
         edition_count = session.query(Edition.id)\
-            .join(Part, Part.edition_id == Edition.id)\
-            .filter(Part.work_id.in_(work_ids))\
-            .distinct()\
+            .filter(Edition.work_id == work_id)\
             .count()
         if edition_count <= 1:
             app.logger.error(
                 f"edition_delete: Cannot delete last edition. "
-                f"work_ids={work_ids}"
+                f"work_id={work_id}"
             )
             return ResponseType(
                 "Teoksen viimeistä painosta ei voi poistaa.",
@@ -1055,9 +1048,7 @@ def editionowner_getowned(userid: int, wishlist: bool = False) -> ResponseType:
     stmt += 'FROM userbook '
     stmt += 'JOIN edition on userbook.edition_id = edition.id '
     stmt += 'JOIN bookcondition on userbook.condition_id = bookcondition.id '
-    stmt += 'JOIN part on edition.id = part.edition_id '
-    stmt += 'AND part.shortstory_id IS NULL '
-    stmt += 'JOIN work on part.work_id = work.id '
+    stmt += 'JOIN work on work.id = edition.work_id '
     stmt += 'LEFT JOIN publisher on edition.publisher_id = publisher.id '
     stmt += 'WHERE userbook.user_id = ' + str(userid) + ' '
     if (wishlist is False):
@@ -1423,13 +1414,13 @@ def get_edition_work(edition_id: int) -> ResponseType:
                 status=HttpResponseCode.NOT_FOUND.value
             )
 
-        if not edition.work[0].id:
+        if not edition.work_id:
             return ResponseType(
                 f'Painoksella {edition_id} ei ole liitettyä teosta',
                 status=HttpResponseCode.NOT_FOUND.value
             )
 
-        return ResponseType(edition.work[0].id, HttpResponseCode.OK.value)
+        return ResponseType(edition.work_id, HttpResponseCode.OK.value)
 
     except Exception as e:
         app.logger.error(f'get_edition_work: Database error: {e}')
@@ -1467,6 +1458,7 @@ def copy_edition(edition_id: int) -> ResponseType:
             title=original_edition.title,
             subtitle=original_edition.subtitle,
             pubyear=original_edition.pubyear,
+            work_id=original_edition.work_id,
             publisher_id=original_edition.publisher_id,
             editionnum=original_edition.editionnum,
             version=original_edition.version,

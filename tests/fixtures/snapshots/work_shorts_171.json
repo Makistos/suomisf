@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-01T19:29:52.232592+00:00",
+    "generated_at": "2026-03-01T22:06:20.175903+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/works/shorts/171",
@@ -45,134 +45,132 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 171.0,
-                "title": "Välitiloja",
-                "orig_title": "Välitiloja",
-                "author_str": "Väisänen, Helena (toim.)",
-                "contributions": [
-                  {
-                    "person": {
+            "work": {
+              "id": 171.0,
+              "title": "Välitiloja",
+              "orig_title": "Välitiloja",
+              "author_str": "Väisänen, Helena (toim.)",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 128.0,
+                    "name": "Väisänen, Helena",
+                    "alt_name": "Helena Väisänen"
+                  },
+                  "role": {
+                    "id": 3,
+                    "name": "Toimittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [
+                    {
                       "id": 128.0,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen"
-                    },
-                    "role": {
-                      "id": 3,
-                      "name": "Toimittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [
-                      {
+                      "alt_name": "Helena Väisänen",
+                      "fullname": "",
+                      "image_src": null,
+                      "dob": 1959.0,
+                      "dod": null,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 1.0,
+                      "storycount": 1,
+                      "other_names": null,
+                      "first_name": "Helena",
+                      "last_name": "Väisänen",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": null
+                    }
+                  ],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
                         "id": 128.0,
                         "name": "Väisänen, Helena",
-                        "alt_name": "Helena Väisänen",
-                        "fullname": "",
-                        "image_src": null,
-                        "dob": 1959.0,
-                        "dod": null,
-                        "roles": [
-                          "Toimittaja",
-                          "Kirjoittaja"
-                        ],
-                        "nationality": {
-                          "id": 4,
-                          "name": "Suomi"
-                        },
-                        "workcount": 1.0,
-                        "storycount": 1,
-                        "other_names": null,
-                        "first_name": "Helena",
-                        "last_name": "Väisänen",
-                        "image_attr": "",
-                        "bio": null,
-                        "bio_src": "",
-                        "imported_string": null
-                      }
-                    ],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 128.0,
-                          "name": "Väisänen, Helena",
-                          "alt_name": "Helena Väisänen"
-                        },
-                        "role": {
-                          "id": 3,
-                          "name": "Toimittaja"
-                        },
-                        "description": null,
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 2283,
-                        "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 169,
-                      "name": "Helmivyö"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 242,
-                    "title": "Välitiloja",
-                    "subtitle": "",
-                    "pubyear": 2020,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7211-49-6",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 202,
-                    "size": 17,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": "",
-                    "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+                        "alt_name": "Helena Väisänen"
+                      },
+                      "role": {
+                        "id": 3,
+                        "name": "Toimittaja"
+                      },
+                      "description": null,
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 2283,
+                      "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 169,
+                    "name": "Helmivyö"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 242,
+                  "title": "Välitiloja",
+                  "subtitle": "",
+                  "pubyear": 2020,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7211-49-6",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 202,
+                  "size": 17,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": "",
+                  "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2020,
-                "bookseriesnum": "",
-                "bookseriesorder": 0,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2020,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+            },
             "editors": [
               {
                 "id": 128.0,
@@ -183,8 +181,8 @@
                 "dob": 1959.0,
                 "dod": null,
                 "roles": [
-                  "Toimittaja",
-                  "Kirjoittaja"
+                  "Kirjoittaja",
+                  "Toimittaja"
                 ],
                 "nationality": {
                   "id": 4,
@@ -252,93 +250,91 @@
             "verified": false
           },
           {
-            "work": [
-              {
-                "id": 5506.0,
-                "title": "Enkeli tupakkasalongissa ja muita novelleja",
-                "orig_title": "Enkeli tupakkasalongissa ja muita novelleja",
-                "author_str": "Mäki, Harri István",
-                "contributions": [
-                  {
-                    "person": {
-                      "id": 1321.0,
-                      "name": "Mäki, Harri István",
-                      "alt_name": "Harri István Mäki"
-                    },
-                    "role": {
-                      "id": 1,
-                      "name": "Kirjoittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [],
-                    "translators": [],
-                    "contributions": [],
-                    "images": [
-                      {
-                        "id": 2734,
-                        "image_src": "/static/images/books/Maki_Harri_Istvan_Enkelitupakkasalongissa_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 169,
-                      "name": "Helmivyö"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 6831,
-                    "title": "Enkeli tupakkasalongissa ja muita novelleja",
-                    "subtitle": "",
-                    "pubyear": 2020,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7211-62-5",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": null,
-                    "pages": 303,
-                    "size": 17,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": "",
-                    "imported_string": "",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+            "work": {
+              "id": 5506.0,
+              "title": "Enkeli tupakkasalongissa ja muita novelleja",
+              "orig_title": "Enkeli tupakkasalongissa ja muita novelleja",
+              "author_str": "Mäki, Harri István",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 1321.0,
+                    "name": "Mäki, Harri István",
+                    "alt_name": "Harri István Mäki"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [],
+                  "translators": [],
+                  "contributions": [],
+                  "images": [
+                    {
+                      "id": 2734,
+                      "image_src": "/static/images/books/Maki_Harri_Istvan_Enkelitupakkasalongissa_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 169,
+                    "name": "Helmivyö"
+                  },
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 6831,
+                  "title": "Enkeli tupakkasalongissa ja muita novelleja",
+                  "subtitle": "",
+                  "pubyear": 2020,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7211-62-5",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": null,
+                  "pages": 303,
+                  "size": 17,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": "",
+                  "imported_string": "",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 1.0,
-                "subtitle": "",
-                "pubyear": 2020,
-                "bookseriesnum": "",
-                "bookseriesorder": null,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": ""
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 1.0,
+              "subtitle": "",
+              "pubyear": 2020,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": ""
+            },
             "editors": [],
             "contributions": [],
             "images": [
@@ -413,8 +409,8 @@
             "dob": 1959.0,
             "dod": null,
             "roles": [
-              "Toimittaja",
-              "Kirjoittaja"
+              "Kirjoittaja",
+              "Toimittaja"
             ],
             "nationality": {
               "id": 4,
@@ -438,134 +434,132 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 171.0,
-                "title": "Välitiloja",
-                "orig_title": "Välitiloja",
-                "author_str": "Väisänen, Helena (toim.)",
-                "contributions": [
-                  {
-                    "person": {
+            "work": {
+              "id": 171.0,
+              "title": "Välitiloja",
+              "orig_title": "Välitiloja",
+              "author_str": "Väisänen, Helena (toim.)",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 128.0,
+                    "name": "Väisänen, Helena",
+                    "alt_name": "Helena Väisänen"
+                  },
+                  "role": {
+                    "id": 3,
+                    "name": "Toimittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [
+                    {
                       "id": 128.0,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen"
-                    },
-                    "role": {
-                      "id": 3,
-                      "name": "Toimittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [
-                      {
+                      "alt_name": "Helena Väisänen",
+                      "fullname": "",
+                      "image_src": null,
+                      "dob": 1959.0,
+                      "dod": null,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 1.0,
+                      "storycount": 1,
+                      "other_names": null,
+                      "first_name": "Helena",
+                      "last_name": "Väisänen",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": null
+                    }
+                  ],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
                         "id": 128.0,
                         "name": "Väisänen, Helena",
-                        "alt_name": "Helena Väisänen",
-                        "fullname": "",
-                        "image_src": null,
-                        "dob": 1959.0,
-                        "dod": null,
-                        "roles": [
-                          "Toimittaja",
-                          "Kirjoittaja"
-                        ],
-                        "nationality": {
-                          "id": 4,
-                          "name": "Suomi"
-                        },
-                        "workcount": 1.0,
-                        "storycount": 1,
-                        "other_names": null,
-                        "first_name": "Helena",
-                        "last_name": "Väisänen",
-                        "image_attr": "",
-                        "bio": null,
-                        "bio_src": "",
-                        "imported_string": null
-                      }
-                    ],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 128.0,
-                          "name": "Väisänen, Helena",
-                          "alt_name": "Helena Väisänen"
-                        },
-                        "role": {
-                          "id": 3,
-                          "name": "Toimittaja"
-                        },
-                        "description": null,
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 2283,
-                        "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 169,
-                      "name": "Helmivyö"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 242,
-                    "title": "Välitiloja",
-                    "subtitle": "",
-                    "pubyear": 2020,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7211-49-6",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 202,
-                    "size": 17,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": "",
-                    "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+                        "alt_name": "Helena Väisänen"
+                      },
+                      "role": {
+                        "id": 3,
+                        "name": "Toimittaja"
+                      },
+                      "description": null,
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 2283,
+                      "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 169,
+                    "name": "Helmivyö"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 242,
+                  "title": "Välitiloja",
+                  "subtitle": "",
+                  "pubyear": 2020,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7211-49-6",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 202,
+                  "size": 17,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": "",
+                  "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2020,
-                "bookseriesnum": "",
-                "bookseriesorder": 0,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2020,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+            },
             "editors": [
               {
                 "id": 128.0,
@@ -576,8 +570,8 @@
                 "dob": 1959.0,
                 "dod": null,
                 "roles": [
-                  "Toimittaja",
-                  "Kirjoittaja"
+                  "Kirjoittaja",
+                  "Toimittaja"
                 ],
                 "nationality": {
                   "id": 4,
@@ -705,134 +699,132 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 171.0,
-                "title": "Välitiloja",
-                "orig_title": "Välitiloja",
-                "author_str": "Väisänen, Helena (toim.)",
-                "contributions": [
-                  {
-                    "person": {
+            "work": {
+              "id": 171.0,
+              "title": "Välitiloja",
+              "orig_title": "Välitiloja",
+              "author_str": "Väisänen, Helena (toim.)",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 128.0,
+                    "name": "Väisänen, Helena",
+                    "alt_name": "Helena Väisänen"
+                  },
+                  "role": {
+                    "id": 3,
+                    "name": "Toimittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [
+                    {
                       "id": 128.0,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen"
-                    },
-                    "role": {
-                      "id": 3,
-                      "name": "Toimittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [
-                      {
+                      "alt_name": "Helena Väisänen",
+                      "fullname": "",
+                      "image_src": null,
+                      "dob": 1959.0,
+                      "dod": null,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 1.0,
+                      "storycount": 1,
+                      "other_names": null,
+                      "first_name": "Helena",
+                      "last_name": "Väisänen",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": null
+                    }
+                  ],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
                         "id": 128.0,
                         "name": "Väisänen, Helena",
-                        "alt_name": "Helena Väisänen",
-                        "fullname": "",
-                        "image_src": null,
-                        "dob": 1959.0,
-                        "dod": null,
-                        "roles": [
-                          "Toimittaja",
-                          "Kirjoittaja"
-                        ],
-                        "nationality": {
-                          "id": 4,
-                          "name": "Suomi"
-                        },
-                        "workcount": 1.0,
-                        "storycount": 1,
-                        "other_names": null,
-                        "first_name": "Helena",
-                        "last_name": "Väisänen",
-                        "image_attr": "",
-                        "bio": null,
-                        "bio_src": "",
-                        "imported_string": null
-                      }
-                    ],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 128.0,
-                          "name": "Väisänen, Helena",
-                          "alt_name": "Helena Väisänen"
-                        },
-                        "role": {
-                          "id": 3,
-                          "name": "Toimittaja"
-                        },
-                        "description": null,
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 2283,
-                        "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 169,
-                      "name": "Helmivyö"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 242,
-                    "title": "Välitiloja",
-                    "subtitle": "",
-                    "pubyear": 2020,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7211-49-6",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 202,
-                    "size": 17,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": "",
-                    "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+                        "alt_name": "Helena Väisänen"
+                      },
+                      "role": {
+                        "id": 3,
+                        "name": "Toimittaja"
+                      },
+                      "description": null,
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 2283,
+                      "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 169,
+                    "name": "Helmivyö"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 242,
+                  "title": "Välitiloja",
+                  "subtitle": "",
+                  "pubyear": 2020,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7211-49-6",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 202,
+                  "size": 17,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": "",
+                  "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2020,
-                "bookseriesnum": "",
-                "bookseriesorder": 0,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2020,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+            },
             "editors": [
               {
                 "id": 128.0,
@@ -843,8 +835,8 @@
                 "dob": 1959.0,
                 "dod": null,
                 "roles": [
-                  "Toimittaja",
-                  "Kirjoittaja"
+                  "Kirjoittaja",
+                  "Toimittaja"
                 ],
                 "nationality": {
                   "id": 4,
@@ -972,134 +964,132 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 171.0,
-                "title": "Välitiloja",
-                "orig_title": "Välitiloja",
-                "author_str": "Väisänen, Helena (toim.)",
-                "contributions": [
-                  {
-                    "person": {
+            "work": {
+              "id": 171.0,
+              "title": "Välitiloja",
+              "orig_title": "Välitiloja",
+              "author_str": "Väisänen, Helena (toim.)",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 128.0,
+                    "name": "Väisänen, Helena",
+                    "alt_name": "Helena Väisänen"
+                  },
+                  "role": {
+                    "id": 3,
+                    "name": "Toimittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [
+                    {
                       "id": 128.0,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen"
-                    },
-                    "role": {
-                      "id": 3,
-                      "name": "Toimittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [
-                      {
+                      "alt_name": "Helena Väisänen",
+                      "fullname": "",
+                      "image_src": null,
+                      "dob": 1959.0,
+                      "dod": null,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 1.0,
+                      "storycount": 1,
+                      "other_names": null,
+                      "first_name": "Helena",
+                      "last_name": "Väisänen",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": null
+                    }
+                  ],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
                         "id": 128.0,
                         "name": "Väisänen, Helena",
-                        "alt_name": "Helena Väisänen",
-                        "fullname": "",
-                        "image_src": null,
-                        "dob": 1959.0,
-                        "dod": null,
-                        "roles": [
-                          "Toimittaja",
-                          "Kirjoittaja"
-                        ],
-                        "nationality": {
-                          "id": 4,
-                          "name": "Suomi"
-                        },
-                        "workcount": 1.0,
-                        "storycount": 1,
-                        "other_names": null,
-                        "first_name": "Helena",
-                        "last_name": "Väisänen",
-                        "image_attr": "",
-                        "bio": null,
-                        "bio_src": "",
-                        "imported_string": null
-                      }
-                    ],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 128.0,
-                          "name": "Väisänen, Helena",
-                          "alt_name": "Helena Väisänen"
-                        },
-                        "role": {
-                          "id": 3,
-                          "name": "Toimittaja"
-                        },
-                        "description": null,
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 2283,
-                        "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 169,
-                      "name": "Helmivyö"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 242,
-                    "title": "Välitiloja",
-                    "subtitle": "",
-                    "pubyear": 2020,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7211-49-6",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 202,
-                    "size": 17,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": "",
-                    "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+                        "alt_name": "Helena Väisänen"
+                      },
+                      "role": {
+                        "id": 3,
+                        "name": "Toimittaja"
+                      },
+                      "description": null,
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 2283,
+                      "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 169,
+                    "name": "Helmivyö"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 242,
+                  "title": "Välitiloja",
+                  "subtitle": "",
+                  "pubyear": 2020,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7211-49-6",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 202,
+                  "size": 17,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": "",
+                  "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2020,
-                "bookseriesnum": "",
-                "bookseriesorder": 0,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2020,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+            },
             "editors": [
               {
                 "id": 128.0,
@@ -1110,8 +1100,8 @@
                 "dob": 1959.0,
                 "dod": null,
                 "roles": [
-                  "Toimittaja",
-                  "Kirjoittaja"
+                  "Kirjoittaja",
+                  "Toimittaja"
                 ],
                 "nationality": {
                   "id": 4,
@@ -1239,134 +1229,132 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 171.0,
-                "title": "Välitiloja",
-                "orig_title": "Välitiloja",
-                "author_str": "Väisänen, Helena (toim.)",
-                "contributions": [
-                  {
-                    "person": {
+            "work": {
+              "id": 171.0,
+              "title": "Välitiloja",
+              "orig_title": "Välitiloja",
+              "author_str": "Väisänen, Helena (toim.)",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 128.0,
+                    "name": "Väisänen, Helena",
+                    "alt_name": "Helena Väisänen"
+                  },
+                  "role": {
+                    "id": 3,
+                    "name": "Toimittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [
+                    {
                       "id": 128.0,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen"
-                    },
-                    "role": {
-                      "id": 3,
-                      "name": "Toimittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [
-                      {
+                      "alt_name": "Helena Väisänen",
+                      "fullname": "",
+                      "image_src": null,
+                      "dob": 1959.0,
+                      "dod": null,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 1.0,
+                      "storycount": 1,
+                      "other_names": null,
+                      "first_name": "Helena",
+                      "last_name": "Väisänen",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": null
+                    }
+                  ],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
                         "id": 128.0,
                         "name": "Väisänen, Helena",
-                        "alt_name": "Helena Väisänen",
-                        "fullname": "",
-                        "image_src": null,
-                        "dob": 1959.0,
-                        "dod": null,
-                        "roles": [
-                          "Toimittaja",
-                          "Kirjoittaja"
-                        ],
-                        "nationality": {
-                          "id": 4,
-                          "name": "Suomi"
-                        },
-                        "workcount": 1.0,
-                        "storycount": 1,
-                        "other_names": null,
-                        "first_name": "Helena",
-                        "last_name": "Väisänen",
-                        "image_attr": "",
-                        "bio": null,
-                        "bio_src": "",
-                        "imported_string": null
-                      }
-                    ],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 128.0,
-                          "name": "Väisänen, Helena",
-                          "alt_name": "Helena Väisänen"
-                        },
-                        "role": {
-                          "id": 3,
-                          "name": "Toimittaja"
-                        },
-                        "description": null,
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 2283,
-                        "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 169,
-                      "name": "Helmivyö"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 242,
-                    "title": "Välitiloja",
-                    "subtitle": "",
-                    "pubyear": 2020,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7211-49-6",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 202,
-                    "size": 17,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": "",
-                    "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+                        "alt_name": "Helena Väisänen"
+                      },
+                      "role": {
+                        "id": 3,
+                        "name": "Toimittaja"
+                      },
+                      "description": null,
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 2283,
+                      "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 169,
+                    "name": "Helmivyö"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 242,
+                  "title": "Välitiloja",
+                  "subtitle": "",
+                  "pubyear": 2020,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7211-49-6",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 202,
+                  "size": 17,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": "",
+                  "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2020,
-                "bookseriesnum": "",
-                "bookseriesorder": 0,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2020,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+            },
             "editors": [
               {
                 "id": 128.0,
@@ -1377,8 +1365,8 @@
                 "dob": 1959.0,
                 "dod": null,
                 "roles": [
-                  "Toimittaja",
-                  "Kirjoittaja"
+                  "Kirjoittaja",
+                  "Toimittaja"
                 ],
                 "nationality": {
                   "id": 4,
@@ -1506,134 +1494,132 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 171.0,
-                "title": "Välitiloja",
-                "orig_title": "Välitiloja",
-                "author_str": "Väisänen, Helena (toim.)",
-                "contributions": [
-                  {
-                    "person": {
+            "work": {
+              "id": 171.0,
+              "title": "Välitiloja",
+              "orig_title": "Välitiloja",
+              "author_str": "Väisänen, Helena (toim.)",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 128.0,
+                    "name": "Väisänen, Helena",
+                    "alt_name": "Helena Väisänen"
+                  },
+                  "role": {
+                    "id": 3,
+                    "name": "Toimittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [
+                    {
                       "id": 128.0,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen"
-                    },
-                    "role": {
-                      "id": 3,
-                      "name": "Toimittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [
-                      {
+                      "alt_name": "Helena Väisänen",
+                      "fullname": "",
+                      "image_src": null,
+                      "dob": 1959.0,
+                      "dod": null,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 1.0,
+                      "storycount": 1,
+                      "other_names": null,
+                      "first_name": "Helena",
+                      "last_name": "Väisänen",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": null
+                    }
+                  ],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
                         "id": 128.0,
                         "name": "Väisänen, Helena",
-                        "alt_name": "Helena Väisänen",
-                        "fullname": "",
-                        "image_src": null,
-                        "dob": 1959.0,
-                        "dod": null,
-                        "roles": [
-                          "Toimittaja",
-                          "Kirjoittaja"
-                        ],
-                        "nationality": {
-                          "id": 4,
-                          "name": "Suomi"
-                        },
-                        "workcount": 1.0,
-                        "storycount": 1,
-                        "other_names": null,
-                        "first_name": "Helena",
-                        "last_name": "Väisänen",
-                        "image_attr": "",
-                        "bio": null,
-                        "bio_src": "",
-                        "imported_string": null
-                      }
-                    ],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 128.0,
-                          "name": "Väisänen, Helena",
-                          "alt_name": "Helena Väisänen"
-                        },
-                        "role": {
-                          "id": 3,
-                          "name": "Toimittaja"
-                        },
-                        "description": null,
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 2283,
-                        "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 169,
-                      "name": "Helmivyö"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 242,
-                    "title": "Välitiloja",
-                    "subtitle": "",
-                    "pubyear": 2020,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7211-49-6",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 202,
-                    "size": 17,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": "",
-                    "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+                        "alt_name": "Helena Väisänen"
+                      },
+                      "role": {
+                        "id": 3,
+                        "name": "Toimittaja"
+                      },
+                      "description": null,
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 2283,
+                      "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 169,
+                    "name": "Helmivyö"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 242,
+                  "title": "Välitiloja",
+                  "subtitle": "",
+                  "pubyear": 2020,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7211-49-6",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 202,
+                  "size": 17,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": "",
+                  "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2020,
-                "bookseriesnum": "",
-                "bookseriesorder": 0,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2020,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+            },
             "editors": [
               {
                 "id": 128.0,
@@ -1644,8 +1630,8 @@
                 "dob": 1959.0,
                 "dod": null,
                 "roles": [
-                  "Toimittaja",
-                  "Kirjoittaja"
+                  "Kirjoittaja",
+                  "Toimittaja"
                 ],
                 "nationality": {
                   "id": 4,
@@ -1773,134 +1759,132 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 171.0,
-                "title": "Välitiloja",
-                "orig_title": "Välitiloja",
-                "author_str": "Väisänen, Helena (toim.)",
-                "contributions": [
-                  {
-                    "person": {
+            "work": {
+              "id": 171.0,
+              "title": "Välitiloja",
+              "orig_title": "Välitiloja",
+              "author_str": "Väisänen, Helena (toim.)",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 128.0,
+                    "name": "Väisänen, Helena",
+                    "alt_name": "Helena Väisänen"
+                  },
+                  "role": {
+                    "id": 3,
+                    "name": "Toimittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [
+                    {
                       "id": 128.0,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen"
-                    },
-                    "role": {
-                      "id": 3,
-                      "name": "Toimittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [
-                      {
+                      "alt_name": "Helena Väisänen",
+                      "fullname": "",
+                      "image_src": null,
+                      "dob": 1959.0,
+                      "dod": null,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 1.0,
+                      "storycount": 1,
+                      "other_names": null,
+                      "first_name": "Helena",
+                      "last_name": "Väisänen",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": null
+                    }
+                  ],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
                         "id": 128.0,
                         "name": "Väisänen, Helena",
-                        "alt_name": "Helena Väisänen",
-                        "fullname": "",
-                        "image_src": null,
-                        "dob": 1959.0,
-                        "dod": null,
-                        "roles": [
-                          "Toimittaja",
-                          "Kirjoittaja"
-                        ],
-                        "nationality": {
-                          "id": 4,
-                          "name": "Suomi"
-                        },
-                        "workcount": 1.0,
-                        "storycount": 1,
-                        "other_names": null,
-                        "first_name": "Helena",
-                        "last_name": "Väisänen",
-                        "image_attr": "",
-                        "bio": null,
-                        "bio_src": "",
-                        "imported_string": null
-                      }
-                    ],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 128.0,
-                          "name": "Väisänen, Helena",
-                          "alt_name": "Helena Väisänen"
-                        },
-                        "role": {
-                          "id": 3,
-                          "name": "Toimittaja"
-                        },
-                        "description": null,
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 2283,
-                        "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 169,
-                      "name": "Helmivyö"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 242,
-                    "title": "Välitiloja",
-                    "subtitle": "",
-                    "pubyear": 2020,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7211-49-6",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 202,
-                    "size": 17,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": "",
-                    "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+                        "alt_name": "Helena Väisänen"
+                      },
+                      "role": {
+                        "id": 3,
+                        "name": "Toimittaja"
+                      },
+                      "description": null,
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 2283,
+                      "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 169,
+                    "name": "Helmivyö"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 242,
+                  "title": "Välitiloja",
+                  "subtitle": "",
+                  "pubyear": 2020,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7211-49-6",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 202,
+                  "size": 17,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": "",
+                  "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2020,
-                "bookseriesnum": "",
-                "bookseriesorder": 0,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2020,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+            },
             "editors": [
               {
                 "id": 128.0,
@@ -1911,8 +1895,8 @@
                 "dob": 1959.0,
                 "dod": null,
                 "roles": [
-                  "Toimittaja",
-                  "Kirjoittaja"
+                  "Kirjoittaja",
+                  "Toimittaja"
                 ],
                 "nationality": {
                   "id": 4,
@@ -2040,134 +2024,132 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 171.0,
-                "title": "Välitiloja",
-                "orig_title": "Välitiloja",
-                "author_str": "Väisänen, Helena (toim.)",
-                "contributions": [
-                  {
-                    "person": {
+            "work": {
+              "id": 171.0,
+              "title": "Välitiloja",
+              "orig_title": "Välitiloja",
+              "author_str": "Väisänen, Helena (toim.)",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 128.0,
+                    "name": "Väisänen, Helena",
+                    "alt_name": "Helena Väisänen"
+                  },
+                  "role": {
+                    "id": 3,
+                    "name": "Toimittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [
+                    {
                       "id": 128.0,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen"
-                    },
-                    "role": {
-                      "id": 3,
-                      "name": "Toimittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [
-                      {
+                      "alt_name": "Helena Väisänen",
+                      "fullname": "",
+                      "image_src": null,
+                      "dob": 1959.0,
+                      "dod": null,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 1.0,
+                      "storycount": 1,
+                      "other_names": null,
+                      "first_name": "Helena",
+                      "last_name": "Väisänen",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": null
+                    }
+                  ],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
                         "id": 128.0,
                         "name": "Väisänen, Helena",
-                        "alt_name": "Helena Väisänen",
-                        "fullname": "",
-                        "image_src": null,
-                        "dob": 1959.0,
-                        "dod": null,
-                        "roles": [
-                          "Toimittaja",
-                          "Kirjoittaja"
-                        ],
-                        "nationality": {
-                          "id": 4,
-                          "name": "Suomi"
-                        },
-                        "workcount": 1.0,
-                        "storycount": 1,
-                        "other_names": null,
-                        "first_name": "Helena",
-                        "last_name": "Väisänen",
-                        "image_attr": "",
-                        "bio": null,
-                        "bio_src": "",
-                        "imported_string": null
-                      }
-                    ],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 128.0,
-                          "name": "Väisänen, Helena",
-                          "alt_name": "Helena Väisänen"
-                        },
-                        "role": {
-                          "id": 3,
-                          "name": "Toimittaja"
-                        },
-                        "description": null,
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 2283,
-                        "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 169,
-                      "name": "Helmivyö"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 242,
-                    "title": "Välitiloja",
-                    "subtitle": "",
-                    "pubyear": 2020,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7211-49-6",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 202,
-                    "size": 17,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": "",
-                    "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+                        "alt_name": "Helena Väisänen"
+                      },
+                      "role": {
+                        "id": 3,
+                        "name": "Toimittaja"
+                      },
+                      "description": null,
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 2283,
+                      "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 169,
+                    "name": "Helmivyö"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 242,
+                  "title": "Välitiloja",
+                  "subtitle": "",
+                  "pubyear": 2020,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7211-49-6",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 202,
+                  "size": 17,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": "",
+                  "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2020,
-                "bookseriesnum": "",
-                "bookseriesorder": 0,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2020,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+            },
             "editors": [
               {
                 "id": 128.0,
@@ -2178,8 +2160,8 @@
                 "dob": 1959.0,
                 "dod": null,
                 "roles": [
-                  "Toimittaja",
-                  "Kirjoittaja"
+                  "Kirjoittaja",
+                  "Toimittaja"
                 ],
                 "nationality": {
                   "id": 4,
@@ -2283,9 +2265,9 @@
             "dob": 1974.0,
             "dod": null,
             "roles": [
-              "Kansikuva",
               "Kirjoittaja",
               "Toimittaja",
+              "Kansikuva",
               "Esiintyy"
             ],
             "nationality": {
@@ -2310,134 +2292,132 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 171.0,
-                "title": "Välitiloja",
-                "orig_title": "Välitiloja",
-                "author_str": "Väisänen, Helena (toim.)",
-                "contributions": [
-                  {
-                    "person": {
+            "work": {
+              "id": 171.0,
+              "title": "Välitiloja",
+              "orig_title": "Välitiloja",
+              "author_str": "Väisänen, Helena (toim.)",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 128.0,
+                    "name": "Väisänen, Helena",
+                    "alt_name": "Helena Väisänen"
+                  },
+                  "role": {
+                    "id": 3,
+                    "name": "Toimittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [
+                    {
                       "id": 128.0,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen"
-                    },
-                    "role": {
-                      "id": 3,
-                      "name": "Toimittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [
-                      {
+                      "alt_name": "Helena Väisänen",
+                      "fullname": "",
+                      "image_src": null,
+                      "dob": 1959.0,
+                      "dod": null,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 1.0,
+                      "storycount": 1,
+                      "other_names": null,
+                      "first_name": "Helena",
+                      "last_name": "Väisänen",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": null
+                    }
+                  ],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
                         "id": 128.0,
                         "name": "Väisänen, Helena",
-                        "alt_name": "Helena Väisänen",
-                        "fullname": "",
-                        "image_src": null,
-                        "dob": 1959.0,
-                        "dod": null,
-                        "roles": [
-                          "Toimittaja",
-                          "Kirjoittaja"
-                        ],
-                        "nationality": {
-                          "id": 4,
-                          "name": "Suomi"
-                        },
-                        "workcount": 1.0,
-                        "storycount": 1,
-                        "other_names": null,
-                        "first_name": "Helena",
-                        "last_name": "Väisänen",
-                        "image_attr": "",
-                        "bio": null,
-                        "bio_src": "",
-                        "imported_string": null
-                      }
-                    ],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 128.0,
-                          "name": "Väisänen, Helena",
-                          "alt_name": "Helena Väisänen"
-                        },
-                        "role": {
-                          "id": 3,
-                          "name": "Toimittaja"
-                        },
-                        "description": null,
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 2283,
-                        "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 169,
-                      "name": "Helmivyö"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 242,
-                    "title": "Välitiloja",
-                    "subtitle": "",
-                    "pubyear": 2020,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7211-49-6",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 202,
-                    "size": 17,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": "",
-                    "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+                        "alt_name": "Helena Väisänen"
+                      },
+                      "role": {
+                        "id": 3,
+                        "name": "Toimittaja"
+                      },
+                      "description": null,
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 2283,
+                      "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 169,
+                    "name": "Helmivyö"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 242,
+                  "title": "Välitiloja",
+                  "subtitle": "",
+                  "pubyear": 2020,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7211-49-6",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 202,
+                  "size": 17,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": "",
+                  "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2020,
-                "bookseriesnum": "",
-                "bookseriesorder": 0,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2020,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+            },
             "editors": [
               {
                 "id": 128.0,
@@ -2448,8 +2428,8 @@
                 "dob": 1959.0,
                 "dod": null,
                 "roles": [
-                  "Toimittaja",
-                  "Kirjoittaja"
+                  "Kirjoittaja",
+                  "Toimittaja"
                 ],
                 "nationality": {
                   "id": 4,
@@ -2577,134 +2557,132 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 171.0,
-                "title": "Välitiloja",
-                "orig_title": "Välitiloja",
-                "author_str": "Väisänen, Helena (toim.)",
-                "contributions": [
-                  {
-                    "person": {
+            "work": {
+              "id": 171.0,
+              "title": "Välitiloja",
+              "orig_title": "Välitiloja",
+              "author_str": "Väisänen, Helena (toim.)",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 128.0,
+                    "name": "Väisänen, Helena",
+                    "alt_name": "Helena Väisänen"
+                  },
+                  "role": {
+                    "id": 3,
+                    "name": "Toimittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [
+                    {
                       "id": 128.0,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen"
-                    },
-                    "role": {
-                      "id": 3,
-                      "name": "Toimittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [
-                      {
+                      "alt_name": "Helena Väisänen",
+                      "fullname": "",
+                      "image_src": null,
+                      "dob": 1959.0,
+                      "dod": null,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 1.0,
+                      "storycount": 1,
+                      "other_names": null,
+                      "first_name": "Helena",
+                      "last_name": "Väisänen",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": null
+                    }
+                  ],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
                         "id": 128.0,
                         "name": "Väisänen, Helena",
-                        "alt_name": "Helena Väisänen",
-                        "fullname": "",
-                        "image_src": null,
-                        "dob": 1959.0,
-                        "dod": null,
-                        "roles": [
-                          "Toimittaja",
-                          "Kirjoittaja"
-                        ],
-                        "nationality": {
-                          "id": 4,
-                          "name": "Suomi"
-                        },
-                        "workcount": 1.0,
-                        "storycount": 1,
-                        "other_names": null,
-                        "first_name": "Helena",
-                        "last_name": "Väisänen",
-                        "image_attr": "",
-                        "bio": null,
-                        "bio_src": "",
-                        "imported_string": null
-                      }
-                    ],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 128.0,
-                          "name": "Väisänen, Helena",
-                          "alt_name": "Helena Väisänen"
-                        },
-                        "role": {
-                          "id": 3,
-                          "name": "Toimittaja"
-                        },
-                        "description": null,
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 2283,
-                        "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 169,
-                      "name": "Helmivyö"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 242,
-                    "title": "Välitiloja",
-                    "subtitle": "",
-                    "pubyear": 2020,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7211-49-6",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 202,
-                    "size": 17,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": "",
-                    "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+                        "alt_name": "Helena Väisänen"
+                      },
+                      "role": {
+                        "id": 3,
+                        "name": "Toimittaja"
+                      },
+                      "description": null,
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 2283,
+                      "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 169,
+                    "name": "Helmivyö"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 242,
+                  "title": "Välitiloja",
+                  "subtitle": "",
+                  "pubyear": 2020,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7211-49-6",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 202,
+                  "size": 17,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": "",
+                  "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2020,
-                "bookseriesnum": "",
-                "bookseriesorder": 0,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2020,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+            },
             "editors": [
               {
                 "id": 128.0,
@@ -2715,8 +2693,8 @@
                 "dob": 1959.0,
                 "dod": null,
                 "roles": [
-                  "Toimittaja",
-                  "Kirjoittaja"
+                  "Kirjoittaja",
+                  "Toimittaja"
                 ],
                 "nationality": {
                   "id": 4,
@@ -2847,134 +2825,132 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 171.0,
-                "title": "Välitiloja",
-                "orig_title": "Välitiloja",
-                "author_str": "Väisänen, Helena (toim.)",
-                "contributions": [
-                  {
-                    "person": {
+            "work": {
+              "id": 171.0,
+              "title": "Välitiloja",
+              "orig_title": "Välitiloja",
+              "author_str": "Väisänen, Helena (toim.)",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 128.0,
+                    "name": "Väisänen, Helena",
+                    "alt_name": "Helena Väisänen"
+                  },
+                  "role": {
+                    "id": 3,
+                    "name": "Toimittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [
+                    {
                       "id": 128.0,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen"
-                    },
-                    "role": {
-                      "id": 3,
-                      "name": "Toimittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [
-                      {
+                      "alt_name": "Helena Väisänen",
+                      "fullname": "",
+                      "image_src": null,
+                      "dob": 1959.0,
+                      "dod": null,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 1.0,
+                      "storycount": 1,
+                      "other_names": null,
+                      "first_name": "Helena",
+                      "last_name": "Väisänen",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": null
+                    }
+                  ],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
                         "id": 128.0,
                         "name": "Väisänen, Helena",
-                        "alt_name": "Helena Väisänen",
-                        "fullname": "",
-                        "image_src": null,
-                        "dob": 1959.0,
-                        "dod": null,
-                        "roles": [
-                          "Toimittaja",
-                          "Kirjoittaja"
-                        ],
-                        "nationality": {
-                          "id": 4,
-                          "name": "Suomi"
-                        },
-                        "workcount": 1.0,
-                        "storycount": 1,
-                        "other_names": null,
-                        "first_name": "Helena",
-                        "last_name": "Väisänen",
-                        "image_attr": "",
-                        "bio": null,
-                        "bio_src": "",
-                        "imported_string": null
-                      }
-                    ],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 128.0,
-                          "name": "Väisänen, Helena",
-                          "alt_name": "Helena Väisänen"
-                        },
-                        "role": {
-                          "id": 3,
-                          "name": "Toimittaja"
-                        },
-                        "description": null,
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 2283,
-                        "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 169,
-                      "name": "Helmivyö"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 242,
-                    "title": "Välitiloja",
-                    "subtitle": "",
-                    "pubyear": 2020,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7211-49-6",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 202,
-                    "size": 17,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": "",
-                    "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+                        "alt_name": "Helena Väisänen"
+                      },
+                      "role": {
+                        "id": 3,
+                        "name": "Toimittaja"
+                      },
+                      "description": null,
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 2283,
+                      "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 169,
+                    "name": "Helmivyö"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 242,
+                  "title": "Välitiloja",
+                  "subtitle": "",
+                  "pubyear": 2020,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7211-49-6",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 202,
+                  "size": 17,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": "",
+                  "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2020,
-                "bookseriesnum": "",
-                "bookseriesorder": 0,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2020,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+            },
             "editors": [
               {
                 "id": 128.0,
@@ -2985,8 +2961,8 @@
                 "dob": 1959.0,
                 "dod": null,
                 "roles": [
-                  "Toimittaja",
-                  "Kirjoittaja"
+                  "Kirjoittaja",
+                  "Toimittaja"
                 ],
                 "nationality": {
                   "id": 4,
@@ -3115,134 +3091,132 @@
         "issues": [],
         "editions": [
           {
-            "work": [
-              {
-                "id": 171.0,
-                "title": "Välitiloja",
-                "orig_title": "Välitiloja",
-                "author_str": "Väisänen, Helena (toim.)",
-                "contributions": [
-                  {
-                    "person": {
+            "work": {
+              "id": 171.0,
+              "title": "Välitiloja",
+              "orig_title": "Välitiloja",
+              "author_str": "Väisänen, Helena (toim.)",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 128.0,
+                    "name": "Väisänen, Helena",
+                    "alt_name": "Helena Väisänen"
+                  },
+                  "role": {
+                    "id": 3,
+                    "name": "Toimittaja"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [
+                    {
                       "id": 128.0,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen"
-                    },
-                    "role": {
-                      "id": 3,
-                      "name": "Toimittaja"
-                    },
-                    "description": null,
-                    "real_person": null
-                  }
-                ],
-                "editions": [
-                  {
-                    "editors": [
-                      {
+                      "alt_name": "Helena Väisänen",
+                      "fullname": "",
+                      "image_src": null,
+                      "dob": 1959.0,
+                      "dod": null,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 1.0,
+                      "storycount": 1,
+                      "other_names": null,
+                      "first_name": "Helena",
+                      "last_name": "Väisänen",
+                      "image_attr": "",
+                      "bio": null,
+                      "bio_src": "",
+                      "imported_string": null
+                    }
+                  ],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
                         "id": 128.0,
                         "name": "Väisänen, Helena",
-                        "alt_name": "Helena Väisänen",
-                        "fullname": "",
-                        "image_src": null,
-                        "dob": 1959.0,
-                        "dod": null,
-                        "roles": [
-                          "Toimittaja",
-                          "Kirjoittaja"
-                        ],
-                        "nationality": {
-                          "id": 4,
-                          "name": "Suomi"
-                        },
-                        "workcount": 1.0,
-                        "storycount": 1,
-                        "other_names": null,
-                        "first_name": "Helena",
-                        "last_name": "Väisänen",
-                        "image_attr": "",
-                        "bio": null,
-                        "bio_src": "",
-                        "imported_string": null
-                      }
-                    ],
-                    "translators": [],
-                    "contributions": [
-                      {
-                        "person": {
-                          "id": 128.0,
-                          "name": "Väisänen, Helena",
-                          "alt_name": "Helena Väisänen"
-                        },
-                        "role": {
-                          "id": 3,
-                          "name": "Toimittaja"
-                        },
-                        "description": null,
-                        "real_person": null
-                      }
-                    ],
-                    "images": [
-                      {
-                        "id": 2283,
-                        "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
-                        "image_attr": null
-                      }
-                    ],
-                    "publisher": {
-                      "id": 169,
-                      "name": "Helmivyö"
-                    },
-                    "owners": [],
-                    "wishlisted": [],
-                    "id": 242,
-                    "title": "Välitiloja",
-                    "subtitle": "",
-                    "pubyear": 2020,
-                    "editionnum": 1,
-                    "version": null,
-                    "isbn": "978-952-7211-49-6",
-                    "printedin": null,
-                    "pubseriesnum": null,
-                    "coll_info": "",
-                    "pages": 202,
-                    "size": 17,
-                    "dustcover": 1,
-                    "coverimage": 1,
-                    "misc": "",
-                    "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
-                    "verified": false
-                  }
-                ],
-                "genres": [
-                  {
-                    "id": 1,
-                    "name": "Fantasia",
-                    "abbr": "F"
+                        "alt_name": "Helena Väisänen"
+                      },
+                      "role": {
+                        "id": 3,
+                        "name": "Toimittaja"
+                      },
+                      "description": null,
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 2283,
+                      "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 169,
+                    "name": "Helmivyö"
                   },
-                  {
-                    "id": 16,
-                    "name": "Kokoelma",
-                    "abbr": "kok"
-                  }
-                ],
-                "bookseries": null,
-                "tags": [],
-                "language_name": {
-                  "id": 7,
-                  "name": "suomi"
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 242,
+                  "title": "Välitiloja",
+                  "subtitle": "",
+                  "pubyear": 2020,
+                  "editionnum": 1,
+                  "version": null,
+                  "isbn": "978-952-7211-49-6",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": "",
+                  "pages": 202,
+                  "size": 17,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": "",
+                  "imported_string": "<a href=\"novkok/vai-vt.htm\"><b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 },
-                "type": 2.0,
-                "subtitle": "",
-                "pubyear": 2020,
-                "bookseriesnum": "",
-                "bookseriesorder": 0,
-                "misc": "",
-                "description": null,
-                "descr_attr": null,
-                "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
-              }
-            ],
+                {
+                  "id": 16,
+                  "name": "Kokoelma",
+                  "abbr": "kok"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2020,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+            },
             "editors": [
               {
                 "id": 128.0,
@@ -3253,8 +3227,8 @@
                 "dob": 1959.0,
                 "dod": null,
                 "roles": [
-                  "Toimittaja",
-                  "Kirjoittaja"
+                  "Kirjoittaja",
+                  "Toimittaja"
                 ],
                 "nationality": {
                   "id": 4,

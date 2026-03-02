@@ -564,21 +564,18 @@ class TestEditionsCopy(BaseAPITest):
             # ---------------------------------------------------------
             # Step 4: Verify work association was copied
             # ---------------------------------------------------------
-            original_works = original.get('work', [])
-            copied_works = copied.get('work', [])
+            # edition.work is now a single object (not a list)
+            original_work = original.get('work')
+            copied_work = copied.get('work')
 
-            assert len(copied_works) == len(original_works), (
-                f"Work count mismatch. "
-                f"Original: {len(original_works)}, Copied: {len(copied_works)}"
-            )
-
-            if original_works:
-                # Verify the work IDs match (copy links to same works)
-                original_work_ids = sorted([w['id'] for w in original_works])
-                copied_work_ids = sorted([w['id'] for w in copied_works])
-                assert original_work_ids == copied_work_ids, (
-                    f"Work IDs mismatch. "
-                    f"Original: {original_work_ids}, Copied: {copied_work_ids}"
+            if original_work:
+                assert copied_work is not None, (
+                    "Work should be copied"
+                )
+                assert copied_work['id'] == original_work['id'], (
+                    f"Work ID mismatch. "
+                    f"Original: {original_work['id']}, "
+                    f"Copied: {copied_work['id']}"
                 )
 
             # Verify contributions were copied

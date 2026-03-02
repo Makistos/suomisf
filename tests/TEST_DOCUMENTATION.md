@@ -3,7 +3,7 @@
 This document provides detailed descriptions of all API tests, including
 what they test, their parameter values, and expected behaviors.
 
-**Last Updated:** 2026-03-01
+**Last Updated:** 2026-03-02
 
 ---
 
@@ -33,6 +33,7 @@ what they test, their parameter values, and expected behaviors.
 22. [User Tests (test_users.py)](#user-tests)
 23. [Edition Contributor Tests (test_edition_contributors.py)](#edition-contributor-tests)
 24. [Work Contributor Tests (test_work_contributors.py)](#work-contributor-tests)
+25. [Edition Work Link Tests (test_edition_work_link.py)](#edition-work-link-tests)
 
 ---
 
@@ -62,6 +63,7 @@ what they test, their parameter values, and expected behaviors.
 | test_users.py | User endpoints (list, get, stats/genres) | 13 |
 | test_edition_contributors.py | EditionContributor CRUD, migration integrity | 10 |
 | test_work_contributors.py | WorkContributor CRUD, migration integrity | 9 |
+| test_edition_work_link.py | Edition.work_id direct FK (Migration 004) | 10 |
 
 ---
 
@@ -80,6 +82,14 @@ what they test, their parameter values, and expected behaviors.
     `migrations/002_edition_contributor_migration.sql` to the
     test DB after cloning (creates `editioncontributor` table,
     populates from Contributor+Part data for roles 2,3,4,5,7)
+  - `_apply_migration_003()`: Applies
+    `migrations/003_work_contributor_migration.sql` to the
+    test DB after cloning (creates `workcontributor` table,
+    populates from Contributor+Part data for roles 1,3,6)
+  - `_apply_migration_004()`: Applies
+    `migrations/004_edition_work_direct_link.sql` to the
+    test DB after cloning (adds `edition.work_id` column,
+    populates from Part rows with shortstory_id IS NULL)
   - `app` fixture: Patches `route_helpers.db_url` and
     `orm_decl.db_url` to use the test DB URL, and replaces
     Flask-SQLAlchemy's cached engine. This is required because
@@ -1914,3 +1924,68 @@ from the Contributor+Part data.
 | Test | Parameters | Assertions |
 |------|-----------|------------|
 | `test_migration_count_matches` | All works in DB | wc_count >= distinct(work_id, person_id, role_id) from source |
+
+---
+
+## Edition Work Link Tests
+
+**File:** `tests/api/test_edition_work_link.py`
+
+Tests for Migration 004: the `work_id` column added directly to the
+`edition` table, replacing the Part-table indirection for the
+Work↔Edition relationship.
+
+**Constants:**
+- `KNOWN_WORK_ID = 1` — work present in the test DB snapshot
+- `KNOWN_EDITION_ID = 1` — edition present in the test DB snapshot
+
+**Helpers:**
+- `create_test_edition(client, work_id, pubyear=2025)` — POST
+  `/api/editions`, returns `edition_id`; accepts HTTP 200 or 201
+- `delete_test_edition(client, edition_id)` — DELETE
+  `/api/editions/{id}`
+
+**Fixtures:**
+- `admin_client` — API client logged in as admin
+- `test_work` — creates and yields a work, cleans up after
+- `test_edition` — creates and yields an edition for `test_work`,
+  cleans up after
+
+### TestEditionWorkIdColumn (2 tests)
+
+Verify that `Edition.work_id` exists and is populated.
+
+| Test | Parameters | Assertions |
+|------|-----------|------------|
+| `test_edition_has_work_id_column` | edition_id=1 | edition has `work_id` attr; value is int |
+| `test_most_editions_have_work_id` | all editions | NULL work_id count <= 8 (known orphans); KNOWN_EDITION_ID.work_id is not None |
+
+### TestEditionWorkApiShape (3 tests)
+
+Verify `GET /api/editions/{id}` returns `work` as a single object
+(dict), not a list.
+
+| Test | Parameters | Assertions |
+|------|-----------|------------|
+| `test_get_edition_work_is_object` | edition_id=1 | status 200; `work` key present; `work` is dict |
+| `test_get_edition_work_id_matches` | edition_id=1 | API `work.id` == DB `Edition.work_id` |
+| `test_get_edition_work_endpoint` | edition_id=1 | `GET /api/editions/1/work` returns int |
+
+### TestEditionWorkLinkMutations (3 tests)
+
+Verify create, copy, and delete preserve `work_id`.
+
+| Test | Parameters | Assertions |
+|------|-----------|------------|
+| `test_create_edition_sets_work_id` | work_id=test_work | POST 200/201; DB edition.work_id == test_work |
+| `test_copy_edition_preserves_work_id` | original from test_work | copy response 200; copy.work_id == original.work_id |
+| `test_work_delete_removes_editions` | fresh work with one edition | After work DELETE 200: no editions with that work_id remain |
+
+### TestWorkEditionsRelationship (2 tests)
+
+Verify `GET /api/works/{id}` editions list via direct FK.
+
+| Test | Parameters | Assertions |
+|------|-----------|------------|
+| `test_get_work_includes_editions_list` | work_id=1 | status 200; `editions` is non-empty list |
+| `test_work_editions_all_belong_to_work` | work_id=1 | all edition_ids in response have Edition.work_id == 1 in DB |

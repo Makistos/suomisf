@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-01T19:29:52.232592+00:00",
+    "generated_at": "2026-03-01T22:06:20.175903+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/issues/92",
@@ -923,9 +923,9 @@
               "dob": null,
               "dod": null,
               "roles": [
+                "Kirjoittaja",
                 "Toimittaja",
                 "Kansikuva",
-                "Kirjoittaja",
                 "Esiintyy"
               ],
               "nationality": {
@@ -1492,8 +1492,8 @@
               "dod": null,
               "roles": [
                 "Kirjoittaja",
-                "Esiintyy",
-                "Kääntäjä"
+                "Kääntäjä",
+                "Esiintyy"
               ],
               "nationality": {
                 "id": 4,
@@ -2336,10 +2336,10 @@
               "dod": null,
               "roles": [
                 "Kirjoittaja",
-                "Kansikuva",
                 "Kääntäjä",
-                "Esiintyy",
-                "Toimittaja"
+                "Toimittaja",
+                "Kansikuva",
+                "Esiintyy"
               ],
               "nationality": {
                 "id": 4,
@@ -2615,9 +2615,9 @@
               "dob": null,
               "dod": null,
               "roles": [
+                "Kirjoittaja",
                 "Toimittaja",
                 "Kansikuva",
-                "Kirjoittaja",
                 "Esiintyy"
               ],
               "nationality": {
@@ -2894,8 +2894,8 @@
               "dob": 1980.0,
               "dod": null,
               "roles": [
-                "Toimittaja",
-                "Kirjoittaja"
+                "Kirjoittaja",
+                "Toimittaja"
               ],
               "nationality": {
                 "id": 4,

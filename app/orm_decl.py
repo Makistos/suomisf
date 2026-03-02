@@ -461,6 +461,8 @@ class Edition(Base):
     misc = Column(String(500))
     imported_string = Column(String(500))
     verified = Column(Boolean, default=False)
+    work_id = Column(Integer, ForeignKey('work.id'),
+                     nullable=True, index=True)
     parts = relationship('Part', backref=backref('parts_lookup'),
                          uselist=True, viewonly=True)
     editors = relationship(
@@ -481,7 +483,8 @@ class Edition(Base):
         secondaryjoin='foreign(EditionContributor.person_id)'
                       ' == Person.id',
         uselist=True, viewonly=True)
-    work = relationship('Work', secondary='part', uselist=True, viewonly=True)
+    work = relationship('Work', foreign_keys=[work_id],
+                        uselist=False, viewonly=True)
     contributions = relationship(
         'EditionContributor',
         primaryjoin='EditionContributor.edition_id == Edition.id',
@@ -622,7 +625,7 @@ class Edition(Base):
         :rtype: str
         """
         retval: str = ''
-        work = self.work[0]
+        work = self.work
 
         retval = edition_popup(self.id, self, html.escape(self.title) +
                                ': ' + self.version_str(), self.version_str())
@@ -1557,12 +1560,10 @@ class Work(Base):
                               uselist=False, viewonly=True)
     editions = relationship(
         'Edition',
-        primaryjoin='and_(Part.work_id == Work.id, \
-                     Part.edition_id == Edition.id, \
-                     Part.shortstory_id == None)',
-        secondary='part', uselist=True,
+        primaryjoin='Edition.work_id == Work.id',
+        foreign_keys='Edition.work_id',
         order_by='Edition.pubyear, Edition.version, Edition.editionnum',
-        viewonly=True)
+        uselist=True, viewonly=True)
     contributions = relationship(
         'WorkContributor',
         primaryjoin='WorkContributor.work_id == Work.id',

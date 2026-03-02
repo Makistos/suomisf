@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-01T19:29:52.232592+00:00",
+    "generated_at": "2026-03-01T22:06:20.175903+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/shorts/1",
@@ -256,192 +256,190 @@
       ],
       "editions": [
         {
-          "work": [
-            {
-              "id": 3493.0,
-              "title": "Isaac Asimov Science Fiction valikoima 1",
-              "orig_title": "Isaac Asimov Science Fiction valikoima 1",
-              "author_str": "Kalvas, Reijo (toim.)",
-              "contributions": [
-                {
-                  "person": {
+          "work": {
+            "id": 3493.0,
+            "title": "Isaac Asimov Science Fiction valikoima 1",
+            "orig_title": "Isaac Asimov Science Fiction valikoima 1",
+            "author_str": "Kalvas, Reijo (toim.)",
+            "contributions": [
+              {
+                "person": {
+                  "id": 732.0,
+                  "name": "Kalvas, Reijo",
+                  "alt_name": "Reijo Kalvas"
+                },
+                "role": {
+                  "id": 3,
+                  "name": "Toimittaja"
+                },
+                "description": null,
+                "real_person": null
+              }
+            ],
+            "editions": [
+              {
+                "editors": [
+                  {
                     "id": 732.0,
                     "name": "Kalvas, Reijo",
-                    "alt_name": "Reijo Kalvas"
-                  },
-                  "role": {
-                    "id": 3,
-                    "name": "Toimittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                }
-              ],
-              "editions": [
-                {
-                  "editors": [
-                    {
+                    "alt_name": "Reijo Kalvas",
+                    "fullname": "",
+                    "image_src": null,
+                    "dob": null,
+                    "dod": null,
+                    "roles": [
+                      "Kääntäjä",
+                      "Toimittaja"
+                    ],
+                    "nationality": {
+                      "id": 4,
+                      "name": "Suomi"
+                    },
+                    "workcount": 4.0,
+                    "storycount": 46,
+                    "other_names": null,
+                    "first_name": "Reijo",
+                    "last_name": "Kalvas",
+                    "image_attr": "",
+                    "bio": null,
+                    "bio_src": "",
+                    "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."
+                  }
+                ],
+                "translators": [
+                  {
+                    "id": 732.0,
+                    "name": "Kalvas, Reijo",
+                    "alt_name": "Reijo Kalvas",
+                    "fullname": "",
+                    "image_src": null,
+                    "dob": null,
+                    "dod": null,
+                    "roles": [
+                      "Kääntäjä",
+                      "Toimittaja"
+                    ],
+                    "nationality": {
+                      "id": 4,
+                      "name": "Suomi"
+                    },
+                    "workcount": 4.0,
+                    "storycount": 46,
+                    "other_names": null,
+                    "first_name": "Reijo",
+                    "last_name": "Kalvas",
+                    "image_attr": "",
+                    "bio": null,
+                    "bio_src": "",
+                    "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."
+                  }
+                ],
+                "contributions": [
+                  {
+                    "person": {
                       "id": 732.0,
                       "name": "Kalvas, Reijo",
-                      "alt_name": "Reijo Kalvas",
-                      "fullname": "",
-                      "image_src": null,
-                      "dob": null,
-                      "dod": null,
-                      "roles": [
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 4.0,
-                      "storycount": 46,
-                      "other_names": null,
-                      "first_name": "Reijo",
-                      "last_name": "Kalvas",
-                      "image_attr": "",
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."
-                    }
-                  ],
-                  "translators": [
-                    {
+                      "alt_name": "Reijo Kalvas"
+                    },
+                    "role": {
+                      "id": 3,
+                      "name": "Toimittaja"
+                    },
+                    "description": null,
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 6090.0,
+                      "name": "Kröger, Antero",
+                      "alt_name": "Antero Kröger"
+                    },
+                    "role": {
+                      "id": 4,
+                      "name": "Kansikuva"
+                    },
+                    "description": "Kannen kuva",
+                    "real_person": null
+                  },
+                  {
+                    "person": {
                       "id": 732.0,
                       "name": "Kalvas, Reijo",
-                      "alt_name": "Reijo Kalvas",
-                      "fullname": "",
-                      "image_src": null,
-                      "dob": null,
-                      "dod": null,
-                      "roles": [
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 4.0,
-                      "storycount": 46,
-                      "other_names": null,
-                      "first_name": "Reijo",
-                      "last_name": "Kalvas",
-                      "image_attr": "",
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."
-                    }
-                  ],
-                  "contributions": [
-                    {
-                      "person": {
-                        "id": 732.0,
-                        "name": "Kalvas, Reijo",
-                        "alt_name": "Reijo Kalvas"
-                      },
-                      "role": {
-                        "id": 3,
-                        "name": "Toimittaja"
-                      },
-                      "description": null,
-                      "real_person": null
+                      "alt_name": "Reijo Kalvas"
                     },
-                    {
-                      "person": {
-                        "id": 6090.0,
-                        "name": "Kröger, Antero",
-                        "alt_name": "Antero Kröger"
-                      },
-                      "role": {
-                        "id": 4,
-                        "name": "Kansikuva"
-                      },
-                      "description": "Kannen kuva",
-                      "real_person": null
+                    "role": {
+                      "id": 2,
+                      "name": "Kääntäjä"
                     },
-                    {
-                      "person": {
-                        "id": 732.0,
-                        "name": "Kalvas, Reijo",
-                        "alt_name": "Reijo Kalvas"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": null,
-                      "real_person": null
-                    }
-                  ],
-                  "images": [
-                    {
-                      "id": 4674,
-                      "image_src": "/static/images/books/Isaac_Asimov_science_fiction_valikoima_1_1987_1p.jpg",
-                      "image_attr": null
-                    }
-                  ],
-                  "publisher": {
-                    "id": 379,
-                    "name": "Viihdeviikarit"
-                  },
-                  "owners": [
-                    {
-                      "id": 2.0,
-                      "name": "mep"
-                    }
-                  ],
-                  "wishlisted": [],
-                  "id": 3987,
-                  "title": "Isaac Asimov Science Fiction valikoima 1",
-                  "subtitle": "",
-                  "pubyear": 1987,
-                  "editionnum": 1,
-                  "version": null,
-                  "isbn": "951-611-148-3",
-                  "printedin": "Loviisa",
-                  "pubseriesnum": null,
-                  "coll_info": "",
-                  "pages": 187,
-                  "size": 19,
-                  "dustcover": 1,
-                  "coverimage": 1,
-                  "misc": "",
-                  "imported_string": "",
-                  "verified": true
-                }
-              ],
-              "genres": [
-                {
-                  "id": 5,
-                  "name": "Science Fiction",
-                  "abbr": "SF"
+                    "description": null,
+                    "real_person": null
+                  }
+                ],
+                "images": [
+                  {
+                    "id": 4674,
+                    "image_src": "/static/images/books/Isaac_Asimov_science_fiction_valikoima_1_1987_1p.jpg",
+                    "image_attr": null
+                  }
+                ],
+                "publisher": {
+                  "id": 379,
+                  "name": "Viihdeviikarit"
                 },
-                {
-                  "id": 16,
-                  "name": "Kokoelma",
-                  "abbr": "kok"
-                }
-              ],
-              "bookseries": null,
-              "tags": [],
-              "language_name": {
-                "id": 1,
-                "name": "englanti"
+                "owners": [
+                  {
+                    "id": 2.0,
+                    "name": "mep"
+                  }
+                ],
+                "wishlisted": [],
+                "id": 3987,
+                "title": "Isaac Asimov Science Fiction valikoima 1",
+                "subtitle": "",
+                "pubyear": 1987,
+                "editionnum": 1,
+                "version": null,
+                "isbn": "951-611-148-3",
+                "printedin": "Loviisa",
+                "pubseriesnum": null,
+                "coll_info": "",
+                "pages": 187,
+                "size": 19,
+                "dustcover": 1,
+                "coverimage": 1,
+                "misc": "",
+                "imported_string": "",
+                "verified": true
+              }
+            ],
+            "genres": [
+              {
+                "id": 5,
+                "name": "Science Fiction",
+                "abbr": "SF"
               },
-              "type": 2.0,
-              "subtitle": "",
-              "pubyear": 1987,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "Isaac Asimov's Science Fiction -lehden novelleista koottu tieteislukemisto.",
-              "description": "",
-              "descr_attr": null,
-              "imported_string": ""
-            }
-          ],
+              {
+                "id": 16,
+                "name": "Kokoelma",
+                "abbr": "kok"
+              }
+            ],
+            "bookseries": null,
+            "tags": [],
+            "language_name": {
+              "id": 1,
+              "name": "englanti"
+            },
+            "type": 2.0,
+            "subtitle": "",
+            "pubyear": 1987,
+            "bookseriesnum": "",
+            "bookseriesorder": null,
+            "misc": "Isaac Asimov's Science Fiction -lehden novelleista koottu tieteislukemisto.",
+            "description": "",
+            "descr_attr": null,
+            "imported_string": ""
+          },
           "editors": [
             {
               "id": 732.0,
@@ -639,192 +637,190 @@
             "issues": [],
             "editions": [
               {
-                "work": [
-                  {
-                    "id": 3493.0,
-                    "title": "Isaac Asimov Science Fiction valikoima 1",
-                    "orig_title": "Isaac Asimov Science Fiction valikoima 1",
-                    "author_str": "Kalvas, Reijo (toim.)",
-                    "contributions": [
-                      {
-                        "person": {
+                "work": {
+                  "id": 3493.0,
+                  "title": "Isaac Asimov Science Fiction valikoima 1",
+                  "orig_title": "Isaac Asimov Science Fiction valikoima 1",
+                  "author_str": "Kalvas, Reijo (toim.)",
+                  "contributions": [
+                    {
+                      "person": {
+                        "id": 732.0,
+                        "name": "Kalvas, Reijo",
+                        "alt_name": "Reijo Kalvas"
+                      },
+                      "role": {
+                        "id": 3,
+                        "name": "Toimittaja"
+                      },
+                      "description": null,
+                      "real_person": null
+                    }
+                  ],
+                  "editions": [
+                    {
+                      "editors": [
+                        {
                           "id": 732.0,
                           "name": "Kalvas, Reijo",
-                          "alt_name": "Reijo Kalvas"
-                        },
-                        "role": {
-                          "id": 3,
-                          "name": "Toimittaja"
-                        },
-                        "description": null,
-                        "real_person": null
-                      }
-                    ],
-                    "editions": [
-                      {
-                        "editors": [
-                          {
+                          "alt_name": "Reijo Kalvas",
+                          "fullname": "",
+                          "image_src": null,
+                          "dob": null,
+                          "dod": null,
+                          "roles": [
+                            "Kääntäjä",
+                            "Toimittaja"
+                          ],
+                          "nationality": {
+                            "id": 4,
+                            "name": "Suomi"
+                          },
+                          "workcount": 4.0,
+                          "storycount": 46,
+                          "other_names": null,
+                          "first_name": "Reijo",
+                          "last_name": "Kalvas",
+                          "image_attr": "",
+                          "bio": null,
+                          "bio_src": "",
+                          "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."
+                        }
+                      ],
+                      "translators": [
+                        {
+                          "id": 732.0,
+                          "name": "Kalvas, Reijo",
+                          "alt_name": "Reijo Kalvas",
+                          "fullname": "",
+                          "image_src": null,
+                          "dob": null,
+                          "dod": null,
+                          "roles": [
+                            "Kääntäjä",
+                            "Toimittaja"
+                          ],
+                          "nationality": {
+                            "id": 4,
+                            "name": "Suomi"
+                          },
+                          "workcount": 4.0,
+                          "storycount": 46,
+                          "other_names": null,
+                          "first_name": "Reijo",
+                          "last_name": "Kalvas",
+                          "image_attr": "",
+                          "bio": null,
+                          "bio_src": "",
+                          "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."
+                        }
+                      ],
+                      "contributions": [
+                        {
+                          "person": {
                             "id": 732.0,
                             "name": "Kalvas, Reijo",
-                            "alt_name": "Reijo Kalvas",
-                            "fullname": "",
-                            "image_src": null,
-                            "dob": null,
-                            "dod": null,
-                            "roles": [
-                              "Kääntäjä",
-                              "Toimittaja"
-                            ],
-                            "nationality": {
-                              "id": 4,
-                              "name": "Suomi"
-                            },
-                            "workcount": 4.0,
-                            "storycount": 46,
-                            "other_names": null,
-                            "first_name": "Reijo",
-                            "last_name": "Kalvas",
-                            "image_attr": "",
-                            "bio": null,
-                            "bio_src": "",
-                            "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."
-                          }
-                        ],
-                        "translators": [
-                          {
+                            "alt_name": "Reijo Kalvas"
+                          },
+                          "role": {
+                            "id": 3,
+                            "name": "Toimittaja"
+                          },
+                          "description": null,
+                          "real_person": null
+                        },
+                        {
+                          "person": {
+                            "id": 6090.0,
+                            "name": "Kröger, Antero",
+                            "alt_name": "Antero Kröger"
+                          },
+                          "role": {
+                            "id": 4,
+                            "name": "Kansikuva"
+                          },
+                          "description": "Kannen kuva",
+                          "real_person": null
+                        },
+                        {
+                          "person": {
                             "id": 732.0,
                             "name": "Kalvas, Reijo",
-                            "alt_name": "Reijo Kalvas",
-                            "fullname": "",
-                            "image_src": null,
-                            "dob": null,
-                            "dod": null,
-                            "roles": [
-                              "Kääntäjä",
-                              "Toimittaja"
-                            ],
-                            "nationality": {
-                              "id": 4,
-                              "name": "Suomi"
-                            },
-                            "workcount": 4.0,
-                            "storycount": 46,
-                            "other_names": null,
-                            "first_name": "Reijo",
-                            "last_name": "Kalvas",
-                            "image_attr": "",
-                            "bio": null,
-                            "bio_src": "",
-                            "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."
-                          }
-                        ],
-                        "contributions": [
-                          {
-                            "person": {
-                              "id": 732.0,
-                              "name": "Kalvas, Reijo",
-                              "alt_name": "Reijo Kalvas"
-                            },
-                            "role": {
-                              "id": 3,
-                              "name": "Toimittaja"
-                            },
-                            "description": null,
-                            "real_person": null
+                            "alt_name": "Reijo Kalvas"
                           },
-                          {
-                            "person": {
-                              "id": 6090.0,
-                              "name": "Kröger, Antero",
-                              "alt_name": "Antero Kröger"
-                            },
-                            "role": {
-                              "id": 4,
-                              "name": "Kansikuva"
-                            },
-                            "description": "Kannen kuva",
-                            "real_person": null
+                          "role": {
+                            "id": 2,
+                            "name": "Kääntäjä"
                           },
-                          {
-                            "person": {
-                              "id": 732.0,
-                              "name": "Kalvas, Reijo",
-                              "alt_name": "Reijo Kalvas"
-                            },
-                            "role": {
-                              "id": 2,
-                              "name": "Kääntäjä"
-                            },
-                            "description": null,
-                            "real_person": null
-                          }
-                        ],
-                        "images": [
-                          {
-                            "id": 4674,
-                            "image_src": "/static/images/books/Isaac_Asimov_science_fiction_valikoima_1_1987_1p.jpg",
-                            "image_attr": null
-                          }
-                        ],
-                        "publisher": {
-                          "id": 379,
-                          "name": "Viihdeviikarit"
-                        },
-                        "owners": [
-                          {
-                            "id": 2.0,
-                            "name": "mep"
-                          }
-                        ],
-                        "wishlisted": [],
-                        "id": 3987,
-                        "title": "Isaac Asimov Science Fiction valikoima 1",
-                        "subtitle": "",
-                        "pubyear": 1987,
-                        "editionnum": 1,
-                        "version": null,
-                        "isbn": "951-611-148-3",
-                        "printedin": "Loviisa",
-                        "pubseriesnum": null,
-                        "coll_info": "",
-                        "pages": 187,
-                        "size": 19,
-                        "dustcover": 1,
-                        "coverimage": 1,
-                        "misc": "",
-                        "imported_string": "",
-                        "verified": true
-                      }
-                    ],
-                    "genres": [
-                      {
-                        "id": 5,
-                        "name": "Science Fiction",
-                        "abbr": "SF"
+                          "description": null,
+                          "real_person": null
+                        }
+                      ],
+                      "images": [
+                        {
+                          "id": 4674,
+                          "image_src": "/static/images/books/Isaac_Asimov_science_fiction_valikoima_1_1987_1p.jpg",
+                          "image_attr": null
+                        }
+                      ],
+                      "publisher": {
+                        "id": 379,
+                        "name": "Viihdeviikarit"
                       },
-                      {
-                        "id": 16,
-                        "name": "Kokoelma",
-                        "abbr": "kok"
-                      }
-                    ],
-                    "bookseries": null,
-                    "tags": [],
-                    "language_name": {
-                      "id": 1,
-                      "name": "englanti"
+                      "owners": [
+                        {
+                          "id": 2.0,
+                          "name": "mep"
+                        }
+                      ],
+                      "wishlisted": [],
+                      "id": 3987,
+                      "title": "Isaac Asimov Science Fiction valikoima 1",
+                      "subtitle": "",
+                      "pubyear": 1987,
+                      "editionnum": 1,
+                      "version": null,
+                      "isbn": "951-611-148-3",
+                      "printedin": "Loviisa",
+                      "pubseriesnum": null,
+                      "coll_info": "",
+                      "pages": 187,
+                      "size": 19,
+                      "dustcover": 1,
+                      "coverimage": 1,
+                      "misc": "",
+                      "imported_string": "",
+                      "verified": true
+                    }
+                  ],
+                  "genres": [
+                    {
+                      "id": 5,
+                      "name": "Science Fiction",
+                      "abbr": "SF"
                     },
-                    "type": 2.0,
-                    "subtitle": "",
-                    "pubyear": 1987,
-                    "bookseriesnum": "",
-                    "bookseriesorder": null,
-                    "misc": "Isaac Asimov's Science Fiction -lehden novelleista koottu tieteislukemisto.",
-                    "description": "",
-                    "descr_attr": null,
-                    "imported_string": ""
-                  }
-                ],
+                    {
+                      "id": 16,
+                      "name": "Kokoelma",
+                      "abbr": "kok"
+                    }
+                  ],
+                  "bookseries": null,
+                  "tags": [],
+                  "language_name": {
+                    "id": 1,
+                    "name": "englanti"
+                  },
+                  "type": 2.0,
+                  "subtitle": "",
+                  "pubyear": 1987,
+                  "bookseriesnum": "",
+                  "bookseriesorder": null,
+                  "misc": "Isaac Asimov's Science Fiction -lehden novelleista koottu tieteislukemisto.",
+                  "description": "",
+                  "descr_attr": null,
+                  "imported_string": ""
+                },
                 "editors": [
                   {
                     "id": 732.0,

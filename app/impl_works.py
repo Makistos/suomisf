@@ -339,10 +339,7 @@ def search_works(session: Any, searchwords: List[str]) -> SearchResult:
                         Work.orig_title.ilike('%' + lower_search + '%') |
                         Work.misc.ilike('%' + lower_search + '%') |
                         Work.description.ilike('%' + lower_search + '%'))\
-                .join(Part)\
-                .filter(Part.work_id == Work.id)\
-                .join(Edition)\
-                .filter(Edition.id == Part.edition_id)\
+                .join(Edition, Edition.work_id == Work.id)\
                 .filter(Edition.title.ilike('%' + lower_search + '%') |
                         Edition.subtitle.ilike('%' + lower_search + '%'))\
                 .order_by(Work.title)\
@@ -432,11 +429,9 @@ def search_books(params: Dict[str, str]) -> ResponseType:
                ['printyear_first', 'printyear_last']):
             # Create subquery to get first editions
             first_editions = session.query(
-                Part.work_id,
+                Edition.work_id,
                 func.min(Edition.id).label('first_edition_id')
-            ).join(
-                Edition, Part.edition_id == Edition.id
-            ).group_by(Part.work_id).subquery()
+            ).group_by(Edition.work_id).subquery()
 
             # Join with first editions only
             query = query.join(
@@ -1188,9 +1183,7 @@ def work_delete(work_id: int) -> ResponseType:
     # Delete everything related to the work
     try:
         editions = session.query(Edition)\
-            .join(Part)\
-            .filter(Part.work_id == work_id)\
-            .filter(Part.edition_id == Edition.id)\
+            .filter(Edition.work_id == work_id)\
             .all()
     except SQLAlchemyError as exp:
         app.logger.error(f'Exception in WorkDelete() deleting editions: {exp}')
@@ -1246,9 +1239,7 @@ def get_work_shorts(work_id: int) -> ResponseType:
     session = new_session()
     try:
         first_edition = session.query(Edition)\
-            .join(Part, Part.edition_id == Edition.id)\
-            .filter(Part.work_id == work_id)\
-            .filter(Part.shortstory_id.is_(None))\
+            .filter(Edition.work_id == work_id)\
             .filter(Edition.editionnum == 1)\
             .filter(or_(Edition.version == 1,
                         Edition.version.is_(None)))\
@@ -1297,11 +1288,8 @@ def save_work_shorts(params: Any) -> ResponseType:
     try:
         work_edition_ids = [
             row[0] for row in
-            session.query(Part.edition_id)
-            .filter(Part.work_id == work_id)
-            .filter(Part.shortstory_id.is_(None))
-            .filter(Part.edition_id.isnot(None))
-            .distinct()
+            session.query(Edition.id)
+            .filter(Edition.work_id == work_id)
             .all()
         ]
     except SQLAlchemyError as exp:
