@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-01T22:06:20.175903+00:00",
+    "generated_at": "2026-03-02T15:55:51.776168+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/people/5",
@@ -18,9 +18,6 @@
         "image_src": null,
         "dob": 1907.0,
         "dod": 1990.0,
-        "roles": [
-          "Kansikuva"
-        ],
         "nationality": {
           "id": 4,
           "name": "Suomi"
@@ -43,9 +40,6 @@
         "image_src": null,
         "dob": 1982.0,
         "dod": null,
-        "roles": [
-          "Kansikuva"
-        ],
         "nationality": {
           "id": 8,
           "name": "Ranska"
@@ -68,9 +62,6 @@
         "image_src": null,
         "dob": 1991.0,
         "dod": null,
-        "roles": [
-          "Kirjoittaja"
-        ],
         "nationality": {
           "id": 8,
           "name": "Ranska"
@@ -93,9 +84,6 @@
         "image_src": null,
         "dob": null,
         "dod": null,
-        "roles": [
-          "Kansikuva"
-        ],
         "nationality": {
           "id": 4,
           "name": "Suomi"
@@ -118,9 +106,6 @@
         "image_src": null,
         "dob": 1951.0,
         "dod": null,
-        "roles": [
-          "Kirjoittaja"
-        ],
         "nationality": {
           "id": 4,
           "name": "Suomi"

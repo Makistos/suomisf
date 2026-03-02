@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-01T22:06:20.175903+00:00",
+    "generated_at": "2026-03-02T15:55:51.776168+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/frontpagedata",
@@ -10,12 +10,48 @@
   "response": {
     "status_code": 200,
     "data": {
-      "works": 6889,
-      "editions": 9808,
+      "works": 6890,
+      "editions": 9809,
       "shorts": 9288,
       "magazines": 57,
       "covers": 9120,
       "latest": [
+        {
+          "images": [],
+          "work": {
+            "id": 6935,
+            "title": "testikirja",
+            "subtitle": "",
+            "orig_title": "",
+            "pubyear": 2000,
+            "bookseriesnum": "",
+            "bookseriesorder": null,
+            "misc": "",
+            "description": null,
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Vainikainen, Jussi"
+          },
+          "owners": [],
+          "wishlisted": [],
+          "id": 9898,
+          "title": "testikirja",
+          "subtitle": "",
+          "pubyear": 2000,
+          "editionnum": 1,
+          "version": 1,
+          "isbn": null,
+          "printedin": null,
+          "pubseriesnum": null,
+          "coll_info": null,
+          "pages": null,
+          "size": null,
+          "dustcover": 1,
+          "coverimage": 1,
+          "misc": null,
+          "imported_string": null,
+          "verified": false
+        },
         {
           "images": [
             {
@@ -140,48 +176,6 @@
           "coverimage": 3,
           "misc": "",
           "imported_string": "\n\n2.laitos: <b>Tarzan ja kultakaupunki</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1973.",
-          "verified": false
-        },
-        {
-          "images": [
-            {
-              "id": 9430,
-              "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzaninkaksoisolento_1p.jpg",
-              "image_attr": null
-            }
-          ],
-          "work": {
-            "id": 4778,
-            "title": "Tarzanin kaksoisolento",
-            "subtitle": "",
-            "orig_title": "Tarzan and the Lion Man",
-            "pubyear": 1934,
-            "bookseriesnum": "16",
-            "bookseriesorder": 16,
-            "misc": "",
-            "description": "",
-            "descr_attr": null,
-            "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF].",
-            "author_str": "Burroughs, Edgar Rice"
-          },
-          "owners": [],
-          "wishlisted": [],
-          "id": 9893,
-          "title": "Tarzanin kaksoisolento",
-          "subtitle": "",
-          "pubyear": 1952,
-          "editionnum": 3,
-          "version": null,
-          "isbn": "",
-          "printedin": null,
-          "pubseriesnum": null,
-          "coll_info": "",
-          "pages": 208,
-          "size": 20,
-          "dustcover": 1,
-          "coverimage": 1,
-          "misc": "",
-          "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF].",
           "verified": false
         }
       ]

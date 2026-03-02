@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-01T22:06:20.175903+00:00",
+    "generated_at": "2026-03-02T15:55:51.776168+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/shorts/406",
@@ -19,10 +19,6 @@
           "image_src": null,
           "dob": 1809.0,
           "dod": 1849.0,
-          "roles": [
-            "Kirjoittaja",
-            "Esiintyy"
-          ],
           "nationality": {
             "id": 3,
             "name": "Yhdysvallat"
@@ -47,9 +43,6 @@
           "image_src": null,
           "dob": 1899.0,
           "dod": 1980.0,
-          "roles": [
-            "Kääntäjä"
-          ],
           "nationality": {
             "id": 4,
             "name": "Suomi"
@@ -100,9 +93,6 @@
                   "image_src": null,
                   "dob": 1903.0,
                   "dod": 1956.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -125,9 +115,6 @@
                   "image_src": null,
                   "dob": 1935.0,
                   "dod": 2005.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -150,9 +137,6 @@
                   "image_src": null,
                   "dob": 1915.0,
                   "dod": 1961.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -175,9 +159,6 @@
                   "image_src": null,
                   "dob": 1889.0,
                   "dod": 1977.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -200,9 +181,6 @@
                   "image_src": null,
                   "dob": 1899.0,
                   "dod": 1980.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -542,9 +520,6 @@
                   "image_src": null,
                   "dob": 1915.0,
                   "dod": 1961.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -567,9 +542,6 @@
                   "image_src": null,
                   "dob": 1889.0,
                   "dod": 1977.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -592,9 +564,6 @@
                   "image_src": null,
                   "dob": 1899.0,
                   "dod": 1980.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -693,9 +662,6 @@
                   "image_src": null,
                   "dob": 1903.0,
                   "dod": 1956.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -718,9 +684,6 @@
                   "image_src": null,
                   "dob": 1915.0,
                   "dod": 1961.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -743,9 +706,6 @@
                   "image_src": null,
                   "dob": 1889.0,
                   "dod": 1977.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -768,9 +728,6 @@
                   "image_src": null,
                   "dob": 1899.0,
                   "dod": 1980.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -882,9 +839,6 @@
                   "image_src": null,
                   "dob": 1903.0,
                   "dod": 1956.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -907,9 +861,6 @@
                   "image_src": null,
                   "dob": 1915.0,
                   "dod": 1961.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -932,9 +883,6 @@
                   "image_src": null,
                   "dob": 1889.0,
                   "dod": 1977.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -957,9 +905,6 @@
                   "image_src": null,
                   "dob": 1899.0,
                   "dod": 1980.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -1071,9 +1016,6 @@
                   "image_src": null,
                   "dob": 1903.0,
                   "dod": 1956.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -1096,9 +1038,6 @@
                   "image_src": null,
                   "dob": 1889.0,
                   "dod": 1977.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -1121,9 +1060,6 @@
                   "image_src": null,
                   "dob": 1899.0,
                   "dod": 1980.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -1298,9 +1234,6 @@
                   "image_src": null,
                   "dob": 1903.0,
                   "dod": 1956.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -1323,9 +1256,6 @@
                   "image_src": null,
                   "dob": 1899.0,
                   "dod": 1980.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -1608,9 +1538,6 @@
                   "image_src": null,
                   "dob": 1915.0,
                   "dod": 1961.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -1633,9 +1560,6 @@
                   "image_src": null,
                   "dob": 1889.0,
                   "dod": 1977.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -1658,9 +1582,6 @@
                   "image_src": null,
                   "dob": 1899.0,
                   "dod": 1980.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -1759,9 +1680,6 @@
                   "image_src": null,
                   "dob": 1915.0,
                   "dod": 1961.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -1784,9 +1702,6 @@
                   "image_src": null,
                   "dob": 1889.0,
                   "dod": 1977.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -1809,9 +1724,6 @@
                   "image_src": null,
                   "dob": 1899.0,
                   "dod": 1980.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -1904,9 +1816,6 @@
                   "image_src": null,
                   "dob": 1915.0,
                   "dod": 1961.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -1929,9 +1838,6 @@
                   "image_src": null,
                   "dob": 1889.0,
                   "dod": 1977.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -1954,9 +1860,6 @@
                   "image_src": null,
                   "dob": 1899.0,
                   "dod": 1980.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -2049,9 +1952,6 @@
                   "image_src": null,
                   "dob": 1915.0,
                   "dod": 1961.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -2074,9 +1974,6 @@
                   "image_src": null,
                   "dob": 1889.0,
                   "dod": 1977.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -2099,9 +1996,6 @@
                   "image_src": null,
                   "dob": 1899.0,
                   "dod": 1980.0,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -2253,9 +2147,6 @@
                     "image_src": null,
                     "dob": 1903.0,
                     "dod": 1956.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -2278,9 +2169,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -2628,9 +2516,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -2653,9 +2538,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -2678,9 +2560,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -2779,9 +2658,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -2804,9 +2680,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -2829,9 +2702,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -2924,9 +2794,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -2949,9 +2816,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -2974,9 +2838,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -3069,9 +2930,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -3094,9 +2952,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -3119,9 +2974,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -3348,9 +3200,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -3373,9 +3222,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -3398,9 +3244,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -3499,9 +3342,6 @@
                     "image_src": null,
                     "dob": 1903.0,
                     "dod": 1956.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -3524,9 +3364,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -3549,9 +3386,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -3574,9 +3408,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -3688,9 +3519,6 @@
                     "image_src": null,
                     "dob": 1903.0,
                     "dod": 1956.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -3713,9 +3541,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -3738,9 +3563,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -3763,9 +3585,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -3877,9 +3696,6 @@
                     "image_src": null,
                     "dob": 1903.0,
                     "dod": 1956.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -3902,9 +3718,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -3927,9 +3740,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -4208,9 +4018,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -4233,9 +4040,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -4258,9 +4062,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -4359,9 +4160,6 @@
                     "image_src": null,
                     "dob": 1903.0,
                     "dod": 1956.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -4384,9 +4182,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -4409,9 +4204,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -4434,9 +4226,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -4548,9 +4337,6 @@
                     "image_src": null,
                     "dob": 1903.0,
                     "dod": 1956.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -4573,9 +4359,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -4598,9 +4381,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -4623,9 +4403,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -4737,9 +4514,6 @@
                     "image_src": null,
                     "dob": 1903.0,
                     "dod": 1956.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -4762,9 +4536,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -4787,9 +4558,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -5042,9 +4810,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -5067,9 +4832,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -5092,9 +4854,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -5193,9 +4952,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -5218,9 +4974,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -5243,9 +4996,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -5338,9 +5088,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -5363,9 +5110,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -5388,9 +5132,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -5483,9 +5224,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -5508,9 +5246,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -5533,9 +5268,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -5756,9 +5488,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -5781,9 +5510,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -5806,9 +5532,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -5907,9 +5630,6 @@
                     "image_src": null,
                     "dob": 1903.0,
                     "dod": 1956.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -5932,9 +5652,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -5957,9 +5674,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -5982,9 +5696,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -6096,9 +5807,6 @@
                     "image_src": null,
                     "dob": 1903.0,
                     "dod": 1956.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -6121,9 +5829,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -6146,9 +5851,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -6171,9 +5873,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -6285,9 +5984,6 @@
                     "image_src": null,
                     "dob": 1903.0,
                     "dod": 1956.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -6310,9 +6006,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -6335,9 +6028,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -6603,9 +6293,6 @@
                     "image_src": null,
                     "dob": 1903.0,
                     "dod": 1956.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -6628,9 +6315,6 @@
                     "image_src": null,
                     "dob": 1935.0,
                     "dod": 2005.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -6653,9 +6337,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -6678,9 +6359,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -6703,9 +6381,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -7167,9 +6842,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -7192,9 +6864,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -7217,9 +6886,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -7318,9 +6984,6 @@
                     "image_src": null,
                     "dob": 1903.0,
                     "dod": 1956.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -7343,9 +7006,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -7368,9 +7028,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -7393,9 +7050,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -7507,9 +7161,6 @@
                     "image_src": null,
                     "dob": 1903.0,
                     "dod": 1956.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -7532,9 +7183,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -7557,9 +7205,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -7582,9 +7227,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -7696,9 +7338,6 @@
                     "image_src": null,
                     "dob": 1903.0,
                     "dod": 1956.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -7721,9 +7360,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -7746,9 +7382,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -8014,9 +7647,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -8039,9 +7669,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -8064,9 +7691,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -8165,9 +7789,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -8190,9 +7811,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -8215,9 +7833,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -8310,9 +7925,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -8335,9 +7947,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -8360,9 +7969,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -8455,9 +8061,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -8480,9 +8083,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -8505,9 +8105,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -8728,9 +8325,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -8753,9 +8347,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -8778,9 +8369,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -8879,9 +8467,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -8904,9 +8489,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -8929,9 +8511,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -9024,9 +8603,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -9049,9 +8625,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -9074,9 +8647,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -9169,9 +8739,6 @@
                     "image_src": null,
                     "dob": 1915.0,
                     "dod": 1961.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -9194,9 +8761,6 @@
                     "image_src": null,
                     "dob": 1889.0,
                     "dod": 1977.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -9219,9 +8783,6 @@
                     "image_src": null,
                     "dob": 1899.0,
                     "dod": 1980.0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"

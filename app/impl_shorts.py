@@ -14,9 +14,8 @@ from app.impl_logs import log_changes
 from app.route_helpers import new_session
 from app.orm_decl import (Issue, Magazine, ShortStory, StoryTag, StoryType,
                           StoryGenre,
-                          Language, Part, Awarded, IssueContent,
-                          EditionShortStory, StoryContributor,
-                          Contributor, Person)
+                          Language, Awarded, IssueContent,
+                          EditionShortStory, StoryContributor, Person)
 from app.model_shortsearch import ShortSchemaForSearch
 from app.model import ShortSchema, StoryTypeSchema, ShortBriefSchema
 from app.impl_contributors import (update_short_contributors,
@@ -625,21 +624,6 @@ def story_delete(short_id: int) -> ResponseType:
     session.query(EditionShortStory)\
         .filter(EditionShortStory.shortstory_id == short_id)\
         .delete()
-
-    # Delete remaining Part-based contributors (for work links)
-    contributors = session.query(Contributor)\
-        .join(Part)\
-        .filter(Part.id == Contributor.part_id)\
-        .filter(Part.shortstory_id == short_id)\
-        .all()
-    for contrib in contributors:
-        session.delete(contrib)
-
-    parts = session.query(Part)\
-        .filter(Part.shortstory_id == short_id)\
-        .all()
-    for part in parts:
-        session.delete(part)
 
     session.delete(story)
 

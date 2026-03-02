@@ -16,14 +16,12 @@ from app.orm_decl import (
     Edition,
     EditionContributor,
     EditionShortStory,
-    Part,
     User,
     Work,
     BindingType,
     Format,
     Publisher,
     Pubseries,
-    Contributor,
     EditionImage,
     EditionLink,
     EditionPrice,
@@ -401,20 +399,7 @@ def create_edition(params: Any) -> ResponseType:
         return ResponseType("Tietokantavirhe.",
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    # Create Part. This requires edition to exist.
-    part = Part()
-    part.edition_id = edition.id
-    part.work_id = work_id
-    try:
-        session.add(part)
-        session.commit()
-    except SQLAlchemyError as e:
-        session.rollback()
-        app.logger.error(f"{e}")
-        return ResponseType("Tietokantavirhe.",
-                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
-
-    # Contributors require a part.
+    # Contributors
     if "contributors" in data:
         contributors = get_work_contributors(session, edition.work_id)
         for contrib in data["contributors"]:
@@ -741,11 +726,6 @@ def delete_edition(session: Any, edition_id: int) -> bool:  # noqa: C901
         bool: True if the edition was successfully deleted, False otherwise.
     """
     try:
-        parts = session.query(Part).filter(Part.edition_id == edition_id).all()
-        for part in parts:
-            session.query(Contributor)\
-              .filter(Contributor.part_id == part.id).delete()
-            session.delete(part)
         session.query(EditionImage).filter(
             EditionImage.edition_id == edition_id
         ).delete()
@@ -1480,37 +1460,6 @@ def copy_edition(edition_id: int) -> ResponseType:
 
         session.add(new_edition)
         session.flush()  # Get the new edition ID
-
-        # Create new parts based on original parts.
-        # Only work-level contributors (authors, role 1) are
-        # copied from Parts; edition contributors (roles 2,3,4,5,7)
-        # are now stored in EditionContributor and copied separately.
-        work_level_roles = {1, 6}
-        for original_part in original_edition.parts:
-            new_part = Part(
-                edition_id=new_edition.id,
-                work_id=original_part.work_id,
-                shortstory_id=original_part.shortstory_id,
-                order_num=original_part.order_num,
-                title=original_part.title
-            )
-            session.add(new_part)
-            session.flush()  # Get the new part ID
-
-            # Copy only work-level contributors from Part
-            contributors = session.query(Contributor)\
-                .filter_by(part_id=original_part.id)\
-                .filter(Contributor.role_id.in_(work_level_roles))\
-                .all()
-            for original_contributor in contributors:
-                new_contributor = Contributor(
-                    part_id=new_part.id,
-                    person_id=original_contributor.person_id,
-                    role_id=original_contributor.role_id,
-                    real_person_id=original_contributor.real_person_id,
-                    description=original_contributor.description
-                )
-                session.add(new_contributor)
 
         # Copy edition contributors (roles 2,3,4,5,7)
         original_ecs = session.query(EditionContributor)\

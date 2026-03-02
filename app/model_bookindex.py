@@ -4,10 +4,10 @@ from marshmallow import fields
 
 from app import ma
 from app.model import (LanguageSchema, PersonBriefSchema)
-from app.orm_decl import (Bookseries, Contributor, ContributorRole, Edition,
+from app.orm_decl import (Bookseries, ContributorRole, Edition,
                           EditionImage, Genre, Person,
                           Publisher, Pubseries, Tag,
-                          Work, WorkType)
+                          Work, WorkContributor, WorkType)
 
 
 class BookIndexPubseriesSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -78,7 +78,7 @@ class BookIndexWorkContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     """ Work contributor schema. """
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
-        model = Contributor
+        model = WorkContributor
     person = fields.Nested(BookIndexPersonSchema())
     # person = fields.Nested(BookIndexPersonSchema(
     #     only=('id', 'name', 'alt_name')))

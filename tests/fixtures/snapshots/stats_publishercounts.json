@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-01T22:06:20.175903+00:00",
+    "generated_at": "2026-03-02T15:55:51.776168+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/publishercounts",
@@ -15,7 +15,7 @@
         "name": "WSOY",
         "fullname": "Werner Söderström Oy",
         "genres": {
-          "F": 504,
+          "F": 505,
           "K": 91,
           "Paleof": 41,
           "PF": 45,
@@ -34,7 +34,7 @@
           "lF": 387,
           "R": 8
         },
-        "total": 2128
+        "total": 2129
       },
       {
         "id": 318,

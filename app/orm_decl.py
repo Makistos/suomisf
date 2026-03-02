@@ -346,22 +346,6 @@ class BookseriesLink(Base):
     description = Column(String(100))
 
 
-class Contributor(Base):
-    """ Contributor table. """
-    __tablename__ = 'contributor'
-    part_id = Column(Integer, ForeignKey('part.id'), nullable=False,
-                     primary_key=True)
-    person_id = Column(Integer, ForeignKey('person.id'), nullable=False,
-                       primary_key=True)
-    role_id = Column(Integer, ForeignKey('contributorrole.id'),
-                     nullable=False, primary_key=True)
-    real_person_id = Column(Integer, ForeignKey('person.id'))
-    description = Column(String(50))
-    person = relationship('Person', foreign_keys=[person_id])
-    parts = relationship("Part", backref=backref("part2_assoc"), viewonly=True)
-    role = relationship('ContributorRole', viewonly=True)
-    real_person = relationship('Person', foreign_keys=[real_person_id])
-
 
 class EditionContributor(Base):
     """ Dedicated contributor table for editions. """
@@ -463,8 +447,6 @@ class Edition(Base):
     verified = Column(Boolean, default=False)
     work_id = Column(Integer, ForeignKey('work.id'),
                      nullable=True, index=True)
-    parts = relationship('Part', backref=backref('parts_lookup'),
-                         uselist=True, viewonly=True)
     editors = relationship(
         'Person',
         secondary='suomisf.editioncontributor',
@@ -904,47 +886,6 @@ class Omnibus(Base):
                         uselist=False, viewonly=True)
 
 
-class Part(Base):
-    ''' Part is most often representing a short story. So a collection
-        consists of a number of parts, each representing one story.
-        These are often published in different collections so there is
-        no direct link between edition, part and work. Part might have
-        been published in a magazine, for instance.
-
-        Part is also used in cases where either the original work has
-        been split into several volumes or several works have been combined
-        into one volume. In the first case Work has one row while Edition and
-        Part have as many rows as there are volumes. In the second case
-        Work and Part have multiple rows and Edition has one.
-    '''
-    __tablename__ = 'part'
-    id = Column(Integer, primary_key=True)
-    edition_id = Column(Integer, ForeignKey(
-        'edition.id'), nullable=True, index=True)
-    work_id = Column(Integer, ForeignKey('work.id'), nullable=True, index=True)
-    shortstory_id = Column(Integer, ForeignKey(
-        'shortstory.id'), nullable=True, index=True)
-    # For short stories, order number in a collection
-    order_num = Column(Integer)
-    # Title is repeated from edition in the simple case but required for
-    # e.g. collections.
-    title = Column(String(500))
-    authors = relationship(
-        'Person',
-        secondary='contributor',
-        foreign_keys=[Contributor.part_id,
-                      Contributor.person_id,
-                      Contributor.role_id],
-        uselist=True, viewonly=True)
-    # translators = relationship(
-    #     'Person', secondary='translator', uselist=True, viewonly=True)
-    edition = relationship('Edition', backref=backref(
-        'edition_assoc'), viewonly=True)
-    work = relationship('Work', backref=backref('work_assoc'), viewonly=True)
-    shortstory = relationship('ShortStory',
-                              backref=backref('shortstory_assoc'),
-                              viewonly=True)
-
 
 class Person(Base):
     """ Person table. """
@@ -1029,35 +970,36 @@ class Person(Base):
             ' StoryContributor.role_id]'
         ),
         uselist=True, viewonly=True)
-    # Author.part_id == Part.id, Part.work_id == Work.id,\
-    # edits = relationship("Edition", secondary='editor', viewonly=True)
     edits = relationship(
         "Edition",
-        secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
-        primaryjoin='and_(Person.id == Contributor.person_id,\
-                     Contributor.part_id == Part.id,\
-                     Contributor.role_id == 3,\
-                     Part.edition_id == Edition.id,\
-                     Part.shortstory_id == None)',
+        secondary='suomisf.editioncontributor',
+        primaryjoin='and_(Person.id == EditionContributor.person_id,\
+                     EditionContributor.role_id == 3)',
+        secondaryjoin='Edition.id == EditionContributor.edition_id',
+        foreign_keys='[EditionContributor.person_id,\
+                       EditionContributor.edition_id,\
+                       EditionContributor.role_id]',
         order_by='Edition.title',
         uselist=True, viewonly=True)
     translations = relationship(
         "Edition",
-        secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
-        primaryjoin='and_(Person.id == Contributor.person_id,\
-                     Contributor.part_id == Part.id,\
-                     Contributor.role_id == 2,\
-                     Part.edition_id == Edition.id,\
-                     Part.shortstory_id == None)',
+        secondary='suomisf.editioncontributor',
+        primaryjoin='and_(Person.id == EditionContributor.person_id,\
+                     EditionContributor.role_id == 2)',
+        secondaryjoin='Edition.id == EditionContributor.edition_id',
+        foreign_keys='[EditionContributor.person_id,\
+                       EditionContributor.edition_id,\
+                       EditionContributor.role_id]',
         order_by='Edition.title',
         uselist=True, viewonly=True)
     editions = relationship(
         "Edition",
-        secondary='join(Part, Contributor, Part.id == Contributor.part_id)',
-        primaryjoin='and_(Person.id == Contributor.person_id,\
-                     Contributor.part_id == Part.id,\
-                     Part.edition_id == Edition.id,\
-                     Part.shortstory_id == None)',
+        secondary='suomisf.editioncontributor',
+        primaryjoin='Person.id == EditionContributor.person_id',
+        secondaryjoin='Edition.id == EditionContributor.edition_id',
+        foreign_keys='[EditionContributor.person_id,\
+                       EditionContributor.edition_id,\
+                       EditionContributor.role_id]',
         order_by='Edition.title',
         uselist=True, viewonly=True)
     chief_editor = relationship(
@@ -1087,13 +1029,6 @@ class Person(Base):
         'Awarded', uselist=True, viewonly=True, order_by='Awarded.year')
     nationality = relationship(
         'Country', foreign_keys=[nationality_id], uselist=False, viewonly=True)
-    roles = relationship(
-        'ContributorRole',
-        secondary='join(Contributor, ContributorRole, \
-                   Contributor.role_id == ContributorRole.id)',
-        primaryjoin="and_(Person.id == Contributor.person_id)",
-        uselist=True, viewonly=True,
-        foreign_keys=[Contributor.person_id, Contributor.role_id])
     wrks = relationship('Work', secondary=lambda: personworks_table)
     awarded = relationship('Awarded', uselist=True, viewonly=True)
     works2 = association_proxy('wrks', 'work')
@@ -1554,8 +1489,6 @@ class Work(Base):
     #     foreign_keys=[Contributor.person_id,
     #                   Contributor.part_id,
     #                   Contributor.role_id])
-    parts = relationship('Part', backref=backref(
-        'part', uselist=True), viewonly=True)
     bookseries = relationship("Bookseries", backref=backref('bookseries'),
                               uselist=False, viewonly=True)
     editions = relationship(

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-01T22:06:20.175903+00:00",
+    "generated_at": "2026-03-02T15:55:51.776168+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/shorts/5",
@@ -20,15 +20,11 @@
             "image_src": null,
             "dob": 1966.0,
             "dod": null,
-            "roles": [
-              "Kirjoittaja",
-              "Kääntäjä"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 0.0,
+            "workcount": 1.0,
             "storycount": 29,
             "other_names": null,
             "first_name": "Jussi",
@@ -77,11 +73,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -223,11 +214,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -379,9 +365,6 @@
             "image_src": null,
             "dob": null,
             "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -802,9 +785,6 @@
             "image_src": null,
             "dob": 1952.0,
             "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -1212,9 +1192,6 @@
             "image_src": null,
             "dob": null,
             "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -1622,9 +1599,6 @@
             "image_src": null,
             "dob": 1951.0,
             "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-01T22:06:20.175903+00:00",
+    "generated_at": "2026-03-02T15:55:51.776168+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/works/shorts/1378",
@@ -20,12 +20,6 @@
             "image_src": null,
             "dob": 1958.0,
             "dod": null,
-            "roles": [
-              "Kirjoittaja",
-              "Kääntäjä",
-              "Toimittaja",
-              "Esiintyy"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -131,12 +125,6 @@
                       "image_src": null,
                       "dob": 1951.0,
                       "dod": 2007.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -159,11 +147,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -186,12 +169,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -214,11 +191,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -241,11 +213,6 @@
                       "image_src": null,
                       "dob": 1941.0,
                       "dod": 2017.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -429,12 +396,6 @@
                 "image_src": null,
                 "dob": 1951.0,
                 "dod": 2007.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -457,11 +418,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -484,12 +440,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -512,11 +462,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -539,11 +484,6 @@
                 "image_src": null,
                 "dob": 1941.0,
                 "dod": 2017.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -1156,9 +1096,6 @@
             "image_src": null,
             "dob": 1945.0,
             "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -1181,9 +1118,6 @@
             "image_src": null,
             "dob": null,
             "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -2183,12 +2117,6 @@
                       "image_src": null,
                       "dob": 1951.0,
                       "dod": 2007.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -2211,11 +2139,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -2238,12 +2161,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -2266,11 +2183,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -2293,11 +2205,6 @@
                       "image_src": null,
                       "dob": 1941.0,
                       "dod": 2017.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -2481,12 +2388,6 @@
                 "image_src": null,
                 "dob": 1951.0,
                 "dod": 2007.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -2509,11 +2410,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -2536,12 +2432,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -2564,11 +2454,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -2591,11 +2476,6 @@
                 "image_src": null,
                 "dob": 1941.0,
                 "dod": 2017.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -2793,9 +2673,6 @@
             "image_src": null,
             "dob": null,
             "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -2901,12 +2778,6 @@
                       "image_src": null,
                       "dob": 1951.0,
                       "dod": 2007.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -2929,11 +2800,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -2956,12 +2822,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -2984,11 +2844,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -3011,11 +2866,6 @@
                       "image_src": null,
                       "dob": 1941.0,
                       "dod": 2017.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -3199,12 +3049,6 @@
                 "image_src": null,
                 "dob": 1951.0,
                 "dod": 2007.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -3227,11 +3071,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -3254,12 +3093,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -3282,11 +3115,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -3309,11 +3137,6 @@
                 "image_src": null,
                 "dob": 1941.0,
                 "dod": 2017.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -3498,9 +3321,6 @@
             "image_src": null,
             "dob": null,
             "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -4339,12 +4159,6 @@
                       "image_src": null,
                       "dob": 1951.0,
                       "dod": 2007.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -4367,11 +4181,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -4394,12 +4203,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -4422,11 +4225,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -4449,11 +4247,6 @@
                       "image_src": null,
                       "dob": 1941.0,
                       "dod": 2017.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -4637,12 +4430,6 @@
                 "image_src": null,
                 "dob": 1951.0,
                 "dod": 2007.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -4665,11 +4452,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -4692,12 +4474,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -4720,11 +4496,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -4747,11 +4518,6 @@
                 "image_src": null,
                 "dob": 1941.0,
                 "dod": 2017.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -4936,9 +4702,6 @@
             "image_src": null,
             "dob": null,
             "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -5777,12 +5540,6 @@
                       "image_src": null,
                       "dob": 1951.0,
                       "dod": 2007.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -5805,11 +5562,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -5832,12 +5584,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -5860,11 +5606,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -5887,11 +5628,6 @@
                       "image_src": null,
                       "dob": 1941.0,
                       "dod": 2017.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -6075,12 +5811,6 @@
                 "image_src": null,
                 "dob": 1951.0,
                 "dod": 2007.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -6103,11 +5833,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -6130,12 +5855,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -6158,11 +5877,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -6185,11 +5899,6 @@
                 "image_src": null,
                 "dob": 1941.0,
                 "dod": 2017.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -6370,11 +6079,6 @@
                       "image_src": null,
                       "dob": 1948.0,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -6488,11 +6192,6 @@
                 "image_src": null,
                 "dob": 1948.0,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -6607,11 +6306,6 @@
             "image_src": null,
             "dob": 1951.0,
             "dod": null,
-            "roles": [
-              "Kirjoittaja",
-              "Kääntäjä",
-              "Toimittaja"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -6717,12 +6411,6 @@
                       "image_src": null,
                       "dob": 1951.0,
                       "dod": 2007.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -6745,11 +6433,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -6772,12 +6455,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -6800,11 +6477,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -6827,11 +6499,6 @@
                       "image_src": null,
                       "dob": 1941.0,
                       "dod": 2017.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -7015,12 +6682,6 @@
                 "image_src": null,
                 "dob": 1951.0,
                 "dod": 2007.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -7043,11 +6704,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -7070,12 +6726,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -7098,11 +6748,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -7125,11 +6770,6 @@
                 "image_src": null,
                 "dob": 1941.0,
                 "dod": 2017.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -7314,9 +6954,6 @@
             "image_src": null,
             "dob": null,
             "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -7422,12 +7059,6 @@
                       "image_src": null,
                       "dob": 1951.0,
                       "dod": 2007.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -7450,11 +7081,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -7477,12 +7103,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -7505,11 +7125,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -7532,11 +7147,6 @@
                       "image_src": null,
                       "dob": 1941.0,
                       "dod": 2017.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -7720,12 +7330,6 @@
                 "image_src": null,
                 "dob": 1951.0,
                 "dod": 2007.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -7748,11 +7352,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -7775,12 +7374,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -7803,11 +7396,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -7830,11 +7418,6 @@
                 "image_src": null,
                 "dob": 1941.0,
                 "dod": 2017.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -8019,9 +7602,6 @@
             "image_src": null,
             "dob": 1945.0,
             "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -8044,9 +7624,6 @@
             "image_src": null,
             "dob": null,
             "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -8313,12 +7890,6 @@
                       "image_src": null,
                       "dob": 1951.0,
                       "dod": 2007.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -8341,11 +7912,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -8368,12 +7934,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -8396,11 +7956,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -8423,11 +7978,6 @@
                       "image_src": null,
                       "dob": 1941.0,
                       "dod": 2017.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -8611,12 +8161,6 @@
                 "image_src": null,
                 "dob": 1951.0,
                 "dod": 2007.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -8639,11 +8183,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -8666,12 +8205,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -8694,11 +8227,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -8721,11 +8249,6 @@
                 "image_src": null,
                 "dob": 1941.0,
                 "dod": 2017.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -8923,9 +8446,6 @@
             "image_src": null,
             "dob": 1936.0,
             "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -9764,12 +9284,6 @@
                       "image_src": null,
                       "dob": 1951.0,
                       "dod": 2007.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -9792,11 +9306,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -9819,12 +9328,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -9847,11 +9350,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -9874,11 +9372,6 @@
                       "image_src": null,
                       "dob": 1941.0,
                       "dod": 2017.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -10062,12 +9555,6 @@
                 "image_src": null,
                 "dob": 1951.0,
                 "dod": 2007.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -10090,11 +9577,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -10117,12 +9599,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -10145,11 +9621,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -10172,11 +9643,6 @@
                 "image_src": null,
                 "dob": 1941.0,
                 "dod": 2017.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -10361,9 +9827,6 @@
             "image_src": null,
             "dob": 1945.0,
             "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -10386,9 +9849,6 @@
             "image_src": null,
             "dob": null,
             "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -11227,12 +10687,6 @@
                       "image_src": null,
                       "dob": 1951.0,
                       "dod": 2007.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -11255,11 +10709,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -11282,12 +10731,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -11310,11 +10753,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -11337,11 +10775,6 @@
                       "image_src": null,
                       "dob": 1941.0,
                       "dod": 2017.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -11525,12 +10958,6 @@
                 "image_src": null,
                 "dob": 1951.0,
                 "dod": 2007.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -11553,11 +10980,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -11580,12 +11002,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -11608,11 +11024,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -11635,11 +11046,6 @@
                 "image_src": null,
                 "dob": 1941.0,
                 "dod": 2017.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -11998,10 +11404,6 @@
             "image_src": null,
             "dob": 1958.0,
             "dod": null,
-            "roles": [
-              "Kirjoittaja",
-              "Esiintyy"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -12808,12 +12210,6 @@
                       "image_src": null,
                       "dob": 1951.0,
                       "dod": 2007.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -12836,11 +12232,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -12863,12 +12254,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -12891,11 +12276,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -12918,11 +12298,6 @@
                       "image_src": null,
                       "dob": 1941.0,
                       "dod": 2017.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -13106,12 +12481,6 @@
                 "image_src": null,
                 "dob": 1951.0,
                 "dod": 2007.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -13134,11 +12503,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -13161,12 +12525,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -13189,11 +12547,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -13216,11 +12569,6 @@
                 "image_src": null,
                 "dob": 1941.0,
                 "dod": 2017.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -13405,10 +12753,6 @@
             "image_src": null,
             "dob": null,
             "dod": null,
-            "roles": [
-              "Kirjoittaja",
-              "Kääntäjä"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -14247,12 +13591,6 @@
                       "image_src": null,
                       "dob": 1951.0,
                       "dod": 2007.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -14275,11 +13613,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -14302,12 +13635,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -14330,11 +13657,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -14357,11 +13679,6 @@
                       "image_src": null,
                       "dob": 1941.0,
                       "dod": 2017.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -14545,12 +13862,6 @@
                 "image_src": null,
                 "dob": 1951.0,
                 "dod": 2007.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -14573,11 +13884,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -14600,12 +13906,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -14628,11 +13928,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -14655,11 +13950,6 @@
                 "image_src": null,
                 "dob": 1941.0,
                 "dod": 2017.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -14844,9 +14134,6 @@
             "image_src": null,
             "dob": 1936.0,
             "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -15685,12 +14972,6 @@
                       "image_src": null,
                       "dob": 1951.0,
                       "dod": 2007.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -15713,11 +14994,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -15740,12 +15016,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -15768,11 +15038,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -15795,11 +15060,6 @@
                       "image_src": null,
                       "dob": 1941.0,
                       "dod": 2017.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -15983,12 +15243,6 @@
                 "image_src": null,
                 "dob": 1951.0,
                 "dod": 2007.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -16011,11 +15265,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -16038,12 +15287,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -16066,11 +15309,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -16093,11 +15331,6 @@
                 "image_src": null,
                 "dob": 1941.0,
                 "dod": 2017.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -16282,10 +15515,6 @@
             "image_src": null,
             "dob": null,
             "dod": null,
-            "roles": [
-              "Kirjoittaja",
-              "Esiintyy"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -16391,12 +15620,6 @@
                       "image_src": null,
                       "dob": 1951.0,
                       "dod": 2007.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -16419,11 +15642,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -16446,12 +15664,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -16474,11 +15686,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -16501,11 +15708,6 @@
                       "image_src": null,
                       "dob": 1941.0,
                       "dod": 2017.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -16689,12 +15891,6 @@
                 "image_src": null,
                 "dob": 1951.0,
                 "dod": 2007.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -16717,11 +15913,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -16744,12 +15935,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -16772,11 +15957,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -16799,11 +15979,6 @@
                 "image_src": null,
                 "dob": 1941.0,
                 "dod": 2017.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -16988,11 +16163,6 @@
             "image_src": null,
             "dob": 1951.0,
             "dod": null,
-            "roles": [
-              "Kirjoittaja",
-              "Kääntäjä",
-              "Toimittaja"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -17831,12 +17001,6 @@
                       "image_src": null,
                       "dob": 1951.0,
                       "dod": 2007.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -17859,11 +17023,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -17886,12 +17045,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -17914,11 +17067,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -17941,11 +17089,6 @@
                       "image_src": null,
                       "dob": 1941.0,
                       "dod": 2017.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -18129,12 +17272,6 @@
                 "image_src": null,
                 "dob": 1951.0,
                 "dod": 2007.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -18157,11 +17294,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -18184,12 +17316,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -18212,11 +17338,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -18239,11 +17360,6 @@
                 "image_src": null,
                 "dob": 1941.0,
                 "dod": 2017.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -18428,9 +17544,6 @@
             "image_src": null,
             "dob": null,
             "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -18536,12 +17649,6 @@
                       "image_src": null,
                       "dob": 1951.0,
                       "dod": 2007.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -18564,11 +17671,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -18591,12 +17693,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -18619,11 +17715,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -18646,11 +17737,6 @@
                       "image_src": null,
                       "dob": 1941.0,
                       "dod": 2017.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -18834,12 +17920,6 @@
                 "image_src": null,
                 "dob": 1951.0,
                 "dod": 2007.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -18862,11 +17942,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -18889,12 +17964,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -18917,11 +17986,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -18944,11 +18008,6 @@
                 "image_src": null,
                 "dob": 1941.0,
                 "dod": 2017.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -19133,12 +18192,6 @@
             "image_src": null,
             "dob": 1958.0,
             "dod": null,
-            "roles": [
-              "Kirjoittaja",
-              "Kääntäjä",
-              "Toimittaja",
-              "Esiintyy"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -19473,12 +18526,6 @@
                       "image_src": null,
                       "dob": 1951.0,
                       "dod": 2007.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -19501,11 +18548,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -19528,12 +18570,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -19556,11 +18592,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -19583,11 +18614,6 @@
                       "image_src": null,
                       "dob": 1941.0,
                       "dod": 2017.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -19771,12 +18797,6 @@
                 "image_src": null,
                 "dob": 1951.0,
                 "dod": 2007.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -19799,11 +18819,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -19826,12 +18841,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -19854,11 +18863,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -19881,11 +18885,6 @@
                 "image_src": null,
                 "dob": 1941.0,
                 "dod": 2017.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -20070,12 +19069,6 @@
             "image_src": null,
             "dob": 1958.0,
             "dod": null,
-            "roles": [
-              "Kirjoittaja",
-              "Kääntäjä",
-              "Toimittaja",
-              "Esiintyy"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -20181,12 +19174,6 @@
                       "image_src": null,
                       "dob": 1951.0,
                       "dod": 2007.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -20209,11 +19196,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -20236,12 +19218,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -20264,11 +19240,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -20291,11 +19262,6 @@
                       "image_src": null,
                       "dob": 1941.0,
                       "dod": 2017.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -20479,12 +19445,6 @@
                 "image_src": null,
                 "dob": 1951.0,
                 "dod": 2007.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -20507,11 +19467,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -20534,12 +19489,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -20562,11 +19511,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -20589,11 +19533,6 @@
                 "image_src": null,
                 "dob": 1941.0,
                 "dod": 2017.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -20778,9 +19717,6 @@
             "image_src": null,
             "dob": 1953.0,
             "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -21619,12 +20555,6 @@
                       "image_src": null,
                       "dob": 1951.0,
                       "dod": 2007.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -21647,11 +20577,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -21674,12 +20599,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -21702,11 +20621,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -21729,11 +20643,6 @@
                       "image_src": null,
                       "dob": 1941.0,
                       "dod": 2017.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -21917,12 +20826,6 @@
                 "image_src": null,
                 "dob": 1951.0,
                 "dod": 2007.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -21945,11 +20848,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -21972,12 +20870,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -22000,11 +20892,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -22027,11 +20914,6 @@
                 "image_src": null,
                 "dob": 1941.0,
                 "dod": 2017.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -22212,12 +21094,6 @@
                       "image_src": null,
                       "dob": 1972.0,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -22318,12 +21194,6 @@
                 "image_src": null,
                 "dob": 1972.0,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -22425,9 +21295,6 @@
             "image_src": null,
             "dob": null,
             "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -23266,12 +22133,6 @@
                       "image_src": null,
                       "dob": 1951.0,
                       "dod": 2007.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -23294,11 +22155,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -23321,12 +22177,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -23349,11 +22199,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -23376,11 +22221,6 @@
                       "image_src": null,
                       "dob": 1941.0,
                       "dod": 2017.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -23564,12 +22404,6 @@
                 "image_src": null,
                 "dob": 1951.0,
                 "dod": 2007.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -23592,11 +22426,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -23619,12 +22448,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -23647,11 +22470,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -23674,11 +22492,6 @@
                 "image_src": null,
                 "dob": 1941.0,
                 "dod": 2017.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -23863,9 +22676,6 @@
             "image_src": null,
             "dob": null,
             "dod": null,
-            "roles": [
-              "Kirjoittaja"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -23971,12 +22781,6 @@
                       "image_src": null,
                       "dob": 1951.0,
                       "dod": 2007.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -23999,11 +22803,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -24026,12 +22825,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -24054,11 +22847,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -24081,11 +22869,6 @@
                       "image_src": null,
                       "dob": 1941.0,
                       "dod": 2017.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -24269,12 +23052,6 @@
                 "image_src": null,
                 "dob": 1951.0,
                 "dod": 2007.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -24297,11 +23074,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -24324,12 +23096,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -24352,11 +23118,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -24379,11 +23140,6 @@
                 "image_src": null,
                 "dob": 1941.0,
                 "dod": 2017.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -24568,11 +23324,6 @@
             "image_src": null,
             "dob": 1944.0,
             "dod": null,
-            "roles": [
-              "Kirjoittaja",
-              "Kääntäjä",
-              "Esiintyy"
-            ],
             "nationality": {
               "id": 4,
               "name": "Suomi"
@@ -25058,12 +23809,6 @@
                       "image_src": null,
                       "dob": 1951.0,
                       "dod": 2007.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -25086,11 +23831,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -25113,12 +23853,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja",
-                        "Esiintyy"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -25141,11 +23875,6 @@
                       "image_src": null,
                       "dob": null,
                       "dod": null,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja",
-                        "Kansikuva"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -25168,11 +23897,6 @@
                       "image_src": null,
                       "dob": 1941.0,
                       "dod": 2017.0,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Kääntäjä",
-                        "Toimittaja"
-                      ],
                       "nationality": {
                         "id": 4,
                         "name": "Suomi"
@@ -25356,12 +24080,6 @@
                 "image_src": null,
                 "dob": 1951.0,
                 "dod": 2007.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -25384,11 +24102,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -25411,12 +24124,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -25439,11 +24146,6 @@
                 "image_src": null,
                 "dob": null,
                 "dod": null,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
@@ -25466,11 +24168,6 @@
                 "image_src": null,
                 "dob": 1941.0,
                 "dod": 2017.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja"
-                ],
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"

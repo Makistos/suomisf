@@ -16,7 +16,7 @@ then apply migrations 001, 002, and 003 to the test DB.
 import pytest
 
 from app.orm_decl import (
-    WorkContributor, Contributor, Part, Person
+    WorkContributor, Person
 )
 from app.route_helpers import new_session
 
@@ -470,44 +470,24 @@ class TestAuthorInWorkContributor(BaseAPITest):
 
 class TestWorkMigrationIntegrity(BaseAPITest):
     """
-    Verifies that the migration SQL correctly populated the
-    WorkContributor table from the existing Contributor+Part data.
+    Verifies that the WorkContributor table was populated by the
+    migration.
     """
 
     def test_migration_count_matches(self, app):
         """
-        The number of rows in suomisf.workcontributor is at least as
-        large as the number of distinct (work_id, person_id, role_id)
-        tuples in contributor+part for work roles (1, 3, 6).
+        The suomisf.workcontributor table must be non-empty after
+        migration (source Contributor+Part tables have been dropped).
 
         Assertions:
-          - workcontributor row count >= source distinct row count
+          - workcontributor row count > 0
         Fixtures: app
         """
-        work_roles = (1, 3, 6)
-
         with app.app_context():
             session = new_session()
-
             wc_count = session.query(WorkContributor).count()
-
-            source_count = (
-                session.query(
-                    Part.work_id,
-                    Contributor.person_id,
-                    Contributor.role_id,
-                )
-                .join(Part, Part.id == Contributor.part_id)
-                .filter(Part.shortstory_id.is_(None))
-                .filter(Part.work_id.isnot(None))
-                .filter(Contributor.role_id.in_(work_roles))
-                .distinct()
-                .count()
-            )
             session.close()
 
-        assert wc_count >= source_count, (
-            f'WorkContributor has {wc_count} rows but source has '
-            f'{source_count} distinct (work,person,role) tuples. '
-            f'Migration may be incomplete.'
+        assert wc_count > 0, (
+            'WorkContributor is empty after migration.'
         )

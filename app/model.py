@@ -4,9 +4,9 @@ from marshmallow import Schema, fields
 from app import ma
 from app.orm_decl import (Article, Award, AwardCategory, Awarded, BindingType,
                           BookCondition, BookseriesLink,
-                          Bookseries, Contributor, ContributorRole, Country,
+                          Bookseries, ContributorRole, Country,
                           Edition, EditionContributor, EditionImage,
-                          Genre, Issue, Language, Log,
+                          Genre, Issue, IssueContributor, Language, Log,
                           Magazine, Omnibus, Person, PersonLink,
                           PublicationSize,
                           Publisher, PublisherLink, Pubseries, ShortStory,
@@ -208,7 +208,6 @@ class PersonBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     image_src = fields.String()
     dob = fields.Number()
     dod = fields.Number()
-    roles = fields.Pluck("self", "name", many=True)
     # nationality = fields.String(attribute='nationalityname')
     nationality = fields.Nested(CountryBriefSchema)
     workcount = fields.Number()
@@ -363,18 +362,6 @@ class IssueBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         model = Issue
     magazine = fields.Nested(MagazineBriefSchema)
 
-
-class ContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
-    """ Contributor schema. """
-    class Meta:
-        """ Metadata for SQLAlchemyAutoSchema. """
-        model = Contributor
-    person = fields.Nested(PersonBriefSchema(only=('id', 'name', 'alt_name')))
-    role = fields.Nested(ContributorRoleSchema)
-    description = fields.String()
-    real_person = fields.Nested(
-        lambda: PersonBriefSchema(only=('id', 'name',
-                                        'alt_name')))
 
 
 class StoryContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -652,7 +639,7 @@ class IssueSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     articles = ma.List(fields.Nested(ArticleBriefSchema()))
     stories = ma.List(fields.Nested(ShortBriefSchema()))
     magazine = fields.Nested(MagazineBriefSchema)
-    contributors = ma.List(fields.Nested(ContributorSchema))
+    contributors = ma.List(fields.Nested(lambda: IssueContributorSchema()))
 
 
 class MagazineSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -687,7 +674,7 @@ class IssueContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     """ Issue contributor schema for person contributions. """
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
-        model = Contributor
+        model = IssueContributor
     person = fields.Nested(PersonBriefSchema(only=('id', 'name', 'alt_name')))
     role = fields.Nested(ContributorRoleSchema)
     description = fields.String()

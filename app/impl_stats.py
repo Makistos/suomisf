@@ -7,8 +7,8 @@ from marshmallow import exceptions
 from app.impl import ResponseType
 from app.route_helpers import new_session
 from app.orm_decl import (
-    Genre, Work, WorkGenre, Edition, Part, Publisher,
-    Person, Contributor, ContributorRole, Issue, Language, BindingType,
+    Genre, Work, WorkGenre, WorkContributor, Edition, Publisher,
+    Person, ContributorRole, Issue, Language, BindingType,
     Country, ShortStory, StoryContributor, StoryType
 )
 from app.model import ShortBriefSchema, WorkBriefSchema
@@ -127,11 +127,9 @@ def stats_personcounts(count: int = 10,
             Person.nationality_id,
             func.count(func.distinct(Work.id)).label('work_count')
         ).join(
-            Contributor, Contributor.person_id == Person.id
+            WorkContributor, WorkContributor.person_id == Person.id
         ).join(
-            Part, Part.id == Contributor.part_id
-        ).join(
-            Work, Work.id == Part.work_id
+            Work, Work.id == WorkContributor.work_id
         )
 
         # Add genre filter if specified
@@ -143,8 +141,7 @@ def stats_personcounts(count: int = 10,
             )
 
         author_query = author_query.filter(
-            Contributor.role_id == role_id,
-            Part.shortstory_id.is_(None)  # Only works, not short stories
+            WorkContributor.role_id == role_id
         ).group_by(
             Person.id
         ).order_by(
@@ -176,14 +173,12 @@ def stats_personcounts(count: int = 10,
             ).join(
                 Work, Work.id == WorkGenre.work_id
             ).join(
-                Part, Part.work_id == Work.id
+                WorkContributor, WorkContributor.work_id == Work.id
             ).join(
-                Contributor, Contributor.part_id == Part.id
-            ).join(
-                ContributorRole, ContributorRole.id == Contributor.role_id
+                ContributorRole,
+                ContributorRole.id == WorkContributor.role_id
             ).filter(
-                Contributor.person_id == author_data.id,
-                Part.shortstory_id.is_(None)
+                WorkContributor.person_id == author_data.id
             ).group_by(
                 Genre.id,
                 ContributorRole.id
@@ -820,13 +815,8 @@ def stats_nationalitycounts() -> ResponseType:
 
     try:
         # Subquery to check if person has at least one work contribution
-        has_work = session.query(Contributor.person_id).join(
-            Part, and_(
-                Part.id == Contributor.part_id,
-                Part.shortstory_id.is_(None)
-            )
-        ).filter(
-            Contributor.person_id == Person.id
+        has_work = session.query(WorkContributor.person_id).filter(
+            WorkContributor.person_id == Person.id
         ).exists()
 
         # Main query to get person counts per nationality (each person counted once)
@@ -861,20 +851,16 @@ def stats_nationalitycounts() -> ResponseType:
             ).select_from(
                 Person
             ).join(
-                Contributor, Contributor.person_id == Person.id
+                WorkContributor, WorkContributor.person_id == Person.id
             ).join(
-                Part, and_(
-                    Part.id == Contributor.part_id,
-                    Part.shortstory_id.is_(None)
-                )
-            ).join(
-                Work, Work.id == Part.work_id
+                Work, Work.id == WorkContributor.work_id
             ).join(
                 WorkGenre, WorkGenre.work_id == Work.id
             ).join(
                 Genre, Genre.id == WorkGenre.genre_id
             ).join(
-                ContributorRole, ContributorRole.id == Contributor.role_id
+                ContributorRole,
+                ContributorRole.id == WorkContributor.role_id
             )
 
             if r.nationality_id is not None:

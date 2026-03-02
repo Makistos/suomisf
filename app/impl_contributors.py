@@ -1,10 +1,9 @@
 """ Contributor related functions."""
 from typing import Any, Dict, Union, List
-from sqlalchemy import and_, or_
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.orm_decl import (
-    Part, Contributor, Edition, EditionContributor,
+    Edition, EditionContributor,
     IssueContributor, StoryContributor, WorkContributor
 )
 from app.impl import check_int, ResponseType
@@ -75,53 +74,6 @@ def _create_new_contributors(session: Any, contributors: Any) -> List[Any]:
             retval.append(contrib)
 
     return retval
-
-
-def _update_part_contributors(
-        session: Any,
-        part_id: int,
-        contributors: Any,
-        item_type: ContributorTarget
-        ) -> None:
-    """ Update the contributors of a part for works."""
-    # Remove existing rows from table.
-    if item_type == ContributorTarget.WORK:
-        session.query(Contributor).filter(
-            Contributor.part_id == part_id)\
-            .filter(or_(Contributor.role_id == ContributorType.AUTHOR.value,
-                        Contributor.role_id == ContributorType.EDITOR.value,
-                        Contributor.role_id == ContributorType.SUBJECT.value))\
-            .delete()
-    elif item_type == ContributorTarget.EDITION:
-        session.query(Contributor).filter(
-            Contributor.part_id == part_id)\
-            .filter(and_
-                    (Contributor.role_id != ContributorType.AUTHOR.value,
-                     Contributor.role_id != ContributorType.EDITOR.value,
-                     Contributor.role_id != ContributorType.SUBJECT.value))\
-            .delete()
-    elif item_type == ContributorTarget.SHORT:
-        tmp = session.query(Contributor).filter(
-            Contributor.part_id == part_id)\
-            .join(Part)\
-            .filter(Part.shortstory_id.isnot(None))\
-            .all()
-        for contrib in tmp:
-            session.delete(contrib)
-    else:
-        app.logger.eror(f'Unknown contributor type: {item_type.value}')
-        raise ValueError(f'Unknown contributor type: {item_type.value}')
-
-    session.flush()
-    for contrib in contributors:
-        new_contributor = Contributor(
-            part_id=part_id,
-            person_id=contrib['person']['id'],
-            role_id=contrib['role']['id'],
-            description=contrib['description'])
-        # if 'real_person' in contrib:
-        #     new_contributor.real_person.id = contrib['real_person'].id,
-        session.add(new_contributor)
 
 
 def _remove_duplicates_and_empty(contributors: List[Any]) -> List[Any]:
@@ -358,7 +310,7 @@ def get_contributors_string(contributors: Any,
     """
     retval = []
     # Select contributors:
-    cleaned_contribs: List[Contributor] = []
+    cleaned_contribs: List[Any] = []
     if contribution_type in [ContributorTarget.WORK, ContributorTarget.SHORT]:
         # Remove duplicates caused by multiple editions
         for contrib in contributors:

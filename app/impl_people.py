@@ -13,10 +13,9 @@ from app.model import (ArticleSchema, IssueSchema, LogSchema,
                        PersonBriefSchema)
 from app.model_person import (PersonSchema)
 from app.model import (ShortBriefestSchema)
-from app.orm_decl import (Alias, Article, Country, ContributorRole, Issue,
+from app.orm_decl import (Alias, Article, Country, Issue,
                           IssueContributor, Log,
-                          Work,
-                          Contributor,
+                          Work, WorkContributor, EditionContributor,
                           PersonLink, Awarded, PersonLanguage, PersonTag,
                           IssueEditor, ArticlePerson, ArticleAuthor,
                           ShortStory, StoryContributor, Person)
@@ -31,11 +30,9 @@ from app import app
 _allowed_person_fields = ['name', 'dob', 'dod',
                           'nationality',
                           'workcount', 'storycount',
-                          'roles',
                           'global']
 
-_person_relationships = {'nationality': 'name',
-                         'roles': 'name'}
+_person_relationships = {'nationality': 'name'}
 
 
 def _filter_person_query(table: Any,
@@ -188,31 +185,22 @@ def filter_aliases(person_id: int) -> ResponseType:
     """
     session = new_session()
     try:
-        aliases = session.query(Alias)\
+        alias_rows = session.query(Alias)\
             .filter(Alias.realname == person_id)\
             .all()
-        # ids = [x.alias for x in aliases]
+        ids = [x.alias for x in alias_rows]
+        persons = session.query(Person)\
+            .filter(Person.id.in_(ids))\
+            .all()
     except SQLAlchemyError as exp:
         app.logger.error(
-            f'Exception in FilterAliases (åerson_id {person_id}): ' + str(exp))
+            f'Exception in FilterAliases (person_id {person_id}): '
+            + str(exp))
         return ResponseType('FilterAliases: Tietokantavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    # aliases = session.query(Alias).filter(Alias.realname == personid).all()
-    # ids = [x.alias for x in aliases]
-
-    # personas = session.query(Person)\
-    #     .filter(Person.id.in_(ids))\
-    #     .all()
-
-    # retval: List[Dict[str, str]] = []
-    # if personas:
-    #     for persona in personas:
-    #         obj: Dict[str, str] = {'id': persona.id, 'text': persona.name}
-    #         retval.append(obj)
-    # return Response(json.dumps(retval))
     schema = PersonBriefSchema(many=True)
-    retval = schema.dump(aliases)
+    retval = schema.dump(persons)
     return ResponseType(retval, HttpResponseCode.OK.value)
 
 
@@ -268,10 +256,7 @@ def list_people(params: Dict[str, Any]) -> ResponseType:
     d: Dict[str, Union[int, List[str]]] = {}
     session = new_session()
     try:
-        people = session.query(Person)\
-            .join(Contributor,
-                  or_(Contributor.person_id == Person.id,
-                      Contributor.real_person_id == Person.id))
+        people = session.query(Person)
         # Filter
         for field, filters in params.items():
             if isinstance(filters, dict):
@@ -285,9 +270,6 @@ def list_people(params: Dict[str, Any]) -> ResponseType:
                     if field == 'nationality':
                         people = _filter_person_query(
                             Person, people, field, filters, Country)
-                    elif field == 'roles':
-                        people = _filter_person_query(
-                            Person, people, field, filters, ContributorRole)
                     else:
                         people = _filter_person_query(
                             Person, people, field, filters)
@@ -389,7 +371,6 @@ def get_person(person_id: int) -> ResponseType:
                 person.links = person.links
                 # person.magazine_stories = person.magazine_stories + \
                 #    alias.magazine_stories
-                person.roles = person.roles + alias.roles
 
     except SQLAlchemyError as exp:
         app.logger.error(f'get_person exception: {exp}.')
@@ -497,6 +478,8 @@ def person_add(params: Any) -> ResponseType:
 
     if 'aliases' in data:
         for alias_data in data['aliases']:
+            if not alias_data:
+                continue
             alias_id = check_int(alias_data['id'],
                                  zeros_allowed=False,
                                  negative_values=False)
@@ -690,6 +673,8 @@ def person_update(params: Any) -> ResponseType:
         new_aliases = data['aliases'] if data['aliases'] else []
         new_alias_ids = []
         for alias_data in new_aliases:
+            if not alias_data:
+                continue
             alias_id = check_int(alias_data.get('id'),
                                  zeros_allowed=False,
                                  negative_values=False)
@@ -782,12 +767,19 @@ def person_delete(person_id: int) -> ResponseType:
                             HttpResponseCode.BAD_REQUEST.value)
 
     # Check that there are no items that reference this person
-    contributions = session.query(Contributor).filter(
-        Contributor.person_id == person_id).all()
-    if len(contributions) > 0:
-        return ResponseType('PersonDelete: Henkilöä ei voi poistaa, koska \
-                            hänellä on rooleja.',
-                            HttpResponseCode.BAD_REQUEST.value)
+    has_contrib = (
+        session.query(WorkContributor).filter(
+            WorkContributor.person_id == person_id).first()
+        or session.query(EditionContributor).filter(
+            EditionContributor.person_id == person_id).first()
+        or session.query(StoryContributor).filter(
+            StoryContributor.person_id == person_id).first()
+    )
+    if has_contrib:
+        return ResponseType(
+            'PersonDelete: Henkilöä ei voi poistaa, '
+            'koska hänellä on rooleja.',
+            HttpResponseCode.BAD_REQUEST.value)
 
     aliases = session.query(Alias).filter(
         or_(Alias.alias == person_id, Alias.realname == person_id)).all()
@@ -977,9 +969,6 @@ def search_people(session: Any, searchwords: List[str]) -> SearchResult:
         lower_search = searchword.lower()
         people = \
             session.query(Person)\
-            .join(Contributor,
-                  or_(Person.id == Contributor.person_id,
-                      Person.id == Contributor.real_person_id))\
             .filter(Person.name.ilike('%' + lower_search + '%') |
                     Person.fullname.ilike('%' + lower_search + '%') |
                     Person.other_names.ilike('%' + lower_search + '%') |

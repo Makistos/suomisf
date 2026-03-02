@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-01T22:06:20.175903+00:00",
+    "generated_at": "2026-03-02T15:55:51.776168+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/personcounts",
@@ -201,20 +201,20 @@
         "nationality": null,
         "genres": {
           "F": {
-            "Kirjoittaja": 1903,
-            "Kääntäjä": 62,
+            "Kirjoittaja": 1904,
+            "Kääntäjä": 0,
             "Toimittaja": 83,
-            "Kansikuva": 126,
-            "Kuvittaja": 40,
+            "Kansikuva": 0,
+            "Kuvittaja": 0,
             "Esiintyy": 26,
             "Päätoimittaja": 0
           },
           "K": {
             "Kirjoittaja": 568,
-            "Kääntäjä": 29,
+            "Kääntäjä": 0,
             "Toimittaja": 64,
-            "Kansikuva": 41,
-            "Kuvittaja": 4,
+            "Kansikuva": 0,
+            "Kuvittaja": 0,
             "Esiintyy": 2,
             "Päätoimittaja": 0
           },
@@ -222,7 +222,7 @@
             "Kirjoittaja": 48,
             "Kääntäjä": 0,
             "Toimittaja": 0,
-            "Kansikuva": 1,
+            "Kansikuva": 0,
             "Kuvittaja": 0,
             "Esiintyy": 0,
             "Päätoimittaja": 0
@@ -238,10 +238,10 @@
           },
           "SF": {
             "Kirjoittaja": 1685,
-            "Kääntäjä": 51,
+            "Kääntäjä": 0,
             "Toimittaja": 73,
-            "Kansikuva": 69,
-            "Kuvittaja": 10,
+            "Kansikuva": 0,
+            "Kuvittaja": 0,
             "Esiintyy": 18,
             "Päätoimittaja": 0
           },
@@ -249,8 +249,8 @@
             "Kirjoittaja": 59,
             "Kääntäjä": 0,
             "Toimittaja": 0,
-            "Kansikuva": 1,
-            "Kuvittaja": 1,
+            "Kansikuva": 0,
+            "Kuvittaja": 0,
             "Esiintyy": 0,
             "Päätoimittaja": 0
           },
@@ -258,35 +258,35 @@
             "Kirjoittaja": 13,
             "Kääntäjä": 0,
             "Toimittaja": 0,
-            "Kansikuva": 1,
+            "Kansikuva": 0,
             "Kuvittaja": 0,
             "Esiintyy": 0,
             "Päätoimittaja": 0
           },
           "nF": {
             "Kirjoittaja": 1227,
-            "Kääntäjä": 79,
+            "Kääntäjä": 0,
             "Toimittaja": 2,
-            "Kansikuva": 78,
-            "Kuvittaja": 75,
+            "Kansikuva": 0,
+            "Kuvittaja": 0,
             "Esiintyy": 0,
             "Päätoimittaja": 0
           },
           "nSF": {
             "Kirjoittaja": 394,
-            "Kääntäjä": 31,
+            "Kääntäjä": 0,
             "Toimittaja": 0,
-            "Kansikuva": 4,
-            "Kuvittaja": 4,
+            "Kansikuva": 0,
+            "Kuvittaja": 0,
             "Esiintyy": 21,
             "Päätoimittaja": 0
           },
           "nK": {
             "Kirjoittaja": 136,
-            "Kääntäjä": 5,
+            "Kääntäjä": 0,
             "Toimittaja": 7,
-            "Kansikuva": 16,
-            "Kuvittaja": 15,
+            "Kansikuva": 0,
+            "Kuvittaja": 0,
             "Esiintyy": 0,
             "Päätoimittaja": 0
           },
@@ -294,8 +294,8 @@
             "Kirjoittaja": 70,
             "Kääntäjä": 0,
             "Toimittaja": 0,
-            "Kansikuva": 35,
-            "Kuvittaja": 34,
+            "Kansikuva": 0,
+            "Kuvittaja": 0,
             "Esiintyy": 0,
             "Päätoimittaja": 0
           },
@@ -310,7 +310,7 @@
           },
           "rajatap": {
             "Kirjoittaja": 120,
-            "Kääntäjä": 4,
+            "Kääntäjä": 0,
             "Toimittaja": 0,
             "Kansikuva": 0,
             "Kuvittaja": 0,
@@ -321,49 +321,49 @@
             "Kirjoittaja": 14,
             "Kääntäjä": 0,
             "Toimittaja": 0,
-            "Kansikuva": 11,
-            "Kuvittaja": 11,
+            "Kansikuva": 0,
+            "Kuvittaja": 0,
             "Esiintyy": 0,
             "Päätoimittaja": 0
           },
           "kok": {
             "Kirjoittaja": 416,
-            "Kääntäjä": 23,
+            "Kääntäjä": 0,
             "Toimittaja": 150,
-            "Kansikuva": 65,
-            "Kuvittaja": 15,
+            "Kansikuva": 0,
+            "Kuvittaja": 0,
             "Esiintyy": 0,
             "Päätoimittaja": 0
           },
           "lF": {
             "Kirjoittaja": 426,
-            "Kääntäjä": 31,
+            "Kääntäjä": 0,
             "Toimittaja": 4,
-            "Kansikuva": 76,
-            "Kuvittaja": 82,
+            "Kansikuva": 0,
+            "Kuvittaja": 0,
             "Esiintyy": 0,
             "Päätoimittaja": 0
           },
           "R": {
             "Kirjoittaja": 27,
-            "Kääntäjä": 1,
+            "Kääntäjä": 0,
             "Toimittaja": 3,
-            "Kansikuva": 6,
-            "Kuvittaja": 4,
+            "Kansikuva": 0,
+            "Kuvittaja": 0,
             "Esiintyy": 0,
             "Päätoimittaja": 0
           },
           "eiSF": {
             "Kirjoittaja": 50,
-            "Kääntäjä": 1,
+            "Kääntäjä": 0,
             "Toimittaja": 1,
-            "Kansikuva": 1,
+            "Kansikuva": 0,
             "Kuvittaja": 0,
             "Esiintyy": 5,
             "Päätoimittaja": 0
           }
         },
-        "total": 6422
+        "total": 6423
       }
     ],
     "error": null

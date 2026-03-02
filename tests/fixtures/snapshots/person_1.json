@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-01T22:06:20.175903+00:00",
+    "generated_at": "2026-03-02T15:55:51.776168+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/people/1",
@@ -146,8 +146,7 @@
                   "person": {
                     "id": 2.0,
                     "name": "Buffa, Aira",
-                    "alt_name": "Aira Buffa",
-                    "fullname": ""
+                    "alt_name": "Aira Buffa"
                   },
                   "role": {
                     "id": 2,
@@ -197,106 +196,7 @@
       ],
       "stories": [],
       "edits": [],
-      "editions": [
-        {
-          "id": 1,
-          "title": "Kivineitsyt",
-          "pubyear": 1986,
-          "publisher": {
-            "id": 387,
-            "name": "WSOY"
-          },
-          "images": [
-            {
-              "id": 8002,
-              "image_src": "/static/images/books/Unsworth_Barry_Kivineitsyt_1p.jpg",
-              "image_attr": null
-            }
-          ],
-          "pubseries": null,
-          "work": {
-            "id": 1,
-            "title": "Kivineitsyt",
-            "author_str": "Unsworth, Barry",
-            "orig_title": "Stone Virgin",
-            "pubyear": 1985,
-            "editions": [
-              {
-                "id": 1,
-                "title": "Kivineitsyt",
-                "work": {
-                  "id": 1.0,
-                  "title": "Kivineitsyt",
-                  "orig_title": "Stone Virgin"
-                }
-              }
-            ],
-            "genres": [
-              {
-                "id": 1,
-                "name": "Fantasia",
-                "abbr": "F"
-              }
-            ],
-            "bookseries": null,
-            "tags": [],
-            "contributions": [
-              {
-                "description": null,
-                "person": {
-                  "id": 1.0,
-                  "name": "Unsworth, Barry",
-                  "alt_name": "Barry Unsworth"
-                },
-                "role": {
-                  "id": 1,
-                  "name": "Kirjoittaja"
-                }
-              }
-            ],
-            "language_name": {
-              "id": 1,
-              "name": "englanti"
-            },
-            "work_type": {
-              "id": 1,
-              "name": "Romaani"
-            }
-          },
-          "contributions": [
-            {
-              "person": {
-                "id": 2.0,
-                "name": "Buffa, Aira",
-                "alt_name": "Aira Buffa",
-                "fullname": ""
-              },
-              "role": {
-                "id": 2,
-                "name": "Kääntäjä"
-              },
-              "description": null,
-              "real_person": null
-            }
-          ],
-          "owners": [],
-          "wishlisted": [],
-          "subtitle": "",
-          "editionnum": 1,
-          "version": null,
-          "isbn": "951-0-13801-0",
-          "printedin": null,
-          "pubseriesnum": null,
-          "coll_info": "",
-          "pages": 390,
-          "size": 21,
-          "dustcover": 3,
-          "coverimage": 1,
-          "misc": "",
-          "imported_string": "\n<b>Kivineitsyt</b>. (Stone Virgin, 1985). Suom Aira Buffa. WSOY 1986. [F].",
-          "verified": false
-        }
-      ],
+      "editions": [],
       "chief_editor": [],
       "personal_awards": [],
       "awarded": [],

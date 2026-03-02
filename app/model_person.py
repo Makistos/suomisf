@@ -2,16 +2,17 @@
 """ SQLAlchemy models for person page. Optimized for speed / size. """
 from marshmallow import fields
 from app import ma
-from app.orm_decl import (Person, Edition, Contributor, Article, Awarded,
-                          ShortStory)
+from app.orm_decl import (Person, Edition, Article, Awarded, ShortStory)
 from .model import (LanguageSchema, PersonBriefSchema, PersonLinkBriefSchema,
                     WorkBriefSchema,
                     ShortBriefSchema,
                     PublisherBriefSchema, EditionImageBriefSchema,
-                    ContributorRoleSchema, IssueBriefSchema,
+                    IssueBriefSchema,
                     TagBriefSchema, AwardBriefSchema, AwardCategorySchema,
                     CountryBriefSchema, StoryTypeSchema, GenreBriefSchema,
-                    BookseriesBriefSchema, WorkContributorSchema, WorkTypeBriefSchema)
+                    BookseriesBriefSchema, WorkContributorSchema,
+                    WorkTypeBriefSchema, EditionContributorSchema,
+                    StoryContributorSchema)
 
 
 class PersonPageBriefSchema(ma.SQLAlchemySchema):  # type: ignore
@@ -29,18 +30,6 @@ class PersonPagePubseriesSchema(ma.SQLAlchemySchema):  # type: ignore
     publisher = fields.Nested(PublisherBriefSchema(only=('id', 'name')))
 
 
-class PersonPageContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
-    """ Contributor schema."""
-    class Meta:
-        """ Metadata for SQLAlchemyAutoSchema. """
-        model = Contributor
-    id = fields.Int()
-    person = fields.Nested(PersonPageBriefSchema)
-    role = fields.Nested(ContributorRoleSchema)
-    description = fields.String(allow_none=True)
-    real_person = fields.Nested(PersonPageBriefSchema)
-    work_id = fields.Int(allow_none=True)
-    story_id = fields.Int(allow_none=True)
 
 
 class PersonPageArticleSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -103,7 +92,7 @@ class PersonPageEditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         only=['id', 'title', 'author_str', 'orig_title', 'pubyear',
               'editions', 'genres', 'bookseries', 'tags',
               'contributions', 'language_name', 'work_type']))
-    contributions = ma.List(fields.Nested(PersonPageContributorSchema))
+    contributions = ma.List(fields.Nested(EditionContributorSchema))
     owners = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
     wishlisted = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
 
@@ -137,7 +126,7 @@ class PersonPageShortBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         only=['id', 'cover_number', 'magazine', 'year', 'number'])))
     editions = ma.List(fields.Nested(PersonPageEditionSchema))
     genres = ma.List(fields.Nested(GenreBriefSchema))
-    contributors = ma.List(fields.Nested(PersonPageContributorSchema))
+    contributors = ma.List(fields.Nested(StoryContributorSchema))
     tags = ma.List(fields.Nested(TagBriefSchema))
     language_name = fields.Nested(CountryBriefSchema)
 

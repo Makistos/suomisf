@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-01T22:06:20.175903+00:00",
+    "generated_at": "2026-03-02T15:55:51.776168+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/pubseries",
@@ -2140,48 +2140,6 @@
           {
             "images": [
               {
-                "id": 2093,
-                "image_src": "/static/images/books/Bradbury_Ray_Fahrenheit451_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 4664,
-              "title": "Fahrenheit 451",
-              "subtitle": "",
-              "orig_title": "Fahrenheit 451",
-              "pubyear": 1953,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "Valittu Tähtivaeltaja-lehden 1900-luvun tieteiskirjallisuuden Top 50-listalle 2000.",
-              "description": "<p>Onko Fahrenheitin aika jo koittanut?</p>\r\n\r\n<p>Maailman on vallannut suloinen mielettömyys: sen sijaan että ihminen rentoutuisi vaikkapa hyvää kirjaa lukien, hän menee olohuoneeseensa, jonka seiniä peittävät televisioruudut. Niiden kautta hän voi seurustella muiden ihmisten kanssa.</p>\r\n\r\n<p>Viestintätekniikka on syrjäyttänyt kirjat. Ne täytyy polttaa. FAHRENHEIT 451 on lämpötila, jossa painopaperi syttyy palamaan, se on sieluntila, jossa yksilön näkemykset haihtuvat savuna ilmaan. Nouseeko enää kukaan vastustamaan yhteiskuntaa, joka pakottaa ihmiset toistensa peilikuviksi?</p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Bradbury, Ray"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 5337,
-            "title": "Fahrenheit 451",
-            "subtitle": "",
-            "pubyear": 1966,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 193,
-            "size": 21,
-            "dustcover": 3,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "https://kansalliskirjasto.finna.fi/Record/fikka.3568778",
-            "verified": false
-          },
-          {
-            "images": [
-              {
                 "id": 323,
                 "image_src": "/static/images/books/Bradbury_Ray_Kuvitettumies_1p.jpg",
                 "image_attr": null
@@ -2225,6 +2183,48 @@
             "misc": null,
             "imported_string": "",
             "verified": true
+          },
+          {
+            "images": [
+              {
+                "id": 2093,
+                "image_src": "/static/images/books/Bradbury_Ray_Fahrenheit451_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 4664,
+              "title": "Fahrenheit 451",
+              "subtitle": "",
+              "orig_title": "Fahrenheit 451",
+              "pubyear": 1953,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "Valittu Tähtivaeltaja-lehden 1900-luvun tieteiskirjallisuuden Top 50-listalle 2000.",
+              "description": "<p>Onko Fahrenheitin aika jo koittanut?</p>\r\n\r\n<p>Maailman on vallannut suloinen mielettömyys: sen sijaan että ihminen rentoutuisi vaikkapa hyvää kirjaa lukien, hän menee olohuoneeseensa, jonka seiniä peittävät televisioruudut. Niiden kautta hän voi seurustella muiden ihmisten kanssa.</p>\r\n\r\n<p>Viestintätekniikka on syrjäyttänyt kirjat. Ne täytyy polttaa. FAHRENHEIT 451 on lämpötila, jossa painopaperi syttyy palamaan, se on sieluntila, jossa yksilön näkemykset haihtuvat savuna ilmaan. Nouseeko enää kukaan vastustamaan yhteiskuntaa, joka pakottaa ihmiset toistensa peilikuviksi?</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Bradbury, Ray"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 5337,
+            "title": "Fahrenheit 451",
+            "subtitle": "",
+            "pubyear": 1966,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 193,
+            "size": 21,
+            "dustcover": 3,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "https://kansalliskirjasto.finna.fi/Record/fikka.3568778",
+            "verified": false
           }
         ],
         "id": 14,
@@ -2641,6 +2641,84 @@
         },
         "editions": [
           {
+            "images": [],
+            "work": {
+              "id": 174,
+              "title": "Musta kuu",
+              "subtitle": "",
+              "orig_title": "Musta kuu",
+              "pubyear": 2012,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": "",
+              "descr_attr": null,
+              "imported_string": "\n<b>Musta kuu</b>. Atena 2012. [K].",
+              "author_str": "Vänskä, Mia"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 7724,
+            "title": "Musta kuu",
+            "subtitle": "",
+            "pubyear": 2014,
+            "editionnum": 2,
+            "version": 1,
+            "isbn": "978-952-300-006-3",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 295,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "id": 4918,
+                "image_src": "/static/images/books/Vanska_Mia_Saattaja_2p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 175,
+              "title": "Saattaja",
+              "subtitle": "",
+              "orig_title": "Saattaja",
+              "pubyear": 2011,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": "",
+              "descr_attr": null,
+              "imported_string": "\n\n<b>Saattaja</b>. Atena 2011. [K].",
+              "author_str": "Vänskä, Mia"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 7725,
+            "title": "Saattaja",
+            "subtitle": "",
+            "pubyear": 2012,
+            "editionnum": 2,
+            "version": 1,
+            "isbn": "978-951-796-863-8",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 308,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": false
+          },
+          {
             "images": [
               {
                 "id": 5582,
@@ -2889,84 +2967,6 @@
             "dustcover": 1,
             "coverimage": 1,
             "misc": "Kuvitettu.",
-            "imported_string": "",
-            "verified": false
-          },
-          {
-            "images": [],
-            "work": {
-              "id": 174,
-              "title": "Musta kuu",
-              "subtitle": "",
-              "orig_title": "Musta kuu",
-              "pubyear": 2012,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "",
-              "description": "",
-              "descr_attr": null,
-              "imported_string": "\n<b>Musta kuu</b>. Atena 2012. [K].",
-              "author_str": "Vänskä, Mia"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 7724,
-            "title": "Musta kuu",
-            "subtitle": "",
-            "pubyear": 2014,
-            "editionnum": 2,
-            "version": 1,
-            "isbn": "978-952-300-006-3",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 295,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "id": 4918,
-                "image_src": "/static/images/books/Vanska_Mia_Saattaja_2p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 175,
-              "title": "Saattaja",
-              "subtitle": "",
-              "orig_title": "Saattaja",
-              "pubyear": 2011,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "",
-              "description": "",
-              "descr_attr": null,
-              "imported_string": "\n\n<b>Saattaja</b>. Atena 2011. [K].",
-              "author_str": "Vänskä, Mia"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 7725,
-            "title": "Saattaja",
-            "subtitle": "",
-            "pubyear": 2012,
-            "editionnum": 2,
-            "version": 1,
-            "isbn": "978-951-796-863-8",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 308,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
             "imported_string": "",
             "verified": false
           },
@@ -9909,6 +9909,53 @@
           {
             "images": [
               {
+                "id": 455,
+                "image_src": "/static/images/books/Sadelehto_EnglantilaisetAaveet_p1.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 768,
+              "title": "Englantilaiset aaveet",
+              "subtitle": "",
+              "orig_title": "Englantilaiset aaveet",
+              "pubyear": 1994,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p>Englantilainen kummitusjuttu on lajityyppi, joka on pysynyt hengissä kaikkien vuosisatamme mullistuksienkin ajan. Sen todellinen kultakausi kesti 1870-luvulta 1920-luvulle, mutta yksittäiset poikkeuslahjakkuudet ovat pitäneet perinteen hengissä yli kahden maailmansodan ja imperiumin hajoamisen.</p>\r\n\r\n<p>Tähän antologiaan Markku Sadelehto on koonnut vinon pinon aikaisemmin suomentamatta jääneitä tarinaklassikoita. Pääpaino on vuosisadan alkumetreillä, mutta mukana on myös Robert Aickmanin kaltaisia myöhempiä kirjoittajia.</p>\r\n\r\n<p>Kokoelman kirjallinen taso on erittäin korkea: kaikki kuusitoista kirjoittajaa ovat tunnettuja ja tunnustettuja kykyjä, valikoimaan kelpuutettujen nimien joukossa ovat mm. M. R. James, Hugh Walpole, Saki ja A. C. Benson.</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Sadelehto, Markku (toim.)"
+            },
+            "owners": [
+              {
+                "id": 2.0,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "id": 933,
+            "title": "Englantilaiset aaveet",
+            "subtitle": "",
+            "pubyear": 1994,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "951-0-19413-1",
+            "printedin": "Juva",
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 502,
+            "size": 20,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": true
+          },
+          {
+            "images": [
+              {
                 "id": 442,
                 "image_src": "/static/images/books/Rucker_RobojenPoika_p1.jpg",
                 "image_attr": null
@@ -10044,53 +10091,6 @@
             "dustcover": 1,
             "coverimage": 1,
             "misc": null,
-            "imported_string": "",
-            "verified": true
-          },
-          {
-            "images": [
-              {
-                "id": 455,
-                "image_src": "/static/images/books/Sadelehto_EnglantilaisetAaveet_p1.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 768,
-              "title": "Englantilaiset aaveet",
-              "subtitle": "",
-              "orig_title": "Englantilaiset aaveet",
-              "pubyear": 1994,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "<p>Englantilainen kummitusjuttu on lajityyppi, joka on pysynyt hengissä kaikkien vuosisatamme mullistuksienkin ajan. Sen todellinen kultakausi kesti 1870-luvulta 1920-luvulle, mutta yksittäiset poikkeuslahjakkuudet ovat pitäneet perinteen hengissä yli kahden maailmansodan ja imperiumin hajoamisen.</p>\r\n\r\n<p>Tähän antologiaan Markku Sadelehto on koonnut vinon pinon aikaisemmin suomentamatta jääneitä tarinaklassikoita. Pääpaino on vuosisadan alkumetreillä, mutta mukana on myös Robert Aickmanin kaltaisia myöhempiä kirjoittajia.</p>\r\n\r\n<p>Kokoelman kirjallinen taso on erittäin korkea: kaikki kuusitoista kirjoittajaa ovat tunnettuja ja tunnustettuja kykyjä, valikoimaan kelpuutettujen nimien joukossa ovat mm. M. R. James, Hugh Walpole, Saki ja A. C. Benson.</p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Sadelehto, Markku (toim.)"
-            },
-            "owners": [
-              {
-                "id": 2.0,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 933,
-            "title": "Englantilaiset aaveet",
-            "subtitle": "",
-            "pubyear": 1994,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "951-0-19413-1",
-            "printedin": "Juva",
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 502,
-            "size": 20,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
             "imported_string": "",
             "verified": true
           },
@@ -11966,53 +11966,6 @@
           {
             "images": [
               {
-                "id": 530,
-                "image_src": "/static/images/books/Simak_Clifford_D_Valiasema_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 1106,
-              "title": "Väliasema",
-              "subtitle": "",
-              "orig_title": "Way Station",
-              "pubyear": 1963,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "",
-              "description": "<p>Amerikan sisällissodasta ei ole pitkä matka tähtiin. Maailman yksinäisin mies Enoch Wallace tietää sen. Hän hoitaa kotonaan galaktista väliasemaa, jonka kautta tähtien muukalaiset kulkevat käsittämättömillä retkillään. Nämä oudot vierailijat ovatkin Enochille tutumpia kuin lähinaapurit. Lähes kuolematon Enoch Wallace tietää melkein kaiken, ja siksi hän haluaa auttaa Maata pääsemään avaruuden veljeskunnan jäseneksi. Kaikki ei suju suunnitelmien mukaan, ja asetelma kääntyy päälaelleen. Tapahtumien vauhti yllättää satavuotiaan asemanhoitajankin.</p>",
-              "descr_attr": null,
-              "imported_string": "\n\n<b>Väliasema</b>. (Way Station, 1963). Suom Matti Rosvall. Fantasy-sarja. John Books Oy 1981. [SF].",
-              "author_str": "Simak, Clifford D."
-            },
-            "owners": [
-              {
-                "id": 2.0,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 1285,
-            "title": "Väliasema",
-            "subtitle": "",
-            "pubyear": 1981,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "951-99350-9-6",
-            "printedin": "Pirkkala",
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 233,
-            "size": 19,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": true
-          },
-          {
-            "images": [
-              {
                 "id": 532,
                 "image_src": "/static/images/books/Sheckley_Robert_Jahmettynytyhteiskunta_1p.jpg",
                 "image_attr": null
@@ -12050,6 +12003,53 @@
             "pubseriesnum": null,
             "coll_info": "",
             "pages": 179,
+            "size": 19,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": true
+          },
+          {
+            "images": [
+              {
+                "id": 530,
+                "image_src": "/static/images/books/Simak_Clifford_D_Valiasema_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 1106,
+              "title": "Väliasema",
+              "subtitle": "",
+              "orig_title": "Way Station",
+              "pubyear": 1963,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": "<p>Amerikan sisällissodasta ei ole pitkä matka tähtiin. Maailman yksinäisin mies Enoch Wallace tietää sen. Hän hoitaa kotonaan galaktista väliasemaa, jonka kautta tähtien muukalaiset kulkevat käsittämättömillä retkillään. Nämä oudot vierailijat ovatkin Enochille tutumpia kuin lähinaapurit. Lähes kuolematon Enoch Wallace tietää melkein kaiken, ja siksi hän haluaa auttaa Maata pääsemään avaruuden veljeskunnan jäseneksi. Kaikki ei suju suunnitelmien mukaan, ja asetelma kääntyy päälaelleen. Tapahtumien vauhti yllättää satavuotiaan asemanhoitajankin.</p>",
+              "descr_attr": null,
+              "imported_string": "\n\n<b>Väliasema</b>. (Way Station, 1963). Suom Matti Rosvall. Fantasy-sarja. John Books Oy 1981. [SF].",
+              "author_str": "Simak, Clifford D."
+            },
+            "owners": [
+              {
+                "id": 2.0,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "id": 1285,
+            "title": "Väliasema",
+            "subtitle": "",
+            "pubyear": 1981,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "951-99350-9-6",
+            "printedin": "Pirkkala",
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 233,
             "size": 19,
             "dustcover": 1,
             "coverimage": 1,
@@ -16848,48 +16848,6 @@
           {
             "images": [
               {
-                "id": 6070,
-                "image_src": "/static/images/books/Lukjanenko_Sergei_Yopartio_2p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 4206,
-              "title": "Yöpartio",
-              "subtitle": "",
-              "orig_title": "Nocnoj dozor",
-              "pubyear": 1998,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Lukjanenko, Sergei"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 6396,
-            "title": "Yöpartio",
-            "subtitle": "",
-            "pubyear": 2013,
-            "editionnum": 2,
-            "version": null,
-            "isbn": "978-952-264-259-2",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 496,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": false
-          },
-          {
-            "images": [
-              {
                 "id": 563,
                 "image_src": "/static/images/books/Isomaki_GilgamesinTappio_p2.jpg",
                 "image_attr": null
@@ -17011,6 +16969,48 @@
             "coverimage": 1,
             "misc": "",
             "imported_string": "https://kansalliskirjasto.finna.fi/Record/fikka.5450865",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "id": 6070,
+                "image_src": "/static/images/books/Lukjanenko_Sergei_Yopartio_2p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 4206,
+              "title": "Yöpartio",
+              "subtitle": "",
+              "orig_title": "Nocnoj dozor",
+              "pubyear": 1998,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Lukjanenko, Sergei"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 6396,
+            "title": "Yöpartio",
+            "subtitle": "",
+            "pubyear": 2013,
+            "editionnum": 2,
+            "version": null,
+            "isbn": "978-952-264-259-2",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 496,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
             "verified": false
           },
           {
@@ -20864,6 +20864,221 @@
           {
             "images": [
               {
+                "id": 1082,
+                "image_src": "/static/images/books/Sadelehto_Markku_Haudantakaisia_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 769,
+              "title": "Haudantakaisia",
+              "subtitle": "",
+              "orig_title": "Haudantakaisia",
+              "pubyear": 1994,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": "\n\n<a href=\"novkok/sad-ha.htm\">\n<b>Haudantakaisia</b></a>. Suom Osmo Saarinen. Kustannus Oy Jalava 1994. [K,kok].",
+              "author_str": "Sadelehto, Markku (toim.)"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 934,
+            "title": "Haudantakaisia",
+            "subtitle": "",
+            "pubyear": 1994,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "951-887-050-0",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 252,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "<a href='\"novkok/sad-ha.htm\"'><b>Haudantakaisia</b></a>. Suom Osmo Saarinen. Kustannus Oy Jalava 1994. [K,kok].",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "id": 1096,
+                "image_src": "/static/images/books/Sadelehto_Markku_Tulilintu_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 788,
+              "title": "Tulilintu",
+              "subtitle": "",
+              "orig_title": "Tulilintu",
+              "pubyear": 1993,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": "<p><em>Tulilintu</em> on valikoima naisten kirjoittamia kauhunovelleja.</p><p><em>Tulilintu</em> on ainutkertainen elämys.</p><p><em>Tulilintu</em> nousee siivilleen ja lentää.</p>",
+              "descr_attr": null,
+              "imported_string": "\n\n<a href=\"novkok/sad-tl.htm\">\n<b>Tulilintu</b></a>. Suom Titia Schuurman. Kustannus Oy Jalava 1993. [K,kok].",
+              "author_str": "Sadelehto, Markku (toim.)"
+            },
+            "owners": [
+              {
+                "id": 2.0,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "id": 953,
+            "title": "Tulilintu",
+            "subtitle": "",
+            "pubyear": 1993,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "951-887-027-6",
+            "printedin": "Juva",
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 223,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": true
+          },
+          {
+            "images": [
+              {
+                "id": 1095,
+                "image_src": "/static/images/books/Sadelehto_Markku_Suurihiljaisuus_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 787,
+              "title": "Suuri hiljaisuus",
+              "subtitle": "",
+              "orig_title": "Suuri hiljaisuus",
+              "pubyear": 1995,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": "\n\n<a href=\"novkok/sad-sh.htm\">\n<b>Suuri hiljaisuus</b></a>. Suom Ulla Selkälä & Ilkka Äärelä. Kustannus Oy Jalava 1995. [K,kok].",
+              "author_str": "Sadelehto, Markku (toim.)"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 952,
+            "title": "Suuri hiljaisuus",
+            "subtitle": "",
+            "pubyear": 1995,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "951-887-061-6",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 258,
+            "size": 22,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "<a href='\"novkok/sad-sh.htm\"'><b>Suuri hiljaisuus</b></a>. Suom Ulla Selkälä &amp; Ilkka Äärelä. Kustannus Oy Jalava 1995. [K,kok].",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "id": 2202,
+                "image_src": "/static/images/books/Lansdale_Joe_R_Yojuoksijat_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 3934,
+              "title": "Yöjuoksijat",
+              "subtitle": "",
+              "orig_title": "The Nightrunners",
+              "pubyear": 1987,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": "",
+              "descr_attr": null,
+              "imported_string": "\n\n<b>Yöjuoksijat</b>. (The Nightrunners, 1987). Suom Anita Puumalainen. Jalava 1996. [K].",
+              "author_str": "Lansdale, Joe R."
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 4519,
+            "title": "Yöjuoksijat",
+            "subtitle": "",
+            "pubyear": 1996,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "951-887-088-8",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 192,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "<b>Yöjuoksijat</b>. (The Nightrunners, 1987). Suom Anita Puumalainen. Jalava 1996. [K].",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "id": 1080,
+                "image_src": "/static/images/books/Lovecraft_H_P_Alkemistijamuitakertomuksia_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 4174,
+              "title": "Alkemisti ja muita kertomuksia",
+              "subtitle": "",
+              "orig_title": "Alkemisti ja muita kertomuksia",
+              "pubyear": 1994,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Lovecraft, H. P."
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 4793,
+            "title": "Alkemisti ja muita kertomuksia",
+            "subtitle": "",
+            "pubyear": 1994,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "951-887-052-7",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 178,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "<a href='\"novkok/lov-al.htm\"'><b>Alkemisti ja muita kertomuksia</b></a>. Toim Markku Sadelehto. Suom Ulla Selkälä &amp; Ilkka Äärelä. Kustannus Oy Jalava 1994. [K,kok].",
+            "verified": false
+          },
+          {
+            "images": [
+              {
                 "id": 1092,
                 "image_src": "/static/images/books/Sadelehto_Markku_Outojatarinoita6_1p.jpg",
                 "image_attr": null
@@ -20906,6 +21121,48 @@
           {
             "images": [
               {
+                "id": 1117,
+                "image_src": "/static/images/books/Lovecraft_H_P_Varjomenneisyydesta_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 4187,
+              "title": "Varjo menneisyydestä",
+              "subtitle": "",
+              "orig_title": "Varjo menneisyydestä",
+              "pubyear": 1993,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Lovecraft, H. P."
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 4806,
+            "title": "Varjo menneisyydestä",
+            "subtitle": "",
+            "pubyear": 1993,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "951-887-015-2",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 172,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "<a href='\"novkok/lov-vm.htm\"'><b>Varjo menneisyydestä</b></a>. Suom Ilkka Äärelä. Kustannus Oy Jalava 1993. [K,kok].",
+            "verified": false
+          },
+          {
+            "images": [
+              {
                 "id": 1091,
                 "image_src": "/static/images/books/Sadelehto_Markku_Outojatarinoita5_1p.jpg",
                 "image_attr": null
@@ -20943,6 +21200,48 @@
             "coverimage": 1,
             "misc": "",
             "imported_string": "<a href='\"novkok/sad-o5.htm\"'><b>Outoja tarinoita 5</b></a>. Suom Ulla Selkälä &amp; Ilkka Äärelä. Kustannus Oy Jalava 1993. [K,kok].",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "id": 1814,
+                "image_src": "/static/images/books/Barker_Clive_Kadotuksenpeli_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 4561,
+              "title": "Kadotuksen peli",
+              "subtitle": "",
+              "orig_title": "The Damnation Game",
+              "pubyear": 1985,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Barker, Clive"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 5210,
+            "title": "Kadotuksen peli",
+            "subtitle": "",
+            "pubyear": 1992,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "951-887-007-1",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 493,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": "<b>Kadotuksen peli</b>. (The Damnation Game, 1985). Suom Ulla Selkälä. Kustannus Oy Jalava 1992. [K].",
             "verified": false
           },
           {
@@ -21079,305 +21378,6 @@
             "coverimage": 1,
             "misc": null,
             "imported_string": "<b>Yön kansa</b>. (Cabal, 1988). Suom Ilkka Äärelä. Kustannus Oy Jalava 1993. [K].",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "id": 1082,
-                "image_src": "/static/images/books/Sadelehto_Markku_Haudantakaisia_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 769,
-              "title": "Haudantakaisia",
-              "subtitle": "",
-              "orig_title": "Haudantakaisia",
-              "pubyear": 1994,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "",
-              "description": null,
-              "descr_attr": null,
-              "imported_string": "\n\n<a href=\"novkok/sad-ha.htm\">\n<b>Haudantakaisia</b></a>. Suom Osmo Saarinen. Kustannus Oy Jalava 1994. [K,kok].",
-              "author_str": "Sadelehto, Markku (toim.)"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 934,
-            "title": "Haudantakaisia",
-            "subtitle": "",
-            "pubyear": 1994,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "951-887-050-0",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 252,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "<a href='\"novkok/sad-ha.htm\"'><b>Haudantakaisia</b></a>. Suom Osmo Saarinen. Kustannus Oy Jalava 1994. [K,kok].",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "id": 2202,
-                "image_src": "/static/images/books/Lansdale_Joe_R_Yojuoksijat_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 3934,
-              "title": "Yöjuoksijat",
-              "subtitle": "",
-              "orig_title": "The Nightrunners",
-              "pubyear": 1987,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "",
-              "description": "",
-              "descr_attr": null,
-              "imported_string": "\n\n<b>Yöjuoksijat</b>. (The Nightrunners, 1987). Suom Anita Puumalainen. Jalava 1996. [K].",
-              "author_str": "Lansdale, Joe R."
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 4519,
-            "title": "Yöjuoksijat",
-            "subtitle": "",
-            "pubyear": 1996,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "951-887-088-8",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 192,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "<b>Yöjuoksijat</b>. (The Nightrunners, 1987). Suom Anita Puumalainen. Jalava 1996. [K].",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "id": 1080,
-                "image_src": "/static/images/books/Lovecraft_H_P_Alkemistijamuitakertomuksia_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 4174,
-              "title": "Alkemisti ja muita kertomuksia",
-              "subtitle": "",
-              "orig_title": "Alkemisti ja muita kertomuksia",
-              "pubyear": 1994,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Lovecraft, H. P."
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 4793,
-            "title": "Alkemisti ja muita kertomuksia",
-            "subtitle": "",
-            "pubyear": 1994,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "951-887-052-7",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 178,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "<a href='\"novkok/lov-al.htm\"'><b>Alkemisti ja muita kertomuksia</b></a>. Toim Markku Sadelehto. Suom Ulla Selkälä &amp; Ilkka Äärelä. Kustannus Oy Jalava 1994. [K,kok].",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "id": 1096,
-                "image_src": "/static/images/books/Sadelehto_Markku_Tulilintu_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 788,
-              "title": "Tulilintu",
-              "subtitle": "",
-              "orig_title": "Tulilintu",
-              "pubyear": 1993,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "",
-              "description": "<p><em>Tulilintu</em> on valikoima naisten kirjoittamia kauhunovelleja.</p><p><em>Tulilintu</em> on ainutkertainen elämys.</p><p><em>Tulilintu</em> nousee siivilleen ja lentää.</p>",
-              "descr_attr": null,
-              "imported_string": "\n\n<a href=\"novkok/sad-tl.htm\">\n<b>Tulilintu</b></a>. Suom Titia Schuurman. Kustannus Oy Jalava 1993. [K,kok].",
-              "author_str": "Sadelehto, Markku (toim.)"
-            },
-            "owners": [
-              {
-                "id": 2.0,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 953,
-            "title": "Tulilintu",
-            "subtitle": "",
-            "pubyear": 1993,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "951-887-027-6",
-            "printedin": "Juva",
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 223,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": true
-          },
-          {
-            "images": [
-              {
-                "id": 1117,
-                "image_src": "/static/images/books/Lovecraft_H_P_Varjomenneisyydesta_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 4187,
-              "title": "Varjo menneisyydestä",
-              "subtitle": "",
-              "orig_title": "Varjo menneisyydestä",
-              "pubyear": 1993,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Lovecraft, H. P."
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 4806,
-            "title": "Varjo menneisyydestä",
-            "subtitle": "",
-            "pubyear": 1993,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "951-887-015-2",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 172,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "<a href='\"novkok/lov-vm.htm\"'><b>Varjo menneisyydestä</b></a>. Suom Ilkka Äärelä. Kustannus Oy Jalava 1993. [K,kok].",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "id": 1095,
-                "image_src": "/static/images/books/Sadelehto_Markku_Suurihiljaisuus_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 787,
-              "title": "Suuri hiljaisuus",
-              "subtitle": "",
-              "orig_title": "Suuri hiljaisuus",
-              "pubyear": 1995,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "",
-              "description": null,
-              "descr_attr": null,
-              "imported_string": "\n\n<a href=\"novkok/sad-sh.htm\">\n<b>Suuri hiljaisuus</b></a>. Suom Ulla Selkälä & Ilkka Äärelä. Kustannus Oy Jalava 1995. [K,kok].",
-              "author_str": "Sadelehto, Markku (toim.)"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 952,
-            "title": "Suuri hiljaisuus",
-            "subtitle": "",
-            "pubyear": 1995,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "951-887-061-6",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 258,
-            "size": 22,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "<a href='\"novkok/sad-sh.htm\"'><b>Suuri hiljaisuus</b></a>. Suom Ulla Selkälä &amp; Ilkka Äärelä. Kustannus Oy Jalava 1995. [K,kok].",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "id": 1814,
-                "image_src": "/static/images/books/Barker_Clive_Kadotuksenpeli_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 4561,
-              "title": "Kadotuksen peli",
-              "subtitle": "",
-              "orig_title": "The Damnation Game",
-              "pubyear": 1985,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": null,
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Barker, Clive"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 5210,
-            "title": "Kadotuksen peli",
-            "subtitle": "",
-            "pubyear": 1992,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "951-887-007-1",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 493,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": "<b>Kadotuksen peli</b>. (The Damnation Game, 1985). Suom Ulla Selkälä. Kustannus Oy Jalava 1992. [K].",
             "verified": false
           }
         ],
@@ -28071,24 +28071,24 @@
           {
             "images": [
               {
-                "id": 537,
-                "image_src": "/static/images/books/Vance_Jack_Iltaruskonmaa_1p.jpg",
+                "id": 311,
+                "image_src": "/static/images/books/Bradbury_Ray_Kuvitettumies_2p.jpg",
                 "image_attr": null
               }
             ],
             "work": {
-              "id": 51,
-              "title": "Iltaruskon maa",
+              "id": 4668,
+              "title": "Kuvitettu mies",
               "subtitle": "",
-              "orig_title": "The Dying Earth",
-              "pubyear": 1950,
+              "orig_title": "The Illustrated Man",
+              "pubyear": 1951,
               "bookseriesnum": "",
               "bookseriesorder": null,
               "misc": "",
-              "description": "<p>Kaikkien aikojen 16. paras fantasiaromaani Locus-lehden äänestyksessä 1987. Ehdokkuus retro-Hugo-palkinnon saajaksi (paras romaani) vuonna 2001. </p>\r\n\r\n<p>Jack Vance on fantasiakirjallisuuden suuria nimiä, hän on Hugo-, Nebula-, Jupiter- ja Edgar-palkintojen voittaja, mysteerien mestari ja tunnelman takaaja.</p>\r\n\r\n<p>Iltaruskon maa kertoo painajaisutopian kuolevalta planeetalta. Se tulvii aaveita ja demoneja, loitsuja ja magian mielivaltaa.</p>\r\n\r\n<p>Iankaikkinen yö tekee tuloaan, ihmiskunta puolustautuu pahaa vastaan etsimällä viisasten kiveä menneitten kaupunkien raunioista. Tieteestä on tullut alkemiaa, elämästä tulinuolten ja veriuhrien rituaali, ansat ja tuonpuoleisen voimat vaanivat kaikkialla.</p>\r\n\r\n<p>Mutta vain Jack Vance osaa kertoa mustan tarinansa seikkailun hengessä, tavalla jota sävyttää mielikuvituksen vapaus ja keksimisen ilo.</p>",
+              "description": "<p>Kuuluisan Fahrenheit 451 -kirjan tekijä, tieteisromaanikirjailijana klassikon maineen saavuttanut Ray Bradbury päästää jälleen valloilleen nerokkaan mielikuvituksensa. Hän antaa sen liitää avaruuden ja ajan halki etsimään tulevaisuuden ihmisen kieroutuneita ja rakastettavia, yksinkertaisia ja kammottavia piirteitä.</p>\r\n\r\n<p>Kirjaan kuuluu kertomuksia muista maailmoista: rakkaudesta ja kiintymyksestä Marsissa, hulluudesta Venuksen ikuisissa sateissa, yksinäisestä kuolemasta maailmojen välisessä avaruudessa – ja oman maailmamme pienistä kylistä, joissa tapahtuu outoja asioita, joita emme huomaa, ja esiintyy outoja olentoja, joita emme näe.</p>\r\n\r\n<p>Bradburyn edellisten teosten tavoin tämäkin on koskettavaa aitoa kertomusta ihmisestä, ja juuri ihmismieltä luotaavassa syvällisyydessään se on tieteiskirjallisuuden joukossa aivan huippuluokkaa.</p>\r\n\r\n**\r\n\r\n<p>\"Tieteiskirjallisuus on vapaus itse\"</p>\r\n\r\n<p>Amerikkalainen Ray Bradbury, Fahrenheit 451 ja Marsin aikakirjojen tekijä, on fantasian ja science fictionin eläviä klassikkoja. Hän on ennen kaikkea lyhyiden tarinoiden mestari, jolle tieteisaines on pikemminkin kehys kuin tarkoitus.</p>\r\n\r\n<p>Elämänfilosofia ja yhteiskunnallinen näkemys, kerronnan lyyrisyys ja voima nostavat hänet tasolle, jolle harva tieteiskirjailija yltää.</p>\r\n\r\n<p>Juuri tästä syystä Kuvitettu mies on edelleenkin elävä kirja, vaikka se kirjoitettiin ennen kuin ihminen oli käynyt kuussa tai lähettänyt luotaimia kuvaamaan Marsia ja Venusta.</p>\r\n\r\n<p>Tämä kirja sisältää kertomuksia jotka yhdistyvät niminovellin teemaan. Siinä tulevaisuudesta materialisoitunut noitanainen piirtää miehen vartaloon kuvia, jotka yön tullen alkavat elää tapahtumia tulevaisuudesta, avaruusmatkoilta tai vierailta planeetoilta.</p>\r\n\r\n<p>Kuviot ulottuvat painajaisunista mystisen rajoille, elämän ja kuoleman tuntoihin.</p>\r\n\r\n<p>\"Kuvitetussa miehessä näkyy Bradburyn ehtymättömän mielikuvituksen voima\"</p>",
               "descr_attr": null,
               "imported_string": "",
-              "author_str": "Vance, Jack"
+              "author_str": "Bradbury, Ray"
             },
             "owners": [
               {
@@ -28097,20 +28097,20 @@
               }
             ],
             "wishlisted": [],
-            "id": 53,
-            "title": "Iltaruskon maa",
+            "id": 5347,
+            "title": "Kuvitettu mies",
             "subtitle": "",
-            "pubyear": 1988,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "951-26-3144-X",
-            "printedin": "Vaasa",
+            "pubyear": 1981,
+            "editionnum": 2,
+            "version": 1,
+            "isbn": "951-26-0526-0",
+            "printedin": null,
             "pubseriesnum": null,
             "coll_info": "",
-            "pages": 187,
+            "pages": 348,
             "size": 21,
-            "dustcover": 1,
-            "coverimage": 3,
+            "dustcover": 3,
+            "coverimage": 1,
             "misc": null,
             "imported_string": "",
             "verified": true
@@ -28159,6 +28159,53 @@
             "dustcover": 3,
             "coverimage": 1,
             "misc": "",
+            "imported_string": "",
+            "verified": true
+          },
+          {
+            "images": [
+              {
+                "id": 537,
+                "image_src": "/static/images/books/Vance_Jack_Iltaruskonmaa_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 51,
+              "title": "Iltaruskon maa",
+              "subtitle": "",
+              "orig_title": "The Dying Earth",
+              "pubyear": 1950,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p>Kaikkien aikojen 16. paras fantasiaromaani Locus-lehden äänestyksessä 1987. Ehdokkuus retro-Hugo-palkinnon saajaksi (paras romaani) vuonna 2001. </p>\r\n\r\n<p>Jack Vance on fantasiakirjallisuuden suuria nimiä, hän on Hugo-, Nebula-, Jupiter- ja Edgar-palkintojen voittaja, mysteerien mestari ja tunnelman takaaja.</p>\r\n\r\n<p>Iltaruskon maa kertoo painajaisutopian kuolevalta planeetalta. Se tulvii aaveita ja demoneja, loitsuja ja magian mielivaltaa.</p>\r\n\r\n<p>Iankaikkinen yö tekee tuloaan, ihmiskunta puolustautuu pahaa vastaan etsimällä viisasten kiveä menneitten kaupunkien raunioista. Tieteestä on tullut alkemiaa, elämästä tulinuolten ja veriuhrien rituaali, ansat ja tuonpuoleisen voimat vaanivat kaikkialla.</p>\r\n\r\n<p>Mutta vain Jack Vance osaa kertoa mustan tarinansa seikkailun hengessä, tavalla jota sävyttää mielikuvituksen vapaus ja keksimisen ilo.</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Vance, Jack"
+            },
+            "owners": [
+              {
+                "id": 2.0,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "id": 53,
+            "title": "Iltaruskon maa",
+            "subtitle": "",
+            "pubyear": 1988,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "951-26-3144-X",
+            "printedin": "Vaasa",
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 187,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": null,
             "imported_string": "",
             "verified": true
           },
@@ -29785,53 +29832,6 @@
             "misc": "Kääntäjän nimi nimiölehdellä virheellisesti: Matti Kannosto.",
             "imported_string": "https://kansalliskirjasto.finna.fi/Record/fikka.3305649",
             "verified": false
-          },
-          {
-            "images": [
-              {
-                "id": 311,
-                "image_src": "/static/images/books/Bradbury_Ray_Kuvitettumies_2p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 4668,
-              "title": "Kuvitettu mies",
-              "subtitle": "",
-              "orig_title": "The Illustrated Man",
-              "pubyear": 1951,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "<p>Kuuluisan Fahrenheit 451 -kirjan tekijä, tieteisromaanikirjailijana klassikon maineen saavuttanut Ray Bradbury päästää jälleen valloilleen nerokkaan mielikuvituksensa. Hän antaa sen liitää avaruuden ja ajan halki etsimään tulevaisuuden ihmisen kieroutuneita ja rakastettavia, yksinkertaisia ja kammottavia piirteitä.</p>\r\n\r\n<p>Kirjaan kuuluu kertomuksia muista maailmoista: rakkaudesta ja kiintymyksestä Marsissa, hulluudesta Venuksen ikuisissa sateissa, yksinäisestä kuolemasta maailmojen välisessä avaruudessa – ja oman maailmamme pienistä kylistä, joissa tapahtuu outoja asioita, joita emme huomaa, ja esiintyy outoja olentoja, joita emme näe.</p>\r\n\r\n<p>Bradburyn edellisten teosten tavoin tämäkin on koskettavaa aitoa kertomusta ihmisestä, ja juuri ihmismieltä luotaavassa syvällisyydessään se on tieteiskirjallisuuden joukossa aivan huippuluokkaa.</p>\r\n\r\n**\r\n\r\n<p>\"Tieteiskirjallisuus on vapaus itse\"</p>\r\n\r\n<p>Amerikkalainen Ray Bradbury, Fahrenheit 451 ja Marsin aikakirjojen tekijä, on fantasian ja science fictionin eläviä klassikkoja. Hän on ennen kaikkea lyhyiden tarinoiden mestari, jolle tieteisaines on pikemminkin kehys kuin tarkoitus.</p>\r\n\r\n<p>Elämänfilosofia ja yhteiskunnallinen näkemys, kerronnan lyyrisyys ja voima nostavat hänet tasolle, jolle harva tieteiskirjailija yltää.</p>\r\n\r\n<p>Juuri tästä syystä Kuvitettu mies on edelleenkin elävä kirja, vaikka se kirjoitettiin ennen kuin ihminen oli käynyt kuussa tai lähettänyt luotaimia kuvaamaan Marsia ja Venusta.</p>\r\n\r\n<p>Tämä kirja sisältää kertomuksia jotka yhdistyvät niminovellin teemaan. Siinä tulevaisuudesta materialisoitunut noitanainen piirtää miehen vartaloon kuvia, jotka yön tullen alkavat elää tapahtumia tulevaisuudesta, avaruusmatkoilta tai vierailta planeetoilta.</p>\r\n\r\n<p>Kuviot ulottuvat painajaisunista mystisen rajoille, elämän ja kuoleman tuntoihin.</p>\r\n\r\n<p>\"Kuvitetussa miehessä näkyy Bradburyn ehtymättömän mielikuvituksen voima\"</p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Bradbury, Ray"
-            },
-            "owners": [
-              {
-                "id": 2.0,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 5347,
-            "title": "Kuvitettu mies",
-            "subtitle": "",
-            "pubyear": 1981,
-            "editionnum": 2,
-            "version": 1,
-            "isbn": "951-26-0526-0",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 348,
-            "size": 21,
-            "dustcover": 3,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": "",
-            "verified": true
           },
           {
             "images": [
@@ -34039,48 +34039,6 @@
           {
             "images": [
               {
-                "id": 854,
-                "image_src": "/static/images/books/LeGuin_Ursula_K_Maamerenvelho_3p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 3977,
-              "title": "Maameren velho",
-              "subtitle": "",
-              "orig_title": "A Wizard of Earthsea",
-              "pubyear": 1968,
-              "bookseriesnum": "1",
-              "bookseriesorder": 1,
-              "misc": "Boston Globe-Horn Book Award 1968, Lewis Carroll Shelf Award 1979.",
-              "description": "<p><em>Maameren velho</em> on ensimmäinen osa tunnetun amerikkalaisen kirjailijan, moneen kertaa palkittujen nuortenkirjojen ja tieteiskirjojen tekijän satutrilogiasta <em>Maameren tarinat</em>. Se vie lukijansa taianomaiseen Maameren saaristoon, maailmaan, joka on, eikä ole. Maameri on mahtavien taikureiden ja velhojen maa, tummien varjojen, eksyttävien labyrinttien, kadonneiden aarteiden ja suurten seikkailujen maa.</p><p>Maameri on Varpushaukan maa, ja Varpushaukka on synnynnäinen velho, joka osoittaa maagiset kykynsä jo pienenä poikana. Velhojen koulussa Varpushaukasta kehittyy vaikutusvaltainen velho Ged, joka nostattaa tuulta, siunaa vettä ja parantaa sairaita. Hän tekee urotöitä, niitä joista tulevat sukupolvet kertovat sankarilauluissaan: lannistaa lohikäärmeistä mahtavimman. Mutta hän tekee myös virheen: päästää irti varjon, pahan, joka uhkaa maailmaa ja on vähällä tappaa Gedin.</p><p>Alkaa Gedin pitkä ja armoton kamppailu pahaa vastaan.</p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Le Guin, Ursula K."
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 4566,
-            "title": "Maameren velho",
-            "subtitle": "",
-            "pubyear": 1990,
-            "editionnum": 3,
-            "version": 1,
-            "isbn": "951-0-16243-4",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 226,
-            "size": 19,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": "",
-            "verified": false
-          },
-          {
-            "images": [
-              {
                 "id": 4405,
                 "image_src": "/static/images/books/LeGuin_Ursula_Atuaninholvihaudat_3p.jpg",
                 "image_attr": null
@@ -34166,6 +34124,48 @@
             "misc": null,
             "imported_string": "",
             "verified": true
+          },
+          {
+            "images": [
+              {
+                "id": 854,
+                "image_src": "/static/images/books/LeGuin_Ursula_K_Maamerenvelho_3p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 3977,
+              "title": "Maameren velho",
+              "subtitle": "",
+              "orig_title": "A Wizard of Earthsea",
+              "pubyear": 1968,
+              "bookseriesnum": "1",
+              "bookseriesorder": 1,
+              "misc": "Boston Globe-Horn Book Award 1968, Lewis Carroll Shelf Award 1979.",
+              "description": "<p><em>Maameren velho</em> on ensimmäinen osa tunnetun amerikkalaisen kirjailijan, moneen kertaa palkittujen nuortenkirjojen ja tieteiskirjojen tekijän satutrilogiasta <em>Maameren tarinat</em>. Se vie lukijansa taianomaiseen Maameren saaristoon, maailmaan, joka on, eikä ole. Maameri on mahtavien taikureiden ja velhojen maa, tummien varjojen, eksyttävien labyrinttien, kadonneiden aarteiden ja suurten seikkailujen maa.</p><p>Maameri on Varpushaukan maa, ja Varpushaukka on synnynnäinen velho, joka osoittaa maagiset kykynsä jo pienenä poikana. Velhojen koulussa Varpushaukasta kehittyy vaikutusvaltainen velho Ged, joka nostattaa tuulta, siunaa vettä ja parantaa sairaita. Hän tekee urotöitä, niitä joista tulevat sukupolvet kertovat sankarilauluissaan: lannistaa lohikäärmeistä mahtavimman. Mutta hän tekee myös virheen: päästää irti varjon, pahan, joka uhkaa maailmaa ja on vähällä tappaa Gedin.</p><p>Alkaa Gedin pitkä ja armoton kamppailu pahaa vastaan.</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Le Guin, Ursula K."
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 4566,
+            "title": "Maameren velho",
+            "subtitle": "",
+            "pubyear": 1990,
+            "editionnum": 3,
+            "version": 1,
+            "isbn": "951-0-16243-4",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 226,
+            "size": 19,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": "",
+            "verified": false
           },
           {
             "images": [
@@ -36325,6 +36325,53 @@
           {
             "images": [
               {
+                "id": 945,
+                "image_src": "/static/images/books/Reynolds_Ikirouta_p1.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 557,
+              "title": "Ikirouta",
+              "subtitle": "",
+              "orig_title": "Permafrost",
+              "pubyear": 2019,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p>KORJAA MENNEISYYS.</p><p>PELASTA NYKYISYYS.</p><p>PYSÄYTÄ TULEVAISUUS.</p><p>Vuosi 2080: 71-vuotias matemaatikko Valentina osallistuu kokeeseen, jossa ryhmä tutkijoita pyrkii kirjoittamaan historian uusiksi. Hänen tehtävänään on muuttaa menneisyyttä globaalin katastrofin estämiseksi.</p><p>Vuosi 2028: nuori nainen nimeltä Tatjana herää rutiininomaisesta aivoleikkauksesta. Hän alkaa kuulla päässään ääntä, jolla tuntuu olevan oma tahto ja tarkoitusperät.​ Luottaako tunkeilijaan, joka väittää koko maailman selviytymisen olevan hänen käsissään?</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Reynolds, Alastair"
+            },
+            "owners": [
+              {
+                "id": 2.0,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "id": 673,
+            "title": "Ikirouta",
+            "subtitle": "",
+            "pubyear": 2020,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "978-951-1-35563-2",
+            "printedin": "Keuruu",
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 152,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": true
+          },
+          {
+            "images": [
+              {
                 "id": 939,
                 "image_src": "/static/images/books/Reynolds_AurinkojenHuone_p1.jpg",
                 "image_attr": null
@@ -36456,53 +36503,6 @@
             "pubseriesnum": null,
             "coll_info": "",
             "pages": 157,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": true
-          },
-          {
-            "images": [
-              {
-                "id": 945,
-                "image_src": "/static/images/books/Reynolds_Ikirouta_p1.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 557,
-              "title": "Ikirouta",
-              "subtitle": "",
-              "orig_title": "Permafrost",
-              "pubyear": 2019,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "<p>KORJAA MENNEISYYS.</p><p>PELASTA NYKYISYYS.</p><p>PYSÄYTÄ TULEVAISUUS.</p><p>Vuosi 2080: 71-vuotias matemaatikko Valentina osallistuu kokeeseen, jossa ryhmä tutkijoita pyrkii kirjoittamaan historian uusiksi. Hänen tehtävänään on muuttaa menneisyyttä globaalin katastrofin estämiseksi.</p><p>Vuosi 2028: nuori nainen nimeltä Tatjana herää rutiininomaisesta aivoleikkauksesta. Hän alkaa kuulla päässään ääntä, jolla tuntuu olevan oma tahto ja tarkoitusperät.​ Luottaako tunkeilijaan, joka väittää koko maailman selviytymisen olevan hänen käsissään?</p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Reynolds, Alastair"
-            },
-            "owners": [
-              {
-                "id": 2.0,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 673,
-            "title": "Ikirouta",
-            "subtitle": "",
-            "pubyear": 2020,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "978-951-1-35563-2",
-            "printedin": "Keuruu",
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 152,
             "size": 21,
             "dustcover": 1,
             "coverimage": 1,
@@ -37495,6 +37495,53 @@
           {
             "images": [
               {
+                "id": 974,
+                "image_src": "/static/images/books/Makela_Alas_p1.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 1881,
+              "title": "Alas",
+              "subtitle": "",
+              "orig_title": "Alas",
+              "pubyear": 2013,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p>Paluu Alshainin maailmaan!</p>\r\n\r\n<p>Viisi ihmistä joutuu keskelle kaaosta ja kuolemaa, kun planeetan pinnan ja kiertoradan välistä liikennettä hoitava avaruushissi tuhoutuu. Turistiopas, hänen entinen miehensä, tämän uusi kumppani, pennittömästä planeetallemuuttajasta vauraaksi yrittäjäksi noussut nainen ja kummallisen kultin piirissä kasvanut poika näkevät kukin tapahtumat eri tavoin ja reagoivat niihin omalla tavallaan. Jokaisella on myös oma käsityksensä siitä, mistä onnettomuus johtuu ja kuka sen takana on.</p>\r\n\r\n<p>Onko kukaan henkilöistä lopulta lainkaan oikeilla jäljillä, vai tapahtuuko Alshain-tähteä kiertävällä planeetalla kaikki edelleenkin siellä, minne yksikään ihminen ei katso?</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Mäkelä, J. Pekka"
+            },
+            "owners": [
+              {
+                "id": 2.0,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "id": 2170,
+            "title": "Alas",
+            "subtitle": "",
+            "pubyear": 2013,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "978-952-01-0948-6",
+            "printedin": "Keuruu",
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 314,
+            "size": 20,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "Karttoja.",
+            "imported_string": "",
+            "verified": true
+          },
+          {
+            "images": [
+              {
                 "id": 973,
                 "image_src": "/static/images/books/Morgan_MustaMies_p1.jpg",
                 "image_attr": null
@@ -37589,21 +37636,21 @@
           {
             "images": [
               {
-                "id": 965,
-                "image_src": "/static/images/books/Makela_Nedut_p1.jpg",
+                "id": 962,
+                "image_src": "/static/images/books/Makela_Alshain_p1.jpg",
                 "image_attr": null
               }
             ],
             "work": {
-              "id": 1885,
-              "title": "Nedut",
+              "id": 1882,
+              "title": "Alshain",
               "subtitle": "",
-              "orig_title": "Nedut",
-              "pubyear": 2007,
+              "orig_title": "Alshain",
+              "pubyear": 2006,
               "bookseriesnum": "",
               "bookseriesorder": null,
-              "misc": "Tähtivaeltaja-palkintoehdokas 2008.",
-              "description": "<p>Härmärockin legenda Jolle Peltola taittaa nälkäpalkalla aikakauslehtiä vanhassa teollisuushallissa ja muistelee parinkymmenen vuoden takaisia bändiaikojaan. Pomo hengittää niskaan ja velkojat vaativat saataviaan. Ja sitten tulivat nedut.</p>\r\n\r\n<p>Neandertalilaiset palaavat Maahan, meidän aikaamme. He laskeutuvat avaruudesta huipputeknologia ja ylivoimainen tulivoima apunaan ja ottavat jälleen haltuunsa vanhat kotiseutunsa Keski-Euroopassa. Lajien välisiltä törmäyksiltä ei voida välttyä ja Jolle huomaa ajautuneensa šamanistiselle matkalle omaan itseensä ja ihmisyyteen ylipäänsä.</p>",
+              "misc": "Tähtivaeltaja-palkintoehdokas 2006.",
+              "description": "<p>Alshainissa kaikki tapahtuu siellä, minne yksikään ihminen ei katso.</p>\r\n\r\n<p>Ihminen on levittäytynyt avaruuteen, jopa muihin aurinkokuntiin asti. Kaukaisin siirtokunta, Alshain, sijaitsee meren miltei kokonaan peittämällä planeetalla viidenkymmenen valovuoden päässä Maasta. Silläkin on jo takanaan vaiheikas historia vallankumouksineen, kapinoineen ja ihmiskohtaloineen.</p>\r\n\r\n<p>Tähtialuksen putoaminen planeetalle muuttaa viiden asukkaan elämän peruuttamattomasti. Maasta saapunut siirtolainen eli maalainen, vakavasti vammautuneen miehen morsian, vanha mies, työtovereidensa murhia selvittelevä poliisi ja nuori merentutkija joutuvat kohtaamaan asioita, joita eivät ole koskaan osanneet edes kuvitella.</p>",
               "descr_attr": null,
               "imported_string": "",
               "author_str": "Mäkelä, J. Pekka"
@@ -37615,21 +37662,21 @@
               }
             ],
             "wishlisted": [],
-            "id": 2174,
-            "title": "Nedut",
+            "id": 2171,
+            "title": "Alshain",
             "subtitle": "",
-            "pubyear": 2007,
+            "pubyear": 2006,
             "editionnum": 1,
             "version": null,
-            "isbn": "978-952-471-993-3",
+            "isbn": "952-471-709-3",
             "printedin": "Keuruu",
             "pubseriesnum": null,
             "coll_info": "",
-            "pages": 286,
+            "pages": 309,
             "size": 20,
             "dustcover": 1,
             "coverimage": 1,
-            "misc": "Typografia: Ville Sutinen.",
+            "misc": "Karttoja.",
             "imported_string": "",
             "verified": true
           },
@@ -37683,100 +37730,6 @@
           {
             "images": [
               {
-                "id": 974,
-                "image_src": "/static/images/books/Makela_Alas_p1.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 1881,
-              "title": "Alas",
-              "subtitle": "",
-              "orig_title": "Alas",
-              "pubyear": 2013,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "<p>Paluu Alshainin maailmaan!</p>\r\n\r\n<p>Viisi ihmistä joutuu keskelle kaaosta ja kuolemaa, kun planeetan pinnan ja kiertoradan välistä liikennettä hoitava avaruushissi tuhoutuu. Turistiopas, hänen entinen miehensä, tämän uusi kumppani, pennittömästä planeetallemuuttajasta vauraaksi yrittäjäksi noussut nainen ja kummallisen kultin piirissä kasvanut poika näkevät kukin tapahtumat eri tavoin ja reagoivat niihin omalla tavallaan. Jokaisella on myös oma käsityksensä siitä, mistä onnettomuus johtuu ja kuka sen takana on.</p>\r\n\r\n<p>Onko kukaan henkilöistä lopulta lainkaan oikeilla jäljillä, vai tapahtuuko Alshain-tähteä kiertävällä planeetalla kaikki edelleenkin siellä, minne yksikään ihminen ei katso?</p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Mäkelä, J. Pekka"
-            },
-            "owners": [
-              {
-                "id": 2.0,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 2170,
-            "title": "Alas",
-            "subtitle": "",
-            "pubyear": 2013,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "978-952-01-0948-6",
-            "printedin": "Keuruu",
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 314,
-            "size": 20,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "Karttoja.",
-            "imported_string": "",
-            "verified": true
-          },
-          {
-            "images": [
-              {
-                "id": 962,
-                "image_src": "/static/images/books/Makela_Alshain_p1.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 1882,
-              "title": "Alshain",
-              "subtitle": "",
-              "orig_title": "Alshain",
-              "pubyear": 2006,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "Tähtivaeltaja-palkintoehdokas 2006.",
-              "description": "<p>Alshainissa kaikki tapahtuu siellä, minne yksikään ihminen ei katso.</p>\r\n\r\n<p>Ihminen on levittäytynyt avaruuteen, jopa muihin aurinkokuntiin asti. Kaukaisin siirtokunta, Alshain, sijaitsee meren miltei kokonaan peittämällä planeetalla viidenkymmenen valovuoden päässä Maasta. Silläkin on jo takanaan vaiheikas historia vallankumouksineen, kapinoineen ja ihmiskohtaloineen.</p>\r\n\r\n<p>Tähtialuksen putoaminen planeetalle muuttaa viiden asukkaan elämän peruuttamattomasti. Maasta saapunut siirtolainen eli maalainen, vakavasti vammautuneen miehen morsian, vanha mies, työtovereidensa murhia selvittelevä poliisi ja nuori merentutkija joutuvat kohtaamaan asioita, joita eivät ole koskaan osanneet edes kuvitella.</p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Mäkelä, J. Pekka"
-            },
-            "owners": [
-              {
-                "id": 2.0,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 2171,
-            "title": "Alshain",
-            "subtitle": "",
-            "pubyear": 2006,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "952-471-709-3",
-            "printedin": "Keuruu",
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 309,
-            "size": 20,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "Karttoja.",
-            "imported_string": "",
-            "verified": true
-          },
-          {
-            "images": [
-              {
                 "id": 972,
                 "image_src": "/static/images/books/Makela_Karsta_p1.jpg",
                 "image_attr": null
@@ -37818,6 +37771,53 @@
             "dustcover": 1,
             "coverimage": 1,
             "misc": "Kuvitettu.",
+            "imported_string": "",
+            "verified": true
+          },
+          {
+            "images": [
+              {
+                "id": 965,
+                "image_src": "/static/images/books/Makela_Nedut_p1.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 1885,
+              "title": "Nedut",
+              "subtitle": "",
+              "orig_title": "Nedut",
+              "pubyear": 2007,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "Tähtivaeltaja-palkintoehdokas 2008.",
+              "description": "<p>Härmärockin legenda Jolle Peltola taittaa nälkäpalkalla aikakauslehtiä vanhassa teollisuushallissa ja muistelee parinkymmenen vuoden takaisia bändiaikojaan. Pomo hengittää niskaan ja velkojat vaativat saataviaan. Ja sitten tulivat nedut.</p>\r\n\r\n<p>Neandertalilaiset palaavat Maahan, meidän aikaamme. He laskeutuvat avaruudesta huipputeknologia ja ylivoimainen tulivoima apunaan ja ottavat jälleen haltuunsa vanhat kotiseutunsa Keski-Euroopassa. Lajien välisiltä törmäyksiltä ei voida välttyä ja Jolle huomaa ajautuneensa šamanistiselle matkalle omaan itseensä ja ihmisyyteen ylipäänsä.</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Mäkelä, J. Pekka"
+            },
+            "owners": [
+              {
+                "id": 2.0,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "id": 2174,
+            "title": "Nedut",
+            "subtitle": "",
+            "pubyear": 2007,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "978-952-471-993-3",
+            "printedin": "Keuruu",
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 286,
+            "size": 20,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "Typografia: Ville Sutinen.",
             "imported_string": "",
             "verified": true
           },
@@ -39433,6 +39433,48 @@
           {
             "images": [
               {
+                "id": 620,
+                "image_src": "/static/images/books/Vigne_LinnunradanAaret_p2.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 131,
+              "title": "Linnunradan ääret",
+              "subtitle": "",
+              "orig_title": "A Fire Upon the Deep",
+              "pubyear": 1992,
+              "bookseriesnum": "1",
+              "bookseriesorder": 1,
+              "misc": "",
+              "description": "<p>Nebula-palkintoehdokas 1992.</p>\r\n\r\n<p>Mittasuhteiltaan häkellyttävä avaruussaaga ja mukaansatempaava romaani rakkaudesta, menetyksestä ja selviytymisestä.</p>\r\n\r\n<p>Avaruusalus haaksirikkoutuu tuntemattomalle planeetalle. Eloonjääneet – kaksi lasta – jäävät paikallisen, keskiaikaa elävän susimaisen kansan armoille. Rikkoutuneen aluksen hätäsignaalit leviävät avaruuteen ja pelastusretkikunta kamppailee aikaa vastaan ehtiäkseen pelastamaan lapset. Retkikunnan tavoitteena on myös saada haltuunsa maailmankaikkeuden voimakkain ase.</p>\r\n\r\n<p>Tämä ainutlaatuinen yhdistelmä tiedettä, suurta draamaa ja ylivertaista kerrontaa on voittanut sekä Hugo- että New York Times Notable Book of the Year -palkinnot. </p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Vinge, Vernor"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 189,
+            "title": "Linnunradan ääret",
+            "subtitle": "",
+            "pubyear": 2008,
+            "editionnum": 2,
+            "version": 1,
+            "isbn": "978-952-01-0089-6",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 608,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": "https://kansalliskirjasto.finna.fi/Record/fikka.4075448",
+            "verified": false
+          },
+          {
+            "images": [
+              {
                 "id": 940,
                 "image_src": "/static/images/books/Reynolds_AurinkojenHuone_p2.jpg",
                 "image_attr": null
@@ -40059,53 +40101,6 @@
             "misc": "",
             "imported_string": "\n\n2.laitos: Like-pokkari. Like 2013.",
             "verified": false
-          },
-          {
-            "images": [
-              {
-                "id": 6280,
-                "image_src": "/static/images/books/Mather_Matthew_Kybermyrsky_2p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 1670,
-              "title": "Kybermyrsky",
-              "subtitle": "",
-              "orig_title": "CyberStorm",
-              "pubyear": 2013,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "",
-              "description": "<p><strong>Hyytävän realistinen teknotrilleri maailmanlaajuisesta kyberhyökkäyksestä ja sivilisaation romahduksesta</strong></p><p>Mike Mitchell, kolmekymppinen insinööri Manhattanilta, havaitsee outoja häiriöitä radio- ja tietoliikenneyhteyksissä. New Yorkin puhelin-, tv- ja internetyhteydet katkeavat, ja käy ilmi, että Yhdysvaltain itärannikon infrastruktuuria hallitsevat tietoverkot ovat romahtaneet kyberhyökkäyksessä. Armeija on korkeimmassa valmiustilassa. Pian myös sähkö, vesi ja lämmitys katkeavat, ja talvinen Manhattan lamaantuu täysin.</p><p>New Yorkissa vallitsee hätätila, kun historian pahin lumimyrsky iskee kaupunkiin. Mike Mitchell taistelee perheensä selviytymisen puolesta sekasortoon vajonneessa kaupungissa, joka on taantunut keskiajalle, ja pakkanen kiristyy kiristymistään.</p><p>Matthew Mather on amerikkalainen kirjailija ja kyberturvallisuuden asiantuntija. <em>Kybermyrsky</em> nousi ilmestyttyään välittömästi Amazonin bestseller-listalle useassa genressä, ja sen käännösoikeudet on myyty yhdeksään maahan. 20th Century Fox on hankkinut romaanin elokuvaoikeudet. <em>Kybermyrsky</em> on ensimmäinen Matherin tuotannosta suomennettu teos.</p>",
-              "descr_attr": null,
-              "imported_string": "\n<b>Kybermyrsky</b>. (CyberStorm, 2013). Suom Einari Aaltonen. Like 2014. [SF].",
-              "author_str": "Mather, Matthew"
-            },
-            "owners": [
-              {
-                "id": 2.0,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 1930,
-            "title": "Kybermyrsky",
-            "subtitle": "",
-            "pubyear": 2015,
-            "editionnum": 2,
-            "version": 1,
-            "isbn": "978-952-01-1197-7",
-            "printedin": "Keuruu",
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 448,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": true
           },
           {
             "images": [
@@ -41977,44 +41972,49 @@
           {
             "images": [
               {
-                "id": 3185,
-                "image_src": "/static/images/books/Vandermeer_Jeff_Havitys_2p.jpg",
+                "id": 6280,
+                "image_src": "/static/images/books/Mather_Matthew_Kybermyrsky_2p.jpg",
                 "image_attr": null
               }
             ],
             "work": {
-              "id": 54,
-              "title": "Hävitys",
+              "id": 1670,
+              "title": "Kybermyrsky",
               "subtitle": "",
-              "orig_title": "Annihilation. Book 1 of the Southern Reach Trilogy",
-              "pubyear": 2014,
-              "bookseriesnum": "1",
-              "bookseriesorder": 1,
-              "misc": "Kolmas sija Locus-palkintoäänestyksessä 2015 (koko trilogia), World Fantasy -palkintoehdokas 2015 (koko trilogia), Tähtivaeltaja-palkintoehdokas 2016.",
-              "description": "<p>Alue X on joutunut vuosikymmeniä sitten tuntemattoman voiman eristämäksi. Sinne lähetetyille retkikunnille on aina käynyt huonosti. Nyt retkikunta 12 yrittää saada selvyyttä rajan takaisesta todellisuudesta. Alue ylittää kuitenkin heidän hurjimmatkin odotuksensa. Herää kysymys, onko retkikunnalle valehdeltu alusta lähtien.</p><p><br></p>",
+              "orig_title": "CyberStorm",
+              "pubyear": 2013,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": "<p><strong>Hyytävän realistinen teknotrilleri maailmanlaajuisesta kyberhyökkäyksestä ja sivilisaation romahduksesta</strong></p><p>Mike Mitchell, kolmekymppinen insinööri Manhattanilta, havaitsee outoja häiriöitä radio- ja tietoliikenneyhteyksissä. New Yorkin puhelin-, tv- ja internetyhteydet katkeavat, ja käy ilmi, että Yhdysvaltain itärannikon infrastruktuuria hallitsevat tietoverkot ovat romahtaneet kyberhyökkäyksessä. Armeija on korkeimmassa valmiustilassa. Pian myös sähkö, vesi ja lämmitys katkeavat, ja talvinen Manhattan lamaantuu täysin.</p><p>New Yorkissa vallitsee hätätila, kun historian pahin lumimyrsky iskee kaupunkiin. Mike Mitchell taistelee perheensä selviytymisen puolesta sekasortoon vajonneessa kaupungissa, joka on taantunut keskiajalle, ja pakkanen kiristyy kiristymistään.</p><p>Matthew Mather on amerikkalainen kirjailija ja kyberturvallisuuden asiantuntija. <em>Kybermyrsky</em> nousi ilmestyttyään välittömästi Amazonin bestseller-listalle useassa genressä, ja sen käännösoikeudet on myyty yhdeksään maahan. 20th Century Fox on hankkinut romaanin elokuvaoikeudet. <em>Kybermyrsky</em> on ensimmäinen Matherin tuotannosta suomennettu teos.</p>",
               "descr_attr": null,
-              "imported_string": "",
-              "author_str": "VanderMeer, Jeff"
+              "imported_string": "\n<b>Kybermyrsky</b>. (CyberStorm, 2013). Suom Einari Aaltonen. Like 2014. [SF].",
+              "author_str": "Mather, Matthew"
             },
-            "owners": [],
+            "owners": [
+              {
+                "id": 2.0,
+                "name": "mep"
+              }
+            ],
             "wishlisted": [],
-            "id": 57,
-            "title": "Hävitys",
+            "id": 1930,
+            "title": "Kybermyrsky",
             "subtitle": "",
-            "pubyear": 2018,
+            "pubyear": 2015,
             "editionnum": 2,
             "version": 1,
-            "isbn": "978-952-01-1771-9",
-            "printedin": null,
+            "isbn": "978-952-01-1197-7",
+            "printedin": "Keuruu",
             "pubseriesnum": null,
             "coll_info": "",
-            "pages": 222,
+            "pages": 448,
             "size": 18,
             "dustcover": 1,
             "coverimage": 1,
             "misc": "",
-            "imported_string": "2.painos: Like-pokkari. Like 2018.",
-            "verified": false
+            "imported_string": "",
+            "verified": true
           },
           {
             "images": [
@@ -42061,43 +42061,43 @@
           {
             "images": [
               {
-                "id": 620,
-                "image_src": "/static/images/books/Vigne_LinnunradanAaret_p2.jpg",
+                "id": 3185,
+                "image_src": "/static/images/books/Vandermeer_Jeff_Havitys_2p.jpg",
                 "image_attr": null
               }
             ],
             "work": {
-              "id": 131,
-              "title": "Linnunradan ääret",
+              "id": 54,
+              "title": "Hävitys",
               "subtitle": "",
-              "orig_title": "A Fire Upon the Deep",
-              "pubyear": 1992,
+              "orig_title": "Annihilation. Book 1 of the Southern Reach Trilogy",
+              "pubyear": 2014,
               "bookseriesnum": "1",
               "bookseriesorder": 1,
-              "misc": "",
-              "description": "<p>Nebula-palkintoehdokas 1992.</p>\r\n\r\n<p>Mittasuhteiltaan häkellyttävä avaruussaaga ja mukaansatempaava romaani rakkaudesta, menetyksestä ja selviytymisestä.</p>\r\n\r\n<p>Avaruusalus haaksirikkoutuu tuntemattomalle planeetalle. Eloonjääneet – kaksi lasta – jäävät paikallisen, keskiaikaa elävän susimaisen kansan armoille. Rikkoutuneen aluksen hätäsignaalit leviävät avaruuteen ja pelastusretkikunta kamppailee aikaa vastaan ehtiäkseen pelastamaan lapset. Retkikunnan tavoitteena on myös saada haltuunsa maailmankaikkeuden voimakkain ase.</p>\r\n\r\n<p>Tämä ainutlaatuinen yhdistelmä tiedettä, suurta draamaa ja ylivertaista kerrontaa on voittanut sekä Hugo- että New York Times Notable Book of the Year -palkinnot. </p>",
+              "misc": "Kolmas sija Locus-palkintoäänestyksessä 2015 (koko trilogia), World Fantasy -palkintoehdokas 2015 (koko trilogia), Tähtivaeltaja-palkintoehdokas 2016.",
+              "description": "<p>Alue X on joutunut vuosikymmeniä sitten tuntemattoman voiman eristämäksi. Sinne lähetetyille retkikunnille on aina käynyt huonosti. Nyt retkikunta 12 yrittää saada selvyyttä rajan takaisesta todellisuudesta. Alue ylittää kuitenkin heidän hurjimmatkin odotuksensa. Herää kysymys, onko retkikunnalle valehdeltu alusta lähtien.</p><p><br></p>",
               "descr_attr": null,
               "imported_string": "",
-              "author_str": "Vinge, Vernor"
+              "author_str": "VanderMeer, Jeff"
             },
             "owners": [],
             "wishlisted": [],
-            "id": 189,
-            "title": "Linnunradan ääret",
+            "id": 57,
+            "title": "Hävitys",
             "subtitle": "",
-            "pubyear": 2008,
+            "pubyear": 2018,
             "editionnum": 2,
             "version": 1,
-            "isbn": "978-952-01-0089-6",
+            "isbn": "978-952-01-1771-9",
             "printedin": null,
             "pubseriesnum": null,
             "coll_info": "",
-            "pages": 608,
+            "pages": 222,
             "size": 18,
             "dustcover": 1,
             "coverimage": 1,
-            "misc": null,
-            "imported_string": "https://kansalliskirjasto.finna.fi/Record/fikka.4075448",
+            "misc": "",
+            "imported_string": "2.painos: Like-pokkari. Like 2018.",
             "verified": false
           }
         ],
@@ -48611,53 +48611,6 @@
           {
             "images": [
               {
-                "id": 6641,
-                "image_src": "/static/images/books/Ilmari_Osmo_Uhkaavaruudesta_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 3242,
-              "title": "Uhka avaruudesta",
-              "subtitle": "",
-              "orig_title": "Uhka avaruudesta",
-              "pubyear": 1956,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "Nuorten Kirjan palkintolautakunnan kunniamaininta.",
-              "description": "<p>Maailman tähtitieteilijät olivat ymmällään: Otavan seitsemäs tähti oli äkkiä hävinnyt taivaalta olemattomiin.</p><p>Samaan aikaan kokoontuivat tyrmistyneinä maailman järjestyksenvalvojat: jossakin pitää päämajaansa mahtava kapinallisryhmä, joka häikäilemättömin keinoin yrittää tuhota yhteiskunnan ja saattaa kansat kaaostilaan.</p><p>Ja vielä samaan aikaan sattuu suomalisessa järvenrantahuvilassa salaperäinen tapaussarja, joka saa insinööri Hallan veljenpojan Jaakon ja tämän ystävän Patin kiihtymyksen valtaan.</p><p>Nämä ilmiöt kytkeytyvät yhteen, sen Jaakko oivaltaa sinä päivänä, jolloin hän yhdessä ystävänsä kanssa on vankina avaruuslaivassa - matkalla kapinallisten päämajaan, avaruussaareen. Ja niin lukija joutuu yhdessä Jaakko-pojan kanssa keskelle suurta seikkailua...</p>",
-              "descr_attr": null,
-              "imported_string": "\n\n<b>Uhka avaruudesta</b>. Nuorten toivekirjasto 84. WSOY 1956. [nSF].",
-              "author_str": "Ilmari, Osmo"
-            },
-            "owners": [
-              {
-                "id": 2.0,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 6624,
-            "title": "Uhka avaruudesta",
-            "subtitle": "",
-            "pubyear": 1959,
-            "editionnum": 2,
-            "version": null,
-            "isbn": "",
-            "printedin": "Porvoo",
-            "pubseriesnum": 84,
-            "coll_info": null,
-            "pages": 147,
-            "size": 19,
-            "dustcover": 1,
-            "coverimage": 3,
-            "misc": "",
-            "imported_string": "",
-            "verified": true
-          },
-          {
-            "images": [
-              {
                 "id": 2254,
                 "image_src": "/static/images/books/Ilmari_Osmo_Uhkaavaruudesta_1p.jpg",
                 "image_attr": null
@@ -48694,6 +48647,53 @@
             "printedin": "Porvoo",
             "pubseriesnum": 84,
             "coll_info": "",
+            "pages": 147,
+            "size": 19,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": "",
+            "imported_string": "",
+            "verified": true
+          },
+          {
+            "images": [
+              {
+                "id": 6641,
+                "image_src": "/static/images/books/Ilmari_Osmo_Uhkaavaruudesta_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 3242,
+              "title": "Uhka avaruudesta",
+              "subtitle": "",
+              "orig_title": "Uhka avaruudesta",
+              "pubyear": 1956,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "Nuorten Kirjan palkintolautakunnan kunniamaininta.",
+              "description": "<p>Maailman tähtitieteilijät olivat ymmällään: Otavan seitsemäs tähti oli äkkiä hävinnyt taivaalta olemattomiin.</p><p>Samaan aikaan kokoontuivat tyrmistyneinä maailman järjestyksenvalvojat: jossakin pitää päämajaansa mahtava kapinallisryhmä, joka häikäilemättömin keinoin yrittää tuhota yhteiskunnan ja saattaa kansat kaaostilaan.</p><p>Ja vielä samaan aikaan sattuu suomalisessa järvenrantahuvilassa salaperäinen tapaussarja, joka saa insinööri Hallan veljenpojan Jaakon ja tämän ystävän Patin kiihtymyksen valtaan.</p><p>Nämä ilmiöt kytkeytyvät yhteen, sen Jaakko oivaltaa sinä päivänä, jolloin hän yhdessä ystävänsä kanssa on vankina avaruuslaivassa - matkalla kapinallisten päämajaan, avaruussaareen. Ja niin lukija joutuu yhdessä Jaakko-pojan kanssa keskelle suurta seikkailua...</p>",
+              "descr_attr": null,
+              "imported_string": "\n\n<b>Uhka avaruudesta</b>. Nuorten toivekirjasto 84. WSOY 1956. [nSF].",
+              "author_str": "Ilmari, Osmo"
+            },
+            "owners": [
+              {
+                "id": 2.0,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "id": 6624,
+            "title": "Uhka avaruudesta",
+            "subtitle": "",
+            "pubyear": 1959,
+            "editionnum": 2,
+            "version": null,
+            "isbn": "",
+            "printedin": "Porvoo",
+            "pubseriesnum": 84,
+            "coll_info": null,
             "pages": 147,
             "size": 19,
             "dustcover": 1,
@@ -51916,6 +51916,53 @@
           {
             "images": [
               {
+                "id": 1045,
+                "image_src": "/static/images/books/Harju_Antero_Tavoitteenamars_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 2788,
+              "title": "Tavoitteena Mars",
+              "subtitle": "",
+              "orig_title": "Otavan nuortenkirjoja",
+              "pubyear": 1965,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": "<p>Ensimmäinen avaruusalus laskeutuu vaikean matkan jälkeen planeetalle ja neljä painepukuista miestä astuu <em>Kronoksen</em> oviaukkoon katsomaan raketin ympärillä aukeavaa laajaa maisemaa. Mutta miksi jo ensimmäisenä yönä retkikunta pohtii, ovatko he tulleet uudelle tähdelle? Miksi ydinvoimamoottoreiden erikoistuntijan hermot pettävät kesken maastoautolla tehdyn tutkimusretken? Kuka on rakentanut konetta muistuttavan valtavan kuvun? Avaruuslentäjät joutuvat Marsin sinipunaisen taivaan alla outojen ilmiöitten todistajiksi.</p>",
+              "descr_attr": null,
+              "imported_string": "\n\n<b>Tavoitteena Mars</b>. ON (Otavan nuortenkirjoja) -sarja. Otava 1965. [nSF].",
+              "author_str": "Harju, Antero"
+            },
+            "owners": [
+              {
+                "id": 2.0,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "id": 3213,
+            "title": "Tavoitteena Mars",
+            "subtitle": "",
+            "pubyear": 1965,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "",
+            "printedin": "Helsinki",
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 141,
+            "size": 19,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": "",
+            "imported_string": "",
+            "verified": true
+          },
+          {
+            "images": [
+              {
                 "id": 5347,
                 "image_src": "/static/images/books/Holm_Anne_Peter_1p.jpg",
                 "image_attr": null
@@ -52080,53 +52127,6 @@
             "misc": "",
             "imported_string": "<b>Vanhan talon kummitus</b>. (The Ghost of Thomas Kempe, 1973). Suom Jukka Kemppinen. Otavan nuortenkirjoja. Otava 1976. [nF].",
             "verified": false
-          },
-          {
-            "images": [
-              {
-                "id": 1045,
-                "image_src": "/static/images/books/Harju_Antero_Tavoitteenamars_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 2788,
-              "title": "Tavoitteena Mars",
-              "subtitle": "",
-              "orig_title": "Otavan nuortenkirjoja",
-              "pubyear": 1965,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "",
-              "description": "<p>Ensimmäinen avaruusalus laskeutuu vaikean matkan jälkeen planeetalle ja neljä painepukuista miestä astuu <em>Kronoksen</em> oviaukkoon katsomaan raketin ympärillä aukeavaa laajaa maisemaa. Mutta miksi jo ensimmäisenä yönä retkikunta pohtii, ovatko he tulleet uudelle tähdelle? Miksi ydinvoimamoottoreiden erikoistuntijan hermot pettävät kesken maastoautolla tehdyn tutkimusretken? Kuka on rakentanut konetta muistuttavan valtavan kuvun? Avaruuslentäjät joutuvat Marsin sinipunaisen taivaan alla outojen ilmiöitten todistajiksi.</p>",
-              "descr_attr": null,
-              "imported_string": "\n\n<b>Tavoitteena Mars</b>. ON (Otavan nuortenkirjoja) -sarja. Otava 1965. [nSF].",
-              "author_str": "Harju, Antero"
-            },
-            "owners": [
-              {
-                "id": 2.0,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 3213,
-            "title": "Tavoitteena Mars",
-            "subtitle": "",
-            "pubyear": 1965,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "",
-            "printedin": "Helsinki",
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 141,
-            "size": 19,
-            "dustcover": 1,
-            "coverimage": 3,
-            "misc": "",
-            "imported_string": "",
-            "verified": true
           },
           {
             "images": [
@@ -56981,6 +56981,147 @@
           {
             "images": [
               {
+                "id": 400,
+                "image_src": "/static/images/books/Verne_RoburValloittaja_l2p1.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 67,
+              "title": "Ilmojen valloittaja",
+              "subtitle": "",
+              "orig_title": "Robur-le-conquerant",
+              "pubyear": 1886,
+              "bookseriesnum": "3",
+              "bookseriesorder": 3,
+              "misc": "",
+              "description": "<p>Tieteisromaanin suuria nimiä on Jules Verne. Hänen huikea matkaseikkailunsa vuodelta 1886 ottaa kantaa ajan ilmailuongelmaan: kuuluuko tulevaisuus ilmaa kevyemmille vai raskaammille lentolaitteille. Jännittävän tapahtumaketjun lomassa tarina välittää aivan ainutlaatuista tietoa ilmailun varhaishistoriasta. Insinööri Robur on rakentanut ”lentolaivan”. Keksintöön ei uskota, ja tästä kimpaantuneena Robur sieppaa mukaansa kaksi ilmapallopurjehtijaa ja lennättää heitä puolitoista kertaa maapallon ympäri.</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Verne, Jules"
+            },
+            "owners": [
+              {
+                "id": 2.0,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "id": 78,
+            "title": "Robur Valloittaja",
+            "subtitle": "",
+            "pubyear": 1975,
+            "editionnum": 1,
+            "version": 2,
+            "isbn": "951-0-06659-1",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 243,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": "Kuvitettu, karttoja.",
+            "imported_string": "",
+            "verified": true
+          },
+          {
+            "images": [
+              {
+                "id": 408,
+                "image_src": "/static/images/books/Verne_IsanmaanLippu_p1.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 68,
+              "title": "Isänmaan lippu",
+              "subtitle": "",
+              "orig_title": "Face au drapeau",
+              "pubyear": 1896,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p>Nykyisen science fiction -kirjallisuuden voidaan katsoa syntyneen pääasiallisesti Jules Vernen Merkilliset matkat -sarjan myötä. Romaanisarjastaan Verne sai Ranskan akatemian palkinnon; tähän sarjaan kuuluu myös 1896 ilmestynyt Isänmaan lippu. Romaanin päähenkilö on ranskalainen tiedemies Thomas Roch, joka vaatii nerokkaasta ohjuskeksinnöstään niin suurta rahamäärää, ettei Ranskan hallitus pysty ostamaan sitä. Roch hylkää isänmaansa ja liittoutuu paatuneiden rikollisten kanssa. Yksinäisellä kallioluodolla hän ryhtyy valmistamaan tuhoisia ohjuksiaan puolustaakseen valtavia aarteitaan. Thomas Roch ei ole kuitenkaan läpikotaisin turmeltunut – se paljastuu kirjan lopussa kun luotoa kohti höyryävän sotalaivan kahveliin vedetään Ranskan trikolorilippu.</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Verne, Jules"
+            },
+            "owners": [
+              {
+                "id": 2.0,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "id": 79,
+            "title": "Isänmaan lippu",
+            "subtitle": "",
+            "pubyear": 1981,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "951-0-10607-0",
+            "printedin": "Porvoo",
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 237,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "Kuvitettu, karttoja.",
+            "imported_string": "",
+            "verified": true
+          },
+          {
+            "images": [
+              {
+                "id": 406,
+                "image_src": "/static/images/books/Verne_Jangada_p1.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 69,
+              "title": "Jangada",
+              "subtitle": "800 peninkulmaa Amazonia pitkin",
+              "orig_title": "La Jangada - Huit cents lieues sur l'Amazone",
+              "pubyear": 1881,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p>Kartanonomistaja Joam Garral, hänen vaimonsa, poikansa, tyttärensä ja tyttären sulhanen matkaavat valtavalla tukkilautalla, jangadalla, Iquitosista Amazon-virtaa pitkin Belémiin. Kauppamatkan päätepisteessä on tarkoitus viettää Minha-tyttären mahtavat häät.</p>\r\n\r\n<p>Mutta kohtalo on oikullinen. Lautan matkustajaksi tuppautuu Torres-niminen seikkailija, joka on saanut selville, että Joam Garral on kuolemaan tuomittu lainsuojaton. Torres koittaa kiristää Minhan vaimokseen, mutta kun Joam kieltäytyy, Torres antaa hänet ilmi, ja poliisit pysäyttävät jangadan Manausissa.</p>\r\n\r\n<p>Verne sitoo mestarin tavoin yhteen seikkailun monet langat, hänen tarinansa on yhtä eksoottinen kuin jännittäväkin. Jangada ilmestyi ensi kerran Pariisissa 1881, ja mainittakoon, että Edgar Allan Poe, joka oli Vernen mieluisin kirjailija, antoi novellillaan 'Kultakuoriainen' herätteen tähän romaaniin.</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Verne, Jules"
+            },
+            "owners": [
+              {
+                "id": 2.0,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "id": 80,
+            "title": "Jangada",
+            "subtitle": "",
+            "pubyear": 1983,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "951-0-11805-2",
+            "printedin": "Porvoo",
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 336,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "Kuvitettu, karttoja.",
+            "imported_string": "",
+            "verified": true
+          },
+          {
+            "images": [
+              {
                 "id": 256,
                 "image_src": "/static/images/books/Varley_John_Hyvastirobinsoncrusoe_1p.jpg",
                 "image_attr": null
@@ -57159,147 +57300,6 @@
             "pubseriesnum": null,
             "coll_info": "",
             "pages": 396,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "Kuvitettu, karttoja.",
-            "imported_string": "",
-            "verified": true
-          },
-          {
-            "images": [
-              {
-                "id": 400,
-                "image_src": "/static/images/books/Verne_RoburValloittaja_l2p1.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 67,
-              "title": "Ilmojen valloittaja",
-              "subtitle": "",
-              "orig_title": "Robur-le-conquerant",
-              "pubyear": 1886,
-              "bookseriesnum": "3",
-              "bookseriesorder": 3,
-              "misc": "",
-              "description": "<p>Tieteisromaanin suuria nimiä on Jules Verne. Hänen huikea matkaseikkailunsa vuodelta 1886 ottaa kantaa ajan ilmailuongelmaan: kuuluuko tulevaisuus ilmaa kevyemmille vai raskaammille lentolaitteille. Jännittävän tapahtumaketjun lomassa tarina välittää aivan ainutlaatuista tietoa ilmailun varhaishistoriasta. Insinööri Robur on rakentanut ”lentolaivan”. Keksintöön ei uskota, ja tästä kimpaantuneena Robur sieppaa mukaansa kaksi ilmapallopurjehtijaa ja lennättää heitä puolitoista kertaa maapallon ympäri.</p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Verne, Jules"
-            },
-            "owners": [
-              {
-                "id": 2.0,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 78,
-            "title": "Robur Valloittaja",
-            "subtitle": "",
-            "pubyear": 1975,
-            "editionnum": 1,
-            "version": 2,
-            "isbn": "951-0-06659-1",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 243,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 3,
-            "misc": "Kuvitettu, karttoja.",
-            "imported_string": "",
-            "verified": true
-          },
-          {
-            "images": [
-              {
-                "id": 408,
-                "image_src": "/static/images/books/Verne_IsanmaanLippu_p1.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 68,
-              "title": "Isänmaan lippu",
-              "subtitle": "",
-              "orig_title": "Face au drapeau",
-              "pubyear": 1896,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "<p>Nykyisen science fiction -kirjallisuuden voidaan katsoa syntyneen pääasiallisesti Jules Vernen Merkilliset matkat -sarjan myötä. Romaanisarjastaan Verne sai Ranskan akatemian palkinnon; tähän sarjaan kuuluu myös 1896 ilmestynyt Isänmaan lippu. Romaanin päähenkilö on ranskalainen tiedemies Thomas Roch, joka vaatii nerokkaasta ohjuskeksinnöstään niin suurta rahamäärää, ettei Ranskan hallitus pysty ostamaan sitä. Roch hylkää isänmaansa ja liittoutuu paatuneiden rikollisten kanssa. Yksinäisellä kallioluodolla hän ryhtyy valmistamaan tuhoisia ohjuksiaan puolustaakseen valtavia aarteitaan. Thomas Roch ei ole kuitenkaan läpikotaisin turmeltunut – se paljastuu kirjan lopussa kun luotoa kohti höyryävän sotalaivan kahveliin vedetään Ranskan trikolorilippu.</p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Verne, Jules"
-            },
-            "owners": [
-              {
-                "id": 2.0,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 79,
-            "title": "Isänmaan lippu",
-            "subtitle": "",
-            "pubyear": 1981,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "951-0-10607-0",
-            "printedin": "Porvoo",
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 237,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "Kuvitettu, karttoja.",
-            "imported_string": "",
-            "verified": true
-          },
-          {
-            "images": [
-              {
-                "id": 406,
-                "image_src": "/static/images/books/Verne_Jangada_p1.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 69,
-              "title": "Jangada",
-              "subtitle": "800 peninkulmaa Amazonia pitkin",
-              "orig_title": "La Jangada - Huit cents lieues sur l'Amazone",
-              "pubyear": 1881,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "<p>Kartanonomistaja Joam Garral, hänen vaimonsa, poikansa, tyttärensä ja tyttären sulhanen matkaavat valtavalla tukkilautalla, jangadalla, Iquitosista Amazon-virtaa pitkin Belémiin. Kauppamatkan päätepisteessä on tarkoitus viettää Minha-tyttären mahtavat häät.</p>\r\n\r\n<p>Mutta kohtalo on oikullinen. Lautan matkustajaksi tuppautuu Torres-niminen seikkailija, joka on saanut selville, että Joam Garral on kuolemaan tuomittu lainsuojaton. Torres koittaa kiristää Minhan vaimokseen, mutta kun Joam kieltäytyy, Torres antaa hänet ilmi, ja poliisit pysäyttävät jangadan Manausissa.</p>\r\n\r\n<p>Verne sitoo mestarin tavoin yhteen seikkailun monet langat, hänen tarinansa on yhtä eksoottinen kuin jännittäväkin. Jangada ilmestyi ensi kerran Pariisissa 1881, ja mainittakoon, että Edgar Allan Poe, joka oli Vernen mieluisin kirjailija, antoi novellillaan 'Kultakuoriainen' herätteen tähän romaaniin.</p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Verne, Jules"
-            },
-            "owners": [
-              {
-                "id": 2.0,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 80,
-            "title": "Jangada",
-            "subtitle": "",
-            "pubyear": 1983,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "951-0-11805-2",
-            "printedin": "Porvoo",
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 336,
             "size": 21,
             "dustcover": 1,
             "coverimage": 1,
@@ -57728,53 +57728,6 @@
           {
             "images": [
               {
-                "id": 171,
-                "image_src": "/static/images/books/Klein_Gerard_Sodanvaltiaat_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 3748,
-              "title": "Sodan valtiaat",
-              "subtitle": "",
-              "orig_title": "Les seigneurs de la guerre",
-              "pubyear": 1971,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "Sodan valtiaat on vetävä, notkeasti etenevä ja monikerroksinen ”tulevaisuuden sotaromaani”. Pleneettojenvälisen sodan nuori luutnantti Corson saa maailmankaikkeuden valtiailta mahdottomalta tuntuvan tehtävän: saattaa sota loppuun. Corson, rauhaa rakastava mies, on jumalten valittu, tahtoi hän tai ei. Niin alkaa tämä mieltä kiihottava risteily ajassa halki vuosituhansien, matka merkillisille planeetoille ja kohtaloihin jotka heittävät huikaisevia valokiiloja elämään ja aikaan, maailmankaikkeuteen ja ihmisen mahdollisuuksiin.",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Klein, Gérard"
-            },
-            "owners": [
-              {
-                "id": 2.0,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 4319,
-            "title": "Sodan valtiaat",
-            "subtitle": "",
-            "pubyear": 1977,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "951-0-08311-9",
-            "printedin": "Porvoo",
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 247,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": true
-          },
-          {
-            "images": [
-              {
                 "id": 215,
                 "image_src": "/static/images/books/Strugatski_Hankalaaollajumala_1p.jpg",
                 "image_attr": null
@@ -58099,6 +58052,53 @@
           {
             "images": [
               {
+                "id": 175,
+                "image_src": "/static/images/books/Gibson_Mona-Lisa_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 2614,
+              "title": "Mona Lisa",
+              "subtitle": "",
+              "orig_title": "Mona Lisa Overdrive",
+              "pubyear": 1988,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p>Prix Aurora -palkinto 1989, Hugo-palkintoehdokas 1989, Nebula-palkintoehdokas 1988, toinen sija Locus-palkintoäänestyksessä (sf-kirjat) 1989.</p>\r\n\r\n<p>Mona Lisa on kolmas suomennettu väläys William Gibsonin ainutlaatuisesta maailmasta, joka on yhtä aikaa lyyrinen ja tekninen, eroottinen ja väkivaltainen, kylmäävä ja jännittävä. Gibsonin maailmassa monikansalliset yhtiöt ja teknorikolliset taistelevat vallasta tietokoneiden luomassa universumissa eli kyberavaruudessa.</p>\r\n\r\n<p>Tähän maailmaan putkahtaa Mona, nuori tyttö, jolla on hämärä menneisyys ja epävarma tulevaisuus ja jonka kohtalo on törmäyskurssilla Sense/Net -tähden Angie Mitchellin kanssa.</p>\r\n\r\n<p>Jo lapsuudesta saakka Angie on osannut päästä kyberavaruuteen ilman tietokonetta. Nyt vireillä on sieppaussuunnitelma – sen takana on haamuolio, jolla on suunnitelma Angielle, Monalle ja koko ihmiskunnalle...</p>\r\n\r\n<p>Tuttuun tapaansa Gibson ei tyydy kertomaan yhtä tarinaa, kun samalla vaivalla voi kertoa viisi. Mona Lisa on seittimäinen juonirakennelma, jonka häikäiseväksi hiotusta tieteisproosasta on helppo peilata urbaania sielunmaisemaa.</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Gibson, William"
+            },
+            "owners": [
+              {
+                "id": 2.0,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "id": 2999,
+            "title": "Mona Lisa",
+            "subtitle": "",
+            "pubyear": 1995,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "951-0-19608-8",
+            "printedin": "Juva",
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 283,
+            "size": 21,
+            "dustcover": 3,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": true
+          },
+          {
+            "images": [
+              {
                 "id": 193,
                 "image_src": "/static/images/books/Pohl_Frederik_Avaruudenportti_1p.jpg",
                 "image_attr": null
@@ -58240,6 +58240,53 @@
           {
             "images": [
               {
+                "id": 158,
+                "image_src": "/static/images/books/Gibson_William_Neurovelho_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 2615,
+              "title": "Neurovelho",
+              "subtitle": "",
+              "orig_title": "Neuromancer",
+              "pubyear": 1984,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p>BSFA-palkintoehdokas 1985, toinen sija Locus-palkintoäänestyksessä 1985 (esikoisromaanit). Portti-palkinto 1992 (käännösteokset, lehden lukijaäänestys). Valittu Tähtivaeltaja-lehden 1900-luvun tieteiskirjallisuuden Top 50-listalle 2000.</p>\r\n\r\n<p>Neurovelhon ilmestyminen vuonna 1984 muutti hetkessä koko science fictionin sielunmaiseman. Se aloitti uuden tyylisuuntauksen nimeltä cyberpunk, jossa kovaksikeitettyjen dekkarien perinne yhdistyy äärimmäisen tekniseen ja äärimmäisen todentuntuiseen tulevaisuudenkuvaan.</p>\r\n\r\n<p>Gibsonin maailmassa monikansalliset yhtiöt ovat paisuneet jättiläismäisiin mittoihin ja käyvät sotaa keskenään omassa vaihtoehtotodellisuudessaan, valtavassa visualisoituneessa matriisiverkossa. Kirjan päähenkilö Case on futuristinen cowboy – matriisitodellisuuteen soluttautunut palkkasoturi, josta on tullut inhimillistyneiden tietokoneiden sodan välikappale. Hän taistelee henkensä edestä maailmassa, jossa todellista ja kuviteltua on mahdoton erottaa toisistaan.</p>\r\n\r\n<p>Tämän kirjan kuvaamassa tulevaisuudessa ihmisen ja koneen rajat ovat hämärtyneet keinotekoisten ruumiinjatkeiden avulla, ja vainoharhaisuudesta on tullut muuttuneen ihmisrodun kuudes aisti. Silti romaanin todellisuus on ihmisten todellisuus, emotionaalisen, vereslihalle palaneen ihmisen todellisuus.</p>\r\n\r\n<p>Neurovelho on kaleidoskooppinen mestariluomus, kirjallinen Rubikin kuutio. Sen voi lukea nopeatempoisena jännityskirjana, postmodernina dekkarina, yhteiskunnallisena tutkielmana tai mykistävänä tieteisromaanina.</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Gibson, William"
+            },
+            "owners": [
+              {
+                "id": 2.0,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "id": 3000,
+            "title": "Neurovelho",
+            "subtitle": "",
+            "pubyear": 1991,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "951-0-17204-9",
+            "printedin": "Juva",
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 279,
+            "size": 21,
+            "dustcover": 3,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": true
+          },
+          {
+            "images": [
+              {
                 "id": 155,
                 "image_src": "/static/images/books/Farmer_Philip_Jose_Elamanjakuolemanvirta_1p.jpg",
                 "image_attr": null
@@ -58326,147 +58373,6 @@
             "pages": 270,
             "size": 21,
             "dustcover": 3,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": true
-          },
-          {
-            "images": [
-              {
-                "id": 175,
-                "image_src": "/static/images/books/Gibson_Mona-Lisa_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 2614,
-              "title": "Mona Lisa",
-              "subtitle": "",
-              "orig_title": "Mona Lisa Overdrive",
-              "pubyear": 1988,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "<p>Prix Aurora -palkinto 1989, Hugo-palkintoehdokas 1989, Nebula-palkintoehdokas 1988, toinen sija Locus-palkintoäänestyksessä (sf-kirjat) 1989.</p>\r\n\r\n<p>Mona Lisa on kolmas suomennettu väläys William Gibsonin ainutlaatuisesta maailmasta, joka on yhtä aikaa lyyrinen ja tekninen, eroottinen ja väkivaltainen, kylmäävä ja jännittävä. Gibsonin maailmassa monikansalliset yhtiöt ja teknorikolliset taistelevat vallasta tietokoneiden luomassa universumissa eli kyberavaruudessa.</p>\r\n\r\n<p>Tähän maailmaan putkahtaa Mona, nuori tyttö, jolla on hämärä menneisyys ja epävarma tulevaisuus ja jonka kohtalo on törmäyskurssilla Sense/Net -tähden Angie Mitchellin kanssa.</p>\r\n\r\n<p>Jo lapsuudesta saakka Angie on osannut päästä kyberavaruuteen ilman tietokonetta. Nyt vireillä on sieppaussuunnitelma – sen takana on haamuolio, jolla on suunnitelma Angielle, Monalle ja koko ihmiskunnalle...</p>\r\n\r\n<p>Tuttuun tapaansa Gibson ei tyydy kertomaan yhtä tarinaa, kun samalla vaivalla voi kertoa viisi. Mona Lisa on seittimäinen juonirakennelma, jonka häikäiseväksi hiotusta tieteisproosasta on helppo peilata urbaania sielunmaisemaa.</p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Gibson, William"
-            },
-            "owners": [
-              {
-                "id": 2.0,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 2999,
-            "title": "Mona Lisa",
-            "subtitle": "",
-            "pubyear": 1995,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "951-0-19608-8",
-            "printedin": "Juva",
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 283,
-            "size": 21,
-            "dustcover": 3,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": true
-          },
-          {
-            "images": [
-              {
-                "id": 158,
-                "image_src": "/static/images/books/Gibson_William_Neurovelho_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 2615,
-              "title": "Neurovelho",
-              "subtitle": "",
-              "orig_title": "Neuromancer",
-              "pubyear": 1984,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "<p>BSFA-palkintoehdokas 1985, toinen sija Locus-palkintoäänestyksessä 1985 (esikoisromaanit). Portti-palkinto 1992 (käännösteokset, lehden lukijaäänestys). Valittu Tähtivaeltaja-lehden 1900-luvun tieteiskirjallisuuden Top 50-listalle 2000.</p>\r\n\r\n<p>Neurovelhon ilmestyminen vuonna 1984 muutti hetkessä koko science fictionin sielunmaiseman. Se aloitti uuden tyylisuuntauksen nimeltä cyberpunk, jossa kovaksikeitettyjen dekkarien perinne yhdistyy äärimmäisen tekniseen ja äärimmäisen todentuntuiseen tulevaisuudenkuvaan.</p>\r\n\r\n<p>Gibsonin maailmassa monikansalliset yhtiöt ovat paisuneet jättiläismäisiin mittoihin ja käyvät sotaa keskenään omassa vaihtoehtotodellisuudessaan, valtavassa visualisoituneessa matriisiverkossa. Kirjan päähenkilö Case on futuristinen cowboy – matriisitodellisuuteen soluttautunut palkkasoturi, josta on tullut inhimillistyneiden tietokoneiden sodan välikappale. Hän taistelee henkensä edestä maailmassa, jossa todellista ja kuviteltua on mahdoton erottaa toisistaan.</p>\r\n\r\n<p>Tämän kirjan kuvaamassa tulevaisuudessa ihmisen ja koneen rajat ovat hämärtyneet keinotekoisten ruumiinjatkeiden avulla, ja vainoharhaisuudesta on tullut muuttuneen ihmisrodun kuudes aisti. Silti romaanin todellisuus on ihmisten todellisuus, emotionaalisen, vereslihalle palaneen ihmisen todellisuus.</p>\r\n\r\n<p>Neurovelho on kaleidoskooppinen mestariluomus, kirjallinen Rubikin kuutio. Sen voi lukea nopeatempoisena jännityskirjana, postmodernina dekkarina, yhteiskunnallisena tutkielmana tai mykistävänä tieteisromaanina.</p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Gibson, William"
-            },
-            "owners": [
-              {
-                "id": 2.0,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 3000,
-            "title": "Neurovelho",
-            "subtitle": "",
-            "pubyear": 1991,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "951-0-17204-9",
-            "printedin": "Juva",
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 279,
-            "size": 21,
-            "dustcover": 3,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": true
-          },
-          {
-            "images": [
-              {
-                "id": 185,
-                "image_src": "/static/images/books/LeGuin_Ursula_K_Osattomienplaneetta_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 3983,
-              "title": "Osattomien planeetta",
-              "subtitle": "",
-              "orig_title": "The Dispossessed: An Ambiguous Utopia",
-              "pubyear": 1974,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "<p>John W. Campbellin muistopalkinnon ehdokas 1975. Valittu Tähtivaeltaja-lehden 1900-luvun tieteiskirjallisuuden Top 50-listalle 2000.</p>\r\n\r\n<p>Planeetta Urras on kaunis, rehevä ja ”kapitalistinen”. Sillä on paljas ja karu pieni kuu, Anarres, jolle Urraksen toisinajatteleva ”sosialistinen” vähemmistö asettui siirtolaiseksi pari sataa vuotta sitten. Siitä lähtien planeettojen välillä on ollut jatkuva kylmän sodan ilmapiiri. Tri Shevek, Anarreksen loistavin fyysikko, havaitsee että hänenkin tasa-arvoisessa yhteiskunnassaan on voimia, jotka jarruttavat hänen työtään. Saattaakseen tärkeän tutkimuksensa loppuun hän hyväksyy Urraksen arvossapidetyltä tieteelliseltä laitokselta saamansa kutsun.</p>\r\n\r\n<p>Shevek lähtee uhkarohkealle matkalle voidakseen ”oppia, opettaa ja osallistua” ja repiäkseen samalla alas planeettoja erottavan vihamielisyyden muurin. – Urraksella Shevek kuulee ensimmäisen kerran linnun laulavan. Mutta toisenlaiset kokemukset, hämmentävät ja vaaralliset, panevat hänet vielä kerran tarkistamaan elämänfilosofiansa.</p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Le Guin, Ursula K."
-            },
-            "owners": [
-              {
-                "id": 2.0,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 4572,
-            "title": "Osattomien planeetta",
-            "subtitle": "",
-            "pubyear": 1979,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "951-0-09402-1",
-            "printedin": "Juva",
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 413,
-            "size": 21,
-            "dustcover": 1,
             "coverimage": 1,
             "misc": "",
             "imported_string": "",
@@ -58747,24 +58653,24 @@
           {
             "images": [
               {
-                "id": 89,
-                "image_src": "/static/images/books/Asimov_Isaac_saatiojaimperiumi_1p.jpg",
+                "id": 171,
+                "image_src": "/static/images/books/Klein_Gerard_Sodanvaltiaat_1p.jpg",
                 "image_attr": null
               }
             ],
             "work": {
-              "id": 4477,
-              "title": "Säätiö ja imperiumi",
+              "id": 3748,
+              "title": "Sodan valtiaat",
               "subtitle": "",
-              "orig_title": "Foundation and Empire",
-              "pubyear": 1952,
-              "bookseriesnum": "2",
-              "bookseriesorder": 2,
-              "misc": "Alkuteos ilmestynyt jatkonovelleina 1945, kirjana 1952.",
-              "description": "<p>Valittu Tähtivaeltaja-lehden 1900-luvun tieteiskirjallisuuden Top 50 -listalle vuonna 2000 (koko trilogia).</p>\r\n\r\n<p>Säätiö-trilogia on tieteiskirjallisuuden taiturimaisimpiin kuuluvan tekijän pääteos; oudoille planeetoille sijoitettu mahtava visio ihmiskunnan tulevaisuudesta. Säätiöstä on kirjan toisessa osassa tullut kahden vuosisadan kuluessa Linnunradan voimakkain valtio. Mutta Säätiön ja Imperiumin keskinäiset suhteet ovat sekavat ja sotaisat, Säätiötä uhkaa kuolevan Imperiumin viimeinen sivallus. Ongelmien ytimenä on arvoituksellinen hahmo nimeltä Muuli. Kuka hän oikeastaan on, tuo ylettömän väkevä mies, jonka hiukset ovat karmiininpunaiset ja jonka silmien näkeminen koituu kuolemaksi? Kuka voi vastustaa Muulia?</p>",
+              "orig_title": "Les seigneurs de la guerre",
+              "pubyear": 1971,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "Sodan valtiaat on vetävä, notkeasti etenevä ja monikerroksinen ”tulevaisuuden sotaromaani”. Pleneettojenvälisen sodan nuori luutnantti Corson saa maailmankaikkeuden valtiailta mahdottomalta tuntuvan tehtävän: saattaa sota loppuun. Corson, rauhaa rakastava mies, on jumalten valittu, tahtoi hän tai ei. Niin alkaa tämä mieltä kiihottava risteily ajassa halki vuosituhansien, matka merkillisille planeetoille ja kohtaloihin jotka heittävät huikaisevia valokiiloja elämään ja aikaan, maailmankaikkeuteen ja ihmisen mahdollisuuksiin.",
               "descr_attr": null,
               "imported_string": "",
-              "author_str": "Asimov, Isaac"
+              "author_str": "Klein, Gérard"
             },
             "owners": [
               {
@@ -58773,17 +58679,17 @@
               }
             ],
             "wishlisted": [],
-            "id": 5117,
-            "title": "Säätiö ja imperiumi",
+            "id": 4319,
+            "title": "Sodan valtiaat",
             "subtitle": "",
             "pubyear": 1977,
             "editionnum": 1,
             "version": null,
-            "isbn": "951-0-07996-0",
+            "isbn": "951-0-08311-9",
             "printedin": "Porvoo",
             "pubseriesnum": null,
             "coll_info": "",
-            "pages": 286,
+            "pages": 247,
             "size": 21,
             "dustcover": 1,
             "coverimage": 1,
@@ -58841,6 +58747,53 @@
           {
             "images": [
               {
+                "id": 185,
+                "image_src": "/static/images/books/LeGuin_Ursula_K_Osattomienplaneetta_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 3983,
+              "title": "Osattomien planeetta",
+              "subtitle": "",
+              "orig_title": "The Dispossessed: An Ambiguous Utopia",
+              "pubyear": 1974,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p>John W. Campbellin muistopalkinnon ehdokas 1975. Valittu Tähtivaeltaja-lehden 1900-luvun tieteiskirjallisuuden Top 50-listalle 2000.</p>\r\n\r\n<p>Planeetta Urras on kaunis, rehevä ja ”kapitalistinen”. Sillä on paljas ja karu pieni kuu, Anarres, jolle Urraksen toisinajatteleva ”sosialistinen” vähemmistö asettui siirtolaiseksi pari sataa vuotta sitten. Siitä lähtien planeettojen välillä on ollut jatkuva kylmän sodan ilmapiiri. Tri Shevek, Anarreksen loistavin fyysikko, havaitsee että hänenkin tasa-arvoisessa yhteiskunnassaan on voimia, jotka jarruttavat hänen työtään. Saattaakseen tärkeän tutkimuksensa loppuun hän hyväksyy Urraksen arvossapidetyltä tieteelliseltä laitokselta saamansa kutsun.</p>\r\n\r\n<p>Shevek lähtee uhkarohkealle matkalle voidakseen ”oppia, opettaa ja osallistua” ja repiäkseen samalla alas planeettoja erottavan vihamielisyyden muurin. – Urraksella Shevek kuulee ensimmäisen kerran linnun laulavan. Mutta toisenlaiset kokemukset, hämmentävät ja vaaralliset, panevat hänet vielä kerran tarkistamaan elämänfilosofiansa.</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Le Guin, Ursula K."
+            },
+            "owners": [
+              {
+                "id": 2.0,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "id": 4572,
+            "title": "Osattomien planeetta",
+            "subtitle": "",
+            "pubyear": 1979,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "951-0-09402-1",
+            "printedin": "Juva",
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 413,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": true
+          },
+          {
+            "images": [
+              {
                 "id": 187,
                 "image_src": "/static/images/books/LeGuin_Ursula_K_Pimeydenvasenkasi_1p.jpg",
                 "image_attr": null
@@ -58882,6 +58835,100 @@
             "dustcover": 1,
             "coverimage": 3,
             "misc": null,
+            "imported_string": "",
+            "verified": true
+          },
+          {
+            "images": [
+              {
+                "id": 89,
+                "image_src": "/static/images/books/Asimov_Isaac_saatiojaimperiumi_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 4477,
+              "title": "Säätiö ja imperiumi",
+              "subtitle": "",
+              "orig_title": "Foundation and Empire",
+              "pubyear": 1952,
+              "bookseriesnum": "2",
+              "bookseriesorder": 2,
+              "misc": "Alkuteos ilmestynyt jatkonovelleina 1945, kirjana 1952.",
+              "description": "<p>Valittu Tähtivaeltaja-lehden 1900-luvun tieteiskirjallisuuden Top 50 -listalle vuonna 2000 (koko trilogia).</p>\r\n\r\n<p>Säätiö-trilogia on tieteiskirjallisuuden taiturimaisimpiin kuuluvan tekijän pääteos; oudoille planeetoille sijoitettu mahtava visio ihmiskunnan tulevaisuudesta. Säätiöstä on kirjan toisessa osassa tullut kahden vuosisadan kuluessa Linnunradan voimakkain valtio. Mutta Säätiön ja Imperiumin keskinäiset suhteet ovat sekavat ja sotaisat, Säätiötä uhkaa kuolevan Imperiumin viimeinen sivallus. Ongelmien ytimenä on arvoituksellinen hahmo nimeltä Muuli. Kuka hän oikeastaan on, tuo ylettömän väkevä mies, jonka hiukset ovat karmiininpunaiset ja jonka silmien näkeminen koituu kuolemaksi? Kuka voi vastustaa Muulia?</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Asimov, Isaac"
+            },
+            "owners": [
+              {
+                "id": 2.0,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "id": 5117,
+            "title": "Säätiö ja imperiumi",
+            "subtitle": "",
+            "pubyear": 1977,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "951-0-07996-0",
+            "printedin": "Porvoo",
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 286,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": true
+          },
+          {
+            "images": [
+              {
+                "id": 91,
+                "image_src": "/static/images/books/Asimov_Isaac_saatiojamaa_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 4478,
+              "title": "Säätiö ja Maa",
+              "subtitle": "",
+              "orig_title": "Foundation and Earth",
+              "pubyear": 1986,
+              "bookseriesnum": "5",
+              "bookseriesorder": 5,
+              "misc": "",
+              "description": "<p>Locus-palkintoehdokas (sf-kirjat) 1987.</p>\r\n\r\n<p>Isaac Asimovin kuuluisa Säätiö-sarja kertoo ajasta, jolloin ihmiskunta on siirtynyt pois maapallolta Linnunradan toisille planeetoille. 25 miljoonaa asutettua planeettaa hallitsee voimakas Imperiumi. Linnunradan herruudesta käytävässä taistelussa näyttelevät merkittävää osaa kaksi psykohistorian ajatukselle perustuvaa yhteisöä, Ensimmäinen ja Toinen Säätiö.</p>\r\n\r\n<p>Säätiö-sarjan viides romaani alkaa siitä, mihin edellinen, Säätiö veitsen terällä, päättyi. Imperiumista karkotettu poliittinen kapinallinen Golan Trevize on lähtenyt professori Janov Peloratin kanssa etsimään tarunomaista Maata, jolta ihmissuku on saanut alkunsa. Salaperäisten laskelmien avulla he löytävät kiellettyjä maailmoita, eivätkä vaaroista huolimatta malta olla niitä tutkimatta. Ratkeaako Maan arvoitus, kun Kaukotähti-avaruusalus laskeutuu meren peittämän planeetan saarelle, ja matkalaiset saavat selville, että planeetta on Alfa ja saari on nimeltään Uusi Maa?</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Asimov, Isaac"
+            },
+            "owners": [
+              {
+                "id": 2.0,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "id": 5119,
+            "title": "Säätiö ja Maa",
+            "subtitle": "",
+            "pubyear": 1991,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "951-0-16857-2",
+            "printedin": "Juva",
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 490,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": "",
             "imported_string": "",
             "verified": true
           },
@@ -59158,53 +59205,6 @@
             "size": 21,
             "dustcover": 1,
             "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": true
-          },
-          {
-            "images": [
-              {
-                "id": 91,
-                "image_src": "/static/images/books/Asimov_Isaac_saatiojamaa_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 4478,
-              "title": "Säätiö ja Maa",
-              "subtitle": "",
-              "orig_title": "Foundation and Earth",
-              "pubyear": 1986,
-              "bookseriesnum": "5",
-              "bookseriesorder": 5,
-              "misc": "",
-              "description": "<p>Locus-palkintoehdokas (sf-kirjat) 1987.</p>\r\n\r\n<p>Isaac Asimovin kuuluisa Säätiö-sarja kertoo ajasta, jolloin ihmiskunta on siirtynyt pois maapallolta Linnunradan toisille planeetoille. 25 miljoonaa asutettua planeettaa hallitsee voimakas Imperiumi. Linnunradan herruudesta käytävässä taistelussa näyttelevät merkittävää osaa kaksi psykohistorian ajatukselle perustuvaa yhteisöä, Ensimmäinen ja Toinen Säätiö.</p>\r\n\r\n<p>Säätiö-sarjan viides romaani alkaa siitä, mihin edellinen, Säätiö veitsen terällä, päättyi. Imperiumista karkotettu poliittinen kapinallinen Golan Trevize on lähtenyt professori Janov Peloratin kanssa etsimään tarunomaista Maata, jolta ihmissuku on saanut alkunsa. Salaperäisten laskelmien avulla he löytävät kiellettyjä maailmoita, eivätkä vaaroista huolimatta malta olla niitä tutkimatta. Ratkeaako Maan arvoitus, kun Kaukotähti-avaruusalus laskeutuu meren peittämän planeetan saarelle, ja matkalaiset saavat selville, että planeetta on Alfa ja saari on nimeltään Uusi Maa?</p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Asimov, Isaac"
-            },
-            "owners": [
-              {
-                "id": 2.0,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 5119,
-            "title": "Säätiö ja Maa",
-            "subtitle": "",
-            "pubyear": 1991,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "951-0-16857-2",
-            "printedin": "Juva",
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 490,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 3,
             "misc": "",
             "imported_string": "",
             "verified": true
@@ -61372,49 +61372,44 @@
           {
             "images": [
               {
-                "id": 1046,
-                "image_src": "/static/images/books/Harju_Antero_Xardoniasaaristonsalaisuus_1p.jpg",
+                "id": 4366,
+                "image_src": "/static/images/books/Morris_James_Jukan_1p.jpg",
                 "image_attr": null
               }
             ],
             "work": {
-              "id": 2789,
-              "title": "Xardonia-saariston salaisuus",
+              "id": 1835,
+              "title": "Jukan",
               "subtitle": "",
-              "orig_title": "Xardonia-saariston salaisuus",
-              "pubyear": 1955,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
+              "orig_title": "Jukan",
+              "pubyear": 1948,
+              "bookseriesnum": "1",
+              "bookseriesorder": 1,
               "misc": "",
-              "description": "<p>Kari Kaarna on reipas nuorukainen, jonka mukana lukija pääsee mitä ihmeellisimpään ja jännittävimpään seikkailuun tuntemattomalle saariryhmälle, jonka maailman taitavimmat tiedemiehet ovat löytäneet ja asuttaneet saadakseen ulkomaailmalta rauhassa suorittaa tutkimuksiaan.</p><p>Monenlaisten kokeiden jälkeen Kari todetaan kelvolliseksi saaren kansalaiseksi, ja hänelle annetaan tilaisuus matkustaa Etelä-napamantereella sijaitsevaan salaiseen tukikohtaan, ja sieltä yllättäen - kuuhun, jossa häntä odottavat mielikuvitukselliset seikkailut. Palkaksi rehellisyydestään ja urhoollisuudestaan Kari saa oikeuden perehtyä myös Xardonia-saariston salaisimpaan ja suurimpaan keksintöön.</p>",
+              "description": null,
               "descr_attr": null,
-              "imported_string": "\n\n<b>Xardonia-saariston salaisuus</b>. Seikkailujen maailma -sarja. Otava 1955. [nSF].",
-              "author_str": "Harju, Antero"
+              "imported_string": "",
+              "author_str": "Morris, James"
             },
-            "owners": [
-              {
-                "id": 2.0,
-                "name": "mep"
-              }
-            ],
+            "owners": [],
             "wishlisted": [],
-            "id": 3214,
-            "title": "Xardonia-saariston salaisuus",
+            "id": 2114,
+            "title": "Jukan",
             "subtitle": "",
-            "pubyear": 1955,
+            "pubyear": 1954,
             "editionnum": 1,
             "version": null,
             "isbn": "",
-            "printedin": "Keuruu",
+            "printedin": null,
             "pubseriesnum": null,
             "coll_info": "",
-            "pages": 239,
-            "size": 19,
+            "pages": 100,
+            "size": 18,
             "dustcover": 1,
-            "coverimage": 3,
+            "coverimage": 1,
             "misc": "",
-            "imported_string": "",
-            "verified": true
+            "imported_string": "<b>Jukan</b>. (Jukan, 1948). Suom Kersti Ojansuu. Otava 1954. [nF].",
+            "verified": false
           },
           {
             "images": [
@@ -61459,6 +61454,53 @@
             "size": 19,
             "dustcover": 3,
             "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": true
+          },
+          {
+            "images": [
+              {
+                "id": 1046,
+                "image_src": "/static/images/books/Harju_Antero_Xardoniasaaristonsalaisuus_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 2789,
+              "title": "Xardonia-saariston salaisuus",
+              "subtitle": "",
+              "orig_title": "Xardonia-saariston salaisuus",
+              "pubyear": 1955,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": "<p>Kari Kaarna on reipas nuorukainen, jonka mukana lukija pääsee mitä ihmeellisimpään ja jännittävimpään seikkailuun tuntemattomalle saariryhmälle, jonka maailman taitavimmat tiedemiehet ovat löytäneet ja asuttaneet saadakseen ulkomaailmalta rauhassa suorittaa tutkimuksiaan.</p><p>Monenlaisten kokeiden jälkeen Kari todetaan kelvolliseksi saaren kansalaiseksi, ja hänelle annetaan tilaisuus matkustaa Etelä-napamantereella sijaitsevaan salaiseen tukikohtaan, ja sieltä yllättäen - kuuhun, jossa häntä odottavat mielikuvitukselliset seikkailut. Palkaksi rehellisyydestään ja urhoollisuudestaan Kari saa oikeuden perehtyä myös Xardonia-saariston salaisimpaan ja suurimpaan keksintöön.</p>",
+              "descr_attr": null,
+              "imported_string": "\n\n<b>Xardonia-saariston salaisuus</b>. Seikkailujen maailma -sarja. Otava 1955. [nSF].",
+              "author_str": "Harju, Antero"
+            },
+            "owners": [
+              {
+                "id": 2.0,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "id": 3214,
+            "title": "Xardonia-saariston salaisuus",
+            "subtitle": "",
+            "pubyear": 1955,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "",
+            "printedin": "Keuruu",
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 239,
+            "size": 19,
+            "dustcover": 1,
+            "coverimage": 3,
             "misc": "",
             "imported_string": "",
             "verified": true
@@ -61550,48 +61592,6 @@
             "coverimage": 3,
             "misc": null,
             "imported_string": "<b>Kultaisen taljan laakso</b>. Seikkailujen maailma. Otava 1948. [nSF].",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "id": 4366,
-                "image_src": "/static/images/books/Morris_James_Jukan_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 1835,
-              "title": "Jukan",
-              "subtitle": "",
-              "orig_title": "Jukan",
-              "pubyear": 1948,
-              "bookseriesnum": "1",
-              "bookseriesorder": 1,
-              "misc": "",
-              "description": null,
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Morris, James"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 2114,
-            "title": "Jukan",
-            "subtitle": "",
-            "pubyear": 1954,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 100,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "<b>Jukan</b>. (Jukan, 1948). Suom Kersti Ojansuu. Otava 1954. [nF].",
             "verified": false
           }
         ],
@@ -62397,6 +62397,48 @@
           {
             "images": [
               {
+                "id": 5613,
+                "image_src": "/static/images/books/Kafka_Franz_Linna_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 3460,
+              "title": "Linna",
+              "subtitle": "",
+              "orig_title": "Das Schloss",
+              "pubyear": 1926,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": "",
+              "descr_attr": null,
+              "imported_string": "\n\n<b>Linna</b>. (Das Schloss, 1926). Suom Aarno Peromies. Otava 1964. [F].",
+              "author_str": "Kafka, Franz"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 3945,
+            "title": "Linna",
+            "subtitle": "",
+            "pubyear": 1964,
+            "editionnum": 1,
+            "version": null,
+            "isbn": "",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 296,
+            "size": null,
+            "dustcover": 3,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "\n\n<b>Linna</b>. (Das Schloss, 1926). Suom Aarno Peromies. Otava 1964. [F].",
+            "verified": false
+          },
+          {
+            "images": [
+              {
                 "id": 6802,
                 "image_src": "/static/images/books/Platon_Teokset5osa_1p.jpg",
                 "image_attr": null
@@ -62560,48 +62602,6 @@
             "coverimage": 1,
             "misc": null,
             "imported_string": "\n\n<b>Keisarin viesti</b>. Novelleja. (Erzählungen, Hochzeitsvorbereitungen auf dem Lande, Beschreibung eines Kampfes sekä TagebÜcher, 1910-1923). Toim Kai Laitinen. Suom Aarno Peromies. Seitsentähdet-sarja. Otava 1969. [F,kok].",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "id": 5613,
-                "image_src": "/static/images/books/Kafka_Franz_Linna_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 3460,
-              "title": "Linna",
-              "subtitle": "",
-              "orig_title": "Das Schloss",
-              "pubyear": 1926,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "",
-              "description": "",
-              "descr_attr": null,
-              "imported_string": "\n\n<b>Linna</b>. (Das Schloss, 1926). Suom Aarno Peromies. Otava 1964. [F].",
-              "author_str": "Kafka, Franz"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 3945,
-            "title": "Linna",
-            "subtitle": "",
-            "pubyear": 1964,
-            "editionnum": 1,
-            "version": null,
-            "isbn": "",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 296,
-            "size": null,
-            "dustcover": 3,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "\n\n<b>Linna</b>. (Das Schloss, 1926). Suom Aarno Peromies. Otava 1964. [F].",
             "verified": false
           },
           {
@@ -70961,6 +70961,42 @@
         },
         "editions": [
           {
+            "images": [],
+            "work": {
+              "id": 1754,
+              "title": "Aamunkoi",
+              "subtitle": "",
+              "orig_title": "Breaking Dawn",
+              "pubyear": 2008,
+              "bookseriesnum": "4",
+              "bookseriesorder": 4,
+              "misc": "",
+              "description": "",
+              "descr_attr": null,
+              "imported_string": "\n<b>Aamunkoi</b>. Houkutus 4. (Breaking Dawn, 2008). Suom Pirkko Biström. WSOY 2009. [nK].",
+              "author_str": "Meyer, Stephenie"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 2016,
+            "title": "Aamunkoi",
+            "subtitle": "",
+            "pubyear": 2011,
+            "editionnum": null,
+            "version": 1,
+            "isbn": "",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": null,
+            "size": null,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "Elokuvakansi.",
+            "imported_string": "\n\n?.painos: Elokuvakansi. WSOY pokkari. WSOY 2011.",
+            "verified": false
+          },
+          {
             "images": [
               {
                 "id": 7963,
@@ -71000,42 +71036,6 @@
             "coverimage": 1,
             "misc": "",
             "imported_string": "\n\n?.painos: WSOY pokkari -sarja. WSOY 2012.",
-            "verified": false
-          },
-          {
-            "images": [],
-            "work": {
-              "id": 1754,
-              "title": "Aamunkoi",
-              "subtitle": "",
-              "orig_title": "Breaking Dawn",
-              "pubyear": 2008,
-              "bookseriesnum": "4",
-              "bookseriesorder": 4,
-              "misc": "",
-              "description": "",
-              "descr_attr": null,
-              "imported_string": "\n<b>Aamunkoi</b>. Houkutus 4. (Breaking Dawn, 2008). Suom Pirkko Biström. WSOY 2009. [nK].",
-              "author_str": "Meyer, Stephenie"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 2016,
-            "title": "Aamunkoi",
-            "subtitle": "",
-            "pubyear": 2011,
-            "editionnum": null,
-            "version": 1,
-            "isbn": "",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": null,
-            "size": null,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "Elokuvakansi.",
-            "imported_string": "\n\n?.painos: Elokuvakansi. WSOY pokkari. WSOY 2011.",
             "verified": false
           },
           {
@@ -71892,48 +71892,6 @@
           {
             "images": [
               {
-                "id": 3075,
-                "image_src": "/static/images/books/Tolkien_JRR_Sormuksenritarit_2l4p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 1512,
-              "title": "Sormuksen ritarit",
-              "subtitle": "",
-              "orig_title": "The Fellowship of the Ring",
-              "pubyear": 1954,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "Taru sormusten herrasta 1. Suomennettu vuoden 1966 laitoksesta.",
-              "description": "",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Tolkien, J. R. R."
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 6953,
-            "title": "Sormuksen ritarit",
-            "subtitle": "",
-            "pubyear": 2012,
-            "editionnum": 4,
-            "version": 2,
-            "isbn": "978-951-0-39696-4",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 668,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": false
-          },
-          {
-            "images": [
-              {
                 "id": 3074,
                 "image_src": "/static/images/books/Tolkien_JRR_Sormuksenritarit_2l3p.jpg",
                 "image_attr": null
@@ -71970,6 +71928,48 @@
             "dustcover": 1,
             "coverimage": 1,
             "misc": "Tarkastettu laitos.",
+            "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "id": 3075,
+                "image_src": "/static/images/books/Tolkien_JRR_Sormuksenritarit_2l4p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 1512,
+              "title": "Sormuksen ritarit",
+              "subtitle": "",
+              "orig_title": "The Fellowship of the Ring",
+              "pubyear": 1954,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "Taru sormusten herrasta 1. Suomennettu vuoden 1966 laitoksesta.",
+              "description": "",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Tolkien, J. R. R."
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 6953,
+            "title": "Sormuksen ritarit",
+            "subtitle": "",
+            "pubyear": 2012,
+            "editionnum": 4,
+            "version": 2,
+            "isbn": "978-951-0-39696-4",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 668,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
             "imported_string": "",
             "verified": false
           },
@@ -76788,6 +76788,48 @@
           {
             "images": [
               {
+                "id": 8846,
+                "image_src": "/static/images/books/Jansson_MuumipappaJaMeri_p19.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 3304,
+              "title": "Muumipappa ja meri",
+              "subtitle": "",
+              "orig_title": "Pappan och havet",
+              "pubyear": 1965,
+              "bookseriesnum": "10",
+              "bookseriesorder": 10,
+              "misc": "",
+              "description": "<p>Keskellä avomerta on kartassa piste, pikku Myy väittää sitä kärpäsenliaksi. Mutta se on kuin onkin saari, yrmeä pieni majakkasaari. Sinne purjehtii muumiperhe turvallisesta laaksostaan, sillä Muumipappa ei halua enää olla tassutteleva, tarpeeton perheenisä, vaan rohkea päällikkö. Mutta kuinka olla majakanvartijana majakassa, jonka valoa ei saa toimimaan? Totta puhuen seikkailusta tulee vaarallisempi kuin kukaan on osannut aavistakaan. Sillä meri on arvaamaton vihollinen, ja Mörkökin on löytänyt muumiperheen jäljet...</p>",
+              "descr_attr": null,
+              "imported_string": "\n\n<b>Muumipappa ja meri</b>. (Pappan och havet, 1965). WSOY 1965. [nF].",
+              "author_str": "Jansson, Tove"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 9493,
+            "title": "Muumipappa ja meri",
+            "subtitle": "",
+            "pubyear": 2007,
+            "editionnum": 21,
+            "version": null,
+            "isbn": "978-952-459-733-3",
+            "printedin": "Juva",
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 181,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
                 "id": 6822,
                 "image_src": "/static/images/books/Adams_LinnunradanKasikirjaLiftareille_p7.jpg",
                 "image_attr": null
@@ -77077,48 +77119,6 @@
             "pubseriesnum": null,
             "coll_info": "",
             "pages": 139,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "id": 8846,
-                "image_src": "/static/images/books/Jansson_MuumipappaJaMeri_p19.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 3304,
-              "title": "Muumipappa ja meri",
-              "subtitle": "",
-              "orig_title": "Pappan och havet",
-              "pubyear": 1965,
-              "bookseriesnum": "10",
-              "bookseriesorder": 10,
-              "misc": "",
-              "description": "<p>Keskellä avomerta on kartassa piste, pikku Myy väittää sitä kärpäsenliaksi. Mutta se on kuin onkin saari, yrmeä pieni majakkasaari. Sinne purjehtii muumiperhe turvallisesta laaksostaan, sillä Muumipappa ei halua enää olla tassutteleva, tarpeeton perheenisä, vaan rohkea päällikkö. Mutta kuinka olla majakanvartijana majakassa, jonka valoa ei saa toimimaan? Totta puhuen seikkailusta tulee vaarallisempi kuin kukaan on osannut aavistakaan. Sillä meri on arvaamaton vihollinen, ja Mörkökin on löytänyt muumiperheen jäljet...</p>",
-              "descr_attr": null,
-              "imported_string": "\n\n<b>Muumipappa ja meri</b>. (Pappan och havet, 1965). WSOY 1965. [nF].",
-              "author_str": "Jansson, Tove"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 9493,
-            "title": "Muumipappa ja meri",
-            "subtitle": "",
-            "pubyear": 2007,
-            "editionnum": 21,
-            "version": null,
-            "isbn": "978-952-459-733-3",
-            "printedin": "Juva",
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 181,
             "size": 18,
             "dustcover": 1,
             "coverimage": 1,
@@ -78118,48 +78118,6 @@
             "coverimage": 1,
             "misc": "",
             "imported_string": "\n\n?.painos: Seven -sarja. Otava 2013.",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "id": 3307,
-                "image_src": "/static/images/books/Itkonen_Juha_Kaikkioliheidan_2p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 5627,
-              "title": "Kaikki oli heidän",
-              "subtitle": "",
-              "orig_title": "Kaikki oli heidän",
-              "pubyear": 2021,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": null,
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Itkonen, Juha"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 7088,
-            "title": "Kaikki oli heidän",
-            "subtitle": "",
-            "pubyear": 2022,
-            "editionnum": 2,
-            "version": null,
-            "isbn": "978-951-1-45054-2",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 393,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
             "verified": false
           },
           {
@@ -80185,6 +80143,48 @@
             "pubseriesnum": null,
             "coll_info": null,
             "pages": 440,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "id": 3307,
+                "image_src": "/static/images/books/Itkonen_Juha_Kaikkioliheidan_2p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 5627,
+              "title": "Kaikki oli heidän",
+              "subtitle": "",
+              "orig_title": "Kaikki oli heidän",
+              "pubyear": 2021,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Itkonen, Juha"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 7088,
+            "title": "Kaikki oli heidän",
+            "subtitle": "",
+            "pubyear": 2022,
+            "editionnum": 2,
+            "version": null,
+            "isbn": "978-951-1-45054-2",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 393,
             "size": 18,
             "dustcover": 1,
             "coverimage": 1,
@@ -84403,48 +84403,6 @@
           {
             "images": [
               {
-                "id": 1213,
-                "image_src": "/static/images/books/Engstrom_Avaruuspallo_l2.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 2434,
-              "title": "Avaruuspallo",
-              "subtitle": "Tieteisromaani nuorille",
-              "orig_title": "Rymdkulan",
-              "pubyear": 1958,
-              "bookseriesnum": "1",
-              "bookseriesorder": 1,
-              "misc": "",
-              "description": "<p>Avaruuspallo on askel ajasta edellä, se kiitää valon nopeudella kohti tähtisumuja ja kaukaisia maailmoja. Retkikuntaan kuuluu päällikön lisäksi kuusi eri rotua edustavaa poikaa, heidän joukossaan Suomesta ”salakuljetettu” Raimo.</p>\r\n\r\n<p>Tämä jännittävä tieteisromaani nuorille oli painovalmiina kustantajalla ennen kuin ensimmäinen avaruusalus laukaistiin Maata kiertävälle radalle. Avaruuspallo kiitää yhä valon nopeudella ulkoavaruudessa. Curiba-laaksoon saapuneet tiedot kertovat sen lähestyvän maata viidentoista seikkailurikkaan vuoden jälkeen.</p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Engström, T. A."
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 2801,
-            "title": "Avaruuspallo",
-            "subtitle": "",
-            "pubyear": 1969,
-            "editionnum": 1,
-            "version": 2,
-            "isbn": "",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 159,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 3,
-            "misc": "",
-            "imported_string": "https://kansalliskirjasto.finna.fi/Record/fikka.3395312",
-            "verified": false
-          },
-          {
-            "images": [
-              {
                 "id": 1214,
                 "image_src": "/static/images/books/Engstrom_AvaruuspallonPaluu_p1.jpg",
                 "image_attr": null
@@ -84482,6 +84440,48 @@
             "coverimage": 3,
             "misc": "",
             "imported_string": "https://kansalliskirjasto.finna.fi/Record/fikka.4313823",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "id": 1213,
+                "image_src": "/static/images/books/Engstrom_Avaruuspallo_l2.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 2434,
+              "title": "Avaruuspallo",
+              "subtitle": "Tieteisromaani nuorille",
+              "orig_title": "Rymdkulan",
+              "pubyear": 1958,
+              "bookseriesnum": "1",
+              "bookseriesorder": 1,
+              "misc": "",
+              "description": "<p>Avaruuspallo on askel ajasta edellä, se kiitää valon nopeudella kohti tähtisumuja ja kaukaisia maailmoja. Retkikuntaan kuuluu päällikön lisäksi kuusi eri rotua edustavaa poikaa, heidän joukossaan Suomesta ”salakuljetettu” Raimo.</p>\r\n\r\n<p>Tämä jännittävä tieteisromaani nuorille oli painovalmiina kustantajalla ennen kuin ensimmäinen avaruusalus laukaistiin Maata kiertävälle radalle. Avaruuspallo kiitää yhä valon nopeudella ulkoavaruudessa. Curiba-laaksoon saapuneet tiedot kertovat sen lähestyvän maata viidentoista seikkailurikkaan vuoden jälkeen.</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Engström, T. A."
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 2801,
+            "title": "Avaruuspallo",
+            "subtitle": "",
+            "pubyear": 1969,
+            "editionnum": 1,
+            "version": 2,
+            "isbn": "",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 159,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": "",
+            "imported_string": "https://kansalliskirjasto.finna.fi/Record/fikka.3395312",
             "verified": false
           }
         ],

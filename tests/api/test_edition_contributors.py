@@ -23,8 +23,7 @@ migrations/002_edition_contributor_migration.sql to the test DB.
 import pytest
 
 from app.orm_decl import (
-    EditionContributor, Contributor, Edition as EditionModel,
-    Part, Person
+    EditionContributor, Edition as EditionModel, Person
 )
 from app.route_helpers import new_session
 
@@ -592,7 +591,7 @@ class TestAuthorNotInEditionContributor(BaseAPITest):
         assert author_rows == 0, (
             f'Found {author_rows} author rows in EditionContributor '
             f'for edition {edition_id}; authors must stay in '
-            f'Contributor via Part'
+            f'WorkContributor'
         )
 
 
@@ -602,45 +601,24 @@ class TestAuthorNotInEditionContributor(BaseAPITest):
 
 class TestMigrationIntegrity(BaseAPITest):
     """
-    Verifies that the migration SQL correctly populated the
-    EditionContributor table from the existing Contributor+Part data.
+    Verifies that the EditionContributor table was populated by
+    the migration.
     """
 
     def test_migration_count_matches(self, app):
         """
-        The number of rows in suomisf.editioncontributor is at least
-        as large as the number of distinct (edition_id, person_id,
-        role_id) tuples in contributor+part for edition roles
-        (2,3,4,5,7).
+        The suomisf.editioncontributor table must be non-empty after
+        migration (source Contributor+Part tables have been dropped).
 
         Assertions:
-          - editioncontributor row count >= source distinct row count
+          - editioncontributor row count > 0
         Fixtures: app
         """
-        edition_roles = (2, 3, 4, 5, 7)
-
         with app.app_context():
             session = new_session()
-
             ec_count = session.query(EditionContributor).count()
-
-            source_count = (
-                session.query(
-                    Part.edition_id,
-                    Contributor.person_id,
-                    Contributor.role_id,
-                )
-                .join(Part, Part.id == Contributor.part_id)
-                .filter(Part.shortstory_id.is_(None))
-                .filter(Part.edition_id.isnot(None))
-                .filter(Contributor.role_id.in_(edition_roles))
-                .distinct()
-                .count()
-            )
             session.close()
 
-        assert ec_count >= source_count, (
-            f'EditionContributor has {ec_count} rows but source has '
-            f'{source_count} distinct (edition,person,role) tuples. '
-            f'Migration may be incomplete.'
+        assert ec_count > 0, (
+            'EditionContributor is empty after migration.'
         )

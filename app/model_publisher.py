@@ -2,7 +2,7 @@
 """ SQLAlchemy model for publisher. """
 from marshmallow import fields
 from app import ma
-from app.model import (ContributorSchema, EditionImageBriefSchema,
+from app.model import (WorkContributorSchema, EditionImageBriefSchema,
                        GenreBriefSchema, LanguageSchema, MagazineBriefSchema,
                        PersonBriefSchema,
                        PublisherLinkSchema, PubseriesSchema)
@@ -14,7 +14,7 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Meta class. """
         model = Work
-    contributions = ma.List(fields.Nested(ContributorSchema()))
+    contributions = ma.List(fields.Nested(WorkContributorSchema()))
     genres = ma.List(fields.Nested(GenreBriefSchema))
     language_name = fields.Nested(LanguageSchema)
     type = fields.Number()

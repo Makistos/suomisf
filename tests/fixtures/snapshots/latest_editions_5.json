@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-01T22:06:20.175903+00:00",
+    "generated_at": "2026-03-02T15:55:51.776168+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/editions/5",
@@ -10,6 +10,140 @@
   "response": {
     "status_code": 200,
     "data": [
+      {
+        "work": {
+          "id": 6935.0,
+          "title": "testikirja",
+          "orig_title": "",
+          "author_str": "Vainikainen, Jussi",
+          "contributions": [
+            {
+              "person": {
+                "id": 3889.0,
+                "name": "Vainikainen, Jussi",
+                "alt_name": "Jussi Vainikainen"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "editions": [
+            {
+              "editors": [],
+              "translators": [],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 3888.0,
+                    "name": "Vainikainen, Johanna",
+                    "alt_name": "Johanna Vainikainen"
+                  },
+                  "role": {
+                    "id": 4,
+                    "name": "Kansikuva"
+                  },
+                  "description": "",
+                  "real_person": null
+                }
+              ],
+              "images": [],
+              "publisher": {
+                "id": 387,
+                "name": "WSOY"
+              },
+              "owners": [],
+              "wishlisted": [],
+              "id": 9898,
+              "title": "testikirja",
+              "subtitle": "",
+              "pubyear": 2000,
+              "editionnum": 1,
+              "version": 1,
+              "isbn": null,
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": null,
+              "pages": null,
+              "size": null,
+              "dustcover": 1,
+              "coverimage": 1,
+              "misc": null,
+              "imported_string": null,
+              "verified": false
+            }
+          ],
+          "genres": [
+            {
+              "id": 1,
+              "name": "Fantasia",
+              "abbr": "F"
+            }
+          ],
+          "bookseries": null,
+          "tags": [],
+          "language_name": {
+            "id": 7,
+            "name": "suomi"
+          },
+          "type": 1.0,
+          "subtitle": "",
+          "pubyear": 2000,
+          "bookseriesnum": "",
+          "bookseriesorder": null,
+          "misc": "",
+          "description": null,
+          "descr_attr": "",
+          "imported_string": null
+        },
+        "editors": [],
+        "contributions": [
+          {
+            "person": {
+              "id": 3888.0,
+              "name": "Vainikainen, Johanna",
+              "alt_name": "Johanna Vainikainen"
+            },
+            "role": {
+              "id": 4,
+              "name": "Kansikuva"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "images": [],
+        "publisher": {
+          "id": 387,
+          "name": "WSOY"
+        },
+        "owners": [],
+        "wishlisted": [],
+        "binding": {
+          "id": 1,
+          "name": "Ei tietoa/muu"
+        },
+        "id": 9898,
+        "title": "testikirja",
+        "subtitle": "",
+        "pubyear": 2000,
+        "editionnum": 1,
+        "version": 1,
+        "isbn": null,
+        "printedin": null,
+        "pubseriesnum": null,
+        "coll_info": null,
+        "pages": null,
+        "size": null,
+        "dustcover": 1,
+        "coverimage": 1,
+        "misc": null,
+        "imported_string": null,
+        "verified": false
+      },
       {
         "work": {
           "id": 4765.0,
@@ -43,9 +177,6 @@
                   "image_src": null,
                   "dob": null,
                   "dod": null,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -131,9 +262,6 @@
                   "image_src": null,
                   "dob": null,
                   "dod": null,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -232,9 +360,6 @@
                   "image_src": null,
                   "dob": null,
                   "dod": null,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -464,9 +589,6 @@
                   "image_src": null,
                   "dob": null,
                   "dod": null,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -552,9 +674,6 @@
                   "image_src": null,
                   "dob": null,
                   "dod": null,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -640,9 +759,6 @@
                   "image_src": null,
                   "dob": null,
                   "dod": null,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -728,9 +844,6 @@
                   "image_src": null,
                   "dob": null,
                   "dod": null,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -921,9 +1034,6 @@
                   "image_src": null,
                   "dob": null,
                   "dod": null,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -1009,9 +1119,6 @@
                   "image_src": null,
                   "dob": null,
                   "dod": null,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -1110,9 +1217,6 @@
                   "image_src": null,
                   "dob": null,
                   "dod": null,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -1211,9 +1315,6 @@
                   "image_src": null,
                   "dob": null,
                   "dod": null,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -1430,9 +1531,6 @@
                   "image_src": null,
                   "dob": null,
                   "dod": null,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -1518,9 +1616,6 @@
                   "image_src": null,
                   "dob": null,
                   "dod": null,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -1606,9 +1701,6 @@
                   "image_src": null,
                   "dob": null,
                   "dod": null,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -1694,9 +1786,6 @@
                   "image_src": null,
                   "dob": null,
                   "dod": null,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -1861,476 +1950,6 @@
         "coll_info": "",
         "pages": 208,
         "size": 20,
-        "dustcover": 1,
-        "coverimage": 1,
-        "misc": "",
-        "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF].",
-        "verified": false
-      },
-      {
-        "work": {
-          "id": 4778.0,
-          "title": "Tarzanin kaksoisolento",
-          "orig_title": "Tarzan and the Lion Man",
-          "author_str": "Burroughs, Edgar Rice",
-          "contributions": [
-            {
-              "person": {
-                "id": 2877.0,
-                "name": "Burroughs, Edgar Rice",
-                "alt_name": "Edgar Rice Burroughs"
-              },
-              "role": {
-                "id": 1,
-                "name": "Kirjoittaja"
-              },
-              "description": null,
-              "real_person": null
-            }
-          ],
-          "editions": [
-            {
-              "editors": [],
-              "translators": [
-                {
-                  "id": 2884.0,
-                  "name": "Jokimäki, Heikki",
-                  "alt_name": "Heikki Jokimäki",
-                  "fullname": "",
-                  "image_src": null,
-                  "dob": null,
-                  "dod": null,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
-                  "nationality": {
-                    "id": 4,
-                    "name": "Suomi"
-                  },
-                  "workcount": 0.0,
-                  "storycount": 0,
-                  "other_names": null,
-                  "first_name": "Heikki",
-                  "last_name": "Jokimäki",
-                  "image_attr": "",
-                  "bio": null,
-                  "bio_src": "",
-                  "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF]."
-                }
-              ],
-              "contributions": [
-                {
-                  "person": {
-                    "id": 5608.0,
-                    "name": "Hauhio, Ami",
-                    "alt_name": "Ami Hauhio"
-                  },
-                  "role": {
-                    "id": 4,
-                    "name": "Kansikuva"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 2884.0,
-                    "name": "Jokimäki, Heikki",
-                    "alt_name": "Heikki Jokimäki"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": null,
-                  "real_person": null
-                }
-              ],
-              "images": [
-                {
-                  "id": 9428,
-                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzaninkaksoisolento_1p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 132,
-                "name": "Karhu"
-              },
-              "owners": [],
-              "wishlisted": [],
-              "id": 5515,
-              "title": "Tarzanin kaksoisolento",
-              "subtitle": "",
-              "pubyear": 1947,
-              "editionnum": 1,
-              "version": null,
-              "isbn": "",
-              "printedin": null,
-              "pubseriesnum": null,
-              "coll_info": "",
-              "pages": 243,
-              "size": 19,
-              "dustcover": 1,
-              "coverimage": 1,
-              "misc": "",
-              "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF].",
-              "verified": false
-            },
-            {
-              "editors": [],
-              "translators": [
-                {
-                  "id": 2884.0,
-                  "name": "Jokimäki, Heikki",
-                  "alt_name": "Heikki Jokimäki",
-                  "fullname": "",
-                  "image_src": null,
-                  "dob": null,
-                  "dod": null,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
-                  "nationality": {
-                    "id": 4,
-                    "name": "Suomi"
-                  },
-                  "workcount": 0.0,
-                  "storycount": 0,
-                  "other_names": null,
-                  "first_name": "Heikki",
-                  "last_name": "Jokimäki",
-                  "image_attr": "",
-                  "bio": null,
-                  "bio_src": "",
-                  "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF]."
-                }
-              ],
-              "contributions": [
-                {
-                  "person": {
-                    "id": 5608.0,
-                    "name": "Hauhio, Ami",
-                    "alt_name": "Ami Hauhio"
-                  },
-                  "role": {
-                    "id": 4,
-                    "name": "Kansikuva"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 2884.0,
-                    "name": "Jokimäki, Heikki",
-                    "alt_name": "Heikki Jokimäki"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": null,
-                  "real_person": null
-                }
-              ],
-              "images": [
-                {
-                  "id": 9429,
-                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzaninkaksoisolento_1p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 132,
-                "name": "Karhu"
-              },
-              "owners": [],
-              "wishlisted": [],
-              "id": 9892,
-              "title": "Tarzanin kaksoisolento",
-              "subtitle": "",
-              "pubyear": 1948,
-              "editionnum": 2,
-              "version": null,
-              "isbn": "",
-              "printedin": null,
-              "pubseriesnum": null,
-              "coll_info": "",
-              "pages": 243,
-              "size": 19,
-              "dustcover": 1,
-              "coverimage": 1,
-              "misc": "",
-              "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF].",
-              "verified": false
-            },
-            {
-              "editors": [],
-              "translators": [
-                {
-                  "id": 2884.0,
-                  "name": "Jokimäki, Heikki",
-                  "alt_name": "Heikki Jokimäki",
-                  "fullname": "",
-                  "image_src": null,
-                  "dob": null,
-                  "dod": null,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
-                  "nationality": {
-                    "id": 4,
-                    "name": "Suomi"
-                  },
-                  "workcount": 0.0,
-                  "storycount": 0,
-                  "other_names": null,
-                  "first_name": "Heikki",
-                  "last_name": "Jokimäki",
-                  "image_attr": "",
-                  "bio": null,
-                  "bio_src": "",
-                  "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF]."
-                }
-              ],
-              "contributions": [
-                {
-                  "person": {
-                    "id": 5608.0,
-                    "name": "Hauhio, Ami",
-                    "alt_name": "Ami Hauhio"
-                  },
-                  "role": {
-                    "id": 4,
-                    "name": "Kansikuva"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 2884.0,
-                    "name": "Jokimäki, Heikki",
-                    "alt_name": "Heikki Jokimäki"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": null,
-                  "real_person": null
-                }
-              ],
-              "images": [
-                {
-                  "id": 9430,
-                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzaninkaksoisolento_1p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 132,
-                "name": "Karhu"
-              },
-              "owners": [],
-              "wishlisted": [],
-              "id": 9893,
-              "title": "Tarzanin kaksoisolento",
-              "subtitle": "",
-              "pubyear": 1952,
-              "editionnum": 3,
-              "version": null,
-              "isbn": "",
-              "printedin": null,
-              "pubseriesnum": null,
-              "coll_info": "",
-              "pages": 208,
-              "size": 20,
-              "dustcover": 1,
-              "coverimage": 1,
-              "misc": "",
-              "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF].",
-              "verified": false
-            },
-            {
-              "editors": [],
-              "translators": [
-                {
-                  "id": 2882.0,
-                  "name": "Tapio, Jaakko V.",
-                  "alt_name": "Jaakko V. Tapio",
-                  "fullname": "",
-                  "image_src": null,
-                  "dob": null,
-                  "dod": null,
-                  "roles": [
-                    "Kääntäjä"
-                  ],
-                  "nationality": {
-                    "id": 4,
-                    "name": "Suomi"
-                  },
-                  "workcount": 0.0,
-                  "storycount": 0,
-                  "other_names": null,
-                  "first_name": "Jaakko V.",
-                  "last_name": "Tapio",
-                  "image_attr": "",
-                  "bio": null,
-                  "bio_src": "",
-                  "imported_string": "\n\n2.laitos: <b>Mahtava Tarzan</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1976."
-                }
-              ],
-              "contributions": [
-                {
-                  "person": {
-                    "id": 7769.0,
-                    "name": "Lintula, Kalevi",
-                    "alt_name": "Kalevi Lintula"
-                  },
-                  "role": {
-                    "id": 5,
-                    "name": "Kuvittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 2882.0,
-                    "name": "Tapio, Jaakko V.",
-                    "alt_name": "Jaakko V. Tapio"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": null,
-                  "real_person": null
-                }
-              ],
-              "images": [
-                {
-                  "id": 9431,
-                  "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzanjaleijonamies_1p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 137,
-                "name": "Kauppakirjapaino"
-              },
-              "owners": [],
-              "wishlisted": [],
-              "id": 5516,
-              "title": "Tarzan ja Leijonamies",
-              "subtitle": "",
-              "pubyear": 1974,
-              "editionnum": 1,
-              "version": 2,
-              "isbn": "",
-              "printedin": null,
-              "pubseriesnum": null,
-              "coll_info": "",
-              "pages": 275,
-              "size": 21,
-              "dustcover": 1,
-              "coverimage": 3,
-              "misc": "",
-              "imported_string": "\n\n2.laitos: <b>Tarzan ja Leijonamies</b>. Suom Jaakko V. Tapio. Kauppakirjapaino 1974.",
-              "verified": false
-            }
-          ],
-          "genres": [
-            {
-              "id": 5,
-              "name": "Science Fiction",
-              "abbr": "SF"
-            }
-          ],
-          "bookseries": {
-            "id": 410,
-            "name": "Tarzan",
-            "orig_name": "Tarzan",
-            "description": null,
-            "important": false,
-            "image_src": null,
-            "image_attr": null
-          },
-          "tags": [],
-          "language_name": {
-            "id": 1,
-            "name": "englanti"
-          },
-          "type": 1.0,
-          "subtitle": "",
-          "pubyear": 1934,
-          "bookseriesnum": "16",
-          "bookseriesorder": 16,
-          "misc": "",
-          "description": "",
-          "descr_attr": null,
-          "imported_string": "\n\n<b>Tarzanin kaksoisolento</b>. (Tarzan and the Lion Man, 1934). Suom Heikki Jokimäki. Karhu 1947. [SF]."
-        },
-        "editors": [],
-        "contributions": [
-          {
-            "person": {
-              "id": 5608.0,
-              "name": "Hauhio, Ami",
-              "alt_name": "Ami Hauhio"
-            },
-            "role": {
-              "id": 4,
-              "name": "Kansikuva"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 2884.0,
-              "name": "Jokimäki, Heikki",
-              "alt_name": "Heikki Jokimäki"
-            },
-            "role": {
-              "id": 2,
-              "name": "Kääntäjä"
-            },
-            "description": null,
-            "real_person": null
-          }
-        ],
-        "images": [
-          {
-            "id": 9429,
-            "image_src": "/static/images/books/Burroughs_Edgar_Rice_Tarzaninkaksoisolento_1p.jpg",
-            "image_attr": null
-          }
-        ],
-        "publisher": {
-          "id": 132,
-          "name": "Karhu"
-        },
-        "owners": [],
-        "wishlisted": [],
-        "binding": {
-          "id": 2,
-          "name": "Nidottu"
-        },
-        "id": 9892,
-        "title": "Tarzanin kaksoisolento",
-        "subtitle": "",
-        "pubyear": 1948,
-        "editionnum": 2,
-        "version": null,
-        "isbn": "",
-        "printedin": null,
-        "pubseriesnum": null,
-        "coll_info": "",
-        "pages": 243,
-        "size": 19,
         "dustcover": 1,
         "coverimage": 1,
         "misc": "",

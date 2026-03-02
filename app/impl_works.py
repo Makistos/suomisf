@@ -13,10 +13,10 @@ from app.route_helpers import new_session
 from app.impl import (ResponseType, SearchResult,
                       SearchResultFields, searchscore, set_language, check_int,
                       get_join_changes)
-from app.orm_decl import (Edition, EditionShortStory, Genre, Omnibus, Part,
+from app.orm_decl import (Edition, EditionShortStory, Genre, Omnibus,
                           Tag, Work, WorkContributor, WorkType, WorkTag,
                           WorkGenre, WorkLink,
-                          Bookseries, ShortStory, Contributor, Person)
+                          Bookseries, ShortStory, Person)
 from app.model import (OmnibusSchema, WorkBriefSchema, WorkTypeBriefSchema,
                        ShortBriefSchema)
 from app.model_bookindex import (BookIndexSchema)
@@ -405,17 +405,16 @@ def search_books(params: Dict[str, str]) -> ResponseType:
         if 'author' in params and params['author']:
             author = bleach.clean(params['author'])
             query = query\
-                .join(Part, Work.id == Part.work_id)\
-                .join(Contributor, Part.id == Contributor.part_id)\
+                .join(WorkContributor,
+                      Work.id == WorkContributor.work_id)\
                 .join(Person,
                       or_(
-                        Person.id == Contributor.person_id,
-                        Person.id == Contributor.real_person_id
+                        Person.id == WorkContributor.person_id,
+                        Person.id == WorkContributor.real_person_id
                       ))\
                 .filter(
                     and_(
-                        Contributor.role_id == 1,
-                        Part.shortstory_id.is_(None),
+                        WorkContributor.role_id == 1,
                         or_(
                             Person.name.ilike(f'{author}%'),
                             Person.alt_name.ilike(f'{author}%')
@@ -477,28 +476,16 @@ def search_books(params: Dict[str, str]) -> ResponseType:
 
         # Add nationality filter with explicit joins and alias
         if 'nationality' in params and params['nationality']:
-            # Create alias for Part table to avoid ambiguous joins
-            part_alias = aliased(Part)
-            contrib_alias = aliased(Contributor)
+            wc_alias = aliased(WorkContributor)
+            person_alias = aliased(Person)
 
-            # Join with aliases and explicit conditions
             query = query.join(
-                part_alias, Work.id == part_alias.work_id
+                wc_alias, Work.id == wc_alias.work_id
             ).join(
-                contrib_alias,
-                and_(
-                    part_alias.id == contrib_alias.part_id,
-                    contrib_alias.role_id == 1,  # Author role
-                    part_alias.shortstory_id.is_(None)
-                )
-            ).join(
-                Person,
-                or_(
-                    Person.id == contrib_alias.person_id,
-                    Person.id == contrib_alias.real_person_id
-                )
+                person_alias, person_alias.id == wc_alias.person_id
             ).filter(
-                Person.nationality_id == int(params['nationality'])
+                wc_alias.role_id == 1,
+                person_alias.nationality_id == int(params['nationality'])
             )
 
         # Add title filters
@@ -619,15 +606,13 @@ def get_author_works(author_id: int) -> ResponseType:
 
     try:
         works = session.query(Work).distinct()\
-            .join(Part, Work.id == Part.work_id)\
-            .join(Contributor, Part.id == Contributor.part_id)\
+            .join(WorkContributor, Work.id == WorkContributor.work_id)\
             .filter(
                 and_(
-                    Contributor.role_id == 1,
-                    Part.shortstory_id.is_(None),
+                    WorkContributor.role_id == 1,
                     or_(
-                        Contributor.person_id == author_id,
-                        Contributor.real_person_id == author_id
+                        WorkContributor.person_id == author_id,
+                        WorkContributor.real_person_id == author_id
                     )
                 )
             )\
@@ -850,19 +835,7 @@ def work_add(params: Any) -> ResponseType:
                             work_id={work.id}',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    # Add part to tie work and edition together (requires work id and edition
-    # id)
-    new_part = Part(work_id=work.id, edition_id=new_edition.id)
-    try:
-        session.add(new_part)
-        session.commit()
-    except SQLAlchemyError as exp:
-        app.logger.error('Exception in WorkAdd: ' + str(exp))
-        return ResponseType(f'WorkAdd: Tietokantavirhe Part-taulussa. \
-                            work_id={work.id}',
-                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
-
-    # Add contributors (requires part id)
+    # Add contributors (requires work id)
     update_work_contributors(session, work.id, data['contributions'])
 
     # Add tags (requires work id)
@@ -1307,19 +1280,6 @@ def save_work_shorts(params: Any) -> ResponseType:
                     work_edition_ids))\
                 .delete(synchronize_session='fetch')
 
-        # Delete old Part rows with shortstory_id (data cleanup)
-        old_parts = session.query(Part)\
-            .filter(Part.work_id == work_id)\
-            .filter(Part.shortstory_id.isnot(None))\
-            .all()
-        for part in old_parts:
-            session.query(Contributor)\
-                .filter(Contributor.part_id == part.id)\
-                .delete()
-        session.flush()
-        for part in old_parts:
-            session.delete(part)
-        session.flush()
     except SQLAlchemyError as exp:
         session.rollback()
         app.logger.error(

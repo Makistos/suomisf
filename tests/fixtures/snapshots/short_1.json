@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-01T22:06:20.175903+00:00",
+    "generated_at": "2026-03-02T15:55:51.776168+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/shorts/1",
@@ -19,10 +19,6 @@
           "image_src": "http://www.isfdb.org/wiki/images/4/47/Isaac_Asimov_on_Throne.png",
           "dob": 1920.0,
           "dod": 1992.0,
-          "roles": [
-            "Kirjoittaja",
-            "Esiintyy"
-          ],
           "nationality": {
             "id": 3,
             "name": "Yhdysvallat"
@@ -47,10 +43,6 @@
           "image_src": null,
           "dob": null,
           "dod": null,
-          "roles": [
-            "Kääntäjä",
-            "Toimittaja"
-          ],
           "nationality": {
             "id": 4,
             "name": "Suomi"
@@ -100,10 +92,6 @@
                   "image_src": null,
                   "dob": null,
                   "dod": null,
-                  "roles": [
-                    "Kääntäjä",
-                    "Toimittaja"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -128,10 +116,6 @@
                   "image_src": null,
                   "dob": null,
                   "dod": null,
-                  "roles": [
-                    "Kääntäjä",
-                    "Toimittaja"
-                  ],
                   "nationality": {
                     "id": 4,
                     "name": "Suomi"
@@ -287,10 +271,6 @@
                     "image_src": null,
                     "dob": null,
                     "dod": null,
-                    "roles": [
-                      "Kääntäjä",
-                      "Toimittaja"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -315,10 +295,6 @@
                     "image_src": null,
                     "dob": null,
                     "dod": null,
-                    "roles": [
-                      "Kääntäjä",
-                      "Toimittaja"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
@@ -449,10 +425,6 @@
               "image_src": null,
               "dob": null,
               "dod": null,
-              "roles": [
-                "Kääntäjä",
-                "Toimittaja"
-              ],
               "nationality": {
                 "id": 4,
                 "name": "Suomi"
@@ -611,10 +583,6 @@
                 "image_src": "http://www.isfdb.org/wiki/images/4/47/Isaac_Asimov_on_Throne.png",
                 "dob": 1920.0,
                 "dod": 1992.0,
-                "roles": [
-                  "Kirjoittaja",
-                  "Esiintyy"
-                ],
                 "nationality": {
                   "id": 3,
                   "name": "Yhdysvallat"
@@ -668,10 +636,6 @@
                           "image_src": null,
                           "dob": null,
                           "dod": null,
-                          "roles": [
-                            "Kääntäjä",
-                            "Toimittaja"
-                          ],
                           "nationality": {
                             "id": 4,
                             "name": "Suomi"
@@ -696,10 +660,6 @@
                           "image_src": null,
                           "dob": null,
                           "dod": null,
-                          "roles": [
-                            "Kääntäjä",
-                            "Toimittaja"
-                          ],
                           "nationality": {
                             "id": 4,
                             "name": "Suomi"
@@ -830,10 +790,6 @@
                     "image_src": null,
                     "dob": null,
                     "dod": null,
-                    "roles": [
-                      "Kääntäjä",
-                      "Toimittaja"
-                    ],
                     "nationality": {
                       "id": 4,
                       "name": "Suomi"
