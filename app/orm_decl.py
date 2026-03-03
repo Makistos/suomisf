@@ -922,18 +922,25 @@ class Person(Base):
         """
         Distinct ContributorRole objects held by this person across
         WorkContributor, EditionContributor, and StoryContributor.
+        Includes contributions by alias persons (Alias.realname == id).
         """
         from sqlalchemy.orm import object_session
         from sqlalchemy import union_all, select
         session = object_session(self)
         if not session:
             return []
+        alias_ids = [
+            row[0] for row in session.execute(
+                select(Alias.alias).where(Alias.realname == self.id)
+            )
+        ]
+        all_ids = [self.id] + alias_ids
         q1 = select(WorkContributor.role_id).where(
-            WorkContributor.person_id == self.id)
+            WorkContributor.person_id.in_(all_ids))
         q2 = select(EditionContributor.role_id).where(
-            EditionContributor.person_id == self.id)
+            EditionContributor.person_id.in_(all_ids))
         q3 = select(StoryContributor.role_id).where(
-            StoryContributor.person_id == self.id)
+            StoryContributor.person_id.in_(all_ids))
         role_ids = {
             row[0]
             for row in session.execute(union_all(q1, q2, q3))

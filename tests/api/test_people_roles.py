@@ -161,3 +161,24 @@ class TestPersonRolesField(BaseAPITest):
             )
         finally:
             delete_test_person(admin_client, person_id)
+
+    def test_alias_roles_appear_on_real_person(self, api_client):
+        """
+        A real person whose alias has a work contribution must show
+        the alias's role in their own roles list.
+
+        Uses person 34 (Aalto, Kaarina) whose alias is person 35
+        (Valoaalto, Kaarina), the author of work 42 (Mystikko).
+        """
+        resp = api_client.get('/api/filter/people/Aalto, Kaarina')
+        resp.assert_success()
+
+        people = resp.data
+        person = next(
+            (p for p in people if int(p['id']) == 34), None
+        )
+        assert person is not None, \
+            "Person 34 (Aalto, Kaarina) not found"
+        assert 'Kirjoittaja' in person['roles'], (
+            f"Expected 'Kirjoittaja' via alias, got: {person['roles']}"
+        )
