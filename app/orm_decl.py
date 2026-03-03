@@ -916,6 +916,35 @@ class Person(Base):
                            secondaryjoin=id == Alias.alias,
                            uselist=True, viewonly=True)
     links = relationship("PersonLink", uselist=True, viewonly=True)
+
+    @property
+    def roles(self):
+        """
+        Distinct ContributorRole objects held by this person across
+        WorkContributor, EditionContributor, and StoryContributor.
+        """
+        from sqlalchemy.orm import object_session
+        from sqlalchemy import union_all, select
+        session = object_session(self)
+        if not session:
+            return []
+        q1 = select(WorkContributor.role_id).where(
+            WorkContributor.person_id == self.id)
+        q2 = select(EditionContributor.role_id).where(
+            EditionContributor.person_id == self.id)
+        q3 = select(StoryContributor.role_id).where(
+            StoryContributor.person_id == self.id)
+        role_ids = {
+            row[0]
+            for row in session.execute(union_all(q1, q2, q3))
+        }
+        if not role_ids:
+            return []
+        return (session.query(ContributorRole)
+                .filter(ContributorRole.id.in_(role_ids))
+                .order_by(ContributorRole.id)
+                .all())
+
     works = relationship(
         'Work',
         secondary='suomisf.workcontributor',

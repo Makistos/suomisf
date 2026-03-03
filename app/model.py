@@ -213,6 +213,7 @@ class PersonBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     workcount = fields.Number()
     # storycount = fields.Number()
     storycount = fields.Function(lambda obj: len([x.id for x in obj.stories]))
+    roles = fields.Pluck(ContributorRoleSchema, 'name', many=True)
 
 
 class WorkContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-02T23:02:16.622874+00:00",
+    "generated_at": "2026-03-03T11:14:39.033191+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/works/5",
@@ -61,6 +61,9 @@
                 },
                 "workcount": 0.0,
                 "storycount": 0,
+                "roles": [
+                  "Kääntäjä"
+                ],
                 "other_names": null,
                 "first_name": "",
                 "last_name": "",
@@ -501,6 +504,9 @@
                 },
                 "workcount": 1.0,
                 "storycount": 0,
+                "roles": [
+                  "Toimittaja"
+                ],
                 "other_names": "",
                 "first_name": null,
                 "last_name": null,
@@ -525,6 +531,11 @@
                 },
                 "workcount": 0.0,
                 "storycount": 25,
+                "roles": [
+                  "Kirjoittaja",
+                  "Kääntäjä",
+                  "Esiintyy"
+                ],
                 "other_names": null,
                 "first_name": "Jaakko",
                 "last_name": "Kankaanpää",
@@ -847,6 +858,11 @@
                 },
                 "workcount": 0.0,
                 "storycount": 25,
+                "roles": [
+                  "Kirjoittaja",
+                  "Kääntäjä",
+                  "Esiintyy"
+                ],
                 "other_names": null,
                 "first_name": "Jaakko",
                 "last_name": "Kankaanpää",
@@ -1156,6 +1172,9 @@
                 },
                 "workcount": 0.0,
                 "storycount": 0,
+                "roles": [
+                  "Kääntäjä"
+                ],
                 "other_names": "",
                 "first_name": null,
                 "last_name": null,

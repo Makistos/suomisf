@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-02T23:02:16.622874+00:00",
+    "generated_at": "2026-03-03T11:14:39.033191+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/editions/242/shorts",
@@ -26,6 +26,9 @@
             },
             "workcount": 17.0,
             "storycount": 16,
+            "roles": [
+              "Kirjoittaja"
+            ],
             "other_names": null,
             "first_name": "Harri István",
             "last_name": "Mäki",
@@ -79,6 +82,10 @@
                       },
                       "workcount": 1.0,
                       "storycount": 1,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
                       "other_names": null,
                       "first_name": "Helena",
                       "last_name": "Väisänen",
@@ -179,6 +186,10 @@
                 },
                 "workcount": 1.0,
                 "storycount": 1,
+                "roles": [
+                  "Kirjoittaja",
+                  "Toimittaja"
+                ],
                 "other_names": null,
                 "first_name": "Helena",
                 "last_name": "Väisänen",
@@ -403,6 +414,10 @@
             },
             "workcount": 1.0,
             "storycount": 1,
+            "roles": [
+              "Kirjoittaja",
+              "Toimittaja"
+            ],
             "other_names": null,
             "first_name": "Helena",
             "last_name": "Väisänen",
@@ -456,6 +471,10 @@
                       },
                       "workcount": 1.0,
                       "storycount": 1,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
                       "other_names": null,
                       "first_name": "Helena",
                       "last_name": "Väisänen",
@@ -556,6 +575,10 @@
                 },
                 "workcount": 1.0,
                 "storycount": 1,
+                "roles": [
+                  "Kirjoittaja",
+                  "Toimittaja"
+                ],
                 "other_names": null,
                 "first_name": "Helena",
                 "last_name": "Väisänen",
@@ -657,6 +680,9 @@
             },
             "workcount": 3.0,
             "storycount": 1,
+            "roles": [
+              "Kirjoittaja"
+            ],
             "other_names": null,
             "first_name": "Jussi",
             "last_name": "Matilainen",
@@ -710,6 +736,10 @@
                       },
                       "workcount": 1.0,
                       "storycount": 1,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
                       "other_names": null,
                       "first_name": "Helena",
                       "last_name": "Väisänen",
@@ -810,6 +840,10 @@
                 },
                 "workcount": 1.0,
                 "storycount": 1,
+                "roles": [
+                  "Kirjoittaja",
+                  "Toimittaja"
+                ],
                 "other_names": null,
                 "first_name": "Helena",
                 "last_name": "Väisänen",
@@ -911,6 +945,9 @@
             },
             "workcount": 0.0,
             "storycount": 1,
+            "roles": [
+              "Kirjoittaja"
+            ],
             "other_names": null,
             "first_name": "Reija",
             "last_name": "Korkatti",
@@ -964,6 +1001,10 @@
                       },
                       "workcount": 1.0,
                       "storycount": 1,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
                       "other_names": null,
                       "first_name": "Helena",
                       "last_name": "Väisänen",
@@ -1064,6 +1105,10 @@
                 },
                 "workcount": 1.0,
                 "storycount": 1,
+                "roles": [
+                  "Kirjoittaja",
+                  "Toimittaja"
+                ],
                 "other_names": null,
                 "first_name": "Helena",
                 "last_name": "Väisänen",
@@ -1165,6 +1210,9 @@
             },
             "workcount": 0.0,
             "storycount": 1,
+            "roles": [
+              "Kirjoittaja"
+            ],
             "other_names": null,
             "first_name": "Enna",
             "last_name": "Airik",
@@ -1218,6 +1266,10 @@
                       },
                       "workcount": 1.0,
                       "storycount": 1,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
                       "other_names": null,
                       "first_name": "Helena",
                       "last_name": "Väisänen",
@@ -1318,6 +1370,10 @@
                 },
                 "workcount": 1.0,
                 "storycount": 1,
+                "roles": [
+                  "Kirjoittaja",
+                  "Toimittaja"
+                ],
                 "other_names": null,
                 "first_name": "Helena",
                 "last_name": "Väisänen",
@@ -1419,6 +1475,9 @@
             },
             "workcount": 0.0,
             "storycount": 1,
+            "roles": [
+              "Kirjoittaja"
+            ],
             "other_names": null,
             "first_name": "Markku",
             "last_name": "Karpio",
@@ -1472,6 +1531,10 @@
                       },
                       "workcount": 1.0,
                       "storycount": 1,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
                       "other_names": null,
                       "first_name": "Helena",
                       "last_name": "Väisänen",
@@ -1572,6 +1635,10 @@
                 },
                 "workcount": 1.0,
                 "storycount": 1,
+                "roles": [
+                  "Kirjoittaja",
+                  "Toimittaja"
+                ],
                 "other_names": null,
                 "first_name": "Helena",
                 "last_name": "Väisänen",
@@ -1673,6 +1740,9 @@
             },
             "workcount": 0.0,
             "storycount": 1,
+            "roles": [
+              "Kirjoittaja"
+            ],
             "other_names": null,
             "first_name": "Jukka-Pekka",
             "last_name": "Palviainen",
@@ -1726,6 +1796,10 @@
                       },
                       "workcount": 1.0,
                       "storycount": 1,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
                       "other_names": null,
                       "first_name": "Helena",
                       "last_name": "Väisänen",
@@ -1826,6 +1900,10 @@
                 },
                 "workcount": 1.0,
                 "storycount": 1,
+                "roles": [
+                  "Kirjoittaja",
+                  "Toimittaja"
+                ],
                 "other_names": null,
                 "first_name": "Helena",
                 "last_name": "Väisänen",
@@ -1927,6 +2005,9 @@
             },
             "workcount": 0.0,
             "storycount": 2,
+            "roles": [
+              "Kirjoittaja"
+            ],
             "other_names": null,
             "first_name": "Ulla",
             "last_name": "Vaarnamo",
@@ -1980,6 +2061,10 @@
                       },
                       "workcount": 1.0,
                       "storycount": 1,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
                       "other_names": null,
                       "first_name": "Helena",
                       "last_name": "Väisänen",
@@ -2080,6 +2165,10 @@
                 },
                 "workcount": 1.0,
                 "storycount": 1,
+                "roles": [
+                  "Kirjoittaja",
+                  "Toimittaja"
+                ],
                 "other_names": null,
                 "first_name": "Helena",
                 "last_name": "Väisänen",
@@ -2181,6 +2270,12 @@
             },
             "workcount": 6.0,
             "storycount": 116,
+            "roles": [
+              "Kirjoittaja",
+              "Toimittaja",
+              "Kansikuva",
+              "Esiintyy"
+            ],
             "other_names": null,
             "first_name": "Jussi",
             "last_name": "Katajala",
@@ -2234,6 +2329,10 @@
                       },
                       "workcount": 1.0,
                       "storycount": 1,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
                       "other_names": null,
                       "first_name": "Helena",
                       "last_name": "Väisänen",
@@ -2334,6 +2433,10 @@
                 },
                 "workcount": 1.0,
                 "storycount": 1,
+                "roles": [
+                  "Kirjoittaja",
+                  "Toimittaja"
+                ],
                 "other_names": null,
                 "first_name": "Helena",
                 "last_name": "Väisänen",
@@ -2435,6 +2538,9 @@
             },
             "workcount": 0.0,
             "storycount": 1,
+            "roles": [
+              "Kirjoittaja"
+            ],
             "other_names": null,
             "first_name": "Katariina",
             "last_name": "Romppainen",
@@ -2488,6 +2594,10 @@
                       },
                       "workcount": 1.0,
                       "storycount": 1,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
                       "other_names": null,
                       "first_name": "Helena",
                       "last_name": "Väisänen",
@@ -2588,6 +2698,10 @@
                 },
                 "workcount": 1.0,
                 "storycount": 1,
+                "roles": [
+                  "Kirjoittaja",
+                  "Toimittaja"
+                ],
                 "other_names": null,
                 "first_name": "Helena",
                 "last_name": "Väisänen",
@@ -2689,6 +2803,12 @@
             },
             "workcount": 3.0,
             "storycount": 11,
+            "roles": [
+              "Kirjoittaja",
+              "Kansikuva",
+              "Kuvittaja",
+              "Esiintyy"
+            ],
             "other_names": null,
             "first_name": "Carita",
             "last_name": "Forsgren",
@@ -2742,6 +2862,10 @@
                       },
                       "workcount": 1.0,
                       "storycount": 1,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
                       "other_names": null,
                       "first_name": "Helena",
                       "last_name": "Väisänen",
@@ -2842,6 +2966,10 @@
                 },
                 "workcount": 1.0,
                 "storycount": 1,
+                "roles": [
+                  "Kirjoittaja",
+                  "Toimittaja"
+                ],
                 "other_names": null,
                 "first_name": "Helena",
                 "last_name": "Väisänen",
@@ -2943,6 +3071,10 @@
             },
             "workcount": 1.0,
             "storycount": 10,
+            "roles": [
+              "Kirjoittaja",
+              "Esiintyy"
+            ],
             "other_names": null,
             "first_name": "Jaakko Markus",
             "last_name": "Seppälä",
@@ -2996,6 +3128,10 @@
                       },
                       "workcount": 1.0,
                       "storycount": 1,
+                      "roles": [
+                        "Kirjoittaja",
+                        "Toimittaja"
+                      ],
                       "other_names": null,
                       "first_name": "Helena",
                       "last_name": "Väisänen",
@@ -3096,6 +3232,10 @@
                 },
                 "workcount": 1.0,
                 "storycount": 1,
+                "roles": [
+                  "Kirjoittaja",
+                  "Toimittaja"
+                ],
                 "other_names": null,
                 "first_name": "Helena",
                 "last_name": "Väisänen",

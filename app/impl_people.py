@@ -30,9 +30,11 @@ from app import app
 _allowed_person_fields = ['name', 'dob', 'dod',
                           'nationality',
                           'workcount', 'storycount',
-                          'global']
+                          'roles',
+                          'global', 'roles']
 
-_person_relationships = {'nationality': 'name'}
+_person_relationships = {'nationality': 'name',
+                         'roles': 'name'}
 
 
 def _filter_person_query(table: Any,
@@ -264,8 +266,8 @@ def list_people(params: Dict[str, Any]) -> ResponseType:
                     raise APIError(f'Invalid filter field {field}',
                                    HttpResponseCode.METHOD_NOT_ALLOWED.value)
                 if filters['value']:
-                    if ((field == 'dob' or field == 'dod')
-                        and filters['value'] and len(filters['value']) < 4):
+                    if (field in ('dob', 'dod')
+                            and filters['value'] and len(filters['value']) < 4):
                         filters['value'] = filters['value'].ljust(4, '0')
                     if field == 'nationality':
                         people = _filter_person_query(

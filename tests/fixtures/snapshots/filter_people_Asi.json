@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-02T23:02:16.622874+00:00",
+    "generated_at": "2026-03-03T11:14:39.033191+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/filter/people/Asi",
@@ -24,6 +24,9 @@
         },
         "workcount": 0.0,
         "storycount": 0,
+        "roles": [
+          "Kansikuva"
+        ],
         "other_names": null,
         "first_name": "",
         "last_name": "",
@@ -46,6 +49,9 @@
         },
         "workcount": 0.0,
         "storycount": 4,
+        "roles": [
+          "Kirjoittaja"
+        ],
         "other_names": null,
         "first_name": "Sanna-Liisa",
         "last_name": "Asikainen",
@@ -68,6 +74,10 @@
         },
         "workcount": 20.0,
         "storycount": 26,
+        "roles": [
+          "Kirjoittaja",
+          "Esiintyy"
+        ],
         "other_names": null,
         "first_name": "Isaac",
         "last_name": "Asimov",
@@ -90,6 +100,10 @@
         },
         "workcount": 2.0,
         "storycount": 0,
+        "roles": [
+          "Kirjoittaja",
+          "Esiintyy"
+        ],
         "other_names": "",
         "first_name": "Janet",
         "last_name": "Asimov",

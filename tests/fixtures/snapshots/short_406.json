@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-02T23:02:16.622874+00:00",
+    "generated_at": "2026-03-03T11:14:39.033191+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/shorts/406",
@@ -25,6 +25,10 @@
           },
           "workcount": 13.0,
           "storycount": 138,
+          "roles": [
+            "Kirjoittaja",
+            "Esiintyy"
+          ],
           "other_names": null,
           "first_name": "Edgar Allan",
           "last_name": "Poe",
@@ -49,6 +53,9 @@
           },
           "workcount": 0.0,
           "storycount": 41,
+          "roles": [
+            "Kääntäjä"
+          ],
           "other_names": null,
           "first_name": "Yrjö",
           "last_name": "Kivimies",
@@ -99,6 +106,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 2,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Yrjö",
                   "last_name": "Jylhä",
@@ -121,6 +131,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 6,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Paavo",
                   "last_name": "Lehtonen",
@@ -143,6 +156,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 6,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Eero",
                   "last_name": "Ahmavaara",
@@ -165,6 +181,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 1,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Niilo",
                   "last_name": "Idman",
@@ -187,6 +206,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 41,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Yrjö",
                   "last_name": "Kivimies",
@@ -526,6 +548,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 6,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Eero",
                   "last_name": "Ahmavaara",
@@ -548,6 +573,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 1,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Niilo",
                   "last_name": "Idman",
@@ -570,6 +598,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 41,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Yrjö",
                   "last_name": "Kivimies",
@@ -668,6 +699,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 2,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Yrjö",
                   "last_name": "Jylhä",
@@ -690,6 +724,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 6,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Eero",
                   "last_name": "Ahmavaara",
@@ -712,6 +749,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 1,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Niilo",
                   "last_name": "Idman",
@@ -734,6 +774,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 41,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Yrjö",
                   "last_name": "Kivimies",
@@ -845,6 +888,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 2,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Yrjö",
                   "last_name": "Jylhä",
@@ -867,6 +913,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 6,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Eero",
                   "last_name": "Ahmavaara",
@@ -889,6 +938,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 1,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Niilo",
                   "last_name": "Idman",
@@ -911,6 +963,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 41,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Yrjö",
                   "last_name": "Kivimies",
@@ -1022,6 +1077,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 2,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Yrjö",
                   "last_name": "Jylhä",
@@ -1044,6 +1102,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 1,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Niilo",
                   "last_name": "Idman",
@@ -1066,6 +1127,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 41,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Yrjö",
                   "last_name": "Kivimies",
@@ -1240,6 +1304,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 2,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Yrjö",
                   "last_name": "Jylhä",
@@ -1262,6 +1329,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 41,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Yrjö",
                   "last_name": "Kivimies",
@@ -1544,6 +1614,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 6,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Eero",
                   "last_name": "Ahmavaara",
@@ -1566,6 +1639,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 1,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Niilo",
                   "last_name": "Idman",
@@ -1588,6 +1664,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 41,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Yrjö",
                   "last_name": "Kivimies",
@@ -1686,6 +1765,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 6,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Eero",
                   "last_name": "Ahmavaara",
@@ -1708,6 +1790,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 1,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Niilo",
                   "last_name": "Idman",
@@ -1730,6 +1815,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 41,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Yrjö",
                   "last_name": "Kivimies",
@@ -1822,6 +1910,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 6,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Eero",
                   "last_name": "Ahmavaara",
@@ -1844,6 +1935,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 1,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Niilo",
                   "last_name": "Idman",
@@ -1866,6 +1960,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 41,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Yrjö",
                   "last_name": "Kivimies",
@@ -1958,6 +2055,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 6,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Eero",
                   "last_name": "Ahmavaara",
@@ -1980,6 +2080,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 1,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Niilo",
                   "last_name": "Idman",
@@ -2002,6 +2105,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 41,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Yrjö",
                   "last_name": "Kivimies",
@@ -2153,6 +2259,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 2,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
@@ -2175,6 +2284,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -2522,6 +2634,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -2544,6 +2659,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -2566,6 +2684,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -2664,6 +2785,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -2686,6 +2810,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -2708,6 +2835,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -2800,6 +2930,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -2822,6 +2955,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -2844,6 +2980,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -2936,6 +3075,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -2958,6 +3100,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -2980,6 +3125,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -3206,6 +3354,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -3228,6 +3379,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -3250,6 +3404,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -3348,6 +3505,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 2,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
@@ -3370,6 +3530,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -3392,6 +3555,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -3414,6 +3580,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -3525,6 +3694,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 2,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
@@ -3547,6 +3719,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -3569,6 +3744,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -3591,6 +3769,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -3702,6 +3883,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 2,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
@@ -3724,6 +3908,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -3746,6 +3933,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -4024,6 +4214,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -4046,6 +4239,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -4068,6 +4264,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -4166,6 +4365,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 2,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
@@ -4188,6 +4390,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -4210,6 +4415,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -4232,6 +4440,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -4343,6 +4554,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 2,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
@@ -4365,6 +4579,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -4387,6 +4604,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -4409,6 +4629,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -4520,6 +4743,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 2,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
@@ -4542,6 +4768,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -4564,6 +4793,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -4816,6 +5048,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -4838,6 +5073,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -4860,6 +5098,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -4958,6 +5199,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -4980,6 +5224,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -5002,6 +5249,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -5094,6 +5344,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -5116,6 +5369,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -5138,6 +5394,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -5230,6 +5489,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -5252,6 +5514,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -5274,6 +5539,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -5494,6 +5762,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -5516,6 +5787,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -5538,6 +5812,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -5636,6 +5913,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 2,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
@@ -5658,6 +5938,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -5680,6 +5963,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -5702,6 +5988,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -5813,6 +6102,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 2,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
@@ -5835,6 +6127,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -5857,6 +6152,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -5879,6 +6177,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -5990,6 +6291,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 2,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
@@ -6012,6 +6316,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -6034,6 +6341,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -6299,6 +6609,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 2,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
@@ -6321,6 +6634,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Paavo",
                     "last_name": "Lehtonen",
@@ -6343,6 +6659,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -6365,6 +6684,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -6387,6 +6709,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -6848,6 +7173,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -6870,6 +7198,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -6892,6 +7223,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -6990,6 +7324,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 2,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
@@ -7012,6 +7349,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -7034,6 +7374,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -7056,6 +7399,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -7167,6 +7513,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 2,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
@@ -7189,6 +7538,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -7211,6 +7563,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -7233,6 +7588,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -7344,6 +7702,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 2,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
@@ -7366,6 +7727,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -7388,6 +7752,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -7653,6 +8020,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -7675,6 +8045,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -7697,6 +8070,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -7795,6 +8171,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -7817,6 +8196,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -7839,6 +8221,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -7931,6 +8316,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -7953,6 +8341,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -7975,6 +8366,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -8067,6 +8461,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -8089,6 +8486,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -8111,6 +8511,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -8331,6 +8734,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -8353,6 +8759,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -8375,6 +8784,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -8473,6 +8885,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -8495,6 +8910,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -8517,6 +8935,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -8609,6 +9030,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -8631,6 +9055,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -8653,6 +9080,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
@@ -8745,6 +9175,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 6,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
@@ -8767,6 +9200,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 1,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Niilo",
                     "last_name": "Idman",
@@ -8789,6 +9225,9 @@
                     },
                     "workcount": 0.0,
                     "storycount": 41,
+                    "roles": [
+                      "Kääntäjä"
+                    ],
                     "other_names": null,
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",

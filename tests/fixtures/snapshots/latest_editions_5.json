@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-02T23:02:16.622874+00:00",
+    "generated_at": "2026-03-03T11:14:39.033191+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/editions/5",
@@ -49,6 +49,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -134,6 +137,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -219,6 +225,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -304,6 +313,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -389,6 +401,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -474,6 +489,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -559,6 +577,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Marjatta",
                   "last_name": "Jokimäki",
@@ -644,6 +665,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Jaakko V.",
                   "last_name": "Tapio",
@@ -729,6 +753,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Jaakko V.",
                   "last_name": "Tapio",
@@ -814,6 +841,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Jaakko V.",
                   "last_name": "Tapio",
@@ -1004,6 +1034,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -1089,6 +1122,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -1174,6 +1210,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -1259,6 +1298,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -1344,6 +1386,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -1429,6 +1474,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -1514,6 +1562,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Marjatta",
                   "last_name": "Jokimäki",
@@ -1599,6 +1650,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Jaakko V.",
                   "last_name": "Tapio",
@@ -1684,6 +1738,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Jaakko V.",
                   "last_name": "Tapio",
@@ -1769,6 +1826,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Jaakko V.",
                   "last_name": "Tapio",
@@ -1959,6 +2019,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -2044,6 +2107,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -2129,6 +2195,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -2214,6 +2283,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -2299,6 +2371,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -2384,6 +2459,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -2469,6 +2547,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Marjatta",
                   "last_name": "Jokimäki",
@@ -2554,6 +2635,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Jaakko V.",
                   "last_name": "Tapio",
@@ -2639,6 +2723,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Jaakko V.",
                   "last_name": "Tapio",
@@ -2724,6 +2811,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Jaakko V.",
                   "last_name": "Tapio",
@@ -2914,6 +3004,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -2999,6 +3092,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -3084,6 +3180,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -3169,6 +3268,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -3254,6 +3356,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -3339,6 +3444,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -3424,6 +3532,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Marjatta",
                   "last_name": "Jokimäki",
@@ -3509,6 +3620,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Jaakko V.",
                   "last_name": "Tapio",
@@ -3594,6 +3708,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Jaakko V.",
                   "last_name": "Tapio",
@@ -3679,6 +3796,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Jaakko V.",
                   "last_name": "Tapio",
@@ -3869,6 +3989,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -3954,6 +4077,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -4039,6 +4165,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -4124,6 +4253,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -4209,6 +4341,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -4294,6 +4429,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Werner",
                   "last_name": "Anttila",
@@ -4379,6 +4517,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Marjatta",
                   "last_name": "Jokimäki",
@@ -4464,6 +4605,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Jaakko V.",
                   "last_name": "Tapio",
@@ -4549,6 +4693,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Jaakko V.",
                   "last_name": "Tapio",
@@ -4634,6 +4781,9 @@
                   },
                   "workcount": 0.0,
                   "storycount": 0,
+                  "roles": [
+                    "Kääntäjä"
+                  ],
                   "other_names": null,
                   "first_name": "Jaakko V.",
                   "last_name": "Tapio",

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-02T23:02:16.622874+00:00",
+    "generated_at": "2026-03-03T11:14:39.033191+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/works/shorts/27",
@@ -26,6 +26,10 @@
             },
             "workcount": 9.0,
             "storycount": 46,
+            "roles": [
+              "Kirjoittaja",
+              "Esiintyy"
+            ],
             "other_names": null,
             "first_name": "Jyrki",
             "last_name": "Vainonen",
@@ -234,6 +238,10 @@
             },
             "workcount": 9.0,
             "storycount": 46,
+            "roles": [
+              "Kirjoittaja",
+              "Esiintyy"
+            ],
             "other_names": null,
             "first_name": "Jyrki",
             "last_name": "Vainonen",
@@ -442,6 +450,10 @@
             },
             "workcount": 9.0,
             "storycount": 46,
+            "roles": [
+              "Kirjoittaja",
+              "Esiintyy"
+            ],
             "other_names": null,
             "first_name": "Jyrki",
             "last_name": "Vainonen",
@@ -650,6 +662,10 @@
             },
             "workcount": 9.0,
             "storycount": 46,
+            "roles": [
+              "Kirjoittaja",
+              "Esiintyy"
+            ],
             "other_names": null,
             "first_name": "Jyrki",
             "last_name": "Vainonen",
@@ -858,6 +874,10 @@
             },
             "workcount": 9.0,
             "storycount": 46,
+            "roles": [
+              "Kirjoittaja",
+              "Esiintyy"
+            ],
             "other_names": null,
             "first_name": "Jyrki",
             "last_name": "Vainonen",
@@ -1066,6 +1086,10 @@
             },
             "workcount": 9.0,
             "storycount": 46,
+            "roles": [
+              "Kirjoittaja",
+              "Esiintyy"
+            ],
             "other_names": null,
             "first_name": "Jyrki",
             "last_name": "Vainonen",
@@ -1274,6 +1298,10 @@
             },
             "workcount": 9.0,
             "storycount": 46,
+            "roles": [
+              "Kirjoittaja",
+              "Esiintyy"
+            ],
             "other_names": null,
             "first_name": "Jyrki",
             "last_name": "Vainonen",
@@ -1482,6 +1510,10 @@
             },
             "workcount": 9.0,
             "storycount": 46,
+            "roles": [
+              "Kirjoittaja",
+              "Esiintyy"
+            ],
             "other_names": null,
             "first_name": "Jyrki",
             "last_name": "Vainonen",
@@ -1690,6 +1722,10 @@
             },
             "workcount": 9.0,
             "storycount": 46,
+            "roles": [
+              "Kirjoittaja",
+              "Esiintyy"
+            ],
             "other_names": null,
             "first_name": "Jyrki",
             "last_name": "Vainonen",
@@ -1898,6 +1934,10 @@
             },
             "workcount": 9.0,
             "storycount": 46,
+            "roles": [
+              "Kirjoittaja",
+              "Esiintyy"
+            ],
             "other_names": null,
             "first_name": "Jyrki",
             "last_name": "Vainonen",
@@ -2106,6 +2146,10 @@
             },
             "workcount": 9.0,
             "storycount": 46,
+            "roles": [
+              "Kirjoittaja",
+              "Esiintyy"
+            ],
             "other_names": null,
             "first_name": "Jyrki",
             "last_name": "Vainonen",
@@ -2314,6 +2358,10 @@
             },
             "workcount": 9.0,
             "storycount": 46,
+            "roles": [
+              "Kirjoittaja",
+              "Esiintyy"
+            ],
             "other_names": null,
             "first_name": "Jyrki",
             "last_name": "Vainonen",

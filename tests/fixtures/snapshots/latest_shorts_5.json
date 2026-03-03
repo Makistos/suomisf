@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-02T23:02:16.622874+00:00",
+    "generated_at": "2026-03-03T11:14:39.033191+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/shorts/5",
@@ -26,6 +26,9 @@
             },
             "workcount": 1.0,
             "storycount": 3,
+            "roles": [
+              "Kirjoittaja"
+            ],
             "other_names": null,
             "first_name": "Heta",
             "last_name": "Mulari",
@@ -446,6 +449,9 @@
             },
             "workcount": 1.0,
             "storycount": 1,
+            "roles": [
+              "Kirjoittaja"
+            ],
             "other_names": "",
             "first_name": null,
             "last_name": null,
@@ -853,6 +859,9 @@
             },
             "workcount": 1.0,
             "storycount": 3,
+            "roles": [
+              "Kirjoittaja"
+            ],
             "other_names": null,
             "first_name": "Heta",
             "last_name": "Mulari",
@@ -1260,6 +1269,9 @@
             },
             "workcount": 1.0,
             "storycount": 1,
+            "roles": [
+              "Kirjoittaja"
+            ],
             "other_names": "",
             "first_name": null,
             "last_name": null,
@@ -1667,6 +1679,9 @@
             },
             "workcount": 6.0,
             "storycount": 1,
+            "roles": [
+              "Kirjoittaja"
+            ],
             "other_names": null,
             "first_name": "Tomi",
             "last_name": "Kontio",
