@@ -1,0 +1,427 @@
+/* SuomiSF database schema — generated from live DB
+   Schema: suomisf
+   Junction tables collapsed to M:N edges.
+   Render:  dot -Tpng db_schema.dot -o db_schema.png
+*/
+digraph suomisf {
+    graph [
+        rankdir=LR
+        splines=polyline
+        nodesep=0.6
+        ranksep=1.6
+        fontname="Helvetica"
+        fontsize=12
+        label="SuomiSF Database Schema"
+        labelloc=t
+    ]
+    node [
+        shape=none
+        fontname="Helvetica"
+        fontsize=9
+        margin=0
+    ]
+    edge [
+        fontname="Helvetica"
+        fontsize=8
+        dir=forward
+        arrowhead=crow
+        arrowtail=none
+    ]
+
+    /* ================================================================
+       NODES
+       ================================================================ */
+
+    /* ---- Core entities ------------------------------------------ */
+
+    work [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#E8F4E8">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>work</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">type → worktype</TD></TR>
+        <TR><TD ALIGN="LEFT">language → language</TD></TR>
+        <TR><TD ALIGN="LEFT">bookseries_id → bookseries</TD></TR>
+        <TR><TD ALIGN="LEFT">title / orig_title</TD></TR>
+        <TR><TD ALIGN="LEFT">pubyear</TD></TR>
+        <TR><TD ALIGN="LEFT">subtitle / description</TD></TR>
+        <TR><TD ALIGN="LEFT">author_str</TD></TR>
+        </TABLE>>]
+
+    edition [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#E8F4E8">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>edition</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">work_id → work</TD></TR>
+        <TR><TD ALIGN="LEFT">publisher_id → publisher</TD></TR>
+        <TR><TD ALIGN="LEFT">pubseries_id → pubseries</TD></TR>
+        <TR><TD ALIGN="LEFT">binding_id → bindingtype</TD></TR>
+        <TR><TD ALIGN="LEFT">format_id → format</TD></TR>
+        <TR><TD ALIGN="LEFT">title / isbn</TD></TR>
+        <TR><TD ALIGN="LEFT">pubyear / pages</TD></TR>
+        <TR><TD ALIGN="LEFT">verified</TD></TR>
+        </TABLE>>]
+
+    shortstory [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#E8F4E8">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>shortstory</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">story_type → storytype</TD></TR>
+        <TR><TD ALIGN="LEFT">language → language</TD></TR>
+        <TR><TD ALIGN="LEFT">title / orig_title</TD></TR>
+        <TR><TD ALIGN="LEFT">pubyear</TD></TR>
+        </TABLE>>]
+
+    person [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#E8F4E8">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>person</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">nationality_id → country</TD></TR>
+        <TR><TD ALIGN="LEFT">name / alt_name</TD></TR>
+        <TR><TD ALIGN="LEFT">fullname</TD></TR>
+        <TR><TD ALIGN="LEFT">dob / dod</TD></TR>
+        <TR><TD ALIGN="LEFT">bio</TD></TR>
+        </TABLE>>]
+
+    /* ---- Edition detail ----------------------------------------- */
+
+    editionimage [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#F8F0E8">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>editionimage</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">edition_id → edition</TD></TR>
+        <TR><TD ALIGN="LEFT">image_src / image_attr</TD></TR>
+        </TABLE>>]
+
+    /* ---- Publisher / series ------------------------------------- */
+
+    publisher [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#F0F8F0">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>publisher</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">name / fullname</TD></TR>
+        <TR><TD ALIGN="LEFT">description</TD></TR>
+        </TABLE>>]
+
+    pubseries [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#F0F8F0">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>pubseries</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">publisher_id → publisher</TD></TR>
+        <TR><TD ALIGN="LEFT">name / important</TD></TR>
+        </TABLE>>]
+
+    bookseries [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#F0F8F0">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>bookseries</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">parent_id → bookseries</TD></TR>
+        <TR><TD ALIGN="LEFT">name / orig_name</TD></TR>
+        <TR><TD ALIGN="LEFT">important</TD></TR>
+        </TABLE>>]
+
+    /* ---- Magazine / Article domain ------------------------------ */
+
+    magazine [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#F8F8E8">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>magazine</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">publisher_id → publisher</TD></TR>
+        <TR><TD ALIGN="LEFT">type_id → magazinetype</TD></TR>
+        <TR><TD ALIGN="LEFT">name / issn</TD></TR>
+        </TABLE>>]
+
+    magazinetype [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#F8F8E8">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>magazinetype</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">name</TD></TR>
+        </TABLE>>]
+
+    issue [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#F8F8E8">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>issue</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">magazine_id → magazine</TD></TR>
+        <TR><TD ALIGN="LEFT">size_id → publicationsize</TD></TR>
+        <TR><TD ALIGN="LEFT">number / year / title</TD></TR>
+        </TABLE>>]
+
+    article [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#F8F8E8">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>article</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">title / excerpt</TD></TR>
+        <TR><TD ALIGN="LEFT">person (free text)</TD></TR>
+        </TABLE>>]
+
+    /* ---- Awards ------------------------------------------------- */
+
+    award [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#F8E8F8">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>award</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">name / domestic</TD></TR>
+        </TABLE>>]
+
+    awardcategory [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#F8E8F8">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>awardcategory</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">name / type</TD></TR>
+        </TABLE>>]
+
+    awarded [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#F8E8F8">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>awarded</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">award_id → award</TD></TR>
+        <TR><TD ALIGN="LEFT">category_id → awardcategory</TD></TR>
+        <TR><TD ALIGN="LEFT">person_id → person</TD></TR>
+        <TR><TD ALIGN="LEFT">work_id → work</TD></TR>
+        <TR><TD ALIGN="LEFT">story_id → shortstory</TD></TR>
+        <TR><TD ALIGN="LEFT">year</TD></TR>
+        </TABLE>>]
+
+    /* ---- Users & library --------------------------------------- */
+
+    user [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#E8F4F8">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>user</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">language → language</TD></TR>
+        <TR><TD ALIGN="LEFT">name / password_hash</TD></TR>
+        <TR><TD ALIGN="LEFT">is_admin</TD></TR>
+        </TABLE>>]
+
+    userbook [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#E8F4F8">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>userbook</B></TD></TR>
+        <TR><TD ALIGN="LEFT">user_id → user</TD></TR>
+        <TR><TD ALIGN="LEFT">edition_id → edition</TD></TR>
+        <TR><TD ALIGN="LEFT">price / added</TD></TR>
+        </TABLE>>]
+
+    /* ---- Lookup / reference tables ----------------------------- */
+
+    worktype [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#F4F4F4">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>worktype</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">name</TD></TR>
+        </TABLE>>]
+
+    storytype [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#F4F4F4">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>storytype</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">name</TD></TR>
+        </TABLE>>]
+
+    bindingtype [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#F4F4F4">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>bindingtype</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">name</TD></TR>
+        </TABLE>>]
+
+    format [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#F4F4F4">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>format</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">name</TD></TR>
+        </TABLE>>]
+
+    publicationsize [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#F4F4F4">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>publicationsize</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">name</TD></TR>
+        <TR><TD ALIGN="LEFT">mm_width / mm_height</TD></TR>
+        </TABLE>>]
+
+    country [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#F4F4F4">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>country</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">name</TD></TR>
+        </TABLE>>]
+
+    language [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#F4F4F4">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>language</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">name</TD></TR>
+        </TABLE>>]
+
+    genre [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#F4F4F4">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>genre</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">name / abbr</TD></TR>
+        </TABLE>>]
+
+    tag [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#F4F4F4">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>tag</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">type_id → tagtype</TD></TR>
+        <TR><TD ALIGN="LEFT">name / description</TD></TR>
+        </TABLE>>]
+
+    tagtype [label=<
+        <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"
+               CELLPADDING="3" BGCOLOR="#F4F4F4">
+        <TR><TD ALIGN="LEFT" BORDER="1" SIDES="B"><B>tagtype</B></TD></TR>
+        <TR><TD ALIGN="LEFT">id (PK)</TD></TR>
+        <TR><TD ALIGN="LEFT">name</TD></TR>
+        </TABLE>>]
+
+    /* ================================================================
+       EDGES — 1:N (single arrowhead on the "many" end)
+       ================================================================ */
+
+    /* core FKs */
+    edition    -> work        [label="work_id"]
+    work       -> worktype    [label="type"]
+    work       -> language    [label="language"]
+    work       -> bookseries  [label="bookseries_id"]
+    edition    -> publisher   [label="publisher_id"]
+    edition    -> pubseries   [label="pubseries_id"]
+    edition    -> bindingtype [label="binding_id"]
+    edition    -> format      [label="format_id"]
+    shortstory -> storytype   [label="story_type"]
+    shortstory -> language    [label="language"]
+    person     -> country     [label="nationality_id"]
+
+    /* edition detail */
+    editionimage -> edition [label="edition_id"]
+
+    /* publishers / series */
+    pubseries  -> publisher  [label="publisher_id"]
+    bookseries -> bookseries [label="parent_id" style=dashed]
+
+    /* magazines */
+    magazine -> publisher       [label="publisher_id"]
+    magazine -> magazinetype    [label="type_id"]
+    issue    -> magazine        [label="magazine_id"]
+    issue    -> publicationsize [label="size_id"]
+
+    /* awards */
+    awarded -> award         [label="award_id"]
+    awarded -> awardcategory [label="category_id"]
+    awarded -> person        [label="person_id"]
+    awarded -> work          [label="work_id"]
+    awarded -> shortstory    [label="story_id"]
+
+    /* users */
+    userbook -> user    [label="user_id"]
+    userbook -> edition [label="edition_id"]
+
+    /* lookup */
+    tag -> tagtype [label="type_id"]
+
+    /* ================================================================
+       EDGES — M:N  (crow on both ends, dir=both)
+       Collapsed from junction tables.
+       ================================================================ */
+
+    /* contributors: work / edition / shortstory / issue  ↔  person
+       Each relationship carries a role from contributorrole.        */
+    work       -> person [label="contributors\n(M:N, +role)"
+        dir=both arrowtail=crow]
+    edition    -> person [label="contributors\n(M:N, +role)"
+        dir=both arrowtail=crow]
+    shortstory -> person [label="contributors\n(M:N, +role)"
+        dir=both arrowtail=crow]
+    issue      -> person [label="contributors\n& editors (M:N, +role)"
+        dir=both arrowtail=crow]
+
+    /* edition  ↔  shortstory  (editionshortstory, ordered) */
+    edition -> shortstory [label="contains\n(M:N, ordered)"
+        dir=both arrowtail=crow]
+
+    /* issue contents */
+    issue -> article    [label="contents\n(M:N)" dir=both arrowtail=crow]
+    issue -> shortstory [label="contents\n(M:N)" dir=both arrowtail=crow]
+
+    /* reviews */
+    work -> article [label="reviews\n(M:N)" dir=both arrowtail=crow]
+
+    /* article  ↔  person  (authors + mentioned persons) */
+    article -> person [label="authors /\nmentioned (M:N)"
+        dir=both arrowtail=crow]
+
+    /* award  ↔  awardcategory  (awardcategories) */
+    award -> awardcategory [label="categories\n(M:N)"
+        dir=both arrowtail=crow]
+
+    /* genres */
+    work       -> genre [label="genres (M:N)" dir=both arrowtail=crow]
+    shortstory -> genre [label="genres (M:N)" dir=both arrowtail=crow]
+
+    /* tags */
+    work       -> tag [label="tags (M:N)" dir=both arrowtail=crow]
+    shortstory -> tag [label="tags (M:N)" dir=both arrowtail=crow]
+    article    -> tag [label="tags (M:N)" dir=both arrowtail=crow]
+
+    /* person  ↔  language  (personlanguage) */
+    person -> language [label="languages\n(M:N)" dir=both arrowtail=crow]
+
+    /* person aliases (alias table — self-referential) */
+    person -> person [label="alias of\n(M:N)" dir=both arrowtail=crow
+        style=dashed]
+
+    /* personworks */
+    person -> work [label="personworks\n(M:N)" dir=both arrowtail=crow
+        style=dashed]
+
+    /* ================================================================
+       LEGEND
+       ================================================================ */
+
+    legend [shape=none margin=0 label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0"
+               CELLPADDING="5" BGCOLOR="white">
+        <TR><TD COLSPAN="2"><B>Legend</B></TD></TR>
+        <TR><TD BGCOLOR="#E8F4E8">&#160;&#160;&#160;&#160;</TD>
+            <TD ALIGN="LEFT">Core entities</TD></TR>
+        <TR><TD BGCOLOR="#F8F0E8">&#160;&#160;&#160;&#160;</TD>
+            <TD ALIGN="LEFT">Edition detail</TD></TR>
+        <TR><TD BGCOLOR="#F0F8F0">&#160;&#160;&#160;&#160;</TD>
+            <TD ALIGN="LEFT">Publishers &amp; series</TD></TR>
+        <TR><TD BGCOLOR="#F8F8E8">&#160;&#160;&#160;&#160;</TD>
+            <TD ALIGN="LEFT">Magazines &amp; articles</TD></TR>
+        <TR><TD BGCOLOR="#F8E8F8">&#160;&#160;&#160;&#160;</TD>
+            <TD ALIGN="LEFT">Awards</TD></TR>
+        <TR><TD BGCOLOR="#E8F4F8">&#160;&#160;&#160;&#160;</TD>
+            <TD ALIGN="LEFT">Users &amp; library</TD></TR>
+        <TR><TD BGCOLOR="#F4F4F4">&#160;&#160;&#160;&#160;</TD>
+            <TD ALIGN="LEFT">Lookup tables</TD></TR>
+        </TABLE>>]
+}
