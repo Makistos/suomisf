@@ -30,6 +30,7 @@ reduce clutter):
 - `persontag` — person ↔ tag M:N (tags on persons)
 - `issuetag` — issue ↔ tag M:N (tags on issues)
 - `magazinetag` — magazine ↔ tag M:N (tags on magazines)
+- `workreview` — work ↔ article M:N (articles that review a work)
 - `user.language_id` → `language` FK (UI language preference)
 
 ---
@@ -277,8 +278,8 @@ Both link articles to persons. `articleauthor` records the authors;
 
 ### `workreview` (M:N junction)
 
-Links a `work` to an `article` that reviews it. Shown as the
-"reviews (M:N)" edge from `work` to `article` in the diagram.
+Links a `work` to an `article` that reviews it. Not shown in
+diagram.
 
 ---
 

@@ -370,9 +370,6 @@ digraph suomisf {
     issue -> article    [label="contents\n(M:N)" dir=both arrowtail=crow]
     issue -> shortstory [label="contents\n(M:N)" dir=both arrowtail=crow]
 
-    /* reviews */
-    work -> article [label="reviews\n(M:N)" dir=both arrowtail=crow]
-
     /* article  ↔  person  (authors + mentioned persons) */
     article -> person [label="authors /\nmentioned (M:N)"
         dir=both arrowtail=crow]
