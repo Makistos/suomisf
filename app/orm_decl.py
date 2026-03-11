@@ -886,7 +886,6 @@ class Omnibus(Base):
                         uselist=False, viewonly=True)
 
 
-
 class Person(Base):
     """ Person table. """
     __tablename__ = 'person'
@@ -899,6 +898,7 @@ class Person(Base):
     last_name = Column(String(150))
     image_src = Column(String(100))
     image_attr = Column(String(100))  # Source website name
+    qid = Column(Integer)
     dob = Column(Integer)
     dod = Column(Integer)
     bio = Column(Text())  # Biographgy
@@ -1068,7 +1068,7 @@ class Person(Base):
     wrks = relationship('Work', secondary=lambda: personworks_table)
     awarded = relationship('Awarded', uselist=True, viewonly=True)
     works2 = association_proxy('wrks', 'work')
-
+    images = relationship('PersonImage', uselist=True, viewonly=True)
     @hybrid_property
     def workcount(self) -> int:
         """
@@ -1114,6 +1114,17 @@ class PersonLanguage(Base):
                        nullable=False, primary_key=True)
     language_id = Column(Integer, ForeignKey('language.id'),
                          nullable=False, primary_key=True)
+
+
+class PersonImage(Base):
+    """ Person images. """
+    __tablename__ = 'personimage'
+    id = Column(Integer, primary_key=True)
+    person_id = Column(Integer, ForeignKey('person.id'),
+                       nullable=False, index=True)
+    src = Column(String(200), nullable=False)
+    attr = Column(String(200))
+    license = Column(String(100))
 
 
 class PersonLink(Base):
