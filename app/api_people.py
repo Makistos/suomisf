@@ -10,12 +10,15 @@ from app.api_helpers import make_api_response
 
 from app.impl import ResponseType
 from app.impl_people import (filter_people, get_latest_people,
-                             get_person_articles, get_person_issue_contributions, list_people,
+                             get_person_articles,
+                             get_person_issue_contributions,
+                             list_people,
                              person_add,
                              person_chiefeditor,
                              person_update, get_person, person_delete,
                              person_tag_add, person_tag_remove,
-                             person_shorts)
+                             person_shorts,
+                             person_image_add)
 from app.impl_awards import get_person_awards
 from app.types import HttpResponseCode
 from app.api_jwt import jwt_admin_required
@@ -442,3 +445,45 @@ def api_issue_contributors(person_id: str) -> Response:
         return make_api_response(response)
 
     return make_api_response(get_person_issue_contributions(int_id))
+
+
+@app.route('/api/person/<personid>/images', methods=['post'])
+@jwt_admin_required()  # type: ignore
+def api_person_image_add(personid: str) -> Response:
+    """
+    Add an image to a person.
+
+    URL: POST /api/person/<personid>/images
+
+    Request body (JSON):
+        src (str): URL of the image. Required.
+        attr (str): Attribution text. Optional.
+        license (str): License name. Optional.
+
+    Returns:
+        Response: The new image id on success (201), or an error response.
+    """
+    try:
+        person_id = int(personid)
+    except (TypeError, ValueError):
+        app.logger.error(
+            f'api_person_image_add: Invalid id {personid}.')
+        response = ResponseType(
+            f'Virheellinen tunniste {personid}.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+
+    data = request.json
+    if not data or not data.get('src'):
+        app.logger.error('api_person_image_add: Missing src.')
+        response = ResponseType(
+            'api_person_image_add: src puuttuu.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+
+    return make_api_response(person_image_add(
+        person_id,
+        data['src'],
+        data.get('attr'),
+        data.get('license'),
+    ))

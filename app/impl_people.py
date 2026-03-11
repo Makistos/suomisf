@@ -18,7 +18,8 @@ from app.orm_decl import (Alias, Article, Country, Issue,
                           Work, WorkContributor, EditionContributor,
                           PersonLink, Awarded, PersonLanguage, PersonTag,
                           IssueEditor, ArticlePerson, ArticleAuthor,
-                          ShortStory, StoryContributor, Person)
+                          ShortStory, StoryContributor, Person,
+                          PersonImage)
 from app.impl import (ResponseType, SearchResult, SearchResultFields,
                       searchscore, check_int, get_join_changes)
 from app.api_errors import APIError
@@ -452,6 +453,7 @@ def person_add(params: Any) -> ResponseType:
     person.first_name = data['first_name'] if 'first_name' in data else None
     person.last_name = data['last_name'] if 'last_name' in data else None
     person.image_src = data['image_src'] if 'image_src' in data else None
+    person.qid = check_int(data['qid']) if 'qid' in data else None
     person.dob = data['dob'] if 'dob' in data else None
     person.dod = data['dod'] if 'dod' in data else None
     if ('nationality' in data and data['nationality'] is not None
@@ -609,6 +611,12 @@ def person_update(params: Any) -> ResponseType:
         if data['image_src'] != person.image_src:
             old_values['Kuvan lähde'] = person.image_src
             person.image_src = data['image_src']
+
+    if 'qid' in data:
+        qid = check_int(data['qid'])
+        if qid != person.qid:
+            old_values['QID'] = person.qid
+            person.qid = qid
 
     if 'dob' in data:
         dob = check_int(data['dob'])
@@ -1219,3 +1227,54 @@ def get_person_issue_contributions(person_id: int) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def person_image_add(
+        person_id: int,
+        src: str,
+        attr: str | None,
+        license: str | None) -> ResponseType:
+    """
+    Add an image record for a person.
+
+    Parameters:
+        person_id (int): The ID of the person.
+        src (str): URL of the image.
+        attr (str | None): Attribution text.
+        license (str | None): License name.
+
+    Returns:
+        ResponseType: Response with the new image id on success, or
+                      an error response.
+    """
+    session = new_session()
+
+    try:
+        person = session.query(Person).filter(
+            Person.id == person_id).first()
+        if not person:
+            app.logger.error(
+                f'person_image_add: Person not found. '
+                f'Id = {person_id}.')
+            return ResponseType(
+                f'Henkilöä ei löydy. person_id={person_id}.',
+                HttpResponseCode.BAD_REQUEST.value)
+
+        image = PersonImage()
+        image.person_id = person_id
+        image.src = src
+        image.attr = attr
+        image.license = license
+        session.add(image)
+        session.flush()
+        new_id = image.id
+        session.commit()
+    except SQLAlchemyError as exp:
+        app.logger.error(
+            'Exception in person_image_add(): ' + str(exp))
+        return ResponseType(
+            f'person_image_add: Tietokantavirhe. '
+            f'person_id={person_id}.',
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(str(new_id), HttpResponseCode.CREATED.value)

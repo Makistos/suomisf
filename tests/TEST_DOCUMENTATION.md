@@ -2017,3 +2017,35 @@ person, and the `GET /api/filter/alias/<id>` endpoint.
 | `test_aliases_field_lists_alias_person` | Create real+alias persons; link | GET real person; alias_id present in `aliases` list |
 | `test_filter_alias_endpoint_returns_alias` | Create real+alias persons; link | GET /api/filter/alias/{real_id}; alias_id in returned list |
 | `test_unlink_alias_removes_from_aliases_field` | Create real+alias persons; link then unlink | GET real person; alias_id absent from `aliases` list |
+
+---
+
+## Person Image Tests
+
+**File:** `tests/api/test_person_images.py`
+
+Tests for adding images to persons via
+`POST /api/person/<personid>/images`.
+
+**Fixtures:** `admin_client` (logged-in admin), `api_client`
+(unauthenticated)
+
+**Test data:**
+- `EXISTING_PERSON_ID = 1`
+- `NONEXISTENT_PERSON_ID = 999999999`
+- `IMAGE_SRC = 'https://example.com/image.jpg'`
+- `IMAGE_ATTR = 'Example attribution'`
+- `IMAGE_LICENSE = 'CC BY 4.0'`
+
+### TestPersonImageAdd (8 tests)
+
+| Test | Parameters | Assertions |
+|------|-----------|------------|
+| `test_add_image_returns_201` | person_id=1, src, attr, license | status 201 |
+| `test_add_image_returns_new_id` | person_id=1, src only | status 201; response is positive integer |
+| `test_add_image_optional_fields_omitted` | person_id=1, src only (no attr/license) | status 201 |
+| `test_add_multiple_images_same_person` | person_id=1, two different src values | both 201; returned ids are distinct |
+| `test_add_image_missing_src_returns_400` | person_id=1, attr only | status 400 |
+| `test_add_image_nonexistent_person_returns_400` | person_id=999999999, src | status 400 |
+| `test_add_image_invalid_person_id_returns_400` | person_id='notanid', src | status 400 |
+| `test_add_image_requires_auth` | unauthenticated, person_id=1, src | status 401 or 403 |
