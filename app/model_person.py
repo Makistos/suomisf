@@ -2,7 +2,8 @@
 """ SQLAlchemy models for person page. Optimized for speed / size. """
 from marshmallow import fields
 from app import ma
-from app.orm_decl import (Person, Edition, Article, Awarded, ShortStory)
+from app.orm_decl import (Person, Edition, Article, Awarded, ShortStory,
+                          PersonImage)
 from .model import (LanguageSchema, PersonBriefSchema, PersonLinkBriefSchema,
                     WorkBriefSchema,
                     ShortBriefSchema,
@@ -150,6 +151,18 @@ class PersonPageWorkBriefSchema(ma.SQLAlchemySchema):  # type: ignore
     work_type = fields.Nested(WorkTypeBriefSchema)
 
 
+class PersonImageSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ PersonImage schema. """
+    class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
+        model = PersonImage
+        exclude = ('person_id',)
+    id = fields.Int()
+    src = fields.String()
+    attr = fields.String(allow_none=True)
+    license = fields.String(allow_none=True)
+
+
 class PersonSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     """ Person schema. """
     class Meta:
@@ -161,12 +174,14 @@ class PersonSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     alt_name = fields.String(allow_none=True)
     fullname = fields.String(allow_none=True)
     other_names = fields.String(allow_none=True)
+    qid = fields.String(allow_none=True)
     dob = fields.Int(allow_none=True)
     dod = fields.Int(allow_none=True)
     bio = fields.String(allow_none=True)
     bio_src = fields.String(allow_none=True)
 
     # Relationships
+    images = ma.List(fields.Nested(PersonImageSchema))
     nationality = fields.Nested(CountryBriefSchema, allow_none=True)
     real_names = ma.List(fields.Nested(PersonPageBriefSchema))
     aliases = ma.List(fields.Nested(PersonPageBriefSchema))

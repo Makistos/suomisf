@@ -617,6 +617,9 @@ def person_update(params: Any) -> ResponseType:
         if qid != person.qid:
             old_values['QID'] = person.qid
             person.qid = qid
+            session.query(PersonImage).filter(
+                PersonImage.person_id == person_id
+            ).delete()
 
     if 'dob' in data:
         dob = check_int(data['dob'])
@@ -1260,6 +1263,10 @@ def person_image_add(
                 f'Henkilöä ei löydy. person_id={person_id}.',
                 HttpResponseCode.BAD_REQUEST.value)
 
+        session.query(PersonImage).filter(
+            PersonImage.person_id == person_id
+        ).delete()
+
         image = PersonImage()
         image.person_id = person_id
         image.src = src
@@ -1274,6 +1281,54 @@ def person_image_add(
             'Exception in person_image_add(): ' + str(exp))
         return ResponseType(
             f'person_image_add: Tietokantavirhe. '
+            f'person_id={person_id}.',
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(str(new_id), HttpResponseCode.CREATED.value)
+
+
+def person_link_add(
+        person_id: int,
+        link: str,
+        description: str | None) -> ResponseType:
+    """
+    Add a link to a person.
+
+    Parameters:
+        person_id (int): The ID of the person.
+        link (str): The URL of the link.
+        description (str | None): Optional description of the link.
+
+    Returns:
+        ResponseType: Response with the new link id on success, or
+                      an error response.
+    """
+    session = new_session()
+
+    try:
+        person = session.query(Person).filter(
+            Person.id == person_id).first()
+        if not person:
+            app.logger.error(
+                f'person_link_add: Person not found. '
+                f'Id = {person_id}.')
+            return ResponseType(
+                f'Henkilöä ei löydy. person_id={person_id}.',
+                HttpResponseCode.BAD_REQUEST.value)
+
+        pl = PersonLink()
+        pl.person_id = person_id
+        pl.link = link
+        pl.description = description
+        session.add(pl)
+        session.flush()
+        new_id = pl.id
+        session.commit()
+    except SQLAlchemyError as exp:
+        app.logger.error(
+            'Exception in person_link_add(): ' + str(exp))
+        return ResponseType(
+            f'person_link_add: Tietokantavirhe. '
             f'person_id={person_id}.',
             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 

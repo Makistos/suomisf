@@ -1122,9 +1122,9 @@ class PersonImage(Base):
     id = Column(Integer, primary_key=True)
     person_id = Column(Integer, ForeignKey('person.id'),
                        nullable=False, index=True)
-    src = Column(String(200), nullable=False)
-    attr = Column(String(200))
-    license = Column(String(100))
+    src = Column(Text(), nullable=False)
+    attr = Column(Text())
+    license = Column(Text())
 
 
 class PersonLink(Base):

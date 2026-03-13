@@ -28,10 +28,8 @@ elif app.config['ENV'] == 'staging':
     app.config.from_object("config.StagingConfig")
 else:
     app.config.from_object("config.DevConfig")
-# print(f'Db: {app.config["SQLALCHEMY_DATABASE_URI"]}')
-# print(f'ENV is set to {app.config["ENV"]}.')
-# print(f"Config is {app.config}")
 db_url = app.config['SQLALCHEMY_DATABASE_URI']
+print(f'Db: {db_url}')
 jwt_secret_key = app.config['JWT_SECRET_KEY']
 app.static_folder = 'static'
 db = SQLAlchemy(app)
