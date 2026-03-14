@@ -1,7 +1,10 @@
 -- Migration 006: Add qid to person; create personimage table
 --
--- 1. Add nullable integer qid column to person
-ALTER TABLE suomisf.person ADD COLUMN IF NOT EXISTS qid INTEGER;
+-- 1. Add nullable text qid column to person
+ALTER TABLE suomisf.person ADD COLUMN IF NOT EXISTS qid TEXT;
+-- Convert to TEXT if column already existed as INTEGER
+ALTER TABLE suomisf.person ALTER COLUMN qid TYPE TEXT
+    USING qid::TEXT;
 
 -- 2. Create personimage table
 CREATE TABLE IF NOT EXISTS suomisf.personimage (

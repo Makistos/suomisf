@@ -898,7 +898,7 @@ class Person(Base):
     last_name = Column(String(150))
     image_src = Column(String(100))
     image_attr = Column(String(100))  # Source website name
-    qid = Column(Integer)
+    qid = Column(Text())
     dob = Column(Integer)
     dod = Column(Integer)
     bio = Column(Text())  # Biographgy

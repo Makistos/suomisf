@@ -453,7 +453,7 @@ def person_add(params: Any) -> ResponseType:
     person.first_name = data['first_name'] if 'first_name' in data else None
     person.last_name = data['last_name'] if 'last_name' in data else None
     person.image_src = data['image_src'] if 'image_src' in data else None
-    person.qid = check_int(data['qid']) if 'qid' in data else None
+    person.qid = data['qid'] if 'qid' in data else None
     person.dob = data['dob'] if 'dob' in data else None
     person.dod = data['dod'] if 'dod' in data else None
     if ('nationality' in data and data['nationality'] is not None
@@ -613,7 +613,7 @@ def person_update(params: Any) -> ResponseType:
             person.image_src = data['image_src']
 
     if 'qid' in data:
-        qid = check_int(data['qid'])
+        qid = data['qid'] or None
         if qid != person.qid:
             old_values['QID'] = person.qid
             person.qid = qid
@@ -1236,7 +1236,8 @@ def person_image_add(
         person_id: int,
         src: str,
         attr: str | None,
-        license: str | None) -> ResponseType:
+        license: str | None,
+        qid: str | None = None) -> ResponseType:
     """
     Add an image record for a person.
 
@@ -1245,6 +1246,8 @@ def person_image_add(
         src (str): URL of the image.
         attr (str | None): Attribution text.
         license (str | None): License name.
+        qid (str | None): Wikidata QID (e.g. "Q12345"). Optional.
+                          If provided, updates the person's qid field.
 
     Returns:
         ResponseType: Response with the new image id on success, or
@@ -1262,6 +1265,9 @@ def person_image_add(
             return ResponseType(
                 f'Henkilöä ei löydy. person_id={person_id}.',
                 HttpResponseCode.BAD_REQUEST.value)
+
+        if qid is not None:
+            person.qid = qid or None
 
         session.query(PersonImage).filter(
             PersonImage.person_id == person_id

@@ -460,6 +460,9 @@ def api_person_image_add(personid: str) -> Response:
         src (str): URL of the image. Required.
         attr (str): Attribution text. Optional.
         license (str): License name. Optional.
+        qid (str): Wikidata QID (e.g. "Q12345"). Optional.
+                   If provided, updates the person's qid field.
+                   Pass empty string to clear.
 
     Returns:
         Response: The new image id on success (201), or an error response.
@@ -487,6 +490,7 @@ def api_person_image_add(personid: str) -> Response:
         data['src'],
         data.get('attr'),
         data.get('license'),
+        data.get('qid'),
     ))
 
 
