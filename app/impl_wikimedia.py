@@ -212,6 +212,109 @@ async def throttled_map(items, fn, concurrency=5):
     return results
 
 
+import aiohttp
+
+WIKIDATA_API = "https://www.wikidata.org/w/api.php"
+
+
+import aiohttp
+
+WIKIDATA_API = "https://www.wikidata.org/w/api.php"
+
+
+async def find_qid(
+    session: aiohttp.ClientSession,
+    name: str,
+    birth_year: int | None = None,
+    death_year: int | None = None,
+) -> str | None:
+
+    params = {
+        "action": "wbsearchentities",
+        "search": name,
+        "language": "en",
+        "format": "json",
+        "limit": 10,
+        "type": "item",
+        "origin": "*",
+    }
+
+    async with session.get(WIKIDATA_API, params=params) as resp:
+        if resp.status != 200:
+            return None
+        data = await resp.json()
+
+    results = data.get("search", [])
+    if not results:
+        return None
+
+    # If no birth year provided, just return first candidate
+    if not birth_year:
+        return results[0]["id"]
+
+    # Otherwise verify candidates
+    for r in results:
+        qid = r["id"]
+        if await match_person_years(session, qid, birth_year, death_year):
+            return qid
+
+    return None
+
+async def match_person_years(
+    session: aiohttp.ClientSession,
+    qid: str,
+    birth_year: int | None,
+    death_year: int | None,
+) -> bool:
+    """Verify that a Wikidata QID matches the expected birth/death years."""
+
+    if not birth_year:
+        return False
+
+    params = {
+        "action": "wbgetentities",
+        "ids": qid,
+        "props": "claims",
+        "format": "json",
+        "origin": "*",
+    }
+
+    try:
+        async with session.get(WIKIDATA_API, params=params) as resp:
+            if resp.status != 200:
+                return False
+
+            data = await resp.json()
+
+    except Exception:
+        return False
+
+    claims = data.get("entities", {}).get(qid, {}).get("claims")
+    if not claims:
+        return False
+
+    def extract_year(claim_list):
+        if not claim_list:
+            return None
+
+        try:
+            time = (
+                claim_list[0]["mainsnak"]["datavalue"]["value"]["time"]
+            )
+            return int(time[1:5])
+        except Exception:
+            return None
+
+    if extract_year(claims.get("P569")) != birth_year:
+        return False
+
+    if death_year is not None:
+        if extract_year(claims.get("P570")) != death_year:
+            return False
+
+    return True
+
+
 # ---------- Fetch functions ----------
 HEADERS = {
     "User-Agent": "SF-Bibliografia/1.0 (yp@sf-bibliografia.fi) Python requests"
@@ -426,18 +529,29 @@ async def _fetch_and_score_images(personid: int) -> List[WikiImageInfo]:
         person = psession.query(Person).filter(
             Person.id == personid
         ).first()
-        # 1️⃣ QID: P18 + category
-        if person.qid:
+        # 1️⃣ QID: resolve + verify, then P18 + category
+        titles = [n for n in [person.fullname, person.alt_name, person.name]
+                  if n]
+        qid = person.qid
+        if not qid and titles:
+            for title in titles:
+                qid = await find_qid(
+                    session, title, person.dob, person.dod
+                )
+                if qid:
+                    app.logger.info(
+                        f'Resolved QID {qid} for person {personid}'
+                    )
+                    break
+        if qid:
             p18_files, cat_files = await asyncio.gather(
-                fetch_p18(session, person.qid),
-                fetch_category_images(session, person.qid)
+                fetch_p18(session, qid),
+                fetch_category_images(session, qid)
             )
             files.extend(p18_files)
             files.extend(cat_files)
 
         # 2️⃣ Wikipedia page images
-        titles = [n for n in [person.fullname, person.alt_name, person.name]
-                  if n]
         for t in titles:
             files.extend(await fetch_wikipedia_images(session, t))
 

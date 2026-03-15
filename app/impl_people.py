@@ -8,6 +8,7 @@ from sqlalchemy import func, or_
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.impl_logs import log_changes
+from app.impl_wikimedia import find_person_images
 
 from app.route_helpers import new_session
 from app.model import (ArticleSchema, IssueSchema, LogSchema,
@@ -761,7 +762,6 @@ def person_update(params: Any) -> ResponseType:
 
     if qid_changed:
         try:
-            from app.impl_wikimedia import find_person_images
             images = asyncio.run(find_person_images(person_id, 1))
             if images:
                 img = images[0]
@@ -1297,15 +1297,14 @@ def person_image_add(
         for image in pis:
             session.delete(image)
 
-        if src != "":
-            image = PersonImage()
-            image.person_id = person_id
-            image.src = src
-            image.attr = attr
-            image.license = license
-            session.add(image)
-            session.flush()
-            new_id = image.id
+        image = PersonImage()
+        image.person_id = person_id
+        image.src = src
+        image.attr = attr
+        image.license = license
+        session.add(image)
+        session.flush()
+        new_id = image.id
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(
@@ -1354,7 +1353,7 @@ def person_link_add(
         if existing:
             return ResponseType(
                 f'Linkki on jo olemassa. person_id={person_id}.',
-                HttpResponseCode.BAD_REQUEST.value)
+                HttpResponseCode.OK.value)
 
         pl = PersonLink()
         pl.person_id = person_id
