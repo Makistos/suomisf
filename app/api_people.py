@@ -478,10 +478,10 @@ def api_person_image_add(personid: str) -> Response:
         return make_api_response(response)
 
     data = request.json
-    if not data or not data.get('src'):
-        app.logger.error('api_person_image_add: Missing src.')
+    if not data:
+        app.logger.error('api_person_image_add: Missing data.')
         response = ResponseType(
-            'api_person_image_add: src puuttuu.',
+            'api_person_image_add: data puuttuu.',
             status=HttpResponseCode.BAD_REQUEST.value)
         return make_api_response(response)
 
@@ -513,7 +513,8 @@ def api_person_link_add(personid: str) -> Response:
 
     Responses:
         201  { "response": "<new link id>" }
-        400  { "msg": "..." }  Person not found, or link missing.
+        400  { "msg": "..." }  Person not found, link missing, or
+                             link already exists for this person.
         401  Unauthorized.
         500  { "msg": "..." }  Database error.
 

@@ -1,4 +1,5 @@
 """ People related stuff. """
+import asyncio
 import json
 from collections import Counter
 from typing import Tuple, Dict, Any, List, Union
@@ -612,14 +613,18 @@ def person_update(params: Any) -> ResponseType:
             old_values['Kuvan lähde'] = person.image_src
             person.image_src = data['image_src']
 
+    qid_changed = False
     if 'qid' in data:
         qid = data['qid'] or None
         if qid != person.qid:
             old_values['QID'] = person.qid
             person.qid = qid
-            session.query(PersonImage).filter(
+            qid_changed = bool(qid)
+            pis = session.query(PersonImage).filter(
                 PersonImage.person_id == person_id
-            ).delete()
+            ).all()
+            for image in pis:
+                session.delete(image)
 
     if 'dob' in data:
         dob = check_int(data['dob'])
@@ -754,6 +759,18 @@ def person_update(params: Any) -> ResponseType:
     #     app.logger.error('PersonUpdate: Failed to log changes.')
     session.commit()
 
+    if qid_changed:
+        try:
+            from app.impl_wikimedia import find_person_images
+            images = asyncio.run(find_person_images(person_id, 1))
+            if images:
+                img = images[0]
+                person_image_add(person_id, img.url,
+                                 img.credit, img.license)
+        except Exception as e:
+            app.logger.error(
+                f'person_save: auto image fetch failed: {e}')
+
     return retval
 
 
@@ -829,6 +846,11 @@ def person_delete(person_id: int) -> ResponseType:
         return ResponseType('PersonDelete: Henkilöä ei voi poistaa, koska \
                             hänelle on annettu palkintoja.',
                             HttpResponseCode.BAD_REQUEST.value)
+
+    pis = session.query(PersonImage).\
+        filter(PersonImage.person_id == person_id).all()
+    for image in pis:
+        session.delete(image)
 
     # Delete person
     personlink = session.query(PersonLink).filter(
@@ -1254,7 +1276,7 @@ def person_image_add(
                       an error response.
     """
     session = new_session()
-
+    new_id = 0
     try:
         person = session.query(Person).filter(
             Person.id == person_id).first()
@@ -1269,18 +1291,21 @@ def person_image_add(
         if qid is not None:
             person.qid = qid or None
 
-        session.query(PersonImage).filter(
+        pis = session.query(PersonImage).filter(
             PersonImage.person_id == person_id
-        ).delete()
+        ).all()
+        for image in pis:
+            session.delete(image)
 
-        image = PersonImage()
-        image.person_id = person_id
-        image.src = src
-        image.attr = attr
-        image.license = license
-        session.add(image)
-        session.flush()
-        new_id = image.id
+        if src != "":
+            image = PersonImage()
+            image.person_id = person_id
+            image.src = src
+            image.attr = attr
+            image.license = license
+            session.add(image)
+            session.flush()
+            new_id = image.id
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(
@@ -1320,6 +1345,15 @@ def person_link_add(
                 f'Id = {person_id}.')
             return ResponseType(
                 f'Henkilöä ei löydy. person_id={person_id}.',
+                HttpResponseCode.BAD_REQUEST.value)
+
+        existing = session.query(PersonLink).filter(
+            PersonLink.person_id == person_id,
+            PersonLink.link == link
+        ).first()
+        if existing:
+            return ResponseType(
+                f'Linkki on jo olemassa. person_id={person_id}.',
                 HttpResponseCode.BAD_REQUEST.value)
 
         pl = PersonLink()
