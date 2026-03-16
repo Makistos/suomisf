@@ -136,8 +136,8 @@ def score_image(filename: str, person: Person,
             break
 
     # Try last name only
-    if scoring["name"] == 0 and person.last_name and person.last_name != '':
-        if person.last_name in filename:
+    if scoring["name"] == 0 and person.last_name:
+        if person.last_name.lower() in name:
             scoring["last_name"] = 5
             score += 5
 
@@ -552,16 +552,28 @@ async def _fetch_and_score_images(personid: int) -> List[WikiImageInfo]:
                 fetch_p18(session, qid),
                 fetch_category_images(session, qid)
             )
+            app.logger.info(
+                f'person {personid}: P18={p18_files} '
+                f'category={cat_files}'
+            )
             files.extend(p18_files)
             files.extend(cat_files)
 
         # 2️⃣ Wikipedia page images
         for t in titles:
-            files.extend(await fetch_wikipedia_images(session, t))
+            wiki_files = await fetch_wikipedia_images(session, t)
+            app.logger.info(
+                f'person {personid}: wikipedia "{t}"={wiki_files}'
+            )
+            files.extend(wiki_files)
 
         # 3️⃣ Commons full-text search
         for t in titles:
-            files.extend(await search_commons_files(session, t))
+            commons_files = await search_commons_files(session, t)
+            app.logger.info(
+                f'person {personid}: commons search "{t}"={commons_files}'
+            )
+            files.extend(commons_files)
 
         # Remove duplicates & keep jpg/png only
         unique_files = list(set(
