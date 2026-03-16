@@ -1348,12 +1348,13 @@ def person_link_add(
 
         existing = session.query(PersonLink).filter(
             PersonLink.person_id == person_id,
-            PersonLink.link == link
-        ).first()
+            PersonLink.description == description
+        ).all()
         if existing:
-            return ResponseType(
-                f'Linkki on jo olemassa. person_id={person_id}.',
-                HttpResponseCode.OK.value)
+            # Only have one link with same description per person, replace
+            # existing one
+            for image in existing:
+                session.delete(image)
 
         pl = PersonLink()
         pl.person_id = person_id
