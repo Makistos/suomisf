@@ -32,26 +32,25 @@ def create_token(user: User, password: str) -> Response:
     if token:
         if user.is_admin:
             role = 'admin'
-            access_token = create_access_token(
-                identity=str(user.id),
-                additional_claims={"is_administrator": True,
-                                   "role": "admin",
-                                   "name": user.name})
+            claims = {"is_administrator": True,
+                      "role": "admin",
+                      "name": user.name}
         elif user.name == 'demo_admin':
             role = 'demo_admin'
-            access_token = create_access_token(
-                identity=str(user.id),
-                additional_claims={"is_administrator": True,
-                                   "role": "demo_admin",
-                                   "name": user.name})
+            claims = {"is_administrator": True,
+                      "role": "demo_admin",
+                      "name": user.name}
         else:
             role = 'user'
-            access_token = create_access_token(
-                identity=str(user.id),
-                additional_claims={"is_administrator": False,
-                                   "role": "user",
-                                   "name": user.name})
-        refreshtoken = create_refresh_token(identity=str(user.id))
+            claims = {"is_administrator": False,
+                      "role": "user",
+                      "name": user.name}
+        access_token = create_access_token(
+            identity=str(user.id),
+            additional_claims=claims)
+        refreshtoken = create_refresh_token(
+            identity=str(user.id),
+            additional_claims=claims)
         data = jsonify(access_token=access_token,
                        refresh_token=refreshtoken,
                        name=user.name,
