@@ -225,7 +225,7 @@ def api_refresh() -> Response:
         response = ResponseType('api_login: Virheelliset parametrit.',
                                 HttpResponseCode.UNAUTHORIZED.value)
         return make_api_response(response)
-    return refresh_token(options)
+    return refresh_token()
 
 
 ###

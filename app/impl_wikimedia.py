@@ -3,8 +3,6 @@ import aiohttp
 import datetime
 import re
 from typing import List, Optional
-import numpy as np
-import cv2
 
 from app.orm_decl import Person
 from app.route_helpers import new_session
@@ -14,12 +12,18 @@ from app import app
 _image_cache: dict[int, tuple[datetime.datetime, list]] = {}
 _CACHE_TTL = datetime.timedelta(minutes=10)
 
-_face_cascade = cv2.CascadeClassifier(
-    cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
-)
-_profile_cascade = cv2.CascadeClassifier(
-    cv2.data.haarcascades + "haarcascade_profileface.xml"
-)
+try:
+    import numpy as np
+    import cv2
+    _face_cascade = cv2.CascadeClassifier(
+        cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
+    )
+    _profile_cascade = cv2.CascadeClassifier(
+        cv2.data.haarcascades + "haarcascade_profileface.xml"
+    )
+    _CV2_AVAILABLE = True
+except ImportError:
+    _CV2_AVAILABLE = False
 
 WIKIDATA_API = "https://www.wikidata.org/w/api.php"
 WIKIPEDIA_API = "https://en.wikipedia.org/w/api.php"

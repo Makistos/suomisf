@@ -3,10 +3,9 @@ import json
 from functools import wraps
 from typing import Any
 from flask import make_response
-from flask_jwt_extended import verify_jwt_in_request, get_jwt_identity
-from app.orm_decl import User
-from app.route_helpers import new_session
+from flask_jwt_extended import verify_jwt_in_request, get_jwt
 from app.types import HttpResponseCode
+from app import app
 
 # @app.after_request
 # def refresh_existing(response: Response) -> Response:
@@ -46,20 +45,39 @@ def jwt_admin_required() -> Any:
         """
         @wraps(f)
         def decorator(*args: Any, **kwargs: Any) -> Any:
-            verify_jwt_in_request()
-            jwt_id = get_jwt_identity()
-            session = new_session()
-            user = session.query(User).filter_by(id=jwt_id).first()
-            if user and user.is_admin:
+            try:
+                verify_jwt_in_request()
+            except Exception as e:
+                app.logger.info(
+                    f'jwt_admin_required: token verification failed '
+                    f'endpoint={f.__name__} error={e}'
+                )
+                raise
+            claims = get_jwt()
+            app.logger.info(
+                f'jwt_admin_required: endpoint={f.__name__} '
+                f'is_administrator={claims.get("is_administrator")} '
+                f'role={claims.get("role")} '
+                f'name={claims.get("name")}'
+            )
+            if "is_administrator" not in claims:
+                app.logger.info(
+                    f'jwt_admin_required: FORBIDDEN for '
+                    f'{claims.get("name")} — '
+                    f'is_administrator claim missing from token'
+                )
+            elif not claims["is_administrator"]:
+                app.logger.info(
+                    f'jwt_admin_required: FORBIDDEN for '
+                    f'{claims.get("name")} — '
+                    f'is_administrator is False'
+                )
+            else:
                 return f(*args, **kwargs)
-            if user:
-                return make_response(
-                    json.dumps({'msg':
-                                'Toiminto vaatii ylläpitäjän oikeudet'}),
-                    HttpResponseCode.FORBIDDEN.value)
             return make_response(
-                json.dumps({'msg': 'Ei käyttöoikeutta'}),
-                HttpResponseCode.UNAUTHORIZED.value
+                json.dumps({'msg':
+                            'Toiminto vaatii ylläpitäjän oikeudet'}),
+                HttpResponseCode.FORBIDDEN.value
             )
         return decorator
     return wrapper

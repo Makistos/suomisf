@@ -8,7 +8,6 @@ from sqlalchemy import func, or_
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.impl_logs import log_changes
-from app.impl_wikimedia import find_person_images
 
 from app.route_helpers import new_session
 from app.model import (ArticleSchema, IssueSchema, LogSchema,
@@ -308,10 +307,10 @@ def list_people(params: Dict[str, Any]) -> ResponseType:
             params['page'] = 0
         start = int(params['rows']) * (int(params['page']))
         end = int(params['rows']) * (int(params['page']) + 1)
-        app.logger.warning("page: " + str(params['page']) +
-                           " rows: " + str(params['rows']) +
-                           " start: " + str(start) +
-                           " end: " + str(end))
+        # app.logger.warning("page: " + str(params['page']) +
+        #                    " rows: " + str(params['rows']) +
+        #                    " start: " + str(start) +
+        #                    " end: " + str(end))
         people = people[start:end]
 
     # Serialize to JSON
@@ -762,6 +761,7 @@ def person_update(params: Any) -> ResponseType:
 
     if qid_changed:
         try:
+            from app.impl_wikimedia import find_person_images
             images = asyncio.run(find_person_images(person_id, 1))
             if images:
                 img = images[0]
