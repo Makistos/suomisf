@@ -143,6 +143,7 @@ def refresh_token() -> Response:
     role = claims.get("role", "user")
     name = claims.get("name", "")
     is_admin = claims.get("is_administrator", False)
+    app.logger.info(f"userid: {userid}, name: {name}, role: {role}, is_admin {is_admin}")
     access_token = create_access_token(
         identity=userid,
         additional_claims={"is_administrator": is_admin,
