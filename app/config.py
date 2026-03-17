@@ -1,5 +1,6 @@
 """ Configuration classes. """
 import os
+from datetime import timedelta
 from dotenv import load_dotenv
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -10,6 +11,7 @@ class Config(object):
     """ Base configuration class."""
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(days=14)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
     # SQLALCHEMY_RECORD_QUERIES = True
