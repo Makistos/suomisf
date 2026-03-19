@@ -4,7 +4,8 @@ from typing import Dict
 from flask.wrappers import Response
 from flask import make_response, jsonify
 from flask_jwt_extended import (create_access_token, create_refresh_token,
-                                get_jwt_identity, get_jwt)
+                                get_jwt_identity, get_jwt, set_access_cookies,
+                                unset_jwt_cookies)
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.route_helpers import new_session
@@ -130,6 +131,21 @@ def register_user(options: Dict[str, str]) -> Response:
     return resp
 
 
+@app.after_request
+def refresh_jwts(response):
+    try:
+        identity = get_jwt_identity()
+        if identity is None:
+            return response
+        claims = get_jwt()
+        access_token = create_access_token(
+            identity=identity, additional_claims=claims)
+        set_access_cookies(response, access_token)
+        return response
+    except (RuntimeError, KeyError):
+        return response
+
+
 def refresh_token() -> Response:
     """
     Refreshes the access token using claims from the current refresh token.
@@ -143,7 +159,8 @@ def refresh_token() -> Response:
     role = claims.get("role", "user")
     name = claims.get("name", "")
     is_admin = claims.get("is_administrator", False)
-    app.logger.info(f"userid: {userid}, name: {name}, role: {role}, is_admin {is_admin}")
+    app.logger.info(
+        f"userid: {userid}, name: {name}, role: {role}, is_admin {is_admin}")
     access_token = create_access_token(
         identity=userid,
         additional_claims={"is_administrator": is_admin,
@@ -222,6 +239,40 @@ def list_users() -> ResponseType:
         return ResponseType('ListUsers: Skeemavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def get_current_user() -> ResponseType:
+    """
+    Returns the currently authenticated user's name and admin status
+    from the JWT token claims.
+
+    The JWT token must be present in the Authorization header as a
+    Bearer token. The token is set during login and contains the
+    following claims used here:
+      - name (str): The username of the authenticated user.
+      - is_administrator (bool): True if the user has admin rights.
+
+    Returns:
+        ResponseType: On success, a dict with:
+            {
+                "name": "<username>",
+                "is_admin": true|false
+            }
+        On error, an error message with status 401 or 500.
+
+    Example response (200 OK):
+        {
+            "name": "testuser",
+            "is_admin": false
+        }
+    """
+    claims = get_jwt()
+    name = claims.get('name', '')
+    is_admin = claims.get('is_administrator', False)
+    return ResponseType(
+        {'name': name, 'is_admin': is_admin},
+        HttpResponseCode.OK.value
+    )
 
 
 def user_genres(user_id: int) -> ResponseType:

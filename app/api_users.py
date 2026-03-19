@@ -2,11 +2,13 @@
 API functions related to users.
 """
 from flask import Response
+from flask_jwt_extended import jwt_required
 from app import app
 
 from app.api_helpers import make_api_response
 from app.impl import ResponseType
-from app.impl_users import get_user, list_users, user_genres
+from app.impl_users import (get_current_user, get_user, list_users,
+                             user_genres)
 from app.types import HttpResponseCode
 
 
@@ -46,6 +48,44 @@ def api_getuser(userid: str) -> Response:
         return make_api_response(response)
 
     return make_api_response(get_user(int_id))
+
+
+@app.route('/api/me', methods=['get'])
+@jwt_required()
+def api_me() -> Response:
+    """
+    Returns the currently authenticated user's name and admin status.
+
+    Requires a valid JWT Bearer token in the Authorization header.
+
+    **Request**
+    ```
+    GET /api/me
+    Authorization: Bearer <access_token>
+    ```
+
+    **Response 200 OK**
+    ```json
+    {
+        "name": "string",
+        "is_admin": boolean
+    }
+    ```
+    - `name` — the username of the logged-in user
+    - `is_admin` — true if the user has administrator rights
+
+    **Response 401 Unauthorized**
+    Returned when no valid JWT token is provided.
+
+    **Frontend usage example (JavaScript)**
+    ```js
+    const resp = await fetch('/api/me', {
+        headers: { 'Authorization': `Bearer ${accessToken}` }
+    });
+    const { name, is_admin } = await resp.json();
+    ```
+    """
+    return make_api_response(get_current_user())
 
 
 @app.route('/api/users/<userid>/stats/genres', methods=['get'])

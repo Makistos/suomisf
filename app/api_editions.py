@@ -231,8 +231,6 @@ def api_editionownerperson(editionid: str, personid: str) -> Response:
             'api_editionownerperson: Virheellinen painosid tai henkilotunnus.',
             status=HttpResponseCode.BAD_REQUEST.value)
         return make_api_response(response)
-    app.logger.info(f'api_editionownerperson: Getting owner {personid} '
-                    f'for edition {editionid}.')
     # Call the function to get the owner info
     return make_api_response(editionowner_get(ed_id, person_id))
 

@@ -1728,6 +1728,20 @@ Returns genre counts for books owned by the user.
 | `test_user_genres_nonexistent_user` | id=999999999 | Status 200, empty list |
 | `test_user_genres_invalid_id` | id="invalid" | Status 500 |
 
+#### TestGetMe (5 tests)
+
+Tests for `GET /api/me`.
+Returns the authenticated user's name and admin status from the
+JWT token. Requires Bearer token in Authorization header.
+
+| Test | Parameters | Assertions |
+|------|------------|------------|
+| `test_me_returns_200_when_authenticated` | admin JWT | Status 200 |
+| `test_me_returns_name_and_is_admin` | admin JWT | 'name' and 'is_admin' in data |
+| `test_me_admin_user_is_admin_true` | admin JWT | is_admin is True |
+| `test_me_admin_user_name_matches` | admin JWT | name == TEST_ADMIN_NAME |
+| `test_me_returns_401_without_token` | no token | Status 401 |
+
 ---
 
 ## Collection Tests

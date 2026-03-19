@@ -61,6 +61,7 @@
 | :white_check_mark: | GET | `/api/users` | None | `test_users.py::TestUserList` | 2026-02-18 |
 | :white_check_mark: | GET | `/api/users/<userid>` | None | `test_users.py::TestUserGet` | 2026-02-18 |
 | :white_check_mark: | GET | `/api/users/<userid>/stats/genres` | None | `test_users.py::TestUserStatsGenres` | 2026-02-18 |
+| :white_check_mark: | GET | `/api/me` | JWT | `test_users.py::TestGetMe` | 2026-03-19 |
 
 ### 3. Works (19 endpoints)
 

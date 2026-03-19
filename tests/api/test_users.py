@@ -180,3 +180,57 @@ class TestUserStatsGenres(BaseAPITest):
         url = '/api/users/invalid/stats/genres'
         response = api_client.get(url)
         assert response.status_code == 500
+
+
+# -------------------------------------------------------------------
+# GET /api/me Tests
+# -------------------------------------------------------------------
+
+class TestGetMe(BaseAPITest):
+    """Tests for GET /api/me endpoint.
+
+    Returns the current user's name and admin status from the JWT
+    token. Requires a valid Bearer token.
+    """
+
+    def test_me_returns_200_when_authenticated(
+            self, admin_client):
+        """GET /api/me returns 200 for authenticated user."""
+        response = admin_client.get('/api/me')
+        response.assert_success()
+
+    def test_me_returns_name_and_is_admin(
+            self, admin_client):
+        """GET /api/me response has 'name' and 'is_admin' fields."""
+        response = admin_client.get('/api/me')
+        response.assert_success()
+
+        data = response.data
+        assert 'name' in data, "Response missing 'name'"
+        assert 'is_admin' in data, "Response missing 'is_admin'"
+
+    def test_me_admin_user_is_admin_true(
+            self, admin_client):
+        """GET /api/me for admin returns is_admin=true."""
+        response = admin_client.get('/api/me')
+        response.assert_success()
+
+        data = response.data
+        assert data['is_admin'] is True, \
+            "Admin user should have is_admin=True"
+
+    def test_me_admin_user_name_matches(
+            self, admin_client):
+        """GET /api/me returns the correct username."""
+        response = admin_client.get('/api/me')
+        response.assert_success()
+
+        data = response.data
+        assert data['name'] == TEST_ADMIN_NAME, \
+            f"Expected name '{TEST_ADMIN_NAME}', got '{data['name']}'"
+
+    def test_me_returns_401_without_token(
+            self, api_client):
+        """GET /api/me without token returns 401."""
+        response = api_client.get('/api/me')
+        assert response.status_code == 401
