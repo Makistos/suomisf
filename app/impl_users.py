@@ -4,8 +4,8 @@ from typing import Dict
 from flask.wrappers import Response
 from flask import make_response, jsonify
 from flask_jwt_extended import (create_access_token, create_refresh_token,
-                                get_jwt_identity, get_jwt, set_access_cookies,
-                                unset_jwt_cookies)
+                                get_jwt_identity, get_jwt,
+                                set_access_cookies)
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.route_helpers import new_session
@@ -161,12 +161,15 @@ def refresh_token() -> Response:
     is_admin = claims.get("is_administrator", False)
     app.logger.info(
         f"userid: {userid}, name: {name}, role: {role}, is_admin {is_admin}")
+    token_claims = {"is_administrator": is_admin,
+                    "role": role,
+                    "name": name}
     access_token = create_access_token(
         identity=userid,
-        additional_claims={"is_administrator": is_admin,
-                           "role": role,
-                           "name": name})
-    refreshtoken = create_refresh_token(identity=userid)
+        additional_claims=token_claims)
+    refreshtoken = create_refresh_token(
+        identity=userid,
+        additional_claims=token_claims)
     data = jsonify(access_token=access_token,
                    refresh_token=refreshtoken,
                    name=name,
