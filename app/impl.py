@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 from enum import IntEnum
 import json
 from typing import Dict, NamedTuple, Tuple, List, Union, Any, TypedDict, Set
-from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 
@@ -183,7 +182,6 @@ def get_changes(params: Dict[str, Any]) -> ResponseType:
         ResponseType: The response type of the function.
     """
     period_length: int = 30
-    stmt: str = 'SELECT Log.* FROM Log WHERE 1=1 '
     session = new_session()
 
     if 'period' in params:
@@ -193,15 +191,12 @@ def get_changes(params: Dict[str, Any]) -> ResponseType:
             app.logger.error(f'get_changes: {exp}')
             raise APIError(f'Invalid period length {params["period"]}.',
                            HttpResponseCode.BAD_REQUEST) from exp
-        cutoff_date = datetime.now() - timedelta(period_length)
-        stmt += 'AND Log.Date >= "' + str(cutoff_date) + '" '
-    else:
-        cutoff_date = datetime.now() - timedelta(days=30)
-        stmt += 'AND Log.Date >= "' + str(cutoff_date) + '" '
+    cutoff_date = datetime.now() - timedelta(days=period_length)
+
+    query = session.query(Log).filter(Log.date >= cutoff_date)
 
     if 'table' in params:
-        table = params['table']
-        stmt += 'AND table_name = "' + table + '" '
+        query = query.filter(Log.table_name == params['table'])
 
     if 'id' in params:
         try:
@@ -210,15 +205,13 @@ def get_changes(params: Dict[str, Any]) -> ResponseType:
             app.logger.error(f'get_changes: {exp}')
             raise APIError(f'Invalid table id  {params["id"]}.',
                            HttpResponseCode.BAD_REQUEST) from exp
-        stmt += 'AND table_id = "' + str(table_id) + '" '
+        query = query.filter(Log.table_id == table_id)
 
     if 'action' in params:
-        action = params['action']
-        stmt += 'AND action = "' + action + '" '
+        query = query.filter(Log.action == params['action'])
 
     if 'field' in params:
-        field = params['field']
-        stmt += 'AND field_name = "' + field + '" '
+        query = query.filter(Log.field_name == params['field'])
 
     if 'userid' in params:
         try:
@@ -227,30 +220,25 @@ def get_changes(params: Dict[str, Any]) -> ResponseType:
             app.logger.error(f'get_changes: {exp}')
             raise APIError(f'Invalid user id  {params["userid"]}.',
                            HttpResponseCode.BAD_REQUEST) from exp
-        stmt += 'AND user_id = "' + str(userid) + '" '
+        query = query.filter(Log.user_id == userid)
 
-    stmt += 'ORDER BY date DESC '
+    query = query.order_by(Log.date.desc())
+
     if 'limit' in params:
-        limit: int = 0
         try:
             limit = int(params['limit'])
         except TypeError as exp:
             app.logger.error(f'get_changes: {exp}')
             raise APIError(f'Invalid limit {params["limit"]}.',
                            HttpResponseCode.BAD_REQUEST) from exp
-        stmt += 'LIMIT ' + str(limit) + ' '
+        query = query.limit(limit)
 
-    print(stmt)
     try:
-        changes = session.query(Log)\
-            .from_statement(text(stmt))\
-            .all()
+        changes = query.all()
     except SQLAlchemyError as exp:
         app.logger.error(f'Exception in get_changes: {exp}.')
         return ResponseType(f'get_changes: Tietokantavirhe: {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR)
-    # changes = session.query(Log).filter(
-    #     Log.date >= cutoff_date).order_by(Log.date.desc()).all()
     try:
         schema = LogSchema(many=True)
         retval = schema.dump(changes)
