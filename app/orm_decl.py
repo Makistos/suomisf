@@ -821,7 +821,8 @@ class Language(Base):
 
 class Log(Base):
     """ Log table. """
-    __tablename__ = 'Log'
+    __tablename__ = 'log'
+    __table_args__ = {'schema': 'suomisf'}
     id = Column(Integer, primary_key=True)
     table_name = Column(String(30), index=True)
     field_name = Column(String(30))
