@@ -1,9 +1,9 @@
 # Changelog
 
-<!-- This list is abbreviated. The project has 1217 commits in total;
-     268 were made in the two-year period covered here, combined into
-     ~40 significant changes. Internal refactoring, snapshot updates,
-     cover image saves, and dependency bumps are omitted or grouped. -->
+_This list is abbreviated. The project has 1217 commits in total;
+268 were made in the two-year period covered here, combined into
+~40 significant changes. Internal refactoring, snapshot updates,
+cover image saves, and dependency bumps are omitted or grouped._
 
 ## 2026-03-23 — Migration 007: merge log tables
 **Commit:** `768213c0`
