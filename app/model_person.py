@@ -68,6 +68,7 @@ class PersonPageEditionWorkSchema(ma.SQLAlchemySchema):  # type: ignore
     editions = ma.List(fields.Nested(lambda: PersonPageEditionBriefSchema(
         only=['id', 'title', 'work'])))
     genres = ma.List(fields.Nested(GenreBriefSchema))
+    bookseriesnum = fields.String(allow_none=True)
     bookseries = fields.Nested(
         lambda: BookseriesBriefSchema(exclude=['works']))
     tags = ma.List(fields.Nested(TagBriefSchema))

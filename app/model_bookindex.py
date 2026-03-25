@@ -163,6 +163,7 @@ class BookIndexSchema(ma.SQLAlchemySchema):  # type: ignore
                             'owners', 'wishlisted']))
     # authors = ma.List(fields.Nested(BookIndexPersonSchema))
     genres = ma.List(fields.Nested(BookIndexGenreSchema))
+    bookseriesnum = fields.String(allow_none=True)
     bookseries = fields.Nested(BookIndexBookseriesSchema, only=['id', 'name'])
     tags = ma.List(fields.Nested(BookIndexTagSchema, only=['id', 'name']))
     type = fields.Number()
