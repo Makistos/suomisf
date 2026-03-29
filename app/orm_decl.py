@@ -916,7 +916,8 @@ class Person(Base):
                            secondary='alias',
                            secondaryjoin=id == Alias.alias,
                            uselist=True, viewonly=True)
-    links = relationship("PersonLink", uselist=True, viewonly=True)
+    links = relationship("PersonLink", uselist=True, viewonly=True,
+                         order_by="PersonLink.id")
 
     @property
     def roles(self):
