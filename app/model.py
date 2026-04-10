@@ -226,7 +226,7 @@ class WorkContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     role = fields.Nested(ContributorRoleSchema)
     description = fields.String()
     real_person = fields.Nested(
-        lambda: PersonBriefSchema(only=('id', 'name')))
+        lambda: PersonBriefSchema(only=('id', 'name', 'alt_name')))
 
 
 class EditionContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -239,7 +239,7 @@ class EditionContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     role = fields.Nested(ContributorRoleSchema)
     description = fields.String()
     real_person = fields.Nested(
-        lambda: PersonBriefSchema(only=('id', 'name')))
+        lambda: PersonBriefSchema(only=('id', 'name', 'alt_name')))
 
 
 class WorkEditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -362,7 +362,6 @@ class IssueBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Issue
     magazine = fields.Nested(MagazineBriefSchema)
-
 
 
 class StoryContributorSchema(ma.SQLAlchemyAutoSchema):  # type: ignore

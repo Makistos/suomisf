@@ -69,8 +69,13 @@ def _create_new_contributors(session: Any, contributors: Any) -> List[Any]:
         if person:
             description = (contrib['description']
                            if 'description' in contrib else '')
-            contrib = {'person': {'id': person.id}, 'role': contrib['role'],
-                       'description': description}
+            real_person = contrib.get('real_person')
+            contrib = {
+                'person': {'id': person.id},
+                'role': contrib['role'],
+                'description': description,
+                'real_person': real_person,
+            }
             retval.append(contrib)
 
     return retval
@@ -133,9 +138,12 @@ def contributors_have_changed(
     if len(old_values) != len(l):
         return True
     for idx, old_value in enumerate(old_values):
+        new_rp = l[idx].get('real_person')
+        new_real_person_id = new_rp.get('id') if new_rp else None
         if old_value.person_id != l[idx]['person']['id'] or \
                 old_value.role_id != l[idx]['role']['id'] or \
-                old_value.description != l[idx]['description']:
+                old_value.description != l[idx]['description'] or \
+                old_value.real_person_id != new_real_person_id:
             return True
     return False
 
@@ -149,7 +157,9 @@ def update_short_contributors(
     Args:
         session (Any): The session object for database operations.
         short_id (int): The ID of the short story.
-        contributors (Any): The contributors object.
+        contributors (Any): The contributors object. Each entry
+            may include a 'real_person' dict with an 'id' key
+            for pseudonym tracking.
 
     Returns:
         None: This function does not return anything.
@@ -166,10 +176,13 @@ def update_short_contributors(
         .delete()
     session.flush()
     for contrib in short_contributors:
+        rp = contrib.get('real_person')
+        real_person_id = rp.get('id') if rp else None
         sc = StoryContributor(
             shortstory_id=short_id,
             person_id=contrib['person']['id'],
             role_id=contrib['role']['id'],
+            real_person_id=real_person_id,
             description=contrib.get('description'))
         session.add(sc)
 
@@ -211,6 +224,7 @@ def update_edition_contributors(
             - 'person': dict with 'id' (person ID)
             - 'role': dict with 'id' (role ID, must be in 2,3,4,5,7)
             - 'description': optional string
+            - 'real_person': optional dict with 'id' for pseudonym
 
     Returns:
         bool: True if at least one contributor was added, else False.
@@ -236,10 +250,13 @@ def update_edition_contributors(
         if not role_id:
             continue
         description = contrib.get('description')
+        rp = contrib.get('real_person')
+        real_person_id = rp.get('id') if rp else None
         ec = EditionContributor(
             edition_id=edition.id,
             person_id=contrib['person']['id'],
             role_id=role_id,
+            real_person_id=real_person_id,
             description=description)
         session.add(ec)
         retval = True
@@ -267,6 +284,7 @@ def update_work_contributors(
             - 'person': dict with 'id' (person ID)
             - 'role': dict with 'id' (role ID, must be in 1,3,6)
             - 'description': optional string
+            - 'real_person': optional dict with 'id' for pseudonym
 
     Returns:
         bool: True if at least one contributor was added.
@@ -292,10 +310,13 @@ def update_work_contributors(
         if not role_id:
             continue
         description = contrib.get('description')
+        rp = contrib.get('real_person')
+        real_person_id = rp.get('id') if rp else None
         wc = WorkContributor(
             work_id=work_id,
             person_id=contrib['person']['id'],
             role_id=role_id,
+            real_person_id=real_person_id,
             description=description)
         session.add(wc)
         retval = True

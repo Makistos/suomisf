@@ -238,3 +238,120 @@ class TestPeopleAliases(BaseAPITest):
         finally:
             delete_test_person(admin_client, alias_id)
             delete_test_person(admin_client, real_id)
+
+
+# -------------------------------------------------------------------
+# Tests: GET /api/people/<id>/real-names
+# -------------------------------------------------------------------
+
+class TestPersonRealNames(BaseAPITest):
+    """
+    Tests for GET /api/people/<person_id>/real-names.
+
+    Returns the real people behind a pseudonym/alias person.
+    """
+
+    def test_real_names_returns_real_person(self, admin_client):
+        """
+        GET /api/people/{alias_id}/real-names returns the real
+        person when an alias link exists.
+
+        Steps:
+          1. Create real and alias persons.
+          2. Link alias to real via PUT /api/people.
+          3. GET alias person's real-names; assert real_id present.
+        """
+        real_name = 'Test Real Person (real-names test)'
+        alias_name = 'Test Alias Person (real-names test)'
+        real_id = create_test_person(admin_client, real_name)
+        alias_id = create_test_person(admin_client, alias_name)
+
+        try:
+            link_alias(admin_client, real_id, real_name, [alias_id])
+
+            resp = admin_client.get(
+                f'/api/people/{alias_id}/real-names'
+            )
+            resp.assert_success()
+            real_list = resp.data
+
+            assert isinstance(real_list, list), (
+                f'Expected list, got {type(real_list)}'
+            )
+            returned_ids = [int(p['id']) for p in real_list]
+            assert real_id in returned_ids, (
+                f'real_id {real_id} not in real-names for alias '
+                f'{alias_id}: {returned_ids}'
+            )
+
+        finally:
+            link_alias(admin_client, real_id, real_name, [])
+            delete_test_person(admin_client, alias_id)
+            delete_test_person(admin_client, real_id)
+
+    def test_real_names_response_has_id_and_name(self, admin_client):
+        """
+        Each item in the real-names response has 'id' and 'name'.
+        """
+        real_name = 'Test Real Person (real-names fields test)'
+        alias_name = 'Test Alias Person (real-names fields test)'
+        real_id = create_test_person(admin_client, real_name)
+        alias_id = create_test_person(admin_client, alias_name)
+
+        try:
+            link_alias(admin_client, real_id, real_name, [alias_id])
+
+            resp = admin_client.get(
+                f'/api/people/{alias_id}/real-names'
+            )
+            resp.assert_success()
+            real_list = resp.data
+
+            assert real_list, (
+                f'real-names list is empty for alias {alias_id}'
+            )
+            for item in real_list:
+                assert 'id' in item, (
+                    f'Missing id in real-names item: {item}'
+                )
+                assert 'name' in item, (
+                    f'Missing name in real-names item: {item}'
+                )
+
+        finally:
+            link_alias(admin_client, real_id, real_name, [])
+            delete_test_person(admin_client, alias_id)
+            delete_test_person(admin_client, real_id)
+
+    def test_real_names_empty_for_non_alias(self, admin_client):
+        """
+        GET /api/people/{id}/real-names returns an empty list when
+        the person has no alias links.
+        """
+        person_name = 'Test Person (not an alias)'
+        person_id = create_test_person(admin_client, person_name)
+
+        try:
+            resp = admin_client.get(
+                f'/api/people/{person_id}/real-names'
+            )
+            resp.assert_success()
+            real_list = resp.data
+
+            assert real_list == [], (
+                f'Expected empty list for non-alias person, '
+                f'got {real_list}'
+            )
+
+        finally:
+            delete_test_person(admin_client, person_id)
+
+    def test_real_names_invalid_id(self, api_client):
+        """
+        GET /api/people/abc/real-names returns 400 for a non-integer
+        person ID.
+        """
+        resp = api_client.get('/api/people/abc/real-names')
+        assert resp.status_code == 400, (
+            f'Expected 400 for invalid id, got {resp.status_code}'
+        )

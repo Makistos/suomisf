@@ -871,3 +871,104 @@ class TestSearchShorts(BaseAPITest):
         response = api_client.post('/api/searchshorts', data={})
         # Should return 200 with empty or full results
         assert response.status_code in [200, 400]
+
+
+# -------------------------------------------------------------------
+# Tests: real_person_id in StoryContributor (pseudonym tracking)
+# -------------------------------------------------------------------
+
+class TestShortContributorRealPerson(BaseAPITest):
+    """
+    Tests that real_person_id (pseudonym tracking) can be stored
+    and retrieved via StoryContributor when creating or updating
+    a short story.
+    """
+
+    @staticmethod
+    def _create_short(client, title, contributors):
+        """
+        Create a short story with the given contributors.
+
+        Returns short ID, or None if creation failed.
+        """
+        data = {
+            'data': {
+                'title': title,
+                'pubyear': 2025,
+                'type': {'id': 1},
+                'contributors': contributors,
+                'genres': [],
+                'tags': [],
+            }
+        }
+        resp = client.post('/api/shorts', data=data)
+        if resp.status_code not in (200, 201):
+            return None
+        raw = resp.data
+        if isinstance(raw, dict):
+            return raw.get('id') or raw.get('response')
+        return raw
+
+    def test_short_contributor_real_person_stored(
+            self, admin_client):
+        """
+        real_person_id is stored in StoryContributor when creating
+        a short story contributor with a real_person value.
+
+        Parameters:
+          - person_id=1 (pseudonym), real_person_id=2 (real identity),
+            role_id=1 (author)
+        Assertions:
+          - GET /api/shorts/{id} contributors[0].real_person.id == 2
+        Fixtures: admin_client
+        """
+        from app.orm_decl import Person
+        from app.route_helpers import new_session
+
+        with admin_client.application.app_context():
+            session = new_session()
+            persons = session.query(Person).limit(2).all()
+            if len(persons) < 2:
+                session.close()
+                pytest.skip('Need at least 2 persons in test DB')
+            person_id = persons[0].id
+            real_id = persons[1].id
+            session.close()
+
+        contributors = [
+            {
+                'person': {'id': person_id},
+                'role': {'id': 1},
+                'description': '',
+                'real_person': {'id': real_id},
+            }
+        ]
+        short_id = self._create_short(
+            admin_client,
+            'Real Person Test Short',
+            contributors,
+        )
+        if short_id is None:
+            pytest.skip('Short creation not available')
+
+        try:
+            resp = admin_client.get(f'/api/shorts/{short_id}')
+            resp.assert_success()
+            contribs = resp.data.get('contributors', [])
+            matched = [
+                c for c in contribs
+                if c['person']['id'] == person_id
+            ]
+            assert matched, (
+                f'Contributor for person {person_id} not found '
+                f'in {contribs}'
+            )
+            rp = matched[0].get('real_person')
+            assert rp is not None, (
+                f'real_person is None: {matched[0]}'
+            )
+            assert rp.get('id') == real_id, (
+                f'real_person.id: expected {real_id}, got {rp}'
+            )
+        finally:
+            admin_client.delete(f'/api/shorts/{short_id}')

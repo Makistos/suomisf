@@ -622,3 +622,156 @@ class TestMigrationIntegrity(BaseAPITest):
         assert ec_count > 0, (
             'EditionContributor is empty after migration.'
         )
+
+
+# -------------------------------------------------------------------
+# Tests: real_person_id (pseudonym tracking)
+# -------------------------------------------------------------------
+
+class TestEditionContributorRealPerson(BaseAPITest):
+    """
+    Tests that real_person_id (pseudonym tracking) can be stored
+    and retrieved via EditionContributor.
+    """
+
+    def test_edition_contributor_real_person_stored(
+            self, app, admin_client, test_work_and_edition,
+            existing_person_id, second_person_id):
+        """
+        real_person_id is stored in EditionContributor when a
+        contributor is added with a real_person value.
+
+        Parameters:
+          - role_id=2 (translator), person=existing_person_id
+            (pseudonym), real_person=second_person_id (real identity)
+        Assertions:
+          - EditionContributor row has
+            real_person_id == second_person_id
+          - GET /api/editions/{id} contributions real_person.id
+            equals second_person_id
+        Fixtures: app, admin_client, test_work_and_edition,
+                  existing_person_id, second_person_id
+        """
+        _, edition_id = test_work_and_edition
+        contributors = [
+            {
+                'person': {'id': existing_person_id},
+                'role': {'id': EDITION_ROLES['translator']},
+                'description': '',
+                'real_person': {'id': second_person_id},
+            }
+        ]
+        resp = set_edition_contributors(
+            admin_client, edition_id, contributors
+        )
+        assert resp.status_code == 200, (
+            f'Setting contributor with real_person failed: '
+            f'{resp.status_code} {resp.json}'
+        )
+
+        with app.app_context():
+            session = new_session()
+            row = (
+                session.query(EditionContributor)
+                .filter(
+                    EditionContributor.edition_id == edition_id
+                )
+                .filter(
+                    EditionContributor.person_id == existing_person_id
+                )
+                .first()
+            )
+            stored_id = row.real_person_id if row else None
+            session.close()
+
+        assert stored_id == second_person_id, (
+            f'Expected real_person_id={second_person_id}, '
+            f'got {stored_id}'
+        )
+
+    def test_edition_contributor_real_person_in_response(
+            self, admin_client, test_work_and_edition,
+            existing_person_id, second_person_id):
+        """
+        real_person is returned in contributions JSON with id and
+        name fields.
+
+        Parameters:
+          - role_id=2, person=existing_person_id,
+            real_person=second_person_id
+        Assertions:
+          - contributions[0].real_person.id == second_person_id
+        Fixtures: admin_client, test_work_and_edition,
+                  existing_person_id, second_person_id
+        """
+        _, edition_id = test_work_and_edition
+        contributors = [
+            {
+                'person': {'id': existing_person_id},
+                'role': {'id': EDITION_ROLES['translator']},
+                'description': '',
+                'real_person': {'id': second_person_id},
+            }
+        ]
+        set_edition_contributors(
+            admin_client, edition_id, contributors
+        )
+
+        contributions = get_edition_contributions(
+            admin_client, edition_id
+        )
+        matched = [
+            c for c in contributions
+            if c['person']['id'] == existing_person_id
+        ]
+        assert matched, (
+            f'Contribution for person {existing_person_id} not found'
+        )
+        rp = matched[0].get('real_person')
+        assert rp is not None, (
+            f'real_person is None in response: {matched[0]}'
+        )
+        assert rp.get('id') == second_person_id, (
+            f'real_person.id mismatch: expected {second_person_id}, '
+            f'got {rp}'
+        )
+
+    def test_edition_contributor_real_person_null(
+            self, admin_client, test_work_and_edition,
+            existing_person_id):
+        """
+        real_person is null in the response when not set.
+
+        Parameters:
+          - role_id=2, person=existing_person_id, no real_person
+        Assertions:
+          - contributions[0].real_person is None
+        Fixtures: admin_client, test_work_and_edition,
+                  existing_person_id
+        """
+        _, edition_id = test_work_and_edition
+        contributors = [
+            {
+                'person': {'id': existing_person_id},
+                'role': {'id': EDITION_ROLES['translator']},
+                'description': '',
+            }
+        ]
+        set_edition_contributors(
+            admin_client, edition_id, contributors
+        )
+
+        contributions = get_edition_contributions(
+            admin_client, edition_id
+        )
+        matched = [
+            c for c in contributions
+            if c['person']['id'] == existing_person_id
+        ]
+        assert matched, (
+            f'Contribution for person {existing_person_id} not found'
+        )
+        rp = matched[0].get('real_person')
+        assert rp is None, (
+            f'Expected real_person=None, got {rp}'
+        )

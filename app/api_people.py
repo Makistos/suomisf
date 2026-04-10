@@ -12,6 +12,7 @@ from app.impl import ResponseType
 from app.impl_people import (filter_people, get_latest_people,
                              get_person_articles,
                              get_person_issue_contributions,
+                             get_person_real_names,
                              list_people,
                              person_add,
                              person_chiefeditor,
@@ -492,6 +493,34 @@ def api_person_image_add(personid: str) -> Response:
         data.get('license'),
         data.get('qid'),
     ))
+
+
+@app.route('/api/people/<person_id>/real-names', methods=['get'])
+def api_person_real_names(person_id: str) -> Response:
+    """
+    Returns the real people behind a pseudonym/alias person.
+
+    URL: GET /api/people/<person_id>/real-names
+
+    Path parameters:
+        person_id (int): ID of the alias (pseudonym) person.
+
+    Responses:
+        200  List of {id, name} objects for each real person.
+             Empty list if person_id is not an alias.
+        400  Invalid (non-integer) person_id.
+        500  Database error.
+    """
+    try:
+        int_id = int(person_id)
+    except (TypeError, ValueError):
+        app.logger.error(
+            'api_person_real_names: Invalid id %s.', person_id)
+        response = ResponseType(
+            f'Virheellinen tunniste {person_id}.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+    return make_api_response(get_person_real_names(int_id))
 
 
 @app.route('/api/person/<personid>/links', methods=['post'])

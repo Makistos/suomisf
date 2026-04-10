@@ -25,10 +25,10 @@
 |----------|-----------|-------|-------|
 | Authentication | 3 | 33 | Login, auth checks, write operation auth |
 | Users | 3 | 13 | Entity, stats/genres tests |
-| Works | 19 | 54 | Entity, related, auth, omnibus, tags, types, contributor tests |
-| Editions | 22 | 66 | Entity, related, auth, wishlist, images, contributors, work-link tests (2 xfail) |
-| People | 15 | 20 | Entity, filter, related, alias tests |
-| Short Stories | 10 | 35 | Entity, search, auth, type field, CRUD with types |
+| Works | 19 | 57 | Entity, related, auth, omnibus, tags, types, contributor+real_person tests |
+| Editions | 22 | 69 | Entity, related, auth, wishlist, images, contributors+real_person, work-link tests (2 xfail) |
+| People | 16 | 24 | Entity, filter, related, alias, real-names tests |
+| Short Stories | 10 | 36 | Entity, search, auth, type field, CRUD, contributor real_person |
 | Magazines | 6 | 13 | Entity, auth, update tests |
 | Issues | 15 | 28 | Entity, auth, contributors, tags, covers tests (3 xfail) |
 | Awards | 12 | 6 | Entity tests |
@@ -136,6 +136,7 @@
 | :white_check_mark: | GET | `/api/latest/people/<count>` | None | `test_related.py::TestLatestPeople` | 2026-02-14 |
 | :white_check_mark: | GET | `/api/people/<person_id>/issue-contributions` | None | `test_persons.py::TestPersonIssueContributions` | 2026-02-15 |
 | :white_check_mark: | GET | `/api/filter/alias/<id>` | None | `test_people_aliases.py::TestPeopleAliases` | 2026-03-03 |
+| :white_check_mark: | GET | `/api/people/<person_id>/real-names` | None | `test_people_aliases.py::TestPersonRealNames` | 2026-04-09 |
 
 ### 6. Short Stories (10 endpoints)
 

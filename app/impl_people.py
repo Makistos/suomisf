@@ -208,6 +208,39 @@ def filter_aliases(person_id: int) -> ResponseType:
     return ResponseType(retval, HttpResponseCode.OK.value)
 
 
+def get_person_real_names(person_id: int) -> ResponseType:
+    """
+    Returns the real people behind a pseudonym/alias person.
+
+    Queries the Alias table where alias == person_id and returns
+    the corresponding real-name Person records.
+
+    Args:
+        person_id (int): ID of the alias (pseudonym) person.
+
+    Returns:
+        ResponseType: List of {id, name} dicts, or error response.
+    """
+    session = new_session()
+    try:
+        alias_rows = session.query(Alias)\
+            .filter(Alias.alias == person_id)\
+            .all()
+        ids = [x.realname for x in alias_rows]
+        persons = session.query(Person)\
+            .filter(Person.id.in_(ids))\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(
+            'get_person_real_names (person_id %d): %s',
+            person_id, str(exp))
+        return ResponseType(
+            'get_person_real_names: Tietokantavirhe.',
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    schema = PersonBriefSchema(only=('id', 'name'), many=True)
+    return ResponseType(schema.dump(persons), HttpResponseCode.OK.value)
+
+
 def get_author_first_letters(target: str) -> Tuple[str, int]:
     """
     Finds all the letters that have any authors starting with it.

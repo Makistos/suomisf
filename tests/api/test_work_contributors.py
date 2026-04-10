@@ -491,3 +491,144 @@ class TestWorkMigrationIntegrity(BaseAPITest):
         assert wc_count > 0, (
             'WorkContributor is empty after migration.'
         )
+
+
+# -------------------------------------------------------------------
+# Tests: real_person_id (pseudonym tracking)
+# -------------------------------------------------------------------
+
+class TestWorkContributorRealPerson(BaseAPITest):
+    """
+    Tests that real_person_id (pseudonym tracking) can be stored
+    and retrieved via WorkContributor.
+    """
+
+    def test_work_contributor_real_person_stored(
+            self, app, admin_client, test_work,
+            existing_person_id, second_person_id):
+        """
+        real_person_id is stored in WorkContributor when a
+        contributor is added with a real_person value.
+
+        Parameters:
+          - role_id=1 (author), person=existing_person_id (pseudonym),
+            real_person=second_person_id (real identity)
+        Assertions:
+          - WorkContributor row has real_person_id == second_person_id
+          - GET /api/works/{id} contributions real_person.id equals
+            second_person_id
+        Fixtures: app, admin_client, test_work, existing_person_id,
+                  second_person_id
+        """
+        contributors = [
+            {
+                'person': {'id': existing_person_id},
+                'role': {'id': WORK_ROLES['author']},
+                'description': '',
+                'real_person': {'id': second_person_id},
+            }
+        ]
+        resp = set_work_contributors(
+            admin_client, test_work, contributors
+        )
+        assert resp.status_code == 200, (
+            f'Setting contributor with real_person failed: '
+            f'{resp.status_code} {resp.json}'
+        )
+
+        with app.app_context():
+            session = new_session()
+            row = (
+                session.query(WorkContributor)
+                .filter(WorkContributor.work_id == test_work)
+                .filter(
+                    WorkContributor.person_id == existing_person_id
+                )
+                .first()
+            )
+            stored_id = row.real_person_id if row else None
+            session.close()
+
+        assert stored_id == second_person_id, (
+            f'Expected real_person_id={second_person_id}, '
+            f'got {stored_id}'
+        )
+
+    def test_work_contributor_real_person_in_response(
+            self, admin_client, test_work,
+            existing_person_id, second_person_id):
+        """
+        real_person is returned in contributions JSON with id and
+        name fields.
+
+        Parameters:
+          - role_id=1, person=existing_person_id,
+            real_person=second_person_id
+        Assertions:
+          - contributions[0].real_person.id == second_person_id
+        Fixtures: admin_client, test_work, existing_person_id,
+                  second_person_id
+        """
+        contributors = [
+            {
+                'person': {'id': existing_person_id},
+                'role': {'id': WORK_ROLES['author']},
+                'description': '',
+                'real_person': {'id': second_person_id},
+            }
+        ]
+        set_work_contributors(admin_client, test_work, contributors)
+
+        contributions = get_work_contributions(
+            admin_client, test_work
+        )
+        matched = [
+            c for c in contributions
+            if c['person']['id'] == existing_person_id
+        ]
+        assert matched, (
+            f'Contribution for person {existing_person_id} not found'
+        )
+        rp = matched[0].get('real_person')
+        assert rp is not None, (
+            f'real_person is None in response: {matched[0]}'
+        )
+        assert rp.get('id') == second_person_id, (
+            f'real_person.id mismatch: expected {second_person_id}, '
+            f'got {rp}'
+        )
+
+    def test_work_contributor_real_person_null(
+            self, admin_client, test_work, existing_person_id):
+        """
+        real_person is null in the response when not set.
+
+        Parameters:
+          - role_id=1, person=existing_person_id, no real_person
+        Assertions:
+          - contributions[0].real_person is None
+        Fixtures: admin_client, test_work, existing_person_id
+        """
+        contributors = [
+            {
+                'person': {'id': existing_person_id},
+                'role': {'id': WORK_ROLES['author']},
+                'description': '',
+            }
+        ]
+        set_work_contributors(admin_client, test_work, contributors)
+
+        contributions = get_work_contributions(
+            admin_client, test_work
+        )
+        matched = [
+            c for c in contributions
+            if c['person']['id'] == existing_person_id
+        ]
+        assert matched, (
+            f'Contribution for person {existing_person_id} not found'
+        )
+        rp = matched[0].get('real_person')
+        assert rp is None, (
+            f'Expected real_person=None, got {rp}'
+        )

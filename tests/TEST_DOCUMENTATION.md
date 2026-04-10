@@ -1089,6 +1089,15 @@ Creates short story payload with required fields
 | `test_search_shorts_returns_data` | Returns search results |
 | `test_search_shorts_empty_query` | Handle empty query |
 
+### TestShortContributorRealPerson (1 test)
+
+Tests that `real_person_id` (pseudonym tracking) is stored and
+returned when creating a short story contributor.
+
+| Test | Parameters | Assertions |
+|------|-----------|------------|
+| `test_short_contributor_real_person_stored` | person_id=persons[0], real_person_id=persons[1], role_id=1 | contributors[0].real_person.id == persons[1].id |
+
 ---
 
 ## Award Tests
@@ -1882,6 +1891,17 @@ correctly from the Contributor+Part data.
 |------|-----------|------------|
 | `test_migration_count_matches` | All editions in DB | ec_count >= distinct(edition_id, person_id, role_id) from source |
 
+### TestEditionContributorRealPerson (3 tests)
+
+Tests that `real_person_id` (pseudonym tracking) is stored and
+returned via the API.
+
+| Test | Parameters | Assertions |
+|------|-----------|------------|
+| `test_edition_contributor_real_person_stored` | role_id=2, person=existing (pseudonym), real_person=second | editioncontributor.real_person_id == second_person_id |
+| `test_edition_contributor_real_person_in_response` | role_id=2, real_person=second | contributions[0].real_person.id == second_person_id |
+| `test_edition_contributor_real_person_null` | role_id=2, no real_person | contributions[0].real_person is None |
+
 ---
 
 ## Work Contributor Tests
@@ -1939,6 +1959,17 @@ from the Contributor+Part data.
 | Test | Parameters | Assertions |
 |------|-----------|------------|
 | `test_migration_count_matches` | All works in DB | wc_count >= distinct(work_id, person_id, role_id) from source |
+
+### TestWorkContributorRealPerson (3 tests)
+
+Tests that `real_person_id` (pseudonym tracking) is stored and
+returned via the API.
+
+| Test | Parameters | Assertions |
+|------|-----------|------------|
+| `test_work_contributor_real_person_stored` | role_id=1, person=existing (pseudonym), real_person=second | workcontributor.real_person_id == second_person_id |
+| `test_work_contributor_real_person_in_response` | role_id=1, real_person=second | contributions[0].real_person.id == second_person_id |
+| `test_work_contributor_real_person_null` | role_id=1, no real_person | contributions[0].real_person is None |
 
 ---
 
@@ -2031,6 +2062,18 @@ person, and the `GET /api/filter/alias/<id>` endpoint.
 | `test_aliases_field_lists_alias_person` | Create real+alias persons; link | GET real person; alias_id present in `aliases` list |
 | `test_filter_alias_endpoint_returns_alias` | Create real+alias persons; link | GET /api/filter/alias/{real_id}; alias_id in returned list |
 | `test_unlink_alias_removes_from_aliases_field` | Create real+alias persons; link then unlink | GET real person; alias_id absent from `aliases` list |
+
+### TestPersonRealNames (4 tests)
+
+Tests for `GET /api/people/<person_id>/real-names` which returns
+the real people behind a pseudonym/alias person.
+
+| Test | Parameters | Assertions |
+|------|-----------|------------|
+| `test_real_names_returns_real_person` | Create real+alias; link alias to real | GET alias/real-names returns real_id in list |
+| `test_real_names_response_has_id_and_name` | Create real+alias; link | Each item in response has `id` and `name` keys |
+| `test_real_names_empty_for_non_alias` | Create person with no alias links | GET person/real-names returns empty list |
+| `test_real_names_invalid_id` | person_id="abc" | Returns 400 |
 
 ---
 
