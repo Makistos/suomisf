@@ -225,7 +225,7 @@ class ArticleLink(Base):
     __tablename__ = 'articlelink'
     id = Column(Integer, primary_key=True)
     article_id = Column(Integer, ForeignKey('article.id'))
-    link = Column(String(250), nullable=False)
+    link = Column(Text(), nullable=False)
     description = Column(String(100))
 
 
@@ -342,9 +342,8 @@ class BookseriesLink(Base):
     id = Column(Integer, primary_key=True)
     bookseries_id = Column(Integer, ForeignKey('bookseries.id'),
                            nullable=False)
-    link = Column(String(200), nullable=False)
+    link = Column(Text(), nullable=False)
     description = Column(String(100))
-
 
 
 class EditionContributor(Base):
@@ -663,7 +662,7 @@ class EditionLink(Base):
     __tablename__ = 'editionlink'
     id = Column(Integer, primary_key=True)
     edition_id = Column(Integer, ForeignKey('edition.id'), nullable=False)
-    link = Column(String(200), nullable=False)
+    link = Column(Text(), nullable=False)
     description = Column(String(100))
 
 
@@ -708,7 +707,7 @@ class Issue(Base):
     image_attr = Column(String(100))  # Source website name
     pages = Column(Integer)
     size_id = Column(Integer, ForeignKey('publicationsize.id'))
-    link = Column(String(200))
+    link = Column(Text())
     notes = Column(Text())
     title = Column(String(200))
     tags = relationship('Tag', secondary='issuetag',
@@ -842,7 +841,7 @@ class Magazine(Base):
     name = Column(String(200), nullable=False, index=True)
     publisher_id = Column(Integer, ForeignKey('publisher.id'))
     description = Column(Text())
-    link = Column(String(200))
+    link = Column(Text())
     issn = Column(String(30))
     type_id = Column(Integer, ForeignKey('magazinetype.id'))
     tags = relationship('Tag', secondary='magazinetag', uselist=True)
@@ -1134,7 +1133,7 @@ class PersonLink(Base):
     __tablename__ = 'personlink'
     id = Column(Integer, primary_key=True)
     person_id = Column(Integer, ForeignKey('person.id'), nullable=False)
-    link = Column(String(200), nullable=False)
+    link = Column(Text(), nullable=False)
     description = Column(String(100))
 
 
@@ -1190,7 +1189,7 @@ class PublisherLink(Base):
     __tablename__ = 'publisherlink'
     id = Column(Integer, primary_key=True)
     publisher_id = Column(Integer, ForeignKey('publisher.id'), nullable=False)
-    link = Column(String(200), nullable=False)
+    link = Column(Text(), nullable=False)
     description = Column(String(100))
 
 
@@ -1222,7 +1221,7 @@ class PubseriesLink(Base):
     __tablename__ = 'pubserieslink'
     id = Column(Integer, primary_key=True)
     pubseries_id = Column(Integer, ForeignKey('pubseries.id'), nullable=False)
-    link = Column(String(200), nullable=False)
+    link = Column(Text(), nullable=False)
     description = Column(String(100))
 
 
@@ -1691,7 +1690,7 @@ class WorkLink(Base):
     __tablename__ = 'worklink'
     id = Column(Integer, primary_key=True)
     work_id = Column(Integer, ForeignKey('work.id'), nullable=False)
-    link = Column(String(200), nullable=False)
+    link = Column(Text(), nullable=False)
     description = Column(String(100))
 
 
