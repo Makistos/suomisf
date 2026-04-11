@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-03T11:14:39.033191+00:00",
+    "generated_at": "2026-04-11T20:33:54.117860+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/shorts/1",
@@ -33,6 +33,7 @@
           "first_name": "Isaac",
           "last_name": "Asimov",
           "image_attr": "",
+          "qid": null,
           "bio": "<p>Isaac Asimov oli venäläissyntyinen yhdysvaltalainen tieteiskirjailija, esseisti ja biokemisti, jota pidetään yhtenä science fictionin suurista nimistä. Hänet tunnetaan erityisesti <em>Säätiö</em>-sarjasta ja <em>Robotti</em>-tarinoistaan, joissa hän esitteli kuuluisat robotiikan kolme lakia. Asimovin scifi oli usein älyllistä, järjestelmällistä ja loogisesti rakennettua, keskittyen yhteiskuntien kehitykseen, teknologian vaikutuksiin ja moraalisiin ongelmiin.</p><p>Hänen tyyliinsä kuului selkeä kieli, vahvat ideat ja kiinnostus suureen mittakaavaan – historian ja tulevaisuuden syklit, tiedon merkitys ja ihmisyhteisöjen dynamiikka olivat toistuvia teemoja. Asimov oli myös erittäin tuottelias tietokirjailija, ja hän kirjoitti aiheista aina tähtitieteestä kirjallisuuteen. Hänen työnsä edisti science fictionin asemaa vakavasti otettavana kirjallisuuden lajina ja innoitti lukijoita tiedon ja järjen maailmaan.</p>",
           "bio_src": "ChatGPT",
           "imported_string": null
@@ -61,6 +62,7 @@
           "first_name": "Reijo",
           "last_name": "Kalvas",
           "image_attr": "",
+          "qid": null,
           "bio": null,
           "bio_src": "",
           "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."
@@ -114,6 +116,7 @@
                   "first_name": "Reijo",
                   "last_name": "Kalvas",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."
@@ -142,6 +145,7 @@
                   "first_name": "Reijo",
                   "last_name": "Kalvas",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."
@@ -301,6 +305,7 @@
                     "first_name": "Reijo",
                     "last_name": "Kalvas",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."
@@ -329,6 +334,7 @@
                     "first_name": "Reijo",
                     "last_name": "Kalvas",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."
@@ -463,6 +469,7 @@
               "first_name": "Reijo",
               "last_name": "Kalvas",
               "image_attr": "",
+              "qid": null,
               "bio": null,
               "bio_src": "",
               "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."
@@ -625,6 +632,7 @@
                 "first_name": "Isaac",
                 "last_name": "Asimov",
                 "image_attr": "",
+                "qid": null,
                 "bio": "<p>Isaac Asimov oli venäläissyntyinen yhdysvaltalainen tieteiskirjailija, esseisti ja biokemisti, jota pidetään yhtenä science fictionin suurista nimistä. Hänet tunnetaan erityisesti <em>Säätiö</em>-sarjasta ja <em>Robotti</em>-tarinoistaan, joissa hän esitteli kuuluisat robotiikan kolme lakia. Asimovin scifi oli usein älyllistä, järjestelmällistä ja loogisesti rakennettua, keskittyen yhteiskuntien kehitykseen, teknologian vaikutuksiin ja moraalisiin ongelmiin.</p><p>Hänen tyyliinsä kuului selkeä kieli, vahvat ideat ja kiinnostus suureen mittakaavaan – historian ja tulevaisuuden syklit, tiedon merkitys ja ihmisyhteisöjen dynamiikka olivat toistuvia teemoja. Asimov oli myös erittäin tuottelias tietokirjailija, ja hän kirjoitti aiheista aina tähtitieteestä kirjallisuuteen. Hänen työnsä edisti science fictionin asemaa vakavasti otettavana kirjallisuuden lajina ja innoitti lukijoita tiedon ja järjen maailmaan.</p>",
                 "bio_src": "ChatGPT",
                 "imported_string": null
@@ -682,6 +690,7 @@
                           "first_name": "Reijo",
                           "last_name": "Kalvas",
                           "image_attr": "",
+                          "qid": null,
                           "bio": null,
                           "bio_src": "",
                           "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."
@@ -710,6 +719,7 @@
                           "first_name": "Reijo",
                           "last_name": "Kalvas",
                           "image_attr": "",
+                          "qid": null,
                           "bio": null,
                           "bio_src": "",
                           "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."
@@ -844,6 +854,7 @@
                     "first_name": "Reijo",
                     "last_name": "Kalvas",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."

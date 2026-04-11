@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-03T11:14:39.033191+00:00",
+    "generated_at": "2026-04-11T20:33:54.117860+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/editions/242/shorts",
@@ -33,6 +33,7 @@
             "first_name": "Harri István",
             "last_name": "Mäki",
             "image_attr": "",
+            "qid": null,
             "bio": null,
             "bio_src": "",
             "imported_string": null
@@ -90,6 +91,7 @@
                       "first_name": "Helena",
                       "last_name": "Väisänen",
                       "image_attr": "",
+                      "qid": null,
                       "bio": null,
                       "bio_src": "",
                       "imported_string": null
@@ -194,6 +196,7 @@
                 "first_name": "Helena",
                 "last_name": "Väisänen",
                 "image_attr": "",
+                "qid": null,
                 "bio": null,
                 "bio_src": "",
                 "imported_string": null
@@ -422,6 +425,7 @@
             "first_name": "Helena",
             "last_name": "Väisänen",
             "image_attr": "",
+            "qid": null,
             "bio": null,
             "bio_src": "",
             "imported_string": null
@@ -479,6 +483,7 @@
                       "first_name": "Helena",
                       "last_name": "Väisänen",
                       "image_attr": "",
+                      "qid": null,
                       "bio": null,
                       "bio_src": "",
                       "imported_string": null
@@ -583,6 +588,7 @@
                 "first_name": "Helena",
                 "last_name": "Väisänen",
                 "image_attr": "",
+                "qid": null,
                 "bio": null,
                 "bio_src": "",
                 "imported_string": null
@@ -687,6 +693,7 @@
             "first_name": "Jussi",
             "last_name": "Matilainen",
             "image_attr": "",
+            "qid": null,
             "bio": null,
             "bio_src": "",
             "imported_string": null
@@ -744,6 +751,7 @@
                       "first_name": "Helena",
                       "last_name": "Väisänen",
                       "image_attr": "",
+                      "qid": null,
                       "bio": null,
                       "bio_src": "",
                       "imported_string": null
@@ -848,6 +856,7 @@
                 "first_name": "Helena",
                 "last_name": "Väisänen",
                 "image_attr": "",
+                "qid": null,
                 "bio": null,
                 "bio_src": "",
                 "imported_string": null
@@ -952,6 +961,7 @@
             "first_name": "Reija",
             "last_name": "Korkatti",
             "image_attr": "",
+            "qid": null,
             "bio": null,
             "bio_src": "",
             "imported_string": null
@@ -1009,6 +1019,7 @@
                       "first_name": "Helena",
                       "last_name": "Väisänen",
                       "image_attr": "",
+                      "qid": null,
                       "bio": null,
                       "bio_src": "",
                       "imported_string": null
@@ -1113,6 +1124,7 @@
                 "first_name": "Helena",
                 "last_name": "Väisänen",
                 "image_attr": "",
+                "qid": null,
                 "bio": null,
                 "bio_src": "",
                 "imported_string": null
@@ -1217,6 +1229,7 @@
             "first_name": "Enna",
             "last_name": "Airik",
             "image_attr": "",
+            "qid": null,
             "bio": null,
             "bio_src": "",
             "imported_string": null
@@ -1274,6 +1287,7 @@
                       "first_name": "Helena",
                       "last_name": "Väisänen",
                       "image_attr": "",
+                      "qid": null,
                       "bio": null,
                       "bio_src": "",
                       "imported_string": null
@@ -1378,6 +1392,7 @@
                 "first_name": "Helena",
                 "last_name": "Väisänen",
                 "image_attr": "",
+                "qid": null,
                 "bio": null,
                 "bio_src": "",
                 "imported_string": null
@@ -1482,6 +1497,7 @@
             "first_name": "Markku",
             "last_name": "Karpio",
             "image_attr": "",
+            "qid": null,
             "bio": null,
             "bio_src": "",
             "imported_string": null
@@ -1539,6 +1555,7 @@
                       "first_name": "Helena",
                       "last_name": "Väisänen",
                       "image_attr": "",
+                      "qid": null,
                       "bio": null,
                       "bio_src": "",
                       "imported_string": null
@@ -1643,6 +1660,7 @@
                 "first_name": "Helena",
                 "last_name": "Väisänen",
                 "image_attr": "",
+                "qid": null,
                 "bio": null,
                 "bio_src": "",
                 "imported_string": null
@@ -1747,6 +1765,7 @@
             "first_name": "Jukka-Pekka",
             "last_name": "Palviainen",
             "image_attr": "",
+            "qid": null,
             "bio": null,
             "bio_src": "",
             "imported_string": null
@@ -1804,6 +1823,7 @@
                       "first_name": "Helena",
                       "last_name": "Väisänen",
                       "image_attr": "",
+                      "qid": null,
                       "bio": null,
                       "bio_src": "",
                       "imported_string": null
@@ -1908,6 +1928,7 @@
                 "first_name": "Helena",
                 "last_name": "Väisänen",
                 "image_attr": "",
+                "qid": null,
                 "bio": null,
                 "bio_src": "",
                 "imported_string": null
@@ -2012,6 +2033,7 @@
             "first_name": "Ulla",
             "last_name": "Vaarnamo",
             "image_attr": "",
+            "qid": null,
             "bio": null,
             "bio_src": "",
             "imported_string": null
@@ -2069,6 +2091,7 @@
                       "first_name": "Helena",
                       "last_name": "Väisänen",
                       "image_attr": "",
+                      "qid": null,
                       "bio": null,
                       "bio_src": "",
                       "imported_string": null
@@ -2173,6 +2196,7 @@
                 "first_name": "Helena",
                 "last_name": "Väisänen",
                 "image_attr": "",
+                "qid": null,
                 "bio": null,
                 "bio_src": "",
                 "imported_string": null
@@ -2280,6 +2304,7 @@
             "first_name": "Jussi",
             "last_name": "Katajala",
             "image_attr": "",
+            "qid": null,
             "bio": null,
             "bio_src": "",
             "imported_string": null
@@ -2337,6 +2362,7 @@
                       "first_name": "Helena",
                       "last_name": "Väisänen",
                       "image_attr": "",
+                      "qid": null,
                       "bio": null,
                       "bio_src": "",
                       "imported_string": null
@@ -2441,6 +2467,7 @@
                 "first_name": "Helena",
                 "last_name": "Väisänen",
                 "image_attr": "",
+                "qid": null,
                 "bio": null,
                 "bio_src": "",
                 "imported_string": null
@@ -2545,6 +2572,7 @@
             "first_name": "Katariina",
             "last_name": "Romppainen",
             "image_attr": "",
+            "qid": null,
             "bio": null,
             "bio_src": "",
             "imported_string": null
@@ -2602,6 +2630,7 @@
                       "first_name": "Helena",
                       "last_name": "Väisänen",
                       "image_attr": "",
+                      "qid": null,
                       "bio": null,
                       "bio_src": "",
                       "imported_string": null
@@ -2706,6 +2735,7 @@
                 "first_name": "Helena",
                 "last_name": "Väisänen",
                 "image_attr": "",
+                "qid": null,
                 "bio": null,
                 "bio_src": "",
                 "imported_string": null
@@ -2813,6 +2843,7 @@
             "first_name": "Carita",
             "last_name": "Forsgren",
             "image_attr": "",
+            "qid": null,
             "bio": null,
             "bio_src": "",
             "imported_string": null
@@ -2870,6 +2901,7 @@
                       "first_name": "Helena",
                       "last_name": "Väisänen",
                       "image_attr": "",
+                      "qid": null,
                       "bio": null,
                       "bio_src": "",
                       "imported_string": null
@@ -2974,6 +3006,7 @@
                 "first_name": "Helena",
                 "last_name": "Väisänen",
                 "image_attr": "",
+                "qid": null,
                 "bio": null,
                 "bio_src": "",
                 "imported_string": null
@@ -3079,6 +3112,7 @@
             "first_name": "Jaakko Markus",
             "last_name": "Seppälä",
             "image_attr": "",
+            "qid": null,
             "bio": null,
             "bio_src": "",
             "imported_string": null
@@ -3136,6 +3170,7 @@
                       "first_name": "Helena",
                       "last_name": "Väisänen",
                       "image_attr": "",
+                      "qid": null,
                       "bio": null,
                       "bio_src": "",
                       "imported_string": null
@@ -3240,6 +3275,7 @@
                 "first_name": "Helena",
                 "last_name": "Väisänen",
                 "image_attr": "",
+                "qid": null,
                 "bio": null,
                 "bio_src": "",
                 "imported_string": null

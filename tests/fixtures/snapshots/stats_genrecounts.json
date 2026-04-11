@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-03T11:14:39.033191+00:00",
+    "generated_at": "2026-04-11T20:33:54.117860+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/genrecounts",
@@ -10,24 +10,24 @@
   "response": {
     "status_code": 200,
     "data": {
-      "F": 2127,
-      "K": 712,
+      "F": 2142,
+      "K": 715,
       "Paleof": 48,
       "PF": 102,
-      "SF": 1771,
+      "SF": 1776,
       "VEH": 64,
       "Utopia": 14,
-      "nF": 1235,
+      "nF": 1238,
       "nSF": 414,
-      "nK": 186,
+      "nK": 188,
       "lSF": 35,
       "satu": 5,
       "rajatap": 120,
       "lasten kuvakirja": 14,
       "kok": 664,
-      "lF": 414,
+      "lF": 418,
       "R": 30,
-      "eiSF": 64
+      "eiSF": 65
     },
     "error": null
   }

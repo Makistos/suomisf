@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-03T11:14:39.033191+00:00",
+    "generated_at": "2026-04-11T20:33:54.117860+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/worksbyyear",
@@ -1194,9 +1194,15 @@
       },
       {
         "year": 1951,
-        "count": 5,
+        "count": 3,
         "language_id": 1,
         "language_name": "englanti"
+      },
+      {
+        "year": 1951,
+        "count": 2,
+        "language_id": 54,
+        "language_name": "esperanto"
       },
       {
         "year": 1951,
@@ -2695,6 +2701,12 @@
       {
         "year": 1993,
         "count": 1,
+        "language_id": 10,
+        "language_name": "tanska"
+      },
+      {
+        "year": 1993,
+        "count": 1,
         "language_id": 9,
         "language_name": "venäjä"
       },
@@ -2751,12 +2763,6 @@
         "count": 18,
         "language_id": 7,
         "language_name": "suomi"
-      },
-      {
-        "year": 1994,
-        "count": 1,
-        "language_id": 10,
-        "language_name": "tanska"
       },
       {
         "year": 1995,
@@ -3252,7 +3258,7 @@
       },
       {
         "year": 2005,
-        "count": 100,
+        "count": 101,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -3306,7 +3312,7 @@
       },
       {
         "year": 2006,
-        "count": 111,
+        "count": 112,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -3624,7 +3630,7 @@
       },
       {
         "year": 2011,
-        "count": 133,
+        "count": 134,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -3678,7 +3684,7 @@
       },
       {
         "year": 2012,
-        "count": 103,
+        "count": 104,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -3738,7 +3744,7 @@
       },
       {
         "year": 2013,
-        "count": 103,
+        "count": 102,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -3845,12 +3851,6 @@
         "language_name": "venäjä"
       },
       {
-        "year": 2014,
-        "count": 5,
-        "language_id": null,
-        "language_name": null
-      },
-      {
         "year": 2015,
         "count": 81,
         "language_id": 1,
@@ -3900,7 +3900,7 @@
       },
       {
         "year": 2015,
-        "count": 71,
+        "count": 72,
         "language_id": 7,
         "language_name": "suomi"
       },
@@ -4086,7 +4086,7 @@
       },
       {
         "year": 2018,
-        "count": 120,
+        "count": 121,
         "language_id": 7,
         "language_name": "suomi"
       },
@@ -4415,12 +4415,6 @@
         "language_name": "viro"
       },
       {
-        "year": 2023,
-        "count": 2,
-        "language_id": null,
-        "language_name": null
-      },
-      {
         "year": 2024,
         "count": 74,
         "language_id": 1,
@@ -4560,7 +4554,7 @@
       },
       {
         "year": 2025,
-        "count": 108,
+        "count": 109,
         "language_id": 7,
         "language_name": "suomi"
       },
@@ -4584,7 +4578,7 @@
       },
       {
         "year": 2026,
-        "count": 8,
+        "count": 20,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -4602,7 +4596,7 @@
       },
       {
         "year": 2026,
-        "count": 6,
+        "count": 13,
         "language_id": 7,
         "language_name": "suomi"
       },

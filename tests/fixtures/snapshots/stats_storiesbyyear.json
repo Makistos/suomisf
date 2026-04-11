@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-03T11:14:39.033191+00:00",
+    "generated_at": "2026-04-11T20:33:54.117860+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/storiesbyyear",
@@ -116,7 +116,7 @@
       },
       {
         "year": 1803,
-        "count": 2,
+        "count": 1,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 19,
@@ -1708,7 +1708,7 @@
       },
       {
         "year": 1902,
-        "count": 1,
+        "count": 2,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 18,
@@ -2380,6 +2380,14 @@
       },
       {
         "year": 1922,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
+      },
+      {
+        "year": 1922,
         "count": 2,
         "storytype_id": 1,
         "storytype_name": "Novelli",
@@ -2809,6 +2817,14 @@
         "storytype_name": "Novelli",
         "language_id": 1,
         "language_name": "englanti"
+      },
+      {
+        "year": 1936,
+        "count": 1,
+        "storytype_id": 1,
+        "storytype_name": "Novelli",
+        "language_id": 18,
+        "language_name": "italia"
       },
       {
         "year": 1936,
@@ -5492,7 +5508,7 @@
       },
       {
         "year": 1993,
-        "count": 160,
+        "count": 164,
         "storytype_id": 7,
         "storytype_name": "Artikkeli",
         "language_id": 7,
@@ -5508,7 +5524,7 @@
       },
       {
         "year": 1993,
-        "count": 68,
+        "count": 69,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 7,
@@ -5580,7 +5596,7 @@
       },
       {
         "year": 1994,
-        "count": 2,
+        "count": 1,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 18,
@@ -6196,7 +6212,7 @@
       },
       {
         "year": 2002,
-        "count": 96,
+        "count": 104,
         "storytype_id": 7,
         "storytype_name": "Artikkeli",
         "language_id": 7,
@@ -6236,7 +6252,7 @@
       },
       {
         "year": 2002,
-        "count": 68,
+        "count": 69,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 7,
@@ -6257,6 +6273,14 @@
         "storytype_name": "Pitkä novelli",
         "language_id": 1,
         "language_name": "englanti"
+      },
+      {
+        "year": 2002,
+        "count": 4,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": 7,
+        "language_name": "suomi"
       },
       {
         "year": 2003,
@@ -6505,14 +6529,6 @@
         "storytype_name": "Novelli",
         "language_id": 1,
         "language_name": "englanti"
-      },
-      {
-        "year": 2006,
-        "count": 2,
-        "storytype_id": 1,
-        "storytype_name": "Novelli",
-        "language_id": 18,
-        "language_name": "italia"
       },
       {
         "year": 2006,
@@ -7852,7 +7868,7 @@
       },
       {
         "year": 2024,
-        "count": 25,
+        "count": 23,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 15,

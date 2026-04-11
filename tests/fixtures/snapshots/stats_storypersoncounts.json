@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-03T11:14:39.033191+00:00",
+    "generated_at": "2026-04-11T20:33:54.117860+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/storypersoncounts",
@@ -73,10 +73,10 @@
             "Kirjoittaja": 1
           },
           "Artikkeli": {
-            "Kirjoittaja": 302
+            "Kirjoittaja": 306
           }
         },
-        "total": 350
+        "total": 354
       },
       {
         "id": 781,
@@ -93,7 +93,7 @@
           "Artikkeli": {
             "Kirjoittaja": 101,
             "Kääntäjä": 2,
-            "Esiintyy": 7
+            "Esiintyy": 8
           }
         },
         "total": 235
@@ -114,11 +114,11 @@
             "Kirjoittaja": 1
           },
           "Artikkeli": {
-            "Kirjoittaja": 99,
+            "Kirjoittaja": 100,
             "Esiintyy": 9
           }
         },
-        "total": 179
+        "total": 180
       },
       {
         "id": 2065,
@@ -232,8 +232,8 @@
         "nationality": null,
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 8396,
-            "Kääntäjä": 1232,
+            "Kirjoittaja": 8408,
+            "Kääntäjä": 1243,
             "Toimittaja": 0,
             "Kansikuva": 0,
             "Kuvittaja": 0,
@@ -268,7 +268,7 @@
             "Päätoimittaja": 0
           },
           "Raapale": {
-            "Kirjoittaja": 657,
+            "Kirjoittaja": 661,
             "Kääntäjä": 0,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -286,12 +286,12 @@
             "Päätoimittaja": 0
           },
           "Artikkeli": {
-            "Kirjoittaja": 4339,
+            "Kirjoittaja": 4351,
             "Kääntäjä": 55,
             "Toimittaja": 0,
             "Kansikuva": 0,
             "Kuvittaja": 0,
-            "Esiintyy": 1205,
+            "Esiintyy": 1207,
             "Päätoimittaja": 0
           },
           "Esipuhe": {
@@ -313,7 +313,7 @@
             "Päätoimittaja": 0
           }
         },
-        "total": 13719
+        "total": 13747
       }
     ],
     "error": null

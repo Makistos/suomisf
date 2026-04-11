@@ -479,7 +479,7 @@ def api_person_image_add(personid: str) -> Response:
         return make_api_response(response)
 
     data = request.json
-    if not data:
+    if not data or 'src' not in data:
         app.logger.error('api_person_image_add: Missing data.')
         response = ResponseType(
             'api_person_image_add: data puuttuu.',

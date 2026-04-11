@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-03T11:14:39.033191+00:00",
+    "generated_at": "2026-04-11T20:33:54.117860+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/people/5",
@@ -11,109 +11,33 @@
     "status_code": 200,
     "data": [
       {
-        "id": 7785.0,
-        "name": "Sperry, A. W.",
-        "alt_name": "A. W. Sperry",
-        "fullname": "Armstrong Wells Sperry",
+        "id": 7826.0,
+        "name": "Testiperson, API",
+        "alt_name": "Testiperson, API",
+        "fullname": "Testiperson, API",
         "image_src": null,
-        "dob": 1897.0,
-        "dod": 1976.0,
-        "nationality": {
-          "id": 3,
-          "name": "Yhdysvallat"
-        },
-        "workcount": 0.0,
-        "storycount": 0,
-        "roles": [
-          "Kansikuva"
-        ],
-        "other_names": "",
-        "first_name": null,
-        "last_name": null,
-        "image_attr": null,
-        "bio": "",
-        "bio_src": "",
-        "imported_string": null
-      },
-      {
-        "id": 7782.0,
-        "name": "Nopsanen, Aarne",
-        "alt_name": "Aarne Nopsanen",
-        "fullname": "",
-        "image_src": null,
-        "dob": 1907.0,
-        "dod": 1990.0,
-        "nationality": {
-          "id": 4,
-          "name": "Suomi"
-        },
-        "workcount": 0.0,
-        "storycount": 0,
-        "roles": [
-          "Kansikuva"
-        ],
-        "other_names": "",
-        "first_name": null,
-        "last_name": null,
-        "image_attr": null,
-        "bio": "",
-        "bio_src": "",
-        "imported_string": null
-      },
-      {
-        "id": 7781.0,
-        "name": "Bourgouin, Mikaël",
-        "alt_name": "Mikaël Bourgouin",
-        "fullname": "",
-        "image_src": null,
-        "dob": 1982.0,
+        "dob": 1990.0,
         "dod": null,
         "nationality": {
-          "id": 8,
-          "name": "Ranska"
+          "id": 1,
+          "name": "Iso-Britannia"
         },
         "workcount": 0.0,
         "storycount": 0,
-        "roles": [
-          "Kansikuva"
-        ],
-        "other_names": "",
-        "first_name": null,
-        "last_name": null,
+        "roles": [],
+        "other_names": null,
+        "first_name": "API",
+        "last_name": "Testiperson",
         "image_attr": null,
-        "bio": "",
-        "bio_src": "",
+        "qid": null,
+        "bio": null,
+        "bio_src": null,
         "imported_string": null
       },
       {
-        "id": 7780.0,
-        "name": "Puysségur, Alain T.",
-        "alt_name": "Alain T. Puysségur",
-        "fullname": "",
-        "image_src": null,
-        "dob": 1991.0,
-        "dod": null,
-        "nationality": {
-          "id": 8,
-          "name": "Ranska"
-        },
-        "workcount": 1.0,
-        "storycount": 0,
-        "roles": [
-          "Kirjoittaja"
-        ],
-        "other_names": "",
-        "first_name": null,
-        "last_name": null,
-        "image_attr": null,
-        "bio": "",
-        "bio_src": "",
-        "imported_string": null
-      },
-      {
-        "id": 7779.0,
-        "name": "Nikkanen, Jarkko",
-        "alt_name": "Jarkko Nikkanen",
+        "id": 7810.0,
+        "name": "Ilmari",
+        "alt_name": "Ilmari",
         "fullname": "",
         "image_src": null,
         "dob": null,
@@ -123,14 +47,93 @@
           "name": "Suomi"
         },
         "workcount": 0.0,
-        "storycount": 0,
+        "storycount": 1,
         "roles": [
-          "Kansikuva"
+          "Kirjoittaja"
         ],
         "other_names": "",
         "first_name": null,
         "last_name": null,
         "image_attr": null,
+        "qid": "",
+        "bio": "",
+        "bio_src": "",
+        "imported_string": null
+      },
+      {
+        "id": 7809.0,
+        "name": "Talvio, Maila",
+        "alt_name": "Maila Talvio",
+        "fullname": "Maria Mikkola",
+        "image_src": null,
+        "dob": 1871.0,
+        "dod": 1951.0,
+        "nationality": {
+          "id": 4,
+          "name": "Suomi"
+        },
+        "workcount": 0.0,
+        "storycount": 1,
+        "roles": [
+          "Kääntäjä"
+        ],
+        "other_names": "",
+        "first_name": null,
+        "last_name": null,
+        "image_attr": null,
+        "qid": "",
+        "bio": "",
+        "bio_src": "",
+        "imported_string": null
+      },
+      {
+        "id": 7808.0,
+        "name": "Millar, Mark",
+        "alt_name": "Mark Millar",
+        "fullname": "",
+        "image_src": null,
+        "dob": 1969.0,
+        "dod": null,
+        "nationality": {
+          "id": 1,
+          "name": "Iso-Britannia"
+        },
+        "workcount": 0.0,
+        "storycount": 1,
+        "roles": [
+          "Esiintyy"
+        ],
+        "other_names": "",
+        "first_name": null,
+        "last_name": null,
+        "image_attr": null,
+        "qid": "",
+        "bio": "",
+        "bio_src": "",
+        "imported_string": null
+      },
+      {
+        "id": 7807.0,
+        "name": "Gernsback, Hugo",
+        "alt_name": "Hugo Gernsback",
+        "fullname": "",
+        "image_src": null,
+        "dob": 1884.0,
+        "dod": 1967.0,
+        "nationality": {
+          "id": 3,
+          "name": "Yhdysvallat"
+        },
+        "workcount": 0.0,
+        "storycount": 1,
+        "roles": [
+          "Esiintyy"
+        ],
+        "other_names": "",
+        "first_name": null,
+        "last_name": null,
+        "image_attr": null,
+        "qid": "",
         "bio": "",
         "bio_src": "",
         "imported_string": null

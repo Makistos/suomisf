@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-03T11:14:39.033191+00:00",
+    "generated_at": "2026-04-11T20:33:54.117860+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/storynationalitycounts",
@@ -15,8 +15,8 @@
         "nationality": "Suomi",
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 1156,
-            "Kääntäjä": 400
+            "Kirjoittaja": 1161,
+            "Kääntäjä": 401
           },
           "Pitkä novelli": {
             "Kääntäjä": 15
@@ -30,16 +30,16 @@
             "Kääntäjä": 16
           },
           "Raapale": {
-            "Kirjoittaja": 135
+            "Kirjoittaja": 138
           },
           "Filk-laulu": {
             "Kirjoittaja": 27,
             "Esiintyy": 3
           },
           "Artikkeli": {
-            "Kirjoittaja": 781,
+            "Kirjoittaja": 782,
             "Kääntäjä": 44,
-            "Esiintyy": 252
+            "Esiintyy": 253
           },
           "Esipuhe": {
             "Kirjoittaja": 3,
@@ -52,14 +52,14 @@
             "Esiintyy": 1
           }
         },
-        "count": 2140
+        "count": 2146
       },
       {
         "nationality_id": 3,
         "nationality": "Yhdysvallat",
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 444
+            "Kirjoittaja": 449
           },
           "Pitkä novelli": {
             "Kirjoittaja": 26
@@ -72,7 +72,7 @@
           },
           "Artikkeli": {
             "Kirjoittaja": 29,
-            "Esiintyy": 212
+            "Esiintyy": 214
           },
           "Esipuhe": {
             "Kirjoittaja": 1
@@ -81,14 +81,14 @@
             "Kirjoittaja": 1
           }
         },
-        "count": 550
+        "count": 558
       },
       {
         "nationality_id": 1,
         "nationality": "Iso-Britannia",
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 203
+            "Kirjoittaja": 206
           },
           "Pitkä novelli": {
             "Kirjoittaja": 2
@@ -97,31 +97,31 @@
             "Kirjoittaja": 3
           },
           "Runo": {
-            "Kirjoittaja": 5
+            "Kirjoittaja": 6
           },
           "Raapale": {
             "Kirjoittaja": 1
           },
           "Artikkeli": {
             "Kirjoittaja": 23,
-            "Esiintyy": 125
+            "Esiintyy": 127
           },
           "Esipuhe": {
             "Kirjoittaja": 1
           }
         },
-        "count": 264
+        "count": 269
       },
       {
         "nationality_id": null,
         "nationality": null,
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 85,
+            "Kirjoittaja": 76,
             "Kääntäjä": 4
           },
           "Runo": {
-            "Kirjoittaja": 2
+            "Kirjoittaja": 1
           },
           "Raapale": {
             "Kirjoittaja": 2
@@ -130,12 +130,12 @@
             "Kirjoittaja": 1
           },
           "Artikkeli": {
-            "Kirjoittaja": 29,
+            "Kirjoittaja": 28,
             "Kääntäjä": 1,
             "Esiintyy": 6
           }
         },
-        "count": 119
+        "count": 108
       },
       {
         "nationality_id": 5,
@@ -275,16 +275,6 @@
         "count": 10
       },
       {
-        "nationality_id": 24,
-        "nationality": "Portugali",
-        "storytypes": {
-          "Novelli": {
-            "Kirjoittaja": 9
-          }
-        },
-        "count": 9
-      },
-      {
         "nationality_id": 31,
         "nationality": "Tanska",
         "storytypes": {
@@ -293,6 +283,16 @@
           },
           "Artikkeli": {
             "Esiintyy": 1
+          }
+        },
+        "count": 9
+      },
+      {
+        "nationality_id": 24,
+        "nationality": "Portugali",
+        "storytypes": {
+          "Novelli": {
+            "Kirjoittaja": 9
           }
         },
         "count": 9
@@ -366,6 +366,16 @@
         "count": 7
       },
       {
+        "nationality_id": 34,
+        "nationality": "Unkari",
+        "storytypes": {
+          "Novelli": {
+            "Kirjoittaja": 6
+          }
+        },
+        "count": 6
+      },
+      {
         "nationality_id": 51,
         "nationality": "Alankomaat",
         "storytypes": {
@@ -380,14 +390,18 @@
         "count": 6
       },
       {
-        "nationality_id": 34,
-        "nationality": "Unkari",
+        "nationality_id": 9,
+        "nationality": "Belgia",
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 6
+            "Kirjoittaja": 3
+          },
+          "Artikkeli": {
+            "Kirjoittaja": 1,
+            "Esiintyy": 1
           }
         },
-        "count": 6
+        "count": 4
       },
       {
         "nationality_id": 2,
@@ -399,20 +413,6 @@
           "Artikkeli": {
             "Kirjoittaja": 1,
             "Esiintyy": 2
-          }
-        },
-        "count": 4
-      },
-      {
-        "nationality_id": 9,
-        "nationality": "Belgia",
-        "storytypes": {
-          "Novelli": {
-            "Kirjoittaja": 3
-          },
-          "Artikkeli": {
-            "Kirjoittaja": 1,
-            "Esiintyy": 1
           }
         },
         "count": 4
@@ -442,8 +442,8 @@
         "count": 4
       },
       {
-        "nationality_id": 33,
-        "nationality": "Nigeria",
+        "nationality_id": 13,
+        "nationality": "Itävalta",
         "storytypes": {
           "Novelli": {
             "Kirjoittaja": 2
@@ -481,8 +481,8 @@
         "count": 3
       },
       {
-        "nationality_id": 13,
-        "nationality": "Itävalta",
+        "nationality_id": 33,
+        "nationality": "Nigeria",
         "storytypes": {
           "Novelli": {
             "Kirjoittaja": 2
@@ -504,6 +504,16 @@
         "count": 2
       },
       {
+        "nationality_id": 42,
+        "nationality": "Kolumbia",
+        "storytypes": {
+          "Novelli": {
+            "Kirjoittaja": 2
+          }
+        },
+        "count": 2
+      },
+      {
         "nationality_id": 43,
         "nationality": "Romania",
         "storytypes": {
@@ -517,18 +527,54 @@
         "count": 2
       },
       {
-        "nationality_id": 42,
-        "nationality": "Kolumbia",
+        "nationality_id": 54,
+        "nationality": "Uruguay",
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 2
+            "Kirjoittaja": 1
           }
         },
-        "count": 2
+        "count": 1
       },
       {
-        "nationality_id": 47,
-        "nationality": "Chile",
+        "nationality_id": 23,
+        "nationality": "Tsekkoslovakia",
+        "storytypes": {
+          "Novelli": {
+            "Kirjoittaja": 1
+          },
+          "Artikkeli": {
+            "Esiintyy": 1
+          }
+        },
+        "count": 1
+      },
+      {
+        "nationality_id": 21,
+        "nationality": "Intia",
+        "storytypes": {
+          "Novelli": {
+            "Kirjoittaja": 1
+          },
+          "Artikkeli": {
+            "Esiintyy": 1
+          }
+        },
+        "count": 1
+      },
+      {
+        "nationality_id": 49,
+        "nationality": "Kuuba",
+        "storytypes": {
+          "Artikkeli": {
+            "Esiintyy": 1
+          }
+        },
+        "count": 1
+      },
+      {
+        "nationality_id": 41,
+        "nationality": "Kreikka",
         "storytypes": {
           "Artikkeli": {
             "Esiintyy": 1
@@ -539,16 +585,6 @@
       {
         "nationality_id": 29,
         "nationality": "Zimbabwe",
-        "storytypes": {
-          "Novelli": {
-            "Kirjoittaja": 1
-          }
-        },
-        "count": 1
-      },
-      {
-        "nationality_id": 48,
-        "nationality": "Brasilia",
         "storytypes": {
           "Novelli": {
             "Kirjoittaja": 1
@@ -577,55 +613,9 @@
         "count": 1
       },
       {
-        "nationality_id": 53,
-        "nationality": "Latvia",
-        "storytypes": {
-          "Novelli": {
-            "Kirjoittaja": 1
-          }
-        },
-        "count": 1
-      },
-      {
-        "nationality_id": 21,
-        "nationality": "Intia",
-        "storytypes": {
-          "Novelli": {
-            "Kirjoittaja": 1
-          },
-          "Artikkeli": {
-            "Esiintyy": 1
-          }
-        },
-        "count": 1
-      },
-      {
-        "nationality_id": 54,
-        "nationality": "Uruguay",
-        "storytypes": {
-          "Novelli": {
-            "Kirjoittaja": 1
-          }
-        },
-        "count": 1
-      },
-      {
         "nationality_id": 58,
         "nationality": "Taiwan",
         "storytypes": {
-          "Artikkeli": {
-            "Esiintyy": 1
-          }
-        },
-        "count": 1
-      },
-      {
-        "nationality_id": 23,
-        "nationality": "Tsekkoslovakia",
-        "storytypes": {
-          "Novelli": {
-            "Kirjoittaja": 1
-          },
           "Artikkeli": {
             "Esiintyy": 1
           }
@@ -646,8 +636,8 @@
         "count": 1
       },
       {
-        "nationality_id": 41,
-        "nationality": "Kreikka",
+        "nationality_id": 56,
+        "nationality": "Indonesia",
         "storytypes": {
           "Artikkeli": {
             "Esiintyy": 1
@@ -656,11 +646,41 @@
         "count": 1
       },
       {
-        "nationality_id": 49,
-        "nationality": "Kuuba",
+        "nationality_id": 53,
+        "nationality": "Latvia",
+        "storytypes": {
+          "Novelli": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 1
+      },
+      {
+        "nationality_id": 47,
+        "nationality": "Chile",
         "storytypes": {
           "Artikkeli": {
             "Esiintyy": 1
+          }
+        },
+        "count": 1
+      },
+      {
+        "nationality_id": 48,
+        "nationality": "Brasilia",
+        "storytypes": {
+          "Novelli": {
+            "Kirjoittaja": 1
+          }
+        },
+        "count": 1
+      },
+      {
+        "nationality_id": 68,
+        "nationality": "Liettua",
+        "storytypes": {
+          "Artikkeli": {
+            "Kirjoittaja": 1
           }
         },
         "count": 1

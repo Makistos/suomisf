@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-03T11:14:39.033191+00:00",
+    "generated_at": "2026-04-11T20:33:54.117860+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/personcounts",
@@ -86,6 +86,24 @@
         "total": 62
       },
       {
+        "id": 612,
+        "name": "Salvatore, R. A.",
+        "alt_name": "R. A. Salvatore",
+        "nationality": "Yhdysvallat",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 50
+          },
+          "SF": {
+            "Kirjoittaja": 1
+          },
+          "kok": {
+            "Kirjoittaja": 1
+          }
+        },
+        "total": 51
+      },
+      {
         "id": 1556,
         "name": "Pratchett, Terry",
         "alt_name": "Terry Pratchett",
@@ -102,24 +120,6 @@
           },
           "nF": {
             "Kirjoittaja": 3
-          }
-        },
-        "total": 51
-      },
-      {
-        "id": 612,
-        "name": "Salvatore, R. A.",
-        "alt_name": "R. A. Salvatore",
-        "nationality": "Yhdysvallat",
-        "genres": {
-          "F": {
-            "Kirjoittaja": 50
-          },
-          "SF": {
-            "Kirjoittaja": 1
-          },
-          "kok": {
-            "Kirjoittaja": 1
           }
         },
         "total": 51
@@ -201,16 +201,16 @@
         "nationality": null,
         "genres": {
           "F": {
-            "Kirjoittaja": 1903,
+            "Kirjoittaja": 1919,
             "Kääntäjä": 0,
             "Toimittaja": 83,
             "Kansikuva": 0,
             "Kuvittaja": 0,
-            "Esiintyy": 26,
+            "Esiintyy": 29,
             "Päätoimittaja": 0
           },
           "K": {
-            "Kirjoittaja": 568,
+            "Kirjoittaja": 571,
             "Kääntäjä": 0,
             "Toimittaja": 64,
             "Kansikuva": 0,
@@ -237,7 +237,7 @@
             "Päätoimittaja": 0
           },
           "SF": {
-            "Kirjoittaja": 1685,
+            "Kirjoittaja": 1690,
             "Kääntäjä": 0,
             "Toimittaja": 73,
             "Kansikuva": 0,
@@ -264,7 +264,7 @@
             "Päätoimittaja": 0
           },
           "nF": {
-            "Kirjoittaja": 1227,
+            "Kirjoittaja": 1230,
             "Kääntäjä": 0,
             "Toimittaja": 2,
             "Kansikuva": 0,
@@ -282,7 +282,7 @@
             "Päätoimittaja": 0
           },
           "nK": {
-            "Kirjoittaja": 136,
+            "Kirjoittaja": 138,
             "Kääntäjä": 0,
             "Toimittaja": 7,
             "Kansikuva": 0,
@@ -336,7 +336,7 @@
             "Päätoimittaja": 0
           },
           "lF": {
-            "Kirjoittaja": 426,
+            "Kirjoittaja": 430,
             "Kääntäjä": 0,
             "Toimittaja": 4,
             "Kansikuva": 0,
@@ -354,7 +354,7 @@
             "Päätoimittaja": 0
           },
           "eiSF": {
-            "Kirjoittaja": 50,
+            "Kirjoittaja": 51,
             "Kääntäjä": 0,
             "Toimittaja": 1,
             "Kansikuva": 0,
@@ -363,7 +363,7 @@
             "Päätoimittaja": 0
           }
         },
-        "total": 6422
+        "total": 6449
       }
     ],
     "error": null

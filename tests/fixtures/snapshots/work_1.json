@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-03T11:14:39.033191+00:00",
+    "generated_at": "2026-04-11T20:33:54.117860+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/works/1",
@@ -49,6 +49,7 @@
               "first_name": "Aira",
               "last_name": "Buffa",
               "image_attr": "",
+              "qid": null,
               "bio": "",
               "bio_src": "",
               "imported_string": "\n<b>Kivineitsyt</b>. (Stone Virgin, 1985). Suom Aira Buffa. WSOY 1986. [F]."
@@ -100,6 +101,7 @@
                     "first_name": "Aira",
                     "last_name": "Buffa",
                     "image_attr": "",
+                    "qid": null,
                     "bio": "",
                     "bio_src": "",
                     "imported_string": "\n<b>Kivineitsyt</b>. (Stone Virgin, 1985). Suom Aira Buffa. WSOY 1986. [F]."

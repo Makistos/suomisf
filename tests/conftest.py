@@ -145,6 +145,10 @@ def clone_test_database():
     _apply_migration_005()
     # Apply migration 006 (Person.qid, PersonImage table)
     _apply_migration_006()
+    # Apply migration 007 (fix log table)
+    _apply_migration_007()
+    # Apply migration 008 (link/description columns to TEXT)
+    _apply_migration_008()
 
 
 MIGRATIONS_DIR = os.path.join(
@@ -172,6 +176,14 @@ MIGRATION_005_SQL = os.path.join(
 
 MIGRATION_006_SQL = os.path.join(
     MIGRATIONS_DIR, '006_person_qid_and_image.sql'
+)
+
+MIGRATION_007_SQL = os.path.join(
+    MIGRATIONS_DIR, '007_fix_log_table.sql'
+)
+
+MIGRATION_008_SQL = os.path.join(
+    MIGRATIONS_DIR, '008_link_columns_to_text.sql'
 )
 
 
@@ -281,6 +293,42 @@ def _apply_migration_006():
             f"Migration 006 failed: {result.stderr[:400]}"
         )
     print("[setup] Migration 006 applied")
+
+
+def _apply_migration_007():
+    """Apply migration 007 SQL to the test database."""
+    if not os.path.exists(MIGRATION_007_SQL):
+        print("[setup] Migration 007 SQL not found, skipping")
+        return
+    print("[setup] Applying migration 007...")
+    result = subprocess.run(
+        ['psql', '-U', DB_USER, '-d', TEST_DB_NAME,
+         '-f', MIGRATION_007_SQL],
+        capture_output=True, text=True
+    )
+    if result.returncode != 0:
+        raise RuntimeError(
+            f"Migration 007 failed: {result.stderr[:400]}"
+        )
+    print("[setup] Migration 007 applied")
+
+
+def _apply_migration_008():
+    """Apply migration 008 SQL to the test database."""
+    if not os.path.exists(MIGRATION_008_SQL):
+        print("[setup] Migration 008 SQL not found, skipping")
+        return
+    print("[setup] Applying migration 008...")
+    result = subprocess.run(
+        ['psql', '-U', DB_USER, '-d', TEST_DB_NAME,
+         '-f', MIGRATION_008_SQL],
+        capture_output=True, text=True
+    )
+    if result.returncode != 0:
+        raise RuntimeError(
+            f"Migration 008 failed: {result.stderr[:400]}"
+        )
+    print("[setup] Migration 008 applied")
 
 
 def create_test_users():

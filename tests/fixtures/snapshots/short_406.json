@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-03T11:14:39.033191+00:00",
+    "generated_at": "2026-04-11T20:33:54.117860+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/shorts/406",
@@ -33,6 +33,7 @@
           "first_name": "Edgar Allan",
           "last_name": "Poe",
           "image_attr": "",
+          "qid": null,
           "bio": null,
           "bio_src": "",
           "imported_string": null
@@ -60,6 +61,7 @@
           "first_name": "Yrjö",
           "last_name": "Kivimies",
           "image_attr": "",
+          "qid": null,
           "bio": null,
           "bio_src": "",
           "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -113,6 +115,7 @@
                   "first_name": "Yrjö",
                   "last_name": "Jylhä",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
@@ -138,6 +141,7 @@
                   "first_name": "Paavo",
                   "last_name": "Lehtonen",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n<b>Frankenstein - Uusi Prometeus</b>. (Frankenstein, Or the Modern Prometeus, 1818). Suom Paavo Lehtonen. Klassikko-sarja. Gummerus 1973. [SF]."
@@ -163,6 +167,7 @@
                   "first_name": "Eero",
                   "last_name": "Ahmavaara",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -188,6 +193,7 @@
                   "first_name": "Niilo",
                   "last_name": "Idman",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -213,6 +219,7 @@
                   "first_name": "Yrjö",
                   "last_name": "Kivimies",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -555,6 +562,7 @@
                   "first_name": "Eero",
                   "last_name": "Ahmavaara",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -580,6 +588,7 @@
                   "first_name": "Niilo",
                   "last_name": "Idman",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -605,6 +614,7 @@
                   "first_name": "Yrjö",
                   "last_name": "Kivimies",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -706,6 +716,7 @@
                   "first_name": "Yrjö",
                   "last_name": "Jylhä",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
@@ -731,6 +742,7 @@
                   "first_name": "Eero",
                   "last_name": "Ahmavaara",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -756,6 +768,7 @@
                   "first_name": "Niilo",
                   "last_name": "Idman",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -781,6 +794,7 @@
                   "first_name": "Yrjö",
                   "last_name": "Kivimies",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -895,6 +909,7 @@
                   "first_name": "Yrjö",
                   "last_name": "Jylhä",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
@@ -920,6 +935,7 @@
                   "first_name": "Eero",
                   "last_name": "Ahmavaara",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -945,6 +961,7 @@
                   "first_name": "Niilo",
                   "last_name": "Idman",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -970,6 +987,7 @@
                   "first_name": "Yrjö",
                   "last_name": "Kivimies",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -1084,6 +1102,7 @@
                   "first_name": "Yrjö",
                   "last_name": "Jylhä",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
@@ -1109,6 +1128,7 @@
                   "first_name": "Niilo",
                   "last_name": "Idman",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -1134,6 +1154,7 @@
                   "first_name": "Yrjö",
                   "last_name": "Kivimies",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -1311,6 +1332,7 @@
                   "first_name": "Yrjö",
                   "last_name": "Jylhä",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
@@ -1336,6 +1358,7 @@
                   "first_name": "Yrjö",
                   "last_name": "Kivimies",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -1621,6 +1644,7 @@
                   "first_name": "Eero",
                   "last_name": "Ahmavaara",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -1646,6 +1670,7 @@
                   "first_name": "Niilo",
                   "last_name": "Idman",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -1671,6 +1696,7 @@
                   "first_name": "Yrjö",
                   "last_name": "Kivimies",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -1772,6 +1798,7 @@
                   "first_name": "Eero",
                   "last_name": "Ahmavaara",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -1797,6 +1824,7 @@
                   "first_name": "Niilo",
                   "last_name": "Idman",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -1822,6 +1850,7 @@
                   "first_name": "Yrjö",
                   "last_name": "Kivimies",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -1917,6 +1946,7 @@
                   "first_name": "Eero",
                   "last_name": "Ahmavaara",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -1942,6 +1972,7 @@
                   "first_name": "Niilo",
                   "last_name": "Idman",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -1967,6 +1998,7 @@
                   "first_name": "Yrjö",
                   "last_name": "Kivimies",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -2062,6 +2094,7 @@
                   "first_name": "Eero",
                   "last_name": "Ahmavaara",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -2087,6 +2120,7 @@
                   "first_name": "Niilo",
                   "last_name": "Idman",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -2112,6 +2146,7 @@
                   "first_name": "Yrjö",
                   "last_name": "Kivimies",
                   "image_attr": "",
+                  "qid": null,
                   "bio": null,
                   "bio_src": "",
                   "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -2266,6 +2301,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
@@ -2291,6 +2327,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -2641,6 +2678,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -2666,6 +2704,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -2691,6 +2730,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -2792,6 +2832,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -2817,6 +2858,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -2842,6 +2884,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -2937,6 +2980,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -2962,6 +3006,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -2987,6 +3032,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -3082,6 +3128,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -3107,6 +3154,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -3132,6 +3180,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -3361,6 +3410,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -3386,6 +3436,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -3411,6 +3462,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -3512,6 +3564,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
@@ -3537,6 +3590,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -3562,6 +3616,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -3587,6 +3642,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -3701,6 +3757,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
@@ -3726,6 +3783,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -3751,6 +3809,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -3776,6 +3835,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -3890,6 +3950,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
@@ -3915,6 +3976,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -3940,6 +4002,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -4221,6 +4284,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -4246,6 +4310,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -4271,6 +4336,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -4372,6 +4438,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
@@ -4397,6 +4464,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -4422,6 +4490,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -4447,6 +4516,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -4561,6 +4631,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
@@ -4586,6 +4657,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -4611,6 +4683,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -4636,6 +4709,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -4750,6 +4824,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
@@ -4775,6 +4850,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -4800,6 +4876,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -5055,6 +5132,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -5080,6 +5158,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -5105,6 +5184,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -5206,6 +5286,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -5231,6 +5312,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -5256,6 +5338,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -5351,6 +5434,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -5376,6 +5460,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -5401,6 +5486,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -5496,6 +5582,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -5521,6 +5608,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -5546,6 +5634,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -5769,6 +5858,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -5794,6 +5884,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -5819,6 +5910,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -5920,6 +6012,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
@@ -5945,6 +6038,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -5970,6 +6064,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -5995,6 +6090,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -6109,6 +6205,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
@@ -6134,6 +6231,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -6159,6 +6257,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -6184,6 +6283,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -6298,6 +6398,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
@@ -6323,6 +6424,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -6348,6 +6450,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -6616,6 +6719,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
@@ -6641,6 +6745,7 @@
                     "first_name": "Paavo",
                     "last_name": "Lehtonen",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n<b>Frankenstein - Uusi Prometeus</b>. (Frankenstein, Or the Modern Prometeus, 1818). Suom Paavo Lehtonen. Klassikko-sarja. Gummerus 1973. [SF]."
@@ -6666,6 +6771,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -6691,6 +6797,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -6716,6 +6823,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -7180,6 +7288,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -7205,6 +7314,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -7230,6 +7340,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -7331,6 +7442,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
@@ -7356,6 +7468,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -7381,6 +7494,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -7406,6 +7520,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -7520,6 +7635,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
@@ -7545,6 +7661,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -7570,6 +7687,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -7595,6 +7713,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -7709,6 +7828,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Jylhä",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n3.laitos: <b>William Shakespearen suuret draamat 1: Romeo ja Julia; Kesäyön unelma; Macbeth</b>. Suom Yrjö Jylhä. Johdanto Eino Krohn. Otava 1955."
@@ -7734,6 +7854,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -7759,6 +7880,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -8027,6 +8149,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -8052,6 +8175,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -8077,6 +8201,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -8178,6 +8303,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -8203,6 +8329,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -8228,6 +8355,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -8323,6 +8451,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -8348,6 +8477,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -8373,6 +8503,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -8468,6 +8599,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -8493,6 +8625,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -8518,6 +8651,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -8741,6 +8875,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -8766,6 +8901,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -8791,6 +8927,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -8892,6 +9029,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -8917,6 +9055,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -8942,6 +9081,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -9037,6 +9177,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -9062,6 +9203,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -9087,6 +9229,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -9182,6 +9325,7 @@
                     "first_name": "Eero",
                     "last_name": "Ahmavaara",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -9207,6 +9351,7 @@
                     "first_name": "Niilo",
                     "last_name": "Idman",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."
@@ -9232,6 +9377,7 @@
                     "first_name": "Yrjö",
                     "last_name": "Kivimies",
                     "image_attr": "",
+                    "qid": null,
                     "bio": null,
                     "bio_src": "",
                     "imported_string": "\n\n<b>Kauhutarinoita</b>. Suom Eero Ahmavaara, Niilo Idman, Yrjö Kivimies, Yrjö \nJylhä & Paavo Lehtonen. Maailman Parhaat Kertojat -sarja. Valitut Palat 1995. [K,kok]."

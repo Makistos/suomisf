@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-03-03T11:14:39.033191+00:00",
+    "generated_at": "2026-04-11T20:33:54.117860+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/people/1",
@@ -15,10 +15,19 @@
       "alt_name": "Barry Unsworth",
       "fullname": "Barry Forster Unsworth",
       "other_names": null,
+      "qid": null,
       "dob": 1930,
       "dod": 2012,
       "bio": null,
       "bio_src": "",
+      "images": [
+        {
+          "id": 7237,
+          "src": "https://example.com/image.jpg?v=2",
+          "attr": null,
+          "license": null
+        }
+      ],
       "nationality": {
         "id": 1,
         "name": "Iso-Britannia"

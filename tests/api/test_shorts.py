@@ -922,18 +922,8 @@ class TestShortContributorRealPerson(BaseAPITest):
           - GET /api/shorts/{id} contributors[0].real_person.id == 2
         Fixtures: admin_client
         """
-        from app.orm_decl import Person
-        from app.route_helpers import new_session
-
-        with admin_client.application.app_context():
-            session = new_session()
-            persons = session.query(Person).limit(2).all()
-            if len(persons) < 2:
-                session.close()
-                pytest.skip('Need at least 2 persons in test DB')
-            person_id = persons[0].id
-            real_id = persons[1].id
-            session.close()
+        person_id = 1
+        real_id = 2
 
         contributors = [
             {

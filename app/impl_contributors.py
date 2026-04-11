@@ -139,7 +139,7 @@ def contributors_have_changed(
         return True
     for idx, old_value in enumerate(old_values):
         new_rp = l[idx].get('real_person')
-        new_real_person_id = new_rp.get('id') if new_rp else None
+        new_real_person_id = new_rp.get('id') or None if new_rp else None
         if old_value.person_id != l[idx]['person']['id'] or \
                 old_value.role_id != l[idx]['role']['id'] or \
                 old_value.description != l[idx]['description'] or \
@@ -177,7 +177,7 @@ def update_short_contributors(
     session.flush()
     for contrib in short_contributors:
         rp = contrib.get('real_person')
-        real_person_id = rp.get('id') if rp else None
+        real_person_id = rp.get('id') or None if rp else None
         sc = StoryContributor(
             shortstory_id=short_id,
             person_id=contrib['person']['id'],
@@ -251,7 +251,7 @@ def update_edition_contributors(
             continue
         description = contrib.get('description')
         rp = contrib.get('real_person')
-        real_person_id = rp.get('id') if rp else None
+        real_person_id = rp.get('id') or None if rp else None
         ec = EditionContributor(
             edition_id=edition.id,
             person_id=contrib['person']['id'],
@@ -311,7 +311,7 @@ def update_work_contributors(
             continue
         description = contrib.get('description')
         rp = contrib.get('real_person')
-        real_person_id = rp.get('id') if rp else None
+        real_person_id = rp.get('id') or None if rp else None
         wc = WorkContributor(
             work_id=work_id,
             person_id=contrib['person']['id'],
