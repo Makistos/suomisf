@@ -226,7 +226,7 @@ class ArticleLink(Base):
     id = Column(Integer, primary_key=True)
     article_id = Column(Integer, ForeignKey('article.id'))
     link = Column(Text(), nullable=False)
-    description = Column(String(100))
+    description = Column(Text())
 
 
 class ArticlePerson(Base):
@@ -343,7 +343,7 @@ class BookseriesLink(Base):
     bookseries_id = Column(Integer, ForeignKey('bookseries.id'),
                            nullable=False)
     link = Column(Text(), nullable=False)
-    description = Column(String(100))
+    description = Column(Text())
 
 
 class EditionContributor(Base):
@@ -663,7 +663,7 @@ class EditionLink(Base):
     id = Column(Integer, primary_key=True)
     edition_id = Column(Integer, ForeignKey('edition.id'), nullable=False)
     link = Column(Text(), nullable=False)
-    description = Column(String(100))
+    description = Column(Text())
 
 
 class EditionPrice(Base):
@@ -1134,7 +1134,7 @@ class PersonLink(Base):
     id = Column(Integer, primary_key=True)
     person_id = Column(Integer, ForeignKey('person.id'), nullable=False)
     link = Column(Text(), nullable=False)
-    description = Column(String(100))
+    description = Column(Text())
 
 
 class PersonTag(Base):
@@ -1190,7 +1190,7 @@ class PublisherLink(Base):
     id = Column(Integer, primary_key=True)
     publisher_id = Column(Integer, ForeignKey('publisher.id'), nullable=False)
     link = Column(Text(), nullable=False)
-    description = Column(String(100))
+    description = Column(Text())
 
 
 class Pubseries(Base):
@@ -1222,7 +1222,7 @@ class PubseriesLink(Base):
     id = Column(Integer, primary_key=True)
     pubseries_id = Column(Integer, ForeignKey('pubseries.id'), nullable=False)
     link = Column(Text(), nullable=False)
-    description = Column(String(100))
+    description = Column(Text())
 
 
 class ShortStory(Base):
@@ -1691,7 +1691,7 @@ class WorkLink(Base):
     id = Column(Integer, primary_key=True)
     work_id = Column(Integer, ForeignKey('work.id'), nullable=False)
     link = Column(Text(), nullable=False)
-    description = Column(String(100))
+    description = Column(Text())
 
 
 class WorkReview(Base):
