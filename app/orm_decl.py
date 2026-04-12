@@ -251,7 +251,7 @@ class Award(Base):
     """ Award table. """
     __tablename__ = 'award'
     id = Column(Integer, primary_key=True)
-    name = Column(String(100), nullable=False)
+    name = Column(String(100, collation='fi-x-icu'), nullable=False)
     description = Column(Text())
     # If this is a domestic award (these are separated in the UI):
     domestic = Column(Boolean, default=False)
@@ -319,7 +319,8 @@ class Bookseries(Base):
     """ Book series table. """
     __tablename__ = 'bookseries'
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False, index=True)
+    name = Column(String(250, collation='fi-x-icu'), nullable=False,
+                  index=True)
     orig_name = Column(String(250))
     description = Column(Text())
     important = Column(Boolean, default=False)
@@ -410,7 +411,8 @@ class Country(Base):
     """ Country table. """
     __tablename__ = 'country'
     id = Column(Integer, primary_key=True)
-    name = Column(String(50), nullable=False, index=True)
+    name = Column(String(50, collation='fi-x-icu'), nullable=False,
+                  index=True)
 
 
 class Edition(Base):
@@ -815,7 +817,8 @@ class Language(Base):
     """ Language table. """
     __tablename__ = 'language'
     id = Column(Integer, primary_key=True)
-    name = Column(String(50), nullable=False, index=True)
+    name = Column(String(50, collation='fi-x-icu'), nullable=False,
+                  index=True)
 
 
 class Log(Base):
@@ -890,8 +893,9 @@ class Person(Base):
     """ Person table. """
     __tablename__ = 'person'
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False, index=True, unique=True)
-    alt_name = Column(String(250), index=True)
+    name = Column(String(250, collation='fi-x-icu'), nullable=False,
+                  index=True, unique=True)
+    alt_name = Column(String(250, collation='fi-x-icu'), index=True)
     fullname = Column(String(250))
     other_names = Column(Text())
     first_name = Column(String(100))
@@ -1169,7 +1173,8 @@ class Publisher(Base):
     """ Publisher table. """
     __tablename__ = 'publisher'
     id = Column(Integer, primary_key=True)
-    name = Column(String(500), nullable=False, unique=True, index=True)
+    name = Column(String(500, collation='fi-x-icu'), nullable=False,
+                  unique=True, index=True)
     fullname = Column(String(500), nullable=False, unique=True)
     description = Column(Text())
     image_src = Column(String(100))
@@ -1197,9 +1202,10 @@ class Pubseries(Base):
     """ Pubseries table. """
     __tablename__ = 'pubseries'
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
+    name = Column(String(250, collation='fi-x-icu'), nullable=False)
     description = Column(Text())
-    publisher_id = Column(Integer, ForeignKey('publisher.id'), nullable=False)
+    publisher_id = Column(
+        Integer, ForeignKey('publisher.id'), nullable=False)
     important = Column(Boolean, default=False)
     image_src = Column(String(100))
     image_attr = Column(String(100))  # Source website name
@@ -1229,8 +1235,9 @@ class ShortStory(Base):
     """ Short story table. """
     __tablename__ = 'shortstory'
     id = Column(Integer, primary_key=True)
-    title = Column(String(700), nullable=False, index=True)
-    orig_title = Column(String(700))
+    title = Column(String(700, collation='fi-x-icu'), nullable=False,
+                   index=True)
+    orig_title = Column(String(700, collation='fi-x-icu'))
     language = Column(Integer, ForeignKey('language.id'))
     pubyear = Column(Integer, index=True)
     story_type = Column(Integer, ForeignKey('storytype.id'))
@@ -1359,7 +1366,8 @@ class Tag(Base):
     """ Tag table. """
     __tablename__ = 'tag'
     id = Column(Integer, primary_key=True)
-    name = Column(String(100), nullable=False, index=True)
+    name = Column(String(100, collation='fi-x-icu'), nullable=False,
+                  index=True)
     description = Column(Text())
     # type = Column(String(100))
     type_id = Column(Integer, ForeignKey('tagtype.id'))
@@ -1502,9 +1510,10 @@ class Work(Base):
     '''
     __tablename__ = 'work'
     id = Column(Integer, primary_key=True)
-    title = Column(String(500), nullable=False, index=True)
+    title = Column(String(500, collation='fi-x-icu'), nullable=False,
+                   index=True)
     subtitle = Column(String(500))
-    orig_title = Column(String(500), index=True)
+    orig_title = Column(String(500, collation='fi-x-icu'), index=True)
     pubyear = Column(Integer, index=True)
     language = Column(Integer, ForeignKey('language.id'), index=True)
     bookseries_id = Column(Integer, ForeignKey('bookseries.id'))
@@ -1581,7 +1590,7 @@ class Work(Base):
                                order_by='Omnibus.order_num',
                                uselist=True, viewonly=True)
 
-    author_str = Column(String(500))
+    author_str = Column(String(500, collation='fi-x-icu'))
 
     @property
     def name(self) -> str:
