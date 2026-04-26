@@ -315,7 +315,9 @@ def api_stats_worksbyyear() -> Response:
 
     Endpoint: GET /api/stats/worksbyyear
 
-    Parameters: None
+    Parameters:
+        genre (string, optional): Genre abbreviation to filter by (e.g., "SF",
+                                  "F", "K"). When omitted, all genres are included.
 
     Returns:
         200 OK: JSON array of year statistics sorted by year (ascending),
@@ -346,9 +348,11 @@ def api_stats_worksbyyear() -> Response:
         - Compare domestic vs. translated works by year
         - Create stacked bar charts showing language distribution
 
+        400 Bad Request: Unknown genre abbreviation provided.
         500 Internal Server Error: Database error occurred.
     """
-    return make_api_response(stats_worksbyyear())
+    genre = request.args.get('genre', default=None, type=str)
+    return make_api_response(stats_worksbyyear(genre))
 
 
 @app.route('/api/stats/origworksbyyear', methods=['GET'])

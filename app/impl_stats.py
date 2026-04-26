@@ -510,9 +510,13 @@ def stats_publishercounts(pub_count: int = 10) -> ResponseType:
     return ResponseType(result, HttpResponseCode.OK.value)
 
 
-def stats_worksbyyear() -> ResponseType:
+def stats_worksbyyear(genre: Optional[str] = None) -> ResponseType:
     """
     Get count of first editions published by year, grouped by language.
+
+    Args:
+        genre: Optional genre abbreviation (e.g., "SF", "F") to filter by.
+               When set, only counts works belonging to that genre.
 
     Returns:
         ResponseType: List of dicts, each containing:
@@ -534,6 +538,14 @@ def stats_worksbyyear() -> ResponseType:
     session = new_session()
 
     try:
+        filter_genre_id = None
+        if genre:
+            genre_obj = session.query(Genre).filter(Genre.abbr == genre).first()
+            if genre_obj is None:
+                return ResponseType(f'Tuntematon genre: {genre}',
+                                    HttpResponseCode.BAD_REQUEST.value)
+            filter_genre_id = genre_obj.id
+
         # Get first editions (editionnum = 1 or version = 1) by year and language
         query = session.query(
             Edition.pubyear,
@@ -547,7 +559,16 @@ def stats_worksbyyear() -> ResponseType:
         ).filter(
             or_(Edition.editionnum == 1, Edition.editionnum.is_(None)),  # First editions
             or_(Edition.version == 1, Edition.version.is_(None))      # First version
-        ).group_by(
+        )
+
+        if filter_genre_id:
+            query = query.join(
+                WorkGenre, WorkGenre.work_id == Work.id
+            ).filter(
+                WorkGenre.genre_id == filter_genre_id
+            )
+
+        query = query.group_by(
             Edition.pubyear,
             Language.id
         ).order_by(
