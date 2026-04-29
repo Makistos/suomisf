@@ -1432,9 +1432,8 @@ def get_random_incomplete_works(params: Dict[str, Any]) -> ResponseType:
             elif field == 'stories':
                 # Check if collection (type 2) is missing short stories
                 conditions.append("""(w.type = 2 AND NOT EXISTS (
-                    SELECT 1 FROM part p
-                    WHERE p.work_id = w.id
-                    AND p.shortstory_id IS NOT NULL
+                    SELECT 1 FROM work_shortstory ws
+                    WHERE ws.work_id = w.id
                 ))""")
 
         # Edition-level conditions (except image which needs special handling)
@@ -1445,11 +1444,9 @@ def get_random_incomplete_works(params: Dict[str, Any]) -> ResponseType:
         if 'image' in edition_fields:
             # Check if work has NO images for ANY editions
             conditions.append("""NOT EXISTS (
-                SELECT 1 FROM part p2
-                JOIN edition e2 ON p2.edition_id = e2.id
+                SELECT 1 FROM edition e2
                 JOIN editionimage ei ON e2.id = ei.edition_id
-                WHERE p2.work_id = w.id
-                AND p2.shortstory_id IS NULL
+                WHERE e2.work_id = w.id
             )""")
             # Remove from edition_fields to avoid duplicate processing
             edition_fields.remove('image')
@@ -1466,7 +1463,10 @@ def get_random_incomplete_works(params: Dict[str, Any]) -> ResponseType:
 
         # Build the query
         if not missing_fields:
-            # No filters specified, return any random works
+            # No filters specified — total is all works
+            total_count = session.execute(
+                text("SELECT COUNT(*) FROM work")).scalar() or 0
+
             query = """
             SELECT DISTINCT w.id
             FROM work w
@@ -1487,18 +1487,14 @@ def get_random_incomplete_works(params: Dict[str, Any]) -> ResponseType:
 
             if edition_conditions:
                 joins.append(
-                    "LEFT JOIN part p ON w.id = p.work_id AND p.shortstory_id \
-                     IS NULL")
-                joins.append("LEFT JOIN edition e ON p.edition_id = e.id")
+                    "LEFT JOIN edition e ON w.id = e.work_id")
                 # For edition conditions, we want works where ANY edition is
                 # missing data
                 edition_subquery = f"""
                 w.id IN (
-                    SELECT DISTINCT p2.work_id
-                    FROM part p2
-                    JOIN edition e2 ON p2.edition_id = e2.id
-                    WHERE p2.work_id = w.id
-                    AND p2.shortstory_id IS NULL
+                    SELECT DISTINCT e2.work_id
+                    FROM edition e2
+                    WHERE e2.work_id = w.id
                     AND ({' OR '.join(edition_conditions)})
                 )
                 """
@@ -1506,6 +1502,14 @@ def get_random_incomplete_works(params: Dict[str, Any]) -> ResponseType:
 
             join_clause = ' '.join(joins) if joins else ''
             where_clause = ' AND '.join(conditions) if conditions else '1=1'
+
+            count_query = f"""
+            SELECT COUNT(DISTINCT w.id)
+            FROM work w
+            {join_clause}
+            WHERE {where_clause}
+            """
+            total_count = session.execute(text(count_query)).scalar() or 0
 
             query = f"""
             SELECT w.id
@@ -1535,7 +1539,8 @@ def get_random_incomplete_works(params: Dict[str, Any]) -> ResponseType:
             return ResponseType("No works could be retrieved",
                                 HttpResponseCode.NOT_FOUND.value)
 
-        return ResponseType(works, HttpResponseCode.OK.value)
+        return ResponseType({'works': works, 'total': total_count},
+                            HttpResponseCode.OK.value)
 
     except Exception as e:
         app.logger.error(f'get_random_incomplete_works: Database error: {e}')
