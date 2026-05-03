@@ -291,3 +291,185 @@ class TestAwardAdminEndpoints(BaseAPITest):
         })
         # Should not be auth error
         assert response.status_code not in [401, 403]
+
+
+class TestAwardUpdate(BaseAPITest):
+    """Tests for PUT /api/awards (update award info)."""
+
+    def test_update_award_requires_auth(self, api_client):
+        """PUT /api/awards requires admin authentication."""
+        response = api_client.put('/api/awards', data={
+            'data': {'id': HUGO_AWARD_ID, 'name': 'Hugo'}
+        })
+        assert response.status_code in [401, 403, 422]
+
+    def test_update_award_invalid_id(self, admin_client):
+        """PUT /api/awards with non-existent ID returns 404."""
+        response = admin_client.put('/api/awards', data={
+            'data': {'id': 999999999, 'name': 'Does Not Exist'}
+        })
+        assert response.status_code == 404
+
+    def test_update_award_missing_id(self, admin_client):
+        """PUT /api/awards without id returns 400."""
+        response = admin_client.put('/api/awards', data={
+            'data': {'name': 'No ID'}
+        })
+        assert response.status_code == 400
+
+    def test_update_award_empty_name(self, admin_client):
+        """PUT /api/awards with empty name returns 400."""
+        response = admin_client.put('/api/awards', data={
+            'data': {'id': HUGO_AWARD_ID, 'name': ''}
+        })
+        assert response.status_code == 400
+
+    def test_update_award_no_changes_returns_ok(self, admin_client):
+        """PUT /api/awards with no changed fields returns 200."""
+        get_resp = admin_client.get(f'/api/awards/{HUGO_AWARD_ID}')
+        get_resp.assert_success()
+        current = get_resp.data
+
+        response = admin_client.put('/api/awards', data={
+            'data': {
+                'id': HUGO_AWARD_ID,
+                'name': current['name'],
+                'description': current.get('description'),
+                'domestic': current.get('domestic', False),
+            }
+        })
+        assert response.status_code == 200
+
+    def test_update_award_name_and_restore(self, admin_client):
+        """
+        PUT /api/awards updates name; verify GET returns new name.
+
+        Parameters:
+          - id=FOREIGN_AWARD_ID, name changed then restored
+        Assertions:
+          - PUT returns 200
+          - GET reflects new name
+          - Restore PUT returns 200
+        Fixtures: admin_client
+        """
+        get_resp = admin_client.get(
+            f'/api/awards/{FOREIGN_AWARD_ID}'
+        )
+        get_resp.assert_success()
+        original_name = get_resp.data['name']
+        temp_name = original_name + ' (test)'
+
+        update_resp = admin_client.put('/api/awards', data={
+            'data': {'id': FOREIGN_AWARD_ID, 'name': temp_name}
+        })
+        assert update_resp.status_code == 200, (
+            f"Update failed: {update_resp.status_code}"
+        )
+
+        verify_resp = admin_client.get(
+            f'/api/awards/{FOREIGN_AWARD_ID}'
+        )
+        verify_resp.assert_success()
+        assert verify_resp.data['name'] == temp_name, (
+            f"Expected {temp_name!r}, got "
+            f"{verify_resp.data['name']!r}"
+        )
+
+        restore_resp = admin_client.put('/api/awards', data={
+            'data': {
+                'id': FOREIGN_AWARD_ID,
+                'name': original_name,
+            }
+        })
+        assert restore_resp.status_code == 200, (
+            f"Restore failed: {restore_resp.status_code}"
+        )
+
+    def test_update_award_description(self, admin_client):
+        """
+        PUT /api/awards updates description; verify GET reflects change.
+
+        Parameters:
+          - id=DOMESTIC_AWARD_ID, description set then cleared
+        Assertions:
+          - PUT returns 200
+          - GET reflects updated description
+          - Description restored to original
+        Fixtures: admin_client
+        """
+        get_resp = admin_client.get(
+            f'/api/awards/{DOMESTIC_AWARD_ID}'
+        )
+        get_resp.assert_success()
+        original_desc = get_resp.data.get('description')
+
+        test_desc = 'Test description for update_award test.'
+        update_resp = admin_client.put('/api/awards', data={
+            'data': {
+                'id': DOMESTIC_AWARD_ID,
+                'description': test_desc,
+            }
+        })
+        assert update_resp.status_code == 200, (
+            f"Update failed: {update_resp.status_code}"
+        )
+
+        verify_resp = admin_client.get(
+            f'/api/awards/{DOMESTIC_AWARD_ID}'
+        )
+        verify_resp.assert_success()
+        assert verify_resp.data.get('description') == test_desc, (
+            f"Expected {test_desc!r}, got "
+            f"{verify_resp.data.get('description')!r}"
+        )
+
+        admin_client.put('/api/awards', data={
+            'data': {
+                'id': DOMESTIC_AWARD_ID,
+                'description': original_desc,
+            }
+        })
+
+    def test_update_award_domestic_flag(self, admin_client):
+        """
+        PUT /api/awards toggles domestic flag and restores it.
+
+        Parameters:
+          - id=FOREIGN_AWARD_ID (domestic=False)
+        Assertions:
+          - Toggle to True returns 200, GET reflects True
+          - Restore to False returns 200, GET reflects False
+        Fixtures: admin_client
+        """
+        get_resp = admin_client.get(
+            f'/api/awards/{FOREIGN_AWARD_ID}'
+        )
+        get_resp.assert_success()
+        original_domestic = get_resp.data.get('domestic', False)
+
+        toggled = not original_domestic
+        toggle_resp = admin_client.put('/api/awards', data={
+            'data': {
+                'id': FOREIGN_AWARD_ID,
+                'domestic': toggled,
+            }
+        })
+        assert toggle_resp.status_code == 200, (
+            f"Toggle failed: {toggle_resp.status_code}"
+        )
+
+        verify_resp = admin_client.get(
+            f'/api/awards/{FOREIGN_AWARD_ID}'
+        )
+        verify_resp.assert_success()
+        assert verify_resp.data.get('domestic') == toggled, (
+            f"Expected domestic={toggled},"
+            f" got {verify_resp.data.get('domestic')!r}"
+        )
+
+        admin_client.put('/api/awards', data={
+            'data': {
+                'id': FOREIGN_AWARD_ID,
+                'domestic': original_domestic,
+            }
+        })

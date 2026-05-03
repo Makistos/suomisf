@@ -7,7 +7,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 
 from app.route_helpers import new_session
-from app.impl import ResponseType
+from app.impl import ResponseType, check_int
+from app.impl_logs import log_changes
 from app.model import (AwardBriefSchema, AwardCategorySchema, AwardSchema,
                        AwardedSchema)
 from app.orm_decl import (Award, AwardCategories, AwardCategory, Awarded,
@@ -693,3 +694,85 @@ def save_awarded(params: any):
         return ResponseType(f'save_awarded: Tietokantavirhe. {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     return ResponseType('OK', HttpResponseCode.OK.value)
+
+
+def update_award(params: Any) -> ResponseType:
+    """
+    Update an Award's name, description and/or domestic flag.
+
+    Args:
+        params (Any): Dict with a 'data' key containing:
+            - id (int): Award ID (required)
+            - name (str): New name (optional)
+            - description (str): New description (optional)
+            - domestic (bool): Domestic flag (optional)
+
+    Returns:
+        ResponseType: The updated award ID on success, or an error
+        response.
+    """
+    session = new_session()
+    data = params['data']
+
+    award_id = check_int(data.get('id'), False, False)
+    if award_id is None:
+        app.logger.error(
+            f'update_award: Invalid id: {data.get("id")}.'
+        )
+        return ResponseType(
+            f'update_award: Virheellinen id {data.get("id")}.',
+            HttpResponseCode.BAD_REQUEST.value
+        )
+
+    award = session.query(Award).filter(
+        Award.id == award_id
+    ).first()
+    if not award:
+        app.logger.error(
+            f'update_award: Award not found. Id = {award_id}.'
+        )
+        return ResponseType(
+            f'update_award: Palkintoa ei löydy. id={award_id}.',
+            HttpResponseCode.NOT_FOUND.value
+        )
+
+    old_values: dict = {}
+
+    if 'name' in data:
+        if not data['name'] or len(data['name'].strip()) == 0:
+            return ResponseType(
+                'update_award: Nimi ei voi olla tyhjä.',
+                HttpResponseCode.BAD_REQUEST.value
+            )
+        if data['name'] != award.name:
+            old_values['Nimi'] = award.name
+            award.name = data['name']
+
+    if 'description' in data:
+        if data['description'] != award.description:
+            old_values['Kuvaus'] = award.description
+            award.description = data['description']
+
+    if 'domestic' in data:
+        domestic = bool(data['domestic'])
+        if domestic != award.domestic:
+            old_values['Kotimainen'] = award.domestic
+            award.domestic = domestic
+
+    if not old_values:
+        return ResponseType(str(award_id), HttpResponseCode.OK.value)
+
+    log_changes(session=session, obj=award, name_field='name',
+                action='Päivitys', old_values=old_values)
+
+    try:
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f'update_award: Tietokantavirhe. {exp}.')
+        return ResponseType(
+            f'update_award: Tietokantavirhe. {exp}.',
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value
+        )
+
+    return ResponseType(str(award_id), HttpResponseCode.OK.value)

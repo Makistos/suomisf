@@ -7,10 +7,26 @@ from app.impl_awards import (get_award, get_awards_by_filter,
                              get_awards_for_work, get_categories_for_award,
                              get_categories_for_type,
                              get_person_awards, list_awards, save_awarded,
-                             save_person_awards, save_work_awards)
+                             save_person_awards, save_work_awards,
+                             update_award)
 from app.api_jwt import jwt_admin_required
 
 from app import app
+
+
+@app.route('/api/awards', methods=['PUT'])
+@jwt_admin_required()  # type: ignore
+def api_updateaward() -> Response:
+    """
+    Update an award's name, description or domestic flag.
+
+    Requires admin authentication.
+
+    Returns:
+        Response: The updated award ID on success, or an error response.
+    """
+    params = json.loads(request.data.decode('utf-8'))
+    return make_api_response(update_award(params))
 
 
 @app.route('/api/awards', methods=['get'])

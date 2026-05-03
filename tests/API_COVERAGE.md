@@ -31,7 +31,7 @@
 | Short Stories | 10 | 36 | Entity, search, auth, type field, CRUD, contributor real_person |
 | Magazines | 6 | 13 | Entity, auth, update tests |
 | Issues | 15 | 28 | Entity, auth, contributors, tags, covers tests (3 xfail) |
-| Awards | 12 | 6 | Entity tests |
+| Awards | 13 | 14 | Entity, auth, update tests |
 | Tags | 10 | 39 | Entity, filter, auth, quick, types, merge tests |
 | Publishers | 6 | 14 | Entity, filter, auth, update tests |
 | Publication Series | 6 | 12 | Entity, filter, auth, update tests |
@@ -184,10 +184,11 @@
 | :white_check_mark: | PUT | `/api/issues/shorts` | Admin | `test_magazines_issues.py::TestIssueShorts` | 2026-02-17 |
 | :white_check_mark: | PUT | `/api/issues/articles` | Admin | `test_magazines_issues.py::TestIssueArticles` | 2026-02-17 |
 
-### 9. Awards (12 endpoints)
+### 9. Awards (13 endpoints)
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
+| :white_check_mark: | PUT | `/api/awards` | Admin | `test_awards.py::TestAwardUpdate` | 2026-05-04 |
 | :white_check_mark: | GET | `/api/awards` | None | `test_awards.py::TestAwardsList` | 2026-02-16 |
 | :white_check_mark: | GET | `/api/awards/<award_id>` | None | `test_awards.py::TestAwardGet` | 2026-02-16 |
 | :white_check_mark: | GET | `/api/works/<work_id>/awarded` | None | `test_awards.py::TestWorkAwarded` | 2026-02-16 |

@@ -1180,6 +1180,23 @@ Includes award types, categories, filter, work awards, and admin endpoints.
 
 **Note:** Some endpoints have decorator order issues that may bypass auth.
 
+### TestAwardUpdate
+
+Tests for `PUT /api/awards` (update award name, description, domestic).
+Requires admin auth. Awards are restored to original state after each
+mutating test.
+
+| Test | Description |
+|------|-------------|
+| `test_update_award_requires_auth` | PUT /api/awards requires admin auth |
+| `test_update_award_invalid_id` | Non-existent id=999999999 returns 404 |
+| `test_update_award_missing_id` | Missing id field returns 400 |
+| `test_update_award_empty_name` | Empty name string returns 400 |
+| `test_update_award_no_changes_returns_ok` | Submitting unchanged fields returns 200 |
+| `test_update_award_name_and_restore` | Update name, verify GET, restore; id=FOREIGN_AWARD_ID |
+| `test_update_award_description` | Update description, verify GET, restore; id=DOMESTIC_AWARD_ID |
+| `test_update_award_domestic_flag` | Toggle domestic bool, verify GET, restore; id=FOREIGN_AWARD_ID |
+
 ---
 
 ## Tag Tests
