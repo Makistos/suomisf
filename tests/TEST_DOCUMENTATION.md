@@ -1012,7 +1012,7 @@ Includes story types, tags, latest, similar, awarded, and CRUD.
 | `test_delete_short_requires_auth` | DELETE requires auth |
 | `test_delete_nonexistent_short` | Invalid ID returns error |
 | `test_get_short_returns_200` | GET /api/shorts/{id} returns 200 |
-| `test_get_short_has_fields` | Short has id and title |
+| `test_get_short_has_fields` | Short has id, title, and notes |
 | `test_get_nonexistent_short` | Handle nonexistent short |
 
 ### TestShortCRUDLifecycle
@@ -1020,6 +1020,8 @@ Includes story types, tags, latest, similar, awarded, and CRUD.
 | Test | Description |
 |------|-------------|
 | `test_short_lifecycle` | Create -> update -> delete cycle |
+| `test_short_notes_lifecycle` | Create with notes, verify, update notes, verify |
+| `test_short_notes_null_by_default` | Short created without notes returns notes as null |
 
 ### TestShortTypeNames
 

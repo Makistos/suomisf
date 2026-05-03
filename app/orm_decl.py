@@ -1241,6 +1241,7 @@ class ShortStory(Base):
     language = Column(Integer, ForeignKey('language.id'))
     pubyear = Column(Integer, index=True)
     story_type = Column(Integer, ForeignKey('storytype.id'))
+    notes = Column(Text)
     genres = relationship('Genre', secondary='storygenre',
                           uselist=True, viewonly=True)
     works = relationship(

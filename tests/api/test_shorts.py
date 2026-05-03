@@ -757,6 +757,7 @@ class TestShortCRUD(BaseAPITest):
         short = response.data
         assert 'id' in short, "Short missing 'id'"
         assert 'title' in short, "Short missing 'title'"
+        assert 'notes' in short, "Short missing 'notes'"
 
     def test_get_nonexistent_short(self, api_client):
         """GET /api/shorts/{id} for nonexistent short returns error."""
@@ -843,6 +844,94 @@ class TestShortCRUDLifecycle(BaseAPITest):
                 f"Failed to delete short {short_id}:"
                 f" status {delete_resp.status_code}"
             )
+
+
+    def test_short_notes_lifecycle(self, admin_client):
+        """Create short with notes, verify retrieval, update notes."""
+        create_data = {
+            'data': {
+                'title': 'Notes Test Short',
+                'pubyear': 2024,
+                'type': {'id': 1},
+                'notes': 'Initial notes value.',
+                'contributors': [],
+                'genres': [],
+                'tags': [],
+            }
+        }
+
+        create_resp = admin_client.post(
+            '/api/shorts', data=create_data
+        )
+        assert create_resp.status_code == 201, (
+            f"Short creation failed: {create_resp.status_code}"
+        )
+
+        short_id = int(create_resp.json)
+        try:
+            get_resp = admin_client.get(f'/api/shorts/{short_id}')
+            get_resp.assert_success()
+            assert get_resp.data['notes'] == 'Initial notes value.', (
+                f"Expected notes 'Initial notes value.',"
+                f" got {get_resp.data.get('notes')!r}"
+            )
+
+            update_data = {
+                'data': {
+                    'id': short_id,
+                    'title': 'Notes Test Short',
+                    'notes': 'Updated notes.',
+                    'contributors': [],
+                    'genres': [],
+                    'tags': [],
+                }
+            }
+            update_resp = admin_client.put(
+                '/api/shorts', data=update_data
+            )
+            assert update_resp.status_code == 200, (
+                f"Short update failed: {update_resp.status_code}"
+            )
+
+            get_resp2 = admin_client.get(f'/api/shorts/{short_id}')
+            get_resp2.assert_success()
+            assert get_resp2.data['notes'] == 'Updated notes.', (
+                f"Expected 'Updated notes.',"
+                f" got {get_resp2.data.get('notes')!r}"
+            )
+        finally:
+            admin_client.delete(f'/api/shorts/{short_id}')
+
+    def test_short_notes_null_by_default(self, admin_client):
+        """Short created without notes should return notes as null."""
+        create_data = {
+            'data': {
+                'title': 'No Notes Short',
+                'pubyear': 2024,
+                'type': {'id': 1},
+                'contributors': [],
+                'genres': [],
+                'tags': [],
+            }
+        }
+
+        create_resp = admin_client.post(
+            '/api/shorts', data=create_data
+        )
+        assert create_resp.status_code == 201, (
+            f"Short creation failed: {create_resp.status_code}"
+        )
+
+        short_id = int(create_resp.json)
+        try:
+            get_resp = admin_client.get(f'/api/shorts/{short_id}')
+            get_resp.assert_success()
+            assert get_resp.data['notes'] is None, (
+                f"Expected notes to be null,"
+                f" got {get_resp.data.get('notes')!r}"
+            )
+        finally:
+            admin_client.delete(f'/api/shorts/{short_id}')
 
 
 class TestSearchShorts(BaseAPITest):

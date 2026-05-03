@@ -350,6 +350,9 @@ def story_add(data: Any) -> ResponseType:
     if 'orig_title' in data:
         story.orig_title = data['orig_title']
 
+    if 'notes' in data:
+        story.notes = data['notes']
+
     if 'type' not in data:
         typ = 1  # default, short story
     else:
@@ -454,6 +457,12 @@ def story_updated(params: Any) -> ResponseType:
         if data['orig_title'] != story.orig_title:
             old_values['Alkukielinen nimi'] = story.orig_title
             story.orig_title = data['orig_title']
+
+    # Save notes
+    if 'notes' in data:
+        if data['notes'] != story.notes:
+            old_values['Muistiinpanot'] = story.notes
+            story.notes = data['notes']
 
     # Save original (first) publication year
     if 'pubyear' in data:

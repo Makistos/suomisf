@@ -151,6 +151,8 @@ def clone_test_database():
     _apply_migration_008()
     # Apply migration 009 (Finnish collation on name/title columns)
     _apply_migration_009()
+    # Apply migration 010 (notes column on shortstory)
+    _apply_migration_010()
 
 
 MIGRATIONS_DIR = os.path.join(
@@ -190,6 +192,10 @@ MIGRATION_008_SQL = os.path.join(
 
 MIGRATION_009_SQL = os.path.join(
     MIGRATIONS_DIR, '009_finnish_collation.sql'
+)
+
+MIGRATION_010_SQL = os.path.join(
+    MIGRATIONS_DIR, '010_shortstory_notes.sql'
 )
 
 
@@ -353,6 +359,24 @@ def _apply_migration_009():
             f"Migration 009 failed: {result.stderr[:400]}"
         )
     print("[setup] Migration 009 applied")
+
+
+def _apply_migration_010():
+    """Apply migration 010 SQL to the test database."""
+    if not os.path.exists(MIGRATION_010_SQL):
+        print("[setup] Migration 010 SQL not found, skipping")
+        return
+    print("[setup] Applying migration 010...")
+    result = subprocess.run(
+        ['psql', '-U', DB_USER, '-d', TEST_DB_NAME,
+         '-f', MIGRATION_010_SQL],
+        capture_output=True, text=True
+    )
+    if result.returncode != 0:
+        raise RuntimeError(
+            f"Migration 010 failed: {result.stderr[:400]}"
+        )
+    print("[setup] Migration 010 applied")
 
 
 def create_test_users():
