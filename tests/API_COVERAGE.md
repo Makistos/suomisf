@@ -31,7 +31,7 @@
 | Short Stories | 10 | 36 | Entity, search, auth, type field, CRUD, contributor real_person |
 | Magazines | 6 | 13 | Entity, auth, update tests |
 | Issues | 15 | 28 | Entity, auth, contributors, tags, covers tests (3 xfail) |
-| Awards | 13 | 14 | Entity, auth, update tests |
+| Awards | 13 | 17 | Entity, auth, update, links tests |
 | Tags | 10 | 39 | Entity, filter, auth, quick, types, merge tests |
 | Publishers | 6 | 14 | Entity, filter, auth, update tests |
 | Publication Series | 6 | 12 | Entity, filter, auth, update tests |

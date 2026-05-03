@@ -7,13 +7,14 @@ from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 
 from app.route_helpers import new_session
-from app.impl import ResponseType, check_int
+from app.impl import ResponseType, check_int, get_join_changes
+from app.impl_links import links_have_changed
 from app.impl_logs import log_changes
-from app.model import (AwardBriefSchema, AwardCategorySchema, AwardSchema,
-                       AwardedSchema)
-from app.orm_decl import (Award, AwardCategories, AwardCategory, Awarded,
-                          ShortStory, StoryContributor, WorkContributor,
-                          Work)
+from app.model import (AwardBriefSchema, AwardCategorySchema,
+                       AwardLinkSchema, AwardSchema, AwardedSchema)
+from app.orm_decl import (Award, AwardCategories, AwardCategory, AwardLink,
+                          Awarded, ShortStory, StoryContributor,
+                          WorkContributor, Work)
 from app.types import HttpResponseCode
 
 from app import app
@@ -698,18 +699,65 @@ def save_awarded(params: any):
 
 def update_award(params: Any) -> ResponseType:
     """
-    Update an Award's name, description and/or domestic flag.
+    Update an Award record.
+
+    Endpoint: PUT /api/awards
+    Auth: Admin JWT required
+
+    Request body (JSON):
+      {
+        "data": {
+          "id":          <int>     required — Award ID to update
+          "name":        <str>     optional — Award name (non-empty)
+          "description": <str>     optional — Free-text description
+          "domestic":    <bool>    optional — True = Finnish/domestic award
+          "links": [               optional — Replace the full link list
+            {
+              "link":        <str>   required — URL
+              "description": <str>   optional — Label shown in the UI
+            },
+            ...
+          ]
+        }
+      }
+
+    Behaviour:
+      - Only fields present in the request are updated; omitted fields
+        are left unchanged.
+      - "links" replaces the complete link list for the award.  Send an
+        empty array ([]) to remove all links.
+      - "name" must not be an empty string.
+      - Returns HTTP 200 with the award ID as a plain string on success.
+      - Returns HTTP 400 for validation errors (missing/empty name,
+        invalid id format).
+      - Returns HTTP 404 when no award with the given id exists.
+      - Returns HTTP 500 on unexpected database errors.
+
+    Examples:
+      Rename an award:
+        {"data": {"id": 2, "name": "Hugo Award"}}
+
+      Set domestic flag and description:
+        {"data": {"id": 8, "domestic": true,
+                  "description": "Suomalainen tieteiskirjallisuuspalkinto"}}
+
+      Add two links:
+        {"data": {"id": 2, "links": [
+          {"link": "https://www.thehugoawards.org",
+           "description": "Hugo Awards official site"},
+          {"link": "https://en.wikipedia.org/wiki/Hugo_Award",
+           "description": "Wikipedia"}
+        ]}}
+
+      Remove all links:
+        {"data": {"id": 2, "links": []}}
 
     Args:
-        params (Any): Dict with a 'data' key containing:
-            - id (int): Award ID (required)
-            - name (str): New name (optional)
-            - description (str): New description (optional)
-            - domestic (bool): Domestic flag (optional)
+        params (Any): Parsed JSON body with a top-level 'data' key.
 
     Returns:
-        ResponseType: The updated award ID on success, or an error
-        response.
+        ResponseType: Award ID string on success, error message on
+        failure.
     """
     session = new_session()
     data = params['data']
@@ -758,6 +806,27 @@ def update_award(params: Any) -> ResponseType:
         if domestic != award.domestic:
             old_values['Kotimainen'] = award.domestic
             award.domestic = domestic
+
+    if 'links' in data:
+        existing_links = session.query(AwardLink).filter(
+            AwardLink.award_id == award_id
+        ).all()
+        new_links = [
+            lnk for lnk in data['links']
+            if lnk.get('link', '').strip()
+        ]
+        if links_have_changed(existing_links, new_links):
+            old_values['Linkit'] = ', '.join(
+                lnk.link for lnk in existing_links
+            )
+            for lnk in existing_links:
+                session.delete(lnk)
+            for lnk in new_links:
+                session.add(AwardLink(
+                    award_id=award_id,
+                    link=lnk['link'].strip(),
+                    description=lnk.get('description') or None
+                ))
 
     if not old_values:
         return ResponseType(str(award_id), HttpResponseCode.OK.value)

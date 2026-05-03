@@ -259,6 +259,16 @@ class Award(Base):
         'AwardCategory', secondary='awardcategories', viewonly=True)
     winners = relationship(
         'Awarded', viewonly=True)
+    links = relationship('AwardLink', uselist=True, viewonly=True)
+
+
+class AwardLink(Base):
+    """ Award links. """
+    __tablename__ = 'awardlink'
+    id = Column(Integer, primary_key=True)
+    award_id = Column(Integer, ForeignKey('award.id'), nullable=False)
+    link = Column(Text(), nullable=False)
+    description = Column(Text())
 
 
 class AwardCategory(Base):

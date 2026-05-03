@@ -473,3 +473,127 @@ class TestAwardUpdate(BaseAPITest):
                 'domestic': original_domestic,
             }
         })
+
+    def test_update_award_links_added(self, admin_client):
+        """
+        PUT /api/awards with links list adds links; GET returns them.
+
+        Parameters:
+          - id=HUGO_AWARD_ID, two links added then cleared
+        Assertions:
+          - PUT returns 200
+          - GET /api/awards/{id} contains links list with 2 entries
+          - Each entry has link and description fields
+          - Cleanup: links cleared to original state
+        Fixtures: admin_client
+        """
+        links = [
+            {'link': 'https://www.thehugoawards.org',
+             'description': 'Hugo Awards official site'},
+            {'link': 'https://en.wikipedia.org/wiki/Hugo_Award',
+             'description': 'Wikipedia'},
+        ]
+
+        add_resp = admin_client.put('/api/awards', data={
+            'data': {'id': HUGO_AWARD_ID, 'links': links}
+        })
+        assert add_resp.status_code == 200, (
+            f"Link add failed: {add_resp.status_code}"
+        )
+
+        try:
+            get_resp = admin_client.get(
+                f'/api/awards/{HUGO_AWARD_ID}'
+            )
+            get_resp.assert_success()
+            returned_links = get_resp.data.get('links', [])
+            assert len(returned_links) == 2, (
+                f"Expected 2 links, got {len(returned_links)}"
+            )
+            urls = {lnk['link'] for lnk in returned_links}
+            assert 'https://www.thehugoawards.org' in urls
+            assert 'https://en.wikipedia.org/wiki/Hugo_Award' in urls
+            for lnk in returned_links:
+                assert 'link' in lnk
+                assert 'description' in lnk
+        finally:
+            admin_client.put('/api/awards', data={
+                'data': {'id': HUGO_AWARD_ID, 'links': []}
+            })
+
+    def test_update_award_links_cleared(self, admin_client):
+        """
+        PUT /api/awards with empty links list removes all links.
+
+        Parameters:
+          - id=HUGO_AWARD_ID, add one link then clear
+        Assertions:
+          - After clear: GET returns empty links list
+        Fixtures: admin_client
+        """
+        admin_client.put('/api/awards', data={
+            'data': {
+                'id': HUGO_AWARD_ID,
+                'links': [{'link': 'https://example.com',
+                           'description': 'temp'}],
+            }
+        })
+        clear_resp = admin_client.put('/api/awards', data={
+            'data': {'id': HUGO_AWARD_ID, 'links': []}
+        })
+        assert clear_resp.status_code == 200, (
+            f"Clear failed: {clear_resp.status_code}"
+        )
+
+        get_resp = admin_client.get(
+            f'/api/awards/{HUGO_AWARD_ID}'
+        )
+        get_resp.assert_success()
+        assert get_resp.data.get('links') == [], (
+            f"Expected empty links, got {get_resp.data.get('links')}"
+        )
+
+    def test_update_award_links_replaced(self, admin_client):
+        """
+        PUT /api/awards replaces the full link list each call.
+
+        Parameters:
+          - id=HUGO_AWARD_ID, set two links, then replace with one
+        Assertions:
+          - After replace: only one link present
+        Fixtures: admin_client
+        """
+        admin_client.put('/api/awards', data={
+            'data': {
+                'id': HUGO_AWARD_ID,
+                'links': [
+                    {'link': 'https://a.example.com', 'description': ''},
+                    {'link': 'https://b.example.com', 'description': ''},
+                ],
+            }
+        })
+        try:
+            replace_resp = admin_client.put('/api/awards', data={
+                'data': {
+                    'id': HUGO_AWARD_ID,
+                    'links': [
+                        {'link': 'https://c.example.com',
+                         'description': 'only one'},
+                    ],
+                }
+            })
+            assert replace_resp.status_code == 200
+
+            get_resp = admin_client.get(
+                f'/api/awards/{HUGO_AWARD_ID}'
+            )
+            get_resp.assert_success()
+            links = get_resp.data.get('links', [])
+            assert len(links) == 1, (
+                f"Expected 1 link after replace, got {len(links)}"
+            )
+            assert links[0]['link'] == 'https://c.example.com'
+        finally:
+            admin_client.put('/api/awards', data={
+                'data': {'id': HUGO_AWARD_ID, 'links': []}
+            })

@@ -2,7 +2,8 @@
 """ SQLAlchemy models not fitting into other model_ files. """
 from marshmallow import Schema, fields
 from app import ma
-from app.orm_decl import (Article, Award, AwardCategory, Awarded, BindingType,
+from app.orm_decl import (Article, Award, AwardCategory, AwardLink, Awarded,
+                          BindingType,
                           BookCondition, BookseriesLink,
                           Bookseries, ContributorRole, Country,
                           Edition, EditionContributor, EditionImage,
@@ -484,6 +485,13 @@ class AwardedSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     story = fields.Nested(ShortBriefSchema)
 
 
+class AwardLinkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Award link schema. """
+    class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
+        model = AwardLink
+
+
 class AwardSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     """ Award schema with all relationships. """
     class Meta:
@@ -491,6 +499,7 @@ class AwardSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         model = Award
     categories = ma.List(fields.Nested(AwardCategorySchema))
     winners = ma.List(fields.Nested(AwardedSchema))
+    links = ma.List(fields.Nested(AwardLinkSchema))
 
 
 class BookseriesLinkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore

@@ -1196,6 +1196,9 @@ mutating test.
 | `test_update_award_name_and_restore` | Update name, verify GET, restore; id=FOREIGN_AWARD_ID |
 | `test_update_award_description` | Update description, verify GET, restore; id=DOMESTIC_AWARD_ID |
 | `test_update_award_domestic_flag` | Toggle domestic bool, verify GET, restore; id=FOREIGN_AWARD_ID |
+| `test_update_award_links_added` | Add 2 links, verify GET returns both with link+description; cleared after |
+| `test_update_award_links_cleared` | Empty links list removes all links; GET returns [] |
+| `test_update_award_links_replaced` | Second PUT with different links replaces the first set |
 
 ---
 
