@@ -1080,6 +1080,12 @@ def work_update(
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
+        # Flush pending changes so WorkContributor rows are visible,
+        # then expire only the relationship caches so
+        # update_author_str() reloads them from DB while keeping the
+        # scalar attribute changes (title etc.) intact.
+        session.flush()
+        session.expire(work, ['authors', 'contributions'])
         author_str = work.update_author_str()
         work.author_str = author_str
         session.commit()

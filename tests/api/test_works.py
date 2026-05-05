@@ -346,6 +346,71 @@ class TestWorksEditorAuthorStr(BaseAPITest):
         finally:
             admin_client.delete(f'/api/works/{work_id}')
 
+    def test_update_work_to_editor_only_fixes_author_str(
+            self, admin_client, existing_person_id):
+        """
+        Updating a work's contributor from author (role=1) to editor
+        (role=3) must update author_str to '<name> (toim.)'.
+
+        Regression for stale relationship cache in work_update(): the
+        work.contributions value loaded earlier in the function was not
+        expired before update_author_str() was called, so it still
+        reflected the old author.
+
+        Parameters:
+          - create with role.id=1, then update to role.id=3
+          - existing_person_id fixture for both steps
+        Assertions:
+          - After update, author_str ends with ' (toim.)'
+          - author_str contains a non-empty name before ' (toim.)'
+        """
+        work_data = {
+            'data': {
+                'title': 'Author-to-Editor Update Test',
+                'orig_title': 'Author-to-Editor Update Test',
+                'pubyear': 2025,
+                'contributions': [
+                    {'person': {'id': existing_person_id},
+                     'role': {'id': 1}}  # author
+                ],
+            }
+        }
+        create_resp = admin_client.post('/api/works', data=work_data)
+        assert create_resp.status_code == 201, (
+            f"Work creation failed: {create_resp.status_code}"
+        )
+        work_id = int(create_resp.data)
+        try:
+            update_data = {
+                'data': {
+                    'id': work_id,
+                    'contributions': [
+                        {'person': {'id': existing_person_id},
+                         'role': {'id': 3}}  # editor
+                    ],
+                }
+            }
+            update_resp = admin_client.put(
+                '/api/works', data=update_data
+            )
+            assert update_resp.status_code == 200, (
+                f"Work update failed: {update_resp.status_code}"
+            )
+
+            get_resp = admin_client.get(f'/api/works/{work_id}')
+            get_resp.assert_success()
+            author_str = get_resp.data.get('author_str', '')
+            assert author_str.endswith(' (toim.)'), (
+                f"author_str should end with ' (toim.)',"
+                f" got {author_str!r}"
+            )
+            assert len(author_str) > len(' (toim.)'), (
+                f"author_str must contain a name before ' (toim.)',"
+                f" got {author_str!r}"
+            )
+        finally:
+            admin_client.delete(f'/api/works/{work_id}')
+
 
 class TestWorksCreateValidation(BaseAPITest):
     """Tests for work creation validation."""

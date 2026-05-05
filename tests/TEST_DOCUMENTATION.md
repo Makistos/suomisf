@@ -633,14 +633,19 @@ delete_test_work(admin_client, work_id)
 
 ### TestWorksEditorAuthorStr
 
-Regression test for bug where editor-only works produced `" (toim.)"` with
-no name. The old code read `editions[0].editors` which is empty on a new work
-(first edition has no EditionContributors). Fixed by reading WorkContributor
-rows with role_id=3 directly.
+Regression tests for two related bugs:
+1. New works with only an editor produced `" (toim.)"` — `editions[0].editors`
+   was empty because the first edition has no EditionContributors. Fixed by
+   reading WorkContributor rows with role_id=3 directly.
+2. Updating a work's contributor via `work_update()` left `author_str` stale
+   because `work.contributions` was cached before `update_work_contributors()`
+   ran. Fixed with `session.flush()` + `session.expire(work, ['authors',
+   'contributions'])` before calling `update_author_str()`.
 
 | Test | Description |
 |------|-------------|
 | `test_editor_only_work_has_author_str` | Work with role_id=3 contributor gets `"<name> (toim.)"` author_str |
+| `test_update_work_to_editor_only_fixes_author_str` | Changing contributor from author to editor updates author_str correctly |
 
 ### TestWorksCreateValidation
 
