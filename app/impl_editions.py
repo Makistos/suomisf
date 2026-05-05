@@ -1159,10 +1159,16 @@ def editionowner_update(params: dict) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     if not userbook:
-        userbook = UserBook()
-        userbook.edition_id = editionid
-        userbook.user_id = userid
-        session.add(userbook)
+        userbook = session.query(UserBook)\
+            .filter(UserBook.edition_id == editionid)\
+            .filter(UserBook.user_id == userid)\
+            .filter(UserBook.condition_id == 6)\
+            .first()
+        if not userbook:
+            userbook = UserBook()
+            userbook.edition_id = editionid
+            userbook.user_id = userid
+            session.add(userbook)
 
     if 'condition' in params:
         condition = check_int(params["condition"]["value"])
