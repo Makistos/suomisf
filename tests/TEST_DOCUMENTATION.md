@@ -631,6 +631,17 @@ delete_test_work(admin_client, work_id)
 6. Delete work
 7. Verify count restored
 
+### TestWorksEditorAuthorStr
+
+Regression test for bug where editor-only works produced `" (toim.)"` with
+no name. The old code read `editions[0].editors` which is empty on a new work
+(first edition has no EditionContributors). Fixed by reading WorkContributor
+rows with role_id=3 directly.
+
+| Test | Description |
+|------|-------------|
+| `test_editor_only_work_has_author_str` | Work with role_id=3 contributor gets `"<name> (toim.)"` author_str |
+
 ### TestWorksCreateValidation
 
 | Test | Description |

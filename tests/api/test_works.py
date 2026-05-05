@@ -296,6 +296,57 @@ class TestWorksCRUD(BaseAPITest):
         )
 
 
+class TestWorksEditorAuthorStr(BaseAPITest):
+    """Regression test: editor-only work must have a non-empty author_str."""
+
+    def test_editor_only_work_has_author_str(
+            self, admin_client, existing_person_id):
+        """
+        Creating a work with only an editor (role_id=3) must produce an
+        author_str of '<name> (toim.)', not the bare ' (toim.)' that
+        resulted from reading editions[0].editors on a new work with no
+        EditionContributors.
+
+        Parameters:
+          - contributions: one editor entry, role.id=3
+          - existing_person_id fixture provides a real person in the DB
+        Assertions:
+          - POST returns 201
+          - GET /api/works/{id} author_str contains the person's name
+          - author_str ends with ' (toim.)'
+        """
+        work_data = {
+            'data': {
+                'title': 'Editor-Only Work Regression Test',
+                'orig_title': 'Editor-Only Work Regression Test',
+                'pubyear': 2025,
+                'contributions': [
+                    {'person': {'id': existing_person_id},
+                     'role': {'id': 3}}  # editor
+                ],
+            }
+        }
+        resp = admin_client.post('/api/works', data=work_data)
+        assert resp.status_code == 201, (
+            f"Work creation failed: {resp.status_code} {resp.json}"
+        )
+        work_id = int(resp.data)
+        try:
+            get_resp = admin_client.get(f'/api/works/{work_id}')
+            get_resp.assert_success()
+            author_str = get_resp.data.get('author_str', '')
+            assert author_str.endswith(' (toim.)'), (
+                f"author_str should end with ' (toim.)',"
+                f" got {author_str!r}"
+            )
+            assert len(author_str) > len(' (toim.)'), (
+                f"author_str must contain a name before ' (toim.)',"
+                f" got {author_str!r}"
+            )
+        finally:
+            admin_client.delete(f'/api/works/{work_id}')
+
+
 class TestWorksCreateValidation(BaseAPITest):
     """Tests for work creation validation."""
 

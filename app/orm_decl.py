@@ -126,36 +126,6 @@ def edition_popup(edition_id: int, edition: Any, title: str, link: str) -> str:
     return retval
 
 
-# class AuthorComparator(Comparator):
-#     """ AuthorComparator class. """
-#     def __eq__(self, other):
-#         """
-#         Equality comparison method for the class.
-
-#         Args:
-#             other: The object to compare with.
-
-#         Returns:
-#             None
-#         """
-#         return super().__eq__(other)
-
-#     def __ne__(self, other):
-#         pass
-
-#     def like(self, other, escape=None):
-#         return super().like(other, escape)
-
-#     def ilike(self, other, escape=None):
-#         return super().ilike(other, escape)
-
-#     def startswith(self, other: str, **kwargs):
-#         return super().startswith(other, **kwargs)
-
-#     def endswith(self, other: str, **kwargs):
-#         return super().endswith(other, **kwargs)
-
-
 class Alias(Base):
     """ Alias table. """
     __tablename__ = 'alias'
@@ -1625,9 +1595,14 @@ class Work(Base):
         if len(self.authors) > 0:
             retval = ' & '.join([x.name for x in self.authors])
         else:
-            # Collection of several authors, use editors instead
-            retval = ' & '.join(
-                [x.name for x in self.editions[0].editors]) + ' (toim.)'
+            # No authors: use WorkContributor editors (role_id=3).
+            # Avoids relying on editions[0].editors, which is empty
+            # for newly created works that have no EditionContributors.
+            editors = [
+                c.person for c in self.contributions
+                if c.role_id == 3
+            ]
+            retval = ' & '.join(x.name for x in editors) + ' (toim.)'
         return retval
 
     def __str__(self) -> str:
