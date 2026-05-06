@@ -52,10 +52,12 @@ class PersonPageEditionBriefSchema(ma.SQLAlchemySchema):  # type: ignore
     """ Edition schema with just id, title and work relationship. """
     id = fields.Int()
     title = fields.String()
-    pubyear = fields.Int(allow_none=True)  # Added missing field
-    publisher = fields.Nested(PublisherBriefSchema, allow_none=True)  # Added missing field
+    pubyear = fields.Int(allow_none=True)
+    publisher = fields.Nested(PublisherBriefSchema, allow_none=True)
     work = fields.Nested(lambda: WorkBriefSchema(only=['id', 'title',
                                                        'orig_title']))
+    owners = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
+    wishlisted = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
 
 
 class PersonPageEditionWorkSchema(ma.SQLAlchemySchema):  # type: ignore
@@ -66,7 +68,7 @@ class PersonPageEditionWorkSchema(ma.SQLAlchemySchema):  # type: ignore
     author_str = fields.String()
     pubyear = fields.Int()
     editions = ma.List(fields.Nested(lambda: PersonPageEditionBriefSchema(
-        only=['id', 'title', 'work'])))
+        only=['id', 'title', 'work', 'owners', 'wishlisted'])))
     genres = ma.List(fields.Nested(GenreBriefSchema))
     bookseriesnum = fields.String(allow_none=True)
     bookseries = fields.Nested(
