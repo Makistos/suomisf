@@ -174,7 +174,7 @@ def refresh_token() -> Response:
                    refresh_token=refreshtoken,
                    name=name,
                    role=role,
-                   id=userid)
+                   id=int(userid))
     resp = make_response(data, HttpResponseCode.OK.value)
     return resp
 
