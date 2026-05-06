@@ -14,7 +14,7 @@ from app.model import (ArticleSchema, IssueSchema, LogSchema,
                        PersonBriefSchema)
 from app.model_person import (PersonSchema)
 from app.model import (ShortBriefestSchema)
-from app.orm_decl import (Alias, Article, Country, Issue,
+from app.orm_decl import (Alias, Article, Country, Edition, Issue,
                           IssueContributor, Log,
                           Work, WorkContributor, EditionContributor,
                           PersonLink, Awarded, PersonLanguage, PersonTag,
@@ -408,6 +408,22 @@ def get_person(person_id: int) -> ResponseType:
                 person.links = person.links
                 # person.magazine_stories = person.magazine_stories + \
                 #    alias.magazine_stories
+
+        # Also include editions of works where person (or alias) is a
+        # work-level editor (WorkContributor.role_id == 3), which are not
+        # captured by the edition-level edits relationship.
+        all_person_ids = [person.id] + [a.alias for a in aliases]
+        work_edited_editions = session.query(Edition)\
+            .join(Work, Edition.work_id == Work.id)\
+            .join(WorkContributor, WorkContributor.work_id == Work.id)\
+            .filter(WorkContributor.person_id.in_(all_person_ids))\
+            .filter(WorkContributor.role_id == 3)\
+            .all()
+        existing_edit_ids = {e.id for e in person.edits}
+        for ed in work_edited_editions:
+            if ed.id not in existing_edit_ids:
+                person.edits = person.edits + [ed]
+                existing_edit_ids.add(ed.id)
 
     except SQLAlchemyError as exp:
         app.logger.error(f'get_person exception: {exp}.')
