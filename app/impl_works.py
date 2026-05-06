@@ -217,24 +217,6 @@ def _set_work_type(
     return None
 
 
-def create_author_str(authors: List[Any], editions: List[Any]) -> str:
-    """
-    Generate a string representing the list of authors or editors of a book.
-
-    Args:
-        authors (List[Any]): A list of author objects.
-        editions (List[Any]): A list of edition objects.
-
-    Returns:
-        str: A string representing the list of authors or editors of a book.
-    """
-    retval = ''
-    if len(authors) > 0:
-        retval = ' & '.join([author.name for author in authors])
-    else:
-        retval = ' & '.join([x.name for x in editions[0].editors]) + ' (toim.)'
-    return retval
-
 
 def similar_description(
         descr1: Union[str, None], descr2: Union[str, None]) -> bool:
