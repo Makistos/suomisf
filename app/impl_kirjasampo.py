@@ -88,7 +88,7 @@ def kirjasampo_tags(url: str) -> ResponseType:
             continue
         label = heading.get_text(strip=True)
         items = [
-            a.get_text(strip=True)
+            a.get_text(strip=True).lower()
             for a in section.select("div.kulsa-field-item a")
         ]
         if items:
@@ -207,7 +207,7 @@ def work_import_tags(
         results = []
 
         for item in items:
-            name: str = item.get("name", "").strip()
+            name: str = item.get("name", "").strip().lower()
             raw_id: Any = item.get("id")
             raw_action: Any = item.get("action")
 
