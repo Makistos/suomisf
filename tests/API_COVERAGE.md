@@ -295,7 +295,13 @@
 | :hourglass_flowing_sand: | GET | `/api/person/<personid>/changes` | None | - | - |
 | :hourglass_flowing_sand: | DELETE | `/api/changes/<changeid>` | Admin | - | - |
 
-### 17. Articles (4 endpoints)
+### 17. Kirjasampo Integration (1 endpoint)
+
+| Status | Method | Endpoint | Auth | Test Function | Last Run |
+|--------|--------|----------|------|---------------|----------|
+| :white_check_mark: | GET | `/api/kirjasampo/tags` | None | `test_kirjasampo.py::TestKirjasampoTagsSuccess`<br>`test_kirjasampo.py::TestKirjasampoTagsErrors` | 2026-05-10 |
+
+### 18. Articles (4 endpoints)
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|

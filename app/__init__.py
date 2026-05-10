@@ -52,6 +52,7 @@ from app import (api, api_articles, api_awards,  # noqa
                  api_bookseries,
                  api_changes, api_countries, api_issues, api_magazines,
                  api_editions,
+                 api_kirjasampo,
                  api_people, api_publishers, api_pubseries,
                  api_roles,
                  api_shorts, api_tags,

@@ -34,6 +34,7 @@ what they test, their parameter values, and expected behaviors.
 23. [Edition Contributor Tests (test_edition_contributors.py)](#edition-contributor-tests)
 24. [Work Contributor Tests (test_work_contributors.py)](#work-contributor-tests)
 25. [Edition Work Link Tests (test_edition_work_link.py)](#edition-work-link-tests)
+26. [Kirjasampo Tag Fetch Tests (test_kirjasampo.py)](#kirjasampo-tag-fetch-tests)
 
 ---
 
@@ -2144,3 +2145,44 @@ Tests for adding images to persons via
 | `test_add_image_nonexistent_person_returns_400` | person_id=999999999, src | status 400 |
 | `test_add_image_invalid_person_id_returns_400` | person_id='notanid', src | status 400 |
 | `test_add_image_requires_auth` | unauthenticated, person_id=1, src | status 401 or 403 |
+
+---
+
+## Kirjasampo Tag Fetch Tests
+
+**File:** `tests/api/test_kirjasampo.py`
+**Endpoint:** `GET /api/kirjasampo/tags`
+**Authentication:** None required.
+
+External HTTP calls to kirjasampo.fi are mocked via
+`unittest.mock.patch` — no network access is needed.
+
+**Fixtures / helpers:**
+- `VALID_URL` — `https://www.kirjasampo.fi/fi/kulsa/kauno%3Aateos_11973`
+- `MINIMAL_HTML` — byte string with two `kulsa-field` sections
+  ("Kirjallisuudenlaji" with two tags, "Aiheet ja teemat" with one tag)
+- `_make_mock_response(content, status_code)` — returns a mock
+  `requests.Response` with `.content` and `.status_code` set.
+
+### TestKirjasampoTagsSuccess (5 tests)
+
+| Test | Parameters | Mock | Assertions |
+|------|-----------|------|------------|
+| `test_returns_200_for_valid_url` | url=VALID_URL | kirjasampo returns MINIMAL_HTML | status 200 |
+| `test_returns_dict_with_section_keys` | url=VALID_URL | kirjasampo returns MINIMAL_HTML | status 200; response is dict; contains "Kirjallisuudenlaji" and "Aiheet ja teemat" |
+| `test_section_values_are_lists_of_strings` | url=VALID_URL | kirjasampo returns MINIMAL_HTML | every value is a list of strings |
+| `test_tag_values_are_correct` | url=VALID_URL | kirjasampo returns MINIMAL_HTML | "maaginen realismi" and "kehitysromaanit" in Kirjallisuudenlaji; "identiteetti" in Aiheet ja teemat |
+| `test_sections_without_links_are_omitted` | url=VALID_URL | HTML with one empty and one populated section | empty section absent; populated section present |
+
+### TestKirjasampoTagsErrors (8 tests)
+
+| Test | Parameters | Mock | Assertions |
+|------|-----------|------|------------|
+| `test_missing_url_returns_400` | no url param | — | status 400 |
+| `test_empty_url_returns_400` | url= (empty) | — | status 400 |
+| `test_non_kirjasampo_url_returns_400` | url=https://example.com/page | — | status 400 |
+| `test_invalid_url_scheme_returns_400` | url=ftp://www.kirjasampo.fi/… | — | status 400 |
+| `test_plaintext_non_url_returns_400` | url=not-a-url | — | status 400 |
+| `test_remote_error_returns_500` | url=VALID_URL | requests.get raises RequestException | status 500 |
+| `test_upstream_404_returns_500` | url=VALID_URL | kirjasampo returns status 404 | status 500 |
+| `test_page_with_no_tags_returns_404` | url=VALID_URL | HTML with no kulsa-field sections | status 404 |
