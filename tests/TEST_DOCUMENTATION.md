@@ -2186,3 +2186,58 @@ External HTTP calls to kirjasampo.fi are mocked via
 | `test_remote_error_returns_500` | url=VALID_URL | requests.get raises RequestException | status 500 |
 | `test_upstream_404_returns_500` | url=VALID_URL | kirjasampo returns status 404 | status 500 |
 | `test_page_with_no_tags_returns_404` | url=VALID_URL | HTML with no kulsa-field sections | status 404 |
+
+---
+
+## Kirjasampo Tag Import Tests
+
+**File:** `tests/api/test_kirjasampo.py`
+**Endpoints:**
+- `POST /api/work/<work_id>/tags/import` — Admin JWT required.
+- `GET /api/tags/import/mappings` — Admin JWT required.
+
+**Fixtures:**
+- `admin_client` — `api_client` logged in as Test Admin.
+- `test_work` — Creates a fresh work before the test; deletes it after.
+- `_post_import(client, work_id, items)` — Helper that POSTs the items
+  list to the import endpoint.
+- `_create_tag(admin_client, name)` — Creates a tag via the API and
+  returns its id.
+
+### TestWorkTagImportSuccess (11 tests)
+
+| Test | Setup | Items sent | Assertions |
+|------|-------|-----------|------------|
+| `test_add_action_returns_200` | fresh work | action=add | status 200 |
+| `test_add_action_creates_tag_and_reports_added` | fresh work | new name, action=add | status=added; tag_id is int |
+| `test_add_action_reuses_existing_tag` | create tag, fresh work | same name, action=add | tag_id == created tag; status=added |
+| `test_already_present_not_duplicated` | import tag once | same name, action=add again | status=already_present |
+| `test_replace_action_uses_mapped_tag` | create tag, fresh work | action=replace with tag id | effective_action=replace; tag_id matches; status=added |
+| `test_omit_action_skips_tag` | fresh work | action=omit | effective_action=omit; tag_id=null; status=omitted |
+| `test_null_action_defaults_to_add` | fresh work | action=null (unknown name) | effective_action=add; status=added |
+| `test_auto_resolves_omit_from_mapping` | omit stored, fresh work | action=null | effective_action=omit; status=omitted |
+| `test_auto_resolves_replace_from_mapping` | replace stored, second work | action=null | effective_action=replace; tag_id matches stored |
+| `test_add_clears_omit_mapping` | omit stored | action=add for same name | status=added; second work auto-resolves to add |
+| `test_multiple_items_processed` | fresh work | two items: add + omit | len(results)==2; correct statuses per name |
+
+### TestWorkTagImportErrors (7 tests)
+
+| Test | Input | Assertions |
+|------|-------|------------|
+| `test_nonexistent_work_returns_400` | work_id=999999999 | status 400 |
+| `test_empty_body_returns_400` | data=None | status 400 |
+| `test_non_array_json_returns_400` | JSON dict (not array) | status 400 |
+| `test_replace_without_id_returns_error_item` | action=replace, id=null | status 200; result status=error |
+| `test_replace_nonexistent_id_returns_error_item` | action=replace, id=999999999 | status 200; result status=error |
+| `test_invalid_action_returns_error_item` | action="invalidaction" | status 200; result status=error |
+| `test_requires_admin_auth` | unauthenticated, work_id=1 | status 401 or 403 |
+
+### TestGetImportMappings (5 tests)
+
+| Test | Setup | Assertions |
+|------|-------|------------|
+| `test_returns_200_for_admin` | — | status 200 |
+| `test_response_has_replace_and_omit_keys` | — | response has "replace" (list) and "omit" (list) keys |
+| `test_replace_entries_have_required_fields` | store a replace mapping | entry has name, tag_id, tag_name |
+| `test_omit_entries_appear_in_mapping` | store an omit | name appears in omit list |
+| `test_requires_admin_auth` | unauthenticated | status 401 or 403 |

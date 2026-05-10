@@ -1707,6 +1707,28 @@ class WorkTag(Base):
                     primary_key=True)
 
 
+class TagImportReplace(Base):
+    """Maps an external tag name to an existing local tag.
+
+    Persists replace decisions made during work tag imports so the user
+    does not have to re-specify them on subsequent imports.
+    """
+    __tablename__ = 'tag_import_replace'
+    name = Column(String(200), primary_key=True)
+    tag_id = Column(Integer, ForeignKey('tag.id'), nullable=False)
+    tag = relationship('Tag', uselist=False)
+
+
+class TagImportOmit(Base):
+    """Marks an external tag name to be skipped on import.
+
+    Persists omit decisions so the user does not have to re-specify them.
+    Deleted when the user later imports the same name with add/replace.
+    """
+    __tablename__ = 'tag_import_omit'
+    name = Column(String(200), primary_key=True)
+
+
 class WorkType(Base):
     """ Work types. """
     __tablename__ = 'worktype'

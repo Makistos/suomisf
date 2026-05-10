@@ -155,6 +155,8 @@ def clone_test_database():
     _apply_migration_010()
     # Apply migration 011 (awardlink table)
     _apply_migration_011()
+    # Apply migration 012 (tag import mapping tables)
+    _apply_migration_012()
 
 
 MIGRATIONS_DIR = os.path.join(
@@ -202,6 +204,10 @@ MIGRATION_010_SQL = os.path.join(
 
 MIGRATION_011_SQL = os.path.join(
     MIGRATIONS_DIR, '011_award_link.sql'
+)
+
+MIGRATION_012_SQL = os.path.join(
+    MIGRATIONS_DIR, '012_tag_import_mappings.sql'
 )
 
 
@@ -383,6 +389,24 @@ def _apply_migration_011():
             f"Migration 011 failed: {result.stderr[:400]}"
         )
     print("[setup] Migration 011 applied")
+
+
+def _apply_migration_012():
+    """Apply migration 012 SQL to the test database."""
+    if not os.path.exists(MIGRATION_012_SQL):
+        print("[setup] Migration 012 SQL not found, skipping")
+        return
+    print("[setup] Applying migration 012...")
+    result = subprocess.run(
+        ['psql', '-U', DB_USER, '-d', TEST_DB_NAME,
+         '-f', MIGRATION_012_SQL],
+        capture_output=True, text=True
+    )
+    if result.returncode != 0:
+        raise RuntimeError(
+            f"Migration 012 failed: {result.stderr[:400]}"
+        )
+    print("[setup] Migration 012 applied")
 
 
 def _apply_migration_010():

@@ -300,6 +300,8 @@
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
 | :white_check_mark: | GET | `/api/kirjasampo/tags` | None | `test_kirjasampo.py::TestKirjasampoTagsSuccess`<br>`test_kirjasampo.py::TestKirjasampoTagsErrors` | 2026-05-10 |
+| :white_check_mark: | POST | `/api/work/<work_id>/tags/import` | Admin | `test_kirjasampo.py::TestWorkTagImportSuccess`<br>`test_kirjasampo.py::TestWorkTagImportErrors` | 2026-05-10 |
+| :white_check_mark: | GET | `/api/tags/import/mappings` | Admin | `test_kirjasampo.py::TestGetImportMappings` | 2026-05-10 |
 
 ### 18. Articles (4 endpoints)
 
