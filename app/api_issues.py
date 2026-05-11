@@ -256,14 +256,14 @@ def api_getissuesizes() -> Response:
     return make_api_response(publication_sizes())
 
 
-@app.route('/api/issues/<issueid>/covers', methods=['post'])
+@app.route('/api/issues/<issueid>/images', methods=['post'])
 @jwt_admin_required()  # type: ignore
 def api_uploadissueimage(issueid: int) -> Response:
     """
     Uploads an image for a specific issue.
 
     Args:
-        id (int): The ID of the issue.
+        issueid (int): The ID of the issue.
 
     Returns:
         Response: The response object containing the result of the image
@@ -280,22 +280,20 @@ def api_uploadissueimage(issueid: int) -> Response:
     return make_api_response(issue_image_add(issueid, file))
 
 
-@app.route('/api/issues/<issueid>/covers', methods=['delete'])
+@app.route('/api/issues/<issueid>/images/<imageid>', methods=['delete'])
 @jwt_admin_required()  # type: ignore
-def api_deleteissueimage(issueid: int) -> Response:
+def api_deleteissueimage(issueid: int, imageid: int) -> Response:
     """
-    API endpoint for deleting an issue image.
+    API endpoint for deleting an issue image by image ID.
 
     Args:
-        id (int): The ID of the issue.
+        issueid (int): The ID of the issue.
+        imageid (int): The ID of the image to delete.
 
     Returns:
         Response: The API response.
-
-    Raises:
-        None
     """
-    return make_api_response(issue_image_delete(issueid))
+    return make_api_response(issue_image_delete(issueid, imageid))
 
 
 @app.route('/api/issues/<issueid>/contributors', methods=['get'])

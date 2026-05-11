@@ -7,7 +7,8 @@ from app.orm_decl import (Article, Award, AwardCategory, AwardLink, Awarded,
                           BookCondition, BookseriesLink,
                           Bookseries, ContributorRole, Country,
                           Edition, EditionContributor, EditionImage,
-                          Genre, Issue, IssueContributor, Language, Log,
+                          Genre, Issue, IssueContributor, IssueImage,
+                          Language, Log,
                           Magazine, Omnibus, Person, PersonLink,
                           PublicationSize,
                           Publisher, PublisherLink, Pubseries, ShortStory,
@@ -303,6 +304,13 @@ class EditionImageSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         """ Metadata for SQLAlchemyAutoSchema. """
         model = EditionImage
     edition = fields.Nested(EditionBriefestSchema)
+
+
+class IssueImageBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
+    """ Issue image schema (brief). """
+    class Meta:
+        """ Metadata for SQLAlchemyAutoSchema. """
+        model = IssueImage
 
 
 class EditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -649,6 +657,7 @@ class IssueSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     stories = ma.List(fields.Nested(ShortBriefSchema()))
     magazine = fields.Nested(MagazineBriefSchema)
     contributors = ma.List(fields.Nested(lambda: IssueContributorSchema()))
+    images = ma.List(fields.Nested(IssueImageBriefSchema))
 
 
 class MagazineSchema(ma.SQLAlchemyAutoSchema):  # type: ignore

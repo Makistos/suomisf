@@ -17,7 +17,7 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     BOOKCOVER_DIR = '/static/images/books/'
     PERSONIMG_DIR = '/static/images/people/'
-    MAGAZINECOVER_IMG = '/static/images/magazinse/'
+    MAGAZINECOVER_IMG = '/static/images/magazines/'
     ENV = os.environ.get('FLASK_ENV') or 'debug'
 
 

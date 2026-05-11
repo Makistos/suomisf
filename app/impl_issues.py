@@ -10,10 +10,10 @@ from app.impl import ResponseType, check_int
 from app.impl_contributors import update_issue_contributors
 from app.impl_logs import log_changes
 from app.route_helpers import new_session
-from app.orm_decl import (Article, Issue, IssueContent, IssueEditor, IssueTag,
-                          PublicationSize, ShortStory, Tag)
+from app.orm_decl import (Article, Issue, IssueContent, IssueEditor, IssueImage,
+                          IssueTag, PublicationSize, ShortStory, Tag)
 from app.model import (ArticleBriefSchema, IssueSchema,
-                       PublicationSizeBriefSchema,
+                       IssueImageBriefSchema, PublicationSizeBriefSchema,
                        ShortBriefestSchema, TagSchema)
 
 from app import app
@@ -649,19 +649,18 @@ def issue_image_add(issue_id: int, image: FieldStorage) -> ResponseType:
     Uploads an image for a specific issue.
 
     Args:
-        id (int): The ID of the issue.
-        file (FileStorage): The image file.
+        issue_id (int): The ID of the issue.
+        image (FieldStorage): The image file.
 
     Returns:
         ResponseType: The response object containing the result of the image
                       upload.
     """
-    old_values: Dict[str, Union[str, None]] = {}
     session = new_session()
     issue = session.query(Issue).filter(Issue.id == issue_id).first()
     if not issue:
         app.logger.error(f'Issue not found. Id = {issue_id}.')
-        return ResponseType('Numeroa ei käytynyt',
+        return ResponseType('Numeroa ei löydy',
                             HttpResponseCode.BAD_REQUEST.value)
 
     image_name = image.filename
@@ -684,9 +683,10 @@ def issue_image_add(issue_id: int, image: FieldStorage) -> ResponseType:
         return ResponseType('Tiedoston tallennus epäonnistui',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    issue.image_src = app.config['MAGAZINECOVER_DIR'] + filename
+    image_path = app.config['MAGAZINECOVER_IMG'] + filename
+    issue_image = IssueImage(issue_id=int(issue_id), image_src=image_path)
     try:
-        session.add(issue)
+        session.add(issue_image)
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(f'{exp}')
@@ -696,17 +696,19 @@ def issue_image_add(issue_id: int, image: FieldStorage) -> ResponseType:
     log_changes(session=session,
                 obj=issue,
                 action='Päivitys',
-                old_values=old_values)
+                old_values={'Kansikuva': f'Lisätty: {image_path}'})
     session.commit()
-    return ResponseType('OK', HttpResponseCode.OK.value)
+    schema = IssueImageBriefSchema()
+    return ResponseType(schema.dump(issue_image), HttpResponseCode.OK.value)
 
 
-def issue_image_delete(issue_id: int) -> ResponseType:
+def issue_image_delete(issue_id: int, image_id: int) -> ResponseType:
     """
-    Deletes an issue image.
+    Deletes an issue image by image ID.
 
     Args:
-        id (int): The ID of the issue.
+        issue_id (int): The ID of the issue.
+        image_id (int): The ID of the image to delete.
 
     Returns:
         ResponseType: The response object containing the result of the
@@ -714,10 +716,21 @@ def issue_image_delete(issue_id: int) -> ResponseType:
     """
     session = new_session()
 
+    issue_image = session.query(IssueImage)\
+        .filter(IssueImage.id == image_id,
+                IssueImage.issue_id == issue_id)\
+        .first()
+    if not issue_image:
+        return ResponseType('Kuvaa ei löydy',
+                            HttpResponseCode.BAD_REQUEST.value)
+
+    issue = session.query(Issue).filter(Issue.id == issue_id).first()
+    old_values = {'Kansikuva': issue_image.image_src}
+    log_changes(session=session, obj=issue, action='Poisto',
+                old_values=old_values)
+
     try:
-        issue = session.query(Issue).filter(Issue.id == issue_id).first()
-        issue.image_src = None
-        session.add(issue)
+        session.delete(issue_image)
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(f'{exp}')

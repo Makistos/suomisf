@@ -639,6 +639,16 @@ class EditionImage(Base):
     edition = relationship('Edition', uselist=False, viewonly=True)
 
 
+class IssueImage(Base):
+    """ Issue image table. """
+    __tablename__ = 'issueimage'
+    id = Column(Integer, primary_key=True)
+    issue_id = Column(Integer, ForeignKey('issue.id'), nullable=False)
+    image_src = Column(String(200), nullable=False)
+    image_attr = Column(String(100))  # Source website name
+    issue = relationship('Issue', uselist=False, viewonly=True)
+
+
 class EditionLink(Base):
     """ Edition link table. """
     __tablename__ = 'editionlink'
@@ -704,6 +714,8 @@ class Issue(Base):
     magazine = relationship('Magazine', uselist=False, viewonly=True)
     contributors = relationship('IssueContributor', backref='issue',
                                 uselist=True, viewonly=True)
+    images = relationship('IssueImage', backref='issue_image_assoc',
+                          uselist=True, viewonly=True)
 
     @hybrid_property
     def issue_order(self, other):
