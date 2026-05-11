@@ -16,7 +16,7 @@ class Config(object):
     BOOKCOVER_DIR = '/static/images/books/'
     MAGAZINECOVER_DIR = '/static/images/magazines/'
     PERSONIMG_DIR = '/static/images/people/'
-    MAGAZINECOVER_IMG = '/static/images/magazinse/'
+    MAGAZINECOVER_IMG = '/static/images/magazines/'
     ENV = os.environ.get('FLASK_ENV') or 'debug'
 
 
