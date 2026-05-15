@@ -72,3 +72,4 @@ if not app.testing:
     ))
     app.logger.addHandler(handler)
     app.logger.setLevel(logging.INFO)
+    app.logger.info("Logging initialised")
