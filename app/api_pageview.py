@@ -67,8 +67,10 @@ def api_pageview() -> Response:
         data = request.get_json(silent=True) or {}
         path = data.get('path', '')
         if not path or not _is_valid_path(path):
+            app.logger.info(f"No path: {data}")
             return Response('', status=204)
 
+        app.logger.info(f"Saving location: {data}")
         ip = request.headers.get('X-Forwarded-For', request.remote_addr or '')
         if ',' in ip:
             ip = ip.split(',')[0].strip()
@@ -93,8 +95,8 @@ def api_pageview() -> Response:
         )
         session.commit()
         session.close()
-    except Exception:
-        pass  # Never fail the client on analytics errors
+    except Exception as e:
+        app.logger.exception(e)
 
     return Response('', status=204)
 
