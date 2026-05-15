@@ -1,7 +1,6 @@
 import logging
 # from flask_debugtoolbar import DebugToolbarExtension
 import os
-from logging.handlers import RotatingFileHandler
 
 from dotenv import load_dotenv
 from flask import Flask
@@ -65,31 +64,12 @@ from app import (api, api_articles, api_awards,  # noqa
 # Uncomment the following line to enable SQLAlchemy query logging
 # logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 
-if not app.debug and not app.testing:
-    if app.config['LOG_TO_STDOUT']:
-        FORMAT = "%(levelname)5s in %(module)s:%(funcName)s():%(lineno)s -> " \
-                 "%(message)s"
-        stream_handler = logging.StreamHandler()
-        stream_handler.setLevel(logging.INFO)
-        # app.logger.addHandler(stream_handler)
-    else:
-        if not os.path.exists('logs'):
-            os.mkdir('logs')
-        file_handler = RotatingFileHandler('logs/suomisf.log',
-                                           maxBytes=10240, backupCount=10)
-        file_handler.setFormatter(logging.Formatter(
-            '%(asctime)s %(levelname)s: %(message)s '
-            '[in %(pathname)s:%(lineno)d]'))
-        file_handler.setLevel(logging.DEBUG)
-    FORMAT = "[%(asctime)]%(levelname)5s in %(module)s:%(funcName)s():" \
-             "%(lineno)s -> %(message)s"
-    logging.basicConfig()
-
-    # app.logger.addHandler(file_handler)
-else:
-    FORMAT = "%(levelname)5s in %(module)s:%(funcName)s():%(lineno)s -> " \
-             "%(message)s"
-    logger = logging.getLogger(__name__)
-    logger.setLevel(logging.INFO)
-    logging.basicConfig(format=FORMAT)
-    app.logger = logger
+if not app.testing:
+    handler = logging.StreamHandler()
+    handler.setLevel(logging.INFO)
+    handler.setFormatter(logging.Formatter(
+        "%(asctime)s %(levelname)s in "
+        "%(module)s:%(funcName)s():%(lineno)d — %(message)s"
+    ))
+    app.logger.addHandler(handler)
+    app.logger.setLevel(logging.INFO)
