@@ -57,7 +57,7 @@ from app import (api, api_articles, api_awards,  # noqa
                  api_roles,
                  api_shorts, api_tags,
                  api_users, api_wikimedia,
-                 api_wishlist, api_works, api_stats)
+                 api_wishlist, api_works, api_stats, api_pageview)
 
 # This has to be here, not at the top of application or it won't start!
 # toolbar = DebugToolbarExtension(app)
