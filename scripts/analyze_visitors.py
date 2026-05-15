@@ -2,15 +2,20 @@
 """Analyze nginx access logs for real human visitors.
 
 Usage:
-    python3 scripts/analyze_visitors.py [LOG_DIR] [--seed]
+    python3 scripts/analyze_visitors.py [LOG_DIR] [--seed] [--strict]
 
-    Without --seed: prints a human-readable report (unchanged behaviour).
-    With    --seed: also inserts one row per unique (IP, day) into
-                    suomisf.pageview.  Requires DATABASE_URL in the
-                    environment (or .env file) and
-                    /var/lib/GeoIP/GeoLite2-Country.mmdb for country codes.
+    Without --seed:   prints a human-readable report.
+    With    --seed:   also inserts one row per unique (IP, day) into
+                      suomisf.pageview.  Requires DATABASE_URL in the
+                      environment (or .env file) and
+                      /var/lib/GeoIP/GeoLite2-Country.mmdb for country codes.
+    With    --strict: only count IPs that sent a CORS OPTIONS preflight,
+                      which proves a real browser was running the SPA.
+                      Without this flag, IPs that only set the Referer header
+                      are also included (broader but noisier).
 
 Visitors confirmed via CORS OPTIONS preflight are marked with *.
+Cloud/hosting IPs filtered out via org name are marked with -.
 """
 
 import gzip
@@ -42,6 +47,17 @@ BOT_UA_RE = re.compile(
     re.IGNORECASE,
 )
 
+# Organisations that indicate data-centre / cloud / VPN infrastructure.
+# Matched case-insensitively against the org field returned by ip-api.com.
+HOSTING_ORG_RE = re.compile(
+    r"amazon|aws|google|microsoft|azure|digitalocean|linode|akamai"
+    r"|cloudflare|ovh|hetzner|vultr|tencent|alibaba|baidu|bytedance"
+    r"|huawei|tiktok|oracle|ibm cloud|leaseweb|choopa|packet|fastly"
+    r"|zscaler|tor exit|1337 services|sundance international"
+    r"|wonten|3nt solutions",
+    re.IGNORECASE,
+)
+
 # Standard nginx combined log format — path is now a named group
 LOG_RE = re.compile(
     r'(?P<ip>\S+) \S+ \S+ \[(?P<time>[^\]]+)\] '
@@ -64,6 +80,10 @@ def is_real_user(method: str, referer: str, ua: str) -> bool:
     return False
 
 
+def is_hosting_org(org: str) -> bool:
+    return bool(HOSTING_ORG_RE.search(org))
+
+
 def open_log(path: Path):
     if path.suffix == ".gz":
         return gzip.open(path, "rt", errors="replace")
@@ -74,8 +94,9 @@ def open_log(path: Path):
 # Geolocation — ip-api.com for the report
 # ---------------------------------------------------------------------------
 
-def geolocate(ips: list[str]) -> dict[str, str]:
-    geo: dict[str, str] = {}
+def geolocate(ips: list[str]) -> dict[str, dict]:
+    """Return {ip: {'display': str, 'org': str}} for all IPs."""
+    geo: dict[str, dict] = {}
     for i in range(0, len(ips), GEOIP_BATCH_SIZE):
         batch = ips[i:i + GEOIP_BATCH_SIZE]
         try:
@@ -92,11 +113,14 @@ def geolocate(ips: list[str]) -> dict[str, str]:
                     city = entry.get("city", "")
                     org = entry.get("org", "")
                     location = city if city else country
-                    geo[ip] = f"{location}, {country} — {org}"
+                    geo[ip] = {
+                        "display": f"{location}, {country} — {org}",
+                        "org": org,
+                    }
         except Exception as exc:
             print(f"GeoIP lookup failed: {exc}", file=sys.stderr)
             for ip in batch:
-                geo.setdefault(ip, ip)
+                geo.setdefault(ip, {"display": ip, "org": ""})
         if i + GEOIP_BATCH_SIZE < len(ips):
             time.sleep(60 / GEOIP_REQUESTS_PER_MIN)
     return geo
@@ -140,10 +164,7 @@ def parse_ua(ua_string: str):
 # DB seeding
 # ---------------------------------------------------------------------------
 
-def seed_db(
-    rows: list[tuple],  # (ip, first_dt, first_ua)
-    geoip_reader,
-) -> None:
+def seed_db(rows: list[tuple], geoip_reader) -> None:
     """Insert one row per (IP, day) into suomisf.pageview."""
     from dotenv import load_dotenv
     load_dotenv(".env")
@@ -187,6 +208,7 @@ def seed_db(
 
 def main() -> None:
     seed = "--seed" in sys.argv
+    strict = "--strict" in sys.argv
     positional = [a for a in sys.argv[1:] if not a.startswith("--")]
     log_dir = Path(positional[0]) if positional else LOG_DIR
 
@@ -222,39 +244,62 @@ def main() -> None:
                 if method == "OPTIONS":
                     options_ips.add(ip)
 
+    # In strict mode keep only OPTIONS-confirmed IPs
+    if strict:
+        daily = {
+            day: {ip: v for ip, v in ips.items() if ip in options_ips}
+            for day, ips in daily.items()
+        }
+        daily = {day: ips for day, ips in daily.items() if ips}
+
     all_ips = sorted({ip for day_ips in daily.values() for ip in day_ips})
     if not all_ips:
         print("No real user visits found.")
         return
 
-    # --- Human-readable report (unchanged) ----------------------------------
     print(f"Geolocating {len(all_ips)} unique IPs ...", file=sys.stderr)
     geo = geolocate(all_ips)
 
+    # Separate hosting IPs so we can report them but not count them
+    hosting_ips = {ip for ip in all_ips if is_hosting_org(geo.get(ip, {}).get("org", ""))}
+    human_ips = set(all_ips) - hosting_ips
+
     print(f"\n{'=' * 70}")
-    print("Real human visitors by day")
+    mode = "strict (OPTIONS-confirmed only)" if strict else "standard"
+    print(f"Real human visitors by day  [{mode}]")
     print(f"{'=' * 70}\n")
 
     for day in sorted(daily):
         day_ips = daily[day]
-        print(f"{day}  —  {len(day_ips)} unique visitor(s)")
+        human_count = sum(1 for ip in day_ips if ip in human_ips)
+        total_count = len(day_ips)
+        suffix = f"  ({total_count - human_count} hosting/cloud filtered)" if hosting_ips & day_ips.keys() else ""
+        print(f"{day}  —  {human_count} unique visitor(s){suffix}")
         for ip in sorted(day_ips):
-            marker = " *" if ip in options_ips else ""
-            location = geo.get(ip, ip)
-            print(f"  {ip:<18}  {location}{marker}")
+            if ip in hosting_ips:
+                marker = " -"
+                info = geo.get(ip, {}).get("display", ip)
+                print(f"  {ip:<18}  {info}{marker}")
+            else:
+                marker = " *" if ip in options_ips else ""
+                info = geo.get(ip, {}).get("display", ip)
+                print(f"  {ip:<18}  {info}{marker}")
         print()
 
     if options_ips:
         print("* confirmed interactive user (sent CORS OPTIONS preflight)")
+    if hosting_ips:
+        print("- filtered: cloud/hosting/VPN infrastructure IP")
 
-    # --- DB seeding ---------------------------------------------------------
+    # --- DB seeding — only seed human IPs ------------------------------------
     if seed:
         rows = [
             (ip, dt, ua)
             for day_ips in daily.values()
             for ip, (dt, ua) in day_ips.items()
+            if ip in human_ips
         ]
-        print(f"\nSeeding {len(rows)} rows into the database ...", file=sys.stderr)
+        print(f"\nSeeding {len(rows)} human-visitor rows into the database ...", file=sys.stderr)
         geoip_reader = load_geoip_reader()
         seed_db(rows, geoip_reader)
         if geoip_reader:
