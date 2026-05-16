@@ -127,7 +127,7 @@ def _cutoff(days: int) -> datetime:
     return datetime.now(timezone.utc) - timedelta(days=days)
 
 
-@app.route('/api/pageview', methods=['POST'])
+@app.route('/api/p', methods=['POST'])
 def api_pageview() -> Response:
     try:
         data = request.get_json(silent=True) or {}
@@ -182,7 +182,7 @@ def _days_param(default: int = 30) -> int:
         return default
 
 
-@app.route('/api/stats/visitors/daily', methods=['GET'])
+@app.route('/api/stats/site/daily', methods=['GET'])
 @jwt_required()
 def api_stats_visitors_daily() -> Response:
     _require_admin()
@@ -206,7 +206,7 @@ def api_stats_visitors_daily() -> Response:
     ))
 
 
-@app.route('/api/stats/visitors/locations', methods=['GET'])
+@app.route('/api/stats/site/locations', methods=['GET'])
 @jwt_required()
 def api_stats_visitors_locations() -> Response:
     _require_admin()
@@ -233,7 +233,7 @@ _PAGEVIEW_FILTER_COLS = frozenset({'ip', 'path', 'city', 'country', 'browser', '
 _PAGEVIEW_LOCATION_FILTER_COLS = frozenset({'operator'})
 
 
-@app.route('/api/stats/visitors/pageviews', methods=['GET'])
+@app.route('/api/stats/site/log', methods=['GET'])
 @jwt_required()
 def api_stats_visitors_pageviews() -> Response:
     _require_admin()
@@ -297,7 +297,7 @@ def api_stats_visitors_pageviews() -> Response:
     }, 200))
 
 
-@app.route('/api/stats/visitors/breakdown', methods=['GET'])
+@app.route('/api/stats/site/breakdown', methods=['GET'])
 @jwt_required()
 def api_stats_visitors_breakdown() -> Response:
     _require_admin()
