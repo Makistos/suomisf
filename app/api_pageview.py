@@ -1,10 +1,12 @@
 """Pageview logging and visitor statistics endpoints."""
-from typing import Optional
+from datetime import datetime, timedelta, timezone
+from typing import Optional, Tuple
 
 from flask import abort, request
 from flask.wrappers import Response
 from flask_jwt_extended import get_jwt, jwt_required
 from sqlalchemy import text
+from sqlalchemy.orm import Session
 
 from app import app
 from app.api_helpers import make_api_response
@@ -29,13 +31,24 @@ try:
 except ImportError:
     pass
 
+_requests = None
+try:
+    import requests as _requests  # type: ignore[import]
+except ImportError:
+    pass
+
+# Prefer City DB (has city + country); fall back to Country DB.
+_geoip = None
+_geoip_has_city = False
 try:
     import geoip2.database
-    _geoip = geoip2.database.Reader('/var/lib/GeoIP/GeoLite2-Country.mmdb')
-    _HAS_GEOIP = True
+    try:
+        _geoip = geoip2.database.Reader('/var/lib/GeoIP/GeoLite2-City.mmdb')
+        _geoip_has_city = True
+    except Exception:
+        _geoip = geoip2.database.Reader('/var/lib/GeoIP/GeoLite2-Country.mmdb')
 except Exception:
-    _geoip = None
-    _HAS_GEOIP = False
+    pass
 
 
 def _parse_ua(ua_string: str):
@@ -48,17 +61,76 @@ def _parse_ua(ua_string: str):
     return browser, ua.os.family, device_type
 
 
-def _get_country(ip: str) -> Optional[str]:
-    if not _HAS_GEOIP:
-        return None
+def _lookup_geoip(ip: str) -> Tuple[Optional[str], Optional[str]]:
+    """Try local GeoIP database. Returns (city, country_iso) or (None, None)."""
+    if not _geoip:
+        return None, None
     try:
-        return _geoip.country(ip).country.iso_code  # type: ignore[union-attr]
+        if _geoip_has_city:
+            r = _geoip.city(ip)  # type: ignore[union-attr]
+            return r.city.name, r.country.iso_code
+        else:
+            r = _geoip.country(ip)  # type: ignore[union-attr]
+            return None, r.country.iso_code
     except Exception:
-        return None
+        return None, None
+
+
+def _lookup_ipapi(ip: str) -> Tuple[Optional[str], Optional[str]]:
+    """Call ip-api.com for a single IP. Returns (city, country_iso) or (None, None)."""
+    if not _requests:
+        return None, None
+    try:
+        resp = _requests.post(
+            'http://ip-api.com/batch',
+            json=[ip],
+            params={'fields': 'query,countryCode,city'},
+            timeout=5,
+        )
+        if resp.ok:
+            entry = resp.json()[0]
+            city = entry.get('city') or None
+            country = entry.get('countryCode') or None
+            return city, country
+    except Exception:
+        pass
+    return None, None
+
+
+def _get_location(ip: str, session: Session) -> Tuple[Optional[str], Optional[str]]:
+    """Return (city, country_iso) for an IP.
+
+    Checks the ip_location DB cache first, then local GeoIP, then ip-api.com.
+    Always stores the result so the external lookup is only done once per IP.
+    """
+    row = session.execute(
+        text("SELECT city, country FROM suomisf.ip_location WHERE ip = :ip"),
+        {'ip': ip},
+    ).fetchone()
+    if row is not None:
+        return row.city, row.country
+
+    city, country = _lookup_geoip(ip)
+    if city is None and country is None:
+        city, country = _lookup_ipapi(ip)
+
+    session.execute(
+        text("""
+            INSERT INTO suomisf.ip_location (ip, city, country)
+            VALUES (:ip, :city, :country)
+            ON CONFLICT (ip) DO NOTHING
+        """),
+        {'ip': ip, 'city': city, 'country': country},
+    )
+    return city, country
 
 
 def _is_valid_path(path: str) -> bool:
     return path in VALID_PATHS or any(path.startswith(p) for p in VALID_PREFIXES)
+
+
+def _cutoff(days: int) -> datetime:
+    return datetime.now(timezone.utc) - timedelta(days=days)
 
 
 @app.route('/api/pageview', methods=['POST'])
@@ -70,26 +142,26 @@ def api_pageview() -> Response:
             app.logger.info(f"No path: {data}")
             return Response('', status=204)
 
-        app.logger.info(f"Saving location: {data}")
         ip = request.headers.get('X-Forwarded-For', request.remote_addr or '')
         if ',' in ip:
             ip = ip.split(',')[0].strip()
 
         ua_string = request.headers.get('User-Agent', '')
         browser, os_name, device_type = _parse_ua(ua_string)
-        country = _get_country(ip)
 
         session = new_session()
+        city, country = _get_location(ip, session)
+
         session.execute(
             text("""
                 INSERT INTO suomisf.pageview
-                    (ip, path, user_agent, country, browser, os, device_type)
+                    (ip, path, user_agent, city, country, browser, os, device_type)
                 VALUES
-                    (:ip, :path, :ua, :country, :browser, :os, :device_type)
+                    (:ip, :path, :ua, :city, :country, :browser, :os, :device_type)
             """),
             {
                 'ip': ip, 'path': path, 'ua': ua_string or None,
-                'country': country, 'browser': browser,
+                'city': city, 'country': country, 'browser': browser,
                 'os': os_name, 'device_type': device_type,
             }
         )
@@ -125,10 +197,10 @@ def api_stats_visitors_daily() -> Response:
                    COUNT(DISTINCT ip) AS visitors,
                    COUNT(*) AS pageviews
             FROM suomisf.pageview
-            WHERE created_at >= NOW() - INTERVAL '1 day' * :days
+            WHERE created_at >= :cutoff
             GROUP BY 1 ORDER BY 1
         """),
-        {'days': days},
+        {'cutoff': _cutoff(days)},
     ).fetchall()
     session.close()
     return make_api_response(ResponseType(
@@ -137,25 +209,25 @@ def api_stats_visitors_daily() -> Response:
     ))
 
 
-@app.route('/api/stats/visitors/countries', methods=['GET'])
+@app.route('/api/stats/visitors/locations', methods=['GET'])
 @jwt_required()
-def api_stats_visitors_countries() -> Response:
+def api_stats_visitors_locations() -> Response:
     _require_admin()
     days = _days_param(90)
     session = new_session()
     rows = session.execute(
         text("""
-            SELECT COALESCE(country, '?') AS country,
+            SELECT COALESCE(city, country, '?') AS location,
                    COUNT(DISTINCT ip) AS visitors
             FROM suomisf.pageview
-            WHERE created_at >= NOW() - INTERVAL '1 day' * :days
+            WHERE created_at >= :cutoff
             GROUP BY 1 ORDER BY visitors DESC LIMIT 20
         """),
-        {'days': days},
+        {'cutoff': _cutoff(days)},
     ).fetchall()
     session.close()
     return make_api_response(ResponseType(
-        [{'country': r.country, 'visitors': r.visitors} for r in rows],
+        [{'location': r.location, 'visitors': r.visitors} for r in rows],
         200,
     ))
 
@@ -172,11 +244,11 @@ def api_stats_visitors_breakdown() -> Response:
             text(f"""
                 SELECT COALESCE({column}, '?') AS label, COUNT(*) AS count
                 FROM suomisf.pageview
-                WHERE created_at >= NOW() - INTERVAL '1 day' * :days
+                WHERE created_at >= :cutoff
                   AND {column} IS NOT NULL
                 GROUP BY 1 ORDER BY count DESC LIMIT 10
             """),
-            {'days': days},
+            {'cutoff': _cutoff(days)},
         ).fetchall()
         return [{'label': r.label, 'count': r.count} for r in rows]
 
