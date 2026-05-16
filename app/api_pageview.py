@@ -130,14 +130,28 @@ def _get_location(ip: str, session: Session) -> Tuple[Optional[str], Optional[st
     if country is None:
         country = ip_country
 
-    session.execute(
-        text("""
-            INSERT INTO suomisf.ip_location (ip, city, country, operator)
-            VALUES (:ip, :city, :country, :operator)
-            ON CONFLICT (ip) DO NOTHING
-        """),
-        {'ip': ip, 'city': city, 'country': country, 'operator': operator},
-    )
+    try:
+        session.execute(
+            text("""
+                INSERT INTO suomisf.ip_location (ip, city, country, operator)
+                VALUES (:ip, :city, :country, :operator)
+                ON CONFLICT (ip) DO NOTHING
+            """),
+            {'ip': ip, 'city': city, 'country': country, 'operator': operator},
+        )
+    except Exception:
+        session.rollback()
+        try:
+            session.execute(
+                text("""
+                    INSERT INTO suomisf.ip_location (ip, city, country)
+                    VALUES (:ip, :city, :country)
+                    ON CONFLICT (ip) DO NOTHING
+                """),
+                {'ip': ip, 'city': city, 'country': country},
+            )
+        except Exception:
+            session.rollback()
     return city, country
 
 
