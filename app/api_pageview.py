@@ -1,4 +1,5 @@
 """Pageview logging and visitor statistics endpoints."""
+import re
 from datetime import datetime, timedelta, timezone
 from typing import Optional, Tuple
 
@@ -12,6 +13,16 @@ from app import app
 from app.api_helpers import make_api_response
 from app.impl import ResponseType
 from app.route_helpers import new_session
+
+BOT_UA_RE = re.compile(
+    r'bot|spider|crawler|zgrab|Censys|Applebot|Bytespider'
+    r'|bingbot|Baiduspider|Amazonbot|OAI-Search|Googlebot'
+    r'|masscan|nikto|sqlmap|python-requests|libwww|curl'
+    r'|facebookexternalhit|Twitterbot|Slackbot|LinkedInBot'
+    r'|Dataprovider|SemrushBot|AhrefsBot|DotBot|MJ12bot'
+    r'|PetalBot|YandexBot|archive\.org_bot',
+    re.IGNORECASE,
+)
 
 VALID_PATHS = {
     '/', '/awards', '/bookindex', '/faq', '/shortstoryindex',
@@ -76,32 +87,34 @@ def _lookup_geoip(ip: str) -> Tuple[Optional[str], Optional[str]]:
         return None, None
 
 
-def _lookup_ipapi(ip: str) -> Tuple[Optional[str], Optional[str]]:
-    """Call ip-api.com for a single IP. Returns (city, country_iso) or (None, None)."""
+def _lookup_ipapi(ip: str) -> Tuple[Optional[str], Optional[str], Optional[str]]:
+    """Call ip-api.com for a single IP. Returns (city, country_iso, operator) or (None, None, None)."""
     if not _requests:
-        return None, None
+        return None, None, None
     try:
         resp = _requests.post(
             'http://ip-api.com/batch',
             json=[ip],
-            params={'fields': 'query,countryCode,city'},
+            params={'fields': 'query,countryCode,city,org'},
             timeout=5,
         )
         if resp.ok:
             entry = resp.json()[0]
             city = entry.get('city') or None
             country = entry.get('countryCode') or None
-            return city, country
+            operator = entry.get('org') or None
+            return city, country, operator
     except Exception:
         pass
-    return None, None
+    return None, None, None
 
 
 def _get_location(ip: str, session: Session) -> Tuple[Optional[str], Optional[str]]:
     """Return (city, country_iso) for an IP.
 
-    Checks the ip_location DB cache first, then local GeoIP, then ip-api.com.
-    Always stores the result so the external lookup is only done once per IP.
+    Checks the ip_location DB cache first. For new IPs, always calls ip-api.com
+    to capture the operator name (GeoIP2 doesn't provide it). GeoIP2 city/country
+    take precedence when available; ip-api.com values are used as fallback.
     """
     row = session.execute(
         text("SELECT city, country FROM suomisf.ip_location WHERE ip = :ip"),
@@ -111,16 +124,19 @@ def _get_location(ip: str, session: Session) -> Tuple[Optional[str], Optional[st
         return row.city, row.country
 
     city, country = _lookup_geoip(ip)
-    if city is None and country is None:
-        city, country = _lookup_ipapi(ip)
+    ip_city, ip_country, operator = _lookup_ipapi(ip)
+    if city is None:
+        city = ip_city
+    if country is None:
+        country = ip_country
 
     session.execute(
         text("""
-            INSERT INTO suomisf.ip_location (ip, city, country)
-            VALUES (:ip, :city, :country)
+            INSERT INTO suomisf.ip_location (ip, city, country, operator)
+            VALUES (:ip, :city, :country, :operator)
             ON CONFLICT (ip) DO NOTHING
         """),
-        {'ip': ip, 'city': city, 'country': country},
+        {'ip': ip, 'city': city, 'country': country, 'operator': operator},
     )
     return city, country
 
@@ -142,11 +158,13 @@ def api_pageview() -> Response:
             app.logger.info(f"No path: {data}")
             return Response('', status=204)
 
+        ua_string = request.headers.get('User-Agent', '')
+        if not ua_string or BOT_UA_RE.search(ua_string):
+            return Response('', status=204)
+
         ip = request.headers.get('X-Forwarded-For', request.remote_addr or '')
         if ',' in ip:
             ip = ip.split(',')[0].strip()
-
-        ua_string = request.headers.get('User-Agent', '')
         browser, os_name, device_type = _parse_ua(ua_string)
 
         session = new_session()
