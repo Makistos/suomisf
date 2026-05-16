@@ -1,7 +1,7 @@
 """Pageview logging and visitor statistics endpoints."""
 import re
 from datetime import datetime, timedelta, timezone
-from typing import Optional, Tuple
+from typing import Optional
 
 from flask import abort, request
 from flask.wrappers import Response
@@ -42,24 +42,7 @@ try:
 except ImportError:
     pass
 
-_requests = None
-try:
-    import requests as _requests  # type: ignore[import]
-except ImportError:
-    pass
-
-# Prefer City DB (has city + country); fall back to Country DB.
-_geoip = None
-_geoip_has_city = False
-try:
-    import geoip2.database
-    try:
-        _geoip = geoip2.database.Reader('/var/lib/GeoIP/GeoLite2-City.mmdb')
-        _geoip_has_city = True
-    except Exception:
-        _geoip = geoip2.database.Reader('/var/lib/GeoIP/GeoLite2-Country.mmdb')
-except Exception:
-    pass
+import requests as _requests
 
 
 def _parse_ua(ua_string: str):
@@ -72,25 +55,8 @@ def _parse_ua(ua_string: str):
     return browser, ua.os.family, device_type
 
 
-def _lookup_geoip(ip: str) -> Tuple[Optional[str], Optional[str]]:
-    """Try local GeoIP database. Returns (city, country_iso) or (None, None)."""
-    if not _geoip:
-        return None, None
-    try:
-        if _geoip_has_city:
-            r = _geoip.city(ip)  # type: ignore[union-attr]
-            return r.city.name, r.country.iso_code
-        else:
-            r = _geoip.country(ip)  # type: ignore[union-attr]
-            return None, r.country.iso_code
-    except Exception:
-        return None, None
-
-
-def _lookup_ipapi(ip: str) -> Tuple[Optional[str], Optional[str], Optional[str]]:
+def _lookup_ipapi(ip: str) -> tuple[Optional[str], Optional[str], Optional[str]]:
     """Call ip-api.com for a single IP. Returns (city, country_iso, operator) or (None, None, None)."""
-    if not _requests:
-        return None, None, None
     try:
         resp = _requests.post(
             'http://ip-api.com/batch',
@@ -109,7 +75,7 @@ def _lookup_ipapi(ip: str) -> Tuple[Optional[str], Optional[str], Optional[str]]
     return None, None, None
 
 
-def _get_location(ip: str, session: Session) -> Tuple[Optional[str], Optional[str]]:
+def _get_location(ip: str, session: Session) -> tuple[Optional[str], Optional[str]]:
     """Return (city, country_iso) for an IP.
 
     Checks the ip_location DB cache first. For new IPs, always calls ip-api.com
@@ -123,12 +89,7 @@ def _get_location(ip: str, session: Session) -> Tuple[Optional[str], Optional[st
     if row is not None:
         return row.city, row.country
 
-    city, country = _lookup_geoip(ip)
-    ip_city, ip_country, operator = _lookup_ipapi(ip)
-    if city is None:
-        city = ip_city
-    if country is None:
-        country = ip_country
+    city, country, operator = _lookup_ipapi(ip)
 
     try:
         session.execute(
@@ -179,6 +140,7 @@ def api_pageview() -> Response:
         ip = request.headers.get('X-Forwarded-For', request.remote_addr or '')
         if ',' in ip:
             ip = ip.split(',')[0].strip()
+        app.logger.info(f"pageview ip={ip!r} path={path!r}")
         browser, os_name, device_type = _parse_ua(ua_string)
 
         session = new_session()
@@ -265,6 +227,7 @@ def api_stats_visitors_locations() -> Response:
 
 
 _PAGEVIEW_FILTER_COLS = frozenset({'ip', 'path', 'city', 'country', 'browser', 'os', 'device_type'})
+_PAGEVIEW_LOCATION_FILTER_COLS = frozenset({'operator'})
 
 
 @app.route('/api/stats/visitors/pageviews', methods=['GET'])
@@ -282,24 +245,37 @@ def api_stats_visitors_pageviews() -> Response:
     for col in _PAGEVIEW_FILTER_COLS:
         val = request.args.get(col, '').strip()
         if val:
-            where_parts.append(f"{col} ILIKE :{col}_f")
+            where_parts.append(f"p.{col} ILIKE :{col}_f")
+            params[f'{col}_f'] = f'%{val}%'
+    for col in _PAGEVIEW_LOCATION_FILTER_COLS:
+        val = request.args.get(col, '').strip()
+        if val:
+            where_parts.append(f"l.{col} ILIKE :{col}_f")
             params[f'{col}_f'] = f'%{val}%'
 
     where_sql = ('WHERE ' + ' AND '.join(where_parts)) if where_parts else ''
 
     session = new_session()
     total = session.execute(
-        text(f"SELECT COUNT(*) FROM suomisf.pageview {where_sql}"),
+        text(f"""
+            SELECT COUNT(*)
+            FROM suomisf.pageview p
+            LEFT JOIN suomisf.ip_location l ON l.ip = p.ip
+            {where_sql}
+        """),
         params,
     ).scalar()
     rows = session.execute(
         text(f"""
-            SELECT id,
-                   (created_at AT TIME ZONE 'Europe/Helsinki') AS ts,
-                   ip, path, city, country, browser, os, device_type
-            FROM suomisf.pageview
+            SELECT p.id,
+                   (p.created_at AT TIME ZONE 'Europe/Helsinki') AS ts,
+                   p.ip, p.path, p.city, p.country,
+                   p.browser, p.os, p.device_type,
+                   l.operator
+            FROM suomisf.pageview p
+            LEFT JOIN suomisf.ip_location l ON l.ip = p.ip
             {where_sql}
-            ORDER BY id DESC
+            ORDER BY p.id DESC
             LIMIT :lim OFFSET :off
         """),
         {**params, 'lim': per_page, 'off': page * per_page},
@@ -312,6 +288,7 @@ def api_stats_visitors_pageviews() -> Response:
             'ip': r.ip, 'path': r.path,
             'city': r.city, 'country': r.country,
             'browser': r.browser, 'os': r.os, 'device_type': r.device_type,
+            'operator': r.operator,
         } for r in rows],
         'total': total,
     }, 200))
@@ -337,10 +314,25 @@ def api_stats_visitors_breakdown() -> Response:
         ).fetchall()
         return [{'label': r.label, 'count': r.count} for r in rows]
 
+    def _col_location(column: str) -> list:
+        rows = session.execute(
+            text(f"""
+                SELECT COALESCE(l.{column}, '?') AS label, COUNT(*) AS count
+                FROM suomisf.pageview p
+                LEFT JOIN suomisf.ip_location l ON l.ip = p.ip
+                WHERE p.created_at >= :cutoff
+                  AND l.{column} IS NOT NULL
+                GROUP BY 1 ORDER BY count DESC LIMIT 10
+            """),
+            {'cutoff': _cutoff(days)},
+        ).fetchall()
+        return [{'label': r.label, 'count': r.count} for r in rows]
+
     result = {
         'browsers': _col('browser'),
         'os': _col('os'),
         'devices': _col('device_type'),
+        'operators': _col_location('operator'),
     }
     session.close()
     return make_api_response(ResponseType(result, 200))

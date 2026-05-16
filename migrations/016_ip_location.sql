@@ -4,3 +4,4 @@ CREATE TABLE suomisf.ip_location (
     country VARCHAR(2),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+GRANT SELECT, INSERT, UPDATE ON suomisf.ip_location TO mep;
