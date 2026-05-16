@@ -76,27 +76,30 @@ def _lookup_ipapi(ip: str) -> tuple[Optional[str], Optional[str], Optional[str]]
 
 
 def _get_location(ip: str, session: Session) -> tuple[Optional[str], Optional[str]]:
-    """Return (city, country_iso) for an IP.
+    """Return (city, country_iso) for an IP, keeping ip_location as a persistent cache.
 
-    Checks the ip_location DB cache first. For new IPs, always calls ip-api.com
-    to capture the operator name (GeoIP2 doesn't provide it). GeoIP2 city/country
-    take precedence when available; ip-api.com values are used as fallback.
+    If the row exists but operator is NULL (inserted before migration 017), we still
+    call ip-api.com to backfill operator using ON CONFLICT DO UPDATE.
     """
     row = session.execute(
-        text("SELECT city, country FROM suomisf.ip_location WHERE ip = :ip"),
+        text("SELECT city, country, operator FROM suomisf.ip_location WHERE ip = :ip"),
         {'ip': ip},
     ).fetchone()
-    if row is not None:
+
+    if row is not None and row.operator is not None:
         return row.city, row.country
 
-    city, country, operator = _lookup_ipapi(ip)
+    # Not cached, or cached without operator — call ip-api.com.
+    new_city, new_country, operator = _lookup_ipapi(ip)
+    city = row.city if row is not None else new_city
+    country = row.country if row is not None else new_country
 
     try:
         session.execute(
             text("""
                 INSERT INTO suomisf.ip_location (ip, city, country, operator)
                 VALUES (:ip, :city, :country, :operator)
-                ON CONFLICT (ip) DO NOTHING
+                ON CONFLICT (ip) DO UPDATE SET operator = EXCLUDED.operator
             """),
             {'ip': ip, 'city': city, 'country': country, 'operator': operator},
         )
