@@ -16,11 +16,19 @@ from app.route_helpers import new_session
 
 BOT_UA_RE = re.compile(
     r'bot|spider|crawler|zgrab|Censys|Applebot|Bytespider'
-    r'|bingbot|Baiduspider|Amazonbot|OAI-Search|Googlebot'
+    r'|bingbot|Baiduspider|Amazonbot|OAI-Search|Googlebot|GoogleOther'
     r'|masscan|nikto|sqlmap|python-requests|libwww|curl'
     r'|facebookexternalhit|Twitterbot|Slackbot|LinkedInBot'
     r'|Dataprovider|SemrushBot|AhrefsBot|DotBot|MJ12bot'
-    r'|PetalBot|YandexBot|archive\.org_bot',
+    r'|PetalBot|YandexBot|archive\.org_bot|HeadlessChrome'
+    r'|Scrapy|Wget|Java|Go-http-client|okhttp|axios',
+    re.IGNORECASE,
+)
+
+# Browser families the user_agents library identifies as non-human.
+BOT_BROWSER_RE = re.compile(
+    r'GoogleOther|Google|bot|crawler|spider|HeadlessChrome'
+    r'|Python|Java|Go HTTP|curl|Wget|Scrapy|okhttp|axios',
     re.IGNORECASE,
 )
 
@@ -145,6 +153,8 @@ def api_pageview() -> Response:
             ip = ip.split(',')[0].strip()
         app.logger.info(f"pageview ip={ip!r} path={path!r}")
         browser, os_name, device_type = _parse_ua(ua_string)
+        if browser and BOT_BROWSER_RE.search(browser):
+            return Response('', status=204)
 
         session = new_session()
         city, country = _get_location(ip, session)
