@@ -250,6 +250,59 @@ def api_stats_visitors_locations() -> Response:
     ))
 
 
+_PAGEVIEW_FILTER_COLS = frozenset({'ip', 'path', 'city', 'country', 'browser', 'os', 'device_type'})
+
+
+@app.route('/api/stats/visitors/pageviews', methods=['GET'])
+@jwt_required()
+def api_stats_visitors_pageviews() -> Response:
+    _require_admin()
+    try:
+        page = max(int(request.args.get('page', 0)), 0)
+        per_page = min(max(int(request.args.get('per_page', 50)), 1), 200)
+    except (ValueError, TypeError):
+        page, per_page = 0, 50
+
+    params: dict = {}
+    where_parts: list = []
+    for col in _PAGEVIEW_FILTER_COLS:
+        val = request.args.get(col, '').strip()
+        if val:
+            where_parts.append(f"{col} ILIKE :{col}_f")
+            params[f'{col}_f'] = f'%{val}%'
+
+    where_sql = ('WHERE ' + ' AND '.join(where_parts)) if where_parts else ''
+
+    session = new_session()
+    total = session.execute(
+        text(f"SELECT COUNT(*) FROM suomisf.pageview {where_sql}"),
+        params,
+    ).scalar()
+    rows = session.execute(
+        text(f"""
+            SELECT id,
+                   (created_at AT TIME ZONE 'Europe/Helsinki') AS ts,
+                   ip, path, city, country, browser, os, device_type
+            FROM suomisf.pageview
+            {where_sql}
+            ORDER BY id DESC
+            LIMIT :lim OFFSET :off
+        """),
+        {**params, 'lim': per_page, 'off': page * per_page},
+    ).fetchall()
+    session.close()
+    return make_api_response(ResponseType({
+        'rows': [{
+            'id': r.id,
+            'created_at': r.ts.isoformat() if r.ts else None,
+            'ip': r.ip, 'path': r.path,
+            'city': r.city, 'country': r.country,
+            'browser': r.browser, 'os': r.os, 'device_type': r.device_type,
+        } for r in rows],
+        'total': total,
+    }, 200))
+
+
 @app.route('/api/stats/visitors/breakdown', methods=['GET'])
 @jwt_required()
 def api_stats_visitors_breakdown() -> Response:
