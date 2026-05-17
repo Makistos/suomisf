@@ -3,14 +3,14 @@
 
 from flask import Response, request
 import json
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, verify_jwt_in_request, get_jwt
 from app.api_helpers import make_api_response
 from app.api_jwt import jwt_admin_required
 from app.impl import ResponseType
 from app.impl_editions import (
     copy_edition, create_edition, edition_delete, edition_image_upload,
     edition_image_delete,
-    edition_shorts,
+    edition_shorts, save_edition_shorts,
     editionowner_list, editionowner_get, editionowner_getowned,
     editionowner_remove, editionowner_add, editionowner_update, get_edition,
     get_latest_editions,
@@ -321,18 +321,29 @@ def api_addeditionowner() -> Response:
     return retval
 
 
-@app.route('/api/editions/<editionid>/shorts', methods=['get'])
-def api_editionshorts(editionid: str) -> Response:
+@app.route('/api/editions/<int:editionid>/shorts', methods=['GET', 'PUT'])
+def api_editionshorts(editionid: int) -> Response:
     """
-    Get the shorts for a specific edition.
+    GET  — list short stories for an edition.
+    PUT  — replace the short story list for this edition only (admin).
 
-    Args:
-        editionid (str): The ID of the edition.
-
-    Returns:
-        Response: The API response containing the shorts for the edition.
+    Request body for PUT — JSON array of short story IDs in order:
+        [12, 7, 99]
     """
-    return make_api_response(edition_shorts(editionid))
+    if request.method == 'PUT':
+        verify_jwt_in_request()
+        if not get_jwt().get('is_administrator'):
+            return make_api_response(
+                ResponseType('Vain ylläpitäjä voi muokata', 403))
+        try:
+            short_ids = json.loads(request.data.decode('utf-8'))
+            if not isinstance(short_ids, list):
+                raise ValueError('body must be a JSON array')
+        except (ValueError, TypeError) as exc:
+            return make_api_response(
+                ResponseType(f'Virheellinen pyyntö: {exc}', 400))
+        return make_api_response(save_edition_shorts(editionid, short_ids))
+    return make_api_response(edition_shorts(str(editionid)))
 
 
 @app.route('/api/latest/editions/<count>', methods=['get'])

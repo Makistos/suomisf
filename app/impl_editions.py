@@ -738,6 +738,9 @@ def delete_edition(session: Any, edition_id: int) -> bool:  # noqa: C901
         session.query(EditionContributor).filter(
             EditionContributor.edition_id == edition_id
         ).delete()
+        session.query(EditionShortStory).filter(
+            EditionShortStory.edition_id == edition_id
+        ).delete()
         session.query(Edition).filter(Edition.id == edition_id).delete()
     except SQLAlchemyError as exp:
         app.logger.error("delete_edition: " + str(exp))
@@ -950,6 +953,68 @@ def edition_shorts(edition_id: str) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def save_edition_shorts(edition_id: int, short_ids: list[int]) -> ResponseType:
+    """Replace the short story list for a single edition.
+
+    Unlike save_work_shorts, this only affects the given edition and
+    leaves all other editions of the same work untouched.
+
+    Args:
+        edition_id: ID of the edition to update.
+        short_ids:  Ordered list of short story IDs to associate.
+
+    Returns:
+        ResponseType: 'OK' on success, error otherwise.
+    """
+    session = new_session()
+
+    try:
+        edition = session.query(Edition)\
+            .filter(Edition.id == edition_id).first()
+        if not edition:
+            return ResponseType(
+                f'Painosta ei löydy: {edition_id}',
+                HttpResponseCode.BAD_REQUEST.value,
+            )
+    except SQLAlchemyError as exp:
+        app.logger.error(f'save_edition_shorts() lookup: {exp}')
+        return ResponseType(
+            f'Tietokantavirhe: {exp}',
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value,
+        )
+
+    try:
+        session.query(EditionShortStory)\
+            .filter(EditionShortStory.edition_id == edition_id)\
+            .delete(synchronize_session='fetch')
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f'save_edition_shorts() delete: {exp}')
+        return ResponseType(
+            f'Tietokantavirhe: {exp}',
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value,
+        )
+
+    try:
+        for order_num, short_id in enumerate(short_ids, 1):
+            ess = EditionShortStory(
+                edition_id=edition_id,
+                shortstory_id=short_id,
+                order_num=order_num,
+            )
+            session.add(ess)
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f'save_edition_shorts() insert: {exp}')
+        return ResponseType(
+            f'Tietokantavirhe: {exp}',
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value,
+        )
+
+    return ResponseType('OK', HttpResponseCode.OK.value)
 
 
 def get_latest_editions(count: int) -> ResponseType:
