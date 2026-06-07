@@ -5,7 +5,7 @@ import datetime
 import html
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin  # type: ignore
-from sqlalchemy import (Column, ForeignKey, Integer, MetaData,
+from sqlalchemy import (Column, ForeignKey, Integer, MetaData, Numeric,
                         String, Boolean, Date, DateTime, Text, Table)
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.hybrid import hybrid_property
@@ -656,6 +656,40 @@ class EditionLink(Base):
     edition_id = Column(Integer, ForeignKey('edition.id'), nullable=False)
     link = Column(Text(), nullable=False)
     description = Column(Text())
+
+
+class AntikvaariWorkProduct(Base):
+    """Maps our works to Antikvaari product IDs."""
+    __tablename__ = 'antikvaari_work_product'
+    id = Column(Integer, primary_key=True)
+    work_id = Column(Integer, ForeignKey('work.id'), nullable=False)
+    antikvaari_product_id = Column(String(30), nullable=False)
+    added = Column(DateTime, nullable=False)
+    url = Column(String(500))
+
+    work = relationship('Work', backref=backref('antikvaari_products'))
+
+
+class AntikvaariPrice(Base):
+    """Append-only scraped Antikvaari price history per physical book copy."""
+    __tablename__ = 'antikvaari_price'
+    id = Column(Integer, primary_key=True)
+    edition_id = Column(Integer, ForeignKey('edition.id'), nullable=False)
+    antikvaari_book_id = Column(String(30), nullable=False)
+    antikvaari_product_id = Column(String(30), nullable=False)
+    antikvaari_product_year = Column(Integer)
+    antikvaari_product_binding = Column(Integer, ForeignKey('bindingtype.id'))
+    antikvaari_product_version = Column(Integer)
+    date_listed = Column(Date)
+    last_updated = Column(DateTime, nullable=False)
+    date_fetched = Column(DateTime, nullable=False)
+    condition = Column(String(5), nullable=False)
+    is_library_discard = Column(Boolean, nullable=False, default=False)
+    has_markings = Column(Boolean, nullable=False, default=False)
+    missing_dust_cover = Column(Boolean, nullable=False, default=False)
+    price = Column(Numeric(8, 2), nullable=False)
+
+    edition = relationship('Edition', backref=backref('antikvaari_prices'))
 
 
 class EditionPrice(Base):
