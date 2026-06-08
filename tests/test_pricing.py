@@ -15,6 +15,7 @@ from app.impl_pricing import (
     _parse_condition,
     _parse_version,
     _binding_category,
+    _best_matching_edition,
     _condition_int,
     calculate_match_quality,
     antikvaari_fetch_products,
@@ -26,11 +27,12 @@ from app.impl_pricing import (
 # Shared helpers
 # ---------------------------------------------------------------------------
 
-def _mock_edition(edition_id, pubyear=None, version=None, binding_id=1):
+def _mock_edition(edition_id, pubyear=None, version=None, binding_id=1, editionnum=None):
     ed = MagicMock()
     ed.id = edition_id
     ed.pubyear = pubyear
     ed.version = version
+    ed.editionnum = editionnum
     ed.binding_id = binding_id
     return ed
 
@@ -267,8 +269,8 @@ class TestCalculateMatchQuality:
       not_close       → Poor  (regardless of condition)
     """
 
-    def _ed(self, pubyear=1982, version=1, binding_id=3):
-        return _mock_edition(1, pubyear=pubyear, version=version, binding_id=binding_id)
+    def _ed(self, pubyear=1982, editionnum=1, binding_id=3):
+        return _mock_edition(1, pubyear=pubyear, editionnum=editionnum, binding_id=binding_id)
 
     # same edition
 
@@ -298,7 +300,7 @@ class TestCalculateMatchQuality:
         assert calculate_match_quality(self._ed(), 'K3', 2000, 1, 3, 'K3') == 'Poor'
 
     def test_wrong_version_is_poor(self):
-        assert calculate_match_quality(self._ed(version=1), 'K3', 1982, 2, 3, 'K3') == 'Poor'
+        assert calculate_match_quality(self._ed(editionnum=1), 'K3', 1982, 2, 3, 'K3') == 'Poor'
 
     def test_wrong_binding_is_poor(self):
         ed = self._ed(binding_id=3)  # sidottu
@@ -319,6 +321,73 @@ class TestCalculateMatchQuality:
     def test_uusi_condition_in_antikvaari_treated_as_k5(self):
         # book is K5 (Uusi), we want K4 → diff=1 on same edition → Good
         assert calculate_match_quality(self._ed(), 'K5', 1982, 1, 3, 'K4') == 'Good'
+
+    # no version from Antikvaari (painos field empty) -------------------------
+    # year+binding both confirmed → 'same' → can reach Perfect/Good/Decent
+    def test_no_version_year_and_binding_match_same_condition_is_perfect(self):
+        assert calculate_match_quality(self._ed(), 'K3', 1982, None, 3, 'K3') == 'Perfect'
+
+    def test_no_version_year_and_binding_match_diff1_is_good(self):
+        assert calculate_match_quality(self._ed(), 'K3', 1982, None, 3, 'K2') == 'Good'
+
+    # year matches but binding unknown → 'close' → best is Good
+    def test_no_version_year_match_binding_unknown_is_good_on_same_condition(self):
+        assert calculate_match_quality(self._ed(), 'K3', 1982, None, None, 'K3') == 'Good'
+
+    # year matches but binding unknown, condition diff=1 → 'close' + diff=1 → Decent
+    def test_no_version_year_match_binding_unknown_diff1_is_decent(self):
+        assert calculate_match_quality(self._ed(), 'K3', 1982, None, None, 'K2') == 'Decent'
+
+    # year matches but Antikvaari binding is 'Ei tietoa' (1) → not confirmed → 'close'
+    def test_no_version_binding_ei_tietoa_is_close(self):
+        assert calculate_match_quality(self._ed(), 'K3', 1982, None, 1, 'K3') == 'Good'
+
+    # no year and no version → 'close' → best is Good
+    def test_no_version_no_year_is_close(self):
+        assert calculate_match_quality(self._ed(), 'K3', None, None, 3, 'K3') == 'Good'
+
+
+# ---------------------------------------------------------------------------
+# _best_matching_edition — inferred version ranking
+# ---------------------------------------------------------------------------
+
+class TestBestMatchingEdition:
+    """When editions have no stored editionnum, infer rank by chronological pubyear."""
+
+    def _ed(self, edition_id, pubyear, editionnum=None, binding_id=2):
+        return _mock_edition(edition_id, pubyear=pubyear, editionnum=editionnum, binding_id=binding_id)
+
+    def test_first_edition_product_matches_earliest_edition_when_editionnums_null(self):
+        # Two editions with no stored editionnum; product says "1. painos" → should pick 2016
+        ed_2016 = self._ed(1, 2016)
+        ed_2018 = self._ed(2, 2018)
+        result, _ = _best_matching_edition([ed_2016, ed_2018],
+                                           product_year=2018, product_version=1, product_binding=2)
+        assert result.id == 1  # 2016 edition = inferred editionnum 1
+
+    def test_second_edition_product_matches_later_edition_when_editionnums_null(self):
+        ed_2016 = self._ed(1, 2016)
+        ed_2018 = self._ed(2, 2018)
+        result, _ = _best_matching_edition([ed_2016, ed_2018],
+                                           product_year=2016, product_version=2, product_binding=2)
+        assert result.id == 2  # 2018 edition = inferred editionnum 2
+
+    def test_explicit_editionnum_takes_precedence_over_inferred(self):
+        # Edition has explicit editionnum=2; product says version=1 → not_close for this one
+        ed_e2 = _mock_edition(1, pubyear=2018, editionnum=2, binding_id=2)
+        ed_null = _mock_edition(2, pubyear=2016, editionnum=None, binding_id=2)
+        result, _ = _best_matching_edition([ed_e2, ed_null],
+                                           product_year=2016, product_version=1, product_binding=2)
+        # ed_null gets inferred editionnum 1 (earliest year 2016) and matches
+        assert result.id == 2
+
+    def test_no_product_version_uses_year_matching_as_before(self):
+        ed_2016 = self._ed(1, 2016)
+        ed_2018 = self._ed(2, 2018)
+        result, _ = _best_matching_edition([ed_2016, ed_2018],
+                                           product_year=2018, product_version=None, product_binding=2)
+        # No version from Antikvaari → no inferred ranking; year=2018 exact match wins
+        assert result.id == 2
 
 
 # ---------------------------------------------------------------------------

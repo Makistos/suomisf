@@ -8,7 +8,8 @@ import requests
 from bs4 import BeautifulSoup
 
 from app.impl import ResponseType
-from app.orm_decl import AntikvaariPrice, AntikvaariWorkProduct, Edition, Work
+from app.orm_decl import (AntikvaariPrice, AntikvaariWorkProduct, BookCondition,
+                           Edition, UserBook, Work)
 from app.route_helpers import new_session
 from app.types import HttpResponseCode
 
@@ -82,11 +83,34 @@ def _edition_match_level(
     product_year: Optional[int],
     product_version: Optional[int],
     product_binding: Optional[int],
+    product_laitos: Optional[int] = None,
+    edition_effective_editionnum: Optional[int] = None,
 ) -> str:
-    """Return 'same', 'close', or 'not_close' comparing our edition to Antikvaari product metadata."""
-    # Version: must match exactly when both are known
-    if product_version is not None and edition.version is not None:
-        if product_version != edition.version:
+    """Return 'same', 'close', or 'not_close' comparing our edition to Antikvaari product metadata.
+
+    Antikvaari's 'painos' field is the print-run number, which maps to our
+    edition.editionnum (not edition.version/laitos).
+    product_laitos is the laitos/version number (not scraped from Antikvaari;
+    supplied by the user when correcting mismatches).
+
+    edition_effective_editionnum overrides edition.editionnum when provided (used by
+    _best_matching_edition to pass a chronologically-inferred editionnum for
+    editions that have no stored editionnum).
+    """
+    eff_editionnum = (
+        edition_effective_editionnum
+        if edition_effective_editionnum is not None
+        else edition.editionnum
+    )
+
+    # Laitos (version): must match exactly when both are known
+    if product_laitos is not None and edition.version is not None:
+        if product_laitos != edition.version:
+            return 'not_close'
+
+    # Editionnum (painos): must match exactly when both are known
+    if product_version is not None and eff_editionnum is not None:
+        if product_version != eff_editionnum:
             return 'not_close'
 
     # Binding: must match when both sides have a known binding (>1 means not 'Ei tietoa')
@@ -100,6 +124,23 @@ def _edition_match_level(
         if diff > 10:
             return 'not_close'
         if diff > 0:
+            return 'close'
+
+    # When no edition number is provided by Antikvaari, require both year and
+    # binding to be confirmed before calling it 'same'. Without version info a
+    # year-only or binding-only match is too ambiguous.
+    if product_version is None:
+        year_confirmed = (
+            product_year is not None
+            and bool(edition.pubyear)
+            and product_year == edition.pubyear
+        )
+        binding_confirmed = (
+            product_binding is not None and product_binding > 1
+            and edition.binding_id is not None and edition.binding_id > 1
+            and product_binding == edition.binding_id
+        )
+        if not (year_confirmed and binding_confirmed):
             return 'close'
 
     return 'same'
@@ -200,23 +241,64 @@ def work_products_save(work_id: int, products: List[Dict[str, Any]]) -> Response
         session.close()
 
 
-def antikvaari_prices_save_all(_work_id: int, rows: List[Dict[str, Any]]) -> ResponseType:
-    """Save all fetched price rows for a work, grouped by edition."""
+def antikvaari_prices_save_all(work_id: int, rows: List[Dict[str, Any]]) -> ResponseType:
+    """Save all fetched price rows for a work, grouped by edition.
+
+    Re-matches each row against work editions using the (possibly user-edited)
+    antikvaari_product_version (painos) and antikvaari_product_laitos (laitos)
+    values, so corrections made in the UI are honoured.
+    """
+    session = new_session()
+    try:
+        work = session.query(Work).filter(Work.id == work_id).first()
+        editions = list(work.editions) if work else []
+    finally:
+        session.close()
+
     by_edition: Dict[int, List[Dict[str, Any]]] = {}
+    no_edition_rows: List[Dict[str, Any]] = []
     for row in rows:
-        eid = row.get('edition_id')
-        if eid is not None:
-            by_edition.setdefault(int(eid), []).append(row)
+        product_version = row.get('antikvaari_product_version')
+        product_laitos = row.get('antikvaari_product_laitos')
+        product_year = row.get('antikvaari_product_year')
+        product_binding = row.get('antikvaari_product_binding')
+        edition, match_level = _best_matching_edition(
+            editions, product_year, product_version, product_binding, product_laitos
+        )
+        updated_row = {
+            **row,
+            'edition_id': edition.id if edition else None,
+            'edition_match_level': match_level,
+        }
+        if edition is None or match_level == 'not_close':
+            no_edition_rows.append(updated_row)
+        else:
+            by_edition.setdefault(edition.id, []).append(updated_row)
 
     total_saved = 0
     total_skipped = 0
+    detail_rows: List[Dict[str, Any]] = []
+
+    for row in no_edition_rows:
+        reason = 'no_edition' if row.get('edition_id') is None else 'edition_missing'
+        detail_rows.append({**row, 'status': 'skipped', 'reason': reason})
+        total_skipped += 1
+
     for edition_id, edition_rows in by_edition.items():
         result = antikvaari_prices_save(edition_id, edition_rows)
         if result.status == HttpResponseCode.OK and isinstance(result.response, dict):
             total_saved += result.response.get('saved', 0)
             total_skipped += result.response.get('skipped', 0)
+            detail_rows.extend(result.response.get('rows', []))
+        else:
+            for row in edition_rows:
+                detail_rows.append({**row, 'status': 'error', 'reason': str(result.response)})
 
-    return ResponseType({'saved': total_saved, 'skipped': total_skipped}, HttpResponseCode.OK)
+    return ResponseType({
+        'saved': total_saved,
+        'skipped': total_skipped,
+        'rows': detail_rows,
+    }, HttpResponseCode.OK)
 
 
 # ---------------------------------------------------------------------------
@@ -257,7 +339,7 @@ def antikvaari_fetch_products(
                 continue
 
             catalog = props.get('catalog', {})
-            product_id = catalog.get('_id', '')
+            product_id = catalog.get('_id') or ''
             fallback_year = catalog.get('year', '')
             fallback_binding = catalog.get('binding', '')
 
@@ -278,11 +360,16 @@ def antikvaari_fetch_products(
                 psp = book_props.get('preSelectedProduct', {})
                 book_id = psp.get('_id', '') or book_url.rstrip('/').split('/')[-1]
 
+                if psp.get('kampanja'):
+                    continue
+
                 painos_raw = psp.get('painos', '') or we.get('bookEdition', '')
                 painovuosi_raw = psp.get('painovuosi', '') or fallback_year
                 sidonta = psp.get('sidonta') or fallback_binding
                 extra = psp.get('nimikeLisatiedot', '') or ''
-                extra_lower = extra.lower()
+                # Flags appear in nimikeLisatiedot or embedded in sidonta
+                # (e.g. "Sidottu, ei kansipaperia")
+                extra_lower = f"{extra} {sidonta}".lower()
 
                 price_val = psp.get('hinta')
                 if price_val is None:
@@ -316,7 +403,7 @@ def antikvaari_fetch_products(
                 condition = _parse_condition(psp.get('kunto', ''))
                 binding_id = _binding_category(sidonta)
 
-                edition = _best_matching_edition(
+                edition, edition_match_level = _best_matching_edition(
                     editions, product_year, product_version, binding_id
                 )
 
@@ -324,11 +411,14 @@ def antikvaari_fetch_products(
                     'edition_id': edition.id if edition else None,
                     'edition_pubyear': edition.pubyear if edition else None,
                     'edition_version': edition.version if edition else None,
+                    'edition_match_level': edition_match_level,
                     'antikvaari_book_id': book_id,
                     'antikvaari_product_id': product_id,
+                    'antikvaari_product_url': book_url,
                     'antikvaari_product_year': product_year,
                     'antikvaari_product_binding': binding_id,
                     'antikvaari_product_version': product_version,
+                    'antikvaari_product_laitos': None,  # not provided by Antikvaari; user may set it
                     'date_listed': date_listed,
                     'last_updated': last_updated.isoformat() if last_updated else None,
                     'condition': condition,
@@ -352,16 +442,43 @@ def _best_matching_edition(
     product_year: Optional[int],
     product_version: Optional[int],
     product_binding: Optional[int],
-) -> Optional[Edition]:
-    """Return the edition that best matches Antikvaari product metadata."""
+    product_laitos: Optional[int] = None,
+) -> tuple:
+    """Return (edition, match_level) for the best-matching edition.
+
+    match_level is 'same', 'close', or 'not_close'.
+    Returns (None, 'not_close') when editions is empty.
+
+    product_laitos is the laitos/version number — None means unknown (Antikvaari
+    doesn't provide it), in which case no laitos filtering is done.
+
+    When the Antikvaari product carries a version number but our editions have
+    no stored version, we infer a rank by chronological order of pubyear so
+    that e.g. '1. painos' maps to the earliest edition rather than whichever
+    edition happens to share the same printing year.
+    """
     if not editions:
-        return None
+        return None, 'not_close'
     level_rank = {'same': 0, 'close': 1, 'not_close': 2}
+    rank_level = {0: 'same', 1: 'close', 2: 'not_close'}
+
+    # Build inferred-editionnum map for editions whose editionnum is NULL.
+    inferred: Dict[int, int] = {}
+    if product_version is not None:
+        null_enum = [e for e in editions if e.editionnum is None]
+        for rank, ed in enumerate(
+            sorted(null_enum, key=lambda e: (e.pubyear or 9999, e.id)), start=1
+        ):
+            inferred[ed.id] = rank
 
     def score(ed: Edition) -> int:
-        return level_rank[_edition_match_level(ed, product_year, product_version, product_binding)]
+        eff_enum = inferred.get(ed.id) if ed.editionnum is None else None
+        return level_rank[_edition_match_level(
+            ed, product_year, product_version, product_binding, product_laitos, eff_enum
+        )]
 
-    return min(editions, key=score)
+    best = min(editions, key=score)
+    return best, rank_level[score(best)]
 
 
 # ---------------------------------------------------------------------------
@@ -412,6 +529,7 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]]) -> Respo
         now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
         saved = 0
         skipped = 0
+        detail_rows: List[Dict[str, Any]] = []
         for row in rows:
             if not row.get('antikvaari_book_id'):
                 continue
@@ -439,12 +557,13 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]]) -> Respo
                         .first())
             if existing and not _is_changed(existing, new_last_updated, row):
                 skipped += 1
+                detail_rows.append({**row, 'status': 'skipped', 'reason': 'unchanged'})
                 continue
 
             session.add(AntikvaariPrice(
                 edition_id=edition_id,
                 antikvaari_book_id=row['antikvaari_book_id'],
-                antikvaari_product_id=row.get('antikvaari_product_id', ''),
+                antikvaari_product_id=row.get('antikvaari_product_id') or '',
                 antikvaari_product_year=row.get('antikvaari_product_year'),
                 antikvaari_product_binding=row.get('antikvaari_product_binding'),
                 antikvaari_product_version=row.get('antikvaari_product_version'),
@@ -458,9 +577,10 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]]) -> Respo
                 price=row.get('price', 0),
             ))
             saved += 1
+            detail_rows.append({**row, 'status': 'saved', 'reason': None})
 
         session.commit()
-        return ResponseType({'saved': saved, 'skipped': skipped}, HttpResponseCode.OK)
+        return ResponseType({'saved': saved, 'skipped': skipped, 'rows': detail_rows}, HttpResponseCode.OK)
     except Exception as exc:  # pylint: disable=broad-except
         session.rollback()
         return ResponseType(f'Save failed: {exc}', HttpResponseCode.INTERNAL_SERVER_ERROR)
@@ -471,6 +591,18 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]]) -> Respo
 # ---------------------------------------------------------------------------
 # Public: retrieve stored prices
 # ---------------------------------------------------------------------------
+
+def edition_prices_count(edition_id: int) -> ResponseType:
+    """Return the number of stored price rows for an edition."""
+    session = new_session()
+    try:
+        count = (session.query(AntikvaariPrice)
+                 .filter(AntikvaariPrice.edition_id == edition_id)
+                 .count())
+        return ResponseType({'count': count}, HttpResponseCode.OK)
+    finally:
+        session.close()
+
 
 def edition_prices_get(
     edition_id: int,
@@ -516,6 +648,23 @@ def edition_prices_get(
             })
 
         return ResponseType(result, HttpResponseCode.OK)
+    finally:
+        session.close()
+
+
+def antikvaari_price_delete(price_id: int) -> ResponseType:
+    """Delete a single stored price row by its primary key."""
+    session = new_session()
+    try:
+        row = session.query(AntikvaariPrice).filter(AntikvaariPrice.id == price_id).first()
+        if not row:
+            return ResponseType('Price not found', HttpResponseCode.NOT_FOUND)
+        session.delete(row)
+        session.commit()
+        return ResponseType({'deleted': price_id}, HttpResponseCode.OK)
+    except Exception as exc:  # pylint: disable=broad-except
+        session.rollback()
+        return ResponseType(f'Delete failed: {exc}', HttpResponseCode.INTERNAL_SERVER_ERROR)
     finally:
         session.close()
 
@@ -579,3 +728,164 @@ def calculate_match_quality(
     if diff == 1:
         return 'Decent'
     return 'Poor'
+
+
+# ---------------------------------------------------------------------------
+# Public: user collection stats
+# ---------------------------------------------------------------------------
+
+_QUALITY_RANK: Dict[str, int] = {'Perfect': 0, 'Good': 1, 'Decent': 2, 'Poor': 3}
+
+
+def user_collection_stats(user_id: int) -> ResponseType:
+    """Return Antikvaari pricing statistics for all editions owned by user_id."""
+    session = new_session()
+    try:
+        owned = (
+            session.query(UserBook)
+            .filter(
+                UserBook.user_id == user_id,
+                UserBook.condition_id >= 1,
+                UserBook.condition_id <= 5,
+            )
+            .all()
+        )
+
+        total_owned = len(owned)
+        if total_owned == 0:
+            return ResponseType({
+                'total_owned': 0,
+                'priced_count': 0,
+                'total_value': 0.0,
+                'quality_distribution': {
+                    'Perfect': 0, 'Good': 0, 'Decent': 0, 'Poor': 0, 'not_priced': 0
+                },
+                'top_expensive': [],
+                'no_price_books': [],
+            }, HttpResponseCode.OK)
+
+        # condition_id → "K{value}" string
+        cond_ids = list({ub.condition_id for ub in owned})
+        condition_map: Dict[int, str] = {
+            c.id: f'K{c.value}'
+            for c in session.query(BookCondition)
+            .filter(BookCondition.id.in_(cond_ids))
+            .all()
+        }
+
+        edition_ids = [ub.edition_id for ub in owned]
+
+        editions_map: Dict[int, Edition] = {
+            e.id: e
+            for e in session.query(Edition)
+            .filter(Edition.id.in_(edition_ids))
+            .all()
+        }
+
+        work_ids = list({e.work_id for e in editions_map.values() if e.work_id})
+        linked_work_ids: set = set(
+            row[0]
+            for row in session.query(AntikvaariWorkProduct.work_id)
+            .filter(AntikvaariWorkProduct.work_id.in_(work_ids))
+            .distinct()
+            .all()
+        )
+
+        prices_by_edition: Dict[int, List[AntikvaariPrice]] = {}
+        for p in (
+            session.query(AntikvaariPrice)
+            .filter(AntikvaariPrice.edition_id.in_(edition_ids))
+            .all()
+        ):
+            prices_by_edition.setdefault(p.edition_id, []).append(p)
+
+        dist: Dict[str, int] = {
+            'Perfect': 0, 'Good': 0, 'Decent': 0, 'Poor': 0, 'not_priced': 0
+        }
+        priced_count = 0
+        total_value = 0.0
+        book_prices: List[Dict[str, Any]] = []
+        no_price_books: List[Dict[str, Any]] = []
+
+        for ub in owned:
+            eid = ub.edition_id
+            target = condition_map.get(ub.condition_id)
+            edition = editions_map.get(eid)
+            price_rows = prices_by_edition.get(eid, [])
+
+            if not price_rows or not edition:
+                if edition and edition.work_id in linked_work_ids:
+                    w = edition.work
+                    no_price_books.append({
+                        'edition_id': eid,
+                        'work_id': edition.work_id,
+                        'title': w.title if w else '',
+                        'author_str': w.author_str if w else '',
+                        'pubyear': edition.pubyear,
+                        'version': edition.version,
+                    })
+                else:
+                    dist['not_priced'] += 1
+                continue
+
+            best_q: Optional[str] = None
+            best_rank = 999
+            best_val = float('inf')
+
+            for p in price_rows:
+                q = calculate_match_quality(
+                    edition,
+                    p.condition,
+                    p.antikvaari_product_year,
+                    p.antikvaari_product_version,
+                    p.antikvaari_product_binding,
+                    target,
+                )
+                rank = _QUALITY_RANK.get(q, 3)
+                pval = float(p.price)
+                if rank < best_rank or (rank == best_rank and pval < best_val):
+                    best_rank, best_val, best_q = rank, pval, q
+
+            if best_q is not None:
+                priced_count += 1
+                total_value += best_val
+                dist[best_q] = dist.get(best_q, 0) + 1
+                book_prices.append({
+                    'edition_id': eid,
+                    'price': best_val,
+                    'match_quality': best_q,
+                    'condition': target or '',
+                })
+
+        book_prices.sort(key=lambda x: x['price'], reverse=True)
+
+        top_expensive = []
+        for entry in book_prices[:10]:
+            e = editions_map.get(entry['edition_id'])
+            if not e:
+                continue
+            w = e.work
+            top_expensive.append({
+                'edition_id': entry['edition_id'],
+                'work_id': e.work_id,
+                'title': w.title if w else '',
+                'author_str': w.author_str if w else '',
+                'pubyear': e.pubyear,
+                'version': e.version,
+                'price': entry['price'],
+                'match_quality': entry['match_quality'],
+                'condition': entry['condition'],
+            })
+
+        no_price_books.sort(key=lambda x: (x['author_str'], x['title']))
+
+        return ResponseType({
+            'total_owned': total_owned,
+            'priced_count': priced_count,
+            'total_value': round(total_value, 2),
+            'quality_distribution': dist,
+            'top_expensive': top_expensive,
+            'no_price_books': no_price_books,
+        }, HttpResponseCode.OK)
+    finally:
+        session.close()

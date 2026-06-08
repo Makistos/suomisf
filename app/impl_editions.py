@@ -12,6 +12,8 @@ from app.impl_logs import log_changes
 from app.impl_publishers import add_publisher
 from app.isbn import check_isbn  # type: ignore
 from app.orm_decl import (
+    AntikvaariPrice,
+    AntikvaariWorkProduct,
     BookCondition,
     Edition,
     EditionContributor,
@@ -1076,6 +1078,62 @@ def editionowner_get(editionid: int, userid: int) -> ResponseType:
     return ResponseType(retval, HttpResponseCode.OK.value)
 
 
+def _attach_best_prices(session: Any, books: list, wishlist: bool) -> None:
+    """Populate best_price, match_quality, and has_linked_products on each book dict in-place."""
+    from app.impl_pricing import calculate_match_quality, _QUALITY_RANK  # local import avoids circularity
+    edition_ids = [b['edition_id'] for b in books]
+    editions_map = {
+        e.id: e
+        for e in session.query(Edition).filter(Edition.id.in_(edition_ids)).all()
+    }
+
+    # Collect work_ids for all editions, then find which works have linked products
+    work_ids = list({e.work_id for e in editions_map.values() if e.work_id})
+    linked_work_ids = set(
+        row[0]
+        for row in session.query(AntikvaariWorkProduct.work_id)
+        .filter(AntikvaariWorkProduct.work_id.in_(work_ids))
+        .distinct()
+        .all()
+    )
+
+    prices_by_edition: dict = {}
+    for p in session.query(AntikvaariPrice).filter(
+        AntikvaariPrice.edition_id.in_(edition_ids)
+    ).all():
+        prices_by_edition.setdefault(p.edition_id, []).append(p)
+
+    for book in books:
+        edition = editions_map.get(book['edition_id'])
+        book['has_linked_products'] = bool(
+            edition and edition.work_id in linked_work_ids
+        )
+        if wishlist:
+            continue
+        price_rows = prices_by_edition.get(book['edition_id'], [])
+        if not edition or not price_rows:
+            continue
+        target = book['condition_name']  # e.g. 'K3'
+        best_rank = 999
+        best_price = None
+        best_quality = None
+        for p in price_rows:
+            q = calculate_match_quality(
+                edition,
+                p.condition,
+                p.antikvaari_product_year,
+                p.antikvaari_product_version,
+                p.antikvaari_product_binding,
+                target,
+            )
+            rank = _QUALITY_RANK.get(q, 3)
+            pval = float(p.price)
+            if rank < best_rank or (rank == best_rank and (best_price is None or pval < best_price)):
+                best_rank, best_price, best_quality = rank, pval, q
+        book['best_price'] = best_price
+        book['match_quality'] = best_quality
+
+
 def editionowner_getowned(userid: int, wishlist: bool = False) -> ResponseType:
     """
     Get books owned by user.
@@ -1133,12 +1191,18 @@ def editionowner_getowned(userid: int, wishlist: bool = False) -> ResponseType:
                                'publisher_id': publisher_id,
                                'publisher_name': publisher_name,
                                'work_id': work_id,
-                               'condition_name': condition_name
+                               'condition_name': condition_name,
+                               'best_price': None,
+                               'match_quality': None,
+                               'has_linked_products': False,
                                })
     except exceptions.MarshmallowError as exp:
         app.logger.error(f"editionowner_getowned: {str(exp)}")
         return ResponseType("editionowner_getowned: Tietokantavirhe.",
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    if retval:
+        _attach_best_prices(session, retval, wishlist)
 
     return ResponseType(retval, HttpResponseCode.OK.value)
 

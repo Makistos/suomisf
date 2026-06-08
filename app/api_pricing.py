@@ -10,10 +10,13 @@ from app.api_jwt import jwt_admin_required
 from app.impl import ResponseType
 from app.impl_pricing import (
     antikvaari_fetch_products,
+    antikvaari_price_delete,
     antikvaari_prices_save,
     antikvaari_prices_save_all,
     antikvaari_search,
+    edition_prices_count,
     edition_prices_get,
+    user_collection_stats,
     work_products_get,
     work_products_save,
 )
@@ -220,6 +223,18 @@ def api_edition_antikvaari_prices_save(edition_id: int) -> Response:
     return make_api_response(antikvaari_prices_save(edition_id, rows))
 
 
+@app.route('/api/edition/<int:edition_id>/antikvaari/prices/count', methods=['GET'])
+def api_edition_antikvaari_prices_count(edition_id: int) -> Response:
+    """
+    Return the number of stored Antikvaari price rows for an edition.
+
+    URL: GET /api/edition/<edition_id>/antikvaari/prices/count
+
+    Response 200 — {"count": N}
+    """
+    return make_api_response(edition_prices_count(edition_id))
+
+
 @app.route('/api/edition/<int:edition_id>/antikvaari/prices', methods=['GET'])
 @jwt_admin_required()  # type: ignore
 def api_edition_antikvaari_prices_get(edition_id: int) -> Response:
@@ -239,6 +254,23 @@ def api_edition_antikvaari_prices_get(edition_id: int) -> Response:
     """
     target_condition = request.args.get('target_condition', '').strip() or None
     return make_api_response(edition_prices_get(edition_id, target_condition))
+
+
+@app.route('/api/antikvaari/prices/<int:price_id>', methods=['DELETE'])
+@jwt_admin_required()  # type: ignore
+def api_antikvaari_price_delete(price_id: int) -> Response:
+    """
+    Delete a single stored Antikvaari price row (admin only).
+
+    URL: DELETE /api/antikvaari/prices/<price_id>
+
+    Authentication: Admin JWT required.
+
+    Response 200 — {"deleted": <price_id>}
+    Response 404 — Price not found.
+    Response 500 — Database error.
+    """
+    return make_api_response(antikvaari_price_delete(price_id))
 
 
 @app.route('/api/work/<int:work_id>/antikvaari/prices', methods=['POST'])
@@ -272,3 +304,29 @@ def api_work_antikvaari_prices_save(work_id: int) -> Response:
             ResponseType(f'Virheellinen pyyntö: {exc}', HttpResponseCode.BAD_REQUEST)
         )
     return make_api_response(antikvaari_prices_save_all(work_id, rows))
+
+
+@app.route('/api/user/<int:user_id>/collection/stats', methods=['GET'])
+def api_user_collection_stats(user_id: int) -> Response:
+    """
+    Return Antikvaari pricing statistics for all editions owned by a user.
+
+    URL: GET /api/user/<user_id>/collection/stats
+
+    Response 200 — JSON object:
+        {
+          "total_owned": 42,
+          "priced_count": 28,
+          "total_value": 385.50,
+          "quality_distribution": {
+            "Perfect": 15, "Good": 8, "Decent": 3, "Poor": 2, "not_priced": 14
+          },
+          "top_expensive": [
+            {"edition_id": 123, "work_id": 45, "title": "...", "author_str": "...",
+             "pubyear": 1975, "version": null, "price": 45.00,
+             "match_quality": "Perfect", "condition": "K3"},
+            ...
+          ]
+        }
+    """
+    return make_api_response(user_collection_stats(user_id))
