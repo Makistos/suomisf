@@ -666,6 +666,7 @@ class AntikvaariWorkProduct(Base):
     antikvaari_product_id = Column(String(30), nullable=False)
     added = Column(DateTime, nullable=False)
     url = Column(String(500))
+    rejected = Column(Boolean, nullable=False, default=False, server_default='false')
 
     work = relationship('Work', backref=backref('antikvaari_products'))
 

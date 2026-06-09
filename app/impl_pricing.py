@@ -197,7 +197,8 @@ def work_products_get(work_id: int) -> ResponseType:
         return ResponseType(
             [{'id': r.id, 'antikvaari_product_id': r.antikvaari_product_id,
               'added': r.added.isoformat() if r.added else None,
-              'url': r.url}
+              'url': r.url,
+              'rejected': bool(r.rejected)}
              for r in rows],
             HttpResponseCode.OK,
         )
@@ -214,7 +215,7 @@ def work_products_save(work_id: int, products: List[Dict[str, Any]]) -> Response
             return ResponseType('Work not found', HttpResponseCode.NOT_FOUND)
 
         existing = {
-            r.antikvaari_product_id
+            r.antikvaari_product_id: r
             for r in session.query(AntikvaariWorkProduct)
             .filter(AntikvaariWorkProduct.work_id == work_id)
             .all()
@@ -224,14 +225,25 @@ def work_products_save(work_id: int, products: List[Dict[str, Any]]) -> Response
         for item in products:
             pid = item.get('product_id', '') if isinstance(item, dict) else item
             url = item.get('url') if isinstance(item, dict) else None
-            if pid and pid not in existing:
+            rejected = bool(item.get('rejected', False)) if isinstance(item, dict) else False
+            if not pid:
+                continue
+            if pid in existing:
+                # If previously rejected and now being added as linked, un-reject it
+                existing_row = existing[pid]
+                if not rejected and existing_row.rejected:
+                    existing_row.rejected = False
+                    added += 1
+            else:
                 session.add(AntikvaariWorkProduct(
                     work_id=work_id,
                     antikvaari_product_id=pid,
                     added=now,
                     url=url,
+                    rejected=rejected,
                 ))
-                added += 1
+                if not rejected:
+                    added += 1
         session.commit()
         return ResponseType({'added': added}, HttpResponseCode.OK)
     except Exception as exc:  # pylint: disable=broad-except
