@@ -670,10 +670,11 @@ class TestAntikvaariPricesSave:
         mock_new_session.return_value = session
         edition = MagicMock()
         edition.id = 4987
-        # edition query
+        # edition query: .filter().first()
         session.query.return_value.filter.return_value.first.return_value = edition
-        # most-recent-price query (chained .order_by().first())
-        session.query.return_value.filter.return_value.order_by.return_value.first.return_value = existing_price
+        # price query: .filter().filter().order_by().first()
+        (session.query.return_value.filter.return_value
+         .filter.return_value.order_by.return_value.first.return_value) = existing_price
         return session
 
     @patch('app.impl_pricing.new_session')

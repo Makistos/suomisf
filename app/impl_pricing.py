@@ -566,6 +566,7 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]]) -> Respo
 
             existing = (session.query(AntikvaariPrice)
                         .filter(AntikvaariPrice.antikvaari_book_id == row['antikvaari_book_id'])
+                        .filter(AntikvaariPrice.edition_id == edition_id)
                         .order_by(AntikvaariPrice.date_fetched.desc())
                         .first())
             if existing and not _is_changed(existing, new_last_updated, row):
