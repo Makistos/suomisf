@@ -2,71 +2,51 @@
 -- Creates EditionShortStory junction table and StoryContributor table.
 -- Populates them from existing Part/Contributor data.
 --
--- Run against the suomisf schema (test database).
 -- Safe to re-run: uses IF NOT EXISTS and ON CONFLICT DO NOTHING.
 
-SET search_path TO suomisf;
-
--- ---------------------------------------------------------------
--- 1. EditionShortStory junction table
--- ---------------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS editionshortstory (
+CREATE TABLE IF NOT EXISTS suomisf.editionshortstory (
     edition_id    INTEGER NOT NULL
-                  REFERENCES edition(id),
+                  REFERENCES suomisf.edition(id),
     shortstory_id INTEGER NOT NULL
-                  REFERENCES shortstory(id),
+                  REFERENCES suomisf.shortstory(id),
     order_num     INTEGER,
     PRIMARY KEY (edition_id, shortstory_id)
 );
 
 CREATE INDEX IF NOT EXISTS idx_editionshortstory_edition
-    ON editionshortstory(edition_id);
+    ON suomisf.editionshortstory(edition_id);
 
 CREATE INDEX IF NOT EXISTS idx_editionshortstory_short
-    ON editionshortstory(shortstory_id);
+    ON suomisf.editionshortstory(shortstory_id);
 
--- Populate from existing Part rows where both edition_id
--- and shortstory_id are set.
-INSERT INTO editionshortstory (edition_id, shortstory_id, order_num)
+INSERT INTO suomisf.editionshortstory (edition_id, shortstory_id, order_num)
 SELECT DISTINCT
     p.edition_id,
     p.shortstory_id,
     p.order_num
-FROM part p
+FROM suomisf.part p
 WHERE p.shortstory_id IS NOT NULL
   AND p.edition_id   IS NOT NULL
 ON CONFLICT (edition_id, shortstory_id) DO NOTHING;
 
--- ---------------------------------------------------------------
--- 2. StoryContributor dedicated table
--- ---------------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS storycontributor (
+CREATE TABLE IF NOT EXISTS suomisf.storycontributor (
     shortstory_id  INTEGER NOT NULL
-                   REFERENCES shortstory(id),
+                   REFERENCES suomisf.shortstory(id),
     person_id      INTEGER NOT NULL
-                   REFERENCES person(id),
+                   REFERENCES suomisf.person(id),
     role_id        INTEGER NOT NULL
-                   REFERENCES contributorrole(id),
+                   REFERENCES suomisf.contributorrole(id),
     real_person_id INTEGER
-                   REFERENCES person(id),
+                   REFERENCES suomisf.person(id),
     description    VARCHAR(50),
     PRIMARY KEY (shortstory_id, person_id, role_id)
 );
 
 CREATE INDEX IF NOT EXISTS idx_storycontributor_short
-    ON storycontributor(shortstory_id);
+    ON suomisf.storycontributor(shortstory_id);
 
 CREATE INDEX IF NOT EXISTS idx_storycontributor_person
-    ON storycontributor(person_id);
-
--- ---------------------------------------------------------------
--- 3. View: work <-> shortstory
--- Links Work to ShortStory via EditionShortStory + Part.
--- Used as secondary for Work.stories and ShortStory.works ORM
--- relationships after Part.shortstory_id is no longer reliable.
--- ---------------------------------------------------------------
+    ON suomisf.storycontributor(person_id);
 
 CREATE OR REPLACE VIEW suomisf.work_shortstory AS
 SELECT
@@ -79,13 +59,7 @@ WHERE p.work_id IS NOT NULL
   AND p.shortstory_id IS NULL
 GROUP BY p.work_id, ess.shortstory_id;
 
--- ---------------------------------------------------------------
--- 4. Populate StoryContributor
--- ---------------------------------------------------------------
-
--- Populate from existing Contributor rows that belong to
--- Part rows that have a shortstory_id.
-INSERT INTO storycontributor
+INSERT INTO suomisf.storycontributor
     (shortstory_id, person_id, role_id, real_person_id, description)
 SELECT DISTINCT
     p.shortstory_id,
@@ -93,17 +67,11 @@ SELECT DISTINCT
     c.role_id,
     c.real_person_id,
     c.description
-FROM contributor c
-JOIN part p ON p.id = c.part_id
+FROM suomisf.contributor c
+JOIN suomisf.part p ON p.id = c.part_id
 WHERE p.shortstory_id IS NOT NULL
 ON CONFLICT (shortstory_id, person_id, role_id) DO NOTHING;
 
--- ---------------------------------------------------------------
--- 5. Grant privileges to application user
--- ---------------------------------------------------------------
-
 GRANT SELECT ON suomisf.work_shortstory TO mep;
-GRANT SELECT, INSERT, UPDATE, DELETE
-    ON suomisf.editionshortstory TO mep;
-GRANT SELECT, INSERT, UPDATE, DELETE
-    ON suomisf.storycontributor TO mep;
+GRANT SELECT, INSERT, UPDATE, DELETE ON suomisf.editionshortstory TO mep;
+GRANT SELECT, INSERT, UPDATE, DELETE ON suomisf.storycontributor TO mep;

@@ -8,31 +8,17 @@
 -- depends on the name/title columns. PostgreSQL requires that the
 -- generated column be dropped and recreated when changing the type
 -- of a column it depends on.
---
--- Tables with fts: award, bookseries, person, publisher, pubseries,
---                  shortstory, tag, work
--- Tables without fts: country, language
 
-SET search_path TO suomisf, public;
-
--- ----------------------------------------------------------------
--- country, language: no fts dependency, simple alter
--- ----------------------------------------------------------------
-
-ALTER TABLE country
+ALTER TABLE suomisf.country
     ALTER COLUMN name TYPE VARCHAR(50) COLLATE "fi-x-icu";
 
-ALTER TABLE language
+ALTER TABLE suomisf.language
     ALTER COLUMN name TYPE VARCHAR(50) COLLATE "fi-x-icu";
 
--- ----------------------------------------------------------------
--- award
--- ----------------------------------------------------------------
-
-ALTER TABLE award DROP COLUMN fts;
-ALTER TABLE award
+ALTER TABLE suomisf.award DROP COLUMN fts;
+ALTER TABLE suomisf.award
     ALTER COLUMN name TYPE VARCHAR(100) COLLATE "fi-x-icu";
-ALTER TABLE award
+ALTER TABLE suomisf.award
     ADD COLUMN fts tsvector GENERATED ALWAYS AS (
         setweight(to_tsvector('voikko',
             COALESCE(name, '')::text), 'A') ||
@@ -40,14 +26,10 @@ ALTER TABLE award
             COALESCE(description, '')), 'B')
     ) STORED;
 
--- ----------------------------------------------------------------
--- bookseries
--- ----------------------------------------------------------------
-
-ALTER TABLE bookseries DROP COLUMN fts;
-ALTER TABLE bookseries
+ALTER TABLE suomisf.bookseries DROP COLUMN fts;
+ALTER TABLE suomisf.bookseries
     ALTER COLUMN name TYPE VARCHAR(250) COLLATE "fi-x-icu";
-ALTER TABLE bookseries
+ALTER TABLE suomisf.bookseries
     ADD COLUMN fts tsvector GENERATED ALWAYS AS (
         setweight(to_tsvector('voikko',
             COALESCE(name, '')::text), 'A') ||
@@ -57,15 +39,11 @@ ALTER TABLE bookseries
             COALESCE(description, '')), 'C')
     ) STORED;
 
--- ----------------------------------------------------------------
--- person
--- ----------------------------------------------------------------
-
-ALTER TABLE person DROP COLUMN fts;
-ALTER TABLE person
+ALTER TABLE suomisf.person DROP COLUMN fts;
+ALTER TABLE suomisf.person
     ALTER COLUMN name     TYPE VARCHAR(250) COLLATE "fi-x-icu",
     ALTER COLUMN alt_name TYPE VARCHAR(250) COLLATE "fi-x-icu";
-ALTER TABLE person
+ALTER TABLE suomisf.person
     ADD COLUMN fts tsvector GENERATED ALWAYS AS (
         setweight(to_tsvector('voikko',
             COALESCE(name, '')::text), 'A') ||
@@ -79,14 +57,10 @@ ALTER TABLE person
             COALESCE(bio, '')), 'D')
     ) STORED;
 
--- ----------------------------------------------------------------
--- publisher
--- ----------------------------------------------------------------
-
-ALTER TABLE publisher DROP COLUMN fts;
-ALTER TABLE publisher
+ALTER TABLE suomisf.publisher DROP COLUMN fts;
+ALTER TABLE suomisf.publisher
     ALTER COLUMN name TYPE VARCHAR(500) COLLATE "fi-x-icu";
-ALTER TABLE publisher
+ALTER TABLE suomisf.publisher
     ADD COLUMN fts tsvector GENERATED ALWAYS AS (
         setweight(to_tsvector('voikko',
             COALESCE(name, '')::text), 'A') ||
@@ -96,14 +70,10 @@ ALTER TABLE publisher
             COALESCE(description, '')), 'C')
     ) STORED;
 
--- ----------------------------------------------------------------
--- pubseries
--- ----------------------------------------------------------------
-
-ALTER TABLE pubseries DROP COLUMN fts;
-ALTER TABLE pubseries
+ALTER TABLE suomisf.pubseries DROP COLUMN fts;
+ALTER TABLE suomisf.pubseries
     ALTER COLUMN name TYPE VARCHAR(250) COLLATE "fi-x-icu";
-ALTER TABLE pubseries
+ALTER TABLE suomisf.pubseries
     ADD COLUMN fts tsvector GENERATED ALWAYS AS (
         setweight(to_tsvector('voikko',
             COALESCE(name, '')::text), 'A') ||
@@ -111,28 +81,20 @@ ALTER TABLE pubseries
             COALESCE(description, '')), 'B')
     ) STORED;
 
--- ----------------------------------------------------------------
--- shortstory
--- ----------------------------------------------------------------
-
-ALTER TABLE shortstory DROP COLUMN fts;
-ALTER TABLE shortstory
+ALTER TABLE suomisf.shortstory DROP COLUMN fts;
+ALTER TABLE suomisf.shortstory
     ALTER COLUMN title      TYPE VARCHAR(700) COLLATE "fi-x-icu",
     ALTER COLUMN orig_title TYPE VARCHAR(700) COLLATE "fi-x-icu";
-ALTER TABLE shortstory
+ALTER TABLE suomisf.shortstory
     ADD COLUMN fts tsvector GENERATED ALWAYS AS (
         setweight(to_tsvector('voikko',
             COALESCE(title, '')::text), 'A')
     ) STORED;
 
--- ----------------------------------------------------------------
--- tag
--- ----------------------------------------------------------------
-
-ALTER TABLE tag DROP COLUMN fts;
-ALTER TABLE tag
+ALTER TABLE suomisf.tag DROP COLUMN fts;
+ALTER TABLE suomisf.tag
     ALTER COLUMN name TYPE VARCHAR(100) COLLATE "fi-x-icu";
-ALTER TABLE tag
+ALTER TABLE suomisf.tag
     ADD COLUMN fts tsvector GENERATED ALWAYS AS (
         setweight(to_tsvector('voikko',
             COALESCE(name, '')::text), 'A') ||
@@ -140,16 +102,12 @@ ALTER TABLE tag
             COALESCE(description, '')), 'B')
     ) STORED;
 
--- ----------------------------------------------------------------
--- work
--- ----------------------------------------------------------------
-
-ALTER TABLE work DROP COLUMN fts;
-ALTER TABLE work
+ALTER TABLE suomisf.work DROP COLUMN fts;
+ALTER TABLE suomisf.work
     ALTER COLUMN title      TYPE VARCHAR(500) COLLATE "fi-x-icu",
     ALTER COLUMN orig_title TYPE VARCHAR(500) COLLATE "fi-x-icu",
     ALTER COLUMN author_str TYPE VARCHAR(500) COLLATE "fi-x-icu";
-ALTER TABLE work
+ALTER TABLE suomisf.work
     ADD COLUMN fts tsvector GENERATED ALWAYS AS (
         setweight(to_tsvector('voikko',
             COALESCE(title, '')::text), 'A') ||
@@ -163,15 +121,11 @@ ALTER TABLE work
             COALESCE(description, '')), 'D')
     ) STORED;
 
--- ----------------------------------------------------------------
--- Recreate GIN indexes on fts columns
--- ----------------------------------------------------------------
-
-CREATE INDEX idx_award_fts      ON award      USING GIN (fts);
-CREATE INDEX idx_bookseries_fts ON bookseries  USING GIN (fts);
-CREATE INDEX idx_person_fts     ON person      USING GIN (fts);
-CREATE INDEX idx_publisher_fts  ON publisher   USING GIN (fts);
-CREATE INDEX idx_pubseries_fts  ON pubseries   USING GIN (fts);
-CREATE INDEX idx_shortstory_fts ON shortstory  USING GIN (fts);
-CREATE INDEX idx_tag_fts        ON tag         USING GIN (fts);
-CREATE INDEX idx_work_fts       ON work        USING GIN (fts);
+CREATE INDEX idx_award_fts      ON suomisf.award      USING GIN (fts);
+CREATE INDEX idx_bookseries_fts ON suomisf.bookseries  USING GIN (fts);
+CREATE INDEX idx_person_fts     ON suomisf.person      USING GIN (fts);
+CREATE INDEX idx_publisher_fts  ON suomisf.publisher   USING GIN (fts);
+CREATE INDEX idx_pubseries_fts  ON suomisf.pubseries   USING GIN (fts);
+CREATE INDEX idx_shortstory_fts ON suomisf.shortstory  USING GIN (fts);
+CREATE INDEX idx_tag_fts        ON suomisf.tag         USING GIN (fts);
+CREATE INDEX idx_work_fts       ON suomisf.work        USING GIN (fts);

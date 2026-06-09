@@ -7,15 +7,13 @@
 -- tag_import_replace: maps an external tag name to an existing local tag.
 -- tag_import_omit:    marks an external tag name to be skipped on import.
 
-SET search_path TO suomisf;
-
-CREATE TABLE IF NOT EXISTS tag_import_replace (
+CREATE TABLE IF NOT EXISTS suomisf.tag_import_replace (
     name    VARCHAR(200) NOT NULL,
-    tag_id  INTEGER      NOT NULL REFERENCES tag(id) ON DELETE CASCADE,
+    tag_id  INTEGER      NOT NULL REFERENCES suomisf.tag(id) ON DELETE CASCADE,
     PRIMARY KEY (name)
 );
 
-CREATE TABLE IF NOT EXISTS tag_import_omit (
+CREATE TABLE IF NOT EXISTS suomisf.tag_import_omit (
     name    VARCHAR(200) NOT NULL,
     PRIMARY KEY (name)
 );
