@@ -380,7 +380,7 @@ def antikvaari_fetch_products(
                 sidonta = psp.get('sidonta') or fallback_binding
                 extra = psp.get('nimikeLisatiedot', '') or ''
                 # Flags appear in nimikeLisatiedot or embedded in sidonta
-                # (e.g. "Sidottu, ei kansipaperia")
+                # (e.g. "Sidottu, ei kansipapereita (kovakantinen)")
                 extra_lower = f"{extra} {sidonta}".lower()
 
                 price_val = psp.get('hinta')
@@ -436,7 +436,7 @@ def antikvaari_fetch_products(
                     'condition': condition,
                     'is_library_discard': 'kirjaston poistotuote' in extra_lower,
                     'has_markings': 'merkintöjä' in extra_lower,
-                    'missing_dust_cover': 'ei kansipaperia' in extra_lower,
+                    'missing_dust_cover': 'ei kansipaperi' in extra_lower,
                     'price': price_val,
                     'match_quality': calculate_match_quality(
                         edition, condition, product_year, product_version,
