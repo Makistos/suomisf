@@ -436,7 +436,8 @@ def antikvaari_fetch_products(
                     'condition': condition,
                     'is_library_discard': 'kirjaston poistotuote' in extra_lower,
                     'has_markings': 'merkintöjä' in extra_lower,
-                    'missing_dust_cover': 'ei kansipaperi' in extra_lower,
+                    'missing_dust_cover': ('ei kansipaperia' in extra_lower
+                                          or 'ei kansipapereita' in extra_lower),
                     'price': price_val,
                     'match_quality': calculate_match_quality(
                         edition, condition, product_year, product_version,
