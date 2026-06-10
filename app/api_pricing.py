@@ -17,6 +17,7 @@ from app.impl_pricing import (
     edition_prices_count,
     edition_prices_get,
     user_collection_stats,
+    work_product_delete,
     work_products_get,
     work_products_save,
 )
@@ -124,6 +125,21 @@ def api_work_antikvaari_products_save(work_id: int) -> Response:
             ResponseType(f'Virheellinen pyyntö: {exc}', HttpResponseCode.BAD_REQUEST)
         )
     return make_api_response(work_products_save(work_id, products))
+
+
+@app.route('/api/work/<int:work_id>/antikvaari/products/<product_id>', methods=['DELETE'])
+@jwt_admin_required()  # type: ignore
+def api_work_antikvaari_product_delete(work_id: int, product_id: str) -> Response:
+    """
+    Remove an Antikvaari product link from a work (admin only).
+
+    URL: DELETE /api/work/<work_id>/antikvaari/products/<product_id>
+
+    Response 200 — {"deleted": "<product_id>"}
+    Response 404 — Product not found.
+    Response 500 — Database error.
+    """
+    return make_api_response(work_product_delete(work_id, product_id))
 
 
 @app.route('/api/work/<int:work_id>/antikvaari/fetch', methods=['POST'])

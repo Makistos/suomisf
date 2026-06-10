@@ -8,7 +8,8 @@ import requests
 from bs4 import BeautifulSoup
 
 from app.impl import ResponseType
-from app.orm_decl import (AntikvaariPrice, AntikvaariWorkProduct, BookCondition,
+from app.orm_decl import (AntikvaariExcludedBook, AntikvaariPrice,
+                           AntikvaariWorkProduct, BookCondition,
                            Edition, UserBook, Work)
 from app.route_helpers import new_session
 from app.types import HttpResponseCode
@@ -253,43 +254,105 @@ def work_products_save(work_id: int, products: List[Dict[str, Any]]) -> Response
         session.close()
 
 
+def work_product_delete(work_id: int, product_id: str) -> ResponseType:
+    """Remove an Antikvaari product link from a work."""
+    session = new_session()
+    try:
+        row = (session.query(AntikvaariWorkProduct)
+               .filter(AntikvaariWorkProduct.work_id == work_id,
+                       AntikvaariWorkProduct.antikvaari_product_id == product_id)
+               .first())
+        if not row:
+            return ResponseType('Product not found', HttpResponseCode.NOT_FOUND)
+        session.delete(row)
+        session.commit()
+        return ResponseType({'deleted': product_id}, HttpResponseCode.OK)
+    except Exception as exc:  # pylint: disable=broad-except
+        session.rollback()
+        return ResponseType(f'Delete failed: {exc}', HttpResponseCode.INTERNAL_SERVER_ERROR)
+    finally:
+        session.close()
+
+
 def antikvaari_prices_save_all(work_id: int, rows: List[Dict[str, Any]]) -> ResponseType:
     """Save all fetched price rows for a work, grouped by edition.
 
     Re-matches each row against work editions using the (possibly user-edited)
     antikvaari_product_version (painos) and antikvaari_product_laitos (laitos)
-    values, so corrections made in the UI are honoured.
+    values. Rows with user_excluded=True are saved to antikvaari_excluded_book
+    instead of antikvaari_price. Rows with user_excluded=False that were
+    previously excluded are removed from the exclusion table.
     """
+    user_excluded_rows: List[Dict[str, Any]] = []
+    included_rows: List[Dict[str, Any]] = []
+    for row in rows:
+        if row.get('user_excluded'):
+            user_excluded_rows.append(row)
+        else:
+            included_rows.append(row)
+
+    # --- Persist exclusion changes and re-match, all in one session ---
+    by_edition: Dict[int, List[Dict[str, Any]]] = {}
+    no_edition_rows: List[Dict[str, Any]] = []
     session = new_session()
     try:
         work = session.query(Work).filter(Work.id == work_id).first()
         editions = list(work.editions) if work else []
+
+        # Save newly excluded book IDs
+        existing_excluded = {
+            r.antikvaari_book_id
+            for r in session.query(AntikvaariExcludedBook).all()
+        }
+        for row in user_excluded_rows:
+            bid = row.get('antikvaari_book_id')
+            if bid and bid not in existing_excluded:
+                session.add(AntikvaariExcludedBook(antikvaari_book_id=bid))
+
+        # Remove un-excluded book IDs (user re-checked a previously excluded copy)
+        for row in included_rows:
+            bid = row.get('antikvaari_book_id')
+            if bid and bid in existing_excluded:
+                exc = session.query(AntikvaariExcludedBook).filter_by(
+                    antikvaari_book_id=bid
+                ).first()
+                if exc:
+                    session.delete(exc)
+
+        # Re-match while editions are still attached to the session
+        for row in included_rows:
+            product_version = row.get('antikvaari_product_version')
+            product_laitos = row.get('antikvaari_product_laitos')
+            product_year = row.get('antikvaari_product_year')
+            product_binding = row.get('antikvaari_product_binding')
+            edition, match_level = _best_matching_edition(
+                editions, product_year, product_version, product_binding, product_laitos
+            )
+            updated_row = {
+                **row,
+                'edition_id': edition.id if edition else None,
+                'edition_match_level': match_level,
+            }
+            if edition is None or match_level == 'not_close':
+                no_edition_rows.append(updated_row)
+            else:
+                by_edition.setdefault(edition.id, []).append(updated_row)
+
+        session.commit()
+    except Exception as exc:  # pylint: disable=broad-except
+        session.rollback()
+        return ResponseType(f'Exclusion save failed: {exc}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR)
     finally:
         session.close()
-
-    by_edition: Dict[int, List[Dict[str, Any]]] = {}
-    no_edition_rows: List[Dict[str, Any]] = []
-    for row in rows:
-        product_version = row.get('antikvaari_product_version')
-        product_laitos = row.get('antikvaari_product_laitos')
-        product_year = row.get('antikvaari_product_year')
-        product_binding = row.get('antikvaari_product_binding')
-        edition, match_level = _best_matching_edition(
-            editions, product_year, product_version, product_binding, product_laitos
-        )
-        updated_row = {
-            **row,
-            'edition_id': edition.id if edition else None,
-            'edition_match_level': match_level,
-        }
-        if edition is None or match_level == 'not_close':
-            no_edition_rows.append(updated_row)
-        else:
-            by_edition.setdefault(edition.id, []).append(updated_row)
 
     total_saved = 0
     total_skipped = 0
     detail_rows: List[Dict[str, Any]] = []
+
+    for row in user_excluded_rows:
+        detail_rows.append({**row, 'status': 'skipped', 'reason': 'excluded'})
+        total_skipped += 1
 
     for row in no_edition_rows:
         reason = 'no_edition' if row.get('edition_id') is None else 'edition_missing'
@@ -343,17 +406,41 @@ def antikvaari_fetch_products(
             return ResponseType('Work not found', HttpResponseCode.NOT_FOUND)
 
         editions = list(work.editions)
+
+        # Pre-load excluded book IDs for fast lookup
+        excluded_ids = {
+            r.antikvaari_book_id
+            for r in session.query(AntikvaariExcludedBook).all()
+        }
+
+        # Map product_url → AntikvaariWorkProduct row for page_exists updates
+        work_products: Dict[str, Any] = {
+            r.url: r
+            for r in session.query(AntikvaariWorkProduct)
+            .filter(AntikvaariWorkProduct.work_id == work_id)
+            .all()
+            if r.url
+        }
+
         rows: List[Dict[str, Any]] = []
 
         for product_url in product_urls:
             props = _fetch_next_data(product_url)
             if props is None:
+                # Mark the product page as gone
+                wp = work_products.get(product_url)
+                if wp and wp.page_exists:
+                    wp.page_exists = False
                 continue
 
             catalog = props.get('catalog', {})
             product_id = catalog.get('_id') or ''
             fallback_year = catalog.get('year', '')
             fallback_binding = catalog.get('binding', '')
+            fallback_title = catalog.get('title', '') or ''
+            fallback_author = catalog.get('author', '') or ''
+            catalog_languages = catalog.get('languages') or []
+            language_code = catalog_languages[0] if catalog_languages else None
 
             feed_elements = props.get('dataFeed', {}).get('dataFeedElement', [])
             book_el = next((el for el in feed_elements if el.get('@type') == 'Book'), None)
@@ -410,7 +497,10 @@ def antikvaari_fetch_products(
                     except ValueError:
                         pass
 
-                product_year = int(painovuosi_raw) if painovuosi_raw else None
+                try:
+                    product_year = int(str(painovuosi_raw).split('-')[0]) if painovuosi_raw else None
+                except (ValueError, TypeError):
+                    product_year = None
                 product_version = _parse_version(painos_raw)
                 condition = _parse_condition(psp.get('kunto', ''))
                 binding_id = _binding_category(sidonta)
@@ -431,6 +521,9 @@ def antikvaari_fetch_products(
                     'antikvaari_product_binding': binding_id,
                     'antikvaari_product_version': product_version,
                     'antikvaari_product_laitos': None,  # not provided by Antikvaari; user may set it
+                    'book_title': psp.get('nimi', '') or fallback_title or None,
+                    'book_author': psp.get('tekija', '') or fallback_author or None,
+                    'book_language': language_code,
                     'date_listed': date_listed,
                     'last_updated': last_updated.isoformat() if last_updated else None,
                     'condition': condition,
@@ -443,9 +536,14 @@ def antikvaari_fetch_products(
                         edition, condition, product_year, product_version,
                         binding_id, target_condition,
                     ) if edition else None,
+                    'user_excluded': book_id in excluded_ids,
                 })
 
+        session.commit()
         return ResponseType(rows, HttpResponseCode.OK)
+    except Exception as exc:  # pylint: disable=broad-except
+        session.rollback()
+        return ResponseType(f'Fetch failed: {exc}', HttpResponseCode.INTERNAL_SERVER_ERROR)
     finally:
         session.close()
 
@@ -629,13 +727,19 @@ def edition_prices_get(
         if not edition:
             return ResponseType('Edition not found', HttpResponseCode.NOT_FOUND)
 
-        prices = (session.query(AntikvaariPrice)
-                  .filter(AntikvaariPrice.edition_id == edition_id)
-                  .order_by(AntikvaariPrice.date_fetched.desc())
-                  .all())
+        rows = (
+            session.query(AntikvaariPrice, AntikvaariWorkProduct)
+            .outerjoin(
+                AntikvaariWorkProduct,
+                AntikvaariPrice.antikvaari_product_id == AntikvaariWorkProduct.antikvaari_product_id,
+            )
+            .filter(AntikvaariPrice.edition_id == edition_id)
+            .order_by(AntikvaariPrice.date_fetched.desc())
+            .all()
+        )
 
         result = []
-        for p in prices:
+        for p, wp in rows:
             result.append({
                 'id': p.id,
                 'edition_id': p.edition_id,
@@ -659,6 +763,8 @@ def edition_prices_get(
                     p.antikvaari_product_binding,
                     target_condition,
                 ),
+                'product_url': wp.url if wp else None,
+                'product_page_exists': wp.page_exists if wp else None,
             })
 
         return ResponseType(result, HttpResponseCode.OK)

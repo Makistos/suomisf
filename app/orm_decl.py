@@ -667,8 +667,15 @@ class AntikvaariWorkProduct(Base):
     added = Column(DateTime, nullable=False)
     url = Column(String(500))
     rejected = Column(Boolean, nullable=False, default=False, server_default='false')
+    page_exists = Column(Boolean, nullable=False, default=True, server_default='true')
 
     work = relationship('Work', backref=backref('antikvaari_products'))
+
+
+class AntikvaariExcludedBook(Base):
+    """Book copy IDs the user has chosen to exclude from price saving."""
+    __tablename__ = 'antikvaari_excluded_book'
+    antikvaari_book_id = Column(String(30), primary_key=True)
 
 
 class AntikvaariPrice(Base):
