@@ -731,7 +731,8 @@ def edition_prices_get(
             session.query(AntikvaariPrice, AntikvaariWorkProduct)
             .outerjoin(
                 AntikvaariWorkProduct,
-                AntikvaariPrice.antikvaari_product_id == AntikvaariWorkProduct.antikvaari_product_id,
+                (AntikvaariPrice.antikvaari_product_id == AntikvaariWorkProduct.antikvaari_product_id)
+                & (AntikvaariWorkProduct.work_id == edition.work_id),
             )
             .filter(AntikvaariPrice.edition_id == edition_id)
             .order_by(AntikvaariPrice.date_fetched.desc())
