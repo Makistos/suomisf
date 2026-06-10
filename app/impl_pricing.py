@@ -516,6 +516,7 @@ def antikvaari_fetch_products(
                     'edition_match_level': edition_match_level,
                     'antikvaari_book_id': book_id,
                     'antikvaari_product_id': product_id,
+                    'antikvaari_product_page_url': product_url,
                     'antikvaari_product_url': book_url,
                     'antikvaari_product_year': product_year,
                     'antikvaari_product_binding': binding_id,
