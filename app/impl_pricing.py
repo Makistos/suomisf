@@ -860,29 +860,31 @@ _QUALITY_RANK: Dict[str, int] = {'Perfect': 0, 'Good': 1, 'Decent': 2, 'Poor': 3
 _QUALITY_ORDER: List[str] = ['Perfect', 'Good', 'Decent', 'Poor']
 
 
-def _downgrade_quality(q: str) -> str:
-    """Decrease match quality by one level (used when pricing via a close edition)."""
+def _downgrade_quality(q: str, levels: int = 1) -> str:
+    """Decrease match quality by `levels` steps (floor: Poor)."""
     idx = _QUALITY_ORDER.index(q) if q in _QUALITY_ORDER else len(_QUALITY_ORDER) - 1
-    return _QUALITY_ORDER[min(idx + 1, len(_QUALITY_ORDER) - 1)]
+    return _QUALITY_ORDER[min(idx + levels, len(_QUALITY_ORDER) - 1)]
 
 
 def _closest_sibling_prices(
     owned: Edition,
     siblings: List[Edition],
     prices_by_edition: Dict[int, List['AntikvaariPrice']],
-) -> Optional[List['AntikvaariPrice']]:
-    """Return prices from the nearest qualifying sibling edition, or None.
+) -> Optional[tuple]:
+    """Return (sibling_edition, prices, downgrade_levels) or None.
 
-    A sibling qualifies when:
-      - same edition.version (laitos) as owned (NULL == NULL)
-      - edition.pubyear differs by at most 10 years
-      - it has at least one stored price
+    A sibling qualifies when it shares edition.version (laitos) with owned
+    and has a pubyear within 10 years.  Among qualifying siblings:
 
-    Among qualifying siblings the one with the smallest year difference wins.
+    - Same binding_id as owned is preferred (1-level downgrade).
+    - Any other binding (different or unknown) is the fallback (2-level downgrade).
+
+    Within each group the sibling with the smallest year difference wins.
     """
     if owned.pubyear is None:
         return None
-    candidates: List[tuple] = []
+    same_binding: List[tuple] = []
+    other_binding: List[tuple] = []
     for sib in siblings:
         if sib.id == owned.id:
             continue
@@ -894,12 +896,20 @@ def _closest_sibling_prices(
         if diff > 10:
             continue
         ps = prices_by_edition.get(sib.id)
-        if ps:
-            candidates.append((diff, ps))
-    if not candidates:
-        return None
-    candidates.sort(key=lambda x: x[0])
-    return candidates[0][1]
+        if not ps:
+            continue
+        same = (
+            owned.binding_id is not None
+            and sib.binding_id is not None
+            and sib.binding_id == owned.binding_id
+        )
+        (same_binding if same else other_binding).append((diff, sib, ps))
+    for group, levels in ((same_binding, 1), (other_binding, 2)):
+        if group:
+            group.sort(key=lambda x: x[0])
+            _, sib_ed, sib_ps = group[0]
+            return sib_ed, sib_ps, levels
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -995,15 +1005,17 @@ def user_collection_stats(user_id: int) -> ResponseType:
 
             price_rows = prices_by_edition.get(eid, [])
             use_close = False
+            close_edition: Optional[Edition] = None
+            close_levels: int = 1
 
             if not price_rows:
-                sibling_prices = _closest_sibling_prices(
+                sibling = _closest_sibling_prices(
                     edition,
                     work_editions.get(edition.work_id, []),
                     prices_by_edition,
                 )
-                if sibling_prices:
-                    price_rows = sibling_prices
+                if sibling:
+                    close_edition, price_rows, close_levels = sibling
                     use_close = True
                 elif edition.work_id in linked_work_ids:
                     w = edition.work
@@ -1026,7 +1038,7 @@ def user_collection_stats(user_id: int) -> ResponseType:
 
             for p in price_rows:
                 q = calculate_match_quality(
-                    edition,
+                    close_edition if use_close else edition,
                     p.condition,
                     p.antikvaari_product_year,
                     p.antikvaari_product_version,
@@ -1034,7 +1046,7 @@ def user_collection_stats(user_id: int) -> ResponseType:
                     target,
                 )
                 if use_close:
-                    q = _downgrade_quality(q)
+                    q = _downgrade_quality(q, close_levels)
                 rank = _QUALITY_RANK.get(q, 3)
                 pval = float(p.price)
                 if rank < best_rank or (rank == best_rank and pval < best_val):

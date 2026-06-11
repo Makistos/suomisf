@@ -1080,7 +1080,10 @@ def editionowner_get(editionid: int, userid: int) -> ResponseType:
 
 def _attach_best_prices(session: Any, books: list, wishlist: bool) -> None:
     """Populate best_price, match_quality, and has_linked_products on each book dict in-place."""
-    from app.impl_pricing import calculate_match_quality, _QUALITY_RANK  # local import avoids circularity
+    from app.impl_pricing import (  # local import avoids circularity
+        calculate_match_quality, _QUALITY_RANK,
+        _closest_sibling_prices, _downgrade_quality,
+    )
     edition_ids = [b['edition_id'] for b in books]
     editions_map = {
         e.id: e
@@ -1097,9 +1100,16 @@ def _attach_best_prices(session: Any, books: list, wishlist: bool) -> None:
         .all()
     )
 
+    # All sibling editions per work (needed for close-edition fallback)
+    work_editions: dict = {}
+    for e in session.query(Edition).filter(Edition.work_id.in_(work_ids)).all():
+        work_editions.setdefault(e.work_id, []).append(e)
+
+    # Prices for every edition in those works (not just owned ones)
+    all_sib_ids = [e.id for eds in work_editions.values() for e in eds]
     prices_by_edition: dict = {}
     for p in session.query(AntikvaariPrice).filter(
-        AntikvaariPrice.edition_id.in_(edition_ids)
+        AntikvaariPrice.edition_id.in_(all_sib_ids)
     ).all():
         prices_by_edition.setdefault(p.edition_id, []).append(p)
 
@@ -1108,10 +1118,22 @@ def _attach_best_prices(session: Any, books: list, wishlist: bool) -> None:
         book['has_linked_products'] = bool(
             edition and edition.work_id in linked_work_ids
         )
-        if wishlist:
+        if wishlist or not edition:
             continue
         price_rows = prices_by_edition.get(book['edition_id'], [])
-        if not edition or not price_rows:
+        use_close = False
+        close_edition = None
+        close_levels = 1
+        if not price_rows:
+            sibling = _closest_sibling_prices(
+                edition,
+                work_editions.get(edition.work_id, []),
+                prices_by_edition,
+            )
+            if sibling:
+                close_edition, price_rows, close_levels = sibling
+                use_close = True
+        if not price_rows:
             continue
         target = book['condition_name']  # e.g. 'K3'
         best_rank = 999
@@ -1119,13 +1141,15 @@ def _attach_best_prices(session: Any, books: list, wishlist: bool) -> None:
         best_quality = None
         for p in price_rows:
             q = calculate_match_quality(
-                edition,
+                close_edition if use_close else edition,
                 p.condition,
                 p.antikvaari_product_year,
                 p.antikvaari_product_version,
                 p.antikvaari_product_binding,
                 target,
             )
+            if use_close:
+                q = _downgrade_quality(q, close_levels)
             rank = _QUALITY_RANK.get(q, 3)
             pval = float(p.price)
             if rank < best_rank or (rank == best_rank and (best_price is None or pval < best_price)):
