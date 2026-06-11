@@ -853,10 +853,58 @@ def calculate_match_quality(
 
 
 # ---------------------------------------------------------------------------
-# Public: user collection stats
+# Internal: close-edition price fallback
 # ---------------------------------------------------------------------------
 
 _QUALITY_RANK: Dict[str, int] = {'Perfect': 0, 'Good': 1, 'Decent': 2, 'Poor': 3}
+_QUALITY_ORDER: List[str] = ['Perfect', 'Good', 'Decent', 'Poor']
+
+
+def _downgrade_quality(q: str) -> str:
+    """Decrease match quality by one level (used when pricing via a close edition)."""
+    idx = _QUALITY_ORDER.index(q) if q in _QUALITY_ORDER else len(_QUALITY_ORDER) - 1
+    return _QUALITY_ORDER[min(idx + 1, len(_QUALITY_ORDER) - 1)]
+
+
+def _closest_sibling_prices(
+    owned: Edition,
+    siblings: List[Edition],
+    prices_by_edition: Dict[int, List['AntikvaariPrice']],
+) -> Optional[List['AntikvaariPrice']]:
+    """Return prices from the nearest qualifying sibling edition, or None.
+
+    A sibling qualifies when:
+      - same edition.version (laitos) as owned (NULL == NULL)
+      - edition.pubyear differs by at most 10 years
+      - it has at least one stored price
+
+    Among qualifying siblings the one with the smallest year difference wins.
+    """
+    if owned.pubyear is None:
+        return None
+    candidates: List[tuple] = []
+    for sib in siblings:
+        if sib.id == owned.id:
+            continue
+        if sib.version != owned.version:
+            continue
+        if sib.pubyear is None:
+            continue
+        diff = abs(sib.pubyear - owned.pubyear)
+        if diff > 10:
+            continue
+        ps = prices_by_edition.get(sib.id)
+        if ps:
+            candidates.append((diff, ps))
+    if not candidates:
+        return None
+    candidates.sort(key=lambda x: x[0])
+    return candidates[0][1]
+
+
+# ---------------------------------------------------------------------------
+# Public: user collection stats
+# ---------------------------------------------------------------------------
 
 
 def user_collection_stats(user_id: int) -> ResponseType:
@@ -913,10 +961,17 @@ def user_collection_stats(user_id: int) -> ResponseType:
             .all()
         )
 
+        # Load ALL editions per work so close-edition price fallback can look at siblings.
+        work_editions: Dict[int, List[Edition]] = {}
+        for e in session.query(Edition).filter(Edition.work_id.in_(work_ids)).all():
+            work_editions.setdefault(e.work_id, []).append(e)
+
+        # Prices for every edition in those works (not just owned ones).
+        all_sib_ids = [e.id for eds in work_editions.values() for e in eds]
         prices_by_edition: Dict[int, List[AntikvaariPrice]] = {}
         for p in (
             session.query(AntikvaariPrice)
-            .filter(AntikvaariPrice.edition_id.in_(edition_ids))
+            .filter(AntikvaariPrice.edition_id.in_(all_sib_ids))
             .all()
         ):
             prices_by_edition.setdefault(p.edition_id, []).append(p)
@@ -933,10 +988,24 @@ def user_collection_stats(user_id: int) -> ResponseType:
             eid = ub.edition_id
             target = condition_map.get(ub.condition_id)
             edition = editions_map.get(eid)
-            price_rows = prices_by_edition.get(eid, [])
 
-            if not price_rows or not edition:
-                if edition and edition.work_id in linked_work_ids:
+            if not edition:
+                dist['not_priced'] += 1
+                continue
+
+            price_rows = prices_by_edition.get(eid, [])
+            use_close = False
+
+            if not price_rows:
+                sibling_prices = _closest_sibling_prices(
+                    edition,
+                    work_editions.get(edition.work_id, []),
+                    prices_by_edition,
+                )
+                if sibling_prices:
+                    price_rows = sibling_prices
+                    use_close = True
+                elif edition.work_id in linked_work_ids:
                     w = edition.work
                     no_price_books.append({
                         'edition_id': eid,
@@ -948,7 +1017,8 @@ def user_collection_stats(user_id: int) -> ResponseType:
                     })
                 else:
                     dist['not_priced'] += 1
-                continue
+                if not price_rows:
+                    continue
 
             best_q: Optional[str] = None
             best_rank = 999
@@ -963,6 +1033,8 @@ def user_collection_stats(user_id: int) -> ResponseType:
                     p.antikvaari_product_binding,
                     target,
                 )
+                if use_close:
+                    q = _downgrade_quality(q)
                 rank = _QUALITY_RANK.get(q, 3)
                 pval = float(p.price)
                 if rank < best_rank or (rank == best_rank and pval < best_val):
