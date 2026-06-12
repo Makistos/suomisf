@@ -124,8 +124,15 @@ def _edition_match_level(
         diff = abs(product_year - edition.pubyear)
         if diff > 10:
             return 'not_close'
-        if diff > 0:
+        # Only demote to 'close' for year diff when painos is not confirmed.
+        # When painos matches, a small year discrepancy is a data-entry artefact.
+        if diff > 0 and product_version is None:
             return 'close'
+
+    # When no Antikvaari metadata is provided at all, the edition is already
+    # confirmed matched (stored-prices path) — skip ambiguity checks.
+    if product_version is None and product_year is None and product_binding is None:
+        return 'same'
 
     # When no edition number is provided by Antikvaari, require both year and
     # binding to be confirmed before calling it 'same'. Without version info a
@@ -760,9 +767,7 @@ def edition_prices_get(
                 'price': float(p.price),
                 'match_quality': calculate_match_quality(
                     edition, p.condition,
-                    p.antikvaari_product_year,
-                    p.antikvaari_product_version,
-                    p.antikvaari_product_binding,
+                    None, None, None,
                     target_condition,
                 ),
                 'product_url': wp.url if wp else None,
@@ -1035,22 +1040,23 @@ def user_collection_stats(user_id: int) -> ResponseType:
             best_q: Optional[str] = None
             best_rank = 999
             best_val = float('inf')
+            best_updated = None
 
             for p in price_rows:
                 q = calculate_match_quality(
                     close_edition if use_close else edition,
                     p.condition,
-                    p.antikvaari_product_year,
-                    p.antikvaari_product_version,
-                    p.antikvaari_product_binding,
+                    None, None, None,
                     target,
                 )
                 if use_close:
                     q = _downgrade_quality(q, close_levels)
                 rank = _QUALITY_RANK.get(q, 3)
                 pval = float(p.price)
-                if rank < best_rank or (rank == best_rank and pval < best_val):
-                    best_rank, best_val, best_q = rank, pval, q
+                p_ts = p.last_updated.timestamp() if p.last_updated else 0.0
+                b_ts = best_updated.timestamp() if best_updated else 0.0
+                if rank < best_rank or (rank == best_rank and (p_ts > b_ts or (p_ts == b_ts and pval < best_val))):
+                    best_rank, best_val, best_q, best_updated = rank, pval, q, p.last_updated
 
             if best_q is not None:
                 priced_count += 1

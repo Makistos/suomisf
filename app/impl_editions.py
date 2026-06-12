@@ -1,4 +1,5 @@
 """ Editions implementation """
+import datetime
 import json
 from typing import Any, Dict, Union
 import os
@@ -1139,21 +1140,22 @@ def _attach_best_prices(session: Any, books: list, wishlist: bool) -> None:
         best_rank = 999
         best_price = None
         best_quality = None
+        best_updated = None
         for p in price_rows:
             q = calculate_match_quality(
                 close_edition if use_close else edition,
                 p.condition,
-                p.antikvaari_product_year,
-                p.antikvaari_product_version,
-                p.antikvaari_product_binding,
+                None, None, None,
                 target,
             )
             if use_close:
                 q = _downgrade_quality(q, close_levels)
             rank = _QUALITY_RANK.get(q, 3)
             pval = float(p.price)
-            if rank < best_rank or (rank == best_rank and (best_price is None or pval < best_price)):
-                best_rank, best_price, best_quality = rank, pval, q
+            p_ts = p.last_updated.timestamp() if p.last_updated else 0.0
+            b_ts = best_updated.timestamp() if best_updated else 0.0
+            if rank < best_rank or (rank == best_rank and (p_ts > b_ts or (p_ts == b_ts and (best_price is None or pval < best_price)))):
+                best_rank, best_price, best_quality, best_updated = rank, pval, q, p.last_updated
         book['best_price'] = best_price
         book['match_quality'] = best_quality
 
