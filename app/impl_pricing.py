@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 from app.impl import ResponseType
 from app.orm_decl import (AntikvaariExcludedBook, AntikvaariPrice,
                            AntikvaariWorkProduct, BookCondition,
-                           Edition, UserBook, Work)
+                           Edition, PriceSource, UserBook, Work)
 from app.route_helpers import new_session
 from app.types import HttpResponseCode
 
@@ -645,6 +645,10 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]]) -> Respo
         if not edition:
             return ResponseType('Edition not found', HttpResponseCode.NOT_FOUND)
 
+        antikvaari_source = (session.query(PriceSource)
+                             .filter(PriceSource.name == 'Antikvaari').first())
+        antikvaari_source_id = antikvaari_source.id if antikvaari_source else 1
+
         now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
         saved = 0
         skipped = 0
@@ -682,6 +686,7 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]]) -> Respo
 
             session.add(AntikvaariPrice(
                 edition_id=edition_id,
+                source_id=antikvaari_source_id,
                 antikvaari_book_id=row['antikvaari_book_id'],
                 antikvaari_product_id=row.get('antikvaari_product_id') or '',
                 antikvaari_product_year=row.get('antikvaari_product_year'),
@@ -752,6 +757,9 @@ def edition_prices_get(
             result.append({
                 'id': p.id,
                 'edition_id': p.edition_id,
+                'source_id': p.source_id,
+                'source_name': p.source.name if p.source else None,
+                'book_id': p.antikvaari_book_id,
                 'antikvaari_book_id': p.antikvaari_book_id,
                 'antikvaari_product_id': p.antikvaari_product_id,
                 'antikvaari_product_year': p.antikvaari_product_year,
@@ -775,6 +783,194 @@ def edition_prices_get(
             })
 
         return ResponseType(result, HttpResponseCode.OK)
+    finally:
+        session.close()
+
+
+def _source_from_url(url: str, session: Any) -> Optional[PriceSource]:
+    """Return the PriceSource that matches a URL's domain."""
+    checks = [
+        ('antikvariaatti.net', 'Antikvariaatti'),
+        ('antikka.net',        'Antikka'),
+        ('huuto.net',          'Huuto.net'),
+        ('antikvaari.fi',      'Antikvaari'),
+    ]
+    for domain, name in checks:
+        if domain in url:
+            return session.query(PriceSource).filter(PriceSource.name == name).first()
+    return None
+
+
+def _scrape_antikvariaatti(url: str) -> Dict[str, Any]:
+    """Scrape a single Antikvariaatti product page and return price fields."""
+    book_id = url.rstrip('/').split('/')[-1]
+    resp = requests.get(url, headers={'User-Agent': _UA}, timeout=15)
+    resp.raise_for_status()
+    soup = BeautifulSoup(resp.text, 'html.parser')
+
+    price: Optional[float] = None
+    for script in soup.find_all('script'):
+        text = script.string or ''
+        if 'schema.org' in text and 'offers' in text:
+            try:
+                data = json.loads(text.strip())
+                price = float(data['offers']['price'])
+                break
+            except (json.JSONDecodeError, KeyError, TypeError, ValueError):
+                pass
+
+    condition: Optional[str] = None
+    for label in soup.find_all('div', class_='product_attribute_label'):
+        if 'Kunto' in label.get_text():
+            row = label.parent.parent  # w-row contains label column + value column
+            val = row.find('div', class_='notranslate')
+            if val:
+                m = re.match(r'^(K[1-5])', val.get_text())
+                if m:
+                    condition = m.group(1)
+            break
+
+    return {
+        'book_id': book_id,
+        'price': price,
+        'condition': condition,
+        'last_updated': datetime.date.today().isoformat(),
+    }
+
+
+def _scrape_antikka(url: str) -> Dict[str, Any]:
+    """Scrape a single antikka.net (WooCommerce) product page and return price fields."""
+    resp = requests.get(url, headers={'User-Agent': _UA}, timeout=15)
+    resp.raise_for_status()
+    soup = BeautifulSoup(resp.text, 'html.parser')
+
+    price: Optional[float] = None
+    price_el = soup.select_one('p.price .woocommerce-Price-amount')
+    if price_el:
+        raw = price_el.get_text(strip=True).replace('\xa0', '').replace('€', '').replace(',', '.').strip()
+        try:
+            price = float(raw)
+        except ValueError:
+            pass
+
+    book_id: Optional[str] = None
+    sku_el = soup.select_one('span.sku')
+    if sku_el:
+        book_id = sku_el.get_text(strip=True) or None
+
+    condition: Optional[str] = None
+    for tr in soup.find_all('tr'):
+        cells = tr.find_all(['th', 'td'])
+        if len(cells) >= 2 and 'Kuntoluokka' in cells[0].get_text():
+            m = re.match(r'K[1-5]', cells[1].get_text(strip=True))
+            if m:
+                condition = m.group()
+            break
+
+    return {
+        'book_id': book_id,
+        'price': price,
+        'condition': condition,
+        'last_updated': datetime.date.today().isoformat(),
+    }
+
+
+def scrape_price_from_url(url: str) -> ResponseType:
+    """Identify source from URL, scrape price fields, return for user review."""
+    session = new_session()
+    try:
+        source = _source_from_url(url, session)
+        if not source:
+            return ResponseType('Tunnistamaton lähde', HttpResponseCode.BAD_REQUEST)
+
+        scrapers = {
+            'Antikvariaatti': _scrape_antikvariaatti,
+            'Antikka': _scrape_antikka,
+        }
+        scraper = scrapers.get(source.name)
+        if not scraper:
+            return ResponseType(
+                f'Scraperiä ei ole vielä toteutettu lähteelle {source.name}',
+                HttpResponseCode.BAD_REQUEST,
+            )
+
+        fields = scraper(url)
+        return ResponseType(
+            {**fields, 'source_id': source.id, 'source_name': source.name},
+            HttpResponseCode.OK,
+        )
+    except requests.RequestException as e:
+        return ResponseType(f'Sivun haku epäonnistui: {e}', HttpResponseCode.INTERNAL_SERVER_ERROR)
+    finally:
+        session.close()
+
+
+def price_sources_get() -> ResponseType:
+    """Return all price sources for use in dropdowns."""
+    session = new_session()
+    try:
+        sources = session.query(PriceSource).order_by(PriceSource.id).all()
+        return ResponseType(
+            [{'id': s.id, 'name': s.name} for s in sources],
+            HttpResponseCode.OK,
+        )
+    finally:
+        session.close()
+
+
+def price_add_manual(edition_id: int, data: Dict[str, Any]) -> ResponseType:
+    """Insert a single manually entered price row."""
+    session = new_session()
+    try:
+        edition = session.query(Edition).filter(Edition.id == edition_id).first()
+        if not edition:
+            return ResponseType('Edition not found', HttpResponseCode.NOT_FOUND)
+
+        source_id = data.get('source_id')
+        if not source_id:
+            return ResponseType('source_id required', HttpResponseCode.BAD_REQUEST)
+        source = session.query(PriceSource).filter(PriceSource.id == source_id).first()
+        if not source:
+            return ResponseType('Unknown source', HttpResponseCode.BAD_REQUEST)
+
+        condition = data.get('condition', '')
+        if condition not in ('K5', 'K4', 'K3', 'K2', 'K1'):
+            return ResponseType('Invalid condition', HttpResponseCode.BAD_REQUEST)
+
+        try:
+            price = float(data['price'])
+        except (KeyError, TypeError, ValueError):
+            return ResponseType('Invalid price', HttpResponseCode.BAD_REQUEST)
+
+        last_updated_raw = data.get('last_updated')
+        try:
+            last_updated = datetime.datetime.fromisoformat(last_updated_raw) if last_updated_raw else None
+            if last_updated and last_updated.tzinfo is not None:
+                last_updated = last_updated.replace(tzinfo=None)
+        except (ValueError, AttributeError):
+            last_updated = None
+
+        now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
+        book_id = data.get('book_id') or None
+
+        session.add(AntikvaariPrice(
+            edition_id=edition_id,
+            source_id=source_id,
+            antikvaari_book_id=book_id,
+            antikvaari_product_id=None,
+            last_updated=last_updated or now,
+            date_fetched=now,
+            condition=condition,
+            is_library_discard=False,
+            has_markings=False,
+            missing_dust_cover=False,
+            price=price,
+        ))
+        session.commit()
+        return ResponseType({'saved': 1}, HttpResponseCode.OK)
+    except Exception as e:
+        session.rollback()
+        return ResponseType(str(e), HttpResponseCode.INTERNAL_SERVER_ERROR)
     finally:
         session.close()
 

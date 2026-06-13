@@ -678,13 +678,22 @@ class AntikvaariExcludedBook(Base):
     antikvaari_book_id = Column(String(30), primary_key=True)
 
 
+class PriceSource(Base):
+    """Lookup table of price data sources (Antikvaari, Antikka, etc.)."""
+    __tablename__ = 'price_source'
+    __table_args__ = {'schema': 'suomisf'}
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), nullable=False, unique=True)
+
+
 class AntikvaariPrice(Base):
-    """Append-only scraped Antikvaari price history per physical book copy."""
+    """Append-only price history per physical book copy, from any source."""
     __tablename__ = 'antikvaari_price'
     id = Column(Integer, primary_key=True)
     edition_id = Column(Integer, ForeignKey('edition.id'), nullable=False)
-    antikvaari_book_id = Column(String(30), nullable=False)
-    antikvaari_product_id = Column(String(30), nullable=False)
+    source_id = Column(Integer, ForeignKey('suomisf.price_source.id'), nullable=False)
+    antikvaari_book_id = Column(String(100))
+    antikvaari_product_id = Column(String(100))
     antikvaari_product_year = Column(Integer)
     antikvaari_product_binding = Column(Integer, ForeignKey('bindingtype.id'))
     antikvaari_product_version = Column(Integer)
@@ -698,6 +707,7 @@ class AntikvaariPrice(Base):
     price = Column(Numeric(8, 2), nullable=False)
 
     edition = relationship('Edition', backref=backref('antikvaari_prices'))
+    source = relationship('PriceSource')
 
 
 class EditionPrice(Base):

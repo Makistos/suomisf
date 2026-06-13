@@ -16,6 +16,9 @@ from app.impl_pricing import (
     antikvaari_search,
     edition_prices_count,
     edition_prices_get,
+    price_add_manual,
+    price_sources_get,
+    scrape_price_from_url,
     user_collection_stats,
     work_product_delete,
     work_products_get,
@@ -270,6 +273,34 @@ def api_edition_antikvaari_prices_get(edition_id: int) -> Response:
     """
     target_condition = request.args.get('target_condition', '').strip() or None
     return make_api_response(edition_prices_get(edition_id, target_condition))
+
+
+@app.route('/api/price-sources', methods=['GET'])
+@jwt_admin_required()  # type: ignore
+def api_price_sources_get() -> Response:
+    """Return all price sources for use in dropdowns."""
+    return make_api_response(price_sources_get())
+
+
+@app.route('/api/edition/<int:edition_id>/prices/manual', methods=['POST'])
+@jwt_admin_required()  # type: ignore
+def api_edition_price_add_manual(edition_id: int) -> Response:
+    """Insert a manually entered price row for an edition."""
+    data = request.get_json(force=True) or {}
+    return make_api_response(price_add_manual(edition_id, data))
+
+
+@app.route('/api/prices/scrape-url', methods=['POST'])
+@jwt_admin_required()  # type: ignore
+def api_prices_scrape_url() -> Response:
+    """Scrape price fields from a supported second-hand bookshop URL."""
+    data = request.get_json(force=True) or {}
+    url = (data.get('url') or '').strip()
+    if not url:
+        from app.impl import ResponseType
+        from app.types import HttpResponseCode
+        return make_api_response(ResponseType('url required', HttpResponseCode.BAD_REQUEST))
+    return make_api_response(scrape_price_from_url(url))
 
 
 @app.route('/api/antikvaari/prices/<int:price_id>', methods=['DELETE'])
