@@ -963,9 +963,9 @@ def price_add_manual(edition_id: int, data: Dict[str, Any]) -> ResponseType:
             last_updated=last_updated or now,
             date_fetched=now,
             condition=condition,
-            is_library_discard=False,
-            has_markings=False,
-            missing_dust_cover=False,
+            is_library_discard=bool(data.get('is_library_discard', False)),
+            has_markings=bool(data.get('has_markings', False)),
+            missing_dust_cover=bool(data.get('missing_dust_cover', False)),
             price=price,
             url=url,
         ))
@@ -1144,6 +1144,7 @@ def user_collection_stats(user_id: int) -> ResponseType:
                 'quality_distribution': {
                     'Perfect': 0, 'Good': 0, 'Decent': 0, 'Poor': 0, 'not_priced': 0
                 },
+                'price_distribution': [],
                 'top_expensive': [],
                 'no_price_books': [],
             }, HttpResponseCode.OK)
@@ -1268,6 +1269,29 @@ def user_collection_stats(user_id: int) -> ResponseType:
                     'condition': target or '',
                 })
 
+        _price_ranges = [
+            (0,   5,   '< 5 €'),
+            (5,   10,  '5–10 €'),
+            (10,  20,  '10–20 €'),
+            (20,  30,  '20–30 €'),
+            (30,  40,  '30–40 €'),
+            (40,  50,  '40–50 €'),
+            (50,  60,  '50–60 €'),
+            (60,  80,  '60–80 €'),
+            (80,  100, '80–100 €'),
+            (100, None, '≥ 100 €'),
+        ]
+        price_distribution = [
+            {
+                'label': label,
+                'count': sum(
+                    1 for bp in book_prices
+                    if bp['price'] >= lo and (hi is None or bp['price'] < hi)
+                ),
+            }
+            for lo, hi, label in _price_ranges
+        ]
+
         book_prices.sort(key=lambda x: x['price'], reverse=True)
 
         top_expensive = []
@@ -1295,6 +1319,7 @@ def user_collection_stats(user_id: int) -> ResponseType:
             'priced_count': priced_count,
             'total_value': round(total_value, 2),
             'quality_distribution': dist,
+            'price_distribution': price_distribution,
             'top_expensive': top_expensive,
             'no_price_books': no_price_books,
         }, HttpResponseCode.OK)
