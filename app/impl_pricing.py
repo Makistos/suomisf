@@ -760,6 +760,7 @@ def edition_prices_get(
                 'source_id': p.source_id,
                 'source_name': p.source.name if p.source else None,
                 'book_id': p.antikvaari_book_id,
+                'url': p.url,
                 'antikvaari_book_id': p.antikvaari_book_id,
                 'antikvaari_product_id': p.antikvaari_product_id,
                 'antikvaari_product_year': p.antikvaari_product_year,
@@ -952,6 +953,7 @@ def price_add_manual(edition_id: int, data: Dict[str, Any]) -> ResponseType:
 
         now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
         book_id = data.get('book_id') or None
+        url = data.get('url') or None
 
         session.add(AntikvaariPrice(
             edition_id=edition_id,
@@ -965,6 +967,7 @@ def price_add_manual(edition_id: int, data: Dict[str, Any]) -> ResponseType:
             has_markings=False,
             missing_dust_cover=False,
             price=price,
+            url=url,
         ))
         session.commit()
         return ResponseType({'saved': 1}, HttpResponseCode.OK)
