@@ -496,9 +496,8 @@ def update_edition(params: Any) -> ResponseType:
                 app.logger.error("update_edition: Invalid version.")
                 return ResponseType("Virheellinen laitos.",
                                     HttpResponseCode.BAD_REQUEST.value)
-            # Either removing value (version=None) or setting a new one
             old_values["Laitosnro"] = edition.version
-            edition.version = version
+            edition.version = version if version is not None else 1
 
     # ISBN, not required
     if "isbn" in data and str_differ(data["isbn"], edition.isbn):
