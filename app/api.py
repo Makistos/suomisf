@@ -323,7 +323,11 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
       'work' AS table,
       ts_rank(w.fts, q.q) AS rank,
       1 AS table_order,
-      (ts_rank(w.fts, q.q) * 10.0 + (12 - 1)) AS combined_score
+      (ts_rank(w.fts, q.q) * 10.0 + (12 - 1)
+       + CASE WHEN to_tsvector('voikko', w.title) @@ q.q
+              THEN 5.0 ELSE 0.0 END
+       + CASE WHEN w.title ~* ('\\m' || :search_term || '\\M')
+              THEN 10.0 ELSE 0.0 END) AS combined_score
     FROM work w, query q
     WHERE w.fts @@ q.q
 
