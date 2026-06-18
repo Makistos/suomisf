@@ -11,7 +11,7 @@ from app.orm_decl import Publisher
 from app.model import (PublisherBriefSchema,
                        PublisherBriefSchemaWEditions,
                        PublisherLink)
-from app.impl import ResponseType, check_int, get_join_changes
+from app.impl import ResponseType, check_int
 from app import app
 from app.types import HttpResponseCode
 
@@ -34,35 +34,22 @@ def _save_links(
     """
     existing_links = session.query(PublisherLink).filter(
         PublisherLink.publisher_id == publisher_id).all()
-    (to_add, to_remove) = get_join_changes(
-        [x.link for x in existing_links],
-        [x['link'] for x in links])  # type: ignore
-    _ = [session.delete(link) for link in existing_links
-         if link.link in to_remove]
-    # if len(existing_links) > 0:
-    #     for link in existing_links:
-    #         session.delete(link)
-    new_links = [x for x in links if x['link'] != '']
+    for link in existing_links:
+        session.delete(link)
 
+    new_links = [x for x in links if x.get('link', '') != '']
     for link in new_links:
         if 'link' not in link:
             app.logger.error('Link missing link.')
             return ResponseType('Linkin tiedot puutteelliset',
                                 HttpResponseCode.BAD_REQUEST.value)
-        if link['link'] != '' and link['link'] is not None:
-            if 'description' in link:
-                description = link['description']
-            else:
-                description = ''
-            if 'link' in link:
-                new_link = PublisherLink(publisher_id=publisher_id,
-                                         link=link['link'],
-                                         description=description)
-                session.add(new_link)
+        new_link = PublisherLink(publisher_id=publisher_id,
+                                 link=link['link'],
+                                 description=link.get('description', ''))
+        session.add(new_link)
 
     if old_values:
-        old_values['Linkit'] = '-'.join(str(x) for x in to_remove)
-        old_values['Linkit'] = '+'.join(str(x) for x in to_add)
+        old_values['Linkit'] = ', '.join(x['link'] for x in new_links)
 
     return None
 
@@ -218,14 +205,19 @@ def publisher_add(params: Any) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     # Add links for publisher, requires ID.
-    if 'links' in data:
-        retval = _save_links(session=session,
-                             links=data['links'],
-                             publisher_id=publisher.id,
-                             old_values=None)
-        if retval:
-            return retval
-
+    try:
+        if 'links' in data:
+            retval = _save_links(session=session,
+                                 links=data['links'],
+                                 publisher_id=publisher.id,
+                                 old_values=None)
+            if retval:
+                return retval
+    except (SQLAlchemyError, TypeError, ValueError):
+        app.logger.exception("Failed to save links")
+        session.rollback()
+        return ResponseType('Virhe linkkejä tallentaessa',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     try:
         session.commit()
     except SQLAlchemyError as exp:
