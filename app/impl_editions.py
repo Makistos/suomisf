@@ -1118,7 +1118,7 @@ def _attach_best_prices(session: Any, books: list, wishlist: bool) -> None:
         book['has_linked_products'] = bool(
             edition and edition.work_id in linked_work_ids
         )
-        if wishlist or not edition:
+        if not edition:
             continue
         price_rows = prices_by_edition.get(book['edition_id'], [])
         use_close = False
@@ -1135,7 +1135,8 @@ def _attach_best_prices(session: Any, books: list, wishlist: bool) -> None:
                 use_close = True
         if not price_rows:
             continue
-        target = book['condition_name']  # e.g. 'K3'
+        # K0 (wishlisted) means no owned copy — don't use condition in matching
+        target = None if wishlist else book['condition_name']
         best_rank = 999
         best_price = None
         best_quality = None

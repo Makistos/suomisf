@@ -1034,9 +1034,12 @@ def calculate_match_quality(
         return 'Good' if level == 'same' else 'Decent'
 
     our_k = _condition_int(_parse_condition(target_condition))
-    their_k = _condition_int(antikvaari_condition)
+    # K0 means wishlisted (not owned) — skip condition comparison
+    if our_k is None or our_k == 0:
+        return 'Good' if level == 'same' else 'Decent'
 
-    if our_k is None or their_k is None:
+    their_k = _condition_int(antikvaari_condition)
+    if their_k is None:
         return 'Decent' if level == 'same' else 'Poor'
 
     diff = abs(our_k - their_k)
