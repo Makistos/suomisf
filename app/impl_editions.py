@@ -1532,6 +1532,59 @@ def editionwishlist_user(editionid: int, userid: int) -> ResponseType:
     return ResponseType(retval, HttpResponseCode.OK.value)
 
 
+def work_edition_prices(user_id: int, work_id: int) -> ResponseType:
+    """Return best price and match quality for editions in a work that the user owns or has wishlisted."""
+    session = new_session()
+    try:
+        work_edition_ids = {
+            e.id
+            for e in session.query(Edition).filter(Edition.work_id == work_id).all()
+        }
+        if not work_edition_ids:
+            return ResponseType({}, HttpResponseCode.OK)
+
+        condition_map: Dict[int, str] = {
+            c.id: f'K{c.value}'
+            for c in session.query(BookCondition).all()
+        }
+
+        owned_books = [
+            {'edition_id': ub.edition_id,
+             'condition_name': condition_map.get(ub.condition_id, 'K3')}
+            for ub in session.query(UserBook).filter(
+                UserBook.user_id == user_id,
+                UserBook.edition_id.in_(work_edition_ids),
+                UserBook.condition_id >= 1,
+                UserBook.condition_id <= 5,
+            ).all()
+        ]
+        wishlist_books = [
+            {'edition_id': ub.edition_id, 'condition_name': 'K0'}
+            for ub in session.query(UserBook).filter(
+                UserBook.user_id == user_id,
+                UserBook.edition_id.in_(work_edition_ids),
+                UserBook.condition_id == 6,
+            ).all()
+        ]
+
+        if owned_books:
+            _attach_best_prices(session, owned_books, False)
+        if wishlist_books:
+            _attach_best_prices(session, wishlist_books, True)
+
+        result: Dict[int, Any] = {}
+        for book in owned_books + wishlist_books:
+            if book.get('best_price') is not None:
+                result[book['edition_id']] = {
+                    'best_price': book['best_price'],
+                    'match_quality': book['match_quality'],
+                }
+
+        return ResponseType(result, HttpResponseCode.OK)
+    finally:
+        session.close()
+
+
 def get_edition_work(edition_id: int) -> ResponseType:
     """
     Get the work ID for a given edition ID.

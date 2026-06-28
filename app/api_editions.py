@@ -14,7 +14,7 @@ from app.impl_editions import (
     editionowner_list, editionowner_get, editionowner_getowned,
     editionowner_remove, editionowner_add, editionowner_update, get_edition,
     get_latest_editions,
-    update_edition
+    update_edition, work_edition_prices,
 )
 from app import app
 from app.impl_logs import get_edition_changes
@@ -257,6 +257,12 @@ def api_editionsowned(userid: str) -> Response:
             status=HttpResponseCode.BAD_REQUEST.value)
         return make_api_response(response)
     return make_api_response(editionowner_getowned(uid, False))
+
+
+@app.route('/api/user/<int:user_id>/work/<int:work_id>/edition-prices', methods=['GET'])
+def api_work_edition_prices(user_id: int, work_id: int) -> Response:
+    """Return best price and match quality per edition for a user within a work."""
+    return make_api_response(work_edition_prices(user_id, work_id))
 
 
 @app.route('/api/editions/<editionid>/owner/<personid>', methods=['delete'])
