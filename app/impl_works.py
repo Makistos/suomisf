@@ -387,6 +387,9 @@ def search_books(params: Dict[str, str]) -> ResponseType:
             - random: If truthy, return a random sample instead of an
               alphabetically ordered list (suggestion mode)
             - count: Number of results to return in random mode (default 10)
+            - facets: If truthy, return the option ids (tags, genres,
+              nationalities, decades, lengths) that still have matches for
+              the current filters instead of the works themselves
 
     Returns:
         ResponseType: An object representing the response of the search.
@@ -603,6 +606,46 @@ def search_books(params: Dict[str, str]) -> ResponseType:
                     query = query.filter(Work.id.notin_(owned_subq))
             except (ValueError, TypeError):
                 app.logger.error('Failed to convert user_id for owned filter')
+
+        # Facet mode: instead of works, return the option ids that still have
+        # matches for the current filter set, so the UI can constrain later
+        # steps (e.g. only show subgenres/styles that exist in the chosen
+        # genre). Computed before exclude/random so it reflects the full pool.
+        if params.get('facets'):
+            matching = query.with_entities(Work.id).distinct()
+            tag_ids = [r[0] for r in session.query(WorkTag.tag_id)
+                       .filter(WorkTag.work_id.in_(matching)).distinct().all()]
+            genre_ids = [r[0] for r in session.query(WorkGenre.genre_id)
+                         .filter(WorkGenre.work_id.in_(matching))
+                         .distinct().all()]
+            nat_ids = [r[0] for r in session.query(Person.nationality_id)
+                       .join(WorkContributor,
+                             and_(WorkContributor.person_id == Person.id,
+                                  WorkContributor.role_id == 1))
+                       .filter(WorkContributor.work_id.in_(matching),
+                               Person.nationality_id.isnot(None))
+                       .distinct().all()]
+            years = [r[0] for r in session.query(Work.pubyear)
+                     .filter(Work.id.in_(matching),
+                             Work.pubyear.isnot(None)).distinct().all()]
+            decades = sorted({(y // 10) * 10 for y in years if y})
+            lengths = set()
+            for (pages,) in session.query(Edition.pages).filter(
+                    Edition.work_id.in_(matching),
+                    Edition.pages.isnot(None)).distinct().all():
+                if pages < 200:
+                    lengths.add('short')
+                elif pages <= 500:
+                    lengths.add('medium')
+                else:
+                    lengths.add('long')
+            return ResponseType({
+                'tags': tag_ids,
+                'genres': genre_ids,
+                'nationalities': nat_ids,
+                'decades': decades,
+                'lengths': sorted(lengths),
+            }, HttpResponseCode.OK.value)
 
         # Exclude already-seen works (used by suggestion "shuffle").
         if 'exclude' in params and params['exclude']:
