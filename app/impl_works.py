@@ -684,6 +684,15 @@ def search_books(params: Dict[str, str]) -> ResponseType:
         # Serialize results
         schema = WorkBriefSchema(many=True)
         retval = schema.dump(works)
+
+        # Flag works that have at least one award (single bulk query).
+        work_ids = [w.id for w in works]
+        if work_ids:
+            award_ids = {r[0] for r in session.query(Awarded.work_id)
+                         .filter(Awarded.work_id.in_(work_ids)).distinct()}
+            for work_dict in retval:
+                work_dict['has_awards'] = work_dict.get('id') in award_ids
+
         return ResponseType(retval, HttpResponseCode.OK.value)
 
     except SQLAlchemyError as exp:
