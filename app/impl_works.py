@@ -1,6 +1,7 @@
 """ Implementations for work related functions.
 """
 import html
+import random
 from typing import Dict, List, Any, Union
 import bleach
 from sqlalchemy import or_, and_, func, text
@@ -13,9 +14,9 @@ from app.route_helpers import new_session
 from app.impl import (ResponseType, SearchResult,
                       SearchResultFields, searchscore, set_language, check_int,
                       get_join_changes)
-from app.orm_decl import (Edition, EditionShortStory, Genre, Omnibus,
+from app.orm_decl import (Awarded, Edition, EditionShortStory, Genre, Omnibus,
                           Tag, Work, WorkContributor, WorkType, WorkTag,
-                          WorkGenre, WorkLink,
+                          WorkGenre, WorkLink, UserBook,
                           Bookseries, ShortStory, Person)
 from app.model import (OmnibusSchema, WorkBriefSchema, WorkTypeBriefSchema,
                        ShortBriefSchema)
@@ -373,6 +374,19 @@ def search_books(params: Dict[str, str]) -> ResponseType:
             - genre: Genre ID
             - nationality: Author nationality ID
             - type: Work type ID
+            - decades: List of decade start years (publication era, e.g.
+              [1960, 1980]); matched against the first edition pubyear
+            - length: 'short' (<200 pp), 'medium' (200-500), 'long' (>500)
+            - tag_groups: List of tag-id groups (one per facet); a work must
+              match at least one tag in every group
+            - award_only: If truthy, only award-winning works
+            - owned: If True, only works the user owns; if False, only works
+              the user does not own. Requires user_id.
+            - user_id: Current user id, used by the owned filter
+            - exclude: List of work IDs to exclude from the results
+            - random: If truthy, return a random sample instead of an
+              alphabetically ordered list (suggestion mode)
+            - count: Number of results to return in random mode (default 10)
 
     Returns:
         ResponseType: An object representing the response of the search.
@@ -456,19 +470,29 @@ def search_books(params: Dict[str, str]) -> ResponseType:
                     HttpResponseCode.BAD_REQUEST.value
                 )
 
-        # Add nationality filter with explicit joins and alias
+        # Add nationality filter with explicit joins and alias. Accepts a
+        # single id or a list of ids (author from any of the countries).
         if 'nationality' in params and params['nationality']:
-            wc_alias = aliased(WorkContributor)
-            person_alias = aliased(Person)
+            nat_param = params['nationality']
+            nat_ids = nat_param if isinstance(nat_param, list) else [nat_param]
+            try:
+                nat_ids = [int(bleach.clean(str(nid)))
+                           for nid in nat_ids if nid]
+            except (ValueError, AttributeError):
+                app.logger.error('Failed to convert nationality ids')
+                nat_ids = []
+            if nat_ids:
+                wc_alias = aliased(WorkContributor)
+                person_alias = aliased(Person)
 
-            query = query.join(
-                wc_alias, Work.id == wc_alias.work_id
-            ).join(
-                person_alias, person_alias.id == wc_alias.person_id
-            ).filter(
-                wc_alias.role_id == 1,
-                person_alias.nationality_id == int(params['nationality'])
-            )
+                query = query.join(
+                    wc_alias, Work.id == wc_alias.work_id
+                ).join(
+                    person_alias, person_alias.id == wc_alias.person_id
+                ).filter(
+                    wc_alias.role_id == 1,
+                    person_alias.nationality_id.in_(nat_ids)
+                )
 
         # Add title filters
         if 'title' in params and params['title']:
@@ -508,11 +532,106 @@ def search_books(params: Dict[str, str]) -> ResponseType:
         if 'type' in params and params['type']:
             query = query.filter(Work.type == int(params['type']))
 
-        # Add ordering
-        query = query.order_by(Work.author_str, Work.title)
+        # Add decade filter (original publication era) based on the work's
+        # original publication year, not the edition print year (which can
+        # differ by a century, e.g. Wells reprinted in the 1990s).
+        # 'decades' is a list of decade start years, e.g. [1960, 1980] means
+        # works originally published in the 1960s OR the 1980s.
+        if 'decades' in params and params['decades']:
+            try:
+                decade_starts = [int(bleach.clean(str(d)))
+                                 for d in params['decades'] if d]
+            except (ValueError, AttributeError):
+                app.logger.error('Failed to convert decades')
+                decade_starts = []
+            if decade_starts:
+                query = query.filter(
+                    or_(*[and_(Work.pubyear >= start,
+                               Work.pubyear <= start + 9)
+                          for start in decade_starts])
+                )
 
-        # Execute query
-        works = query.all()
+        # Add length filter based on edition page count. A work qualifies if
+        # any of its editions falls in the selected bucket.
+        if 'length' in params and params['length']:
+            length = str(params['length']).lower()
+            length_ed = aliased(Edition)
+            query = query.join(length_ed, length_ed.work_id == Work.id)
+            if length == 'short':
+                query = query.filter(length_ed.pages < 200)
+            elif length == 'medium':
+                query = query.filter(and_(length_ed.pages >= 200,
+                                          length_ed.pages <= 500))
+            elif length == 'long':
+                query = query.filter(length_ed.pages > 500)
+
+        # Add tag filters. 'tag_groups' is a list of groups (one per facet,
+        # e.g. subgenre, style, subject); a work must match at least one tag
+        # in EVERY group (AND across groups, OR within a group).
+        if 'tag_groups' in params and params['tag_groups']:
+            for group in params['tag_groups']:
+                try:
+                    group_ids = [int(bleach.clean(str(t)))
+                                 for t in group if t]
+                except (ValueError, AttributeError):
+                    app.logger.error('Failed to convert tag ids')
+                    continue
+                if group_ids:
+                    tag_alias = aliased(WorkTag)
+                    query = query.join(
+                        tag_alias, tag_alias.work_id == Work.id
+                    ).filter(tag_alias.tag_id.in_(group_ids))
+
+        # Restrict to award-winning works only.
+        if params.get('award_only'):
+            award_subq = session.query(Awarded.work_id).filter(
+                Awarded.work_id.isnot(None))
+            query = query.filter(Work.id.in_(award_subq))
+
+        # Ownership filter. 'owned' is True (only works the user owns) or
+        # False (only works the user does not own). Requires 'user_id'.
+        if 'owned' in params and params['owned'] is not None \
+                and params.get('user_id'):
+            try:
+                uid = int(params['user_id'])
+                owned_subq = session.query(Edition.work_id).join(
+                    UserBook, UserBook.edition_id == Edition.id
+                ).filter(UserBook.user_id == uid)
+                if params['owned']:
+                    query = query.filter(Work.id.in_(owned_subq))
+                else:
+                    query = query.filter(Work.id.notin_(owned_subq))
+            except (ValueError, TypeError):
+                app.logger.error('Failed to convert user_id for owned filter')
+
+        # Exclude already-seen works (used by suggestion "shuffle").
+        if 'exclude' in params and params['exclude']:
+            try:
+                exclude_ids = [int(x) for x in params['exclude'] if x]
+            except (ValueError, TypeError):
+                app.logger.error('Failed to convert exclude ids')
+                exclude_ids = []
+            if exclude_ids:
+                query = query.filter(Work.id.notin_(exclude_ids))
+
+        if params.get('random'):
+            # Suggestion mode: return a random sample. Fetch the distinct
+            # matching ids and shuffle in Python to avoid combining
+            # SELECT DISTINCT with ORDER BY random().
+            try:
+                count = int(params.get('count', 10))
+            except (ValueError, TypeError):
+                count = 10
+            work_ids = [wid for (wid,) in
+                        query.with_entities(Work.id).distinct().all()]
+            random.shuffle(work_ids)
+            chosen = work_ids[:count]
+            works = session.query(Work).filter(Work.id.in_(chosen)).all()
+        else:
+            # Add ordering
+            query = query.order_by(Work.author_str, Work.title)
+            # Execute query
+            works = query.all()
 
         # Serialize results
         schema = WorkBriefSchema(many=True)
