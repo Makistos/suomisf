@@ -541,18 +541,25 @@ def search_books(params: Dict[str, str]) -> ResponseType:
         # 'decades' is a list of decade start years, e.g. [1960, 1980] means
         # works originally published in the 1960s OR the 1980s.
         if 'decades' in params and params['decades']:
-            try:
-                decade_starts = [int(bleach.clean(str(d)))
-                                 for d in params['decades'] if d]
-            except (ValueError, AttributeError):
-                app.logger.error('Failed to convert decades')
-                decade_starts = []
+            # Keep 0 (the "before 1900" bucket); only drop None/empty.
+            decade_starts = []
+            for d in params['decades']:
+                if d is None or str(d) == '':
+                    continue
+                try:
+                    decade_starts.append(int(bleach.clean(str(d))))
+                except (ValueError, AttributeError):
+                    app.logger.error('Failed to convert decades')
             if decade_starts:
-                query = query.filter(
-                    or_(*[and_(Work.pubyear >= start,
-                               Work.pubyear <= start + 9)
-                          for start in decade_starts])
-                )
+                # A start of 0 is the "before 1900" bucket.
+                conds = []
+                for start in decade_starts:
+                    if start == 0:
+                        conds.append(Work.pubyear < 1900)
+                    else:
+                        conds.append(and_(Work.pubyear >= start,
+                                          Work.pubyear <= start + 9))
+                query = query.filter(or_(*conds))
 
         # Add length filter based on edition page count. A work qualifies if
         # any of its editions falls in the selected bucket.
@@ -633,7 +640,8 @@ def search_books(params: Dict[str, str]) -> ResponseType:
             years = [r[0] for r in session.query(Work.pubyear)
                      .filter(Work.id.in_(matching),
                              Work.pubyear.isnot(None)).distinct().all()]
-            decades = sorted({(y // 10) * 10 for y in years if y})
+            decades = sorted({0 if y < 1900 else (y // 10) * 10
+                              for y in years if y})
             lengths = set()
             for (pages,) in session.query(Edition.pages).filter(
                     Edition.work_id.in_(matching),
