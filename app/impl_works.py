@@ -387,9 +387,9 @@ def search_books(params: Dict[str, str]) -> ResponseType:
             - random: If truthy, return a random sample instead of an
               alphabetically ordered list (suggestion mode)
             - count: Number of results to return in random mode (default 10)
-            - facets: If truthy, return the option ids (tags, genres,
-              nationalities, decades, lengths) that still have matches for
-              the current filters instead of the works themselves
+            - facets: If truthy, return the available options for the current
+              filters instead of the works: tags as a {tag_id: match_count}
+              map, and genres/nationalities/decades/lengths as id lists
 
     Returns:
         ResponseType: An object representing the response of the search.
@@ -613,8 +613,13 @@ def search_books(params: Dict[str, str]) -> ResponseType:
         # genre). Computed before exclude/random so it reflects the full pool.
         if params.get('facets'):
             matching = query.with_entities(Work.id).distinct()
-            tag_ids = [r[0] for r in session.query(WorkTag.tag_id)
-                       .filter(WorkTag.work_id.in_(matching)).distinct().all()]
+            # tag id -> number of matching works carrying that tag
+            tag_counts = {
+                tid: cnt for tid, cnt in session.query(
+                    WorkTag.tag_id,
+                    func.count(func.distinct(WorkTag.work_id)))
+                .filter(WorkTag.work_id.in_(matching))
+                .group_by(WorkTag.tag_id).all()}
             genre_ids = [r[0] for r in session.query(WorkGenre.genre_id)
                          .filter(WorkGenre.work_id.in_(matching))
                          .distinct().all()]
@@ -640,7 +645,7 @@ def search_books(params: Dict[str, str]) -> ResponseType:
                 else:
                     lengths.add('long')
             return ResponseType({
-                'tags': tag_ids,
+                'tags': tag_counts,
                 'genres': genre_ids,
                 'nationalities': nat_ids,
                 'decades': decades,
