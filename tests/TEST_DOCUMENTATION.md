@@ -134,6 +134,34 @@ Tests for login endpoint behavior.
 | `test_login_with_invalid_credentials` | POST /api/login | Verifies 401 for wrong credentials |
 | `test_login_missing_fields` | POST /api/login | Verifies error for missing email/password |
 
+## Registration & Password Reset Tests
+
+**File:** `tests/api/test_password_reset.py`
+
+Uses the default `log` mail backend, so no real email is sent; reset
+tokens are generated in-process with the same signed serializer the
+endpoint uses. Temporary users are created with unique names and deleted
+after each test.
+
+### TestRegistrationEmail
+
+| Test | Endpoint | Description |
+|------|----------|-------------|
+| `test_register_with_email_stores_it` | POST /api/register | Email is accepted and stored on the user |
+| `test_register_without_email_still_works` | POST /api/register | Registration without email still succeeds (email NULL) |
+| `test_register_duplicate_email_rejected` | POST /api/register | Second registration with the same email returns 401 |
+
+### TestPasswordReset
+
+| Test | Endpoint | Description |
+|------|----------|-------------|
+| `test_forgot_unknown_email_returns_200` | POST /api/password/forgot | Unknown address returns 200 (no account enumeration) |
+| `test_forgot_known_email_returns_200` | POST /api/password/forgot | Known address returns 200 |
+| `test_reset_with_valid_token_changes_password` | POST /api/password/reset | Valid token sets new password; old password stops working |
+| `test_reset_token_is_single_use` | POST /api/password/reset | Reusing a token after a successful reset returns 400 |
+| `test_reset_invalid_token` | POST /api/password/reset | Malformed token returns 400 |
+| `test_reset_short_password_rejected` | POST /api/password/reset | Password under 6 chars returns 400 |
+
 ### TestWriteOperationsRequireAuth
 
 Tests that all write operations require authentication (returns 401/403).

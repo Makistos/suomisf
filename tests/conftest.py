@@ -157,6 +157,8 @@ def clone_test_database():
     _apply_migration_011()
     # Apply migration 012 (tag import mapping tables)
     _apply_migration_012()
+    # Apply migration 028 (user email column)
+    _apply_migration_028()
 
 
 MIGRATIONS_DIR = os.path.join(
@@ -209,6 +211,28 @@ MIGRATION_011_SQL = os.path.join(
 MIGRATION_012_SQL = os.path.join(
     MIGRATIONS_DIR, '012_tag_import_mappings.sql'
 )
+
+MIGRATION_028_SQL = os.path.join(
+    MIGRATIONS_DIR, '028_user_email.sql'
+)
+
+
+def _apply_migration_028():
+    """Apply migration 028 SQL (user email column) to the test database."""
+    if not os.path.exists(MIGRATION_028_SQL):
+        print("[setup] Migration 028 SQL not found, skipping")
+        return
+    print("[setup] Applying migration 028...")
+    result = subprocess.run(
+        ['psql', '-U', DB_USER, '-d', TEST_DB_NAME,
+         '-f', MIGRATION_028_SQL],
+        capture_output=True, text=True
+    )
+    if result.returncode != 0:
+        raise RuntimeError(
+            f"Migration 028 failed: {result.stderr[:400]}"
+        )
+    print("[setup] Migration 028 applied")
 
 
 def _apply_migration_001():

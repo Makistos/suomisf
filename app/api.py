@@ -15,7 +15,8 @@ from app.api_errors import APIError
 from app.impl_editions import get_bindings
 from app.impl_people import (filter_aliases,
                              get_author_first_letters)
-from app.impl_users import (login_user, refresh_token, register_user)
+from app.impl_users import (login_user, refresh_token, register_user,
+                            request_password_reset, reset_password)
 from app.route_helpers import new_session
 from app.types import HttpResponseCode
 from app import app
@@ -173,8 +174,41 @@ def api_register() -> Response:
         err = ResponseType('Virheellinen rekisteröinti',
                            HttpResponseCode.UNAUTHORIZED.value)
         return make_api_error(err)
+    # Optional email address for password recovery.
+    try:
+        if request.json and 'email' in request.json:
+            options['email'] = request.json['email']
+    except (TypeError, KeyError):
+        pass
     retval = register_user(options)
     return retval
+
+
+@app.route('/api/password/forgot', methods=['post'])
+def api_password_forgot() -> Response:
+    """
+    Request a password-reset link. Body: { "email": <address> }. Always
+    returns 200 so it does not reveal whether the address is registered.
+    """
+    try:
+        options = {'email': request.json.get('email', '')}
+    except (TypeError, AttributeError):
+        options = {'email': ''}
+    return request_password_reset(options)
+
+
+@app.route('/api/password/reset', methods=['post'])
+def api_password_reset() -> Response:
+    """
+    Set a new password from a reset token. Body:
+    { "token": <token>, "password": <new password> }.
+    """
+    try:
+        options = {'token': request.json.get('token'),
+                   'password': request.json.get('password')}
+    except (TypeError, AttributeError):
+        options = {'token': None, 'password': None}
+    return reset_password(options)
 
 
 @app.route('/api/refresh', methods=['post'])

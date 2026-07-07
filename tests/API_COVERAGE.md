@@ -46,13 +46,15 @@
 
 ## Detailed Endpoint Coverage
 
-### 1. Authentication (3 endpoints)
+### 1. Authentication (5 endpoints)
 
 | Status | Method | Endpoint | Auth | Test Function | Last Run |
 |--------|--------|----------|------|---------------|----------|
 | :white_check_mark: | POST | `/api/login` | None | `test_auth.py::TestAuthentication` | 2026-02-14 |
-| :hourglass_flowing_sand: | POST | `/api/register` | None | - | - |
+| :white_check_mark: | POST | `/api/register` | None | `test_password_reset.py::TestRegistrationEmail` | 2026-07-07 |
 | :hourglass_flowing_sand: | POST | `/api/refresh` | JWT | - | - |
+| :white_check_mark: | POST | `/api/password/forgot` | None | `test_password_reset.py::TestPasswordReset` | 2026-07-07 |
+| :white_check_mark: | POST | `/api/password/reset` | None | `test_password_reset.py::TestPasswordReset` | 2026-07-07 |
 
 ### 2. Users (3 endpoints)
 

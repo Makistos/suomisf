@@ -19,6 +19,22 @@ class Config(object):
     MAGAZINECOVER_IMG = '/static/images/magazines/'
     ENV = os.environ.get('FLASK_ENV') or 'debug'
 
+    # Outbound email (password reset). MAIL_BACKEND 'log' writes the message
+    # to the application log instead of sending, so the feature works before
+    # an SMTP server is configured. Set MAIL_BACKEND=smtp once SMTP is ready.
+    MAIL_BACKEND = os.environ.get('MAIL_BACKEND', 'log')
+    MAIL_SERVER = os.environ.get('MAIL_SERVER', 'localhost')
+    MAIL_PORT = int(os.environ.get('MAIL_PORT', '25'))
+    MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS', '') == 'true'
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or None
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or None
+    MAIL_FROM = os.environ.get('MAIL_FROM', 'noreply@sofistes.net')
+    # Base URL of the frontend, used to build the reset link in the email.
+    FRONTEND_URL = os.environ.get('FRONTEND_URL', 'http://localhost:3000')
+    # How long a password-reset link stays valid (seconds).
+    PASSWORD_RESET_MAX_AGE = int(
+        os.environ.get('PASSWORD_RESET_MAX_AGE', '3600'))
+
 
 class DevConfig(Config):  # pylint: disable=too-few-public-methods
     """ Development configuration class. """

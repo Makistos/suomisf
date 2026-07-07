@@ -78,6 +78,7 @@ class UserSchema(ma.SQLAlchemySchema):  # type: ignore
     """ User schema. """
     id = fields.Int(required=True)
     name = fields.String(required=True)
+    email = fields.String(required=False)
     is_admin = fields.Boolean(required=True)
 
 

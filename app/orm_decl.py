@@ -1442,6 +1442,7 @@ class User(UserMixin, Base):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
     name = Column(String(64), index=True, unique=True)
+    email = Column(String(120), index=True, unique=True)
     password_hash = Column(String(128))
     is_admin = Column(Boolean, default=False)
     language = Column(Integer, ForeignKey('language.id'))

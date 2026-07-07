@@ -1,17 +1,21 @@
 """ Functions related to users. """
 import json
+import hashlib
 from typing import Dict
 from flask.wrappers import Response
 from flask import make_response, jsonify
 from flask_jwt_extended import (create_access_token, create_refresh_token,
                                 get_jwt_identity, get_jwt,
                                 set_access_cookies)
+from itsdangerous import (URLSafeTimedSerializer, BadSignature,
+                          SignatureExpired)
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.route_helpers import new_session
 from app.orm_decl import (User)
 from app.model import (UserSchema)
 from app.impl import ResponseType
+from app.impl_email import send_email
 from app.types import (HttpResponseCode)
 from app import app
 
@@ -109,6 +113,7 @@ def register_user(options: Dict[str, str]) -> Response:
     session = new_session()
     name = options['username']
     password = options['password']
+    email = (options.get('email') or '').strip() or None
 
     user = session.query(User).filter(User.name == name).first()
     if user:
@@ -116,7 +121,15 @@ def register_user(options: Dict[str, str]) -> Response:
             json.dumps({'msg': 'Käyttäjä on jo olemassa'}),
             HttpResponseCode.UNAUTHORIZED.value)
 
+    if email:
+        existing = session.query(User).filter(User.email == email).first()
+        if existing:
+            return make_response(
+                json.dumps({'msg': 'Sähköpostiosoite on jo käytössä'}),
+                HttpResponseCode.UNAUTHORIZED.value)
+
     user = User(name=name)  # type: ignore
+    user.email = email
     user.set_password(password)
     try:
         session.add(user)
@@ -129,6 +142,116 @@ def register_user(options: Dict[str, str]) -> Response:
 
     resp = create_token(user, password)
     return resp
+
+
+def _reset_serializer() -> URLSafeTimedSerializer:
+    """Serializer for signed, time-limited password-reset tokens."""
+    return URLSafeTimedSerializer(app.config['SECRET_KEY'], salt='pw-reset')
+
+
+def _password_fingerprint(user: User) -> str:
+    """
+    Short hash of the user's current password hash. Embedded in the reset
+    token so a link becomes single-use: once the password changes, the
+    fingerprint no longer matches and the token is rejected.
+    """
+    return hashlib.sha256(
+        (user.password_hash or '').encode('utf-8')).hexdigest()[:16]
+
+
+def request_password_reset(options: Dict[str, str]) -> Response:
+    """
+    Handle a "forgot password" request: email a reset link if the address
+    belongs to a user. Always returns 200 so callers cannot tell whether an
+    address is registered (no account enumeration).
+
+    Args:
+        options (Dict[str, str]): Must contain 'email'.
+
+    Returns:
+        Response: Generic success response.
+    """
+    session = new_session()
+    email = (options.get('email') or '').strip()
+    generic = make_response(
+        json.dumps({'msg': 'ok'}), HttpResponseCode.OK.value)
+    if not email:
+        return generic
+
+    user = session.query(User).filter(User.email == email).first()
+    if user:
+        token = _reset_serializer().dumps(
+            {'uid': user.id, 'fp': _password_fingerprint(user)})
+        reset_url = (f"{app.config['FRONTEND_URL']}"
+                     f"/reset-password?token={token}")
+        subject = 'SuomiSF: salasanan palautus'
+        body = (
+            'Saat tämän viestin, koska sinun tunnuksellesi pyydettiin '
+            'salasanan palautusta.\n\n'
+            f'Vaihda salasanasi tästä linkistä:\n{reset_url}\n\n'
+            'Linkki on voimassa yhden tunnin. Jos et pyytänyt palautusta, '
+            'voit jättää tämän viestin huomiotta.')
+        send_email(user.email, subject, body)
+
+    return generic
+
+
+def reset_password(options: Dict[str, str]) -> Response:
+    """
+    Set a new password from a reset token.
+
+    Args:
+        options (Dict[str, str]): Must contain 'token' and 'password'.
+
+    Returns:
+        Response: 200 on success; 400 for an invalid/expired token or a
+        password that is too short.
+    """
+    session = new_session()
+    token = options.get('token')
+    password = options.get('password')
+
+    if not token or not password:
+        return make_response(
+            json.dumps({'msg': 'Virheellinen pyyntö'}),
+            HttpResponseCode.BAD_REQUEST.value)
+
+    if len(password) < 6:
+        return make_response(
+            json.dumps({'msg': 'Salasanan on oltava vähintään 6 merkkiä'}),
+            HttpResponseCode.BAD_REQUEST.value)
+
+    max_age = app.config.get('PASSWORD_RESET_MAX_AGE', 3600)
+    try:
+        data = _reset_serializer().loads(token, max_age=max_age)
+    except SignatureExpired:
+        return make_response(
+            json.dumps({'msg': 'Linkki on vanhentunut'}),
+            HttpResponseCode.BAD_REQUEST.value)
+    except BadSignature:
+        return make_response(
+            json.dumps({'msg': 'Virheellinen linkki'}),
+            HttpResponseCode.BAD_REQUEST.value)
+
+    user = session.query(User).filter(User.id == data.get('uid')).first()
+    if not user or _password_fingerprint(user) != data.get('fp'):
+        # Fingerprint mismatch: token already used or password changed.
+        return make_response(
+            json.dumps({'msg': 'Linkki ei ole enää voimassa'}),
+            HttpResponseCode.BAD_REQUEST.value)
+
+    user.set_password(password)
+    try:
+        session.commit()
+    except SQLAlchemyError as exp:
+        app.logger.error('reset_password: ' + str(exp))
+        return make_response(
+            json.dumps({'msg': 'Tietokantavirhe'}),
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return make_response(
+        json.dumps({'msg': 'Salasana vaihdettu'}),
+        HttpResponseCode.OK.value)
 
 
 @app.after_request
