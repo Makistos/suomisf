@@ -466,9 +466,6 @@ def antikvaari_fetch_products(
                 psp = book_props.get('preSelectedProduct', {})
                 book_id = psp.get('_id', '') or book_url.rstrip('/').split('/')[-1]
 
-                if psp.get('kampanja'):
-                    continue
-
                 painos_raw = psp.get('painos', '') or we.get('bookEdition', '')
                 painovuosi_raw = psp.get('painovuosi', '') or fallback_year
                 sidonta = psp.get('sidonta') or fallback_binding
