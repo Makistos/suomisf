@@ -5,6 +5,59 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-07-06 — Book suggestion filters and facets in work search
+**Commits:** `724a491d`…`2619ee20`
+`search_books` (POST /api/searchworks) extended to power the book
+suggestion wizard: tag-group filters (AND across facets, OR within a
+group), original-publication decade buckets including a pre-1900 bucket,
+edition page-length buckets, award-only, owned/not-owned (via user_id),
+list-valued nationality, and random sampling with count and exclude.
+Results carry a `has_awards` flag, and a `facets` mode returns the option
+ids (with per-tag match counts) that still have matches for the current
+filters, so the wizard can constrain later steps.
+
+## 2026-06-28 — Best edition prices per work
+**Commit:** `9c9a1fb9`
+New endpoint returning the best edition prices for a user within a work.
+
+## 2026-06-17 — Boost FTS ranking for work title matches
+**Commit:** `538f04ea`
+
+## 2026-06-07 — Antikvaari/Antikka price scraping and tracking
+**Commits:** `d28a5f73`…`3b91f860`
+Backend for fetching, storing, and matching second-hand book prices from
+Antikvariaatti and Antikka: price source tracking with product page URLs,
+edition matching (laitos/painos) with re-match on save, condition flags,
+rejected/excluded products, close-edition price fallbacks, and a
+price-range distribution in collection stats.
+
+## 2026-05-17 — Edition short stories endpoint
+**Commit:** `0f945c64`
+PUT /api/editions/<id>/shorts to save the short-story contents of an
+edition.
+
+## 2026-05-16 — Visitor analytics and pageview logging
+**Commits:** `a4a40659`…`5c4dd743`
+Admin-only pageview logging with bot filtering, IP geolocation via
+ip-api.com (cached, with operator name), and a paginated, filterable
+pageview log endpoint. Routes renamed to avoid ad-blocker filter lists.
+
+## 2026-05-11 — Multi-image support for issues
+**Commit:** `3d67be02`
+New `IssueImage` table and migration; magazine issues can have multiple
+cover images, returned in the issue response.
+
+## 2026-05-10 — Kirjasampo tag import
+**Commits:** `76d18496`, `cba9f165`
+GET /api/kirjasampo/tags scrapes tags from kirjasampo.fi; POST
+/api/work/<id>/tags/import imports them with persistent skip/replace
+mappings. Tags are lowercased at scrape and import time.
+
+## 2026-05-06 — Fixes: author_str and refresh token
+**Commits:** `93986b03`, `064148c8`
+Fix stale `author_str` when updating work contributors; refresh token now
+returns the user id as an integer instead of a string.
+
 ## 2026-03-23 — Migration 007: merge log tables
 **Commit:** `768213c0`
 Move `public."Log"` rows into `suomisf.log`. Fix ORM to target the

@@ -1,5 +1,10 @@
 Always use line widths less or equal to 79 characters.
 
+After making backend changes, remember to restart the backend on the
+server for them to take effect (the running gunicorn does not auto-reload;
+reload it, e.g. `kill -HUP $(cat /tmp/gunicorn.pid)`, or restart the
+service on the deployment server).
+
 If changing or adding an API function always add tests and update documentation
 both for API and tests and document the API.
 
