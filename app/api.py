@@ -561,18 +561,18 @@ def api_bindings() -> Response:
     return retval
 
 
-@app.route('/api/filter/linknames/<pattern>', methods=['get'])
-def api_filterlinknames(pattern: str) -> Response:
+@app.route('/api/filter/linknames/<link_type>', methods=['get'])
+def api_filterlinknames(link_type: str) -> Response:
     """
-    This function is a Flask route that handles GET requests to the
-    '/api/filter/linknames/<pattern>' endpoint. It takes a single parameter
-    'pattern' of type string. The function cleans the 'pattern' using the
-    'bleach' library and then calls the 'filter_link_names' function
-    with the cleaned 'pattern' as an argument. The return type of this function
-    is 'Response'.
+    Flask route handling GET requests to the
+    '/api/filter/linknames/<link_type>' endpoint. It returns every unique
+    link description for the given owner type (e.g. 'person', 'work',
+    'publisher') so the front end can offer them as autocomplete options
+    scoped to that entity type. The 'link_type' is cleaned with the 'bleach'
+    library before being passed to 'filter_link_names'.
     """
-    pattern = bleach.clean(pattern)
-    retval = filter_link_names(pattern)
+    link_type = bleach.clean(link_type)
+    retval = filter_link_names(link_type)
     return make_api_response(retval)
 
 ###

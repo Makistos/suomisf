@@ -174,6 +174,76 @@ class TestFilterPubSeries(BaseAPITest):
 
 
 # ---------------------------------------------------------------------------
+# Filter Link Names
+# ---------------------------------------------------------------------------
+
+class TestFilterLinkNames(BaseAPITest):
+    """Tests for /api/filter/linknames/{link_type} endpoint.
+
+    Returns the unique link descriptions for a given owner type, used as
+    autocomplete options for the link description field.
+    """
+
+    # Types that are expected to have link data in the golden test database.
+    TYPES_WITH_DATA = ['person', 'work', 'publisher']
+    # Supported types that may legitimately be empty in the test database.
+    OTHER_VALID_TYPES = ['bookseries', 'pubseries', 'edition', 'article',
+                         'award']
+    ALL_VALID_TYPES = TYPES_WITH_DATA + OTHER_VALID_TYPES
+
+    @pytest.mark.parametrize('link_type', ALL_VALID_TYPES)
+    def test_filter_linknames_returns_200(self, api_client, link_type):
+        """GET /api/filter/linknames/{link_type} should return 200."""
+        response = api_client.get(f'/api/filter/linknames/{link_type}')
+        response.assert_status(200)
+
+    @pytest.mark.parametrize('link_type', ALL_VALID_TYPES)
+    def test_filter_linknames_returns_list(self, api_client, link_type):
+        """GET /api/filter/linknames/{link_type} should return a list."""
+        response = api_client.get(f'/api/filter/linknames/{link_type}')
+        response.assert_success().assert_data_is_list()
+
+    @pytest.mark.parametrize('link_type', ALL_VALID_TYPES)
+    def test_filter_linknames_returns_strings(self, api_client, link_type):
+        """Every returned description should be a plain string."""
+        response = api_client.get(f'/api/filter/linknames/{link_type}')
+        response.assert_success()
+        assert all(isinstance(item, str) for item in response.data), \
+            f"Expected list of strings, got {response.data}"
+
+    @pytest.mark.parametrize('link_type', ALL_VALID_TYPES)
+    def test_filter_linknames_returns_unique_values(self, api_client,
+                                                    link_type):
+        """The returned descriptions should be unique."""
+        response = api_client.get(f'/api/filter/linknames/{link_type}')
+        response.assert_success()
+        assert len(response.data) == len(set(response.data)), \
+            f"Expected unique descriptions, got duplicates in {response.data}"
+
+    @pytest.mark.parametrize('link_type', TYPES_WITH_DATA)
+    def test_filter_linknames_has_data(self, api_client, link_type):
+        """Types with seeded links should return a non-empty list."""
+        response = api_client.get(f'/api/filter/linknames/{link_type}')
+        response.assert_success().assert_data_min_length(1)
+
+    def test_filter_linknames_is_scoped_to_type(self, api_client):
+        """Descriptions should be scoped to the requested type, so different
+        types can return different sets of descriptions."""
+        person = api_client.get('/api/filter/linknames/person')
+        work = api_client.get('/api/filter/linknames/work')
+        person.assert_success()
+        work.assert_success()
+        # The endpoint queries only the requested type's table, so the two
+        # result sets are computed independently.
+        assert person.data != work.data
+
+    def test_filter_linknames_unknown_type_returns_400(self, api_client):
+        """An unknown link type should be rejected with a 400."""
+        response = api_client.get('/api/filter/linknames/notatype')
+        response.assert_status(400)
+
+
+# ---------------------------------------------------------------------------
 # Works by Initial
 # ---------------------------------------------------------------------------
 

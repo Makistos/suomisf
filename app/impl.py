@@ -11,11 +11,11 @@ from app.api_errors import APIError
 from app.route_helpers import new_session
 from app.orm_decl import (Country, Log, Genre, Language, ContributorRole,
                           Work, Edition, ShortStory, Magazine, EditionImage,
-                          ArticleLink, BookseriesLink, EditionLink,
+                          ArticleLink, AwardLink, BookseriesLink, EditionLink,
                           PersonLink, PublisherLink, PubseriesLink, WorkLink)
 from app.model import (GenreBriefSchema, EditionBriefestSchema, LanguageSchema,
                        CountryBriefSchema, ContributorRoleSchema, LogSchema,
-                       LinkSchema, EditionImageSchema)
+                       EditionImageSchema)
 from app.types import HttpResponseCode, ContributorType
 from app import app
 
@@ -543,63 +543,56 @@ def add_language(name: str) -> Union[int, None]:
         return None
 
 
-def filter_link_names(query: str) -> ResponseType:
+# Maps a link owner type to its link model so link descriptions can be
+# offered as autocomplete options scoped to that type only.
+LINK_MODELS_BY_TYPE = {
+    'article': ArticleLink,
+    'award': AwardLink,
+    'bookseries': BookseriesLink,
+    'edition': EditionLink,
+    'person': PersonLink,
+    'publisher': PublisherLink,
+    'pubseries': PubseriesLink,
+    'work': WorkLink,
+}
+
+
+def filter_link_names(link_type: str) -> ResponseType:
     """
-    Filters link names based on a given query and returns a response.
+    Return all unique link descriptions for a given owner type.
+
+    These are used as autocomplete options for the link description field,
+    scoped to the entity type being edited (e.g. only person link
+    descriptions when editing a person).
 
     Args:
-        query (str): The query to filter the link names.
+        link_type (str): The owner type, e.g. 'person', 'work',
+            'publisher'. See LINK_MODELS_BY_TYPE for accepted values.
 
     Returns:
-        ResponseType: The response containing the filtered link names.
-
-    Raises:
-        SQLAlchemyError: If there is an error in the SQL query.
-
-    Example:
-        filter_link_names('query') -> ResponseType
+        ResponseType: The response containing a sorted list of unique,
+            non-empty description strings, or an error response for an
+            unknown type or database failure.
     """
+    model = LINK_MODELS_BY_TYPE.get(link_type.lower())
+    if model is None:
+        return ResponseType(
+            f'FilterLinkNames: Tuntematon linkkityyppi {link_type}.',
+            status=HttpResponseCode.BAD_REQUEST)
+
     session = new_session()
     try:
-        al = session.query(ArticleLink.description)\
-            .filter(ArticleLink.description.ilike(query + '%'))\
+        rows = session.query(model.description)\
+            .filter(model.description.isnot(None))\
             .distinct().all()
-        bl = session.query(BookseriesLink.description)\
-            .filter(BookseriesLink.description.ilike(query + '%'))\
-            .distinct().all()
-        el = session.query(EditionLink.description)\
-            .filter(EditionLink.description.ilike(query + '%'))\
-            .distinct().all()
-        pel = session.query(PersonLink.description)\
-            .filter(PersonLink.description.ilike(query + '%')).distinct().all()
-        pul = session.query(PublisherLink.description)\
-            .filter(PublisherLink.description.ilike(query + '%'))\
-            .distinct().all()
-        publ = session.query(PubseriesLink.description)\
-            .filter(PubseriesLink.description.ilike(query + '%'))\
-            .distinct().all()
-        wl = session.query(WorkLink.description)\
-            .filter(WorkLink.description.ilike(query + '%')).distinct().all()
     except SQLAlchemyError as exp:
         app.logger.error(
-            f'Exception in FilterLinkNames (query: {query}): {exp}.')
+            f'Exception in FilterLinkNames (link_type: {link_type}): {exp}.')
         return ResponseType(f'FilterLinkNames: Tietokantavirhe: {exp}.',
                             status=HttpResponseCode.INTERNAL_SERVER_ERROR)
 
-    link_names: List[str] = list(set([x for x in al]
-                                     + [x for x in bl]
-                                     + [x for x in el]
-                                     + [x for x in pel]
-                                     + [x for x in pul]
-                                     + [x for x in publ]
-                                     + [x for x in wl]))
-    # linkNames.sort()
-    # retval: List[Dict[str, str]] = []
-    # for ln in linkNames:
-    #     retval.append({'name': ln})
-    schema = LinkSchema(many=True)
-    retval = schema.dump(link_names)
-    return ResponseType(retval, HttpResponseCode.OK)
+    link_names: List[str] = sorted({row[0] for row in rows if row[0]})
+    return ResponseType(link_names, HttpResponseCode.OK)
 
 
 def get_select_ids(
