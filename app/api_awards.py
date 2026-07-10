@@ -1,7 +1,7 @@
 import json
 from flask import Response, request
 from app.api_helpers import make_api_response
-from app.impl_awards import (get_award, get_awards_by_filter,
+from app.impl_awards import (create_award, get_award, get_awards_by_filter,
                              get_awards_for_short,
                              get_awards_for_type,
                              get_awards_for_work, get_categories_for_award,
@@ -12,6 +12,21 @@ from app.impl_awards import (get_award, get_awards_by_filter,
 from app.api_jwt import jwt_admin_required
 
 from app import app
+
+
+@app.route('/api/awards', methods=['POST'])
+@jwt_admin_required()  # type: ignore
+def api_createaward() -> Response:
+    """
+    Create a new award with a name, description, domestic flag and links.
+
+    Requires admin authentication.
+
+    Returns:
+        Response: The new award ID on success, or an error response.
+    """
+    params = json.loads(request.data.decode('utf-8'))
+    return make_api_response(create_award(params))
 
 
 @app.route('/api/awards', methods=['PUT'])

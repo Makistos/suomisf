@@ -597,3 +597,129 @@ class TestAwardUpdate(BaseAPITest):
             admin_client.put('/api/awards', data={
                 'data': {'id': HUGO_AWARD_ID, 'links': []}
             })
+
+
+def _find_award_by_name(name):
+    """Return the Award row with the given name, or None."""
+    from app.route_helpers import new_session
+    from app.orm_decl import Award
+    session = new_session()
+    return session.query(Award).filter(Award.name == name).first()
+
+
+def _delete_award_by_name(name):
+    """Remove an award (and its links) created during a test."""
+    from app.route_helpers import new_session
+    from app.orm_decl import Award, AwardLink
+    session = new_session()
+    award = session.query(Award).filter(Award.name == name).first()
+    if award is None:
+        return
+    session.query(AwardLink).filter(
+        AwardLink.award_id == award.id).delete(synchronize_session=False)
+    session.delete(award)
+    session.commit()
+
+
+class TestAwardCreate(BaseAPITest):
+    """Tests for POST /api/awards (create a new award)."""
+
+    def test_create_award_requires_auth(self, api_client):
+        """POST /api/awards requires admin authentication."""
+        response = api_client.post('/api/awards', data={
+            'data': {'name': 'Unauthorized Award'}
+        })
+        assert response.status_code in [401, 403, 422]
+
+    def test_create_award_missing_name(self, admin_client):
+        """POST /api/awards without a name returns 400."""
+        response = admin_client.post('/api/awards', data={
+            'data': {'description': 'No name here'}
+        })
+        assert response.status_code == 400
+
+    def test_create_award_empty_name(self, admin_client):
+        """POST /api/awards with a blank name returns 400."""
+        response = admin_client.post('/api/awards', data={
+            'data': {'name': '   '}
+        })
+        assert response.status_code == 400
+
+    def test_create_award_success(self, admin_client):
+        """POST /api/awards creates an award with all fields and links."""
+        name = 'Pytest Created Award'
+        try:
+            response = admin_client.post('/api/awards', data={
+                'data': {
+                    'name': name,
+                    'description': 'Created by test',
+                    'domestic': True,
+                    'links': [
+                        {'link': 'https://example.com',
+                         'description': 'Example'},
+                    ],
+                }
+            })
+            assert response.status_code == 201, (
+                f"Create failed: {response.status_code}"
+            )
+
+            award = _find_award_by_name(name)
+            assert award is not None, "Award was not created"
+
+            verify = admin_client.get(f'/api/awards/{award.id}')
+            verify.assert_success()
+            assert verify.data['name'] == name
+            assert verify.data['description'] == 'Created by test'
+            assert verify.data['domestic'] is True
+            links = verify.data.get('links', [])
+            assert len(links) == 1
+            assert links[0]['link'] == 'https://example.com'
+            assert links[0]['description'] == 'Example'
+        finally:
+            _delete_award_by_name(name)
+
+    def test_create_award_skips_empty_links(self, admin_client):
+        """Links with an empty URL are ignored on create."""
+        name = 'Pytest Award Empty Links'
+        try:
+            response = admin_client.post('/api/awards', data={
+                'data': {
+                    'name': name,
+                    'links': [
+                        {'link': '', 'description': 'ignored'},
+                        {'link': 'https://kept.example.com',
+                         'description': 'kept'},
+                    ],
+                }
+            })
+            assert response.status_code == 201
+
+            award = _find_award_by_name(name)
+            assert award is not None
+
+            verify = admin_client.get(f'/api/awards/{award.id}')
+            verify.assert_success()
+            links = verify.data.get('links', [])
+            assert len(links) == 1
+            assert links[0]['link'] == 'https://kept.example.com'
+        finally:
+            _delete_award_by_name(name)
+
+    def test_create_award_defaults_domestic_false(self, admin_client):
+        """domestic defaults to False when omitted."""
+        name = 'Pytest Award Default Domestic'
+        try:
+            response = admin_client.post('/api/awards', data={
+                'data': {'name': name}
+            })
+            assert response.status_code == 201
+
+            award = _find_award_by_name(name)
+            assert award is not None
+
+            verify = admin_client.get(f'/api/awards/{award.id}')
+            verify.assert_success()
+            assert verify.data['domestic'] is False
+        finally:
+            _delete_award_by_name(name)

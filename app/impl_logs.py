@@ -97,6 +97,7 @@ def get_edition_changes(edition_id: int) -> ResponseType:
 
 
 table_locals = {'article': 'Artikkeli',
+                'award': 'Palkinto',
                 'bookseries': 'Kirjasarja',
                 'edition': 'Painos',
                 'issue': 'Irtonumero',

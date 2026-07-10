@@ -697,6 +697,89 @@ def save_awarded(params: any):
     return ResponseType('OK', HttpResponseCode.OK.value)
 
 
+def create_award(params: Any) -> ResponseType:
+    """
+    Create a new Award record.
+
+    Endpoint: POST /api/awards
+    Auth: Admin JWT required
+
+    Request body (JSON):
+      {
+        "data": {
+          "name":        <str>     required — Award name (non-empty)
+          "description": <str>     optional — Free-text description
+          "domestic":    <bool>    optional — True = Finnish/domestic award
+          "links": [               optional — Initial link list
+            {
+              "link":        <str>   required — URL
+              "description": <str>   optional — Label shown in the UI
+            },
+            ...
+          ]
+        }
+      }
+
+    Behaviour:
+      - "name" is required and must not be empty.
+      - "links" with an empty "link" value are ignored.
+      - Returns HTTP 201 with the new award ID as a plain string on
+        success.
+      - Returns HTTP 400 for validation errors (missing/empty name).
+      - Returns HTTP 500 on unexpected database errors.
+
+    Args:
+        params (Any): Parsed JSON body with a top-level 'data' key.
+
+    Returns:
+        ResponseType: New award ID string on success, error message on
+        failure.
+    """
+    session = new_session()
+    data = params['data']
+
+    name = data.get('name')
+    if not name or len(name.strip()) == 0:
+        return ResponseType(
+            'create_award: Nimi ei voi olla tyhjä.',
+            HttpResponseCode.BAD_REQUEST.value
+        )
+
+    award = Award(
+        name=name.strip(),
+        description=data.get('description') or None,
+        domestic=bool(data.get('domestic'))
+    )
+
+    try:
+        session.add(award)
+        session.flush()
+
+        new_links = [
+            lnk for lnk in data.get('links', [])
+            if lnk.get('link', '').strip()
+        ]
+        for lnk in new_links:
+            session.add(AwardLink(
+                award_id=award.id,
+                link=lnk['link'].strip(),
+                description=lnk.get('description') or None
+            ))
+
+        log_changes(session=session, obj=award, name_field='name',
+                    action='Uusi')
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f'create_award: Tietokantavirhe. {exp}.')
+        return ResponseType(
+            f'create_award: Tietokantavirhe. {exp}.',
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value
+        )
+
+    return ResponseType(str(award.id), HttpResponseCode.CREATED.value)
+
+
 def update_award(params: Any) -> ResponseType:
     """
     Update an Award record.
