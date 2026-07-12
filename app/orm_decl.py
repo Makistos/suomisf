@@ -235,6 +235,7 @@ class Award(Base):
 class AwardLink(Base):
     """ Award links. """
     __tablename__ = 'awardlink'
+    __table_args__ = {'schema': 'suomisf'}
     id = Column(Integer, primary_key=True)
     award_id = Column(Integer, ForeignKey('award.id'), nullable=False)
     link = Column(Text(), nullable=False)
@@ -266,6 +267,7 @@ class AwardImportSource(Base):
     award's winners and how to interpret them. See migration 029.
     """
     __tablename__ = 'award_import_source'
+    __table_args__ = {'schema': 'suomisf'}
     id = Column(Integer, primary_key=True)
     award_id = Column(Integer, ForeignKey('award.id'), nullable=False)
     # ISFDB award_category.cgi id to fetch.
@@ -661,6 +663,7 @@ class EditionImage(Base):
 class IssueImage(Base):
     """ Issue image table. """
     __tablename__ = 'issueimage'
+    __table_args__ = {'schema': 'suomisf'}
     id = Column(Integer, primary_key=True)
     issue_id = Column(Integer, ForeignKey('issue.id'), nullable=False)
     image_src = Column(String(200), nullable=False)
@@ -694,6 +697,7 @@ class AntikvaariWorkProduct(Base):
 class AntikvaariExcludedBook(Base):
     """Book copy IDs the user has chosen to exclude from price saving."""
     __tablename__ = 'antikvaari_excluded_book'
+    __table_args__ = {'schema': 'suomisf'}
     antikvaari_book_id = Column(String(30), primary_key=True)
 
 
@@ -1799,6 +1803,7 @@ class TagImportReplace(Base):
     does not have to re-specify them on subsequent imports.
     """
     __tablename__ = 'tag_import_replace'
+    __table_args__ = {'schema': 'suomisf'}
     name = Column(String(200), primary_key=True)
     tag_id = Column(Integer, ForeignKey('tag.id'), nullable=False)
     tag = relationship('Tag', uselist=False)
@@ -1811,6 +1816,7 @@ class TagImportOmit(Base):
     Deleted when the user later imports the same name with add/replace.
     """
     __tablename__ = 'tag_import_omit'
+    __table_args__ = {'schema': 'suomisf'}
     name = Column(String(200), primary_key=True)
 
 
