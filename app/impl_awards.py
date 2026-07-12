@@ -12,7 +12,8 @@ from app.impl_links import links_have_changed
 from app.impl_logs import log_changes
 from app.model import (AwardBriefSchema, AwardCategorySchema,
                        AwardLinkSchema, AwardSchema, AwardedSchema)
-from app.orm_decl import (Award, AwardCategories, AwardCategory, AwardLink,
+from app.orm_decl import (Award, AwardCategories, AwardCategory,
+                          AwardImportSource, AwardLink,
                           Awarded, ShortStory, StoryContributor,
                           WorkContributor, Work)
 from app.types import HttpResponseCode
@@ -71,6 +72,10 @@ def get_award(award_id: int) -> ResponseType:
         app.logger.error(f'Schema error: {exp}.')
         return ResponseType(f'get_award: Skeemavirhe. {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    # Whether this award can import winners from ISFDB (migration 029).
+    retval['has_import_source'] = session.query(AwardImportSource).filter(
+        AwardImportSource.award_id == award_id).first() is not None
 
     return ResponseType(retval, HttpResponseCode.OK)
 

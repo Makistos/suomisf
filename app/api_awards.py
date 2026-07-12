@@ -9,6 +9,7 @@ from app.impl_awards import (create_award, get_award, get_awards_by_filter,
                              get_person_awards, list_awards, save_awarded,
                              save_person_awards, save_work_awards,
                              update_award)
+from app.impl_award_import import preview_import, save_import
 from app.api_jwt import jwt_admin_required
 
 from app import app
@@ -72,6 +73,31 @@ def api_getaward(award_id: int) -> Response:
         Response: The response object containing the award data.
     """
     return make_api_response(get_award(award_id))
+
+
+@app.route('/api/awards/<int:award_id>/import/preview', methods=['GET'])
+@jwt_admin_required()  # type: ignore
+def api_award_import_preview(award_id: int) -> Response:
+    """
+    Scrape an award's ISFDB sources and return a preview of winners with
+    their match status against the local database. Writes nothing.
+
+    Requires admin authentication.
+    """
+    return make_api_response(preview_import(award_id))
+
+
+@app.route('/api/awards/<int:award_id>/import', methods=['POST'])
+@jwt_admin_required()  # type: ignore
+def api_award_import_save(award_id: int) -> Response:
+    """
+    Save selected scraped winners as new Awarded rows for the award.
+    Only adds new rows; existing awards are never duplicated or replaced.
+
+    Requires admin authentication.
+    """
+    params = json.loads(request.data.decode('utf-8'))
+    return make_api_response(save_import(award_id, params))
 
 
 @app.route('/api/works/<int:work_id>/awarded', methods=['GET'])

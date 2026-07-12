@@ -259,6 +259,25 @@ class AwardCategories(Base):
                          primary_key=True, nullable=False)
 
 
+class AwardImportSource(Base):
+    """ ISFDB import mapping for an award.
+
+    Records which ISFDB award-category pages to scrape when importing an
+    award's winners and how to interpret them. See migration 029.
+    """
+    __tablename__ = 'award_import_source'
+    id = Column(Integer, primary_key=True)
+    award_id = Column(Integer, ForeignKey('award.id'), nullable=False)
+    # ISFDB award_category.cgi id to fetch.
+    isfdb_category_id = Column(Integer, nullable=False)
+    # 0 = Work, 1 = Short story, 2 = Both (novella). Scraper convention,
+    # NOT awardcategory.type.
+    item_type = Column(Integer, nullable=False)
+    # Local award category name; resolved to awardcategory.id by type at
+    # import time. NULL when unmapped.
+    our_category = Column(String(50))
+
+
 class Awarded(Base):
     """ Links awards to person, work or story and category as well as year. """
     __tablename__ = 'awarded'
