@@ -102,9 +102,15 @@ CATEGORY_MAP: Dict[str, str] = {
     "Andre Norton Award": "Paras nuorten sf-romaani",
     "Andre Norton Nebula Award for Middle Grade and Young Adult Fiction":
         "Paras nuorten sf-romaani",
+    # Grand Prix de l'Imaginaire foreign categories.
     "Roman étranger": "Paras ulkomainen romaani",
     "Nouvelle étrangère": "Paras ulkomainen novelli",
-    "Roman jeunesse étranger": "Paras ulkomainen nuorten romaani",
+    "Roman jeunesse étranger": "Paras ulkomainen nuortenromaani",
+    # Grand Prix de l'Imaginaire French-language (domestic) categories.
+    "Roman francophone": "Paras romaani",
+    "Nouvelle francophone": "Paras novelli",
+    "Roman jeunesse": "Paras nuortenkirja",
+    "Roman jeunesse francophone": "Paras nuortenkirja",
     "Bester ausländischer SF-Roman": "Paras ulkomainen romaani",
     "Bestes ausländisches Werk": "Paras ulkomainen romaani",
     # Kurd Lasswitz German-language (domestic) categories.

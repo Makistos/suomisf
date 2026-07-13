@@ -43,7 +43,12 @@ AWARD_SOURCES = {
         (735, 0), (738, 0), (734, 0),
     ],
     "Hugo": [(261, 0), (262, 2)],
-    "Imaginaire": [(290, 0), (287, 1), (699, 0)],
+    "Imaginaire": [
+        (290, 0), (287, 1), (699, 0),  # foreign novel / short / youth
+        (292, 0),                      # French-language novel
+        (288, 1),                      # French-language short story
+        (286, 0), (698, 0),            # youth novel (general / French)
+    ],
     "Kurd Lasswitz Preis": [
         (686, 0), (685, 0),          # foreign novel / work
         (677, 0),                    # German-language novel
