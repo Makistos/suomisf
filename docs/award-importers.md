@@ -59,7 +59,7 @@ Not on ISFDB; will need a different source (kirjasampo / Wikipedia).
 | 22 | Finlandia-palkinto | — | Paras romaani [1] |
 | 18 | Kosmoskynä | — | Elämäntyöpalkinto [0] |
 | 15 | Kuvastaja | — | Paras romaani [1] |
-| 36 | Lasten- ja nuortenkirjallisuuden Finlandia | — | — |
+| 35 | Lasten- ja nuortenkirjallisuuden Finlandia | — | — |
 | 17 | Nova-novellikilpailu | — | Paras novelli [2] |
 | 16 | Portin novellikilpailu | — | Paras novelli [2] |
 | 23 | Topelius-palkinto | — | Paras nuortenkirja [1] |

@@ -44,7 +44,12 @@ AWARD_SOURCES = {
     ],
     "Hugo": [(261, 0), (262, 2)],
     "Imaginaire": [(290, 0), (287, 1), (699, 0)],
-    "Kurd Lasswitz Preis": [(686, 0), (685, 0)],
+    "Kurd Lasswitz Preis": [
+        (686, 0), (685, 0),          # foreign novel / work
+        (677, 0),                    # German-language novel
+        (678, 1), (691, 1), (680, 1),  # German-language short fiction
+        (679, 2),                    # German-language novelette/novella
+    ],
     "Locus": [
         (375, 0), (347, 0), (350, 0), (351, 0), (349, 0), (382, 0),
         (361, 2), (360, 1), (378, 1), (377, 1), (338, 0), (379, 0), (329, 0),

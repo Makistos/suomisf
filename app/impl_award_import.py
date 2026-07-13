@@ -107,6 +107,15 @@ CATEGORY_MAP: Dict[str, str] = {
     "Roman jeunesse étranger": "Paras ulkomainen nuorten romaani",
     "Bester ausländischer SF-Roman": "Paras ulkomainen romaani",
     "Bestes ausländisches Werk": "Paras ulkomainen romaani",
+    # Kurd Lasswitz German-language (domestic) categories.
+    "Bester deutschsprachiger Roman": "Paras romaani",
+    "Beste deutschsprachige Kurzgeschichte (short story)": "Paras novelli",
+    "Beste deutschsprachige Kurzgeschichte (all short fiction)":
+        "Paras novelli",
+    "Beste deutschsprachige Erzählung (all short fiction)":
+        "Paras lyhyt fiktio",
+    "Beste deutschsprachige Erzählung (novelette/novella)":
+        "Paras pienoisromaani",
     "Mejor novela - Best Novel": "Paras romaani",
     "Mejor novela extranjera - Best Foreign Novel": "Paras ulkomainen romaani",
     "Mejor cuento extranjero - Best Foreign Story": "Paras ulkomainen novelli",
