@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-04-11T20:33:54.117860+00:00",
+    "generated_at": "2026-07-12T18:56:26.276996+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/works/shorts/1378",
@@ -373,6 +373,10 @@
                     {
                       "id": 2.0,
                       "name": "mep"
+                    },
+                    {
+                      "id": 11.0,
+                      "name": "Kirjokerttu"
                     }
                   ],
                   "wishlisted": [],
@@ -381,7 +385,7 @@
                   "subtitle": "",
                   "pubyear": 1988,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-9269-42-8",
                   "printedin": "Helsinki",
                   "pubseriesnum": 10,
@@ -675,6 +679,10 @@
               {
                 "id": 2.0,
                 "name": "mep"
+              },
+              {
+                "id": 11.0,
+                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -687,7 +695,7 @@
             "subtitle": "",
             "pubyear": 1988,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-9269-42-8",
             "printedin": "Helsinki",
             "pubseriesnum": 10,
@@ -724,7 +732,8 @@
         "id": 7150,
         "title": "Syksy",
         "orig_title": "Syksy",
-        "pubyear": 1988
+        "pubyear": 1988,
+        "notes": null
       },
       {
         "authors": [
@@ -1089,6 +1098,10 @@
                     {
                       "id": 2.0,
                       "name": "mep"
+                    },
+                    {
+                      "id": 11.0,
+                      "name": "Kirjokerttu"
                     }
                   ],
                   "wishlisted": [],
@@ -1097,7 +1110,7 @@
                   "subtitle": "",
                   "pubyear": 1988,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-9269-42-8",
                   "printedin": "Helsinki",
                   "pubseriesnum": 10,
@@ -1391,6 +1404,10 @@
               {
                 "id": 2.0,
                 "name": "mep"
+              },
+              {
+                "id": 11.0,
+                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -1403,7 +1420,7 @@
             "subtitle": "",
             "pubyear": 1988,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-9269-42-8",
             "printedin": "Helsinki",
             "pubseriesnum": 10,
@@ -1440,7 +1457,8 @@
         "id": 3441,
         "title": "Lokakuun lemmikki",
         "orig_title": "Lokakuun lemmikki",
-        "pubyear": 1988
+        "pubyear": 1988,
+        "notes": null
       },
       {
         "authors": [
@@ -1807,6 +1825,10 @@
                     {
                       "id": 2.0,
                       "name": "mep"
+                    },
+                    {
+                      "id": 11.0,
+                      "name": "Kirjokerttu"
                     }
                   ],
                   "wishlisted": [],
@@ -1815,7 +1837,7 @@
                   "subtitle": "",
                   "pubyear": 1988,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-9269-42-8",
                   "printedin": "Helsinki",
                   "pubseriesnum": 10,
@@ -2109,6 +2131,10 @@
               {
                 "id": 2.0,
                 "name": "mep"
+              },
+              {
+                "id": 11.0,
+                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -2121,7 +2147,7 @@
             "subtitle": "",
             "pubyear": 1988,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-9269-42-8",
             "printedin": "Helsinki",
             "pubseriesnum": 10,
@@ -2158,7 +2184,8 @@
         "id": 3444,
         "title": "Johanneksesta Johannekseen",
         "orig_title": "Johanneksesta Johannekseen",
-        "pubyear": 1988
+        "pubyear": 1988,
+        "notes": null
       },
       {
         "authors": [
@@ -2523,6 +2550,10 @@
                     {
                       "id": 2.0,
                       "name": "mep"
+                    },
+                    {
+                      "id": 11.0,
+                      "name": "Kirjokerttu"
                     }
                   ],
                   "wishlisted": [],
@@ -2531,7 +2562,7 @@
                   "subtitle": "",
                   "pubyear": 1988,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-9269-42-8",
                   "printedin": "Helsinki",
                   "pubseriesnum": 10,
@@ -2825,6 +2856,10 @@
               {
                 "id": 2.0,
                 "name": "mep"
+              },
+              {
+                "id": 11.0,
+                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -2837,7 +2872,7 @@
             "subtitle": "",
             "pubyear": 1988,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-9269-42-8",
             "printedin": "Helsinki",
             "pubseriesnum": 10,
@@ -2874,7 +2909,8 @@
         "id": 3446,
         "title": "Marsiin",
         "orig_title": "Marsiin",
-        "pubyear": 1988
+        "pubyear": 1988,
+        "notes": null
       },
       {
         "authors": [
@@ -3239,6 +3275,10 @@
                     {
                       "id": 2.0,
                       "name": "mep"
+                    },
+                    {
+                      "id": 11.0,
+                      "name": "Kirjokerttu"
                     }
                   ],
                   "wishlisted": [],
@@ -3247,7 +3287,7 @@
                   "subtitle": "",
                   "pubyear": 1988,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-9269-42-8",
                   "printedin": "Helsinki",
                   "pubseriesnum": 10,
@@ -3541,6 +3581,10 @@
               {
                 "id": 2.0,
                 "name": "mep"
+              },
+              {
+                "id": 11.0,
+                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -3553,7 +3597,7 @@
             "subtitle": "",
             "pubyear": 1988,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-9269-42-8",
             "printedin": "Helsinki",
             "pubseriesnum": 10,
@@ -3590,7 +3634,8 @@
         "id": 3447,
         "title": "Roskakuskit",
         "orig_title": "Roskakuskit",
-        "pubyear": 1988
+        "pubyear": 1988,
+        "notes": null
       },
       {
         "authors": [
@@ -3716,7 +3761,7 @@
                   "subtitle": "",
                   "pubyear": 2001,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "952-5211-06-1",
                   "printedin": "Tampere",
                   "pubseriesnum": 6,
@@ -3801,7 +3846,7 @@
             "subtitle": "",
             "pubyear": 2001,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "952-5211-06-1",
             "printedin": "Tampere",
             "pubseriesnum": 6,
@@ -4142,6 +4187,10 @@
                     {
                       "id": 2.0,
                       "name": "mep"
+                    },
+                    {
+                      "id": 11.0,
+                      "name": "Kirjokerttu"
                     }
                   ],
                   "wishlisted": [],
@@ -4150,7 +4199,7 @@
                   "subtitle": "",
                   "pubyear": 1988,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-9269-42-8",
                   "printedin": "Helsinki",
                   "pubseriesnum": 10,
@@ -4444,6 +4493,10 @@
               {
                 "id": 2.0,
                 "name": "mep"
+              },
+              {
+                "id": 11.0,
+                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -4456,7 +4509,7 @@
             "subtitle": "",
             "pubyear": 1988,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-9269-42-8",
             "printedin": "Helsinki",
             "pubseriesnum": 10,
@@ -4506,7 +4559,8 @@
         "id": 2967,
         "title": "Tulppaanikukkula",
         "orig_title": "Tulppaanikukkula",
-        "pubyear": 1988
+        "pubyear": 1988,
+        "notes": null
       },
       {
         "authors": [
@@ -4604,7 +4658,7 @@
                   "subtitle": "",
                   "pubyear": 2005,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-851-046-6",
                   "printedin": null,
                   "pubseriesnum": null,
@@ -4674,7 +4728,7 @@
                   "subtitle": "",
                   "pubyear": 2010,
                   "editionnum": 3,
-                  "version": null,
+                  "version": 1,
                   "isbn": "",
                   "printedin": null,
                   "pubseriesnum": null,
@@ -4712,8 +4766,8 @@
               "bookseriesnum": "",
               "bookseriesorder": null,
               "misc": "",
-              "description": null,
-              "descr_attr": null,
+              "description": "<p>JOHANNA SINISALON PALKITTUJA NOVELLEJA YKSISSÄ KANSISSA!</p><p>Tarinat sijoittuvat pääosin meidän aikaamme ja tuttuihin maisemiin, joissa jokin on häiritsevästi ja pelottavasti toisin. Novelleissaan Sinisalo järjestelmällisesti kääntää tutun ja totutun päälaelleen. Se, mitä luulemme omaksemme, on jonkin muun hallussa. Ihmisen ymmärrys maailmasta on jonkin toisen kuin hänen itsensä kirjoittama, myytit ovat totta ja totena pidetty pelkkää myyttiä.</p><p>Sinisalon novellien maisema pitää sisällään salaisuuksia, jollaisia emme voi edes kuvitella olevan, ja samalla hän avaa uusia viiltäviä valaistuskulmia omaan maailmaamme.</p><p>Näiden novellien lukemisen jälkeen ei mitään - ei edes itseä - voi katsoa enää niin kuin ennen, sillä kaikki mihin uskomme saattaakin olla häiritsevästi toisin.</p>",
+              "descr_attr": "Takakansi",
               "imported_string": ""
             },
             "editors": [],
@@ -4811,7 +4865,7 @@
                   "subtitle": "",
                   "pubyear": 2005,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-851-046-6",
                   "printedin": null,
                   "pubseriesnum": null,
@@ -4881,7 +4935,7 @@
                   "subtitle": "",
                   "pubyear": 2010,
                   "editionnum": 3,
-                  "version": null,
+                  "version": 1,
                   "isbn": "",
                   "printedin": null,
                   "pubseriesnum": null,
@@ -4919,8 +4973,8 @@
               "bookseriesnum": "",
               "bookseriesorder": null,
               "misc": "",
-              "description": null,
-              "descr_attr": null,
+              "description": "<p>JOHANNA SINISALON PALKITTUJA NOVELLEJA YKSISSÄ KANSISSA!</p><p>Tarinat sijoittuvat pääosin meidän aikaamme ja tuttuihin maisemiin, joissa jokin on häiritsevästi ja pelottavasti toisin. Novelleissaan Sinisalo järjestelmällisesti kääntää tutun ja totutun päälaelleen. Se, mitä luulemme omaksemme, on jonkin muun hallussa. Ihmisen ymmärrys maailmasta on jonkin toisen kuin hänen itsensä kirjoittama, myytit ovat totta ja totena pidetty pelkkää myyttiä.</p><p>Sinisalon novellien maisema pitää sisällään salaisuuksia, jollaisia emme voi edes kuvitella olevan, ja samalla hän avaa uusia viiltäviä valaistuskulmia omaan maailmaamme.</p><p>Näiden novellien lukemisen jälkeen ei mitään - ei edes itseä - voi katsoa enää niin kuin ennen, sillä kaikki mihin uskomme saattaakin olla häiritsevästi toisin.</p>",
+              "descr_attr": "Takakansi",
               "imported_string": ""
             },
             "editors": [],
@@ -4961,7 +5015,7 @@
             "subtitle": "",
             "pubyear": 2005,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-851-046-6",
             "printedin": null,
             "pubseriesnum": null,
@@ -5302,6 +5356,10 @@
                     {
                       "id": 2.0,
                       "name": "mep"
+                    },
+                    {
+                      "id": 11.0,
+                      "name": "Kirjokerttu"
                     }
                   ],
                   "wishlisted": [],
@@ -5310,7 +5368,7 @@
                   "subtitle": "",
                   "pubyear": 1988,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-9269-42-8",
                   "printedin": "Helsinki",
                   "pubseriesnum": 10,
@@ -5604,6 +5662,10 @@
               {
                 "id": 2.0,
                 "name": "mep"
+              },
+              {
+                "id": 11.0,
+                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -5616,7 +5678,7 @@
             "subtitle": "",
             "pubyear": 1988,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-9269-42-8",
             "printedin": "Helsinki",
             "pubseriesnum": 10,
@@ -5653,7 +5715,8 @@
         "id": 3202,
         "title": "Hanna",
         "orig_title": "Hanna",
-        "pubyear": 1988
+        "pubyear": 1988,
+        "notes": null
       },
       {
         "authors": [
@@ -6021,6 +6084,10 @@
                     {
                       "id": 2.0,
                       "name": "mep"
+                    },
+                    {
+                      "id": 11.0,
+                      "name": "Kirjokerttu"
                     }
                   ],
                   "wishlisted": [],
@@ -6029,7 +6096,7 @@
                   "subtitle": "",
                   "pubyear": 1988,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-9269-42-8",
                   "printedin": "Helsinki",
                   "pubseriesnum": 10,
@@ -6323,6 +6390,10 @@
               {
                 "id": 2.0,
                 "name": "mep"
+              },
+              {
+                "id": 11.0,
+                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -6335,7 +6406,7 @@
             "subtitle": "",
             "pubyear": 1988,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-9269-42-8",
             "printedin": "Helsinki",
             "pubseriesnum": 10,
@@ -6372,7 +6443,8 @@
         "id": 3450,
         "title": "Yövesi",
         "orig_title": "Yövesi",
-        "pubyear": 1988
+        "pubyear": 1988,
+        "notes": null
       },
       {
         "authors": [
@@ -6738,6 +6810,10 @@
                     {
                       "id": 2.0,
                       "name": "mep"
+                    },
+                    {
+                      "id": 11.0,
+                      "name": "Kirjokerttu"
                     }
                   ],
                   "wishlisted": [],
@@ -6746,7 +6822,7 @@
                   "subtitle": "",
                   "pubyear": 1988,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-9269-42-8",
                   "printedin": "Helsinki",
                   "pubseriesnum": 10,
@@ -7040,6 +7116,10 @@
               {
                 "id": 2.0,
                 "name": "mep"
+              },
+              {
+                "id": 11.0,
+                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -7052,7 +7132,7 @@
             "subtitle": "",
             "pubyear": 1988,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-9269-42-8",
             "printedin": "Helsinki",
             "pubseriesnum": 10,
@@ -7089,7 +7169,8 @@
         "id": 3451,
         "title": "Perhosen lento",
         "orig_title": "Perhosen lento",
-        "pubyear": 1988
+        "pubyear": 1988,
+        "notes": null
       },
       {
         "authors": [
@@ -7844,6 +7925,13 @@
               "link": "https://www.porttisci.fi/",
               "issn": "0359-114X"
             },
+            "images": [
+              {
+                "id": 1021,
+                "image_src": "/static/images/magazines/Portti_1982_4.jpg",
+                "image_attr": null
+              }
+            ],
             "id": 371,
             "number": 4,
             "number_extra": "",
@@ -8187,6 +8275,10 @@
                     {
                       "id": 2.0,
                       "name": "mep"
+                    },
+                    {
+                      "id": 11.0,
+                      "name": "Kirjokerttu"
                     }
                   ],
                   "wishlisted": [],
@@ -8195,7 +8287,7 @@
                   "subtitle": "",
                   "pubyear": 1988,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-9269-42-8",
                   "printedin": "Helsinki",
                   "pubseriesnum": 10,
@@ -8489,6 +8581,10 @@
               {
                 "id": 2.0,
                 "name": "mep"
+              },
+              {
+                "id": 11.0,
+                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -8501,7 +8597,7 @@
             "subtitle": "",
             "pubyear": 1988,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-9269-42-8",
             "printedin": "Helsinki",
             "pubseriesnum": 10,
@@ -8538,7 +8634,8 @@
         "id": 4504,
         "title": "Jumalten vuori",
         "orig_title": "Jumalten vuori",
-        "pubyear": 1982
+        "pubyear": 1982,
+        "notes": null
       },
       {
         "authors": [
@@ -9293,6 +9390,13 @@
               "link": "https://www.porttisci.fi/",
               "issn": "0359-114X"
             },
+            "images": [
+              {
+                "id": 306,
+                "image_src": "/static/images/magazines/Portti_1983_3.jpg",
+                "image_attr": null
+              }
+            ],
             "id": 374,
             "number": 3,
             "number_extra": "",
@@ -9408,7 +9512,7 @@
                   "subtitle": "Suomalaisia aikamatkanovelleja",
                   "pubyear": 2013,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "978-952-5666-92-2",
                   "printedin": null,
                   "pubseriesnum": null,
@@ -9530,7 +9634,7 @@
             "subtitle": "Suomalaisia aikamatkanovelleja",
             "pubyear": 2013,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "978-952-5666-92-2",
             "printedin": null,
             "pubseriesnum": null,
@@ -9871,6 +9975,10 @@
                     {
                       "id": 2.0,
                       "name": "mep"
+                    },
+                    {
+                      "id": 11.0,
+                      "name": "Kirjokerttu"
                     }
                   ],
                   "wishlisted": [],
@@ -9879,7 +9987,7 @@
                   "subtitle": "",
                   "pubyear": 1988,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-9269-42-8",
                   "printedin": "Helsinki",
                   "pubseriesnum": 10,
@@ -10173,6 +10281,10 @@
               {
                 "id": 2.0,
                 "name": "mep"
+              },
+              {
+                "id": 11.0,
+                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -10185,7 +10297,7 @@
             "subtitle": "",
             "pubyear": 1988,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-9269-42-8",
             "printedin": "Helsinki",
             "pubseriesnum": 10,
@@ -10222,7 +10334,8 @@
         "id": 1805,
         "title": "Napoleonin vaihtoviikot",
         "orig_title": "Napoleonin vaihtoviikot",
-        "pubyear": 1983
+        "pubyear": 1983,
+        "notes": null
       },
       {
         "authors": [
@@ -10475,6 +10588,13 @@
               "link": "https://www.aikakone.org/",
               "issn": null
             },
+            "images": [
+              {
+                "id": 17,
+                "image_src": "/static/images/magazines/Aikakone_1984_3.jpg",
+                "image_attr": null
+              }
+            ],
             "id": 11,
             "number": 3,
             "number_extra": "",
@@ -10548,7 +10668,7 @@
                   "subtitle": "Kootut tieteiskertomukset",
                   "pubyear": 2014,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "978-952-99922-7-0",
                   "printedin": null,
                   "pubseriesnum": null,
@@ -10628,7 +10748,7 @@
             "subtitle": "Kootut tieteiskertomukset",
             "pubyear": 2014,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "978-952-99922-7-0",
             "printedin": null,
             "pubseriesnum": null,
@@ -10969,6 +11089,10 @@
                     {
                       "id": 2.0,
                       "name": "mep"
+                    },
+                    {
+                      "id": 11.0,
+                      "name": "Kirjokerttu"
                     }
                   ],
                   "wishlisted": [],
@@ -10977,7 +11101,7 @@
                   "subtitle": "",
                   "pubyear": 1988,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-9269-42-8",
                   "printedin": "Helsinki",
                   "pubseriesnum": 10,
@@ -11271,6 +11395,10 @@
               {
                 "id": 2.0,
                 "name": "mep"
+              },
+              {
+                "id": 11.0,
+                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -11283,7 +11411,7 @@
             "subtitle": "",
             "pubyear": 1988,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-9269-42-8",
             "printedin": "Helsinki",
             "pubseriesnum": 10,
@@ -11320,7 +11448,8 @@
         "id": 3452,
         "title": "Perinne",
         "orig_title": "Perinne",
-        "pubyear": 1984
+        "pubyear": 1984,
+        "notes": null
       },
       {
         "authors": [
@@ -11574,6 +11703,13 @@
               "link": "https://www.aikakone.org/",
               "issn": null
             },
+            "images": [
+              {
+                "id": 20,
+                "image_src": "/static/images/magazines/Aikakone_1985_2.jpg",
+                "image_attr": null
+              }
+            ],
             "id": 14,
             "number": 2,
             "number_extra": "",
@@ -11917,6 +12053,10 @@
                     {
                       "id": 2.0,
                       "name": "mep"
+                    },
+                    {
+                      "id": 11.0,
+                      "name": "Kirjokerttu"
                     }
                   ],
                   "wishlisted": [],
@@ -11925,7 +12065,7 @@
                   "subtitle": "",
                   "pubyear": 1988,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-9269-42-8",
                   "printedin": "Helsinki",
                   "pubseriesnum": 10,
@@ -12219,6 +12359,10 @@
               {
                 "id": 2.0,
                 "name": "mep"
+              },
+              {
+                "id": 11.0,
+                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -12231,7 +12375,7 @@
             "subtitle": "",
             "pubyear": 1988,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-9269-42-8",
             "printedin": "Helsinki",
             "pubseriesnum": 10,
@@ -12268,7 +12412,8 @@
         "id": 3449,
         "title": "Suklaalaput",
         "orig_title": "Suklaalaput",
-        "pubyear": 1985
+        "pubyear": 1985,
+        "notes": null
       },
       {
         "authors": [
@@ -12992,6 +13137,13 @@
               "link": "https://tahtivaeltajablogi.com/",
               "issn": null
             },
+            "images": [
+              {
+                "id": 698,
+                "image_src": "/static/images/magazines/Tahtivaeltaja_1986_1.jpg",
+                "image_attr": null
+              }
+            ],
             "id": 710,
             "number": 1,
             "number_extra": "",
@@ -13335,6 +13487,10 @@
                     {
                       "id": 2.0,
                       "name": "mep"
+                    },
+                    {
+                      "id": 11.0,
+                      "name": "Kirjokerttu"
                     }
                   ],
                   "wishlisted": [],
@@ -13343,7 +13499,7 @@
                   "subtitle": "",
                   "pubyear": 1988,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-9269-42-8",
                   "printedin": "Helsinki",
                   "pubseriesnum": 10,
@@ -13637,6 +13793,10 @@
               {
                 "id": 2.0,
                 "name": "mep"
+              },
+              {
+                "id": 11.0,
+                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -13649,7 +13809,7 @@
             "subtitle": "",
             "pubyear": 1988,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-9269-42-8",
             "printedin": "Helsinki",
             "pubseriesnum": 10,
@@ -13686,7 +13846,8 @@
         "id": 3448,
         "title": "Ollin oppivuodet Aapelin alkuasetelmat",
         "orig_title": "Ollin oppivuodet Aapelin alkuasetelmat",
-        "pubyear": 1986
+        "pubyear": 1986,
+        "notes": null
       },
       {
         "authors": [
@@ -14441,6 +14602,13 @@
               "link": "https://www.porttisci.fi/",
               "issn": "0359-114X"
             },
+            "images": [
+              {
+                "id": 319,
+                "image_src": "/static/images/magazines/Portti_1986_4.jpg",
+                "image_attr": null
+              }
+            ],
             "id": 387,
             "number": 4,
             "number_extra": "",
@@ -14492,8 +14660,8 @@
                         "id": 4,
                         "name": "Suomi"
                       },
-                      "workcount": 33.0,
-                      "storycount": 57,
+                      "workcount": 35.0,
+                      "storycount": 62,
                       "roles": [
                         "Kirjoittaja",
                         "Kääntäjä",
@@ -14544,7 +14712,7 @@
                   "subtitle": "suomalaisia maailmanloppunovelleja",
                   "pubyear": 2021,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "978-952-7436-02-8",
                   "printedin": null,
                   "pubseriesnum": null,
@@ -14599,8 +14767,8 @@
                   "id": 4,
                   "name": "Suomi"
                 },
-                "workcount": 33.0,
-                "storycount": 57,
+                "workcount": 35.0,
+                "storycount": 62,
                 "roles": [
                   "Kirjoittaja",
                   "Kääntäjä",
@@ -14654,7 +14822,7 @@
             "subtitle": "suomalaisia maailmanloppunovelleja",
             "pubyear": 2021,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "978-952-7436-02-8",
             "printedin": null,
             "pubseriesnum": null,
@@ -14995,6 +15163,10 @@
                     {
                       "id": 2.0,
                       "name": "mep"
+                    },
+                    {
+                      "id": 11.0,
+                      "name": "Kirjokerttu"
                     }
                   ],
                   "wishlisted": [],
@@ -15003,7 +15175,7 @@
                   "subtitle": "",
                   "pubyear": 1988,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-9269-42-8",
                   "printedin": "Helsinki",
                   "pubseriesnum": 10,
@@ -15297,6 +15469,10 @@
               {
                 "id": 2.0,
                 "name": "mep"
+              },
+              {
+                "id": 11.0,
+                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -15309,7 +15485,7 @@
             "subtitle": "",
             "pubyear": 1988,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-9269-42-8",
             "printedin": "Helsinki",
             "pubseriesnum": 10,
@@ -15346,7 +15522,8 @@
         "id": 4544,
         "title": "Viimeinen lähtö",
         "orig_title": "Viimeinen lähtö",
-        "pubyear": 1986
+        "pubyear": 1986,
+        "notes": null
       },
       {
         "authors": [
@@ -16101,6 +16278,13 @@
               "link": "https://www.porttisci.fi/",
               "issn": "0359-114X"
             },
+            "images": [
+              {
+                "id": 319,
+                "image_src": "/static/images/magazines/Portti_1986_4.jpg",
+                "image_attr": null
+              }
+            ],
             "id": 387,
             "number": 4,
             "number_extra": "",
@@ -16444,6 +16628,10 @@
                     {
                       "id": 2.0,
                       "name": "mep"
+                    },
+                    {
+                      "id": 11.0,
+                      "name": "Kirjokerttu"
                     }
                   ],
                   "wishlisted": [],
@@ -16452,7 +16640,7 @@
                   "subtitle": "",
                   "pubyear": 1988,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-9269-42-8",
                   "printedin": "Helsinki",
                   "pubseriesnum": 10,
@@ -16746,6 +16934,10 @@
               {
                 "id": 2.0,
                 "name": "mep"
+              },
+              {
+                "id": 11.0,
+                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -16758,7 +16950,7 @@
             "subtitle": "",
             "pubyear": 1988,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-9269-42-8",
             "printedin": "Helsinki",
             "pubseriesnum": 10,
@@ -16795,7 +16987,8 @@
         "id": 4546,
         "title": "Tulipiiri",
         "orig_title": "Tulipiiri",
-        "pubyear": 1986
+        "pubyear": 1986,
+        "notes": null
       },
       {
         "authors": [
@@ -17576,6 +17769,13 @@
               "link": "https://www.porttisci.fi/",
               "issn": "0359-114X"
             },
+            "images": [
+              {
+                "id": 319,
+                "image_src": "/static/images/magazines/Portti_1986_4.jpg",
+                "image_attr": null
+              }
+            ],
             "id": 387,
             "number": 4,
             "number_extra": "",
@@ -17654,7 +17854,7 @@
                   "subtitle": "",
                   "pubyear": 2001,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "952-5211-06-1",
                   "printedin": "Tampere",
                   "pubseriesnum": 6,
@@ -17739,7 +17939,7 @@
             "subtitle": "",
             "pubyear": 2001,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "952-5211-06-1",
             "printedin": "Tampere",
             "pubseriesnum": 6,
@@ -18080,6 +18280,10 @@
                     {
                       "id": 2.0,
                       "name": "mep"
+                    },
+                    {
+                      "id": 11.0,
+                      "name": "Kirjokerttu"
                     }
                   ],
                   "wishlisted": [],
@@ -18088,7 +18292,7 @@
                   "subtitle": "",
                   "pubyear": 1988,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-9269-42-8",
                   "printedin": "Helsinki",
                   "pubseriesnum": 10,
@@ -18382,6 +18586,10 @@
               {
                 "id": 2.0,
                 "name": "mep"
+              },
+              {
+                "id": 11.0,
+                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -18394,7 +18602,7 @@
             "subtitle": "",
             "pubyear": 1988,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-9269-42-8",
             "printedin": "Helsinki",
             "pubseriesnum": 10,
@@ -18444,7 +18652,8 @@
         "id": 2965,
         "title": "Ran palvelija",
         "orig_title": "Ran palvelija",
-        "pubyear": 1986
+        "pubyear": 1986,
+        "notes": null
       },
       {
         "authors": [
@@ -19199,6 +19408,13 @@
               "link": "https://www.porttisci.fi/",
               "issn": "0359-114X"
             },
+            "images": [
+              {
+                "id": 320,
+                "image_src": "/static/images/magazines/Portti_1987_1.jpg",
+                "image_attr": null
+              }
+            ],
             "id": 388,
             "number": 1,
             "number_extra": "",
@@ -19542,6 +19758,10 @@
                     {
                       "id": 2.0,
                       "name": "mep"
+                    },
+                    {
+                      "id": 11.0,
+                      "name": "Kirjokerttu"
                     }
                   ],
                   "wishlisted": [],
@@ -19550,7 +19770,7 @@
                   "subtitle": "",
                   "pubyear": 1988,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-9269-42-8",
                   "printedin": "Helsinki",
                   "pubseriesnum": 10,
@@ -19844,6 +20064,10 @@
               {
                 "id": 2.0,
                 "name": "mep"
+              },
+              {
+                "id": 11.0,
+                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -19856,7 +20080,7 @@
             "subtitle": "",
             "pubyear": 1988,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-9269-42-8",
             "printedin": "Helsinki",
             "pubseriesnum": 10,
@@ -19893,7 +20117,8 @@
         "id": 3442,
         "title": "Mitä sinä olisit tehnyt...",
         "orig_title": "Mitä sinä olisit tehnyt...",
-        "pubyear": 1987
+        "pubyear": 1987,
+        "notes": null
       },
       {
         "authors": [
@@ -20650,6 +20875,13 @@
               "link": "https://www.porttisci.fi/",
               "issn": "0359-114X"
             },
+            "images": [
+              {
+                "id": 320,
+                "image_src": "/static/images/magazines/Portti_1987_1.jpg",
+                "image_attr": null
+              }
+            ],
             "id": 388,
             "number": 1,
             "number_extra": "",
@@ -20993,6 +21225,10 @@
                     {
                       "id": 2.0,
                       "name": "mep"
+                    },
+                    {
+                      "id": 11.0,
+                      "name": "Kirjokerttu"
                     }
                   ],
                   "wishlisted": [],
@@ -21001,7 +21237,7 @@
                   "subtitle": "",
                   "pubyear": 1988,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-9269-42-8",
                   "printedin": "Helsinki",
                   "pubseriesnum": 10,
@@ -21295,6 +21531,10 @@
               {
                 "id": 2.0,
                 "name": "mep"
+              },
+              {
+                "id": 11.0,
+                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -21307,7 +21547,7 @@
             "subtitle": "",
             "pubyear": 1988,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-9269-42-8",
             "printedin": "Helsinki",
             "pubseriesnum": 10,
@@ -21344,7 +21584,8 @@
         "id": 3445,
         "title": "Pyörä",
         "orig_title": "Pyörä",
-        "pubyear": 1987
+        "pubyear": 1987,
+        "notes": null
       },
       {
         "authors": [
@@ -22099,6 +22340,13 @@
               "link": "https://www.porttisci.fi/",
               "issn": "0359-114X"
             },
+            "images": [
+              {
+                "id": 323,
+                "image_src": "/static/images/magazines/Portti_1987_4.jpg",
+                "image_attr": null
+              }
+            ],
             "id": 391,
             "number": 4,
             "number_extra": "",
@@ -22442,6 +22690,10 @@
                     {
                       "id": 2.0,
                       "name": "mep"
+                    },
+                    {
+                      "id": 11.0,
+                      "name": "Kirjokerttu"
                     }
                   ],
                   "wishlisted": [],
@@ -22450,7 +22702,7 @@
                   "subtitle": "",
                   "pubyear": 1988,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-9269-42-8",
                   "printedin": "Helsinki",
                   "pubseriesnum": 10,
@@ -22744,6 +22996,10 @@
               {
                 "id": 2.0,
                 "name": "mep"
+              },
+              {
+                "id": 11.0,
+                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -22756,7 +23012,7 @@
             "subtitle": "",
             "pubyear": 1988,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-9269-42-8",
             "printedin": "Helsinki",
             "pubseriesnum": 10,
@@ -22793,7 +23049,8 @@
         "id": 3443,
         "title": "Tarkastaja",
         "orig_title": "Tarkastaja",
-        "pubyear": 1987
+        "pubyear": 1987,
+        "notes": null
       },
       {
         "authors": [
@@ -23549,6 +23806,13 @@
               "link": "https://www.porttisci.fi/",
               "issn": "0359-114X"
             },
+            "images": [
+              {
+                "id": 323,
+                "image_src": "/static/images/magazines/Portti_1987_4.jpg",
+                "image_attr": null
+              }
+            ],
             "id": 391,
             "number": 4,
             "number_extra": "",
@@ -23892,6 +24156,10 @@
                     {
                       "id": 2.0,
                       "name": "mep"
+                    },
+                    {
+                      "id": 11.0,
+                      "name": "Kirjokerttu"
                     }
                   ],
                   "wishlisted": [],
@@ -23900,7 +24168,7 @@
                   "subtitle": "",
                   "pubyear": 1988,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-9269-42-8",
                   "printedin": "Helsinki",
                   "pubseriesnum": 10,
@@ -24194,6 +24462,10 @@
               {
                 "id": 2.0,
                 "name": "mep"
+              },
+              {
+                "id": 11.0,
+                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -24206,7 +24478,7 @@
             "subtitle": "",
             "pubyear": 1988,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-9269-42-8",
             "printedin": "Helsinki",
             "pubseriesnum": 10,
@@ -24243,7 +24515,8 @@
         "id": 3440,
         "title": "Tuli ilta ja tuli yö",
         "orig_title": "Tuli ilta ja tuli yö",
-        "pubyear": 1987
+        "pubyear": 1987,
+        "notes": null
       },
       {
         "authors": [
@@ -25024,6 +25297,13 @@
               "link": "https://www.porttisci.fi/",
               "issn": "0359-114X"
             },
+            "images": [
+              {
+                "id": 320,
+                "image_src": "/static/images/magazines/Portti_1987_1.jpg",
+                "image_attr": null
+              }
+            ],
             "id": 388,
             "number": 1,
             "number_extra": "",
@@ -25102,7 +25382,7 @@
                   "subtitle": "",
                   "pubyear": 2001,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "952-5211-06-1",
                   "printedin": "Tampere",
                   "pubseriesnum": 6,
@@ -25187,7 +25467,7 @@
             "subtitle": "",
             "pubyear": 2001,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "952-5211-06-1",
             "printedin": "Tampere",
             "pubseriesnum": 6,
@@ -25528,6 +25808,10 @@
                     {
                       "id": 2.0,
                       "name": "mep"
+                    },
+                    {
+                      "id": 11.0,
+                      "name": "Kirjokerttu"
                     }
                   ],
                   "wishlisted": [],
@@ -25536,7 +25820,7 @@
                   "subtitle": "",
                   "pubyear": 1988,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "951-9269-42-8",
                   "printedin": "Helsinki",
                   "pubseriesnum": 10,
@@ -25830,6 +26114,10 @@
               {
                 "id": 2.0,
                 "name": "mep"
+              },
+              {
+                "id": 11.0,
+                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -25842,7 +26130,7 @@
             "subtitle": "",
             "pubyear": 1988,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "951-9269-42-8",
             "printedin": "Helsinki",
             "pubseriesnum": 10,
@@ -25892,7 +26180,8 @@
         "id": 2966,
         "title": "Syrjäinen maailma",
         "orig_title": "Syrjäinen maailma",
-        "pubyear": 1987
+        "pubyear": 1987,
+        "notes": null
       }
     ],
     "error": null

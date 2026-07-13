@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-04-11T20:33:54.117860+00:00",
+    "generated_at": "2026-07-12T18:56:26.276996+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/shorts/5",
@@ -13,25 +13,28 @@
       {
         "authors": [
           {
-            "id": 1346.0,
-            "name": "Niskanen, A. J.",
-            "alt_name": "A. J. Niskanen",
-            "fullname": "Antti Juhani Niskanen",
+            "id": 1841.0,
+            "name": "Hai, Magdalena",
+            "alt_name": "Magdalena Hai",
+            "fullname": "",
             "image_src": null,
-            "dob": 1935.0,
+            "dob": 1978.0,
             "dod": null,
             "nationality": {
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 2.0,
-            "storycount": 5,
+            "workcount": 18.0,
+            "storycount": 80,
             "roles": [
-              "Kirjoittaja"
+              "Kirjoittaja",
+              "Toimittaja",
+              "Kansikuva",
+              "Esiintyy"
             ],
             "other_names": null,
-            "first_name": "Antti Juhani",
-            "last_name": "Niskanen",
+            "first_name": "Magdalena",
+            "last_name": "Hai",
             "image_attr": "",
             "qid": null,
             "bio": null,
@@ -43,1748 +46,188 @@
           "id": 1,
           "name": "Novelli"
         },
-        "issues": [
+        "issues": [],
+        "editions": [
           {
-            "magazine": {
-              "type_id": 1,
-              "type": {
-                "id": 1,
-                "name": "Fanzine"
-              },
-              "issues": [
-                {
-                  "id": 177,
-                  "year": 1984
-                },
-                {
-                  "id": 178,
-                  "year": 1984
-                },
-                {
-                  "id": 179,
-                  "year": 1985
-                },
-                {
-                  "id": 180,
-                  "year": 1985
-                },
-                {
-                  "id": 181,
-                  "year": 1985
-                },
-                {
-                  "id": 182,
-                  "year": 1986
-                },
-                {
-                  "id": 183,
-                  "year": 1986
-                },
-                {
-                  "id": 184,
-                  "year": 1986
-                },
-                {
-                  "id": 185,
-                  "year": 1987
-                },
-                {
-                  "id": 186,
-                  "year": 1987
-                },
-                {
-                  "id": 187,
-                  "year": 1987
-                },
-                {
-                  "id": 188,
-                  "year": 1987
-                },
-                {
-                  "id": 189,
-                  "year": 1988
-                },
-                {
-                  "id": 190,
-                  "year": 1988
-                },
-                {
-                  "id": 191,
-                  "year": 1988
-                },
-                {
-                  "id": 192,
-                  "year": 1988
-                },
-                {
-                  "id": 193,
-                  "year": 1989
-                },
-                {
-                  "id": 194,
-                  "year": 1989
-                },
-                {
-                  "id": 195,
-                  "year": 1989
-                },
-                {
-                  "id": 196,
-                  "year": 1989
-                },
-                {
-                  "id": 197,
-                  "year": 1990
-                },
-                {
-                  "id": 198,
-                  "year": 1990
-                },
-                {
-                  "id": 199,
-                  "year": 1990
-                },
-                {
-                  "id": 200,
-                  "year": 1990
-                },
-                {
-                  "id": 201,
-                  "year": 1991
-                },
-                {
-                  "id": 202,
-                  "year": 1991
-                },
-                {
-                  "id": 203,
-                  "year": 1991
-                },
-                {
-                  "id": 204,
-                  "year": 1991
-                },
-                {
-                  "id": 205,
-                  "year": 1992
-                },
-                {
-                  "id": 206,
-                  "year": 1992
-                },
-                {
-                  "id": 207,
-                  "year": 1992
-                },
-                {
-                  "id": 208,
-                  "year": 1992
-                },
-                {
-                  "id": 209,
-                  "year": 1993
-                },
-                {
-                  "id": 210,
-                  "year": 1993
-                },
-                {
-                  "id": 211,
-                  "year": 1993
-                },
-                {
-                  "id": 212,
-                  "year": 1993
-                },
-                {
-                  "id": 213,
-                  "year": 1994
-                },
-                {
-                  "id": 214,
-                  "year": 1994
-                },
-                {
-                  "id": 215,
-                  "year": 1994
-                },
-                {
-                  "id": 216,
-                  "year": 1995
-                },
-                {
-                  "id": 217,
-                  "year": 1995
-                },
-                {
-                  "id": 218,
-                  "year": 1995
-                },
-                {
-                  "id": 219,
-                  "year": 1995
-                },
-                {
-                  "id": 220,
-                  "year": 1996
-                },
-                {
-                  "id": 221,
-                  "year": 1996
-                },
-                {
-                  "id": 222,
-                  "year": 1996
-                },
-                {
-                  "id": 223,
-                  "year": 1996
-                },
-                {
-                  "id": 224,
-                  "year": 1997
-                },
-                {
-                  "id": 225,
-                  "year": 1997
-                },
-                {
-                  "id": 226,
-                  "year": 1997
-                },
-                {
-                  "id": 227,
-                  "year": 1997
-                },
-                {
-                  "id": 228,
-                  "year": 1998
-                },
-                {
-                  "id": 229,
-                  "year": 1998
-                },
-                {
-                  "id": 230,
-                  "year": 1998
-                },
-                {
-                  "id": 231,
-                  "year": 1998
-                },
-                {
-                  "id": 232,
-                  "year": 1999
-                },
-                {
-                  "id": 233,
-                  "year": 1999
-                },
-                {
-                  "id": 234,
-                  "year": 2000
-                },
-                {
-                  "id": 235,
-                  "year": 2000
-                },
-                {
-                  "id": 236,
-                  "year": 2000
-                },
-                {
-                  "id": 237,
-                  "year": 2000
-                },
-                {
-                  "id": 238,
-                  "year": 2001
-                },
-                {
-                  "id": 239,
-                  "year": 2001
-                },
-                {
-                  "id": 240,
-                  "year": 2001
-                },
-                {
-                  "id": 241,
-                  "year": 2001
-                },
-                {
-                  "id": 242,
-                  "year": 2002
-                },
-                {
-                  "id": 243,
-                  "year": 2002
-                },
-                {
-                  "id": 244,
-                  "year": 2002
-                },
-                {
-                  "id": 245,
-                  "year": 2002
-                },
-                {
-                  "id": 246,
-                  "year": 2003
-                },
-                {
-                  "id": 247,
-                  "year": 2003
-                },
-                {
-                  "id": 248,
-                  "year": 2003
-                },
-                {
-                  "id": 249,
-                  "year": 2003
-                },
-                {
-                  "id": 250,
-                  "year": 2004
-                },
-                {
-                  "id": 251,
-                  "year": 2004
-                },
-                {
-                  "id": 252,
-                  "year": 2004
-                },
-                {
-                  "id": 253,
-                  "year": 2004
-                },
-                {
-                  "id": 254,
-                  "year": 2005
-                },
-                {
-                  "id": 255,
-                  "year": 2005
-                },
-                {
-                  "id": 256,
-                  "year": 2005
-                },
-                {
-                  "id": 257,
-                  "year": 2005
-                },
-                {
-                  "id": 258,
-                  "year": 2006
-                },
-                {
-                  "id": 259,
-                  "year": 2006
-                },
-                {
-                  "id": 260,
-                  "year": 2006
-                },
-                {
-                  "id": 261,
-                  "year": 2006
-                },
-                {
-                  "id": 262,
-                  "year": 2007
-                },
-                {
-                  "id": 263,
-                  "year": 2007
-                },
-                {
-                  "id": 264,
-                  "year": 2007
-                },
-                {
-                  "id": 265,
-                  "year": 2007
-                },
-                {
-                  "id": 266,
-                  "year": 2008
-                },
-                {
-                  "id": 267,
-                  "year": 2008
-                },
-                {
-                  "id": 268,
-                  "year": 2008
-                },
-                {
-                  "id": 269,
-                  "year": 2008
-                },
-                {
-                  "id": 270,
-                  "year": 2009
-                },
-                {
-                  "id": 271,
-                  "year": 2009
-                },
-                {
-                  "id": 272,
-                  "year": 2009
-                },
-                {
-                  "id": 273,
-                  "year": 2010
-                },
-                {
-                  "id": 274,
-                  "year": 2010
-                },
-                {
-                  "id": 275,
-                  "year": 2010
-                },
-                {
-                  "id": 276,
-                  "year": 2011
-                },
-                {
-                  "id": 277,
-                  "year": 2011
-                },
-                {
-                  "id": 278,
-                  "year": 2011
-                },
-                {
-                  "id": 279,
-                  "year": 2011
-                },
-                {
-                  "id": 280,
-                  "year": 2012
-                },
-                {
-                  "id": 281,
-                  "year": 2012
-                },
-                {
-                  "id": 282,
-                  "year": 2012
-                },
-                {
-                  "id": 283,
-                  "year": 2012
-                },
-                {
-                  "id": 284,
-                  "year": 2013
-                },
-                {
-                  "id": 285,
-                  "year": 2013
-                },
-                {
-                  "id": 286,
-                  "year": 2013
-                },
-                {
-                  "id": 287,
-                  "year": 2013
-                },
-                {
-                  "id": 288,
-                  "year": 2014
-                },
-                {
-                  "id": 289,
-                  "year": 2014
-                },
-                {
-                  "id": 290,
-                  "year": 2014
-                },
-                {
-                  "id": 291,
-                  "year": 2014
-                },
-                {
-                  "id": 292,
-                  "year": 2015
-                },
-                {
-                  "id": 293,
-                  "year": 2015
-                },
-                {
-                  "id": 294,
-                  "year": 2015
-                },
-                {
-                  "id": 295,
-                  "year": 2015
-                },
-                {
-                  "id": 296,
-                  "year": 2016
-                },
-                {
-                  "id": 297,
-                  "year": 2016
-                },
-                {
-                  "id": 298,
-                  "year": 2017
-                },
-                {
-                  "id": 299,
-                  "year": 2017
-                },
-                {
-                  "id": 300,
-                  "year": 2018
-                },
-                {
-                  "id": 301,
-                  "year": 2018
-                },
-                {
-                  "id": 302,
-                  "year": 2019
-                },
-                {
-                  "id": 303,
-                  "year": 2019
+            "work": {
+              "id": 7057.0,
+              "title": "Teen ja loitsujen vuosi",
+              "orig_title": "",
+              "author_str": "Hai, Magdalena",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 1841.0,
+                    "name": "Hai, Magdalena",
+                    "alt_name": "Magdalena Hai"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
                 }
               ],
-              "id": 24,
-              "name": "Kosmoskynä",
-              "description": "<p>Ensimmäiset neljä numeroa (1/1984 - 2/1985) ilmestyivät Jäsentiedote-nimellä, viidennestä numerosta (3/1985) lehti alkoi imestyä Kosmoskynä-nimisenä.</p>",
-              "link": null,
-              "issn": null
+              "editions": [
+                {
+                  "editors": [],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
+                        "id": 7905.0,
+                        "name": "Heikala",
+                        "alt_name": "Heikala"
+                      },
+                      "role": {
+                        "id": 4,
+                        "name": "Kansikuva"
+                      },
+                      "description": "",
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 7905.0,
+                        "name": "Heikala",
+                        "alt_name": "Heikala"
+                      },
+                      "role": {
+                        "id": 5,
+                        "name": "Kuvittaja"
+                      },
+                      "description": "",
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 9841,
+                      "image_src": "/static/images/books/Hai_Magdalena_Teenjaloitsujenvuosi_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 387,
+                    "name": "WSOY"
+                  },
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 10253,
+                  "title": "Teen ja loitsujen vuosi",
+                  "subtitle": "",
+                  "pubyear": 2026,
+                  "editionnum": 1,
+                  "version": 1,
+                  "isbn": "978-951-0-52184-7",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": null,
+                  "pages": 149,
+                  "size": 22,
+                  "dustcover": 1,
+                  "coverimage": 3,
+                  "misc": null,
+                  "imported_string": null,
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 17,
+                  "name": "Lasten fantasia",
+                  "abbr": "lF"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2026,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p><strong>Noitia, luonnonvoimia ja maagista tunnelmaa</strong>!</p><p>Tunnelmallinen neljän kertomuksen kokoelma imaisee mukaansa Launealan maailmaan, jossa nuoret noidat auttavat läheisiään, valmistavat rohtoja ja käpertyvät takkatulen ääreen myrskyn pauhatessa mökin ulkopuolella.</p><p>Enna on nuori kylänoita, jonka lähikylää vaivaavat lukuisat vitsaukset. Vuorimökissä asuvan Moiran elämä mullistuu, kun hän pelastaa pakkasesta salaperäisen koiran. Sisarukset Anders ja Linda matkaavat vanhempiensa kanssa ilmalaivalla tutkimassa mammutteja. Syvälle töihin itsensä hukannut Aisha tähyilee merenrannalta horisontissa nousevaa lohikäärmemyrskyä.</p><p>Teen ja loitsujen vuosi tarjoaa neljä lempeän lumoavaa noitatarinaa, metsämökkien tunnelmaa, maagisia hetkiä, puhuvia eläimiä, sydämen läpätystä – ja juuri oikean verran teehetkiä ja leivonnaisia. Magdalena Hain mukaansatempaavat kertomukset syttyvät väreihin Heikalan ihastuttavissa kuvituksissa.</p>",
+              "descr_attr": "WSOY",
+              "imported_string": null
             },
-            "id": 245,
-            "number": 4,
-            "number_extra": "",
-            "count": 69,
-            "year": 2002,
-            "cover_number": "4 / 2002",
-            "image_src": null,
-            "image_attr": null,
-            "pages": 28,
-            "link": "",
-            "notes": "Kansi: Ilkka Lesonen",
-            "title": ""
-          }
-        ],
-        "editions": [],
-        "genres": [],
-        "contributors": [
-          {
-            "person": {
-              "id": 1346.0,
-              "name": "Niskanen, A. J.",
-              "alt_name": "A. J. Niskanen"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "lang": {
-          "id": 7,
-          "name": "suomi"
-        },
-        "id": 15390,
-        "title": "Korventajat",
-        "orig_title": "",
-        "pubyear": 2002
-      },
-      {
-        "authors": [
-          {
-            "id": 2232.0,
-            "name": "Karppanen, Pasi",
-            "alt_name": "Pasi Karppanen",
-            "fullname": "",
-            "image_src": null,
-            "dob": 1971.0,
-            "dod": null,
-            "nationality": {
-              "id": 4,
-              "name": "Suomi"
-            },
-            "workcount": 10.0,
-            "storycount": 110,
-            "roles": [
-              "Kirjoittaja",
-              "Toimittaja",
-              "Esiintyy"
+            "editors": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 7905.0,
+                  "name": "Heikala",
+                  "alt_name": "Heikala"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 7905.0,
+                  "name": "Heikala",
+                  "alt_name": "Heikala"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
+                },
+                "description": "",
+                "real_person": null
+              }
             ],
-            "other_names": null,
-            "first_name": "Pasi",
-            "last_name": "Karppanen",
-            "image_attr": "",
-            "qid": null,
-            "bio": null,
-            "bio_src": "",
-            "imported_string": null
-          }
-        ],
-        "type": {
-          "id": 7,
-          "name": "Artikkeli"
-        },
-        "issues": [
-          {
-            "magazine": {
-              "type_id": 1,
-              "type": {
-                "id": 1,
-                "name": "Fanzine"
-              },
-              "issues": [
-                {
-                  "id": 177,
-                  "year": 1984
-                },
-                {
-                  "id": 178,
-                  "year": 1984
-                },
-                {
-                  "id": 179,
-                  "year": 1985
-                },
-                {
-                  "id": 180,
-                  "year": 1985
-                },
-                {
-                  "id": 181,
-                  "year": 1985
-                },
-                {
-                  "id": 182,
-                  "year": 1986
-                },
-                {
-                  "id": 183,
-                  "year": 1986
-                },
-                {
-                  "id": 184,
-                  "year": 1986
-                },
-                {
-                  "id": 185,
-                  "year": 1987
-                },
-                {
-                  "id": 186,
-                  "year": 1987
-                },
-                {
-                  "id": 187,
-                  "year": 1987
-                },
-                {
-                  "id": 188,
-                  "year": 1987
-                },
-                {
-                  "id": 189,
-                  "year": 1988
-                },
-                {
-                  "id": 190,
-                  "year": 1988
-                },
-                {
-                  "id": 191,
-                  "year": 1988
-                },
-                {
-                  "id": 192,
-                  "year": 1988
-                },
-                {
-                  "id": 193,
-                  "year": 1989
-                },
-                {
-                  "id": 194,
-                  "year": 1989
-                },
-                {
-                  "id": 195,
-                  "year": 1989
-                },
-                {
-                  "id": 196,
-                  "year": 1989
-                },
-                {
-                  "id": 197,
-                  "year": 1990
-                },
-                {
-                  "id": 198,
-                  "year": 1990
-                },
-                {
-                  "id": 199,
-                  "year": 1990
-                },
-                {
-                  "id": 200,
-                  "year": 1990
-                },
-                {
-                  "id": 201,
-                  "year": 1991
-                },
-                {
-                  "id": 202,
-                  "year": 1991
-                },
-                {
-                  "id": 203,
-                  "year": 1991
-                },
-                {
-                  "id": 204,
-                  "year": 1991
-                },
-                {
-                  "id": 205,
-                  "year": 1992
-                },
-                {
-                  "id": 206,
-                  "year": 1992
-                },
-                {
-                  "id": 207,
-                  "year": 1992
-                },
-                {
-                  "id": 208,
-                  "year": 1992
-                },
-                {
-                  "id": 209,
-                  "year": 1993
-                },
-                {
-                  "id": 210,
-                  "year": 1993
-                },
-                {
-                  "id": 211,
-                  "year": 1993
-                },
-                {
-                  "id": 212,
-                  "year": 1993
-                },
-                {
-                  "id": 213,
-                  "year": 1994
-                },
-                {
-                  "id": 214,
-                  "year": 1994
-                },
-                {
-                  "id": 215,
-                  "year": 1994
-                },
-                {
-                  "id": 216,
-                  "year": 1995
-                },
-                {
-                  "id": 217,
-                  "year": 1995
-                },
-                {
-                  "id": 218,
-                  "year": 1995
-                },
-                {
-                  "id": 219,
-                  "year": 1995
-                },
-                {
-                  "id": 220,
-                  "year": 1996
-                },
-                {
-                  "id": 221,
-                  "year": 1996
-                },
-                {
-                  "id": 222,
-                  "year": 1996
-                },
-                {
-                  "id": 223,
-                  "year": 1996
-                },
-                {
-                  "id": 224,
-                  "year": 1997
-                },
-                {
-                  "id": 225,
-                  "year": 1997
-                },
-                {
-                  "id": 226,
-                  "year": 1997
-                },
-                {
-                  "id": 227,
-                  "year": 1997
-                },
-                {
-                  "id": 228,
-                  "year": 1998
-                },
-                {
-                  "id": 229,
-                  "year": 1998
-                },
-                {
-                  "id": 230,
-                  "year": 1998
-                },
-                {
-                  "id": 231,
-                  "year": 1998
-                },
-                {
-                  "id": 232,
-                  "year": 1999
-                },
-                {
-                  "id": 233,
-                  "year": 1999
-                },
-                {
-                  "id": 234,
-                  "year": 2000
-                },
-                {
-                  "id": 235,
-                  "year": 2000
-                },
-                {
-                  "id": 236,
-                  "year": 2000
-                },
-                {
-                  "id": 237,
-                  "year": 2000
-                },
-                {
-                  "id": 238,
-                  "year": 2001
-                },
-                {
-                  "id": 239,
-                  "year": 2001
-                },
-                {
-                  "id": 240,
-                  "year": 2001
-                },
-                {
-                  "id": 241,
-                  "year": 2001
-                },
-                {
-                  "id": 242,
-                  "year": 2002
-                },
-                {
-                  "id": 243,
-                  "year": 2002
-                },
-                {
-                  "id": 244,
-                  "year": 2002
-                },
-                {
-                  "id": 245,
-                  "year": 2002
-                },
-                {
-                  "id": 246,
-                  "year": 2003
-                },
-                {
-                  "id": 247,
-                  "year": 2003
-                },
-                {
-                  "id": 248,
-                  "year": 2003
-                },
-                {
-                  "id": 249,
-                  "year": 2003
-                },
-                {
-                  "id": 250,
-                  "year": 2004
-                },
-                {
-                  "id": 251,
-                  "year": 2004
-                },
-                {
-                  "id": 252,
-                  "year": 2004
-                },
-                {
-                  "id": 253,
-                  "year": 2004
-                },
-                {
-                  "id": 254,
-                  "year": 2005
-                },
-                {
-                  "id": 255,
-                  "year": 2005
-                },
-                {
-                  "id": 256,
-                  "year": 2005
-                },
-                {
-                  "id": 257,
-                  "year": 2005
-                },
-                {
-                  "id": 258,
-                  "year": 2006
-                },
-                {
-                  "id": 259,
-                  "year": 2006
-                },
-                {
-                  "id": 260,
-                  "year": 2006
-                },
-                {
-                  "id": 261,
-                  "year": 2006
-                },
-                {
-                  "id": 262,
-                  "year": 2007
-                },
-                {
-                  "id": 263,
-                  "year": 2007
-                },
-                {
-                  "id": 264,
-                  "year": 2007
-                },
-                {
-                  "id": 265,
-                  "year": 2007
-                },
-                {
-                  "id": 266,
-                  "year": 2008
-                },
-                {
-                  "id": 267,
-                  "year": 2008
-                },
-                {
-                  "id": 268,
-                  "year": 2008
-                },
-                {
-                  "id": 269,
-                  "year": 2008
-                },
-                {
-                  "id": 270,
-                  "year": 2009
-                },
-                {
-                  "id": 271,
-                  "year": 2009
-                },
-                {
-                  "id": 272,
-                  "year": 2009
-                },
-                {
-                  "id": 273,
-                  "year": 2010
-                },
-                {
-                  "id": 274,
-                  "year": 2010
-                },
-                {
-                  "id": 275,
-                  "year": 2010
-                },
-                {
-                  "id": 276,
-                  "year": 2011
-                },
-                {
-                  "id": 277,
-                  "year": 2011
-                },
-                {
-                  "id": 278,
-                  "year": 2011
-                },
-                {
-                  "id": 279,
-                  "year": 2011
-                },
-                {
-                  "id": 280,
-                  "year": 2012
-                },
-                {
-                  "id": 281,
-                  "year": 2012
-                },
-                {
-                  "id": 282,
-                  "year": 2012
-                },
-                {
-                  "id": 283,
-                  "year": 2012
-                },
-                {
-                  "id": 284,
-                  "year": 2013
-                },
-                {
-                  "id": 285,
-                  "year": 2013
-                },
-                {
-                  "id": 286,
-                  "year": 2013
-                },
-                {
-                  "id": 287,
-                  "year": 2013
-                },
-                {
-                  "id": 288,
-                  "year": 2014
-                },
-                {
-                  "id": 289,
-                  "year": 2014
-                },
-                {
-                  "id": 290,
-                  "year": 2014
-                },
-                {
-                  "id": 291,
-                  "year": 2014
-                },
-                {
-                  "id": 292,
-                  "year": 2015
-                },
-                {
-                  "id": 293,
-                  "year": 2015
-                },
-                {
-                  "id": 294,
-                  "year": 2015
-                },
-                {
-                  "id": 295,
-                  "year": 2015
-                },
-                {
-                  "id": 296,
-                  "year": 2016
-                },
-                {
-                  "id": 297,
-                  "year": 2016
-                },
-                {
-                  "id": 298,
-                  "year": 2017
-                },
-                {
-                  "id": 299,
-                  "year": 2017
-                },
-                {
-                  "id": 300,
-                  "year": 2018
-                },
-                {
-                  "id": 301,
-                  "year": 2018
-                },
-                {
-                  "id": 302,
-                  "year": 2019
-                },
-                {
-                  "id": 303,
-                  "year": 2019
-                }
-              ],
-              "id": 24,
-              "name": "Kosmoskynä",
-              "description": "<p>Ensimmäiset neljä numeroa (1/1984 - 2/1985) ilmestyivät Jäsentiedote-nimellä, viidennestä numerosta (3/1985) lehti alkoi imestyä Kosmoskynä-nimisenä.</p>",
-              "link": null,
-              "issn": null
-            },
-            "id": 245,
-            "number": 4,
-            "number_extra": "",
-            "count": 69,
-            "year": 2002,
-            "cover_number": "4 / 2002",
-            "image_src": null,
-            "image_attr": null,
-            "pages": 28,
-            "link": "",
-            "notes": "Kansi: Ilkka Lesonen",
-            "title": ""
-          }
-        ],
-        "editions": [],
-        "genres": [],
-        "contributors": [
-          {
-            "person": {
-              "id": 2232.0,
-              "name": "Karppanen, Pasi",
-              "alt_name": "Pasi Karppanen"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "lang": {
-          "id": 7,
-          "name": "suomi"
-        },
-        "id": 15389,
-        "title": "Hiljainen scifivuosi 2002 ",
-        "orig_title": "",
-        "pubyear": 2002
-      },
-      {
-        "authors": [
-          {
-            "id": 3909.0,
-            "name": "Korhonen, Vesa",
-            "alt_name": "Vesa Korhonen",
-            "fullname": "",
-            "image_src": null,
-            "dob": null,
-            "dod": null,
-            "nationality": {
-              "id": 4,
-              "name": "Suomi"
-            },
-            "workcount": 0.0,
-            "storycount": 7,
-            "roles": [
-              "Kirjoittaja"
+            "images": [
+              {
+                "id": 9841,
+                "image_src": "/static/images/books/Hai_Magdalena_Teenjaloitsujenvuosi_1p.jpg",
+                "image_attr": null
+              }
             ],
-            "other_names": null,
-            "first_name": "Vesa",
-            "last_name": "Korhonen",
-            "image_attr": "",
-            "qid": null,
-            "bio": null,
-            "bio_src": "",
-            "imported_string": null
-          }
-        ],
-        "type": {
-          "id": 7,
-          "name": "Artikkeli"
-        },
-        "issues": [
-          {
-            "magazine": {
-              "type_id": 1,
-              "type": {
-                "id": 1,
-                "name": "Fanzine"
-              },
-              "issues": [
-                {
-                  "id": 177,
-                  "year": 1984
-                },
-                {
-                  "id": 178,
-                  "year": 1984
-                },
-                {
-                  "id": 179,
-                  "year": 1985
-                },
-                {
-                  "id": 180,
-                  "year": 1985
-                },
-                {
-                  "id": 181,
-                  "year": 1985
-                },
-                {
-                  "id": 182,
-                  "year": 1986
-                },
-                {
-                  "id": 183,
-                  "year": 1986
-                },
-                {
-                  "id": 184,
-                  "year": 1986
-                },
-                {
-                  "id": 185,
-                  "year": 1987
-                },
-                {
-                  "id": 186,
-                  "year": 1987
-                },
-                {
-                  "id": 187,
-                  "year": 1987
-                },
-                {
-                  "id": 188,
-                  "year": 1987
-                },
-                {
-                  "id": 189,
-                  "year": 1988
-                },
-                {
-                  "id": 190,
-                  "year": 1988
-                },
-                {
-                  "id": 191,
-                  "year": 1988
-                },
-                {
-                  "id": 192,
-                  "year": 1988
-                },
-                {
-                  "id": 193,
-                  "year": 1989
-                },
-                {
-                  "id": 194,
-                  "year": 1989
-                },
-                {
-                  "id": 195,
-                  "year": 1989
-                },
-                {
-                  "id": 196,
-                  "year": 1989
-                },
-                {
-                  "id": 197,
-                  "year": 1990
-                },
-                {
-                  "id": 198,
-                  "year": 1990
-                },
-                {
-                  "id": 199,
-                  "year": 1990
-                },
-                {
-                  "id": 200,
-                  "year": 1990
-                },
-                {
-                  "id": 201,
-                  "year": 1991
-                },
-                {
-                  "id": 202,
-                  "year": 1991
-                },
-                {
-                  "id": 203,
-                  "year": 1991
-                },
-                {
-                  "id": 204,
-                  "year": 1991
-                },
-                {
-                  "id": 205,
-                  "year": 1992
-                },
-                {
-                  "id": 206,
-                  "year": 1992
-                },
-                {
-                  "id": 207,
-                  "year": 1992
-                },
-                {
-                  "id": 208,
-                  "year": 1992
-                },
-                {
-                  "id": 209,
-                  "year": 1993
-                },
-                {
-                  "id": 210,
-                  "year": 1993
-                },
-                {
-                  "id": 211,
-                  "year": 1993
-                },
-                {
-                  "id": 212,
-                  "year": 1993
-                },
-                {
-                  "id": 213,
-                  "year": 1994
-                },
-                {
-                  "id": 214,
-                  "year": 1994
-                },
-                {
-                  "id": 215,
-                  "year": 1994
-                },
-                {
-                  "id": 216,
-                  "year": 1995
-                },
-                {
-                  "id": 217,
-                  "year": 1995
-                },
-                {
-                  "id": 218,
-                  "year": 1995
-                },
-                {
-                  "id": 219,
-                  "year": 1995
-                },
-                {
-                  "id": 220,
-                  "year": 1996
-                },
-                {
-                  "id": 221,
-                  "year": 1996
-                },
-                {
-                  "id": 222,
-                  "year": 1996
-                },
-                {
-                  "id": 223,
-                  "year": 1996
-                },
-                {
-                  "id": 224,
-                  "year": 1997
-                },
-                {
-                  "id": 225,
-                  "year": 1997
-                },
-                {
-                  "id": 226,
-                  "year": 1997
-                },
-                {
-                  "id": 227,
-                  "year": 1997
-                },
-                {
-                  "id": 228,
-                  "year": 1998
-                },
-                {
-                  "id": 229,
-                  "year": 1998
-                },
-                {
-                  "id": 230,
-                  "year": 1998
-                },
-                {
-                  "id": 231,
-                  "year": 1998
-                },
-                {
-                  "id": 232,
-                  "year": 1999
-                },
-                {
-                  "id": 233,
-                  "year": 1999
-                },
-                {
-                  "id": 234,
-                  "year": 2000
-                },
-                {
-                  "id": 235,
-                  "year": 2000
-                },
-                {
-                  "id": 236,
-                  "year": 2000
-                },
-                {
-                  "id": 237,
-                  "year": 2000
-                },
-                {
-                  "id": 238,
-                  "year": 2001
-                },
-                {
-                  "id": 239,
-                  "year": 2001
-                },
-                {
-                  "id": 240,
-                  "year": 2001
-                },
-                {
-                  "id": 241,
-                  "year": 2001
-                },
-                {
-                  "id": 242,
-                  "year": 2002
-                },
-                {
-                  "id": 243,
-                  "year": 2002
-                },
-                {
-                  "id": 244,
-                  "year": 2002
-                },
-                {
-                  "id": 245,
-                  "year": 2002
-                },
-                {
-                  "id": 246,
-                  "year": 2003
-                },
-                {
-                  "id": 247,
-                  "year": 2003
-                },
-                {
-                  "id": 248,
-                  "year": 2003
-                },
-                {
-                  "id": 249,
-                  "year": 2003
-                },
-                {
-                  "id": 250,
-                  "year": 2004
-                },
-                {
-                  "id": 251,
-                  "year": 2004
-                },
-                {
-                  "id": 252,
-                  "year": 2004
-                },
-                {
-                  "id": 253,
-                  "year": 2004
-                },
-                {
-                  "id": 254,
-                  "year": 2005
-                },
-                {
-                  "id": 255,
-                  "year": 2005
-                },
-                {
-                  "id": 256,
-                  "year": 2005
-                },
-                {
-                  "id": 257,
-                  "year": 2005
-                },
-                {
-                  "id": 258,
-                  "year": 2006
-                },
-                {
-                  "id": 259,
-                  "year": 2006
-                },
-                {
-                  "id": 260,
-                  "year": 2006
-                },
-                {
-                  "id": 261,
-                  "year": 2006
-                },
-                {
-                  "id": 262,
-                  "year": 2007
-                },
-                {
-                  "id": 263,
-                  "year": 2007
-                },
-                {
-                  "id": 264,
-                  "year": 2007
-                },
-                {
-                  "id": 265,
-                  "year": 2007
-                },
-                {
-                  "id": 266,
-                  "year": 2008
-                },
-                {
-                  "id": 267,
-                  "year": 2008
-                },
-                {
-                  "id": 268,
-                  "year": 2008
-                },
-                {
-                  "id": 269,
-                  "year": 2008
-                },
-                {
-                  "id": 270,
-                  "year": 2009
-                },
-                {
-                  "id": 271,
-                  "year": 2009
-                },
-                {
-                  "id": 272,
-                  "year": 2009
-                },
-                {
-                  "id": 273,
-                  "year": 2010
-                },
-                {
-                  "id": 274,
-                  "year": 2010
-                },
-                {
-                  "id": 275,
-                  "year": 2010
-                },
-                {
-                  "id": 276,
-                  "year": 2011
-                },
-                {
-                  "id": 277,
-                  "year": 2011
-                },
-                {
-                  "id": 278,
-                  "year": 2011
-                },
-                {
-                  "id": 279,
-                  "year": 2011
-                },
-                {
-                  "id": 280,
-                  "year": 2012
-                },
-                {
-                  "id": 281,
-                  "year": 2012
-                },
-                {
-                  "id": 282,
-                  "year": 2012
-                },
-                {
-                  "id": 283,
-                  "year": 2012
-                },
-                {
-                  "id": 284,
-                  "year": 2013
-                },
-                {
-                  "id": 285,
-                  "year": 2013
-                },
-                {
-                  "id": 286,
-                  "year": 2013
-                },
-                {
-                  "id": 287,
-                  "year": 2013
-                },
-                {
-                  "id": 288,
-                  "year": 2014
-                },
-                {
-                  "id": 289,
-                  "year": 2014
-                },
-                {
-                  "id": 290,
-                  "year": 2014
-                },
-                {
-                  "id": 291,
-                  "year": 2014
-                },
-                {
-                  "id": 292,
-                  "year": 2015
-                },
-                {
-                  "id": 293,
-                  "year": 2015
-                },
-                {
-                  "id": 294,
-                  "year": 2015
-                },
-                {
-                  "id": 295,
-                  "year": 2015
-                },
-                {
-                  "id": 296,
-                  "year": 2016
-                },
-                {
-                  "id": 297,
-                  "year": 2016
-                },
-                {
-                  "id": 298,
-                  "year": 2017
-                },
-                {
-                  "id": 299,
-                  "year": 2017
-                },
-                {
-                  "id": 300,
-                  "year": 2018
-                },
-                {
-                  "id": 301,
-                  "year": 2018
-                },
-                {
-                  "id": 302,
-                  "year": 2019
-                },
-                {
-                  "id": 303,
-                  "year": 2019
-                }
-              ],
-              "id": 24,
-              "name": "Kosmoskynä",
-              "description": "<p>Ensimmäiset neljä numeroa (1/1984 - 2/1985) ilmestyivät Jäsentiedote-nimellä, viidennestä numerosta (3/1985) lehti alkoi imestyä Kosmoskynä-nimisenä.</p>",
-              "link": null,
-              "issn": null
+            "publisher": {
+              "id": 387,
+              "name": "WSOY"
             },
-            "id": 245,
-            "number": 4,
-            "number_extra": "",
-            "count": 69,
-            "year": 2002,
-            "cover_number": "4 / 2002",
-            "image_src": null,
-            "image_attr": null,
-            "pages": 28,
-            "link": "",
-            "notes": "Kansi: Ilkka Lesonen",
-            "title": ""
+            "owners": [],
+            "wishlisted": [],
+            "binding": {
+              "id": 3,
+              "name": "Sidottu"
+            },
+            "id": 10253,
+            "title": "Teen ja loitsujen vuosi",
+            "subtitle": "",
+            "pubyear": 2026,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-951-0-52184-7",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 149,
+            "size": 22,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
           }
         ],
-        "editions": [],
         "genres": [],
         "contributors": [
           {
             "person": {
-              "id": 3909.0,
-              "name": "Korhonen, Vesa",
-              "alt_name": "Vesa Korhonen"
+              "id": 1841.0,
+              "name": "Hai, Magdalena",
+              "alt_name": "Magdalena Hai"
             },
             "role": {
               "id": 1,
@@ -1798,594 +241,1310 @@
           "id": 7,
           "name": "suomi"
         },
-        "id": 15388,
-        "title": "Kirjoittajan saatesanat",
+        "id": 15597,
+        "title": "Kesänoita - lohikäärmemyrsky",
         "orig_title": "",
-        "pubyear": 2002
+        "pubyear": 2026,
+        "notes": ""
       },
       {
         "authors": [
           {
-            "id": 2370.0,
-            "name": "Leinonen, Anne",
-            "alt_name": "Anne Leinonen",
+            "id": 1841.0,
+            "name": "Hai, Magdalena",
+            "alt_name": "Magdalena Hai",
             "fullname": "",
             "image_src": null,
-            "dob": 1973.0,
+            "dob": 1978.0,
             "dod": null,
             "nationality": {
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 32.0,
-            "storycount": 188,
+            "workcount": 18.0,
+            "storycount": 80,
             "roles": [
               "Kirjoittaja",
               "Toimittaja",
               "Kansikuva",
-              "Kuvittaja",
               "Esiintyy"
             ],
             "other_names": null,
-            "first_name": "Anne",
-            "last_name": "Leinonen",
+            "first_name": "Magdalena",
+            "last_name": "Hai",
             "image_attr": "",
-            "qid": "Q11851673",
-            "bio": "<p>Anne Leinonen (s. 1973, Juva) on kirjailija, kustannustoimittaja ja kirjoittajaohjaaja, jonka ydinlaji on spekulatiivinen fiktio, realismia ja outoutta yhdistävä “reaalifantasia”. Hän asuu Etelä-Savon maaseudulla, mikä näkyy vahvana metsä- ja maaseutuympäristön kuvauksena hänen teoksissaan.</p><p>Leinosen tuotantoon kuuluu sekä aikuisten että nuorten romaaneja ja novelleja, esimerkiksi Viivamaalari, tieteisromaani Ilottomien ihmisten kylä sekä Eija Lappalaisen kanssa kirjoitettu tulevaisuustrilogia Routasisarukset. Lisäksi hän on kirjoittanut lasten tieteisromaanin (Holtiton masiina), nuorten kauhu- ja spefikirjoja (Elokuussa minä kuolen) sekä myyttistä, kansanperinteestä ammentavaa proosaa (Metsän äiti, Vaskinainen). </p><p>Leinonen on keskeinen toimija spefiyhteisössä: hän on toiminut kustannustoimittajana, käsikirjoituslukijana, Usva-verkkolehden toimittajana, kirjoittajakouluttajana ja kilpailujen tuomarina, tarjoten näkyvyyttä ja tukea uusille tekijöille. Hänen novellejaan on palkittu useilla Atorox- ja Portti-palkinnoilla, ja hänelle on myönnetty Etelä-Savon taidepalkinto, mikä osoittaa arvostusta niin lajifiktion sisällä kuin laajemmalla taidekentällä.</p>",
-            "bio_src": "Perplexity",
+            "qid": null,
+            "bio": null,
+            "bio_src": "",
             "imported_string": null
           }
         ],
         "type": {
-          "id": 7,
-          "name": "Artikkeli"
+          "id": 1,
+          "name": "Novelli"
         },
-        "issues": [
+        "issues": [],
+        "editions": [
           {
-            "magazine": {
-              "type_id": 1,
-              "type": {
-                "id": 1,
-                "name": "Fanzine"
-              },
-              "issues": [
-                {
-                  "id": 177,
-                  "year": 1984
-                },
-                {
-                  "id": 178,
-                  "year": 1984
-                },
-                {
-                  "id": 179,
-                  "year": 1985
-                },
-                {
-                  "id": 180,
-                  "year": 1985
-                },
-                {
-                  "id": 181,
-                  "year": 1985
-                },
-                {
-                  "id": 182,
-                  "year": 1986
-                },
-                {
-                  "id": 183,
-                  "year": 1986
-                },
-                {
-                  "id": 184,
-                  "year": 1986
-                },
-                {
-                  "id": 185,
-                  "year": 1987
-                },
-                {
-                  "id": 186,
-                  "year": 1987
-                },
-                {
-                  "id": 187,
-                  "year": 1987
-                },
-                {
-                  "id": 188,
-                  "year": 1987
-                },
-                {
-                  "id": 189,
-                  "year": 1988
-                },
-                {
-                  "id": 190,
-                  "year": 1988
-                },
-                {
-                  "id": 191,
-                  "year": 1988
-                },
-                {
-                  "id": 192,
-                  "year": 1988
-                },
-                {
-                  "id": 193,
-                  "year": 1989
-                },
-                {
-                  "id": 194,
-                  "year": 1989
-                },
-                {
-                  "id": 195,
-                  "year": 1989
-                },
-                {
-                  "id": 196,
-                  "year": 1989
-                },
-                {
-                  "id": 197,
-                  "year": 1990
-                },
-                {
-                  "id": 198,
-                  "year": 1990
-                },
-                {
-                  "id": 199,
-                  "year": 1990
-                },
-                {
-                  "id": 200,
-                  "year": 1990
-                },
-                {
-                  "id": 201,
-                  "year": 1991
-                },
-                {
-                  "id": 202,
-                  "year": 1991
-                },
-                {
-                  "id": 203,
-                  "year": 1991
-                },
-                {
-                  "id": 204,
-                  "year": 1991
-                },
-                {
-                  "id": 205,
-                  "year": 1992
-                },
-                {
-                  "id": 206,
-                  "year": 1992
-                },
-                {
-                  "id": 207,
-                  "year": 1992
-                },
-                {
-                  "id": 208,
-                  "year": 1992
-                },
-                {
-                  "id": 209,
-                  "year": 1993
-                },
-                {
-                  "id": 210,
-                  "year": 1993
-                },
-                {
-                  "id": 211,
-                  "year": 1993
-                },
-                {
-                  "id": 212,
-                  "year": 1993
-                },
-                {
-                  "id": 213,
-                  "year": 1994
-                },
-                {
-                  "id": 214,
-                  "year": 1994
-                },
-                {
-                  "id": 215,
-                  "year": 1994
-                },
-                {
-                  "id": 216,
-                  "year": 1995
-                },
-                {
-                  "id": 217,
-                  "year": 1995
-                },
-                {
-                  "id": 218,
-                  "year": 1995
-                },
-                {
-                  "id": 219,
-                  "year": 1995
-                },
-                {
-                  "id": 220,
-                  "year": 1996
-                },
-                {
-                  "id": 221,
-                  "year": 1996
-                },
-                {
-                  "id": 222,
-                  "year": 1996
-                },
-                {
-                  "id": 223,
-                  "year": 1996
-                },
-                {
-                  "id": 224,
-                  "year": 1997
-                },
-                {
-                  "id": 225,
-                  "year": 1997
-                },
-                {
-                  "id": 226,
-                  "year": 1997
-                },
-                {
-                  "id": 227,
-                  "year": 1997
-                },
-                {
-                  "id": 228,
-                  "year": 1998
-                },
-                {
-                  "id": 229,
-                  "year": 1998
-                },
-                {
-                  "id": 230,
-                  "year": 1998
-                },
-                {
-                  "id": 231,
-                  "year": 1998
-                },
-                {
-                  "id": 232,
-                  "year": 1999
-                },
-                {
-                  "id": 233,
-                  "year": 1999
-                },
-                {
-                  "id": 234,
-                  "year": 2000
-                },
-                {
-                  "id": 235,
-                  "year": 2000
-                },
-                {
-                  "id": 236,
-                  "year": 2000
-                },
-                {
-                  "id": 237,
-                  "year": 2000
-                },
-                {
-                  "id": 238,
-                  "year": 2001
-                },
-                {
-                  "id": 239,
-                  "year": 2001
-                },
-                {
-                  "id": 240,
-                  "year": 2001
-                },
-                {
-                  "id": 241,
-                  "year": 2001
-                },
-                {
-                  "id": 242,
-                  "year": 2002
-                },
-                {
-                  "id": 243,
-                  "year": 2002
-                },
-                {
-                  "id": 244,
-                  "year": 2002
-                },
-                {
-                  "id": 245,
-                  "year": 2002
-                },
-                {
-                  "id": 246,
-                  "year": 2003
-                },
-                {
-                  "id": 247,
-                  "year": 2003
-                },
-                {
-                  "id": 248,
-                  "year": 2003
-                },
-                {
-                  "id": 249,
-                  "year": 2003
-                },
-                {
-                  "id": 250,
-                  "year": 2004
-                },
-                {
-                  "id": 251,
-                  "year": 2004
-                },
-                {
-                  "id": 252,
-                  "year": 2004
-                },
-                {
-                  "id": 253,
-                  "year": 2004
-                },
-                {
-                  "id": 254,
-                  "year": 2005
-                },
-                {
-                  "id": 255,
-                  "year": 2005
-                },
-                {
-                  "id": 256,
-                  "year": 2005
-                },
-                {
-                  "id": 257,
-                  "year": 2005
-                },
-                {
-                  "id": 258,
-                  "year": 2006
-                },
-                {
-                  "id": 259,
-                  "year": 2006
-                },
-                {
-                  "id": 260,
-                  "year": 2006
-                },
-                {
-                  "id": 261,
-                  "year": 2006
-                },
-                {
-                  "id": 262,
-                  "year": 2007
-                },
-                {
-                  "id": 263,
-                  "year": 2007
-                },
-                {
-                  "id": 264,
-                  "year": 2007
-                },
-                {
-                  "id": 265,
-                  "year": 2007
-                },
-                {
-                  "id": 266,
-                  "year": 2008
-                },
-                {
-                  "id": 267,
-                  "year": 2008
-                },
-                {
-                  "id": 268,
-                  "year": 2008
-                },
-                {
-                  "id": 269,
-                  "year": 2008
-                },
-                {
-                  "id": 270,
-                  "year": 2009
-                },
-                {
-                  "id": 271,
-                  "year": 2009
-                },
-                {
-                  "id": 272,
-                  "year": 2009
-                },
-                {
-                  "id": 273,
-                  "year": 2010
-                },
-                {
-                  "id": 274,
-                  "year": 2010
-                },
-                {
-                  "id": 275,
-                  "year": 2010
-                },
-                {
-                  "id": 276,
-                  "year": 2011
-                },
-                {
-                  "id": 277,
-                  "year": 2011
-                },
-                {
-                  "id": 278,
-                  "year": 2011
-                },
-                {
-                  "id": 279,
-                  "year": 2011
-                },
-                {
-                  "id": 280,
-                  "year": 2012
-                },
-                {
-                  "id": 281,
-                  "year": 2012
-                },
-                {
-                  "id": 282,
-                  "year": 2012
-                },
-                {
-                  "id": 283,
-                  "year": 2012
-                },
-                {
-                  "id": 284,
-                  "year": 2013
-                },
-                {
-                  "id": 285,
-                  "year": 2013
-                },
-                {
-                  "id": 286,
-                  "year": 2013
-                },
-                {
-                  "id": 287,
-                  "year": 2013
-                },
-                {
-                  "id": 288,
-                  "year": 2014
-                },
-                {
-                  "id": 289,
-                  "year": 2014
-                },
-                {
-                  "id": 290,
-                  "year": 2014
-                },
-                {
-                  "id": 291,
-                  "year": 2014
-                },
-                {
-                  "id": 292,
-                  "year": 2015
-                },
-                {
-                  "id": 293,
-                  "year": 2015
-                },
-                {
-                  "id": 294,
-                  "year": 2015
-                },
-                {
-                  "id": 295,
-                  "year": 2015
-                },
-                {
-                  "id": 296,
-                  "year": 2016
-                },
-                {
-                  "id": 297,
-                  "year": 2016
-                },
-                {
-                  "id": 298,
-                  "year": 2017
-                },
-                {
-                  "id": 299,
-                  "year": 2017
-                },
-                {
-                  "id": 300,
-                  "year": 2018
-                },
-                {
-                  "id": 301,
-                  "year": 2018
-                },
-                {
-                  "id": 302,
-                  "year": 2019
-                },
-                {
-                  "id": 303,
-                  "year": 2019
+            "work": {
+              "id": 7057.0,
+              "title": "Teen ja loitsujen vuosi",
+              "orig_title": "",
+              "author_str": "Hai, Magdalena",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 1841.0,
+                    "name": "Hai, Magdalena",
+                    "alt_name": "Magdalena Hai"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
                 }
               ],
-              "id": 24,
-              "name": "Kosmoskynä",
-              "description": "<p>Ensimmäiset neljä numeroa (1/1984 - 2/1985) ilmestyivät Jäsentiedote-nimellä, viidennestä numerosta (3/1985) lehti alkoi imestyä Kosmoskynä-nimisenä.</p>",
-              "link": null,
-              "issn": null
+              "editions": [
+                {
+                  "editors": [],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
+                        "id": 7905.0,
+                        "name": "Heikala",
+                        "alt_name": "Heikala"
+                      },
+                      "role": {
+                        "id": 4,
+                        "name": "Kansikuva"
+                      },
+                      "description": "",
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 7905.0,
+                        "name": "Heikala",
+                        "alt_name": "Heikala"
+                      },
+                      "role": {
+                        "id": 5,
+                        "name": "Kuvittaja"
+                      },
+                      "description": "",
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 9841,
+                      "image_src": "/static/images/books/Hai_Magdalena_Teenjaloitsujenvuosi_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 387,
+                    "name": "WSOY"
+                  },
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 10253,
+                  "title": "Teen ja loitsujen vuosi",
+                  "subtitle": "",
+                  "pubyear": 2026,
+                  "editionnum": 1,
+                  "version": 1,
+                  "isbn": "978-951-0-52184-7",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": null,
+                  "pages": 149,
+                  "size": 22,
+                  "dustcover": 1,
+                  "coverimage": 3,
+                  "misc": null,
+                  "imported_string": null,
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 17,
+                  "name": "Lasten fantasia",
+                  "abbr": "lF"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2026,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p><strong>Noitia, luonnonvoimia ja maagista tunnelmaa</strong>!</p><p>Tunnelmallinen neljän kertomuksen kokoelma imaisee mukaansa Launealan maailmaan, jossa nuoret noidat auttavat läheisiään, valmistavat rohtoja ja käpertyvät takkatulen ääreen myrskyn pauhatessa mökin ulkopuolella.</p><p>Enna on nuori kylänoita, jonka lähikylää vaivaavat lukuisat vitsaukset. Vuorimökissä asuvan Moiran elämä mullistuu, kun hän pelastaa pakkasesta salaperäisen koiran. Sisarukset Anders ja Linda matkaavat vanhempiensa kanssa ilmalaivalla tutkimassa mammutteja. Syvälle töihin itsensä hukannut Aisha tähyilee merenrannalta horisontissa nousevaa lohikäärmemyrskyä.</p><p>Teen ja loitsujen vuosi tarjoaa neljä lempeän lumoavaa noitatarinaa, metsämökkien tunnelmaa, maagisia hetkiä, puhuvia eläimiä, sydämen läpätystä – ja juuri oikean verran teehetkiä ja leivonnaisia. Magdalena Hain mukaansatempaavat kertomukset syttyvät väreihin Heikalan ihastuttavissa kuvituksissa.</p>",
+              "descr_attr": "WSOY",
+              "imported_string": null
             },
-            "id": 245,
-            "number": 4,
-            "number_extra": "",
-            "count": 69,
-            "year": 2002,
-            "cover_number": "4 / 2002",
-            "image_src": null,
-            "image_attr": null,
-            "pages": 28,
-            "link": "",
-            "notes": "Kansi: Ilkka Lesonen",
-            "title": ""
+            "editors": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 7905.0,
+                  "name": "Heikala",
+                  "alt_name": "Heikala"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 7905.0,
+                  "name": "Heikala",
+                  "alt_name": "Heikala"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
+                },
+                "description": "",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "id": 9841,
+                "image_src": "/static/images/books/Hai_Magdalena_Teenjaloitsujenvuosi_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 387,
+              "name": "WSOY"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "binding": {
+              "id": 3,
+              "name": "Sidottu"
+            },
+            "id": 10253,
+            "title": "Teen ja loitsujen vuosi",
+            "subtitle": "",
+            "pubyear": 2026,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-951-0-52184-7",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 149,
+            "size": 22,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
           }
         ],
-        "editions": [],
         "genres": [],
         "contributors": [
           {
             "person": {
-              "id": 2370.0,
-              "name": "Leinonen, Anne",
-              "alt_name": "Anne Leinonen"
+              "id": 1841.0,
+              "name": "Hai, Magdalena",
+              "alt_name": "Magdalena Hai"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "id": 15596,
+        "title": "Kevätnoita - mammuttiaron salaisuus",
+        "orig_title": "",
+        "pubyear": 2026,
+        "notes": ""
+      },
+      {
+        "authors": [
+          {
+            "id": 1841.0,
+            "name": "Hai, Magdalena",
+            "alt_name": "Magdalena Hai",
+            "fullname": "",
+            "image_src": null,
+            "dob": 1978.0,
+            "dod": null,
+            "nationality": {
+              "id": 4,
+              "name": "Suomi"
+            },
+            "workcount": 18.0,
+            "storycount": 80,
+            "roles": [
+              "Kirjoittaja",
+              "Toimittaja",
+              "Kansikuva",
+              "Esiintyy"
+            ],
+            "other_names": null,
+            "first_name": "Magdalena",
+            "last_name": "Hai",
+            "image_attr": "",
+            "qid": null,
+            "bio": null,
+            "bio_src": "",
+            "imported_string": null
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        },
+        "issues": [],
+        "editions": [
+          {
+            "work": {
+              "id": 7057.0,
+              "title": "Teen ja loitsujen vuosi",
+              "orig_title": "",
+              "author_str": "Hai, Magdalena",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 1841.0,
+                    "name": "Hai, Magdalena",
+                    "alt_name": "Magdalena Hai"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
+                        "id": 7905.0,
+                        "name": "Heikala",
+                        "alt_name": "Heikala"
+                      },
+                      "role": {
+                        "id": 4,
+                        "name": "Kansikuva"
+                      },
+                      "description": "",
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 7905.0,
+                        "name": "Heikala",
+                        "alt_name": "Heikala"
+                      },
+                      "role": {
+                        "id": 5,
+                        "name": "Kuvittaja"
+                      },
+                      "description": "",
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 9841,
+                      "image_src": "/static/images/books/Hai_Magdalena_Teenjaloitsujenvuosi_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 387,
+                    "name": "WSOY"
+                  },
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 10253,
+                  "title": "Teen ja loitsujen vuosi",
+                  "subtitle": "",
+                  "pubyear": 2026,
+                  "editionnum": 1,
+                  "version": 1,
+                  "isbn": "978-951-0-52184-7",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": null,
+                  "pages": 149,
+                  "size": 22,
+                  "dustcover": 1,
+                  "coverimage": 3,
+                  "misc": null,
+                  "imported_string": null,
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 17,
+                  "name": "Lasten fantasia",
+                  "abbr": "lF"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2026,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p><strong>Noitia, luonnonvoimia ja maagista tunnelmaa</strong>!</p><p>Tunnelmallinen neljän kertomuksen kokoelma imaisee mukaansa Launealan maailmaan, jossa nuoret noidat auttavat läheisiään, valmistavat rohtoja ja käpertyvät takkatulen ääreen myrskyn pauhatessa mökin ulkopuolella.</p><p>Enna on nuori kylänoita, jonka lähikylää vaivaavat lukuisat vitsaukset. Vuorimökissä asuvan Moiran elämä mullistuu, kun hän pelastaa pakkasesta salaperäisen koiran. Sisarukset Anders ja Linda matkaavat vanhempiensa kanssa ilmalaivalla tutkimassa mammutteja. Syvälle töihin itsensä hukannut Aisha tähyilee merenrannalta horisontissa nousevaa lohikäärmemyrskyä.</p><p>Teen ja loitsujen vuosi tarjoaa neljä lempeän lumoavaa noitatarinaa, metsämökkien tunnelmaa, maagisia hetkiä, puhuvia eläimiä, sydämen läpätystä – ja juuri oikean verran teehetkiä ja leivonnaisia. Magdalena Hain mukaansatempaavat kertomukset syttyvät väreihin Heikalan ihastuttavissa kuvituksissa.</p>",
+              "descr_attr": "WSOY",
+              "imported_string": null
+            },
+            "editors": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 7905.0,
+                  "name": "Heikala",
+                  "alt_name": "Heikala"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 7905.0,
+                  "name": "Heikala",
+                  "alt_name": "Heikala"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
+                },
+                "description": "",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "id": 9841,
+                "image_src": "/static/images/books/Hai_Magdalena_Teenjaloitsujenvuosi_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 387,
+              "name": "WSOY"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "binding": {
+              "id": 3,
+              "name": "Sidottu"
+            },
+            "id": 10253,
+            "title": "Teen ja loitsujen vuosi",
+            "subtitle": "",
+            "pubyear": 2026,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-951-0-52184-7",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 149,
+            "size": 22,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [],
+        "contributors": [
+          {
+            "person": {
+              "id": 1841.0,
+              "name": "Hai, Magdalena",
+              "alt_name": "Magdalena Hai"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "id": 15595,
+        "title": "Talvinoita - pakkasvieras",
+        "orig_title": "",
+        "pubyear": 2026,
+        "notes": ""
+      },
+      {
+        "authors": [
+          {
+            "id": 1841.0,
+            "name": "Hai, Magdalena",
+            "alt_name": "Magdalena Hai",
+            "fullname": "",
+            "image_src": null,
+            "dob": 1978.0,
+            "dod": null,
+            "nationality": {
+              "id": 4,
+              "name": "Suomi"
+            },
+            "workcount": 18.0,
+            "storycount": 80,
+            "roles": [
+              "Kirjoittaja",
+              "Toimittaja",
+              "Kansikuva",
+              "Esiintyy"
+            ],
+            "other_names": null,
+            "first_name": "Magdalena",
+            "last_name": "Hai",
+            "image_attr": "",
+            "qid": null,
+            "bio": null,
+            "bio_src": "",
+            "imported_string": null
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        },
+        "issues": [],
+        "editions": [
+          {
+            "work": {
+              "id": 7057.0,
+              "title": "Teen ja loitsujen vuosi",
+              "orig_title": "",
+              "author_str": "Hai, Magdalena",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 1841.0,
+                    "name": "Hai, Magdalena",
+                    "alt_name": "Magdalena Hai"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
+                        "id": 7905.0,
+                        "name": "Heikala",
+                        "alt_name": "Heikala"
+                      },
+                      "role": {
+                        "id": 4,
+                        "name": "Kansikuva"
+                      },
+                      "description": "",
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 7905.0,
+                        "name": "Heikala",
+                        "alt_name": "Heikala"
+                      },
+                      "role": {
+                        "id": 5,
+                        "name": "Kuvittaja"
+                      },
+                      "description": "",
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 9841,
+                      "image_src": "/static/images/books/Hai_Magdalena_Teenjaloitsujenvuosi_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 387,
+                    "name": "WSOY"
+                  },
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 10253,
+                  "title": "Teen ja loitsujen vuosi",
+                  "subtitle": "",
+                  "pubyear": 2026,
+                  "editionnum": 1,
+                  "version": 1,
+                  "isbn": "978-951-0-52184-7",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": null,
+                  "pages": 149,
+                  "size": 22,
+                  "dustcover": 1,
+                  "coverimage": 3,
+                  "misc": null,
+                  "imported_string": null,
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 17,
+                  "name": "Lasten fantasia",
+                  "abbr": "lF"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2026,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p><strong>Noitia, luonnonvoimia ja maagista tunnelmaa</strong>!</p><p>Tunnelmallinen neljän kertomuksen kokoelma imaisee mukaansa Launealan maailmaan, jossa nuoret noidat auttavat läheisiään, valmistavat rohtoja ja käpertyvät takkatulen ääreen myrskyn pauhatessa mökin ulkopuolella.</p><p>Enna on nuori kylänoita, jonka lähikylää vaivaavat lukuisat vitsaukset. Vuorimökissä asuvan Moiran elämä mullistuu, kun hän pelastaa pakkasesta salaperäisen koiran. Sisarukset Anders ja Linda matkaavat vanhempiensa kanssa ilmalaivalla tutkimassa mammutteja. Syvälle töihin itsensä hukannut Aisha tähyilee merenrannalta horisontissa nousevaa lohikäärmemyrskyä.</p><p>Teen ja loitsujen vuosi tarjoaa neljä lempeän lumoavaa noitatarinaa, metsämökkien tunnelmaa, maagisia hetkiä, puhuvia eläimiä, sydämen läpätystä – ja juuri oikean verran teehetkiä ja leivonnaisia. Magdalena Hain mukaansatempaavat kertomukset syttyvät väreihin Heikalan ihastuttavissa kuvituksissa.</p>",
+              "descr_attr": "WSOY",
+              "imported_string": null
+            },
+            "editors": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 7905.0,
+                  "name": "Heikala",
+                  "alt_name": "Heikala"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 7905.0,
+                  "name": "Heikala",
+                  "alt_name": "Heikala"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
+                },
+                "description": "",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "id": 9841,
+                "image_src": "/static/images/books/Hai_Magdalena_Teenjaloitsujenvuosi_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 387,
+              "name": "WSOY"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "binding": {
+              "id": 3,
+              "name": "Sidottu"
+            },
+            "id": 10253,
+            "title": "Teen ja loitsujen vuosi",
+            "subtitle": "",
+            "pubyear": 2026,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-951-0-52184-7",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 149,
+            "size": 22,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [],
+        "contributors": [
+          {
+            "person": {
+              "id": 1841.0,
+              "name": "Hai, Magdalena",
+              "alt_name": "Magdalena Hai"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "id": 15594,
+        "title": "Syysnoita - metsän jumalat",
+        "orig_title": "",
+        "pubyear": 2026,
+        "notes": ""
+      },
+      {
+        "authors": [
+          {
+            "id": 7902.0,
+            "name": "Machado de Assis",
+            "alt_name": "Machado de Assis",
+            "fullname": "Joaquim Maria Machado de Assis",
+            "image_src": null,
+            "dob": 1839.0,
+            "dod": 1908.0,
+            "nationality": {
+              "id": 48,
+              "name": "Brasilia"
+            },
+            "workcount": 2.0,
+            "storycount": 12,
+            "roles": [
+              "Kirjoittaja"
+            ],
+            "other_names": "",
+            "first_name": null,
+            "last_name": null,
+            "image_attr": null,
+            "qid": "",
+            "bio": "",
+            "bio_src": "",
+            "imported_string": null
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        },
+        "issues": [],
+        "editions": [
+          {
+            "work": {
+              "id": 7055.0,
+              "title": "Kuolematon ja muita novelleja",
+              "orig_title": "",
+              "author_str": "Machado de Assis",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 7902.0,
+                    "name": "Machado de Assis",
+                    "alt_name": "Machado de Assis"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [],
+                  "translators": [
+                    {
+                      "id": 7903.0,
+                      "name": "Valkama, Pirkka",
+                      "alt_name": "Pirkka Valkama",
+                      "fullname": "",
+                      "image_src": null,
+                      "dob": null,
+                      "dod": null,
+                      "nationality": {
+                        "id": 4,
+                        "name": "Suomi"
+                      },
+                      "workcount": 0.0,
+                      "storycount": 12,
+                      "roles": [
+                        "Kääntäjä"
+                      ],
+                      "other_names": "",
+                      "first_name": null,
+                      "last_name": null,
+                      "image_attr": null,
+                      "qid": "",
+                      "bio": "",
+                      "bio_src": "",
+                      "imported_string": null
+                    }
+                  ],
+                  "contributions": [
+                    {
+                      "person": {
+                        "id": 7903.0,
+                        "name": "Valkama, Pirkka",
+                        "alt_name": "Pirkka Valkama"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": "",
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 7904.0,
+                        "name": "Majanen, Riikka",
+                        "alt_name": "Riikka Majanen"
+                      },
+                      "role": {
+                        "id": 4,
+                        "name": "Kansikuva"
+                      },
+                      "description": "Ulkoasu",
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "id": 9834,
+                      "image_src": "/static/images/books/Machado_de_Assis_Kuolematon_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 267,
+                    "name": "Sammakko"
+                  },
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 10249,
+                  "title": "Kuolematon ja muita novelleja",
+                  "subtitle": "",
+                  "pubyear": 2014,
+                  "editionnum": 1,
+                  "version": 1,
+                  "isbn": "978-952-483-264-9",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": null,
+                  "pages": 189,
+                  "size": 20,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": null,
+                  "imported_string": null,
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
+                }
+              ],
+              "bookseries": null,
+              "tags": [
+                {
+                  "type": {
+                    "id": 2,
+                    "name": "Alagenre"
+                  },
+                  "works": [
+                    {
+                      "id": 21
+                    },
+                    {
+                      "id": 26
+                    },
+                    {
+                      "id": 445
+                    },
+                    {
+                      "id": 446
+                    },
+                    {
+                      "id": 447
+                    },
+                    {
+                      "id": 981
+                    },
+                    {
+                      "id": 994
+                    },
+                    {
+                      "id": 1124
+                    },
+                    {
+                      "id": 1125
+                    },
+                    {
+                      "id": 1259
+                    },
+                    {
+                      "id": 1458
+                    },
+                    {
+                      "id": 1691
+                    },
+                    {
+                      "id": 1821
+                    },
+                    {
+                      "id": 1865
+                    },
+                    {
+                      "id": 1866
+                    },
+                    {
+                      "id": 1867
+                    },
+                    {
+                      "id": 1869
+                    },
+                    {
+                      "id": 1870
+                    },
+                    {
+                      "id": 2115
+                    },
+                    {
+                      "id": 2360
+                    },
+                    {
+                      "id": 2577
+                    },
+                    {
+                      "id": 2592
+                    },
+                    {
+                      "id": 2593
+                    },
+                    {
+                      "id": 7010
+                    },
+                    {
+                      "id": 2879
+                    },
+                    {
+                      "id": 2880
+                    },
+                    {
+                      "id": 3032
+                    },
+                    {
+                      "id": 3067
+                    },
+                    {
+                      "id": 3079
+                    },
+                    {
+                      "id": 3419
+                    },
+                    {
+                      "id": 3433
+                    },
+                    {
+                      "id": 3434
+                    },
+                    {
+                      "id": 3437
+                    },
+                    {
+                      "id": 3501
+                    },
+                    {
+                      "id": 3690
+                    },
+                    {
+                      "id": 3851
+                    },
+                    {
+                      "id": 4023
+                    },
+                    {
+                      "id": 4244
+                    },
+                    {
+                      "id": 4607
+                    },
+                    {
+                      "id": 4620
+                    },
+                    {
+                      "id": 4727
+                    },
+                    {
+                      "id": 4842
+                    },
+                    {
+                      "id": 4844
+                    },
+                    {
+                      "id": 4846
+                    },
+                    {
+                      "id": 4847
+                    },
+                    {
+                      "id": 4864
+                    },
+                    {
+                      "id": 4865
+                    },
+                    {
+                      "id": 4973
+                    },
+                    {
+                      "id": 5353
+                    },
+                    {
+                      "id": 5450
+                    },
+                    {
+                      "id": 5453
+                    },
+                    {
+                      "id": 5459
+                    },
+                    {
+                      "id": 5848
+                    },
+                    {
+                      "id": 5909
+                    },
+                    {
+                      "id": 5928
+                    },
+                    {
+                      "id": 5988
+                    },
+                    {
+                      "id": 6110
+                    },
+                    {
+                      "id": 6170
+                    },
+                    {
+                      "id": 6175
+                    },
+                    {
+                      "id": 6316
+                    },
+                    {
+                      "id": 6329
+                    },
+                    {
+                      "id": 6336
+                    },
+                    {
+                      "id": 6365
+                    },
+                    {
+                      "id": 6380
+                    },
+                    {
+                      "id": 6471
+                    },
+                    {
+                      "id": 6491
+                    },
+                    {
+                      "id": 6493
+                    },
+                    {
+                      "id": 6516
+                    },
+                    {
+                      "id": 5612
+                    },
+                    {
+                      "id": 5613
+                    },
+                    {
+                      "id": 6593
+                    },
+                    {
+                      "id": 6023
+                    },
+                    {
+                      "id": 6609
+                    },
+                    {
+                      "id": 6015
+                    },
+                    {
+                      "id": 1434
+                    },
+                    {
+                      "id": 6624
+                    },
+                    {
+                      "id": 6627
+                    },
+                    {
+                      "id": 6667
+                    },
+                    {
+                      "id": 6684
+                    },
+                    {
+                      "id": 6689
+                    },
+                    {
+                      "id": 3221
+                    },
+                    {
+                      "id": 2161
+                    },
+                    {
+                      "id": 6060
+                    },
+                    {
+                      "id": 6763
+                    },
+                    {
+                      "id": 4501
+                    },
+                    {
+                      "id": 745
+                    },
+                    {
+                      "id": 746
+                    },
+                    {
+                      "id": 3556
+                    },
+                    {
+                      "id": 6936
+                    },
+                    {
+                      "id": 6940
+                    },
+                    {
+                      "id": 4659
+                    },
+                    {
+                      "id": 3224
+                    },
+                    {
+                      "id": 1011
+                    },
+                    {
+                      "id": 3418
+                    },
+                    {
+                      "id": 5742
+                    },
+                    {
+                      "id": 744
+                    },
+                    {
+                      "id": 6421
+                    },
+                    {
+                      "id": 6726
+                    },
+                    {
+                      "id": 5574
+                    },
+                    {
+                      "id": 6965
+                    },
+                    {
+                      "id": 6969
+                    },
+                    {
+                      "id": 5774
+                    },
+                    {
+                      "id": 2641
+                    },
+                    {
+                      "id": 7018
+                    },
+                    {
+                      "id": 7019
+                    },
+                    {
+                      "id": 7055
+                    },
+                    {
+                      "id": 7062
+                    },
+                    {
+                      "id": 7063
+                    },
+                    {
+                      "id": 7064
+                    }
+                  ],
+                  "articles": [],
+                  "stories": [
+                    {
+                      "id": 10133
+                    }
+                  ],
+                  "id": 551,
+                  "name": "maaginen realismi",
+                  "description": "<p>Maaginen realismi on kirjallinen tyyli tai kerronnan tapa, jossa todelliseen, arkiseen maailmaan sulautuu saumattomasti yliluonnollisia, maagisia tai selittämättömiä elementtejä. Tärkeää on, että nämä ihmeellisyydet esitetään kuin ne olisivat täysin normaaleja ja luonnollinen osa maailmaa – niitä ei korosteta erikseen, eivätkä hahmot yleensä kyseenalaista niitä.</p><p>Maaginen realismi yhdistää siis realistisen ympäristön ja arkielämän yksityiskohdat satumaisiin, usein symbolisiin tapahtumiin. Se ei ole fantasiaa siinä mielessä, että maailma olisi kokonaan maaginen tai erillinen todellisuudesta, vaan pikemminkin maaginen kerros arkisuuden pinnan alla.</p><p>Tyylisuunta on erityisen tunnettu latinalaisamerikkalaisessa kirjallisuudessa, kuten Gabriel García Márquezin <em>Sadan vuoden yksinäisyydessä</em>, mutta sitä on käytetty myös muualla maailmassa. Se tarjoaa keinon käsitellä syviä teemoja – kuten historiaa, muistia, surua, politiikkaa tai identiteettiä – tavalla, joka ohittaa suoran selittämisen ja tavoittaa kokemusten monikerroksisuutta.</p>"
+                }
+              ],
+              "language_name": {
+                "id": 35,
+                "name": "portugali"
+              },
+              "type": 2.0,
+              "subtitle": "",
+              "pubyear": 2014,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p>Machado de Assis on brasilialaisen kirjallisuuden merkittävimpiä nimiä kautta aikojen. Psykologisesti tarkkanäköisten romaaniensa lisäksi Machado kirjoitti toistasataa lyhyempää kertomusta, joista tähän suomennoskokoelmaan sisältyy kaksitoista. Tarinoiden skaala ulottuu pistävästä yhteiskunnallisesta satiirista mielikuvituksellisiin fantasioihin, joiden voi nähdä enteilevän latinalaisamerikkalaista maagista realismia.</p><p>Valikoiman pidemmistä novelleista lähes pienoisromaanin mittoihin yltävä ”Mielitautilääkäri” on kirpeä satiiri vallasta ja hulluudesta. ”Kuolematon” vie surrealistiselle matkalle läpi aikakausien. Novellissa ”Peili” kertoja paljastaa teoriansa ihmisen kahdesta sielusta.</p>",
+              "descr_attr": "Takakansi",
+              "imported_string": null
+            },
+            "editors": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 7903.0,
+                  "name": "Valkama, Pirkka",
+                  "alt_name": "Pirkka Valkama"
+                },
+                "role": {
+                  "id": 2,
+                  "name": "Kääntäjä"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 7904.0,
+                  "name": "Majanen, Riikka",
+                  "alt_name": "Riikka Majanen"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Ulkoasu",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "id": 9834,
+                "image_src": "/static/images/books/Machado_de_Assis_Kuolematon_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 267,
+              "name": "Sammakko"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "binding": {
+              "id": 2,
+              "name": "Nidottu"
+            },
+            "id": 10249,
+            "title": "Kuolematon ja muita novelleja",
+            "subtitle": "",
+            "pubyear": 2014,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-483-264-9",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 189,
+            "size": 20,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [],
+        "contributors": [
+          {
+            "person": {
+              "id": 7902.0,
+              "name": "Machado de Assis",
+              "alt_name": "Machado de Assis"
             },
             "role": {
               "id": 1,
@@ -2396,621 +1555,27 @@
           },
           {
             "person": {
-              "id": 781.0,
-              "name": "Soikkeli, M. G.",
-              "alt_name": "M. G. Soikkeli"
+              "id": 7903.0,
+              "name": "Valkama, Pirkka",
+              "alt_name": "Pirkka Valkama"
             },
             "role": {
-              "id": 6,
-              "name": "Esiintyy"
+              "id": 2,
+              "name": "Kääntäjä"
             },
             "description": "",
             "real_person": null
           }
         ],
         "lang": {
-          "id": 7,
-          "name": "suomi"
+          "id": 35,
+          "name": "portugali"
         },
-        "id": 15387,
-        "title": "Saapumisia ja lähtöjä - Haastattelussa M. G Soikkeli",
-        "orig_title": "",
-        "pubyear": 2002
-      },
-      {
-        "authors": [
-          {
-            "id": 3329.0,
-            "name": "anonyymi",
-            "alt_name": "anonyymi",
-            "fullname": null,
-            "image_src": null,
-            "dob": null,
-            "dod": null,
-            "nationality": null,
-            "workcount": 1.0,
-            "storycount": 354,
-            "roles": [
-              "Kirjoittaja",
-              "Toimittaja"
-            ],
-            "other_names": null,
-            "first_name": "",
-            "last_name": "anonyymi",
-            "image_attr": null,
-            "qid": null,
-            "bio": null,
-            "bio_src": null,
-            "imported_string": null
-          }
-        ],
-        "type": {
-          "id": 7,
-          "name": "Artikkeli"
-        },
-        "issues": [
-          {
-            "magazine": {
-              "type_id": 1,
-              "type": {
-                "id": 1,
-                "name": "Fanzine"
-              },
-              "issues": [
-                {
-                  "id": 177,
-                  "year": 1984
-                },
-                {
-                  "id": 178,
-                  "year": 1984
-                },
-                {
-                  "id": 179,
-                  "year": 1985
-                },
-                {
-                  "id": 180,
-                  "year": 1985
-                },
-                {
-                  "id": 181,
-                  "year": 1985
-                },
-                {
-                  "id": 182,
-                  "year": 1986
-                },
-                {
-                  "id": 183,
-                  "year": 1986
-                },
-                {
-                  "id": 184,
-                  "year": 1986
-                },
-                {
-                  "id": 185,
-                  "year": 1987
-                },
-                {
-                  "id": 186,
-                  "year": 1987
-                },
-                {
-                  "id": 187,
-                  "year": 1987
-                },
-                {
-                  "id": 188,
-                  "year": 1987
-                },
-                {
-                  "id": 189,
-                  "year": 1988
-                },
-                {
-                  "id": 190,
-                  "year": 1988
-                },
-                {
-                  "id": 191,
-                  "year": 1988
-                },
-                {
-                  "id": 192,
-                  "year": 1988
-                },
-                {
-                  "id": 193,
-                  "year": 1989
-                },
-                {
-                  "id": 194,
-                  "year": 1989
-                },
-                {
-                  "id": 195,
-                  "year": 1989
-                },
-                {
-                  "id": 196,
-                  "year": 1989
-                },
-                {
-                  "id": 197,
-                  "year": 1990
-                },
-                {
-                  "id": 198,
-                  "year": 1990
-                },
-                {
-                  "id": 199,
-                  "year": 1990
-                },
-                {
-                  "id": 200,
-                  "year": 1990
-                },
-                {
-                  "id": 201,
-                  "year": 1991
-                },
-                {
-                  "id": 202,
-                  "year": 1991
-                },
-                {
-                  "id": 203,
-                  "year": 1991
-                },
-                {
-                  "id": 204,
-                  "year": 1991
-                },
-                {
-                  "id": 205,
-                  "year": 1992
-                },
-                {
-                  "id": 206,
-                  "year": 1992
-                },
-                {
-                  "id": 207,
-                  "year": 1992
-                },
-                {
-                  "id": 208,
-                  "year": 1992
-                },
-                {
-                  "id": 209,
-                  "year": 1993
-                },
-                {
-                  "id": 210,
-                  "year": 1993
-                },
-                {
-                  "id": 211,
-                  "year": 1993
-                },
-                {
-                  "id": 212,
-                  "year": 1993
-                },
-                {
-                  "id": 213,
-                  "year": 1994
-                },
-                {
-                  "id": 214,
-                  "year": 1994
-                },
-                {
-                  "id": 215,
-                  "year": 1994
-                },
-                {
-                  "id": 216,
-                  "year": 1995
-                },
-                {
-                  "id": 217,
-                  "year": 1995
-                },
-                {
-                  "id": 218,
-                  "year": 1995
-                },
-                {
-                  "id": 219,
-                  "year": 1995
-                },
-                {
-                  "id": 220,
-                  "year": 1996
-                },
-                {
-                  "id": 221,
-                  "year": 1996
-                },
-                {
-                  "id": 222,
-                  "year": 1996
-                },
-                {
-                  "id": 223,
-                  "year": 1996
-                },
-                {
-                  "id": 224,
-                  "year": 1997
-                },
-                {
-                  "id": 225,
-                  "year": 1997
-                },
-                {
-                  "id": 226,
-                  "year": 1997
-                },
-                {
-                  "id": 227,
-                  "year": 1997
-                },
-                {
-                  "id": 228,
-                  "year": 1998
-                },
-                {
-                  "id": 229,
-                  "year": 1998
-                },
-                {
-                  "id": 230,
-                  "year": 1998
-                },
-                {
-                  "id": 231,
-                  "year": 1998
-                },
-                {
-                  "id": 232,
-                  "year": 1999
-                },
-                {
-                  "id": 233,
-                  "year": 1999
-                },
-                {
-                  "id": 234,
-                  "year": 2000
-                },
-                {
-                  "id": 235,
-                  "year": 2000
-                },
-                {
-                  "id": 236,
-                  "year": 2000
-                },
-                {
-                  "id": 237,
-                  "year": 2000
-                },
-                {
-                  "id": 238,
-                  "year": 2001
-                },
-                {
-                  "id": 239,
-                  "year": 2001
-                },
-                {
-                  "id": 240,
-                  "year": 2001
-                },
-                {
-                  "id": 241,
-                  "year": 2001
-                },
-                {
-                  "id": 242,
-                  "year": 2002
-                },
-                {
-                  "id": 243,
-                  "year": 2002
-                },
-                {
-                  "id": 244,
-                  "year": 2002
-                },
-                {
-                  "id": 245,
-                  "year": 2002
-                },
-                {
-                  "id": 246,
-                  "year": 2003
-                },
-                {
-                  "id": 247,
-                  "year": 2003
-                },
-                {
-                  "id": 248,
-                  "year": 2003
-                },
-                {
-                  "id": 249,
-                  "year": 2003
-                },
-                {
-                  "id": 250,
-                  "year": 2004
-                },
-                {
-                  "id": 251,
-                  "year": 2004
-                },
-                {
-                  "id": 252,
-                  "year": 2004
-                },
-                {
-                  "id": 253,
-                  "year": 2004
-                },
-                {
-                  "id": 254,
-                  "year": 2005
-                },
-                {
-                  "id": 255,
-                  "year": 2005
-                },
-                {
-                  "id": 256,
-                  "year": 2005
-                },
-                {
-                  "id": 257,
-                  "year": 2005
-                },
-                {
-                  "id": 258,
-                  "year": 2006
-                },
-                {
-                  "id": 259,
-                  "year": 2006
-                },
-                {
-                  "id": 260,
-                  "year": 2006
-                },
-                {
-                  "id": 261,
-                  "year": 2006
-                },
-                {
-                  "id": 262,
-                  "year": 2007
-                },
-                {
-                  "id": 263,
-                  "year": 2007
-                },
-                {
-                  "id": 264,
-                  "year": 2007
-                },
-                {
-                  "id": 265,
-                  "year": 2007
-                },
-                {
-                  "id": 266,
-                  "year": 2008
-                },
-                {
-                  "id": 267,
-                  "year": 2008
-                },
-                {
-                  "id": 268,
-                  "year": 2008
-                },
-                {
-                  "id": 269,
-                  "year": 2008
-                },
-                {
-                  "id": 270,
-                  "year": 2009
-                },
-                {
-                  "id": 271,
-                  "year": 2009
-                },
-                {
-                  "id": 272,
-                  "year": 2009
-                },
-                {
-                  "id": 273,
-                  "year": 2010
-                },
-                {
-                  "id": 274,
-                  "year": 2010
-                },
-                {
-                  "id": 275,
-                  "year": 2010
-                },
-                {
-                  "id": 276,
-                  "year": 2011
-                },
-                {
-                  "id": 277,
-                  "year": 2011
-                },
-                {
-                  "id": 278,
-                  "year": 2011
-                },
-                {
-                  "id": 279,
-                  "year": 2011
-                },
-                {
-                  "id": 280,
-                  "year": 2012
-                },
-                {
-                  "id": 281,
-                  "year": 2012
-                },
-                {
-                  "id": 282,
-                  "year": 2012
-                },
-                {
-                  "id": 283,
-                  "year": 2012
-                },
-                {
-                  "id": 284,
-                  "year": 2013
-                },
-                {
-                  "id": 285,
-                  "year": 2013
-                },
-                {
-                  "id": 286,
-                  "year": 2013
-                },
-                {
-                  "id": 287,
-                  "year": 2013
-                },
-                {
-                  "id": 288,
-                  "year": 2014
-                },
-                {
-                  "id": 289,
-                  "year": 2014
-                },
-                {
-                  "id": 290,
-                  "year": 2014
-                },
-                {
-                  "id": 291,
-                  "year": 2014
-                },
-                {
-                  "id": 292,
-                  "year": 2015
-                },
-                {
-                  "id": 293,
-                  "year": 2015
-                },
-                {
-                  "id": 294,
-                  "year": 2015
-                },
-                {
-                  "id": 295,
-                  "year": 2015
-                },
-                {
-                  "id": 296,
-                  "year": 2016
-                },
-                {
-                  "id": 297,
-                  "year": 2016
-                },
-                {
-                  "id": 298,
-                  "year": 2017
-                },
-                {
-                  "id": 299,
-                  "year": 2017
-                },
-                {
-                  "id": 300,
-                  "year": 2018
-                },
-                {
-                  "id": 301,
-                  "year": 2018
-                },
-                {
-                  "id": 302,
-                  "year": 2019
-                },
-                {
-                  "id": 303,
-                  "year": 2019
-                }
-              ],
-              "id": 24,
-              "name": "Kosmoskynä",
-              "description": "<p>Ensimmäiset neljä numeroa (1/1984 - 2/1985) ilmestyivät Jäsentiedote-nimellä, viidennestä numerosta (3/1985) lehti alkoi imestyä Kosmoskynä-nimisenä.</p>",
-              "link": null,
-              "issn": null
-            },
-            "id": 244,
-            "number": 3,
-            "number_extra": "",
-            "count": 68,
-            "year": 2002,
-            "cover_number": "3/2002",
-            "image_src": "/static/images/magazines/Kosmoskyna_2002_3.jpg",
-            "image_attr": null,
-            "pages": 28,
-            "link": "",
-            "notes": "",
-            "title": ""
-          }
-        ],
-        "editions": [],
-        "genres": [],
-        "contributors": [
-          {
-            "person": {
-              "id": 3329.0,
-              "name": "anonyymi",
-              "alt_name": "anonyymi"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "lang": {
-          "id": 7,
-          "name": "suomi"
-        },
-        "id": 15386,
-        "title": "Suomen Tieteiskirjoittajien arvostelupalvelu",
-        "orig_title": "",
-        "pubyear": 2002
+        "id": 15593,
+        "title": "Bungon viisaan salaisuus",
+        "orig_title": "O Segredo do Bonzo",
+        "pubyear": 1882,
+        "notes": ""
       }
     ],
     "error": null

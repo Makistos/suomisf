@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-04-11T20:33:54.117860+00:00",
+    "generated_at": "2026-07-12T18:56:26.276996+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/issues/92",
@@ -283,6 +283,13 @@
                 "link": "",
                 "issn": "1236-0449"
               },
+              "images": [
+                {
+                  "id": 111,
+                  "image_src": "/static/images/magazines/Alienisti_37.jpg",
+                  "image_attr": null
+                }
+              ],
               "id": 92,
               "number": 1,
               "number_extra": "",
@@ -321,7 +328,8 @@
           "id": 9131,
           "title": "Kerrassaan kauhistuttava sunnuntai KauhuConissa",
           "orig_title": null,
-          "pubyear": 2017
+          "pubyear": 2017,
+          "notes": null
         },
         {
           "authors": [
@@ -587,6 +595,13 @@
                 "link": "",
                 "issn": "1236-0449"
               },
+              "images": [
+                {
+                  "id": 111,
+                  "image_src": "/static/images/magazines/Alienisti_37.jpg",
+                  "image_attr": null
+                }
+              ],
               "id": 92,
               "number": 1,
               "number_extra": "",
@@ -638,7 +653,8 @@
           "id": 9132,
           "title": "Kuvakavalkadi Worldconista",
           "orig_title": null,
-          "pubyear": 2017
+          "pubyear": 2017,
+          "notes": null
         },
         {
           "authors": [
@@ -877,6 +893,13 @@
                 "link": "",
                 "issn": "1236-0449"
               },
+              "images": [
+                {
+                  "id": 111,
+                  "image_src": "/static/images/magazines/Alienisti_37.jpg",
+                  "image_attr": null
+                }
+              ],
               "id": 92,
               "number": 1,
               "number_extra": "",
@@ -915,7 +938,8 @@
           "id": 9133,
           "title": "Unen ja hulluuden valtakunta - Worldcon 75 Helsinki 9.-13.8.2017",
           "orig_title": null,
-          "pubyear": 2017
+          "pubyear": 2017,
+          "notes": null
         },
         {
           "authors": [
@@ -1157,6 +1181,13 @@
                 "link": "",
                 "issn": "1236-0449"
               },
+              "images": [
+                {
+                  "id": 111,
+                  "image_src": "/static/images/magazines/Alienisti_37.jpg",
+                  "image_attr": null
+                }
+              ],
               "id": 92,
               "number": 1,
               "number_extra": "",
@@ -1195,7 +1226,8 @@
           "id": 9134,
           "title": "Worldcon 75 - kolonialismi ja orientalismi - kitkeryyttä paneeleissa",
           "orig_title": null,
-          "pubyear": 2017
+          "pubyear": 2017,
+          "notes": null
         },
         {
           "authors": [
@@ -1434,6 +1466,13 @@
                 "link": "",
                 "issn": "1236-0449"
               },
+              "images": [
+                {
+                  "id": 111,
+                  "image_src": "/static/images/magazines/Alienisti_37.jpg",
+                  "image_attr": null
+                }
+              ],
               "id": 92,
               "number": 1,
               "number_extra": "",
@@ -1485,7 +1524,8 @@
           "id": 9135,
           "title": "Elämän magiasta - käsittelyssä kolme Georges Mélies'n elokuvaa",
           "orig_title": null,
-          "pubyear": 2017
+          "pubyear": 2017,
+          "notes": null
         },
         {
           "authors": [
@@ -1726,6 +1766,13 @@
                 "link": "",
                 "issn": "1236-0449"
               },
+              "images": [
+                {
+                  "id": 111,
+                  "image_src": "/static/images/magazines/Alienisti_37.jpg",
+                  "image_attr": null
+                }
+              ],
               "id": 92,
               "number": 1,
               "number_extra": "",
@@ -1764,7 +1811,8 @@
           "id": 9136,
           "title": "Last Border - Mika Kaurismäen syrjähyppy scifiin",
           "orig_title": null,
-          "pubyear": 2017
+          "pubyear": 2017,
+          "notes": null
         },
         {
           "authors": [
@@ -2003,6 +2051,13 @@
                 "link": "",
                 "issn": "1236-0449"
               },
+              "images": [
+                {
+                  "id": 111,
+                  "image_src": "/static/images/magazines/Alienisti_37.jpg",
+                  "image_attr": null
+                }
+              ],
               "id": 92,
               "number": 1,
               "number_extra": "",
@@ -2054,7 +2109,8 @@
           "id": 9137,
           "title": "Interview with Regina Kanyu Wang",
           "orig_title": null,
-          "pubyear": 2017
+          "pubyear": 2017,
+          "notes": null
         },
         {
           "authors": [
@@ -2294,6 +2350,13 @@
                 "link": "",
                 "issn": "1236-0449"
               },
+              "images": [
+                {
+                  "id": 111,
+                  "image_src": "/static/images/magazines/Alienisti_37.jpg",
+                  "image_attr": null
+                }
+              ],
               "id": 92,
               "number": 1,
               "number_extra": "",
@@ -2332,7 +2395,8 @@
           "id": 4011,
           "title": "Enkelierotiikkaa, osa 2",
           "orig_title": "Enkelierotiikkaa, osa 2",
-          "pubyear": 2017
+          "pubyear": 2017,
+          "notes": null
         },
         {
           "authors": [
@@ -2575,6 +2639,13 @@
                 "link": "",
                 "issn": "1236-0449"
               },
+              "images": [
+                {
+                  "id": 111,
+                  "image_src": "/static/images/magazines/Alienisti_37.jpg",
+                  "image_attr": null
+                }
+              ],
               "id": 92,
               "number": 1,
               "number_extra": "",
@@ -2613,7 +2684,8 @@
           "id": 4012,
           "title": "Pisara",
           "orig_title": "Pisara",
-          "pubyear": 2017
+          "pubyear": 2017,
+          "notes": null
         },
         {
           "authors": [
@@ -2855,6 +2927,13 @@
                 "link": "",
                 "issn": "1236-0449"
               },
+              "images": [
+                {
+                  "id": 111,
+                  "image_src": "/static/images/magazines/Alienisti_37.jpg",
+                  "image_attr": null
+                }
+              ],
               "id": 92,
               "number": 1,
               "number_extra": "",
@@ -2893,7 +2972,8 @@
           "id": 4013,
           "title": "Olen nähnyt neidon kylvyssä",
           "orig_title": "Olen nähnyt neidon kylvyssä",
-          "pubyear": 2017
+          "pubyear": 2017,
+          "notes": null
         },
         {
           "authors": [
@@ -3133,6 +3213,13 @@
                 "link": "",
                 "issn": "1236-0449"
               },
+              "images": [
+                {
+                  "id": 111,
+                  "image_src": "/static/images/magazines/Alienisti_37.jpg",
+                  "image_attr": null
+                }
+              ],
               "id": 92,
               "number": 1,
               "number_extra": "",
@@ -3171,7 +3258,8 @@
           "id": 4014,
           "title": "Minuutti",
           "orig_title": "Minuutti",
-          "pubyear": 2017
+          "pubyear": 2017,
+          "notes": null
         },
         {
           "authors": [
@@ -3410,6 +3498,13 @@
                 "link": "",
                 "issn": "1236-0449"
               },
+              "images": [
+                {
+                  "id": 111,
+                  "image_src": "/static/images/magazines/Alienisti_37.jpg",
+                  "image_attr": null
+                }
+              ],
               "id": 92,
               "number": 1,
               "number_extra": "",
@@ -3448,7 +3543,8 @@
           "id": 4015,
           "title": "Hullu tiedemies",
           "orig_title": "Hullu tiedemies",
-          "pubyear": 2017
+          "pubyear": 2017,
+          "notes": null
         },
         {
           "authors": [
@@ -3687,6 +3783,13 @@
                 "link": "",
                 "issn": "1236-0449"
               },
+              "images": [
+                {
+                  "id": 111,
+                  "image_src": "/static/images/magazines/Alienisti_37.jpg",
+                  "image_attr": null
+                }
+              ],
               "id": 92,
               "number": 1,
               "number_extra": "",
@@ -3725,7 +3828,8 @@
           "id": 4016,
           "title": "Keinolla millä hyvänsä",
           "orig_title": "Keinolla millä hyvänsä",
-          "pubyear": 2017
+          "pubyear": 2017,
+          "notes": null
         },
         {
           "authors": [
@@ -3964,6 +4068,13 @@
                 "link": "",
                 "issn": "1236-0449"
               },
+              "images": [
+                {
+                  "id": 111,
+                  "image_src": "/static/images/magazines/Alienisti_37.jpg",
+                  "image_attr": null
+                }
+              ],
               "id": 92,
               "number": 1,
               "number_extra": "",
@@ -4002,7 +4113,8 @@
           "id": 4017,
           "title": "Oranssi hirviö",
           "orig_title": "Oranssi hirviö",
-          "pubyear": 2017
+          "pubyear": 2017,
+          "notes": null
         },
         {
           "authors": [
@@ -4241,6 +4353,13 @@
                 "link": "",
                 "issn": "1236-0449"
               },
+              "images": [
+                {
+                  "id": 111,
+                  "image_src": "/static/images/magazines/Alienisti_37.jpg",
+                  "image_attr": null
+                }
+              ],
               "id": 92,
               "number": 1,
               "number_extra": "",
@@ -4279,7 +4398,8 @@
           "id": 4018,
           "title": "Raapale, sadan sanan ihme",
           "orig_title": "Raapale, sadan sanan ihme",
-          "pubyear": 2017
+          "pubyear": 2017,
+          "notes": null
         },
         {
           "authors": [
@@ -4518,6 +4638,13 @@
                 "link": "",
                 "issn": "1236-0449"
               },
+              "images": [
+                {
+                  "id": 111,
+                  "image_src": "/static/images/magazines/Alienisti_37.jpg",
+                  "image_attr": null
+                }
+              ],
               "id": 92,
               "number": 1,
               "number_extra": "",
@@ -4556,7 +4683,8 @@
           "id": 4019,
           "title": "Yövuoro 1",
           "orig_title": "Yövuoro 1",
-          "pubyear": 2017
+          "pubyear": 2017,
+          "notes": null
         }
       ],
       "magazine": {
@@ -4785,6 +4913,13 @@
             "name": "Kansikuva"
           },
           "description": ""
+        }
+      ],
+      "images": [
+        {
+          "id": 111,
+          "image_src": "/static/images/magazines/Alienisti_37.jpg",
+          "image_attr": null
         }
       ],
       "id": 92,

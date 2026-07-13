@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-04-11T20:33:54.117860+00:00",
+    "generated_at": "2026-07-12T18:56:26.276996+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/storypersoncounts",
@@ -24,7 +24,7 @@
             "Kirjoittaja": 1
           },
           "Artikkeli": {
-            "Kirjoittaja": 393,
+            "Kirjoittaja": 394,
             "Kääntäjä": 4,
             "Esiintyy": 7
           },
@@ -32,7 +32,7 @@
             "Kirjoittaja": 2
           }
         },
-        "total": 415
+        "total": 416
       },
       {
         "id": 610,
@@ -61,7 +61,7 @@
         "nationality": null,
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 43
+            "Kirjoittaja": 50
           },
           "Runo": {
             "Kirjoittaja": 2
@@ -76,7 +76,7 @@
             "Kirjoittaja": 306
           }
         },
-        "total": 354
+        "total": 361
       },
       {
         "id": 781,
@@ -116,9 +116,12 @@
           "Artikkeli": {
             "Kirjoittaja": 100,
             "Esiintyy": 9
+          },
+          "Esipuhe": {
+            "Kirjoittaja": 1
           }
         },
-        "total": 180
+        "total": 181
       },
       {
         "id": 2065,
@@ -158,7 +161,7 @@
             "Kirjoittaja": 145
           },
           "Artikkeli": {
-            "Esiintyy": 6
+            "Esiintyy": 7
           }
         },
         "total": 145
@@ -202,7 +205,7 @@
           },
           "Artikkeli": {
             "Kirjoittaja": 3,
-            "Esiintyy": 24
+            "Esiintyy": 25
           }
         },
         "total": 138
@@ -232,8 +235,8 @@
         "nationality": null,
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 8408,
-            "Kääntäjä": 1243,
+            "Kirjoittaja": 8545,
+            "Kääntäjä": 1253,
             "Toimittaja": 0,
             "Kansikuva": 0,
             "Kuvittaja": 0,
@@ -259,7 +262,7 @@
             "Päätoimittaja": 0
           },
           "Runo": {
-            "Kirjoittaja": 182,
+            "Kirjoittaja": 183,
             "Kääntäjä": 9,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -286,21 +289,21 @@
             "Päätoimittaja": 0
           },
           "Artikkeli": {
-            "Kirjoittaja": 4351,
-            "Kääntäjä": 55,
+            "Kirjoittaja": 4407,
+            "Kääntäjä": 61,
             "Toimittaja": 0,
             "Kansikuva": 0,
             "Kuvittaja": 0,
-            "Esiintyy": 1207,
+            "Esiintyy": 1243,
             "Päätoimittaja": 0
           },
           "Esipuhe": {
-            "Kirjoittaja": 4,
-            "Kääntäjä": 0,
+            "Kirjoittaja": 7,
+            "Kääntäjä": 1,
             "Toimittaja": 0,
             "Kansikuva": 0,
             "Kuvittaja": 0,
-            "Esiintyy": 0,
+            "Esiintyy": 1,
             "Päätoimittaja": 0
           },
           "Jälkisanat": {
@@ -313,7 +316,7 @@
             "Päätoimittaja": 0
           }
         },
-        "total": 13747
+        "total": 13944
       }
     ],
     "error": null

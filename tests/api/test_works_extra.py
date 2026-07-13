@@ -212,7 +212,9 @@ class TestRandomIncompleteWorks(BaseAPITest):
         if response.status_code == 200:
             data = response.data
             if data is not None:
-                assert isinstance(data, list)
+                # Endpoint returns {"works": [...], "total": N}
+                assert isinstance(data, dict)
+                assert isinstance(data.get('works'), list)
 
     def test_random_incomplete_with_missing_fields(self, api_client):
         """POST /api/works/random/incomplete with missing_fields filter."""
@@ -226,7 +228,9 @@ class TestRandomIncompleteWorks(BaseAPITest):
         if response.status_code == 200:
             data = response.data
             if data is not None:
-                assert isinstance(data, list)
+                # Endpoint returns {"works": [...], "total": N}
+                assert isinstance(data, dict)
+                assert isinstance(data.get('works'), list)
 
     def test_random_incomplete_invalid_count(self, api_client):
         """POST /api/works/random/incomplete with invalid count."""

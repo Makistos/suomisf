@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-04-11T20:33:54.117860+00:00",
+    "generated_at": "2026-07-12T18:56:26.276996+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/people/3238/shorts",
@@ -37,7 +37,8 @@
         "id": 1805,
         "title": "Napoleonin vaihtoviikot",
         "orig_title": "Napoleonin vaihtoviikot",
-        "pubyear": 1983
+        "pubyear": 1983,
+        "notes": null
       },
       {
         "contributors": [
@@ -66,7 +67,8 @@
         "id": 3667,
         "title": "Ne palaavat",
         "orig_title": "Ne palaavat",
-        "pubyear": 1987
+        "pubyear": 1987,
+        "notes": null
       },
       {
         "contributors": [
@@ -95,7 +97,8 @@
         "id": 3720,
         "title": "Krysanteemeja sakessa (ja hainlihaa)",
         "orig_title": "Krysanteemeja sakessa (ja hainlihaa)",
-        "pubyear": 1990
+        "pubyear": 1990,
+        "notes": null
       },
       {
         "contributors": [
@@ -124,7 +127,8 @@
         "id": 3731,
         "title": "Uhraus",
         "orig_title": "Uhraus",
-        "pubyear": 1991
+        "pubyear": 1991,
+        "notes": null
       },
       {
         "contributors": [
@@ -153,7 +157,8 @@
         "id": 3759,
         "title": "\"Tänä yönä ei ole vahtia Reinillä\"",
         "orig_title": "\"Tänä yönä ei ole vahtia Reinillä\"",
-        "pubyear": 1992
+        "pubyear": 1992,
+        "notes": null
       },
       {
         "contributors": [
@@ -182,7 +187,8 @@
         "id": 3849,
         "title": "Lasipuut",
         "orig_title": "Lasipuut",
-        "pubyear": 1992
+        "pubyear": 1992,
+        "notes": null
       },
       {
         "contributors": [
@@ -211,7 +217,8 @@
         "id": 4165,
         "title": "Zanzibarin kissat",
         "orig_title": "Zanzibarin kissat",
-        "pubyear": 1986
+        "pubyear": 1986,
+        "notes": null
       },
       {
         "contributors": [
@@ -240,7 +247,8 @@
         "id": 4175,
         "title": "Iskelmähetki Barstowin planeetalla",
         "orig_title": "Iskelmähetki Barstowin planeetalla",
-        "pubyear": 1986
+        "pubyear": 1986,
+        "notes": null
       },
       {
         "contributors": [
@@ -269,7 +277,8 @@
         "id": 4211,
         "title": "Muukalaiset, jotka eivät osanneet englantia",
         "orig_title": "Muukalaiset, jotka eivät osanneet englantia",
-        "pubyear": 1988
+        "pubyear": 1988,
+        "notes": null
       },
       {
         "contributors": [
@@ -298,7 +307,8 @@
         "id": 4497,
         "title": "Instant-ihmiset",
         "orig_title": "Instant-ihmiset",
-        "pubyear": 1982
+        "pubyear": 1982,
+        "notes": null
       },
       {
         "contributors": [
@@ -327,7 +337,8 @@
         "id": 4500,
         "title": "Sievä alkukantainen paikka",
         "orig_title": "Sievä alkukantainen paikka",
-        "pubyear": 1982
+        "pubyear": 1982,
+        "notes": null
       },
       {
         "contributors": [
@@ -356,7 +367,8 @@
         "id": 4503,
         "title": "Mars-projekti",
         "orig_title": "Mars-projekti",
-        "pubyear": 1982
+        "pubyear": 1982,
+        "notes": null
       },
       {
         "contributors": [
@@ -385,7 +397,8 @@
         "id": 4505,
         "title": "Sielulinnut, kuoleman linnut",
         "orig_title": "Sielulinnut, kuoleman linnut",
-        "pubyear": 1983
+        "pubyear": 1983,
+        "notes": null
       },
       {
         "contributors": [
@@ -414,7 +427,8 @@
         "id": 5208,
         "title": "Tulevaisuuden työpaikka",
         "orig_title": "Tulevaisuuden työpaikka",
-        "pubyear": 1981
+        "pubyear": 1981,
+        "notes": null
       },
       {
         "contributors": [
@@ -443,7 +457,8 @@
         "id": 5211,
         "title": "Tutun näköinen mies",
         "orig_title": "Tutun näköinen mies",
-        "pubyear": 1982
+        "pubyear": 1982,
+        "notes": null
       },
       {
         "contributors": [
@@ -472,7 +487,8 @@
         "id": 5214,
         "title": "Help!",
         "orig_title": "Help!",
-        "pubyear": 1982
+        "pubyear": 1982,
+        "notes": null
       },
       {
         "contributors": [
@@ -501,7 +517,8 @@
         "id": 5215,
         "title": "Ufotarina",
         "orig_title": "Ufotarina",
-        "pubyear": 1982
+        "pubyear": 1982,
+        "notes": null
       },
       {
         "contributors": [
@@ -530,7 +547,8 @@
         "id": 5217,
         "title": "Kysykää - me vastaamme",
         "orig_title": "Kysykää - me vastaamme",
-        "pubyear": 1982
+        "pubyear": 1982,
+        "notes": null
       },
       {
         "contributors": [
@@ -559,7 +577,8 @@
         "id": 5245,
         "title": "Talvikylmän järvet",
         "orig_title": "Talvikylmän järvet",
-        "pubyear": 1986
+        "pubyear": 1986,
+        "notes": null
       },
       {
         "contributors": [
@@ -588,7 +607,8 @@
         "id": 8882,
         "title": "Kissa ulkoavaruudessa",
         "orig_title": null,
-        "pubyear": 1988
+        "pubyear": 1988,
+        "notes": null
       },
       {
         "contributors": [
@@ -617,7 +637,8 @@
         "id": 8884,
         "title": "Scifi ja työsuojelu",
         "orig_title": null,
-        "pubyear": 1988
+        "pubyear": 1988,
+        "notes": null
       },
       {
         "contributors": [
@@ -646,7 +667,8 @@
         "id": 8898,
         "title": "Amy hyvä Gorilla",
         "orig_title": null,
-        "pubyear": 1989
+        "pubyear": 1989,
+        "notes": null
       },
       {
         "contributors": [
@@ -675,7 +697,8 @@
         "id": 8904,
         "title": "Virusten teleologiaa",
         "orig_title": null,
-        "pubyear": 1990
+        "pubyear": 1990,
+        "notes": null
       },
       {
         "contributors": [
@@ -704,7 +727,8 @@
         "id": 8908,
         "title": "Alussa oli aa... (ja DNA)",
         "orig_title": null,
-        "pubyear": 1990
+        "pubyear": 1990,
+        "notes": null
       },
       {
         "contributors": [
@@ -733,7 +757,8 @@
         "id": 8913,
         "title": "Mistä on pienet tytöt tehty",
         "orig_title": null,
-        "pubyear": 1990
+        "pubyear": 1990,
+        "notes": null
       },
       {
         "contributors": [
@@ -762,7 +787,8 @@
         "id": 8917,
         "title": "Kevätsiivouksen aika",
         "orig_title": null,
-        "pubyear": 1991
+        "pubyear": 1991,
+        "notes": null
       },
       {
         "contributors": [
@@ -791,7 +817,8 @@
         "id": 8922,
         "title": "Hallucigenia ja kehityksen tikkaat",
         "orig_title": null,
-        "pubyear": 1991
+        "pubyear": 1991,
+        "notes": null
       },
       {
         "contributors": [
@@ -820,7 +847,8 @@
         "id": 8937,
         "title": "Mikä tappoi dinosaurukset",
         "orig_title": null,
-        "pubyear": 1991
+        "pubyear": 1991,
+        "notes": null
       },
       {
         "contributors": [
@@ -849,7 +877,8 @@
         "id": 8939,
         "title": "Tappavat aaveet",
         "orig_title": null,
-        "pubyear": 1991
+        "pubyear": 1991,
+        "notes": null
       },
       {
         "contributors": [
@@ -878,7 +907,8 @@
         "id": 8945,
         "title": "Viimeisen näyn kaamea tapaus ja muuta rikoksellista",
         "orig_title": null,
-        "pubyear": 1991
+        "pubyear": 1991,
+        "notes": null
       },
       {
         "contributors": [
@@ -907,7 +937,8 @@
         "id": 8948,
         "title": "Syntymäpaikka ja -aika ja miten kiinnostuitte scifistä?",
         "orig_title": null,
-        "pubyear": 1992
+        "pubyear": 1992,
+        "notes": null
       },
       {
         "contributors": [
@@ -936,7 +967,8 @@
         "id": 8949,
         "title": "Auringon lapset",
         "orig_title": null,
-        "pubyear": 1992
+        "pubyear": 1992,
+        "notes": null
       },
       {
         "contributors": [
@@ -965,7 +997,8 @@
         "id": 8957,
         "title": "Veden lapset",
         "orig_title": null,
-        "pubyear": 1992
+        "pubyear": 1992,
+        "notes": null
       },
       {
         "contributors": [
@@ -994,7 +1027,8 @@
         "id": 8968,
         "title": "Väestöräjähdys aurinkokunnassa",
         "orig_title": null,
-        "pubyear": 1992
+        "pubyear": 1992,
+        "notes": null
       },
       {
         "contributors": [
@@ -1023,7 +1057,8 @@
         "id": 8975,
         "title": "Mitä kaikki tietävät älykkyydestä",
         "orig_title": null,
-        "pubyear": 1993
+        "pubyear": 1993,
+        "notes": null
       },
       {
         "contributors": [
@@ -1052,7 +1087,8 @@
         "id": 8982,
         "title": "Lovernios ja muut suoruumiit",
         "orig_title": null,
-        "pubyear": 1993
+        "pubyear": 1993,
+        "notes": null
       },
       {
         "contributors": [
@@ -1081,7 +1117,8 @@
         "id": 8996,
         "title": "Mies kylmästä",
         "orig_title": null,
-        "pubyear": 1995
+        "pubyear": 1995,
+        "notes": null
       },
       {
         "contributors": [
@@ -1110,7 +1147,8 @@
         "id": 9314,
         "title": "\"Vain kesyt linnut kaipaavat - villit lentävät",
         "orig_title": null,
-        "pubyear": 1997
+        "pubyear": 1997,
+        "notes": null
       },
       {
         "contributors": [
@@ -1256,7 +1294,8 @@
         "id": 9567,
         "title": "Munaiset jumalolennot sammakkoperspektiivistä",
         "orig_title": null,
-        "pubyear": 1989
+        "pubyear": 1989,
+        "notes": null
       },
       {
         "contributors": [
@@ -1285,7 +1324,8 @@
         "id": 12301,
         "title": "Vieras Sagittariuksesta",
         "orig_title": "Vieras Sagittariuksesta",
-        "pubyear": 1982
+        "pubyear": 1982,
+        "notes": null
       },
       {
         "contributors": [
@@ -1314,7 +1354,8 @@
         "id": 12308,
         "title": "Lohikäärmeitä ja lumikuningattaria",
         "orig_title": "Lohikäärmeitä ja lumikuningattaria",
-        "pubyear": 1983
+        "pubyear": 1983,
+        "notes": null
       },
       {
         "contributors": [
@@ -1343,7 +1384,8 @@
         "id": 12390,
         "title": "Mieli kuin viemäri",
         "orig_title": "Mieli kuin viemäri",
-        "pubyear": 1995
+        "pubyear": 1995,
+        "notes": null
       },
       {
         "contributors": [
@@ -1372,7 +1414,8 @@
         "id": 12453,
         "title": "Le Guin sanoi sen kauniimmin - Science fiction kirjallisuutena",
         "orig_title": "Le Guin sanoi sen kauniimmin - Science fiction kirjallisuutena",
-        "pubyear": 1984
+        "pubyear": 1984,
+        "notes": null
       },
       {
         "contributors": [
@@ -1414,7 +1457,8 @@
         "id": 12734,
         "title": "Mr Carrolin sukupuolet",
         "orig_title": "Mr Carrolin sukupuolet",
-        "pubyear": 1993
+        "pubyear": 1993,
+        "notes": null
       }
     ],
     "error": null

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-04-11T20:33:54.117860+00:00",
+    "generated_at": "2026-07-12T18:56:26.276996+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/people/1",
@@ -22,10 +22,10 @@
       "bio_src": "",
       "images": [
         {
-          "id": 7237,
-          "src": "https://example.com/image.jpg?v=2",
-          "attr": null,
-          "license": null
+          "id": 3751,
+          "src": "",
+          "attr": "",
+          "license": ""
         }
       ],
       "nationality": {
@@ -115,7 +115,9 @@
                       "id": 1.0,
                       "title": "Kivineitsyt",
                       "orig_title": "Stone Virgin"
-                    }
+                    },
+                    "owners": [],
+                    "wishlisted": []
                   }
                 ],
                 "genres": [
@@ -169,7 +171,7 @@
               "wishlisted": [],
               "subtitle": "",
               "editionnum": 1,
-              "version": null,
+              "version": 1,
               "isbn": "951-0-13801-0",
               "printedin": null,
               "pubseriesnum": null,

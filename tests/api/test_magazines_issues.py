@@ -386,30 +386,30 @@ class TestIssueSizes(BaseAPITest):
 
 
 class TestIssueCovers(BaseAPITest):
-    """Tests for /api/issues/{id}/covers endpoints."""
+    """Tests for /api/issues/{id}/images endpoints."""
 
     def test_upload_cover_requires_auth(self, api_client):
-        """POST /api/issues/{id}/covers requires authentication."""
-        url = f'/api/issues/{BASIC_ISSUE_ID}/covers'
+        """POST /api/issues/{id}/images requires authentication."""
+        url = f'/api/issues/{BASIC_ISSUE_ID}/images'
         response = api_client.post(url)
         assert response.status_code in [400, 401, 403, 422]
 
     def test_upload_cover_requires_file(self, admin_client):
-        """POST /api/issues/{id}/covers requires file."""
-        url = f'/api/issues/{BASIC_ISSUE_ID}/covers'
+        """POST /api/issues/{id}/images requires file."""
+        url = f'/api/issues/{BASIC_ISSUE_ID}/images'
         response = admin_client.post(url)
         # Should return 400 for missing file
         assert response.status_code == 400
 
     def test_delete_cover_requires_auth(self, api_client):
-        """DELETE /api/issues/{id}/covers requires authentication."""
-        url = f'/api/issues/{BASIC_ISSUE_ID}/covers'
+        """DELETE /api/issues/{id}/images/{imageid} requires authentication."""
+        url = f'/api/issues/{BASIC_ISSUE_ID}/images/1'
         response = api_client.delete(url)
         assert response.status_code in [401, 403, 422]
 
     def test_delete_cover_with_auth(self, admin_client):
-        """DELETE /api/issues/{id}/covers with auth processes."""
-        url = f'/api/issues/{BASIC_ISSUE_ID}/covers'
+        """DELETE /api/issues/{id}/images/{imageid} with auth processes."""
+        url = f'/api/issues/{BASIC_ISSUE_ID}/images/1'
         response = admin_client.delete(url)
-        # May succeed or return error if no cover exists
+        # May succeed or return error if no such image exists
         assert response.status_code in [200, 400, 404, 500]

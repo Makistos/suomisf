@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-04-11T20:33:54.117860+00:00",
+    "generated_at": "2026-07-12T18:56:26.276996+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/shorts/1",
@@ -215,7 +215,7 @@
               "subtitle": "",
               "pubyear": 1987,
               "editionnum": 1,
-              "version": null,
+              "version": 1,
               "isbn": "951-611-148-3",
               "printedin": "Loviisa",
               "pubseriesnum": null,
@@ -404,7 +404,7 @@
                 "subtitle": "",
                 "pubyear": 1987,
                 "editionnum": 1,
-                "version": null,
+                "version": 1,
                 "isbn": "951-611-148-3",
                 "printedin": "Loviisa",
                 "pubseriesnum": null,
@@ -543,7 +543,7 @@
           "subtitle": "",
           "pubyear": 1987,
           "editionnum": 1,
-          "version": null,
+          "version": 1,
           "isbn": "951-611-148-3",
           "printedin": "Loviisa",
           "pubseriesnum": null,
@@ -789,7 +789,7 @@
                       "subtitle": "",
                       "pubyear": 1987,
                       "editionnum": 1,
-                      "version": null,
+                      "version": 1,
                       "isbn": "951-611-148-3",
                       "printedin": "Loviisa",
                       "pubseriesnum": null,
@@ -928,7 +928,7 @@
                 "subtitle": "",
                 "pubyear": 1987,
                 "editionnum": 1,
-                "version": null,
+                "version": 1,
                 "isbn": "951-611-148-3",
                 "printedin": "Loviisa",
                 "pubseriesnum": null,
@@ -978,7 +978,8 @@
             "id": 1,
             "title": "Robottiunta",
             "orig_title": "Robot Dreams",
-            "pubyear": 1986
+            "pubyear": 1986,
+            "notes": null
           },
           "id": 583,
           "year": 1987
@@ -987,7 +988,8 @@
       "id": 1,
       "title": "Robottiunta",
       "orig_title": "Robot Dreams",
-      "pubyear": 1986
+      "pubyear": 1986,
+      "notes": null
     },
     "error": null
   }

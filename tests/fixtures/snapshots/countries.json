@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-04-11T20:33:54.117860+00:00",
+    "generated_at": "2026-07-12T18:56:26.276996+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/countries",
@@ -45,6 +45,10 @@
       {
         "id": 25,
         "name": "Etelä-Afrikka"
+      },
+      {
+        "id": 69,
+        "name": "Filippiinit"
       },
       {
         "id": 40,
@@ -227,12 +231,12 @@
         "name": "Uusi-Seelanti"
       },
       {
-        "id": 10,
-        "name": "Venäjä"
-      },
-      {
         "id": 30,
         "name": "Venezuela"
+      },
+      {
+        "id": 10,
+        "name": "Venäjä"
       },
       {
         "id": 2,

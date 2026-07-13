@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-04-11T20:33:54.117860+00:00",
+    "generated_at": "2026-07-12T18:56:26.276996+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/magazines",
@@ -4577,6 +4577,14 @@
           {
             "id": 1070,
             "year": 2024
+          },
+          {
+            "id": 1130,
+            "year": 2025
+          },
+          {
+            "id": 1131,
+            "year": 2025
           }
         ],
         "id": 26,

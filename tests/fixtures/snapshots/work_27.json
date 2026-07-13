@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-04-11T20:33:54.117860+00:00",
+    "generated_at": "2026-07-12T18:56:26.276996+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/works/27",
@@ -86,7 +86,7 @@
                 "subtitle": "",
                 "pubyear": 2019,
                 "editionnum": 1,
-                "version": null,
+                "version": 1,
                 "isbn": "978-952-7269-49-7",
                 "printedin": null,
                 "pubseriesnum": null,
@@ -159,7 +159,7 @@
           "subtitle": "",
           "pubyear": 2019,
           "editionnum": 1,
-          "version": null,
+          "version": 1,
           "isbn": "978-952-7269-49-7",
           "printedin": null,
           "pubseriesnum": null,
@@ -287,7 +287,7 @@
                     "subtitle": "",
                     "pubyear": 2019,
                     "editionnum": 1,
-                    "version": null,
+                    "version": 1,
                     "isbn": "978-952-7269-49-7",
                     "printedin": null,
                     "pubseriesnum": null,
@@ -367,7 +367,7 @@
               "subtitle": "",
               "pubyear": 2019,
               "editionnum": 1,
-              "version": null,
+              "version": 1,
               "isbn": "978-952-7269-49-7",
               "printedin": null,
               "pubseriesnum": null,
@@ -404,7 +404,8 @@
           "id": 3541,
           "title": "Hampaat",
           "orig_title": "Hampaat",
-          "pubyear": 2019
+          "pubyear": 2019,
+          "notes": null
         },
         {
           "authors": [
@@ -500,7 +501,7 @@
                     "subtitle": "",
                     "pubyear": 2019,
                     "editionnum": 1,
-                    "version": null,
+                    "version": 1,
                     "isbn": "978-952-7269-49-7",
                     "printedin": null,
                     "pubseriesnum": null,
@@ -580,7 +581,7 @@
               "subtitle": "",
               "pubyear": 2019,
               "editionnum": 1,
-              "version": null,
+              "version": 1,
               "isbn": "978-952-7269-49-7",
               "printedin": null,
               "pubseriesnum": null,
@@ -617,7 +618,8 @@
           "id": 3542,
           "title": "Kaksin",
           "orig_title": "Kaksin",
-          "pubyear": 2019
+          "pubyear": 2019,
+          "notes": null
         },
         {
           "authors": [
@@ -713,7 +715,7 @@
                     "subtitle": "",
                     "pubyear": 2019,
                     "editionnum": 1,
-                    "version": null,
+                    "version": 1,
                     "isbn": "978-952-7269-49-7",
                     "printedin": null,
                     "pubseriesnum": null,
@@ -793,7 +795,7 @@
               "subtitle": "",
               "pubyear": 2019,
               "editionnum": 1,
-              "version": null,
+              "version": 1,
               "isbn": "978-952-7269-49-7",
               "printedin": null,
               "pubseriesnum": null,
@@ -830,7 +832,8 @@
           "id": 3543,
           "title": "Kätkö",
           "orig_title": "Kätkö",
-          "pubyear": 2019
+          "pubyear": 2019,
+          "notes": null
         },
         {
           "authors": [
@@ -926,7 +929,7 @@
                     "subtitle": "",
                     "pubyear": 2019,
                     "editionnum": 1,
-                    "version": null,
+                    "version": 1,
                     "isbn": "978-952-7269-49-7",
                     "printedin": null,
                     "pubseriesnum": null,
@@ -1006,7 +1009,7 @@
               "subtitle": "",
               "pubyear": 2019,
               "editionnum": 1,
-              "version": null,
+              "version": 1,
               "isbn": "978-952-7269-49-7",
               "printedin": null,
               "pubseriesnum": null,
@@ -1043,7 +1046,8 @@
           "id": 3544,
           "title": "Löydökki",
           "orig_title": "Löydökki",
-          "pubyear": 2019
+          "pubyear": 2019,
+          "notes": null
         },
         {
           "authors": [
@@ -1139,7 +1143,7 @@
                     "subtitle": "",
                     "pubyear": 2019,
                     "editionnum": 1,
-                    "version": null,
+                    "version": 1,
                     "isbn": "978-952-7269-49-7",
                     "printedin": null,
                     "pubseriesnum": null,
@@ -1219,7 +1223,7 @@
               "subtitle": "",
               "pubyear": 2019,
               "editionnum": 1,
-              "version": null,
+              "version": 1,
               "isbn": "978-952-7269-49-7",
               "printedin": null,
               "pubseriesnum": null,
@@ -1256,7 +1260,8 @@
           "id": 3545,
           "title": "Muutto",
           "orig_title": "Muutto",
-          "pubyear": 2019
+          "pubyear": 2019,
+          "notes": null
         },
         {
           "authors": [
@@ -1352,7 +1357,7 @@
                     "subtitle": "",
                     "pubyear": 2019,
                     "editionnum": 1,
-                    "version": null,
+                    "version": 1,
                     "isbn": "978-952-7269-49-7",
                     "printedin": null,
                     "pubseriesnum": null,
@@ -1432,7 +1437,7 @@
               "subtitle": "",
               "pubyear": 2019,
               "editionnum": 1,
-              "version": null,
+              "version": 1,
               "isbn": "978-952-7269-49-7",
               "printedin": null,
               "pubseriesnum": null,
@@ -1469,7 +1474,8 @@
           "id": 3546,
           "title": "Noutajat",
           "orig_title": "Noutajat",
-          "pubyear": 2019
+          "pubyear": 2019,
+          "notes": null
         },
         {
           "authors": [
@@ -1565,7 +1571,7 @@
                     "subtitle": "",
                     "pubyear": 2019,
                     "editionnum": 1,
-                    "version": null,
+                    "version": 1,
                     "isbn": "978-952-7269-49-7",
                     "printedin": null,
                     "pubseriesnum": null,
@@ -1645,7 +1651,7 @@
               "subtitle": "",
               "pubyear": 2019,
               "editionnum": 1,
-              "version": null,
+              "version": 1,
               "isbn": "978-952-7269-49-7",
               "printedin": null,
               "pubseriesnum": null,
@@ -1682,7 +1688,8 @@
           "id": 3547,
           "title": "Näkymä",
           "orig_title": "Näkymä",
-          "pubyear": 2019
+          "pubyear": 2019,
+          "notes": null
         },
         {
           "authors": [
@@ -1778,7 +1785,7 @@
                     "subtitle": "",
                     "pubyear": 2019,
                     "editionnum": 1,
-                    "version": null,
+                    "version": 1,
                     "isbn": "978-952-7269-49-7",
                     "printedin": null,
                     "pubseriesnum": null,
@@ -1858,7 +1865,7 @@
               "subtitle": "",
               "pubyear": 2019,
               "editionnum": 1,
-              "version": null,
+              "version": 1,
               "isbn": "978-952-7269-49-7",
               "printedin": null,
               "pubseriesnum": null,
@@ -1895,7 +1902,8 @@
           "id": 3548,
           "title": "Piha",
           "orig_title": "Piha",
-          "pubyear": 2019
+          "pubyear": 2019,
+          "notes": null
         },
         {
           "authors": [
@@ -1991,7 +1999,7 @@
                     "subtitle": "",
                     "pubyear": 2019,
                     "editionnum": 1,
-                    "version": null,
+                    "version": 1,
                     "isbn": "978-952-7269-49-7",
                     "printedin": null,
                     "pubseriesnum": null,
@@ -2071,7 +2079,7 @@
               "subtitle": "",
               "pubyear": 2019,
               "editionnum": 1,
-              "version": null,
+              "version": 1,
               "isbn": "978-952-7269-49-7",
               "printedin": null,
               "pubseriesnum": null,
@@ -2108,7 +2116,8 @@
           "id": 3549,
           "title": "Päät",
           "orig_title": "Päät",
-          "pubyear": 2019
+          "pubyear": 2019,
+          "notes": null
         },
         {
           "authors": [
@@ -2204,7 +2213,7 @@
                     "subtitle": "",
                     "pubyear": 2019,
                     "editionnum": 1,
-                    "version": null,
+                    "version": 1,
                     "isbn": "978-952-7269-49-7",
                     "printedin": null,
                     "pubseriesnum": null,
@@ -2284,7 +2293,7 @@
               "subtitle": "",
               "pubyear": 2019,
               "editionnum": 1,
-              "version": null,
+              "version": 1,
               "isbn": "978-952-7269-49-7",
               "printedin": null,
               "pubseriesnum": null,
@@ -2321,7 +2330,8 @@
           "id": 3550,
           "title": "Risteily",
           "orig_title": "Risteily",
-          "pubyear": 2019
+          "pubyear": 2019,
+          "notes": null
         },
         {
           "authors": [
@@ -2417,7 +2427,7 @@
                     "subtitle": "",
                     "pubyear": 2019,
                     "editionnum": 1,
-                    "version": null,
+                    "version": 1,
                     "isbn": "978-952-7269-49-7",
                     "printedin": null,
                     "pubseriesnum": null,
@@ -2497,7 +2507,7 @@
               "subtitle": "",
               "pubyear": 2019,
               "editionnum": 1,
-              "version": null,
+              "version": 1,
               "isbn": "978-952-7269-49-7",
               "printedin": null,
               "pubseriesnum": null,
@@ -2534,7 +2544,8 @@
           "id": 3551,
           "title": "Silmukka",
           "orig_title": "Silmukka",
-          "pubyear": 2019
+          "pubyear": 2019,
+          "notes": null
         },
         {
           "authors": [
@@ -2630,7 +2641,7 @@
                     "subtitle": "",
                     "pubyear": 2019,
                     "editionnum": 1,
-                    "version": null,
+                    "version": 1,
                     "isbn": "978-952-7269-49-7",
                     "printedin": null,
                     "pubseriesnum": null,
@@ -2710,7 +2721,7 @@
               "subtitle": "",
               "pubyear": 2019,
               "editionnum": 1,
-              "version": null,
+              "version": 1,
               "isbn": "978-952-7269-49-7",
               "printedin": null,
               "pubseriesnum": null,
@@ -2747,7 +2758,8 @@
           "id": 3552,
           "title": "Tarha",
           "orig_title": "Tarha",
-          "pubyear": 2019
+          "pubyear": 2019,
+          "notes": null
         }
       ],
       "awards": [],

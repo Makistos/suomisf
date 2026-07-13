@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-04-11T20:33:54.117860+00:00",
+    "generated_at": "2026-07-12T18:56:26.276996+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/editions/242/shorts",
@@ -131,7 +131,7 @@
                   "subtitle": "",
                   "pubyear": 2020,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "978-952-7211-49-6",
                   "printedin": null,
                   "pubseriesnum": null,
@@ -239,7 +239,7 @@
             "subtitle": "",
             "pubyear": 2020,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "978-952-7211-49-6",
             "printedin": null,
             "pubseriesnum": null,
@@ -296,7 +296,7 @@
                   "subtitle": "",
                   "pubyear": 2020,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "978-952-7211-62-5",
                   "printedin": null,
                   "pubseriesnum": null,
@@ -362,7 +362,7 @@
             "subtitle": "",
             "pubyear": 2020,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "978-952-7211-62-5",
             "printedin": null,
             "pubseriesnum": null,
@@ -399,7 +399,8 @@
         "id": 3556,
         "title": "Hyönteisten sinnikkyydestä",
         "orig_title": "Hyönteisten sinnikkyydestä",
-        "pubyear": 2020
+        "pubyear": 2020,
+        "notes": null
       },
       {
         "authors": [
@@ -523,7 +524,7 @@
                   "subtitle": "",
                   "pubyear": 2020,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "978-952-7211-49-6",
                   "printedin": null,
                   "pubseriesnum": null,
@@ -631,7 +632,7 @@
             "subtitle": "",
             "pubyear": 2020,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "978-952-7211-49-6",
             "printedin": null,
             "pubseriesnum": null,
@@ -668,7 +669,8 @@
         "id": 3558,
         "title": "Aloittelijan epäonnea",
         "orig_title": "Aloittelijan epäonnea",
-        "pubyear": 2020
+        "pubyear": 2020,
+        "notes": null
       },
       {
         "authors": [
@@ -791,7 +793,7 @@
                   "subtitle": "",
                   "pubyear": 2020,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "978-952-7211-49-6",
                   "printedin": null,
                   "pubseriesnum": null,
@@ -899,7 +901,7 @@
             "subtitle": "",
             "pubyear": 2020,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "978-952-7211-49-6",
             "printedin": null,
             "pubseriesnum": null,
@@ -936,7 +938,8 @@
         "id": 3555,
         "title": "Toistumia",
         "orig_title": "Toistumia",
-        "pubyear": 2020
+        "pubyear": 2020,
+        "notes": null
       },
       {
         "authors": [
@@ -946,7 +949,7 @@
             "alt_name": "Reija Korkatti",
             "fullname": "",
             "image_src": null,
-            "dob": null,
+            "dob": 1987.0,
             "dod": null,
             "nationality": {
               "id": 4,
@@ -1059,7 +1062,7 @@
                   "subtitle": "",
                   "pubyear": 2020,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "978-952-7211-49-6",
                   "printedin": null,
                   "pubseriesnum": null,
@@ -1167,7 +1170,7 @@
             "subtitle": "",
             "pubyear": 2020,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "978-952-7211-49-6",
             "printedin": null,
             "pubseriesnum": null,
@@ -1204,7 +1207,8 @@
         "id": 7556,
         "title": "Sielunvihollinen",
         "orig_title": "Sielunvihollinen",
-        "pubyear": 2020
+        "pubyear": 2020,
+        "notes": null
       },
       {
         "authors": [
@@ -1327,7 +1331,7 @@
                   "subtitle": "",
                   "pubyear": 2020,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "978-952-7211-49-6",
                   "printedin": null,
                   "pubseriesnum": null,
@@ -1435,7 +1439,7 @@
             "subtitle": "",
             "pubyear": 2020,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "978-952-7211-49-6",
             "printedin": null,
             "pubseriesnum": null,
@@ -1472,7 +1476,8 @@
         "id": 7557,
         "title": "Tuolla puolen – kertomus eräästä poismenosta",
         "orig_title": "Tuolla puolen – kertomus eräästä poismenosta",
-        "pubyear": 2020
+        "pubyear": 2020,
+        "notes": null
       },
       {
         "authors": [
@@ -1595,7 +1600,7 @@
                   "subtitle": "",
                   "pubyear": 2020,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "978-952-7211-49-6",
                   "printedin": null,
                   "pubseriesnum": null,
@@ -1703,7 +1708,7 @@
             "subtitle": "",
             "pubyear": 2020,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "978-952-7211-49-6",
             "printedin": null,
             "pubseriesnum": null,
@@ -1740,7 +1745,8 @@
         "id": 7558,
         "title": "Ympyrä",
         "orig_title": "Ympyrä",
-        "pubyear": 2020
+        "pubyear": 2020,
+        "notes": null
       },
       {
         "authors": [
@@ -1863,7 +1869,7 @@
                   "subtitle": "",
                   "pubyear": 2020,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "978-952-7211-49-6",
                   "printedin": null,
                   "pubseriesnum": null,
@@ -1971,7 +1977,7 @@
             "subtitle": "",
             "pubyear": 2020,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "978-952-7211-49-6",
             "printedin": null,
             "pubseriesnum": null,
@@ -2008,7 +2014,8 @@
         "id": 7555,
         "title": "Naistenmiehen kuolema",
         "orig_title": "Naistenmiehen kuolema",
-        "pubyear": 2020
+        "pubyear": 2020,
+        "notes": null
       },
       {
         "authors": [
@@ -2131,7 +2138,7 @@
                   "subtitle": "",
                   "pubyear": 2020,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "978-952-7211-49-6",
                   "printedin": null,
                   "pubseriesnum": null,
@@ -2239,7 +2246,7 @@
             "subtitle": "",
             "pubyear": 2020,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "978-952-7211-49-6",
             "printedin": null,
             "pubseriesnum": null,
@@ -2276,7 +2283,8 @@
         "id": 7553,
         "title": "Paikan vanki",
         "orig_title": "Paikan vanki",
-        "pubyear": 2020
+        "pubyear": 2020,
+        "notes": null
       },
       {
         "authors": [
@@ -2293,7 +2301,7 @@
               "name": "Suomi"
             },
             "workcount": 6.0,
-            "storycount": 116,
+            "storycount": 117,
             "roles": [
               "Kirjoittaja",
               "Toimittaja",
@@ -2402,7 +2410,7 @@
                   "subtitle": "",
                   "pubyear": 2020,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "978-952-7211-49-6",
                   "printedin": null,
                   "pubseriesnum": null,
@@ -2510,7 +2518,7 @@
             "subtitle": "",
             "pubyear": 2020,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "978-952-7211-49-6",
             "printedin": null,
             "pubseriesnum": null,
@@ -2547,7 +2555,8 @@
         "id": 3554,
         "title": "Marraskoirat",
         "orig_title": "Marraskoirat",
-        "pubyear": 2020
+        "pubyear": 2020,
+        "notes": null
       },
       {
         "authors": [
@@ -2670,7 +2679,7 @@
                   "subtitle": "",
                   "pubyear": 2020,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "978-952-7211-49-6",
                   "printedin": null,
                   "pubseriesnum": null,
@@ -2778,7 +2787,7 @@
             "subtitle": "",
             "pubyear": 2020,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "978-952-7211-49-6",
             "printedin": null,
             "pubseriesnum": null,
@@ -2815,7 +2824,8 @@
         "id": 7554,
         "title": "Rimakauhua",
         "orig_title": "Rimakauhua",
-        "pubyear": 2020
+        "pubyear": 2020,
+        "notes": null
       },
       {
         "authors": [
@@ -2941,7 +2951,7 @@
                   "subtitle": "",
                   "pubyear": 2020,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "978-952-7211-49-6",
                   "printedin": null,
                   "pubseriesnum": null,
@@ -3049,7 +3059,7 @@
             "subtitle": "",
             "pubyear": 2020,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "978-952-7211-49-6",
             "printedin": null,
             "pubseriesnum": null,
@@ -3086,7 +3096,8 @@
         "id": 3553,
         "title": "Muistojen kauppiaat",
         "orig_title": "Muistojen kauppiaat",
-        "pubyear": 2020
+        "pubyear": 2020,
+        "notes": null
       },
       {
         "authors": [
@@ -3210,7 +3221,7 @@
                   "subtitle": "",
                   "pubyear": 2020,
                   "editionnum": 1,
-                  "version": null,
+                  "version": 1,
                   "isbn": "978-952-7211-49-6",
                   "printedin": null,
                   "pubseriesnum": null,
@@ -3318,7 +3329,7 @@
             "subtitle": "",
             "pubyear": 2020,
             "editionnum": 1,
-            "version": null,
+            "version": 1,
             "isbn": "978-952-7211-49-6",
             "printedin": null,
             "pubseriesnum": null,
@@ -3355,7 +3366,8 @@
         "id": 3557,
         "title": "Pinnanalaiset",
         "orig_title": "Pinnanalaiset",
-        "pubyear": 2020
+        "pubyear": 2020,
+        "notes": null
       }
     ],
     "error": null
