@@ -71,8 +71,8 @@ AWARD_SOURCES = {
     ],
 }
 
-# Be polite to ISFDB between requests.
-REQUEST_DELAY_SECONDS = 0.5
+# Be polite to ISFDB between requests (it rate-limits bursts with 403).
+REQUEST_DELAY_SECONDS = 1.5
 
 
 def seed():

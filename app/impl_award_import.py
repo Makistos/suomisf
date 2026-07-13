@@ -12,6 +12,7 @@ awardcategory.type (0 = personal, 1 = novel, 2 = short story).
 """
 
 import re
+import time
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -155,6 +156,26 @@ def _extract_year(text: str) -> Optional[int]:
     return int(match.group()) if match else None
 
 
+# ISFDB rate-limits bursts of requests (returns 403). Retry with backoff.
+_RETRY_STATUSES = {403, 429, 500, 502, 503, 504}
+_MAX_ATTEMPTS = 4
+_RETRY_BASE_DELAY = 5  # seconds; doubles each retry
+
+
+def _get(url: str) -> requests.Response:
+    """GET a URL, retrying with backoff on ISFDB rate-limit responses."""
+    delay = _RETRY_BASE_DELAY
+    for attempt in range(_MAX_ATTEMPTS):
+        resp = requests.get(url, headers=_HEADERS, timeout=15)
+        if resp.status_code not in _RETRY_STATUSES:
+            break
+        if attempt < _MAX_ATTEMPTS - 1:
+            time.sleep(delay)
+            delay *= 2
+    resp.raise_for_status()
+    return resp
+
+
 def parse_award_category(isfdb_category_id: int,
                          item_type: int) -> ScrapedCategory:
     """
@@ -172,9 +193,7 @@ def parse_award_category(isfdb_category_id: int,
     """
     result = ScrapedCategory(isfdb_category_id=isfdb_category_id)
 
-    resp = requests.get(category_url(isfdb_category_id),
-                        headers=_HEADERS, timeout=15)
-    resp.raise_for_status()
+    resp = _get(category_url(isfdb_category_id))
     soup = BeautifulSoup(resp.content, "html.parser")
 
     for li in soup.find_all("li"):
