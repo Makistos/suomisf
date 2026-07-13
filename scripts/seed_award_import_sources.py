@@ -20,7 +20,8 @@ import time
 
 from app.route_helpers import new_session
 from app.orm_decl import Award, AwardImportSource
-from app.impl_award_import import CATEGORY_MAP, parse_award_category
+from app.impl_award_import import (CATEGORY_MAP, SEED_MAX_ATTEMPTS,
+                                   parse_award_category)
 
 # Local award name -> list of (isfdb_category_id, item_type).
 # item_type: 0 = Work, 1 = Short story, 2 = Both (novella).
@@ -102,7 +103,9 @@ def seed():
 
         for isfdb_category_id, item_type in sources:
             try:
-                scraped = parse_award_category(isfdb_category_id, item_type)
+                scraped = parse_award_category(
+                    isfdb_category_id, item_type,
+                    max_attempts=SEED_MAX_ATTEMPTS)
             except Exception as exc:  # noqa: BLE001 - report and continue
                 errors.append(
                     f"{award_name} cat {isfdb_category_id}: fetch failed: {exc}")

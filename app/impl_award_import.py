@@ -156,23 +156,31 @@ def _extract_year(text: str) -> Optional[int]:
     return int(match.group()) if match else None
 
 
-# ISFDB rate-limits bursts of requests (returns 403). Retry with backoff.
+# ISFDB rate-limits bursts of requests (returns 403). Batch callers can
+# retry with backoff; web callers must not (it exceeds the worker timeout).
 _RETRY_STATUSES = {403, 429, 500, 502, 503, 504}
-_MAX_ATTEMPTS = 4
 _RETRY_BASE_DELAY = 5  # seconds; doubles each retry
+# Attempts for offline/batch use (the seed); web requests use 1 (no retry).
+SEED_MAX_ATTEMPTS = 4
 
 
-def _get(url: str) -> requests.Response:
-    """GET a URL, retrying with backoff on ISFDB rate-limit responses."""
+def _get(url: str, max_attempts: int = 1) -> requests.Response:
+    """GET a URL, optionally retrying with backoff on rate-limit responses.
+
+    max_attempts defaults to 1 (fail fast, no retry) so this is safe to
+    call from within a web request — the retry backoff would otherwise
+    exceed the gunicorn worker timeout. Batch/offline callers (the seed)
+    pass a higher value to tolerate ISFDB rate-limiting.
+    """
     delay = _RETRY_BASE_DELAY
-    for attempt in range(_MAX_ATTEMPTS):
+    for attempt in range(max_attempts):
         resp = requests.get(url, headers=_HEADERS, timeout=15)
         if resp.status_code not in _RETRY_STATUSES:
             break
-        if attempt < _MAX_ATTEMPTS - 1:
+        if attempt < max_attempts - 1:
             app.logger.warning(
                 'ISFDB %s for %s; retry %d/%d in %ds',
-                resp.status_code, url, attempt + 1, _MAX_ATTEMPTS - 1, delay)
+                resp.status_code, url, attempt + 1, max_attempts - 1, delay)
             time.sleep(delay)
             delay *= 2
     resp.raise_for_status()
@@ -180,7 +188,8 @@ def _get(url: str) -> requests.Response:
 
 
 def parse_award_category(isfdb_category_id: int,
-                         item_type: int) -> ScrapedCategory:
+                         item_type: int,
+                         max_attempts: int = 1) -> ScrapedCategory:
     """
     Fetch and parse a single ISFDB award-category page.
 
@@ -189,6 +198,8 @@ def parse_award_category(isfdb_category_id: int,
         item_type: 0 = Work, 1 = Short story, 2 = Both. Only used by
             callers to decide which local tables to match against; the
             parse itself is type-agnostic.
+        max_attempts: how many times to try the request (1 = fail fast,
+            for web requests; higher tolerates rate-limiting in batch jobs).
 
     Returns:
         ScrapedCategory with award_type, category name and the list of
@@ -196,7 +207,7 @@ def parse_award_category(isfdb_category_id: int,
     """
     result = ScrapedCategory(isfdb_category_id=isfdb_category_id)
 
-    resp = _get(category_url(isfdb_category_id))
+    resp = _get(category_url(isfdb_category_id), max_attempts=max_attempts)
     soup = BeautifulSoup(resp.content, "html.parser")
 
     for li in soup.find_all("li"):
