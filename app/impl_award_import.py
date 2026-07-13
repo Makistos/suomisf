@@ -170,6 +170,9 @@ def _get(url: str) -> requests.Response:
         if resp.status_code not in _RETRY_STATUSES:
             break
         if attempt < _MAX_ATTEMPTS - 1:
+            app.logger.warning(
+                'ISFDB %s for %s; retry %d/%d in %ds',
+                resp.status_code, url, attempt + 1, _MAX_ATTEMPTS - 1, delay)
             time.sleep(delay)
             delay *= 2
     resp.raise_for_status()

@@ -74,6 +74,10 @@ AWARD_SOURCES = {
 # Be polite to ISFDB between requests (it rate-limits bursts with 403).
 REQUEST_DELAY_SECONDS = 1.5
 
+# Give up early if ISFDB is blocking the IP, rather than grinding through
+# every category with slow retry backoff.
+MAX_CONSECUTIVE_FAILURES = 5
+
 
 def seed():
     session = new_session()
@@ -85,7 +89,12 @@ def seed():
     unmapped = []
     errors = []
 
+    consecutive_failures = 0
+    aborted = False
+
     for award_name, sources in AWARD_SOURCES.items():
+        if aborted:
+            break
         award_id = awards.get(award_name)
         if award_id is None:
             errors.append(f"Award not found in DB: {award_name!r}")
@@ -97,7 +106,16 @@ def seed():
             except Exception as exc:  # noqa: BLE001 - report and continue
                 errors.append(
                     f"{award_name} cat {isfdb_category_id}: fetch failed: {exc}")
+                consecutive_failures += 1
+                if consecutive_failures >= MAX_CONSECUTIVE_FAILURES:
+                    print(f"\nAborting after {consecutive_failures} consecutive "
+                          f"ISFDB failures — the IP is likely rate-limited. "
+                          f"Wait ~15 min and re-run.", file=sys.stderr,
+                          flush=True)
+                    aborted = True
+                    break
                 continue
+            consecutive_failures = 0
             time.sleep(REQUEST_DELAY_SECONDS)
 
             our_category = CATEGORY_MAP.get(scraped.category) or None
@@ -127,7 +145,7 @@ def seed():
                 inserted += 1
             print(f"  {award_name} <- ISFDB {isfdb_category_id} "
                   f"{scraped.category!r} -> {our_category!r} "
-                  f"({len(scraped.winners)} winners)")
+                  f"({len(scraped.winners)} winners)", flush=True)
 
     session.commit()
 
