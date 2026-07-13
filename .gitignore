@@ -10,4 +10,5 @@ bibtmp/*
 *.un~
 apidoc/*
 .env
+.env.back
 **/.env
