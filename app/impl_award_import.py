@@ -340,6 +340,10 @@ SFADB_CATEGORY_MAP = {
     "first novel": ("Paras ensiromaani", 0),
     "young adult book": ("Paras nuortenkirja", 0),
     "young adult novel": ("Paras nuortenkirja", 0),
+    "young adult literature": ("Paras nuortenkirja", 0),
+    # Mythopoeic fantasy categories
+    "adult fantasy": ("Paras romaani", 0),
+    "children's fantasy": ("Paras lastenkirja", 0),
     # Short fiction (domestic / general)
     "novella": ("Paras pienoisromaani", 2),
     "novelette": ("Paras pitkä novelli", 1),
