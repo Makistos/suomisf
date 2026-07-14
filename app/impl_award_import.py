@@ -706,6 +706,13 @@ def _author_matches(session: Any, match_type: str, item_id: int,
 _WORK_CATEGORY_TYPE = 1
 _SHORT_CATEGORY_TYPE = 2
 
+# A short-fiction category (e.g. "short story / short fiction") is ambiguous:
+# the winner may be a short story or a stand-alone work. When it matches a
+# work, use the work-length short-fiction category instead.
+_SHORT_FICTION_WORK_CATEGORY = {
+    "Paras novelli": "Paras lyhyt fiktio",
+}
+
 
 def _resolve_category_id(category_lookup: Dict[Tuple[str, int], int],
                          name: Optional[str],
@@ -815,11 +822,20 @@ def _build_entry(session: Any, winner: ScrapedWinner, item_type: int,
     entry["candidates"] = candidate_ids
     if match_type is not None:
         entry["match_type"] = match_type
-    if matched is not None and cat_type is not None:
+    if matched is not None:
         entry["target_id"] = matched.id
         entry["target_title"] = matched.title
+        # Resolve the category by what the winner actually is: a work gets a
+        # work-length category (including the short-fiction-as-work override).
+        if match_type == "work":
+            resolved = _SHORT_FICTION_WORK_CATEGORY.get(our_category or "",
+                                                        our_category)
+            preferred_type = _WORK_CATEGORY_TYPE
+        else:
+            resolved = our_category
+            preferred_type = _SHORT_CATEGORY_TYPE
         entry["category_id"] = _resolve_category_id(
-            category_lookup, our_category, cat_type)
+            category_lookup, resolved, preferred_type)
 
     return entry
 
