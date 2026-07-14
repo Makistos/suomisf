@@ -383,6 +383,8 @@ SFADB_SINGLE_CATEGORY = {
     "Arthur C. Clarke -palkinto": ("Paras romaani", 0),
     "Campbell Memorial Award": ("Paras romaani", 0),
     "Theodore Sturgeon Award": ("Paras novelli", 1),
+    # Prix Apollo (best novel); sfadb has only a By-Name page, no By-Category.
+    "Apollo": ("Paras romaani", 0),
 }
 
 
