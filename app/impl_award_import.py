@@ -305,9 +305,8 @@ SFADB_AWARD_SLUGS = {
     "British Fantasy Award": "British_Fantasy_Awards",
     "British Science Fiction Award": "British_SF_Association_Awards",
     "Campbell Memorial Award": "John_W_Campbell_Memorial_Award",
-    "Carnegie-mitali": "Carnegie_Medal",
-    # Goodreads Choice Awards: sfadb does not track it (no page), so it has
-    # no import source.
+    # Carnegie-mitali and Goodreads Choice Awards: sfadb does not track them
+    # (no page at all), so they have no import source.
     "Hugo": "Hugo_Awards",
     "Imaginaire": "Grand_Prix_de_lImaginaire",
     "Kurd Lasswitz Preis": "Kurd_Lasswitz_Preis",
