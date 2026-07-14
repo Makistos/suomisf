@@ -834,6 +834,9 @@ def _build_entry(session: Any, winner: ScrapedWinner, item_type: int,
         else:
             resolved = our_category
             preferred_type = _SHORT_CATEGORY_TYPE
+        # Reflect the resolved category in the entry so the preview shows
+        # what will actually be saved.
+        entry["our_category"] = resolved
         entry["category_id"] = _resolve_category_id(
             category_lookup, resolved, preferred_type)
 
