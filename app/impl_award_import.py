@@ -347,6 +347,9 @@ SFADB_CATEGORY_MAP = {
     "short story / short fiction": ("Paras novelli", 1),
     "short story/short fiction": ("Paras novelli", 1),
     "short fiction": ("Paras lyhyt fiktio", 1),
+    # Alternate history (Sidewise)
+    "long form": ("Paras vaihtoehtoishistoria (pitkä muoto)", 0),
+    "short form": ("Paras vaihtoehtoishistoria (lyhyt muoto)", 1),
     # Collections / anthologies
     "collection": ("Paras kokoelma", 0),
     "single-author collection": ("Paras kokoelma", 0),
