@@ -320,7 +320,7 @@ SFADB_AWARD_SLUGS = {
     "Theodore Sturgeon Award": "Theodore_Sturgeon_Memorial_Award",
     "World Fantasy Award": "World_Fantasy_Awards",
     "Shirley Jackson Award": "Shirley_Jackson_Awards",
-    "Prometheus Award": "Prometheus_Award",
+    "Prometheus Award": "Prometheus_Awards",
     "Ditmar Award": "Ditmar_Awards",
 }
 
@@ -349,7 +349,15 @@ SFADB_CATEGORY_MAP = {
     "short fiction": ("Paras lyhyt fiktio", 1),
     # Collections / anthologies
     "collection": ("Paras kokoelma", 0),
+    "single-author collection": ("Paras kokoelma", 0),
+    "collected work": ("Paras kokoelma", 0),
     "anthology": ("Paras antologia", 0),
+    "edited anthology": ("Paras antologia", 0),
+    # Ditmar (Australian) categories
+    "australian long fiction/novel": ("Paras romaani", 0),
+    "australian novella or novelette": ("Paras pienoisromaani", 2),
+    "australian short fiction": ("Paras novelli", 1),
+    "international fiction": ("Paras ulkomainen romaani", 0),
     # Foreign (from the award's perspective)
     "foreign novel": ("Paras ulkomainen romaani", 0),
     "foreign work": ("Paras ulkomainen romaani", 0),
