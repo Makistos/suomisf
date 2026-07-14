@@ -368,15 +368,25 @@ SFADB_CATEGORY_MAP = {
     "foreign ya novel": ("Paras ulkomainen nuortenromaani", 0),
 }
 
+# Single-category awards that have no sfadb "winners by category" page.
+# Their winners are read from the flat "winners by year" page and all get
+# the mapped local category. award name -> (local category, item_type).
+SFADB_SINGLE_CATEGORY = {
+    "Philip K. Dick Award": ("Paras romaani", 0),
+    "Arthur C. Clarke -palkinto": ("Paras romaani", 0),
+    "Campbell Memorial Award": ("Paras romaani", 0),
+    "Theodore Sturgeon Award": ("Paras novelli", 1),
+}
+
 
 def _norm_sfadb_category(name: str) -> str:
     """Normalize a sfadb category label for map lookup."""
     return " ".join(name.lower().split())
 
 
-def sfadb_url(sfadb_slug: str) -> str:
-    """Return the sfadb 'winners by category' URL for an award slug."""
-    return f"{SFADB_BASE_URL}/{sfadb_slug}_Winners_By_Category"
+def sfadb_url(sfadb_slug: str, page: str = "Winners_By_Category") -> str:
+    """Return a sfadb aggregate URL for an award slug."""
+    return f"{SFADB_BASE_URL}/{sfadb_slug}_{page}"
 
 
 def _parse_sfadb_winner(rightcol: Any,
@@ -446,6 +456,56 @@ def parse_award_sfadb(sfadb_slug: str,
                 pending_year = None
 
     return categories
+
+
+def parse_award_sfadb_flat(sfadb_slug: str,
+                           max_attempts: int = 1) -> List[ScrapedWinner]:
+    """
+    Parse all winners from an award's sfadb "winners by name" page as one
+    flat list.
+
+    Used for single-category awards with no "winners by category" page
+    (e.g. Philip K. Dick, Arthur C. Clarke, Theodore Sturgeon); the caller
+    assigns the fixed category. Layout: each 'nomineeblock' has a 'nominee'
+    author ("Last, First"), then 'dateleftindent' (year) + 'titlemid'
+    (title in <b>, with a 'win' marker for actual winners).
+    """
+    resp = _get(sfadb_url(sfadb_slug, "Winners_By_Name"),
+                max_attempts=max_attempts)
+    soup = BeautifulSoup(resp.content, "html.parser")
+    main = soup.find(class_="pagemain") or soup
+
+    winners: List[ScrapedWinner] = []
+    for block in main.find_all(class_="nomineeblock"):
+        nominee = block.find(class_="nominee")
+        author = ""
+        if nominee:
+            for a in nominee.find_all("a"):
+                if a.get("href"):
+                    author = a.get_text(" ", strip=True)
+                    break
+        # By-Name lists authors as "Last, First"; flip to "First Last" to
+        # match the stored alt_name form.
+        if "," in author:
+            last, _, first = author.partition(",")
+            author = f"{first.strip()} {last.strip()}"
+        pending_year: Optional[int] = None
+        for el in block.find_all(True):
+            classes = " ".join(el.get("class") or [])
+            if "dateleftindent" in classes:
+                pending_year = _extract_year(el.get_text())
+            elif "titlemid" in classes:
+                if el.find(class_="win"):
+                    # Title is the text before the "— winner" marker (works
+                    # for both bolded novels and quoted short fiction).
+                    text = el.get_text(" ", strip=True)
+                    title = re.sub(r"\s*[—–-]\s*winner.*$", "", text,
+                                   flags=re.IGNORECASE).strip().strip("“”")
+                    if title:
+                        winners.append(ScrapedWinner(
+                            year=pending_year, title=title, author=author))
+                pending_year = None
+    return winners
 
 
 # ---------------------------------------------------------------------------
@@ -782,6 +842,19 @@ def _collect_sfadb(award: Any, errors: List[str]):
     slug = SFADB_AWARD_SLUGS.get(award.name)
     if not slug:
         return None
+
+    # Single-category awards have no "winners by category" page; read the
+    # flat "winners by year" list and apply the configured category.
+    single = SFADB_SINGLE_CATEGORY.get(award.name)
+    if single is not None:
+        our_category, item_type = single
+        try:
+            winners = parse_award_sfadb_flat(slug)
+        except requests.RequestException as exc:
+            errors.append(f'sfadb {slug}: {exc}')
+            return []
+        return [(item_type, our_category, award.name, winners)]
+
     try:
         scraped_cats = parse_award_sfadb(slug)
     except requests.RequestException as exc:
