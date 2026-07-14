@@ -18,7 +18,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import requests
 from bs4 import BeautifulSoup
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from sqlalchemy.exc import SQLAlchemyError
 
 from app import app
@@ -131,10 +131,16 @@ CATEGORY_MAP: Dict[str, str] = {
 
 @dataclass
 class ScrapedWinner:
-    """A single winner row scraped from an ISFDB award-category page."""
+    """A single scraped award winner.
+
+    alt_title holds an alternative form of the title (e.g. the original-
+    language edition title that sfadb lists next to the English one); the
+    matcher tries both against orig_title.
+    """
     year: Optional[int]
     title: str
     author: str
+    alt_title: Optional[str] = None
 
 
 @dataclass
@@ -285,6 +291,156 @@ def parse_award_category(isfdb_category_id: int,
 
 
 # ---------------------------------------------------------------------------
+# sfadb.com scraper (parallel to ISFDB; ISFDB blocks datacenter IPs)
+# ---------------------------------------------------------------------------
+
+SFADB_BASE_URL = "https://www.sfadb.com"
+
+# Local award name -> sfadb award slug. sfadb's "<slug>_Winners_By_Category"
+# page holds every winner for the award in one request.
+SFADB_AWARD_SLUGS = {
+    "Apollo": "Prix_Apollo",
+    "Arthur C. Clarke -palkinto": "Arthur_C_Clarke_Award",
+    "Bram Stoker Award": "Bram_Stoker_Awards",
+    "British Fantasy Award": "British_Fantasy_Awards",
+    "British Science Fiction Award": "British_SF_Association_Awards",
+    "Campbell Memorial Award": "John_W_Campbell_Memorial_Award",
+    "Carnegie-mitali": "Carnegie_Medal",
+    "Goodreads Choice Awards": "Goodreads_Choice_Awards",
+    "Hugo": "Hugo_Awards",
+    "Imaginaire": "Grand_Prix_de_lImaginaire",
+    "Kurd Lasswitz Preis": "Kurd_Lasswitz_Preis",
+    "Locus": "Locus_Awards",
+    "Mythopoeic": "Mythopoeic_Awards",
+    "Nebula": "Nebula_Awards",
+    "Philip K. Dick Award": "Philip_K_Dick_Award",
+    "Premio Ignotus": "Ignotus_Awards",
+    "Retro Hugo": "Retro_Hugo_Awards",
+    "Sidewise": "Sidewise_Awards",
+    "Theodore Sturgeon Award": "Theodore_Sturgeon_Memorial_Award",
+    "World Fantasy Award": "World_Fantasy_Awards",
+    "Shirley Jackson Award": "Shirley_Jackson_Awards",
+    "Prometheus Award": "Prometheus_Award",
+    "Ditmar Award": "Ditmar_Awards",
+}
+
+# sfadb category name (normalized: lowercased, whitespace collapsed) ->
+# (local category name, item_type). item_type: 0 = Work, 1 = Short story,
+# 2 = Both (novella). Categories not listed here are skipped (non-fiction,
+# or not yet mapped). sfadb uses compound slash-separated labels.
+SFADB_CATEGORY_MAP = {
+    # Novels (domestic / general)
+    "novel": ("Paras romaani", 0),
+    "novel / novel or novelette": ("Paras romaani", 0),
+    "novel/sf novel": ("Paras scifi-romaani", 0),
+    "sf novel": ("Paras scifi-romaani", 0),
+    "fantasy novel": ("Paras fantasiaromaani", 0),
+    "horror novel": ("Paras kauhuromaani", 0),
+    "horror/dark fantasy novel": ("Paras kauhu/synkkä fantasia -romaani", 0),
+    "first novel": ("Paras ensiromaani", 0),
+    "young adult book": ("Paras nuortenkirja", 0),
+    "young adult novel": ("Paras nuortenkirja", 0),
+    # Short fiction (domestic / general)
+    "novella": ("Paras pienoisromaani", 2),
+    "novelette": ("Paras pitkä novelli", 1),
+    "short story": ("Paras novelli", 1),
+    "short story / short fiction": ("Paras novelli", 1),
+    "short story/short fiction": ("Paras novelli", 1),
+    "short fiction": ("Paras lyhyt fiktio", 1),
+    # Collections / anthologies
+    "collection": ("Paras kokoelma", 0),
+    "anthology": ("Paras antologia", 0),
+    # Foreign (from the award's perspective)
+    "foreign novel": ("Paras ulkomainen romaani", 0),
+    "foreign work": ("Paras ulkomainen romaani", 0),
+    "foreign short fiction": ("Paras ulkomainen novelli", 1),
+    "foreign short fiction or collection": ("Paras ulkomainen novelli", 1),
+    "foreign short story": ("Paras ulkomainen novelli", 1),
+    "foreign young adult novel": ("Paras ulkomainen nuortenromaani", 0),
+    "foreign ya novel": ("Paras ulkomainen nuortenromaani", 0),
+}
+
+
+def _norm_sfadb_category(name: str) -> str:
+    """Normalize a sfadb category label for map lookup."""
+    return " ".join(name.lower().split())
+
+
+def sfadb_url(sfadb_slug: str) -> str:
+    """Return the sfadb 'winners by category' URL for an award slug."""
+    return f"{SFADB_BASE_URL}/{sfadb_slug}_Winners_By_Category"
+
+
+def _parse_sfadb_winner(rightcol: Any,
+                        year: Optional[int]) -> Optional[ScrapedWinner]:
+    """Parse one sfadb winner cell: 'Title ( Original ), Author'."""
+    text = rightcol.get_text(" ", strip=True)
+    if not text or text.startswith("—"):
+        return None
+    # Co-winners are separate rows prefixed with "(tie)"; drop the marker.
+    text = re.sub(r"^\(tie\)\s*", "", text, flags=re.IGNORECASE)
+    links = rightcol.find_all("a")
+    author = links[0].get_text(" ", strip=True) if links else ""
+    if author and author in text:
+        title_portion = text[:text.rfind(author)]
+    else:
+        title_portion, _, author = text.rpartition(",")
+    title_portion = title_portion.strip().rstrip(",").strip().strip("“”")
+    alt = None
+    match = re.match(r"^(.*?)\s*\(([^)]+)\)\s*$", title_portion)
+    if match:
+        title = match.group(1).strip().strip("“”").strip()
+        alt = match.group(2).strip()
+    else:
+        title = title_portion
+    if not title:
+        return None
+    return ScrapedWinner(year=year, title=title, author=author.strip(),
+                         alt_title=alt)
+
+
+def parse_award_sfadb(sfadb_slug: str,
+                      max_attempts: int = 1) -> List[ScrapedCategory]:
+    """
+    Fetch and parse an award's sfadb "winners by category" page.
+
+    Returns one ScrapedCategory per sfadb super-category, each populated
+    with its winners. Category names are the sfadb category labels; the
+    caller maps them to local categories via SFADB_CATEGORY_MAP.
+    """
+    resp = _get(sfadb_url(sfadb_slug), max_attempts=max_attempts)
+    soup = BeautifulSoup(resp.content, "html.parser")
+    main = soup.find(class_="pagemain") or soup
+
+    # Category sections are delimited by a '— category —' header row (in a
+    # catwinsrightcol); the leading <a class="supercat"> elements are just a
+    # menu. Within a section, catwinsleftcol=year, catwinsrightcol=winner.
+    categories: List[ScrapedCategory] = []
+    current: Optional[ScrapedCategory] = None
+    pending_year: Optional[int] = None
+
+    for el in main.find_all(True):
+        classes = " ".join(el.get("class") or [])
+        if "catwinsleftcol" in classes:
+            pending_year = _extract_year(el.get_text())
+        elif "catwinsrightcol" in classes:
+            text = el.get_text(" ", strip=True)
+            header = re.match(r"^[—–-]\s*(.+?)\s*[—–-]$", text)
+            if header:
+                current = ScrapedCategory(isfdb_category_id=0,
+                                          category=header.group(1).strip())
+                categories.append(current)
+                pending_year = None
+            elif current is not None:
+                winner = _parse_sfadb_winner(el, pending_year)
+                if winner:
+                    current.winners.append(winner)
+                pending_year = None
+
+    return categories
+
+
+# ---------------------------------------------------------------------------
 # Matching scraped winners against the local database
 # ---------------------------------------------------------------------------
 
@@ -318,6 +474,9 @@ def _existing_awarded(session: Any, award_id: int
 
 
 _LEADING_ARTICLE_RE = re.compile(r"^(the|a|an)\s+")
+# Quotation marks stripped from both sides so curly/straight/single/double
+# variants compare equal (sfadb “...” / ‘...’ vs stored "...").
+_TITLE_QUOTE_CHARS = "“”‘’\"'"
 
 
 def _strip_leading_article(title: str) -> str:
@@ -325,28 +484,54 @@ def _strip_leading_article(title: str) -> str:
     return _LEADING_ARTICLE_RE.sub("", title.lower().strip()).strip()
 
 
-def _title_match_variants(title: str) -> set:
-    """Title forms to match, tolerating a leading article on either side.
+def _strip_quotes(text: str) -> str:
+    for q in _TITLE_QUOTE_CHARS:
+        text = text.replace(q, "")
+    return text
 
-    The database sometimes stores a leading article the original title
-    lacks (or vice versa), e.g. 'The Speaker for the Dead' vs 'Speaker for
-    the Dead', so we match the raw title, the article-stripped form and the
-    article-prefixed forms.
+
+def _title_match_variants(title: str) -> set:
+    """Title forms to match, tolerating a leading article on either side and
+    a subtitle (': ...') / quote characters on either side.
+
+    The database sometimes stores a leading article the original title lacks
+    (or vice versa), a subtitle sfadb omits ('The Dispossessed: An Ambiguous
+    Utopia' vs 'The Dispossessed'), or different quote marks. Variants are
+    quote-stripped; the caller also matches the DB title's before-colon form.
     """
-    low = title.lower().strip()
-    stripped = _strip_leading_article(low)
-    variants = {low, stripped, f"the {stripped}", f"a {stripped}",
-                f"an {stripped}"}
+    variants: set = set()
+    for base in (title, title.split(":", 1)[0]):
+        low = _strip_quotes(base.lower().strip())
+        stripped = _strip_leading_article(low)
+        variants |= {low, stripped, f"the {stripped}", f"a {stripped}",
+                     f"an {stripped}"}
     variants.discard("")
     return variants
 
 
-def _match_title(session: Any, model: Any, title: str) -> List[Any]:
-    """Match on orig_title, case-insensitively and ignoring a leading
-    article. Returns matching rows."""
-    variants = _title_match_variants(title)
+def _orig_title_exprs(model: Any):
+    """SQL expressions for orig_title matching: quote-stripped full title and
+    quote-stripped part before a subtitle colon."""
+    expr = func.lower(model.orig_title)
+    for q in _TITLE_QUOTE_CHARS:
+        expr = func.replace(expr, q, "")
+    before_colon = func.trim(func.split_part(expr, ":", 1))
+    return expr, before_colon
+
+
+def _match_title(session: Any, model: Any, *titles: Optional[str]) -> List[Any]:
+    """Match on orig_title, tolerating leading articles, subtitles and quote
+    characters. Accepts several title forms (e.g. English and original) and
+    matches any of them. Returns matching rows."""
+    variants: set = set()
+    for title in titles:
+        if title:
+            variants |= _title_match_variants(title)
+    if not variants:
+        return []
+    full, before_colon = _orig_title_exprs(model)
     return session.query(model).filter(
-        func.lower(model.orig_title).in_(variants)).all()
+        or_(full.in_(variants), before_colon.in_(variants))).all()
 
 
 # contributorrole.id for the author ("Kirjoittaja").
@@ -542,7 +727,8 @@ def _build_entry(session: Any, winner: ScrapedWinner, item_type: int,
     candidate_sets = []
     for match_type, model, cat_type, awarded_ids in kinds:
         matches = [
-            m for m in _match_title(session, model, winner.title)
+            m for m in _match_title(session, model, winner.title,
+                                    winner.alt_title)
             if _author_matches(session, match_type, m.id, winner.author)
         ]
         if matches:
@@ -563,12 +749,54 @@ def _build_entry(session: Any, winner: ScrapedWinner, item_type: int,
     return entry
 
 
-def preview_import(award_id: int) -> ResponseType:
-    """
-    Scrape an award's ISFDB sources and match winners against the DB.
+def _collect_isfdb(session: Any, award_id: int, errors: List[str]):
+    """Yield (item_type, our_category, label, winners) from ISFDB sources."""
+    sources = session.query(AwardImportSource).filter(
+        AwardImportSource.award_id == award_id).order_by(
+        AwardImportSource.id).all()
+    if not sources:
+        return None
+    collected = []
+    for source in sources:
+        try:
+            scraped = parse_award_category(source.isfdb_category_id,
+                                           source.item_type)
+        except requests.RequestException as exc:
+            errors.append(f'ISFDB {source.isfdb_category_id}: {exc}')
+            continue
+        collected.append((source.item_type, source.our_category,
+                          scraped.category, scraped.winners))
+    return collected
 
-    Returns a preview: every scraped winner with its match status
-    (new / awarded / not_found / ambiguous). Nothing is written.
+
+def _collect_sfadb(award: Any, errors: List[str]):
+    """Yield (item_type, our_category, label, winners) from sfadb."""
+    slug = SFADB_AWARD_SLUGS.get(award.name)
+    if not slug:
+        return None
+    try:
+        scraped_cats = parse_award_sfadb(slug)
+    except requests.RequestException as exc:
+        errors.append(f'sfadb {slug}: {exc}')
+        return []
+    collected = []
+    for cat in scraped_cats:
+        mapping = SFADB_CATEGORY_MAP.get(_norm_sfadb_category(cat.category))
+        if mapping is None:
+            # Non-fiction or not-yet-mapped category: skip it.
+            continue
+        our_category, item_type = mapping
+        collected.append((item_type, our_category, cat.category, cat.winners))
+    return collected
+
+
+def preview_import(award_id: int, source: str = "isfdb") -> ResponseType:
+    """
+    Scrape an award's winners from a source and match them against the DB.
+
+    source is 'isfdb' (default) or 'sfadb'. Returns a preview: every
+    scraped winner with its match status (new / awarded / not_found /
+    ambiguous). Nothing is written.
     """
     session = new_session()
 
@@ -577,31 +805,26 @@ def preview_import(award_id: int) -> ResponseType:
         return ResponseType('Palkintoa ei löydy.',
                             HttpResponseCode.NOT_FOUND.value)
 
-    sources = session.query(AwardImportSource).filter(
-        AwardImportSource.award_id == award_id).order_by(
-        AwardImportSource.id).all()
-    if not sources:
-        return ResponseType(
-            'Tälle palkinnolle ei ole ISFDB-tuontilähdettä.',
-            HttpResponseCode.BAD_REQUEST.value)
-
     category_lookup = _category_lookup(session)
     work_ids, story_ids = _existing_awarded(session, award_id)
 
     entries: List[Dict[str, Any]] = []
     errors: List[str] = []
-    for source in sources:
-        try:
-            scraped = parse_award_category(source.isfdb_category_id,
-                                           source.item_type)
-        except requests.RequestException as exc:
-            errors.append(
-                f'ISFDB {source.isfdb_category_id}: {exc}')
-            continue
-        for winner in scraped.winners:
+
+    if source == "sfadb":
+        collected = _collect_sfadb(award, errors)
+    else:
+        collected = _collect_isfdb(session, award_id, errors)
+    if collected is None:
+        return ResponseType(
+            f'Tälle palkinnolle ei ole {source}-tuontilähdettä.',
+            HttpResponseCode.BAD_REQUEST.value)
+
+    for item_type, our_category, label, winners in collected:
+        for winner in winners:
             entries.append(_build_entry(
-                session, winner, source.item_type, scraped.category,
-                source.our_category, category_lookup, work_ids, story_ids))
+                session, winner, item_type, label,
+                our_category, category_lookup, work_ids, story_ids))
 
     counts = {
         STATUS_NEW: sum(1 for e in entries if e["status"] == STATUS_NEW),
