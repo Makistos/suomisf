@@ -66,7 +66,7 @@ class TestHugoIsfdbImport:
         The import preview for Hugo is consistent with the awarded rows
         already in the database.
         """
-        result = preview_import(HUGO_AWARD_ID)
+        result = preview_import(HUGO_AWARD_ID, source="isfdb")
 
         # Skip if the Hugo import sources have not been seeded.
         if result.status == 400:
@@ -154,7 +154,7 @@ class TestHugoIsfdbImport:
         awarded; ISFDB author "Walter M. Miller, Jr." vs DB "Walter M.
         Miller Jr." must not defeat the match.
         """
-        result = preview_import(HUGO_AWARD_ID)
+        result = preview_import(HUGO_AWARD_ID, source="isfdb")
         if result.status == 400:
             pytest.skip("Hugo has no ISFDB import sources seeded")
         assert result.status == 200

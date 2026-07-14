@@ -12,8 +12,7 @@ from app.impl_links import links_have_changed
 from app.impl_logs import log_changes
 from app.model import (AwardBriefSchema, AwardCategorySchema,
                        AwardLinkSchema, AwardSchema, AwardedSchema)
-from app.orm_decl import (Award, AwardCategories, AwardCategory,
-                          AwardImportSource, AwardLink,
+from app.orm_decl import (Award, AwardCategories, AwardCategory, AwardLink,
                           Awarded, ShortStory, StoryContributor,
                           WorkContributor, Work)
 from app.types import HttpResponseCode
@@ -73,9 +72,10 @@ def get_award(award_id: int) -> ResponseType:
         return ResponseType(f'get_award: Skeemavirhe. {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    # Whether this award can import winners from ISFDB (migration 029).
-    retval['has_import_source'] = session.query(AwardImportSource).filter(
-        AwardImportSource.award_id == award_id).first() is not None
+    # Whether this award can import winners. sfadb is the active source
+    # (ISFDB blocks datacenter IPs), so gate on the sfadb config.
+    from app.impl_award_import import SFADB_AWARD_SLUGS
+    retval['has_import_source'] = award.name in SFADB_AWARD_SLUGS
 
     return ResponseType(retval, HttpResponseCode.OK)
 

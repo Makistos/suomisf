@@ -25,7 +25,7 @@ class TestCampbellMiddleInitial:
     """Author middle-initial differences must not break matching."""
 
     def test_middle_initial_author_still_matches(self, app):
-        result = preview_import(CAMPBELL_AWARD_ID)
+        result = preview_import(CAMPBELL_AWARD_ID, source="isfdb")
 
         if result.status == 400:
             pytest.skip("Campbell has no ISFDB import sources seeded")

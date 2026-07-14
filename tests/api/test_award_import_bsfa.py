@@ -30,7 +30,7 @@ class TestBsfaShortFictionAsWork:
     """Short fiction published as a work must still be matched."""
 
     def test_short_fiction_published_as_work_is_matched(self, app):
-        result = preview_import(BSFA_AWARD_ID)
+        result = preview_import(BSFA_AWARD_ID, source="isfdb")
 
         if result.status == 400:
             pytest.skip("BSFA has no ISFDB import sources seeded")
@@ -64,7 +64,7 @@ class TestBsfaShortFictionAsWork:
         BSFA entries may match a local work/story, even when another
         author's item shares the original title.
         """
-        result = preview_import(BSFA_AWARD_ID)
+        result = preview_import(BSFA_AWARD_ID, source="isfdb")
 
         if result.status == 400:
             pytest.skip("BSFA has no ISFDB import sources seeded")

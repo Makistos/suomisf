@@ -25,7 +25,7 @@ class TestKurdLasswitzLeadingArticle:
     """A leading article difference must not break title matching."""
 
     def test_leading_article_title_still_matches(self, app):
-        result = preview_import(KURD_LASSWITZ_AWARD_ID)
+        result = preview_import(KURD_LASSWITZ_AWARD_ID, source="isfdb")
 
         if result.status == 400:
             pytest.skip("Kurd Lasswitz has no ISFDB import sources seeded")

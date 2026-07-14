@@ -798,11 +798,12 @@ def _collect_sfadb(award: Any, errors: List[str]):
     return collected
 
 
-def preview_import(award_id: int, source: str = "isfdb") -> ResponseType:
+def preview_import(award_id: int, source: str = "sfadb") -> ResponseType:
     """
     Scrape an award's winners from a source and match them against the DB.
 
-    source is 'isfdb' (default) or 'sfadb'. Returns a preview: every
+    source is 'sfadb' (default) or 'isfdb'. sfadb is the default because
+    ISFDB blocks datacenter (production) IPs. Returns a preview: every
     scraped winner with its match status (new / awarded / not_found /
     ambiguous). Nothing is written.
     """
