@@ -299,6 +299,7 @@ SFADB_BASE_URL = "https://www.sfadb.com"
 # Local award name -> sfadb award slug. sfadb's "<slug>_Winners_By_Category"
 # page holds every winner for the award in one request.
 SFADB_AWARD_SLUGS = {
+    "Andre Norton Award": "Andre_Norton_Award",
     "Apollo": "Prix_Apollo",
     "Arthur C. Clarke -palkinto": "Arthur_C_Clarke_Award",
     "Bram Stoker Award": "Bram_Stoker_Awards",
@@ -379,6 +380,8 @@ SFADB_CATEGORY_MAP = {
 # Their winners are read from the flat "winners by year" page and all get
 # the mapped local category. award name -> (local category, item_type).
 SFADB_SINGLE_CATEGORY = {
+    # Andre Norton Award (best YA book); sfadb has only a By-Name page.
+    "Andre Norton Award": ("Paras nuortenkirja", 0),
     "Philip K. Dick Award": ("Paras romaani", 0),
     "Arthur C. Clarke -palkinto": ("Paras romaani", 0),
     "Campbell Memorial Award": ("Paras romaani", 0),
