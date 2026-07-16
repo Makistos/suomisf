@@ -350,6 +350,7 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
       SELECT plainto_tsquery('voikko', :search_term) AS q
     )
 
+    SELECT * FROM (
     SELECT
       w.id,
       w.title,
@@ -361,7 +362,13 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
        + CASE WHEN to_tsvector('voikko', w.title) @@ q.q
               THEN 5.0 ELSE 0.0 END
        + CASE WHEN w.title ~* ('\\m' || :search_term || '\\M')
-              THEN 10.0 ELSE 0.0 END) AS combined_score
+              THEN 10.0 ELSE 0.0 END
+       + CASE WHEN to_tsvector('voikko', COALESCE(w.author_str, '')) @@ q.q
+              THEN 8.0 ELSE 0.0 END) AS combined_score,
+      (SELECT string_agg(p.name, ', ' ORDER BY p.name)
+       FROM workcontributor wc
+       JOIN person p ON p.id = wc.person_id
+       WHERE wc.work_id = w.id AND wc.role_id = 1) AS author
     FROM work w, query q
     WHERE w.fts @@ q.q
 
@@ -374,9 +381,14 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
       'edition' AS table,
       ts_rank(e.fts, q.q) AS rank,
       2 AS table_order,
-      (ts_rank(e.fts, q.q) * 10.0 + (12 - 2)) AS combined_score
+      (ts_rank(e.fts, q.q) * 10.0 + (12 - 2)) AS combined_score,
+      '' AS author
     FROM edition e, query q
     WHERE e.fts @@ q.q
+      AND NOT EXISTS (
+        SELECT 1 FROM work w2, query q2
+        WHERE w2.fts @@ q2.q AND w2.title = e.title
+      )
 
     UNION ALL
 
@@ -387,7 +399,8 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
       'person' AS table,
       ts_rank(p.fts, q.q) AS rank,
       3 AS table_order,
-      (ts_rank(p.fts, q.q) * 10.0 + (12 - 3)) AS combined_score
+      (ts_rank(p.fts, q.q) * 10.0 + (12 - 3)) AS combined_score,
+      '' AS author
     FROM person p, query q
     WHERE p.fts @@ q.q
 
@@ -400,7 +413,8 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
       'shortstory' AS table,
       ts_rank(s.fts, q.q) AS rank,
       4 AS table_order,
-      (ts_rank(s.fts, q.q) * 10.0 + (12 - 4)) AS combined_score
+      (ts_rank(s.fts, q.q) * 10.0 + (12 - 4)) AS combined_score,
+      '' AS author
     FROM shortstory s, query q
     WHERE s.fts @@ q.q
 
@@ -413,7 +427,8 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
       'tag' AS table,
       ts_rank(t.fts, q.q) AS rank,
       5 AS table_order,
-      (ts_rank(t.fts, q.q) * 10.0 + (12 - 5)) AS combined_score
+      (ts_rank(t.fts, q.q) * 10.0 + (12 - 5)) AS combined_score,
+      '' AS author
     FROM tag t, query q
     WHERE t.fts @@ q.q
 
@@ -426,7 +441,8 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
       'bookseries' AS table,
       ts_rank(bs.fts, q.q) AS rank,
       6 AS table_order,
-      (ts_rank(bs.fts, q.q) * 10.0 + (12 - 6)) AS combined_score
+      (ts_rank(bs.fts, q.q) * 10.0 + (12 - 6)) AS combined_score,
+      '' AS author
     FROM bookseries bs, query q
     WHERE bs.fts @@ q.q
 
@@ -439,7 +455,8 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
       'pubseries' AS table,
       ts_rank(ps.fts, q.q) AS rank,
       7 AS table_order,
-      (ts_rank(ps.fts, q.q) * 10.0 + (12 - 7)) AS combined_score
+      (ts_rank(ps.fts, q.q) * 10.0 + (12 - 7)) AS combined_score,
+      '' AS author
     FROM pubseries ps, query q
     WHERE ps.fts @@ q.q
 
@@ -452,7 +469,8 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
       'publisher' AS table,
       ts_rank(pub.fts, q.q) AS rank,
       8 AS table_order,
-      (ts_rank(pub.fts, q.q) * 10.0 + (12 - 8)) AS combined_score
+      (ts_rank(pub.fts, q.q) * 10.0 + (12 - 8)) AS combined_score,
+      '' AS author
     FROM publisher pub, query q
     WHERE pub.fts @@ q.q
 
@@ -465,7 +483,8 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
       'magazine' AS table,
       ts_rank(m.fts, q.q) AS rank,
       9 AS table_order,
-      (ts_rank(m.fts, q.q) * 10.0 + (12 - 9)) AS combined_score
+      (ts_rank(m.fts, q.q) * 10.0 + (12 - 9)) AS combined_score,
+      '' AS author
     FROM magazine m, query q
     WHERE m.fts @@ q.q
 
@@ -478,7 +497,8 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
       'issue' AS table,
       ts_rank(i.fts, q.q) AS rank,
       10 AS table_order,
-      (ts_rank(i.fts, q.q) * 10.0 + (12 - 10)) AS combined_score
+      (ts_rank(i.fts, q.q) * 10.0 + (12 - 10)) AS combined_score,
+      '' AS author
     FROM issue i, query q
     WHERE i.fts @@ q.q
 
@@ -491,11 +511,15 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
       'award' AS table,
       ts_rank(a.fts, q.q) AS rank,
       11 AS table_order,
-      (ts_rank(a.fts, q.q) * 10.0 + (12 - 11)) AS combined_score
+      (ts_rank(a.fts, q.q) * 10.0 + (12 - 11)) AS combined_score,
+      '' AS author
     FROM award a, query q
     WHERE a.fts @@ q.q
+    ) AS combined
 
-    ORDER BY combined_score DESC, title;
+    -- People first (table_order 3 = person), then everything else by score
+    ORDER BY (CASE WHEN table_order = 3 THEN 0 ELSE 1 END),
+             combined_score DESC, title;
     """)
 
     try:
@@ -511,7 +535,8 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
                 'header': row[1],
                 'description': row[2] or '',
                 'type': row[3],
-                'score': float(row[6])  # Use combined_score for consistency
+                'score': float(row[6]),  # Use combined_score for consistency
+                'author': row[7] or ''
             })
 
         return formatted_results
