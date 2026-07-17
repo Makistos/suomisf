@@ -16,7 +16,7 @@ from app.impl import (ResponseType, SearchResult,
                       get_join_changes)
 from app.orm_decl import (Awarded, Edition, EditionShortStory, Genre, Omnibus,
                           Tag, Work, WorkContributor, WorkType, WorkTag,
-                          WorkGenre, WorkLink, UserBook,
+                          WorkGenre, WorkLink, UserBook, UserWork,
                           Bookseries, ShortStory, Person)
 from app.model import (OmnibusSchema, WorkBriefSchema, WorkTypeBriefSchema,
                        ShortBriefSchema)
@@ -382,7 +382,9 @@ def search_books(params: Dict[str, str]) -> ResponseType:
             - award_only: If truthy, only award-winning works
             - owned: If True, only works the user owns; if False, only works
               the user does not own. Requires user_id.
-            - user_id: Current user id, used by the owned filter
+            - read: If True, only works the user has marked read; if False,
+              only works the user has not read. Requires user_id.
+            - user_id: Current user id, used by the owned and read filters
             - exclude: List of work IDs to exclude from the results
             - random: If truthy, return a random sample instead of an
               alphabetically ordered list (suggestion mode)
@@ -613,6 +615,22 @@ def search_books(params: Dict[str, str]) -> ResponseType:
                     query = query.filter(Work.id.notin_(owned_subq))
             except (ValueError, TypeError):
                 app.logger.error('Failed to convert user_id for owned filter')
+
+        # Read filter. 'read' is True (only works the user has marked read) or
+        # False (only works the user has not read). Requires 'user_id'. Lets
+        # the suggestion UI hide works the user has already read.
+        if 'read' in params and params['read'] is not None \
+                and params.get('user_id'):
+            try:
+                uid = int(params['user_id'])
+                read_subq = session.query(UserWork.work_id).filter(
+                    UserWork.user_id == uid)
+                if params['read']:
+                    query = query.filter(Work.id.in_(read_subq))
+                else:
+                    query = query.filter(Work.id.notin_(read_subq))
+            except (ValueError, TypeError):
+                app.logger.error('Failed to convert user_id for read filter')
 
         # Facet mode: instead of works, return the option ids that still have
         # matches for the current filter set, so the UI can constrain later
@@ -1814,3 +1832,104 @@ def save_omnibus(params: Any) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType('OK', HttpResponseCode.OK.value)
+
+
+def work_read_list(userid: int) -> ResponseType:
+    """
+    List the works a user has marked as read, with their opinion.
+
+    Returns a plain list of dicts (work_id, opinion, title, author_str,
+    pubyear). The frontend uses it both for a "read works" listing and to
+    build a client-side set of read work ids.
+    """
+    session = new_session()
+    retval = []
+    try:
+        rows = session.query(UserWork, Work)\
+            .join(Work, Work.id == UserWork.work_id)\
+            .filter(UserWork.user_id == userid)\
+            .order_by(Work.author_str, Work.title)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(f"work_read_list: {str(exp)}")
+        return ResponseType("work_read_list: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    for userwork, work in rows:
+        retval.append({'work_id': work.id,
+                       'opinion': userwork.opinion,
+                       'title': work.title,
+                       'author_str': work.author_str,
+                       'pubyear': work.pubyear})
+
+    return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def work_read_set(params: dict) -> ResponseType:
+    """
+    Mark a work read for a user, or update the opinion if already read.
+
+    Expected params: work_id, user_id and an optional opinion (-1 = didn't
+    like, 0 = it was ok, 1 = liked; null/omitted = read with no opinion).
+    """
+    try:
+        workid = check_int(params.get("work_id"))
+        userid = check_int(params.get("user_id"))
+    except (ValueError, TypeError):
+        return ResponseType("Invalid parameters.",
+                            HttpResponseCode.BAD_REQUEST.value)
+    if not workid or not userid:
+        return ResponseType("Invalid parameters.",
+                            HttpResponseCode.BAD_REQUEST.value)
+
+    opinion = params.get("opinion")
+    if opinion is not None:
+        try:
+            opinion = check_int(opinion, negative_values=True)
+        except (ValueError, TypeError):
+            return ResponseType("Invalid parameters.",
+                                HttpResponseCode.BAD_REQUEST.value)
+        if opinion not in (-1, 0, 1):
+            return ResponseType("Invalid parameters.",
+                                HttpResponseCode.BAD_REQUEST.value)
+
+    session = new_session()
+    try:
+        userwork = session.query(UserWork)\
+            .filter(UserWork.work_id == workid)\
+            .filter(UserWork.user_id == userid)\
+            .first()
+        if not userwork:
+            userwork = UserWork(work_id=workid, user_id=userid)
+            session.add(userwork)
+        userwork.opinion = opinion
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f"work_read_set: {str(exp)}")
+        return ResponseType("work_read_set: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(None, HttpResponseCode.OK.value)
+
+
+def work_read_remove(workid: int, userid: int) -> ResponseType:
+    """
+    Unmark a work as read for a user.
+    """
+    session = new_session()
+    try:
+        userwork = session.query(UserWork)\
+            .filter(UserWork.work_id == workid)\
+            .filter(UserWork.user_id == userid)\
+            .first()
+        if userwork:
+            session.delete(userwork)
+            session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f"work_read_remove: {str(exp)}")
+        return ResponseType("work_read_remove: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(None, HttpResponseCode.OK.value)

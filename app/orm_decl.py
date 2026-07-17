@@ -1546,6 +1546,27 @@ class UserBook(Base):
                              viewonly=True)
 
 
+class UserWork(Base):
+    """ Works a user has read.
+
+    A row means the user has read the work. This is work-level and
+    independent of ownership: a user can mark a work read without owning any
+    of its editions. ``opinion`` is an optional verdict: -1 = didn't like,
+    0 = it was ok, 1 = liked; NULL = read but no opinion given.
+    """
+    __tablename__ = 'userwork'
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=False,
+                     primary_key=True)
+    work_id = Column(Integer, ForeignKey('work.id'), nullable=False,
+                     primary_key=True)
+    opinion = Column(Integer)
+    added = Column(DateTime, default=datetime.datetime.now, nullable=True)
+    work = relationship("Work", backref=backref(
+        "userwork_assoc"), viewonly=True)
+    user = relationship("User", backref=backref(
+        "userwork_user_assoc"), viewonly=True)
+
+
 class UserBookseries(Base):
     """ User book series. """
     __tablename__ = 'userbookseries'

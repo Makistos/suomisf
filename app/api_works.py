@@ -4,16 +4,18 @@
 
 import json
 from flask import Response, request
+from flask_jwt_extended import jwt_required
 from app.api_jwt import jwt_admin_required
 
-from app.api_helpers import make_api_response
+from app.api_helpers import make_api_response, validate_positive_integer_id
 from app.impl import ResponseType
 from app.impl_awards import get_awards_for_work
 from app.impl_works import (get_author_works, get_latest_works, get_omnibus,
                             get_work, get_work_shorts, save_omnibus,
                             save_work_shorts,
                             search_books, search_works_by_authorstr, work_add,
-                            work_delete, work_tag_add, work_tag_remove,
+                            work_delete, work_read_list, work_read_remove,
+                            work_read_set, work_tag_add, work_tag_remove,
                             work_update, works_by_type, worktype_get_all)
 from app.types import HttpResponseCode
 
@@ -557,3 +559,77 @@ def api_create_omnibus() -> Response:
         return make_api_response(response)
 
     return make_api_response(save_omnibus(params))
+
+
+@app.route('/api/works/read/<userid>', methods=['get'])
+def api_workreadlist(userid: str) -> Response:
+    """
+    List the works a user has marked as read.
+
+    Args:
+        userid (str): The id of the user.
+
+    Returns:
+        Response: The API response containing the user's read works.
+    """
+    (uid, err) = validate_positive_integer_id(userid, "kayttajatunnus")
+    if err:
+        app.logger.error(f'api_workreadlist: {err.response}')
+        return make_api_response(err)
+    if uid is None:
+        response = ResponseType(
+            'api_workreadlist: Virheellinen kayttajatunnus.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+    return make_api_response(work_read_list(uid))
+
+
+@app.route('/api/works/read', methods=['post', 'put'])
+@jwt_required()  # type: ignore
+def api_workreadset() -> Response:
+    """
+    Mark a work read for a user, or update the opinion if already read.
+
+    Expects a JSON body with 'work_id', 'user_id' and an optional 'opinion'
+    (-1 = didn't like, 0 = it was ok, 1 = liked; null = read, no opinion).
+
+    Returns:
+        Response: The API response indicating success or failure.
+    """
+    try:
+        params = json.loads(request.data.decode('utf-8'))
+    except json.decoder.JSONDecodeError as exp:
+        app.logger.error(f'api_workreadset: Invalid JSON: {exp}.')
+        response = ResponseType(f'Virheellinen JSON: {exp}.',
+                                HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+    return make_api_response(work_read_set(params))
+
+
+@app.route('/api/works/<workid>/read/<userid>', methods=['delete'])
+@jwt_required()  # type: ignore
+def api_workreadremove(workid: str, userid: str) -> Response:
+    """
+    Unmark a work as read for a user.
+
+    Args:
+        workid (str): The id of the work.
+        userid (str): The id of the user.
+
+    Returns:
+        Response: The API response indicating success or failure.
+    """
+    (wid, err) = validate_positive_integer_id(workid, "teosid")
+    (uid, err2) = validate_positive_integer_id(userid, "kayttajatunnus")
+    if err:
+        app.logger.error(f'api_workreadremove: {err.response}')
+        return make_api_response(err)
+    if err2:
+        app.logger.error(f'api_workreadremove: {err2.response}')
+        return make_api_response(err2)
+    if wid is None or uid is None:
+        response = ResponseType(
+            'api_workreadremove: Virheellinen teosid tai kayttajatunnus.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+    return make_api_response(work_read_remove(wid, uid))
