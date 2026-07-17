@@ -632,6 +632,20 @@ def search_books(params: Dict[str, str]) -> ResponseType:
             except (ValueError, TypeError):
                 app.logger.error('Failed to convert user_id for read filter')
 
+        # Never recommend a work the user has disliked (userwork.opinion = -1).
+        # Scoped to recommendation mode ('random') so the general work search,
+        # which shares this endpoint, is unaffected. Requires 'user_id'.
+        if params.get('random') and params.get('user_id'):
+            try:
+                uid = int(params['user_id'])
+                disliked_subq = session.query(UserWork.work_id).filter(
+                    UserWork.user_id == uid,
+                    UserWork.opinion == -1)
+                query = query.filter(Work.id.notin_(disliked_subq))
+            except (ValueError, TypeError):
+                app.logger.error(
+                    'Failed to convert user_id for disliked filter')
+
         # Facet mode: instead of works, return the option ids that still have
         # matches for the current filter set, so the UI can constrain later
         # steps (e.g. only show subgenres/styles that exist in the chosen
