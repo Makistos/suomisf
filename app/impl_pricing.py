@@ -1,8 +1,9 @@
 """Antikvaari pricing scraper and match quality calculation."""
-from typing import Any, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional
 import datetime
 import json
 import re
+from urllib.parse import urljoin
 
 import requests
 from bs4 import BeautifulSoup
@@ -20,6 +21,7 @@ _UA = ('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 '
        '(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
 
 ANTIKKA_BASE = 'https://antikka.net'
+ANTIKVARIAATTI_BASE = 'https://www.antikvariaatti.net'
 
 
 # ---------------------------------------------------------------------------
@@ -263,6 +265,54 @@ def antikka_search(q: str, isbn: str = '') -> ResponseType:
             'image': img_el.get('src', '') if img_el else '',
             'available_count': 1,
             'price': _antikka_price(li.select_one('.price .woocommerce-Price-amount')),
+        })
+    return ResponseType(products, HttpResponseCode.OK)
+
+
+def _price_from_text(text: str) -> Optional[float]:
+    """Parse a Finnish-formatted price like 'Hinta: 16,00 €' into a float."""
+    m = re.search(r'(\d+)[.,](\d{2})',
+                  (text or '').replace('\xa0', '').replace(' ', ''))
+    return float(f'{m.group(1)}.{m.group(2)}') if m else None
+
+
+def antikvariaatti_search(q: str, isbn: str = '') -> ResponseType:
+    """Search antikvariaatti.net. Each result card is a single physical copy."""
+    query = f'{q} {isbn}'.strip()
+    try:
+        resp = requests.get(f'{ANTIKVARIAATTI_BASE}/haku', params={'q': query},
+                            headers={'User-Agent': _UA}, timeout=15)
+        resp.raise_for_status()
+    except requests.RequestException as exc:
+        return ResponseType(f'Antikvariaatti search failed: {exc}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR)
+
+    soup = BeautifulSoup(resp.text, 'html.parser')
+    products: List[Dict[str, Any]] = []
+    seen: set = set()
+    for card in soup.select('.search_result_product'):
+        link = card.select_one('a[href*="tuotteet/"]')
+        if not link or not link.get('href'):
+            continue
+        url = urljoin(ANTIKVARIAATTI_BASE + '/', link['href'])
+        product_id = url.rstrip('/').split('/')[-1]
+        if product_id in seen:
+            continue
+        seen.add(product_id)
+        title = card.select_one('.search_result_product_title')
+        issuer = card.select_one('.search_result_product_issuer')
+        price_el = card.select_one('.search_result_product_price')
+        img = card.select_one('img')
+        products.append({
+            'product_id': product_id,
+            'title': title.get_text(strip=True) if title else '',
+            'author': issuer.get_text(strip=True) if issuer else '',
+            'year': '',
+            'binding': '',
+            'url': url,
+            'image': img.get('src', '') if img else '',
+            'available_count': 1,
+            'price': _price_from_text(price_el.get_text()) if price_el else None,
         })
     return ResponseType(products, HttpResponseCode.OK)
 
@@ -657,16 +707,19 @@ def antikvaari_fetch_products(
         session.close()
 
 
-def antikka_fetch_products(
+def _single_page_fetch_products(
     product_urls: List[str],
     work_id: int,
-    target_condition: Optional[str] = None,
+    target_condition: Optional[str],
+    scrape_fn: Callable[[str], Dict[str, Any]],
+    source_name: str,
 ) -> ResponseType:
-    """Scrape antikka.net listing pages and return price rows with match quality.
+    """Fetch prices from shops where each product URL is a single physical copy.
 
-    Each antikka listing URL is a single physical copy (WooCommerce), so this
-    scrapes one page per URL and produces one row each. Rows share the shape of
-    antikvaari_fetch_products so the same frontend and save path handle both.
+    Shared by antikka.net and antikvariaatti.net: scrapes one page per URL with
+    ``scrape_fn`` and produces one row each, in the same shape as
+    antikvaari_fetch_products so the same frontend and save path handle all
+    sources.
     """
     session = new_session()
     try:
@@ -681,16 +734,16 @@ def antikka_fetch_products(
             for r in session.query(AntikvaariExcludedBook).all()
         }
 
-        antikka_source = (session.query(PriceSource)
-                          .filter(PriceSource.name == 'Antikka').first())
-        antikka_source_id = antikka_source.id if antikka_source else None
+        source = (session.query(PriceSource)
+                  .filter(PriceSource.name == source_name).first())
+        source_id = source.id if source else None
 
         # Map listing url -> AntikvaariWorkProduct row for page_exists updates
         work_products: Dict[str, Any] = {
             r.url: r
             for r in session.query(AntikvaariWorkProduct)
             .filter(AntikvaariWorkProduct.work_id == work_id,
-                    AntikvaariWorkProduct.source_id == antikka_source_id)
+                    AntikvaariWorkProduct.source_id == source_id)
             .all()
             if r.url
         }
@@ -699,7 +752,7 @@ def antikka_fetch_products(
 
         for product_url in product_urls:
             try:
-                fields = _scrape_antikka(product_url)
+                fields = scrape_fn(product_url)
             except requests.RequestException:
                 wp = work_products.get(product_url)
                 if wp and wp.page_exists:
@@ -747,8 +800,8 @@ def antikka_fetch_products(
                     binding_id, target_condition,
                 ) if edition else None,
                 'user_excluded': book_id in excluded_ids,
-                'source_id': antikka_source_id,
-                'source_name': 'Antikka',
+                'source_id': source_id,
+                'source_name': source_name,
             })
 
         session.commit()
@@ -758,6 +811,27 @@ def antikka_fetch_products(
         return ResponseType(f'Fetch failed: {exc}', HttpResponseCode.INTERNAL_SERVER_ERROR)
     finally:
         session.close()
+
+
+def antikka_fetch_products(
+    product_urls: List[str],
+    work_id: int,
+    target_condition: Optional[str] = None,
+) -> ResponseType:
+    """Scrape antikka.net listing pages and return price rows with match quality."""
+    return _single_page_fetch_products(
+        product_urls, work_id, target_condition, _scrape_antikka, 'Antikka')
+
+
+def antikvariaatti_fetch_products(
+    product_urls: List[str],
+    work_id: int,
+    target_condition: Optional[str] = None,
+) -> ResponseType:
+    """Scrape antikvariaatti.net product pages and return price rows with match quality."""
+    return _single_page_fetch_products(
+        product_urls, work_id, target_condition,
+        _scrape_antikvariaatti, 'Antikvariaatti')
 
 
 def _best_matching_edition(
@@ -1071,8 +1145,33 @@ def _source_from_url(url: str, session: Any) -> Optional[PriceSource]:
     return None
 
 
+def _antikvariaatti_attributes(soup: BeautifulSoup) -> Dict[str, str]:
+    """Extract antikvariaatti.net product attribute rows as a {label: value} dict.
+
+    Keeps the first value seen for a label (e.g. 'Kunto' appears twice — the
+    first is the 'K3 (Hyvä)' form we want).
+    """
+    attrs: Dict[str, str] = {}
+    for label in soup.find_all('div', class_='product_attribute_label'):
+        row = label.find_parent(class_='w-row')
+        if not row:
+            continue
+        value = (row.select_one('.product_attribute_value_container')
+                 or row.select_one('.product_attribute_value'))
+        name = label.get_text(strip=True).rstrip(':')
+        if name and value and name not in attrs:
+            attrs[name] = value.get_text(' ', strip=True)
+    return attrs
+
+
 def _scrape_antikvariaatti(url: str) -> Dict[str, Any]:
-    """Scrape a single Antikvariaatti product page and return price fields."""
+    """Scrape a single antikvariaatti.net product page and return price fields.
+
+    Returns the fields the manual path needs (book_id, price, condition,
+    last_updated) plus edition-matching metadata (year/version/binding,
+    title/author/language) and the seller, so the same scraper feeds the
+    automatic fetch flow.
+    """
     book_id = url.rstrip('/').split('/')[-1]
     resp = requests.get(url, headers={'User-Agent': _UA}, timeout=15)
     resp.raise_for_status()
@@ -1089,21 +1188,47 @@ def _scrape_antikvariaatti(url: str) -> Dict[str, Any]:
             except (json.JSONDecodeError, KeyError, TypeError, ValueError):
                 pass
 
+    attrs = _antikvariaatti_attributes(soup)
+
     condition: Optional[str] = None
+    cond_match = re.match(r'(K[1-5])', attrs.get('Kunto', ''))
+    if cond_match:
+        condition = cond_match.group(1)
+
+    year: Optional[int] = None
+    year_match = re.search(r'\d{4}', attrs.get('Julkaistu', ''))
+    if year_match:
+        year = int(year_match.group())
+
+    version = _parse_version(attrs.get('Painos', ''))
+    binding = _binding_category(attrs.get('Nidonta', ''))
+
+    # Seller: the anchor in the "Myyjä" attribute row.
+    seller: Optional[str] = None
+    seller_url: Optional[str] = None
     for label in soup.find_all('div', class_='product_attribute_label'):
-        if 'Kunto' in label.get_text():
-            row = label.parent.parent  # w-row contains label column + value column
-            val = row.find('div', class_='notranslate')
-            if val:
-                m = re.match(r'^(K[1-5])', val.get_text())
-                if m:
-                    condition = m.group(1)
+        if 'Myyjä' in label.get_text():
+            row = label.find_parent(class_='w-row')
+            anchor = row.find('a', href=True) if row else None
+            if anchor:
+                seller = anchor.get_text(strip=True) or None
+                seller_url = urljoin(ANTIKVARIAATTI_BASE + '/', anchor['href'])
             break
+
+    title_el = soup.select_one('h1')
 
     return {
         'book_id': book_id,
         'price': price,
         'condition': condition,
+        'year': year,
+        'version': version,
+        'binding': binding,
+        'title': (title_el.get_text(strip=True) if title_el else None),
+        'author': attrs.get('Tekijä') or None,
+        'language': attrs.get('Kielet') or None,
+        'seller': seller,
+        'seller_url': seller_url,
         'last_updated': datetime.date.today().isoformat(),
     }
 

@@ -45,6 +45,8 @@ PROVIDERS: Dict[str, PriceProvider] = {
     'Antikvariaatti': PriceProvider(
         name='Antikvariaatti',
         domains=('antikvariaatti.net',),
+        search=ip.antikvariaatti_search,
+        fetch=ip.antikvariaatti_fetch_products,
         scrape_single=ip._scrape_antikvariaatti,
     ),
     'Huuto.net': PriceProvider(
