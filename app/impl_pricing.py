@@ -1568,6 +1568,8 @@ def user_collection_stats(user_id: int) -> ResponseType:
             best_rank = 999
             best_val = float('inf')
             best_updated = None
+            best_seller: Optional[str] = None
+            best_seller_url: Optional[str] = None
 
             for p in price_rows:
                 q = calculate_match_quality(
@@ -1584,6 +1586,7 @@ def user_collection_stats(user_id: int) -> ResponseType:
                 b_ts = best_updated.timestamp() if best_updated else 0.0
                 if rank < best_rank or (rank == best_rank and (p_ts > b_ts or (p_ts == b_ts and pval < best_val))):
                     best_rank, best_val, best_q, best_updated = rank, pval, q, p.last_updated
+                    best_seller, best_seller_url = p.seller, p.seller_url
 
             if best_q is not None:
                 priced_count += 1
@@ -1594,6 +1597,8 @@ def user_collection_stats(user_id: int) -> ResponseType:
                     'price': best_val,
                     'match_quality': best_q,
                     'condition': target or '',
+                    'seller': best_seller,
+                    'seller_url': best_seller_url,
                 })
 
         _price_ranges = [
@@ -1637,6 +1642,8 @@ def user_collection_stats(user_id: int) -> ResponseType:
                 'price': entry['price'],
                 'match_quality': entry['match_quality'],
                 'condition': entry['condition'],
+                'seller': entry.get('seller'),
+                'seller_url': entry.get('seller_url'),
             })
 
         no_price_books.sort(key=lambda x: (x['author_str'], x['title']))
