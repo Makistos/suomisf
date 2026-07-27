@@ -983,37 +983,49 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]]) -> Respo
 
         now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
 
-        # Cross-store duplicate filter: one seller often lists the same physical
-        # copy on several marketplaces. Skip a row when a stored row for this
-        # edition (or an earlier row in this batch) already has the same
-        # (seller, painos, binding, condition, price) — different painos or
-        # binding are genuinely different books. Only applies when the seller is
-        # known.
-        def _dupe_key(seller: Any, version: Any, binding: Any,
-                      condition: Any, price: Any):
-            if not seller:
-                return None
+        # Duplicate filters. A row is skipped when a stored row for this edition
+        # (or an earlier row in this batch) already represents the same copy:
+        #   * book key  — same listing id (SKU), condition and price. The SKU
+        #     identifies one physical copy, so the same SKU at the same price is
+        #     the same copy regardless of source, seller or fetch date (the same
+        #     seller lists the same book on several marketplaces).
+        #   * seller key — same (seller, painos, binding, condition, price), for
+        #     copies whose listing ids differ across shops. Only applies when the
+        #     seller is known.
+        def _price(price: Any) -> Optional[float]:
             try:
-                normalized_price = round(float(price), 2)
+                return round(float(price), 2)
             except (TypeError, ValueError):
                 return None
+
+        def _book_key(book_id: Any, condition: Any, price: Any):
+            p = _price(price)
+            if not book_id or p is None:
+                return None
+            return (str(book_id), str(condition or '').strip(), p)
+
+        def _dupe_key(seller: Any, version: Any, binding: Any,
+                      condition: Any, price: Any):
+            p = _price(price)
+            if not seller or p is None:
+                return None
             return (str(seller).strip().lower(), version, binding,
-                    str(condition or '').strip(), normalized_price)
+                    str(condition or '').strip(), p)
 
         active_dupe_keys = set()
-        seen_books = set()
+        active_book_keys = set()
         for r in (session.query(AntikvaariPrice)
                   .filter(AntikvaariPrice.edition_id == edition_id)
-                  .order_by(AntikvaariPrice.date_fetched.desc())
                   .all()):
-            if r.antikvaari_book_id in seen_books:
-                continue
-            seen_books.add(r.antikvaari_book_id)
             key = _dupe_key(r.seller, r.antikvaari_product_version,
                             r.antikvaari_product_binding, r.condition, r.price)
             if key:
                 active_dupe_keys.add(key)
+            book_key = _book_key(r.antikvaari_book_id, r.condition, r.price)
+            if book_key:
+                active_book_keys.add(book_key)
         batch_dupe_keys: set = set()
+        batch_book_keys: set = set()
 
         saved = 0
         skipped = 0
@@ -1049,12 +1061,19 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]]) -> Respo
                 detail_rows.append({**row, 'status': 'skipped', 'reason': 'unchanged'})
                 continue
 
+            book_key = _book_key(row['antikvaari_book_id'], row.get('condition'),
+                                 row.get('price'))
             dupe_key = _dupe_key(row.get('seller'),
                                  row.get('antikvaari_product_version'),
                                  row.get('antikvaari_product_binding'),
                                  row.get('condition'), row.get('price'))
-            if dupe_key and (dupe_key in active_dupe_keys
-                             or dupe_key in batch_dupe_keys):
+            is_dup = (
+                (book_key and (book_key in active_book_keys
+                               or book_key in batch_book_keys))
+                or (dupe_key and (dupe_key in active_dupe_keys
+                                  or dupe_key in batch_dupe_keys))
+            )
+            if is_dup:
                 skipped += 1
                 detail_rows.append({**row, 'status': 'skipped', 'reason': 'duplicate'})
                 continue
@@ -1081,6 +1100,8 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]]) -> Respo
             ))
             if dupe_key:
                 batch_dupe_keys.add(dupe_key)
+            if book_key:
+                batch_book_keys.add(book_key)
             saved += 1
             detail_rows.append({**row, 'status': 'saved', 'reason': None})
 
