@@ -631,6 +631,8 @@ def antikvaari_fetch_products(
                     'book_title': psp.get('nimi', '') or fallback_title or None,
                     'book_author': psp.get('tekija', '') or fallback_author or None,
                     'book_language': language_code,
+                    'seller': psp.get('ynimi') or None,
+                    'seller_url': None,  # Antikvaari exposes no vendor page URL
                     'date_listed': date_listed,
                     'last_updated': last_updated.isoformat() if last_updated else None,
                     'condition': condition,
@@ -731,6 +733,8 @@ def antikka_fetch_products(
                 'book_title': fields.get('title'),
                 'book_author': fields.get('author'),
                 'book_language': fields.get('language'),
+                'seller': fields.get('seller'),
+                'seller_url': fields.get('seller_url'),
                 'date_listed': None,
                 'last_updated': fields.get('last_updated'),
                 'condition': condition,
@@ -865,6 +869,35 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]]) -> Respo
             return default_source_id
 
         now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
+
+        # Cross-store duplicate filter: one seller often lists the same physical
+        # copy on several marketplaces. Skip a row when a stored row for this
+        # edition (or an earlier row in this batch) already has the same
+        # (seller, condition, price). Only applies when the seller is known.
+        def _dupe_key(seller: Any, condition: Any, price: Any):
+            if not seller:
+                return None
+            try:
+                normalized_price = round(float(price), 2)
+            except (TypeError, ValueError):
+                return None
+            return (str(seller).strip().lower(),
+                    str(condition or '').strip(), normalized_price)
+
+        active_dupe_keys = set()
+        seen_books = set()
+        for r in (session.query(AntikvaariPrice)
+                  .filter(AntikvaariPrice.edition_id == edition_id)
+                  .order_by(AntikvaariPrice.date_fetched.desc())
+                  .all()):
+            if r.antikvaari_book_id in seen_books:
+                continue
+            seen_books.add(r.antikvaari_book_id)
+            key = _dupe_key(r.seller, r.condition, r.price)
+            if key:
+                active_dupe_keys.add(key)
+        batch_dupe_keys: set = set()
+
         saved = 0
         skipped = 0
         detail_rows: List[Dict[str, Any]] = []
@@ -899,6 +932,14 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]]) -> Respo
                 detail_rows.append({**row, 'status': 'skipped', 'reason': 'unchanged'})
                 continue
 
+            dupe_key = _dupe_key(row.get('seller'), row.get('condition'),
+                                 row.get('price'))
+            if dupe_key and (dupe_key in active_dupe_keys
+                             or dupe_key in batch_dupe_keys):
+                skipped += 1
+                detail_rows.append({**row, 'status': 'skipped', 'reason': 'duplicate'})
+                continue
+
             session.add(AntikvaariPrice(
                 edition_id=edition_id,
                 source_id=_resolve_source_id(row),
@@ -916,7 +957,11 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]]) -> Respo
                 missing_dust_cover=row.get('missing_dust_cover', False),
                 price=row.get('price', 0),
                 url=row.get('antikvaari_product_url') or row.get('url'),
+                seller=row.get('seller') or None,
+                seller_url=row.get('seller_url') or None,
             ))
+            if dupe_key:
+                batch_dupe_keys.add(dupe_key)
             saved += 1
             detail_rows.append({**row, 'status': 'saved', 'reason': None})
 
@@ -975,6 +1020,8 @@ def edition_prices_get(
                 'edition_id': p.edition_id,
                 'source_id': p.source_id,
                 'source_name': p.source.name if p.source else None,
+                'seller': p.seller,
+                'seller_url': p.seller_url,
                 'book_id': p.antikvaari_book_id,
                 'url': p.url,
                 'antikvaari_book_id': p.antikvaari_book_id,
@@ -1116,6 +1163,18 @@ def _scrape_antikka(url: str) -> Dict[str, Any]:
 
     title_el = soup.select_one('h1.product_title')
 
+    # Seller: the anchor right after the "Myyjä:" label in the product meta.
+    seller: Optional[str] = None
+    seller_url: Optional[str] = None
+    meta = soup.select_one('.product_meta')
+    if meta:
+        label = meta.find(string=lambda s: bool(s) and 'Myyjä' in s)
+        if label:
+            seller_a = label.find_next('a')
+            if seller_a:
+                seller = seller_a.get_text(strip=True) or None
+                seller_url = seller_a.get('href') or None
+
     return {
         'book_id': book_id,
         'price': price,
@@ -1126,6 +1185,8 @@ def _scrape_antikka(url: str) -> Dict[str, Any]:
         'title': (title_el.get_text(strip=True) if title_el else None),
         'author': attrs.get('Tekijä') or None,
         'language': attrs.get('Kieli') or None,
+        'seller': seller,
+        'seller_url': seller_url,
         # Antikka exposes no per-listing date; use the fetch date.
         'last_updated': datetime.date.today().isoformat(),
     }
@@ -1223,6 +1284,8 @@ def price_add_manual(edition_id: int, data: Dict[str, Any]) -> ResponseType:
             missing_dust_cover=bool(data.get('missing_dust_cover', False)),
             price=price,
             url=url,
+            seller=data.get('seller') or None,
+            seller_url=data.get('seller_url') or None,
         ))
         session.commit()
         return ResponseType({'saved': 1}, HttpResponseCode.OK)

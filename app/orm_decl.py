@@ -731,6 +731,8 @@ class AntikvaariPrice(Base):
     missing_dust_cover = Column(Boolean, nullable=False, default=False)
     price = Column(Numeric(8, 2), nullable=False)
     url = Column(Text)
+    seller = Column(Text)
+    seller_url = Column(Text)
 
     edition = relationship('Edition', backref=backref('antikvaari_prices'))
     source = relationship('PriceSource')
