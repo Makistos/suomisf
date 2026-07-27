@@ -280,7 +280,9 @@ def antikvariaatti_search(q: str, isbn: str = '') -> ResponseType:
     """Search antikvariaatti.net. Each result card is a single physical copy."""
     query = f'{q} {isbn}'.strip()
     try:
-        resp = requests.get(f'{ANTIKVARIAATTI_BASE}/haku', params={'q': query},
+        # type=1 restricts results to books.
+        resp = requests.get(f'{ANTIKVARIAATTI_BASE}/haku',
+                            params={'q': query, 'type': 1},
                             headers={'User-Agent': _UA}, timeout=15)
         resp.raise_for_status()
     except requests.RequestException as exc:
