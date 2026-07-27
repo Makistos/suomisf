@@ -40,7 +40,14 @@ PROVIDERS: Dict[str, PriceProvider] = {
         domains=('antikka.net',),
         search=ip.antikka_search,
         fetch=ip.antikka_fetch_products,
-        scrape_single=ip._scrape_antikka,
+        scrape_single=ip._scrape_woocommerce,
+    ),
+    'Oranssi Planeetta': PriceProvider(
+        name='Oranssi Planeetta',
+        domains=('oranssiplaneetta.fi',),
+        search=ip.oranssiplaneetta_search,
+        fetch=ip.oranssiplaneetta_fetch_products,
+        scrape_single=ip._scrape_woocommerce,
     ),
     'Antikvariaatti': PriceProvider(
         name='Antikvariaatti',

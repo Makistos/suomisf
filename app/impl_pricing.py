@@ -22,6 +22,7 @@ _UA = ('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 '
 
 ANTIKKA_BASE = 'https://antikka.net'
 ANTIKVARIAATTI_BASE = 'https://www.antikvariaatti.net'
+ORANSSIPLANEETTA_BASE = 'https://oranssiplaneetta.fi'
 
 
 # ---------------------------------------------------------------------------
@@ -195,7 +196,7 @@ def antikvaari_search(q: str, isbn: str = '') -> ResponseType:
     return ResponseType(products, HttpResponseCode.OK)
 
 
-def _antikka_price(el: Any) -> Optional[float]:
+def _woocommerce_price(el: Any) -> Optional[float]:
     """Parse a WooCommerce price element like '60,00 €' into a float."""
     if not el:
         return None
@@ -207,45 +208,48 @@ def _antikka_price(el: Any) -> Optional[float]:
         return None
 
 
-def antikka_search(q: str, isbn: str = '') -> ResponseType:
-    """Search antikka.net (WooCommerce). Each result is a single physical copy.
+def _woocommerce_search(base_url: str, product_path: str,
+                        q: str, isbn: str = '') -> ResponseType:
+    """Search a WooCommerce shop. Each result is a single physical copy.
 
-    Unlike Antikvaari (where a product aggregates many copies), every antikka
-    search hit is one listing, so available_count is always 1.
+    Unlike Antikvaari (where a product aggregates many copies), every WooCommerce
+    search hit is one listing, so available_count is always 1. ``product_path``
+    is the shop's product URL segment (e.g. '/tuote/' or '/product/'), used to
+    detect the single-result redirect and to spot product links.
     """
     params = {'s': f'{q} {isbn}'.strip(), 'post_type': 'product'}
     try:
-        resp = requests.get(f'{ANTIKKA_BASE}/', params=params,
+        resp = requests.get(f'{base_url}/', params=params,
                             headers={'User-Agent': _UA}, timeout=15)
         resp.raise_for_status()
     except requests.RequestException as exc:
-        return ResponseType(f'Antikka search failed: {exc}',
+        return ResponseType(f'{base_url} search failed: {exc}',
                             HttpResponseCode.INTERNAL_SERVER_ERROR)
 
     soup = BeautifulSoup(resp.text, 'html.parser')
 
     # WooCommerce redirects a search that matches exactly one product straight
     # to that product's page (no result cards). Treat it as a single result.
-    if '/tuote/' in resp.url:
+    if product_path in resp.url:
         title_el = soup.select_one('h1.product_title')
         img_el = soup.select_one('img.wp-post-image')
         return ResponseType([{
             'product_id': resp.url.rstrip('/').split('/')[-1],
             'title': title_el.get_text(strip=True) if title_el else q,
-            'author': _antikka_attributes(soup).get('Tekijä', ''),
+            'author': _woocommerce_attributes(soup).get('Tekijä', ''),
             'year': '',
             'binding': '',
             'url': resp.url,
             'image': img_el.get('src', '') if img_el else '',
             'available_count': 1,
-            'price': _antikka_price(soup.select_one('p.price .woocommerce-Price-amount')),
+            'price': _woocommerce_price(soup.select_one('p.price .woocommerce-Price-amount')),
         }], HttpResponseCode.OK)
 
     products: List[Dict[str, Any]] = []
     seen: set = set()
     for li in soup.select('li.product'):
         link = li.select_one('a.woocommerce-loop-product__link') \
-            or li.select_one('a[href*="/tuote/"]')
+            or li.select_one(f'a[href*="{product_path}"]')
         if not link or not link.get('href'):
             continue
         url = link['href']
@@ -265,9 +269,19 @@ def antikka_search(q: str, isbn: str = '') -> ResponseType:
             'url': url,
             'image': img_el.get('src', '') if img_el else '',
             'available_count': 1,
-            'price': _antikka_price(li.select_one('.price .woocommerce-Price-amount')),
+            'price': _woocommerce_price(li.select_one('.price .woocommerce-Price-amount')),
         })
     return ResponseType(products, HttpResponseCode.OK)
+
+
+def antikka_search(q: str, isbn: str = '') -> ResponseType:
+    """Search antikka.net."""
+    return _woocommerce_search(ANTIKKA_BASE, '/tuote/', q, isbn)
+
+
+def oranssiplaneetta_search(q: str, isbn: str = '') -> ResponseType:
+    """Search oranssiplaneetta.fi."""
+    return _woocommerce_search(ORANSSIPLANEETTA_BASE, '/product/', q, isbn)
 
 
 def _price_from_text(text: str) -> Optional[float]:
@@ -823,7 +837,18 @@ def antikka_fetch_products(
 ) -> ResponseType:
     """Scrape antikka.net listing pages and return price rows with match quality."""
     return _single_page_fetch_products(
-        product_urls, work_id, target_condition, _scrape_antikka, 'Antikka')
+        product_urls, work_id, target_condition, _scrape_woocommerce, 'Antikka')
+
+
+def oranssiplaneetta_fetch_products(
+    product_urls: List[str],
+    work_id: int,
+    target_condition: Optional[str] = None,
+) -> ResponseType:
+    """Scrape oranssiplaneetta.fi listing pages and return price rows with match quality."""
+    return _single_page_fetch_products(
+        product_urls, work_id, target_condition, _scrape_woocommerce,
+        'Oranssi Planeetta')
 
 
 def antikvariaatti_fetch_products(
@@ -1137,10 +1162,11 @@ def edition_prices_get(
 def _source_from_url(url: str, session: Any) -> Optional[PriceSource]:
     """Return the PriceSource that matches a URL's domain."""
     checks = [
-        ('antikvariaatti.net', 'Antikvariaatti'),
-        ('antikka.net',        'Antikka'),
-        ('huuto.net',          'Huuto.net'),
-        ('antikvaari.fi',      'Antikvaari'),
+        ('antikvariaatti.net',  'Antikvariaatti'),
+        ('antikka.net',         'Antikka'),
+        ('oranssiplaneetta.fi', 'Oranssi Planeetta'),
+        ('huuto.net',           'Huuto.net'),
+        ('antikvaari.fi',       'Antikvaari'),
     ]
     for domain, name in checks:
         if domain in url:
@@ -1236,7 +1262,7 @@ def _scrape_antikvariaatti(url: str) -> Dict[str, Any]:
     }
 
 
-def _antikka_attributes(soup: BeautifulSoup) -> Dict[str, str]:
+def _woocommerce_attributes(soup: BeautifulSoup) -> Dict[str, str]:
     """Extract the WooCommerce product attribute table as a {label: value} dict."""
     attrs: Dict[str, str] = {}
     for row in soup.select('tr.woocommerce-product-attributes-item'):
@@ -1247,7 +1273,7 @@ def _antikka_attributes(soup: BeautifulSoup) -> Dict[str, str]:
     return attrs
 
 
-def _scrape_antikka(url: str) -> Dict[str, Any]:
+def _scrape_woocommerce(url: str) -> Dict[str, Any]:
     """Scrape a single antikka.net (WooCommerce) product page and return price fields.
 
     Returns the fields the manual path needs (book_id, price, condition,
@@ -1273,7 +1299,7 @@ def _scrape_antikka(url: str) -> Dict[str, Any]:
     if sku_el:
         book_id = sku_el.get_text(strip=True) or None
 
-    attrs = _antikka_attributes(soup)
+    attrs = _woocommerce_attributes(soup)
 
     # Condition: "K3 (hyvä)" -> "K3"
     condition: Optional[str] = None
@@ -1336,7 +1362,8 @@ def scrape_price_from_url(url: str) -> ResponseType:
 
         scrapers = {
             'Antikvariaatti': _scrape_antikvariaatti,
-            'Antikka': _scrape_antikka,
+            'Antikka': _scrape_woocommerce,
+            'Oranssi Planeetta': _scrape_woocommerce,
         }
         scraper = scrapers.get(source.name)
         if not scraper:
