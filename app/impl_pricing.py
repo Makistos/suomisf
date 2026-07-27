@@ -232,7 +232,7 @@ def antikka_search(q: str, isbn: str = '') -> ResponseType:
         return ResponseType([{
             'product_id': resp.url.rstrip('/').split('/')[-1],
             'title': title_el.get_text(strip=True) if title_el else q,
-            'author': '',
+            'author': _antikka_attributes(soup).get('Tekijä', ''),
             'year': '',
             'binding': '',
             'url': resp.url,
@@ -254,11 +254,12 @@ def antikka_search(q: str, isbn: str = '') -> ResponseType:
             continue
         seen.add(product_id)
         title_el = li.select_one('.woocommerce-loop-product__title')
+        author_el = li.select_one('.author')
         img_el = li.select_one('img')
         products.append({
             'product_id': product_id,
             'title': title_el.get_text(strip=True) if title_el else '',
-            'author': '',
+            'author': author_el.get_text(strip=True) if author_el else '',
             'year': '',
             'binding': '',
             'url': url,
