@@ -259,7 +259,7 @@ class TestObjectIdDateListed:
 
 class TestCalculateMatchQuality:
     """
-    Match quality matrix:
+    Match quality matrix (edition match level × condition diff):
       same  + diff=0  → Perfect
       same  + diff=1  → Good
       same  + diff≥2  → Decent
@@ -267,6 +267,11 @@ class TestCalculateMatchQuality:
       close + diff=1  → Decent
       close + diff≥2  → Poor
       not_close       → Poor  (regardless of condition)
+
+    Match level: an exact painos (product_version) match keeps the edition
+    'same' even with a small (≤10y) print-year difference — the year is then
+    treated as a data-entry artefact. 'close' arises when the painos is unknown
+    and only the year (±1–10y) or binding loosely lines up.
     """
 
     def _ed(self, pubyear=1982, editionnum=1, binding_id=3):
@@ -283,16 +288,20 @@ class TestCalculateMatchQuality:
     def test_same_diff2_is_decent(self):
         assert calculate_match_quality(self._ed(), 'K3', 1982, 1, 3, 'K1') == 'Decent'
 
-    # close edition (year diff 1–10, same version+binding)
+    # close edition (small year diff, painos unknown → close)
 
     def test_close_diff0_is_good(self):
-        assert calculate_match_quality(self._ed(), 'K3', 1985, 1, 3, 'K3') == 'Good'
+        assert calculate_match_quality(self._ed(), 'K3', 1985, None, 3, 'K3') == 'Good'
 
     def test_close_diff1_is_decent(self):
-        assert calculate_match_quality(self._ed(), 'K3', 1985, 1, 3, 'K2') == 'Decent'
+        assert calculate_match_quality(self._ed(), 'K3', 1985, None, 3, 'K2') == 'Decent'
 
     def test_close_diff2_is_poor(self):
-        assert calculate_match_quality(self._ed(), 'K3', 1985, 1, 3, 'K1') == 'Poor'
+        assert calculate_match_quality(self._ed(), 'K3', 1985, None, 3, 'K1') == 'Poor'
+
+    # a confirmed painos keeps the match 'same' despite a small print-year diff
+    def test_painos_match_overrides_small_year_diff_is_perfect(self):
+        assert calculate_match_quality(self._ed(), 'K3', 1985, 1, 3, 'K3') == 'Perfect'
 
     # not_close
 
@@ -312,7 +321,7 @@ class TestCalculateMatchQuality:
         assert calculate_match_quality(self._ed(), 'K3', 1982, 1, 3, None) == 'Good'
 
     def test_no_target_close_edition_is_decent(self):
-        assert calculate_match_quality(self._ed(), 'K3', 1985, 1, 3, None) == 'Decent'
+        assert calculate_match_quality(self._ed(), 'K3', 1985, None, 3, None) == 'Decent'
 
     def test_no_target_not_close_is_poor(self):
         assert calculate_match_quality(self._ed(), 'K3', 2000, 1, 3, None) == 'Poor'
