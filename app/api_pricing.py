@@ -9,11 +9,9 @@ from app.api_helpers import make_api_response
 from app.api_jwt import jwt_admin_required
 from app.impl import ResponseType
 from app.impl_pricing import (
-    antikvaari_fetch_products,
     antikvaari_price_delete,
     antikvaari_prices_save,
     antikvaari_prices_save_all,
-    antikvaari_search,
     edition_prices_count,
     edition_prices_get,
     price_add_manual,
@@ -24,6 +22,7 @@ from app.impl_pricing import (
     work_products_get,
     work_products_save,
 )
+from app.price_providers import get_provider
 from app.types import HttpResponseCode
 
 
@@ -65,7 +64,13 @@ def api_antikvaari_search() -> Response:
             ResponseType("Pakollinen parametri 'q' puuttuu.", HttpResponseCode.BAD_REQUEST)
         )
     isbn = request.args.get('isbn', '').strip()
-    return make_api_response(antikvaari_search(q, isbn))
+    source = request.args.get('source', '').strip() or None
+    provider = get_provider(source)
+    if not provider or not provider.search:
+        return make_api_response(
+            ResponseType('Lähde ei tue hakua', HttpResponseCode.BAD_REQUEST)
+        )
+    return make_api_response(provider.search(q, isbn))
 
 
 @app.route('/api/work/<int:work_id>/antikvaari/products', methods=['GET'])
@@ -90,7 +95,8 @@ def api_work_antikvaari_products_get(work_id: int) -> Response:
 
     Response 404 — Work not found.
     """
-    return make_api_response(work_products_get(work_id))
+    source = request.args.get('source', '').strip() or None
+    return make_api_response(work_products_get(work_id, source))
 
 
 @app.route('/api/work/<int:work_id>/antikvaari/products', methods=['POST'])
@@ -127,7 +133,8 @@ def api_work_antikvaari_products_save(work_id: int) -> Response:
         return make_api_response(
             ResponseType(f'Virheellinen pyyntö: {exc}', HttpResponseCode.BAD_REQUEST)
         )
-    return make_api_response(work_products_save(work_id, products))
+    source = request.args.get('source', '').strip() or None
+    return make_api_response(work_products_save(work_id, products, source))
 
 
 @app.route('/api/work/<int:work_id>/antikvaari/products/<product_id>', methods=['DELETE'])
@@ -142,7 +149,8 @@ def api_work_antikvaari_product_delete(work_id: int, product_id: str) -> Respons
     Response 404 — Product not found.
     Response 500 — Database error.
     """
-    return make_api_response(work_product_delete(work_id, product_id))
+    source = request.args.get('source', '').strip() or None
+    return make_api_response(work_product_delete(work_id, product_id, source))
 
 
 @app.route('/api/work/<int:work_id>/antikvaari/fetch', methods=['POST'])
@@ -204,8 +212,14 @@ def api_work_antikvaari_fetch(work_id: int) -> Response:
             ResponseType(f'Virheellinen pyyntö: {exc}', HttpResponseCode.BAD_REQUEST)
         )
     target_condition = body.get('target_condition') or None
+    source = (body.get('source') or '').strip() or None
+    provider = get_provider(source)
+    if not provider or not provider.fetch:
+        return make_api_response(
+            ResponseType('Lähde ei tue hintojen hakua', HttpResponseCode.BAD_REQUEST)
+        )
     return make_api_response(
-        antikvaari_fetch_products(product_urls, work_id, target_condition)
+        provider.fetch(product_urls, work_id, target_condition)
     )
 
 
@@ -278,8 +292,14 @@ def api_edition_antikvaari_prices_get(edition_id: int) -> Response:
 @app.route('/api/price-sources', methods=['GET'])
 @jwt_admin_required()  # type: ignore
 def api_price_sources_get() -> Response:
-    """Return all price sources for use in dropdowns."""
-    return make_api_response(price_sources_get())
+    """Return all price sources, each flagged with whether it supports search."""
+    resp = price_sources_get()
+    if resp.status == HttpResponseCode.OK and isinstance(resp.response, list):
+        for src in resp.response:
+            provider = get_provider(src.get('name'))
+            src['has_search'] = bool(provider and provider.search)
+            src['has_fetch'] = bool(provider and provider.fetch)
+    return make_api_response(resp)
 
 
 @app.route('/api/edition/<int:edition_id>/prices/manual', methods=['POST'])

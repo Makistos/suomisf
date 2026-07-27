@@ -19,6 +19,8 @@ _SEARCH_URL = f'{ANTIKVAARI_BASE}/api/products/search-v2'
 _UA = ('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 '
        '(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
 
+ANTIKKA_BASE = 'https://antikka.net'
+
 
 # ---------------------------------------------------------------------------
 # Internal helpers
@@ -191,19 +193,108 @@ def antikvaari_search(q: str, isbn: str = '') -> ResponseType:
     return ResponseType(products, HttpResponseCode.OK)
 
 
+def _antikka_price(el: Any) -> Optional[float]:
+    """Parse a WooCommerce price element like '60,00 €' into a float."""
+    if not el:
+        return None
+    raw = (el.get_text(strip=True)
+           .replace('\xa0', '').replace('€', '').replace(',', '.').strip())
+    try:
+        return float(raw)
+    except ValueError:
+        return None
+
+
+def antikka_search(q: str, isbn: str = '') -> ResponseType:
+    """Search antikka.net (WooCommerce). Each result is a single physical copy.
+
+    Unlike Antikvaari (where a product aggregates many copies), every antikka
+    search hit is one listing, so available_count is always 1.
+    """
+    params = {'s': f'{q} {isbn}'.strip(), 'post_type': 'product'}
+    try:
+        resp = requests.get(f'{ANTIKKA_BASE}/', params=params,
+                            headers={'User-Agent': _UA}, timeout=15)
+        resp.raise_for_status()
+    except requests.RequestException as exc:
+        return ResponseType(f'Antikka search failed: {exc}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR)
+
+    soup = BeautifulSoup(resp.text, 'html.parser')
+
+    # WooCommerce redirects a search that matches exactly one product straight
+    # to that product's page (no result cards). Treat it as a single result.
+    if '/tuote/' in resp.url:
+        title_el = soup.select_one('h1.product_title')
+        img_el = soup.select_one('img.wp-post-image')
+        return ResponseType([{
+            'product_id': resp.url.rstrip('/').split('/')[-1],
+            'title': title_el.get_text(strip=True) if title_el else q,
+            'author': '',
+            'year': '',
+            'binding': '',
+            'url': resp.url,
+            'image': img_el.get('src', '') if img_el else '',
+            'available_count': 1,
+            'price': _antikka_price(soup.select_one('p.price .woocommerce-Price-amount')),
+        }], HttpResponseCode.OK)
+
+    products: List[Dict[str, Any]] = []
+    seen: set = set()
+    for li in soup.select('li.product'):
+        link = li.select_one('a.woocommerce-loop-product__link') \
+            or li.select_one('a[href*="/tuote/"]')
+        if not link or not link.get('href'):
+            continue
+        url = link['href']
+        product_id = url.rstrip('/').split('/')[-1]
+        if product_id in seen:
+            continue
+        seen.add(product_id)
+        title_el = li.select_one('.woocommerce-loop-product__title')
+        img_el = li.select_one('img')
+        products.append({
+            'product_id': product_id,
+            'title': title_el.get_text(strip=True) if title_el else '',
+            'author': '',
+            'year': '',
+            'binding': '',
+            'url': url,
+            'image': img_el.get('src', '') if img_el else '',
+            'available_count': 1,
+            'price': _antikka_price(li.select_one('.price .woocommerce-Price-amount')),
+        })
+    return ResponseType(products, HttpResponseCode.OK)
+
+
 # ---------------------------------------------------------------------------
 # Public: work-product mapping
 # ---------------------------------------------------------------------------
 
-def work_products_get(work_id: int) -> ResponseType:
-    """Return Antikvaari product IDs linked to a work."""
+def _resolve_source(session: Any, source: Any) -> Optional[PriceSource]:
+    """Resolve a source given by id, name, or None (defaults to Antikvaari)."""
+    if source is None:
+        return (session.query(PriceSource)
+                .filter(PriceSource.name == 'Antikvaari').first())
+    if isinstance(source, int) or (isinstance(source, str) and source.isdigit()):
+        return session.query(PriceSource).filter(PriceSource.id == int(source)).first()
+    return session.query(PriceSource).filter(PriceSource.name == source).first()
+
+
+def work_products_get(work_id: int, source: Any = None) -> ResponseType:
+    """Return product IDs linked to a work for a given source (default Antikvaari)."""
     session = new_session()
     try:
+        src = _resolve_source(session, source)
+        if not src:
+            return ResponseType('Unknown source', HttpResponseCode.BAD_REQUEST)
         rows = (session.query(AntikvaariWorkProduct)
-                .filter(AntikvaariWorkProduct.work_id == work_id)
+                .filter(AntikvaariWorkProduct.work_id == work_id,
+                        AntikvaariWorkProduct.source_id == src.id)
                 .all())
         return ResponseType(
             [{'id': r.id, 'antikvaari_product_id': r.antikvaari_product_id,
+              'source_id': r.source_id,
               'added': r.added.isoformat() if r.added else None,
               'url': r.url,
               'rejected': bool(r.rejected)}
@@ -214,18 +305,23 @@ def work_products_get(work_id: int) -> ResponseType:
         session.close()
 
 
-def work_products_save(work_id: int, products: List[Dict[str, Any]]) -> ResponseType:
-    """Link Antikvaari products (id+url) to a work. Existing mappings are preserved."""
+def work_products_save(work_id: int, products: List[Dict[str, Any]],
+                       source: Any = None) -> ResponseType:
+    """Link products (id+url) from a source to a work. Existing mappings are preserved."""
     session = new_session()
     try:
         work = session.query(Work).filter(Work.id == work_id).first()
         if not work:
             return ResponseType('Work not found', HttpResponseCode.NOT_FOUND)
+        src = _resolve_source(session, source)
+        if not src:
+            return ResponseType('Unknown source', HttpResponseCode.BAD_REQUEST)
 
         existing = {
             r.antikvaari_product_id: r
             for r in session.query(AntikvaariWorkProduct)
-            .filter(AntikvaariWorkProduct.work_id == work_id)
+            .filter(AntikvaariWorkProduct.work_id == work_id,
+                    AntikvaariWorkProduct.source_id == src.id)
             .all()
         }
         now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
@@ -245,6 +341,7 @@ def work_products_save(work_id: int, products: List[Dict[str, Any]]) -> Response
             else:
                 session.add(AntikvaariWorkProduct(
                     work_id=work_id,
+                    source_id=src.id,
                     antikvaari_product_id=pid,
                     added=now,
                     url=url,
@@ -261,12 +358,17 @@ def work_products_save(work_id: int, products: List[Dict[str, Any]]) -> Response
         session.close()
 
 
-def work_product_delete(work_id: int, product_id: str) -> ResponseType:
-    """Remove an Antikvaari product link from a work."""
+def work_product_delete(work_id: int, product_id: str,
+                        source: Any = None) -> ResponseType:
+    """Remove a product link from a work for a given source (default Antikvaari)."""
     session = new_session()
     try:
+        src = _resolve_source(session, source)
+        if not src:
+            return ResponseType('Unknown source', HttpResponseCode.BAD_REQUEST)
         row = (session.query(AntikvaariWorkProduct)
                .filter(AntikvaariWorkProduct.work_id == work_id,
+                       AntikvaariWorkProduct.source_id == src.id,
                        AntikvaariWorkProduct.antikvaari_product_id == product_id)
                .first())
         if not row:
@@ -553,6 +655,107 @@ def antikvaari_fetch_products(
         session.close()
 
 
+def antikka_fetch_products(
+    product_urls: List[str],
+    work_id: int,
+    target_condition: Optional[str] = None,
+) -> ResponseType:
+    """Scrape antikka.net listing pages and return price rows with match quality.
+
+    Each antikka listing URL is a single physical copy (WooCommerce), so this
+    scrapes one page per URL and produces one row each. Rows share the shape of
+    antikvaari_fetch_products so the same frontend and save path handle both.
+    """
+    session = new_session()
+    try:
+        work = session.query(Work).filter(Work.id == work_id).first()
+        if not work:
+            return ResponseType('Work not found', HttpResponseCode.NOT_FOUND)
+
+        editions = list(work.editions)
+
+        excluded_ids = {
+            r.antikvaari_book_id
+            for r in session.query(AntikvaariExcludedBook).all()
+        }
+
+        antikka_source = (session.query(PriceSource)
+                          .filter(PriceSource.name == 'Antikka').first())
+        antikka_source_id = antikka_source.id if antikka_source else None
+
+        # Map listing url -> AntikvaariWorkProduct row for page_exists updates
+        work_products: Dict[str, Any] = {
+            r.url: r
+            for r in session.query(AntikvaariWorkProduct)
+            .filter(AntikvaariWorkProduct.work_id == work_id,
+                    AntikvaariWorkProduct.source_id == antikka_source_id)
+            .all()
+            if r.url
+        }
+
+        rows: List[Dict[str, Any]] = []
+
+        for product_url in product_urls:
+            try:
+                fields = _scrape_antikka(product_url)
+            except requests.RequestException:
+                wp = work_products.get(product_url)
+                if wp and wp.page_exists:
+                    wp.page_exists = False
+                continue
+
+            product_id = product_url.rstrip('/').split('/')[-1]
+            book_id = fields.get('book_id') or product_id
+            product_year = fields.get('year')
+            product_version = fields.get('version')
+            binding_id = fields.get('binding')
+            condition = fields.get('condition') or ''
+
+            edition, edition_match_level = _best_matching_edition(
+                editions, product_year, product_version, binding_id
+            )
+
+            rows.append({
+                'edition_id': edition.id if edition else None,
+                'edition_pubyear': edition.pubyear if edition else None,
+                'edition_version': edition.version if edition else None,
+                'edition_match_level': edition_match_level,
+                'antikvaari_book_id': book_id,
+                'antikvaari_product_id': product_id,
+                'antikvaari_product_page_url': product_url,
+                'antikvaari_product_url': product_url,
+                'antikvaari_product_year': product_year,
+                'antikvaari_product_binding': binding_id,
+                'antikvaari_product_version': product_version,
+                'antikvaari_product_laitos': None,
+                'book_title': fields.get('title'),
+                'book_author': fields.get('author'),
+                'book_language': fields.get('language'),
+                'date_listed': None,
+                'last_updated': fields.get('last_updated'),
+                'condition': condition,
+                'is_library_discard': False,
+                'has_markings': False,
+                'missing_dust_cover': False,
+                'price': fields.get('price'),
+                'match_quality': calculate_match_quality(
+                    edition, condition, product_year, product_version,
+                    binding_id, target_condition,
+                ) if edition else None,
+                'user_excluded': book_id in excluded_ids,
+                'source_id': antikka_source_id,
+                'source_name': 'Antikka',
+            })
+
+        session.commit()
+        return ResponseType(rows, HttpResponseCode.OK)
+    except Exception as exc:  # pylint: disable=broad-except
+        session.rollback()
+        return ResponseType(f'Fetch failed: {exc}', HttpResponseCode.INTERNAL_SERVER_ERROR)
+    finally:
+        session.close()
+
+
 def _best_matching_edition(
     editions: List[Edition],
     product_year: Optional[int],
@@ -642,9 +845,24 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]]) -> Respo
         if not edition:
             return ResponseType('Edition not found', HttpResponseCode.NOT_FOUND)
 
-        antikvaari_source = (session.query(PriceSource)
-                             .filter(PriceSource.name == 'Antikvaari').first())
-        antikvaari_source_id = antikvaari_source.id if antikvaari_source else 1
+        # Resolve the price source per row (rows carry source_id/source_name
+        # from the fetch step). Falls back to Antikvaari for backward
+        # compatibility with older callers that don't set a source.
+        default_source = (session.query(PriceSource)
+                          .filter(PriceSource.name == 'Antikvaari').first())
+        default_source_id = default_source.id if default_source else 1
+        source_id_by_name = {
+            s.name: s.id for s in session.query(PriceSource).all()
+        }
+
+        def _resolve_source_id(row: Dict[str, Any]) -> int:
+            sid = row.get('source_id')
+            if sid:
+                return int(sid)
+            name = row.get('source_name')
+            if name and name in source_id_by_name:
+                return source_id_by_name[name]
+            return default_source_id
 
         now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
         saved = 0
@@ -683,7 +901,7 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]]) -> Respo
 
             session.add(AntikvaariPrice(
                 edition_id=edition_id,
-                source_id=antikvaari_source_id,
+                source_id=_resolve_source_id(row),
                 antikvaari_book_id=row['antikvaari_book_id'],
                 antikvaari_product_id=row.get('antikvaari_product_id') or '',
                 antikvaari_product_year=row.get('antikvaari_product_year'),
@@ -697,6 +915,7 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]]) -> Respo
                 has_markings=row.get('has_markings', False),
                 missing_dust_cover=row.get('missing_dust_cover', False),
                 price=row.get('price', 0),
+                url=row.get('antikvaari_product_url') or row.get('url'),
             ))
             saved += 1
             detail_rows.append({**row, 'status': 'saved', 'reason': None})
@@ -836,8 +1055,25 @@ def _scrape_antikvariaatti(url: str) -> Dict[str, Any]:
     }
 
 
+def _antikka_attributes(soup: BeautifulSoup) -> Dict[str, str]:
+    """Extract the WooCommerce product attribute table as a {label: value} dict."""
+    attrs: Dict[str, str] = {}
+    for row in soup.select('tr.woocommerce-product-attributes-item'):
+        label = row.find('th')
+        value = row.find('td')
+        if label and value:
+            attrs[label.get_text(strip=True)] = value.get_text(' ', strip=True)
+    return attrs
+
+
 def _scrape_antikka(url: str) -> Dict[str, Any]:
-    """Scrape a single antikka.net (WooCommerce) product page and return price fields."""
+    """Scrape a single antikka.net (WooCommerce) product page and return price fields.
+
+    Returns the fields the manual path needs (book_id, price, condition,
+    last_updated) plus the edition-matching metadata parsed from the product
+    attribute table (year/version/binding, title/author/language) so the same
+    scraper feeds the automatic fetch flow.
+    """
     resp = requests.get(url, headers={'User-Agent': _UA}, timeout=15)
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, 'html.parser')
@@ -856,19 +1092,41 @@ def _scrape_antikka(url: str) -> Dict[str, Any]:
     if sku_el:
         book_id = sku_el.get_text(strip=True) or None
 
+    attrs = _antikka_attributes(soup)
+
+    # Condition: "K3 (hyvä)" -> "K3"
     condition: Optional[str] = None
-    for tr in soup.find_all('tr'):
-        cells = tr.find_all(['th', 'td'])
-        if len(cells) >= 2 and 'Kuntoluokka' in cells[0].get_text():
-            m = re.match(r'K[1-5]', cells[1].get_text(strip=True))
-            if m:
-                condition = m.group()
-            break
+    kunto = attrs.get('Kuntoluokka', '')
+    m = re.match(r'(K[1-5])', kunto)
+    if m:
+        condition = m.group(1)
+
+    # Year: "1976" (may be "1976-1977" or contain extra text)
+    year: Optional[int] = None
+    painovuosi = attrs.get('Painovuosi', '')
+    ym = re.search(r'\d{4}', painovuosi)
+    if ym:
+        year = int(ym.group())
+
+    # Painos (print run number): "1.p" -> 1. Absent when the seller omits it.
+    version = _parse_version(attrs.get('Painos', ''))
+
+    # Binding from "Sidosasu": "nidottu" / "Sidottu, kuvakansi"
+    binding = _binding_category(attrs.get('Sidosasu', ''))
+
+    title_el = soup.select_one('h1.product_title')
 
     return {
         'book_id': book_id,
         'price': price,
         'condition': condition,
+        'year': year,
+        'version': version,
+        'binding': binding,
+        'title': (title_el.get_text(strip=True) if title_el else None),
+        'author': attrs.get('Tekijä') or None,
+        'language': attrs.get('Kieli') or None,
+        # Antikka exposes no per-listing date; use the fetch date.
         'last_updated': datetime.date.today().isoformat(),
     }
 

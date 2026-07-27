@@ -685,6 +685,8 @@ class AntikvaariWorkProduct(Base):
     __tablename__ = 'antikvaari_work_product'
     id = Column(Integer, primary_key=True)
     work_id = Column(Integer, ForeignKey('work.id'), nullable=False)
+    source_id = Column(Integer, ForeignKey('suomisf.price_source.id'),
+                       nullable=False)
     antikvaari_product_id = Column(String(30), nullable=False)
     added = Column(DateTime, nullable=False)
     url = Column(String(500))
