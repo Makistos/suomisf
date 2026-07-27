@@ -687,7 +687,7 @@ class AntikvaariWorkProduct(Base):
     work_id = Column(Integer, ForeignKey('work.id'), nullable=False)
     source_id = Column(Integer, ForeignKey('suomisf.price_source.id'),
                        nullable=False)
-    antikvaari_product_id = Column(String(30), nullable=False)
+    antikvaari_product_id = Column(Text, nullable=False)
     added = Column(DateTime, nullable=False)
     url = Column(String(500))
     rejected = Column(Boolean, nullable=False, default=False, server_default='false')
@@ -700,7 +700,7 @@ class AntikvaariExcludedBook(Base):
     """Book copy IDs the user has chosen to exclude from price saving."""
     __tablename__ = 'antikvaari_excluded_book'
     __table_args__ = {'schema': 'suomisf'}
-    antikvaari_book_id = Column(String(30), primary_key=True)
+    antikvaari_book_id = Column(Text, primary_key=True)
 
 
 class PriceSource(Base):
@@ -717,8 +717,8 @@ class AntikvaariPrice(Base):
     id = Column(Integer, primary_key=True)
     edition_id = Column(Integer, ForeignKey('edition.id'), nullable=False)
     source_id = Column(Integer, ForeignKey('suomisf.price_source.id'), nullable=False)
-    antikvaari_book_id = Column(String(100))
-    antikvaari_product_id = Column(String(100))
+    antikvaari_book_id = Column(Text)
+    antikvaari_product_id = Column(Text)
     antikvaari_product_year = Column(Integer)
     antikvaari_product_binding = Column(Integer, ForeignKey('bindingtype.id'))
     antikvaari_product_version = Column(Integer)
