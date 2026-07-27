@@ -7,6 +7,7 @@ from urllib.parse import urljoin
 
 import requests
 from bs4 import BeautifulSoup
+from sqlalchemy import text
 
 from app.impl import ResponseType
 from app.orm_decl import (AntikvaariExcludedBook, AntikvaariPrice,
@@ -947,6 +948,16 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]]) -> Respo
     """
     session = new_session()
     try:
+        # Serialize concurrent saves for the same edition. Without this, two
+        # near-simultaneous save requests (e.g. a double-submit) each see no
+        # existing row and both insert, creating duplicate price lines. The lock
+        # is held until this transaction commits, so the second save then sees
+        # the first's rows and the change-detection skips the duplicate.
+        session.execute(
+            text('SELECT pg_advisory_xact_lock(:ns, :eid)'),
+            {'ns': 8231, 'eid': edition_id},
+        )
+
         edition = session.query(Edition).filter(Edition.id == edition_id).first()
         if not edition:
             return ResponseType('Edition not found', HttpResponseCode.NOT_FOUND)
