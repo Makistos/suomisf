@@ -382,7 +382,10 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
       ts_rank(e.fts, q.q) AS rank,
       2 AS table_order,
       (ts_rank(e.fts, q.q) * 10.0 + (12 - 2)) AS combined_score,
-      '' AS author
+      (SELECT string_agg(p.name, ', ' ORDER BY p.name)
+       FROM workcontributor wc
+       JOIN person p ON p.id = wc.person_id
+       WHERE wc.work_id = e.work_id AND wc.role_id = 1) AS author
     FROM edition e, query q
     WHERE e.fts @@ q.q
       AND NOT EXISTS (
