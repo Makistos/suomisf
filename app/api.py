@@ -326,26 +326,30 @@ def api_search(pattern: str) -> Tuple[str, int]:
     results: SearchResult = []
 
     pattern = bleach.clean(pattern)
+    titles_only = request.args.get('titles', '') in ('1', 'true', 'yes')
 
     session = new_session()
-    results = search_with_fts(session, pattern)
+    results = search_with_fts(session, pattern, titles_only)
     return json.dumps(results[0:50]), retcode
 
 
-def search_with_fts(session: Any, search_term: str) -> SearchResult:
+def search_with_fts(session: Any, search_term: str,
+                    titles_only: bool = False) -> SearchResult:
     """
     Search using PostgreSQL full-text search across multiple tables.
 
     Args:
         session: Database session
         search_term (str): The search term to query
+        titles_only (bool): When True, only match the title/name field of each
+            entity (not descriptions, bios, etc.).
 
     Returns:
         SearchResult: List of search results with consistent format
     """
     from sqlalchemy import text
 
-    query = text("""
+    sql = """
     WITH query AS (
       SELECT plainto_tsquery('voikko', :search_term) AS q
     )
@@ -534,7 +538,25 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
     -- replace the ORDER BY above with the one below.
     -- ORDER BY (CASE WHEN table_order = 3 THEN 0 ELSE 1 END),
     --          combined_score DESC, title;
-    """)
+    """
+
+    if titles_only:
+        # Restrict matching to each entity's title/name field. The indexed
+        # `X.fts @@ q` prefilter is kept for speed; the added title condition
+        # refines it to title/name matches only.
+        title_fields = {
+            'w': 'title', 'e': 'title', 'p': 'name', 's': 'title', 't': 'name',
+            'bs': 'name', 'ps': 'name', 'pub': 'name', 'm': 'name', 'i': 'title',
+            'a': 'name',
+        }
+        for alias, field in title_fields.items():
+            sql = sql.replace(
+                f"WHERE {alias}.fts @@ q.q",
+                f"WHERE {alias}.fts @@ q.q"
+                f" AND to_tsvector('voikko', {alias}.{field}) @@ q.q",
+            )
+
+    query = text(sql)
 
     try:
         result = session.execute(query, {'search_term': search_term})
