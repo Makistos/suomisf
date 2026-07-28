@@ -421,7 +421,10 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
       ts_rank(s.fts, q.q) AS rank,
       4 AS table_order,
       (ts_rank(s.fts, q.q) * 10.0 + (12 - 4)) AS combined_score,
-      '' AS author
+      (SELECT string_agg(p.name, ', ' ORDER BY p.name)
+       FROM storycontributor sc
+       JOIN person p ON p.id = sc.person_id
+       WHERE sc.shortstory_id = s.id AND sc.role_id = 1) AS author
     FROM shortstory s, query q
     WHERE s.fts @@ q.q
 
