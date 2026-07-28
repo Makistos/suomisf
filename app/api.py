@@ -399,7 +399,11 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
       'person' AS table,
       ts_rank(p.fts, q.q) AS rank,
       3 AS table_order,
-      (ts_rank(p.fts, q.q) * 10.0 + (12 - 3)) AS combined_score,
+      (ts_rank(p.fts, q.q) * 10.0 + (12 - 3)
+       + CASE WHEN to_tsvector('voikko', p.name) @@ q.q
+              THEN 5.0 ELSE 0.0 END
+       + CASE WHEN p.name ~* ('\\m' || :search_term || '\\M')
+              THEN 10.0 ELSE 0.0 END) AS combined_score,
       '' AS author
     FROM person p, query q
     WHERE p.fts @@ q.q
