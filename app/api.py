@@ -542,12 +542,8 @@ def search_with_fts(session: Any, search_term: str,
 
     if titles_only:
         # Restrict matching to each entity's title/name field. The indexed
-        # `X.fts @@ q` prefilter is kept for speed; the title condition refines
-        # it to title/name matches, and the trigram word_similarity requires the
-        # title to actually resemble the raw search term. The latter strips
-        # voikko compound-splitting noise (e.g. "maailma" -> "maa"+"ilma", which
-        # otherwise makes every "maailma" title match a search for "yläilmoissa"
-        # -> "ilma").
+        # `X.fts @@ q` prefilter is kept for speed; the added title condition
+        # refines it to title/name matches only.
         title_fields = {
             'w': 'title', 'e': 'title', 'p': 'name', 's': 'title', 't': 'name',
             'bs': 'name', 'ps': 'name', 'pub': 'name', 'm': 'name', 'i': 'title',
@@ -557,8 +553,7 @@ def search_with_fts(session: Any, search_term: str,
             sql = sql.replace(
                 f"WHERE {alias}.fts @@ q.q",
                 f"WHERE {alias}.fts @@ q.q"
-                f" AND to_tsvector('voikko', {alias}.{field}) @@ q.q"
-                f" AND word_similarity(:search_term, {alias}.{field}) >= 0.35",
+                f" AND to_tsvector('voikko', {alias}.{field}) @@ q.q",
             )
 
     query = text(sql)
