@@ -1,9 +1,22 @@
 Always use line widths less or equal to 79 characters.
 
+Run the app with gunicorn against the `wsgi:app` entrypoint (`gunicorn
+wsgi:app`). The `suomisf:app` entrypoint is stale — it fails to import — so
+do not use it.
+
 After making backend changes, remember to restart the backend on the
 server for them to take effect (the running gunicorn does not auto-reload;
 reload it, e.g. `kill -HUP $(cat /tmp/gunicorn.pid)`, or restart the
 service on the deployment server).
+
+## Database migrations
+
+Schema changes are hand-written, numbered SQL files in `migrations/NNN_*.sql`
+(not Alembic autogenerate). Add the next number in sequence and apply it
+manually against the target database, e.g.
+`psql -h 127.0.0.1 -U mep -d suomisf -f migrations/NNN_*.sql`. Tables live in
+the `suomisf` schema. Keep the SQLAlchemy models in `app/orm_decl.py` in sync
+with each migration.
 
 If changing or adding an API function always add tests and update documentation
 both for API and tests and document the API.
