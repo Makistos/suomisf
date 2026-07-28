@@ -517,9 +517,13 @@ def search_with_fts(session: Any, search_term: str) -> SearchResult:
     WHERE a.fts @@ q.q
     ) AS combined
 
-    -- People first (table_order 3 = person), then everything else by score
-    ORDER BY (CASE WHEN table_order = 3 THEN 0 ELSE 1 END),
-             combined_score DESC, title;
+    -- Order purely by relevance score.
+    ORDER BY combined_score DESC, title;
+
+    -- ROLLBACK: to restore the previous "people always first" ordering,
+    -- replace the ORDER BY above with the one below.
+    -- ORDER BY (CASE WHEN table_order = 3 THEN 0 ELSE 1 END),
+    --          combined_score DESC, title;
     """)
 
     try:
