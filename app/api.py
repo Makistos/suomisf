@@ -531,8 +531,14 @@ def search_with_fts(session: Any, search_term: str,
     WHERE a.fts @@ q.q
     ) AS combined
 
-    -- Order purely by relevance score.
-    ORDER BY combined_score DESC, title;
+    -- Order by relevance score, boosted by trigram similarity between the raw
+    -- search term and the title/name. This lifts exact/near title matches above
+    -- ones that only share a voikko compound part (e.g. "maailma" -> "ilma", so
+    -- a search for "yläilmoissa" ranks the actual work first and sinks the
+    -- "maailma" titles) without filtering anything out, so voikko morphology is
+    -- preserved.
+    ORDER BY (combined_score + word_similarity(:search_term, title) * 12.0) DESC,
+             title;
 
     -- ROLLBACK: to restore the previous "people always first" ordering,
     -- replace the ORDER BY above with the one below.
