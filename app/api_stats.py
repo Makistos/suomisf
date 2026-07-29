@@ -856,8 +856,10 @@ def api_stats_filterworks() -> Response:
     orig_year_max = request.args.get('orig_year_max', default=None, type=int)
     edition_year_min = request.args.get('edition_year_min', default=None, type=int)
     edition_year_max = request.args.get('edition_year_max', default=None, type=int)
+    owner_id = request.args.get('owner', default=None, type=int)
     return make_api_response(stats_filterworks(
-        language_id, orig_year_min, orig_year_max, edition_year_min, edition_year_max))
+        language_id, orig_year_min, orig_year_max, edition_year_min,
+        edition_year_max, owner_id))
 
 
 @app.route('/api/stats/storiesbyyear', methods=['GET'])

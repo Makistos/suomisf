@@ -9,7 +9,7 @@ from app.route_helpers import new_session
 from app.orm_decl import (
     Genre, Work, WorkGenre, WorkContributor, Edition, Publisher,
     Person, ContributorRole, Issue, Language, BindingType,
-    Country, ShortStory, StoryContributor, StoryType
+    Country, ShortStory, StoryContributor, StoryType, UserBook
 )
 from app.model import ShortBriefSchema, WorkBriefSchema
 from app.types import HttpResponseCode
@@ -1129,7 +1129,8 @@ def stats_filterworks(language_id: Optional[int] = None,
                       orig_year_min: Optional[int] = None,
                       orig_year_max: Optional[int] = None,
                       edition_year_min: Optional[int] = None,
-                      edition_year_max: Optional[int] = None) -> ResponseType:
+                      edition_year_max: Optional[int] = None,
+                      owner_id: Optional[int] = None) -> ResponseType:
     """
     Get works matching the given filters.
 
@@ -1183,6 +1184,14 @@ def stats_filterworks(language_id: Optional[int] = None,
             # Filter by original publication year (Work.pubyear)
             query = session.query(Work)
 
+            if owner_id is not None:
+                # Restrict to works the user owns.
+                query = (query.join(Edition, Edition.work_id == Work.id)
+                         .join(UserBook, UserBook.edition_id == Edition.id)
+                         .filter(UserBook.user_id == owner_id,
+                                 UserBook.condition_id >= 1,
+                                 UserBook.condition_id <= 5))
+
             if language_id is not None:
                 query = query.filter(Work.language == language_id)
 
@@ -1192,15 +1201,25 @@ def stats_filterworks(language_id: Optional[int] = None,
             if orig_year_max is not None:
                 query = query.filter(Work.pubyear <= orig_year_max)
 
-            query = query.order_by(Work.title)
+            query = query.distinct().order_by(Work.title)
         else:
-            # Filter by first edition year (Edition.pubyear where editionnum=1)
             query = session.query(Work).join(
                 Edition, Edition.work_id == Work.id
-            ).filter(
-                or_(Edition.editionnum == 1, Edition.editionnum.is_(None)),
-                or_(Edition.version == 1, Edition.version.is_(None))
             )
+
+            if owner_id is not None:
+                # Match the owned editions in that year (any owned edition,
+                # not just first editions).
+                query = (query.join(UserBook, UserBook.edition_id == Edition.id)
+                         .filter(UserBook.user_id == owner_id,
+                                 UserBook.condition_id >= 1,
+                                 UserBook.condition_id <= 5))
+            else:
+                # Filter by first edition year (Edition.pubyear where editionnum=1)
+                query = query.filter(
+                    or_(Edition.editionnum == 1, Edition.editionnum.is_(None)),
+                    or_(Edition.version == 1, Edition.version.is_(None))
+                )
 
             if language_id is not None:
                 query = query.filter(Work.language == language_id)
