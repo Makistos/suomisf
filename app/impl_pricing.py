@@ -1669,6 +1669,8 @@ def user_collection_stats(user_id: int) -> ResponseType:
                 'short_story_count': 0,
                 'total_pages': 0,
                 'shelf_width_meters': 0.0,
+                'editions_by_year': [],
+                'origworks_by_year': [],
             }, HttpResponseCode.OK)
 
         # condition_id → "K{value}" string
@@ -1875,6 +1877,34 @@ def user_collection_stats(user_id: int) -> ResponseType:
             .filter(EditionShortStory.edition_id.in_(edition_ids))
             .scalar() or 0)
 
+        # Publications per year, split by original language, in the same shape
+        # the site "Julkaisut vuosittain" chart expects. editions_by_year uses
+        # the owned editions' Finnish publication year; origworks_by_year uses
+        # the owned works' original publication year.
+        ed_year_rows = (
+            session.query(Edition.pubyear, Language.id, Language.name,
+                          func.count(Edition.id))
+            .join(Work, Edition.work_id == Work.id)
+            .outerjoin(Language, Work.language == Language.id)
+            .filter(Edition.id.in_(edition_ids), Edition.pubyear.isnot(None))
+            .group_by(Edition.pubyear, Language.id, Language.name)
+            .order_by(Edition.pubyear).all())
+        editions_by_year = [
+            {'year': y, 'count': int(c), 'language_id': lid, 'language_name': ln}
+            for y, lid, ln, c in ed_year_rows]
+
+        ow_year_rows = (
+            session.query(Work.pubyear, Language.id, Language.name,
+                          func.count(func.distinct(Work.id)))
+            .join(Edition, Edition.work_id == Work.id)
+            .outerjoin(Language, Work.language == Language.id)
+            .filter(Edition.id.in_(edition_ids), Work.pubyear.isnot(None))
+            .group_by(Work.pubyear, Language.id, Language.name)
+            .order_by(Work.pubyear).all())
+        origworks_by_year = [
+            {'year': y, 'count': int(c), 'language_id': lid, 'language_name': ln}
+            for y, lid, ln, c in ow_year_rows]
+
         return ResponseType({
             'total_owned': total_owned,
             'priced_count': priced_count,
@@ -1889,6 +1919,8 @@ def user_collection_stats(user_id: int) -> ResponseType:
             'short_story_count': int(short_story_count),
             'total_pages': int(total_pages),
             'shelf_width_meters': shelf_width_meters,
+            'editions_by_year': editions_by_year,
+            'origworks_by_year': origworks_by_year,
         }, HttpResponseCode.OK)
     finally:
         session.close()
