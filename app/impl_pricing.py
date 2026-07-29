@@ -7,12 +7,13 @@ from urllib.parse import urljoin
 
 import requests
 from bs4 import BeautifulSoup
-from sqlalchemy import text
+from sqlalchemy import func, text
 
 from app.impl import ResponseType
 from app.orm_decl import (AntikvaariExcludedBook, AntikvaariPrice,
                            AntikvaariWorkProduct, BookCondition,
-                           Edition, PriceSource, UserBook, Work)
+                           Edition, EditionShortStory, Language, Publisher,
+                           PriceSource, UserBook, Work, WorkType)
 from app.route_helpers import new_session
 from app.types import HttpResponseCode
 
@@ -1662,6 +1663,12 @@ def user_collection_stats(user_id: int) -> ResponseType:
                 'price_distribution': [],
                 'top_expensive': [],
                 'no_price_books': [],
+                'publisher_distribution': [],
+                'language_distribution': [],
+                'worktype_distribution': [],
+                'short_story_count': 0,
+                'total_pages': 0,
+                'shelf_width_meters': 0.0,
             }, HttpResponseCode.OK)
 
         # condition_id → "K{value}" string
@@ -1836,6 +1843,38 @@ def user_collection_stats(user_id: int) -> ResponseType:
 
         no_price_books.sort(key=lambda x: (x['author_str'], x['title']))
 
+        # --- Collection composition + miscellaneous counts ---------------
+        def _distribution(name_col, *joins):
+            q = session.query(name_col, func.count(Edition.id))
+            for model, cond in joins:
+                q = q.join(model, cond)
+            rows = (q.filter(Edition.id.in_(edition_ids))
+                    .group_by(name_col)
+                    .order_by(func.count(Edition.id).desc(), name_col)
+                    .all())
+            return [{'name': n, 'count': int(c)} for n, c in rows if n]
+
+        publisher_distribution = _distribution(
+            Publisher.name, (Publisher, Edition.publisher_id == Publisher.id))
+        language_distribution = _distribution(
+            Language.name,
+            (Work, Edition.work_id == Work.id),
+            (Language, Work.language == Language.id))
+        worktype_distribution = _distribution(
+            WorkType.name,
+            (Work, Edition.work_id == Work.id),
+            (WorkType, Work.type == WorkType.id))
+
+        # Total pages and shelf width, using the site-statistics convention
+        # of 100 pages = 15 mm.
+        total_pages = sum(e.pages for e in editions_map.values() if e.pages)
+        shelf_width_meters = round((total_pages / 100) * 0.015, 2)
+
+        short_story_count = (
+            session.query(func.count(EditionShortStory.shortstory_id))
+            .filter(EditionShortStory.edition_id.in_(edition_ids))
+            .scalar() or 0)
+
         return ResponseType({
             'total_owned': total_owned,
             'priced_count': priced_count,
@@ -1844,6 +1883,12 @@ def user_collection_stats(user_id: int) -> ResponseType:
             'price_distribution': price_distribution,
             'top_expensive': top_expensive,
             'no_price_books': no_price_books,
+            'publisher_distribution': publisher_distribution,
+            'language_distribution': language_distribution,
+            'worktype_distribution': worktype_distribution,
+            'short_story_count': int(short_story_count),
+            'total_pages': int(total_pages),
+            'shelf_width_meters': shelf_width_meters,
         }, HttpResponseCode.OK)
     finally:
         session.close()

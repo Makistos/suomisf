@@ -376,7 +376,8 @@ def api_work_antikvaari_prices_save(work_id: int) -> Response:
 @app.route('/api/user/<int:user_id>/collection/stats', methods=['GET'])
 def api_user_collection_stats(user_id: int) -> Response:
     """
-    Return Antikvaari pricing statistics for all editions owned by a user.
+    Return pricing statistics and collection composition for all editions
+    owned by a user.
 
     URL: GET /api/user/<user_id>/collection/stats
 
@@ -393,7 +394,14 @@ def api_user_collection_stats(user_id: int) -> Response:
              "pubyear": 1975, "version": null, "price": 45.00,
              "match_quality": "Perfect", "condition": "K3"},
             ...
-          ]
+          ],
+          // Collection composition (owned editions):
+          "publisher_distribution": [{"name": "WSOY", "count": 220}, ...],
+          "language_distribution": [{"name": "englanti", "count": 679}, ...],
+          "worktype_distribution": [{"name": "Romaani", "count": 843}, ...],
+          "short_story_count": 1640,   // short stories across owned editions
+          "total_pages": 300760,       // sum of owned editions' pages
+          "shelf_width_meters": 45.11  // 100 pages = 15 mm (site-stats formula)
         }
     """
     return make_api_response(user_collection_stats(user_id))
