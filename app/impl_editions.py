@@ -743,6 +743,12 @@ def delete_edition(session: Any, edition_id: int) -> bool:  # noqa: C901
         session.query(EditionShortStory).filter(
             EditionShortStory.edition_id == edition_id
         ).delete()
+        session.query(AntikvaariPrice).filter(
+            AntikvaariPrice.edition_id == edition_id
+        ).delete()
+        session.query(UserBook).filter(
+            UserBook.edition_id == edition_id
+        ).delete()
         session.query(Edition).filter(Edition.id == edition_id).delete()
     except SQLAlchemyError as exp:
         app.logger.error("delete_edition: " + str(exp))
