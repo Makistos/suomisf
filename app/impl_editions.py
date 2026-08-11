@@ -19,7 +19,6 @@ from app.orm_decl import (
     Edition,
     EditionContributor,
     EditionShortStory,
-    User,
     Work,
     BindingType,
     Format,
@@ -40,7 +39,7 @@ from app.impl_contributors import (
 )
 from app.route_helpers import new_session
 from app.model import (BindingBriefSchema, EditionSchema, ShortBriefSchema,
-                       EditionBriefSchema, UserBookSchema, UserSchema)
+                       EditionBriefSchema, UserBookSchema)
 from app.impl import ResponseType, check_int
 from app.impl_pubseries import add_pubseries
 from app.types import ContributorTarget, HttpResponseCode
@@ -1359,14 +1358,12 @@ def editionowner_update(params: dict) -> ResponseType:
 
 def editionowner_list(editionid: int) -> ResponseType:
     """
-    List the owners of an edition.
+    List the owners of an edition, including each owner's book condition.
     """
     session = new_session()
     try:
-        users = session.query(User)\
-            .join(UserBook)\
+        userbooks = session.query(UserBook)\
             .filter(UserBook.edition_id == editionid)\
-            .filter(UserBook.user_id == User.id)\
             .filter(UserBook.condition_id > 0)\
             .filter(UserBook.condition_id <= 5)\
             .all()
@@ -1374,8 +1371,8 @@ def editionowner_list(editionid: int) -> ResponseType:
         app.logger.error(f"editionowner_list: {str(exp)}")
 
     try:
-        schema = UserSchema(many=True)  # type: ignore
-        retval = schema.dump(users)
+        schema = UserBookSchema(many=True, exclude=('book',))  # type: ignore
+        retval = schema.dump(userbooks)
     except exceptions.MarshmallowError as exp:
         app.logger.error(f"editionowner_list: {str(exp)}")
         return ResponseType("editionowner_list: Tietokantavirhe.",
