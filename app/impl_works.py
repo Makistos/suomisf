@@ -14,9 +14,10 @@ from app.route_helpers import new_session
 from app.impl import (ResponseType, SearchResult,
                       SearchResultFields, searchscore, set_language, check_int,
                       get_join_changes)
-from app.orm_decl import (Awarded, Edition, EditionShortStory, Genre, Omnibus,
+from app.orm_decl import (Awarded, AntikvaariWorkProduct, Edition,
+                          EditionShortStory, Genre, Omnibus,
                           Tag, Work, WorkContributor, WorkType, WorkTag,
-                          WorkGenre, WorkLink, UserBook, UserWork,
+                          WorkGenre, WorkLink, UserBook, UserWork, WorkReview,
                           Bookseries, ShortStory, Person)
 from app.model import (OmnibusSchema, WorkBriefSchema, WorkTypeBriefSchema,
                        ShortBriefSchema)
@@ -1381,6 +1382,16 @@ def work_delete(work_id: int) -> ResponseType:
         session.query(WorkLink).filter(WorkLink.work_id == work_id).delete()
         session.query(WorkContributor)\
             .filter(WorkContributor.work_id == work_id).delete()
+        session.query(WorkReview)\
+            .filter(WorkReview.work_id == work_id).delete()
+        session.query(UserWork).filter(UserWork.work_id == work_id).delete()
+        session.query(Awarded).filter(Awarded.work_id == work_id).delete()
+        session.query(AntikvaariWorkProduct)\
+            .filter(AntikvaariWorkProduct.work_id == work_id).delete()
+        session.query(Omnibus).filter(
+            or_(Omnibus.work_id == work_id,
+                Omnibus.omnibus_id == work_id)
+        ).delete()
         session.query(Work).filter(Work.id == work_id).delete()
     except SQLAlchemyError as exp:
         session.rollback()
