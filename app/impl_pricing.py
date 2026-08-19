@@ -1846,14 +1846,18 @@ def user_collection_stats(user_id: int) -> ResponseType:
         no_price_books.sort(key=lambda x: (x['author_str'], x['title']))
 
         # --- Collection composition + miscellaneous counts ---------------
-        def _distribution(name_col, *joins):
-            q = session.query(name_col, func.count(Edition.id))
+        def _distribution(name_col, *joins, id_col=None):
+            cols = [id_col, name_col] if id_col is not None else [name_col]
+            q = session.query(*cols, func.count(Edition.id))
             for model, cond in joins:
                 q = q.join(model, cond)
+            group_cols = [id_col, name_col] if id_col is not None else [name_col]
             rows = (q.filter(Edition.id.in_(edition_ids))
-                    .group_by(name_col)
+                    .group_by(*group_cols)
                     .order_by(func.count(Edition.id).desc(), name_col)
                     .all())
+            if id_col is not None:
+                return [{'id': i, 'name': n, 'count': int(c)} for i, n, c in rows if n]
             return [{'name': n, 'count': int(c)} for n, c in rows if n]
 
         publisher_distribution = _distribution(
@@ -1861,11 +1865,13 @@ def user_collection_stats(user_id: int) -> ResponseType:
         language_distribution = _distribution(
             Language.name,
             (Work, Edition.work_id == Work.id),
-            (Language, Work.language == Language.id))
+            (Language, Work.language == Language.id),
+            id_col=Language.id)
         worktype_distribution = _distribution(
             WorkType.name,
             (Work, Edition.work_id == Work.id),
-            (WorkType, Work.type == WorkType.id))
+            (WorkType, Work.type == WorkType.id),
+            id_col=WorkType.id)
 
         # Total pages and shelf width, using the site-statistics convention
         # of 100 pages = 15 mm.

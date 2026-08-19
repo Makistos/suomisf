@@ -636,6 +636,11 @@ def api_stats_filterstories() -> Response:
         pubyear_min (int, optional): Minimum publication year (inclusive).
         pubyear_max (int, optional): Maximum publication year (inclusive).
                                      Can be used with pubyear_min for ranges.
+        nationality (int, optional): Nationality (Country) ID to filter by —
+            matches stories with at least one contributor of that nationality.
+        role (int, optional): Contributor role ID, narrowing the nationality
+            match above to contributors in that role. Ignored without
+            nationality.
 
     Returns:
         200 OK: JSON array of short story objects in ShortBriefSchema format,
@@ -743,8 +748,11 @@ def api_stats_filterstories() -> Response:
     language_id = request.args.get('language', default=None, type=int)
     pubyear_min = request.args.get('pubyear_min', default=None, type=int)
     pubyear_max = request.args.get('pubyear_max', default=None, type=int)
+    nationality_id = request.args.get('nationality', default=None, type=int)
+    contributor_role_id = request.args.get('role', default=None, type=int)
     return make_api_response(stats_filterstories(
-        storytype_id, language_id, pubyear_min, pubyear_max))
+        storytype_id, language_id, pubyear_min, pubyear_max,
+        nationality_id, contributor_role_id))
 
 
 @app.route('/api/stats/filterworks', methods=['GET'])
@@ -761,6 +769,18 @@ def api_stats_filterworks() -> Response:
         orig_year_max (int, optional): Maximum original publication year (inclusive).
         edition_year_min (int, optional): Minimum first Finnish edition year (inclusive).
         edition_year_max (int, optional): Maximum first Finnish edition year (inclusive).
+        owner (int, optional): Restrict to works owned by this user ID.
+        worktype (int, optional): Work type ID to filter by (novel, collection, ...).
+        genre (int, optional): Genre ID to filter by.
+        publisher (int, optional): Publisher ID to filter by.
+        nationality (int, optional): Nationality (Country) ID to filter by —
+            matches works with at least one contributor of that nationality.
+        role (int, optional): Contributor role ID, narrowing the nationality
+            match above to contributors in that role. Ignored without
+            nationality.
+        read (int, optional): User ID — restrict to works that user has
+            marked read (userwork table). Work-level, independent of
+            owner/editions.
 
     Note: orig_year and edition_year filters are mutually exclusive.
           If both are provided, orig_year takes precedence.
@@ -857,9 +877,16 @@ def api_stats_filterworks() -> Response:
     edition_year_min = request.args.get('edition_year_min', default=None, type=int)
     edition_year_max = request.args.get('edition_year_max', default=None, type=int)
     owner_id = request.args.get('owner', default=None, type=int)
+    worktype_id = request.args.get('worktype', default=None, type=int)
+    genre_id = request.args.get('genre', default=None, type=int)
+    publisher_id = request.args.get('publisher', default=None, type=int)
+    nationality_id = request.args.get('nationality', default=None, type=int)
+    contributor_role_id = request.args.get('role', default=None, type=int)
+    read_user_id = request.args.get('read', default=None, type=int)
     return make_api_response(stats_filterworks(
         language_id, orig_year_min, orig_year_max, edition_year_min,
-        edition_year_max, owner_id))
+        edition_year_max, owner_id, worktype_id, genre_id, publisher_id,
+        nationality_id, contributor_role_id, read_user_id))
 
 
 @app.route('/api/stats/storiesbyyear', methods=['GET'])

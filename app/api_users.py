@@ -8,7 +8,7 @@ from app import app
 from app.api_helpers import make_api_response
 from app.impl import ResponseType
 from app.impl_users import (get_current_user, get_user, list_users,
-                             user_genres)
+                             user_genres, user_read_genres, user_read_stats)
 from app.types import HttpResponseCode
 
 
@@ -103,3 +103,46 @@ def api_userstatsgenres(userid: str) -> Response:
     """
 
     return make_api_response(user_genres(userid))
+
+
+@app.route('/api/users/<int:userid>/stats/read-genres', methods=['get'])
+def api_userstatsreadgenres(userid: int) -> Response:
+    """
+    Genre counts for the works the given user has marked read (userwork
+    table), independent of ownership/editions.
+
+    Parameters:
+        userid (int): The ID of the user whose read-genre counts to
+            retrieve.
+
+    Returns:
+        Response: List of {id, abbr, name, count} dicts, one per genre.
+    """
+
+    return make_api_response(user_read_genres(userid))
+
+
+@app.route('/api/user/<int:userid>/read/stats', methods=['get'])
+def api_user_read_stats(userid: int) -> Response:
+    """
+    Composition statistics for the works the given user has marked read
+    (userwork table), shaped like /api/user/<id>/collection/stats so the
+    frontend can reuse the same chart components.
+
+    URL: GET /api/user/<userid>/read/stats
+
+    Response 200 — JSON object:
+        {
+          "total_read": 120,
+          "publisher_distribution": [{"name": "WSOY", "count": 40}, ...],
+          "language_distribution": [{"id": 1, "name": "englanti", "count": 70}, ...],
+          "worktype_distribution": [{"id": 1, "name": "Romaani", "count": 100}, ...],
+          "short_story_count": 12,
+          "total_pages": 30000,
+          "shelf_width_meters": 4.5,
+          "editions_by_year": [...],
+          "origworks_by_year": [...]
+        }
+    """
+
+    return make_api_response(user_read_stats(userid))

@@ -1,7 +1,7 @@
 """ Functions related to users. """
 import json
 import hashlib
-from typing import Dict
+from typing import Dict, Optional
 from flask.wrappers import Response
 from flask import make_response, jsonify
 from flask_jwt_extended import (create_access_token, create_refresh_token,
@@ -9,10 +9,14 @@ from flask_jwt_extended import (create_access_token, create_refresh_token,
                                 set_access_cookies)
 from itsdangerous import (URLSafeTimedSerializer, BadSignature,
                           SignatureExpired)
+from sqlalchemy import func, or_
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.route_helpers import new_session
-from app.orm_decl import (User)
+from app.orm_decl import (
+    User, Work, WorkGenre, Genre, UserWork, Language, WorkType, Edition,
+    Publisher, EditionShortStory
+)
 from app.model import (UserSchema)
 from app.impl import ResponseType
 from app.impl_email import send_email
@@ -453,3 +457,197 @@ def user_genres(user_id: int) -> ResponseType:
                            'name': str(genre['name'])})
 
     return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def user_read_genres(user_id: int) -> ResponseType:
+    """
+    Retrieves genre counts for the works the given user has marked read
+    (userwork table), independent of ownership/editions.
+
+    Parameters:
+        user_id (int): The ID of the user whose read-genre counts to
+            retrieve.
+
+    Returns:
+        ResponseType: List of {id, abbr, name, count} dicts, one per genre,
+            counting distinct works read in that genre.
+    """
+    session = new_session()
+    try:
+        rows = (
+            session.query(Genre.id, Genre.name, Genre.abbr,
+                          func.count(func.distinct(Work.id)))
+            .join(WorkGenre, WorkGenre.genre_id == Genre.id)
+            .join(Work, Work.id == WorkGenre.work_id)
+            .join(UserWork, UserWork.work_id == Work.id)
+            .filter(UserWork.user_id == user_id)
+            .group_by(Genre.id, Genre.name, Genre.abbr)
+            .all()
+        )
+    except SQLAlchemyError as exp:
+        app.logger.error(f"user_read_genres: {str(exp)}")
+        return ResponseType("user_read_genres: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    retval = [
+        {'id': int(gid), 'abbr': str(abbr), 'name': str(name), 'count': int(count)}
+        for gid, name, abbr, count in rows
+    ]
+    return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def user_read_stats(user_id: int) -> ResponseType:
+    """
+    Composition statistics for the works a user has marked read (userwork
+    table), shaped like user_collection_stats() so the frontend can reuse
+    the same chart components.
+
+    Unlike ownership, "read" is a work-level fact with no specific edition
+    attached, so publisher/page-count/short-story figures are approximated
+    from each read work's first edition (editionnum 1 or NULL, version 1 or
+    NULL) rather than an actually-owned copy.
+    """
+    session = new_session()
+    try:
+        read_work_ids = [
+            row[0] for row in
+            session.query(UserWork.work_id)
+            .filter(UserWork.user_id == user_id).all()
+        ]
+
+        total_read = len(read_work_ids)
+        if total_read == 0:
+            return ResponseType({
+                'total_read': 0,
+                'publisher_distribution': [],
+                'language_distribution': [],
+                'worktype_distribution': [],
+                'short_story_count': 0,
+                'total_pages': 0,
+                'shelf_width_meters': 0.0,
+                'editions_by_year': [],
+                'origworks_by_year': [],
+            }, HttpResponseCode.OK)
+
+        works = (
+            session.query(Work)
+            .filter(Work.id.in_(read_work_ids))
+            .all()
+        )
+
+        language_ids = {w.language for w in works if w.language}
+        languages_map: Dict[int, str] = {
+            l.id: l.name
+            for l in session.query(Language)
+            .filter(Language.id.in_(language_ids)).all()
+        }
+        worktype_ids = {w.type for w in works if w.type}
+        worktypes_map: Dict[int, str] = {
+            t.id: t.name
+            for t in session.query(WorkType)
+            .filter(WorkType.id.in_(worktype_ids)).all()
+        }
+
+        lang_counts: Dict[int, int] = {}
+        type_counts: Dict[int, int] = {}
+        ow_year_counts: Dict[tuple, int] = {}
+        for w in works:
+            if w.language:
+                lang_counts[w.language] = lang_counts.get(w.language, 0) + 1
+            if w.type:
+                type_counts[w.type] = type_counts.get(w.type, 0) + 1
+            if w.pubyear is not None:
+                key = (w.pubyear, w.language)
+                ow_year_counts[key] = ow_year_counts.get(key, 0) + 1
+
+        language_distribution = sorted(
+            ({'id': lid, 'name': languages_map[lid], 'count': c}
+             for lid, c in lang_counts.items() if lid in languages_map),
+            key=lambda x: (-x['count'], x['name'])
+        )
+        worktype_distribution = sorted(
+            ({'id': tid, 'name': worktypes_map[tid], 'count': c}
+             for tid, c in type_counts.items() if tid in worktypes_map),
+            key=lambda x: (-x['count'], x['name'])
+        )
+        origworks_by_year = [
+            {'year': y, 'count': c, 'language_id': lid,
+             'language_name': languages_map.get(lid) if lid else None}
+            for (y, lid), c in sorted(ow_year_counts.items())
+        ]
+
+        # One "first edition" per read work (approximation for
+        # publisher/pages/short-story figures — see docstring).
+        candidate_editions = (
+            session.query(Edition)
+            .filter(Edition.work_id.in_(read_work_ids),
+                    or_(Edition.editionnum == 1, Edition.editionnum.is_(None)),
+                    or_(Edition.version == 1, Edition.version.is_(None)))
+            .order_by(Edition.work_id, Edition.id)
+            .all()
+        )
+        first_edition_by_work: Dict[int, Edition] = {}
+        for e in candidate_editions:
+            if e.work_id not in first_edition_by_work:
+                first_edition_by_work[e.work_id] = e
+
+        works_by_id = {w.id: w for w in works}
+
+        publisher_ids = {
+            e.publisher_id for e in first_edition_by_work.values()
+            if e.publisher_id
+        }
+        publishers_map: Dict[int, str] = {
+            p.id: p.name
+            for p in session.query(Publisher)
+            .filter(Publisher.id.in_(publisher_ids)).all()
+        }
+
+        pub_counts: Dict[str, int] = {}
+        ed_year_counts: Dict[tuple, int] = {}
+        total_pages = 0
+        for work_id, e in first_edition_by_work.items():
+            if e.publisher_id and e.publisher_id in publishers_map:
+                name = publishers_map[e.publisher_id]
+                pub_counts[name] = pub_counts.get(name, 0) + 1
+            if e.pages:
+                total_pages += e.pages
+            if e.pubyear is not None:
+                lang_id = works_by_id[work_id].language if work_id in works_by_id else None
+                key = (e.pubyear, lang_id)
+                ed_year_counts[key] = ed_year_counts.get(key, 0) + 1
+
+        publisher_distribution = sorted(
+            ({'name': n, 'count': c} for n, c in pub_counts.items()),
+            key=lambda x: (-x['count'], x['name'])
+        )
+        editions_by_year = [
+            {'year': y, 'count': c, 'language_id': lid,
+             'language_name': languages_map.get(lid) if lid else None}
+            for (y, lid), c in sorted(ed_year_counts.items())
+        ]
+
+        first_edition_ids = [e.id for e in first_edition_by_work.values()]
+        short_story_count = (
+            session.query(func.count(EditionShortStory.shortstory_id))
+            .filter(EditionShortStory.edition_id.in_(first_edition_ids))
+            .scalar() or 0) if first_edition_ids else 0
+
+        shelf_width_meters = round((total_pages / 100) * 0.015, 2)
+
+    except SQLAlchemyError as exp:
+        app.logger.error(f"user_read_stats: {str(exp)}")
+        return ResponseType("user_read_stats: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType({
+        'total_read': total_read,
+        'publisher_distribution': publisher_distribution,
+        'language_distribution': language_distribution,
+        'worktype_distribution': worktype_distribution,
+        'short_story_count': int(short_story_count),
+        'total_pages': int(total_pages),
+        'shelf_width_meters': shelf_width_meters,
+        'editions_by_year': editions_by_year,
+        'origworks_by_year': origworks_by_year,
+    }, HttpResponseCode.OK)

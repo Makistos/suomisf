@@ -9,7 +9,7 @@ from app.route_helpers import new_session
 from app.orm_decl import (
     Genre, Work, WorkGenre, WorkContributor, Edition, Publisher,
     Person, ContributorRole, Issue, Language, BindingType,
-    Country, ShortStory, StoryContributor, StoryType, UserBook
+    Country, ShortStory, StoryContributor, StoryType, UserBook, UserWork
 )
 from app.model import ShortBriefSchema, WorkBriefSchema
 from app.types import HttpResponseCode
@@ -1044,7 +1044,9 @@ def stats_storynationalitycounts() -> ResponseType:
 def stats_filterstories(storytype_id: Optional[int] = None,
                         language_id: Optional[int] = None,
                         pubyear_min: Optional[int] = None,
-                        pubyear_max: Optional[int] = None) -> ResponseType:
+                        pubyear_max: Optional[int] = None,
+                        nationality_id: Optional[int] = None,
+                        contributor_role_id: Optional[int] = None) -> ResponseType:
     """
     Get short stories matching the given filters.
 
@@ -1053,6 +1055,11 @@ def stats_filterstories(storytype_id: Optional[int] = None,
         language_id: Optional language ID to filter by.
         pubyear_min: Optional minimum publication year (inclusive).
         pubyear_max: Optional maximum publication year (inclusive).
+        nationality_id: Optional nationality (Country) ID to filter by —
+            matches stories with at least one contributor of that nationality.
+        contributor_role_id: Optional contributor role ID, narrowing the
+            nationality_id match above to contributors in that role.
+            Ignored if nationality_id is not given.
 
     Returns:
         ResponseType: List of short stories in ShortBriefSchema format.
@@ -1106,6 +1113,15 @@ def stats_filterstories(storytype_id: Optional[int] = None,
         if pubyear_max is not None:
             query = query.filter(ShortStory.pubyear <= pubyear_max)
 
+        if nationality_id is not None:
+            query = (query.join(StoryContributor,
+                                 StoryContributor.shortstory_id == ShortStory.id)
+                     .join(Person, Person.id == StoryContributor.person_id)
+                     .filter(Person.nationality_id == nationality_id))
+            if contributor_role_id is not None:
+                query = query.filter(StoryContributor.role_id == contributor_role_id)
+            query = query.distinct()
+
         query = query.order_by(ShortStory.title)
         _log_query('stats_filterstories', query)
         stories = query.all()
@@ -1130,7 +1146,13 @@ def stats_filterworks(language_id: Optional[int] = None,
                       orig_year_max: Optional[int] = None,
                       edition_year_min: Optional[int] = None,
                       edition_year_max: Optional[int] = None,
-                      owner_id: Optional[int] = None) -> ResponseType:
+                      owner_id: Optional[int] = None,
+                      worktype_id: Optional[int] = None,
+                      genre_id: Optional[int] = None,
+                      publisher_id: Optional[int] = None,
+                      nationality_id: Optional[int] = None,
+                      contributor_role_id: Optional[int] = None,
+                      read_user_id: Optional[int] = None) -> ResponseType:
     """
     Get works matching the given filters.
 
@@ -1143,6 +1165,19 @@ def stats_filterworks(language_id: Optional[int] = None,
         orig_year_max: Optional maximum original publication year (inclusive).
         edition_year_min: Optional minimum first edition year (inclusive).
         edition_year_max: Optional maximum first edition year (inclusive).
+        worktype_id: Optional work type ID to filter by.
+        genre_id: Optional genre ID to filter by.
+        publisher_id: Optional publisher ID to filter by (matched against the
+            edition, so it applies to whichever edition set the year filter
+            above is already restricting to).
+        nationality_id: Optional nationality (Country) ID to filter by — matches
+            works with at least one contributor of that nationality.
+        contributor_role_id: Optional contributor role ID, narrowing the
+            nationality_id match above to contributors in that role.
+            Ignored if nationality_id is not given.
+        read_user_id: Optional user ID — restrict to works that user has
+            marked read (userwork table). Work-level, independent of
+            owner_id/editions.
 
     Returns:
         ResponseType: List of works in WorkBriefSchema format.
@@ -1183,6 +1218,7 @@ def stats_filterworks(language_id: Optional[int] = None,
         if use_orig_year:
             # Filter by original publication year (Work.pubyear)
             query = session.query(Work)
+            edition_joined = False
 
             if owner_id is not None:
                 # Restrict to works the user owns.
@@ -1191,9 +1227,34 @@ def stats_filterworks(language_id: Optional[int] = None,
                          .filter(UserBook.user_id == owner_id,
                                  UserBook.condition_id >= 1,
                                  UserBook.condition_id <= 5))
+                edition_joined = True
 
             if language_id is not None:
                 query = query.filter(Work.language == language_id)
+
+            if worktype_id is not None:
+                query = query.filter(Work.type == worktype_id)
+
+            if genre_id is not None:
+                query = (query.join(WorkGenre, WorkGenre.work_id == Work.id)
+                         .filter(WorkGenre.genre_id == genre_id))
+
+            if publisher_id is not None:
+                if not edition_joined:
+                    query = query.join(Edition, Edition.work_id == Work.id)
+                    edition_joined = True
+                query = query.filter(Edition.publisher_id == publisher_id)
+
+            if nationality_id is not None:
+                query = (query.join(WorkContributor, WorkContributor.work_id == Work.id)
+                         .join(Person, Person.id == WorkContributor.person_id)
+                         .filter(Person.nationality_id == nationality_id))
+                if contributor_role_id is not None:
+                    query = query.filter(WorkContributor.role_id == contributor_role_id)
+
+            if read_user_id is not None:
+                query = (query.join(UserWork, UserWork.work_id == Work.id)
+                         .filter(UserWork.user_id == read_user_id))
 
             if orig_year_min is not None:
                 query = query.filter(Work.pubyear >= orig_year_min)
@@ -1223,6 +1284,27 @@ def stats_filterworks(language_id: Optional[int] = None,
 
             if language_id is not None:
                 query = query.filter(Work.language == language_id)
+
+            if worktype_id is not None:
+                query = query.filter(Work.type == worktype_id)
+
+            if genre_id is not None:
+                query = (query.join(WorkGenre, WorkGenre.work_id == Work.id)
+                         .filter(WorkGenre.genre_id == genre_id))
+
+            if publisher_id is not None:
+                query = query.filter(Edition.publisher_id == publisher_id)
+
+            if nationality_id is not None:
+                query = (query.join(WorkContributor, WorkContributor.work_id == Work.id)
+                         .join(Person, Person.id == WorkContributor.person_id)
+                         .filter(Person.nationality_id == nationality_id))
+                if contributor_role_id is not None:
+                    query = query.filter(WorkContributor.role_id == contributor_role_id)
+
+            if read_user_id is not None:
+                query = (query.join(UserWork, UserWork.work_id == Work.id)
+                         .filter(UserWork.user_id == read_user_id))
 
             if edition_year_min is not None:
                 query = query.filter(Edition.pubyear >= edition_year_min)
