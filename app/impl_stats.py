@@ -1,14 +1,15 @@
 """Functions related to statistics."""
 from typing import Any, Dict, List, Optional
 from sqlalchemy import and_, func, desc, or_
+from sqlalchemy.orm import selectinload
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 
 from app.impl import ResponseType
 from app.route_helpers import new_session
 from app.orm_decl import (
-    Genre, Work, WorkGenre, WorkContributor, Edition, Publisher,
-    Person, ContributorRole, Issue, Language, BindingType,
+    Genre, Work, WorkGenre, WorkContributor, EditionContributor, Edition,
+    Publisher, Person, ContributorRole, Issue, Language, BindingType,
     Country, ShortStory, StoryContributor, StoryType, UserBook, UserWork
 )
 from app.model import ShortBriefSchema, WorkBriefSchema
@@ -1313,6 +1314,32 @@ def stats_filterworks(language_id: Optional[int] = None,
                 query = query.filter(Edition.pubyear <= edition_year_max)
 
             query = query.distinct().order_by(Work.title)
+
+        # Batch-load everything WorkBriefSchema touches so serializing a
+        # large result set doesn't issue a lazy-load query per relationship
+        # per row (see SECURITY_TODO.md-adjacent perf notes — this endpoint
+        # took ~11s for ~1200 works before this).
+        query = query.options(
+            selectinload(Work.contributions).selectinload(WorkContributor.person),
+            selectinload(Work.contributions).selectinload(WorkContributor.real_person),
+            selectinload(Work.contributions).selectinload(WorkContributor.role),
+            selectinload(Work.editions).selectinload(Edition.editors),
+            selectinload(Work.editions).selectinload(Edition.translators),
+            selectinload(Work.editions).selectinload(Edition.contributions)
+                .selectinload(EditionContributor.person),
+            selectinload(Work.editions).selectinload(Edition.contributions)
+                .selectinload(EditionContributor.real_person),
+            selectinload(Work.editions).selectinload(Edition.contributions)
+                .selectinload(EditionContributor.role),
+            selectinload(Work.editions).selectinload(Edition.images),
+            selectinload(Work.editions).selectinload(Edition.publisher),
+            selectinload(Work.editions).selectinload(Edition.owners),
+            selectinload(Work.editions).selectinload(Edition.wishlisted),
+            selectinload(Work.genres),
+            selectinload(Work.bookseries),
+            selectinload(Work.tags),
+            selectinload(Work.language_name),
+        )
 
         _log_query('stats_filterworks', query)
         works = query.all()

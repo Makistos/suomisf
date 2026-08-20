@@ -250,8 +250,8 @@ class WorkEditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Edition
-    editors = ma.List(fields.Nested(PersonBriefSchema))
-    translators = ma.List(fields.Nested(PersonBriefSchema))
+    editors = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name', 'alt_name'))))
+    translators = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name', 'alt_name'))))
     contributions = ma.List(fields.Nested(EditionContributorSchema))
     images = ma.List(fields.Nested(EditionImageBriefSchema))
     publisher = fields.Nested(lambda: PublisherSchema(only=('id', 'name')))
