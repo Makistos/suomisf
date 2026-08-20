@@ -20,8 +20,20 @@ one of them only has a fix in the 3.x line:
 
 Most are `safe_join()` Windows-device-name issues (low real-world risk on
 a Linux deployment), but one is a Werkzeug debugger RCE
-(CVE-2024-34069, fixed in 3.0.3) — worth prioritizing even without the
-full 3.1.x jump.
+(CVE-2024-34069 / GHSA-2g68-c3qc-8985, fixed in 3.0.3) — worth
+prioritizing even without the full 3.1.x jump. Real-world exposure
+depends on whether Flask's debugger is enabled in production
+(`debug=True` / `FLASK_DEBUG=1`) — confirm it's off if this stays
+unpatched for a while.
+
+**Dashboard caveat (2026-08-20):** GitHub's dependabot UI marked 5 of
+these Werkzeug alerts, including the RCE one, as "fixed" the moment
+`pdm.lock` was regenerated and pushed — but Werkzeug is still `2.3.8` in
+both `pdm.lock` and `.venv` (verified directly, not just via the
+dashboard). This looks like a scanner false-negative from re-parsing the
+new lockfile format, not a real fix. Don't trust this repo's dependabot
+alert *count* for Werkzeug without cross-checking the actual installed
+version — the vulnerabilities listed above are still real and open.
 
 This is a major-version bump touching every request the backend handles
 (routing, sessions, request parsing all go through Werkzeug). Needs its
@@ -50,13 +62,18 @@ breaking-change risk if bumped blind:
   itself says the codebase uses 1.x-only APIs; a 2.0 bump needs a real
   migration pass (`Query` vs `select()` patterns, session handling
   changes across the whole `impl_*.py` layer), not a version bump.
-- **marshmallow `===3.22.0`** — marshmallow 4 changed field APIs
-  (confirmed directly: bumping `flask-marshmallow` to its latest silently
-  pulled marshmallow to 4.x as a side effect, since flask-marshmallow
-  1.5.0 dropped marshmallow 3.x support entirely, and it broke
-  `app/model.py`'s `fields.Number()` usage — `TypeError: Can't
+- **marshmallow `===3.26.2`** (bumped 2026-08-20, was `3.22.0` — this was
+  a genuine CVE fix, not just version debt: CVE-2025-68480, DoS in
+  `Schema.load(many)`, fixed in 3.26.2, still marshmallow 3.x so no
+  breaking-change risk. Verified with a full pytest run: 859 passed / 13
+  failed, same pre-existing snapshot-drift failures as always, nothing
+  new). The 4.x major jump is the part still deferred — marshmallow 4
+  changed field APIs (confirmed directly: bumping `flask-marshmallow` to
+  its latest silently pulled marshmallow to 4.x as a side effect, since
+  flask-marshmallow 1.5.0 dropped marshmallow 3.x support entirely, and
+  it broke `app/model.py`'s `fields.Number()` usage — `TypeError: Can't
   instantiate abstract class Number without an implementation for
-  num_type`. Reverted both to marshmallow 3.22.0 / flask-marshmallow
+  num_type`. Reverted both to marshmallow 3.x / flask-marshmallow
   1.4.0, the last pairing that supports marshmallow 3.x). A marshmallow 4
   migration would need every schema in `app/model.py` audited.
 - **WTForms `==2.3.3`** — WTForms 3.x changed validator APIs. Used via
