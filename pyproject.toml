@@ -18,7 +18,7 @@ dependencies = [
     "PyMySQL>=1.1.1",
     "mysql-connector-python>=9.0.0",
     "bleach>=6.1.0",
-    "marshmallow-sqlalchemy==1.1.1",
+    "marshmallow-sqlalchemy==1.5.0",
     "marshmallow===3.22.0",
     "WTForms==2.3.3",
     "Flask-WTF>=1.2.1",
