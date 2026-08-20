@@ -1169,7 +1169,7 @@ Includes award types, categories, filter, work awards, and admin endpoints.
 |------|-------------|
 | `test_get_award_returns_200` | GET /api/awards/{id} returns 200 |
 | `test_get_award_has_fields` | Award has id and name |
-| `test_get_award_nonexistent` | Handle nonexistent award |
+| `test_get_award_nonexistent` | GET /api/awards/{id} for nonexistent award returns 404 |
 
 **Test Data:**
 - Award 2: "Hugo" award

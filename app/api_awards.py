@@ -70,7 +70,8 @@ def api_getaward(award_id: int) -> Response:
         award_id (int): The ID of the award to retrieve.
 
     Returns:
-        Response: The response object containing the award data.
+        Response: The response object containing the award data, or
+            404 if no award exists with the given id.
     """
     return make_api_response(get_award(award_id))
 

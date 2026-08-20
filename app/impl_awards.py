@@ -64,6 +64,9 @@ def get_award(award_id: int) -> ResponseType:
         return ResponseType(
             f'Tietokantavirhe. id={award_id}: {exp}.',
             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    if award is None:
+        return ResponseType(f'get_award: Palkintoa ei löydy. id={award_id}',
+                            HttpResponseCode.NOT_FOUND.value)
     try:
         schema = AwardSchema()
         retval = schema.dump(award)

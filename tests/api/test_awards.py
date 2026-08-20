@@ -101,10 +101,9 @@ class TestAwardGet(BaseAPITest):
         assert award['name'] == 'Hugo', "Should be Hugo award"
 
     def test_get_award_nonexistent(self, api_client):
-        """GET /api/awards/{id} for nonexistent award."""
+        """GET /api/awards/{id} for nonexistent award returns 404."""
         response = api_client.get('/api/awards/999999')
-        # May return 200 with None or error
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 404
 
 
 class TestAwardsByType(BaseAPITest):
