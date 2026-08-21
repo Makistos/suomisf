@@ -11,4 +11,5 @@ bibtmp/*
 apidoc/*
 .env
 .env.back
+.env.e2e
 **/.env

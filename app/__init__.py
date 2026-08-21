@@ -13,7 +13,7 @@ from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
-load_dotenv('.env', override=True)
+load_dotenv(os.environ.get('SUOMISF_DOTENV', '.env'), override=True)
 config_name = os.getenv('FLASK_ENV', 'development')
 if 'ENV' not in app.config:
     app.config['ENV'] = config_name
