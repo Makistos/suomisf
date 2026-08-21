@@ -1,23 +1,23 @@
 # SuomiSF API Test Dependencies
 
 # Testing framework
-pytest>=7.4.0
-pytest-cov>=4.1.0
-pytest-xdist>=3.3.0
-pytest-timeout>=2.1.0
+pytest>=9.1.1
+pytest-cov>=7.1.0
+pytest-xdist>=3.8.0
+pytest-timeout>=2.4.0
 pytest-json-report>=1.5.0
 
 # HTTP client (for external API testing)
-requests>=2.31.0
+requests>=2.34.2
 
 # Test data generation
-factory-boy>=3.3.0
+factory-boy>=3.3.3
 
 # Time manipulation
-freezegun>=1.2.0
+freezegun>=1.5.5
 
 # HTTP mocking (optional)
-responses>=0.23.0
+responses>=0.26.2
 
 # Code quality
-mypy>=1.5.0
+mypy>=2.3.1
