@@ -32,7 +32,24 @@ sys.path.insert(
 
 from tests.conftest import clone_test_database, create_test_users  # noqa: E402
 
+# .invalid is reserved by RFC 2606 to never resolve - safe for a fixture
+# email that only needs to exist for the password-reset spec's lookup.
+TEST_USER_EMAIL = 'test-user-e2e@example.invalid'
+
+
+def ensure_test_user_email():
+    from app import app, db
+    from app.orm_decl import User
+
+    with app.app_context():
+        user = db.session.query(User).filter_by(name='Test User').first()
+        if user and user.email != TEST_USER_EMAIL:
+            user.email = TEST_USER_EMAIL  # type: ignore[assignment]
+            db.session.commit()
+
+
 if __name__ == '__main__':
     clone_test_database()
     create_test_users()
+    ensure_test_user_email()
     print("[setup_e2e_db] suomisf_test ready with E2E test accounts")
