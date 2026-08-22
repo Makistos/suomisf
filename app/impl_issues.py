@@ -187,7 +187,7 @@ def issue_add(params: Dict[str, Any]) -> ResponseType:
         contributors_result = update_issue_contributors(session,
                                                         new_issue.id,
                                                         issue['contributors'])
-        if contributors_result.status != HttpResponseCode.OK.value:
+        if not contributors_result:
             session.rollback()
             return ResponseType('NOK',
                                 HttpResponseCode.INTERNAL_SERVER_ERROR.value)
