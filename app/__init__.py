@@ -4,7 +4,6 @@ import os
 
 from dotenv import load_dotenv
 from flask import Flask
-from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
@@ -40,7 +39,6 @@ app.config['CORS_HEADERS'] = 'Content-type'
 
 # migrate = Migrate()
 login = LoginManager(app)
-bootstrap = Bootstrap(app)
 app.jinja_env.lstrip_blocks = True
 app.jinja_env.trim_blocks = True
 # csrf = CSRFProtect(app)

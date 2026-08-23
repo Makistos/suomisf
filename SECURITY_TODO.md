@@ -5,50 +5,53 @@ yet, and why. Also tracks non-CVE version debt (exact-pinned deps stuck on
 an old major with no security issue, just outdated) since it's the same
 kind of "needs a real migration, not a bump" decision.
 
-Last reviewed: 2026-08-20.
+Last reviewed: 2026-08-23.
 
-## Flask 2.3.2 / Werkzeug (pinned `<3.0.0`)
+## Flask 2.3.2 / Werkzeug (pinned `<3.0.0`) — FIXED 2026-08-23
 
-`pyproject.toml` pins `Flask==2.3.2` and `werkzeug<3.0.0`. All 6 open
-GitHub dependabot alerts on this repo are Werkzeug/Flask CVEs, and every
-one of them only has a fix in the 3.x line:
+`pyproject.toml` now pins `Flask==3.1.3` and `werkzeug>=3.1.0` (resolved
+to 3.1.8 in `pdm.lock`). This closes all 6 open GitHub dependabot alerts
+that were Werkzeug/Flask CVEs, including the Werkzeug debugger RCE
+(CVE-2024-34069 / GHSA-2g68-c3qc-8985).
 
-| package | fixed in | current constraint |
-|---|---|---|
-| Flask | 3.1.3 | `==2.3.2` |
-| Werkzeug | 3.1.4 – 3.1.6 (several CVEs) | `<3.0.0` |
+What the migration touched:
 
-Most are `safe_join()` Windows-device-name issues (low real-world risk on
-a Linux deployment), but one is a Werkzeug debugger RCE
-(CVE-2024-34069 / GHSA-2g68-c3qc-8985, fixed in 3.0.3) — worth
-prioritizing even without the full 3.1.x jump. Real-world exposure
-depends on whether Flask's debugger is enabled in production
-(`debug=True` / `FLASK_DEBUG=1`) — confirm it's off if this stays
-unpatched for a while.
-
-**Dashboard caveat (2026-08-20):** GitHub's dependabot UI marked 5 of
-these Werkzeug alerts, including the RCE one, as "fixed" the moment
-`pdm.lock` was regenerated and pushed — but Werkzeug is still `2.3.8` in
-both `pdm.lock` and `.venv` (verified directly, not just via the
-dashboard). This looks like a scanner false-negative from re-parsing the
-new lockfile format, not a real fix. Don't trust this repo's dependabot
-alert *count* for Werkzeug without cross-checking the actual installed
-version — the vulnerabilities listed above are still real and open.
-
-This is a major-version bump touching every request the backend handles
-(routing, sessions, request parsing all go through Werkzeug). Needs its
-own migration pass:
-
-- Read the Flask 2→3 and Werkzeug 2→3 changelogs for breaking changes.
-- Check compatibility of the other pinned Flask extensions
-  (`Flask-Login`, `Flask-Migrate`, `flask-marshmallow`, `Flask-Cors`,
-  `Flask-JWT-Extended`, `Flask-WTF`, `Bootstrap-Flask`) with Flask 3.
-- Test the full API surface, not just a typecheck — run against a real
-  dev DB and exercise auth, uploads, and session handling specifically
-  since those are the areas Werkzeug 3 changed.
-
-Deferred at the user's explicit request during the 2026-08-19 session
-rather than attempted blind.
+- **`Bootstrap-Flask==1.3.1` removed entirely** (from `pyproject.toml`
+  and `app/__init__.py`) rather than upgraded. It imports `Markup` from
+  Flask's top-level namespace, which Flask 3.0 removed, and turned out
+  to be genuinely dead code — no `templates/` directory exists anywhere
+  in the project, and it had zero other references. This also resolves
+  the Bootstrap-Flask entry that used to be listed under "other
+  exact-pinned majors" below.
+- All other pinned Flask extensions (`Flask-Login`, `Flask-Migrate`,
+  `flask-marshmallow`, `Flask-Cors`, `Flask-JWT-Extended`, `Flask-WTF`)
+  confirmed compatible with Flask 3 at their existing resolved versions
+  via PyPI `requires_dist` metadata — no version bumps needed, and the
+  `pdm.lock` diff confirms zero unexpected transitive changes.
+- Verified the app's own code doesn't touch any Werkzeug/Flask API that
+  changed behavior or was removed between 2.x and 3.x (no `request.form`
+  quirks, no `cache_control`, no `WWWAuthenticate`, no `__version__`
+  usage).
+- Verified Werkzeug 3's default password-hash algorithm change
+  (pbkdf2:sha256 → scrypt) doesn't break existing logins — old-format
+  hashes still validate correctly (`check_password_hash` reads the
+  algorithm from the hash itself).
+- Full pytest run: 859 passed / 13 failed — identical to the
+  pre-existing baseline (snapshot-drift failures, unrelated to this
+  change). Full Playwright E2E run against the upgraded backend:
+  chromium 44/44 passed; firefox flaky under parallel load (different
+  failures across repeated runs, all timeouts, no assertion failures) —
+  consistent with pre-existing concurrency flakiness documented in
+  `../suomisf-ui/tests/README.md`, not a regression from this upgrade.
+- Along the way, fixed an unrelated pre-existing bug in
+  `tests/conftest.py`: the pytest test-account setup (`create_test_users`)
+  was leaking `Test Admin`/`Test User` into the *production* database
+  instead of `suomisf_test`, because `app/__init__.py`'s
+  `load_dotenv(..., override=True)` call ran before the `app` fixture's
+  own DB-engine override and fell back to production's `.env`. Fixed by
+  setting `SUOMISF_DOTENV=.env.e2e` alongside `DATABASE_URL` at module
+  load, reusing the mechanism already built for the frontend's E2E
+  suite.
 
 ## Other exact-pinned majors (not CVEs, just version debt)
 
@@ -78,10 +81,6 @@ breaking-change risk if bumped blind:
   migration would need every schema in `app/model.py` audited.
 - **WTForms `==2.3.3`** — WTForms 3.x changed validator APIs. Used via
   `Flask-WTF` for forms; needs template/validator review before bumping.
-- **Bootstrap-Flask `==1.3.1`** — Bootstrap-Flask 2.x dropped Bootstrap 4
-  support (requires Bootstrap 5 templates). Frontend-facing risk — a
-  bump here means auditing every server-rendered template that uses its
-  macros, not just a Python-side change.
 
 User's call on 2026-08-20: document these for now, don't attempt the
 migrations in this pass.

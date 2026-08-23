@@ -37,8 +37,20 @@ TEST_DB_URL = (
     f'postgresql+psycopg2://{DB_USER}@127.0.0.1/{TEST_DB_NAME}'
 )
 
-# Ensure the app uses the test database
+# Ensure the app uses the test database. Setting DATABASE_URL alone isn't
+# enough: app/__init__.py calls load_dotenv('.env', override=True), which
+# unconditionally overwrites DATABASE_URL from the *production* .env file
+# the first time `app` gets imported in this process - and that first
+# import happens inside create_test_users() below, before the `app`
+# fixture's own engine-override dance ever runs (autouse fixtures are set
+# up before fixtures a test explicitly requests). Pointing SUOMISF_DOTENV
+# at .env.e2e (DATABASE_URL -> suomisf_test, same file the frontend's E2E
+# suite uses) makes that first load_dotenv call land on the right database
+# instead of clobbering it back to production. Without this, Test
+# Admin/Test User silently get created in production instead of
+# suomisf_test - confirmed happening in practice, not just theoretical.
 os.environ['DATABASE_URL'] = TEST_DB_URL
+os.environ['SUOMISF_DOTENV'] = '.env.e2e'
 
 
 # -------------------------------------------------------------------
@@ -556,17 +568,12 @@ def app(setup_test_database):
     flask_app.config['TESTING'] = True
     flask_app.config['WTF_CSRF_ENABLED'] = False
 
-    # app/__init__.py calls load_dotenv('.env', override=True)
-    # which replaces DATABASE_URL with the production URL.
-    # Derive the test URL from the production URL by replacing
-    # only the database name, preserving credentials.
-    prod_url = os.environ.get('DATABASE_URL', '')
-    if prod_url and MAIN_DB_NAME in prod_url:
-        actual_test_url = prod_url.replace(
-            f'/{MAIN_DB_NAME}', f'/{TEST_DB_NAME}', 1
-        )
-    else:
-        actual_test_url = TEST_DB_URL
+    # app/__init__.py calls load_dotenv(SUOMISF_DOTENV, override=True),
+    # and SUOMISF_DOTENV is pinned to .env.e2e above, so DATABASE_URL is
+    # already the (password-included) suomisf_test URL from .env.e2e by
+    # the time this fixture runs. TEST_DB_URL has no password and must
+    # not be used as the actual connection string.
+    actual_test_url = os.environ['DATABASE_URL']
 
     flask_app.config['SQLALCHEMY_DATABASE_URI'] = actual_test_url
 
