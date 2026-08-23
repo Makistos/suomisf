@@ -148,8 +148,15 @@ def log_changes(session: Any, obj: Any, name_field: str = "name",
     user_id = int(jwt_id)
     if action in ['Päivitys', 'Poisto']:
         for field, value in old_values.items():
-            if isinstance(value, str):
-                value = value[:499]
+            # old_value is a String(500) column, but callers pass mixed
+            # Python types (ints, etc.) - normalize to str/None here so
+            # every row in a batched multi-field insert binds the same
+            # type. SQLAlchemy 2.0's insertmanyvalues batching infers a
+            # shared cast per column from the first row's Python type;
+            # a later row with a different type (e.g. int then str) can
+            # produce a cast that fails on the other rows' values.
+            if value is not None:
+                value = str(value)[:499]
             log = Log(table_name=tbl_name,
                       field_name=field,
                       table_id=obj.id,

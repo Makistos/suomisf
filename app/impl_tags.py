@@ -1,5 +1,6 @@
 """ Functions related to tags. """
 from typing import Any, List
+from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.orm_decl import (Tag, ArticleTag, IssueTag,
@@ -154,7 +155,7 @@ LEFT JOIN tagtype ON tag.type_id = tagtype.id
 ORDER BY tag.name;
 """
     try:
-        tags = session.execute(stmt).all()
+        tags = session.execute(text(stmt)).all()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in TagListFast: ' + str(exp))
         return ResponseType('TagListFast: Tietokantavirhe.',

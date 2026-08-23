@@ -53,6 +53,81 @@ What the migration touched:
   load, reusing the mechanism already built for the frontend's E2E
   suite.
 
+## SQLAlchemy 1.4.48 (version debt, not a CVE) — FIXED 2026-08-23
+
+`pyproject.toml` now pins `SQLAlchemy==2.0.52`. Not a CVE fix — this was
+version debt (the 1.4 install already logged `MovedIn20Warning` at
+import time) — but bundled with the raw-SQL fixes below since they're
+the same "must fix before 2.0" call sites.
+
+What the migration touched:
+
+- **`declarative_base()` import moved** from the removed
+  `sqlalchemy.ext.declarative` shim to `sqlalchemy.orm`
+  (`app/orm_decl.py`).
+- **One legacy `Query.get()`** in the Flask-Login `load_user()` callback
+  → `session.get(User, ...)`. Turned out this callback is likely
+  unreachable in practice: nothing in the app ever calls Flask-Login's
+  real `login_user()` or bridges JWT identity to it (all real auth goes
+  through `jwt_admin_required()`/`jwt_required()`), so `current_user` is
+  always anonymous. Fixed it anyway since it's free, but the fix itself
+  can't be exercised by any test — noted for whoever eventually decides
+  whether that Flask-Login wiring should be removed outright.
+- **`sqlalchemy-stubs` removed** — a mypy-plugin stub package for
+  SQLAlchemy 1.x with no `[tool.mypy]` config anywhere in the repo to
+  ever activate it (same "confirmed genuinely dead, remove rather than
+  migrate" pattern as `Bootstrap-Flask` in the Flask 3 upgrade above).
+  SQLAlchemy 2.0 ships native inline types that this stub package would
+  otherwise shadow/conflict with for pyright.
+- **Three raw-SQL functions that built queries via Python string
+  concatenation and passed the result straight to `session.execute()`**
+  — a hard `ArgumentError` in 2.0 (`Textual SQL expression ... should be
+  explicitly declared as text()`). Two of these (`editionowner_getowned`,
+  `user_genres`) turned out to be a live, unauthenticated SQL injection,
+  not just a 2.0 compatibility issue — see the `Fix SQL injection...`
+  commit from the same day for the full writeup; fixed separately,
+  before this bump, by parameterizing with `text()` + bind params and
+  adding route-level validation. The third (`tag_list_quick`, no user
+  input involved) was fixed here by wrapping in `text()`.
+- **One `Row` string-key access site** (`user_genres`, e.g.
+  `genre['count']`) — SQLAlchemy 2.0's `Row` no longer supports
+  dict-style string-key subscripting, only attribute access
+  (`genre.count`) or integer indexing. Audited every other
+  `session.execute()` result-consumption site in the codebase (~15
+  across `impl_works.py`, `api_pageview.py`, `api.py`, `impl_pricing.py`)
+  and confirmed this was the only one using the string-key pattern —
+  everywhere else already used attribute or integer access, which
+  carried over unchanged.
+- **A type-consistency bug in `log_changes()`** (`app/impl_logs.py`):
+  it only truncated `old_value` when it was already a `str`, so an `int`
+  old-value (e.g. a changed `pubyear`) got passed straight through to a
+  `String(500)` column unconverted. This "worked" under 1.4's per-row
+  INSERT execution, but broke under 2.0's `insertmanyvalues` batching
+  (multiple `Log` rows from one multi-field update get combined into a
+  single batched INSERT) whenever a batch mixed an int old-value with a
+  str old-value for the same column across rows — Postgres then rejected
+  the batch with `invalid input syntax for type integer: ""`, breaking
+  any multi-field edit that logged more than one changed field
+  (surfaced as `test_edition_contributors`, `test_edition_full_lifecycle`,
+  `test_short_lifecycle`, `test_work_crud_lifecycle` failures). Fixed by
+  coercing every `old_value` to `str(value)`/`None` uniformly before
+  constructing the `Log` row, regardless of the original Python type.
+- The ~514 `session.query(...)` call sites across `impl_*.py` were left
+  as-is — the legacy `Query` API is still fully supported in 2.0, so
+  rewriting them to `select()`/`session.execute()` style is a separate,
+  much larger stylistic migration, not required for this fix.
+- Confirmed no version conflicts: Flask-SQLAlchemy is already 3.0.5
+  (supports both 1.4 and 2.0), and `marshmallow-sqlalchemy==1.5.0`
+  declares `SQLAlchemy>=1.4.40,<3.0`, which covers 2.0.x.
+- Full pytest run: 862 passed / 13 failed — identical to the
+  pre-existing baseline (same snapshot-drift failures, unrelated).
+  Full Playwright E2E run against the upgraded backend: chromium
+  43-44/44 across repeated runs, one flaky failure (ownership/profile/
+  read-status racing the same `Test User` account's rating state under
+  parallel load) reproduced as passing 3/3 in isolation — the same
+  pre-existing flake class already documented for this upgrade sequence,
+  not a SQLAlchemy regression.
+
 ## Other exact-pinned majors (not CVEs, just version debt)
 
 Found while bumping the rest of the dependencies on 2026-08-20. None of
@@ -60,11 +135,6 @@ these have an open dependabot alert — they're just stuck on an old major
 because the pin was never revisited, and each one carries real
 breaking-change risk if bumped blind:
 
-- **SQLAlchemy `==1.4.48`** — already logs `MovedIn20Warning` at import
-  time (`app/orm_decl.py`'s `declarative_base()` call). The warning
-  itself says the codebase uses 1.x-only APIs; a 2.0 bump needs a real
-  migration pass (`Query` vs `select()` patterns, session handling
-  changes across the whole `impl_*.py` layer), not a version bump.
 - **marshmallow `===3.26.2`** (bumped 2026-08-20, was `3.22.0` — this was
   a genuine CVE fix, not just version debt: CVE-2025-68480, DoS in
   `Schema.load(many)`, fixed in 3.26.2, still marshmallow 3.x so no

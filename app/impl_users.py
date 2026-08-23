@@ -451,10 +451,10 @@ def user_genres(user_id: int) -> ResponseType:
     retval = []
     if genres:
         for genre in genres:
-            retval.append({'count': int(genre['count']),
-                           'abbr': str(genre['abbr']),
-                           'id': int(genre['id']),
-                           'name': str(genre['name'])})
+            retval.append({'count': int(genre.count),
+                           'abbr': str(genre.abbr),
+                           'id': int(genre.id),
+                           'name': str(genre.name)})
 
     return ResponseType(retval, HttpResponseCode.OK.value)
 

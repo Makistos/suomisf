@@ -10,7 +10,7 @@ from sqlalchemy import (Column, ForeignKey, Integer, MetaData, Numeric,
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.ext.associationproxy import association_proxy
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.pool import NullPool
 from sqlalchemy import create_engine
@@ -1873,7 +1873,7 @@ def load_user(user_id: Any) -> Any:
     eng = create_engine(db_url, poolclass=NullPool)
     sess = sessionmaker(bind=eng)
     session = sess()
-    return session.query(User).get(int(user_id))
+    return session.get(User, int(user_id))
 
 
 engine = create_engine(db_url, poolclass=NullPool, echo=False)
