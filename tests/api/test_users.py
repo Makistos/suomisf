@@ -6,6 +6,8 @@ Tests for user endpoints including user stats/genres.
 Note: Run tests/scripts/setup_test_db.py before running these tests.
 """
 
+from urllib.parse import quote
+
 import pytest
 
 from .base_test import BaseAPITest
@@ -176,10 +178,19 @@ class TestUserStatsGenres(BaseAPITest):
             "Non-existent user should have no genres"
 
     def test_user_genres_invalid_id(self, api_client):
-        """GET genres with invalid user ID returns 500."""
+        """GET genres with invalid user ID returns 400."""
         url = '/api/users/invalid/stats/genres'
         response = api_client.get(url)
-        assert response.status_code == 500
+        assert response.status_code == 400
+
+    def test_user_genres_sql_injection_payload_returns_400(
+            self, api_client):
+        """A SQL-injection-shaped userid is rejected as an invalid id,
+        not executed. Regression test for the raw string-concatenated
+        SQL that used to build this query."""
+        url = f"/api/users/{quote('1 OR 1=1')}/stats/genres"
+        response = api_client.get(url)
+        assert response.status_code == 400
 
 
 # -------------------------------------------------------------------

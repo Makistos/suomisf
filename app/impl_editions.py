@@ -5,6 +5,7 @@ from typing import Any, Dict, Union
 import os
 from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
+from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.api_helpers import allowed_image
@@ -1184,7 +1185,7 @@ def editionowner_getowned(userid: int, wishlist: bool = False) -> ResponseType:
     stmt += 'JOIN bookcondition on userbook.condition_id = bookcondition.id '
     stmt += 'JOIN work on work.id = edition.work_id '
     stmt += 'LEFT JOIN publisher on edition.publisher_id = publisher.id '
-    stmt += 'WHERE userbook.user_id = ' + str(userid) + ' '
+    stmt += 'WHERE userbook.user_id = :userid '
     if (wishlist is False):
         stmt += 'and userbook.condition_id > 0 and userbook.condition_id <= 5 '
     else:
@@ -1192,7 +1193,7 @@ def editionowner_getowned(userid: int, wishlist: bool = False) -> ResponseType:
     stmt += 'ORDER BY author_str, title, pubyear'
 
     try:
-        books = session.execute(stmt).all()
+        books = session.execute(text(stmt), {'userid': userid}).all()
     except SQLAlchemyError as exp:
         app.logger.error(f"editionowner_getowned: {str(exp)}")
     try:

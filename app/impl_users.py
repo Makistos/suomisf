@@ -9,7 +9,7 @@ from flask_jwt_extended import (create_access_token, create_refresh_token,
                                 set_access_cookies)
 from itsdangerous import (URLSafeTimedSerializer, BadSignature,
                           SignatureExpired)
-from sqlalchemy import func, or_
+from sqlalchemy import func, or_, text
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.route_helpers import new_session
@@ -441,9 +441,9 @@ def user_genres(user_id: int) -> ResponseType:
         stmt += 'INNER JOIN work ON work.id = workgenre.work_id '
         stmt += 'INNER JOIN edition ON edition.work_id = work.id '
         stmt += 'INNER JOIN userbook ON userbook.edition_id = edition.id '
-        stmt += f'WHERE userbook.user_id = {user_id} '
+        stmt += 'WHERE userbook.user_id = :user_id '
         stmt += 'GROUP BY genre.id, genre.name, genre.abbr'
-        genres = session.execute(stmt).all()
+        genres = session.execute(text(stmt), {'user_id': user_id}).all()
     except SQLAlchemyError as exp:
         app.logger.error(f"user_genres: {str(exp)}")
         return ResponseType("user_genres: Tietokantavirhe.",

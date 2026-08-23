@@ -5,7 +5,9 @@ from app import app
 from app.impl_editions import (
     editionwishlist_get, editionwishlist_add, editionwishlist_remove,
     editionwishlist_user, editionowner_getowned)
-from app.api_helpers import make_api_response
+from app.api_helpers import make_api_response, validate_positive_integer_id
+from app.impl import ResponseType
+from app.types import HttpResponseCode
 
 
 @app.route('/api/editions/<editionid>/wishlist', methods=['get'])
@@ -82,4 +84,14 @@ def api_editionwishlist_user_list(userid: str) -> Response:
     Returns:
         Response: The API response containing the wishlist for the user.
     """
-    return make_api_response(editionowner_getowned(userid, True))
+    (uid, err) = validate_positive_integer_id(userid, "kayttajatunnus")
+    if err:
+        app.logger.error(f'api_editionwishlist_user_list: {err.response}')
+        return make_api_response(err)
+    elif uid is None:
+        app.logger.error('api_editionwishlist_user_list: Invalid userid.')
+        response = ResponseType(
+            'api_editionwishlist_user_list: Virheellinen kayttajatunnus.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+    return make_api_response(editionowner_getowned(uid, True))

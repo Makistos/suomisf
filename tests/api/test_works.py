@@ -295,6 +295,31 @@ class TestWorksCRUD(BaseAPITest):
             f"but is {final_count}"
         )
 
+        # -----------------------------------------------------------
+        # Step 7: Verify child-table rows were actually cleaned up,
+        # not just the parent Work row. delete_work() does 9 separate
+        # Query.filter(...).delete() calls on child tables before
+        # deleting the Work itself; the parent-count check above would
+        # still pass even if one of those child deletes silently
+        # matched zero rows (e.g. a synchronize_session behavior
+        # change), since the child rows have no FK back to Work that
+        # would block the Work delete.
+        # -----------------------------------------------------------
+        from app.orm_decl import WorkGenre, WorkContributor
+        with app.app_context():
+            orphaned_genres = db.session.query(WorkGenre)\
+                .filter(WorkGenre.work_id == created_work_id).count()
+            orphaned_contributors = db.session.query(WorkContributor)\
+                .filter(WorkContributor.work_id == created_work_id).count()
+        assert orphaned_genres == 0, (
+            f"WorkGenre rows for deleted work {created_work_id} "
+            f"were not cleaned up ({orphaned_genres} remaining)"
+        )
+        assert orphaned_contributors == 0, (
+            f"WorkContributor rows for deleted work {created_work_id} "
+            f"were not cleaned up ({orphaned_contributors} remaining)"
+        )
+
 
 class TestWorksEditorAuthorStr(BaseAPITest):
     """Regression test: editor-only work must have a non-empty author_str."""

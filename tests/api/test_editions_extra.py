@@ -7,6 +7,8 @@ Includes changes, owners, wishlist, work, and images.
 Note: Run tests/scripts/setup_test_db.py before running these tests.
 """
 
+from urllib.parse import quote
+
 import pytest
 
 from .base_test import BaseAPITest
@@ -222,6 +224,20 @@ class TestEditionWishlist(BaseAPITest):
         data = response.data
         if data is not None:
             assert isinstance(data, list)
+
+    def test_user_wishlist_invalid_id(self, api_client):
+        """GET /api/editions/wishlist/{invalid} returns 400."""
+        response = api_client.get('/api/editions/wishlist/invalid')
+        assert response.status_code == 400
+
+    def test_user_wishlist_sql_injection_payload_returns_400(
+            self, api_client):
+        """A SQL-injection-shaped userid is rejected as an invalid id,
+        not executed. Regression test for the raw string-concatenated
+        SQL that used to build this query."""
+        response = api_client.get(
+            f'/api/editions/wishlist/{quote("1 OR 1=1")}')
+        assert response.status_code == 400
 
     def test_user_wishlist_check_returns_200(self, api_client):
         """GET /api/editions/{id}/wishlist/{userid} should return 200."""

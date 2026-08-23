@@ -5,7 +5,7 @@ from flask import Response
 from flask_jwt_extended import jwt_required
 from app import app
 
-from app.api_helpers import make_api_response
+from app.api_helpers import make_api_response, validate_positive_integer_id
 from app.impl import ResponseType
 from app.impl_users import (get_current_user, get_user, list_users,
                              user_genres, user_read_genres, user_read_stats)
@@ -102,7 +102,17 @@ def api_userstatsgenres(userid: str) -> Response:
                   error occurs.
     """
 
-    return make_api_response(user_genres(userid))
+    (uid, err) = validate_positive_integer_id(userid, "kayttajatunnus")
+    if err:
+        app.logger.error(f'api_userstatsgenres: {err.response}')
+        return make_api_response(err)
+    elif uid is None:
+        app.logger.error('api_userstatsgenres: Invalid userid.')
+        response = ResponseType(
+            'api_userstatsgenres: Virheellinen kayttajatunnus.',
+            status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+    return make_api_response(user_genres(uid))
 
 
 @app.route('/api/users/<int:userid>/stats/read-genres', methods=['get'])
