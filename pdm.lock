@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.1"
-content_hash = "sha256:f47cc2311980e90156a52e8915af83571cc46a9e6708691e2e07aab7c7165b7b"
+content_hash = "sha256:2ffc0167642522ec9b56cc720bb5d7295078af645c7549ab6d4dd8f0867e3fc6"
 
 [[metadata.targets]]
 requires_python = "==3.12.*"
@@ -662,16 +662,17 @@ files = [
 
 [[package]]
 name = "marshmallow"
-version = "3.26.2"
-requires_python = ">=3.9"
+version = "4.3.1"
+requires_python = ">=3.10"
 summary = "A lightweight library for converting complex datatypes to and from native Python datatypes."
 groups = ["default"]
 dependencies = [
-    "packaging>=17.0",
+    "backports-datetime-fromisoformat; python_version < \"3.11\"",
+    "typing-extensions; python_version < \"3.11\"",
 ]
 files = [
-    {file = "marshmallow-3.26.2-py3-none-any.whl", hash = "sha256:013fa8a3c4c276c24d26d84ce934dc964e2aa794345a0f8c7e5a7191482c8a73"},
-    {file = "marshmallow-3.26.2.tar.gz", hash = "sha256:bbe2adb5a03e6e3571b573f42527c6fe926e17467833660bebd11593ab8dfd57"},
+    {file = "marshmallow-4.3.1-py3-none-any.whl", hash = "sha256:e65accfbe277546df92ed7996a678c90e063e9a7c2a2f5e03f7d0b90e3768c42"},
+    {file = "marshmallow-4.3.1.tar.gz", hash = "sha256:fb6b8048af08d4ab061610d5b7d3696a7e4c95337dbda880edb9f95812cabc20"},
 ]
 
 [[package]]
@@ -816,7 +817,7 @@ name = "packaging"
 version = "26.3"
 requires_python = ">=3.9"
 summary = "Core utilities for Python packages"
-groups = ["default", "dev"]
+groups = ["dev"]
 files = [
     {file = "packaging-26.3-py3-none-any.whl", hash = "sha256:d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c"},
     {file = "packaging-26.3.tar.gz", hash = "sha256:94edc256424af38762eb31306eed28beb9f0efc50a8837492c9d6fd6004aed79"},

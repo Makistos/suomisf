@@ -18,7 +18,7 @@ from .model import (LanguageSchema, PersonBriefSchema, PersonLinkBriefSchema,
 
 class PersonPageBriefSchema(ma.SQLAlchemySchema):  # type: ignore
     """ Person schema, shortest usable version. """
-    id = fields.Number()
+    id = fields.Integer()
     name = fields.String()
     alt_name = fields.String()
     fullname = fields.String(allow_none=True)
@@ -26,7 +26,7 @@ class PersonPageBriefSchema(ma.SQLAlchemySchema):  # type: ignore
 
 class PersonPagePubseriesSchema(ma.SQLAlchemySchema):  # type: ignore
     """ Pubseries schema, shortest usable version. """
-    id = fields.Number()
+    id = fields.Integer()
     name = fields.String()
     publisher = fields.Nested(PublisherBriefSchema(only=('id', 'name')))
 
@@ -150,7 +150,7 @@ class PersonPageWorkBriefSchema(ma.SQLAlchemySchema):  # type: ignore
         lambda: BookseriesBriefSchema(exclude=['works']), allow_none=True)
     tags = ma.List(fields.Nested(TagBriefSchema))
     language_name = fields.Nested(LanguageSchema)
-    type = fields.Number()
+    type = fields.Integer()
     work_type = fields.Nested(WorkTypeBriefSchema)
 
 

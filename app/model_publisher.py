@@ -17,7 +17,7 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     contributions = ma.List(fields.Nested(WorkContributorSchema()))
     genres = ma.List(fields.Nested(GenreBriefSchema))
     language_name = fields.Nested(LanguageSchema)
-    type = fields.Number()
+    type = fields.Integer()
 
 
 class EditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore

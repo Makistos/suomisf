@@ -204,17 +204,17 @@ class PersonBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Person
-    id = fields.Number()
+    id = fields.Integer()
     name = fields.String()
     alt_name = fields.String()
     fullname = fields.String()
     image_src = fields.String()
-    dob = fields.Number()
-    dod = fields.Number()
+    dob = fields.Integer()
+    dod = fields.Integer()
     # nationality = fields.String(attribute='nationalityname')
     nationality = fields.Nested(CountryBriefSchema)
-    workcount = fields.Number()
-    # storycount = fields.Number()
+    workcount = fields.Integer()
+    # storycount = fields.Integer()
     storycount = fields.Function(lambda obj: len([x.id for x in obj.stories]))
     roles = fields.Pluck(ContributorRoleSchema, 'name', many=True)
 
@@ -274,7 +274,7 @@ class WorkBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Work
-    id = fields.Number()
+    id = fields.Integer()
     title = fields.String()
     orig_title = fields.String()
     author_str = fields.String()
@@ -283,9 +283,9 @@ class WorkBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     # authors = ma.List(fields.Nested(PersonBriefSchema))
     genres = ma.List(fields.Nested(GenreBriefSchema))
     bookseries = fields.Nested(BookseriesBriefSchema, exclude=("works",))
-    tags = ma.List(fields.Nested(TagBriefSchema), only=("id", "name"))
+    tags = ma.List(fields.Nested(TagBriefSchema(only=("id", "name", "type"))))
     language_name = fields.Nested(LanguageSchema)
-    type = fields.Number()
+    type = fields.Integer()
 
 
 class EditionBriefestSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -587,7 +587,7 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     translators = ma.List(fields.Nested(PersonBriefSchema))
     awards = ma.List(fields.Nested(AwardedSchema))
     contributions = ma.List(fields.Nested(WorkContributorSchema))
-    type = fields.Number()
+    type = fields.Integer()
     work_type = fields.Nested(WorkTypeBriefSchema)
     part_of = ma.List(fields.Nested(OmnibusSchema))
     consists_of = ma.List(fields.Nested(OmnibusSchema))
@@ -635,7 +635,7 @@ class ShortSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         model = ShortStory
     authors = ma.List(fields.Nested(PersonBriefSchema))
     translators = ma.List(fields.Nested(PersonBriefSchema))
-    tags = ma.List(fields.Nested(TagBriefSchema), only=("id", "name"))
+    tags = ma.List(fields.Nested(TagBriefSchema(only=("id", "name", "type"))))
     issues = ma.List(fields.Nested(IssueBriefSchema))
     works = ma.List(fields.Nested(WorkBriefSchema))
     editions = ma.List(fields.Nested(EditionBriefSchema))
@@ -669,9 +669,9 @@ class MagazineSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         model = Magazine
         include_fk = True
     # issues = ma.auto_field()  # ma.List(fields.Nested(IssueSchema))
-    issues = ma.List(fields.Nested(IssueBriefSchema),
-                     only=("id", "number", "number_extra", "count", "year",
-                           "cover_number", "images"))
+    issues = ma.List(fields.Nested(IssueBriefSchema(
+        only=("id", "number", "number_extra", "count", "year",
+              "cover_number", "images"))))
     publisher = fields.Nested(PublisherBriefSchema)
     type = fields.Nested(MagazineTypeSchema)
 
@@ -715,7 +715,7 @@ class IssueContributionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Issue
-        fields = ('id', 'type', 'number', 'number_extra', 'count', 'year',
+        fields = ('id', 'number', 'number_extra', 'count', 'year',
                   'cover_number', 'image_src', 'pages', 'size', 'link',
                   'notes', 'title', 'contributors', 'magazine')
 

@@ -147,11 +147,11 @@ class BookIndexSchema(ma.SQLAlchemySchema):  # type: ignore
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Work
 
-    id = fields.Number()
+    id = fields.Integer()
     title = fields.String()
     orig_title = fields.String()
     author_str = fields.String()
-    pubyear = fields.Number()
+    pubyear = fields.Integer()
 
     contributions = ma.List(fields.Nested(BookIndexWorkContributorSchema))
     editions = ma.List(
@@ -166,5 +166,5 @@ class BookIndexSchema(ma.SQLAlchemySchema):  # type: ignore
     bookseriesnum = fields.String(allow_none=True)
     bookseries = fields.Nested(BookIndexBookseriesSchema, only=['id', 'name'])
     tags = ma.List(fields.Nested(BookIndexTagSchema, only=['id', 'name']))
-    type = fields.Number()
+    type = fields.Integer()
     language_name = fields.Nested(LanguageSchema, only=['id'])

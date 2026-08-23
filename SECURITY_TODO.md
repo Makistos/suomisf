@@ -128,6 +128,68 @@ What the migration touched:
   pre-existing flake class already documented for this upgrade sequence,
   not a SQLAlchemy regression.
 
+## marshmallow 3.26.2 (version debt, not a CVE) — FIXED 2026-08-23
+
+`pyproject.toml` now pins `marshmallow==4.3.1`. Not a CVE fix — the 3.26.2
+pin already carried CVE-2025-68480's fix — but the 4.x major jump was
+deferred version debt until now. `flask-marshmallow` stayed at `1.4.0`
+(no bump needed — it declares `marshmallow>=3.0.0` with no upper bound,
+so it already supported 4.x; the earlier 2026-08-20 attempt bumped
+`flask-marshmallow` *first*, which pulled in 1.5.0's `marshmallow>=4.0.0`
+floor and dragged marshmallow along as a side effect — pinning
+marshmallow itself directly avoided that). `marshmallow-sqlalchemy`
+stayed at `1.5.0` (`marshmallow>=3.18.0`, no upper bound, already fine).
+
+What the migration touched, beyond the previously-identified
+`fields.Number()` blocker (all 15 occurrences → `fields.Integer()`,
+matching the underlying `Integer`-typed columns):
+
+- **Two genuine no-op bugs surfaced as hard errors.** `only=` restricting
+  a nested schema's fields must be passed to the schema's own
+  constructor (`TagBriefSchema(only=(...))`), not to the outer
+  `ma.List(...)`/`fields.Nested(...)` wrapper. Three call sites in
+  `app/model.py` (`WorkBriefSchema.tags` ×2, `MagazineSchema.issues`)
+  had `only=` misplaced on the outer field, which marshmallow 3 silently
+  absorbed as inert metadata — the restriction never actually applied,
+  so every "brief" work/short listing was silently serializing full
+  nested `Tag`/`Issue` objects (including their own `works`/`articles`/
+  `stories` sub-lists) well beyond what a "Brief" schema is documented
+  to do. marshmallow 4 raises `TypeError` on the unrecognized kwarg
+  instead of swallowing it. Fixed by moving `only=` onto the nested
+  schema's constructor, matching the pattern already used correctly
+  everywhere else in the file. For the two `WorkBriefSchema`/
+  `ShortSchema.tags` sites, initially restricted to `("id", "name")`
+  per the schema's own intent, but the frontend's `TagGroup` component
+  (`suomisf-ui/src/features/tag/components/sftag-group.tsx`, used via
+  `WorkTooltip`/`work-summary.tsx`) genuinely reads `tag.type` for
+  grouping/sorting/styling — so the restriction is `("id", "name",
+  "type")` instead, keeping the schema brief (still excludes the heavy
+  `works`/`articles`/`stories` recursion) while preserving what the UI
+  actually consumes.
+- **`IssueContributionSchema.Meta.fields` listed a `'type'` column that
+  doesn't exist on the `Issue` model** (copy-paste leftover, no
+  `type` field explicitly declared on the schema either). marshmallow
+  3 / older marshmallow-sqlalchemy silently tolerated unresolvable
+  names in `Meta.fields`; marshmallow 4 raises `KeyError` instead.
+  Removed the stray entry.
+- The other two `Meta.fields = ('id', 'name')`-style restrictions
+  (`MagazineSimpleSchema`, `ShortSearchPersonSchema`) needed no changes
+  — both names resolve to real model columns, and this is
+  marshmallow-sqlalchemy's own SQLAlchemy-model-driven field-restriction
+  mechanism, a different code path from the "implicit field creation"
+  marshmallow 4 removed from plain (non-model) `Schema` classes.
+- Full pytest run: 862 passed / 13 failed — identical to the
+  pre-existing baseline. (A batch of `test_award_import_*` failures on
+  the first run turned out to be transient ISFDB network flakiness,
+  unrelated to marshmallow — reproduced as passing 8/8 on rerun.) Full
+  Playwright E2E run against the upgraded backend: chromium 43-44/44
+  across repeated runs, the one flaky failure reproduced as passing 3/3
+  in isolation — the same pre-existing `Test User`-account parallel-race
+  flake class seen throughout this upgrade sequence, not a marshmallow
+  regression. Also manually verified via a direct schema dump that the
+  `only=` fix produces the intended trimmed-but-not-broken shape against
+  real dev data.
+
 ## Other exact-pinned majors (not CVEs, just version debt)
 
 Found while bumping the rest of the dependencies on 2026-08-20. None of
@@ -135,20 +197,6 @@ these have an open dependabot alert — they're just stuck on an old major
 because the pin was never revisited, and each one carries real
 breaking-change risk if bumped blind:
 
-- **marshmallow `===3.26.2`** (bumped 2026-08-20, was `3.22.0` — this was
-  a genuine CVE fix, not just version debt: CVE-2025-68480, DoS in
-  `Schema.load(many)`, fixed in 3.26.2, still marshmallow 3.x so no
-  breaking-change risk. Verified with a full pytest run: 859 passed / 13
-  failed, same pre-existing snapshot-drift failures as always, nothing
-  new). The 4.x major jump is the part still deferred — marshmallow 4
-  changed field APIs (confirmed directly: bumping `flask-marshmallow` to
-  its latest silently pulled marshmallow to 4.x as a side effect, since
-  flask-marshmallow 1.5.0 dropped marshmallow 3.x support entirely, and
-  it broke `app/model.py`'s `fields.Number()` usage — `TypeError: Can't
-  instantiate abstract class Number without an implementation for
-  num_type`. Reverted both to marshmallow 3.x / flask-marshmallow
-  1.4.0, the last pairing that supports marshmallow 3.x). A marshmallow 4
-  migration would need every schema in `app/model.py` audited.
 - **WTForms `==2.3.3`** — WTForms 3.x changed validator APIs. Used via
   `Flask-WTF` for forms; needs template/validator review before bumping.
 
