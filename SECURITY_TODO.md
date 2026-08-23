@@ -212,24 +212,25 @@ E2E suite green (the two flaky failures seen on the first parallel run
 reproduced as passing 3/3 in isolation — same pre-existing `Test
 User`-account race as every other upgrade in this sequence).
 
-## Operational gaps found alongside the above (2026-08-20)
+## Operational gaps found 2026-08-20 — both resolved 2026-08-23
 
 Not security issues, but worth fixing before they cause a real incident:
 
-- **`pdm.lock` is out of sync with `pyproject.toml`** (and with what's
-  actually installed in `.venv` — gunicorn, aiohttp, bleach, etc. are all
-  newer than what's locked). Running `pdm lock` in this dev environment
-  fails immediately (`Fatal Python error: Failed to import encodings
-  module` — pdm's own Python resolution is broken here, unrelated to any
-  project dependency). Needs investigating in an environment where `pdm`
-  actually works, then a regenerated lockfile committed.
-- **`Dockerfile` installs from `requirements.txt`, which is empty** (0
-  bytes). The real dependency list lives in `pyproject.toml`. If the
-  Docker image is still built and deployed from this Dockerfile as-is,
-  it currently installs *no* Python dependencies at all — worth
-  confirming whether this path is actually used, and if so, either
-  populating `requirements.txt` (e.g. `pdm export`) or switching the
-  Dockerfile to install from `pyproject.toml` directly.
+- **`pdm.lock` was out of sync with `pyproject.toml`** — resolved as a
+  side effect of the Flask/SQLAlchemy/marshmallow/WTForms work above,
+  which ran `pdm lock` repeatedly in this same dev environment without
+  issue. `pdm lock --check` now passes cleanly; whatever broke `pdm`'s
+  Python resolution earlier is no longer reproducing.
+- **`Dockerfile` installed from `requirements.txt`, which was empty**
+  (0 bytes) — confirmed with the user this path isn't part of the
+  actual deployment (which is the bare gunicorn + `kill -HUP` workflow
+  documented in `../suomisf-ui/CLAUDE.md`; no CI/CD workflow builds the
+  Dockerfile, no docker-compose exists). It was also stale on other
+  fronts beyond the empty requirements file — pinned `python:3.8.0`
+  against this project's `requires-python = "==3.12.*"`, and its `CMD`
+  ran `flask run` rather than gunicorn. Removed both `Dockerfile` and
+  `requirements.txt` entirely rather than fixing them.
 
 See also `../suomisf-ui/SECURITY_TODO.md` for the frontend's remaining
-items (react-router v7, vite 8, quill, face-api.js/node-fetch).
+items (quill, face-api.js/node-fetch — both need a library replacement,
+not a version bump; no upstream fix exists for either yet).
