@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-07-12T18:56:26.276996+00:00",
+    "generated_at": "2026-08-23T17:54:16.984799+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/awards",
@@ -10,6 +10,19 @@
   "response": {
     "status_code": 200,
     "data": [
+      {
+        "categories": [
+          {
+            "id": 8,
+            "name": "Paras nuortenkirja",
+            "type": 1
+          }
+        ],
+        "id": 39,
+        "name": "Andre Norton Award",
+        "description": "Yhdysvaltalainen nuorten ja lasten tieteis- ja fantasiakirjallisuuden palkinto (SFWA).",
+        "domestic": false
+      },
       {
         "categories": [],
         "id": 27,
@@ -131,6 +144,13 @@
         "domestic": false
       },
       {
+        "categories": [],
+        "id": 38,
+        "name": "Ditmar Award",
+        "description": "Australialainen tieteis- ja fantasiakirjallisuuden fanipalkinto.",
+        "domestic": false
+      },
+      {
         "categories": [
           {
             "id": 1,
@@ -220,9 +240,16 @@
       },
       {
         "categories": [],
+        "id": 40,
+        "name": "Lasten LukuVarkaus -palkinto",
+        "description": "<p>Lasten Luku-Varkaus -palkinto on suomalainen lastenkirjallisuuspalkinto, joka jaetaan vuosittain edellisvuoden parhaalle suomalaiselle ja suomenkieliselle alle 12-vuotiaille suunnatulle lastenkirjalle.</p>",
+        "domestic": true
+      },
+      {
+        "categories": [],
         "id": 35,
         "name": "Lasten- ja nuortenkirjallisuuden Finlandia",
-        "description": "<p>Lasten- ja nuortenkirjallisuuden Finlandia-palkinto (ennen vuotta 2016 Finlandia Junior -palkinto)[1] on Suomen Kirjasäätiön vuodesta 1997 jakama kirjallisuuspalkinto, joka myönnetään ansiokkaalle suomalaiselle lasten- tai nuortenkirjalle. Palkinnon arvo on 30 000 euroa.</p>",
+        "description": "<p>Lasten- ja nuortenkirjallisuuden Finlandia-palkinto (ennen vuotta 2016 Finlandia Junior -palkinto) on Suomen Kirjasäätiön vuodesta 1997 jakama kirjallisuuspalkinto, joka myönnetään ansiokkaalle suomalaiselle lasten- tai nuortenkirjalle. Palkinnon arvo on 30 000 euroa.</p>",
         "domestic": true
       },
       {
@@ -395,9 +422,23 @@
       },
       {
         "categories": [],
+        "id": 37,
+        "name": "Prometheus Award",
+        "description": "Libertaristisen science fictionin kirjallisuuspalkinto (Libertarian Futurist Society).",
+        "domestic": false
+      },
+      {
+        "categories": [],
         "id": 30,
         "name": "Retro Hugo",
         "description": "Retro Hugo-palkinto myönnetään retrospektiivisesti parhaalle sf-romaanille sellaisina vuosina, kun Hugoja ei myönnetty.",
+        "domestic": false
+      },
+      {
+        "categories": [],
+        "id": 36,
+        "name": "Shirley Jackson Award",
+        "description": "Yhdysvaltalainen kauhun, psykologisen jännityksen ja synkän fantasian kirjallisuuspalkinto.",
         "domestic": false
       },
       {

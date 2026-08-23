@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-07-12T18:56:26.276996+00:00",
+    "generated_at": "2026-08-23T17:54:16.984799+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/magazines",
@@ -5289,6 +5289,28 @@
         ],
         "id": 60,
         "name": "Pimeä galaksi",
+        "description": "",
+        "link": "",
+        "issn": ""
+      },
+      {
+        "type_id": 1,
+        "type": {
+          "id": 1,
+          "name": "Fanzine"
+        },
+        "issues": [
+          {
+            "id": 1132,
+            "year": 2003
+          },
+          {
+            "id": 1133,
+            "year": 2003
+          }
+        ],
+        "id": 64,
+        "name": "Arczine",
         "description": "",
         "link": "",
         "issn": ""

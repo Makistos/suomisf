@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-07-12T18:56:26.276996+00:00",
+    "generated_at": "2026-08-23T17:54:16.984799+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/personcounts",
@@ -86,6 +86,45 @@
         "total": 62
       },
       {
+        "id": 612,
+        "name": "Salvatore, R. A.",
+        "alt_name": "R. A. Salvatore",
+        "nationality": "Yhdysvallat",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 51
+          },
+          "SF": {
+            "Kirjoittaja": 1
+          },
+          "kok": {
+            "Kirjoittaja": 1
+          }
+        },
+        "total": 52
+      },
+      {
+        "id": 1556,
+        "name": "Pratchett, Terry",
+        "alt_name": "Terry Pratchett",
+        "nationality": "Iso-Britannia",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 37
+          },
+          "K": {
+            "Kirjoittaja": 1
+          },
+          "SF": {
+            "Kirjoittaja": 5
+          },
+          "nF": {
+            "Kirjoittaja": 9
+          }
+        },
+        "total": 51
+      },
+      {
         "id": 2877,
         "name": "Burroughs, Edgar Rice",
         "alt_name": "Edgar Rice Burroughs",
@@ -99,45 +138,6 @@
           },
           "eiSF": {
             "Kirjoittaja": 6
-          },
-          "kok": {
-            "Kirjoittaja": 1
-          }
-        },
-        "total": 51
-      },
-      {
-        "id": 1556,
-        "name": "Pratchett, Terry",
-        "alt_name": "Terry Pratchett",
-        "nationality": "Iso-Britannia",
-        "genres": {
-          "F": {
-            "Kirjoittaja": 43
-          },
-          "K": {
-            "Kirjoittaja": 1
-          },
-          "SF": {
-            "Kirjoittaja": 5
-          },
-          "nF": {
-            "Kirjoittaja": 3
-          }
-        },
-        "total": 51
-      },
-      {
-        "id": 612,
-        "name": "Salvatore, R. A.",
-        "alt_name": "R. A. Salvatore",
-        "nationality": "Yhdysvallat",
-        "genres": {
-          "F": {
-            "Kirjoittaja": 50
-          },
-          "SF": {
-            "Kirjoittaja": 1
           },
           "kok": {
             "Kirjoittaja": 1
@@ -171,7 +171,10 @@
         "nationality": "Yhdysvallat",
         "genres": {
           "F": {
-            "Kirjoittaja": 44
+            "Kirjoittaja": 43
+          },
+          "SF": {
+            "Kirjoittaja": 1
           },
           "kok": {
             "Kirjoittaja": 1
@@ -201,7 +204,7 @@
         "nationality": null,
         "genres": {
           "F": {
-            "Kirjoittaja": 1954,
+            "Kirjoittaja": 1985,
             "Kääntäjä": 0,
             "Toimittaja": 87,
             "Kansikuva": 0,
@@ -210,9 +213,9 @@
             "Päätoimittaja": 0
           },
           "K": {
-            "Kirjoittaja": 587,
+            "Kirjoittaja": 596,
             "Kääntäjä": 0,
-            "Toimittaja": 69,
+            "Toimittaja": 70,
             "Kansikuva": 0,
             "Kuvittaja": 0,
             "Esiintyy": 2,
@@ -228,7 +231,7 @@
             "Päätoimittaja": 0
           },
           "PF": {
-            "Kirjoittaja": 113,
+            "Kirjoittaja": 115,
             "Kääntäjä": 0,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -237,7 +240,7 @@
             "Päätoimittaja": 0
           },
           "SF": {
-            "Kirjoittaja": 1707,
+            "Kirjoittaja": 1739,
             "Kääntäjä": 0,
             "Toimittaja": 73,
             "Kansikuva": 0,
@@ -264,7 +267,7 @@
             "Päätoimittaja": 0
           },
           "nF": {
-            "Kirjoittaja": 1248,
+            "Kirjoittaja": 1259,
             "Kääntäjä": 0,
             "Toimittaja": 2,
             "Kansikuva": 0,
@@ -273,7 +276,7 @@
             "Päätoimittaja": 0
           },
           "nSF": {
-            "Kirjoittaja": 394,
+            "Kirjoittaja": 400,
             "Kääntäjä": 0,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -282,7 +285,7 @@
             "Päätoimittaja": 0
           },
           "nK": {
-            "Kirjoittaja": 141,
+            "Kirjoittaja": 143,
             "Kääntäjä": 0,
             "Toimittaja": 7,
             "Kansikuva": 0,
@@ -291,7 +294,7 @@
             "Päätoimittaja": 0
           },
           "lSF": {
-            "Kirjoittaja": 71,
+            "Kirjoittaja": 73,
             "Kääntäjä": 0,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -309,7 +312,7 @@
             "Päätoimittaja": 0
           },
           "rajatap": {
-            "Kirjoittaja": 121,
+            "Kirjoittaja": 123,
             "Kääntäjä": 0,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -329,14 +332,14 @@
           "kok": {
             "Kirjoittaja": 415,
             "Kääntäjä": 0,
-            "Toimittaja": 151,
+            "Toimittaja": 152,
             "Kansikuva": 0,
             "Kuvittaja": 0,
             "Esiintyy": 0,
             "Päätoimittaja": 0
           },
           "lF": {
-            "Kirjoittaja": 441,
+            "Kirjoittaja": 462,
             "Kääntäjä": 0,
             "Toimittaja": 4,
             "Kansikuva": 0,
@@ -345,7 +348,7 @@
             "Päätoimittaja": 0
           },
           "R": {
-            "Kirjoittaja": 27,
+            "Kirjoittaja": 28,
             "Kääntäjä": 0,
             "Toimittaja": 3,
             "Kansikuva": 0,
@@ -363,7 +366,7 @@
             "Päätoimittaja": 0
           }
         },
-        "total": 6545
+        "total": 6657
       }
     ],
     "error": null

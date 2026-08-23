@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-07-12T18:56:26.276996+00:00",
+    "generated_at": "2026-08-23T17:54:16.984799+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/works/27",
@@ -30,14 +30,14 @@
           "translators": [],
           "pubseries": null,
           "work": {
-            "id": 27.0,
+            "id": 27,
             "title": "Yön ja päivän tarinoita",
             "orig_title": "Yön ja päivän tarinoita",
             "author_str": "Vainonen, Jyrki",
             "contributions": [
               {
                 "person": {
-                  "id": 21.0,
+                  "id": 21,
                   "name": "Vainonen, Jyrki",
                   "alt_name": "Jyrki Vainonen"
                 },
@@ -56,7 +56,7 @@
                 "contributions": [
                   {
                     "person": {
-                      "id": 5389.0,
+                      "id": 5389,
                       "name": "Lämsä, Perttu",
                       "alt_name": "Perttu Lämsä"
                     },
@@ -118,14 +118,14 @@
               "id": 7,
               "name": "suomi"
             },
-            "type": 2.0,
+            "type": 2,
             "subtitle": "",
             "pubyear": 2019,
             "bookseriesnum": "",
             "bookseriesorder": null,
             "misc": "",
-            "description": null,
-            "descr_attr": null,
+            "description": "<p><strong>Tarinoita ihmeistä ja ihmisistä</strong></p><p>Ihminen kykenee hyvään ja pahaan. Tähän havahtuu Yön ja päivän tarinoiden lukija tavatessaan henkilöitä, jotka ovat päätyneet kynnykselle tutun ja tuntemattoman, totutun ja vieraan väliin. He pyrkivät, kuka mitenkin, tukkimaan menetysten ja luopumisten elämään näivertämiä aukkoja, ja paikkailevat samalla itseään. Kynnykseltä avautuu näkymä myös menneisyyteen, kun muistot kuljettavat näkyviin valintoja ja ratkaisuja, ilon pilkahduksia, rakkauden laahuksia ja koteloitunutta surua.</p><p>Vainosen tarinat luovat omalakisen kolhuisen todellisuutensa, jossa alitajuinen ja pimeä sekoittuu toivoon ja lohtuun. Hän kuvaa ihmisiä, joiden mieltä myllertävät elämän ja kuoleman vietit. Pyristellessään niiden otteessa he ajattelevat – tai kuvittelevat – voivansa valita, kummalle puolelle kynnystä jalkansa laskevat.</p><p>Tarinoiden välisten kynnysten yli kulkeutuu myös groteski kuvasto ja symboliikka, jossa ruumis ja mieli lakkaamatta hiertyvät toisiaan vasten synnyttäen yhä uusia lihan ja hengen liittoja: milloin ilkamoivia, milloin melankolisia, mutta aina surrealistisia ja kummia.</p><p>Jyrki Vainonen on moneen kertaan palkittu ja yli kymmenelle kielelle käännetty kirjailija ja suomentaja. Hänen esikoiskokoelmansa <em>Tutkimusmatkailija ja muita novelleja</em> (1999) palkittiin Helsingin Sanomien kirjallisuuspalkinnolla, suuren yleisön tietoisuuteen hän nousi viimeistään romaanillaan <em>Mykkä jumala</em> (2003).Vainonen on julkaissut romaaneja, novelleja, esseitä, satiirin ja kuunnelmia. <em>Yön ja päivän tarinoita</em> on hänen neljäs novellikokoelmansa.</p>",
+            "descr_attr": "Aula & Co",
             "imported_string": ""
           },
           "binding": {
@@ -140,7 +140,7 @@
           "contributions": [
             {
               "person": {
-                "id": 5389.0,
+                "id": 5389,
                 "name": "Lämsä, Perttu",
                 "alt_name": "Perttu Lämsä"
               },
@@ -196,18 +196,18 @@
         {
           "authors": [
             {
-              "id": 21.0,
+              "id": 21,
               "name": "Vainonen, Jyrki",
               "alt_name": "Jyrki Vainonen",
               "fullname": "",
               "image_src": null,
-              "dob": 1963.0,
+              "dob": 1963,
               "dod": null,
               "nationality": {
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 9.0,
+              "workcount": 9,
               "storycount": 46,
               "roles": [
                 "Kirjoittaja",
@@ -231,14 +231,14 @@
           "editions": [
             {
               "work": {
-                "id": 27.0,
+                "id": 27,
                 "title": "Yön ja päivän tarinoita",
                 "orig_title": "Yön ja päivän tarinoita",
                 "author_str": "Vainonen, Jyrki",
                 "contributions": [
                   {
                     "person": {
-                      "id": 21.0,
+                      "id": 21,
                       "name": "Vainonen, Jyrki",
                       "alt_name": "Jyrki Vainonen"
                     },
@@ -257,7 +257,7 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 5389.0,
+                          "id": 5389,
                           "name": "Lämsä, Perttu",
                           "alt_name": "Perttu Lämsä"
                         },
@@ -319,21 +319,21 @@
                   "id": 7,
                   "name": "suomi"
                 },
-                "type": 2.0,
+                "type": 2,
                 "subtitle": "",
                 "pubyear": 2019,
                 "bookseriesnum": "",
                 "bookseriesorder": null,
                 "misc": "",
-                "description": null,
-                "descr_attr": null,
+                "description": "<p><strong>Tarinoita ihmeistä ja ihmisistä</strong></p><p>Ihminen kykenee hyvään ja pahaan. Tähän havahtuu Yön ja päivän tarinoiden lukija tavatessaan henkilöitä, jotka ovat päätyneet kynnykselle tutun ja tuntemattoman, totutun ja vieraan väliin. He pyrkivät, kuka mitenkin, tukkimaan menetysten ja luopumisten elämään näivertämiä aukkoja, ja paikkailevat samalla itseään. Kynnykseltä avautuu näkymä myös menneisyyteen, kun muistot kuljettavat näkyviin valintoja ja ratkaisuja, ilon pilkahduksia, rakkauden laahuksia ja koteloitunutta surua.</p><p>Vainosen tarinat luovat omalakisen kolhuisen todellisuutensa, jossa alitajuinen ja pimeä sekoittuu toivoon ja lohtuun. Hän kuvaa ihmisiä, joiden mieltä myllertävät elämän ja kuoleman vietit. Pyristellessään niiden otteessa he ajattelevat – tai kuvittelevat – voivansa valita, kummalle puolelle kynnystä jalkansa laskevat.</p><p>Tarinoiden välisten kynnysten yli kulkeutuu myös groteski kuvasto ja symboliikka, jossa ruumis ja mieli lakkaamatta hiertyvät toisiaan vasten synnyttäen yhä uusia lihan ja hengen liittoja: milloin ilkamoivia, milloin melankolisia, mutta aina surrealistisia ja kummia.</p><p>Jyrki Vainonen on moneen kertaan palkittu ja yli kymmenelle kielelle käännetty kirjailija ja suomentaja. Hänen esikoiskokoelmansa <em>Tutkimusmatkailija ja muita novelleja</em> (1999) palkittiin Helsingin Sanomien kirjallisuuspalkinnolla, suuren yleisön tietoisuuteen hän nousi viimeistään romaanillaan <em>Mykkä jumala</em> (2003).Vainonen on julkaissut romaaneja, novelleja, esseitä, satiirin ja kuunnelmia. <em>Yön ja päivän tarinoita</em> on hänen neljäs novellikokoelmansa.</p>",
+                "descr_attr": "Aula & Co",
                 "imported_string": ""
               },
               "editors": [],
               "contributions": [
                 {
                   "person": {
-                    "id": 5389.0,
+                    "id": 5389,
                     "name": "Lämsä, Perttu",
                     "alt_name": "Perttu Lämsä"
                   },
@@ -385,7 +385,7 @@
           "contributors": [
             {
               "person": {
-                "id": 21.0,
+                "id": 21,
                 "name": "Vainonen, Jyrki",
                 "alt_name": "Jyrki Vainonen"
               },
@@ -410,18 +410,18 @@
         {
           "authors": [
             {
-              "id": 21.0,
+              "id": 21,
               "name": "Vainonen, Jyrki",
               "alt_name": "Jyrki Vainonen",
               "fullname": "",
               "image_src": null,
-              "dob": 1963.0,
+              "dob": 1963,
               "dod": null,
               "nationality": {
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 9.0,
+              "workcount": 9,
               "storycount": 46,
               "roles": [
                 "Kirjoittaja",
@@ -445,14 +445,14 @@
           "editions": [
             {
               "work": {
-                "id": 27.0,
+                "id": 27,
                 "title": "Yön ja päivän tarinoita",
                 "orig_title": "Yön ja päivän tarinoita",
                 "author_str": "Vainonen, Jyrki",
                 "contributions": [
                   {
                     "person": {
-                      "id": 21.0,
+                      "id": 21,
                       "name": "Vainonen, Jyrki",
                       "alt_name": "Jyrki Vainonen"
                     },
@@ -471,7 +471,7 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 5389.0,
+                          "id": 5389,
                           "name": "Lämsä, Perttu",
                           "alt_name": "Perttu Lämsä"
                         },
@@ -533,21 +533,21 @@
                   "id": 7,
                   "name": "suomi"
                 },
-                "type": 2.0,
+                "type": 2,
                 "subtitle": "",
                 "pubyear": 2019,
                 "bookseriesnum": "",
                 "bookseriesorder": null,
                 "misc": "",
-                "description": null,
-                "descr_attr": null,
+                "description": "<p><strong>Tarinoita ihmeistä ja ihmisistä</strong></p><p>Ihminen kykenee hyvään ja pahaan. Tähän havahtuu Yön ja päivän tarinoiden lukija tavatessaan henkilöitä, jotka ovat päätyneet kynnykselle tutun ja tuntemattoman, totutun ja vieraan väliin. He pyrkivät, kuka mitenkin, tukkimaan menetysten ja luopumisten elämään näivertämiä aukkoja, ja paikkailevat samalla itseään. Kynnykseltä avautuu näkymä myös menneisyyteen, kun muistot kuljettavat näkyviin valintoja ja ratkaisuja, ilon pilkahduksia, rakkauden laahuksia ja koteloitunutta surua.</p><p>Vainosen tarinat luovat omalakisen kolhuisen todellisuutensa, jossa alitajuinen ja pimeä sekoittuu toivoon ja lohtuun. Hän kuvaa ihmisiä, joiden mieltä myllertävät elämän ja kuoleman vietit. Pyristellessään niiden otteessa he ajattelevat – tai kuvittelevat – voivansa valita, kummalle puolelle kynnystä jalkansa laskevat.</p><p>Tarinoiden välisten kynnysten yli kulkeutuu myös groteski kuvasto ja symboliikka, jossa ruumis ja mieli lakkaamatta hiertyvät toisiaan vasten synnyttäen yhä uusia lihan ja hengen liittoja: milloin ilkamoivia, milloin melankolisia, mutta aina surrealistisia ja kummia.</p><p>Jyrki Vainonen on moneen kertaan palkittu ja yli kymmenelle kielelle käännetty kirjailija ja suomentaja. Hänen esikoiskokoelmansa <em>Tutkimusmatkailija ja muita novelleja</em> (1999) palkittiin Helsingin Sanomien kirjallisuuspalkinnolla, suuren yleisön tietoisuuteen hän nousi viimeistään romaanillaan <em>Mykkä jumala</em> (2003).Vainonen on julkaissut romaaneja, novelleja, esseitä, satiirin ja kuunnelmia. <em>Yön ja päivän tarinoita</em> on hänen neljäs novellikokoelmansa.</p>",
+                "descr_attr": "Aula & Co",
                 "imported_string": ""
               },
               "editors": [],
               "contributions": [
                 {
                   "person": {
-                    "id": 5389.0,
+                    "id": 5389,
                     "name": "Lämsä, Perttu",
                     "alt_name": "Perttu Lämsä"
                   },
@@ -599,7 +599,7 @@
           "contributors": [
             {
               "person": {
-                "id": 21.0,
+                "id": 21,
                 "name": "Vainonen, Jyrki",
                 "alt_name": "Jyrki Vainonen"
               },
@@ -624,18 +624,18 @@
         {
           "authors": [
             {
-              "id": 21.0,
+              "id": 21,
               "name": "Vainonen, Jyrki",
               "alt_name": "Jyrki Vainonen",
               "fullname": "",
               "image_src": null,
-              "dob": 1963.0,
+              "dob": 1963,
               "dod": null,
               "nationality": {
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 9.0,
+              "workcount": 9,
               "storycount": 46,
               "roles": [
                 "Kirjoittaja",
@@ -659,14 +659,14 @@
           "editions": [
             {
               "work": {
-                "id": 27.0,
+                "id": 27,
                 "title": "Yön ja päivän tarinoita",
                 "orig_title": "Yön ja päivän tarinoita",
                 "author_str": "Vainonen, Jyrki",
                 "contributions": [
                   {
                     "person": {
-                      "id": 21.0,
+                      "id": 21,
                       "name": "Vainonen, Jyrki",
                       "alt_name": "Jyrki Vainonen"
                     },
@@ -685,7 +685,7 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 5389.0,
+                          "id": 5389,
                           "name": "Lämsä, Perttu",
                           "alt_name": "Perttu Lämsä"
                         },
@@ -747,21 +747,21 @@
                   "id": 7,
                   "name": "suomi"
                 },
-                "type": 2.0,
+                "type": 2,
                 "subtitle": "",
                 "pubyear": 2019,
                 "bookseriesnum": "",
                 "bookseriesorder": null,
                 "misc": "",
-                "description": null,
-                "descr_attr": null,
+                "description": "<p><strong>Tarinoita ihmeistä ja ihmisistä</strong></p><p>Ihminen kykenee hyvään ja pahaan. Tähän havahtuu Yön ja päivän tarinoiden lukija tavatessaan henkilöitä, jotka ovat päätyneet kynnykselle tutun ja tuntemattoman, totutun ja vieraan väliin. He pyrkivät, kuka mitenkin, tukkimaan menetysten ja luopumisten elämään näivertämiä aukkoja, ja paikkailevat samalla itseään. Kynnykseltä avautuu näkymä myös menneisyyteen, kun muistot kuljettavat näkyviin valintoja ja ratkaisuja, ilon pilkahduksia, rakkauden laahuksia ja koteloitunutta surua.</p><p>Vainosen tarinat luovat omalakisen kolhuisen todellisuutensa, jossa alitajuinen ja pimeä sekoittuu toivoon ja lohtuun. Hän kuvaa ihmisiä, joiden mieltä myllertävät elämän ja kuoleman vietit. Pyristellessään niiden otteessa he ajattelevat – tai kuvittelevat – voivansa valita, kummalle puolelle kynnystä jalkansa laskevat.</p><p>Tarinoiden välisten kynnysten yli kulkeutuu myös groteski kuvasto ja symboliikka, jossa ruumis ja mieli lakkaamatta hiertyvät toisiaan vasten synnyttäen yhä uusia lihan ja hengen liittoja: milloin ilkamoivia, milloin melankolisia, mutta aina surrealistisia ja kummia.</p><p>Jyrki Vainonen on moneen kertaan palkittu ja yli kymmenelle kielelle käännetty kirjailija ja suomentaja. Hänen esikoiskokoelmansa <em>Tutkimusmatkailija ja muita novelleja</em> (1999) palkittiin Helsingin Sanomien kirjallisuuspalkinnolla, suuren yleisön tietoisuuteen hän nousi viimeistään romaanillaan <em>Mykkä jumala</em> (2003).Vainonen on julkaissut romaaneja, novelleja, esseitä, satiirin ja kuunnelmia. <em>Yön ja päivän tarinoita</em> on hänen neljäs novellikokoelmansa.</p>",
+                "descr_attr": "Aula & Co",
                 "imported_string": ""
               },
               "editors": [],
               "contributions": [
                 {
                   "person": {
-                    "id": 5389.0,
+                    "id": 5389,
                     "name": "Lämsä, Perttu",
                     "alt_name": "Perttu Lämsä"
                   },
@@ -813,7 +813,7 @@
           "contributors": [
             {
               "person": {
-                "id": 21.0,
+                "id": 21,
                 "name": "Vainonen, Jyrki",
                 "alt_name": "Jyrki Vainonen"
               },
@@ -838,18 +838,18 @@
         {
           "authors": [
             {
-              "id": 21.0,
+              "id": 21,
               "name": "Vainonen, Jyrki",
               "alt_name": "Jyrki Vainonen",
               "fullname": "",
               "image_src": null,
-              "dob": 1963.0,
+              "dob": 1963,
               "dod": null,
               "nationality": {
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 9.0,
+              "workcount": 9,
               "storycount": 46,
               "roles": [
                 "Kirjoittaja",
@@ -873,14 +873,14 @@
           "editions": [
             {
               "work": {
-                "id": 27.0,
+                "id": 27,
                 "title": "Yön ja päivän tarinoita",
                 "orig_title": "Yön ja päivän tarinoita",
                 "author_str": "Vainonen, Jyrki",
                 "contributions": [
                   {
                     "person": {
-                      "id": 21.0,
+                      "id": 21,
                       "name": "Vainonen, Jyrki",
                       "alt_name": "Jyrki Vainonen"
                     },
@@ -899,7 +899,7 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 5389.0,
+                          "id": 5389,
                           "name": "Lämsä, Perttu",
                           "alt_name": "Perttu Lämsä"
                         },
@@ -961,21 +961,21 @@
                   "id": 7,
                   "name": "suomi"
                 },
-                "type": 2.0,
+                "type": 2,
                 "subtitle": "",
                 "pubyear": 2019,
                 "bookseriesnum": "",
                 "bookseriesorder": null,
                 "misc": "",
-                "description": null,
-                "descr_attr": null,
+                "description": "<p><strong>Tarinoita ihmeistä ja ihmisistä</strong></p><p>Ihminen kykenee hyvään ja pahaan. Tähän havahtuu Yön ja päivän tarinoiden lukija tavatessaan henkilöitä, jotka ovat päätyneet kynnykselle tutun ja tuntemattoman, totutun ja vieraan väliin. He pyrkivät, kuka mitenkin, tukkimaan menetysten ja luopumisten elämään näivertämiä aukkoja, ja paikkailevat samalla itseään. Kynnykseltä avautuu näkymä myös menneisyyteen, kun muistot kuljettavat näkyviin valintoja ja ratkaisuja, ilon pilkahduksia, rakkauden laahuksia ja koteloitunutta surua.</p><p>Vainosen tarinat luovat omalakisen kolhuisen todellisuutensa, jossa alitajuinen ja pimeä sekoittuu toivoon ja lohtuun. Hän kuvaa ihmisiä, joiden mieltä myllertävät elämän ja kuoleman vietit. Pyristellessään niiden otteessa he ajattelevat – tai kuvittelevat – voivansa valita, kummalle puolelle kynnystä jalkansa laskevat.</p><p>Tarinoiden välisten kynnysten yli kulkeutuu myös groteski kuvasto ja symboliikka, jossa ruumis ja mieli lakkaamatta hiertyvät toisiaan vasten synnyttäen yhä uusia lihan ja hengen liittoja: milloin ilkamoivia, milloin melankolisia, mutta aina surrealistisia ja kummia.</p><p>Jyrki Vainonen on moneen kertaan palkittu ja yli kymmenelle kielelle käännetty kirjailija ja suomentaja. Hänen esikoiskokoelmansa <em>Tutkimusmatkailija ja muita novelleja</em> (1999) palkittiin Helsingin Sanomien kirjallisuuspalkinnolla, suuren yleisön tietoisuuteen hän nousi viimeistään romaanillaan <em>Mykkä jumala</em> (2003).Vainonen on julkaissut romaaneja, novelleja, esseitä, satiirin ja kuunnelmia. <em>Yön ja päivän tarinoita</em> on hänen neljäs novellikokoelmansa.</p>",
+                "descr_attr": "Aula & Co",
                 "imported_string": ""
               },
               "editors": [],
               "contributions": [
                 {
                   "person": {
-                    "id": 5389.0,
+                    "id": 5389,
                     "name": "Lämsä, Perttu",
                     "alt_name": "Perttu Lämsä"
                   },
@@ -1027,7 +1027,7 @@
           "contributors": [
             {
               "person": {
-                "id": 21.0,
+                "id": 21,
                 "name": "Vainonen, Jyrki",
                 "alt_name": "Jyrki Vainonen"
               },
@@ -1052,18 +1052,18 @@
         {
           "authors": [
             {
-              "id": 21.0,
+              "id": 21,
               "name": "Vainonen, Jyrki",
               "alt_name": "Jyrki Vainonen",
               "fullname": "",
               "image_src": null,
-              "dob": 1963.0,
+              "dob": 1963,
               "dod": null,
               "nationality": {
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 9.0,
+              "workcount": 9,
               "storycount": 46,
               "roles": [
                 "Kirjoittaja",
@@ -1087,14 +1087,14 @@
           "editions": [
             {
               "work": {
-                "id": 27.0,
+                "id": 27,
                 "title": "Yön ja päivän tarinoita",
                 "orig_title": "Yön ja päivän tarinoita",
                 "author_str": "Vainonen, Jyrki",
                 "contributions": [
                   {
                     "person": {
-                      "id": 21.0,
+                      "id": 21,
                       "name": "Vainonen, Jyrki",
                       "alt_name": "Jyrki Vainonen"
                     },
@@ -1113,7 +1113,7 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 5389.0,
+                          "id": 5389,
                           "name": "Lämsä, Perttu",
                           "alt_name": "Perttu Lämsä"
                         },
@@ -1175,21 +1175,21 @@
                   "id": 7,
                   "name": "suomi"
                 },
-                "type": 2.0,
+                "type": 2,
                 "subtitle": "",
                 "pubyear": 2019,
                 "bookseriesnum": "",
                 "bookseriesorder": null,
                 "misc": "",
-                "description": null,
-                "descr_attr": null,
+                "description": "<p><strong>Tarinoita ihmeistä ja ihmisistä</strong></p><p>Ihminen kykenee hyvään ja pahaan. Tähän havahtuu Yön ja päivän tarinoiden lukija tavatessaan henkilöitä, jotka ovat päätyneet kynnykselle tutun ja tuntemattoman, totutun ja vieraan väliin. He pyrkivät, kuka mitenkin, tukkimaan menetysten ja luopumisten elämään näivertämiä aukkoja, ja paikkailevat samalla itseään. Kynnykseltä avautuu näkymä myös menneisyyteen, kun muistot kuljettavat näkyviin valintoja ja ratkaisuja, ilon pilkahduksia, rakkauden laahuksia ja koteloitunutta surua.</p><p>Vainosen tarinat luovat omalakisen kolhuisen todellisuutensa, jossa alitajuinen ja pimeä sekoittuu toivoon ja lohtuun. Hän kuvaa ihmisiä, joiden mieltä myllertävät elämän ja kuoleman vietit. Pyristellessään niiden otteessa he ajattelevat – tai kuvittelevat – voivansa valita, kummalle puolelle kynnystä jalkansa laskevat.</p><p>Tarinoiden välisten kynnysten yli kulkeutuu myös groteski kuvasto ja symboliikka, jossa ruumis ja mieli lakkaamatta hiertyvät toisiaan vasten synnyttäen yhä uusia lihan ja hengen liittoja: milloin ilkamoivia, milloin melankolisia, mutta aina surrealistisia ja kummia.</p><p>Jyrki Vainonen on moneen kertaan palkittu ja yli kymmenelle kielelle käännetty kirjailija ja suomentaja. Hänen esikoiskokoelmansa <em>Tutkimusmatkailija ja muita novelleja</em> (1999) palkittiin Helsingin Sanomien kirjallisuuspalkinnolla, suuren yleisön tietoisuuteen hän nousi viimeistään romaanillaan <em>Mykkä jumala</em> (2003).Vainonen on julkaissut romaaneja, novelleja, esseitä, satiirin ja kuunnelmia. <em>Yön ja päivän tarinoita</em> on hänen neljäs novellikokoelmansa.</p>",
+                "descr_attr": "Aula & Co",
                 "imported_string": ""
               },
               "editors": [],
               "contributions": [
                 {
                   "person": {
-                    "id": 5389.0,
+                    "id": 5389,
                     "name": "Lämsä, Perttu",
                     "alt_name": "Perttu Lämsä"
                   },
@@ -1241,7 +1241,7 @@
           "contributors": [
             {
               "person": {
-                "id": 21.0,
+                "id": 21,
                 "name": "Vainonen, Jyrki",
                 "alt_name": "Jyrki Vainonen"
               },
@@ -1266,18 +1266,18 @@
         {
           "authors": [
             {
-              "id": 21.0,
+              "id": 21,
               "name": "Vainonen, Jyrki",
               "alt_name": "Jyrki Vainonen",
               "fullname": "",
               "image_src": null,
-              "dob": 1963.0,
+              "dob": 1963,
               "dod": null,
               "nationality": {
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 9.0,
+              "workcount": 9,
               "storycount": 46,
               "roles": [
                 "Kirjoittaja",
@@ -1301,14 +1301,14 @@
           "editions": [
             {
               "work": {
-                "id": 27.0,
+                "id": 27,
                 "title": "Yön ja päivän tarinoita",
                 "orig_title": "Yön ja päivän tarinoita",
                 "author_str": "Vainonen, Jyrki",
                 "contributions": [
                   {
                     "person": {
-                      "id": 21.0,
+                      "id": 21,
                       "name": "Vainonen, Jyrki",
                       "alt_name": "Jyrki Vainonen"
                     },
@@ -1327,7 +1327,7 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 5389.0,
+                          "id": 5389,
                           "name": "Lämsä, Perttu",
                           "alt_name": "Perttu Lämsä"
                         },
@@ -1389,21 +1389,21 @@
                   "id": 7,
                   "name": "suomi"
                 },
-                "type": 2.0,
+                "type": 2,
                 "subtitle": "",
                 "pubyear": 2019,
                 "bookseriesnum": "",
                 "bookseriesorder": null,
                 "misc": "",
-                "description": null,
-                "descr_attr": null,
+                "description": "<p><strong>Tarinoita ihmeistä ja ihmisistä</strong></p><p>Ihminen kykenee hyvään ja pahaan. Tähän havahtuu Yön ja päivän tarinoiden lukija tavatessaan henkilöitä, jotka ovat päätyneet kynnykselle tutun ja tuntemattoman, totutun ja vieraan väliin. He pyrkivät, kuka mitenkin, tukkimaan menetysten ja luopumisten elämään näivertämiä aukkoja, ja paikkailevat samalla itseään. Kynnykseltä avautuu näkymä myös menneisyyteen, kun muistot kuljettavat näkyviin valintoja ja ratkaisuja, ilon pilkahduksia, rakkauden laahuksia ja koteloitunutta surua.</p><p>Vainosen tarinat luovat omalakisen kolhuisen todellisuutensa, jossa alitajuinen ja pimeä sekoittuu toivoon ja lohtuun. Hän kuvaa ihmisiä, joiden mieltä myllertävät elämän ja kuoleman vietit. Pyristellessään niiden otteessa he ajattelevat – tai kuvittelevat – voivansa valita, kummalle puolelle kynnystä jalkansa laskevat.</p><p>Tarinoiden välisten kynnysten yli kulkeutuu myös groteski kuvasto ja symboliikka, jossa ruumis ja mieli lakkaamatta hiertyvät toisiaan vasten synnyttäen yhä uusia lihan ja hengen liittoja: milloin ilkamoivia, milloin melankolisia, mutta aina surrealistisia ja kummia.</p><p>Jyrki Vainonen on moneen kertaan palkittu ja yli kymmenelle kielelle käännetty kirjailija ja suomentaja. Hänen esikoiskokoelmansa <em>Tutkimusmatkailija ja muita novelleja</em> (1999) palkittiin Helsingin Sanomien kirjallisuuspalkinnolla, suuren yleisön tietoisuuteen hän nousi viimeistään romaanillaan <em>Mykkä jumala</em> (2003).Vainonen on julkaissut romaaneja, novelleja, esseitä, satiirin ja kuunnelmia. <em>Yön ja päivän tarinoita</em> on hänen neljäs novellikokoelmansa.</p>",
+                "descr_attr": "Aula & Co",
                 "imported_string": ""
               },
               "editors": [],
               "contributions": [
                 {
                   "person": {
-                    "id": 5389.0,
+                    "id": 5389,
                     "name": "Lämsä, Perttu",
                     "alt_name": "Perttu Lämsä"
                   },
@@ -1455,7 +1455,7 @@
           "contributors": [
             {
               "person": {
-                "id": 21.0,
+                "id": 21,
                 "name": "Vainonen, Jyrki",
                 "alt_name": "Jyrki Vainonen"
               },
@@ -1480,18 +1480,18 @@
         {
           "authors": [
             {
-              "id": 21.0,
+              "id": 21,
               "name": "Vainonen, Jyrki",
               "alt_name": "Jyrki Vainonen",
               "fullname": "",
               "image_src": null,
-              "dob": 1963.0,
+              "dob": 1963,
               "dod": null,
               "nationality": {
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 9.0,
+              "workcount": 9,
               "storycount": 46,
               "roles": [
                 "Kirjoittaja",
@@ -1515,14 +1515,14 @@
           "editions": [
             {
               "work": {
-                "id": 27.0,
+                "id": 27,
                 "title": "Yön ja päivän tarinoita",
                 "orig_title": "Yön ja päivän tarinoita",
                 "author_str": "Vainonen, Jyrki",
                 "contributions": [
                   {
                     "person": {
-                      "id": 21.0,
+                      "id": 21,
                       "name": "Vainonen, Jyrki",
                       "alt_name": "Jyrki Vainonen"
                     },
@@ -1541,7 +1541,7 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 5389.0,
+                          "id": 5389,
                           "name": "Lämsä, Perttu",
                           "alt_name": "Perttu Lämsä"
                         },
@@ -1603,21 +1603,21 @@
                   "id": 7,
                   "name": "suomi"
                 },
-                "type": 2.0,
+                "type": 2,
                 "subtitle": "",
                 "pubyear": 2019,
                 "bookseriesnum": "",
                 "bookseriesorder": null,
                 "misc": "",
-                "description": null,
-                "descr_attr": null,
+                "description": "<p><strong>Tarinoita ihmeistä ja ihmisistä</strong></p><p>Ihminen kykenee hyvään ja pahaan. Tähän havahtuu Yön ja päivän tarinoiden lukija tavatessaan henkilöitä, jotka ovat päätyneet kynnykselle tutun ja tuntemattoman, totutun ja vieraan väliin. He pyrkivät, kuka mitenkin, tukkimaan menetysten ja luopumisten elämään näivertämiä aukkoja, ja paikkailevat samalla itseään. Kynnykseltä avautuu näkymä myös menneisyyteen, kun muistot kuljettavat näkyviin valintoja ja ratkaisuja, ilon pilkahduksia, rakkauden laahuksia ja koteloitunutta surua.</p><p>Vainosen tarinat luovat omalakisen kolhuisen todellisuutensa, jossa alitajuinen ja pimeä sekoittuu toivoon ja lohtuun. Hän kuvaa ihmisiä, joiden mieltä myllertävät elämän ja kuoleman vietit. Pyristellessään niiden otteessa he ajattelevat – tai kuvittelevat – voivansa valita, kummalle puolelle kynnystä jalkansa laskevat.</p><p>Tarinoiden välisten kynnysten yli kulkeutuu myös groteski kuvasto ja symboliikka, jossa ruumis ja mieli lakkaamatta hiertyvät toisiaan vasten synnyttäen yhä uusia lihan ja hengen liittoja: milloin ilkamoivia, milloin melankolisia, mutta aina surrealistisia ja kummia.</p><p>Jyrki Vainonen on moneen kertaan palkittu ja yli kymmenelle kielelle käännetty kirjailija ja suomentaja. Hänen esikoiskokoelmansa <em>Tutkimusmatkailija ja muita novelleja</em> (1999) palkittiin Helsingin Sanomien kirjallisuuspalkinnolla, suuren yleisön tietoisuuteen hän nousi viimeistään romaanillaan <em>Mykkä jumala</em> (2003).Vainonen on julkaissut romaaneja, novelleja, esseitä, satiirin ja kuunnelmia. <em>Yön ja päivän tarinoita</em> on hänen neljäs novellikokoelmansa.</p>",
+                "descr_attr": "Aula & Co",
                 "imported_string": ""
               },
               "editors": [],
               "contributions": [
                 {
                   "person": {
-                    "id": 5389.0,
+                    "id": 5389,
                     "name": "Lämsä, Perttu",
                     "alt_name": "Perttu Lämsä"
                   },
@@ -1669,7 +1669,7 @@
           "contributors": [
             {
               "person": {
-                "id": 21.0,
+                "id": 21,
                 "name": "Vainonen, Jyrki",
                 "alt_name": "Jyrki Vainonen"
               },
@@ -1694,18 +1694,18 @@
         {
           "authors": [
             {
-              "id": 21.0,
+              "id": 21,
               "name": "Vainonen, Jyrki",
               "alt_name": "Jyrki Vainonen",
               "fullname": "",
               "image_src": null,
-              "dob": 1963.0,
+              "dob": 1963,
               "dod": null,
               "nationality": {
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 9.0,
+              "workcount": 9,
               "storycount": 46,
               "roles": [
                 "Kirjoittaja",
@@ -1729,14 +1729,14 @@
           "editions": [
             {
               "work": {
-                "id": 27.0,
+                "id": 27,
                 "title": "Yön ja päivän tarinoita",
                 "orig_title": "Yön ja päivän tarinoita",
                 "author_str": "Vainonen, Jyrki",
                 "contributions": [
                   {
                     "person": {
-                      "id": 21.0,
+                      "id": 21,
                       "name": "Vainonen, Jyrki",
                       "alt_name": "Jyrki Vainonen"
                     },
@@ -1755,7 +1755,7 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 5389.0,
+                          "id": 5389,
                           "name": "Lämsä, Perttu",
                           "alt_name": "Perttu Lämsä"
                         },
@@ -1817,21 +1817,21 @@
                   "id": 7,
                   "name": "suomi"
                 },
-                "type": 2.0,
+                "type": 2,
                 "subtitle": "",
                 "pubyear": 2019,
                 "bookseriesnum": "",
                 "bookseriesorder": null,
                 "misc": "",
-                "description": null,
-                "descr_attr": null,
+                "description": "<p><strong>Tarinoita ihmeistä ja ihmisistä</strong></p><p>Ihminen kykenee hyvään ja pahaan. Tähän havahtuu Yön ja päivän tarinoiden lukija tavatessaan henkilöitä, jotka ovat päätyneet kynnykselle tutun ja tuntemattoman, totutun ja vieraan väliin. He pyrkivät, kuka mitenkin, tukkimaan menetysten ja luopumisten elämään näivertämiä aukkoja, ja paikkailevat samalla itseään. Kynnykseltä avautuu näkymä myös menneisyyteen, kun muistot kuljettavat näkyviin valintoja ja ratkaisuja, ilon pilkahduksia, rakkauden laahuksia ja koteloitunutta surua.</p><p>Vainosen tarinat luovat omalakisen kolhuisen todellisuutensa, jossa alitajuinen ja pimeä sekoittuu toivoon ja lohtuun. Hän kuvaa ihmisiä, joiden mieltä myllertävät elämän ja kuoleman vietit. Pyristellessään niiden otteessa he ajattelevat – tai kuvittelevat – voivansa valita, kummalle puolelle kynnystä jalkansa laskevat.</p><p>Tarinoiden välisten kynnysten yli kulkeutuu myös groteski kuvasto ja symboliikka, jossa ruumis ja mieli lakkaamatta hiertyvät toisiaan vasten synnyttäen yhä uusia lihan ja hengen liittoja: milloin ilkamoivia, milloin melankolisia, mutta aina surrealistisia ja kummia.</p><p>Jyrki Vainonen on moneen kertaan palkittu ja yli kymmenelle kielelle käännetty kirjailija ja suomentaja. Hänen esikoiskokoelmansa <em>Tutkimusmatkailija ja muita novelleja</em> (1999) palkittiin Helsingin Sanomien kirjallisuuspalkinnolla, suuren yleisön tietoisuuteen hän nousi viimeistään romaanillaan <em>Mykkä jumala</em> (2003).Vainonen on julkaissut romaaneja, novelleja, esseitä, satiirin ja kuunnelmia. <em>Yön ja päivän tarinoita</em> on hänen neljäs novellikokoelmansa.</p>",
+                "descr_attr": "Aula & Co",
                 "imported_string": ""
               },
               "editors": [],
               "contributions": [
                 {
                   "person": {
-                    "id": 5389.0,
+                    "id": 5389,
                     "name": "Lämsä, Perttu",
                     "alt_name": "Perttu Lämsä"
                   },
@@ -1883,7 +1883,7 @@
           "contributors": [
             {
               "person": {
-                "id": 21.0,
+                "id": 21,
                 "name": "Vainonen, Jyrki",
                 "alt_name": "Jyrki Vainonen"
               },
@@ -1908,18 +1908,18 @@
         {
           "authors": [
             {
-              "id": 21.0,
+              "id": 21,
               "name": "Vainonen, Jyrki",
               "alt_name": "Jyrki Vainonen",
               "fullname": "",
               "image_src": null,
-              "dob": 1963.0,
+              "dob": 1963,
               "dod": null,
               "nationality": {
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 9.0,
+              "workcount": 9,
               "storycount": 46,
               "roles": [
                 "Kirjoittaja",
@@ -1943,14 +1943,14 @@
           "editions": [
             {
               "work": {
-                "id": 27.0,
+                "id": 27,
                 "title": "Yön ja päivän tarinoita",
                 "orig_title": "Yön ja päivän tarinoita",
                 "author_str": "Vainonen, Jyrki",
                 "contributions": [
                   {
                     "person": {
-                      "id": 21.0,
+                      "id": 21,
                       "name": "Vainonen, Jyrki",
                       "alt_name": "Jyrki Vainonen"
                     },
@@ -1969,7 +1969,7 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 5389.0,
+                          "id": 5389,
                           "name": "Lämsä, Perttu",
                           "alt_name": "Perttu Lämsä"
                         },
@@ -2031,21 +2031,21 @@
                   "id": 7,
                   "name": "suomi"
                 },
-                "type": 2.0,
+                "type": 2,
                 "subtitle": "",
                 "pubyear": 2019,
                 "bookseriesnum": "",
                 "bookseriesorder": null,
                 "misc": "",
-                "description": null,
-                "descr_attr": null,
+                "description": "<p><strong>Tarinoita ihmeistä ja ihmisistä</strong></p><p>Ihminen kykenee hyvään ja pahaan. Tähän havahtuu Yön ja päivän tarinoiden lukija tavatessaan henkilöitä, jotka ovat päätyneet kynnykselle tutun ja tuntemattoman, totutun ja vieraan väliin. He pyrkivät, kuka mitenkin, tukkimaan menetysten ja luopumisten elämään näivertämiä aukkoja, ja paikkailevat samalla itseään. Kynnykseltä avautuu näkymä myös menneisyyteen, kun muistot kuljettavat näkyviin valintoja ja ratkaisuja, ilon pilkahduksia, rakkauden laahuksia ja koteloitunutta surua.</p><p>Vainosen tarinat luovat omalakisen kolhuisen todellisuutensa, jossa alitajuinen ja pimeä sekoittuu toivoon ja lohtuun. Hän kuvaa ihmisiä, joiden mieltä myllertävät elämän ja kuoleman vietit. Pyristellessään niiden otteessa he ajattelevat – tai kuvittelevat – voivansa valita, kummalle puolelle kynnystä jalkansa laskevat.</p><p>Tarinoiden välisten kynnysten yli kulkeutuu myös groteski kuvasto ja symboliikka, jossa ruumis ja mieli lakkaamatta hiertyvät toisiaan vasten synnyttäen yhä uusia lihan ja hengen liittoja: milloin ilkamoivia, milloin melankolisia, mutta aina surrealistisia ja kummia.</p><p>Jyrki Vainonen on moneen kertaan palkittu ja yli kymmenelle kielelle käännetty kirjailija ja suomentaja. Hänen esikoiskokoelmansa <em>Tutkimusmatkailija ja muita novelleja</em> (1999) palkittiin Helsingin Sanomien kirjallisuuspalkinnolla, suuren yleisön tietoisuuteen hän nousi viimeistään romaanillaan <em>Mykkä jumala</em> (2003).Vainonen on julkaissut romaaneja, novelleja, esseitä, satiirin ja kuunnelmia. <em>Yön ja päivän tarinoita</em> on hänen neljäs novellikokoelmansa.</p>",
+                "descr_attr": "Aula & Co",
                 "imported_string": ""
               },
               "editors": [],
               "contributions": [
                 {
                   "person": {
-                    "id": 5389.0,
+                    "id": 5389,
                     "name": "Lämsä, Perttu",
                     "alt_name": "Perttu Lämsä"
                   },
@@ -2097,7 +2097,7 @@
           "contributors": [
             {
               "person": {
-                "id": 21.0,
+                "id": 21,
                 "name": "Vainonen, Jyrki",
                 "alt_name": "Jyrki Vainonen"
               },
@@ -2122,18 +2122,18 @@
         {
           "authors": [
             {
-              "id": 21.0,
+              "id": 21,
               "name": "Vainonen, Jyrki",
               "alt_name": "Jyrki Vainonen",
               "fullname": "",
               "image_src": null,
-              "dob": 1963.0,
+              "dob": 1963,
               "dod": null,
               "nationality": {
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 9.0,
+              "workcount": 9,
               "storycount": 46,
               "roles": [
                 "Kirjoittaja",
@@ -2157,14 +2157,14 @@
           "editions": [
             {
               "work": {
-                "id": 27.0,
+                "id": 27,
                 "title": "Yön ja päivän tarinoita",
                 "orig_title": "Yön ja päivän tarinoita",
                 "author_str": "Vainonen, Jyrki",
                 "contributions": [
                   {
                     "person": {
-                      "id": 21.0,
+                      "id": 21,
                       "name": "Vainonen, Jyrki",
                       "alt_name": "Jyrki Vainonen"
                     },
@@ -2183,7 +2183,7 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 5389.0,
+                          "id": 5389,
                           "name": "Lämsä, Perttu",
                           "alt_name": "Perttu Lämsä"
                         },
@@ -2245,21 +2245,21 @@
                   "id": 7,
                   "name": "suomi"
                 },
-                "type": 2.0,
+                "type": 2,
                 "subtitle": "",
                 "pubyear": 2019,
                 "bookseriesnum": "",
                 "bookseriesorder": null,
                 "misc": "",
-                "description": null,
-                "descr_attr": null,
+                "description": "<p><strong>Tarinoita ihmeistä ja ihmisistä</strong></p><p>Ihminen kykenee hyvään ja pahaan. Tähän havahtuu Yön ja päivän tarinoiden lukija tavatessaan henkilöitä, jotka ovat päätyneet kynnykselle tutun ja tuntemattoman, totutun ja vieraan väliin. He pyrkivät, kuka mitenkin, tukkimaan menetysten ja luopumisten elämään näivertämiä aukkoja, ja paikkailevat samalla itseään. Kynnykseltä avautuu näkymä myös menneisyyteen, kun muistot kuljettavat näkyviin valintoja ja ratkaisuja, ilon pilkahduksia, rakkauden laahuksia ja koteloitunutta surua.</p><p>Vainosen tarinat luovat omalakisen kolhuisen todellisuutensa, jossa alitajuinen ja pimeä sekoittuu toivoon ja lohtuun. Hän kuvaa ihmisiä, joiden mieltä myllertävät elämän ja kuoleman vietit. Pyristellessään niiden otteessa he ajattelevat – tai kuvittelevat – voivansa valita, kummalle puolelle kynnystä jalkansa laskevat.</p><p>Tarinoiden välisten kynnysten yli kulkeutuu myös groteski kuvasto ja symboliikka, jossa ruumis ja mieli lakkaamatta hiertyvät toisiaan vasten synnyttäen yhä uusia lihan ja hengen liittoja: milloin ilkamoivia, milloin melankolisia, mutta aina surrealistisia ja kummia.</p><p>Jyrki Vainonen on moneen kertaan palkittu ja yli kymmenelle kielelle käännetty kirjailija ja suomentaja. Hänen esikoiskokoelmansa <em>Tutkimusmatkailija ja muita novelleja</em> (1999) palkittiin Helsingin Sanomien kirjallisuuspalkinnolla, suuren yleisön tietoisuuteen hän nousi viimeistään romaanillaan <em>Mykkä jumala</em> (2003).Vainonen on julkaissut romaaneja, novelleja, esseitä, satiirin ja kuunnelmia. <em>Yön ja päivän tarinoita</em> on hänen neljäs novellikokoelmansa.</p>",
+                "descr_attr": "Aula & Co",
                 "imported_string": ""
               },
               "editors": [],
               "contributions": [
                 {
                   "person": {
-                    "id": 5389.0,
+                    "id": 5389,
                     "name": "Lämsä, Perttu",
                     "alt_name": "Perttu Lämsä"
                   },
@@ -2311,7 +2311,7 @@
           "contributors": [
             {
               "person": {
-                "id": 21.0,
+                "id": 21,
                 "name": "Vainonen, Jyrki",
                 "alt_name": "Jyrki Vainonen"
               },
@@ -2336,18 +2336,18 @@
         {
           "authors": [
             {
-              "id": 21.0,
+              "id": 21,
               "name": "Vainonen, Jyrki",
               "alt_name": "Jyrki Vainonen",
               "fullname": "",
               "image_src": null,
-              "dob": 1963.0,
+              "dob": 1963,
               "dod": null,
               "nationality": {
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 9.0,
+              "workcount": 9,
               "storycount": 46,
               "roles": [
                 "Kirjoittaja",
@@ -2371,14 +2371,14 @@
           "editions": [
             {
               "work": {
-                "id": 27.0,
+                "id": 27,
                 "title": "Yön ja päivän tarinoita",
                 "orig_title": "Yön ja päivän tarinoita",
                 "author_str": "Vainonen, Jyrki",
                 "contributions": [
                   {
                     "person": {
-                      "id": 21.0,
+                      "id": 21,
                       "name": "Vainonen, Jyrki",
                       "alt_name": "Jyrki Vainonen"
                     },
@@ -2397,7 +2397,7 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 5389.0,
+                          "id": 5389,
                           "name": "Lämsä, Perttu",
                           "alt_name": "Perttu Lämsä"
                         },
@@ -2459,21 +2459,21 @@
                   "id": 7,
                   "name": "suomi"
                 },
-                "type": 2.0,
+                "type": 2,
                 "subtitle": "",
                 "pubyear": 2019,
                 "bookseriesnum": "",
                 "bookseriesorder": null,
                 "misc": "",
-                "description": null,
-                "descr_attr": null,
+                "description": "<p><strong>Tarinoita ihmeistä ja ihmisistä</strong></p><p>Ihminen kykenee hyvään ja pahaan. Tähän havahtuu Yön ja päivän tarinoiden lukija tavatessaan henkilöitä, jotka ovat päätyneet kynnykselle tutun ja tuntemattoman, totutun ja vieraan väliin. He pyrkivät, kuka mitenkin, tukkimaan menetysten ja luopumisten elämään näivertämiä aukkoja, ja paikkailevat samalla itseään. Kynnykseltä avautuu näkymä myös menneisyyteen, kun muistot kuljettavat näkyviin valintoja ja ratkaisuja, ilon pilkahduksia, rakkauden laahuksia ja koteloitunutta surua.</p><p>Vainosen tarinat luovat omalakisen kolhuisen todellisuutensa, jossa alitajuinen ja pimeä sekoittuu toivoon ja lohtuun. Hän kuvaa ihmisiä, joiden mieltä myllertävät elämän ja kuoleman vietit. Pyristellessään niiden otteessa he ajattelevat – tai kuvittelevat – voivansa valita, kummalle puolelle kynnystä jalkansa laskevat.</p><p>Tarinoiden välisten kynnysten yli kulkeutuu myös groteski kuvasto ja symboliikka, jossa ruumis ja mieli lakkaamatta hiertyvät toisiaan vasten synnyttäen yhä uusia lihan ja hengen liittoja: milloin ilkamoivia, milloin melankolisia, mutta aina surrealistisia ja kummia.</p><p>Jyrki Vainonen on moneen kertaan palkittu ja yli kymmenelle kielelle käännetty kirjailija ja suomentaja. Hänen esikoiskokoelmansa <em>Tutkimusmatkailija ja muita novelleja</em> (1999) palkittiin Helsingin Sanomien kirjallisuuspalkinnolla, suuren yleisön tietoisuuteen hän nousi viimeistään romaanillaan <em>Mykkä jumala</em> (2003).Vainonen on julkaissut romaaneja, novelleja, esseitä, satiirin ja kuunnelmia. <em>Yön ja päivän tarinoita</em> on hänen neljäs novellikokoelmansa.</p>",
+                "descr_attr": "Aula & Co",
                 "imported_string": ""
               },
               "editors": [],
               "contributions": [
                 {
                   "person": {
-                    "id": 5389.0,
+                    "id": 5389,
                     "name": "Lämsä, Perttu",
                     "alt_name": "Perttu Lämsä"
                   },
@@ -2525,7 +2525,7 @@
           "contributors": [
             {
               "person": {
-                "id": 21.0,
+                "id": 21,
                 "name": "Vainonen, Jyrki",
                 "alt_name": "Jyrki Vainonen"
               },
@@ -2550,18 +2550,18 @@
         {
           "authors": [
             {
-              "id": 21.0,
+              "id": 21,
               "name": "Vainonen, Jyrki",
               "alt_name": "Jyrki Vainonen",
               "fullname": "",
               "image_src": null,
-              "dob": 1963.0,
+              "dob": 1963,
               "dod": null,
               "nationality": {
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 9.0,
+              "workcount": 9,
               "storycount": 46,
               "roles": [
                 "Kirjoittaja",
@@ -2585,14 +2585,14 @@
           "editions": [
             {
               "work": {
-                "id": 27.0,
+                "id": 27,
                 "title": "Yön ja päivän tarinoita",
                 "orig_title": "Yön ja päivän tarinoita",
                 "author_str": "Vainonen, Jyrki",
                 "contributions": [
                   {
                     "person": {
-                      "id": 21.0,
+                      "id": 21,
                       "name": "Vainonen, Jyrki",
                       "alt_name": "Jyrki Vainonen"
                     },
@@ -2611,7 +2611,7 @@
                     "contributions": [
                       {
                         "person": {
-                          "id": 5389.0,
+                          "id": 5389,
                           "name": "Lämsä, Perttu",
                           "alt_name": "Perttu Lämsä"
                         },
@@ -2673,21 +2673,21 @@
                   "id": 7,
                   "name": "suomi"
                 },
-                "type": 2.0,
+                "type": 2,
                 "subtitle": "",
                 "pubyear": 2019,
                 "bookseriesnum": "",
                 "bookseriesorder": null,
                 "misc": "",
-                "description": null,
-                "descr_attr": null,
+                "description": "<p><strong>Tarinoita ihmeistä ja ihmisistä</strong></p><p>Ihminen kykenee hyvään ja pahaan. Tähän havahtuu Yön ja päivän tarinoiden lukija tavatessaan henkilöitä, jotka ovat päätyneet kynnykselle tutun ja tuntemattoman, totutun ja vieraan väliin. He pyrkivät, kuka mitenkin, tukkimaan menetysten ja luopumisten elämään näivertämiä aukkoja, ja paikkailevat samalla itseään. Kynnykseltä avautuu näkymä myös menneisyyteen, kun muistot kuljettavat näkyviin valintoja ja ratkaisuja, ilon pilkahduksia, rakkauden laahuksia ja koteloitunutta surua.</p><p>Vainosen tarinat luovat omalakisen kolhuisen todellisuutensa, jossa alitajuinen ja pimeä sekoittuu toivoon ja lohtuun. Hän kuvaa ihmisiä, joiden mieltä myllertävät elämän ja kuoleman vietit. Pyristellessään niiden otteessa he ajattelevat – tai kuvittelevat – voivansa valita, kummalle puolelle kynnystä jalkansa laskevat.</p><p>Tarinoiden välisten kynnysten yli kulkeutuu myös groteski kuvasto ja symboliikka, jossa ruumis ja mieli lakkaamatta hiertyvät toisiaan vasten synnyttäen yhä uusia lihan ja hengen liittoja: milloin ilkamoivia, milloin melankolisia, mutta aina surrealistisia ja kummia.</p><p>Jyrki Vainonen on moneen kertaan palkittu ja yli kymmenelle kielelle käännetty kirjailija ja suomentaja. Hänen esikoiskokoelmansa <em>Tutkimusmatkailija ja muita novelleja</em> (1999) palkittiin Helsingin Sanomien kirjallisuuspalkinnolla, suuren yleisön tietoisuuteen hän nousi viimeistään romaanillaan <em>Mykkä jumala</em> (2003).Vainonen on julkaissut romaaneja, novelleja, esseitä, satiirin ja kuunnelmia. <em>Yön ja päivän tarinoita</em> on hänen neljäs novellikokoelmansa.</p>",
+                "descr_attr": "Aula & Co",
                 "imported_string": ""
               },
               "editors": [],
               "contributions": [
                 {
                   "person": {
-                    "id": 5389.0,
+                    "id": 5389,
                     "name": "Lämsä, Perttu",
                     "alt_name": "Perttu Lämsä"
                   },
@@ -2739,7 +2739,7 @@
           "contributors": [
             {
               "person": {
-                "id": 21.0,
+                "id": 21,
                 "name": "Vainonen, Jyrki",
                 "alt_name": "Jyrki Vainonen"
               },
@@ -2766,7 +2766,7 @@
       "contributions": [
         {
           "person": {
-            "id": 21.0,
+            "id": 21,
             "name": "Vainonen, Jyrki",
             "alt_name": "Jyrki Vainonen"
           },
@@ -2778,7 +2778,7 @@
           "real_person": null
         }
       ],
-      "type": 2.0,
+      "type": 2,
       "work_type": {
         "id": 2,
         "name": "Kokoelma"
@@ -2793,8 +2793,8 @@
       "bookseriesnum": "",
       "bookseriesorder": null,
       "misc": "",
-      "description": null,
-      "descr_attr": null,
+      "description": "<p><strong>Tarinoita ihmeistä ja ihmisistä</strong></p><p>Ihminen kykenee hyvään ja pahaan. Tähän havahtuu Yön ja päivän tarinoiden lukija tavatessaan henkilöitä, jotka ovat päätyneet kynnykselle tutun ja tuntemattoman, totutun ja vieraan väliin. He pyrkivät, kuka mitenkin, tukkimaan menetysten ja luopumisten elämään näivertämiä aukkoja, ja paikkailevat samalla itseään. Kynnykseltä avautuu näkymä myös menneisyyteen, kun muistot kuljettavat näkyviin valintoja ja ratkaisuja, ilon pilkahduksia, rakkauden laahuksia ja koteloitunutta surua.</p><p>Vainosen tarinat luovat omalakisen kolhuisen todellisuutensa, jossa alitajuinen ja pimeä sekoittuu toivoon ja lohtuun. Hän kuvaa ihmisiä, joiden mieltä myllertävät elämän ja kuoleman vietit. Pyristellessään niiden otteessa he ajattelevat – tai kuvittelevat – voivansa valita, kummalle puolelle kynnystä jalkansa laskevat.</p><p>Tarinoiden välisten kynnysten yli kulkeutuu myös groteski kuvasto ja symboliikka, jossa ruumis ja mieli lakkaamatta hiertyvät toisiaan vasten synnyttäen yhä uusia lihan ja hengen liittoja: milloin ilkamoivia, milloin melankolisia, mutta aina surrealistisia ja kummia.</p><p>Jyrki Vainonen on moneen kertaan palkittu ja yli kymmenelle kielelle käännetty kirjailija ja suomentaja. Hänen esikoiskokoelmansa <em>Tutkimusmatkailija ja muita novelleja</em> (1999) palkittiin Helsingin Sanomien kirjallisuuspalkinnolla, suuren yleisön tietoisuuteen hän nousi viimeistään romaanillaan <em>Mykkä jumala</em> (2003).Vainonen on julkaissut romaaneja, novelleja, esseitä, satiirin ja kuunnelmia. <em>Yön ja päivän tarinoita</em> on hänen neljäs novellikokoelmansa.</p>",
+      "descr_attr": "Aula & Co",
       "imported_string": "",
       "author_str": "Vainonen, Jyrki"
     },

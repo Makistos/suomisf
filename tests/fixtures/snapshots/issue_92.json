@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-07-12T18:56:26.276996+00:00",
+    "generated_at": "2026-08-23T17:54:16.984799+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/issues/92",
@@ -12,18 +12,18 @@
     "data": {
       "editors": [
         {
-          "id": 367.0,
+          "id": 367,
           "name": "Ranta, Lasse",
           "alt_name": "Lasse Ranta",
           "fullname": "",
           "image_src": null,
-          "dob": 1986.0,
+          "dob": 1986,
           "dod": null,
           "nationality": {
             "id": 4,
             "name": "Suomi"
           },
-          "workcount": 2.0,
+          "workcount": 2,
           "storycount": 12,
           "roles": [
             "Kirjoittaja"
@@ -49,7 +49,7 @@
         {
           "authors": [
             {
-              "id": 3929.0,
+              "id": 3929,
               "name": "Tuukkanen, Mari",
               "alt_name": "Mari Tuukkanen",
               "fullname": "",
@@ -60,7 +60,7 @@
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 0.0,
+              "workcount": 0,
               "storycount": 5,
               "roles": [
                 "Kirjoittaja"
@@ -309,7 +309,7 @@
           "contributors": [
             {
               "person": {
-                "id": 3929.0,
+                "id": 3929,
                 "name": "Tuukkanen, Mari",
                 "alt_name": "Mari Tuukkanen"
               },
@@ -334,7 +334,7 @@
         {
           "authors": [
             {
-              "id": 3976.0,
+              "id": 3976,
               "name": "Kuskelin, Jari",
               "alt_name": "Jari Kuskelin",
               "fullname": "",
@@ -345,7 +345,7 @@
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 0.0,
+              "workcount": 0,
               "storycount": 4,
               "roles": [
                 "Kirjoittaja"
@@ -360,18 +360,18 @@
               "imported_string": null
             },
             {
-              "id": 3889.0,
+              "id": 3889,
               "name": "Vainikainen, Jussi",
               "alt_name": "Jussi Vainikainen",
               "fullname": "",
               "image_src": null,
-              "dob": 1966.0,
+              "dob": 1966,
               "dod": null,
               "nationality": {
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 0.0,
+              "workcount": 0,
               "storycount": 28,
               "roles": [
                 "Kirjoittaja",
@@ -621,7 +621,7 @@
           "contributors": [
             {
               "person": {
-                "id": 3889.0,
+                "id": 3889,
                 "name": "Vainikainen, Jussi",
                 "alt_name": "Jussi Vainikainen"
               },
@@ -634,7 +634,7 @@
             },
             {
               "person": {
-                "id": 3976.0,
+                "id": 3976,
                 "name": "Kuskelin, Jari",
                 "alt_name": "Jari Kuskelin"
               },
@@ -659,18 +659,18 @@
         {
           "authors": [
             {
-              "id": 367.0,
+              "id": 367,
               "name": "Ranta, Lasse",
               "alt_name": "Lasse Ranta",
               "fullname": "",
               "image_src": null,
-              "dob": 1986.0,
+              "dob": 1986,
               "dod": null,
               "nationality": {
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 2.0,
+              "workcount": 2,
               "storycount": 12,
               "roles": [
                 "Kirjoittaja"
@@ -919,7 +919,7 @@
           "contributors": [
             {
               "person": {
-                "id": 367.0,
+                "id": 367,
                 "name": "Ranta, Lasse",
                 "alt_name": "Lasse Ranta"
               },
@@ -944,7 +944,7 @@
         {
           "authors": [
             {
-              "id": 1862.0,
+              "id": 1862,
               "name": "Kallio, Seppo",
               "alt_name": "Seppo Kallio",
               "fullname": "",
@@ -955,7 +955,7 @@
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 2.0,
+              "workcount": 2,
               "storycount": 24,
               "roles": [
                 "Kirjoittaja",
@@ -1207,7 +1207,7 @@
           "contributors": [
             {
               "person": {
-                "id": 1862.0,
+                "id": 1862,
                 "name": "Kallio, Seppo",
                 "alt_name": "Seppo Kallio"
               },
@@ -1232,18 +1232,18 @@
         {
           "authors": [
             {
-              "id": 367.0,
+              "id": 367,
               "name": "Ranta, Lasse",
               "alt_name": "Lasse Ranta",
               "fullname": "",
               "image_src": null,
-              "dob": 1986.0,
+              "dob": 1986,
               "dod": null,
               "nationality": {
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 2.0,
+              "workcount": 2,
               "storycount": 12,
               "roles": [
                 "Kirjoittaja"
@@ -1492,7 +1492,7 @@
           "contributors": [
             {
               "person": {
-                "id": 367.0,
+                "id": 367,
                 "name": "Ranta, Lasse",
                 "alt_name": "Lasse Ranta"
               },
@@ -1505,7 +1505,7 @@
             },
             {
               "person": {
-                "id": 7322.0,
+                "id": 7322,
                 "name": "Mélies, Georges",
                 "alt_name": "Georges Mélies"
               },
@@ -1530,18 +1530,18 @@
         {
           "authors": [
             {
-              "id": 2613.0,
+              "id": 2613,
               "name": "Ahonen, Marko",
               "alt_name": "Marko Ahonen",
               "fullname": "",
               "image_src": null,
-              "dob": 1967.0,
+              "dob": 1967,
               "dod": null,
               "nationality": {
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 2.0,
+              "workcount": 2,
               "storycount": 48,
               "roles": [
                 "Kirjoittaja",
@@ -1792,7 +1792,7 @@
           "contributors": [
             {
               "person": {
-                "id": 2613.0,
+                "id": 2613,
                 "name": "Ahonen, Marko",
                 "alt_name": "Marko Ahonen"
               },
@@ -1817,18 +1817,18 @@
         {
           "authors": [
             {
-              "id": 367.0,
+              "id": 367,
               "name": "Ranta, Lasse",
               "alt_name": "Lasse Ranta",
               "fullname": "",
               "image_src": null,
-              "dob": 1986.0,
+              "dob": 1986,
               "dod": null,
               "nationality": {
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 2.0,
+              "workcount": 2,
               "storycount": 12,
               "roles": [
                 "Kirjoittaja"
@@ -2077,7 +2077,7 @@
           "contributors": [
             {
               "person": {
-                "id": 4826.0,
+                "id": 4826,
                 "name": "Wang, Regina Kanyu",
                 "alt_name": "Regina Kanyu Wang"
               },
@@ -2090,7 +2090,7 @@
             },
             {
               "person": {
-                "id": 367.0,
+                "id": 367,
                 "name": "Ranta, Lasse",
                 "alt_name": "Lasse Ranta"
               },
@@ -2115,7 +2115,7 @@
         {
           "authors": [
             {
-              "id": 3660.0,
+              "id": 3660,
               "name": "Arkko, Edith",
               "alt_name": "Edith Arkko",
               "fullname": "",
@@ -2126,7 +2126,7 @@
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 1.0,
+              "workcount": 1,
               "storycount": 21,
               "roles": [
                 "Kirjoittaja",
@@ -2376,7 +2376,7 @@
           "contributors": [
             {
               "person": {
-                "id": 3660.0,
+                "id": 3660,
                 "name": "Arkko, Edith",
                 "alt_name": "Edith Arkko"
               },
@@ -2401,18 +2401,18 @@
         {
           "authors": [
             {
-              "id": 1988.0,
+              "id": 1988,
               "name": "Hirsjärvi, Irma",
               "alt_name": "Irma Hirsjärvi",
               "fullname": "Irma Maria Hirsjärvi",
               "image_src": null,
-              "dob": 1960.0,
+              "dob": 1960,
               "dod": null,
               "nationality": {
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 7.0,
+              "workcount": 7,
               "storycount": 86,
               "roles": [
                 "Kirjoittaja",
@@ -2665,7 +2665,7 @@
           "contributors": [
             {
               "person": {
-                "id": 1988.0,
+                "id": 1988,
                 "name": "Hirsjärvi, Irma",
                 "alt_name": "Irma Hirsjärvi"
               },
@@ -2690,7 +2690,7 @@
         {
           "authors": [
             {
-              "id": 1862.0,
+              "id": 1862,
               "name": "Kallio, Seppo",
               "alt_name": "Seppo Kallio",
               "fullname": "",
@@ -2701,7 +2701,7 @@
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 2.0,
+              "workcount": 2,
               "storycount": 24,
               "roles": [
                 "Kirjoittaja",
@@ -2953,7 +2953,7 @@
           "contributors": [
             {
               "person": {
-                "id": 1862.0,
+                "id": 1862,
                 "name": "Kallio, Seppo",
                 "alt_name": "Seppo Kallio"
               },
@@ -2978,18 +2978,18 @@
         {
           "authors": [
             {
-              "id": 2203.0,
+              "id": 2203,
               "name": "Kantola, Camilla",
               "alt_name": "Camilla Kantola",
               "fullname": "",
               "image_src": null,
-              "dob": 1980.0,
+              "dob": 1980,
               "dod": null,
               "nationality": {
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 3.0,
+              "workcount": 3,
               "storycount": 18,
               "roles": [
                 "Kirjoittaja",
@@ -3239,7 +3239,7 @@
           "contributors": [
             {
               "person": {
-                "id": 2203.0,
+                "id": 2203,
                 "name": "Kantola, Camilla",
                 "alt_name": "Camilla Kantola"
               },
@@ -3264,7 +3264,7 @@
         {
           "authors": [
             {
-              "id": 3982.0,
+              "id": 3982,
               "name": "Koski, Pasti",
               "alt_name": "Pasti Koski",
               "fullname": "",
@@ -3275,7 +3275,7 @@
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 0.0,
+              "workcount": 0,
               "storycount": 3,
               "roles": [
                 "Kirjoittaja"
@@ -3524,7 +3524,7 @@
           "contributors": [
             {
               "person": {
-                "id": 3982.0,
+                "id": 3982,
                 "name": "Koski, Pasti",
                 "alt_name": "Pasti Koski"
               },
@@ -3549,7 +3549,7 @@
         {
           "authors": [
             {
-              "id": 3982.0,
+              "id": 3982,
               "name": "Koski, Pasti",
               "alt_name": "Pasti Koski",
               "fullname": "",
@@ -3560,7 +3560,7 @@
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 0.0,
+              "workcount": 0,
               "storycount": 3,
               "roles": [
                 "Kirjoittaja"
@@ -3809,7 +3809,7 @@
           "contributors": [
             {
               "person": {
-                "id": 3982.0,
+                "id": 3982,
                 "name": "Koski, Pasti",
                 "alt_name": "Pasti Koski"
               },
@@ -3834,7 +3834,7 @@
         {
           "authors": [
             {
-              "id": 3982.0,
+              "id": 3982,
               "name": "Koski, Pasti",
               "alt_name": "Pasti Koski",
               "fullname": "",
@@ -3845,7 +3845,7 @@
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 0.0,
+              "workcount": 0,
               "storycount": 3,
               "roles": [
                 "Kirjoittaja"
@@ -4094,7 +4094,7 @@
           "contributors": [
             {
               "person": {
-                "id": 3982.0,
+                "id": 3982,
                 "name": "Koski, Pasti",
                 "alt_name": "Pasti Koski"
               },
@@ -4119,7 +4119,7 @@
         {
           "authors": [
             {
-              "id": 3983.0,
+              "id": 3983,
               "name": "Kurki, Joanna",
               "alt_name": "Joanna Kurki",
               "fullname": "",
@@ -4130,7 +4130,7 @@
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 0.0,
+              "workcount": 0,
               "storycount": 2,
               "roles": [
                 "Kirjoittaja"
@@ -4379,7 +4379,7 @@
           "contributors": [
             {
               "person": {
-                "id": 3983.0,
+                "id": 3983,
                 "name": "Kurki, Joanna",
                 "alt_name": "Joanna Kurki"
               },
@@ -4404,18 +4404,18 @@
         {
           "authors": [
             {
-              "id": 367.0,
+              "id": 367,
               "name": "Ranta, Lasse",
               "alt_name": "Lasse Ranta",
               "fullname": "",
               "image_src": null,
-              "dob": 1986.0,
+              "dob": 1986,
               "dod": null,
               "nationality": {
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 2.0,
+              "workcount": 2,
               "storycount": 12,
               "roles": [
                 "Kirjoittaja"
@@ -4664,7 +4664,7 @@
           "contributors": [
             {
               "person": {
-                "id": 367.0,
+                "id": 367,
                 "name": "Ranta, Lasse",
                 "alt_name": "Lasse Ranta"
               },
@@ -4892,7 +4892,7 @@
       "contributors": [
         {
           "person": {
-            "id": 367.0,
+            "id": 367,
             "name": "Ranta, Lasse",
             "alt_name": "Lasse Ranta"
           },
@@ -4904,7 +4904,7 @@
         },
         {
           "person": {
-            "id": 1988.0,
+            "id": 1988,
             "name": "Hirsjärvi, Irma",
             "alt_name": "Irma Hirsjärvi"
           },

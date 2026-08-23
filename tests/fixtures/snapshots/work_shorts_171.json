@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-07-12T18:56:26.276996+00:00",
+    "generated_at": "2026-08-23T17:54:16.984799+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/works/shorts/171",
@@ -13,18 +13,18 @@
       {
         "authors": [
           {
-            "id": 1321.0,
+            "id": 1321,
             "name": "Mäki, Harri István",
             "alt_name": "Harri István Mäki",
             "fullname": "",
             "image_src": null,
-            "dob": 1968.0,
+            "dob": 1968,
             "dod": null,
             "nationality": {
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 17.0,
+            "workcount": 17,
             "storycount": 16,
             "roles": [
               "Kirjoittaja"
@@ -47,14 +47,14 @@
         "editions": [
           {
             "work": {
-              "id": 171.0,
+              "id": 171,
               "title": "Välitiloja",
               "orig_title": "Välitiloja",
               "author_str": "Väisänen, Helena (toim.)",
               "contributions": [
                 {
                   "person": {
-                    "id": 128.0,
+                    "id": 128,
                     "name": "Väisänen, Helena",
                     "alt_name": "Helena Väisänen"
                   },
@@ -70,38 +70,16 @@
                 {
                   "editors": [
                     {
-                      "id": 128.0,
+                      "id": 128,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen",
-                      "fullname": "",
-                      "image_src": null,
-                      "dob": 1959.0,
-                      "dod": null,
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 1.0,
-                      "storycount": 1,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja"
-                      ],
-                      "other_names": null,
-                      "first_name": "Helena",
-                      "last_name": "Väisänen",
-                      "image_attr": "",
-                      "qid": null,
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": null
+                      "alt_name": "Helena Väisänen"
                     }
                   ],
                   "translators": [],
                   "contributions": [
                     {
                       "person": {
-                        "id": 128.0,
+                        "id": 128,
                         "name": "Väisänen, Helena",
                         "alt_name": "Helena Väisänen"
                       },
@@ -163,30 +141,30 @@
                 "id": 7,
                 "name": "suomi"
               },
-              "type": 2.0,
+              "type": 2,
               "subtitle": "",
               "pubyear": 2020,
               "bookseriesnum": "",
               "bookseriesorder": 0,
               "misc": "",
-              "description": null,
-              "descr_attr": null,
+              "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
+              "descr_attr": "Takakansi",
               "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
             },
             "editors": [
               {
-                "id": 128.0,
+                "id": 128,
                 "name": "Väisänen, Helena",
                 "alt_name": "Helena Väisänen",
                 "fullname": "",
                 "image_src": null,
-                "dob": 1959.0,
+                "dob": 1959,
                 "dod": null,
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
                 },
-                "workcount": 1.0,
+                "workcount": 1,
                 "storycount": 1,
                 "roles": [
                   "Kirjoittaja",
@@ -205,7 +183,7 @@
             "contributions": [
               {
                 "person": {
-                  "id": 128.0,
+                  "id": 128,
                   "name": "Väisänen, Helena",
                   "alt_name": "Helena Väisänen"
                 },
@@ -254,14 +232,14 @@
           },
           {
             "work": {
-              "id": 5506.0,
+              "id": 5506,
               "title": "Enkeli tupakkasalongissa ja muita novelleja",
               "orig_title": "Enkeli tupakkasalongissa ja muita novelleja",
               "author_str": "Mäki, Harri István",
               "contributions": [
                 {
                   "person": {
-                    "id": 1321.0,
+                    "id": 1321,
                     "name": "Mäki, Harri István",
                     "alt_name": "Harri István Mäki"
                   },
@@ -328,7 +306,7 @@
                 "id": 7,
                 "name": "suomi"
               },
-              "type": 1.0,
+              "type": 1,
               "subtitle": "",
               "pubyear": 2020,
               "bookseriesnum": "",
@@ -380,7 +358,7 @@
         "contributors": [
           {
             "person": {
-              "id": 1321.0,
+              "id": 1321,
               "name": "Mäki, Harri István",
               "alt_name": "Harri István Mäki"
             },
@@ -405,18 +383,18 @@
       {
         "authors": [
           {
-            "id": 128.0,
+            "id": 128,
             "name": "Väisänen, Helena",
             "alt_name": "Helena Väisänen",
             "fullname": "",
             "image_src": null,
-            "dob": 1959.0,
+            "dob": 1959,
             "dod": null,
             "nationality": {
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 1.0,
+            "workcount": 1,
             "storycount": 1,
             "roles": [
               "Kirjoittaja",
@@ -440,14 +418,14 @@
         "editions": [
           {
             "work": {
-              "id": 171.0,
+              "id": 171,
               "title": "Välitiloja",
               "orig_title": "Välitiloja",
               "author_str": "Väisänen, Helena (toim.)",
               "contributions": [
                 {
                   "person": {
-                    "id": 128.0,
+                    "id": 128,
                     "name": "Väisänen, Helena",
                     "alt_name": "Helena Väisänen"
                   },
@@ -463,38 +441,16 @@
                 {
                   "editors": [
                     {
-                      "id": 128.0,
+                      "id": 128,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen",
-                      "fullname": "",
-                      "image_src": null,
-                      "dob": 1959.0,
-                      "dod": null,
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 1.0,
-                      "storycount": 1,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja"
-                      ],
-                      "other_names": null,
-                      "first_name": "Helena",
-                      "last_name": "Väisänen",
-                      "image_attr": "",
-                      "qid": null,
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": null
+                      "alt_name": "Helena Väisänen"
                     }
                   ],
                   "translators": [],
                   "contributions": [
                     {
                       "person": {
-                        "id": 128.0,
+                        "id": 128,
                         "name": "Väisänen, Helena",
                         "alt_name": "Helena Väisänen"
                       },
@@ -556,30 +512,30 @@
                 "id": 7,
                 "name": "suomi"
               },
-              "type": 2.0,
+              "type": 2,
               "subtitle": "",
               "pubyear": 2020,
               "bookseriesnum": "",
               "bookseriesorder": 0,
               "misc": "",
-              "description": null,
-              "descr_attr": null,
+              "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
+              "descr_attr": "Takakansi",
               "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
             },
             "editors": [
               {
-                "id": 128.0,
+                "id": 128,
                 "name": "Väisänen, Helena",
                 "alt_name": "Helena Väisänen",
                 "fullname": "",
                 "image_src": null,
-                "dob": 1959.0,
+                "dob": 1959,
                 "dod": null,
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
                 },
-                "workcount": 1.0,
+                "workcount": 1,
                 "storycount": 1,
                 "roles": [
                   "Kirjoittaja",
@@ -598,7 +554,7 @@
             "contributions": [
               {
                 "person": {
-                  "id": 128.0,
+                  "id": 128,
                   "name": "Väisänen, Helena",
                   "alt_name": "Helena Väisänen"
                 },
@@ -650,7 +606,7 @@
         "contributors": [
           {
             "person": {
-              "id": 128.0,
+              "id": 128,
               "name": "Väisänen, Helena",
               "alt_name": "Helena Väisänen"
             },
@@ -675,18 +631,18 @@
       {
         "authors": [
           {
-            "id": 1938.0,
+            "id": 1938,
             "name": "Matilainen, Jussi",
             "alt_name": "Jussi Matilainen",
             "fullname": "",
             "image_src": null,
-            "dob": 1963.0,
+            "dob": 1963,
             "dod": null,
             "nationality": {
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 3.0,
+            "workcount": 3,
             "storycount": 1,
             "roles": [
               "Kirjoittaja"
@@ -709,14 +665,14 @@
         "editions": [
           {
             "work": {
-              "id": 171.0,
+              "id": 171,
               "title": "Välitiloja",
               "orig_title": "Välitiloja",
               "author_str": "Väisänen, Helena (toim.)",
               "contributions": [
                 {
                   "person": {
-                    "id": 128.0,
+                    "id": 128,
                     "name": "Väisänen, Helena",
                     "alt_name": "Helena Väisänen"
                   },
@@ -732,38 +688,16 @@
                 {
                   "editors": [
                     {
-                      "id": 128.0,
+                      "id": 128,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen",
-                      "fullname": "",
-                      "image_src": null,
-                      "dob": 1959.0,
-                      "dod": null,
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 1.0,
-                      "storycount": 1,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja"
-                      ],
-                      "other_names": null,
-                      "first_name": "Helena",
-                      "last_name": "Väisänen",
-                      "image_attr": "",
-                      "qid": null,
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": null
+                      "alt_name": "Helena Väisänen"
                     }
                   ],
                   "translators": [],
                   "contributions": [
                     {
                       "person": {
-                        "id": 128.0,
+                        "id": 128,
                         "name": "Väisänen, Helena",
                         "alt_name": "Helena Väisänen"
                       },
@@ -825,30 +759,30 @@
                 "id": 7,
                 "name": "suomi"
               },
-              "type": 2.0,
+              "type": 2,
               "subtitle": "",
               "pubyear": 2020,
               "bookseriesnum": "",
               "bookseriesorder": 0,
               "misc": "",
-              "description": null,
-              "descr_attr": null,
+              "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
+              "descr_attr": "Takakansi",
               "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
             },
             "editors": [
               {
-                "id": 128.0,
+                "id": 128,
                 "name": "Väisänen, Helena",
                 "alt_name": "Helena Väisänen",
                 "fullname": "",
                 "image_src": null,
-                "dob": 1959.0,
+                "dob": 1959,
                 "dod": null,
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
                 },
-                "workcount": 1.0,
+                "workcount": 1,
                 "storycount": 1,
                 "roles": [
                   "Kirjoittaja",
@@ -867,7 +801,7 @@
             "contributions": [
               {
                 "person": {
-                  "id": 128.0,
+                  "id": 128,
                   "name": "Väisänen, Helena",
                   "alt_name": "Helena Väisänen"
                 },
@@ -919,7 +853,7 @@
         "contributors": [
           {
             "person": {
-              "id": 1938.0,
+              "id": 1938,
               "name": "Matilainen, Jussi",
               "alt_name": "Jussi Matilainen"
             },
@@ -944,18 +878,18 @@
       {
         "authors": [
           {
-            "id": 3707.0,
+            "id": 3707,
             "name": "Korkatti, Reija",
             "alt_name": "Reija Korkatti",
             "fullname": "",
             "image_src": null,
-            "dob": 1987.0,
+            "dob": 1987,
             "dod": null,
             "nationality": {
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 0.0,
+            "workcount": 0,
             "storycount": 1,
             "roles": [
               "Kirjoittaja"
@@ -978,14 +912,14 @@
         "editions": [
           {
             "work": {
-              "id": 171.0,
+              "id": 171,
               "title": "Välitiloja",
               "orig_title": "Välitiloja",
               "author_str": "Väisänen, Helena (toim.)",
               "contributions": [
                 {
                   "person": {
-                    "id": 128.0,
+                    "id": 128,
                     "name": "Väisänen, Helena",
                     "alt_name": "Helena Väisänen"
                   },
@@ -1001,38 +935,16 @@
                 {
                   "editors": [
                     {
-                      "id": 128.0,
+                      "id": 128,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen",
-                      "fullname": "",
-                      "image_src": null,
-                      "dob": 1959.0,
-                      "dod": null,
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 1.0,
-                      "storycount": 1,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja"
-                      ],
-                      "other_names": null,
-                      "first_name": "Helena",
-                      "last_name": "Väisänen",
-                      "image_attr": "",
-                      "qid": null,
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": null
+                      "alt_name": "Helena Väisänen"
                     }
                   ],
                   "translators": [],
                   "contributions": [
                     {
                       "person": {
-                        "id": 128.0,
+                        "id": 128,
                         "name": "Väisänen, Helena",
                         "alt_name": "Helena Väisänen"
                       },
@@ -1094,30 +1006,30 @@
                 "id": 7,
                 "name": "suomi"
               },
-              "type": 2.0,
+              "type": 2,
               "subtitle": "",
               "pubyear": 2020,
               "bookseriesnum": "",
               "bookseriesorder": 0,
               "misc": "",
-              "description": null,
-              "descr_attr": null,
+              "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
+              "descr_attr": "Takakansi",
               "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
             },
             "editors": [
               {
-                "id": 128.0,
+                "id": 128,
                 "name": "Väisänen, Helena",
                 "alt_name": "Helena Väisänen",
                 "fullname": "",
                 "image_src": null,
-                "dob": 1959.0,
+                "dob": 1959,
                 "dod": null,
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
                 },
-                "workcount": 1.0,
+                "workcount": 1,
                 "storycount": 1,
                 "roles": [
                   "Kirjoittaja",
@@ -1136,7 +1048,7 @@
             "contributions": [
               {
                 "person": {
-                  "id": 128.0,
+                  "id": 128,
                   "name": "Väisänen, Helena",
                   "alt_name": "Helena Väisänen"
                 },
@@ -1188,7 +1100,7 @@
         "contributors": [
           {
             "person": {
-              "id": 3707.0,
+              "id": 3707,
               "name": "Korkatti, Reija",
               "alt_name": "Reija Korkatti"
             },
@@ -1213,18 +1125,18 @@
       {
         "authors": [
           {
-            "id": 3659.0,
+            "id": 3659,
             "name": "Airik, Enna",
             "alt_name": "Enna Airik",
             "fullname": "",
             "image_src": null,
-            "dob": 1980.0,
+            "dob": 1980,
             "dod": null,
             "nationality": {
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 0.0,
+            "workcount": 0,
             "storycount": 1,
             "roles": [
               "Kirjoittaja"
@@ -1247,14 +1159,14 @@
         "editions": [
           {
             "work": {
-              "id": 171.0,
+              "id": 171,
               "title": "Välitiloja",
               "orig_title": "Välitiloja",
               "author_str": "Väisänen, Helena (toim.)",
               "contributions": [
                 {
                   "person": {
-                    "id": 128.0,
+                    "id": 128,
                     "name": "Väisänen, Helena",
                     "alt_name": "Helena Väisänen"
                   },
@@ -1270,38 +1182,16 @@
                 {
                   "editors": [
                     {
-                      "id": 128.0,
+                      "id": 128,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen",
-                      "fullname": "",
-                      "image_src": null,
-                      "dob": 1959.0,
-                      "dod": null,
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 1.0,
-                      "storycount": 1,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja"
-                      ],
-                      "other_names": null,
-                      "first_name": "Helena",
-                      "last_name": "Väisänen",
-                      "image_attr": "",
-                      "qid": null,
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": null
+                      "alt_name": "Helena Väisänen"
                     }
                   ],
                   "translators": [],
                   "contributions": [
                     {
                       "person": {
-                        "id": 128.0,
+                        "id": 128,
                         "name": "Väisänen, Helena",
                         "alt_name": "Helena Väisänen"
                       },
@@ -1363,30 +1253,30 @@
                 "id": 7,
                 "name": "suomi"
               },
-              "type": 2.0,
+              "type": 2,
               "subtitle": "",
               "pubyear": 2020,
               "bookseriesnum": "",
               "bookseriesorder": 0,
               "misc": "",
-              "description": null,
-              "descr_attr": null,
+              "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
+              "descr_attr": "Takakansi",
               "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
             },
             "editors": [
               {
-                "id": 128.0,
+                "id": 128,
                 "name": "Väisänen, Helena",
                 "alt_name": "Helena Väisänen",
                 "fullname": "",
                 "image_src": null,
-                "dob": 1959.0,
+                "dob": 1959,
                 "dod": null,
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
                 },
-                "workcount": 1.0,
+                "workcount": 1,
                 "storycount": 1,
                 "roles": [
                   "Kirjoittaja",
@@ -1405,7 +1295,7 @@
             "contributions": [
               {
                 "person": {
-                  "id": 128.0,
+                  "id": 128,
                   "name": "Väisänen, Helena",
                   "alt_name": "Helena Väisänen"
                 },
@@ -1457,7 +1347,7 @@
         "contributors": [
           {
             "person": {
-              "id": 3659.0,
+              "id": 3659,
               "name": "Airik, Enna",
               "alt_name": "Enna Airik"
             },
@@ -1482,18 +1372,18 @@
       {
         "authors": [
           {
-            "id": 3694.0,
+            "id": 3694,
             "name": "Karpio, Markku",
             "alt_name": "Markku Karpio",
             "fullname": "",
             "image_src": null,
-            "dob": 1961.0,
+            "dob": 1961,
             "dod": null,
             "nationality": {
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 0.0,
+            "workcount": 0,
             "storycount": 1,
             "roles": [
               "Kirjoittaja"
@@ -1516,14 +1406,14 @@
         "editions": [
           {
             "work": {
-              "id": 171.0,
+              "id": 171,
               "title": "Välitiloja",
               "orig_title": "Välitiloja",
               "author_str": "Väisänen, Helena (toim.)",
               "contributions": [
                 {
                   "person": {
-                    "id": 128.0,
+                    "id": 128,
                     "name": "Väisänen, Helena",
                     "alt_name": "Helena Väisänen"
                   },
@@ -1539,38 +1429,16 @@
                 {
                   "editors": [
                     {
-                      "id": 128.0,
+                      "id": 128,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen",
-                      "fullname": "",
-                      "image_src": null,
-                      "dob": 1959.0,
-                      "dod": null,
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 1.0,
-                      "storycount": 1,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja"
-                      ],
-                      "other_names": null,
-                      "first_name": "Helena",
-                      "last_name": "Väisänen",
-                      "image_attr": "",
-                      "qid": null,
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": null
+                      "alt_name": "Helena Väisänen"
                     }
                   ],
                   "translators": [],
                   "contributions": [
                     {
                       "person": {
-                        "id": 128.0,
+                        "id": 128,
                         "name": "Väisänen, Helena",
                         "alt_name": "Helena Väisänen"
                       },
@@ -1632,30 +1500,30 @@
                 "id": 7,
                 "name": "suomi"
               },
-              "type": 2.0,
+              "type": 2,
               "subtitle": "",
               "pubyear": 2020,
               "bookseriesnum": "",
               "bookseriesorder": 0,
               "misc": "",
-              "description": null,
-              "descr_attr": null,
+              "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
+              "descr_attr": "Takakansi",
               "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
             },
             "editors": [
               {
-                "id": 128.0,
+                "id": 128,
                 "name": "Väisänen, Helena",
                 "alt_name": "Helena Väisänen",
                 "fullname": "",
                 "image_src": null,
-                "dob": 1959.0,
+                "dob": 1959,
                 "dod": null,
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
                 },
-                "workcount": 1.0,
+                "workcount": 1,
                 "storycount": 1,
                 "roles": [
                   "Kirjoittaja",
@@ -1674,7 +1542,7 @@
             "contributions": [
               {
                 "person": {
-                  "id": 128.0,
+                  "id": 128,
                   "name": "Väisänen, Helena",
                   "alt_name": "Helena Väisänen"
                 },
@@ -1726,7 +1594,7 @@
         "contributors": [
           {
             "person": {
-              "id": 3694.0,
+              "id": 3694,
               "name": "Karpio, Markku",
               "alt_name": "Markku Karpio"
             },
@@ -1751,18 +1619,18 @@
       {
         "authors": [
           {
-            "id": 3754.0,
+            "id": 3754,
             "name": "Palviainen, Jukka-Pekka",
             "alt_name": "Jukka-Pekka Palviainen",
             "fullname": "",
             "image_src": null,
-            "dob": 1967.0,
+            "dob": 1967,
             "dod": null,
             "nationality": {
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 0.0,
+            "workcount": 0,
             "storycount": 1,
             "roles": [
               "Kirjoittaja"
@@ -1785,14 +1653,14 @@
         "editions": [
           {
             "work": {
-              "id": 171.0,
+              "id": 171,
               "title": "Välitiloja",
               "orig_title": "Välitiloja",
               "author_str": "Väisänen, Helena (toim.)",
               "contributions": [
                 {
                   "person": {
-                    "id": 128.0,
+                    "id": 128,
                     "name": "Väisänen, Helena",
                     "alt_name": "Helena Väisänen"
                   },
@@ -1808,38 +1676,16 @@
                 {
                   "editors": [
                     {
-                      "id": 128.0,
+                      "id": 128,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen",
-                      "fullname": "",
-                      "image_src": null,
-                      "dob": 1959.0,
-                      "dod": null,
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 1.0,
-                      "storycount": 1,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja"
-                      ],
-                      "other_names": null,
-                      "first_name": "Helena",
-                      "last_name": "Väisänen",
-                      "image_attr": "",
-                      "qid": null,
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": null
+                      "alt_name": "Helena Väisänen"
                     }
                   ],
                   "translators": [],
                   "contributions": [
                     {
                       "person": {
-                        "id": 128.0,
+                        "id": 128,
                         "name": "Väisänen, Helena",
                         "alt_name": "Helena Väisänen"
                       },
@@ -1901,30 +1747,30 @@
                 "id": 7,
                 "name": "suomi"
               },
-              "type": 2.0,
+              "type": 2,
               "subtitle": "",
               "pubyear": 2020,
               "bookseriesnum": "",
               "bookseriesorder": 0,
               "misc": "",
-              "description": null,
-              "descr_attr": null,
+              "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
+              "descr_attr": "Takakansi",
               "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
             },
             "editors": [
               {
-                "id": 128.0,
+                "id": 128,
                 "name": "Väisänen, Helena",
                 "alt_name": "Helena Väisänen",
                 "fullname": "",
                 "image_src": null,
-                "dob": 1959.0,
+                "dob": 1959,
                 "dod": null,
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
                 },
-                "workcount": 1.0,
+                "workcount": 1,
                 "storycount": 1,
                 "roles": [
                   "Kirjoittaja",
@@ -1943,7 +1789,7 @@
             "contributions": [
               {
                 "person": {
-                  "id": 128.0,
+                  "id": 128,
                   "name": "Väisänen, Helena",
                   "alt_name": "Helena Väisänen"
                 },
@@ -1995,7 +1841,7 @@
         "contributors": [
           {
             "person": {
-              "id": 3754.0,
+              "id": 3754,
               "name": "Palviainen, Jukka-Pekka",
               "alt_name": "Jukka-Pekka Palviainen"
             },
@@ -2020,18 +1866,18 @@
       {
         "authors": [
           {
-            "id": 3799.0,
+            "id": 3799,
             "name": "Vaarnamo, Ulla",
             "alt_name": "Ulla Vaarnamo",
             "fullname": "",
             "image_src": null,
-            "dob": 1951.0,
+            "dob": 1951,
             "dod": null,
             "nationality": {
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 0.0,
+            "workcount": 0,
             "storycount": 2,
             "roles": [
               "Kirjoittaja"
@@ -2054,14 +1900,14 @@
         "editions": [
           {
             "work": {
-              "id": 171.0,
+              "id": 171,
               "title": "Välitiloja",
               "orig_title": "Välitiloja",
               "author_str": "Väisänen, Helena (toim.)",
               "contributions": [
                 {
                   "person": {
-                    "id": 128.0,
+                    "id": 128,
                     "name": "Väisänen, Helena",
                     "alt_name": "Helena Väisänen"
                   },
@@ -2077,38 +1923,16 @@
                 {
                   "editors": [
                     {
-                      "id": 128.0,
+                      "id": 128,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen",
-                      "fullname": "",
-                      "image_src": null,
-                      "dob": 1959.0,
-                      "dod": null,
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 1.0,
-                      "storycount": 1,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja"
-                      ],
-                      "other_names": null,
-                      "first_name": "Helena",
-                      "last_name": "Väisänen",
-                      "image_attr": "",
-                      "qid": null,
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": null
+                      "alt_name": "Helena Väisänen"
                     }
                   ],
                   "translators": [],
                   "contributions": [
                     {
                       "person": {
-                        "id": 128.0,
+                        "id": 128,
                         "name": "Väisänen, Helena",
                         "alt_name": "Helena Väisänen"
                       },
@@ -2170,30 +1994,30 @@
                 "id": 7,
                 "name": "suomi"
               },
-              "type": 2.0,
+              "type": 2,
               "subtitle": "",
               "pubyear": 2020,
               "bookseriesnum": "",
               "bookseriesorder": 0,
               "misc": "",
-              "description": null,
-              "descr_attr": null,
+              "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
+              "descr_attr": "Takakansi",
               "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
             },
             "editors": [
               {
-                "id": 128.0,
+                "id": 128,
                 "name": "Väisänen, Helena",
                 "alt_name": "Helena Väisänen",
                 "fullname": "",
                 "image_src": null,
-                "dob": 1959.0,
+                "dob": 1959,
                 "dod": null,
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
                 },
-                "workcount": 1.0,
+                "workcount": 1,
                 "storycount": 1,
                 "roles": [
                   "Kirjoittaja",
@@ -2212,7 +2036,7 @@
             "contributions": [
               {
                 "person": {
-                  "id": 128.0,
+                  "id": 128,
                   "name": "Väisänen, Helena",
                   "alt_name": "Helena Väisänen"
                 },
@@ -2264,7 +2088,7 @@
         "contributors": [
           {
             "person": {
-              "id": 3799.0,
+              "id": 3799,
               "name": "Vaarnamo, Ulla",
               "alt_name": "Ulla Vaarnamo"
             },
@@ -2289,18 +2113,18 @@
       {
         "authors": [
           {
-            "id": 2240.0,
+            "id": 2240,
             "name": "Katajala, Jussi",
             "alt_name": "Jussi Katajala",
             "fullname": "",
             "image_src": null,
-            "dob": 1974.0,
+            "dob": 1974,
             "dod": null,
             "nationality": {
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 6.0,
+            "workcount": 6,
             "storycount": 117,
             "roles": [
               "Kirjoittaja",
@@ -2326,14 +2150,14 @@
         "editions": [
           {
             "work": {
-              "id": 171.0,
+              "id": 171,
               "title": "Välitiloja",
               "orig_title": "Välitiloja",
               "author_str": "Väisänen, Helena (toim.)",
               "contributions": [
                 {
                   "person": {
-                    "id": 128.0,
+                    "id": 128,
                     "name": "Väisänen, Helena",
                     "alt_name": "Helena Väisänen"
                   },
@@ -2349,38 +2173,16 @@
                 {
                   "editors": [
                     {
-                      "id": 128.0,
+                      "id": 128,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen",
-                      "fullname": "",
-                      "image_src": null,
-                      "dob": 1959.0,
-                      "dod": null,
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 1.0,
-                      "storycount": 1,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja"
-                      ],
-                      "other_names": null,
-                      "first_name": "Helena",
-                      "last_name": "Väisänen",
-                      "image_attr": "",
-                      "qid": null,
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": null
+                      "alt_name": "Helena Väisänen"
                     }
                   ],
                   "translators": [],
                   "contributions": [
                     {
                       "person": {
-                        "id": 128.0,
+                        "id": 128,
                         "name": "Väisänen, Helena",
                         "alt_name": "Helena Väisänen"
                       },
@@ -2442,30 +2244,30 @@
                 "id": 7,
                 "name": "suomi"
               },
-              "type": 2.0,
+              "type": 2,
               "subtitle": "",
               "pubyear": 2020,
               "bookseriesnum": "",
               "bookseriesorder": 0,
               "misc": "",
-              "description": null,
-              "descr_attr": null,
+              "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
+              "descr_attr": "Takakansi",
               "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
             },
             "editors": [
               {
-                "id": 128.0,
+                "id": 128,
                 "name": "Väisänen, Helena",
                 "alt_name": "Helena Väisänen",
                 "fullname": "",
                 "image_src": null,
-                "dob": 1959.0,
+                "dob": 1959,
                 "dod": null,
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
                 },
-                "workcount": 1.0,
+                "workcount": 1,
                 "storycount": 1,
                 "roles": [
                   "Kirjoittaja",
@@ -2484,7 +2286,7 @@
             "contributions": [
               {
                 "person": {
-                  "id": 128.0,
+                  "id": 128,
                   "name": "Väisänen, Helena",
                   "alt_name": "Helena Väisänen"
                 },
@@ -2536,7 +2338,7 @@
         "contributors": [
           {
             "person": {
-              "id": 2240.0,
+              "id": 2240,
               "name": "Katajala, Jussi",
               "alt_name": "Jussi Katajala"
             },
@@ -2561,18 +2363,18 @@
       {
         "authors": [
           {
-            "id": 3774.0,
+            "id": 3774,
             "name": "Romppainen, Katariina",
             "alt_name": "Katariina Romppainen",
             "fullname": "",
             "image_src": null,
-            "dob": 1964.0,
+            "dob": 1964,
             "dod": null,
             "nationality": {
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 0.0,
+            "workcount": 0,
             "storycount": 1,
             "roles": [
               "Kirjoittaja"
@@ -2595,14 +2397,14 @@
         "editions": [
           {
             "work": {
-              "id": 171.0,
+              "id": 171,
               "title": "Välitiloja",
               "orig_title": "Välitiloja",
               "author_str": "Väisänen, Helena (toim.)",
               "contributions": [
                 {
                   "person": {
-                    "id": 128.0,
+                    "id": 128,
                     "name": "Väisänen, Helena",
                     "alt_name": "Helena Väisänen"
                   },
@@ -2618,38 +2420,16 @@
                 {
                   "editors": [
                     {
-                      "id": 128.0,
+                      "id": 128,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen",
-                      "fullname": "",
-                      "image_src": null,
-                      "dob": 1959.0,
-                      "dod": null,
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 1.0,
-                      "storycount": 1,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja"
-                      ],
-                      "other_names": null,
-                      "first_name": "Helena",
-                      "last_name": "Väisänen",
-                      "image_attr": "",
-                      "qid": null,
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": null
+                      "alt_name": "Helena Väisänen"
                     }
                   ],
                   "translators": [],
                   "contributions": [
                     {
                       "person": {
-                        "id": 128.0,
+                        "id": 128,
                         "name": "Väisänen, Helena",
                         "alt_name": "Helena Väisänen"
                       },
@@ -2711,30 +2491,30 @@
                 "id": 7,
                 "name": "suomi"
               },
-              "type": 2.0,
+              "type": 2,
               "subtitle": "",
               "pubyear": 2020,
               "bookseriesnum": "",
               "bookseriesorder": 0,
               "misc": "",
-              "description": null,
-              "descr_attr": null,
+              "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
+              "descr_attr": "Takakansi",
               "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
             },
             "editors": [
               {
-                "id": 128.0,
+                "id": 128,
                 "name": "Väisänen, Helena",
                 "alt_name": "Helena Väisänen",
                 "fullname": "",
                 "image_src": null,
-                "dob": 1959.0,
+                "dob": 1959,
                 "dod": null,
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
                 },
-                "workcount": 1.0,
+                "workcount": 1,
                 "storycount": 1,
                 "roles": [
                   "Kirjoittaja",
@@ -2753,7 +2533,7 @@
             "contributions": [
               {
                 "person": {
-                  "id": 128.0,
+                  "id": 128,
                   "name": "Väisänen, Helena",
                   "alt_name": "Helena Väisänen"
                 },
@@ -2805,7 +2585,7 @@
         "contributors": [
           {
             "person": {
-              "id": 3774.0,
+              "id": 3774,
               "name": "Romppainen, Katariina",
               "alt_name": "Katariina Romppainen"
             },
@@ -2830,18 +2610,18 @@
       {
         "authors": [
           {
-            "id": 1679.0,
+            "id": 1679,
             "name": "Forsgren, Carita",
             "alt_name": "Carita Forsgren",
             "fullname": "",
             "image_src": null,
-            "dob": 1968.0,
+            "dob": 1968,
             "dod": null,
             "nationality": {
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 3.0,
+            "workcount": 3,
             "storycount": 11,
             "roles": [
               "Kirjoittaja",
@@ -2867,14 +2647,14 @@
         "editions": [
           {
             "work": {
-              "id": 171.0,
+              "id": 171,
               "title": "Välitiloja",
               "orig_title": "Välitiloja",
               "author_str": "Väisänen, Helena (toim.)",
               "contributions": [
                 {
                   "person": {
-                    "id": 128.0,
+                    "id": 128,
                     "name": "Väisänen, Helena",
                     "alt_name": "Helena Väisänen"
                   },
@@ -2890,38 +2670,16 @@
                 {
                   "editors": [
                     {
-                      "id": 128.0,
+                      "id": 128,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen",
-                      "fullname": "",
-                      "image_src": null,
-                      "dob": 1959.0,
-                      "dod": null,
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 1.0,
-                      "storycount": 1,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja"
-                      ],
-                      "other_names": null,
-                      "first_name": "Helena",
-                      "last_name": "Väisänen",
-                      "image_attr": "",
-                      "qid": null,
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": null
+                      "alt_name": "Helena Väisänen"
                     }
                   ],
                   "translators": [],
                   "contributions": [
                     {
                       "person": {
-                        "id": 128.0,
+                        "id": 128,
                         "name": "Väisänen, Helena",
                         "alt_name": "Helena Väisänen"
                       },
@@ -2983,30 +2741,30 @@
                 "id": 7,
                 "name": "suomi"
               },
-              "type": 2.0,
+              "type": 2,
               "subtitle": "",
               "pubyear": 2020,
               "bookseriesnum": "",
               "bookseriesorder": 0,
               "misc": "",
-              "description": null,
-              "descr_attr": null,
+              "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
+              "descr_attr": "Takakansi",
               "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
             },
             "editors": [
               {
-                "id": 128.0,
+                "id": 128,
                 "name": "Väisänen, Helena",
                 "alt_name": "Helena Väisänen",
                 "fullname": "",
                 "image_src": null,
-                "dob": 1959.0,
+                "dob": 1959,
                 "dod": null,
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
                 },
-                "workcount": 1.0,
+                "workcount": 1,
                 "storycount": 1,
                 "roles": [
                   "Kirjoittaja",
@@ -3025,7 +2783,7 @@
             "contributions": [
               {
                 "person": {
-                  "id": 128.0,
+                  "id": 128,
                   "name": "Väisänen, Helena",
                   "alt_name": "Helena Väisänen"
                 },
@@ -3077,7 +2835,7 @@
         "contributors": [
           {
             "person": {
-              "id": 1679.0,
+              "id": 1679,
               "name": "Forsgren, Carita",
               "alt_name": "Carita Forsgren"
             },
@@ -3102,19 +2860,19 @@
       {
         "authors": [
           {
-            "id": 683.0,
+            "id": 683,
             "name": "Seppälä, Jaakko Markus",
             "alt_name": "Jaakko Markus Seppälä",
             "fullname": "",
             "image_src": null,
-            "dob": 1983.0,
+            "dob": 1983,
             "dod": null,
             "nationality": {
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 1.0,
-            "storycount": 10,
+            "workcount": 2,
+            "storycount": 11,
             "roles": [
               "Kirjoittaja",
               "Esiintyy"
@@ -3137,14 +2895,14 @@
         "editions": [
           {
             "work": {
-              "id": 171.0,
+              "id": 171,
               "title": "Välitiloja",
               "orig_title": "Välitiloja",
               "author_str": "Väisänen, Helena (toim.)",
               "contributions": [
                 {
                   "person": {
-                    "id": 128.0,
+                    "id": 128,
                     "name": "Väisänen, Helena",
                     "alt_name": "Helena Väisänen"
                   },
@@ -3160,38 +2918,16 @@
                 {
                   "editors": [
                     {
-                      "id": 128.0,
+                      "id": 128,
                       "name": "Väisänen, Helena",
-                      "alt_name": "Helena Väisänen",
-                      "fullname": "",
-                      "image_src": null,
-                      "dob": 1959.0,
-                      "dod": null,
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 1.0,
-                      "storycount": 1,
-                      "roles": [
-                        "Kirjoittaja",
-                        "Toimittaja"
-                      ],
-                      "other_names": null,
-                      "first_name": "Helena",
-                      "last_name": "Väisänen",
-                      "image_attr": "",
-                      "qid": null,
-                      "bio": null,
-                      "bio_src": "",
-                      "imported_string": null
+                      "alt_name": "Helena Väisänen"
                     }
                   ],
                   "translators": [],
                   "contributions": [
                     {
                       "person": {
-                        "id": 128.0,
+                        "id": 128,
                         "name": "Väisänen, Helena",
                         "alt_name": "Helena Väisänen"
                       },
@@ -3253,30 +2989,30 @@
                 "id": 7,
                 "name": "suomi"
               },
-              "type": 2.0,
+              "type": 2,
               "subtitle": "",
               "pubyear": 2020,
               "bookseriesnum": "",
               "bookseriesorder": 0,
               "misc": "",
-              "description": null,
-              "descr_attr": null,
+              "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
+              "descr_attr": "Takakansi",
               "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
             },
             "editors": [
               {
-                "id": 128.0,
+                "id": 128,
                 "name": "Väisänen, Helena",
                 "alt_name": "Helena Väisänen",
                 "fullname": "",
                 "image_src": null,
-                "dob": 1959.0,
+                "dob": 1959,
                 "dod": null,
                 "nationality": {
                   "id": 4,
                   "name": "Suomi"
                 },
-                "workcount": 1.0,
+                "workcount": 1,
                 "storycount": 1,
                 "roles": [
                   "Kirjoittaja",
@@ -3295,7 +3031,7 @@
             "contributions": [
               {
                 "person": {
-                  "id": 128.0,
+                  "id": 128,
                   "name": "Väisänen, Helena",
                   "alt_name": "Helena Väisänen"
                 },
@@ -3347,7 +3083,7 @@
         "contributors": [
           {
             "person": {
-              "id": 683.0,
+              "id": 683,
               "name": "Seppälä, Jaakko Markus",
               "alt_name": "Jaakko Markus Seppälä"
             },

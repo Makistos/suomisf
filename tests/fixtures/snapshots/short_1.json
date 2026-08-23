@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-07-12T18:56:26.276996+00:00",
+    "generated_at": "2026-08-23T17:54:16.984799+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/shorts/1",
@@ -12,18 +12,18 @@
     "data": {
       "authors": [
         {
-          "id": 2687.0,
+          "id": 2687,
           "name": "Asimov, Isaac",
           "alt_name": "Isaac Asimov",
           "fullname": "",
           "image_src": "http://www.isfdb.org/wiki/images/4/47/Isaac_Asimov_on_Throne.png",
-          "dob": 1920.0,
-          "dod": 1992.0,
+          "dob": 1920,
+          "dod": 1992,
           "nationality": {
             "id": 3,
             "name": "Yhdysvallat"
           },
-          "workcount": 20.0,
+          "workcount": 20,
           "storycount": 26,
           "roles": [
             "Kirjoittaja",
@@ -41,7 +41,7 @@
       ],
       "translators": [
         {
-          "id": 732.0,
+          "id": 732,
           "name": "Kalvas, Reijo",
           "alt_name": "Reijo Kalvas",
           "fullname": "",
@@ -52,7 +52,7 @@
             "id": 4,
             "name": "Suomi"
           },
-          "workcount": 4.0,
+          "workcount": 4,
           "storycount": 46,
           "roles": [
             "Kääntäjä",
@@ -72,14 +72,14 @@
       "issues": [],
       "works": [
         {
-          "id": 3493.0,
+          "id": 3493,
           "title": "Isaac Asimov Science Fiction valikoima 1",
           "orig_title": "Isaac Asimov Science Fiction valikoima 1",
           "author_str": "Kalvas, Reijo (toim.)",
           "contributions": [
             {
               "person": {
-                "id": 732.0,
+                "id": 732,
                 "name": "Kalvas, Reijo",
                 "alt_name": "Reijo Kalvas"
               },
@@ -95,66 +95,22 @@
             {
               "editors": [
                 {
-                  "id": 732.0,
+                  "id": 732,
                   "name": "Kalvas, Reijo",
-                  "alt_name": "Reijo Kalvas",
-                  "fullname": "",
-                  "image_src": null,
-                  "dob": null,
-                  "dod": null,
-                  "nationality": {
-                    "id": 4,
-                    "name": "Suomi"
-                  },
-                  "workcount": 4.0,
-                  "storycount": 46,
-                  "roles": [
-                    "Kääntäjä",
-                    "Toimittaja"
-                  ],
-                  "other_names": null,
-                  "first_name": "Reijo",
-                  "last_name": "Kalvas",
-                  "image_attr": "",
-                  "qid": null,
-                  "bio": null,
-                  "bio_src": "",
-                  "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."
+                  "alt_name": "Reijo Kalvas"
                 }
               ],
               "translators": [
                 {
-                  "id": 732.0,
+                  "id": 732,
                   "name": "Kalvas, Reijo",
-                  "alt_name": "Reijo Kalvas",
-                  "fullname": "",
-                  "image_src": null,
-                  "dob": null,
-                  "dod": null,
-                  "nationality": {
-                    "id": 4,
-                    "name": "Suomi"
-                  },
-                  "workcount": 4.0,
-                  "storycount": 46,
-                  "roles": [
-                    "Kääntäjä",
-                    "Toimittaja"
-                  ],
-                  "other_names": null,
-                  "first_name": "Reijo",
-                  "last_name": "Kalvas",
-                  "image_attr": "",
-                  "qid": null,
-                  "bio": null,
-                  "bio_src": "",
-                  "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."
+                  "alt_name": "Reijo Kalvas"
                 }
               ],
               "contributions": [
                 {
                   "person": {
-                    "id": 732.0,
+                    "id": 732,
                     "name": "Kalvas, Reijo",
                     "alt_name": "Reijo Kalvas"
                   },
@@ -167,7 +123,7 @@
                 },
                 {
                   "person": {
-                    "id": 6090.0,
+                    "id": 6090,
                     "name": "Kröger, Antero",
                     "alt_name": "Antero Kröger"
                   },
@@ -180,7 +136,7 @@
                 },
                 {
                   "person": {
-                    "id": 732.0,
+                    "id": 732,
                     "name": "Kalvas, Reijo",
                     "alt_name": "Reijo Kalvas"
                   },
@@ -205,7 +161,7 @@
               },
               "owners": [
                 {
-                  "id": 2.0,
+                  "id": 2,
                   "name": "mep"
                 }
               ],
@@ -247,28 +203,28 @@
             "id": 1,
             "name": "englanti"
           },
-          "type": 2.0,
+          "type": 2,
           "subtitle": "",
           "pubyear": 1987,
           "bookseriesnum": "",
           "bookseriesorder": null,
-          "misc": "Isaac Asimov's Science Fiction -lehden novelleista koottu tieteislukemisto.",
-          "description": "",
-          "descr_attr": null,
+          "misc": "",
+          "description": "<p>Tieteiskirjallisuuden Grand Old Masterin Isaac Asimovin kuukausittain ilmestyvän nimikkolehden parhaista novelleista koottu valikoima. Mukana ovat Asimovin itsensä lisäksi Walter J. Williams, lan Watson, Gregory Feeley, Pat Murphy ja Julius Shepard, jonka tässä kirjassa julkaistava tarina \"R&R\" voitti vuoden 1986 Nebula-palkinnon pienoisromaanien sarjassa. Kaikki novellit ovat ennen suomentamattomia.</p>",
+          "descr_attr": "Takakansi",
           "imported_string": ""
         }
       ],
       "editions": [
         {
           "work": {
-            "id": 3493.0,
+            "id": 3493,
             "title": "Isaac Asimov Science Fiction valikoima 1",
             "orig_title": "Isaac Asimov Science Fiction valikoima 1",
             "author_str": "Kalvas, Reijo (toim.)",
             "contributions": [
               {
                 "person": {
-                  "id": 732.0,
+                  "id": 732,
                   "name": "Kalvas, Reijo",
                   "alt_name": "Reijo Kalvas"
                 },
@@ -284,66 +240,22 @@
               {
                 "editors": [
                   {
-                    "id": 732.0,
+                    "id": 732,
                     "name": "Kalvas, Reijo",
-                    "alt_name": "Reijo Kalvas",
-                    "fullname": "",
-                    "image_src": null,
-                    "dob": null,
-                    "dod": null,
-                    "nationality": {
-                      "id": 4,
-                      "name": "Suomi"
-                    },
-                    "workcount": 4.0,
-                    "storycount": 46,
-                    "roles": [
-                      "Kääntäjä",
-                      "Toimittaja"
-                    ],
-                    "other_names": null,
-                    "first_name": "Reijo",
-                    "last_name": "Kalvas",
-                    "image_attr": "",
-                    "qid": null,
-                    "bio": null,
-                    "bio_src": "",
-                    "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."
+                    "alt_name": "Reijo Kalvas"
                   }
                 ],
                 "translators": [
                   {
-                    "id": 732.0,
+                    "id": 732,
                     "name": "Kalvas, Reijo",
-                    "alt_name": "Reijo Kalvas",
-                    "fullname": "",
-                    "image_src": null,
-                    "dob": null,
-                    "dod": null,
-                    "nationality": {
-                      "id": 4,
-                      "name": "Suomi"
-                    },
-                    "workcount": 4.0,
-                    "storycount": 46,
-                    "roles": [
-                      "Kääntäjä",
-                      "Toimittaja"
-                    ],
-                    "other_names": null,
-                    "first_name": "Reijo",
-                    "last_name": "Kalvas",
-                    "image_attr": "",
-                    "qid": null,
-                    "bio": null,
-                    "bio_src": "",
-                    "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."
+                    "alt_name": "Reijo Kalvas"
                   }
                 ],
                 "contributions": [
                   {
                     "person": {
-                      "id": 732.0,
+                      "id": 732,
                       "name": "Kalvas, Reijo",
                       "alt_name": "Reijo Kalvas"
                     },
@@ -356,7 +268,7 @@
                   },
                   {
                     "person": {
-                      "id": 6090.0,
+                      "id": 6090,
                       "name": "Kröger, Antero",
                       "alt_name": "Antero Kröger"
                     },
@@ -369,7 +281,7 @@
                   },
                   {
                     "person": {
-                      "id": 732.0,
+                      "id": 732,
                       "name": "Kalvas, Reijo",
                       "alt_name": "Reijo Kalvas"
                     },
@@ -394,7 +306,7 @@
                 },
                 "owners": [
                   {
-                    "id": 2.0,
+                    "id": 2,
                     "name": "mep"
                   }
                 ],
@@ -436,19 +348,19 @@
               "id": 1,
               "name": "englanti"
             },
-            "type": 2.0,
+            "type": 2,
             "subtitle": "",
             "pubyear": 1987,
             "bookseriesnum": "",
             "bookseriesorder": null,
-            "misc": "Isaac Asimov's Science Fiction -lehden novelleista koottu tieteislukemisto.",
-            "description": "",
-            "descr_attr": null,
+            "misc": "",
+            "description": "<p>Tieteiskirjallisuuden Grand Old Masterin Isaac Asimovin kuukausittain ilmestyvän nimikkolehden parhaista novelleista koottu valikoima. Mukana ovat Asimovin itsensä lisäksi Walter J. Williams, lan Watson, Gregory Feeley, Pat Murphy ja Julius Shepard, jonka tässä kirjassa julkaistava tarina \"R&R\" voitti vuoden 1986 Nebula-palkinnon pienoisromaanien sarjassa. Kaikki novellit ovat ennen suomentamattomia.</p>",
+            "descr_attr": "Takakansi",
             "imported_string": ""
           },
           "editors": [
             {
-              "id": 732.0,
+              "id": 732,
               "name": "Kalvas, Reijo",
               "alt_name": "Reijo Kalvas",
               "fullname": "",
@@ -459,7 +371,7 @@
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 4.0,
+              "workcount": 4,
               "storycount": 46,
               "roles": [
                 "Kääntäjä",
@@ -478,7 +390,7 @@
           "contributions": [
             {
               "person": {
-                "id": 732.0,
+                "id": 732,
                 "name": "Kalvas, Reijo",
                 "alt_name": "Reijo Kalvas"
               },
@@ -491,7 +403,7 @@
             },
             {
               "person": {
-                "id": 6090.0,
+                "id": 6090,
                 "name": "Kröger, Antero",
                 "alt_name": "Antero Kröger"
               },
@@ -504,7 +416,7 @@
             },
             {
               "person": {
-                "id": 732.0,
+                "id": 732,
                 "name": "Kalvas, Reijo",
                 "alt_name": "Reijo Kalvas"
               },
@@ -529,7 +441,7 @@
           },
           "owners": [
             {
-              "id": 2.0,
+              "id": 2,
               "name": "mep"
             }
           ],
@@ -565,7 +477,7 @@
       "contributors": [
         {
           "person": {
-            "id": 732.0,
+            "id": 732,
             "name": "Kalvas, Reijo",
             "alt_name": "Reijo Kalvas"
           },
@@ -578,7 +490,7 @@
         },
         {
           "person": {
-            "id": 2687.0,
+            "id": 2687,
             "name": "Asimov, Isaac",
             "alt_name": "Isaac Asimov"
           },
@@ -611,18 +523,18 @@
           "story": {
             "authors": [
               {
-                "id": 2687.0,
+                "id": 2687,
                 "name": "Asimov, Isaac",
                 "alt_name": "Isaac Asimov",
                 "fullname": "",
                 "image_src": "http://www.isfdb.org/wiki/images/4/47/Isaac_Asimov_on_Throne.png",
-                "dob": 1920.0,
-                "dod": 1992.0,
+                "dob": 1920,
+                "dod": 1992,
                 "nationality": {
                   "id": 3,
                   "name": "Yhdysvallat"
                 },
-                "workcount": 20.0,
+                "workcount": 20,
                 "storycount": 26,
                 "roles": [
                   "Kirjoittaja",
@@ -646,14 +558,14 @@
             "editions": [
               {
                 "work": {
-                  "id": 3493.0,
+                  "id": 3493,
                   "title": "Isaac Asimov Science Fiction valikoima 1",
                   "orig_title": "Isaac Asimov Science Fiction valikoima 1",
                   "author_str": "Kalvas, Reijo (toim.)",
                   "contributions": [
                     {
                       "person": {
-                        "id": 732.0,
+                        "id": 732,
                         "name": "Kalvas, Reijo",
                         "alt_name": "Reijo Kalvas"
                       },
@@ -669,66 +581,22 @@
                     {
                       "editors": [
                         {
-                          "id": 732.0,
+                          "id": 732,
                           "name": "Kalvas, Reijo",
-                          "alt_name": "Reijo Kalvas",
-                          "fullname": "",
-                          "image_src": null,
-                          "dob": null,
-                          "dod": null,
-                          "nationality": {
-                            "id": 4,
-                            "name": "Suomi"
-                          },
-                          "workcount": 4.0,
-                          "storycount": 46,
-                          "roles": [
-                            "Kääntäjä",
-                            "Toimittaja"
-                          ],
-                          "other_names": null,
-                          "first_name": "Reijo",
-                          "last_name": "Kalvas",
-                          "image_attr": "",
-                          "qid": null,
-                          "bio": null,
-                          "bio_src": "",
-                          "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."
+                          "alt_name": "Reijo Kalvas"
                         }
                       ],
                       "translators": [
                         {
-                          "id": 732.0,
+                          "id": 732,
                           "name": "Kalvas, Reijo",
-                          "alt_name": "Reijo Kalvas",
-                          "fullname": "",
-                          "image_src": null,
-                          "dob": null,
-                          "dod": null,
-                          "nationality": {
-                            "id": 4,
-                            "name": "Suomi"
-                          },
-                          "workcount": 4.0,
-                          "storycount": 46,
-                          "roles": [
-                            "Kääntäjä",
-                            "Toimittaja"
-                          ],
-                          "other_names": null,
-                          "first_name": "Reijo",
-                          "last_name": "Kalvas",
-                          "image_attr": "",
-                          "qid": null,
-                          "bio": null,
-                          "bio_src": "",
-                          "imported_string": "\n\n<a href=\"novkok/sil-pb.htm\">\n<b>Purjehdus Bysanttiin</b></a>. (The Secret Sharer, Sailing to Byzantium, Enter a Soldier). Suom Reijo Kalvas. GALAXY Scifi 3. Book Studio 1990. [SF,kok]."
+                          "alt_name": "Reijo Kalvas"
                         }
                       ],
                       "contributions": [
                         {
                           "person": {
-                            "id": 732.0,
+                            "id": 732,
                             "name": "Kalvas, Reijo",
                             "alt_name": "Reijo Kalvas"
                           },
@@ -741,7 +609,7 @@
                         },
                         {
                           "person": {
-                            "id": 6090.0,
+                            "id": 6090,
                             "name": "Kröger, Antero",
                             "alt_name": "Antero Kröger"
                           },
@@ -754,7 +622,7 @@
                         },
                         {
                           "person": {
-                            "id": 732.0,
+                            "id": 732,
                             "name": "Kalvas, Reijo",
                             "alt_name": "Reijo Kalvas"
                           },
@@ -779,7 +647,7 @@
                       },
                       "owners": [
                         {
-                          "id": 2.0,
+                          "id": 2,
                           "name": "mep"
                         }
                       ],
@@ -821,19 +689,19 @@
                     "id": 1,
                     "name": "englanti"
                   },
-                  "type": 2.0,
+                  "type": 2,
                   "subtitle": "",
                   "pubyear": 1987,
                   "bookseriesnum": "",
                   "bookseriesorder": null,
-                  "misc": "Isaac Asimov's Science Fiction -lehden novelleista koottu tieteislukemisto.",
-                  "description": "",
-                  "descr_attr": null,
+                  "misc": "",
+                  "description": "<p>Tieteiskirjallisuuden Grand Old Masterin Isaac Asimovin kuukausittain ilmestyvän nimikkolehden parhaista novelleista koottu valikoima. Mukana ovat Asimovin itsensä lisäksi Walter J. Williams, lan Watson, Gregory Feeley, Pat Murphy ja Julius Shepard, jonka tässä kirjassa julkaistava tarina \"R&R\" voitti vuoden 1986 Nebula-palkinnon pienoisromaanien sarjassa. Kaikki novellit ovat ennen suomentamattomia.</p>",
+                  "descr_attr": "Takakansi",
                   "imported_string": ""
                 },
                 "editors": [
                   {
-                    "id": 732.0,
+                    "id": 732,
                     "name": "Kalvas, Reijo",
                     "alt_name": "Reijo Kalvas",
                     "fullname": "",
@@ -844,7 +712,7 @@
                       "id": 4,
                       "name": "Suomi"
                     },
-                    "workcount": 4.0,
+                    "workcount": 4,
                     "storycount": 46,
                     "roles": [
                       "Kääntäjä",
@@ -863,7 +731,7 @@
                 "contributions": [
                   {
                     "person": {
-                      "id": 732.0,
+                      "id": 732,
                       "name": "Kalvas, Reijo",
                       "alt_name": "Reijo Kalvas"
                     },
@@ -876,7 +744,7 @@
                   },
                   {
                     "person": {
-                      "id": 6090.0,
+                      "id": 6090,
                       "name": "Kröger, Antero",
                       "alt_name": "Antero Kröger"
                     },
@@ -889,7 +757,7 @@
                   },
                   {
                     "person": {
-                      "id": 732.0,
+                      "id": 732,
                       "name": "Kalvas, Reijo",
                       "alt_name": "Reijo Kalvas"
                     },
@@ -914,7 +782,7 @@
                 },
                 "owners": [
                   {
-                    "id": 2.0,
+                    "id": 2,
                     "name": "mep"
                   }
                 ],
@@ -946,7 +814,7 @@
             "contributors": [
               {
                 "person": {
-                  "id": 732.0,
+                  "id": 732,
                   "name": "Kalvas, Reijo",
                   "alt_name": "Reijo Kalvas"
                 },
@@ -959,7 +827,7 @@
               },
               {
                 "person": {
-                  "id": 2687.0,
+                  "id": 2687,
                   "name": "Asimov, Isaac",
                   "alt_name": "Isaac Asimov"
                 },

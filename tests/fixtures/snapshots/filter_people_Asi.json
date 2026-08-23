@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-07-12T18:56:26.276996+00:00",
+    "generated_at": "2026-08-23T17:54:16.984799+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/filter/people/Asi",
@@ -11,7 +11,7 @@
     "status_code": 200,
     "data": [
       {
-        "id": 5925.0,
+        "id": 5925,
         "name": "Asikainen, Karri",
         "alt_name": "Karri Asikainen",
         "fullname": "",
@@ -22,7 +22,7 @@
           "id": 4,
           "name": "Suomi"
         },
-        "workcount": 0.0,
+        "workcount": 0,
         "storycount": 0,
         "roles": [
           "Kansikuva"
@@ -37,7 +37,7 @@
         "imported_string": null
       },
       {
-        "id": 3663.0,
+        "id": 3663,
         "name": "Asikainen, Sanna-Liisa",
         "alt_name": "Sanna-Liisa Asikainen",
         "fullname": "",
@@ -48,7 +48,7 @@
           "id": 4,
           "name": "Suomi"
         },
-        "workcount": 0.0,
+        "workcount": 0,
         "storycount": 4,
         "roles": [
           "Kirjoittaja"
@@ -63,18 +63,18 @@
         "imported_string": null
       },
       {
-        "id": 2687.0,
+        "id": 2687,
         "name": "Asimov, Isaac",
         "alt_name": "Isaac Asimov",
         "fullname": "",
         "image_src": "http://www.isfdb.org/wiki/images/4/47/Isaac_Asimov_on_Throne.png",
-        "dob": 1920.0,
-        "dod": 1992.0,
+        "dob": 1920,
+        "dod": 1992,
         "nationality": {
           "id": 3,
           "name": "Yhdysvallat"
         },
-        "workcount": 20.0,
+        "workcount": 20,
         "storycount": 26,
         "roles": [
           "Kirjoittaja",
@@ -90,18 +90,18 @@
         "imported_string": null
       },
       {
-        "id": 2691.0,
+        "id": 2691,
         "name": "Asimov, Janet",
         "alt_name": "Janet Asimov",
         "fullname": "",
         "image_src": null,
-        "dob": 1926.0,
-        "dod": 2019.0,
+        "dob": 1926,
+        "dod": 2019,
         "nationality": {
           "id": 3,
           "name": "Yhdysvallat"
         },
-        "workcount": 2.0,
+        "workcount": 2,
         "storycount": 0,
         "roles": [
           "Kirjoittaja",

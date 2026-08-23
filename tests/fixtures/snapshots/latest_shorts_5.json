@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-07-12T18:56:26.276996+00:00",
+    "generated_at": "2026-08-23T17:54:16.984799+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/shorts/5",
@@ -13,28 +13,26 @@
       {
         "authors": [
           {
-            "id": 1841.0,
-            "name": "Hai, Magdalena",
-            "alt_name": "Magdalena Hai",
+            "id": 683,
+            "name": "Seppälä, Jaakko Markus",
+            "alt_name": "Jaakko Markus Seppälä",
             "fullname": "",
             "image_src": null,
-            "dob": 1978.0,
+            "dob": 1983,
             "dod": null,
             "nationality": {
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 18.0,
-            "storycount": 80,
+            "workcount": 2,
+            "storycount": 11,
             "roles": [
               "Kirjoittaja",
-              "Toimittaja",
-              "Kansikuva",
               "Esiintyy"
             ],
             "other_names": null,
-            "first_name": "Magdalena",
-            "last_name": "Hai",
+            "first_name": "Jaakko Markus",
+            "last_name": "Seppälä",
             "image_attr": "",
             "qid": null,
             "bio": null,
@@ -43,23 +41,62 @@
           }
         ],
         "type": {
-          "id": 1,
-          "name": "Novelli"
+          "id": 2,
+          "name": "Pitkä novelli"
         },
         "issues": [],
         "editions": [
           {
             "work": {
-              "id": 7057.0,
-              "title": "Teen ja loitsujen vuosi",
+              "id": 7139,
+              "title": "Menetettyjä maailmoja",
               "orig_title": "",
-              "author_str": "Hai, Magdalena",
+              "author_str": "Seppälä, Jaakko Markus & Ihalainen, Maiju & Saarinen, Toni & Vuokko-Syrjänen, Reetta",
               "contributions": [
                 {
                   "person": {
-                    "id": 1841.0,
-                    "name": "Hai, Magdalena",
-                    "alt_name": "Magdalena Hai"
+                    "id": 3247,
+                    "name": "Ihalainen, Maiju",
+                    "alt_name": "Maiju Ihalainen"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 3303,
+                    "name": "Saarinen, Toni",
+                    "alt_name": "Toni Saarinen"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 683,
+                    "name": "Seppälä, Jaakko Markus",
+                    "alt_name": "Jaakko Markus Seppälä"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 3809,
+                    "name": "Vuokko-Syrjänen, Reetta",
+                    "alt_name": "Reetta Vuokko-Syrjänen"
                   },
                   "role": {
                     "id": 1,
@@ -73,61 +110,34 @@
                 {
                   "editors": [],
                   "translators": [],
-                  "contributions": [
-                    {
-                      "person": {
-                        "id": 7905.0,
-                        "name": "Heikala",
-                        "alt_name": "Heikala"
-                      },
-                      "role": {
-                        "id": 4,
-                        "name": "Kansikuva"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 7905.0,
-                        "name": "Heikala",
-                        "alt_name": "Heikala"
-                      },
-                      "role": {
-                        "id": 5,
-                        "name": "Kuvittaja"
-                      },
-                      "description": "",
-                      "real_person": null
-                    }
-                  ],
+                  "contributions": [],
                   "images": [
                     {
-                      "id": 9841,
-                      "image_src": "/static/images/books/Hai_Magdalena_Teenjaloitsujenvuosi_1p.jpg",
+                      "id": 10021,
+                      "image_src": "/static/images/books/Ihalainen_Saarinen_Menetettyjamaailmoja_1p.jpg",
                       "image_attr": null
                     }
                   ],
                   "publisher": {
-                    "id": 387,
-                    "name": "WSOY"
+                    "id": 217,
+                    "name": "Nysalor-kustannus"
                   },
                   "owners": [],
                   "wishlisted": [],
-                  "id": 10253,
-                  "title": "Teen ja loitsujen vuosi",
-                  "subtitle": "",
+                  "id": 10371,
+                  "title": "Menetettyjä maailmoja",
+                  "subtitle": "neljä pitkää tieteisnovellia",
                   "pubyear": 2026,
                   "editionnum": 1,
                   "version": 1,
-                  "isbn": "978-951-0-52184-7",
+                  "isbn": "978-952-7564-66-0",
                   "printedin": null,
                   "pubseriesnum": null,
                   "coll_info": null,
-                  "pages": 149,
-                  "size": 22,
+                  "pages": 194,
+                  "size": 21,
                   "dustcover": 1,
-                  "coverimage": 3,
+                  "coverimage": 1,
                   "misc": null,
                   "imported_string": null,
                   "verified": false
@@ -135,9 +145,9 @@
               ],
               "genres": [
                 {
-                  "id": 17,
-                  "name": "Lasten fantasia",
-                  "abbr": "lF"
+                  "id": 5,
+                  "name": "Science Fiction",
+                  "abbr": "SF"
                 }
               ],
               "bookseries": null,
@@ -146,88 +156,67 @@
                 "id": 7,
                 "name": "suomi"
               },
-              "type": 2.0,
-              "subtitle": "",
+              "type": 2,
+              "subtitle": "neljä pitkää tieteisnovellia",
               "pubyear": 2026,
               "bookseriesnum": "",
               "bookseriesorder": null,
               "misc": "",
-              "description": "<p><strong>Noitia, luonnonvoimia ja maagista tunnelmaa</strong>!</p><p>Tunnelmallinen neljän kertomuksen kokoelma imaisee mukaansa Launealan maailmaan, jossa nuoret noidat auttavat läheisiään, valmistavat rohtoja ja käpertyvät takkatulen ääreen myrskyn pauhatessa mökin ulkopuolella.</p><p>Enna on nuori kylänoita, jonka lähikylää vaivaavat lukuisat vitsaukset. Vuorimökissä asuvan Moiran elämä mullistuu, kun hän pelastaa pakkasesta salaperäisen koiran. Sisarukset Anders ja Linda matkaavat vanhempiensa kanssa ilmalaivalla tutkimassa mammutteja. Syvälle töihin itsensä hukannut Aisha tähyilee merenrannalta horisontissa nousevaa lohikäärmemyrskyä.</p><p>Teen ja loitsujen vuosi tarjoaa neljä lempeän lumoavaa noitatarinaa, metsämökkien tunnelmaa, maagisia hetkiä, puhuvia eläimiä, sydämen läpätystä – ja juuri oikean verran teehetkiä ja leivonnaisia. Magdalena Hain mukaansatempaavat kertomukset syttyvät väreihin Heikalan ihastuttavissa kuvituksissa.</p>",
-              "descr_attr": "WSOY",
+              "description": "<p><strong>Mitä meille jää, kun kaikki muuttuu?</strong></p><p>Elämään kuuluvat ilojen rinnalla monenlaiset menetykset. Miten käy, kun avaruuslentoemäntä yrittää lunastaa kansalleen uuden maailman tai ikuiseen jälleensyntymään tuomittu nainen saa vihjeen vapaudesta? Entä kun pelastusalus kohtaa hirviön sijaan moraalisen dilemman? Voiko kielletystä metsästä löytää myös jotain hyvää?</p><p>Neljän palkitun kirjailijan tieteisnovellit tutkivat menetyksen teemaa haikeuden ja toivon kautta, vajoamatta liialliseen lohduttomuuteen. Vaikka kaikki olisi jo menetetty, tie huomiseen on yhä avoin.</p>",
+              "descr_attr": "Nysalor-kustannus",
               "imported_string": null
             },
             "editors": [],
-            "contributions": [
-              {
-                "person": {
-                  "id": 7905.0,
-                  "name": "Heikala",
-                  "alt_name": "Heikala"
-                },
-                "role": {
-                  "id": 4,
-                  "name": "Kansikuva"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 7905.0,
-                  "name": "Heikala",
-                  "alt_name": "Heikala"
-                },
-                "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
-                },
-                "description": "",
-                "real_person": null
-              }
-            ],
+            "contributions": [],
             "images": [
               {
-                "id": 9841,
-                "image_src": "/static/images/books/Hai_Magdalena_Teenjaloitsujenvuosi_1p.jpg",
+                "id": 10021,
+                "image_src": "/static/images/books/Ihalainen_Saarinen_Menetettyjamaailmoja_1p.jpg",
                 "image_attr": null
               }
             ],
             "publisher": {
-              "id": 387,
-              "name": "WSOY"
+              "id": 217,
+              "name": "Nysalor-kustannus"
             },
             "owners": [],
             "wishlisted": [],
             "binding": {
-              "id": 3,
-              "name": "Sidottu"
+              "id": 2,
+              "name": "Nidottu"
             },
-            "id": 10253,
-            "title": "Teen ja loitsujen vuosi",
-            "subtitle": "",
+            "id": 10371,
+            "title": "Menetettyjä maailmoja",
+            "subtitle": "neljä pitkää tieteisnovellia",
             "pubyear": 2026,
             "editionnum": 1,
             "version": 1,
-            "isbn": "978-951-0-52184-7",
+            "isbn": "978-952-7564-66-0",
             "printedin": null,
             "pubseriesnum": null,
             "coll_info": null,
-            "pages": 149,
-            "size": 22,
+            "pages": 194,
+            "size": 21,
             "dustcover": 1,
-            "coverimage": 3,
+            "coverimage": 1,
             "misc": null,
             "imported_string": null,
             "verified": false
           }
         ],
-        "genres": [],
+        "genres": [
+          {
+            "id": 5,
+            "name": "Science Fiction",
+            "abbr": "SF"
+          }
+        ],
         "contributors": [
           {
             "person": {
-              "id": 1841.0,
-              "name": "Hai, Magdalena",
-              "alt_name": "Magdalena Hai"
+              "id": 683,
+              "name": "Seppälä, Jaakko Markus",
+              "alt_name": "Jaakko Markus Seppälä"
             },
             "role": {
               "id": 1,
@@ -241,8 +230,8 @@
           "id": 7,
           "name": "suomi"
         },
-        "id": 15597,
-        "title": "Kesänoita - lohikäärmemyrsky",
+        "id": 15620,
+        "title": "Salka",
         "orig_title": "",
         "pubyear": 2026,
         "notes": ""
@@ -250,28 +239,27 @@
       {
         "authors": [
           {
-            "id": 1841.0,
-            "name": "Hai, Magdalena",
-            "alt_name": "Magdalena Hai",
+            "id": 3303,
+            "name": "Saarinen, Toni",
+            "alt_name": "Toni Saarinen",
             "fullname": "",
             "image_src": null,
-            "dob": 1978.0,
+            "dob": 1986,
             "dod": null,
             "nationality": {
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 18.0,
-            "storycount": 80,
+            "workcount": 5,
+            "storycount": 19,
             "roles": [
               "Kirjoittaja",
               "Toimittaja",
-              "Kansikuva",
               "Esiintyy"
             ],
-            "other_names": null,
-            "first_name": "Magdalena",
-            "last_name": "Hai",
+            "other_names": "Toni P. J. Saarinen",
+            "first_name": "Toni",
+            "last_name": "Saarinen",
             "image_attr": "",
             "qid": null,
             "bio": null,
@@ -280,23 +268,62 @@
           }
         ],
         "type": {
-          "id": 1,
-          "name": "Novelli"
+          "id": 2,
+          "name": "Pitkä novelli"
         },
         "issues": [],
         "editions": [
           {
             "work": {
-              "id": 7057.0,
-              "title": "Teen ja loitsujen vuosi",
+              "id": 7139,
+              "title": "Menetettyjä maailmoja",
               "orig_title": "",
-              "author_str": "Hai, Magdalena",
+              "author_str": "Seppälä, Jaakko Markus & Ihalainen, Maiju & Saarinen, Toni & Vuokko-Syrjänen, Reetta",
               "contributions": [
                 {
                   "person": {
-                    "id": 1841.0,
-                    "name": "Hai, Magdalena",
-                    "alt_name": "Magdalena Hai"
+                    "id": 3247,
+                    "name": "Ihalainen, Maiju",
+                    "alt_name": "Maiju Ihalainen"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 3303,
+                    "name": "Saarinen, Toni",
+                    "alt_name": "Toni Saarinen"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 683,
+                    "name": "Seppälä, Jaakko Markus",
+                    "alt_name": "Jaakko Markus Seppälä"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 3809,
+                    "name": "Vuokko-Syrjänen, Reetta",
+                    "alt_name": "Reetta Vuokko-Syrjänen"
                   },
                   "role": {
                     "id": 1,
@@ -310,61 +337,34 @@
                 {
                   "editors": [],
                   "translators": [],
-                  "contributions": [
-                    {
-                      "person": {
-                        "id": 7905.0,
-                        "name": "Heikala",
-                        "alt_name": "Heikala"
-                      },
-                      "role": {
-                        "id": 4,
-                        "name": "Kansikuva"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 7905.0,
-                        "name": "Heikala",
-                        "alt_name": "Heikala"
-                      },
-                      "role": {
-                        "id": 5,
-                        "name": "Kuvittaja"
-                      },
-                      "description": "",
-                      "real_person": null
-                    }
-                  ],
+                  "contributions": [],
                   "images": [
                     {
-                      "id": 9841,
-                      "image_src": "/static/images/books/Hai_Magdalena_Teenjaloitsujenvuosi_1p.jpg",
+                      "id": 10021,
+                      "image_src": "/static/images/books/Ihalainen_Saarinen_Menetettyjamaailmoja_1p.jpg",
                       "image_attr": null
                     }
                   ],
                   "publisher": {
-                    "id": 387,
-                    "name": "WSOY"
+                    "id": 217,
+                    "name": "Nysalor-kustannus"
                   },
                   "owners": [],
                   "wishlisted": [],
-                  "id": 10253,
-                  "title": "Teen ja loitsujen vuosi",
-                  "subtitle": "",
+                  "id": 10371,
+                  "title": "Menetettyjä maailmoja",
+                  "subtitle": "neljä pitkää tieteisnovellia",
                   "pubyear": 2026,
                   "editionnum": 1,
                   "version": 1,
-                  "isbn": "978-951-0-52184-7",
+                  "isbn": "978-952-7564-66-0",
                   "printedin": null,
                   "pubseriesnum": null,
                   "coll_info": null,
-                  "pages": 149,
-                  "size": 22,
+                  "pages": 194,
+                  "size": 21,
                   "dustcover": 1,
-                  "coverimage": 3,
+                  "coverimage": 1,
                   "misc": null,
                   "imported_string": null,
                   "verified": false
@@ -372,9 +372,9 @@
               ],
               "genres": [
                 {
-                  "id": 17,
-                  "name": "Lasten fantasia",
-                  "abbr": "lF"
+                  "id": 5,
+                  "name": "Science Fiction",
+                  "abbr": "SF"
                 }
               ],
               "bookseries": null,
@@ -383,88 +383,67 @@
                 "id": 7,
                 "name": "suomi"
               },
-              "type": 2.0,
-              "subtitle": "",
+              "type": 2,
+              "subtitle": "neljä pitkää tieteisnovellia",
               "pubyear": 2026,
               "bookseriesnum": "",
               "bookseriesorder": null,
               "misc": "",
-              "description": "<p><strong>Noitia, luonnonvoimia ja maagista tunnelmaa</strong>!</p><p>Tunnelmallinen neljän kertomuksen kokoelma imaisee mukaansa Launealan maailmaan, jossa nuoret noidat auttavat läheisiään, valmistavat rohtoja ja käpertyvät takkatulen ääreen myrskyn pauhatessa mökin ulkopuolella.</p><p>Enna on nuori kylänoita, jonka lähikylää vaivaavat lukuisat vitsaukset. Vuorimökissä asuvan Moiran elämä mullistuu, kun hän pelastaa pakkasesta salaperäisen koiran. Sisarukset Anders ja Linda matkaavat vanhempiensa kanssa ilmalaivalla tutkimassa mammutteja. Syvälle töihin itsensä hukannut Aisha tähyilee merenrannalta horisontissa nousevaa lohikäärmemyrskyä.</p><p>Teen ja loitsujen vuosi tarjoaa neljä lempeän lumoavaa noitatarinaa, metsämökkien tunnelmaa, maagisia hetkiä, puhuvia eläimiä, sydämen läpätystä – ja juuri oikean verran teehetkiä ja leivonnaisia. Magdalena Hain mukaansatempaavat kertomukset syttyvät väreihin Heikalan ihastuttavissa kuvituksissa.</p>",
-              "descr_attr": "WSOY",
+              "description": "<p><strong>Mitä meille jää, kun kaikki muuttuu?</strong></p><p>Elämään kuuluvat ilojen rinnalla monenlaiset menetykset. Miten käy, kun avaruuslentoemäntä yrittää lunastaa kansalleen uuden maailman tai ikuiseen jälleensyntymään tuomittu nainen saa vihjeen vapaudesta? Entä kun pelastusalus kohtaa hirviön sijaan moraalisen dilemman? Voiko kielletystä metsästä löytää myös jotain hyvää?</p><p>Neljän palkitun kirjailijan tieteisnovellit tutkivat menetyksen teemaa haikeuden ja toivon kautta, vajoamatta liialliseen lohduttomuuteen. Vaikka kaikki olisi jo menetetty, tie huomiseen on yhä avoin.</p>",
+              "descr_attr": "Nysalor-kustannus",
               "imported_string": null
             },
             "editors": [],
-            "contributions": [
-              {
-                "person": {
-                  "id": 7905.0,
-                  "name": "Heikala",
-                  "alt_name": "Heikala"
-                },
-                "role": {
-                  "id": 4,
-                  "name": "Kansikuva"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 7905.0,
-                  "name": "Heikala",
-                  "alt_name": "Heikala"
-                },
-                "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
-                },
-                "description": "",
-                "real_person": null
-              }
-            ],
+            "contributions": [],
             "images": [
               {
-                "id": 9841,
-                "image_src": "/static/images/books/Hai_Magdalena_Teenjaloitsujenvuosi_1p.jpg",
+                "id": 10021,
+                "image_src": "/static/images/books/Ihalainen_Saarinen_Menetettyjamaailmoja_1p.jpg",
                 "image_attr": null
               }
             ],
             "publisher": {
-              "id": 387,
-              "name": "WSOY"
+              "id": 217,
+              "name": "Nysalor-kustannus"
             },
             "owners": [],
             "wishlisted": [],
             "binding": {
-              "id": 3,
-              "name": "Sidottu"
+              "id": 2,
+              "name": "Nidottu"
             },
-            "id": 10253,
-            "title": "Teen ja loitsujen vuosi",
-            "subtitle": "",
+            "id": 10371,
+            "title": "Menetettyjä maailmoja",
+            "subtitle": "neljä pitkää tieteisnovellia",
             "pubyear": 2026,
             "editionnum": 1,
             "version": 1,
-            "isbn": "978-951-0-52184-7",
+            "isbn": "978-952-7564-66-0",
             "printedin": null,
             "pubseriesnum": null,
             "coll_info": null,
-            "pages": 149,
-            "size": 22,
+            "pages": 194,
+            "size": 21,
             "dustcover": 1,
-            "coverimage": 3,
+            "coverimage": 1,
             "misc": null,
             "imported_string": null,
             "verified": false
           }
         ],
-        "genres": [],
+        "genres": [
+          {
+            "id": 5,
+            "name": "Science Fiction",
+            "abbr": "SF"
+          }
+        ],
         "contributors": [
           {
             "person": {
-              "id": 1841.0,
-              "name": "Hai, Magdalena",
-              "alt_name": "Magdalena Hai"
+              "id": 3303,
+              "name": "Saarinen, Toni",
+              "alt_name": "Toni Saarinen"
             },
             "role": {
               "id": 1,
@@ -478,8 +457,8 @@
           "id": 7,
           "name": "suomi"
         },
-        "id": 15596,
-        "title": "Kevätnoita - mammuttiaron salaisuus",
+        "id": 15619,
+        "title": "Kätkekää minut, kiintotähdet",
         "orig_title": "",
         "pubyear": 2026,
         "notes": ""
@@ -487,28 +466,26 @@
       {
         "authors": [
           {
-            "id": 1841.0,
-            "name": "Hai, Magdalena",
-            "alt_name": "Magdalena Hai",
+            "id": 3247,
+            "name": "Ihalainen, Maiju",
+            "alt_name": "Maiju Ihalainen",
             "fullname": "",
             "image_src": null,
-            "dob": 1978.0,
+            "dob": null,
             "dod": null,
             "nationality": {
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 18.0,
-            "storycount": 80,
+            "workcount": 2,
+            "storycount": 18,
             "roles": [
               "Kirjoittaja",
-              "Toimittaja",
-              "Kansikuva",
               "Esiintyy"
             ],
             "other_names": null,
-            "first_name": "Magdalena",
-            "last_name": "Hai",
+            "first_name": "Maiju",
+            "last_name": "Ihalainen",
             "image_attr": "",
             "qid": null,
             "bio": null,
@@ -517,23 +494,62 @@
           }
         ],
         "type": {
-          "id": 1,
-          "name": "Novelli"
+          "id": 2,
+          "name": "Pitkä novelli"
         },
         "issues": [],
         "editions": [
           {
             "work": {
-              "id": 7057.0,
-              "title": "Teen ja loitsujen vuosi",
+              "id": 7139,
+              "title": "Menetettyjä maailmoja",
               "orig_title": "",
-              "author_str": "Hai, Magdalena",
+              "author_str": "Seppälä, Jaakko Markus & Ihalainen, Maiju & Saarinen, Toni & Vuokko-Syrjänen, Reetta",
               "contributions": [
                 {
                   "person": {
-                    "id": 1841.0,
-                    "name": "Hai, Magdalena",
-                    "alt_name": "Magdalena Hai"
+                    "id": 3247,
+                    "name": "Ihalainen, Maiju",
+                    "alt_name": "Maiju Ihalainen"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 3303,
+                    "name": "Saarinen, Toni",
+                    "alt_name": "Toni Saarinen"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 683,
+                    "name": "Seppälä, Jaakko Markus",
+                    "alt_name": "Jaakko Markus Seppälä"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 3809,
+                    "name": "Vuokko-Syrjänen, Reetta",
+                    "alt_name": "Reetta Vuokko-Syrjänen"
                   },
                   "role": {
                     "id": 1,
@@ -547,61 +563,34 @@
                 {
                   "editors": [],
                   "translators": [],
-                  "contributions": [
-                    {
-                      "person": {
-                        "id": 7905.0,
-                        "name": "Heikala",
-                        "alt_name": "Heikala"
-                      },
-                      "role": {
-                        "id": 4,
-                        "name": "Kansikuva"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 7905.0,
-                        "name": "Heikala",
-                        "alt_name": "Heikala"
-                      },
-                      "role": {
-                        "id": 5,
-                        "name": "Kuvittaja"
-                      },
-                      "description": "",
-                      "real_person": null
-                    }
-                  ],
+                  "contributions": [],
                   "images": [
                     {
-                      "id": 9841,
-                      "image_src": "/static/images/books/Hai_Magdalena_Teenjaloitsujenvuosi_1p.jpg",
+                      "id": 10021,
+                      "image_src": "/static/images/books/Ihalainen_Saarinen_Menetettyjamaailmoja_1p.jpg",
                       "image_attr": null
                     }
                   ],
                   "publisher": {
-                    "id": 387,
-                    "name": "WSOY"
+                    "id": 217,
+                    "name": "Nysalor-kustannus"
                   },
                   "owners": [],
                   "wishlisted": [],
-                  "id": 10253,
-                  "title": "Teen ja loitsujen vuosi",
-                  "subtitle": "",
+                  "id": 10371,
+                  "title": "Menetettyjä maailmoja",
+                  "subtitle": "neljä pitkää tieteisnovellia",
                   "pubyear": 2026,
                   "editionnum": 1,
                   "version": 1,
-                  "isbn": "978-951-0-52184-7",
+                  "isbn": "978-952-7564-66-0",
                   "printedin": null,
                   "pubseriesnum": null,
                   "coll_info": null,
-                  "pages": 149,
-                  "size": 22,
+                  "pages": 194,
+                  "size": 21,
                   "dustcover": 1,
-                  "coverimage": 3,
+                  "coverimage": 1,
                   "misc": null,
                   "imported_string": null,
                   "verified": false
@@ -609,9 +598,9 @@
               ],
               "genres": [
                 {
-                  "id": 17,
-                  "name": "Lasten fantasia",
-                  "abbr": "lF"
+                  "id": 5,
+                  "name": "Science Fiction",
+                  "abbr": "SF"
                 }
               ],
               "bookseries": null,
@@ -620,88 +609,67 @@
                 "id": 7,
                 "name": "suomi"
               },
-              "type": 2.0,
-              "subtitle": "",
+              "type": 2,
+              "subtitle": "neljä pitkää tieteisnovellia",
               "pubyear": 2026,
               "bookseriesnum": "",
               "bookseriesorder": null,
               "misc": "",
-              "description": "<p><strong>Noitia, luonnonvoimia ja maagista tunnelmaa</strong>!</p><p>Tunnelmallinen neljän kertomuksen kokoelma imaisee mukaansa Launealan maailmaan, jossa nuoret noidat auttavat läheisiään, valmistavat rohtoja ja käpertyvät takkatulen ääreen myrskyn pauhatessa mökin ulkopuolella.</p><p>Enna on nuori kylänoita, jonka lähikylää vaivaavat lukuisat vitsaukset. Vuorimökissä asuvan Moiran elämä mullistuu, kun hän pelastaa pakkasesta salaperäisen koiran. Sisarukset Anders ja Linda matkaavat vanhempiensa kanssa ilmalaivalla tutkimassa mammutteja. Syvälle töihin itsensä hukannut Aisha tähyilee merenrannalta horisontissa nousevaa lohikäärmemyrskyä.</p><p>Teen ja loitsujen vuosi tarjoaa neljä lempeän lumoavaa noitatarinaa, metsämökkien tunnelmaa, maagisia hetkiä, puhuvia eläimiä, sydämen läpätystä – ja juuri oikean verran teehetkiä ja leivonnaisia. Magdalena Hain mukaansatempaavat kertomukset syttyvät väreihin Heikalan ihastuttavissa kuvituksissa.</p>",
-              "descr_attr": "WSOY",
+              "description": "<p><strong>Mitä meille jää, kun kaikki muuttuu?</strong></p><p>Elämään kuuluvat ilojen rinnalla monenlaiset menetykset. Miten käy, kun avaruuslentoemäntä yrittää lunastaa kansalleen uuden maailman tai ikuiseen jälleensyntymään tuomittu nainen saa vihjeen vapaudesta? Entä kun pelastusalus kohtaa hirviön sijaan moraalisen dilemman? Voiko kielletystä metsästä löytää myös jotain hyvää?</p><p>Neljän palkitun kirjailijan tieteisnovellit tutkivat menetyksen teemaa haikeuden ja toivon kautta, vajoamatta liialliseen lohduttomuuteen. Vaikka kaikki olisi jo menetetty, tie huomiseen on yhä avoin.</p>",
+              "descr_attr": "Nysalor-kustannus",
               "imported_string": null
             },
             "editors": [],
-            "contributions": [
-              {
-                "person": {
-                  "id": 7905.0,
-                  "name": "Heikala",
-                  "alt_name": "Heikala"
-                },
-                "role": {
-                  "id": 4,
-                  "name": "Kansikuva"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 7905.0,
-                  "name": "Heikala",
-                  "alt_name": "Heikala"
-                },
-                "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
-                },
-                "description": "",
-                "real_person": null
-              }
-            ],
+            "contributions": [],
             "images": [
               {
-                "id": 9841,
-                "image_src": "/static/images/books/Hai_Magdalena_Teenjaloitsujenvuosi_1p.jpg",
+                "id": 10021,
+                "image_src": "/static/images/books/Ihalainen_Saarinen_Menetettyjamaailmoja_1p.jpg",
                 "image_attr": null
               }
             ],
             "publisher": {
-              "id": 387,
-              "name": "WSOY"
+              "id": 217,
+              "name": "Nysalor-kustannus"
             },
             "owners": [],
             "wishlisted": [],
             "binding": {
-              "id": 3,
-              "name": "Sidottu"
+              "id": 2,
+              "name": "Nidottu"
             },
-            "id": 10253,
-            "title": "Teen ja loitsujen vuosi",
-            "subtitle": "",
+            "id": 10371,
+            "title": "Menetettyjä maailmoja",
+            "subtitle": "neljä pitkää tieteisnovellia",
             "pubyear": 2026,
             "editionnum": 1,
             "version": 1,
-            "isbn": "978-951-0-52184-7",
+            "isbn": "978-952-7564-66-0",
             "printedin": null,
             "pubseriesnum": null,
             "coll_info": null,
-            "pages": 149,
-            "size": 22,
+            "pages": 194,
+            "size": 21,
             "dustcover": 1,
-            "coverimage": 3,
+            "coverimage": 1,
             "misc": null,
             "imported_string": null,
             "verified": false
           }
         ],
-        "genres": [],
+        "genres": [
+          {
+            "id": 5,
+            "name": "Science Fiction",
+            "abbr": "SF"
+          }
+        ],
         "contributors": [
           {
             "person": {
-              "id": 1841.0,
-              "name": "Hai, Magdalena",
-              "alt_name": "Magdalena Hai"
+              "id": 3247,
+              "name": "Ihalainen, Maiju",
+              "alt_name": "Maiju Ihalainen"
             },
             "role": {
               "id": 1,
@@ -715,8 +683,8 @@
           "id": 7,
           "name": "suomi"
         },
-        "id": 15595,
-        "title": "Talvinoita - pakkasvieras",
+        "id": 15618,
+        "title": "Mitä meistä jäljelle jää",
         "orig_title": "",
         "pubyear": 2026,
         "notes": ""
@@ -724,28 +692,27 @@
       {
         "authors": [
           {
-            "id": 1841.0,
-            "name": "Hai, Magdalena",
-            "alt_name": "Magdalena Hai",
+            "id": 3809,
+            "name": "Vuokko-Syrjänen, Reetta",
+            "alt_name": "Reetta Vuokko-Syrjänen",
             "fullname": "",
             "image_src": null,
-            "dob": 1978.0,
+            "dob": null,
             "dod": null,
             "nationality": {
               "id": 4,
               "name": "Suomi"
             },
-            "workcount": 18.0,
-            "storycount": 80,
+            "workcount": 8,
+            "storycount": 31,
             "roles": [
               "Kirjoittaja",
               "Toimittaja",
-              "Kansikuva",
               "Esiintyy"
             ],
             "other_names": null,
-            "first_name": "Magdalena",
-            "last_name": "Hai",
+            "first_name": "Reetta",
+            "last_name": "Vuokko-Syrjänen",
             "image_attr": "",
             "qid": null,
             "bio": null,
@@ -754,23 +721,62 @@
           }
         ],
         "type": {
-          "id": 1,
-          "name": "Novelli"
+          "id": 2,
+          "name": "Pitkä novelli"
         },
         "issues": [],
         "editions": [
           {
             "work": {
-              "id": 7057.0,
-              "title": "Teen ja loitsujen vuosi",
+              "id": 7139,
+              "title": "Menetettyjä maailmoja",
               "orig_title": "",
-              "author_str": "Hai, Magdalena",
+              "author_str": "Seppälä, Jaakko Markus & Ihalainen, Maiju & Saarinen, Toni & Vuokko-Syrjänen, Reetta",
               "contributions": [
                 {
                   "person": {
-                    "id": 1841.0,
-                    "name": "Hai, Magdalena",
-                    "alt_name": "Magdalena Hai"
+                    "id": 3247,
+                    "name": "Ihalainen, Maiju",
+                    "alt_name": "Maiju Ihalainen"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 3303,
+                    "name": "Saarinen, Toni",
+                    "alt_name": "Toni Saarinen"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 683,
+                    "name": "Seppälä, Jaakko Markus",
+                    "alt_name": "Jaakko Markus Seppälä"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 3809,
+                    "name": "Vuokko-Syrjänen, Reetta",
+                    "alt_name": "Reetta Vuokko-Syrjänen"
                   },
                   "role": {
                     "id": 1,
@@ -784,61 +790,34 @@
                 {
                   "editors": [],
                   "translators": [],
-                  "contributions": [
-                    {
-                      "person": {
-                        "id": 7905.0,
-                        "name": "Heikala",
-                        "alt_name": "Heikala"
-                      },
-                      "role": {
-                        "id": 4,
-                        "name": "Kansikuva"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 7905.0,
-                        "name": "Heikala",
-                        "alt_name": "Heikala"
-                      },
-                      "role": {
-                        "id": 5,
-                        "name": "Kuvittaja"
-                      },
-                      "description": "",
-                      "real_person": null
-                    }
-                  ],
+                  "contributions": [],
                   "images": [
                     {
-                      "id": 9841,
-                      "image_src": "/static/images/books/Hai_Magdalena_Teenjaloitsujenvuosi_1p.jpg",
+                      "id": 10021,
+                      "image_src": "/static/images/books/Ihalainen_Saarinen_Menetettyjamaailmoja_1p.jpg",
                       "image_attr": null
                     }
                   ],
                   "publisher": {
-                    "id": 387,
-                    "name": "WSOY"
+                    "id": 217,
+                    "name": "Nysalor-kustannus"
                   },
                   "owners": [],
                   "wishlisted": [],
-                  "id": 10253,
-                  "title": "Teen ja loitsujen vuosi",
-                  "subtitle": "",
+                  "id": 10371,
+                  "title": "Menetettyjä maailmoja",
+                  "subtitle": "neljä pitkää tieteisnovellia",
                   "pubyear": 2026,
                   "editionnum": 1,
                   "version": 1,
-                  "isbn": "978-951-0-52184-7",
+                  "isbn": "978-952-7564-66-0",
                   "printedin": null,
                   "pubseriesnum": null,
                   "coll_info": null,
-                  "pages": 149,
-                  "size": 22,
+                  "pages": 194,
+                  "size": 21,
                   "dustcover": 1,
-                  "coverimage": 3,
+                  "coverimage": 1,
                   "misc": null,
                   "imported_string": null,
                   "verified": false
@@ -846,9 +825,9 @@
               ],
               "genres": [
                 {
-                  "id": 17,
-                  "name": "Lasten fantasia",
-                  "abbr": "lF"
+                  "id": 5,
+                  "name": "Science Fiction",
+                  "abbr": "SF"
                 }
               ],
               "bookseries": null,
@@ -857,88 +836,67 @@
                 "id": 7,
                 "name": "suomi"
               },
-              "type": 2.0,
-              "subtitle": "",
+              "type": 2,
+              "subtitle": "neljä pitkää tieteisnovellia",
               "pubyear": 2026,
               "bookseriesnum": "",
               "bookseriesorder": null,
               "misc": "",
-              "description": "<p><strong>Noitia, luonnonvoimia ja maagista tunnelmaa</strong>!</p><p>Tunnelmallinen neljän kertomuksen kokoelma imaisee mukaansa Launealan maailmaan, jossa nuoret noidat auttavat läheisiään, valmistavat rohtoja ja käpertyvät takkatulen ääreen myrskyn pauhatessa mökin ulkopuolella.</p><p>Enna on nuori kylänoita, jonka lähikylää vaivaavat lukuisat vitsaukset. Vuorimökissä asuvan Moiran elämä mullistuu, kun hän pelastaa pakkasesta salaperäisen koiran. Sisarukset Anders ja Linda matkaavat vanhempiensa kanssa ilmalaivalla tutkimassa mammutteja. Syvälle töihin itsensä hukannut Aisha tähyilee merenrannalta horisontissa nousevaa lohikäärmemyrskyä.</p><p>Teen ja loitsujen vuosi tarjoaa neljä lempeän lumoavaa noitatarinaa, metsämökkien tunnelmaa, maagisia hetkiä, puhuvia eläimiä, sydämen läpätystä – ja juuri oikean verran teehetkiä ja leivonnaisia. Magdalena Hain mukaansatempaavat kertomukset syttyvät väreihin Heikalan ihastuttavissa kuvituksissa.</p>",
-              "descr_attr": "WSOY",
+              "description": "<p><strong>Mitä meille jää, kun kaikki muuttuu?</strong></p><p>Elämään kuuluvat ilojen rinnalla monenlaiset menetykset. Miten käy, kun avaruuslentoemäntä yrittää lunastaa kansalleen uuden maailman tai ikuiseen jälleensyntymään tuomittu nainen saa vihjeen vapaudesta? Entä kun pelastusalus kohtaa hirviön sijaan moraalisen dilemman? Voiko kielletystä metsästä löytää myös jotain hyvää?</p><p>Neljän palkitun kirjailijan tieteisnovellit tutkivat menetyksen teemaa haikeuden ja toivon kautta, vajoamatta liialliseen lohduttomuuteen. Vaikka kaikki olisi jo menetetty, tie huomiseen on yhä avoin.</p>",
+              "descr_attr": "Nysalor-kustannus",
               "imported_string": null
             },
             "editors": [],
-            "contributions": [
-              {
-                "person": {
-                  "id": 7905.0,
-                  "name": "Heikala",
-                  "alt_name": "Heikala"
-                },
-                "role": {
-                  "id": 4,
-                  "name": "Kansikuva"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 7905.0,
-                  "name": "Heikala",
-                  "alt_name": "Heikala"
-                },
-                "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
-                },
-                "description": "",
-                "real_person": null
-              }
-            ],
+            "contributions": [],
             "images": [
               {
-                "id": 9841,
-                "image_src": "/static/images/books/Hai_Magdalena_Teenjaloitsujenvuosi_1p.jpg",
+                "id": 10021,
+                "image_src": "/static/images/books/Ihalainen_Saarinen_Menetettyjamaailmoja_1p.jpg",
                 "image_attr": null
               }
             ],
             "publisher": {
-              "id": 387,
-              "name": "WSOY"
+              "id": 217,
+              "name": "Nysalor-kustannus"
             },
             "owners": [],
             "wishlisted": [],
             "binding": {
-              "id": 3,
-              "name": "Sidottu"
+              "id": 2,
+              "name": "Nidottu"
             },
-            "id": 10253,
-            "title": "Teen ja loitsujen vuosi",
-            "subtitle": "",
+            "id": 10371,
+            "title": "Menetettyjä maailmoja",
+            "subtitle": "neljä pitkää tieteisnovellia",
             "pubyear": 2026,
             "editionnum": 1,
             "version": 1,
-            "isbn": "978-951-0-52184-7",
+            "isbn": "978-952-7564-66-0",
             "printedin": null,
             "pubseriesnum": null,
             "coll_info": null,
-            "pages": 149,
-            "size": 22,
+            "pages": 194,
+            "size": 21,
             "dustcover": 1,
-            "coverimage": 3,
+            "coverimage": 1,
             "misc": null,
             "imported_string": null,
             "verified": false
           }
         ],
-        "genres": [],
+        "genres": [
+          {
+            "id": 5,
+            "name": "Science Fiction",
+            "abbr": "SF"
+          }
+        ],
         "contributors": [
           {
             "person": {
-              "id": 1841.0,
-              "name": "Hai, Magdalena",
-              "alt_name": "Magdalena Hai"
+              "id": 3809,
+              "name": "Vuokko-Syrjänen, Reetta",
+              "alt_name": "Reetta Vuokko-Syrjänen"
             },
             "role": {
               "id": 1,
@@ -952,8 +910,8 @@
           "id": 7,
           "name": "suomi"
         },
-        "id": 15594,
-        "title": "Syysnoita - metsän jumalat",
+        "id": 15617,
+        "title": "Maailman loppuessa poistukaa hyvässä järjestyksessä",
         "orig_title": "",
         "pubyear": 2026,
         "notes": ""
@@ -961,19 +919,19 @@
       {
         "authors": [
           {
-            "id": 7902.0,
-            "name": "Machado de Assis",
-            "alt_name": "Machado de Assis",
-            "fullname": "Joaquim Maria Machado de Assis",
+            "id": 7954,
+            "name": "Yrmy, Asmo",
+            "alt_name": "Asmo Yrmy",
+            "fullname": "",
             "image_src": null,
-            "dob": 1839.0,
-            "dod": 1908.0,
+            "dob": null,
+            "dod": null,
             "nationality": {
-              "id": 48,
-              "name": "Brasilia"
+              "id": 4,
+              "name": "Suomi"
             },
-            "workcount": 2.0,
-            "storycount": 12,
+            "workcount": 0,
+            "storycount": 1,
             "roles": [
               "Kirjoittaja"
             ],
@@ -988,563 +946,758 @@
           }
         ],
         "type": {
-          "id": 1,
-          "name": "Novelli"
+          "id": 7,
+          "name": "Artikkeli"
         },
-        "issues": [],
-        "editions": [
+        "issues": [
           {
-            "work": {
-              "id": 7055.0,
-              "title": "Kuolematon ja muita novelleja",
-              "orig_title": "",
-              "author_str": "Machado de Assis",
-              "contributions": [
-                {
-                  "person": {
-                    "id": 7902.0,
-                    "name": "Machado de Assis",
-                    "alt_name": "Machado de Assis"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                }
-              ],
-              "editions": [
-                {
-                  "editors": [],
-                  "translators": [
-                    {
-                      "id": 7903.0,
-                      "name": "Valkama, Pirkka",
-                      "alt_name": "Pirkka Valkama",
-                      "fullname": "",
-                      "image_src": null,
-                      "dob": null,
-                      "dod": null,
-                      "nationality": {
-                        "id": 4,
-                        "name": "Suomi"
-                      },
-                      "workcount": 0.0,
-                      "storycount": 12,
-                      "roles": [
-                        "Kääntäjä"
-                      ],
-                      "other_names": "",
-                      "first_name": null,
-                      "last_name": null,
-                      "image_attr": null,
-                      "qid": "",
-                      "bio": "",
-                      "bio_src": "",
-                      "imported_string": null
-                    }
-                  ],
-                  "contributions": [
-                    {
-                      "person": {
-                        "id": 7903.0,
-                        "name": "Valkama, Pirkka",
-                        "alt_name": "Pirkka Valkama"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 7904.0,
-                        "name": "Majanen, Riikka",
-                        "alt_name": "Riikka Majanen"
-                      },
-                      "role": {
-                        "id": 4,
-                        "name": "Kansikuva"
-                      },
-                      "description": "Ulkoasu",
-                      "real_person": null
-                    }
-                  ],
-                  "images": [
-                    {
-                      "id": 9834,
-                      "image_src": "/static/images/books/Machado_de_Assis_Kuolematon_1p.jpg",
-                      "image_attr": null
-                    }
-                  ],
-                  "publisher": {
-                    "id": 267,
-                    "name": "Sammakko"
-                  },
-                  "owners": [],
-                  "wishlisted": [],
-                  "id": 10249,
-                  "title": "Kuolematon ja muita novelleja",
-                  "subtitle": "",
-                  "pubyear": 2014,
-                  "editionnum": 1,
-                  "version": 1,
-                  "isbn": "978-952-483-264-9",
-                  "printedin": null,
-                  "pubseriesnum": null,
-                  "coll_info": null,
-                  "pages": 189,
-                  "size": 20,
-                  "dustcover": 1,
-                  "coverimage": 1,
-                  "misc": null,
-                  "imported_string": null,
-                  "verified": false
-                }
-              ],
-              "genres": [
-                {
-                  "id": 1,
-                  "name": "Fantasia",
-                  "abbr": "F"
-                }
-              ],
-              "bookseries": null,
-              "tags": [
-                {
-                  "type": {
-                    "id": 2,
-                    "name": "Alagenre"
-                  },
-                  "works": [
-                    {
-                      "id": 21
-                    },
-                    {
-                      "id": 26
-                    },
-                    {
-                      "id": 445
-                    },
-                    {
-                      "id": 446
-                    },
-                    {
-                      "id": 447
-                    },
-                    {
-                      "id": 981
-                    },
-                    {
-                      "id": 994
-                    },
-                    {
-                      "id": 1124
-                    },
-                    {
-                      "id": 1125
-                    },
-                    {
-                      "id": 1259
-                    },
-                    {
-                      "id": 1458
-                    },
-                    {
-                      "id": 1691
-                    },
-                    {
-                      "id": 1821
-                    },
-                    {
-                      "id": 1865
-                    },
-                    {
-                      "id": 1866
-                    },
-                    {
-                      "id": 1867
-                    },
-                    {
-                      "id": 1869
-                    },
-                    {
-                      "id": 1870
-                    },
-                    {
-                      "id": 2115
-                    },
-                    {
-                      "id": 2360
-                    },
-                    {
-                      "id": 2577
-                    },
-                    {
-                      "id": 2592
-                    },
-                    {
-                      "id": 2593
-                    },
-                    {
-                      "id": 7010
-                    },
-                    {
-                      "id": 2879
-                    },
-                    {
-                      "id": 2880
-                    },
-                    {
-                      "id": 3032
-                    },
-                    {
-                      "id": 3067
-                    },
-                    {
-                      "id": 3079
-                    },
-                    {
-                      "id": 3419
-                    },
-                    {
-                      "id": 3433
-                    },
-                    {
-                      "id": 3434
-                    },
-                    {
-                      "id": 3437
-                    },
-                    {
-                      "id": 3501
-                    },
-                    {
-                      "id": 3690
-                    },
-                    {
-                      "id": 3851
-                    },
-                    {
-                      "id": 4023
-                    },
-                    {
-                      "id": 4244
-                    },
-                    {
-                      "id": 4607
-                    },
-                    {
-                      "id": 4620
-                    },
-                    {
-                      "id": 4727
-                    },
-                    {
-                      "id": 4842
-                    },
-                    {
-                      "id": 4844
-                    },
-                    {
-                      "id": 4846
-                    },
-                    {
-                      "id": 4847
-                    },
-                    {
-                      "id": 4864
-                    },
-                    {
-                      "id": 4865
-                    },
-                    {
-                      "id": 4973
-                    },
-                    {
-                      "id": 5353
-                    },
-                    {
-                      "id": 5450
-                    },
-                    {
-                      "id": 5453
-                    },
-                    {
-                      "id": 5459
-                    },
-                    {
-                      "id": 5848
-                    },
-                    {
-                      "id": 5909
-                    },
-                    {
-                      "id": 5928
-                    },
-                    {
-                      "id": 5988
-                    },
-                    {
-                      "id": 6110
-                    },
-                    {
-                      "id": 6170
-                    },
-                    {
-                      "id": 6175
-                    },
-                    {
-                      "id": 6316
-                    },
-                    {
-                      "id": 6329
-                    },
-                    {
-                      "id": 6336
-                    },
-                    {
-                      "id": 6365
-                    },
-                    {
-                      "id": 6380
-                    },
-                    {
-                      "id": 6471
-                    },
-                    {
-                      "id": 6491
-                    },
-                    {
-                      "id": 6493
-                    },
-                    {
-                      "id": 6516
-                    },
-                    {
-                      "id": 5612
-                    },
-                    {
-                      "id": 5613
-                    },
-                    {
-                      "id": 6593
-                    },
-                    {
-                      "id": 6023
-                    },
-                    {
-                      "id": 6609
-                    },
-                    {
-                      "id": 6015
-                    },
-                    {
-                      "id": 1434
-                    },
-                    {
-                      "id": 6624
-                    },
-                    {
-                      "id": 6627
-                    },
-                    {
-                      "id": 6667
-                    },
-                    {
-                      "id": 6684
-                    },
-                    {
-                      "id": 6689
-                    },
-                    {
-                      "id": 3221
-                    },
-                    {
-                      "id": 2161
-                    },
-                    {
-                      "id": 6060
-                    },
-                    {
-                      "id": 6763
-                    },
-                    {
-                      "id": 4501
-                    },
-                    {
-                      "id": 745
-                    },
-                    {
-                      "id": 746
-                    },
-                    {
-                      "id": 3556
-                    },
-                    {
-                      "id": 6936
-                    },
-                    {
-                      "id": 6940
-                    },
-                    {
-                      "id": 4659
-                    },
-                    {
-                      "id": 3224
-                    },
-                    {
-                      "id": 1011
-                    },
-                    {
-                      "id": 3418
-                    },
-                    {
-                      "id": 5742
-                    },
-                    {
-                      "id": 744
-                    },
-                    {
-                      "id": 6421
-                    },
-                    {
-                      "id": 6726
-                    },
-                    {
-                      "id": 5574
-                    },
-                    {
-                      "id": 6965
-                    },
-                    {
-                      "id": 6969
-                    },
-                    {
-                      "id": 5774
-                    },
-                    {
-                      "id": 2641
-                    },
-                    {
-                      "id": 7018
-                    },
-                    {
-                      "id": 7019
-                    },
-                    {
-                      "id": 7055
-                    },
-                    {
-                      "id": 7062
-                    },
-                    {
-                      "id": 7063
-                    },
-                    {
-                      "id": 7064
-                    }
-                  ],
-                  "articles": [],
-                  "stories": [
-                    {
-                      "id": 10133
-                    }
-                  ],
-                  "id": 551,
-                  "name": "maaginen realismi",
-                  "description": "<p>Maaginen realismi on kirjallinen tyyli tai kerronnan tapa, jossa todelliseen, arkiseen maailmaan sulautuu saumattomasti yliluonnollisia, maagisia tai selittämättömiä elementtejä. Tärkeää on, että nämä ihmeellisyydet esitetään kuin ne olisivat täysin normaaleja ja luonnollinen osa maailmaa – niitä ei korosteta erikseen, eivätkä hahmot yleensä kyseenalaista niitä.</p><p>Maaginen realismi yhdistää siis realistisen ympäristön ja arkielämän yksityiskohdat satumaisiin, usein symbolisiin tapahtumiin. Se ei ole fantasiaa siinä mielessä, että maailma olisi kokonaan maaginen tai erillinen todellisuudesta, vaan pikemminkin maaginen kerros arkisuuden pinnan alla.</p><p>Tyylisuunta on erityisen tunnettu latinalaisamerikkalaisessa kirjallisuudessa, kuten Gabriel García Márquezin <em>Sadan vuoden yksinäisyydessä</em>, mutta sitä on käytetty myös muualla maailmassa. Se tarjoaa keinon käsitellä syviä teemoja – kuten historiaa, muistia, surua, politiikkaa tai identiteettiä – tavalla, joka ohittaa suoran selittämisen ja tavoittaa kokemusten monikerroksisuutta.</p>"
-                }
-              ],
-              "language_name": {
-                "id": 35,
-                "name": "portugali"
+            "magazine": {
+              "type_id": 1,
+              "type": {
+                "id": 1,
+                "name": "Fanzine"
               },
-              "type": 2.0,
-              "subtitle": "",
-              "pubyear": 2014,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "<p>Machado de Assis on brasilialaisen kirjallisuuden merkittävimpiä nimiä kautta aikojen. Psykologisesti tarkkanäköisten romaaniensa lisäksi Machado kirjoitti toistasataa lyhyempää kertomusta, joista tähän suomennoskokoelmaan sisältyy kaksitoista. Tarinoiden skaala ulottuu pistävästä yhteiskunnallisesta satiirista mielikuvituksellisiin fantasioihin, joiden voi nähdä enteilevän latinalaisamerikkalaista maagista realismia.</p><p>Valikoiman pidemmistä novelleista lähes pienoisromaanin mittoihin yltävä ”Mielitautilääkäri” on kirpeä satiiri vallasta ja hulluudesta. ”Kuolematon” vie surrealistiselle matkalle läpi aikakausien. Novellissa ”Peili” kertoja paljastaa teoriansa ihmisen kahdesta sielusta.</p>",
-              "descr_attr": "Takakansi",
-              "imported_string": null
+              "issues": [
+                {
+                  "id": 368,
+                  "year": 1982
+                },
+                {
+                  "id": 369,
+                  "year": 1982
+                },
+                {
+                  "id": 370,
+                  "year": 1982
+                },
+                {
+                  "id": 371,
+                  "year": 1982
+                },
+                {
+                  "id": 372,
+                  "year": 1983
+                },
+                {
+                  "id": 373,
+                  "year": 1983
+                },
+                {
+                  "id": 374,
+                  "year": 1983
+                },
+                {
+                  "id": 375,
+                  "year": 1983
+                },
+                {
+                  "id": 376,
+                  "year": 1984
+                },
+                {
+                  "id": 377,
+                  "year": 1984
+                },
+                {
+                  "id": 378,
+                  "year": 1984
+                },
+                {
+                  "id": 379,
+                  "year": 1984
+                },
+                {
+                  "id": 380,
+                  "year": 1985
+                },
+                {
+                  "id": 381,
+                  "year": 1985
+                },
+                {
+                  "id": 382,
+                  "year": 1985
+                },
+                {
+                  "id": 383,
+                  "year": 1985
+                },
+                {
+                  "id": 384,
+                  "year": 1986
+                },
+                {
+                  "id": 385,
+                  "year": 1986
+                },
+                {
+                  "id": 386,
+                  "year": 1986
+                },
+                {
+                  "id": 387,
+                  "year": 1986
+                },
+                {
+                  "id": 388,
+                  "year": 1987
+                },
+                {
+                  "id": 389,
+                  "year": 1987
+                },
+                {
+                  "id": 390,
+                  "year": 1987
+                },
+                {
+                  "id": 391,
+                  "year": 1987
+                },
+                {
+                  "id": 392,
+                  "year": 1988
+                },
+                {
+                  "id": 393,
+                  "year": 1988
+                },
+                {
+                  "id": 394,
+                  "year": 1988
+                },
+                {
+                  "id": 395,
+                  "year": 1988
+                },
+                {
+                  "id": 396,
+                  "year": 1989
+                },
+                {
+                  "id": 397,
+                  "year": 1989
+                },
+                {
+                  "id": 398,
+                  "year": 1989
+                },
+                {
+                  "id": 399,
+                  "year": 1989
+                },
+                {
+                  "id": 400,
+                  "year": 1990
+                },
+                {
+                  "id": 401,
+                  "year": 1990
+                },
+                {
+                  "id": 402,
+                  "year": 1990
+                },
+                {
+                  "id": 403,
+                  "year": 1990
+                },
+                {
+                  "id": 404,
+                  "year": 1991
+                },
+                {
+                  "id": 405,
+                  "year": 1991
+                },
+                {
+                  "id": 406,
+                  "year": 1991
+                },
+                {
+                  "id": 407,
+                  "year": 1991
+                },
+                {
+                  "id": 408,
+                  "year": 1992
+                },
+                {
+                  "id": 409,
+                  "year": 1992
+                },
+                {
+                  "id": 410,
+                  "year": 1992
+                },
+                {
+                  "id": 411,
+                  "year": 1992
+                },
+                {
+                  "id": 412,
+                  "year": 1993
+                },
+                {
+                  "id": 413,
+                  "year": 1993
+                },
+                {
+                  "id": 414,
+                  "year": 1993
+                },
+                {
+                  "id": 415,
+                  "year": 1993
+                },
+                {
+                  "id": 416,
+                  "year": 1994
+                },
+                {
+                  "id": 417,
+                  "year": 1994
+                },
+                {
+                  "id": 418,
+                  "year": 1994
+                },
+                {
+                  "id": 419,
+                  "year": 1994
+                },
+                {
+                  "id": 420,
+                  "year": 1995
+                },
+                {
+                  "id": 421,
+                  "year": 1995
+                },
+                {
+                  "id": 422,
+                  "year": 1995
+                },
+                {
+                  "id": 423,
+                  "year": 1995
+                },
+                {
+                  "id": 424,
+                  "year": 1996
+                },
+                {
+                  "id": 425,
+                  "year": 1996
+                },
+                {
+                  "id": 426,
+                  "year": 1996
+                },
+                {
+                  "id": 427,
+                  "year": 1996
+                },
+                {
+                  "id": 428,
+                  "year": 1997
+                },
+                {
+                  "id": 429,
+                  "year": 1997
+                },
+                {
+                  "id": 430,
+                  "year": 1997
+                },
+                {
+                  "id": 431,
+                  "year": 1997
+                },
+                {
+                  "id": 432,
+                  "year": 1998
+                },
+                {
+                  "id": 433,
+                  "year": 1998
+                },
+                {
+                  "id": 434,
+                  "year": 1998
+                },
+                {
+                  "id": 435,
+                  "year": 1998
+                },
+                {
+                  "id": 436,
+                  "year": 1999
+                },
+                {
+                  "id": 437,
+                  "year": 1999
+                },
+                {
+                  "id": 438,
+                  "year": 1999
+                },
+                {
+                  "id": 439,
+                  "year": 1999
+                },
+                {
+                  "id": 440,
+                  "year": 2000
+                },
+                {
+                  "id": 441,
+                  "year": 2000
+                },
+                {
+                  "id": 442,
+                  "year": 2000
+                },
+                {
+                  "id": 443,
+                  "year": 2000
+                },
+                {
+                  "id": 444,
+                  "year": 2001
+                },
+                {
+                  "id": 445,
+                  "year": 2001
+                },
+                {
+                  "id": 446,
+                  "year": 2001
+                },
+                {
+                  "id": 447,
+                  "year": 2001
+                },
+                {
+                  "id": 448,
+                  "year": 2002
+                },
+                {
+                  "id": 449,
+                  "year": 2002
+                },
+                {
+                  "id": 450,
+                  "year": 2002
+                },
+                {
+                  "id": 451,
+                  "year": 2002
+                },
+                {
+                  "id": 452,
+                  "year": 2003
+                },
+                {
+                  "id": 453,
+                  "year": 2003
+                },
+                {
+                  "id": 454,
+                  "year": 2003
+                },
+                {
+                  "id": 455,
+                  "year": 2003
+                },
+                {
+                  "id": 456,
+                  "year": 2004
+                },
+                {
+                  "id": 457,
+                  "year": 2004
+                },
+                {
+                  "id": 458,
+                  "year": 2004
+                },
+                {
+                  "id": 459,
+                  "year": 2004
+                },
+                {
+                  "id": 460,
+                  "year": 2005
+                },
+                {
+                  "id": 461,
+                  "year": 2005
+                },
+                {
+                  "id": 462,
+                  "year": 2005
+                },
+                {
+                  "id": 463,
+                  "year": 2005
+                },
+                {
+                  "id": 464,
+                  "year": 2006
+                },
+                {
+                  "id": 465,
+                  "year": 2006
+                },
+                {
+                  "id": 466,
+                  "year": 2006
+                },
+                {
+                  "id": 467,
+                  "year": 2006
+                },
+                {
+                  "id": 468,
+                  "year": 2007
+                },
+                {
+                  "id": 469,
+                  "year": 2007
+                },
+                {
+                  "id": 470,
+                  "year": 2007
+                },
+                {
+                  "id": 471,
+                  "year": 2007
+                },
+                {
+                  "id": 472,
+                  "year": 2008
+                },
+                {
+                  "id": 473,
+                  "year": 2008
+                },
+                {
+                  "id": 474,
+                  "year": 2008
+                },
+                {
+                  "id": 475,
+                  "year": 2008
+                },
+                {
+                  "id": 476,
+                  "year": 2009
+                },
+                {
+                  "id": 477,
+                  "year": 2009
+                },
+                {
+                  "id": 478,
+                  "year": 2009
+                },
+                {
+                  "id": 479,
+                  "year": 2009
+                },
+                {
+                  "id": 480,
+                  "year": 2010
+                },
+                {
+                  "id": 481,
+                  "year": 2010
+                },
+                {
+                  "id": 482,
+                  "year": 2010
+                },
+                {
+                  "id": 483,
+                  "year": 2010
+                },
+                {
+                  "id": 484,
+                  "year": 2011
+                },
+                {
+                  "id": 485,
+                  "year": 2011
+                },
+                {
+                  "id": 486,
+                  "year": 2011
+                },
+                {
+                  "id": 487,
+                  "year": 2011
+                },
+                {
+                  "id": 488,
+                  "year": 2012
+                },
+                {
+                  "id": 489,
+                  "year": 2012
+                },
+                {
+                  "id": 490,
+                  "year": 2012
+                },
+                {
+                  "id": 491,
+                  "year": 2012
+                },
+                {
+                  "id": 492,
+                  "year": 2013
+                },
+                {
+                  "id": 493,
+                  "year": 2013
+                },
+                {
+                  "id": 494,
+                  "year": 2013
+                },
+                {
+                  "id": 495,
+                  "year": 2013
+                },
+                {
+                  "id": 496,
+                  "year": 2014
+                },
+                {
+                  "id": 497,
+                  "year": 2014
+                },
+                {
+                  "id": 498,
+                  "year": 2014
+                },
+                {
+                  "id": 499,
+                  "year": 2014
+                },
+                {
+                  "id": 500,
+                  "year": 2015
+                },
+                {
+                  "id": 501,
+                  "year": 2015
+                },
+                {
+                  "id": 502,
+                  "year": 2015
+                },
+                {
+                  "id": 503,
+                  "year": 2015
+                },
+                {
+                  "id": 504,
+                  "year": 2016
+                },
+                {
+                  "id": 505,
+                  "year": 2016
+                },
+                {
+                  "id": 506,
+                  "year": 2016
+                },
+                {
+                  "id": 507,
+                  "year": 2016
+                },
+                {
+                  "id": 508,
+                  "year": 2017
+                },
+                {
+                  "id": 509,
+                  "year": 2017
+                },
+                {
+                  "id": 510,
+                  "year": 2017
+                },
+                {
+                  "id": 511,
+                  "year": 2017
+                },
+                {
+                  "id": 512,
+                  "year": 2018
+                },
+                {
+                  "id": 513,
+                  "year": 2018
+                },
+                {
+                  "id": 514,
+                  "year": 2018
+                },
+                {
+                  "id": 515,
+                  "year": 2018
+                },
+                {
+                  "id": 516,
+                  "year": 2019
+                },
+                {
+                  "id": 517,
+                  "year": 2019
+                },
+                {
+                  "id": 518,
+                  "year": 2019
+                },
+                {
+                  "id": 519,
+                  "year": 2019
+                },
+                {
+                  "id": 520,
+                  "year": 2020
+                },
+                {
+                  "id": 521,
+                  "year": 2020
+                },
+                {
+                  "id": 522,
+                  "year": 2020
+                },
+                {
+                  "id": 523,
+                  "year": 2020
+                },
+                {
+                  "id": 524,
+                  "year": 2021
+                },
+                {
+                  "id": 892,
+                  "year": 2021
+                },
+                {
+                  "id": 893,
+                  "year": 2021
+                },
+                {
+                  "id": 894,
+                  "year": 2021
+                },
+                {
+                  "id": 895,
+                  "year": 2022
+                },
+                {
+                  "id": 896,
+                  "year": 2022
+                },
+                {
+                  "id": 897,
+                  "year": 2022
+                },
+                {
+                  "id": 898,
+                  "year": 2022
+                },
+                {
+                  "id": 899,
+                  "year": 2023
+                },
+                {
+                  "id": 900,
+                  "year": 2023
+                },
+                {
+                  "id": 901,
+                  "year": 2023
+                },
+                {
+                  "id": 902,
+                  "year": 2023
+                },
+                {
+                  "id": 903,
+                  "year": 2024
+                },
+                {
+                  "id": 904,
+                  "year": 2024
+                },
+                {
+                  "id": 905,
+                  "year": 2024
+                },
+                {
+                  "id": 906,
+                  "year": 2024
+                },
+                {
+                  "id": 1095,
+                  "year": 2025
+                },
+                {
+                  "id": 1096,
+                  "year": 2025
+                },
+                {
+                  "id": 1097,
+                  "year": 2025
+                },
+                {
+                  "id": 1128,
+                  "year": 2025
+                }
+              ],
+              "id": 39,
+              "name": "Portti",
+              "description": null,
+              "link": "https://www.porttisci.fi/",
+              "issn": "0359-114X"
             },
-            "editors": [],
-            "contributions": [
-              {
-                "person": {
-                  "id": 7903.0,
-                  "name": "Valkama, Pirkka",
-                  "alt_name": "Pirkka Valkama"
-                },
-                "role": {
-                  "id": 2,
-                  "name": "Kääntäjä"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 7904.0,
-                  "name": "Majanen, Riikka",
-                  "alt_name": "Riikka Majanen"
-                },
-                "role": {
-                  "id": 4,
-                  "name": "Kansikuva"
-                },
-                "description": "Ulkoasu",
-                "real_person": null
-              }
-            ],
             "images": [
               {
-                "id": 9834,
-                "image_src": "/static/images/books/Machado_de_Assis_Kuolematon_1p.jpg",
+                "id": 330,
+                "image_src": "/static/images/magazines/Portti_1989_3.jpg",
                 "image_attr": null
               }
             ],
-            "publisher": {
-              "id": 267,
-              "name": "Sammakko"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "binding": {
-              "id": 2,
-              "name": "Nidottu"
-            },
-            "id": 10249,
-            "title": "Kuolematon ja muita novelleja",
-            "subtitle": "",
-            "pubyear": 2014,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "978-952-483-264-9",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 189,
-            "size": 20,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": null,
-            "verified": false
+            "id": 398,
+            "number": 3,
+            "number_extra": "",
+            "count": 31,
+            "year": 1989,
+            "cover_number": "3/1989",
+            "image_src": "/static/images/magazines/Portti_1989_3.jpg",
+            "image_attr": null,
+            "pages": 84,
+            "link": "",
+            "notes": null,
+            "title": ""
           }
         ],
+        "editions": [],
         "genres": [],
         "contributors": [
           {
             "person": {
-              "id": 7902.0,
-              "name": "Machado de Assis",
-              "alt_name": "Machado de Assis"
+              "id": 7954,
+              "name": "Yrmy, Asmo",
+              "alt_name": "Asmo Yrmy"
             },
             "role": {
               "id": 1,
@@ -1552,29 +1705,16 @@
             },
             "description": "",
             "real_person": null
-          },
-          {
-            "person": {
-              "id": 7903.0,
-              "name": "Valkama, Pirkka",
-              "alt_name": "Pirkka Valkama"
-            },
-            "role": {
-              "id": 2,
-              "name": "Kääntäjä"
-            },
-            "description": "",
-            "real_person": null
           }
         ],
         "lang": {
-          "id": 35,
-          "name": "portugali"
+          "id": 7,
+          "name": "suomi"
         },
-        "id": 15593,
-        "title": "Bungon viisaan salaisuus",
-        "orig_title": "O Segredo do Bonzo",
-        "pubyear": 1882,
+        "id": 15616,
+        "title": "Miten kirjoitetaan pelkästään onnistuneita sf-juttuja",
+        "orig_title": "",
+        "pubyear": 1989,
         "notes": ""
       }
     ],

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-07-12T18:56:26.276996+00:00",
+    "generated_at": "2026-08-23T17:54:16.984799+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/storynationalitycounts",
@@ -15,15 +15,16 @@
         "nationality": "Suomi",
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 1185,
+            "Kirjoittaja": 1186,
             "Kääntäjä": 405
           },
           "Pitkä novelli": {
+            "Kirjoittaja": 4,
             "Kääntäjä": 15
           },
           "Pienoisromaani": {
             "Kirjoittaja": 1,
-            "Kääntäjä": 17
+            "Kääntäjä": 19
           },
           "Runo": {
             "Kirjoittaja": 91,
@@ -37,7 +38,7 @@
             "Esiintyy": 3
           },
           "Artikkeli": {
-            "Kirjoittaja": 785,
+            "Kirjoittaja": 786,
             "Kääntäjä": 45,
             "Esiintyy": 255
           },
@@ -52,7 +53,7 @@
             "Esiintyy": 1
           }
         },
-        "count": 2178
+        "count": 2181
       },
       {
         "nationality_id": 3,
@@ -65,7 +66,7 @@
             "Kirjoittaja": 26
           },
           "Pienoisromaani": {
-            "Kirjoittaja": 16
+            "Kirjoittaja": 19
           },
           "Runo": {
             "Kirjoittaja": 9
@@ -81,7 +82,7 @@
             "Kirjoittaja": 1
           }
         },
-        "count": 566
+        "count": 568
       },
       {
         "nationality_id": 1,
@@ -222,6 +223,9 @@
           "Novelli": {
             "Kirjoittaja": 17,
             "Kääntäjä": 5
+          },
+          "Pienoisromaani": {
+            "Kirjoittaja": 2
           },
           "Artikkeli": {
             "Kirjoittaja": 2,

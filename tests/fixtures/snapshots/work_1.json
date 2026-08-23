@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-07-12T18:56:26.276996+00:00",
+    "generated_at": "2026-08-23T17:54:16.984799+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/works/1",
@@ -29,7 +29,7 @@
           ],
           "translators": [
             {
-              "id": 2.0,
+              "id": 2,
               "name": "Buffa, Aira",
               "alt_name": "Aira Buffa",
               "fullname": "",
@@ -40,7 +40,7 @@
                 "id": 4,
                 "name": "Suomi"
               },
-              "workcount": 0.0,
+              "workcount": 0,
               "storycount": 0,
               "roles": [
                 "Kääntäjä"
@@ -57,14 +57,14 @@
           ],
           "pubseries": null,
           "work": {
-            "id": 1.0,
+            "id": 1,
             "title": "Kivineitsyt",
             "orig_title": "Stone Virgin",
             "author_str": "Unsworth, Barry",
             "contributions": [
               {
                 "person": {
-                  "id": 1.0,
+                  "id": 1,
                   "name": "Unsworth, Barry",
                   "alt_name": "Barry Unsworth"
                 },
@@ -81,36 +81,15 @@
                 "editors": [],
                 "translators": [
                   {
-                    "id": 2.0,
+                    "id": 2,
                     "name": "Buffa, Aira",
-                    "alt_name": "Aira Buffa",
-                    "fullname": "",
-                    "image_src": null,
-                    "dob": null,
-                    "dod": null,
-                    "nationality": {
-                      "id": 4,
-                      "name": "Suomi"
-                    },
-                    "workcount": 0.0,
-                    "storycount": 0,
-                    "roles": [
-                      "Kääntäjä"
-                    ],
-                    "other_names": "",
-                    "first_name": "Aira",
-                    "last_name": "Buffa",
-                    "image_attr": "",
-                    "qid": null,
-                    "bio": "",
-                    "bio_src": "",
-                    "imported_string": "\n<b>Kivineitsyt</b>. (Stone Virgin, 1985). Suom Aira Buffa. WSOY 1986. [F]."
+                    "alt_name": "Aira Buffa"
                   }
                 ],
                 "contributions": [
                   {
                     "person": {
-                      "id": 2.0,
+                      "id": 2,
                       "name": "Buffa, Aira",
                       "alt_name": "Aira Buffa"
                     },
@@ -119,6 +98,19 @@
                       "name": "Kääntäjä"
                     },
                     "description": null,
+                    "real_person": null
+                  },
+                  {
+                    "person": {
+                      "id": 7986,
+                      "name": "Wald, Carol",
+                      "alt_name": "Carol Wald"
+                    },
+                    "role": {
+                      "id": 4,
+                      "name": "Kansikuva"
+                    },
+                    "description": "Päällyksen kuva",
                     "real_person": null
                   }
                 ],
@@ -167,14 +159,14 @@
               "id": 1,
               "name": "englanti"
             },
-            "type": 1.0,
+            "type": 1,
             "subtitle": "",
             "pubyear": 1985,
             "bookseriesnum": "",
             "bookseriesorder": 0,
             "misc": "",
-            "description": null,
-            "descr_attr": null,
+            "description": "<p>Simon Raikes, englantilainen kuvapatsaiden entistäjä, saa tehtäväkseen puhdistaa vuosisatojen liasta Venetsian 1400-luvun veistotaiteen mestariluomuksen, kivisen Madonnan patsaan. Raikes uppoutuu työhön, ja sitä mukaa kuin veistos tulee esiin, Raikes kietoutuu sen jumalallisen, eroottisen lumon valtaan. Hänen mieleensä nousee pakottavia kysymyksiä. Kuka oli Kivineitsyen onneton veistäjä? Kuinka väkevästi häneen vaikutti Madonnan malli, ilotyttö Bianca? Mikä yhteys oli Francescalla, kolmesataa vuotta myöhemmin eläneellä venetsialaiskaunottarella, Kivineitsyen historiaan? Raikesin mielessä menneisyys tunkeutuu nykyisyyteen, sulautuu siihen ja valtaa sen kokonaan. Hänen venetsialainen rakastettunsa Chiara saa hänen silmissään uusia, mystisiä piirteitä. Kun Madonnan kasvot vihdoin paljastuvat vuosisatojen patinan alta, niiden hymyssä on jotakin kuvaamattoman tuttua.</p><p><em>Kivineitsyt </em>on huomattavan englantilaisen kirjailijan, Barry Unsworthin, ensimmäinen suomennettu romaani, hänen kansainvälinen läpimurtonsa.</p><p><br></p>",
+            "descr_attr": "Takakansi",
             "imported_string": "\n<b>Kivineitsyt</b>. (Stone Virgin, 1985). Suom Aira Buffa. WSOY 1986. [F]."
           },
           "binding": {
@@ -189,7 +181,7 @@
           "contributions": [
             {
               "person": {
-                "id": 2.0,
+                "id": 2,
                 "name": "Buffa, Aira",
                 "alt_name": "Aira Buffa"
               },
@@ -198,6 +190,19 @@
                 "name": "Kääntäjä"
               },
               "description": null,
+              "real_person": null
+            },
+            {
+              "person": {
+                "id": 7986,
+                "name": "Wald, Carol",
+                "alt_name": "Carol Wald"
+              },
+              "role": {
+                "id": 4,
+                "name": "Kansikuva"
+              },
+              "description": "Päällyksen kuva",
               "real_person": null
             }
           ],
@@ -241,7 +246,7 @@
       "contributions": [
         {
           "person": {
-            "id": 1.0,
+            "id": 1,
             "name": "Unsworth, Barry",
             "alt_name": "Barry Unsworth"
           },
@@ -253,7 +258,7 @@
           "real_person": null
         }
       ],
-      "type": 1.0,
+      "type": 1,
       "work_type": {
         "id": 1,
         "name": "Romaani"
@@ -268,8 +273,8 @@
       "bookseriesnum": "",
       "bookseriesorder": 0,
       "misc": "",
-      "description": null,
-      "descr_attr": null,
+      "description": "<p>Simon Raikes, englantilainen kuvapatsaiden entistäjä, saa tehtäväkseen puhdistaa vuosisatojen liasta Venetsian 1400-luvun veistotaiteen mestariluomuksen, kivisen Madonnan patsaan. Raikes uppoutuu työhön, ja sitä mukaa kuin veistos tulee esiin, Raikes kietoutuu sen jumalallisen, eroottisen lumon valtaan. Hänen mieleensä nousee pakottavia kysymyksiä. Kuka oli Kivineitsyen onneton veistäjä? Kuinka väkevästi häneen vaikutti Madonnan malli, ilotyttö Bianca? Mikä yhteys oli Francescalla, kolmesataa vuotta myöhemmin eläneellä venetsialaiskaunottarella, Kivineitsyen historiaan? Raikesin mielessä menneisyys tunkeutuu nykyisyyteen, sulautuu siihen ja valtaa sen kokonaan. Hänen venetsialainen rakastettunsa Chiara saa hänen silmissään uusia, mystisiä piirteitä. Kun Madonnan kasvot vihdoin paljastuvat vuosisatojen patinan alta, niiden hymyssä on jotakin kuvaamattoman tuttua.</p><p><em>Kivineitsyt </em>on huomattavan englantilaisen kirjailijan, Barry Unsworthin, ensimmäinen suomennettu romaani, hänen kansainvälinen läpimurtonsa.</p><p><br></p>",
+      "descr_attr": "Takakansi",
       "imported_string": "\n<b>Kivineitsyt</b>. (Stone Virgin, 1985). Suom Aira Buffa. WSOY 1986. [F].",
       "author_str": "Unsworth, Barry"
     },

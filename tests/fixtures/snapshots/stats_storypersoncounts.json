@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-07-12T18:56:26.276996+00:00",
+    "generated_at": "2026-08-23T17:54:16.984799+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/storypersoncounts",
@@ -235,7 +235,7 @@
         "nationality": null,
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 8545,
+            "Kirjoittaja": 8554,
             "Kääntäjä": 1253,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -244,7 +244,7 @@
             "Päätoimittaja": 0
           },
           "Pitkä novelli": {
-            "Kirjoittaja": 37,
+            "Kirjoittaja": 41,
             "Kääntäjä": 25,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -253,7 +253,7 @@
             "Päätoimittaja": 0
           },
           "Pienoisromaani": {
-            "Kirjoittaja": 24,
+            "Kirjoittaja": 31,
             "Kääntäjä": 7,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -289,12 +289,12 @@
             "Päätoimittaja": 0
           },
           "Artikkeli": {
-            "Kirjoittaja": 4407,
+            "Kirjoittaja": 4410,
             "Kääntäjä": 61,
             "Toimittaja": 0,
             "Kansikuva": 0,
             "Kuvittaja": 0,
-            "Esiintyy": 1243,
+            "Esiintyy": 1246,
             "Päätoimittaja": 0
           },
           "Esipuhe": {
@@ -316,7 +316,7 @@
             "Päätoimittaja": 0
           }
         },
-        "total": 13944
+        "total": 13967
       }
     ],
     "error": null
