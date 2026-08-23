@@ -41,8 +41,6 @@ app.config['CORS_HEADERS'] = 'Content-type'
 login = LoginManager(app)
 app.jinja_env.lstrip_blocks = True
 app.jinja_env.trim_blocks = True
-# csrf = CSRFProtect(app)
-WTF_CSRF_CHECK_DEFAULT = False
 
 from app import (api, api_articles, api_awards,  # noqa
                  api_bookseries,

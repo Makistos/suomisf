@@ -190,18 +190,27 @@ matching the underlying `Integer`-typed columns):
   `only=` fix produces the intended trimmed-but-not-broken shape against
   real dev data.
 
-## Other exact-pinned majors (not CVEs, just version debt)
+## WTForms 2.3.3 / Flask-WTF (version debt, not a CVE) — FIXED 2026-08-23
 
-Found while bumping the rest of the dependencies on 2026-08-20. None of
-these have an open dependabot alert — they're just stuck on an old major
-because the pin was never revisited, and each one carries real
-breaking-change risk if bumped blind:
+Removed both entirely rather than upgraded. Confirmed genuinely dead
+code, same pattern as `Bootstrap-Flask` in the Flask 3 upgrade: no
+`FlaskForm` subclass anywhere in the codebase, `CSRFProtect(app)` was
+commented out in `app/__init__.py`, and the only other trace was a
+bare `WTF_CSRF_CHECK_DEFAULT = False` local variable — never assigned
+to `app.config`, so it did nothing. This is a JSON API (marshmallow
+schemas + JWT), not an HTML-form app; WTForms/Flask-WTF were presumably
+leftover from an earlier iteration of the project. Removed both
+packages from `pyproject.toml` and the two dead lines from
+`app/__init__.py`. `tests/conftest.py`'s
+`flask_app.config['WTF_CSRF_ENABLED'] = False` was left alone — also
+inert (nothing ever reads it now), but harmless test setup, not worth
+touching.
 
-- **WTForms `==2.3.3`** — WTForms 3.x changed validator APIs. Used via
-  `Flask-WTF` for forms; needs template/validator review before bumping.
-
-User's call on 2026-08-20: document these for now, don't attempt the
-migrations in this pass.
+Verified: app imports cleanly with all 193 routes, full pytest run 862
+passed / 13 failed (identical pre-existing baseline), full Playwright
+E2E suite green (the two flaky failures seen on the first parallel run
+reproduced as passing 3/3 in isolation — same pre-existing `Test
+User`-account race as every other upgrade in this sequence).
 
 ## Operational gaps found alongside the above (2026-08-20)
 
