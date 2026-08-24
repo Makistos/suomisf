@@ -60,15 +60,6 @@ os.environ['SUOMISF_DOTENV'] = '.env.e2e'
 class TestConfig:
     """Test configuration settings."""
 
-    # Database
-    TEST_DATABASE_URL = os.environ.get(
-        'TEST_DATABASE_URL',
-        f'postgresql://{DB_USER}@localhost:5432/{TEST_DB_NAME}'
-    )
-    GOLDEN_DB_PATH = os.path.join(
-        os.path.dirname(__file__), 'fixtures', 'golden_db.sql'
-    )
-
     # API
     BASE_URL = os.environ.get(
         'TEST_API_URL', 'http://localhost:5000/api'

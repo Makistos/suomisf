@@ -198,23 +198,14 @@ To see which endpoints are configured for snapshot testing:
 pdm run python tests/scripts/update_snapshots.py --list
 ```
 
-### Golden Database
+### Test Database Setup
 
-The test suite uses a golden database dump for consistent test data.
-
-**Creating a Golden Database Dump:**
-
-```bash
-bash tests/scripts/create_golden_db.sh
-```
-
-This creates a dump at `tests/fixtures/golden_db.sql`.
-
-**Restoring the Test Database:**
-
-```bash
-bash tests/scripts/restore_test_db.sh
-```
+The test suite clones the `suomisf` database live into `suomisf_test`
+(`pg_dump`/`psql`, via `clone_test_database()` in `conftest.py`) at the start
+of every full run, then applies the numbered migration SQL files and creates
+the test users. This happens automatically - no separate dump/restore step is
+needed. Use `--skip-db-setup` to skip re-cloning when iterating on a single
+test file against an already-set-up database.
 
 ### Performance Benchmarking
 
@@ -248,13 +239,10 @@ tests/
 │   └── test_misc.py            # Miscellaneous endpoints (36 tests)
 ├── fixtures/
 │   ├── snapshots/              # API response snapshots (~35 files)
-│   ├── test_parameters.json    # Parameterized test data
-│   └── golden_db.sql           # Golden database dump
+│   └── test_parameters.json    # Parameterized test data
 ├── scripts/
 │   ├── setup_test_db.py        # Test database setup (create, clone, users)
-│   ├── update_snapshots.py     # Snapshot generator
-│   ├── create_golden_db.sh     # DB dump script
-│   └── restore_test_db.sh      # DB restore script
+│   └── update_snapshots.py     # Snapshot generator
 ├── benchmark/
 │   └── benchmark_runner.py     # Performance benchmarks
 ├── results/                    # Test run results

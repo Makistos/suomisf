@@ -1,5 +1,14 @@
 # SuomiSF API Comprehensive Test Plan
 
+> **This is the original pre-implementation planning document (2026-02-10).**
+> What was actually built diverged from this plan in several places — most
+> notably, DB setup uses a live `pg_dump`/`psql` clone in `conftest.py`
+> (`clone_test_database()`), not the golden-dump-file + separate restore
+> scripts described below, and dependencies are tracked in `pyproject.toml`'s
+> `[tool.pdm.dev-dependencies]`, not a standalone `requirements-test.txt`.
+> For how the test suite actually works today, see `TEST_DOCUMENTATION.md`
+> instead. Kept here for historical context on the original design intent.
+
 ## Overview
 
 This document outlines the complete test strategy for the SuomiSF API. The primary goal is to create a comprehensive test suite that validates API behavior before and after migrating from SQLAlchemy to a more performant database layer.
@@ -458,20 +467,16 @@ python -m tests.benchmark.compare_results --baseline HEAD~1
 
 ```
 tests/
-├── TEST_PLAN.md                    # This document
-├── conftest.py                     # Pytest fixtures and configuration
+├── TEST_PLAN.md                    # This document (historical - see banner above)
+├── TEST_DOCUMENTATION.md           # Current, maintained reference
+├── conftest.py                     # Pytest fixtures and configuration -
+│                                    # clones the test DB live via pg_dump/psql,
+│                                    # no golden-dump file needed
 ├── pytest.ini                      # Pytest configuration
-├── requirements-test.txt           # Test dependencies
 │
 ├── fixtures/
-│   ├── golden_db.sql               # Golden database dump
 │   ├── test_data.json              # Additional test fixtures
 │   └── auth_fixtures.py            # Authentication test data
-│
-├── scripts/
-│   ├── create_golden_db.sh         # Create golden DB dump
-│   ├── restore_test_db.sh          # Restore test DB
-│   └── setup_test_env.sh           # Full test environment setup
 │
 ├── api/
 │   ├── __init__.py
@@ -518,19 +523,8 @@ tests/
 
 ### Python Packages
 
-Add to `pyproject.toml` or create `tests/requirements-test.txt`:
-
-```
-pytest>=7.4.0
-pytest-cov>=4.1.0
-pytest-xdist>=3.3.0        # Parallel test execution
-pytest-timeout>=2.1.0      # Test timeouts
-pytest-json-report>=1.5.0  # JSON test reports
-requests>=2.31.0           # HTTP client
-factory-boy>=3.3.0         # Test fixtures
-freezegun>=1.2.0           # Time mocking
-responses>=0.23.0          # HTTP mocking (optional)
-```
+Tracked in `pyproject.toml`'s `[tool.pdm.dev-dependencies]` group and
+installed via `pdm sync` - not a standalone `requirements-test.txt`.
 
 ### System Requirements
 

@@ -94,9 +94,13 @@ what they test, their parameter values, and expected behaviors.
     populates from Part rows with shortstory_id IS NULL)
   - `app` fixture: Patches `route_helpers.db_url` and
     `orm_decl.db_url` to use the test DB URL, and replaces
-    Flask-SQLAlchemy's cached engine. This is required because
-    `app/__init__.py` calls `load_dotenv('.env', override=True)`
-    which overrides `DATABASE_URL` with the production URL.
+    Flask-SQLAlchemy's cached engine. conftest.py sets
+    `SUOMISF_DOTENV=.env.e2e` at module load, so
+    `app/__init__.py`'s `load_dotenv(SUOMISF_DOTENV, override=True)`
+    call lands on `.env.e2e` (pointing at `suomisf_test`) instead of
+    falling back to production's `.env` - this also has to happen
+    before `create_test_users()` runs, since that's what triggers the
+    first import of `app` in the pytest process.
   - `api_client`: Flask test client wrapper with auth support
   - `snapshot_manager`: Manages snapshot comparisons
   - `app`, `client`, `db_session`: Flask app fixtures
