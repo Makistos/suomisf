@@ -4,9 +4,15 @@ import json
 
 from flask import Response, request
 
+from flask_jwt_extended import jwt_required
+
 from app import app
 from app.api_helpers import make_api_response
-from app.api_jwt import jwt_admin_required
+from app.api_jwt import (
+    jwt_admin_required,
+    jwt_admin_or_edition_owner_required,
+    jwt_admin_or_price_owner_required,
+)
 from app.impl import ResponseType
 from app.impl_pricing import (
     antikvaari_price_delete,
@@ -224,10 +230,10 @@ def api_work_antikvaari_fetch(work_id: int) -> Response:
 
 
 @app.route('/api/edition/<int:edition_id>/antikvaari/prices', methods=['POST'])
-@jwt_admin_required()  # type: ignore
+@jwt_admin_or_edition_owner_required()  # type: ignore
 def api_edition_antikvaari_prices_save(edition_id: int) -> Response:
     """
-    Append scraped price rows for an edition (admin only).
+    Append scraped price rows for an edition (admin, or the edition's owner).
 
     Each call always inserts new rows — prices are never updated or deleted.
 
@@ -269,14 +275,16 @@ def api_edition_antikvaari_prices_count(edition_id: int) -> Response:
 
 
 @app.route('/api/edition/<int:edition_id>/antikvaari/prices', methods=['GET'])
-@jwt_admin_required()  # type: ignore
+@jwt_admin_or_edition_owner_required()  # type: ignore
 def api_edition_antikvaari_prices_get(edition_id: int) -> Response:
     """
-    Return stored Antikvaari price rows for an edition (admin only).
+    Return stored Antikvaari price rows for an edition (admin, or the
+    edition's owner).
 
     URL: GET /api/edition/<edition_id>/antikvaari/prices
 
-    Authentication: Admin JWT required.
+    Authentication: Admin JWT required, or a JWT belonging to a user who
+    owns this edition.
 
     Query parameters:
         target_condition (str): Optional. Your copy's condition (e.g. "K3")
@@ -290,7 +298,7 @@ def api_edition_antikvaari_prices_get(edition_id: int) -> Response:
 
 
 @app.route('/api/price-sources', methods=['GET'])
-@jwt_admin_required()  # type: ignore
+@jwt_required()  # type: ignore
 def api_price_sources_get() -> Response:
     """Return all price sources, each flagged with whether it supports search."""
     resp = price_sources_get()
@@ -303,17 +311,23 @@ def api_price_sources_get() -> Response:
 
 
 @app.route('/api/edition/<int:edition_id>/prices/manual', methods=['POST'])
-@jwt_admin_required()  # type: ignore
+@jwt_admin_or_edition_owner_required()  # type: ignore
 def api_edition_price_add_manual(edition_id: int) -> Response:
-    """Insert a manually entered price row for an edition."""
+    """Insert a manually entered price row for an edition (admin, or the
+    edition's owner)."""
     data = request.get_json(force=True) or {}
     return make_api_response(price_add_manual(edition_id, data))
 
 
 @app.route('/api/prices/scrape-url', methods=['POST'])
-@jwt_admin_required()  # type: ignore
+@jwt_required()  # type: ignore
 def api_prices_scrape_url() -> Response:
-    """Scrape price fields from a supported second-hand bookshop URL."""
+    """Scrape price fields from a supported second-hand bookshop URL.
+
+    Any logged-in user may call this — it only pre-fills the manual price
+    form and doesn't touch any edition-specific data, so there's nothing to
+    check ownership against here.
+    """
     data = request.get_json(force=True) or {}
     url = (data.get('url') or '').strip()
     if not url:
@@ -324,14 +338,16 @@ def api_prices_scrape_url() -> Response:
 
 
 @app.route('/api/antikvaari/prices/<int:price_id>', methods=['DELETE'])
-@jwt_admin_required()  # type: ignore
+@jwt_admin_or_price_owner_required()  # type: ignore
 def api_antikvaari_price_delete(price_id: int) -> Response:
     """
-    Delete a single stored Antikvaari price row (admin only).
+    Delete a single stored Antikvaari price row (admin, or the owner of the
+    edition the price row belongs to).
 
     URL: DELETE /api/antikvaari/prices/<price_id>
 
-    Authentication: Admin JWT required.
+    Authentication: Admin JWT required, or a JWT belonging to a user who
+    owns the edition this price row belongs to.
 
     Response 200 — {"deleted": <price_id>}
     Response 404 — Price not found.

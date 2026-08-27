@@ -3,7 +3,7 @@ from typing import Any, Callable, Dict, List, Optional
 import datetime
 import json
 import re
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 import requests
 from bs4 import BeautifulSoup
@@ -1194,7 +1194,7 @@ def edition_prices_get(
 
 
 def _source_from_url(url: str, session: Any) -> Optional[PriceSource]:
-    """Return the PriceSource that matches a URL's domain."""
+    """Return the PriceSource whose known domain matches the URL's hostname."""
     checks = [
         ('antikvariaatti.net',  'Antikvariaatti'),
         ('antikka.net',         'Antikka'),
@@ -1202,8 +1202,9 @@ def _source_from_url(url: str, session: Any) -> Optional[PriceSource]:
         ('huuto.net',           'Huuto.net'),
         ('antikvaari.fi',       'Antikvaari'),
     ]
+    hostname = (urlparse(url).hostname or '').lower()
     for domain, name in checks:
-        if domain in url:
+        if hostname == domain or hostname.endswith('.' + domain):
             return session.query(PriceSource).filter(PriceSource.name == name).first()
     return None
 
