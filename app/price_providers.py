@@ -60,6 +60,13 @@ PROVIDERS: Dict[str, PriceProvider] = {
         name='Huuto.net',
         domains=('huuto.net',),
     ),
+    'Lukuhetki': PriceProvider(
+        name='Lukuhetki',
+        domains=('lukuhetki.fi',),
+        search=ip.lukuhetki_search,
+        fetch=ip.lukuhetki_fetch_products,
+        scrape_single=ip._scrape_lukuhetki,
+    ),
 }
 
 # Sources that don't yet have a dedicated automatic pipeline fall back to

@@ -25,6 +25,7 @@ _UA = ('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 '
 ANTIKKA_BASE = 'https://antikka.net'
 ANTIKVARIAATTI_BASE = 'https://www.antikvariaatti.net'
 ORANSSIPLANEETTA_BASE = 'https://oranssiplaneetta.fi'
+LUKUHETKI_BASE = 'https://www.lukuhetki.fi'
 
 
 # ---------------------------------------------------------------------------
@@ -332,6 +333,48 @@ def antikvariaatti_search(q: str, isbn: str = '') -> ResponseType:
             'image': img.get('src', '') if img else '',
             'available_count': 1,
             'price': _price_from_text(price_el.get_text()) if price_el else None,
+        })
+    return ResponseType(products, HttpResponseCode.OK)
+
+
+def lukuhetki_search(q: str, isbn: str = '') -> ResponseType:
+    """Search lukuhetki.fi. Each hit is a single physical copy at this shop.
+
+    The endpoint returns a bare HTML fragment of ``<li><a href='/slug/id'>
+    Title, Author</a></li>`` entries (empty body when nothing matches) — no
+    price, year or binding, so those are filled in later by the fetch step.
+    """
+    query = f'{q} {isbn}'.strip()
+    try:
+        resp = requests.get(f'{LUKUHETKI_BASE}/simpleSearch.php',
+                            params={'q': query},
+                            headers={'User-Agent': _UA}, timeout=15)
+        resp.raise_for_status()
+    except requests.RequestException as exc:
+        return ResponseType(f'Lukuhetki search failed: {exc}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR)
+
+    soup = BeautifulSoup(resp.text, 'html.parser')
+    products: List[Dict[str, Any]] = []
+    seen: set = set()
+    for link in soup.select('li a[href]'):
+        href = link['href']
+        url = urljoin(LUKUHETKI_BASE + '/', href.lstrip('/'))
+        product_id = url.rstrip('/').split('/')[-1]
+        if product_id in seen:
+            continue
+        seen.add(product_id)
+        title, _, author = link.get_text(strip=True).rpartition(',')
+        products.append({
+            'product_id': product_id,
+            'title': title.strip() if title else link.get_text(strip=True),
+            'author': author.strip(),
+            'year': '',
+            'binding': '',
+            'url': url,
+            'image': '',
+            'available_count': 1,
+            'price': None,
         })
     return ResponseType(products, HttpResponseCode.OK)
 
@@ -864,6 +907,17 @@ def antikvariaatti_fetch_products(
         _scrape_antikvariaatti, 'Antikvariaatti')
 
 
+def lukuhetki_fetch_products(
+    product_urls: List[str],
+    work_id: int,
+    target_condition: Optional[str] = None,
+) -> ResponseType:
+    """Scrape lukuhetki.fi product pages and return price rows with match quality."""
+    return _single_page_fetch_products(
+        product_urls, work_id, target_condition,
+        _scrape_lukuhetki, 'Lukuhetki')
+
+
 def _best_matching_edition(
     editions: List[Edition],
     product_year: Optional[int],
@@ -1200,6 +1254,7 @@ def _source_from_url(url: str, session: Any) -> Optional[PriceSource]:
         ('antikka.net',         'Antikka'),
         ('oranssiplaneetta.fi', 'Oranssi Planeetta'),
         ('huuto.net',           'Huuto.net'),
+        ('lukuhetki.fi',        'Lukuhetki'),
         ('antikvaari.fi',       'Antikvaari'),
     ]
     hostname = (urlparse(url).hostname or '').lower()
@@ -1293,6 +1348,87 @@ def _scrape_antikvariaatti(url: str) -> Dict[str, Any]:
         'language': attrs.get('Kielet') or None,
         'seller': seller,
         'seller_url': seller_url,
+        'last_updated': datetime.date.today().isoformat(),
+    }
+
+
+def _lukuhetki_attributes(soup: BeautifulSoup) -> Dict[str, str]:
+    """Extract lukuhetki.fi's labelled product-details rows as a {label: value} dict.
+
+    Rows look like ``<div class="row"><div class="col-sm-4"><h3>Label:</h3>
+    </div><div class="col-sm-8"><span>Value</span></div></div>`` — one row (a
+    generic "used/new" note) has no label and is skipped here.
+    """
+    attrs: Dict[str, str] = {}
+    for row in soup.select('.product-details > .row'):
+        label = row.find('h3')
+        value = row.find('span')
+        if label and value:
+            name = label.get_text(strip=True).rstrip(':')
+            if name:
+                attrs[name] = value.get_text(strip=True)
+    return attrs
+
+
+def _scrape_lukuhetki(url: str) -> Dict[str, Any]:
+    """Scrape a single lukuhetki.fi product page and return price fields.
+
+    lukuhetki.fi is a single independent shop (not a marketplace), and embeds
+    a schema.org Book/Offer JSON-LD block with title/author/price/language —
+    parsed in preference to the loose HTML, plus the "Painos" (print run)
+    attribute row for edition matching, which isn't in the JSON-LD.
+
+    The shop doesn't grade condition on a K1-K5 scale (every listing is just
+    "Tuote on käytetty" / used), so condition is left unset like it is for
+    other sources that don't expose one.
+    """
+    resp = requests.get(url, headers={'User-Agent': _UA}, timeout=15)
+    resp.raise_for_status()
+    soup = BeautifulSoup(resp.text, 'html.parser')
+
+    ld: Dict[str, Any] = {}
+    script = soup.find('script', attrs={'type': 'application/ld+json'})
+    if script and script.string:
+        try:
+            data = json.loads(script.string)
+            if data.get('@type') == 'Book':
+                ld = data
+        except json.JSONDecodeError:
+            pass
+
+    price: Optional[float] = None
+    try:
+        price = float(ld.get('offers', {}).get('price'))
+    except (TypeError, ValueError):
+        pass
+
+    attrs = _lukuhetki_attributes(soup)
+
+    year: Optional[int] = None
+    try:
+        year = int(ld['datePublished'])
+    except (KeyError, TypeError, ValueError):
+        year_match = re.search(r'\d{4}', attrs.get('Kustantaja', ''))
+        if year_match:
+            year = int(year_match.group())
+
+    version = _parse_version(attrs.get('Painos', ''))
+    binding = _binding_category(attrs.get('Sidosasu', ''))
+
+    book_id = str(ld.get('sku') or url.rstrip('/').split('/')[-1])
+
+    return {
+        'book_id': book_id,
+        'price': price,
+        'condition': None,
+        'year': year,
+        'version': version,
+        'binding': binding,
+        'title': ld.get('name'),
+        'author': (ld.get('author') or {}).get('name'),
+        'language': ld.get('inLanguage') or attrs.get('Kieli'),
+        'seller': 'Antikvariaatti Lukuhetki',
+        'seller_url': f'{LUKUHETKI_BASE}/',
         'last_updated': datetime.date.today().isoformat(),
     }
 
@@ -1399,6 +1535,7 @@ def scrape_price_from_url(url: str) -> ResponseType:
             'Antikvariaatti': _scrape_antikvariaatti,
             'Antikka': _scrape_woocommerce,
             'Oranssi Planeetta': _scrape_woocommerce,
+            'Lukuhetki': _scrape_lukuhetki,
         }
         scraper = scrapers.get(source.name)
         if not scraper:
