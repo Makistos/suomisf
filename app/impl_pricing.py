@@ -1,5 +1,5 @@
 """Antikvaari pricing scraper and match quality calculation."""
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional, Tuple
 import datetime
 import json
 import re
@@ -1568,6 +1568,50 @@ def price_sources_get() -> ResponseType:
         session.close()
 
 
+def _validate_price_form(session: Any, data: Dict[str, Any]) -> Tuple[Optional[Dict[str, Any]], Optional[ResponseType]]:
+    """Validate and normalise the manual price add/edit form fields.
+
+    Returns (fields, None) on success, or (None, error_response) on failure.
+    """
+    source_id = data.get('source_id')
+    if not source_id:
+        return None, ResponseType('source_id required', HttpResponseCode.BAD_REQUEST)
+    source = session.query(PriceSource).filter(PriceSource.id == source_id).first()
+    if not source:
+        return None, ResponseType('Unknown source', HttpResponseCode.BAD_REQUEST)
+
+    condition = data.get('condition', '')
+    if condition not in ('K5', 'K4', 'K3', 'K2', 'K1'):
+        return None, ResponseType('Invalid condition', HttpResponseCode.BAD_REQUEST)
+
+    try:
+        price = float(data['price'])
+    except (KeyError, TypeError, ValueError):
+        return None, ResponseType('Invalid price', HttpResponseCode.BAD_REQUEST)
+
+    last_updated_raw = data.get('last_updated')
+    try:
+        last_updated = datetime.datetime.fromisoformat(last_updated_raw) if last_updated_raw else None
+        if last_updated and last_updated.tzinfo is not None:
+            last_updated = last_updated.replace(tzinfo=None)
+    except (ValueError, AttributeError):
+        last_updated = None
+
+    return {
+        'source_id': source_id,
+        'condition': condition,
+        'price': price,
+        'last_updated': last_updated,
+        'book_id': data.get('book_id') or None,
+        'url': data.get('url') or None,
+        'seller': data.get('seller') or None,
+        'seller_url': data.get('seller_url') or None,
+        'is_library_discard': bool(data.get('is_library_discard', False)),
+        'has_markings': bool(data.get('has_markings', False)),
+        'missing_dust_cover': bool(data.get('missing_dust_cover', False)),
+    }, None
+
+
 def price_add_manual(edition_id: int, data: Dict[str, Any]) -> ResponseType:
     """Insert a single manually entered price row."""
     session = new_session()
@@ -1576,52 +1620,63 @@ def price_add_manual(edition_id: int, data: Dict[str, Any]) -> ResponseType:
         if not edition:
             return ResponseType('Edition not found', HttpResponseCode.NOT_FOUND)
 
-        source_id = data.get('source_id')
-        if not source_id:
-            return ResponseType('source_id required', HttpResponseCode.BAD_REQUEST)
-        source = session.query(PriceSource).filter(PriceSource.id == source_id).first()
-        if not source:
-            return ResponseType('Unknown source', HttpResponseCode.BAD_REQUEST)
-
-        condition = data.get('condition', '')
-        if condition not in ('K5', 'K4', 'K3', 'K2', 'K1'):
-            return ResponseType('Invalid condition', HttpResponseCode.BAD_REQUEST)
-
-        try:
-            price = float(data['price'])
-        except (KeyError, TypeError, ValueError):
-            return ResponseType('Invalid price', HttpResponseCode.BAD_REQUEST)
-
-        last_updated_raw = data.get('last_updated')
-        try:
-            last_updated = datetime.datetime.fromisoformat(last_updated_raw) if last_updated_raw else None
-            if last_updated and last_updated.tzinfo is not None:
-                last_updated = last_updated.replace(tzinfo=None)
-        except (ValueError, AttributeError):
-            last_updated = None
+        fields, err = _validate_price_form(session, data)
+        if err:
+            return err
 
         now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
-        book_id = data.get('book_id') or None
-        url = data.get('url') or None
-
         session.add(AntikvaariPrice(
             edition_id=edition_id,
-            source_id=source_id,
-            antikvaari_book_id=book_id,
+            source_id=fields['source_id'],
+            antikvaari_book_id=fields['book_id'],
             antikvaari_product_id=None,
-            last_updated=last_updated or now,
+            last_updated=fields['last_updated'] or now,
             date_fetched=now,
-            condition=condition,
-            is_library_discard=bool(data.get('is_library_discard', False)),
-            has_markings=bool(data.get('has_markings', False)),
-            missing_dust_cover=bool(data.get('missing_dust_cover', False)),
-            price=price,
-            url=url,
-            seller=data.get('seller') or None,
-            seller_url=data.get('seller_url') or None,
+            condition=fields['condition'],
+            is_library_discard=fields['is_library_discard'],
+            has_markings=fields['has_markings'],
+            missing_dust_cover=fields['missing_dust_cover'],
+            price=fields['price'],
+            url=fields['url'],
+            seller=fields['seller'],
+            seller_url=fields['seller_url'],
         ))
         session.commit()
         return ResponseType({'saved': 1}, HttpResponseCode.OK)
+    except Exception as e:
+        session.rollback()
+        return ResponseType(str(e), HttpResponseCode.INTERNAL_SERVER_ERROR)
+    finally:
+        session.close()
+
+
+def price_update_manual(price_id: int, data: Dict[str, Any]) -> ResponseType:
+    """Update an existing price row (e.g. to fill in a condition a scraper
+    couldn't determine, or correct a scraped value). edition_id, the scraper's
+    antikvaari_product_id and date_fetched are left untouched."""
+    session = new_session()
+    try:
+        row = session.query(AntikvaariPrice).filter(AntikvaariPrice.id == price_id).first()
+        if not row:
+            return ResponseType('Price not found', HttpResponseCode.NOT_FOUND)
+
+        fields, err = _validate_price_form(session, data)
+        if err:
+            return err
+
+        row.source_id = fields['source_id']
+        row.antikvaari_book_id = fields['book_id']
+        row.last_updated = fields['last_updated'] or row.last_updated
+        row.condition = fields['condition']
+        row.is_library_discard = fields['is_library_discard']
+        row.has_markings = fields['has_markings']
+        row.missing_dust_cover = fields['missing_dust_cover']
+        row.price = fields['price']
+        row.url = fields['url']
+        row.seller = fields['seller']
+        row.seller_url = fields['seller_url']
+        session.commit()
+        return ResponseType({'updated': price_id}, HttpResponseCode.OK)
     except Exception as e:
         session.rollback()
         return ResponseType(str(e), HttpResponseCode.INTERNAL_SERVER_ERROR)

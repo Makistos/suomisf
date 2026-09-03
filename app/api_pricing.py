@@ -22,6 +22,7 @@ from app.impl_pricing import (
     edition_prices_get,
     price_add_manual,
     price_sources_get,
+    price_update_manual,
     scrape_price_from_url,
     user_collection_stats,
     work_product_delete,
@@ -354,6 +355,31 @@ def api_antikvaari_price_delete(price_id: int) -> Response:
     Response 500 — Database error.
     """
     return make_api_response(antikvaari_price_delete(price_id))
+
+
+@app.route('/api/antikvaari/prices/<int:price_id>', methods=['PUT'])
+@jwt_admin_or_price_owner_required()  # type: ignore
+def api_antikvaari_price_update(price_id: int) -> Response:
+    """
+    Update a single stored Antikvaari price row (admin, or the owner of the
+    edition the price row belongs to).
+
+    Lets a price fetched automatically — e.g. one a scraper couldn't assign
+    a K1-K5 condition to — be corrected by hand, same fields as
+    POST /api/edition/<edition_id>/prices/manual.
+
+    URL: PUT /api/antikvaari/prices/<price_id>
+
+    Authentication: Admin JWT required, or a JWT belonging to a user who
+    owns the edition this price row belongs to.
+
+    Response 200 — {"updated": <price_id>}
+    Response 400 — Missing/invalid source_id, condition or price.
+    Response 404 — Price not found.
+    Response 500 — Database error.
+    """
+    data = request.get_json(force=True) or {}
+    return make_api_response(price_update_manual(price_id, data))
 
 
 @app.route('/api/work/<int:work_id>/antikvaari/prices', methods=['POST'])
