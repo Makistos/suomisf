@@ -422,12 +422,17 @@ def _parse_kampin_description(desc: str) -> Dict[str, Any]:
 def kampinkirjakauppa_search(q: str, isbn: str = '') -> ResponseType:
     """Search kampinkirjakauppa.fi. Each hit is a single physical copy — a
     one-off used book, not a restockable unit of a SKU.
+
+    The site is served as ISO-8859-1 and expects its query string encoded
+    the same way — Ä/Ö/Å percent-encoded as UTF-8 (requests' default for a
+    str param) silently match nothing. Encode the query as Latin-1 bytes so
+    requests percent-encodes those bytes as-is instead of re-encoding them.
     """
     query = f'{q} {isbn}'.strip()
     try:
         resp = requests.get(f'{KAMPINKIRJAKAUPPA_BASE}/tuotteet.html', params={
             'id': 'search',
-            'search': query,
+            'search': query.encode('iso-8859-1', errors='replace'),
             'search_category': '0',
             'webstore_product_search_form': 'Hae',
         }, headers={'User-Agent': _UA}, timeout=15)
