@@ -26,6 +26,7 @@ ANTIKKA_BASE = 'https://antikka.net'
 ANTIKVARIAATTI_BASE = 'https://www.antikvariaatti.net'
 ORANSSIPLANEETTA_BASE = 'https://oranssiplaneetta.fi'
 LUKUHETKI_BASE = 'https://www.lukuhetki.fi'
+KAMPINKIRJAKAUPPA_BASE = 'https://www.kampinkirjakauppa.fi'
 
 
 # ---------------------------------------------------------------------------
@@ -375,6 +376,93 @@ def lukuhetki_search(q: str, isbn: str = '') -> ResponseType:
             'image': '',
             'available_count': 1,
             'price': None,
+        })
+    return ResponseType(products, HttpResponseCode.OK)
+
+
+def _format_kampin_author(raw: str) -> str:
+    """'VONNEGUT, KURT' -> 'Vonnegut Kurt'; passes through anything else as-is."""
+    last, sep, first = raw.strip().partition(',')
+    if sep:
+        return f'{last.strip().title()} {first.strip().title()}'
+    return last.title()
+
+
+def _parse_kampin_description(desc: str) -> Dict[str, Any]:
+    """Best-effort parse of a kampinkirjakauppa.fi listing description, e.g.
+    'Tammi 1981, 2.p. (274s.) Skp K3' or 'WSOY 1978 (80s.) S K3'. The shop
+    has no structured metadata beyond this free-text line, so each field is
+    pulled independently rather than matched against one fixed pattern.
+    """
+    year = None
+    year_match = re.search(r'\b(1[5-9]\d{2}|20[0-2]\d)\b', desc)
+    if year_match:
+        year = int(year_match.group())
+
+    version = None
+    version_match = re.search(r'(\d+)\.\s*p\.', desc)
+    if version_match:
+        version = int(version_match.group(1))
+
+    condition = None
+    condition_match = re.search(r'K[1-5][+-]?', desc)
+    if condition_match:
+        condition = _parse_condition(condition_match.group())
+
+    binding = None
+    tokens = desc.replace(',', ' ').split()
+    if 'Skp' in tokens or 'S' in tokens:
+        binding = 3
+    elif 'N' in tokens:
+        binding = 2
+
+    return {'year': year, 'version': version, 'condition': condition, 'binding': binding}
+
+
+def kampinkirjakauppa_search(q: str, isbn: str = '') -> ResponseType:
+    """Search kampinkirjakauppa.fi. Each hit is a single physical copy — a
+    one-off used book, not a restockable unit of a SKU.
+    """
+    query = f'{q} {isbn}'.strip()
+    try:
+        resp = requests.get(f'{KAMPINKIRJAKAUPPA_BASE}/tuotteet.html', params={
+            'id': 'search',
+            'search': query,
+            'search_category': '0',
+            'webstore_product_search_form': 'Hae',
+        }, headers={'User-Agent': _UA}, timeout=15)
+        resp.raise_for_status()
+        resp.encoding = 'iso-8859-1'
+    except requests.RequestException as exc:
+        return ResponseType(f'Kampin kirjakauppa search failed: {exc}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR)
+
+    soup = BeautifulSoup(resp.text, 'html.parser')
+    products: List[Dict[str, Any]] = []
+    seen: set = set()
+    for card in soup.select('.ws_item'):
+        link = card.select_one('h2 a[href]')
+        if not link or not link.get('href'):
+            continue
+        href = link['href']
+        url = urljoin(KAMPINKIRJAKAUPPA_BASE + '/', href.lstrip('/'))
+        id_match = re.search(r'id=\d+/(\d+)', href)
+        product_id = id_match.group(1) if id_match else url.rstrip('/').split('/')[-1]
+        if product_id in seen:
+            continue
+        seen.add(product_id)
+        author, sep, title = link.get_text(strip=True).partition(':')
+        price_el = card.select_one('.ws_product_price')
+        products.append({
+            'product_id': product_id,
+            'title': title.strip() if sep else author.strip(),
+            'author': _format_kampin_author(author) if sep else '',
+            'year': '',
+            'binding': '',
+            'url': url,
+            'image': '',
+            'available_count': 1,
+            'price': _price_from_text(price_el.get_text()) if price_el else None,
         })
     return ResponseType(products, HttpResponseCode.OK)
 
@@ -918,6 +1006,17 @@ def lukuhetki_fetch_products(
         _scrape_lukuhetki, 'Lukuhetki')
 
 
+def kampinkirjakauppa_fetch_products(
+    product_urls: List[str],
+    work_id: int,
+    target_condition: Optional[str] = None,
+) -> ResponseType:
+    """Scrape kampinkirjakauppa.fi product pages and return price rows with match quality."""
+    return _single_page_fetch_products(
+        product_urls, work_id, target_condition,
+        _scrape_kampinkirjakauppa, 'Kampin kirjakauppa')
+
+
 def _best_matching_edition(
     editions: List[Edition],
     product_year: Optional[int],
@@ -1297,6 +1396,55 @@ def _scrape_antikvaari_single(url: str) -> Dict[str, Any]:
     }
 
 
+def _scrape_kampinkirjakauppa(url: str) -> Dict[str, Any]:
+    """Scrape a single kampinkirjakauppa.fi product page.
+
+    Each product is a unique physical copy (a one-off used book, not
+    restockable), so this single-page scraper covers both the automatic
+    fetch-and-save flow and the manual single-URL scrape. The shop exposes
+    no structured metadata beyond a free-text description line (e.g.
+    "Tammi 1981, 2.p. (274s.) Skp K3"), parsed via _parse_kampin_description.
+    """
+    resp = requests.get(url, headers={'User-Agent': _UA}, timeout=15)
+    resp.raise_for_status()
+    resp.encoding = 'iso-8859-1'
+    soup = BeautifulSoup(resp.text, 'html.parser')
+
+    title_el = soup.select_one('h1')
+    raw_title = title_el.get_text(strip=True) if title_el else ''
+    author, sep, title = raw_title.partition(':')
+
+    desc_el = soup.select_one('.ws_pro_description')
+    parsed = _parse_kampin_description(desc_el.get_text(' ', strip=True) if desc_el else '')
+
+    price: Optional[float] = None
+    price_el = soup.select_one('.webstore_price')
+    if price_el:
+        price = _price_from_text(price_el.get_text())
+
+    book_id = None
+    info_el = soup.select_one('.info')
+    if info_el:
+        book_id_match = re.search(r'Tuote:\s*(\d+)', info_el.get_text(' ', strip=True))
+        if book_id_match:
+            book_id = book_id_match.group(1)
+
+    return {
+        'book_id': book_id or url.rstrip('/').split('/')[-1],
+        'price': price,
+        'condition': parsed['condition'],
+        'year': parsed['year'],
+        'version': parsed['version'],
+        'binding': parsed['binding'],
+        'title': title.strip() if sep else (raw_title or None),
+        'author': _format_kampin_author(author) if sep else None,
+        'language': None,
+        'seller': 'Kampin kirjakauppa',
+        'seller_url': f'{KAMPINKIRJAKAUPPA_BASE}/',
+        'last_updated': datetime.date.today().isoformat(),
+    }
+
+
 def _source_from_url(url: str, session: Any) -> Optional[PriceSource]:
     """Return the PriceSource whose known domain matches the URL's hostname."""
     checks = [
@@ -1305,6 +1453,7 @@ def _source_from_url(url: str, session: Any) -> Optional[PriceSource]:
         ('oranssiplaneetta.fi', 'Oranssi Planeetta'),
         ('huuto.net',           'Huuto.net'),
         ('lukuhetki.fi',        'Lukuhetki'),
+        ('kampinkirjakauppa.fi', 'Kampin kirjakauppa'),
         ('antikvaari.fi',       'Antikvaari'),
     ]
     hostname = (urlparse(url).hostname or '').lower()
@@ -1587,6 +1736,7 @@ def scrape_price_from_url(url: str) -> ResponseType:
             'Antikka': _scrape_woocommerce,
             'Oranssi Planeetta': _scrape_woocommerce,
             'Lukuhetki': _scrape_lukuhetki,
+            'Kampin kirjakauppa': _scrape_kampinkirjakauppa,
         }
         scraper = scrapers.get(source.name)
         if not scraper:

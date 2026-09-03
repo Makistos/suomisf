@@ -68,6 +68,13 @@ PROVIDERS: Dict[str, PriceProvider] = {
         fetch=ip.lukuhetki_fetch_products,
         scrape_single=ip._scrape_lukuhetki,
     ),
+    'Kampin kirjakauppa': PriceProvider(
+        name='Kampin kirjakauppa',
+        domains=('kampinkirjakauppa.fi',),
+        search=ip.kampinkirjakauppa_search,
+        fetch=ip.kampinkirjakauppa_fetch_products,
+        scrape_single=ip._scrape_kampinkirjakauppa,
+    ),
 }
 
 # Sources that don't yet have a dedicated automatic pipeline fall back to
