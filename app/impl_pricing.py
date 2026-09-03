@@ -1247,6 +1247,56 @@ def edition_prices_get(
         session.close()
 
 
+def _scrape_antikvaari_single(url: str) -> Dict[str, Any]:
+    """Scrape a single Antikvaari product page for its preselected copy.
+
+    An Antikvaari product page aggregates every physical copy for sale
+    (antikvaari_fetch_products scrapes all of them for the automatic
+    fetch-and-save flow); this is for the manual single-URL add/scrape-url
+    path, which needs exactly one price row. __NEXT_DATA__ always carries a
+    preSelectedProduct — whichever copy a bare /teos/<slug>/<id> page
+    defaults to, or the one a /teos/<slug>/<id>?product=<copy-id> URL (what
+    the old /k/<author>/<title>/<copy-id> copy links now redirect to) asks
+    for — so reading it covers both URL shapes without a second request.
+    """
+    props = _fetch_next_data(url)
+    if props is None:
+        raise requests.RequestException(f'Failed to load {url}')
+
+    psp = props.get('preSelectedProduct') or {}
+    if not psp:
+        raise requests.RequestException(f'No product found at {url}')
+
+    year: Optional[int] = None
+    year_match = re.search(r'\d{4}', psp.get('painovuosi') or '')
+    if year_match:
+        year = int(year_match.group())
+
+    last_updated = datetime.date.today().isoformat()
+    pvm = psp.get('pvm')
+    if pvm:
+        try:
+            last_updated = datetime.datetime.fromisoformat(
+                pvm.replace('Z', '+00:00')).date().isoformat()
+        except ValueError:
+            pass
+
+    return {
+        'book_id': psp.get('_id') or url.rstrip('/').split('/')[-1],
+        'price': psp.get('hinta'),
+        'condition': _parse_condition(psp.get('kunto', '')) or None,
+        'year': year,
+        'version': _parse_version(psp.get('painos', '')),
+        'binding': _binding_category(psp.get('sidonta', '')),
+        'title': psp.get('nimi') or psp.get('title'),
+        'author': psp.get('tekija'),
+        'language': psp.get('kieli'),
+        'seller': psp.get('ynimi'),
+        'seller_url': None,
+        'last_updated': last_updated,
+    }
+
+
 def _source_from_url(url: str, session: Any) -> Optional[PriceSource]:
     """Return the PriceSource whose known domain matches the URL's hostname."""
     checks = [
@@ -1532,6 +1582,7 @@ def scrape_price_from_url(url: str) -> ResponseType:
             return ResponseType('Tunnistamaton lähde', HttpResponseCode.BAD_REQUEST)
 
         scrapers = {
+            'Antikvaari': _scrape_antikvaari_single,
             'Antikvariaatti': _scrape_antikvariaatti,
             'Antikka': _scrape_woocommerce,
             'Oranssi Planeetta': _scrape_woocommerce,

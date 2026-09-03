@@ -34,6 +34,7 @@ PROVIDERS: Dict[str, PriceProvider] = {
         domains=('antikvaari.fi',),
         search=ip.antikvaari_search,
         fetch=ip.antikvaari_fetch_products,
+        scrape_single=ip._scrape_antikvaari_single,
     ),
     'Antikka': PriceProvider(
         name='Antikka',
