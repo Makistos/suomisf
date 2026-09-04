@@ -490,7 +490,8 @@ class AwardedSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     person = fields.Nested(PersonBriefSchema)
     work = fields.Nested(
         WorkBriefSchema(
-            only=('id', 'title', 'author_str', 'orig_title', 'pubyear')))
+            only=('id', 'title', 'author_str', 'orig_title', 'pubyear',
+                  'language_name')))
     category = fields.Nested(AwardCategorySchema)
     story = fields.Nested(ShortBriefSchema)
 
