@@ -30,8 +30,12 @@ def objects_differ(
     Check if two objects match.
 
     Parameters:
-        obj1 (Any): The first object to compare. This is a dict, None or
-                    an empty string.
+        obj1 (Any): The first object to compare. This is a dict, None, an
+                    empty string, or a non-empty string — AutoComplete
+                    fields with forceSelection off (bookseries, publisher)
+                    submit a plain string when the user types a name that
+                    isn't an existing row, so the field doesn't have an id
+                    to compare yet.
         obj2 (Any): The second object to compare. This is a Python object.
 
     Returns:
@@ -41,4 +45,6 @@ def objects_differ(
         return obj2 is not None
     if obj2 is None:
         return True
+    if isinstance(obj1, str):
+        return obj1 != getattr(obj2, 'name', None)
     return obj1['id'] != getattr(obj2, 'id', None)
