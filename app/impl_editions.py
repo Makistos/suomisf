@@ -7,6 +7,7 @@ from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.orm import selectinload
 from marshmallow import exceptions
 from app.api_helpers import allowed_image
 from app.impl_helpers import objects_differ, str_differ
@@ -30,7 +31,8 @@ from app.orm_decl import (
     EditionPrice,
     ShortStory,
     Log,
-    UserBook
+    UserBook,
+    WorkContributor
 )
 from app.impl_contributors import (
     contributors_have_changed,
@@ -1037,7 +1039,52 @@ def get_latest_editions(count: int) -> ResponseType:
     """
     session = new_session()
     try:
+        # Batch-load everything EditionBriefSchema (and its nested
+        # WorkBriefSchema/WorkEditionBriefSchema) touches so serializing
+        # doesn't issue a lazy-load query per relationship per row — this
+        # endpoint was issuing >1000 individual SELECTs for 60 editions
+        # before this (same pattern as the fix in impl_stats.py).
         editions = session.query(Edition)\
+            .options(
+                selectinload(Edition.editors),
+                selectinload(Edition.translators),
+                selectinload(Edition.contributions).selectinload(EditionContributor.person),
+                selectinload(Edition.contributions).selectinload(EditionContributor.real_person),
+                selectinload(Edition.contributions).selectinload(EditionContributor.role),
+                selectinload(Edition.images),
+                selectinload(Edition.publisher),
+                selectinload(Edition.owners),
+                selectinload(Edition.wishlisted),
+                selectinload(Edition.binding),
+                selectinload(Edition.work).selectinload(Work.contributions)
+                    .selectinload(WorkContributor.person),
+                selectinload(Edition.work).selectinload(Work.contributions)
+                    .selectinload(WorkContributor.real_person),
+                selectinload(Edition.work).selectinload(Work.contributions)
+                    .selectinload(WorkContributor.role),
+                selectinload(Edition.work).selectinload(Work.editions)
+                    .selectinload(Edition.editors),
+                selectinload(Edition.work).selectinload(Work.editions)
+                    .selectinload(Edition.translators),
+                selectinload(Edition.work).selectinload(Work.editions)
+                    .selectinload(Edition.contributions).selectinload(EditionContributor.person),
+                selectinload(Edition.work).selectinload(Work.editions)
+                    .selectinload(Edition.contributions).selectinload(EditionContributor.real_person),
+                selectinload(Edition.work).selectinload(Work.editions)
+                    .selectinload(Edition.contributions).selectinload(EditionContributor.role),
+                selectinload(Edition.work).selectinload(Work.editions)
+                    .selectinload(Edition.images),
+                selectinload(Edition.work).selectinload(Work.editions)
+                    .selectinload(Edition.publisher),
+                selectinload(Edition.work).selectinload(Work.editions)
+                    .selectinload(Edition.owners),
+                selectinload(Edition.work).selectinload(Work.editions)
+                    .selectinload(Edition.wishlisted),
+                selectinload(Edition.work).selectinload(Work.genres),
+                selectinload(Edition.work).selectinload(Work.bookseries),
+                selectinload(Edition.work).selectinload(Work.tags),
+                selectinload(Edition.work).selectinload(Work.language_name),
+            )\
             .order_by(Edition.id.desc())\
             .limit(count)\
             .all()

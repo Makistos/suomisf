@@ -6,7 +6,7 @@ from typing import Dict, List, Any, Union
 import bleach
 from sqlalchemy import or_, and_, func, text
 from sqlalchemy.exc import SQLAlchemyError
-from sqlalchemy.orm import aliased
+from sqlalchemy.orm import aliased, selectinload
 from marshmallow import exceptions
 from app.impl_helpers import objects_differ, str_differ
 from app.impl_logs import log_changes
@@ -15,10 +15,10 @@ from app.impl import (ResponseType, SearchResult,
                       SearchResultFields, searchscore, set_language, check_int,
                       get_join_changes)
 from app.orm_decl import (Awarded, AntikvaariWorkProduct, Edition,
-                          EditionShortStory, Genre, Omnibus,
-                          Tag, Work, WorkContributor, WorkType, WorkTag,
-                          WorkGenre, WorkLink, UserBook, UserWork, WorkReview,
-                          Bookseries, ShortStory, Person)
+                          EditionContributor, EditionShortStory, Genre,
+                          Omnibus, Tag, Work, WorkContributor, WorkType,
+                          WorkTag, WorkGenre, WorkLink, UserBook, UserWork,
+                          WorkReview, Bookseries, ShortStory, Person)
 from app.model import (OmnibusSchema, WorkBriefSchema, WorkTypeBriefSchema,
                        ShortBriefSchema)
 from app.model_bookindex import (BookIndexSchema)
@@ -1533,7 +1533,31 @@ def get_latest_works(count: int) -> ResponseType:
         ResponseType: The response containing the list of works.
     """
     session = new_session()
+    # Batch-load everything WorkBriefSchema touches so serializing doesn't
+    # issue a lazy-load query per relationship per row (same fix as the
+    # eager-load options in impl_stats.py's work-filtering query).
     works = session.query(Work)\
+        .options(
+            selectinload(Work.contributions).selectinload(WorkContributor.person),
+            selectinload(Work.contributions).selectinload(WorkContributor.real_person),
+            selectinload(Work.contributions).selectinload(WorkContributor.role),
+            selectinload(Work.editions).selectinload(Edition.editors),
+            selectinload(Work.editions).selectinload(Edition.translators),
+            selectinload(Work.editions).selectinload(Edition.contributions)
+                .selectinload(EditionContributor.person),
+            selectinload(Work.editions).selectinload(Edition.contributions)
+                .selectinload(EditionContributor.real_person),
+            selectinload(Work.editions).selectinload(Edition.contributions)
+                .selectinload(EditionContributor.role),
+            selectinload(Work.editions).selectinload(Edition.images),
+            selectinload(Work.editions).selectinload(Edition.publisher),
+            selectinload(Work.editions).selectinload(Edition.owners),
+            selectinload(Work.editions).selectinload(Edition.wishlisted),
+            selectinload(Work.genres),
+            selectinload(Work.bookseries),
+            selectinload(Work.tags),
+            selectinload(Work.language_name),
+        )\
         .order_by(Work.id.desc())\
         .limit(count)\
         .all()
