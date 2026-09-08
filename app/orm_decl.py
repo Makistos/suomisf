@@ -733,9 +733,11 @@ class AntikvaariPrice(Base):
     url = Column(Text)
     seller = Column(Text)
     seller_url = Column(Text)
+    user_id = Column(Integer, ForeignKey('user.id'))
 
     edition = relationship('Edition', backref=backref('antikvaari_prices'))
     source = relationship('PriceSource')
+    user = relationship('User', viewonly=True)
 
 
 class EditionPrice(Base):

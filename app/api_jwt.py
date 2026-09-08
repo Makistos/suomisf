@@ -97,13 +97,14 @@ def _user_owns_edition(user_id: int, edition_id: int) -> bool:
         session.close()
 
 
-def _edition_id_for_price(price_id: int) -> Optional[int]:
-    """Look up the edition_id an antikvaari_price row belongs to."""
+def _price_added_by(price_id: int) -> Optional[int]:
+    """Look up the user_id who added an antikvaari_price row (None if
+    unknown — e.g. rows created before this was tracked)."""
     from app.orm_decl import AntikvaariPrice
     from app.route_helpers import new_session
     session = new_session()
     try:
-        row = session.query(AntikvaariPrice.edition_id).filter(
+        row = session.query(AntikvaariPrice.user_id).filter(
             AntikvaariPrice.id == price_id
         ).first()
         return row[0] if row else None
@@ -152,11 +153,15 @@ def jwt_admin_or_edition_owner_required(edition_id_kwarg: str = 'edition_id') ->
     return wrapper
 
 
-def jwt_admin_or_price_owner_required(price_id_kwarg: str = 'price_id') -> Any:
+def jwt_admin_or_price_author_required(price_id_kwarg: str = 'price_id') -> Any:
     """
-    Allow admins, or the logged-in user who owns the edition that a stored
-    antikvaari_price row (identified by the `price_id_kwarg` URL parameter)
-    belongs to, to call this endpoint.
+    Allow admins, or the logged-in user who originally added a stored
+    antikvaari_price row (identified by the `price_id_kwarg` URL parameter),
+    to call this endpoint.
+
+    Deliberately narrower than edition ownership: an edition can have
+    several owners, each adding their own price entries, and one owner
+    shouldn't be able to edit or delete another owner's entry.
 
     If user doesn't qualify, a 403 response is returned.
     """
@@ -167,7 +172,7 @@ def jwt_admin_or_price_owner_required(price_id_kwarg: str = 'price_id') -> Any:
                 verify_jwt_in_request()
             except Exception as e:
                 app.logger.info(
-                    f'jwt_admin_or_price_owner_required: token verification '
+                    f'jwt_admin_or_price_author_required: token verification '
                     f'failed endpoint={f.__name__} error={e}'
                 )
                 raise
@@ -176,19 +181,19 @@ def jwt_admin_or_price_owner_required(price_id_kwarg: str = 'price_id') -> Any:
                 return f(*args, **kwargs)
             price_id = kwargs.get(price_id_kwarg)
             user_id = get_jwt_identity()
-            edition_id = _edition_id_for_price(int(price_id)) if price_id is not None else None
-            if edition_id is not None and user_id is not None \
-                    and _user_owns_edition(int(user_id), edition_id):
+            added_by = _price_added_by(int(price_id)) if price_id is not None else None
+            if added_by is not None and user_id is not None \
+                    and added_by == int(user_id):
                 return f(*args, **kwargs)
             app.logger.info(
-                f'jwt_admin_or_price_owner_required: FORBIDDEN for '
+                f'jwt_admin_or_price_author_required: FORBIDDEN for '
                 f'{claims.get("name")} on price={price_id} '
                 f'endpoint={f.__name__}'
             )
             return make_response(
                 json.dumps({'msg':
                             'Toiminto vaatii ylläpitäjän oikeudet tai '
-                            'painoksen omistuksen'}),
+                            'hinnan lisänneen käyttäjän oikeudet'}),
                 HttpResponseCode.FORBIDDEN.value
             )
         return decorator

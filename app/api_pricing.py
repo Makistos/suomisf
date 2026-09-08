@@ -4,14 +4,14 @@ import json
 
 from flask import Response, request
 
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import get_jwt_identity, jwt_required
 
 from app import app
 from app.api_helpers import make_api_response
 from app.api_jwt import (
     jwt_admin_required,
     jwt_admin_or_edition_owner_required,
-    jwt_admin_or_price_owner_required,
+    jwt_admin_or_price_author_required,
 )
 from app.impl import ResponseType
 from app.impl_pricing import (
@@ -260,7 +260,8 @@ def api_edition_antikvaari_prices_save(edition_id: int) -> Response:
         return make_api_response(
             ResponseType(f'Virheellinen pyyntö: {exc}', HttpResponseCode.BAD_REQUEST)
         )
-    return make_api_response(antikvaari_prices_save(edition_id, rows))
+    user_id = get_jwt_identity()
+    return make_api_response(antikvaari_prices_save(edition_id, rows, int(user_id)))
 
 
 @app.route('/api/edition/<int:edition_id>/antikvaari/prices/count', methods=['GET'])
@@ -317,7 +318,8 @@ def api_edition_price_add_manual(edition_id: int) -> Response:
     """Insert a manually entered price row for an edition (admin, or the
     edition's owner)."""
     data = request.get_json(force=True) or {}
-    return make_api_response(price_add_manual(edition_id, data))
+    user_id = get_jwt_identity()
+    return make_api_response(price_add_manual(edition_id, data, int(user_id)))
 
 
 @app.route('/api/prices/scrape-url', methods=['POST'])
@@ -339,16 +341,16 @@ def api_prices_scrape_url() -> Response:
 
 
 @app.route('/api/antikvaari/prices/<int:price_id>', methods=['DELETE'])
-@jwt_admin_or_price_owner_required()  # type: ignore
+@jwt_admin_or_price_author_required()  # type: ignore
 def api_antikvaari_price_delete(price_id: int) -> Response:
     """
-    Delete a single stored Antikvaari price row (admin, or the owner of the
-    edition the price row belongs to).
+    Delete a single stored Antikvaari price row (admin, or the user who
+    added it).
 
     URL: DELETE /api/antikvaari/prices/<price_id>
 
-    Authentication: Admin JWT required, or a JWT belonging to a user who
-    owns the edition this price row belongs to.
+    Authentication: Admin JWT required, or a JWT belonging to the user who
+    added this price row.
 
     Response 200 — {"deleted": <price_id>}
     Response 404 — Price not found.
@@ -358,11 +360,11 @@ def api_antikvaari_price_delete(price_id: int) -> Response:
 
 
 @app.route('/api/antikvaari/prices/<int:price_id>', methods=['PUT'])
-@jwt_admin_or_price_owner_required()  # type: ignore
+@jwt_admin_or_price_author_required()  # type: ignore
 def api_antikvaari_price_update(price_id: int) -> Response:
     """
-    Update a single stored Antikvaari price row (admin, or the owner of the
-    edition the price row belongs to).
+    Update a single stored Antikvaari price row (admin, or the user who
+    added it).
 
     Lets a price fetched automatically — e.g. one a scraper couldn't assign
     a K1-K5 condition to — be corrected by hand, same fields as
@@ -370,8 +372,8 @@ def api_antikvaari_price_update(price_id: int) -> Response:
 
     URL: PUT /api/antikvaari/prices/<price_id>
 
-    Authentication: Admin JWT required, or a JWT belonging to a user who
-    owns the edition this price row belongs to.
+    Authentication: Admin JWT required, or a JWT belonging to the user who
+    added this price row.
 
     Response 200 — {"updated": <price_id>}
     Response 400 — Missing/invalid source_id, condition or price.
@@ -412,7 +414,8 @@ def api_work_antikvaari_prices_save(work_id: int) -> Response:
         return make_api_response(
             ResponseType(f'Virheellinen pyyntö: {exc}', HttpResponseCode.BAD_REQUEST)
         )
-    return make_api_response(antikvaari_prices_save_all(work_id, rows))
+    user_id = get_jwt_identity()
+    return make_api_response(antikvaari_prices_save_all(work_id, rows, int(user_id)))
 
 
 @app.route('/api/user/<int:user_id>/collection/stats', methods=['GET'])

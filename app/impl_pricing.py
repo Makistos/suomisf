@@ -588,7 +588,8 @@ def work_product_delete(work_id: int, product_id: str,
         session.close()
 
 
-def antikvaari_prices_save_all(work_id: int, rows: List[Dict[str, Any]]) -> ResponseType:
+def antikvaari_prices_save_all(work_id: int, rows: List[Dict[str, Any]],
+                               user_id: Optional[int] = None) -> ResponseType:
     """Save all fetched price rows for a work, grouped by edition.
 
     Re-matches each row against work editions using the (possibly user-edited)
@@ -674,7 +675,7 @@ def antikvaari_prices_save_all(work_id: int, rows: List[Dict[str, Any]]) -> Resp
         total_skipped += 1
 
     for edition_id, edition_rows in by_edition.items():
-        result = antikvaari_prices_save(edition_id, edition_rows)
+        result = antikvaari_prices_save(edition_id, edition_rows, user_id)
         if result.status == HttpResponseCode.OK and isinstance(result.response, dict):
             total_saved += result.response.get('saved', 0)
             total_skipped += result.response.get('skipped', 0)
@@ -1098,7 +1099,8 @@ def _is_changed(existing: 'AntikvaariPrice', new_last_updated: Optional[datetime
 # Public: save prices (change-detected, append-only)
 # ---------------------------------------------------------------------------
 
-def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]]) -> ResponseType:
+def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]],
+                           user_id: Optional[int] = None) -> ResponseType:
     """Insert price rows for an edition only when data has changed since the last fetch.
 
     Each inserted row is permanent — prices are never updated or deleted.
@@ -1256,6 +1258,7 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]]) -> Respo
                 url=row.get('antikvaari_product_url') or row.get('url'),
                 seller=row.get('seller') or None,
                 seller_url=row.get('seller_url') or None,
+                user_id=user_id,
             ))
             if dupe_key:
                 batch_dupe_keys.add(dupe_key)
@@ -1344,6 +1347,8 @@ def edition_prices_get(
                 ),
                 'product_url': wp.url if wp else None,
                 'product_page_exists': wp.page_exists if wp else None,
+                'user_id': p.user_id,
+                'added_by_name': p.user.name if p.user else None,
             })
 
         return ResponseType(result, HttpResponseCode.OK)
@@ -1818,7 +1823,8 @@ def _validate_price_form(session: Any, data: Dict[str, Any]) -> Tuple[Optional[D
     }, None
 
 
-def price_add_manual(edition_id: int, data: Dict[str, Any]) -> ResponseType:
+def price_add_manual(edition_id: int, data: Dict[str, Any],
+                     user_id: Optional[int] = None) -> ResponseType:
     """Insert a single manually entered price row."""
     session = new_session()
     try:
@@ -1846,6 +1852,7 @@ def price_add_manual(edition_id: int, data: Dict[str, Any]) -> ResponseType:
             url=fields['url'],
             seller=fields['seller'],
             seller_url=fields['seller_url'],
+            user_id=user_id,
         ))
         session.commit()
         return ResponseType({'saved': 1}, HttpResponseCode.OK)

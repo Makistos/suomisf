@@ -20,6 +20,7 @@ from app.impl_pricing import (
     calculate_match_quality,
     antikvaari_fetch_products,
     antikvaari_prices_save,
+    price_add_manual,
 )
 
 
@@ -726,3 +727,61 @@ class TestAntikvaariPricesSave:
         ])
         assert result.response['saved'] == 1
         assert result.response['skipped'] == 0
+
+    @patch('app.impl_pricing.new_session')
+    def test_user_id_is_stored_on_saved_row(self, mock_new_session):
+        """The saving user's id is recorded on each newly inserted row."""
+        session = self._make_session(mock_new_session, existing_price=None)
+        antikvaari_prices_save(4987, [
+            {**_ROW, 'antikvaari_book_id': 'abc123',
+             'antikvaari_product_id': 'prod1',
+             'last_updated': _DT, 'date_listed': '2022-01-01'},
+        ], user_id=42)
+        saved_row = session.add.call_args[0][0]
+        assert saved_row.user_id == 42
+
+    @patch('app.impl_pricing.new_session')
+    def test_user_id_defaults_to_none(self, mock_new_session):
+        """Callers that don't pass a user_id (e.g. old code paths) leave it unset."""
+        session = self._make_session(mock_new_session, existing_price=None)
+        antikvaari_prices_save(4987, [
+            {**_ROW, 'antikvaari_book_id': 'abc123',
+             'antikvaari_product_id': 'prod1',
+             'last_updated': _DT, 'date_listed': '2022-01-01'},
+        ])
+        saved_row = session.add.call_args[0][0]
+        assert saved_row.user_id is None
+
+
+class TestPriceAddManualRecordsAuthor:
+    """Manually adding a price row should record who added it."""
+
+    @staticmethod
+    def _make_session(mock_new_session):
+        session = MagicMock()
+        mock_new_session.return_value = session
+        # Both the edition lookup and the price-source lookup in
+        # _validate_price_form go through session.query(...).filter().first(),
+        # so a single truthy mock satisfies both.
+        session.query.return_value.filter.return_value.first.return_value = MagicMock()
+        return session
+
+    @patch('app.impl_pricing.new_session')
+    def test_user_id_is_stored_on_new_row(self, mock_new_session):
+        session = self._make_session(mock_new_session)
+        result = price_add_manual(4987, {
+            'source_id': 1, 'condition': 'K3', 'price': 12.5,
+        }, user_id=42)
+        assert result.status == 200
+        saved_row = session.add.call_args[0][0]
+        assert saved_row.user_id == 42
+
+    @patch('app.impl_pricing.new_session')
+    def test_user_id_defaults_to_none(self, mock_new_session):
+        session = self._make_session(mock_new_session)
+        result = price_add_manual(4987, {
+            'source_id': 1, 'condition': 'K3', 'price': 12.5,
+        })
+        assert result.status == 200
+        saved_row = session.add.call_args[0][0]
+        assert saved_row.user_id is None
