@@ -907,7 +907,8 @@ class Log(Base):
     action = Column(String(30))
     user_id = Column(Integer, ForeignKey('user.id'))
     old_value = Column(String(500))
-    date = Column(DateTime, default=datetime.datetime.now())
+    date = Column(DateTime(timezone=True),
+                 default=lambda: datetime.datetime.now(datetime.timezone.utc))
     user = relationship('User', uselist=False)
 
 

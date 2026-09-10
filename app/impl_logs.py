@@ -2,7 +2,7 @@
   This module contains the implementation of the LogSchema class for handling
   log data.
 """
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Dict
 from flask_jwt_extended import get_jwt_identity
 from sqlalchemy import or_, and_
@@ -164,7 +164,7 @@ def log_changes(session: Any, obj: Any, name_field: str = "name",
                       action=action,
                       user_id=user_id,
                       old_value=value,
-                      date=datetime.now())
+                      date=datetime.now(timezone.utc))
             session.add(log)
             retval = log.id
     else:
@@ -174,7 +174,7 @@ def log_changes(session: Any, obj: Any, name_field: str = "name",
                   object_name=name,
                   action=action,
                   user_id=user_id,
-                  date=datetime.now())
+                  date=datetime.now(timezone.utc))
         session.add(log)
         retval = log.id
     return retval

@@ -7,7 +7,7 @@ from typing import List, Dict, Any, Tuple, Set, Union
 from functools import wraps
 import json
 import itertools
-from datetime import datetime
+from datetime import datetime, timezone
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, joinedload
 from sqlalchemy.pool import NullPool
@@ -87,14 +87,14 @@ def log_change(session: Any, obj: Any, action: str = 'Päivitys',
                       field_name=field,
                       object_name=name,
                       user_id=current_user.get_id(),
-                      date=datetime.now())
+                      date=datetime.now(timezone.utc))
             session.add(log)
     else:
         log = Log(table_name=tbl_name, table_id=obj.id, action=action,
                   field_name='',
                   object_name=name,
                   user_id=current_user.get_id(),
-                  date=datetime.now())
+                  date=datetime.now(timezone.utc))
         session.add(log)
     session.commit()
 
