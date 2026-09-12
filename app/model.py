@@ -125,6 +125,8 @@ class BookseriesBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Bookseries
     works = ma.List(fields.Nested(WorkBriefestSchema))
+    partof = fields.Nested(lambda: BookseriesBriefSchema(
+        only=('id', 'name')))
 
 
 class EditionImageBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
