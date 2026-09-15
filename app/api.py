@@ -7,7 +7,8 @@ from flask_jwt_extended import jwt_required
 from flask import request
 from flask.wrappers import Response
 from app.api_helpers import make_api_error, make_api_response
-from app.impl import (ResponseType, get_frontpage_data, SearchResult,
+from app.impl import (ResponseType, get_frontpage_data,
+                      get_frontpage_random_picks, SearchResult,
                       filter_languages,
                       filter_link_names, genre_list,
                       get_latest_covers)
@@ -306,6 +307,24 @@ def frontpagestats() -> Response:
         }
     """
     return make_api_response(get_frontpage_data())
+
+
+@app.route('/api/frontpage/random', methods=['get'])
+def frontpage_random_picks() -> Response:
+    """
+    @api {get} /api/frontpage/random Front page random picks
+    @apiName Front page random picks
+    @apiGroup Front page
+    @apiPermission none
+    @apiDescription One random work with a description from each of a fixed
+    set of genre categories (fantasy, scifi, horror, youth, children's,
+    collections), for the front page's "Bibliografiasta löytyy" section. No
+    work appears more than once. A work with cover images from more than one
+    edition shows a randomly chosen one instead of always the same one.
+    @apiSuccess {Edition[]} response One edition per category with an
+    eligible work (fewer than 6 if some category has none left).
+    """
+    return make_api_response(get_frontpage_random_picks())
 
 
 ###

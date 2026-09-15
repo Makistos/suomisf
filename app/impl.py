@@ -3,6 +3,7 @@
 from datetime import datetime, timedelta
 from enum import IntEnum
 import json
+import random
 from typing import Dict, NamedTuple, Tuple, List, Union, Any, TypedDict, Set
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
@@ -12,10 +13,12 @@ from app.route_helpers import new_session
 from app.orm_decl import (Country, Log, Genre, Language, ContributorRole,
                           Work, Edition, ShortStory, Magazine, EditionImage,
                           ArticleLink, AwardLink, BookseriesLink, EditionLink,
-                          PersonLink, PublisherLink, PubseriesLink, WorkLink)
+                          PersonLink, PublisherLink, PubseriesLink, WorkLink,
+                          WorkGenre)
 from app.model import (GenreBriefSchema, EditionBriefestSchema, LanguageSchema,
                        CountryBriefSchema, ContributorRoleSchema, LogSchema,
-                       EditionImageSchema)
+                       EditionImageSchema, EditionBriefSchema,
+                       EditionImageBriefSchema)
 from app.types import HttpResponseCode, ContributorType
 from app import app
 
@@ -700,6 +703,90 @@ def get_frontpage_data() -> ResponseType:
     latest_list = schema.dump(latest_list, many=True)
     retval['latest'] = latest_list
     return ResponseType(retval, 200)
+
+
+# Genre ids per front page "random pick" category. A work qualifies for a
+# category if it has any of the listed genres. Categories are tried in this
+# order and a work already picked for an earlier category is excluded from
+# later ones, so the "Bibliografiasta löytyy" section never repeats a work.
+FRONTPAGE_RANDOM_CATEGORIES: List[Tuple[str, List[int]]] = [
+    ('fantasy', [1]),       # Fantasia
+    ('scifi', [5]),         # Science Fiction
+    ('horror', [2]),        # Kauhu
+    ('youth', [8, 9, 10]),  # Nuorten fantasia / Science Fiction / kauhu
+    ('children', [11, 17]),  # Lasten Science Fiction / fantasia
+    ('collection', [16]),   # Kokoelma
+]
+
+
+def get_frontpage_random_picks() -> ResponseType:
+    """
+    Pick one random work with a description from each front page "random
+    pick" category (fantasy, scifi, horror, youth, children's, collections)
+    for the front page's "Bibliografiasta löytyy" section.
+
+    Each work is used for at most one category. When a work has cover images
+    from more than one edition, a random one is shown instead of always the
+    same one.
+
+    Returns:
+        ResponseType: A list of edition dicts (EditionBriefSchema shape),
+                      one per category that had an eligible work, each with
+                      a single, randomly chosen cover in `images`.
+    """
+    session = new_session()
+    try:
+        used_work_ids: Set[int] = set()
+        picks: List[Tuple[Edition, Union[EditionImage, None]]] = []
+        for _, genre_ids in FRONTPAGE_RANDOM_CATEGORIES:
+            query = session.query(Work.id)\
+                .join(WorkGenre, WorkGenre.work_id == Work.id)\
+                .filter(WorkGenre.genre_id.in_(genre_ids))\
+                .filter(Work.description.isnot(None))\
+                .filter(Work.description != '')
+            if used_work_ids:
+                query = query.filter(Work.id.notin_(used_work_ids))
+            work_ids = [wid for (wid,) in query.distinct().all()]
+            random.shuffle(work_ids)
+
+            for work_id in work_ids:
+                editions = session.query(Edition)\
+                    .filter(Edition.work_id == work_id).all()
+                if not editions:
+                    continue
+                images = session.query(EditionImage)\
+                    .join(Edition, Edition.id == EditionImage.edition_id)\
+                    .filter(Edition.work_id == work_id).all()
+                if images:
+                    image = random.choice(images)
+                    edition = next(
+                        e for e in editions if e.id == image.edition_id)
+                else:
+                    image = None
+                    edition = editions[0]
+                used_work_ids.add(work_id)
+                picks.append((edition, image))
+                break
+    except SQLAlchemyError as exp:
+        app.logger.error(f'get_frontpage_random_picks: {str(exp)}')
+        return ResponseType('get_frontpage_random_picks: Tietokantavirhe',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    try:
+        schema = EditionBriefSchema()
+        image_schema = EditionImageBriefSchema()
+        retval = []
+        for edition, image in picks:
+            dumped = schema.dump(edition)
+            dumped['images'] = [image_schema.dump(image)] if image else []
+            retval.append(dumped)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(
+            f'Exception in get_frontpage_random_picks(): {str(exp)}')
+        return ResponseType('get_frontpage_random_picks: Skeemavirhe',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def get_latest_covers(count: int) -> ResponseType:
