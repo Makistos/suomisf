@@ -76,9 +76,13 @@ def get_award(award_id: int) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     # Whether this award can import winners. sfadb is the active source
-    # (ISFDB blocks datacenter IPs), so gate on the sfadb config.
-    from app.impl_award_import import SFADB_AWARD_SLUGS
-    retval['has_import_source'] = award.name in SFADB_AWARD_SLUGS
+    # (ISFDB blocks datacenter IPs), so gate on the sfadb config -
+    # SFADB_AWARD_SLUGS (title-based) or SFADB_PERSON_AWARD_SLUGS
+    # (person-based, e.g. SFWA Grand Master).
+    from app.impl_award_import import (SFADB_AWARD_SLUGS,
+                                       SFADB_PERSON_AWARD_SLUGS)
+    retval['has_import_source'] = (award.name in SFADB_AWARD_SLUGS
+                                   or award.name in SFADB_PERSON_AWARD_SLUGS)
 
     return ResponseType(retval, HttpResponseCode.OK)
 

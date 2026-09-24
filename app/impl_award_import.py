@@ -9,6 +9,17 @@ Item type convention (matches award_import_source.item_type):
     0 = Work, 1 = Short story, 2 = Both (novella).
 This is the ISFDB scraper convention and is distinct from
 awardcategory.type (0 = personal, 1 = novel, 2 = short story).
+
+A fourth item type, 3 = Person, exists only for sfadb-sourced awards given
+to a person for a body of work rather than to a specific title (e.g. the
+SFWA Grand Master Award) - see SFADB_PERSON_AWARD_SLUGS. This is a
+deliberate, narrow exception to the "never touch person_id rows" rule that
+otherwise applies throughout this module: that rule exists to protect
+manually-entered personal-achievement winners on MIXED awards like Sidewise
+and World Fantasy (which are mostly title-based, with a personal award
+bolted on) from being clobbered by an ordinary title-matching import. It
+does not preclude deliberately supporting awards that are *entirely*
+person-based, where there is no title to match at all.
 """
 
 import re
@@ -33,6 +44,7 @@ from app.types import HttpResponseCode
 ITEM_WORK = 0
 ITEM_SHORT = 1
 ITEM_BOTH = 2
+ITEM_PERSON = 3  # sfadb-only; see module docstring.
 
 ISFDB_CATEGORY_URL = "https://www.isfdb.org/cgi-bin/award_category.cgi"
 
@@ -390,6 +402,16 @@ SFADB_SINGLE_CATEGORY = {
     "Apollo": ("Paras romaani", 0),
 }
 
+# Awards given to a PERSON for a body of work, not to a specific title.
+# sfadb tracks these on a plain "<slug>" page (no _Winners_By_... suffix),
+# a flat one-row-per-year list with no title at all - see
+# parse_award_sfadb_person_list. award name -> sfadb slug.
+SFADB_PERSON_AWARD_SLUGS = {
+    "Damon Knight Memorial Grand Master Award": "SFWA_Grand_Master_Award",
+    "Skylark": "Skylark_Award",
+    "WHC Grand Master": "World_Horror_Grandmaster",
+}
+
 
 def _norm_sfadb_category(name: str) -> str:
     """Normalize a sfadb category label for map lookup."""
@@ -520,6 +542,39 @@ def parse_award_sfadb_flat(sfadb_slug: str,
     return winners
 
 
+def parse_award_sfadb_person_list(sfadb_slug: str,
+                                  max_attempts: int = 1) -> List[ScrapedWinner]:
+    """
+    Parse a sfadb "person award" page (one recipient per year, no title) -
+    e.g. SFWA_Grand_Master_Award, Skylark_Award, World_Horror_Grandmaster.
+
+    Layout: a <table> of <tr>s, each with a 'winslistleftcol' cell holding
+    the year (in a 'winslistheader' span, "— YEAR —") and a
+    'winslistrightcol' cell holding one <a> per recipient (more than one
+    for a tied/joint year). The recipient's name goes in ScrapedWinner.title
+    (there is no separate title/author for a person award - see ITEM_PERSON
+    in the module docstring).
+    """
+    resp = _get(f"{SFADB_BASE_URL}/{sfadb_slug}", max_attempts=max_attempts)
+    soup = BeautifulSoup(resp.content, "html.parser")
+    main = soup.find(class_="pagemain") or soup
+
+    winners: List[ScrapedWinner] = []
+    pending_year: Optional[int] = None
+    for el in main.find_all(True):
+        classes = " ".join(el.get("class") or [])
+        if "winslistleftcol" in classes:
+            pending_year = _extract_year(el.get_text())
+        elif "winslistrightcol" in classes:
+            for a in el.find_all("a"):
+                name = a.get_text(" ", strip=True)
+                if name:
+                    winners.append(ScrapedWinner(
+                        year=pending_year, title=name, author=""))
+            pending_year = None
+    return winners
+
+
 # ---------------------------------------------------------------------------
 # Matching scraped winners against the local database
 # ---------------------------------------------------------------------------
@@ -540,17 +595,22 @@ def _category_lookup(session: Any) -> Dict[Tuple[str, int], int]:
 
 
 def _existing_awarded(session: Any, award_id: int
-                      ) -> Tuple[set, set]:
-    """Return (work_ids, story_ids) already recorded for this award.
+                      ) -> Tuple[set, set, set]:
+    """Return (work_ids, story_ids, person_ids) already recorded for this
+    award.
 
     These are treated as authoritative: the importer never duplicates,
-    replaces or removes them.
+    replaces or removes them. person_ids is only ever populated/consulted
+    for ITEM_PERSON awards (see module docstring) - a normal title-matching
+    import never touches it.
     """
-    rows = session.query(Awarded.work_id, Awarded.story_id).filter(
+    rows = session.query(
+        Awarded.work_id, Awarded.story_id, Awarded.person_id).filter(
         Awarded.award_id == award_id).all()
     work_ids = {r.work_id for r in rows if r.work_id is not None}
     story_ids = {r.story_id for r in rows if r.story_id is not None}
-    return work_ids, story_ids
+    person_ids = {r.person_id for r in rows if r.person_id is not None}
+    return work_ids, story_ids, person_ids
 
 
 _LEADING_ARTICLE_RE = re.compile(r"^(the|a|an)\s+")
@@ -848,6 +908,56 @@ def _build_entry(session: Any, winner: ScrapedWinner, item_type: int,
     return entry
 
 
+def _person_name_index(session: Any) -> List[Tuple[Any, List[Tuple[str, ...]]]]:
+    """(person, tokenized name variants) for every person in the DB, built
+    once per preview request for ITEM_PERSON awards. Reuses
+    _person_name_variants, the same tokenization already used to verify a
+    title match's author - a full-table scan is fine here since this only
+    runs for the rare person-only award and person is a few thousand rows."""
+    return [(p, _person_name_variants(p)) for p in session.query(Person).all()]
+
+
+def _build_person_entry(winner: ScrapedWinner,
+                        person_index: List[Tuple[Any, List[Tuple[str, ...]]]],
+                        person_ids: set) -> Dict[str, Any]:
+    """Match one scraped person-award winner (by name, not title) and build
+    a preview entry. See ITEM_PERSON in the module docstring."""
+    entry: Dict[str, Any] = {
+        "year": winner.year,
+        "title": winner.title,
+        "author": "",
+        "isfdb_category": winner.title,
+        "our_category": None,
+        "item_type": ITEM_PERSON,
+        "match_type": None,
+        "target_id": None,
+        "target_title": None,
+        "category_id": None,
+        "status": STATUS_NOT_FOUND,
+        "candidates": [],
+    }
+
+    scraped = _name_tokens(winner.title)
+    matches = [person for person, variants in person_index
+              if any(_names_match(scraped, variant) for variant in variants)]
+
+    # _resolve_matches assumes a non-empty match list per candidate set
+    # (it unconditionally indexes matches[0] once ambiguity is ruled out) -
+    # same convention _build_entry follows for its own candidate_sets.
+    candidate_sets = [("person", None, person_ids, matches)] if matches else []
+    status, match_type, _, matched, candidate_ids = _resolve_matches(
+        candidate_sets)
+    entry["status"] = status
+    entry["candidates"] = candidate_ids
+    if match_type is not None:
+        entry["match_type"] = match_type
+    if matched is not None:
+        entry["target_id"] = matched.id
+        entry["target_title"] = matched.alt_name or matched.name
+
+    return entry
+
+
 def _collect_isfdb(session: Any, award_id: int, errors: List[str]):
     """Yield (item_type, our_category, label, winners) from ISFDB sources."""
     sources = session.query(AwardImportSource).filter(
@@ -870,6 +980,15 @@ def _collect_isfdb(session: Any, award_id: int, errors: List[str]):
 
 def _collect_sfadb(award: Any, errors: List[str]):
     """Yield (item_type, our_category, label, winners) from sfadb."""
+    person_slug = SFADB_PERSON_AWARD_SLUGS.get(award.name)
+    if person_slug:
+        try:
+            winners = parse_award_sfadb_person_list(person_slug)
+        except requests.RequestException as exc:
+            errors.append(f'sfadb {person_slug}: {exc}')
+            return []
+        return [(ITEM_PERSON, None, award.name, winners)]
+
     slug = SFADB_AWARD_SLUGS.get(award.name)
     if not slug:
         return None
@@ -919,7 +1038,7 @@ def preview_import(award_id: int, source: str = "sfadb") -> ResponseType:
                             HttpResponseCode.NOT_FOUND.value)
 
     category_lookup = _category_lookup(session)
-    work_ids, story_ids = _existing_awarded(session, award_id)
+    work_ids, story_ids, person_ids = _existing_awarded(session, award_id)
 
     entries: List[Dict[str, Any]] = []
     errors: List[str] = []
@@ -933,11 +1052,18 @@ def preview_import(award_id: int, source: str = "sfadb") -> ResponseType:
             f'Tälle palkinnolle ei ole {source}-tuontilähdettä.',
             HttpResponseCode.BAD_REQUEST.value)
 
+    person_index = None  # built lazily; only ITEM_PERSON awards need it
     for item_type, our_category, label, winners in collected:
         for winner in winners:
-            entries.append(_build_entry(
-                session, winner, item_type, label,
-                our_category, category_lookup, work_ids, story_ids))
+            if item_type == ITEM_PERSON:
+                if person_index is None:
+                    person_index = _person_name_index(session)
+                entries.append(_build_person_entry(
+                    winner, person_index, person_ids))
+            else:
+                entries.append(_build_entry(
+                    session, winner, item_type, label,
+                    our_category, category_lookup, work_ids, story_ids))
 
     counts = {
         STATUS_NEW: sum(1 for e in entries if e["status"] == STATUS_NEW),
@@ -962,12 +1088,15 @@ def save_import(award_id: int, params: Any) -> ResponseType:
     """
     Save selected scraped winners as new Awarded rows.
 
-    Only adds rows: an item already awarded for this award (by work_id or
-    story_id) is skipped, never duplicated or replaced. Person awards are
-    never touched.
+    Only adds rows: an item already awarded for this award (by work_id,
+    story_id or person_id) is skipped, never duplicated or replaced. A
+    'person' match_type is only ever produced by an ITEM_PERSON award's own
+    preview (see module docstring) - a normal title-matching import never
+    emits one, so this does not open the door to an ordinary import
+    clobbering a mixed award's manually-entered personal winner.
 
     Request body: {"data": {"winners": [
-        {"match_type": "work"|"short", "target_id": <int>,
+        {"match_type": "work"|"short"|"person", "target_id": <int>,
          "category_id": <int|null>, "year": <int|null>}, ...]}}
     """
     session = new_session()
@@ -980,7 +1109,7 @@ def save_import(award_id: int, params: Any) -> ResponseType:
     data = params.get('data', {})
     winners = data.get('winners', [])
 
-    work_ids, story_ids = _existing_awarded(session, award_id)
+    work_ids, story_ids, person_ids = _existing_awarded(session, award_id)
 
     created = 0
     skipped = 0
@@ -988,7 +1117,7 @@ def save_import(award_id: int, params: Any) -> ResponseType:
         for w in winners:
             match_type = w.get('match_type')
             target_id = w.get('target_id')
-            if match_type not in ('work', 'short') or not target_id:
+            if match_type not in ('work', 'short', 'person') or not target_id:
                 skipped += 1
                 continue
 
@@ -1003,12 +1132,18 @@ def save_import(award_id: int, params: Any) -> ResponseType:
                     continue
                 awarded.work_id = target_id
                 work_ids.add(target_id)
-            else:
+            elif match_type == 'short':
                 if target_id in story_ids:
                     skipped += 1
                     continue
                 awarded.story_id = target_id
                 story_ids.add(target_id)
+            else:
+                if target_id in person_ids:
+                    skipped += 1
+                    continue
+                awarded.person_id = target_id
+                person_ids.add(target_id)
 
             session.add(awarded)
             created += 1
