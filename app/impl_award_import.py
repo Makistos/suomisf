@@ -582,30 +582,37 @@ def parse_award_sfadb_person_list(sfadb_slug: str,
 
 @dataclass
 class WikipediaTableSource:
-    """Where and how to read one award's winner history off a Wikipedia
-    "list of X winners" wikitable.
+    """Where and how to read one award's winner history off Wikipedia.
 
-    Column indices are into a *full, non-continuation* data row - see
-    parse_award_wikipedia_table for how a joint-year row (a rowspan'd year
-    cell, so the following <tr> omits it and every column shifts left) is
-    handled. match_kind is "work" (year_col/author_col/title_col) or
-    "person" (year_col/name_col, e.g. the Nobel Prize in Literature).
+    layout is "table" (default - see parse_award_wikipedia_table) or
+    "heading_list": a plain "Year: Name" bullet list under a given heading
+    rather than a wikitable, used for person awards with no dedicated
+    article of their own (e.g. Kosmoskynä, a paragraph-and-list section on
+    its granting organization's page rather than a "List of X winners"
+    article) - see parse_award_wikipedia_heading_list.
+
+    Column indices (table layout) are into a *full, non-continuation* data
+    row - see parse_award_wikipedia_table for how a joint-year row (a
+    rowspan'd year cell, so the following <tr> omits it and every column
+    shifts left) is handled, by reading the year cell's own rowspan
+    attribute directly rather than comparing cell counts (which a row
+    simply missing an unused *trailing* column - e.g. Portti's newest
+    entry has no "Lisätietoa" filled in yet - would be indistinguishable
+    from). match_kind is "work" or "short" (year_col/author_col/title_col)
+    or "person" (year_col/name_col for the table layout; heading_list is
+    always a person award and needs neither).
     """
     url: str
     match_kind: str
+    layout: str = "table"
     year_col: int = 0
     author_col: Optional[int] = None
     title_col: Optional[int] = None
     name_col: Optional[int] = None
-    # Cell count of a full data row. Left as None to infer it from the
-    # first data row after skip_rows - fine whenever the table's own header
-    # row already has the same cell count as its data rows (true for every
-    # Finnish table below); set explicitly when it doesn't (Nobel's table
-    # has a two-row header whose second row is an "Image | Name" sub-header
-    # that doesn't correspond 1:1 with the 5-cell data rows below it).
-    data_col_count: Optional[int] = None
     skip_rows: int = 1
     table_index: int = 0
+    heading_id: Optional[str] = None
+    heading_tag: str = "h2"
 
 
 # Local award name -> where to scrape it. All the Finnish awards share the
@@ -615,8 +622,7 @@ class WikipediaTableSource:
 WIKIPEDIA_AWARD_SOURCES: Dict[str, WikipediaTableSource] = {
     "Nobelin kirjallisuuspalkinto": WikipediaTableSource(
         url="https://en.wikipedia.org/wiki/List_of_Nobel_laureates_in_Literature",
-        match_kind="person", year_col=0, name_col=2,
-        data_col_count=5, skip_rows=2),
+        match_kind="person", year_col=0, name_col=2, skip_rows=2),
     "Finlandia-palkinto": WikipediaTableSource(
         url="https://fi.wikipedia.org/wiki/Finlandia-palkinto",
         match_kind="work", author_col=1, title_col=2),
@@ -638,6 +644,22 @@ WIKIPEDIA_AWARD_SOURCES: Dict[str, WikipediaTableSource] = {
     "Tähtivaeltaja": WikipediaTableSource(
         url="https://fi.wikipedia.org/wiki/T%C3%A4htivaeltaja-palkinto",
         match_kind="work", author_col=1, title_col=2),
+    "Atorox": WikipediaTableSource(
+        url="https://fi.wikipedia.org/wiki/Atorox-palkinto",
+        match_kind="short", author_col=1, title_col=2),
+    "Portin novellikilpailu": WikipediaTableSource(
+        url="https://fi.wikipedia.org/wiki/Portti_(lehti)",
+        match_kind="short", author_col=1, title_col=2),
+    # Kosmoskynä has no dedicated "list of winners" article - its granting
+    # organization's own page has a plain "Year: Name" bullet list under a
+    # "Kosmoskynä-palkinto" heading instead of a wikitable. anarres.fi used
+    # to be the reference for this (and for Atorox/Portti above, and the
+    # Finnish SF-genre awards further up) but has gone offline entirely;
+    # this Wikipedia section is the replacement source found for it.
+    "Kosmoskynä": WikipediaTableSource(
+        url="https://fi.wikipedia.org/wiki/Suomen_tieteis-_ja_fantasiakirjoittajat",
+        match_kind="person", layout="heading_list",
+        heading_id="Kosmoskynä-palkinto"),
 }
 
 # The local category assigned to each work-based Wikipedia-table award's
@@ -653,6 +675,8 @@ WIKIPEDIA_AWARD_CATEGORY = {
     "Kuvastaja": "Paras romaani",
     "Tähtifantasia": "Paras romaani",
     "Tähtivaeltaja": "Paras romaani",
+    "Atorox": "Paras novelli",
+    "Portin novellikilpailu": "Paras novelli",
 }
 
 # Wikipedia-table awards given for a FOREIGN work translated into Finnish:
@@ -677,17 +701,21 @@ def parse_award_wikipedia_table(source: WikipediaTableSource,
 
     Handles the two irregularities this kind of table commonly has:
       - A year cell with rowspan > 1 for a jointly-awarded year: the
-        following <tr> omits it (and, for Nobel, an empty leading "Image"
-        cell) entirely, so that row's real columns are shifted left by
-        however many leading cells are missing compared to a full row.
-        Detected by comparing each row's cell count to data_col_count, not
-        by reading the rowspan attribute directly - simpler, and works
-        whether the rowspan is one the browser would still render as "2"
-        (typical) or MediaWiki has already flattened it away.
+        following <tr>(s) omit it entirely, so every column from year_col
+        onward is shifted left by one in those rows. Detected by reading
+        the year cell's own `rowspan` attribute and counting down over the
+        rows that follow - not by comparing each row's cell count to a
+        "full" row's, which also misfires on an unrelated, harmless
+        irregularity: a row simply missing an unused *trailing* column
+        (e.g. Portti's newest entry has no "Lisätietoa" cell filled in
+        yet) looks identical to a rowspan continuation by cell count alone,
+        but must NOT be treated as one.
       - Trailing footnote markers baked into cell text ("2026 [ 27 ]",
         "Title [ 63 ]") - stripped before use.
     A row with no name/title text (the award wasn't given that year, e.g.
-    Nobel 1940-1943) is silently skipped.
+    Nobel 1940-1943, where a *different* cell - "Not awarded" - carries the
+    rowspan instead of the year) is silently skipped; such a row is simply
+    missing the name/title cell entirely regardless of column arithmetic.
     """
     resp = _get(source.url, max_attempts=max_attempts)
     soup = BeautifulSoup(resp.content, "html.parser")
@@ -695,16 +723,6 @@ def parse_award_wikipedia_table(source: WikipediaTableSource,
     if source.table_index >= len(tables):
         return []
     rows = tables[source.table_index].find_all("tr")[source.skip_rows:]
-
-    data_col_count = source.data_col_count
-    if data_col_count is None:
-        for row in rows:
-            n = len(row.find_all(["td", "th"]))
-            if n:
-                data_col_count = n
-                break
-    if not data_col_count:
-        return []
 
     def clean(text: str) -> str:
         # A trailing ":" turns up occasionally (e.g. a wikilinked name
@@ -715,22 +733,34 @@ def parse_award_wikipedia_table(source: WikipediaTableSource,
 
     winners: List[ScrapedWinner] = []
     pending_year: Optional[int] = None
+    # >0 while later rows still owe a year cell carried over by an earlier
+    # row's rowspan (decremented once per row consumed).
+    year_rowspan_remaining = 0
     for row in rows:
         cells = row.find_all(["td", "th"])
         if not cells:
             continue
-        offset = max(0, data_col_count - len(cells))
 
-        def cell_text(idx: int) -> str:
-            real_idx = idx - offset
-            if real_idx < 0 or real_idx >= len(cells):
+        if year_rowspan_remaining > 0:
+            col_offset = source.year_col + 1
+            year_rowspan_remaining -= 1
+        else:
+            col_offset = 0
+            year_cell = cells[source.year_col] if source.year_col < len(cells) else None
+            if year_cell is not None:
+                rowspan = int(year_cell.get("rowspan", 1) or 1)
+                if rowspan > 1:
+                    year_rowspan_remaining = rowspan - 1
+                year = _extract_year(clean(year_cell.get_text(" ", strip=True)))
+                if year is not None:
+                    pending_year = year
+
+        def cell_text(idx: int, _cells=cells, _offset=col_offset) -> str:
+            real_idx = idx - _offset
+            if real_idx < 0 or real_idx >= len(_cells):
                 return ""
-            return clean(cells[real_idx].get_text(" ", strip=True))
+            return clean(_cells[real_idx].get_text(" ", strip=True))
 
-        if offset == 0:
-            year = _extract_year(cell_text(source.year_col))
-            if year is not None:
-                pending_year = year
         if pending_year is None:
             continue
 
@@ -747,6 +777,68 @@ def parse_award_wikipedia_table(source: WikipediaTableSource,
             winners.append(ScrapedWinner(year=pending_year, title=title, author=author))
 
     return winners
+
+
+# A bullet-list line reads "1985: Kari Mäentaka" or "1996: Turun science
+# fiction -seura" (an organization, not a person - _build_person_entry
+# simply won't find a matching Person row for it, the same safe outcome as
+# any other unmatched name).
+_HEADING_LIST_LINE_RE = re.compile(r"^\s*(\d{4})\s*:\s*(.+?)\s*$")
+
+
+def parse_award_wikipedia_heading_list(source: WikipediaTableSource,
+                                       max_attempts: int = 1) -> List[ScrapedWinner]:
+    """
+    Parse a plain "Year: Name" bullet list under a Wikipedia section
+    heading (source.heading_id) into a flat list of person-award winners -
+    for an award with no dedicated "list of winners" article of its own,
+    just a paragraph-and-list section on its granting organization's page
+    (e.g. Kosmoskynä on Suomen tieteis- ja fantasiakirjoittajat's page).
+
+    Modern Wikipedia wraps each heading in a <div class="mw-heading">; the
+    <ul> is that div's next sibling (with a <p> or two sometimes in
+    between), not the heading tag's own sibling.
+    """
+    resp = _get(source.url, max_attempts=max_attempts)
+    soup = BeautifulSoup(resp.content, "html.parser")
+    content = soup.find(class_="mw-parser-output") or soup
+    heading = content.find(source.heading_tag, id=source.heading_id)
+    if heading is None:
+        return []
+
+    container = heading.parent if heading.parent and heading.parent.name == "div" else heading
+    node = container
+    winners: List[ScrapedWinner] = []
+    while True:
+        node = node.find_next_sibling()
+        if node is None:
+            break
+        if node.name == "div" and "mw-heading" in (node.get("class") or []):
+            break  # reached the next section
+        if node.name != "ul":
+            continue
+        for li in node.find_all("li", recursive=False):
+            # Strip footnote markers from the whole line first - one can
+            # land between the year and the colon (e.g. "2018 [9]: Name").
+            line = _FOOTNOTE_RE.sub("", li.get_text(" ", strip=True))
+            match = _HEADING_LIST_LINE_RE.match(line)
+            if not match:
+                continue
+            name = match.group(2).strip()
+            if name:
+                winners.append(ScrapedWinner(
+                    year=int(match.group(1)), title=name, author=""))
+        break  # one list is the whole section's content here
+
+    return winners
+
+
+def parse_wikipedia_award_source(source: WikipediaTableSource,
+                                 max_attempts: int = 1) -> List[ScrapedWinner]:
+    """Dispatch to the right parser for source.layout."""
+    if source.layout == "heading_list":
+        return parse_award_wikipedia_heading_list(source, max_attempts)
+    return parse_award_wikipedia_table(source, max_attempts)
 
 
 # ---------------------------------------------------------------------------
@@ -1230,22 +1322,31 @@ def _collect_sfadb(award: Any, errors: List[str]):
     return collected
 
 
+_WIKIPEDIA_MATCH_KIND_TO_ITEM_TYPE = {
+    "work": ITEM_WORK,
+    "short": ITEM_SHORT,
+    "person": ITEM_PERSON,
+}
+
+
 def _collect_wikipedia(award: Any, errors: List[str]):
     """Yield (item_type, our_category, label, winners) from a Wikipedia
-    wikitable - used for domestic Finnish awards and any other award with
-    no ISFDB/sfadb coverage (e.g. the Nobel Prize in Literature)."""
+    source (a wikitable or a heading_list, see WikipediaTableSource) -
+    used for domestic Finnish awards and any other award with no ISFDB/
+    sfadb coverage (e.g. the Nobel Prize in Literature)."""
     wiki_source = WIKIPEDIA_AWARD_SOURCES.get(award.name)
     if not wiki_source:
         return None
     try:
-        winners = parse_award_wikipedia_table(wiki_source)
+        winners = parse_wikipedia_award_source(wiki_source)
     except requests.RequestException as exc:
         errors.append(f'wikipedia {wiki_source.url}: {exc}')
         return []
-    if wiki_source.match_kind == "person":
-        return [(ITEM_PERSON, None, award.name, winners)]
+    item_type = _WIKIPEDIA_MATCH_KIND_TO_ITEM_TYPE[wiki_source.match_kind]
+    if item_type == ITEM_PERSON:
+        return [(item_type, None, award.name, winners)]
     our_category = WIKIPEDIA_AWARD_CATEGORY.get(award.name)
-    return [(ITEM_WORK, our_category, award.name, winners)]
+    return [(item_type, our_category, award.name, winners)]
 
 
 def preview_import(award_id: int, source: str = "sfadb") -> ResponseType:

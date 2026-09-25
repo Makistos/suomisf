@@ -14,6 +14,7 @@ from unittest.mock import MagicMock, patch
 
 from app.impl_award_import import (
     WikipediaTableSource,
+    parse_award_wikipedia_heading_list,
     parse_award_wikipedia_table,
 )
 
@@ -123,7 +124,7 @@ def test_nobel_shaped_table_with_joint_year_and_not_awarded_gap(mock_get):
     mock_get.return_value = _resp(NOBEL_SHAPED_TABLE)
     source = WikipediaTableSource(
         url="https://example.invalid/nobel", match_kind="person",
-        name_col=2, data_col_count=5, skip_rows=2)
+        name_col=2, skip_rows=2)
     winners = parse_award_wikipedia_table(source)
     # 1940/1941 (no laureate at all) must be silently skipped; the lifespan
     # suffix must be stripped from each name.
@@ -136,6 +137,38 @@ def test_nobel_shaped_table_with_joint_year_and_not_awarded_gap(mock_get):
     assert all(w.author == "" for w in winners)
 
 
+TRAILING_MISSING_COLUMN_TABLE = """
+<html><body>
+<table class="wikitable">
+<tr><th>Vuosi</th><th>Tekijä</th><th>Novelli</th><th>Julkaistu</th><th>Lisätietoa</th></tr>
+<tr><td>2023</td><td>Hanna-Kaisa Kärpinlehto</td><td>Asuttajat</td><td></td><td></td></tr>
+<tr><td>2024</td><td>Anssi Vartiainen</td><td>Patinamorsian</td><td></td></tr>
+</table>
+</body></html>
+"""
+
+
+@patch("app.impl_award_import._get")
+def test_row_missing_an_unused_trailing_column_is_not_treated_as_a_rowspan_continuation(mock_get):
+    # Regression: the newest entry on the real Portti page has no
+    # "Lisätietoa" cell filled in yet, so its row has one fewer cell than
+    # every other row - by cell-count alone this looks identical to a
+    # rowspan continuation (which is also short by one cell), but here
+    # nothing has a rowspan at all, and the missing cell is an unused
+    # trailing column, not the leading year cell. Wrongly treating this as
+    # a continuation would misread "2024" as the year cell shifted out and
+    # try to reuse the previous row's year (2023) instead.
+    mock_get.return_value = _resp(TRAILING_MISSING_COLUMN_TABLE)
+    source = WikipediaTableSource(
+        url="https://example.invalid/x", match_kind="short",
+        author_col=1, title_col=2)
+    winners = parse_award_wikipedia_table(source)
+    assert [(w.year, w.title, w.author) for w in winners] == [
+        (2023, "Asuttajat", "Hanna-Kaisa Kärpinlehto"),
+        (2024, "Patinamorsian", "Anssi Vartiainen"),
+    ]
+
+
 @patch("app.impl_award_import._get")
 def test_missing_wikitable_returns_empty_list(mock_get):
     mock_get.return_value = _resp("<html><body>no tables here</body></html>")
@@ -143,3 +176,48 @@ def test_missing_wikitable_returns_empty_list(mock_get):
         url="https://example.invalid/x", match_kind="work",
         author_col=1, title_col=2)
     assert parse_award_wikipedia_table(source) == []
+
+
+# Modern Wikipedia wraps each heading in a <div class="mw-heading">, with
+# the <ul> as that div's sibling (with a <p> or two often in between) - not
+# a sibling of the heading tag itself, as an older/simpler layout would be.
+HEADING_LIST_PAGE = """
+<html><body><div class="mw-parser-output">
+<div class="mw-heading mw-heading2"><h2 id="Toiminta">Toiminta</h2></div>
+<p>Some unrelated paragraph.</p>
+<div class="mw-heading mw-heading2"><h2 id="Kosmoskynä-palkinto">Kosmoskynä-palkinto</h2></div>
+<p>Intro paragraph before the list.</p>
+<ul>
+<li>1985: Kari Mäentaka</li>
+<li>1987: Tom Ölander</li>
+<li>1996: Turun science fiction -seura</li>
+<li>2018 <sup>[9]</sup>: Jukka Halme</li>
+</ul>
+<div class="mw-heading mw-heading2"><h2 id="Lähteet">Lähteet</h2></div>
+<ul><li>Some unrelated reference, not part of the award list.</li></ul>
+</div></body></html>
+"""
+
+
+@patch("app.impl_award_import._get")
+def test_heading_list_reads_only_its_own_sections_list(mock_get):
+    mock_get.return_value = _resp(HEADING_LIST_PAGE)
+    source = WikipediaTableSource(
+        url="https://example.invalid/x", match_kind="person",
+        layout="heading_list", heading_id="Kosmoskynä-palkinto")
+    winners = parse_award_wikipedia_heading_list(source)
+    assert [(w.year, w.title) for w in winners] == [
+        (1985, "Kari Mäentaka"),
+        (1987, "Tom Ölander"),
+        (1996, "Turun science fiction -seura"),
+        (2018, "Jukka Halme"),
+    ]
+
+
+@patch("app.impl_award_import._get")
+def test_heading_list_missing_heading_returns_empty_list(mock_get):
+    mock_get.return_value = _resp(HEADING_LIST_PAGE)
+    source = WikipediaTableSource(
+        url="https://example.invalid/x", match_kind="person",
+        layout="heading_list", heading_id="No-Such-Heading")
+    assert parse_award_wikipedia_heading_list(source) == []
