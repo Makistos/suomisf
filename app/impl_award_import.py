@@ -576,6 +576,180 @@ def parse_award_sfadb_person_list(sfadb_slug: str,
 
 
 # ---------------------------------------------------------------------------
+# Wikipedia wikitable scraper (domestic Finnish awards, and any award with
+# no ISFDB/sfadb coverage at all - e.g. the Nobel Prize in Literature)
+# ---------------------------------------------------------------------------
+
+@dataclass
+class WikipediaTableSource:
+    """Where and how to read one award's winner history off a Wikipedia
+    "list of X winners" wikitable.
+
+    Column indices are into a *full, non-continuation* data row - see
+    parse_award_wikipedia_table for how a joint-year row (a rowspan'd year
+    cell, so the following <tr> omits it and every column shifts left) is
+    handled. match_kind is "work" (year_col/author_col/title_col) or
+    "person" (year_col/name_col, e.g. the Nobel Prize in Literature).
+    """
+    url: str
+    match_kind: str
+    year_col: int = 0
+    author_col: Optional[int] = None
+    title_col: Optional[int] = None
+    name_col: Optional[int] = None
+    # Cell count of a full data row. Left as None to infer it from the
+    # first data row after skip_rows - fine whenever the table's own header
+    # row already has the same cell count as its data rows (true for every
+    # Finnish table below); set explicitly when it doesn't (Nobel's table
+    # has a two-row header whose second row is an "Image | Name" sub-header
+    # that doesn't correspond 1:1 with the 5-cell data rows below it).
+    data_col_count: Optional[int] = None
+    skip_rows: int = 1
+    table_index: int = 0
+
+
+# Local award name -> where to scrape it. All the Finnish awards share the
+# same simple "Vuosi | Kirjailija | Teos | ..." layout; only Nobel (English
+# Wikipedia, a person award, an irregular two-row header) needs the extra
+# fields.
+WIKIPEDIA_AWARD_SOURCES: Dict[str, WikipediaTableSource] = {
+    "Nobelin kirjallisuuspalkinto": WikipediaTableSource(
+        url="https://en.wikipedia.org/wiki/List_of_Nobel_laureates_in_Literature",
+        match_kind="person", year_col=0, name_col=2,
+        data_col_count=5, skip_rows=2),
+    "Finlandia-palkinto": WikipediaTableSource(
+        url="https://fi.wikipedia.org/wiki/Finlandia-palkinto",
+        match_kind="work", author_col=1, title_col=2),
+    "Lasten- ja nuortenkirjallisuuden Finlandia": WikipediaTableSource(
+        url="https://fi.wikipedia.org/wiki/Lasten-_ja_nuortenkirjallisuuden_Finlandia",
+        match_kind="work", author_col=1, title_col=2),
+    "Topelius-palkinto": WikipediaTableSource(
+        url="https://fi.wikipedia.org/wiki/Topelius-palkinto",
+        match_kind="work", author_col=1, title_col=2),
+    "Arvid Lydecken -palkinto": WikipediaTableSource(
+        url="https://fi.wikipedia.org/wiki/Arvid_Lydecken_-palkinto",
+        match_kind="work", author_col=1, title_col=2),
+    "Kuvastaja": WikipediaTableSource(
+        url="https://fi.wikipedia.org/wiki/Kuvastaja",
+        match_kind="work", author_col=1, title_col=2),
+    "Tähtifantasia": WikipediaTableSource(
+        url="https://fi.wikipedia.org/wiki/T%C3%A4htifantasia-palkinto",
+        match_kind="work", author_col=1, title_col=2),
+    "Tähtivaeltaja": WikipediaTableSource(
+        url="https://fi.wikipedia.org/wiki/T%C3%A4htivaeltaja-palkinto",
+        match_kind="work", author_col=1, title_col=2),
+}
+
+# The local category assigned to each work-based Wikipedia-table award's
+# winners (all a single best-novel/best-book category per award; unlike
+# sfadb's multi-category pages, these tables have no per-category grouping
+# to read a category label from). Awards not listed here (Nobel, a person
+# award) get no category - see _PERSON_AWARD_CATEGORY instead.
+WIKIPEDIA_AWARD_CATEGORY = {
+    "Finlandia-palkinto": "Paras romaani",
+    "Lasten- ja nuortenkirjallisuuden Finlandia": "Paras nuortenkirja",
+    "Topelius-palkinto": "Paras nuortenkirja",
+    "Arvid Lydecken -palkinto": "Paras lastenkirja",
+    "Kuvastaja": "Paras romaani",
+    "Tähtifantasia": "Paras romaani",
+    "Tähtivaeltaja": "Paras romaani",
+}
+
+# Wikipedia-table awards given for a FOREIGN work translated into Finnish:
+# the table's title column is the Finnish edition's own title (Work.title),
+# not the original-language one (Work.orig_title) ISFDB/sfadb always supply
+# and _match_title matches by default - see also_local_title there. The
+# other Wikipedia-table awards (Finlandia, Topelius, Lydecken, Kuvastaja)
+# are for domestic Finnish-authored works, where title == orig_title.
+WIKIPEDIA_TRANSLATED_WORK_AWARDS = {"Tähtivaeltaja", "Tähtifantasia"}
+
+_FOOTNOTE_RE = re.compile(r"\[\s*\d+\s*\]")
+# Strips a trailing "(1839-1907)"-style lifespan off a Wikipedia laureate
+# name (must contain a 4-digit year so it doesn't eat a genuine parenthetical
+# like "(Firstname Lastname)").
+_LIFESPAN_SUFFIX_RE = re.compile(r"\s*\([^)]*\d{4}[^)]*\)\s*$")
+
+
+def parse_award_wikipedia_table(source: WikipediaTableSource,
+                                max_attempts: int = 1) -> List[ScrapedWinner]:
+    """
+    Parse a Wikipedia award-history wikitable into a flat list of winners.
+
+    Handles the two irregularities this kind of table commonly has:
+      - A year cell with rowspan > 1 for a jointly-awarded year: the
+        following <tr> omits it (and, for Nobel, an empty leading "Image"
+        cell) entirely, so that row's real columns are shifted left by
+        however many leading cells are missing compared to a full row.
+        Detected by comparing each row's cell count to data_col_count, not
+        by reading the rowspan attribute directly - simpler, and works
+        whether the rowspan is one the browser would still render as "2"
+        (typical) or MediaWiki has already flattened it away.
+      - Trailing footnote markers baked into cell text ("2026 [ 27 ]",
+        "Title [ 63 ]") - stripped before use.
+    A row with no name/title text (the award wasn't given that year, e.g.
+    Nobel 1940-1943) is silently skipped.
+    """
+    resp = _get(source.url, max_attempts=max_attempts)
+    soup = BeautifulSoup(resp.content, "html.parser")
+    tables = soup.find_all("table", class_="wikitable")
+    if source.table_index >= len(tables):
+        return []
+    rows = tables[source.table_index].find_all("tr")[source.skip_rows:]
+
+    data_col_count = source.data_col_count
+    if data_col_count is None:
+        for row in rows:
+            n = len(row.find_all(["td", "th"]))
+            if n:
+                data_col_count = n
+                break
+    if not data_col_count:
+        return []
+
+    def clean(text: str) -> str:
+        # A trailing ":" turns up occasionally (e.g. a wikilinked name
+        # immediately followed by a now-empty explanatory note that got
+        # edited out on Wikipedia's end, leaving just the colon behind) -
+        # harmless to strip since a real title/name never ends in one.
+        return _FOOTNOTE_RE.sub("", text).strip().rstrip(":;,").strip()
+
+    winners: List[ScrapedWinner] = []
+    pending_year: Optional[int] = None
+    for row in rows:
+        cells = row.find_all(["td", "th"])
+        if not cells:
+            continue
+        offset = max(0, data_col_count - len(cells))
+
+        def cell_text(idx: int) -> str:
+            real_idx = idx - offset
+            if real_idx < 0 or real_idx >= len(cells):
+                return ""
+            return clean(cells[real_idx].get_text(" ", strip=True))
+
+        if offset == 0:
+            year = _extract_year(cell_text(source.year_col))
+            if year is not None:
+                pending_year = year
+        if pending_year is None:
+            continue
+
+        if source.match_kind == "person":
+            name = _LIFESPAN_SUFFIX_RE.sub("", cell_text(source.name_col)).strip()
+            if not name:
+                continue
+            winners.append(ScrapedWinner(year=pending_year, title=name, author=""))
+        else:
+            title = cell_text(source.title_col)
+            if not title:
+                continue
+            author = cell_text(source.author_col)
+            winners.append(ScrapedWinner(year=pending_year, title=title, author=author))
+
+    return winners
+
+
+# ---------------------------------------------------------------------------
 # Matching scraped winners against the local database
 # ---------------------------------------------------------------------------
 
@@ -649,29 +823,45 @@ def _title_match_variants(title: str) -> set:
     return variants
 
 
-def _orig_title_exprs(model: Any):
-    """SQL expressions for orig_title matching: quote-stripped full title and
-    quote-stripped part before a subtitle colon."""
-    expr = func.lower(model.orig_title)
+def _title_field_exprs(field):
+    """SQL expressions for matching one title-like column: quote-stripped
+    full text and quote-stripped part before a subtitle colon."""
+    expr = func.lower(field)
     for q in _TITLE_QUOTE_CHARS:
         expr = func.replace(expr, q, "")
     before_colon = func.trim(func.split_part(expr, ":", 1))
     return expr, before_colon
 
 
-def _match_title(session: Any, model: Any, *titles: Optional[str]) -> List[Any]:
+def _match_title(session: Any, model: Any, *titles: Optional[str],
+                 also_local_title: bool = False) -> List[Any]:
     """Match on orig_title, tolerating leading articles, subtitles and quote
     characters. Accepts several title forms (e.g. English and original) and
-    matches any of them. Returns matching rows."""
+    matches any of them. Returns matching rows.
+
+    also_local_title additionally matches model.title (the work's own
+    Finnish-edition title, as opposed to orig_title, the title in its
+    original language). ISFDB/sfadb always supply an English/original title,
+    so the default (orig_title only) is correct there - but a Wikipedia
+    table of a FOREIGN-work award translated into Finnish (e.g.
+    Tähtivaeltaja, Tähtifantasia) gives the Finnish edition's own title,
+    which lives in Work.title, not Work.orig_title (e.g. work 1164 "The
+    Best of Cordwainer Smith" / "Planeetta nimeltä Shajol").
+    """
     variants: set = set()
     for title in titles:
         if title:
             variants |= _title_match_variants(title)
     if not variants:
         return []
-    full, before_colon = _orig_title_exprs(model)
-    return session.query(model).filter(
-        or_(full.in_(variants), before_colon.in_(variants))).all()
+    fields = [model.orig_title]
+    if also_local_title:
+        fields.append(model.title)
+    conditions = []
+    for field in fields:
+        full, before_colon = _title_field_exprs(field)
+        conditions.extend([full.in_(variants), before_colon.in_(variants)])
+    return session.query(model).filter(or_(*conditions)).all()
 
 
 # contributorrole.id for the author ("Kirjoittaja").
@@ -768,8 +958,15 @@ def _author_matches(session: Any, match_type: str, item_id: int,
 
 
 # awardcategory.type used when resolving our_category for each match kind.
+_PERSON_CATEGORY_TYPE = 0
 _WORK_CATEGORY_TYPE = 1
 _SHORT_CATEGORY_TYPE = 2
+
+# Every existing ITEM_PERSON award row in the DB (SFWA/Skylark/WHC Grand
+# Master) uses this one category, and there is no source that would ever
+# suggest a different one for an award given for a body of work - so it's a
+# plain constant rather than a per-award config value.
+_PERSON_AWARD_CATEGORY = "Elämäntyöpalkinto"
 
 # A short-fiction category (e.g. "short story / short fiction") is ambiguous:
 # the winner may be a short story or a stand-alone work. When it matches a
@@ -837,8 +1034,16 @@ def _resolve_matches(candidate_sets: List[Tuple[str, int, set, List[Any]]]
 def _build_entry(session: Any, winner: ScrapedWinner, item_type: int,
                  isfdb_category: str, our_category: Optional[str],
                  category_lookup: Dict[Tuple[str, int], int],
-                 work_ids: set, story_ids: set) -> Dict[str, Any]:
-    """Match one scraped winner and build a preview entry dict."""
+                 work_ids: set, story_ids: set,
+                 also_local_title: bool = False) -> Dict[str, Any]:
+    """Match one scraped winner and build a preview entry dict.
+
+    also_local_title is passed straight through to _match_title - see its
+    docstring. Only set for Wikipedia-table awards for a foreign work
+    translated into Finnish (Tähtivaeltaja, Tähtifantasia), where the
+    scraped title is the Finnish edition's own title rather than the
+    original-language one ISFDB/sfadb always supply.
+    """
     entry: Dict[str, Any] = {
         "year": winner.year,
         "title": winner.title,
@@ -875,7 +1080,8 @@ def _build_entry(session: Any, winner: ScrapedWinner, item_type: int,
     for match_type, model, cat_type, awarded_ids in kinds:
         matches = [
             m for m in _match_title(session, model, winner.title,
-                                    winner.alt_title)
+                                    winner.alt_title,
+                                    also_local_title=also_local_title)
             if _author_matches(session, match_type, m.id, winner.author)
         ]
         if matches:
@@ -919,7 +1125,9 @@ def _person_name_index(session: Any) -> List[Tuple[Any, List[Tuple[str, ...]]]]:
 
 def _build_person_entry(winner: ScrapedWinner,
                         person_index: List[Tuple[Any, List[Tuple[str, ...]]]],
-                        person_ids: set) -> Dict[str, Any]:
+                        person_ids: set,
+                        category_lookup: Dict[Tuple[str, int], int]
+                        ) -> Dict[str, Any]:
     """Match one scraped person-award winner (by name, not title) and build
     a preview entry. See ITEM_PERSON in the module docstring."""
     entry: Dict[str, Any] = {
@@ -927,12 +1135,13 @@ def _build_person_entry(winner: ScrapedWinner,
         "title": winner.title,
         "author": "",
         "isfdb_category": winner.title,
-        "our_category": None,
+        "our_category": _PERSON_AWARD_CATEGORY,
         "item_type": ITEM_PERSON,
         "match_type": None,
         "target_id": None,
         "target_title": None,
-        "category_id": None,
+        "category_id": _resolve_category_id(
+            category_lookup, _PERSON_AWARD_CATEGORY, _PERSON_CATEGORY_TYPE),
         "status": STATUS_NOT_FOUND,
         "candidates": [],
     }
@@ -1021,6 +1230,24 @@ def _collect_sfadb(award: Any, errors: List[str]):
     return collected
 
 
+def _collect_wikipedia(award: Any, errors: List[str]):
+    """Yield (item_type, our_category, label, winners) from a Wikipedia
+    wikitable - used for domestic Finnish awards and any other award with
+    no ISFDB/sfadb coverage (e.g. the Nobel Prize in Literature)."""
+    wiki_source = WIKIPEDIA_AWARD_SOURCES.get(award.name)
+    if not wiki_source:
+        return None
+    try:
+        winners = parse_award_wikipedia_table(wiki_source)
+    except requests.RequestException as exc:
+        errors.append(f'wikipedia {wiki_source.url}: {exc}')
+        return []
+    if wiki_source.match_kind == "person":
+        return [(ITEM_PERSON, None, award.name, winners)]
+    our_category = WIKIPEDIA_AWARD_CATEGORY.get(award.name)
+    return [(ITEM_WORK, our_category, award.name, winners)]
+
+
 def preview_import(award_id: int, source: str = "sfadb") -> ResponseType:
     """
     Scrape an award's winners from a source and match them against the DB.
@@ -1045,6 +1272,8 @@ def preview_import(award_id: int, source: str = "sfadb") -> ResponseType:
 
     if source == "sfadb":
         collected = _collect_sfadb(award, errors)
+        if collected is None:
+            collected = _collect_wikipedia(award, errors)
     else:
         collected = _collect_isfdb(session, award_id, errors)
     if collected is None:
@@ -1059,11 +1288,12 @@ def preview_import(award_id: int, source: str = "sfadb") -> ResponseType:
                 if person_index is None:
                     person_index = _person_name_index(session)
                 entries.append(_build_person_entry(
-                    winner, person_index, person_ids))
+                    winner, person_index, person_ids, category_lookup))
             else:
                 entries.append(_build_entry(
                     session, winner, item_type, label,
-                    our_category, category_lookup, work_ids, story_ids))
+                    our_category, category_lookup, work_ids, story_ids,
+                    also_local_title=award.name in WIKIPEDIA_TRANSLATED_WORK_AWARDS))
 
     counts = {
         STATUS_NEW: sum(1 for e in entries if e["status"] == STATUS_NEW),

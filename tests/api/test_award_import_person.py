@@ -36,10 +36,15 @@ def _winner(name, year=2024):
     return ScrapedWinner(year=year, title=name, author="")
 
 
+# A minimal category_lookup with just the one category person-award
+# entries resolve to (mirrors the real "Elämäntyöpalkinto" row).
+_CATEGORY_LOOKUP = {("elämäntyöpalkinto", 0): 12}
+
+
 def test_no_match_is_not_found():
     person_index = _index(_person(1, alt_name="Jane Doe", name="Doe, Jane"))
     entry = _build_person_entry(
-        _winner("Someone Else"), person_index, set())
+        _winner("Someone Else"), person_index, set(), _CATEGORY_LOOKUP)
     assert entry["status"] == STATUS_NOT_FOUND
     assert entry["target_id"] is None
     assert entry["candidates"] == []
@@ -49,7 +54,8 @@ def test_empty_index_is_not_found():
     # Regression: an empty person_index (or no match at all) must not crash
     # _resolve_matches by handing it a non-empty candidate_sets entry
     # wrapping zero matches.
-    entry = _build_person_entry(_winner("N. K. Jemisin"), [], set())
+    entry = _build_person_entry(
+        _winner("N. K. Jemisin"), [], set(), _CATEGORY_LOOKUP)
     assert entry["status"] == STATUS_NOT_FOUND
 
 
@@ -57,11 +63,13 @@ def test_single_match_is_new():
     person_index = _index(_person(42, alt_name="N. K. Jemisin",
                                   name="Jemisin, N. K."))
     entry = _build_person_entry(
-        _winner("N. K. Jemisin"), person_index, set())
+        _winner("N. K. Jemisin"), person_index, set(), _CATEGORY_LOOKUP)
     assert entry["status"] == STATUS_NEW
     assert entry["match_type"] == "person"
     assert entry["target_id"] == 42
     assert entry["target_title"] == "N. K. Jemisin"
+    assert entry["our_category"] == "Elämäntyöpalkinto"
+    assert entry["category_id"] == 12
 
 
 def test_matches_via_lastname_comma_firstname_variant():
@@ -69,7 +77,7 @@ def test_matches_via_lastname_comma_firstname_variant():
     # the stored "Lastname, Firstname" primary name.
     person_index = _index(_person(7, alt_name=None, name="Heinlein, Robert A."))
     entry = _build_person_entry(
-        _winner("Robert A. Heinlein"), person_index, set())
+        _winner("Robert A. Heinlein"), person_index, set(), _CATEGORY_LOOKUP)
     assert entry["status"] == STATUS_NEW
     assert entry["target_id"] == 7
 
@@ -77,7 +85,7 @@ def test_matches_via_lastname_comma_firstname_variant():
 def test_already_awarded_person_is_awarded():
     person_index = _index(_person(42, alt_name="N. K. Jemisin"))
     entry = _build_person_entry(
-        _winner("N. K. Jemisin"), person_index, {42})
+        _winner("N. K. Jemisin"), person_index, {42}, _CATEGORY_LOOKUP)
     assert entry["status"] == STATUS_AWARDED
     assert entry["target_id"] == 42
 
@@ -87,7 +95,8 @@ def test_two_people_with_the_same_name_is_ambiguous():
         _person(1, alt_name="John Smith"),
         _person(2, alt_name="John Smith"),
     )
-    entry = _build_person_entry(_winner("John Smith"), person_index, set())
+    entry = _build_person_entry(
+        _winner("John Smith"), person_index, set(), _CATEGORY_LOOKUP)
     assert entry["status"] == STATUS_AMBIGUOUS
     assert entry["target_id"] is None
     assert set(entry["candidates"]) == {1, 2}
@@ -98,6 +107,7 @@ def test_ambiguous_name_resolves_to_the_one_already_holding_this_award():
         _person(1, alt_name="John Smith"),
         _person(2, alt_name="John Smith"),
     )
-    entry = _build_person_entry(_winner("John Smith"), person_index, {2})
+    entry = _build_person_entry(
+        _winner("John Smith"), person_index, {2}, _CATEGORY_LOOKUP)
     assert entry["status"] == STATUS_AWARDED
     assert entry["target_id"] == 2

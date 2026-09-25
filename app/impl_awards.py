@@ -76,13 +76,16 @@ def get_award(award_id: int) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     # Whether this award can import winners. sfadb is the active source
-    # (ISFDB blocks datacenter IPs), so gate on the sfadb config -
-    # SFADB_AWARD_SLUGS (title-based) or SFADB_PERSON_AWARD_SLUGS
-    # (person-based, e.g. SFWA Grand Master).
+    # (ISFDB blocks datacenter IPs) and is tried first; a Wikipedia
+    # wikitable (WIKIPEDIA_AWARD_SOURCES) is the fallback for awards sfadb
+    # doesn't track at all (domestic Finnish awards, the Nobel Prize in
+    # Literature) - see preview_import's own dispatch, which this mirrors.
     from app.impl_award_import import (SFADB_AWARD_SLUGS,
-                                       SFADB_PERSON_AWARD_SLUGS)
+                                       SFADB_PERSON_AWARD_SLUGS,
+                                       WIKIPEDIA_AWARD_SOURCES)
     retval['has_import_source'] = (award.name in SFADB_AWARD_SLUGS
-                                   or award.name in SFADB_PERSON_AWARD_SLUGS)
+                                   or award.name in SFADB_PERSON_AWARD_SLUGS
+                                   or award.name in WIKIPEDIA_AWARD_SOURCES)
 
     return ResponseType(retval, HttpResponseCode.OK)
 
