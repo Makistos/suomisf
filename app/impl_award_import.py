@@ -1349,6 +1349,32 @@ def _collect_wikipedia(award: Any, errors: List[str]):
     return [(item_type, our_category, award.name, winners)]
 
 
+def get_import_source_info(award_name: str) -> Optional[Dict[str, str]]:
+    """Return {"label": ..., "url": ...} for the source an award's "Tuo
+    voittajat" import reads from, or None if it has no import source.
+
+    Checks the exact same three places, in the same priority order, that
+    _collect_sfadb/_collect_wikipedia (via preview_import's default
+    source="sfadb") and impl_awards.get_award's has_import_source flag do -
+    so this always agrees with whether the import button is shown, and
+    with which source it would actually use. ISFDB is deliberately not
+    included: every award ISFDB tracks that this app actually imports from
+    is also in SFADB_AWARD_SLUGS, and sfadb is the source preview_import
+    uses by default (ISFDB blocks datacenter/production IPs), so sfadb is
+    the honest answer to "where do new imports for this award come from".
+    """
+    person_slug = SFADB_PERSON_AWARD_SLUGS.get(award_name)
+    if person_slug:
+        return {"label": "sfadb.com", "url": f"{SFADB_BASE_URL}/{person_slug}"}
+    slug = SFADB_AWARD_SLUGS.get(award_name)
+    if slug:
+        return {"label": "sfadb.com", "url": f"{SFADB_BASE_URL}/{slug}"}
+    wiki_source = WIKIPEDIA_AWARD_SOURCES.get(award_name)
+    if wiki_source:
+        return {"label": "Wikipedia", "url": wiki_source.url}
+    return None
+
+
 def preview_import(award_id: int, source: str = "sfadb") -> ResponseType:
     """
     Scrape an award's winners from a source and match them against the DB.

@@ -82,10 +82,12 @@ def get_award(award_id: int) -> ResponseType:
     # Literature) - see preview_import's own dispatch, which this mirrors.
     from app.impl_award_import import (SFADB_AWARD_SLUGS,
                                        SFADB_PERSON_AWARD_SLUGS,
-                                       WIKIPEDIA_AWARD_SOURCES)
+                                       WIKIPEDIA_AWARD_SOURCES,
+                                       get_import_source_info)
     retval['has_import_source'] = (award.name in SFADB_AWARD_SLUGS
                                    or award.name in SFADB_PERSON_AWARD_SLUGS
                                    or award.name in WIKIPEDIA_AWARD_SOURCES)
+    retval['import_source'] = get_import_source_info(award.name)
 
     return ResponseType(retval, HttpResponseCode.OK)
 
