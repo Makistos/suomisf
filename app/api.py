@@ -566,19 +566,28 @@ def search_with_fts(session: Any, search_term: str,
     """
 
     if titles_only:
-        # Restrict matching to each entity's title/name field. The indexed
-        # `X.fts @@ q` prefilter is kept for speed; the added title condition
-        # refines it to title/name matches only.
+        # Restrict matching to each entity's title/name field(s). The indexed
+        # `X.fts @@ q` prefilter is kept for speed; the added condition
+        # refines it to title/name matches only. Person also gets alt_name
+        # and other_names ("Vaihtoehtoinen nimi" / "Muut nimet") since those
+        # hold real names of pseudonyms and other alternate name forms - a
+        # titles-only search for a person's real or alternate name should
+        # still find them even though 'name' itself doesn't match.
         title_fields = {
-            'w': 'title', 'e': 'title', 'p': 'name', 's': 'title', 't': 'name',
-            'bs': 'name', 'ps': 'name', 'pub': 'name', 'm': 'name', 'i': 'title',
-            'a': 'name',
+            'w': ['title'], 'e': ['title'],
+            'p': ['name', 'alt_name', 'other_names'],
+            's': ['title'], 't': ['name'],
+            'bs': ['name'], 'ps': ['name'], 'pub': ['name'], 'm': ['name'],
+            'i': ['title'], 'a': ['name'],
         }
-        for alias, field in title_fields.items():
+        for alias, fields in title_fields.items():
+            condition = ' OR '.join(
+                f"to_tsvector('voikko', COALESCE({alias}.{field}, '')) @@ q.q"
+                for field in fields
+            )
             sql = sql.replace(
                 f"WHERE {alias}.fts @@ q.q",
-                f"WHERE {alias}.fts @@ q.q"
-                f" AND to_tsvector('voikko', {alias}.{field}) @@ q.q",
+                f"WHERE {alias}.fts @@ q.q AND ({condition})",
             )
 
     query = text(sql)
