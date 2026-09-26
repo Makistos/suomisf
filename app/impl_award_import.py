@@ -660,6 +660,9 @@ WIKIPEDIA_AWARD_SOURCES: Dict[str, WikipediaTableSource] = {
         url="https://fi.wikipedia.org/wiki/Suomen_tieteis-_ja_fantasiakirjoittajat",
         match_kind="person", layout="heading_list",
         heading_id="Kosmoskynä-palkinto"),
+    "Booker-palkinto": WikipediaTableSource(
+        url="https://en.wikipedia.org/wiki/Booker_Prize",
+        match_kind="work", author_col=1, title_col=2),
 }
 
 # The local category assigned to each work-based Wikipedia-table award's
@@ -677,6 +680,7 @@ WIKIPEDIA_AWARD_CATEGORY = {
     "Tähtivaeltaja": "Paras romaani",
     "Atorox": "Paras novelli",
     "Portin novellikilpailu": "Paras novelli",
+    "Booker-palkinto": "Paras romaani",
 }
 
 # Wikipedia-table awards given for a FOREIGN work translated into Finnish:

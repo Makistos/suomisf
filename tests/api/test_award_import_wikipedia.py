@@ -169,6 +169,39 @@ def test_row_missing_an_unused_trailing_column_is_not_treated_as_a_rowspan_conti
     ]
 
 
+BOOKER_SHAPED_TABLE = """
+<html><body>
+<table class="wikitable sortable mw-collapsible">
+<tr><th>Year</th><th>Author</th><th>Title</th><th>Genre(s)</th><th>Country</th></tr>
+<tr><th>1973</th><td>J. G. Farrell <sup>[68]</sup></td><td>The Siege of Krishnapur</td><td>Literary fiction</td><td>ENG</td></tr>
+<tr><th rowspan="2">1974</th><td>Nadine Gordimer <sup>[69]</sup></td><td>The Conservationist</td><td>Literary fiction</td><td>ZAF</td></tr>
+<tr><td>Stanley Middleton <sup>[70]</sup></td><td>Holiday</td><td>Literary fiction</td><td>ENG</td></tr>
+<tr><th>2026</th><td>Shortlist announced on 22 September</td></tr>
+</table>
+</body></html>
+"""
+
+
+@patch("app.impl_award_import._get")
+def test_booker_shaped_table_with_th_year_cells_and_unannounced_future_row(mock_get):
+    # Regression: unlike every other configured table, Booker's year column
+    # uses <th> cells (not <td>) for both the header row and each data row's
+    # year - the generic cells = row.find_all(["td", "th"]) already handles
+    # this, but nothing else exercised a <th> data cell before. The trailing
+    # 2026 "shortlist announced" row has no title cell at all and must be
+    # silently skipped, not misread as a rowspan continuation of 1974.
+    mock_get.return_value = _resp(BOOKER_SHAPED_TABLE)
+    source = WikipediaTableSource(
+        url="https://example.invalid/booker", match_kind="work",
+        author_col=1, title_col=2)
+    winners = parse_award_wikipedia_table(source)
+    assert [(w.year, w.title, w.author) for w in winners] == [
+        (1973, "The Siege of Krishnapur", "J. G. Farrell"),
+        (1974, "The Conservationist", "Nadine Gordimer"),
+        (1974, "Holiday", "Stanley Middleton"),
+    ]
+
+
 @patch("app.impl_award_import._get")
 def test_missing_wikitable_returns_empty_list(mock_get):
     mock_get.return_value = _resp("<html><body>no tables here</body></html>")
