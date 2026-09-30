@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-08-23T17:54:16.984799+00:00",
+    "generated_at": "2026-09-30T19:44:03.354886+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/covers/5",
@@ -14,235 +14,235 @@
         "edition": {
           "images": [
             {
-              "id": 10078,
-              "image_src": "/static/images/books/Pitka_Jyrki_Valaankesyttaja_1p.jpg",
+              "id": 10200,
+              "image_src": "/static/images/books/Stine_RL_Kukakatoaaseuraavaksi_1p.jpg",
               "image_attr": null
             }
           ],
           "work": {
-            "id": 7175,
-            "title": "Valaankesyttäjä",
+            "id": 1290,
+            "title": "Kuka katoaa seuraavaksi?",
             "subtitle": "",
-            "orig_title": "",
-            "pubyear": 2026,
-            "bookseriesnum": "",
-            "bookseriesorder": null,
+            "orig_title": "Goosebumps #9, Welcome to Camp Nightmare",
+            "pubyear": 1994,
+            "bookseriesnum": "27",
+            "bookseriesorder": 27,
             "misc": "",
-            "description": "<p>Ihmiskunta tuhosi seksuaaliviettinsä selviytyäkseen muukalaisten telepaattisesta hyökkäyksestä. Batisseeri-inkvisitio metsästää ne, joissa vietti yhä elää.</p><p>Vy työskentelee kiertoradalla kelluvassa hotellissa, kaukana Marsin kupoleista. Hän päätyy vieraan lajin edustajan kanssa sänkyyn. Mahdollista irstausrikosta selvittämään saapuu Prrhan Anan, nuori inkvisiittori, jolla on oma salaisuutensa.</p><p>Vyn pakomatka vie heidät molemmat avaruuteen, kohti jättiläistä, joka on kutsunut Vyä lapsesta asti.</p>",
-            "descr_attr": "Tajunta media",
-            "imported_string": null,
-            "author_str": "Pitkä, Jyrki"
+            "description": "<p>PELOTTAVAT LEIRITARINAT ALKAVAT KÄYDÄ TOTEEN...</p><p>Ruoka on kehnoa. Valvojat ovat vähän outoja. Leirin johtaja Al-setä vaikuttaa kahjolta. Selvä, kyllä Billy sen kestää.</p><p>Mutta sitten leiriläisiä alkaa kadota.</p><p>Mitä ihmettä? Miksi vanhemmat eivät vastaa kirjeisiin? Mikä väijyy ulkona iltapimeällä? Paistajaisten leiri on muuttumassa Painajaisten leiriksi. Oikein todella.</p><p>Ja seuraavaksi saattaa kadota Billy...</p>",
+            "descr_attr": "Takakansi",
+            "imported_string": "\n\n<b>Kuka katoaa seuraavaksi?</b>. Goosebumps 27. (Goosebumps #9, Welcome to Camp Nightmare, 1994). Suom Marja Helanen-Ahtola. Sanoma Magazines Finland Oy 2009. [nK].",
+            "author_str": "Stine, R. L."
           },
           "owners": [],
           "wishlisted": [],
-          "id": 10408,
-          "title": "Valaankesyttäjä",
+          "id": 1487,
+          "title": "Kuka katoaa seuraavaksi?",
           "subtitle": "",
-          "pubyear": 2026,
+          "pubyear": 2009,
           "editionnum": 1,
           "version": 1,
-          "isbn": "978-952-6657-59-2",
+          "isbn": "978-951-32-2823-1",
           "printedin": null,
           "pubseriesnum": null,
-          "coll_info": null,
-          "pages": 91,
-          "size": 14,
-          "dustcover": 1,
-          "coverimage": 1,
-          "misc": null,
-          "imported_string": null,
-          "verified": false
-        },
-        "id": 10078,
-        "image_src": "/static/images/books/Pitka_Jyrki_Valaankesyttaja_1p.jpg",
-        "image_attr": null
-      },
-      {
-        "edition": {
-          "images": [
-            {
-              "id": 10077,
-              "image_src": "/static/images/books/Hirsila_Markus_Soturintaakka_1p.jpg",
-              "image_attr": null
-            }
-          ],
-          "work": {
-            "id": 7174,
-            "title": "Soturin taakka",
-            "subtitle": "",
-            "orig_title": "",
-            "pubyear": 2025,
-            "bookseriesnum": "",
-            "bookseriesorder": null,
-            "misc": "",
-            "description": "<p>Se oli suuri katastrofi silloin kauan sitten: maailmanlopuksi sitä myöhemmin alettiin kutsumaan. Mutta ihmiset ovat sitkeitä. Henkiin jääneet muodostivat pieniä omavaraisia yhteisöjä, heimoja. Nykyisin metalleja on käytössä enää vain harvoilla muiden tyytyessä kiveen, puuhun ja joskus saveen. Muutamat vanhukset muistavat kuulleensa tarinoita taivaalta putoavista kylmistä höyhenistä, mutta eivät ole koskaan sellaisia itse nähneet.</p><p>Esra Tulikoura on heimonsa päällikön nuorempi poika. Kasvitaudin tuhottua ruokavarastot myös hänen on lähdettävä etsimään täydennyksiä nälänhädän välttämiseksi. Ehkä jollakin toisella heimolla on lainata omastaan? Maailma on kuitenkin paljon vaarallisempi kuin Esra osaa ajatellakaan.</p>",
-            "descr_attr": "Books on Demand",
-            "imported_string": null,
-            "author_str": "Hirsilä, Markus"
-          },
-          "owners": [],
-          "wishlisted": [],
-          "id": 10407,
-          "title": "Soturin taakka",
-          "subtitle": "",
-          "pubyear": 2025,
-          "editionnum": 1,
-          "version": 1,
-          "isbn": "978-952-80-8430-3",
-          "printedin": null,
-          "pubseriesnum": null,
-          "coll_info": null,
-          "pages": 295,
-          "size": 22,
-          "dustcover": 1,
-          "coverimage": 1,
-          "misc": null,
-          "imported_string": null,
-          "verified": false
-        },
-        "id": 10077,
-        "image_src": "/static/images/books/Hirsila_Markus_Soturintaakka_1p.jpg",
-        "image_attr": null
-      },
-      {
-        "edition": {
-          "images": [
-            {
-              "id": 10076,
-              "image_src": "/static/images/books/Helen_Sam_N_Turhautuneisuudenkauna_1p.jpg",
-              "image_attr": null
-            }
-          ],
-          "work": {
-            "id": 7173,
-            "title": "Turhautuneisuuden kauna",
-            "subtitle": "",
-            "orig_title": "",
-            "pubyear": 2026,
-            "bookseriesnum": "2",
-            "bookseriesorder": 2,
-            "misc": "",
-            "description": "<p>Nuorten ahdinko syvenee heidän laskeutuessaan alemmaksi Härkälinnoitukseen. Andrew salaa edelleen kohtaamistaan Henzzin kanssa. Jenna ja Matias löytävät toisensa uudelleen, mutta kestääkö side? Pohjoisen punaiseen jalokiveen on käynyt kutsu kaikille pankinjohtajille, mutta yksi uupuu joukosta. Ian saa isännältään arvoituksellisen toimeksiannon etelään, mutta ottaako Kuninkaiden hauta hänet tervetulleena vastaan? Nuorten avattuaan kivisen oven, aiheutti se jotain koko luolastoa järisyttävää liikehdintää...</p><p><em>Turhautuneisuuden kauna</em> on <em>Härkälinnoitus </em>- sarjan toinen osa. Nuorten Valittujen livahtaessa Henzzin otteesta, kirjassa syvennytään laajemmin tapahtumiin nuorten selviytymisen ulkopuolella. Tapahtumiin ennen ja jälkeen Tapauksen. Kuka on kaikkien huulilla toistuva Mustarastas, ja mikä on hänen roolinsa tapahtumien keskellä? Sekä ei saa unohtaa Hulluahärkää, joka selvästi piilottaa hulluutensa taakse jotain syvempää. Kenen pussiin hän lopulta pelaa?</p>",
-            "descr_attr": "Books on Demand",
-            "imported_string": null,
-            "author_str": "Helen, Sam N."
-          },
-          "owners": [],
-          "wishlisted": [],
-          "id": 10406,
-          "title": "Turhautuneisuuden kauna",
-          "subtitle": "",
-          "pubyear": 2026,
-          "editionnum": 1,
-          "version": 1,
-          "isbn": "978-952-89-1367-2",
-          "printedin": null,
-          "pubseriesnum": null,
-          "coll_info": null,
-          "pages": 524,
-          "size": 22,
-          "dustcover": 1,
-          "coverimage": 1,
-          "misc": null,
-          "imported_string": null,
-          "verified": false
-        },
-        "id": 10076,
-        "image_src": "/static/images/books/Helen_Sam_N_Turhautuneisuudenkauna_1p.jpg",
-        "image_attr": null
-      },
-      {
-        "edition": {
-          "images": [
-            {
-              "id": 10075,
-              "image_src": "/static/images/books/Jauhiainen_Raita_Sivulliset_1p.jpg",
-              "image_attr": null
-            }
-          ],
-          "work": {
-            "id": 7172,
-            "title": "Allianssi.125: Sivulliset",
-            "subtitle": "",
-            "orig_title": "",
-            "pubyear": 2024,
-            "bookseriesnum": "",
-            "bookseriesorder": null,
-            "misc": "",
-            "description": "<p>Päättymättömän sodan runtelemilla joutomailla taivaltava kulkija löytää alueelle, jossa maaperä on puhdas. Useita sukupolvia myöhemmin sekä väsymyksen uuvuttama nuori mies että vaarallista mainetta kantava keltakaartilainen päättävät tehdä irtioton ja muuttaa maailman suurimpaan kaupunkiin, Gavialikseen.</p><p>Toisaalla terraunionialainen nuori nainen lähetetään pois kotoaan elämään isotädin kanssa, jolla on salaisuus. Salaisuus ajaa myös toisen terraunionialaisen naisen kohti tuntematonta, sillä lähellä valtion suljettua rajaa on salaperäinen alue, josta kukaan ei vaikuta tietävän mitään.</p><p><em>Sivulliset </em>on kokoelma novelleja ja raapaleita, jotka sijoittuvat<em> Allianssi.125-</em>kirjasarjan maailmaan.</p>",
-            "descr_attr": "Books on Demand",
-            "imported_string": null,
-            "author_str": "Jauhiainen, Raita"
-          },
-          "owners": [],
-          "wishlisted": [],
-          "id": 10405,
-          "title": "Allianssi.125: Sivulliset",
-          "subtitle": "",
-          "pubyear": 2024,
-          "editionnum": 1,
-          "version": 1,
-          "isbn": "978-952-80-7132-7",
-          "printedin": null,
-          "pubseriesnum": null,
-          "coll_info": null,
-          "pages": 263,
+          "coll_info": "",
+          "pages": 141,
           "size": 21,
           "dustcover": 1,
-          "coverimage": 1,
-          "misc": null,
-          "imported_string": null,
+          "coverimage": 3,
+          "misc": "",
+          "imported_string": "\n\n<b>Kuka katoaa seuraavaksi?</b>. Goosebumps 27. (Goosebumps #9, Welcome to Camp Nightmare, 1994). Suom Marja Helanen-Ahtola. Sanoma Magazines Finland Oy 2009. [nK].",
           "verified": false
         },
-        "id": 10075,
-        "image_src": "/static/images/books/Jauhiainen_Raita_Sivulliset_1p.jpg",
+        "id": 10200,
+        "image_src": "/static/images/books/Stine_RL_Kukakatoaaseuraavaksi_1p.jpg",
         "image_attr": null
       },
       {
         "edition": {
           "images": [
             {
-              "id": 10074,
-              "image_src": "/static/images/books/Jokela_Fae_Uhrilahja_1p.jpg",
+              "id": 10199,
+              "image_src": "/static/images/books/Stine_RL_Syvallavaaniivaara_1p.jpg",
               "image_attr": null
             }
           ],
           "work": {
-            "id": 7171,
-            "title": "Uhrilahja",
+            "id": 1317,
+            "title": "Syvällä vaanii vaara",
             "subtitle": "",
-            "orig_title": "",
-            "pubyear": 2026,
-            "bookseriesnum": "",
-            "bookseriesorder": null,
+            "orig_title": "Goosebumps #19, Deep Trouble",
+            "pubyear": 1994,
+            "bookseriesnum": "13",
+            "bookseriesorder": 13,
             "misc": "",
-            "description": "<p>Thilnerneth syntyi korppien piirittämänä kuolleiden kirkossa.</p><p>Mustavuoren sotilasleirissä ei ole tilaa tyhjille käsille tai orpolapsille. Ikuinen sota varjoja ja yössä vaanivia hirviöitä vastaan vie kaiken kaikilta. Ruokaa on vähän, lämpö on ylellisyyttä ja ystävällisyys on kallista. Orpolapsena Thilnernethin on tyydyttävä siihen, mitä hän saa kaivettua nuotioiden jämistä.</p><p>Kun Mustavuorelle saapuu kylmin talvi sukupolviin, kylmettynyt orpolapsi osuu kuolemaan tuomitun kapteenin silmään. Äkkiä kylmä ja nälkä ovat pienimmät Thilnernethin huolista kun vaarallinen tehtävä sotkee hänet komentajien väliseen valtakamppailuun.</p>",
-            "descr_attr": "Books on Demand",
-            "imported_string": null,
-            "author_str": "Jokela, Fae"
+            "description": "<p>Billy ja hänen sisarensa Sheena viettävät lomaa setänsä merentutkimusaluksella. Karibianmeri on juuri oivallinen paikka tutkia merenalaista elämää, ja Billy kaipaakin todellista seikkailua.</p><p>Hänen pitää vain muistaa varoa koralliriuttaa, sillä sen lähistöllä uiskentelee muutakin kuin pikkukaloja. Mutta punainen riutta on houkuttelevan kaunis...</p><p>Billy ui riutalle - ja huomaa, ettei tosiaan ole vedessä yksin. Pinnan alla on jotain, jota Billy ei olisi halunnut nähdä!</p>",
+            "descr_attr": "Takakansi",
+            "imported_string": "\n\n<b>Syvällä vaanii vaara</b>. Goosebumps 13. (Goosebumps #19, Deep Trouble, 1994). Suom Marja Helanen-Ahtola. Sanoma Magazines Finland Oy 2004. [nK].",
+            "author_str": "Stine, R. L."
           },
           "owners": [],
           "wishlisted": [],
-          "id": 10404,
-          "title": "Uhrilahja",
+          "id": 1514,
+          "title": "Syvällä vaanii vaara",
           "subtitle": "",
-          "pubyear": 2026,
+          "pubyear": 2004,
           "editionnum": 1,
           "version": 1,
-          "isbn": "978-952-89-0326-0",
+          "isbn": "951-32-1819-8",
+          "printedin": null,
+          "pubseriesnum": null,
+          "coll_info": "",
+          "pages": 123,
+          "size": 21,
+          "dustcover": 1,
+          "coverimage": 3,
+          "misc": "",
+          "imported_string": "\n\n<b>Syvällä vaanii vaara</b>. Goosebumps 13. (Goosebumps #19, Deep Trouble, 1994). Suom Marja Helanen-Ahtola. Sanoma Magazines Finland Oy 2004. [nK].",
+          "verified": false
+        },
+        "id": 10199,
+        "image_src": "/static/images/books/Stine_RL_Syvallavaaniivaara_1p.jpg",
+        "image_attr": null
+      },
+      {
+        "edition": {
+          "images": [
+            {
+              "id": 10198,
+              "image_src": "/static/images/books/Halme_Nummelin_Ulkomaisiakauhukirjailijoita_1p.jpg",
+              "image_attr": null
+            }
+          ],
+          "work": {
+            "id": 7239,
+            "title": "Ulkomaisia kauhukirjailijoita",
+            "subtitle": "",
+            "orig_title": "",
+            "pubyear": 2005,
+            "bookseriesnum": "",
+            "bookseriesorder": null,
+            "misc": "",
+            "description": "<p><em>Ulkomaisia kauhukirjailijoita</em> -teos esittelee ensimmäistä kertaa 39 kauhukirjailijaa suomennettuine kirjoineen. Hyytävä esittely sisältää niin fyysisen, psykologisen kuin yliluonnollisenkin kauhun edustajia. Mukaan ovat päässeet alan tärkeimmät nimet aina Mary Shelleystä ja Edgar Allan Poesta 1900-luvun lopulla aloittaneisiin hurjiin splatterpunk-tekijöihin.</p><p>Laajassa katsannossa tulevat tutuksi vampyyrit, sarjamurhaajat, pahat henget ja oudot ilmiöt, joiden klassikot muodostavat tärkeän osan länsimaista kulttuuriperintöä. Tarinat ovat täynnä värisyttävää jännitystä, verta ja väkivaltaa. Kattavista bibliografioista löytyvät niin romaanit kuin novellikokoelmatkin. Kirjan teos-, henkilö- ja hahmohakemistot on laadittu sekä alan harrastajia että koulujen ja kirjastojen tiedonhakua varten.</p>",
+            "descr_attr": "Takakansi",
+            "imported_string": null,
+            "author_str": "Halme, Jukka & Nummelin, Juri (toim.)"
+          },
+          "owners": [],
+          "wishlisted": [],
+          "id": 10491,
+          "title": "Ulkomaisia kauhukirjailijoita",
+          "subtitle": "",
+          "pubyear": 2005,
+          "editionnum": 1,
+          "version": 1,
+          "isbn": "951-692-595-2",
           "printedin": null,
           "pubseriesnum": null,
           "coll_info": null,
-          "pages": 380,
-          "size": 21,
+          "pages": 300,
+          "size": 26,
           "dustcover": 1,
-          "coverimage": 1,
+          "coverimage": 3,
           "misc": null,
           "imported_string": null,
           "verified": false
         },
-        "id": 10074,
-        "image_src": "/static/images/books/Jokela_Fae_Uhrilahja_1p.jpg",
+        "id": 10198,
+        "image_src": "/static/images/books/Halme_Nummelin_Ulkomaisiakauhukirjailijoita_1p.jpg",
+        "image_attr": null
+      },
+      {
+        "edition": {
+          "images": [
+            {
+              "id": 10197,
+              "image_src": "/static/images/books/Ronkainen_Jan_M_Zormammunpaluu_1p.jpg",
+              "image_attr": null
+            }
+          ],
+          "work": {
+            "id": 7238,
+            "title": "Zormammun paluu",
+            "subtitle": "outoja tarinoita",
+            "orig_title": "",
+            "pubyear": 2021,
+            "bookseriesnum": "",
+            "bookseriesorder": null,
+            "misc": "",
+            "description": "<p>Taumahtin maailman kahdessatoista valtakunnassa taikuus on totta. Kuun, Auringon, Luonnon ja Kaaoksen henget elävät rinnakkain ihmisten ja hirviöiden kanssa.</p><p>Sata vuotta sitten Numernan piirittäjät kaatoivat Kaargtolian hirmuvallan. Uerin kaupunkivaltiot itsenäistyivät, ja lohikäärmeillä ja traakeilla ratsastaneet valloittajat lensivät takaisin kotimaahansa Ilnornin valtakuntaan. Mutta Maailmannavan murtuminen aiheutti Karttakirouksen: yhdeksän valtakuntaa irtosivat toisistaan ja ne vaihtavat vuodenaikojen mukaan satunnaisesti paikkaa.</p><p>Groplopomin kaupungissa nuori Tihuum, sukupolvensa lahjakkain hiustaiteilija, joutuu kääntämään elämänsä suuntaa. Noita Kaotika tutkii Numernan raunioita Noitakuningatar Magoonan avustajana. Magoona etsii ikuisen nuoruuden salaisuutta. Tulilintujen Luostarissa Soturinunna Ziuupara siirretään uusiin tehtäviin. Kotikaupungissaan ja lomamatkalla Mestarietsivä Hooforn ratkoo rikoksia jäljittelemättömällä tyylillä.</p><p>Sata vuotta sitten valmistettiin taikakirja, jonka sisään vangittiin Kuudes Rienavalta. Se joka kutsuu kaaosmahdin takaisin, saa palkkioksi esittää yhden toivomuksen. Piirityksen jälkeen teos katosi vuosisadaksi. Nyt tuo opus on löydetty Orborbin kaupungissa. Moni on valmis tekemään - ja myös tekee - mitä tahansa saadakseen taikakirjan käsiinsä.</p><p>Sekalainen joukko sankareita loikkaa outojen tapahtumien virtaan.</p>",
+            "descr_attr": "taumaht.com",
+            "imported_string": null,
+            "author_str": "Ronkainen, Jan M."
+          },
+          "owners": [],
+          "wishlisted": [],
+          "id": 10490,
+          "title": "Zormammun paluu",
+          "subtitle": "outoja tarinoita",
+          "pubyear": 2021,
+          "editionnum": 1,
+          "version": 1,
+          "isbn": "978-952-94-5754-0",
+          "printedin": null,
+          "pubseriesnum": null,
+          "coll_info": null,
+          "pages": 340,
+          "size": 21,
+          "dustcover": 1,
+          "coverimage": 3,
+          "misc": "kuvitettu, karttoja",
+          "imported_string": null,
+          "verified": false
+        },
+        "id": 10197,
+        "image_src": "/static/images/books/Ronkainen_Jan_M_Zormammunpaluu_1p.jpg",
+        "image_attr": null
+      },
+      {
+        "edition": {
+          "images": [
+            {
+              "id": 10196,
+              "image_src": "/static/images/books/Hjelt_Marjut_Tarujenhevoset_1p.jpg",
+              "image_attr": null
+            }
+          ],
+          "work": {
+            "id": 7237,
+            "title": "Tarujen hevoset",
+            "subtitle": "aavehevosesta yksisarvisiin",
+            "orig_title": "",
+            "pubyear": 2019,
+            "bookseriesnum": "",
+            "bookseriesorder": null,
+            "misc": "",
+            "description": "<p>Hevosten ystävien ja myyteistä kiinnostuneiden unelmakirja esittelee tarujen hevosia tiedon ja tarinoiden avulla. Teos käy läpi tuttuja ja tuntemattomia nelijalkaisia aina Pegasoksesta intiaanien värejä hohtaviin ratsuihin. Siivekkäistä taikaratsuista on kerrottu tarinoita esimerkiksi Kiinassa, viikinkien parissa sekä islamilaisessa maailmassa. Euroopan muinaiskulttuureista tunnetaan useita palvottuja hevosjumalattaria, kuten kelttien Epona sekä viikinkien Gna. Myös jumalilla, kuten kreikkalaisten auringon jumalalla Helioksella, on omat kuuluisat ratsunsa. Lisäksi kirjassa esitellään niin myyttisten kuin historiallistenkin sankareiden hevosia sekä klassikkokirjojen ratsuja Uljaasta Mustasta Hallavaharjaan. Tunnelmallinen kuvitus ja kiehtovat kertomukset avaavat oven vieraisiin kulttuureihin sekä hevosten historiaan.</p>",
+            "descr_attr": "Takakansi",
+            "imported_string": null,
+            "author_str": "Hjelt, Marjut"
+          },
+          "owners": [],
+          "wishlisted": [],
+          "id": 10489,
+          "title": "Tarujen hevoset",
+          "subtitle": "aavehevosesta yksisarvisiin",
+          "pubyear": 2019,
+          "editionnum": 1,
+          "version": 1,
+          "isbn": "978-951-23-6602-6",
+          "printedin": null,
+          "pubseriesnum": null,
+          "coll_info": null,
+          "pages": 86,
+          "size": 25,
+          "dustcover": 1,
+          "coverimage": 3,
+          "misc": null,
+          "imported_string": null,
+          "verified": false
+        },
+        "id": 10196,
+        "image_src": "/static/images/books/Hjelt_Marjut_Tarujenhevoset_1p.jpg",
         "image_attr": null
       }
     ],

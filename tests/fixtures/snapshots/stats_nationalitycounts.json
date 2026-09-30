@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-08-23T17:54:16.984799+00:00",
+    "generated_at": "2026-09-30T19:44:03.354886+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/nationalitycounts",
@@ -15,28 +15,28 @@
         "nationality": "Suomi",
         "genres": {
           "F": {
-            "Kirjoittaja": 388,
-            "Toimittaja": 94,
-            "Esiintyy": 1
+            "Kirjoittaja": 401,
+            "Toimittaja": 95,
+            "Esiintyy": 2
           },
           "K": {
-            "Kirjoittaja": 124,
-            "Toimittaja": 69,
+            "Kirjoittaja": 128,
+            "Toimittaja": 71,
             "Esiintyy": 2
           },
           "Paleof": {
             "Kirjoittaja": 7
           },
           "PF": {
-            "Kirjoittaja": 23
+            "Kirjoittaja": 24
           },
           "SF": {
-            "Kirjoittaja": 363,
+            "Kirjoittaja": 364,
             "Toimittaja": 93,
-            "Esiintyy": 3
+            "Esiintyy": 4
           },
           "VEH": {
-            "Kirjoittaja": 27,
+            "Kirjoittaja": 28,
             "Toimittaja": 3
           },
           "Utopia": {
@@ -44,25 +44,25 @@
             "Toimittaja": 1
           },
           "nF": {
-            "Kirjoittaja": 169,
+            "Kirjoittaja": 173,
             "Toimittaja": 2
           },
           "nSF": {
-            "Kirjoittaja": 83
+            "Kirjoittaja": 82
           },
           "nK": {
             "Kirjoittaja": 21,
             "Toimittaja": 3
           },
           "lSF": {
-            "Kirjoittaja": 13
+            "Kirjoittaja": 14
           },
           "satu": {
             "Kirjoittaja": 2,
             "Toimittaja": 1
           },
           "eiSF": {
-            "Kirjoittaja": 6,
+            "Kirjoittaja": 8,
             "Toimittaja": 1,
             "Esiintyy": 1
           },
@@ -74,24 +74,25 @@
           },
           "kok": {
             "Kirjoittaja": 115,
-            "Toimittaja": 138
+            "Toimittaja": 138,
+            "Esiintyy": 1
           },
           "lF": {
-            "Kirjoittaja": 88
+            "Kirjoittaja": 91
           },
           "R": {
-            "Kirjoittaja": 11,
+            "Kirjoittaja": 13,
             "Toimittaja": 5
           }
         },
-        "count": 1109
+        "count": 1129
       },
       {
         "nationality_id": 3,
         "nationality": "Yhdysvallat",
         "genres": {
           "F": {
-            "Kirjoittaja": 209,
+            "Kirjoittaja": 212,
             "Toimittaja": 5,
             "Esiintyy": 3
           },
@@ -131,7 +132,7 @@
             "Kirjoittaja": 1
           },
           "eiSF": {
-            "Kirjoittaja": 13,
+            "Kirjoittaja": 14,
             "Toimittaja": 1
           },
           "rajatap": {
@@ -152,19 +153,19 @@
             "Kirjoittaja": 1
           }
         },
-        "count": 661
+        "count": 664
       },
       {
         "nationality_id": 1,
         "nationality": "Iso-Britannia",
         "genres": {
           "F": {
-            "Kirjoittaja": 157,
+            "Kirjoittaja": 158,
             "Toimittaja": 3,
             "Esiintyy": 4
           },
           "K": {
-            "Kirjoittaja": 53,
+            "Kirjoittaja": 54,
             "Toimittaja": 3
           },
           "Paleof": {
@@ -185,7 +186,7 @@
             "Kirjoittaja": 6
           },
           "nF": {
-            "Kirjoittaja": 104
+            "Kirjoittaja": 105
           },
           "nSF": {
             "Kirjoittaja": 19,
@@ -223,7 +224,7 @@
             "Kirjoittaja": 2
           }
         },
-        "count": 426
+        "count": 429
       },
       {
         "nationality_id": 5,
@@ -250,7 +251,7 @@
             "Kirjoittaja": 2
           },
           "nF": {
-            "Kirjoittaja": 28
+            "Kirjoittaja": 29
           },
           "nSF": {
             "Kirjoittaja": 11
@@ -278,7 +279,7 @@
             "Kirjoittaja": 1
           }
         },
-        "count": 91
+        "count": 92
       },
       {
         "nationality_id": 11,
@@ -289,7 +290,7 @@
             "Esiintyy": 3
           },
           "K": {
-            "Kirjoittaja": 4
+            "Kirjoittaja": 5
           },
           "SF": {
             "Kirjoittaja": 22,
@@ -314,7 +315,7 @@
             "Kirjoittaja": 6
           }
         },
-        "count": 68
+        "count": 69
       },
       {
         "nationality_id": 8,
@@ -334,7 +335,7 @@
             "Kirjoittaja": 2
           },
           "SF": {
-            "Kirjoittaja": 22,
+            "Kirjoittaja": 23,
             "Esiintyy": 3
           },
           "nF": {
@@ -369,14 +370,14 @@
             "Kirjoittaja": 1
           }
         },
-        "count": 58
+        "count": 59
       },
       {
         "nationality_id": null,
         "nationality": null,
         "genres": {
           "F": {
-            "Kirjoittaja": 15,
+            "Kirjoittaja": 14,
             "Esiintyy": 1
           },
           "K": {
@@ -417,7 +418,7 @@
             "Kirjoittaja": 4
           }
         },
-        "count": 42
+        "count": 41
       },
       {
         "nationality_id": 31,
@@ -464,7 +465,7 @@
         "nationality": "Kanada",
         "genres": {
           "F": {
-            "Kirjoittaja": 14
+            "Kirjoittaja": 15
           },
           "K": {
             "Kirjoittaja": 1
@@ -492,7 +493,7 @@
             "Kirjoittaja": 2
           }
         },
-        "count": 30
+        "count": 31
       },
       {
         "nationality_id": 7,
@@ -505,7 +506,7 @@
             "Kirjoittaja": 2
           },
           "PF": {
-            "Kirjoittaja": 2
+            "Kirjoittaja": 3
           },
           "SF": {
             "Kirjoittaja": 14,
@@ -606,6 +607,9 @@
           "nSF": {
             "Kirjoittaja": 2,
             "Esiintyy": 1
+          },
+          "nK": {
+            "Kirjoittaja": 1
           },
           "kok": {
             "Kirjoittaja": 2
@@ -988,7 +992,7 @@
             "Kirjoittaja": 1
           },
           "SF": {
-            "Kirjoittaja": 1
+            "Kirjoittaja": 2
           }
         },
         "count": 2

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-08-23T17:54:16.984799+00:00",
+    "generated_at": "2026-09-30T19:44:03.354886+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/works/5",
@@ -11,16 +11,203 @@
     "status_code": 200,
     "data": [
       {
-        "id": 7175,
-        "title": "Valaankesyttäjä",
+        "id": 7239,
+        "title": "Ulkomaisia kauhukirjailijoita",
         "orig_title": "",
-        "author_str": "Pitkä, Jyrki",
+        "author_str": "Halme, Jukka & Nummelin, Juri (toim.)",
         "contributions": [
           {
             "person": {
-              "id": 609,
-              "name": "Pitkä, Jyrki",
-              "alt_name": "Jyrki Pitkä"
+              "id": 1857,
+              "name": "Halme, Jukka",
+              "alt_name": "Jukka Halme"
+            },
+            "role": {
+              "id": 3,
+              "name": "Toimittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 939,
+              "name": "Nummelin, Juri",
+              "alt_name": "Juri Nummelin"
+            },
+            "role": {
+              "id": 3,
+              "name": "Toimittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "editions": [
+          {
+            "editors": [],
+            "translators": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 4180,
+                  "name": "Murtosaari, Jukka",
+                  "alt_name": "Jukka Murtosaari"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Kansi",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "id": 10198,
+                "image_src": "/static/images/books/Halme_Nummelin_Ulkomaisiakauhukirjailijoita_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 492,
+              "name": "BTJ Kirjastopalvelu"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 10491,
+            "title": "Ulkomaisia kauhukirjailijoita",
+            "subtitle": "",
+            "pubyear": 2005,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "951-692-595-2",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 300,
+            "size": 26,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [
+          {
+            "id": 2,
+            "name": "Kauhu",
+            "abbr": "K"
+          }
+        ],
+        "bookseries": null,
+        "tags": [],
+        "language_name": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "type": 4,
+        "subtitle": "",
+        "pubyear": 2005,
+        "bookseriesnum": "",
+        "bookseriesorder": null,
+        "misc": "",
+        "description": "<p><em>Ulkomaisia kauhukirjailijoita</em> -teos esittelee ensimmäistä kertaa 39 kauhukirjailijaa suomennettuine kirjoineen. Hyytävä esittely sisältää niin fyysisen, psykologisen kuin yliluonnollisenkin kauhun edustajia. Mukaan ovat päässeet alan tärkeimmät nimet aina Mary Shelleystä ja Edgar Allan Poesta 1900-luvun lopulla aloittaneisiin hurjiin splatterpunk-tekijöihin.</p><p>Laajassa katsannossa tulevat tutuksi vampyyrit, sarjamurhaajat, pahat henget ja oudot ilmiöt, joiden klassikot muodostavat tärkeän osan länsimaista kulttuuriperintöä. Tarinat ovat täynnä värisyttävää jännitystä, verta ja väkivaltaa. Kattavista bibliografioista löytyvät niin romaanit kuin novellikokoelmatkin. Kirjan teos-, henkilö- ja hahmohakemistot on laadittu sekä alan harrastajia että koulujen ja kirjastojen tiedonhakua varten.</p>",
+        "descr_attr": "Takakansi",
+        "imported_string": null
+      },
+      {
+        "id": 7238,
+        "title": "Zormammun paluu",
+        "orig_title": "",
+        "author_str": "Ronkainen, Jan M.",
+        "contributions": [
+          {
+            "person": {
+              "id": 8061,
+              "name": "Ronkainen, Jan M.",
+              "alt_name": "Jan M. Ronkainen"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "editions": [
+          {
+            "editors": [],
+            "translators": [],
+            "contributions": [],
+            "images": [
+              {
+                "id": 10197,
+                "image_src": "/static/images/books/Ronkainen_Jan_M_Zormammunpaluu_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 220,
+              "name": "Omakustanne"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 10490,
+            "title": "Zormammun paluu",
+            "subtitle": "outoja tarinoita",
+            "pubyear": 2021,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-94-5754-0",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 340,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": "kuvitettu, karttoja",
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [
+          {
+            "id": 1,
+            "name": "Fantasia",
+            "abbr": "F"
+          }
+        ],
+        "bookseries": null,
+        "tags": [],
+        "language_name": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "type": 2,
+        "subtitle": "outoja tarinoita",
+        "pubyear": 2021,
+        "bookseriesnum": "",
+        "bookseriesorder": null,
+        "misc": "",
+        "description": "<p>Taumahtin maailman kahdessatoista valtakunnassa taikuus on totta. Kuun, Auringon, Luonnon ja Kaaoksen henget elävät rinnakkain ihmisten ja hirviöiden kanssa.</p><p>Sata vuotta sitten Numernan piirittäjät kaatoivat Kaargtolian hirmuvallan. Uerin kaupunkivaltiot itsenäistyivät, ja lohikäärmeillä ja traakeilla ratsastaneet valloittajat lensivät takaisin kotimaahansa Ilnornin valtakuntaan. Mutta Maailmannavan murtuminen aiheutti Karttakirouksen: yhdeksän valtakuntaa irtosivat toisistaan ja ne vaihtavat vuodenaikojen mukaan satunnaisesti paikkaa.</p><p>Groplopomin kaupungissa nuori Tihuum, sukupolvensa lahjakkain hiustaiteilija, joutuu kääntämään elämänsä suuntaa. Noita Kaotika tutkii Numernan raunioita Noitakuningatar Magoonan avustajana. Magoona etsii ikuisen nuoruuden salaisuutta. Tulilintujen Luostarissa Soturinunna Ziuupara siirretään uusiin tehtäviin. Kotikaupungissaan ja lomamatkalla Mestarietsivä Hooforn ratkoo rikoksia jäljittelemättömällä tyylillä.</p><p>Sata vuotta sitten valmistettiin taikakirja, jonka sisään vangittiin Kuudes Rienavalta. Se joka kutsuu kaaosmahdin takaisin, saa palkkioksi esittää yhden toivomuksen. Piirityksen jälkeen teos katosi vuosisadaksi. Nyt tuo opus on löydetty Orborbin kaupungissa. Moni on valmis tekemään - ja myös tekee - mitä tahansa saadakseen taikakirjan käsiinsä.</p><p>Sekalainen joukko sankareita loikkaa outojen tapahtumien virtaan.</p>",
+        "descr_attr": "taumaht.com",
+        "imported_string": null
+      },
+      {
+        "id": 7237,
+        "title": "Tarujen hevoset",
+        "orig_title": "",
+        "author_str": "Hjelt, Marjut",
+        "contributions": [
+          {
+            "person": {
+              "id": 8037,
+              "name": "Hjelt, Marjut",
+              "alt_name": "Marjut Hjelt"
             },
             "role": {
               "id": 1,
@@ -37,9 +224,9 @@
             "contributions": [
               {
                 "person": {
-                  "id": 609,
-                  "name": "Pitkä, Jyrki",
-                  "alt_name": "Jyrki Pitkä"
+                  "id": 8060,
+                  "name": "Ulv, Daga",
+                  "alt_name": "Daga Ulv"
                 },
                 "role": {
                   "id": 4,
@@ -50,9 +237,9 @@
               },
               {
                 "person": {
-                  "id": 609,
-                  "name": "Pitkä, Jyrki",
-                  "alt_name": "Jyrki Pitkä"
+                  "id": 8060,
+                  "name": "Ulv, Daga",
+                  "alt_name": "Daga Ulv"
                 },
                 "role": {
                   "id": 5,
@@ -64,387 +251,53 @@
             ],
             "images": [
               {
-                "id": 10078,
-                "image_src": "/static/images/books/Pitka_Jyrki_Valaankesyttaja_1p.jpg",
+                "id": 10196,
+                "image_src": "/static/images/books/Hjelt_Marjut_Tarujenhevoset_1p.jpg",
                 "image_attr": null
               }
             ],
             "publisher": {
-              "id": 317,
-              "name": "Tajunta Media"
+              "id": 133,
+              "name": "Karisto"
             },
             "owners": [],
             "wishlisted": [],
-            "id": 10408,
-            "title": "Valaankesyttäjä",
-            "subtitle": "",
-            "pubyear": 2026,
+            "id": 10489,
+            "title": "Tarujen hevoset",
+            "subtitle": "aavehevosesta yksisarvisiin",
+            "pubyear": 2019,
             "editionnum": 1,
             "version": 1,
-            "isbn": "978-952-6657-59-2",
+            "isbn": "978-951-23-6602-6",
             "printedin": null,
             "pubseriesnum": null,
             "coll_info": null,
-            "pages": 91,
-            "size": 14,
+            "pages": 86,
+            "size": 25,
             "dustcover": 1,
-            "coverimage": 1,
+            "coverimage": 3,
             "misc": null,
             "imported_string": null,
             "verified": false
           }
         ],
-        "genres": [
-          {
-            "id": 5,
-            "name": "Science Fiction",
-            "abbr": "SF"
-          }
-        ],
-        "bookseries": null,
-        "tags": [],
-        "language_name": {
-          "id": 7,
-          "name": "suomi"
-        },
-        "type": 1,
-        "subtitle": "",
-        "pubyear": 2026,
-        "bookseriesnum": "",
-        "bookseriesorder": null,
-        "misc": "",
-        "description": "<p>Ihmiskunta tuhosi seksuaaliviettinsä selviytyäkseen muukalaisten telepaattisesta hyökkäyksestä. Batisseeri-inkvisitio metsästää ne, joissa vietti yhä elää.</p><p>Vy työskentelee kiertoradalla kelluvassa hotellissa, kaukana Marsin kupoleista. Hän päätyy vieraan lajin edustajan kanssa sänkyyn. Mahdollista irstausrikosta selvittämään saapuu Prrhan Anan, nuori inkvisiittori, jolla on oma salaisuutensa.</p><p>Vyn pakomatka vie heidät molemmat avaruuteen, kohti jättiläistä, joka on kutsunut Vyä lapsesta asti.</p>",
-        "descr_attr": "Tajunta media",
-        "imported_string": null
-      },
-      {
-        "id": 7174,
-        "title": "Soturin taakka",
-        "orig_title": "",
-        "author_str": "Hirsilä, Markus",
-        "contributions": [
-          {
-            "person": {
-              "id": 6733,
-              "name": "Hirsilä, Markus",
-              "alt_name": "Markus Hirsilä"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "editions": [
-          {
-            "editors": [],
-            "translators": [],
-            "contributions": [],
-            "images": [
-              {
-                "id": 10077,
-                "image_src": "/static/images/books/Hirsila_Markus_Soturintaakka_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "publisher": {
-              "id": 39,
-              "name": "Books on Demand"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 10407,
-            "title": "Soturin taakka",
-            "subtitle": "",
-            "pubyear": 2025,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "978-952-80-8430-3",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 295,
-            "size": 22,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": null,
-            "verified": false
-          }
-        ],
-        "genres": [
-          {
-            "id": 5,
-            "name": "Science Fiction",
-            "abbr": "SF"
-          }
-        ],
-        "bookseries": null,
-        "tags": [],
-        "language_name": {
-          "id": 7,
-          "name": "suomi"
-        },
-        "type": 1,
-        "subtitle": "",
-        "pubyear": 2025,
-        "bookseriesnum": "",
-        "bookseriesorder": null,
-        "misc": "",
-        "description": "<p>Se oli suuri katastrofi silloin kauan sitten: maailmanlopuksi sitä myöhemmin alettiin kutsumaan. Mutta ihmiset ovat sitkeitä. Henkiin jääneet muodostivat pieniä omavaraisia yhteisöjä, heimoja. Nykyisin metalleja on käytössä enää vain harvoilla muiden tyytyessä kiveen, puuhun ja joskus saveen. Muutamat vanhukset muistavat kuulleensa tarinoita taivaalta putoavista kylmistä höyhenistä, mutta eivät ole koskaan sellaisia itse nähneet.</p><p>Esra Tulikoura on heimonsa päällikön nuorempi poika. Kasvitaudin tuhottua ruokavarastot myös hänen on lähdettävä etsimään täydennyksiä nälänhädän välttämiseksi. Ehkä jollakin toisella heimolla on lainata omastaan? Maailma on kuitenkin paljon vaarallisempi kuin Esra osaa ajatellakaan.</p>",
-        "descr_attr": "Books on Demand",
-        "imported_string": null
-      },
-      {
-        "id": 7173,
-        "title": "Turhautuneisuuden kauna",
-        "orig_title": "",
-        "author_str": "Helen, Sam N.",
-        "contributions": [
-          {
-            "person": {
-              "id": 7177,
-              "name": "Helen, Sam N.",
-              "alt_name": "Sam N. Helen"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "editions": [
-          {
-            "editors": [],
-            "translators": [],
-            "contributions": [],
-            "images": [
-              {
-                "id": 10076,
-                "image_src": "/static/images/books/Helen_Sam_N_Turhautuneisuudenkauna_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "publisher": {
-              "id": 39,
-              "name": "Books on Demand"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 10406,
-            "title": "Turhautuneisuuden kauna",
-            "subtitle": "",
-            "pubyear": 2026,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "978-952-89-1367-2",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 524,
-            "size": 22,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": null,
-            "verified": false
-          }
-        ],
-        "genres": [
-          {
-            "id": 1,
-            "name": "Fantasia",
-            "abbr": "F"
-          }
-        ],
-        "bookseries": {
-          "id": 801,
-          "name": "Härkälinnoitus",
-          "orig_name": null,
-          "description": null,
-          "important": false,
-          "image_src": null,
-          "image_attr": null
-        },
-        "tags": [],
-        "language_name": {
-          "id": 7,
-          "name": "suomi"
-        },
-        "type": 1,
-        "subtitle": "",
-        "pubyear": 2026,
-        "bookseriesnum": "2",
-        "bookseriesorder": 2,
-        "misc": "",
-        "description": "<p>Nuorten ahdinko syvenee heidän laskeutuessaan alemmaksi Härkälinnoitukseen. Andrew salaa edelleen kohtaamistaan Henzzin kanssa. Jenna ja Matias löytävät toisensa uudelleen, mutta kestääkö side? Pohjoisen punaiseen jalokiveen on käynyt kutsu kaikille pankinjohtajille, mutta yksi uupuu joukosta. Ian saa isännältään arvoituksellisen toimeksiannon etelään, mutta ottaako Kuninkaiden hauta hänet tervetulleena vastaan? Nuorten avattuaan kivisen oven, aiheutti se jotain koko luolastoa järisyttävää liikehdintää...</p><p><em>Turhautuneisuuden kauna</em> on <em>Härkälinnoitus </em>- sarjan toinen osa. Nuorten Valittujen livahtaessa Henzzin otteesta, kirjassa syvennytään laajemmin tapahtumiin nuorten selviytymisen ulkopuolella. Tapahtumiin ennen ja jälkeen Tapauksen. Kuka on kaikkien huulilla toistuva Mustarastas, ja mikä on hänen roolinsa tapahtumien keskellä? Sekä ei saa unohtaa Hulluahärkää, joka selvästi piilottaa hulluutensa taakse jotain syvempää. Kenen pussiin hän lopulta pelaa?</p>",
-        "descr_attr": "Books on Demand",
-        "imported_string": null
-      },
-      {
-        "id": 7172,
-        "title": "Allianssi.125: Sivulliset",
-        "orig_title": "",
-        "author_str": "Jauhiainen, Raita",
-        "contributions": [
-          {
-            "person": {
-              "id": 2132,
-              "name": "Jauhiainen, Raita",
-              "alt_name": "Raita Jauhiainen"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "editions": [
-          {
-            "editors": [],
-            "translators": [],
-            "contributions": [],
-            "images": [
-              {
-                "id": 10075,
-                "image_src": "/static/images/books/Jauhiainen_Raita_Sivulliset_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "publisher": {
-              "id": 39,
-              "name": "Books on Demand"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 10405,
-            "title": "Allianssi.125: Sivulliset",
-            "subtitle": "",
-            "pubyear": 2024,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "978-952-80-7132-7",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 263,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": null,
-            "verified": false
-          }
-        ],
-        "genres": [
-          {
-            "id": 5,
-            "name": "Science Fiction",
-            "abbr": "SF"
-          }
-        ],
-        "bookseries": {
-          "id": 879,
-          "name": "Allianssi.125",
-          "orig_name": null,
-          "description": null,
-          "important": false,
-          "image_src": null,
-          "image_attr": null
-        },
-        "tags": [],
-        "language_name": {
-          "id": 7,
-          "name": "suomi"
-        },
-        "type": 2,
-        "subtitle": "",
-        "pubyear": 2024,
-        "bookseriesnum": "",
-        "bookseriesorder": null,
-        "misc": "",
-        "description": "<p>Päättymättömän sodan runtelemilla joutomailla taivaltava kulkija löytää alueelle, jossa maaperä on puhdas. Useita sukupolvia myöhemmin sekä väsymyksen uuvuttama nuori mies että vaarallista mainetta kantava keltakaartilainen päättävät tehdä irtioton ja muuttaa maailman suurimpaan kaupunkiin, Gavialikseen.</p><p>Toisaalla terraunionialainen nuori nainen lähetetään pois kotoaan elämään isotädin kanssa, jolla on salaisuus. Salaisuus ajaa myös toisen terraunionialaisen naisen kohti tuntematonta, sillä lähellä valtion suljettua rajaa on salaperäinen alue, josta kukaan ei vaikuta tietävän mitään.</p><p><em>Sivulliset </em>on kokoelma novelleja ja raapaleita, jotka sijoittuvat<em> Allianssi.125-</em>kirjasarjan maailmaan.</p>",
-        "descr_attr": "Books on Demand",
-        "imported_string": null
-      },
-      {
-        "id": 7171,
-        "title": "Uhrilahja",
-        "orig_title": "",
-        "author_str": "Jokela, Fae",
-        "contributions": [
-          {
-            "person": {
-              "id": 8018,
-              "name": "Jokela, Fae",
-              "alt_name": "Fae Jokela"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "editions": [
-          {
-            "editors": [],
-            "translators": [],
-            "contributions": [],
-            "images": [
-              {
-                "id": 10074,
-                "image_src": "/static/images/books/Jokela_Fae_Uhrilahja_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "publisher": {
-              "id": 39,
-              "name": "Books on Demand"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 10404,
-            "title": "Uhrilahja",
-            "subtitle": "",
-            "pubyear": 2026,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "978-952-89-0326-0",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 380,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": null,
-            "verified": false
-          }
-        ],
-        "genres": [
-          {
-            "id": 1,
-            "name": "Fantasia",
-            "abbr": "F"
-          }
-        ],
+        "genres": [],
         "bookseries": null,
         "tags": [
           {
-            "id": 549,
-            "name": "synkkä fantasia",
+            "id": 39,
+            "name": "mytologia",
             "type": {
-              "id": 2,
-              "name": "Alagenre"
+              "id": 1,
+              "name": "Aihe"
+            }
+          },
+          {
+            "id": 3189,
+            "name": "hevoset",
+            "type": {
+              "id": 1,
+              "name": "Aihe"
             }
           }
         ],
@@ -452,14 +305,213 @@
           "id": 7,
           "name": "suomi"
         },
-        "type": 1,
-        "subtitle": "",
-        "pubyear": 2026,
+        "type": 4,
+        "subtitle": "aavehevosesta yksisarvisiin",
+        "pubyear": 2019,
         "bookseriesnum": "",
         "bookseriesorder": null,
         "misc": "",
-        "description": "<p>Thilnerneth syntyi korppien piirittämänä kuolleiden kirkossa.</p><p>Mustavuoren sotilasleirissä ei ole tilaa tyhjille käsille tai orpolapsille. Ikuinen sota varjoja ja yössä vaanivia hirviöitä vastaan vie kaiken kaikilta. Ruokaa on vähän, lämpö on ylellisyyttä ja ystävällisyys on kallista. Orpolapsena Thilnernethin on tyydyttävä siihen, mitä hän saa kaivettua nuotioiden jämistä.</p><p>Kun Mustavuorelle saapuu kylmin talvi sukupolviin, kylmettynyt orpolapsi osuu kuolemaan tuomitun kapteenin silmään. Äkkiä kylmä ja nälkä ovat pienimmät Thilnernethin huolista kun vaarallinen tehtävä sotkee hänet komentajien väliseen valtakamppailuun.</p>",
-        "descr_attr": "Books on Demand",
+        "description": "<p>Hevosten ystävien ja myyteistä kiinnostuneiden unelmakirja esittelee tarujen hevosia tiedon ja tarinoiden avulla. Teos käy läpi tuttuja ja tuntemattomia nelijalkaisia aina Pegasoksesta intiaanien värejä hohtaviin ratsuihin. Siivekkäistä taikaratsuista on kerrottu tarinoita esimerkiksi Kiinassa, viikinkien parissa sekä islamilaisessa maailmassa. Euroopan muinaiskulttuureista tunnetaan useita palvottuja hevosjumalattaria, kuten kelttien Epona sekä viikinkien Gna. Myös jumalilla, kuten kreikkalaisten auringon jumalalla Helioksella, on omat kuuluisat ratsunsa. Lisäksi kirjassa esitellään niin myyttisten kuin historiallistenkin sankareiden hevosia sekä klassikkokirjojen ratsuja Uljaasta Mustasta Hallavaharjaan. Tunnelmallinen kuvitus ja kiehtovat kertomukset avaavat oven vieraisiin kulttuureihin sekä hevosten historiaan.</p>",
+        "descr_attr": "Takakansi",
+        "imported_string": null
+      },
+      {
+        "id": 7236,
+        "title": "Veden valtiaat",
+        "orig_title": "",
+        "author_str": "Hjelt, Marjut",
+        "contributions": [
+          {
+            "person": {
+              "id": 8037,
+              "name": "Hjelt, Marjut",
+              "alt_name": "Marjut Hjelt"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "editions": [
+          {
+            "editors": [],
+            "translators": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 8059,
+                  "name": "Nuutinen, Christer",
+                  "alt_name": "Christer Nuutinen"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 8059,
+                  "name": "Nuutinen, Christer",
+                  "alt_name": "Christer Nuutinen"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
+                },
+                "description": "",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "id": 10195,
+                "image_src": "/static/images/books/Hjelt_Marjut_Vedenvaltiaat_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 300,
+              "name": "Suomalaisen kirjallisuuden seura"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 10488,
+            "title": "Veden valtiaat",
+            "subtitle": "",
+            "pubyear": 2012,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-222-316-6",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 144,
+            "size": 27,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [],
+        "bookseries": null,
+        "tags": [
+          {
+            "id": 39,
+            "name": "mytologia",
+            "type": {
+              "id": 1,
+              "name": "Aihe"
+            }
+          }
+        ],
+        "language_name": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "type": 4,
+        "subtitle": "",
+        "pubyear": 2012,
+        "bookseriesnum": "",
+        "bookseriesorder": null,
+        "misc": "",
+        "description": "<p>VALLOITTAVA RETKI VEDENALAISEEN MAAILMAAN.</p><p><em>Veden valtiaat</em> kuvaa vedenalaisia valtakuntia ja niiden mytologisia asukkaita: veden jumalia, haltijoita, vedenneitoja ja hirviöitä. Millaisia nämä mytologiset olennot ovat, missä ne asuvat ja mitä ne tekevät? Runsaasti kuvitettu tietoteos esittelee mm. kreikkalaisen Poseidonin, intialaisen Varunan, egyptiläisen Hapin, japanilaisen Ningyon, Amazonin encantadot, venäläiset rusalkat ja suomalaisen Iku-Turson. Vedenväen tuntomerkit ovat peräisin eri maiden myyteistä ja kansanuskon tarinoista.</p><p>Teoksen on kirjoittanut kansanperinteen tutkija Marjut Hjelt ja kuvittanut sarjakuvataiteilija ja kuvittaja Christer Nuutinen.</p>",
+        "descr_attr": "Takakansi",
+        "imported_string": null
+      },
+      {
+        "id": 7235,
+        "title": "Tietäjät, noidat, samaanit",
+        "orig_title": "",
+        "author_str": "Klemettinen, Pasi",
+        "contributions": [
+          {
+            "person": {
+              "id": 8058,
+              "name": "Klemettinen, Pasi",
+              "alt_name": "Pasi Klemettinen"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "editions": [
+          {
+            "editors": [],
+            "translators": [],
+            "contributions": [],
+            "images": [
+              {
+                "id": 10194,
+                "image_src": "/static/images/books/Klemettinen_Pasi_Tietajatnoidatsamaanit_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 500,
+              "name": "SKS Kirjat"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 10487,
+            "title": "Tietäjät, noidat, samaanit",
+            "subtitle": "kansanuskon maailmassa",
+            "pubyear": 2025,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-951-858-729-6",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 266,
+            "size": 22,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": "16 numeroimatonta kuvasivua.",
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [
+          {
+            "id": 13,
+            "name": "Ei SpeFiä",
+            "abbr": "eiSF"
+          }
+        ],
+        "bookseries": null,
+        "tags": [
+          {
+            "id": 1377,
+            "name": "kansanperinne",
+            "type": {
+              "id": 1,
+              "name": "Aihe"
+            }
+          }
+        ],
+        "language_name": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "type": 4,
+        "subtitle": "kansanuskon maailmassa",
+        "pubyear": 2025,
+        "bookseriesnum": "",
+        "bookseriesorder": null,
+        "misc": "",
+        "description": "<p><strong>Kiehtova matka suomalaisen kansanperinteen magiaan.</strong></p><p>Hammaskivun hoitoa kuivatuilla tikankielillä, naapurin kalaonnen turmelemista karmivilla sammakkoarkuilla – noidat, tietäjät ja samaanit olivat yhtäältä arkisia apureita, toisaalta parjattuja pahantekijöitä. Miksi noitia pelättiin, ja mistä heitä syytettiin käräjillä? Miten entisajan noidiksi ja tietäjiksi tultiin, ja millaisia apuvoimia ja taikakaluja heillä oli käytössään?</p><p>Esivanhempiemme tietäjäperinteessä parantaminen, loitsiminen ja taikuus olivat osa jokapäiväistä elämää. Ukonvaajat, päivännäkemättömät ja sammakkoarkut paljastavat, kuinka yliluonnollinen valjastettiin arjen ongelmien ratkaisemiseen. Noidat ja tietäjät paransivat sairaita ja selvittivät varkauksia, mutta kunnioittamisen lisäksi heitä pelättiin ja vainottiin. Syytöksiä magialla vahingoittamisesta käsiteltiin käräjillä pitkään noitavainojen ajan jälkeenkin.</p><p>Perinteentutkija Pasi Klemettinen kertoo kirjassaan noitien ja tietäjien merkityksestä kansanperinteessä sekä tutustuttaa lukijan kymmeneen noitaan ja tietäjään, joiden maine on säilynyt tähän päivään asti.</p>",
+        "descr_attr": "SKS Kirjat",
         "imported_string": null
       }
     ],

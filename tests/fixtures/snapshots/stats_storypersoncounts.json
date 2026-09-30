@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-08-23T17:54:16.984799+00:00",
+    "generated_at": "2026-09-30T19:44:03.354886+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/storypersoncounts",
@@ -41,11 +41,11 @@
         "nationality": "Suomi",
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 65,
+            "Kirjoittaja": 64,
             "Kääntäjä": 1
           },
           "Raapale": {
-            "Kirjoittaja": 274
+            "Kirjoittaja": 275
           },
           "Artikkeli": {
             "Kirjoittaja": 53,
@@ -139,8 +139,8 @@
             "Kirjoittaja": 8
           },
           "Artikkeli": {
-            "Kirjoittaja": 59,
-            "Esiintyy": 15
+            "Kirjoittaja": 61,
+            "Esiintyy": 16
           },
           "Esipuhe": {
             "Esiintyy": 1
@@ -149,7 +149,7 @@
             "Kirjoittaja": 1
           }
         },
-        "total": 164
+        "total": 166
       },
       {
         "id": 2820,
@@ -165,6 +165,25 @@
           }
         },
         "total": 145
+      },
+      {
+        "id": 2538,
+        "name": "Lovecraft, H. P.",
+        "alt_name": "H. P. Lovecraft",
+        "nationality": "Yhdysvallat",
+        "storytypes": {
+          "Novelli": {
+            "Kirjoittaja": 127
+          },
+          "Runo": {
+            "Kirjoittaja": 12
+          },
+          "Artikkeli": {
+            "Kirjoittaja": 3,
+            "Esiintyy": 26
+          }
+        },
+        "total": 142
       },
       {
         "id": 2286,
@@ -192,25 +211,6 @@
         "total": 139
       },
       {
-        "id": 2538,
-        "name": "Lovecraft, H. P.",
-        "alt_name": "H. P. Lovecraft",
-        "nationality": "Yhdysvallat",
-        "storytypes": {
-          "Novelli": {
-            "Kirjoittaja": 123
-          },
-          "Runo": {
-            "Kirjoittaja": 12
-          },
-          "Artikkeli": {
-            "Kirjoittaja": 3,
-            "Esiintyy": 25
-          }
-        },
-        "total": 138
-      },
-      {
         "id": 1531,
         "name": "Poe, Edgar Allan",
         "alt_name": "Edgar Allan Poe",
@@ -235,8 +235,8 @@
         "nationality": null,
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 8554,
-            "Kääntäjä": 1253,
+            "Kirjoittaja": 8553,
+            "Kääntäjä": 1260,
             "Toimittaja": 0,
             "Kansikuva": 0,
             "Kuvittaja": 0,
@@ -262,7 +262,7 @@
             "Päätoimittaja": 0
           },
           "Runo": {
-            "Kirjoittaja": 183,
+            "Kirjoittaja": 185,
             "Kääntäjä": 9,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -271,7 +271,7 @@
             "Päätoimittaja": 0
           },
           "Raapale": {
-            "Kirjoittaja": 661,
+            "Kirjoittaja": 709,
             "Kääntäjä": 0,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -280,7 +280,7 @@
             "Päätoimittaja": 0
           },
           "Filk-laulu": {
-            "Kirjoittaja": 78,
+            "Kirjoittaja": 79,
             "Kääntäjä": 0,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -289,7 +289,7 @@
             "Päätoimittaja": 0
           },
           "Artikkeli": {
-            "Kirjoittaja": 4410,
+            "Kirjoittaja": 4414,
             "Kääntäjä": 61,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -316,7 +316,7 @@
             "Päätoimittaja": 0
           }
         },
-        "total": 13967
+        "total": 14021
       }
     ],
     "error": null

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-08-23T17:54:16.984799+00:00",
+    "generated_at": "2026-09-30T19:44:03.354886+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/works/shorts/1378",
@@ -3875,7 +3875,7 @@
               "name": "Suomi"
             },
             "workcount": 15,
-            "storycount": 128,
+            "storycount": 129,
             "roles": [
               "Kirjoittaja",
               "Kääntäjä",
@@ -4914,7 +4914,7 @@
               "name": "Suomi"
             },
             "workcount": 15,
-            "storycount": 128,
+            "storycount": 129,
             "roles": [
               "Kirjoittaja",
               "Kääntäjä",
@@ -9318,7 +9318,11 @@
                     "name": "Kirjoittaja"
                   },
                   "description": null,
-                  "real_person": null
+                  "real_person": {
+                    "id": 103,
+                    "name": "Virtanen, Pekka",
+                    "alt_name": "Pekka Virtanen"
+                  }
                 }
               ],
               "editions": [
@@ -9396,8 +9400,8 @@
               "bookseriesnum": "",
               "bookseriesorder": 0,
               "misc": "",
-              "description": null,
-              "descr_attr": null,
+              "description": "<p>Pekka \"Pietari\" Virtanen julkaisi ensimmäisen novellinsa <em>Veljmies </em>Portissa 1983. Muutkin lehdet innostuivat ja Virtasesta tuli komeetta, jonka novelleja alkoi ryöpytä Spinistä, Portista, Aikakoneesta, Tähtivaeltajasta ja Ikaroksesta. Hänen novellinsa <em>Perinne </em>voitti Atorox-palkinnon ja Jalava julkaisi hänen tieteisromaaninsa <em>Katajanukke</em>. Tätä kiivainta vaihetta kesti noin viisi vuotta, joiden aikana fanzinet julkaisivat kolmisenkymmentä Virtasen novellia.</p><p>Virtasen tieteiskertomukset ovat monelta jo unohtuneet ja aina vain eteenpäin tähystävät eivät ole niistä kuulleetkaan, vaikka niitä on julkaistu myös antologioissa, käännetty Esperantoksi sekä luettu yleisradiossa. <em>Planeettojen kapellimestari </em>on kokoelma Pekka Virtasen tieteisnovelleja ja tärkeä osa suomalaisen science fictionin lähihistoriaa.</p>",
+              "descr_attr": "Takakansi",
               "imported_string": "\n<a href=\"novkok/vir-pk.htm\">\n<b>Planeettojen kapellimestari</b></a>. Valittuja tieteiskertomuksia. Wanhain Herrain Huone 2014. [SF,kok]."
             },
             "editors": [],
@@ -10039,7 +10043,7 @@
               "name": "Suomi"
             },
             "workcount": 15,
-            "storycount": 128,
+            "storycount": 129,
             "roles": [
               "Kirjoittaja",
               "Kääntäjä",
@@ -13082,8 +13086,8 @@
                   "id": 4,
                   "name": "Suomi"
                 },
-                "workcount": 35,
-                "storycount": 63,
+                "workcount": 36,
+                "storycount": 64,
                 "roles": [
                   "Kirjoittaja",
                   "Kääntäjä",

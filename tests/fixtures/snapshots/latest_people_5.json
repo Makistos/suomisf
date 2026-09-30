@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-08-23T17:54:16.984799+00:00",
+    "generated_at": "2026-09-30T19:44:03.354886+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/people/5",
@@ -11,9 +11,9 @@
     "status_code": 200,
     "data": [
       {
-        "id": 8018,
-        "name": "Jokela, Fae",
-        "alt_name": "Fae Jokela",
+        "id": 8061,
+        "name": "Ronkainen, Jan M.",
+        "alt_name": "Jan M. Ronkainen",
         "fullname": "",
         "image_src": null,
         "dob": null,
@@ -37,44 +37,72 @@
         "imported_string": null
       },
       {
-        "id": 8017,
-        "name": "Kwasny, Karl",
-        "alt_name": "Karl Kwasny",
+        "id": 8060,
+        "name": "Ulv, Daga",
+        "alt_name": "Daga Ulv",
         "fullname": "",
         "image_src": null,
         "dob": null,
         "dod": null,
         "nationality": {
-          "id": 14,
-          "name": "Australia"
+          "id": 4,
+          "name": "Suomi"
         },
         "workcount": 0,
         "storycount": 0,
         "roles": [
-          "Kansikuva"
+          "Kansikuva",
+          "Kuvittaja"
         ],
         "other_names": "",
         "first_name": null,
         "last_name": null,
         "image_attr": null,
-        "qid": null,
+        "qid": "",
         "bio": "",
         "bio_src": "",
         "imported_string": null
       },
       {
-        "id": 8016,
-        "name": "Juhani, Marco J.",
-        "alt_name": "Marco J. Juhani",
+        "id": 8059,
+        "name": "Nuutinen, Christer",
+        "alt_name": "Christer Nuutinen",
         "fullname": "",
         "image_src": null,
-        "dob": null,
+        "dob": 1971,
         "dod": null,
         "nationality": {
           "id": 4,
           "name": "Suomi"
         },
-        "workcount": 1,
+        "workcount": 0,
+        "storycount": 0,
+        "roles": [
+          "Kansikuva",
+          "Kuvittaja"
+        ],
+        "other_names": "",
+        "first_name": null,
+        "last_name": null,
+        "image_attr": null,
+        "qid": "",
+        "bio": "",
+        "bio_src": "",
+        "imported_string": null
+      },
+      {
+        "id": 8058,
+        "name": "Klemettinen, Pasi",
+        "alt_name": "Pasi Klemettinen",
+        "fullname": "",
+        "image_src": null,
+        "dob": 1963,
+        "dod": null,
+        "nationality": {
+          "id": 4,
+          "name": "Suomi"
+        },
+        "workcount": 3,
         "storycount": 0,
         "roles": [
           "Kirjoittaja"
@@ -89,47 +117,21 @@
         "imported_string": null
       },
       {
-        "id": 8015,
-        "name": "Issakainen, Raimo",
-        "alt_name": "Raimo Issakainen",
-        "fullname": "",
+        "id": 8055,
+        "name": "Kylävaara, Keijo",
+        "alt_name": "Keijo Kylävaara",
+        "fullname": "Keijo Uolevi Kylävaara",
         "image_src": null,
-        "dob": null,
-        "dod": null,
+        "dob": 1921,
+        "dod": 1994,
         "nationality": {
           "id": 4,
           "name": "Suomi"
         },
-        "workcount": 1,
+        "workcount": 0,
         "storycount": 0,
         "roles": [
-          "Kirjoittaja"
-        ],
-        "other_names": "",
-        "first_name": null,
-        "last_name": null,
-        "image_attr": null,
-        "qid": "",
-        "bio": "",
-        "bio_src": "",
-        "imported_string": null
-      },
-      {
-        "id": 8014,
-        "name": "Hietala, Onni",
-        "alt_name": "Onni Hietala",
-        "fullname": "",
-        "image_src": null,
-        "dob": null,
-        "dod": null,
-        "nationality": {
-          "id": 4,
-          "name": "Suomi"
-        },
-        "workcount": 1,
-        "storycount": 0,
-        "roles": [
-          "Kirjoittaja"
+          "Kääntäjä"
         ],
         "other_names": "",
         "first_name": null,

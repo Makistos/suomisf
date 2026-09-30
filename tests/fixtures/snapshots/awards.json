@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-08-23T17:54:16.984799+00:00",
+    "generated_at": "2026-09-30T19:44:03.354886+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/awards",
@@ -44,6 +44,13 @@
         "domestic": false
       },
       {
+        "categories": [],
+        "id": 41,
+        "name": "Arvid Lydecken -palkinto",
+        "description": "<p>Arvid Lydecken -palkinto on vuonna 1969 ensimmäisen kerran jaettu, Suomen lasten- ja nuortenkirjailijat ry:n vuosittain myöntämä tunnustus korkeatasoisesta suomen- tai ruotsinkielisestä lastenkirjasta.</p>",
+        "domestic": true
+      },
+      {
         "categories": [
           {
             "id": 9,
@@ -55,6 +62,13 @@
         "name": "Atorox",
         "description": "Turun Science Fiction Seura ry:n jakama Atorox on maamme vanhin tieteiskirjallisuuspalkinto. Se myönnetään vuosittain edellisen vuoden parhaalle ensimmäistä kertaa julkaistulle kotimaiselle suomen- tai ruotsinkieliselle tieteis- tai fantasianovellille.",
         "domestic": true
+      },
+      {
+        "categories": [],
+        "id": 42,
+        "name": "Booker-palkinto",
+        "description": "<p><span style=\"color: rgb(32, 33, 34); background-color: rgb(255, 255, 255);\">Booker Prize on brittiläinen kirjallisuuspalkinto, joka myönnetään vuosittain englanninkieliselle Britanniassa julkaistulle romaanille. Palkintoa on jaettu vuodesta 1969.</span></p>",
+        "domestic": false
       },
       {
         "categories": [

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-08-23T17:54:16.984799+00:00",
+    "generated_at": "2026-09-30T19:44:03.354886+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/storiesbyyear",
@@ -2348,7 +2348,7 @@
       },
       {
         "year": 1919,
-        "count": 16,
+        "count": 17,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 1,
@@ -2628,7 +2628,7 @@
       },
       {
         "year": 1926,
-        "count": 21,
+        "count": 22,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 1,
@@ -2652,7 +2652,7 @@
       },
       {
         "year": 1927,
-        "count": 17,
+        "count": 18,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 1,
@@ -2756,7 +2756,7 @@
       },
       {
         "year": 1930,
-        "count": 15,
+        "count": 16,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 1,
@@ -2780,14 +2780,6 @@
       },
       {
         "year": 1930,
-        "count": 1,
-        "storytype_id": 1,
-        "storytype_name": "Novelli",
-        "language_id": null,
-        "language_name": null
-      },
-      {
-        "year": 1930,
         "count": 3,
         "storytype_id": 4,
         "storytype_name": "Runo",
@@ -2804,7 +2796,7 @@
       },
       {
         "year": 1931,
-        "count": 16,
+        "count": 17,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 1,
@@ -5396,7 +5388,7 @@
       },
       {
         "year": 1990,
-        "count": 106,
+        "count": 107,
         "storytype_id": 7,
         "storytype_name": "Artikkeli",
         "language_id": 7,
@@ -7164,7 +7156,7 @@
       },
       {
         "year": 2012,
-        "count": 182,
+        "count": 179,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 7,
@@ -7180,7 +7172,7 @@
       },
       {
         "year": 2012,
-        "count": 16,
+        "count": 19,
         "storytype_id": 5,
         "storytype_name": "Raapale",
         "language_id": 7,
@@ -7212,7 +7204,7 @@
       },
       {
         "year": 2013,
-        "count": 73,
+        "count": 74,
         "storytype_id": 7,
         "storytype_name": "Artikkeli",
         "language_id": 7,
@@ -7228,7 +7220,7 @@
       },
       {
         "year": 2013,
-        "count": 1,
+        "count": 2,
         "storytype_id": 6,
         "storytype_name": "Filk-laulu",
         "language_id": 7,
@@ -7252,7 +7244,7 @@
       },
       {
         "year": 2013,
-        "count": 285,
+        "count": 284,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 7,
@@ -7268,7 +7260,7 @@
       },
       {
         "year": 2013,
-        "count": 122,
+        "count": 129,
         "storytype_id": 5,
         "storytype_name": "Raapale",
         "language_id": 7,
@@ -7276,7 +7268,7 @@
       },
       {
         "year": 2013,
-        "count": 1,
+        "count": 3,
         "storytype_id": 4,
         "storytype_name": "Runo",
         "language_id": 7,
@@ -7284,7 +7276,7 @@
       },
       {
         "year": 2014,
-        "count": 70,
+        "count": 73,
         "storytype_id": 7,
         "storytype_name": "Artikkeli",
         "language_id": 7,
@@ -7508,7 +7500,7 @@
       },
       {
         "year": 2017,
-        "count": 65,
+        "count": 66,
         "storytype_id": 7,
         "storytype_name": "Artikkeli",
         "language_id": 7,
@@ -8167,6 +8159,14 @@
         "count": 4,
         "storytype_id": 2,
         "storytype_name": "Pitkä novelli",
+        "language_id": 7,
+        "language_name": "suomi"
+      },
+      {
+        "year": 2026,
+        "count": 39,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
         "language_id": 7,
         "language_name": "suomi"
       }
