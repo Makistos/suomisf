@@ -16,4 +16,5 @@ apidoc/*
 
 # Coverage output
 .coverage
+coverage.json
 htmlcov/

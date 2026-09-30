@@ -219,11 +219,17 @@ Benchmark results are stored in `tests/benchmark/results/` with git hash trackin
 
 ### API Coverage Report
 
-The test coverage status is tracked in `tests/API_COVERAGE.md`, which includes:
+`tests/API_COVERAGE.md` lists every API route, whether any test reaches it,
+and the overall line coverage of `app/`. It is generated from a coverage run,
+not edited by hand:
 
-- Status of all 158 API endpoints
-- Test history with git hashes
-- Pass/fail statistics
+```bash
+pdm run pytest tests -m "not network" --cov=app --cov-branch \
+    --cov-report=json:coverage.json --cov-report=html
+pdm run python tests/scripts/endpoint_coverage.py
+```
+
+`htmlcov/index.html` then shows line-level detail.
 
 ### Test Directory Structure
 
@@ -242,10 +248,11 @@ tests/
 │   └── test_parameters.json    # Parameterized test data
 ├── scripts/
 │   ├── setup_test_db.py        # Test database setup (create, clone, users)
+│   ├── endpoint_coverage.py    # Generates API_COVERAGE.md from coverage.json
 │   └── update_snapshots.py     # Snapshot generator
 ├── benchmark/
 │   └── benchmark_runner.py     # Performance benchmarks
 ├── results/                    # Test run results
 ├── conftest.py                 # Pytest fixtures
-└── API_COVERAGE.md             # Coverage tracking (238 tests, 158 endpoints)
+└── API_COVERAGE.md             # Generated route coverage report
 ```

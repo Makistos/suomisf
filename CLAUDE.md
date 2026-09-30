@@ -36,7 +36,7 @@ When adding or modifying API tests, always update the following files:
    - Expected behaviors and assertions
    - Any fixtures or helper functions used
 
-2. **tests/API_COVERAGE.md** - Update the API coverage matrix to reflect:
-   - Which endpoints are tested
-   - Test coverage status for each HTTP method
-   - Any new endpoints or test scenarios added
+2. **tests/API_COVERAGE.md** - Generated; don't edit it by hand. Regenerate
+   it after a coverage run:
+   `pdm run pytest tests -m "not network" --cov=app --cov-branch --cov-report=json:coverage.json`
+   then `pdm run python tests/scripts/endpoint_coverage.py`.
