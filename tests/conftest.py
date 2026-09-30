@@ -111,6 +111,17 @@ def clone_test_database():
         capture_output=True, text=True, check=True
     )
 
+    # Extensions live outside the suomisf schema, so `pg_dump -n suomisf`
+    # doesn't carry them over. pg_trgm (migration 038) is needed by the
+    # titles-only search's word_similarity().
+    subprocess.run(
+        [
+            'psql', '-U', DB_USER, '-d', TEST_DB_NAME,
+            '-c', 'CREATE EXTENSION IF NOT EXISTS pg_trgm;'
+        ],
+        capture_output=True, text=True, check=True
+    )
+
     # Pipe pg_dump into psql for a clean restore
     dump = subprocess.Popen(
         ['pg_dump', '-U', DB_USER, '-n', 'suomisf',

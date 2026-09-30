@@ -161,9 +161,12 @@ def generate_snapshots(endpoints: Optional[List[tuple]] = None) -> Dict[str, Any
     _main_db = 'suomisf'
     _test_db = 'suomisf_test'
     prod_url = app.config.get('SQLALCHEMY_DATABASE_URI', '')
-    if f'/{_main_db}' in prod_url:
-        test_url = prod_url.replace(
-            f'/{_main_db}', f'/{_test_db}', 1
+    # Compare the database name exactly: a substring replace would turn an
+    # already-correct '/suomisf_test' URL into '/suomisf_test_test'.
+    parsed_url = sa.engine.make_url(prod_url)
+    if parsed_url.database == _main_db:
+        test_url = parsed_url.set(database=_test_db).render_as_string(
+            hide_password=False
         )
     else:
         # Already pointing at test DB or unknown URL
