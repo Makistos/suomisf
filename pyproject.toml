@@ -48,6 +48,7 @@ dev = [
     "requests>=2.32.5",
     "factory-boy>=3.3.3",
     "freezegun>=1.5.5",
+    "ruff>=0.16.9",
 ]
 
 [tool.pyright]
@@ -64,3 +65,18 @@ reportAttributeAccessIssue = "none"
 [tool.pdm]
 distribution = false
 
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+extend-exclude = ["old_stuff", "alembic"]
+
+[tool.ruff.lint]
+# pycodestyle, pyflakes, bugbear, comprehensions
+select = ["E", "W", "F", "B", "C4"]
+
+[tool.ruff.lint.per-file-ignores]
+# One-off scripts and inline HTML fixtures
+"scripts/*" = ["E501"]
+"run_migration.py" = ["E501"]
+"tests/api/test_award_import_wikipedia.py" = ["E501"]

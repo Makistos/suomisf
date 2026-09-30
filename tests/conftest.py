@@ -793,7 +793,8 @@ class SnapshotManager:
             for key in count_keys:
                 if key in expected and key in actual_data:
                     assert actual_data[key] == expected[key], \
-                        f"Count mismatch for '{key}': expected {expected[key]}, got {actual_data[key]}"
+                        (f"Count mismatch for '{key}': "
+                         f"expected {expected[key]}, got {actual_data[key]}")
 
 
 @pytest.fixture(scope='session')

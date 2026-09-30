@@ -954,8 +954,8 @@ def _match_title(session: Any, model: Any, *titles: Optional[str],
     if also_local_title:
         fields.append(model.title)
     conditions = []
-    for field in fields:
-        full, before_colon = _title_field_exprs(field)
+    for col in fields:
+        full, before_colon = _title_field_exprs(col)
         conditions.extend([full.in_(variants), before_colon.in_(variants)])
     return session.query(model).filter(or_(*conditions)).all()
 
@@ -1118,7 +1118,7 @@ def _resolve_matches(candidate_sets: List[Tuple[str, int, set, List[Any]]]
             if matched.id in awarded_ids:
                 return (STATUS_AWARDED, match_type, cat_type, matched, [])
 
-    for match_type, cat_type, awarded_ids, matches in candidate_sets:
+    for match_type, cat_type, _awarded_ids, matches in candidate_sets:
         if len(matches) > 1:
             return (STATUS_AMBIGUOUS, match_type, cat_type, None,
                     [m.id for m in matches])

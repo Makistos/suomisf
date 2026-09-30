@@ -3,7 +3,7 @@
   log data.
 """
 from datetime import datetime, timezone
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 from flask_jwt_extended import get_jwt_identity
 from sqlalchemy import or_, and_
 from sqlalchemy.exc import SQLAlchemyError
@@ -111,7 +111,7 @@ table_locals = {'article': 'Artikkeli',
 # pylint: disable-next=dangerous-default-value
 def log_changes(session: Any, obj: Any, name_field: str = "name",
                 action: str = 'Päivitys',
-                old_values: Dict[str, Any] = {}) -> int:
+                old_values: Optional[Dict[str, Any]] = None) -> int:
     ''' Log a change made to data.
 
     Logging is done in the same session as the object itself, so it will
@@ -147,7 +147,7 @@ def log_changes(session: Any, obj: Any, name_field: str = "name",
 
     user_id = int(jwt_id)
     if action in ['Päivitys', 'Poisto']:
-        for field, value in old_values.items():
+        for field, value in (old_values or {}).items():
             # old_value is a String(500) column, but callers pass mixed
             # Python types (ints, etc.) - normalize to str/None here so
             # every row in a batched multi-field insert binds the same

@@ -10,7 +10,7 @@ import dotenv
 directory_path = os.path.abspath(
     os.path.join(os.path.dirname(__file__), ".."))
 sys.path.append(directory_path)
-import app.orm_decl as db
+import app.orm_decl as db  # noqa: E402
 
 dotenv.load_dotenv(os.path.join(directory_path, '../.env'))
 

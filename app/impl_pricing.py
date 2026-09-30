@@ -124,7 +124,8 @@ def _edition_match_level(
             return 'not_close'
 
     # Binding: must match when both sides have a known binding (>1 means not 'Ei tietoa')
-    if product_binding is not None and product_binding > 1 and edition.binding_id and edition.binding_id > 1:
+    if (product_binding is not None and product_binding > 1
+            and edition.binding_id and edition.binding_id > 1):
         if product_binding != edition.binding_id:
             return 'not_close'
 
@@ -810,7 +811,8 @@ def antikvaari_fetch_products(
                         pass
 
                 try:
-                    product_year = int(str(painovuosi_raw).split('-')[0]) if painovuosi_raw else None
+                    product_year = (int(str(painovuosi_raw).split('-')[0])
+                                    if painovuosi_raw else None)
                 except (ValueError, TypeError):
                     product_year = None
                 product_version = _parse_version(painos_raw)
@@ -833,7 +835,8 @@ def antikvaari_fetch_products(
                     'antikvaari_product_year': product_year,
                     'antikvaari_product_binding': binding_id,
                     'antikvaari_product_version': product_version,
-                    'antikvaari_product_laitos': None,  # not provided by Antikvaari; user may set it
+                    # not provided by Antikvaari; user may set it
+                    'antikvaari_product_laitos': None,
                     'book_title': psp.get('nimi', '') or fallback_title or None,
                     'book_author': psp.get('tekija', '') or fallback_author or None,
                     'book_language': language_code,
@@ -1268,7 +1271,8 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]],
             detail_rows.append({**row, 'status': 'saved', 'reason': None})
 
         session.commit()
-        return ResponseType({'saved': saved, 'skipped': skipped, 'rows': detail_rows}, HttpResponseCode.OK)
+        return ResponseType({'saved': saved, 'skipped': skipped, 'rows': detail_rows},
+                            HttpResponseCode.OK)
     except Exception as exc:  # pylint: disable=broad-except
         session.rollback()
         return ResponseType(f'Save failed: {exc}', HttpResponseCode.INTERNAL_SERVER_ERROR)
@@ -1307,7 +1311,8 @@ def edition_prices_get(
             session.query(AntikvaariPrice, AntikvaariWorkProduct)
             .outerjoin(
                 AntikvaariWorkProduct,
-                (AntikvaariPrice.antikvaari_product_id == AntikvaariWorkProduct.antikvaari_product_id)
+                (AntikvaariPrice.antikvaari_product_id
+                 == AntikvaariWorkProduct.antikvaari_product_id)
                 & (AntikvaariWorkProduct.work_id == edition.work_id)
                 & (AntikvaariPrice.source_id == AntikvaariWorkProduct.source_id),
             )
@@ -1668,7 +1673,8 @@ def _scrape_woocommerce(url: str) -> Dict[str, Any]:
     price: Optional[float] = None
     price_el = soup.select_one('p.price .woocommerce-Price-amount')
     if price_el:
-        raw = price_el.get_text(strip=True).replace('\xa0', '').replace('€', '').replace(',', '.').strip()
+        raw = (price_el.get_text(strip=True)
+               .replace('\xa0', '').replace('€', '').replace(',', '.').strip())
         try:
             price = float(raw)
         except ValueError:
@@ -1779,7 +1785,9 @@ def price_sources_get() -> ResponseType:
         session.close()
 
 
-def _validate_price_form(session: Any, data: Dict[str, Any]) -> Tuple[Optional[Dict[str, Any]], Optional[ResponseType]]:
+def _validate_price_form(
+        session: Any, data: Dict[str, Any]
+) -> Tuple[Optional[Dict[str, Any]], Optional[ResponseType]]:
     """Validate and normalise the manual price add/edit form fields.
 
     Returns (fields, None) on success, or (None, error_response) on failure.
@@ -1802,7 +1810,8 @@ def _validate_price_form(session: Any, data: Dict[str, Any]) -> Tuple[Optional[D
 
     last_updated_raw = data.get('last_updated')
     try:
-        last_updated = datetime.datetime.fromisoformat(last_updated_raw) if last_updated_raw else None
+        last_updated = (datetime.datetime.fromisoformat(last_updated_raw)
+                        if last_updated_raw else None)
         if last_updated and last_updated.tzinfo is not None:
             last_updated = last_updated.replace(tzinfo=None)
     except (ValueError, AttributeError):
@@ -2098,13 +2107,13 @@ def user_collection_stats(user_id: int) -> ResponseType:
         }
 
         work_ids = list({e.work_id for e in editions_map.values() if e.work_id})
-        linked_work_ids: set = set(
+        linked_work_ids: set = {
             row[0]
             for row in session.query(AntikvaariWorkProduct.work_id)
             .filter(AntikvaariWorkProduct.work_id.in_(work_ids))
             .distinct()
             .all()
-        )
+        }
 
         # Load ALL editions per work so close-edition price fallback can look at siblings.
         work_editions: Dict[int, List[Edition]] = {}
@@ -2187,7 +2196,9 @@ def user_collection_stats(user_id: int) -> ResponseType:
                 pval = float(p.price)
                 p_ts = p.last_updated.timestamp() if p.last_updated else 0.0
                 b_ts = best_updated.timestamp() if best_updated else 0.0
-                if rank < best_rank or (rank == best_rank and (p_ts > b_ts or (p_ts == b_ts and pval < best_val))):
+                newer = p_ts > b_ts
+                cheaper = p_ts == b_ts and pval < best_val
+                if rank < best_rank or (rank == best_rank and (newer or cheaper)):
                     best_rank, best_val, best_q, best_updated = rank, pval, q, p.last_updated
                     best_seller, best_seller_url = p.seller, p.seller_url
 

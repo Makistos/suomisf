@@ -1,5 +1,5 @@
 from app import app, db
-from app.orm_decl import Contributor, Work, Edition, Person, Publisher, Pubseries, Bookseries, Contributor
+from app.orm_decl import Work, Person, Contributor
 from typing import Dict, Any
 
 

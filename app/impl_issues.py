@@ -1,7 +1,7 @@
 """ Issue related functions. """
 from cgi import FieldStorage
 import os
-from typing import Any, Dict, Union
+from typing import Any, Dict
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from werkzeug.utils import secure_filename

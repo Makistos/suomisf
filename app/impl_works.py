@@ -654,12 +654,11 @@ def search_books(params: Dict[str, str]) -> ResponseType:
         if params.get('facets'):
             matching = query.with_entities(Work.id).distinct()
             # tag id -> number of matching works carrying that tag
-            tag_counts = {
-                tid: cnt for tid, cnt in session.query(
+            tag_counts = dict(session.query(
                     WorkTag.tag_id,
                     func.count(func.distinct(WorkTag.work_id)))
                 .filter(WorkTag.work_id.in_(matching))
-                .group_by(WorkTag.tag_id).all()}
+                .group_by(WorkTag.tag_id).all())
             genre_ids = [r[0] for r in session.query(WorkGenre.genre_id)
                          .filter(WorkGenre.work_id.in_(matching))
                          .distinct().all()]
@@ -1648,7 +1647,7 @@ def get_random_incomplete_works(params: Dict[str, Any]) -> ResponseType:
         invalid_fields = set(missing_fields) - valid_fields
         if invalid_fields:
             return ResponseType(f"Invalid fields: {list(invalid_fields)}. "
-                                f"Valid fields: {sorted(list(valid_fields))}",
+                                f"Valid fields: {sorted(valid_fields)}",
                                 HttpResponseCode.BAD_REQUEST.value)
 
         # Build the WHERE conditions

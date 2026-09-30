@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from enum import IntEnum
 import json
 import random
-from typing import Dict, NamedTuple, Tuple, List, Union, Any, TypedDict, Set
+from typing import Dict, NamedTuple, Optional, Tuple, List, Union, Any, TypedDict, Set
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 
@@ -81,7 +81,7 @@ class SearchScores(IntEnum):
 def check_int(value: Any = None,
               zeros_allowed: bool = True,
               negative_values: bool = False,
-              allowed: List[int] = []) -> Union[int, None]:
+              allowed: Optional[List[int]] = None) -> Union[int, None]:
     """
     Search for a given `item` and `word` in the specified `table` and return
     the corresponding search score.
@@ -116,7 +116,7 @@ def check_int(value: Any = None,
         return None
     if not negative_values and retval < 0:
         return None
-    if len(allowed) > 0:
+    if allowed:
         if retval not in allowed:
             return None
     return retval

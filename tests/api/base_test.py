@@ -56,7 +56,7 @@ class BaseAPITest:
         return response
 
     def assert_dict_response(self, data: Dict,
-                             required_keys: List[str] = []) -> Dict:
+                             required_keys: Optional[List[str]] = None) -> Dict:
         """
         Assert response contains a dict and optionally check required keys.
         """
@@ -65,7 +65,7 @@ class BaseAPITest:
         assert isinstance(response, dict), \
             f"Expected dict response, got {type(response)}"
 
-        if len(required_keys) > 0:
+        if required_keys:
             for key in required_keys:
                 assert key in response, \
                     f"Response missing required key '{key}'. \

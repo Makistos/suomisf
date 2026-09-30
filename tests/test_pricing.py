@@ -365,7 +365,8 @@ class TestBestMatchingEdition:
     """When editions have no stored editionnum, infer rank by chronological pubyear."""
 
     def _ed(self, edition_id, pubyear, editionnum=None, binding_id=2):
-        return _mock_edition(edition_id, pubyear=pubyear, editionnum=editionnum, binding_id=binding_id)
+        return _mock_edition(edition_id, pubyear=pubyear, editionnum=editionnum,
+                             binding_id=binding_id)
 
     def test_first_edition_product_matches_earliest_edition_when_editionnums_null(self):
         # Two editions with no stored editionnum; product says "1. painos" → should pick 2016
@@ -395,7 +396,8 @@ class TestBestMatchingEdition:
         ed_2016 = self._ed(1, 2016)
         ed_2018 = self._ed(2, 2018)
         result, _ = _best_matching_edition([ed_2016, ed_2018],
-                                           product_year=2018, product_version=None, product_binding=2)
+                                           product_year=2018, product_version=None,
+                                           product_binding=2)
         # No version from Antikvaari → no inferred ranking; year=2018 exact match wins
         assert result.id == 2
 

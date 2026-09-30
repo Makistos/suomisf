@@ -126,7 +126,7 @@ def contributors_have_changed(
     new_values = _remove_duplicates_and_empty(new_values)
     if len(old_values) != len(new_values):
         return True
-    l: Any = []
+    checked: Any = []
     for value in new_values:
         if 'id' not in value['person']:
             # User added a new contributor that does not exist in the database
@@ -134,15 +134,15 @@ def contributors_have_changed(
         if value['person']['id'] == 0 or value['role']['id'] == 0:
             # Remove empty rows (person and role are required fields)
             continue
-        l.append(value)
-    if len(old_values) != len(l):
+        checked.append(value)
+    if len(old_values) != len(checked):
         return True
     for idx, old_value in enumerate(old_values):
-        new_rp = l[idx].get('real_person')
+        new_rp = checked[idx].get('real_person')
         new_real_person_id = new_rp.get('id') or None if new_rp else None
-        if old_value.person_id != l[idx]['person']['id'] or \
-                old_value.role_id != l[idx]['role']['id'] or \
-                old_value.description != l[idx]['description'] or \
+        if old_value.person_id != checked[idx]['person']['id'] or \
+                old_value.role_id != checked[idx]['role']['id'] or \
+                old_value.description != checked[idx]['description'] or \
                 old_value.real_person_id != new_real_person_id:
             return True
     return False

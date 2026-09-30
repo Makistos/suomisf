@@ -24,7 +24,7 @@ def checkGenreField(session: Any, genre: Any) -> bool:
     :param genre: genre field
     :return: True if valid, False otherwise
     """
-    if not 'id' in genre:
+    if 'id' not in genre:
         return False
     genre = session.query(Genre).filter(Genre.id == genre['id']).first()
     if not genre:

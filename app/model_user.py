@@ -1,4 +1,3 @@
-from marshmallow import fields, Schema
 
 from app import ma
 class UserbooksSchema(ma.SQLAlchemySchema):

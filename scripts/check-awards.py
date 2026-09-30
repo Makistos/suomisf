@@ -140,7 +140,7 @@ for ac, cat in categoryMap.items():
                 category_id_map[ac] = (db_cat[0], item[1])
             elif db_cat[2] == 2:
                 category_id_map[ac] = (item[0], db_cat[0])
-    if found == False:
+    if not found:
         print(f"Category {ac}:{cat} not found in database")
 
 print("Category ID map:")
@@ -218,12 +218,12 @@ with open('award_check_results.txt', 'w', encoding='utf-8') as outfile:
                     found = True
                 else:
                     found = False
-            if found == False:
+            if not found:
                 # Not found in database
                 createTsvRow(outfile, award['item_type'], award['year'], award['title'], award['author'], "???", "Not found in database", award['award_type'], award['award_category'], our_category)
 
 
-print(f"Results have been written to award_check_results.txt")
+print("Results have been written to award_check_results.txt")
 
 # Close the database connection
 cursor.close()

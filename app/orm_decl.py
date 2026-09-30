@@ -1157,7 +1157,7 @@ class Person(Base):
         Returns:
             int: The number of works associated with this object.
         """
-        return len([x for x in self.works])
+        return len(list(self.works))
 
     @hybrid_property
     def storycount(self) -> int:

@@ -13,3 +13,7 @@ apidoc/*
 .env.back
 .env.e2e
 **/.env
+
+# Coverage output
+.coverage
+htmlcov/

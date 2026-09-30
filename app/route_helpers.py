@@ -3,13 +3,13 @@
     route definitions.
 """
 
-from typing import List, Dict, Any, Tuple, Set, Union
+from typing import List, Dict, Any, Optional, Tuple, Set, Union
 from functools import wraps
 import json
 import itertools
 from datetime import datetime, timezone
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, joinedload
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import NullPool
 from flask_login import current_user  # type: ignore
 from flask import abort, Response
@@ -67,7 +67,7 @@ table_locals = {'article': 'Artikkeli',
 
 
 def log_change(session: Any, obj: Any, action: str = 'Päivitys',
-               fields: List[str] = []) -> None:
+               fields: Optional[List[str]] = None) -> None:
     ''' Log a change made to data.
 
     Args:
@@ -82,7 +82,7 @@ def log_change(session: Any, obj: Any, action: str = 'Päivitys',
     name: str = obj.name
     tbl_name = table_locals[obj.__table__.name]
     if action == 'Päivitys':
-        for field in fields:
+        for field in fields or []:
             log = Log(table_name=tbl_name, table_id=obj.id, action=action,
                       field_name=field,
                       object_name=name,
@@ -130,7 +130,9 @@ def pubseries_list(session: Any, pubid: Any) -> List[Tuple[str, str]]:
 
     if pubid != 0:
         return retval + [(str(x.id), str(x.name)) for x in
-                         session.query(Pubseries).filter(Pubseries.publisher_id == pubid).order_by(Pubseries.name).all()]
+                         session.query(Pubseries)
+                         .filter(Pubseries.publisher_id == pubid)
+                         .order_by(Pubseries.name).all()]
     else:
         return retval + [(str(x.id), str(x.name)) for x in
                          session.query(Pubseries).order_by(Pubseries.name).all()]
@@ -192,7 +194,8 @@ def get_select_ids(form: Any, item_field: str = 'itemId') -> Tuple[int, List[Dic
     return(parentid, items)
 
 
-def get_join_changes(existing: Union[List[int], Set[int]], new: List[int]) -> Tuple[List[int], List[int]]:
+def get_join_changes(existing: Union[List[int], Set[int]],
+                     new: List[int]) -> Tuple[List[int], List[int]]:
     to_add: List[int] = new
     to_delete: List[int] = []
 
@@ -248,18 +251,6 @@ def make_book_list(books: Any, author_name: str = '') -> Tuple[List[Tuple[str, A
 
     count = sum([len(x[1]) for x in works])
     return (works, count)
-
-
-def save_join(session: Any, cls: object, *paths: Any) -> None:
-
-    options = [joinedload(path) for path in paths]
-    existing = session.query(cls).options(*options).all()
-    # existing = session.query(cls)\
-    #                  .filter(join1 == itemid)\
-    #                  .all()
-    # (to_add, to_remove) = get_join_changes(x.)
-
-    session.commit()
 
 
 def save_story_to_issue(session, issueid, name):
@@ -337,8 +328,6 @@ def save_tags(session, tag_list: str, tag_type: str, id: int) -> None:
 
     old_tags: Dict[str, int] = {}
     if tag_type == 'Person':
-        link_table = PersonTag
-
         # Get all existing tags for person from db
         tags = session.query(Tag.name, Tag.id)\
             .join(PersonTag)\
@@ -465,7 +454,8 @@ def create_new_languages(session: Any, languages: List[Dict[str, Any]]) -> List[
     return retval
 
 
-def create_new_shortstory_to_work(session: Any, stories: List[Dict[str, Any]], workid: int) -> List[Dict[str, Any]]:
+def create_new_shortstory_to_work(session: Any, stories: List[Dict[str, Any]],
+                                  workid: int) -> List[Dict[str, Any]]:
     retval: List[Dict[str, Any]] = []
 
     for story in stories:

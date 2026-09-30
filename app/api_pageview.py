@@ -3,6 +3,7 @@ import re
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 
+import requests as _requests
 from flask import abort, request
 from flask.wrappers import Response
 from flask_jwt_extended import get_jwt, jwt_required
@@ -50,8 +51,6 @@ try:
 except ImportError:
     pass
 
-import requests as _requests
-
 
 def _parse_ua(ua_string: str):
     if not _ua_parse or not ua_string:
@@ -64,7 +63,10 @@ def _parse_ua(ua_string: str):
 
 
 def _lookup_ipapi(ip: str) -> tuple[Optional[str], Optional[str], Optional[str]]:
-    """Call ip-api.com for a single IP. Returns (city, country_iso, operator) or (None, None, None)."""
+    """Call ip-api.com for a single IP.
+
+    Returns (city, country_iso, operator) or (None, None, None).
+    """
     try:
         resp = _requests.post(
             'http://ip-api.com/batch',

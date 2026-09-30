@@ -148,7 +148,7 @@ def clone_data():
         print(f"   Dump file created: {dump_size / 1024 / 1024:.1f} MB")
 
         if dump_size < 1000:
-            print(f"   ERROR: Dump file too small, something went wrong")
+            print("   ERROR: Dump file too small, something went wrong")
             return False
 
         # Restore from file
@@ -165,7 +165,7 @@ def clone_data():
             errors = [line for line in restore_result.stderr.split('\n')
                       if line and 'NOTICE:' not in line and 'already exists' not in line]
             if errors:
-                print(f"   Restore warnings/errors:")
+                print("   Restore warnings/errors:")
                 for err in errors[:10]:  # Show first 10 errors
                     print(f"      {err}")
 
@@ -186,7 +186,7 @@ def clone_data():
         # Verify data was actually copied (tables are in 'suomisf' schema)
         success, output = run_psql("SELECT COUNT(*) FROM suomisf.work;", TEST_DB_NAME)
         if success and output:
-            print(f"   Data cloned successfully")
+            print("   Data cloned successfully")
             return True
         else:
             print("   WARNING: Clone may have failed - tables not found")
@@ -320,12 +320,12 @@ def main():
     print("Setup complete!")
     print("=" * 60)
     print(f"\nTest database: {TEST_DB_NAME}")
-    print(f"Test credentials:")
+    print("Test credentials:")
     print(f"  User:  {TEST_USER_EMAIL} / {TEST_USER_PASSWORD}")
     print(f"  Admin: {TEST_ADMIN_EMAIL} / {TEST_ADMIN_PASSWORD}")
-    print(f"\nTo run tests against this database:")
+    print("\nTo run tests against this database:")
     print(f"  export DATABASE_URL='postgresql+psycopg2://{DB_USER}@127.0.0.1/{TEST_DB_NAME}'")
-    print(f"  pdm run pytest tests/api/")
+    print("  pdm run pytest tests/api/")
 
 
 if __name__ == '__main__':

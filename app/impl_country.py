@@ -1,7 +1,6 @@
 from sqlalchemy.exc import SQLAlchemyError
-from app.route_helpers import new_session
 from app.orm_decl import Country
-from typing import Any, Union
+from typing import Union
 from app import app
 
 def AddCountry(session, name: str) -> Union[int, None]:

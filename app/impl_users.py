@@ -1,7 +1,7 @@
 """ Functions related to users. """
 import json
 import hashlib
-from typing import Dict, Optional
+from typing import Dict
 from flask.wrappers import Response
 from flask import make_response, jsonify
 from flask_jwt_extended import (create_access_token, create_refresh_token,
@@ -537,8 +537,8 @@ def user_read_stats(user_id: int) -> ResponseType:
 
         language_ids = {w.language for w in works if w.language}
         languages_map: Dict[int, str] = {
-            l.id: l.name
-            for l in session.query(Language)
+            lang.id: lang.name
+            for lang in session.query(Language)
             .filter(Language.id.in_(language_ids)).all()
         }
         worktype_ids = {w.type for w in works if w.type}

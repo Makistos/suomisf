@@ -1,5 +1,4 @@
 """ Editions implementation """
-import datetime
 import json
 from typing import Any, Dict, Union
 import os
@@ -1145,13 +1144,13 @@ def _attach_best_prices(session: Any, books: list, wishlist: bool) -> None:
 
     # Collect work_ids for all editions, then find which works have linked products
     work_ids = list({e.work_id for e in editions_map.values() if e.work_id})
-    linked_work_ids = set(
+    linked_work_ids = {
         row[0]
         for row in session.query(AntikvaariWorkProduct.work_id)
         .filter(AntikvaariWorkProduct.work_id.in_(work_ids))
         .distinct()
         .all()
-    )
+    }
 
     # All sibling editions per work (needed for close-edition fallback)
     work_editions: dict = {}
@@ -1207,7 +1206,9 @@ def _attach_best_prices(session: Any, books: list, wishlist: bool) -> None:
             pval = float(p.price)
             p_ts = p.last_updated.timestamp() if p.last_updated else 0.0
             b_ts = best_updated.timestamp() if best_updated else 0.0
-            if rank < best_rank or (rank == best_rank and (p_ts > b_ts or (p_ts == b_ts and (best_price is None or pval < best_price)))):
+            newer = p_ts > b_ts
+            cheaper = p_ts == b_ts and (best_price is None or pval < best_price)
+            if rank < best_rank or (rank == best_rank and (newer or cheaper)):
                 best_rank, best_price, best_quality, best_updated = rank, pval, q, p.last_updated
         book['best_price'] = best_price
         book['match_quality'] = best_quality
@@ -1584,7 +1585,8 @@ def editionwishlist_user(editionid: int, userid: int) -> ResponseType:
 
 
 def work_edition_prices(user_id: int, work_id: int) -> ResponseType:
-    """Return best price and match quality for editions in a work that the user owns or has wishlisted."""
+    """Return best price and match quality for editions in a work that the
+    user owns or has wishlisted."""
     session = new_session()
     try:
         work_edition_ids = {

@@ -216,16 +216,6 @@ async def throttled_map(items, fn, concurrency=5):
     return results
 
 
-import aiohttp
-
-WIKIDATA_API = "https://www.wikidata.org/w/api.php"
-
-
-import aiohttp
-
-WIKIDATA_API = "https://www.wikidata.org/w/api.php"
-
-
 async def find_qid(
     session: aiohttp.ClientSession,
     name: str,

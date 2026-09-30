@@ -7,11 +7,11 @@ from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 
 from app.route_helpers import new_session
-from app.impl import ResponseType, check_int, get_join_changes
+from app.impl import ResponseType, check_int
 from app.impl_links import links_have_changed
 from app.impl_logs import log_changes
 from app.model import (AwardBriefSchema, AwardCategorySchema,
-                       AwardLinkSchema, AwardSchema, AwardedSchema)
+                       AwardSchema, AwardedSchema)
 from app.orm_decl import (Award, AwardCategories, AwardCategory, AwardLink,
                           Awarded, ShortStory, StoryContributor,
                           WorkContributor, Work)

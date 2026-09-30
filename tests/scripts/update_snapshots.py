@@ -263,7 +263,7 @@ def main():
 
     if args.list:
         print("Endpoints to snapshot:")
-        for method, path, data, name in ENDPOINTS_TO_SNAPSHOT:
+        for method, path, _data, name in ENDPOINTS_TO_SNAPSHOT:
             print(f"  {method:6} {path:40} -> {name}.json")
         return
 
