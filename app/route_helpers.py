@@ -12,16 +12,20 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import NullPool
 from flask_login import current_user  # type: ignore
-from flask import abort, Response
+from flask import abort, g, has_app_context, Response
 from app.orm_decl import (Language, Person, Publisher,
                           Pubseries, Bookseries,
                           PublicationSize, Tag, PersonTag, BindingType, Format,
                           Genre, ShortStory, ArticleTag, WorkGenre, Log)
-from app import db_url
+from app import app, db_url
 
 
 def new_session() -> Any:
     ''' Create a new SQLAlchemy database session handle.
+
+    Sessions created while handling a request are closed automatically when
+    the request ends (see close_request_sessions), so callers don't need to
+    close them. Outside a request (scripts), the caller must close it.
 
     Returns:
         Any: Session handler.
@@ -31,7 +35,21 @@ def new_session() -> Any:
     # app.config['SQLALCHEMY_DATABASE_URI'], poolclass=NullPool)
     session_obj = sessionmaker(bind=engine)
     session = session_obj()
+    if has_app_context():
+        g.setdefault('db_sessions', []).append(session)
     return session
+
+
+@app.teardown_appcontext
+def close_request_sessions(_exc: Optional[BaseException]) -> None:
+    ''' Close every session new_session() handed out during the request.
+
+    Most callers never closed their session; with NullPool each one held a
+    PostgreSQL connection until garbage collection, which ran the server
+    out of connection slots under concurrent load.
+    '''
+    for session in g.pop('db_sessions', []):
+        session.close()
 
 
 def admin_required(f: Any) -> Any:
@@ -270,9 +288,8 @@ def save_genres(session, work, genrefield):
     genres = session.query(WorkGenre)\
                     .filter(WorkGenre.work_id == work.id)
     genres.delete()
-    for g in genrefield:
-        # genre = session.query(Genre).filter(Genre.id == g).first()
-        genreobj = WorkGenre(work_id=work.id, genre_id=g)
+    for genre_id in genrefield:
+        genreobj = WorkGenre(work_id=work.id, genre_id=genre_id)
         session.add(genreobj)
     session.commit()
 

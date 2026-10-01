@@ -7,7 +7,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin  # type: ignore
 from sqlalchemy import (Column, ForeignKey, Integer, MetaData, Numeric,
                         String, Boolean, Date, DateTime, Text, Table)
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.orm import declarative_base
@@ -1873,9 +1872,9 @@ def load_user(user_id: Any) -> Any:
     Returns:
         Any: The loaded user object.
     """
-    eng = create_engine(db_url, poolclass=NullPool)
-    sess = sessionmaker(bind=eng)
-    session = sess()
+    # Imported here: route_helpers imports this module.
+    from app.route_helpers import new_session
+    session = new_session()
     return session.get(User, int(user_id))
 
 
