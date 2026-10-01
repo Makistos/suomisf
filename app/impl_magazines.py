@@ -301,31 +301,38 @@ def update_magazine(params: Dict[str, Any]) -> ResponseType:
     if 'name' in magazine_data and magazine_data['name'] != magazine.name:
         old_values['name'] = magazine.name
         magazine.name = magazine_data['name']
-    if 'publisher' in magazine_data and \
-            magazine_data['publisher']['id'] != magazine.publisher_id:
-        try:
-            pub_id = int(magazine_data['publisher']['id'])
-        except ValueError:
-            app.logger.error('Publisher id must be integer: '
-                             f'{magazine_data["publisher_id"]}.')
-            return ResponseType('Kustantajan id on virheellinen: '
-                                f'{magazine_data["publisher_id"]}.',
-                                HttpResponseCode.BAD_REQUEST.value)
-        try:
-            publisher = session.query(Publisher)\
-                .filter(Publisher.id == pub_id)\
-                .first()
-        except SQLAlchemyError as exp:
-            app.logger.error(exp)
-            return ResponseType('Tietokantavirhe.',
-                                HttpResponseCode.INTERNAL_SERVER_ERROR.value)
-        if publisher:
-            magazine.publisher_id = magazine_data['publisher']['id']
-            old_values['publisher'] = publisher.name
-        else:
-            app.logger.error(f'Publisher {pub_id} not found.')
-            return ResponseType(f'Kustantajaa {pub_id} ei loydy.',
-                                HttpResponseCode.BAD_REQUEST.value)
+    if 'publisher' in magazine_data:
+        # The form sends publisher: null for a magazine without one.
+        pub = magazine_data['publisher']
+        pub_id_raw = pub.get('id') if isinstance(pub, dict) else None
+        if not pub_id_raw:
+            if magazine.publisher_id is not None:
+                old_values['publisher'] = magazine.publisher.name \
+                    if magazine.publisher else ''
+                magazine.publisher_id = None
+        elif pub_id_raw != magazine.publisher_id:
+            try:
+                pub_id = int(pub_id_raw)
+            except (ValueError, TypeError):
+                app.logger.error(f'Publisher id must be integer: {pub_id_raw}.')
+                return ResponseType('Kustantajan id on virheellinen: '
+                                    f'{pub_id_raw}.',
+                                    HttpResponseCode.BAD_REQUEST.value)
+            try:
+                publisher = session.query(Publisher)\
+                    .filter(Publisher.id == pub_id)\
+                    .first()
+            except SQLAlchemyError as exp:
+                app.logger.error(exp)
+                return ResponseType('Tietokantavirhe.',
+                                    HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+            if publisher:
+                magazine.publisher_id = pub_id
+                old_values['publisher'] = publisher.name
+            else:
+                app.logger.error(f'Publisher {pub_id} not found.')
+                return ResponseType(f'Kustantajaa {pub_id} ei loydy.',
+                                    HttpResponseCode.BAD_REQUEST.value)
     if 'description' in magazine_data:
         result = _set_description(magazine, magazine_data,  old_values)
         if result:
@@ -336,11 +343,11 @@ def update_magazine(params: Dict[str, Any]) -> ResponseType:
     if 'issn' in magazine_data and str_differ(magazine_data['issn'],
                                               magazine.issn):
         magazine.issn = magazine_data['issn']
-    if 'type' in magazine_data and \
-            magazine_data['type']['id'] != magazine.type_id:
+    if 'type' in magazine_data and isinstance(magazine_data['type'], dict) \
+            and magazine_data['type'].get('id') != magazine.type_id:
         try:
             type_int = int(magazine_data['type']['id'])
-        except ValueError:
+        except (ValueError, TypeError):
             app.logger.error('Type must be integer: '
                              f'{magazine_data["type"]}.')
             return ResponseType('Tyyppi on virheellinen: '

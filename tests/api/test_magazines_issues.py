@@ -141,6 +141,59 @@ class TestMagazineUpdate(BaseAPITest):
         assert response.status_code == 400
 
 
+class TestMagazineUpdatePublisher(BaseAPITest):
+    """PUT /api/magazines with a null or changed publisher.
+
+    The edit form sends publisher: null for a magazine without one; this
+    used to raise a TypeError (500). Each test uses its own magazine,
+    deleted afterwards so counts in later snapshot tests are unaffected.
+    """
+
+    @pytest.fixture
+    def magazine_id(self, admin_client):
+        response = admin_client.post('/api/magazines', data={
+            'data': {'name': 'PYTEST publisher update', 'publisher': None,
+                     'type': {'id': 1, 'name': 'Fanzine'}}
+        })
+        assert response.status_code == 201, response.data
+        magazine_id = int(response.data)
+        yield magazine_id
+        admin_client.delete(f'/api/magazines/{magazine_id}')
+
+    def _publisher_id(self, admin_client, magazine_id):
+        response = admin_client.get(f'/api/magazines/{magazine_id}')
+        assert response.status_code == 200
+        publisher = response.data.get('publisher')
+        return publisher['id'] if publisher else None
+
+    def test_update_with_null_publisher(self, admin_client, magazine_id):
+        response = admin_client.put('/api/magazines', data={
+            'data': {'id': magazine_id, 'name': 'PYTEST publisher update 2',
+                     'publisher': None, 'type': {'id': 1, 'name': 'Fanzine'}}
+        })
+        assert response.status_code == 200, response.data
+        assert self._publisher_id(admin_client, magazine_id) is None
+
+    def test_set_and_clear_publisher(self, admin_client, magazine_id):
+        response = admin_client.put('/api/magazines', data={
+            'data': {'id': magazine_id, 'publisher': {'id': 1}}
+        })
+        assert response.status_code == 200, response.data
+        assert self._publisher_id(admin_client, magazine_id) == 1
+
+        response = admin_client.put('/api/magazines', data={
+            'data': {'id': magazine_id, 'publisher': None}
+        })
+        assert response.status_code == 200, response.data
+        assert self._publisher_id(admin_client, magazine_id) is None
+
+    def test_update_with_null_type(self, admin_client, magazine_id):
+        response = admin_client.put('/api/magazines', data={
+            'data': {'id': magazine_id, 'type': None}
+        })
+        assert response.status_code == 200, response.data
+
+
 class TestMagazinePublisher(BaseAPITest):
     """Tests for GET /api/magazines/{id}/publisher endpoint.
 
