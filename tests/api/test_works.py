@@ -500,7 +500,7 @@ class TestWorksRead(BaseAPITest):
     def test_get_nonexistent_work(self, api_client):
         """GET /api/works/{id} should return error for invalid ID."""
         response = api_client.get('/api/works/999999999')
-        assert response.status_code in [400, 404]
+        assert response.status_code == 404
 
     def test_get_work_has_expected_fields(self, api_client):
         """GET /api/works/{id} should return work with expected fields."""

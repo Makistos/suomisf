@@ -384,8 +384,8 @@ def get_person(person_id: int) -> ResponseType:
             Person.id == person_id).first()
         if not person:
             app.logger.error(f'get_person: Unknown person. Id={person_id}.')
-            return ResponseType(f"Unknown person. Id={person_id}.",
-                                HttpResponseCode.BAD_REQUEST.value)
+            return ResponseType(f"Henkilöä ei löydy. id={person_id}.",
+                                HttpResponseCode.NOT_FOUND.value)
 
         aliases = session.query(Alias)\
             .filter(Alias.realname == person.id).all()
@@ -842,7 +842,7 @@ def person_delete(person_id: int) -> ResponseType:
     if not person:
         return ResponseType(f'PersonDelete: Henkilöä ei löydy. \
                             person_id={person_id}.',
-                            HttpResponseCode.BAD_REQUEST.value)
+                            HttpResponseCode.NOT_FOUND.value)
 
     # Check that there are no items that reference this person
     has_contrib = (

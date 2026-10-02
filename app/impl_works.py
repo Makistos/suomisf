@@ -262,7 +262,7 @@ def get_work(work_id: int) -> ResponseType:
 
     if not work:
         app.logger.error(f'GetWork: Work not found {work_id}.')
-        return ResponseType('Teosta ei löytynyt. id={id}.',
+        return ResponseType(f'Teosta ei löytynyt. id={work_id}.',
                             HttpResponseCode.NOT_FOUND.value)
     try:
         work.contributions = sorted(

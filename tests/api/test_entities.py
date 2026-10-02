@@ -112,7 +112,7 @@ class TestEditions(BaseAPITest):
     def test_get_edition_not_found(self, api_client):
         """GET /api/editions/{id} should return error for invalid ID."""
         response = api_client.get('/api/editions/999999999')
-        assert response.status_code in [400, 404]
+        assert response.status_code == 404
 
 
 # ---------------------------------------------------------------------------
@@ -146,7 +146,7 @@ class TestPeople(BaseAPITest):
     def test_get_person_not_found(self, api_client):
         """GET /api/people/{id} should return error for invalid ID."""
         response = api_client.get('/api/people/999999999')
-        assert response.status_code in [400, 404]
+        assert response.status_code == 404
 
 
 # ---------------------------------------------------------------------------

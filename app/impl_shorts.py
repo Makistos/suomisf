@@ -606,7 +606,7 @@ def story_delete(short_id: int) -> ResponseType:
     if not story:
         app.logger.error(f'StoryDelete: Story not found. Id = {short_id}.')
         return ResponseType(f'StoryDelete: Novellia ei löydy. id={short_id}.',
-                            HttpResponseCode.BAD_REQUEST.value)
+                            HttpResponseCode.NOT_FOUND.value)
 
     in_issues = session.query(IssueContent)\
         .filter(IssueContent.shortstory_id == short_id)\

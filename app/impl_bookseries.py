@@ -354,7 +354,7 @@ def bookseries_delete(series_id: str) -> ResponseType:
     if not bookseries:
         app.logger.error('BookseriesDelete: Unknown bookseries id.')
         return ResponseType('BookseriesDelete: Tuntematon id.',
-                            HttpResponseCode.BAD_REQUEST.value)
+                            HttpResponseCode.NOT_FOUND.value)
     old_values['Nimi'] = bookseries.name
 
     works = session.query(Work)\

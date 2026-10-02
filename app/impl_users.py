@@ -330,7 +330,7 @@ def get_user(user_id: int) -> ResponseType:
     if not user:
         app.logger.error(f'GetUser: Unknown user {user_id}.')
         return ResponseType(f'Käyttäjää ei löytynyt. id={user_id}.',
-                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+                            HttpResponseCode.NOT_FOUND.value)
 
     try:
         schema = UserSchema()

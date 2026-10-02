@@ -201,6 +201,9 @@ def tag_info(tag_id: int) -> ResponseType:
         return ResponseType('TagInfo: Tietokantavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
+    if not tag:
+        return ResponseType(f'Asiasanaa ei löydy. id={tag_id}.', HttpResponseCode.NOT_FOUND.value)
+
     try:
         schema = TagSchema()
         retval = schema.dump(tag)
@@ -234,6 +237,9 @@ def tag_forminfo(tag_id: int) -> ResponseType:
         app.logger.error(f'Exception in TagFormInfo (id: {tag_id}): ' + str(exp))
         return ResponseType('TagFormInfo: Tietokantavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    if not tag:
+        return ResponseType(f'Asiasanaa ei löydy. id={tag_id}.', HttpResponseCode.NOT_FOUND.value)
 
     try:
         schema = TagSchema(only=('id', 'name', 'description', 'type'))
@@ -422,17 +428,16 @@ def tag_delete(tag_id: int) -> ResponseType:
         tag = session.query(Tag)\
             .filter(Tag.id == tag_id)\
             .first()
+        if not tag:
+            app.logger.error(f'TagDelete: Tag not found. id = {tag_id}.')
+            return ResponseType('Asiasanan tunnistetta ei löydy',
+                                HttpResponseCode.NOT_FOUND.value)
         session.delete(tag)
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in TagDelete: ' + str(exp))
         return ResponseType(f'TagDelete: Tietokantavirhe. id={tag_id}',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
-
-    if not tag:
-        app.logger.error(f'TagDelete: Tag not found. id = {tag_id}.')
-        return ResponseType('Asiasanan tunnistetta ei löydy',
-                            HttpResponseCode.BAD_REQUEST.value)
 
     return retval
 

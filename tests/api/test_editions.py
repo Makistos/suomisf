@@ -429,7 +429,7 @@ class TestEditionsRead(BaseAPITest):
     def test_get_nonexistent_edition(self, api_client):
         """GET /api/editions/{id} should return error for invalid ID."""
         response = api_client.get('/api/editions/999999999')
-        assert response.status_code in [400, 404]
+        assert response.status_code == 404
 
     def test_get_edition_has_expected_fields(self, api_client):
         """GET /api/editions/{id} should have expected fields."""
@@ -454,7 +454,7 @@ class TestEditionsDelete(BaseAPITest):
     def test_delete_nonexistent_edition(self, admin_client):
         """DELETE /api/editions/{id} should handle nonexistent edition."""
         response = admin_client.delete('/api/editions/999999999')
-        assert response.status_code in [400, 404, 500]
+        assert response.status_code == 404
 
 
 class TestEditionsCopy(BaseAPITest):

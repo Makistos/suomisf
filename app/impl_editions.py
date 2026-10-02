@@ -222,9 +222,9 @@ def get_edition(edition_id: int) -> Any:
     session = new_session()
     edition = session.query(Edition).filter(Edition.id == edition_id).first()
     if not edition:
-        app.logger.error("Edition not found. id={edition_id}")
+        app.logger.error(f"Edition not found. id={edition_id}")
         return ResponseType("Painosta ei löydy.",
-                            HttpResponseCode.BAD_REQUEST.value)
+                            HttpResponseCode.NOT_FOUND.value)
     schema = EditionSchema()
     retval = schema.dump(edition)
     return ResponseType(retval, HttpResponseCode.OK.value)
@@ -779,10 +779,10 @@ def edition_delete(edition_id: str) -> ResponseType:
     edition = session.query(Edition).filter(Edition.id == int_id).first()
     if not edition:
         app.logger.error(
-            "edition_delete: Edition not found. id={editionId}"
+            f"edition_delete: Edition not found. id={int_id}"
         )
         return ResponseType("edition_delete: Painosta ei löydy.",
-                            HttpResponseCode.BAD_REQUEST.value)
+                            HttpResponseCode.NOT_FOUND.value)
 
     # Check if this is the last edition for the work
     work_id = edition.work_id if edition else None
@@ -985,7 +985,7 @@ def save_edition_shorts(edition_id: int, short_ids: list[int]) -> ResponseType:
         if not edition:
             return ResponseType(
                 f'Painosta ei löydy: {edition_id}',
-                HttpResponseCode.BAD_REQUEST.value,
+                HttpResponseCode.NOT_FOUND.value,
             )
     except SQLAlchemyError as exp:
         app.logger.error(f'save_edition_shorts() lookup: {exp}')

@@ -661,7 +661,7 @@ def issue_image_add(issue_id: int, image: FieldStorage) -> ResponseType:
     if not issue:
         app.logger.error(f'Issue not found. Id = {issue_id}.')
         return ResponseType('Numeroa ei löydy',
-                            HttpResponseCode.BAD_REQUEST.value)
+                            HttpResponseCode.NOT_FOUND.value)
 
     image_name = image.filename
     if not image_name or image_name == "":

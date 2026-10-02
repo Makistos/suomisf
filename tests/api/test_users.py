@@ -92,9 +92,9 @@ class TestUserGet(BaseAPITest):
         assert 'name' in data, "User missing 'name'"
 
     def test_user_get_nonexistent(self, api_client):
-        """GET /api/users/{nonexistent} returns error."""
+        """GET /api/users/{nonexistent} returns 404."""
         response = api_client.get('/api/users/999999999')
-        assert response.status_code == 500
+        assert response.status_code == 404
 
     def test_user_get_invalid_id(self, api_client):
         """GET /api/users/{invalid} returns 400."""

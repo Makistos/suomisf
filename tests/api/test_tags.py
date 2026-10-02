@@ -102,8 +102,7 @@ class TestTagFormInfo(BaseAPITest):
     def test_tag_form_nonexistent(self, api_client):
         """GET /api/tags/form/{id} for nonexistent tag."""
         response = api_client.get('/api/tags/form/999999999')
-        # May return 200 with null or error
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 404
 
     def test_tag_form_invalid_id(self, api_client):
         """GET /api/tags/form/{invalid} returns 400."""

@@ -279,7 +279,7 @@ class TestPersonCRUD(BaseAPITest):
     def test_delete_nonexistent_person(self, admin_client):
         """DELETE /api/people/{id} for nonexistent person."""
         response = admin_client.delete('/api/people/999999999')
-        assert response.status_code in [200, 400, 404, 500]
+        assert response.status_code == 404
 
 
 class TestPersonCRUDLifecycle(BaseAPITest):

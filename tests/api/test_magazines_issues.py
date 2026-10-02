@@ -92,7 +92,7 @@ class TestMagazineGet(BaseAPITest):
     def test_magazine_get_nonexistent(self, api_client):
         """GET /api/magazines/{nonexistent} handles gracefully."""
         response = api_client.get('/api/magazines/999999999')
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 404
 
     def test_magazine_get_invalid_id(self, api_client):
         """GET /api/magazines/{invalid} returns 400."""
@@ -245,7 +245,7 @@ class TestIssueGet(BaseAPITest):
     def test_issue_get_nonexistent(self, api_client):
         """GET /api/issues/{nonexistent} handles gracefully."""
         response = api_client.get('/api/issues/999999999')
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 404
 
     def test_issue_get_invalid_id(self, api_client):
         """GET /api/issues/{invalid} returns 400."""
