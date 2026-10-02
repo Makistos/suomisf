@@ -5,6 +5,124 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-10-01 — Fixes: database sessions and magazine update
+**Commits:** `052b81f6`, `091560d7`
+Sessions opened per request are now closed at app-context teardown,
+fixing a connection leak that surfaced as intermittent 500s. Updating a
+magazine with no publisher or type no longer crashes.
+
+## 2026-09-30 — Test and lint tooling
+**Commits:** `fb8c4845`…`68e94da8`
+The test database clone now includes the pg_trgm extension, so
+titles-only search tests run; API response snapshots refreshed. Ruff
+linting added (pyproject `[tool.ruff]`) and its findings fixed.
+`API_COVERAGE.md` is now generated from coverage data.
+
+## 2026-09-26 — Titles-only search matches alternative names
+**Commit:** `25bc4388`
+Titles-only site search also matches a person's alt_name and other
+names.
+
+## 2026-09-24 — More award winner importers
+**Commits:** `54fd15ff`…`18fb7907`
+Person awards (SFWA, Skylark and World Horror Grand Master) import from
+sfadb. A Wikipedia wikitable importer covers the Nobel Prize in
+Literature, Finlandia, Lasten- ja nuortenkirjallisuuden Finlandia,
+Topelius, Arvid Lydecken, Kuvastaja, Tähtifantasia, Tähtivaeltaja and
+the Booker Prize. Atorox, Portin novellikilpailu and Kosmoskynä import
+from new sources after anarres.fi went offline. Award detail responses
+include the winner-import source.
+
+## 2026-09-15 — Front page random picks
+**Commit:** `01603678`
+GET /api/frontpage/random returns one random work with a description
+from each genre category (fantasy, sci-fi, horror, youth, children's,
+collections), never repeating a work.
+
+## 2026-09-11 — Smaller fixes and schema additions
+**Commits:** `729d27f7`…`6cbd916f`
+Change-log timestamps are written as timezone-aware UTC; book series
+brief responses include the parent series; award winners carry the
+work's language; latest editions/works eager-load their relationships.
+Assigning a new book series or publisher to an existing work or
+edition no longer crashes.
+
+## 2026-09-03 — More price sources and price editing
+**Commits:** `c2d79b8d`…`a8a7eccb`
+Lukuhetki and Kampin kirjakauppa added as pricing sources (with
+ä/ö/å-safe search), Antikvaari supports single-URL scraping, and stored
+price rows can be edited. Edition owners can price their own editions;
+editing and deleting a price is limited to admins and the row's adder.
+
+## 2026-08-23 — Framework upgrades and security fixes
+**Commits:** `db00ae69`…`0d44d654`
+Flask 3.1, Werkzeug 3.1, SQLAlchemy 2.0 and marshmallow 4 (including a
+marshmallow DoS CVE fix). Fixed an unauthenticated SQL injection in the
+wishlist and user genre-stats endpoints. Unused WTForms/Flask-WTF and
+the stale Dockerfile and requirements.txt removed; pinned versions and
+remaining security debt documented in `SECURITY_TODO.md`.
+
+## 2026-08-20 — Faster work listings and crash fixes
+**Commits:** `cf0577d5`…`7644716f`
+The large work-listing endpoint went from 11.0 s to 3.1 s for ~1200
+works by restricting nested person serialization. GET /api/awards/<id>
+no longer crashes on a missing award, and creating an issue with
+contributors no longer crashes. E2E support: `SUOMISF_DOTENV`, a test
+database setup script and a reset-token minting script.
+
+## 2026-08-19 — Chart drill-down filters and read-based stats
+**Commit:** `c45f4665`
+
+## 2026-08-11 — Deletion and ownership fixes
+**Commits:** `5c572f07`, `7ac02e5b`, `34bb0d38`
+Deleting an edition or work no longer fails on foreign keys from prices,
+ownership, read status, awards and links. The edition owners list
+includes book condition.
+
+## 2026-07-29 — Collection composition and per-year stats
+**Commits:** `7e39c0f0`…`95ef447a`
+The user collection endpoint returns composition and per-year
+publication data, and stats/filterworks accepts an owner filter.
+
+## 2026-07-28 — Search ranking and titles-only mode
+**Commits:** `33274d3f`, `f2976eb5`…`f9b1424f`
+Menu search shows author names and deduplicates editions. Results are
+ordered by score, with person matches boosted when the name matches and
+titles ranked by trigram similarity to the query. Edition and short
+story results carry an author line. New `?titles=1` mode limits
+matching to titles and names.
+
+## 2026-07-27 — Pluggable price sources and sellers
+**Commits:** `5af6ce8e`…`144afbe2`
+A source-provider registry (`app/price_providers.py`) adds antikka.net,
+antikvariaatti.net and oranssiplaneetta.fi to automatic price search.
+Prices record the seller, duplicates are removed across stores and fetch
+dates, and saves are serialized per edition to prevent duplicate rows.
+
+## 2026-07-17 — Read status for works
+**Commits:** `4e9e9eb5`, `7b0c7088`
+Per-user read status with an opinion (userwork table, /api/works/read
+endpoints). Book suggestions never include works the user disliked.
+
+## 2026-07-10 — Award creation and winner import
+**Commits:** `55a5517c`…`ea551747`
+Admin endpoint for creating awards. Award winners can be imported from
+ISFDB or sfadb.com (now the default), with a preview that matches each
+winner to a work, story or category; category maps cover many
+international awards, including Kurd Lasswitz, Imaginaire, Sidewise,
+Mythopoeic, Prix Apollo, Shirley Jackson, Prometheus, Ditmar and the
+Andre Norton Award.
+
+## 2026-07-08 — Link description autocomplete
+**Commit:** `f00c8266`
+Suggestions are scoped to the owner type of the link.
+
+## 2026-07-07 — User email and password reset
+**Commits:** `af0d7b33`, `ddefadee`, `ca62ac95`
+Users have an email address, and password-reset endpoints send a reset
+link by email (SMTP setup guide added). Antikvaari listings with a
+campaign tag are no longer skipped.
+
 ## 2026-07-06 — Book suggestion filters and facets in work search
 **Commits:** `724a491d`…`2619ee20`
 `search_books` (POST /api/searchworks) extended to power the book
