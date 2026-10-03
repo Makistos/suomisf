@@ -69,7 +69,7 @@ Written 2026-10-03. Tick items off here as they land; keep the numbers in
 
 ### Part A - clean up the existing tests
 
-- [ ] **A1. Tighten permissive assertions** (141): each test asserts the one
+- [x] **A1. Tighten permissive assertions** (141): each test asserts the one
   status it should get. Where the backend answers wrongly (400/500 for a
   missing record, 500 on bad input), fix the backend.
 - [ ] **A2. Merge same-request tests**: one test per endpoint and parameter
@@ -106,7 +106,7 @@ Each step on its own branch. Tests that create data remove it afterwards
 
 - [ ] **C1. Coverage floor**: `--cov-fail-under` in the local test command,
   raised after each step.
-- [ ] **C2. Assertion check**: fail the test run on `status_code in [...]`
+- [x] **C2. Assertion check**: fail the test run on `status_code in [...]`
   lists that contain 500.
 
 ## Expected result
@@ -123,3 +123,27 @@ Coverage gains are estimates from the never-run lines in each area.
 ## Progress log
 
 <!-- Add a line per merged step: date, step, tests, run time, coverage. -->
+
+- 2026-10-03, security fix found while starting A1 (merged and pushed
+  separately as `b65ca665`): five endpoints had their auth decorator above
+  `@app.route` and were open to anyone (award saves, wishlist add/remove),
+  `/api/works/shorts` had no auth, and user-data endpoints didn't check the
+  user id. Guards: `test_auth_user_data.py`, `test_route_auth.py`.
+- 2026-10-04, A1 + C2: every status assertion now names one status
+  (`test_test_hygiene.py` fails on lists accepting 5xx or both 2xx and 4xx).
+  Backend bugs the tightening exposed and fixed:
+  - `POST /api/works/random/incomplete` without filters always 500
+    (`SELECT DISTINCT ... ORDER BY RANDOM()`); filtered results could
+    repeat a work (unused edition join).
+  - `GET /api/awards/type/<type>` always 400 (parameter overwritten) and
+    used the wrong schema.
+  - Tag add for works, people, stories and issues: missing tag -> 500
+    (foreign key); now 404. Work tag add said "Novellia ei löydy".
+  - `POST /api/editions/<id>/copy`, tag merge, edition/issue image delete,
+    person chief-editor: missing record -> 500/400; now 404.
+  - Tests that checked nothing: `/api/collection` (route doesn't exist,
+    removed); first-letter tests used invalid targets (`work`, `person`).
+  - `GET /api/firstlettervector/<target>` sent JSON as `text/html`, and the
+    `stories` target was never implemented (empty 200); now JSON, and only
+    `works` is supported (others 400).
+  - Result: 959 passed, 0 loose status assertions.

@@ -146,7 +146,7 @@ class TestTagMerge(BaseAPITest):
         response = api_client.post(
             f'/api/tags/{BASIC_TAG_ID}/merge/{SECONDARY_TAG_ID}'
         )
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_merge_invalid_source_id(self, admin_client):
         """POST /api/tags/{invalid}/merge/{target} returns 400."""
@@ -166,7 +166,7 @@ class TestTagMerge(BaseAPITest):
         """POST /api/tags/{nonexistent}/merge/{nonexistent} handles gracefully."""
         response = admin_client.post('/api/tags/999999999/merge/999999998')
         # Should return error for nonexistent tags
-        assert response.status_code in [200, 400, 404, 500]
+        assert response.status_code == 404
 
 
 class TestTagCRUDLifecycle(BaseAPITest):

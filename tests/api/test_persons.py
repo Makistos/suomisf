@@ -108,7 +108,7 @@ class TestPersonChiefEditor(BaseAPITest):
     def test_chiefeditor_nonexistent_person(self, api_client):
         """GET /api/people/{id}/chiefeditor for nonexistent person."""
         response = api_client.get('/api/people/999999999/chiefeditor')
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 404
 
     def test_chiefeditor_person_without_issues(self, api_client):
         """GET /api/people/{id}/chiefeditor for person not chief editor."""
@@ -160,7 +160,7 @@ class TestPersonIssueContributions(BaseAPITest):
         response = api_client.get(
             '/api/people/999999999/issue-contributions'
         )
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 200
 
     def test_issue_contributions_person_without_contribs(self, api_client):
         """GET /api/people/{id}/issue-contributions for person without."""
@@ -199,7 +199,7 @@ class TestPersonArticles(BaseAPITest):
     def test_articles_nonexistent_person(self, api_client):
         """GET /api/people/{id}/articles for nonexistent person."""
         response = api_client.get('/api/people/999999999/articles')
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 200
 
 
 class TestPersonTags(BaseAPITest):
@@ -208,22 +208,22 @@ class TestPersonTags(BaseAPITest):
     def test_add_tag_requires_auth(self, api_client):
         """PUT /api/person/{id}/tags/{tagid} requires authentication."""
         response = api_client.put(f'/api/person/{BASIC_PERSON_ID}/tags/1')
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_remove_tag_requires_auth(self, api_client):
         """DELETE /api/person/{id}/tags/{tagid} requires authentication."""
         response = api_client.delete(f'/api/person/{BASIC_PERSON_ID}/tags/1')
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_add_tag_invalid_ids(self, admin_client):
         """PUT /api/person/{id}/tags/{tagid} with invalid IDs."""
         response = admin_client.put('/api/person/invalid/tags/1')
-        assert response.status_code in [400, 404, 500]
+        assert response.status_code == 400
 
     def test_remove_tag_invalid_ids(self, admin_client):
         """DELETE /api/person/{id}/tags/{tagid} with invalid IDs."""
         response = admin_client.delete('/api/person/invalid/tags/1')
-        assert response.status_code in [400, 404, 500]
+        assert response.status_code == 400
 
 
 class TestPersonCRUD(BaseAPITest):
@@ -261,7 +261,7 @@ class TestPersonCRUD(BaseAPITest):
         response = api_client.post('/api/people', data={
             'name': 'Test Person'
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_update_person_without_auth_fails(self, api_client):
         """PUT /api/people without auth fails."""
@@ -269,12 +269,12 @@ class TestPersonCRUD(BaseAPITest):
             'id': BASIC_PERSON_ID,
             'name': 'Updated Name'
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_delete_person_without_auth_fails(self, api_client):
         """DELETE /api/people/{id} without auth fails."""
         response = api_client.delete(f'/api/people/{BASIC_PERSON_ID}')
-        assert response.status_code in [401, 403, 404, 405]
+        assert response.status_code == 401
 
     def test_delete_nonexistent_person(self, admin_client):
         """DELETE /api/people/{id} for nonexistent person."""

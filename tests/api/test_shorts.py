@@ -602,7 +602,7 @@ class TestLatestShorts(BaseAPITest):
     def test_latest_shorts_invalid_count(self, api_client):
         """GET /api/latest/shorts/{count} with invalid count."""
         response = api_client.get('/api/latest/shorts/invalid')
-        assert response.status_code in [400, 500]
+        assert response.status_code == 400
 
 
 class TestSimilarShorts(BaseAPITest):
@@ -625,8 +625,7 @@ class TestSimilarShorts(BaseAPITest):
     def test_similar_shorts_nonexistent(self, api_client):
         """GET /api/shorts/{id}/similar for nonexistent short."""
         response = api_client.get('/api/shorts/999999999/similar')
-        # May return empty list or error
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 404
 
 
 class TestShortAwarded(BaseAPITest):
@@ -675,7 +674,7 @@ class TestShortAwarded(BaseAPITest):
     def test_short_awarded_nonexistent(self, api_client):
         """GET /api/shorts/{id}/awarded for nonexistent short."""
         response = api_client.get('/api/shorts/999999999/awarded')
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 200
 
     def test_short_without_awards(self, api_client):
         """GET /api/shorts/{id}/awarded for short without awards."""
@@ -696,24 +695,24 @@ class TestStoryTags(BaseAPITest):
         response = api_client.put(
             f'/api/story/{SHORT_WITH_TAGS_ID}/tags/{TAG_ID}'
         )
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_remove_tag_requires_auth(self, api_client):
         """DELETE /api/story/{id}/tags/{tagid} requires authentication."""
         response = api_client.delete(
             f'/api/story/{SHORT_WITH_TAGS_ID}/tags/{TAG_ID}'
         )
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_add_tag_invalid_ids(self, admin_client):
         """PUT /api/story/{id}/tags/{tagid} with invalid IDs."""
         response = admin_client.put('/api/story/invalid/tags/1')
-        assert response.status_code in [400, 404, 500]
+        assert response.status_code == 400
 
     def test_remove_tag_invalid_ids(self, admin_client):
         """DELETE /api/story/{id}/tags/{tagid} with invalid IDs."""
         response = admin_client.delete('/api/story/invalid/tags/1')
-        assert response.status_code in [400, 404, 500]
+        assert response.status_code == 400
 
 
 class TestShortCRUD(BaseAPITest):
@@ -724,7 +723,7 @@ class TestShortCRUD(BaseAPITest):
         response = api_client.post('/api/shorts', data={
             'title': 'Test Short'
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_update_short_requires_auth(self, api_client):
         """PUT /api/shorts requires authentication."""
@@ -732,17 +731,17 @@ class TestShortCRUD(BaseAPITest):
             'id': BASIC_SHORT_ID,
             'title': 'Updated Title'
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_delete_short_requires_auth(self, api_client):
         """DELETE /api/shorts/{id} requires authentication."""
         response = api_client.delete(f'/api/shorts/{BASIC_SHORT_ID}')
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_delete_nonexistent_short(self, admin_client):
         """DELETE /api/shorts/{id} for nonexistent short."""
         response = admin_client.delete('/api/shorts/999999999')
-        assert response.status_code in [200, 400, 404, 500]
+        assert response.status_code == 404
 
     def test_get_short_returns_200(self, api_client):
         """GET /api/shorts/{id} should return 200."""
@@ -765,7 +764,7 @@ class TestShortCRUD(BaseAPITest):
         # This test documents current behavior
         try:
             response = api_client.get('/api/shorts/999999999')
-            assert response.status_code in [400, 404, 500]
+            assert response.status_code == 404
         except AttributeError:
             # Expected behavior due to impl bug (short is None)
             pass
@@ -959,7 +958,7 @@ class TestSearchShorts(BaseAPITest):
         """POST /api/searchshorts with empty params."""
         response = api_client.post('/api/searchshorts', data={})
         # Should return 200 with empty or full results
-        assert response.status_code in [200, 400]
+        assert response.status_code == 200
 
 
 # -------------------------------------------------------------------

@@ -68,8 +68,7 @@ class TestEditionChanges(BaseAPITest):
     def test_edition_changes_nonexistent(self, api_client):
         """GET /api/editions/{id}/changes for nonexistent edition."""
         response = api_client.get('/api/editions/999999999/changes')
-        # May return empty list or error
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 200
 
 
 class TestEditionWork(BaseAPITest):
@@ -91,7 +90,7 @@ class TestEditionWork(BaseAPITest):
     def test_edition_work_nonexistent(self, api_client):
         """GET /api/editions/{id}/work for nonexistent edition."""
         response = api_client.get('/api/editions/999999999/work')
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 404
 
 
 class TestEditionOwners(BaseAPITest):
@@ -105,7 +104,7 @@ class TestEditionOwners(BaseAPITest):
     def test_edition_owners_nonexistent(self, api_client):
         """GET /api/editions/{id}/owners for nonexistent edition."""
         response = api_client.get('/api/editions/999999999/owners')
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 200
 
     def test_edition_owners_invalid_id(self, api_client):
         """GET /api/editions/{invalid}/owners returns 400."""
@@ -116,8 +115,7 @@ class TestEditionOwners(BaseAPITest):
         """GET /api/editions/{id}/owner/{personid} should return 200."""
         url = f'/api/editions/{BASIC_EDITION_ID}/owner/{PERSON_ID}'
         response = api_client.get(url)
-        # May return 200 with data or empty, or 404 if no ownership
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 200
 
     def test_edition_owner_person_invalid_ids(self, api_client):
         """GET /api/editions/{invalid}/owner/{invalid} returns 400."""
@@ -145,7 +143,7 @@ class TestEditionsOwned(BaseAPITest):
     def test_editions_owned_nonexistent_user(self, api_client):
         """GET /api/editions/owned/{nonexistent} returns empty or error."""
         response = api_client.get('/api/editions/owned/999999999')
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 200
 
     def test_editions_owned_invalid_id(self, api_client):
         """GET /api/editions/owned/{invalid} returns 400."""
@@ -160,7 +158,7 @@ class TestEditionOwnerModify(BaseAPITest):
         """DELETE /api/editions/{id}/owner/{personid} requires auth."""
         url = f'/api/editions/{BASIC_EDITION_ID}/owner/{PERSON_ID}'
         response = api_client.delete(url)
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_delete_owner_invalid_ids(self, admin_client):
         """DELETE /api/editions/{invalid}/owner/{invalid} returns 400."""
@@ -171,8 +169,7 @@ class TestEditionOwnerModify(BaseAPITest):
         """DELETE /api/editions/{id}/owner/{nonexistent} handles gracefully."""
         url = f'/api/editions/{BASIC_EDITION_ID}/owner/999999999'
         response = admin_client.delete(url)
-        # May succeed (no-op) or return error
-        assert response.status_code in [200, 400, 404, 500]
+        assert response.status_code == 200
 
     def test_update_owner_requires_auth(self, api_client):
         """PUT /api/editions/owner requires authentication."""
@@ -180,7 +177,7 @@ class TestEditionOwnerModify(BaseAPITest):
             'edition_id': BASIC_EDITION_ID,
             'user_id': USER_ID
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_update_owner_with_auth(self, admin_client):
         """PUT /api/editions/owner with auth processes request."""
@@ -188,8 +185,7 @@ class TestEditionOwnerModify(BaseAPITest):
             'edition_id': BASIC_EDITION_ID,
             'user_id': USER_ID
         })
-        # May return 200 or validation error
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 200
 
 
 class TestEditionWishlist(BaseAPITest):
@@ -267,19 +263,18 @@ class TestEditionWishlistModify(BaseAPITest):
         response = api_client.delete(url)
         assert response.status_code == 401
 
-    def test_add_to_wishlist_with_auth(self, admin_client):
-        """PUT /api/editions/{id}/wishlist/{userid} with auth processes."""
+    def test_add_owned_edition_to_wishlist_is_400(self, admin_client):
+        """The user already owns this edition, and owning and wishlisting
+        share one row per user and edition."""
         url = f'/api/editions/{BASIC_EDITION_ID}/wishlist/{USER_ID}'
         response = admin_client.put(url)
-        # May return 200 or error (e.g., duplicate key)
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 400
 
     def test_remove_from_wishlist_with_auth(self, admin_client):
         """DELETE /api/editions/{id}/wishlist/{userid} with auth processes."""
         url = f'/api/editions/{BASIC_EDITION_ID}/wishlist/{USER_ID}'
         response = admin_client.delete(url)
-        # May return 200 or error
-        assert response.status_code in [200, 400, 404, 500]
+        assert response.status_code == 200
 
 
 class TestEditionImages(BaseAPITest):
@@ -292,7 +287,7 @@ class TestEditionImages(BaseAPITest):
     def test_upload_image_requires_auth(self, api_client):
         """POST /api/editions/{id}/images requires authentication."""
         response = api_client.post(f'/api/editions/{BASIC_EDITION_ID}/images')
-        assert response.status_code in [400, 401, 403, 422]
+        assert response.status_code == 401
 
     def test_upload_image_requires_file(self, admin_client):
         """POST /api/editions/{id}/images requires file."""
@@ -305,11 +300,10 @@ class TestEditionImages(BaseAPITest):
         """DELETE /api/editions/{id}/images/{imageid} requires auth."""
         url = f'/api/editions/{BASIC_EDITION_ID}/images/1'
         response = api_client.delete(url)
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_delete_image_nonexistent(self, admin_client):
         """DELETE /api/editions/{id}/images/{id} for nonexistent image."""
         url = f'/api/editions/{BASIC_EDITION_ID}/images/999999999'
         response = admin_client.delete(url)
-        # May succeed (no-op) or return error
-        assert response.status_code in [200, 400, 404, 500]
+        assert response.status_code == 404

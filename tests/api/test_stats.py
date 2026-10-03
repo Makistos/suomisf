@@ -373,7 +373,7 @@ class TestStoryPersonCountsByType(BaseAPITest):
         response = api_client.get(
             '/api/stats/storypersoncounts?storytype=999'
         )
-        assert response.status_code in [200, 400]
+        assert response.status_code == 400
 
 
 class TestStoriesByYearTypes(BaseAPITest):
@@ -455,7 +455,7 @@ class TestFilterWorks(BaseAPITest):
     def test_post_filterworks_empty_filter(self, api_client):
         """POST /api/stats/filterworks with empty filter."""
         response = api_client.post('/api/stats/filterworks', data={})
-        assert response.status_code in [200, 400, 405]
+        assert response.status_code == 405
 
 
 class TestMiscStats(BaseAPITest):

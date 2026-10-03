@@ -114,7 +114,7 @@ class TestMagazineUpdate(BaseAPITest):
                 'name': 'Test Magazine'
             }
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_update_magazine_with_auth(self, admin_client):
         """PUT /api/magazines with auth processes request."""
@@ -131,8 +131,7 @@ class TestMagazineUpdate(BaseAPITest):
                 'type': current.get('type', 0)
             }
         })
-        # May return 200 or validation error
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 200
 
     def test_update_magazine_missing_data(self, admin_client):
         """PUT /api/magazines with missing data returns error."""
@@ -265,7 +264,7 @@ class TestIssueUpdate(BaseAPITest):
             'id': BASIC_ISSUE_ID,
             'size': 1
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_update_issue_with_auth(self, admin_client):
         """PUT /api/issues with auth processes request."""
@@ -282,8 +281,7 @@ class TestIssueUpdate(BaseAPITest):
             'id': BASIC_ISSUE_ID,
             'size': {'id': size_id}
         })
-        # May return 200 or validation error
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 200
 
     def test_update_issue_missing_id(self, admin_client):
         """PUT /api/issues with missing id returns error."""
@@ -310,7 +308,7 @@ class TestIssueContributors(BaseAPITest):
     def test_contributors_get_nonexistent(self, api_client):
         """GET /api/issues/{nonexistent}/contributors handles gracefully."""
         response = api_client.get('/api/issues/999999999/contributors')
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 200
 
     def test_contributors_get_invalid_id(self, api_client):
         """GET /api/issues/{invalid}/contributors returns 400."""
@@ -321,14 +319,13 @@ class TestIssueContributors(BaseAPITest):
         """POST /api/issues/{id}/contributors requires auth."""
         url = f'/api/issues/{BASIC_ISSUE_ID}/contributors'
         response = api_client.post(url, data={'contributors': []})
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_contributors_update_with_auth(self, admin_client):
         """POST /api/issues/{id}/contributors with auth processes."""
         url = f'/api/issues/{BASIC_ISSUE_ID}/contributors'
         response = admin_client.post(url, data=[])
-        # May return 200 or error
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 200
 
 
 class TestIssueTags(BaseAPITest):
@@ -357,20 +354,19 @@ class TestIssueTags(BaseAPITest):
         """PUT /api/issue/{id}/tags/{tagid} requires auth."""
         url = f'/api/issue/{BASIC_ISSUE_ID}/tags/{TAG_ID}'
         response = api_client.put(url)
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_remove_tag_requires_auth(self, api_client):
         """DELETE /api/issue/{id}/tags/{tagid} requires auth."""
         url = f'/api/issue/{BASIC_ISSUE_ID}/tags/{TAG_ID}'
         response = api_client.delete(url)
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_add_tag_with_auth(self, admin_client):
         """PUT /api/issue/{id}/tags/{tagid} with auth processes."""
         url = f'/api/issue/{BASIC_ISSUE_ID}/tags/{TAG_ID}'
         response = admin_client.put(url)
-        # May return 200 or error
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 200
 
     def test_add_tag_invalid_ids(self, admin_client):
         """PUT /api/issue/{invalid}/tags/{invalid} returns 400."""
@@ -387,7 +383,7 @@ class TestIssueShorts(BaseAPITest):
             'issue_id': BASIC_ISSUE_ID,
             'shorts': []
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_save_issue_shorts_with_auth(self, admin_client):
         """PUT /api/issues/shorts with auth processes request."""
@@ -395,8 +391,7 @@ class TestIssueShorts(BaseAPITest):
             'issue_id': BASIC_ISSUE_ID,
             'shorts': []
         })
-        # May return 200 or validation error
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 200
 
 
 class TestIssueArticles(BaseAPITest):
@@ -408,7 +403,7 @@ class TestIssueArticles(BaseAPITest):
             'issue_id': BASIC_ISSUE_ID,
             'articles': []
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_save_issue_articles_with_auth(self, admin_client):
         """PUT /api/issues/articles with auth processes request."""
@@ -416,8 +411,7 @@ class TestIssueArticles(BaseAPITest):
             'issue_id': BASIC_ISSUE_ID,
             'articles': []
         })
-        # May return 200 or validation error
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 200
 
 
 class TestIssueSizes(BaseAPITest):
@@ -445,7 +439,7 @@ class TestIssueCovers(BaseAPITest):
         """POST /api/issues/{id}/images requires authentication."""
         url = f'/api/issues/{BASIC_ISSUE_ID}/images'
         response = api_client.post(url)
-        assert response.status_code in [400, 401, 403, 422]
+        assert response.status_code == 401
 
     def test_upload_cover_requires_file(self, admin_client):
         """POST /api/issues/{id}/images requires file."""
@@ -458,11 +452,10 @@ class TestIssueCovers(BaseAPITest):
         """DELETE /api/issues/{id}/images/{imageid} requires authentication."""
         url = f'/api/issues/{BASIC_ISSUE_ID}/images/1'
         response = api_client.delete(url)
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_delete_cover_with_auth(self, admin_client):
         """DELETE /api/issues/{id}/images/{imageid} with auth processes."""
         url = f'/api/issues/{BASIC_ISSUE_ID}/images/1'
         response = admin_client.delete(url)
-        # May succeed or return error if no such image exists
-        assert response.status_code in [200, 400, 404, 500]
+        assert response.status_code == 404

@@ -38,12 +38,12 @@ class TestAuthentication(BaseAPITest):
             'email': 'nonexistent@example.com',
             'password': 'wrongpassword'
         })
-        assert response.status_code in [400, 401, 422]
+        assert response.status_code == 401
 
     def test_login_missing_fields(self, api_client):
         """POST /api/login should return error for missing fields."""
         response = api_client.post('/api/login', data={})
-        assert response.status_code in [400, 401, 422]
+        assert response.status_code == 401
 
 
 class TestWriteOperationsRequireAuth(BaseAPITest):
@@ -55,19 +55,19 @@ class TestWriteOperationsRequireAuth(BaseAPITest):
         response = api_client.post('/api/works', data={
             'data': {'title': 'Test Work'}
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_update_work_requires_auth(self, api_client):
         """PUT /api/works should require authentication."""
         response = api_client.put('/api/works', data={
             'data': {'id': 1, 'title': 'Updated Work'}
         })
-        assert response.status_code in [401, 403, 405, 422]
+        assert response.status_code == 401
 
     def test_delete_work_requires_auth(self, api_client):
         """DELETE /api/works/<id> should require authentication."""
         response = api_client.delete('/api/works/999999')
-        assert response.status_code in [401, 403, 404, 405]
+        assert response.status_code == 401
 
     # Editions
     def test_create_edition_requires_auth(self, api_client):
@@ -75,19 +75,19 @@ class TestWriteOperationsRequireAuth(BaseAPITest):
         response = api_client.post('/api/editions', data={
             'data': {'work_id': 1, 'title': 'Test Edition'}
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_update_edition_requires_auth(self, api_client):
         """PUT /api/editions should require authentication."""
         response = api_client.put('/api/editions', data={
             'data': {'id': 1, 'title': 'Updated Edition'}
         })
-        assert response.status_code in [401, 403, 405, 422]
+        assert response.status_code == 401
 
     def test_delete_edition_requires_auth(self, api_client):
         """DELETE /api/editions/<id> should require authentication."""
         response = api_client.delete('/api/editions/999999')
-        assert response.status_code in [401, 403, 404, 405]
+        assert response.status_code == 401
 
     # People
     def test_create_person_requires_auth(self, api_client):
@@ -95,19 +95,19 @@ class TestWriteOperationsRequireAuth(BaseAPITest):
         response = api_client.post('/api/people', data={
             'data': {'name': 'Test Person'}
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_update_person_requires_auth(self, api_client):
         """PUT /api/people should require authentication."""
         response = api_client.put('/api/people', data={
             'data': {'id': 1, 'name': 'Updated Person'}
         })
-        assert response.status_code in [401, 403, 405, 422]
+        assert response.status_code == 401
 
     def test_delete_person_requires_auth(self, api_client):
         """DELETE /api/people/<id> should require authentication."""
         response = api_client.delete('/api/people/999999')
-        assert response.status_code in [401, 403, 404, 405]
+        assert response.status_code == 401
 
     # Shorts
     def test_create_short_requires_auth(self, api_client):
@@ -115,19 +115,19 @@ class TestWriteOperationsRequireAuth(BaseAPITest):
         response = api_client.post('/api/shorts', data={
             'data': {'title': 'Test Short Story'}
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_update_short_requires_auth(self, api_client):
         """PUT /api/shorts should require authentication."""
         response = api_client.put('/api/shorts', data={
             'data': {'id': 1, 'title': 'Updated Short'}
         })
-        assert response.status_code in [401, 403, 405, 422]
+        assert response.status_code == 401
 
     def test_delete_short_requires_auth(self, api_client):
         """DELETE /api/shorts/<id> should require authentication."""
         response = api_client.delete('/api/shorts/999999')
-        assert response.status_code in [401, 403, 404, 405]
+        assert response.status_code == 401
 
     # Tags
     def test_create_tag_requires_auth(self, api_client):
@@ -135,19 +135,19 @@ class TestWriteOperationsRequireAuth(BaseAPITest):
         response = api_client.post('/api/tags', data={
             'data': {'name': 'test-tag'}
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_update_tag_requires_auth(self, api_client):
         """PUT /api/tags should require authentication."""
         response = api_client.put('/api/tags', data={
             'id': 1, 'name': 'updated-tag'
         })
-        assert response.status_code in [401, 403, 405, 422]
+        assert response.status_code == 401
 
     def test_delete_tag_requires_auth(self, api_client):
         """DELETE /api/tags/<id> should require authentication."""
         response = api_client.delete('/api/tags/999999')
-        assert response.status_code in [401, 403, 404, 405]
+        assert response.status_code == 401
 
     # Publishers
     def test_create_publisher_requires_auth(self, api_client):
@@ -155,12 +155,12 @@ class TestWriteOperationsRequireAuth(BaseAPITest):
         response = api_client.post('/api/publishers', data={
             'data': {'name': 'Test Publisher', 'fullname': 'Test Publisher Oy'}
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_delete_publisher_requires_auth(self, api_client):
         """DELETE /api/publishers/<id> should require authentication."""
         response = api_client.delete('/api/publishers/999999')
-        assert response.status_code in [401, 403, 404, 405]
+        assert response.status_code == 401
 
     # Bookseries
     def test_create_bookseries_requires_auth(self, api_client):
@@ -168,12 +168,12 @@ class TestWriteOperationsRequireAuth(BaseAPITest):
         response = api_client.post('/api/bookseries', data={
             'data': {'name': 'Test Series'}
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_delete_bookseries_requires_auth(self, api_client):
         """DELETE /api/bookseries/<id> should require authentication."""
         response = api_client.delete('/api/bookseries/999999')
-        assert response.status_code in [401, 403, 404, 405]
+        assert response.status_code == 401
 
     # Pubseries
     def test_create_pubseries_requires_auth(self, api_client):
@@ -181,12 +181,12 @@ class TestWriteOperationsRequireAuth(BaseAPITest):
         response = api_client.post('/api/pubseries', data={
             'data': {'name': 'Test Pub Series'}
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_delete_pubseries_requires_auth(self, api_client):
         """DELETE /api/pubseries/<id> should require authentication."""
         response = api_client.delete('/api/pubseries/999999')
-        assert response.status_code in [401, 403, 404, 405]
+        assert response.status_code == 401
 
     # Magazines
     def test_create_magazine_requires_auth(self, api_client):
@@ -194,12 +194,12 @@ class TestWriteOperationsRequireAuth(BaseAPITest):
         response = api_client.post('/api/magazines', data={
             'data': {'name': 'Test Magazine'}
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_delete_magazine_requires_auth(self, api_client):
         """DELETE /api/magazines/<id> should require authentication."""
         response = api_client.delete('/api/magazines/999999')
-        assert response.status_code in [401, 403, 404, 405]
+        assert response.status_code == 401
 
     # Issues
     def test_create_issue_requires_auth(self, api_client):
@@ -207,26 +207,20 @@ class TestWriteOperationsRequireAuth(BaseAPITest):
         response = api_client.post('/api/issues', data={
             'magazine_id': 1, 'number': '1/2024'
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_delete_issue_requires_auth(self, api_client):
         """DELETE /api/issues/<id> should require authentication."""
         response = api_client.delete('/api/issues/999999')
-        assert response.status_code in [401, 403, 404, 405]
+        assert response.status_code == 401
 
 
 class TestCollectionRequiresAuth(BaseAPITest):
     """Tests that collection endpoints require authentication."""
-
-    def test_get_collection_requires_auth(self, api_client):
-        """GET /api/collection should require authentication."""
-        response = api_client.get('/api/collection')
-        # 404 indicates endpoint may not exist in this version
-        assert response.status_code in [401, 403, 404]
 
     def test_add_to_collection_requires_auth(self, api_client):
         """POST /api/editions/owner should require authentication."""
         response = api_client.post('/api/editions/owner', data={
             'editionid': 1, 'userid': 1, 'condition': 3
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401

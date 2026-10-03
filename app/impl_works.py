@@ -876,9 +876,10 @@ def work_tag_add(work_id: int, tag_id: int) -> ResponseType:
             Work.id == work_id).first()
         if not work:
             app.logger.error(
-                f'WorkTagAdd: Short not found. Id = {work_id}.')
-            return ResponseType('Novellia ei löydy',
-                                HttpResponseCode.BAD_REQUEST.value)
+                f'WorkTagAdd: Work not found. Id = {work_id}.')
+            return ResponseType('Teosta ei löydy', HttpResponseCode.NOT_FOUND.value)
+        if not session.query(Tag).filter(Tag.id == tag_id).first():
+            return ResponseType('Asiasanaa ei löydy', HttpResponseCode.NOT_FOUND.value)
 
         work_tag = WorkTag()
         work_tag.work_id = work_id
@@ -1706,7 +1707,7 @@ def get_random_incomplete_works(params: Dict[str, Any]) -> ResponseType:
                 text("SELECT COUNT(*) FROM work")).scalar() or 0
 
             query = """
-            SELECT DISTINCT w.id
+            SELECT w.id
             FROM work w
             ORDER BY RANDOM()
             LIMIT :count
@@ -1724,8 +1725,6 @@ def get_random_incomplete_works(params: Dict[str, Any]) -> ResponseType:
                 joins.append("LEFT JOIN workgenre wg ON w.id = wg.work_id")
 
             if edition_conditions:
-                joins.append(
-                    "LEFT JOIN edition e ON w.id = e.work_id")
                 # For edition conditions, we want works where ANY edition is
                 # missing data
                 edition_subquery = f"""

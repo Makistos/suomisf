@@ -459,7 +459,7 @@ def tag_merge(id_to: int, id_from: int) -> ResponseType:
         app.logger.error(
             f'TagMerge: Tag not found. To = {id_to}, From = {id_from}.')
         return ResponseType('Tuntematon asiasanan tunniste',
-                            HttpResponseCode.BAD_REQUEST.value)
+                            HttpResponseCode.NOT_FOUND.value)
 
     # Update
     try:

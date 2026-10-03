@@ -8,6 +8,8 @@ Note: Pytest fixtures (api_client, snapshot_manager) are injected at runtime.
 Type checkers may show "unknown type" warnings - these are expected.
 """
 
+import pytest
+
 from .base_test import BaseAPITest
 
 
@@ -129,13 +131,12 @@ class TestRoles(BaseAPITest):
     def test_get_roles_for_work(self, api_client):
         """GET /api/roles/work should return roles for works."""
         response = api_client.get('/api/roles/work')
-        # May return 200 or 404 depending on implementation
-        assert response.status_code in [200, 404]
+        assert response.status_code == 200
 
     def test_get_roles_for_edition(self, api_client):
         """GET /api/roles/edition should return roles for editions."""
         response = api_client.get('/api/roles/edition')
-        assert response.status_code in [200, 404]
+        assert response.status_code == 200
 
     def test_get_roles_matches_snapshot(self, api_client, snapshot_manager):
         """GET /api/roles/ should match snapshot data."""
@@ -231,16 +232,17 @@ class TestMagazineTypes(BaseAPITest):
 class TestFirstLetterVector(BaseAPITest):
     """Tests for /api/firstlettervector/<target> endpoint."""
 
-    def test_get_firstlettervector_work(self, api_client):
-        """GET /api/firstlettervector/work should return letter list."""
-        response = api_client.get('/api/firstlettervector/work')
-        # Endpoint may return 200, 400, or 404 depending on implementation
-        assert response.status_code in [200, 400, 404]
+    def test_get_firstlettervector_works(self, api_client):
+        """GET /api/firstlettervector/works returns the authors' initials."""
+        response = api_client.get('/api/firstlettervector/works')
+        assert response.status_code == 200
+        assert response.json and all(len(k) == 1 for k in response.json)
 
-    def test_get_firstlettervector_person(self, api_client):
-        """GET /api/firstlettervector/person should return letter list."""
-        response = api_client.get('/api/firstlettervector/person')
-        assert response.status_code in [200, 400, 404]
+    @pytest.mark.parametrize('target', ['stories', 'person'])
+    def test_get_firstlettervector_unsupported_target(self, api_client, target):
+        """Only 'works' is implemented."""
+        response = api_client.get(f'/api/firstlettervector/{target}')
+        assert response.status_code == 400
 
 
 class TestLatestCovers(BaseAPITest):

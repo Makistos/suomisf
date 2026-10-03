@@ -17,7 +17,7 @@ from app.model import (ShortBriefestSchema)
 from app.orm_decl import (Alias, Article, Country, Edition, Issue,
                           IssueContributor, Log,
                           Work, WorkContributor, EditionContributor,
-                          PersonLink, Awarded, PersonLanguage, PersonTag,
+                          PersonLink, Awarded, PersonLanguage, PersonTag, Tag,
                           IssueEditor, ArticlePerson, ArticleAuthor,
                           ShortStory, StoryContributor, Person,
                           PersonImage)
@@ -262,9 +262,6 @@ def get_author_first_letters(target: str) -> Tuple[str, int]:
                      for s in names
                      if s[0] is not None and s[0][0].isalpha()})
         retval = json.dumps(Counter(letters)), HttpResponseCode.OK.value
-
-    elif target == 'stories':
-        letters = session.query(Person)
     else:
         retval = ('', HttpResponseCode.BAD_REQUEST.value)
 
@@ -975,7 +972,9 @@ def person_tag_add(person_id: int, tag_id: int) -> ResponseType:
                 f'PersonTagAdd: Person not found. Id = {person_id}.')
             return ResponseType(f'PersonTagAdd: Henkilöä ei löydy. \
                                 person_id={person_id}, tag_id={tag_id}.',
-                                HttpResponseCode.BAD_REQUEST.value)
+                                HttpResponseCode.NOT_FOUND.value)
+        if not session.query(Tag).filter(Tag.id == tag_id).first():
+            return ResponseType('Asiasanaa ei löydy', HttpResponseCode.NOT_FOUND.value)
 
         person_tag = PersonTag()
         person_tag.person_id = person_id
@@ -1204,7 +1203,7 @@ def person_chiefeditor(person_id: int) -> ResponseType:
                 f'Person not found. Id = {person_id}.')
             return ResponseType(f'Henkilöä ei löydy. \
                                 person_id={person_id}.',
-                                HttpResponseCode.BAD_REQUEST.value)
+                                HttpResponseCode.NOT_FOUND.value)
 
         chiefeditor = session.query(Issue)\
             .join(IssueEditor)\

@@ -331,7 +331,7 @@ class TestEditionsCRUD(BaseAPITest):
             deleted_resp = admin_client.get(
                 f'/api/editions/{first_edition_id}'
             )
-            assert deleted_resp.status_code in [400, 404], (
+            assert deleted_resp.status_code == 404, (
                 f"Deleted edition should return 400/404, "
                 f"got {deleted_resp.status_code}"
             )
@@ -409,7 +409,7 @@ class TestEditionsCreateValidation(BaseAPITest):
         }
 
         response = api_client.post('/api/editions', data=edition_data)
-        assert response.status_code in [401, 403, 422], (
+        assert response.status_code == 401, (
             f"Expected 401/403/422, got {response.status_code}"
         )
 
@@ -449,7 +449,7 @@ class TestEditionsDelete(BaseAPITest):
     def test_delete_edition_without_auth_fails(self, api_client):
         """DELETE /api/editions/{id} should require authentication."""
         response = api_client.delete('/api/editions/999999')
-        assert response.status_code in [401, 403, 404, 405]
+        assert response.status_code == 401
 
     def test_delete_nonexistent_edition(self, admin_client):
         """DELETE /api/editions/{id} should handle nonexistent edition."""
@@ -604,16 +604,16 @@ class TestEditionsCopy(BaseAPITest):
             verify_resp = admin_client.get(
                 f'/api/editions/{copied_edition_id}'
             )
-            assert verify_resp.status_code in [400, 404], (
+            assert verify_resp.status_code == 404, (
                 "Deleted edition should not be retrievable"
             )
 
     def test_copy_edition_without_auth_fails(self, api_client):
         """POST /api/editions/{id}/copy should require authentication."""
         response = api_client.post('/api/editions/86/copy')
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_copy_nonexistent_edition_fails(self, admin_client):
         """POST /api/editions/{id}/copy should fail for invalid ID."""
         response = admin_client.post('/api/editions/999999999/copy')
-        assert response.status_code in [400, 404, 500]
+        assert response.status_code == 404

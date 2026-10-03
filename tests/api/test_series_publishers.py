@@ -98,7 +98,7 @@ class TestPublisherGet(BaseAPITest):
     def test_publisher_get_nonexistent(self, api_client):
         """GET /api/publishers/{nonexistent} handles gracefully."""
         response = api_client.get('/api/publishers/999999999')
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 404
 
     def test_publisher_get_invalid_id(self, api_client):
         """GET /api/publishers/{invalid} returns 400."""
@@ -115,7 +115,7 @@ class TestPublisherUpdate(BaseAPITest):
             'id': BASIC_PUBLISHER_ID,
             'name': 'Test Publisher'
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_update_publisher_with_auth(self, admin_client):
         """PUT /api/publishers with auth processes request."""
@@ -131,8 +131,7 @@ class TestPublisherUpdate(BaseAPITest):
                 'name': current.get('name', 'Test Publisher')
             }
         })
-        # May return 200 or validation error
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 200
 
     def test_update_publisher_small(self, admin_client):
         """PUT /api/publishers for small publisher."""
@@ -147,7 +146,7 @@ class TestPublisherUpdate(BaseAPITest):
                 'name': current.get('name', 'Test')
             }
         })
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 200
 
 
 class TestPublisherFilter(BaseAPITest):
@@ -233,7 +232,7 @@ class TestPubSeriesGet(BaseAPITest):
     def test_pubseries_get_nonexistent(self, api_client):
         """GET /api/pubseries/{nonexistent} handles gracefully."""
         response = api_client.get('/api/pubseries/999999999')
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 404
 
     def test_pubseries_get_invalid_id(self, api_client):
         """GET /api/pubseries/{invalid} returns 400."""
@@ -250,7 +249,7 @@ class TestPubSeriesUpdate(BaseAPITest):
             'id': BASIC_PUBSERIES_ID,
             'name': 'Test PubSeries'
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_update_pubseries_with_auth(self, admin_client):
         """PUT /api/pubseries with auth processes request."""
@@ -266,8 +265,7 @@ class TestPubSeriesUpdate(BaseAPITest):
                 'name': current.get('name', 'Test PubSeries')
             }
         })
-        # May return 200 or validation error
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 200
 
     def test_update_pubseries_scifi(self, admin_client):
         """PUT /api/pubseries for sci-fi series."""
@@ -282,7 +280,7 @@ class TestPubSeriesUpdate(BaseAPITest):
                 'name': current.get('name', 'Test')
             }
         })
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 200
 
 
 class TestPubSeriesFilter(BaseAPITest):
@@ -374,7 +372,7 @@ class TestBookSeriesGet(BaseAPITest):
     def test_bookseries_get_nonexistent(self, api_client):
         """GET /api/bookseries/{nonexistent} handles gracefully."""
         response = api_client.get('/api/bookseries/999999999')
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 404
 
     def test_bookseries_get_invalid_id(self, api_client):
         """GET /api/bookseries/{invalid} returns 400."""
@@ -391,7 +389,7 @@ class TestBookSeriesUpdate(BaseAPITest):
             'id': BASIC_BOOKSERIES_ID,
             'name': 'Test BookSeries'
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_update_bookseries_with_auth(self, admin_client):
         """PUT /api/bookseries with auth processes request."""
@@ -407,8 +405,7 @@ class TestBookSeriesUpdate(BaseAPITest):
                 'name': current.get('name', 'Test BookSeries')
             }
         })
-        # May return 200 or validation error
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 200
 
     def test_update_bookseries_multi_author(self, admin_client):
         """PUT /api/bookseries for multi-author series."""
@@ -423,7 +420,7 @@ class TestBookSeriesUpdate(BaseAPITest):
                 'name': current.get('name', 'Test')
             }
         })
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 200
 
 
 class TestBookSeriesFilter(BaseAPITest):

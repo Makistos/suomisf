@@ -905,7 +905,7 @@ def edition_image_delete(editionid: str, imageid: str) -> ResponseType:
         .first()
     if edition_image is None:
         return ResponseType("edition_image_delete: Kuvaa ei löydy.",
-                            HttpResponseCode.BAD_REQUEST.value)
+                            HttpResponseCode.NOT_FOUND.value)
 
     old_values = {}
     old_values["Kansikuva"] = edition_image.image_src
@@ -1690,18 +1690,17 @@ def copy_edition(edition_id: int) -> ResponseType:
         edition_id (int): The ID of the edition to copy
 
     Returns:
-        int: The ID of the newly created edition
-
-    Raises:
-        ValueError: If the edition with the given ID is not found
+        ResponseType: The ID of the newly created edition, or 404 if the
+        edition doesn't exist.
     """
     session = new_session()
 
     try:
         # Get the original edition
-        original_edition = session.query(Edition).get(edition_id)
+        original_edition = session.get(Edition, edition_id)
         if not original_edition:
-            raise ValueError(f"Edition with ID {edition_id} not found")
+            return ResponseType(f'Painosta ei löydy. id={edition_id}.',
+                                HttpResponseCode.NOT_FOUND.value)
 
         # Create a new edition with copied fields
         new_edition = Edition(

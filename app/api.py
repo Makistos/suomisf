@@ -752,7 +752,7 @@ def firstlettervector(target: str) -> Tuple[str, int]:
     Parameters
     ----------
     target: str
-        Either "works" or "stories".
+        Only "works" is supported; anything else is 400.
 
     Returns
     -------
@@ -762,10 +762,8 @@ def firstlettervector(target: str) -> Tuple[str, int]:
         value is the count of items (e.g. works).
 
     """
-    # url_params = request.args.to_dict()
-    retval = get_author_first_letters(target)
-
-    return retval
+    body, status = get_author_first_letters(target)
+    return Response(body, status=status, mimetype='application/json')
 
 
 ###

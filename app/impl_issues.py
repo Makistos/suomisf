@@ -568,8 +568,9 @@ def issue_tag_add(issue_id: int, tag_id: int) -> ResponseType:
         if not short:
             app.logger.error(
                 f'issue_tag_add: Issue not found. Id = {issue_id}.')
-            return ResponseType('Numeroa ei löydy',
-                                HttpResponseCode.BAD_REQUEST.value)
+            return ResponseType('Numeroa ei löydy', HttpResponseCode.NOT_FOUND.value)
+        if not session.query(Tag).filter(Tag.id == tag_id).first():
+            return ResponseType('Asiasanaa ei löydy', HttpResponseCode.NOT_FOUND.value)
 
         issue_tag = IssueTag()
         issue_tag.issue_id = issue_id
@@ -722,7 +723,7 @@ def issue_image_delete(issue_id: int, image_id: int) -> ResponseType:
         .first()
     if not issue_image:
         return ResponseType('Kuvaa ei löydy',
-                            HttpResponseCode.BAD_REQUEST.value)
+                            HttpResponseCode.NOT_FOUND.value)
 
     issue = session.query(Issue).filter(Issue.id == issue_id).first()
     old_values = {'Kansikuva': issue_image.image_src}

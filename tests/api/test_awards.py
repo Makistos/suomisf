@@ -112,18 +112,17 @@ class TestAwardsByType(BaseAPITest):
     def test_awards_by_type_person(self, api_client):
         """GET /api/awards/type/person returns person awards."""
         response = api_client.get('/api/awards/type/person')
-        # Note: Implementation has bug where award_type=0 before check
-        assert response.status_code in [200, 400]
+        assert response.status_code == 200
 
     def test_awards_by_type_work(self, api_client):
         """GET /api/awards/type/work returns work awards."""
         response = api_client.get('/api/awards/type/work')
-        assert response.status_code in [200, 400]
+        assert response.status_code == 200
 
     def test_awards_by_type_story(self, api_client):
         """GET /api/awards/type/story returns story awards."""
         response = api_client.get('/api/awards/type/story')
-        assert response.status_code in [200, 400]
+        assert response.status_code == 200
 
     def test_awards_by_type_invalid(self, api_client):
         """GET /api/awards/type/{invalid} returns 400."""
@@ -231,7 +230,7 @@ class TestWorkAwarded(BaseAPITest):
     def test_work_awarded_nonexistent(self, api_client):
         """GET /api/works/{id}/awarded for nonexistent work."""
         response = api_client.get('/api/works/999999999/awarded')
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 200
 
     def test_work_without_awards(self, api_client):
         """GET /api/works/{id}/awarded for work without awards."""
@@ -257,8 +256,7 @@ class TestAwardAdminEndpoints(BaseAPITest):
             'work_id': WORK_WITH_AWARDS_ID,
             'awards': []
         })
-        # Should process request (may return 200 or validation error)
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 200
 
     def test_add_person_awards_with_auth(self, admin_client):
         """PUT /api/awards/people/awards with auth processes request."""
@@ -266,7 +264,7 @@ class TestAwardAdminEndpoints(BaseAPITest):
             'person_id': 1,
             'awards': []
         })
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 200
 
     def test_save_awarded_processes_request(self, api_client):
         """POST /api/awarded processes request.
@@ -278,8 +276,7 @@ class TestAwardAdminEndpoints(BaseAPITest):
             'type': 1,  # 0=person, 1=work, 2=story
             'awards': []
         })
-        # May process without auth due to decorator order
-        assert response.status_code in [200, 400, 401, 403, 422]
+        assert response.status_code == 401
 
     def test_save_awarded_with_auth(self, admin_client):
         """POST /api/awarded with auth processes request."""
@@ -300,7 +297,7 @@ class TestAwardUpdate(BaseAPITest):
         response = api_client.put('/api/awards', data={
             'data': {'id': HUGO_AWARD_ID, 'name': 'Hugo'}
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_update_award_invalid_id(self, admin_client):
         """PUT /api/awards with non-existent ID returns 404."""
@@ -628,7 +625,7 @@ class TestAwardCreate(BaseAPITest):
         response = api_client.post('/api/awards', data={
             'data': {'name': 'Unauthorized Award'}
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_create_award_missing_name(self, admin_client):
         """POST /api/awards without a name returns 400."""

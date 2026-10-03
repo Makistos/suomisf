@@ -282,7 +282,7 @@ class TestWorksCRUD(BaseAPITest):
         # -----------------------------------------------------------
         # Try to get the deleted work - should fail
         deleted_resp = admin_client.get(f'/api/works/{created_work_id}')
-        assert deleted_resp.status_code in [400, 404], (
+        assert deleted_resp.status_code == 404, (
             f"Expected 400 or 404 for deleted work, "
             f"got {deleted_resp.status_code}"
         )
@@ -480,7 +480,7 @@ class TestWorksCreateValidation(BaseAPITest):
         }
 
         response = api_client.post('/api/works', data=work_data)
-        assert response.status_code in [401, 403, 422], \
+        assert response.status_code == 401, \
             f"Expected 401/403/422, got {response.status_code}"
 
 
@@ -521,10 +521,9 @@ class TestWorksDelete(BaseAPITest):
     def test_delete_work_without_auth_fails(self, api_client):
         """DELETE /api/works/{id} should require authentication."""
         response = api_client.delete('/api/works/999999')
-        assert response.status_code in [401, 403, 404, 405]
+        assert response.status_code == 401
 
     def test_delete_nonexistent_work(self, admin_client):
         """DELETE /api/works/{id} should handle nonexistent work."""
         response = admin_client.delete('/api/works/999999999')
-        # Could be 400 (bad request), 404 (not found), or 500
-        assert response.status_code in [400, 404, 500]
+        assert response.status_code == 404

@@ -124,4 +124,4 @@ class TestPersonImageAdd(BaseAPITest):
             f'/api/person/{EXISTING_PERSON_ID}/images',
             data={'src': IMAGE_SRC}
         )
-        assert response.status_code in [401, 403]
+        assert response.status_code == 401

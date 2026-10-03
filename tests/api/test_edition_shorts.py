@@ -153,8 +153,7 @@ class TestEditionShorts(BaseAPITest):
         GET /api/editions/{id}/shorts for nonexistent edition.
         """
         response = api_client.get('/api/editions/999999999/shorts')
-        # May return empty list or error
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 200
 
         if response.status_code == 200:
             assert response.data == [] or response.data is None

@@ -93,8 +93,7 @@ class TestWorksByType(BaseAPITest):
     def test_works_bytype_nonexistent_type(self, api_client):
         """GET /api/works/bytype/{nonexistent} returns data or error."""
         response = api_client.get('/api/works/bytype/999')
-        # May return empty list or error for nonexistent type
-        assert response.status_code in [200, 400]
+        assert response.status_code == 200
 
 
 class TestWorkOmnibus(BaseAPITest):
@@ -118,8 +117,7 @@ class TestWorkOmnibus(BaseAPITest):
     def test_get_omnibus_nonexistent_work(self, api_client):
         """GET /api/works/{id}/omnibus for nonexistent work."""
         response = api_client.get('/api/works/999999999/omnibus')
-        # May return empty or error
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 200
 
     def test_create_omnibus_requires_auth(self, api_client):
         """POST /api/works/omnibus requires authentication."""
@@ -127,23 +125,21 @@ class TestWorkOmnibus(BaseAPITest):
             'omnibus_id': 1,
             'work_id': 2
         })
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
-    def test_create_omnibus_with_auth(self, admin_client):
-        """POST /api/works/omnibus with auth processes request."""
+    def test_create_omnibus_self_reference_is_400(self, admin_client):
+        """A work can't be its own omnibus."""
         response = admin_client.post('/api/works/omnibus', data={
             'omnibus_id': BASIC_WORK_ID,
             'work_id': BASIC_WORK_ID,
             'explanation': 'Test omnibus entry'
         })
-        # May return 200 or validation error (same work IDs may be invalid)
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 400
 
     def test_create_omnibus_missing_fields(self, admin_client):
         """POST /api/works/omnibus with missing fields returns error."""
         response = admin_client.post('/api/works/omnibus', data={})
-        # May return 200 or validation error for missing fields
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 400
 
 
 class TestWorkTags(BaseAPITest):
@@ -152,13 +148,13 @@ class TestWorkTags(BaseAPITest):
     def test_add_tag_requires_auth(self, api_client):
         """PUT /api/work/{id}/tags/{tagid} requires authentication."""
         response = api_client.put(f'/api/work/{BASIC_WORK_ID}/tags/{TAG_ID}')
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_remove_tag_requires_auth(self, api_client):
         """DELETE /api/work/{id}/tags/{tagid} requires authentication."""
         url = f'/api/work/{BASIC_WORK_ID}/tags/{TAG_ID}'
         response = api_client.delete(url)
-        assert response.status_code in [401, 403, 422]
+        assert response.status_code == 401
 
     def test_add_tag_invalid_work_id(self, admin_client):
         """PUT /api/work/{invalid}/tags/{tagid} returns 400."""
@@ -178,14 +174,13 @@ class TestWorkTags(BaseAPITest):
     def test_add_tag_nonexistent_work(self, admin_client):
         """PUT /api/work/{nonexistent}/tags/{tagid} handles gracefully."""
         response = admin_client.put(f'/api/work/999999999/tags/{TAG_ID}')
-        # May succeed (no-op) or return error
-        assert response.status_code in [200, 400, 404, 500]
+        assert response.status_code == 404
 
     def test_add_tag_nonexistent_tag(self, admin_client):
         """PUT /api/work/{id}/tags/{nonexistent} handles gracefully."""
         url = f'/api/work/{BASIC_WORK_ID}/tags/999999999'
         response = admin_client.put(url)
-        assert response.status_code in [200, 400, 404, 500]
+        assert response.status_code == 404
 
 
 class TestRandomIncompleteWorks(BaseAPITest):
@@ -198,16 +193,14 @@ class TestRandomIncompleteWorks(BaseAPITest):
     def test_random_incomplete_processes_request(self, api_client):
         """POST /api/works/random/incomplete processes request."""
         response = api_client.post('/api/works/random/incomplete', data={})
-        # Note: May return 500 due to SQL bug with DISTINCT + ORDER BY RANDOM
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 200
 
     def test_random_incomplete_with_count(self, api_client):
         """POST /api/works/random/incomplete with count parameter."""
         response = api_client.post('/api/works/random/incomplete', data={
             'count': 5
         })
-        # May return 500 due to implementation bug
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 200
 
         if response.status_code == 200:
             data = response.data
@@ -222,8 +215,7 @@ class TestRandomIncompleteWorks(BaseAPITest):
             'count': 5,
             'missing_fields': ['description', 'tags']
         })
-        # May succeed when filtering by fields
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 200
 
         if response.status_code == 200:
             data = response.data
@@ -237,8 +229,7 @@ class TestRandomIncompleteWorks(BaseAPITest):
         response = api_client.post('/api/works/random/incomplete', data={
             'count': 'invalid'
         })
-        # May return 200 with default or 400/500
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 400
 
 
 class TestWorkShortsSave(BaseAPITest):
@@ -252,7 +243,7 @@ class TestWorkShortsSave(BaseAPITest):
             'shorts': []
         })
         # Should process request
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 200
 
     def test_save_work_shorts_put(self, admin_client):
         """PUT /api/works/shorts processes request."""
@@ -260,7 +251,7 @@ class TestWorkShortsSave(BaseAPITest):
             'work_id': COLLECTION_WORK_ID,
             'shorts': []
         })
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 200
 
     def test_save_work_shorts_invalid_work(self, admin_client):
         """POST /api/works/shorts with invalid work_id."""
@@ -268,7 +259,7 @@ class TestWorkShortsSave(BaseAPITest):
             'work_id': 999999999,
             'shorts': []
         })
-        assert response.status_code in [200, 400, 404, 500]
+        assert response.status_code == 200
 
     def test_save_work_shorts_roundtrip(
             self, admin_client, snapshot_manager):

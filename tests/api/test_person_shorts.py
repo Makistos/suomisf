@@ -135,8 +135,7 @@ class TestPersonShorts(BaseAPITest):
         GET /api/people/{id}/shorts for nonexistent person.
         """
         response = api_client.get('/api/people/999999999/shorts')
-        # May return empty list or error
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 200
 
         if response.status_code == 200:
             assert response.data == [] or response.data is None

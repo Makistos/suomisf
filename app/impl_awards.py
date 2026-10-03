@@ -331,14 +331,9 @@ def get_awards_for_type(award_type: str) -> ResponseType:
     """
     session = new_session()
 
-    award_type = 0
-
-    if award_type == 'person':
-        award_type = 0
-    elif award_type == 'work':
-        award_type = 1
-    elif award_type == 'story':
-        award_type = 2
+    type_ids = {'person': 0, 'work': 1, 'story': 2}
+    if award_type in type_ids:
+        type_id = type_ids[award_type]
     else:
         app.logger.error('get_awards_for_type: Unknown award type: '
                          f'{award_type}.')
@@ -351,7 +346,8 @@ def get_awards_for_type(award_type: str) -> ResponseType:
             .filter(Award.id == AwardCategories.award_id)\
             .join(AwardCategory)\
             .filter(AwardCategories.category_id == AwardCategory.id)\
-            .filter(AwardCategory.type == award_type)\
+            .filter(AwardCategory.type == type_id)\
+            .distinct()\
             .all()
     except SQLAlchemyError as exp:
         app.logger.error(f'Db error: {exp}.')
@@ -359,7 +355,7 @@ def get_awards_for_type(award_type: str) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
-        schema = AwardedSchema(many=True)
+        schema = AwardBriefSchema(many=True)
         retval = schema.dump(awards)
     except exceptions.MarshmallowError as exp:
         app.logger.error(f'Schema error: {exp}.')

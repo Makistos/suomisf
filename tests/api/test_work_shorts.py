@@ -171,8 +171,7 @@ class TestWorkShorts(BaseAPITest):
         GET /api/works/shorts/{id} should handle nonexistent work.
         """
         response = api_client.get('/api/works/shorts/999999999')
-        # May return empty list or error
-        assert response.status_code in [200, 400, 404]
+        assert response.status_code == 200
 
         if response.status_code == 200:
             # Empty list is acceptable for nonexistent work

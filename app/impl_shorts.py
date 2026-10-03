@@ -12,7 +12,7 @@ from app.impl import (EmptySearchResult, ResponseType, SearchResult,
 from app.impl_helpers import str_differ
 from app.impl_logs import log_changes
 from app.route_helpers import new_session
-from app.orm_decl import (Issue, Magazine, ShortStory, StoryTag, StoryType,
+from app.orm_decl import (Issue, Magazine, ShortStory, StoryTag, StoryType, Tag,
                           StoryGenre,
                           Language, Awarded, IssueContent,
                           EditionShortStory, StoryContributor, Person)
@@ -667,8 +667,9 @@ def story_tag_add(short_id: int, tag_id: int) -> ResponseType:
         if not short:
             app.logger.error(
                 f'StoryTagAdd: Short not found. Id = {short_id}.')
-            return ResponseType('Novellia ei löydy',
-                                HttpResponseCode.BAD_REQUEST.value)
+            return ResponseType('Novellia ei löydy', HttpResponseCode.NOT_FOUND.value)
+        if not session.query(Tag).filter(Tag.id == tag_id).first():
+            return ResponseType('Asiasanaa ei löydy', HttpResponseCode.NOT_FOUND.value)
 
         short_tag = StoryTag()
         short_tag.shortstory_id = short_id
