@@ -8,6 +8,8 @@
 > `[tool.pdm.dev-dependencies]`, not a standalone `requirements-test.txt`.
 > For how the test suite actually works today, see `TEST_DOCUMENTATION.md`
 > instead. Kept here for historical context on the original design intent.
+>
+> The current plan for test quality and coverage is `COVERAGE_PLAN.md`.
 
 ## Overview
 
