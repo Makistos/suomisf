@@ -193,23 +193,18 @@ class TestEditionOwnerModify(BaseAPITest):
 
 
 class TestEditionWishlist(BaseAPITest):
-    """Tests for edition wishlist endpoints.
-
-    Note: The /api/editions/{id}/wishlist endpoint has a SQLAlchemy bug
-    causing 500 errors (relationship comparison issue).
-    """
+    """Tests for edition wishlist endpoints."""
 
     def test_wishlist_processes_request(self, api_client):
         """GET /api/editions/{id}/wishlist processes request."""
         response = api_client.get(f'/api/editions/{BASIC_EDITION_ID}/wishlist')
-        # Note: May return 500 due to SQLAlchemy relationship comparison bug
-        assert response.status_code in [200, 500]
+        assert response.status_code == 200
 
     def test_wishlist_nonexistent_edition(self, api_client):
         """GET /api/editions/{nonexistent}/wishlist returns empty or error."""
         response = api_client.get('/api/editions/999999999/wishlist')
-        # May return 500 due to SQLAlchemy bug
-        assert response.status_code in [200, 400, 404, 500]
+        assert response.status_code == 200
+        assert response.json == []
 
     def test_user_wishlist_returns_200(self, api_client):
         """GET /api/editions/wishlist/{userid} should return 200."""
@@ -256,23 +251,21 @@ class TestEditionWishlist(BaseAPITest):
 class TestEditionWishlistModify(BaseAPITest):
     """Tests for edition wishlist modification endpoints.
 
-    Note: These endpoints do not require authentication (missing decorator).
-    This is a security issue that should be fixed.
+    Adding or removing requires the user's own token or an admin's
+    (see test_auth_user_data.py).
     """
 
-    def test_add_to_wishlist_processes_request(self, api_client):
-        """PUT /api/editions/{id}/wishlist/{userid} processes request."""
+    def test_add_to_wishlist_requires_auth(self, api_client):
+        """PUT /api/editions/{id}/wishlist/{userid} without a token is 401."""
         url = f'/api/editions/{BASIC_EDITION_ID}/wishlist/{USER_ID}'
         response = api_client.put(url)
-        # Note: No auth required - may succeed or hit unique constraint
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code == 401
 
-    def test_remove_from_wishlist_processes_request(self, api_client):
-        """DELETE /api/editions/{id}/wishlist/{userid} processes request."""
+    def test_remove_from_wishlist_requires_auth(self, api_client):
+        """DELETE /api/editions/{id}/wishlist/{userid} without a token is 401."""
         url = f'/api/editions/{BASIC_EDITION_ID}/wishlist/{USER_ID}'
         response = api_client.delete(url)
-        # Note: No auth required - endpoint processes without authentication
-        assert response.status_code in [200, 400, 404, 500]
+        assert response.status_code == 401
 
     def test_add_to_wishlist_with_auth(self, admin_client):
         """PUT /api/editions/{id}/wishlist/{userid} with auth processes."""

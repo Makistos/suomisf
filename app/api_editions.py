@@ -5,7 +5,8 @@ from flask import Response, request
 import json
 from flask_jwt_extended import jwt_required, verify_jwt_in_request, get_jwt
 from app.api_helpers import make_api_response
-from app.api_jwt import jwt_admin_required
+from app.api_jwt import (jwt_admin_required, jwt_self_or_admin_required,
+                         is_self_or_admin, forbidden_not_self)
 from app.impl import ResponseType
 from app.impl_editions import (
     copy_edition, create_edition, edition_delete, edition_image_upload,
@@ -266,7 +267,7 @@ def api_work_edition_prices(user_id: int, work_id: int) -> Response:
 
 
 @app.route('/api/editions/<editionid>/owner/<personid>', methods=['delete'])
-@jwt_required()  # type: ignore
+@jwt_self_or_admin_required('personid')
 def api_deleteowner(editionid: str, personid: str) -> Response:
     """
     Delete the owner of an edition.
@@ -312,6 +313,9 @@ def api_addeditionowner() -> Response:
     """
     params = request.data.decode('utf-8')
     params = json.loads(params)
+    # Add uses "userid", update "user_id".
+    if not is_self_or_admin(params.get('userid', params.get('user_id'))):
+        return forbidden_not_self()
     if request.method == 'POST':
         retval = make_api_response(editionowner_add(params))
     elif request.method == 'PUT':

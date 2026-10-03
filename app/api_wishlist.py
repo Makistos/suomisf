@@ -1,7 +1,7 @@
 
 from flask import Response
-from flask_jwt_extended import jwt_required
 from app import app
+from app.api_jwt import jwt_self_or_admin_required
 from app.impl_editions import (
     editionwishlist_get, editionwishlist_add, editionwishlist_remove,
     editionwishlist_user, editionowner_getowned)
@@ -24,8 +24,8 @@ def api_editionwishlist(editionid: str) -> Response:
     return make_api_response(editionwishlist_get(editionid))
 
 
-@jwt_required()  # type: ignore
 @app.route('/api/editions/<editionid>/wishlist/<userid>', methods=['put'])
+@jwt_self_or_admin_required('userid')
 def api_editionwishlist_add(editionid: str, userid: str) -> Response:
     """
     Add an edition to a user's wishlist.
@@ -40,8 +40,8 @@ def api_editionwishlist_add(editionid: str, userid: str) -> Response:
     return make_api_response(editionwishlist_add(editionid, userid))
 
 
-@jwt_required()  # type: ignore
 @app.route('/api/editions/<editionid>/wishlist/<userid>', methods=['delete'])
+@jwt_self_or_admin_required('userid')
 def api_editionwishlist_remove(editionid: str, userid: str) -> Response:
     """
     Remove an edition from a user's wishlist.

@@ -198,3 +198,49 @@ def jwt_admin_or_price_author_required(price_id_kwarg: str = 'price_id') -> Any:
             )
         return decorator
     return wrapper
+
+
+def is_self_or_admin(user_id: Any) -> bool:
+    """
+    True when the request's (already verified) token belongs to an admin,
+    or to the user whose id is `user_id`.
+
+    For endpoints that act on one user's own data (wishlist, ownership,
+    read status) so that a logged-in user can't change someone else's.
+    """
+    if get_jwt().get('is_administrator'):
+        return True
+    identity = get_jwt_identity()
+    try:
+        return identity is not None and int(identity) == int(user_id)
+    except (TypeError, ValueError):
+        return False
+
+
+def forbidden_not_self() -> Any:
+    """403 response for a user acting on another user's data."""
+    return make_response(
+        json.dumps({'msg': 'Toiminto on sallittu vain omille tiedoille'}),
+        HttpResponseCode.FORBIDDEN.value
+    )
+
+
+def jwt_self_or_admin_required(user_id_kwarg: str = 'userid') -> Any:
+    """
+    Allow admins, or the logged-in user whose id is the `user_id_kwarg` URL
+    parameter, to call this endpoint. Others get 403; no token gets 401.
+    """
+    def wrapper(f: Any) -> Any:
+        @wraps(f)
+        def decorator(*args: Any, **kwargs: Any) -> Any:
+            verify_jwt_in_request()
+            if is_self_or_admin(kwargs.get(user_id_kwarg)):
+                return f(*args, **kwargs)
+            app.logger.info(
+                f'jwt_self_or_admin_required: FORBIDDEN for '
+                f'{get_jwt().get("name")} on user={kwargs.get(user_id_kwarg)} '
+                f'endpoint={f.__name__}'
+            )
+            return forbidden_not_self()
+        return decorator
+    return wrapper

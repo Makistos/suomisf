@@ -244,34 +244,34 @@ class TestRandomIncompleteWorks(BaseAPITest):
 class TestWorkShortsSave(BaseAPITest):
     """Tests for POST/PUT /api/works/shorts endpoint."""
 
-    def test_save_work_shorts_post(self, api_client):
+    def test_save_work_shorts_post(self, admin_client):
         """POST /api/works/shorts processes request."""
         # Note: This endpoint may not require auth (no decorator in code)
-        response = api_client.post('/api/works/shorts', data={
+        response = admin_client.post('/api/works/shorts', data={
             'work_id': COLLECTION_WORK_ID,
             'shorts': []
         })
         # Should process request
         assert response.status_code in [200, 400, 500]
 
-    def test_save_work_shorts_put(self, api_client):
+    def test_save_work_shorts_put(self, admin_client):
         """PUT /api/works/shorts processes request."""
-        response = api_client.put('/api/works/shorts', data={
+        response = admin_client.put('/api/works/shorts', data={
             'work_id': COLLECTION_WORK_ID,
             'shorts': []
         })
         assert response.status_code in [200, 400, 500]
 
-    def test_save_work_shorts_invalid_work(self, api_client):
+    def test_save_work_shorts_invalid_work(self, admin_client):
         """POST /api/works/shorts with invalid work_id."""
-        response = api_client.post('/api/works/shorts', data={
+        response = admin_client.post('/api/works/shorts', data={
             'work_id': 999999999,
             'shorts': []
         })
         assert response.status_code in [200, 400, 404, 500]
 
     def test_save_work_shorts_roundtrip(
-            self, api_client, snapshot_manager):
+            self, admin_client, snapshot_manager):
         """
         POST /api/works/shorts replaces the short list and
         GET /api/works/shorts/27 reflects the change.
@@ -291,7 +291,7 @@ class TestWorkShortsSave(BaseAPITest):
 
         # Remove the last short
         reduced_ids = original_ids[:-1]
-        r = api_client.post('/api/works/shorts', data={
+        r = admin_client.post('/api/works/shorts', data={
             'work_id': COLLECTION_WORK_ID,
             'shorts': reduced_ids
         })
@@ -300,7 +300,7 @@ class TestWorkShortsSave(BaseAPITest):
         )
 
         # Verify the short was removed
-        got = api_client.get(
+        got = admin_client.get(
             f'/api/works/shorts/{COLLECTION_WORK_ID}')
         got.assert_success()
         actual_ids = {int(s['id']) for s in got.data}
@@ -309,7 +309,7 @@ class TestWorkShortsSave(BaseAPITest):
         )
 
         # Restore original list
-        r2 = api_client.post('/api/works/shorts', data={
+        r2 = admin_client.post('/api/works/shorts', data={
             'work_id': COLLECTION_WORK_ID,
             'shorts': original_ids
         })
@@ -318,7 +318,7 @@ class TestWorkShortsSave(BaseAPITest):
         )
 
         # Verify restoration
-        got2 = api_client.get(
+        got2 = admin_client.get(
             f'/api/works/shorts/{COLLECTION_WORK_ID}')
         got2.assert_success()
         final_ids = {int(s['id']) for s in got2.data}
@@ -328,7 +328,7 @@ class TestWorkShortsSave(BaseAPITest):
 
 
     def test_save_work_shorts_order(
-            self, api_client, snapshot_manager):
+            self, admin_client, snapshot_manager):
         """
         POST /api/works/shorts persists order and both endpoints
         return shorts in the saved order.
@@ -358,7 +358,7 @@ class TestWorkShortsSave(BaseAPITest):
         assert rotated_ids != original_ids, "Rotation must change order"
 
         # Save with rotated order
-        r = api_client.post('/api/works/shorts', data={
+        r = admin_client.post('/api/works/shorts', data={
             'work_id': COLLECTION_WORK_ID,
             'shorts': rotated_ids
         })
@@ -367,7 +367,7 @@ class TestWorkShortsSave(BaseAPITest):
         )
 
         # --- Verify via GET /api/works/shorts/{id} ---
-        shorts_resp = api_client.get(
+        shorts_resp = admin_client.get(
             f'/api/works/shorts/{COLLECTION_WORK_ID}'
         )
         shorts_resp.assert_success()
@@ -379,7 +379,7 @@ class TestWorkShortsSave(BaseAPITest):
         )
 
         # --- Verify via GET /api/works/{id} stories field ---
-        work_resp = api_client.get(
+        work_resp = admin_client.get(
             f'/api/works/{COLLECTION_WORK_ID}'
         )
         work_resp.assert_success()
@@ -394,7 +394,7 @@ class TestWorkShortsSave(BaseAPITest):
         )
 
         # --- Restore original order ---
-        r2 = api_client.post('/api/works/shorts', data={
+        r2 = admin_client.post('/api/works/shorts', data={
             'work_id': COLLECTION_WORK_ID,
             'shorts': original_ids
         })
@@ -403,7 +403,7 @@ class TestWorkShortsSave(BaseAPITest):
         )
 
         # Verify restoration (order, not just set)
-        final_resp = api_client.get(
+        final_resp = admin_client.get(
             f'/api/works/shorts/{COLLECTION_WORK_ID}'
         )
         final_resp.assert_success()

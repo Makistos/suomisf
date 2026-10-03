@@ -1469,7 +1469,7 @@ def editionwishlist_get(editionid: int) -> ResponseType:
     try:
         userbooks = session.query(UserBook)\
             .filter(UserBook.edition_id == editionid)\
-            .filter(UserBook.condition == 6)\
+            .filter(UserBook.condition_id == 6)\
             .all()
     except SQLAlchemyError as exp:
         app.logger.error(f"editionwishlist_get: {str(exp)}")
@@ -1477,7 +1477,7 @@ def editionwishlist_get(editionid: int) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
-        schema = UserBook(many=True)
+        schema = UserBookSchema(many=True)
         retval = schema.dump(userbooks)
     except exceptions.MarshmallowError as exp:
         app.logger.error(f"editionwishlist_get: {str(exp)}")
@@ -1502,11 +1502,14 @@ def editionwishlist_add(editionid: int, userid: int) -> ResponseType:
     ub = session.query(UserBook)\
         .filter(UserBook.edition_id == editionid)\
         .filter(UserBook.user_id == userid)\
-        .filter(UserBook.condition_id == 6)\
         .first()
 
     if ub:
-        return ResponseType(None, HttpResponseCode.OK.value)
+        if ub.condition_id == 6:
+            return ResponseType(None, HttpResponseCode.OK.value)
+        # Owning and wishlisting share one row per user and edition.
+        return ResponseType("Painos on jo kokoelmassa.",
+                            HttpResponseCode.BAD_REQUEST.value)
 
     try:
         userbook = UserBook(edition_id=editionid,

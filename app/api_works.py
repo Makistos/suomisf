@@ -5,7 +5,8 @@
 import json
 from flask import Response, request
 from flask_jwt_extended import jwt_required
-from app.api_jwt import jwt_admin_required
+from app.api_jwt import (jwt_admin_required, jwt_self_or_admin_required,
+                         is_self_or_admin, forbidden_not_self)
 
 from app.api_helpers import make_api_response, validate_positive_integer_id
 from app.impl import ResponseType
@@ -289,6 +290,7 @@ def api_workshorts(workid: int) -> Response:
 
 
 @app.route('/api/works/shorts', methods=['put', 'post'])
+@jwt_admin_required()  # type: ignore
 def api_workshorts_save() -> Response:
     """ Save shorts in a collection. """
     params = request.data.decode('utf-8')
@@ -603,11 +605,13 @@ def api_workreadset() -> Response:
         response = ResponseType(f'Virheellinen JSON: {exp}.',
                                 HttpResponseCode.BAD_REQUEST.value)
         return make_api_response(response)
+    if not is_self_or_admin(params.get('user_id')):
+        return forbidden_not_self()
     return make_api_response(work_read_set(params))
 
 
 @app.route('/api/works/<workid>/read/<userid>', methods=['delete'])
-@jwt_required()  # type: ignore
+@jwt_self_or_admin_required('userid')
 def api_workreadremove(workid: str, userid: str) -> Response:
     """
     Unmark a work as read for a user.

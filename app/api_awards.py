@@ -148,8 +148,8 @@ def api_get_awards_for_short(short_id: int) -> Response:
     return make_api_response(response)
 
 
-@jwt_admin_required()  # type: ignore
 @app.route('/api/awards/works/awards', methods=['put'])
+@jwt_admin_required()  # type: ignore
 def api_add_awards_to_work() -> Response:
     """
     Add awards to a work.
@@ -165,8 +165,8 @@ def api_add_awards_to_work() -> Response:
     return make_api_response(response)
 
 
-@jwt_admin_required()  # type: ignore
 @app.route('/api/awards/people/awards', methods=['put'])
+@jwt_admin_required()  # type: ignore
 def api_add_awards_to_person() -> Response:
     """
     Add awards to a person.
@@ -241,18 +241,14 @@ def api_get_awards_by_filter(filter: str) -> Response:
     return make_api_response(response)
 
 
-@jwt_admin_required()  # type: ignore
 @app.route('/api/awarded', methods=['POST'])
+@jwt_admin_required()  # type: ignore
 def api_awarded() -> Response:
     """
-    Get all awards that match a given filter.
-
-    Args:
-        filter (str): The filter to apply to the awards.
+    Save the awards given to a work, person or short story (admin only).
 
     Returns:
-        Response: The response object containing the awards that match the
-        given filter.
+        Response: The result of the save.
     """
     params = json.loads(request.data.decode('utf-8'))
     response = save_awarded(params)
