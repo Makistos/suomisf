@@ -163,12 +163,15 @@ class TestEditionOwnerModify(BaseAPITest):
         assert response.status_code == 200
 
     def test_update_owner_with_auth(self, admin_client):
-        """PUT /api/editions/owner with auth processes request."""
-        response = admin_client.put('/api/editions/owner', data={
-            'edition_id': BASIC_EDITION_ID,
-            'user_id': USER_ID
-        })
-        assert response.status_code == 200
+        """PUT /api/editions/owner creates the ownership row if missing."""
+        try:
+            response = admin_client.put('/api/editions/owner', data={
+                'edition_id': BASIC_EDITION_ID,
+                'user_id': USER_ID
+            })
+            assert response.status_code == 200
+        finally:
+            admin_client.delete(f'/api/editions/{BASIC_EDITION_ID}/owner/{USER_ID}')
 
 
 class TestEditionWishlist(BaseAPITest):
@@ -234,11 +237,17 @@ class TestEditionWishlistModify(BaseAPITest):
     """
 
     def test_add_owned_edition_to_wishlist_is_400(self, admin_client):
-        """The user already owns this edition, and owning and wishlisting
-        share one row per user and edition."""
-        url = f'/api/editions/{BASIC_EDITION_ID}/wishlist/{USER_ID}'
-        response = admin_client.put(url)
-        assert response.status_code == 400
+        """Owning and wishlisting share one row per user and edition, so an
+        owned edition can't be wishlisted."""
+        owner_url = f'/api/editions/{BASIC_EDITION_ID}/owner/{USER_ID}'
+        try:
+            admin_client.put('/api/editions/owner', data={
+                'edition_id': BASIC_EDITION_ID, 'user_id': USER_ID})
+            url = f'/api/editions/{BASIC_EDITION_ID}/wishlist/{USER_ID}'
+            response = admin_client.put(url)
+            assert response.status_code == 400
+        finally:
+            admin_client.delete(owner_url)
 
     def test_remove_from_wishlist_with_auth(self, admin_client):
         """DELETE /api/editions/{id}/wishlist/{userid} with auth processes."""
