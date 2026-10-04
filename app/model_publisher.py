@@ -34,12 +34,25 @@ class EditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     wishlisted = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name'))))
 
 
+# What the publisher page's edition list (EditionList, EditionSummary,
+# CoverImageList and their grouping/sorting helpers) reads. A publisher can
+# have thousands of editions, so nothing else is sent (2026-10: WSOY's page
+# was 4.6 MB). Keep in step with get_publisher's eager loading.
+PUBLISHER_EDITION_FIELDS = (
+    'id', 'title', 'pubyear', 'editionnum', 'version', 'pages', 'size',
+    'isbn',  # combineEditions indexes it unless it's a string or null
+    'images', 'publisher', 'owners', 'wishlisted',
+    'work.id', 'work.title', 'work.orig_title', 'work.pubyear', 'work.type',
+    'work.author_str', 'work.genres', 'work.language_name', 'work.contributions',
+)
+
+
 class PublisherPageSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     """ Publisher schema. """
     class Meta:
         """ Meta class. """
         model = Publisher
-    editions = ma.List(fields.Nested(EditionSchema))
+    editions = ma.List(fields.Nested(EditionSchema(only=PUBLISHER_EDITION_FIELDS)))
     series = ma.List(fields.Nested(PubseriesSchema(only=('id', 'name'))))
     links = ma.List(fields.Nested(PublisherLinkSchema))
     magazines = ma.List(fields.Nested(MagazineBriefSchema(

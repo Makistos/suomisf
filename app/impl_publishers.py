@@ -2,12 +2,13 @@
 from typing import Any, Union, Dict, List
 from sqlalchemy import or_
 from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.orm import selectinload
 from marshmallow import exceptions
 from app.impl_links import links_have_changed
 from app.impl_logs import log_changes
 from app.model_publisher import PublisherPageSchema
 from app.route_helpers import new_session
-from app.orm_decl import Publisher
+from app.orm_decl import Edition, Publisher, Work, WorkContributor
 from app.model import (PublisherBriefSchema,
                        PublisherBriefSchemaWEditions,
                        PublisherLink)
@@ -104,7 +105,27 @@ def get_publisher(pub_id: int) -> ResponseType:
     session = new_session()
 
     try:
+        # Load everything PublisherPageSchema touches up front; lazy loads
+        # while serializing cost ~5 queries per edition (11,274 for WSOY).
+        work = selectinload(Publisher.editions).selectinload(Edition.work)
         publisher = session.query(Publisher)\
+            .options(
+                selectinload(Publisher.editions).selectinload(Edition.images),
+                selectinload(Publisher.editions).selectinload(Edition.publisher),
+                selectinload(Publisher.editions).selectinload(Edition.owners),
+                selectinload(Publisher.editions).selectinload(Edition.wishlisted),
+                work.selectinload(Work.genres),
+                work.selectinload(Work.language_name),
+                work.selectinload(Work.contributions)
+                    .selectinload(WorkContributor.person),
+                work.selectinload(Work.contributions)
+                    .selectinload(WorkContributor.real_person),
+                work.selectinload(Work.contributions)
+                    .selectinload(WorkContributor.role),
+                selectinload(Publisher.series),
+                selectinload(Publisher.links),
+                selectinload(Publisher.magazines),
+            )\
             .filter(Publisher.id == pub_id)\
             .first()
     except SQLAlchemyError as exp:
