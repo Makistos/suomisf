@@ -1,5 +1,4 @@
 """ Editions implementation """
-import json
 from typing import Any, Dict, Union
 import os
 from werkzeug.datastructures import FileStorage
@@ -1315,14 +1314,20 @@ def editionowner_add(params: dict) -> ResponseType:
             .filter(UserBook.condition_id > 0)\
             .filter(UserBook.condition_id <= 5)\
             .first()
+        if not userbook:
+            # Not owned yet: turn a wishlist row into ownership (they share
+            # one row per user and edition), or create the row.
+            userbook = session.query(UserBook)\
+                .filter(UserBook.edition_id == editionid)\
+                .filter(UserBook.user_id == userid)\
+                .first()
+            if not userbook:
+                userbook = UserBook(edition_id=editionid, user_id=userid)
+                session.add(userbook)
     except SQLAlchemyError as exp:
         app.logger.error(f"editionowner_add: {str(exp)}")
-
-    if not userbook:
-        app.logger.error(
-            f"editionowner_add: Userbook not found. id={editionid}")
-        return ResponseType("editionowner_add: Omistajatietoa ei käydy.",
-                            HttpResponseCode.BAD_REQUEST.value)
+        return ResponseType("editionowner_add: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
         userbook.condition_id = condition
@@ -1583,8 +1588,7 @@ def editionwishlist_user(editionid: int, userid: int) -> ResponseType:
         return ResponseType("editionwishlist_user: Tietokantavirhe.",
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    retval = json.dumps({'wishlisted': ub is not None})
-    return ResponseType(retval, HttpResponseCode.OK.value)
+    return ResponseType({'wishlisted': ub is not None}, HttpResponseCode.OK.value)
 
 
 def work_edition_prices(user_id: int, work_id: int) -> ResponseType:

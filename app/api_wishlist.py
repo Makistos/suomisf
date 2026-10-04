@@ -70,7 +70,7 @@ def api_editionwishlist_user_status(editionid: str, userid: str) -> Response:
     Response: A JSON response containing a boolean value indicating if the
     edition is in the users wishlist.
     """
-    return editionwishlist_user(editionid, userid)
+    return make_api_response(editionwishlist_user(editionid, userid))
 
 
 @app.route('/api/editions/wishlist/<userid>', methods=['get'])
