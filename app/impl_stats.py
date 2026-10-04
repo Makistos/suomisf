@@ -1042,6 +1042,17 @@ def stats_storynationalitycounts() -> ResponseType:
     return ResponseType(result, HttpResponseCode.OK.value)
 
 
+# What the drill-down dialog's ShortsList/ShortSummary reads. The full
+# ShortBriefSchema nests whole editions, works and author records (~10 KB
+# per story; 72 MB and 105,117 queries for all novellas).
+STATS_STORY_FIELDS = (
+    'id', 'title', 'orig_title', 'pubyear', 'type', 'lang', 'genres',
+    'contributors', 'editions.id', 'editions.work.id', 'editions.work.title',
+    'editions.work.pubyear', 'issues.id', 'issues.cover_number',
+    'issues.magazine.id', 'issues.magazine.name',
+)
+
+
 def stats_filterstories(storytype_id: Optional[int] = None,
                         language_id: Optional[int] = None,
                         pubyear_min: Optional[int] = None,
@@ -1123,11 +1134,19 @@ def stats_filterstories(storytype_id: Optional[int] = None,
                 query = query.filter(StoryContributor.role_id == contributor_role_id)
             query = query.distinct()
 
-        query = query.order_by(ShortStory.title)
+        query = query.order_by(ShortStory.title).options(
+            selectinload(ShortStory.type),
+            selectinload(ShortStory.lang),
+            selectinload(ShortStory.genres),
+            selectinload(ShortStory.contributors).selectinload(StoryContributor.person),
+            selectinload(ShortStory.contributors).selectinload(StoryContributor.real_person),
+            selectinload(ShortStory.contributors).selectinload(StoryContributor.role),
+            selectinload(ShortStory.editions).selectinload(Edition.work),
+            selectinload(ShortStory.issues).selectinload(Issue.magazine))
         _log_query('stats_filterstories', query)
         stories = query.all()
 
-        schema = ShortBriefSchema(many=True)
+        schema = ShortBriefSchema(many=True, only=STATS_STORY_FIELDS)
         result = schema.dump(stories)
 
     except exceptions.MarshmallowError as exp:

@@ -4,6 +4,8 @@ SuomiSF API Statistics Endpoint Tests
 Tests for /api/stats/* endpoints with snapshot comparison.
 """
 
+import pytest
+
 from .base_test import BaseAPITest
 
 
@@ -195,16 +197,14 @@ class TestFilterStories(BaseAPITest):
     language, and publication year range.
     """
 
-    def test_filterstories_no_params(self, api_client):
-        """GET /api/stats/filterstories without params."""
-        response = api_client.get(
-            '/api/stats/filterstories'
-        )
-        response.assert_success()
-
-        data = response.data
-        assert isinstance(data, list)
-        assert len(data) > 0, "Should return stories"
+    @pytest.mark.parametrize('path', [
+        '/api/stats/filterstories', '/api/stats/filterstories?role=1',
+        '/api/stats/filterworks', '/api/stats/filterworks?role=1'])
+    def test_filter_without_filters_is_400(self, api_client, path):
+        """Unfiltered, these returned every story (~100 MB, 100 s) or every
+        work (~22 MB); role alone only refines a nationality filter."""
+        response = api_client.get(path)
+        assert response.status_code == 400
 
     def test_filterstories_by_novelli(self, api_client):
         """GET filterstories?storytype=1 returns novellit.

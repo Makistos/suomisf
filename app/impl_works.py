@@ -240,6 +240,26 @@ def similar_description(
     return descr1 == descr2
 
 
+def _work_list_loaders() -> List[Any]:
+    """Relationships a work's serialization touches for each edition and
+    contributor; loaded up front instead of one lazy query each."""
+    def contributors(rel: Any, model: Any) -> Any:
+        return rel.options(selectinload(model.person),
+                           selectinload(model.real_person),
+                           selectinload(model.role))
+    return [
+        contributors(selectinload(Work.contributions), WorkContributor),
+        selectinload(Work.editions).options(
+            contributors(selectinload(Edition.contributions), EditionContributor),
+            selectinload(Edition.images),
+            selectinload(Edition.publisher),
+            selectinload(Edition.owners),
+            selectinload(Edition.wishlisted)),
+        selectinload(Work.genres),
+        selectinload(Work.language_name),
+    ]
+
+
 def get_work(work_id: int) -> ResponseType:
     """
     Retrieves a specific work from the database based on the provided work ID.
@@ -253,7 +273,8 @@ def get_work(work_id: int) -> ResponseType:
     """
     session = new_session()
     try:
-        work = session.query(Work).filter(Work.id == work_id).first()
+        work = session.query(Work).options(*_work_list_loaders())\
+            .filter(Work.id == work_id).first()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in GetWork: ' + str(exp))
         return ResponseType(f'GetWork: Tietokantavirhe. id={work_id}',
@@ -778,7 +799,7 @@ def works_by_type(work_type: int) -> ResponseType:
     works = []
 
     try:
-        works = session.query(Work).filter(
+        works = session.query(Work).options(*_work_list_loaders()).filter(
             Work.type == work_type).all()
     except SQLAlchemyError as exp:
         app.logger.error(exp)

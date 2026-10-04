@@ -10,6 +10,8 @@ All endpoints return JSON responses with appropriate HTTP status codes.
 from flask import request
 from flask.wrappers import Response
 from app.api_helpers import make_api_response
+from app.impl import ResponseType
+from app.types import HttpResponseCode
 from app.impl_stats import (
     stats_genrecounts,
     stats_personcounts,
@@ -750,6 +752,12 @@ def api_stats_filterstories() -> Response:
     pubyear_max = request.args.get('pubyear_max', default=None, type=int)
     nationality_id = request.args.get('nationality', default=None, type=int)
     contributor_role_id = request.args.get('role', default=None, type=int)
+    if all(v is None for v in (storytype_id, language_id, pubyear_min,
+                               pubyear_max, nationality_id)):
+        # Unfiltered, this is every short story in the database (~100 MB,
+        # minutes of work); the charts always pass a filter.
+        return make_api_response(ResponseType(
+            'Anna vähintään yksi suodatin.', HttpResponseCode.BAD_REQUEST.value))
     return make_api_response(stats_filterstories(
         storytype_id, language_id, pubyear_min, pubyear_max,
         nationality_id, contributor_role_id))
@@ -883,6 +891,13 @@ def api_stats_filterworks() -> Response:
     nationality_id = request.args.get('nationality', default=None, type=int)
     contributor_role_id = request.args.get('role', default=None, type=int)
     read_user_id = request.args.get('read', default=None, type=int)
+    if all(v is None for v in (language_id, orig_year_min, orig_year_max,
+                               edition_year_min, edition_year_max, owner_id,
+                               worktype_id, genre_id, publisher_id,
+                               nationality_id, read_user_id)):
+        # Unfiltered, this is every work in the database (~22 MB).
+        return make_api_response(ResponseType(
+            'Anna vähintään yksi suodatin.', HttpResponseCode.BAD_REQUEST.value))
     return make_api_response(stats_filterworks(
         language_id, orig_year_min, orig_year_max, edition_year_min,
         edition_year_max, owner_id, worktype_id, genre_id, publisher_id,

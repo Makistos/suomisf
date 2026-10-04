@@ -105,3 +105,26 @@ def test_tag_page_work_editions_are_slim(client):
     assert set(work['editions'][0]) == {
         'id', 'title', 'pubyear', 'editionnum', 'version', 'publisher',
         'contributions', 'images', 'size', 'owners', 'wishlisted'}
+
+
+def test_works_by_type_query_count(client):
+    """1,366 queries for non-fiction (type 4) before the editions'
+    relationships were loaded up front."""
+    with count_queries() as queries:
+        response = client.get('/api/works/bytype/4')
+    assert response.status_code == 200
+    assert queries['n'] <= 200, f"{queries['n']} queries"
+
+
+def test_story_drilldown_is_slim_and_batched(client):
+    """All novellas took 105,117 queries and 72 MB before."""
+    with count_queries() as queries:
+        response = client.get('/api/stats/filterstories?storytype=1')
+    assert response.status_code == 200
+    stories = response.get_json()
+    assert len(stories) > 1000
+    assert queries['n'] <= 150, f"{queries['n']} queries"
+    story = next(s for s in stories if s['editions'] and s['issues'])
+    assert set(story['editions'][0]) == {'id', 'work'}
+    assert set(story['editions'][0]['work']) == {'id', 'title', 'pubyear'}
+    assert set(story['issues'][0]['magazine']) == {'id', 'name'}
