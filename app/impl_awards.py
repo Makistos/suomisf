@@ -248,40 +248,6 @@ def get_awards_for_short(story_id: int) -> ResponseType:
     return ResponseType(retval, HttpResponseCode.OK.value)
 
 
-def get_categories_for_award(award_id: int) -> ResponseType:
-    """
-    Get the categories for a specific award.
-
-    Args:
-        award_id (int): The ID of the award.
-
-    Returns:
-        ResponseType: The list of categories for the award.
-    """
-    session = new_session()
-
-    try:
-        categories = session.query(AwardCategory)\
-            .join(AwardCategories)\
-            .filter(AwardCategory.id == AwardCategories.award_id)\
-            .filter(AwardCategories.award_id == award_id)\
-            .first()
-    except SQLAlchemyError as exp:
-        app.logger.error(f'Db error: {exp}.')
-        return ResponseType(
-            f'get_categories_for_award: Tietokantavirhe. {exp}.',
-            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
-
-    try:
-        schema = AwardSchema()
-        retval = schema.dump(categories)
-    except exceptions.MarshmallowError as exp:
-        app.logger.error(f'Schema error: {exp}.')
-        return ResponseType(f'get_categories_for_award: Skeemavirhe. {exp}.',
-                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
-    return ResponseType(retval, HttpResponseCode.OK.value)
-
-
 def get_categories_for_type(type: str) -> ResponseType:
     session = new_session()
 

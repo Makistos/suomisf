@@ -11,8 +11,7 @@ from marshmallow import exceptions
 from app.impl_helpers import objects_differ, str_differ
 from app.impl_logs import log_changes
 from app.route_helpers import new_session
-from app.impl import (ResponseType, SearchResult,
-                      SearchResultFields, searchscore, set_language, check_int,
+from app.impl import (ResponseType, set_language, check_int,
                       get_join_changes)
 from app.orm_decl import (Awarded, AntikvaariWorkProduct, Edition,
                           EditionContributor, EditionShortStory, Genre,
@@ -297,68 +296,6 @@ def get_work(work_id: int) -> ResponseType:
 #     session = new_session()
 
 #     return ResponseType('', 200)
-
-
-def search_works(session: Any, searchwords: List[str]) -> SearchResult:
-    """
-    Search for works based on the given search words.
-
-    Args:
-        session (Any): The session object to use for the database query.
-        searchwords (List[str]): The list of search words to use for the
-        search.
-
-    Returns:
-        SearchResult: A list of search results matching the search words.
-    """
-    retval: SearchResult = []
-    found_works: Dict[int, SearchResultFields] = {}
-
-    for searchword in searchwords:
-        lower_search = bleach.clean(searchword).lower()
-        try:
-            works = session.query(Work)\
-                .filter(Work.title.ilike('%' + lower_search + '%') |
-                        Work.subtitle.ilike('%' + lower_search + '%') |
-                        Work.orig_title.ilike('%' + lower_search + '%') |
-                        Work.misc.ilike('%' + lower_search + '%') |
-                        Work.description.ilike('%' + lower_search + '%'))\
-                .join(Edition, Edition.work_id == Work.id)\
-                .filter(Edition.title.ilike('%' + lower_search + '%') |
-                        Edition.subtitle.ilike('%' + lower_search + '%'))\
-                .order_by(Work.title)\
-                .all()
-        except SQLAlchemyError as exp:
-            app.logger.error('Exception in SearchWorks: ' + str(exp))
-            return []
-
-        for work in works:
-            if work.id in found_works:
-                found_works[work.id]['score'] *= searchscore(
-                    'work', work, lower_search)
-            else:
-                description = (work.description if work.description else '')
-                if lower_search in description.lower():
-                    start = description.lower().index(lower_search)
-                    description = (
-                        description[:start] + '<b>' +
-                        description[start:start + len(lower_search)] +
-                        '</b>' + description[start + len(lower_search):]
-                        )
-
-                item: SearchResultFields = {
-                    'id': work.id,
-                    'img': '',
-                    'header': work.title,
-                    'description': description,
-                    'author': work.author_str,
-                    'type': 'work',
-                    'score': searchscore('work', work, lower_search)
-                }
-                found_works[work.id] = item
-        retval = [value for _, value in found_works.items()]
-
-    return retval
 
 
 def search_books(params: Dict[str, str]) -> ResponseType:
@@ -1570,44 +1507,6 @@ def get_latest_works(count: int) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType(retval, HttpResponseCode.OK.value)
-
-
-def get_random_incomplete_work() -> ResponseType:
-    """
-    Get a random work that doesn't have description, links, and tags.
-
-    Returns:
-        ResponseType: Response containing a random incomplete work or error
-                      message.
-    """
-    try:
-        # SQL query to find works without description, links, and tags
-        query = """
-        SELECT w.id
-        FROM work w
-        LEFT JOIN worklink wl ON w.id = wl.work_id
-        LEFT JOIN worktag wt ON w.id = wt.work_id
-        WHERE (w.description IS NULL OR w.description = '')
-        AND wl.work_id IS NULL
-        AND wt.work_id IS NULL
-        ORDER BY RANDOM()
-        LIMIT 1
-        """
-        session = new_session()
-
-        result = session.execute(text(query)).fetchone()
-
-        if not result:
-            return ResponseType("No incomplete works found",
-                                HttpResponseCode.NOT_FOUND.value)
-
-        work_id = result[0]
-        return get_work(work_id)
-
-    except Exception as e:
-        app.logger.error(f'get_random_incomplete_work: Database error: {e}')
-        return ResponseType("Database error occurred",
-                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
 
 def get_random_incomplete_works(params: Dict[str, Any]) -> ResponseType:

@@ -106,9 +106,6 @@ def api_changes() -> Response:
         retval = get_changes(params)
     except APIError as exp:
         app.logger.error(f'Exception in api_changes: {exp}')
-        response = ResponseType(
-            'api_changes: poikkeus.',
-            status=HttpResponseCode.INTERNAL_SERVER_ERROR.value)
-        return make_api_response(response)
+        return make_api_response(ResponseType(exp.message, exp.code))
 
     return make_api_response(retval)

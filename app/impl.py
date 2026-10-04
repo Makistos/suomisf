@@ -122,55 +122,6 @@ def check_int(value: Any = None,
     return retval
 
 
-def searchscore(table: str, item: Any, word: str) -> IntEnum:
-    """
-    Calculate the search score for a given item in a table based on a search
-    word.
-
-    Args:
-        table (str): The name of the table to search in.
-        item (Any): The item to search for.
-        word (str): The search word.
-
-    Returns:
-        IntEnum: The search score for the item.
-    """
-    retval: IntEnum = SearchScores.NONE
-
-    if table == 'work':
-        if word in item.title.lower():
-            retval = SearchScores.WORK_TITLE
-            if item.title.lower().startswith(word):
-                return retval + SearchScores.STARTS_WITH
-        return SearchScores.WORK_OTHER
-    if table == 'person':
-        if item.fullname:
-            if word in item.fullname.lower():
-                retval = SearchScores.PERSON_NAME
-                if item.fullname.lower().startswith(word):
-                    return retval + SearchScores.STARTS_WITH
-        if item.name:
-            if word in item.name.lower():
-                retval = SearchScores.PERSON_NAME
-                if item.name.lower().startswith(word):
-                    return retval + SearchScores.STARTS_WITH
-        if item.alt_name.lower():
-            if word in item.alt_name:
-                retval = SearchScores.PERSON_NAME
-                if item.alt_name.lower().startswith(word):
-                    return retval + SearchScores.STARTS_WITH
-        else:
-            return SearchScores.PERSON_OTHER
-    if table == 'story':
-        if word in item.title.lower():
-            retval = SearchScores.STORY_NAME
-            if item.title.lower().startswith(word):
-                return retval + SearchScores.STARTS_WITH
-        else:
-            return SearchScores.STORY_OTHER
-    return retval
-
-
 def get_changes(params: Dict[str, Any]) -> ResponseType:
     """
     Get changes made to the database.
@@ -190,7 +141,7 @@ def get_changes(params: Dict[str, Any]) -> ResponseType:
     if 'period' in params:
         try:
             period_length = int(params['period'])
-        except TypeError as exp:
+        except (TypeError, ValueError) as exp:
             app.logger.error(f'get_changes: {exp}')
             raise APIError(f'Invalid period length {params["period"]}.',
                            HttpResponseCode.BAD_REQUEST) from exp

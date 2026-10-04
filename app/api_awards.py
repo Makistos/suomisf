@@ -4,8 +4,7 @@ from app.api_helpers import make_api_response
 from app.impl_awards import (create_award, get_award, get_awards_by_filter,
                              get_awards_for_short,
                              get_awards_for_type,
-                             get_awards_for_work, get_categories_for_award,
-                             get_categories_for_type,
+                             get_awards_for_work, get_categories_for_type,
                              get_person_awards, list_awards, save_awarded,
                              save_person_awards, save_work_awards,
                              update_award)
@@ -206,22 +205,6 @@ def api_get_all_award_categories(award_type: str) -> Response:
         Response: The response object containing all award categories.
     """
     response = get_categories_for_type(award_type)
-    return make_api_response(response)
-
-
-@app.route('/api/awards/categories/<award_id>', methods=['GET'])
-def api_get_award_categories(award_id: int) -> Response:
-    """
-    Get all categories for a given award.
-
-    Args:
-        award_id (int): The ID of the award to get the categories for.
-
-    Returns:
-        Response: The response object containing the categories for the given
-        award.
-    """
-    response = get_categories_for_award(award_id)
     return make_api_response(response)
 
 

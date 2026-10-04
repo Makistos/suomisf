@@ -103,16 +103,17 @@ def fix_operator(operator: str, value: str) -> Tuple[str, str]:
     if operator == 'lt':
         return ('lt', value)
     if operator == 'lte':
-        return ('lte', value)
+        # SQLAlchemy's comparison methods are __le__ / __ge__.
+        return ('le', value)
     if operator == 'gt':
         return ('gt', value)
     if operator == 'gte':
-        return ('gte', value)
+        return ('ge', value)
     if operator == 'in':
         # Needs special attention in filtering
         return ('in', value)
     raise APIError(f'Invalid filter operation {operator}',
-                   HttpResponseCode.METHOD_NOT_ALLOWED.value)
+                   HttpResponseCode.BAD_REQUEST.value)
 
 ###
 # User control related functions

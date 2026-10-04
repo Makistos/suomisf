@@ -181,7 +181,7 @@ def api_getpeople() -> Response:
     try:
         retval = list_people(params)
     except APIError as exp:
-        print(exp.message)
+        app.logger.info(f'api_listpeople: {exp.message}')
         return make_api_response(ResponseType(exp.message, exp.code))
     return make_api_response(retval)
 

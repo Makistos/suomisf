@@ -294,7 +294,13 @@ def list_people(params: Dict[str, Any]) -> ResponseType:
             if isinstance(filters, dict):
                 if field not in _allowed_person_fields:
                     raise APIError(f'Invalid filter field {field}',
-                                   HttpResponseCode.METHOD_NOT_ALLOWED.value)
+                                   HttpResponseCode.BAD_REQUEST.value)
+                if 'value' not in filters:
+                    # e.g. PrimeReact's constraint form
+                    # (filters_name_constraints_0_value=...); only the
+                    # filters_<field>_value / _matchMode form is supported.
+                    raise APIError(f'Unsupported filter format for {field}',
+                                   HttpResponseCode.BAD_REQUEST.value)
                 if filters['value']:
                     if (field in ('dob', 'dod')
                             and filters['value'] and len(filters['value']) < 4):
