@@ -666,13 +666,26 @@ class MagazineSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     type = fields.Nested(MagazineTypeSchema)
 
 
+# The tag page's WorkList (WorkSummary, OtherEdition, CoverImageList, the
+# work tooltip and the stats panel) reads these. A tag can have hundreds of
+# works, each with several editions (2026-10: tag 521 was 1.1 MB).
+TAG_WORK_FIELDS = (
+    'id', 'title', 'orig_title', 'author_str', 'subtitle', 'pubyear', 'type',
+    'bookseriesnum', 'bookseriesorder', 'misc', 'description', 'descr_attr',
+    'contributions', 'genres', 'bookseries', 'language_name',
+    'editions.id', 'editions.title', 'editions.pubyear', 'editions.editionnum',
+    'editions.version', 'editions.publisher', 'editions.contributions',
+    'editions.images', 'editions.size', 'editions.owners', 'editions.wishlisted',
+)
+
+
 class TagSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     """ Tag schema. """
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Tag
 
-    works = ma.List(fields.Nested(WorkBriefSchema, exclude=("tags",)))
+    works = ma.List(fields.Nested(WorkBriefSchema(only=TAG_WORK_FIELDS)))
     articles = ma.List(fields.Nested(ArticleBriefSchema))
     stories = ma.List(fields.Nested(ShortBriefSchema))
     magazines = ma.List(fields.Nested(MagazineBriefSchema))

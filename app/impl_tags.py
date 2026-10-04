@@ -2,8 +2,10 @@
 from typing import Any, List
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.orm import selectinload
 from marshmallow import exceptions
-from app.orm_decl import (Tag, ArticleTag, IssueTag,
+from app.orm_decl import (Tag, ArticleTag, IssueTag, Bookseries, Edition,
+                          EditionContributor, Work, WorkContributor,
                           PersonTag, StoryTag, TagType, WorkTag)
 from app.model import (TagBriefSchema, TagSchema, TagTypeSchema)
 from app.route_helpers import new_session
@@ -177,6 +179,34 @@ ORDER BY tag.name;
     return ResponseType(retval, HttpResponseCode.OK.value)
 
 
+def _tag_page_loaders() -> List[Any]:
+    """Load what TagSchema serializes up front (5,047 lazy-load queries for
+    a tag with 360 works before)."""
+    def contributors(rel: Any, model: Any) -> Any:
+        return rel.options(selectinload(model.person),
+                           selectinload(model.real_person),
+                           selectinload(model.role))
+    works = selectinload(Tag.works)
+    return [
+        works.options(
+            contributors(selectinload(Work.contributions), WorkContributor),
+            selectinload(Work.genres),
+            selectinload(Work.bookseries).selectinload(Bookseries.partof),
+            selectinload(Work.language_name)),
+        works.selectinload(Work.editions).options(
+            contributors(selectinload(Edition.contributions), EditionContributor),
+            selectinload(Edition.images),
+            selectinload(Edition.publisher),
+            selectinload(Edition.owners),
+            selectinload(Edition.wishlisted)),
+        selectinload(Tag.stories),
+        selectinload(Tag.articles),
+        selectinload(Tag.magazines),
+        selectinload(Tag.people),
+        selectinload(Tag.type),
+    ]
+
+
 def tag_info(tag_id: int) -> ResponseType:
     """
     Retrieves information about a tag based on its ID.
@@ -195,7 +225,8 @@ def tag_info(tag_id: int) -> ResponseType:
     session = new_session()
 
     try:
-        tag = session.query(Tag).filter(Tag.id == tag_id).first()
+        tag = session.query(Tag).options(*_tag_page_loaders())\
+            .filter(Tag.id == tag_id).first()
     except SQLAlchemyError as exp:
         app.logger.error(f'Exception in TagInfo (id: {tag_id}): ' + str(exp))
         return ResponseType('TagInfo: Tietokantavirhe.',

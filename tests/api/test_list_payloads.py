@@ -84,3 +84,24 @@ def test_person_page_nested_editions_are_slim(client):
     assert set(story['editions'][0]['work']) == {'id', 'title', 'pubyear', 'author_str'}
     tagged = next(w for w in person['works'] if w['tags'])
     assert set(tagged['tags'][0]) == {'id', 'name', 'type'}
+
+
+BIG_TAG = 521   # dystopia, ~360 works
+
+
+def test_tag_page_query_count(client):
+    """5,047 queries before the works' relationships were loaded up front."""
+    with count_queries() as queries:
+        response = client.get(f'/api/tags/{BIG_TAG}')
+    assert response.status_code == 200
+    assert len(response.get_json()['works']) > 100
+    assert queries['n'] <= 80, f"{queries['n']} queries"
+
+
+def test_tag_page_work_editions_are_slim(client):
+    works = client.get(f'/api/tags/{BIG_TAG}').get_json()['works']
+    work = next(w for w in works if w['editions'])
+    assert 'imported_string' not in work and 'description' in work
+    assert set(work['editions'][0]) == {
+        'id', 'title', 'pubyear', 'editionnum', 'version', 'publisher',
+        'contributions', 'images', 'size', 'owners', 'wishlisted'}
