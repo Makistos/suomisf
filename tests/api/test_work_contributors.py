@@ -126,7 +126,7 @@ def second_person_id(app, existing_person_id):
 
 
 @pytest.fixture
-def test_work(admin_client, existing_person_id):
+def created_work(admin_client, existing_person_id):
     """
     Create a work for contributor tests.
 
@@ -197,7 +197,7 @@ class TestWorkContributorRoles(BaseAPITest):
         )
 
     def test_work_contributor_author(
-            self, admin_client, test_work, existing_person_id):
+            self, admin_client, created_work, existing_person_id):
         """
         Author (role 1) is stored in WorkContributor and returned
         in contributions.
@@ -209,12 +209,12 @@ class TestWorkContributorRoles(BaseAPITest):
           - Correct person_id is associated with the role
         """
         self._assert_role_in_contributions(
-            admin_client, test_work, existing_person_id,
+            admin_client, created_work, existing_person_id,
             WORK_ROLES['author'], 'author',
         )
 
     def test_work_contributor_editor(
-            self, admin_client, test_work, existing_person_id):
+            self, admin_client, created_work, existing_person_id):
         """
         Editor (role 3) is stored in WorkContributor and returned
         in contributions.
@@ -226,12 +226,12 @@ class TestWorkContributorRoles(BaseAPITest):
           - Correct person_id is associated with the role
         """
         self._assert_role_in_contributions(
-            admin_client, test_work, existing_person_id,
+            admin_client, created_work, existing_person_id,
             WORK_ROLES['editor'], 'editor',
         )
 
     def test_work_contributor_subject(
-            self, admin_client, test_work, existing_person_id):
+            self, admin_client, created_work, existing_person_id):
         """
         Appears-in / subject (role 6) is stored in WorkContributor
         and returned in contributions.
@@ -243,12 +243,12 @@ class TestWorkContributorRoles(BaseAPITest):
           - Correct person_id is associated with the role
         """
         self._assert_role_in_contributions(
-            admin_client, test_work, existing_person_id,
+            admin_client, created_work, existing_person_id,
             WORK_ROLES['subject'], 'subject',
         )
 
     def test_work_contributor_in_response(
-            self, admin_client, test_work, existing_person_id):
+            self, admin_client, created_work, existing_person_id):
         """
         GET /api/works/{id} returns contributions list with person,
         role, and description fields.
@@ -260,7 +260,7 @@ class TestWorkContributorRoles(BaseAPITest):
           - 'role' has 'id' and 'name' sub-keys
         """
         contributions = get_work_contributions(
-            admin_client, test_work
+            admin_client, created_work
         )
         assert isinstance(contributions, list), (
             f'contributions is not a list: {contributions}'
@@ -290,7 +290,7 @@ class TestWorkContributorUpdate(BaseAPITest):
     """
 
     def test_work_contributor_update_replaces(
-            self, admin_client, test_work,
+            self, admin_client, created_work,
             existing_person_id, second_person_id):
         """
         PUT with a new contributor list replaces all existing
@@ -304,7 +304,7 @@ class TestWorkContributorUpdate(BaseAPITest):
           - After second PUT, editor is present with second person
         """
         resp = set_work_contributors(
-            admin_client, test_work,
+            admin_client, created_work,
             [{'person': {'id': existing_person_id},
               'role': {'id': WORK_ROLES['author']},
               'description': ''}]
@@ -312,7 +312,7 @@ class TestWorkContributorUpdate(BaseAPITest):
         assert resp.status_code == 200
 
         resp = set_work_contributors(
-            admin_client, test_work,
+            admin_client, created_work,
             [{'person': {'id': second_person_id},
               'role': {'id': WORK_ROLES['editor']},
               'description': ''}]
@@ -320,7 +320,7 @@ class TestWorkContributorUpdate(BaseAPITest):
         assert resp.status_code == 200
 
         contributions = get_work_contributions(
-            admin_client, test_work
+            admin_client, created_work
         )
         role_ids = [c['role']['id'] for c in contributions]
         person_ids = [c['person']['id'] for c in contributions]
@@ -337,7 +337,7 @@ class TestWorkContributorUpdate(BaseAPITest):
         )
 
     def test_work_contributor_description_stored(
-            self, admin_client, test_work, existing_person_id):
+            self, admin_client, created_work, existing_person_id):
         """
         Description field is stored and returned for work
         contributors.
@@ -350,7 +350,7 @@ class TestWorkContributorUpdate(BaseAPITest):
         """
         description = 'biography chapter'
         resp = set_work_contributors(
-            admin_client, test_work,
+            admin_client, created_work,
             [{'person': {'id': existing_person_id},
               'role': {'id': WORK_ROLES['subject']},
               'description': description}]
@@ -358,7 +358,7 @@ class TestWorkContributorUpdate(BaseAPITest):
         assert resp.status_code == 200
 
         contributions = get_work_contributions(
-            admin_client, test_work
+            admin_client, created_work
         )
         matched = [
             c for c in contributions
@@ -385,7 +385,7 @@ class TestWorkContributorNoDuplicates(BaseAPITest):
     """
 
     def test_work_no_duplicate_contributors(
-            self, admin_client, test_work, existing_person_id):
+            self, admin_client, created_work, existing_person_id):
         """
         A work with one author set via PUT has exactly one author row
         in contributions — no duplicates from multiple editions.
@@ -394,10 +394,10 @@ class TestWorkContributorNoDuplicates(BaseAPITest):
         Assertions:
           - contributions contains exactly one entry for role_id=1
             and person_id=existing_person_id
-        Fixtures: admin_client, test_work, existing_person_id
+        Fixtures: admin_client, created_work, existing_person_id
         """
         resp = set_work_contributors(
-            admin_client, test_work,
+            admin_client, created_work,
             [{'person': {'id': existing_person_id},
               'role': {'id': WORK_ROLES['author']},
               'description': ''}]
@@ -405,7 +405,7 @@ class TestWorkContributorNoDuplicates(BaseAPITest):
         assert resp.status_code == 200
 
         contributions = get_work_contributions(
-            admin_client, test_work
+            admin_client, created_work
         )
         author_entries = [
             c for c in contributions
@@ -429,19 +429,19 @@ class TestAuthorInWorkContributor(BaseAPITest):
     """
 
     def test_author_in_workcontributor(
-            self, app, admin_client, test_work, existing_person_id):
+            self, app, admin_client, created_work, existing_person_id):
         """
         Author (role 1) set via PUT is stored in workcontributor
         table directly.
 
-        Parameters: work from test_work, role_id=1
+        Parameters: work from created_work, role_id=1
         Assertions:
           - suomisf.workcontributor has exactly one row with
             role_id=1 for this work
-        Fixtures: app, admin_client, test_work, existing_person_id
+        Fixtures: app, admin_client, created_work, existing_person_id
         """
         resp = set_work_contributors(
-            admin_client, test_work,
+            admin_client, created_work,
             [{'person': {'id': existing_person_id},
               'role': {'id': WORK_ROLES['author']},
               'description': ''}]
@@ -452,7 +452,7 @@ class TestAuthorInWorkContributor(BaseAPITest):
             session = new_session()
             author_rows = (
                 session.query(WorkContributor)
-                .filter(WorkContributor.work_id == test_work)
+                .filter(WorkContributor.work_id == created_work)
                 .filter(WorkContributor.role_id == 1)
                 .count()
             )
@@ -460,7 +460,7 @@ class TestAuthorInWorkContributor(BaseAPITest):
 
         assert author_rows == 1, (
             f'Expected 1 author row in WorkContributor for work '
-            f'{test_work}, got {author_rows}'
+            f'{created_work}, got {author_rows}'
         )
 
 
@@ -504,7 +504,7 @@ class TestWorkContributorRealPerson(BaseAPITest):
     """
 
     def test_work_contributor_real_person_stored(
-            self, app, admin_client, test_work,
+            self, app, admin_client, created_work,
             existing_person_id, second_person_id):
         """
         real_person_id is stored in WorkContributor when a
@@ -517,7 +517,7 @@ class TestWorkContributorRealPerson(BaseAPITest):
           - WorkContributor row has real_person_id == second_person_id
           - GET /api/works/{id} contributions real_person.id equals
             second_person_id
-        Fixtures: app, admin_client, test_work, existing_person_id,
+        Fixtures: app, admin_client, created_work, existing_person_id,
                   second_person_id
         """
         contributors = [
@@ -529,7 +529,7 @@ class TestWorkContributorRealPerson(BaseAPITest):
             }
         ]
         resp = set_work_contributors(
-            admin_client, test_work, contributors
+            admin_client, created_work, contributors
         )
         assert resp.status_code == 200, (
             f'Setting contributor with real_person failed: '
@@ -540,7 +540,7 @@ class TestWorkContributorRealPerson(BaseAPITest):
             session = new_session()
             row = (
                 session.query(WorkContributor)
-                .filter(WorkContributor.work_id == test_work)
+                .filter(WorkContributor.work_id == created_work)
                 .filter(
                     WorkContributor.person_id == existing_person_id
                 )
@@ -555,7 +555,7 @@ class TestWorkContributorRealPerson(BaseAPITest):
         )
 
     def test_work_contributor_real_person_in_response(
-            self, admin_client, test_work,
+            self, admin_client, created_work,
             existing_person_id, second_person_id):
         """
         real_person is returned in contributions JSON with id and
@@ -566,7 +566,7 @@ class TestWorkContributorRealPerson(BaseAPITest):
             real_person=second_person_id
         Assertions:
           - contributions[0].real_person.id == second_person_id
-        Fixtures: admin_client, test_work, existing_person_id,
+        Fixtures: admin_client, created_work, existing_person_id,
                   second_person_id
         """
         contributors = [
@@ -577,10 +577,10 @@ class TestWorkContributorRealPerson(BaseAPITest):
                 'real_person': {'id': second_person_id},
             }
         ]
-        set_work_contributors(admin_client, test_work, contributors)
+        set_work_contributors(admin_client, created_work, contributors)
 
         contributions = get_work_contributions(
-            admin_client, test_work
+            admin_client, created_work
         )
         matched = [
             c for c in contributions
@@ -599,7 +599,7 @@ class TestWorkContributorRealPerson(BaseAPITest):
         )
 
     def test_work_contributor_real_person_null(
-            self, admin_client, test_work, existing_person_id):
+            self, admin_client, created_work, existing_person_id):
         """
         real_person is null in the response when not set.
 
@@ -607,7 +607,7 @@ class TestWorkContributorRealPerson(BaseAPITest):
           - role_id=1, person=existing_person_id, no real_person
         Assertions:
           - contributions[0].real_person is None
-        Fixtures: admin_client, test_work, existing_person_id
+        Fixtures: admin_client, created_work, existing_person_id
         """
         contributors = [
             {
@@ -616,10 +616,10 @@ class TestWorkContributorRealPerson(BaseAPITest):
                 'description': '',
             }
         ]
-        set_work_contributors(admin_client, test_work, contributors)
+        set_work_contributors(admin_client, created_work, contributors)
 
         contributions = get_work_contributions(
-            admin_client, test_work
+            admin_client, created_work
         )
         matched = [
             c for c in contributions

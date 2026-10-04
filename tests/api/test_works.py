@@ -134,29 +134,6 @@ def existing_genre_id(app):
         return genre.id if genre else 1
 
 
-@pytest.fixture
-def test_work(admin_client, existing_person_id, existing_genre_id):
-    """
-    Create a test work and clean it up after the test.
-
-    Yields the work ID for use in tests.
-    """
-    work_id = create_test_work(
-        admin_client,
-        existing_person_id,
-        genre_id=existing_genre_id,
-        title='Test Work - Fixture'
-    )
-
-    yield work_id
-
-    # Cleanup: delete the work after test
-    try:
-        delete_test_work(admin_client, work_id)
-    except AssertionError:
-        pass  # Work may already be deleted by the test
-
-
 # -------------------------------------------------------------------
 # Test classes
 # -------------------------------------------------------------------

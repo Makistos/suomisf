@@ -91,7 +91,7 @@ def admin_client(api_client):
 
 
 @pytest.fixture
-def test_work(admin_client):
+def created_work(admin_client):
     """
     Create a work for edition-link tests.
 
@@ -111,9 +111,9 @@ def test_work(admin_client):
 
 
 @pytest.fixture
-def test_edition(admin_client, test_work):
+def created_edition(admin_client, created_work):
     """
-    Create an edition linked to test_work.
+    Create an edition linked to created_work.
 
     Yields:
         edition_id (int)
@@ -121,7 +121,7 @@ def test_edition(admin_client, test_work):
     Cleans up after the test (unless the work was already deleted,
     which also removes the edition).
     """
-    edition_id = create_test_edition(admin_client, test_work)
+    edition_id = create_test_edition(admin_client, created_work)
     yield edition_id
     # If the work still exists, delete its extra edition
     try:
@@ -285,18 +285,18 @@ class TestEditionWorkLinkMutations(BaseAPITest):
     """Verify that create, copy and delete preserve work_id."""
 
     def test_create_edition_sets_work_id(
-            self, app, admin_client, test_work):
+            self, app, admin_client, created_work):
         """
         POST /api/editions creates an edition with work_id set to
         the supplied work_id parameter.
 
-        Parameters: work_id=test_work
+        Parameters: work_id=created_work
         Assertions:
           - POST returns 200
-          - DB edition.work_id == test_work
-        Fixtures: app, admin_client, test_work
+          - DB edition.work_id == created_work
+        Fixtures: app, admin_client, created_work
         """
-        edition_id = create_test_edition(admin_client, test_work)
+        edition_id = create_test_edition(admin_client, created_work)
         try:
             with app.app_context():
                 session = new_session()
@@ -308,25 +308,25 @@ class TestEditionWorkLinkMutations(BaseAPITest):
                 db_work_id = edition.work_id if edition else None
                 session.close()
 
-            assert db_work_id == test_work, (
-                f'Edition.work_id={db_work_id} != test_work={test_work}'
+            assert db_work_id == created_work, (
+                f'Edition.work_id={db_work_id} != created_work={created_work}'
             )
         finally:
             delete_test_edition(admin_client, edition_id)
 
     def test_copy_edition_preserves_work_id(
-            self, app, admin_client, test_work):
+            self, app, admin_client, created_work):
         """
         POST /api/editions/{id}/copy produces an edition with the
         same work_id as the original.
 
-        Parameters: original edition from test_work
+        Parameters: original edition from created_work
         Assertions:
           - Copy response returns 200
           - Copied edition.work_id == original edition.work_id
-        Fixtures: app, admin_client, test_work
+        Fixtures: app, admin_client, created_work
         """
-        original_id = create_test_edition(admin_client, test_work)
+        original_id = create_test_edition(admin_client, created_work)
         try:
             resp = admin_client.post(
                 f'/api/editions/{original_id}/copy'
@@ -348,9 +348,9 @@ class TestEditionWorkLinkMutations(BaseAPITest):
                     )
                     session.close()
 
-                assert copied_work_id == test_work, (
+                assert copied_work_id == created_work, (
                     f'Copied edition.work_id={copied_work_id} '
-                    f'!= original work_id={test_work}'
+                    f'!= original work_id={created_work}'
                 )
             finally:
                 delete_test_edition(admin_client, copied_id)

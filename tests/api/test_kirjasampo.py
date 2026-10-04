@@ -114,7 +114,7 @@ def admin_client(api_client):
 
 
 @pytest.fixture
-def test_work(admin_client):
+def created_work(admin_client):
     """Create a fresh work; delete it after the test."""
     work_id = create_test_work(admin_client, EXISTING_PERSON_ID,
                                title="Kirjasampo Import Test Work")
@@ -131,7 +131,7 @@ def cleanup_tags():
     Goes straight through the DB rather than DELETE /api/tags/<id>,
     which refuses to delete a tag still attached to a work - these are
     throwaway import-test tags, not something exercising that rule,
-    and by teardown time test_work's own cleanup may or may not have
+    and by teardown time created_work's own cleanup may or may not have
     already removed the link depending on fixture ordering.
 
     Also sweeps tag_import_replace/tag_import_omit rows left behind
@@ -329,20 +329,20 @@ class TestWorkTagImportSuccess(BaseAPITest):
     """Tests for successful tag import into a work."""
 
     def test_add_action_returns_200(
-        self, admin_client, test_work, cleanup_tags
+        self, admin_client, created_work, cleanup_tags
     ):
         """POST with action=add returns 200."""
-        resp = _post_import(admin_client, test_work, [
+        resp = _post_import(admin_client, created_work, [
             {"name": "ki-add-basic", "id": None, "action": "add"},
         ])
         resp.assert_status(200)
         cleanup_tags.append(resp.data[0]["tag_id"])
 
     def test_add_action_creates_tag_and_reports_added(
-        self, admin_client, test_work, cleanup_tags
+        self, admin_client, created_work, cleanup_tags
     ):
         """action=add creates the tag if new and reports status added."""
-        resp = _post_import(admin_client, test_work, [
+        resp = _post_import(admin_client, created_work, [
             {"name": "ki-add-new-tag", "id": None, "action": "add"},
         ])
         resp.assert_status(200)
@@ -356,12 +356,12 @@ class TestWorkTagImportSuccess(BaseAPITest):
         cleanup_tags.append(result["tag_id"])
 
     def test_add_action_reuses_existing_tag(
-        self, admin_client, test_work, cleanup_tags
+        self, admin_client, created_work, cleanup_tags
     ):
         """action=add for a name that already exists reuses that tag."""
         tag_id = _create_tag(
             admin_client, "ki-reuse-existing", cleanup_tags)
-        resp = _post_import(admin_client, test_work, [
+        resp = _post_import(admin_client, created_work, [
             {"name": "ki-reuse-existing", "id": None, "action": "add"},
         ])
         resp.assert_status(200)
@@ -370,26 +370,26 @@ class TestWorkTagImportSuccess(BaseAPITest):
         assert result["status"] == "added"
 
     def test_already_present_not_duplicated(
-        self, admin_client, test_work, cleanup_tags
+        self, admin_client, created_work, cleanup_tags
     ):
         """Importing the same tag twice reports already_present."""
-        first = _post_import(admin_client, test_work, [
+        first = _post_import(admin_client, created_work, [
             {"name": "ki-dup-tag", "id": None, "action": "add"},
         ])
         cleanup_tags.append(first.data[0]["tag_id"])
-        resp = _post_import(admin_client, test_work, [
+        resp = _post_import(admin_client, created_work, [
             {"name": "ki-dup-tag", "id": None, "action": "add"},
         ])
         resp.assert_status(200)
         assert resp.data[0]["status"] == "already_present"
 
     def test_replace_action_uses_mapped_tag(
-        self, admin_client, test_work, cleanup_tags
+        self, admin_client, created_work, cleanup_tags
     ):
         """action=replace adds the tag identified by id, not by name."""
         tag_id = _create_tag(
             admin_client, "ki-replace-target", cleanup_tags)
-        resp = _post_import(admin_client, test_work, [
+        resp = _post_import(admin_client, created_work, [
             {
                 "name": "ki-replace-source",
                 "id": tag_id,
@@ -403,10 +403,10 @@ class TestWorkTagImportSuccess(BaseAPITest):
         assert result["status"] == "added"
 
     def test_omit_action_skips_tag(
-        self, admin_client, test_work
+        self, admin_client, created_work
     ):
         """action=omit reports omitted and does not add to work."""
-        resp = _post_import(admin_client, test_work, [
+        resp = _post_import(admin_client, created_work, [
             {"name": "ki-omit-tag", "id": None, "action": "omit"},
         ])
         resp.assert_status(200)
@@ -416,10 +416,10 @@ class TestWorkTagImportSuccess(BaseAPITest):
         assert result["status"] == "omitted"
 
     def test_null_action_defaults_to_add(
-        self, admin_client, test_work, cleanup_tags
+        self, admin_client, created_work, cleanup_tags
     ):
         """No action specified for unknown name defaults to add."""
-        resp = _post_import(admin_client, test_work, [
+        resp = _post_import(admin_client, created_work, [
             {"name": "ki-no-action-tag", "id": None, "action": None},
         ])
         resp.assert_status(200)
@@ -428,15 +428,15 @@ class TestWorkTagImportSuccess(BaseAPITest):
         cleanup_tags.append(resp.data[0]["tag_id"])
 
     def test_auto_resolves_omit_from_mapping(
-        self, admin_client, test_work
+        self, admin_client, created_work
     ):
         """Name previously omitted is auto-omitted when action absent."""
         # Store the omit mapping
-        _post_import(admin_client, test_work, [
+        _post_import(admin_client, created_work, [
             {"name": "ki-auto-omit", "id": None, "action": "omit"},
         ])
         # New import without explicit action — should auto-omit
-        resp = _post_import(admin_client, test_work, [
+        resp = _post_import(admin_client, created_work, [
             {"name": "ki-auto-omit", "id": None, "action": None},
         ])
         resp.assert_status(200)
@@ -444,12 +444,12 @@ class TestWorkTagImportSuccess(BaseAPITest):
         assert resp.data[0]["status"] == "omitted"
 
     def test_auto_resolves_replace_from_mapping(
-        self, admin_client, test_work, cleanup_tags
+        self, admin_client, created_work, cleanup_tags
     ):
         """Name with stored replace mapping is auto-replaced."""
         tag_id = _create_tag(
             admin_client, "ki-auto-replace-target", cleanup_tags)
-        _post_import(admin_client, test_work, [
+        _post_import(admin_client, created_work, [
             {
                 "name": "ki-auto-replace-src",
                 "id": tag_id,
@@ -474,14 +474,14 @@ class TestWorkTagImportSuccess(BaseAPITest):
             delete_test_work(admin_client, work2)
 
     def test_add_clears_omit_mapping(
-        self, admin_client, test_work, cleanup_tags
+        self, admin_client, created_work, cleanup_tags
     ):
         """action=add for a previously omitted name removes the omit."""
-        _post_import(admin_client, test_work, [
+        _post_import(admin_client, created_work, [
             {"name": "ki-clear-omit", "id": None, "action": "omit"},
         ])
         # Re-import with add — should clear the omit
-        resp = _post_import(admin_client, test_work, [
+        resp = _post_import(admin_client, created_work, [
             {"name": "ki-clear-omit", "id": None, "action": "add"},
         ])
         resp.assert_status(200)
@@ -502,10 +502,10 @@ class TestWorkTagImportSuccess(BaseAPITest):
             delete_test_work(admin_client, work2)
 
     def test_multiple_items_processed(
-        self, admin_client, test_work, cleanup_tags
+        self, admin_client, created_work, cleanup_tags
     ):
         """Multiple items in one request all appear in the response."""
-        resp = _post_import(admin_client, test_work, [
+        resp = _post_import(admin_client, created_work, [
             {"name": "ki-multi-1", "id": None, "action": "add"},
             {"name": "ki-multi-2", "id": None, "action": "omit"},
         ])
@@ -529,36 +529,36 @@ class TestWorkTagImportErrors(BaseAPITest):
         ])
         resp.assert_status(400)
 
-    def test_empty_body_returns_400(self, admin_client, test_work):
+    def test_empty_body_returns_400(self, admin_client, created_work):
         """Empty body returns 400."""
-        resp = _post_import(admin_client, test_work, None)
+        resp = _post_import(admin_client, created_work, None)
         resp.assert_status(400)
 
     def test_non_array_json_returns_400(
-        self, admin_client, test_work
+        self, admin_client, created_work
     ):
         """JSON object (not array) body returns 400."""
         resp = _post_import(
-            admin_client, test_work,
+            admin_client, created_work,
             {"name": "tag", "action": "add"},
         )
         resp.assert_status(400)
 
     def test_replace_without_id_returns_error_item(
-        self, admin_client, test_work
+        self, admin_client, created_work
     ):
         """action=replace with null id returns an error entry."""
-        resp = _post_import(admin_client, test_work, [
+        resp = _post_import(admin_client, created_work, [
             {"name": "ki-err-replace", "id": None, "action": "replace"},
         ])
         resp.assert_status(200)
         assert resp.data[0]["status"] == "error"
 
     def test_replace_nonexistent_id_returns_error_item(
-        self, admin_client, test_work
+        self, admin_client, created_work
     ):
         """action=replace with a non-existent tag id returns error."""
-        resp = _post_import(admin_client, test_work, [
+        resp = _post_import(admin_client, created_work, [
             {
                 "name": "ki-bad-id",
                 "id": 999999999,
@@ -569,10 +569,10 @@ class TestWorkTagImportErrors(BaseAPITest):
         assert resp.data[0]["status"] == "error"
 
     def test_invalid_action_returns_error_item(
-        self, admin_client, test_work
+        self, admin_client, created_work
     ):
         """An unknown action value returns an error entry."""
-        resp = _post_import(admin_client, test_work, [
+        resp = _post_import(admin_client, created_work, [
             {"name": "ki-bad-action", "id": None,
              "action": "invalidaction"},
         ])
@@ -610,12 +610,12 @@ class TestGetImportMappings(BaseAPITest):
         assert isinstance(data["omit"], list)
 
     def test_replace_entries_have_required_fields(
-        self, admin_client, test_work, cleanup_tags
+        self, admin_client, created_work, cleanup_tags
     ):
         """Each replace entry has name, tag_id, and tag_name."""
         tag_id = _create_tag(
             admin_client, "ki-map-replace-tgt", cleanup_tags)
-        _post_import(admin_client, test_work, [
+        _post_import(admin_client, created_work, [
             {
                 "name": "ki-map-replace-src",
                 "id": tag_id,
@@ -633,10 +633,10 @@ class TestGetImportMappings(BaseAPITest):
         assert isinstance(entry["tag_name"], str)
 
     def test_omit_entries_appear_in_mapping(
-        self, admin_client, test_work
+        self, admin_client, created_work
     ):
         """Names omitted during import appear in the omit list."""
-        _post_import(admin_client, test_work, [
+        _post_import(admin_client, created_work, [
             {
                 "name": "ki-map-omit-name",
                 "id": None,

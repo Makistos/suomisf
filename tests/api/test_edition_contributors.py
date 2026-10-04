@@ -164,7 +164,7 @@ def second_person_id(app, existing_person_id):
 
 
 @pytest.fixture
-def test_work_and_edition(admin_client, existing_person_id, app):
+def created_work_and_edition(admin_client, existing_person_id, app):
     """
     Create a work+edition pair for contributor tests.
 
@@ -254,7 +254,7 @@ class TestEditionContributorRoles(BaseAPITest):
         )
 
     def test_edition_contributor_translator(
-            self, admin_client, test_work_and_edition,
+            self, admin_client, created_work_and_edition,
             existing_person_id):
         """
         Translator (role 2) is stored in EditionContributor and
@@ -266,14 +266,14 @@ class TestEditionContributorRoles(BaseAPITest):
           - GET /api/editions/{id} contributions includes role_id=2
           - Correct person_id is associated with the role
         """
-        _, edition_id = test_work_and_edition
+        _, edition_id = created_work_and_edition
         self._assert_role_in_contributions(
             admin_client, edition_id, existing_person_id,
             EDITION_ROLES['translator'], 'translator',
         )
 
     def test_edition_contributor_editor(
-            self, admin_client, test_work_and_edition,
+            self, admin_client, created_work_and_edition,
             existing_person_id):
         """
         Editor (role 3) is stored in EditionContributor and returned
@@ -284,7 +284,7 @@ class TestEditionContributorRoles(BaseAPITest):
           - PUT /api/editions returns 200
           - GET /api/editions/{id} editors includes the person
         """
-        _, edition_id = test_work_and_edition
+        _, edition_id = created_work_and_edition
         contributors = [
             {
                 'person': {'id': existing_person_id},
@@ -304,7 +304,7 @@ class TestEditionContributorRoles(BaseAPITest):
         )
 
     def test_edition_contributor_cover_artist(
-            self, admin_client, test_work_and_edition,
+            self, admin_client, created_work_and_edition,
             existing_person_id):
         """
         Cover artist (role 4) is stored in EditionContributor and
@@ -315,14 +315,14 @@ class TestEditionContributorRoles(BaseAPITest):
           - PUT /api/editions returns 200
           - GET /api/editions/{id} contributions includes role_id=4
         """
-        _, edition_id = test_work_and_edition
+        _, edition_id = created_work_and_edition
         self._assert_role_in_contributions(
             admin_client, edition_id, existing_person_id,
             EDITION_ROLES['cover_artist'], 'cover_artist',
         )
 
     def test_edition_contributor_illustrator(
-            self, admin_client, test_work_and_edition,
+            self, admin_client, created_work_and_edition,
             existing_person_id):
         """
         Illustrator (role 5) is stored in EditionContributor and
@@ -333,14 +333,14 @@ class TestEditionContributorRoles(BaseAPITest):
           - PUT /api/editions returns 200
           - GET /api/editions/{id} contributions includes role_id=5
         """
-        _, edition_id = test_work_and_edition
+        _, edition_id = created_work_and_edition
         self._assert_role_in_contributions(
             admin_client, edition_id, existing_person_id,
             EDITION_ROLES['illustrator'], 'illustrator',
         )
 
     def test_edition_contributor_chief_editor(
-            self, admin_client, test_work_and_edition,
+            self, admin_client, created_work_and_edition,
             existing_person_id):
         """
         Chief editor (role 7) is stored in EditionContributor and
@@ -351,14 +351,14 @@ class TestEditionContributorRoles(BaseAPITest):
           - PUT /api/editions returns 200
           - GET /api/editions/{id} contributions includes role_id=7
         """
-        _, edition_id = test_work_and_edition
+        _, edition_id = created_work_and_edition
         self._assert_role_in_contributions(
             admin_client, edition_id, existing_person_id,
             EDITION_ROLES['chief_editor'], 'chief_editor',
         )
 
     def test_edition_contributor_translator_in_translators(
-            self, admin_client, test_work_and_edition,
+            self, admin_client, created_work_and_edition,
             existing_person_id):
         """
         Translator (role 2) appears in the translators shortcut list.
@@ -367,7 +367,7 @@ class TestEditionContributorRoles(BaseAPITest):
         Assertions:
           - GET /api/editions/{id} translators includes the person
         """
-        _, edition_id = test_work_and_edition
+        _, edition_id = created_work_and_edition
         contributors = [
             {
                 'person': {'id': existing_person_id},
@@ -398,7 +398,7 @@ class TestEditionContributorUpdate(BaseAPITest):
     """
 
     def test_edition_contributor_update_replaces(
-            self, admin_client, test_work_and_edition,
+            self, admin_client, created_work_and_edition,
             existing_person_id, second_person_id):
         """
         PUT with a new contributor list replaces all existing
@@ -411,7 +411,7 @@ class TestEditionContributorUpdate(BaseAPITest):
           - After second PUT, translator role is gone
           - After second PUT, cover_artist is present with second person
         """
-        _, edition_id = test_work_and_edition
+        _, edition_id = created_work_and_edition
 
         resp = set_edition_contributors(
             admin_client, edition_id,
@@ -447,7 +447,7 @@ class TestEditionContributorUpdate(BaseAPITest):
         )
 
     def test_edition_contributor_description_stored(
-            self, admin_client, test_work_and_edition,
+            self, admin_client, created_work_and_edition,
             existing_person_id):
         """
         Description field is stored and returned for edition
@@ -458,7 +458,7 @@ class TestEditionContributorUpdate(BaseAPITest):
         Assertions:
           - description field equals 'cover only' in contributions
         """
-        _, edition_id = test_work_and_edition
+        _, edition_id = created_work_and_edition
         description = 'cover only'
         resp = set_edition_contributors(
             admin_client, edition_id,
@@ -496,7 +496,7 @@ class TestCopyEditionContributors(BaseAPITest):
     """
 
     def test_copy_edition_copies_contributors(
-            self, admin_client, test_work_and_edition,
+            self, admin_client, created_work_and_edition,
             existing_person_id):
         """
         copy_edition copies EditionContributor rows to the new edition.
@@ -507,9 +507,9 @@ class TestCopyEditionContributors(BaseAPITest):
         Assertions:
           - Copied edition contributions list includes both roles.
           - Copied edition contributions list has correct person IDs.
-        Fixtures: admin_client, test_work_and_edition, existing_person_id
+        Fixtures: admin_client, created_work_and_edition, existing_person_id
         """
-        _, edition_id = test_work_and_edition
+        _, edition_id = created_work_and_edition
 
         resp = set_edition_contributors(
             admin_client, edition_id,
@@ -565,18 +565,18 @@ class TestAuthorNotInEditionContributor(BaseAPITest):
     """
 
     def test_edition_author_not_in_editioncontributor(
-            self, app, test_work_and_edition):
+            self, app, created_work_and_edition):
         """
         Authors (role 1) remain in the Contributor table via Part and
         do not appear in the EditionContributor table.
 
-        Parameters: edition from test_work_and_edition fixture
+        Parameters: edition from created_work_and_edition fixture
         Assertions:
           - suomisf.editioncontributor has no rows with role_id=1
             for this edition
-        Fixtures: app, test_work_and_edition
+        Fixtures: app, created_work_and_edition
         """
-        _, edition_id = test_work_and_edition
+        _, edition_id = created_work_and_edition
 
         with app.app_context():
             session = new_session()
@@ -635,7 +635,7 @@ class TestEditionContributorRealPerson(BaseAPITest):
     """
 
     def test_edition_contributor_real_person_stored(
-            self, app, admin_client, test_work_and_edition,
+            self, app, admin_client, created_work_and_edition,
             existing_person_id, second_person_id):
         """
         real_person_id is stored in EditionContributor when a
@@ -649,10 +649,10 @@ class TestEditionContributorRealPerson(BaseAPITest):
             real_person_id == second_person_id
           - GET /api/editions/{id} contributions real_person.id
             equals second_person_id
-        Fixtures: app, admin_client, test_work_and_edition,
+        Fixtures: app, admin_client, created_work_and_edition,
                   existing_person_id, second_person_id
         """
-        _, edition_id = test_work_and_edition
+        _, edition_id = created_work_and_edition
         contributors = [
             {
                 'person': {'id': existing_person_id},
@@ -690,7 +690,7 @@ class TestEditionContributorRealPerson(BaseAPITest):
         )
 
     def test_edition_contributor_real_person_in_response(
-            self, admin_client, test_work_and_edition,
+            self, admin_client, created_work_and_edition,
             existing_person_id, second_person_id):
         """
         real_person is returned in contributions JSON with id and
@@ -701,10 +701,10 @@ class TestEditionContributorRealPerson(BaseAPITest):
             real_person=second_person_id
         Assertions:
           - contributions[0].real_person.id == second_person_id
-        Fixtures: admin_client, test_work_and_edition,
+        Fixtures: admin_client, created_work_and_edition,
                   existing_person_id, second_person_id
         """
-        _, edition_id = test_work_and_edition
+        _, edition_id = created_work_and_edition
         contributors = [
             {
                 'person': {'id': existing_person_id},
@@ -737,7 +737,7 @@ class TestEditionContributorRealPerson(BaseAPITest):
         )
 
     def test_edition_contributor_real_person_null(
-            self, admin_client, test_work_and_edition,
+            self, admin_client, created_work_and_edition,
             existing_person_id):
         """
         real_person is null in the response when not set.
@@ -746,10 +746,10 @@ class TestEditionContributorRealPerson(BaseAPITest):
           - role_id=2, person=existing_person_id, no real_person
         Assertions:
           - contributions[0].real_person is None
-        Fixtures: admin_client, test_work_and_edition,
+        Fixtures: admin_client, created_work_and_edition,
                   existing_person_id
         """
-        _, edition_id = test_work_and_edition
+        _, edition_id = created_work_and_edition
         contributors = [
             {
                 'person': {'id': existing_person_id},

@@ -554,7 +554,7 @@ def setup_test_database(request):
 
 
 @pytest.fixture(scope='session')
-def test_config() -> TestConfig:
+def api_test_config() -> TestConfig:
     """Provide test configuration."""
     return TestConfig()
 
@@ -623,11 +623,11 @@ def api_client(client):
 
 
 @pytest.fixture
-def auth_headers(api_client, test_config) -> Dict[str, str]:
+def auth_headers(api_client, api_test_config) -> Dict[str, str]:
     """Get authentication headers for admin user."""
     token = api_client.login(
-        test_config.ADMIN_USERNAME,
-        test_config.ADMIN_PASSWORD
+        api_test_config.ADMIN_USERNAME,
+        api_test_config.ADMIN_PASSWORD
     )
     if token:
         return {'Authorization': f'Bearer {token}'}
@@ -635,11 +635,11 @@ def auth_headers(api_client, test_config) -> Dict[str, str]:
 
 
 @pytest.fixture
-def user_headers(api_client, test_config) -> Dict[str, str]:
+def user_headers(api_client, api_test_config) -> Dict[str, str]:
     """Get authentication headers for regular user."""
     token = api_client.login(
-        test_config.USER_USERNAME,
-        test_config.USER_PASSWORD
+        api_test_config.USER_USERNAME,
+        api_test_config.USER_PASSWORD
     )
     if token:
         return {'Authorization': f'Bearer {token}'}
