@@ -45,6 +45,7 @@ from app.impl import ResponseType, check_int
 from app.impl_pubseries import add_pubseries
 from app.types import ContributorTarget, HttpResponseCode
 from app import app
+from app.thumbnails import make_thumbnail_for
 
 
 # Save first edition for work
@@ -859,6 +860,7 @@ def edition_image_upload(editionid: str, image: FileStorage) -> ResponseType:
 
     session = new_session()
     file_loc = app.config["BOOKCOVER_DIR"] + filename
+    make_thumbnail_for(file_loc)
     edition_image = EditionImage(edition_id=int_id, image_src=file_loc)
     old_values["Kansikuva"] = f"Lisätty: {edition_image.image_src}"
     try:

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-04T14:16:13.169846+00:00",
+    "generated_at": "2026-10-04T17:18:15.909823+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/people/1",
@@ -98,6 +98,7 @@
               "pubseries": null,
               "images": [
                 {
+                  "thumb_src": "/static/images/books/Unsworth_Barry_Kivineitsyt_1p.jpg",
                   "id": 8002,
                   "image_src": "/static/images/books/Unsworth_Barry_Kivineitsyt_1p.jpg",
                   "image_attr": null

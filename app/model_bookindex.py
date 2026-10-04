@@ -3,6 +3,7 @@
 from marshmallow import fields
 
 from app import ma
+from app.thumbnails import thumb_src as thumbnail_url
 from app.model import (LanguageSchema, PersonBriefSchema)
 from app.orm_decl import (Bookseries, ContributorRole, Edition,
                           EditionImage, Genre, Person,
@@ -41,6 +42,8 @@ class BookIndexEditionImageSchema(ma.SQLAlchemySchema):  # type: ignore
         model = EditionImage
     id = fields.Int()
     image_src = fields.String()
+    # Small WebP for lists, or the cover itself if none (app/thumbnails.py).
+    thumb_src = fields.Function(lambda image: thumbnail_url(image.image_src))
 
 
 class BookIndexGenreSchema(ma.SQLAlchemyAutoSchema):  # type: ignore

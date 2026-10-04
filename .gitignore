@@ -18,3 +18,7 @@ apidoc/*
 .coverage
 coverage.json
 htmlcov/
+
+# Cover thumbnails are generated (scripts/make_thumbnails.py, and on upload),
+# not versioned.
+app/static/images/*/thumbs/

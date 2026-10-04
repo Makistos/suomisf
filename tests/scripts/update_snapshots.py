@@ -22,7 +22,15 @@ from typing import Any, Dict, List, Optional
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 # Import Flask app
-from app import app
+from app import app  # noqa: E402
+import tempfile  # noqa: E402
+
+# Match conftest: point the upload folders at an empty temporary folder, so
+# image thumb_src values fall back to the cover URL exactly as in tests
+# (the dev folders may hold real thumbnails).
+_uploads = tempfile.mkdtemp(prefix='snapshot-uploads-')
+for _key in ('BOOKCOVER_SAVELOC', 'PERSONIMG_SAVELOC', 'MAGAZINECOVER_SAVELOC'):
+    app.config[_key] = _uploads + '/'
 
 
 SNAPSHOTS_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'fixtures', 'snapshots')

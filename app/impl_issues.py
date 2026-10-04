@@ -17,6 +17,7 @@ from app.model import (ArticleBriefSchema, IssueSchema,
                        ShortBriefestSchema, TagSchema)
 
 from app import app
+from app.thumbnails import make_thumbnail_for
 from app.types import HttpResponseCode
 
 
@@ -666,6 +667,7 @@ def issue_image_add(issue_id: int, image: FieldStorage) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     image_path = app.config['MAGAZINECOVER_IMG'] + filename
+    make_thumbnail_for(image_path)
     issue_image = IssueImage(issue_id=int(issue_id), image_src=image_path)
     try:
         session.add(issue_image)

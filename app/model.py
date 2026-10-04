@@ -2,6 +2,7 @@
 """ SQLAlchemy models not fitting into other model_ files. """
 from marshmallow import fields
 from app import ma
+from app.thumbnails import thumb_src as thumbnail_url
 from app.orm_decl import (Article, Award, AwardCategory, AwardLink, Awarded,
                           BindingType,
                           BookCondition, BookseriesLink,
@@ -128,6 +129,8 @@ class EditionImageBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = EditionImage
+    # Small WebP for lists, or the cover itself if none (app/thumbnails.py).
+    thumb_src = fields.Function(lambda image: thumbnail_url(image.image_src))
 
 
 class PersonLinkBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -294,6 +297,8 @@ class EditionImageSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
         """ Metadata for SQLAlchemyAutoSchema. """
         model = EditionImage
     edition = fields.Nested(EditionBriefestSchema)
+    # Small WebP for lists, or the cover itself if none (app/thumbnails.py).
+    thumb_src = fields.Function(lambda image: thumbnail_url(image.image_src))
 
 
 class IssueImageBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -301,6 +306,8 @@ class IssueImageBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = IssueImage
+    # Small WebP for lists, or the cover itself if none (app/thumbnails.py).
+    thumb_src = fields.Function(lambda image: thumbnail_url(image.image_src))
 
 
 class EditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore

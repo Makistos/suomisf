@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-09-30T19:44:03.354886+00:00",
+    "generated_at": "2026-10-04T17:18:15.909823+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/shorts/1",
@@ -150,6 +150,7 @@
               ],
               "images": [
                 {
+                  "thumb_src": "/static/images/books/Isaac_Asimov_science_fiction_valikoima_1_1987_1p.jpg",
                   "id": 4674,
                   "image_src": "/static/images/books/Isaac_Asimov_science_fiction_valikoima_1_1987_1p.jpg",
                   "image_attr": null
@@ -295,6 +296,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Isaac_Asimov_science_fiction_valikoima_1_1987_1p.jpg",
                     "id": 4674,
                     "image_src": "/static/images/books/Isaac_Asimov_science_fiction_valikoima_1_1987_1p.jpg",
                     "image_attr": null
@@ -430,6 +432,7 @@
           ],
           "images": [
             {
+              "thumb_src": "/static/images/books/Isaac_Asimov_science_fiction_valikoima_1_1987_1p.jpg",
               "id": 4674,
               "image_src": "/static/images/books/Isaac_Asimov_science_fiction_valikoima_1_1987_1p.jpg",
               "image_attr": null
@@ -636,6 +639,7 @@
                       ],
                       "images": [
                         {
+                          "thumb_src": "/static/images/books/Isaac_Asimov_science_fiction_valikoima_1_1987_1p.jpg",
                           "id": 4674,
                           "image_src": "/static/images/books/Isaac_Asimov_science_fiction_valikoima_1_1987_1p.jpg",
                           "image_attr": null
@@ -771,6 +775,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Isaac_Asimov_science_fiction_valikoima_1_1987_1p.jpg",
                     "id": 4674,
                     "image_src": "/static/images/books/Isaac_Asimov_science_fiction_valikoima_1_1987_1p.jpg",
                     "image_attr": null
