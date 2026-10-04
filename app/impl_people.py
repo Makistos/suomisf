@@ -6,6 +6,7 @@ from typing import Tuple, Dict, Any, List, Union
 from operator import not_
 from sqlalchemy import func, or_
 from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.orm import selectinload
 from marshmallow import exceptions
 from app.impl_logs import log_changes
 
@@ -20,7 +21,7 @@ from app.orm_decl import (Alias, Article, Country, Edition, Issue,
                           PersonLink, Awarded, PersonLanguage, PersonTag, Tag,
                           IssueEditor, ArticlePerson, ArticleAuthor,
                           ShortStory, StoryContributor, Person,
-                          PersonImage)
+                          PersonImage, Pubseries)
 from app.impl import (ResponseType, check_int, get_join_changes)
 from app.api_errors import APIError
 from app.impl_country import AddCountry
@@ -360,6 +361,72 @@ def list_people(params: Dict[str, Any]) -> ResponseType:
     return ResponseType(d, HttpResponseCode.OK.value)
 
 
+def _person_page_loaders() -> List[Any]:
+    """Load what PersonSchema serializes up front: lazy loads while
+    serializing cost thousands of queries for a prolific author (3,175 for
+    Stephen King)."""
+    def work_contributors(rel: Any) -> Any:
+        return rel.options(
+            selectinload(WorkContributor.person),
+            selectinload(WorkContributor.real_person),
+            selectinload(WorkContributor.role))
+
+    def edition_details(rel: Any) -> Any:
+        return rel.options(
+            selectinload(Edition.images),
+            selectinload(Edition.publisher),
+            selectinload(Edition.pubseries).selectinload(Pubseries.publisher),
+            selectinload(Edition.owners),
+            selectinload(Edition.wishlisted),
+            selectinload(Edition.contributions).selectinload(EditionContributor.person),
+            selectinload(Edition.contributions).selectinload(EditionContributor.real_person),
+            selectinload(Edition.contributions).selectinload(EditionContributor.role))
+
+    def work_details(rel: Any) -> Any:
+        return rel.options(
+            work_contributors(selectinload(Work.contributions)),
+            edition_details(selectinload(Work.editions)),
+            selectinload(Work.genres),
+            selectinload(Work.bookseries),
+            selectinload(Work.tags),
+            selectinload(Work.language_name),
+            selectinload(Work.work_type))
+
+    def listed_work(rel: Any) -> Any:
+        # The work of an edited/translated edition: its editions are only
+        # used for owned/wishlisted marks.
+        return rel.options(
+            work_contributors(selectinload(Work.contributions)),
+            selectinload(Work.editions).selectinload(Edition.owners),
+            selectinload(Work.editions).selectinload(Edition.wishlisted),
+            selectinload(Work.genres),
+            selectinload(Work.bookseries),
+            selectinload(Work.tags),
+            selectinload(Work.language_name),
+            selectinload(Work.work_type))
+
+    return [
+        work_details(selectinload(Person.works)),
+        selectinload(Person.stories).options(
+            selectinload(ShortStory.type),
+            selectinload(ShortStory.issues).selectinload(Issue.magazine),
+            selectinload(ShortStory.editions).selectinload(Edition.work),
+            selectinload(ShortStory.genres),
+            selectinload(ShortStory.tags),
+            selectinload(ShortStory.contributors).selectinload(StoryContributor.person),
+            selectinload(ShortStory.contributors).selectinload(StoryContributor.role)),
+        edition_details(selectinload(Person.edits)).options(
+            listed_work(selectinload(Edition.work))),
+        edition_details(selectinload(Person.editions)).options(
+            listed_work(selectinload(Edition.work))),
+        selectinload(Person.images),
+        selectinload(Person.nationality),
+        selectinload(Person.links),
+        selectinload(Person.aliases),
+        selectinload(Person.real_names),
+    ]
+
+
 def get_person(person_id: int) -> ResponseType:
     """
     Retrieves information about a person based on their ID.
@@ -382,8 +449,9 @@ def get_person(person_id: int) -> ResponseType:
                 Person.id == aliases[0].realname).first()
             person_id = real_person.id
 
-        person = session.query(Person).filter(
-            Person.id == person_id).first()
+        person = session.query(Person)\
+            .options(*_person_page_loaders())\
+            .filter(Person.id == person_id).first()
         if not person:
             app.logger.error(f'get_person: Unknown person. Id={person_id}.')
             return ResponseType(f"Henkilöä ei löydy. id={person_id}.",

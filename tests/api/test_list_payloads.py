@@ -11,6 +11,8 @@ exactly these (see the *_FIELDS tuples next to each schema).
 import time
 from contextlib import contextmanager
 
+import pytest
+
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
 
@@ -55,3 +57,30 @@ def test_publisher_page_edition_fields(client):
     with_authors = next(e for e in editions if e['work']['contributions'])
     contribution = with_authors['work']['contributions'][0]
     assert contribution['person']['name'] and contribution['role']['id']
+
+
+STEPHEN_KING = 2286
+TRANSLATOR = 455    # Ilkka Rekiaro, ~180 translated editions
+
+
+@pytest.mark.parametrize('person_id', [STEPHEN_KING, TRANSLATOR])
+def test_person_page_query_count(client, person_id):
+    """3,175 queries for Stephen King before the relationships were loaded
+    up front and tags stopped listing every work they're on."""
+    with count_queries() as queries:
+        response = client.get(f'/api/people/{person_id}')
+    assert response.status_code == 200
+    assert queries['n'] <= 150, f"{queries['n']} queries"
+
+
+def test_person_page_nested_editions_are_slim(client):
+    person = client.get(f'/api/people/{STEPHEN_KING}').get_json()
+    work = next(w for w in person['works'] if w['editions'])
+    assert set(work['editions'][0]) == {
+        'id', 'title', 'pubyear', 'editionnum', 'version', 'publisher',
+        'pubseries', 'images', 'owners', 'wishlisted'}
+    story = next(s for s in person['stories'] if s['editions'])
+    assert set(story['editions'][0]) == {'id', 'work'}
+    assert set(story['editions'][0]['work']) == {'id', 'title', 'pubyear', 'author_str'}
+    tagged = next(w for w in person['works'] if w['tags'])
+    assert set(tagged['tags'][0]) == {'id', 'name', 'type'}

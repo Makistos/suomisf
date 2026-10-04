@@ -16,6 +16,11 @@ from .model import (LanguageSchema, PersonBriefSchema, PersonLinkBriefSchema,
                     StoryContributorSchema)
 
 
+# Tag chips read only these; TagBriefSchema's id lists of every work,
+# story and article with the tag cost three queries per tag.
+PERSON_TAG_FIELDS = ('id', 'name', 'type')
+
+
 class PersonPageBriefSchema(ma.SQLAlchemySchema):  # type: ignore
     """ Person schema, shortest usable version. """
     id = fields.Integer()
@@ -42,7 +47,7 @@ class PersonPageArticleSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     title = fields.String()
     person = fields.String()
     author_rel = ma.List(fields.Nested(PersonPageBriefSchema))
-    tags = ma.List(fields.Nested(TagBriefSchema))
+    tags = ma.List(fields.Nested(TagBriefSchema(only=PERSON_TAG_FIELDS)))
     issue = fields.Nested(lambda: IssueBriefSchema(
         only=['id', 'cover_number', 'magazine', 'year', 'number']))
     excerpt = fields.String()
@@ -73,7 +78,7 @@ class PersonPageEditionWorkSchema(ma.SQLAlchemySchema):  # type: ignore
     bookseriesnum = fields.String(allow_none=True)
     bookseries = fields.Nested(
         lambda: BookseriesBriefSchema(exclude=['works']))
-    tags = ma.List(fields.Nested(TagBriefSchema))
+    tags = ma.List(fields.Nested(TagBriefSchema(only=PERSON_TAG_FIELDS)))
     contributions = ma.List(fields.Nested(lambda: WorkContributorSchema(
         only=['description', 'person', 'role'])))
     language_name = fields.Nested(LanguageSchema)
@@ -118,6 +123,18 @@ class AwardedSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     story = fields.Nested(ShortBriefSchema)
 
 
+# The person page's work list (ContributorWorkControl) shows each work's
+# editions as a line of text with owned/wishlist marks and their covers in
+# the gallery; it never reads the edition's work, which used to repeat the
+# whole work (tags, editions...) inside every edition. Stories only link to
+# the works their editions belong to.
+PERSON_WORK_EDITION_FIELDS = (
+    'id', 'title', 'pubyear', 'editionnum', 'version', 'publisher',
+    'pubseries', 'images', 'owners', 'wishlisted')
+PERSON_STORY_EDITION_FIELDS = (
+    'id', 'work.id', 'work.title', 'work.pubyear', 'work.author_str')
+
+
 class PersonPageShortBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     """ Short story schema. """
     class Meta:
@@ -128,10 +145,11 @@ class PersonPageShortBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     type = fields.Nested(StoryTypeSchema)
     issues = ma.List(fields.Nested(lambda: IssueBriefSchema(
         only=['id', 'cover_number', 'magazine', 'year', 'number'])))
-    editions = ma.List(fields.Nested(PersonPageEditionSchema))
+    editions = ma.List(fields.Nested(
+        PersonPageEditionSchema(only=PERSON_STORY_EDITION_FIELDS)))
     genres = ma.List(fields.Nested(GenreBriefSchema))
     contributors = ma.List(fields.Nested(StoryContributorSchema))
-    tags = ma.List(fields.Nested(TagBriefSchema))
+    tags = ma.List(fields.Nested(TagBriefSchema(only=PERSON_TAG_FIELDS)))
     language_name = fields.Nested(CountryBriefSchema)
 
 
@@ -144,11 +162,12 @@ class PersonPageWorkBriefSchema(ma.SQLAlchemySchema):  # type: ignore
     pubyear = fields.Int(allow_none=True)
     bookseriesnum = fields.String(allow_none=True)
     contributions = ma.List(fields.Nested(WorkContributorSchema))
-    editions = ma.List(fields.Nested(PersonPageEditionSchema))
+    editions = ma.List(fields.Nested(
+        PersonPageEditionSchema(only=PERSON_WORK_EDITION_FIELDS)))
     genres = ma.List(fields.Nested(GenreBriefSchema))
     bookseries = fields.Nested(
         lambda: BookseriesBriefSchema(exclude=['works']), allow_none=True)
-    tags = ma.List(fields.Nested(TagBriefSchema))
+    tags = ma.List(fields.Nested(TagBriefSchema(only=PERSON_TAG_FIELDS)))
     language_name = fields.Nested(LanguageSchema)
     type = fields.Integer()
     work_type = fields.Nested(WorkTypeBriefSchema)
