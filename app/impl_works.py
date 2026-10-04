@@ -67,9 +67,9 @@ def _set_bookseries(
             # the database first.
             bs_id = add_bookseries(data['bookseries'])
         else:
-            if (data['bookseries'] == "" or data["bookseries"] is None or
-                    data["bookseries"]["name"] == "" or
-                    data["bookseries"]["name"] is None):
+            series = data['bookseries']
+            if (not series or
+                    (not series.get('id') and not series.get('name'))):
                 # User cleared the field -> remove bookseries
                 work.bookseries_id = None
                 return None

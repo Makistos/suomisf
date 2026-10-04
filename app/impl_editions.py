@@ -189,9 +189,9 @@ def _set_pubseries(
                 ps_id = add_pubseries(data["pubseries"],
                                       edition.publisher_id)
         else:
-            if (data["pubseries"] == "" or data["pubseries"] is None or
-                    data["pubseries"]["name"] == "" or
-                    data["pubseries"]["name"] is None):
+            series = data["pubseries"]
+            if (not series or
+                    (not series.get("id") and not series.get("name"))):
                 # User cleared the field -> remove pubseries
                 edition.pubseries_id = None
                 return None
@@ -445,7 +445,7 @@ def update_edition(params: Any) -> ResponseType:
 
     # Title, required field, cannot be empty
     if "title" in data and str_differ(data["title"], edition.title):
-        if not edition.title or len(edition.title) == 0:
+        if not data["title"] or not str(data["title"]).strip():
             app.logger.error("update_edition: Title is empty.")
             return ResponseType("Otsikko ei voi olla tyhjä.",
                                 HttpResponseCode.BAD_REQUEST.value)
@@ -578,7 +578,8 @@ def update_edition(params: Any) -> ResponseType:
     if "pubseries" in data:
         result = _set_pubseries(session, edition, data, old_values)
         if result:
-            return retval
+            session.rollback()
+            return result
 
     # Publisher's series number, not required
     if "pubseriesnum" in data and data["pubseriesnum"] != edition.pubseriesnum:
@@ -685,7 +686,7 @@ def update_edition(params: Any) -> ResponseType:
     except SQLAlchemyError as exp:
         session.rollback()
         app.logger.error("update_edition: " + str(exp))
-        return ResponseType("update_edition: Tietokantavirhe. id={edition.id}",
+        return ResponseType(f"update_edition: Tietokantavirhe. id={edition.id}",
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return retval
