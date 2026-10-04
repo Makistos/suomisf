@@ -1,6 +1,6 @@
 # pylint: disable=no-member, too-few-public-methods, too-many-ancestors
 """ SQLAlchemy models not fitting into other model_ files. """
-from marshmallow import Schema, fields
+from marshmallow import fields
 from app import ma
 from app.orm_decl import (Article, Award, AwardCategory, AwardLink, Awarded,
                           BindingType,
@@ -99,12 +99,6 @@ class LogSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     user = fields.Nested(UserSchema)
 
 
-class ErrorSchema(Schema):
-    """ Error schema. """
-    code = fields.Int(required=True,)
-    message = fields.String(required=True,)
-
-
 class BindingBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     """ Binding schema. """
     class Meta:
@@ -186,13 +180,6 @@ class GenreBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     # id = fields.Int(required=True)
     # name = fields.String(required=True)
     # abbr = fields.String()
-
-
-class LinkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
-    """ Link schema. """
-    class Meta:
-        """ Metadata for SQLAlchemyAutoSchema. """
-        model = PersonLink
 
 # class PersonBriefestSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 #     """ Minimal person schema. """

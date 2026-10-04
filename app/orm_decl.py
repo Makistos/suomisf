@@ -14,7 +14,7 @@ from sqlalchemy.orm import relationship, backref
 from sqlalchemy.pool import NullPool
 from sqlalchemy import create_engine
 import jwt
-from app import app, db_url, login, jwt_secret_key
+from app import db_url, login, jwt_secret_key
 # from app.route_helpers import new_session
 # from flask_sqlalchemy.record_queries import get_recorded_queries
 
@@ -64,27 +64,6 @@ def generate_jwt_token(content: Dict[str, int]) -> List[str]:
     encoded_content = jwt.encode(content, jwt_secret_key, algorithm="HS256")
     token = str(encoded_content).split("'")
     return token
-
-
-def decode_jwt_token(auth_token):
-    """
-    Decodes a JWT token and returns the subject (sub) claim.
-
-    Parameters:
-        auth_token (str): The JWT token to decode.
-
-    Returns:
-        str: The subject (sub) claim of the JWT token, or an empty string if
-        the token is invalid or expired.
-    """
-    try:
-        payload = jwt.decode(auth_token, jwt_secret_key, algorithms="HS256")
-        return payload['sub']
-    except jwt.ExpiredSignatureError:
-        app.logger.warning('JWT token expired.')
-        return ""
-    except jwt.InvalidTokenError:
-        app.logger.warning('Invalid JWT token.')
 
 
 def edition_popup(edition_id: int, edition: Any, title: str, link: str) -> str:

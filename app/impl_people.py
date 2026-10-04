@@ -21,8 +21,7 @@ from app.orm_decl import (Alias, Article, Country, Edition, Issue,
                           IssueEditor, ArticlePerson, ArticleAuthor,
                           ShortStory, StoryContributor, Person,
                           PersonImage)
-from app.impl import (ResponseType, SearchResult, SearchResultFields,
-                      searchscore, check_int, get_join_changes)
+from app.impl import (ResponseType, check_int, get_join_changes)
 from app.api_errors import APIError
 from app.impl_country import AddCountry
 from app.impl_links import links_have_changed
@@ -1028,81 +1027,6 @@ def person_tag_remove(person_id: int, tag_id: int) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType('OK', HttpResponseCode.OK.value)
-
-
-def search_people(session: Any, searchwords: List[str]) -> SearchResult:
-    """
-    Search for people based on given search words.
-
-    Args:
-        session (Any): The session object for the database connection.
-        searchwords (List[str]): The list of search words to use for searching
-                                 people.
-
-    Returns:
-        SearchResult: The list of search results containing information about
-                      the found people.
-
-    """
-    retval: SearchResult = []
-    found_people: Dict[int, SearchResultFields] = {}
-
-    for searchword in searchwords:
-        lower_search = searchword.lower()
-        people = \
-            session.query(Person)\
-            .filter(Person.name.ilike('%' + lower_search + '%') |
-                    Person.fullname.ilike('%' + lower_search + '%') |
-                    Person.other_names.ilike('%' + lower_search + '%') |
-                    Person.alt_name.ilike('%' + lower_search + '%') |
-                    Person.bio.ilike('%' + lower_search + '%')) \
-            .order_by(Person.name) \
-            .distinct()\
-            .all()
-
-        for person in people:
-            if person.id in found_people:
-                found_people[person.id]['score'] *= \
-                    searchscore('person', person, lower_search)
-            else:
-                description = ''
-                if person.nationality:
-                    description = person.nationality.name
-                if person.dob or person.dod:
-                    description += ' ('
-                if person.dob:
-                    description += str(person.dob)
-                if person.dob or person.dod:
-                    description += '-'
-                if person.dod:
-                    description += str(person.dod)
-                if person.dob or person.dod:
-                    description += ')'
-                if len(description) > 0:
-                    description += '<br />'
-                if person.bio:
-                    description += person.bio
-                if lower_search in description.lower():
-                    start = description.lower().index(lower_search)
-                    description = (
-                        description[:start] + '<b>' +
-                        description[start:start + len(lower_search)] +
-                        '</b>' + description[start + len(lower_search):]
-                        )
-                item: SearchResultFields = {
-                    'id': person.id,
-                    'author': '',
-                    'img': '',
-                    'header': person.name,
-                    'description': description,
-                    'type': 'person',
-                    'score': searchscore('person', person, lower_search)
-                }
-                found_people[person.id] = item
-
-        retval = [value for _, value in found_people.items()]
-
-    return retval
 
 
 def person_shorts(person_id: int) -> ResponseType:

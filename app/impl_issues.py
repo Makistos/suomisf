@@ -93,25 +93,6 @@ def get_issue(issue_id: int) -> ResponseType:
     return ResponseType(retval, HttpResponseCode.OK.value)
 
 
-def editors_changed(new_editors: Any, old_editors: Any) -> bool:
-    """
-    Compares two sets of editors (new_editors and old_editors) to determine if
-    they are different.
-
-    Args:
-        new_editors (any): The new set of editors.
-        old_editors (any): The old set of editors.
-
-    Returns:
-        bool: True if the sets are different, False otherwise.
-
-    """
-    new_ids = sorted([x['id'] for x in new_editors])
-    old_ids = sorted([x.id for x in old_editors])
-    # retval = new_ids != old_ids
-    return new_ids != old_ids
-
-
 def issue_add(params: Dict[str, Any]) -> ResponseType:
     """
     Adds a new issue to the database.

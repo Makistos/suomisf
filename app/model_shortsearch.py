@@ -2,22 +2,13 @@
 """ Database models for short search. """
 from marshmallow import fields
 from app import ma
-from app.orm_decl import (Edition, Issue, Magazine, Person,
-                          ShortStory, StoryContributor, Work)
+from app.orm_decl import (Edition, Issue, Magazine, ShortStory, Work)
 from .model import (GenreBriefSchema, EditionImageBriefSchema,
                     WorkBriefestSchema,
-                    PersonBriefSchema, ContributorRoleSchema, StoryTypeSchema,
+                    StoryTypeSchema,
                     StoryContributorSchema, LanguageSchema)
 
 # Schemas for short story search
-
-
-class ShortSearchPersonSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
-    """ Person schema. """
-    class Meta:
-        """ Metadata for SQLAlchemyAutoSchema. """
-        model = Person
-        fields = ('id', 'name')
 
 
 class ShortSearchEdition(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -35,17 +26,6 @@ class ShortSearchWork(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Work
-
-
-class ShortSearchContributor(ma.SQLAlchemyAutoSchema):  # type: ignore
-    """ Contributor schema. """
-    class Meta:
-        """ Metadata for SQLAlchemyAutoSchema. """
-        model = StoryContributor
-    person = fields.Nested(PersonBriefSchema(only=('id', 'name',)))
-    role = fields.Nested(ContributorRoleSchema)
-    description = fields.String()
-    real_person = fields.Nested(lambda: PersonBriefSchema(only=('id', 'name')))
 
 
 class ShortSearchMagazine(ma.SQLAlchemyAutoSchema):  # type: ignore

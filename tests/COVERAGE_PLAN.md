@@ -79,9 +79,9 @@ Written 2026-10-03. Tick items off here as they land; keep the numbers in
 - [x] **A3. One auth table**: a single parametrized test in `test_auth.py`,
   one row per protected route, asserting the exact status. Remove the
   duplicates from other files.
-- [ ] **A4. Rename fixtures** named `test_*` to `created_work`,
+- [x] **A4. Rename fixtures** named `test_*` to `created_work`,
   `created_edition`, ...
-- [ ] **A5. Delete dead code** (~500 lines). ORM table classes stay even if
+- [x] **A5. Delete dead code** (~500 lines). ORM table classes stay even if
   unreferenced.
 
 ### Part B - cover the untested code
@@ -154,3 +154,9 @@ Coverage gains are estimates from the never-run lines in each area.
   Flask's route map (81 routes; new endpoints are covered automatically).
   959 -> 764 tests, coverage 49.7 % -> 50.1 %, run with coverage
   645 s -> 516 s.
+- 2026-10-04, A4 + A5: fixtures named `test_*` renamed (`created_work`,
+  ...). 38 unused definitions deleted (651 lines), mostly helpers from the
+  old server-rendered site in `route_helpers.py` (545 -> 124 lines), plus
+  `search_people`, `search_stories`, `editors_changed`, `decode_jwt_token`
+  and seven unused schemas. Full run without coverage 7 min 48 s ->
+  6 min 2 s (764 tests). Part A done.

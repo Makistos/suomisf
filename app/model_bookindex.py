@@ -7,7 +7,7 @@ from app.model import (LanguageSchema, PersonBriefSchema)
 from app.orm_decl import (Bookseries, ContributorRole, Edition,
                           EditionImage, Genre, Person,
                           Publisher, Pubseries, Tag,
-                          Work, WorkContributor, WorkType)
+                          Work, WorkContributor)
 
 
 class BookIndexPubseriesSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
@@ -93,29 +93,6 @@ class BookIndexEditionWorkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Work
-
-
-class BookIndexWorkEditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
-    """ Edition schema. """
-    class Meta:
-        """ Metadata for SQLAlchemyAutoSchema. """
-        model = Edition
-    editors = ma.List(fields.Nested(BookIndexPersonSchema))
-    translators = ma.List(fields.Nested(BookIndexPersonSchema))
-    contributions = ma.List(fields.Nested(BookIndexWorkContributorSchema))
-    images = ma.List(fields.Nested(BookIndexEditionImageSchema))
-    publisher = fields.Nested(
-        lambda: BookIndexPublisherSchema(only=('id', 'name')))
-    work = fields.Nested(
-        lambda: BookIndexEditionWorkSchema(
-            only=('id', 'title', 'orig_title')))
-
-
-class BookIndexWorkTypeSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
-    """ Work type schema. """
-    class Meta:
-        """ Metadata for SQLAlchemyAutoSchema. """
-        model = WorkType
     # id = fields.Int()
     # name = fields.String()
 
