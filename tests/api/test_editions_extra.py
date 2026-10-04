@@ -50,13 +50,12 @@ PERSON_ID = 1
 class TestEditionChanges(BaseAPITest):
     """Tests for GET /api/editions/{id}/changes endpoint."""
 
-    def test_edition_changes_returns_200(self, api_client):
-        """GET /api/editions/{id}/changes should return 200."""
-        response = api_client.get(f'/api/editions/{BASIC_EDITION_ID}/changes')
-        response.assert_success()
-
     def test_edition_changes_returns_data(self, api_client):
-        """GET /api/editions/{id}/changes returns data structure."""
+        """GET /api/editions/{id}/changes should return 200.
+
+        Also checks:
+        - GET /api/editions/{id}/changes returns data structure.
+        """
         response = api_client.get(f'/api/editions/{BASIC_EDITION_ID}/changes')
         response.assert_success()
 
@@ -74,13 +73,12 @@ class TestEditionChanges(BaseAPITest):
 class TestEditionWork(BaseAPITest):
     """Tests for GET /api/editions/{id}/work endpoint."""
 
-    def test_edition_work_returns_200(self, api_client):
-        """GET /api/editions/{id}/work should return 200."""
-        response = api_client.get(f'/api/editions/{BASIC_EDITION_ID}/work')
-        response.assert_success()
-
     def test_edition_work_returns_work_id(self, api_client):
-        """GET /api/editions/{id}/work returns work ID."""
+        """GET /api/editions/{id}/work should return 200.
+
+        Also checks:
+        - GET /api/editions/{id}/work returns work ID.
+        """
         response = api_client.get(f'/api/editions/{BASIC_EDITION_ID}/work')
         response.assert_success()
 
@@ -126,13 +124,12 @@ class TestEditionOwners(BaseAPITest):
 class TestEditionsOwned(BaseAPITest):
     """Tests for GET /api/editions/owned/{userid} endpoint."""
 
-    def test_editions_owned_returns_200(self, api_client):
-        """GET /api/editions/owned/{userid} should return 200."""
-        response = api_client.get(f'/api/editions/owned/{USER_ID}')
-        response.assert_success()
-
     def test_editions_owned_returns_list(self, api_client):
-        """GET /api/editions/owned/{userid} returns list."""
+        """GET /api/editions/owned/{userid} should return 200.
+
+        Also checks:
+        - GET /api/editions/owned/{userid} returns list.
+        """
         response = api_client.get(f'/api/editions/owned/{USER_ID}')
         response.assert_success()
 
@@ -154,12 +151,6 @@ class TestEditionsOwned(BaseAPITest):
 class TestEditionOwnerModify(BaseAPITest):
     """Tests for edition owner modification endpoints."""
 
-    def test_delete_owner_requires_auth(self, api_client):
-        """DELETE /api/editions/{id}/owner/{personid} requires auth."""
-        url = f'/api/editions/{BASIC_EDITION_ID}/owner/{PERSON_ID}'
-        response = api_client.delete(url)
-        assert response.status_code == 401
-
     def test_delete_owner_invalid_ids(self, admin_client):
         """DELETE /api/editions/{invalid}/owner/{invalid} returns 400."""
         response = admin_client.delete('/api/editions/invalid/owner/invalid')
@@ -170,14 +161,6 @@ class TestEditionOwnerModify(BaseAPITest):
         url = f'/api/editions/{BASIC_EDITION_ID}/owner/999999999'
         response = admin_client.delete(url)
         assert response.status_code == 200
-
-    def test_update_owner_requires_auth(self, api_client):
-        """PUT /api/editions/owner requires authentication."""
-        response = api_client.put('/api/editions/owner', data={
-            'edition_id': BASIC_EDITION_ID,
-            'user_id': USER_ID
-        })
-        assert response.status_code == 401
 
     def test_update_owner_with_auth(self, admin_client):
         """PUT /api/editions/owner with auth processes request."""
@@ -202,13 +185,12 @@ class TestEditionWishlist(BaseAPITest):
         assert response.status_code == 200
         assert response.json == []
 
-    def test_user_wishlist_returns_200(self, api_client):
-        """GET /api/editions/wishlist/{userid} should return 200."""
-        response = api_client.get(f'/api/editions/wishlist/{USER_ID}')
-        response.assert_success()
-
     def test_user_wishlist_returns_list(self, api_client):
-        """GET /api/editions/wishlist/{userid} returns list."""
+        """GET /api/editions/wishlist/{userid} should return 200.
+
+        Also checks:
+        - GET /api/editions/wishlist/{userid} returns list.
+        """
         response = api_client.get(f'/api/editions/wishlist/{USER_ID}')
         response.assert_success()
 
@@ -251,18 +233,6 @@ class TestEditionWishlistModify(BaseAPITest):
     (see test_auth_user_data.py).
     """
 
-    def test_add_to_wishlist_requires_auth(self, api_client):
-        """PUT /api/editions/{id}/wishlist/{userid} without a token is 401."""
-        url = f'/api/editions/{BASIC_EDITION_ID}/wishlist/{USER_ID}'
-        response = api_client.put(url)
-        assert response.status_code == 401
-
-    def test_remove_from_wishlist_requires_auth(self, api_client):
-        """DELETE /api/editions/{id}/wishlist/{userid} without a token is 401."""
-        url = f'/api/editions/{BASIC_EDITION_ID}/wishlist/{USER_ID}'
-        response = api_client.delete(url)
-        assert response.status_code == 401
-
     def test_add_owned_edition_to_wishlist_is_400(self, admin_client):
         """The user already owns this edition, and owning and wishlisting
         share one row per user and edition."""
@@ -284,23 +254,12 @@ class TestEditionImages(BaseAPITest):
     These tests focus on authentication and error handling.
     """
 
-    def test_upload_image_requires_auth(self, api_client):
-        """POST /api/editions/{id}/images requires authentication."""
-        response = api_client.post(f'/api/editions/{BASIC_EDITION_ID}/images')
-        assert response.status_code == 401
-
     def test_upload_image_requires_file(self, admin_client):
         """POST /api/editions/{id}/images requires file."""
         url = f'/api/editions/{BASIC_EDITION_ID}/images'
         response = admin_client.post(url)
         # Should return 400 for missing file
         assert response.status_code == 400
-
-    def test_delete_image_requires_auth(self, api_client):
-        """DELETE /api/editions/{id}/images/{imageid} requires auth."""
-        url = f'/api/editions/{BASIC_EDITION_ID}/images/1'
-        response = api_client.delete(url)
-        assert response.status_code == 401
 
     def test_delete_image_nonexistent(self, admin_client):
         """DELETE /api/editions/{id}/images/{id} for nonexistent image."""

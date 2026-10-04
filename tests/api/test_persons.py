@@ -86,15 +86,12 @@ class TestPersonList(BaseAPITest):
 class TestPersonChiefEditor(BaseAPITest):
     """Tests for GET /api/people/{id}/chiefeditor endpoint."""
 
-    def test_chiefeditor_returns_200(self, api_client):
-        """GET /api/people/{id}/chiefeditor should return 200."""
-        response = api_client.get(
-            f'/api/people/{CHIEFEDITOR_PERSON_ID}/chiefeditor'
-        )
-        response.assert_success()
-
     def test_chiefeditor_returns_issue_data(self, api_client):
-        """GET /api/people/{id}/chiefeditor returns issue info."""
+        """GET /api/people/{id}/chiefeditor should return 200.
+
+        Also checks:
+        - GET /api/people/{id}/chiefeditor returns issue info.
+        """
         response = api_client.get(
             f'/api/people/{CHIEFEDITOR_PERSON_ID}/chiefeditor'
         )
@@ -123,15 +120,13 @@ class TestPersonChiefEditor(BaseAPITest):
 class TestPersonIssueContributions(BaseAPITest):
     """Tests for GET /api/people/{id}/issue-contributions endpoint."""
 
-    def test_issue_contributions_returns_200(self, api_client):
-        """GET /api/people/{id}/issue-contributions should return 200."""
-        response = api_client.get(
-            f'/api/people/{ISSUE_CONTRIB_PERSON_ID}/issue-contributions'
-        )
-        response.assert_success()
+    def test_issue_contributions_has_fields(self, api_client):
+        """GET /api/people/{id}/issue-contributions should return 200.
 
-    def test_issue_contributions_returns_list(self, api_client):
-        """GET /api/people/{id}/issue-contributions returns a list."""
+        Also checks:
+        - GET /api/people/{id}/issue-contributions returns a list.
+        - Issue contributions have expected fields.
+        """
         response = api_client.get(
             f'/api/people/{ISSUE_CONTRIB_PERSON_ID}/issue-contributions'
         )
@@ -141,14 +136,6 @@ class TestPersonIssueContributions(BaseAPITest):
         if data is not None:
             assert isinstance(data, list)
 
-    def test_issue_contributions_has_fields(self, api_client):
-        """Issue contributions have expected fields."""
-        response = api_client.get(
-            f'/api/people/{ISSUE_CONTRIB_PERSON_ID}/issue-contributions'
-        )
-        response.assert_success()
-
-        data = response.data
         if data and len(data) > 0:
             contrib = data[0]
             # Check for expected fields
@@ -178,15 +165,12 @@ class TestPersonIssueContributions(BaseAPITest):
 class TestPersonArticles(BaseAPITest):
     """Tests for GET /api/people/{id}/articles endpoint."""
 
-    def test_articles_returns_200(self, api_client):
-        """GET /api/people/{id}/articles should return 200."""
-        response = api_client.get(
-            f'/api/people/{BASIC_PERSON_ID}/articles'
-        )
-        response.assert_success()
-
     def test_articles_returns_list(self, api_client):
-        """GET /api/people/{id}/articles returns a list."""
+        """GET /api/people/{id}/articles should return 200.
+
+        Also checks:
+        - GET /api/people/{id}/articles returns a list.
+        """
         response = api_client.get(
             f'/api/people/{BASIC_PERSON_ID}/articles'
         )
@@ -204,16 +188,6 @@ class TestPersonArticles(BaseAPITest):
 
 class TestPersonTags(BaseAPITest):
     """Tests for person tag endpoints."""
-
-    def test_add_tag_requires_auth(self, api_client):
-        """PUT /api/person/{id}/tags/{tagid} requires authentication."""
-        response = api_client.put(f'/api/person/{BASIC_PERSON_ID}/tags/1')
-        assert response.status_code == 401
-
-    def test_remove_tag_requires_auth(self, api_client):
-        """DELETE /api/person/{id}/tags/{tagid} requires authentication."""
-        response = api_client.delete(f'/api/person/{BASIC_PERSON_ID}/tags/1')
-        assert response.status_code == 401
 
     def test_add_tag_invalid_ids(self, admin_client):
         """PUT /api/person/{id}/tags/{tagid} with invalid IDs."""
@@ -255,26 +229,6 @@ class TestPersonCRUD(BaseAPITest):
             # Clean up: delete the created person
             if person_id:
                 admin_client.delete(f'/api/people/{person_id}')
-
-    def test_create_person_without_auth_fails(self, api_client):
-        """POST /api/people without auth fails."""
-        response = api_client.post('/api/people', data={
-            'name': 'Test Person'
-        })
-        assert response.status_code == 401
-
-    def test_update_person_without_auth_fails(self, api_client):
-        """PUT /api/people without auth fails."""
-        response = api_client.put('/api/people', data={
-            'id': BASIC_PERSON_ID,
-            'name': 'Updated Name'
-        })
-        assert response.status_code == 401
-
-    def test_delete_person_without_auth_fails(self, api_client):
-        """DELETE /api/people/{id} without auth fails."""
-        response = api_client.delete(f'/api/people/{BASIC_PERSON_ID}')
-        assert response.status_code == 401
 
     def test_delete_nonexistent_person(self, admin_client):
         """DELETE /api/people/{id} for nonexistent person."""

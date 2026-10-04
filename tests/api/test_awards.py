@@ -51,32 +51,23 @@ CATEGORY_ID = 1
 class TestAwardsList(BaseAPITest):
     """Tests for GET /api/awards endpoint."""
 
-    def test_list_awards_returns_200(self, api_client):
-        """GET /api/awards should return 200."""
-        response = api_client.get('/api/awards')
-        response.assert_success()
+    def test_list_awards_has_required_fields(self, api_client):
+        """GET /api/awards should return 200.
 
-    def test_list_awards_returns_list(self, api_client):
-        """GET /api/awards should return a list."""
+        Also checks:
+        - GET /api/awards should return a list.
+        - Each award should have id and name.
+        - GET /api/awards should include Hugo award.
+        """
         response = api_client.get('/api/awards')
         response.assert_success()
 
         data = response.data
         assert isinstance(data, list), "Response should be a list"
 
-    def test_list_awards_has_required_fields(self, api_client):
-        """Each award should have id and name."""
-        response = api_client.get('/api/awards')
-        response.assert_success()
-
         for award in response.data[:5]:
             assert 'id' in award, "Award missing 'id'"
             assert 'name' in award, "Award missing 'name'"
-
-    def test_list_awards_includes_hugo(self, api_client):
-        """GET /api/awards should include Hugo award."""
-        response = api_client.get('/api/awards')
-        response.assert_success()
 
         names = [a['name'] for a in response.data]
         assert 'Hugo' in names, "Should include Hugo award"
@@ -85,13 +76,12 @@ class TestAwardsList(BaseAPITest):
 class TestAwardGet(BaseAPITest):
     """Tests for GET /api/awards/{id} endpoint."""
 
-    def test_get_award_returns_200(self, api_client):
-        """GET /api/awards/{id} should return 200."""
-        response = api_client.get(f'/api/awards/{HUGO_AWARD_ID}')
-        response.assert_success()
-
     def test_get_award_has_fields(self, api_client):
-        """GET /api/awards/{id} should return award with fields."""
+        """GET /api/awards/{id} should return 200.
+
+        Also checks:
+        - GET /api/awards/{id} should return award with fields.
+        """
         response = api_client.get(f'/api/awards/{HUGO_AWARD_ID}')
         response.assert_success()
 
@@ -167,13 +157,13 @@ class TestAwardCategories(BaseAPITest):
 class TestAwardsFilter(BaseAPITest):
     """Tests for GET /api/awards/filter/{filter} endpoint."""
 
-    def test_filter_awards_returns_200(self, api_client):
-        """GET /api/awards/filter/{filter} should return 200."""
-        response = api_client.get('/api/awards/filter/Hugo')
-        response.assert_success()
+    def test_filter_awards_finds_matches(self, api_client):
+        """GET /api/awards/filter/{filter} should return 200.
 
-    def test_filter_awards_returns_list(self, api_client):
-        """GET /api/awards/filter/{filter} returns list."""
+        Also checks:
+        - GET /api/awards/filter/{filter} returns list.
+        - GET /api/awards/filter/Hugo should find Hugo award.
+        """
         response = api_client.get('/api/awards/filter/Hugo')
         response.assert_success()
 
@@ -181,12 +171,6 @@ class TestAwardsFilter(BaseAPITest):
         if data is not None:
             assert isinstance(data, list)
 
-    def test_filter_awards_finds_matches(self, api_client):
-        """GET /api/awards/filter/Hugo should find Hugo award."""
-        response = api_client.get('/api/awards/filter/Hugo')
-        response.assert_success()
-
-        data = response.data
         if data and len(data) > 0:
             names = [a.get('name', '') for a in data]
             assert any('Hugo' in n for n in names), "Should find Hugo"
@@ -204,13 +188,13 @@ class TestAwardsFilter(BaseAPITest):
 class TestWorkAwarded(BaseAPITest):
     """Tests for GET /api/works/{id}/awarded endpoint."""
 
-    def test_work_awarded_returns_200(self, api_client):
-        """GET /api/works/{id}/awarded should return 200."""
-        response = api_client.get(f'/api/works/{WORK_WITH_AWARDS_ID}/awarded')
-        response.assert_success()
+    def test_work_awarded_returns_data(self, api_client):
+        """GET /api/works/{id}/awarded should return 200.
 
-    def test_work_awarded_returns_list(self, api_client):
-        """GET /api/works/{id}/awarded returns list."""
+        Also checks:
+        - GET /api/works/{id}/awarded returns list.
+        - Work awarded endpoint returns data structure.
+        """
         response = api_client.get(f'/api/works/{WORK_WITH_AWARDS_ID}/awarded')
         response.assert_success()
 
@@ -218,12 +202,6 @@ class TestWorkAwarded(BaseAPITest):
         if data is not None:
             assert isinstance(data, list)
 
-    def test_work_awarded_returns_data(self, api_client):
-        """Work awarded endpoint returns data structure."""
-        response = api_client.get(f'/api/works/{WORK_WITH_AWARDS_ID}/awarded')
-        response.assert_success()
-
-        data = response.data
         # Implementation may return empty list even for works with awards
         assert isinstance(data, list)
 
@@ -291,13 +269,6 @@ class TestAwardAdminEndpoints(BaseAPITest):
 
 class TestAwardUpdate(BaseAPITest):
     """Tests for PUT /api/awards (update award info)."""
-
-    def test_update_award_requires_auth(self, api_client):
-        """PUT /api/awards requires admin authentication."""
-        response = api_client.put('/api/awards', data={
-            'data': {'id': HUGO_AWARD_ID, 'name': 'Hugo'}
-        })
-        assert response.status_code == 401
 
     def test_update_award_invalid_id(self, admin_client):
         """PUT /api/awards with non-existent ID returns 404."""
@@ -619,13 +590,6 @@ def _delete_award_by_name(name):
 
 class TestAwardCreate(BaseAPITest):
     """Tests for POST /api/awards (create a new award)."""
-
-    def test_create_award_requires_auth(self, api_client):
-        """POST /api/awards requires admin authentication."""
-        response = api_client.post('/api/awards', data={
-            'data': {'name': 'Unauthorized Award'}
-        })
-        assert response.status_code == 401
 
     def test_create_award_missing_name(self, admin_client):
         """POST /api/awards without a name returns 400."""

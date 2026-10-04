@@ -468,27 +468,16 @@ class TestWorksCreateValidation(BaseAPITest):
         assert response.status_code == 400, \
             f"Expected 400 Bad Request, got {response.status_code}"
 
-    def test_create_work_without_auth_fails(self, api_client):
-        """POST /api/works should require authentication."""
-        work_data = {
-            'data': {
-                'title': 'Test Work',
-                'contributions': [
-                    {'person': {'id': 1}, 'role': {'id': 1}}
-                ]
-            }
-        }
-
-        response = api_client.post('/api/works', data=work_data)
-        assert response.status_code == 401, \
-            f"Expected 401/403/422, got {response.status_code}"
-
 
 class TestWorksRead(BaseAPITest):
     """Tests for reading works."""
 
     def test_get_existing_work(self, api_client):
-        """GET /api/works/{id} should return work data for valid ID."""
+        """GET /api/works/{id} should return work data for valid ID.
+
+        Also checks:
+        - GET /api/works/{id} should return work with expected fields.
+        """
         response = api_client.get('/api/works/1')
         response.assert_success()
 
@@ -497,31 +486,20 @@ class TestWorksRead(BaseAPITest):
         assert 'title' in data
         assert data['id'] == 1
 
-    def test_get_nonexistent_work(self, api_client):
-        """GET /api/works/{id} should return error for invalid ID."""
-        response = api_client.get('/api/works/999999999')
-        assert response.status_code == 404
-
-    def test_get_work_has_expected_fields(self, api_client):
-        """GET /api/works/{id} should return work with expected fields."""
-        response = api_client.get('/api/works/1')
-        response.assert_success()
-
-        data = response.data
         expected_fields = ['id', 'title', 'orig_title', 'pubyear',
                            'editions', 'contributions']
 
         for field in expected_fields:
             assert field in data, f"Work missing field '{field}'"
 
+    def test_get_nonexistent_work(self, api_client):
+        """GET /api/works/{id} should return error for invalid ID."""
+        response = api_client.get('/api/works/999999999')
+        assert response.status_code == 404
+
 
 class TestWorksDelete(BaseAPITest):
     """Tests for deleting works."""
-
-    def test_delete_work_without_auth_fails(self, api_client):
-        """DELETE /api/works/{id} should require authentication."""
-        response = api_client.delete('/api/works/999999')
-        assert response.status_code == 401
 
     def test_delete_nonexistent_work(self, admin_client):
         """DELETE /api/works/{id} should handle nonexistent work."""

@@ -74,9 +74,11 @@ class TestPersonShorts(BaseAPITest):
             f"Extra: {actual_ids - expected_ids}"
         )
 
-    def test_person_shorts_has_required_fields(self, api_client):
-        """
-        Each short in /api/people/{id}/shorts has required fields.
+    def test_person_shorts_contributor_structure(self, api_client):
+        """Each short in /api/people/{id}/shorts has required fields.
+
+        Also checks:
+        - Contributors in person shorts have correct structure.
         """
         response = api_client.get('/api/people/3238/shorts')
         response.assert_success()
@@ -91,13 +93,6 @@ class TestPersonShorts(BaseAPITest):
                 assert field in short, (
                     f"Short {short.get('id')} missing field '{field}'"
                 )
-
-    def test_person_shorts_contributor_structure(self, api_client):
-        """
-        Contributors in person shorts have correct structure.
-        """
-        response = api_client.get('/api/people/3238/shorts')
-        response.assert_success()
 
         for short in response.data[:5]:  # Check first 5
             contributors = short.get('contributors', [])
@@ -158,9 +153,11 @@ class TestPersonShortsBackwardCompat(BaseAPITest):
     Backward compatibility tests for person-short relationships.
     """
 
-    def test_person_shorts_response_format(self, api_client):
-        """
-        Verify person shorts response has expected structure.
+    def test_person_shorts_contributor_roles(self, api_client, snapshot_manager):
+        """Verify person shorts response has expected structure.
+
+        Also checks:
+        - Verify contributor roles match snapshot.
         """
         response = api_client.get('/api/people/3238/shorts')
         response.assert_success()
@@ -176,17 +173,6 @@ class TestPersonShortsBackwardCompat(BaseAPITest):
             assert isinstance(
                 short.get('contributors', []), list
             ), "contributors should be list"
-
-    def test_person_shorts_contributor_roles(
-        self, api_client, snapshot_manager
-    ):
-        """
-        Verify contributor roles match snapshot.
-
-        This ensures the migration preserves role assignments.
-        """
-        response = api_client.get('/api/people/3238/shorts')
-        response.assert_success()
 
         snapshot = snapshot_manager.load_snapshot('person_shorts_3238')
         expected_shorts = snapshot['response']['data']

@@ -594,14 +594,14 @@ class TestWorkTagImportErrors(BaseAPITest):
 class TestGetImportMappings(BaseAPITest):
     """Tests for the stored tag import mappings endpoint."""
 
-    def test_returns_200_for_admin(self, admin_client):
-        """GET /api/tags/import/mappings returns 200 for admin."""
+    def test_response_has_replace_and_omit_keys(self, admin_client):
+        """GET /api/tags/import/mappings returns 200 for admin.
+
+        Also checks:
+        - Response contains 'replace' and 'omit' keys.
+        """
         resp = admin_client.get("/api/tags/import/mappings")
         resp.assert_status(200)
-
-    def test_response_has_replace_and_omit_keys(self, admin_client):
-        """Response contains 'replace' and 'omit' keys."""
-        resp = admin_client.get("/api/tags/import/mappings")
         resp.assert_status(200)
         data = resp.data
         assert "replace" in data

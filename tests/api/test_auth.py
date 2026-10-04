@@ -9,7 +9,17 @@ Tests for:
 Note: Run tests/scripts/setup_test_db.py before running these tests.
 """
 
+import re
+
+import pytest
+
+from app import app as flask_app
+
 from .base_test import BaseAPITest
+from .test_route_auth import PUBLIC_WRITE_ROUTES
+
+# Login is how a client gets a token in the first place.
+AUTH_ROUTES = {'api_login'}
 
 
 # Test credentials - must match setup_test_db.py
@@ -46,181 +56,25 @@ class TestAuthentication(BaseAPITest):
         assert response.status_code == 401
 
 
-class TestWriteOperationsRequireAuth(BaseAPITest):
-    """Tests that write operations require authentication."""
+def _protected_write_routes():
+    """Every write method on every route, except routes public on purpose.
 
-    # Works
-    def test_create_work_requires_auth(self, api_client):
-        """POST /api/works should require authentication."""
-        response = api_client.post('/api/works', data={
-            'data': {'title': 'Test Work'}
-        })
-        assert response.status_code == 401
-
-    def test_update_work_requires_auth(self, api_client):
-        """PUT /api/works should require authentication."""
-        response = api_client.put('/api/works', data={
-            'data': {'id': 1, 'title': 'Updated Work'}
-        })
-        assert response.status_code == 401
-
-    def test_delete_work_requires_auth(self, api_client):
-        """DELETE /api/works/<id> should require authentication."""
-        response = api_client.delete('/api/works/999999')
-        assert response.status_code == 401
-
-    # Editions
-    def test_create_edition_requires_auth(self, api_client):
-        """POST /api/editions should require authentication."""
-        response = api_client.post('/api/editions', data={
-            'data': {'work_id': 1, 'title': 'Test Edition'}
-        })
-        assert response.status_code == 401
-
-    def test_update_edition_requires_auth(self, api_client):
-        """PUT /api/editions should require authentication."""
-        response = api_client.put('/api/editions', data={
-            'data': {'id': 1, 'title': 'Updated Edition'}
-        })
-        assert response.status_code == 401
-
-    def test_delete_edition_requires_auth(self, api_client):
-        """DELETE /api/editions/<id> should require authentication."""
-        response = api_client.delete('/api/editions/999999')
-        assert response.status_code == 401
-
-    # People
-    def test_create_person_requires_auth(self, api_client):
-        """POST /api/people should require authentication."""
-        response = api_client.post('/api/people', data={
-            'data': {'name': 'Test Person'}
-        })
-        assert response.status_code == 401
-
-    def test_update_person_requires_auth(self, api_client):
-        """PUT /api/people should require authentication."""
-        response = api_client.put('/api/people', data={
-            'data': {'id': 1, 'name': 'Updated Person'}
-        })
-        assert response.status_code == 401
-
-    def test_delete_person_requires_auth(self, api_client):
-        """DELETE /api/people/<id> should require authentication."""
-        response = api_client.delete('/api/people/999999')
-        assert response.status_code == 401
-
-    # Shorts
-    def test_create_short_requires_auth(self, api_client):
-        """POST /api/shorts should require authentication."""
-        response = api_client.post('/api/shorts', data={
-            'data': {'title': 'Test Short Story'}
-        })
-        assert response.status_code == 401
-
-    def test_update_short_requires_auth(self, api_client):
-        """PUT /api/shorts should require authentication."""
-        response = api_client.put('/api/shorts', data={
-            'data': {'id': 1, 'title': 'Updated Short'}
-        })
-        assert response.status_code == 401
-
-    def test_delete_short_requires_auth(self, api_client):
-        """DELETE /api/shorts/<id> should require authentication."""
-        response = api_client.delete('/api/shorts/999999')
-        assert response.status_code == 401
-
-    # Tags
-    def test_create_tag_requires_auth(self, api_client):
-        """POST /api/tags should require authentication."""
-        response = api_client.post('/api/tags', data={
-            'data': {'name': 'test-tag'}
-        })
-        assert response.status_code == 401
-
-    def test_update_tag_requires_auth(self, api_client):
-        """PUT /api/tags should require authentication."""
-        response = api_client.put('/api/tags', data={
-            'id': 1, 'name': 'updated-tag'
-        })
-        assert response.status_code == 401
-
-    def test_delete_tag_requires_auth(self, api_client):
-        """DELETE /api/tags/<id> should require authentication."""
-        response = api_client.delete('/api/tags/999999')
-        assert response.status_code == 401
-
-    # Publishers
-    def test_create_publisher_requires_auth(self, api_client):
-        """POST /api/publishers should require authentication."""
-        response = api_client.post('/api/publishers', data={
-            'data': {'name': 'Test Publisher', 'fullname': 'Test Publisher Oy'}
-        })
-        assert response.status_code == 401
-
-    def test_delete_publisher_requires_auth(self, api_client):
-        """DELETE /api/publishers/<id> should require authentication."""
-        response = api_client.delete('/api/publishers/999999')
-        assert response.status_code == 401
-
-    # Bookseries
-    def test_create_bookseries_requires_auth(self, api_client):
-        """POST /api/bookseries should require authentication."""
-        response = api_client.post('/api/bookseries', data={
-            'data': {'name': 'Test Series'}
-        })
-        assert response.status_code == 401
-
-    def test_delete_bookseries_requires_auth(self, api_client):
-        """DELETE /api/bookseries/<id> should require authentication."""
-        response = api_client.delete('/api/bookseries/999999')
-        assert response.status_code == 401
-
-    # Pubseries
-    def test_create_pubseries_requires_auth(self, api_client):
-        """POST /api/pubseries should require authentication."""
-        response = api_client.post('/api/pubseries', data={
-            'data': {'name': 'Test Pub Series'}
-        })
-        assert response.status_code == 401
-
-    def test_delete_pubseries_requires_auth(self, api_client):
-        """DELETE /api/pubseries/<id> should require authentication."""
-        response = api_client.delete('/api/pubseries/999999')
-        assert response.status_code == 401
-
-    # Magazines
-    def test_create_magazine_requires_auth(self, api_client):
-        """POST /api/magazines should require authentication."""
-        response = api_client.post('/api/magazines', data={
-            'data': {'name': 'Test Magazine'}
-        })
-        assert response.status_code == 401
-
-    def test_delete_magazine_requires_auth(self, api_client):
-        """DELETE /api/magazines/<id> should require authentication."""
-        response = api_client.delete('/api/magazines/999999')
-        assert response.status_code == 401
-
-    # Issues
-    def test_create_issue_requires_auth(self, api_client):
-        """POST /api/issues should require authentication."""
-        response = api_client.post('/api/issues', data={
-            'magazine_id': 1, 'number': '1/2024'
-        })
-        assert response.status_code == 401
-
-    def test_delete_issue_requires_auth(self, api_client):
-        """DELETE /api/issues/<id> should require authentication."""
-        response = api_client.delete('/api/issues/999999')
-        assert response.status_code == 401
+    Built from Flask's own route map, so a new endpoint is covered without
+    editing this file. Path parameters are filled with 1; the auth check
+    runs before the handler reads them.
+    """
+    cases = []
+    for rule in flask_app.url_map.iter_rules():
+        if rule.endpoint in PUBLIC_WRITE_ROUTES or rule.endpoint in AUTH_ROUTES:
+            continue
+        for method in sorted(rule.methods & {'POST', 'PUT', 'DELETE', 'PATCH'}):
+            cases.append(pytest.param(method, re.sub(r'<[^>]+>', '1', rule.rule),
+                                      id=f'{method} {rule.rule}'))
+    return cases
 
 
-class TestCollectionRequiresAuth(BaseAPITest):
-    """Tests that collection endpoints require authentication."""
-
-    def test_add_to_collection_requires_auth(self, api_client):
-        """POST /api/editions/owner should require authentication."""
-        response = api_client.post('/api/editions/owner', data={
-            'editionid': 1, 'userid': 1, 'condition': 3
-        })
-        assert response.status_code == 401
+@pytest.mark.parametrize('method,path', _protected_write_routes())
+def test_write_route_without_token_is_401(api_client, method, path):
+    """No token, no write. Replaces 66 hand-written per-route tests."""
+    response = getattr(api_client, method.lower())(path)
+    assert response.status_code == 401

@@ -75,42 +75,28 @@ EXPECTED_STORY_TYPES = {
 class TestShortTypes(BaseAPITest):
     """Tests for GET /api/shorttypes endpoint."""
 
-    def test_shorttypes_returns_200(self, api_client):
-        """GET /api/shorttypes should return 200."""
-        response = api_client.get('/api/shorttypes')
-        response.assert_success()
+    def test_shorttypes_includes_novelli(self, api_client):
+        """GET /api/shorttypes should return 200.
 
-    def test_shorttypes_returns_list(self, api_client):
-        """GET /api/shorttypes should return a list."""
+        Also checks:
+        - GET /api/shorttypes should return a list.
+        - GET /api/shorttypes should return 9 types.
+        - Each story type should have id and name.
+        - GET /api/shorttypes should include 'Novelli' type.
+        """
         response = api_client.get('/api/shorttypes')
         response.assert_success()
 
         data = response.data
         assert isinstance(data, list), "Response should be a list"
 
-    def test_shorttypes_has_expected_count(self, api_client):
-        """GET /api/shorttypes should return 9 types."""
-        response = api_client.get('/api/shorttypes')
-        response.assert_success()
-
-        data = response.data
         assert len(data) == 9, f"Expected 9 story types, got {len(data)}"
-
-    def test_shorttypes_has_required_fields(self, api_client):
-        """Each story type should have id and name."""
-        response = api_client.get('/api/shorttypes')
-        response.assert_success()
 
         for story_type in response.data:
             assert 'id' in story_type, "Story type missing 'id'"
             assert 'name' in story_type, "Story type missing 'name'"
             assert isinstance(story_type['id'], int), "id should be int"
             assert isinstance(story_type['name'], str), "name should be str"
-
-    def test_shorttypes_includes_novelli(self, api_client):
-        """GET /api/shorttypes should include 'Novelli' type."""
-        response = api_client.get('/api/shorttypes')
-        response.assert_success()
 
         names = [t['name'].lower() for t in response.data]
         assert 'novelli' in names, "Should include 'Novelli' story type"
@@ -120,7 +106,11 @@ class TestShortTypeNames(BaseAPITest):
     """Verify all 9 story type names match expected values."""
 
     def test_shorttypes_all_names_match(self, api_client):
-        """All story type names should match expected."""
+        """All story type names should match expected.
+
+        Also checks:
+        - Story type IDs should be 1 through 9.
+        """
         response = api_client.get('/api/shorttypes')
         response.assert_success()
 
@@ -139,11 +129,6 @@ class TestShortTypeNames(BaseAPITest):
                 f"got '{actual[type_id]}'"
             )
 
-    def test_shorttypes_ids_are_sequential(self, api_client):
-        """Story type IDs should be 1 through 9."""
-        response = api_client.get('/api/shorttypes')
-        response.assert_success()
-
         ids = sorted(t['id'] for t in response.data)
         assert ids == list(range(1, 10)), (
             f"Expected IDs 1-9, got {ids}"
@@ -161,7 +146,11 @@ class TestShortStoryTypeField(BaseAPITest):
     """
 
     def test_novelli_type_field(self, api_client):
-        """Novelli short should have type id=1."""
+        """Novelli short should have type id=1.
+
+        Also checks:
+        - Type field should be dict with id and name.
+        """
         response = api_client.get(
             f'/api/shorts/{NOVELLI_SHORT_ID}'
         )
@@ -171,6 +160,17 @@ class TestShortStoryTypeField(BaseAPITest):
         assert 'type' in short, "Short missing 'type'"
         assert short['type']['id'] == 1
         assert short['type']['name'] == 'Novelli'
+
+        typ = response.data['type']
+        assert isinstance(typ, dict), (
+            "type should be a dict"
+        )
+        assert isinstance(typ['id'], int), (
+            "type.id should be int"
+        )
+        assert isinstance(typ['name'], str), (
+            "type.name should be str"
+        )
 
     def test_pitka_novelli_type_field(self, api_client):
         """Pitkä novelli short should have type id=2."""
@@ -226,24 +226,6 @@ class TestShortStoryTypeField(BaseAPITest):
         short = response.data
         assert short['type']['id'] == 7
         assert short['type']['name'] == 'Artikkeli'
-
-    def test_type_field_structure(self, api_client):
-        """Type field should be dict with id and name."""
-        response = api_client.get(
-            f'/api/shorts/{NOVELLI_SHORT_ID}'
-        )
-        response.assert_success()
-
-        typ = response.data['type']
-        assert isinstance(typ, dict), (
-            "type should be a dict"
-        )
-        assert isinstance(typ['id'], int), (
-            "type.id should be int"
-        )
-        assert isinstance(typ['name'], str), (
-            "type.name should be str"
-        )
 
 
 class TestSearchShortsByType(BaseAPITest):
@@ -569,18 +551,22 @@ class TestShortCRUDWithTypes(BaseAPITest):
 class TestLatestShorts(BaseAPITest):
     """Tests for GET /api/latest/shorts/{count} endpoint."""
 
-    def test_latest_shorts_returns_200(self, api_client):
-        """GET /api/latest/shorts/{count} should return 200."""
-        response = api_client.get('/api/latest/shorts/5')
-        response.assert_success()
+    def test_latest_shorts_has_required_fields(self, api_client):
+        """GET /api/latest/shorts/{count} should return 200.
 
-    def test_latest_shorts_returns_list(self, api_client):
-        """GET /api/latest/shorts/{count} should return a list."""
+        Also checks:
+        - GET /api/latest/shorts/{count} should return a list.
+        - Each short in latest should have id and title.
+        """
         response = api_client.get('/api/latest/shorts/5')
         response.assert_success()
 
         data = response.data
         assert isinstance(data, list), "Response should be a list"
+
+        for short in response.data:
+            assert 'id' in short, "Short missing 'id'"
+            assert 'title' in short, "Short missing 'title'"
 
     def test_latest_shorts_respects_count(self, api_client):
         """GET /api/latest/shorts/{count} should respect count limit."""
@@ -589,15 +575,6 @@ class TestLatestShorts(BaseAPITest):
 
         data = response.data
         assert len(data) <= 3, f"Expected at most 3 shorts, got {len(data)}"
-
-    def test_latest_shorts_has_required_fields(self, api_client):
-        """Each short in latest should have id and title."""
-        response = api_client.get('/api/latest/shorts/5')
-        response.assert_success()
-
-        for short in response.data:
-            assert 'id' in short, "Short missing 'id'"
-            assert 'title' in short, "Short missing 'title'"
 
     def test_latest_shorts_invalid_count(self, api_client):
         """GET /api/latest/shorts/{count} with invalid count."""
@@ -608,13 +585,12 @@ class TestLatestShorts(BaseAPITest):
 class TestSimilarShorts(BaseAPITest):
     """Tests for GET /api/shorts/{id}/similar endpoint."""
 
-    def test_similar_shorts_returns_200(self, api_client):
-        """GET /api/shorts/{id}/similar should return 200."""
-        response = api_client.get(f'/api/shorts/{BASIC_SHORT_ID}/similar')
-        response.assert_success()
-
     def test_similar_shorts_returns_list(self, api_client):
-        """GET /api/shorts/{id}/similar should return a list."""
+        """GET /api/shorts/{id}/similar should return 200.
+
+        Also checks:
+        - GET /api/shorts/{id}/similar should return a list.
+        """
         response = api_client.get(f'/api/shorts/{BASIC_SHORT_ID}/similar')
         response.assert_success()
 
@@ -631,15 +607,14 @@ class TestSimilarShorts(BaseAPITest):
 class TestShortAwarded(BaseAPITest):
     """Tests for GET /api/shorts/{id}/awarded endpoint."""
 
-    def test_short_awarded_returns_200(self, api_client):
-        """GET /api/shorts/{id}/awarded should return 200."""
-        response = api_client.get(
-            f'/api/shorts/{SHORT_WITH_AWARDS_ID}/awarded'
-        )
-        response.assert_success()
+    def test_short_awarded_has_fields(self, api_client):
+        """GET /api/shorts/{id}/awarded should return 200.
 
-    def test_short_awarded_returns_list(self, api_client):
-        """GET /api/shorts/{id}/awarded should return a list."""
+        Also checks:
+        - GET /api/shorts/{id}/awarded should return a list.
+        - Short 4918 should have awards.
+        - Awards should have expected fields.
+        """
         response = api_client.get(
             f'/api/shorts/{SHORT_WITH_AWARDS_ID}/awarded'
         )
@@ -649,22 +624,7 @@ class TestShortAwarded(BaseAPITest):
         if data is not None:
             assert isinstance(data, list), "Response should be a list"
 
-    def test_short_awarded_has_awards(self, api_client):
-        """Short 4918 should have awards."""
-        response = api_client.get(
-            f'/api/shorts/{SHORT_WITH_AWARDS_ID}/awarded'
-        )
-        response.assert_success()
-
-        data = response.data
         assert len(data) >= 1, "Short 4918 should have at least 1 award"
-
-    def test_short_awarded_has_fields(self, api_client):
-        """Awards should have expected fields."""
-        response = api_client.get(
-            f'/api/shorts/{SHORT_WITH_AWARDS_ID}/awarded'
-        )
-        response.assert_success()
 
         if response.data and len(response.data) > 0:
             award = response.data[0]
@@ -690,20 +650,6 @@ class TestShortAwarded(BaseAPITest):
 class TestStoryTags(BaseAPITest):
     """Tests for story tag endpoints."""
 
-    def test_add_tag_requires_auth(self, api_client):
-        """PUT /api/story/{id}/tags/{tagid} requires authentication."""
-        response = api_client.put(
-            f'/api/story/{SHORT_WITH_TAGS_ID}/tags/{TAG_ID}'
-        )
-        assert response.status_code == 401
-
-    def test_remove_tag_requires_auth(self, api_client):
-        """DELETE /api/story/{id}/tags/{tagid} requires authentication."""
-        response = api_client.delete(
-            f'/api/story/{SHORT_WITH_TAGS_ID}/tags/{TAG_ID}'
-        )
-        assert response.status_code == 401
-
     def test_add_tag_invalid_ids(self, admin_client):
         """PUT /api/story/{id}/tags/{tagid} with invalid IDs."""
         response = admin_client.put('/api/story/invalid/tags/1')
@@ -718,38 +664,17 @@ class TestStoryTags(BaseAPITest):
 class TestShortCRUD(BaseAPITest):
     """Tests for short story CRUD operations."""
 
-    def test_create_short_requires_auth(self, api_client):
-        """POST /api/shorts requires authentication."""
-        response = api_client.post('/api/shorts', data={
-            'title': 'Test Short'
-        })
-        assert response.status_code == 401
-
-    def test_update_short_requires_auth(self, api_client):
-        """PUT /api/shorts requires authentication."""
-        response = api_client.put('/api/shorts', data={
-            'id': BASIC_SHORT_ID,
-            'title': 'Updated Title'
-        })
-        assert response.status_code == 401
-
-    def test_delete_short_requires_auth(self, api_client):
-        """DELETE /api/shorts/{id} requires authentication."""
-        response = api_client.delete(f'/api/shorts/{BASIC_SHORT_ID}')
-        assert response.status_code == 401
-
     def test_delete_nonexistent_short(self, admin_client):
         """DELETE /api/shorts/{id} for nonexistent short."""
         response = admin_client.delete('/api/shorts/999999999')
         assert response.status_code == 404
 
-    def test_get_short_returns_200(self, api_client):
-        """GET /api/shorts/{id} should return 200."""
-        response = api_client.get(f'/api/shorts/{BASIC_SHORT_ID}')
-        response.assert_success()
-
     def test_get_short_has_fields(self, api_client):
-        """GET /api/shorts/{id} should have required fields."""
+        """GET /api/shorts/{id} should return 200.
+
+        Also checks:
+        - GET /api/shorts/{id} should have required fields.
+        """
         response = api_client.get(f'/api/shorts/{BASIC_SHORT_ID}')
         response.assert_success()
 

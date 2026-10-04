@@ -117,11 +117,3 @@ class TestPersonImageAdd(BaseAPITest):
             data={'src': IMAGE_SRC}
         )
         response.assert_status(400)
-
-    def test_add_image_requires_auth(self, api_client):
-        """POST /api/person/<id>/images requires authentication."""
-        response = api_client.post(
-            f'/api/person/{EXISTING_PERSON_ID}/images',
-            data={'src': IMAGE_SRC}
-        )
-        assert response.status_code == 401

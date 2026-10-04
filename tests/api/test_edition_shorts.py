@@ -101,8 +101,10 @@ class TestEditionShorts(BaseAPITest):
             )
 
     def test_edition_shorts_has_required_fields(self, api_client):
-        """
-        Each short in /api/editions/{id}/shorts should have required fields.
+        """Each short in /api/editions/{id}/shorts should have required fields.
+
+        Also checks:
+        - Authors in edition shorts should have id and name fields.
         """
         response = api_client.get('/api/editions/242/shorts')
         response.assert_success()
@@ -117,13 +119,6 @@ class TestEditionShorts(BaseAPITest):
                 assert field in short, (
                     f"Short {short.get('id')} missing field '{field}'"
                 )
-
-    def test_edition_shorts_author_fields(self, api_client):
-        """
-        Authors in edition shorts should have id and name fields.
-        """
-        response = api_client.get('/api/editions/242/shorts')
-        response.assert_success()
 
         for short in response.data:
             authors = short.get('authors', [])
@@ -215,9 +210,11 @@ class TestShortEditions(BaseAPITest):
                 f"Edition {expected_ed['id']}: pubyear mismatch"
             )
 
-    def test_short_editions_have_required_fields(self, api_client):
-        """
-        Editions in short response should have id, title, pubyear.
+    def test_short_authors_preserved(self, api_client, snapshot_manager):
+        """Editions in short response should have id, title, pubyear.
+
+        Also checks:
+        - Short story authors should be preserved after migration.
         """
         response = api_client.get('/api/shorts/406')
         response.assert_success()
@@ -228,13 +225,6 @@ class TestShortEditions(BaseAPITest):
         for edition in editions:
             assert 'id' in edition, "Edition missing 'id'"
             assert 'title' in edition, "Edition missing 'title'"
-
-    def test_short_authors_preserved(self, api_client, snapshot_manager):
-        """
-        Short story authors should be preserved after migration.
-        """
-        response = api_client.get('/api/shorts/406')
-        response.assert_success()
 
         short = response.data
         authors = short.get('authors', [])

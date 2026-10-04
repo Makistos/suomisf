@@ -41,24 +41,19 @@ def valid_user_id(api_client):
 class TestUserList(BaseAPITest):
     """Tests for GET /api/users endpoint."""
 
-    def test_users_list_returns_200(self, api_client):
-        """GET /api/users should return 200."""
-        response = api_client.get('/api/users')
-        response.assert_success()
+    def test_users_list_has_required_fields(self, api_client):
+        """GET /api/users should return 200.
 
-    def test_users_list_returns_list(self, api_client):
-        """GET /api/users returns list format."""
+        Also checks:
+        - GET /api/users returns list format.
+        - Users in list have required fields.
+        """
         response = api_client.get('/api/users')
         response.assert_success()
 
         data = response.data
         assert isinstance(data, list), \
             "Response should be a list"
-
-    def test_users_list_has_required_fields(self, api_client):
-        """Users in list have required fields."""
-        response = api_client.get('/api/users')
-        response.assert_success()
 
         if response.data and len(response.data) > 0:
             user = response.data[0]
@@ -73,16 +68,12 @@ class TestUserList(BaseAPITest):
 class TestUserGet(BaseAPITest):
     """Tests for GET /api/users/{id} endpoint."""
 
-    def test_user_get_returns_200(
-            self, api_client, valid_user_id):
-        """GET /api/users/{id} should return 200."""
-        response = api_client.get(
-            f'/api/users/{valid_user_id}')
-        response.assert_success()
+    def test_user_get_has_fields(self, api_client, valid_user_id):
+        """GET /api/users/{id} should return 200.
 
-    def test_user_get_has_fields(
-            self, api_client, valid_user_id):
-        """User response has required fields."""
+        Also checks:
+        - User response has required fields.
+        """
         response = api_client.get(
             f'/api/users/{valid_user_id}')
         response.assert_success()
@@ -204,15 +195,14 @@ class TestGetMe(BaseAPITest):
     token. Requires a valid Bearer token.
     """
 
-    def test_me_returns_200_when_authenticated(
-            self, admin_client):
-        """GET /api/me returns 200 for authenticated user."""
-        response = admin_client.get('/api/me')
-        response.assert_success()
+    def test_me_returns_name_and_is_admin(self, admin_client):
+        """GET /api/me returns 200 for authenticated user.
 
-    def test_me_returns_name_and_is_admin(
-            self, admin_client):
-        """GET /api/me response has 'name' and 'is_admin' fields."""
+        Also checks:
+        - GET /api/me response has 'name' and 'is_admin' fields.
+        - GET /api/me for admin returns is_admin=true.
+        - GET /api/me returns the correct username.
+        """
         response = admin_client.get('/api/me')
         response.assert_success()
 
@@ -220,23 +210,9 @@ class TestGetMe(BaseAPITest):
         assert 'name' in data, "Response missing 'name'"
         assert 'is_admin' in data, "Response missing 'is_admin'"
 
-    def test_me_admin_user_is_admin_true(
-            self, admin_client):
-        """GET /api/me for admin returns is_admin=true."""
-        response = admin_client.get('/api/me')
-        response.assert_success()
-
-        data = response.data
         assert data['is_admin'] is True, \
             "Admin user should have is_admin=True"
 
-    def test_me_admin_user_name_matches(
-            self, admin_client):
-        """GET /api/me returns the correct username."""
-        response = admin_client.get('/api/me')
-        response.assert_success()
-
-        data = response.data
         assert data['name'] == TEST_ADMIN_NAME, \
             f"Expected name '{TEST_ADMIN_NAME}', got '{data['name']}'"
 

@@ -51,19 +51,24 @@ TAG_ID = 1
 class TestWorksByType(BaseAPITest):
     """Tests for GET /api/works/bytype/{worktype} endpoint."""
 
-    def test_works_bytype_novel_returns_200(self, api_client):
-        """GET /api/works/bytype/1 (novels) should return 200."""
-        response = api_client.get(f'/api/works/bytype/{WORK_TYPE_NOVEL}')
-        response.assert_success()
+    def test_works_bytype_has_fields(self, api_client):
+        """GET /api/works/bytype/1 (novels) should return 200.
 
-    def test_works_bytype_returns_list(self, api_client):
-        """GET /api/works/bytype/{type} should return a list."""
+        Also checks:
+        - GET /api/works/bytype/{type} should return a list.
+        - Works returned by type should have required fields.
+        """
         response = api_client.get(f'/api/works/bytype/{WORK_TYPE_NOVEL}')
         response.assert_success()
 
         data = response.data
         if data is not None:
             assert isinstance(data, list), "Response should be a list"
+
+        if data and len(data) > 0:
+            work = data[0]
+            assert 'id' in work, "Work missing 'id'"
+            assert 'title' in work, "Work missing 'title'"
 
     def test_works_bytype_collection(self, api_client):
         """GET /api/works/bytype/2 (collections) returns collections."""
@@ -73,17 +78,6 @@ class TestWorksByType(BaseAPITest):
         data = response.data
         if data is not None:
             assert isinstance(data, list)
-
-    def test_works_bytype_has_fields(self, api_client):
-        """Works returned by type should have required fields."""
-        response = api_client.get(f'/api/works/bytype/{WORK_TYPE_NOVEL}')
-        response.assert_success()
-
-        data = response.data
-        if data and len(data) > 0:
-            work = data[0]
-            assert 'id' in work, "Work missing 'id'"
-            assert 'title' in work, "Work missing 'title'"
 
     def test_works_bytype_invalid_type(self, api_client):
         """GET /api/works/bytype/{invalid} returns 400."""
@@ -99,13 +93,12 @@ class TestWorksByType(BaseAPITest):
 class TestWorkOmnibus(BaseAPITest):
     """Tests for omnibus endpoints."""
 
-    def test_get_omnibus_returns_200(self, api_client):
-        """GET /api/works/{id}/omnibus should return 200."""
-        response = api_client.get(f'/api/works/{BASIC_WORK_ID}/omnibus')
-        response.assert_success()
-
     def test_get_omnibus_returns_data(self, api_client):
-        """GET /api/works/{id}/omnibus returns data structure."""
+        """GET /api/works/{id}/omnibus should return 200.
+
+        Also checks:
+        - GET /api/works/{id}/omnibus returns data structure.
+        """
         response = api_client.get(f'/api/works/{BASIC_WORK_ID}/omnibus')
         response.assert_success()
 
@@ -118,14 +111,6 @@ class TestWorkOmnibus(BaseAPITest):
         """GET /api/works/{id}/omnibus for nonexistent work."""
         response = api_client.get('/api/works/999999999/omnibus')
         assert response.status_code == 200
-
-    def test_create_omnibus_requires_auth(self, api_client):
-        """POST /api/works/omnibus requires authentication."""
-        response = api_client.post('/api/works/omnibus', data={
-            'omnibus_id': 1,
-            'work_id': 2
-        })
-        assert response.status_code == 401
 
     def test_create_omnibus_self_reference_is_400(self, admin_client):
         """A work can't be its own omnibus."""
@@ -144,17 +129,6 @@ class TestWorkOmnibus(BaseAPITest):
 
 class TestWorkTags(BaseAPITest):
     """Tests for work tag endpoints."""
-
-    def test_add_tag_requires_auth(self, api_client):
-        """PUT /api/work/{id}/tags/{tagid} requires authentication."""
-        response = api_client.put(f'/api/work/{BASIC_WORK_ID}/tags/{TAG_ID}')
-        assert response.status_code == 401
-
-    def test_remove_tag_requires_auth(self, api_client):
-        """DELETE /api/work/{id}/tags/{tagid} requires authentication."""
-        url = f'/api/work/{BASIC_WORK_ID}/tags/{TAG_ID}'
-        response = api_client.delete(url)
-        assert response.status_code == 401
 
     def test_add_tag_invalid_work_id(self, admin_client):
         """PUT /api/work/{invalid}/tags/{tagid} returns 400."""

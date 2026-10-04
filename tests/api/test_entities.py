@@ -55,15 +55,14 @@ class TestWorks(BaseAPITest):
     """Tests for /api/works/{id} endpoint."""
 
     @pytest.mark.parametrize('work_id', get_entity_params('works'))
-    def test_get_work_returns_200(self, api_client, work_id):
-        """GET /api/works/{id} should return 200 for valid ID."""
+    def test_get_work_has_required_fields(self, api_client, work_id):
+        """GET /api/works/{id} should return 200 for valid ID.
+
+        Also checks:
+        - GET /api/works/{id} should return work with required fields.
+        """
         response = api_client.get(f'/api/works/{work_id}')
         response.assert_status(200)
-
-    @pytest.mark.parametrize('work_id', get_entity_params('works'))
-    def test_get_work_has_required_fields(self, api_client, work_id):
-        """GET /api/works/{id} should return work with required fields."""
-        response = api_client.get(f'/api/works/{work_id}')
         response.assert_success()
         data = response.data
         assert 'id' in data, "Work should have 'id' field"
@@ -89,15 +88,14 @@ class TestEditions(BaseAPITest):
     """Tests for /api/editions/{id} endpoint."""
 
     @pytest.mark.parametrize('edition_id', get_entity_params('editions'))
-    def test_get_edition_returns_200(self, api_client, edition_id):
-        """GET /api/editions/{id} should return 200 for valid ID."""
+    def test_get_edition_has_required_fields(self, api_client, edition_id):
+        """GET /api/editions/{id} should return 200 for valid ID.
+
+        Also checks:
+        - GET /api/editions/{id} should return edition with required fields.
+        """
         response = api_client.get(f'/api/editions/{edition_id}')
         response.assert_status(200)
-
-    @pytest.mark.parametrize('edition_id', get_entity_params('editions'))
-    def test_get_edition_has_required_fields(self, api_client, edition_id):
-        """GET /api/editions/{id} should return edition with required fields."""
-        response = api_client.get(f'/api/editions/{edition_id}')
         response.assert_success()
         data = response.data
         assert 'id' in data, "Edition should have 'id' field"
@@ -123,15 +121,14 @@ class TestPeople(BaseAPITest):
     """Tests for /api/people/{id} endpoint."""
 
     @pytest.mark.parametrize('person_id', get_entity_params('people'))
-    def test_get_person_returns_200(self, api_client, person_id):
-        """GET /api/people/{id} should return 200 for valid ID."""
+    def test_get_person_has_required_fields(self, api_client, person_id):
+        """GET /api/people/{id} should return 200 for valid ID.
+
+        Also checks:
+        - GET /api/people/{id} should return person with required fields.
+        """
         response = api_client.get(f'/api/people/{person_id}')
         response.assert_status(200)
-
-    @pytest.mark.parametrize('person_id', get_entity_params('people'))
-    def test_get_person_has_required_fields(self, api_client, person_id):
-        """GET /api/people/{id} should return person with required fields."""
-        response = api_client.get(f'/api/people/{person_id}')
         response.assert_success()
         data = response.data
         assert 'id' in data, "Person should have 'id' field"
@@ -157,15 +154,14 @@ class TestShorts(BaseAPITest):
     """Tests for /api/shorts/{id} endpoint."""
 
     @pytest.mark.parametrize('short_id', get_entity_params('shorts'))
-    def test_get_short_returns_200(self, api_client, short_id):
-        """GET /api/shorts/{id} should return 200 for valid ID."""
+    def test_get_short_has_required_fields(self, api_client, short_id):
+        """GET /api/shorts/{id} should return 200 for valid ID.
+
+        Also checks:
+        - GET /api/shorts/{id} should return short with required fields.
+        """
         response = api_client.get(f'/api/shorts/{short_id}')
         response.assert_status(200)
-
-    @pytest.mark.parametrize('short_id', get_entity_params('shorts'))
-    def test_get_short_has_required_fields(self, api_client, short_id):
-        """GET /api/shorts/{id} should return short with required fields."""
-        response = api_client.get(f'/api/shorts/{short_id}')
         response.assert_success()
         data = response.data
         assert 'id' in data, "Short should have 'id' field"
@@ -191,15 +187,14 @@ class TestMagazines(BaseAPITest):
     """Tests for /api/magazines/{id} endpoint."""
 
     @pytest.mark.parametrize('magazine_id', get_entity_params('magazines'))
-    def test_get_magazine_returns_200(self, api_client, magazine_id):
-        """GET /api/magazines/{id} should return 200 for valid ID."""
+    def test_get_magazine_has_required_fields(self, api_client, magazine_id):
+        """GET /api/magazines/{id} should return 200 for valid ID.
+
+        Also checks:
+        - GET /api/magazines/{id} should return magazine with required fields.
+        """
         response = api_client.get(f'/api/magazines/{magazine_id}')
         response.assert_status(200)
-
-    @pytest.mark.parametrize('magazine_id', get_entity_params('magazines'))
-    def test_get_magazine_has_required_fields(self, api_client, magazine_id):
-        """GET /api/magazines/{id} should return magazine with required fields."""
-        response = api_client.get(f'/api/magazines/{magazine_id}')
         response.assert_success()
         data = response.data
         assert 'id' in data, "Magazine should have 'id' field"
@@ -220,15 +215,14 @@ class TestIssues(BaseAPITest):
     """Tests for /api/issues/{id} endpoint."""
 
     @pytest.mark.parametrize('issue_id', get_entity_params('issues'))
-    def test_get_issue_returns_200(self, api_client, issue_id):
-        """GET /api/issues/{id} should return 200 for valid ID."""
+    def test_get_issue_has_required_fields(self, api_client, issue_id):
+        """GET /api/issues/{id} should return 200 for valid ID.
+
+        Also checks:
+        - GET /api/issues/{id} should return issue with required fields.
+        """
         response = api_client.get(f'/api/issues/{issue_id}')
         response.assert_status(200)
-
-    @pytest.mark.parametrize('issue_id', get_entity_params('issues'))
-    def test_get_issue_has_required_fields(self, api_client, issue_id):
-        """GET /api/issues/{id} should return issue with required fields."""
-        response = api_client.get(f'/api/issues/{issue_id}')
         response.assert_success()
         data = response.data
         assert 'id' in data, "Issue should have 'id' field"
@@ -243,15 +237,14 @@ class TestAwards(BaseAPITest):
     """Tests for /api/awards/{id} endpoint."""
 
     @pytest.mark.parametrize('award_id', get_entity_params('awards'))
-    def test_get_award_returns_200(self, api_client, award_id):
-        """GET /api/awards/{id} should return 200 for valid ID."""
+    def test_get_award_has_required_fields(self, api_client, award_id):
+        """GET /api/awards/{id} should return 200 for valid ID.
+
+        Also checks:
+        - GET /api/awards/{id} should return award with required fields.
+        """
         response = api_client.get(f'/api/awards/{award_id}')
         response.assert_status(200)
-
-    @pytest.mark.parametrize('award_id', get_entity_params('awards'))
-    def test_get_award_has_required_fields(self, api_client, award_id):
-        """GET /api/awards/{id} should return award with required fields."""
-        response = api_client.get(f'/api/awards/{award_id}')
         response.assert_success()
         data = response.data
         assert 'id' in data, "Award should have 'id' field"
@@ -272,15 +265,14 @@ class TestTags(BaseAPITest):
     """Tests for /api/tags/{id} endpoint."""
 
     @pytest.mark.parametrize('tag_id', get_entity_params('tags'))
-    def test_get_tag_returns_200(self, api_client, tag_id):
-        """GET /api/tags/{id} should return 200 for valid ID."""
+    def test_get_tag_has_required_fields(self, api_client, tag_id):
+        """GET /api/tags/{id} should return 200 for valid ID.
+
+        Also checks:
+        - GET /api/tags/{id} should return tag with required fields.
+        """
         response = api_client.get(f'/api/tags/{tag_id}')
         response.assert_status(200)
-
-    @pytest.mark.parametrize('tag_id', get_entity_params('tags'))
-    def test_get_tag_has_required_fields(self, api_client, tag_id):
-        """GET /api/tags/{id} should return tag with required fields."""
-        response = api_client.get(f'/api/tags/{tag_id}')
         response.assert_success()
         data = response.data
         assert 'id' in data, "Tag should have 'id' field"
@@ -301,15 +293,14 @@ class TestPublishers(BaseAPITest):
     """Tests for /api/publishers/{id} endpoint."""
 
     @pytest.mark.parametrize('publisher_id', get_entity_params('publishers'))
-    def test_get_publisher_returns_200(self, api_client, publisher_id):
-        """GET /api/publishers/{id} should return 200 for valid ID."""
+    def test_get_publisher_has_required_fields(self, api_client, publisher_id):
+        """GET /api/publishers/{id} should return 200 for valid ID.
+
+        Also checks:
+        - GET /api/publishers/{id} should return publisher with required fields.
+        """
         response = api_client.get(f'/api/publishers/{publisher_id}')
         response.assert_status(200)
-
-    @pytest.mark.parametrize('publisher_id', get_entity_params('publishers'))
-    def test_get_publisher_has_required_fields(self, api_client, publisher_id):
-        """GET /api/publishers/{id} should return publisher with required fields."""
-        response = api_client.get(f'/api/publishers/{publisher_id}')
         response.assert_success()
         data = response.data
         assert 'id' in data, "Publisher should have 'id' field"
@@ -330,15 +321,14 @@ class TestBookSeries(BaseAPITest):
     """Tests for /api/bookseries/{id} endpoint."""
 
     @pytest.mark.parametrize('bookseries_id', get_entity_params('bookseries'))
-    def test_get_bookseries_returns_200(self, api_client, bookseries_id):
-        """GET /api/bookseries/{id} should return 200 for valid ID."""
+    def test_get_bookseries_has_required_fields(self, api_client, bookseries_id):
+        """GET /api/bookseries/{id} should return 200 for valid ID.
+
+        Also checks:
+        - GET /api/bookseries/{id} should return bookseries with required fields.
+        """
         response = api_client.get(f'/api/bookseries/{bookseries_id}')
         response.assert_status(200)
-
-    @pytest.mark.parametrize('bookseries_id', get_entity_params('bookseries'))
-    def test_get_bookseries_has_required_fields(self, api_client, bookseries_id):
-        """GET /api/bookseries/{id} should return bookseries with required fields."""
-        response = api_client.get(f'/api/bookseries/{bookseries_id}')
         response.assert_success()
         data = response.data
         assert 'id' in data, "BookSeries should have 'id' field"
@@ -359,15 +349,14 @@ class TestPubSeries(BaseAPITest):
     """Tests for /api/pubseries/{id} endpoint."""
 
     @pytest.mark.parametrize('pubseries_id', get_entity_params('pubseries'))
-    def test_get_pubseries_returns_200(self, api_client, pubseries_id):
-        """GET /api/pubseries/{id} should return 200 for valid ID."""
+    def test_get_pubseries_has_required_fields(self, api_client, pubseries_id):
+        """GET /api/pubseries/{id} should return 200 for valid ID.
+
+        Also checks:
+        - GET /api/pubseries/{id} should return pubseries with required fields.
+        """
         response = api_client.get(f'/api/pubseries/{pubseries_id}')
         response.assert_status(200)
-
-    @pytest.mark.parametrize('pubseries_id', get_entity_params('pubseries'))
-    def test_get_pubseries_has_required_fields(self, api_client, pubseries_id):
-        """GET /api/pubseries/{id} should return pubseries with required fields."""
-        response = api_client.get(f'/api/pubseries/{pubseries_id}')
         response.assert_success()
         data = response.data
         assert 'id' in data, "PubSeries should have 'id' field"

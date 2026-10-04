@@ -39,9 +39,10 @@ class TestPersonRolesField(BaseAPITest):
     """
 
     def test_filter_people_includes_roles_field(self, api_client):
-        """
-        GET /api/filter/people/<pattern> must include a 'roles' field
-        in each returned person object.
+        """GET /api/filter/people/<pattern> must include a 'roles' field
+
+        Also checks:
+        - A person with a work-level author contribution (role_id=1)
         """
         resp = api_client.get('/api/filter/people/Unsworth')
         resp.assert_success()
@@ -53,16 +54,6 @@ class TestPersonRolesField(BaseAPITest):
         person = people[0]
         assert 'roles' in person, \
             f"'roles' field missing from filter_people response: {person}"
-
-    def test_author_has_kirjoittaja_role(self, api_client):
-        """
-        A person with a work-level author contribution (role_id=1)
-        must have 'Kirjoittaja' in their roles list.
-
-        Uses person 1 (Unsworth, Barry) who has a WorkContributor
-        row with role_id=1.
-        """
-        resp = api_client.get('/api/filter/people/Unsworth')
         resp.assert_success()
 
         people = resp.data

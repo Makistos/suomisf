@@ -71,15 +71,14 @@ class TestFilterPeople(BaseAPITest):
     """Tests for /api/filter/people/{pattern} endpoint."""
 
     @pytest.mark.parametrize('pattern', get_filter_params('filter_people'))
-    def test_filter_people_returns_200(self, api_client, pattern):
-        """GET /api/filter/people/{pattern} should return 200."""
+    def test_filter_people_returns_list(self, api_client, pattern):
+        """GET /api/filter/people/{pattern} should return 200.
+
+        Also checks:
+        - GET /api/filter/people/{pattern} should return a list.
+        """
         response = api_client.get(f'/api/filter/people/{pattern}')
         response.assert_status(200)
-
-    @pytest.mark.parametrize('pattern', get_filter_params('filter_people'))
-    def test_filter_people_returns_list(self, api_client, pattern):
-        """GET /api/filter/people/{pattern} should return a list."""
-        response = api_client.get(f'/api/filter/people/{pattern}')
         response.assert_success().assert_data_is_list()
 
     def test_filter_people_pattern_too_short(self, api_client):
@@ -96,15 +95,14 @@ class TestFilterTags(BaseAPITest):
     """Tests for /api/filter/tags/{pattern} endpoint."""
 
     @pytest.mark.parametrize('pattern', get_filter_params('filter_tags'))
-    def test_filter_tags_returns_200(self, api_client, pattern):
-        """GET /api/filter/tags/{pattern} should return 200."""
+    def test_filter_tags_returns_list(self, api_client, pattern):
+        """GET /api/filter/tags/{pattern} should return 200.
+
+        Also checks:
+        - GET /api/filter/tags/{pattern} should return a list.
+        """
         response = api_client.get(f'/api/filter/tags/{pattern}')
         response.assert_status(200)
-
-    @pytest.mark.parametrize('pattern', get_filter_params('filter_tags'))
-    def test_filter_tags_returns_list(self, api_client, pattern):
-        """GET /api/filter/tags/{pattern} should return a list."""
-        response = api_client.get(f'/api/filter/tags/{pattern}')
         response.assert_success().assert_data_is_list()
 
 
@@ -116,15 +114,14 @@ class TestFilterPublishers(BaseAPITest):
     """Tests for /api/filter/publishers/{pattern} endpoint."""
 
     @pytest.mark.parametrize('pattern', get_filter_params('filter_publishers'))
-    def test_filter_publishers_returns_200(self, api_client, pattern):
-        """GET /api/filter/publishers/{pattern} should return 200."""
+    def test_filter_publishers_returns_list(self, api_client, pattern):
+        """GET /api/filter/publishers/{pattern} should return 200.
+
+        Also checks:
+        - GET /api/filter/publishers/{pattern} should return a list.
+        """
         response = api_client.get(f'/api/filter/publishers/{pattern}')
         response.assert_status(200)
-
-    @pytest.mark.parametrize('pattern', get_filter_params('filter_publishers'))
-    def test_filter_publishers_returns_list(self, api_client, pattern):
-        """GET /api/filter/publishers/{pattern} should return a list."""
-        response = api_client.get(f'/api/filter/publishers/{pattern}')
         response.assert_success().assert_data_is_list()
 
     def test_filter_publishers_pattern_too_short(self, api_client):
@@ -141,15 +138,14 @@ class TestFilterBookSeries(BaseAPITest):
     """Tests for /api/filter/bookseries/{pattern} endpoint."""
 
     @pytest.mark.parametrize('pattern', get_filter_params('filter_bookseries'))
-    def test_filter_bookseries_returns_200(self, api_client, pattern):
-        """GET /api/filter/bookseries/{pattern} should return 200."""
+    def test_filter_bookseries_returns_list(self, api_client, pattern):
+        """GET /api/filter/bookseries/{pattern} should return 200.
+
+        Also checks:
+        - GET /api/filter/bookseries/{pattern} should return a list.
+        """
         response = api_client.get(f'/api/filter/bookseries/{pattern}')
         response.assert_status(200)
-
-    @pytest.mark.parametrize('pattern', get_filter_params('filter_bookseries'))
-    def test_filter_bookseries_returns_list(self, api_client, pattern):
-        """GET /api/filter/bookseries/{pattern} should return a list."""
-        response = api_client.get(f'/api/filter/bookseries/{pattern}')
         response.assert_success().assert_data_is_list()
 
 
@@ -161,15 +157,14 @@ class TestFilterPubSeries(BaseAPITest):
     """Tests for /api/filter/pubseries/{pattern} endpoint."""
 
     @pytest.mark.parametrize('pattern', get_filter_params('filter_pubseries'))
-    def test_filter_pubseries_returns_200(self, api_client, pattern):
-        """GET /api/filter/pubseries/{pattern} should return 200."""
+    def test_filter_pubseries_returns_list(self, api_client, pattern):
+        """GET /api/filter/pubseries/{pattern} should return 200.
+
+        Also checks:
+        - GET /api/filter/pubseries/{pattern} should return a list.
+        """
         response = api_client.get(f'/api/filter/pubseries/{pattern}')
         response.assert_status(200)
-
-    @pytest.mark.parametrize('pattern', get_filter_params('filter_pubseries'))
-    def test_filter_pubseries_returns_list(self, api_client, pattern):
-        """GET /api/filter/pubseries/{pattern} should return a list."""
-        response = api_client.get(f'/api/filter/pubseries/{pattern}')
         response.assert_success().assert_data_is_list()
 
 
@@ -192,31 +187,20 @@ class TestFilterLinkNames(BaseAPITest):
     ALL_VALID_TYPES = TYPES_WITH_DATA + OTHER_VALID_TYPES
 
     @pytest.mark.parametrize('link_type', ALL_VALID_TYPES)
-    def test_filter_linknames_returns_200(self, api_client, link_type):
-        """GET /api/filter/linknames/{link_type} should return 200."""
+    def test_filter_linknames_returns_strings(self, api_client, link_type):
+        """GET /api/filter/linknames/{link_type} should return 200.
+
+        Also checks:
+        - GET /api/filter/linknames/{link_type} should return a list.
+        - Every returned description should be a plain string.
+        - The returned descriptions should be unique.
+        """
         response = api_client.get(f'/api/filter/linknames/{link_type}')
         response.assert_status(200)
-
-    @pytest.mark.parametrize('link_type', ALL_VALID_TYPES)
-    def test_filter_linknames_returns_list(self, api_client, link_type):
-        """GET /api/filter/linknames/{link_type} should return a list."""
-        response = api_client.get(f'/api/filter/linknames/{link_type}')
         response.assert_success().assert_data_is_list()
-
-    @pytest.mark.parametrize('link_type', ALL_VALID_TYPES)
-    def test_filter_linknames_returns_strings(self, api_client, link_type):
-        """Every returned description should be a plain string."""
-        response = api_client.get(f'/api/filter/linknames/{link_type}')
         response.assert_success()
         assert all(isinstance(item, str) for item in response.data), \
             f"Expected list of strings, got {response.data}"
-
-    @pytest.mark.parametrize('link_type', ALL_VALID_TYPES)
-    def test_filter_linknames_returns_unique_values(self, api_client,
-                                                    link_type):
-        """The returned descriptions should be unique."""
-        response = api_client.get(f'/api/filter/linknames/{link_type}')
-        response.assert_success()
         assert len(response.data) == len(set(response.data)), \
             f"Expected unique descriptions, got duplicates in {response.data}"
 
@@ -251,15 +235,14 @@ class TestWorksByInitial(BaseAPITest):
     """Tests for /api/worksbyinitial/{letter} endpoint."""
 
     @pytest.mark.parametrize('letter', get_filter_params('worksbyinitial', 'letter'))
-    def test_worksbyinitial_returns_200(self, api_client, letter):
-        """GET /api/worksbyinitial/{letter} should return 200."""
+    def test_worksbyinitial_returns_list(self, api_client, letter):
+        """GET /api/worksbyinitial/{letter} should return 200.
+
+        Also checks:
+        - GET /api/worksbyinitial/{letter} should return a list.
+        """
         response = api_client.get(f'/api/worksbyinitial/{letter}')
         response.assert_status(200)
-
-    @pytest.mark.parametrize('letter', get_filter_params('worksbyinitial', 'letter'))
-    def test_worksbyinitial_returns_list(self, api_client, letter):
-        """GET /api/worksbyinitial/{letter} should return a list."""
-        response = api_client.get(f'/api/worksbyinitial/{letter}')
         response.assert_success().assert_data_is_list()
 
 
@@ -271,15 +254,14 @@ class TestSearchWorks(BaseAPITest):
     """Tests for /api/searchworks endpoint (POST)."""
 
     @pytest.mark.parametrize('search_data', get_search_params('search_works'))
-    def test_searchworks_returns_200(self, api_client, search_data):
-        """POST /api/searchworks should return 200."""
+    def test_searchworks_returns_list(self, api_client, search_data):
+        """POST /api/searchworks should return 200.
+
+        Also checks:
+        - POST /api/searchworks should return a list.
+        """
         response = api_client.post('/api/searchworks', data=search_data)
         response.assert_status(200)
-
-    @pytest.mark.parametrize('search_data', get_search_params('search_works'))
-    def test_searchworks_returns_list(self, api_client, search_data):
-        """POST /api/searchworks should return a list."""
-        response = api_client.post('/api/searchworks', data=search_data)
         response.assert_success().assert_data_is_list()
 
 
@@ -291,15 +273,14 @@ class TestSearchShorts(BaseAPITest):
     """Tests for /api/searchshorts endpoint (POST)."""
 
     @pytest.mark.parametrize('search_data', get_search_params('search_shorts'))
-    def test_searchshorts_returns_200(self, api_client, search_data):
-        """POST /api/searchshorts should return 200."""
+    def test_searchshorts_returns_list(self, api_client, search_data):
+        """POST /api/searchshorts should return 200.
+
+        Also checks:
+        - POST /api/searchshorts should return a list.
+        """
         response = api_client.post('/api/searchshorts', data=search_data)
         response.assert_status(200)
-
-    @pytest.mark.parametrize('search_data', get_search_params('search_shorts'))
-    def test_searchshorts_returns_list(self, api_client, search_data):
-        """POST /api/searchshorts should return a list."""
-        response = api_client.post('/api/searchshorts', data=search_data)
         response.assert_success().assert_data_is_list()
 
 

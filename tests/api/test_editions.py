@@ -398,27 +398,16 @@ class TestEditionsCreateValidation(BaseAPITest):
             f"Expected 400 Bad Request, got {response.status_code}"
         )
 
-    def test_create_edition_without_auth_fails(self, api_client):
-        """POST /api/editions should require authentication."""
-        edition_data = {
-            'data': {
-                'work_id': 1,
-                'title': 'Test Edition',
-                'pubyear': 2025
-            }
-        }
-
-        response = api_client.post('/api/editions', data=edition_data)
-        assert response.status_code == 401, (
-            f"Expected 401/403/422, got {response.status_code}"
-        )
-
 
 class TestEditionsRead(BaseAPITest):
     """Tests for reading editions."""
 
     def test_get_existing_edition(self, api_client):
-        """GET /api/editions/{id} should return edition data for valid ID."""
+        """GET /api/editions/{id} should return edition data for valid ID.
+
+        Also checks:
+        - GET /api/editions/{id} should have expected fields.
+        """
         response = api_client.get('/api/editions/1')
         response.assert_success()
 
@@ -426,30 +415,19 @@ class TestEditionsRead(BaseAPITest):
         assert 'id' in data
         assert data['id'] == 1
 
-    def test_get_nonexistent_edition(self, api_client):
-        """GET /api/editions/{id} should return error for invalid ID."""
-        response = api_client.get('/api/editions/999999999')
-        assert response.status_code == 404
-
-    def test_get_edition_has_expected_fields(self, api_client):
-        """GET /api/editions/{id} should have expected fields."""
-        response = api_client.get('/api/editions/1')
-        response.assert_success()
-
-        data = response.data
         expected_fields = ['id', 'title', 'pubyear', 'work']
 
         for field in expected_fields:
             assert field in data, f"Edition missing field '{field}'"
 
+    def test_get_nonexistent_edition(self, api_client):
+        """GET /api/editions/{id} should return error for invalid ID."""
+        response = api_client.get('/api/editions/999999999')
+        assert response.status_code == 404
+
 
 class TestEditionsDelete(BaseAPITest):
     """Tests for deleting editions."""
-
-    def test_delete_edition_without_auth_fails(self, api_client):
-        """DELETE /api/editions/{id} should require authentication."""
-        response = api_client.delete('/api/editions/999999')
-        assert response.status_code == 401
 
     def test_delete_nonexistent_edition(self, admin_client):
         """DELETE /api/editions/{id} should handle nonexistent edition."""
@@ -607,11 +585,6 @@ class TestEditionsCopy(BaseAPITest):
             assert verify_resp.status_code == 404, (
                 "Deleted edition should not be retrievable"
             )
-
-    def test_copy_edition_without_auth_fails(self, api_client):
-        """POST /api/editions/{id}/copy should require authentication."""
-        response = api_client.post('/api/editions/86/copy')
-        assert response.status_code == 401
 
     def test_copy_nonexistent_edition_fails(self, admin_client):
         """POST /api/editions/{id}/copy should fail for invalid ID."""

@@ -48,23 +48,18 @@ TAG_ID = 1
 class TestMagazineList(BaseAPITest):
     """Tests for GET /api/magazines endpoint."""
 
-    def test_magazines_list_returns_200(self, api_client):
-        """GET /api/magazines should return 200."""
-        response = api_client.get('/api/magazines')
-        response.assert_success()
+    def test_magazines_list_has_required_fields(self, api_client):
+        """GET /api/magazines should return 200.
 
-    def test_magazines_list_returns_list(self, api_client):
-        """GET /api/magazines returns list format."""
+        Also checks:
+        - GET /api/magazines returns list format.
+        - Magazines in list have required fields.
+        """
         response = api_client.get('/api/magazines')
         response.assert_success()
 
         data = response.data
         assert isinstance(data, list), "Response should be a list"
-
-    def test_magazines_list_has_required_fields(self, api_client):
-        """Magazines in list have required fields."""
-        response = api_client.get('/api/magazines')
-        response.assert_success()
 
         if response.data and len(response.data) > 0:
             magazine = response.data[0]
@@ -75,13 +70,12 @@ class TestMagazineList(BaseAPITest):
 class TestMagazineGet(BaseAPITest):
     """Tests for GET /api/magazines/{id} endpoint."""
 
-    def test_magazine_get_returns_200(self, api_client):
-        """GET /api/magazines/{id} should return 200."""
-        response = api_client.get(f'/api/magazines/{BASIC_MAGAZINE_ID}')
-        response.assert_success()
-
     def test_magazine_get_has_fields(self, api_client):
-        """Magazine response has required fields."""
+        """GET /api/magazines/{id} should return 200.
+
+        Also checks:
+        - Magazine response has required fields.
+        """
         response = api_client.get(f'/api/magazines/{BASIC_MAGAZINE_ID}')
         response.assert_success()
 
@@ -105,16 +99,6 @@ class TestMagazineUpdate(BaseAPITest):
 
     Note: The endpoint requires data wrapped in 'data' key and specific fields.
     """
-
-    def test_update_magazine_requires_auth(self, api_client):
-        """PUT /api/magazines requires authentication."""
-        response = api_client.put('/api/magazines', data={
-            'data': {
-                'id': BASIC_MAGAZINE_ID,
-                'name': 'Test Magazine'
-            }
-        })
-        assert response.status_code == 401
 
     def test_update_magazine_with_auth(self, admin_client):
         """PUT /api/magazines with auth processes request."""
@@ -228,13 +212,12 @@ class TestMagazineTags(BaseAPITest):
 class TestIssueGet(BaseAPITest):
     """Tests for GET /api/issues/{id} endpoint."""
 
-    def test_issue_get_returns_200(self, api_client):
-        """GET /api/issues/{id} should return 200."""
-        response = api_client.get(f'/api/issues/{BASIC_ISSUE_ID}')
-        response.assert_success()
-
     def test_issue_get_has_fields(self, api_client):
-        """Issue response has required fields."""
+        """GET /api/issues/{id} should return 200.
+
+        Also checks:
+        - Issue response has required fields.
+        """
         response = api_client.get(f'/api/issues/{BASIC_ISSUE_ID}')
         response.assert_success()
 
@@ -257,14 +240,6 @@ class TestIssueUpdate(BaseAPITest):
 
     Note: The endpoint requires specific fields like 'size'.
     """
-
-    def test_update_issue_requires_auth(self, api_client):
-        """PUT /api/issues requires authentication."""
-        response = api_client.put('/api/issues', data={
-            'id': BASIC_ISSUE_ID,
-            'size': 1
-        })
-        assert response.status_code == 401
 
     def test_update_issue_with_auth(self, admin_client):
         """PUT /api/issues with auth processes request."""
@@ -315,12 +290,6 @@ class TestIssueContributors(BaseAPITest):
         response = api_client.get('/api/issues/invalid/contributors')
         assert response.status_code == 400
 
-    def test_contributors_update_requires_auth(self, api_client):
-        """POST /api/issues/{id}/contributors requires auth."""
-        url = f'/api/issues/{BASIC_ISSUE_ID}/contributors'
-        response = api_client.post(url, data={'contributors': []})
-        assert response.status_code == 401
-
     def test_contributors_update_with_auth(self, admin_client):
         """POST /api/issues/{id}/contributors with auth processes."""
         url = f'/api/issues/{BASIC_ISSUE_ID}/contributors'
@@ -331,13 +300,12 @@ class TestIssueContributors(BaseAPITest):
 class TestIssueTags(BaseAPITest):
     """Tests for /api/issues/{id}/tags endpoints."""
 
-    def test_issue_tags_get_returns_200(self, api_client):
-        """GET /api/issues/{id}/tags should return 200."""
-        response = api_client.get(f'/api/issues/{BASIC_ISSUE_ID}/tags')
-        response.assert_success()
-
     def test_issue_tags_get_returns_data(self, api_client):
-        """GET /api/issues/{id}/tags returns data structure."""
+        """GET /api/issues/{id}/tags should return 200.
+
+        Also checks:
+        - GET /api/issues/{id}/tags returns data structure.
+        """
         response = api_client.get(f'/api/issues/{BASIC_ISSUE_ID}/tags')
         response.assert_success()
 
@@ -349,18 +317,6 @@ class TestIssueTags(BaseAPITest):
         """GET /api/issues/{invalid}/tags returns 400."""
         response = api_client.get('/api/issues/invalid/tags')
         assert response.status_code == 400
-
-    def test_add_tag_requires_auth(self, api_client):
-        """PUT /api/issue/{id}/tags/{tagid} requires auth."""
-        url = f'/api/issue/{BASIC_ISSUE_ID}/tags/{TAG_ID}'
-        response = api_client.put(url)
-        assert response.status_code == 401
-
-    def test_remove_tag_requires_auth(self, api_client):
-        """DELETE /api/issue/{id}/tags/{tagid} requires auth."""
-        url = f'/api/issue/{BASIC_ISSUE_ID}/tags/{TAG_ID}'
-        response = api_client.delete(url)
-        assert response.status_code == 401
 
     def test_add_tag_with_auth(self, admin_client):
         """PUT /api/issue/{id}/tags/{tagid} with auth processes."""
@@ -377,14 +333,6 @@ class TestIssueTags(BaseAPITest):
 class TestIssueShorts(BaseAPITest):
     """Tests for /api/issues/shorts endpoint."""
 
-    def test_save_issue_shorts_requires_auth(self, api_client):
-        """PUT /api/issues/shorts requires authentication."""
-        response = api_client.put('/api/issues/shorts', data={
-            'issue_id': BASIC_ISSUE_ID,
-            'shorts': []
-        })
-        assert response.status_code == 401
-
     def test_save_issue_shorts_with_auth(self, admin_client):
         """PUT /api/issues/shorts with auth processes request."""
         response = admin_client.put('/api/issues/shorts', data={
@@ -396,14 +344,6 @@ class TestIssueShorts(BaseAPITest):
 
 class TestIssueArticles(BaseAPITest):
     """Tests for /api/issues/articles endpoint."""
-
-    def test_save_issue_articles_requires_auth(self, api_client):
-        """PUT /api/issues/articles requires authentication."""
-        response = api_client.put('/api/issues/articles', data={
-            'issue_id': BASIC_ISSUE_ID,
-            'articles': []
-        })
-        assert response.status_code == 401
 
     def test_save_issue_articles_with_auth(self, admin_client):
         """PUT /api/issues/articles with auth processes request."""
@@ -417,13 +357,12 @@ class TestIssueArticles(BaseAPITest):
 class TestIssueSizes(BaseAPITest):
     """Tests for GET /api/issues/sizes endpoint."""
 
-    def test_issue_sizes_returns_200(self, api_client):
-        """GET /api/issues/sizes should return 200."""
-        response = api_client.get('/api/issues/sizes')
-        response.assert_success()
-
     def test_issue_sizes_returns_list(self, api_client):
-        """GET /api/issues/sizes returns list format."""
+        """GET /api/issues/sizes should return 200.
+
+        Also checks:
+        - GET /api/issues/sizes returns list format.
+        """
         response = api_client.get('/api/issues/sizes')
         response.assert_success()
 
@@ -435,24 +374,12 @@ class TestIssueSizes(BaseAPITest):
 class TestIssueCovers(BaseAPITest):
     """Tests for /api/issues/{id}/images endpoints."""
 
-    def test_upload_cover_requires_auth(self, api_client):
-        """POST /api/issues/{id}/images requires authentication."""
-        url = f'/api/issues/{BASIC_ISSUE_ID}/images'
-        response = api_client.post(url)
-        assert response.status_code == 401
-
     def test_upload_cover_requires_file(self, admin_client):
         """POST /api/issues/{id}/images requires file."""
         url = f'/api/issues/{BASIC_ISSUE_ID}/images'
         response = admin_client.post(url)
         # Should return 400 for missing file
         assert response.status_code == 400
-
-    def test_delete_cover_requires_auth(self, api_client):
-        """DELETE /api/issues/{id}/images/{imageid} requires authentication."""
-        url = f'/api/issues/{BASIC_ISSUE_ID}/images/1'
-        response = api_client.delete(url)
-        assert response.status_code == 401
 
     def test_delete_cover_with_auth(self, admin_client):
         """DELETE /api/issues/{id}/images/{imageid} with auth processes."""

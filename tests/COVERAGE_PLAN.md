@@ -72,11 +72,11 @@ Written 2026-10-03. Tick items off here as they land; keep the numbers in
 - [x] **A1. Tighten permissive assertions** (141): each test asserts the one
   status it should get. Where the backend answers wrongly (400/500 for a
   missing record, 500 on bad input), fix the backend.
-- [ ] **A2. Merge same-request tests**: one test per endpoint and parameter
+- [x] **A2. Merge same-request tests**: one test per endpoint and parameter
   checking status, shape and snapshot together; checks that really differ
   stay as assertions inside it. Target about 250 fewer tests and 2-3 min off
   each run.
-- [ ] **A3. One auth table**: a single parametrized test in `test_auth.py`,
+- [x] **A3. One auth table**: a single parametrized test in `test_auth.py`,
   one row per protected route, asserting the exact status. Remove the
   duplicates from other files.
 - [ ] **A4. Rename fixtures** named `test_*` to `created_work`,
@@ -147,3 +147,10 @@ Coverage gains are estimates from the never-run lines in each area.
     `stories` target was never implemented (empty 200); now JSON, and only
     `works` is supported (others 400).
   - Result: 959 passed, 0 loose status assertions.
+- 2026-10-04, A2 + A3: 102 groups of tests making the identical read-only
+  request in the same class merged into one test each, keeping every
+  assertion (151 tests fewer). 66 hand-written "no token -> 401" tests
+  replaced by `test_write_route_without_token_is_401`, generated from
+  Flask's route map (81 routes; new endpoints are covered automatically).
+  959 -> 764 tests, coverage 49.7 % -> 50.1 %, run with coverage
+  645 s -> 516 s.

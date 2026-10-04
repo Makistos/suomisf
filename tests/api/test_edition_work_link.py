@@ -400,16 +400,11 @@ class TestEditionWorkLinkMutations(BaseAPITest):
 class TestWorkEditionsRelationship(BaseAPITest):
     """Verify GET /api/works/{id} editions list via direct FK."""
 
-    def test_get_work_includes_editions_list(self, api_client):
-        """
-        GET /api/works/{id} returns an 'editions' list.
+    def test_work_editions_all_belong_to_work(self, api_client, app):
+        """GET /api/works/{id} returns an 'editions' list.
 
-        Parameters: work_id=KNOWN_WORK_ID
-        Assertions:
-          - response status 200
-          - 'editions' key is a list
-          - list is non-empty
-        Fixtures: api_client
+        Also checks:
+        - All editions returned for a work have Edition.work_id
         """
         resp = api_client.get(f'/api/works/{KNOWN_WORK_ID}')
         resp.assert_success()
@@ -420,20 +415,6 @@ class TestWorkEditionsRelationship(BaseAPITest):
         assert len(editions) > 0, (
             f'work {KNOWN_WORK_ID} has no editions in response'
         )
-
-    def test_work_editions_all_belong_to_work(
-            self, app, api_client):
-        """
-        All editions returned for a work have Edition.work_id
-        equal to that work's id in the database.
-
-        Parameters: work_id=KNOWN_WORK_ID
-        Assertions:
-          - Every edition in the response has its DB work_id matching
-            KNOWN_WORK_ID
-        Fixtures: app, api_client
-        """
-        resp = api_client.get(f'/api/works/{KNOWN_WORK_ID}')
         resp.assert_success()
         edition_ids = [e['id'] for e in resp.data.get('editions', [])]
 

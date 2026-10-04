@@ -42,33 +42,24 @@ SECONDARY_TAG_ID = 2
 class TestTagsQuick(BaseAPITest):
     """Tests for GET /api/tagsquick endpoint."""
 
-    def test_tagsquick_returns_200(self, api_client):
-        """GET /api/tagsquick should return 200."""
-        response = api_client.get('/api/tagsquick')
-        response.assert_success()
+    def test_tagsquick_has_required_fields(self, api_client):
+        """GET /api/tagsquick should return 200.
 
-    def test_tagsquick_returns_list(self, api_client):
-        """GET /api/tagsquick should return a list."""
+        Also checks:
+        - GET /api/tagsquick should return a list.
+        - Each tag in quick list should have id and name.
+        - Quick tags include usage counts for filtering.
+        """
         response = api_client.get('/api/tagsquick')
         response.assert_success()
 
         data = response.data
         assert isinstance(data, list), "Response should be a list"
 
-    def test_tagsquick_has_required_fields(self, api_client):
-        """Each tag in quick list should have id and name."""
-        response = api_client.get('/api/tagsquick')
-        response.assert_success()
-
         if response.data and len(response.data) > 0:
             for tag in response.data[:5]:
                 assert 'id' in tag, "Tag missing 'id'"
                 assert 'name' in tag, "Tag missing 'name'"
-
-    def test_tagsquick_has_counts(self, api_client):
-        """Quick tags include usage counts for filtering."""
-        response = api_client.get('/api/tagsquick')
-        response.assert_success()
 
         if response.data and len(response.data) > 0:
             tag = response.data[0]
@@ -84,13 +75,12 @@ class TestTagsQuick(BaseAPITest):
 class TestTagFormInfo(BaseAPITest):
     """Tests for GET /api/tags/form/{tag_id} endpoint."""
 
-    def test_tag_form_returns_200(self, api_client):
-        """GET /api/tags/form/{id} should return 200."""
-        response = api_client.get(f'/api/tags/form/{BASIC_TAG_ID}')
-        response.assert_success()
-
     def test_tag_form_returns_data(self, api_client):
-        """GET /api/tags/form/{id} should return tag data."""
+        """GET /api/tags/form/{id} should return 200.
+
+        Also checks:
+        - GET /api/tags/form/{id} should return tag data.
+        """
         response = api_client.get(f'/api/tags/form/{BASIC_TAG_ID}')
         response.assert_success()
 
@@ -113,24 +103,19 @@ class TestTagFormInfo(BaseAPITest):
 class TestTagTypes(BaseAPITest):
     """Tests for GET /api/tags/types endpoint."""
 
-    def test_tag_types_returns_200(self, api_client):
-        """GET /api/tags/types should return 200."""
-        response = api_client.get('/api/tags/types')
-        response.assert_success()
+    def test_tag_types_has_required_fields(self, api_client):
+        """GET /api/tags/types should return 200.
 
-    def test_tag_types_returns_list(self, api_client):
-        """GET /api/tags/types should return a list."""
+        Also checks:
+        - GET /api/tags/types should return a list.
+        - Each tag type should have id and name.
+        """
         response = api_client.get('/api/tags/types')
         response.assert_success()
 
         data = response.data
         if data is not None:
             assert isinstance(data, list), "Response should be a list"
-
-    def test_tag_types_has_required_fields(self, api_client):
-        """Each tag type should have id and name."""
-        response = api_client.get('/api/tags/types')
-        response.assert_success()
 
         if response.data and len(response.data) > 0:
             for tag_type in response.data[:5]:
@@ -140,13 +125,6 @@ class TestTagTypes(BaseAPITest):
 
 class TestTagMerge(BaseAPITest):
     """Tests for POST /api/tags/{source_id}/merge/{target_id} endpoint."""
-
-    def test_merge_requires_auth(self, api_client):
-        """POST /api/tags/{source}/merge/{target} requires auth."""
-        response = api_client.post(
-            f'/api/tags/{BASIC_TAG_ID}/merge/{SECONDARY_TAG_ID}'
-        )
-        assert response.status_code == 401
 
     def test_merge_invalid_source_id(self, admin_client):
         """POST /api/tags/{invalid}/merge/{target} returns 400."""

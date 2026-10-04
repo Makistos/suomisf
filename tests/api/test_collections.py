@@ -103,17 +103,12 @@ class TestWorkCollection(BaseAPITest):
     contains the correct shorts with their authors after migration.
     """
 
-    def test_work_27_stories_match_snapshot(
-            self, api_client, snapshot_manager):
-        """
-        GET /api/works/27 'Yön ja päivän tarinoita' should contain
-        12 short stories, all authored by Vainonen, Jyrki (id 21).
+    def test_work_27_stories_match_snapshot(self, api_client, snapshot_manager):
+        """GET /api/works/27 'Yön ja päivän tarinoita' should contain
 
-        Snapshot: work_27.json (captured from production before
-        migration).
-
-        This test detects the regression where shorts disappeared
-        from the work response after migration.
+        Also checks:
+        - Each story in GET /api/works/27 should have id, title,
+        - Authors in work 27 stories should have id and name.
         """
         response = api_client.get('/api/works/27')
         response.assert_success()
@@ -139,14 +134,6 @@ class TestWorkCollection(BaseAPITest):
             actual_stories, expected_stories, 'work_27'
         )
 
-    def test_work_27_stories_have_required_fields(self, api_client):
-        """
-        Each story in GET /api/works/27 should have id, title,
-        authors, and type fields.
-        """
-        response = api_client.get('/api/works/27')
-        response.assert_success()
-
         stories = response.data.get('stories', [])
         assert len(stories) > 0, "Work 27 should have stories"
 
@@ -155,13 +142,6 @@ class TestWorkCollection(BaseAPITest):
                 assert field in story, (
                     f"Story {story.get('id')} missing '{field}'"
                 )
-
-    def test_work_27_stories_author_fields(self, api_client):
-        """
-        Authors in work 27 stories should have id and name.
-        """
-        response = api_client.get('/api/works/27')
-        response.assert_success()
 
         for story in response.data.get('stories', []):
             for author in story.get('authors', []):
@@ -258,13 +238,11 @@ class TestEditionShortsCollections(BaseAPITest):
             shorts, expected, 'edition_shorts_28'
         )
 
-    def test_edition_1585_shorts_match_snapshot(
-            self, api_client, snapshot_manager):
-        """
-        GET /api/editions/1585/shorts should return 22 shorts
-        with multiple different authors.
+    def test_edition_1585_shorts_author_ids(self, api_client, snapshot_manager):
+        """GET /api/editions/1585/shorts should return 22 shorts
 
-        Snapshot: edition_shorts_1585.json
+        Also checks:
+        - Spot-check specific author IDs for edition 1585.
         """
         response = api_client.get('/api/editions/1585/shorts')
         response.assert_success()
@@ -281,17 +259,6 @@ class TestEditionShortsCollections(BaseAPITest):
         _check_shorts_match_snapshot(
             shorts, expected, 'edition_shorts_1585'
         )
-
-    def test_edition_1585_shorts_author_ids(self, api_client):
-        """
-        Spot-check specific author IDs for edition 1585.
-
-        Short 3202 'Hanna' should be by Sinisalo, Johanna (id 368).
-        Short 1805 'Napoleonin vaihtoviikot' should be
-        by Elo, Eija (id 3238).
-        """
-        response = api_client.get('/api/editions/1585/shorts')
-        response.assert_success()
 
         by_id = {int(s['id']): s for s in response.data}
 
@@ -323,15 +290,13 @@ class TestIssueCollection(BaseAPITest):
     with 16 stories by various Finnish SF authors.
     """
 
-    def test_issue_92_stories_match_snapshot(
-            self, api_client, snapshot_manager):
-        """
-        GET /api/issues/92 should contain 16 stories.
+    def test_issue_92_stories_match_snapshot(self, api_client, snapshot_manager):
+        """GET /api/issues/92 should contain 16 stories.
 
-        Snapshot: issue_92.json (captured from production).
-
-        Checks count, IDs, titles, and author id+name for
-        every story in the issue.
+        Also checks:
+        - Each story in GET /api/issues/92 should have
+        - Story 9132 'Kuvakavalkadi Worldconista' has two authors:
+        - GET /api/issues/92 should return correct issue metadata.
         """
         response = api_client.get('/api/issues/92')
         response.assert_success()
@@ -357,15 +322,6 @@ class TestIssueCollection(BaseAPITest):
             actual_stories, expected_stories, 'issue_92'
         )
 
-    def test_issue_92_stories_have_required_fields(
-            self, api_client):
-        """
-        Each story in GET /api/issues/92 should have
-        id, title, and authors fields.
-        """
-        response = api_client.get('/api/issues/92')
-        response.assert_success()
-
         stories = response.data.get('stories', [])
         assert len(stories) > 0, "Issue 92 should have stories"
 
@@ -374,14 +330,6 @@ class TestIssueCollection(BaseAPITest):
                 assert field in story, (
                     f"Story {story.get('id')} missing '{field}'"
                 )
-
-    def test_issue_92_multi_author_story(self, api_client):
-        """
-        Story 9132 'Kuvakavalkadi Worldconista' has two authors:
-        Kuskelin, Jari (id 3976) and Vainikainen, Jussi (id 3889).
-        """
-        response = api_client.get('/api/issues/92')
-        response.assert_success()
 
         by_id = {
             int(s['id']): s
@@ -398,16 +346,6 @@ class TestIssueCollection(BaseAPITest):
         assert 3889 in author_ids, (
             "Story 9132: expected author 3889 (Vainikainen)"
         )
-
-    def test_issue_92_issue_metadata(self, api_client):
-        """
-        GET /api/issues/92 should return correct issue metadata.
-
-        Issue 92 is Alienisti no. 1, year 2017.
-        Editor is Ranta, Lasse (id 367).
-        """
-        response = api_client.get('/api/issues/92')
-        response.assert_success()
 
         issue = response.data
         assert issue['id'] == 92, "id should be 92"

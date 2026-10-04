@@ -54,23 +54,18 @@ MULTI_AUTHOR_BOOKSERIES_ID = 519
 class TestPublisherList(BaseAPITest):
     """Tests for GET /api/publishers endpoint."""
 
-    def test_publishers_list_returns_200(self, api_client):
-        """GET /api/publishers should return 200."""
-        response = api_client.get('/api/publishers')
-        response.assert_success()
+    def test_publishers_list_has_required_fields(self, api_client):
+        """GET /api/publishers should return 200.
 
-    def test_publishers_list_returns_list(self, api_client):
-        """GET /api/publishers returns list format."""
+        Also checks:
+        - GET /api/publishers returns list format.
+        - Publishers in list have required fields.
+        """
         response = api_client.get('/api/publishers')
         response.assert_success()
 
         data = response.data
         assert isinstance(data, list), "Response should be a list"
-
-    def test_publishers_list_has_required_fields(self, api_client):
-        """Publishers in list have required fields."""
-        response = api_client.get('/api/publishers')
-        response.assert_success()
 
         if response.data and len(response.data) > 0:
             publisher = response.data[0]
@@ -81,13 +76,12 @@ class TestPublisherList(BaseAPITest):
 class TestPublisherGet(BaseAPITest):
     """Tests for GET /api/publishers/{id} endpoint."""
 
-    def test_publisher_get_returns_200(self, api_client):
-        """GET /api/publishers/{id} should return 200."""
-        response = api_client.get(f'/api/publishers/{BASIC_PUBLISHER_ID}')
-        response.assert_success()
-
     def test_publisher_get_has_fields(self, api_client):
-        """Publisher response has required fields."""
+        """GET /api/publishers/{id} should return 200.
+
+        Also checks:
+        - Publisher response has required fields.
+        """
         response = api_client.get(f'/api/publishers/{BASIC_PUBLISHER_ID}')
         response.assert_success()
 
@@ -108,14 +102,6 @@ class TestPublisherGet(BaseAPITest):
 
 class TestPublisherUpdate(BaseAPITest):
     """Tests for PUT /api/publishers endpoint."""
-
-    def test_update_publisher_requires_auth(self, api_client):
-        """PUT /api/publishers requires authentication."""
-        response = api_client.put('/api/publishers', data={
-            'id': BASIC_PUBLISHER_ID,
-            'name': 'Test Publisher'
-        })
-        assert response.status_code == 401
 
     def test_update_publisher_with_auth(self, admin_client):
         """PUT /api/publishers with auth processes request."""
@@ -152,13 +138,12 @@ class TestPublisherUpdate(BaseAPITest):
 class TestPublisherFilter(BaseAPITest):
     """Tests for GET /api/filter/publishers/{pattern} endpoint."""
 
-    def test_filter_publishers_returns_200(self, api_client):
-        """GET /api/filter/publishers/{pattern} should return 200."""
-        response = api_client.get('/api/filter/publishers/kirja')
-        response.assert_success()
-
     def test_filter_publishers_returns_list(self, api_client):
-        """GET /api/filter/publishers/{pattern} returns list."""
+        """GET /api/filter/publishers/{pattern} should return 200.
+
+        Also checks:
+        - GET /api/filter/publishers/{pattern} returns list.
+        """
         response = api_client.get('/api/filter/publishers/kirja')
         response.assert_success()
 
@@ -188,23 +173,18 @@ class TestPublisherFilter(BaseAPITest):
 class TestPubSeriesList(BaseAPITest):
     """Tests for GET /api/pubseries endpoint."""
 
-    def test_pubseries_list_returns_200(self, api_client):
-        """GET /api/pubseries should return 200."""
-        response = api_client.get('/api/pubseries')
-        response.assert_success()
+    def test_pubseries_list_has_required_fields(self, api_client):
+        """GET /api/pubseries should return 200.
 
-    def test_pubseries_list_returns_list(self, api_client):
-        """GET /api/pubseries returns list format."""
+        Also checks:
+        - GET /api/pubseries returns list format.
+        - Publication series in list have required fields.
+        """
         response = api_client.get('/api/pubseries')
         response.assert_success()
 
         data = response.data
         assert isinstance(data, list), "Response should be a list"
-
-    def test_pubseries_list_has_required_fields(self, api_client):
-        """Publication series in list have required fields."""
-        response = api_client.get('/api/pubseries')
-        response.assert_success()
 
         if response.data and len(response.data) > 0:
             pubseries = response.data[0]
@@ -215,13 +195,12 @@ class TestPubSeriesList(BaseAPITest):
 class TestPubSeriesGet(BaseAPITest):
     """Tests for GET /api/pubseries/{id} endpoint."""
 
-    def test_pubseries_get_returns_200(self, api_client):
-        """GET /api/pubseries/{id} should return 200."""
-        response = api_client.get(f'/api/pubseries/{BASIC_PUBSERIES_ID}')
-        response.assert_success()
-
     def test_pubseries_get_has_fields(self, api_client):
-        """PubSeries response has required fields."""
+        """GET /api/pubseries/{id} should return 200.
+
+        Also checks:
+        - PubSeries response has required fields.
+        """
         response = api_client.get(f'/api/pubseries/{BASIC_PUBSERIES_ID}')
         response.assert_success()
 
@@ -242,14 +221,6 @@ class TestPubSeriesGet(BaseAPITest):
 
 class TestPubSeriesUpdate(BaseAPITest):
     """Tests for PUT /api/pubseries endpoint."""
-
-    def test_update_pubseries_requires_auth(self, api_client):
-        """PUT /api/pubseries requires authentication."""
-        response = api_client.put('/api/pubseries', data={
-            'id': BASIC_PUBSERIES_ID,
-            'name': 'Test PubSeries'
-        })
-        assert response.status_code == 401
 
     def test_update_pubseries_with_auth(self, admin_client):
         """PUT /api/pubseries with auth processes request."""
@@ -322,23 +293,18 @@ class TestPubSeriesFilter(BaseAPITest):
 class TestBookSeriesList(BaseAPITest):
     """Tests for GET /api/bookseries endpoint."""
 
-    def test_bookseries_list_returns_200(self, api_client):
-        """GET /api/bookseries should return 200."""
-        response = api_client.get('/api/bookseries')
-        response.assert_success()
+    def test_bookseries_list_has_required_fields(self, api_client):
+        """GET /api/bookseries should return 200.
 
-    def test_bookseries_list_returns_list(self, api_client):
-        """GET /api/bookseries returns list format."""
+        Also checks:
+        - GET /api/bookseries returns list format.
+        - Book series in list have required fields.
+        """
         response = api_client.get('/api/bookseries')
         response.assert_success()
 
         data = response.data
         assert isinstance(data, list), "Response should be a list"
-
-    def test_bookseries_list_has_required_fields(self, api_client):
-        """Book series in list have required fields."""
-        response = api_client.get('/api/bookseries')
-        response.assert_success()
 
         if response.data and len(response.data) > 0:
             bookseries = response.data[0]
@@ -349,13 +315,12 @@ class TestBookSeriesList(BaseAPITest):
 class TestBookSeriesGet(BaseAPITest):
     """Tests for GET /api/bookseries/{id} endpoint."""
 
-    def test_bookseries_get_returns_200(self, api_client):
-        """GET /api/bookseries/{id} should return 200."""
-        response = api_client.get(f'/api/bookseries/{BASIC_BOOKSERIES_ID}')
-        response.assert_success()
-
     def test_bookseries_get_has_fields(self, api_client):
-        """BookSeries response has required fields."""
+        """GET /api/bookseries/{id} should return 200.
+
+        Also checks:
+        - BookSeries response has required fields.
+        """
         response = api_client.get(f'/api/bookseries/{BASIC_BOOKSERIES_ID}')
         response.assert_success()
 
@@ -382,14 +347,6 @@ class TestBookSeriesGet(BaseAPITest):
 
 class TestBookSeriesUpdate(BaseAPITest):
     """Tests for PUT /api/bookseries endpoint."""
-
-    def test_update_bookseries_requires_auth(self, api_client):
-        """PUT /api/bookseries requires authentication."""
-        response = api_client.put('/api/bookseries', data={
-            'id': BASIC_BOOKSERIES_ID,
-            'name': 'Test BookSeries'
-        })
-        assert response.status_code == 401
 
     def test_update_bookseries_with_auth(self, admin_client):
         """PUT /api/bookseries with auth processes request."""
