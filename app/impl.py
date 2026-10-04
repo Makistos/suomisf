@@ -6,6 +6,7 @@ import json
 import random
 from typing import Dict, NamedTuple, Optional, Tuple, List, Union, Any, TypedDict, Set
 from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.orm import selectinload
 from marshmallow import exceptions
 
 from app.api_errors import APIError
@@ -668,6 +669,58 @@ FRONTPAGE_RANDOM_CATEGORIES: List[Tuple[str, List[int]]] = [
     ('children', [11, 17]),  # Lasten Science Fiction / fantasia
     ('collection', [16]),   # Kokoelma
 ]
+
+
+FRONTPAGE_LATEST_FIELDS = ('id', 'title', 'pubyear', 'editionnum', 'version',
+                           'images', 'work.id', 'work.title', 'work.author_str')
+
+
+def get_frontpage_latest(count: int = 6) -> ResponseType:
+    """
+    The front page's "Viimeisimmät lisäykset" covers: the latest additions,
+    one per work.
+
+    Looks at the newest count * 10 editions. Editions of the same work are
+    one entry, placed where the work's newest edition falls, and shown
+    with the work's oldest edition that has a cover image (else its oldest
+    edition). This is what the front page used to work out itself from 60
+    full edition records (~250 KB); here it sends only the fields it shows.
+    """
+    session = new_session()
+    try:
+        editions = session.query(Edition)\
+            .options(selectinload(Edition.images), selectinload(Edition.work))\
+            .order_by(Edition.id.desc())\
+            .limit(count * 10)\
+            .all()
+    except SQLAlchemyError as exp:
+        app.logger.error(f'get_frontpage_latest: {exp}')
+        return ResponseType('get_frontpage_latest: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    by_work: Dict[int, List[Any]] = {}
+    groups: List[Tuple[int, Any]] = []   # (position, edition shown)
+    for edition in editions:
+        if edition.work_id is None:
+            groups.append((edition.id, edition))
+        else:
+            by_work.setdefault(edition.work_id, []).append(edition)
+    for work_editions in by_work.values():
+        oldest_first = sorted(work_editions, key=lambda e: e.id)
+        with_cover = [e for e in oldest_first
+                      if e.images and e.images[0].image_src]
+        shown = with_cover[0] if with_cover else oldest_first[0]
+        groups.append((max(e.id for e in work_editions), shown))
+    groups.sort(key=lambda g: g[0], reverse=True)
+
+    try:
+        schema = EditionBriefestSchema(many=True, only=FRONTPAGE_LATEST_FIELDS)
+        retval = schema.dump([edition for _, edition in groups[:count]])
+    except exceptions.MarshmallowError as exp:
+        app.logger.error(f'get_frontpage_latest: {exp}')
+        return ResponseType('get_frontpage_latest: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    return ResponseType(retval, HttpResponseCode.OK.value)
 
 
 def get_frontpage_random_picks() -> ResponseType:

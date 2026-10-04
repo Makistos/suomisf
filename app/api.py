@@ -8,7 +8,8 @@ from flask import request
 from flask.wrappers import Response
 from app.api_helpers import make_api_error, make_api_response
 from app.impl import (ResponseType, get_frontpage_data,
-                      get_frontpage_random_picks, SearchResult,
+                      get_frontpage_random_picks, get_frontpage_latest,
+                      SearchResult,
                       filter_languages,
                       filter_link_names, genre_list,
                       get_latest_covers)
@@ -308,6 +309,30 @@ def frontpagestats() -> Response:
         }
     """
     return make_api_response(get_frontpage_data())
+
+
+@app.route('/api/frontpage/latest', methods=['get'])
+def frontpage_latest() -> Response:
+    """
+    @api {get} /api/frontpage/latest Front page latest additions
+    @apiName Front page latest additions
+    @apiGroup Front page
+    @apiPermission none
+    @apiDescription The covers for the front page's "Viimeisimmät
+    lisäykset": the newest additions, one per work, each shown with the
+    work's oldest edition that has a cover. Only the fields the front page
+    shows (id, title, pubyear, editionnum, version, images, work id/title/
+    author_str).
+    @apiParam {Number} [count=6] How many (1-20).
+    """
+    try:
+        count = int(request.args.get('count', 6))
+    except ValueError:
+        count = 0
+    if not 1 <= count <= 20:
+        return make_api_response(ResponseType(
+            'count: 1-20', HttpResponseCode.BAD_REQUEST.value))
+    return make_api_response(get_frontpage_latest(count))
 
 
 @app.route('/api/frontpage/random', methods=['get'])

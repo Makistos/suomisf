@@ -142,3 +142,59 @@ def test_work_save_with_new_language_creates_it(admin_client):
             session.commit()
         finally:
             session.close()
+
+
+# ---------------------------------------------------------------------------
+# Front page latest additions
+# ---------------------------------------------------------------------------
+
+def test_frontpage_latest_shape(api_client):
+    response = api_client.get('/api/frontpage/latest')
+    assert response.status_code == 200
+    latest = response.json
+    assert len(latest) == 6
+    assert set(latest[0]) == {'id', 'title', 'pubyear', 'editionnum', 'version',
+                              'images', 'work'}
+    assert set(latest[0]['work']) == {'id', 'title', 'author_str'}
+    work_ids = [e['work']['id'] for e in latest]
+    assert len(set(work_ids)) == len(work_ids)
+
+
+@pytest.mark.parametrize('count', ['0', '21', 'x'])
+def test_frontpage_latest_bad_count_is_400(api_client, count):
+    assert api_client.get(f'/api/frontpage/latest?count={count}').status_code == 400
+
+
+def test_frontpage_latest_groups_editions_of_a_work(admin_client):
+    """Three new editions of one work are one entry, placed first (the
+    newest addition), shown with the oldest edition that has a cover."""
+    from app.orm_decl import Edition, EditionImage
+    from .test_works import create_test_work
+    work_id = create_test_work(admin_client, PERSON_ID, title='B4 kansitesti')
+    session = new_session()
+    extra = []
+    try:
+        first = session.query(Edition).filter_by(work_id=work_id).one()
+        for n in (2, 3):
+            edition = Edition(title='B4 kansitesti', pubyear=2099, work_id=work_id,
+                              editionnum=n, version=1)
+            session.add(edition)
+            session.flush()
+            extra.append(edition.id)
+        session.add(EditionImage(edition_id=extra[0], image_src='/static/b4-cover.jpg'))
+        session.commit()
+
+        latest = admin_client.get('/api/frontpage/latest').json
+        assert latest[0]['work']['id'] == work_id
+        assert latest[0]['id'] == extra[0], 'oldest edition with a cover'
+        assert [e['work']['id'] for e in latest].count(work_id) == 1
+        assert first.id not in [e['id'] for e in latest]
+    finally:
+        session.rollback()
+        session.query(EditionImage).filter(EditionImage.edition_id.in_(extra)).delete(
+            synchronize_session=False)
+        session.query(Edition).filter(Edition.id.in_(extra)).delete(
+            synchronize_session=False)
+        session.commit()
+        session.close()
+        delete_test_work(admin_client, work_id)
