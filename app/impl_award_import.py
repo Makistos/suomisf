@@ -1411,6 +1411,13 @@ def preview_import(award_id: int, source: str = "sfadb") -> ResponseType:
         return ResponseType(
             f'Tälle palkinnolle ei ole {source}-tuontilähdettä.',
             HttpResponseCode.BAD_REQUEST.value)
+    if not errors and not any(winners for *_, winners in collected):
+        # The source answered but nothing parsed: the site may be down
+        # (sfadb.com served an "Account Suspended" page in 2026-10) or
+        # its page layout changed. Say so instead of an empty preview.
+        info = get_import_source_info(award.name) if source == "sfadb" else None
+        errors.append('lähdesivulta ei löytynyt yhtään voittajaa'
+                      + (f' ({info["url"]})' if info else ''))
 
     person_index = None  # built lazily; only ITEM_PERSON awards need it
     for item_type, our_category, label, winners in collected:

@@ -1,0 +1,119 @@
+{
+ "pages": {
+  "https://antikka.net/?{\"post_type\": \"product\", \"s\": \"Asimov Säätiö\"}": {
+   "content_type": "text/html; charset=UTF-8",
+   "encoding": "UTF-8",
+   "file": "antikka.net/686b865dc618.gz",
+   "status": 200,
+   "url": "https://antikka.net/?s=Asimov+S%C3%A4%C3%A4ti%C3%B6&post_type=product"
+  },
+  "https://antikka.net/tuote/saatio-14/": {
+   "content_type": "text/html; charset=UTF-8",
+   "encoding": "UTF-8",
+   "file": "antikka.net/37037252171c.gz",
+   "status": 200,
+   "url": "https://antikka.net/tuote/saatio-14/"
+  },
+  "https://fi.wikipedia.org/wiki/Atorox-palkinto": {
+   "content_type": "text/html; charset=UTF-8",
+   "encoding": "UTF-8",
+   "file": "fi.wikipedia.org/5c5d903e5f98.gz",
+   "status": 200,
+   "url": "https://fi.wikipedia.org/wiki/Atorox-palkinto"
+  },
+  "https://www.antikvaari.fi/api/products/search-v2?{\"added\": \"\", \"author\": \"\", \"binding\": \"\", \"campaign\": \"false\", \"campaign_id\": \"\", \"category_ids\": \"\", \"category_main_id\": \"\", \"isbn\": \"\", \"language_codes\": \"\", \"new_only\": \"0\", \"page\": \"1\", \"price\": \"0:500\", \"publisher\": \"\", \"q\": \"Asimov Säätiö\", \"sort\": \"\", \"title\": \"\", \"vendor_ids\": \"\", \"year\": \"\", \"year_max\": \"\", \"year_min\": \"\"}": {
+   "content_type": "application/json; charset=utf-8",
+   "encoding": "utf-8",
+   "file": "antikvaari.fi/2c8cf1d12d1e.gz",
+   "status": 200,
+   "url": "https://www.antikvaari.fi/api/products/search-v2?q=Asimov+S%C3%A4%C3%A4ti%C3%B6&added=&author=&binding=&campaign=false&campaign_id=&category_ids=&category_main_id=&isbn=&language_codes=&new_only=0&price=0%3A500&publisher=&title=&vendor_ids=&year=&year_min=&year_max=&sort=&page=1"
+  },
+  "https://www.antikvaari.fi/teos/saatio/62a41ba1eaa1ec176c4908a2": {
+   "content_type": "text/html; charset=utf-8",
+   "encoding": "utf-8",
+   "file": "antikvaari.fi/c67ce1f2ae98.gz",
+   "status": 200,
+   "url": "https://www.antikvaari.fi/teos/saatio/62a41ba1eaa1ec176c4908a2"
+  },
+  "https://www.antikvariaatti.net/haku?{\"q\": \"Asimov Säätiö\", \"type\": 1}": {
+   "content_type": "text/html; charset=UTF-8",
+   "encoding": "UTF-8",
+   "file": "antikvariaatti.net/0221a6ae8428.gz",
+   "status": 200,
+   "url": "https://www.antikvariaatti.net/haku?q=Asimov+S%C3%A4%C3%A4ti%C3%B6&type=1"
+  },
+  "https://www.antikvariaatti.net/tuotteet/2518465": {
+   "content_type": "text/html; charset=UTF-8",
+   "encoding": "UTF-8",
+   "file": "antikvariaatti.net/33bd242b2bef.gz",
+   "status": 200,
+   "url": "https://www.antikvariaatti.net/tuotteet/2518465"
+  },
+  "https://www.kampinkirjakauppa.fi/tuotteet.html?id=26/1282516": {
+   "content_type": "text/html; profile=xhtml;charset=ISO-8859-1",
+   "encoding": "ISO-8859-1",
+   "file": "kampinkirjakauppa.fi/ad734d546ef4.gz",
+   "status": 200,
+   "url": "https://www.kampinkirjakauppa.fi/tuotteet.html?id=26/1282516"
+  },
+  "https://www.kampinkirjakauppa.fi/tuotteet.html?{\"id\": \"search\", \"search\": \"Asimov Säätiö\", \"search_category\": \"0\", \"webstore_product_search_form\": \"Hae\"}": {
+   "content_type": "text/html; profile=xhtml;charset=ISO-8859-1",
+   "encoding": "ISO-8859-1",
+   "file": "kampinkirjakauppa.fi/dd93f055511a.gz",
+   "status": 200,
+   "url": "https://www.kampinkirjakauppa.fi/tuotteet.html?id=search&search=Asimov+S%E4%E4ti%F6&search_category=0&webstore_product_search_form=Hae"
+  },
+  "https://www.kampinkirjakauppa.fi/tuotteet.html?{\"id\": \"search\", \"search\": \"Asimov\", \"search_category\": \"0\", \"webstore_product_search_form\": \"Hae\"}": {
+   "content_type": "text/html; profile=xhtml;charset=ISO-8859-1",
+   "encoding": "ISO-8859-1",
+   "file": "kampinkirjakauppa.fi/97baac253fa1.gz",
+   "status": 200,
+   "url": "https://www.kampinkirjakauppa.fi/tuotteet.html?id=search&search=Asimov&search_category=0&webstore_product_search_form=Hae"
+  },
+  "https://www.lukuhetki.fi/norby-seonnut-robotti/664": {
+   "content_type": "text/html; charset=UTF-8",
+   "encoding": "UTF-8",
+   "file": "lukuhetki.fi/608d90921a8b.gz",
+   "status": 200,
+   "url": "https://www.lukuhetki.fi/norby-seonnut-robotti/664"
+  },
+  "https://www.lukuhetki.fi/simpleSearch.php?{\"q\": \"Asimov Säätiö\"}": {
+   "content_type": "text/html; charset=UTF-8",
+   "encoding": "UTF-8",
+   "file": "lukuhetki.fi/f6f88f816475.gz",
+   "status": 200,
+   "url": "https://www.lukuhetki.fi/simpleSearch.php?q=Asimov+S%C3%A4%C3%A4ti%C3%B6"
+  },
+  "https://www.lukuhetki.fi/simpleSearch.php?{\"q\": \"Asimov\"}": {
+   "content_type": "text/html; charset=UTF-8",
+   "encoding": "UTF-8",
+   "file": "lukuhetki.fi/c9bf06182fdc.gz",
+   "status": 200,
+   "url": "https://www.lukuhetki.fi/simpleSearch.php?q=Asimov"
+  },
+  "https://www.sfadb.com/Philip_K_Dick_Award_Winners_By_Name": {
+   "archived_from": "web.archive.org (sfadb.com showed \"Account Suspended\" on 2026-10-04)",
+   "content_type": "text/html",
+   "encoding": "ISO-8859-1",
+   "file": "sfadb.com/c05628375621.gz",
+   "status": 200,
+   "url": "https://www.sfadb.com/cgi-sys/suspendedpage.cgi"
+  },
+  "https://www.sfadb.com/SFWA_Grand_Master_Award": {
+   "archived_from": "web.archive.org (sfadb.com showed \"Account Suspended\" on 2026-10-04)",
+   "content_type": "text/html",
+   "encoding": "ISO-8859-1",
+   "file": "sfadb.com/5e28489981fc.gz",
+   "status": 200,
+   "url": "https://www.sfadb.com/cgi-sys/suspendedpage.cgi"
+  }
+ },
+ "product_urls": {
+  "antikka": "https://antikka.net/tuote/saatio-14/",
+  "antikvaari": "https://www.antikvaari.fi/teos/saatio/62a41ba1eaa1ec176c4908a2",
+  "antikvariaatti": "https://www.antikvariaatti.net/tuotteet/2518465",
+  "kampinkirjakauppa": "https://www.kampinkirjakauppa.fi/tuotteet.html?id=26/1282516",
+  "lukuhetki": "https://www.lukuhetki.fi/norby-seonnut-robotti/664"
+ },
+ "query": "Asimov Säätiö"
+}
