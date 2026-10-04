@@ -57,13 +57,9 @@ def allowed_image(filename: Optional[str]) -> bool:
     Returns:
         bool: True if the file is an allowed image, False otherwise.
     """
-    if not filename:
+    if not filename or "." not in filename:
         return False
-    if "." not in filename:
-        return False
-
-    ext = filename.rsplit(".", 10)[1]
-    return ext.upper() in ["jpg", "JPG"]
+    return filename.rsplit(".", 1)[1].lower() in ("jpg", "jpeg")
 
 
 def validate_positive_integer_id(value: str, field_name: str):

@@ -560,7 +560,7 @@ def api_test_config() -> TestConfig:
 
 
 @pytest.fixture(scope='session')
-def app(setup_test_database):
+def app(setup_test_database, tmp_path_factory):
     """Get the Flask application instance."""
     import sqlalchemy as sa
     from app import app as flask_app, db
@@ -569,6 +569,14 @@ def app(setup_test_database):
 
     flask_app.config['TESTING'] = True
     flask_app.config['WTF_CSRF_ENABLED'] = False
+
+    # The app is configured from the dev .env, whose upload folders are the
+    # real app/static/images/* ones. Send test uploads to a temporary folder.
+    uploads = tmp_path_factory.mktemp('uploads')
+    for key in ('BOOKCOVER_SAVELOC', 'PERSONIMG_SAVELOC', 'MAGAZINECOVER_SAVELOC'):
+        folder = uploads / key.split('_')[0].lower()
+        folder.mkdir()
+        flask_app.config[key] = str(folder) + '/'
 
     # app/__init__.py calls load_dotenv(SUOMISF_DOTENV, override=True),
     # and SUOMISF_DOTENV is pinned to .env.e2e above, so DATABASE_URL is

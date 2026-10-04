@@ -1315,7 +1315,7 @@ def person_link_add(
                 f'Id = {person_id}.')
             return ResponseType(
                 f'Henkilöä ei löydy. person_id={person_id}.',
-                HttpResponseCode.BAD_REQUEST.value)
+                HttpResponseCode.NOT_FOUND.value)
 
         existing = session.query(PersonLink).filter(
             PersonLink.person_id == person_id,

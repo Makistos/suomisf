@@ -540,11 +540,14 @@ def api_person_link_add(personid: str) -> Response:
         link (str): URL of the link. Required.
         description (str): Human-readable label for the link. Optional.
 
+    A person has at most one link per description: adding a link whose
+    description matches an existing one replaces that link.
+
     Responses:
-        201  { "response": "<new link id>" }
-        400  { "msg": "..." }  Person not found, link missing, or
-                             link already exists for this person.
+        201  "<new link id>"
+        400  { "msg": "..." }  Link missing.
         401  Unauthorized.
+        404  { "msg": "..." }  Person not found.
         500  { "msg": "..." }  Database error.
 
     Example:
