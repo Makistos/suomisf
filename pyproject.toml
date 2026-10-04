@@ -80,3 +80,12 @@ select = ["E", "W", "F", "B", "C4"]
 "scripts/*" = ["E501"]
 "run_migration.py" = ["E501"]
 "tests/api/test_award_import_wikipedia.py" = ["E501"]
+
+[tool.pdm.scripts]
+# Full suite with branch coverage; fails if coverage drops below the floor.
+test-cov = "pytest tests -m 'not network' -p no:cacheprovider --cov=app --cov-branch --cov-report=term:skip-covered --cov-report=json:coverage.json"
+
+[tool.coverage.report]
+# Raised as tests are added (tests/COVERAGE_PLAN.md, step C1). 2026-10-04:
+# 64.0 % measured.
+fail_under = 63

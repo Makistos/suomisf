@@ -38,5 +38,7 @@ When adding or modifying API tests, always update the following files:
 
 2. **tests/API_COVERAGE.md** - Generated; don't edit it by hand. Regenerate
    it after a coverage run:
-   `pdm run pytest tests -m "not network" --cov=app --cov-branch --cov-report=json:coverage.json`
+   `pdm run test-cov` (writes coverage.json; fails below the
+   `[tool.coverage.report] fail_under` floor in pyproject.toml)
    then `pdm run python tests/scripts/endpoint_coverage.py`.
+   Only one pytest session at a time: each one re-clones `suomisf_test`.

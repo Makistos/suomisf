@@ -89,22 +89,22 @@ Written 2026-10-03. Tick items off here as they land; keep the numbers in
 Each step on its own branch. Tests that create data remove it afterwards
 (left-over rows have broken snapshot counts before).
 
-- [ ] **B1. Users' data**: read status, ownership, wishlist, price
+- [x] **B1. Users' data**: read status, ownership, wishlist, price
   save/delete, collection stats.
-- [ ] **B2. Admin round trips**: create -> read -> update -> delete for
+- [x] **B2. Admin round trips**: create -> read -> update -> delete for
   issues, publishers, book series, edition images and shorts, awarded items,
   person links and tags.
-- [ ] **B3. Scrapers from saved pages** under `tests/fixtures/html/`: one
+- [x] **B3. Scrapers from saved pages** under `tests/fixtures/html/`: one
   product and one search page per price source, plus sfadb, ISFDB and
   Wikipedia award pages. No network at test time; refreshing a saved page
   shows exactly which fields a site change broke.
-- [ ] **B4. Public read paths**: front-page random picks, change log, search
+- [x] **B4. Public read paths**: front-page random picks, change log, search
   scoring, filters.
-- [ ] **B5. Analytics**: pageview logging with the ip-api lookup mocked.
+- [x] **B5. Analytics**: pageview logging with the ip-api lookup mocked.
 
 ### Part C - keep it from sliding back
 
-- [ ] **C1. Coverage floor**: `--cov-fail-under` in the local test command,
+- [x] **C1. Coverage floor**: `--cov-fail-under` in the local test command,
   raised after each step.
 - [x] **C2. Assertion check**: fail the test run on `status_code in [...]`
   lists that contain 500.
@@ -160,3 +160,15 @@ Coverage gains are estimates from the never-run lines in each area.
   `search_people`, `search_stories`, `editors_changed`, `decode_jwt_token`
   and seven unused schemas. Full run without coverage 7 min 48 s ->
   6 min 2 s (764 tests). Part A done.
+- 2026-10-04, Part B + C1: new test files test_user_data.py (B1),
+  test_admin_roundtrips.py (B2), test_scrapers.py with recorded pages in
+  tests/fixtures/html (B3), test_public_reads.py (B4), test_pageview.py
+  (B5). Bugs found and fixed: ownership POST couldn't add (B1); wishlist
+  status sent as text/html (B1); test uploads went to the real
+  static/images folders and allowed_image() read the wrong part of the
+  file name (B2); sfadb.com is down ("Account Suspended") and the award
+  preview hid it (B3); people-list lte/gte filters and constraint form,
+  and /api/changes with a non-numeric period, crashed with 500 (B4).
+  Removed unreachable /api/awards/categories/<award_id> and more dead
+  search code. 839 tests, coverage 49.7 % -> 64.0 %, routes reached
+  76 % -> 89 %. C1: `pdm run test-cov`, fail_under = 63 in pyproject.toml.
