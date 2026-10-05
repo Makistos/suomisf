@@ -481,8 +481,10 @@ def save_awarded(params: any):
                 session.add(new_award)
                 session.flush()
                 # Select categories for this award
+                # Give the new award the categories for this kind of item
+                # (0 person, 1 work, 2 story).
                 categories = session.query(AwardCategory)\
-                    .filter(AwardCategory.type == itemId)\
+                    .filter(AwardCategory.type == typeId)\
                     .all()
                 for category in categories:
                     new_category = AwardCategories()
@@ -498,7 +500,7 @@ def save_awarded(params: any):
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     except KeyError as exp:
         app.logger.error(f'save_awarded: KeyError. {exp}.')
-        return ResponseType({exp},
+        return ResponseType(f'Puuttuva tieto: {exp}.',
                             HttpResponseCode.BAD_REQUEST.value)
 
     # Check if award was removed
@@ -530,7 +532,7 @@ def save_awarded(params: any):
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     except KeyError as exp:
         app.logger.error(f'save_awarded: KeyError. {exp}.')
-        return ResponseType({exp},
+        return ResponseType(f'Puuttuva tieto: {exp}.',
                             HttpResponseCode.BAD_REQUEST.value)
     except AttributeError as exp:
         app.logger.error(f'save_awarded: AttributeError. {exp}.')
@@ -578,7 +580,7 @@ def save_awarded(params: any):
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     except KeyError as exp:
         app.logger.error(f'save_awarded: KeyError. {exp}.')
-        return ResponseType({exp},
+        return ResponseType(f'Puuttuva tieto: {exp}.',
                             HttpResponseCode.BAD_REQUEST.value)
 
     try:

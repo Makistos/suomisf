@@ -172,3 +172,13 @@ Coverage gains are estimates from the never-run lines in each area.
   Removed unreachable /api/awards/categories/<award_id> and more dead
   search code. 839 tests, coverage 49.7 % -> 64.0 %, routes reached
   76 % -> 89 %. C1: `pdm run test-cov`, fail_under = 63 in pyproject.toml.
+- 2026-10-05, editor saves: test_editor_saves.py saves works, editions,
+  awarded rows and stories the way the admin forms do. Bugs fixed: edition
+  update discarded the whole save on a publisher-series error and
+  accepted an empty title; series given as {id} crashed; work_add left a
+  half-created work on an invalid link/genre; new awards typed by name got
+  no categories (looked up by item id instead of type) and award errors
+  returned a set (500); story language names containing "id" crashed and
+  a newly typed language was dropped on story create.
+  test_person_images now restores person 1's image. Coverage 64.4 % ->
+  68.2 %, floor 63 -> 67.

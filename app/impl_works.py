@@ -923,6 +923,18 @@ def work_add(params: Any) -> ResponseType:
         return ResponseType('Ei kirjoittajaa tai toimittajaa',
                             HttpResponseCode.BAD_REQUEST.value)
 
+    # Validate links and genres before anything is saved: the work and its
+    # first edition are committed before these are added, so a bad link
+    # used to answer 400 and leave a half-created work behind.
+    if any('link' not in link for link in data.get('links') or []):
+        app.logger.error('WorkAdd: Link missing link.')
+        return ResponseType('Linkin tiedot puutteelliset',
+                            HttpResponseCode.BAD_REQUEST.value)
+    if any('id' not in genre for genre in data.get('genres') or []):
+        app.logger.error('WorkAdd: Genre missing id.')
+        return ResponseType('Genren tiedot puutteelliset',
+                            HttpResponseCode.BAD_REQUEST.value)
+
     work.title = data['title']
     if 'subtitle' in data:
         work.subtitle = data['subtitle']

@@ -44,22 +44,26 @@ def _set_language(
     """
     if 'lang' not in data:
         return None
-    if not data['lang'] or 'id' not in data['lang']:
+    if not isinstance(data['lang'], dict) or 'id' not in data['lang']:
+        # Empty, or a new language typed in the form (a plain string).
+        # Was a substring test on the string, so a name containing "id"
+        # (e.g. "jiddiš") was taken for an object and crashed.
         lang_id = None
-        name = data['lang'] if data['lang'] != '' else None
+        name = data['lang'] if isinstance(data['lang'], str) and data['lang'] else None
     else:
         lang_id = check_int(data['lang']['id'])
-        name = data['lang']['name']
+        name = data['lang'].get('name')
+    if lang_id is None and name is not None:
+        # User added a new language. Front returns this as a string in the
+        # language field, so add it (or find it by name) first. Done before
+        # the comparison below: a new story's language is None too, so a
+        # typed language used to be dropped.
+        lang_id = add_language(name)
     if lang_id != item.language:
         if old_values is not None:
             old_values['Kieli'] = (item.lang.name
                                    if item.lang is not None else '')
-        if lang_id is None and name is not None:
-            # User added a new language. Front returns this as a string
-            # in the language field so we need to add this language to
-            # the database first.
-            lang_id = add_language(name)
-        else:
+        if name is None or isinstance(data['lang'], dict):
             if lang_id is not None:
                 lang = session.query(Language)\
                     .filter(Language.id == lang_id)\

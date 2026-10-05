@@ -8,6 +8,9 @@ Note: Run tests/scripts/setup_test_db.py before running these tests.
 
 import pytest
 
+from app.orm_decl import PersonImage
+from app.route_helpers import new_session
+
 from .base_test import BaseAPITest
 from .test_works import TEST_ADMIN_NAME, TEST_ADMIN_PASSWORD
 
@@ -21,6 +24,29 @@ def admin_client(api_client):
     """Get an API client logged in as admin."""
     api_client.login(TEST_ADMIN_NAME, TEST_ADMIN_PASSWORD)
     return api_client
+
+
+@pytest.fixture(autouse=True)
+def restore_person_images(app):
+    """Adding an image replaces the person's existing one. Put person 1's
+    original image rows back after each test, so later tests and snapshot
+    regeneration see the database as cloned."""
+    session = new_session()
+    try:
+        saved = [(i.id, i.src, i.attr, i.license) for i in
+                 session.query(PersonImage).filter_by(person_id=EXISTING_PERSON_ID)]
+    finally:
+        session.close()
+    yield
+    session = new_session()
+    try:
+        session.query(PersonImage).filter_by(person_id=EXISTING_PERSON_ID).delete()
+        for image_id, src, attr, license_ in saved:
+            session.add(PersonImage(id=image_id, person_id=EXISTING_PERSON_ID,
+                                    src=src, attr=attr, license=license_))
+        session.commit()
+    finally:
+        session.close()
 
 
 # -------------------------------------------------------------------

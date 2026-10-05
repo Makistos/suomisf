@@ -86,6 +86,6 @@ select = ["E", "W", "F", "B", "C4"]
 test-cov = "pytest tests -m 'not network' -p no:cacheprovider --cov=app --cov-branch --cov-report=term:skip-covered --cov-report=json:coverage.json"
 
 [tool.coverage.report]
-# Raised as tests are added (tests/COVERAGE_PLAN.md, step C1). 2026-10-04:
-# 64.0 % measured.
-fail_under = 63
+# Raised as tests are added (tests/COVERAGE_PLAN.md, step C1).
+# 2026-10-04: 64.0 % measured; 2026-10-05: 68.2 %.
+fail_under = 67

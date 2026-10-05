@@ -126,6 +126,16 @@ def test_work_save_errors(admin_client, cleanup_names):
     bad_link = _work_payload(bookseries=None, language=None,
                              links=[{'description': 'no address'}])
     assert admin_client.post('/api/works', data=bad_link).status_code == 400
+    bad_genre = _work_payload(bookseries=None, language=None, genres=[{'name': 'x'}])
+    assert admin_client.post('/api/works', data=bad_genre).status_code == 400
+    # A refused work must not be left half-created (it used to be saved
+    # with its first edition before the links were checked).
+    session = new_session()
+    try:
+        from app.orm_decl import Work
+        assert session.query(Work).filter_by(title=NAME).count() == 0
+    finally:
+        session.close()
 
     response = admin_client.post('/api/works', data=_work_payload(bookseries=None))
     assert response.status_code == 201, response.json
@@ -239,3 +249,134 @@ def test_edition_create_errors(admin_client, work_with_edition):
         assert response.status_code == 400, (change, response.json)
     no_year = {k: v for k, v in base.items() if k != 'pubyear'}
     assert admin_client.post('/api/editions', data={'data': no_year}).status_code == 400
+
+
+# ---------------------------------------------------------------------------
+# Awards given to a work, person or story (the awarded form)
+# ---------------------------------------------------------------------------
+
+NEW_AWARD = 'B6 testipalkinto'
+
+
+def _work_category_and_award():
+    from app.orm_decl import Award, AwardCategories, AwardCategory
+    session = new_session()
+    try:
+        row = session.query(AwardCategories.award_id, AwardCategories.category_id)\
+            .join(AwardCategory, AwardCategory.id == AwardCategories.category_id)\
+            .filter(AwardCategory.type == 1).first()
+        award = session.query(Award).get(row.award_id)
+        return {'id': award.id, 'name': award.name}, {'id': row.category_id}
+    finally:
+        session.close()
+
+
+def _awarded(client, work_id):
+    response = client.get(f'/api/works/{work_id}/awarded')
+    assert response.status_code == 200
+    return response.json
+
+
+def test_awarded_add_change_remove_for_work(admin_client, work_with_edition):
+    award, category = _work_category_and_award()
+    entry = {'id': 0, 'year': 2099, 'award': award, 'category': category,
+             'work': {'id': work_with_edition}, 'person': {'id': 0}, 'story': {'id': 0}}
+    try:
+        body = {'id': work_with_edition, 'type': 1, 'awards': [entry]}
+        assert admin_client.post('/api/awarded', data=body).status_code == 200
+        saved = _awarded(admin_client, work_with_edition)
+        assert [(a['year'], a['award']['id']) for a in saved] == [(2099, award['id'])]
+
+        changed = dict(entry, id=saved[0]['id'], year=2098)
+        body = {'id': work_with_edition, 'type': 1, 'awards': [changed]}
+        assert admin_client.post('/api/awarded', data=body).status_code == 200
+        assert [a['year'] for a in _awarded(admin_client, work_with_edition)] == [2098]
+
+        # A new award typed by name is created with the work categories.
+        by_name = dict(entry, award=NEW_AWARD)
+        body = {'id': work_with_edition, 'type': 1, 'awards': [changed, by_name]}
+        assert admin_client.post('/api/awarded', data=body).status_code == 200
+        names = {a['award']['name'] for a in _awarded(admin_client, work_with_edition)}
+        assert NEW_AWARD in names
+        from app.orm_decl import Award, AwardCategories, AwardCategory
+        session = new_session()
+        try:
+            new_award = session.query(Award).filter_by(name=NEW_AWARD).one()
+            types = {c.type for c in session.query(AwardCategory)
+                     .join(AwardCategories, AwardCategories.category_id == AwardCategory.id)
+                     .filter(AwardCategories.award_id == new_award.id)}
+        finally:
+            session.close()
+        assert types == {1}, 'new award should get the work (type 1) categories'
+
+        body = {'id': work_with_edition, 'type': 1, 'awards': []}
+        assert admin_client.post('/api/awarded', data=body).status_code == 200
+        assert _awarded(admin_client, work_with_edition) == []
+    finally:
+        admin_client.post('/api/awarded', data={'id': work_with_edition, 'type': 1,
+                                                'awards': []})
+        from app.orm_decl import Award, AwardCategories
+        session = new_session()
+        try:
+            for a in session.query(Award).filter_by(name=NEW_AWARD).all():
+                session.query(AwardCategories).filter_by(award_id=a.id).delete()
+                session.delete(a)
+            session.commit()
+        finally:
+            session.close()
+
+
+def test_awarded_rejects_bad_input(admin_client):
+    body = {'id': 1, 'type': None, 'awards': []}
+    assert admin_client.post('/api/awarded', data=body).status_code == 400
+    missing_year = {'id': 0, 'award': {'id': 1}, 'category': {'id': 1}, 'work': {'id': 1}}
+    body = {'id': 1, 'type': 1, 'awards': [missing_year]}
+    assert admin_client.post('/api/awarded', data=body).status_code == 400
+
+
+# ---------------------------------------------------------------------------
+# Short stories
+# ---------------------------------------------------------------------------
+
+STORY_LANGUAGE = 'b6 jiddiš'   # contains "id": used to crash language handling
+
+
+def _story_payload(**overrides):
+    data = {'title': NAME, 'orig_title': 'B6 Story', 'pubyear': 2099,
+            'type': {'id': 1}, 'genres': [], 'tags': [],
+            'contributors': [{'person': {'id': PERSON_ID}, 'role': {'id': 1},
+                              'description': None}]}
+    data.update(overrides)
+    return {'data': data}
+
+
+def test_story_language_create_update_and_errors(admin_client):
+    response = admin_client.post('/api/shorts', data=_story_payload(lang=STORY_LANGUAGE))
+    assert response.status_code in (200, 201), response.json
+    story_id = int(response.data)
+    try:
+        story = admin_client.get(f'/api/shorts/{story_id}').json
+        assert story['lang']['name'] == STORY_LANGUAGE
+
+        english = _existing(Language)[0]
+        update = dict(story, lang={'id': english.id, 'name': english.name})
+        assert admin_client.put('/api/shorts', data={'data': update}).status_code == 200
+        assert admin_client.get(f'/api/shorts/{story_id}').json['lang']['id'] == english.id
+
+        update = dict(story, lang='')
+        assert admin_client.put('/api/shorts', data={'data': update}).status_code == 200
+        assert admin_client.get(f'/api/shorts/{story_id}').json['lang'] is None
+
+        for bad in ({'title': ''}, {'id': 'x'}):
+            response = admin_client.put('/api/shorts', data={'data': dict(story, **bad)})
+            assert response.status_code == 400, (bad, response.json)
+        missing = dict(story, id=999999999)
+        assert admin_client.put('/api/shorts', data={'data': missing}).status_code in (400, 404)
+    finally:
+        admin_client.delete(f'/api/shorts/{story_id}')
+        _delete_by_name(Language, STORY_LANGUAGE)
+
+
+def test_story_add_requires_title(admin_client):
+    response = admin_client.post('/api/shorts', data=_story_payload(title=''))
+    assert response.status_code == 400
