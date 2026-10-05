@@ -9,6 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
+from sqlalchemy.engine import make_url
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -27,7 +28,8 @@ elif app.config['ENV'] == 'staging':
 else:
     app.config.from_object("config.DevConfig")
 db_url = app.config['SQLALCHEMY_DATABASE_URI']
-print(f'Db: {db_url}')
+# Which database, but not its password: this goes to the server log.
+print(f'Db: {make_url(db_url).render_as_string(hide_password=True)}')
 jwt_secret_key = app.config['JWT_SECRET_KEY']
 app.static_folder = 'static'
 db = SQLAlchemy(app)
