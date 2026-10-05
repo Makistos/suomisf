@@ -5,6 +5,69 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-10-05 — Database password no longer printed at startup
+**Commits:** `aa82614f`
+The app printed its full database URL, password included, every time it
+started, so it ended up in the server log once per worker. The password
+is now masked.
+
+## 2026-10-05 — Editor saves tested end to end; eight save bugs fixed
+**Commits:** `b21b6923`, `8961d920`
+Saving works, editions, awards and stories the way the admin forms do is
+now tested. Fixed: a failing publisher series silently discarded the
+whole edition edit; an edition could be saved with an empty title; a
+series given by id alone crashed; a new award got no categories and its
+errors crashed instead of answering 400; story languages with "id" in
+the name crashed and newly typed ones were dropped; a work with a bad
+link or genre was left half-created. Coverage 64.4 % → 68.2 %, with a
+floor of 67 %.
+
+## 2026-10-04 — Cover thumbnails
+**Commits:** `8bf44897`
+Book and magazine covers get a 320 px tall WebP thumbnail (~15 KB instead
+of ~74 KB) when uploaded; `scripts/make_thumbnails.py` makes them for
+existing covers. Image data in the API carries `thumb_src`, which falls
+back to the cover itself until the thumbnail exists.
+
+## 2026-10-04 — Large pages load with a fraction of the queries
+**Commits:** `99f57122`, `dfd8e2da`, `10f3ebff`, `fffddcdb`, `8d4b8774`, `bec053bd`
+Related data is loaded in batches and list responses carry only the
+fields the pages use. Publisher page 11,274 → 35 queries, person page
+3,175 → 86, tag page 5,047 → 53, non-fiction list 1,366 → 143,
+statistics person counts ~2,900 → 1 (2.3 s → 0.07 s). Unfiltered
+statistics drill-downs, which returned every story (104 MB, ~100 s) to
+anyone, now answer 400. New `/api/frontpage/latest` serves the front
+page's covers in 1.9 KB instead of 254 KB.
+
+## 2026-10-04 — Test suite overhaul; bugs it exposed
+**Commits:** `b1fecc7c` … `e04afbf7`
+Every test asserts the one status its request should get (141 lists that
+accepted several, 45 of them a 500), with a check that keeps it so. New
+tests for users' own data, admin create–change–delete round trips, price
+scrapers and award import (against recorded pages), public read paths
+and visitor statistics; unused code removed. Fixed along the way: random
+incomplete work always failed; awards by type always answered 400; adding
+a missing tag crashed; ownership "add or update" could only update; the
+image upload check read the wrong part of file names with several dots
+and refused ".jpeg", and test runs wrote into the real image folders; people-list "≤/≥" filters and the change log's
+period filter crashed. Coverage 49.7 % → 64.0 %, full suite 6 min → 3.5
+min.
+
+## 2026-10-03 — Fix: unauthenticated writes and access to other users' data
+**Commits:** `b65ca665`
+Five endpoints (award saves, a wishlist update/delete, saving a book's
+story list) could be called without logging in, because of decorator
+order or a missing check. Wishlist, ownership and read-status changes
+now require the user's own id or an admin; others get 403. A static test
+now fails on any route registered without its auth check.
+
+## 2026-10-02 — Missing records answer 404
+**Commits:** `c6556e22`
+Requests for a person, edition, user or tag that doesn't exist answered
+400, 500 or an empty 200; every entity lookup and delete by URL now
+answers 404 (malformed ids stay 400). Deleting a missing tag no longer
+crashes.
+
 ## 2026-10-01 — Fixes: database sessions and magazine update
 **Commits:** `052b81f6`, `091560d7`
 Sessions opened per request are now closed at app-context teardown,
