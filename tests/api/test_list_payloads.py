@@ -128,3 +128,15 @@ def test_story_drilldown_is_slim_and_batched(client):
     assert set(story['editions'][0]) == {'id', 'work'}
     assert set(story['editions'][0]['work']) == {'id', 'title', 'pubyear'}
     assert set(story['issues'][0]['magazine']) == {'id', 'name'}
+
+
+@pytest.mark.parametrize('path', ['/api/stats/personcounts',
+                                  '/api/stats/storypersoncounts'])
+def test_person_count_stats_query_count(client, path):
+    """One breakdown query per person (~2,600) made these take 2 s; the
+    statistics page loads them on open."""
+    with count_queries() as queries:
+        response = client.get(path)
+    assert response.status_code == 200
+    assert response.get_json()[-1]['name'] == 'Muut'
+    assert queries['n'] <= 20, f"{queries['n']} queries"

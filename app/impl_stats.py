@@ -161,32 +161,38 @@ def stats_personcounts(count: int = 10,
             other_genres[g.abbr] = {r.name: 0 for r in roles if r.name}
         other_total = 0
 
+        # Genre + role breakdown for every listed person in one query (it
+        # used to be one query per person: ~2,600 for authors).
+        genre_query = session.query(
+            WorkContributor.person_id.label('person_id'),
+            Genre.id.label('genre_id'),
+            Genre.abbr.label('genre_abbr'),
+            ContributorRole.id.label('role_id'),
+            ContributorRole.name.label('role_name'),
+            func.count(func.distinct(Work.id)).label('count')
+        ).join(
+            WorkGenre, WorkGenre.genre_id == Genre.id
+        ).join(
+            Work, Work.id == WorkGenre.work_id
+        ).join(
+            WorkContributor, WorkContributor.work_id == Work.id
+        ).join(
+            ContributorRole,
+            ContributorRole.id == WorkContributor.role_id
+        ).filter(
+            WorkContributor.person_id.in_([a.id for a in author_counts])
+        ).group_by(
+            WorkContributor.person_id,
+            Genre.id,
+            ContributorRole.id
+        )
+        _log_query('stats_personcounts (genre breakdown)', genre_query)
+        genres_by_person: Dict[int, List[Any]] = {}
+        for row in genre_query.all():
+            genres_by_person.setdefault(row.person_id, []).append(row)
+
         for idx, author_data in enumerate(author_counts):
-            # Get genre + role breakdown for this person
-            genre_query = session.query(
-                Genre.id.label('genre_id'),
-                Genre.abbr.label('genre_abbr'),
-                ContributorRole.id.label('role_id'),
-                ContributorRole.name.label('role_name'),
-                func.count(func.distinct(Work.id)).label('count')
-            ).join(
-                WorkGenre, WorkGenre.genre_id == Genre.id
-            ).join(
-                Work, Work.id == WorkGenre.work_id
-            ).join(
-                WorkContributor, WorkContributor.work_id == Work.id
-            ).join(
-                ContributorRole,
-                ContributorRole.id == WorkContributor.role_id
-            ).filter(
-                WorkContributor.person_id == author_data.id
-            ).group_by(
-                Genre.id,
-                ContributorRole.id
-            )
-            if idx == 0:  # Only log for first author to avoid spam
-                _log_query('stats_personcounts (genre breakdown)', genre_query)
-            author_genres = genre_query.all()
+            author_genres = genres_by_person.get(author_data.id, [])
 
             # Build nested dict: {genre_abbr: {role_name: count}}
             genre_dict: Dict[str, Dict[str, int]] = {}
@@ -326,41 +332,45 @@ def stats_storypersoncounts(count: int = 10,
                 other_storytypes[st.name] = {r.name: 0 for r in roles if r.name}
         other_total = 0
 
+        # Story type + role breakdown for every listed person in one query
+        # (it used to be one query per person: ~2,900).
+        storytype_query = session.query(
+            StoryContributor.person_id.label('person_id'),
+            StoryType.id.label('storytype_id'),
+            StoryType.name.label('storytype_name'),
+            ContributorRole.id.label('role_id'),
+            ContributorRole.name.label('role_name'),
+            func.count(
+                func.distinct(ShortStory.id)
+            ).label('count')
+        ).join(
+            ShortStory, ShortStory.story_type == StoryType.id
+        ).join(
+            StoryContributor,
+            StoryContributor.shortstory_id == ShortStory.id
+        ).join(
+            ContributorRole,
+            ContributorRole.id == StoryContributor.role_id
+        ).filter(
+            StoryContributor.person_id.in_([p.id for p in person_counts])
+        )
+        if storytype_id is not None:
+            storytype_query = storytype_query.filter(
+                ShortStory.story_type == storytype_id
+            )
+        storytype_query = storytype_query.group_by(
+            StoryContributor.person_id,
+            StoryType.id,
+            ContributorRole.id
+        )
+        _log_query('stats_storypersoncounts (storytype breakdown)',
+                   storytype_query)
+        storytypes_by_person: Dict[int, List[Any]] = {}
+        for row in storytype_query.all():
+            storytypes_by_person.setdefault(row.person_id, []).append(row)
+
         for idx, person_data in enumerate(person_counts):
-            # Get storytype + role breakdown for this person
-            storytype_query = session.query(
-                StoryType.id.label('storytype_id'),
-                StoryType.name.label('storytype_name'),
-                ContributorRole.id.label('role_id'),
-                ContributorRole.name.label('role_name'),
-                func.count(
-                    func.distinct(ShortStory.id)
-                ).label('count')
-            ).join(
-                ShortStory, ShortStory.story_type == StoryType.id
-            ).join(
-                StoryContributor,
-                StoryContributor.shortstory_id == ShortStory.id
-            ).join(
-                ContributorRole,
-                ContributorRole.id == StoryContributor.role_id
-            ).filter(
-                StoryContributor.person_id == person_data.id
-            )
-
-            if storytype_id is not None:
-                storytype_query = storytype_query.filter(
-                    ShortStory.story_type == storytype_id
-                )
-
-            storytype_query = storytype_query.group_by(
-                StoryType.id,
-                ContributorRole.id
-            )
-            if idx == 0:  # Only log for first person to avoid spam
-                _log_query('stats_storypersoncounts (storytype breakdown)',
-                           storytype_query)
-            person_storytypes = storytype_query.all()
+            person_storytypes = storytypes_by_person.get(person_data.id, [])
 
             # Build nested dict: {storytype_name: {role_name: count}}
             storytype_dict: Dict[str, Dict[str, int]] = {}
