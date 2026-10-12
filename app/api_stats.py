@@ -18,6 +18,7 @@ from app.impl_stats import (
     stats_storypersoncounts,
     stats_publishercounts,
     stats_worksbyyear,
+    stats_publishersbyyear,
     stats_origworksbyyear,
     stats_storiesbyyear,
     stats_filterstories,
@@ -355,6 +356,35 @@ def api_stats_worksbyyear() -> Response:
     """
     genre = request.args.get('genre', default=None, type=str)
     return make_api_response(stats_worksbyyear(genre))
+
+
+@app.route('/api/stats/publishersbyyear', methods=['GET'])
+def api_stats_publishersbyyear() -> Response:
+    """
+    Get count of works published by year, grouped by publisher.
+
+    Each work is counted once per publisher, in the year of that publisher's
+    earliest edition of it: later printings/versions from the same publisher
+    are not counted, versions from other publishers are.
+
+    Endpoint: GET /api/stats/publishersbyyear
+
+    Parameters:
+        genre (string, optional): Genre abbreviation to filter by.
+
+    Returns:
+        200 OK: JSON array sorted by year, then publisher name:
+        [
+            {"year": 1950, "count": 5, "publisher_id": 1,
+             "publisher_name": "WSOY"},
+            ...
+        ]
+
+        400 Bad Request: Unknown genre abbreviation provided.
+        500 Internal Server Error: Database error occurred.
+    """
+    genre = request.args.get('genre', default=None, type=str)
+    return make_api_response(stats_publishersbyyear(genre))
 
 
 @app.route('/api/stats/origworksbyyear', methods=['GET'])
@@ -789,6 +819,10 @@ def api_stats_filterworks() -> Response:
         read (int, optional): User ID — restrict to works that user has
             marked read (userwork table). Work-level, independent of
             owner/editions.
+        publisher_first (int, optional): 1 = with publisher and edition_year,
+            match works whose earliest edition from that publisher is in
+            the year range (as counted by /api/stats/publishersbyyear)
+            instead of first editions. Ignored with owner.
 
     Note: orig_year and edition_year filters are mutually exclusive.
           If both are provided, orig_year takes precedence.
@@ -891,6 +925,8 @@ def api_stats_filterworks() -> Response:
     nationality_id = request.args.get('nationality', default=None, type=int)
     contributor_role_id = request.args.get('role', default=None, type=int)
     read_user_id = request.args.get('read', default=None, type=int)
+    publisher_first = request.args.get('publisher_first', default=0,
+                                       type=int) == 1
     if all(v is None for v in (language_id, orig_year_min, orig_year_max,
                                edition_year_min, edition_year_max, owner_id,
                                worktype_id, genre_id, publisher_id,
@@ -901,7 +937,7 @@ def api_stats_filterworks() -> Response:
     return make_api_response(stats_filterworks(
         language_id, orig_year_min, orig_year_max, edition_year_min,
         edition_year_max, owner_id, worktype_id, genre_id, publisher_id,
-        nationality_id, contributor_role_id, read_user_id))
+        nationality_id, contributor_role_id, read_user_id, publisher_first))
 
 
 @app.route('/api/stats/storiesbyyear', methods=['GET'])

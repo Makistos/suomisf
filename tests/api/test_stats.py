@@ -108,6 +108,42 @@ class TestWorksByYear(BaseAPITest):
                                                  response.json)
 
 
+class TestPublishersByYear(BaseAPITest):
+    """Tests for /api/stats/publishersbyyear endpoint."""
+
+    def test_get_publishersbyyear(self, api_client):
+        """GET /api/stats/publishersbyyear returns per-publisher year counts.
+
+        Also checks:
+        - Each (year, publisher) pair appears once.
+        - Drilling down with publisher_first=1 lists as many works as the
+          count says.
+        """
+        response = api_client.get('/api/stats/publishersbyyear')
+        response.assert_status(200)
+        data = response.json
+        assert isinstance(data, list)
+        if not data:
+            return
+        assert set(data[0]) == {'year', 'count', 'publisher_id',
+                                'publisher_name'}
+        pairs = [(d['year'], d['publisher_id']) for d in data]
+        assert len(pairs) == len(set(pairs))
+
+        row = max(data, key=lambda d: d['count'])
+        works = api_client.get(
+            f"/api/stats/filterworks?publisher={row['publisher_id']}"
+            f"&edition_year_min={row['year']}&edition_year_max={row['year']}"
+            "&publisher_first=1")
+        works.assert_status(200)
+        assert len(works.json) == row['count']
+
+    def test_get_publishersbyyear_unknown_genre(self, api_client):
+        """GET /api/stats/publishersbyyear with unknown genre returns 400."""
+        response = api_client.get('/api/stats/publishersbyyear?genre=XXX')
+        response.assert_status(400)
+
+
 class TestOrigWorksByYear(BaseAPITest):
     """Tests for /api/stats/origworksbyyear endpoint."""
 
