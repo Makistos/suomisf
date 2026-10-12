@@ -607,6 +607,94 @@ def stats_worksbyyear(genre: Optional[str] = None) -> ResponseType:
     return ResponseType(result, HttpResponseCode.OK.value)
 
 
+def stats_publishersbyyear(genre: Optional[str] = None) -> ResponseType:
+    """
+    Get count of works published by year, grouped by publisher.
+
+    Each work is counted once per publisher, in the year of that publisher's
+    earliest edition of it. Later printings or versions from the same
+    publisher are not counted again, but a version of the work published by
+    a different publisher is.
+
+    Args:
+        genre: Optional genre abbreviation (e.g., "SF", "F") to filter by.
+
+    Returns:
+        ResponseType: List of dicts, each containing:
+            - year: Year of the publisher's first edition of the work (int)
+            - count: Number of works (int)
+            - publisher_id: Publisher ID (int)
+            - publisher_name: Publisher short name (str)
+
+        Sorted by year ascending, then by publisher name. Editions without a
+        publisher are left out.
+    """
+    session = new_session()
+
+    try:
+        filter_genre_id = None
+        if genre:
+            genre_obj = session.query(Genre).filter(Genre.abbr == genre).first()
+            if genre_obj is None:
+                return ResponseType(f'Tuntematon genre: {genre}',
+                                    HttpResponseCode.BAD_REQUEST.value)
+            filter_genre_id = genre_obj.id
+
+        # Earliest edition year for each (work, publisher) pair.
+        firsts = session.query(
+            Edition.work_id.label('work_id'),
+            Edition.publisher_id.label('publisher_id'),
+            func.min(Edition.pubyear).label('year')
+        ).filter(
+            Edition.work_id.isnot(None),
+            Edition.publisher_id.isnot(None)
+        )
+        if filter_genre_id:
+            firsts = firsts.join(
+                WorkGenre, WorkGenre.work_id == Edition.work_id
+            ).filter(
+                WorkGenre.genre_id == filter_genre_id
+            )
+        firsts_sq = firsts.group_by(
+            Edition.work_id, Edition.publisher_id
+        ).subquery()
+
+        query = session.query(
+            firsts_sq.c.year,
+            func.count().label('count'),
+            Publisher.id.label('publisher_id'),
+            Publisher.name.label('publisher_name')
+        ).join(
+            Publisher, Publisher.id == firsts_sq.c.publisher_id
+        ).group_by(
+            firsts_sq.c.year,
+            Publisher.id,
+            Publisher.name
+        ).order_by(
+            firsts_sq.c.year,
+            Publisher.name
+        )
+        _log_query('stats_publishersbyyear', query)
+        results = query.all()
+
+        result = [
+            {
+                'year': r.year,
+                'count': r.count,
+                'publisher_id': r.publisher_id,
+                'publisher_name': r.publisher_name
+            }
+            for r in results if r.year is not None
+        ]
+
+    except SQLAlchemyError as exp:
+        app.logger.error(f'stats_publishersbyyear: Database error: {exp}')
+        return ResponseType('Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
 def stats_origworksbyyear() -> ResponseType:
     """
     Get count of original work publications by year, grouped by language.
@@ -1182,7 +1270,8 @@ def stats_filterworks(language_id: Optional[int] = None,
                       publisher_id: Optional[int] = None,
                       nationality_id: Optional[int] = None,
                       contributor_role_id: Optional[int] = None,
-                      read_user_id: Optional[int] = None) -> ResponseType:
+                      read_user_id: Optional[int] = None,
+                      publisher_first: bool = False) -> ResponseType:
     """
     Get works matching the given filters.
 
@@ -1208,6 +1297,10 @@ def stats_filterworks(language_id: Optional[int] = None,
         read_user_id: Optional user ID — restrict to works that user has
             marked read (userwork table). Work-level, independent of
             owner_id/editions.
+        publisher_first: With publisher_id and an edition year filter (and
+            no owner_id), match works whose earliest edition from that
+            publisher falls in the year range, instead of matching first
+            editions. Mirrors stats_publishersbyyear.
 
     Returns:
         ResponseType: List of works in WorkBriefSchema format.
@@ -1291,6 +1384,33 @@ def stats_filterworks(language_id: Optional[int] = None,
 
             if orig_year_max is not None:
                 query = query.filter(Work.pubyear <= orig_year_max)
+
+            query = query.distinct().order_by(Work.title)
+        elif publisher_first and publisher_id is not None and owner_id is None:
+            # Works whose earliest edition from this publisher is in range.
+            first_year = func.min(Edition.pubyear)
+            firsts = session.query(Edition.work_id).filter(
+                Edition.publisher_id == publisher_id
+            ).group_by(Edition.work_id)
+            if edition_year_min is not None:
+                firsts = firsts.having(first_year >= edition_year_min)
+            if edition_year_max is not None:
+                firsts = firsts.having(first_year <= edition_year_max)
+            query = session.query(Work).filter(Work.id.in_(firsts))
+
+            if language_id is not None:
+                query = query.filter(Work.language == language_id)
+
+            if worktype_id is not None:
+                query = query.filter(Work.type == worktype_id)
+
+            if genre_id is not None:
+                query = (query.join(WorkGenre, WorkGenre.work_id == Work.id)
+                         .filter(WorkGenre.genre_id == genre_id))
+
+            if read_user_id is not None:
+                query = (query.join(UserWork, UserWork.work_id == Work.id)
+                         .filter(UserWork.user_id == read_user_id))
 
             query = query.distinct().order_by(Work.title)
         else:
