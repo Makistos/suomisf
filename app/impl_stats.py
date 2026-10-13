@@ -1639,3 +1639,453 @@ def stats_storiesbyyear() -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType(result, HttpResponseCode.OK.value)
+
+
+# --- Statistics page, phase 2: editions and works over time -------------
+
+TRANSLATOR_ROLE_ID = 2
+TOP_LIST_LENGTH = 20
+
+
+class _UnknownGenre(Exception):
+    """Raised for a genre abbreviation that does not exist."""
+
+
+def _genre_id(session: Any, genre: Optional[str]) -> Optional[int]:
+    """Genre id for an abbreviation, None for no filter."""
+    if not genre:
+        return None
+    genre_obj = session.query(Genre).filter(Genre.abbr == genre).first()
+    if genre_obj is None:
+        raise _UnknownGenre(genre)
+    return genre_obj.id
+
+
+def _filter_editions_by_genre(query: Any, genre_id: Optional[int]) -> Any:
+    """Restrict a query that has Edition in it to works of a genre."""
+    if genre_id is None:
+        return query
+    return (query.join(WorkGenre, WorkGenre.work_id == Edition.work_id)
+            .filter(WorkGenre.genre_id == genre_id))
+
+
+def _filter_edition_years(query: Any, year_min: Optional[int],
+                          year_max: Optional[int]) -> Any:
+    """Restrict a query that has Edition in it to a range of years."""
+    if year_min is not None:
+        query = query.filter(Edition.pubyear >= year_min)
+    if year_max is not None:
+        query = query.filter(Edition.pubyear <= year_max)
+    return query
+
+
+def _quartiles(values: List[int]) -> Dict[str, float]:
+    """Lower quartile, median and upper quartile, interpolated linearly
+    between data points (as PostgreSQL's percentile_cont)."""
+    data = sorted(values)
+
+    def percentile(p: float) -> float:
+        pos = (len(data) - 1) * p
+        low = int(pos)
+        high = min(low + 1, len(data) - 1)
+        return data[low] + (data[high] - data[low]) * (pos - low)
+
+    return {'q1': percentile(0.25), 'median': percentile(0.5),
+            'q3': percentile(0.75)}
+
+
+def _stats_error(name: str, exp: Exception) -> ResponseType:
+    """Response for a failed stats query."""
+    if isinstance(exp, _UnknownGenre):
+        return ResponseType(f'Tuntematon genre: {exp}',
+                            HttpResponseCode.BAD_REQUEST.value)
+    app.logger.error(f'{name}: Database error: {exp}')
+    return ResponseType('Tietokantavirhe.',
+                        HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+
+
+def stats_translationlag(genre: Optional[str] = None,
+                         year_min: Optional[int] = None,
+                         year_max: Optional[int] = None) -> ResponseType:
+    """
+    Years from a work's original publication to its first Finnish edition.
+
+    Counts translated works only (original language known and not Finnish,
+    original year known). Works whose first edition predates the original
+    year (data errors) are left out. year_min and year_max limit the year
+    of the first Finnish edition (inclusive).
+
+    Returns:
+        ResponseType: Dict containing:
+            - total: Number of works counted (int)
+            - median: Median delay in years (float or None)
+            - histogram: [{"lag": years, "count": works}], every lag from
+              0 to the largest, empty ones included
+            - by_decade: [{"decade", "count", "q1", "median", "q3"}] by
+              the decade of the first Finnish edition
+    """
+    session = new_session()
+    try:
+        genre_id = _genre_id(session, genre)
+        finnish_id = (session.query(Language.id)
+                      .filter(Language.name == 'suomi').scalar())
+        first = (session.query(
+            Edition.work_id.label('work_id'),
+            func.min(Edition.pubyear).label('year'))
+            .group_by(Edition.work_id).subquery())
+        query = (session.query(Work.pubyear, first.c.year)
+                 .join(first, first.c.work_id == Work.id)
+                 .filter(Work.pubyear > 0,
+                         Work.language.isnot(None),
+                         first.c.year >= Work.pubyear))
+        if finnish_id is not None:
+            query = query.filter(Work.language != finnish_id)
+        if year_min is not None:
+            query = query.filter(first.c.year >= year_min)
+        if year_max is not None:
+            query = query.filter(first.c.year <= year_max)
+        if genre_id is not None:
+            query = (query.join(WorkGenre, WorkGenre.work_id == Work.id)
+                     .filter(WorkGenre.genre_id == genre_id))
+        _log_query('stats_translationlag', query)
+        rows = query.all()
+    except (SQLAlchemyError, _UnknownGenre) as exp:
+        return _stats_error('stats_translationlag', exp)
+
+    lags = [r.year - r.pubyear for r in rows]
+    counts: Dict[int, int] = {}
+    decades: Dict[int, List[int]] = {}
+    for r, lag in zip(rows, lags):
+        counts[lag] = counts.get(lag, 0) + 1
+        decades.setdefault(r.year // 10 * 10, []).append(lag)
+    histogram = [{'lag': lag, 'count': counts.get(lag, 0)}
+                 for lag in range(max(lags) + 1 if lags else 0)]
+    by_decade = [{'decade': d, 'count': len(v), **_quartiles(v)}
+                 for d, v in sorted(decades.items())]
+    result = {
+        'total': len(lags),
+        'median': _quartiles(lags)['median'] if lags else None,
+        'histogram': histogram,
+        'by_decade': by_decade,
+    }
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+def stats_editiontypes(genre: Optional[str] = None) -> ResponseType:
+    """
+    Editions per year split into first editions, new versions and reprints.
+
+    - first: first printing of a work's first version (version and
+      editionnum empty or 1)
+    - new_version: first printing of a later version (version > 1), e.g.
+      a new or revised translation
+    - reprint: any later printing (editionnum > 1)
+
+    Returns:
+        ResponseType: [{"year", "first", "new_version", "reprint"}] sorted
+        by year.
+    """
+    session = new_session()
+    try:
+        genre_id = _genre_id(session, genre)
+        first_print = or_(Edition.editionnum.is_(None),
+                          Edition.editionnum <= 1)
+        query = session.query(
+            Edition.pubyear,
+            func.count(Edition.id).filter(
+                and_(first_print, or_(Edition.version.is_(None),
+                                      Edition.version <= 1)))
+            .label('first'),
+            func.count(Edition.id).filter(
+                and_(first_print, Edition.version > 1)).label('new_version'),
+            func.count(Edition.id).filter(
+                Edition.editionnum > 1).label('reprint'))
+        query = _filter_editions_by_genre(query, genre_id)
+        query = (query.filter(Edition.pubyear > 0)
+                 .group_by(Edition.pubyear).order_by(Edition.pubyear))
+        _log_query('stats_editiontypes', query)
+        result = [{'year': r.pubyear, 'first': r.first,
+                   'new_version': r.new_version, 'reprint': r.reprint}
+                  for r in query.all()]
+    except (SQLAlchemyError, _UnknownGenre) as exp:
+        return _stats_error('stats_editiontypes', exp)
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+def stats_editionsperwork(genre: Optional[str] = None) -> ResponseType:
+    """
+    How many editions (printings of any version) works have.
+
+    Returns:
+        ResponseType: Dict containing:
+            - histogram: [{"editions": n, "works": works with n editions}]
+            - top: the TOP_LIST_LENGTH works with most editions,
+              [{"work_id", "title", "author", "year", "editions"}]
+    """
+    session = new_session()
+    try:
+        genre_id = _genre_id(session, genre)
+        counts = session.query(Edition.work_id,
+                               func.count(Edition.id).label('n'))
+        counts = _filter_editions_by_genre(counts, genre_id)
+        counts = (counts.filter(Edition.work_id.isnot(None))
+                  .group_by(Edition.work_id).subquery())
+        hist_query = (session.query(counts.c.n,
+                                    func.count().label('works'))
+                      .group_by(counts.c.n).order_by(counts.c.n))
+        _log_query('stats_editionsperwork (histogram)', hist_query)
+        histogram = [{'editions': r.n, 'works': r.works}
+                     for r in hist_query.all()]
+        top_query = (session.query(Work.id, Work.title, Work.author_str,
+                                   Work.pubyear, counts.c.n)
+                     .join(counts, counts.c.work_id == Work.id)
+                     .order_by(desc(counts.c.n), Work.title)
+                     .limit(TOP_LIST_LENGTH))
+        _log_query('stats_editionsperwork (top)', top_query)
+        top = [{'work_id': r.id, 'title': r.title, 'author': r.author_str,
+                'year': r.pubyear, 'editions': r.n}
+               for r in top_query.all()]
+    except (SQLAlchemyError, _UnknownGenre) as exp:
+        return _stats_error('stats_editionsperwork', exp)
+    return ResponseType({'histogram': histogram, 'top': top},
+                        HttpResponseCode.OK.value)
+
+
+def _translations(editions: List[Any]) -> List[Dict[str, Any]]:
+    """Group a work's translated editions into translations.
+
+    Editions sharing a translator belong to the same translation (a
+    revision by the original translator plus a co-translator stays one
+    translation). Returns [{"year", "translators"}] by first year.
+    """
+    groups: List[Dict[str, Any]] = []
+    for edition in editions:
+        people = set(edition['translators'])
+        touching = [g for g in groups if g['people'] & people]
+        merged = {'people': people, 'year': edition['year'],
+                  'names': dict(edition['names'])}
+        for g in touching:
+            merged['people'] |= g['people']
+            merged['year'] = min(merged['year'], g['year'])
+            merged['names'].update(g['names'])
+            groups.remove(g)
+        groups.append(merged)
+    groups.sort(key=lambda g: g['year'])
+    return [{'year': g['year'],
+             'translators': sorted(g['names'].values())} for g in groups]
+
+
+def stats_retranslations(genre: Optional[str] = None) -> ResponseType:
+    """
+    Works translated into Finnish more than once.
+
+    A work's editions are grouped into translations by their translators:
+    editions that share a translator are the same translation. A work with
+    two or more groups has been retranslated.
+
+    Returns:
+        ResponseType: Dict containing:
+            - translated_works: Works with a known translator (int)
+            - retranslated_works: Works with 2+ translations (int)
+            - by_year: [{"year", "count"}] new translations (each work's
+              second and later) by first edition year
+            - works: [{"work_id", "title", "author", "year",
+              "translations": [{"year", "translators"}]}], most
+              translations first, then by title
+    """
+    session = new_session()
+    try:
+        genre_id = _genre_id(session, genre)
+        query = (session.query(Edition.work_id, Edition.id, Edition.pubyear,
+                               Person.id.label('person_id'), Person.name)
+                 .join(EditionContributor,
+                       EditionContributor.edition_id == Edition.id)
+                 .join(Person, Person.id == EditionContributor.person_id)
+                 .filter(EditionContributor.role_id == TRANSLATOR_ROLE_ID,
+                         Edition.work_id.isnot(None)))
+        query = _filter_editions_by_genre(query, genre_id)
+        _log_query('stats_retranslations', query)
+        editions: Dict[int, Dict[int, Dict[str, Any]]] = {}
+        for r in query.all():
+            edition = editions.setdefault(r.work_id, {}).setdefault(
+                r.id, {'year': r.pubyear, 'translators': [], 'names': {}})
+            edition['translators'].append(r.person_id)
+            edition['names'][r.person_id] = r.name
+
+        retranslated = {}
+        for work_id, work_editions in editions.items():
+            translations = _translations(
+                sorted(work_editions.values(), key=lambda e: e['year']))
+            if len(translations) > 1:
+                retranslated[work_id] = translations
+
+        works_query = (session.query(Work.id, Work.title, Work.author_str,
+                                     Work.pubyear)
+                       .filter(Work.id.in_(list(retranslated))))
+        works = [{'work_id': w.id, 'title': w.title, 'author': w.author_str,
+                  'year': w.pubyear, 'translations': retranslated[w.id]}
+                 for w in works_query.all()]
+    except (SQLAlchemyError, _UnknownGenre) as exp:
+        return _stats_error('stats_retranslations', exp)
+
+    works.sort(key=lambda w: (-len(w['translations']), w['title']))
+    by_year: Dict[int, int] = {}
+    for w in works:
+        for t in w['translations'][1:]:
+            by_year[t['year']] = by_year.get(t['year'], 0) + 1
+    result = {
+        'translated_works': len(editions),
+        'retranslated_works': len(works),
+        'by_year': [{'year': y, 'count': c}
+                    for y, c in sorted(by_year.items())],
+        'works': works,
+    }
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+def stats_bindingsbyyear(genre: Optional[str] = None) -> ResponseType:
+    """
+    Editions per year by binding (all printings, not just first editions).
+
+    Returns:
+        ResponseType: [{"year", "count", "binding_id", "binding_name"}]
+        sorted by year, then binding id.
+    """
+    session = new_session()
+    try:
+        genre_id = _genre_id(session, genre)
+        query = session.query(Edition.pubyear,
+                              func.count(Edition.id).label('count'),
+                              BindingType.id.label('binding_id'),
+                              BindingType.name.label('binding_name'))
+        query = query.outerjoin(BindingType,
+                                BindingType.id == Edition.binding_id)
+        query = _filter_editions_by_genre(query, genre_id)
+        query = (query.filter(Edition.pubyear > 0)
+                 .group_by(Edition.pubyear, BindingType.id)
+                 .order_by(Edition.pubyear, BindingType.id))
+        _log_query('stats_bindingsbyyear', query)
+        result = [{'year': r.pubyear, 'count': r.count,
+                   'binding_id': r.binding_id,
+                   'binding_name': r.binding_name}
+                  for r in query.all()]
+    except (SQLAlchemyError, _UnknownGenre) as exp:
+        return _stats_error('stats_bindingsbyyear', exp)
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+def stats_pagesbyyear(genre: Optional[str] = None,
+                      by_decade: bool = False) -> ResponseType:
+    """
+    Page count quartiles of editions (all printings) per year or decade.
+
+    Returns:
+        ResponseType: [{"year", "count", "q1", "median", "q3"}] sorted by
+        year; with by_decade, "year" is the first year of the decade.
+    """
+    session = new_session()
+    try:
+        genre_id = _genre_id(session, genre)
+        year = (Edition.pubyear // 10 * 10 if by_decade
+                else Edition.pubyear).label('year')
+
+        def percentile(p: float) -> Any:
+            return func.percentile_cont(p).within_group(Edition.pages)
+
+        query = session.query(year, func.count(Edition.id).label('count'),
+                              percentile(0.25).label('q1'),
+                              percentile(0.5).label('median'),
+                              percentile(0.75).label('q3'))
+        query = _filter_editions_by_genre(query, genre_id)
+        query = (query.filter(Edition.pubyear > 0, Edition.pages > 0)
+                 .group_by(year).order_by(year))
+        _log_query('stats_pagesbyyear', query)
+        result = [{'year': r.year, 'count': r.count, 'q1': r.q1,
+                   'median': r.median, 'q3': r.q3} for r in query.all()]
+    except (SQLAlchemyError, _UnknownGenre) as exp:
+        return _stats_error('stats_pagesbyyear', exp)
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+PAGE_BUCKET = 50
+
+
+def stats_pagehistogram(genre: Optional[str] = None,
+                        year_min: Optional[int] = None,
+                        year_max: Optional[int] = None) -> ResponseType:
+    """
+    Distribution of edition page counts (all printings) and the thickest
+    editions, optionally for editions published in a range of years.
+
+    Returns:
+        ResponseType: Dict containing:
+            - bucket: Bucket width in pages (int)
+            - histogram: [{"pages": bucket start, "count"}], every bucket
+              from 0 to the largest, empty ones included
+            - thickest: [{"edition_id", "work_id", "title", "author",
+              "year", "pages"}], TOP_LIST_LENGTH thickest editions
+    """
+    session = new_session()
+    try:
+        genre_id = _genre_id(session, genre)
+        bucket = (Edition.pages // PAGE_BUCKET * PAGE_BUCKET).label('bucket')
+        query = session.query(bucket, func.count(Edition.id).label('count'))
+        query = _filter_editions_by_genre(query, genre_id)
+        query = _filter_edition_years(query, year_min, year_max)
+        query = (query.filter(Edition.pages > 0)
+                 .group_by(bucket).order_by(bucket))
+        _log_query('stats_pagehistogram', query)
+        counts = {r.bucket: r.count for r in query.all()}
+
+        thick = (session.query(Edition.id, Edition.work_id, Edition.title,
+                               Edition.pubyear, Edition.pages,
+                               Work.author_str)
+                 .outerjoin(Work, Work.id == Edition.work_id))
+        thick = _filter_editions_by_genre(thick, genre_id)
+        thick = _filter_edition_years(thick, year_min, year_max)
+        thick = (thick.filter(Edition.pages > 0)
+                 .order_by(desc(Edition.pages), Edition.title)
+                 .limit(TOP_LIST_LENGTH))
+        _log_query('stats_pagehistogram (thickest)', thick)
+        thickest = [{'edition_id': r.id, 'work_id': r.work_id,
+                     'title': r.title, 'author': r.author_str,
+                     'year': r.pubyear, 'pages': r.pages}
+                    for r in thick.all()]
+    except (SQLAlchemyError, _UnknownGenre) as exp:
+        return _stats_error('stats_pagehistogram', exp)
+
+    last = max(counts) if counts else -PAGE_BUCKET
+    histogram = [{'pages': b, 'count': counts.get(b, 0)}
+                 for b in range(0, last + 1, PAGE_BUCKET)]
+    return ResponseType({'bucket': PAGE_BUCKET, 'histogram': histogram,
+                         'thickest': thickest}, HttpResponseCode.OK.value)
+
+
+def stats_sizehistogram(genre: Optional[str] = None,
+                        year_min: Optional[int] = None,
+                        year_max: Optional[int] = None) -> ResponseType:
+    """
+    Distribution of edition heights in centimetres (all printings),
+    optionally for editions published in a range of years.
+
+    Returns:
+        ResponseType: [{"size": cm, "count"}] sorted by size, every
+        centimetre from the smallest to the largest included.
+    """
+    session = new_session()
+    try:
+        genre_id = _genre_id(session, genre)
+        query = session.query(Edition.size,
+                              func.count(Edition.id).label('count'))
+        query = _filter_editions_by_genre(query, genre_id)
+        query = _filter_edition_years(query, year_min, year_max)
+        query = (query.filter(Edition.size > 0)
+                 .group_by(Edition.size).order_by(Edition.size))
+        _log_query('stats_sizehistogram', query)
+        counts = {r.size: r.count for r in query.all()}
+    except (SQLAlchemyError, _UnknownGenre) as exp:
+        return _stats_error('stats_sizehistogram', exp)
+    result = ([{'size': s, 'count': counts.get(s, 0)}
+               for s in range(min(counts), max(counts) + 1)]
+              if counts else [])
+    return ResponseType(result, HttpResponseCode.OK.value)

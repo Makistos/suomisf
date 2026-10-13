@@ -26,7 +26,15 @@ from app.impl_stats import (
     stats_misc,
     stats_issuesperyear,
     stats_nationalitycounts,
-    stats_storynationalitycounts
+    stats_storynationalitycounts,
+    stats_translationlag,
+    stats_editiontypes,
+    stats_editionsperwork,
+    stats_retranslations,
+    stats_bindingsbyyear,
+    stats_pagesbyyear,
+    stats_pagehistogram,
+    stats_sizehistogram
 )
 from app import app
 
@@ -1014,3 +1022,107 @@ def api_stats_storiesbyyear() -> Response:
         500 Internal Server Error: Database error occurred.
     """
     return make_api_response(stats_storiesbyyear())
+
+
+# All endpoints below take an optional genre abbreviation (?genre=SF);
+# an unknown genre returns 400. Response shapes are documented in the
+# matching impl_stats functions.
+
+
+@app.route('/api/stats/translationlag', methods=['GET'])
+def api_stats_translationlag() -> Response:
+    """
+    Years from original publication to the first Finnish edition: a
+    histogram and quartiles by decade of the Finnish edition.
+
+    Endpoint: GET /api/stats/translationlag[?genre=][&start=][&end=]
+    start and end limit the year of the first Finnish edition.
+    """
+    genre = request.args.get('genre', default=None, type=str)
+    start = request.args.get('start', default=None, type=int)
+    end = request.args.get('end', default=None, type=int)
+    return make_api_response(stats_translationlag(genre, start, end))
+
+
+@app.route('/api/stats/editiontypes', methods=['GET'])
+def api_stats_editiontypes() -> Response:
+    """
+    Editions per year: first editions, new versions and reprints.
+
+    Endpoint: GET /api/stats/editiontypes[?genre=]
+    """
+    genre = request.args.get('genre', default=None, type=str)
+    return make_api_response(stats_editiontypes(genre))
+
+
+@app.route('/api/stats/editionsperwork', methods=['GET'])
+def api_stats_editionsperwork() -> Response:
+    """
+    Histogram of editions per work and the most printed works.
+
+    Endpoint: GET /api/stats/editionsperwork[?genre=]
+    """
+    genre = request.args.get('genre', default=None, type=str)
+    return make_api_response(stats_editionsperwork(genre))
+
+
+@app.route('/api/stats/retranslations', methods=['GET'])
+def api_stats_retranslations() -> Response:
+    """
+    Works translated into Finnish more than once.
+
+    Endpoint: GET /api/stats/retranslations[?genre=]
+    """
+    genre = request.args.get('genre', default=None, type=str)
+    return make_api_response(stats_retranslations(genre))
+
+
+@app.route('/api/stats/bindingsbyyear', methods=['GET'])
+def api_stats_bindingsbyyear() -> Response:
+    """
+    Editions per year by binding.
+
+    Endpoint: GET /api/stats/bindingsbyyear[?genre=]
+    """
+    genre = request.args.get('genre', default=None, type=str)
+    return make_api_response(stats_bindingsbyyear(genre))
+
+
+@app.route('/api/stats/pagesbyyear', methods=['GET'])
+def api_stats_pagesbyyear() -> Response:
+    """
+    Page count quartiles per year, or per decade with ?by=decade.
+
+    Endpoint: GET /api/stats/pagesbyyear[?genre=][&by=decade]
+    """
+    genre = request.args.get('genre', default=None, type=str)
+    by_decade = request.args.get('by', default='', type=str) == 'decade'
+    return make_api_response(stats_pagesbyyear(genre, by_decade))
+
+
+@app.route('/api/stats/pagehistogram', methods=['GET'])
+def api_stats_pagehistogram() -> Response:
+    """
+    Page count distribution and the thickest editions.
+
+    Endpoint: GET /api/stats/pagehistogram[?genre=][&start=][&end=]
+    start and end limit the edition year.
+    """
+    genre = request.args.get('genre', default=None, type=str)
+    start = request.args.get('start', default=None, type=int)
+    end = request.args.get('end', default=None, type=int)
+    return make_api_response(stats_pagehistogram(genre, start, end))
+
+
+@app.route('/api/stats/sizehistogram', methods=['GET'])
+def api_stats_sizehistogram() -> Response:
+    """
+    Distribution of edition heights in centimetres.
+
+    Endpoint: GET /api/stats/sizehistogram[?genre=][&start=][&end=]
+    start and end limit the edition year.
+    """
+    genre = request.args.get('genre', default=None, type=str)
+    start = request.args.get('start', default=None, type=int)
+    end = request.args.get('end', default=None, type=int)
+    return make_api_response(stats_sizehistogram(genre, start, end))

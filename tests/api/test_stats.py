@@ -511,3 +511,103 @@ class TestStatsPageParameters(BaseAPITest):
         """GET /api/stats/origworksbyyear with unknown genre returns 400."""
         response = api_client.get('/api/stats/origworksbyyear?genre=XXX')
         response.assert_status(400)
+
+
+class TestStatsEditionsAndWorks(BaseAPITest):
+    """Edition and work statistics (stats page, phase 2)."""
+
+    ENDPOINTS = ('translationlag', 'editiontypes', 'editionsperwork',
+                 'retranslations', 'bindingsbyyear', 'pagesbyyear',
+                 'pagehistogram', 'sizehistogram')
+
+    @pytest.mark.parametrize('name', ENDPOINTS)
+    def test_unknown_genre(self, api_client, name):
+        """Every endpoint returns 400 for an unknown genre."""
+        response = api_client.get(f'/api/stats/{name}?genre=XXX')
+        response.assert_status(400)
+
+    @pytest.mark.parametrize('name', ENDPOINTS)
+    def test_genre_filter(self, api_client, name):
+        """Every endpoint accepts a known genre."""
+        response = api_client.get(f'/api/stats/{name}?genre=SF')
+        response.assert_status(200)
+
+    def test_translationlag(self, api_client):
+        """Histogram sums to the total; quartiles are ordered.
+
+        Also checks:
+        - start/end narrow the works counted.
+        """
+        data = api_client.get('/api/stats/translationlag').json
+        assert sum(h['count'] for h in data['histogram']) == data['total']
+        assert [h['lag'] for h in data['histogram']] == \
+            list(range(len(data['histogram'])))
+        assert sum(d['count'] for d in data['by_decade']) == data['total']
+        for d in data['by_decade']:
+            assert d['q1'] <= d['median'] <= d['q3']
+        narrow = api_client.get(
+            '/api/stats/translationlag?start=2000&end=2009').json
+        assert narrow['total'] <= data['total']
+        assert all(d['decade'] == 2000 for d in narrow['by_decade'])
+
+    def test_editiontypes_sum_to_editions(self, api_client):
+        """First editions + new versions + reprints = editions with a year."""
+        rows = api_client.get('/api/stats/editiontypes').json
+        bindings = api_client.get('/api/stats/bindingsbyyear').json
+        total = sum(r['first'] + r['new_version'] + r['reprint']
+                    for r in rows)
+        assert total == sum(b['count'] for b in bindings)
+
+    def test_editionsperwork(self, api_client):
+        """Histogram is sorted; top list is ordered by edition count."""
+        data = api_client.get('/api/stats/editionsperwork').json
+        sizes = [h['editions'] for h in data['histogram']]
+        assert sizes == sorted(sizes)
+        counts = [t['editions'] for t in data['top']]
+        assert counts == sorted(counts, reverse=True)
+        assert len(data['top']) <= 20
+
+    def test_retranslations(self, api_client):
+        """Every listed work has 2+ translations in year order."""
+        data = api_client.get('/api/stats/retranslations').json
+        assert data['retranslated_works'] == len(data['works'])
+        assert data['retranslated_works'] <= data['translated_works']
+        for work in data['works']:
+            years = [t['year'] for t in work['translations']]
+            assert len(years) >= 2
+            assert years == sorted(years)
+        assert sum(r['count'] for r in data['by_year']) == \
+            sum(len(w['translations']) - 1 for w in data['works'])
+
+    def test_pagesbyyear_by_decade(self, api_client):
+        """Decade rows start on a decade and match yearly counts."""
+        yearly = api_client.get('/api/stats/pagesbyyear').json
+        decades = api_client.get('/api/stats/pagesbyyear?by=decade').json
+        assert all(r['year'] % 10 == 0 for r in decades)
+        assert sum(r['count'] for r in decades) == \
+            sum(r['count'] for r in yearly)
+        for r in decades:
+            assert r['q1'] <= r['median'] <= r['q3']
+
+    def test_page_and_size_histograms(self, api_client):
+        """Buckets are contiguous; thickest list is in page order."""
+        pages = api_client.get('/api/stats/pagehistogram').json
+        starts = [h['pages'] for h in pages['histogram']]
+        assert starts == list(range(0, len(starts) * pages['bucket'],
+                                    pages['bucket']))
+        thick = [t['pages'] for t in pages['thickest']]
+        assert thick == sorted(thick, reverse=True)
+        sizes = [h['size'] for h in
+                 api_client.get('/api/stats/sizehistogram').json]
+        if sizes:
+            assert sizes == list(range(sizes[0], sizes[-1] + 1))
+
+    def test_histograms_year_range(self, api_client):
+        """start/end narrow the page and size histograms."""
+        def total(path):
+            data = api_client.get(path).json
+            rows = data['histogram'] if isinstance(data, dict) else data
+            return sum(r['count'] for r in rows)
+        for name in ('pagehistogram', 'sizehistogram'):
+            assert total(f'/api/stats/{name}?start=1950&end=1959') <= \
+                total(f'/api/stats/{name}')
