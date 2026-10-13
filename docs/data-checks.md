@@ -1,7 +1,7 @@
 # Data checks
 
 `scripts/check_data.py` looks for data oddities: impossible values,
-probable duplicates, unused records, missing data and stray whitespace.
+probable duplicates, unused records and stray whitespace.
 Every check is a read-only query, so the script never changes anything.
 Run it after refreshing the dev database from production, and fix what it
 finds in production.
@@ -53,7 +53,7 @@ person_name      1234,5678   different people, born 1890 and 1952
 - **KEY** is the check's key (`--list`).
 - **ID** is how the script identifies the row: the first column it prints.
   Pair and kind checks use the first two columns joined with a comma
-  (`edition_number`, `alias_loop`, `link_twice`, `link_empty`,
+  (`edition_number`, `alias_loop`, `link_twice`,
   `spaces_other`), `story_order` three and `contributor_twice` four.
   Grouped checks (`person_name`, `story_title`, `tag_name`,
   `publisher_name`, `awarded_twice`, `issue_twice`) print the group's ids
@@ -74,7 +74,7 @@ it below.
 
 1. Refresh the dev database from production.
 2. Regenerate `docs/data-check-results.txt` (above) and look at the
-   diff and the summary line at the end ("N of 43 checks found
+   diff and the summary line at the end ("N of 34 checks found
    something").
 3. For each check with rows, decide whether the rows are errors (see the
    notes below: some results are expected).
@@ -121,16 +121,6 @@ it below.
 | `work_unused` | Works with no editions | |
 | `pubseries_unused`, `bookseries_unused`, `tag_unused` | Series and tags used by nothing | A series may be waiting for its books to be entered. |
 | `magazine_empty`, `issue_empty` | Magazines with no issues, issues with no contents | Often contents not entered yet rather than errors. |
-
-### Missing data
-
-These are gaps to fill rather than errors: `edition_no_publisher`,
-`edition_no_number`, `work_no_genre`, `work_no_author`, `story_no_author`,
-`author_no_nationality` (authors in the writer role),
-`person_no_name`, `link_empty` and `personimage_empty`.
-
-Missing nationalities and genres also leave those works out of the
-nationality and genre charts on the statistics page.
 
 ### Whitespace
 

@@ -1,6 +1,6 @@
 """
 Look for data oddities in the database: impossible values, probable
-duplicates, unused records and missing data.
+duplicates, unused records and stray whitespace.
 
 Every check is a read-only query; nothing is changed. Each prints how
 many rows it found and the first few of them. See docs/data-checks.md.
@@ -314,59 +314,6 @@ CHECKS: List[Check] = [
              WHERE NOT EXISTS (SELECT 1 FROM issuecontent c
                                WHERE c.issue_id = i.id)
              ORDER BY m.name, i.year, i.number"""),
-
-    # --- Missing data ---------------------------------------------------
-    Check('edition_no_publisher', 'Missing data',
-          'Editions with no publisher',
-          """SELECT id, title, pubyear FROM edition
-             WHERE publisher_id IS NULL ORDER BY pubyear"""),
-    Check('edition_no_number', 'Missing data',
-          'Editions with no edition number',
-          """SELECT id, title, pubyear FROM edition
-             WHERE editionnum IS NULL ORDER BY title"""),
-    Check('work_no_genre', 'Missing data',
-          'Works with no genre',
-          """SELECT w.id, w.title FROM work w
-             WHERE NOT EXISTS (SELECT 1 FROM workgenre g
-                               WHERE g.work_id = w.id)"""),
-    Check('work_no_author', 'Missing data',
-          'Works with no contributors',
-          """SELECT w.id, w.title FROM work w
-             WHERE NOT EXISTS (SELECT 1 FROM workcontributor c
-                               WHERE c.work_id = w.id)"""),
-    Check('story_no_author', 'Missing data',
-          'Short stories with no contributors',
-          """SELECT s.id, s.title FROM shortstory s
-             WHERE NOT EXISTS (SELECT 1 FROM storycontributor c
-                               WHERE c.shortstory_id = s.id)"""),
-    Check('author_no_nationality', 'Missing data',
-          'Authors of works with no nationality',
-          """SELECT p.id, p.name FROM person p
-             WHERE p.nationality_id IS NULL
-               AND EXISTS (SELECT 1 FROM workcontributor c
-                           WHERE c.person_id = p.id AND c.role_id = 1)
-             ORDER BY p.name"""),
-    Check('person_no_name', 'Missing data',
-          'People with an empty name',
-          """SELECT id, name, fullname FROM person
-             WHERE coalesce(btrim(name), '') = ''"""),
-    Check('link_empty', 'Missing data',
-          'Links with an empty URL',
-          """SELECT 'person' AS kind, person_id AS id FROM personlink
-             WHERE coalesce(btrim(link), '') = ''
-             UNION ALL
-             SELECT 'work', work_id FROM worklink
-             WHERE coalesce(btrim(link), '') = ''
-             UNION ALL
-             SELECT 'edition', edition_id FROM editionlink
-             WHERE coalesce(btrim(link), '') = ''
-             UNION ALL
-             SELECT 'publisher', publisher_id FROM publisherlink
-             WHERE coalesce(btrim(link), '') = ''""", 2),
-    Check('personimage_empty', 'Missing data',
-          'Person images with an empty file name',
-          """SELECT id, person_id FROM personimage
-             WHERE coalesce(btrim(src), '') = ''"""),
 
     # --- Whitespace -----------------------------------------------------
     Check('spaces_person', 'Whitespace',

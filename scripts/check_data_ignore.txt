@@ -3,9 +3,9 @@
 # One per line: KEY ID reason
 #   KEY    the check, as in --list
 #   ID     the row's id: the first column of the row the script prints;
-#          for edition_number, alias_loop, link_twice, link_empty and
+#          for edition_number, alias_loop, link_twice and
 #          spaces_other the first two columns joined with a comma (e.g.
-#          4918,8938 or person,7894); story_order three, contributor_twice
+#          4918,8938 or bookseries,600); story_order three, contributor_twice
 #          four. Grouped checks (person_name, story_title, tag_name, …)
 #          print the ids of the group first, e.g. 165,377.
 #   reason why the row is correct, so the next reader need not recheck it
