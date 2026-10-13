@@ -5,6 +5,20 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-10-13 — Publisher ids and genre counts in user statistics
+**Commits:** `b0bc74c4`
+The publisher breakdown in a user's collection and read statistics
+carries each publisher's id and a count per genre, so the frontend can
+filter it by genre and list a publisher's works.
+
+## 2026-10-12 — Publications per year by publisher
+**Commits:** `e8431722`
+New `/api/stats/publishersbyyear` counts works per year per publisher,
+each work once per publisher in the year of that publisher's earliest
+edition: reprints from the same publisher are left out, versions from
+other publishers counted. `/api/stats/filterworks` gains
+`publisher_first=1` so the drill-down lists exactly the counted works.
+
 ## 2026-10-05 — Database password no longer printed at startup
 **Commits:** `aa82614f`
 The app printed its full database URL, password included, every time it
