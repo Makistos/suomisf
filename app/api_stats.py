@@ -48,7 +48,10 @@ from app.impl_stats import (
     stats_pubseriescounts,
     stats_storychannels,
     stats_magazinestats,
-    stats_magazinecontents
+    stats_magazinecontents,
+    stats_awardcounts,
+    stats_awardlag,
+    stats_topawarded
 )
 from app import app
 
@@ -1315,3 +1318,35 @@ def api_stats_magazinecontents() -> Response:
     Endpoint: GET /api/stats/magazinecontents
     """
     return make_api_response(stats_magazinecontents())
+
+
+
+@app.route('/api/stats/awardcounts', methods=['GET'])
+def api_stats_awardcounts() -> Response:
+    """
+    Recorded winners per award (works, stories, people).
+
+    Endpoint: GET /api/stats/awardcounts
+    """
+    return make_api_response(stats_awardcounts())
+
+
+@app.route('/api/stats/awardlag', methods=['GET'])
+def api_stats_awardlag() -> Response:
+    """
+    Years from a foreign award to the first Finnish publication.
+
+    Endpoint: GET /api/stats/awardlag
+    """
+    return make_api_response(stats_awardlag())
+
+
+@app.route('/api/stats/topawarded', methods=['GET'])
+def api_stats_topawarded() -> Response:
+    """
+    People with most awards (personal and for their works).
+
+    Endpoint: GET /api/stats/topawarded[?count=20]
+    """
+    count = request.args.get('count', default=20, type=int)
+    return make_api_response(stats_topawarded(count))

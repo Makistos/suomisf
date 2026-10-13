@@ -13,7 +13,7 @@ from app.orm_decl import (
     Publisher, Person, ContributorRole, Issue, Language, BindingType,
     Country, ShortStory, StoryContributor, StoryType, UserBook, UserWork,
     Magazine, Awarded, EditionShortStory, IssueContent, Tag, TagType,
-    WorkTag, WorkType, Bookseries, Pubseries, MagazineType
+    WorkTag, WorkType, Bookseries, Pubseries, MagazineType, Award
 )
 from app.model import ShortBriefSchema, WorkBriefSchema
 from app.types import HttpResponseCode
@@ -2751,4 +2751,139 @@ def stats_magazinecontents() -> ResponseType:
         result = [dict(r._mapping) for r in session.execute(query)]
     except SQLAlchemyError as exp:
         return _stats_error('stats_magazinecontents', exp)
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+# --- Statistics page, phase 5: awards -----------------------------------
+#
+# Only winners that are in this database are recorded (the importer saves
+# matched works and stories), so every awarded work or story has been
+# published in Finnish.
+
+def stats_awardcounts() -> ResponseType:
+    """
+    Recorded winners per award.
+
+    Returns:
+        ResponseType: [{"id", "name", "domestic", "works", "stories",
+        "people", "total"}], most first. people are personal awards
+        (e.g. lifetime achievement).
+    """
+    session = new_session()
+    try:
+        query = (select(Award.id, Award.name, Award.domestic,
+                        func.count(Awarded.work_id).label('works'),
+                        func.count(Awarded.story_id).label('stories'),
+                        func.count(Awarded.person_id).label('people'),
+                        func.count(Awarded.id).label('total'))
+                 .join(Awarded, Awarded.award_id == Award.id)
+                 .group_by(Award.id)
+                 .order_by(desc('total'), Award.name))
+        _log_query('stats_awardcounts', query)
+        result = [dict(r._mapping) for r in session.execute(query)]
+    except SQLAlchemyError as exp:
+        return _stats_error('stats_awardcounts', exp)
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+def stats_awardlag() -> ResponseType:
+    """
+    Years from a foreign award to the winner's first Finnish publication
+    (works: earliest edition; stories: earliest edition or magazine
+    issue). Negative when the Finnish edition came first.
+
+    Returns:
+        ResponseType: Dict containing:
+            - total: Awarded works/stories counted (int)
+            - median: Median years (float or None)
+            - lags: [{"lag", "count"}] sorted by lag
+            - by_award: [{"id", "name", "count", "q1", "median", "q3"}],
+              most winners first
+    """
+    session = new_session()
+    try:
+        years = _item_years('all')
+        item = union_all(
+            select(Awarded.id.label('awarded_id'),
+                   literal('w', String).label('kind'),
+                   Awarded.work_id.label('item_id'))
+            .where(Awarded.work_id.isnot(None)),
+            select(Awarded.id, literal('s', String), Awarded.story_id)
+            .where(Awarded.story_id.isnot(None))).subquery()
+        query = (select(Award.id, Award.name,
+                        (years.c.year - Awarded.year).label('lag'))
+                 .select_from(item)
+                 .join(Awarded, Awarded.id == item.c.awarded_id)
+                 .join(Award, Award.id == Awarded.award_id)
+                 .join(years, and_(years.c.kind == item.c.kind,
+                                   years.c.item_id == item.c.item_id))
+                 .where(Award.domestic.isnot(True), Awarded.year > 0))
+        _log_query('stats_awardlag', query)
+        rows = session.execute(query).all()
+    except SQLAlchemyError as exp:
+        return _stats_error('stats_awardlag', exp)
+
+    lags = [r.lag for r in rows]
+    counts: Dict[int, int] = {}
+    awards: Dict[int, Dict[str, Any]] = {}
+    for r in rows:
+        counts[r.lag] = counts.get(r.lag, 0) + 1
+        awards.setdefault(r.id, {'id': r.id, 'name': r.name, 'lags': []})
+        awards[r.id]['lags'].append(r.lag)
+    by_award = sorted(
+        ({'id': a['id'], 'name': a['name'], 'count': len(a['lags']),
+          **_quartiles(a['lags'])} for a in awards.values()),
+        key=lambda a: (-a['count'], a['name']))
+    result = {
+        'total': len(lags),
+        'median': _quartiles(lags)['median'] if lags else None,
+        'lags': [{'lag': k, 'count': v} for k, v in sorted(counts.items())],
+        'by_award': by_award,
+    }
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+def stats_topawarded(count: int = TOP_LIST_LENGTH) -> ResponseType:
+    """
+    People with most recorded awards: personal awards plus awards for
+    works and stories they wrote (each awarded row once per person).
+
+    Returns:
+        ResponseType: [{"id", "name", "alt_name", "awards", "personal",
+        "works", "stories"}], most awards first, at most count rows.
+    """
+    session = new_session()
+    try:
+        winners = union(
+            select(Awarded.id.label('awarded_id'),
+                   Awarded.person_id.label('person_id'),
+                   literal('p', String).label('kind'))
+            .where(Awarded.person_id.isnot(None)),
+            select(Awarded.id, WorkContributor.person_id, literal('w', String))
+            .join(WorkContributor,
+                  WorkContributor.work_id == Awarded.work_id)
+            .where(WorkContributor.role_id == 1),
+            select(Awarded.id, StoryContributor.person_id,
+                   literal('s', String))
+            .join(StoryContributor,
+                  StoryContributor.shortstory_id == Awarded.story_id)
+            .where(StoryContributor.role_id == 1)).subquery()
+        query = (select(Person.id, Person.name, Person.alt_name,
+                        func.count(func.distinct(winners.c.awarded_id))
+                        .label('awards'),
+                        func.count().filter(winners.c.kind == 'p')
+                        .label('personal'),
+                        func.count().filter(winners.c.kind == 'w')
+                        .label('works'),
+                        func.count().filter(winners.c.kind == 's')
+                        .label('stories'))
+                 .select_from(winners)
+                 .join(Person, Person.id == winners.c.person_id)
+                 .group_by(Person.id)
+                 .order_by(desc('awards'), Person.name)
+                 .limit(count))
+        _log_query('stats_topawarded', query)
+        result = [dict(r._mapping) for r in session.execute(query)]
+    except SQLAlchemyError as exp:
+        return _stats_error('stats_topawarded', exp)
     return ResponseType(result, HttpResponseCode.OK.value)
