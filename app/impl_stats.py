@@ -13,7 +13,8 @@ from app.orm_decl import (
     Publisher, Person, ContributorRole, Issue, Language, BindingType,
     Country, ShortStory, StoryContributor, StoryType, UserBook, UserWork,
     Magazine, Awarded, EditionShortStory, IssueContent, Tag, TagType,
-    WorkTag, WorkType, Bookseries, Pubseries, MagazineType, Award
+    WorkTag, WorkType, Bookseries, Pubseries, MagazineType, Award,
+    EditionImage, PersonImage
 )
 from app.model import ShortBriefSchema, WorkBriefSchema
 from app.types import HttpResponseCode
@@ -2886,4 +2887,92 @@ def stats_topawarded(count: int = TOP_LIST_LENGTH) -> ResponseType:
         result = [dict(r._mapping) for r in session.execute(query)]
     except SQLAlchemyError as exp:
         return _stats_error('stats_topawarded', exp)
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+# --- Statistics page, phase 6: coverage ---------------------------------
+
+def stats_coverage() -> ResponseType:
+    """
+    How complete the bibliography's data is: for editions, works, people
+    and short stories, the total and how many have each detail recorded.
+
+    Returns:
+        ResponseType: Dict of groups, each {"total": int, <detail>: int}:
+            - editions: image, pages, isbn, size, binding, verified
+            - works: description, tags, genre, orig_year, language,
+              translator (translated works with a known translator;
+              translated = translated_works)
+            - people: birth_year, nationality, image, bio
+            - stories: year, language
+    """
+    session = new_session()
+    try:
+        def has(column: Any) -> Any:
+            return func.count(column).filter(column.isnot(None))
+
+        def exists_for(column: Any, key: Any, *extra: Any) -> Any:
+            return func.count().filter(
+                select(column).where(column == key, *extra).exists())
+
+        editions = session.execute(select(
+            func.count(Edition.id),
+            exists_for(EditionImage.edition_id, Edition.id,
+                       EditionImage.image_src != ''),
+            func.count().filter(Edition.pages > 0),
+            func.count().filter(func.coalesce(Edition.isbn, '') != ''),
+            func.count().filter(Edition.size > 0),
+            func.count().filter(Edition.binding_id > 1),
+            func.count().filter(Edition.verified.is_(True)))).one()
+
+        finnish_id = (session.query(Language.id)
+                      .filter(Language.name == 'suomi').scalar())
+        translated = and_(Work.language.isnot(None),
+                          Work.language != finnish_id)
+        translator_known = (
+            select(Edition.id)
+            .join(EditionContributor,
+                  EditionContributor.edition_id == Edition.id)
+            .where(Edition.work_id == Work.id,
+                   EditionContributor.role_id == TRANSLATOR_ROLE_ID)
+            .exists())
+        works = session.execute(select(
+            func.count(Work.id),
+            func.count().filter(func.coalesce(Work.description, '') != ''),
+            exists_for(WorkTag.work_id, Work.id),
+            exists_for(WorkGenre.work_id, Work.id),
+            func.count().filter(Work.pubyear > 0),
+            has(Work.language),
+            func.count().filter(translated),
+            func.count().filter(and_(translated, translator_known)))).one()
+
+        people = session.execute(select(
+            func.count(Person.id),
+            func.count().filter(Person.dob > 0),
+            has(Person.nationality_id),
+            exists_for(PersonImage.person_id, Person.id,
+                       PersonImage.src != ''),
+            func.count().filter(func.coalesce(Person.bio, '') != ''))).one()
+
+        stories = session.execute(select(
+            func.count(ShortStory.id),
+            func.count().filter(ShortStory.pubyear > 0),
+            has(ShortStory.language))).one()
+        _log_query('stats_coverage', 'coverage counts')
+    except SQLAlchemyError as exp:
+        return _stats_error('stats_coverage', exp)
+
+    def group(names: List[str], values: Any) -> Dict[str, int]:
+        return dict(zip(['total'] + names, (int(v) for v in values)))
+
+    result = {
+        'editions': group(['image', 'pages', 'isbn', 'size', 'binding',
+                           'verified'], editions),
+        'works': group(['description', 'tags', 'genre', 'orig_year',
+                        'language', 'translated_works', 'translator'],
+                       works),
+        'people': group(['birth_year', 'nationality', 'image', 'bio'],
+                        people),
+        'stories': group(['year', 'language'], stories),
+    }
     return ResponseType(result, HttpResponseCode.OK.value)

@@ -51,7 +51,8 @@ from app.impl_stats import (
     stats_magazinecontents,
     stats_awardcounts,
     stats_awardlag,
-    stats_topawarded
+    stats_topawarded,
+    stats_coverage
 )
 from app import app
 
@@ -1350,3 +1351,15 @@ def api_stats_topawarded() -> Response:
     """
     count = request.args.get('count', default=20, type=int)
     return make_api_response(stats_topawarded(count))
+
+
+
+@app.route('/api/stats/coverage', methods=['GET'])
+def api_stats_coverage() -> Response:
+    """
+    How many editions, works, people and stories have each detail
+    recorded (images, page counts, birth years…).
+
+    Endpoint: GET /api/stats/coverage
+    """
+    return make_api_response(stats_coverage())

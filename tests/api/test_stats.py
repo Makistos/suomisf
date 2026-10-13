@@ -779,3 +779,27 @@ class TestStatsAwards(BaseAPITest):
         assert awards == sorted(awards, reverse=True)
         for r in rows:
             assert r['personal'] + r['works'] + r['stories'] >= r['awards']
+
+
+class TestStatsCoverage(BaseAPITest):
+    """Data coverage (stats page, phase 6)."""
+
+    def test_coverage(self, api_client):
+        """Every detail count is between 0 and its group's total.
+
+        Also checks:
+        - Totals agree with /api/stats/misc.
+        - Translated works with a translator <= translated works.
+        """
+        data = api_client.get('/api/stats/coverage').json
+        assert set(data) == {'editions', 'works', 'people', 'stories'}
+        for group in data.values():
+            for key, value in group.items():
+                assert 0 <= value <= group['total'], key
+        misc = api_client.get('/api/stats/misc').json
+        assert data['editions']['total'] == misc['total_editions']
+        assert data['works']['total'] == misc['total_works']
+        assert data['people']['total'] == misc['total_people']
+        assert data['stories']['total'] == misc['total_stories']
+        works = data['works']
+        assert works['translator'] <= works['translated_works']
