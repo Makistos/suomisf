@@ -418,12 +418,13 @@ def stats_storypersoncounts(count: int = 10,
     return ResponseType(result, HttpResponseCode.OK.value)
 
 
-def stats_publishercounts(pub_count: int = 10) -> ResponseType:
+def stats_publishercounts(pub_count: Optional[int] = 10) -> ResponseType:
     """
     Get the biggest publishers with their work counts per genre.
 
     Args:
         pub_count: Number of top publishers to return. Default is 10.
+            None returns every publisher.
 
     Returns:
         ResponseType: List of dicts, each containing:
@@ -494,7 +495,7 @@ def stats_publishercounts(pub_count: int = 10) -> ResponseType:
 
             genre_dict = {genre_abbrs[pg.id]: pg.count for pg in pub_genres}
 
-            if idx < pub_count:
+            if pub_count is None or idx < pub_count:
                 result.append({
                     'id': pub_data.id,
                     'name': pub_data.name,
@@ -861,8 +862,10 @@ def stats_misc() -> ResponseType:
         # Headline counts for the overview tiles.
         total_stories = session.query(func.count(ShortStory.id)).scalar() or 0
         total_people = session.query(func.count(Person.id)).scalar() or 0
-        total_publishers = (session.query(func.count(Publisher.id))
-                            .scalar() or 0)
+        # Publishers of at least one edition, as on the publishers tab;
+        # magazine-only and unused publishers are left out.
+        total_publishers = (session.query(
+            func.count(func.distinct(Edition.publisher_id))).scalar() or 0)
         total_magazines = session.query(func.count(Magazine.id)).scalar() or 0
         total_issues = session.query(func.count(Issue.id)).scalar() or 0
         total_awarded = session.query(func.count(Awarded.id)).scalar() or 0
@@ -2476,9 +2479,10 @@ TAG_COUNT = 30
 
 def stats_tagcounts(type_id: Optional[int] = None,
                     genre: Optional[str] = None,
-                    count: int = TAG_COUNT) -> ResponseType:
+                    count: Optional[int] = TAG_COUNT) -> ResponseType:
     """
-    The most common work tags, optionally of one tag type.
+    The most common work tags, optionally of one tag type. count None
+    returns every tag.
 
     Returns:
         ResponseType: Dict containing:
@@ -2549,15 +2553,16 @@ def stats_tagsbydecade(type_id: Optional[int] = None,
     return ResponseType(result, HttpResponseCode.OK.value)
 
 
-def stats_bookseries(genre: Optional[str] = None) -> ResponseType:
+def stats_bookseries(genre: Optional[str] = None,
+                     count: Optional[int] = TOP_LIST_LENGTH) -> ResponseType:
     """
     Book series: the longest, and the share of works in a series by the
     year of their earliest edition.
 
     Returns:
         ResponseType: Dict containing:
-            - longest: [{"id", "name", "works"}] TOP_LIST_LENGTH series
-              with most works
+            - longest: [{"id", "name", "works"}] the count series with
+              most works (every series if count is None)
             - by_year: [{"year", "total", "in_series"}] sorted by year
     """
     session = new_session()
@@ -2569,7 +2574,7 @@ def stats_bookseries(genre: Optional[str] = None) -> ResponseType:
         longest = _where_genre(longest, Work.id, genre_id)
         longest = (longest.group_by(Bookseries.id, Bookseries.name)
                    .order_by(desc('works'), Bookseries.name)
-                   .limit(TOP_LIST_LENGTH))
+                   .limit(count))
         _log_query('stats_bookseries (longest)', longest)
         first = _first_years()
         by_year = (select(first.c.year,
@@ -2591,7 +2596,9 @@ def stats_bookseries(genre: Optional[str] = None) -> ResponseType:
 
 # --- Statistics page, phase 4: publishers, stories and magazines -------
 
-def stats_pubseriescounts(genre: Optional[str] = None) -> ResponseType:
+def stats_pubseriescounts(genre: Optional[str] = None,
+                          count: Optional[int] = TOP_LIST_LENGTH
+                          ) -> ResponseType:
     """
     Publisher series: how many editions belong to one, and the largest.
 
@@ -2600,7 +2607,8 @@ def stats_pubseriescounts(genre: Optional[str] = None) -> ResponseType:
             - editions: Editions counted (int)
             - in_series: Of those, editions in a publisher series (int)
             - series: [{"id", "name", "publisher_id", "publisher_name",
-              "editions"}] TOP_LIST_LENGTH largest series
+              "editions"}] the count largest series (every series if
+              count is None)
     """
     session = new_session()
     try:
@@ -2618,7 +2626,7 @@ def stats_pubseriescounts(genre: Optional[str] = None) -> ResponseType:
         query = _where_genre(query, Edition.work_id, genre_id)
         query = (query.group_by(Pubseries.id, Publisher.id)
                  .order_by(desc('editions'), Pubseries.name)
-                 .limit(TOP_LIST_LENGTH))
+                 .limit(count))
         _log_query('stats_pubseriescounts', query)
         series = [dict(r._mapping) for r in session.execute(query)]
     except (SQLAlchemyError, _UnknownGenre) as exp:
