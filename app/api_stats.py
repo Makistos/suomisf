@@ -44,7 +44,11 @@ from app.impl_stats import (
     stats_genresbyyear,
     stats_tagcounts,
     stats_tagsbydecade,
-    stats_bookseries
+    stats_bookseries,
+    stats_pubseriescounts,
+    stats_storychannels,
+    stats_magazinestats,
+    stats_magazinecontents
 )
 from app import app
 
@@ -1267,3 +1271,47 @@ def api_stats_bookseries() -> Response:
     """
     genre = request.args.get('genre', default=None, type=str)
     return make_api_response(stats_bookseries(genre))
+
+
+
+@app.route('/api/stats/pubseriescounts', methods=['GET'])
+def api_stats_pubseriescounts() -> Response:
+    """
+    Share of editions in a publisher series, and the largest series.
+
+    Endpoint: GET /api/stats/pubseriescounts[?genre=]
+    """
+    genre = request.args.get('genre', default=None, type=str)
+    return make_api_response(stats_pubseriescounts(genre))
+
+
+@app.route('/api/stats/storychannels', methods=['GET'])
+def api_stats_storychannels() -> Response:
+    """
+    Stories by first Finnish appearance: magazine, collection or
+    anthology, per year.
+
+    Endpoint: GET /api/stats/storychannels[?storytype=]
+    """
+    storytype = request.args.get('storytype', default=None, type=int)
+    return make_api_response(stats_storychannels(storytype))
+
+
+@app.route('/api/stats/magazinestats', methods=['GET'])
+def api_stats_magazinestats() -> Response:
+    """
+    Magazines with their publishing years, issue and story counts.
+
+    Endpoint: GET /api/stats/magazinestats
+    """
+    return make_api_response(stats_magazinestats())
+
+
+@app.route('/api/stats/magazinecontents', methods=['GET'])
+def api_stats_magazinecontents() -> Response:
+    """
+    Magazine contents by issue year and story type.
+
+    Endpoint: GET /api/stats/magazinecontents
+    """
+    return make_api_response(stats_magazinecontents())

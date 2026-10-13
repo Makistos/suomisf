@@ -1,7 +1,7 @@
 """Functions related to statistics."""
 from typing import Any, Dict, List, Optional
 from sqlalchemy import (and_, func, desc, or_, select, union, union_all,
-                        literal, String)
+                        literal, case, String)
 from sqlalchemy.orm import selectinload
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
@@ -13,7 +13,7 @@ from app.orm_decl import (
     Publisher, Person, ContributorRole, Issue, Language, BindingType,
     Country, ShortStory, StoryContributor, StoryType, UserBook, UserWork,
     Magazine, Awarded, EditionShortStory, IssueContent, Tag, TagType,
-    WorkTag, WorkType, Bookseries
+    WorkTag, WorkType, Bookseries, Pubseries, MagazineType
 )
 from app.model import ShortBriefSchema, WorkBriefSchema
 from app.types import HttpResponseCode
@@ -2585,4 +2585,170 @@ def stats_bookseries(genre: Optional[str] = None) -> ResponseType:
         }
     except (SQLAlchemyError, _UnknownGenre) as exp:
         return _stats_error('stats_bookseries', exp)
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+# --- Statistics page, phase 4: publishers, stories and magazines -------
+
+def stats_pubseriescounts(genre: Optional[str] = None) -> ResponseType:
+    """
+    Publisher series: how many editions belong to one, and the largest.
+
+    Returns:
+        ResponseType: Dict containing:
+            - editions: Editions counted (int)
+            - in_series: Of those, editions in a publisher series (int)
+            - series: [{"id", "name", "publisher_id", "publisher_name",
+              "editions"}] TOP_LIST_LENGTH largest series
+    """
+    session = new_session()
+    try:
+        genre_id = _genre_id(session, genre)
+        totals = select(func.count(Edition.id),
+                        func.count(Edition.pubseries_id))
+        totals = _where_genre(totals, Edition.work_id, genre_id)
+        editions, in_series = session.execute(totals).one()
+        query = (select(Pubseries.id, Pubseries.name,
+                        Publisher.id.label('publisher_id'),
+                        Publisher.name.label('publisher_name'),
+                        func.count(Edition.id).label('editions'))
+                 .join(Edition, Edition.pubseries_id == Pubseries.id)
+                 .outerjoin(Publisher, Publisher.id == Pubseries.publisher_id))
+        query = _where_genre(query, Edition.work_id, genre_id)
+        query = (query.group_by(Pubseries.id, Publisher.id)
+                 .order_by(desc('editions'), Pubseries.name)
+                 .limit(TOP_LIST_LENGTH))
+        _log_query('stats_pubseriescounts', query)
+        series = [dict(r._mapping) for r in session.execute(query)]
+    except (SQLAlchemyError, _UnknownGenre) as exp:
+        return _stats_error('stats_pubseriescounts', exp)
+    return ResponseType({'editions': editions, 'in_series': in_series,
+                         'series': series}, HttpResponseCode.OK.value)
+
+
+def stats_storychannels(storytype_id: Optional[int] = None) -> ResponseType:
+    """
+    Stories by where they first appeared in Finnish: a magazine, a
+    single-author collection or an anthology (a book with stories by
+    several authors), by the year of that first appearance. When a story
+    first appeared in a magazine and a book in the same year, the magazine
+    counts.
+
+    Returns:
+        ResponseType: [{"year", "channel" ("magazine", "collection" or
+        "anthology"), "count"}] sorted by year.
+    """
+    session = new_session()
+    try:
+        # Books whose stories have more than one author are anthologies.
+        authors = (select(EditionShortStory.edition_id.label('edition_id'),
+                          func.count(func.distinct(StoryContributor.person_id))
+                          .label('authors'))
+                   .join(StoryContributor,
+                         StoryContributor.shortstory_id ==
+                         EditionShortStory.shortstory_id)
+                   .where(StoryContributor.role_id == 1)
+                   .group_by(EditionShortStory.edition_id).subquery())
+        places = union_all(
+            select(EditionShortStory.shortstory_id.label('story_id'),
+                   Edition.pubyear.label('year'),
+                   # 0 = magazine, 1 = collection, 2 = anthology; lowest
+                   # wins in a tie.
+                   case((authors.c.authors > 1, 2), else_=1)
+                   .label('channel'))
+            .join(Edition, Edition.id == EditionShortStory.edition_id)
+            .outerjoin(authors,
+                       authors.c.edition_id == EditionShortStory.edition_id),
+            select(IssueContent.shortstory_id, Issue.year, literal(0))
+            .join(Issue, Issue.id == IssueContent.issue_id)
+            .where(IssueContent.shortstory_id.isnot(None))).subquery()
+        first = (select(places.c.story_id,
+                        func.min(places.c.year).label('year'))
+                 .where(places.c.year > 0)
+                 .group_by(places.c.story_id).subquery())
+        firsts = (select(first.c.story_id, first.c.year,
+                         func.min(places.c.channel).label('channel'))
+                  .join(places, and_(places.c.story_id == first.c.story_id,
+                                     places.c.year == first.c.year))
+                  .group_by(first.c.story_id, first.c.year))
+        if storytype_id is not None:
+            firsts = (firsts.join(ShortStory,
+                                  ShortStory.id == first.c.story_id)
+                      .where(ShortStory.story_type == storytype_id))
+        firsts = firsts.subquery()
+        query = (select(firsts.c.year, firsts.c.channel,
+                        func.count().label('count'))
+                 .group_by(firsts.c.year, firsts.c.channel)
+                 .order_by(firsts.c.year, firsts.c.channel))
+        _log_query('stats_storychannels', query)
+        names = {0: 'magazine', 1: 'collection', 2: 'anthology'}
+        result = [{'year': r.year, 'channel': names[r.channel],
+                   'count': r.count} for r in session.execute(query)]
+    except SQLAlchemyError as exp:
+        return _stats_error('stats_storychannels', exp)
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+def stats_magazinestats() -> ResponseType:
+    """
+    Every magazine with issues: years published, issue and story counts.
+
+    Returns:
+        ResponseType: [{"id", "name", "type", "first", "last", "issues",
+        "stories"}], most issues first. first/last are the earliest and
+        latest issue year (None when no issue has a year).
+    """
+    session = new_session()
+    try:
+        stories = (select(Issue.magazine_id.label('magazine_id'),
+                          func.count(func.distinct(
+                              IssueContent.shortstory_id)).label('stories'))
+                   .join(IssueContent, IssueContent.issue_id == Issue.id)
+                   .group_by(Issue.magazine_id).subquery())
+        year = func.nullif(Issue.year, 0)
+        query = (select(Magazine.id, Magazine.name,
+                        MagazineType.name.label('type'),
+                        func.min(year).label('first'),
+                        func.max(year).label('last'),
+                        func.count(Issue.id).label('issues'),
+                        func.coalesce(func.max(stories.c.stories), 0)
+                        .label('stories'))
+                 .join(Issue, Issue.magazine_id == Magazine.id)
+                 .outerjoin(MagazineType, MagazineType.id == Magazine.type_id)
+                 .outerjoin(stories, stories.c.magazine_id == Magazine.id)
+                 .group_by(Magazine.id, MagazineType.name)
+                 .order_by(desc('issues'), Magazine.name))
+        _log_query('stats_magazinestats', query)
+        result = [dict(r._mapping) for r in session.execute(query)]
+    except SQLAlchemyError as exp:
+        return _stats_error('stats_magazinestats', exp)
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+def stats_magazinecontents() -> ResponseType:
+    """
+    Magazine contents (stories, articles, flash fiction…) by issue year
+    and story type. A text in several issues counts in each.
+
+    Returns:
+        ResponseType: [{"year", "count", "storytype_id",
+        "storytype_name"}] sorted by year.
+    """
+    session = new_session()
+    try:
+        query = (select(Issue.year, func.count(IssueContent.id)
+                        .label('count'),
+                        StoryType.id.label('storytype_id'),
+                        StoryType.name.label('storytype_name'))
+                 .join(IssueContent, IssueContent.issue_id == Issue.id)
+                 .join(ShortStory,
+                       ShortStory.id == IssueContent.shortstory_id)
+                 .outerjoin(StoryType, StoryType.id == ShortStory.story_type)
+                 .where(Issue.year > 0)
+                 .group_by(Issue.year, StoryType.id, StoryType.name)
+                 .order_by(Issue.year))
+        _log_query('stats_magazinecontents', query)
+        result = [dict(r._mapping) for r in session.execute(query)]
+    except SQLAlchemyError as exp:
+        return _stats_error('stats_magazinecontents', exp)
     return ResponseType(result, HttpResponseCode.OK.value)

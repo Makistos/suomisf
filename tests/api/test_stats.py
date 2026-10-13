@@ -706,3 +706,47 @@ class TestStatsPeopleAndContent(BaseAPITest):
         data = api_client.get('/api/stats/bookseries').json
         assert len(data['longest']) <= 20
         assert all(r['in_series'] <= r['total'] for r in data['by_year'])
+
+
+class TestStatsPublishersStoriesMagazines(BaseAPITest):
+    """Publisher, story and magazine statistics (stats page, phase 4)."""
+
+    def test_pubseriescounts(self, api_client):
+        """Series editions never exceed all editions; genre narrows."""
+        data = api_client.get('/api/stats/pubseriescounts').json
+        assert data['in_series'] <= data['editions']
+        assert len(data['series']) <= 20
+        sf = api_client.get('/api/stats/pubseriescounts?genre=SF').json
+        assert sf['editions'] <= data['editions']
+        response = api_client.get('/api/stats/pubseriescounts?genre=XXX')
+        response.assert_status(400)
+
+    def test_storychannels(self, api_client):
+        """Each story counts once, in one of three channels.
+
+        Also checks:
+        - A story type filter counts fewer or as many stories.
+        """
+        rows = api_client.get('/api/stats/storychannels').json
+        assert {r['channel'] for r in rows} <= {
+            'magazine', 'collection', 'anthology'}
+        keys = [(r['year'], r['channel']) for r in rows]
+        assert len(keys) == len(set(keys))
+        novels = api_client.get('/api/stats/storychannels?storytype=1').json
+        assert sum(r['count'] for r in novels) <= \
+            sum(r['count'] for r in rows)
+
+    def test_magazinestats(self, api_client):
+        """Issue counts add up to issuesperyear; years are ordered."""
+        rows = api_client.get('/api/stats/magazinestats').json
+        totals = api_client.get('/api/stats/issuesperyear').json
+        assert sum(r['issues'] for r in rows) == \
+            sum(t['count'] for t in totals)
+        for r in rows:
+            if r['first'] is not None:
+                assert r['first'] <= r['last']
+
+    def test_magazinecontents(self, api_client):
+        """Rows have a year."""
+        rows = api_client.get('/api/stats/magazinecontents').json
+        assert all(r['year'] > 0 for r in rows)
