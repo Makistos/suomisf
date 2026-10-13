@@ -7,6 +7,7 @@ publisher statistics, publication trends over time, and miscellaneous metrics.
 
 All endpoints return JSON responses with appropriate HTTP status codes.
 """
+from typing import Optional
 from flask import request
 from flask.wrappers import Response
 from app.api_helpers import make_api_response
@@ -55,6 +56,21 @@ from app.impl_stats import (
     stats_coverage
 )
 from app import app
+
+
+def _count_arg(default: int) -> Optional[int]:
+    """
+    The count query parameter: a positive number of rows, or "all" for
+    every row (None). Anything else gives the default.
+    """
+    value = request.args.get('count', default=None, type=str)
+    if value == 'all':
+        return None
+    try:
+        count = int(value) if value is not None else default
+    except ValueError:
+        return default
+    return count if count > 0 else default
 
 
 @app.route('/api/stats/genrecounts', methods=['GET'])
@@ -274,8 +290,9 @@ def api_stats_publishercounts() -> Response:
     Endpoint: GET /api/stats/publishercounts
 
     Query Parameters:
-        count (int, optional): Number of top publishers to return. Default: 10.
-                               Must be a positive integer.
+        count (int|"all", optional): Number of top publishers to return.
+                               Default: 10. "all" returns every publisher
+                               (and an empty "Muut").
 
     Returns:
         200 OK: JSON array of publisher objects sorted by total edition count
@@ -328,9 +345,7 @@ def api_stats_publishercounts() -> Response:
 
         500 Internal Server Error: Database error occurred.
     """
-    pub_count = request.args.get('count', default=10, type=int)
-    if pub_count < 1:
-        pub_count = 10
+    pub_count = _count_arg(10)
     return make_api_response(stats_publishercounts(pub_count))
 
 
@@ -1245,11 +1260,11 @@ def api_stats_tagcounts() -> Response:
     """
     Most common work tags, optionally of one tag type.
 
-    Endpoint: GET /api/stats/tagcounts[?type=][&genre=][&count=30]
+    Endpoint: GET /api/stats/tagcounts[?type=][&genre=][&count=30|all]
     """
     type_id = request.args.get('type', default=None, type=int)
     genre = request.args.get('genre', default=None, type=str)
-    count = request.args.get('count', default=30, type=int)
+    count = _count_arg(30)
     return make_api_response(stats_tagcounts(type_id, genre, count))
 
 
@@ -1271,10 +1286,10 @@ def api_stats_bookseries() -> Response:
     """
     Longest book series and the share of works in a series per year.
 
-    Endpoint: GET /api/stats/bookseries[?genre=]
+    Endpoint: GET /api/stats/bookseries[?genre=][&count=20|all]
     """
     genre = request.args.get('genre', default=None, type=str)
-    return make_api_response(stats_bookseries(genre))
+    return make_api_response(stats_bookseries(genre, _count_arg(20)))
 
 
 
@@ -1283,10 +1298,10 @@ def api_stats_pubseriescounts() -> Response:
     """
     Share of editions in a publisher series, and the largest series.
 
-    Endpoint: GET /api/stats/pubseriescounts[?genre=]
+    Endpoint: GET /api/stats/pubseriescounts[?genre=][&count=20|all]
     """
     genre = request.args.get('genre', default=None, type=str)
-    return make_api_response(stats_pubseriescounts(genre))
+    return make_api_response(stats_pubseriescounts(genre, _count_arg(20)))
 
 
 @app.route('/api/stats/storychannels', methods=['GET'])

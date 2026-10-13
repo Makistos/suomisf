@@ -477,6 +477,9 @@ class TestStatsPageParameters(BaseAPITest):
         for key in ('total_stories', 'total_people', 'total_publishers',
                     'total_magazines', 'total_issues', 'total_awarded'):
             assert isinstance(response.json[key], int), key
+        publishers = api_client.get(
+            '/api/stats/publishercounts?count=all').json
+        assert response.json['total_publishers'] == len(publishers) - 1
 
     def test_issuesperyear_by_magazine(self, api_client):
         """GET /api/stats/issuesperyear?by=magazine splits years by magazine.
@@ -695,6 +698,25 @@ class TestStatsPeopleAndContent(BaseAPITest):
         assert len(data['tags']) <= 5
         rows = api_client.get('/api/stats/tagsbydecade?count=3').json
         assert len({r['tag_id'] for r in rows}) <= 3
+
+    def test_count_all(self, api_client):
+        """count=all returns every row; a bad count gives the default."""
+        top = api_client.get('/api/stats/tagcounts').json['tags']
+        every = api_client.get('/api/stats/tagcounts?count=all').json['tags']
+        assert len(top) <= 30 <= len(every)
+        assert every[:len(top)] == top
+        bad = api_client.get('/api/stats/tagcounts?count=x').json['tags']
+        assert bad == top
+        for path, key in (('bookseries', 'longest'),
+                          ('pubseriescounts', 'series')):
+            top = api_client.get(f'/api/stats/{path}').json[key]
+            every = api_client.get(
+                f'/api/stats/{path}?count=all').json[key]
+            assert len(top) <= 20 <= len(every)
+            assert every[:len(top)] == top
+        pubs = api_client.get('/api/stats/publishercounts?count=all').json
+        assert pubs[-1]['name'] == 'Muut' and pubs[-1]['total'] == 0
+        assert len(pubs) > 101
 
     def test_genresbyyear(self, api_client):
         """Rows have a year and a genre."""
