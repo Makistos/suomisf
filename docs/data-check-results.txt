@@ -1,0 +1,366 @@
+Data checks 2026-10-13
+
+=== Wrong values ===
+
+[edition_year] Editions with a missing or impossible year (before 1850 or in the future): 0
+
+[edition_pages] Editions with fewer than 10 or more than 2000 pages (often a year typed as pages): 0
+
+[edition_before_work] Editions published before the original work: 2
+    2210 | Taikaruusun maa | 2006 | 1915 | 2007
+    3038 | Nenä ja muut pietarilaisnovellit | 2016 | 2642 | 2019
+
+[work_year] Works with an impossible original year: 0
+
+[isbn_format] ISBNs without 10 or 13 digits: 3
+    6675 | Sputnik-rakastettuni | 97951-31-6297-9
+    2881 | Urania | 9952-5132-97-7
+    5012 | Dona Flor ja hänen kaksi aviomiestään | 951-643-253-
+
+[person_dates] People who died before they were born, lived over 110 years or are born in the future: 0
+
+[issue_year] Magazine issues with a missing or impossible year: 2
+    1032 | Aikalisä | 2 | 0
+    908 | Aikalisä | 1 | 0
+
+[lookup_ids] Editions pointing to a binding, format or size that does not exist: 0
+
+=== Probable duplicates ===
+
+[edition_number] Editions of the same work and version sharing an edition number. Allowed: a paperback and a hardback of the same year. "same" marks pairs with equal publisher, year, ISBN and binding: almost certainly one book entered twice: 52
+    5108 | 6169 | Avaruuden merivirrat | 1 | 1978 | 1978 | 3 | 3 | 951-0-08862-5 | 951-0-08862-5 | same
+    4918 | 8938 | Kummituspalatsi, 1 nide | 1 | 1917 | 1917 | 2 | 2 |  |  | same
+    8919 | 8920 | Norderneyn tuhotulva ja kolme muuta salaperäistä tarinaa | 1 | 1965 | 1965 | 2 | 2 |  |  | same
+    4749 | 10150 | Synkkä metsä | 1 | 2019 | 2019 | 3 | 3 | 978-952-7269-89-3 | 978-952-7269-89-3 | same
+    4765 | 8144 | Tähtivaeltaja 1 | 1 | 1970 | 1970 | 3 | 3 |  |  | same
+    8972 | 8973 | Thelma. Edellinen osa | 3 | 1938 | 1938 | 1 | 1 |  |  | same
+    4259 | 8060 | Tukikohta 1 | 1 | 1990 | 1990 | 2 | 2 | 951-611-370-2 | 951-611-370-2 | same
+    2593 | 6950 | Valtameren salaisuus | 1 | 1915 | 1915 | 2 | 2 |  |  | same
+    5360 | 7066 | Avalonin usvat, I nide | 1 | 1987 | 1987 | 3 | 3 | 951-643-261-1 | 951-643-262-X | 
+    2833 | 9007 | Häkkilintu 1 | 1 | 1989 | 1989 | 3 | 3 | 951-20-3568-5 | 951-20-3569-3 | 
+    5757 | 9064 | Jonathan Strange ja herra Norrell | 1 | 2005 | 2005 | 3 | 3 | 951-0-30847-1 | 951-0-30919-2 | 
+    8004 | 10178 | Kammoittava kreivi | 7 | 2023 | 2014 | 2 | 2 | 978-951-1-24498-1 | 978-951-1-24498-1 | 
+    3954 | 9669 | Kapinalliset | 1 | 2016 | 2017 | 3 | 2 | 978-91-509-0958-6 | 978-91-509-2695-8 | 
+    3955 | 9671 | Legioona | 1 | 2017 | 2018 | 3 | 2 | 978-91-509-2660-6 | 978-91-509-3554-7 | 
+    3956 | 9667 | Lohikäärmeet | 1 | 2016 | 2017 | 3 | 2 | 978-91-509-0866-4 | 978-91-509-0980-7 | 
+    2240 | 8351 | Musta kuningatar 1 | 1 | 1989 | 1989 | 3 | 3 | 951-643-311-1 | 951-643-312-X | 
+    4221 | 9622 | Musta torni III: Joutomaa | 1 | 2005 | 2013 | 3 | 2 | 951-31-3333-8 | 951-31-3333-8 | 
+    9539 | 9542 | Muumilaakson marraskuu | 1 | 2019 | 2014 | 2 | 2 | 978-951-0-43713-1 | 978-951-0-40575-8 | 
+    9541 | 9543 | Muumilaakson marraskuu | 1 | 2011 | 2018 | 2 | 3 | 978-951-0-37853-3 | 978-951-0-43405-5 | 
+    9539 | 9541 | Muumilaakson marraskuu | 1 | 2019 | 2011 | 2 | 2 | 978-951-0-43713-1 | 978-951-0-37853-3 | 
+    9542 | 9543 | Muumilaakson marraskuu | 1 | 2014 | 2018 | 2 | 3 | 978-951-0-40575-8 | 978-951-0-43405-5 | 
+    9539 | 9543 | Muumilaakson marraskuu | 1 | 2019 | 2018 | 2 | 3 | 978-951-0-43713-1 | 978-951-0-43405-5 | 
+    9541 | 9542 | Muumilaakson marraskuu | 1 | 2011 | 2014 | 2 | 2 | 978-951-0-37853-3 | 978-951-0-40575-8 | 
+    9498 | 9500 | Muumipappa ja meri | 1 | 2011 | 2014 | 2 | 2 | 978-951-0-37854-0 | 978-951-0-40574-1 | 
+    9499 | 9502 | Muumipappa ja meri | 1 | 2020 | 2019 | 3 | 2 | 978-951-0-44889-2 | 978-951-0-43712-4 | 
+    9499 | 9501 | Muumipappa ja meri | 1 | 2020 | 2018 | 3 | 3 | 978-951-0-44889-2 | 978-951-0-43406-2 | 
+    9499 | 9500 | Muumipappa ja meri | 1 | 2020 | 2014 | 3 | 2 | 978-951-0-44889-2 | 978-951-0-40574-1 | 
+    9501 | 9502 | Muumipappa ja meri | 1 | 2018 | 2019 | 3 | 2 | 978-951-0-43406-2 | 978-951-0-43712-4 | 
+    9500 | 9502 | Muumipappa ja meri | 1 | 2014 | 2019 | 2 | 2 | 978-951-0-40574-1 | 978-951-0-43712-4 | 
+    9500 | 9501 | Muumipappa ja meri | 1 | 2014 | 2018 | 2 | 3 | 978-951-0-40574-1 | 978-951-0-43406-2 | 
+    9498 | 9499 | Muumipappa ja meri | 1 | 2011 | 2020 | 2 | 3 | 978-951-0-37854-0 | 978-951-0-44889-2 | 
+    9498 | 9502 | Muumipappa ja meri | 1 | 2011 | 2019 | 2 | 2 | 978-951-0-37854-0 | 978-951-0-43712-4 | 
+    9498 | 9501 | Muumipappa ja meri | 1 | 2011 | 2018 | 2 | 3 | 978-951-0-37854-0 | 978-951-0-43406-2 | 
+    9307 | 9308 | Muumipeikko ja pyrstötähti | 1 | 2018 | 2019 | 3 | 2 | 978-951-0-42920-4 | 978-951-0-43706-3 | 
+    2835 | 9008 | Nainen menneisyydestä 1 | 1 | 1988 | 1988 | 3 | 3 | 951-20-3348-8 | 951-20-3349-6 | 
+    9463 | 9466 | Näkymätön lapsi ja muita kertomuksia | 1 | 2014 | 2018 | 2 | 3 | 978-951-0-40573-4 | 978-951-0-43404-8 | 
+    5226 | 8918 | Peter Pan | 1 | 2006 | 2022 | 3 | 2 | 951-0-32034-X | 978-951-877-819-9 | 
+    5410 | 5411 | Saatana saapuu Moskovaan 1 | 2 | 1976 | 1976 | 2 | 2 | 951-0-07555-8 | 951-0-07556-6 | 
+    7555 | 7556 | Sahara | 2 | 1994 | 2005 | 3 | 2 | 951-0-19605-3 | 952-459-536-2 | 
+    8224 | 8225 | Salamavaras | 3 | 2010 | 2011 | 3 | 2 | 978-951-1-24440-0 | 978-951-1-26211-4 | 
+    9423 | 9428 | Taikatalvi | 1 | 2020 | 2019 | 3 | 2 | 978-951-0-45250-9 | 978-951-0-43710-0 | 
+    9423 | 9426 | Taikatalvi | 1 | 2020 | 2014 | 3 | 2 | 978-951-0-45250-9 | 978-951-0-40572-7 | 
+    9423 | 9427 | Taikatalvi | 1 | 2020 | 2018 | 3 | 3 | 978-951-0-45250-9 | 978-951-0-43403-1 | 
+    9426 | 9428 | Taikatalvi | 1 | 2014 | 2019 | 2 | 2 | 978-951-0-40572-7 | 978-951-0-43710-0 | 
+    9426 | 9427 | Taikatalvi | 1 | 2014 | 2018 | 2 | 3 | 978-951-0-40572-7 | 978-951-0-43403-1 | 
+    9427 | 9428 | Taikatalvi | 1 | 2018 | 2019 | 3 | 2 | 978-951-0-43403-1 | 978-951-0-43710-0 | 
+    9342 | 9343 | Taikurin hattu | 1 | 2018 | 2019 | 3 | 2 | 978-951-0-42921-1 | 978-951-0-43707-0 | 
+    6469 | 10109 | Testamentit | 2 | 2020 | 2019 | 2 | 3 | 978-951-1-37100-7 | 978-951-1-34624-1 | 
+    10244 | 10245 | Tyttö joka muuttui lasiksi | 1 | 2011 | 2012 | 3 | 2 | 978-951-796-686-3 | 978-951-796-862-1 | 
+    2371 | 6602 | Valtaleikki | 1 | 1973 | 1972 | 3 | 2 | 951-26-0315-2 | 951-26-0314-4 | 
+    9202 | 9203 | Voimankantaja | 1 | 2021 | 2021 | 3 | 3 | 978-952-80-5004-9 | 978-952-80-4869-5 | 
+    3502 | 10443 | Welman tytöt | 1 | 2003 | 2013 | 3 | 2 | 951-23-4462-9 | 978-951-23-5688-1 | 
+
+[isbn_shared] One ISBN on editions of different works (copy-paste errors, or a set sold under one ISBN): 16
+    951-1-15417-6 | 366 | Kaaoksen käsi | 1999 | 277
+    951-1-15417-6 | 375 | Käärmemaagi | 1999 | 286
+    951-611-610-8 | 4373 | Pimeyden palvelijat | 1993 | 3802
+    951-611-610-8 | 8688 | Pimeän pelko | 1993 | 3804
+    951-636-052-1 | 1095 | Ihmiseläin | 1997 | 929
+    951-636-052-1 | 1096 | Lautturi | 1997 | 930
+    951-643-680-3 | 7580 | Rakkaani, kyyhkyläiseni | 1985 | 5149
+    951-643-680-3 | 7624 | Joku kaltaisesi | 1985 | 5141
+    978-91-7449-506-5 | 5703 | Jumalten jälkeläiset | 2010 | 4924
+    978-91-7449-506-5 | 5702 | Jumalattarien leiri | 2010 | 4923
+    978-91-7449-654-3 | 6538 | Jumalten jälkeläiset | 2016 | 4924
+    978-91-7449-654-3 | 6537 | Jumalattarien leiri | 2016 | 4923
+    978-951-1-33147-6 | 319 | Jäänvartija | 2018 | 231
+    978-951-1-33147-6 | 320 | Linnunsitoja | 2017 | 232
+    978-951-20-8230-8 | 8465 | Punainen lilja | 2010 | 659
+    978-951-20-8230-8 | 8468 | Musta ruusu | 2010 | 657
+
+[person_name] People with the same name (ignoring case and spaces): 0
+
+[story_title] Translated short stories with the same title, original title, authors and translators: 18
+    1133,13965 | arthur jermyn | the white ape / arthur jermyn | 2538 | 569
+    12608,12632,12640 | fanzinet | fanzinet | 3803 | 
+    2561,6807 | katarsis | katarsis | 2240 | 
+    2459,8277 | kellopeliseppä | kellopeliseppä | 129 | 
+    2662,8128 | kengät | kengät | 1204 | 
+    12796,12810 | klassikot | klassikot | 3329 | 
+    4870,8426 | kuolemattomien saari | the island of immortals | 2435 | 361
+    2948,4998 | marha | marha | 1349 | 
+    2669,8337 | ohuet seinät | ohuet seinät | 1204 | 
+    6844,13754 | paimentamisen sietämätön keveys | paimentamisen sietämätön keveys | 2345 | 
+    2671,8169 | pimeän pelko | pimeän pelko | 1204 | 
+    3392,13786 | rekiretki | rekiretki | 610 | 
+    578,5811 | sulkemisaika | closing time | 1559 | 49
+    5622,12397 | taikurin hattu | taikurin hattu | 2232 | 
+    12797,12811 | tuntemattomia tähtiä | tuntemattomia tähtiä | 3329 | 
+    12350,12382,12523 | tuomariston luonnehdintoja novelleista | tuomariston luonnehdintoja novelleista | 1873 | 
+    2514,7533 | velhontappaja | velhontappaja | 1873 | 
+    2179,8850 | viides tiedekunta | viides tiedekunta | 3309 | 
+
+[tag_name] Tags with the same name (ignoring case and spaces): 1
+    165,377 | ooppera
+
+[publisher_name] Publishers with the same name (ignoring case and spaces): 0
+
+[link_twice] The same link twice on one person, work or edition: 2
+    person | 1776 | https://www.goodreads.com/author/show/3075815.Matti_Kurikka
+    work | 2950 | https://www.risingshadow.fi/library/book/290-dyyni-toinen-osa-muaddib
+
+[contributor_twice] The same person twice in the same role on one work, edition or story: 0
+
+[awarded_twice] The same award given twice to the same target: 0
+
+[issue_twice] Magazine issues with the same number in the same year: 0
+
+[story_order] Two stories in the same position of one edition or work: 0
+
+[alias_loop] Aliases pointing to themselves or to each other: 0
+
+=== Unused records ===
+
+[person_unused] People who take part in nothing: 16
+    8011 | Böckman, Heddi | 1938 | 
+    6088 | Hildebrand, Tim | 1939 | 2006
+    6087 | Hildebrandt, Greg | 1939 | 2024
+    7205 | Marzin, Florian F. | 1953 | 
+    7873 | Mendés, Catulle | 1841 | 1909
+    7723 | Milne, A. A. | 1882 | 1956
+    5170 | Männikkölahti, Hanna |  | 
+    655 | N., R. |  | 
+    6194 | Palin, Michael | 1943 | 
+    6877 | Rainio, K. J. |  | 
+    6822 | Riihimaa, Jorma | 1929 | 2011
+    6838 | Rohtmets, Indrek | 1953 | 
+    1854 | Ruth, Rudolf Richard |  | 
+    5907 | Sakkara |  | 
+    6815 | Souvestre, Émile | 1806 | 1854
+    8053 | Westin, Miila | 1987 | 
+
+[publisher_unused] Publishers with no editions, magazines or publisher series: 0
+
+[story_unused] Short stories in no edition, work or magazine issue: 16
+    6819 | Ilman kirkon siunausta | 1
+    15065 | Kurt Vonnegut Jr. | 0
+    13851 | Huviretki vuoristoon | 0
+    9308 | Crash! | 2
+    9699 | 40000 kysymystä ja vastausta | 1
+    8614 | Elämän tanssi | 1
+    13797 | Vanhus sillalla | 0
+    6792 | Hämärän tyttö, suvannon sulho | 2
+    12202 | Myrskytähden kaiku | 0
+    14853 | Viisi teesiä Suomen Tieteiskirjoittajille | 0
+    13184 | Filkkausta - siis mitä? | 1
+    9396 | Johanna Sinilalo Normandiassa | 2
+    9620 | Kierros kustantajien puheilla | 1
+    9330 | I have nice fans! | 2
+    15064 | Kurt Vonnegut Jr. | 0
+    13798 | Vanhus sillalla | 0
+
+[work_unused] Works with no editions: 0
+
+[pubseries_unused] Publisher series with no editions: 1
+    227 | Valittuja tieteiskertomuksia
+
+[bookseries_unused] Book series with no works and no sub-series: 3
+    379 | Star Wars -klassikot
+    471 | Vuorileijonan varjo -trilogia
+    503 | Miki®
+
+[tag_unused] Tags on nothing: 11
+    553 | gaslamp-fantasia
+    680 | harhat
+    3127 | antologiat
+    3163 | lönnroot
+    3100 | 1800
+    2613 | teksti saatavilla
+    3118 | kadotettu paratiisi
+    3171 | päiväkirjaromaanit
+    542 | solarpunk
+    3123 | nuortenkirjallisuus
+    3194 | identiteetti -- etsintä
+
+[magazine_empty] Magazines with no issues: 15
+    8 | Blimp Attack
+    10 | Enhörningen
+    12 | Finncon -lehti
+    13 | Feast of Friends
+    17 | Greenleaf
+    18 | Hobittilan sanomat
+    22 | Kinos
+    29 | Kvasaari
+    32 | Matrixx
+    33 | Mundane
+    40 | Puska
+    41 | Pulsari
+    44 | Terminus est
+    51 | Vapaa galaksi
+    54 | Zig-Zug
+
+[issue_empty] Magazine issues with no contents: 45
+    1032 | Aikalisä | 0 | 2
+    1132 | Arczine | 2003 | 1
+    1133 | Arczine | 2003 | 2
+    891 | Isaac Asimovin Science Fiction -valikoima | 1981 | 1
+    217 | Kosmoskynä | 1995 | 2
+    229 | Kosmoskynä | 1998 | 2
+    230 | Kosmoskynä | 1998 | 3
+    231 | Kosmoskynä | 1998 | 4
+    251 | Kosmoskynä | 2004 | 2
+    268 | Kosmoskynä | 2008 | 3
+    269 | Kosmoskynä | 2008 | 4
+    272 | Kosmoskynä | 2009 | 3
+    275 | Kosmoskynä | 2010 | 3
+    298 | Kosmoskynä | 2017 | 1
+    300 | Kosmoskynä | 2018 | 1
+    302 | Kosmoskynä | 2019 | 1
+    303 | Kosmoskynä | 2019 | 2
+    1116 | Kosmospenaali | 2007 | 2
+    1117 | Kosmospenaali | 2008 | 1
+    1118 | Kosmospenaali | 2009 | 1
+    1119 | Kosmospenaali | 2009 | 2
+    1048 | Kuiskaus pimeässä | 2012 | 1
+    1051 | Kuiskaus pimeässä | 2015 | 2
+    1055 | Kuiskaus pimeässä | 2017 | 1
+    1065 | Kuiskaus pimeässä | 2022 | 1
+    1042 | Lapsuuden loppu | 1982 | 1
+    333 | Legolas | 2002 | 1
+    334 | Legolas | 2002 | 2
+    995 | Legolas | 2017 | 1
+    978 | Marvin the Lehti | 1998 | 3
+    566 | Spin | 1989 | 2
+    569 | Spin | 1990 | 1
+    578 | Spin | 1992 | 2
+    579 | Spin | 1992 | 3
+    580 | Spin | 1992 | 4
+    581 | Spin | 1993 | 1
+    583 | Spin | 1993 | 3
+    584 | Spin | 1993 | 4
+    595 | Spin | 1995 | 3
+    598 | Spin | 1995 | 6
+    604 | Spin | 1996 | 6
+    620 | Spin | 1999 | 3
+    642 | Spin | 2003 | 2
+    701 | Spin | 2020 | 1
+    1034 | Time and Space | 1982 | 4
+
+=== Whitespace ===
+
+[spaces_person] Person names with extra spaces: 17
+    3299 | [Ranta, Matias ]
+    3300 | [Ranta, Matilda ]
+    3386 | [Jääskeläinen, Kaapro ]
+    3782 | [Sohlman, Johannes ]
+    5141 | [Kerfstedt, Amanda ]
+    5330 | [Mora, Evan ]
+    5675 | [Ng, Celeste ]
+    5822 | [Robertson, W. Graham ]
+    6223 | [Huittinen, Raimo ]
+    6516 | [Kylmäluoma,  Minna]
+    6717 | [Lynch, P. J. ]
+    7026 | [Vitikainen, Mikko ]
+    7127 | [Ala-Maunus, Petri ]
+    7361 | [Hahl,  Jalmari]
+    7457 | [Barker, Bill ]
+    7505 | [N., Monique ]
+    7966 | [Meggitt-Phillips, Jack ]
+
+[spaces_work] Work titles with extra spaces: 11
+    408 | [Pieni kauhukirja ]
+    1296 | [Mitä mielessä, muumio? ]
+    5830 | [Alaiset ]
+    5384 | [ Viides vuodenaika]
+    5458 | [Miehiä ilman  naisia]
+    5809 | [ Herra Swanin sanoja siivekkäille]
+    6348 | [Poika  joka nousi kuolleista]
+    7145 | [ Lohikäärmeenkesyttäjät]
+    4218 | [Myöhempien aikojen liiketoimintamahdollisuuksia ]
+    5681 | [ Isadora Kuu retkeilee]
+    5656 | [ Be cool]
+
+[spaces_edition] Edition titles with extra spaces: 14
+    10329 | [Miehiä ilman  naisia]
+    10377 | [ Lohikäärmeenkesyttäjät]
+    1493 | [Mitä mielessä, muumio? ]
+    4837 | [Myöhempien aikojen liiketoimintamahdollisuuksia ]
+    6444 | [ Viides vuodenaika]
+    6681 | [Miehiä ilman  naisia]
+    7123 | [ Be cool]
+    7149 | [ Isadora Kuu retkeilee]
+    7342 | [Alaiset ]
+    7314 | [ Herra Swanin sanoja siivekkäille]
+    911 | [Kultavirran kuningas, tai Mustaveljet : Styrian tarina ]
+    6514 | [ Joulukellot : tonttutarina eräistä kirkonkelloista, jotka soittivat vuoden loppua ja uuden alkua]
+    8771 | [Poika  joka nousi kuolleista]
+    9209 | [ Viides vuodenaika]
+
+[spaces_story] Short story titles with extra spaces: 41
+    8005 | [Kauhunkierre ]
+    4088 | [Palvelus                                    ]
+    5297 | [Rikos ja rangaistus ]
+    5249 | [TMplATI PÄÄTÖS 423/2352 ]
+    5266 | [Musta Mooses  ]
+    5354 | [Peto mieheksi ]
+    5333 | [Puhdasviljelmä ]
+    5344 | [Päivän työ ]
+    5346 | [Metsästyksen loppu ]
+    5531 | [Ruusumiehen aika ]
+    5539 | [Varrella virstan ]
+    5510 | [Karhunkaataja, kaskenpolttaja ]
+    5556 | [Kirkastumisen hetkiä ]
+    5563 | [The Horse Shoe Nail ]
+    5564 | [Marie Celesten hiljaiset kellot ]
+    5583 | [Homekylät ]
+    5605 | [Hetken onnellinen ]
+    5637 | [Isä häkissä ]
+    5682 | [Tuolta puolen ]
+    5901 | [Tarinoita häviäjille ]
+    6236 | [Kuolinmessu ]
+    6339 | [Krupieerin sielu ]
+    6550 | [Pitkä jauntti ]
+    7297 | [ Kuoleman katse]
+    5243 | [Kadotettu maailma ]
+    9427 | [Kääntäjän matkaopas virolaiseen  scifiin]
+    5225 | [Tritonin Sinfonia ]
+    14203 | [ Cygnin takaa]
+    1335 | [Hänestä olisi tullut vaimoni ellen olisi kuollut ]
+    5 | [Naapurimaailma ]
+    5596 | [Suuri traktorinmunajahti ]
+    5042 | [Tehdäänpä lapsi! - Toinen tuotantokausi ]
+    3978 | [Jumal-hiukkasen etsinnästä                  ]
+    7155 | [Kaksi legendaa: Silvanus nasaretilainen;  Theodora ja Theodorus]
+    12750 | [Laulavan Terän  Kehä]
+    6254 | [ Luella Miller]
+    8382 | [Etäisyys kuusta ]
+    13918 | [Science Fiction?, tai, Ei kiitos, kaada ittelles vaan ]
+    15282 | [Äidin  luontoilta]
+    15326 | [Kirjallisuuden modernisti ]
+    15389 | [Hiljainen scifivuosi 2002 ]
+
+[spaces_other] Publisher, series, tag and magazine names with extra spaces: 1
+    bookseries | 600 | [Daniel Dark  -trilogia]
+
+20 of 34 checks found something.
