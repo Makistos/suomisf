@@ -5,6 +5,21 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-10-13 — Statistics endpoints for the redesigned stats page
+**Commits:** `79184ee5`, `54eb6acc`, `99bbd23f`, `50039a7c`, `0ceaeb4d`,
+`8e881332`
+Thirty new or extended `/api/stats` endpoints back the new statistics
+page: overview counts in `misc`; translation delay, edition types,
+editions per work, retranslations, bindings, page counts and heights;
+people by nationality, decade and birth decade, top contributors and
+translators by language (books, stories or both); work types, genres,
+tags and book series; publisher series, story channels and magazines;
+award counts, award-to-translation delay and most awarded people; and
+data coverage. Most take a genre filter and answer in under 200 ms.
+People statistics now count edition-level roles (translators, cover
+artists, illustrators), which the old person and nationality counts
+missed, and `filterworks?nationality=` lists the same works.
+
 ## 2026-10-13 — Publisher ids and genre counts in user statistics
 **Commits:** `b0bc74c4`
 The publisher breakdown in a user's collection and read statistics
