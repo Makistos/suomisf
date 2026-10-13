@@ -144,7 +144,8 @@ def api_user_read_stats(userid: int) -> Response:
     Response 200 — JSON object:
         {
           "total_read": 120,
-          "publisher_distribution": [{"name": "WSOY", "count": 40}, ...],
+          "publisher_distribution": [{"id": 387, "name": "WSOY", "count": 40,
+                                      "genres": {"SF": 25, "F": 15}}, ...],
           "language_distribution": [{"id": 1, "name": "englanti", "count": 70}, ...],
           "worktype_distribution": [{"id": 1, "name": "Romaani", "count": 100}, ...],
           "short_story_count": 12,

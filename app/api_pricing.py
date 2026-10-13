@@ -441,7 +441,8 @@ def api_user_collection_stats(user_id: int) -> Response:
             ...
           ],
           // Collection composition (owned editions):
-          "publisher_distribution": [{"name": "WSOY", "count": 220}, ...],
+          "publisher_distribution": [{"id": 387, "name": "WSOY", "count": 220,
+                                      "genres": {"SF": 110, "F": 26}}, ...],
           "language_distribution": [{"name": "englanti", "count": 679}, ...],
           "worktype_distribution": [{"name": "Romaani", "count": 843}, ...],
           "short_story_count": 1640,   // short stories across owned editions

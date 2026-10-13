@@ -12,8 +12,9 @@ from sqlalchemy import func, text
 from app.impl import ResponseType
 from app.orm_decl import (AntikvaariExcludedBook, AntikvaariPrice,
                            AntikvaariWorkProduct, BookCondition,
-                           Edition, EditionShortStory, Language, Publisher,
-                           PriceSource, UserBook, Work, WorkType)
+                           Edition, EditionShortStory, Genre, Language,
+                           Publisher, PriceSource, UserBook, Work,
+                           WorkGenre, WorkType)
 from app.route_helpers import new_session
 from app.types import HttpResponseCode
 
@@ -2278,7 +2279,25 @@ def user_collection_stats(user_id: int) -> ResponseType:
             return [{'name': n, 'count': int(c)} for n, c in rows if n]
 
         publisher_distribution = _distribution(
-            Publisher.name, (Publisher, Edition.publisher_id == Publisher.id))
+            Publisher.name, (Publisher, Edition.publisher_id == Publisher.id),
+            id_col=Publisher.id)
+        # Per-genre counts for each publisher, so the frontend can filter
+        # the publisher chart by genre. An edition counts once in each of
+        # its work's genres.
+        pub_genre_rows = (
+            session.query(Edition.publisher_id, Genre.abbr,
+                          func.count(func.distinct(Edition.id)))
+            .join(WorkGenre, WorkGenre.work_id == Edition.work_id)
+            .join(Genre, Genre.id == WorkGenre.genre_id)
+            .filter(Edition.id.in_(edition_ids),
+                    Edition.publisher_id.isnot(None))
+            .group_by(Edition.publisher_id, Genre.abbr)
+            .all())
+        pub_genres: Dict[int, Dict[str, int]] = {}
+        for pid, abbr, c in pub_genre_rows:
+            pub_genres.setdefault(pid, {})[abbr] = int(c)
+        for item in publisher_distribution:
+            item['genres'] = pub_genres.get(item['id'], {})
         language_distribution = _distribution(
             Language.name,
             (Work, Edition.work_id == Work.id),
