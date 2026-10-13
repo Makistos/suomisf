@@ -750,3 +750,56 @@ class TestStatsPublishersStoriesMagazines(BaseAPITest):
         """Rows have a year."""
         rows = api_client.get('/api/stats/magazinecontents').json
         assert all(r['year'] > 0 for r in rows)
+
+
+class TestStatsAwards(BaseAPITest):
+    """Award statistics (stats page, phase 5)."""
+
+    def test_awardcounts(self, api_client):
+        """Parts add up to the total; totals match /api/stats/misc."""
+        rows = api_client.get('/api/stats/awardcounts').json
+        for r in rows:
+            assert r['works'] + r['stories'] + r['people'] <= r['total']
+        misc = api_client.get('/api/stats/misc').json
+        assert sum(r['total'] for r in rows) <= misc['total_awarded']
+
+    def test_awardlag(self, api_client):
+        """Lag counts add up to the total; award quartiles are ordered."""
+        data = api_client.get('/api/stats/awardlag').json
+        assert sum(r['count'] for r in data['lags']) == data['total']
+        assert sum(a['count'] for a in data['by_award']) == data['total']
+        for a in data['by_award']:
+            assert a['q1'] <= a['median'] <= a['q3']
+
+    def test_topawarded(self, api_client):
+        """At most count people, most awards first."""
+        rows = api_client.get('/api/stats/topawarded?count=5').json
+        assert len(rows) <= 5
+        awards = [r['awards'] for r in rows]
+        assert awards == sorted(awards, reverse=True)
+        for r in rows:
+            assert r['personal'] + r['works'] + r['stories'] >= r['awards']
+
+
+class TestStatsCoverage(BaseAPITest):
+    """Data coverage (stats page, phase 6)."""
+
+    def test_coverage(self, api_client):
+        """Every detail count is between 0 and its group's total.
+
+        Also checks:
+        - Totals agree with /api/stats/misc.
+        - Translated works with a translator <= translated works.
+        """
+        data = api_client.get('/api/stats/coverage').json
+        assert set(data) == {'editions', 'works', 'people', 'stories'}
+        for group in data.values():
+            for key, value in group.items():
+                assert 0 <= value <= group['total'], key
+        misc = api_client.get('/api/stats/misc').json
+        assert data['editions']['total'] == misc['total_editions']
+        assert data['works']['total'] == misc['total_works']
+        assert data['people']['total'] == misc['total_people']
+        assert data['stories']['total'] == misc['total_stories']
+        works = data['works']
+        assert works['translator'] <= works['translated_works']
