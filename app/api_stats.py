@@ -34,7 +34,17 @@ from app.impl_stats import (
     stats_bindingsbyyear,
     stats_pagesbyyear,
     stats_pagehistogram,
-    stats_sizehistogram
+    stats_sizehistogram,
+    stats_contributornationalities,
+    stats_topcontributors,
+    stats_nationalitiesbydecade,
+    stats_birthdecades,
+    stats_translatorlanguages,
+    stats_worktypecounts,
+    stats_genresbyyear,
+    stats_tagcounts,
+    stats_tagsbydecade,
+    stats_bookseries
 )
 from app import app
 
@@ -1126,3 +1136,134 @@ def api_stats_sizehistogram() -> Response:
     start = request.args.get('start', default=None, type=int)
     end = request.args.get('end', default=None, type=int)
     return make_api_response(stats_sizehistogram(genre, start, end))
+
+
+# People endpoints below take material=books|stories|all (default books),
+# role (contributor role id), genre (filters works) and storytype (story
+# type id, filters stories). An unknown material or genre returns 400.
+
+
+def _people_args() -> dict:
+    return {
+        'material': request.args.get('material', default='books', type=str),
+        'role_id': request.args.get('role', default=None, type=int),
+        'genre': request.args.get('genre', default=None, type=str),
+        'storytype_id': request.args.get('storytype', default=None,
+                                         type=int),
+    }
+
+
+@app.route('/api/stats/contributornationalities', methods=['GET'])
+def api_stats_contributornationalities() -> Response:
+    """
+    People, and the works/stories they contributed to, by nationality.
+
+    Endpoint: GET /api/stats/contributornationalities
+    """
+    return make_api_response(stats_contributornationalities(**_people_args()))
+
+
+@app.route('/api/stats/topcontributors', methods=['GET'])
+def api_stats_topcontributors() -> Response:
+    """
+    People with most works/stories in a role; without role, in any role
+    (each work or story counted once per person).
+
+    Endpoint: GET /api/stats/topcontributors[?count=10]
+    """
+    args = _people_args()
+    count = request.args.get('count', default=10, type=int)
+    return make_api_response(stats_topcontributors(**args, count=count))
+
+
+@app.route('/api/stats/nationalitiesbydecade', methods=['GET'])
+def api_stats_nationalitiesbydecade() -> Response:
+    """
+    Works/stories per decade of first Finnish publication by contributor
+    nationality.
+
+    Endpoint: GET /api/stats/nationalitiesbydecade
+    """
+    return make_api_response(stats_nationalitiesbydecade(**_people_args()))
+
+
+@app.route('/api/stats/birthdecades', methods=['GET'])
+def api_stats_birthdecades() -> Response:
+    """
+    Contributors by decade of birth; without role, in any role.
+
+    Endpoint: GET /api/stats/birthdecades
+    """
+    return make_api_response(stats_birthdecades(**_people_args()))
+
+
+@app.route('/api/stats/translatorlanguages', methods=['GET'])
+def api_stats_translatorlanguages() -> Response:
+    """
+    Most productive translators by original language.
+
+    Endpoint: GET /api/stats/translatorlanguages[?count=20]
+    (role is ignored: always translators)
+    """
+    args = _people_args()
+    del args['role_id']
+    count = request.args.get('count', default=20, type=int)
+    return make_api_response(stats_translatorlanguages(**args, count=count))
+
+
+@app.route('/api/stats/worktypecounts', methods=['GET'])
+def api_stats_worktypecounts() -> Response:
+    """
+    Works per work type.
+
+    Endpoint: GET /api/stats/worktypecounts[?genre=]
+    """
+    genre = request.args.get('genre', default=None, type=str)
+    return make_api_response(stats_worktypecounts(genre))
+
+
+@app.route('/api/stats/genresbyyear', methods=['GET'])
+def api_stats_genresbyyear() -> Response:
+    """
+    Works per genre by the year of their earliest edition.
+
+    Endpoint: GET /api/stats/genresbyyear
+    """
+    return make_api_response(stats_genresbyyear())
+
+
+@app.route('/api/stats/tagcounts', methods=['GET'])
+def api_stats_tagcounts() -> Response:
+    """
+    Most common work tags, optionally of one tag type.
+
+    Endpoint: GET /api/stats/tagcounts[?type=][&genre=][&count=30]
+    """
+    type_id = request.args.get('type', default=None, type=int)
+    genre = request.args.get('genre', default=None, type=str)
+    count = request.args.get('count', default=30, type=int)
+    return make_api_response(stats_tagcounts(type_id, genre, count))
+
+
+@app.route('/api/stats/tagsbydecade', methods=['GET'])
+def api_stats_tagsbydecade() -> Response:
+    """
+    Works per tag and decade for the most common tags.
+
+    Endpoint: GET /api/stats/tagsbydecade[?type=][&genre=][&count=20]
+    """
+    type_id = request.args.get('type', default=None, type=int)
+    genre = request.args.get('genre', default=None, type=str)
+    count = request.args.get('count', default=20, type=int)
+    return make_api_response(stats_tagsbydecade(type_id, genre, count))
+
+
+@app.route('/api/stats/bookseries', methods=['GET'])
+def api_stats_bookseries() -> Response:
+    """
+    Longest book series and the share of works in a series per year.
+
+    Endpoint: GET /api/stats/bookseries[?genre=]
+    """
+    genre = request.args.get('genre', default=None, type=str)
+    return make_api_response(stats_bookseries(genre))

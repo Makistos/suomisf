@@ -611,3 +611,98 @@ class TestStatsEditionsAndWorks(BaseAPITest):
         for name in ('pagehistogram', 'sizehistogram'):
             assert total(f'/api/stats/{name}?start=1950&end=1959') <= \
                 total(f'/api/stats/{name}')
+
+
+class TestStatsPeopleAndContent(BaseAPITest):
+    """People and content statistics (stats page, phase 3)."""
+
+    PEOPLE = ('contributornationalities', 'topcontributors',
+              'nationalitiesbydecade', 'birthdecades')
+
+    @pytest.mark.parametrize('name', PEOPLE)
+    @pytest.mark.parametrize('material', ('books', 'stories', 'all'))
+    def test_people_materials(self, api_client, name, material):
+        """People endpoints accept every material."""
+        response = api_client.get(f'/api/stats/{name}?material={material}')
+        response.assert_status(200)
+
+    @pytest.mark.parametrize('name', PEOPLE + ('translatorlanguages',))
+    def test_unknown_material(self, api_client, name):
+        """An unknown material returns 400."""
+        response = api_client.get(f'/api/stats/{name}?material=x')
+        response.assert_status(400)
+
+    @pytest.mark.parametrize('name', PEOPLE + (
+        'translatorlanguages', 'worktypecounts', 'tagcounts',
+        'tagsbydecade', 'bookseries'))
+    def test_unknown_genre(self, api_client, name):
+        """An unknown genre returns 400."""
+        response = api_client.get(f'/api/stats/{name}?genre=XXX')
+        response.assert_status(400)
+
+    def test_topcontributors_matches_personcounts(self, api_client):
+        """Authors' work counts agree with the older personcounts."""
+        old = api_client.get('/api/stats/personcounts?count=5&role=1').json
+        new = api_client.get(
+            '/api/stats/topcontributors?count=5&role=1').json
+        assert [p['total'] for p in old if p['id']] == \
+            [p['count'] for p in new]
+
+    def test_edition_roles_are_counted(self, api_client):
+        """Book translators are stored on editions; they are still found
+        (personcounts only saw work-level roles)."""
+        books = api_client.get(
+            '/api/stats/topcontributors?role=2&count=3').json
+        assert books and books[0]['count'] > 0
+
+    def test_all_covers_books_and_stories(self, api_client):
+        """material=all counts at least as many people as either part."""
+        def people(material):
+            rows = api_client.get('/api/stats/contributornationalities'
+                                  f'?material={material}&role=1').json
+            return sum(r['people'] for r in rows)
+        assert people('all') >= max(people('books'), people('stories'))
+
+    def test_nationalitiesbydecade(self, api_client):
+        """Rows are by decade."""
+        rows = api_client.get('/api/stats/nationalitiesbydecade').json
+        assert all(r['year'] % 10 == 0 for r in rows)
+
+    def test_birthdecades(self, api_client):
+        """Decade counts sum to the people with a birth year."""
+        data = api_client.get('/api/stats/birthdecades').json
+        assert data['with_birth_year'] <= data['people']
+        assert sum(d['count'] for d in data['decades']) == \
+            data['with_birth_year']
+
+    def test_translatorlanguages(self, api_client):
+        """At most count translators."""
+        rows = api_client.get(
+            '/api/stats/translatorlanguages?count=5').json
+        assert len({r['person_id'] for r in rows}) <= 5
+
+    def test_worktypecounts(self, api_client):
+        """Counts are sorted, biggest first."""
+        rows = api_client.get('/api/stats/worktypecounts').json
+        counts = [r['count'] for r in rows]
+        assert counts == sorted(counts, reverse=True)
+
+    def test_tags(self, api_client):
+        """Tag counts list the types; by-decade rows are limited to count
+        tags."""
+        data = api_client.get('/api/stats/tagcounts?count=5').json
+        assert data['types']
+        assert len(data['tags']) <= 5
+        rows = api_client.get('/api/stats/tagsbydecade?count=3').json
+        assert len({r['tag_id'] for r in rows}) <= 3
+
+    def test_genresbyyear(self, api_client):
+        """Rows have a year and a genre."""
+        rows = api_client.get('/api/stats/genresbyyear').json
+        assert all(r['year'] > 0 and r['genre_abbr'] for r in rows)
+
+    def test_bookseries(self, api_client):
+        """Works in a series never exceed the total."""
+        data = api_client.get('/api/stats/bookseries').json
+        assert len(data['longest']) <= 20
+        assert all(r['in_series'] <= r['total'] for r in data['by_year'])

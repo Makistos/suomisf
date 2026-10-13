@@ -1,6 +1,7 @@
 """Functions related to statistics."""
 from typing import Any, Dict, List, Optional
-from sqlalchemy import and_, func, desc, or_
+from sqlalchemy import (and_, func, desc, or_, select, union, union_all,
+                        literal, String)
 from sqlalchemy.orm import selectinload
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
@@ -11,7 +12,8 @@ from app.orm_decl import (
     Genre, Work, WorkGenre, WorkContributor, EditionContributor, Edition,
     Publisher, Person, ContributorRole, Issue, Language, BindingType,
     Country, ShortStory, StoryContributor, StoryType, UserBook, UserWork,
-    Magazine, Awarded
+    Magazine, Awarded, EditionShortStory, IssueContent, Tag, TagType,
+    WorkTag, WorkType, Bookseries
 )
 from app.model import ShortBriefSchema, WorkBriefSchema
 from app.types import HttpResponseCode
@@ -1426,11 +1428,8 @@ def stats_filterworks(language_id: Optional[int] = None,
                 query = query.filter(Edition.publisher_id == publisher_id)
 
             if nationality_id is not None:
-                query = (query.join(WorkContributor, WorkContributor.work_id == Work.id)
-                         .join(Person, Person.id == WorkContributor.person_id)
-                         .filter(Person.nationality_id == nationality_id))
-                if contributor_role_id is not None:
-                    query = query.filter(WorkContributor.role_id == contributor_role_id)
+                query = query.filter(Work.id.in_(_works_by_nationality(
+                    nationality_id, contributor_role_id)))
 
             if read_user_id is not None:
                 query = (query.join(UserWork, UserWork.work_id == Work.id)
@@ -1503,11 +1502,8 @@ def stats_filterworks(language_id: Optional[int] = None,
                 query = query.filter(Edition.publisher_id == publisher_id)
 
             if nationality_id is not None:
-                query = (query.join(WorkContributor, WorkContributor.work_id == Work.id)
-                         .join(Person, Person.id == WorkContributor.person_id)
-                         .filter(Person.nationality_id == nationality_id))
-                if contributor_role_id is not None:
-                    query = query.filter(WorkContributor.role_id == contributor_role_id)
+                query = query.filter(Work.id.in_(_works_by_nationality(
+                    nationality_id, contributor_role_id)))
 
             if read_user_id is not None:
                 query = (query.join(UserWork, UserWork.work_id == Work.id)
@@ -2088,4 +2084,505 @@ def stats_sizehistogram(genre: Optional[str] = None,
     result = ([{'size': s, 'count': counts.get(s, 0)}
                for s in range(min(counts), max(counts) + 1)]
               if counts else [])
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+# --- Statistics page, phase 3: people and content -----------------------
+
+MATERIALS = ('books', 'stories', 'all')
+
+
+class _BadParameter(Exception):
+    """Raised for an invalid query parameter value."""
+
+
+def _check_material(material: str) -> None:
+    if material not in MATERIALS:
+        raise _BadParameter(f'Tuntematon aineisto: {material}')
+
+
+def _contributions(material: str, role_id: Optional[int],
+                   genre_id: Optional[int],
+                   storytype_id: Optional[int]) -> Any:
+    """Who contributed to what, as a subquery (kind, item_id, person_id).
+
+    kind is 'w' for works, 's' for short stories. A work's contributors
+    come from both the work (authors, editors) and its editions
+    (translators, cover artists, illustrators). genre_id filters works,
+    storytype_id filters stories; role_id None means any role.
+    """
+    parts = []
+    if material in ('books', 'all'):
+        sources = [
+            (select(literal('w', String).label('kind'),
+                    WorkContributor.work_id.label('item_id'),
+                    WorkContributor.person_id.label('person_id')),
+             WorkContributor.work_id, WorkContributor.role_id),
+            (select(literal('w', String), Edition.work_id,
+                    EditionContributor.person_id)
+             .join(Edition, Edition.id == EditionContributor.edition_id)
+             .where(Edition.work_id.isnot(None)),
+             Edition.work_id, EditionContributor.role_id),
+        ]
+        for part, work_id, role in sources:
+            if role_id is not None:
+                part = part.where(role == role_id)
+            parts.append(_where_genre(part, work_id, genre_id))
+    if material in ('stories', 'all'):
+        part = select(literal('s', String).label('kind'),
+                      StoryContributor.shortstory_id.label('item_id'),
+                      StoryContributor.person_id.label('person_id'))
+        if role_id is not None:
+            part = part.where(StoryContributor.role_id == role_id)
+        if storytype_id is not None:
+            part = (part.join(ShortStory, ShortStory.id ==
+                              StoryContributor.shortstory_id)
+                    .where(ShortStory.story_type == storytype_id))
+        parts.append(part)
+    # union drops the duplicates of a person in several roles or editions.
+    return union(*parts).subquery()
+
+
+def _works_by_nationality(nationality_id: int,
+                          role_id: Optional[int]) -> Any:
+    """Ids of works with a contributor of a nationality (in a role),
+    counting edition roles such as translators too."""
+    c = _contributions('books', role_id, None, None)
+    return (select(c.c.item_id)
+            .join(Person, Person.id == c.c.person_id)
+            .where(Person.nationality_id == nationality_id))
+
+
+def _item_years(material: str) -> Any:
+    """First Finnish publication year of each item, as a subquery
+    (kind, item_id, year): a work's earliest edition, a story's earliest
+    edition or magazine issue."""
+    parts = []
+    if material in ('books', 'all'):
+        parts.append(
+            select(literal('w', String).label('kind'),
+                   Edition.work_id.label('item_id'),
+                   func.min(Edition.pubyear).label('year'))
+            .where(Edition.work_id.isnot(None), Edition.pubyear > 0)
+            .group_by(Edition.work_id))
+    if material in ('stories', 'all'):
+        places = union_all(
+            select(EditionShortStory.shortstory_id.label('story_id'),
+                   Edition.pubyear.label('year'))
+            .join(Edition, Edition.id == EditionShortStory.edition_id),
+            select(IssueContent.shortstory_id, Issue.year)
+            .join(Issue, Issue.id == IssueContent.issue_id)
+            .where(IssueContent.shortstory_id.isnot(None))).subquery()
+        parts.append(
+            select(literal('s', String).label('kind'),
+                   places.c.story_id.label('item_id'),
+                   func.min(places.c.year).label('year'))
+            .where(places.c.year > 0)
+            .group_by(places.c.story_id))
+    return union_all(*parts).subquery()
+
+
+def _item_key(sub: Any) -> Any:
+    """One value per item across works and stories, for count(distinct)."""
+    return func.concat(sub.c.kind, sub.c.item_id)
+
+
+def _people_error(name: str, exp: Exception) -> ResponseType:
+    if isinstance(exp, _BadParameter):
+        return ResponseType(str(exp), HttpResponseCode.BAD_REQUEST.value)
+    return _stats_error(name, exp)
+
+
+def stats_contributornationalities(material: str = 'books',
+                                   role_id: Optional[int] = None,
+                                   genre: Optional[str] = None,
+                                   storytype_id: Optional[int] = None
+                                   ) -> ResponseType:
+    """
+    People and the works/stories they contributed to, by nationality.
+
+    Args:
+        material: 'books', 'stories' or 'all'.
+        role_id: Contributor role; None counts any role.
+        genre: Genre abbreviation, filters works.
+        storytype_id: Story type, filters stories.
+
+    Returns:
+        ResponseType: [{"nationality_id", "nationality", "people",
+        "items"}], most people first. people counts each person once;
+        items counts each work or story once per nationality among its
+        contributors. Unknown nationality has nationality_id None.
+    """
+    session = new_session()
+    try:
+        _check_material(material)
+        genre_id = _genre_id(session, genre)
+        c = _contributions(material, role_id, genre_id, storytype_id)
+        query = (select(Country.id.label('nationality_id'),
+                        Country.name.label('nationality'),
+                        func.count(func.distinct(c.c.person_id))
+                        .label('people'),
+                        func.count(func.distinct(_item_key(c)))
+                        .label('items'))
+                 .select_from(c)
+                 .join(Person, Person.id == c.c.person_id)
+                 .outerjoin(Country, Country.id == Person.nationality_id)
+                 .group_by(Country.id, Country.name)
+                 .order_by(desc('people'), Country.name))
+        _log_query('stats_contributornationalities', query)
+        result = [dict(r._mapping) for r in session.execute(query)]
+    except (SQLAlchemyError, _UnknownGenre, _BadParameter) as exp:
+        return _people_error('stats_contributornationalities', exp)
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+def stats_topcontributors(material: str = 'books',
+                          role_id: Optional[int] = None,
+                          genre: Optional[str] = None,
+                          storytype_id: Optional[int] = None,
+                          count: int = 10) -> ResponseType:
+    """
+    People with the most works/stories in a role.
+
+    Returns:
+        ResponseType: [{"id", "name", "alt_name", "nationality",
+        "count"}], most first, at most count rows.
+    """
+    session = new_session()
+    try:
+        _check_material(material)
+        genre_id = _genre_id(session, genre)
+        c = _contributions(material, role_id, genre_id, storytype_id)
+        total = func.count(func.distinct(_item_key(c))).label('count')
+        query = (select(Person.id, Person.name, Person.alt_name,
+                        Country.name.label('nationality'), total)
+                 .select_from(c)
+                 .join(Person, Person.id == c.c.person_id)
+                 .outerjoin(Country, Country.id == Person.nationality_id)
+                 .group_by(Person.id, Country.name)
+                 .order_by(desc('count'), Person.name)
+                 .limit(count))
+        _log_query('stats_topcontributors', query)
+        result = [dict(r._mapping) for r in session.execute(query)]
+    except (SQLAlchemyError, _UnknownGenre, _BadParameter) as exp:
+        return _people_error('stats_topcontributors', exp)
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+def stats_nationalitiesbydecade(material: str = 'books',
+                                role_id: Optional[int] = None,
+                                genre: Optional[str] = None,
+                                storytype_id: Optional[int] = None
+                                ) -> ResponseType:
+    """
+    Works/stories per decade of first Finnish publication, by contributor
+    nationality. An item counts once for each nationality among its
+    contributors in the role.
+
+    Returns:
+        ResponseType: [{"year" (first year of the decade), "count",
+        "nationality_id", "nationality"}] sorted by decade.
+    """
+    session = new_session()
+    try:
+        _check_material(material)
+        genre_id = _genre_id(session, genre)
+        c = _contributions(material, role_id, genre_id, storytype_id)
+        y = _item_years(material)
+        decade = (y.c.year // 10 * 10).label('year')
+        query = (select(decade,
+                        func.count(func.distinct(_item_key(c)))
+                        .label('count'),
+                        Country.id.label('nationality_id'),
+                        Country.name.label('nationality'))
+                 .select_from(c)
+                 .join(y, and_(y.c.kind == c.c.kind,
+                               y.c.item_id == c.c.item_id))
+                 .join(Person, Person.id == c.c.person_id)
+                 .outerjoin(Country, Country.id == Person.nationality_id)
+                 .group_by(decade, Country.id, Country.name)
+                 .order_by(decade))
+        _log_query('stats_nationalitiesbydecade', query)
+        result = [dict(r._mapping) for r in session.execute(query)]
+    except (SQLAlchemyError, _UnknownGenre, _BadParameter) as exp:
+        return _people_error('stats_nationalitiesbydecade', exp)
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+def stats_birthdecades(material: str = 'books',
+                       role_id: Optional[int] = None,
+                       genre: Optional[str] = None,
+                       storytype_id: Optional[int] = None) -> ResponseType:
+    """
+    Contributors by decade of birth.
+
+    Returns:
+        ResponseType: Dict containing:
+            - people: Contributors counted (int)
+            - with_birth_year: Of those, people with a known birth year
+            - decades: [{"decade", "count"}] sorted by decade
+    """
+    session = new_session()
+    try:
+        _check_material(material)
+        genre_id = _genre_id(session, genre)
+        c = _contributions(material, role_id, genre_id, storytype_id)
+        people = (select(func.count(func.distinct(c.c.person_id)),
+                         func.count(func.distinct(c.c.person_id))
+                         .filter(Person.dob > 0))
+                  .select_from(c)
+                  .join(Person, Person.id == c.c.person_id))
+        total, with_dob = session.execute(people).one()
+        decade = (Person.dob // 10 * 10).label('decade')
+        query = (select(decade, func.count(func.distinct(Person.id))
+                        .label('count'))
+                 .select_from(c)
+                 .join(Person, Person.id == c.c.person_id)
+                 .where(Person.dob > 0)
+                 .group_by(decade).order_by(decade))
+        _log_query('stats_birthdecades', query)
+        decades = [dict(r._mapping) for r in session.execute(query)]
+    except (SQLAlchemyError, _UnknownGenre, _BadParameter) as exp:
+        return _people_error('stats_birthdecades', exp)
+    return ResponseType({'people': total, 'with_birth_year': with_dob,
+                         'decades': decades}, HttpResponseCode.OK.value)
+
+
+TRANSLATOR_COUNT = 20
+
+
+def stats_translatorlanguages(material: str = 'books',
+                              genre: Optional[str] = None,
+                              storytype_id: Optional[int] = None,
+                              count: int = TRANSLATOR_COUNT
+                              ) -> ResponseType:
+    """
+    The most productive translators and the original languages of what
+    they translated.
+
+    Returns:
+        ResponseType: [{"person_id", "name", "alt_name", "language_id",
+        "language_name", "count"}] for the count translators with most
+        works/stories; language None when not recorded.
+    """
+    session = new_session()
+    try:
+        _check_material(material)
+        genre_id = _genre_id(session, genre)
+        c = _contributions(material, TRANSLATOR_ROLE_ID, genre_id,
+                           storytype_id)
+        top = (select(c.c.person_id)
+               .group_by(c.c.person_id)
+               .order_by(desc(func.count(func.distinct(_item_key(c)))))
+               .limit(count))
+        languages = union_all(
+            select(literal('w', String).label('kind'),
+                   Work.id.label('item_id'),
+                   Work.language.label('language_id')),
+            select(literal('s', String).label('kind'),
+                   ShortStory.id.label('item_id'),
+                   ShortStory.language.label('language_id'))).subquery()
+        query = (select(Person.id.label('person_id'), Person.name,
+                        Person.alt_name, Language.id.label('language_id'),
+                        Language.name.label('language_name'),
+                        func.count(func.distinct(_item_key(c)))
+                        .label('count'))
+                 .select_from(c)
+                 .join(languages, and_(languages.c.kind == c.c.kind,
+                                       languages.c.item_id == c.c.item_id))
+                 .join(Person, Person.id == c.c.person_id)
+                 .outerjoin(Language,
+                            Language.id == languages.c.language_id)
+                 .where(c.c.person_id.in_(top))
+                 .group_by(Person.id, Language.id, Language.name))
+        _log_query('stats_translatorlanguages', query)
+        result = [dict(r._mapping) for r in session.execute(query)]
+    except (SQLAlchemyError, _UnknownGenre, _BadParameter) as exp:
+        return _people_error('stats_translatorlanguages', exp)
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+def _first_years() -> Any:
+    """Year of each work's earliest edition: subquery (work_id, year)."""
+    return (select(Edition.work_id.label('work_id'),
+                   func.min(Edition.pubyear).label('year'))
+            .where(Edition.work_id.isnot(None), Edition.pubyear > 0)
+            .group_by(Edition.work_id).subquery())
+
+
+def _where_genre(query: Any, work_id: Any, genre_id: Optional[int]) -> Any:
+    """Restrict a select to works of a genre."""
+    if genre_id is None:
+        return query
+    return query.where(select(WorkGenre.work_id).where(
+        WorkGenre.work_id == work_id,
+        WorkGenre.genre_id == genre_id).exists())
+
+
+def stats_worktypecounts(genre: Optional[str] = None) -> ResponseType:
+    """
+    Works per work type (romaani, kokoelma…).
+
+    Returns:
+        ResponseType: [{"id", "name", "count"}], most first.
+    """
+    session = new_session()
+    try:
+        genre_id = _genre_id(session, genre)
+        query = (select(WorkType.id, WorkType.name,
+                        func.count(Work.id).label('count'))
+                 .join(Work, Work.type == WorkType.id))
+        query = _where_genre(query, Work.id, genre_id)
+        query = (query.group_by(WorkType.id, WorkType.name)
+                 .order_by(desc('count')))
+        _log_query('stats_worktypecounts', query)
+        result = [dict(r._mapping) for r in session.execute(query)]
+    except (SQLAlchemyError, _UnknownGenre) as exp:
+        return _stats_error('stats_worktypecounts', exp)
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+def stats_genresbyyear() -> ResponseType:
+    """
+    Works per genre by the year of their earliest edition. A work counts
+    in each of its genres.
+
+    Returns:
+        ResponseType: [{"year", "count", "genre_id", "genre_abbr"}] sorted
+        by year.
+    """
+    session = new_session()
+    try:
+        first = _first_years()
+        query = (select(first.c.year,
+                        func.count(first.c.work_id).label('count'),
+                        Genre.id.label('genre_id'),
+                        Genre.abbr.label('genre_abbr'))
+                 .select_from(first)
+                 .join(WorkGenre, WorkGenre.work_id == first.c.work_id)
+                 .join(Genre, Genre.id == WorkGenre.genre_id)
+                 .group_by(first.c.year, Genre.id, Genre.abbr)
+                 .order_by(first.c.year))
+        _log_query('stats_genresbyyear', query)
+        result = [dict(r._mapping) for r in session.execute(query)]
+    except SQLAlchemyError as exp:
+        return _stats_error('stats_genresbyyear', exp)
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+TAG_COUNT = 30
+
+
+def stats_tagcounts(type_id: Optional[int] = None,
+                    genre: Optional[str] = None,
+                    count: int = TAG_COUNT) -> ResponseType:
+    """
+    The most common work tags, optionally of one tag type.
+
+    Returns:
+        ResponseType: Dict containing:
+            - types: [{"id", "name"}] all tag types
+            - tags: [{"id", "name", "count"}] works per tag, most first,
+              at most count rows
+    """
+    session = new_session()
+    try:
+        genre_id = _genre_id(session, genre)
+        types = [{'id': t.id, 'name': t.name} for t in
+                 session.query(TagType).order_by(TagType.id).all()]
+        query = (select(Tag.id, Tag.name,
+                        func.count(func.distinct(WorkTag.work_id))
+                        .label('count'))
+                 .join(WorkTag, WorkTag.tag_id == Tag.id))
+        if type_id is not None:
+            query = query.where(Tag.type_id == type_id)
+        query = _where_genre(query, WorkTag.work_id, genre_id)
+        query = (query.group_by(Tag.id, Tag.name)
+                 .order_by(desc('count'), Tag.name).limit(count))
+        _log_query('stats_tagcounts', query)
+        tags = [dict(r._mapping) for r in session.execute(query)]
+    except (SQLAlchemyError, _UnknownGenre) as exp:
+        return _stats_error('stats_tagcounts', exp)
+    return ResponseType({'types': types, 'tags': tags},
+                        HttpResponseCode.OK.value)
+
+
+def stats_tagsbydecade(type_id: Optional[int] = None,
+                       genre: Optional[str] = None,
+                       count: int = 20) -> ResponseType:
+    """
+    Works per tag and decade of their earliest edition, for the count
+    most common tags (of one type, if given).
+
+    Returns:
+        ResponseType: [{"year" (first year of the decade), "count",
+        "tag_id", "tag_name"}] sorted by decade.
+    """
+    session = new_session()
+    try:
+        genre_id = _genre_id(session, genre)
+        top = (select(WorkTag.tag_id)
+               .join(Tag, Tag.id == WorkTag.tag_id))
+        if type_id is not None:
+            top = top.where(Tag.type_id == type_id)
+        top = _where_genre(top, WorkTag.work_id, genre_id)
+        top = (top.group_by(WorkTag.tag_id)
+               .order_by(desc(func.count(WorkTag.work_id))).limit(count))
+        first = _first_years()
+        decade = (first.c.year // 10 * 10).label('year')
+        query = (select(decade,
+                        func.count(func.distinct(first.c.work_id))
+                        .label('count'),
+                        Tag.id.label('tag_id'), Tag.name.label('tag_name'))
+                 .select_from(first)
+                 .join(WorkTag, WorkTag.work_id == first.c.work_id)
+                 .join(Tag, Tag.id == WorkTag.tag_id)
+                 .where(Tag.id.in_(top)))
+        query = _where_genre(query, first.c.work_id, genre_id)
+        query = (query.group_by(decade, Tag.id, Tag.name)
+                 .order_by(decade))
+        _log_query('stats_tagsbydecade', query)
+        result = [dict(r._mapping) for r in session.execute(query)]
+    except (SQLAlchemyError, _UnknownGenre) as exp:
+        return _stats_error('stats_tagsbydecade', exp)
+    return ResponseType(result, HttpResponseCode.OK.value)
+
+
+def stats_bookseries(genre: Optional[str] = None) -> ResponseType:
+    """
+    Book series: the longest, and the share of works in a series by the
+    year of their earliest edition.
+
+    Returns:
+        ResponseType: Dict containing:
+            - longest: [{"id", "name", "works"}] TOP_LIST_LENGTH series
+              with most works
+            - by_year: [{"year", "total", "in_series"}] sorted by year
+    """
+    session = new_session()
+    try:
+        genre_id = _genre_id(session, genre)
+        longest = (select(Bookseries.id, Bookseries.name,
+                          func.count(Work.id).label('works'))
+                   .join(Work, Work.bookseries_id == Bookseries.id))
+        longest = _where_genre(longest, Work.id, genre_id)
+        longest = (longest.group_by(Bookseries.id, Bookseries.name)
+                   .order_by(desc('works'), Bookseries.name)
+                   .limit(TOP_LIST_LENGTH))
+        _log_query('stats_bookseries (longest)', longest)
+        first = _first_years()
+        by_year = (select(first.c.year,
+                          func.count(Work.id).label('total'),
+                          func.count(Work.bookseries_id).label('in_series'))
+                   .select_from(first)
+                   .join(Work, Work.id == first.c.work_id))
+        by_year = _where_genre(by_year, Work.id, genre_id)
+        by_year = by_year.group_by(first.c.year).order_by(first.c.year)
+        _log_query('stats_bookseries (by_year)', by_year)
+        result = {
+            'longest': [dict(r._mapping) for r in session.execute(longest)],
+            'by_year': [dict(r._mapping) for r in session.execute(by_year)],
+        }
+    except (SQLAlchemyError, _UnknownGenre) as exp:
+        return _stats_error('stats_bookseries', exp)
     return ResponseType(result, HttpResponseCode.OK.value)
