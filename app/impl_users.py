@@ -1,7 +1,7 @@
 """ Functions related to users. """
 import json
 import hashlib
-from typing import Dict
+from typing import Dict, List
 from flask.wrappers import Response
 from flask import make_response, jsonify
 from flask_jwt_extended import (create_access_token, create_refresh_token,
@@ -603,13 +603,25 @@ def user_read_stats(user_id: int) -> ResponseType:
             .filter(Publisher.id.in_(publisher_ids)).all()
         }
 
-        pub_counts: Dict[str, int] = {}
+        # Genres per read work, for the per-genre publisher breakdown.
+        work_genres: Dict[int, List[str]] = {}
+        for wid, abbr in (
+                session.query(WorkGenre.work_id, Genre.abbr)
+                .join(Genre, Genre.id == WorkGenre.genre_id)
+                .filter(WorkGenre.work_id.in_(read_work_ids)).all()):
+            work_genres.setdefault(wid, []).append(abbr)
+
+        pub_counts: Dict[int, int] = {}
+        pub_genres: Dict[int, Dict[str, int]] = {}
         ed_year_counts: Dict[tuple, int] = {}
         total_pages = 0
         for work_id, e in first_edition_by_work.items():
             if e.publisher_id and e.publisher_id in publishers_map:
-                name = publishers_map[e.publisher_id]
-                pub_counts[name] = pub_counts.get(name, 0) + 1
+                pid = e.publisher_id
+                pub_counts[pid] = pub_counts.get(pid, 0) + 1
+                genres = pub_genres.setdefault(pid, {})
+                for abbr in work_genres.get(work_id, []):
+                    genres[abbr] = genres.get(abbr, 0) + 1
             if e.pages:
                 total_pages += e.pages
             if e.pubyear is not None:
@@ -618,7 +630,9 @@ def user_read_stats(user_id: int) -> ResponseType:
                 ed_year_counts[key] = ed_year_counts.get(key, 0) + 1
 
         publisher_distribution = sorted(
-            ({'name': n, 'count': c} for n, c in pub_counts.items()),
+            ({'id': pid, 'name': publishers_map[pid], 'count': c,
+              'genres': pub_genres.get(pid, {})}
+             for pid, c in pub_counts.items()),
             key=lambda x: (-x['count'], x['name'])
         )
         editions_by_year = [
