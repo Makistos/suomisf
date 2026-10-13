@@ -465,3 +465,49 @@ class TestMiscStats(BaseAPITest):
         assert 'total_works' in response.json or \
             'total_editions' in response.json
         snapshot_manager.assert_matches_snapshot('stats_misc', response.json)
+
+
+class TestStatsPageParameters(BaseAPITest):
+    """Parameters added for the redesigned statistics page."""
+
+    def test_misc_has_overview_counts(self, api_client):
+        """GET /api/stats/misc includes the counts for the overview tiles."""
+        response = api_client.get('/api/stats/misc')
+        response.assert_status(200)
+        for key in ('total_stories', 'total_people', 'total_publishers',
+                    'total_magazines', 'total_issues', 'total_awarded'):
+            assert isinstance(response.json[key], int), key
+
+    def test_issuesperyear_by_magazine(self, api_client):
+        """GET /api/stats/issuesperyear?by=magazine splits years by magazine.
+
+        Also checks:
+        - Rows sum to the yearly totals (years with a known year).
+        """
+        response = api_client.get('/api/stats/issuesperyear?by=magazine')
+        response.assert_status(200)
+        rows = response.json
+        assert isinstance(rows, list)
+        if not rows:
+            return
+        assert set(rows[0]) == {'year', 'count', 'magazine_id',
+                                'magazine_name'}
+        totals = api_client.get('/api/stats/issuesperyear').json
+        by_year = {r['year']: r['count'] for r in totals if r['year']}
+        summed: dict = {}
+        for r in rows:
+            summed[r['year']] = summed.get(r['year'], 0) + r['count']
+        assert summed == by_year
+
+    def test_origworksbyyear_genre(self, api_client):
+        """GET /api/stats/origworksbyyear?genre=SF counts fewer works."""
+        all_works = api_client.get('/api/stats/origworksbyyear').json
+        sf = api_client.get('/api/stats/origworksbyyear?genre=SF')
+        sf.assert_status(200)
+        assert sum(r['count'] for r in sf.json) <= \
+            sum(r['count'] for r in all_works)
+
+    def test_origworksbyyear_unknown_genre(self, api_client):
+        """GET /api/stats/origworksbyyear with unknown genre returns 400."""
+        response = api_client.get('/api/stats/origworksbyyear?genre=XXX')
+        response.assert_status(400)

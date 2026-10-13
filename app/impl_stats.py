@@ -10,7 +10,8 @@ from app.route_helpers import new_session
 from app.orm_decl import (
     Genre, Work, WorkGenre, WorkContributor, EditionContributor, Edition,
     Publisher, Person, ContributorRole, Issue, Language, BindingType,
-    Country, ShortStory, StoryContributor, StoryType, UserBook, UserWork
+    Country, ShortStory, StoryContributor, StoryType, UserBook, UserWork,
+    Magazine, Awarded
 )
 from app.model import ShortBriefSchema, WorkBriefSchema
 from app.types import HttpResponseCode
@@ -695,7 +696,7 @@ def stats_publishersbyyear(genre: Optional[str] = None) -> ResponseType:
     return ResponseType(result, HttpResponseCode.OK.value)
 
 
-def stats_origworksbyyear() -> ResponseType:
+def stats_origworksbyyear(genre: Optional[str] = None) -> ResponseType:
     """
     Get count of original work publications by year, grouped by language.
 
@@ -721,6 +722,15 @@ def stats_origworksbyyear() -> ResponseType:
     session = new_session()
 
     try:
+        filter_genre_id = None
+        if genre:
+            genre_obj = (session.query(Genre)
+                         .filter(Genre.abbr == genre).first())
+            if genre_obj is None:
+                return ResponseType(f'Tuntematon genre: {genre}',
+                                    HttpResponseCode.BAD_REQUEST.value)
+            filter_genre_id = genre_obj.id
+
         query = session.query(
             Work.pubyear,
             func.count(Work.id).label('count'),
@@ -731,7 +741,14 @@ def stats_origworksbyyear() -> ResponseType:
         ).filter(
             Work.pubyear.isnot(None),
             Work.pubyear > 0
-        ).group_by(
+        )
+        if filter_genre_id:
+            query = query.join(
+                WorkGenre, WorkGenre.work_id == Work.id
+            ).filter(
+                WorkGenre.genre_id == filter_genre_id
+            )
+        query = query.group_by(
             Work.pubyear,
             Language.id
         ).order_by(
@@ -838,13 +855,28 @@ def stats_misc() -> ResponseType:
         _log_query('stats_misc (total_works)', works_query)
         total_works = works_query.scalar() or 0
 
+        # Headline counts for the overview tiles.
+        total_stories = session.query(func.count(ShortStory.id)).scalar() or 0
+        total_people = session.query(func.count(Person.id)).scalar() or 0
+        total_publishers = (session.query(func.count(Publisher.id))
+                            .scalar() or 0)
+        total_magazines = session.query(func.count(Magazine.id)).scalar() or 0
+        total_issues = session.query(func.count(Issue.id)).scalar() or 0
+        total_awarded = session.query(func.count(Awarded.id)).scalar() or 0
+
         result = {
             'total_pages': total_pages,
             'stack_height_meters': stack_height_meters,
             'hardback_count': hardback_count,
             'paperback_count': paperback_count,
             'total_editions': total_editions,
-            'total_works': total_works
+            'total_works': total_works,
+            'total_stories': total_stories,
+            'total_people': total_people,
+            'total_publishers': total_publishers,
+            'total_magazines': total_magazines,
+            'total_issues': total_issues,
+            'total_awarded': total_awarded
         }
 
     except SQLAlchemyError as exp:
@@ -855,7 +887,7 @@ def stats_misc() -> ResponseType:
     return ResponseType(result, HttpResponseCode.OK.value)
 
 
-def stats_issuesperyear() -> ResponseType:
+def stats_issuesperyear(by_magazine: bool = False) -> ResponseType:
     """
     Get count of magazine issues published per year.
 
@@ -876,6 +908,31 @@ def stats_issuesperyear() -> ResponseType:
     session = new_session()
 
     try:
+        if by_magazine:
+            # One row per (year, magazine); year 0 marks an unknown year.
+            mag_query = session.query(
+                Issue.year,
+                Magazine.id.label('magazine_id'),
+                Magazine.name.label('magazine_name'),
+                func.count(Issue.id).label('count')
+            ).join(
+                Magazine, Magazine.id == Issue.magazine_id
+            ).filter(
+                Issue.year.isnot(None),
+                Issue.year > 0
+            ).group_by(
+                Issue.year, Magazine.id, Magazine.name
+            ).order_by(
+                Issue.year, Magazine.name
+            )
+            _log_query('stats_issuesperyear (by magazine)', mag_query)
+            return ResponseType([
+                {'year': r.year, 'count': r.count,
+                 'magazine_id': r.magazine_id,
+                 'magazine_name': r.magazine_name}
+                for r in mag_query.all()
+            ], HttpResponseCode.OK.value)
+
         query = session.query(
             Issue.year,
             func.count(Issue.id).label('count')

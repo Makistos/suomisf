@@ -397,7 +397,8 @@ def api_stats_origworksbyyear() -> Response:
 
     Endpoint: GET /api/stats/origworksbyyear
 
-    Parameters: None
+    Parameters:
+        genre (string, optional): Genre abbreviation to filter by.
 
     Returns:
         200 OK: JSON array of year statistics sorted by year (ascending),
@@ -429,7 +430,8 @@ def api_stats_origworksbyyear() -> Response:
 
         500 Internal Server Error: Database error occurred.
     """
-    return make_api_response(stats_origworksbyyear())
+    genre = request.args.get('genre', default=None, type=str)
+    return make_api_response(stats_origworksbyyear(genre))
 
 
 @app.route('/api/stats/misc', methods=['GET'])
@@ -453,7 +455,13 @@ def api_stats_misc() -> Response:
             "hardback_count": <int>,        // Number of hardback first editions
             "paperback_count": <int>,       // Number of paperback first editions
             "total_editions": <int>,        // Total editions in database
-            "total_works": <int>            // Total unique works in database
+            "total_works": <int>,           // Total unique works in database
+            "total_stories": <int>,         // Short stories
+            "total_people": <int>,          // People
+            "total_publishers": <int>,      // Publishers
+            "total_magazines": <int>,       // Magazines
+            "total_issues": <int>,          // Magazine issues
+            "total_awarded": <int>          // Award entries (winners)
         }
 
         Example Response:
@@ -483,7 +491,10 @@ def api_stats_issuesperyear() -> Response:
 
     Endpoint: GET /api/stats/issuesperyear
 
-    Parameters: None
+    Parameters:
+        by (string, optional): "magazine" returns one row per year and
+            magazine instead: {"year", "count", "magazine_id",
+            "magazine_name"}. Issues without a year are left out.
 
     Returns:
         200 OK: JSON array of year statistics sorted by year (ascending).
@@ -512,7 +523,8 @@ def api_stats_issuesperyear() -> Response:
 
         500 Internal Server Error: Database error occurred.
     """
-    return make_api_response(stats_issuesperyear())
+    by_magazine = request.args.get('by', default='', type=str) == 'magazine'
+    return make_api_response(stats_issuesperyear(by_magazine))
 
 
 @app.route('/api/stats/nationalitycounts', methods=['GET'])
