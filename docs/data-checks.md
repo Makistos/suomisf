@@ -8,7 +8,13 @@ finds in production.
 
 ## Running
 
-The script reads `DATABASE_URL` from `.env`, as the app does.
+The script reads `DATABASE_URL` from `.env`, as the app does. To check
+production directly, add `DATABASE_URL_PROD` to `.env` and pass `--prod`;
+`--db URL` checks any other database. The connection is read-only
+(`default_transaction_read_only`), so a check can never change data.
+If the production database only listens locally, tunnel to it first,
+e.g. `ssh -N -L 5433:localhost:5432 <server>`, and point
+`DATABASE_URL_PROD` at `localhost:5433`.
 
 ```sh
 .venv/bin/python scripts/check_data.py              # all checks, 10 rows each
@@ -16,6 +22,7 @@ The script reads `DATABASE_URL` from `.env`, as the app does.
 .venv/bin/python scripts/check_data.py --only edition_number --all
 .venv/bin/python scripts/check_data.py --rows 30 > checks.txt
 .venv/bin/python scripts/check_data.py --sql edition_number   # the query
+.venv/bin/python scripts/check_data.py --prod       # production
 ```
 
 - `--only KEY…` runs some checks; `--all` prints every row instead of the
@@ -41,6 +48,9 @@ what was fixed and what is new:
     > docs/data-check-results.md
 git diff docs/data-check-results.md
 ```
+
+Add `--prod` to generate them from production instead; the results file
+names the database it was made from.
 
 ## False positives
 
@@ -78,7 +88,8 @@ it below.
 
 ## Workflow
 
-1. Refresh the dev database from production.
+1. Refresh the dev database from production, or use `--prod` below to
+   check production itself.
 2. Regenerate `docs/data-check-results.md` (above) and look at the
    diff and the summary line at the end ("N of 34 checks found
    something").
