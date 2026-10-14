@@ -1817,9 +1817,9 @@ def work_read_list(userid: int) -> ResponseType:
     """
     List the works a user has marked as read, with their opinion.
 
-    Returns a plain list of dicts (work_id, opinion, title, author_str,
-    pubyear). The frontend uses it both for a "read works" listing and to
-    build a client-side set of read work ids.
+    Returns a plain list of dicts (work_id, opinion, description, title,
+    author_str, pubyear). The frontend uses it both for a "read works"
+    listing and to build a client-side set of read work ids.
     """
     session = new_session()
     retval = []
@@ -1837,6 +1837,7 @@ def work_read_list(userid: int) -> ResponseType:
     for userwork, work in rows:
         retval.append({'work_id': work.id,
                        'opinion': userwork.opinion,
+                       'description': userwork.description,
                        'title': work.title,
                        'author_str': work.author_str,
                        'pubyear': work.pubyear})
@@ -1850,6 +1851,8 @@ def work_read_set(params: dict) -> ResponseType:
 
     Expected params: work_id, user_id and an optional opinion (-1 = didn't
     like, 0 = it was ok, 1 = liked; null/omitted = read with no opinion).
+    An optional description sets the user's note; when it is omitted the
+    note is kept, so changing the opinion does not erase it.
     """
     try:
         workid = check_int(params.get("work_id"))
@@ -1872,6 +1875,14 @@ def work_read_set(params: dict) -> ResponseType:
             return ResponseType("Invalid parameters.",
                                 HttpResponseCode.BAD_REQUEST.value)
 
+    has_description = "description" in params
+    description = params.get("description")
+    if description is not None:
+        if not isinstance(description, str):
+            return ResponseType("Invalid parameters.",
+                                HttpResponseCode.BAD_REQUEST.value)
+        description = description.strip()[:500] or None
+
     session = new_session()
     try:
         userwork = session.query(UserWork)\
@@ -1882,6 +1893,8 @@ def work_read_set(params: dict) -> ResponseType:
             userwork = UserWork(work_id=workid, user_id=userid)
             session.add(userwork)
         userwork.opinion = opinion
+        if has_description:
+            userwork.description = description
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()

@@ -1538,6 +1538,7 @@ class UserWork(Base):
     independent of ownership: a user can mark a work read without owning any
     of its editions. ``opinion`` is an optional verdict: -1 = didn't like,
     0 = it was ok, 1 = liked; NULL = read but no opinion given.
+    ``description`` is the user's own note on the work.
     """
     __tablename__ = 'userwork'
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False,
@@ -1545,6 +1546,7 @@ class UserWork(Base):
     work_id = Column(Integer, ForeignKey('work.id'), nullable=False,
                      primary_key=True)
     opinion = Column(Integer)
+    description = Column(String(500))
     added = Column(DateTime, default=datetime.datetime.now, nullable=True)
     work = relationship("Work", backref=backref(
         "userwork_assoc"), viewonly=True)
