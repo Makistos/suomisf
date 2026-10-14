@@ -5,6 +5,47 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-10-14 — User list with collection and reading counts
+**Commits:** `9d547120`
+`GET /api/users` returns each user's owned editions, wishlist editions,
+read works and admin flag, sorted by name, for the new user list page.
+Email addresses are no longer in it, as the endpoint is public.
+
+## 2026-10-14 — Every catalogue change logged
+**Commits:** `9761e15a`
+The change log records who changed what and when for every catalogue
+change. Before, creating people (also from contributor fields),
+publishers, series, stories and tags, most deletions, tag operations,
+the stories of editions, works and issues, issue contributors, person
+images and links, and awards were not logged at all, and book series,
+magazine and publisher series changes were logged after the last commit
+and lost. Removing a cover image is logged as an update, not a
+deletion. Also fixed: merging tags moved people, stories, issues and
+articles to the wrong ids (or failed); removing a tag from a story and
+changing a magazine's tags crashed; the issue contributors endpoint
+never saved.
+
+## 2026-10-14 — Notes on read works
+**Commits:** `bfc1f1d9`
+A read work can have a note of up to 500 characters
+(`userwork.description`), set with the read status and returned in the
+user's read list. Needs migration `042_userwork_description.sql`.
+
+## 2026-10-13 — Data-quality checks
+**Commits:** `ba6700c4`, `175ba1f9`, `ea81b0b5`
+`scripts/check_data.py` runs 34 read-only checks for wrong values,
+probable duplicates, unused records and stray whitespace, with an
+ignore list for confirmed false positives
+(`scripts/check_data_ignore.txt`). The latest results are kept in
+`docs/data-check-results.md`; `docs/data-checks.md` explains how to
+run and read them.
+
+## 2026-10-13 — Full lists from statistics endpoints
+**Commits:** `a253ba7d`
+The publisher, tag, book series and publisher series counts accept
+`count=all` to return every row, and the overview's publisher count
+includes only publishers with at least one edition.
+
 ## 2026-10-13 — Statistics endpoints for the redesigned stats page
 **Commits:** `79184ee5`, `54eb6acc`, `99bbd23f`, `50039a7c`, `0ceaeb4d`,
 `8e881332`
